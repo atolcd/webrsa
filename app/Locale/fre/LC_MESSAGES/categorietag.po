@@ -1,0 +1,29 @@
+# Traductions de categorietag.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Categorietags::index"
+msgstr "Liste des catégories de tags"
+
+msgid "Categorietag::index::empty"
+msgstr "Vide"
+
+msgid "Categorietags::edit"
+msgstr "Modification d'une catégorie de Tag"
+
+msgid "Categorietags::add"
+msgstr "Ajout d'une catégorie de Tag"
+
+msgid "Categorietag.name"
+msgstr "Nom de la catégorie"
+
+msgid "Categorietags::delete::confirm"
+msgstr "Cette action supprimera définitivement cette catégorie, voulez-vous continuer ?"

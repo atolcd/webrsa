@@ -1,0 +1,400 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "Propospdos::add"
+msgstr "Ajouter un traitement"
+
+msgid "Traitementspdos::clore"
+msgstr "Clore le traitement"
+
+msgid "Traitementspdos::delete"
+msgstr "Supprimer le traitement"
+
+msgid "Traitementpdo::index::empty"
+msgstr "Aucun traitement pour cette PDO présent"
+
+msgid "Traitementspdos::delete::confirm"
+msgstr "Voulez-vous vraiment supprimer ce traitement ?"
+
+msgid "Traitementspdos::index"
+msgstr "Liste des traitements de la PDO"
+
+msgid "Traitementspdos::add"
+msgstr "Ajout d'un traitement"
+
+msgid "Traitementpdo::add"
+msgstr "Ajouter un traitement"
+
+msgid "Traitementpdo::edit"
+msgstr "Modifier le traitement"
+
+msgid "Traitementpdo::delete"
+msgstr "Supprimer le traitement"
+
+msgid "Traitementspdos::edit"
+msgstr "Modification du traitement"
+
+msgid "Traitementspdos::view"
+msgstr "Visualisation d'un traitement"
+
+msgid "Traitementpdo::delete::confirm"
+msgstr "Confirmer la suppression ?"
+
+msgid "Traitementpdo.descriptionpdo_id"
+msgstr "Description du traitement"
+
+msgid "Traitementpdo.datereception"
+msgstr "Date de réception"
+
+msgid "Traitementpdo.datedepart"
+msgstr "Date de départ"
+
+msgid "Traitementpdo.dateecheance"
+msgstr "Date d'échéance"
+
+msgid "Traitementpdo.daterevision"
+msgstr "Date de révision"
+
+msgid "Traitementpdo.traitementtypepdo_id"
+msgstr "Type de traitement"
+
+msgid "Traitementpdo.personne_id"
+msgstr "Personne concernée"
+
+msgid "Traitementpdo.ficheanalyse"
+msgstr "Fiche d'analyse"
+
+msgid "Traitementpdo.hascourrier"
+msgstr "Courriers"
+
+msgid "Traitementpdo.hasrevenu"
+msgstr "Revenu"
+
+msgid "Traitementpdo.hasficheanalyse"
+msgstr "Fiche d'analyse"
+
+msgid "Traitementpdo.haspiecejointe"
+msgstr "Pièce jointe"
+
+msgid "ENUM::HASCOURRIER::0"
+msgstr "Non"
+
+msgid "ENUM::HASCOURRIER::1"
+msgstr "Oui"
+
+msgid "ENUM::HASREVENU::0"
+msgstr "Non"
+
+msgid "ENUM::HASREVENU::1"
+msgstr "Oui"
+
+msgid "ENUM::HASPIECEJOINTE::0"
+msgstr "Non"
+
+msgid "ENUM::HASPIECEJOINTE::1"
+msgstr "Oui"
+
+msgid "ENUM::HASFICHEANALYSE::0"
+msgstr "Non"
+
+msgid "ENUM::HASFICHEANALYSE::1"
+msgstr "Oui"
+
+msgid "Traitementpdo.cloreprev"
+msgstr "Fermer un ou plusieurs traitement(s) associé(s) ?"
+
+msgid "Traitementpdo.questionclore"
+msgstr "Clore ?"
+
+###############################################################################
+
+msgid "ENUM::REGIME::fagri"
+msgstr "Forfait Agricole"
+
+msgid "ENUM::REGIME::ragri"
+msgstr "Réel Agricole"
+
+msgid "ENUM::REGIME::reel"
+msgstr "Réel"
+
+msgid "ENUM::REGIME::microbic"
+msgstr "Régime Micro-bic"
+
+msgid "ENUM::REGIME::microbicauto"
+msgstr "Régime Micro-bic Auto-Entrepreneur"
+
+msgid "ENUM::REGIME::microbnc"
+msgstr "Régime Micro BNC"
+
+msgid "Traitementpdo.regime"
+msgstr "Régime"
+
+msgid "Traitementpdo.saisonnier"
+msgstr "Saisonnier"
+
+msgid "Traitementpdo.nrmrcs"
+msgstr "Numéro RM ou RCS"
+
+msgid "Traitementpdo.dtdebutactivite"
+msgstr "Date début d'activité"
+
+msgid "Traitementpdo.raisonsocial"
+msgstr "Raison sociale"
+
+msgid "Traitementpdo.dtdebutperiode"
+msgstr "Début de période"
+
+msgid "Traitementpdo.datefinperiode"
+msgstr "Fin de période"
+
+msgid "Traitementpdo.nbmoisactivite"
+msgstr "Nombre de mois d'activité"
+
+msgid "Traitementpdo.forfait"
+msgstr "Forfait (n-2)"
+
+msgid "Traitementpdo.coefannee1"
+msgstr "Coef Année 1"
+
+msgid "Traitementpdo.coefannee2"
+msgstr "Coef Année 2"
+
+msgid "Traitementpdo.aidesubvreint"
+msgstr "Aides-Subventions réintégrées"
+
+msgid "Traitementpdo.mtaidesub"
+msgstr "Montant aide subvention"
+
+msgid "Traitementpdo.mnttotal"
+msgstr "Montant total pris en compte"
+
+msgid "Traitementpdo.revenus"
+msgstr "Revenus arrêtés à"
+
+msgid "Traitementpdo.dtprisecompte"
+msgstr "Date début de prise en compte"
+
+msgid "Traitementpdo.dtecheance"
+msgstr "Date d'échéance"
+
+msgid "Traitementpdo.chaffvnt"
+msgstr "Chiffre d'Affaire Ventes"
+
+msgid "Traitementpdo.chaffsrv"
+msgstr "Chiffre d'Affaire Services"
+
+msgid "Traitementpdo.benefoudef"
+msgstr "Bénéfice ou déficit"
+
+msgid "Traitementpdo.correction"
+msgstr "Correction (à réintégrer)"
+
+msgid "Traitementpdo.ammortissements"
+msgstr "Amortissements"
+
+msgid "Traitementpdo.salaireexploitant"
+msgstr "Salaire de l'exploitant"
+
+msgid "Traitementpdo.provisionsnonded"
+msgstr "Provisions non déductibles"
+
+msgid "Traitementpdo.moinsvaluescession"
+msgstr "Plus values de cession"
+
+msgid "Traitementpdo.autrecorrection"
+msgstr "Autre correction"
+
+msgid "Traitementpdo.abattement"
+msgstr "Abattement"
+
+msgid "Traitementpdo.benefpriscompte"
+msgstr "Bénéfice pris en compte"
+
+msgid "ENUM::AIDESUBVREINT::aide1"
+msgstr "Aide 1"
+
+msgid "ENUM::AIDESUBVREINT::aide2"
+msgstr "Aide 2"
+
+msgid "ENUM::AIDESUBVREINT::subv1"
+msgstr "Subvention 1"
+
+msgid "ENUM::AIDESUBVREINT::subv2"
+msgstr "Subvention 2"
+
+###############################################################################
+
+msgid "Traitementpdo.dureedepart"
+msgstr "Délai avant échéance"
+
+msgid "Traitementpdo.dureefinperiode"
+msgstr "Délai avant révision"
+
+msgid "ENUM::DUREEDEPART::0"
+msgstr "0 mois"
+
+msgid "ENUM::DUREEDEPART::0.5"
+msgstr "0,5 mois"
+
+msgid "ENUM::DUREEDEPART::1"
+msgstr "1 mois"
+
+msgid "ENUM::DUREEDEPART::1.5"
+msgstr "1,5 mois"
+
+msgid "ENUM::DUREEDEPART::2"
+msgstr "2 mois"
+
+msgid "ENUM::DUREEDEPART::2.5"
+msgstr "2,5 mois"
+
+msgid "ENUM::DUREEDEPART::3"
+msgstr "3 mois"
+
+msgid "ENUM::DUREEDEPART::3.5"
+msgstr "3,5 mois"
+
+msgid "ENUM::DUREEDEPART::4"
+msgstr "4 mois"
+
+msgid "ENUM::DUREEDEPART::4.5"
+msgstr "4,5 mois"
+
+msgid "ENUM::DUREEDEPART::5"
+msgstr "5 mois"
+
+msgid "ENUM::DUREEDEPART::5.5"
+msgstr "5,5 mois"
+
+msgid "ENUM::DUREEDEPART::6"
+msgstr "6 mois"
+
+msgid "ENUM::DUREEDEPART::6.5"
+msgstr "6,5 mois"
+
+msgid "ENUM::DUREEDEPART::7"
+msgstr "7 mois"
+
+msgid "ENUM::DUREEDEPART::7.5"
+msgstr "7,5 mois"
+
+msgid "ENUM::DUREEDEPART::8"
+msgstr "8 mois"
+
+msgid "ENUM::DUREEDEPART::8.5"
+msgstr "8,5 mois"
+
+msgid "ENUM::DUREEDEPART::9"
+msgstr "9 mois"
+
+msgid "ENUM::DUREEDEPART::9.5"
+msgstr "9,5 mois"
+
+msgid "ENUM::DUREEDEPART::10"
+msgstr "10 mois"
+
+msgid "ENUM::DUREEDEPART::10.5"
+msgstr "10,5 mois"
+
+msgid "ENUM::DUREEDEPART::11"
+msgstr "11 mois"
+
+msgid "ENUM::DUREEDEPART::11.5"
+msgstr "11,5 mois"
+
+msgid "ENUM::DUREEDEPART::12"
+msgstr "12 mois"
+
+
+msgid "ENUM::DUREEFINPERIODE::0"
+msgstr "0 mois"
+
+msgid "ENUM::DUREEFINPERIODE::0.5"
+msgstr "0,5 mois"
+
+msgid "ENUM::DUREEFINPERIODE::1"
+msgstr "1 mois"
+
+msgid "ENUM::DUREEFINPERIODE::1.5"
+msgstr "1,5 mois"
+
+msgid "ENUM::DUREEFINPERIODE::2"
+msgstr "2 mois"
+
+msgid "ENUM::DUREEFINPERIODE::2.5"
+msgstr "2,5 mois"
+
+msgid "ENUM::DUREEFINPERIODE::3"
+msgstr "3 mois"
+
+msgid "ENUM::DUREEFINPERIODE::3.5"
+msgstr "3,5 mois"
+
+msgid "ENUM::DUREEFINPERIODE::4"
+msgstr "4 mois"
+
+msgid "ENUM::DUREEFINPERIODE::4.5"
+msgstr "4,5 mois"
+
+msgid "ENUM::DUREEFINPERIODE::5"
+msgstr "5 mois"
+
+msgid "ENUM::DUREEFINPERIODE::5.5"
+msgstr "5,5 mois"
+
+msgid "ENUM::DUREEFINPERIODE::6"
+msgstr "6 mois"
+
+msgid "ENUM::DUREEFINPERIODE::6.5"
+msgstr "6,5 mois"
+
+msgid "ENUM::DUREEFINPERIODE::7"
+msgstr "7 mois"
+
+msgid "ENUM::DUREEFINPERIODE::7.5"
+msgstr "7,5 mois"
+
+msgid "ENUM::DUREEFINPERIODE::8"
+msgstr "8 mois"
+
+msgid "ENUM::DUREEFINPERIODE::8.5"
+msgstr "8,5 mois"
+
+msgid "ENUM::DUREEFINPERIODE::9"
+msgstr "9 mois"
+
+msgid "ENUM::DUREEFINPERIODE::9.5"
+msgstr "9,5 mois"
+
+msgid "ENUM::DUREEFINPERIODE::10"
+msgstr "10 mois"
+
+msgid "ENUM::DUREEFINPERIODE::10.5"
+msgstr "10,5 mois"
+
+msgid "ENUM::DUREEFINPERIODE::11"
+msgstr "11 mois"
+
+msgid "ENUM::DUREEFINPERIODE::11.5"
+msgstr "11,5 mois"
+
+msgid "ENUM::DUREEFINPERIODE::12"
+msgstr "12 mois"

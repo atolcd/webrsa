@@ -1,0 +1,2393 @@
+/*****************************************************************************/
+
+#pageWrapper {
+    background: white url( ../img/header.png ) top left no-repeat;
+}
+
+#pageMenu, #pageContent, #pageCartouche, table.cake-sql-log {
+    width: 90%;
+    margin: auto;
+}
+
+/* #pageContent {
+    width: 80%;
+    margin: auto;
+    left: 100px;
+} */
+
+table.cake-sql-log {
+    background: white;
+}
+
+p {
+    text-align: justify;
+}
+
+/*---------------------------------------------------------------------------*/
+
+#pageCartouche * { font-size: 10px; color:black; }
+#pageCartouche thead { display: none; }
+
+#pageCartouche {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+}
+
+#pageCartouche table {
+    position: absolute;
+    right: 0;
+    top: 1em;
+}
+
+#pageCartouche table td {
+	vertical-align: middle;
+}
+
+/*---------------------------------------------------------------------------*/
+
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid #235f7d;
+    padding: 0.125em 0.25em;
+}
+
+table th {
+    background: #dcdcdc;
+}
+
+table thead, table tbody {
+    border: 2px solid #235f7d;
+}
+
+table th {
+    background: #235f7d;
+    color: white;
+}
+
+tr.even td {
+    background-color: #e6eef2;
+}
+
+tbody tr.even th {
+    background-color: #235f7d;
+}
+
+table.cake-sql-log caption {
+    color: black;
+}
+
+table thead a {
+    color: white;
+}
+
+/*****************************************************************************/
+
+#whois {
+    padding: 0.5em;
+    margin: 0;
+    font-size: 1.95em;
+    line-height: 1.2em;
+}
+
+#whois a {
+    margin-left: 150px;
+    text-decoration: none;
+}
+
+#whois a, #whois h1 {
+    color: transparent;
+}
+
+/*****************************************************************************/
+
+.menu a {
+    color: blue;
+}
+
+/*---------------------------------------------------------------------------*/
+
+#pageMenu ul, #pageContent, #pageCartouche, table.cake-sql-log {
+    /*max-width: 1000px;*/
+    margin: 0 auto;
+    padding: 0.5em;
+}
+
+#pageHeader {
+    height: 64px;
+}
+
+/*****************************************************************************/
+
+#pageContent {
+    margin-top: 0em;
+}
+
+/*****************************************************************************/
+
+#pageFooter {
+    margin: 1em 0 0 0;
+    border-top: 1px solid #235f7d;
+    padding: 0.5em;
+    text-align: center;
+    color: silver;
+}
+
+/*****************************************************************************
+    Fiches
+*****************************************************************************/
+
+/* Affichage vue Ressource  */
+div#ficheRessource table {
+    width: 800px;
+    margin-bottom: 1em;
+}
+
+div#ficheRessource tbody th {
+    width: 600px;
+}
+
+div#ficheRessource tbody tr.even td {
+    background: white;
+    color: black;
+}
+
+div#ficheRessource tbody tr.odd td {
+    background: white;
+    color: black;
+}
+
+div#ficheRessource tbody tr.even th {
+    background: #83c2e2;
+    color: black;
+}
+
+div#ficheRessource tbody tr.odd th {
+    background: #a8dbef;
+    color: black;
+}
+
+div#ficheRessource tbody tr.even.parent td, div#ficheRessource tbody tr.odd.parent td {
+    background: #D9D9D9;
+    color: black;
+}
+
+div#ficheRessource h2 {
+    font-size: 1.5em;
+}
+/* Affichage vue Données personne  */
+div#fichePers table {
+    width: 600px;
+    margin-bottom: 1em;
+}
+
+div#fichePers tbody th {
+    width: 300px;
+}
+div#fichePers tbody tr.even td {
+    background: white;
+    color: black;
+}
+
+div#fichePers tbody tr.odd td {
+    background: white;
+    color: black;
+}
+
+div#fichePers tbody tr.even th {
+    background: #83c2e2;
+    color: black;
+}
+
+div#fichePers tbody tr.odd th {
+    background: #a8dbef;
+    color: black;
+}
+div#fichePers h2 {
+    font-size: 1.5em;
+}
+
+/* Affichage vue Contrat Insertion */
+table#vueContrat {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+table#vueContrat th {
+    width: 40%;
+    margin-bottom: 1em;
+}
+/*form#contratform table.view tbody tr.even td.even {
+    width: 400px;
+    margin-bottom: 1em;
+}*/
+/**************************************/
+
+div#ficheCI table {
+    width: 800px;
+    margin-bottom: 1em;
+}
+
+div#ficheCI tbody th {
+    width: 600px;
+}
+div#ficheCI tbody tr.even td {
+    background: white;
+    color: black;
+}
+
+div#ficheCI tbody tr.odd td {
+    background: white;
+    color: black;
+}
+
+div#ficheCI tbody tr.even th {
+    background: #83c2e2;
+    color: black;
+}
+
+div#ficheCI tbody tr.odd th {
+    background: #a8dbef;
+    color: black;
+}
+div#ficheCI h2 {
+    font-size: 1.5em;
+}
+
+/* Affichage vue Adresses */
+div#ficheAdresse table {
+    width: 700px;
+    margin-bottom: 1em;
+}
+
+div#ficheAdresse tbody th {
+    width: 400px;
+}
+
+div#ficheAdresse tbody tr.even td {
+    background: white;
+    color: black;
+}
+
+div#ficheAdresse tbody tr.odd td {
+    background: white;
+    color: black;
+}
+
+div#ficheAdresse tbody tr.even th {
+    background: #83c2e2;
+    color: black;
+}
+
+div#ficheAdresse tbody tr.odd th {
+    background: #a8dbef;
+    color: black;
+}
+div#ficheAdresse h2 {
+    font-size: 1.5em;
+}
+
+table#ficheDossier tbody, table#ficheDossier td { border-width: 0; background: transparent; }
+table#ficheDossier table td { border-width: 1px; }
+table#ficheDossier table tbody tr.even td {
+    background: #e6eef2;
+}
+
+
+/* Affichage vue Dossier */
+#resumeDossier table {
+    width: 350px;
+    margin-bottom: 1em;
+}
+
+#resumeDossier table#creancesalimentaires, table#personnes {
+    width: 100%;
+}
+
+#resumeDossier tbody th {
+    width: 175px;
+}
+
+#resumeDossier table tbody tr.even td {
+    background: white;
+    color: black;
+}
+
+#resumeDossier tbody tr.odd td {
+    background: white;
+    color: black;
+}
+
+#resumeDossier tbody tr.even th, table.demcjt tbody tr.even th {
+    background: #83c2e2;
+    color: black;
+}
+
+#resumeDossier tbody tr.odd th, table.demcjt tbody tr.odd th {
+    background: #a8dbef;
+    color: black;
+}
+
+
+/* Affichage vue Ressources */
+div#ficheRessTri table {
+    width: 750px;
+    margin-bottom: 1em;
+}
+
+div#ficheRessTri tbody th {
+    width: 500px;
+}
+
+div#ficheRessTri tbody tr.even td {
+    background: white;
+    color: black;
+}
+
+div#ficheRessTri tbody tr.odd td {
+    background: white;
+    color: black;
+}
+
+div#ficheRessTri tbody tr.even th {
+    background: #83c2e2;
+    color: black;
+}
+
+div#ficheRessTri tbody tr.odd th {
+    background: #a8dbef;
+    color: black;
+}
+
+/* Affichage vue Infos Financieres */
+div#ficheInfoFina table {
+    width: 600px;
+    margin-bottom: 1em;
+}
+
+div#ficheInfoFina tbody th {
+    width: 400px;
+}
+
+div#ficheInfoFina tbody tr.even td {
+    background: white;
+    color: black;
+}
+
+div#ficheInfoFina tbody tr.odd td {
+    background: white;
+    color: black;
+}
+
+div#ficheInfoFina tbody tr.even th {
+    background: #83c2e2;
+    color: black;
+}
+
+div#ficheInfoFina tbody tr.odd th {
+    background: #a8dbef;
+    color: black;
+}
+/*****************************************************************************/
+/* Affichage vue Suivi insertion */
+div#suiviInsertion table {
+/*     width: 360px; */
+    width: auto;
+    margin-bottom: 1em;
+/*     float: left; */
+}
+
+div#suiviInsertion tbody th {
+/*     width: 190px; */
+}
+
+div#suiviInsertion table tbody tr.even td {
+    background: white;
+    color: black;
+}
+
+div#suiviInsertion tbody tr.odd td {
+    background: white;
+    color: black;
+}
+
+div#suiviInsertion tbody tr.even th {
+    background: #83c2e2;
+    color: black;
+}
+
+#suiviInsertion tbody tr.odd th {
+    background: #a8dbef;
+    color: black;
+}
+
+/*****************************************************************************/
+/*****************************************************************************/
+
+#flashMessage, #authMessage {
+    margin: 1em 0;
+    border: 1px solid #235f7d;
+    padding: 0.5em;
+}
+
+#authMessage {
+    border-color: silver;
+}
+
+#flashMessage.message {
+    background: #fffee5;
+}
+
+#flashMessage.error, #authMessage.message /* FIXME */ {
+    background: #ffe5e5;
+    color: #cc0000;
+}
+
+#flashMessage.success {
+    background: #aed8ed;
+}
+
+/*****************************************************************************/
+
+td.error {
+    background: #fff2f2!important;
+	color: #cc0000;
+}
+
+p.error, div.error_message {
+    background: #ffe5e5;
+    color: #b20000;
+    margin: 1em 0;
+    border: 1px solid #b20000;
+    padding: 0.5em;
+}
+
+p.notice, div.notice {
+    background: #e1ebf7;
+    margin: 1em 0;
+    border: 1px solid #1d2f54;
+    padding: 0.5em;
+    color: #1d2f54;
+}
+
+p.success {
+    background: #ecffe8;
+    margin: 1em 0;
+    border: 1px solid #158000;
+    padding: 0.5em;
+    color: #158000;
+}
+
+.notice a {
+    color: blue;
+}
+
+/*****************************************************************************/
+
+/*table#searchResults a {
+    display: block;
+}*/
+
+/*****************************************************************************/
+
+/*table.tooltips tbody tr {
+    position: relative;
+}*/
+
+table.tooltips thead tr th.tooltip_table, table.tooltips tbody tr td.tooltip_table {
+    display: none;
+}
+
+table.tooltips tbody tr.hover td {
+    cursor: help;
+}
+
+.dynamic td.input, .dynamic td.action {
+    cursor: default;
+}
+
+table.tooltips tbody tr.hover td.tooltip_table {
+    position: absolute;
+    display: block;
+    border: 1px solid #235f7d;
+    background: white;
+    left: 0;
+    top: auto;
+    z-index: 5;
+    padding: 0;
+}
+
+table.tooltips td table {
+    padding: 0;
+    margin: 0;
+}
+
+
+
+/*****************************************************************************/
+/*****************************************************************************/
+
+div.clearer {
+    clear: both;
+}
+
+div.clearer hr {
+    display: none;
+}
+
+/*****************************************************************************/
+
+.with_treemenu {
+    margin-left: 18em;
+}
+
+.treemenu {
+    width: 215px;/*17em*/
+    border: 1px solid #235f7d;
+    float: left;
+    /*z-index: 100;*/
+}
+
+.treemenu ul {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: #e6eef2;
+}
+
+.treemenu li {
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    padding-left: 1em;
+}
+
+.treemenu a, .treemenu span {
+    display: block;
+    padding: 0.125em 0;
+}
+
+.treemenu a.toggler {
+    display: block;
+    width: 1em;
+    height: 1.2em;
+    line-height: 1.2em;
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.treemenu li li {
+    display: block;
+}
+
+.treemenu h2 {
+    font-size: 1em;
+    background: #235f7d;
+    padding: 0.25em;
+    border-bottom: 1px solid #235f7d;
+}
+
+.treemenu h2 a {
+    color: white;
+    display: inline;
+}
+
+
+.treemenu a.selected {
+    background-color: #A8DBEF;
+}
+/*.treemenu li, .treemenu li ul { background: #f9ffe6; }
+.treemenu li li, .treemenu li li ul { background: white; }
+
+/**
+* Menu large
+*/
+
+#pageWrapper.treemenu_large .with_treemenu {
+    margin-left: 18em;
+}
+
+#pageWrapper.treemenu_large .treemenu {
+    width: 220px;
+}
+
+#pageWrapper.treemenu_large .treemenu li {
+    padding-left: 1.4em;
+}
+
+#pageWrapper.treemenu_large .treemenu a, #pageWrapper.treemenu_large .treemenu span {
+/*     padding: 0.125em 0; */
+}
+
+#pageWrapper.treemenu_large .treemenu a.toggler {
+    width: 1em;
+    height: 1.2em;
+    line-height: 1.2em;
+}
+
+#pageWrapper.treemenu_large .treemenu li, #pageWrapper.treemenu_large .treemenu a, #pageWrapper.treemenu_large .treemenu span {
+    line-height: 1.2em;
+}
+
+
+#pageWrapper.treemenu_large h2 a {
+    display: inline;
+}
+
+#pageWrapper.treemenu_large .treemenu img {
+    margin-left: 4px;
+}
+
+/*****************************************************************************/
+
+p.etatDossier.structurereferenteOa {
+	background-color: #FDF5E7;
+}
+
+/*****************************************************************************/
+
+ul.actionMenu {
+    margin: 0.75em 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.actionMenu li {
+    margin: 0 0.5em 0 0;
+    padding: 0;
+    display: inline;
+}
+
+ul.actionMenu a {
+    padding: 0.33em 0.5em;
+    border: 1px solid #235f7d;
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+}
+
+
+/*****************************************************************************/
+/***** Ajout Arnaud pour les nouveaux boutons du Helper Default.php  *********/
+/*****************************************************************************/
+
+p.actions {
+    margin: 0.75em 0;
+    padding: 0;
+    list-style: none;
+}
+
+p.actions li {
+    margin: 0 0.5em 0 0;
+    padding: 0;
+    display: inline;
+}
+
+p.actions a {
+    padding: 0.33em 0.5em;
+    border: 1px solid #235f7d;
+    display: inline-block;
+    text-decoration: none;
+    color: black;
+}
+/*****************************************************************************/
+/*****************************************************************************/
+
+
+/*table a {
+    display: inline-block;
+}*/
+
+#pageMenu * {
+    line-height: 1em;
+}
+
+#pageMenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    height: 2em;
+    z-index: 10;
+}
+
+#pageMenu li {
+    padding: 0;
+    margin: 0;
+    float: left;
+    padding: 0.5em 0;
+    position: relative;
+}
+
+#pageMenu a {
+    border-right: 1px solid silver;
+    padding: 0.5em;
+}
+/* FIXME: on ne veut pas un sous-meun vertical mais un sous-menu horizontal */
+#pageMenu ul ul {
+    display: none;
+    position: absolute;
+    top: 2em;
+    left: 0;
+/*    width: 18em;
+    background: white;
+    padding: 0.5em 0;*/
+}
+
+/*#pageMenu ul ul li, #pageMenu ul ul li a {
+    clear: both;
+    display: block;
+    background: white;
+    width: 18em;
+    padding: 0; margin: 0;
+}
+
+#pageMenu ul ul li {
+    margin: 0 0.5em;
+    padding: 0.25em 0;
+}*/
+
+#pageMenu li:hover ul, #pageMenu li.hover ul {
+    display: block;
+}
+
+#pageMenu li:hover a, #pageMenu li.hover a {
+    background: #e6eef2;
+}
+
+#pageMenu li:hover ul a, #pageMenu li.hover ul a {
+    background: #a8dbef;
+}
+
+#pageMenu li a {
+    border: 0;
+}
+
+/*#pageMenu li ul ul
+{
+        margin    : -22px 0 0 144px ;
+        border-left     : 1px solid #fff ;
+}*/
+
+/*****************************************************************************/
+
+#pageWrapper {
+    position: relative;
+    z-index: 2;
+}
+
+.dynamic.innerTableHeader, .dynamic .innerTableCell {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1px;
+    width: 1px;
+    z-index: 0;
+    border: 0;
+}
+
+.dynamic.innerTableHeader { left: -2000px; }
+.innerTable td { background: white; }
+.innerTable { min-width: 20em; }
+.innerTable td { min-width: 10em; }
+.dynamic td { cursor: help; }
+
+/*****************************************************************************/
+
+table.bodyHeaders tbody tr.even th {
+    background: #83c2e2;
+    color: black;
+}
+
+table.bodyHeaders tbody tr.odd th {
+    background: #a8dbef;
+    color: black;
+}
+
+table.wide { width: 100%; }
+table.wide th { width: 40%; }
+
+table.smallHeader tbody th { width: 25%; }
+table.mediumHeader tbody th { width: 50%; }
+table.wideHeader tbody th { width: 75%; }
+table.widerHeader tbody th { width: 90%; }
+
+
+/*****************************************************************************/
+
+span.disabled {
+    color: silver;
+}
+
+/*****************************************************************************/
+legend.wideHeader, p.wideHeader { width: 90%; }
+/*****************************************************************************/
+table.aere {
+    margin-bottom: 1.5em;
+/*     width: 25%; */
+}
+
+table.nbrCi tr td {
+/*     margin-bottom: 1.5em; */
+/*     margin-top: 0.5em; */
+/*     margin: 0 auto; */
+    margin-bottom: 1.5em;
+    width: 50%;
+    padding: 0em;
+}
+
+tr.aere td {
+    margin-bottom: 1.5em;
+    margin-top: 1.5em;
+}
+
+td.aere, th.aere{
+    width: 15em;
+}
+
+
+table tr td#contrat {
+/*     margin-top: 1.5em; */
+    line-height: 3em;
+}
+
+div.aere {
+    margin-bottom:1.5em;
+}
+/*****************************************************************************/
+/*Pour le dossier_menu dans l'entête*/
+p.etatDossier {
+    font-size: 14px;
+    border-bottom: 1px solid #235F7D;
+    line-height: 1em;
+    margin: 0;
+    padding: 0.5em;
+    background: #E6EEF2;
+}
+/*****************************************************************************/
+
+.noborder, table.noborder tbody {
+    border: 0!important;
+}
+
+.center {
+    text-align: center;
+}
+
+td.mediumSize  {
+    width: 50%;
+}
+
+td.radioSize {
+    width: 3%;
+}
+
+td.selectSize {
+    width: 30%;
+}
+
+
+td.selectSize label, td.selectSize div.input.select {
+    width: 100%!important;
+}
+
+td.radioSize div.input.radio, td.radioSize div.input.select {
+    width: 70%;
+}
+
+.remarque {
+    border: 1px solid black;
+    padding: 1em;
+    padding-top: 0em;
+    padding-bottom: 0em;
+    font-size: 100%;
+    background-color: #FDF5E7;
+}
+
+/** Ajout d'une légende pour les titres des fieldset ds le CI **/
+legend.title {
+    cursor: help;
+}
+
+fieldset.loici {
+    padding: 1em;
+    padding-top: 0em;
+    padding-bottom: 0em;
+    font-size:11px;
+    background-color: #FDF5E7;
+}
+fieldset.cnilci, fieldset.cnilci p {
+    font-size: 11px;
+    padding-bottom: 0em;
+    padding-bottom: 0em;
+    margin-bottom: 0em;
+    margin-top: 0em;
+}
+fieldset.loici58 {
+    padding: 1em;
+    padding-top: 0em;
+    padding-bottom: 0em;
+    font-size:14px;
+    background-color: #FDF5E7;
+}
+/*td.signature{
+    padding-bottom: 5em;
+}*/
+
+p.caution {
+    font-size: 9px;
+}
+p.caution58 {
+    font-size: 11px;
+}
+thead tr#datesApre th {
+    color: black;
+    background-color: #C2E0EF;
+}
+
+table#repddtefp tbody th {
+    color: black;
+    background-color: #CFCFCF;
+}
+/** Selcteur d'activité pour le bénéficiaire APRE**/
+td.activiteSize {
+    width: 30%!important;
+}
+select.activiteSize {
+    width: 100%!important;
+}
+
+/*****************************************************************************/
+
+div.demi {
+    display: -moz-inline-box;
+    display: inline-table;
+    display: inline-block;
+    width: 50%;
+/*     margin-bottom: 1.5em; */
+}
+
+div.demi div.checkbox {
+    display: inline;
+}
+
+/*******************************************************************************
+*	Onglets
+*******************************************************************************/
+
+.tab.title.hidden {
+	display: none;
+}
+
+div.tab {
+    border: 1px solid silver;
+    padding: 1em;
+    margin-top: 0.5em;
+    padding-top: 1.5em;
+}
+
+ul.ui-tabs-nav {
+    display: block;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul.ui-tabs-nav li {
+    padding: 0px;
+    margin: 0px;
+    display: inline-block;
+    line-height: 2.4;
+    position: relative;
+    top: 7px;
+}
+
+ul.ui-tabs-nav a {
+    border: 1px solid silver;
+    padding: 0.5em;
+    background: #ddd;
+}
+
+ul.ui-tabs-nav a.active {
+    border: 1px solid silver;
+    border-bottom: 1px solid white;
+    background: white;
+}
+
+ul.ui-tabs-nav li.error a {
+    background: #e6cece!important;
+	color: #cc0000;
+}
+
+ul.ui-tabs-nav li.error a.active {
+    background: #ffe5e5!important;
+}
+
+/*******************************************************************************
+*   Pour la fiche de liaison cg93
+*******************************************************************************/
+fieldset.actioncandidat legend {
+    font-size: 1em;
+    text-align: center;
+    font-weight: bold;
+}
+
+/**
+ * Pour les icones du DefaultHelper2
+ */
+
+ul.actions {
+	display: block;
+	list-style: none;
+	padding: 0;
+	margin: 1em 0;
+}
+
+ul.actions li {
+	display: inline;
+	padding: 0.33em 0.5em;
+	margin: 0 1.5em 0 0;
+	border: 1px solid #235F7D;
+}
+
+ul.actions li a, ul.actions li span, ul.actionMenu li a.button {
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	text-decoration: none;
+	background-position: left center;
+}
+
+ul.actionMenu span.disabled, span.button.disabled, span.link.disabled {
+	background-repeat: no-repeat;
+	padding-left: 20px;
+	text-decoration: none;
+	background-position: left center;
+}
+
+ul.actions li.add a, ul.actions li a.add, td.action a.add {
+	background-image: url( ../img/icons/add.png );
+}
+
+ul.actions li.add span.disabled, ul.actions li span.add.disabled, td.action span.add.disabled {
+	background-image: url( ../img/icons/add_disabled.png );
+}
+
+ul.actions li.edit a, ul.actions li a.edit, ul.actions li a.personnes.coordonnees {
+	background-image: url( ../img/icons/pencil.png );
+}
+
+ul.actions li.edit span.disabled, ul.actions li span.edit.disabled, ul.actions li.action span.personnes.coordonnees.disabled {
+	background-image: url( ../img/icons/pencil_disabled.png );
+}
+
+ul.actions li.action a.back {
+	background-image: url( ../img/icons/arrow_left.png );
+}
+
+ul.actions li.action span.disabled.back {
+	background-image: url( ../img/icons/arrow_left_disabled.png );
+}
+
+ul.actions li.action a.historiser {
+	background-image: url( ../img/icons/camera.png );
+}
+
+ul.actions li.action span.historiser.disabled {
+	background-image: url( ../img/icons/camera_disabled.png );
+}
+
+ul.actions li.action a.print {
+	background-image: url( ../img/icons/printer.png );
+}
+
+ul.actions li.action span.print.disabled {
+	background-image: url( ../img/icons/printer_disabled.png );
+}
+
+ul.actions li.arrow_undo a, ul.actions li a.arrow_undo, td.action a.arrow_undo {
+	background-image: url( ../img/icons/arrow_undo.png );
+}
+
+/**/
+
+td.button a, td.action a, td.button span, td span.button, table.default2 td a.button, table.default2 td span.button, a.action_impression {
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 20px;
+	text-decoration: none;
+	display: block;
+}
+
+table.nocssicons td span.button, table.nocssicons td span.button.disabled {
+	background-image: none;
+	padding-left: 0.25em;
+}
+
+td span.button.disabled {
+	color: silver;
+}
+
+td.button.view a, td.action a.view, td.button span.link, td span.button.view, table.default2 td a.button.view {
+	background-image: url( ../img/icons/zoom.png );
+}
+td.button.view.disabled a, td.action a.view.disabled, td span.button.view.disabled, table.default2 td a.button.view.disabled, td.action span.view.disabled {
+	background-image: url( ../img/icons/zoom_disabled.png );
+}
+
+td.button.edit a, td.action a.edit, td span.button.edit, table.default2 td a.button.edit {
+	background-image: url( ../img/icons/pencil.png );
+}
+td.button.edit.disabled a, td.action a.edit.disabled, td span.button.edit.disabled, table.default2 td a.button.edit.disabled, td.action span.edit.disabled {
+	background-image: url( ../img/icons/pencil_disabled.png );
+}
+
+td.button.email_send a, td.action a.email_send, td span.button.email_send, table.default2 td a.button.email_send {
+	background-image: url( ../img/icons/email_go.png );
+}
+td.button.email_send.disabled a, td.action a.email_send.disabled, td span.button.email_send.disabled, table.default2 td a.button.email_send.disabled, td.action span.email_send.disabled {
+	background-image: url( ../img/icons/email_disabled.png );
+}
+
+td.button.clore a, td.action a.clore, td span.button.clore, table.default2 td a.button.clore {
+	background-image: url( ../img/icons/page_white_link.png );
+}
+
+td.button.decision a, td.action a.decision, td span.button.decision, table.default2 td a.button.decision {
+	background-image: url( ../img/icons/application_form_edit.png );
+}
+
+td.button.print a, td.action a.print, td.action a.impressiondecision, td span.button.print, table.default2 td a.button.print, ul li a.button.printConvocationsBeneficiaires, ul.actions li a.button.fichessynthese, ul li a.button.impressionpv, td a.button.impressionDecision, ul li a.button.impressionsDecisions, ul.actionMenu li a.button.print {
+	background-image: url( ../img/icons/printer.png );
+}
+
+td.button.print.disabled a, td.action span.impressiondecision.disabled, td.action span.print.disabled, td span.button.print.disabled, table.default2 td span.button.print.disabled, span.button.printConvocationsBeneficiaires.disabled, ul.actions li span.button.fichessynthese.disabled, ul li span.button.impressionpv.disabled, td span.button.impressionDecision.disabled, ul li span.button.impressionsDecisions.disabled, ul.actionMenu li span.button.print.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+ul li a.button.view {
+	background-image: url( ../img/icons/zoom.png );
+	margin-bottom: 10px;
+}
+
+ul li a.button.add {
+	background-image: url( ../img/icons/add.png );
+	background-position: 5px 5px;
+	padding: 0.5em 0.5em 0.5em 2em;
+}
+ul li a.button.add.disabled, span.button.add.disabled, ul.actions li span.link.add.disabled {
+	background-image: url( ../img/icons/add_disabled.png );
+	background-position: 5px 5px;
+	padding: 0.5em 0.5em 0.5em 2em;
+}
+
+td.button.gedooo a, td.action a.gedooo, td span.button.gedooo, table.default2 td a.button.gedooo {
+    background-image: url( ../img/icons/printer.png );
+}
+
+td.button.gedooo.disabled a, td.action a.gedooo.disabled, td span.button.gedooo.disabled, table.default2 td a.button.gedooo.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+td.button.delete a, td.action a.delete, td span.button.delete, table.default2 td a.button.delete {
+	background-image: url( ../img/icons/delete.png );
+}
+
+td.button.delete.disabled a, td.action a.delete.disabled, td span.button.delete.disabled, table.default2 td a.button.delete.disabled, td.action span.delete.disabled {
+	background-image: url( ../img/icons/delete_disabled.png );
+}
+
+td.button.cancel a, td.action a.cancel, td span.button.cancel, table.default2 td a.button.cancel {
+    background-image: url( ../img/icons/cancel.png );
+}
+td.button.cancel.disabled a, td.action a.cancel.disabled, td span.cancel.disabled, td span.button.cancel.disabled, table.default2 td a.button.cancel.disabled {
+    background-image: url( ../img/icons/cancel_disabled.png );
+}
+
+td.button.valider a, td.action a.valider, td span.button.valider, table.default2 td a.button.valider {
+    background-image: url( ../img/icons/tick.png );
+}
+td.button.valider.disabled a, td.action a.valider.disabled, td span.button.valider.disabled, table.default2 td a.button.valider.disabled {
+    background-image: url( ../img/icons/tick_disabled.png );
+}
+
+td.button.notification a, td.action a.notification, td span.button.notification, table.default2 td a.button.notification {
+    background-image: url( ../img/icons/application_view_list.png );
+}
+
+td.button.notifop a, td.action a.notifop, td span.button.notifop, table.default2 td a.button.notifop {
+    background-image: url( ../img/icons/printer.png );
+}
+td.button.notifop.disabled a, td.action a.notifop.disabled, td span.button.notifop.disabled, table.default2 td a.button.notifop.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+td.button.filelink a, td.action a.filelink, td span.button.filelink, table.default2 td a.button.filelink {
+    background-image: url( ../img/icons/attach.png );
+}
+td.button.filelink.disabled a, td.action a.filelink.disabled, td span.button.filelink.disabled, table.default2 td a.button.filelink.disabled {
+    background-image: url( ../img/icons/attach_disabled.png );
+}
+
+td.button.courrierInformation a, td.action a.courrierInformation, td span.button.courrierInformation, table.default2 td a.button.courrierInformation {
+    background-image: url( ../img/icons/printer.png );
+}
+
+td.button.printConvocationParticipant a, td.action a.printConvocationParticipant, td span.button.printConvocationParticipant, table.default2 td a.button.printConvocationParticipant {
+    background-image: url( ../img/icons/printer.png );
+}
+
+
+td.button.printConvocationBeneficiaire a, td.action a.printConvocationBeneficiaire, td span.button.printConvocationBeneficiaire, table.default2 td a.button.printConvocationBeneficiaire {
+    background-image: url( ../img/icons/printer.png );
+}
+
+td.button.fichesynthese a, td.action a.fichesynthese, td span.button.fichesynthese, table.default2 td a.button.fichesynthese {
+    background-image: url( ../img/icons/printer.png );
+}
+
+td.button.printFiche a, td.action a.printFiche, td span.button.printFiche, table.default2 td a.button.printFiche {
+    background-image: url( ../img/icons/printer.png );
+}
+
+td.button.printFiche.disabled a, td.action a.printFiche.disabled, td span.button.printFiche.disabled, table.default2 td a.button.printFiche.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+/*Nouveaux boutons pour le CER du CG66*/
+td.button.ficheliaisoncer a, td.action a.ficheliaisoncer, td span.button.ficheliaisoncer, table.default2 td a.button.ficheliaisoncer {
+    background-image: url( ../img/icons/printer.png );
+}
+td.button.ficheliaisoncer.disabled a, td.action a.ficheliaisoncer.disabled, td span.button.ficheliaisoncer.disabled, table.default2 td a.button.ficheliaisoncer.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+td.button.contratinsertion a, td.action a.contratinsertion, td span.button.contratinsertion, table.default2 td a.button.contratinsertion {
+    background-image: url( ../img/icons/printer.png );
+}
+td.button.contratinsertion.disabled a, td.action a.contratinsertion.disabled, td span.button.contratinsertion.disabled, table.default2 td a.button.contratinsertion.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+td.button.proposition a, td.action a.proposition, td span.button.proposition, table.default2 td a.button.proposition {
+    background-image: url( ../img/icons/application_form_edit.png );
+}
+
+td.button.notifbenef a, td.action a.notifbenef, td span.button.notifbenef, table.default2 td a.button.notifbenef {
+    background-image: url( ../img/icons/printer.png );
+}
+td.button.notifbenef.disabled a, td.action a.notifbenef.disabled, td span.button.notifbenef.disabled, table.default2 td a.button.notifbenef.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+/* Bouton pour reverser ou non les fiches de calcul dans les décisions DO du CG66*/
+td.button.reverseDO a, td.action a.reverseDO, td span.button.reverseDO, table.default2 td a.button.reverseDO {
+    background-image: url( ../img/icons/plugin_add.png );
+}
+td.button.reverseDO.disabled a, td.action a.reverseDO.disabled, td span.button.reverseDO.disabled, table.default2 td a.button.reverseDO.disabled {
+    background-image: url( ../img/icons/plugin_disabled.png );
+}
+
+td.button.deverseDO a, td.action a.deverseDO, td span.button.deverseDO, table.default2 td a.button.deverseDO {
+    background-image: url( ../img/icons/plugin_delete.png );
+}
+td.button.deverseDO.disabled a, td.action a.deverseDO.disabled, td span.button.deverseDO.disabled, table.default2 td a.button.deverseDO.disabled {
+    background-image: url( ../img/icons/plugin_disabled.png );
+}
+/* Bouton pour imprimer les modèles de courrier d'un traitement PCG CG66*/
+td.button.printModeleCourrier a, td.action a.printModeleCourrier, td span.button.printModeleCourrier, table.default2 td a.button.printModeleCourrier {
+    background-image: url( ../img/icons/printer.png );
+}
+td.button.printModeleCourrier.disabled a, td.action a.printModeleCourrier.disabled, td span.button.printModeleCourrier.disabled, table.default2 td a.button.printModeleCourrier.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+td.button.email a, td.action a.email, td span.button.email, table.default2 td a.button.email {
+    background-image: url( ../img/icons/email.png );
+}
+
+td.button.email.disabled a, td.action a.email.disabled, td span.button.email.disabled, table.default2 td a.button.email.disabled {
+    background-image: url( ../img/icons/email_disabled.png );
+}
+
+
+td.button.suivisanction1 a, td.action a.suivisanction1, td span.button.suivisanction1, table.default2 td a.button.suivisanction1 {
+    background-image: url( ../img/icons/printer.png );
+}
+td.button.suivisanction1.disabled a, td.action a.suivisanction1.disabled, td span.button.suivisanction1.disabled, table.default2 td a.button.suivisanction1.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+
+td.button.suivisanction2 a, td.action a.suivisanction2, td span.button.suivisanction2, table.default2 td a.button.suivisanction2 {
+    background-image: url( ../img/icons/printer.png );
+}
+td.button.suivisanction2.disabled a, td.action a.suivisanction2.disabled, td span.button.suivisanction2.disabled, table.default2 td a.button.suivisanction2.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+td.button.reconduction a, td.action a.reconduction, td span.button.reconduction, table.default2 td a.button.reconduction {
+    background-image: url( ../img/icons/printer.png );
+}
+td.button.reconduction.disabled a, td.action a.reconduction.disabled, td span.button.reconduction.disabled, table.default2 td a.button.reconduction.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+td.button.notifelucui a, td.action a.notifelucui, td span.button.notifelucui, table.default2 td a.button.notifelucui {
+    background-image: url( ../img/icons/printer.png );
+}
+td.button.notifelucui.disabled a, td.action a.notifelucui.disabled, td span.button.notifelucui.disabled, table.default2 td a.button.notifelucui.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+td.button.printaviscui a, td.action a.printaviscui, td span.button.printaviscui, table.default2 td a.button.printaviscui {
+    background-image: url( ../img/icons/printer.png );
+}
+td.button.printaviscui.disabled a, td.action a.printaviscui.disabled, td span.button.printaviscui.disabled, table.default2 td a.button.printaviscui.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+td.button.synthesecui66 a, td.action a.synthesecui66, td span.button.synthesecui66, table.default2 td a.button.synthesecui66 {
+    background-image: url( ../img/icons/printer.png );
+}
+td.button.synthesecui66.disabled a, td.action a.synthesecui66.disabled, td span.button.synthesecui66.disabled, table.default2 td a.button.synthesecui66.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+td.button.suspension a, td.action a.suspension, td span.button.suspension, table.default2 td a.button.suspension {
+    background-image: url( ../img/icons/page_red.png );
+}
+td.button.suspension.disabled a, td.action a.suspension.disabled, td span.button.suspension.disabled, table.default2 td a.button.suspension.disabled {
+    background-image: url( ../img/icons/page_red_disabled.png );
+}
+
+td.button.accompagnement a, td.action a.accompagnement, td span.button.accompagnement, table.default2 td a.button.accompagnement {
+    background-image: url( ../img/icons/report.png );
+}
+td.button.accompagnement.disabled a, td.action a.accompagnement.disabled, td span.button.accompagnement.disabled, table.default2 td a.button.accompagnement.disabled {
+    background-image: url( ../img/icons/report_disabled.png );
+}
+
+td.button.impression a, td.action a.impression, td span.button.impression, table.default2 td a.button.impression, a.action_impression {
+    background-image: url( ../img/icons/printer.png );
+}
+
+td.button.impression.disabled a, td.action a.impression.disabled, td.action span.link.impression.disabled, td span.button.impression.disabled, table.default2 td a.button.impression.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+td.button.notifelu a, td.action a.notifelu, td span.button.notifelu, table.default2 td a.button.notifelu {
+    background-image: url( ../img/icons/printer.png );
+}
+td.button.notifelu.disabled a, td.action a.notifelu.disabled, td span.button.notifelu.disabled, table.default2 td a.button.notifelu.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+td.button.notifemployeur a, td.action a.notifemployeur, td span.button.notifemployeur, table.default2 td a.button.notifemployeur {
+    background-image: url( ../img/icons/printer.png );
+}
+td.button.notifemployeur.disabled a, td.action a.notifemployeur.disabled, td span.button.notifemployeur.disabled, table.default2 td a.button.notifemployeur.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+td.button.envoimailemployeur a, td.action a.envoimailemployeur, td span.button.envoimailemployeur, table.default2 td a.button.envoimailemployeur {
+    background-image: url( ../img/icons/email.png );
+}
+td.button.envoimailemployeur.disabled a, td.action a.envoimailemployeur.disabled, td span.button.envoimailemployeur.disabled, table.default2 td a.button.envoimailemployeur.disabled {
+    background-image: url( ../img/icons/email_disabled.png );
+}
+
+td.button.attestationcompetencecui66 a, td.action a.attestationcompetencecui66, td span.button.attestationcompetencecui66, table.default2 td a.button.attestationcompetencecui66 {
+    background-image: url( ../img/icons/printer.png );
+}
+td.button.attestationcompetencecui66.disabled a, td.action a.attestationcompetencecui66.disabled, td span.button.attestationcompetencecui66.disabled, table.default2 td a.button.attestationcompetencecui66.disabled {
+    background-image: url( ../img/icons/printer_disabled.png );
+}
+
+td.action a.error_icon {
+	background-image: url( ../img/icons/error.png );
+}
+
+td.action span.error_icon {
+	background-image: url( ../img/icons/error_disabled.png );
+}
+
+td.button.validation a, td.action a.validation, td span.button.validation, table.default2 td a.button.validation {
+    background-image: url( ../img/icons/tick.png );
+}
+td.button.validation.disabled a, td.action a.validation.disabled, td span.button.validation.disabled, table.default2 td a.button.validation.disabled {
+    background-image: url( ../img/icons/tick_disabled.png );
+}
+
+td.button.avistechnique a, td.action a.avistechnique, td span.button.avistechnique, table.default2 td a.button.avistechnique {
+    background-image: url( ../img/icons/page_attach.png );
+}
+td.button.avistechnique.disabled a, td.action a.avistechnique.disabled, td span.button.avistechnique.disabled, table.default2 td a.button.avistechnique.disabled {
+    background-image: url( ../img/icons/page_attach_disabled.png );
+}
+
+td.button.transmitop a, td.action a.transmitop, td span.button.transmitop, table.default2 td a.button.transmitop {
+    background-image: url( ../img/icons/application_view_list.png );
+}
+
+td.button.transmitop.disabled a, td.action a.transmitop.disabled, td span.button.transmitop.disabled, table.default2 td a.button.transmitop.disabled {
+    background-image: url( ../img/icons/application_view_list_disabled.png );
+}
+
+td.button.manifestation a, td.action a.manifestation, td span.button.manifestation, table.default2 td a.button.manifestation {
+    background-image: url( ../img/icons/user_go.png );
+}
+
+td.button.manifestation.disabled a, td.action a.manifestation.disabled, td span.button.manifestation.disabled, table.default2 td a.button.manifestation.disabled {
+    background-image: url( ../img/icons/user_go_disabled.png );
+}
+
+td.button.rupture a, td.action a.rupture, td span.button.rupture, table.default2 td a.button.rupture {
+    background-image: url( ../img/icons/disconnect.png );
+}
+td.button.rupture.disabled a, td.action a.rupture.disabled, td span.button.rupture.disabled, table.default2 td a.button.rupture.disabled {
+    background-image: url( ../img/icons/disconnect_disabled.png );
+}
+
+ul.actionMenu a.button.printcohorte1, ul.actionMenu a.button.printcohorte2 {
+    background-image: url( ../img/icons/printer.png );
+/* 	padding: 5px; */
+	margin: 11px;
+}
+
+/**/
+
+td.boolean span, table tr:nth-child(2n) td.boolean span {
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 20px;
+}
+
+td.boolean.true span {
+	background-image: url( ../img/icons/tick.png );
+}
+
+td.boolean.false span {
+	background-image: url( ../img/icons/cross.png );
+}
+
+fieldset.partenaire.bilan div.input.radio.error {
+    width: 47%;
+}
+
+div.selectall { text-align: right; margin-top: 1em; }
+
+td.foyer_enerreur {
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 20px;
+	background-image: url( ../img/icons/exclamation.png );
+}
+
+td.foyer_enerreur.empty, td.foyer_enerreur.null {
+	background-image: none;
+}
+
+td.foyer_sansprestation {
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 20px;
+	background-image: url( ../img/icons/error.png );
+}
+
+td.foyer_sansprestation.empty {
+	background-image: none;
+}
+
+
+tr.odd.multipleDossiers td { background: #fffdcc; }
+tr.even.multipleDossiers td { background: #ffebcc; }
+
+
+table.default2 td a.button.cloture_referent {
+    background-image: url( ../img/icons/date_edit.png );
+}
+
+table.default2 td span.button.cloture_referent.disabled {
+    background-image: url( ../img/icons/date_edit_disabled.png );
+}
+
+/**/
+
+.diff_dsps li.enplus { color: green; }
+.diff_dsps li.enmoins { color: red; }
+
+/*
+* 	Gestion des anomalies
+*/
+
+table.gestionsanomaliesbdd td.icon {
+	width: 1em;
+	cursor: default;
+}
+
+td.action a.button.correction {
+	background-image: url( ../img/icons/pencil.png );
+}
+
+td.action a.button.correction.disabled {
+	background-image: url( ../img/icons/pencil_disabled.png );
+}
+
+#Search.gestionsanomaliesbdd.index div.enerreur label {
+	background: url( ../img/icons/exclamation.png ) center right no-repeat;
+}
+
+#Search.gestionsanomaliesbdd.index div.disabled.enerreur label {
+	background: url( ../img/icons/exclamation_disabled.png ) center right no-repeat;
+}
+
+#Search.gestionsanomaliesbdd.index div.sansprestation label {
+	background: url( ../img/icons/error.png ) center right no-repeat;
+}
+
+#Search.gestionsanomaliesbdd.index div.disabled.sansprestation label {
+	background: url( ../img/icons/error_disabled.png ) center right no-repeat;
+}
+
+#Search.gestionsanomaliesbdd.index div.doublons label {
+	background: url( ../img/icons/group.png ) center right no-repeat;
+}
+
+#Search.gestionsanomaliesbdd.index div.disabled.doublons label {
+	background: url( ../img/icons/group_disabled.png ) center right no-repeat;
+}
+
+div.errorslist {
+	padding: 0.5em;
+    background: #ffe5e5;
+    color: #cc0000;
+	border: 1px solid #cc0000;
+	margin: 0.5em 0;
+}
+
+/**
+ * Nouvelle standardisation de la vérification de l'application
+ */
+table.checks, table.checks tbody, table.checks tbody th, table.checks tbody td {
+	background: none;
+	color: black;
+	border: 0;
+}
+
+table.checks tr th {
+	background-repeat: no-repeat;
+	background-position: left top;
+	padding-left: 20px;
+	margin-left: 0;
+}
+
+table.checks tr.success th {
+	background-image: url( ../img/icons/tick.png );
+}
+
+table.checks tr.error th {
+	background-image: url( ../img/icons/cross.png );
+}
+
+table.checks tr.error th, table.checks tr.error td {
+	background-color: #fdd;
+}
+
+table.checks tr.error td.message {
+	background-color: white;
+}
+
+table.checks { width: 100%; }
+table.checks tr th, table.checks tr td { width: 15%; }
+table.checks tr td.value, table.checks tr td.message { width: 35%; }
+
+h3.storeddata.success, h3.storeddata.error {
+	background-repeat: no-repeat;
+	background-position: left top;
+	padding-left: 20px;
+	margin-left: 0;
+}
+
+h3.storeddata.success {
+	background-image: url( ../img/icons/tick.png );
+}
+
+h3.storeddata.error {
+	background-image: url( ../img/icons/cross.png );
+}
+
+/**
+ * Icones pour la liste des CER du CG 93
+ */
+table#Cers93Index a.button {
+	background-position: 5px 5px;
+	padding: 0.5em 0.5em 0.5em 2em;
+}
+
+table#Cers93Index a.button.signature { background-image: url( ../img/icons/text_signature.png ); }
+table#Cers93Index span.button.signature.disabled { background-image: url( ../img/icons/text_signature_disabled.png ); }
+
+table#Cers93Index a.button.attdecisioncpdv { background-image: url( ../img/icons/folder_go.png ); }
+table#Cers93Index span.button.attdecisioncpdv.disabled { background-image: url( ../img/icons/folder_go_disabled.png ); }
+
+table#Cers93Index a.button.attdecisioncg { background-image: url( ../img/icons/shield_go.png ); }
+table#Cers93Index span.button.attdecisioncg.disabled { background-image: url( ../img/icons/shield_go_disabled.png ); }
+
+table#Cers93Index a.button.premierelecture { background-image: url( ../img/icons/folder_page.png ); }
+table#Cers93Index span.button.premierelecture.disabled { background-image: url( ../img/icons/folder_page_disabled.png ); }
+
+table#Cers93Index a.button.secondelecture { background-image: url( ../img/icons/tick.png ); }
+table#Cers93Index span.button.secondelecture.disabled { background-image: url( ../img/icons/tick_disabled.png ); }
+
+table#Cers93Index a.button.aviscadre { background-image: url( ../img/icons/tick.png ); }
+table#Cers93Index span.button.aviscadre.disabled { background-image: url( ../img/icons/tick_disabled.png ); }
+
+table#Cers93Index a.button.add,
+table#TableContratsinsertionIndex a.nonrespectcer {
+	background-image: url( ../img/icons/folder_table.png );
+}
+table#Cers93Index span.button.add.disabled,
+table#TableContratsinsertionIndex span.nonrespectcer.disabled {
+	background-image: url( ../img/icons/folder_table_disabled.png );
+}
+
+/**
+ * Cloture en masse des référents
+ */
+td.button.cloturer a, td.action a.cloturer, td span.button.cloturer, table.default2 td a.button.cloturer {
+	background-image: url( ../img/icons/date_edit.png );
+}
+td.button.cloturer.disabled a, td.action a.cloturer.disabled, td span.button.cloturer.disabled, table.default2 td a.button.cloturer.disabled {
+	background-image: url( ../img/icons/date_edit_disabled.png );
+}
+
+table#searchResults ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+table#searchResults li {
+	margin: 0;
+	padding: 0;
+}
+
+table#searchResults ul.checkboxes.simplelist.view {
+	list-style: disc;
+}
+
+table#searchResults ul.checkboxes.simplelist.view li {
+	margin-left: 1.8em;
+}
+
+/* Cohorte de saisie des CER (CG 93) */
+
+#Cohortescers93Saisie td a.print, #Cohortescers93Saisie td a.transfert, #Cohortescers93Saisie td a.rendezvous, #Cohortescers93Saisie td a.comment {
+	padding-left: 20px;
+	background-repeat: no-repeat;
+}
+
+#Cohortescers93Saisie td a.print {
+	background-image: url( ../img/icons/printer.png );
+}
+
+#Cohortescers93Saisie td a.transfert {
+	background-image: url( ../img/icons/folder_go.png );
+}
+
+#Cohortescers93Saisie td a.rendezvous {
+	background-image: url( ../img/icons/date.png );
+}
+
+#Cohortescers93Saisie td a.comment {
+	background-image: url( ../img/icons/text_align_justify.png );
+}
+
+/* ... */
+
+.popup_block div.message {
+	background: red;
+	margin: 0 0.5em 1em 0.5em;
+	padding: 0.5em;
+    background: #e1ebf7;
+    border: 1px solid #1d2f54;
+    color: #1d2f54;
+}
+
+/* Default.DefaultDefaultHelper */
+
+body.questionnairesd1pdvs93 ul.actions a.add {
+	background-image: url( ../img/icons/add.png );
+}
+
+body.questionnairesd1pdvs93 ul.actions span.link.disabled {
+	background-image: url( ../img/icons/add_disabled.png );
+}
+
+body.dossierspcgs66 table#searchResults ul {
+	list-style: disc;
+	margin-left: 1.4em;
+}
+
+body.cohortescers93 table#searchResults ul.decisions li {
+    padding: 0.25em 0;
+}
+
+/* Cohorte des formulaires de sortie D2 */
+a.questionnairesd2pdvs93.index {
+	background-image: url( ../img/icons/zoom.png );
+}
+
+ul.actions li.action a.cohortesd2pdvs93.index, ul.actions li.action .searchForm {
+	background-image: url( ../img/icons/application_form_magnify.png );
+}
+
+a.cohortesd2pdvs93.ajaxadd {
+	background-image: url( ../img/icons/application_form.png );
+}
+
+span.cohortesd2pdvs93.ajaxadd.disabled {
+	background-image: url( ../img/icons/application_form_disabled.png );
+}
+
+ul.actions li.action a.exportcsv, ul.actions li.action a.exportcsvcorpus, ul.actions li.action a.exportcsvdonnees {
+	background-image: url( ../img/icons/page_white_get.png );
+}
+
+/* Indictaeurs de suivi du CG 58 */
+body.indicateursmensuels.index tbody th {
+	text-align: right;
+}
+
+body.indicateursmensuels.index tbody tr.total th {
+	text-align: left;
+}
+
+body.indicateursmensuels.index tbody tr.total th.section {
+	vertical-align: middle;
+}
+
+body.indicateursmensuels.index tbody tr.total td {
+	background: #E6EEF2;
+}
+
+/* Liste des dossiers d'EP pouvant être supprimés' */
+
+body.dossierseps.administration a.historiqueseps.view_passage {
+    background-image: url("../img/icons/zoom.png");
+}
+
+body.dossierseps.administration span.historiqueseps.view_passage, body.dossierseps.administration span.commissionseps.view.disabled {
+    background-image: url("../img/icons/zoom_disabled.png");
+}
+
+body.dossierseps.administration a.dossierseps.deletepassage {
+    background-image: url("../img/icons/delete.png");
+}
+
+body.dossierseps.administration span.dossierseps.deletepassage.disabled {
+    background-image: url("../img/icons/delete_disabled.png");
+}
+
+td.data.boolean {
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 20px;
+}
+
+td.data.boolean.true, td.action a.enabled.boolean.true {
+	background-image: url( ../img/icons/tick.png );
+}
+
+td.data.boolean.false, td.action a.enabled.boolean.false {
+	background-image: url( ../img/icons/cross.png );
+}
+
+/* Gestion des doublons complexes */
+
+ul.actions li.action a.gestionsdoublons.index {
+	background-image: url( ../img/icons/application_form_magnify.png );
+}
+
+body.gestionsdoublons.index td .personnes.index {
+    background-image: url("../img/icons/zoom.png");
+}
+
+body.gestionsdoublons.index td .personnes.index.disabled {
+    background-image: url("../img/icons/zoom_disabled.png");
+}
+
+body.gestionsdoublons.index td .gestionsdoublons.fusion {
+    background-image: url("../img/icons/application_double.png");
+}
+
+body.gestionsdoublons.index td .gestionsdoublons.fusion.disabled {
+    background-image: url("../img/icons/application_double_disabled.png");
+}
+
+ul.actions li.action a.fichesprescriptions93.search {
+	background-image: url( ../img/icons/application_form_magnify.png );
+}
+
+body.fichesprescriptions93.search td.action a.index {
+	background-image: url("../img/icons/zoom.png");
+}
+
+body.fichesprescriptions93.search td.action span.index.disabled {
+	background-image: url("../img/icons/zoom_disabled.png");
+}
+
+body.fichesprescriptions93.search td.data.boolean.true {
+	background-image: url("../img/icons/lock.png");
+}
+
+body.fichesprescriptions93.search td.data.boolean.false {
+	background-image: none;
+	color: transparent;
+}
+
+/* FIXME: mise en commentaire du bloc le temps de voir ce que cela impacte
+    CSS ajouté lors de la révision 7830 par arnauz
+*/
+/*td div.input label{
+	width: auto;
+} */
+
+/* Recherche par Dossiers EPs (CG 58) */
+ul.actions li.action a.sanctionseps58.selectionnoninscrits, ul.actions li.action a.sanctionseps58.selectionradies, ul.actions li.action a.indicateurssuivis.search, ul.actions li.action a.search {
+	background-image: url( ../img/icons/application_form_magnify.png );
+}
+
+body.indicateurssuivis.search td.action a.dossiers.view {
+	background-image: url("../img/icons/zoom.png");
+}
+
+/* Fiche de prescription 93, partie Ajax */
+body.fichesprescriptions93 div.ajax.select, body.dsps div.ajax.select, body.cuis66 div.ajax.select, body.personnespcgs66 div.ajax.select, body.criteresdossierspcgs66 div.ajax.select, body.cers93 div.ajax.select, body.criteresci div.ajax.select, body.contratsinsertion.search div.ajax.select {
+	position: relative;
+}
+
+body.fichesprescriptions93 div.ajax.select ul, body.dsps div.ajax.select ul, body.cuis66 div.ajax.select ul, body.personnespcgs66 div.ajax.select ul, body.criteresdossierspcgs66 div.ajax.select ul, body.cers93 div.ajax.select ul, body.criteresci div.ajax.select ul, body.contratsinsertion.search div.ajax.select ul {
+	background: white;
+	position: absolute;
+	width: 48%;
+	left: 48%;
+	top: -1em;
+	z-index: 100;
+	list-style: none;
+	max-height: 10em;
+	overflow-y: scroll;
+}
+
+body.cers93 table#Expprocer93 div.ajax.select ul {
+	width: auto;
+	min-width: 25em;
+	left: 0;
+}
+
+body.fichesprescriptions93 div.ajax.select ul li, body.dsps div.ajax.select ul li, body.cuis66 div.ajax.select ul li, body.personnespcgs66 div.ajax.select ul li, body.criteresdossierspcgs66 div.ajax.select ul li, body.cers93 div.ajax.select ul li, body.criteresci div.ajax.select ul li, body.contratsinsertion.search div.ajax.select ul li {
+	padding: 0.125em 0.25em;
+	margin: 0;
+	border-bottom: 1px solid silver;
+}
+
+body.search ul.actions li.action a.search, body.search1 ul.actions li.action a.search1, ul.actions li.action a.search_gestionnaire, a.display_formulaire {
+	background-image: url("../img/icons/application_form_magnify.png");
+}
+
+/* Coordonnées du prescripteur de la fiche de prescription 93 */
+
+body.fichesprescriptions93.add #CoordonneesPrescripteur, body.fichesprescriptions93.edit #CoordonneesPrescripteur,
+body.fichesprescriptions93.add #CoordonneesPrestataire, body.fichesprescriptions93.edit #CoordonneesPrestataire,
+body.cataloguespdisfps93 #CoordonneesPrestataire {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+body.fichesprescriptions93.add #CoordonneesPrescripteur th, body.fichesprescriptions93.edit #CoordonneesPrescripteur th,
+body.fichesprescriptions93.add #CoordonneesPrestataire th, body.fichesprescriptions93.edit #CoordonneesPrestataire th,
+body.cataloguespdisfps93 #CoordonneesPrestataire th{
+	width: 48%;
+	color: black;
+	background: transparent;
+	border: 0;
+}
+
+/* Orientsstructs2 */
+body.index.orientsstructs td.action span.impression_changement_referent.disabled {
+	background-image: url("../img/icons/printer_disabled.png");
+}
+body.index.orientsstructs td.action a.impression_changement_referent {
+	background-image: url("../img/icons/printer.png");
+}
+
+input.loading {
+	background: url("../img/loading.gif") right center no-repeat;
+}
+/* CER 93 */
+body.cers93 fieldset#FormationEtExperience div.input.select select,
+body.cers93 fieldset#FormationEtExperience div.input.text input {
+    max-width: 36em;
+}
+
+body.cers93 fieldset#FormationEtExperience div.input.select label,
+body.cers93 fieldset#FormationEtExperience div.input.text label,
+body.cers93 fieldset#FormationEtExperience div.input.text span.label {
+    width: 13em;
+}
+
+body.cers93 fieldset#FormationEtExperience div.ajax.select ul {
+	left: 13em;
+}
+
+body.cers93.view #FormationEtExpérience h3 {
+	font-size: 1em;
+}
+
+/* Demandes de maintien dans le social (nouveau), CG 58 */
+body.nonorientationsproscovs58 ul.actions li.action a.cohorte {
+	background-image: url("../img/icons/application_form_magnify.png");
+}
+
+body.nonorientationsproscovs58 table td.hidden,
+body.nonorientationsproscovs58 table #TableNonorientationsproscovs58Cohorte1ColumnInputDataCohorteOrientstructPersonneId,
+body.nonorientationsproscovs58 table #TableNonorientationsproscovs58Cohorte1ColumnInputDataCohorteDossierId {
+	display: none;
+}
+
+/* Cohorte de rendez-vous, CG 93 */
+body.cohortesrendezvous ul.actions li.action a.cohorte {
+	background-image: url("../img/icons/application_form_magnify.png");
+}
+
+body.cohortesrendezvous table td.hidden,
+body.cohortesrendezvous table #TableCohortesrendezvousCohorteColumnInputDataCohorteRendezvousId,
+body.cohortesrendezvous table #TableCohortesrendezvousCohorteColumnInputDataCohorteRendezvousPersonneId,
+body.cohortesrendezvous table #TableCohortesrendezvousCohorteColumnInputDataCohorteDossierId {
+	display: none;
+}
+/* Formulaire du CER du CD 66 */
+body.contratsinsertion.add td.contratinsertion_duree_engag label, body.contratsinsertion.edit td.contratinsertion_duree_engag label {
+	font-style: italic;
+	text-align: right;
+	padding-right: 1em;
+}
+
+body.contratsinsertion.add td.contratinsertion_duree_engag div.select select, body.contratsinsertion.edit td.contratinsertion_duree_engag div.select select {
+	display: inline-block;
+}
+
+div.col-2{
+	width: 49%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+div.col-2.gauche{
+	padding-right: 1%;
+}
+
+div.col-2.droite{
+	padding-left: 1%;
+}
+
+#resumeDossier .col-2 table{
+	width: 100%;
+}
+
+/* Page de résumé du dossier, taille des titres pour les départements autres que le 66 */
+body.cg58.dossiers.view #resumeDossier h1, body.cg58.dossiers.view #resumeDossier h2,
+body.cg93.dossiers.view #resumeDossier h1, body.cg93.dossiers.view #resumeDossier h2,
+body.cg976.dossiers.view #resumeDossier h1, body.cg976.dossiers.view #resumeDossier h2 {
+	font-size: 1.58em;
+	margin: 0;
+}
+
+/* Recherche par dossier / allocataire */
+body.search ul.actions li.action a.dossiers.index {
+	background-image: url("../img/icons/application_form_magnify.png");
+}
+
+body.search td.data.dossier_locked {
+	background-image: none;
+	font-size: 0;
+}
+
+body.search td.data.dossier_locked.boolean.true {
+	background-image: url("../img/icons/lock.png");
+}
+
+table.innerTable tr.odd td {
+	background: white;
+}
+
+button[disabled=disabled], button:disabled, input[disabled=disabled], input:disabled, input[type="text"]:disabled {
+    color: silver;
+	background-color: #F0F0F0;
+}
+
+/* Recherche par entretiens */
+body table.tooltips td.action a.index {
+	background-image: url("../img/icons/zoom.png");
+}
+
+/* Multiple checkbox dans une cohorte */
+td div.largeColumn {
+	min-width: 130px;
+	padding-bottom: 5px;
+}
+
+tr.odd td div.largeColumn:hover {
+	background: #E6EEF2;
+}
+
+tr.even td div.largeColumn:hover {
+	background: #FFFFFF;
+}
+
+td div.largeColumn label {
+	width: 113px;
+	padding-left: 3px;
+}
+
+ul li a.refresh_page {
+	background-repeat: no-repeat;
+	padding-left: 25px;
+	text-decoration: none;
+	background-position: 5px center;
+	background-image: url("../img/icons/page_refresh.png");
+}
+
+tr td div.visited a, td.action a.visited {
+	color: #A95BBA;
+}
+
+td.dossier_locked a {
+	background-repeat: no-repeat;
+	padding-left: 25px;
+	text-decoration: none;
+	background-position: 5px center;
+	background-image: url("../img/icons/lock.png");
+	display: inline-block;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-right: 2px;
+}
+
+td.dossier_locked a:hover {
+	background-repeat: no-repeat;
+	padding-left: 25px;
+	text-decoration: none;
+	background-position: 5px center;
+	background-image: url("../img/icons/lock_open.png");
+}
+
+td.data.integer, td.data.float, td.data.numeric {
+	text-align: right;
+}
+
+table.results_table.full_size {
+	width: 100%;
+}
+
+table.results_table.horizontal_view tr:hover th{
+	border-bottom: 1px solid #444444;
+}
+
+table.results_table.full_size.horizontal_view th {
+	width: 33%;
+}
+
+.custom.color.PDA {
+	color: #158000;
+}
+
+.custom.color.PDU {
+	color: #0545df;
+}
+
+body table tbody td.action a.tag_gestionsdoublons_index {
+	background-image: url( ../img/icons/tag_red.png );
+}
+
+body table tbody td.action span.tag_gestionsdoublons_index.disabled {
+	background-image: url( ../img/icons/tag_red_disabled.png );
+}
+
+body table tbody td.action a.affecter {
+	background-image: url( ../img/icons/user_go.png );
+}
+
+body table tbody td.action span.affecter.disabled {
+	background-image: url( ../img/icons/user_go_disabled.png );
+}
+
+body table tbody td.action span.avis.disabled {
+	background-image: url("../img/icons/page_attach_disabled.png");
+}
+
+body table tbody td.action span.validation.disabled,
+body table tbody td.action span.valider.disabled {
+	background-image: url("../img/icons/tick_disabled.png");
+}
+
+body table tbody td.action span.proposition.disabled {
+	background-image: url("../img/icons/application_form_edit_disabled.png");
+}
+
+body table tbody td.action span.notification.disabled {
+	background-image: url("../img/icons/application_view_list_disabled.png");
+}
+
+body table thead th a:visited {
+	color: #FFF;
+}
+
+body table thead th a:hover {
+	color: #C2E0EF;
+}
+
+body table thead th div.container {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+body table thead th div.container, body table thead th div.order-container>a {
+	display: inline-block;
+}
+
+body table thead th div.img-asc, body table thead th div.img-desc {
+	width: 20px;
+	height: 4px;
+	background-repeat: no-repeat;
+}
+
+body table thead th div.container a {
+	display: block;
+	height: 20px;
+}
+
+body table thead th div.container a.arrow-up {
+	padding-top: 15px;
+	height: 5px;
+}
+
+body table thead th div.order-container {
+	padding-right: 20px;
+	position: relative;
+	display: inline-block;
+	min-height: 30px;
+}
+
+body table thead th div.img-asc,
+body table thead th div.container:hover div.img-asc.active,
+body table thead th a.asc:hover + div.container div.img-asc {
+	background-image: url("../img/asc.png");
+}
+
+body table thead th a:hover>div.img-asc,
+body table thead th div.img-asc.active,
+body table thead th a:hover:not(.asc) + div.container div.img-asc {
+	background-image: url("../img/asc_alt.png");
+}
+
+body table thead th div.img-desc,
+body table thead th div.container a.arrow-up:hover + a div.img-desc.active,
+body table thead th a.desc:hover + div.container div.img-desc {
+	background-image: url("../img/desc.png");
+	background-position: bottom;
+}
+
+body table thead th a:hover>div.img-desc,
+body table thead th div.img-desc.active,
+body table thead th a.asc:hover + div.container div.img-desc {
+	background-image: url("../img/desc_alt.png");
+}
+
+div.information {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background-image: url("../img/icons/information.png");
+	background-position: center center;
+	background-repeat: no-repeat;
+
+}
+
+div.information:hover {
+	cursor: pointer;
+	opacity: 0.6;
+    filter: alpha(opacity=60);
+}
+
+table tbody tr.highlighted td {
+	background-color: #C6CED2;
+}
+
+table tbody tr.highlighted.odd td {
+	background-color: #E6EEF2;
+}
+
+table tbody tr.highlighted td.highlight {
+	color: #FF8022;
+}
+
+/* Paramétrage des utilisateurs */
+body table tbody td.action a.users.delete_jetons, body table tbody td.action a.users.delete_jetonsfonctions {
+	background-image: url( ../img/icons/lock.png );
+}
+
+body table tbody td.action span.users.delete_jetons.link.disabled, body table tbody td.action span.users.delete_jetonsfonctions.link.disabled {
+	background-image: url( ../img/icons/lock_disabled.png );
+}
+
+body table tbody td.action a.users.force_logout {
+	background-image: url( ../img/icons/disconnect.png );
+}
+
+body table tbody td.action span.users.force_logout.link.disabled {
+	background-image: url( ../img/icons/disconnect_disabled.png );
+}
+
+body div.beforeLogo {
+	position: absolute;
+	top: 29px;
+	left: 0px;
+	z-index: 3;
+	text-align: right;
+	width: 145px;
+	font-size: 25px;
+}
+
+body div.afterLogo {
+	position: absolute;
+	top: 40px;
+	left: 360px;
+	z-index: 3;
+	font-size: 20px;
+}
+
+/*******************************************************************************
+ * Ecran de synthèse du suivi
+ ******************************************************************************/
+/* CMU, CMU-C */
+body.accompagnementsbeneficiaires table.details tbody td.boolean.encours {
+	background-image: url( ../img/icons/hourglass.png );
+}
+body.accompagnementsbeneficiaires table.details tbody td.boolean.null {
+	background-image: url( ../img/icons/bullet_white.png );
+}
+body.accompagnementsbeneficiaires table.details tbody td.boolean.oui {
+	background-image: url( ../img/icons/tick.png );
+}
+body.accompagnementsbeneficiaires table.details tbody td.boolean.non {
+	background-image: url( ../img/icons/cross.png );
+}
+/* Etats du dossier RSA */
+body.accompagnementsbeneficiaires td.situationdossierrsa {
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 20px;
+	margin-left: 0;
+}
+/* Dossier RSA non défini */
+body.accompagnementsbeneficiaires td.etatdosrsaZ {
+	background-image: url( ../img/icons/error.png );
+}
+/* Dossier RSA en attente */
+body.accompagnementsbeneficiaires td.etatdosrsa0 {
+	background-image: url( ../img/icons/hourglass.png );
+}
+/* Dossier RSA ouvert */
+body.accompagnementsbeneficiaires td.etatdosrsa2, body.accompagnementsbeneficiaires td.etatdosrsa3, body.accompagnementsbeneficiaires td.etatdosrsa4 {
+	background-image: url( ../img/icons/tick.png );
+}
+/* Dossier RSA refusé ou clos */
+body.accompagnementsbeneficiaires td.etatdosrsa1, body.accompagnementsbeneficiaires td.etatdosrsa6, body.accompagnementsbeneficiaires td.etatdosrsa5 {
+	background-image: url( ../img/icons/cross.png );
+}
+
+/* Visualisation d'un Rendezvous' */
+body.rendezvous.view div#ficheCI table {
+    max-width: 61.5em;
+}
+
+body.rendezvous.view div#ficheCI tbody th {
+    width: 20em;
+}
+
+/* Clôture d'un référent' */
+body.referents td.action span.link.cloturer {
+	background-image: url( ../img/icons/date_edit_disabled.png );
+}
+
+/* Menu du dossier, mise en évidence du lien "Synthèse du suivi" pour le CG 93  */
+div#pageContent div.treemenu a.accompagnementsbeneficiaires.index {
+	font-size: 120%;
+	background-color: #32d56e;
+}
+div#pageContent div.treemenu a.accompagnementsbeneficiaires.index.selected {
+	background-color: #a8dbef;
+}
+
+/*******************************************************************************
+ * Redimentionnement automatique des textarea
+ ******************************************************************************/
+div.autoExpandTextareaContainer > textarea, 
+div.autoExpandTextareaContainer > pre {
+	margin: 0;
+	padding: 0;
+	outline: 0;
+	border: 0;
+}
+
+div.autoExpandTextareaContainer {
+	position: relative;
+	display: inline-block;
+	min-width: 250px;
+}
+
+div.autoExpandTextareaContainer > textarea,
+div.autoExpandTextareaContainer > pre {
+	padding: 5px;
+	font: 400 13px/16px helvetica, arial, sans-serif;
+	white-space: pre-wrap;
+	word-wrap: break-word;
+	line-height: 1.2;
+}
+
+div.autoExpandTextareaContainer > textarea {
+	width: 100%;
+	height: 100px;
+}
+
+div.autoExpandTextareaContainer.active > textarea {
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	resize: none;
+	border: 1px solid #C0C0C0;
+	border-radius: 5px;
+	box-shadow: 3px black inset;
+}
+
+div.autoExpandTextareaContainer > pre {
+	display: none;
+	background: transparent;
+	margin-right: 20px;
+}
+
+div.autoExpandTextareaContainer.active > pre {
+	display: block;
+	visibility: hidden;
+}

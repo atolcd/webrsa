@@ -1,0 +1,79 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "Reorientationep93.created"
+msgstr "Date de demande de réorientation"
+
+msgid "Reorientationep93.typeorient_id"
+msgstr "Nouvelle orientation préconisée"
+
+msgid "Reorientationep93.structurereferente_id"
+msgstr "Nouvelle structure préconisée"
+
+msgid "Reorientationep93.motifreorientep93_id"
+msgstr "Motif"
+
+msgid "Reorientationep93.commentaire"
+msgstr "Commentaire"
+
+msgid "Reorientationep93.accordaccueil"
+msgstr "Accord du référent d'accueil ?"
+
+msgid "Reorientationep93.desaccordaccueil"
+msgstr "Si non, indiquer pourquoi"
+
+msgid "Reorientationep93.accordallocataire"
+msgstr "Accord de l'allocataire ?"
+
+msgid "Reorientationep93.urgent"
+msgstr "Demande urgente ?"
+
+msgid "Reorientationep93.datedemande"
+msgstr "Date de demande"
+
+msgid "ENUM::ACCORDACCUEIL::0"
+msgstr "Refus"
+
+msgid "ENUM::ACCORDACCUEIL::1"
+msgstr "Accord"
+
+msgid "ENUM::ACCORDALLOCATAIRE::0"
+msgstr "Refus"
+
+msgid "ENUM::ACCORDALLOCATAIRE::1"
+msgstr "Accord"
+
+msgid "ENUM::URGENT::0"
+msgstr "Non"
+
+msgid "ENUM::URGENT::1"
+msgstr "Oui"
+
+# Moteur de recherche
+
+msgid "Search.Reorientationep93.mode"
+msgstr "Type de dossiers à rechercher"
+
+msgid "Search.Dossierep.commissionep_id"
+msgstr "Date de la commission"
+
+msgid "Reorientationep93::index::empty"
+msgstr "Aucune demande de réorientation étudiée en EP"

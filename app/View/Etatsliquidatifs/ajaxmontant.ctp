@@ -1,0 +1,1 @@
+<?php echo $this->Apreversement->cells( $i, $apre, $nbpaiementsouhait );?>

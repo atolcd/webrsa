@@ -1,0 +1,23 @@
+# Traductions de test.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Savesearch.name"
+msgstr "Nom de la recherche"
+
+msgid "Savesearch.isforgroup"
+msgstr "Disponnible pour mon groupe"
+
+msgid "Savesearch.isformenu"
+msgstr "Ajouter à mon menu"
+
+msgid "Savesearch.created"
+msgstr "Date de création"

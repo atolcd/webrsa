@@ -1,0 +1,93 @@
+# Traductions de cg93_contratsinsertion_exportcsv.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+# A dupliquer dans contratsinsertion_search_cg93
+# ==============================================================================
+
+msgid "Secteuractiexppro.name"
+msgstr "Expériences significatives, secteur INSEE"
+
+msgid "Metierexerceexppro.name"
+msgstr "Expériences significatives, métier INSEE"
+
+msgid "Familleexppro.name"
+msgstr "Expériences significative Code famille"
+
+msgid "Domaineexppro.name"
+msgstr "Expériences significatives Code domaine"
+
+msgid "Metierexppro.name"
+msgstr "Expériences significatives Code métier"
+
+msgid "Appellationexppro.name"
+msgstr "Expériences significatives Appellation métier"
+
+# ------------------------------------------------------------------------------
+
+msgid "Secteuracti.name"
+msgstr "Emploi trouvé Secteur INSEE"
+
+msgid "Metierexerce.name"
+msgstr "Emploi trouvé Métier INSEE"
+
+msgid "Familleemptrouv.name"
+msgstr "Emploi trouvé Code famille"
+
+msgid "Domaineemptrouv.name"
+msgstr "Emploi trouvé Code domaine"
+
+msgid "Metieremptrouv.name"
+msgstr "Emploi trouvé Code métier"
+
+msgid "Appellationemptrouv.name"
+msgstr "Emploi trouvé Appellation métier"
+
+# ------------------------------------------------------------------------------
+
+msgid "Famillesujet.name"
+msgstr "Contrat Code famille"
+
+msgid "Domainesujet.name"
+msgstr "Contrat Code domaine"
+
+msgid "Metiersujet.name"
+msgstr "Contrat Code métier"
+
+msgid "Appellationsujet.name"
+msgstr "Contrat Appellation métier"
+
+# ------------------------------------------------------------------------------
+
+msgid "Structurereferente.lib_struc"
+msgstr "Structure établissant le CER"
+
+msgid "Referent.nom_complet"
+msgstr "Personne établissant le CER"
+
+msgid "Typeorient.lib_type_orient"
+msgstr "Type d'orientation"
+
+msgid "Structurereferenteparcours.lib_struc"
+msgstr "Structure de suivi"
+
+msgid "Referentparcours.nom_complet"
+msgstr "Personne chargée du suivi"
+
+# ------------------------------------------------------------------------------
+
+msgid "Cer93Sujetcer93.commentaireautre"
+msgstr "Autre, précisez"
+
+msgid "Cer93Sujetcer93.autresoussujet"
+msgstr "Autre, précisez"
+
+msgid "Cer93Sujetcer93.autrevaleur"
+msgstr "Autre, précisez"

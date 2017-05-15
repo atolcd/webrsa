@@ -1,0 +1,174 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "Personne.id"
+msgstr "Personne"
+
+msgid "Personne.qual"
+msgstr "Civilité"
+
+msgid "Personne.nom"
+msgstr "Nom"
+
+msgid "Personne.prenom"
+msgstr "Prénom"
+
+msgid "Personne.nir"
+msgstr "NIR"
+
+msgid "Personne.nom_complet"
+msgstr "Nom de la personne"
+
+msgid "Personne.dtnai"
+msgstr "Date de naissance"
+
+msgid "Personne.nomnai"
+msgstr "Nom de naissance"
+
+msgid "Personne.prenom2"
+msgstr "2ème prénom"
+
+msgid "Personne.prenom3"
+msgstr "3ème prénom"
+
+msgid "Personne.nomcomnai"
+msgstr "Commune de naissance"
+
+msgid "Personne.idassedic"
+msgstr "N° identifiant Pôle Emploi"
+
+msgid "Personne.nom_personne"
+msgstr "Nom/Prénom Allocataire"
+
+msgid "Personne.rgnai"
+msgstr "Rang naissance"
+
+msgid "Personne.typedtnai"
+msgstr "Type date de naissance"
+
+# msgid "Personne.nir"
+# msgstr "N° national d'identification (SECU)"
+
+msgid "Personne.topvalec"
+msgstr "Certification de l'état civil de la personne"
+
+msgid "Personne.sexe"
+msgstr "Sexe"
+
+msgid "Personne.nati"
+msgstr "Nationalité"
+
+msgid "Personne.dtnati"
+msgstr "Date Nationalité"
+
+msgid "Personne.pieecpres"
+msgstr "Pièce d'état civil présentée"
+
+msgid "Personne.numfixe"
+msgstr "N° de téléphone fixe"
+
+msgid "Personne.numport"
+msgstr "N° de téléphone portable"
+
+msgid "Personne.email"
+msgstr "Adresse mail"
+
+msgid "Personne.numagenpoleemploi"
+msgstr "Numéro agence Pole emploi"
+
+msgid "Personne.dtinscpoleemploi"
+msgstr "Date inscription Pole emploi"
+
+msgid "Personne.etat_dossier_orientation"
+msgstr "Étape du dossier d'orientation"
+
+msgid "ENUM::ETAT_DOSSIER_ORIENTATION::oriente"
+msgstr "Orienté"
+
+msgid "ENUM::ETAT_DOSSIER_ORIENTATION::en_attente"
+msgstr "En attente"
+
+msgid "ENUM::ETAT_DOSSIER_ORIENTATION::non_oriente"
+msgstr "Non orienté"
+
+msgid "ENUM::ETAT_DOSSIER_ORIENTATION::en_cours_reorientation"
+msgstr "En cours de réorientation"
+
+###############################################################################
+
+msgid "Foyer.Modecontact.numtel"
+msgstr "N° de téléphone"
+
+msgid "Foyer.Dossier.matricule"
+msgstr "N° CAF/MSA"
+
+###############################################################################
+
+msgid "Personnes::filelink"
+msgstr "Liste des fichiers liés à la Personne"
+
+###############################################################################
+
+msgid "Personne.haspiecejointe"
+msgstr "Ajouter une pièce jointe"
+
+msgid "ENUM::HASPIECEJOINTE::1"
+msgstr "Oui"
+
+msgid "ENUM::HASPIECEJOINTE::0"
+msgstr "Non"
+
+msgid "ENUM::NATI::A"
+msgstr "Autre nationalité"
+
+msgid "ENUM::NATI::C"
+msgstr "Ressortissant CEE ou Suisse"
+
+msgid "ENUM::NATI::F"
+msgstr "Française"
+
+msgid "ENUM::PIEECPRES::E"
+msgstr "Pièce d'état civil"
+
+msgid "ENUM::PIEECPRES::P"
+msgstr "Certificat de perte"
+
+msgid "ENUM::QUAL::MME"
+msgstr "Madame"
+
+msgid "ENUM::QUAL::MR"
+msgstr "Monsieur"
+
+msgid "ENUM::SEXE::1"
+msgstr "Homme"
+
+msgid "ENUM::SEXE::2"
+msgstr "Femme"
+
+msgid "ENUM::TYPEDTNAI::J"
+msgstr "Jour inconnu"
+
+msgid "ENUM::TYPEDTNAI::N"
+msgstr "Jour et mois connus"
+
+msgid "ENUM::TYPEDTNAI::O"
+msgstr "Jour et mois inconnus"

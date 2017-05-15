@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<!--
+	@see /usr/lib/php/data/PHP_PMD/resources/rulesets
+-->
+<ruleset name="Custom ruleset"
+	xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd"
+	xsi:noNamespaceSchemaLocation="http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+	<description>
+		Configuration de phpmd pour WebRSA
+	</description>
+
+	<!--
+		@see rulesets/codesize.xml
+	-->
+	<rule ref="rulesets/codesize.xml/CyclomaticComplexity">
+		<priority>1</priority>
+		<properties>
+			<property name="reportLevel" value="60"/>
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/NPathComplexity">
+		<priority>1</priority>
+		<properties>
+			<property name="minimum" value="500000"/>
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+		<priority>1</priority>
+		<properties>
+			<property name="minimum" value="250"/>
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/ExcessiveClassLength">
+		<priority>1</priority>
+		<properties>
+			<property name="minimum" value="2000"/>
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/ExcessiveParameterList">
+		<priority>1</priority>
+		<properties>
+			<property name="minimum" value="10"/>
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/ExcessivePublicCount">
+		<priority>1</priority>
+		<properties>
+			<property name="minimum" value="50"/>
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/TooManyFields">
+		<priority>1</priority>
+		<properties>
+			<property name="maxfields" value="15"/>
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/TooManyMethods">
+		<priority>1</priority>
+		<properties>
+			<property name="maxmethods" value="50"/>
+		</properties>
+	</rule>
+	<rule ref="rulesets/codesize.xml/ExcessiveClassComplexity">
+		<priority>1</priority>
+		<properties>
+			<property name="maximum" value="250"/>
+		</properties>
+	</rule>
+
+	<!--<rule ref="rulesets/controversial.xml"/>-->
+
+	<!--
+		@see rulesets/design.xml
+	-->
+<!--    <rule name="rulesets/design.xml/NumberOfChildren">
+        <priority>1</priority>
+        <properties>
+            <property name="minimum" value="15" />
+        </properties>
+    </rule>
+    <rule name="rulesets/design.xml/DepthOfInheritance">
+        <priority>1</priority>
+        <properties>
+            <property name="minimum" value="6" />
+        </properties>
+    </rule>
+    <rule name="rulesets/design.xml/CouplingBetweenObjects">
+        <priority>1</priority>
+        <properties>
+            <property name="minimum" value="13" />
+        </properties>
+    </rule>-->
+
+	<!--<rule ref="rulesets/naming.xml"/>-->
+
+	<!--<rule ref="rulesets/unusedcode.xml"/>-->
+</ruleset>

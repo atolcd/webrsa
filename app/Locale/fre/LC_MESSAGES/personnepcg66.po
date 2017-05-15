@@ -1,0 +1,49 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+# Enum Propopdo.statutdecision
+###############################################################################
+msgid "Personnepcg66::index::empty"
+msgstr "Aucune personne concernée par ce dossier"
+
+msgid "Personnespcgs66::add"
+msgstr "Ajout d'une personne concernée par le dossier"
+
+msgid "Personnespcgs66::edit"
+msgstr "Modification de la personne concernée par le dossier"
+
+msgid "Personnespcgs66::view"
+msgstr "Visualisation de la personne concernée"
+
+msgid "Personnepcg66.personne_id"
+msgstr "Personne concernée"
+
+msgid "Personnepcg66.categoriegeneral"
+msgstr "Métiers ( général )"
+
+msgid "Personnepcg66.categoriedetail"
+msgstr "Métiers ( détaillé )"
+
+msgid "Situationpdo.Situationpdo"
+msgstr "Motif de la personne"
+
+msgid "Statutpdo.Statutpdo"
+msgstr "Statut de la personne"

@@ -1,0 +1,450 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "Activite.reg"
+msgstr "Régime de protection sociale"
+
+msgid "Activite.act"
+msgstr "Code activité"
+
+msgid "Activite.paysact"
+msgstr "Pays de l'activité"
+
+msgid "Activite.ddact"
+msgstr "Date de début de l'activité"
+
+msgid "Activite.dfact"
+msgstr "Date de fin de l'activité"
+
+msgid "Activite.natcontrtra"
+msgstr "Nature contrat travail"
+
+msgid "Activite.topcondadmeti"
+msgstr "Conditions administratives ETI"
+
+msgid "Activite.hauremusmic"
+msgstr "Hauteur rémunération SMIC"
+
+msgid "ENUM::PAYSACT::FRA"
+msgstr "France"
+
+msgid "ENUM::PAYSACT::LUX"
+msgstr "Luxembourg"
+
+msgid "ENUM::PAYSACT::CEE"
+msgstr "Communauté Européenne (sauf France, et  Luxembourg)"
+
+msgid "ENUM::PAYSACT::ACE"
+msgstr "Assimilé à la Communauté Européenne"
+
+msgid "ENUM::PAYSACT::CNV"
+msgstr "Pays avec convention sauf CEE"
+
+msgid "ENUM::PAYSACT::AUT"
+msgstr "Autres pays"
+
+msgid "ENUM::REG::AA"
+msgstr "ARTISTE/AUTEUR/COMPOSITEUR"
+
+msgid "ENUM::REG::AD"
+msgstr "PF DUES PAR ADMINIS. (NON RETRAITE)"
+
+msgid "ENUM::REG::AG"
+msgstr "AGRICOLE"
+
+msgid "ENUM::REG::AL"
+msgstr "PF DUES PAR ADMINIS. SAUF AL"
+
+msgid "ENUM::REG::AM"
+msgstr "ADMINIS. DROIT PF CAF (NON RETRAITE)"
+
+msgid "ENUM::REG::CL"
+msgstr "COLLECT. LOCALE/HOPIT (NON RETRAITE)"
+
+msgid "ENUM::REG::EF"
+msgstr "EDF - GDF"
+
+msgid "ENUM::REG::EN"
+msgstr "EDUCATION NATIONALE"
+
+msgid "ENUM::REG::FP"
+msgstr "FONCTION PUBLIC HORS EDUC. NAT."
+
+msgid "ENUM::REG::FT"
+msgstr "FRANCE TELECOM"
+
+msgid "ENUM::REG::GE"
+msgstr "GENERAL"
+
+msgid "ENUM::REG::MC"
+msgstr "MARIN DE COMMERCE"
+
+msgid "ENUM::REG::MI"
+msgstr "MINES - REGIME MINIER"
+
+msgid "ENUM::REG::MO"
+msgstr "MINES - REGIME GENERAL"
+
+msgid "ENUM::REG::NI"
+msgstr "NAVIGATION INTERIEURE"
+
+msgid "ENUM::REG::PM"
+msgstr "PECHE"
+
+msgid "ENUM::REG::PT"
+msgstr "LA POSTE"
+
+msgid "ENUM::REG::RE"
+msgstr "RETRAITE ETAB. INDUSTRIEL ETAT"
+
+msgid "ENUM::REG::RL"
+msgstr "RETRAITE COLLECT. LOCALE/HOPIT."
+
+msgid "ENUM::REG::RP"
+msgstr "PERSONNEL RATP"
+
+msgid "ENUM::REG::SN"
+msgstr "S.N.C.F."
+
+msgid "ENUM::REG::TG"
+msgstr "Pensionnés Etat"
+
+msgid "ENUM::ACT::O"
+msgstr "Oui"
+
+msgid "ENUM::ACT::N"
+msgstr "Non"
+
+msgid "ENUM::ACT::P"
+msgstr "Pas de réponse"
+
+msgid "ENUM::NATCONTRTRA::CA"
+msgstr "Contrat aidé (CAV/CIRMA)"
+
+msgid "ENUM::NATCONTRTRA::CDD"
+msgstr "Contrat à durée déterminé"
+
+msgid "ENUM::NATCONTRTRA::CDI"
+msgstr "Contrat à durée indéterminé"
+
+msgid "ENUM::NATCONTRTRA::CUI"
+msgstr "Contrat unique d'insertion"
+
+msgid "ENUM::NATCONTRTRA::CU1"
+msgstr "CUI non marchand (CAE) Etat"
+
+msgid "ENUM::NATCONTRTRA::CU2"
+msgstr "CUI marchand (CIE) Etat"
+
+msgid "ENUM::NATCONTRTRA::CU3"
+msgstr "CUI non marchand (CAE) Cg"
+
+msgid "ENUM::NATCONTRTRA::CU4"
+msgstr "CUI marchand (CIE) Cg"
+
+msgid "ENUM::NATCONTRTRA::INT"
+msgstr "Intérim"
+
+msgid "ENUM::NATCONTRTRA::AUT"
+msgstr "Autre (CAE, CIE, CEC, …)"
+
+msgid "ENUM::NATCONTRTRA::AEN"
+msgstr "Autoentrepreneur"
+
+msgid "ENUM::NATCONTRTRA::VDI"
+msgstr "Vendeur à domicile"
+
+msgid "ENUM::ACT::ABS"
+msgstr "Absent foyer"
+
+msgid "ENUM::ACT::ANI"
+msgstr "Activité + chômeur non indemnisé"
+
+msgid "ENUM::ACT::CAT"
+msgstr "Activité centre aide travail"
+
+msgid "ENUM::ACT::AAP"
+msgstr "Activité en atelier protégé"
+
+msgid "ENUM::ACT::SIN"
+msgstr "Activité inconnue"
+
+msgid "ENUM::ACT::AFA"
+msgstr "Aide familial agricole"
+
+msgid "ENUM::ACT::APP"
+msgstr "Apprenti"
+
+msgid "ENUM::ACT::AMA"
+msgstr "Assistante maternelle agréé"
+
+msgid "ENUM::ACT::SUR"
+msgstr "Bénéf. rente de survivant A.T."
+
+msgid "ENUM::ACT::CBS"
+msgstr "C.A.T. : absent du foyer"
+
+msgid "ENUM::ACT::CLD"
+msgstr "C.A.T. : longue maladie"
+
+msgid "ENUM::ACT::CSA"
+msgstr "C.E.S. et salarié(e)"
+
+msgid "ENUM::ACT::CEA"
+msgstr "C.E.S. maintien abattement"
+
+msgid "ENUM::ACT::CEN"
+msgstr "C.E.S. maintien neutralisation"
+
+msgid "ENUM::ACT::CAC"
+msgstr "Cessation activité pour enfant"
+
+msgid "ENUM::ACT::CHA"
+msgstr "Chôm. + activité"
+
+msgid "ENUM::ACT::CHR"
+msgstr "Chômeur"
+
+msgid "ENUM::ACT::ABA"
+msgstr "Chômeur-alloc de base"
+
+msgid "ENUM::ACT::AFD"
+msgstr "Chômeur-alloc fin de droit"
+
+msgid "ENUM::ACT::AFC"
+msgstr "Chômeur-alloc formation reclass"
+
+msgid "ENUM::ACT::AIN"
+msgstr "Chômeur-alloc insertion"
+
+msgid "ENUM::ACT::ASS"
+msgstr "Chômeur-alloc solidarité specifique"
+
+msgid "ENUM::ACT::ASP"
+msgstr "Chômeur-alloc speciale"
+
+msgid "ENUM::ACT::CDA"
+msgstr "Chômeur aud abat. + activite"
+
+msgid "ENUM::ACT::CDN"
+msgstr "Chômeur aud neut. + activite"
+
+msgid "ENUM::ACT::ADN"
+msgstr "Chômeur aud neutralisation"
+
+msgid "ENUM::ACT::ADA"
+msgstr "Chômeur aud ou pare abattement"
+
+msgid "ENUM::ACT::CAP"
+msgstr "Chômeur et activité > 55% du smic"
+
+msgid "ENUM::ACT::CNI"
+msgstr "Chômeur non indemnisé"
+
+msgid "ENUM::ACT::CPL"
+msgstr "Chômeur partiel"
+
+msgid "ENUM::ACT::CHO"
+msgstr "Chômeur sans justificatif"
+
+msgid "ENUM::ACT::CCV"
+msgstr "Congé conventionnel"
+
+msgid "ENUM::ACT::MAT"
+msgstr "Congé maternité ou paternité"
+
+msgid "ENUM::ACT::CGP"
+msgstr "Congé payé"
+
+msgid "ENUM::ACT::SAB"
+msgstr "Congé sabattique"
+
+msgid "ENUM::ACT::CSS"
+msgstr "Congé sans solde"
+
+msgid "ENUM::ACT::CJT"
+msgstr "Conjoint collaborateur d'E.T.I."
+
+msgid "ENUM::ACT::CES"
+msgstr "Contrat emploi solidarité"
+
+msgid "ENUM::ACT::CIS"
+msgstr "Contrat insertion + salarié dom"
+
+msgid "ENUM::ACT::CIA"
+msgstr "Contrat insertion/activité /dom"
+
+msgid "ENUM::ACT::DSF"
+msgstr "Déclaration situation non fournie"
+
+msgid "ENUM::ACT::DEG"
+msgstr "Dégagé obligation scolaire"
+
+msgid "ENUM::ACT::CAR"
+msgstr "Délai de carence ASSEDIC"
+
+msgid "ENUM::ACT::MMA"
+msgstr "Enfant maintenu maternelle"
+
+msgid "ENUM::ACT::ETU"
+msgstr "Etudiant"
+
+msgid "ENUM::ACT::EBO"
+msgstr "Etudiant boursier R.M.I."
+
+msgid "ENUM::ACT::ETS"
+msgstr "Etudiant salarié"
+
+msgid "ENUM::ACT::EXS"
+msgstr "Expl. agricole en ces/dom"
+
+msgid "ENUM::ACT::FDA"
+msgstr "Fonct. publique chôm. aud abat."
+
+msgid "ENUM::ACT::FDN"
+msgstr "Fonct. publique chôm. aud neut."
+
+msgid "ENUM::ACT::GSA"
+msgstr "Gérant salarié"
+
+msgid "ENUM::ACT::INP"
+msgstr "Inapte"
+
+msgid "ENUM::ACT::NAS"
+msgstr "Inassidu"
+
+msgid "ENUM::ACT::HAN"
+msgstr "Infirme / handicapé"
+
+msgid "ENUM::ACT::ANP"
+msgstr "Inscrit à l'ANPE"
+
+msgid "ENUM::ACT::IAD"
+msgstr "Instruction à domicile"
+
+msgid "ENUM::ACT::JNF"
+msgstr "Justificatif non fourni pour apprenti"
+
+msgid "ENUM::ACT::MMC"
+msgstr "Mal. maternité et chômage abat."
+
+msgid "ENUM::ACT::MMI"
+msgstr "Mal. maternité et chômage neut."
+
+msgid "ENUM::ACT::MAL"
+msgstr "Malade"
+
+msgid "ENUM::ACT::INF"
+msgstr "Malade/Handicap non scolaire"
+
+msgid "ENUM::ACT::SCI"
+msgstr "Malade/Handicap scolarisé"
+
+msgid "ENUM::ACT::MLD"
+msgstr "Maladie longue durée"
+
+msgid "ENUM::ACT::MAR"
+msgstr "Marin pêcheur"
+
+msgid "ENUM::ACT::MOA"
+msgstr "Membre org. comm. en activité"
+
+msgid "ENUM::ACT::MOC"
+msgstr "Membre org. comm. sans activité"
+
+msgid "ENUM::ACT::AMT"
+msgstr "Mi-temps suite plein temps"
+
+msgid "ENUM::ACT::MNE"
+msgstr "Mort né viable ou non viable"
+
+msgid "ENUM::ACT::NOB"
+msgstr "Non soumis obligation scolaire"
+
+msgid "ENUM::ACT::INV"
+msgstr "Pension invalidité"
+
+msgid "ENUM::ACT::NCH"
+msgstr "Plus de droit / Non à charge"
+
+msgid "ENUM::ACT::PRE"
+msgstr "Pré retraite"
+
+msgid "ENUM::ACT::RAT"
+msgstr "Rente AT"
+
+msgid "ENUM::ACT::RET"
+msgstr "Retraite"
+
+msgid "ENUM::ACT::RSA"
+msgstr "Retraite(e) militaire < 60ans"
+
+msgid "ENUM::ACT::RAC"
+msgstr "Réduction activité (C.A.T.)"
+
+msgid "ENUM::ACT::EXP"
+msgstr "Régime Agricole travailleur non salarié"
+
+msgid "ENUM::ACT::ETI"
+msgstr "Régime Général travailleur non salarié"
+
+msgid "ENUM::ACT::DNL"
+msgstr "Sal. non rem. durée légale"
+
+msgid "ENUM::ACT::SAL"
+msgstr "Salarié(e)"
+
+msgid "ENUM::ACT::SSA"
+msgstr "Sans activité"
+
+msgid "ENUM::ACT::SAV"
+msgstr "Sans activité motif COTOREP"
+
+msgid "ENUM::ACT::SAC"
+msgstr "Sans activité refus ANPE"
+
+msgid "ENUM::ACT::SCO"
+msgstr "Scolaire"
+
+msgid "ENUM::ACT::SNA"
+msgstr "Service national actif"
+
+msgid "ENUM::ACT::SFP"
+msgstr "Stage formation professionnelle"
+
+msgid "ENUM::ACT::SNR"
+msgstr "Stage non remunéré et R.M.I."
+
+msgid "ENUM::ACT::PIL"
+msgstr "Stagiaire prog insert locale"
+
+msgid "ENUM::ACT::RMA"
+msgstr "Titulaire contrat CIMA/CAV"
+
+msgid "ENUM::ACT::INT"
+msgstr "Travailleur intermittent"
+
+msgid "ENUM::ACT::TSA"
+msgstr "Travailleur saisonnier"
+
+msgid "ENUM::ACT::VRP"
+msgstr "Voyageur représentant placier"

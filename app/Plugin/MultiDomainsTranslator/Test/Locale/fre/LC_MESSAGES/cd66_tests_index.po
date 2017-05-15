@@ -1,0 +1,21 @@
+# Traductions de CD66_test.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "test"
+msgid_plural "tests"
+msgstr[0] "Traduction pour controller CD66"
+msgstr[1] "Traductions pour controller CD66"
+
+msgid "test.n2"
+msgid_plural "tests.n2"
+msgstr[0] "%s Traduction pour controller CD66"
+msgstr[1] "%s Traductions pour controller CD66"

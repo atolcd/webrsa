@@ -1,0 +1,326 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "Detailressourcemensuelle.ressourcemensuelle_id"
+msgstr "Lien vers Ressource mensuelle n°:"
+
+msgid "Detailressourcemensuelle.natress"
+msgstr "Nature ressources"
+
+msgid "Detailressourcemensuelle.mtnatressmen"
+msgstr "Montant nature ressources mensuelle"
+
+msgid "Detailressourcemensuelle.abaneu"
+msgstr "Abattement / Neutralisation"
+
+msgid "Detailressourcemensuelle.dfpercress"
+msgstr "Date de fin de perception des ressources"
+
+msgid "Detailressourcemensuelle.topprevsubsress"
+msgstr "Présence de revenus de substitution ressources"
+
+msgid "ENUM::NATRESS::000"
+msgstr "Ressources nulles"
+
+msgid "ENUM::NATRESS::001"
+msgstr "Salaires sans abattement supplementaire frais p"
+
+msgid "ENUM::NATRESS::002"
+msgstr "Frais professionnels reels deductibles"
+
+msgid "ENUM::NATRESS::003"
+msgstr "Salaires avec abattement supplementaire frais p"
+
+msgid "ENUM::NATRESS::004"
+msgstr "Abattement supplementaire pour frais profession"
+
+msgid "ENUM::NATRESS::005"
+msgstr "Salaires percus a l'etranger"
+
+msgid "ENUM::NATRESS::006"
+msgstr "Revenus exceptionnels d'activite salarie"
+
+msgid "ENUM::NATRESS::007"
+msgstr "Cav / cirma"
+
+msgid "ENUM::NATRESS::008"
+msgstr "Prime/access. de salaire - Revenus exceptionnels"
+
+msgid "ENUM::NATRESS::009"
+msgstr "Chomage partiel (technique)"
+
+msgid "ENUM::NATRESS::010"
+msgstr "Allocations de chomage"
+
+msgid "ENUM::NATRESS::011"
+msgstr "Indem. maladie/maternite/pater."
+
+msgid "ENUM::NATRESS::012"
+msgstr "Accident travail/maladie prof."
+
+msgid "ENUM::NATRESS::013"
+msgstr "Indemnites maternite/partenite/adoption"
+
+msgid "ENUM::NATRESS::014"
+msgstr "Autres ijss (maladie, at, mp)"
+
+msgid "ENUM::NATRESS::020"
+msgstr "Pre-retraite"
+
+msgid "ENUM::NATRESS::021"
+msgstr "Pension d'invalidite"
+
+msgid "ENUM::NATRESS::022"
+msgstr "Pension de vieillesse imposable"
+
+msgid "ENUM::NATRESS::023"
+msgstr "Contrat d'epargne - handicape"
+
+msgid "ENUM::NATRESS::024"
+msgstr "Rente viagere a titre gratuit"
+
+msgid "ENUM::NATRESS::025"
+msgstr "Allocation de veuvage"
+
+msgid "ENUM::NATRESS::026"
+msgstr "Pensions alimentaires recues"
+
+msgid "ENUM::NATRESS::027"
+msgstr "Rente viagere onereux - tiers"
+
+msgid "ENUM::NATRESS::028"
+msgstr "Pension vieill. non imposable"
+
+msgid "ENUM::NATRESS::029"
+msgstr "Majoration pension/retraite non imposable"
+
+msgid "ENUM::NATRESS::030"
+msgstr "Revenu des professions non salariees"
+
+msgid "ENUM::NATRESS::031"
+msgstr "Revenu profes non salar. non fixe ou inconnu"
+
+msgid "ENUM::NATRESS::032"
+msgstr "Forfait agricole"
+
+msgid "ENUM::NATRESS::033"
+msgstr "Forfait agricole non fixe"
+
+msgid "ENUM::NATRESS::034"
+msgstr "Revenu eti non cga ni micro-bic"
+
+msgid "ENUM::NATRESS::040"
+msgstr "Revenus fonciers et immobiliers"
+
+msgid "ENUM::NATRESS::041"
+msgstr "Autres revenus imposables"
+
+msgid "ENUM::NATRESS::042"
+msgstr "Ressources de l'ex-conjoint (pinna)"
+
+msgid "ENUM::NATRESS::043"
+msgstr "Revenus soumis a prelevement liberatoire"
+
+msgid "ENUM::NATRESS::044"
+msgstr "Argent placé"
+
+msgid "ENUM::NATRESS::050"
+msgstr "Eval forf (salaires) ttes prest"
+
+msgid "ENUM::NATRESS::051"
+msgstr "Eval forf (eti) ttes prest"
+
+msgid "ENUM::NATRESS::052"
+msgstr "Evaluation forfaitaire (cat)"
+
+msgid "ENUM::NATRESS::053"
+msgstr "Evaluat. forfait. (salaires) / apl"
+
+msgid "ENUM::NATRESS::054"
+msgstr "Evaluation forfaitaire eti/ apl"
+
+msgid "ENUM::NATRESS::055"
+msgstr "Evaluation forfaitaire (esat g.r. 01/2007)"
+
+msgid "ENUM::NATRESS::060"
+msgstr "Pension alimentaire versee"
+
+msgid "ENUM::NATRESS::061"
+msgstr "Frais de garde"
+
+msgid "ENUM::NATRESS::062"
+msgstr "Deficit profes. annee de ref."
+
+msgid "ENUM::NATRESS::063"
+msgstr "Deficit foncier"
+
+msgid "ENUM::NATRESS::064"
+msgstr "Csg deductible revenus patrim."
+
+msgid "ENUM::NATRESS::065"
+msgstr "Cotisations volontaires ss"
+
+msgid "ENUM::NATRESS::066"
+msgstr "Frais de tutelle deductibles"
+
+msgid "ENUM::NATRESS::070"
+msgstr "Rente accident de travail  a titre personnel"
+
+msgid "ENUM::NATRESS::071"
+msgstr "Pension militaire invalidite"
+
+msgid "ENUM::NATRESS::072"
+msgstr "Pension victime de guerre"
+
+msgid "ENUM::NATRESS::080"
+msgstr "Salarie o.d (x 12)"
+
+msgid "ENUM::NATRESS::082"
+msgstr "Salarie autre renouvellement (x 12)"
+
+msgid "ENUM::NATRESS::083"
+msgstr "Salarie 1er renouvellement (x 12)"
+
+msgid "ENUM::NATRESS::085"
+msgstr "Eti od (profession non salariee)"
+
+msgid "ENUM::NATRESS::087"
+msgstr "Eti autre renouvellement (profess. non salariee)"
+
+msgid "ENUM::NATRESS::088"
+msgstr "Eti 1er renouvellement (profess. non salariee)"
+
+msgid "ENUM::NATRESS::100"
+msgstr "Evaluation non connue profession non salariée"
+
+msgid "ENUM::NATRESS::200"
+msgstr "Revenus d'activite d'insertion (hors cre, ces)"
+
+msgid "ENUM::NATRESS::201"
+msgstr "Remuneration stage formation"
+
+msgid "ENUM::NATRESS::203"
+msgstr "Secours ou aides financieres reguliers"
+
+msgid "ENUM::NATRESS::204"
+msgstr "Indemnites representatives de frais"
+
+msgid "ENUM::NATRESS::205"
+msgstr "Revenu eti/marin pecheur/exploit agricole-rmi"
+
+msgid "ENUM::NATRESS::206"
+msgstr "Pf versees par un autre organisme"
+
+msgid "ENUM::NATRESS::207"
+msgstr "Nombre de repas rmi"
+
+msgid "ENUM::NATRESS::211"
+msgstr "Abattement / neutralisation rmi en montant"
+
+msgid "ENUM::NATRESS::212"
+msgstr "Bourse d'etudes"
+
+msgid "ENUM::NATRESS::213"
+msgstr "Nombre asf fictives rmi"
+
+msgid "ENUM::NATRESS::214"
+msgstr "Montant asf fictive rmi"
+
+msgid "ENUM::NATRESS::215"
+msgstr "Revenus d'activite d'insertion (cre, ces)"
+
+msgid "ENUM::NATRESS::216"
+msgstr "Nombre d'heures travaillees"
+
+msgid "ENUM::NATRESS::217"
+msgstr "RSTA (DOM)"
+
+msgid "ENUM::NATRESS::300"
+msgstr "Montant revenu sans pf pour api"
+
+msgid "ENUM::NATRESS::301"
+msgstr "Montant pf caf cedante - api"
+
+msgid "ENUM::NATRESS::302"
+msgstr "Mt forfait caf cedante - api"
+
+msgid "ENUM::NATRESS::303"
+msgstr "Montant allocation veuvage pour api"
+
+msgid "ENUM::NATRESS::305"
+msgstr "Avantages fictifs (p.a.,...)"
+
+msgid "ENUM::NATRESS::306"
+msgstr "Revenu createur d'entreprise"
+
+msgid "ENUM::NATRESS::400"
+msgstr "Mont. (proport.) mensuel pension"
+
+msgid "ENUM::NATRESS::402"
+msgstr "Garantie de ressources"
+
+msgid "ENUM::NATRESS::403"
+msgstr "Salaire direct (en pourcentage smic)"
+
+msgid "ENUM::NATRESS::404"
+msgstr "Complement de remuneration"
+
+msgid "ENUM::NATRESS::405"
+msgstr "Salaire direct (en euros)"
+
+msgid "ENUM::NATRESS::406"
+msgstr "Maintien avi (oheix)"
+
+msgid "ENUM::NATRESS::407"
+msgstr "Maintien garantie de ressources (oheix)"
+
+msgid "ENUM::NATRESS::408"
+msgstr "Maintien salaire oheix (pourcent.)"
+
+msgid "ENUM::NATRESS::409"
+msgstr "Maintien cplt remun. (oheix)"
+
+msgid "ENUM::NATRESS::410"
+msgstr "Maintien salaire oheix (euros)"
+
+msgid "ENUM::NATRESS::500"
+msgstr "Montant pf etrangeres percues"
+
+msgid "ENUM::NATRESS::600"
+msgstr "Revenu d'activite aged"
+
+msgid "ENUM::NATRESS::602"
+msgstr "Revenu trimestriel aged"
+
+msgid "ENUM::NATRESS::777"
+msgstr "Autres revenus pour le rso"
+
+msgid "ENUM::NATRESS::888"
+msgstr "Ressources effacees sur demande allocataire"
+
+msgid "ENUM::NATRESS::999"
+msgstr "Refus declarer ressources superieures plafond"
+
+msgid "ENUM::ABANEU::A"
+msgstr "Abattement"
+
+msgid "ENUM::ABANEU::N"
+msgstr "Neutralisation"

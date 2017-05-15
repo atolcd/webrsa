@@ -1,0 +1,83 @@
+# Traductions de cg66_actionscandidats_personnes_search.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/ActionscandidatsPersonnes/search/:heading"
+msgstr "Recherche par Fiches de candidature (nouveau)"
+
+msgid "/ActionscandidatsPersonnes/search"
+msgstr "Formulaire"
+
+msgid "/ActionscandidatsPersonnes/search/:title"
+msgstr "Formulaire"
+
+msgid "ActioncandidatPersonne.search"
+msgstr "Filtrer par Fiche de candidature"
+
+msgid "Search.Contactpartenaire.partenaire_id"
+msgstr "Libellé du partenaire"
+
+msgid "Search.ActioncandidatPersonne.actioncandidat_id"
+msgstr "Action engagée"
+
+msgid "Search.ActioncandidatPersonne.referent_id"
+msgstr "Nom du prescripteur"
+
+msgid "Search.ActioncandidatPersonne.positionfiche"
+msgstr "Position de la fiche"
+
+msgid "Search.ActioncandidatPersonne.datesignature"
+msgstr "Date de Fiche de candidature"
+
+msgid "ActioncandidatPersonne.nomprestataire"
+msgstr "Nom du prestataire"
+
+msgid "ActioncandidatPersonne.motifsortie_id"
+msgstr "Motif de sortie"
+
+msgid "/ActionscandidatsPersonnes/cohorte_enattente/:heading"
+msgstr "Fiches de candidature en attente"
+
+msgid "ActionscandidatsPersonnes.cohorte_enattente"
+msgstr "Rechercher par Fiche de candidature"
+
+msgid "Search.Partenaire.codepartenaire"
+msgstr "Code partenaire"
+
+msgid "data[Cohorte][][ActioncandidatPersonne][selection]"
+msgstr "Sélection"
+
+msgid "data[Cohorte][][ActioncandidatPersonne][bilanvenu]"
+msgstr "Venu(e) ?"
+
+msgid "data[Cohorte][][ActioncandidatPersonne][bilanretenu]"
+msgstr "Retenu(e) ?"
+
+msgid "data[Cohorte][][ActioncandidatPersonne][infocomplementaire]"
+msgstr "Informations complémentaires"
+
+msgid "/ActionscandidatsPersonnes/cohorte_encours/:heading"
+msgstr "Fiches de candidature en cours"
+
+msgid "ActionscandidatsPersonnes.cohorte_encours"
+msgstr "Rechercher par Fiche de candidature"
+
+msgid "data[Cohorte][][ActioncandidatPersonne][issortie]"
+msgstr "Sortie"
+
+msgid "data[Cohorte][][ActioncandidatPersonne][motifsortie_id]"
+msgstr "Motif de sortie"
+
+msgid "data[Cohorte][][ActioncandidatPersonne][sortiele]"
+msgstr "Date de sortie"
+
+msgid "data[Cohorte][][ActioncandidatPersonne][datebilan]"
+msgstr "Date bilan"

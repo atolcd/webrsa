@@ -1,0 +1,171 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+msgid "Foyer.Modecontact.numtel"
+msgstr "N° de téléphone"
+
+msgid "Foyer.Dossier.matricule"
+msgstr "N° CAF/MSA"
+
+msgid "Foyer.sitfam"
+msgstr "Situation familiale"
+
+msgid "Foyer.typeocclog"
+msgstr "Conditions de logement"
+
+msgid "Foyer.mtvallocterr"
+msgstr "Montant de la valeur locative du terrain non loué"
+
+msgid "Foyer.mtvalloclog"
+msgstr "Montant de la valeur locative du logement non loué"
+
+msgid "Foyer.contefichliairsa"
+msgstr "Contenu de la fiche de liaison"
+
+msgid "Foyer.mtestrsa"
+msgstr "Montant estimé du droit rSa"
+
+msgid "Foyer.enerreur"
+msgstr "Alerte composition du foyer ?"
+
+msgid "Foyer.sansprestation"
+msgstr "Personne sans prestation ?"
+
+msgid "Module:Foyers"
+msgstr "Module Foyer"
+
+msgid "Foyers::filelink"
+msgstr "Corbeille PCG"
+
+msgid "Foyer.filelink"
+msgstr "Ajouter un nouveau fichier"
+
+msgid "Foyer::corbeille"
+msgstr "Accueil de la corbeille PCG"
+
+msgid "Foyer.haspiecejointe"
+msgstr "Ajout d'une pièce supplémentaire"
+
+msgid "Foyer.ddsitfam"
+msgstr "Date début situation familiale"
+
+msgid "Foyer.regagrifam"
+msgstr "Régime agricole familial"
+
+msgid "Foyer.raisoctieelectdom"
+msgstr "Nom de la raison sociale du Tiers ou nom d'usage de la personne"
+
+###############################################################################
+# Enums
+###############################################################################
+
+# sitfam
+
+msgid "ENUM::SITFAM::ABA"
+msgstr "Disparu (jugement d'absence)"
+
+msgid "ENUM::SITFAM::CEL"
+msgstr "Célibataire"
+
+msgid "ENUM::SITFAM::DIV"
+msgstr "Divorcé(e)"
+
+msgid "ENUM::SITFAM::ISO"
+msgstr "Isolement après vie maritale ou PACS"
+
+msgid "ENUM::SITFAM::MAR"
+msgstr "Mariage"
+
+msgid "ENUM::SITFAM::PAC"
+msgstr "PACS"
+
+msgid "ENUM::SITFAM::RPA"
+msgstr "Reprise vie commune sur PACS"
+
+msgid "ENUM::SITFAM::RVC"
+msgstr "Reprise vie maritale"
+
+msgid "ENUM::SITFAM::RVM"
+msgstr "Reprise mariage"
+
+msgid "ENUM::SITFAM::SEF"
+msgstr "Séparation de fait"
+
+msgid "ENUM::SITFAM::SEL"
+msgstr "Séparation légale"
+
+msgid "ENUM::SITFAM::VEU"
+msgstr "Veuvage"
+
+msgid "ENUM::SITFAM::VIM"
+msgstr "Vie maritale"
+
+# typeocclog
+
+msgid "ENUM::TYPEOCCLOG::ACC"
+msgstr "Proprietaire avec charges de remboursement"
+
+msgid "ENUM::TYPEOCCLOG::BAL"
+msgstr "Forfait logement a appliquer"
+
+msgid "ENUM::TYPEOCCLOG::HCG"
+msgstr "Hébergement collectif a titre gratuit"
+
+msgid "ENUM::TYPEOCCLOG::HCO"
+msgstr "Hébergement collectif a titre onereux"
+
+msgid "ENUM::TYPEOCCLOG::HGP"
+msgstr "Hébergement à titre gratuit par des particuliers"
+
+msgid "ENUM::TYPEOCCLOG::HOP"
+msgstr "Hébergement onereux par des particuliers"
+
+msgid "ENUM::TYPEOCCLOG::HOT"
+msgstr "Hotel"
+
+msgid "ENUM::TYPEOCCLOG::LOC"
+msgstr "Locataire ou sous locataire"
+
+msgid "ENUM::TYPEOCCLOG::OLI"
+msgstr "Occupation logement inconnue"
+
+msgid "ENUM::TYPEOCCLOG::PRO"
+msgstr "Proprietaire sans charges de remboursement"
+
+msgid "ENUM::TYPEOCCLOG::SRG"
+msgstr "Sans resid. stable avec forfait logement"
+
+msgid "ENUM::TYPEOCCLOG::SRO"
+msgstr "Sans resid. stable sans forfait logement"
+
+# haspiecejointe
+
+msgid "ENUM::HASPIECEJOINTE::0"
+msgstr "Non"
+
+msgid "ENUM::HASPIECEJOINTE::1"
+msgstr "Oui"
+
+msgid "ENUM::REGAGRIFAM::NSA"
+msgstr "NON SALARIE AGRICOLE"
+
+msgid "ENUM::REGAGRIFAM::SA"
+msgstr "SALARIE AGRICOLE"

@@ -1,0 +1,38 @@
+# Traductions de criterestransfertspdvs93.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Adresse.codepos"
+msgstr "Code postal précédent"
+
+msgid "Adresse.nomcom"
+msgstr "Nom de commune précédente"
+
+msgid "Personne.qual"
+msgstr "Civilité allocataire"
+
+msgid "Personne.nom"
+msgstr "Nom allocataire"
+
+msgid "Personne.prenom"
+msgstr "Prénom allocataire"
+
+msgid "Prestation.rolepers"
+msgstr "Rôle allocataire"
+
+msgid "Transfertpdv93.created"
+msgstr "Date de transfert"
+
+msgid "VxStructurereferente.lib_struc"
+msgstr "Structure référente source"
+
+msgid "NvStructurereferente.lib_struc"
+msgstr "Transféré vers"

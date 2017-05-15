@@ -1,0 +1,72 @@
+# Traductions de ficheprescription93.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "ENUM::STATUT::01renseignee"
+msgstr "Renseignée"
+
+msgid "ENUM::STATUT::02signee"
+msgstr "Signée"
+
+msgid "ENUM::STATUT::03transmise_partenaire"
+msgstr "Transmise partenaire"
+
+msgid "ENUM::STATUT::04effectivite_renseignee"
+msgstr "Effectivité renseignée"
+
+msgid "ENUM::STATUT::05suivi_renseigne"
+msgstr "Suivi renseigné"
+
+msgid "ENUM::STATUT::99annulee"
+msgstr "Annulée"
+
+# ==============================================================================
+
+msgid "ENUM::BENEF_RETOUR_PRESENTE::oui"
+msgstr "Oui"
+
+msgid "ENUM::BENEF_RETOUR_PRESENTE::non"
+msgstr "Non"
+
+msgid "ENUM::BENEF_RETOUR_PRESENTE::excuse"
+msgstr "S'est excusée"
+
+# ==============================================================================
+
+msgid "ENUM::PERSONNE_RECUE::0"
+msgstr "Non"
+
+msgid "ENUM::PERSONNE_RECUE::1"
+msgstr "Oui"
+
+# ==============================================================================
+
+msgid "ENUM::PERSONNE_RETENUE::0"
+msgstr "Non"
+
+msgid "ENUM::PERSONNE_RETENUE::1"
+msgstr "Oui"
+
+# ==============================================================================
+
+msgid "ENUM::PERSONNE_SOUHAITE_INTEGRER::0"
+msgstr "Non"
+
+msgid "ENUM::PERSONNE_SOUHAITE_INTEGRER::1"
+msgstr "Oui"
+
+# ==============================================================================
+
+msgid "ENUM::PERSONNE_A_INTEGRE::0"
+msgstr "Non"
+
+msgid "ENUM::PERSONNE_A_INTEGRE::1"
+msgstr "Oui"

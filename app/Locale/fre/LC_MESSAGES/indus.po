@@ -1,0 +1,53 @@
+# Traductions de indus.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Indus/search/:heading"
+msgstr "Recherche par indus (nouveau)"
+
+msgid "/Indus/search"
+msgstr "Formulaire"
+
+msgid "/Indus/search/:title"
+msgstr "Formulaire"
+
+msgid "Infofinanciere.search"
+msgstr "Recherche d'Indu"
+
+msgid "Search.Infofinanciere.natpfcre"
+msgstr "Type d'indu"
+
+msgid "Search.Dossier.typeparte"
+msgstr "Suivi"
+
+msgid "Search.Infofinanciere.compare"
+msgstr "Opérateurs"
+
+msgid "Search.Infofinanciere.mtmoucompta"
+msgstr "Montant de l'indu"
+
+msgid "/Indus/view"
+msgstr "Voir"
+
+msgid "/Indus/view/#Dossier.id#"
+msgstr "Voir les indus de #Personne.nom_complet#"
+
+msgid "Indu.moismoucompta"
+msgstr "Date indus"
+
+msgid "IndusConstates.mtmoucompta"
+msgstr "Montant initial de l'indu"
+
+msgid "IndusTransferesCG.mtmoucompta"
+msgstr "Montant transféré CG"
+
+msgid "RemisesIndus.mtmoucompta"
+msgstr "Remise CG"

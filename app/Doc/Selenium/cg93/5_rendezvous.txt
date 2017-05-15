@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://webrsa.local/" />
+<title>New Test</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">New Test</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Par dossier / allocataire</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Rechercher']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=4</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[@id='innerTableTrigger9']/td[7]/a/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//img[@title='Étendre le menu ']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Gestion RDV</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Ajouter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RendezvousStructurereferenteId</td>
+	<td>label=Pole Emploi d'Aubervilliers</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RendezvousReferentId</td>
+	<td>label=MME LE BRECH Tiphaine</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RendezvousTyperdvId</td>
+	<td>label=Pour Contrat d'insertion</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RendezvousStatutrdvId</td>
+	<td>label=Présent(e)</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RendezvousHeurerdvHour</td>
+	<td>label=12</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RendezvousHeurerdvMin</td>
+	<td>label=35</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RendezvousDaterdvDay</td>
+	<td>label=5</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RendezvousDaterdvMonth</td>
+	<td>label=mars</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RendezvousDaterdvYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Modifier</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RendezvousDaterdvDay</td>
+	<td>label=16</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>RendezvousObjetrdv</td>
+	<td>le rencontrer</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Voir</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Back</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Fichiers liés</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>RendezvousHaspiecejointe0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Supprimer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>Etes-vous sûr de vouloir supprimer le rendez-vous?</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

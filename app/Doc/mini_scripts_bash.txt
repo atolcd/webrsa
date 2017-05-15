@@ -1,0 +1,5 @@
+20110216: renommage des fixtures (changement de classe parente) et inclusion du fichier de la classe parente
+--------------------------------------------------------------------------------
+svn revert app/tests/fixtures/*
+find ./app/tests/fixtures -regex ".*\(php\)$" | grep -v "\.svn" | xargs sed -i "s/CakeTestFixture/CakeAppTestFixture/g"
+find ./app/tests/fixtures -regex ".*\(php\)$" | grep -v "\.svn" | xargs sed -i "s/<?php/<?php\n\trequire_once( TESTS.\'cake_app_test_fixture.php\' );/g"

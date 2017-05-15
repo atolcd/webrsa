@@ -1,0 +1,120 @@
+# Traductions de primoanalyses.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+# Titres
+# ==============================================================================
+
+msgid "/Primoanalyses/view/:heading"
+msgstr "Vue d'une primo analyse"
+
+msgid "/Primoanalyses/affecter/:heading"
+msgstr "Affectation à une primo analyse"
+
+msgid "/Primoanalyses/proposition/:heading"
+msgstr "Primo analyse"
+
+msgid "/Primoanalyses/avis/:heading"
+msgstr "Avis technique sur la Primo analyse"
+
+msgid "/Primoanalyses/validation/:heading"
+msgstr "Validation de la Primo analyse"
+
+msgid "/Primoanalyses/vu/:heading"
+msgstr "Action \"Vu\" de la Primo analyse"
+
+msgid "/Primoanalyses/afaire/:heading"
+msgstr "Action \"A faire\" de la Primo analyse"
+
+
+# ==============================================================================
+# Champs
+# ==============================================================================
+
+msgid "Fichedeliaison.motiffichedeliaison_id"
+msgstr "Motif de la saisine"
+
+msgid "Fichedeliaison.expediteur_id"
+msgstr "Expéditeur"
+
+msgid "Fichedeliaison.destinataire_id"
+msgstr "Destinataire"
+
+msgid "Fichedeliaison.datefiche"
+msgstr "Date"
+
+msgid "Fichedeliaison.commentaire"
+msgstr "Commentaire"
+
+msgid "Fichedeliaison.etat"
+msgstr "Etat de la fiche"
+
+msgid "FichedeliaisonPersonne.personne_id"
+msgstr "Concerne"
+
+msgid "Avistechniquefiche.date"
+msgstr "Date de la fiche"
+
+msgid "Avistechniquefiche.choix"
+msgstr "Choix"
+
+msgid "Avistechniquefiche.commentaire"
+msgstr "Commentaire"
+
+msgid "Validationfiche.date"
+msgstr "Date de la validation"
+
+msgid "Validationfiche.choix"
+msgstr "Choix"
+
+msgid "Validationfiche.commentaire"
+msgstr "Commentaire"
+
+msgid "Primoanalyse.etat"
+msgstr "Etat"
+
+msgid "Primoanalyse.user_id"
+msgstr "Gestionnaire"
+
+msgid "Primoanalyse.dateaffectation"
+msgstr "Date de l'affectation"
+
+msgid "LogicielprimoPrimoanalyse.consultation"
+msgstr "Date de la consultation"
+
+msgid "Primoanalyse.createdossierpcg"
+msgstr "Créer un dossier PCG ?"
+
+msgid "Primoanalyse.propositionprimo_id"
+msgstr "Proposition"
+
+msgid "Primoanalyse.dateprimo"
+msgstr "Date de la proposition"
+
+msgid "Primoanalyse.commentaire"
+msgstr "Commentaire"
+
+msgid "Avistechniqueprimo.date"
+msgstr "Date de l'avis technique"
+
+msgid "Avistechniqueprimo.choix"
+msgstr "Choix"
+
+msgid "Avistechniqueprimo.commentaire"
+msgstr "Commentaire"
+
+msgid "Validationprimo.date"
+msgstr "Date de la validation"
+
+msgid "Validationprimo.choix"
+msgstr "Choix"
+
+msgid "Validationprimo.commentaire"
+msgstr "Commentaire"

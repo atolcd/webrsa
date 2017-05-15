@@ -1,0 +1,267 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "Titresejour.ddtitsej"
+msgstr "Date début titre de séjour"
+
+msgid "Titresejour.dftitsej"
+msgstr "Date fin titre de séjour"
+
+msgid "Titresejour.dtentfra"
+msgstr "Date d'entrée en France"
+
+msgid "Titresejour.nattitsej"
+msgstr "Nature du titre de séjour"
+
+msgid "Titresejour.menttitsej"
+msgstr "Mention du titre de séjour"
+
+msgid "Titresejour.numtitsej"
+msgstr "Numéro du titre de séjour"
+
+msgid "Titresejour.numduptitsej"
+msgstr "Numéro du duplicata du titre de séjour"
+
+msgid "ENUM::NATTITSEJ::AND"
+msgstr "Titre d'identit‚ d'andorran"
+
+msgid "ENUM::NATTITSEJ::APF"
+msgstr "Attestation préfectorale"
+
+msgid "ENUM::NATTITSEJ::APS"
+msgstr "Autorisation provisoire de s‚jour"
+
+msgid "ENUM::NATTITSEJ::APT"
+msgstr "Autorisation provisoire de travail"
+
+msgid "ENUM::NATTITSEJ::AUT"
+msgstr "Autres"
+
+msgid "ENUM::NATTITSEJ::CRA"
+msgstr "Certificat de résidence de ressortissant Algérien"
+
+msgid "ENUM::NATTITSEJ::CRC"
+msgstr "Carte de Ressortissant Communautaire ou Suisse"
+
+msgid "ENUM::NATTITSEJ::CRE"
+msgstr "Carte de résident"
+
+msgid "ENUM::NATTITSEJ::CST"
+msgstr "Carte de séjour temporaire"
+
+msgid "ENUM::NATTITSEJ::CTS"
+msgstr "Contrat de travail saisonnier"
+
+msgid "ENUM::NATTITSEJ::DIS"
+msgstr "Dispense de titre de séjour"
+
+msgid "ENUM::NATTITSEJ::DCE"
+msgstr "Document de circulation pour étranger mineur"
+
+msgid "ENUM::NATTITSEJ::FRO"
+msgstr "Carte de frontalier"
+
+msgid "ENUM::NATTITSEJ::MON"
+msgstr "Passeport mon‚gasque"
+
+msgid "ENUM::NATTITSEJ::OFP"
+msgstr "Livret de famille ou acte de naissance OFPRA"
+
+msgid "ENUM::NATTITSEJ::OMI"
+msgstr "Certificat delivré par l'ANAEM(ex-OMI) valant autorisation séjour"
+
+msgid "ENUM::NATTITSEJ::PDC"
+msgstr "Membres du personnel diplomatiques et consulaires"
+
+msgid "ENUM::NATTITSEJ::RAF"
+msgstr "Récépissé admission en France au titre de l'asile"
+
+msgid "ENUM::NATTITSEJ::RDA"
+msgstr "Récépissé dépôt demande d'asile"
+
+msgid "ENUM::NATTITSEJ::REF"
+msgstr "Certificat de refugié"
+
+msgid "ENUM::NATTITSEJ::RCS"
+msgstr "Récépissé renouvellement de carte de séjour temporaire"
+
+msgid "ENUM::NATTITSEJ::RPI"
+msgstr "Récépissé reconnaissance protection internationale"
+
+msgid "ENUM::NATTITSEJ::RRA"
+msgstr "Récécissé renouvel. certificat résidence ressortissant algérien"
+
+msgid "ENUM::NATTITSEJ::RRE"
+msgstr "Récépissé carte résident"
+
+msgid "ENUM::NATTITSEJ::RSA"
+msgstr "Récépissé dépôt demande statut refugié ou adm bénéfice asile"
+
+msgid "ENUM::NATTITSEJ::RSR"
+msgstr "Récépissé dépôt demande statut refugié"
+
+msgid "ENUM::NATTITSEJ::RTS"
+msgstr "Récépissé demande TSJ"
+
+msgid "ENUM::NATTITSEJ::RUN"
+msgstr "Récépissé de 1ère demande de titre de s‚jour"
+
+msgid "ENUM::NATTITSEJ::RVA"
+msgstr "Récépissé demande TSJ valant autorisation de séjour"
+
+msgid "ENUM::NATTITSEJ::VAC"
+msgstr "Visa délivré par l'Autorité Consulaire"
+
+msgid "ENUM::NATTITSEJ::VLS"
+msgstr "Visa de long séjour"
+
+msgid "ENUM::NATTITSEJ::CVC"
+msgstr "Conversion Cristal - Valeur de transposition"
+
+msgid "ENUM::MENTTITSEJ::AC"
+msgstr "Absence Condition Mention"
+
+msgid "ENUM::MENTTITSEJ::AD"
+msgstr "Apatride"
+
+msgid "ENUM::MENTTITSEJ::AM"
+msgstr "Autres mentions"
+
+msgid "ENUM::MENTTITSEJ::AO"
+msgstr "Fourniture TS tardive - Attente justificatif OFII"
+
+msgid "ENUM::MENTTITSEJ::AP"
+msgstr "Activité professionnelle et résidence de moins de 5ans"
+
+msgid "ENUM::MENTTITSEJ::A5"
+msgstr "Activité professionnelle et résidence de plus de 5ans"
+
+msgid "ENUM::MENTTITSEJ::AS"
+msgstr "Etranger admis au titre de l'asile"
+
+msgid "ENUM::MENTTITSEJ::AT"
+msgstr "Il autorise son titulaire … travailler"
+
+msgid "ENUM::MENTTITSEJ::CA"
+msgstr "Constatant le dépôt d'une demande d'asile"
+
+msgid "ENUM::MENTTITSEJ::CN"
+msgstr "A déposé un recours devant le CNDA"
+
+msgid "ENUM::MENTTITSEJ::CR"
+msgstr "Constatant le dépôt d'une demande de rééxamen"
+
+msgid "ENUM::MENTTITSEJ::CS"
+msgstr "Carte spéciale jusqu'en 03/1996"
+
+msgid "ENUM::MENTTITSEJ::DO"
+msgstr "Décision favorable de l'OFPRA/CNDA"
+
+msgid "ENUM::MENTTITSEJ::DR"
+msgstr "A demandé le statut de réfugié"
+
+msgid "ENUM::MENTTITSEJ::DT"
+msgstr "A demandé la délivrance d'un premier titre de séjour"
+
+msgid "ENUM::MENTTITSEJ::DS"
+msgstr "Droit au séjour"
+
+msgid "ENUM::MENTTITSEJ::EO"
+msgstr "Etudiant- Attente justificatif OFII"
+
+msgid "ENUM::MENTTITSEJ::ET"
+msgstr "Etudiant - Justificatif OFII reçue"
+
+msgid "ENUM::MENTTITSEJ::IO"
+msgstr "Visiteur - Attente justificatif OFII"
+
+msgid "ENUM::MENTTITSEJ::JT"
+msgstr "Jugement de tutelle"
+
+msgid "ENUM::MENTTITSEJ::MF"
+msgstr "Membre de la famille"
+
+msgid "ENUM::MENTTITSEJ::PE"
+msgstr "Permettant l'établissement (L.M. du 29/09/94)"
+
+msgid "ENUM::MENTTITSEJ::PF"
+msgstr "Bénéficiaire PF - RMI avant 18 ans"
+
+msgid "ENUM::MENTTITSEJ::PR"
+msgstr "Permanent"
+
+msgid "ENUM::MENTTITSEJ::PS"
+msgstr "Protection subsidiaire"
+
+msgid "ENUM::MENTTITSEJ::PT"
+msgstr "Autorisation provisoire de travail"
+
+msgid "ENUM::MENTTITSEJ::RE"
+msgstr "Retraité (titre de séjour date début < à 11/2006)"
+
+msgid "ENUM::MENTTITSEJ::RF"
+msgstr "Regroupe les N° de procédure 07,08,09,17,18 ou 19 pour l'introduction en France"
+
+msgid "ENUM::MENTTITSEJ::RM"
+msgstr "Mayotte condition résidence 15 ans"
+
+msgid "ENUM::MENTTITSEJ::RR"
+msgstr "Reconnu réfugié / Certificat de réfugié"
+
+msgid "ENUM::MENTTITSEJ::RS"
+msgstr "Option régime de S.S. français"
+
+msgid "ENUM::MENTTITSEJ::RT"
+msgstr "Retraité"
+
+msgid "ENUM::MENTTITSEJ::R5"
+msgstr "Condition résidence vérifiée"
+
+msgid "ENUM::MENTTITSEJ::SA"
+msgstr "Salarié - Justificatif OFII reçue"
+
+msgid "ENUM::MENTTITSEJ::SC"
+msgstr "Scientifique et résidence de moins de 5 ans"
+
+msgid "ENUM::MENTTITSEJ::S5"
+msgstr "Scientifique et résidence de plus de 5 ans"
+
+msgid "ENUM::MENTTITSEJ::SO"
+msgstr "Salarié - Attente justificatifn OFII"
+
+msgid "ENUM::MENTTITSEJ::TO"
+msgstr "Travailleur temporaire - Attente justificatif OFII"
+
+msgid "ENUM::MENTTITSEJ::TT"
+msgstr "Travailleur temporaire- Justificatif OFII reçue"
+
+msgid "ENUM::MENTTITSEJ::VF"
+msgstr "Vie privée ou familiale et résidence de moins de 5ans"
+
+msgid "ENUM::MENTTITSEJ::VI"
+msgstr "Visiteur - Justificatif OFII reçue"
+
+msgid "ENUM::MENTTITSEJ::V5"
+msgstr "Vie privée et familiale et résidence de plus de 5ans"
+
+msgid "ENUM::MENTTITSEJ::VO"
+msgstr "Vie privée et familiale et attente justificatif OFII"

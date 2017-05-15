@@ -1,0 +1,474 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team: <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "Creance.dtimplcre"
+msgstr "Date implantation créance"
+
+msgid "Creance.natcre"
+msgstr "Nature créance"
+
+msgid "ENUM::NATCRE::INK"
+msgstr "Indu sur nature prestation RSD (RSA socle)"
+
+msgid "ENUM::NATCRE::ITK"
+msgstr "Indu sur nature prestation RSD transféré"
+
+msgid "ENUM::NATCRE::INL"
+msgstr "Indu sur nature prestation RSI (RSA socle majoration parent isolé)"
+
+msgid "ENUM::NATCRE::ITL"
+msgstr "Indu sur nature prestation RSI transféré"
+
+msgid "ENUM::NATCRE::INM"
+msgstr "Indu sur nature prestation RSB (RSA local)"
+
+msgid "ENUM::NATCRE::ITM"
+msgstr "Indu sur nature presation RSB transféré"
+
+msgid "ENUM::NATCRE::INS"
+msgstr "Indu sur nature prestation RCB "
+
+msgid "ENUM::NATCRE::ITS"
+msgstr "Indu sur nature prestation RCB transféré"
+
+msgid "ENUM::NATCRE::ISK"
+msgstr "Subrogation RSD (RSA socle)"
+
+msgid "ENUM::NATCRE::ISL"
+msgstr "Subrogation RSI (RSA socle majoration parent isolé)"
+
+msgid "ENUM::NATCRE::ISM"
+msgstr "Subrogation RSB (RSA local)"
+
+msgid "ENUM::NATCRE::ISS"
+msgstr "Subrogation RCB"
+
+msgid "Creance.rgcre"
+msgstr "Rang créance"
+
+msgid "Creance.motiindu"
+msgstr "Motif indu"
+
+msgid "ENUM::MOTIINDU::10"
+msgstr "Situation de famille"
+
+msgid "ENUM::MOTIINDU::11"
+msgstr "Modif codres desall resdos"
+
+msgid "ENUM::MOTIINDU::12"
+msgstr "Décès"
+
+msgid "ENUM::MOTIINDU::20"
+msgstr "Changement d'adresse"
+
+msgid "ENUM::MOTIINDU::21"
+msgstr "Mutation / Radiation"
+
+msgid "ENUM::MOTIINDU::30"
+msgstr "Mouvement enfant"
+
+msgid "ENUM::MOTIINDU::31"
+msgstr "Mouvement enfant codres"
+
+msgid "ENUM::MOTIINDU::32"
+msgstr "Décès enfant"
+
+msgid "ENUM::MOTIINDU::33"
+msgstr "Etat civil enfant"
+
+msgid "ENUM::MOTIINDU::34"
+msgstr "Arrivée enfant"
+
+msgid "ENUM::MOTIINDU::35"
+msgstr "Mouvement enfant sitenfaut"
+
+msgid "ENUM::MOTIINDU::40"
+msgstr "Eléments calcul (ressources)"
+
+msgid "ENUM::MOTIINDU::41"
+msgstr "Eléments calcul (droits)"
+
+msgid "ENUM::MOTIINDU::42"
+msgstr "Maintien de droits"
+
+msgid "ENUM::MOTIINDU::50"
+msgstr "Modification activité professionnelle"
+
+msgid "ENUM::MOTIINDU::51"
+msgstr "Justification d'activité"
+
+msgid "ENUM::MOTIINDU::52"
+msgstr "Situation professionnelle"
+
+msgid "ENUM::MOTIINDU::60"
+msgstr "Autre nature indu"
+
+msgid "ENUM::MOTIINDU::61"
+msgstr "Maintien des droits"
+
+msgid "ENUM::MOTIINDU::62"
+msgstr "Barèmes"
+
+msgid "ENUM::MOTIINDU::63"
+msgstr "Indus autre organisme"
+
+msgid "ENUM::MOTIINDU::64"
+msgstr "Subrogations"
+
+msgid "ENUM::MOTIINDU::65"
+msgstr "Renégociation pap"
+
+msgid "ENUM::MOTIINDU::70"
+msgstr "Calculs de droits"
+
+msgid "ENUM::MOTIINDU::71"
+msgstr "Modif éléments de droits"
+
+msgid "ENUM::MOTIINDU::72"
+msgstr "Radiation"
+
+msgid "ENUM::MOTIINDU::73"
+msgstr "Droits enfants"
+
+msgid "ENUM::MOTIINDU::74"
+msgstr "Réaffiliation"
+
+msgid "ENUM::MOTIINDU::75"
+msgstr "Droit prime de Noël"
+
+msgid "ENUM::MOTIINDU::76"
+msgstr "Droit AJPP"
+
+msgid "ENUM::MOTIINDU::80"
+msgstr "Réexamen de droits"
+
+msgid "ENUM::MOTIINDU::81"
+msgstr "Barèmes"
+
+msgid "ENUM::MOTIINDU::82"
+msgstr "Rattrapage exceptionnel"
+
+msgid "ENUM::MOTIINDU::90"
+msgstr "Divers"
+
+msgid "ENUM::MOTIINDU::91"
+msgstr "Interruption de grossesse"
+
+msgid "ENUM::MOTIINDU::92"
+msgstr "Hôspitalisation placement"
+
+msgid "ENUM::MOTIINDU::93"
+msgstr "Impayés de loyer"
+
+msgid "ENUM::MOTIINDU::94"
+msgstr "Assurance"
+
+msgid "ENUM::MOTIINDU::95"
+msgstr "Remboursement anticipé"
+
+msgid "ENUM::MOTIINDU::AA"
+msgstr "Situation famille uniquement"
+
+msgid "ENUM::MOTIINDU::AB"
+msgstr "Situat. famille et chgt adresse"
+
+msgid "ENUM::MOTIINDU::AC"
+msgstr "Situat. famille et mvt enfant"
+
+msgid "ENUM::MOTIINDU::AD"
+msgstr "Situat. famille et eéém. calcul"
+
+msgid "ENUM::MOTIINDU::AE"
+msgstr "Situat. famille et modif act. prof"
+
+msgid "ENUM::MOTIINDU::AF"
+msgstr "Situat. famille et modif élém droit"
+
+msgid "ENUM::MOTIINDU::AG"
+msgstr "Situat. famille et réexamen droit"
+
+msgid "ENUM::MOTIINDU::AH"
+msgstr "Situat. famille et autre modif"
+
+msgid "ENUM::MOTIINDU::BB"
+msgstr "Changement adresse uniquement"
+
+msgid "ENUM::MOTIINDU::BC"
+msgstr "Changement adresse et mvt enfant"
+
+msgid "ENUM::MOTIINDU::BD"
+msgstr "Changement adresse et élém. calcul"
+
+msgid "ENUM::MOTIINDU::BE"
+msgstr "Changement adresse et modif act prof"
+
+msgid "ENUM::MOTIINDU::BF"
+msgstr "Changement adresse et modif élém droit"
+
+msgid "ENUM::MOTIINDU::BG"
+msgstr "Changement adresse et réexamen droit"
+
+msgid "ENUM::MOTIINDU::BH"
+msgstr "Changement adresse et autre modif."
+
+msgid "ENUM::MOTIINDU::CC"
+msgstr "Mouvement enfant uniquement"
+
+msgid "ENUM::MOTIINDU::CD"
+msgstr "Mouvement enfant et élém. calcul"
+
+msgid "ENUM::MOTIINDU::CE"
+msgstr "Mouvement enfant et modif act prof"
+
+msgid "ENUM::MOTIINDU::CF"
+msgstr "Mouvement enfant et modif élément droit"
+
+msgid "ENUM::MOTIINDU::CG"
+msgstr "Mouvement enfant et réexamen droit"
+
+msgid "ENUM::MOTIINDU::CH"
+msgstr "Mouvement enfant et autre modif"
+
+msgid "ENUM::MOTIINDU::DD"
+msgstr "Elements calcul uniquement"
+
+msgid "ENUM::MOTIINDU::DE"
+msgstr "Elem. calcul et modif act prof"
+
+msgid "ENUM::MOTIINDU::DF"
+msgstr "Elem. calcul et modif élém droit"
+
+msgid "ENUM::MOTIINDU::DG"
+msgstr "Elem. calcul et réexamen droit"
+
+msgid "ENUM::MOTIINDU::DH"
+msgstr "Elem. calcul et autre modif"
+
+msgid "ENUM::MOTIINDU::EE"
+msgstr "Modif activité prof uniquement"
+
+msgid "ENUM::MOTIINDU::EF"
+msgstr "Modif act. et modif élém droit"
+
+msgid "ENUM::MOTIINDU::EG"
+msgstr "Modif act. et réexamen droit"
+
+msgid "ENUM::MOTIINDU::EH"
+msgstr "Modif act. prof et autre modif"
+
+msgid "ENUM::MOTIINDU::FF"
+msgstr "Modif élém droits uniquement"
+
+msgid "ENUM::MOTIINDU::FG"
+msgstr "Modif élém droits et réexamen droits"
+
+msgid "ENUM::MOTIINDU::FH"
+msgstr "Modif élém droits et autre modif"
+
+msgid "ENUM::MOTIINDU::GG"
+msgstr "Réexamen de droits uniquement"
+
+msgid "ENUM::MOTIINDU::GH"
+msgstr "Réexamen droits et autre modif"
+
+msgid "ENUM::MOTIINDU::HH"
+msgstr "Autre modification uniquement"
+
+msgid "ENUM::MOTIINDU::K1"
+msgstr "Non primo demandeur"
+
+msgid "ENUM::MOTIINDU::K2"
+msgstr "Fin droit AL-droit aux parents"
+
+msgid "ENUM::MOTIINDU::K3"
+msgstr "Non étudiant boursier"
+
+msgid "ENUM::MOTIINDU::K4"
+msgstr "Révision des droits"
+
+msgid "Creance.oriindu"
+msgstr "Origine indu"
+
+msgid "ENUM::ORIINDU::10"
+msgstr "Justificatif de masse"
+
+msgid "ENUM::ORIINDU::20"
+msgstr "Rapport enquête"
+
+msgid "ENUM::ORIINDU::30"
+msgstr "Vérification comptable"
+
+msgid "ENUM::ORIINDU::40"
+msgstr "Signal. système"
+
+msgid "ENUM::ORIINDU::50"
+msgstr "Plan de contrôle"
+
+msgid "ENUM::ORIINDU::55"
+msgstr "Echange CAF/bailleur"
+
+msgid "ENUM::ORIINDU::60"
+msgstr "Recy err CAF"
+
+msgid "ENUM::ORIINDU::61"
+msgstr "Liq. incomplète"
+
+msgid "ENUM::ORIINDU::62"
+msgstr "Erreur législation"
+
+msgid "ENUM::ORIINDU::63"
+msgstr "Erreur codification"
+
+msgid "ENUM::ORIINDU::64"
+msgstr "Traitement BATCH"
+
+msgid "ENUM::ORIINDU::65"
+msgstr "Nouveau traitement"
+
+msgid "ENUM::ORIINDU::70"
+msgstr "Pièce allocataire"
+
+msgid "ENUM::ORIINDU::71"
+msgstr "Pièce reçue"
+
+msgid "ENUM::ORIINDU::72"
+msgstr "Commu téléph"
+
+msgid "ENUM::ORIINDU::73"
+msgstr "Pièce accueil"
+
+msgid "ENUM::ORIINDU::80"
+msgstr "Pièce tiers"
+
+msgid "Creance.respindu"
+msgstr "Responsabilité de l'indu"
+
+msgid "ENUM::RESPINDU::12"
+msgstr "Erreur législative CAF"
+
+msgid "ENUM::RESPINDU::66"
+msgstr "Indus tiers"
+
+msgid "ENUM::RESPINDU::67"
+msgstr "Indus allocataires"
+
+msgid "ENUM::RESPINDU::26"
+msgstr "Avance"
+
+msgid "ENUM::RESPINDU::24"
+msgstr "Retroactivité"
+
+msgid "ENUM::RESPINDU::10"
+msgstr "Erreur CAF"
+
+msgid "ENUM::RESPINDU::65"
+msgstr "Subrogations"
+
+msgid "ENUM::RESPINDU::54"
+msgstr "Suspicion fraude ges"
+
+msgid "ENUM::RESPINDU::62"
+msgstr "Décl err/incomp all"
+
+msgid "ENUM::RESPINDU::13"
+msgstr "Erreur codification CAF"
+
+msgid "ENUM::RESPINDU::64"
+msgstr "Fraude ou faux all"
+
+msgid "ENUM::RESPINDU::51"
+msgstr "Enquête/place ges"
+
+msgid "ENUM::RESPINDU::52"
+msgstr "Recycl vérific ges"
+
+msgid "ENUM::RESPINDU::50"
+msgstr "Plan controle ges"
+
+msgid "ENUM::RESPINDU::61"
+msgstr "Défaut déclarat all"
+
+msgid "ENUM::RESPINDU::20"
+msgstr "Date d'effet"
+
+msgid "ENUM::RESPINDU::41"
+msgstr "Infos err/tard org"
+
+msgid "ENUM::RESPINDU::31"
+msgstr "Règlementation tardive"
+
+msgid "ENUM::RESPINDU::40"
+msgstr "Prise en charge indu"
+
+msgid "ENUM::RESPINDU::30"
+msgstr "Défaut modèle"
+
+msgid "ENUM::RESPINDU::22"
+msgstr "Maintiens"
+
+msgid "ENUM::RESPINDU::53"
+msgstr "Ech CAF/ASSEDIC ges"
+
+msgid "ENUM::RESPINDU::15"
+msgstr "Retard"
+
+msgid "ENUM::RESPINDU::11"
+msgstr "Liq incomplete CAF"
+
+msgid "ENUM::RESPINDU::74"
+msgstr "Fraude potentielle"
+
+msgid "ENUM::RESPINDU::63"
+msgstr "Décl tardive all"
+
+msgid "ENUM::RESPINDU::32"
+msgstr "Erreur traitement"
+
+msgid "ENUM::RESPINDU::60"
+msgstr "Ano déclaration all"
+
+msgid "ENUM::RESPINDU::25"
+msgstr "Barème tardif"
+
+msgid "ENUM::RESPINDU::23"
+msgstr "Compens maj indu"
+
+msgid "ENUM::RESPINDU::21"
+msgstr "Délai notif APL"
+
+msgid "ENUM::RESPINDU::14"
+msgstr "Erreur saisie CAF"
+
+msgid "Creance.ddregucre"
+msgstr "Date début créance"
+
+msgid "Creance.dfregucre"
+msgstr "Date fin  créance"
+
+msgid "Creance.dtdercredcretrans"
+msgstr "Date dernier crédit positif créance transférée"
+
+msgid "Creance.mtsolreelcretrans"
+msgstr "Montant solde réel créance transférée"
+
+msgid "Creance.mtinicre"
+msgstr "Montant initial créance"

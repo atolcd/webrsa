@@ -1,0 +1,87 @@
+div#menu1Wrapper div.menu1 ul {
+	display: inline-block;
+	position: relative;
+	margin: 0;
+	font-family: sans-serif;
+	font-size: 12px;
+}
+
+div#menu1Wrapper div.menu1>ul {
+	display: block;
+	z-index: 10;
+	width: 90%;
+	margin: 20px auto auto auto;
+}
+
+div#menu1Wrapper div.menu1 li {
+	margin: 0;
+	position: relative;
+	background-color: #FFF;
+}
+
+div#menu1Wrapper div.menu1 ul li, div#menu1Wrapper div.menu1 ul ul {
+	width: 200px;
+}
+
+div#menu1Wrapper div.menu1 ul li>ul {
+	position: absolute;
+	top: 0;
+	left: 200px;
+}
+
+div#menu1Wrapper div.menu1>ul>li>ul {
+	position: absolute;
+	top: 26px;
+	left: 0;
+	z-index: 1000;
+}
+
+div#menu1Wrapper div.menu1>ul>li ul {
+	display: none;
+}
+
+div#menu1Wrapper div.menu1 ul>li:hover>ul, div#menu1Wrapper div.menu1 ul>li.forceHover>ul, div#menu1Wrapper div.menu1 ul>li.hover>ul {
+	display: inline-block;
+}
+
+div#menu1Wrapper div.menu1 ul>li.forceHide {
+	display: none;
+}
+
+div#menu1Wrapper div.menu1 ul li {
+	display: inline-block;
+	list-style-type:none;
+	list-style: none;
+	border: 1px solid #235F7D;
+}
+
+div#menu1Wrapper div.menu1 ul li:hover, div#menu1Wrapper div.menu1 ul li.forceHover {
+	background-color: #83c2e2;
+}
+
+div#menu1Wrapper div.menu1 ul li a {
+	display: inline-block;
+	padding: 5px 10px;
+	text-decoration: none;
+	color: #000;
+}
+
+div#menu1Wrapper div.menu1 ul ul li a {
+	width: 180px;
+}
+
+div#menu1Wrapper div.menu1>ul>li {
+	width: auto;
+}
+
+div#menu1Wrapper div.menu1 .forceHover {
+	border: 1px solid brown;
+}
+
+div#menu1Wrapper div.menu1 ul ul .branch:after {
+	content: ">";
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	color: #777;
+}

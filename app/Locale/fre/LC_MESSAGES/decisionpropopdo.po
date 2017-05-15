@@ -1,0 +1,153 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+# Enum Decisionpropopdo.validationdecision
+###############################################################################
+
+msgid "Propospdos::add"
+msgstr "Ajouter une décision"
+
+msgid "Decisionspropospdos::edit"
+msgstr "Editer la proposition"
+
+msgid "Decisionspropospdos::print"
+msgstr "Imprimer la proposition"
+
+msgid "Decisionspropospdos::delete"
+msgstr "Supprimer la proposition"
+
+msgid "Decisionspropospdos::view"
+msgstr "Vue de la proposition de décision"
+
+msgid "Decisionspropospdos::delete::confirm"
+msgstr "Etes-vous sûr de vouloir supprimer la proposition ?"
+
+msgid "Decisionpropopdo.validationdecision"
+msgstr "Validation de la proposition"
+
+msgid "Decisionpropopdo.datevalidationdecision"
+msgstr "Date de validation de la proposition"
+
+msgid "Decisionpropopdo.commentairepdo"
+msgstr "Proposition"
+
+
+msgid "ENUM::VALIDATIONDECISION::0"
+msgstr "Non"
+
+msgid "ENUM::VALIDATIONDECISION::1"
+msgstr "Oui"
+
+msgid "Decisionspropospdos::add"
+msgstr "Édition d'une décision"
+
+msgid "Decisionpropopdo.datedecisionpdo"
+msgstr "Date de la proposition"
+
+msgid "Decisionpdo.libelle"
+msgstr "Décision"
+
+msgid "Decisionpropopdo.etatdossierpdo"
+msgstr "Etat du dossier"
+
+msgid "Decisionpropopdo.avistechnique"
+msgstr "Avis technique"
+
+msgid "ENUM::AVISTECHNIQUE::0"
+msgstr "Non"
+
+msgid "ENUM::AVISTECHNIQUE::1"
+msgstr "Oui"
+
+msgid "Decisionpropopdo.commentaireavistechnique"
+msgstr "Commentaire"
+
+msgid "Decisionpropopdo.dateavistechnique"
+msgstr "Date de l'avis technique"
+
+msgid "Decisionpropopdo.commentairedecision"
+msgstr "Commentaire"
+
+msgid "Decisionpropopdo.decisionpdo_id"
+msgstr "Type de proposition"
+
+msgid "Decisionpropopdo.hasreponseep"
+msgstr "Réponse à l'EP"
+
+msgid "Decisionpropopdo.decisionreponseep"
+msgstr "Suite à l'avis de l'EP Locale Commission Audition"
+
+msgid "Decisionpropopdo.accordepaudition"
+msgstr "En accord avec l'avis de l'EPL Commission Audition"
+
+msgid "Decisionpropopdo.commentairereponseep"
+msgstr "Commentaire"
+
+msgid "Decisionpropopdo.datereponseep"
+msgstr "Date"
+
+msgid "ENUM::ACCORDEPAUDITION::1"
+msgstr "Oui"
+
+msgid "ENUM::ACCORDEPAUDITION::0"
+msgstr "Non"
+
+msgid "ENUM::DECISIONREPONSEEP::suspensionnonrespect"
+msgstr "Suspension suite à non respect du contrat"
+
+msgid "ENUM::DECISIONREPONSEEP::suspensiondefaut"
+msgstr "Suspension suite à défaut de conclusion"
+
+msgid "ENUM::DECISIONREPONSEEP::maintien"
+msgstr "Maintien du versement de l'allocation"
+
+msgid "ENUM::DECISIONREPONSEEP::reorientationprofverssoc"
+msgstr "Réorientation du professionnel vers le social"
+
+msgid "ENUM::DECISIONREPONSEEP::reorientationsocversprof"
+msgstr "Réorientation du social vers le professionnel"
+
+msgid "ENUM::DECISIONREPONSEEP::annule"
+msgstr "Annulé"
+
+msgid "ENUM::DECISIONREPONSEEP::reporte"
+msgstr "Reporté"
+
+msgid "ENUM::ETATDOSSIERPDO::attaffect"
+msgstr "En attente d'affectation"
+
+msgid "ENUM::ETATDOSSIERPDO::attinstr"
+msgstr "En attente d'instruction"
+
+msgid "ENUM::ETATDOSSIERPDO::instrencours"
+msgstr "Instruction en cours"
+
+msgid "ENUM::ETATDOSSIERPDO::attval"
+msgstr "En attente de validation de la proposition"
+
+msgid "ENUM::ETATDOSSIERPDO::attavistech"
+msgstr "En attente d'avis technique"
+
+msgid "ENUM::ETATDOSSIERPDO::dossiertraite"
+msgstr "Dossier traité"
+
+msgid "ENUM::ETATDOSSIERPDO::attpj"
+msgstr "Dossier traité mais en attente de pièces"

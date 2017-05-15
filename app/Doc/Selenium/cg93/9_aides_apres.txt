@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://webrsa.local/" />
+<title>New Test</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">New Test</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Par dossier / allocataire</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>CalculdroitrsaToppersdrodevorsa</td>
+	<td>label=Oui</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Rechercher']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[@id='innerTableTrigger9']/td[7]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//img[@title='Étendre le menu ']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Aides / APRE</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Ajouter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ApreTypedemandeapreFO</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ApreSecteurprofessionnel</td>
+	<td>Informatique</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ApreActivitebeneficiaireC</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ApreStructurereferenteId</td>
+	<td>label=Pole Emploi d'Aubervilliers</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ApreReferentId</td>
+	<td>label=MME LE BRECH Tiphaine</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Modifier</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ApreNaturelogementL</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>DspCessderact</td>
+	<td>label=Cessation d'activité depuis plus d'un an</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>DspNivetu</td>
+	<td>label=Niveau IV : BAC ou équivalent</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>data[Apre][Natureaide]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//form[@id='Apre']/div[3]/fieldset[10]/h3/label</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>FormqualifIntituleform</td>
+	<td>PHP pour les nuls</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>FormqualifTiersprestataireapreId</td>
+	<td>label=IFRAC FORMATION</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>FormqualifDdformDay</td>
+	<td>label=4</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>FormqualifDdformMonth</td>
+	<td>label=février</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>FormqualifDdformYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>FormqualifDfformDay</td>
+	<td>label=18</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>FormqualifDfformMonth</td>
+	<td>label=février</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>FormqualifDfformYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>FormqualifDureeform</td>
+	<td>35</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>FormqualifCoutform</td>
+	<td>3500</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>FormqualifMontantaide</td>
+	<td>1000</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[@id='innerTableTrigger0']/td[6]/a/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Back</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Fichiers liés</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ApreHaspiecejointe0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Relancer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RelanceapreDaterelanceDay</td>
+	<td>label=10</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RelanceapreDaterelanceMonth</td>
+	<td>label=avril</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RelanceapreDaterelanceYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>RelanceapreCommentairerelance</td>
+	<td>Manque des pièces depuis plusieurs mois.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='pageContent']/div[2]/table[2]/tbody/tr/td[5]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>RelanceapreCommentairerelance</td>
+	<td>Manque des pièces depuis plusieurs mois. Fais éterniser la situation.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

@@ -1,0 +1,830 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+# Titres
+###############################################################################
+
+msgid "/Cuis/index/:heading"
+msgstr "Contrat Unique d'Insertion"
+
+msgid "/Cuis/view/:heading"
+msgstr "Contrat Unique d'Insertion"
+
+msgid "/Cuis/search/:heading"
+msgstr "Recherche par Contrat Unique d'Insertion (Nouveau)"
+
+msgid "/Cuis/add"
+msgstr "Ajouter"
+
+msgid "/Cuis/email_add"
+msgstr "Ajouter"
+
+msgid "/Cuis/add/:heading"
+msgstr "Ajout d'un Contrat Unique d'Insertion"
+
+msgid "/Cuis/edit/:heading"
+msgstr "Modification d'un Contrat Unique d'Insertion"
+
+msgid "/Cuis/email_send"
+msgstr "Envoyer E-mail"
+
+msgid "/Cuis/email_view"
+msgstr "Voir"
+
+msgid "/Cuis/email_edit"
+msgstr "Modifier"
+
+msgid "/Cuis/email_impression"
+msgstr "Imprimer"
+
+msgid "/Cuis/annule"
+msgstr "Annuler"
+
+msgid "/Cuis/email_delete"
+msgstr "Supprimer"
+
+msgid "/Cuis/email/:heading"
+msgstr "E-mails CUI"
+
+msgid "/Cuis/email_view/:heading"
+msgstr "Voir E-mail CUI"
+
+msgid "/Cuis/email"
+msgstr "E-mails"
+
+msgid "intitule_haut_cui"
+msgstr "CONTRAT UNIQUE D'INSERTION"
+
+msgid "intitule_haut_text"
+msgstr " CONVENTION SIGNÉE ENTRE LE CONSEIL GÉNÉRAL, L'EMPLOYEUR et LE SALARIÉ"
+
+msgid "Decisioncui.decision"
+msgstr "Décision prise"
+
+msgid "Decisioncui.datedecision"
+msgstr "Date de la décision"
+
+msgid "Cui.annulationform"
+msgstr "Formulaire"
+
+msgid "Cui.raisonannulation"
+msgstr "Raison de l'annulation"
+
+msgid "/Cuis/annule/:heading"
+msgstr "Annulation d'un CUI"
+
+###############################################################################
+# Choix Formulaire
+###############################################################################
+
+msgid "Cui.choixformulaire"
+msgstr "Choix du formulaire"
+
+msgid "Cui.typeformulaire"
+msgstr "Type de formulaire"
+
+###############################################################################
+# Secteur Marchand/Non marchand
+###############################################################################
+
+msgid "Cui.secteur"
+msgstr "Secteur"
+
+msgid "Cui.secteurmarchand"
+msgstr "Secteur marchand/non marchand"
+
+msgid "Cui.typecontrat"
+msgstr "Type de contrat"
+
+msgid "Cui.codecdiae"
+msgstr "Code d'agrément CDIAE"
+
+msgid "Cui.numconventionindividuelle"
+msgstr "N° de convention individuelle"
+
+msgid "Cui.numconventionobjectif"
+msgstr "N° de convention annuelle d'objectifs et de moyens"
+
+###############################################################################
+# L'employeur
+###############################################################################
+
+msgid "Partenairecui.employeur"
+msgstr "L'Employeur"
+
+msgid "Cui.partenaire_id"
+msgstr "Nom de l'employeur"
+
+msgid "Cui.actioncandidat_id"
+msgstr "Action engagée par l'employeur"
+
+msgid "Partenaire.charger"
+msgstr "Remplissage automatique du formulaire"
+
+msgid "Partenairecui.raisonsociale"
+msgstr "Dénomination, raison sociale"
+
+msgid "Partenairecui.enseigne"
+msgstr "Enseigne"
+
+###############################################################################
+# Adresse employeur
+###############################################################################
+
+msgid "Partenairecui.adresseemployeur"
+msgstr "Adresse de l'employeur"
+
+msgid "Partenairecui.adresseadministrative"
+msgstr "Adresse administrative"
+
+msgid "Adressecui.numvoie"
+msgstr "Numéro de la voie"
+
+msgid "Adressecui.typevoie"
+msgstr "Type de voie"
+
+msgid "Adressecui.nomvoie"
+msgstr "Nom de la voie"
+
+msgid "Adressecui.complement"
+msgstr "Complément d'adresse"
+
+msgid "Adressecui.codepostal"
+msgstr "Code postal"
+
+msgid "Adressecui.commune"
+msgstr "Commune"
+
+msgid "Adressecui.numtel"
+msgstr "Numéro de téléphone"
+
+msgid "Adressecui.email"
+msgstr "Email"
+
+msgid "Adressecui.numfax"
+msgstr "Numéro de fax"
+
+msgid "Adressecui.canton"
+msgstr "Canton"
+
+msgid "Partenairecui.remarque"
+msgstr "Si l'adresse à laquelle les documents administratifs et financiers doivent etre envoyés est différente de l'adresse employeur, remplir la partie ci-dessous"
+
+msgid "Partenairecui.utiliseradradministrative"
+msgstr "Utiliser une adresse administrative différente"
+
+msgid "Adressecui.numvoie2"
+msgstr "Numéro de la voie"
+
+msgid "Adressecui.typevoie2"
+msgstr "Type de voie"
+
+msgid "Adressecui.nomvoie2"
+msgstr "Nom de la voie"
+
+msgid "Adressecui.complement2"
+msgstr "Complément d'adresse"
+
+msgid "Adressecui.codepostal2"
+msgstr "Code postal"
+
+msgid "Adressecui.commune2"
+msgstr "Commune"
+
+msgid "Adressecui.numtel2"
+msgstr "Numéro de téléphone"
+
+msgid "Adressecui.email2"
+msgstr "Email"
+
+msgid "Adressecui.numfax2"
+msgstr "Numéro de fax"
+
+msgid "Adressecui.canton2"
+msgstr "Canton"
+
+###############################################################################
+# Volet droit de l'employeur (CERFA)
+###############################################################################
+
+msgid "Cui.voletdroit"
+msgstr "Volet de droite"
+
+msgid "Partenairecui.siret"
+msgstr "N° SIRET"
+
+msgid "Partenairecui.naf"
+msgstr "Code NAF2"
+
+msgid "Partenairecui.statut"
+msgstr "Statut de l'employeur"
+
+msgid "Partenairecui.effectif"
+msgstr "Effectif salarié au 31 décembre"
+
+msgid "Partenairecui.organismerecouvrement"
+msgstr "Organisme de recouvrement des cotisations sociales :"
+
+###############################################################################
+# Informations additionnelles pour le cg
+###############################################################################
+
+msgid "Partenairecui.informationssup"
+msgstr "Informations additionnelles pour le cg"
+
+msgid "Partenairecui.codepartenaire"
+msgstr "Code partenaire"
+
+msgid "Partenairecui.objet"
+msgstr "Objet"
+
+msgid "Partenairecui.nomtitulairerib"
+msgstr "Nom titulaire du compte RIB"
+
+msgid "Partenairecui.codebanque"
+msgstr "Code banque"
+
+msgid "Partenairecui.codeguichet"
+msgstr "Code guichet"
+
+msgid "Partenairecui.numerocompte"
+msgstr "Numéro de compte"
+
+msgid "Partenairecui.etablissementbancaire"
+msgstr "Etablissement bancaire"
+
+msgid "Partenairecui.clerib"
+msgstr "Clé RIB"
+
+msgid "Partenairecui.nblits"
+msgstr "Nombre de lits"
+
+msgid "Partenairecui.nbcontratsaideshorscg"
+msgstr "Nombre de contrats aidés hors CG"
+
+msgid "Partenairecui.nbcontratsaidescg"
+msgstr "Nombre de contrats aidés CG"
+
+###############################################################################
+# Dossier Reçu/Éligible/complet
+###############################################################################
+
+msgid "Cui.dossier"
+msgstr "Dossier Reçu/Éligible/complet"
+
+msgid "Cui.dossierrecu"
+msgstr "Dossier reçu ?"
+
+msgid "Cui.datereception"
+msgstr "Date de réception du dossier"
+
+msgid "Cui.dossiereligible"
+msgstr "Dossier éligible ?"
+
+msgid "Cui.dateeligibilite"
+msgstr "Date d'éligibilité du dossier"
+
+msgid "Cui.dossiercomplet"
+msgstr "Dossier complet ?"
+
+msgid "Cui.datecomplet"
+msgstr "Date du dossier complet"
+
+###############################################################################
+# E-mail employeur
+###############################################################################
+
+msgid "Cui.mailinitial"
+msgstr "E-mail Initial pour l'employeur"
+
+msgid "Cui.mailemployeur"
+msgstr "Mail à l'employeur ?"
+
+msgid "Cui.modelemail"
+msgstr "Modèle de mail"
+
+msgid "Cui.dateretour"
+msgstr "Retour au plus tard le"
+
+msgid "Cui.commentairemail"
+msgstr "Commentaire reporté dans le mail"
+
+msgid "Cui.mailpj"
+msgstr "Choix des pièces à joindre au mail de l'employeur"
+
+msgid "Cui.dureecontrat"
+msgstr "Durée du contrat (Date de début/Date de fin d'un Contrat CDD)"
+
+###############################################################################
+# E-mail de relance
+###############################################################################
+
+msgid "Cui.mailrelance"
+msgstr "E-mail de relance à l'employeur"
+
+msgid "Cui.typemailrelance"
+msgstr "Type de mail de relance"
+
+msgid "Cui.datebutoirrelance"
+msgstr "Date butoir pour transmission des pièces"
+
+msgid "Cui.commentairerelance"
+msgstr "Commentaire du mail de relance"
+
+###############################################################################
+# Informations sur le salarié
+###############################################################################
+
+msgid "Personne.info"
+msgstr "Informations sur le salarié"
+
+msgid "Personne.nom"
+msgstr "Nom :"
+
+msgid "Personne.dtnai"
+msgstr "Né(e) le :"
+
+msgid "Personne.nomcomnai"
+msgstr "à :"
+
+msgid "Adresse.complete"
+msgstr "Adresse :"
+
+msgid "Personne.prenom"
+msgstr "Prenom :"
+
+msgid "Personne.nir"
+msgstr "NIR :"
+
+msgid "Departement.name"
+msgstr "Département :"
+
+msgid "Adresse.canton"
+msgstr "Canton :"
+
+msgid "Personne.nati"
+msgstr "Nationalité :"
+
+msgid "Referentparcours.nom_complet"
+msgstr "Référent en cours :"
+
+msgid "Cui.zonecouverte"
+msgstr "Zone couverte par l'adresse de l'allocataire"
+
+msgid "Cui.datefinsejour"
+msgstr "Date de fin de titre de séjour"
+
+msgid "Cui.defaultprestation"
+msgstr "Aucune prestation trouvée"
+
+msgid "Cuis.nbenfants"
+msgstr "Nombre de personnes à charge"
+
+msgid "Dossier.dtdemrsa"
+msgstr "Date de demande RSA"
+
+msgid "Dossier.date_entree_dispositif"
+msgstr "Date d'entrée dans le dispositif"
+
+################################################################################
+# Fieldset du formulaire CUI
+################################################################################
+
+msgid "Cui.situationsalarie"
+msgstr "Situation du salarié avant la signature de la convention"
+
+msgid "Cui.niveauformation"
+msgstr "Niveau de formation"
+
+################################################################################
+# Contrat de travail
+################################################################################
+
+msgid "Cui.contrattravail"
+msgstr "Contrat de travail"
+
+msgid "Cui.dateembauche"
+msgstr "Date d'embauche prévu"
+
+msgid "Entreeromev3"
+msgstr "Code ROME (v3)"
+
+msgid "Cui.findecontrat"
+msgstr "Date prévue de fin de contrat (si CDD)"
+
+msgid "Cui.salairebrut"
+msgstr "Salaire brut mensuel"
+
+msgid "Cui.dureehebdo"
+msgstr "Durée hebdomadaire de travail prévue du salarié"
+
+msgid "Cui.dureecollectivehebdo"
+msgstr "Durée collective hebdomadaire de travail"
+
+msgid "Entreeromev3.fieldset"
+msgstr "Emploi proposé (ROME v3)"
+
+msgid "Entreeromev3.romev3"
+msgstr "Recherche rapide"
+
+msgid "Entreeromev3.familleromev3_id"
+msgstr "Code famille"
+
+msgid "Entreeromev3.domaineromev3_id"
+msgstr "Code domaine"
+
+msgid "Entreeromev3.metierromev3_id"
+msgstr "Code métier"
+
+msgid "Entreeromev3.appellationromev3_id"
+msgstr "Appellation métier"
+
+################################################################################
+# Les actions d'accompagnement et de formation prévues
+################################################################################
+
+msgid "Cui.accompagnement"
+msgstr "Les actions d'accompagnement et de formation prévues"
+
+msgid "Cui.nomtuteur"
+msgstr "Nom du tuteur désigné par l’employeur"
+
+msgid "Cui.fonctiontuteur"
+msgstr "Fonction du tuteur"
+
+msgid "Cui.organismedesuivi"
+msgstr "Organisme chargé du suivi"
+
+msgid "Cui.nomreferent"
+msgstr "Nom du référent"
+
+msgid "Cui.small_title_accompagnement"
+msgstr "Actions d’accompagnement professionnel"
+
+msgid "Cui.remobilisationemploi"
+msgstr "Remobilisation vers l’emploi"
+
+msgid "Cui.aidepriseposte"
+msgstr "Aide à la prise de poste"
+
+msgid "Cui.elaborationprojet"
+msgstr "Elaboration du projet professionnel et appui à sa réalisation"
+
+msgid "Cui.evaluationcompetences"
+msgstr "Evaluation des capacités et des compétences"
+
+msgid "Cui.aiderechercheemploi"
+msgstr "Aide à la recherche d’emploi"
+
+msgid "Cui.autre"
+msgstr "Autre"
+
+msgid "Cui.autrecommentaire"
+msgstr "Autre : précisez"
+
+msgid "Cui.small_title_formation"
+msgstr "Actions de formation"
+
+msgid "Cui.adaptationauposte"
+msgstr "Adaptation au poste de travail"
+
+msgid "Cui.remiseaniveau"
+msgstr "Remise à niveau"
+
+msgid "Cui.prequalification"
+msgstr "Préqualification"
+
+msgid "Cui.acquisitioncompetences"
+msgstr "Acquisition de nouvelles compétences"
+
+msgid "Cui.formationqualifiante"
+msgstr "Formation qualifiante"
+
+msgid "Cui.niveauqualif"
+msgstr "Si oui, niveau de qualification visé"
+
+################################################################################
+# Décision de prise en charge (Cadre réservé au prescripteur)
+################################################################################
+
+msgid "Cui.prise_en_charge"
+msgstr "Décision de prise en charge (Cadre réservé au prescripteur)"
+
+msgid "Cui.effetpriseencharge"
+msgstr "Date d’effet de la prise en charge"
+
+msgid "Cui.finpriseencharge"
+msgstr "Date de fin de la prise en charge"
+
+msgid "Cui.decisionpriseencharge"
+msgstr "Date d’effet de la décision modificatrice"
+
+msgid "Cui.dureehebdoretenu"
+msgstr "Durée hebdomadaire retenue pour le calcul de l’aide"
+
+msgid "Cui.operationspeciale"
+msgstr "Opération spéciale"
+
+msgid "Cui.tauxfixeregion"
+msgstr "Taux fixé par l’arrêté du préfet de région"
+
+msgid "Cui.priseenchargeeffectif"
+msgstr "Taux de prise en charge effectif"
+
+msgid "Cui.tauxcg"
+msgstr "Si oui, taux"
+
+msgid "Cui.intituleautreorganisme"
+msgstr "Organisme"
+
+msgid "Cui.adressautreorganisme"
+msgstr "Adresse"
+
+################################################################################
+# Date
+################################################################################
+
+msgid "Cui.date"
+msgstr "Dates"
+
+msgid "Cui.faitle"
+msgstr "Demande faite le"
+
+msgid "Cui.demandeenregistree"
+msgstr "Demande enregistrée le"
+
+################################################################################
+# Autre champs
+################################################################################
+
+msgid "Cui.etatdossiercui"
+msgstr "Position du CUI"
+
+msgid "Cui.positioncui"
+msgstr "Position du CUI"
+
+msgid "Decisionscuis.decision"
+msgstr "Décision sur le CUI"
+
+msgid "Decisionscuis.datedecision"
+msgstr "Date de la décision"
+
+msgid "Search.Cui66.etatdossiercui66"
+msgstr "Etat du dossier CUI"
+
+msgid "Search.Entreeromev3"
+msgstr "Code rome (v3)"
+
+msgid "Search.Entreeromev3.romev3"
+msgstr "Recherche rapide"
+
+msgid "Search.Entreeromev3.familleromev3_id"
+msgstr "Code famille"
+
+msgid "Search.Entreeromev3.domaineromev3_id"
+msgstr "Code domaine"
+
+msgid "Search.Entreeromev3.metierromev3_id"
+msgstr "Code métier"
+
+msgid "Search.Entreeromev3.appellationromev3_id"
+msgstr "Appellation métier"
+
+msgid "Search.Cui66.dateeligibilite"
+msgstr "Date d'éligibilité du dossier"
+
+msgid "Search.Cui66.datereception"
+msgstr "Date de réception du dossier"
+
+msgid "Search.Cui66.datecomplet"
+msgstr "Date du dossier complet"
+
+msgid "Search.Cui.dateembauche"
+msgstr "Date d'embauche prévu"
+
+msgid "Search.Cui.findecontrat"
+msgstr "Date prévue de fin de contrat (si CDD)"
+
+msgid "Search.Cui.effetpriseencharge"
+msgstr "Date d’effet de la prise en charge"
+
+msgid "Search.Cui.finpriseencharge"
+msgstr "Date de fin de la prise en charge"
+
+msgid "Search.Cui.decisionpriseencharge"
+msgstr "Date d’effet de la décision modificatrice"
+
+################################################################################
+# Fieldset du formulaire CUI
+################################################################################
+
+msgid "Partenairecui.assurancechomage"
+msgstr "L’employeur public ou privé est affilié à l’Unédic ?"
+
+msgid "Partenairecui.ajourversement"
+msgstr "L'employeur déclare sur l'honneur être à jour des versements de ses cotisations et contributions sociales"
+
+msgid "Cui.coupleenfant"
+msgstr "Composition du foyer"
+
+msgid "Couple.enfants_1_0"
+msgstr "Couple sans enfant"
+
+msgid "Couple.enfants_1_1"
+msgstr "Couple avec enfant(s)"
+
+msgid "Couple.enfants_0_0"
+msgstr "Isolé sans enfant"
+
+msgid "Couple.enfants_0_1"
+msgstr "Isolé avec enfant(s)"
+
+msgid "Cui.periodeimmersion"
+msgstr "Si CAE, l’employeur envisage-t-il de mettre en œuvre des périodes d’immersion ?"
+
+msgid "Cui.inscritpoleemploi"
+msgstr "Le salarié est-il inscrit Pôle emploi ? Si oui, depuis :"
+
+msgid "Cui.sansemploi"
+msgstr "Le salarié est-il sans emploi ? Si oui, depuis :"
+
+msgid "Cui.beneficiairede"
+msgstr "Le salarié est-il bénéficiaire"
+
+msgid "Cui.majorationrsa"
+msgstr "si RSA : majoré"
+
+msgid "Cui.rsadepuis"
+msgstr "Si majoré, depuis :"
+
+msgid "Cui.travailleurhandicape"
+msgstr "Le salarié déclare-t-il être bénéficiaire de l’obligation d’emploi des travailleurs handicapés ?"
+
+msgid "Cui.modulation"
+msgstr "Modulation"
+
+msgid "Cui.actionaccompagnement"
+msgstr "Eventuellement actions d’accompagnement social :"
+
+msgid "Cui.formation"
+msgstr "Formation"
+
+msgid "Cui.periodeprofessionnalisation"
+msgstr "Périodes de professionnalisation"
+
+msgid "Cui.validationacquis"
+msgstr "Une ou plusieurs de ces actions s’inscrivent elles dans le cadre de la validation des acquis de l’expérience ?"
+
+msgid "Cui.exclusifcg"
+msgstr "Financement exclusif du conseil général :"
+
+msgid "Cui.organismepayeur"
+msgstr "Organisme payeur de l’aide du conseil général à l’employeur :"
+
+################################################################################
+# Email Cui
+################################################################################
+
+msgid "Emailcui.entete_email"
+msgstr "Generateur d'e-mail"
+
+msgid "Emailcui.emailredacteur"
+msgstr "Adresse e-mail du redacteur (Expéditeur)"
+
+msgid "Emailcui.emailemployeur"
+msgstr "Adresse e-mail de l'employeur (Pour)"
+
+msgid "Emailcui.insertiondate"
+msgstr "Insérer date"
+
+msgid "Emailcui.commentaire"
+msgstr "Insérer commentaire"
+
+msgid "Emailcui.piecesmanquantes"
+msgstr "Pièces manquantes"
+
+msgid "Emailcui.chargermodel"
+msgstr "Charger un modèle"
+
+msgid "Emailcui.textmailcui_id"
+msgstr "Modèle de document"
+
+msgid "Emailcui.email"
+msgstr "Contenu de l'e-mail"
+
+msgid "Emailcui.titre"
+msgstr "Sujet"
+
+msgid "Emailcui.message"
+msgstr "Message"
+
+msgid "Emailcui.created"
+msgstr "Créé le"
+
+msgid "Emailcui.dateenvoi"
+msgstr "Envoyé le"
+
+msgid "Emailcui.pj"
+msgstr "Pièces à joindre à l'e-mail"
+
+msgid "/Cuis/email_edit/:heading"
+msgstr "Modification d'un e-mail"
+
+msgid "/Cuis/email_add/:heading"
+msgstr "Ajout d'un e-mail"
+
+msgid "/Cuis/email_add/:title"
+msgstr "Ajout d'un e-mail"
+
+msgid "Personne.rsasocle"
+msgstr "Cette personne ne possède pas de RSA Socle."
+
+################################################################################
+# Actions
+################################################################################
+
+msgid "/Propositionscuis/index"
+msgstr "Avis techniques"
+
+msgid "/Decisionscuis/index"
+msgstr "Décisions"
+
+msgid "/Accompagnementscuis/index"
+msgstr "Accompagnements"
+
+msgid "/Suspensionscuis/index"
+msgstr "Suspensions"
+
+msgid "/Rupturescuis/index"
+msgstr "Ruptures"
+
+msgid "/Cuis/notification"
+msgstr "Notification"
+
+msgid "/Cuis/index"
+msgstr "Voir"
+
+msgid "/Cuis/index/#Cui.personne_id#"
+msgstr "Voir les CUIs de #Personne.nom_complet#"
+
+msgid "/Cuis/view"
+msgstr "Voir"
+
+msgid "/Cuis/view/#Cui.id#"
+msgstr "Voir"
+
+msgid "/Cuis/edit"
+msgstr "Modifier"
+
+msgid "/Cuis/edit/#Cui.id#"
+msgstr "Modifier"
+
+msgid "/Cuis/delete"
+msgstr "Supprimer"
+
+msgid "/Cuis/delete/#Cui.id#"
+msgstr "Supprimer"
+
+msgid "/Cuis/filelink"
+msgstr "Fichiers liés (#Fichiermodule.nombre#)"
+
+msgid "/Cuis/filelink/#Cui.id#"
+msgstr "Fichiers liés"
+
+msgid "Fichiermodule.nombre"
+msgstr " "
+
+msgid "Cui.beneficiaire_ass"
+msgstr "ASS"
+
+msgid "Cui.beneficiaire_aah"
+msgstr "AAH"
+
+msgid "Cui.beneficiaire_ata"
+msgstr "ATA"
+
+msgid "Cui.beneficiaire_rsa"
+msgstr "RSA"
+
+msgid "/Cuis/filelink/:heading"
+msgstr "Fichiers liés au CUI"
+
+msgid "/Cuis/delete/#Cui.id# ?"
+msgstr "Cette action supprimera définitivement cet enregistrement. Voulez-vous continuer ?"

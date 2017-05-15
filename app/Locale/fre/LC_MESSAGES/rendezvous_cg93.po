@@ -1,0 +1,76 @@
+# Traductions de cg93_rendezvous.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+# 1°) Champs communs aux moteurs de recherche
+# ==============================================================================
+
+msgid "Personne.qual"
+msgstr "Qualité"
+
+msgid "Personne.nom_complet"
+msgstr "Nom de l'allocataire"
+
+msgid "Adresse.nomcom"
+msgstr "Commune de l'allocataire"
+
+msgid "Adresse.numcom"
+msgstr "Code INSEE"
+
+msgid "Prestation.rolepers"
+msgstr "Rôle"
+
+msgid "Structurereferenteparcours.lib_struc"
+msgstr "Structure de suivi"
+
+msgid "Referentparcours.nom_complet"
+msgstr "Personne chargée du suivi"
+
+# ==============================================================================
+# 2°) Champs spécifiques au moteur de recherche par rendez-vous
+# ==============================================================================
+
+msgid "Search.Rendezvous.communautesr_id"
+msgstr "Projet de ville territorial proposant le RDV"
+
+msgid "Search.Rendezvous.structurereferente_id"
+msgstr "Structure proposant le RDV"
+
+msgid "Search.Rendezvous.referent_id"
+msgstr "Personne proposant le RDV"
+
+msgid "Search.Rendezvous.thematiquerdv_id"
+msgstr "Thématiques"
+
+# ==============================================================================
+
+msgid "Structurereferente.lib_struc"
+msgstr "Structure proposant le RDV"
+
+msgid "Referent.nom_complet"
+msgstr "Personne proposant le RDV"
+
+msgid "Rendezvous.thematiques"
+msgstr "Thématique(s) du rendez-vous"
+
+msgid "Structurereferente.num_voie"
+msgstr "N° de voie structure"
+
+msgid "Structurereferente.type_voie"
+msgstr "Type de voie structure"
+
+msgid "Structurereferente.nom_voie"
+msgstr "Nom de voie structure"
+
+msgid "Structurereferente.code_postal"
+msgstr "Code postal structure"
+
+msgid "Structurereferente.ville"
+msgstr "Ville structure"

@@ -1,0 +1,57 @@
+# Traductions de sanctionseps58.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Sanctionseps58/selectionnoninscrits"
+msgstr "Formulaire"
+
+msgid "/Sanctionseps58/selectionnoninscrits/:title"
+msgstr "Visibilité du formulaire"
+
+msgid "/Sanctionseps58/selectionradies"
+msgstr "Formulaire"
+
+msgid "/Sanctionseps58/selectionradies/:title"
+msgstr "Visibilité du formulaire"
+
+# ------------------------------------------------------------------------------
+
+msgid "/Sanctionseps58/cohorte_radiespe/:heading"
+msgstr "Sélection des allocataires radiés de Pôle Emploi (nouveau)"
+
+msgid "/Sanctionseps58/cohorte_radiespe"
+msgstr "Formulaire"
+
+msgid "/Sanctionseps58/cohorte_radiespe/:title"
+msgstr "Visibilité formulaire"
+
+msgid "data[Cohorte][][Dossierep][chosen]"
+msgstr "Sélectionné ?"
+
+msgid "Historiqueetatpe.etat"
+msgstr "État"
+
+msgid "Historiqueetatpe.code"
+msgstr "Code"
+
+msgid "Historiqueetatpe.motif"
+msgstr "Motif"
+
+# ==============================================================================
+
+msgid "/Sanctionseps58/cohorte_noninscritspe/:heading"
+msgstr "Sélection des allocataires non inscrits à Pôle Emploi (nouveau)"
+
+msgid "/Sanctionseps58/cohorte_noninscritspe"
+msgstr "Formulaire"
+
+msgid "/Sanctionseps58/cohorte_noninscritspe/:title"
+msgstr "Visibilité formulaire"

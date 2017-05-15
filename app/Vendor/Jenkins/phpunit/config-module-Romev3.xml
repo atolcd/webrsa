@@ -1,0 +1,31 @@
+<phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.7/phpunit.xsd">
+	<!--
+		On s'assure de faire la couverture de code uniquement sur les fichiers
+		sources du module ROME V3, moins les tests, plugins et vendors.
+	-->
+	<filter>
+		<whitelist>
+				<file>../../../Console/Command/ImportCsvCodesRomeV3Shell.php</file>
+				<file>../../../Controller/Cataloguesromesv3Controller.php</file>
+				<file>../../../Model/Appellationromev3.php</file>
+				<file>../../../Model/Behavior/Catalogueromev3Behavior.php</file>
+				<file>../../../Model/Catalogueromev3.php</file>
+				<file>../../../Model/Correspondanceromev2v3.php</file>
+				<file>../../../Model/Domaineromev3.php</file>
+				<file>../../../Model/Familleromev3.php</file>
+				<file>../../../Model/Metierromev3.php</file>
+				<file>../../../View/Helper/Romev3Helper.php</file>
+			<exclude>
+				<directory>../../../Config</directory>
+				<directory>../../../Doc</directory>
+				<directory>../../../Test</directory>
+				<directory>../../../Plugin</directory>
+				<directory>../../../Vendor</directory>
+				<directory>../../../webroot</directory>
+				<file>../../../index.php</file>
+			</exclude>
+		</whitelist>
+	</filter>
+</phpunit>

@@ -1,0 +1,138 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+# Enum Decisionpersonnepcg66.validationdecision
+###############################################################################
+
+msgid "Personnespcgs66::add"
+msgstr "Ajouter une proposition de décision"
+
+msgid "Decisionpersonnepcg66::index::empty"
+msgstr "Aucune proposition de décision pour cet allocataire"
+
+msgid "Decisionspersonnespcgs66::index"
+msgstr "Propositions de décisions pour "
+
+msgid "Decisionspersonnespcgs66::print"
+msgstr "Imprimer la proposition"
+
+msgid "Decisionspersonnespcgs66::delete"
+msgstr "Supprimer la proposition"
+
+msgid "Decisionspersonnespcgs66::view"
+msgstr "Vue de la proposition de décision"
+
+msgid "Decisionspersonnespcgs66::delete::confirm"
+msgstr "Etes-vous sûr de vouloir supprimer la proposition ?"
+
+msgid "Decisionpersonnepcg66.validationdecision"
+msgstr "Validation de la proposition"
+
+msgid "Decisionpersonnepcg66.datevalidationdecision"
+msgstr "Date de validation de la proposition"
+
+msgid "Decisionpersonnepcg66.commentairepdo"
+msgstr "Proposition"
+
+
+msgid "ENUM::VALIDATIONDECISION::0"
+msgstr "Non"
+
+msgid "ENUM::VALIDATIONDECISION::1"
+msgstr "Oui"
+
+msgid "Decisionspersonnespcgs66::add"
+msgstr "Ajout d'une proposition de décision"
+
+msgid "Decisionspersonnespcgs66::edit"
+msgstr "Édition d'une proposition de décision"
+
+msgid "Decisionpersonnepcg66.datedecisionpdo"
+msgstr "Date de la proposition"
+
+msgid "Decisionpdo.libelle"
+msgstr "Décision"
+
+msgid "Decisionpersonnepcg66.etatdossierpdo"
+msgstr "Etat du dossier"
+
+msgid "Decisionpersonnepcg66.avistechnique"
+msgstr "Avis technique"
+
+msgid "ENUM::AVISTECHNIQUE::0"
+msgstr "Non"
+
+msgid "ENUM::AVISTECHNIQUE::1"
+msgstr "Oui"
+
+msgid "Decisionpersonnepcg66.commentaireavistechnique"
+msgstr "Commentaire"
+
+msgid "Decisionpersonnepcg66.dateavistechnique"
+msgstr "Date de l'avis technique"
+
+msgid "Decisionpersonnepcg66.commentairedecision"
+msgstr "Commentaire"
+
+msgid "Decisionpersonnepcg66.decisionpdo_id"
+msgstr "Type de proposition"
+
+msgid "Decisionpersonnepcg66.hasreponseep"
+msgstr "Réponse à l'EP"
+
+msgid "Decisionpersonnepcg66.decisionreponseep"
+msgstr "Suite à l'avis de l'EP Locale Commission Audition"
+
+msgid "Decisionpersonnepcg66.accordepaudition"
+msgstr "En accord avec l'avis de l'EPL Commission Audition"
+
+msgid "Decisionpersonnepcg66.commentairereponseep"
+msgstr "Commentaire"
+
+msgid "Decisionpersonnepcg66.datereponseep"
+msgstr "Date"
+
+msgid "ENUM::ACCORDEPAUDITION::1"
+msgstr "Oui"
+
+msgid "ENUM::ACCORDEPAUDITION::0"
+msgstr "Non"
+
+msgid "ENUM::DECISIONREPONSEEP::suspensionnonrespect"
+msgstr "Suspension suite à non respect du contrat"
+
+msgid "ENUM::DECISIONREPONSEEP::suspensiondefaut"
+msgstr "Suspension suite à défaut de conclusion"
+
+msgid "ENUM::DECISIONREPONSEEP::maintien"
+msgstr "Maintien du versement de l'allocation"
+
+msgid "ENUM::DECISIONREPONSEEP::reorientationprofverssoc"
+msgstr "Réorientation du professionnel vers le social"
+
+msgid "ENUM::DECISIONREPONSEEP::reorientationsocversprof"
+msgstr "Réorientation du social vers le professionnel"
+
+msgid "Decisionpersonnepcg66.datepropositions"
+msgstr "Date de la proposition"
+
+msgid "Decisionpersonnepcg66.commentaire"
+msgstr "Commentaire sur la proposition"

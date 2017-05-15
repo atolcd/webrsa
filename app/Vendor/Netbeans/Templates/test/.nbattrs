@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="CakePHP Behavior Test Case.php">
+        <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+        <attr name="template" boolvalue="true"/>
+    </fileobject>
+    <fileobject name="CakePHP Component Test Case.php">
+        <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+        <attr name="template" boolvalue="true"/>
+    </fileobject>
+    <fileobject name="CakePHP Controller Test Case.php">
+        <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+        <attr name="template" boolvalue="true"/>
+    </fileobject>
+	<fileobject name="CakePHP Fixture.php">
+		<attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+		<attr name="template" boolvalue="true"/>
+	</fileobject>
+    <fileobject name="CakePHP Helper Test Case.php">
+        <attr name="displayName" stringvalue="CakePHP Helper Test Case.php"/>
+        <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+        <attr name="template" boolvalue="true"/>
+    </fileobject>
+    <fileobject name="CakePHP Model Test Case.php">
+        <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+        <attr name="template" boolvalue="true"/>
+    </fileobject>
+</attributes>

@@ -1,0 +1,17 @@
+# Traductions de categoriemetierromev2.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Categoriemetierromev2.code"
+msgstr "Code métier (rome v2)"
+
+msgid "Categoriemetierromev2.name"
+msgstr "Appellation métier (rome v2)"

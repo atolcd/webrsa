@@ -1,0 +1,32 @@
+# Traductions de tests.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Brakets.free.title"
+msgstr "Requète sans parenthèses :"
+
+msgid "Brakets.contain.title"
+msgstr "Contenu des parenthèses :"
+
+msgid "Fields.title"
+msgstr "Fields :"
+
+msgid "Joins.title"
+msgstr "Jointures :"
+
+msgid "Conditions.title"
+msgstr "Conditions :"
+
+msgid "onFailure"
+msgstr "Echec! Vérifiez les droits."
+
+msgid "onException"
+msgstr "Une érreur s'est produite!"

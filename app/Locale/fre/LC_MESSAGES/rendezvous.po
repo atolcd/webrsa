@@ -1,0 +1,175 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+# Rendez-vous
+###############################################################################
+
+msgid "Rendezvous.lib_struct"
+msgstr "Structure référente"
+
+msgid "Rendezvous.modelenotifrdv"
+msgstr "Modèle de notification lié au type de RDV"
+
+msgid "Rendezvous::index"
+msgstr "Rendez-vous"
+
+msgid "Rendezvous::index::empty"
+msgstr "Aucun rendez-vous présent"
+
+msgid "Rendezvous::add"
+msgstr "Ajout d'un rendez-vous"
+
+msgid "Rendezvous::edit"
+msgstr "Modification du rendez-vous"
+
+msgid "Rendezvous::print"
+msgstr "Imprimer le rendez-vous"
+
+msgid "Rendezvous::delete"
+msgstr "Supprimer le rendez-vous"
+
+msgid "Rendezvous::delete::confirm"
+msgstr "Etes-vous sûr de vouloir supprimer le rendez-vous?"
+
+msgid "Rendezvous.daterdv"
+msgstr "Date de RDV"
+
+msgid "Rendezvous.heurerdv"
+msgstr "Heure du RDV"
+
+msgid "Rendezvous.objetrdv"
+msgstr "Objectif du RDV"
+
+msgid "Rendezvous.statutrdv"
+msgstr "Statut du RDV"
+
+msgid "Rendezvous.lib_rdv"
+msgstr "Objet du RDV"
+
+msgid "Rendezvous.commentairerdv"
+msgstr "Commentaires suite au RDV"
+
+msgid "Rendezvous::filelink"
+msgstr "Liste des fichiers liés au RDV"
+
+msgid "Rendezvous.haspiecejointe"
+msgstr "Ajouter une pièce jointe"
+
+msgid "ENUM::HASPIECEJOINTE::1"
+msgstr "Oui"
+
+msgid "ENUM::HASPIECEJOINTE::0"
+msgstr "Non"
+
+msgid "Rendezvous.rang"
+msgstr "Rang du rendez-vous"
+
+# TODO: dans les traductions de la table de liaison ?
+msgid "Questionnaired1pdv93::missing"
+msgstr "Veuillez remplir un questionnaire D1 pour cet allocataire"
+
+msgid "Thematiquerdv.name"
+msgstr "Thématique(s) du rendez-vous"
+
+###############################################################################
+# Moteur de recherche par rendez-vous
+###############################################################################
+
+msgid "/Rendezvous/search/:heading"
+msgstr "Recherche par rendez-vous (nouveau)"
+
+msgid "Search.Rendezvous"
+msgstr "Recherche par rendez-vous"
+
+msgid "Search.Rendezvous.statutrdv_id"
+msgstr "Statut du RDV"
+
+msgid "Search.Rendezvous.structurereferente_id"
+msgstr "Structure référente"
+
+msgid "Search.Rendezvous.referent_id"
+msgstr "Nom du référent"
+
+msgid "Search.Rendezvous.permanence_id"
+msgstr "Permanence liée à la structure"
+
+msgid "Search.Rendezvous.typerdv_id"
+msgstr "Objet du rendez-vous"
+
+msgid "Search.Rendezvous.daterdv"
+msgstr "Date de rendez-vous"
+
+msgid "/Rendezvous/index"
+msgstr "Voir"
+
+msgid "/Rendezvous/index/#Rendezvous.personne_id#"
+msgstr "Voir le rendez-vous de #Personne.nom_complet#"
+
+msgid "/Rendezvous/impression"
+msgstr "Imprimer"
+
+msgid "/Rendezvous/impression/#Rendezvous.id#"
+msgstr "Imprimer le rendez-vous de #Personne.nom_complet#"
+
+msgid "/Rendezvous/index/:heading"
+msgstr "Rendez-vous"
+
+msgid "/Rendezvous/add"
+msgstr "Ajouter"
+
+msgid "/Rendezvous/add/:title"
+msgstr "Ajouter un Rendez-vous"
+
+msgid "/Rendezvous/view"
+msgstr "Voir"
+
+msgid "/Rendezvous/view/#Rendezvous.id#"
+msgstr "Voir le Rendez-vous"
+
+msgid "/Rendezvous/edit"
+msgstr "Modifier"
+
+msgid "/Rendezvous/edit/#Rendezvous.id#"
+msgstr "Modifier le Rendez-vous"
+
+msgid "/Rendezvous/delete"
+msgstr "Supprimer"
+
+msgid "/Rendezvous/delete/#Rendezvous.id#"
+msgstr "Supprimer le Rendez-vous"
+
+msgid "/Rendezvous/delete/#Rendezvous.id# ?"
+msgstr "Supprimer le Rendez-vous"
+
+msgid "/Rendezvous/delete/#Rendezvous.id##d1"
+msgstr "Attention ce RDV est lié à un questionnaire D1, si vous le supprimez, vous supprimez également le D1"
+
+msgid "/Rendezvous/delete/#Rendezvous.id##d1 ?"
+msgstr "Attention ce RDV est lié à un questionnaire D1, si vous le supprimez, vous supprimez également le D1"
+
+msgid "/Rendezvous/filelink"
+msgstr "Fichiers liés (#Fichiermodule.nb_fichiers_lies#)"
+
+msgid "/Rendezvous/filelink/#Rendezvous.id#"
+msgstr "Fichiers liés"
+
+msgid "Rendezvous::index::emptyLabel"
+msgstr "Cette personne ne possède pas encore de rendez-vous."

@@ -1,0 +1,177 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+# Enum Propopdo.statutdecision
+###############################################################################
+msgid "Criterespdos::index"
+msgstr "Recherche de PDOs"
+
+msgid "ENUM::STATUTDECISION::DEF"
+msgstr "Définitive"
+
+msgid "ENUM::STATUTDECISION::UND"
+msgstr "Non définitive"
+
+msgid "ENUM::CHOIXPDO::PDO"
+msgstr "PDO"
+
+msgid "ENUM::CHOIXPDO::JUS"
+msgstr "Justificatifs arrivés"
+
+msgid "Propopdo.structurereferente_id"
+msgstr "Structure référente traitant le dossier"
+
+msgid "Propopdo.typepdo_id"
+msgstr "Type de dossier"
+
+msgid "Propopdo.decisionpdo_id"
+msgstr "Proposition de décision"
+
+msgid "Propopdo.datereceptionpdo"
+msgstr "Date de réception de la PDO"
+
+msgid "Propopdo.originepdo_id"
+msgstr "Origine de la PDO"
+
+msgid "Propopdo.motifpdo"
+msgstr "Motif de la PDO"
+
+msgid "ENUM::NONADMIS::CAN"
+msgstr "Conditions d'admission non remplies"
+
+msgid "ENUM::NONADMIS::RSP"
+msgstr "Ressources > au plafond"
+
+msgid "Propopdo.categoriegeneral"
+msgstr "Métiers ( général )"
+
+msgid "Propopdo.categoriedetail"
+msgstr "Métiers ( détaillé )"
+
+msgid "Propopdo.iscomplet"
+msgstr "Dossier complet ?"
+
+msgid "Criterespdos::nouvelles"
+msgstr "Liste des personnes pouvant bénéficier d'une PDO"
+
+msgid "ENUM::ISCOMPLET::COM"
+msgstr "Dossier complet"
+
+msgid "ENUM::ISCOMPLET::INC"
+msgstr "Dossier incomplet"
+
+msgid "Propopdo.isvalidation"
+msgstr "Validation"
+
+msgid "Propopdo.validationdecision"
+msgstr "Décision validée"
+
+msgid "Propopdo.datevalidationdecision"
+msgstr "Date de validation de la décision"
+
+msgid "ENUM::VALIDATIONDECISION::N"
+msgstr "Non"
+
+msgid "ENUM::VALIDATIONDECISION::O"
+msgstr "Oui"
+
+msgid "ENUM::DECISIONOP::REF"
+msgstr "Refus"
+
+msgid "ENUM::DECISIONOP::ACC"
+msgstr "Accord"
+
+msgid "ENUM::DECISIONOP::AJ"
+msgstr "Ajournement"
+
+msgid "Propopdo.observationop"
+msgstr "Observations"
+
+msgid "Propopdo.datedecisionop"
+msgstr "Date transimission à l'OP"
+
+# 'attaffect', 'attinstr', 'instrencours', 'attval', 'attavistech', 'dossiertraite', 'attpj'
+
+msgid "ENUM::ETATDOSSIERPDO::attaffect"
+msgstr "En attente d'affectation"
+
+msgid "ENUM::ETATDOSSIERPDO::attinstr"
+msgstr "En attente d'instruction"
+
+msgid "ENUM::ETATDOSSIERPDO::instrencours"
+msgstr "Instruction en cours"
+
+msgid "ENUM::ETATDOSSIERPDO::attval"
+msgstr "En attente de validation de la proposition"
+
+msgid "ENUM::ETATDOSSIERPDO::attavistech"
+msgstr "En attente d'avis technique"
+
+msgid "ENUM::ETATDOSSIERPDO::dossiertraite"
+msgstr "Dossier traité"
+
+msgid "ENUM::ETATDOSSIERPDO::attpj"
+msgstr "Dossier traité mais en attente de pièces"
+
+msgid "Propopdo.serviceinstructeur_id"
+msgstr "Service instructeur"
+
+msgid "Propopdo.orgpayeur"
+msgstr "Organisme payeur"
+
+msgid "ENUM::ORGPAYEUR::CAF"
+msgstr "CAF"
+
+msgid "ENUM::ORGPAYEUR::MSA"
+msgstr "MSA"
+
+msgid "Propopdo.etatdossierpdo"
+msgstr "Etat du dossier"
+
+msgid "Propopdo.user_id"
+msgstr "Gestionnaire du dossier (instructeur en charge du dossier)"
+
+###############################################################################
+# Traduction pour les traitements
+###############################################################################
+msgid "Propopdo::index::empty"
+msgstr "Aucun renseignement disponible actuellement"
+
+msgid "Propospdos::add"
+msgstr "Ajouter"
+
+msgid "Propopdo.haspiece"
+msgstr "Pièce jointe"
+
+msgid "ENUM::HASPIECE::0"
+msgstr "Non"
+
+msgid "ENUM::HASPIECE::1"
+msgstr "Oui"
+
+msgid "ENUM::MOTIFPDO::E"
+msgstr "En attente de justificatif"
+
+msgid "ENUM::MOTIFPDO::A"
+msgstr "Admissible"
+
+msgid "ENUM::MOTIFPDO::N"
+msgstr "Non admissible"
