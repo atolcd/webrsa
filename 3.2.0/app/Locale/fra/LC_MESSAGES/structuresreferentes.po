@@ -1,0 +1,59 @@
+# Traductions de structuresreferentes.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Structuresreferentes/add/:heading"
+msgstr "Ajout d'une structure référente"
+
+msgid "/Structuresreferentes/edit/:heading"
+msgstr "Modification de la structure référente « #Structurereferente.lib_struc# »"
+
+msgid "Structurereferente.lib_struc"
+msgstr "Nom de la structure"
+
+msgid "Structurereferente.num_voie"
+msgstr "Numéro de voie"
+
+msgid "Structurereferente.type_voie"
+msgstr "Type de voie"
+
+msgid "Structurereferente.nom_voie"
+msgstr "Nom de voie"
+
+msgid "Structurereferente.code_postal"
+msgstr "Code postal"
+
+msgid "Structurereferente.ville"
+msgstr "Ville"
+
+msgid "Structurereferente.code_insee"
+msgstr "Code INSEE"
+
+msgid "Structurereferente.numtel"
+msgstr "Numéro de téléphone"
+
+msgid "Structurereferente.numfax"
+msgstr "Numéro de fax"
+
+msgid "Structurereferente.typeorient_id"
+msgstr "Type d'orientation"
+
+msgid "Structurereferente.actif"
+msgstr "Structure active"
+
+msgid "Structurereferente.typestructure"
+msgstr "Type de structure"
+
+msgid "Structurereferente.orientation"
+msgstr "Gestion des orientations"
+
+msgid "Structurereferente.pdo"
+msgstr "Gestion des PDOs"

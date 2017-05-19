@@ -1,0 +1,65 @@
+/* TODO: app/webrsa.sh minify */
+
+/* Liens en fin de lignes de résultats des moteurs de recherche */
+body table.search tbody td.action a, body table.search tbody td.action span {
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 20px;
+	text-decoration: none;
+	display: block;
+}
+/* Lien index (écran avec liste) */
+body table.search tbody td.action a.index {
+	background-image: url( ../img/icons/application_view_list.png );
+}
+body table.search tbody td.action span.index.disabled {
+	background-image: url( ../img/icons/application_view_list_disabled.png );
+}
+
+/* Lien view (loupe) */
+body table.search tbody td.action a.view {
+	background-image: url( ../img/icons/zoom.png );
+}
+body table.search tbody td.action span.view.disabled {
+	background-image: url( ../img/icons/zoom_disabled.png );
+}
+
+/* Lien add (signe plus sur rond vert) */
+body table.search tbody td.action a.add {
+	background-image: url( ../img/icons/add.png );
+}
+body table.search tbody td.action span.add.disabled {
+	background-image: url( ../img/icons/add_disabled.png );
+}
+
+/* Lien edit (crayon) */
+body table.search tbody td.action a.edit {
+	background-image: url( ../img/icons/pencil.png );
+}
+body table.search tbody td.action span.edit.disabled {
+	background-image: url( ../img/icons/pencil_disabled.png );
+}
+
+/* Lien delete (sens interdit) */
+body table.search tbody td.action a.delete {
+	background-image: url( ../img/icons/delete.png );
+}
+body table.search tbody td.action span.delete.disabled {
+	background-image: url( ../img/icons/delete_disabled.png );
+}
+
+/* Lien print (imprimante) */
+body table.search tbody td.action a.print {
+	background-image: url( ../img/icons/printer.png );
+}
+body table.search tbody td.action span.print.disabled {
+	background-image: url( ../img/icons/printer_disabled.png );
+}
+
+/* Lien email (enveloppe) */
+body table.search tbody td.action a.email {
+	background-image: url( ../img/icons/email.png );
+}
+body table.search tbody td.action span.email.disabled {
+	background-image: url( ../img/icons/email_disabled.png );
+}

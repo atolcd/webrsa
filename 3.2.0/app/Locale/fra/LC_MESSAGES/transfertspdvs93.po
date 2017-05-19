@@ -1,0 +1,81 @@
+# Traductions de transfertspdvs93.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Transfertspdvs93/search/:heading"
+msgstr "Recherche par allocataires sortants, intra-département"
+
+msgid "/Transfertspdvs93/search"
+msgstr "Formulaire"
+
+msgid "/Transfertspdvs93/search/:title"
+msgstr "Visibilité formulaire"
+
+msgid "Orientstruct.search"
+msgstr "Recherche par transfert"
+
+msgid "Search.NvOrientstruct.date_valid"
+msgstr "Date de transfert"
+
+msgid "Search.Orientstruct.typeorient_id"
+msgstr "Type de transfert"
+
+msgid "Search.NvOrientstruct.communautesr_id"
+msgstr "Transféré vers le projet de ville territorial"
+
+msgid "Search.NvOrientstruct.structurereferente_id"
+msgstr "Transféré vers"
+
+# ------------------------------------------------------------------------------
+
+msgid "Adresse.localite"
+msgstr "Adresse précédente"
+
+msgid "Personne.nom_complet"
+msgstr "Allocataire"
+
+msgid "Transfertpdv93.created"
+msgstr "Date de transfert"
+
+msgid "VxStructurereferente.lib_struc"
+msgstr "Structure référente source"
+
+msgid "NvStructurereferente.lib_struc"
+msgstr "Transféré vers"
+
+msgid "Structurereferenteparcours.lib_struc"
+msgstr "Structure de suivi"
+
+msgid "Referentparcours.nom_complet"
+msgstr "Personne chargée du suivi"
+
+msgid "/Dossiers/view"
+msgstr "Voir"
+
+msgid "/Dossiers/view/#Dossier.id#"
+msgstr "Voir le transfert PDV de #Personne.nom_complet#"
+
+# ------------------------------------------------------------------------------
+
+msgid "/Transfertspdvs93/cohorte_atransferer/:heading"
+msgstr "Transferts PDV - Allocataires à transférer"
+
+msgid "Search.Orientstruct.date_valid"
+msgstr "Date d'orientation"
+
+msgid "data[Cohorte][][Transfertpdv93][action]"
+msgstr "Action"
+
+msgid "data[Cohorte][][Transfertpdv93][structurereferente_dst_id]"
+msgstr "Structure référente cible"
+
+msgid "/Cers93/index"
+msgstr "Voir"

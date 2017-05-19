@@ -1,0 +1,47 @@
+# Traductions de objetsentretien_index.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Objetsentretien/index/:heading"
+msgstr "Paramétrage des objets d'entretien"
+
+msgid "/Objetsentretien/add/:heading"
+msgstr "Ajout d'un objet d'entretien"
+
+msgid "/Objetsentretien/edit/:heading"
+msgstr "Modification de l'objet d'entretien « #Objetentretien.name# »"
+
+msgid "/Objetsentretien/add"
+msgstr "Ajouter"
+
+msgid "/Objetsentretien/add/:title"
+msgstr "Ajouter un objet d'entretien"
+
+msgid "/Objetsentretien/edit"
+msgstr "Modifier"
+
+msgid "/Objetsentretien/edit/#Objetentretien.id#"
+msgstr "Modifier l'objet d'entretien « #Objetentretien.name# »"
+
+msgid "/Objetsentretien/delete"
+msgstr "Supprimer"
+
+msgid "/Objetsentretien/delete/#Objetentretien.id#"
+msgstr "Supprimer l'objet d'entretien « #Objetentretien.name# »"
+
+msgid "/Objetsentretien/delete/#Objetentretien.id# ?"
+msgstr "Réellement supprimer l'objet d'entretien « #Objetentretien.name# » ?"
+
+msgid "/Parametrages/index"
+msgstr "Retour"
+
+msgid "/Parametrages/index/:title"
+msgstr "Retour aux paramétrages"

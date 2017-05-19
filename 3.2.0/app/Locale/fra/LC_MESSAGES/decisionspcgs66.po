@@ -1,0 +1,47 @@
+# Traductions de decisionspcgs66.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Decisionspcgs66/index/:heading"
+msgstr "Paramétrage des décisions PCG"
+
+msgid "/Decisionspcgs66/add/:heading"
+msgstr "Ajout d'une décision PCG"
+
+msgid "/Decisionspcgs66/edit/:heading"
+msgstr "Modification de la décision PCG « #Decisionpcg66.name# »"
+
+msgid "/Decisionspcgs66/add"
+msgstr "Ajouter"
+
+msgid "/Decisionspcgs66/add/:title"
+msgstr "Ajouter une décision PCG"
+
+msgid "/Decisionspcgs66/edit"
+msgstr "Modifier"
+
+msgid "/Decisionspcgs66/edit/#Decisionpcg66.id#"
+msgstr "Modifier la décision PCG « #Decisionpcg66.name# »"
+
+msgid "/Decisionspcgs66/delete"
+msgstr "Supprimer"
+
+msgid "/Decisionspcgs66/delete/#Decisionpcg66.id#"
+msgstr "Supprimer la décision PCG « #Decisionpcg66.name# »"
+
+msgid "/Decisionspcgs66/delete/#Decisionpcg66.id# ?"
+msgstr "Réellement supprimer la décision PCG « #Decisionpcg66.name# » ?"
+
+msgid "/Parametrages/decisionsdossierspcgs66"
+msgstr "Retour"
+
+msgid "/Parametrages/decisionsdossierspcgs66/:title"
+msgstr "Retour aux paramétrages des décisions de dossiers PCG"

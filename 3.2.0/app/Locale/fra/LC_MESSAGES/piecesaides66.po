@@ -1,0 +1,47 @@
+# Traductions de piecesaides66.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Piecesaides66/index/:heading"
+msgstr "Paramétrage des pièces administratives de l'APRE/ADRE"
+
+msgid "/Piecesaides66/add/:heading"
+msgstr "Ajout d'une pièce administrative de l'APRE/ADRE"
+
+msgid "/Piecesaides66/edit/:heading"
+msgstr "Modification de la pièce administrative de l'APRE/ADRE « #Pieceaide66.name# »"
+
+msgid "/Piecesaides66/add"
+msgstr "Ajouter"
+
+msgid "/Piecesaides66/add/:title"
+msgstr "Ajouter une pièce administrative de l'APRE/ADRE"
+
+msgid "/Piecesaides66/edit"
+msgstr "Modifier"
+
+msgid "/Piecesaides66/edit/#Pieceaide66.id#"
+msgstr "Modifier la pièce administrative de l'APRE/ADRE « #Pieceaide66.name# »"
+
+msgid "/Piecesaides66/delete"
+msgstr "Supprimer"
+
+msgid "/Piecesaides66/delete/#Pieceaide66.id#"
+msgstr "Supprimer la pièce administrative de l'APRE/ADRE « #Pieceaide66.name# »"
+
+msgid "/Piecesaides66/delete/#Pieceaide66.id# ?"
+msgstr "Réellement supprimer la pièce administrative de l'APRE/ADRE « #Pieceaide66.name# » ?"
+
+msgid "/Parametrages/apres"
+msgstr "Retour"
+
+msgid "/Parametrages/apres/:title"
+msgstr "Retour aux paramétrages des APRE"

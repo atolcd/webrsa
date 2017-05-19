@@ -1,0 +1,17 @@
+# Traductions de regroupementseps_index.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Regroupementep.nbminmembre"
+msgstr "Nombre minimum de membres"
+
+msgid "Regroupementep.nbmaxmembre"
+msgstr "Nombre maximum de membres"

@@ -1,0 +1,53 @@
+# Traductions de fonctionsmembreseps.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Fonctionsmembreseps/index/:heading"
+msgstr "Paramétrage des fonctions des membres des EP"
+
+msgid "/Fonctionsmembreseps/add/:heading"
+msgstr "Ajout d'une fonction de membre des EP"
+
+msgid "/Fonctionsmembreseps/edit/:heading"
+msgstr "Modification de la fonction de membre des EP « #Fonctionmembreep.name# »"
+
+msgid "/Fonctionsmembreseps/add"
+msgstr "Ajouter"
+
+msgid "/Fonctionsmembreseps/add/:title"
+msgstr "Ajouter une fonction de membre des EP"
+
+msgid "Fonctionmembreep.name"
+msgstr "Fonction du membre"
+
+msgid "Fonctionmembreep.codeinsee"
+msgstr "Code INSEE"
+
+msgid "/Fonctionsmembreseps/edit"
+msgstr "Modifier"
+
+msgid "/Fonctionsmembreseps/edit/#Fonctionmembreep.id#"
+msgstr "Modifier la fonction de membre des EP « #Fonctionmembreep.name# »"
+
+msgid "/Fonctionsmembreseps/delete"
+msgstr "Supprimer"
+
+msgid "/Fonctionsmembreseps/delete/#Fonctionmembreep.id#"
+msgstr "Supprimer la fonction de membre des EP « #Fonctionmembreep.name# »"
+
+msgid "/Fonctionsmembreseps/delete/#Fonctionmembreep.id# ?"
+msgstr "Réellement supprimer la fonction de membre des EP « #Fonctionmembreep.name# » ?"
+
+msgid "/Parametrages/eps"
+msgstr "Retour"
+
+msgid "/Parametrages/eps/:title"
+msgstr "Retour aux paramétrages des équipes pluridisciplinaires"

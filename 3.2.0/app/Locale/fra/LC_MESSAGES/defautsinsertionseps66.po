@@ -1,0 +1,47 @@
+# Traductions de personnes.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Defautsinsertionseps66/search_noninscrits/:heading"
+msgstr "Sélection des allocataires non inscrits à Pôle Emploi"
+
+msgid "/Defautsinsertionseps66/search_noninscrits"
+msgstr "Formulaire"
+
+msgid "/Defautsinsertionseps66/search_noninscrits/:title"
+msgstr "Formulaire"
+
+msgid "Search.Orientstruct.date_valid"
+msgstr "Mois d'orientation"
+
+msgid "Defautsinsertionseps66search_noninscrits"
+msgstr "Recherche par parcours allocataire"
+
+msgid "/Bilansparcours66/add"
+msgstr "Ajouter un bilan de parcours"
+
+msgid "/Bilansparcours66/add/#Personne.id#/Bilanparcours66__examenauditionpe:noninscriptionpe"
+msgstr "Ajouter un bilan de parcours"
+
+msgid "Defautsinsertionseps66search_radies"
+msgstr "Recherche par parcours allocataire"
+
+msgid "Search.Historiqueetatpe.identifiantpe"
+msgstr "Identifiant Pôle Emploi"
+
+msgid "/Defautsinsertionseps66/search_radies/:heading"
+msgstr "Sélection des allocataires radiés de Pôle Emploi"
+
+msgid "/Defautsinsertionseps66/search_radies/:title"
+msgstr "Afficher formulaire"
+
+msgid "/Defautsinsertionseps66/search_radies"
+msgstr "Formulaire"

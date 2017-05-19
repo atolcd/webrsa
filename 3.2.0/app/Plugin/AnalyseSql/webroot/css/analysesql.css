@@ -1,0 +1,26 @@
+.notice {
+    background: none repeat scroll 0% 0% #E1EBF7;
+    margin: 1em 0px;
+    border: 1px solid #1D2F54;
+    padding: 0.5em;
+    color: #1D2F54;
+}
+
+.cake-sql-log td pre {
+	background: #F5F5F5;
+	overflow: auto;
+	max-width: 820px;
+}
+
+#analysed_error_pdo pre span, .cake-sql-log td pre span {
+	color: #23527C;
+	cursor: pointer;
+}
+
+#analysed_error_pdo pre span.even, .cake-sql-log td pre span.even {
+	color: #8888AA;
+}
+
+#analysed_error_pdo pre span.odd, .cake-sql-log td pre span.odd {
+	color: #223F5D;
+}

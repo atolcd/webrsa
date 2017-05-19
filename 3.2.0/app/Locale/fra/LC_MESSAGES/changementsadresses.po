@@ -1,0 +1,23 @@
+# Traductions de changementsadresses.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Changementsadresses/search/:heading"
+msgstr "Recherche par changement d'adresse"
+
+msgid "Adresse.complete"
+msgstr "Adresse"
+
+msgid "/Dossiers/view"
+msgstr "Voir"
+
+msgid "/Dossiers/view/#Dossier.id#"
+msgstr "Voir le dossier"

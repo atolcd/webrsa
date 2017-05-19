@@ -1,0 +1,47 @@
+# Traductions de situationspdos.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Situationspdos/index/:heading"
+msgstr "Paramétrage des situations PDO"
+
+msgid "/Situationspdos/add/:heading"
+msgstr "Ajout d'une situation PDO"
+
+msgid "/Situationspdos/edit/:heading"
+msgstr "Modification de la situation PDO « #Situationpdo.libelle# »"
+
+msgid "/Situationspdos/add"
+msgstr "Ajouter"
+
+msgid "/Situationspdos/add/:title"
+msgstr "Ajouter une situation PDO"
+
+msgid "/Situationspdos/edit"
+msgstr "Modifier"
+
+msgid "/Situationspdos/edit/#Situationpdo.id#"
+msgstr "Modifier la situation PDO « #Situationpdo.libelle# »"
+
+msgid "/Situationspdos/delete"
+msgstr "Supprimer"
+
+msgid "/Situationspdos/delete/#Situationpdo.id#"
+msgstr "Supprimer la situation PDO « #Situationpdo.libelle# »"
+
+msgid "/Situationspdos/delete/#Situationpdo.id# ?"
+msgstr "Réellement supprimer la situation PDO « #Situationpdo.libelle# » ?"
+
+msgid "/Parametrages/pdos"
+msgstr "Retour"
+
+msgid "/Parametrages/pdos/:title"
+msgstr "Retour aux paramétrages des PDO"

@@ -1,0 +1,47 @@
+# Traductions de listesanctionseps58.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Listesanctionseps58/index/:heading"
+msgstr "Paramétrage des sanctions pour les EP"
+
+msgid "/Listesanctionseps58/add/:heading"
+msgstr "Ajout d'une sanction pour les EP"
+
+msgid "/Listesanctionseps58/edit/:heading"
+msgstr "Modification de la sanction pour les EP « #Listesanctionep58.rang# »"
+
+msgid "/Listesanctionseps58/add"
+msgstr "Ajouter"
+
+msgid "/Listesanctionseps58/add/:title"
+msgstr "Ajouter une sanction pour les EP"
+
+msgid "/Listesanctionseps58/edit"
+msgstr "Modifier"
+
+msgid "/Listesanctionseps58/edit/#Listesanctionep58.id#"
+msgstr "Modifier la sanction pour les EP « #Listesanctionep58.sanction# » de rang #Listesanctionep58.rang#"
+
+msgid "/Listesanctionseps58/delete"
+msgstr "Supprimer"
+
+msgid "/Listesanctionseps58/delete/#Listesanctionep58.id#"
+msgstr "Supprimer la sanction pour les EP « #Listesanctionep58.sanction# » de rang #Listesanctionep58.rang#"
+
+msgid "/Listesanctionseps58/delete/#Listesanctionep58.id# ?"
+msgstr "Réellement supprimer la sanction pour les EP « #Listesanctionep58.sanction# » de rang #Listesanctionep58.rang# ?"
+
+msgid "/Parametrages/eps"
+msgstr "Retour"
+
+msgid "/Parametrages/eps/:title"
+msgstr "Retour aux paramétrages des équipes pluridisciplinaires"

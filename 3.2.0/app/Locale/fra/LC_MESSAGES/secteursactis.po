@@ -1,0 +1,47 @@
+# Traductions de secteursactis.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Secteursactis/index/:heading"
+msgstr "Paramétrage des secteurs d'activité pour le CER"
+
+msgid "/Secteursactis/add/:heading"
+msgstr "Ajout d'un secteur d'activité pour le CER"
+
+msgid "/Secteursactis/edit/:heading"
+msgstr "Modification du secteur d'activité pour le CER « #Secteuracti.name# »"
+
+msgid "/Secteursactis/add"
+msgstr "Ajouter"
+
+msgid "/Secteursactis/add/:title"
+msgstr "Ajouter un secteur d'activité pour le CER"
+
+msgid "/Secteursactis/edit"
+msgstr "Modifier"
+
+msgid "/Secteursactis/edit/#Secteuracti.id#"
+msgstr "Modifier le secteur d'activité pour le CER « #Secteuracti.name# »"
+
+msgid "/Secteursactis/delete"
+msgstr "Supprimer"
+
+msgid "/Secteursactis/delete/#Secteuracti.id#"
+msgstr "Supprimer le secteur d'activité pour le CER « #Secteuracti.name# »"
+
+msgid "/Secteursactis/delete/#Secteuracti.id# ?"
+msgstr "Réellement supprimer le secteur d'activité pour le CER « #Secteuracti.name# » ?"
+
+msgid "/Parametrages/contratsinsertion"
+msgstr "Retour"
+
+msgid "/Parametrages/contratsinsertion/:title"
+msgstr "Retour aux paramétrages des CER"

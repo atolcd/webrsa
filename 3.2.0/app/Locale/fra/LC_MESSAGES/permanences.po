@@ -1,0 +1,77 @@
+# Traductions de permanences.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Permanences/index/:heading"
+msgstr "Paramétrage des permanences"
+
+msgid "/Permanences/add/:heading"
+msgstr "Ajout d'une permanence"
+
+msgid "/Permanences/edit/:heading"
+msgstr "Modification de la permanence « #Permanence.libpermanence# »"
+
+msgid "/Permanences/add"
+msgstr "Ajouter"
+
+msgid "/Permanences/add/:title"
+msgstr "Ajouter une permanence"
+
+msgid "Permanence.libpermanence"
+msgstr "Libellé de la permanence"
+
+msgid "Permanence.structurereferente_id"
+msgstr "Type de structure liée à la permanence"
+
+msgid "Permanence.numtel"
+msgstr "N° téléphone de la permanence"
+
+msgid "Permanence.numvoie"
+msgstr "Numéro de voie"
+
+msgid "Permanence.typevoie"
+msgstr "Type de voie"
+
+msgid "Permanence.nomvoie"
+msgstr "Nom de voie"
+
+msgid "Permanence.compladr"
+msgstr "Complément d'adresse"
+
+msgid "Permanence.codepos"
+msgstr "Code postal"
+
+msgid "Permanence.ville"
+msgstr "Ville"
+
+msgid "Permanence.actif"
+msgstr "Actif"
+
+msgid "/Permanences/edit"
+msgstr "Modifier"
+
+msgid "/Permanences/edit/#Permanence.id#"
+msgstr "Modifier la permanence « #Permanence.libpermanence# »"
+
+msgid "/Permanences/delete"
+msgstr "Supprimer"
+
+msgid "/Permanences/delete/#Permanence.id#"
+msgstr "Supprimer la permanence « #Permanence.libpermanence# »"
+
+msgid "/Permanences/delete/#Permanence.id# ?"
+msgstr "Réellement supprimer la permanence « #Permanence.libpermanence# » ?"
+
+msgid "/Parametrages/index"
+msgstr "Retour"
+
+msgid "/Parametrages/index/:title"
+msgstr "Retour aux paramétrages"

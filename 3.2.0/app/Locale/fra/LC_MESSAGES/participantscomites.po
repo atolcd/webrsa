@@ -1,0 +1,47 @@
+# Traductions de participantscomites.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Participantscomites/index/:heading"
+msgstr "Paramétrage des participants aux comités d'examen APRE"
+
+msgid "/Participantscomites/add/:heading"
+msgstr "Ajout d'un participant aux comités d'examen APRE"
+
+msgid "/Participantscomites/edit/:heading"
+msgstr "Modification du participant aux comités d'examen APRE « #Participantcomite.nomcomplet# »"
+
+msgid "/Participantscomites/add"
+msgstr "Ajouter"
+
+msgid "/Participantscomites/add/:title"
+msgstr "Ajouter un participant aux comités d'examen APRE"
+
+msgid "/Participantscomites/edit"
+msgstr "Modifier"
+
+msgid "/Participantscomites/edit/#Participantcomite.id#"
+msgstr "Modifier le participant aux comités d'examen APRE « #Participantcomite.nomcomplet# »"
+
+msgid "/Participantscomites/delete"
+msgstr "Supprimer"
+
+msgid "/Participantscomites/delete/#Participantcomite.id#"
+msgstr "Supprimer le participant aux comités d'examen APRE « #Participantcomite.nomcomplet# »"
+
+msgid "/Participantscomites/delete/#Participantcomite.id# ?"
+msgstr "Réellement supprimer le participant aux comités d'examen APRE « #Participantcomite.nomcomplet# » ?"
+
+msgid "/Parametrages/apres"
+msgstr "Retour"
+
+msgid "/Parametrages/apres/:title"
+msgstr "Retour aux paramétrages des APRE"

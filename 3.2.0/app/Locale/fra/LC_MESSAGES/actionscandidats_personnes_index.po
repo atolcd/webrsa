@@ -1,0 +1,62 @@
+# Traductions de actionscandidats_personnes_index.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/ActionscandidatsPersonnes/index/:heading"
+msgstr "Fiche de candidature"
+
+msgid "ActioncandidatPersonne.datebilan"
+msgstr "Date du bilan"
+
+msgid "ActioncandidatPersonne.nb_fichiers_lies"
+msgstr "Nb. fichiers liés"
+
+msgid "/ActionscandidatsPersonnes/add"
+msgstr "Ajouter"
+
+msgid "/ActionscandidatsPersonnes/add/:title"
+msgstr "Ajouter une fiche de candidature"
+
+msgid "/ActionscandidatsPersonnes/view"
+msgstr "Voir"
+
+msgid "/ActionscandidatsPersonnes/view/#ActioncandidatPersonne.id#"
+msgstr "Voir la fiche"
+
+msgid "/ActionscandidatsPersonnes/edit"
+msgstr "Modifier"
+
+msgid "/ActionscandidatsPersonnes/edit/#ActioncandidatPersonne.id#"
+msgstr "Modifier la fiche"
+
+msgid "/ActionscandidatsPersonnes/cancel"
+msgstr "Annuler"
+
+msgid "/ActionscandidatsPersonnes/cancel/#ActioncandidatPersonne.id#"
+msgstr "Annuler la fiche"
+
+msgid "/ActionscandidatsPersonnes/printFiche"
+msgstr "Imprimer"
+
+msgid "/ActionscandidatsPersonnes/printFiche/#ActioncandidatPersonne.id#"
+msgstr "Imprimer la fiche"
+
+msgid "/ActionscandidatsPersonnes/maillink"
+msgstr "Envoi mail partenaire"
+
+msgid "/ActionscandidatsPersonnes/maillink/#ActioncandidatPersonne.id#"
+msgstr "Envoi mail partenaire"
+
+msgid "/ActionscandidatsPersonnes/filelink"
+msgstr "Fichiers liés"
+
+msgid "/ActionscandidatsPersonnes/filelink/#ActioncandidatPersonne.id#"
+msgstr "Lier des fichiers"

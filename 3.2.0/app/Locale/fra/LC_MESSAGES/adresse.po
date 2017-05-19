@@ -1,0 +1,111 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "Adresse.numvoie"
+msgstr "Numéro de voie"
+
+msgid "Adresse.libtypevoie"
+msgstr "Type de voie"
+
+msgid "Adresse.nomvoie"
+msgstr "Nom de voie"
+
+msgid "Adresse.codepos"
+msgstr "Code postal"
+
+msgid "Adresse.nomcom"
+msgstr "Nom de commune"
+
+msgid "Adresse.localite"
+msgstr "Commune de résidence"
+#--
+msgid "Adresse.complideadr"
+msgstr "Complément identification adresse"
+
+msgid "Adresse.compladr"
+msgstr "Complément d'adresse"
+
+msgid "Adresse.lieudist"
+msgstr "Lieu de distribution"
+
+msgid "Adresse.numcom"
+msgstr "Numéro de commune sens INSEE"
+
+msgid "Adresse.pays"
+msgstr "Code Pays"
+
+msgid "Adresse.canton"
+msgstr "Code Canton"
+
+msgid "Adresse.liblig2adr"
+msgstr "Ligne 2 - complément d'identification du destinataire"
+
+msgid "Adresse.liblig3adr"
+msgstr "Ligne 3 - saisie libre"
+
+msgid "Adresse.liblig4adr"
+msgstr "Ligne 4 - saisie libre"
+
+msgid "Adresse.liblig5adr"
+msgstr "Ligne 5 - saisie libre"
+
+msgid "Adresse.liblig6adr"
+msgstr "Ligne 6 - saisie libre"
+
+msgid "Adresse.liblig7adr"
+msgstr "Ligne 7 - pays de destination"
+
+msgid "Adresse.typeres"
+msgstr "Type de résidence"
+
+msgid "Adresse.topresetr"
+msgstr "Résidence étranger"
+
+msgid "ENUM::PAYS::FRA"
+msgstr "France"
+
+msgid "ENUM::PAYS::HOR"
+msgstr "Hors de France"
+
+msgid "ENUM::TYPERES::E"
+msgstr "Election de domicile"
+
+msgid "ENUM::TYPERES::S"
+msgstr "Stable"
+
+msgid "ENUM::TYPERES::O"
+msgstr "Election de domicile organisme non référencé"
+
+msgid "ENUM::RGADR::01"
+msgstr "Dernière adresse"
+
+msgid "ENUM::RGADR::02"
+msgstr "Avant-dernière adresse"
+
+msgid "ENUM::RGADR::03"
+msgstr "Avant-avant-dernière adresse"
+
+msgid "ENUM::TOPRESETR::0"
+msgstr "Non"
+
+msgid "ENUM::TOPRESETR::1"
+msgstr "Oui"

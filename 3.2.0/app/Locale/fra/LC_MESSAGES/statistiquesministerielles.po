@@ -1,0 +1,224 @@
+# Traductions de statistiquesministerielles.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+# Généralités
+# ==============================================================================
+
+msgid "NC"
+msgstr "Non connu(e)"
+
+msgid "Indicateurage"
+msgstr "Age"
+
+msgid "Indicateursitfam"
+msgstr "Situation familliale"
+
+msgid "Indicateurnivetu"
+msgstr "Niveau de formation"
+
+msgid "Indicateuranciennete"
+msgstr "Ancienneté dans le dispositif, y compris anciens minima (RMI, API) (3)"
+
+# ==============================================================================
+# Tranches d'âge
+# ==============================================================================
+
+msgid "0 - 24"
+msgstr "Moins de 25 ans"
+
+msgid "25 - 29"
+msgstr "De 25 à 29 ans"
+
+msgid "30 - 39"
+msgstr "De 30 à 39 ans"
+
+msgid "40 - 49"
+msgstr "De 40 à 49 ans"
+
+msgid "50 - 59"
+msgstr "De 50 à 59 ans"
+
+msgid ">= 60"
+msgstr "60 ans et plus"
+
+# ==============================================================================
+# Niveau de formation
+# ==============================================================================
+
+msgid "Vbis et VI"
+msgstr "Inférieur au Cap / Bep (Vbis et VI)"
+
+msgid "V"
+msgstr "Cap / Bep (V)"
+
+msgid "IV"
+msgstr "Équivalent Bac / Brevet technicien (IV)"
+
+msgid "III, II, I"
+msgstr "Supérieur au Bac (III, II, I)"
+
+# ==============================================================================
+# Ancienneté dans le dispositif, y compris anciens minima (RMI, API)
+# ==============================================================================
+
+msgid "moins de 6 mois"
+msgstr "Moins de 6 mois"
+
+msgid "6 mois et moins 1 an"
+msgstr "6 mois à moins d'un an"
+
+msgid "1 an et moins de 2 ans"
+msgstr "1 an à moins de 2 ans"
+
+msgid "2 ans et moins de 5 ans"
+msgstr "2 ans à moins de 5 ans"
+
+msgid "5 ans et plus"
+msgstr "5 ans et plus"
+
+# ==============================================================================
+# Indicateurs d'organismes
+# ==============================================================================
+
+msgid "Indicateurorganisme.pole_emploi"
+msgstr "Pôle Emploi (PE)"
+
+msgid "Indicateurorganisme.oppp_autre_pole_emploi"
+msgstr "Organisme public de placement professionnel autre que PE (maison de l'emploi, PLIE, mission locale, ...)"
+
+msgid "Indicateurorganisme.entreprise_travail_temporaire"
+msgstr "Entreprise de travail temporaire, agence privée de placement"
+
+msgid "Indicateurorganisme.organisme_creation_developpement_entreprise"
+msgstr "Organisme d'appui à la création et au développement d'entreprise"
+
+msgid "Indicateurorganisme.iae"
+msgstr "Insertion par l'activité économique (IAE) (uniquement si le référent appartient à l'IAE)"
+
+msgid "Indicateurorganisme.autre_professionnel"
+msgstr "Autre organisme de placement professionnel"
+
+msgid "Indicateurorganisme.service_departement"
+msgstr "Service du département"
+
+msgid "Indicateurorganisme.service_departement_professionnel"
+msgstr "Service du département, dont orientation à dominante professionnelle"
+
+msgid "Indicateurorganisme.service_departement_social"
+msgstr "Service du département, dont orientation à dominante sociale"
+
+msgid "Indicateurorganisme.caf_msa"
+msgstr "CAF, MSA"
+
+msgid "Indicateurorganisme.ccas_cias"
+msgstr "CCAS, CIAS"
+
+msgid "Indicateurorganisme.autres"
+msgstr "Autres organismes d'insertion"
+
+# ==============================================================================
+# Indicateurs de délais
+# ==============================================================================
+
+msgid "Indicateurdelai.ppae_delai_moyen"
+msgstr "Délai moyen pour la signature d'un PPAE au cours de l'année (3)"
+
+msgid "Indicateurdelai.ppae_nombre_moyen"
+msgstr "Nombre total de ces contrats signés au cours de l'année"
+
+msgid "Indicateurdelai.ppae_delai_1_mois"
+msgstr " - dont contrats signés dans le mois après la décision d'orientation"
+
+msgid "Indicateurdelai.ppae_delai_1_3_mois"
+msgstr " - dont contrats signés entre 1 mois et moins de 3 mois après la décision d'orientation"
+
+msgid "Indicateurdelai.ppae_delai_plus_3_mois"
+msgstr " - dont contrats signés plus de 3 mois après la décision d'orientation"
+
+# ------------------------------------------------------------------------------
+
+msgid "Indicateurdelai.cer_pro_delai_moyen"
+msgstr "Délai moyen pour la signature d'un contrat d'engagement réciproque en matière d'insertion professionnelle au cours de l'année (4)"
+
+msgid "Indicateurdelai.cer_pro_nombre_moyen"
+msgstr "Nombre total de ces contrats signés au cours de l'année"
+
+msgid "Indicateurdelai.cer_pro_delai_1_mois"
+msgstr " - dont contrats signés dans le mois après la décision d'orientation"
+
+msgid "Indicateurdelai.cer_pro_delai_1_3_mois"
+msgstr " - dont contrats signés entre 1 mois et 3 mois après la décision d'orientation"
+
+msgid "Indicateurdelai.cer_pro_delai_plus_3_mois"
+msgstr " - dont contrats signés plus de 3 mois après la décision d'orientation"
+
+# ------------------------------------------------------------------------------
+
+msgid "Indicateurdelai.cer_pro_social_delai_moyen"
+msgstr "Délai moyen pour la signature d'un contrat d'engagement réciproque en matière d'insertion sociale ou professionnelle au cours de l'année (5)"
+
+msgid "Indicateurdelai.cer_pro_social_nombre_moyen"
+msgstr "Nombre total de ces contrats signés au cours de l'année"
+
+msgid "Indicateurdelai.cer_pro_social_delai_2_mois"
+msgstr " - dont contrats signés dans les 2 mois après la décision d'orientation"
+
+msgid "Indicateurdelai.cer_pro_social_delai_2_4_mois"
+msgstr " - dont contrats signés entre 2 mois et 4 mois après la décision d'orientation"
+
+msgid "Indicateurdelai.cer_pro_social_delai_plus_4_mois"
+msgstr " - dont contrats signés plus de 4 mois après la décision d'orientation"
+
+# ------------------------------------------------------------------------------
+
+msgid "Indicateurcaracteristique.contrat_rmi"
+msgstr "Nombre de personnes au RSA bénéficiant encore d'un contrat d'insertion RMI au 31 décembre (*)"
+
+msgid "Indicateurcaracteristique.cer_experimental"
+msgstr "Nombre de personnes au RSA bénéficiant encore d'un contrat RSA expérimental au 31 décembre"
+
+msgid "Indicateurcaracteristique.cer"
+msgstr "Nombre de contrats RSA en cours de validité au 31 décembre (2)"
+
+msgid "Indicateurcaracteristique.ppae"
+msgstr " - dont PPAE (personnes dont le référent unique appartient à Pôle emploi) (3)"
+
+msgid "Indicateurcaracteristique.cer_pro"
+msgstr " - dont contrat d'engagement réciproque en matière d'insertion professionnelle (personnes dont le référent unique appartient à un organisme participant au SPE autre que Pôle emploi) (4)"
+
+msgid "Indicateurcaracteristique.cer_social_pro"
+msgstr " - dont contrat d'engagement réciproque en matière d'insertion sociale ou professionnelle (personnes dont le référent unique appartient à un autre organisme) (5)"
+
+# ------------------------------------------------------------------------------
+
+msgid "Indicateurcaracteristique.cer_pro_rappel"
+msgstr "Durée inscrite dans les contrats d'engagement réciproque en matière d'insertion professionnelle en cours de validité au 31 décembre (4)"
+
+msgid "Indicateurcaracteristique.cer_pro_duree_moins_6_mois"
+msgstr " - moins de 6 mois"
+
+msgid "Indicateurcaracteristique.cer_pro_duree_6_mois_moins_1_an"
+msgstr " - 6 mois à moins d'un an"
+
+msgid "Indicateurcaracteristique.cer_pro_duree_plus_1_an"
+msgstr " - 1 an et plus"
+
+msgid "Indicateurcaracteristique.cer_social_pro_rappel"
+msgstr "Durée inscrite dans les contrats d'engagement réciproque en matière d'insertion sociale ou professionnelle en cours de validité au 31 décembre (5)"
+
+msgid "Indicateurcaracteristique.cer_social_pro_duree_moins_6_mois"
+msgstr " - moins de 6 mois"
+
+msgid "Indicateurcaracteristique.cer_social_pro_duree_6_mois_moins_1_an"
+msgstr " - 6 mois à moins d'un an"
+
+msgid "Indicateurcaracteristique.cer_social_pro_duree_plus_1_an"
+msgstr " - 1 an et plus"

@@ -1,0 +1,574 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "Dossier.fonorg"
+msgstr "Organisme payeur"
+
+msgid "Dossier.matricule"
+msgstr "N° CAF/MSA"
+
+msgid "Dossier.matricule.large"
+msgstr "Numéro CAF/MSA"
+
+msgid "Dossier.matricule.fieldset"
+msgstr "Recherche par dossier CAF/MSA"
+
+msgid "Dossier.numdemrsa"
+msgstr "N° demande RSA"
+
+msgid "Dossier.dtdemrsa"
+msgstr "Date de demande RSA"
+
+msgid "Dossier.dtdemrmi"
+msgstr "Date de demande RMI"
+
+msgid "Dossier.numdepinsrmi"
+msgstr "N° du département instructeur RMI"
+
+msgid "Dossier.typeinsrmi"
+msgstr "Type d'instructeur RMI"
+
+msgid "Dossier.numcominsrmi"
+msgstr "N° de la commune instructeur RMI"
+
+msgid "Dossier.numagrinsrmi"
+msgstr "N° d'agréement instructeur RMI"
+
+msgid "Dossier.numdosinsrmi"
+msgstr "N° de dossier instructeur RMI"
+
+msgid "Dossier.numcli"
+msgstr "N° de CLI"
+
+msgid "Dossier.numorg"
+msgstr "N° de l'organisme"
+
+msgid "Dossier.statudemrsa"
+msgstr "Statut du demandeur RSA"
+
+msgid "Dossier.typeparte"
+msgstr "Type de partenaire"
+
+msgid "Dossier.ideparte"
+msgstr "Code d'identification du partenaire"
+
+msgid "Dossier.fonorgcedmut"
+msgstr "Fonction de l'organisme cédant"
+
+msgid "Dossier.numorgcedmut"
+msgstr "N° organisme cédant"
+
+msgid "Dossier.matriculeorgcedmut"
+msgstr "Matricule chez l'organisme cédant"
+
+msgid "Dossier.ddarrmut"
+msgstr "Date de début arrivée mutation"
+
+msgid "Dossier.codeposanchab"
+msgstr "Code postal ancienne habitation"
+
+msgid "Dossier.fonorgprenmut"
+msgstr "Fonction organisme prenant"
+
+msgid "Dossier.numorgprenmut"
+msgstr "N° organisme prenant"
+
+msgid "Dossier.dddepamut"
+msgstr "Date de début départ mutation"
+
+###############################################################################
+# Enums
+###############################################################################
+# fonorg
+msgid "ENUM::FONORG::CAF"
+msgstr "CAF"
+
+msgid "ENUM::FONORG::MSA"
+msgstr "MSA"
+
+# fonorgcedmut
+msgid "ENUM::FONORGCEDMUT::CAF"
+msgstr "Demande gérée par la CAF"
+
+msgid "ENUM::FONORGCEDMUT::MSA"
+msgstr "Demande gérée par la MSA"
+
+msgid "ENUM::FONORGCEDMUT::OPF"
+msgstr "Autres organismes débiteur de prestations familiales"
+
+# fonorgprenmut
+msgid "ENUM::FONORGPRENMUT::CAF"
+msgstr "Demande gérée par la CAF"
+
+msgid "ENUM::FONORGPRENMUT::MSA"
+msgstr "Demande gérée par la MSA"
+
+msgid "ENUM::FONORGPRENMUT::OPF"
+msgstr "Autres organismes débiteur de prestations familiales"
+
+# statudemrsa
+msgid "ENUM::STATUDEMRSA::N"
+msgstr "Non allocataire"
+
+msgid "ENUM::STATUDEMRSA::C"
+msgstr "Allocataire de la CAF"
+
+msgid "ENUM::STATUDEMRSA::A"
+msgstr "Allocataire d'une autre CAF"
+
+msgid "ENUM::STATUDEMRSA::M"
+msgstr "Allocataire de la MSA"
+
+msgid "ENUM::STATUDEMRSA::S"
+msgstr "Allocataire d'une autre MSA"
+
+msgid "ENUM::TYPEINSRMI::A"
+msgstr "Organisme agréé"
+
+msgid "ENUM::TYPEINSRMI::C"
+msgstr "CCAS"
+
+msgid "ENUM::TYPEINSRMI::F"
+msgstr "CAF"
+
+msgid "ENUM::TYPEINSRMI::S"
+msgstr "Service social"
+
+msgid "ENUM::NUMORG::011"
+msgstr "CAF DE BOURG EN BRESSE"
+
+msgid "ENUM::NUMORG::021"
+msgstr "CAF DE SAINT QUENTIN"
+
+msgid "ENUM::NUMORG::022"
+msgstr "CAF DE SOISSONS"
+
+msgid "ENUM::NUMORG::031"
+msgstr "CAF DE MOULINS"
+
+msgid "ENUM::NUMORG::041"
+msgstr "CAF DE DIGNE-LES-BAINS"
+
+msgid "ENUM::NUMORG::051"
+msgstr "CAF DE GAP"
+
+msgid "ENUM::NUMORG::061"
+msgstr "CAF DE NICE"
+
+msgid "ENUM::NUMORG::071"
+msgstr "CAF D'ANNONAY"
+
+msgid "ENUM::NUMORG::072"
+msgstr "CAF D'AUBENAS"
+
+msgid "ENUM::NUMORG::081"
+msgstr "CAF DE CHARLEVILLE MEZIERES"
+
+msgid "ENUM::NUMORG::091"
+msgstr "CAF DE FOIX"
+
+msgid "ENUM::NUMORG::101"
+msgstr "CAF DE TROYES"
+
+msgid "ENUM::NUMORG::111"
+msgstr "CAF DE CARCASSONNE"
+
+msgid "ENUM::NUMORG::121"
+msgstr "CAF DE RODEZ"
+
+msgid "ENUM::NUMORG::131"
+msgstr "CAF DE MARSEILLE"
+
+msgid "ENUM::NUMORG::141"
+msgstr "CAF DE CAEN"
+
+msgid "ENUM::NUMORG::151"
+msgstr "CAF D'AURILLAC"
+
+msgid "ENUM::NUMORG::161"
+msgstr "CAF D'ANGOULEME"
+
+msgid "ENUM::NUMORG::171"
+msgstr "CAF DE LA ROCHELLE"
+
+msgid "ENUM::NUMORG::172"
+msgstr "CAISSE MARITIME D'AF PECHE MARITIME"
+
+msgid "ENUM::NUMORG::181"
+msgstr "CAF DE BOURGES"
+
+msgid "ENUM::NUMORG::191"
+msgstr "CAF DE BRIVE"
+
+msgid "ENUM::NUMORG::201"
+msgstr "CAF D'AJACCIO"
+
+msgid "ENUM::NUMORG::202"
+msgstr "CAF DE BASTIA"
+
+msgid "ENUM::NUMORG::211"
+msgstr "CAF DE DIJON"
+
+msgid "ENUM::NUMORG::221"
+msgstr "CAF DE SAINT BRIEUC"
+
+msgid "ENUM::NUMORG::231"
+msgstr "CAF DE GUERET"
+
+msgid "ENUM::NUMORG::241"
+msgstr "CAF DE PERIGUEUX"
+
+msgid "ENUM::NUMORG::251"
+msgstr "CAF DE BESANCON"
+
+msgid "ENUM::NUMORG::252"
+msgstr "CAF DE MONTBELIARD"
+
+msgid "ENUM::NUMORG::261"
+msgstr "CAF DE VALENCE"
+
+msgid "ENUM::NUMORG::271"
+msgstr "CAF D'EVREUX"
+
+msgid "ENUM::NUMORG::281"
+msgstr "CAF DE CHARTRES"
+
+msgid "ENUM::NUMORG::291"
+msgstr "CAF DE BREST"
+
+msgid "ENUM::NUMORG::292"
+msgstr "CAF DE QUIMPER"
+
+msgid "ENUM::NUMORG::301"
+msgstr "CAF DE NIMES"
+
+msgid "ENUM::NUMORG::311"
+msgstr "CAF DE TOULOUSE"
+
+msgid "ENUM::NUMORG::321"
+msgstr "CAF D'AUCH"
+
+msgid "ENUM::NUMORG::331"
+msgstr "CAF DE BORDEAUX"
+
+msgid "ENUM::NUMORG::341"
+msgstr "CAF DE BEZIERS"
+
+msgid "ENUM::NUMORG::342"
+msgstr "CAF DE MONTPELLIER"
+
+msgid "ENUM::NUMORG::351"
+msgstr "CAF DE RENNES"
+
+msgid "ENUM::NUMORG::361"
+msgstr "CAF DE CHATEAUROUX"
+
+msgid "ENUM::NUMORG::371"
+msgstr "CAF DE TOURS"
+
+msgid "ENUM::NUMORG::381"
+msgstr "CAF DE GRENOBLE"
+
+msgid "ENUM::NUMORG::382"
+msgstr "CAF DE VIENNE"
+
+msgid "ENUM::NUMORG::391"
+msgstr "CAF DE SAINT CLAUDE"
+
+msgid "ENUM::NUMORG::401"
+msgstr "CAF DE MONT DE MARSAN"
+
+msgid "ENUM::NUMORG::411"
+msgstr "CAF DE BLOIS"
+
+msgid "ENUM::NUMORG::421"
+msgstr "CAF DE ROANNE"
+
+msgid "ENUM::NUMORG::422"
+msgstr "CAF DE SAINT ETIENNE"
+
+msgid "ENUM::NUMORG::431"
+msgstr "CAF DU PUY"
+
+msgid "ENUM::NUMORG::441"
+msgstr "CAF DE NANTES"
+
+msgid "ENUM::NUMORG::451"
+msgstr "CAF D'ORLEANS"
+
+msgid "ENUM::NUMORG::461"
+msgstr "CAF DE CAHORS"
+
+msgid "ENUM::NUMORG::471"
+msgstr "CAF D'AGEN"
+
+msgid "ENUM::NUMORG::481"
+msgstr "CAF DE MENDE"
+
+msgid "ENUM::NUMORG::491"
+msgstr "CAF D'ANGERS"
+
+msgid "ENUM::NUMORG::492"
+msgstr "CAF DE CHOLET"
+
+msgid "ENUM::NUMORG::501"
+msgstr "CAF D'AVRANCHES"
+
+msgid "ENUM::NUMORG::511"
+msgstr "CAF DE REIMS"
+
+msgid "ENUM::NUMORG::521"
+msgstr "CAF DE CHAUMONT"
+
+msgid "ENUM::NUMORG::531"
+msgstr "CAF DE LAVAL"
+
+msgid "ENUM::NUMORG::541"
+msgstr "CAF DE NANCY"
+
+msgid "ENUM::NUMORG::551"
+msgstr "CAF DE BAR LE DUC"
+
+msgid "ENUM::NUMORG::561"
+msgstr "CAF DE VANNES"
+
+msgid "ENUM::NUMORG::571"
+msgstr "CAF DE METZ"
+
+msgid "ENUM::NUMORG::581"
+msgstr "CAF DE NEVERS"
+
+msgid "ENUM::NUMORG::591"
+msgstr "CAF D'ARMENTIERES"
+
+msgid "ENUM::NUMORG::592"
+msgstr "CAF DE CAMBRAI"
+
+msgid "ENUM::NUMORG::593"
+msgstr "CAF DE DOUAI"
+
+msgid "ENUM::NUMORG::594"
+msgstr "CAF DE DUNKERQUE"
+
+msgid "ENUM::NUMORG::595"
+msgstr "CAF DE LILLE"
+
+msgid "ENUM::NUMORG::596"
+msgstr "CAF DE MAUBEUGE"
+
+msgid "ENUM::NUMORG::597"
+msgstr "CAF DE ROUBAIX"
+
+msgid "ENUM::NUMORG::599"
+msgstr "CAF DE VALENCIENNES"
+
+msgid "ENUM::NUMORG::601"
+msgstr "CAF DE BEAUVAIS"
+
+msgid "ENUM::NUMORG::602"
+msgstr "CAF DE CREIL"
+
+msgid "ENUM::NUMORG::611"
+msgstr "CAF D'ALENCON"
+
+msgid "ENUM::NUMORG::621"
+msgstr "CAF D'ARRAS"
+
+msgid "ENUM::NUMORG::622"
+msgstr "CAF DE CALAIS"
+
+msgid "ENUM::NUMORG::631"
+msgstr "CAF DE CLERMONT FERRAND"
+
+msgid "ENUM::NUMORG::641"
+msgstr "CAF DE BAYONNE"
+
+msgid "ENUM::NUMORG::642"
+msgstr "CAF DE PAU"
+
+msgid "ENUM::NUMORG::651"
+msgstr "CAF DE TARBES"
+
+msgid "ENUM::NUMORG::661"
+msgstr "CAF DE PERPIGNAN"
+
+msgid "ENUM::NUMORG::671"
+msgstr "CAF DE STRASBOURG"
+
+msgid "ENUM::NUMORG::681"
+msgstr "CAF DE MULHOUSE"
+
+msgid "ENUM::NUMORG::691"
+msgstr "CAF DE LYON"
+
+msgid "ENUM::NUMORG::692"
+msgstr "CAF DE VILLEFRANCHE SUR SAONE"
+
+msgid "ENUM::NUMORG::701"
+msgstr "CAF DE VESOUL"
+
+msgid "ENUM::NUMORG::711"
+msgstr "CAF DE MACON"
+
+msgid "ENUM::NUMORG::721"
+msgstr "CAF DU MANS"
+
+msgid "ENUM::NUMORG::731"
+msgstr "CAF DE CHAMBERY"
+
+msgid "ENUM::NUMORG::741"
+msgstr "CAF D'ANNECY"
+
+msgid "ENUM::NUMORG::751"
+msgstr "CAF DE PARIS"
+
+msgid "ENUM::NUMORG::752"
+msgstr "CAF de PARIS - NAVIG. INTERIEURE"
+
+msgid "ENUM::NUMORG::754"
+msgstr "CAF de PARIS - MARINS DU COMMERCE"
+
+msgid "ENUM::NUMORG::761"
+msgstr "CAF DE DIEPPE"
+
+msgid "ENUM::NUMORG::762"
+msgstr "CAF D'ELBEUF"
+
+msgid "ENUM::NUMORG::763"
+msgstr "CAF DU HAVRE"
+
+msgid "ENUM::NUMORG::764"
+msgstr "CAF DE ROUEN"
+
+msgid "ENUM::NUMORG::771"
+msgstr "CAF DE MELUN"
+
+msgid "ENUM::NUMORG::781"
+msgstr "CAF DE ST QUENTIN EN YVELINES"
+
+msgid "ENUM::NUMORG::791"
+msgstr "CAF DE NIORT"
+
+msgid "ENUM::NUMORG::801"
+msgstr "CAF D'AMIENS"
+
+msgid "ENUM::NUMORG::811"
+msgstr "CAF D'ALBI"
+
+msgid "ENUM::NUMORG::821"
+msgstr "CAF DE MONTAUBAN"
+
+msgid "ENUM::NUMORG::831"
+msgstr "CAF DE TOULON"
+
+msgid "ENUM::NUMORG::841"
+msgstr "CAF D'AVIGNON"
+
+msgid "ENUM::NUMORG::851"
+msgstr "CAF DE LA ROCHE SUR YON"
+
+msgid "ENUM::NUMORG::861"
+msgstr "CAF DE POITIERS"
+
+msgid "ENUM::NUMORG::871"
+msgstr "CAF DE LIMOGES"
+
+msgid "ENUM::NUMORG::881"
+msgstr "CAF D'EPINAL"
+
+msgid "ENUM::NUMORG::891"
+msgstr "CAF D'AUXERRE"
+
+msgid "ENUM::NUMORG::901"
+msgstr "CAF DE BELFORT"
+
+msgid "ENUM::NUMORG::911"
+msgstr "CAF D'EVRY"
+
+msgid "ENUM::NUMORG::921"
+msgstr "CAF DE NANTERRE"
+
+msgid "ENUM::NUMORG::931"
+msgstr "CAF DE ROSNY SOUS BOIS"
+
+msgid "ENUM::NUMORG::941"
+msgstr "CAF DE CRETEIL"
+
+msgid "ENUM::NUMORG::951"
+msgstr "CAF DE CERGY PONTOISE"
+
+msgid "ENUM::NUMORG::971"
+msgstr "CAF DE POINTE A PITRE"
+
+msgid "ENUM::NUMORG::972"
+msgstr "CAF DU LAMENTIN"
+
+msgid "ENUM::NUMORG::973"
+msgstr "CAF DE CAYENNE"
+
+msgid "ENUM::NUMORG::974"
+msgstr "CAF DE SAINT DENIS-DE-LA-REUNION"
+
+msgid "ENUM::NUMORG::976"
+msgstr "MAYOTTE"
+
+msgid "ENUM::TYPEPARTE::CG"
+msgstr "Conseil Général"
+
+msgid "ENUM::TYPEPARTE::CT"
+msgstr "Collectivité Territoriale"
+
+msgid "ENUM::TYPEPARTE::CCAS"
+msgstr "Centre Communal d'Action Sociale"
+
+msgid "ENUM::TYPEPARTE::CIAS"
+msgstr "Centre Intercommunal d'Action Sociale"
+
+msgid "ENUM::TYPEPARTE::PE"
+msgstr "Pole Emploi"
+
+msgid "ENUM::TYPEPARTE::MDPH"
+msgstr "Maison Départementale Pour le Handicap"
+
+msgid "ENUM::ETATDOSRSA::Z"
+msgstr "Non défini"
+
+msgid "ENUM::ETATDOSRSA::0"
+msgstr "Nouvelle demande en attente de décision CG pour ouverture du droit"
+
+msgid "ENUM::ETATDOSRSA::1"
+msgstr "Droit refusé"
+
+msgid "ENUM::ETATDOSRSA::2"
+msgstr "Droit ouvert et versable"
+
+msgid "ENUM::ETATDOSRSA::3"
+msgstr "Droit ouvert et suspendu (le montant du droit est calculable, mais l'existence du droit est remis en cause)"
+
+msgid "ENUM::ETATDOSRSA::4"
+msgstr "Droit ouvert mais versement suspendu (le montant du droit n'est pas calculable)"
+
+msgid "ENUM::ETATDOSRSA::5"
+msgstr "Droit clos"
+
+msgid "ENUM::ETATDOSRSA::6"
+msgstr "Droit clos sur mois antérieur ayant eu des créances transferées ou une régularisation dans le mois de référence pour une période antérieure."

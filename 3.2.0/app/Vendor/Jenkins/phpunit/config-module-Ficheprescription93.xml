@@ -1,0 +1,46 @@
+<phpunit
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.7/phpunit.xsd">
+	<!--
+		On s'assure de faire la couverture de code uniquement sur les fichiers
+		sources du module Fiche de prescription (CG 93), moins les tests, plugins
+		et vendors.
+	-->
+	<filter>
+		<whitelist>
+			<file>../../../Console/Command/ImportcsvCataloguespdisfps93Shell.php</file>
+			<file>../../../Controller/Cataloguespdisfps93Controller.php</file>
+			<file>../../../Controller/Component/AjaxFichesprescriptions93Component.php</file>
+			<file>../../../Controller/Fichesprescriptions93Controller.php</file>
+			<file>../../../Model/Abstractclass/AbstractElementCataloguefp93.php</file>
+			<file>../../../Model/Actionfp93.php</file>
+			<file>../../../Model/Adresseprestatairefp93.php</file>
+			<file>../../../Model/Behavior/Cataloguepdifp93Behavior.php</file>
+			<file>../../../Model/Cataloguepdifp93.php</file>
+			<file>../../../Model/Categoriefp93.php</file>
+			<file>../../../Model/Documentbeneffp93.php</file>
+			<file>../../../Model/Documentbeneffp93Ficheprescription93.php</file>
+			<file>../../../Model/Ficheprescription93.php</file>
+			<file>../../../Model/Ficheprescription93Modtransmfp93.php</file>
+			<file>../../../Model/Filierefp93.php</file>
+			<file>../../../Model/Instantanedonneesfp93.php</file>
+			<file>../../../Model/Modtransmfp93.php</file>
+			<file>../../../Model/Motifnonintegrationfp93.php</file>
+			<file>../../../Model/Motifnonreceptionfp93.php</file>
+			<file>../../../Model/Motifnonretenuefp93.php</file>
+			<file>../../../Model/Motifnonsouhaitfp93.php</file>
+			<file>../../../Model/Prestatairefp93.php</file>
+			<file>../../../Model/Prestatairehorspdifp93.php</file>
+			<file>../../../Model/Thematiquefp93.php</file>
+			<exclude>
+				<directory>../../../Config</directory>
+				<directory>../../../Doc</directory>
+				<directory>../../../Test</directory>
+				<directory>../../../Plugin</directory>
+				<directory>../../../Vendor</directory>
+				<directory>../../../webroot</directory>
+				<file>../../../index.php</file>
+			</exclude>
+		</whitelist>
+	</filter>
+</phpunit>

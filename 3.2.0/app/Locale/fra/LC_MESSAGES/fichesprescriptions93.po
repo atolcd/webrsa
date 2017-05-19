@@ -1,0 +1,531 @@
+# Traductions de fichesprescriptions93.po
+# @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+# Moteur de recherche
+# ==============================================================================
+
+msgid "/Fichesprescriptions93/search"
+msgstr "Formulaire"
+
+msgid "/Fichesprescriptions93/search/:title"
+msgstr "Visibilité formulaire"
+
+msgid "/Fichesprescriptions93/search/:heading"
+msgstr "Recherche par fiches de prescription"
+
+# ------------------------------------------------------------------------------
+
+msgid "/Fichesprescriptions93/search1"
+msgstr "Formulaire"
+
+msgid "/Fichesprescriptions93/search1/:title"
+msgstr "Visibilité formulaire"
+
+msgid "/Fichesprescriptions93/search1/:heading"
+msgstr "Recherche par fiches de prescription"
+
+# ------------------------------------------------------------------------------
+
+msgid "Search.Ficheprescription93"
+msgstr "Recherche par fiche de prescription"
+
+msgid "Search.Ficheprescription93.exists"
+msgstr "Possède une fiche de prescription"
+
+msgid "Search.Ficheprescription93.numconvention"
+msgstr "Numéro de convention ou code action d'attente"
+
+msgid "Search.Ficheprescription93.typethematiquefp93_id"
+msgstr "Type de prescription"
+
+msgid "Search.Ficheprescription93.thematiquefp93_id"
+msgstr "Thématique"
+
+msgid "Search.Ficheprescription93.categoriefp93_id"
+msgstr "Catégorie"
+
+msgid "Search.Ficheprescription93.filierefp93_id"
+msgstr "Filière"
+
+msgid "Search.Ficheprescription93.prestatairefp93_id"
+msgstr "Prestataire"
+
+msgid "Search.Ficheprescription93.actionfp93_id"
+msgstr "Intitulé"
+
+msgid "Search.Ficheprescription93.actionfp93"
+msgstr "Intitulé"
+
+msgid "Search.Ficheprescription93.Referent"
+msgstr "Filtrer par prescripteur"
+
+msgid "Search.Ficheprescription93.communautesr_id"
+msgstr "Projet de ville territorial du prescripteur"
+
+msgid "Search.Ficheprescription93.structurereferente_id"
+msgstr "Structure du prescripteur"
+
+msgid "Search.Ficheprescription93.referent_id"
+msgstr "Prescripteur"
+
+msgid "Search.Ficheprescription93.created"
+msgstr "Date de création"
+
+msgid "Search.Ficheprescription93.date_signature"
+msgstr "Date de signature"
+
+msgid "Search.Ficheprescription93.rdvprestataire_date"
+msgstr "Date de rendez-vous"
+
+msgid "Search.Ficheprescription93.statut"
+msgstr "Statut"
+
+msgid "Search.Ficheprescription93.has_date_retour"
+msgstr "Effectivité"
+
+msgid "Search.Ficheprescription93.date_transmission"
+msgstr "Date de transmission"
+
+msgid "Search.Ficheprescription93.date_retour"
+msgstr "Date de réception"
+
+msgid "Search.Ficheprescription93.df_action"
+msgstr "Date de fin de formation"
+
+msgid "Search.Ficheprescription93.benef_retour_presente"
+msgstr "L'allocataire s'est présenté"
+
+msgid "Search.Ficheprescription93.personne_recue"
+msgstr "L'allocataire a été reçu"
+
+msgid "Search.Ficheprescription93.personne_retenue"
+msgstr "L'allocataire a été retenu"
+
+msgid "Search.Ficheprescription93.personne_a_integre"
+msgstr "L'allocataire a intégré l'action"
+
+msgid "Search.Ficheprescription93.has_date_bilan_mi_parcours"
+msgstr "Date du bilan à mi-parcours renseignée"
+
+msgid "Search.Ficheprescription93.has_date_bilan_final"
+msgstr "Date du bilan final renseignée"
+
+# ------------------------------------------------------------------------------
+
+msgid "Dossier.matricule"
+msgstr "N° CAF/MSA"
+
+msgid "Dossier.numdemrsa"
+msgstr "N° de dossier"
+
+msgid "Dossier.dtdemrsa"
+msgstr "Date de demande"
+
+msgid "Prestation.rolepers"
+msgstr "Rôle de l'allocataire"
+
+msgid "Personne.nom_complet"
+msgstr "Allocataire"
+
+msgid "Adresse.nomcom"
+msgstr "Commune"
+
+msgid "Actionfp93.name"
+msgstr "Intitulé"
+
+msgid "Dossier.locked"
+msgstr "Verrouillé"
+
+msgid "Actionfp93.numconvention"
+msgstr "N° de convention"
+
+msgid "Filierefp93.name"
+msgstr "Filière"
+
+msgid "Prestatairefp93.name"
+msgstr "Prestataire"
+
+msgid "/Fichesprescriptions93/index"
+msgstr "Voir"
+
+msgid "/Fichesprescriptions93/index/#Personne.id#"
+msgstr "Voir les fiches de prescription de #Personne.nom_complet#"
+
+# ------------------------------------------------------------------------------
+
+msgid "Instantanedonneesfp93.benef_toppersdrodevorsa_notice"
+msgstr "Cet allocataire n'est actuellement pas soumis à droits et devoirs."
+
+msgid "Instantanedonneesfp93.benef_etatdosrsa_ouverts"
+msgstr "Cet allocataire n'est actuellement pas dans un dossier en état ouvert."
+
+msgid "/Fichesprescriptions93/index/:heading"
+msgstr "Fiches de prescription de l'allocataire"
+
+msgid "Ficheprescription93.created"
+msgstr "Date de création"
+
+msgid "Ficheprescription93.modified"
+msgstr "Date de dernière modification"
+
+msgid "Thematiquefp93.type"
+msgstr "Type"
+
+msgid "Thematiquefp93.name"
+msgstr "Thématique"
+
+msgid "Categoriefp93.name"
+msgstr "Catégorie d'action prescrite"
+
+msgid "Ficheprescription93.dd_action"
+msgstr "Date de début de l'action"
+
+msgid "Ficheprescription93.df_action"
+msgstr "Date de fin de l'action"
+
+msgid "Ficheprescription93.duree_action"
+msgstr "Durée de l'action"
+
+msgid "Documentbeneffp93.Documentbeneffp93"
+msgstr "Le bénéficiaire est invité à se munir de"
+
+msgid "Ficheprescription93.documentbeneffp93_autre"
+msgstr "Si autre, précisez"
+
+msgid "Ficheprescription93.rdvprestataire_adresse_check"
+msgstr "Adresse du lieu de rendez-vous si différente de l'adresse indiquée ci-dessus"
+
+msgid "Ficheprescription93.rdvprestataire_adresse"
+msgstr "Adresse du lieu de rendez-vous"
+
+msgid "Ficheprescription93.statut"
+msgstr "Statut"
+
+msgid "/Fichesprescriptions93/add"
+msgstr "Ajouter"
+
+msgid "/Fichesprescriptions93/view"
+msgstr "Voir"
+
+msgid "/Fichesprescriptions93/edit"
+msgstr "Modifier"
+
+msgid "/Fichesprescriptions93/edit/#Ficheprescription93.id#"
+msgstr "Modifier la fiche de prescription"
+
+msgid "/Fichesprescriptions93/cancel"
+msgstr "Annuler"
+
+msgid "/Fichesprescriptions93/cancel/#Ficheprescription93.id#"
+msgstr "Annuler la fiche de prescription"
+
+msgid "/Fichesprescriptions93/impression"
+msgstr "Imprimer"
+
+msgid "/Fichesprescriptions93/impression/#Ficheprescription93.id#"
+msgstr "Imprimer la fiche de prescription"
+
+################################################################################
+# Formulaire d'ajout / de modification
+################################################################################
+
+msgid "Ficheprescription93.Prescripteur"
+msgstr "Prescripteur/Référent"
+
+msgid "Ficheprescription93.structurereferente_id"
+msgstr "Structure du référent"
+
+msgid "Ficheprescription93.referent_id"
+msgstr "Nom du référent"
+
+msgid "Referent.nom_complet"
+msgstr "Nom du référent"
+
+msgid "Ficheprescription93.objet"
+msgstr "Motif de la prescription"
+
+################################################################################
+
+msgid "Ficheprescription93.Beneficiaire"
+msgstr "Bénéficiaire"
+
+msgid "Instantanedonneesfp93.benef_qual"
+msgstr "Civilité"
+
+msgid "Instantanedonneesfp93.benef_nom"
+msgstr "Nom"
+
+msgid "Instantanedonneesfp93.benef_prenom"
+msgstr "Prénom"
+
+msgid "Instantanedonneesfp93.benef_dtnai"
+msgstr "Date de naissance"
+
+msgid "Instantanedonneesfp93.benef_adresse"
+msgstr "Adresse"
+
+msgid "Instantanedonneesfp93.benef_codepos"
+msgstr "Code postal"
+
+msgid "Instantanedonneesfp93.benef_nomcom"
+msgstr "Ville"
+
+msgid "Instantanedonneesfp93.benef_tel_fixe"
+msgstr "Téléphone"
+
+msgid "Instantanedonneesfp93.benef_tel_port"
+msgstr "Portable"
+
+msgid "Instantanedonneesfp93.benef_email"
+msgstr "Mail"
+
+msgid "Instantanedonneesfp93.benef_natpf"
+msgstr "Bénéficiaire du"
+
+msgid "Instantanedonneesfp93.benef_natpf_3mois"
+msgstr "Statut du RSA 3 mois avant la création de la fiche"
+
+msgid "Instantanedonneesfp93.benef_matricule"
+msgstr "Numéro CAF/MSA"
+
+msgid "Instantanedonneesfp93.benef_inscritpe"
+msgstr "Inscrit au Pôle Emploi"
+
+msgid "Instantanedonneesfp93.benef_identifiantpe"
+msgstr "N° d'identifiant"
+
+msgid "Instantanedonneesfp93.benef_nivetu"
+msgstr "Niveau de diplôme et/ou de qualification"
+
+msgid "Instantanedonneesfp93.benef_dernier_dip"
+msgstr "Dernier diplôme obtenu"
+
+msgid "Instantanedonneesfp93.benef_dip_ce"
+msgstr "Lieu d'obtention"
+
+msgid "Instantanedonneesfp93.benef_positioncer"
+msgstr "Contrat d'engagement réciproque (CER)"
+
+msgid "Instantanedonneesfp93.benef_dd_ci"
+msgstr "Date de début du CER"
+
+msgid "Instantanedonneesfp93.benef_df_ci"
+msgstr "Date de fin du CER"
+
+################################################################################
+
+msgid "/Fichesprescriptions93/add/:title"
+msgstr "Ajouter une fiche de prescription"
+
+msgid "/Fichesprescriptions93/add/:heading"
+msgstr "Ajout d'une fiche de prescription"
+
+msgid "/Fichesprescriptions93/edit/:heading"
+msgstr "Modification d'une fiche de prescription"
+
+msgid "/Fichesprescriptions93/cancel/:heading"
+msgstr "Annulation d'une fiche de prescription"
+
+msgid "Ficheprescription93.Prestataire"
+msgstr "Prestataire/Partenaire"
+
+msgid "Ficheprescription93.rdvprestataire_date"
+msgstr "Rendez-vous fixé le"
+
+msgid "Ficheprescription93.rdvprestataire_personne"
+msgstr "Avec"
+
+msgid "Ficheprescription93.numconvention"
+msgstr "Numéro de convention ou code action d'attente"
+
+msgid "Ficheprescription93.typethematiquefp93_id"
+msgstr "Type"
+
+msgid "Ficheprescription93.thematiquefp93_id"
+msgstr "Thématique"
+
+msgid "Ficheprescription93.thematiquefp93"
+msgstr "Thématique"
+
+msgid "Ficheprescription93.categoriefp93_id"
+msgstr "Catégorie"
+
+msgid "Ficheprescription93.categoriefp93"
+msgstr "Catégorie"
+
+msgid "Ficheprescription93.filierefp93_id"
+msgstr "Filière"
+
+msgid "Ficheprescription93.filierefp93"
+msgstr "Filière"
+
+msgid "Ficheprescription93.prestatairefp93_id"
+msgstr "Nom du prestataire"
+
+msgid "Ficheprescription93.adresseprestatairefp93_id"
+msgstr "Adresse du prestataire"
+
+msgid "Ficheprescription93.prestatairefp93"
+msgstr "Nom du prestataire"
+
+msgid "Ficheprescription93.actionfp93_id"
+msgstr "Intitulé"
+
+msgid "Ficheprescription93.actionfp93"
+msgstr "Intitulé"
+
+msgid "Ficheprescription93.prestatairefp93_adresse"
+msgstr "Adresse"
+
+msgid "Ficheprescription93.prestatairefp93_codepos"
+msgstr "Code postal"
+
+msgid "Ficheprescription93.prestatairefp93_localite"
+msgstr "Ville"
+
+msgid "Ficheprescription93.prestatairefp93_tel"
+msgstr "Téléphone"
+
+msgid "Ficheprescription93.prestatairefp93_fax"
+msgstr "Fax"
+
+msgid "Ficheprescription93.prestatairefp93_email"
+msgstr "Mail"
+
+
+################################################################################
+
+msgid "Ficheprescription93.texte_engagement"
+msgstr "Je m'engage à me rendre disponible au rendez vous qui a été fixé avec la structure partenaire avec les documents justifiant de sa situation (notification CAF, CER ou PPAE) En cas de force majeure, je m'engage à prévenir le conseiller d'insertion ou l'assistante sociale chargé de mon suivi ainsi que la structure partenaire (Organisme de formation, SIAE, autres...)."
+
+msgid "Ficheprescription93.date_signature"
+msgstr "Signé le"
+
+msgid "Ficheprescription93.Engagement"
+msgstr "Engagement"
+
+################################################################################
+
+msgid "Ficheprescription93.Transmission"
+msgstr "Modalités de transmission"
+
+msgid "Ficheprescription93.date_transmission"
+msgstr "Fiche transmise le"
+
+msgid "Modtransmfp93.Modtransmfp93"
+msgstr "Modalités de transmission"
+
+################################################################################
+
+msgid "Ficheprescription93.Effectivite"
+msgstr "Effectivité de la prescription"
+
+msgid "Ficheprescription93.date_retour"
+msgstr "Date de retour de la fiche au prescripteur ou au référent"
+
+msgid "Ficheprescription93.retour_nom_partenaire"
+msgstr "Nom du partenaire qui a reçu l'allocataire"
+
+msgid "Ficheprescription93.benef_retour_presente"
+msgstr "La personne s'est présentée"
+
+msgid "Ficheprescription93.date_presente_benef"
+msgstr "Date à laquelle la personne s'est présentée"
+
+msgid "Ficheprescription93.date_signature_partenaire"
+msgstr "Signé par le partenaire le"
+
+################################################################################
+
+msgid "Ficheprescription93.Suivi"
+msgstr "Suivi de l'action"
+
+msgid "Ficheprescription93.personne_recue"
+msgstr "La personne a été reçue en entretien"
+
+msgid "Ficheprescription93.motifnonreceptionfp93_id"
+msgstr "Motif"
+
+msgid "Ficheprescription93.personne_nonrecue_autre"
+msgstr "Si autre, préciser"
+
+msgid "Ficheprescription93.personne_retenue"
+msgstr "La personne a été retenue par la structure"
+
+msgid "Ficheprescription93.motifnonretenuefp93_id"
+msgstr "Motif"
+
+msgid "Ficheprescription93.personne_nonretenue_autre"
+msgstr "Si autre, préciser"
+
+msgid "Ficheprescription93.personne_souhaite_integrer"
+msgstr "La personne souhaite intégrer l'action"
+
+msgid "Ficheprescription93.motifnonsouhaitfp93_id"
+msgstr "Motif"
+
+msgid "Ficheprescription93.personne_nonsouhaite_autre"
+msgstr "Si autre, préciser"
+
+msgid "Ficheprescription93.personne_a_integre"
+msgstr "L'allocataire a intégré l'action"
+
+msgid "Ficheprescription93.personne_date_integration"
+msgstr "Date"
+
+msgid "Ficheprescription93.motifnonintegrationfp93_id"
+msgstr "Motif"
+
+msgid "Ficheprescription93.personne_nonintegre_autre"
+msgstr "Si autre, préciser"
+
+msgid "Ficheprescription93.date_bilan_mi_parcours"
+msgstr "Date du bilan à mi-parcours"
+
+msgid "Ficheprescription93.date_bilan_final"
+msgstr "Date du bilan final"
+
+################################################################################
+
+msgid "Ficheprescription93.selection_prestataire"
+msgstr "Prestataire (pour pré-remplissage)"
+
+msgid "Ficheprescription93.selection_adresse_prestataire"
+msgstr "Adresse du prestataire (pour pré-remplissage)"
+
+msgid "Prestatairehorspdifp93.name"
+msgstr "Prestataire"
+
+msgid "Prestatairehorspdifp93.adresse"
+msgstr "Adresse"
+
+msgid "Prestatairehorspdifp93.codepos"
+msgstr "Code postal"
+
+msgid "Prestatairehorspdifp93.localite"
+msgstr "Localité"
+
+msgid "Prestatairehorspdifp93.tel"
+msgstr "Téléphone"
+
+msgid "Prestatairehorspdifp93.fax"
+msgstr "Fax"
+
+msgid "Prestatairehorspdifp93.email"
+msgstr "Email"
+
+################################################################################
+
+msgid "Ficheprescription93.date_annulation"
+msgstr "Date d'annulation"
+
+msgid "Ficheprescription93.motif_annulation"
+msgstr "Motif"

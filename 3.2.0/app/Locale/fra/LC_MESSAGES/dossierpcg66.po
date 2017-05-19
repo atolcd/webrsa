@@ -1,0 +1,173 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "Dossierpcg66::index::empty"
+msgstr "Aucun renseignement disponible actuellement."
+
+msgid "Dossierspcgs66::add"
+msgstr "Ajout d'un nouveau dossier PCG."
+
+msgid "Dossierspcgs66::edit"
+msgstr "Modification du dossier PCG."
+
+msgid "Dossierspcgs66::view"
+msgstr "Voir le dossier PCG"
+
+msgid "Dossierspcgs66::delete"
+msgstr "Suppression du dossier PCG."
+
+msgid "Dossierspcgs66::delete::confirm"
+msgstr "Etes-vous sûr de vouloir supprimer le dossier ?"
+
+msgid "Dossierspcgs66::cancel"
+msgstr "Annulation du dossier PCG"
+
+msgid "Dossierpcg66.typepdo_id"
+msgstr "Type de dossier"
+
+msgid "Dossierpcg66.originepdo_id"
+msgstr "Origine du dossier"
+
+msgid "Dossierpcg66.etatdossierpdo"
+msgstr "Etat du dossier"
+
+msgid "Dossierpcg66.user_id"
+msgstr "Gestionnaire du dossier (technicien en charge du dossier)"
+
+msgid "Dossierpcg66.datereceptionpdo"
+msgstr "Date de réception du dossier"
+
+msgid "Dossierpcg66.etatdossierpcg"
+msgstr "Etat du dossier"
+
+msgid "Dossierpcg66.categoriegeneral"
+msgstr "Métiers ( général )"
+
+msgid "Dossierpcg66.categoriedetail"
+msgstr "Métiers ( détaillé )"
+
+msgid "Dossierpcg66.serviceinstructeur_id"
+msgstr "Service instructeur"
+
+msgid "Dossierpcg66.orgpayeur"
+msgstr "Organisme payeur"
+
+msgid "Dossierpcg66.haspiecejointe"
+msgstr "Pièce jointe"
+
+msgid "ENUM::HASPIECEJOINTE::0"
+msgstr "Non"
+
+msgid "ENUM::HASPIECEJOINTE::1"
+msgstr "Oui"
+
+msgid "Dossierpcg66.iscomplet"
+msgstr "Dossier complet ?"
+
+msgid "ENUM::ISCOMPLET::COM"
+msgstr "Dossier complet"
+
+msgid "ENUM::ISCOMPLET::INC"
+msgstr "Dossier incomplet"
+
+msgid "ENUM::ORGPAYEUR::CAF"
+msgstr "CAF"
+
+msgid "ENUM::ORGPAYEUR::MSA"
+msgstr "MSA"
+# 'attaffect', 'attinstr', 'instrencours', 'attval', 'attavistech', 'dossiertraite', 'attpj'
+
+msgid "ENUM::ETATDOSSIERPCG::attaffect"
+msgstr "En attente d'affectation"
+
+msgid "ENUM::ETATDOSSIERPCG::attinstr"
+msgstr "En attente d'instruction"
+
+msgid "ENUM::ETATDOSSIERPCG::instrencours"
+msgstr "Instruction en cours"
+
+msgid "ENUM::ETATDOSSIERPCG::attval"
+msgstr "En attente de validation"
+
+msgid "ENUM::ETATDOSSIERPCG::attavistech"
+msgstr "En attente d'avis technique"
+
+msgid "ENUM::ETATDOSSIERPCG::dossiertraite"
+msgstr "Dossier traité"
+
+msgid "ENUM::ETATDOSSIERPCG::decisionvalid"
+msgstr "Décision validée"
+
+msgid "ENUM::ETATDOSSIERPCG::decisionnonvalid"
+msgstr "Décision non validée"
+
+msgid "ENUM::ETATDOSSIERPCG::decisionnonvalidretouravis"
+msgstr "Non validation avec Retour avis technique"
+
+msgid "ENUM::ETATDOSSIERPCG::decisionvalidretouravis"
+msgstr "Validation avec Retour avis technique"
+
+msgid "ENUM::ETATDOSSIERPCG::attpj"
+msgstr "Dossier traité mais en attente de pièces"
+
+msgid "ENUM::ETATDOSSIERPCG::atttransmisop"
+msgstr "En attente de transmission"
+
+msgid "ENUM::ETATDOSSIERPCG::transmisop"
+msgstr "Dossier traité et transmis"
+
+msgid "ENUM::ETATDOSSIERPCG::annule"
+msgstr "Dossier annulé"
+
+msgid "ENUM::ETATDOSSIERPCG::attinstrdocarrive"
+msgstr "En attente d'instruction - Document arrivé"
+
+msgid "ENUM::ETATDOSSIERPCG::attinstrattpiece"
+msgstr "Instruction en cours - Attente de pièces"
+
+msgid "ENUM::ETATDOSSIERPCG::arevoir"
+msgstr "Dossier à revoir"
+########################################################################
+## 	Traduction pour la recherche par PDO
+########################################################################
+msgid "Criteresdossierspcgs66::dossier"
+msgstr "Recherche de dossiers PCGs"
+
+msgid "Criteresdossierspcgs66::traitement"
+msgstr "Recherche de traitements PCGs"
+
+msgid "Dossierpcg66.commentairepiecejointe"
+msgstr "Commentaire"
+
+msgid "Dossierpcg66.motifannulation"
+msgstr "Motif d'annulation"
+
+msgid "Dossierpcg66.poledossierpcg66_id"
+msgstr "Pôle chargé du dossier"
+
+msgid "Dossierpcg66.dateaffectation"
+msgstr "Date d'affectation"
+
+msgid "ENUM::ISTRANSMIS::0"
+msgstr "Non"
+
+msgid "ENUM::ISTRANSMIS::1"
+msgstr "Oui"

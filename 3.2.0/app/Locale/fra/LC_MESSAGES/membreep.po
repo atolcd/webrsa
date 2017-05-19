@@ -1,0 +1,91 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+msgid "Membreep.id"
+msgstr "Index"
+
+msgid "Membreep.qual"
+msgstr "Qualité"
+
+msgid "Membreep.nom"
+msgstr "Nom"
+
+msgid "Membreep.prenom"
+msgstr "Prénom"
+
+msgid "Membreep.nomcomplet"
+msgstr "Nom du participant"
+
+msgid "Membreep.organisme"
+msgstr "Organisme"
+
+msgid "Membreep.tel"
+msgstr "Téléphone"
+
+msgid "Membreep.mail"
+msgstr "Email"
+
+msgid "Membreep.numvoie"
+msgstr "N° de voie"
+
+msgid "Membreep.typevoie"
+msgstr "Type de voie"
+
+msgid "Membreep.nomvoie"
+msgstr "Nom de voie"
+
+msgid "Membreep.compladr"
+msgstr "Complément d'adresse"
+
+msgid "Membreep.codepostal"
+msgstr "Code postal"
+
+msgid "Membreep.ville"
+msgstr "Ville"
+
+msgid "Membreep.adresse"
+msgstr "Adresse complète"
+
+msgid "Membreep.ep_id"
+msgstr "Nom de l'EP"
+
+msgid "Membreep.fonctionmembreep_id"
+msgstr "Fonction du membre"
+
+msgid "ENUM::QUAL::M."
+msgstr "Monsieur"
+
+msgid "ENUM::QUAL::Mme."
+msgstr "Madame"
+
+msgid "ENUM::QUAL::Mlle."
+msgstr "Mademoiselle"
+
+msgid "Membreep.nomcompletsuppleant"
+msgstr "Suppléant"
+
+msgid "Membreep.suppleant_id"
+msgstr "Suppléant"
+
+msgid "Membreep::index::empty"
+msgstr "Aucun membre ne correspond à votre recherche"
+
+msgid "Membreseps::delete::confirm"
+msgstr "Confirmer la suppression d'un membre d'EP ?"

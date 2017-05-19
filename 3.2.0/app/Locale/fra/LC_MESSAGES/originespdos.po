@@ -1,0 +1,47 @@
+# Traductions de originespdos.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Originespdos/index/:heading"
+msgstr "Paramétrage des origines de PDO"
+
+msgid "/Originespdos/add/:heading"
+msgstr "Ajout d'une origine de PDO"
+
+msgid "/Originespdos/edit/:heading"
+msgstr "Modification de l'origine de PDO « #Originepdo.libelle# »"
+
+msgid "/Originespdos/add"
+msgstr "Ajouter"
+
+msgid "/Originespdos/add/:title"
+msgstr "Ajouter une origine de PDO"
+
+msgid "/Originespdos/edit"
+msgstr "Modifier"
+
+msgid "/Originespdos/edit/#Originepdo.id#"
+msgstr "Modifier l'origine de PDO « #Originepdo.libelle# »"
+
+msgid "/Originespdos/delete"
+msgstr "Supprimer"
+
+msgid "/Originespdos/delete/#Originepdo.id#"
+msgstr "Supprimer l'origine de PDO « #Originepdo.libelle# »"
+
+msgid "/Originespdos/delete/#Originepdo.id# ?"
+msgstr "Réellement supprimer l'origine de PDO « #Originepdo.libelle# » ?"
+
+msgid "/Parametrages/pdos"
+msgstr "Retour"
+
+msgid "/Parametrages/pdos/:title"
+msgstr "Retour aux paramétrages des PDO"

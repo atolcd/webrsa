@@ -1,0 +1,41 @@
+# Traductions de motifscersnonvalids66.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Motifscersnonvalids66/index/:heading"
+msgstr "Paramétrage des motifs de non validation du CER"
+
+msgid "/Motifscersnonvalids66/add/:heading"
+msgstr "Ajout d'un motif de non validation du CER"
+
+msgid "/Motifscersnonvalids66/edit/:heading"
+msgstr "Modification du motif de non validation du CER « #Motifcernonvalid66.name# »"
+
+msgid "/Motifscersnonvalids66/add"
+msgstr "Ajouter"
+
+msgid "/Motifscersnonvalids66/add/:title"
+msgstr "Ajouter un motif de non validation du CER"
+
+msgid "/Motifscersnonvalids66/edit"
+msgstr "Modifier"
+
+msgid "/Motifscersnonvalids66/edit/#Motifcernonvalid66.id#"
+msgstr "Modifier le motif de non validation du CER « #Motifcernonvalid66.name# »"
+
+msgid "/Motifscersnonvalids66/delete"
+msgstr "Supprimer"
+
+msgid "/Motifscersnonvalids66/delete/#Motifcernonvalid66.id#"
+msgstr "Supprimer le motif de non validation du CER « #Motifcernonvalid66.name# »"
+
+msgid "/Motifscersnonvalids66/delete/#Motifcernonvalid66.id# ?"
+msgstr "Réellement supprimer le motif de non validation du CER « #Motifcernonvalid66.name# » ?"

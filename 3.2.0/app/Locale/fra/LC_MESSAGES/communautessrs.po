@@ -1,0 +1,50 @@
+# Traductions de communautessrs.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Communautessrs/index/:heading"
+msgstr "Paramétrage des projets de villes territoriaux"
+
+msgid "/Communautessrs/add/:heading"
+msgstr "Ajout d'un projet de ville territorial"
+
+msgid "/Communautessrs/edit/:heading"
+msgstr "Modification du projet de ville territorial « #Communautesr.name# »"
+
+msgid "Communautesr.name"
+msgstr "Nom"
+
+msgid "Communautesr.actif"
+msgstr "Actif ?"
+
+msgid "Structurereferente.Structurereferente"
+msgstr "Projets de ville"
+
+msgid "/Communautessrs/add"
+msgstr "Ajouter"
+
+msgid "/Communautessrs/add/:title"
+msgstr "Ajouter un projet de ville territorial"
+
+msgid "/Communautessrs/edit"
+msgstr "Modifier"
+
+msgid "/Communautessrs/edit/#Communautesr.id#"
+msgstr "Modifier le projet de ville territorial « #Communautesr.name# »"
+
+msgid "/Communautessrs/delete"
+msgstr "Supprimer"
+
+msgid "/Communautessrs/delete/#Communautesr.id#"
+msgstr "Supprimer le projet de ville territorial « #Communautesr.name# »"
+
+msgid "/Communautessrs/delete/#Communautesr.id# ?"
+msgstr "Réellement supprimer le projet de ville territorial « #Communautesr.name# » ?"

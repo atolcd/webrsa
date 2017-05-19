@@ -1,0 +1,47 @@
+# Traductions de metiersexerces.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Metiersexerces/index/:heading"
+msgstr "Paramétrage des métiers exercés pour le CER"
+
+msgid "/Metiersexerces/add/:heading"
+msgstr "Ajout d'un métier exercé pour le CER"
+
+msgid "/Metiersexerces/edit/:heading"
+msgstr "Modification du métier exercé pour le CER « #Metierexerce.name# »"
+
+msgid "/Metiersexerces/add"
+msgstr "Ajouter"
+
+msgid "/Metiersexerces/add/:title"
+msgstr "Ajouter un métier exercé pour le CER"
+
+msgid "/Metiersexerces/edit"
+msgstr "Modifier"
+
+msgid "/Metiersexerces/edit/#Metierexerce.id#"
+msgstr "Modifier le métier exercé pour le CER « #Metierexerce.name# »"
+
+msgid "/Metiersexerces/delete"
+msgstr "Supprimer"
+
+msgid "/Metiersexerces/delete/#Metierexerce.id#"
+msgstr "Supprimer le métier exercé pour le CER « #Metierexerce.name# »"
+
+msgid "/Metiersexerces/delete/#Metierexerce.id# ?"
+msgstr "Réellement supprimer le métier exercé pour le CER « #Metierexerce.name# » ?"
+
+msgid "/Parametrages/contratsinsertion"
+msgstr "Retour"
+
+msgid "/Parametrages/contratsinsertion/:title"
+msgstr "Retour aux paramétrages des CER"

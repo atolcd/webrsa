@@ -1,0 +1,47 @@
+# Traductions de courrierspdos.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Courrierspdos/index/:heading"
+msgstr "Paramétrage des courriers pour les traitements PDO"
+
+msgid "/Courrierspdos/add/:heading"
+msgstr "Ajout d'un courrier pour les traitements PDO"
+
+msgid "/Courrierspdos/edit/:heading"
+msgstr "Modification du courrier pour les traitements PDO « #Courrierpdo.name# »"
+
+msgid "/Courrierspdos/add"
+msgstr "Ajouter"
+
+msgid "/Courrierspdos/add/:title"
+msgstr "Ajouter un courrier pour les traitements PDO"
+
+msgid "/Courrierspdos/edit"
+msgstr "Modifier"
+
+msgid "/Courrierspdos/edit/#Courrierpdo.id#"
+msgstr "Modifier le courrier pour les traitements PDO « #Courrierpdo.name# »"
+
+msgid "/Courrierspdos/delete"
+msgstr "Supprimer"
+
+msgid "/Courrierspdos/delete/#Courrierpdo.id#"
+msgstr "Supprimer le courrier pour les traitements PDO « #Courrierpdo.name# »"
+
+msgid "/Courrierspdos/delete/#Courrierpdo.id# ?"
+msgstr "Réellement supprimer le courrier pour les traitements PDO « #Courrierpdo.name# » ?"
+
+msgid "/Parametrages/pdos"
+msgstr "Retour"
+
+msgid "/Parametrages/pdos/:title"
+msgstr "Retour aux paramétrages des PDO"

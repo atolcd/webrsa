@@ -1,0 +1,41 @@
+# Traductions de motiffichedeliaisons.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Motiffichedeliaisons/index/:heading"
+msgstr "Paramétrage des motifs de fiches de liaison"
+
+msgid "/Motiffichedeliaisons/add/:heading"
+msgstr "Ajout d'un motif de fiche de liaison"
+
+msgid "/Motiffichedeliaisons/edit/:heading"
+msgstr "Modification du motif de fiche de liaison « #Motiffichedeliaison.name# »"
+
+msgid "/Motiffichedeliaisons/add"
+msgstr "Ajouter"
+
+msgid "/Motiffichedeliaisons/add/:title"
+msgstr "Ajouter un motif de fiche de liaison"
+
+msgid "/Motiffichedeliaisons/edit"
+msgstr "Modifier"
+
+msgid "/Motiffichedeliaisons/edit/#Motiffichedeliaison.id#"
+msgstr "Modifier le motif de fiche de liaison « #Motiffichedeliaison.name# »"
+
+msgid "/Motiffichedeliaisons/delete"
+msgstr "Supprimer"
+
+msgid "/Motiffichedeliaisons/delete/#Motiffichedeliaison.id#"
+msgstr "Supprimer le motif de fiche de liaison « #Motiffichedeliaison.name# »"
+
+msgid "/Motiffichedeliaisons/delete/#Motiffichedeliaison.id# ?"
+msgstr "Réellement supprimer le motif de fiche de liaison « #Motiffichedeliaison.name# » ?"

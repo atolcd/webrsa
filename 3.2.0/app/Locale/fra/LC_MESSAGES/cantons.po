@@ -1,0 +1,80 @@
+# Traductions de cantons.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Cantons/index/:heading"
+msgstr "Paramétrage des cantons"
+
+msgid "/Cantons/add/:heading"
+msgstr "Ajout d'un canton"
+
+msgid "/Cantons/edit/:heading"
+msgstr "Modification du canton « #Canton.canton# »"
+
+msgid "/Cantons/add"
+msgstr "Ajouter"
+
+msgid "/Cantons/add/:title"
+msgstr "Ajouter un canton"
+
+msgid "Search.Canton.canton"
+msgstr "Nom du canton"
+
+msgid "Search.Canton.nomcom"
+msgstr "Localité"
+
+msgid "Search.Canton.zonegeographique_id"
+msgstr "Zone géographique"
+
+msgid "Search.Canton.codepos"
+msgstr "Code postal"
+
+msgid "Search.Canton.numcom"
+msgstr "Code INSEE"
+
+msgid "Canton.canton"
+msgstr "Canton"
+
+msgid "Zonegeographique.libelle"
+msgstr "Zone géographique"
+
+msgid "Canton.libtypevoie"
+msgstr "Type de voie"
+
+msgid "Canton.nomvoie"
+msgstr "Nom de voie"
+
+msgid "Canton.nomcom"
+msgstr "Localité"
+
+msgid "Canton.codepos"
+msgstr "Code postal"
+
+msgid "Canton.numcom"
+msgstr "Code INSEE"
+
+msgid "/Cantons/edit"
+msgstr "Modifier"
+
+msgid "/Cantons/edit/#Canton.id#"
+msgstr "Modifier le canton « #Canton.canton# »"
+
+msgid "/Cantons/delete"
+msgstr "Supprimer"
+
+msgid "/Cantons/delete/#Canton.id#"
+msgstr "Supprimer le canton « #Canton.canton# »"
+
+msgid "/Cantons/delete/#Canton.id# ?"
+msgstr "Réellement supprimer le canton « #Canton.canton# » ?"
+
+msgid "/Parametrages/index"
+msgstr "Retour"

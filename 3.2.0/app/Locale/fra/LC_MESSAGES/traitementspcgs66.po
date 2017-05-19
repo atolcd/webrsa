@@ -1,0 +1,194 @@
+# Traductions de traitementspcgs66.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Traitementspcgs66/search/:heading"
+msgstr "Recherche de traitements PCGs"
+
+msgid "/Traitementspcgs66/search"
+msgstr "Formulaire"
+
+msgid "/Traitementspcgs66/search/:title"
+msgstr "Formulaire"
+
+msgid "/Traitementspcgs66/index"
+msgstr "Voir"
+
+msgid "/Traitementspcgs66/index/#Personnepcg66.personne_id#/#Dossierpcg66.id#"
+msgstr "Voir les traitements de #Personne.nom_complet#"
+
+msgid "Traitementpcg66.search"
+msgstr "Recherche par traitement"
+
+msgid "Search.Dossierpcg66.poledossierpcg66_id"
+msgstr "Pôle chargé du dossier"
+
+msgid "Search.Dossierpcg66.user_id"
+msgstr "Gestionnaire du dossier (technicien en charge du dossier)"
+
+msgid "Search.Dossierpcg66.dateaffectation"
+msgstr "Date d'affectation"
+
+msgid "Search.Traitementpcg66.dateecheance"
+msgstr "Date d'échéance du traitement"
+
+msgid "Search.Traitementpcg66.daterevision"
+msgstr "Date de révision du traitement"
+
+msgid "Search.Traitementpcg66.created"
+msgstr "Date de création du traitement"
+
+msgid "Search.Traitementpcg66.situationpdo_id"
+msgstr "Motif concernant la personne"
+
+msgid "Search.Traitementpcg66.statutpdo_id"
+msgstr "Statut concernant la personne"
+
+msgid "Search.Traitementpcg66.descriptionpdo_id"
+msgstr "Description du traitement"
+
+msgid "Search.Traitementpcg66.typetraitement"
+msgstr "Type de traitement"
+
+msgid "Search.Traitementpcg66.clos"
+msgstr "Clos ?"
+
+msgid "Search.Traitementpcg66.annule"
+msgstr "Annulé ?"
+
+msgid "Search.Traitementpcg66.regime"
+msgstr "Régime"
+
+msgid "Search.Traitementpcg66.saisonnier"
+msgstr "Saisonnier"
+
+msgid "Search.Traitementpcg66.nrmrcs"
+msgstr "Numéro RM ou RCS"
+
+msgid "Search.Fichiermodule.exists"
+msgstr "Corbeille pleine ?"
+
+msgid "Search.Traitementpcg66.etattraitementpcg"
+msgstr "Etat du traitement"
+
+msgid "Fichiermodule.nb_fichiers_lies"
+msgstr "Nb de fichiers dans la corbeille"
+
+msgid "Dossier.locked"
+msgstr "Verrouillé"
+
+msgid "Situationpdo.libelle"
+msgstr "Motif(s) de la situation"
+
+msgid "Descriptionpdo.name"
+msgstr "Description du traitement"
+
+msgid "Traitementpcg66.datedepart"
+msgstr "Date de départ (pour le calcul de l'échéance)"
+
+msgid "Traitementpcg66.datereception"
+msgstr "Date de réception"
+
+msgid "Traitementpcg66.daterevision"
+msgstr "Date de révision"
+
+msgid "Traitementpcg66.dateecheance"
+msgstr "Date d'échéance"
+
+msgid "Traitementpcg66.typetraitement"
+msgstr "Type de traitement"
+
+msgid "Traitementpcg66.imprimer"
+msgstr "Inclure dans la cohorte d'impression"
+
+msgid "Traitementpcg66.dateenvoicourrier"
+msgstr "Date d'envoi du courrier"
+
+msgid "Traitementpcg66.etattraitementpcg"
+msgstr "Etat du traitement"
+
+msgid "Traitementpcg66.created"
+msgstr "Date de création du traitement"
+
+msgid "/Traitementspcgs66/view"
+msgstr "Voir"
+
+msgid "/Traitementspcgs66/view/#Traitementpcg66.id#"
+msgstr "Visualisation d'un traitement"
+
+msgid "/Traitementspcgs66/edit"
+msgstr "Modifier"
+
+msgid "/Traitementspcgs66/edit/#Traitementpcg66.id#"
+msgstr "Modification du traitement"
+
+msgid "/Traitementspcgs66/printFicheCalcul"
+msgstr "Fiche de calcul"
+
+msgid "/Traitementspcgs66/printFicheCalcul/#Traitementpcg66.id#"
+msgstr "Fiche de calcul"
+
+msgid "/Traitementspcgs66/switch_imprimer"
+msgstr "Inclure/Exclure"
+
+msgid "/Traitementspcgs66/switch_imprimer/#Traitementpcg66.id#"
+msgstr "Inclure/Exclure"
+
+msgid "/Traitementspcgs66/printModeleCourrier"
+msgstr "Imprimer courrier"
+
+msgid "/Traitementspcgs66/printModeleCourrier/#Traitementpcg66.id#"
+msgstr "Impression du courrier"
+
+msgid "/Traitementspcgs66/envoiCourrier"
+msgstr "Envoi courrier"
+
+msgid "/Traitementspcgs66/envoiCourrier/#Traitementpcg66.id#"
+msgstr "Envoi du courrier"
+
+msgid "/Traitementspcgs66/reverseDO"
+msgstr "Reverser dans DO"
+
+msgid "/Traitementspcgs66/reverseDO/#Traitementpcg66.id#"
+msgstr "Reverser dans DO"
+
+msgid "/Traitementspcgs66/deverseDO"
+msgstr "Déverser de la DO"
+
+msgid "/Traitementspcgs66/deverseDO/#Traitementpcg66.id#"
+msgstr "Déverser de la DO"
+
+msgid "/Traitementspcgs66/clore"
+msgstr "Clore"
+
+msgid "/Traitementspcgs66/clore/#Traitementpcg66.id#"
+msgstr "Clore le traitement"
+
+msgid "/Traitementspcgs66/cancel"
+msgstr "Annuler"
+
+msgid "/Traitementspcgs66/cancel/#Traitementpcg66.id#"
+msgstr "Annulation le traitement"
+
+msgid "/Traitementspcgs66/delete"
+msgstr "Supprimer"
+
+msgid "/Traitementspcgs66/delete/#Traitementpcg66.id#"
+msgstr "Supprimer le traitement"
+
+msgid "/Traitementspcgs66/add"
+msgstr "Ajouter"
+
+msgid "/Traitementspcgs66/add/:title"
+msgstr "Ajouter"
+
+msgid "/Traitementspcgs66/delete/#Traitementpcg66.id# ?"
+msgstr "Voulez-vous vraiment supprimer ce traitement ?"

@@ -1,0 +1,41 @@
+# Traductions de categoriesactionroles.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Categoriesactionroles/index/:heading"
+msgstr "Paramétrage des catégories de rôles (onglets)"
+
+msgid "/Categoriesactionroles/add/:heading"
+msgstr "Ajout d'une catégorie de rôles"
+
+msgid "/Categoriesactionroles/edit/:heading"
+msgstr "Modification de la catégorie de rôles « #Categorieactionrole.name# »"
+
+msgid "/Categoriesactionroles/add"
+msgstr "Ajouter"
+
+msgid "/Categoriesactionroles/add/:title"
+msgstr "Ajouter une catégorie de rôles"
+
+msgid "/Categoriesactionroles/edit"
+msgstr "Modifier"
+
+msgid "/Categoriesactionroles/edit/#Categorieactionrole.id#"
+msgstr "Modifier la catégorie de rôles « #Categorieactionrole.name# »"
+
+msgid "/Categoriesactionroles/delete"
+msgstr "Supprimer"
+
+msgid "/Categoriesactionroles/delete/#Categorieactionrole.id#"
+msgstr "Supprimer la catégorie de rôles « #Categorieactionrole.name# »"
+
+msgid "/Categoriesactionroles/delete/#Categorieactionrole.id# ?"
+msgstr "Réellement supprimer la catégorie de rôles « #Categorieactionrole.name# » ?"

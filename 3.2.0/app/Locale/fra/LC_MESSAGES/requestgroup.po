@@ -1,0 +1,44 @@
+# Traductions de requestgroup.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Requestgroups::add"
+msgstr "Ajout d'une catégorie de requête"
+
+msgid "Requestgroups::edit"
+msgstr "Modification d'une catégorie de requête"
+
+msgid "Requestgroups::delete"
+msgstr "Suppression d'une catégorie de requête"
+
+msgid "Requestgroups::index"
+msgstr "Liste des catégories de l'éditeur de requetes"
+
+msgid "Requestgroup::index::empty"
+msgstr "Vide"
+
+msgid "Requestgroup.parent_id"
+msgstr "Fait parti d'une autre catégorie"
+
+msgid "Requestgroup.name"
+msgstr "Nom de la catégorie"
+
+msgid "Requestgroup.actif"
+msgstr "Actif ?"
+
+msgid "Requestgroups::delete::confirm"
+msgstr "Cette action supprimera définitivement cette catégorie. Voulez-vous continuer ?"
+
+msgid "ENUM::ACTIF::0"
+msgstr "Non"
+
+msgid "ENUM::ACTIF::1"
+msgstr "Oui"

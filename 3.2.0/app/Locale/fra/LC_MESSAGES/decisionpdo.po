@@ -1,0 +1,59 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+###############################################################################
+
+msgid "Decisionpdo.libelle"
+msgstr "Libellé"
+
+msgid "Decisionpdo.clos"
+msgstr "Ce type clotûre-t-il le dossier ?"
+
+msgid "ENUM::CLOS::N"
+msgstr "Non"
+
+msgid "ENUM::CLOS::O"
+msgstr "Oui"
+
+msgid "ENUM::CERPARTICULIER::N"
+msgstr "Non"
+
+msgid "ENUM::CERPARTICULIER::O"
+msgstr "Oui"
+
+msgid "Decisionpdo.cerparticulier"
+msgstr "Cette décision est-elle en lien avec un CER Particulier ?"
+
+msgid "Decisionpdo.decisioncerparticulier"
+msgstr "Décision en lien avec la validation d'un CER"
+
+msgid "Decisionpdo.modeleodt"
+msgstr "Modèle de document lié"
+
+msgid "Decisionpdo.isactif"
+msgstr "Actif ?"
+
+msgid "ENUM::ISACTIF::1"
+msgstr "Oui"
+
+msgid "ENUM::ISACTIF::0"
+msgstr "Non"

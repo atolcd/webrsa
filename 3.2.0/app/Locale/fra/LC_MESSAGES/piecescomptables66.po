@@ -1,0 +1,47 @@
+# Traductions de piecescomptables66.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Piecescomptables66/index/:heading"
+msgstr "Paramétrage des pièces comptables de l'APRE/ADRE"
+
+msgid "/Piecescomptables66/add/:heading"
+msgstr "Ajout d'une pièce comptable de l'APRE/ADRE"
+
+msgid "/Piecescomptables66/edit/:heading"
+msgstr "Modification de la pièce comptable de l'APRE/ADRE « #Piececomptable66.name# »"
+
+msgid "/Piecescomptables66/add"
+msgstr "Ajouter"
+
+msgid "/Piecescomptables66/add/:title"
+msgstr "Ajouter une pièce comptable de l'APRE/ADRE"
+
+msgid "/Piecescomptables66/edit"
+msgstr "Modifier"
+
+msgid "/Piecescomptables66/edit/#Piececomptable66.id#"
+msgstr "Modifier la pièce comptable de l'APRE/ADRE « #Piececomptable66.name# »"
+
+msgid "/Piecescomptables66/delete"
+msgstr "Supprimer"
+
+msgid "/Piecescomptables66/delete/#Piececomptable66.id#"
+msgstr "Supprimer la pièce comptable de l'APRE/ADRE « #Piececomptable66.name# »"
+
+msgid "/Piecescomptables66/delete/#Piececomptable66.id# ?"
+msgstr "Réellement supprimer la pièce comptable de l'APRE/ADRE « #Piececomptable66.name# » ?"
+
+msgid "/Parametrages/apres"
+msgstr "Retour"
+
+msgid "/Parametrages/apres/:title"
+msgstr "Retour aux paramétrages des APRE"

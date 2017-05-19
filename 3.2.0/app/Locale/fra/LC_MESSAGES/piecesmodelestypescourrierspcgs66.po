@@ -1,0 +1,47 @@
+# Traductions de piecesmodelestypescourrierspcgs66.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Piecesmodelestypescourrierspcgs66/index/:heading"
+msgstr "Paramétrage des pièces liées aux modèles de courriers PCG"
+
+msgid "/Piecesmodelestypescourrierspcgs66/add/:heading"
+msgstr "Ajout d'une pièce liée aux modèles de courriers PCG"
+
+msgid "/Piecesmodelestypescourrierspcgs66/edit/:heading"
+msgstr "Modification de la pièce liée aux modèles de courriers PCG « #Piecemodeletypecourrierpcg66.name# »"
+
+msgid "/Piecesmodelestypescourrierspcgs66/add"
+msgstr "Ajouter"
+
+msgid "/Piecesmodelestypescourrierspcgs66/add/:title"
+msgstr "Ajouter une pièce liée aux modèles de courriers PCG"
+
+msgid "/Piecesmodelestypescourrierspcgs66/edit"
+msgstr "Modifier"
+
+msgid "/Piecesmodelestypescourrierspcgs66/edit/#Piecemodeletypecourrierpcg66.id#"
+msgstr "Modifier la pièce liée aux modèles de courriers PCG « #Piecemodeletypecourrierpcg66.name# »"
+
+msgid "/Piecesmodelestypescourrierspcgs66/delete"
+msgstr "Supprimer"
+
+msgid "/Piecesmodelestypescourrierspcgs66/delete/#Piecemodeletypecourrierpcg66.id#"
+msgstr "Supprimer la pièce liée aux modèles de courriers PCG « #Piecemodeletypecourrierpcg66.name# »"
+
+msgid "/Piecesmodelestypescourrierspcgs66/delete/#Piecemodeletypecourrierpcg66.id# ?"
+msgstr "Réellement supprimer la pièce liée aux modèles de courriers PCG « #Piecemodeletypecourrierpcg66.name# » ?"
+
+msgid "/Parametrages/courrierspcgs66"
+msgstr "Retour"
+
+msgid "/Parametrages/courrierspcgs66/:title"
+msgstr "Retour aux paramétrages du module de courriers PCG"

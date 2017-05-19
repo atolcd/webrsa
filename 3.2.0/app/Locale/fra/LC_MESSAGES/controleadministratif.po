@@ -1,0 +1,126 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "Controleadministratif.dteffcibcontro"
+msgstr "Date effet"
+
+msgid "Controleadministratif.cibcontro"
+msgstr "Cible contrôle administratif"
+
+msgid "Controleadministratif.cibcontromsa"
+msgstr "Cible contrôle administratif MSA"
+
+msgid "Controleadministratif.dtdeteccontro"
+msgstr "Date de détection"
+
+msgid "Controleadministratif.dtclocontro"
+msgstr "Date cloture"
+
+msgid "Controleadministratif.libcibcontro"
+msgstr "Libellé"
+
+msgid "Controleadministratif.famcibcontro"
+msgstr "Famille"
+
+msgid "Controleadministratif.natcibcontro"
+msgstr "Nature"
+
+msgid "Controleadministratif.commacontro"
+msgstr "Commande"
+
+msgid "Controleadministratif.typecontro"
+msgstr "Type"
+
+msgid "Controleadministratif.typeimpaccontro"
+msgstr "Type impact"
+
+msgid "Controleadministratif.mtindursacgcontro"
+msgstr "Montant indus RSA fond CG controle"
+
+msgid "Controleadministratif.mtraprsacgcontro"
+msgstr "Montant rappel RSA fond CG controle"
+
+msgid "ENUM::FAMCIBCONTRO::01"
+msgstr "Situation Professionnelle"
+
+msgid "ENUM::FAMCIBCONTRO::02"
+msgstr "Logement"
+
+msgid "ENUM::FAMCIBCONTRO::03"
+msgstr "Etat Civil"
+
+msgid "ENUM::FAMCIBCONTRO::04"
+msgstr "Ressources"
+
+msgid "ENUM::FAMCIBCONTRO::05"
+msgstr "Situation Familiale, Charge enfant"
+
+msgid "ENUM::FAMCIBCONTRO::06"
+msgstr "Divers"
+
+msgid "ENUM::FAMCIBCONTRO::07"
+msgstr "Fraude"
+
+msgid "ENUM::NATCIBCONTRO::RSA"
+msgstr "Ciblage lié à un droit RSA"
+
+msgid "ENUM::NATCIBCONTRO::AUR"
+msgstr "Ciblage lié à une prestation autre que le RSA"
+
+msgid "ENUM::NATCIBCONTRO::SIT"
+msgstr "Ciblage non lié à une prestation"
+
+msgid "ENUM::COMMACONTRO::CAF"
+msgstr "Commande contrôle par CAF"
+
+msgid "ENUM::COMMACONTRO::CGA"
+msgstr "Commande contrôle par conseil général"
+
+msgid "ENUM::COMMACONTRO::NAT"
+msgstr "Commande contrôle national"
+
+msgid "ENUM::COMMACONTRO::API"
+msgstr "API"
+
+msgid "ENUM::COMMACONTRO::DEM"
+msgstr "Autres"
+
+msgid "ENUM::COMMACONTRO::RMI"
+msgstr "RMI"
+
+msgid "ENUM::TYPECONTRO::AG"
+msgstr "Agent assermenté"
+
+msgid "ENUM::TYPECONTRO::EE"
+msgstr "Echanges extérieurs"
+
+msgid "ENUM::TYPECONTRO::PI"
+msgstr "Appel de pièce"
+
+msgid "ENUM::TYPEIMPACCONTRO::0"
+msgstr "Pas d'impact"
+
+msgid "ENUM::TYPEIMPACCONTRO::1"
+msgstr "Impact financier RSA sur fond CG "
+
+msgid "ENUM::TYPEIMPACCONTRO::2"
+msgstr "Impact sur dossier sans répercussion financière RSA"

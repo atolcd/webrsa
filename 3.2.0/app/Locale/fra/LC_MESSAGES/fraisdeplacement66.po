@@ -1,0 +1,68 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "Fraisdeplacement66.lieuresidence"
+msgstr "Lieu de résidence"
+
+msgid "Fraisdeplacement66.destination"
+msgstr "Destination"
+
+msgid "Fraisdeplacement66.nbkmvoiture"
+msgstr "Nombre de km par trajet"
+
+msgid "Fraisdeplacement66.nbtrajetvoiture"
+msgstr "Nombre de trajet"
+
+msgid "Fraisdeplacement66.nbtotalkm"
+msgstr "Nombre total de km"
+
+msgid "Fraisdeplacement66.forfaitvehicule"
+msgstr "Forfait Km"
+
+msgid "Fraisdeplacement66.totalvehicule"
+msgstr "Total"
+
+msgid "Fraisdeplacement66.nbtrajettranspub"
+msgstr "Nombre de trajet"
+
+msgid "Fraisdeplacement66.prixbillettranspub"
+msgstr "Prix du billet"
+
+msgid "Fraisdeplacement66.totaltranspub"
+msgstr "Total"
+
+msgid "Fraisdeplacement66.nbnuithebergt"
+msgstr "Nombre de nuitées"
+
+msgid "Fraisdeplacement66.forfaithebergt"
+msgstr "Forfait Nuitées"
+
+msgid "Fraisdeplacement66.totalhebergt"
+msgstr "Total"
+
+msgid "Fraisdeplacement66.nbrepas"
+msgstr "Nombre de repas"
+
+msgid "Fraisdeplacement66.forfaitrepas"
+msgstr "Forfait Repas"
+
+msgid "Fraisdeplacement66.totalrepas"
+msgstr "Total"

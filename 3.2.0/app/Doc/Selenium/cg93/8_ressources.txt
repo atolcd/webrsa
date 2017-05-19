@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://webrsa.local/" />
+<title>New Test</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">New Test</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Par dossier / allocataire</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>CalculdroitrsaToppersdrodevorsa</td>
+	<td>label=Oui</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Rechercher']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[@id='innerTableTrigger7']/td[7]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//img[@title='Étendre le menu ']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Ressources</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Voir</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>Back</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Ajouter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RessourceDdressDay</td>
+	<td>label=1</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RessourceDdressMonth</td>
+	<td>label=janvier</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>RessourceDdressYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Modifier</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>RessourceTopressnotnul</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='pageContent']/div[2]/form/div[3]/div/label</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Ressourcemensuelle0MoisressDay</td>
+	<td>label=1</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Ressourcemensuelle0MoisressMonth</td>
+	<td>label=janvier</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Ressourcemensuelle0MoisressYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Ressourcemensuelle0Nbheumentra</td>
+	<td>150</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Ressourcemensuelle0Mtabaneu</td>
+	<td>1000</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle0Natress</td>
+	<td>label=Frais professionnels reels deductibles</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Detailressourcemensuelle0Mtnatressmen</td>
+	<td>1200</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle0Abaneu</td>
+	<td>label=Abattement</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle0DfpercressDay</td>
+	<td>label=10</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle0DfpercressMonth</td>
+	<td>label=janvier</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle0DfpercressYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Ressourcemensuelle1MoisressDay</td>
+	<td>label=4</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Ressourcemensuelle1MoisressMonth</td>
+	<td>label=février</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Ressourcemensuelle1MoisressYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Ressourcemensuelle1Nbheumentra</td>
+	<td>5</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Ressourcemensuelle1Mtabaneu</td>
+	<td>20</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle1Natress</td>
+	<td>label=Abattement supplementaire pour frais profession</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Detailressourcemensuelle1Mtnatressmen</td>
+	<td>120</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle1Abaneu</td>
+	<td>label=Neutralisation</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle1DfpercressDay</td>
+	<td>label=7</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle1DfpercressMonth</td>
+	<td>label=février</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle1DfpercressYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Ressourcemensuelle2MoisressDay</td>
+	<td>label=2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Ressourcemensuelle2MoisressMonth</td>
+	<td>label=mars</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Ressourcemensuelle2MoisressYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Ressourcemensuelle2Nbheumentra</td>
+	<td>1</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Ressourcemensuelle2Mtabaneu</td>
+	<td>10</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle2Natress</td>
+	<td>label=Indemnites maternite/partenite/adoption</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Detailressourcemensuelle2Mtnatressmen</td>
+	<td>10000</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle2Abaneu</td>
+	<td>label=Abattement</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle2DfpercressDay</td>
+	<td>label=2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle2DfpercressMonth</td>
+	<td>label=mars</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Detailressourcemensuelle2DfpercressYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

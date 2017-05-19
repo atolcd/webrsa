@@ -1,0 +1,47 @@
+# Traductions de tiersprestatairesapres.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Tiersprestatairesapres/index/:heading"
+msgstr "Paramétrage des tiers prestataires APRE"
+
+msgid "/Tiersprestatairesapres/add/:heading"
+msgstr "Ajout d'un tiers prestataire APRE"
+
+msgid "/Tiersprestatairesapres/edit/:heading"
+msgstr "Modification du tiers prestataire APRE « #Tiersprestataireapre.nomtiers# »"
+
+msgid "/Tiersprestatairesapres/add"
+msgstr "Ajouter"
+
+msgid "/Tiersprestatairesapres/add/:title"
+msgstr "Ajouter un tiers prestataire APRE"
+
+msgid "/Tiersprestatairesapres/edit"
+msgstr "Modifier"
+
+msgid "/Tiersprestatairesapres/edit/#Tiersprestataireapre.id#"
+msgstr "Modifier le tiers prestataire APRE « #Tiersprestataireapre.nomtiers# »"
+
+msgid "/Tiersprestatairesapres/delete"
+msgstr "Supprimer"
+
+msgid "/Tiersprestatairesapres/delete/#Tiersprestataireapre.id#"
+msgstr "Supprimer le tiers prestataire APRE « #Tiersprestataireapre.nomtiers# »"
+
+msgid "/Tiersprestatairesapres/delete/#Tiersprestataireapre.id# ?"
+msgstr "Réellement supprimer le tiers prestataire APRE « #Tiersprestataireapre.nomtiers# » ?"
+
+msgid "/Parametrages/apres"
+msgstr "Retour"
+
+msgid "/Parametrages/apres/:title"
+msgstr "Retour aux paramétrages des APRE"

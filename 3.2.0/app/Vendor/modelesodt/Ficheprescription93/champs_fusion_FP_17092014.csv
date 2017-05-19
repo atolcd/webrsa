@@ -1,0 +1,269 @@
+Partie;Nom de la section;Champ;Type;Traduction
+contenu;;ficheprescription93_id;text;Ficheprescription93.id
+contenu;;ficheprescription93_personne_id;text;Ficheprescription93.personne_id
+contenu;;ficheprescription93_statut;text;Ficheprescription93.statut
+contenu;;ficheprescription93_referent_id;text;Ficheprescription93.referent_id
+contenu;;ficheprescription93_objet;text;Ficheprescription93.objet
+contenu;;ficheprescription93_rdvprestataire_date;text;Ficheprescription93.rdvprestataire_date
+contenu;;ficheprescription93_rdvprestataire_personne;text;Ficheprescription93.rdvprestataire_personne
+contenu;;ficheprescription93_filierefp93_id;text;Ficheprescription93.filierefp93_id
+contenu;;ficheprescription93_actionfp93_id;text;Ficheprescription93.actionfp93_id
+contenu;;ficheprescription93_actionfp93;text;Ficheprescription93.actionfp93
+contenu;;ficheprescription93_adresseprestatairefp93_id;text;Ficheprescription93.adresseprestatairefp93_id
+contenu;;ficheprescription93_prestatairehorspdifp93_id;text;Ficheprescription93.prestatairehorspdifp93_id
+contenu;;ficheprescription93_rdvprestataire_adresse;text;Ficheprescription93.rdvprestataire_adresse
+contenu;;ficheprescription93_dd_action;text;Ficheprescription93.dd_action
+contenu;;ficheprescription93_df_action;text;Ficheprescription93.df_action
+contenu;;ficheprescription93_duree_action;text;Ficheprescription93.duree_action
+contenu;;ficheprescription93_documentbeneffp93_autre;text;Ficheprescription93.documentbeneffp93_autre
+contenu;;ficheprescription93_date_signature;date;Ficheprescription93.date_signature
+contenu;;ficheprescription93_date_transmission;date;Ficheprescription93.date_transmission
+contenu;;ficheprescription93_date_retour;text;Ficheprescription93.date_retour
+contenu;;ficheprescription93_benef_retour_presente;text;Ficheprescription93.benef_retour_presente
+contenu;;ficheprescription93_date_presente_benef;text;Ficheprescription93.date_presente_benef
+contenu;;ficheprescription93_retour_nom_partenaire;text;Ficheprescription93.retour_nom_partenaire
+contenu;;ficheprescription93_date_signature_partenaire;text;Ficheprescription93.date_signature_partenaire
+contenu;;ficheprescription93_personne_recue;text;Ficheprescription93.personne_recue
+contenu;;ficheprescription93_motifnonreceptionfp93_id;text;Ficheprescription93.motifnonreceptionfp93_id
+contenu;;ficheprescription93_personne_nonrecue_autre;text;Ficheprescription93.personne_nonrecue_autre
+contenu;;ficheprescription93_personne_retenue;text;Ficheprescription93.personne_retenue
+contenu;;ficheprescription93_motifnonretenuefp93_id;text;Ficheprescription93.motifnonretenuefp93_id
+contenu;;ficheprescription93_personne_nonretenue_autre;text;Ficheprescription93.personne_nonretenue_autre
+contenu;;ficheprescription93_personne_souhaite_integrer;text;Ficheprescription93.personne_souhaite_integrer
+contenu;;ficheprescription93_motifnonsouhaitfp93_id;text;Ficheprescription93.motifnonsouhaitfp93_id
+contenu;;ficheprescription93_personne_nonsouhaite_autre;text;Ficheprescription93.personne_nonsouhaite_autre
+contenu;;ficheprescription93_personne_a_integre;text;Ficheprescription93.personne_a_integre
+contenu;;ficheprescription93_personne_date_integration;text;Ficheprescription93.personne_date_integration
+contenu;;ficheprescription93_motifnonintegrationfp93_id;text;Ficheprescription93.motifnonintegrationfp93_id
+contenu;;ficheprescription93_personne_nonintegre_autre;text;Ficheprescription93.personne_nonintegre_autre
+contenu;;ficheprescription93_date_bilan_mi_parcours;text;Ficheprescription93.date_bilan_mi_parcours
+contenu;;ficheprescription93_date_bilan_final;text;Ficheprescription93.date_bilan_final
+contenu;;ficheprescription93_motif_annulation;text;Ficheprescription93.motif_annulation
+contenu;;ficheprescription93_date_annulation;text;Ficheprescription93.date_annulation
+contenu;;ficheprescription93_created_time;text;
+contenu;;ficheprescription93_created;date;Ficheprescription93.created
+contenu;;ficheprescription93_modified_time;text;
+contenu;;ficheprescription93_modified;date;Ficheprescription93.modified
+contenu;;ficheprescription93_actioncandidat_personne_id;text;Ficheprescription93.actioncandidat_personne_id
+contenu;;actionfp93_id;text;Actionfp93.id
+contenu;;actionfp93_filierefp93_id;text;Actionfp93.filierefp93_id
+contenu;;actionfp93_adresseprestatairefp93_id;text;Actionfp93.adresseprestatairefp93_id
+contenu;;actionfp93_name;text;Actionfp93.name
+contenu;;actionfp93_numconvention;text;Actionfp93.numconvention
+contenu;;actionfp93_annee;text;Actionfp93.annee
+contenu;;actionfp93_duree;text;Actionfp93.duree
+contenu;;actionfp93_actif;text;Actionfp93.actif
+contenu;;actionfp93_created;text;Actionfp93.created
+contenu;;actionfp93_modified;text;Actionfp93.modified
+contenu;;adresseprestatairefp93_id;text;Adresseprestatairefp93.id
+contenu;;adresseprestatairefp93_prestatairefp93_id;text;Adresseprestatairefp93.prestatairefp93_id
+contenu;;adresseprestatairefp93_adresse;text;Adresseprestatairefp93.adresse
+contenu;;adresseprestatairefp93_codepos;text;Adresseprestatairefp93.codepos
+contenu;;adresseprestatairefp93_localite;text;Adresseprestatairefp93.localite
+contenu;;adresseprestatairefp93_tel;text;Adresseprestatairefp93.tel
+contenu;;adresseprestatairefp93_fax;text;Adresseprestatairefp93.fax
+contenu;;adresseprestatairefp93_email;text;Adresseprestatairefp93.email
+contenu;;adresseprestatairefp93_created;text;Adresseprestatairefp93.created
+contenu;;adresseprestatairefp93_modified;text;Adresseprestatairefp93.modified
+contenu;;filierefp93_id;text;Filierefp93.id
+contenu;;filierefp93_categoriefp93_id;text;Filierefp93.categoriefp93_id
+contenu;;filierefp93_name;text;Filierefp93.name
+contenu;;filierefp93_created;text;Filierefp93.created
+contenu;;filierefp93_modified;text;Filierefp93.modified
+contenu;;instantanedonneesfp93_id;text;Instantanedonneesfp93.id
+contenu;;instantanedonneesfp93_ficheprescription93_id;text;Instantanedonneesfp93.ficheprescription93_id
+contenu;;instantanedonneesfp93_referent_fonction;text;Instantanedonneesfp93.referent_fonction
+contenu;;instantanedonneesfp93_structure_name;text;Instantanedonneesfp93.structure_name
+contenu;;instantanedonneesfp93_structure_num_voie;text;Instantanedonneesfp93.structure_num_voie
+contenu;;instantanedonneesfp93_structure_type_voie;text;Instantanedonneesfp93.structure_type_voie
+contenu;;instantanedonneesfp93_structure_nom_voie;text;Instantanedonneesfp93.structure_nom_voie
+contenu;;instantanedonneesfp93_structure_code_postal;text;Instantanedonneesfp93.structure_code_postal
+contenu;;instantanedonneesfp93_structure_ville;text;Instantanedonneesfp93.structure_ville
+contenu;;instantanedonneesfp93_structure_tel;text;Instantanedonneesfp93.structure_tel
+contenu;;instantanedonneesfp93_structure_fax;text;Instantanedonneesfp93.structure_fax
+contenu;;instantanedonneesfp93_referent_email;text;Instantanedonneesfp93.referent_email
+contenu;;instantanedonneesfp93_benef_qual;text;Instantanedonneesfp93.benef_qual
+contenu;;instantanedonneesfp93_benef_nom;text;Instantanedonneesfp93.benef_nom
+contenu;;instantanedonneesfp93_benef_prenom;text;Instantanedonneesfp93.benef_prenom
+contenu;;instantanedonneesfp93_benef_dtnai;date;Instantanedonneesfp93.benef_dtnai
+contenu;;instantanedonneesfp93_benef_numvoie;text;Instantanedonneesfp93.benef_numvoie
+contenu;;instantanedonneesfp93_benef_nomvoie;text;Instantanedonneesfp93.benef_nomvoie
+contenu;;instantanedonneesfp93_benef_complideadr;text;Instantanedonneesfp93.benef_complideadr
+contenu;;instantanedonneesfp93_benef_compladr;text;Instantanedonneesfp93.benef_compladr
+contenu;;instantanedonneesfp93_benef_codepos;text;Instantanedonneesfp93.benef_codepos
+contenu;;instantanedonneesfp93_benef_tel_fixe;text;Instantanedonneesfp93.benef_tel_fixe
+contenu;;instantanedonneesfp93_benef_tel_port;text;Instantanedonneesfp93.benef_tel_port
+contenu;;instantanedonneesfp93_benef_email;text;Instantanedonneesfp93.benef_email
+contenu;;instantanedonneesfp93_benef_identifiantpe;text;Instantanedonneesfp93.benef_identifiantpe
+contenu;;instantanedonneesfp93_benef_inscritpe;text;Instantanedonneesfp93.benef_inscritpe
+contenu;;instantanedonneesfp93_benef_matricule;text;Instantanedonneesfp93.benef_matricule
+contenu;;instantanedonneesfp93_benef_natpf_socle;text;Instantanedonneesfp93.benef_natpf_socle
+contenu;;instantanedonneesfp93_benef_natpf_majore;text;Instantanedonneesfp93.benef_natpf_majore
+contenu;;instantanedonneesfp93_benef_natpf_activite;text;Instantanedonneesfp93.benef_natpf_activite
+contenu;;instantanedonneesfp93_benef_natpf_3mois;text;Instantanedonneesfp93.benef_natpf_3mois
+contenu;;instantanedonneesfp93_benef_nivetu;text;Instantanedonneesfp93.benef_nivetu
+contenu;;instantanedonneesfp93_benef_dernier_dip;text;Instantanedonneesfp93.benef_dernier_dip
+contenu;;instantanedonneesfp93_benef_dip_ce;text;Instantanedonneesfp93.benef_dip_ce
+contenu;;instantanedonneesfp93_benef_etatdosrsa;text;Instantanedonneesfp93.benef_etatdosrsa
+contenu;;instantanedonneesfp93_benef_toppersdrodevorsa;text;Instantanedonneesfp93.benef_toppersdrodevorsa
+contenu;;instantanedonneesfp93_benef_dd_ci;date;Instantanedonneesfp93.benef_dd_ci
+contenu;;instantanedonneesfp93_benef_df_ci;date;Instantanedonneesfp93.benef_df_ci
+contenu;;instantanedonneesfp93_benef_positioncer;text;Instantanedonneesfp93.benef_positioncer
+contenu;;instantanedonneesfp93_created_time;text;
+contenu;;instantanedonneesfp93_created;date;Instantanedonneesfp93.created
+contenu;;instantanedonneesfp93_modified_time;text;
+contenu;;instantanedonneesfp93_modified;date;Instantanedonneesfp93.modified
+contenu;;instantanedonneesfp93_benef_libtypevoie;text;Instantanedonneesfp93.benef_libtypevoie
+contenu;;instantanedonneesfp93_benef_numcom;text;Instantanedonneesfp93.benef_numcom
+contenu;;instantanedonneesfp93_benef_nomcom;text;Instantanedonneesfp93.benef_nomcom
+contenu;;motifnonintegrationfp93_id;text;Motifnonintegrationfp93.id
+contenu;;motifnonintegrationfp93_name;text;Motifnonintegrationfp93.name
+contenu;;motifnonintegrationfp93_autre;text;Motifnonintegrationfp93.autre
+contenu;;motifnonintegrationfp93_created;text;Motifnonintegrationfp93.created
+contenu;;motifnonintegrationfp93_modified;text;Motifnonintegrationfp93.modified
+contenu;;motifnonreceptionfp93_id;text;Motifnonreceptionfp93.id
+contenu;;motifnonreceptionfp93_name;text;Motifnonreceptionfp93.name
+contenu;;motifnonreceptionfp93_autre;text;Motifnonreceptionfp93.autre
+contenu;;motifnonreceptionfp93_created;text;Motifnonreceptionfp93.created
+contenu;;motifnonreceptionfp93_modified;text;Motifnonreceptionfp93.modified
+contenu;;motifnonretenuefp93_id;text;Motifnonretenuefp93.id
+contenu;;motifnonretenuefp93_name;text;Motifnonretenuefp93.name
+contenu;;motifnonretenuefp93_autre;text;Motifnonretenuefp93.autre
+contenu;;motifnonretenuefp93_created;text;Motifnonretenuefp93.created
+contenu;;motifnonretenuefp93_modified;text;Motifnonretenuefp93.modified
+contenu;;motifnonsouhaitfp93_id;text;Motifnonsouhaitfp93.id
+contenu;;motifnonsouhaitfp93_name;text;Motifnonsouhaitfp93.name
+contenu;;motifnonsouhaitfp93_autre;text;Motifnonsouhaitfp93.autre
+contenu;;motifnonsouhaitfp93_created;text;Motifnonsouhaitfp93.created
+contenu;;motifnonsouhaitfp93_modified;text;Motifnonsouhaitfp93.modified
+contenu;;personne_id;text;Personne
+contenu;;personne_foyer_id;text;Personne.foyer_id
+contenu;;personne_qual;text;Civilité
+contenu;;personne_nom;text;Nom
+contenu;;personne_prenom;text;Prénom
+contenu;;personne_nomnai;text;Nom de naissance
+contenu;;personne_prenom2;text;2ème prénom
+contenu;;personne_prenom3;text;3ème prénom
+contenu;;personne_nomcomnai;text;Commune de naissance
+contenu;;personne_dtnai;date;Date de naissance
+contenu;;personne_rgnai;text;Rang naissance
+contenu;;personne_typedtnai;text;Type date de naissance
+contenu;;personne_nir;text;NIR
+contenu;;personne_topvalec;text;Certification de l'état civil de la personne
+contenu;;personne_sexe;text;Sexe
+contenu;;personne_nati;text;Nationalité
+contenu;;personne_dtnati;text;Date Nationalité
+contenu;;personne_pieecpres;text;Pièce d'état civil présentée
+contenu;;personne_idassedic;text;N° identifiant Pôle Emploi
+contenu;;personne_numagenpoleemploi;text;Personne.numagenpoleemploi
+contenu;;personne_dtinscpoleemploi;text;Personne.dtinscpoleemploi
+contenu;;personne_numfixe;text;N° de téléphone fixe
+contenu;;personne_numport;text;N° de téléphone portable
+contenu;;personne_haspiecejointe;text;Ajouter une pièce jointe
+contenu;;personne_email;text;Adresse mail
+contenu;;referent_id;text;Referent.id
+contenu;;referent_structurereferente_id;text;Referent.structurereferente_id
+contenu;;referent_nom;text;Nom
+contenu;;referent_prenom;text;Prénom
+contenu;;referent_numero_poste;text;N° téléphone
+contenu;;referent_email;text;Email
+contenu;;referent_qual;text;Civilité
+contenu;;referent_fonction;text;Fonction
+contenu;;referent_actif;text;Actif
+contenu;;referent_datecloture;text;Date de clôture
+contenu;;prestatairefp93_id;text;Prestatairefp93.id
+contenu;;prestatairefp93_name;text;Prestatairefp93.name
+contenu;;prestatairefp93_created;text;Prestatairefp93.created
+contenu;;prestatairefp93_modified;text;Prestatairefp93.modified
+contenu;;prestatairehorspdifp93_id;text;Prestatairehorspdifp93.id
+contenu;;prestatairehorspdifp93_name;text;Prestatairehorspdifp93.name
+contenu;;prestatairehorspdifp93_adresse;text;Prestatairehorspdifp93.adresse
+contenu;;prestatairehorspdifp93_codepos;text;Prestatairehorspdifp93.codepos
+contenu;;prestatairehorspdifp93_localite;text;Prestatairehorspdifp93.localite
+contenu;;prestatairehorspdifp93_tel;text;Prestatairehorspdifp93.tel
+contenu;;prestatairehorspdifp93_fax;text;Prestatairehorspdifp93.fax
+contenu;;prestatairehorspdifp93_email;text;Prestatairehorspdifp93.email
+contenu;;prestatairehorspdifp93_created_time;text;
+contenu;;prestatairehorspdifp93_created;date;Prestatairehorspdifp93.created
+contenu;;prestatairehorspdifp93_modified_time;text;
+contenu;;prestatairehorspdifp93_modified;date;Prestatairehorspdifp93.modified
+contenu;;prestatairehorspdifp93_actioncandidat_personne_id;text;Prestatairehorspdifp93.actioncandidat_personne_id
+contenu;;categoriefp93_id;text;Categoriefp93.id
+contenu;;categoriefp93_thematiquefp93_id;text;Categoriefp93.thematiquefp93_id
+contenu;;categoriefp93_name;text;Categoriefp93.name
+contenu;;categoriefp93_created;text;Categoriefp93.created
+contenu;;categoriefp93_modified;text;Categoriefp93.modified
+contenu;;thematiquefp93_id;text;Thematiquefp93.id
+contenu;;thematiquefp93_type;text;Thematiquefp93.type
+contenu;;thematiquefp93_name;text;Thematiquefp93.name
+contenu;;thematiquefp93_created;text;Thematiquefp93.created
+contenu;;thematiquefp93_modified;text;Thematiquefp93.modified
+contenu;;structurereferente_id;text;Structurereferente.id
+contenu;;structurereferente_typeorient_id;text;Structurereferente.typeorient_id
+contenu;;structurereferente_lib_struc;text;Type de structure
+contenu;;structurereferente_num_voie;text;Structurereferente.num_voie
+contenu;;structurereferente_type_voie;text;Structurereferente.type_voie
+contenu;;structurereferente_nom_voie;text;Structurereferente.nom_voie
+contenu;;structurereferente_code_postal;text;Structurereferente.code_postal
+contenu;;structurereferente_ville;text;Ville
+contenu;;structurereferente_code_insee;text;Structurereferente.code_insee
+contenu;;structurereferente_filtre_zone_geo;text;Structurereferente.filtre_zone_geo
+contenu;;structurereferente_contratengagement;text;Gestion des CERs
+contenu;;structurereferente_apre;text;Gestion des APREs
+contenu;;structurereferente_orientation;text;Structurereferente.orientation
+contenu;;structurereferente_pdo;text;Structurereferente.pdo
+contenu;;structurereferente_numtel;text;Structurereferente.numtel
+contenu;;structurereferente_actif;text;Structurereferente.actif
+contenu;;structurereferente_typestructure;text;Structurereferente.typestructure
+contenu;;structurereferente_cui;text;Gestion des CUIs
+contenu;;structurereferente_numfax;text;Structurereferente.numfax
+contenu;;user_id;text;User.id
+contenu;;user_group_id;text;User.group_id
+contenu;;user_serviceinstructeur_id;text;User.serviceinstructeur_id
+contenu;;user_username;text;Login
+contenu;;user_nom;text;Nom
+contenu;;user_prenom;text;Prénom
+contenu;;user_date_naissance;text;User.date_naissance
+contenu;;user_date_deb_hab;date;User.date_deb_hab
+contenu;;user_date_fin_hab;date;User.date_fin_hab
+contenu;;user_numtel;text;User.numtel
+contenu;;user_filtre_zone_geo;text;User.filtre_zone_geo
+contenu;;user_numvoie;text;User.numvoie
+contenu;;user_typevoie;text;User.typevoie
+contenu;;user_nomvoie;text;User.nomvoie
+contenu;;user_compladr;text;User.compladr
+contenu;;user_codepos;text;User.codepos
+contenu;;user_ville;text;User.ville
+contenu;;user_isgestionnaire;text;Est-il gestionnaire, notamment pour les PDOs ? 
+contenu;;user_sensibilite;text;Peut-il accéder aux données sensibles ? 
+contenu;;user_structurereferente_id;text;User.structurereferente_id
+contenu;;user_referent_id;text;User.referent_id
+contenu;;user_type;text;Type d'utilisateur
+contenu;;user_email;text;User.email
+contenu;;user_poledossierpcg66_id;text;User.poledossierpcg66_id
+contenu;;modeleodt_path;text;
+sections;modtransmfp93;modtransmfp93_id;text;
+sections;modtransmfp93;modtransmfp93_name;text;Modtransmfp93.name
+
+
+
+
+;;Livraison fichier CB 06102014;;
+
+;;ficheprescription93_rdvprestataire_date_time;;
+;;documentbeneffp93_name;;
+;;ficheprescription93_documentbeneffp93_name;;
+;;ficheprescription93_name;;
+;;modtransmfp93_modtransmfp93.id
+;;modtransmfp93_modtransmfp93_name
+;rdvprestataire_personne ;ficheprescription93_rdvprestataire_personne 
+;;adresseprestatairefp93_tel 
+;;adresseprestatairefp93_fax 
+;;adresseprestatairefp93_email 
+;;prestatairehorspdifp93_tel  
+;;prestatairehorspdifp93_fax 
+;;prestatairehorspdifp93_email 
+;;ficheprescription93_documentbeneffp93_autre 
+;;ficheprescription93.benef_retour_presente 
+;;ficheprescription93.date_retour 
+;;ficheprescription93_rdvprestataire_date_time 

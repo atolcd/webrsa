@@ -1,0 +1,65 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "Orgtransmisdossierpcg66::index::empty"
+msgstr "Aucun organisme défini"
+
+msgid "Orgstransmisdossierspcgs66::index"
+msgstr "Organismes auxquels seront transmis les dossiers traités"
+
+msgid "Orgstransmisdossierspcgs66::add"
+msgstr "Ajouter un organisme"
+
+msgid "Orgtransmisdossierpcg66::edit"
+msgstr "Modifier l'organisme"
+
+msgid "Orgtransmisdossierpcg66::delete"
+msgstr "Supprimer l'organisme"
+
+msgid "Orgstransmisdossierspcgs66::edit"
+msgstr "Modification de l'organisme"
+
+msgid "Orgtransmisdossierpcg66.name"
+msgstr "Nom de l'organisme"
+
+msgid "Orgstransmisdossierspcgs66::delete::confirm"
+msgstr "Confirmer la suppression ?"
+
+msgid "Orgtransmisdossierpcg66.isactif"
+msgstr "Actif ?"
+
+msgid "Orgtransmisdossierpcg66.generation_auto"
+msgstr "Création automatique d'un dossier PCG ?"
+
+msgid "ENUM::ISACTIF::1"
+msgstr "Oui"
+
+msgid "ENUM::ISACTIF::0"
+msgstr "Non"
+
+msgid "ENUM::GENERATION_AUTO::1"
+msgstr "Oui"
+
+msgid "ENUM::GENERATION_AUTO::0"
+msgstr "Non"
+
+msgid "Orgtransmisdossierpcg66.poledossierpcg66_id"
+msgstr "Pôle auquel l'organisme est rattaché"

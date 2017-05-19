@@ -1,0 +1,41 @@
+# Traductions de motifsrupturescuis66.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Motifsrupturescuis66/index/:heading"
+msgstr "Paramétrage des motifs de rupture du CUI"
+
+msgid "/Motifsrupturescuis66/add/:heading"
+msgstr "Ajout d'un motif de rupture du CUI"
+
+msgid "/Motifsrupturescuis66/edit/:heading"
+msgstr "Modification du motif de rupture du CUI « #Motifrupturecui66.name# »"
+
+msgid "/Motifsrupturescuis66/add"
+msgstr "Ajouter"
+
+msgid "/Motifsrupturescuis66/add/:title"
+msgstr "Ajouter un motif de rupture du CUI"
+
+msgid "/Motifsrupturescuis66/edit"
+msgstr "Modifier"
+
+msgid "/Motifsrupturescuis66/edit/#Motifrupturecui66.id#"
+msgstr "Modifier le motif de rupture du CUI « #Motifrupturecui66.name# »"
+
+msgid "/Motifsrupturescuis66/delete"
+msgstr "Supprimer"
+
+msgid "/Motifsrupturescuis66/delete/#Motifrupturecui66.id#"
+msgstr "Supprimer le motif de rupture du CUI « #Motifrupturecui66.name# »"
+
+msgid "/Motifsrupturescuis66/delete/#Motifrupturecui66.id# ?"
+msgstr "Réellement supprimer le motif de rupture du CUI « #Motifrupturecui66.name# » ?"

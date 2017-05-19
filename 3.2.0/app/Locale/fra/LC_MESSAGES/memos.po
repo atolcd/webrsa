@@ -1,0 +1,68 @@
+# Traductions de memos.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Memos/view/:heading"
+msgstr "Visualisation d'un mémo"
+
+msgid "Personne.nom_complet"
+msgstr "Nom et prénom de l'allocataire"
+
+msgid "Personne.qual"
+msgstr "N° CAF/MSA"
+
+msgid "Dossier.matricule"
+msgstr "N° CAF/MSA"
+
+msgid "Memo.name"
+msgstr "Contenu"
+
+msgid "Memo.created"
+msgstr "Créé le"
+
+msgid "Memo.modified"
+msgstr "Modifié le"
+
+msgid "/Memos/delete"
+msgstr "Supprimer le mémo"
+
+msgid "/Memos/delete/#Memo.id#"
+msgstr "Supprimer le mémo"
+
+msgid "/Memos/delete/#Memo.id# ?"
+msgstr "Confirmer la suppression ?"
+
+msgid "/Memos/view"
+msgstr "Voir le mémo"
+
+msgid "/Memos/view/#Memo.id#"
+msgstr "Voir le mémo"
+
+msgid "/Memos/edit"
+msgstr "Modifier le mémo"
+
+msgid "/Memos/edit/#Memo.id#"
+msgstr "Modifier le mémo"
+
+msgid "/Memos/filelink"
+msgstr "Lier des fichiers"
+
+msgid "/Memos/filelink/#Memo.id#"
+msgstr "Lier des fichiers"
+
+msgid "/Memos/index/:heading"
+msgstr "Mémos"
+
+msgid "/Memos/add"
+msgstr "Ajouter"
+
+msgid "/Memos/add/:title"
+msgstr "Ajouter"

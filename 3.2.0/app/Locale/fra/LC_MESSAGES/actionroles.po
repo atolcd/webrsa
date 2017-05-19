@@ -1,0 +1,47 @@
+# Traductions de actionroles.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Actionroles/index/:heading"
+msgstr "Paramétrage des actions de rôles"
+
+msgid "/Actionroles/add/:heading"
+msgstr "Ajout d'une action de rôles"
+
+msgid "/Actionroles/edit/:heading"
+msgstr "Modification de l'action de rôles « #Actionrole.name# »"
+
+msgid "/Actionroles/add"
+msgstr "Ajouter"
+
+msgid "/Actionroles/add/:title"
+msgstr "Ajouter une action de rôles"
+
+msgid "/Actionroles/edit"
+msgstr "Modifier"
+
+msgid "/Actionroles/edit/#Actionrole.id#"
+msgstr "Modifier l'action de rôles « #Actionrole.name# »"
+
+msgid "/Actionroles/delete"
+msgstr "Supprimer"
+
+msgid "/Actionroles/delete/#Actionrole.id#"
+msgstr "Supprimer l'action de rôles « #Actionrole.name# »"
+
+msgid "/Actionroles/delete/#Actionrole.id# ?"
+msgstr "Réellement supprimer l'action de rôles « #Actionrole.name# » ?"
+
+msgid "Role.name"
+msgstr "Rôle lié"
+
+msgid "Categorieactionrole.name"
+msgstr "Catégorie de l'action du rôle (onglet)"

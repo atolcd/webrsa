@@ -1,0 +1,82 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "Relancesnonrespectssanctionseps93::cohorte"
+msgstr "Dossiers à relancer (EP)"
+
+msgid "Relancesnonrespectssanctionseps93::impressions"
+msgstr "Dossiers relancés (EP)"
+
+msgid "Relancenonrespectsanctionep93.arelancer"
+msgstr "Statut relance"
+
+msgid "Serviceinstructeur.id"
+msgstr "Service référent"
+
+msgid "Relancenonrespectsanctionep93.numrelance"
+msgstr "Type de relance"
+
+msgid "Relancenonrespectsanctionep93.daterelance"
+msgstr "Date de la relance"
+
+# Erreurs
+msgid "Erreur.Personne.id"
+msgstr "La personne n'existe pas en base ou n'a pas de prestation RSA"
+
+msgid "Erreur.Situationdossierrsa.etatdosrsa"
+msgstr "Le dossier ne se trouve pas dans un état ouvert"
+
+msgid "Erreur.Prestation.rolepers"
+msgstr "La personne n'est ni demandeur ni conjoint RSA"
+
+msgid "Erreur.Calculdroitrsa.toppersdrodevorsa"
+msgstr "La personne n'est pas soumise à droits et devoirs"
+
+msgid "Erreur.Dossierep.id"
+msgstr "Il existe déjà un dossier d'EP non finalisé pour \"Demande de suspension\""
+
+msgid "Erreur.Dossierep.datedecision"
+msgstr "Il existe un dossier d'EP pour \"Demande de suspension\" dont la date de décision est trop récente"
+
+msgid "Erreur.Contratinsertion.df_ci"
+msgstr "La date de fin du contrat d'insertion est égale ou supérieure à la date du jour"
+
+msgid "Erreur.Contratinsertion.Orientstruct"
+msgstr "La personne ne possède ni orientation validée et éditée, ni contrat validé"
+
+msgid "Erreur.Nonrespectsanctionep93.relanceCerCer1"
+msgstr "Le délai pour la relance n° 1 pour non recontratctualisation n'est pas encore dépassé"
+
+msgid "Erreur.Nonrespectsanctionep93.relanceCerCer2"
+msgstr "Le délai pour la relance n° 2 pour non recontratctualisation n'est pas encore dépassé"
+
+msgid "Erreur.Nonrespectsanctionep93.relanceOrientstructCer1"
+msgstr "Le délai pour la relance n° 1 pour non contratctualisation n'est pas encore dépassé"
+
+msgid "Erreur.Nonrespectsanctionep93.relanceOrientstructCer2"
+msgstr "Le délai pour la relance n° 2 pour non contratctualisation n'est pas encore dépassé"
+
+msgid "Erreur.Nonrespectsanctionep93.relanceOrientstructCer3"
+msgstr "Le délai pour la relance n° 3 pour non contratctualisation n'est pas encore dépassé"
+
+msgid "Erreur.Nonrespectsanctionep93.shellSecondPassage"
+msgstr "Cet allocataire sera automatiquement envoyé en EP pour un second passage; aucune action manuelle possible"

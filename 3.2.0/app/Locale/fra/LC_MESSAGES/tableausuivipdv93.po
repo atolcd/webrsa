@@ -1,0 +1,46 @@
+# Traductions de tableausuivipdv93.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "ENUM::TYPE::interne"
+msgstr "Plusieurs projets de ville"
+
+msgid "ENUM::TYPE::cg"
+msgstr "Département"
+
+msgid "ENUM::TYPE::communaute"
+msgstr "Projet de ville territoriale"
+
+msgid "ENUM::TYPE::pdv"
+msgstr "Projet de ville"
+
+msgid "ENUM::TYPE::referent"
+msgstr "Référent"
+
+# ------------------------------------------------------------------------------
+
+msgid "ENUM::NAME::tableaud1"
+msgstr "D 1"
+
+msgid "ENUM::NAME::tableaud2"
+msgstr "D 2"
+
+msgid "ENUM::NAME::tableau1b3"
+msgstr "B 3"
+
+msgid "ENUM::NAME::tableau1b4"
+msgstr "B 4"
+
+msgid "ENUM::NAME::tableau1b5"
+msgstr "B 5"
+
+msgid "ENUM::NAME::tableau1b6"
+msgstr "B 6"

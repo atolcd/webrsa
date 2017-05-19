@@ -1,0 +1,29 @@
+# Traductions de destinataireemail.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Destinataireemail.a"
+msgstr "A"
+
+msgid "Destinataireemail.cc"
+msgstr "CC"
+
+msgid "Destinataireemail.name"
+msgstr "E-mail"
+
+msgid "ENUM::TYPE::A"
+msgstr "A"
+
+msgid "ENUM::TYPE::CC"
+msgstr "CC"
+
+msgid "ENUM::TYPE::CCI"
+msgstr "CCI"

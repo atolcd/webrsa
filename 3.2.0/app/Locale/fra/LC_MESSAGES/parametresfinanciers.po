@@ -1,0 +1,38 @@
+# Traductions de parametresfinanciers.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Parametresfinanciers/index/:heading"
+msgstr "Paramètres financiers pour la gestion de l'APRE"
+
+msgid "/Parametresfinanciers/add/:heading"
+msgstr "Ajout des paramètres financiers pour la gestion de l'APRE"
+
+msgid "/Parametresfinanciers/edit/:heading"
+msgstr "Modification des paramètres financiers pour la gestion de l'APRE"
+
+msgid "/Parametresfinanciers/add"
+msgstr "Ajouter"
+
+msgid "/Parametresfinanciers/add/:title"
+msgstr "Ajouter les paramètres financiers pour la gestion de l'APRE"
+
+msgid "/Parametresfinanciers/edit"
+msgstr "Modifier"
+
+msgid "/Parametresfinanciers/edit/:title"
+msgstr "Modifier les paramètres financiers pour la gestion de l'APRE"
+
+msgid "/Parametrages/apres"
+msgstr "Retour"
+
+msgid "/Parametrages/apres/:title"
+msgstr "Retour aux paramétrages des APRE"

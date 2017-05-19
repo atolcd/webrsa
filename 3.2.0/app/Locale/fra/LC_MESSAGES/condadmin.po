@@ -1,0 +1,59 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "Condadmin.aviscondadmrsa"
+msgstr "Avis conditions administratives RSA"
+
+msgid "Condadmin.moticondadmrsa"
+msgstr "Motif avis Conditions administratives RSA"
+
+msgid "Condadmin.comm1condadmrsa"
+msgstr "Commentaires cond. administratives générales RSA"
+
+msgid "Condadmin.comm2condadmrsa"
+msgstr "Commentaires (suite) cond. administratives générales RSA"
+
+msgid "Condadmin.dteffaviscondadmrsa"
+msgstr "Date effet avis cond. administartives RSA"
+
+msgid "ENUM::AVISCONDADMRSA::D"
+msgstr "Avis demandé au CG"
+
+msgid "ENUM::AVISCONDADMRSA::A"
+msgstr "Accord du CG"
+
+msgid "ENUM::AVISCONDADMRSA::R"
+msgstr "Refus du CG"
+
+msgid "ENUM::AVISCONDADMRSA::S"
+msgstr "Si avis demandé au CG sans suspension"
+
+msgid "ENUM::MOTICONDADMRSA::NR"
+msgstr "Non respect contrat insertion"
+
+msgid "ENUM::MOTICONDADMRSA::NS"
+msgstr "Demande d'avis au Cg sans suspension administrative du droit"
+
+msgid "ENUM::MOTICONDADMRSA::EU"
+msgstr "Dossier européen"
+
+msgid "ENUM::MOTICONDADMRSA::AU"
+msgstr "Autre motif"

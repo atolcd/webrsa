@@ -1,0 +1,132 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "Entretiens::add"
+msgstr "Ajout d'un entretien"
+
+msgid "Entretien::add"
+msgstr "Ajouter un entretien"
+
+msgid "Entretiens::index"
+msgstr "Entretiens"
+
+msgid "Entretiens::delete"
+msgstr "Suppression d'un entretien"
+
+msgid "Entretiens::edit"
+msgstr "Modification de l'entretien"
+
+msgid "Entretien::edit"
+msgstr "Modifier l'entretien"
+
+msgid "Entretiens::view"
+msgstr "Résumé de l'entretien"
+
+msgid "Entretien::view"
+msgstr "Voir le résumé de l'entretien"
+
+msgid "Entretien::delete::confirm"
+msgstr "Confirmer la suppression ?"
+
+msgid "Entretiens::delete::confirm"
+msgstr "Confirmer la suppression ?"
+
+msgid "Entretien::index::empty"
+msgstr "Aucun entretien présent pour cette personne"
+
+msgid "ENUM::TYPEENTRETIEN::PHY"
+msgstr "Physique"
+
+msgid "ENUM::TYPEENTRETIEN::TEL"
+msgstr "Téléphonique"
+
+msgid "ENUM::TYPEENTRETIEN::COU"
+msgstr "Courrier"
+
+msgid "ENUM::TYPEENTRETIEN::MAI"
+msgstr "Mail"
+
+msgid "Entretien.rendezvousprevu"
+msgstr "Rendez-vous prévu"
+
+msgid "ENUM::RENDEZVOUSPREVU::O"
+msgstr "Oui"
+
+msgid "ENUM::RENDEZVOUSPREVU::N"
+msgstr "Non"
+
+msgid "Entretien.structurereferente_id"
+msgstr "Structure référente"
+
+msgid "Entretien.referent_id"
+msgstr "Réalisé par"
+
+msgid "Entretien.dateentretien"
+msgstr "Date de l'entretien"
+
+msgid "Entretien.typeentretien"
+msgstr "Type d'entretien"
+
+msgid "Entretien.commentaireentretien"
+msgstr "Commentaire sur l'entretien"
+
+msgid "Entretien.dateprochainrdv"
+msgstr "Date du prochain rendez-vous"
+
+msgid "Entretien.heureprochainrdv"
+msgstr "Heure du prochain rendez-vous"
+
+msgid "Entretien.objetentretien_id"
+msgstr "Objet de l'entretien"
+
+msgid "Entretien.typerdv_id"
+msgstr "Type de l'entretien"
+
+msgid "Entretien.arevoirle"
+msgstr "A revoir le"
+
+
+msgid "Entretiens::filelink"
+msgstr "Liste des fichiers liés à l'entretien"
+
+msgid "Entretien.haspiecejointe"
+msgstr "Ajouter une pièce jointe"
+
+msgid "ENUM::HASPIECEJOINTE::1"
+msgstr "Oui"
+
+msgid "ENUM::HASPIECEJOINTE::0"
+msgstr "Non"
+
+msgid "Entretien.dateentretien_checkbox"
+msgstr "Filtrer par date d'entretien"
+
+msgid "Entretien.dateentretien_from"
+msgstr "Du (inclus)"
+
+msgid "Entretien.dateentretien_to"
+msgstr "Au (inclus)"
+
+msgid "ENUM::RENDEZVOUSPREVU::0"
+msgstr "Non"
+
+msgid "ENUM::RENDEZVOUSPREVU::1"
+msgstr "Oui"

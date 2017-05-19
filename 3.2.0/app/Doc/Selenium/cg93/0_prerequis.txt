@@ -1,0 +1,11 @@
+Sélénium pour le cg 93.
+
+Base utilisée => 20110504_2204_2.0rc9
+Tous les patchs passés pour aller en rc18
+Tous les droits données pour les admins
+
+Fais avec :
+	Version de firefox => 4.0.1
+	Version de CakePHP => 1.2.10
+
+Tous les tests commencent à la page d'index d'un utilisateur connecté.
