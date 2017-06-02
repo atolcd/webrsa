@@ -8,7 +8,7 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'XShell', 'Console/Command' );
-	App::uses( 'View', 'Cake/View' );
+	App::uses( 'View', 'View' );
 	App::uses( 'HtmlHelper', 'View/Helper' );
 
 	/**
@@ -204,7 +204,7 @@
 			$this->outfile = sprintf( '%s-%s-%s.html', $this->script, date( 'Ymd-His' ), $this->params['type'] );
 			$this->outfile = APP_DIR.'/tmp/logs/'.$this->outfile;
 			$this->pageTitle = sprintf( $this->pageTitle, date( 'd-m-Y H:i:s' ) );
-			App::Import( 'Helper', 'Html' );
+			App::uses( 'HtmlHelper', 'View/Helper' );
 			$this->Html = new HtmlHelper( new View() );
 		}
 

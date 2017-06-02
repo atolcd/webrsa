@@ -21,7 +21,7 @@
 	}
 ?>
 
-<?php echo $this->Form->create( 'Filtre', array( 'id' => 'Filtre', 'class' => ( !empty( $this->request->data ) ? 'folded' : 'unfolded' ) ) );?>
+<?php echo $this->Form->create( 'Filtre', array( 'id' => 'Filtre', 'class' => ( !empty( $this->request->data ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );?>
 	<fieldset>
 		<legend><?php  echo __d( 'nonorientationproep', 'Nonorientationsproseps'.Configure::read( 'Cg.departement' ).'::legend' );?></legend>
 		<?php echo $this->Xform->input( 'Filtre.index', array( 'label' => false, 'type' => 'hidden', 'value' => true ) );?>
@@ -96,7 +96,7 @@
 		<?php
 			echo $this->Html->tag( 'h2', 'Résultats de la recherche' );
 			$domain_search_plugin = ( Configure::read( 'Cg.departement' ) == 93 ) ? 'search_plugin_93' : 'search_plugin';
-			echo $this->Form->create();
+			echo $this->Form->create( null, array( 'novalidate' => true ) );
 		?>
 		<?php echo $pagination;?>
 		<table id="searchResults" class="tooltips">

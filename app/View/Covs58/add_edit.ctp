@@ -16,7 +16,7 @@
 <h1><?php echo $this->pageTitle;?></h1>
 
 <?php
-	echo $this->Form->create( 'Cov58', array( 'type' => 'post', 'id' => $searchFormId ) );
+	echo $this->Form->create( 'Cov58', array( 'type' => 'post', 'id' => $searchFormId, 'novalidate' => true ) );
 
 	echo $this->Default2->subform(
 		array(

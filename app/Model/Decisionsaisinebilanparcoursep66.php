@@ -18,28 +18,12 @@
 	{
 		public $name = 'Decisionsaisinebilanparcoursep66';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
 			'Dependencies',
-			'Enumerable' => array(
-				'fields' => array(
-					'etape',
-					'decision',
-					'maintienorientparcours',
-					'changementrefparcours',
-					'reorientation'
-				)
-			),
-			'Formattable' => array(
-				'suffix' => array(
-					'typeorient_id',
-					'structurereferente_id',
-					'referent_id'
-				)
-			),
-			'ValidateTranslate',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		public $belongsTo = array(
@@ -87,8 +71,8 @@
 
 		public $validateFinalisation = array(
 			'decision' => array(
-				array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'typeorient_id' => array(
@@ -123,8 +107,8 @@
 				'notEmptyIf' => array(
 					'rule' => array( 'notEmptyIf', 'decision', true, array( 'maintien', 'reorientation' ) ),
 					'message' => 'Champ obligatoire',
-				),
-			),
+				)
+			)
 		);
 
 		/**

@@ -25,10 +25,10 @@
 <h1><?php echo $this->pageTitle;?></h1>
 <?php
 	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Personne', array( 'type' => 'post' ));
+		echo $this->Form->create( 'Personne', array( 'type' => 'post', 'novalidate' => true ));
 	}
 	else {
-		echo $this->Form->create( 'Personne', array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Personne', array( 'type' => 'post', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Personne.id', array( 'type' => 'hidden' ) );
 		echo $this->Form->input( 'Prestation.id', array( 'type' => 'hidden', 'div' => 'div' ) );
@@ -40,7 +40,7 @@
 	<?php echo $this->Form->input( 'Prestation.natprest', array( 'type' => 'hidden', 'value' => 'RSA' ) );?>
 	<?php echo $this->Form->input( 'Prestation.rolepers', array( 'label' => __d( 'prestation', 'Prestation.rolepers' ), 'type' => 'select', 'empty' => true ) );?>
 </div>
-<?php include( '_form.ctp' );?>
+<?php require  '_form.ctp' ;?>
 
 
 <div class="submit">

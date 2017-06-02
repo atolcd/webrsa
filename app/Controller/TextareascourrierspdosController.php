@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe TextareascourrierspdosController.
 	 *
@@ -7,13 +7,16 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
 
 	/**
-	 * La classe TextareascourrierspdosController ...
+	 * La classe TextareascourrierspdosController s'occupe du paramétrage des
+	 * zones de commentaires supplémentaires pour les courriers d'un traitement
+	 * d'une PDO
 	 *
 	 * @package app.Controller
 	 */
-	class TextareascourrierspdosController extends AppController
+	class TextareascourrierspdosController extends AbstractWebrsaParametragesController
 	{
 		/**
 		 * Nom du contrôleur.
@@ -23,129 +26,52 @@
 		public $name = 'Textareascourrierspdos';
 
 		/**
-		 * Components utilisés.
-		 *
-		 * @var array
-		 */
-		public $components = array(
-			'Default',
-		);
-
-		/**
-		 * Helpers utilisés.
-		 *
-		 * @var array
-		 */
-		public $helpers = array(
-			'Default2',
-			'Theme',
-			'Xform',
-		);
-
-		/**
 		 * Modèles utilisés.
 		 *
 		 * @var array
 		 */
-		public $uses = array(
-			'Textareacourrierpdo',
-		);
-		
+		public $uses = array( 'Textareacourrierpdo' );
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'add' => 'Textareascourrierspdos:edit',
-			'view' => 'Textareascourrierspdos:index',
+			'add' => 'Textareascourrierspdos:edit'
 		);
-		
+
 		/**
-		 * Méthodes ne nécessitant aucun droit.
-		 *
-		 * @var array
+		 * Liste des zones de commentaires supplémentaires.
 		 */
-		public $aucunDroit = array(
-			
-		);
-		
-		/**
-		 * Correspondances entre les méthodes publiques correspondant à des
-		 * actions accessibles par URL et le type d'action CRUD.
-		 *
-		 * @var array
-		 */
-		public $crudMap = array(
-			'add' => 'create',
-			'delete' => 'delete',
-			'edit' => 'update',
-			'index' => 'read',
-			'view' => 'read',
-		);
-
-		protected function _setOptions(){
-			$this->set( 'options', $this->{$this->modelClass}->Courrierpdo->find( 'list' ) );
-		}
-
-		/**
-		*   Ajout à la suite de l'utilisation des nouveaux helpers
-		*   - default.php
-		*   - theme.php
-		*/
-
 		public function index() {
-			$this->set(
-				Inflector::tableize( $this->modelClass ),
-				$this->paginate( $this->modelClass )
+			$messages = array();
+			if( 0 === $this->Textareacourrierpdo->Courrierpdo->find( 'count' ) ) {
+				$msg = 'Merci de renseigner au moins un courrier pour les traitements PDO avant de renseigner une zone de commentaires supplémentaire pour les courriers de traitements PDO.';
+				$messages[$msg] = 'error';
+			}
+			$this->set( compact( 'messages' ) );
+
+			$query = array(
+				'contain' => array(
+					'Courrierpdo.name'
+				)
 			);
+			$this->WebrsaParametrages->index( $query );
 		}
 
 		/**
-		*
-		*/
+		 * Formulaire de modification d'une zone de commentaires supplémentaire.
+		 *
+		 * @param integer $id
+		 */
+		public function edit( $id = null ) {
+			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit' ) );
 
-		public function add() {
-			$args = func_get_args();
-			call_user_func_array( array( $this, '_add_edit' ), $args );
+			$options = $this->viewVars['options'];
+			$options['Textareacourrierpdo']['courrierpdo_id'] = $this->Textareacourrierpdo->Courrierpdo->find( 'list' );
+			$this->set( compact( 'options' ) );
 		}
-
-		/**
-		*
-		*/
-
-		public function edit() {
-			$args = func_get_args();
-			call_user_func_array( array( $this, '_add_edit' ), $args );
-		}
-
-		/**
-		*
-		*/
-
-		protected function _add_edit(){
-			$this->_setOptions();
-			$args = func_get_args();
-			$this->Default->{$this->action}( $args );
-		}
-
-		/**
-		*
-		*/
-
-		public function delete( $id ) {
-			$this->Default->delete( $id );
-		}
-
-		/**
-		*
-		*/
-
-		public function view( $id ) {
-			$this->Default->view( $id );
-		}
-
 	}
-
 ?>

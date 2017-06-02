@@ -6,38 +6,28 @@
 	$availableDomains = WebrsaTranslator::domains();
 	$domain = isset( $availableDomains[0] ) ? $availableDomains[0] : $controller;
 	echo $this->Default3->titleForLayout( array(), array( 'domain' => $domain ) );
-	
+
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 		echo $this->Html->script( array( 'prototype.event.simulate.js', 'dependantselect.js' ), array( 'inline' => false ) );
 	}
-	
+
 	if( isset( $title ) ) {
 		echo $this->Xhtml->tag(	'h3', $title ).'<br>';
 	}
-	
+
 	if( isset( $results ) ) {
-		// V3
-//		echo $this->Default3->configuredIndex(
-//			$results,
-//			array(
-//				'format' => SearchProgressivePagination::format( !Hash::get( $this->request->data, 'Search.Pagination.nombre_total' ) ),
-//				'options' => $options
-//			)
-//		);
-//		echo $this->element( 'search_footer' );
-		
 		// V2
 		echo $this->Default3->index(
 			$results,
 			$fields,
 			array(
-				'format' => SearchProgressivePagination::format( !Hash::get( $this->request->data, 'Search.Pagination.nombre_total' ) ),
+				'format' => $this->element( 'pagination_format' ),
 				'options' => $options
 			)
 		);
 	}
-	
+
 	echo $this->Xhtml->link(
 		'Retour Editeur',
 		array(

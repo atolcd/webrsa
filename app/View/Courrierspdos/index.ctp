@@ -1,33 +1,28 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'courrierpdo', "Courrierspdos::{$this->action}" )
-	);
+	echo $this->Default3->titleForLayout();
 
-	echo $this->Default2->index(
-		$courrierspdos,
-		array(
-			'Courrierpdo.name',
-			'Courrierpdo.modeleodt'
+	echo $this->Default3->actions( array( '/Courrierspdos/add' ) );
+
+	echo $this->Default3->index(
+		$results,
+		$this->Translator->normalize(
+			array(
+				'Courrierpdo.name',
+				'Courrierpdo.modeleodt',
+				'/Courrierspdos/edit/#Courrierpdo.id#' => array(
+					'title' => true
+				),
+				'/Courrierspdos/delete/#Courrierpdo.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Courrierpdo.has_linkedrecords#"'
+				)
+			)
 		),
 		array(
-			'cohorte' => false,
-			'actions' => array(
-				'courrierspdos::edit',
-				'courrierspdos::delete',
-			),
-			'add' => 'courrierspdos::add'
+			'format' => $this->element( 'pagination_format', array( 'modelName' => 'Courrierpdo' ) )
 		)
 	);
 
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'pdos',
-			'action'     => 'index'
-		),
-		array(
-			'id' => 'Back'
-		)
-	);
+	echo $this->Default3->actions( array( '/Parametrages/index/#pdos' => array( 'class' => 'back' ) ) );
 ?>

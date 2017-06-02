@@ -27,13 +27,13 @@
 
 /*
  * Classe GDO_FusionType
- * --------------- 
- * Un objet de type GDO_FusionType contient toutes les spécifications
+ * ---------------
+ * Un objet de type GDO_FusionType contient toutes les spï¿½cifications
  * permettant de produire un document.
- * Il fait référence au modéle de document au moyen d'un GDO_ContentType
- * Il spécifie les données à insérer au moyen d'un GDO_PartType.
- * Il indique également le type MIME du document à produire
- * 
+ * Il fait rï¿½fï¿½rence au modï¿½le de document au moyen d'un GDO_ContentType
+ * Il spï¿½cifie les donnï¿½es ï¿½ insï¿½rer au moyen d'un GDO_PartType.
+ * Il indique ï¿½galement le type MIME du document ï¿½ produire
+ *
  * Version 1.0
  */
 
@@ -53,7 +53,7 @@ private $sMessage;
      * Constructeur
      *
      * @param    object      $template   Le modele
-     * @param    string      $mimeType   Le type MIME du document à produire
+     * @param    string      $mimeType   Le type MIME du document ï¿½ produire
      * @since    1.0
      * @access   public
      */
@@ -64,13 +64,13 @@ function GDO_FusionType(GDO_ContentType $template, $mimeType, GDO_PartType $part
 	$this->part = $part->finish();
 //	$this->process();
 	}
-	
+
 	// }}}
     // {{{ GDO_classmap()
 
     /**
-     * L'array "classmap" établie la relation entre les types d'objets PHP
-	 * et les types utilisés dans le WSDL
+     * L'array "classmap" ï¿½tablie la relation entre les types d'objets PHP
+	 * et les types utilisï¿½s dans le WSDL
      *
      * @return   array      La relation entre les types WSDL et les classes PHP
      * @since    1.0
@@ -89,20 +89,20 @@ function classMap() {
 }
 
 //
-// Variable "wsdl" insérée ici par commodité pendant les test
+// Variable "wsdl" insï¿½rï¿½e ici par commoditï¿½ pendant les test
 // mais ce n'est pas sa place.
 //
 function wsdl() {
     return Configure::read('GEDOOO_WSDL');
 }
 
-	
+
 	// }}}
     // {{{ process ()
 
     /**
-     * Execution de la requéte
-	 * La requéte estlancée out de suite aprés que l'objet est créé.
+     * Execution de la requï¿½te
+	 * La requï¿½te estlancï¿½e out de suite aprï¿½s que l'objet est crï¿½ï¿½.
      *
      * @since    1.0
      * @access   public
@@ -130,16 +130,19 @@ function process() {
 			if (is_object($soapfault["detail"])) {
 				$detail = get_object_vars($soapfault["detail"]);
 				foreach ($detail as $exception => $body) {
-					foreach ($body as $e2 => $b2) { 
-						$details = get_object_vars($b2);
-						$this->errNum = $details["code"];
-						$this->sMessage = $details["detail"];
+					foreach ($body as $e2 => $b2) {
+						if(is_object($b2)) {
+							$details = get_object_vars($b2);
+							$this->errNum = isset($details["code"]) ? $details["code"] : null;
+							$this->sMessage = isset($details["detail"]) ? $details["detail"] : null;
 						}
 					}
-				} else {
+				}
+			} else {
 				$this->errNum = "000";
 				$this->sMessage =  $soapfault["faultstring"];
-				}
+			}
+			$this->sMessage .= '('.$e->getMessage().')';
 			$this->sCode="Error";
 		}
 }
@@ -148,12 +151,12 @@ function process() {
     // {{{ getContent ()
 
     /**
-     * Renvoi le contenu retournà par la requéte
+     * Renvoi le contenu retournï¿½ par la requï¿½te
 	 * sous forme d'un objet de type ContentType
-	 * La requéte doit s'être exécutée avec succés.
+	 * La requï¿½te doit s'ï¿½tre exï¿½cutï¿½e avec succï¿½s.
      *
      * @since    1.0
-	 * @return	 object		Le résultat sous forme de ContentType
+	 * @return	 object		Le rï¿½sultat sous forme de ContentType
      * @access   public
      */
 function getContent() {
@@ -168,10 +171,10 @@ function getContent() {
     // {{{ getCode ()
 
     /**
-     * Renvoi le code retour de la requéte.
+     * Renvoi le code retour de la requï¿½te.
      *
      * @since    1.0
-	 * @return	 string		Le code retour de la requéte SOAP
+	 * @return	 string		Le code retour de la requï¿½te SOAP
      * @access   public
      */
 function getCode() {
@@ -183,10 +186,10 @@ function getCode() {
     // {{{ getMessage ()
 
     /**
-     * Renvoi le compte-rendu de la requéte.
+     * Renvoi le compte-rendu de la requï¿½te.
      *
      * @since    1.0
-	 * @return	 string		Le compte-rendu de la requéte SOAP
+	 * @return	 string		Le compte-rendu de la requï¿½te SOAP
      * @access   public
      */
 function getMessage() {
@@ -212,11 +215,11 @@ function sendContentToClient($sFileName=null, $sMimeType=null) {
     // {{{ sendContentToFile ()
 
     /**
-     * Renvoie le contenu vers le fichier spécifié.
+     * Renvoie le contenu vers le fichier spï¿½cifiï¿½.
      *
      * @since    1.0
      * @access   public
-     * @param    string     $sFile      Chemin du fichier où stocker le résultat
+     * @param    string     $sFile      Chemin du fichier oï¿½ stocker le rï¿½sultat
      */
     function sendContentToFile($sFile)
     {

@@ -5,6 +5,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe DonneescafController ...
@@ -52,26 +53,26 @@
 			'Option',
 			'Personne',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -82,16 +83,16 @@
 			'foyer' => 'read',
 			'personne' => 'read',
 		);
-		
+
 		/**
 		 * Liste des donnees d'une personne
-		 * 
+		 *
 		 * @param integer $personne_id
 		 */
 		public function personne($personne_id) {
 			$this->assert(valid_int($personne_id), 'invalidParameter');
 			$this->set('dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu(array('personne_id' => $personne_id)));
-			
+
 			$this->set('personnes', $personnes = $this->Personne->find(
 				'all', array(
 					'fields' => Hash::merge($this->Personne->fields(),
@@ -191,36 +192,36 @@
 					'conditions' => array('Personne.id' => $personne_id)
 				)
 			));
-			
+
 			$this->set('options', $this->_options());
-			
+
 			// Pour liste personnes dans les tabs
 			$this->set('personnes_list', $this->_getPersonnes_list($personnes[0]['Personne']['foyer_id']));
-			
+
 			/**
 			 * Extraction du contain au 1er niveau
 			 */
 			$this->_extractAndSet(
 				array(
 					'Rattachement', 'Ressource', 'Activite', 'Allocationsoutienfamilial',
-					'Creancealimentaire', 'Grossesse', 'Infoagricole', 'Avispcgpersonne', 
+					'Creancealimentaire', 'Grossesse', 'Infoagricole', 'Avispcgpersonne',
 					'Derogation', 'Liberalite', 'Suiviappuiorientation', 'Parcours',
 					'Orientation', 'Titresejour', 'Informationeti', 'Conditionactiviteprealable',
 				), $personnes
 			);
-			
+
 			/**
 			 * Extraction du contain aux autres niveaux
 			 */
 			$this->_extractAndSet(
 				array(
-					'Ressourcemensuelle', 'Detailressourcemensuelle', 'Derogation', 
+					'Ressourcemensuelle', 'Detailressourcemensuelle', 'Derogation',
 					'Liberalite', 'Detaildifsoc', 'Detailaccosocfam', 'Detailaccosocindi',
 					'Detaildifdisp', 'Detailnatmob', 'Detaildiflog', 'Aideagricole'
 				),
 				array(0 => array(
 					'Ressourcemensuelle' => Hash::extract($personnes, '0.Ressource.{n}.Ressourcemensuelle.{n}'),
-					'Detailressourcemensuelle' 
+					'Detailressourcemensuelle'
 						=> Hash::extract($personnes, '0.Ressource.{n}.Ressourcemensuelle.{n}.Detailressourcemensuelle.{n}'),
 					'Derogation' => Hash::extract($personnes, '0.Avispcgpersonne.{n}.Derogation.{n}'),
 					'Liberalite' => Hash::extract($personnes, '0.Avispcgpersonne.{n}.Liberalite.{n}'),
@@ -234,16 +235,16 @@
 				))
 			);
 		}
-		
+
 		/**
 		 * Liste des donnees d'un foyer
-		 * 
+		 *
 		 * @param integer $foyer_id
 		 */
 		public function foyer($foyer_id) {
 			$this->assert(valid_int($foyer_id), 'invalidParameter');
 			$this->set('dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu(array('foyer_id' => $foyer_id)));
-			
+
 			$this->set('foyers', $foyers = $this->Foyer->find(
 				'all', array(
 					'contain' => array(
@@ -307,12 +308,12 @@
 					'conditions' => array('Foyer.id' => $foyer_id)
 				)
 			));
-			
+
 			$this->set('options', $this->_options());
-			
+
 			// Pour liste personnes dans les tabs
 			$this->set('personnes_list', $this->_getPersonnes_list($foyer_id));
-			
+
 			/**
 			 * Extraction du contain au 1er niveau
 			 */
@@ -322,13 +323,13 @@
 					'Modecontact', 'Paiementfoyer'
 				), $foyers
 			);
-			
+
 			/**
 			 * Extraction du contain aux autres niveaux
 			 */
 			$this->_extractAndSet(
 				array(
-					'Suspensionversement', 'Suspensiondroit', 'Detailcalculdroitrsa', 
+					'Suspensionversement', 'Suspensiondroit', 'Detailcalculdroitrsa',
 					'Condadmin', 'Reducrsa', 'Infofinanciere', 'Suiviinstruction'
 				),
 				array(0 => array(
@@ -342,15 +343,15 @@
 				))
 			);
 		}
-		
+
 		/**
 		 * Envoi une variable à la vue contenant le contain d'un enregistrement
-		 * 
+		 *
 		 * Exemple:
 		 *  $toExtract = array('Prestation')
 		 *	$data = array(0 => array('Prestation' => array(0 => array('id' => 1))))
 		 *	une variable nommé <strong>$prestations</strong> contiendra : array(0 => array('Prestation' => array('id' => 1)))
-		 * 
+		 *
 		 * @param array $toExtract - Liste des contain à extraire
 		 * @param array $data - Données du find all
 		 */
@@ -364,10 +365,10 @@
 				$this->set($varName, $$varName);
 			}
 		}
-		
+
 		/**
 		 * Permet d'obtenir la liste des Personnes d'un foyer pour affichage des onglets
-		 * 
+		 *
 		 * @param integer $foyer_id
 		 * @return array
 		 */
@@ -399,10 +400,10 @@
 				)
 			);
 		}
-		
+
 		/**
 		 * Ajoute les options extraites des données CAF
-		 * 
+		 *
 		 * @return array
 		 */
 		protected function _options() {

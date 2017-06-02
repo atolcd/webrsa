@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Apre ...
@@ -16,6 +17,13 @@
 	class Apre extends AppModel
 	{
 		public $name = 'Apre';
+
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
 
 		public $displayField = 'numeroapre';
 
@@ -30,100 +38,58 @@
 
 		public $actsAs = array(
 			'Allocatairelie',
-			'Enumerable' => array(
-				'fields' => array(
-					'typedemandeapre' => array( 'type' => 'typedemandeapre', 'domain' => 'apre' ),
-					'naturelogement' => array( 'type' => 'naturelogement', 'domain' => 'apre' ),
-					'activitebeneficiaire' => array( 'type' => 'activitebeneficiaire', 'domain' => 'apre' ),
-					'typecontrat' => array( 'type' => 'typecontrat', 'domain' => 'apre' ),
-					'statutapre' => array( 'type' => 'statutapre', 'domain' => 'apre' ),
-// 					'ajoutcomiteexamen' => array( 'type' => 'no', 'domain' => 'apre' ),
-					'etatdossierapre' => array( 'type' => 'etatdossierapre', 'domain' => 'apre' ),
-					'eligibiliteapre' => array( 'type' => 'eligibiliteapre', 'domain' => 'apre' ),
-// 					'presence' => array( 'type' => 'presence', 'domain' => 'apre' ),
-					'justificatif' => array( 'type' => 'justificatif', 'domain' => 'apre' ),
-					'isdecision' => array( 'domain' => 'apre' ),
-					'haspiecejointe' => array( 'domain' => 'apre' )
-				)
-			),
-			'Postgres.PostgresAutovalidate',
-			'Validation2.Validation2RulesFieldtypes',
-			'Frenchfloat' => array(
-				'fields' => array(
-					'montantaverser',
-					'montantattribue',
-					'montantdejaverse'
-				)
-			),
-			'Formattable',
 			'Gedooo.Gedooo',
 			'StorablePdf' => array(
 				'afterSave' => 'deleteAll'
 			),
 			'ModelesodtConditionnables' => array(
 				93 => 'APRE/apre.odt'
-			)
+			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
 			'secteurprofessionnel' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'typedemandeapre' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'activitebeneficiaire' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
-			'montantaverser' => array(
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.'
-				),
-			),
 			'montantattribue' => array(
-				array(
-					'rule' => 'numeric',
+				'numeric' => array(
+					'rule' => array( 'numeric' ),
 					'message' => 'Veuillez entrer une valeur numérique.'
 				),
-				array(
+				'comparison' => array(
 					'rule' => array( 'comparison', '>=', 0 ),
 					'message' => 'Veuillez entrer un nombre positif.'
 				)
 			),
 			'structurereferente_id' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'nbheurestravaillees' => array(
-				array(
+				'comparison' => array(
 					'rule' => array( 'comparison', '>=', 0 ),
 					'message' => 'Veuillez saisir une valeur positive.',
-					'allowEmpty' => true
-				)
-			),
-			'datedemandeapre' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.',
-					'allowEmpty' => true
-				)
-			),
-			'dateentreeemploi' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.',
 					'allowEmpty' => true
 				)
 			)
@@ -437,8 +403,8 @@
 		/**
 		*
 		*/
-		public function afterSave( $created ) {
-			$return = parent::afterSave( $created );
+		public function afterSave( $created, $options = array() ) {
+			parent::afterSave( $created, $options );
 
 			$details = $this->WebrsaApre->details( $this->id );
 
@@ -446,17 +412,14 @@
 			$statutapre = Set::classicExtract( $this->data, "{$this->alias}.statutapre" );
 
 			if( !empty( $personne_id ) && ( $statutapre == 'C' ) && Configure::read( 'Cg.departement' ) == 66 ){
-				$return = $this->query( "UPDATE apres SET eligibiliteapre = 'O' WHERE apres.personne_id = {$personne_id} AND apres.etatdossierapre = 'COM' AND ( SELECT COUNT(contratsinsertion.id) FROM contratsinsertion WHERE contratsinsertion.personne_id = {$personne_id} ) > 0;" ) && $return;
+				$this->query( "UPDATE apres SET eligibiliteapre = 'O' WHERE apres.personne_id = {$personne_id} AND apres.etatdossierapre = 'COM' AND ( SELECT COUNT(contratsinsertion.id) FROM contratsinsertion WHERE contratsinsertion.personne_id = {$personne_id} ) > 0;" );
 
-				$return = $this->query( "UPDATE apres SET eligibiliteapre = 'N' WHERE apres.personne_id = {$personne_id} AND NOT ( apres.etatdossierapre = 'COM' AND ( SELECT COUNT(contratsinsertion.id) FROM contratsinsertion WHERE contratsinsertion.personne_id = {$personne_id} ) > 0 );" ) && $return;
+				$this->query( "UPDATE apres SET eligibiliteapre = 'N' WHERE apres.personne_id = {$personne_id} AND NOT ( apres.etatdossierapre = 'COM' AND ( SELECT COUNT(contratsinsertion.id) FROM contratsinsertion WHERE contratsinsertion.personne_id = {$personne_id} ) > 0 );" );
 			}
 			else if( Configure::read( 'Cg.departement' ) == 93 ){
-				$return = $this->query( "UPDATE apres SET eligibiliteapre = 'O' WHERE apres.personne_id = {$personne_id} AND apres.etatdossierapre = 'COM';" ) && $return;
-				$return = $this->query( "UPDATE apres SET eligibiliteapre = 'N' WHERE apres.personne_id = {$personne_id} AND NOT ( apres.etatdossierapre = 'COM' );" ) && $return;
+				$this->query( "UPDATE apres SET eligibiliteapre = 'O' WHERE apres.personne_id = {$personne_id} AND apres.etatdossierapre = 'COM';" );
+				$this->query( "UPDATE apres SET eligibiliteapre = 'N' WHERE apres.personne_id = {$personne_id} AND NOT ( apres.etatdossierapre = 'COM' );" );
 			}
-
-			// FIXME: return ?
-			return $return;
 		}
 
 		public function enums() {

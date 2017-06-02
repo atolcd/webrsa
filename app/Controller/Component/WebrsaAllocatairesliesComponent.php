@@ -7,6 +7,7 @@
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
 	App::uses( 'DefaultUrl', 'Default.Utility' );
 	App::uses( 'DefaultUtility', 'Default.Utility' );
 
@@ -40,6 +41,7 @@
 		 * @var array
 		 */
 		public $components = array(
+			'Flash',
 			'DossiersMenus',
 			'Gedooo.Gedooo',
 			'Jetons2',
@@ -108,7 +110,7 @@
 			$Controller->view = $params['view'];
 			$Controller->layout = $params['layout'];
 		}
-		
+
 		abstract public function prepareAddEditFormData( $personne_id, $id, $user_id );
 
 		abstract public function saveAddEditFormData( $data, $user_id );
@@ -149,12 +151,12 @@
 				if( $Model->saveAddEditFormData( $Controller->request->data, $this->Session->read( 'Auth.User.id' ) ) ) {
 					$Model->commit();
 					$this->Jetons2->release( $dossierMenu['Dossier']['id'] );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$Controller->redirect( $params['redirect'] );
 				}
 				else {
 					$Model->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -186,11 +188,11 @@
 			$Model->begin();
 			if( $Model->delete( $id ) ) {
 				$Model->commit();
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
 				$Model->rollback();
-				$this->Session->setFlash( 'Erreur lors de la suppression', 'flash/error' );
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 
 			$this->Jetons2->release( $dossier_id );
@@ -215,7 +217,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( $params['filename'], $id ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer l\'impression', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer l\'impression' );
 				$Controller->redirect( $params['redirect'] );
 			}
 		}

@@ -144,7 +144,7 @@
 
 			if( empty( $record ) ) {
 				$this->Familleromev3->create( $familleromev3 );
-				$record = $this->Familleromev3->save();
+				$record = $this->Familleromev3->save( null, array( 'atomic' => false ) );
 
 				if( empty( $record ) ) {
 					$this->rejectRow( $row, $this->Familleromev3 );
@@ -188,7 +188,7 @@
 
 				if( empty( $record ) ) {
 					$this->Domaineromev3->create( $domaineromev3 );
-					$record = $this->Domaineromev3->save();
+					$record = $this->Domaineromev3->save( null, array( 'atomic' => false ) );
 
 					if( empty( $record ) ) {
 						$this->rejectRow( $row, $this->Domaineromev3 );
@@ -234,7 +234,7 @@
 
 				if( empty( $record ) ) {
 					$this->Metierromev3->create( $metierromev3 );
-					$record = $this->Metierromev3->save();
+					$record = $this->Metierromev3->save( null, array( 'atomic' => false ) );
 
 					if( empty( $record ) ) {
 						$this->rejectRow( $row, $this->Metierromev3 );
@@ -274,7 +274,7 @@
 
 				if( empty( $record ) ) {
 					$this->Appellationromev3->create( $appellationromev3 );
-					$record = $this->Appellationromev3->save();
+					$record = $this->Appellationromev3->save( null, array( 'atomic' => false ) );
 
 					if( empty( $record ) ) {
 						$this->rejectRow( $row, $this->Appellationromev3 );
@@ -328,7 +328,7 @@
 
 					if( empty( $record ) ) {
 						$this->Correspondanceromev2v3->create( $correspondanceromev2v3 );
-						$record = $this->Correspondanceromev2v3->save();
+						$record = $this->Correspondanceromev2v3->save( null, array( 'atomic' => false ) );
 
 						if( empty( $record ) ) {
 							$this->rejectRow( $row, $this->Correspondanceromev2v3 );

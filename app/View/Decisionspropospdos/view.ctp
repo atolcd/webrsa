@@ -7,7 +7,7 @@
 <div class="with_treemenu">
 	<?php
 		echo $this->Xhtml->tag( 'h1', $this->pageTitle );
-		echo $this->Form->create( 'Decisionpropopdo', array( 'type' => 'post', 'id' => 'decisionpropopdoform' ) );
+		echo $this->Form->create( 'Decisionpropopdo', array( 'type' => 'post', 'id' => 'decisionpropopdoform', 'novalidate' => true ) );
 
 		$decisionreponseep = Set::enum( Set::classicExtract( $decisionpropopdo, 'Decisionpropopdo.decisionreponseep' ), $options['Decisionpropopdo']['decisionreponseep'] );
 

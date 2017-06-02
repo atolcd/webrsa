@@ -7,8 +7,9 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+    App::uses( 'OccurencesBehavior', 'Model/Behavior' );
+	App::uses( 'AppController', 'Controller' );
 
-    App::import( 'Behaviors', 'Occurences' );
 	/**
 	 * La classe RequestgroupsController ...
 	 *
@@ -38,10 +39,10 @@
 		 * @var array
 		 */
 		public $helpers = array(
-			'Default', 
-			'Default2', 
+			'Default',
+			'Default2',
 			'Theme',
-			'Xform', 
+			'Xform',
 		);
 
 		/**
@@ -52,26 +53,26 @@
 		public $uses = array(
 			'Requestgroup',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -91,7 +92,7 @@
 		 */
 		public function index() {
 			$this->Requestgroup->Behaviors->attach( 'Occurences' );
-  
+
             $querydata = $this->Requestgroup->qdOccurencesExists(
                 array(
                     'fields' => $this->Requestgroup->fields(),
@@ -115,7 +116,7 @@
 
 		/**
 		 * Modification d'une entrée
-		 * 
+		 *
 		 * @param integer $id
 		 */
 		public function edit( $id = null ) {
@@ -126,11 +127,14 @@
 
 			if( !empty( $this->request->data ) ) {
 				$this->Requestgroup->create( $this->request->data );
-				$success = $this->Requestgroup->save();
+				$success = $this->Requestgroup->save( null, array( 'atomic' => false ) );
 
-				$this->_setFlashResult( 'Save', $success );
 				if( $success ) {
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index' ) );
+				}
+				else {
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {
@@ -146,9 +150,9 @@
 			else{
 				$this->request->data['Requestgroup']['actif'] = true;
 			}
-			
+
 			$options = $this->_options();
-			
+
 			$this->set( compact( 'options' ) );
 
 			$this->view = 'edit';
@@ -156,7 +160,7 @@
 
 		/**
 		 * Suppression d'une entrée
-		 * 
+		 *
 		 * @param integer $id
 		 */
 		public function delete( $id ) {
@@ -165,21 +169,21 @@
 
 		/**
 		 * Visualisation de la table
-		 * 
+		 *
 		 * @param integer $id
 		 */
 		public function view( $id ) {
 			$this->Default->view( $id );
 		}
-		
+
 		/**
 		 * Options pour la vue
-		 * 
+		 *
 		 * @return array
 		 */
 		protected function _options() {
 			$options['Requestgroup']['parent_id'] = $this->Requestgroup->find('list');
-			
+
 			return $options;
 		}
 	}

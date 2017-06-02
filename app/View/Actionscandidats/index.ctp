@@ -4,6 +4,8 @@
 		$this->pageTitle = __d( 'actioncandidat', "Actionscandidats::{$this->action}" )
 	);
 
+	echo $this->Default3->messages( $messages );
+
     if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 	}
@@ -38,7 +40,7 @@
             array( 'escape' => false, 'title' => 'Visibilité formulaire', 'onclick' => "$( 'Search' ).toggle(); return false;" )
         ).'</li></ul>';
     ?>
-    <?php echo $this->Xform->create( 'Actioncandidat', array( 'type' => 'post', 'action' => 'index', 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ) ) );?>
+    <?php echo $this->Xform->create( 'Actioncandidat', array( 'type' => 'post', 'url' => array( 'action' => 'index' ), 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );?>
 		<fieldset>
 			<?php echo $this->Xform->input( 'Actioncandidat.index', array( 'label' => false, 'type' => 'hidden', 'value' => true ) );?>
 
@@ -151,17 +153,6 @@
     <?php endif;?>
 <?php  endif;?>
 
-
-
 <?php
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'actionscandidats_personnes',
-			'action'     => 'indexparams'
-		),
-		array(
-			'id' => 'Back'
-		)
-	);
+	echo $this->Default3->actions( array( '/Parametrages/index/#actionscandidats_personnes' => array( 'class' => 'back' ) ) );
 ?>

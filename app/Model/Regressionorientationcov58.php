@@ -7,7 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( ABSTRACTMODELS.'AbstractThematiquecov58.php' );
+	App::uses( 'AbstractThematiquecov58', 'Model/Abstractclass' );
 
 	/**
 	 * La classe Regressionorientationcov58 ...
@@ -24,13 +24,6 @@
 		public $name = 'Regressionorientationcov58';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
@@ -40,6 +33,7 @@
 			'Gedooo.Gedooo',
 			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
 
 		/**
@@ -242,7 +236,7 @@
 						);
 
 						$this->Orientstruct->create( $orientstruct );
-						$success = $this->Orientstruct->save() && $success;
+						$success = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
 
 						// Mise à jour de l'enregistrement de la thématique avec l'id de la nouvelle orientation
 						$success = $success && $this->updateAllUnBound(
@@ -268,7 +262,7 @@
 					// Sauvegarde des décisions
 					// FIXME: ben non, c'est en bas
 //					$this->Dossiercov58->Passagecov58->{$modelDecisionName}->create( array( $modelDecisionName => $data[$modelDecisionName][$key] ) );
-//					$success = $this->Dossiercov58->Passagecov58->{$modelDecisionName}->save() && $success;
+//					$success = $this->Dossiercov58->Passagecov58->{$modelDecisionName}->save( null, array( 'atomic' => false ) ) && $success;
 
 					// Modification etat du dossier passé dans la COV
 					if( in_array( $values['decisioncov'], array( 'accepte', 'refuse' ) ) ) {
@@ -468,8 +462,7 @@
 
 			$options = Hash::merge(
 				array(
-					'Personne' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() ),
-					'type' => array( 'voie' => ClassRegistry::init( 'Option' )->typevoie() )
+					'Personne' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() )
 				),
 				$this->enums(),
 				$this->Dossiercov58->enums(),

@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Decisionnonorientationprocov58 ...
@@ -23,13 +24,6 @@
 		public $name = 'Decisionnonorientationprocov58';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
@@ -37,7 +31,9 @@
 		public $actsAs = array(
 			'Dependencies',
 			'Postgres.PostgresAutovalidate',
+			'Validation2.Validation2RulesComparison',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
 
 		/**
@@ -90,8 +86,8 @@
 		 */
 		public $validateFinalisation = array(
 			'decisioncov' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				),
 				'checkDecisionMaintienOuReorientation' => array(
 					'rule' => array( 'checkDecisionMaintienOuReorientation' ),

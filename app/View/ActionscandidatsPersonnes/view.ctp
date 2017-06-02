@@ -1,5 +1,5 @@
 <?php
-    $domain = "actioncandidat_personne_".Configure::read( 'ActioncandidatPersonne.suffixe' );
+    $domain = 'actioncandidat_personne_cg66';
 
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
@@ -51,7 +51,7 @@
             )
 		);
 
-        
+
         if( !empty( $actionscandidatspersonne['ActioncandidatPersonne']['progfichecandidature66_id'] ) ) {
             echo $this->Xhtml->tag('div', $this->Xhtml->tag('strong', 'Informations pour les actions Région'));
 
@@ -69,7 +69,7 @@
                 )
             );
         }
-        
+
 		echo $this->Xhtml->tag('div', $this->Xhtml->tag('strong', 'Nom du prescripteur de la fiche' ) );
         echo $this->Default->view(
         	$actionscandidatspersonne,

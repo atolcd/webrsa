@@ -11,6 +11,8 @@
 		echo $this->Html->script( array( 'prototype.event.simulate.js', 'dependantselect.js' ) );
 	}
 
+	echo $this->element( 'required_javascript' );
+
 	$departement = Configure::read( 'Cg.departement' );
 ?>
 <script type="text/javascript">
@@ -40,8 +42,8 @@
 			);
 		<?php endif;?>
 
-		<?php if( isset( $thematiquesrdvs ) && !empty( $thematiquesrdvs ) ):?>
-			<?php foreach( $thematiquesrdvs as $typerdv_id => $thematiques ):?>
+		<?php if( isset( $options['Thematiquerdv']['Thematiquerdv'] ) && !empty( $options['Thematiquerdv']['Thematiquerdv'] ) ):?>
+			<?php foreach( $options['Thematiquerdv']['Thematiquerdv'] as $typerdv_id => $thematiques ):?>
 				observeDisableFieldsetOnValue(
 					'RendezvousTyperdvId',
 					'ThematiquerdvThematiquerdvFieldset<?php echo $typerdv_id;?>',
@@ -57,7 +59,7 @@
 <h1><?php echo $this->pageTitle;?></h1>
 
 <?php
-	echo $this->Form->create( 'Rendezvous', array( 'type' => 'post' ) );
+	echo $this->Form->create( 'Rendezvous', array( 'type' => 'post', 'novalidate' => true ) );
 	echo '<div>'.$this->Form->input( 'Rendezvous.id', array( 'type' => 'hidden' ) ).'</div>';
 	echo '<div>'.$this->Form->input( 'Rendezvous.personne_id', array( 'type' => 'hidden', 'value' => $personne_id ) ).'</div>';
 ?>
@@ -65,8 +67,8 @@
 <div class="aere">
 	<fieldset>
 		<?php
-			echo $this->Form->input( 'Rendezvous.structurereferente_id', array( 'label' =>  required( $departement == 93 ? 'Structure proposant le RDV' : __d( 'rendezvous', 'Rendezvous.lib_struct' ) ), 'type' => 'select', 'options' => $struct, 'empty' => true ) );
-			echo $this->Form->input( 'Rendezvous.referent_id', array( 'label' =>  ( $departement == 93 ? 'Personne proposant le RDV' : 'Nom de l\'agent / du référent' ), 'type' => 'select', 'options' => $referents, 'empty' => true/*, 'selected' => $struct_id.'_'.$referent_id */) );
+			echo $this->Form->input( 'Rendezvous.structurereferente_id', array( 'label' =>  required( $departement == 93 ? 'Structure proposant le RDV' : __d( 'rendezvous', 'Rendezvous.lib_struct' ) ), 'type' => 'select', 'options' => $options['Rendezvous']['structurereferente_id'], 'empty' => true ) );
+			echo $this->Form->input( 'Rendezvous.referent_id', array( 'label' =>  ( $departement == 93 ? 'Personne proposant le RDV' : 'Nom de l\'agent / du référent' ), 'type' => 'select', 'options' => $options['Rendezvous']['referent_id'], 'empty' => true ) );
 			///Ajax
 			echo $this->Ajax->observeField( 'RendezvousReferentId', array( 'update' => 'ReferentFonction', 'url' => array( 'action' => 'ajaxreffonct' ) ) );
 
@@ -84,13 +86,13 @@
 			}
 
 			///Ajout d'une permanence liée à une structurereferente
-			echo $this->Form->input( 'Rendezvous.permanence_id', array( 'label' => 'Permanence liée à la structure', 'type' => 'select', 'options' => $permanences, 'selected' => $struct_id.'_'.$permanence_id, 'empty' => true ) );
+			echo $this->Form->input( 'Rendezvous.permanence_id', array( 'label' => 'Permanence liée à la structure', 'type' => 'select', 'options' => $options['Rendezvous']['permanence_id'], 'empty' => true ) );
 
-			echo $this->Form->input( 'Rendezvous.typerdv_id', array( 'label' =>  required( __d( 'rendezvous', 'Rendezvous.lib_rdv' ) ), 'type' => 'select', 'options' => $typerdv, 'empty' => true ) );
+			echo $this->Form->input( 'Rendezvous.typerdv_id', array( 'label' =>  required( __d( 'rendezvous', 'Rendezvous.lib_rdv' ) ), 'type' => 'select', 'options' => $options['Rendezvous']['typerdv_id'], 'empty' => true ) );
 
 			// Thématiques du RDV
-			if( isset( $thematiquesrdvs ) && !empty( $thematiquesrdvs ) ) {
-				foreach( $thematiquesrdvs as $typerdv_id => $thematiques ) {
+			if( isset( $options['Thematiquerdv']['Thematiquerdv'] ) && !empty( $options['Thematiquerdv']['Thematiquerdv'] ) ) {
+				foreach( $options['Thematiquerdv']['Thematiquerdv'] as $typerdv_id => $thematiques ) {
 					if( $departement == 93 && $typerdv_id == Configure::read( 'Rendezvous.Typerdv.collectif_id' ) ) {
 						$input = $this->Form->input(
 							'Thematiquerdv.Thematiquerdv',
@@ -129,11 +131,11 @@
 			}
 
 	if( Configure::read( 'Cg.departement') == 58 ){
-				echo $this->Form->input( 'Rendezvous.statutrdv_id', array( 'label' =>  ( __d( 'rendezvous', 'Rendezvous.statutrdv' ) ), 'type' => 'select', 'options' => $statutrdv, 'empty' => true ) );
+				echo $this->Form->input( 'Rendezvous.statutrdv_id', array( 'label' =>  ( __d( 'rendezvous', 'Rendezvous.statutrdv' ) ), 'type' => 'select', 'options' => $options['Rendezvous']['statutrdv_id'], 'empty' => true ) );
 				echo $this->Form->input( 'Rendezvous.rang', array( 'label' =>  required( __d( 'rendezvous', 'Rendezvous.rang', true ) ), 'type' => 'text' ) );
 			}
 			else{
-				echo $this->Form->input( 'Rendezvous.statutrdv_id', array( 'label' =>  required( __d( 'rendezvous', 'Rendezvous.statutrdv' ) ), 'type' => 'select', 'options' => $statutrdv, 'empty' => true ) );
+				echo $this->Form->input( 'Rendezvous.statutrdv_id', array( 'label' =>  required( __d( 'rendezvous', 'Rendezvous.statutrdv' ) ), 'type' => 'select', 'options' => $options['Rendezvous']['statutrdv_id'], 'empty' => true ) );
 			}
 
 			echo $this->Form->input( 'Rendezvous.daterdv', array( 'label' =>  required( __d( 'rendezvous', 'Rendezvous.daterdv' ) ), 'type' => 'date', 'dateFormat'=>'DMY', 'maxYear' => date('Y')+1, 'minYear' => 2009 ) );

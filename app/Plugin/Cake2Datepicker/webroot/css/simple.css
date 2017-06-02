@@ -178,6 +178,12 @@ table.cal-table {
   text-align: center;
 }
 
+.cal-disabled {
+  color: #898989 !important;
+  background-color: #585756 !important;
+  cursor: default;
+}
+
 .cal-day-cell a:link.cal-selected,
 .cal-day-cell a:visited.cal-selected,
 .cal-day-cell a:active.cal-selected {

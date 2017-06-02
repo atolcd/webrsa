@@ -1,33 +1,20 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'piecesmanquantescuis66', "Piecesmanquantescuis66::{$this->action}" )
-	);
-
-	echo $this->Default2->index(
-		$piecesmanquantescuis66,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'Piecemanquantecui66.name' => array( 'label' => __d( 'piecesmanquantescuis66', 'Piecemanquantecui66.name' )),
-			'Piecemanquantecui66.actif' => array( 'type' => 'boolean' ),
-		),
-		array(
-			'cohorte' => false,
-			'actions' => array(
-				'Piecesmanquantescuis66::edit',
-				'Piecesmanquantescuis66::delete' => array( 'disabled' => '\'#Piecemanquantecui66.occurences#\'!= "0"' )
+			'cells' => array(
+				'Piecemanquantecui66.name',
+				'Piecemanquantecui66.actif' => array( 'type' => 'boolean' ),
+				'/Piecesmanquantescuis66/edit/#Piecemanquantecui66.id#' => array(
+					'title' => true
+				),
+				'/Piecesmanquantescuis66/delete/#Piecemanquantecui66.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Piecemanquantecui66.has_linkedrecords#"'
+				)
 			),
-			'add' => 'Piecesmanquantescuis66::add'
-		)
-	);
-
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'cuis',
-			'action'     => 'indexparams'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#cuis'
 		)
 	);
 ?>

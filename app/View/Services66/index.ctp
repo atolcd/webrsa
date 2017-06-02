@@ -1,33 +1,20 @@
 <?php
-	App::uses('WebrsaAccess', 'Utility');
-	$controller = $this->params->controller;
-	$action = $this->action;
-	$modelName = Inflector::singularize(Inflector::camelize($controller));
-
-	echo $this->Default3->titleForLayout($this->request->data, compact('domain'));
-
-	echo $this->Default3->actions(WebrsaAccess::actionAdd("/".ucfirst($controller)."/add"));
-	
-	echo $this->Default3->index(
-		$datas,
-		$this->Translator->normalize(
-			array(
-				$modelName.'.name',
-				$modelName.'.interne' => array('type' => 'boolean'),
-				$modelName.'.actif' => array('type' => 'boolean'),
-			) + WebrsaAccess::links(
-				array(
-					'/'.ucfirst($controller).'/edit/#'.$modelName.'.id#',
-					'/'.ucfirst($controller).'/delete/#'.$modelName.'.id#' => array(
-						'disabled' => "('#$modelName.occurences#' == true)"
-					)
+	echo $this->element(
+		'WebrsaParametrages/index',
+		array(
+			'cells' => array(
+				'Service66.name',
+				'Service66.interne' => array( 'type' => 'boolean' ),
+				'Service66.actif' => array( 'type' => 'boolean' ),
+				'/Services66/edit/#Service66.id#' => array(
+					'title' => true
 				),
-				array('regles_metier' => false)
+				'/Services66/delete/#Service66.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Service66.has_linkedrecords#"'
+				)
 			)
 		)
 	);
-	
-	echo $this->Xhtml->link(
-		'Retour',
-		array('controller' => 'parametrages', 'action' => 'index')
-	);
+?>

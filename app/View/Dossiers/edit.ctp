@@ -9,13 +9,13 @@
 
 <fieldset>
 	<?php
-		echo $this->Form->create( 'Dossier', array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Dossier', array( 'type' => 'post', 'novalidate' => true ) );
 		echo $this->Form->input( 'Dossier.id', array( 'type' => 'hidden' ) );
 
 		echo $this->Default2->subform(
 			array(
 				'Dossier.numdemrsa' => array( 'domain' => 'dossier', 'required' => true ),
-				'Dossier.dtdemrsa' => array( 'domain' => 'dossier' ),
+				'Dossier.dtdemrsa' => array( 'domain' => 'dossier', 'required' => ValidateAllowEmptyUtility::isRequired('Dossier.dtdemrsa') ),
 				'Dossier.fonorg' => array( 'domain' => 'dossier', 'required' => true, 'type' => 'select', 'options' => $fonorg ),
 				'Dossier.matricule' => array( 'domain' => 'dossier', 'required' => true ),
 				'Dossier.dtdemrmi' => array( 'domain' => 'dossier' ),

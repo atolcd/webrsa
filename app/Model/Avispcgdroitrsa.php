@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Avispcgdroitrsa ...
@@ -16,6 +17,13 @@
 	class Avispcgdroitrsa extends AppModel
 	{
 		public $name = 'Avispcgdroitrsa';
+
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
 
 		public $belongsTo = array(
 			'Dossier' => array(
@@ -56,43 +64,46 @@
 			),
 		);
 
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
+		);
+
 		public $validate = array(
 			'avisdestpairsa' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'dtavisdestpairsa' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.'
-				),
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'nomtie' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'typeperstie' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			)
 		);
-		
+
 		/**
 		 * Liste de champs et de valeurs possibles qui ne peuvent pas être mis en
 		 * règle de validation inList ou en contrainte dans la base de données en
 		 * raison des valeurs actuellement en base, mais pour lequels un ensemble
 		 * fini de valeurs existe.
-		 * 
+		 *
 		 * @see AppModel::enums
 		 *
 		 * @var array

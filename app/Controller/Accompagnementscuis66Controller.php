@@ -65,18 +65,18 @@
 			'Accompagnementcui66',
 			'Option',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'ajaxfileupload' => 'Accompagnementscuis66::filelink',
-			'ajaxfiledelete' => 'Accompagnementscuis66::filelink',
+			'ajaxfileupload' => 'Accompagnementscuis66:filelink',
+			'ajaxfiledelete' => 'Accompagnementscuis66:filelink',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -86,7 +86,7 @@
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -106,7 +106,7 @@
 			'index' => 'read',
 			'view' => 'read',
 		);
-		
+
 		/**
 		 * Envoi d'un fichier temporaire depuis le formualaire.
 		 */
@@ -159,23 +159,23 @@
 			$result = $this->Accompagnementcui66->find( 'first', $query );
 			$personne_id = $result['Cui']['personne_id'];
 			$cui_id = $result['Cui']['id'];
-			
-			$this->WebrsaModelesLiesCuis66->initAccess();
-			$this->WebrsaModelesLiesCuis66->WebrsaAccesses->check($id, $personne_id, 'Accompagnementcui66');
-			
+
+			$this->WebrsaModelesLiesCuis66->initAccess('Accompagnementcui66');
+			$this->WebrsaModelesLiesCuis66->WebrsaAccesses->check($id, $personne_id);
+
 			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) );
 
 			$this->Fileuploader->filelink( $id, array( 'action' => 'index', $cui_id ) );
 			$urlmenu = "/cuis/index/{$personne_id}";
-			
+
 			$options = $this->Accompagnementcui66->enums();
 			$this->set( compact( 'options', 'dossierMenu', 'urlmenu' ) );
 		}
-		
-		
+
+
 		/**
 		 * Liste des accompagnements d'un Allocataire lié au CUI
-		 * 
+		 *
 		 * @param integer $cui_id
 		 */
 		public function index( $cui_id ) {
@@ -184,13 +184,13 @@
 				'urlmenu' => "/cuis/index/#0.Cui.personne_id#"
 			);
 			$customQuery['fields'][] = $this->Accompagnementcui66->Fichiermodule->sqNbFichiersLies( $this->Accompagnementcui66, 'nombre' );
-			
+
 			$this->WebrsaModelesLiesCuis66->index( $cui_id, $params, $customQuery );
 		}
-		
+
 		/**
 		 * Liste des accompagnements du CUI du bénéficiaire.
-		 * 
+		 *
 		 * @param integer $cui_id
 		 */
 		public function view( $id ) {
@@ -200,7 +200,7 @@
 			);
 			return $this->WebrsaModelesLiesCuis66->view( $id, $params );
 		}
-			
+
 		/**
 		 * Formulaire d'ajout d'avis technique CUI
 		 *
@@ -210,7 +210,7 @@
 			$args = func_get_args();
 			call_user_func_array( array( $this, 'edit' ), $args );
 		}
-		
+
 		/**
 		 * Méthode générique d'ajout et de modification d'avis technique
 		 *
@@ -225,20 +225,20 @@
 			);
 			return $this->WebrsaModelesLiesCuis66->addEdit( $id, $params );
 		}
-		
+
 		/**
 		 * Suppression d'un accompagnement
-		 * 
+		 *
 		 * @param integer $id
 		 * @return boolean
 		 */
 		public function delete( $id ){
 			return $this->WebrsaModelesLiesCuis66->delete( $id );
 		}
-		
+
 		/**
 		 * Impression générique
-		 * 
+		 *
 		 * @param integer $id
 		 * @return boolean
 		 */

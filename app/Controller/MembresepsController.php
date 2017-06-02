@@ -7,13 +7,15 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
 
 	/**
-	 * La classe MembresepsController ...
+	 * La classe MembresepsController s'occupe du paramétrage et de la gestion des
+	 * membres des équipes pluridisciplinaires.
 	 *
 	 * @package app.Controller
 	 */
-	class MembresepsController extends AppController
+	class MembresepsController extends AbstractWebrsaParametragesController
 	{
 		/**
 		 * Nom du contrôleur.
@@ -31,8 +33,9 @@
 			'Search.SearchPrg' => array(
 				'actions' => array(
 					'index',
-				),
+				)
 			),
+			'WebrsaParametrages'
 		);
 
 		/**
@@ -43,6 +46,9 @@
 		public $helpers = array(
 			'Default',
 			'Default2',
+			'Default3' => array(
+				'className' => 'Default.DefaultDefault'
+			)
 		);
 
 		/**
@@ -52,16 +58,7 @@
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'add' => 'Membreseps:edit',
-		);
-
-		/**
-		 * Méthodes ne nécessitant aucun droit.
-		 *
-		 * @var array
-		 */
-		public $aucunDroit = array(
-
+			'add' => 'Membreseps:edit'
 		);
 
 		/**
@@ -76,16 +73,22 @@
 			'edit' => 'update',
 			'editliste' => 'update',
 			'editpresence' => 'update',
-			'index' => 'read',
+			'index' => 'read'
 		);
+
+		/**
+		 * Liste des tables à ne pas prendre en compte dans les enregistrements
+		 * vérifiés pour éviter les suppressions en cascade intempestives.
+		 *
+		 * @var array
+		 */
+		public $blacklist = array( 'commissionseps_membreseps', 'eps_membreseps' );
 
 		protected function _setOptions() {
 			$options = $this->Membreep->enums();
 
 			$options['Membreep']['fonctionmembreep_id'] = $this->Membreep->Fonctionmembreep->find( 'list' );
 			$options['Membreep']['ep_id'] = $this->Membreep->Ep->find( 'list' );
-			$optionTypevoie['typevoie'] = ClassRegistry::init( 'Option' )->typevoie();
-			$options = Set::merge( $options, $optionTypevoie );
 
 			$enums = $this->Membreep->CommissionepMembreep->enums();
 			$options['CommissionepMembreep'] = $enums['CommissionepMembreep'];
@@ -93,87 +96,49 @@
 			$this->set( compact( 'options' ) );
 		}
 
+		/**
+		 * Liste des membres des équipes pluridisciplinaires.
+		 */
 		public function index() {
-			if( !empty( $this->request->data ) ) {
-
-				$queryData = $this->Membreep->search( $this->request->data );
-				$queryData['limit'] = 20;
-				$this->paginate = $queryData;
-				$membreseps = $this->paginate( 'Membreep' );
-
-				$typesvoies = ClassRegistry::init( 'Option' )->typevoie();
-				foreach( $membreseps as $key => $membreep) {
-					$typevoie = Set::enum( Set::classicExtract( $membreep, 'Membreep.typevoie' ), $typesvoies );
-					$membreep['Membreep']['nomcomplet'] = implode ( ' ', array( $membreep['Membreep']['qual'], $membreep['Membreep']['nom'], $membreep['Membreep']['prenom']) );
-					$membreep['Membreep']['adresse'] = implode ( ' ', array( $membreep['Membreep']['numvoie'], $typevoie, $membreep['Membreep']['nomvoie'], $membreep['Membreep']['compladr'], $membreep['Membreep']['codepostal'], $membreep['Membreep']['ville']  ) );
-					$membreseps[$key] = $membreep;
+			if( false === empty( $this->request->data  ) ) {
+				if( false === $this->Membreep->Behaviors->attached( 'Occurences' ) ) {
+					$this->Membreep->Behaviors->attach( 'Occurences' );
 				}
 
-				$this->set( compact( 'membreseps' ) );
-			}
-			$this->_setOptions();
+				$query = $this->Membreep->search( $this->request->data );
 
-			$compteurs = array(
-				'Fonctionmembreep' => $this->Membreep->Fonctionmembreep->find( 'count' )
-			);
-			$this->set( compact( 'compteurs' ) );
-		}
+				$query['fields'][] = 'Membreep.nomcomplet';
+				$query['fields'][] = 'Membreep.adresse';
+				$query['fields'][] = $this->Membreep->sqHasLinkedRecords( true, $this->blacklist );
+				$query['limit'] = 100;
+				$query['maxLimit'] = 101;
 
-		/**
-		*
-		*/
+				$this->paginate = $query;
+				$results = $this->paginate( 'Membreep', array(), array(), true );
 
-		public function add() {
-			$args = func_get_args();
-			call_user_func_array( array( $this, '_add_edit' ), $args );
-		}
-
-		/**
-		*
-		*/
-
-		public function edit() {
-			$args = func_get_args();
-			call_user_func_array( array( $this, '_add_edit' ), $args );
-		}
-
-		/**
-		*
-		*/
-
-		protected function _add_edit( $id = null ) {
-			if( !empty( $this->request->data ) ) {
-				$this->Membreep->create( $this->request->data );
-				$success = $this->Membreep->save();
-
-				$this->_setFlashResult( 'Save', $success );
-				if( $success ) {
-					$this->redirect( array( 'action' => 'index' ) );
-				}
-			}
-			elseif( $this->action == 'edit' ) {
-				$this->request->data = $this->Membreep->find(
-					'first',
-					array(
-						'contain' => false,
-						'conditions' => array( 'Membreep.id' => $id )
-					)
-				);
-				$this->assert( !empty( $this->request->data ), 'error404' );
+				$this->set( compact( 'results' ) );
 			}
 
-			$this->_setOptions();
-			$this->render( 'add_edit' );
+			$options = $this->Membreep->enums();
+
+			$messages = array();
+			if ( 0 === $this->Membreep->Fonctionmembreep->find( 'count' ) ) {
+				$messages['Merci d\'ajouter au moins une fonction pour les membres avant d\'ajouter un membre.'] = 'error';
+			}
+			$this->set( compact( 'options', 'messages' ) );
 		}
 
 		/**
-		*
-		*/
+		 * Formulaire de modification d'un membre des équipes pluridisciplinaires.
+		 *
+		 * @param integer $id
+		 */
+		public function edit( $id = null ) {
+			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit' ) );
 
-		public function delete( $id ) {
-			$success = $this->Membreep->delete( $id );
-			$this->_setFlashResult( 'Delete', $success );
-			$this->redirect( array( 'action' => 'index' ) );
+			$options = $this->viewVars['options'];
+			$options['Membreep']['fonctionmembreep_id'] = $this->Membreep->Fonctionmembreep->find( 'list' );
+			$this->set( compact( 'options' ) );
 		}
 
 		/**
@@ -305,13 +270,14 @@
 					$success = false;
 				}
 
-				$this->_setFlashResult( 'Save', $success );
 				if ( $success ) {
 					$this->Membreep->CommissionepMembreep->commit();
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect(array('controller'=>'commissionseps', 'action'=>'view', $commissionep_id));
 				}
 				else {
 					$this->Membreep->CommissionepMembreep->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -400,8 +366,6 @@
 
 			$membres_fonction = array();
 			foreach( $listemembres as $membreep ) {
-// 				$membres_fonction[$membreep['Membreep']['fonctionmembreep_id']][$membreep['Membreep']['id']] = implode( ' ', array( $membreep['Membreep']['qual'], $membreep['Membreep']['nom'], $membreep['Membreep']['prenom'] ) );
-
 				// Modification de l'affichage des remplaçants
 				$membres_fonction[$membreep['Membreep']['fonctionmembreep_id'].'_'.$membreep['Membreep']['id']] = $membreep['Membreep']['qual'].' '.$membreep['Membreep']['nom'].' '.$membreep['Membreep']['prenom'];
 			}
@@ -461,15 +425,16 @@
 				$success = $this->Membreep->CommissionepMembreep->saveAll( $reponsesMembres, array( 'validate' => 'first', 'atomic' => false ) ) && $success;
 				$success = $this->Membreep->CommissionepMembreep->Commissionep->WebrsaCommissionep->changeEtatAssociePresence( $commissionep_id ) && $success;
 
-				$this->_setFlashResult( 'Save', $success );
 				if ($success) {
 					$this->Membreep->CommissionepMembreep->commit();
+					$this->Flash->success( __( 'Save->success' ) );
 					if( $this->Membreep->CommissionepMembreep->Commissionep->WebrsaCommissionep->checkEtat( $commissionep_id ) != 'quorum' ) {
 						$this->redirect( array( 'controller' => 'commissionseps', 'action' => 'traiterep', $commissionep_id ) );
 					}
 				}
 				else {
 					$this->Membreep->CommissionepMembreep->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -554,25 +519,6 @@
 						$this->Membreep->join( 'CommissionepMembreep', array( 'type' => 'INNER' ) ),
 						$this->Membreep->CommissionepMembreep->join( 'Commissionep', array( 'type' => 'INNER' ) ),
 						$this->Membreep->CommissionepMembreep->Commissionep->join( 'Ep', array( 'type' => 'INNER' ) ),
-						/*array(
-							'table' => 'eps_membreseps',
-							'alias' => 'EpMembreep',
-							'type' => 'INNER',
-							'foreignKey' => false,
-							'conditions' => array(
-								'Membreep.id = EpMembreep.membreep_id',
-								'EpMembreep.ep_id' => $ep_id
-							)
-						),
-						array(
-							'table' => 'eps',
-							'alias' => 'Ep',
-							'type' => 'INNER',
-							'foreignKey' => false,
-							'conditions' => array(
-								'Ep.id = EpMembreep.ep_id'
-							)
-						)*/
 					),
 					'contain'=>false,
 					'group' => array(
@@ -612,8 +558,6 @@
 
 			$membres_fonction = array();
 			foreach( $listemembres as $membreep ) {
-// 				$membres_fonction[$membreep['Membreep']['fonctionmembreep_id']][$membreep['Membreep']['id']] = implode( ' ', array( $membreep['Membreep']['qual'], $membreep['Membreep']['nom'], $membreep['Membreep']['prenom'] ) );
-
 				// Modification de l'affichage des suppléants
 				$membres_fonction[$membreep['Membreep']['fonctionmembreep_id'].'_'.$membreep['Membreep']['id']] = $membreep['Membreep']['qual'].' '.$membreep['Membreep']['nom'].' '.$membreep['Membreep']['prenom'];
 			}

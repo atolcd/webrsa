@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Modeletraitementpcg66.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Modeletraitementpcg66 ...
@@ -17,13 +18,20 @@
 	{
 		public $name = 'Modeletraitementpcg66';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
-		
+
 		public $belongsTo = array(
 			'Traitementpcg66' => array(
 				'className' => 'Traitementpcg66',
@@ -40,7 +48,7 @@
 				'order' => ''
 			)
 		);
-		
+
 		public $hasAndBelongsToMany = array(
 			'Piecemodeletypecourrierpcg66' => array(
 				'className' => 'Piecemodeletypecourrierpcg66',

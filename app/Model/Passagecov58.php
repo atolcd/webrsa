@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Passagecov58 ...
@@ -18,9 +19,6 @@
 		/**
 		*
 		*/
-
-		public $recursive = -1;
-
 		public $virtualFields = array(
 			'chosen' => array(
 				'type'      => 'boolean',
@@ -33,14 +31,12 @@
 		*/
 
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable',
-			'Enumerable' => array(
-				'fields' => array(
-					'etatdossiercov'
-				)
-			)
+			'Allocatairelie' => array(
+				'joins' => array( 'Dossiercov58' )
+			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		/**
@@ -186,34 +182,6 @@
 					'limit' => 1
 				)
 			);
-		}
-
-		/**
-		 * Retourne l'id de la personne à laquelle est lié un enregistrement.
-		 *
-		 * @param integer $id L'id de l'enregistrement
-		 * @return integer
-		 */
-		public function personneId( $id ) {
-			$query = array(
-				'fields' => array( 'Dossiercov58.personne_id' ),
-				'joins' => array(
-					$this->join( 'Dossiercov58', array( 'type' => 'INNER' ) )
-				),
-				'conditions' => array(
-					"{$this->alias}.id" => $id
-				),
-				'recursive' => -1
-			);
-
-			$result = $this->find( 'first', $query );
-
-			if( !empty( $result ) ) {
-				return $result['Dossiercov58']['personne_id'];
-			}
-			else {
-				return null;
-			}
 		}
 	}
 ?>

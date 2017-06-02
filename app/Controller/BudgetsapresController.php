@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe BudgetsapresController ...
@@ -48,7 +49,7 @@
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'add' => 'Actionscandidats:edit',
+			'add' => 'Budgetsapres:edit'
 		);
 
 		/**
@@ -119,8 +120,8 @@
 
 			if( !empty( $this->request->data ) ) {
 				$this->{$this->modelClass}->create( $this->request->data );
-				if( $this->{$this->modelClass}->save() ) {
-					$this->Session->setFlash( __( 'Enregistrement effectué' ), 'flash/success' );
+				if( $this->{$this->modelClass}->save( null, array( 'atomic' => false ) ) ) {
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index' ) );
 				}
 			}

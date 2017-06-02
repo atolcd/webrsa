@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 	App::uses( 'Sanitize', 'Utility' );
 
 	/**
@@ -442,26 +443,6 @@
 					'NOW() >=' => date( 'Y-m-d', strtotime( "-1 month", strtotime( $moissuivant ) ) ),
 				);
 
-				// Conditions sur les dates par état de dossier RSA
-				/*$etats = implode( ',', $etatdosrsa );
-				if( $etats == '2' ) {
-					$conditions[] = array(
-						'OR' => array(
-							'Situationdossierrsa.dtclorsa IS NULL',
-							'Situationdossierrsa.dtclorsa >=' => $moissuivant,
-						)
-					);
-				}
-				else if( $etats == '3,4' ) {
-
-				}
-				else if( $etats == '5,6' ) {
-
-				}
-				else {
-					throw new error500Exception( "États non pris en compte: {$etats}" );
-				}*/
-
 				// Condition sur le service instructeur
 				$conditions[] = $this->_conditionServiceInstructeur( $search );
 
@@ -493,48 +474,6 @@
 			$return = implode( ' UNION ', $return ).' GROUP BY "mois" ORDER BY "mois"';
 			return Set::combine( $Dossier->query( $return ), '{n}.0.mois', '{n}.0.indicateur' );
 		}
-
-		/**
-		 * TODO: ne compter que le nombre de dossiers ?
-		 * TODO: conditions
-		 *
-		 * @param type $annee
-		 * @param array $etatdosrsa
-		 * @return string
-		 */
-		/*protected function _nombreDemandeursDroitsBak( $search, array $etatdosrsa ) {
-			$annee = trim( Hash::get( $search, 'Indicateurmensuel.annee' ) );
-			$etatdosrsa = '\''.implode( '\', \'', $etatdosrsa ).'\'';
-			$return = array();
-
-			foreach( range( 1, 12 ) as $mois ) {
-				$moissuivant = date( 'Y-m-d', strtotime( "+ {$mois} month", strtotime( "{$annee}-01-01" ) ) );
-
-				$sql = "SELECT
-					{$mois} AS \"mois\",
-					COUNT(\"Personne\".\"id\") AS \"indicateur\"
-				FROM personnes AS \"Personne\"
-					INNER JOIN \"public\".\"prestations\" AS \"Prestation\" ON (
-						\"Prestation\".\"personne_id\" = \"Personne\".\"id\"
-						AND \"Prestation\".\"natprest\" = 'RSA'
-						AND \"Prestation\".\"rolepers\" IN ( 'DEM' )
-					)
-					INNER JOIN \"public\".\"foyers\" AS \"Foyer\" ON (\"Personne\".\"foyer_id\" = \"Foyer\".\"id\")
-					INNER JOIN \"public\".\"dossiers\" AS \"Dossier\" ON (\"Foyer\".\"dossier_id\" = \"Dossier\".\"id\")
-					INNER JOIN \"public\".\"situationsdossiersrsa\" AS \"Situationdossierrsa\" ON (\"Situationdossierrsa\".\"dossier_id\" = \"Dossier\".\"id\")
-					INNER JOIN \"public\".\"detailsdroitsrsa\" AS \"Detaildroitrsa\" ON (\"Detaildroitrsa\".\"dossier_id\" = \"Dossier\".\"id\")
-				WHERE
-					\"Situationdossierrsa\".\"etatdosrsa\" IN ( {$etatdosrsa} )
-					AND \"Dossier\".\"dtdemrsa\" < '{$moissuivant}'
-					AND (
-						\"Situationdossierrsa\".\"dtclorsa\" IS NULL
-						OR \"Situationdossierrsa\".\"dtclorsa\" > '{$moissuivant}'
-					)";
-				$return[] = $sql;
-			}
-
-			return implode( ' UNION ', $return ).' ORDER BY "mois"';
-		}*/
 
 		/**
 		 *
@@ -715,7 +654,6 @@
 						'COUNT(DISTINCT("Personne"."id")) AS "indicateur"'
 					),
 					'joins' => array(
-//						$Dossier->join( 'Detaildroitrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Foyer', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Situationdossierrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->join( 'Adressefoyer', array( 'type' => 'LEFT OUTER' ) ),
@@ -800,7 +738,6 @@
 						'COUNT(DISTINCT("Personne"."id")) AS "indicateur"'
 					),
 					'joins' => array(
-//						$Dossier->join( 'Detaildroitrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Foyer', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Situationdossierrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->join( 'Adressefoyer', array( 'type' => 'LEFT OUTER' ) ),
@@ -919,7 +856,6 @@
 						'COUNT(DISTINCT("Personne"."id")) AS "indicateur"'
 					),
 					'joins' => array(
-//						$Dossier->join( 'Detaildroitrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Foyer', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Situationdossierrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->join( 'Adressefoyer', array( 'type' => 'LEFT OUTER' ) ),
@@ -980,13 +916,11 @@
 						'COUNT(DISTINCT("Personne"."id")) AS "indicateur"'
 					),
 					'joins' => array(
-//						$Dossier->join( 'Detaildroitrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Foyer', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Situationdossierrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->join( 'Adressefoyer', array( 'type' => 'LEFT OUTER' ) ),
 						$Dossier->Foyer->join( 'Personne', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->Adressefoyer->join( 'Adresse', array( 'type' => 'LEFT OUTER' ) ),
-//						$Dossier->Foyer->Personne->join( 'Calculdroitrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->Personne->join( 'Orientstruct', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->Personne->join( 'Prestation', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->Personne->Orientstruct->join( 'Structurereferente', array( 'type' => 'INNER' ) ),
@@ -1062,13 +996,11 @@
 						'AVG( DATE_PART( \'day\', AGE( "Orientstruct"."date_valid", "Dossier"."dtdemrsa" ) ) ) AS "indicateur"'
 					),
 					'joins' => array(
-//						$Dossier->join( 'Detaildroitrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Foyer', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Situationdossierrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->join( 'Adressefoyer', array( 'type' => 'LEFT OUTER' ) ),
 						$Dossier->Foyer->join( 'Personne', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->Adressefoyer->join( 'Adresse', array( 'type' => 'LEFT OUTER' ) ),
-//						$Dossier->Foyer->Personne->join( 'Calculdroitrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->Personne->join( 'Orientstruct', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->Personne->join( 'Prestation', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->Personne->Orientstruct->join( 'Structurereferente', array( 'type' => 'INNER' ) ),
@@ -1138,7 +1070,6 @@
 						'COUNT( DISTINCT( PersonneReferent.id ) ) AS "indicateur"'
 					),
 					'joins' => array(
-//						$Dossier->join( 'Detaildroitrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Foyer', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Situationdossierrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->join( 'Adressefoyer', array( 'type' => 'LEFT OUTER' ) ),
@@ -1295,7 +1226,6 @@
 						'COUNT(DISTINCT "Personne"."id") AS "indicateur"'
 					),
 					'joins' => array(
-//						$Dossier->join( 'Detaildroitrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Foyer', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Situationdossierrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->join( 'Adressefoyer', array( 'type' => 'LEFT OUTER' ) ),
@@ -1342,15 +1272,6 @@
 						)
 					),
 					'Prestation.rolepers' => array( 'DEM', 'CJT' ),
-//					'Orientstruct.date_valid IS NOT NULL',
-//					'Dossier.dtdemrsa <' => $moissuivant,
-//					array(
-//						'OR' => array(
-//							'Situationdossierrsa.dtclorsa IS NULL',
-//							'Situationdossierrsa.dtclorsa >' => $moissuivant,
-//						)
-//					),
-//					'NOW() >=' => date( 'Y-m-d', strtotime( "-1 month", strtotime( $moissuivant ) ) ),
 					'Contratinsertion.date_saisi_ci >= Orientstruct.date_valid',
 					'Contratinsertion.date_saisi_ci <' => $moissuivant,
 					'Contratinsertion.date_saisi_ci >=' => "{$annee}-{$mois}-01",
@@ -1403,13 +1324,10 @@
 						'AVG( DATE_PART( \'day\', AGE( "Contratinsertion"."date_saisi_ci", "Orientstruct"."date_valid" ) ) ) AS "indicateur"'
 					),
 					'joins' => array(
-//						$Dossier->join( 'Detaildroitrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Foyer', array( 'type' => 'INNER' ) ),
-//						$Dossier->join( 'Situationdossierrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->join( 'Adressefoyer', array( 'type' => 'LEFT OUTER' ) ),
 						$Dossier->Foyer->join( 'Personne', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->Adressefoyer->join( 'Adresse', array( 'type' => 'LEFT OUTER' ) ),
-//						$Dossier->Foyer->Personne->join( 'Calculdroitrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->Personne->join( 'Contratinsertion', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->Personne->join( 'Orientstruct', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->Personne->join( 'Prestation', array( 'type' => 'INNER' ) ),
@@ -1464,18 +1382,13 @@
 						'COUNT(DISTINCT "Contratinsertion"."id") AS "indicateur"'
 					),
 					'joins' => array(
-//						$Dossier->join( 'Detaildroitrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->join( 'Foyer', array( 'type' => 'INNER' ) ),
-//						$Dossier->join( 'Situationdossierrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->join( 'Adressefoyer', array( 'type' => 'LEFT OUTER' ) ),
 						$Dossier->Foyer->join( 'Personne', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->Adressefoyer->join( 'Adresse', array( 'type' => 'LEFT OUTER' ) ),
 						$Dossier->Foyer->Personne->join( 'Calculdroitrsa', array( 'type' => 'INNER' ) ),
 						$Dossier->Foyer->Personne->join( 'Contratinsertion', array( 'type' => 'INNER' ) ),
-//						$Dossier->Foyer->Personne->join( 'Orientstruct', array( 'type' => 'LEFT OUTER' ) ),
 						$Dossier->Foyer->Personne->join( 'Prestation', array( 'type' => 'INNER' ) ),
-//						$Dossier->Foyer->Personne->Contratinsertion->join( 'Structurereferente', array( 'type' => 'INNER' ) ),
-//						$Dossier->Foyer->Personne->Orientstruct->join( 'Typeorient', array( 'type' => 'LEFT OUTER' ) ),
 					),
 					'contain' => false,
 					'conditions' => $conditions,

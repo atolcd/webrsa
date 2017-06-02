@@ -24,9 +24,9 @@
 
 	/**
 	 * Liste des champs devant apparaître dans la cohorte de rendez-vous.
-	 *	- Dsps.index.fields contient les champs de chaque ligne du tableau de résultats
-	 *	- Dsps.index.innerTable contient les champs de l'infobulle de chaque ligne du tableau de résultats
-	 *	- Dsps.exportcsv contient les champs de chaque ligne du tableau à télécharger au format CSV
+	 *	- Cohortesrendezvous.cohorte.fields contient les champs de chaque ligne du tableau de résultats
+	 *	- Cohortesrendezvous.cohorte.innerTable contient les champs de l'infobulle de chaque ligne du tableau de résultats
+	 *	- Cohortesrendezvous.exportcsv contient les champs de chaque ligne du tableau à télécharger au format CSV
 	 *
 	 * Voir l'onglet "Environnement logiciel" > "WebRSA" > "Champs spécifiés dans
 	 * le webrsa.inc" de la vérification de l'application.

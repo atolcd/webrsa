@@ -7,7 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( ABSTRACTMODELS.'Thematiqueep.php' );
+	App::uses( 'Thematiqueep', 'Model/Abstractclass' );
 
 	/**
 	 * Saisines d'EP pour les réorientations proposées par les structures
@@ -22,23 +22,15 @@
 		public $name = 'Reorientationep93';
 
 		public $actsAs = array(
-			'Autovalidate2',
+			'Allocatairelie' => array(
+				'joins' => array( 'Orientstruct' )
+			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate',
 			'Dependencies',
-			'Enumerable' => array(
-				'fields' => array(
-					'accordaccueil',
-					'accordallocataire',
-					'urgent',
-				)
-			),
-			'Formattable' => array(
-				'suffix' => array(
-					'structurereferente_id',
-					'referent_id',
-				)
-			),
-			'Gedooo.Gedooo',
-			'ValidateTranslate',
+			'Gedooo.Gedooo'
 		);
 
 		/**
@@ -127,14 +119,14 @@
 				'dependentForeignKeys' => array(
 					'rule' => array( 'dependentForeignKeys', 'Structurereferente', 'Typeorient' ),
 					'message' => 'La structure référente ne correspond pas au type d\'orientation',
-				),
+				)
 			),
 			'referent_id' => array(
 				'dependentForeignKeys' => array(
 					'rule' => array( 'dependentForeignKeys', 'Referent', 'Structurereferente' ),
 					'message' => 'Le référent n\'appartient pas à la structure référente',
-				),
-			),
+				)
+			)
 		);
 
 		/**
@@ -332,7 +324,7 @@
 					}
 
 					$this->Orientstruct->create( $orientstruct );
-					$success = $this->Orientstruct->save() && $success;
+					$success = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
 
 					// Mise à jour de l'enregistrement de la thématique avec l'id de la nouvelle orientation
 					$success = $success && $this->updateAllUnBound(
@@ -685,7 +677,6 @@
 				// Traductions
 				$datas['options'] = $this->Dossierep->Passagecommissionep->Decisionreorientationep93->enums();
 				$datas['options']['Personne']['qual'] = ClassRegistry::init( 'Option' )->qual();
-				$datas['options']['type']['voie'] = ClassRegistry::init( 'Option' )->typevoie();
 
 				Cache::write( $cacheKey, $datas );
 			}
@@ -859,35 +850,6 @@
 			return array(
 				'Motifreorientep93'
 			);
-		}
-
-		/**
-		 * Retourne l'id de la personne à laquelle est (indirectement) lié un
-		 * enregistrement.
-		 *
-		 * @param integer $id L'id de l'enregistrement
-		 * @return integer
-		 */
-		public function personneId( $id ) {
-			$querydata = array(
-				'fields' => array( 'Orientstruct.personne_id' ),
-				'joins' => array(
-					$this->join( 'Orientstruct', array( 'type' => 'INNER' ) )
-				),
-				'conditions' => array(
-					'Reorientationep93.id' => $id
-				),
-				'recursive' => -1
-			);
-
-			$result = $this->find( 'first', $querydata );
-
-			if( !empty( $result ) ) {
-				return $result['Orientstruct']['personne_id'];
-			}
-			else {
-				return null;
-			}
 		}
 	}
 ?>

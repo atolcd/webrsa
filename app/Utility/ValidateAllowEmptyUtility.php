@@ -125,7 +125,7 @@
 			if ( !isset($cache[$fieldName]) ) {
 				if ( isset( $Model->validate[$fieldName] ) ) {
 					foreach ( $Model->validate[$fieldName] as $key => $value ) {
-						if ( $key === 'notEmpty' || (is_array($value) && self::_getRuleName( $value ) === 'notEmpty') ) {
+						if ( $key === NOT_BLANK_RULE_NAME || (is_array($value) && self::_getRuleName( $value ) === NOT_BLANK_RULE_NAME) ) {
 							$allowEmpty = false;
 						}
 						elseif ( isset($Model->validate[$fieldName][$key]['allowEmpty']) ) {
@@ -158,7 +158,7 @@
 					if ( isset( $Model->validate[$fieldName] ) ) {
 						foreach ( $Model->validate[$fieldName] as $key => $value ) {
 							// Si la conf autorise le champ vide, il faut supprimer la rêgle notEmpty
-							if ( $allowEmpty && ( $key === 'notEmpty' || self::_getRuleName( $value ) === 'notEmpty' ) ) {
+							if ( $allowEmpty && ( $key === NOT_BLANK_RULE_NAME || self::_getRuleName( $value ) === NOT_BLANK_RULE_NAME ) ) {
 								unset( $Model->validate[$fieldName][$key] );
 							}
 							else {
@@ -170,8 +170,8 @@
 					
 					// Si aucune rêgle de validation n'existe pour ce champ et que la conf ne permet pas qu'il soit vide, on ajoute un notEmpty
 					elseif ( $allowEmpty === false ) {
-						$Model->validate[$fieldName]['notEmpty'] = array(
-							'rule' => 'notEmpty',
+						$Model->validate[$fieldName][NOT_BLANK_RULE_NAME] = array(
+							'rule' => NOT_BLANK_RULE_NAME,
 							'message' => 'Champ obligatoire'
 						);
 					}

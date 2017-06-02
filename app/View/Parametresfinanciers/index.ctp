@@ -1,40 +1,41 @@
 <?php
-	$this->pageTitle = 'Paramètres financiers pour la gestion de l\'APRE';
+	echo $this->Default3->titleForLayout();
 
-	if( Configure::read( 'debug' ) > 0 ) {
-		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
+	echo $this->Default3->actions(
+		array(
+			'/Parametrages/index/#apres' => array( 'class' => 'back' ),
+			true === empty( $results )
+				? '/Parametresfinanciers/add'
+				:  '/Parametresfinanciers/edit'
+		)
+	);
+
+	if( true === empty( $results ) ) {
+		echo $this->Html->tag( 'p', 'Aucun paramétrage', array( 'class' => 'notice' ) );
 	}
-
-	echo $this->Xhtml->tag( 'h1', $this->pageTitle );
-
-	echo $this->Xform->create( 'ParametreFinancier' );
-
-	if( $this->Permissions->check( 'parametresfinanciers', 'edit' ) ) {
-		echo $this->Xhtml->tag(
-			'ul',
-			$this->Xhtml->tag(
-				'li',
-				$this->Xhtml->editLink(
-					'Modifier les paramètres',
-					array( 'controller' => 'parametresfinanciers', 'action' => 'edit' )
-				)
+	else {
+		echo $this->Default3->view(
+			$results[0],
+			array(
+				'Parametrefinancier.entitefi',
+				'Parametrefinancier.engagement',
+				'Parametrefinancier.tiers',
+				'Parametrefinancier.codecdr',
+				'Parametrefinancier.libellecdr',
+				'Parametrefinancier.natureanalytique',
+				'Parametrefinancier.programme',
+				'Parametrefinancier.lib_programme',
+				'Parametrefinancier.apreforfait',
+				'Parametrefinancier.aprecomplem',
+				'Parametrefinancier.natureimput',
+				'Parametrefinancier.lib_natureanalytique'
 			),
-			array( 'class' => 'actionMenu' )
+			array(
+				'domain' => 'parametrefinancier',
+				'th' => true
+			)
 		);
 	}
 
-	if( !empty( $parametrefinancier ) ) {
-		$rows = array();
-		foreach( $parametrefinancier['Parametrefinancier'] as $field => $value ) {
-			if( $field != 'id' ) {
-				$rows[] = array( __d( 'apre', "Parametrefinancier.{$field}" ), $value );
-			}
-		}
-		echo $this->Xhtml->details( $rows );
-	}
-
-	echo '<div class="submit">';
-	echo $this->Xform->submit( 'Retour', array( 'name' => 'Cancel', 'div' => false ) );
-	echo '</div>';
-	echo $this->Xform->end();
+	echo $this->Default3->actions( array( '/Parametrages/index/#apres' => array( 'class' => 'back' ) ) );
 ?>

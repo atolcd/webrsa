@@ -1,32 +1,18 @@
-<h1>
 <?php
-	if( $this->action == 'add' ) {
-		echo $this->pageTitle = 'Ajout d\'un motif de demande de réorientation';
-	}
-	else {
-		echo $this->pageTitle = 'Modification d\'un motif de demande de réorientation';
-	}
-?>
-</h1>
+	if( Configure::read( 'debug' ) > 0 ) {
+		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
+	};
 
-<?php
-	echo $this->Default->form(
-		array(
-			'Motifreorientep93.name'
-		),
-		array(
-			'id' => 'Motifreorientep93AddEditForm'
+	echo $this->Default3->titleForLayout( $this->request->data );
+
+	echo $this->Default3->form(
+		$this->Translator->normalize(
+			array(
+				'Motifreorientep93.id',
+				'Motifreorientep93.name'
+			)
 		)
 	);
 
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'motifsreorientseps93',
-			'action'     => 'index'
-		),
-		array(
-			'id' => 'Back'
-		)
-	);
+	echo $this->Observer->disableFormOnSubmit();
 ?>

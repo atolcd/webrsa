@@ -7,10 +7,10 @@
 ?>
 
 <h1><?php echo $this->pageTitle;?></h1>
-	<?php echo $this->Form->create( 'Traitementpcg66',array(  'id' => 'envoicourrierform' ) ); ?>
+	<?php echo $this->Form->create( 'Traitementpcg66',array(  'id' => 'envoicourrierform', 'novalidate' => true ) ); ?>
 
 	<fieldset>
-        <?php 
+        <?php
             echo $this->Form->input( 'Traitementpcg66.id', array( 'type' => 'hidden' ) );
             echo $this->Form->input( 'Traitementpcg66.personnepcg66_id', array( 'type' => 'hidden', 'value' => $traitementpcg66['Traitementpcg66']['personnepcg66_id'] ) );
 

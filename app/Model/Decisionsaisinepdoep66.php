@@ -18,18 +18,11 @@
 	{
 		public $name = 'Decisionsaisinepdoep66';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Enumerable' => array(
-				'fields' => array(
-					'etape',
-					'decision'
-				)
-			),
-			'Formattable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		public $belongsTo = array(
@@ -63,13 +56,13 @@
 
 		public $validateFinalisation = array(
 			'decision' => array(
-				array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'datedecisionpdo' => array(
-				array(
-					'rule' => 'date',
+				'date' => array(
+					'rule' => array( 'date' ),
 					'message' => 'Veuillez entrer une date valide'
 				)
 			),
@@ -78,7 +71,7 @@
 					'rule' => array( 'notEmptyIf', 'decision', true, array( 'avis' ) ),
 					'message' => 'Champ obligatoire',
 				),
-			),
+			)
 		);
 
 		/**

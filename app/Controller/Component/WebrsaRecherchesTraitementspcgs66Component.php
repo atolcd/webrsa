@@ -23,7 +23,7 @@
 			'Allocataires',
 			'Gestionzonesgeos'
 		);
-		
+
 		/**
 		 * Retourne les options de type "enum", c'est à dire liées aux schémas des
 		 * tables de la base de données.
@@ -46,21 +46,15 @@
 		 */
 		protected function _optionsRecords( array $params = array() ) {
 			$Controller = $this->_Collection->getController();
-			
+
 			if( !isset( $Controller->Traitementpcg66 ) ) {
 				$Controller->loadModel( 'Traitementpcg66' );
 			}
-			
+
 			$options = parent::_optionsRecords($params);
-			$options['Dossierpcg66']['poledossierpcg66_id'] = $Controller->Traitementpcg66->Personnepcg66->Dossierpcg66->User->Poledossierpcg66->find(
-				'list', 
-				array(
-                    'conditions' => array('Poledossierpcg66.isactif' => '1'),
-                    'order' => array('Poledossierpcg66.name ASC', 'Poledossierpcg66.id ASC')
-				)
-			);
+			$options['Dossierpcg66']['poledossierpcg66_id'] = $Controller->Traitementpcg66->Personnepcg66->Dossierpcg66->User->Poledossierpcg66->WebrsaPoledossierpcg66->polesdossierspcgs66( false );
 			$options['Dossierpcg66']['user_id'] = $Controller->Traitementpcg66->Personnepcg66->Dossierpcg66->User->find(
-				'list', 
+				'list',
 				array(
                     'fields' => array('User.nom_complet'),
                     'conditions' => array('User.isgestionnaire' => 'O'),
@@ -68,21 +62,21 @@
 				)
 			);
 			$options['Traitementpcg66']['situationpdo_id'] = $Controller->Traitementpcg66->Personnepcg66->Situationpdo->find(
-				'list', 
+				'list',
 				array(
-					'order' => array('Situationpdo.libelle ASC'), 
+					'order' => array('Situationpdo.libelle ASC'),
 					'conditions' => array('Situationpdo.isactif' => '1')
 				)
 			);
 			$options['Traitementpcg66']['statutpdo_id'] = $Controller->Traitementpcg66->Personnepcg66->Statutpdo->find(
-				'list', 
+				'list',
 				array(
-					'order' => array('Statutpdo.libelle ASC'), 
+					'order' => array('Statutpdo.libelle ASC'),
 					'conditions' => array('Statutpdo.isactif' => '1')
 				)
 			);
 			$options['Traitementpcg66']['descriptionpdo_id'] = $Controller->Traitementpcg66->Descriptionpdo->find('list');
-			
+
 			return $options;
 		}
 

@@ -7,7 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( ABSTRACTMODELS.'Thematiqueep.php' );
+	App::uses( 'Thematiqueep', 'Model/Abstractclass' );
 
 	/**
 	 * La classe Contratcomplexeep93 ...
@@ -21,9 +21,6 @@
 		*/
 
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable',
 			'Gedooo.Gedooo',
 			'ModelesodtConditionnables' => array(
 				93 => array(
@@ -35,7 +32,10 @@
 					'%s/decision_valide.odt',
 					'%s/decision_rejete.odt'
 				)
-			)
+			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		/**
@@ -360,7 +360,7 @@
 					$contratinsertion['Contratinsertion']['datedecision'] = @$dossierep['Decisioncontratcomplexeep93']['datevalidation_ci'];
 
 					$this->Contratinsertion->create( $contratinsertion );
-					$success = $this->Contratinsertion->save() && $success;
+					$success = $this->Contratinsertion->save( null, array( 'atomic' => false ) ) && $success;
 
 					if( in_array( $dossierep['Decisioncontratcomplexeep93']['decision'], array( 'valide', 'rejete', 'annule' ) ) ) {
 						$success = $this->Contratinsertion->Cer93->updateAllUnBound(
@@ -445,7 +445,6 @@
 				// Traductions
 				$datas['options'] = $this->Dossierep->Passagecommissionep->Decisioncontratcomplexeep93->enums();
 				$datas['options']['Personne']['qual'] = ClassRegistry::init( 'Option' )->qual();
-				$datas['options']['type']['voie'] = ClassRegistry::init( 'Option' )->typevoie();
 
 				Cache::write( $cacheKey, $datas );
 			}

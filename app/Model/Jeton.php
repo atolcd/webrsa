@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Jeton.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Jeton ...
@@ -18,23 +19,28 @@
 		public $name = 'Jeton';
 
 		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
+		/**
 		 * On ne doit jamais cacher les reqûetes (par défaut, elles sont cachées sur une page).
 		 *
 		 * @var boolean
 		 */
 		public $cacheQueries = false;
 
-		public $validate = array(
-			'dossier_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-				),
-			),
-			'user_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-				),
-			),
+		/**
+		 * Behaviors utilisés par le modèle.
+		 *
+		 * @var array
+		 */
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(

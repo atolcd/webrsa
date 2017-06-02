@@ -53,6 +53,12 @@
 				),
 				'Foo' => array( 'bar' => array() )
 			);
+
+			$this->DefaultTableCell->DefaultHtml->Permissions = $this->getMock(
+				'PermissionsHelper',
+				array( 'check' )
+			);
+
 			$this->DefaultTableCell->set( $data );
 
 			$this->_setRequest();
@@ -276,6 +282,8 @@
 		public function testAction() {
 			$_SESSION['Auth']['Permissions']['Module:Apples'] = true;
 
+			$this->DefaultTableCell->DefaultHtml->Permissions->expects($this->any())->method('check')->will($this->returnValue(true));
+
 			$htmlAttributes = array();
 			$result = $this->DefaultTableCell->action( '/Apples/view/#Apple.id#', $htmlAttributes );
 			$expected = array(
@@ -308,10 +316,12 @@
 		public function testActionConfirm() {
 			$_SESSION['Auth']['Permissions']['Module:Apples'] = true;
 
+			$this->DefaultTableCell->DefaultHtml->Permissions->expects($this->any())->method('check')->will($this->returnValue(true));
+
 			$htmlAttributes = array( 'confirm' => true );
 			$result = $this->DefaultTableCell->action( '/Apples/view/#Apple.id#', $htmlAttributes );
 			$expected = array(
-				'<a href="'.Router::url('/').'apples/view/6" title="/Apples/view/6" class="apples view" onclick="return confirm(&#039;/Apples/view/6 ?&#039;);">/Apples/view</a>',
+				'<a href="'.Router::url('/').'apples/view/6" title="/Apples/view/6" class="apples view" onclick="if (confirm(&quot;\/Apples\/view\/6 ?&quot;)) { return true; } return false;">/Apples/view</a>',
 				array(
 					'class' => 'action',
 					'for' => NULL,
@@ -384,7 +394,7 @@
 
 			$result = $this->DefaultTableCell->auto( 'data[Apple][id]', array( 'type'=> 'text', 'disabled' => '( "#Apple.id#" == "6" )' ) );
 			$expected = array(
-				'<div class="input text"><label for="AppleId">Id</label><input name="data[Apple][id]" disabled="disabled" type="text" id="AppleId"/></div>',
+				'<div class="input text"><label for="AppleId">Id</label><input name="data[Apple][id]" disabled="disabled" maxlength="11" type="text" id="AppleId"/></div>',
 				array( 'class' => 'input text', ),
 			);
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );

@@ -68,7 +68,6 @@
 			.'</ul>',
 			Set::enum( $cer93['Cer93']['positioncer'], $options['Cer93']['positioncer'] ),
 		);
-		// positioncer -> '00enregistre'::text, '01signe'::text, '02attdecisioncpdv
 
 		if( $cer93['Cer93']['positioncer'] == null ) {
 			$cells = array_merge(

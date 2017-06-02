@@ -96,7 +96,7 @@
 		 */
 		public static function domain( array $url, array $attributes = array() ) {
 			if( isset( $attributes['domain'] ) ) {
-				return $attributes['domain'];
+				return '' === (string)$attributes['domain'] ? 'default' : $attributes['domain'];
 			}
 
 			return Inflector::underscore( $url['controller'] );

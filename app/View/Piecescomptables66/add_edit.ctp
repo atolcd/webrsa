@@ -1,13 +1,11 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'piececomptable66', "Piecescomptables66::{$this->action}" )
-	)
-?>
-<?php
-	echo $this->Default->form(
+	echo $this->element(
+		'WebrsaParametrages/add_edit',
 		array(
-			'Piececomptable66.name' => array('required' => true)
+			'fields' => array(
+				'Piececomptable66.id',
+				'Piececomptable66.name'
+			)
 		)
 	);
 ?>

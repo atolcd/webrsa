@@ -24,13 +24,6 @@
 		public $name = 'Appellationromev3';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
@@ -38,6 +31,8 @@
 		public $actsAs = array(
 			'Catalogueromev3',
 			'Postgres.PostgresAutovalidate',
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes',
 			'Validation2.Validation2Formattable',
 		);
 
@@ -92,6 +87,26 @@
 			'Appellationromev3.name',
 			'Appellationromev3.created',
 			'Appellationromev3.modified'
+		);
+
+		/**
+		 * Règles de validation.
+		 *
+		 * @var array
+		 */
+		public $validate = array(
+			'metierromev3_id' => array(
+				'checkUniqueMetierromev3IdName' => array(
+					'rule' => array( 'checkUnique', array( 'metierromev3_id', 'name' ) ),
+					'message' => 'Ce couple de valeurs de métier et d\'appellation est déjà présent'
+				)
+			),
+			'name' => array(
+				'checkUniqueMetierromev3IdName' => array(
+					'rule' => array( 'checkUnique', array( 'metierromev3_id', 'name' ) ),
+					'message' => 'Ce couple de valeurs de métier et d\'appellation est déjà présent'
+				)
+			)
 		);
 
 		/**

@@ -8,6 +8,7 @@
 	 * @package app.Model.Abstractclass
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * Interface pour les classes d'éléments du catalogue des fiches de prescription
@@ -79,7 +80,7 @@
 		 */
 		public function saveParametrage( array $data ) {
 			$this->create( $data );
-			return ( $this->save() !== false );
+			return ( $this->save( null, array( 'atomic' => false ) ) !== false );
 		}
 
 		/**

@@ -3,8 +3,9 @@
 	 * Code source de la classe Primoanalyse.
 	 *
 	 * @package app.Model
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Model.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Primoanalyse ...
@@ -21,13 +22,6 @@
 		public $name = 'Primoanalyse';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
@@ -35,6 +29,7 @@
 		public $actsAs = array(
 			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
 
 		/**
@@ -129,10 +124,10 @@
 				'with' => 'LogicielprimoPrimoanalyse'
 			),
 		);
-		
+
 		/**
 		 * Permet d'obtenir la requête nécéssaire pour l'index
-		 * 
+		 *
 		 * @param integer $foyer_id
 		 */
 		public function getIndexQuery($foyer_id) {
@@ -159,13 +154,13 @@
 					'Primoanalyse.created' => 'DESC'
 				)
 			);
-			
+
 			return $query;
 		}
-		
+
 		/**
 		 * Permet d'obtenir toutes les informations sur une Fiche de liaison et sa primoanalyse
-		 * 
+		 *
 		 * @param integer $primoanalyse_id
 		 * @return array
 		 */
@@ -201,10 +196,10 @@
 					'Primoanalyse.id' => $primoanalyse_id
 				),
 			);
-			
+
 			return $query;
 		}
-		
+
 		/**
 		 * Retourne les positions et les conditions CakePHP/SQL dans l'ordre dans
 		 * lequel elles doivent être traitées pour récupérer la position actuelle.
@@ -301,11 +296,11 @@
 				'fields' => 'Primoanalyse.id',
 				'conditions' => $conditions,
 			));
-			
+
 			$case = $this->getCasePositionPrimoanalyse();
 			$Dbo = $this->getDataSource();
 			$etats = array();
-			
+
 			foreach ((array)Hash::extract($occurences, '{n}.Primoanalyse.id') as $primoanalyse_id) {
 				$sql = '
 					UPDATE primoanalyses AS "Primoanalyse"
@@ -327,14 +322,14 @@
 					AND a.id = "Primoanalyse"."id"
 					RETURNING "Primoanalyse"."etat";'
 				;
-				
+
 				$etats[$primoanalyse_id] = Hash::get($Dbo->query($sql), '0.0.etat');
-				
+
 				if ($etats[$primoanalyse_id] === false) {
 					 return false;
 				}
 			}
-			
+
 			return $etats;
 		}
 
@@ -348,8 +343,8 @@
 		public function updatePositionsByPosition( $etat ) {
 			$conditions = $this->getConditionsEtat( $etat );
 
-			$query = array( 
-				'fields' => array( "{$this->alias}.{$this->primaryKey}" ), 
+			$query = array(
+				'fields' => array( "{$this->alias}.{$this->primaryKey}" ),
 				'conditions' => $conditions,
 			);
 			$sample = $this->find( 'first', $query );

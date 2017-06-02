@@ -36,7 +36,8 @@
 		public $preserveLeadingZerosInExcel = false;
 		public $_tmpFile = false;
 
-		public function CsvHelper() {
+		public function __construct(View $View, $settings = array()) {
+			parent::__construct( $View, $settings );
 			$this->clear();
 		}
 

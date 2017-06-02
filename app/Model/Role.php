@@ -3,8 +3,9 @@
 	 * Code source de la classe Role.
 	 *
 	 * @package app.Model
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Model.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Role ...
@@ -21,23 +22,16 @@
 		public $name = 'Role';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Formattable',
 			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
-		
+
 		/**
 		 * Ces models possèdent une clef étrangère vers ce model
 		 * @var array
@@ -54,7 +48,7 @@
 				'dependent' => true,
 			),
 		);
-		
+
 		/**
 		 * Associations "Has and belongs to many".
 		 *

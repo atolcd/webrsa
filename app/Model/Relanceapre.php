@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Relanceapre ...
@@ -17,12 +18,20 @@
 	{
 		public $name = 'Relanceapre';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
-			'Enumerable' => array(
-				'fields' => array(
-					'etatdossierapre' => array( 'type' => 'etatdossierapre', 'domain' => 'apre' )
-				)
+			'Allocatairelie' => array(
+				'joins' => array( 'Apre' )
 			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 			'Gedooo.Gedooo',
 			'StorablePdf' => array(
 				'afterSave' => 'deleteAll'
@@ -34,14 +43,11 @@
 
 		public $validate = array(
 			'etatdossierapre' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
-			),
-			'apre_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-				),
-			),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
+			)
 		);
 
 		public $belongsTo = array(
@@ -229,13 +235,7 @@
 						'Foyer' => array(
 							'sitfam' => $Option->sitfam(),
 							'typeocclog' => ClassRegistry::init('Foyer')->enum('typeocclog'),
-						),
-						'Type' => array(
-							'voie' =>  $Option->typevoie(),
-						),
-						'type' => array(
-							'voie' => $Option->typevoie()
-						),
+						)
 					)
 				);
 
@@ -250,34 +250,6 @@
 			}
 
 			return $pdf;
-		}
-
-		/**
-		 * Retourne l'id de la personne à laquelle est lié un enregistrement.
-		 *
-		 * @param integer $id L'id de l'enregistrement
-		 * @return integer
-		 */
-		public function personneId( $id ) {
-			$querydata = array(
-				'fields' => array( "Apre.personne_id" ),
-				'joins' => array(
-					$this->join( 'Apre', array( 'type' => 'INNER' ) )
-				),
-				'conditions' => array(
-					"{$this->alias}.id" => $id
-				),
-				'recursive' => -1
-			);
-
-			$result = $this->find( 'first', $querydata );
-
-			if( !empty( $result ) ) {
-				return $result['Apre']['personne_id'];
-			}
-			else {
-				return null;
-			}
 		}
 
 		/**

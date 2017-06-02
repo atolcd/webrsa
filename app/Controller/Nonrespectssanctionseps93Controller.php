@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * Cohorte de relance pour les dossiers d'EP "Non respect et sanctions" (CG 93).
@@ -375,7 +376,7 @@
 								)
 							);
 							$this->Nonrespectsanctionep93->Dossierep->create( $dossierep );
-							$success = $this->Nonrespectsanctionep93->Dossierep->save() && $success;
+							$success = $this->Nonrespectsanctionep93->Dossierep->save( null, array( 'atomic' => false ) ) && $success;
 
 							$nbpassagespcd = $this->Nonrespectsanctionep93->find(
 								'count',
@@ -399,7 +400,7 @@
 							);
 
 							$this->Nonrespectsanctionep93->create( $nonrespectsanctionep93 );
-							$success = $this->Nonrespectsanctionep93->save() && $success;
+							$success = $this->Nonrespectsanctionep93->save( null, array( 'atomic' => false ) ) && $success;
 						}
 						// Personnes précédemment sélectionnées, que l'on désélectionne
 						else if( !empty( $alreadyChecked ) && empty( $item['chosen'] ) ) {
@@ -408,13 +409,14 @@
 						// Personnes précédemment sélectionnées, que l'on garde sélectionnées -> rien à faire
 					}
 
-					$this->_setFlashResult( 'Save', $success );
 					if( $success ) {
 						$this->request->data = array( 'Search' => $this->request->data['Search'] );
 						$this->Nonrespectsanctionep93->commit();
+						$this->Flash->success( __( 'Save->success' ) );
 					}
 					else {
 						$this->Nonrespectsanctionep93->rollback();
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 

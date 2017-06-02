@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe ApresController permet de lister, voir, ajouter, supprimer, ...  des APREs (CG 93).
@@ -79,10 +80,12 @@
 			'DossiersMenus',
 			'Fileuploader',
 			'Gedooo.Gedooo',
+			'InsertionsBeneficiaires',
 			'Jetons2',
 			'Search.SearchPrg' => array(
 				'actions' => array( 'search', 'search_eligibilite' )
 			),
+			'WebrsaAjaxInsertions'
 		);
 
 		/**
@@ -92,10 +95,6 @@
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'exportcsv' => 'Criteresapres:exportcsv',
-			'exportcsv_eligibilite' => 'Criteresapres:exportcsv',
-			'search' => 'Criteresapres:all',
-			'search_eligibilite' => 'Criteresapres:eligible',
 			'view' => 'Apres:index',
 		);
 
@@ -109,7 +108,6 @@
 			'ajaxfileupload',
 			'ajaxref',
 			'ajaxstruct',
-			'ajaxtierspresta',
 			'ajaxtiersprestaactprof',
 			'ajaxtiersprestaformpermfimo',
 			'ajaxtiersprestaformqualif',
@@ -139,7 +137,6 @@
 			'filelink' => 'read',
 			'fileview' => 'read',
 			'index' => 'read',
-			'indexparams' => 'read',
 			'view' => 'read',
 			'search' => 'read',
 			'exportcsv' => 'read',
@@ -271,29 +268,19 @@
 				if( $saved ) {
 					$this->{$this->modelClass}->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'apres'.Configure::read( 'Apre.suffixe' ), 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id );
 					$this->{$this->modelClass}->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
 			$this->_setOptions();
 			$this->set( compact( 'dossier_id', 'personne_id', 'fichiers', 'apre' ) );
 		}
-
-		/**
-		 * Permet de regrouper l'ensemble des paramétrages pour l'APRE
-		 *
-		 * @return void
-		 */
-		public function indexparams() {
-			$this->render( 'indexparams_'.Configure::read( 'nom_form_apre_cg' ) );
-		}
-
 
 		/**
 		 * Liste des APREs liées à un allocataire.
@@ -353,10 +340,6 @@
 				$this->set( 'aprescomp', $aprescomp );
 			}
 			//END CG93 - Harry
-
-
-			$referents = $this->Referent->find( 'list' );
-			$this->set( 'referents', $referents );
 
 			$this->set( 'personne_id', $personne_id );
 
@@ -457,22 +440,7 @@
 		 * @return void
 		 */
 		public function ajaxstruct( $structurereferente_id = null ) {
-			Configure::write( 'debug', 0 );
-			$dataStructurereferente_id = Set::extract( $this->request->data, 'Apre.structurereferente_id' );
-			$structurereferente_id = ( empty( $structurereferente_id ) && !empty( $dataStructurereferente_id ) ? $dataStructurereferente_id : $structurereferente_id );
-			$qd_struct = array(
-				'conditions' => array(
-					'Structurereferente.id' => $structurereferente_id
-				),
-				'fields' => null,
-				'order' => null,
-				'recursive' => -1
-			);
-			$struct = $this->Apre->Structurereferente->find( 'first', $qd_struct );
-
-
-			$this->set( 'struct', $struct );
-			$this->render( 'ajaxstruct', 'ajax' );
+			return $this->WebrsaAjaxInsertions->structurereferente( $structurereferente_id );
 		}
 
 		/**
@@ -482,30 +450,7 @@
 		 * @return void
 		 */
 		public function ajaxref( $referent_id = null ) {
-			Configure::write( 'debug', 0 );
-			if( !empty( $referent_id ) ) {
-				$referent_id = suffix( $referent_id );
-			}
-			else {
-				$referent_id = suffix( Set::extract( $this->request->data, 'Apre.referent_id' ) );
-			}
-
-			// INFO: éviter les requêtes erronées du style ... WHERE "Referent"."id" = ''
-			$referent = array( );
-			if( !empty( $referent_id ) ) {
-				$qd_referent = array(
-					'conditions' => array(
-						'Referent.id' => $referent_id
-					),
-					'fields' => null,
-					'order' => null,
-					'recursive' => -1
-				);
-				$referent = $this->Apre->Referent->find( 'first', $qd_referent );
-			}
-
-			$this->set( 'referent', $referent );
-			$this->render( 'ajaxref', 'ajax' );
+			return $this->WebrsaAjaxInsertions->referent( prefix( suffix( $referent_id ) ) );
 		}
 
 		/**
@@ -752,15 +697,7 @@
 				$this->redirect( array( 'action' => 'index', $personne_id ) );
 			}
 
-			///Récupération de la liste des structures référentes liés uniquement à l'APRE
-			$structs = $this->Structurereferente->listeParType( array( 'apre' => true ) );
-			$this->set( 'structs', $structs );
-			///Récupération de la liste des référents liés à l'APRE
-			$referents = $this->Referent->WebrsaReferent->listOptions();
-			$this->set( 'referents', $referents );
-
 			///On ajout l'ID de l'utilisateur connecté afind e récupérer son service instructeur
-
 			$personne = $this->{$this->modelClass}->Personne->WebrsaPersonne->detailsApre( $personne_id, $this->Session->read( 'Auth.User.id' ) );
 			$this->set( 'personne', $personne );
 
@@ -833,7 +770,7 @@
 								$linkedData[$model]['apre_id'] = $this->Apre->id;
 								$linkedData[$piecesLiees] = $this->request->data[$piecesLiees];
 
-								$saved = $this->Apre->{$model}->save( $linkedData ) && $saved;
+								$saved = $this->Apre->{$model}->save( $linkedData , array( 'atomic' => false ) ) && $saved;
 							}
 						}
 					}
@@ -842,17 +779,17 @@
 						$this->Apre->WebrsaApre->supprimeAidesObsoletes( $this->request->data );
 						$this->Apre->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'apres', 'action' => 'index', $personne_id ) );
 					}
 					else {
 						$this->Apre->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 				else {
 					$this->Apre->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -893,15 +830,55 @@
 				}
 			}
 
-			$struct_id = Set::classicExtract( $this->request->data, "{$this->modelClass}.structurereferente_id" );
-			$this->set( 'struct_id', $struct_id );
-
-			$referent_id = Set::classicExtract( $this->request->data, "{$this->modelClass}.referent_id" );
-			$referent_id = preg_replace( '/^[0-9]+_([0-9]+)$/', '\1', $referent_id );
-			$this->set( 'referent_id', $referent_id );
-
 			$this->set( 'personne_id', $personne_id );
 			$this->_setOptions();
+
+			// Listes déroulantes des structures référentes et des référents
+			$options = array(
+				$this->modelClass => array(
+					'structurereferente_id' => $this->InsertionsBeneficiaires->structuresreferentes(
+						array(
+							'type' => InsertionsBeneficiairesComponent::TYPE_OPTGROUP,
+							'prefix' => false,
+							'conditions' => array(
+								'Structurereferente.apre' => 'O'
+							) + $this->InsertionsBeneficiaires->conditions['structuresreferentes']
+						)
+					),
+					'referent_id' => $this->InsertionsBeneficiaires->referents(
+						array(
+							'type' => InsertionsBeneficiairesComponent::TYPE_LIST,
+							'prefix' => true,
+							'conditions' => array(
+								'Structurereferente.apre' => 'O'
+							)  + $this->InsertionsBeneficiaires->conditions['referents']
+						)
+					)
+				)
+			);
+
+			// Ajout éventuel de la structure référente ou du référent sélectionné
+			if( false === empty( $this->request->data ) ) {
+				$options[$this->modelClass] = $this->InsertionsBeneficiaires->completeOptions(
+					$options[$this->modelClass],
+					$this->request->data[$this->modelClass],
+					array(
+						'typesorients' => false,
+						'structuresreferentes' => array(
+							'type' => InsertionsBeneficiairesComponent::TYPE_OPTGROUP,
+							'prefix' => false
+						)
+					)
+				);
+			}
+
+			$this->set(
+				array(
+					'structuresreferentes' => $options[$this->modelClass]['structurereferente_id'],
+					'referents' => $options[$this->modelClass]['referent_id']
+				)
+			);
+
 			$this->render( 'add_edit_'.Configure::read( 'nom_form_apre_cg' ) );
 		}
 
@@ -922,7 +899,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'apre_%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer l\'impression de l\'APRE.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer l\'impression de l\'APRE.' );
 				$this->redirect( $this->referer() );
 			}
 		}

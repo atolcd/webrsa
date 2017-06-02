@@ -3,8 +3,9 @@
 	 * Code source de la classe Savesearch.
 	 *
 	 * @package app.Model
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Model.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Savesearch ...
@@ -33,9 +34,9 @@
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Formattable',
-			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		/**
@@ -55,10 +56,10 @@
 				'type' => 'INNER',
 			),
 		);
-		
+
 		/**
 		 * Permet d'obtenir les options pour un utilisateur est une action en particulier
-		 * 
+		 *
 		 * @param array $conditions
 		 * @return array
 		 */
@@ -66,7 +67,7 @@
 			if (Hash::get($conditions, 'user_id') === false) {
 				return array();
 			}
-			
+
 			$results = $this->find('all',
 				array(
 					'conditions' => array(
@@ -82,7 +83,7 @@
 					)
 				)
 			);
-			
+
 			$options = array();
 			foreach ($results as $result) {
 				if (Hash::get($result, 'Savesearch.user_id') === Hash::get($conditions, 'user_id')) {
@@ -91,7 +92,7 @@
 					$options['Sauvegardes de groupe'][Hash::get($result, 'Savesearch.id')] = Hash::get($result, 'Savesearch.name');
 				}
 			}
-			
+
 			return $options;
 		}
 	}

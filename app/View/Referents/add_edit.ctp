@@ -1,26 +1,11 @@
 <?php
-	$this->pageTitle = 'Référents';
-
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 	}
-?>
 
-<h1><?php echo $this->pageTitle;?></h1>
+	echo $this->Default3->titleForLayout( $this->request->data );
 
-<?php
-	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Referent', array( 'type' => 'post' ) );
-		echo '<div>';
-		echo $this->Form->input( 'Referent.id', array( 'type' => 'hidden' ) );
-		echo '</div>';
-	}
-	else {
-		echo $this->Form->create( 'Referent', array( 'type' => 'post' ) );
-		echo '<div>';
-		echo $this->Form->input( 'Referent.id', array( 'type' => 'hidden' ) );
-		echo '</div>';
-	}
+	echo $this->Default3->DefaultForm->create();
 ?>
 <?php if ((integer)Configure::read('Cg.departement') === 66) {?>
 	<fieldset><legend>Référent lié</legend>
@@ -49,32 +34,31 @@
 <?php } ?>
 	<fieldset>
 		<?php
-			echo $this->Default2->subform(
+			echo $this->Default3->subform(
 				array(
-					'Referent.qual' => array( 'options' => $options['Referent']['qual'] ),
+					'Referent.id',
+					'Referent.qual' => array( 'empty' => true ),
 					'Referent.nom',
 					'Referent.prenom',
 					'Referent.fonction',
 					'Referent.numero_poste' => array( 'maxlength' => 10 ),
 					'Referent.email',
-					'Referent.actif' => array( 'label' => 'Actif ?', 'type' => 'radio', 'options' => $options['Referent']['actif'] )
+					'Referent.actif' => array( 'legend' => 'Actif ?', 'type' => 'radio' ),
+					'Referent.structurereferente_id' => array( 'empty' => true ),
+				),
+				array(
+					'options' => $options,
+					'domain' => 'referent'
 				)
 			);
 		?>
 	</fieldset>
-	<fieldset class="col2">
-		<legend>Structures référentes</legend>
-		<?php echo $this->Form->input( 'Referent.structurereferente_id', array( 'label' => required( false ), 'type' => 'select' , 'options' => $options['Referent']['structurereferente_id'], 'empty' => true ) );?>
-	</fieldset>
+<?php
+	echo $this->Default3->DefaultForm->buttons( array( 'Save', 'Cancel' ) );
+	echo $this->Default3->DefaultForm->end();
 
-	<div class="submit">
-		<?php
-			echo $this->Xform->submit( 'Enregistrer', array( 'div' => false ) );
-			echo $this->Xform->submit( 'Annuler', array( 'name' => 'Cancel', 'div' => false ) );
-		?>
-	</div>
-<?php echo $this->Form->end();?>
-
+	echo $this->Observer->disableFormOnSubmit();
+?>
 <script>
 	var index = [];
 

@@ -15,10 +15,10 @@
 
 <?php
 	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Modecontact', array( 'type' => 'post' ));
+		echo $this->Form->create( 'Modecontact', array( 'type' => 'post', 'novalidate' => true ));
 	}
 	else {
-		echo $this->Form->create( 'Modecontact', array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Modecontact', array( 'type' => 'post', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Modecontact.id', array( 'type' => 'hidden' ) );
 		echo '</div>';

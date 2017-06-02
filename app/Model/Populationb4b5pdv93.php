@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Populationb4b5pdv93 ...
@@ -23,20 +24,14 @@
 		public $name = 'Populationb4b5pdv93';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés.
 		 *
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Pgsqlcake.PgsqlAutovalidate',
-			'Formattable',
+			'Postgres.PostgresAutovalidate',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
 
 		/**

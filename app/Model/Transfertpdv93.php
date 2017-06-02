@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * Classe Transfertpdv93.
@@ -22,22 +23,17 @@
 		 */
 		public $name = 'Transfertpdv93';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Formattable' => array(
-				'suffix' => array(
-					'structurereferente_dst_id'
-				)
-			),
-			'Validation.Autovalidate',
 			'ModelesodtConditionnables' => array(
 				93 => array(
 					'Transfertpdv93/mutation_emploi.odt',
 					'Transfertpdv93/mutation_social.odt'
 				)
 			),
-			'Gedooo.Gedooo'
+			'Gedooo.Gedooo',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		/**
@@ -235,25 +231,10 @@
 			$Option = ClassRegistry::init( 'Option' );
 
 			$qual = $Option->qual();
-			$typevoie = $Option->typevoie();
 
-			$options =  Set::merge(
-				array(
-					'NvStructurereferente' => array(
-						'type_voie' => $typevoie
-					),
-					'Personne' => array(
-						'qual' => $qual
-					),
-					'Structurereferente' => array(
-						'type_voie' => $typevoie
-					),
-					'VxStructurereferente' => array(
-						'type_voie' => $typevoie
-					),
-					'type' => array(
-						'voie' => $typevoie,
-					),
+			$options =  array(
+				'Personne' => array(
+					'qual' => $qual
 				)
 			);
 
@@ -314,7 +295,13 @@
 		 */
 		public function prechargement() {
 			$result = false !== parent::prechargement();
-			debug($this->getDataForPdf( 0, 0 ));
+
+			try {
+				$this->getDataForPdf( 0, 0 );
+			} catch( Exception $e ) {
+				$result = false;
+			}
+
 			return $result;
 		}
 	}

@@ -33,7 +33,7 @@
 		array( 'escape' => false, 'title' => 'Visibilité formulaire', 'onclick' => "$( '{$searchFormId}' ).toggle(); return false;" )
 	).'</li></ul>';
 
-	echo $this->Form->create( null, array( 'type' => 'post', 'url' => array( 'controller' => $this->request->params['controller'], 'action' => $this->request->action ), 'id' => $searchFormId, 'class' => ( isset( $results ) ? 'folded' : 'unfolded' ) ) );
+	echo $this->Form->create( null, array( 'type' => 'post', 'url' => array( 'controller' => $this->request->params['controller'], 'action' => $this->request->action ), 'id' => $searchFormId, 'class' => ( isset( $results ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );
 	echo $this->Default3->subform(
 		array(
 			'Search.Cov58.sitecov58_id' => array( 'empty' => true, 'required' => false ),

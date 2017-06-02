@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Bilancui66 ...
@@ -17,15 +18,10 @@
 	{
 		public $name = 'Bilancui66';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Formattable' => array(
-                'suffix' => array(
-                    'refsuivicui66_id'
-                )
-            ),
-            'Pgsqlcake.PgsqlAutovalidate'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+            'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(

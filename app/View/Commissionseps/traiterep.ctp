@@ -26,7 +26,7 @@
 			}
 		}
 
-		echo $this->Form->create( null, array() );
+		echo $this->Form->create( null, array( 'novalidate' => true ) );
 
 		foreach( array_keys( $dossiers ) as $theme ) {
 			// S'il s'agit d'une ancienne thématique pour laquelle il n'existe pas de dossier, on n'affiche pas l'onglet
@@ -37,7 +37,7 @@
 				$file = sprintf( 'traiterep.%s.liste.ctp', Inflector::underscore( $theme ) );
 				echo '<div id="'.$theme.'" class="'.$errorClass.'"><h2 class="title '.$errorClass.'">'.__d( 'dossierep', 'ENUM::THEMEEP::'.Inflector::tableize( $theme ) ).'</h2>';
 				if( !empty( $dossiers[$theme]['liste'] ) ) {
-					require_once( $file );
+					include_once  $file ;
 				}
 				else {
 					echo '<p class="notice">Aucun dossier à traiter pour cette thématique.</p>';

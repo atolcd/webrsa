@@ -7,6 +7,7 @@
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
 
 	/**
 	 * POST/redirect/GET.
@@ -100,8 +101,6 @@
 							$sessionKey = sha1( implode( '/', Hash::flatten( ( empty( $sessionParams ) ? array( ) : $sessionParams ), '__' ) ) );
 							$this->Session->write( "Prg.{$controller->name}__{$controller->action}.{$sessionKey}", $sessionParams );
 							$params['sessionKey'] = $sessionKey;
-
-//							$this->log( var_export( $this->Session->read( 'Search.Prg' ), true ), LOG_DEBUG );
 						}
 					}
 
@@ -113,20 +112,13 @@
 					$controller->redirect( $redirect );
 				}
 				else if( $controller->request->is( 'get' ) ) {
-					if( CAKE_BRANCH == '1.2' ) {
-						$controller->request->data = Hash::expand( $controller->request->params['named'], '__' );
-					}
-					else {
-						$controller->request->data = Hash::expand( array_map( 'urldecode', $controller->request->params['named'] ), '__' );
-					}
+					$controller->request->data = Hash::expand( array_map( 'urldecode', $controller->request->params['named'] ), '__' );
 
 					if( isset( $controller->request->params['named']['sessionKey'] ) ) {
 						$sessionParams = $this->Session->read( "Prg.{$controller->name}__{$controller->action}.{$controller->request->params['named']['sessionKey']}" );
 
 						$this->Session->delete( "Prg.{$controller->name}__{$controller->action}.{$controller->request->params['named']['sessionKey']}" );
 						$controller->request->data = Set::merge( $controller->request->data, $sessionParams );
-
-//						$this->log( var_export( $this->Session->read( 'Search.Prg' ), true ), LOG_DEBUG );
 					}
 				}
 			}

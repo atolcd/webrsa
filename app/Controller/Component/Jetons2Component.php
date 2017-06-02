@@ -7,6 +7,7 @@
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
 
 	/**
 	 * La classe Jetons2Component permet de mettre des jetons (des locks fonctionnels) sur des
@@ -120,7 +121,7 @@
 					}
 
 					$this->Jeton->create( $jeton );
-					if( !$this->Jeton->save() ) {
+					if( !$this->Jeton->save( null, array( 'atomic' => false ) ) ) {
 						$this->Jeton->rollback();
 						$this->Controller->cakeError( 'error500' );
 						// return
@@ -498,38 +499,38 @@
 		public function beforeRedirect( Controller $controller, $url, $status = null, $exit = true ) {
 			return array( 'url' => $url, 'status' => $status, 'exit' => $exit );
 		}
-		
+
 		/**
 		 * Permet d'obtenir le nombre de jetons qu'un utilisateur possède
 		 * Dans le cas d'un multilogin, on précise le php_sid
-		 * 
+		 *
 		 * @return int
 		 */
 		public function count() {
 			if( Configure::read( 'Jetons2.disabled' ) ) {
 				return 0;
 			}
-			
+
 			$query = array(
 				'conditions' => array(
 					'user_id' => $this->Session->read( 'Auth.User.id' )
 				),
 				'contain' => false
 			);
-			
+
 			if( Configure::read( 'Utilisateurs.multilogin' ) ) {
 				$query['conditions']['php_sid'] = $this->Session->id();
 			}
-			
+
 			$result = ClassRegistry::init('Jeton')->find('count', $query);
-			
+
 			return $result;
 		}
-		
+
 		/**
 		 * Supprime tout les jetons d'un utilisateur
 		 * Dans le cas d'un multilogin, on précise le php_sid
-		 * 
+		 *
 		 * @return boolean
 		 */
 		public function deleteJetons() {
@@ -541,7 +542,7 @@
 			if ( Configure::read( 'Utilisateurs.multilogin' ) ) {
 				$conditions['php_sid'] = $this->Session->id();
 			}
-			
+
 			return ClassRegistry::init('Jeton')->deleteAll($conditions);
 		}
 	}

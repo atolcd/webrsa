@@ -1,36 +1,19 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'secteuracti', "Secteursactis::{$this->action}" )
-	)
-?>
-
-<?php
-	$fields = array(
-		'Secteuracti.name'
-	);
-	echo $this->Default2->index(
-		$secteursactis,
-		$fields,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'cohorte' => false,
-			'actions' => array(
-				'Secteursactis::edit',
-				'Secteursactis::delete',
+			'cells' => array(
+				'Secteuracti.name',
+				'/Secteursactis/edit/#Secteuracti.id#' => array(
+					'title' => true
+				),
+				'/Secteursactis/delete/#Secteuracti.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Secteuracti.has_linkedrecords#"'
+				)
 			),
-			'add' => 'Secteursactis::add'
-		)
-	);
-
-	echo '<br />';
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'cers93',
-			'action'     => 'indexparams'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#contratsinsertion'
 		)
 	);
 ?>

@@ -230,6 +230,12 @@ table.cal-table {
   text-align: center;
 }
 
+.cal-table td.cal-disabled {
+  color: #585756;
+  text-decoration: line-through;
+  cursor: default;
+}
+
 .cal-day-cell a:link.cal-selected,
 .cal-day-cell a:visited.cal-selected,
 .cal-day-cell a:active.cal-selected {
@@ -237,3 +243,4 @@ table.cal-table {
   display:block;
   text-decoration: none;
 }
+

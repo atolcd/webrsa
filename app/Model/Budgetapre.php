@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Budgetapre.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Budgetapre ...
@@ -17,54 +18,29 @@
 	{
 		public $name = 'Budgetapre';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'exercicebudgetai';
 
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
+		);
+
 		public $validate = array(
-			'exercicebudgetai' => array(
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
-					'allowEmpty' => true
-				),
-				array(
-					'rule' => 'isUnique',
-					'message' => 'Valeur déjà utilisée'
-				),
-			),
 			'montantattretat' => array(
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
-				array(
+				'inclusiveRange' => array(
 					'rule' => array( 'inclusiveRange', 0, 99999999 ),
 					'message' => 'Veuillez saisir un montant compris entre 0 et 99 999 999 € maximum.'
-				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
-					'allowEmpty' => true
-				),
-			),
-			'ddexecutionbudge' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Veuillez entrer une date correcte',
-					'allowEmpty' => true
-				),
-			),
-			'dfexecutionbudge' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Veuillez entrer une date correcte',
-					'allowEmpty' => true
-				),
-			),
-			// FIXME: faire les autres
+				)
+			)
 		);
 
 		public $hasMany = array(

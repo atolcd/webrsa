@@ -73,7 +73,7 @@ echo '<table id="Decisiondefautinsertionep66" class="tooltips">
             }
             // Fin du FIXME
 
-			// NOTE : vrai si l'EP Audition s'est transformée en EP Parcours (réorientation)
+            // NOTE : vrai si l'EP Audition s'est transformée en EP Parcours (réorientation)
 			$isParcours = in_array($decisioncg['decision'], $decisionOrientation);
             
 			$avisEp = implode(

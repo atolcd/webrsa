@@ -31,7 +31,7 @@
 		 * @param array $params
 		 * @return array
 		 */
-		public final static function access(array $record, array $params = array()) {
+		final public static function access(array $record, array $params = array()) {
 			$matches = null;
 			if (!preg_match('/^WebrsaAccess(.*)$/', get_called_class(), $matches)) {
 				trigger_error("Nom de class mal défini, il doit porter WebrsaAccess suivi du nom du controller");
@@ -70,7 +70,7 @@
 		 * @param array $params
 		 * @return array
 		 */
-		public final static function accesses(array $records, array $params = array()) {
+		final public static function accesses(array $records, array $params = array()) {
 			foreach (array_keys($records) as $key) {
 				$records[$key] = self::access($records[$key], $params);
 			}
@@ -87,7 +87,7 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		public final static function check($controller, $action, array $record = array(), array $params = array()) {
+		final public static function check($controller, $action, array $record = array(), array $params = array()) {
 			if (!isset(self::$WebrsaAccess[$controller])) {
 				App::uses("WebrsaAccess".$controller, 'Utility');
 				self::$WebrsaAccess[$controller] = "WebrsaAccess".$controller;
@@ -204,7 +204,7 @@
 		 *
 		 * @return array
 		 */
-		public final static function get_class_methods() {
+		final public static function get_class_methods() {
 			return get_class_methods(get_called_class());
 		}
 

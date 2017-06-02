@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe TraitementspdosController ...
@@ -60,18 +61,17 @@
 			'Propopdo',
 			'Traitementtypepdo',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'add' => 'Traitementspdos:edit',
 			'view' => 'Traitementspdos:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -80,12 +80,11 @@
 		public $aucunDroit = array(
 			'ajaxfiledelete',
 			'ajaxfileupload',
-			'ajaxnbtextareacourrier',
 			'ajaxstatutpersonne',
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -401,19 +400,19 @@
 					if( $saved ) {
 						$this->Traitementpdo->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'propospdos', 'action' => 'edit', $propopdo_id ) );
 					}
 					else {
 						$this->Traitementpdo->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id );
 
 					$this->Traitementpdo->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {

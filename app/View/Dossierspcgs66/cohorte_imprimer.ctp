@@ -12,8 +12,8 @@
 		'minYear_to' => '2009',
 		'maxYear_to' => date( 'Y' ) + 4
 	);
-	$notEmptyRule['notEmpty'] = array(
-		'rule' => 'notEmpty',
+	$notEmptyRule[NOT_BLANK_RULE_NAME] = array(
+		'rule' => NOT_BLANK_RULE_NAME,
 		'message' => 'Champ obligatoire'
 	);
 	$dateRule['date'] = array(
@@ -40,7 +40,7 @@
 				'Search.Dossierpcg66.typepdo_id' => array( 'empty' => true ),
 				'Search.Dossierpcg66.orgpayeur' => array( 'empty' => true ),
 				'Search.Traitementpcg66.courriersansmodele',
-				'Search.Dossierpcg66.poledossierpcg66_id',
+				'Search.Dossierpcg66.poledossierpcg66_id' => array( 'empty' => true ),
 			),
 			array( 'options' => array( 'Search' => $options ), 'domain' => $domain )
 		)
@@ -51,7 +51,7 @@
 	;
 
 	$this->end();
-	
+
 	/*
 	 * Modifications du search_footer :
 	 */
@@ -60,13 +60,13 @@
 	$exportcsvActionName = isset($explAction[1]) ? 'exportcsv_'.$explAction[1] : 'exportcsv';
 	$searchData['Search'] = (array)Hash::get( $this->request->data, 'Search' );
 	$buttons = '';
-	
+
 	$count = (int)Hash::get( $this->request->params, "paging.Dossierpcg66.count" );
 	$countResults = isset($results) ? count($results) : 0;
 	if( $count > 65000 ) {
 		$button .= '<p class="noprint" style="border: 1px solid #556; background: #ffe;padding: 0.5em;">'.$this->Xhtml->image( 'icons/error.png' ).'<strong>Attention</strong>, il est possible que votre tableur ne puisse pas vous afficher les résultats au-delà de la 65&nbsp;000ème ligne.</p>';
 	}
-	
+
 	$buttons .= '<ul class="actionMenu">'
 			.'<li>'
 				.$this->Xhtml->printLinkJs(
@@ -96,11 +96,11 @@
 			</li>
 		</ul>'
 	;
-	
+
 	/*
 	 * Fin de la modification du search_footer (inclu dans afterResult avec exportcsv => false)
 	 */
-	
+
 	echo $this->element(
 		'ConfigurableQuery/search',
 		array(

@@ -155,7 +155,7 @@
 			$foreignKeys = array( 'structurereferente_id', 'referent_id', 'permanence_id', 'typerdv_id' );
 			foreach( $foreignKeys as $foreignKey ) {
 				$path = 'Rendezvous.'.$foreignKey;
-				$value = suffix( (string)Hash::get( $search, $path ) );
+				$value = (string)suffix( (string)Hash::get( $search, $path ) );
 				if( $value !== '' ) {
 					$query['conditions'][$path] = $value;
 				}

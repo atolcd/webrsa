@@ -48,7 +48,6 @@
 			'Allocataire',
 			'Personne',
 			'Canton',
-			'Demenagementhorsdpt',
 		);
 
 		/**
@@ -192,7 +191,7 @@
 				)
 			);
 
-			$query = $this->Demenagementhorsdpt->searchConditionsAdressesRang0203($query, $conditions);
+			$query = $this->searchConditionsAdressesRang0203($query, $conditions);
 
 			// Conditions sur les dates d'emménagement pour les externes
 			if( Configure::read( 'Cg.departement' ) == 93 && ( strpos( CakeSession::read( 'Auth.User.type' ), 'externe_' ) === 0 ) ) {
@@ -201,16 +200,71 @@
 						// L'allocataire a quitté le CG en rang 01 et l'adresse de rang 2 ...
 						array(
 							'Adresse2.numcom LIKE' => "{$departement}%",
-							"CAST( DATE_PART( 'year', \"Adressefoyer\".\"dtemm\" ) + 1 || '-03-31' AS DATE ) >= NOW()",
+							"( DATE_PART( 'year', \"Adressefoyer\".\"dtemm\" ) + 1 || '-03-31' )::DATE >= NOW()",
 						),
 						// L'allocataire a quitté l'adresse de rang 3 ...
 						array(
 							'Adresse3.numcom LIKE' => "{$departement}%",
-							"CAST( DATE_PART( 'year', \"Adressefoyer2\".\"dtemm\" ) + 1 || '-03-31' AS DATE ) >= NOW()",
+							"( DATE_PART( 'year', \"Adressefoyer2\".\"dtemm\" ) + 1 || '-03-31' )::DATE >= NOW()",
 						),
 					)
 				);
 			}
+
+			return $query;
+		}
+
+		/**
+		 * Permet d'appliquer les conditions concernant les adresses sur les
+		 * adresses de rang 2 et 3 au $query et complète le $query avec la variable
+		 * $conditions non modifiée.
+		 *
+		 * @param array $query
+		 * @param array $conditions
+		 * @return array
+		 */
+		public function searchConditionsAdressesRang0203( array $query, array $conditions = array() ) {
+			$conditionsAdresses = array();
+
+			foreach( $query['conditions'] as $key => $value ) {
+				$replacements = array(
+					'Adressefoyer' => "Adressefoyer2",
+					'Adresse' => "Adresse2",
+					'01' => "02"
+				);
+
+				$keyValue = array( $key => $value );
+				$newKeyValue = array_words_replace( $keyValue, $replacements );
+				$diff = Hash::diff( $keyValue, $newKeyValue );
+				if( !empty( $diff ) ) {
+					$conditionsAdresses = Hash::merge( $conditionsAdresses, $newKeyValue );
+				}
+				else {
+					if( !is_numeric( $key ) ) {
+						$conditions[$key] = $value;
+					}
+					else {
+						$conditions[] = $value;
+					}
+				}
+			}
+
+			if( !empty( $conditionsAdresses ) ) {
+				$replacements = array(
+					'Adressefoyer2' => "Adressefoyer3",
+					'Adresse2' => "Adresse3",
+					'02' => '03'
+				);
+
+				$conditions[] = array(
+					'OR' => array(
+						$conditionsAdresses,
+						array_words_replace( $conditionsAdresses, $replacements )
+					)
+				);
+			}
+
+			$query['conditions'] = $conditions;
 
 			return $query;
 		}

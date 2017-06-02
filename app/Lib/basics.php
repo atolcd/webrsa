@@ -33,64 +33,6 @@
 	}
 
 	/**
-	 * @deprecated (pas / plus utilisée)
-	 */
-	function __translate( $value ) {
-		switch( gettype( $value ) ) {
-			case 'NULL':
-				$value = 'NULL';
-				break;
-			case 'boolean':
-				$value = ( $value ? 'true' : 'false' );
-				break;
-			case 'integer':
-			case 'double':
-				$value = $value;
-				break;
-			case 'string':
-				$value = "'$value'";
-				break;
-			default:
-				trigger_error( gettype( $value ), E_USER_WARNING );
-		}
-		return $value;
-	}
-
-	/**
-	 * @deprecated (pas / plus utilisée)
-	 */
-	function dump( $datas = false, $showHtml = false, $showFrom = true ) {
-		if( Configure::read() > 0 ) {
-			if( $showFrom ) {
-				$calledFrom = debug_backtrace();
-				echo '<strong>'.substr( str_replace( ROOT, '', $calledFrom[0]['file'] ), 1 ).'</strong>';
-				echo ' (line <strong>'.$calledFrom[0]['line'].'</strong>)';
-			}
-			echo "\n<pre class=\"cake-debug\">\n";
-
-			if( is_array( $datas ) ) {
-				$datas = Hash::flatten( $datas, '_____' );
-
-				foreach( $datas as $key => $value ) {
-					$datas[$key] = __translate( $value );
-				}
-
-				$datas = Hash::expand( $datas, '_____' );
-			}
-			else {
-				$datas = __translate( $datas );
-			}
-
-			$datas = print_r( $datas, true );
-
-			if( $showHtml ) {
-				$datas = str_replace( '<', '&lt;', str_replace( '>', '&gt;', $datas ) );
-			}
-			echo $datas."\n</pre>\n";
-		}
-	}
-
-	/**
 	 * Filtre le paramètre $array en fonction des clés contenues dans le paramètre
 	 * $filterKeys.
 	 *
@@ -361,27 +303,43 @@
 	/**
 	 * Retourne la partie de $value qui précède la première occurence de $separator.
 	 *
-	 * @param string $value
+	 * @param string|array $value
 	 * @param string $separator
 	 * @return string
 	 */
 	function suffix( $value, $separator = '_' ) {
-		$quoted_separator = preg_quote( $separator );
-		$return = preg_replace( '/^(.*'.$quoted_separator.')([^'.$quoted_separator.']+)$/', '\2', $value );
-		return ( $return != $separator ? $return : null );
+		if( false === is_array( $value ) ) {
+			$quoted_separator = preg_quote( $separator );
+			$return = preg_replace( '/^(.*'.$quoted_separator.')([^'.$quoted_separator.']*)$/', '\2', $value );
+			return ( $return !== $separator && $return !== '' ? $return : null );
+		}
+		else {
+			foreach( array_keys( $value ) as $key ) {
+				$value[$key] = suffix( $value[$key], $separator );
+			}
+			return $value;
+		}
 	}
 
 	/**
 	 * Retourne la partie de $value qui suit la dernière occurence de $separator.
 	 *
-	 * @param string $value
+	 * @param string|array $value
 	 * @param string $separator
 	 * @return string
 	 */
 	function prefix( $value, $separator = '_' ) {
-		$quoted_separator = preg_quote( $separator );
-		$return = preg_replace( '/^([^'.$quoted_separator.']+)('.$quoted_separator.'.*)$/', '\1', $value );
-		return ( $return != $separator ? $return : null );
+		if( false === is_array( $value ) ) {
+			$quoted_separator = preg_quote( $separator );
+			$return = preg_replace( '/^([^'.$quoted_separator.']*)('.$quoted_separator.'.*)$/', '\1', $value );
+			return ( $return !== $separator && $return !== '' ? $return : null );
+		}
+		else {
+			foreach( array_keys( $value ) as $key ) {
+				$value[$key] = prefix( $value[$key], $separator );
+			}
+			return $value;
+		}
 	}
 
 	/**
@@ -836,6 +794,14 @@
 		);
 	}
 
+	/**
+	 *
+	 * @deprecated since 3.2.0, use alias instead
+	 *
+	 * @param type $subject
+	 * @param array $replacement
+	 * @return type
+	 */
 	function words_replace( $subject, array $replacement ) {
 		$regexes = array();
 		foreach( $replacement as $key => $value ) {
@@ -854,6 +820,8 @@
 	 * 	$replacement = array( 'Foo' => 'Baz' );
 	 * 	Résultat: array( 'Baz.id' => array( 'Bar' => 1 ), 'Foobar' => array( 'Baz.bar = Bar.foo' ) );
 	 *
+	 * @deprecated since 3.2.0, use alias instead
+	 *
 	 * @param array $subject
 	 * @param array $replacement
 	 * @return array
@@ -865,6 +833,44 @@
 			$regexes[$key] = $value;
 		}
 		return recursive_key_value_preg_replace( $subject, $regexes );
+	}
+
+	/**
+	 * Remplace tous les "mots" se trouvant dans $replacement sous la forme
+	 * avant => apres dans la chaine de caractères $subject ou dans les clés et
+	 * les valeurs de $subject, de manière récursive.
+	 *
+	 * Exemples:
+	 *	1°) Avec une chaîne de caractères
+	 *		$subject = 'Foo.bar = Bar.foo';
+	 *		$replacement = array( 'Foo' => 'Baz' );
+	 *		Résultat: 'Baz.bar = Bar.foo';
+	 *	2°) Avec un array
+	 *		$subject = array( 'Foo.id' => array( 'Bar' => 1 ), 'Foobar' => array( 'Foo.bar = Bar.foo' ) );
+	 *		$replacement = array( 'Foo' => 'Baz' );
+	 *		Résultat: array( 'Baz.id' => array( 'Bar' => 1 ), 'Foobar' => array( 'Baz.bar = Bar.foo' ) );
+	 *
+	 * @param string|array $subject
+	 * @param array $replacement
+	 * @return string|array
+	 */
+	function alias( $subject, array $replacement ) {
+		$regexes = array();
+		foreach( $replacement as $key => $value ) {
+			$key = "/(?<!\.)(?<!\w)(".preg_quote( $key ).")(?!\w)/";
+			$regexes[$key] = $value;
+		}
+
+		if( false === is_array( $subject ) ) {
+			return preg_replace( array_keys( $regexes ), array_values( $regexes ), $subject );
+		}
+		else {
+			$result = array();
+			foreach( $subject as $key => $value ) {
+				$result[alias( $key, $replacement )] = alias( $value, $replacement );
+			}
+			return $result;
+		}
 	}
 
 	/**

@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
 <attributes version="1.0">
-    <fileobject name="CakePHP Behavior Test Case.php">
-        <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
-        <attr name="template" boolvalue="true"/>
-    </fileobject>
-    <fileobject name="CakePHP Component Test Case.php">
-        <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
-        <attr name="template" boolvalue="true"/>
-    </fileobject>
-    <fileobject name="CakePHP Controller Test Case.php">
-        <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
-        <attr name="template" boolvalue="true"/>
-    </fileobject>
-	<fileobject name="CakePHP Fixture.php">
+	<fileobject name="Fixture.php">
+		<attr name="displayName" stringvalue="CakePHP 2.x.x Fixture"/>
 		<attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
 		<attr name="template" boolvalue="true"/>
 	</fileobject>
-    <fileobject name="CakePHP Helper Test Case.php">
-        <attr name="displayName" stringvalue="CakePHP Helper Test Case.php"/>
+    <fileobject name="BehaviorTest.php">
+		<attr name="displayName" stringvalue="CakePHP 2.x.x test Behavior"/>
         <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
         <attr name="template" boolvalue="true"/>
     </fileobject>
-    <fileobject name="CakePHP Model Test Case.php">
+    <fileobject name="ComponentTest.php">
+		<attr name="displayName" stringvalue="CakePHP 2.x.x test Component"/>
+        <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+        <attr name="template" boolvalue="true"/>
+    </fileobject>
+    <fileobject name="ControllerTest.php">
+		<attr name="displayName" stringvalue="CakePHP 2.x.x test Controller"/>
+        <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+        <attr name="template" boolvalue="true"/>
+    </fileobject>
+    <fileobject name="HelperTest.php">
+		<attr name="displayName" stringvalue="CakePHP 2.x.x test Helper"/>
+        <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+        <attr name="template" boolvalue="true"/>
+    </fileobject>
+    <fileobject name="ModelTest.php">
+		<attr name="displayName" stringvalue="CakePHP 2.x.x test Model"/>
         <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
         <attr name="template" boolvalue="true"/>
     </fileobject>

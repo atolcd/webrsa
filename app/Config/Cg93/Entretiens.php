@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par entretiens (nouveau)"
+	 * Menu "Recherches" > "Par entretiens"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Entretiens.search',
@@ -82,7 +82,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par entretiens (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par entretiens"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Entretiens.exportcsv',

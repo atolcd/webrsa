@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe ComitesapresController ...
@@ -62,27 +63,27 @@
 			'Personne',
 			'Referent',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Comitesapres:edit',
 			'view' => 'Comitesapres:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -271,7 +272,7 @@
 
 					if( $saved ) {
 						$this->Comiteapre->commit();
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 
 						if( !$isRapport ) {
 							$this->redirect( array( 'controller' => 'comitesapres', 'action' => 'view', $this->Comiteapre->id ) );
@@ -282,7 +283,7 @@
 					}
 					else {
 						$this->Comiteapre->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 			}

@@ -1,0 +1,217 @@
+# Traductions de fichedeliaisons.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+# Titres
+# ==============================================================================
+
+msgid "/Fichedeliaisons/index/:heading"
+msgstr "Fiches de liaisons"
+
+msgid "/Fichedeliaisons/view/:heading"
+msgstr "Vue d'une fiche de liaison"
+
+msgid "/Fichedeliaisons/add/:heading"
+msgstr "Ajout d'une fiche de liaison"
+
+msgid "/Fichedeliaisons/edit/:heading"
+msgstr "Modification d'une fiche de liaison"
+
+msgid "/Fichedeliaisons/avis/:heading"
+msgstr "Avis technique d'une fiche de liaison"
+
+msgid "/Fichedeliaisons/validation/:heading"
+msgstr "Validation d'une fiche de liaison"
+
+msgid "/Fichedeliaisons/filelink/:heading"
+msgstr "Fichiers liés à une fiche de liaison"
+
+# ==============================================================================
+# Actions
+# ==============================================================================
+
+msgid "/Fichedeliaisons/add"
+msgstr "Ajouter"
+
+msgid "/Fichedeliaisons/add/:title"
+msgstr "Ajouter"
+
+msgid "/Fichedeliaisons/view"
+msgstr "Voir"
+
+msgid "/Fichedeliaisons/view/#Fichedeliaison.id#"
+msgstr "Voir"
+
+msgid "/Fichedeliaisons/edit"
+msgstr "Modifier"
+
+msgid "/Fichedeliaisons/edit/#Fichedeliaison.id#"
+msgstr "Modifier"
+
+msgid "/Fichedeliaisons/avis"
+msgstr "Avis technique"
+
+msgid "/Fichedeliaisons/avis/#Fichedeliaison.id#"
+msgstr "Avis technique"
+
+msgid "/Fichedeliaisons/validation"
+msgstr "Validation"
+
+msgid "/Fichedeliaisons/validation/#Fichedeliaison.id#"
+msgstr "Validation"
+
+msgid "/Fichedeliaisons/delete"
+msgstr "Suppression"
+
+msgid "/Fichedeliaisons/delete/#Fichedeliaison.id#"
+msgstr "Suppression"
+
+msgid "/Fichedeliaisons/delete/#Fichedeliaison.id# ?"
+msgstr "Cette action supprimera définitivement cet enregistrement. Voulez-vous continuer ?"
+
+msgid "/Fichedeliaisons/filelink"
+msgstr "Fichiers liés"
+
+msgid "/Fichedeliaisons/filelink/#Fichedeliaison.id#"
+msgstr "Fichiers liés"
+
+msgid "/Primoanalyses/view"
+msgstr "Voir"
+
+msgid "/Primoanalyses/view/#Primoanalyse.id#"
+msgstr "Voir"
+
+msgid "/Primoanalyses/affecter"
+msgstr "Affecter"
+
+msgid "/Primoanalyses/affecter/#Primoanalyse.id#"
+msgstr "Affecter"
+
+msgid "/Primoanalyses/proposition"
+msgstr "Proposition"
+
+msgid "/Primoanalyses/proposition/#Primoanalyse.id#"
+msgstr "Proposition"
+
+msgid "/Primoanalyses/avis"
+msgstr "Avis technique"
+
+msgid "/Primoanalyses/avis/#Primoanalyse.id#"
+msgstr "Avis technique"
+
+msgid "/Primoanalyses/validation"
+msgstr "Validation"
+
+msgid "/Primoanalyses/validation/#Primoanalyse.id#"
+msgstr "Validation"
+
+msgid "/Primoanalyses/vu"
+msgstr "Vu"
+
+msgid "/Primoanalyses/vu/#Primoanalyse.id#"
+msgstr "Vu"
+
+msgid "/Primoanalyses/afaire"
+msgstr "A faire"
+
+msgid "/Primoanalyses/afaire/#Primoanalyse.id#"
+msgstr "A faire"
+
+msgid "/Primoanalyses/delete"
+msgstr "Suppression"
+
+msgid "/Primoanalyses/delete/#Primoanalyse.id#"
+msgstr "Suppression"
+
+msgid "/Primoanalyses/delete/#Primoanalyse.id# ?"
+msgstr "Cette action supprimera définitivement cet enregistrement. Voulez-vous continuer ?"
+
+msgid "/Dossierspcgs66/edit"
+msgstr "Dossier PCG"
+
+msgid "/Dossierspcgs66/edit/#Primoanalyse.dossierpcg66_id#"
+msgstr "Dossier PCG"
+
+# ==============================================================================
+# Champs
+# ==============================================================================
+
+msgid "Fichedeliaison.motiffichedeliaison_id"
+msgstr "Motif de la saisine"
+
+msgid "Fichedeliaison.expediteur_id"
+msgstr "Expéditeur"
+
+msgid "Fichedeliaison.destinataire_id"
+msgstr "Destinataire"
+
+msgid "Fichedeliaison.datefiche"
+msgstr "Date"
+
+msgid "Fichedeliaison.commentaire"
+msgstr "Commentaire"
+
+msgid "Fichedeliaison.etat"
+msgstr "Etat de la fiche"
+
+msgid "FichedeliaisonPersonne.personne_id"
+msgstr "Concerne"
+
+msgid "Avistechniquefiche.date"
+msgstr "Date de la fiche"
+
+msgid "Avistechniquefiche.choix"
+msgstr "Choix"
+
+msgid "Avistechniquefiche.commentaire"
+msgstr "Commentaire"
+
+msgid "Validationfiche.date"
+msgstr "Date de la validation"
+
+msgid "Validationfiche.choix"
+msgstr "Choix"
+
+msgid "Validationfiche.commentaire"
+msgstr "Commentaire"
+
+msgid "Primoanalyse.etat"
+msgstr "Etat"
+
+msgid "Primoanalyse.user_id"
+msgstr "Gestionnaire"
+
+msgid "Validationprimo.date"
+msgstr "Date de la validation"
+
+msgid "Validationprimo.choix"
+msgstr "Choix"
+
+msgid "Validationprimo.commentaire"
+msgstr "Commentaire"
+
+msgid "Fichedeliaison.haspiecejointe"
+msgstr "Pièce jointe"
+
+# ==============================================================================
+# E-mail
+# ==============================================================================
+
+msgid "Notification::subject"
+msgstr "Fiche de liaison"
+
+msgid "Notification::email"
+msgstr "Une fiche de liaison à été créé par '%s' pour '%s'. Elle concerne le dossier '%s' pour le motif : '%s'"
+
+msgid "Destinataireemail.a"
+msgstr "A"
+
+msgid "Destinataireemail.cc"
+msgstr "CC"

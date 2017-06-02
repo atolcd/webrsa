@@ -7,7 +7,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( APPLIBS.'cmis.php' );
+	App::uses( 'AppController', 'Controller' );
+	require_once  APPLIBS.'cmis.php' ;
 
 	/**
 	 * La classe Relancesnonrespectssanctionseps93Controller ...
@@ -265,10 +266,10 @@
 						// Relances non respect orientation
 						$success = $this->Relancenonrespectsanctionep93->saveCohorte( $newData, $search );
 
-						$this->_setFlashResult( 'Save', $success );
 						if( $success ) {
 							unset( $this->request->data['Relancenonrespectsanctionep93'], $this->request->data['sessionKey'] );
 							$this->Nonrespectsanctionep93->commit();
+							$this->Flash->success( __( 'Save->success' ) );
 							// On libère les jetons
 							$this->Cohortes->release( $dossiersIds );
 
@@ -277,6 +278,7 @@
 						}
 						else {
 							$this->Nonrespectsanctionep93->rollback();
+							$this->Flash->error( __( 'Save->error' ) );
 						}
 					}
 					else { // On libère les jetons de toutes façons
@@ -325,7 +327,7 @@
 				$this->set( compact( 'results' ) );
 
 				if( $this->Relancenonrespectsanctionep93->checkCompareError( Hash::expand( $search ) ) == true ) {
-					$this->Session->setFlash( 'Vos critères de recherche entrent en contradiction avec les critères de base', 'flash/error' );
+					$this->Flash->error( 'Vos critères de recherche entrent en contradiction avec les critères de base' );
 				}
 			}
 
@@ -367,12 +369,12 @@
 
 				$nonrespectsanctionep93 = array( 'Nonrespectsanctionep93' => $this->request->data['Nonrespectsanctionep93'] );
 				$this->Relancenonrespectsanctionep93->Nonrespectsanctionep93->create( $nonrespectsanctionep93 );
-				$success = $this->Relancenonrespectsanctionep93->Nonrespectsanctionep93->save() && $success;
+				$success = $this->Relancenonrespectsanctionep93->Nonrespectsanctionep93->save( null, array( 'atomic' => false ) ) && $success;
 
 				$relancenonrespectsanctionep93 = array( 'Relancenonrespectsanctionep93' => $this->request->data['Relancenonrespectsanctionep93'] );
 				$relancenonrespectsanctionep93['Relancenonrespectsanctionep93']['nonrespectsanctionep93_id'] = $this->Nonrespectsanctionep93->id;
 				$this->Relancenonrespectsanctionep93->create( $relancenonrespectsanctionep93 );
-				$success = $this->Relancenonrespectsanctionep93->save() && $success;
+				$success = $this->Relancenonrespectsanctionep93->save( null, array( 'atomic' => false ) ) && $success;
 
 				// Création du dossier d'EP pour la seconde relance
 				if( Hash::get( $this->request->data, 'Relancenonrespectsanctionep93.numrelance' ) == 2 ) {
@@ -383,7 +385,7 @@
 						),
 					);
 					$this->Relancenonrespectsanctionep93->Nonrespectsanctionep93->Dossierep->create( $dossierep );
-					$success = $this->Relancenonrespectsanctionep93->Nonrespectsanctionep93->Dossierep->save() && $success;
+					$success = $this->Relancenonrespectsanctionep93->Nonrespectsanctionep93->Dossierep->save( null, array( 'atomic' => false ) ) && $success;
 
 					if( $success ) {
 						$success = $this->Relancenonrespectsanctionep93->Nonrespectsanctionep93->updateAllUnBound(
@@ -397,16 +399,15 @@
 					}
 				}
 
-				$this->_setFlashResult( 'Save', $success );
 				if( $success ) {
 					$this->Relancenonrespectsanctionep93->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$this->Relancenonrespectsanctionep93->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -560,7 +561,7 @@
 			}
 
 			if( $nErrors > 0 ) {
-				$this->Session->setFlash( "Erreur lors de l'impression en cohorte: {$nErrors} documents n'ont pas pu être imprimés. Abandon de l'impression de la cohorte. Demandez à votre administrateur d'exécuter la commande bash suivante: sudo -u www-data lib/Cake/Console/cake generationpdfs relancenonrespectsanctionep93", 'flash/error' );
+				$this->Flash->error( "Erreur lors de l'impression en cohorte: {$nErrors} documents n'ont pas pu être imprimés. Abandon de l'impression de la cohorte. Demandez à votre administrateur d'exécuter la commande bash suivante: sudo -u www-data lib/Cake/Console/cake generationpdfs relancenonrespectsanctionep93" );
 				$this->redirect( $this->referer() );
 			}
 
@@ -583,7 +584,7 @@
 			}
 			else {
 				$this->Relancenonrespectsanctionep93->rollback();
-				$this->Session->setFlash( 'Erreur lors de l\'impression en cohorte.', 'flash/error' );
+				$this->Flash->error( 'Erreur lors de l\'impression en cohorte.' );
 				$this->redirect( $this->referer() );
 			}
 		}

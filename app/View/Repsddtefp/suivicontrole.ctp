@@ -32,7 +32,7 @@
 <!-- /************************************************************************/ -->
 
 <?php
-	echo $this->Form->create( 'ReportingApre', array( 'url' => array( 'controller' => 'repsddtefp', 'action' => 'suivicontrole' ), 'id' => 'ReportingApre', 'class' => ( !empty( $this->request->data ) ? 'folded' : 'unfolded' ) ) );
+	echo $this->Form->create( 'ReportingApre', array( 'url' => array( 'controller' => 'repsddtefp', 'action' => 'suivicontrole' ), 'id' => 'ReportingApre', 'class' => ( !empty( $this->request->data ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );
 
 	echo $this->Form->input( 'Repddtefp.annee', array( 'label' => 'Année', 'type' => 'select', 'options' => array_range( date( 'Y' ), 2008 ), 'empty' => true ) );
 	echo $this->Form->input( 'Repddtefp.mois', array( 'label' => 'Mois', 'type' => 'date', 'dateFormat' => 'M', 'empty' => true ) );

@@ -79,7 +79,7 @@
 				Set::classicExtract( $apre, 'Personne.prenom' ),
 				Set::classicExtract( $apre, 'Adresse.nomcom' ),
 				$libelleNatureaide,
-				$this->Theme->button( 'print', array( 'action' => 'impression', $apre_id, $this->request->params['pass'][0], 'dest' => 'beneficiaire' ) /*array( 'enabled' =>  !$isTiers )*/ ),
+				$this->Theme->button( 'print', array( 'action' => 'impression', $apre_id, $this->request->params['pass'][0], 'dest' => 'beneficiaire' ) ),
 				$this->Theme->button( 'print', array( 'action' => 'impression', $apre_id, $this->request->params['pass'][0], 'dest' => 'tiersprestataire' ), array( 'enabled' =>  $isTiers ) ),
 			);
 		}

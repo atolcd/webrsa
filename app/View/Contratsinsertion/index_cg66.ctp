@@ -1,6 +1,6 @@
 <?php
 	echo $this->element('default_index');
-	
+
 	echo $this->Default3->index(
 		$contratsinsertion,
 		$this->Translator->normalize(
@@ -47,7 +47,7 @@
 			'innerTable' => $this->Translator->normalize(
 				array(
 					'Contratinsertion.motifannulation' => array(
-						'condition' => "'#Contratinsertion.motifannulation#' !== ''"
+						'condition' => "'#Contratinsertion.decision_ci#' == 'A' || '#Contratinsertion.positioncer#' == 'annule'"
 					),
 					'Contratinsertion.duree_engag',
 				)

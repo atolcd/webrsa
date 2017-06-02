@@ -8,7 +8,7 @@
 <h1><?php echo $this->pageTitle;?></h1>
 
 <?php
-	echo $this->Form->create( 'Repddtefp', array( 'type' => 'post', 'class' => 'noprint' ) );
+	echo $this->Form->create( 'Repddtefp', array( 'type' => 'post', 'class' => 'noprint', 'novalidate' => true ) );
 
 	echo $this->Form->input( 'Repddtefp.annee', array( 'label' => 'Année', 'type' => 'select', 'options' => array_range( date( 'Y' ), 2008 ), 'empty' => true ) );
 	echo $this->Form->input( 'Repddtefp.semestre', array( 'label' => 'Semestre', 'type' => 'select', 'options' => array_range( 1, 2 ) ) );

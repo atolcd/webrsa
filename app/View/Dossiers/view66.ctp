@@ -90,6 +90,25 @@
 		}
 	}
 
+	function etatdossiercui66( array $data, array $enums ) {
+		$etatdossiercui66 = Hash::get( $data, 'Cui66.etatdossiercui66' );
+
+		$insert = '';
+		if ( in_array( $etatdossiercui66, array( 'contratsuspendu', 'rupturecontrat', 'dossierrelance' ) ) ){
+			switch ( $etatdossiercui66 ){
+				case 'contratsuspendu': $insert = new DateTime($data['Suspensioncui66']['datefin']); break;
+				case 'rupturecontrat': $insert = new DateTime($data['Rupturecui66']['daterupture']); break;
+				case 'dossierrelance': $insert = new DateTime($data['Emailcui']['dateenvoi']); break;
+				default: $insert = '';
+			}
+			if( false === empty( $insert ) ) {
+				$insert = date_format( $insert, 'd/m/Y' );
+			}
+		}
+
+		return sprintf( value( $enums, $etatdossiercui66 ), $insert );
+	}
+
 	/////  Récupération données du Contratinsertion pour le DEM et le CJT
 	$DT = Set::extract( 'DEM.Contratinsertion.num_contrat', $details);
 	$CT = Set::extract( 'CJT.Contratinsertion.num_contrat', $details);
@@ -127,7 +146,7 @@
 			</tr>
 		</tbody>
 	</table>
-	
+
 	<div class="col-2 gauche">
 		<h2>Suivi du parcours</h2>
 		<table>
@@ -170,7 +189,7 @@
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<h2>Personnes</h2>
 		<table>
 			<?php echo thead( 10 );?>
@@ -201,7 +220,7 @@
 				</tr>
 				<tr class="even">
 					<th><?php echo __d( 'foyer', 'Foyer.sitfam' );?></th>
-					<td colspan="2"><?php echo ( isset( $sitfam[$details['Foyer']['sitfam']] ) ?  $sitfam[$details['Foyer']['sitfam']] : null );?></td>
+					<td colspan="2"><?php echo  isset( $sitfam[$details['Foyer']['sitfam']] ) ?  $sitfam[$details['Foyer']['sitfam']] : null ;?></td>
 				</tr>
 				<tr class="odd">
 					<th><?php echo __( 'adresse' );?></th>
@@ -211,7 +230,7 @@
 				</tr>
 				<tr class="even">
 					<th><?php echo __d( 'adresse', 'Adresse.nomcom' );?></th>
-					<td colspan="2"><?php echo ( isset( $details['Adresse']['nomcom'] ) ? $details['Adresse']['nomcom'] : null );?></td>
+					<td colspan="2"><?php echo  isset( $details['Adresse']['nomcom'] ) ? $details['Adresse']['nomcom'] : null ;?></td>
 				</tr>
 				<tr class="odd">
 					<th>Soumis à droits et devoirs</th>
@@ -248,7 +267,7 @@
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<h2>Informations CAF / MSA</h2>
 		<table>
 			<tbody>
@@ -306,7 +325,7 @@
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<h2>Dernière Information Pôle Emploi</h2>
 		<table>
 		<?php echo thead( 10 );?>
@@ -390,7 +409,7 @@
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<h2>Contrat d'Engagement Réciproque</h2>
 		<table>
 		<?php echo thead( 10 );?>
@@ -465,12 +484,12 @@
 				</tr>
 				<tr class="odd">
 					<th>Etat du dossier</th>
-					<td><?php echo Set::enum( Set::classicExtract( $details, 'DEM.Cui66.etatdossiercui66' ), $enumcui['Cui66']['etatdossiercui66'] );?></td>
-					<td><?php echo Set::enum( Set::classicExtract( $details, 'CJT.Cui66.etatdossiercui66' ), $enumcui['Cui66']['etatdossiercui66'] );?></td>
+					<td><?php echo etatdossiercui66( (array)Hash::get( $details, 'DEM' ), $enumcui['Cui66']['etatdossiercui66'] );?></td>
+					<td><?php echo etatdossiercui66( (array)Hash::get( $details, 'CJT' ), $enumcui['Cui66']['etatdossiercui66'] );?></td>
 				</tr>
 			</tbody>
 		</table>
-		
+
 		<h2>Autres demandes RSA</h2>
 		<table>
 		<?php echo theadPastDossierDEM( 50, 8 );?>
@@ -555,7 +574,7 @@
 				<?php endif;?>
 			</tbody>
 		</table>
-		
+
 		<h2>Autres demandes RSA sans prestation</h2>
 		<table>
 		<?php echo theadPastDossierDEM( 50, 8 );?>
@@ -638,7 +657,7 @@
 				<?php endif;?>
 			</tbody>
 		</table>
-		
+
 		<h2>APRE/ADREs Accordées par années</h2>
 		<table>
 			<thead>
@@ -654,7 +673,7 @@
 				// On s'assure de la présence du DEM et du CJT
 				$value['DEM'] = isset($value['DEM']) ? $value['DEM'] : 0;
 				$value['CJT'] = isset($value['CJT']) ? $value['CJT'] : 0;
-				
+
 				echo "<tr class=\"{$class}\"><th>{$annee}</th>";
 				$class = $class === 'odd' ? 'even' : 'odd';
 				foreach($value as $role => $montant) {
@@ -665,7 +684,7 @@
 		?>
 		</table>
 	</div>
-	
+
 	<h2>Dernier passage en EP</h2>
 <?php
 	$detailsEp = array();

@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Statistiqueministerielle ...
@@ -1742,7 +1743,10 @@
 					$query['group'][] = 'Cer93Sujetcer93.valeurparsoussujetcer93_id';
 				}
 
-				$entries = $Dossier->find( 'all', $query );
+				$sql = $Dossier->sq( $query );
+				$sql = str_replace( '("IAE")', '(IAE)', $sql ).'/*'.microtime( true ).'*/';
+				$entries = $Dossier->query( $sql );
+
 				foreach( $entries as $entry ) {
 					$nature_cer = str_replace( '("IAE")', '(IAE)', $entry['Contratinsertion']['nature_cer'] );
 					$results[$entry['Contratinsertion']['organisme']][$nature_cer] += $entry['Contratinsertion']['count'];

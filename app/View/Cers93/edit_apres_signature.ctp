@@ -44,7 +44,7 @@
 	</div>
 	<div id="cerview">
 		<h2 class="title">Visualisation du CER</h2>
-		<?php include( dirname( __FILE__ ).'/_view.ctp' ); ?>
+		<?php require  dirname( __FILE__ ).'/_view.ctp' ; ?>
 	</div>
 </div>
 

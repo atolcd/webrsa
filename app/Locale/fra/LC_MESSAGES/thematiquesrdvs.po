@@ -1,0 +1,65 @@
+# Traductions de thematiquesrdvs.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+# Index paramétrages
+# ==============================================================================
+
+msgid "/Thematiquesrdvs/index/:heading"
+msgstr "Paramétrage des thématiques de rendez-vous"
+
+msgid "/Thematiquesrdvs/add"
+msgstr "Ajouter"
+
+msgid "/Thematiquesrdvs/add/:title"
+msgstr "Ajouter une thématique de rendez-vous"
+
+msgid "/Thematiquesrdvs/edit"
+msgstr "Modifier"
+
+msgid "/Thematiquesrdvs/edit/#Thematiquerdv.id#"
+msgstr "Modifier la thématique de rendez-vous « #Thematiquerdv.name# »"
+
+msgid "/Thematiquesrdvs/delete"
+msgstr "Supprimer"
+
+msgid "/Thematiquesrdvs/delete/#Thematiquerdv.id#"
+msgstr "Supprimer la thématique de rendez-vous « #Thematiquerdv.name# »"
+
+msgid "/Thematiquesrdvs/delete/#Thematiquerdv.id# ?"
+msgstr "Réellement supprimer la thématique de rendez-vous « #Thematiquerdv.name# » ?"
+
+msgid "Thematiquerdv.name"
+msgstr "Intitulé"
+
+msgid "Typerdv.libelle"
+msgstr "Type de RDV"
+
+msgid "Statutrdv.libelle"
+msgstr "Statut du RDV"
+
+msgid "Thematiquerdv.linkedmodel"
+msgstr "Enregistrement obligatoire"
+
+# ==============================================================================
+# Formulaire paramétrages
+# ==============================================================================
+
+msgid "/Thematiquesrdvs/add/:heading"
+msgstr "Ajout d'une thématique de rendez-vous"
+
+msgid "/Thematiquesrdvs/edit/:heading"
+msgstr "Modification de la thématique de rendez-vous « #Thematiquerdv.name# »"
+
+msgid "Thematiquerdv.typerdv_id"
+msgstr "Type de RDV"
+
+msgid "Thematiquerdv.statutrdv_id"
+msgstr "Statut du RDV"

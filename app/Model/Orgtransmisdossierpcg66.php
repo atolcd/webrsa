@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Orgtransmisdossierpcg66 ...
@@ -16,20 +17,53 @@
 	class Orgtransmisdossierpcg66 extends AppModel
 	{
 		/**
-		 * Nom.
+		 * Nom du modèle.
 		 *
 		 * @var string
 		 */
 		public $name = 'Orgtransmisdossierpcg66';
 
-        public $recursive = -1;
+		/**
+		 * Tri par défaut pour ce modèle.
+		 *
+		 * @var array
+		 */
+		public $order = array( '%s.name' );
 
+		/**
+		 * Behaviors utilisés par le modèle.
+		 *
+		 * @var array
+		 */
 		public $actsAs = array(
-			'Formattable',
-			'Pgsqlcake.PgsqlAutovalidate'
+			'Desactivable' => array(
+				'fieldName' => 'isactif'
+			),
+			'Postgres.PostgresAutovalidate',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes',
 		);
-        
-        
+
+		/**
+		 * Règles de validation.
+		 *
+		 * @var array
+		 */
+		public $validate = array(
+			'poledossierpcg66_id' => array(
+				'notNullIf' => array(
+					'rule' => array( 'notNullIf', 'generation_auto', true, array( '1' ) ),
+					'message' => 'Un pôle lié est obligatoire en cas de création automatique d\'un dossier PCG'
+				)
+			)
+		);
+
+		/**
+		 * Associations "Belongs to".
+		 *
+		 * @var array
+		 */
         public $belongsTo = array(
 			'Poledossierpcg66' => array(
 				'className' => 'Poledossierpcg66',
@@ -60,7 +94,12 @@
 				'counterQuery' => ''
 			)
 		);
-		
+
+		/**
+		 * Associations "Has and belongs to many".
+		 *
+		 * @var array
+		 */
 		public $hasAndBelongsToMany = array(
 			'Notificationdecisiondossierpcg66' => array(
 				'className' => 'Decisiondossierpcg66',
@@ -79,6 +118,5 @@
 				'with' => 'Decdospcg66Orgdospcg66'
 			)
 		);
-		
 	}
 ?>

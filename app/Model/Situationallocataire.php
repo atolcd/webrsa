@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Situationallocataire ...
@@ -28,16 +29,10 @@
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Formattable',
-			'Pgsqlcake.PgsqlAutovalidate',
+			'Postgres.PostgresAutovalidate',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
-
-		/**
-		 * Par défaut, on met la récursivité au minimum.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
 
 		/**
 		 *
@@ -60,27 +55,6 @@
 					ELSE \'ENUM::NATPF_D1::NC\'
 				END )'
 			),
-			/*'natpf_fp' => array(
-				'type'      => 'string',
-				'postgres'  => '( CASE
-					WHEN ( "%s"."natpf_socle" = \'1\' AND "%s"."natpf_activite" = \'1\' AND "%s"."natpf_majore" = \'1\' ) THEN \'ENUM::NATPF_FP::socle_majore_activite\'
-					WHEN ( "%s"."natpf_socle" = \'1\' AND "%s"."natpf_activite" = \'1\' AND "%s"."natpf_majore" = \'0\' ) THEN \'ENUM::NATPF_FP::socle_activite\'
-					WHEN ( "%s"."natpf_socle" = \'1\' AND "%s"."natpf_activite" = \'0\' AND "%s"."natpf_majore" = \'1\' ) THEN \'ENUM::NATPF_FP::socle_majore\'
-					WHEN ( "%s"."natpf_socle" = \'1\' AND "%s"."natpf_activite" = \'0\' AND "%s"."natpf_majore" = \'0\' ) THEN \'ENUM::NATPF_FP::socle\'
-					WHEN ( "%s"."natpf_socle" = \'0\' AND "%s"."natpf_activite" = \'1\' AND "%s"."natpf_majore" = \'1\' ) THEN \'ENUM::NATPF_FP::NC\'
-					WHEN ( "%s"."natpf_socle" = \'0\' AND "%s"."natpf_activite" = \'1\' AND "%s"."natpf_majore" = \'0\' ) THEN \'ENUM::NATPF_FP::NC\'
-					WHEN ( "%s"."natpf_socle" = \'0\' AND "%s"."natpf_activite" = \'0\' AND "%s"."natpf_majore" = \'1\' ) THEN \'ENUM::NATPF_FP::NC\'
-					WHEN ( "%s"."natpf_socle" = \'0\' AND "%s"."natpf_activite" = \'0\' AND "%s"."natpf_majore" = \'0\' ) THEN \'ENUM::NATPF_FP::NC\'
-					ELSE \'ENUM::NATPF_FP::NC\'
-				END )'
-			),
-			'inscritpe' => array(
-				'type'      => 'string',
-				'postgres'  => '( CASE
-					WHEN ( "%s"."etatpe" = \'inscription\' ) THEN \'1\'
-					ELSE \'0\'
-				END )'
-			),*/
 		);
 
 		/**
@@ -151,8 +125,8 @@
 		 */
 		public $validate = array(
 			'nati' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 		);

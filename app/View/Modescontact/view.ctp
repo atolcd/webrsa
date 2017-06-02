@@ -11,27 +11,27 @@
 			</tr>
 			<tr class="odd">
 				<th ><?php echo __d( 'modecontact', 'Modecontact.numposte' );?></th>
-				<td><?php echo ( $modecontact['Modecontact']['numposte'] );?></td>
+				<td><?php echo  $modecontact['Modecontact']['numposte'] ;?></td>
 			</tr>
 			<tr class="even">
 				<th ><?php echo __d( 'modecontact', 'Modecontact.nattel' );?></th>
-				<td><?php echo ( isset( $nattel[$modecontact['Modecontact']['nattel']] ) ? $nattel[$modecontact['Modecontact']['nattel']] : null );?></td>
+				<td><?php echo  isset( $nattel[$modecontact['Modecontact']['nattel']] ) ? $nattel[$modecontact['Modecontact']['nattel']] : null ;?></td>
 			</tr>
 			<tr class="odd">
 				<th ><?php echo __d( 'modecontact', 'Modecontact.matetel' );?></th>
-				<td><?php echo ( isset( $matetel[$modecontact['Modecontact']['matetel']] ) ? $matetel[$modecontact['Modecontact']['matetel']] : null );?></td>
+				<td><?php echo  isset( $matetel[$modecontact['Modecontact']['matetel']] ) ? $matetel[$modecontact['Modecontact']['matetel']] : null ;?></td>
 			</tr>
 			<tr class="even">
 				<th ><?php echo __d( 'modecontact', 'Modecontact.autorutitel' );?></th>
-				<td><?php echo ( isset( $autorutitel[$modecontact['Modecontact']['autorutitel']] ) ? $autorutitel[$modecontact['Modecontact']['autorutitel']] : null );?></td>
+				<td><?php echo  isset( $autorutitel[$modecontact['Modecontact']['autorutitel']] ) ? $autorutitel[$modecontact['Modecontact']['autorutitel']] : null ;?></td>
 			</tr>
 			<tr class="odd">
 				<th ><?php echo __d( 'modecontact', 'Modecontact.adrelec' );?></th>
-				<td><?php echo ( $modecontact['Modecontact']['adrelec'] );?></td>
+				<td><?php echo  $modecontact['Modecontact']['adrelec'] ;?></td>
 			</tr>
 			<tr class="even">
 				<th ><?php echo __d( 'modecontact', 'Modecontact.autorutiadrelec' );?></th>
-				<td><?php echo ( isset( $autorutiadrelec[$modecontact['Modecontact']['autorutiadrelec']] ) ? $autorutiadrelec[$modecontact['Modecontact']['autorutiadrelec']] : null );?></td>
+				<td><?php echo  isset( $autorutiadrelec[$modecontact['Modecontact']['autorutiadrelec']] ) ? $autorutiadrelec[$modecontact['Modecontact']['autorutiadrelec']] : null ;?></td>
 			</tr>
 		</tbody>
 	</table>

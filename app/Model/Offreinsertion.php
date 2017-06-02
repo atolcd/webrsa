@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Offreinsertion.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Offreinsertion ...
@@ -18,8 +19,10 @@
 		public $name = 'Offreinsertion';
 
 		public $useTable = false;
-		
-		public $actsAs = array( 'Formattable' );
+
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+		);
 
 		/**
 		*
@@ -44,15 +47,11 @@
 			if( !empty( $actionname ) ){
 				$conditions[] = 'Actioncandidat.id = \''.Sanitize::clean( $actionname, array( 'encode' => false ) ).'\'';
 			}
-			
-// 			if( is_numeric( $partenaire_id ) && !empty( $partenaire_id )  ){
-// 				$conditions[] = 'Partenaire.id = \''.Sanitize::clean( $partenaire_id, array( 'encode' => false ) ).'\'';
-// 			}
 
 			if( is_numeric( $contact_id ) && !empty( $contact_id ) ){
 				$conditions[] = 'Contactpartenaire.id = \''.Sanitize::clean( $contact_id, array( 'encode' => false ) ).'\'';
 			}
-			
+
 			if( !empty( $codepartenaire ) ){
 				$conditions[] = 'Partenaire.codepartenaire = \''.$codepartenaire.'\'';
 			}
@@ -60,23 +59,23 @@
 			if( is_numeric( $themecode ) && !empty( $themecode ) ){
 				$conditions[] = 'Actioncandidat.themecode = \''.Sanitize::clean( $themecode, array( 'encode' => false ) ).'\'';
 			}
-			
+
 			if( !empty( $codefamille ) ){
 				$conditions[] = 'Actioncandidat.codefamille ILIKE \''.$codefamille.'\'';
 			}
-			
+
 			if( !empty( $numcodefamille ) ){
 				$conditions[] = 'Actioncandidat.numcodefamille = \''.Sanitize::clean( $numcodefamille, array( 'encode' => false ) ).'\'';
 			}
-			
+
 			if( !empty( $correspondant ) ){
 				$conditions[] = 'Actioncandidat.referent_id = \''.Sanitize::clean( $correspondant, array( 'encode' => false ) ).'\'';
 			}
-						
+
 			if( isset( $hasfichecandidature ) && ( $hasfichecandidature != '' ) ){
 				$conditions[] = 'Actioncandidat.hasfichecandidature = \''.$hasfichecandidature.'\'';
 			}
-						
+
 			if( isset( $isactive ) && !empty( $isactive ) ){
 				$conditions[] = 'Actioncandidat.actif = \''.Sanitize::clean( $isactive, array( 'encode' => false )  ).'\'';
 			}
@@ -110,10 +109,10 @@
 							)
 						)
 					)
-				.' )';	
+				.' )';
 			}
 			/*Test*/
-			
+
 			$Actioncandidat = ClassRegistry::init( 'Actioncandidat' );
 			$query = array(
 				'fields' => array_merge(
@@ -142,34 +141,26 @@
 				'order' => array( 'Actioncandidat.name ASC' ),
                 'limit' => 200
 			);
-            
+
 			return $query;
 		}
-
-        /*
-            'global' => $this->Offreinsertion->searchGlobal( $this->request->data ),
-            'actions' => $this->Offreinsertion->searchActions( $this->request->data ),
-            'contactpartenaires' => $this->Offreinsertion->searchContactpartenaires( $this->request->data ),
-            'partenaires' => $this->Offreinsertion->searchPartenaires( $this->request->data ),
-            'actions_par_partenaires' => $this->Offreinsertion->searchActionsParPartenaires( $this->request->data ),
-         */
 
         public function searchGlobal( $params ) {
             return $this->_search( $params );
         }
-        
+
         /*
          *  Recherche avec pour critères les informations des partenaires
          */
         public function searchPartenaires( $params ) {
             $querydata = $this->_search( $params );
-            
+
             $querydata['conditions'][] = 'Partenaire.id IS NOT NULL';
-            
+
             $Partenaire = ClassRegistry::init( 'Partenaire' );
-            
+
             $fields = $Partenaire->fields();
-            
+
             $querydata['fields'] = array_merge(
                 $fields,
                 array(
@@ -180,26 +171,26 @@
             $querydata['group'] = array_merge(
                 $fields
             );
-                    
+
             $querydata['order'] = array( 'Partenaire.libstruc ASC' );
 
             return $querydata;
         }
-        
+
         /*
          *  Recherche avec pour critères les informations des partenaires
          */
         public function searchActions( $params ) {
             $querydata = $this->_search( $params );
-            
+
             $Actioncandidat = ClassRegistry::init( 'Actioncandidat' );
-            
+
             $fields = array_merge(
                 $Actioncandidat->fields(),
                 $Actioncandidat->Chargeinsertion->fields(),
                 $Actioncandidat->Secretaire->fields()
             );
-                    
+
             $querydata['fields'] = array_merge(
                 $fields,
                 array(
@@ -222,19 +213,19 @@
 
             return $querydata;
         }
-        
+
         /*
          *  Recherche avec pour critères les informations des partenaires
          */
         public function searchContactpartenaires( $params ) {
             $querydata = $this->_search( $params );
-            
+
             $Contactpartenaire = ClassRegistry::init( 'Contactpartenaire' );
-            
+
             $querydata['conditions'][] = 'Contactpartenaire.id IS NOT NULL';
-            
+
             $fields = $Contactpartenaire->fields();
-                    
+
             $querydata['fields'] = array_merge(
                 $fields,
                 array(
@@ -255,16 +246,16 @@
 
             return $querydata;
         }
-        
-        
+
+
         /*
          *  Recherche avec pour critères les informations des partenaires
          */
         public function searchActionsParPartenaires( $params ) {
             $querydata = $this->_search( $params );
-            
+
             $Actioncandidat = ClassRegistry::init( 'Actioncandidat' );
-            
+
             $fields = array_merge(
                 $Actioncandidat->fields(),
                 $Actioncandidat->Contactpartenaire->Partenaire->fields(),
@@ -272,13 +263,13 @@
                     'Actioncandidat.id'
                 )
             );
-                    
+
             $querydata['fields'] = $fields;
             $querydata['group'] = $fields;
             $querydata['order'] = array( 'Actioncandidat.name DESC' );
 
             return $querydata;
         }
-        
+
 	}
 ?>

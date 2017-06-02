@@ -166,11 +166,14 @@
 		$this->Default3->DefaultPaginator->options(
 			array( 'url' => $urlParams )
 		);
-		$paginationFormat = SearchProgressivePagination::format( !Hash::get( $this->request->data, 'Search.Pagination.nombre_total' ) );
 
 		// 1. On est en ajax
 		if( $this->request->is( 'ajax' ) ) {
-			$pagination = $this->Default3->pagination( array( 'format' => $paginationFormat ) );
+			$pagination = $this->Default3->pagination(
+				array(
+					'format' => $this->element( 'pagination_format' )
+				)
+			);
 
 			$json = array(
 				'success' => true,
@@ -198,7 +201,7 @@
 				$results,
 				$fields,
 				array(
-					'format' => $paginationFormat,
+					'format' => $this->element( 'pagination_format' ),
 					'options' => $options
 				)
 			);

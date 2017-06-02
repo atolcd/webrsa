@@ -267,9 +267,6 @@
 				),
 				'dureehebdo' => array_range( '0', '39' ),
 				'dureecdd' => $this->Cer93->Contratinsertion->enum('duree_cdd'),
-				'Structurereferente' => array(
-					'type_voie' => ClassRegistry::init( 'Option' )->typevoie()
-				),
 				'Naturecontrat' => array(
 					'naturecontrat_id' => $this->Cer93->Naturecontrat->find( 'list' )
 				)
@@ -830,16 +827,6 @@
 						$data['Sujetcer93'] = array();
 					}
 
-					// Copie des enregistrements liés aux codes ROME v.3
-					/*foreach( array( 'Emptrouvromev3' ) as $modelName ) {
-						if( !empty( $dataDernierCerValide[$this->Cer93->alias][$modelName] ) ) {
-							$data[$modelName] = $dataDernierCerValide[$this->Cer93->alias][$modelName];
-
-							unset( $data[$modelName]['id'], $data[$modelName]['created'], $data[$modelName]['modified'] );
-							$data = $this->Cer93->{$modelName}->prepareFormDataAddEdit( $data );
-						}
-					}*/
-
 					// Cas où on a un dernier CER validé
 					$data['Contratinsertion']['rg_ci'] = ( $dataDernierCerValide['Contratinsertion']['rg_ci'] ) + 1;
 				}
@@ -875,7 +862,7 @@
 			$success = true;
 
 			// Sinon, ça pose des problèmes lors du add car les valeurs n'existent pas encore
-			$this->Cer93->unsetValidationRule( 'contratinsertion_id', 'notEmpty' );
+			$this->Cer93->unsetValidationRule( 'contratinsertion_id', NOT_BLANK_RULE_NAME );
 
 			// Si aucun sujet n'est renseigné, alors on lance un erreur
 			if( empty( $data['Sujetcer93']['Sujetcer93'] ) ) {
@@ -884,7 +871,7 @@
 			}
 
 			foreach( array( 'Compofoyercer93', 'Diplomecer93', 'Expprocer93' ) as $hasManyModel ) {
-				$this->Cer93->{$hasManyModel}->unsetValidationRule( 'cer93_id', 'notEmpty' );
+				$this->Cer93->{$hasManyModel}->unsetValidationRule( 'cer93_id', NOT_BLANK_RULE_NAME );
 
 				if( isset( $data['Cer93']['id'] ) && !empty( $data['Cer93']['id'] ) ) {
 					$expsproscers93 = array();
@@ -1082,7 +1069,7 @@
 					}
 
 					$this->Cer93->Contratinsertion->Personne->Rendezvous->create( $rendezvous );
-					$success = $this->Cer93->Contratinsertion->Personne->Rendezvous->save() && $success;
+					$success = $this->Cer93->Contratinsertion->Personne->Rendezvous->save( null, array( 'atomic' => false ) ) && $success;
 					if( !$success ) {
 						$this->Cer93->log(
 							sprintf(

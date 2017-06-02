@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Formqualif.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Formqualif ...
@@ -17,84 +18,61 @@
 	{
 		public $name = 'Formqualif';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
 			'Aideapre',
-			'Frenchfloat' => array(
-				'fields' => array( 'coutform', 'montantaide', 'dureeform' )
-			)
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		public $validate = array(
-			'apre_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric')
-				),
-			),
-			'intituleform' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
-			),
 			'tiersprestataireapre_id' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
 			),
 			'montantaide' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
-				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
-					'allowEmpty' => true
 				)
 			),
 			'coutform' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
-				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
-					'allowEmpty' => true
 				)
 			),
 			'dureeform' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
-					'allowEmpty' => true
-				),
-				array(
+				'comparison' => array(
 					'rule' => array( 'comparison', '>=', 0 ),
 					'message' => 'Veuillez saisir une valeur positive.'
 				)
 			),
 			'ddform' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.'
-				),
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'dfform' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.'
-				),
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
-			),
+			)
 		);
 
 		public $belongsTo = array(

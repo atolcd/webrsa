@@ -1,36 +1,20 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'statutpdo', "Statutspdos::{$this->action}" )
-	)
-?>
-
-<?php
-	echo $this->Default2->index(
-		$statutspdos,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'Statutpdo.libelle',
-			'Statutpdo.isactif'
-		),
-		array(
-			'cohorte' => false,
-            'options' => $options,
-			'actions' => array(
-				'Statutspdos::edit',
-				'Statutspdos::delete' => array( 'disabled' => '\'#Statutpdo.occurences#\'!= "0"' )
+			'cells' => array(
+				'Statutpdo.libelle',
+				'Statutpdo.isactif',
+				'/Statutspdos/edit/#Statutpdo.id#' => array(
+					'title' => true
+				),
+				'/Statutspdos/delete/#Statutpdo.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Statutpdo.has_linkedrecords#"'
+				)
 			),
-			'add' => 'Statutspdos::add',
-		)
-	);
-
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'pdos',
-			'action'     => 'index'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#pdos'
 		)
 	);
 ?>

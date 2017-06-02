@@ -18,32 +18,18 @@
 	{
 		public $name = 'Decisiondefautinsertionep66';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
 			'Dependencies',
-			'Enumerable' => array(
-				'fields' => array(
-					'etape',
-					'decision',
-					'decisionsup'
-				)
-			),
-			'Formattable' => array(
-				'suffix' => array(
-					'structurereferente_id',
-					'referent_id'
-				)
-			),
-			'ValidateTranslate',
-			'Validation2.Validation2RulesComparison'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate',
 		);
-		
+
 		public $validate = array(
 			'decisionsup' => array(
 				'emptyIf' => array(
-					'rule' => array('emptyIf', 'decision', false, 
+					'rule' => array('emptyIf', 'decision', false,
 						array('maintienorientsoc', 'reorientationprofverssoc', 'reorientationsocversprof')
 					),
 					'message' => 'La deuxiême liste déroulante de décision, ne sert que dans le cadre d\'une orientation'
@@ -112,8 +98,8 @@
 
 		public $validateFinalisation = array(
 			'decision' => array(
-				array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'typeorient_id' => array(

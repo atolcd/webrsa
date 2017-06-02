@@ -1,0 +1,65 @@
+# Traductions de tiersprestataireapre.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Tiersprestataireapre.nomtiers"
+msgstr "Organisme prestataire"
+
+msgid "Tiersprestataireapre.siret"
+msgstr "N° Siret"
+
+msgid "Tiersprestataireapre.numvoie"
+msgstr "N° de voie"
+
+msgid "Tiersprestataireapre.typevoie"
+msgstr "Type de voie"
+
+msgid "Tiersprestataireapre.nomvoie"
+msgstr "Nom de voie"
+
+msgid "Tiersprestataireapre.compladr"
+msgstr "Complément adresse"
+
+msgid "Tiersprestataireapre.codepos"
+msgstr "Code postal"
+
+msgid "Tiersprestataireapre.ville"
+msgstr "Ville"
+
+msgid "Tiersprestataireapre.canton"
+msgstr "Canton"
+
+msgid "Tiersprestataireapre.numtel"
+msgstr "N° de téléphone"
+
+msgid "Tiersprestataireapre.adrelec"
+msgstr "Email"
+
+msgid "Tiersprestataireapre.nomtiturib"
+msgstr "Nom du titulaire du RIB"
+
+msgid "Tiersprestataireapre.etaban"
+msgstr "Code banque"
+
+msgid "Tiersprestataireapre.guiban"
+msgstr "Code guichet"
+
+msgid "Tiersprestataireapre.numcomptban"
+msgstr "Numéro de compte"
+
+msgid "Tiersprestataireapre.nometaban"
+msgstr "Nom de l'établissement bancaire"
+
+msgid "Tiersprestataireapre.clerib"
+msgstr "Clé RIB"
+
+msgid "Tiersprestataireapre.aidesliees"
+msgstr "Formation liée"

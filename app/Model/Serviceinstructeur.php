@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Serviceinstructeur s'occupe de la gestion des services instructeurs.
@@ -21,88 +22,79 @@
 
 		public $order = 'Serviceinstructeur.lib_service ASC';
 
-		public $recursive = -1;
+		/**
+		 * Modèles utilisés par ce modèle.
+		 *
+		 * @var array
+		 */
+		public $uses = array( 'Allocataire', 'Option' );
 
 		public $actsAs = array(
-			'Autovalidate2',
-			'Formattable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
-			'lib_service' => array(
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
-				array(
-					'rule' => 'isUnique',
-					'message' => 'Valeur déjà utilisée'
-				),
-			),
 			'type_voie' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'code_insee' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
-					// FIXME: format
 				)
 			),
 			'numdepins' => array(
-				array(
-					'rule' => 'alphaNumeric',
+				'alphaNumeric' => array(
+					'rule' => array( 'alphaNumeric' ),
 					'message' => 'Veuillez n\'utiliser que des lettres et des chiffres'
 				),
-				array(
+				'between' => array(
 					'rule' => array( 'between', 3, 3 ),
 					'message' => 'Le n° de département est composé de 3 caractères'
 				),
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'typeserins' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'numcomins' => array(
-				array(
-					'rule' => 'alphaNumeric',
+				'alphaNumeric' => array(
+					'rule' => array( 'alphaNumeric' ),
 					'message' => 'Veuillez n\'utiliser que des lettres et des chiffres'
 				),
-				array(
+				'between' => array(
 					'rule' => array( 'between', 3, 3 ),
 					'message' => 'Le n° de commune est composé de 3 caractères'
 				),
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'numagrins' => array(
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez n\'utiliser que des lettres et des chiffres'
-				),
-				array(
+				'between' => array(
 					'rule' => array( 'between', 1, 2 ),
 					'message' => 'Le n° d\'agrément est composé de 2 caractères'
 				),
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'sqrecherche' => array(
-				array(
-					'rule' => 'validateSqrecherche',
+				'validateSqrecherche' => array(
+					'rule' => array( 'validateSqrecherche' ),
 					'message' => 'Erreur SQL'
 				)
 			),
@@ -221,9 +213,10 @@
 		);
 
 		/**
-		*
-		*/
-
+		 * @deprecated since 3.2.0
+		 *
+		 * @var array
+		 */
 		public $_types = array(
 			'list' => array(
 				'fields' => array(
@@ -307,9 +300,12 @@
 		}
 
 		/**
-		*
-		*/
-
+		 * @deprecated since 3.2.0
+		 *
+		 * @param string $type
+		 * @param array $params
+		 * @return array
+		 */
 		public function prepare( $type, $params = array() ) {
 			$types = array_keys( $this->_types );
 			if( !in_array( $type, $types ) ) {
@@ -324,90 +320,80 @@
 		}
 
 		/**
-		*
-		*/
-
-		protected function _queryDataError( &$model, $querydata ) {
-			$querydata['limit'] = 1;
-			$sql = $model->sq( $querydata );
-			$ds = $model->getDataSource( $model->useDbConfig );
-
-			$result = false;
-			try {
-				$result = @$model->query( "EXPLAIN $sql" );
-			} catch( Exception $e ) {
-			}
-
-			if( $result === false ) {
-				return $sql;
-			}
-			else {
-				return false;
-			}
-		}
-
-		/**
-		*
-		*/
-
-		// 			$this->Serviceinstructeur->sqrechercheErrors( 'foo' );
-		// FIXME: criterespdos/index, criterespdos/nouvelles, criterespdos/exportcsv ($this->Criterepdo->listeDossierPDO, Criterepdo->search)
-		public function sqrechercheErrors( $condition ) {
-			$errors = array();
+		 * Vérifie, pour chacun des enregistrements comportant une valeur pour
+		 * sqrecherche, que la requête fonctionne avec le query du modèle
+		 * Allocataire.
+		 *
+		 * Renvoie un tableau contenant les enregistrements en erreur.
+		 *
+		 * @return array
+		 */
+		public function sqRechercheErrors() {
+			$results = array();
 
 			if( Configure::read( 'Recherche.qdFilters.Serviceinstructeur' ) ) {
-				$models = array(
-					'Dossier' => 'Dossier',
-					'Critere' => 'Orientstruct',
-					'Cohorteci' => 'Contratinsertion',
-					'Criterecui' => 'Cui',
-					'Cohorteindu' => 'Dossier',
-					'Critererdv' => 'Rendezvous',
-					'Criterepdo' => 'Propopdo',
+				$records = $this->find(
+					'all',
+					array(
+						'fields' => array(
+							"{$this->primaryKey} AS \"{$this->alias}__id\"",
+							"{$this->displayField} AS \"{$this->alias}__name\"",
+							"sqrecherche AS \"{$this->alias}__sqrecherche\""
+						),
+						'contain' => false,
+						'conditions' => array( "{$this->alias}.sqrecherche IS NOT NULL" )
+					)
 				);
 
-				foreach( $models as $modelSearch => $modelName ) {
-					$search = ClassRegistry::init( $modelSearch );
-					$model = ClassRegistry::init( $modelName );
+				foreach( $records as $record ) {
+					$check = $this->testSqRechercheConditions( $record[$this->alias]['sqrecherche'] );
 
-					$querydata = @$search->search( array(), array(), array(), array(), array() );
-
-					if( !empty( $condition ) ) {
-						$querydata['conditions'][] = $condition;
-					}
-
-					$model->forceVirtualFields = true;
-					$querydata = $model->beforeFind( $querydata );
-
-					$error = $this->_queryDataError( $model, $querydata );
-
-					if( !empty( $error ) ) {
-						$ds = $model->getDataSource( $model->useDbConfig );
-						$errors[$model->alias] = array(
-							'sql' => $error,
-							'error' => $ds->lastError()
-						);
+					if( true !== $check['success'] ) {
+						$record[$this->alias]['message'] = $check['message'];
+						$results[] = $record;
 					}
 				}
 			}
-			return $errors;
+
+			return false === empty( $results ) ? array( $this->alias => $results ) : array();
 		}
 
 		/**
-		*
-		*/
+		 * Vérification de conditions supplémentaires à utiliser avec le modèle
+		 * Allocataire.
+		 *
+		 * @param string|array $conditions
+		 * @return array
+		 */
+		public function testSqRechercheConditions( $conditions ) {
+			$Dbo = $this->getDataSource();
+			$query = $this->Allocataire->searchQuery();
+			$query['conditions'][] = $conditions;
+			$this->Allocataire->Personne->forceVirtualFields = true;
+			$query = $this->Allocataire->Personne->beforeFind( $query );
+			$sql = $this->Allocataire->Personne->sq( $query );
 
+			return $Dbo->checkPostgresSqlSyntax( $sql );
+		}
+
+		/**
+		 * Validation des conditions supplémentaires éventuelles à utiliser avec
+		 * le modèle Allocataire.
+		 *
+		 * @param mixed $check
+		 * @return boolean
+		 */
 		public function validateSqrecherche( $check ) {
 			if( !is_array( $check ) ) {
 				return false;
 			}
 
-			// TODO: meilleure validation ?
 			$result = true;
-			foreach( Set::normalize( $check ) as $key => $condition ) {
-				$errors = $this->sqrechercheErrors( $condition );
-				$result = empty( $errors ) && $result;
+			foreach( Hash::normalize( $check ) as $key => $condition ) {
+				$tmp = $this->testSqRechercheConditions( $condition );
+				$result = true === $tmp['success'] && $result;
 			}
+
 			return $result;
 		}
 
@@ -421,33 +407,48 @@
 		 * @return array
 		 */
 		public function storedDataErrors() {
-			return $this->find(
-				'all',
-				array(
-					'fields' => array(
-						'Serviceinstructeur.id',
-						'Serviceinstructeur.lib_service',
-						'Serviceinstructeur.numdepins',
-						'Serviceinstructeur.typeserins',
-						'Serviceinstructeur.numcomins',
-						'Serviceinstructeur.numagrins',
-					),
-					'conditions' => array(
-						'OR' => array(
-							'Serviceinstructeur.lib_service IS NULL',
-							'TRIM(Serviceinstructeur.lib_service)' => null,
-							'Serviceinstructeur.numdepins IS NULL',
-							'TRIM(Serviceinstructeur.numdepins)' => null,
-							'Serviceinstructeur.typeserins IS NULL',
-							'TRIM(Serviceinstructeur.typeserins)' => null,
-							'Serviceinstructeur.numcomins IS NULL',
-							'TRIM(Serviceinstructeur.numcomins)' => null,
-							'Serviceinstructeur.numagrins IS NULL'
-						)
-					),
-					'contain' => false,
+			$conditionsErrors = array(
+				'identification' => array(
+					'OR' => array(
+						'Serviceinstructeur.lib_service IS NULL',
+						'TRIM(BOTH \' \' FROM "Serviceinstructeur"."lib_service")' => ''
+					)
+				),
+				'rapprochement' => array(
+					'OR' => array(
+						'Serviceinstructeur.numdepins IS NULL',
+						'TRIM(BOTH \' \' FROM "Serviceinstructeur"."numdepins")' => '',
+						'Serviceinstructeur.typeserins IS NULL',
+						'TRIM(BOTH \' \' FROM "Serviceinstructeur"."typeserins")' => '',
+						'Serviceinstructeur.numcomins IS NULL',
+						'TRIM(BOTH \' \' FROM "Serviceinstructeur"."numcomins")' => '',
+						'Serviceinstructeur.numagrins IS NULL'
+					)
 				)
 			);
+
+			$query = array(
+				'fields' => array(
+					'Serviceinstructeur.id',
+					'Serviceinstructeur.lib_service',
+					'Serviceinstructeur.numdepins',
+					'Serviceinstructeur.typeserins',
+					'Serviceinstructeur.numcomins',
+					'Serviceinstructeur.numagrins',
+				),
+				'conditions' => array(),
+				'contain' => false,
+			);
+
+			// Ajout des champs et des conditions concernant les erreurs
+			$Dbo = $this->getDataSource();
+			foreach( $conditionsErrors as $errorName => $errorConditions ) {
+				$conditions = $Dbo->conditions( $errorConditions, true, false );
+				$query['fields'][] = "( {$conditions} ) AS \"{$this->alias}__error_{$errorName}\"";
+			}
+			$query['conditions']['OR'] = array_values( $conditionsErrors );
+
+			return $this->find( 'all', $query );
 		}
 
 		/**
@@ -475,6 +476,22 @@
 		public function prechargement() {
 			$success = $this->_regenerateCache();
 			return $success;
+		}
+
+		/**
+		 * Retourne la liste des énumérations du modèle.
+		 *
+		 * @return array
+		 */
+		public function enums() {
+			$result = parent::enums();
+
+			if(false === isset($result[$this->alias]['typeserins'])) {
+				$result[$this->alias]['typeserins'] = $this->Option->typeserins();
+			}
+			$result[$this->alias]['type_voie'] = $this->Option->libtypevoie();
+
+			return $result;
 		}
 	}
 ?>

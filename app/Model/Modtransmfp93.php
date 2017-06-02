@@ -25,13 +25,6 @@
 		public $name = 'Modtransmfp93';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
@@ -39,6 +32,7 @@
 		public $actsAs = array(
 			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
 
 		/**

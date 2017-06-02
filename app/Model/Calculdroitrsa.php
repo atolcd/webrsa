@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Calculdroitrsa ...
@@ -17,40 +18,37 @@
 	{
 		public $name = 'Calculdroitrsa';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		protected $_modules = array( 'caf' );
 
 		public $actsAs = array(
 			'Allocatairelie',
-			'Formattable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
 			'mtpersressmenrsa' => array(
-				'numeric' => array(
-					// FIXME INFO ailleurs aussi => 123,25 ne passe pas
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.'
-				),
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				),
-			),
-			'toppersdrodevorsa' => array(
-				'inList' => array(
-					'rule' => array( 'inList', array( '1', '0' ) ),
-					'message' => null,
-					'allowEmpty' => true
-				)
 			)
 		);
-		
+
 		/**
 		 * Liste de champs et de valeurs possibles qui ne peuvent pas être mis en
 		 * règle de validation inList ou en contrainte dans la base de données en
 		 * raison des valeurs actuellement en base, mais pour lequels un ensemble
 		 * fini de valeurs existe.
-		 * 
+		 *
 		 * @see AppModel::enums
 		 *
 		 * @var array

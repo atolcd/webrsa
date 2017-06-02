@@ -103,7 +103,7 @@
 			</tr>
 			<tr class="even">
 				<th><?php echo __d( 'personne', 'Personne.topvalec' );?></th>
-				<td><?php echo ( $personne['Personne']['topvalec'] ? 'Oui' : 'Non' );?></td>
+				<td><?php echo  $personne['Personne']['topvalec'] ? 'Oui' : 'Non' ;?></td>
 			</tr>
 			<tr class="odd">
 				<th><?php echo __d( 'personne', 'Personne.sexe' );?></th>
@@ -113,7 +113,7 @@
 						&& ($personne['Prestation']['rolepers'] === null || $rolepers[$personne['Prestation']['rolepers']] != 'Enfant') ):?>
 				<tr class="even">
 					<th><?php echo __d( 'foyer', 'Foyer.sitfam' );?></th>
-					<td><?php echo ( isset( $sitfam[$personne['Foyer']['sitfam']] ) ?  $sitfam[$personne['Foyer']['sitfam']] : null );?></td>
+					<td><?php echo  isset( $sitfam[$personne['Foyer']['sitfam']] ) ?  $sitfam[$personne['Foyer']['sitfam']] : null ;?></td>
 				</tr>
 			<?php endif;?>
 			<tr class="odd">

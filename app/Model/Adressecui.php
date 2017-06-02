@@ -7,6 +7,8 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'FrValidation', 'Validation' );
 
 	/**
 	 * La classe Adressecui est la classe contenant les information de contact du CUI.
@@ -16,9 +18,7 @@
 	class Adressecui extends AppModel
 	{
 		public $name = 'Adressecui';
-		
-		public $recursive = -1;
-		
+
 		public $hasOne = array(
 			'Partenairecui' => array(
 				'className' => 'Partenairecui',
@@ -26,22 +26,23 @@
 				'dependent' => true,
 			),
 		);
-		
+
 		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Formattable',
 			'Postgres.PostgresAutovalidate',
-			'Validation2.Validation2Formattable',
-			'Formattable' => array(
-				'phone' => array( 'numtel', 'numfax', 'numtel2', 'numfax2' )
-			),
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2Formattable' => array(
+				'Validation2.Validation2DefaultFormatter' => array(
+					'stripNotAlnum' => '/^(numtel|numfax|numtel2|numfax2)$/'
+				)
+			)
 		);
-		
-		
+
+
 		/**
 		 * Règles de validation.
 		 *
@@ -49,27 +50,27 @@
 		 */
 		public $validate = array(
 			'numtel' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
-				),
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
+				)
 			),
 			'numfax' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
 				)
 			),
 			'numtel2' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
 				)
 			),
 			'numfax2' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
 				)
 			),
 			'email' => array(

@@ -7,6 +7,8 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'FrValidation', 'Validation' );
 
 	/**
 	 * La classe Modecontact ...
@@ -18,24 +20,33 @@
 
 		public $name = 'Modecontact';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
-			'Formattable' => array(
-				'phone' => array( 'numtel' )
+			'Validation2.Validation2Formattable' => array(
+				'Validation2.Validation2DefaultFormatter' => array(
+					'stripNotAlnum' => '/^numtel$/'
+				)
 			),
-			'ValidateTranslate',
-			'Validation.ExtraValidationRules',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
 			'numtel' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
 				)
 			),
 			'numposte' => array(
 				'alphaNumeric' => array(
-					'rule' => 'alphaNumeric',
+					'rule' => array( 'alphaNumeric' ),
 					'allowEmpty' => true
 				),
 				'between' => array(
@@ -44,13 +55,13 @@
 				)
 			)
 		);
-		
+
 		/**
 		 * Liste de champs et de valeurs possibles qui ne peuvent pas être mis en
 		 * règle de validation inList ou en contrainte dans la base de données en
 		 * raison des valeurs actuellement en base, mais pour lequels un ensemble
 		 * fini de valeurs existe.
-		 * 
+		 *
 		 * @see AppModel::enums
 		 *
 		 * @var array

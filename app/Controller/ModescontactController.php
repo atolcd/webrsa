@@ -7,8 +7,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
-	App::uses('WebrsaAccessModescontact', 'Utility');
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaAccessModescontact', 'Utility' );
 
 	/**
 	 * La classe ModescontactController ...
@@ -62,27 +62,27 @@
 			'Option',
 			'WebrsaModecontact',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'view' => 'Modescontact:index',
 			'add' => 'Modescontact:edit',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -95,7 +95,7 @@
 			'index' => 'read',
 			'view' => 'read',
 		);
-		
+
 		/**
 		 *
 		 */
@@ -114,7 +114,7 @@
 			$this->assert( valid_int( $foyer_id ), 'invalidParameter' );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
-			
+
 			// Recherche des personnes du foyer
 			$modescontact = $this->WebrsaAccesses->getIndexRecords(
 				$foyer_id, array(
@@ -155,15 +155,15 @@
 				if( $this->Modecontact->validates() ) {
 					$this->Modecontact->begin();
 
-					if( $this->Modecontact->save( $this->request->data ) ) {
+					if( $this->Modecontact->save( $this->request->data , array( 'atomic' => false ) ) ) {
 						$this->Modecontact->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement réussi', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'modescontact', 'action' => 'index', $foyer_id ) );
 					}
 					else {
 						$this->Modecontact->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 			}
@@ -202,15 +202,15 @@
 				if( $this->Modecontact->validates() ) {
 					$this->Modecontact->begin();
 
-					if( $this->Modecontact->save( $this->request->data ) ) {
+					if( $this->Modecontact->save( $this->request->data , array( 'atomic' => false ) ) ) {
 						$this->Modecontact->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array(  'controller' => 'modescontact','action' => 'index', $this->request->data['Modecontact']['foyer_id'] ) );
 					}
 					else {
 						$this->Modecontact->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 			}

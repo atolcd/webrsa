@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 	App::uses( 'Sanitize', 'Utility' );
 
 	/**
@@ -56,17 +57,17 @@
 			'Option',
 			'Parametrefinancier',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Etatsliquidatifs:edit',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -75,7 +76,7 @@
 		public $aucunDroit = array(
 			'ajaxmontant',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -169,13 +170,13 @@
 		protected function _add_edit( $id = null ) {
 			$parametrefinancier = $this->Parametrefinancier->find( 'first' );
 			if( empty( $parametrefinancier ) ) {
-				$this->Session->setFlash( __( 'Impossible de créer ou de modifier un état liquidatif si les paramètres financiers ne sont pas enregistrés.' ), 'flash/error' );
+				$this->Flash->error( __( 'Impossible de créer ou de modifier un état liquidatif si les paramètres financiers ne sont pas enregistrés.' ) );
 				$this->redirect( array( 'action' => 'index', max( 1, Set::classicExtract( $this->request->params, 'named.page' ) ) ) );
 			}
 
 			$budgetsapres = $this->Etatliquidatif->Budgetapre->find( 'list' );
 			if( empty( $budgetsapres ) ) {
-				$this->Session->setFlash( __( 'Impossible de créer ou de modifier un état liquidatif s\'il n\'existe pas de budget APRE.' ), 'flash/error' );
+				$this->Flash->error( __( 'Impossible de créer ou de modifier un état liquidatif s\'il n\'existe pas de budget APRE.' ) );
 				$this->redirect( array( 'action' => 'index', max( 1, Set::classicExtract( $this->request->params, 'named.page' ) ) ) );
 			}
 
@@ -196,7 +197,7 @@
 				// Aucun autre état liquidatif ouvert
 				$nEtatsliquidatifs = $this->Etatliquidatif->find( 'count', array( 'conditions' => array( 'Etatliquidatif.datecloture IS NULL' ) ) );
 				if( $nEtatsliquidatifs > 0 ) {
-					$this->Session->setFlash( __( 'Impossible de créer un état liquidatif lorsqu\'il existe un autre état liquidatif non validé.' ), 'flash/error' );
+					$this->Flash->error( __( 'Impossible de créer un état liquidatif lorsqu\'il existe un autre état liquidatif non validé.' ) );
 					$this->redirect( array( 'action' => 'index', max( 1, Set::classicExtract( $this->request->params, 'named.page' ) ) ) );
 				}
 			}
@@ -214,8 +215,8 @@
 				$this->request->data[$this->modelClass]['operation'] = ( ( $this->request->data[$this->modelClass]['typeapre'] == 'forfaitaire' ) ? $this->request->data[$this->modelClass]['apreforfait'] : $this->request->data[$this->modelClass]['aprecomplem'] );
 
 				$this->Etatliquidatif->create( $this->request->data );
-				if( $this->Etatliquidatif->save() ) {
-					$this->Session->setFlash( __( 'Enregistrement effectué' ), 'flash/success' );
+				if( $this->Etatliquidatif->save( null, array( 'atomic' => false ) ) ) {
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index', max( 1, Set::classicExtract( $this->request->params, 'named.page' ) ) ) );
 				}
 			}
@@ -250,7 +251,7 @@
 
 			// État liquidatif pas encore validé
 			if( !empty( $etatliquidatif['Etatliquidatif']['datecloture'] ) ) {
-				$this->Session->setFlash( __( 'Impossible de sélectionner des APREs pour un état liquidatif validé.' ), 'flash/error' );
+				$this->Flash->error( __( 'Impossible de sélectionner des APREs pour un état liquidatif validé.' ) );
 				$this->redirect( array( 'action' => 'index' ) );
 			}
 
@@ -263,7 +264,7 @@
 				}
 
 				if( $this->Etatliquidatif->saveAll( $this->request->data ) ) {
-					$this->Session->setFlash( __( 'Enregistrement effectué' ), 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index', max( 1, Set::classicExtract( $this->request->params, 'named.page' ) ) ) );
 				}
 			}
@@ -453,7 +454,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, $nomfichier );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer l\'impression de l\'état liquidatif de l\'APRE.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer l\'impression de l\'état liquidatif de l\'APRE.' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -482,7 +483,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'apresforfaitaires-%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer l\'impression de la page de l\'état liquidatif des APREs.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer l\'impression de la page de l\'état liquidatif des APREs.' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -504,7 +505,7 @@
 
 			// État liquidatif pas encore validé
 			if( !empty( $etatliquidatif['Etatliquidatif']['datecloture'] ) ) {
-				$this->Session->setFlash( __( 'Impossible de valider un état liquidatif déjà validé.' ), 'flash/error' );
+				$this->Flash->error( __( 'Impossible de valider un état liquidatif déjà validé.' ) );
 				$this->redirect( array( 'action' => 'index' ) );
 			}
 
@@ -512,7 +513,7 @@
 			// FIXME: doit-il y avoir obligatoirement des apres dans un état liquidatif
 			$nApres = $this->Etatliquidatif->ApreEtatliquidatif->find( 'count', array( 'conditions' => array( 'ApreEtatliquidatif.etatliquidatif_id' => $id ) ) );
 			if( $nApres == 0 ) {
-				$this->Session->setFlash( __( 'Impossible de valider un état liquidatif n\'étant associé à aucune APRE.' ), 'flash/error' );
+				$this->Flash->error( __( 'Impossible de valider un état liquidatif n\'étant associé à aucune APRE.' ) );
 				$this->redirect( array( 'action' => 'index' ) );
 			}
 
@@ -551,8 +552,8 @@
 			}
 
 			$this->Etatliquidatif->create( $etatliquidatif );
-			if( $this->Etatliquidatif->save() ) {
-				$this->Session->setFlash( __( 'Enregistrement effectué' ), 'flash/success' );
+			if( $this->Etatliquidatif->save( null, array( 'atomic' => false ) ) ) {
+				$this->Flash->success( __( 'Save->success' ) );
 				$this->redirect( array( 'action' => 'index', max( 1, Set::classicExtract( $this->request->params, 'named.page' ) ) ) );
 			}
 		}
@@ -574,7 +575,7 @@
 
 			// État liquidatif pas encore validé
 			if( empty( $etatliquidatif['Etatliquidatif']['datecloture'] ) ) {
-				$this->Session->setFlash( __( 'Impossible de générer le fichier HOPEYRA pour un état liquidatif pas encore validé.' ), 'flash/error' );
+				$this->Flash->error( __( 'Impossible de générer le fichier HOPEYRA pour un état liquidatif pas encore validé.' ) );
 				$this->redirect( array( 'action' => 'index' ) );
 			}
 
@@ -604,7 +605,7 @@
 
 			// État liquidatif pas encore validé
 			if( empty( $etatliquidatif['Etatliquidatif']['datecloture'] ) ) {
-				$this->Session->setFlash( __( 'Impossible de générer le fichier PDF pour un état liquidatif pas encore validé.' ), 'flash/error' );
+				$this->Flash->error( __( 'Impossible de générer le fichier PDF pour un état liquidatif pas encore validé.' ) );
 				$this->redirect( array( 'action' => 'index' ) );
 			}
 
@@ -642,7 +643,7 @@
 			$this->set( 'json', array( 'montantattribue' => $montantattribue ) );
 
 			$this->layout = 'ajax';
-			$this->render( '/'.( CAKE_BRANCH == '1.2' ? 'elements' : 'Elements' ).'/json' );
+			$this->render( '/Elements/json' );
 		}
 
 		/**
@@ -696,7 +697,7 @@
 				}
 				else {
 					$this->Etatliquidatif->ApreEtatliquidatif->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 		}

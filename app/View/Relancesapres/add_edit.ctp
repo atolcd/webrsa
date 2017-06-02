@@ -13,13 +13,13 @@
 <h1><?php echo $this->pageTitle;?></h1>
 <?php
 	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Relanceapre', array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Relanceapre', array( 'type' => 'post', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Relanceapre.apre_id', array( 'type' => 'hidden', 'value' => Set::classicExtract( $apre, 'Apre.id' ) ) );
 		echo '</div>';
 	}
 	else {
-		echo $this->Form->create( 'Relanceapre', array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Relanceapre', array( 'type' => 'post', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Relanceapre.id', array( 'type' => 'hidden' ) );
 		echo $this->Form->input( 'Relanceapre.apre_id', array( 'type' => 'hidden' ) );

@@ -7,7 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses('AppController', 'Controller');
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe Cataloguesromesv3Controller ...
@@ -30,7 +30,7 @@
 		 */
 		public $components = array(
 			'Ajax',
-			'Search.Filtresdefaut' => array(
+			'Search.SearchFiltresdefaut' => array(
 				'famillesromesv3',
 				'domainesromesv3',
 				'metiersromesv3',
@@ -75,11 +75,11 @@
 			'Familleromev3',
 			'Metierromev3',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
@@ -89,7 +89,7 @@
 			'famillesromesv3' => 'Cataloguesromesv3:index',
 			'metiersromesv3' => 'Cataloguesromesv3:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -98,7 +98,7 @@
 		public $aucunDroit = array(
 			'ajax_appellation',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -283,8 +283,7 @@
 					$modelName,
 					array(),
 					$fields,
-					false // FIXME
-					//!Hash::get( $this->request->data, 'Search.Pagination.nombre_total' )
+					false
 				);
 
 				// A-t'on des enregistrements liés ?
@@ -347,14 +346,14 @@
 				$Model->begin();
 				if( $Model->saveParametrage( $this->request->data ) ) {
 					$Model->commit();
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 
 					$referer = Hash::get( $this->request->data, "{$modelName}.referer" );
 					return $this->redirect( $referer );
 				}
 				else {
 					$Model->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {
@@ -414,11 +413,11 @@
 			$Model->begin();
 			if( $Model->delete( $id ) ) {
 				$Model->commit();
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
 				$Model->rollback();
-				$this->Session->setFlash( 'Erreur lors de la suppression', 'flash/error' );
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 
 			return $this->redirect( $this->referer() );

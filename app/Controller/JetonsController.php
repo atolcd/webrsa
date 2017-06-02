@@ -5,7 +5,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses('AppController', 'Controller');
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe JetonsController ...
@@ -36,19 +36,19 @@
 		 * @var array
 		 */
 		public $helpers = array(
-			
+
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -58,7 +58,7 @@
 			'ajax_count',
 			'ajax_delete',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -69,7 +69,7 @@
 			'ajax_count' => 'read',
 			'ajax_delete' => 'delete',
 		);
-		
+
 		public function ajax_count() {
 			$json = $this->Jetons2->count();
 			$this->set( compact( 'json' ) );

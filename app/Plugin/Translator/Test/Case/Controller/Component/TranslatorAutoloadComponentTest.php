@@ -13,7 +13,7 @@
 	App::uses('Translator', 'Translator.Utility');
 
 	/**
-	 * InsertionsAllocatairesTestController class
+	 * Domain1Controller class
 	 *
 	 * @package app.Test.Case.Controller.Component
 	 */

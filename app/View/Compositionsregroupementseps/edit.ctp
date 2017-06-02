@@ -1,49 +1,31 @@
 <?php
-	$this->pageTitle = "Gestion de la composition du regroupement d'E.P. : {$this->request->data['Regroupementep']['name']}.";
-
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
-	}
-?>
+	};
 
-<h1><?php echo $this->pageTitle;?></h1>
+	echo $this->Default3->titleForLayout( $this->request->data );
 
-<?php
-	if ( isset( $prioritaireExist ) && !empty( $prioritaireExist ) ) {
-		echo "<p class='error'>Merci de mettre au moins un membre prioritaire (les mettre tous prioritaires si aucune gestion).</p>";
-	}
+	echo $this->Default3->DefaultForm->create();
+	echo $this->Default3->DefaultForm->input( 'Regroupementep.id', array( 'type' => 'hidden' ) );
+	echo $this->Default3->DefaultForm->input( 'Regroupementep.name', array( 'type' => 'hidden' ) );
 
-	echo $this->Xform->create( null );
-	echo $this->Xform->input( 'Regroupementep.name', array( 'type' => 'hidden' ) );
+	foreach( $fonctionsmembreseps as $id => $fonctionmembreep ) {
+		$subform =
+			$this->Default3->DefaultForm->input( "Compositionregroupementep.{$id}.id", array( 'type' => 'hidden' ) )
+			.$this->Default3->DefaultForm->input( "Compositionregroupementep.{$id}.regroupementep_id", array( 'type' => 'hidden' ) )
+			.$this->Default3->DefaultForm->input( "Compositionregroupementep.{$id}.fonctionmembreep_id", array( 'type' => 'hidden' ) )
+			.$this->Default3->DefaultForm->input( "Compositionregroupementep.{$id}.prioritaire", array( 'type' => 'radio', 'options' => $options['Compositionregroupementep']['prioritaire'], 'legend' => __m( 'Compositionregroupementep.prioritaire' ) ) )
+			.$this->Default3->DefaultForm->input( "Compositionregroupementep.{$id}.obligatoire", array( 'type' => 'radio', 'options' => $options['Compositionregroupementep']['obligatoire'], 'legend' => __m( 'Compositionregroupementep.obligatoire' ) ) );
 
-	foreach( $fonctionsmembreseps as $functionId => $functionName ) {
-		echo "<fieldset><legend>{$functionName}</legend>";
-		echo $this->Xhtml->tag(
-			'div',
-			$this->Default->subform(
-				array(
-					"Compositionregroupementep.{$functionId}.id" => array( 'type' => 'hidden' ),
-					"Compositionregroupementep.{$functionId}.prioritaire" => array( 'type' => 'radio' ),
-					"Compositionregroupementep.{$functionId}.obligatoire" => array( 'type' => 'radio' )
-				),
-				array(
-					'options' => $options
-				)
-			)
+		echo $this->Html->tag(
+			'fieldset',
+			$this->Html->tag( 'legend', $fonctionmembreep )
+			.$subform
 		);
-		echo '</fieldset>';
 	}
 
-	echo $this->Xform->end( __( 'Save' ) );
+	echo $this->Default3->DefaultForm->buttons( array( 'Save', 'Cancel' ) );
+	echo $this->Default3->DefaultForm->end();
 
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'compositionsregroupementseps',
-			'action'     => 'index'
-		),
-		array(
-			'id' => 'Back'
-		)
-	);
+	echo $this->Observer->disableFormOnSubmit();
 ?>

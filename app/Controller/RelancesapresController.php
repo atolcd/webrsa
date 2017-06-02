@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe RelancesapresController ...
@@ -63,26 +64,26 @@
 			'Prestation',
 			'Relanceapre',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Relancesapres:edit',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -189,17 +190,17 @@
 					if( $saved ) {
 						$this->Relanceapre->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'apres', 'action' => 'index', Set::classicExtract( $apre, 'Apre.personne_id' ) ) );
 					}
 					else {
 						$this->Relanceapre->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 				else {
 					$this->Relanceapre->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -256,7 +257,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'relanceapre_%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer l\'impression de la relance de l\'APRE.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer l\'impression de la relance de l\'APRE.' );
 				$this->redirect( $this->referer() );
 			}
 		}

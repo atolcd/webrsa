@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe Personnespcgs66Controller (CG 66).
@@ -57,27 +58,26 @@
 			'Dossierpcg66',
 			'Option',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Personnespcgs66:edit',
-			'view' => 'Personnespcgs66:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -90,15 +90,15 @@
 			'edit' => 'update',
 			'view' => 'read',
 		);
-		
+
 		/**
 		 *
 		 */
 		protected function _setOptions() {
 			$options = array( );
 
-			$this->set( 'statutlist', $this->Dossierpcg66->Personnepcg66->Statutpdo->find( 'list', array( 'order' => 'Statutpdo.libelle ASC', 'conditions' => array( 'Statutpdo.isactif' => '1' ) ) ) );
-			$this->set( 'situationlist', $this->Dossierpcg66->Personnepcg66->Situationpdo->find( 'list', array( 'order' => 'Situationpdo.libelle ASC', 'conditions' => array( 'Situationpdo.isactif' => '1' ) ) ) );
+			$this->set( 'statutlist', $this->Dossierpcg66->Personnepcg66->Statutpdo->findForTraitement( 'list' ) );
+			$this->set( 'situationlist', $this->Dossierpcg66->Personnepcg66->Situationpdo->findForTraitement( 'list' ) );
 			$this->set( compact( 'options' ) );
 
 			$this->set( 'gestionnaire', $this->User->find(
@@ -177,8 +177,6 @@
 			// Récupération des id afférents
 			if( $this->action == 'add' ) {
 				$dossierpcg66_id = $id;
-
-				//$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'id' => $this->Dossierpcg66->dossierId( $id ) ) ) );
 
 				$dossierpcg66 = $this->Dossierpcg66->find(
 						'first', array(
@@ -287,7 +285,6 @@
 									'fields' => array( 'prestations.personne_id' ),
 									'conditions' => array(
 										'prestations.natprest = \'RSA\'',
-//										'prestations.rolepers' => array( 'DEM', 'CJT' )
 									),
 									'contain' => false
 								)
@@ -327,8 +324,6 @@
 				$this->assert( !empty( $personnepcg66 ), 'invalidParameter' );
 				$dossierpcg66_id = Set::classicExtract( $personnepcg66, 'Personnepcg66.dossierpcg66_id' );
 
-				//$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'id' => $this->Dossierpcg66->dossierId( $dossierpcg66_id ) ) ) );
-
 				$qd_dossierpcg66 = array(
 					'conditions' => array(
 						'Dossierpcg66.id' => $dossierpcg66_id
@@ -356,7 +351,6 @@
 									'fields' => array( 'prestations.personne_id' ),
 									'conditions' => array(
 										'prestations.natprest = \'RSA\'',
-//										'prestations.rolepers' => array( 'DEM', 'CJT' )
 									),
 									'contain' => false
 								)
@@ -414,7 +408,7 @@
 								+ $empty;
 
 						$this->Personnepcg66->Categorieromev3->create( $categorieromev3 );
-						$success = $this->Personnepcg66->Categorieromev3->save() && $success;
+						$success = $this->Personnepcg66->Categorieromev3->save( null, array( 'atomic' => false ) ) && $success;
 						$personnepcg66['categorieromev3_id'] = $this->Personnepcg66->Categorieromev3->id;
 					}
 				}
@@ -423,8 +417,8 @@
 				}
 
 				$this->Personnepcg66->create( $personnepcg66 );
-				$success = $this->Personnepcg66->save() && $success;
-				
+				$success = $this->Personnepcg66->save( null, array( 'atomic' => false ) ) && $success;
+
 				$success = $this->_checkValidation() && $success;
 
 				if( $success ) {
@@ -472,7 +466,7 @@
 									);
 
 									$this->Personnepcg66->{$modeleliaison}->create( $record );
-									$success = $this->Personnepcg66->{$modeleliaison}->save() && $success;
+									$success = $this->Personnepcg66->{$modeleliaison}->save( null, array( 'atomic' => false ) ) && $success;
 								}
 							}
 						}
@@ -481,12 +475,12 @@
 					if( $success ) {
 						 $this->Personnepcg66->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'dossierspcgs66', 'action' => 'edit', $dossierpcg66_id ) );
 					}
 					else {
 						$this->Personnepcg66->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 			}
@@ -524,7 +518,7 @@
                 // suivant la DERNIERE perosnne saisie préalablement
                 if( !empty( $dossierpcg66Pcd['Personnepcg66'] ) ){
                     $this->request->data['Personnepcg66']['personne_id'] = $dossierpcg66Pcd['Personnepcg66'][0]['personne_id'];
-					
+
 					//Préremplissage des rome v3
 					$romev3 = (array)Hash::get($dossierpcg66Pcd, 'Personnepcg66.0.Categorieromev3');
 					$depend['familleromev3_id'] = Hash::get($romev3, 'familleromev3_id');
@@ -622,17 +616,17 @@
 
 		protected function _checkValidation() {
 			$success = true;
-			
+
 			if( empty( $this->request->data['Situationpdo']['Situationpdo'] ) ) {
 				$success = false;
 				$this->Personnepcg66->invalidate( 'Situationpdo.Situationpdo', 'Il est obligatoire de saisir au moins un motif de décision pour la personne.' );
 			}
-			
+
 			if( empty( $this->request->data['Statutpdo']['Statutpdo'] ) ) {
 				$success = false;
 				$this->Personnepcg66->invalidate( 'Statutpdo.Statutpdo', 'Il est obligatoire de saisir au moins un statut pour la personne.' );
 			}
-			
+
 			if (Hash::get($this->request->data, 'Personnepcg66.id')) {
 				$query = array(
 					'fields' => array(
@@ -649,7 +643,7 @@
 				);
 				$results = (array)$this->Personnepcg66->Traitementpcg66->find('all', $query);
 				$errors = array();
-				
+
 				foreach ($results as $value) {
 					$situationpdo_id = Hash::get($value, 'Traitementpcg66.situationpdo_id');
 					$libelle = Hash::get($value, 'Situationpdo.libelle');
@@ -658,12 +652,12 @@
 						$errors[] = "Un traitement existe portant un motif non choisi ({$libelle}).";
 					}
 				}
-				
+
 				foreach (array_unique($errors) as $error) {
 					$this->Personnepcg66->invalidate('Situationpdo.Situationpdo', $error);
 				}
 			}
-			
+
 			return $success;
 		}
 	}

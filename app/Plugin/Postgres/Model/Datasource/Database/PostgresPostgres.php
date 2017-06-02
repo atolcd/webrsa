@@ -40,8 +40,6 @@
 		 * Retourne la liste des fonctions PostgreSQL disponibles (schema, name,
 		 * result, arguments).
 		 *
-		 * Permet de déprécier Pgsqlcake.PgsqlSchemaBehavior::pgFunctions().
-		 *
 		 * @param array $conditions Conditions supplémentaires éventuelles.
 		 * @return array
 		 */
@@ -97,8 +95,6 @@
 
 		/**
 		 * Permet de vérifier la syntaxe d'un intervalle au sens PostgreSQL.
-		 *
-		 * Permet de déprécier Pgsqlcake.PgsqlSchemaBehavior::pgCheckIntervalSyntax().
 		 *
 		 * @param string $interval
 		 * @return array

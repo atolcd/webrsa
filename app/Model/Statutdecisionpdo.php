@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Statutdecisionpdo.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Statutdecisionpdo ...
@@ -17,16 +18,19 @@
 	{
 		public $name = 'Statutdecisionpdo';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'libelle';
 
-		public $validate = array(
-			'libelle' => array(
-				array( 'rule' => 'notEmpty' )
-			)
-		);
-
 		public $actsAs = array(
-			'ValidateTranslate'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $hasAndBelongsToMany = array(

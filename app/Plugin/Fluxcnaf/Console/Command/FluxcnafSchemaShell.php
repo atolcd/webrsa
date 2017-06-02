@@ -4,9 +4,11 @@
 	 *
 	 * PHP 5.3
 	 *
-	 * @package Fluxcnaf.Console.Command
+	 * @package Fluxcnaf
+	 * @subpackage Console.Command
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppShell', 'Console/Command' );
 	App::uses( 'Xml', 'Utility' );
 	App::uses( 'FluxcnafSchema', 'Fluxcnaf.Utility' );
 
@@ -21,7 +23,8 @@
 	 *
 	 * @see http://xemelios.org/user-guide/documents/rsa.html
 	 *
-	 * @package Fluxcnaf.Console.Command
+	 * @package Fluxcnaf
+	 * @subpackage Console.Command
 	 */
 	class FluxcnafSchemaShell extends AppShell
 	{
@@ -34,6 +37,8 @@
 		 * La constante à utiliser dans la méthode _stop() en cas d'erreur.
 		 */
 		const ERROR = 1;
+
+		public $uses = array( 'Fluxcnaf.Fluxcnaf' );
 
 		/**
 		 * Description du shell.
@@ -60,14 +65,7 @@
 		 *
 		 * @var array
 		 */
-		public $commands = array(
-			/*'locale' => array(
-				'help' => "Génère un fichier de traductions à partir des enumérations d'un fichier <schema>Dico.xml"
-			),
-			'compare' => array(
-				'help' => "Génère un fichier HTML de comparaison des valeurs finies de balises (champs) pour un ensemble de fichiers <schema>Dico.xml"
-			)*/
-		);
+		public $commands = array();
 
 		/**
 		 * Liste des arguments à passe au shell.
@@ -179,7 +177,8 @@
 		protected function _compareToHtml( array $names, array $results ) {
 			$thead = '';
 			foreach( array_keys( $names ) as $name ) {
-				$thead .= "<th>{$name}</th>";
+				$label = Hash::get( $this->Fluxcnaf->names, $name );
+				$thead .= "<th>{$label} ({$name})</th>";
 			}
 			$thead = "<tr><th>Balise</th>{$thead}<th>Différences</th></tr>";
 
@@ -214,7 +213,12 @@
 
 			$table = "<table><thead>{$thead}</thead><tbody>{$tbody}</tbody></table>";
 
-			$title = sprintf( 'Comparaison des balises de %s', implode( ', ', array_keys( $names ) ) );
+			$labels = array();
+			foreach( array_keys( $names ) as $name ) {
+				$labels[] = Hash::get( $this->Fluxcnaf->names, $name ) . " ({$name})";
+			}
+
+			$title = sprintf( 'Comparaison des balises de %s', implode( ', ', $labels ) );
 
 			$encoding = strtolower( Configure::read( 'App.encoding' ) );
 

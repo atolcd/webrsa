@@ -66,9 +66,6 @@
 							'0' => 'Sans prestation',
 							'1' => 'Demandeur ou Conjoint du RSA'
 						)
-					),
-					'Structurereferente' => array(
-						'type_voie' => $Controller->Option->typevoie()
 					)
 				)
 			);
@@ -191,23 +188,6 @@
 						)
 					);
 
-//					$qd = array(
-//						'alias' => 'personnes_referents',
-//						'fields' => array( 'personnes_referents.id' ),
-//						'contain' => false,
-//						'conditions' => array(
-//							'personnes_referents.dddesignation <= Rendezvous.daterdv',
-//							array(
-//								'personnes_referents.dfdesignation IS NULL',
-//								'personnes_referents.dfdesignation > Rendezvous.daterdv'
-//							)
-//						)
-//					);
-//					$sqReferentParcours = $Controller->Rendezvous->Personne->PersonneReferent->sq( $qd );
-
-//					$qd['conditions']['personnes_referents.structurereferente_id'] = $structuresreferentesTerritoire;
-//					$sqReferentParcoursTerritoire = $Controller->Rendezvous->Personne->PersonneReferent->sq( $qd );
-
 					$codesinsee = array_keys( $this->Gestionzonesgeos->listeCodesInsee() );
 
 					$query['conditions'][] = array(
@@ -217,12 +197,6 @@
 							),
 							array(
 								'Rendezvous.structurereferente_id' => $structuresreferentesTerritoire,
-	//							array(
-	//								'OR' => array(
-	//									"NOT EXISTS( {$sqReferentParcours} )",
-	//									"EXISTS( {$sqReferentParcoursTerritoire} )"
-	//								)
-	//							),
 								'OR' => array(
 									array(
 										'Rendezvous.daterdv >= Adressefoyer.dtemm',

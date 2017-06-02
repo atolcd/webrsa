@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe OffresinsertionController ...
@@ -63,17 +64,17 @@
 			'Option',
 			'Partenaire',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'view' => 'Offresinsertion:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -85,7 +86,7 @@
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -104,11 +105,13 @@
 
 		public function _setOptions() {
 			$options = array();
-			$options = $this->Actioncandidat->enums();
+			$options = array_merge(
+				$this->Actioncandidat->enums(),
+				$this->Partenaire->enums()
+			);
 			$listeActions = $this->Actioncandidat->find( 'list', array( 'order' => 'Actioncandidat.name ASC' ) );
 			$listePartenaires = $this->Actioncandidat->Partenaire->find( 'list', array( 'order' => 'Partenaire.libstruc ASC' ) );
 			$listeContacts = $this->Actioncandidat->Contactpartenaire->find( 'list', array( 'order' => 'Contactpartenaire.nom ASC' ) );
-			$options['Partenaire']['typevoie'] = $this->Option->typevoie();
 			$correspondants = $this->Actioncandidat->ActioncandidatPersonne->Referent->find('list', array( 'order' => 'Referent.nom ASC' ) );
 			$query = array(
 				'fields' => 'Partenaire.codepartenaire',
@@ -119,7 +122,7 @@
 			foreach (Hash::extract($this->Actioncandidat->Partenaire->find('all', $query), '{n}.Partenaire.codepartenaire') as $code) {
 				$options['Partenaire']['codepartenaire'][$code] = $code;
 			}
-			
+
 			$query = array(
 				'fields' => 'Actioncandidat.themecode',
 				'contain' => false,
@@ -129,7 +132,7 @@
 			foreach (Hash::extract($this->Actioncandidat->find('all', $query), '{n}.Actioncandidat.themecode') as $code) {
 				$options['Actioncandidat']['themecode'][$code] = $code;
 			}
-			
+
 			$query = array(
 				'fields' => 'Actioncandidat.codefamille',
 				'contain' => false,
@@ -140,8 +143,7 @@
 				$options['Actioncandidat']['codefamille'][$code] = $code;
 			}
 
-// 			$options = Set::merge( $options, $typevoie );
-			$this->set( compact( 'options', 'listeActions', 'listePartenaires', 'listeContacts', 'typevoie', 'correspondants' ) );
+			$this->set( compact( 'options', 'listeActions', 'listePartenaires', 'listeContacts', 'correspondants' ) );
 		}
 
 
@@ -273,13 +275,13 @@
 
 				if( $saved ) {
 					$this->Actioncandidat->commit();
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( $this->referer() );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $actioncandidat_id );
 					$this->Actioncandidat->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -294,17 +296,16 @@
 		}
 
         /**
-         * Fonction permettant d'exporter le tableau de résultats au format CSV
+         * Fonction permettant d'exporter le tableau de résultats de la refcherche
+		 * globale au format CSV.
          */
         public function exportcsv() {
 
-            $queryData = $this->Offreinsertion->search( Hash::expand( $this->request->params['named'], '__' ) );
+            $queryData = $this->Offreinsertion->searchGlobal( Hash::expand( $this->request->params['named'], '__' ) );
 			unset( $queryData['limit'] );
 
 			$actionscandidat = $this->Actioncandidat->find( 'all', $queryData );
 
-//debug($actionscandidat);
-//die();
 			$this->layout = '';
 			$this->set( compact( 'headers', 'actionscandidat' ) );
 			$this->_setOptions();

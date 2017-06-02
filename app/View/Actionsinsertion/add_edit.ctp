@@ -78,7 +78,7 @@
 
 <?php
 	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Actioninsertion', array( 'type' => 'post' ));
+		echo $this->Form->create( 'Actioninsertion', array( 'type' => 'post', 'novalidate' => true ));
 		echo '<div>';
 		echo $this->Form->input( 'Actioninsertion.id', array( 'type' => 'hidden' ) );
 
@@ -90,7 +90,7 @@
 		echo '</div>';
 	}
 	else {
-		echo $this->Form->create( 'Actioninsertion', array( 'type' => 'post' ));
+		echo $this->Form->create( 'Actioninsertion', array( 'type' => 'post', 'novalidate' => true ));
 		echo '<div>';
 		echo $this->Form->input( 'Actioninsertion.id', array( 'type' => 'hidden' ) );
 		echo $this->Form->input( 'Aidedirecte.id', array( 'type' => 'hidden' ) );

@@ -7,7 +7,7 @@
 	 * @package Gedooo
 	 * @subpackage Model.Behavior
 	 */
-	App::import( 'Behavior', 'Gedooo.GedoooFusionConverter' );
+	App::uses( 'GedoooFusionConverterBehavior', 'Gedooo.Model/Behavior' );
 
 	/**
 	 * La classe GedoooCloudoooBehavior fournit une méthode de conversion de
@@ -29,7 +29,7 @@
 			// pear upgrade
 			// pear install xml_rpc / var_dump(class_exists('System', false));
 
-			require_once 'XML/RPC.php'; // INFO: extension pear/pecl ?
+			include_once 'XML/RPC.php'; // INFO: extension pear/pecl ?
 
 			$content = base64_encode( file_get_contents( $fileName ) );
 
@@ -83,7 +83,7 @@
 		 * @return array
 		 */
 		public function gedTests( Model $model ) {
-			App::import( 'Model', 'Appchecks.Check' );
+			App::uses( 'Check', 'Appchecks.Model' );
 			$Check = ClassRegistry::init( 'Appchecks.Check' );
 
 			$results = parent::gedTests( $model );

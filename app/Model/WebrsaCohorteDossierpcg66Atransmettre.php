@@ -232,17 +232,23 @@
 					unset($data[$key]);
 				}
 			}
+			
+			$this->Dossierpcg66->begin();
 
 			$success = !empty($data);
+			$validationErrors = array();
 			if ( $success ) {
 				foreach( $data as $key => $value ) {
 					// On sauvegarde Dossierpcg66
 					$this->Dossierpcg66->create($value['Dossierpcg66']);
-					$success = $this->Dossierpcg66->save() && $success;
+					$success = $this->Dossierpcg66->save( null, array( 'atomic' => false ) ) && $success;
+					$validationErrors['Dossierpcg66'][$key] = $this->Dossierpcg66->validationErrors;
 
 					// On sauvegarde Decisiondossierpcg66
 					$this->Dossierpcg66->Decisiondossierpcg66->create($value['Decisiondossierpcg66']);
-					$success = $this->Dossierpcg66->Decisiondossierpcg66->save() && $success;
+					$success = $this->Dossierpcg66->Decisiondossierpcg66->save( null, array( 'atomic' => false ) ) && $success;
+					$validationErrors['Decisiondossierpcg66'][$key] =
+						$this->Dossierpcg66->Decisiondossierpcg66->validationErrors;
 
 					// On sauvegarde Decdospcg66Orgdospcg66 (table de liaison entre les organismes et la décision)
 					$orgs = (array)Hash::get($value, 'Decdospcg66Orgdospcg66.orgtransmisdossierpcg66_id');
@@ -269,7 +275,19 @@
 					}
 
 					$success = $this->Dossierpcg66->Decisiondossierpcg66->Decdospcg66Orgdospcg66->saveAll($datasDec) && $success;
+					$validationErrors['Decdospcg66Orgdospcg66'][$key] =
+						$this->Dossierpcg66->Decisiondossierpcg66->Decdospcg66Orgdospcg66->validationErrors;
 				}
+			}
+			
+			foreach((array)Hash::filter($validationErrors) as $alias => $errors) {
+				ClassRegistry::getObject($alias)->validationErrors = $errors;
+			}
+			
+			if ($success) {
+				$this->Dossierpcg66->commit();
+			} else {
+				$this->Dossierpcg66->rollback();
 			}
 
 			return $success;

@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe ActioncandidatPersonne ...
@@ -16,6 +17,13 @@
 	class ActioncandidatPersonne extends AppModel
 	{
 		public $name = 'ActioncandidatPersonne';
+
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
 
 		public $belongsTo = array(
 			'Personne' => array(
@@ -57,50 +65,11 @@
 
 		public $actsAs = array (
 			'Allocatairelie',
-			'ValidateTranslate',
-			'Enumerable' => array(
-				'fields' => array(
-					'enattente' => array(
-						'values' => array( 'O', 'N' )
-					),
-					'bilanvenu' => array(
-						'values' => array( 'VEN', 'NVE' ),
-						'domain' => 'actioncandidat_personne'
-					),
-					'bilanretenu' => array(
-						'values' => array( 'RET', 'NRE' ),
-						'domain' => 'actioncandidat_personne'
-					),
-					'bilanrecu' => array(
-						'values' => array( 'O', 'N' ),
-						'domain' => 'actioncandidat_personne'
-					),
-					'presencecontrat' => array(
-						'values' => array( 'O', 'N' ),
-						'domain' => 'actioncandidat_personne'
-					),
-					'pieceallocataire' => array(
-						'values' => array( 'CER', 'NCA', 'CV', 'AUT' ),
-						'domain' => 'actioncandidat_personne'
-					),
-					'integrationaction' => array(
-						'values' => array( 'O', 'N' ),
-						'domain' => 'actioncandidat_personne'
-					),
-					'positionfiche' => array(
-						'domain' => 'actioncandidat_personne'
-					),
-					'haspiecejointe' => array(
-						'domain' => 'actioncandidat_personne'
-					),
-					'naturemobile' => array(
-						'domain' => 'actioncandidat_personne'
-					)
-				)
-			),
-			'Formattable',
 			'Gedooo.Gedooo',
-			'Autovalidate2'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 
@@ -124,19 +93,9 @@
 		);
 
 		public $validate = array(
-			'personne_id' => array(
-				'notEmpty' => array( 'rule' => 'notEmpty' )
-			),
-			'referent_id' => array(
-				'notEmpty'=> array( 'rule' => 'notEmpty' )
-			),
-			'actioncandidat_id' => array(
-				'notEmpty' => array( 'rule' => 'notEmpty' )
-			),
 			'nivetu'  => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
             'bilanvenu' => array(
@@ -159,14 +118,13 @@
 				)
 			),
 			'ddaction' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'motifdemande' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
@@ -183,7 +141,7 @@
 				)
 			)
 		);
-		
+
 		/**
 		 * Les modèles qui seront utilisés par ce modèle.
 		 *
@@ -193,9 +151,9 @@
 
 		/**
 		 * __construct($id = false, $table = null, $ds = null)
-		 * 
+		 *
 		 * Rend la saisie d'un Nom du programme obligatoire si Actions Région : formation est selectionné
-		 * 
+		 *
 		 * @param array $id
 		 * @param unknown_type $table
 		 * @param unknown_type $ds
@@ -204,14 +162,12 @@
             parent::__construct($id, $table, $ds);
 
             // Rend la saisie d'un Nom du programme obligatoire si Actions Région : formation est selectionné
-            if( Configure::read( 'Cg.departement' ) == 66 ) {
-                $this->validate['progfichecandidature66_id'] = array(
-                    'notEmptyIf' => array(
-                        'rule' => array( 'notEmptyIf', 'actioncandidat_id', true, (array)Configure::read('ActioncandidatPersonne.Actioncandidat.typeregionId') ),
-                        'message' => 'Champ obligatoire'
-                    )
-                );
-            }
+			$this->validate['progfichecandidature66_id'] = array(
+				'notEmptyIf' => array(
+					'rule' => array( 'notEmptyIf', 'actioncandidat_id', true, (array)Configure::read('ActioncandidatPersonne.Actioncandidat.typeregionId') ),
+					'message' => 'Champ obligatoire'
+				)
+			);
         }
 
 		/**

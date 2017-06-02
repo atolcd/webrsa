@@ -7,6 +7,7 @@
 	 * @package app.Model.Abstractclass
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * Classe abstraite contenant les signatures de méthodes qui doivent être
@@ -23,12 +24,6 @@
 	 */
 	abstract class AbstractThematiquecov58 extends AppModel
 	{
-		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
 
 		/**
 		 * Fonction retournant un querydata qui va permettre de retrouver des
@@ -165,7 +160,7 @@
 		 * @param array $data
 		 * @return boolean
 		 */
-		public abstract function saveDecisions( $data );
+		abstract public function saveDecisions( $data );
 
 		/**
 		 * Retourne un morceau de querydata propre à la thématique utilisé pour

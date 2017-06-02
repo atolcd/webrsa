@@ -35,7 +35,7 @@
 					// S'il s'agit d'une ancienne thématique pour laquelle il n'existe pas de dossier, on n'affiche pas l'onglet
 					if( !in_array( Inflector::tableize( $theme ), $options['Dossierep']['vx_themeep'] ) || !empty( $dossiers[$theme] ) ) {
 						echo "<div id=\"$theme\"><h3 class=\"title\">".__d( 'dossierep',  'ENUM::THEMEEP::'.Inflector::tableize( $theme ) )."</h3>";
-						require_once( "choose.{$theme}.liste.ctp" );
+						include_once  "choose.{$theme}.liste.ctp" ;
 						if( !empty( $dossiers[$theme]) ) {
 							echo $this->Form->button( 'Tout cocher', array( 'type' => 'button', 'onclick' => "return toutCocher( '#{$theme} input[type=checkbox]' );" ) );
 							echo $this->Form->button( 'Tout décocher', array( 'type' => 'button', 'onclick' => "return toutDecocher( '#{$theme} input[type=checkbox]' );" ) );

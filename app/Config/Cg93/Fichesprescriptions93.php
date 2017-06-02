@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par fiches de prescription (nouveau)"
+	 * Menu "Recherches" > "Par fiches de prescription"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Fichesprescriptions93.search',
@@ -100,7 +100,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par fiches de prescription (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par fiches de prescription"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Fichesprescriptions93.exportcsv',
@@ -168,35 +168,6 @@
 	);
 
 	//--------------------------------------------------------------------------
-
-	/**
-	 * Filtres par défaut de la recherche par fiche de prescription.
-	 *
-	 * @deprecated since 3.0.00
-	 */
-	Configure::write(
-		'Filtresdefaut.Fichesprescriptions93_search1',
-		array(
-			'Search' => array(
-				'Calculdroitrsa' => array(
-					'toppersdrodevorsa' => '1'
-				),
-				'Dossier' => array(
-					'dernier' => '1',
-				),
-				'Ficheprescription93' => array(
-					'exists' => '1'
-				),
-				'Pagination' => array(
-					'nombre_total' => '0'
-				),
-				'Situationdossierrsa' => array(
-					'etatdosrsa_choice' => '1',
-					'etatdosrsa' => array( '2', '3', '4' )
-				)
-			)
-		)
-	);
 
 	/**
 	 * Liste des intitulés et des URL à faire apparaître dans le cadre

@@ -17,7 +17,7 @@
 	).'</li></ul>';
 ?>
 
-<?php echo $this->Xform->create( 'Nonrespectsanctionep93', array( 'type' => 'post', 'action' => $this->action, 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ) ) );?>
+<?php echo $this->Xform->create( 'Nonrespectsanctionep93', array( 'type' => 'post', 'url' => array( 'action' => $this->action ), 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ) ) );?>
 	<fieldset>
 			<?php echo $this->Xform->input( 'Search.active', array( 'type' => 'hidden', 'value' => true ) );?>
 

@@ -7,9 +7,9 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaAccessPersonnes', 'Utility' );
 
-	App::uses('WebrsaAccessPersonnes', 'Utility');
-	
 	/**
 	 * La classe PersonnesController permet de gérer les personnes au sein d'un foyer RSA.
 	 *
@@ -61,18 +61,18 @@
 			'Option',
 			'WebrsaPersonne',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Personnes:edit',
 			'view' => 'Personnes:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -84,7 +84,7 @@
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -207,14 +207,13 @@
 				if( $saved ) {
 					$this->Personne->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
-// 					$this->redirect( array(  'controller' => 'personnes','action' => 'index', $foyer_id ) );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( $this->referer() );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id );
 					$this->Personne->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -231,7 +230,7 @@
 			$this->assert( valid_int( $foyer_id ), 'invalidParameter' );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
-			
+
 			$personnes = $this->WebrsaAccesses->getIndexRecords(
 				$foyer_id, array(
 					'fields' => array(
@@ -278,7 +277,7 @@
 		 */
 		public function view( $id = null ) {
 			$this->WebrsaAccesses->check($id);
-			
+
 			$queryData = $this->WebrsaPersonne->completeVirtualFieldsForAccess(
 				array(
 					'fields' => array(
@@ -328,9 +327,9 @@
 			$foyer_id = Hash::get($personne, 'Personne.foyer_id');
 			$actionsParams = WebrsaAccessPersonnes::getActionParamsList($this->action);
 			$paramsAccess = $this->WebrsaPersonne->getParamsForAccess($id, $actionsParams);
-			
+
 			$personne = WebrsaAccessPersonnes::access($personne, $paramsAccess);
-			
+
 			// Mauvais paramètre ?
 			$this->assert( !empty( $personne ), 'invalidParameter' );
 
@@ -399,17 +398,17 @@
 
 						$this->Personne->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement réussi', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'personnes', 'action' => 'index', $foyer_id ) );
 					}
 					else {
 						$this->Personne->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 				else {
 					$this->Personne->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -454,7 +453,7 @@
 		 */
 		public function edit( $id = null ) {
 			$this->WebrsaAccesses->check($id);
-			
+
 			$personne = $this->Personne->find(
 				'first',
 				array(
@@ -467,7 +466,7 @@
 			);
 			$this->assert(!empty($personne), 'invalidParameter');
 			$foyer_id = Hash::get($personne, 'Personne.foyer_id');
-			
+
 			$dossier_id = $this->Personne->dossierId( $id );
 			$this->assert( !empty( $dossier_id ), 'invalidParameter' );
 
@@ -484,23 +483,23 @@
 			// Essai de sauvegarde
 			if( !empty( $this->request->data ) ) {
 				$this->Personne->begin();
-				
+
 				if ($this->Personne->saveAll($this->request->data)) {
 					$this->Personne->Foyer->refreshSoumisADroitsEtDevoirs($foyer_id);
 					$this->Personne->commit();
 					$this->Jetons2->release($dossier_id);
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect(
 						array('controller' => 'personnes', 'action' => 'index', $this->request->data['Personne']['foyer_id'])
 					);
 				} else {
 					$this->Personne->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			} else {
 				$this->request->data = $personne;
 			}
-			
+
 			$sitfam = $this->Option->sitfam();
 			$situationfamiliale = Set::enum( Set::classicExtract( $personne, 'Foyer.sitfam' ), $sitfam );
 			$this->set( 'situationfamiliale', $situationfamiliale );
@@ -508,16 +507,16 @@
 			$this->_setOptions();
 			$this->view = 'add_edit';
 		}
-                
+
                 /**
                  * Éditer les coordonnées spécifique d'une personne.
-                 * 
+                 *
                  * @param integer $id L'id de la personne
                  * @throws NotFoundException
                  */
 		public function coordonnees( $id = null ) {
 			$this->WebrsaAccesses->check($id);
-			
+
 			$query = array(
 				'conditions' => array( 'Personne.id' => $id ),
 				'contain' => false
@@ -528,7 +527,7 @@
 				throw new NotFoundException();
 			}
 
-			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $id ) );                  
+			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $id ) );
 			$this->Jetons2->get( $dossierMenu['Dossier']['id'] );
 			$redirectUrl = array( 'controller' => 'personnes', 'action' => 'view', $id );
 
@@ -543,15 +542,15 @@
 
 				$data = Hash::merge( $personne, $this->request->data );
 				$this->Personne->create( $data );
-				if ( $this->Personne->save() ) {   
+				if ( $this->Personne->save( null, array( 'atomic' => false ) ) ) {
 					$this->Personne->commit();
 					$this->Jetons2->release( $dossierMenu['Dossier']['id'] );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					return $this->redirect( $redirectUrl );
 				}
 				else {
 					$this->Personne->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -560,6 +559,6 @@
 
 			$urlmenu = "/personnes/view/{$id}";
 			$this->set( compact( 'personne', 'dossierMenu', 'urlmenu' ) );
-		} 
+		}
 	}
 ?>

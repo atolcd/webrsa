@@ -1,23 +1,19 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'courrierpdo', "Courrierspdos::{$this->action}" )
-	);
-
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
-	}
+	};
 
-	echo $this->Default->form(
-		array(
-			'Courrierpdo.name' => array( 'type' => 'text' ),
-			'Courrierpdo.modeleodt' => array( 'type' => 'text' )
-		),
-		array(
-			'actions' => array(
-				'courrierspdos::save',
-				'courrierspdos::cancel'
+	echo $this->Default3->titleForLayout( $this->request->data );
+
+	echo $this->Default3->form(
+		$this->Translator->normalize(
+			array(
+				'Courrierpdo.id',
+				'Courrierpdo.name',
+				'Courrierpdo.modeleodt'
 			)
 		)
 	);
+
+	echo $this->Observer->disableFormOnSubmit();
 ?>

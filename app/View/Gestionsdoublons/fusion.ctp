@@ -1,5 +1,5 @@
 <?php
-	$this->pageTitle = __d( 'droit', 'Gestionsdoublons:fusion' );
+	$this->pageTitle = __d( 'droit', 'controllers/Gestionsdoublons/fusion' );
 	echo $this->Xhtml->tag( 'h1', $this->pageTitle );
 
 if( isset( $errors ) && !empty( $errors ) ): ?>
@@ -82,17 +82,17 @@ if( isset( $errors ) && !empty( $errors ) ): ?>
 							echo '<td>'.$value.'</td>';
 							if ( $field === 'haspiecejointe' ) {
 								$pieceJointe = (boolean)Hash::get($record, 'haspiecejointe');
-								
+
 								if ($pieceJointe) {
 									$fichierLie[$modelName] = $modelName;
 								}
-								
+
 								// Cas particuliers où le nom de l'action pour les fichiers liés n'est pas filelink...
 								switch ($modelName) {
 									case 'Dossierpcg66': $action = 'edit'; break;
 									default: $action = 'filelink';
 								}
-								
+
 								echo '<td>'.$this->Xhtml->link('Voir pièces jointe',
 									array(
 										'controller' => Inflector::pluralize(Inflector::underscore($modelName)),
@@ -113,7 +113,7 @@ if( isset( $errors ) && !empty( $errors ) ): ?>
 				}
 			}
 		}
-		
+
 		if ($fichierLie) {
 			echo '<div class="notice">Des fichiers liés existent pour le(s) modele(s) suivant : <ul><li>'
 				.implode('</li><li>', $fichierLie).'</li></ul>'

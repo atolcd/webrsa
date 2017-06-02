@@ -1,35 +1,19 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'metierexerce', "Metiersexerces::{$this->action}" )
-	)
-?>
-
-<?php
-	$fields = array(
-		'Metierexerce.name'
-	);
-	echo $this->Default2->index(
-		$metiersexerces,
-		$fields,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'cohorte' => false,
-			'actions' => array(
-				'Metiersexerces::edit',
-				'Metiersexerces::delete',
+			'cells' => array(
+				'Metierexerce.name',
+				'/Metiersexerces/edit/#Metierexerce.id#' => array(
+					'title' => true
+				),
+				'/Metiersexerces/delete/#Metierexerce.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Metierexerce.has_linkedrecords#"'
+				)
 			),
-			'add' => 'Metiersexerces::add'
-		)
-	);
-	echo '<br />';
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'cers93',
-			'action'     => 'indexparams'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#contratsinsertion'
 		)
 	);
 ?>

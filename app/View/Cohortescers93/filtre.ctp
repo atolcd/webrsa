@@ -13,7 +13,7 @@
 		array( 'escape' => false, 'title' => 'Visibilité formulaire', 'onclick' => "var form = $$( 'form' ); form = form[0]; $( form ).toggle(); return false;" )
 	).'</li></ul>';
 ?>
-<?php echo $this->Xform->create( null, array( 'type' => 'post', 'action' => $this->action, 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) && isset( $this->request->data['Search']['active'] ) ) ? 'folded' : 'unfolded' ) ) );?>
+<?php echo $this->Xform->create( null, array( 'type' => 'post', 'url' => array( 'action' => $this->action ), 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) && isset( $this->request->data['Search']['active'] ) ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );?>
 	<?php
 		echo $this->Xform->input( 'Search.active', array( 'type' => 'hidden', 'value' => true ) );
 

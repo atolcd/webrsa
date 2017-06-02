@@ -37,7 +37,7 @@
 </script>
 
 <?php $pagination = $this->Xpaginator->paginationBlock( 'Comiteapre', $this->passedArgs ); ?>
-<?php echo $this->Xform->create( 'Comiteapre', array( 'type' => 'post', 'action' => '/index/', 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ) ) );?>
+<?php echo $this->Xform->create( 'Comiteapre', array( 'type' => 'post', 'url' => array( 'action' => 'index' ), 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );?>
 
 	<fieldset>
 		<?php echo $this->Xform->input( 'Comiteapre.recherche', array( 'label' => false, 'type' => 'hidden', 'value' => true ) );?>

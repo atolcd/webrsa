@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Decisionpropononorientationprocov58 ...
@@ -17,24 +18,12 @@
 	{
 		public $name = 'Decisionpropononorientationprocov58';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
 			'Dependencies',
-			'Enumerable' => array(
-				'fields' => array(
-					'etapecov',
-					'decisioncov'
-				)
-			),
-			'Formattable' => array(
-				'suffix' => array(
-					'structurereferente_id',
-					'referent_id'
-				)
-			),
-			'ValidateTranslate',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		public $belongsTo = array(
@@ -93,8 +82,8 @@
 		 */
 		public $validateFinalisation = array(
 			'decisioncov' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'typeorient_id' => array(

@@ -1,34 +1,19 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'traitementtypepdo', "Traitementstypespdos::{$this->action}" )
-	)
-?>
-
-<?php
-	echo $this->Default2->index(
-		$traitementstypespdos,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'Traitementtypepdo.name'
-		),
-		array(
-			'cohorte' => false,
-			'actions' => array(
-				'Traitementstypespdos::edit',
-				'Traitementstypespdos::delete',
+			'cells' => array(
+				'Traitementtypepdo.name',
+				'/Traitementstypespdos/edit/#Traitementtypepdo.id#' => array(
+					'title' => true
+				),
+				'/Traitementstypespdos/delete/#Traitementtypepdo.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Traitementtypepdo.has_linkedrecords#"'
+				)
 			),
-			'add' => 'Traitementstypespdos::add',
-		)
-	);
-
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'pdos',
-			'action'     => 'index'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#pdos'
 		)
 	);
 ?>

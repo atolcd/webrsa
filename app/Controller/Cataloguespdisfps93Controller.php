@@ -7,7 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses('AppController', 'Controller');
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe Cataloguespdisfps93Controller ...
@@ -29,7 +29,7 @@
 		 * @var array
 		 */
 		public $components = array(
-			'Search.Filtresdefaut' => array(
+			'Search.SearchFiltresdefaut' => array(
 				'search'
 			),
 			'Search.SearchPrg' => array(
@@ -63,26 +63,26 @@
 			'Cataloguepdifp93',
 			'Thematiquefp93',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -239,14 +239,14 @@
 				$Model->begin();
 				if( $Model->saveParametrage( $this->request->data ) ) {
 					$Model->commit();
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 
 					$referer = Hash::get( $this->request->data, "{$modelName}.referer" );
 					$this->redirect( $referer );
 				}
 				else {
 					$Model->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {
@@ -306,11 +306,11 @@
 			$Model->begin();
 			if( $Model->delete( $id ) ) {
 				$Model->commit();
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
 				$Model->rollback();
-				$this->Session->setFlash( 'Erreur lors de la suppression', 'flash/error' );
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 
 			$this->redirect( $this->referer() );

@@ -8,8 +8,8 @@
 	 * @subpackage Console.Command.Task
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppShell', 'Console/Command' );
 	App::uses( 'ConnectionManager', 'Model' );
-//	App::uses( 'Model', 'Model' );
 
 	/**
 	 * La classe TablesTask ...
@@ -55,8 +55,6 @@
 
 		// INFO: ne fonctionne qu'avec PostgreSQL
 		public function getFields( $tableName ) {
-			/*$schema = $this->Dbo->describe( $tableName );
-			return $schema;*/
 			$result = array();
 			$sql = "SELECT
 							column_name AS \"name\",
@@ -110,10 +108,6 @@
 		}
 
 		public function getSummary( $tableName ) {
-			// TODO: une fonction
-//			$modelName = Inflector::classify( $tableName );
-//			$Model = $object = new Model( array('name' => $modelName, 'table' => $tableName, 'ds' => 'default' ) );
-
 			$summary = array(
 				'Table' => array(
 					'name' => $tableName,

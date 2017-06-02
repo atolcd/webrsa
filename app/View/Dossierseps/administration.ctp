@@ -1,4 +1,4 @@
-<h1><?php echo $this->pageTitle = __d( 'droit', 'Dossierseps:administration' );?></h1>
+<h1><?php echo $this->pageTitle = __d( 'droit', 'controllers/Dossierseps/administration' );?></h1>
 
 <?php
 	if( Configure::read( 'debug' ) > 0 ) {
@@ -15,7 +15,7 @@
 		array( 'escape' => false, 'title' => 'Visibilité formulaire', 'onclick' => "$( 'Search' ).toggle(); return false;" )
 	).'</li></ul>';
 
-	echo $this->Form->create( 'Dossierep', array( 'id' => 'Search', 'class' => ( !empty( $this->request->data ) ? 'folded' : 'unfolded' ) ) );
+	echo $this->Form->create( 'Dossierep', array( 'id' => 'Search', 'class' => ( !empty( $this->request->data ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );
 
 	echo $this->Search->blocAllocataire( array(), array(), 'Search' );
 	echo $this->Search->blocAdresse( $mesCodesInsee, $cantons, 'Search' );
@@ -71,7 +71,7 @@
 					'disabled' => '( !\'#Passagecommissionep.id#\' || !\''.$this->Permissions->check( 'Historiqueseps', 'view_passage' ).'\' )',
 				),
 				'/Commissionseps/view/#Commissionep.id#' => array(
-					'disabled' => '( !\'#Passagecommissionep.id#\' || !\''.$this->Permissions->check( 'Commissionseps', 'index' ).'\' )',
+					'disabled' => '( !\'#Passagecommissionep.id#\' || !\''.$this->Permissions->check( 'Commissionseps', 'view' ).'\' )',
 				),
 				'/Dossierseps/delete/#Dossierep.id#' => array(
 					'disabled' => '( \'#Dossier.locked#\' || !\''.$this->Permissions->check( 'Dossierseps', 'delete' ).'\' )',
@@ -84,7 +84,7 @@
 			),
 			array(
 				'options' => $options,
-				'format' => SearchProgressivePagination::format( !Hash::get( $this->request->data, 'Search.Pagination.nombre_total' ) )
+				'format' => $this->element( 'pagination_format' )
 			)
 		);
 	}

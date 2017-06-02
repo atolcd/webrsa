@@ -7,16 +7,17 @@
 ?>
 
 <h1><?php echo $this->pageTitle;?></h1>
-	<?php echo $this->Form->create( 'Decisiondossierpcg66',array(  'id' => 'transmissionopdossierpcg66form' ) ); ?>
+<?php echo $this->Default3->messages( $messages );?>
+<?php echo $this->Form->create( 'Decisiondossierpcg66',array(  'id' => 'transmissionopdossierpcg66form', 'novalidate' => true ) ); ?>
 
 	<fieldset>
-			<?php 
+			<?php
                 echo $this->Form->input( 'Decisiondossierpcg66.id', array( 'type' => 'hidden' ) );
                 echo $this->Form->input( 'Decisiondossierpcg66.dossierpcg66_id', array( 'type' => 'hidden', 'value' => $dossierpcg66_id ) );
-                echo $this->Form->input( 'Decisiondossierpcg66.etatop', array(  'div' => false, 'legend' => required( __d( 'decisiondossierpcg66', 'Decisiondossierpcg66.etatop' ) ), 'type' => 'radio', 'options' => $options['Decisiondossierpcg66']['etatop'] )  ); 
+                echo $this->Form->input( 'Decisiondossierpcg66.etatop', array(  'div' => false, 'legend' => required( __d( 'decisiondossierpcg66', 'Decisiondossierpcg66.etatop' ) ), 'type' => 'radio', 'options' => $options['Decisiondossierpcg66']['etatop'] )  );
             ?>
             <fieldset><legend><?php echo __d( 'orgtransmisdossierpcg66', 'Orgtransmisdossierpcg66.name' ); ?></legend>
-                
+
             <?php
                 echo $this->Form->input( 'Notificationdecisiondossierpcg66.Notificationdecisiondossierpcg66', array( 'type' => 'select', 'label' => false, 'multiple' => 'checkbox', 'empty' => false, 'options' => $listeOrgstransmisdossierspcgs66 ) );
             ?>
@@ -32,8 +33,8 @@
 							'options' => $options
 						)
 					);
-                    
-                    
+
+
 				?>
 			</fieldset>
 	</fieldset>

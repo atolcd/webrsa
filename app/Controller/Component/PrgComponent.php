@@ -2,6 +2,7 @@
 	// TODO: config parameters
 	// FIXME: security ? -> http://groups.google.com/group/cake-php/browse_thread/thread/351b57905ada78dc/76bfdd3d8ade4291
 	// INFO: http://book.cakephp.org/view/65/MVC-Class-Access-Within-Components
+	App::uses( 'Component', 'Controller' );
 
 	class PrgComponent extends Component
 	{
@@ -103,12 +104,7 @@
 					}
 					// Cakephp "named params"
 					else {
-						if( CAKE_BRANCH == '1.2' ) {
-							$urlParams = $controller->request->params['named'];
-						}
-						else {
-							$urlParams = array_map( 'urldecode', $controller->request->params['named'] );
-						}
+						$urlParams = array_map( 'urldecode', $controller->request->params['named'] );
 					}
 
 					if( isset( $urlParams['sessionKey'] ) ) {

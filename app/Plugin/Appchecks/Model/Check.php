@@ -9,8 +9,9 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	define( 'APPCHECKS_PLUGIN_DIR', dirname( __FILE__ ).DS.'..'.DS );
-	require_once( APPCHECKS_PLUGIN_DIR.'Lib'.DS.'basics.php' );
-	require_once( APPCHECKS_PLUGIN_DIR.'Lib'.DS.'xvalidation.php' );
+	require_once  APPCHECKS_PLUGIN_DIR.'Lib'.DS.'basics.php' ;
+	require_once  APPCHECKS_PLUGIN_DIR.'Lib'.DS.'xvalidation.php' ;
+	App::uses( 'AppModel', 'Model' );
 	App::uses( 'Validation', 'Utility' );
 	App::uses( 'CakeEmail', 'Network/Email' );
 
@@ -336,16 +337,6 @@
 					$Validator =  Xvalidation::getInstance();
 					$validate = call_user_func_array( array( $Validator, $rule ), array_merge( array( $testValue ), $ruleParams ) );
 				}
-//				else {
-//					$Validator =  'Validation';
-//					$testRuleParams = $ruleParams;
-//
-//					if( $testRuleParams[0] == $rule ) {
-//						$testRuleParams[0] = $testValue;
-//					}
-//
-//					$validate = call_user_func_array( array( $Validator, $rule ), $testRuleParams );
-//				}
 
 				if( !( $allowEmpty && empty( $value ) ) && ( is_null( $value ) || !$validate ) ) {
 					$message = "Validate::{$rule}";
@@ -631,7 +622,7 @@
 		public function pearExtensions( $extensions, $base = true ) {
 			$results = array();
 
-			$success = (bool)@include_once( 'PEAR.php' );
+			$success = (bool)@include_once  'PEAR.php' ;
 			if( $base ) {
 				$results['PEAR'] = array(
 					'success' => $success,
@@ -639,7 +630,7 @@
 				);
 			}
 
-			$success = (bool)@include_once( 'PEAR/Registry.php' );
+			$success = (bool)@include_once  'PEAR/Registry.php' ;
 			if( $base ) {
 				$results['Registry'] = array(
 					'success' => $success,

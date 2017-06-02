@@ -63,9 +63,9 @@
 		 * plugin Validation2.
 		 */
 		public function testNormalizeValidationRule() {
-			$result = $this->Site->normalizeValidationRule( 'notEmpty' );
+			$result = $this->Site->normalizeValidationRule( NOT_BLANK_RULE_NAME );
 			$expected = array(
-				'rule' => array( 'notEmpty' ),
+				'rule' => array( NOT_BLANK_RULE_NAME ),
 				'message' => NULL,
 				'required' => NULL,
 				'allowEmpty' => NULL,
@@ -113,7 +113,7 @@
 			$expected = null;
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
-			$result = $this->Site->defaultValidationRuleMessage( 'notEmpty' );
+			$result = $this->Site->defaultValidationRuleMessage( NOT_BLANK_RULE_NAME );
 			$expected = __( 'Validate::notEmpty' );
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
@@ -134,12 +134,12 @@
 		 * Test de la méthode Validation2UtilitiesBehavior::setValidationRule().
 		 */
 		public function testSetValidationRule() {
-			$this->Site->setValidationRule( 'id', 'notEmpty' );
+			$this->Site->setValidationRule( 'id', NOT_BLANK_RULE_NAME );
 			$result = $this->Site->validate;
 			$expected = array(
 				'id' => array(
-					'notEmpty' => array(
-						'rule' => array( 'notEmpty' ),
+					NOT_BLANK_RULE_NAME => array(
+						'rule' => array( NOT_BLANK_RULE_NAME ),
 						'message' => null,
 						'required' => null,
 						'allowEmpty' => null,
@@ -156,7 +156,7 @@
 		 * @expectedException LogicException
 		 */
 		public function testSetValidationRuleException() {
-			$this->Site->setValidationRule( 'inexistant', 'notEmpty' );
+			$this->Site->setValidationRule( 'inexistant', NOT_BLANK_RULE_NAME );
 		}
 
 		/**
@@ -165,8 +165,8 @@
 		public function testUnsetValidationRule() {
 			$this->Site->validate = array(
 				'id' => array(
-					'notEmpty' => array(
-						'rule' => array( 'notEmpty' ),
+					NOT_BLANK_RULE_NAME => array(
+						'rule' => array( NOT_BLANK_RULE_NAME ),
 						'message' => null,
 						'required' => null,
 						'allowEmpty' => null,
@@ -174,7 +174,7 @@
 					)
 				)
 			);
-			$this->Site->unsetValidationRule( 'id', 'notEmpty' );
+			$this->Site->unsetValidationRule( 'id', NOT_BLANK_RULE_NAME );
 			$result = $this->Site->validate;
 			$expected = array( 'id' => array() );
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
@@ -186,7 +186,7 @@
 		 * @expectedException LogicException
 		 */
 		public function testUnsetValidationRuleException() {
-			$this->Site->unsetValidationRule( 'inexistant', 'notEmpty' );
+			$this->Site->unsetValidationRule( 'inexistant', NOT_BLANK_RULE_NAME );
 		}
 
 		/**
@@ -195,8 +195,8 @@
 		public function testHasValidationRule() {
 			$this->Site->validate = array(
 				'id' => array(
-					'notEmpty' => array(
-						'rule' => array( 'notEmpty' ),
+					NOT_BLANK_RULE_NAME => array(
+						'rule' => array( NOT_BLANK_RULE_NAME ),
 						'message' => null,
 						'required' => null,
 						'allowEmpty' => null,
@@ -204,7 +204,7 @@
 					)
 				)
 			);
-			$result = $this->Site->hasValidationRule( 'id', 'notEmpty' );
+			$result = $this->Site->hasValidationRule( 'id', NOT_BLANK_RULE_NAME );
 			$expected = true;
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
@@ -219,7 +219,7 @@
 		 * @expectedException LogicException
 		 */
 		public function testHasValidationRuleException() {
-			$this->Site->hasValidationRule( 'inexistant', 'notEmpty' );
+			$this->Site->hasValidationRule( 'inexistant', NOT_BLANK_RULE_NAME );
 		}
 
 		/**
@@ -231,8 +231,8 @@
 		public function testBeforeValidate() {
 			$this->Site->validate = array(
 				'id' => array(
-					'notEmpty' => array(
-						'rule' => array( 'notEmpty' ),
+					NOT_BLANK_RULE_NAME => array(
+						'rule' => array( NOT_BLANK_RULE_NAME ),
 						'message' => null,
 						'required' => null,
 						'allowEmpty' => null,
@@ -247,8 +247,8 @@
 			$result = $this->Site->validate;
 			$expected = array(
 				'id' => array(
-					'notEmpty' => array(
-						'rule' => array( 'notEmpty', ),
+					NOT_BLANK_RULE_NAME => array(
+						'rule' => array( NOT_BLANK_RULE_NAME, ),
 						'message' => __( 'Validate::notEmpty' ),
 						'required' => NULL,
 						'allowEmpty' => NULL,

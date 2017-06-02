@@ -7,7 +7,7 @@
 	 * @package Gedooo
 	 * @subpackage Model.Behavior
 	 */
-	App::import( 'Behavior', 'Gedooo.GedoooClassic' );
+	App::uses( 'GedoooClassicBehavior', 'Gedooo.Model/Behavior' );
 
 	/**
 	 * La classe GedoooFusionConverterBehavior permet de générer un fichier PDF

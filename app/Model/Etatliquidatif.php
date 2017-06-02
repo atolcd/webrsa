@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Etatliquidatif ...
@@ -17,88 +18,19 @@
 	{
 		public $name = 'Etatliquidatif';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'etatliquidatif';
 
 		public $actsAs = array(
-			'ValidateTranslate',
-			'Frenchfloat' => array(
-				'fields' => array(
-					'montanttotalapre'
-				)
-			)
-		);
-
-		public $validate = array(
-			'budgetapre_id' => array(
-				array(
-					'rule' => array( 'numeric' ),
-				),
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
-			),
-			'typeapre' => array(
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
-			),
-			'entitefi' => array(
-				'notEmpty' => array(
-					'rule' => array('notEmpty'),
-				),
-			),
-			'tiers' => array(
-				'notEmpty' => array(
-					'rule' => array('notEmpty'),
-				),
-			),
-			'codecdr' => array(
-				'notEmpty' => array(
-					'rule' => array('notEmpty'),
-				),
-			),
-			'libellecdr' => array(
-				'notEmpty' => array(
-					'rule' => array('notEmpty'),
-				),
-			),
-			'natureanalytique' => array(
-				'notEmpty' => array(
-					'rule' => array('notEmpty'),
-				),
-			),
-			'programme' => array(
-				'notEmpty' => array(
-					'rule' => array('notEmpty'),
-				),
-			),
-			'lib_programme' => array(
-				'notEmpty' => array(
-					'rule' => array('notEmpty'),
-				),
-			),
-			'apreforfait' => array(
-				'notEmpty' => array(
-					'rule' => array('notEmpty'),
-				),
-			),
-			'natureimput' => array(
-				'notEmpty' => array(
-					'rule' => array('notEmpty'),
-				),
-			),
-			'operation' => array(
-				'notEmpty' => array(
-					'rule' => array('notEmpty'),
-				),
-			),
-			'commentaire' => array(
-				'notEmpty' => array(
-					'rule' => array('notEmpty'),
-				),
-			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(

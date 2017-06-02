@@ -27,7 +27,7 @@
 			}
 		}
 
-		echo $this->Form->create( null, array() );
+		echo $this->Form->create( null, array( 'novalidate' => true ) );
 		echo '<div>'.$this->Form->input( 'Commissionep.save', array( 'type' => 'hidden', 'value' => true ) ).'</div>';
 
 		foreach( array_keys( $dossiers ) as $theme ) {
@@ -39,7 +39,7 @@
 				$file = sprintf( 'traitercg.%s.liste.ctp', Inflector::underscore( $theme ) );
 				echo '<div id="'.$theme.'" class="'.$errorClass.'"><h2 class="title '.$errorClass.'">'.__d( 'dossierep', 'ENUM::THEMEEP::'.Inflector::tableize( $theme ) ).'</h2>';
 				if( !empty( $dossiers[$theme]['liste'] ) ) {
-					require_once( $file );
+					include_once  $file ;
 				}
 				else {
 					echo '<p class="notice">Aucun dossier à traiter pour cette thématique.</p>';

@@ -7,6 +7,7 @@
 	 * @package app.Model.Behavior
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'ModelBehavior', 'Model' );
 
 	/**
 	 * La classe AllocatairelieBehavior fournit les méthodes personneId et
@@ -16,23 +17,12 @@
 	 *
 	 * @todo Appliquer aux modèles suivants, avec configuration, suite à l'ajout
 	 * des jointures (et tester bien entendu):
-	 *	- Accompagnementcui66: array( 'joins' => array( 'Cui' ) )
-	 *	- Actioninsertion: array( 'joins' => array( 'Contratinsertion' ) )
-	 *	- Aidedirecte: array( 'joins' => array( 'Actioninsertion', 'Contratinsertion' ) )
-	 *	- Cer93: array( 'joins' => array( 'Contratinsertion' ) )
+	 *	- Accompagnementcui66: array( 'joins' => array( 'Cui' ) ) // @fixme Cui66
 	 *	- Decisioncui66: array( 'joins' => array( 'Cui' ) )
 	 *	- Decisionpersonnepcg66: array( 'joins' => array( 'Personnepcg66Situationpdo', 'Personnepcg66' ) )
-	 *	- Decisionpropopdo: array( 'joins' => array( 'Propopdo' ) )
-	 *	- Derogation: array( 'joins' => array( 'Avispcgpersonne' ) )
-	 *	- Histochoixcer93: array( 'joins' => array( 'Cer93', 'Contratinsertion' ) )
 	 *	- Manifestationbilanparcours66: array( 'joins' => array( 'Bilanparcours66' ) )
-	 *	- Passagecommissionep: array( 'joins' => array( 'Dossierep' ) )
 	 *	- Periodeimmersion: array( 'joins' => array( 'Cui' ) )
-	 *	- Prestform: array( 'joins' => array( 'Actioninsertion', 'Contratinsertion' ) )
 	 *	- Propodecisioncui66: array( 'joins' => array( 'Cui' ) )
-	 *	- Relanceapre: array( 'joins' => array( 'Apre' ) )
-	 *	- Reorientationep93: array( 'joins' => array( 'Orientstruct' ) )
-	 *	- Signalementep93: array( 'joins' => array( 'Contratinsertion' ) )
 	 *	- Suspensioncui66: array( 'joins' => array( 'Cui' ) )
 	 *	- Traitementpcg66: array( 'joins' => array( 'Personnepcg66' ) )
 	 *	- Traitementpdo: array( 'joins' => array( 'Propopdo' ) )

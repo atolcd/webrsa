@@ -30,7 +30,7 @@
 	$configuredCohorteParams = isset($configuredCohorteParams) ? $configuredCohorteParams : array();
 	$tableClass = isset( $tableClass ) ? $tableClass : Hash::get($configuredCohorteParams, 'class');
 	$configuredCohorteParams['class'] = $tableClass;
-	
+
 	$configurableQueryParams = isset($configurableQueryParams) ? $configurableQueryParams : array();
 
 	// $paginate
@@ -53,7 +53,7 @@
 	);
 	echo $this->Default3->actions( $actions );
 
-	echo $this->Form->create( null, array( 'type' => 'post', 'url' => array( 'controller' => $this->request->params['controller'], 'action' => $this->request->action ), 'id' => $searchFormId, 'class' => ( isset( $results ) ? 'folded' : 'unfolded' ) ) );
+	echo $this->Form->create( null, array( 'type' => 'post', 'url' => array( 'controller' => $this->request->params['controller'], 'action' => $this->request->action ), 'id' => $searchFormId, 'class' => ( isset( $results ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );
 
 	echo $beforeSearch;
 	if (Configure::read('Module.Savesearch.enabled') && WebrsaPermissions::check('savesearchs', 'index')) {

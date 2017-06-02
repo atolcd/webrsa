@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Permanence.
 	 *
@@ -7,6 +7,8 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'FrValidation', 'Validation' );
 
 	/**
 	 * La classe Permanence ...
@@ -16,63 +18,78 @@
 	class Permanence extends AppModel {
 		public $name = 'Permanence';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'libpermanence';
 
-		
+		/**
+		 * Modèles utilisés par ce modèle.
+		 *
+		 * @var array
+		 */
+		public $uses = array( 'Option' );
+
 		public $actsAs = array(
-			'Enumerable' => array(
-				'fields' => array(
-					'actif' => array( 'type' => 'no', 'domain' => 'default' )
+			'Desactivable' => array(
+				'true' => 'O',
+				'false' => 'N'
+			),
+			'Validation2.Validation2Formattable' => array(
+				'Validation2.Validation2DefaultFormatter' => array(
+					'stripNotAlnum' => '/^numtel$/'
 				)
 			),
-			'Formattable'
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
-		
+
 		public $validate = array(
-			'structurereferente_id' => array(
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				)
-			),
-			'libpermanence' => array(
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
-			),
 			'typevoie' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'nomvoie' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'codepos' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'ville' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'numtel' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
+				),
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
 				)
+			),
+			'actif' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				),
 			)
 		);
-		//The Associations below have been created with all possible keys, those that are not needed can be removed
 
 		public $belongsTo = array(
 			'Structurereferente' => array(
@@ -107,7 +124,7 @@
 		public function listOptions() {
 			$conditions = array();
 			$conditions = array( 'Permanence.actif' => 'O' );
-			
+
 			$tmp = $this->find(
 				'all',
 				array (
@@ -127,6 +144,19 @@
 				$return[$value['Permanence']['structurereferente_id'].'_'.$value['Permanence']['id']] = $value['Permanence']['libpermanence'];
 			}
 			return $return;
+		}
+
+		/**
+		 * Surcharge de la méthode enums pour ajouter le type de voie.
+		 *
+		 * @return array
+		 */
+		public function enums() {
+			$results = parent::enums();
+
+			$results[$this->alias]['typevoie'] = $this->Option->libtypevoie();
+
+			return $results;
 		}
 	}
 ?>

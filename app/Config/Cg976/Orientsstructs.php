@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par orientation (nouveau)"
+	 * Menu "Recherches" > "Par orientation"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Orientsstructs.search',
@@ -78,7 +78,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par orientation (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par orientation"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Orientsstructs.exportcsv',

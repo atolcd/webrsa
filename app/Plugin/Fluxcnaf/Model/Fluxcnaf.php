@@ -4,14 +4,17 @@
 	 *
 	 * PHP 5.3
 	 *
-	 * @package Fluxcnaf.Model
+	 * @package Fluxcnaf
+	 * @subpackage Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Fluxcnaf ...
 	 *
-	 * @package Fluxcnaf.Model
+	 * @package Fluxcnaf
+	 * @subpackage Model
 	 */
 	class Fluxcnaf extends AppModel
 	{
@@ -28,6 +31,20 @@
 		 * @var mixed
 		 */
 		public $useTable = false;
+
+		/**
+		 * Correspondances entre les noms des flux et leur intitulé
+		 *
+		 * @var array
+		 */
+		public $names = array(
+			'vrsb0801' => 'Bénéficiaire',
+			'vrsd0301' => 'Bénéficiaire (nouveau)',
+			'vrsc0201' => 'Créances',
+			'vrsf0501' => 'Financier',
+			'virs0901' => 'Instruction',
+			'vird0201' => 'Instruction DSP'
+		);
 
 		/**
 		 * Tables propres à web-rsa ayant des champs portant le même nom que des

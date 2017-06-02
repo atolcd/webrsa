@@ -15,7 +15,7 @@
 <h1><?php echo $this->pageTitle;?></h1>
 <?php
 	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Contratinsertion', array( 'type' => 'post', 'id' => 'testform' ) );
+		echo $this->Form->create( 'Contratinsertion', array( 'type' => 'post', 'id' => 'testform', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Contratinsertion.id', array( 'type' => 'hidden', 'value' => '' ) );
 
@@ -24,7 +24,7 @@
 		echo '</div>';
 	}
 	else {
-		echo $this->Form->create( 'Contratinsertion', array( 'type' => 'post', 'id' => 'testform' ) );
+		echo $this->Form->create( 'Contratinsertion', array( 'type' => 'post', 'id' => 'testform', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Contratinsertion.id', array( 'type' => 'hidden' ) );
 
@@ -488,7 +488,7 @@ document.observe("dom:loaded", function() {
 		false,
 		true
 	);
-	
+
 	// Affichage des entretiens
 	if ( $('listeEntretiens') ) {
 		$('listeEntretiens').hide();
@@ -555,7 +555,7 @@ Event.observe( $( 'ContratinsertionStructurereferenteId' ), 'change', function( 
 				'options' => $options,
 			)
 		);
-	}			
+	}
 	echo '</div>';
 ?>
 <fieldset>
@@ -625,16 +625,6 @@ Event.observe( $( 'ContratinsertionStructurereferenteId' ), 'change', function( 
 										echo $this->Xhtml->tag('td', $this->Xhtml->viewLink( 'Voir', array( 'controller' => 'actionscandidats_personnes', 'action' => 'index', $fiche['ActioncandidatPersonne']['personne_id'] ) ) );
 									echo '</tr>';
 								}
-//                                     if( !empty( $action ) ){
-//                                         echo '<tr>';
-//                                             echo $this->Xhtml->tag('td', $action['Actioncandidat']['name'] );
-//                                             echo $this->Xhtml->tag('td', @$action['Partenaire']['libstruc'] );
-//                                             echo $this->Xhtml->tag('td', @$action['Referent']['qual'].' '.$action['Referent']['nom'].' '.$action['Referent']['prenom'] );
-//                                             echo $this->Xhtml->tag('td', date_short( @$action['Actioncandidat']['ddaction'] ) );
-//                                             echo $this->Xhtml->tag('td', $action['Actioncandidat']['hasfichecandidature'] ? 'Oui' : 'Non' );
-//                                             echo $this->Xhtml->tag( 'td', '' );
-//                                         echo '</tr>';
-//                                     }
 							?>
 						</tbody>
 					</table>

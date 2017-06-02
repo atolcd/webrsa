@@ -51,12 +51,12 @@
 						// L'allocataire a quitté le CG en rang 01 et l'adresse de rang 2 ...
 						array(
 							'Adresse2.numcom LIKE' => "{$departement}%",
-							"CAST( DATE_PART( 'year', \"Adressefoyer\".\"dtemm\" ) + 1 || '-03-31' AS DATE ) >= NOW()",
+							"( DATE_PART( 'year', \"Adressefoyer\".\"dtemm\" ) + 1 || '-03-31' )::DATE >= NOW()",
 						),
 						// L'allocataire a quitté l'adresse de rang 3 ...
 						array(
 							'Adresse3.numcom LIKE' => "{$departement}%",
-							"CAST( DATE_PART( 'year', \"Adressefoyer2\".\"dtemm\" ) + 1 || '-03-31' AS DATE ) >= NOW()",
+							"( DATE_PART( 'year', \"Adressefoyer2\".\"dtemm\" ) + 1 || '-03-31' )::DATE >= NOW()",
 						),
 					)
 				);

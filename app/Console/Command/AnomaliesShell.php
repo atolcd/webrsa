@@ -16,15 +16,6 @@
 	 */
 	class AnomaliesShell extends XShell
 	{
-
-//		public $allConnections = array( );
-//		public $defaultParams = array(
-//			'connection' => 'default',
-//			'log' => false,
-//			'logpath' => LOGS,
-//			'verbose' => false
-//		);
-//		public $verbose; // TODO
 		protected $_checks = array(
 			array(
 				'text' => 'dossiers sans foyer',

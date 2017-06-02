@@ -2,7 +2,7 @@
 
 <?php
 	$file = sprintf( 'decisioncg.%s.ctp', Inflector::underscore( $themeName ) );
-	require_once( $file );
+	require_once  $file ;
 
 	echo $this->Default->button(
 		'back',

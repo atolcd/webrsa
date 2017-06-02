@@ -1,0 +1,47 @@
+# Traductions de orgstransmisdossierspcgs66.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Orgstransmisdossierspcgs66/index/:heading"
+msgstr "Paramétrage des organismes auxquels seront transmis les dossiers PCG traités"
+
+msgid "/Orgstransmisdossierspcgs66/add/:heading"
+msgstr "Ajout d'un organisme auquel seront transmis les dossiers PCG traités"
+
+msgid "/Orgstransmisdossierspcgs66/edit/:heading"
+msgstr "Modification de l'organisme auquel seront transmis les dossiers PCG traités « #Orgtransmisdossierpcg66.name# »"
+
+msgid "/Orgstransmisdossierspcgs66/add"
+msgstr "Ajouter"
+
+msgid "/Orgstransmisdossierspcgs66/add/:title"
+msgstr "Ajouter un organisme auquel seront transmis les dossiers PCG traités"
+
+msgid "/Orgstransmisdossierspcgs66/edit"
+msgstr "Modifier"
+
+msgid "/Orgstransmisdossierspcgs66/edit/#Orgtransmisdossierpcg66.id#"
+msgstr "Modifier l'organisme auquel seront transmis les dossiers PCG traités « #Orgtransmisdossierpcg66.name# »"
+
+msgid "/Orgstransmisdossierspcgs66/delete"
+msgstr "Supprimer"
+
+msgid "/Orgstransmisdossierspcgs66/delete/#Orgtransmisdossierpcg66.id#"
+msgstr "Supprimer l'organisme auquel seront transmis les dossiers PCG traités « #Orgtransmisdossierpcg66.name# »"
+
+msgid "/Orgstransmisdossierspcgs66/delete/#Orgtransmisdossierpcg66.id# ?"
+msgstr "Réellement supprimer l'organisme auquel seront transmis les dossiers PCG traités « #Orgtransmisdossierpcg66.name# » ?"
+
+msgid "/Parametrages/pdos"
+msgstr "Retour"
+
+msgid "/Parametrages/pdos/:title"
+msgstr "Retour aux paramétrages des PDO"

@@ -51,8 +51,7 @@
 			'Apre.montantaverser' => array( 'type' => 'text' ),
 			'Apre.nbpaiementsouhait' => array( 'type' => 'text' ),
 			'Apre.montantdejaverse' => array( 'type' => 'text' ),
-			'Apre.cessderact' => array( 'value' => $cessderact  )/*,
-			'Apre.isdecision' => array( 'value' => $isdecision )*/
+			'Apre.cessderact' => array( 'value' => $cessderact  )
 		),
 		array(
 			'class' => 'aere',

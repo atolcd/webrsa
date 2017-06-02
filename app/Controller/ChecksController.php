@@ -7,8 +7,9 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
-	 App::uses('WebrsaCheckAccess', 'Utility');
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaCheckAccess', 'Utility' );
+	App::uses( 'CakephpConfigurationParser', 'Configuration.Utility' );
 
 	/**
 	 * La classe ChecksController ...
@@ -42,6 +43,9 @@
 			'Appchecks.Checks',
 			'Default',
 			'Default2',
+			'Default3' => array(
+				'className' => 'ConfigurableQuery.ConfigurableQueryDefault'
+			)
 		);
 
 		/**
@@ -88,6 +92,12 @@
 			$this->Gedooo->makeTmpDir( Configure::read( 'Cohorte.dossierTmpPdfs' ) );
 
 			$this->set( 'results', $this->WebrsaInstallCheck->all() );
+
+			$this->set(
+				'configurations',
+				CakephpConfigurationParser::parseFile(
+					APP.'Config'.DS.'webrsa.cg'.Configure::read('Cg.departement').'.inc.default')
+			);
 		}
 	}
 ?>

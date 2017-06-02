@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Infofinanciere ...
@@ -17,65 +18,74 @@
 	{
 		public $name = 'Infofinanciere';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
+		);
+
 		public $validate = array(
 			'type_allocation' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'natpfcre' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'typeopecompta' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'sensopecompta' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'dttraimoucompta' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Veuillez entrer une date valide'
-				),
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'mtmoucompta' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				),
-				array(
-					'rule' => 'numeric',
+				'numeric' => array(
+					'rule' => array( 'numeric' ),
 					'message' => 'Veuillez n\'utiliser que des lettres et des chiffres'
 				),
 			),
 			'mtmoucompta' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			)
 		);
-		
+
 		/**
 		 * Liste de champs et de valeurs possibles qui ne peuvent pas être mis en
 		 * règle de validation inList ou en contrainte dans la base de données en
 		 * raison des valeurs actuellement en base, mais pour lequels un ensemble
 		 * fini de valeurs existe.
-		 * 
+		 *
 		 * @see AppModel::enums
 		 *
 		 * @var array
@@ -97,7 +107,7 @@
 			),
 			'sensopecompta' => array('AJ', 'DE'),
 		);
-		
+
 
 
 		public $belongsTo = array(
@@ -300,34 +310,34 @@
 				return null;
 			}
 		}
-		
+
 		public function enum($field, array $params = array()) {
 			if ($field === 'natpfcre') {
 				$params += array('type' => null);
 				switch ($params['type']) {
 					case 'totsocl':
-						$filter = array('RSD', 'INK', 'ITK', 'ISK', 'ACD', 'ASD'); 
+						$filter = array('RSD', 'INK', 'ITK', 'ISK', 'ACD', 'ASD');
 						break;
 					case 'soclmaj':
-						$filter = array('RSI', 'INL', 'ITL'); 
+						$filter = array('RSI', 'INL', 'ITL');
 						break;
 					case 'localrsa':
-						$filter = array('RSB', 'RCB', 'INM', 'ITM'); 
+						$filter = array('RSB', 'RCB', 'INM', 'ITM');
 						break;
 					case 'indutotsocl':
-						$filter = array('INK', 'ITK', 'ISK'); 
+						$filter = array('INK', 'ITK', 'ISK');
 						break;
 					case 'alloccompta':
-						$filter = array('RSD', 'RSI', 'RSB', 'RCB', 'ASD', 'VSD', 'INK', 'INL', 'INM', 'ITK', 'ITL', 'ITM', 'ISK'); 
+						$filter = array('RSD', 'RSI', 'RSB', 'RCB', 'ASD', 'VSD', 'INK', 'INL', 'INM', 'ITK', 'ITL', 'ITM', 'ISK');
 						break;
 					case 'indutransferecg':
-						$filter = array('INK', 'INL', 'INM', 'ITK', 'ITL', 'ITM'); 
+						$filter = array('INK', 'INL', 'INM', 'ITK', 'ITL', 'ITM');
 						break;
 					case 'annulationfaible':
-						$filter = array('INK', 'INL', 'INM', 'ITK', 'ITL', 'ITM', 'ISK', 'INN', 'ITN', 'INP', 'ITP'); 
+						$filter = array('INK', 'INL', 'INM', 'ITK', 'ITL', 'ITM', 'ISK', 'INN', 'ITN', 'INP', 'ITP');
 						break;
 					case 'autreannulation':
-						$filter = array('INK', 'INL', 'INM', 'ITK', 'ITL', 'ITM', 'ISK'); 
+						$filter = array('INK', 'INL', 'INM', 'ITK', 'ITL', 'ITM', 'ISK');
 						break;
 					case 'none':
 					case 'all':
@@ -337,12 +347,12 @@
 						$filter = array('RSD', 'RSI', 'RSB', 'RCB', 'ASD', 'VSD', 'INK',
 							'INL', 'INM', 'ITK', 'ITL', 'ITM', 'INN', 'ITN', 'INP', 'ITP');
 				}
-				
+
 				$result = parent::enum($field, compact('filter') + $params);
 			} else {
 				$result = parent::enum($field, $params);
 			}
-			
+
 			return $result;
 		}
 	}

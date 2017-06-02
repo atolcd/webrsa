@@ -24,41 +24,41 @@
 		 * @var string
 		 */
 		public $name = 'WebrsaCui66';
-		
+
 		/**
 		 * Modèles utilisés par ce modèle.
-		 * 
+		 *
 		 * @var array
 		 */
 		public $uses = array(
 			'Cui',
 			'Cui66',
 		);
-		
+
 		/**
 		 * Ajoute les virtuals fields pour permettre le controle de l'accès à une action
-		 * 
+		 *
 		 * @param array $query
 		 * @return type
 		 */
 		public function completeVirtualFieldsForAccess(array $query = array(), array $params = array()) {
 			$query = parent::completeVirtualFieldsForAccess($query);
-			
+
 			if (!isset($query['joins'])) {
 				$query['joins'] = array();
 			}
-			
+
 			$modelName = Inflector::camelize(Inflector::singularize(Inflector::underscore($params['controller'])));
 			if ($modelName !== 'Cui66') {
 				$query = WebrsaModelUtility::addJoins($this->Cui->Cui66, $modelName, $query);
 			}
-			
+
 			return $query;
 		}
-		
+
 		/**
 		 * Permet de savoir si il est possible d'ajouter un enregistrement
-		 * 
+		 *
 		 * @param integer $cui_id
 		 * @param array $params
 		 * @return boolean
@@ -91,7 +91,7 @@
 			}
 			return $ajoutPossible;
 		}
-		
+
 		/**
 		 * Permet de savoir si un ajout est possible à partir des messages
 		 * renvoyés par la méthode messages.
@@ -105,7 +105,7 @@
 
 		/**
 		 * Récupère les donnés par defaut dans le cas d'un ajout, ou récupère les données stocké en base dans le cas d'une modification
-		 * 
+		 *
 		 * @param integer $personne_id
 		 * @param integer $id
 		 * @return array
@@ -124,7 +124,7 @@
 						"( {$sqNbEnfants} ) AS \"Foyer__nb_enfants\"",
 						"( {$sqNbBeneficiaires} ) AS \"Foyer__nb_beneficiaires\"",
 						"( {$sqLastCodepartenaire} ) AS \"Partenairecui__codepartenaire\"",
-						
+
 						// Pour table personnescuis (pour impression uniquement)
 						'Personne.qual',
 						'Personne.nom',
@@ -138,7 +138,7 @@
 						'Personne.nati',
 						'Dossier.matricule',
 						'Dossier.fonorg',
-							
+
 						// Pour table personnescuis66 (persistance des données affichés)
 						'Dossier.dtdemrsa',
 						'Adresse.numvoie',
@@ -160,15 +160,15 @@
 					'joins' => array(
 						$this->Cui66->Cui->Personne->join( 'Titresejour',
 							array(
-								'type' => 'LEFT OUTER', 
+								'type' => 'LEFT OUTER',
 								'conditions' => "Titresejour.id IN ( {$sqDernierTitresejour} )"
 							)
 						),
 						$this->Cui66->Cui->Personne->join( 'Foyer', array( 'type' => 'INNER' ) ),
 						$this->Cui66->Cui->Personne->Foyer->join( 'Dossier', array( 'type' => 'INNER' ) ),
 						$this->Cui66->Cui->Personne->Foyer->Dossier->join( 'Detaildroitrsa', array( 'type' => 'LEFT OUTER' ) ),
-						$this->Cui66->Cui->Personne->Foyer->join( 'Adressefoyer', array( 
-							'type' => 'LEFT OUTER', 'conditions' => array('Adressefoyer.rgadr' => '01') 
+						$this->Cui66->Cui->Personne->Foyer->join( 'Adressefoyer', array(
+							'type' => 'LEFT OUTER', 'conditions' => array('Adressefoyer.rgadr' => '01')
 						)),
 						$this->Cui66->Cui->Personne->Foyer->Adressefoyer->join( 'Adresse', array( 'type' => 'LEFT OUTER' ) ),
 						array(
@@ -181,7 +181,7 @@
 						)
 					)
 				));
-				
+
 				$Adresse =& $this->Cui66->Cui->Personne->Foyer->Adressefoyer->Adresse;
 				if (Configure::read( 'CG.cantons' )) {
 					$query['fields'][] = 'Canton.canton';
@@ -193,7 +193,7 @@
 						$query['joins'][] = $Adresse->AdresseCanton->Canton->joinAdresse();
 					}
 				}
-				
+
 				$record = $this->Cui66->Cui->Personne->find( 'first', $query );
 
 				$record['Partenairecui']['codepartenaire'] = str_pad( ($record['Partenairecui']['codepartenaire'] +1), 3, '0', STR_PAD_LEFT );
@@ -203,8 +203,8 @@
 				$adr['complete'] .= $adr['compladr'] !== '' ? $adr['compladr'] . '<br>' : '';
 				$adr['complete'] .= $adr['lieudist'] !== '' ? $adr['lieudist'] . '<br>' : '';
 				$adr['complete'] .= $adr['codepos'] . ' ' . $adr['nomcom'];
-				
-				/** 
+
+				/**
 				 * INFO: si one ne met pas le modèle Adressecui dans le $this->Cui66->request->data, il n'est
 				 * pas instancié dans la vue, donc pas d'astérisque ni validation javascript...
 				 */
@@ -251,7 +251,7 @@
 					),
 					'Adressecui' => array()
 				);
-				
+
 				// Remplacement par le canton calculé
 				if( Configure::read( 'CG.cantons' ) ) {
 					$result['Personnecui66']['canton'] = Hash::get($record, 'Canton.canton');
@@ -263,7 +263,7 @@
 				$result = $this->Cui66->Cui->find( 'first', $query );
 
 				$result = $this->Cui66->Cui->Entreeromev3->prepareFormDataAddEdit( $result );
-				
+
 				// Ajoute un champ virtuel
 				foreach ($this->Cui66->Cui->beneficiairede as $key => $value){
 					$keyName = 'beneficiaire_' . strtolower($value);
@@ -275,21 +275,21 @@
 
 			return $result;
 		}
-		
+
 		/**
 		 * Change la valeur de Cui66.etatdossiercui66 en annule
-		 * 
+		 *
 		 * @param array $data
 		 * @return boolean
 		 */
 		public function annule( $data ){
 			$data['Cui66']['etatdossiercui66'] = 'annule';
-			return $this->Cui66->save( $data );
+			return $this->Cui66->save( $data , array( 'atomic' => false ) );
 		}
-		
+
 		/**
 		 * Revoi la requete pour récuperer toutes les données pour l'affichage d'un CUI (Hors modules)
-		 * 
+		 *
 		 * @param integer $id
 		 * @return array
 		 */
@@ -314,20 +314,20 @@
 					$this->Cui66->Cui->join( 'Partenairecui' ),
 					$this->Cui66->Cui->join( 'Entreeromev3' ),
 					$this->Cui66->Cui->Partenairecui->join( 'Partenairecui66' ),
-					$this->Cui66->Cui->Partenairecui->join( 'Adressecui' ),						
+					$this->Cui66->Cui->Partenairecui->join( 'Adressecui' ),
 				)
 			);
-			
+
 			if( $id !== null ) {
 				$query['conditions']['Cui.id'] = $id;
 			}
-			
+
 			return $query;
 		}
-		
+
 		/**
 		 * Revoi la requete pour récuperer toutes les données pour l'affichage de l'index du CUI
-		 * 
+		 *
 		 * @param integer $personne_id
 		 * @return array
 		 */
@@ -341,9 +341,9 @@
 					'UPPER(textsmailscuis66.name) LIKE \'%RELANCE%\'',
 					'emailscuis.cui_id = Cui66.cui_id'
 				),
-				'joins' => array( 
+				'joins' => array(
 					array_words_replace(
-						$this->Cui66->Cui->Emailcui->join( 'Textmailcui66', array( 'type' => 'INNER' ) ), 
+						$this->Cui66->Cui->Emailcui->join( 'Textmailcui66', array( 'type' => 'INNER' ) ),
 						array( 'Emailcui' => 'emailscuis', 'Textmailcui66' => 'textsmailscuis66' )
 					)
 				),
@@ -351,7 +351,7 @@
 				'limit' => 1
 			);
 			$sqRelanceMail = $this->Cui66->Cui->Emailcui->sq( $sqRelanceQuery );
-			
+
 			// Utile pour l'affichage des changements de positions du CUI
 			$sqDateChangementQuery = array(
 				'alias' => 'historiquepositionscuis66',
@@ -369,11 +369,9 @@
 					'alias' => 'suspensionscuis66',
 					'fields' => 'suspensionscuis66.id',
 					'conditions' => array(
-						'suspensionscuis66.cui66_id = Cui66.id'
-					),
-					'conditions' => array(
-						'suspensionscuis66.datedebut >= NOW()',
-						'suspensionscuis66.datefin <= NOW()',
+						'suspensionscuis66.cui66_id = Cui66.id',
+						'suspensionscuis66.datedebut <= NOW()',
+						'suspensionscuis66.datefin >= NOW()',
 					),
 					'order' => array(
 						'suspensionscuis66.datefin' => 'DESC',
@@ -410,54 +408,54 @@
 				),
 				'order' => array( 'Cui.created DESC' )
 			);
-			
+
 			return $query;
 		}
-		
+
 		/**
 		 * Requète d'impression
-		 * 
+		 *
 		 * @param type $cui_id
 		 * @return type
 		 */
 		public function queryImpression( $cui_id = null ){
 			$queryView = $this->Cui66->Cui->WebrsaCui->queryView( $cui_id );
 			$queryPersonne = $this->Cui66->Cui->WebrsaCui->queryPersonne( 'Cui.personne_id' );
-			
-			$query['fields'] = array_merge( 
-				$queryView['fields'], 
+
+			$query['fields'] = array_merge(
+				$queryView['fields'],
 				$queryPersonne['fields'],
 				$this->Cui66->Cui->Entreeromev3->Familleromev3->fields(),
 				$this->Cui66->Cui->Entreeromev3->Domaineromev3->fields(),
 				$this->Cui66->Cui->Entreeromev3->Metierromev3->fields(),
 				$this->Cui66->Cui->Entreeromev3->Appellationromev3->fields()
 			);
-			$query['joins'] = array_merge( 
-				$queryView['joins'], 
-				array( 
+			$query['joins'] = array_merge(
+				$queryView['joins'],
+				array(
 					$this->Cui66->Cui->join( 'Personne' ),
 					$this->Cui66->Cui->Entreeromev3->join( 'Familleromev3' ),
 					$this->Cui66->Cui->Entreeromev3->join( 'Domaineromev3' ),
 					$this->Cui66->Cui->Entreeromev3->join( 'Metierromev3' ),
 					$this->Cui66->Cui->Entreeromev3->join( 'Appellationromev3' ),
-				), 
+				),
 				$queryPersonne['joins'] );
 			$query['conditions'] = $queryView['conditions'];
-			
+
 			return $query;
 		}
 
 		/**
 		 * Sauvegarde d'un CUI
-		 * 
+		 *
 		 * @param array $data
 		 * @return boolean
 		 */
 		public function saveAddEdit( array $data, $user_id = null ) {
 			// INFO: champ non obligatoire
-			unset( $this->Cui66->Cui->Entreeromev3->validate['familleromev3_id']['notEmpty'] );
+			unset( $this->Cui66->Cui->Entreeromev3->validate['familleromev3_id'][NOT_BLANK_RULE_NAME] );
 			$success = true;
-			
+
 			// Transforme le champ virtuel beneficiairede type hasAndBelongsToMany en 4 champs de type smallint (boolean)
 			foreach ($this->Cui66->Cui->beneficiairede as $value){
 				$keyName = 'beneficiaire_' . strtolower($value);
@@ -474,52 +472,52 @@
 			}
 
 			$data['Cui']['user_id'] = $user_id;
-			
+
 			// Si un code famille (rome v3) est vide, on ne sauvegarde pas le code rome
-			if ( !isset($data['Entreeromev3']['familleromev3_id']) || $data['Entreeromev3']['familleromev3_id'] === '' ){ 
+			if ( !isset($data['Entreeromev3']['familleromev3_id']) || $data['Entreeromev3']['familleromev3_id'] === '' ){
 				$data['Cui']['entreeromev3_id'] = null;
-				
+
 				// Si le code rome avait un id, on supprime l'entreeromev3 correspondant
 				if ( isset($data['Entreeromev3']['id']) && $data['Entreeromev3']['id'] !== '' ){
 					$this->Cui66->Cui->Entreeromev3->id = $data['Entreeromev3']['id'];
-					$success = $success && $this->Cui66->Cui->Entreeromev3->delete();
+					$success = $this->Cui66->Cui->Entreeromev3->delete() && $success;
 				}
 			}
 			// Dans le cas contraire, on enregistre le tout
 			else{
 				$this->Cui66->Cui->Entreeromev3->create($data);
-				$success = $success && $this->Cui66->Cui->Entreeromev3->save();
+				$success = $this->Cui66->Cui->Entreeromev3->save( null, array( 'atomic' => false ) ) && $success;
 				$data['Cui']['entreeromev3_id'] = $this->Cui66->Cui->Entreeromev3->id;
 			}
-			
+
 			// Si le contrat est un CDI, on s'assure que la date de fin soit nulle
 			if ( $data['Cui']['typecontrat'] === 'CDI' ){
 				$data['Cui']['findecontrat'] = null;
 			}
-			
+
 			// Partenairecui possède une Adressecui, on commence par cette dernière
 			$this->Cui66->Cui->Partenairecui->Adressecui->create($data);
-			$success = $success && $this->Cui66->Cui->Partenairecui->Adressecui->save();
+			$success = $this->Cui66->Cui->Partenairecui->Adressecui->save( null, array( 'atomic' => false ) ) && $success;
 			$data['Partenairecui']['adressecui_id'] = $this->Cui66->Cui->Partenairecui->Adressecui->id;
-			
+
 			// Cui et Partenairecui66 possèdent un Partenairecui, il nous faut son id
 			$this->Cui66->Cui->Partenairecui->create($data);
-			$success = $success && $this->Cui66->Cui->Partenairecui->save();
+			$success = $this->Cui66->Cui->Partenairecui->save( null, array( 'atomic' => false ) ) && $success;
 			$data['Cui']['partenairecui_id'] = $this->Cui66->Cui->Partenairecui->id;
 			$data['Partenairecui66']['partenairecui_id'] = $this->Cui66->Cui->Partenairecui->id;
-			
+
 			// On peut ensuite enregistrer Partenairecui66
 			$this->Cui66->Cui->Partenairecui->Partenairecui66->create($data);
-			$success = $success && $this->Cui66->Cui->Partenairecui->Partenairecui66->save();
+			$success = $this->Cui66->Cui->Partenairecui->Partenairecui66->save( null, array( 'atomic' => false ) ) && $success;
 
 			// Dans le cas d'un ajout, on met à jour les parametrages des partenaires
-			if ( empty($data['Cui']['id']) ){
+			if ( $success && empty($data['Cui']['id']) ){
 				$data = $this->Cui66->Cui->Partenairecui->Partenairecui66->addPartenaireData( $data );
 				$this->Cui66->Cui->Partenaire->create($data['Partenaire']);
-				$success = $success && $this->Cui66->Cui->Partenaire->save();
+				$success = $this->Cui66->Cui->Partenaire->save( null, array( 'atomic' => false ) ) && $success;
 				$data['Cui']['partenaire_id'] = $this->Cui66->Cui->Partenaire->id;
 			}
-			
+
 			if ( empty($data['Cui']['tauxfixeregion']) && empty($data['Cui']['priseenchargeeffectif']) && empty($data['Cui']['tauxcg']) ){
 				$Tauxcgcui66 = ClassRegistry::init( 'Tauxcgcui66' );
 				$query = array(
@@ -533,36 +531,36 @@
 					)
 				);
 				$result = $Tauxcgcui66->find( 'first', $query );
-				
+
 				if ( !empty($result) ){
 					$data['Cui']['tauxfixeregion'] = $result['Tauxcgcui66']['tauxfixeregion'];
 					$data['Cui']['priseenchargeeffectif'] = $result['Tauxcgcui66']['priseenchargeeffectif'];
 					$data['Cui']['tauxcg'] = $result['Tauxcgcui66']['tauxcg'];
 				}
 			}
-			
+
 			// Cui possède un Personnecui
 			$this->Cui66->Cui->Personnecui->create($data);
-			$success = $success && $this->Cui66->Cui->Personnecui->save();
+			$success = $this->Cui66->Cui->Personnecui->save( null, array( 'atomic' => false ) ) && $success;
 			$data['Cui']['personnecui_id'] = $this->Cui66->Cui->Personnecui->id;
-			
+
 			// Cui66 possède un Cui
 			$this->Cui66->Cui->create($data);
-			$success = $success && $this->Cui66->Cui->save();
+			$success = $this->Cui66->Cui->save( null, array( 'atomic' => false ) ) && $success;
 			$data['Cui66']['cui_id'] = $this->Cui66->Cui->id;
-			
+
 			// Cui66 possède un Personnecui66
 			$this->Cui66->Personnecui66->create($data);
-			$success = $success && $this->Cui66->Personnecui66->save();
+			$success = $this->Cui66->Personnecui66->save( null, array( 'atomic' => false ) ) && $success;
 			$data['Cui66']['personnecui66_id'] = $this->Cui66->Personnecui66->id;
-			
+
 			// On termine par le Cui66
 			$this->Cui66->create($data);
-			$success = $success && $this->Cui66->save();
-			
+			$success = $this->Cui66->save( null, array( 'atomic' => false ) ) && $success;
+
 			return $success;
 		}
-		
+
 		/**
 		 * Retourne les options nécessaires au formulaire de recherche, au formulaire,
 		 * aux impressions, ...
@@ -571,7 +569,7 @@
 		 */
 		public function options($user_id = null) {
 			$Typecontratcui66 = ClassRegistry::init( 'Typecontratcui66' );
-			
+
 			$options = Hash::merge(
 				array(
 					'Cui66' => array(
@@ -581,8 +579,8 @@
 							3 => __d( 'cui66', 'ENUM::DATEBUTOIR_SELECT::3' ),
 						),
 						'typecontrat' => $Typecontratcui66->find( 'list', array( 'order' => 'name' ) ),
-						'typecontrat_actif' => $Typecontratcui66->find( 'list', 
-							array( 'conditions' => array( 'actif' => true ), 'order' => 'name' ) 
+						'typecontrat_actif' => $Typecontratcui66->find( 'list',
+							array( 'conditions' => array( 'actif' => true ), 'order' => 'name' )
 						)
 					),
 					'Partenairecui' => array(
@@ -605,11 +603,11 @@
 				$this->Cui66->Cui->Personnecui->enums(),
 				$this->Cui66->Cui->Entreeromev3->options()
 			);
-			
+
 			foreach( $this->Cui66->Cui->beneficiairede as $value ){
 				$options['Cui']['beneficiairede'][] = $value;
 			}
-			
+
 			if ($user_id !== null) {
 				// Récupération de la liste des actions avec une fiche de candidature (pour Cui.organismedesuivi)
 				$qd_user = array(
@@ -642,18 +640,18 @@
 
 			// Ajout de la liste des partenaires
 			$options['Cui']['partenaire_id'] = $this->Cui66->Cui->Partenaire->find( 'list', array( 'order' => array( 'Partenaire.libstruc' ) ) );
-			
+
 			// Liste des cantons pour l'adresse du partenaire
-			App::import('Component','Gestionzonesgeos');
+			App::uses( 'GestionzonesgeosComponent', 'Controller/Component' );
 			$Gestionzonesgeos = new GestionzonesgeosComponent(new ComponentCollection());
 			$options['Adressecui']['canton'] = $Gestionzonesgeos->listeCantons();
 			$options['Adressecui']['canton2'] =& $options['Adressecui']['canton'];
 
 			return $options;
 		}
-		
+
 		/**************************************************************************************************************/
-		
+
 		/**
 		 * Retourne les positions et les conditions CakePHP/SQL dans l'ordre dans
 		 * lequel elles doivent être traitées pour récupérer la position actuelle.
@@ -670,7 +668,7 @@
 				AND decisioncui66_sq3.decision = \'accord\'
 				LIMIT 1
 			)';
-			
+
 			// Le CUI possède une décision ajourné
 			$decisionAjourne = 'EXISTS(
 				SELECT decisioncui66_sq3.id
@@ -680,7 +678,7 @@
 				AND decisioncui66_sq3.decision = \'ajourne\'
 				LIMIT 1
 			)';
-			
+
 			// Le CUI possède une décision de refus
 			$decisionRefus = 'EXISTS(
 				SELECT decisioncui66_sq3.id
@@ -691,7 +689,7 @@
 				OR decisioncui66_sq3.decision = \'sanssuite\')
 				LIMIT 1
 			)';
-			
+
 			// Le CUI possède une décision
 			$decision = 'EXISTS(
 				SELECT decisioncui66_sq3.id
@@ -700,7 +698,7 @@
 				AND decisioncui66_sq3.decision IS NOT NULL
 				LIMIT 1
 			)';
-			
+
 			// Le CUI possède une rupture
 			$rupture = 'EXISTS(
 				SELECT rupurecui66_sq.id
@@ -708,7 +706,7 @@
 				WHERE rupurecui66_sq.cui66_id = Cui66.id
 				LIMIT 1
 			)';
-			
+
 			// Le CUI possède une suspension avec une datedefin < NOW() > datedebut
 			$suspensionEnCours = 'EXISTS(
 				SELECT Cui66.id
@@ -719,7 +717,7 @@
 				AND NOW()::date BETWEEN suspensioncui66_sq.datedebut AND suspensioncui66_sq.datefin
 				LIMIT 1
 			)';
-			
+
 			// Le CUI possède un avis technique PRE
 			$avisTechniquePre = 'EXISTS(
 				SELECT propositioncui66_sq.id
@@ -729,10 +727,10 @@
 				AND propositioncui66_sq.avis != \'attentedecision\'
 				LIMIT 1
 			)';
-			
+
 			// Les cases importantes ont toute été rempli
 			$formulaireRempli = 'Cui.dateembauche IS NOT NULL';
-			
+
 			// Le CUI possède un e-mail avec une dateenvoi not null
 			$emailInitial = 'EXISTS(
 				SELECT emailcui_sq.id
@@ -741,7 +739,7 @@
 				AND emailcui_sq.cui_id = Cui66.cui_id
 				LIMIT 1
 			)';
-			
+
 			// /!\ Attention, le mot relance doit être placé dans le textsmailscuis66.name pour être pris en compte
 			$emailRelance = 'EXISTS(
 				SELECT emailcui_sq.id
@@ -752,7 +750,7 @@
 				AND emailcui_sq.cui_id = Cui66.cui_id
 				LIMIT 1
 			)';
-			
+
 			$return = array(
 				// 1. Annulé
 				'annule' => array(
@@ -760,7 +758,7 @@
 						$this->Cui66->alias.'.etatdossiercui66' => 'annule',
 					)
 				),
-				
+
 				// 2. Traité (Décision sans suite)
 				'decisionsanssuite' => array(
 					'OR' => array(
@@ -787,7 +785,7 @@
 						)
 					)
 				),
-				
+
 				// 3. Traité (Dossier non éligible)
 				'nonvalide' => array(
 					array(
@@ -795,21 +793,21 @@
 						$this->Cui66->alias.'.dossiereligible' => 0
 					)
 				),
-				
+
 				// 4. Rupture du CUI depuis le
 				'rupturecontrat' => array(
 					array(
 						$rupture
 					)
-				), 
-				
+				),
+
 				// 5. Suspendu jusqu'au
 				'contratsuspendu' => array(
 					array(
 						$suspensionEnCours
 					)
 				),
-				
+
 				// 6. Fin de contrat
 				'perime' => array(
 					array(
@@ -817,7 +815,7 @@
 						'Cui.findecontrat <= NOW()::DATE'
 					)
 				),
-				
+
 				// 7. En cours
 				'encours' => array(
 					array(
@@ -827,7 +825,7 @@
 						'Cui.dateembauche <= NOW()::DATE'
 					)
 				),
-				
+
 				// Notifié
 				'notifie' => array(
 					array(
@@ -835,14 +833,14 @@
 						$decisionFavorable
 					)
 				),
-				
+
 				// 8. En attente de notification
 				'attentenotification' => array(
 					array(
 						$decision
 					)
 				),
-				
+
 				// 9. En attente de décision
 				'attentedecision' => array(
 					'OR' => array(
@@ -850,15 +848,15 @@
 						$decisionAjourne
 					)
 				),
-							
+
 				// 12. En attente d'avis techniques
 				'attenteavis' => array(
 					array(
 						$emailInitial,
 						$formulaireRempli
 					)
-				),				
-				
+				),
+
 				// X. Relance le %s (Dossier non reçu)
 				'dossierrelance' => array(
 					array(
@@ -867,7 +865,7 @@
 						$this->Cui66->alias.'.dossiercomplet' => 0
 					)
 				),
-				
+
 				// X. En attente de relance (Dossier non reçu)
 				'dossiernonrecu' => array(
 					array(
@@ -876,7 +874,7 @@
 						$this->Cui66->alias.'.dossiercomplet' => 0
 					)
 				),
-				
+
 				// 11. En attente d'informations complémentaires
 				'formulairecomplet' => array(
 					array(
@@ -885,7 +883,7 @@
 						$this->Cui66->alias.'.dossiercomplet' => 1
 					)
 				),
-					
+
 				// 14. En attente de pièces (Verification éligibilité)
 				'dossierrecu' => array(
 					array(
@@ -894,7 +892,7 @@
 						$this->Cui66->alias.'.dossierrecu' => 1
 					)
 				),
-				
+
 				// 13. En attente de pièces
 				'dossiereligible' => array(
 					array(
@@ -903,7 +901,7 @@
 						$this->Cui66->alias.'.dossiereligible' => 1
 					)
 				),
-				
+
 				'attentepiece' => array(
 					array(
 						$emailInitial,
@@ -967,13 +965,13 @@
 		 * @return boolean
 		 */
 		public function updatePositionsCuisByConditions( array $conditions ) {
-			$query = array( 
-				'fields' => array( "{$this->Cui66->alias}.{$this->Cui66->primaryKey}", "{$this->Cui66->alias}.etatdossiercui66" ), 
-				'conditions' => $conditions, 
+			$query = array(
+				'fields' => array( "{$this->Cui66->alias}.{$this->Cui66->primaryKey}", "{$this->Cui66->alias}.etatdossiercui66" ),
+				'conditions' => $conditions,
 				'joins' => array( $this->Cui66->join( 'Cui' ) )
 			);
 			$datas = $this->Cui66->find( 'all', $query );
-			
+
 			if ( empty( $datas ) ){
 				return true;
 			}
@@ -991,19 +989,19 @@
 			$fullCuiAlias = $sq.$this->Cui66->Cui->alias.$eq;
 
 			$conditionsSql = $Dbo->conditions( $conditions, true, true, $this );
-			
+
 			$sql = "UPDATE {$tableName} AS {$fullAlias} SET {$sq}etatdossiercui66{$eq} = {$case} FROM {$tableNameCui} AS {$fullCuiAlias} {$conditionsSql} AND {$fullCuiAlias}.{$sq}id{$eq} = {$fullAlias}.{$sq}cui_id{$eq};";
 
 			$result = $Dbo->query( $sql ) !== false;
-			
+
 			// On regarde si des valeurs ont changés
-			$query2 = array( 
-				'fields' => array( "{$this->Cui66->alias}.{$this->Cui66->primaryKey}", "{$this->Cui66->alias}.etatdossiercui66" ), 
-				'conditions' => $conditions, 
+			$query2 = array(
+				'fields' => array( "{$this->Cui66->alias}.{$this->Cui66->primaryKey}", "{$this->Cui66->alias}.etatdossiercui66" ),
+				'conditions' => $conditions,
 				'joins' => array( $this->Cui66->join( 'Cui' ) )
 			);
 			$datas2 = $this->Cui66->find( 'all', $query2 );
-			
+
 			// On génère une requete si il y a eu changement
 			$different = false;
 			$updateValues = array();
@@ -1019,7 +1017,7 @@
 				$result = $result && $this->Cui66->Historiquepositioncui66->saveMany( $updateValues );
 				$this->updateDecisionCui($conditions);
 			}
-		
+
 			return $result;
 		}
 
@@ -1033,9 +1031,9 @@
 		public function updatePositionsCuisByPosition( $etatdossiercui66 ) {
 			$conditions = $this->getConditionsPositioncui( $etatdossiercui66 );
 
-			$query = array( 
-				'fields' => array( "{$this->Cui66->alias}.{$this->Cui66->primaryKey}" ), 
-				'conditions' => $conditions, 
+			$query = array(
+				'fields' => array( "{$this->Cui66->alias}.{$this->Cui66->primaryKey}" ),
+				'conditions' => $conditions,
 				'joins' => array( $this->Cui66->join( 'Cui' ) )
 			);
 			$sample = $this->Cui66->find( 'first', $query );
@@ -1066,7 +1064,7 @@
 
 		/**
 		 * Ajoute les données des modules liés au CUI pour l'impression
-		 * 
+		 *
 		 * @param array $data
 		 * @return type
 		 */
@@ -1081,7 +1079,7 @@
 				'Suspensioncui66',
 				'Rupturecui66'
 			);
-			
+
 			foreach( $modeles as $modele ) {
 				$query = $this->Cui66->{$modele}->getCompleteDataImpressionQuery( $cui66_id );
 				$data[$modele] = $this->Cui66->{$modele}->find( 'all', $query );
@@ -1089,10 +1087,10 @@
 
 			return $data;
 		}
-		
+
 		/**
 		 * Met à jour les decision_cui
-		 * 
+		 *
 		 * @param array|string $conditions
 		 * @return boolean
 		 */
@@ -1109,11 +1107,11 @@
 					'conditions' => $conditions
 				)
 			);
-			
+
 			if (empty($results)) {
 				return false;
 			}
-			
+
 			foreach ($this->Cui66->correspondance_decision_ci as $decision_cui => $etatdossiercui66) {
 				foreach ($results as $value) {
 					if (in_array(Hash::get($value, 'Cui66.etatdossiercui66'), $etatdossiercui66)) {
@@ -1126,7 +1124,7 @@
 					}
 				}
 			}
-			
+
 			return true;
 		}
 	}

@@ -14,7 +14,7 @@
 
 	/**
 	 * La classe WebrsaTraitementpcg66 possède la logique métier web-rsa
-	 * 
+	 *
 	 * @package app.Model
 	 */
 	class WebrsaTraitementpcg66 extends WebrsaAbstractLogic implements WebrsaLogicAccessInterface
@@ -35,7 +35,7 @@
 
 		/**
 		 * Ajoute les virtuals fields pour permettre le controle de l'accès à une action
-		 * 
+		 *
 		 * @param array $query
 		 * @return type
 		 */
@@ -46,13 +46,13 @@
 				'Traitementpcg66.dateenvoicourrier',
 				'Traitementpcg66.reversedo',
 			);
-			
+
 			return Hash::merge($query, array('fields' => array_values($fields)));
 		}
-		
+
 		/**
 		 * Permet d'obtenir le nécéssaire pour calculer les droits d'accès métier à une action
-		 * 
+		 *
 		 * @param array $conditions
 		 * @return array
 		 */
@@ -72,38 +72,38 @@
 					'Traitementpcg66.id' => 'DESC',
 				)
 			);
-			
+
 			$results = $this->Traitementpcg66->find('all', $this->completeVirtualFieldsForAccess($query));
 			return $results;
 		}
-		
+
 		/**
 		 * Permet d'obtenir les paramètres à envoyer à WebrsaAccess pour une personne en particulier
-		 * 
+		 *
 		 * @see WebrsaAccess::getParamsList
 		 * @param integer $dossierpcg66_id
 		 * @param array $params - Liste des paramètres actifs
 		 */
 		public function getParamsForAccess($dossierpcg66_id, array $params = array()) {
 			$results = array();
-			
+
 			if (in_array('ajoutPossible', $params)) {
 				$results['ajoutPossible'] = $this->ajoutPossible($dossierpcg66_id);
 			}
-			
+
 			return $results;
 		}
-		
+
 		/**
 		 * Permet de savoir si il est possible d'ajouter un enregistrement
-		 * 
+		 *
 		 * @param integer $dossierpcg66_id
 		 * @return boolean
 		 */
 		public function ajoutPossible($dossierpcg66_id) {
 			return true;
 		}
-		
+
 		public function sauvegardeTraitement($data) {
 			$passageEpd = false;
 
@@ -135,7 +135,7 @@
 			}
 
 			$this->Traitementpcg66->create( $dataTraitementpcg66 );
-			$success = $this->Traitementpcg66->save() && $success;
+			$success = $this->Traitementpcg66->save( null, array( 'atomic' => false ) ) && $success;
 
 			$traitementpcg66_id = $this->Traitementpcg66->id;
 
@@ -167,7 +167,7 @@
 				$dataModelTraitementpcg66['Modeletraitementpcg66']['traitementpcg66_id'] = $traitementpcg66_id;
 
 				$this->Traitementpcg66->Modeletraitementpcg66->create( $dataModelTraitementpcg66 );
-				$success = $this->Traitementpcg66->Modeletraitementpcg66->save() && $success;
+				$success = $this->Traitementpcg66->Modeletraitementpcg66->save( null, array( 'atomic' => false ) ) && $success;
 
 				$modeletraitementpcg66_id = $this->Traitementpcg66->Modeletraitementpcg66->id;
 
@@ -222,7 +222,7 @@
 										);
 
 										$this->Traitementpcg66->Modeletraitementpcg66->{$modeleliaison}->create( $record );
-										$success = $this->Traitementpcg66->Modeletraitementpcg66->{$modeleliaison}->save() && $success;
+										$success = $this->Traitementpcg66->Modeletraitementpcg66->{$modeleliaison}->save( null, array( 'atomic' => false ) ) && $success;
 									}
 								}
 							}
@@ -275,7 +275,6 @@
 			// TODO: error404/error500 si on ne trouve pas les données
 			$optionModel = ClassRegistry::init( 'Option' );
 			$qual = $optionModel->qual();
-			$typevoie = $optionModel->typevoie();
 			$services = $this->Traitementpcg66->Personnepcg66->Dossierpcg66->Serviceinstructeur->find( 'list' );
 			$decisionspdos = $this->Traitementpcg66->Personnepcg66->Personnepcg66Situationpdo->Decisionpersonnepcg66->Decisionpdo->find( 'list' );
 			$situationspdos = $this->Traitementpcg66->Personnepcg66->Personnepcg66Situationpdo->Situationpdo->find( 'list' );
@@ -399,18 +398,18 @@
 				array()
 			);
 		}
-		
+
 		/**
 		 * Données nécéssaire pour l'impression d'un courrier
-		 * 
+		 *
 		 * @param integer $id
 		 * @param integer $user_id
 		 * @param boolean $get_saved_data On récupère les éventuelles données sauvegardé ?
 		 * @return array
 		 */
 		public function getDataForPdfCourrier( $id, $user_id, $get_saved_data = true ) {
-			$data = $get_saved_data ? 
-				$this->Traitementpcg66->Dataimpression->find('first', 
+			$data = $get_saved_data ?
+				$this->Traitementpcg66->Dataimpression->find('first',
 					array(
 						'fields' => 'Dataimpression.data',
 						'conditions' => array(
@@ -437,6 +436,7 @@
 					$this->Traitementpcg66->Personnepcg66->Personne->join( 'Orientstruct', array( 'type' => 'LEFT OUTER' ) ),
 					$this->Traitementpcg66->Personnepcg66->Personne->Orientstruct->join( 'Structurereferente', array( 'type' => 'LEFT OUTER' ) ),
 					$this->Traitementpcg66->Personnepcg66->Dossierpcg66->join( 'Foyer' ),
+					$this->Traitementpcg66->Personnepcg66->Dossierpcg66->join( 'Poledossierpcg66', array( 'type' => 'LEFT OUTER' ) ),
 					$this->Traitementpcg66->Personnepcg66->Dossierpcg66->Foyer->join( 'Dossier' ),
 					$this->Traitementpcg66->Personnepcg66->Dossierpcg66->Foyer->join( 'Adressefoyer', array( 'type' => 'LEFT OUTER' ) ),
 					$this->Traitementpcg66->Personnepcg66->Dossierpcg66->Foyer->Adressefoyer->join( 'Adresse', array( 'type' => 'LEFT OUTER' ) ),
@@ -460,6 +460,7 @@
 				$queryData = array(
 					'fields' => array_merge(
 						$this->Traitementpcg66->fields(),
+						$this->Traitementpcg66->Personnepcg66->Dossierpcg66->Poledossierpcg66->fields(),
 						$this->Traitementpcg66->Modeletraitementpcg66->fields(),
 						$this->Traitementpcg66->Modeletraitementpcg66->Modeletypecourrierpcg66->fields(),
 						$this->Traitementpcg66->Personnepcg66->Personne->Bilanparcours66->fields(),
@@ -534,7 +535,7 @@
 					}
 				}
 			}
-			
+
 			return $data;
 		}
 
@@ -545,7 +546,7 @@
 
 		public function getPdfModeleCourrier( $id, $user_id) {
 			$data = $this->getDataForPdfCourrier($id, $user_id);
-			
+
 			$modeleodtname = Set::classicExtract( $data, 'Modeletypecourrierpcg66.modeleodt' );
 			$modeletraitementpcg66_id = Set::classicExtract( $data, 'Modeletraitementpcg66.id' );
 			$piecesmanquantes = $this->Traitementpcg66->Modeletraitementpcg66->find(
@@ -566,8 +567,7 @@
 			);
 
 			$options = array(
-				'Personne' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() ),
-				'type' => array( 'voie' => ClassRegistry::init( 'Option' )->typevoie() )
+				'Personne' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() )
 			);
 			$options = Set::merge( $options, $this->Traitementpcg66->enums() );
 
@@ -581,7 +581,7 @@
 				$options
 			);
 		}
-		
+
 		/**
 		 *	Sous-requête afin d'obtenir la liste des traitements PCG
 		 *		- non clos
@@ -603,7 +603,7 @@
 				)
 			);
 		}
-		
+
 		/**
          * Fonction permettant de récupérer les informations de la dernière
          *  fiche de calcul parmi les différents traitements PCGs d'une personne
@@ -643,23 +643,23 @@
 
             return $data;
         }
-		
+
 		/**
-		 * Retourne la query qui permet de trouver les fichiers PDFs d'un ou plusieurs Dossiers PCGs 
+		 * Retourne la query qui permet de trouver les fichiers PDFs d'un ou plusieurs Dossiers PCGs
 		 * avec les traitements de type courrier.
-		 * 
+		 *
 		 * Lancez le find sur Foyer
-		 * 
+		 *
 		 * Rêgles particulières :
 		 * - On ne ratache pas un PDF si il vien d'un "Dossier PCG / Décision / Traitement" annulé.
 		 * - On ne peux récupérer le PDF d'une décision que si elle est validé et rataché au dossier PCG.
 		 * - Les Traitements à imprimer du dossier PCG sont inclu.
 		 * - Les Traitements à imprimer des autres dossiers PCGs d'un même foyer sont inclu si :
-		 *		- le dossier PCG ne comporte pas de décision 
+		 *		- le dossier PCG ne comporte pas de décision
 		 *		- le dossier PCG à été émis par le même pôle (PDA / PDU).
-		 * 
+		 *
 		 * @param mixed $dossierpcg66_id
-		 * @param mixed $conditionTraitementpcg	permet de spécifier un état en particulier 
+		 * @param mixed $conditionTraitementpcg	permet de spécifier un état en particulier
 		 *										(etattraitementpcg => imprimer par défaut),
 		 * @return array
 		 */
@@ -696,19 +696,19 @@
 				)
 			);
 		}
-		
+
 		/**
 		 * Permet d'obtenir tout les PDFs lié à un dossier PCG (Décision et Traitements)
-		 * 
+		 *
 		 * @param integer $dossierpcg66_id
 		 * @param integer $user_id
-		 * @param mixed $conditionTraitementpcg	permet de spécifier un état en particulier 
+		 * @param mixed $conditionTraitementpcg	permet de spécifier un état en particulier
 		 *										(etattraitementpcg => imprimer par défaut),
 		 * @return array
 		 */
 		public function getPdfsByDossierpcg66Id( $dossierpcg66_id, $user_id, $conditionTraitementpcg = array('Traitementpcg66.etattraitementpcg' => 'imprimer') ) {
 			$query = $this->getPdfsQuery($dossierpcg66_id, $conditionTraitementpcg);
-			
+
 			$results = array();
 			foreach ((array)$this->Traitementpcg66->Personnepcg66->Dossierpcg66->Foyer->find('all', $query) as $result) {
 				$traitement_id = Hash::get($result, 'Traitementpcg66.id');
@@ -716,7 +716,7 @@
 					$results[] = $this->getPdfModeleCourrier($traitement_id, $user_id);
 				}
 			}
-			
+
 			return $results;
 		}
 	}

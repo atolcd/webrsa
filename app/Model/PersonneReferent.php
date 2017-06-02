@@ -18,17 +18,20 @@
 	{
 		public $name = 'PersonneReferent';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
 			'Allocatairelie',
 			'Dependencies',
-			'Formattable' => array(
-				'suffix' => array( 'referent_id' )
-			),
-			'Enumerable' => array(
-				'fields' => array(
-					'haspiecejointe'
-				)
-			)
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		/**
@@ -38,12 +41,8 @@
 		 */
 		public $validate = array(
 			'referent_id' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
 				'checkReferentUnique' => array(
-					'rule' => 'checkReferentUnique',
+					'rule' => array( 'checkReferentUnique' ),
 					'message' => 'Le bénéficiaire possède déjà un référent unique, merci de le clôturer avant d\'en ajouter un nouveau',
 					'allowEmpty' => true,
 				),
@@ -52,22 +51,7 @@
 					'message' => 'Le référent n\'appartient pas à la structure référente',
 				)
 			),
-			'dddesignation' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
-				'date' => array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.'
-				)
-			),
 			'dfdesignation' => array(
-				'date' => array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.',
-					'allowEmpty' => true,
-				),
 				'compareDates' => array(
 					'rule' => array( 'compareDates', 'dddesignation', '>=' ),
 					'message' => 'La date de fin de désignation doit être au moins la même que la date de début de désignation'
@@ -183,7 +167,7 @@
 				if ( !empty( $last_referent ) && empty( $last_referent['PersonneReferent']['dfdesignation'] ) ) {
 					$last_referent['PersonneReferent']['dfdesignation'] = $data[$modelName][$datefindesignation];
 					$this->create( $last_referent );
-					$saved = $this->save( $last_referent ) && $saved;
+					$saved = $this->save( $last_referent , array( 'atomic' => false ) ) && $saved;
 				}
 
 				$personnereferent['PersonneReferent'] = array(
@@ -193,7 +177,7 @@
 					'dddesignation' => $data[$modelName][$datefindesignation]
 				);
 				$this->create( $personnereferent );
-				$saved = $this->save( $personnereferent ) && $saved;
+				$saved = $this->save( $personnereferent , array( 'atomic' => false ) ) && $saved;
 			}
 
 			return $saved;
@@ -297,7 +281,7 @@
 
 			if( !empty( $referent_id ) ) {
 				$this->create( $personne_referent );
-				return $this->save() && $success;
+				return $this->save( null, array( 'atomic' => false ) ) && $success;
 			}
 
 			return $success;

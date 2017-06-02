@@ -7,6 +7,7 @@
 	 * @package app.Console.Command
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppShell', 'Console/Command' );
 
 	/**
 	 * La classe Sortiesaccompagnementspdvs93Shell enregistre automatiquement

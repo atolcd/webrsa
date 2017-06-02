@@ -22,7 +22,7 @@ xsltproc \
 	--stringparam password "webrsa" \
 	--stringparam title "Menu principal - utilisateur webrsa" \
 	-o "menu-principal.selenium.html" \
-	"test2selenium.xsl" \
+	"menu2selenium.xsl" \
 	"menu-principal.html"
 
 2°) Recherches, à partir du menu principal
@@ -32,7 +32,7 @@ xsltproc \
 	--stringparam mode "search" \
 	--stringparam title "Recherches - utilisateur webrsa" \
 	-o "menu-recherches.selenium.html" \
-	"test2selenium.xsl" \
+	"menu2selenium.xsl" \
 	"menu-principal.html"
 
 3°) Menu d'un dossier RSA (accès simple aux URL, vérification d'un h1)
@@ -41,5 +41,5 @@ xsltproc \
 	--stringparam password "webrsa" \
 	--stringparam title "Menu dossier - utilisateur webrsa" \
 	-o "menu-dossier.selenium.html" \
-	"test2selenium.xsl" \
+	"menu2selenium.xsl" \
 	"menu-dossier.html"

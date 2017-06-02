@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Questionpcg66.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Questionpcg66 ...
@@ -17,17 +18,10 @@
 	{
 		public $name = 'Questionpcg66';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
-			'Enumerable' => array(
-				'fields' => array(
-					'defautinsertion',
-					'recidive',
-					'phase'
-				)
-			)
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		public $belongsTo = array(

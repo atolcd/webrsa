@@ -42,22 +42,22 @@
 			<tr class="even">
 				<th class="aere">Montant initial de l'indu</th>
 				<td class="number"><?php echo $this->Locale->money( $infofinanciere[0]['mt_indus_constate'] );?></td>
-				<td><?php /*echo $this->Locale->money( $infofinanciere[0]['mt_indus_constate'] );*/?></td>
+				<td></td>
 			</tr>
 			<tr class="odd">
 				<th class="aere">Recouvrement par la CAF</th>
 				<td class="number"><?php echo $this->Locale->money( $infofinanciere[0]['mt_remises_indus'] );?></td>
-				<td><?php /*echo $this->Locale->money( $infofinanciere[0]['mt_indus_constate'] );*/?></td>
+				<td></td>
 			</tr>
 			<tr class="even">
 				<th class="aere">Remise accordée par la CAF</th>
 				<td class="number"><?php echo $this->Locale->money( $infofinanciere[0]['mt_remises_indus'] );?></td>
-				<td><?php /*echo $this->Locale->money( $infofinanciere[0]['mt_indus_constate'] );*/?></td>
+				<td></td>
 			</tr>
 			<tr class="odd">
 				<th class="aere">Montant transféré</th>
 				<td class="number"><?php echo $this->Locale->money( $infofinanciere[0]['mt_indus_transferes_c_g'] );?></td>
-				<td><?php /*echo $this->Locale->money( $infofinanciere[0]['mt_indus_constate'] );*/?></td>
+				<td></td>
 			</tr>
 			<tr class="even">
 				<th class="aere">Remise CG</th>

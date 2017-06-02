@@ -14,7 +14,7 @@
 
 <h1><?php echo $this->pageTitle;?></h1>
 <?php
-	echo $this->Form->create( 'Contratinsertion', array( 'type' => 'post', 'id' => 'testform' ) );
+	echo $this->Form->create( 'Contratinsertion', array( 'type' => 'post', 'id' => 'testform', 'novalidate' => true ) );
 	echo $this->Form->input( 'Contratinsertion.personne_id', array( 'type' => 'hidden', 'value' => Set::classicExtract( $personne, 'Personne.id' ) ) );
 
 	if( $this->action == 'add' ) {
@@ -553,7 +553,7 @@ Event.observe( $( 'ContratinsertionStructurereferenteId' ), 'change', function( 
 <fieldset >
 <legend> FORMATION ET EXPERIENCE </legend>
 <?php echo $this->Form->input( 'Dsp.id', array( 'label' => false, 'div' => false,  'type' => 'hidden' ) );?>
-<?php echo $this->Form->input( 'Dsp.personne_id', array( 'label' => false, 'div' => false, /*'value' => Set::classicExtract( $personne, 'Personne.id' ), */ 'type' => 'hidden' ) );?>
+<?php echo $this->Form->input( 'Dsp.personne_id', array( 'label' => false, 'div' => false, 'type' => 'hidden' ) );?>
 <?php echo $this->Form->input( 'Dsp.nivetu', array( 'label' => __d( 'dsp', 'Dsp.nivetu' ), 'options' => $nivetus, 'empty' => true ) );?>
 <?php echo $this->Form->input( 'Contratinsertion.diplomes', array( 'label' => __d( 'contratinsertion', 'Contratinsertion.diplomes' ), 'type' => 'textarea', 'rows' => 3)  ); ?>
 <?php echo $this->Form->input( 'Contratinsertion.expr_prof', array( 'label' => __d( 'contratinsertion', 'Contratinsertion.expr_prof' ), 'type' => 'textarea', 'rows' => 3)  ); ?>

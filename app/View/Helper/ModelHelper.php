@@ -7,6 +7,7 @@
 	 * @package app.View.Helper
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppHelper', 'View/Helper' );
 
 	/**
 	 * Permet la remplacement dans une chaîne de caractère de valeurs venant
@@ -87,16 +88,6 @@
 						'schema' => $model->schema(),
 					);
 
-					// MySQL enum ? dans un projet qui utilise PostgreSQL!
-//					foreach( $this->_modelInfos[$modelName]['schema'] as $field => $infos ) {
-//						if( strstr( $infos['type'], 'enum(' ) ) {
-//							$this->_modelInfos[$modelName]['schema'][$field]['type'] = 'string';
-//							if( preg_match_all( "/'([^']+)'/", $infos['type'], $matches ) ) {
-//								$this->_modelInfos[$modelName]['schema'][$field]['options'] = $matches[1];
-//							}
-//						}
-//					}
-
 					Cache::write( $cacheKey, $this->_modelInfos[$modelName] );
 				}
 			}
@@ -141,7 +132,7 @@
 		 */
 		public function type( $modelName, $fieldName = null ) {
 			if( is_null( $fieldName ) ) {
-				list( $modelName, $fieldName ) = Xinflector::modelField( $modelName );
+				list( $modelName, $fieldName ) = model_field( $modelName );
 			}
 			$modelInfos = $this->_modelInfos( $modelName );
 			return $modelInfos['schema'][$fieldName]['type'];
@@ -163,7 +154,7 @@
 		 * </pre>
 		 */
 		protected function _typeInfos( $path ) {
-			list( $modelName, $fieldName ) = Xinflector::modelField( $path );
+			list( $modelName, $fieldName ) = model_field( $path );
 			$modelInfos = $this->_modelInfos( $modelName );
 			return Set::extract( $modelInfos, "schema.{$fieldName}" );
 		}

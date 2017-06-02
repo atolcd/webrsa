@@ -1,30 +1,20 @@
-<h1><?php echo $this->pageTitle = 'Compositions des foyers';?></h1>
-
 <?php
-	echo $this->Default2->index(
-		$composfoyerspcgs66,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'Compofoyerpcg66.name'
-		),
-		array(
-			'actions' => array(
-				'Composfoyerspcgs66::actif' => array( 'label' => 'Désactiver', 'condition' => '(\'#Compofoyerpcg66.actif#\' == "O")' ),
-				'Composfoyerspcgs66::inactif' => array( 'label' => 'Activer', 'condition' => '(\'#Compofoyerpcg66.actif#\' != "O")'  ),
-				'Composfoyerspcgs66::edit' => array( 'disabled' => '(\'#Compofoyerpcg66.actif#\' != "O" || \'#Compofoyerpcg66.occurences#\' != "0")'  ),
-				'Composfoyerspcgs66::delete' => array( 'disabled' => '(\'#Compofoyerpcg66.actif#\' != "O" || \'#Compofoyerpcg66.occurences#\' != "0")'  )
+			'cells' => array(
+				'Compofoyerpcg66.name',
+				'Compofoyerpcg66.actif',
+				'/Composfoyerspcgs66/edit/#Compofoyerpcg66.id#' => array(
+					'title' => true
+				),
+				'/Composfoyerspcgs66/delete/#Compofoyerpcg66.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Compofoyerpcg66.has_linkedrecords#"'
+				)
 			),
-			'add' => array( 'Compofoyerpcg66.add' )
-		)
-	);
-
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'decisionsdossierspcgs66',
-			'action'     => 'index'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#decisionsdossierspcgs66'
 		)
 	);
 ?>

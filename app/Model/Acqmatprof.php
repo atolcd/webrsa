@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Acqmatprof.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Acqmatprof ...
@@ -17,26 +18,26 @@
 	{
 		public $name = 'Acqmatprof';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
 			'Aideapre',
-			'Frenchfloat' => array( 'fields' => array( 'montantaide' ) )
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
-			'apre_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric')
-				),
-			),
 			'montantaide' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
-				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
-					'allowEmpty' => true
 				)
 			)
 		);

@@ -24,13 +24,6 @@
 		public $name = 'Domaineromev3';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
@@ -39,6 +32,8 @@
 			'Catalogueromev3',
 			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes',
 		);
 
 		/**
@@ -83,9 +78,29 @@
 		 * @var array
 		 */
 		public $validate = array(
+			'familleromev3_id' => array(
+				'checkUniqueFamilleromev3IdCode' => array(
+					'rule' => array( 'checkUnique', array( 'familleromev3_id', 'code' ) ),
+					'message' => 'Ce couple de valeurs de famille et de code est déjà présent'
+				),
+				'checkUniqueFamilleromev3IdName' => array(
+					'rule' => array( 'checkUnique', array( 'familleromev3_id', 'name' ) ),
+					'message' => 'Ce couple de valeurs de famille et de domaine est déjà présent'
+				)
+			),
 			'code' => array(
 				'minLength' => array(
 					'rule' => array( 'minLength', 2 )
+				),
+				'checkUniqueFamilleromev3IdCode' => array(
+					'rule' => array( 'checkUnique', array( 'familleromev3_id', 'code' ) ),
+					'message' => 'Ce couple de valeurs de famille et de code est déjà présent'
+				)
+			),
+			'name' => array(
+				'checkUniqueFamilleromev3IdName' => array(
+					'rule' => array( 'checkUnique', array( 'familleromev3_id', 'name' ) ),
+					'message' => 'Ce couple de valeurs de famille et de domaine est déjà présent'
 				)
 			)
 		);

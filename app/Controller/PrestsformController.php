@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe PrestsformController ...
@@ -38,7 +39,7 @@
 		 * @var array
 		 */
 		public $helpers = array(
-			
+
 		);
 
 		/**
@@ -56,26 +57,26 @@
 			'Prestform',
 			'Refpresta',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Prestsform:edit',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -86,7 +87,7 @@
 			'add' => 'create',
 			'edit' => 'update',
 		);
-		
+
 		/**
 		 *
 		 */
@@ -130,16 +131,16 @@
 
 				if( $validates ) {
 					$this->Actioninsertion->begin();
-					$saved = $this->Actioninsertion->save( $this->request->data );
-					$saved = $this->Refpresta->save( $this->request->data ) && $saved;
+					$saved = $this->Actioninsertion->save( $this->request->data , array( 'atomic' => false ) );
+					$saved = $this->Refpresta->save( $this->request->data , array( 'atomic' => false ) ) && $saved;
 
 					$this->request->data['Prestform']['refpresta_id'] = $this->Refpresta->id;
 					$this->request->data['Prestform']['actioninsertion_id'] = $this->Actioninsertion->id;
-					$saved = $this->Prestform->save( $this->request->data ) && $saved;
+					$saved = $this->Prestform->save( $this->request->data , array( 'atomic' => false ) ) && $saved;
 
 					if( $saved ) {
 						$this->Actioninsertion->commit();
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 
 						// FIXME:
 						$this->redirect( array( 'controller' => 'actionsinsertion', 'action' => 'index', $contratinsertion['Contratinsertion']['id'] ) );
@@ -194,12 +195,12 @@
 
 				if( $validates ) {
 					$this->Prestform->begin();
-					$saved = $this->Prestform->save( $this->request->data['Prestform'] );
-					$saved = $this->Refpresta->save( $this->request->data['Refpresta'] ) && $saved;
+					$saved = $this->Prestform->save( $this->request->data['Prestform'] , array( 'atomic' => false ) );
+					$saved = $this->Refpresta->save( $this->request->data['Refpresta'] , array( 'atomic' => false ) ) && $saved;
 
 					if( $saved ) {
 						$this->Prestform->commit();
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success');
+						$this->Flash->success( __( 'Save->success' ) );
 
 						//FIXME:
 						$this->redirect( array( 'controller' => 'actionsinsertion', 'action' => 'index', $prestform['Actioninsertion']['Contratinsertion']['id']) );

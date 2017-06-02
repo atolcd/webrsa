@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe TyposcontratsController ...
@@ -28,7 +29,7 @@
 		 * @var array
 		 */
 		public $components = array(
-			
+
 		);
 
 		/**
@@ -49,26 +50,26 @@
 			'Typocontrat',
 			'Contratinsertion',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Typoscontrats:edit',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -99,7 +100,7 @@
 		public function add() {
 			if( !empty( $this->request->data ) ) {
 				if( $this->Typocontrat->saveAll( $this->request->data ) ) {
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'typoscontrats', 'action' => 'index' ) );
 				}
 			}
@@ -113,7 +114,7 @@
 
 			if( !empty( $this->request->data ) ) {
 				if( $this->Typocontrat->saveAll( $this->request->data ) ) {
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'typoscontrats', 'action' => 'index' ) );
 				}
 			}
@@ -152,7 +153,7 @@
 
 			// Tentative de suppression ... FIXME
 			if( $this->Typocontrat->delete( array( 'Typocontrat.id' => $typocontrat_id ) ) ) {
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
+				$this->Flash->success( __( 'Delete->success' ) );
 				$this->redirect( array( 'controller' => 'typoscontrats', 'action' => 'index' ) );
 			}
 		}

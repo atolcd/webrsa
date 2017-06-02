@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Decisionpdo.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Decisionpdo ...
@@ -15,25 +16,48 @@
 	 */
 	class Decisionpdo extends AppModel
 	{
+		/**
+		 * Nom du modèle.
+		 *
+		 * @var string
+		 */
 		public $name = 'Decisionpdo';
+
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
 
 		public $displayField = 'libelle';
 
-		public $order = 'Decisionpdo.id ASC';
+		/**
+		 * Tri par défaut pour ce modèle.
+		 *
+		 * @var array
+		 */
+		public $order = array( '%s.libelle' );
 
+		/**
+		 * Behaviors utilisés par le modèle.
+		 *
+		 * @var array
+		 */
 		public $actsAs = array(
-//			'Autovalidate2',
-            'Pgsqlcake.PgsqlAutovalidate',
-			'Enumerable' => array(
-				'fields' => array(
-					'clos',
-					'nbmoisecheance',
-					'cerparticulier'
-				)
+			'Desactivable' => array(
+				'fieldName' => 'isactif'
 			),
-			'Formattable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
+		/**
+		 * Associations "Has many".
+		 *
+		 * @var array
+		 */
 		public $hasMany = array(
 			'Decisionpropopdo' => array(
 				'className' => 'Decisionpropopdo',
@@ -76,20 +100,6 @@
 			)
 		);
 
-		public $validate = array(
-			'libelle' => array(
-				array(
-					'rule' => 'isUnique',
-					'message' => 'Cette valeur est déjà utilisée'
-				),
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
-			),
-		);
-		
-
 		/**
 		 * Retourne la liste des modèles odt paramétrés pour le impressions de
 		 * cette classe.
@@ -113,10 +123,10 @@
 			);
 			return Set::extract( $items, '/'.$this->alias.'/modele' );
 		}
-        
-        
+
+
         /**
-         * Permet de connaître le nombre d'occurences de Dossierpcg dans 
+         * Permet de connaître le nombre d'occurences de Dossierpcg dans
          * lesquelles apparaît ce type de PDOs
          * @return array()
          */
@@ -126,13 +136,29 @@
 					$this->fields(),
 					array( 'COUNT("Decisiondossierpcg66"."id") AS "Decisionpdo__occurences"' )
 				),
-				'joins' => array( 
+				'joins' => array(
 					$this->join( 'Decisiondossierpcg66' )
 				),
 				'recursive' => -1,
 				'group' => $this->fields(),
 				'order' => array( 'Decisionpdo.id ASC' )
 			);
+		}
+
+		/**
+		 * Surcharge de la méthode enums pour ajouter les décisions de CER
+		 * particuliers au CG 66.
+		 *
+		 * @return array
+		 */
+		public function enums() {
+			$enums = parent::enums();
+
+			if( Configure::read( 'Cg.departement' ) == 66 ) {
+				$enums[$this->alias]['decisioncerparticulier'] = ClassRegistry::init('Contratinsertion')->enum('decision_ci');
+			}
+
+			return $enums;
 		}
 	}
 ?>

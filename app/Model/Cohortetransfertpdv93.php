@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * Classe Cohortetransfertpdv93.
@@ -192,11 +193,6 @@
 				$querydata['joins'][] = array_words_replace( $Transfertpdv93->VxOrientstruct->join( 'Structurereferente', array( 'type' => 'INNER' ) ), array( 'Structurereferente' => 'VxStructurereferente' ) );
 			}
 
-			if( $statut != 'impressions' ) {
-				// TODO: Pdf::sqImprime
-//				$querydata['joins'][] = $Dossier->Foyer->Personne->Orientstruct->
-			}
-
 			// FIXME: et qui n'ont pas encore été transférés
 			// FIXME: ici, on a ceux qui sortent du département
 
@@ -314,7 +310,7 @@
 			// Info: il faut que le transfert soit créé pour que le bon PDF d'orientation soit généré
 			$Orientstruct->Behaviors->disable( 'StorablePdf' );
 			$Orientstruct->create( $orientstruct );
-			$success = $Orientstruct->save() && $success;
+			$success = $Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
 			$Orientstruct->Behaviors->enable( 'StorablePdf' );
 
 			if( !empty( $Orientstruct->validationErrors ) ) {
@@ -330,7 +326,7 @@
 					$data['Transfertpdv93']['nv_orientstruct_id'] = $Orientstruct->id;
 
 					$Transfertpdv93->create( $data );
-					$success = $Transfertpdv93->save() && $success;
+					$success = $Transfertpdv93->save( null, array( 'atomic' => false ) ) && $success;
 					if( !empty( $Transfertpdv93->validationErrors ) ) {
 						debug( $Transfertpdv93->validationErrors );
 					}

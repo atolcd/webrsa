@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Zonegeographique ...
@@ -17,31 +18,26 @@
 	{
 		public $name = 'Zonegeographique';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'libelle';
 
 		public $order = array( 'libelle ASC' );
 
-		public $validate = array(
-			'libelle' => array(
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
-				array(
-					'rule' => 'isUnique',
-					'message' => 'Valeur déjà présente'
-				)
-			),
-			'codeinsee' => array(
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
-				array(
-					'rule' => 'isUnique',
-					'message' => 'Valeur déjà présente'
-				)
-			)
+		/**
+		 * Behaviors utilisés par le modèle.
+		 *
+		 * @var array
+		 */
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $hasMany = array(

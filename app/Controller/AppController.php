@@ -9,6 +9,7 @@
 	 */
 	App::uses( 'Controller', 'Controller' );
 	App::uses( 'SearchProgressivePagination', 'Search.Utility' );
+	App::uses( 'SessionAclComponent', 'SessionAcl.Controller/Component' );
 
 	/**
 	 * Classe de base de tous les contrôleurs de l'application.
@@ -22,7 +23,18 @@
 		 *
 		 * @var array
 		 */
-		public $components = array( 'Session', 'Auth', 'Acl', 'WebrsaTranslatorAutoload' );
+		public $components = array(
+			'Session',
+			'Auth' => array(
+				'className' => 'WebrsaAuth',
+				'authError' => 'Vous n\'êtes pas autorisé(e) à accéder à cette page.'
+			),
+			'Acl' => array(
+				'className' => 'SessionAcl.SessionAcl'
+			),
+			'Flash',
+			'WebrsaTranslatorAutoload'
+		);
 
 		/**
 		 * Helpers utilisés
@@ -43,6 +55,9 @@
 				'useBuffer' => false
 			),
 			'Translator',
+			'DisplayValidationErrors' => array(
+				'className' => 'DisplayValidationErrors.DisplayValidationErrors'
+			),
 		);
 
 		/**
@@ -59,6 +74,13 @@
 		 * @var array
 		 */
 		public $commeDroit = array();
+
+		/**
+		 * Méthodes ne nécessitant aucun droit.
+		 *
+		 * @var array
+		 */
+		public $aucunDroit = array();
 
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
@@ -129,7 +151,7 @@
 		 * ça ne fonctionne pas correctement.
 		 */
 		public function refreshPaginator() {
-			$this->Components->unload( 'Search.ProgressivePaginator' );
+			$this->Components->unload( 'Search.SearchProgressivePaginator' );
 			$this->Components->unload( 'Paginator' );
 		}
 
@@ -271,27 +293,6 @@
 		}
 
 		/**
-		 * Vérifie que l'utilisateur a la permission d'accéder à la page.
-		 *
-		 * @see WebrsaPermissions::check()
-		 *
-		 * @return void
-		 */
-		protected function _checkPermissions() {
-			$plugin = Inflector::camelize( $this->request->params['plugin'] );
-			$controller = empty( $plugin ) ? $this->name : "{$plugin}.{$this->name}";
-
-			// FIXME
-			if( $controller === 'Fluxcnaf.Fluxcnaf' ) {
-				return;
-			}
-
-			if( !WebrsaPermissions::check( $controller, $this->action ) ) {
-				throw new error403Exception( null );
-			}
-		}
-
-		/**
 		 * Retourne un tableau contenant un booléen pour chacune des clés suivantes
 		 * permettant de savoir si l'appel à l'URL actuelle est un appel "classique"
 		 * ou non (login, logout, forgottenPass, allo, requested, ajax).
@@ -339,6 +340,8 @@
 			//if( Hash::get( $this->crudMap, $this->request->action ) !== 'read' )
 			$this->disableCache();
 
+			$this->Auth->allow($this->aucunDroit);
+
 			//Paramétrage du composant Auth
 			$this->Auth->loginAction = array( 'controller' => 'users', 'action' => 'login' );
 			$this->Auth->logoutRedirect = array( 'controller' => 'users', 'action' => 'login' );
@@ -347,8 +350,6 @@
 
 			$this->set( 'etatdosrsa', ClassRegistry::init( 'Situationdossierrsa' )->etatdosrsa() );
 			$return = parent::beforeFilter();
-
-			$this->Auth->allow( '*' );
 
 			$is = $this->_is();
 
@@ -376,7 +377,6 @@
 
 					if( !$is['ajax'] ) {
 						$this->_checkHabilitations();
-						$this->_checkPermissions();
 					}
 				}
 			}
@@ -390,20 +390,6 @@
 			$this->_iniSet();
 
 			return $return;
-		}
-
-		/**
-		 * Fonction utilisataire permettant de mettre en message flash le résultat des actions Save et Delete.
-		 *
-		 * @param string $message
-		 * @param boolean $result
-		 * @return void
-		 */
-		protected function _setFlashResult( $message, $result ) {
-			$class = ( $result ? 'success' : 'error' );
-			$this->Session->setFlash(
-					__( "{$message}->{$class}" ), 'default', array( 'class' => $class )
-			);
 		}
 
 		/**
@@ -496,10 +482,6 @@
 
 					$menu = array(
 						'url' => $s['url']
-//						'url' => array(
-//							'controller' => $s['controller'],
-//							'action' => $s['action'],
-//						)
 					);
 //					$menu['url'] = array_merge($menu['url'], explode('/', $params));
 

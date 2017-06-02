@@ -55,7 +55,13 @@
 		 * @return boolean
 		 */
 		protected static function _edit(array $record, array $params) {
-			$result = Hash::get($record, "{$params['alias']}.dernier") == true
+			$result = (
+					Hash::get($record, "{$params['alias']}.dernier") == true
+					|| (
+						976 == $params['departement']
+						&& 'En attente' === Hash::get( $record, "{$params['alias']}.statut_orient" )
+					)
+				)
 				&& Hash::get($params, 'ajout_possible') == true;
 
 			if ($params['departement'] === 66) {
@@ -98,8 +104,16 @@
 		protected static function _delete(array $record, array $params) {
 			$reorientationseps = Hash::get($params, 'reorientationseps');
 
-			return Hash::get($record, "{$params['alias']}.dernier") == true
-				&& Hash::get($record, "{$params['alias']}.dernier_oriente") == true
+			return (
+					(
+						Hash::get($record, "{$params['alias']}.dernier") == true
+						&& Hash::get($record, "{$params['alias']}.dernier_oriente") == true
+					)
+					|| (
+						976 == $params['departement']
+						&& 'En attente' === Hash::get( $record, "{$params['alias']}.statut_orient" )
+					)
+				)
 				&& Hash::get($record, "{$params['alias']}.linked_records") == false
 				&& empty($reorientationseps);
 		}

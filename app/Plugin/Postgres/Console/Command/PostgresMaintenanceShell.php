@@ -16,8 +16,6 @@
 	 * La classe PostgresMaintenanceShell fournit des méthodes de maintenance de
 	 * base de données PostgreSQL.
 	 *
-	 * @see Pgsqlcake.MaintenanceShell (sera dépréciée par cette classe-ci)
-	 *
 	 * @package Postgres
 	 * @subpackage Console.Command
 	 */

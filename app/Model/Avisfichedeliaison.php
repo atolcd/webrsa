@@ -3,8 +3,9 @@
 	 * Code source de la classe Avisfichedeliaison.
 	 *
 	 * @package app.Model
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Model.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Avisfichedeliaison ...
@@ -21,19 +22,13 @@
 		public $name = 'Avisfichedeliaison';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
 		 */
 		public $actsAs = array(
 			'Postgres.PostgresAutovalidate',
+			'Validation2.Validation2RulesFieldtypes',
 			'Validation2.Validation2Formattable',
 		);
 
@@ -80,10 +75,10 @@
 				'counterCache' => null
 			),
 		);
-		
+
 		/**
 		 * Prépare le formulaire d'avis ou de validation
-		 * 
+		 *
 		 * @param integer $fichedeliaison_id
 		 * @return array
 		 */
@@ -107,15 +102,15 @@
 					),
 				)
 			);
-			$results['FichedeliaisonPersonne']['personne_id'] = 
+			$results['FichedeliaisonPersonne']['personne_id'] =
 				Hash::extract(
-					$this->Fichedeliaison->FichedeliaisonPersonne->find('all', 
+					$this->Fichedeliaison->FichedeliaisonPersonne->find('all',
 						array('conditions' => array('fichedeliaison_id' => $fichedeliaison_id))
-					), 
+					),
 					'{n}.FichedeliaisonPersonne.personne_id'
 				)
 			;
-			
+
 			return $results;
 		}
 	}

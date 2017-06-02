@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe PropospdosController ...
@@ -41,6 +42,7 @@
 					'cohorte_validees',
 				),
 			),
+			'WebrsaAjaxInsertions'
 		);
 
 		/**
@@ -69,18 +71,11 @@
 			'Dossier',
 			'Option',
 			'Originepdo',
-			'Pdf',
 			'Personne',
-			'Piecepdo',
 			'Referent',
-			'Situationdossierrsa',
 			'Situationpdo',
-			'Statutdecisionpdo',
 			'Statutpdo',
-			'Suiviinstruction',
-			'Traitementpdo',
-			'Typenotifpdo',
-			'Typepdo',
+			'Typenotifpdo'
 		);
 
 		/**
@@ -91,13 +86,6 @@
 		 */
 		public $commeDroit = array(
 			'add' => 'Propospdos:edit',
-			'cohorte_nouvelles' => 'Cohortespdos:avisdemande',
-			'cohorte_validees' => 'Cohortespdos:valide',
-			'exportcsv' => 'Criterespdos:exportcsv',
-			'exportcsv_possibles' => 'Criterespdos:nouvelles',
-			'exportcsv_validees' => 'Cohortespdos:exportcsv',
-			'search' => 'Criterespdos:index',
-			'search_possibles' => 'Criterespdos:nouvelles',
 			'view' => 'Propospdos:index',
 		);
 
@@ -107,16 +95,9 @@
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			'ajaxetat1',
-			'ajaxetat2',
-			'ajaxetat3',
-			'ajaxetat4',
-			'ajaxetat5',
 			'ajaxetatpdo',
-			'ajaxfichecalcul',
 			'ajaxfiledelete',
 			'ajaxfileupload',
-			'ajaxstruct',
 			'download',
 			'fileview',
 		);
@@ -132,7 +113,6 @@
 			'ajaxetatpdo' => 'read',
 			'ajaxfiledelete' => 'delete',
 			'ajaxfileupload' => 'update',
-			'ajaxstruct' => 'read',
 			'cohorte_nouvelles' => 'update',
 			'cohorte_validees' => 'read',
 			'download' => 'read',
@@ -147,65 +127,6 @@
 			'search_possibles' => 'read',
 			'view' => 'read',
 		);
-
-		protected function _setOptions() {
-			$this->set( 'etatdosrsa', ClassRegistry::init('Dossier')->enum('etatdosrsa') );
-			$this->set( 'pieecpres', ClassRegistry::init('Personne')->enum('pieecpres') );
-			$this->set( 'motifpdo', ClassRegistry::init('Propopdo')->enum('motifpdo') );
-			$this->set( 'categoriegeneral', ClassRegistry::init('Contratinsertion')->enum('sect_acti_emp') );
-			$this->set( 'categoriedetail', ClassRegistry::init('Contratinsertion')->enum('emp_occupe') );
-
-			$this->set( 'typeserins', $this->Option->typeserins() );
-			$this->set( 'typepdo', $this->Typepdo->find( 'list' ) );
-			$this->set( 'typenotifpdo', $this->Typenotifpdo->find( 'list' ) );
-			$this->set( 'decisionpdo', $this->Decisionpdo->find( 'list' ) );
-			$this->set( 'typetraitement', $this->Propopdo->Traitementpdo->Traitementtypepdo->find( 'list' ) );
-			$this->set( 'originepdo', $this->Originepdo->find( 'list' ) );
-			$this->set( 'statutlist', $this->Statutpdo->find( 'list', array( 'conditions' => array( 'Statutpdo.isactif' => '1' ) ) ) );
-			$this->set( 'situationlist', $this->Situationpdo->find( 'list', array( 'conditions' => array( 'Situationpdo.isactif' => '1' ) ) ) );
-			$this->set( 'serviceinstructeur', $this->Propopdo->Serviceinstructeur->listOptions() );
-			$this->set( 'orgpayeur', array( 'CAF' => 'CAF', 'MSA' => 'MSA' ) );
-			$this->set( 'gestionnaire', $this->User->find(
-							'list', array(
-						'fields' => array(
-							'User.nom_complet'
-						),
-						'conditions' => array(
-							'User.isgestionnaire' => 'O'
-						)
-							)
-					)
-			);
-
-			$options = (array)Hash::get( $this->Propopdo->enums(), 'Propopdo' );
-			$options = Hash::insert( $options, 'Suiviinstruction.typeserins', $this->Option->typeserins() );
-			$this->set( 'structs', $this->Propopdo->Structurereferente->listeParType( array( 'pdo' => true ) ) );
-			$this->set( compact( 'options' ) );
-		}
-
-		/**
-		 *
-		 * @param type $structurereferente_id
-		 */
-		public function ajaxstruct( $structurereferente_id = null ) {
-			$dataStructurereferente_id = Set::extract( $this->request->data, 'Propopdo.structurereferente_id' );
-			$structurereferente_id = ( empty( $structurereferente_id ) && !empty( $dataStructurereferente_id ) ? $dataStructurereferente_id : $structurereferente_id );
-
-			$qd_struct = array(
-				'conditions' => array(
-					'Structurereferente.id' => $structurereferente_id
-				),
-				'fields' => null,
-				'order' => null,
-				'recursive' => -1
-			);
-			$struct = $this->Structurereferente->find('first', $qd_struct);
-
-			$this->set( 'struct', $struct );
-
-			Configure::write( 'debug', 0 );
-			$this->render( 'ajaxstruct', 'ajax' );
-		}
 
 		/**
 		 *
@@ -255,7 +176,6 @@
 				$etatdossierpdo = $this->Propopdo->etatDossierPdo( $dataTypepdo_id, $dataUser_id, $dataDecisionpdo_id, $dataAvistech, $dataAvisvalid, $iscomplet );
 			}
 
-			$this->Propopdo->etatPdo( $this->request->data );
 			$this->set( compact( 'etatdossierpdo' ) );
 			Configure::write( 'debug', 0 );
 			$this->render( 'ajaxetatpdo', 'ajax' );
@@ -267,22 +187,37 @@
 		 */
 		public function index( $personne_id = null ) {
 			$nbrPersonnes = $this->Propopdo->Personne->find( 'count', array( 'conditions' => array( 'Personne.id' => $personne_id ) ) );
-			//$this->assert( ( $nbrPersonnes == 1 ), 'invalidParameter' );
 			$this->assert( ( $nbrPersonnes >= 1 ), 'invalidParameter' );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) ) );
 
 			$this->_setEntriesAncienDossier( $personne_id, 'Propopdo' );
 
-			$conditions = array( 'Propopdo.personne_id' => $personne_id );
+			// Récupération des listes des PDO
+			$query = array(
+				'fields' => array(
+					'Propopdo.id',
+					'Propopdo.motifpdo',
+					'Typepdo.libelle',
+					'Decisionpropopdo.datedecisionpdo',
+					'Decisionpropopdo.commentairepdo',
+					'Decisionpdo.libelle',
+					'Decisionpdo.modeleodt',
+					$this->Propopdo->Fichiermodule->sqNbFichiersLies( $this->Propopdo, 'nb_fichiers_lies', 'Propopdo' )
+				),
+				'contain' => false,
+				'joins' => array(
+					$this->Propopdo->join( 'Typepdo', array( 'type' => 'INNER' ) ),
+					$this->Propopdo->join( 'Decisionpropopdo', array( 'type' => 'LEFT OUTER' ) ),
+					$this->Propopdo->Decisionpropopdo->join( 'Decisionpdo', array( 'type' => 'LEFT OUTER' ) )
+				),
+				'conditions' => array( 'Propopdo.personne_id' => $personne_id ),
+				'order' => 'Propopdo.datereceptionpdo DESC'
+			);
+			$pdos = $this->Propopdo->find( 'all', $query );
 
-			/// Récupération des listes des PDO
-			$options = $this->Propopdo->prepare( 'propopdo', array( 'conditions' => $conditions ) );
-			$pdos = $this->Propopdo->find( 'all', $options );
-
-			$this->set( 'personne_id', $personne_id );
-			$this->_setOptions();
-			$this->set( 'pdos', $pdos );
+			$options = array_merge( $this->Propopdo->enums(), $this->Propopdo->Decisionpropopdo->enums() );
+			$this->set( compact( 'personne_id', 'pdos', 'options' ) );
 		}
 
 		/**
@@ -290,66 +225,36 @@
 		 * @param type $pdo_id
 		 */
 		public function view( $pdo_id = null ) {
-			$this->assert( valid_int( $pdo_id ), 'invalidParameter' );
-
-			$conditions = array( 'Propopdo.id' => $pdo_id );
-
-			$options = $this->Propopdo->prepare( 'propopdo', array( 'conditions' => $conditions ) );
-
-			$pdo = $this->Propopdo->find(
-				'first',
-				array(
-					'conditions' => array(
-						'Propopdo.id' => $pdo_id
+			$query = array(
+				'contain' => array(
+					'Fichiermodule',
+					'Typepdo',
+					'Decisionpropopdo' => array(
+						'Decisionpdo.libelle'
 					),
-					'contain' => array(
-						'Fichiermodule',
-						'Typepdo',
-						'Decisionpropopdo'
-					)
-				)
-			);
-
-			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $pdo['Propopdo']['personne_id'] ) ) );
-
-			// Afficahge des traitements liés à une PDO
-			$traitements = $this->{$this->modelClass}->Traitementpdo->find(
-					'all', array(
-				'conditions' => array(
-					'propopdo_id' => $pdo_id
+					'Structurereferente.lib_struc',
+					'Originepdo.libelle'
 				),
-				'contain' => array(
-					'Descriptionpdo',
-					'Traitementtypepdo'
-				)
-					)
-			);
-			$this->set( compact( 'traitements' ) );
-
-			// Afficahge des propositions de décisions liées à une PDO
-			$propositions = $this->{$this->modelClass}->Decisionpropopdo->find(
-					'all', array(
 				'conditions' => array(
-					'propopdo_id' => $pdo_id
-				),
-				'contain' => array(
-					'Decisionpdo'
+					'Propopdo.id' => $pdo_id
 				)
-					)
 			);
-			$this->set( compact( 'propositions' ) );
+			$pdo = $this->Propopdo->find( 'first', $query );
 
-			// Retour à la apge d'index une fois que l'on clique sur Retour
-			if( isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'controller' => 'propospdos', 'action' => 'index', Set::classicExtract( $pdo, 'Propopdo.personne_id' ) ) );
+			if( true === empty( $pdo ) ) {
+				throw new NotFoundException();
 			}
-			$this->set( 'pdo', $pdo );
-			$this->_setOptions();
+
+			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $pdo['Propopdo']['personne_id'] ) );
+
+			$options = $this->Propopdo->enums();
+
+			$this->set( compact( 'dossierMenu', 'pdo', 'options' ) );
 
 			$this->set( 'personne_id', $pdo['Propopdo']['personne_id'] );
 			$this->set( 'urlmenu', '/propospdos/index/'.$pdo['Propopdo']['personne_id'] );
 
-			$this->render( 'view_'.Configure::read( 'nom_form_pdo_cg' ) );
+			$this->view = 'view';
 		}
 
 		/**
@@ -418,29 +323,31 @@
 			}
 			elseif( $this->action == 'edit' ) {
 				$pdo_id = $id;
-				$qd_pdo = array(
-					'conditions' => array(
-						'Propopdo.id' => $pdo_id
-					),
-                    'joins' => array(
-                      $this->Propopdo->join( 'Decisionpropopdo' )
-                    ),
+
+				$query = array(
 					'fields' => array_merge(
                         $this->Propopdo->fields(),
                         $this->Propopdo->Decisionpropopdo->fields()
                     ),
-					'order' => null,
-					'recursive' => -1
+					'contain' => array(
+						'Situationpdo',
+						'Statutpdo'
+					),
+                    'joins' => array(
+						$this->Propopdo->join( 'Decisionpropopdo', array( 'type' => 'LEFT OUTER' ) )
+                    ),
+					'conditions' => array(
+						'Propopdo.id' => $pdo_id
+					)
 				);
-				$pdo = $this->Propopdo->find( 'first', $qd_pdo );
-
+				$pdo = $this->Propopdo->find( 'first', $query );
 
 				$this->assert( !empty( $pdo ), 'invalidParameter' );
-				$personne_id = Set::classicExtract( $pdo, 'Propopdo.personne_id' );
-				$dossier_id = $this->Personne->dossierId( $personne_id );
+				$personne_id = Hash::get( $pdo, 'Propopdo.personne_id' );
 
 				$this->set( 'pdo_id', $pdo_id );
 			}
+			$dossier_id = $this->Personne->dossierId( $personne_id );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) ) );
 
@@ -454,8 +361,6 @@
 				$this->Jetons2->release( $dossier_id );
 				$this->redirect( array( 'action' => 'index', $id ) );
 			}
-
-//			$this->Dossier->Suiviinstruction->order = 'Suiviinstruction.id DESC';
 
 			$qd_dossier = array(
 				'conditions' => array(
@@ -480,7 +385,7 @@
 			$this->set( compact( 'dossier' ) );
 
 			$this->set( 'referents', $this->Referent->find( 'list' ) );
-//debug($dossier);
+
 			/**
 			 *   FIN
 			 */
@@ -496,7 +401,7 @@
 				$this->request->data['Propopdo'] = Set::merge( $defaults, $this->request->data['Propopdo'] );
 
                 $this->request->data['Decisionpropopdo'] = array( $this->request->data['Decisionpropopdo'] );
-//debug($this->request->data);
+
 				$saved = $this->Propopdo->saveResultAsBool( $this->Propopdo->saveAssociated( $this->request->data, array( 'validate' => 'first', 'atomic' => false ) ) );
 				if( $saved ) {
                     // Sauvegarde des fichiers liés à une PDO
@@ -511,18 +416,19 @@
 				if( $saved ) {
 					$this->Propopdo->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'propospdos', 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id, false );
 					$this->Propopdo->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			//Affichage des données
 			elseif( $this->action == 'edit' ) {
 				$this->request->data = $pdo;
+
 				$this->set( 'etatdossierpdo', $pdo['Propopdo']['etatdossierpdo'] );
 			}
 
@@ -539,8 +445,52 @@
 			$this->set( 'personne_id', $personne_id );
 			$this->set( 'urlmenu', '/propospdos/index/'.$personne_id );
 			$this->set( 'fichiers', $fichiers );
-			$this->_setOptions();
-			$this->render( 'add_edit_'.Configure::read( 'nom_form_pdo_cg' ) );
+
+			// Options
+			$options = array_merge( $this->Propopdo->enums(), $this->Propopdo->Decisionpropopdo->enums() );
+			// Remplissage des options
+			$options['Propopdo']['typepdo_id'] = $this->Propopdo->Typepdo->findForTraitement( 'list' );
+			$options['Propopdo']['structurereferente_id'] = $this->Propopdo->Structurereferente->listeParType( array( 'pdo' => true ) );
+			$options['Propopdo']['originepdo_id'] = $this->Originepdo->findForTraitement( 'list' );
+			$options['Decisionpropopdo']['decisionpdo_id'] = $this->Decisionpdo->findForTraitement( 'list' );
+			$options['Situationpdo']['Situationpdo'] = $this->Situationpdo->findForTraitement( 'list' );
+			$options['Statutpdo']['Statutpdo'] = $this->Statutpdo->findForTraitement( 'list' );
+
+			// On complète les options avec les enregistrements désactivés
+			// Type de dossier PDO
+			$options = $this->Propopdo->Typepdo->completeOptions(
+				$options,
+				$this->request->data,
+				array( 'Propopdo.typepdo_id' )
+			);
+			// Origine PDO
+			$options = $this->Propopdo->Originepdo->completeOptions(
+				$options,
+				$this->request->data,
+				array( 'Propopdo.originepdo_id' )
+			);
+			// Décision PDO
+			$options = $this->Decisionpdo->completeOptions(
+				$options,
+				$this->request->data,
+				array( 'Decisionpropopdo.decisionpdo_id' )
+			);
+			// Motifs de la PDO
+			$options = $this->Propopdo->Situationpdo->completeOptions(
+				$options,
+				$this->request->data,
+				array( 'Situationpdo.Situationpdo' )
+			);
+			// Situation du demandeur
+			$options = $this->Propopdo->Statutpdo->completeOptions(
+				$options,
+				$this->request->data,
+				array( 'Statutpdo.Statutpdo' )
+			);
+
+			$this->set( compact( 'options' ) );
+
+			$this->view = 'edit';
 		}
 
 		/**
@@ -557,7 +507,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, 'CourrierPdo.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier d\'information', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier d\'information' );
 				$this->redirect( $this->referer() );
 			}
 		}

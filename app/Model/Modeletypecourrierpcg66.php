@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Modeletypecourrierpcg66.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Modeletypecourrierpcg66 ...
@@ -17,31 +18,19 @@
 	{
 		public $name = 'Modeletypecourrierpcg66';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $order = 'Modeletypecourrierpcg66.name ASC';
-		
+
 		public $actsAs = array(
-			'Enumerable' => array(
-				'fields' => array(
-					'ismontant',
-					'isdates'
-				)
-			),
-                    'Postgres.PostgresAutovalidate',
-                    'Validation2.Validation2Formattable',
-		);
-
-
-		public $validate = array(
-			'name' => array(
-				array(
-					'rule' => 'isUnique',
-					'message' => 'Cette valeur est déjà utilisée'
-				),
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				)
-			)
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(
@@ -82,26 +71,6 @@
 				'counterQuery' => ''
 			),
 		);
-
-// 		public $hasAndBelongsToMany = array(
-// 			// Test liaison avec situationspdos
-// 			'Situationpdo' => array(
-// 				'className' => 'Situationpdo',
-// 				'joinTable' => 'modelestypescourrierspcgs66_situationspdos',
-// 				'foreignKey' => 'modeletypecourrierpcg66_id',
-// 				'associationForeignKey' => 'situationpdo_id',
-// 				'unique' => true,
-// 				'conditions' => '',
-// 				'fields' => '',
-// 				'order' => '',
-// 				'limit' => '',
-// 				'offset' => '',
-// 				'finderQuery' => '',
-// 				'deleteQuery' => '',
-// 				'insertQuery' => '',
-// 				'with' => 'Modeletypecourrierpcg66Situationpdo'
-// 			)
-// 		);
 
 		/**
 		 * Retourne la liste des modèles odt paramétrés pour le impressions de

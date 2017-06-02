@@ -1,0 +1,65 @@
+# Traductions de fichedeliaisons_index.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Fichedeliaisons/index/:heading"
+msgstr "Fiches de liaisons"
+
+msgid "Fichedeliaison.motiffichedeliaison_id"
+msgstr "Motif"
+
+msgid "Fichedeliaison.expediteur_id"
+msgstr "Expéditeur"
+
+msgid "Fichedeliaison.destinataire_id"
+msgstr "Destinataire"
+
+msgid "Fichedeliaison.datefiche"
+msgstr "Date"
+
+msgid "Fichedeliaison.commentaire"
+msgstr "Commentaire"
+
+msgid "Fichedeliaison.etat"
+msgstr "Etat"
+
+msgid "FichedeliaisonPersonne.personne_id"
+msgstr "Concerne"
+
+msgid "Avistechniquefiche.date"
+msgstr "Date"
+
+msgid "Avistechniquefiche.choix"
+msgstr "Choix"
+
+msgid "Avistechniquefiche.commentaire"
+msgstr "Commentaire"
+
+msgid "Validationfiche.date"
+msgstr "Date"
+
+msgid "Validationfiche.choix"
+msgstr "Choix"
+
+msgid "Validationfiche.commentaire"
+msgstr "Commentaire"
+
+msgid "Primoanalyse.etat"
+msgstr "Etat"
+
+msgid "Primoanalyse.user_id"
+msgstr "Gestionnaire"
+
+msgid "Primoanalyse.propositionprimo_id"
+msgstr "Proposition"
+
+msgid "Primoanalyse.dateprimo"
+msgstr "Date"

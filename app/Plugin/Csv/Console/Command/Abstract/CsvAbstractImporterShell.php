@@ -8,6 +8,7 @@
 	 * @subpackage Console.Command.Abstract
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppShell', 'Console/Command' );
 	App::uses( 'CsvFileReader', 'Csv.Utility' );
 
 	/**

@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * Commission d'orientation et validation (COV)
@@ -17,25 +18,18 @@
 	{
 		public $name = 'Cov58';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
 			'Conditionnable',
-			'ValidateTranslate',
-			'Formattable' => array(
-				'suffix' => array(
-					'structurereferente_id'
-				)
-			),
-			'Enumerable',
 			'Gedooo.Gedooo',
 			'ModelesodtConditionnables' => array(
 				58 => array(
 					'%s/ordredujour.odt',
 					'%s/pv.odt',
 				)
-			)
+			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		public $belongsTo = array(
@@ -170,7 +164,6 @@
 
 				if( isset( $this->Passagecov58->{$modeleDecision}->validateFinalisation ) ) {
 					$validates[$modeleDecision] = $this->Passagecov58->{$modeleDecision}->validate;
-					// TODO: pas possible de faire un merge avec les règles déduites par Autovalidate2 ?
 					$this->Passagecov58->{$modeleDecision}->validate = $this->Passagecov58->{$modeleDecision}->validateFinalisation;
 				}
 
@@ -206,7 +199,7 @@
 			///FIXME : calculer si tous les dossiers ont bien une décision avant de changer l'état ?
 			$this->id = $cov58_id;
 			$this->set( 'etatcov', "finalise" );
-			$success = $this->save() && $success;
+			$success = $this->save( null, array( 'atomic' => false ) ) && $success;
 
 			return $success;
 		}
@@ -339,9 +332,7 @@
 			$options = array( 'Personne' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() ) );
 			foreach( $this->Passagecov58->Dossiercov58->Themecov58->themes() as $theme ) {
 				$model = Inflector::classify( $theme );
-				if( in_array( 'Enumerable', $this->Passagecov58->Dossiercov58->{$model}->Behaviors->attached() ) ) {
-					$options = Set::merge( $options, $this->Passagecov58->Dossiercov58->{$model}->enums() );
-				}
+				$options = Set::merge( $options, $this->Passagecov58->Dossiercov58->{$model}->enums() );
 
 				$qdModele = $this->Passagecov58->Dossiercov58->{$model}->qdOrdreDuJour();
 				foreach( array( 'fields', 'joins', 'contain' ) as $key ) {
@@ -427,12 +418,12 @@
 			$this->id = $cov58_id;
 			if( ( $nbDossierscovs58 > 0 ) && ( $cov58['Cov58']['etatcov'] == 'cree' ) ) {
 				$this->set( 'etatcov', 'associe' );
-				$success = $this->save() && $success;
+				$success = $this->save( null, array( 'atomic' => false ) ) && $success;
 
 			}
 			else if( ( ( $nbDossierscovs58 == 0 ) && ( $cov58['Cov58']['etatcov'] == 'associe' ) ) ) {
 				$this->set( 'etatcov', 'cree' );
-				$success = $this->save() && $success;
+				$success = $this->save( null, array( 'atomic' => false ) ) && $success;
 			}
 			return $success;
 		}
@@ -685,36 +676,9 @@
 						unset( $dossierscovs58[$key]['Typeorient'], $dossierscovs58[$key]['Structurereferente'] );
 					}
 				}
-				/*if( !empty( $dossierscovs58[$key]['Propoorientationcov58']['id'] ) ) {
-					$dossierscovs58[$key]['Propoorientationcov58']['Typeorient'] = $dossierscovs58[$key]['Typeorient'];
-					$dossierscovs58[$key]['Propoorientationcov58']['Structurereferente'] = $dossierscovs58[$key]['Structurereferente'];
-
-					unset( $dossierscovs58[$key]['Typeorient'], $dossierscovs58[$key]['Structurereferente'] );
-				}
-				else if( !empty( $dossierscovs58[$key]['Propoorientsocialecov58']['id'] ) ) {
-					$dossierscovs58[$key]['Propoorientsocialecov58']['Typeorient'] = $dossierscovs58[$key]['Typeorient'];
-					$dossierscovs58[$key]['Propoorientsocialecov58']['Structurereferente'] = $dossierscovs58[$key]['Structurereferente'];
-
-					unset( $dossierscovs58[$key]['Typeorient'], $dossierscovs58[$key]['Structurereferente'] );
-				}*/
 
 				// Ajout de données à NULL pour l'impression en sections
 				$dossierscovs58[$key] = Set::merge( $empty, $dossierscovs58[$key] );
-
-				/*$champsOrientation = array_keys( $dossierscovs58[$key]['Propoorientationcov58'] );
-debug( $champsOrientation );
-				$orientationVide = array_fill_keys( $champsOrientation, null );
-				$orientationVide['Typeorient'] = array_fill_keys( array_keys( $dossierscovs58[$key]['Propoorientationcov58']['Typeorient'] ), null );
-				$orientationVide['Structurereferente'] = array_fill_keys( array_keys( $dossierscovs58[$key]['Propoorientationcov58']['Structurereferente'] ), null );
-debug( $orientationVide );*/
-
-				/*if ( isset( $dossiercov58['Propoorientationcov58']['decisioncov'] ) && !empty( $dossiercov58['Propoorientationcov58']['decisioncov'] ) && $dossiercov58['Propoorientationcov58']['rgorient'] > 0 ) {
-					$dossierscovs58[$key]['Proporeorientationcov58'] = $dossierscovs58[$key]['Propoorientationcov58'];
-					$dossierscovs58[$key]['Propoorientationcov58'] = $orientationVide;
-				}
-				else {
-					$dossierscovs58[$key]['Proporeorientationcov58'] = $orientationVide;
-				}*/
 
 				$infope = $this->Informationpe->derniereInformation( $dossiercov58 );
 				$dossierscovs58[$key]['Personne']['inscritpe'] = ( isset( $infope['Historiqueetatpe'][0]['etat'] ) && $infope['Historiqueetatpe'][0]['etat'] == 'inscription' ) ? 'Oui' : 'Non';
@@ -727,9 +691,6 @@ debug( $orientationVide );*/
 			foreach( $themeClassNames as $themeClassName ) {
 				$options[$themeClassName]['decisioncov'] = $decisionscovs;
 			}
-			/*$options['Proporeorientationcov58']['decisioncov'] = $decisionscovs;
-			$options['Propocontratinsertioncov58']['decisioncov'] = $decisionscovs;
-			$options['Propoorientsocialecov58']['decisioncov'] = $decisionscovs;*/
 
 			return $this->ged(
 				array_merge(

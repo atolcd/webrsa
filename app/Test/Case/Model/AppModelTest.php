@@ -64,8 +64,8 @@
 
 			$this->Apple->validate = array(
 				'name' => array(
-					'notEmpty' => array(
-						'rule' => array( 'notEmpty' ),
+					NOT_BLANK_RULE_NAME => array(
+						'rule' => array( NOT_BLANK_RULE_NAME ),
 						'required' => true,
 						'on' => 'create',
 						'message' => null
@@ -99,10 +99,10 @@
 		 */
 //		public function testSave() {
 //			$this->Apple->create( array( 'color' => 'red' ) );
-//			$this->assertEqual( $this->Apple->save(), false );
+//			$this->assertEqual( $this->Apple->save( null, array( 'atomic' => false ) ), false );
 //
 //			$this->Apple->create( array( 'name' => 'Bintje', 'color' => 'red' ) );
-//			$this->assertEqual( $this->Apple->save(), true );
+//			$this->assertEqual( $this->Apple->save( null, array( 'atomic' => false ) ), true );
 //		}
 
 		/**

@@ -284,6 +284,9 @@
 
 					$query['fields'][] = '("Structurereferente"."typestructure" = \'oa\') AS "Personne__needReorientationsociale"';
 					$query['joins'][] = $Personne->Orientstruct->join('Structurereferente');
+
+					// Au CD 58, on ne bloque pas pour les structures débouchant sur CER pro (ATTENTION: surcharge du champ virtuel Personne.haveoriente_emploi)
+					$query['fields'][] = '( "Typeorient"."id" IS NOT NULL AND "Structurereferente"."typestructure" <> \'msp\' ) AS "Personne__haveoriente_emploi"';
 				}
 
 				/**
@@ -495,21 +498,6 @@
 		protected function _getConditionsPositionsCers() {
 			$intervalBilan = Configure::read( 'Contratinsertion.Cg66.updateEncoursbilan' );
 
-			$conditionExistsCerPlusRecent = 'EXISTS (
-				SELECT *
-					FROM contratsinsertion AS nvcontratsinsertion
-					WHERE
-						nvcontratsinsertion.personne_id = '.$this->Contratinsertion->alias.'.personne_id
-						AND (
-							nvcontratsinsertion.dd_ci > '.$this->Contratinsertion->alias.'.dd_ci
-							OR (
-								nvcontratsinsertion.dd_ci = '.$this->Contratinsertion->alias.'.dd_ci
-								AND nvcontratsinsertion.id <> '.$this->Contratinsertion->alias.'.id
-							)
-						)
-						AND nvcontratsinsertion.positioncer NOT IN ( \'annule\', \'nonvalid\' )
-			)';
-
 			$conditionExistsAutreCerRemplacement = 'EXISTS (
 				SELECT *
 					FROM contratsinsertion AS autrecontratsinsertion
@@ -521,34 +509,6 @@
 						AND autrecontratsinsertion.positioncer <> \'annule\'
 			)';
 
-			// Seuls certains bilans de parcours sont concernés par un CER
-			// Un CER ne concerne qu'un seul bilan de parcours
-			$conditionExistsBilanLieAuCer = 'EXISTS (
-				SELECT *
-					FROM bilansparcours66
-					WHERE
-						bilansparcours66.personne_id = '.$this->Contratinsertion->alias.'.personne_id
-						AND bilansparcours66.positionbilan <> \'annule\'
-						AND bilansparcours66.proposition NOT IN ( \'audition\' )
-						AND bilansparcours66.datebilan >= ( '.$this->Contratinsertion->alias.'.df_ci - INTERVAL \''.$intervalBilan.'\' )::DATE
-						AND NOT EXISTS(
-							SELECT *
-								FROM contratsinsertion AS nvcontratsinsertion
-								WHERE
-									nvcontratsinsertion.personne_id = "'.$this->Contratinsertion->alias.'"."personne_id"
-									AND (
-										nvcontratsinsertion.dd_ci > '.$this->Contratinsertion->alias.'.dd_ci
-										OR (
-											nvcontratsinsertion.dd_ci = '.$this->Contratinsertion->alias.'.dd_ci
-											AND nvcontratsinsertion.id <> '.$this->Contratinsertion->alias.'.id
-										)
-									)
-									AND nvcontratsinsertion.positioncer NOT IN ( \'annule\', \'nonvalid\' )
-									AND bilansparcours66.datebilan >= ( nvcontratsinsertion.df_ci - INTERVAL \''.$intervalBilan.'\' )::DATE
-						)
-			)';
-
-			// TODO: factoriser avec celle ci-dessus
 			// Seuls certains bilans de parcours sont concernés par un CER
 			// Un CER ne concerne qu'un seul bilan de parcours
 			$conditionExistsBilanEnCoursEpLieAuCer = 'EXISTS (
@@ -600,53 +560,6 @@
 						)
 			)';
 
-			// Réorientation ?
-			$typesorientsGrandSocial = '( '.implode( ', ', (array)Configure::read( 'Orientstruct.typeorientprincipale.SOCIAL' ) ).' )';
-			$typesorientsEmploi = '( '.implode( ', ', (array)Configure::read( 'Orientstruct.typeorientprincipale.Emploi' ) ).' )';
-
-			$conditionsExistsReorientation = 'EXISTS(
-				SELECT *
-					FROM orientsstructs AS orientsstructspcd
-						INNER JOIN typesorients AS typesorientspcd ON ( orientsstructspcd.typeorient_id = typesorientspcd.id ),
-						orientsstructs AS orientsstructssvt
-						INNER JOIN typesorients AS typesorientssvt ON ( orientsstructssvt.typeorient_id = typesorientssvt.id )
-					WHERE
-						orientsstructspcd.statut_orient = \'Orienté\'
-						AND orientsstructspcd.personne_id = '.$this->Contratinsertion->alias.'.personne_id
-						AND orientsstructssvt.statut_orient = \'Orienté\'
-						AND orientsstructssvt.personne_id = '.$this->Contratinsertion->alias.'.personne_id
-						AND orientsstructspcd.date_valid < ( '.$this->Contratinsertion->alias.'.df_ci - INTERVAL \''.$intervalBilan.'\' )::DATE
-						AND orientsstructssvt.date_valid >= ( '.$this->Contratinsertion->alias.'.df_ci - INTERVAL \''.$intervalBilan.'\' )::DATE
-						AND (
-							(
-								typesorientspcd.parentid IN '.$typesorientsGrandSocial.'
-								AND typesorientssvt.parentid IN '.$typesorientsEmploi.'
-							)
-							OR
-							(
-								typesorientspcd.parentid IN '.$typesorientsEmploi.'
-								AND typesorientssvt.parentid IN '.$typesorientsGrandSocial.'
-							)
-						)
-			)';
-
-			// Renouvellement par tacite reconduction
-			$sql = $this->Contratinsertion->Personne->sq(
-				array(
-					'alias' => 'personnes',
-					'fields' => array( 'personnes.dtnai' ),
-					'contain' => false,
-					'conditions' => array( "personnes.id = {$this->Contratinsertion->alias}.personne_id" ),
-					'limit' => 1
-				)
-			);
-
-			$taciteReconduction = '(
-				"'.$this->Contratinsertion->alias.'"."num_contrat" = \'REN\'
-				AND EXTRACT( YEAR FROM AGE( "'.$this->Contratinsertion->alias.'"."dd_ci", ( '.$sql.' ) ) ) >= 55
-				AND "'.$this->Contratinsertion->alias.'"."datetacitereconduction" IS NOT NULL
-			)';
-
 			$return = array(
 				// 1. CER qui devraient être "Annulé"
 				'annule' => array(
@@ -670,26 +583,26 @@
 				// 3. CER qui devraient être en "Fin de contrat"
 				'fincontrat' => array(
 					$this->Contratinsertion->alias.'.decision_ci' => array( 'E', 'V' ),
-                                        'OR' => array(
-                                            $this->Contratinsertion->alias.'.forme_ci' => 'S', // Contrat simple
-                                            array( // OR
-                                                $this->Contratinsertion->alias.'.forme_ci' => 'C', // ( Contrat complexe AND
-                                                // Date de début de contrat > Date de cloture des droits + x mois )
-                                                "{$this->Contratinsertion->alias}.dd_ci > (
-                                                    (
-                                                        SELECT situationsdossiersrsa.dtclorsa
-                                                                FROM personnes
-                                                                        INNER JOIN foyers ON ( personnes.foyer_id = foyers.id )
-                                                                        INNER JOIN dossiers ON ( foyers.dossier_id = dossiers.id )
-                                                                        INNER JOIN situationsdossiersrsa ON ( dossiers.id = situationsdossiersrsa.dossier_id )
-                                                                WHERE
-                                                                        personnes.id = {$this->Contratinsertion->alias}.personne_id
-                                                                LIMIT 1
-                                                    )
-                                                    + INTERVAL '".Configure::read( 'Contratinsertion.Cg66.toleranceDroitClosCerComplexe' )."'
-                                                )::DATE"
-                                            )
-                                        ),
+						'OR' => array(
+							$this->Contratinsertion->alias.'.forme_ci' => 'S', // Contrat simple
+							array( // OR
+								$this->Contratinsertion->alias.'.forme_ci' => 'C', // ( Contrat complexe AND
+								// Date de début de contrat > Date de cloture des droits + x mois )
+								"{$this->Contratinsertion->alias}.dd_ci > (
+									(
+										SELECT situationsdossiersrsa.dtclorsa
+												FROM personnes
+														INNER JOIN foyers ON ( personnes.foyer_id = foyers.id )
+														INNER JOIN dossiers ON ( foyers.dossier_id = dossiers.id )
+														INNER JOIN situationsdossiersrsa ON ( dossiers.id = situationsdossiersrsa.dossier_id )
+												WHERE
+														personnes.id = {$this->Contratinsertion->alias}.personne_id
+												LIMIT 1
+									)
+									+ INTERVAL '".Configure::read( 'Contratinsertion.Cg66.toleranceDroitClosCerComplexe' )."'
+								)::DATE"
+							)
+						),
 					'EXISTS (
 						SELECT *
 							FROM personnes
@@ -706,74 +619,28 @@
 					$this->Contratinsertion->alias.'.decision_ci' => 'E',
 					$this->Contratinsertion->alias.'.df_ci >= NOW()::DATE'
 				),
-				// 5. CER qui devraient être "En cours : Bilan à réaliser"
-				'encoursbilan' => array(
-					$this->Contratinsertion->alias.'.decision_ci' => 'V',
-					'NOW()::DATE BETWEEN ( '.$this->Contratinsertion->alias.'.df_ci - INTERVAL \''.$intervalBilan.'\' )::DATE AND '.$this->Contratinsertion->alias.'.df_ci',
-					"NOT {$conditionExistsBilanLieAuCer}",
-					"NOT {$taciteReconduction}"
-				),
-				// 6. CER qui devraient être "Périme"
-				'perime' => array(
-					$this->Contratinsertion->alias.'.df_ci < NOW()::DATE',
-					'OR' => array(
-						array(
-							$this->Contratinsertion->alias.'.decision_ci' => 'V',
-							$conditionExistsBilanLieAuCer,
-							'OR' => array(
-								$conditionExistsCerPlusRecent,
-								$conditionsExistsReorientation
-							)
-						),
-						array(
-							$this->Contratinsertion->alias.'.decision_ci' => 'E',
-							'OR' => array(
-								$conditionExistsCerPlusRecent,
-								$conditionsExistsReorientation
-							)
-						),
-						array(
-							$this->Contratinsertion->alias.'.decision_ci' => array( 'V', 'E' ),
-							$taciteReconduction
-						)
-					)
-				),
-				// 7. CER qui devraient être "Périmé : bilan à réaliser"
-				'perimebilanarealiser' => array(
-					$this->Contratinsertion->alias.'.decision_ci' => 'V',
-					$this->Contratinsertion->alias.'.df_ci < NOW()::DATE',
-					"NOT {$conditionExistsBilanLieAuCer}",
-					"NOT {$taciteReconduction}"
-				),
-				// 8. CER qui devraient être "En cours"
-				'encours' => array(
-					$this->Contratinsertion->alias.'.decision_ci' => 'V',
-					'OR' => array(
-						'NOW()::DATE <= ( '.$this->Contratinsertion->alias.'.df_ci - INTERVAL \''.$intervalBilan.'\' )::DATE',
-						array(
-							'NOW()::DATE BETWEEN ( '.$this->Contratinsertion->alias.'.df_ci - INTERVAL \''.$intervalBilan.'\' )::DATE AND '.$this->Contratinsertion->alias.'.df_ci',
-							$taciteReconduction
-						)
-					)
-				),
-				// 9. CER qui devraient être "Bilan réalisé - En attente de décision de l'EPL Parcours"
+				// 5. CER qui devraient être "Bilan réalisé - En attente de décision de l'EPL Parcours"
 				'bilanrealiseattenteeplparcours' => array(
 					$this->Contratinsertion->alias.'.decision_ci' => 'V',
 					'( '.$this->Contratinsertion->alias.'.df_ci - INTERVAL \''.$intervalBilan.'\' )::DATE <= NOW()::DATE',
 					"{$conditionExistsBilanEnCoursEpLieAuCer}"
 				),
-				// 10. CER qui devraient être "En attente de renouvellement"
-				'attrenouv' => array(
-					$this->Contratinsertion->alias.'.decision_ci' => 'V',
+				// 6. CER qui devraient être "Périme"
+				'perime' => array(
 					$this->Contratinsertion->alias.'.df_ci < NOW()::DATE',
-					$conditionExistsBilanLieAuCer,
-					'NOT' => array(
-						'OR' => array(
-							$conditionExistsCerPlusRecent,
-							$conditionsExistsReorientation
+					$this->Contratinsertion->alias.'.decision_ci' => array( 'V', 'E' )
+				),
+				// 7. CER qui devraient être "En cours"
+				'encours' => array(
+					$this->Contratinsertion->alias.'.decision_ci' => 'V',
+					'OR' => array(
+						'NOW()::DATE <= ( '.$this->Contratinsertion->alias.'.df_ci - INTERVAL \''.$intervalBilan.'\' )::DATE',
+						array(
+							'( '.$this->Contratinsertion->alias.'.df_ci - INTERVAL \''.$intervalBilan.'\' )::DATE <= NOW()::DATE',
+							'NOT' => array( $conditionExistsBilanEnCoursEpLieAuCer )
 						)
 					)
-				),
+				)
 			);
 
 			return $return;
@@ -820,14 +687,37 @@
 			$Dbo = $this->Contratinsertion->getDataSource();
 
 			foreach( array_keys( $this->Contratinsertion->enum( 'positioncer' ) ) as $positioncer ) {
-				$conditions = $this->getConditionsPositioncer( $positioncer );
-				$conditions = $Dbo->conditions( $conditions, true, false, $this->Contratinsertion );
-				$return .= "WHEN {$conditions} THEN '{$positioncer}' ";
-			}
+					$conditions = $this->getConditionsPositioncer( $positioncer );
+					$conditions = $Dbo->conditions( $conditions, true, false, $this->Contratinsertion );
+					$return .= "WHEN {$conditions} THEN '{$positioncer}' ";
+				}
 
-			$return = "( CASE {$return} ELSE positioncer END )";
+			$return = "( CASE {$return} ELSE NULL END )";
 
 			return $return;
+		}
+
+		/**
+		 * Retourne une condition permettant de trouver tous les CER dont la
+		 * position ne peut pas être calculée.
+		 *
+		 * @return array
+		 */
+		public function getConditionNonCalculables() {
+			$sqls = array();
+
+			foreach( array_keys( $this->Contratinsertion->enum( 'positioncer' ) ) as $positioncer ) {
+				$query = array(
+					'alias' => 'contratsinsertioncalculables',
+					'fields' => array( 'contratsinsertioncalculables.id' ),
+					'conditions' => $this->getConditionsPositioncer( $positioncer ),
+					'contain' => false
+				);
+				$sqls[] = alias( $this->Contratinsertion->sq( $query ), array( $this->Contratinsertion->alias => 'contratsinsertioncalculables' ) );
+			}
+
+			$sql = implode( ' UNION ', $sqls );
+			return "{$this->Contratinsertion->alias}.id NOT IN ( {$sql} )";
 		}
 
 		/**
@@ -854,7 +744,7 @@
 
 			$conditions = $Dbo->conditions( $conditions, true, true, $this->Contratinsertion );
 
-			$sql = "UPDATE {$tableName} AS {$sq}{$this->Contratinsertion->alias}{$eq} SET {$sq}positioncer{$eq} = {$case}::type_positioncer {$conditions};";
+			$sql = "UPDATE {$tableName} AS {$sq}{$this->Contratinsertion->alias}{$eq} SET {$sq}positioncer{$eq} = {$case} {$conditions};";
 
 			return (
 				empty( $sample )
@@ -1069,8 +959,7 @@
 
 			$options = array(
 				'Referent' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() ),
-				'Personne' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() ),
-				'type' => array( 'voie' => ClassRegistry::init( 'Option' )->typevoie() )
+				'Personne' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() )
 			);
 			$options = Set::merge( $options, $this->Contratinsertion->enums() );
 
@@ -1171,8 +1060,7 @@
 			$options = array(
 				'Referent' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() ),
 				'Personne' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() ),
-				'duree' => array( 'engag' => ClassRegistry::init( 'Option' )->duree_engag_cg66() ),
-				'type' => array( 'voie' => ClassRegistry::init( 'Option' )->typevoie() )
+				'duree' => array( 'engag' => ClassRegistry::init( 'Option' )->duree_engag_cg66() )
 			);
 
 
@@ -1578,12 +1466,6 @@
 							'sitfam' => $Option->sitfam(),
 							'typeocclog' => ClassRegistry::init('Foyer')->enum('typeocclog'),
 						),
-						'Type' => array(
-							'voie' => $Option->typevoie(),
-						),
-						'type' => array(
-							'voie' => $Option->typevoie()
-						),
 						'Detaildroitrsa' => array(
 							'oridemrsa' => ClassRegistry::init('Detaildroitrsa')->enum('oridemrsa'),
 						),
@@ -1657,16 +1539,7 @@
 				),
 				'Referent' => array(
 					'qual' => $Option->qual()
-				),
-				'Structurereferente' => array(
-					'type_voie' => $Option->typevoie()
-				),
-				'Type' => array(
-					'voie' => $Option->typevoie()
-				),
-				'type' => array(
-					'voie' => $Option->typevoie()
-				),
+				)
 			);
 
 			$contratinsertion['Contratinsertion']['duree_engag'] = Set::enum( Set::classicExtract( $contratinsertion, 'Contratinsertion.duree_engag' ), $Option->duree_engag() );
@@ -1717,16 +1590,7 @@
 				),
 				'Referent' => array(
 					'qual' => $Option->qual()
-				),
-				'Structurereferente' => array(
-					'type_voie' => $Option->typevoie()
-				),
-				'Type' => array(
-					'voie' => $Option->typevoie()
-				),
-				'type' => array(
-					'voie' => $Option->typevoie()
-				),
+				)
 			);
 
 			$contratinsertion['Contratinsertion']['duree_engag'] = Set::enum( Set::classicExtract( $contratinsertion, 'Contratinsertion.duree_engag' ), $Option->duree_engag() );

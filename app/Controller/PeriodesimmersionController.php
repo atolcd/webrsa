@@ -7,7 +7,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::import( 'Helper', 'Locale' );
+	App::uses( 'LocaleHelper', 'View/Helper' );
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe PeriodesimmersionController ...
@@ -65,18 +66,18 @@
 			'Referent',
 			'Structurereferente',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Periodesimmersion:edit',
 			'view' => 'Periodesimmersion:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -85,7 +86,7 @@
 		public $aucunDroit = array(
 			'gedooo',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -105,17 +106,12 @@
 		 *
 		 */
 		protected function _setOptions() {
-			$options = array( );
-			$optionscui = $this->Cui->enums();
-			$options = Set::merge( $optionscui['Cui'], $options );
-			$typevoie = $this->Option->typevoie();
+			$options = $this->Cui->enums();
 			$this->set( 'rolepers', ClassRegistry::init('Prestation')->enum('rolepers') );
 			$this->set( 'qual', $this->Option->qual() );
 			$this->set( 'nationalite', ClassRegistry::init('Personne')->enum('nati') );
 
-
-			$typevoie = $this->Option->typevoie();
-			$options = Hash::insert( $options, 'typevoie', $typevoie );
+			$options['typevoie'] = $this->Option->typevoie();
 
 			$this->set( compact( 'options', 'dept' ) );
 		}
@@ -261,17 +257,17 @@
 					if( $saved ) {
 						$this->Periodeimmersion->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'periodesimmersion', 'action' => 'index', $cui_id ) );
 					}
 					else {
 						$this->Periodeimmersion->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 				else {
 					$this->Periodeimmersion->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {

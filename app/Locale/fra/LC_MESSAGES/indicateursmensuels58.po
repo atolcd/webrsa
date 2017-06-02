@@ -1,0 +1,84 @@
+# Traductions de indicateursmensuels58.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+# Formulaire de recherche
+# ==============================================================================
+
+msgid "Search.year"
+msgstr "Année"
+
+msgid "Search.site"
+msgstr "Site d'action medico-sociale"
+
+# ==============================================================================
+# Tableau de résultats
+# ==============================================================================
+
+msgid "Personnecaf"
+msgstr "CAF"
+
+msgid "Personnecaf.total"
+msgstr "Nombre d'ouvertures de droits du mois"
+
+msgid "Personnecaf.1"
+msgstr "dont nombre d'allocataires SDD"
+
+msgid "Personnecaf.total_sdd"
+msgstr "Nombre total de BRSA SDD"
+
+msgid "Personnecaf.versable"
+msgstr "dont nombre de BRSA en droit ouvert et versable"
+
+msgid "Personnecaf.suspendu"
+msgstr "dont nombre de BRSA en droits suspendus"
+
+msgid "Personnecaf.socle"
+msgstr "dont nombre total de BRSA en RSA socle uniquement"
+
+msgid "Personnecaf.socle_activite"
+msgstr "dont nombre total de BRSA en RSA socle + activité"
+
+# ------------------------------------------------------------------------------
+
+msgid "Dossiercov58"
+msgstr "COV"
+
+msgid "Dossiercov58.total"
+msgstr "Nombre de dossiers examines en COV"
+
+msgid "Dossiercov58.proposorientationscovs58"
+msgstr "dont propositions d'orientation"
+
+msgid "Dossiercov58.proposcontratsinsertioncovs58"
+msgstr "dont propositions de CER"
+
+msgid "Dossiercov58.proposnonorientationsproscovs58"
+msgstr "dont propositions de maintien dans le social"
+
+msgid "Dossiercov58.proposorientssocialescovs58"
+msgstr "dont orientations sociale de fait"
+
+# ------------------------------------------------------------------------------
+
+msgid "Dossierep"
+msgstr "EP"
+
+msgid "Dossierep.total"
+msgstr "Nombre de dossiers examinés en EP"
+
+msgid "Dossierep.nonorientationsproseps58"
+msgstr "dont maintien dans le social"
+
+msgid "Dossierep.regressionsorientationseps58"
+msgstr "dont réorientation sociale"
+
+msgid "Dossierep.sanctionseps58"
+msgstr "dont suspensions (RDV non honorés + radiés non inscrits PE)"

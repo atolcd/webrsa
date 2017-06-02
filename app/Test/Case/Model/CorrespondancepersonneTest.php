@@ -3,7 +3,7 @@
 	 * Code source de la classe CorrespondancepersonneTest.
 	 *
 	 * @package app.Test.Case.Model
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/Test/CakePHP Model Test Case.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'Correspondancepersonne', 'Model' );
 

@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Orientstruct ...
@@ -17,6 +18,13 @@
 	class Orientstruct extends AppModel
 	{
 		public $name = 'Orientstruct';
+
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
 
 		/**
 		 * Les modèles utilisés par ce modèle, en plus des modèles présents dans
@@ -35,14 +43,9 @@
 			'Allocatairelie',
 			'Dependencies',
             'Postgres.PostgresAutovalidate',
-			'Formattable' => array(
-				'suffix' => array(
-					'structurereferente_id',
-					'referent_id',
-					'structureorientante_id',
-					'referentorientant_id'
-				),
-			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes',
 			'Gedooo.Gedooo',
 			// INFO: chargé à la volée avec la bonne configuration
 			//'StorablePdf' => array( 'active' => ORIENTSTRUCT_STORABLE_PDF_ACTIVE ),
@@ -90,8 +93,8 @@
 				)
 			),
 			'statut_orient' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'typeorient_id' => array(
@@ -659,12 +662,9 @@
 		 * @param boolean $created
 		 * @return boolean
 		 */
-		public function afterSave( $created ) {
-			$return = parent::afterSave( $created );
-
-			$return = $this->WebrsaOrientstruct->updateNonoriente66( $this->id ) && $return;
-
-			return $return;
+		public function afterSave( $created, $options = array() ) {
+			parent::afterSave( $created, $options );
+			$this->WebrsaOrientstruct->updateNonoriente66( $this->id );
 		}
 
 		/**

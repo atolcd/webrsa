@@ -155,36 +155,19 @@
 			</fieldset>
 		<?php
 
-			if( Configure::read( 'Cg.departement' ) == 66 ) {
-				echo $this->Default->subform(
-					array(
-						'Actioncandidat.chargeinsertion_id' => array( 'domain' => 'actioncandidat', 'required' => true, 'type' => 'select'),
-						'Actioncandidat.secretaire_id' => array( 'domain' => 'actioncandidat', 'required' => true, 'type' => 'select'),
-						'Actioncandidat.contractualisation' => array( 'domain' => 'actioncandidat', 'required' => true, 'type' => 'select'),
-                        'Actioncandidat.emailprestataire' => array( 'domain' => 'actioncandidat' ),
-						'Actioncandidat.lieuaction' => array( 'domain' => 'actioncandidat', 'required' => true ),
-						'Actioncandidat.cantonaction' => array( 'domain' => 'actioncandidat', 'required' => true, 'options' => $cantons )
-					),
-					array(
-						'options' => $options
-					)
-				);
-			}
-			else {
-				echo $this->Default->subform(
-					array(
-						'Actioncandidat.chargeinsertion_id' => array( 'domain' => 'actioncandidat', 'required' => true, 'type' => 'select'),
-						'Actioncandidat.secretaire_id' => array( 'domain' => 'actioncandidat', 'required' => true, 'type' => 'select'),
-						'Actioncandidat.contractualisation93' => array( 'domain' => 'actioncandidat', 'required' => true ),
-						'Actioncandidat.lieuaction' => array( 'domain' => 'actioncandidat', 'required' => true ),
-						'Actioncandidat.cantonaction' => array( 'domain' => 'actioncandidat', 'required' => true )
-					),
-					array(
-						'options' => $options
-					)
-				);
-
-			}
+			echo $this->Default->subform(
+				array(
+					'Actioncandidat.chargeinsertion_id' => array( 'domain' => 'actioncandidat', 'required' => true, 'type' => 'select'),
+					'Actioncandidat.secretaire_id' => array( 'domain' => 'actioncandidat', 'required' => true, 'type' => 'select'),
+					'Actioncandidat.contractualisation' => array( 'domain' => 'actioncandidat', 'required' => true, 'type' => 'select'),
+					'Actioncandidat.emailprestataire' => array( 'domain' => 'actioncandidat' ),
+					'Actioncandidat.lieuaction' => array( 'domain' => 'actioncandidat', 'required' => true ),
+					'Actioncandidat.cantonaction' => array( 'domain' => 'actioncandidat', 'required' => true, 'options' => $cantons )
+				),
+				array(
+					'options' => $options
+				)
+			);
 
 			echo $this->Default->subform(
 				array(
@@ -271,30 +254,28 @@
 			);
 		?>
 	</fieldset>
-   <?php if( Configure::read( 'Cg.departement' ) == 66 ):?>
-		<script type="text/javascript">
-			function toutCocherMotifs() {
-				return toutCocher( 'input[name="data[Motifsortie][Motifsortie][]"]' );
-			}
-			function toutDecocherMotifs() {
-				return toutDecocher( 'input[name="data[Motifsortie][Motifsortie][]"]' );
-			}
-		</script>
-		<fieldset class="invisible">
-			<?php echo $this->Form->button( 'Tout cocher', array( 'type' => 'button', 'onclick' => "return toutCocherMotifs();" ) );?>
-			<?php echo $this->Form->button( 'Tout décocher', array( 'type' => 'button', 'onclick' => "return toutDecocherMotifs();" ) );?>
-			<?php
-				echo $this->Default2->subform(
-					array(
-						'Motifsortie.Motifsortie' => array( 'label' => 'Liste des motifs de sortie liés à l\'action', 'multiple' => 'checkbox', 'empty' => false )
-					),
-					array(
-						'options' => $motifssortie
-					)
-				);
-			?>
-		</fieldset>
-	<?php endif;?>
+	<script type="text/javascript">
+		function toutCocherMotifs() {
+			return toutCocher( 'input[name="data[Motifsortie][Motifsortie][]"]' );
+		}
+		function toutDecocherMotifs() {
+			return toutDecocher( 'input[name="data[Motifsortie][Motifsortie][]"]' );
+		}
+	</script>
+	<fieldset class="invisible">
+		<?php echo $this->Form->button( 'Tout cocher', array( 'type' => 'button', 'onclick' => "return toutCocherMotifs();" ) );?>
+		<?php echo $this->Form->button( 'Tout décocher', array( 'type' => 'button', 'onclick' => "return toutDecocherMotifs();" ) );?>
+		<?php
+			echo $this->Default2->subform(
+				array(
+					'Motifsortie.Motifsortie' => array( 'label' => 'Liste des motifs de sortie liés à l\'action', 'multiple' => 'checkbox', 'empty' => false )
+				),
+				array(
+					'options' => $motifssortie
+				)
+			);
+		?>
+	</fieldset>
 <?php
 	echo $this->Xform->end( __( 'Save' ) );
 	echo $this->Default->button(

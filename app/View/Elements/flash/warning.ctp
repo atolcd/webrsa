@@ -1,4 +1,4 @@
-<p class="notice">
-	<?php echo $this->Xhtml->image('icons/error.png', array('alt' => 'Remarque')); ?>
+<!-- @deprecated since 3.2.0 -->
+<div id="flashMessage" class="warning">
 	<?php echo $message; ?>
-</p>
+</div>

@@ -7,13 +7,15 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses( 'AppController', 'Controller' );
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
+
 	/**
-	 * La classe CommunautessrsController ...
+	 * La classe CommunautessrsController s'occupe du paramétrage des projets de
+	 * villes territoriaux (CD 93).
 	 *
 	 * @package app.Controller
 	 */
-	class CommunautessrsController extends AppController
+	class CommunautessrsController extends AbstractWebrsaParametragesController
 	{
 		/**
 		 * Nom du contrôleur.
@@ -23,98 +25,19 @@
 		public $name = 'Communautessrs';
 
 		/**
-		 * Components utilisés.
-		 *
-		 * @var array
-		 */
-		public $components = array(
-			
-		);
-
-		/**
-		 * Helpers utilisés.
-		 *
-		 * @var array
-		 */
-		public $helpers = array(
-			'Default3' => array(
-				'className' => 'Default.DefaultDefault'
-			),
-		);
-
-		/**
 		 * Modèles utilisés.
 		 *
 		 * @var array
 		 */
-		public $uses = array(
-			'Communautesr',
-			'WebrsaTableausuivipdv93',
-		);
-		
+		public $uses = array( 'Communautesr', 'WebrsaTableausuivipdv93' );
+
 		/**
-		 * Utilise les droits d'un autre Controller:action
-		 * sur une action en particulier
-		 * 
-		 * @var array
-		 */
-		public $commeDroit = array(
-			
-		);
-		
-		/**
-		 * Méthodes ne nécessitant aucun droit.
+		 * Liste des tables à ne pas prendre en compte dans les enregistrements
+		 * vérifiés pour éviter les suppressions en cascade intempestives.
 		 *
 		 * @var array
 		 */
-		public $aucunDroit = array(
-			
-		);
-		
-		/**
-		 * Correspondances entre les méthodes publiques correspondant à des
-		 * actions accessibles par URL et le type d'action CRUD.
-		 *
-		 * @var array
-		 */
-		public $crudMap = array(
-			'add' => 'create',
-			'delete' => 'delete',
-			'edit' => 'update',
-			'index' => 'read',
-		);
-
-		/**
-		 * Pagination sur les <éléments> de la table.
-		 */
-		public function index() {
-			$query = array(
-				'fields' => array(
-					'Communautesr.id',
-					'Communautesr.name',
-					'Communautesr.actif',
-				),
-				'order' => array(
-					'Communautesr.name ASC'
-				),
-				'limit' => 10
-			);
-			$query = $this->Communautesr->qdOccurencesExists( $query, array( 'Structurereferente' ) );
-			$this->paginate = array(
-				'Communautesr' => $query
-			);
-
-			$this->set( 'results', $this->paginate() );
-			$this->set( 'options', $this->Communautesr->enums() );
-		}
-
-		/**
-		 * Formulaire d'ajout d'un <élément>.
-		 */
-		public function add() {
-			$args = func_get_args();
-			call_user_func_array( array( $this, 'edit' ), $args );
-		}
+		public $blacklist = array( 'communautessrs_structuresreferentes' );
 
 		/**
 		 * Formulaire de modification d'un <élément>.
@@ -135,14 +58,14 @@
 				if( false === $success ) {
 					$this->set( 'checkedError', 'Champ obligatoire' );
 				}
-				if( $this->Communautesr->save() && $success ) {
+				if( $this->Communautesr->save( null, array( 'atomic' => false ) ) && $success ) {
 					$this->Communautesr->commit();
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index' ) );
 				}
 				else {
 					$this->Communautesr->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {
@@ -176,34 +99,7 @@
 			$options['Structurereferente']['Structurereferente'] = $this->WebrsaTableausuivipdv93->listePdvs();
 
 			$this->set( compact( 'options' ) );
-			$this->render( 'edit' );
+			$this->render( 'add_edit' );
 		}
-
-		/**
-		 * Suppression d'un <élément> et redirection vers l'index.
-		 *
-		 * @param integer $id
-		 */
-		public function delete( $id ) {
-			$occurences = $this->Communautesr->occurencesExists( array( 'Communautesr.id' => $id ), array( 'Structurereferente' ) );
-			if( $occurences[$id] ) {
-				$message = sprintf( 'Impossible de supprimer l\'enregistrement %d du modèle %s car d\'autres enregistrements en dépendent.', $id, $this->Communautesr->alias );
-				throw new InternalErrorException( $message );
-			}
-
-			$this->Communautesr->begin();
-
-			if( $this->Communautesr->delete( $id ) ) {
-				$this->Communautesr->commit();
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
-			}
-			else {
-				$this->Communautesr->rollback();
-				$this->Session->setFlash( 'Erreur lors de la suppression', 'flash/error' );
-			}
-
-			$this->redirect( array( 'action' => 'index' ) );
-		}
-
 	}
 ?>

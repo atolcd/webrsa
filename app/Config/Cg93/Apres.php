@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "APRE" > "Liste des demandes d'APRE" > "Toutes les APREs (nouveau)"
+	 * Menu "APRE" > "Liste des demandes d'APRE" > "Toutes les APREs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Apres.search',
@@ -74,7 +74,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "APRE" > "Liste des demandes d'APRE" > "Toutes les APREs (nouveau)"
+	 * Export CSV,  menu "APRE" > "Liste des demandes d'APRE" > "Toutes les APREs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Apres.exportcsv',
@@ -106,7 +106,7 @@
 
 	//--------------------------------------------------------------------------
 	/**
-	 * Menu "APRE" > "Liste des demandes d'APRE" > "Eligibilité des APREs (nouveau)"
+	 * Menu "APRE" > "Liste des demandes d'APRE" > "Eligibilité des APREs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Apres.search_eligibilite',
@@ -178,7 +178,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "APRE" > "Liste des demandes d'APRE" > "Eligibilité des APREs (nouveau)"
+	 * Export CSV,  menu "APRE" > "Liste des demandes d'APRE" > "Eligibilité des APREs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Apres.exportcsv_eligibilite',

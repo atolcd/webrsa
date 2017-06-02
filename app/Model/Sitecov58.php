@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Sitecov58.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Sitecov58 ...
@@ -17,11 +18,19 @@
 	{
 		public $name = 'Sitecov58';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $order = array( 'Sitecov58.name ASC' );
 
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $hasMany = array(
@@ -39,7 +48,7 @@
 				'counterQuery' => ''
 			)
 		);
-		
+
 		public $hasAndBelongsToMany = array(
 			'Zonegeographique' => array(
 				'className' => 'Zonegeographique',

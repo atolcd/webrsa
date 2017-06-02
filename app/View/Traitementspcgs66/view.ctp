@@ -4,7 +4,7 @@
 
 	<?php
 		echo $this->Xhtml->tag( 'h1', $this->pageTitle );
-        echo $this->Form->create( 'Traitementpcg66', array( 'type' => 'post', 'id' => 'traitementpcg66form' ) );
+        echo $this->Form->create( 'Traitementpcg66', array( 'type' => 'post', 'id' => 'traitementpcg66form', 'novalidate' => true ) );
         if( ( $traitementpcg66['Traitementpcg66']['annule'] == 'O' ) ){
 
 			echo $this->Xhtml->tag('div', $this->Xhtml->tag('strong', 'Raison de l\'annulation'));
@@ -20,16 +20,14 @@
 			);
 
 		}
-        
+
 		echo $this->Default2->view(
 			$traitementpcg66,
 			array(
 				'Descriptionpdo.name',
 				'Traitementpcg66.datereception',
 				'Traitementpcg66.datedepart',
-// 				'Traitementpcg66.dureedepart' => array( 'type' => 'text', 'value' => @$options['Traitementpcg66']['dureedepart'][$traitementpcg66['Traitementpcg66']['dureedepart']] ),
 				'Traitementpcg66.dateecheance',
-// 				'Traitementpcg66.dureefinperiode' => array( 'type' => 'text', 'value' => @$options['Traitementpcg66']['dureefinperiode'][$traitementpcg66['Traitementpcg66']['dureefinperiode']] ),
 				'Traitementpcg66.daterevision',
 				'Personne.nom_complet' => array( 'type' => 'string', 'value' => '#Personnepcg66.Personne.qual# #Personnepcg66.Personne.nom# #Personnepcg66.Personne.prenom#' )
 			),

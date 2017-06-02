@@ -5,6 +5,8 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'FrValidation', 'Validation' );
 
 	/**
 	 * La classe Instantanedonneesfp93 ...
@@ -21,27 +23,18 @@
 		public $name = 'Instantanedonneesfp93';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Formattable' => array(
-				'null' => false,
-				'trim' => false,
-				'phone' => array( 'benef_tel_fixe', 'benef_tel_port' ),
-				'suffix' => false,
-				'amount' => false,
-			),
 			'Postgres.PostgresAutovalidate',
-			'Validation2.Validation2Formattable',
+			'Validation2.Validation2Formattable' => array(
+				'Validation2.Validation2DefaultFormatter' => array(
+					'stripNotAlnum' => '/^(benef_tel_fixe|benef_tel_port)$/'
+				)
+			),
+			'Validation2.Validation2RulesFieldtypes',
 		);
 
 		/**
@@ -51,15 +44,15 @@
 		 */
 		public $validate = array(
 			'benef_tel_fixe' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
 				)
 			),
 			'benef_tel_port' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
 				)
 			),
 			'benef_email' => array(

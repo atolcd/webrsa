@@ -19,7 +19,7 @@
 			</tr>
 			<tr class="odd">
 				<th><?php echo __( 'Nom / Prénom bénéficiare' );?></th>
-				<td><?php echo ( $apre['Personne']['nom'].' '.$apre['Personne']['prenom'] );?></td>
+				<td><?php echo  $apre['Personne']['nom'].' '.$apre['Personne']['prenom'] ;?></td>
 			</tr>
 			<tr class="even">
 				<th><?php echo __( 'Date de relance' );?></th>
@@ -44,7 +44,7 @@
 								$piecesAbsentes[] = Set::classicExtract( $piecesapre, $pieceapre );
 							}
 						};
-						echo ( empty( $piecesAbsentes ) ? null :'<ul><li>'.implode( '</li><li>', $piecesAbsentes ).'</li></ul>' );
+						echo  empty( $piecesAbsentes ) ? null :'<ul><li>'.implode( '</li><li>', $piecesAbsentes ).'</li></ul>' ;
 					?>
 				</td>
 			</tr>

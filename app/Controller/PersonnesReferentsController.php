@@ -7,8 +7,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
-	 App::uses('WebrsaAccessPersonnesReferents', 'Utility');
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaAccessPersonnesReferents', 'Utility' );
 
 	/**
 	 * La classe PersonnesReferentsController permet la gestion des référents du parcours au niveau du dossier
@@ -76,18 +76,7 @@
 			'Option',
 			'WebrsaPersonneReferent',
 		);
-		
-		/**
-		 * Utilise les droits d'un autre Controller:action
-		 * sur une action en particulier
-		 * 
-		 * @var array
-		 */
-		public $commeDroit = array(
-			'cohorte_affectation93' => 'Cohortesreferents93:affecter',
-			'exportcsv_affectation93' => 'Cohortesreferents93:exportcsv',
-		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -96,13 +85,10 @@
 		public $aucunDroit = array(
 			'ajaxfiledelete',
 			'ajaxfileupload',
-			'ajaxperm',
-			'ajaxreferent',
-			'ajaxreffonct',
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -217,13 +203,13 @@
 				if( $saved ) {
 					$this->PersonneReferent->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( $this->referer() );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id );
 					$this->PersonneReferent->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -353,12 +339,12 @@
 				if( $this->PersonneReferent->saveAll( $this->request->data, array( 'validate' => 'first', 'atomic' => false ) ) ) {
 					$this->PersonneReferent->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'personnes_referents', 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$this->PersonneReferent->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {
@@ -473,17 +459,17 @@
 
 				// Ajout d'une règle de validation permettant de vérifier que la date de fin de
 				// désignation est bien renseignée
-				$this->PersonneReferent->validate['dfdesignation'] = array( 'rule' => array( 'notEmpty' ), 'message' => __( 'Validate::notEmpty' ) ) + $this->PersonneReferent->validate['dfdesignation'];
+				$this->PersonneReferent->validate['dfdesignation'] = array( 'rule' => array( NOT_BLANK_RULE_NAME ), 'message' => __( 'Validate::notEmpty' ) ) + $this->PersonneReferent->validate['dfdesignation'];
 
 				$this->PersonneReferent->create( $this->request->data );
-				if( $this->PersonneReferent->save() ) {
+				if( $this->PersonneReferent->save( null, array( 'atomic' => false ) ) ) {
 					$this->PersonneReferent->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'personnes_referents', 'action' => 'index', $personne_referent['PersonneReferent']['personne_id'] ) );
 				}
 				else {
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 					$this->PersonneReferent->rollback();
 				}
 			}

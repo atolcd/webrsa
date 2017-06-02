@@ -15,6 +15,8 @@
 	// Temps maximum (en seconde), avant que le script n'arrête d'attendre la réponse de Gedooo
 	@ini_set( 'default_socket_timeout', 12000 );
 
+	App::uses( 'Component', 'Controller' );
+
 	/**
 	 * La classe GedoooComponent fournit des méthodes permettant de concaténer
 	 * des fichiers PDF (grâce au binaire pdftk) et d'envoyer un fichier PDF au
@@ -126,7 +128,7 @@
 		 * @return mixed
 		 */
 		public function check( $asBoolean = false, $setFlash = false ) {
-			App::import( 'Behavior', 'Gedooo.Gedooo' );
+			App::uses( 'GedoooBehavior', 'Gedooo.Model/Behavior' );
 
 			$GedModel = ClassRegistry::init( 'User' );
 			$GedModel->Behaviors->attach( 'Gedooo.Gedooo' );
@@ -169,9 +171,10 @@
 		 *
 		 * @param string $content Le contenu du fichier à envoyer à l'utilisateur
 		 * @param string $filename Le nom du fichier envoyé à l'utilisateur
+		 * @param string $type Le type MIME à renvoyer (application/pdf par défaut)
 		 */
-		public function sendPdfContentToClient( $content, $filename ) {
-			header( 'Content-type: application/pdf' );
+		public function sendPdfContentToClient( $content, $filename, $type = 'application/pdf' ) {
+			header( 'Content-type: '.$type );
 			header( 'Content-Length: '.strlen( $content ) );
 			header( "Content-Disposition: attachment; filename={$filename}" );
 

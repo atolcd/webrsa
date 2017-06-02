@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Personnecui est la classe contenant les allocataires du CUI.
@@ -16,8 +17,6 @@
 	class Personnecui extends AppModel
 	{
 		public $name = 'Personnecui';
-
-		public $recursive = -1;
 
 		public $hasOne = array(
 			'Cui' => array(
@@ -33,9 +32,9 @@
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Formattable',
 			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
 	}
 ?>

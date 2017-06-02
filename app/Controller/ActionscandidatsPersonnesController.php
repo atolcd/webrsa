@@ -7,13 +7,14 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 	App::uses( 'CakeEmail', 'Network/Email' );
 	App::uses( 'WebrsaEmailConfig', 'Utility' );
-	App::uses('WebrsaActionscandidatsPersonnes', 'Utility');
+	App::uses( 'WebrsaActionscandidatsPersonnes', 'Utility' );
 
 	/**
 	 * La classe ActionscandidatsPersonnesController permet la gestion des fiches
-	 * de liaison (CG 66 et 93).
+	 * de liaison du CD 66.
 	 *
 	 * @package app.Controller
 	 */
@@ -53,6 +54,7 @@
 				)
 			),
 			'WebrsaAccesses',
+			'WebrsaAjaxInsertions'
 		);
 
 		/**
@@ -83,21 +85,17 @@
 			'Option',
 			'WebrsaActioncandidatPersonne',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'ActionscandidatsPersonnes:edit',
-			'cohorte_enattente' => 'Cohortesfichescandidature66:fichesenattente',
-			'cohorte_encours' => 'Cohortesfichescandidature66:fichesencours',
-			'exportcsv' => 'Criteresfichescandidature:exportcsv',
-			'search' => 'Criteresfichescandidature:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -113,7 +111,7 @@
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -140,7 +138,6 @@
 			'filelink' => 'read',
 			'fileview' => 'read',
 			'index' => 'read',
-			'indexparams' => 'read',
 			'maillink' => 'read',
 			'printFiche' => 'read',
 			'search' => 'read',
@@ -164,7 +161,6 @@
 			$field = Inflector::singularize( Inflector::tableize( 'Actioncandidat' ) ).'_id';
 			$options = Hash::insert( $options, "{$this->modelClass}.{$field}", $this->{$this->modelClass}->{'Actioncandidat'}->find( 'list', array( 'recursive' => -1, 'order' => 'name' ) ) );
 
-			$this->set( 'typevoie', $this->Option->typevoie() );
 			$this->set( 'qual', $this->Option->qual() );
 			$this->set( 'natureAidesApres', $this->Option->natureAidesApres() );
 			$this->set( 'sitfam', $this->Option->sitfam() );
@@ -173,22 +169,6 @@
 			$this->set( 'typeserins', $this->Option->typeserins() );
 			$this->set( 'typeservice', $this->ActioncandidatPersonne->Personne->Orientstruct->Serviceinstructeur->find( 'first' ) );
 			$this->set( compact( 'options' ) );
-		}
-
-		/**
-		 * Liste des paramétrages pour le module.
-		 */
-		public function indexparams() {
-			// Retour à la liste en cas d'annulation
-			if( isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'controller' => 'parametrages', 'action' => 'index' ) );
-			}
-			$compteurs = array(
-				'Partenaire' => ClassRegistry::init( 'Partenaire' )->find( 'count' ),
-				'Contactpartenaire' => ClassRegistry::init( 'Contactpartenaire' )->find( 'count' )
-			);
-			$this->set( compact( 'compteurs' ) );
-			$this->render( 'indexparams_'.Configure::read( 'ActioncandidatPersonne.suffixe' ) );
 		}
 
 		/**
@@ -280,13 +260,13 @@
 				if( $saved ) {
 					$this->ActioncandidatPersonne->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( $this->referer() );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id );
 					$this->ActioncandidatPersonne->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -311,6 +291,8 @@
 
 			$this->_setEntriesAncienDossier( $personne_id, 'ActioncandidatPersonne' );
 
+			$messages = array();
+
 			//Vérification de la présence d'une orientation ou d'un référent pour cet allocataire
 			$referentLie = $this->ActioncandidatPersonne->Personne->PersonneReferent->find(
 				'count',
@@ -322,7 +304,9 @@
 					'contain' => false
 				)
 			);
-			$this->set( compact( 'referentLie' ) );
+			if( 0 == $referentLie ) {
+				$messages['Cette personne ne possède pas de référent lié. Impossible de créer une fiche de candidature'] = 'error';
+			}
 
 			$orientationLiee = $this->ActioncandidatPersonne->Personne->Orientstruct->find(
 				'count',
@@ -333,8 +317,10 @@
                     'contain' => false
                 )
 			);
-			$this->set( compact( 'orientationLiee' ) );
-			
+			if( 0 == $orientationLiee ) {
+				$messages['Cette personne ne possède pas d\'orientation. Impossible de créer une fiche de candidature'] = 'error';
+			}
+
 			$actionscandidats_personnes = $this->WebrsaAccesses->getIndexRecords(
 				$personne_id, array(
 					'fields' => array_merge(
@@ -362,10 +348,9 @@
 					'order' => array( 'ActioncandidatPersonne.datesignature DESC' )
 				)
 			);
-			$this->set( 'actionscandidats_personnes', $actionscandidats_personnes );
 
+			$this->set( compact( 'actionscandidats_personnes', 'messages', 'personne_id' ) );
 			$this->_setOptions();
-			$this->set( 'personne_id', $personne_id );
 		}
 
 		/**
@@ -412,44 +397,18 @@
 		 * @param integer $referent_id
 		 */
 		public function ajaxreferent( $referent_id = null ) {
-			Configure::write( 'debug', 0 );
-			$dataReferent_id = Set::extract( $this->request->data, 'ActioncandidatPersonne.referent_id' );
-			$referent_id = ( empty( $referent_id ) && !empty( $dataReferent_id ) ? $dataReferent_id : $referent_id );
-
-			$this->set( 'typevoie', $this->Option->typevoie() );
-			$prescripteur = $this->ActioncandidatPersonne->Personne->Referent->find(
-				'first',
-				array(
-					'fields' => array(
-						'Referent.numero_poste',
-						'Referent.email',
-						'Structurereferente.lib_struc',
-						'Structurereferente.num_voie',
-                        'Structurereferente.type_voie',
-						'Structurereferente.nom_voie',
-						'Structurereferente.code_postal',
-						'Structurereferente.ville'
-					),
-					'conditions' => array(
-						'Referent.id' => $referent_id
-					),
-					'contain' => array(
-						'Structurereferente'
-					)
-				)
-			);
-			$this->set( compact( 'prescripteur' ) );
-			$this->render( 'ajaxreferent', 'ajax' );
+			return $this->WebrsaAjaxInsertions->prescripteur( $referent_id );
 		}
 
 		/**
 		 * Ajax pour les partenaires fournissant les actions
 		 *
+		 * @deprecated since 3.2.0
+		 *
 		 * @param integer $referent_id
 		 */
 		public function ajaxstruct( $referent_id = null ) {
 			Configure::write( 'debug', 0 );
-			$this->set( 'typevoie', $this->Option->typevoie() );
 			$dataReferent_id = Set::extract( $this->request->data, 'ActioncandidatPersonne.referent_id' );
 			$referent_id = ( empty( $referent_id ) && !empty( $dataReferent_id ) ? $dataReferent_id : $referent_id );
 
@@ -496,8 +455,6 @@
 			else {
 				$referent_id = suffix( Set::extract( $this->request->data, 'Rendezvous.referent_id' ) );
 			}
-
-			$this->set( 'typevoie', $this->Option->typevoie() );
 
 			$dataReferent_id = Set::extract( $this->request->data, 'Rendezvous.referent_id' );
 			$referent_id = ( empty( $referent_id ) && !empty( $dataReferent_id ) ? $dataReferent_id : $referent_id );
@@ -635,42 +592,6 @@
 			$derniereInformationPe = (array)Hash::get( $derniereInformationPe, 'Historiqueetatpe.0' );
 			$personne = Hash::merge( $personne, array( 'Historiqueetatpe' => $derniereInformationPe ) );
 
-            if( Configure::read( 'ActioncandidatPersonne.suffixe' ) == 'cg93' ) {
-                $detaildroitrsa = $this->{$this->modelClass}->Personne->Foyer->Dossier->Detaildroitrsa->find(
-                    'first',
-                    array(
-                        'fields' => array_merge(
-                            $this->{$this->modelClass}->Personne->Foyer->Dossier->Detaildroitrsa->fields(),
-                            $this->{$this->modelClass}->Personne->Foyer->Dossier->Detaildroitrsa->Detailcalculdroitrsa->vfsSummary()
-                        ),
-                        'conditions' => array(
-                            'Detaildroitrsa.dossier_id' => Hash::get( $personne, 'Dossier.id' )
-                        ),
-                        'contain' => false
-                    )
-                );
-                $personne = Hash::merge( $personne, $detaildroitrsa );
-
-
-				$contratinsertion = $this->{$this->modelClass}->Personne->Contratinsertion->find(
-					'first',
-					array(
-						'fields' => array_merge(
-							$this->{$this->modelClass}->Personne->Contratinsertion->fields(),
-							$this->{$this->modelClass}->Personne->Contratinsertion->Cer93->fields()
-						),
-						'conditions' => array(
-							'Contratinsertion.personne_id' => Hash::get( $personne, 'Personne.id' )
-						),
-						'order' => array(
-							'Contratinsertion.dd_ci DESC'
-						),
-						'contain' => array( 'Cer93' )
-					)
-				);
-				$personne = Hash::merge( $personne, $contratinsertion );
-			}
-
 			$this->set( 'personne', $personne );
 
 			///Nombre d'enfants par foyer
@@ -713,31 +634,28 @@
                 $this->ActioncandidatPersonne->begin();
 
                 // Mise à jour de la case à cocher Poursuite suivi CG si l'action n'est pas de type région (CG66)
-                if( Configure::read( 'Cg.departement' ) == 66 ) {
-                    $actionsTypeRegionIds = Configure::read( 'ActioncandidatPersonne.Actioncandidat.typeregionId' );
-                    if( !in_array( $this->request->data['ActioncandidatPersonne']['actioncandidat_id'], $actionsTypeRegionIds ) ){
-                        $this->request->data['ActioncandidatPersonne']['poursuitesuivicg'] = '0';
-                    }
+				$actionsTypeRegionIds = Configure::read( 'ActioncandidatPersonne.Actioncandidat.typeregionId' );
+				if( !in_array( $this->request->data['ActioncandidatPersonne']['actioncandidat_id'], $actionsTypeRegionIds ) ){
+					$this->request->data['ActioncandidatPersonne']['poursuitesuivicg'] = '0';
+				}
 
-                    // Si aucune case n'est cochée pour les RDVs, on n'enregistre aucune info
-                    if( empty( $this->request->data['ActioncandidatPersonne']['rendezvouspartenaire'] ) ) {
-                        unset( $this->request->data['ActioncandidatPersonne']['rendezvouspartenaire'] );
-                        unset( $this->request->data['ActioncandidatPersonne']['horairerdvpartenaire'] );
-                        unset( $this->request->data['ActioncandidatPersonne']['lieurdvpartenaire'] );
-                    }
+				// Si aucune case n'est cochée pour les RDVs, on n'enregistre aucune info
+				if( empty( $this->request->data['ActioncandidatPersonne']['rendezvouspartenaire'] ) ) {
+					unset( $this->request->data['ActioncandidatPersonne']['rendezvouspartenaire'] );
+					unset( $this->request->data['ActioncandidatPersonne']['horairerdvpartenaire'] );
+					unset( $this->request->data['ActioncandidatPersonne']['lieurdvpartenaire'] );
+				}
 
-                    // Si aucune case n'est cochée pour la mobilité, on n'enregistre aucune info
-                    if( empty( $this->request->data['ActioncandidatPersonne']['mobile'] ) ) {
-                        unset( $this->request->data['ActioncandidatPersonne']['mobile'] );
-                        unset( $this->request->data['ActioncandidatPersonne']['naturemobile'] );
-                        unset( $this->request->data['ActioncandidatPersonne']['typemobile'] );
-                    }
+				// Si aucune case n'est cochée pour la mobilité, on n'enregistre aucune info
+				if( empty( $this->request->data['ActioncandidatPersonne']['mobile'] ) ) {
+					unset( $this->request->data['ActioncandidatPersonne']['mobile'] );
+					unset( $this->request->data['ActioncandidatPersonne']['naturemobile'] );
+					unset( $this->request->data['ActioncandidatPersonne']['typemobile'] );
+				}
 
-					// Valeurs pour progfichecandidature66
-					$valsprog =& $this->request->data['ActioncandidatPersonne']['valprogfichecandidature66_id'];
-					$valsprog = suffix($valsprog);
-                }
-
+				// Valeurs pour progfichecandidature66
+				$valsprog =& $this->request->data['ActioncandidatPersonne']['valprogfichecandidature66_id'];
+				$valsprog = suffix($valsprog);
 
 				if( $this->ActioncandidatPersonne->saveAll( $this->request->data, array( 'validate' => 'only', 'atomic' => false ) ) ) {
 					$success = true;
@@ -747,18 +665,18 @@
 						$isDataPersonne = Hash::filter( (array)$this->request->data['Personne'] );
 						if( !empty( $isDataPersonne ) ) {
                             $this->{$this->modelClass}->Personne->create( array( 'Personne' => $this->request->data['Personne'] ) );
-							$success = $this->{$this->modelClass}->Personne->save() && $success;
+							$success = $this->{$this->modelClass}->Personne->save( null, array( 'atomic' => false ) ) && $success;
 						}
 					}
 
 					if( $success && $this->ActioncandidatPersonne->saveAll( $this->request->data, array( 'validate' => 'first', 'atomic' => false ) ) ) {
 						$this->ActioncandidatPersonne->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'actionscandidats_personnes', 'action' => 'index', $personne_id ) );
 					}
 					else {
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 						$this->ActioncandidatPersonne->rollback();
 					}
 				}
@@ -766,18 +684,6 @@
 			else {
 				if( $this->action == 'edit' ) {
                     $this->request->data = $actioncandidat_personne;
-
-                    // Récupération des programmes région si renseignés
-//                    $progsfichescandidatures66 = $this->ActioncandidatPersonne->CandidatureProg66->find(
-//                        'list',
-//                        array(
-//                            'fields' => array( "CandidatureProg66.id", "CandidatureProg66.progfichecandidature66_id" ),
-//                            'conditions' => array(
-//                                "CandidatureProg66.actioncandidat_personne_id" => $actioncandidat_personne_id
-//                            )
-//                        )
-//                    );
-//                    $this->request->data['Progfichecandidature66']['Progfichecandidature66'] = $progsfichescandidatures66;
 
 					// Liste des motifs de sortie pour le CG66
 					$sqMotifsortie = $this->{$this->modelClass}->Actioncandidat->ActioncandidatMotifsortie->sq(
@@ -818,7 +724,6 @@
                 $options['Contratinsertion'] = array( 'decision_ci' => ClassRegistry::init('Contratinsertion')->enum('decision_ci') );
                 $options['Prestation'] = array( 'rolepers' => ClassRegistry::init('Prestation')->enum('rolepers') );
                 $options['Suiviinstruction'] = array( 'typeserins' => $this->Option->typeserins() );
-				$options = Hash::merge( $options, $this->{$this->modelClass}->Personne->Contratinsertion->Cer93->enums() );
 				$options[$this->modelClass]['valprogfichecandidature66_id'] = ClassRegistry::init('Valprogfichecandidature66')->dependantSelectOptions();
 
 				Cache::write( $cacheKey, $options );
@@ -835,7 +740,7 @@
 
 			$this->set( compact( 'options' ) );
 
-			$this->render( 'add_edit_'.Configure::read( 'ActioncandidatPersonne.suffixe' ) );
+			$this->render( 'add_edit' );
 		}
 
 		/**
@@ -853,7 +758,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, 'FicheCandidature.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer la fiche de candidature', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer la fiche de candidature' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -898,7 +803,7 @@
 			}
 
 			if( !empty( $this->request->data ) ) {
-				if( $this->ActioncandidatPersonne->save( $this->request->data ) ) {
+				if( $this->ActioncandidatPersonne->save( $this->request->data , array( 'atomic' => false ) ) ) {
 					$this->{$this->modelClass}->updateAllUnBound(
                         array( 'ActioncandidatPersonne.positionfiche' => '\'annule\'' ),
                         array(
@@ -906,7 +811,7 @@
                         )
 					);
 
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index', $personne_id ) );
 				}
 			}
@@ -923,23 +828,7 @@
 		 */
 		public function view( $id ) {
 			$this->WebrsaAccesses->check($id);
-			if( Configure::read( 'ActioncandidatPersonne.suffixe' ) == 'cg93' ) {
-				$actioncandidat_personne = $this->ActioncandidatPersonne->WebrsaActioncandidatPersonne->getFichecandidatureData( $id );
 
-				if( empty( $actioncandidat_personne ) ) {
-					throw new Error404Exception();
-				}
-
-				$personne_id = $actioncandidat_personne['Personne']['id'];
-				$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) ) );
-
-				$this->set( 'actionscandidatspersonne', $actioncandidat_personne );
-				$this->set( 'options', $this->ActioncandidatPersonne->WebrsaActioncandidatPersonne->getFichecandidatureOptions() );
-
-				$this->render( 'view' );
-			}
-
-			// Pour le CG 66
 			$personne_id = $this->ActioncandidatPersonne->field( 'personne_id', array( 'id' => $id ) );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) ) );
@@ -993,25 +882,6 @@
 			$this->set( compact( 'actionscandidatspersonne' ) );
 			$this->_setOptions();
 
-            //liste des programmes Région sélectionnés
-            // Récupération des programmes région si renseignés
-//            $progsfichescandidatures66 = $this->ActioncandidatPersonne->CandidatureProg66->find(
-//                'all',
-//                array(
-//                    'fields' => array(
-//                        'Progfichecandidature66.name',
-//                        'CandidatureProg66.id',
-//                        'CandidatureProg66.progfichecandidature66_id'
-//                    ),
-//                    'conditions' => array(
-//                        'CandidatureProg66.actioncandidat_personne_id' => $id
-//                    )
-//                )
-//            );
-//            $progsfichescandidatures66 = (array)Set::extract( $progsfichescandidatures66, '{n}.Progfichecandidature66.name' );
-//            $this->set( compact( 'progsfichescandidatures66' ) );
-
-
 			// Retour à la liste en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
 				$this->redirect( array( 'action' => 'index', $personne_id ) );
@@ -1048,7 +918,7 @@
 			$this->assert( !empty( $actioncandidat_personne ), 'error404' );
 
 			if( !isset( $actioncandidat_personne['Actioncandidat']['Contactpartenaire']['email'] ) || empty( $actioncandidat_personne['Actioncandidat']['Contactpartenaire']['email'] ) ) {
-				$this->Session->setFlash( "Mail non envoyé: adresse mail du référent ({$actioncandidat_personne['Actioncandidat']['Contactpartenaire']['nom']} {$actioncandidat_personne['Actioncandidat']['Contactpartenaire']['prenom']}) non renseignée.", 'flash/error' );
+				$this->Flash->error( "Mail non envoyé: adresse mail du référent ({$actioncandidat_personne['Actioncandidat']['Contactpartenaire']['nom']} {$actioncandidat_personne['Actioncandidat']['Contactpartenaire']['prenom']}) non renseignée." );
 				$this->redirect( $this->referer() );
 			}
 
@@ -1077,10 +947,10 @@
 			}
 
 			if( $success ) {
-				$this->Session->setFlash( 'Mail envoyé', 'flash/success' );
+				$this->Flash->success( 'Mail envoyé' );
 			}
 			else {
-				$this->Session->setFlash( 'Mail non envoyé', 'flash/error' );
+				$this->Flash->error( 'Mail non envoyé' );
 			}
 
 			$this->redirect( $this->referer() );

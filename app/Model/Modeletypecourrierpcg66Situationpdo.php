@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Modeletypecourrierpcg66Situationpdo.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Modeletypecourrierpcg66Situationpdo ...
@@ -17,12 +18,10 @@
 	{
 		public $name = 'Modeletypecourrierpcg66Situationpdo';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(
@@ -41,21 +40,5 @@
 				'order' => ''
 			),
 		);
-
-// 		public $hasMany = array(
-// 			'Traitementpcg66' => array(
-// 				'className' => 'Traitementpcg66',
-// 				'foreignKey' => 'personnepcg66_situationpdo_id',
-// 				'dependent' => true,
-// 				'conditions' => '',
-// 				'fields' => '',
-// 				'order' => '',
-// 				'limit' => '',
-// 				'offset' => '',
-// 				'exclusive' => '',
-// 				'finderQuery' => '',
-// 				'counterQuery' => ''
-// 			)
-// 		);
 	}
 ?>

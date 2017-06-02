@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par contrats" > "Par CER (nouveau)"
+	 * Menu "Recherches" > "Par contrats" > "Par CER"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Contratsinsertion.search',
@@ -28,8 +28,7 @@
 				'restrict' => array(),
 				// 2.2 Conditions supplémentaires optionnelles
 				'conditions' => array(
-					'Situationdossierrsa.etatdosrsa <>' => 'Z',
-					'Prestation.id IS NOT NULL'
+					'Situationdossierrsa.etatdosrsa <>' => 'Z'
 				),
 				// 2.3 Tri par défaut
 				'order' => array( 'Contratinsertion.df_ci' )
@@ -80,7 +79,7 @@
 	);
 
 	/**
-	 * Export CSV, menu "Recherches" > "Par contrats" > "Par CER (nouveau)"
+	 * Export CSV, menu "Recherches" > "Par contrats" > "Par CER"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Contratsinsertion.exportcsv',
@@ -160,7 +159,7 @@
 	);
 
 	/**
-	 * Menu "Cohortes" > "CER" > "Contrats à valider (nouveau)"
+	 * Menu "Cohortes" > "CER" > "Contrats à valider"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Contratsinsertion.cohorte_nouveaux',
@@ -261,7 +260,7 @@
 	);
 
 	/**
-	 * Menu "Cohortes" > "CER" > "Contrats validés (nouveau)"
+	 * Menu "Cohortes" > "CER" > "Contrats validés"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Contratsinsertion.cohorte_valides',
@@ -354,7 +353,7 @@
 	);
 
 	/**
-	 * Export CSV de menu "Cohortes" > "CER" > "Contrats validés (nouveau)"
+	 * Export CSV de menu "Cohortes" > "CER" > "Contrats validés"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Contratsinsertion.exportcsv_valides',

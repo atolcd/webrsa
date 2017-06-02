@@ -1,0 +1,75 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+msgid "Situationspdos::index"
+msgstr "Situations pour les PDOs"
+
+msgid "Situationspdos::add"
+msgstr "Ajout d'une situation"
+
+msgid "Situationpdo::index::empty"
+msgstr "Aucune situation présente"
+
+msgid "Situationpdo::add"
+msgstr "Ajout d'une situation"
+
+msgid "Situationspdos::edit"
+msgstr "Modification d'une situation"
+
+msgid "Situationspdos::delete"
+msgstr "Suppression d'une situation"
+
+msgid "Situationpdo.libelle"
+msgstr "Motif(s) de la situation"
+
+msgid "Situationpdo.nc"
+msgstr "Motif pour défaut de conclusion ?"
+
+msgid "Situationpdo.nr"
+msgstr "Motif pour non respect ?"
+
+msgid "Situationspdos::delete::confirm"
+msgstr "Confirmer la suppression ?"
+
+msgid "Situationpdo.declencheepd"
+msgstr "Déclenche une EPD ?"
+
+msgid "Situationpdo.isactif"
+msgstr "Actif ?"
+
+msgid "ENUM::ISACTIF::1"
+msgstr "Oui"
+
+msgid "ENUM::ISACTIF::0"
+msgstr "Non"
+
+msgid "ENUM::NC::0"
+msgstr "Non"
+
+msgid "ENUM::NC::1"
+msgstr "Oui"
+
+msgid "ENUM::NR::0"
+msgstr "Non"
+
+msgid "ENUM::NR::1"
+msgstr "Oui"
+
+###############################################################################

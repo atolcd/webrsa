@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Option possède des méthodes permettant d'obtenir les "enums",
@@ -31,6 +32,205 @@
 		 * @var boolean
 		 */
 		public $useTable = false;
+
+		/**
+		 * Liste des libellés de type de voie.
+		 *	- membreseps.typevoie (OK)
+		 *	- partenaires.typevoie (OK)
+		 *	- permanences.typevoie (OK)
+		 *	- servicesinstructeurs.type_voie (OK)
+		 *	- structuresreferentes.type_voie (OK)
+		 *	- tiersprestatairesapres.typevoie (OK)
+		 *	- users.typevoie (OK)
+		 *  --------------------------------------------------------------------
+		 *	- Cui.typevoieemployeur (@deprecated)
+		 *	- Periodeimmersion.typevoieentaccueil (@deprecated)
+		 *
+		 *	@todo remplacer la méthode typevoie dès lors que tous les modèles /
+		 * tables auront été mis à jour
+		 *
+		 * @var array
+		 */
+		protected $_libtypevoie = array(
+			'Abbaye' => 'Abbaye',
+			'Ancien chemin' => 'Ancien chemin',
+			'Agglomération' => 'Agglomération',
+			'Aire' => 'Aire',
+			'Allée' => 'Allée',
+			'Anse' => 'Anse',
+			'Arcade' => 'Arcade',
+			'Ancienne route' => 'Ancienne route',
+			'Autoroute' => 'Autoroute',
+			'Avenue' => 'Avenue',
+			'Bastion' => 'Bastion',
+			'Bas chemin' => 'Bas chemin',
+			'Boucle' => 'Boucle',
+			'Boulevard' => 'Boulevard',
+			'Béguinage' => 'Béguinage',
+			'Berge' => 'Berge',
+			'Bois' => 'Bois',
+			'Barriere' => 'Barriere',
+			'Bourg' => 'Bourg',
+			'Bastide' => 'Bastide',
+			'Butte' => 'Butte',
+			'Cale' => 'Cale',
+			'Camp' => 'Camp',
+			'Carrefour' => 'Carrefour',
+			'Carriere' => 'Carriere',
+			'Carre' => 'Carre',
+			'Carreau' => 'Carreau',
+			'Cavée' => 'Cavée',
+			'Campagne' => 'Campagne',
+			'Chemin' => 'Chemin',
+			'Cheminement' => 'Cheminement',
+			'Chez' => 'Chez',
+			'Charmille' => 'Charmille',
+			'Chalet' => 'Chalet',
+			'Chapelle' => 'Chapelle',
+			'Chaussée' => 'Chaussée',
+			'Château' => 'Château',
+			'Chemin vicinal' => 'Chemin vicinal',
+			'Cité' => 'Cité',
+			'Cloître' => 'Cloître',
+			'Clos' => 'Clos',
+			'Col' => 'Col',
+			'Colline' => 'Colline',
+			'Corniche' => 'Corniche',
+			'Côte(au)' => 'Côte(au)',
+			'Cottage' => 'Cottage',
+			'Cour' => 'Cour',
+			'Camping' => 'Camping',
+			'Cours' => 'Cours',
+			'Castel' => 'Castel',
+			'Contour' => 'Contour',
+			'Centre' => 'Centre',
+			'Darse' => 'Darse',
+			'Degré' => 'Degré',
+			'Digue' => 'Digue',
+			'Domaine' => 'Domaine',
+			'Descente' => 'Descente',
+			'Ecluse' => 'Ecluse',
+			'Eglise' => 'Eglise',
+			'Enceinte' => 'Enceinte',
+			'Enclos' => 'Enclos',
+			'Enclave' => 'Enclave',
+			'Escalier' => 'Escalier',
+			'Esplanade' => 'Esplanade',
+			'Espace' => 'Espace',
+			'Etang' => 'Etang',
+			'Faubourg' => 'Faubourg',
+			'Fontaine' => 'Fontaine',
+			'Forum' => 'Forum',
+			'Fort' => 'Fort',
+			'Fosse' => 'Fosse',
+			'Foyer' => 'Foyer',
+			'Ferme' => 'Ferme',
+			'Galerie' => 'Galerie',
+			'Gare' => 'Gare',
+			'Garenne' => 'Garenne',
+			'Grand boulevard' => 'Grand boulevard',
+			'Grand ensemble' => 'Grand ensemble',
+			'Groupe' => 'Groupe',
+			'Groupement' => 'Groupement',
+			'Grand(e) rue' => 'Grand(e) rue',
+			'Grille' => 'Grille',
+			'Grimpette' => 'Grimpette',
+			'Hameau' => 'Hameau',
+			'Haut chemin' => 'Haut chemin',
+			'Hippodrome' => 'Hippodrome',
+			'Halle' => 'Halle',
+			'HLM' => 'HLM',
+			'Ile' => 'Ile',
+			'Immeuble' => 'Immeuble',
+			'Impasse' => 'Impasse',
+			'Jardin' => 'Jardin',
+			'Jetée' => 'Jetée',
+			'Lieu dit' => 'Lieu dit',
+			'Levée' => 'Levée',
+			'Lotissement' => 'Lotissement',
+			'Mail' => 'Mail',
+			'Manoir' => 'Manoir',
+			'Marche' => 'Marche',
+			'Mas' => 'Mas',
+			'Métro' => 'Métro',
+			'Maison forestiere' => 'Maison forestiere',
+			'Moulin' => 'Moulin',
+			'Montée' => 'Montée',
+			'Musée' => 'Musée',
+			'Nouvelle route' => 'Nouvelle route',
+			'Petite avenue' => 'Petite avenue',
+			'Palais' => 'Palais',
+			'Parc' => 'Parc',
+			'Passage' => 'Passage',
+			'Passe' => 'Passe',
+			'Patio' => 'Patio',
+			'Pavillon' => 'Pavillon',
+			'Porche - petit chemin' => 'Porche - petit chemin',
+			'Périphérique' => 'Périphérique',
+			'Petite impasse' => 'Petite impasse',
+			'Parking' => 'Parking',
+			'Place' => 'Place',
+			'Plage' => 'Plage',
+			'Plan' => 'Plan',
+			'Placis' => 'Placis',
+			'Passerelle' => 'Passerelle',
+			'Plaine' => 'Plaine',
+			'Plateau(x)' => 'Plateau(x)',
+			'Passage à niveau' => 'Passage à niveau',
+			'Pointe' => 'Pointe',
+			'Pont(s)' => 'Pont(s)',
+			'Portique' => 'Portique',
+			'Port' => 'Port',
+			'Poterne' => 'Poterne',
+			'Pourtour' => 'Pourtour',
+			'Pré' => 'Pré',
+			'Promenade' => 'Promenade',
+			'Presqu\'île' => 'Presqu\'île',
+			'Petite route' => 'Petite route',
+			'Parvis' => 'Parvis',
+			'Peristyle' => 'Peristyle',
+			'Petite allée' => 'Petite allée',
+			'Porte' => 'Porte',
+			'Petite rue' => 'Petite rue',
+			'Quai' => 'Quai',
+			'Quartier' => 'Quartier',
+			'Rue' => 'Rue',
+			'Raccourci' => 'Raccourci',
+			'Raidillon' => 'Raidillon',
+			'Rempart' => 'Rempart',
+			'Résidence' => 'Résidence',
+			'Ruelle' => 'Ruelle',
+			'Rocade' => 'Rocade',
+			'Roquet' => 'Roquet',
+			'Rampe' => 'Rampe',
+			'Rond point' => 'Rond point',
+			'Rotonde' => 'Rotonde',
+			'Route' => 'Route',
+			'Sentier' => 'Sentier',
+			'Square' => 'Square',
+			'Station' => 'Station',
+			'Stade' => 'Stade',
+			'Tour' => 'Tour',
+			'Terre plein' => 'Terre plein',
+			'Traverse' => 'Traverse',
+			'Terrain' => 'Terrain',
+			'Tertre(s)' => 'Tertre(s)',
+			'Terrasse(s)' => 'Terrasse(s)',
+			'Val(lée)(lon)' => 'Val(lée)(lon)',
+			'Vieux chemin' => 'Vieux chemin',
+			'Venelle' => 'Venelle',
+			'Village' => 'Village',
+			'Via' => 'Via',
+			'Villa' => 'Villa',
+			'Voie' => 'Voie',
+			'Vieille route' => 'Vieille route',
+			'Zone artisanale' => 'Zone artisanale',
+			'Zone d\'aménagement concerte' => 'Zone d\'aménagement concerte',
+			'Zone d\'aménagement différé' => 'Zone d\'aménagement différé',
+			'Zone industrielle' => 'Zone industrielle',
+			'Zone' => 'Zone',
+			'Zone à urbaniser en priorité' => 'Zone à urbaniser en priorité'
+		);
 
 		/**
 		 * Enums pour le champ detailsressourcesmensuelles.abaneu
@@ -804,7 +1004,6 @@
 		 */
 		public function etatdosrsa($etatsDemandes=array()) {
 			trigger_error("Utilisation d'une méthode dépréciée : ".__CLASS__.'::'.__FUNCTION__, E_USER_DEPRECATED);
-			// ClassRegistry::init('Dossier')->enum('etatdosrsa', array('filter' => $etatsDemandes))
 
 			$etats = array(
 				'Z' => 'Non défini',
@@ -1240,7 +1439,7 @@
 		 */
 		public function natpfcre( $type = null ) {
 			trigger_error("Utilisation d'une méthode dépréciée : ".__CLASS__.'::'.__FUNCTION__, E_USER_DEPRECATED);
-			// ClassRegistry::init('Infofinanciere')->enum('natpfcre', array('type' => $type))
+
 			$natindu = array(
 				'totsocl' => array(
 					'RSD' => 'Rsa socle',
@@ -2728,6 +2927,8 @@
 		 *	- tiersprestatairesapres.typevoie
 		 *	- users.typevoie
 		 *
+		 * @deprecated since 3.2
+		 *
 		 * @return array
 		 */
 		public function typevoie() {
@@ -2911,6 +3112,16 @@
 				'ZONE' => 'Zone',
 				'ZUP' => 'Zone à urbaniser en priorité'
 			);
+		}
+
+		/**
+		 * Retourne une liste clé / valeurs de libellées de types de voies pour
+		 * les listes d'options des adresses.
+		 *
+		 * @return array
+		 */
+		public function libtypevoie() {
+			return $this->_libtypevoie;
 		}
 
 		/**

@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Dossierep ...
@@ -17,35 +18,27 @@
 	{
 		public $name = 'Dossierep';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
 			'Allocatairelie',
 			'Conditionnable',
 			'DossierCommission',
-			'Enumerable',
-			'Validation2.Validation2Autovalidate',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
 			'actif' => array(
 				'inList' => array(
-					'rule'      => array( 'inList', array( '0', '1' ) ),
-					'message'   => null,
+					'rule' => array( 'inList', array( '0', '1' ) ),
+					'message' => null,
 					'allowEmpty' => true
 				)
 			)
 		);
 
 		public $belongsTo = array(
-			/*'Commissionep' => array(
-				'className' => 'Commissionep',
-				'foreignKey' => 'commissionep_id',
-				'conditions' => '',
-				'fields' => '',
-				'order' => ''
-			),*/
 			'Personne' => array(
 				'className' => 'Personne',
 				'foreignKey' => 'personne_id',
@@ -245,36 +238,17 @@
 				'counterQuery' => ''
 			)
 		);
-		
+
 		public $virtualFields = array(
 			'is_reporte' => array(
 				'type'      => 'boolean',
 				'postgres'  => '("%s"."id" IN (
-					SELECT a.id FROM dossierseps a 
-					JOIN passagescommissionseps b ON a.id = b.dossierep_id 
-					WHERE a.id = "%s"."id" 
+					SELECT a.id FROM dossierseps a
+					JOIN passagescommissionseps b ON a.id = b.dossierep_id
+					WHERE a.id = "%s"."id"
 					AND b.etatdossierep = \'reporte\'))'
 			),
 		);
-
-		/*public $hasAndBelongsToMany = array(
-			'Commissionep' => array(
-				'className' => 'Commissionep',
-				'joinTable' => 'passagescommissionseps',
-				'foreignKey' => 'dossierep_id',
-				'associationForeignKey' => 'commissionep_id',
-				'unique' => true,
-				'conditions' => '',
-				'fields' => '',
-				'order' => '',
-				'limit' => '',
-				'offset' => '',
-				'finderQuery' => '',
-				'deleteQuery' => '',
-				'insertQuery' => '',
-				'with' => 'Passagecommissionep'
-			)
-		);*/
 
 		/**
 		 * Liste des thématiques d'EP qui disparaissent.

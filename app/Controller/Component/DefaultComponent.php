@@ -7,6 +7,7 @@
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
 
 	/**
 	 * La classe DefaultComponent offre des méthodes de contrôleur "par défaut",
@@ -22,6 +23,13 @@
 		 * @var Controller
 		 */
 		public $Controller = null;
+
+		/**
+		 * Components utilisés par ce component.
+		 *
+		 * @var array
+		 */
+		public $components = array( 'Flash' );
 
 		/**
 		 * Initialisation du composant.
@@ -157,7 +165,7 @@
 		 */
 		protected function _add_edit( $id = null ) {
 			if( Set::check( $this->Controller->request->params, 'form.cancel' ) ) {
-				$this->Controller->Session->setFlash( __( 'Save->cancel' ), 'flash/information' );
+				$this->Flash->information( __( 'Save->cancel' ) );
 				$this->Controller->redirect( array( 'action' => 'index' ) );
 			}
 
@@ -185,14 +193,14 @@
 			if( !empty( $this->Controller->request->data ) ) {
 				if( Set::classicExtract( $this->Controller->request->params, "{$this->Controller->action}.operation" ) == 'saveAll' ) {
 					if( $this->Controller->{$this->Controller->modelClass}->saveAll( $this->Controller->request->data ) ) {
-						$this->Controller->Session->setFlash( __( 'Save->success' ), 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->Controller->redirect( array( 'action' => 'index' ) );
 					}
 				}
 				else {
 					$this->Controller->{$this->Controller->modelClass}->create( $this->Controller->request->data );
-					if( $this->Controller->{$this->Controller->modelClass}->save() ) {
-						$this->Controller->Session->setFlash( __( 'Save->success' ), 'flash/success' );
+					if( $this->Controller->{$this->Controller->modelClass}->save( null, array( 'atomic' => false ) ) ) {
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->Controller->redirect( array( 'action' => 'index' ) );
 					}
 				}
@@ -236,7 +244,7 @@
             }
 
             if( $assertAucuneOccurenceLiee ) {
-                App::import( 'Behaviors', 'Occurences' );
+                App::uses( 'OccurencesBehavior', 'Model/Behavior' );
                 $this->Controller->{$this->Controller->modelClass}->Behaviors->attach( 'Occurences' );
                 $occurences = $this->Controller->{$this->Controller->modelClass}->occurences(
                     array(
@@ -255,10 +263,10 @@
             }
 
 			if( $this->Controller->{$this->Controller->modelClass}->delete( $id ) ) {
-				$this->Controller->Session->setFlash( __( 'Delete->success' ), 'flash/success' );
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
-				$this->Controller->Session->setFlash( __( 'Delete->error' ), 'flash/error' );
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 
 			$this->Controller->redirect( $this->Controller->referer() );

@@ -147,10 +147,9 @@
 						$coderomesecteurdsp66['Coderomesecteurdsp66']['code'] = $code;
 						$coderomesecteurdsp66['Coderomesecteurdsp66']['name'] = $name;
 						$this->Coderomesecteurdsp66->create( $coderomesecteurdsp66 );
-//						$success_secteurs = $this->Coderomesecteurdsp66->save() && $success_secteurs;
 
 
-						$success_save = $this->Coderomesecteurdsp66->save();
+						$success_save = $this->Coderomesecteurdsp66->save( null, array( 'atomic' => false ) );
 						if( !$success_save ) {
 							$out[] = "<important>Erreur de sauvegarde : fichier ".$this->args[0]." à la ligne ".$cpt."</important>";
 						}
@@ -192,7 +191,7 @@
 					$coderomemetierdsp66['Coderomemetierdsp66']['name'] = $name;
 					$this->Coderomemetierdsp66->create( $coderomemetierdsp66 );
 
-					$success_save = $this->Coderomemetierdsp66->save();
+					$success_save = $this->Coderomemetierdsp66->save( null, array( 'atomic' => false ) );
 					if( !$success_save ) {
 						$out[] = "<important>Erreur de sauvegarde : fichier ".$this->args[1]." à la ligne ".$cpt."</important>";
 					}

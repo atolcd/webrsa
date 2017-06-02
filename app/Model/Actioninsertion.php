@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Actioninsertion ...
@@ -15,20 +16,34 @@
 	 */
 	class Actioninsertion extends AppModel {
 		public $name = 'Actioninsertion';
-		public $validate = array(
-			'contratinsertion_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric')
-				),
+
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
+		/**
+		 * Behaviors utilisés par le modèle.
+		 *
+		 * @var array
+		 */
+		public $actsAs = array(
+			'Allocatairelie' => array(
+				'joins' => array( 'Contratinsertion' )
 			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
-		
+
 		/**
 		 * Liste de champs et de valeurs possibles qui ne peuvent pas être mis en
 		 * règle de validation inList ou en contrainte dans la base de données en
 		 * raison des valeurs actuellement en base, mais pour lequels un ensemble
 		 * fini de valeurs existe.
-		 * 
+		 *
 		 * @see AppModel::enums
 		 *
 		 * @var array
@@ -75,33 +90,5 @@
 				'counterQuery' => ''
 			)
 		);
-
-		/**
-		 * Retourne l'id de la personne à laquelle est lié un enregistrement.
-		 *
-		 * @param integer $id L'id de l'enregistrement
-		 * @return integer
-		 */
-		public function personneId( $id ) {
-			$querydata = array(
-				'fields' => array( "Contratinsertion.personne_id" ),
-				'joins' => array(
-					$this->join( 'Contratinsertion', array( 'type' => 'INNER' ) )
-				),
-				'conditions' => array(
-					"{$this->alias}.id" => $id
-				),
-				'recursive' => -1
-			);
-
-			$result = $this->find( 'first', $querydata );
-
-			if( !empty( $result ) ) {
-				return $result['Contratinsertion']['personne_id'];
-			}
-			else {
-				return null;
-			}
-		}
 	}
 ?>

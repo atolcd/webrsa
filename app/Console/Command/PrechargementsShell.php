@@ -7,6 +7,7 @@
 	 * @package app.Console.Command
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppShell', 'Console/Command' );
 
 	/**
 	 * La classe PrechargementsShell se charge du préchargement du cache de
@@ -77,6 +78,10 @@
 					$this->out( $msg );
 				}
 				else {
+					if( 'nonprechargements' === $model['name'] && 0 < count( $model['entries'] ) ) {
+						$msg .= ' ('.implode( ', ', $model['entries'] ).')';
+					}
+
 					$this->err( $msg );
 				}
 			}
@@ -99,13 +104,5 @@
 
 			$this->_stop( self::SUCCESS );
 		}
-
-		/**
-		 * Paramétrages et aides du shell.
-		 */
-		/*public function getOptionParser() {
-			$Parser = parent::getOptionParser();
-			return $Parser;
-		}*/
 	}
 ?>

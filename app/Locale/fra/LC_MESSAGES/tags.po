@@ -1,0 +1,161 @@
+# Traductions de tags.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Tags/index/:heading"
+msgstr "Tags #Info.tag#"
+
+msgid "/Tags/add"
+msgstr "Ajouter"
+
+msgid "/Tags/add/:title"
+msgstr "Ajouter"
+
+msgid "/Tags/add/:heading"
+msgstr "Ajout d'un tag"
+
+msgid "/Tags/edit/:heading"
+msgstr "Modification d'un tag"
+
+msgid "Tag.valeurtag_id"
+msgstr "Valeur du Tag"
+
+msgid "Tag.commentaire"
+msgstr "Commentaire"
+
+msgid "/Tags/edit"
+msgstr "Modifier"
+
+msgid "/Tags/cancel"
+msgstr "Annuler"
+
+msgid "/Tags/delete"
+msgstr "Supprimer"
+
+msgid "/tags/edit/#Tag.id#"
+msgstr "Modifier"
+
+msgid "/tags/cancel/#Tag.id#"
+msgstr "Annuler"
+
+msgid "/tags/delete/#Tag.id#"
+msgstr "Supprimer"
+
+msgid "Categorietag.name"
+msgstr "Catégorie du tag"
+
+msgid "Valeurtag.name"
+msgstr "Nom du tag"
+
+msgid "Tag.limite"
+msgstr "Date butoir"
+
+msgid "Tag.created"
+msgstr "Taggé le"
+
+msgid "Tag.etat"
+msgstr "Etat du Tag"
+
+msgid "/Tags/cohorte/:heading"
+msgstr "Cohorte de Tag"
+
+msgid "/Tags/cohorte"
+msgstr "Formulaire"
+
+msgid "/Tags/cohorte/:title"
+msgstr "Formulaire"
+
+msgid "Personne.nom_complet_prenoms"
+msgstr "Nom complet"
+
+msgid "Adresse.complete"
+msgstr "Adresse"
+
+msgid "data[Cohorte][][Tag][selection]"
+msgstr "Selectionner"
+
+msgid "data[Cohorte][][EntiteTag][modele]"
+msgstr "Tagger sur"
+
+msgid "data[Cohorte][][Tag][valeurtag_id]"
+msgstr "Valeur du tag"
+
+msgid "data[Cohorte][][Tag][limite]"
+msgstr "Date butoir"
+
+msgid "data[Cohorte][][Tag][commentaire]"
+msgstr "Commentaire"
+
+msgid "/Dossiers/view"
+msgstr "Voir dossier"
+
+msgid "/Dossiers/view/#Dossier.id#"
+msgstr "Voir dossier"
+
+msgid "Search.Tag.valeurtag_id"
+msgstr "Valeurs possibles de la cohorte"
+
+msgid "Search.Zonegeographique.id"
+msgstr "Zones géographiques"
+
+msgid "Tag.cohorte_fieldset"
+msgstr "Autres filtres"
+
+msgid "Search.Prestation.rolepers"
+msgstr "Rôle de la personne"
+
+msgid "Search.Foyer.composition"
+msgstr "Composition familiale"
+
+msgid "Search.Foyer.nb_enfants"
+msgstr "Nombre d'enfants à charge"
+
+msgid "Search.Adresse.heberge"
+msgstr "Le demandeur est hébergés"
+
+msgid "Tag.preremplissage_fieldset"
+msgstr "Préremplissage de la cohorte"
+
+msgid "Cohorte.Tag.selection"
+msgstr "Selectionner"
+
+msgid "Cohorte.EntiteTag.modele"
+msgstr "Tagger sur"
+
+msgid "Cohorte.Tag.valeurtag_id"
+msgstr "Valeur du tag"
+
+msgid "Cohorte.Tag.limite"
+msgstr "Date butoir"
+
+msgid "Cohorte.Tag.commentaire"
+msgstr "Commentaire"
+
+msgid "Cohorte.Tag.calcullimite"
+msgstr "Durée avant date butoir"
+
+msgid "Search.Requestmanager.name"
+msgstr "Conditions issue d'une requête (remplacera les autres conditions)"
+
+msgid "Dossier.numdemrsa"
+msgstr "N° demande RSA"
+
+msgid "Dossier.dtdemrsa"
+msgstr "Date de demande RSA"
+
+msgid "Personne.nir"
+msgstr "NIR"
+
+msgid "Situationdossierrsa.etatdosrsa"
+msgstr "Etat du dossier"
+
+msgid "/Tags/delete/#Tag.id# ?"
+msgstr "Cette action supprimera définitivement cet enregistrement. Voulez-vous continuer ?"

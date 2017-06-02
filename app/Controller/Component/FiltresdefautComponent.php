@@ -7,6 +7,7 @@
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
 
 	/**
 	 * La classe FiltresdefautComponent permet de mettre des valeurs par défaut
@@ -16,7 +17,7 @@
 	 * Utilisation dans le contrôleur:
 	 * <pre>
 	 * public $components = array(
-	 *	'Search.Filtresdefaut' => array( 'index' )
+	 *	'Filtresdefaut' => array( 'index' )
 	 * );
 	 * </pre>
 	 *
@@ -35,7 +36,7 @@
 	 * </pre>
 	 *
 	 * @deprecated
-	 * @see Search.Filtresdefaut
+	 * @see Search.SearchFiltresdefaut
 	 *
 	 * @package app.Controller.Component
 	 */
@@ -46,7 +47,7 @@
 		 *
 		 * @var string
 		 */
-		public $name = 'Search.Filtresdefaut';
+		public $name = 'Filtresdefaut';
 
 		/**
 		 * Le contrôleur auquel le component est attaché.

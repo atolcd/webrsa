@@ -17,7 +17,7 @@
 	}
 ?>
 
-<?php  require_once( 'filtre.ctp' );?>
+<?php  require_once  'filtre.ctp' ;?>
 
 <!-- Résultats -->
 

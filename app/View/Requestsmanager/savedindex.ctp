@@ -3,12 +3,12 @@
 		'h1',
 		$this->pageTitle = __d( 'requestmanager', "Requestsmanager::{$this->action}" )
 	);
-		
+
 	// occurences renvoi false si il n'y a pas de modèle liés autrement que en belongsTo, on s'assure qu'un false/null soit à 0
 	foreach ($requestlist as $key => $value) {
 		$requestlist[$key]['Requestmanager']['occurences'] = (int)Hash::get($value, 'Requestmanager.occurences');
 	}
-	
+
 	echo $this->Default3->actions(
 		array(
 			"/Requestsmanager/index" => array(
@@ -38,8 +38,9 @@
 	echo $this->Default->button(
 		'back',
 		array(
-			'controller' => 'requestsmanager',
-			'action'     => 'indexparams'
+			'controller' => 'parametrages',
+			'action'     => 'index',
+			'#'     => 'requestsmanager'
 		),
 		array(
 			'id' => 'Back'

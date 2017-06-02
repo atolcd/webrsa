@@ -12,6 +12,7 @@
 	foreach( $results as $key => $result ) {
 		$tbody = '';
 		$row = 0;
+
 		foreach( $result as $path => $fields ) {
 			$row++;
 			$fields = array_values( $fields );

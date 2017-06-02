@@ -7,14 +7,14 @@
 	 * @package app.Test.Fixture
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( dirname( __FILE__ ).DS.'cake_app_test_fixture.php' );
+	require_once( dirname( __FILE__ ).DS.'pgsql_constraints_fixture.php' );
 
 	/**
 	 * Classe UserFixture.
 	 *
 	 * @package app.Test.Fixture
 	 */
-	class UserFixture extends CakeAppTestFixture
+	class UserFixture extends PgsqlConstraintsFixture
 	{
 		/**
 		 * On importe la définition de la table, pas les enregistrements.
@@ -42,7 +42,7 @@
 				'date_naissance' => '1980-06-15',
 				'date_deb_hab' => '2009-06-01',
 				'date_fin_hab' => '2300-05-31',
-				'numtel' => '04 05 06 07 08',
+				'numtel' => '0405060708',
 				'filtre_zone_geo' => false,
 				'numvoie' => null,
 				'typevoie' => null,

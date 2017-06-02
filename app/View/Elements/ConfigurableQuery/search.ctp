@@ -25,7 +25,7 @@
 
 	// $paginate
 	$paginate = isset( $paginate ) ? $paginate : null;
-	
+
 	$configurableQueryParams = isset($configurableQueryParams) ? $configurableQueryParams : array();
 
 	if( Configure::read( 'debug' ) > 0 ) {
@@ -43,7 +43,7 @@
 	);
 	echo $this->Default3->actions( $actions );
 
-	echo $this->Form->create( null, array( 'type' => 'post', 'url' => array( 'controller' => $this->request->params['controller'], 'action' => $this->request->action ), 'id' => $searchFormId, 'class' => ( isset( $results ) ? 'folded' : 'unfolded' ) ) );
+	echo $this->Form->create( null, array( 'type' => 'post', 'url' => array( 'controller' => $this->request->params['controller'], 'action' => $this->request->action ), 'id' => $searchFormId, 'class' => ( isset( $results ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );
 
 	echo $beforeSearch;
 	if (Configure::read('Module.Savesearch.enabled') && WebrsaPermissions::check('savesearchs', 'index')) {

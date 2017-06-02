@@ -336,13 +336,14 @@
 
 		<?php
 			if( !empty( $dossierpcg66['Dossierpcg66']['contratinsertion_id'] ) ) {
-				$listdecisionpdo = $listdecisionpcgCer;
+debug(__LINE__);
+				$options['Decisiondossierpcg66']['decisionpdo_id'] = $listdecisionpcgCer;
 			}
 
 			echo $this->Default2->subform(
 				array(
 					'Typersapcg66.Typersapcg66' => array( 'type' => 'select', 'label' => 'Type de prestation', 'multiple' => 'checkbox', 'empty' => false, 'options' => $typersapcg66 ),
-					'Decisiondossierpcg66.decisionpdo_id' => array( 'type' => 'select', 'empty' => true, 'options' => $listdecisionpdo )
+					'Decisiondossierpcg66.decisionpdo_id' => array( 'type' => 'select', 'empty' => true, 'options' => $options['Decisiondossierpcg66']['decisionpdo_id'] )
 				),
 				array(
 					'options' => $options
@@ -415,7 +416,7 @@
         <?php
             echo $this->Default2->subform(
                 array(
-                    'Decisiondossierpcg66.orgtransmisdossierpcg66_id' => array( 'legend' =>  false, 'type' => 'radio', 'class' => 'uncheckable', 'empty' => false, 'options' => $orgs )
+                    'Decisiondossierpcg66.orgtransmisdossierpcg66_id' => array( 'legend' =>  false, 'type' => 'radio', 'class' => 'uncheckable', 'empty' => false, 'options' => $options['Decisiondossierpcg66']['orgtransmisdossierpcg66_id'] )
                 ),
                 array(
                     'options' => $options
@@ -463,7 +464,7 @@
 						);
 
 						if( !empty( $decisiondossierpcg66['Decisiondossierpcg66']['avistechnique'] ) ) {
-							echo $this->Xform->fieldValue( 'Decisiondossierpcg66.useravistechnique_id', Set::enum( Hash::get( $decisiondossierpcg66, 'Decisiondossierpcg66.useravistechnique_id'), $gestionnaire ) );
+							echo $this->Xform->fieldValue( 'Decisiondossierpcg66.useravistechnique_id', Hash::get( $decisiondossierpcg66, 'Useravistechnique.nom_complet' ) );
 						}
 
 						if ($this->action === 'avistechnique'
@@ -507,7 +508,7 @@
 						)
 					);
 						if( !empty( $decisiondossierpcg66['Decisiondossierpcg66']['validationproposition'] ) ) {
-							echo $this->Xform->fieldValue( 'Decisiondossierpcg66.userproposition_id', Set::enum( Hash::get( $decisiondossierpcg66, 'Decisiondossierpcg66.userproposition_id'), $gestionnaire ) );
+							echo $this->Xform->fieldValue( 'Decisiondossierpcg66.userproposition_id', Hash::get( $decisiondossierpcg66, 'Userproposition.nom_complet') );
 						}
 					?>
 				</fieldset>
@@ -552,7 +553,7 @@
 			'decisiondossierpcg66form',
 			'data[Decisiondossierpcg66][orgtransmisdossierpcg66_id]',
 			$( 'infotransmise' ),
-			['<?php echo implode( '\', \'', array_keys( $orgs ) );?>'],
+			['<?php echo implode( '\', \'', array_keys( $options['Decisiondossierpcg66']['orgtransmisdossierpcg66_id'] ) );?>'],
 			false,
 			true
 		);

@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Apre66 ...
@@ -17,38 +18,20 @@
 	{
 
 		public $name = 'Apre66';
+
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'numeroapre';
+
 		public $useTable = 'apres';
+
 		public $actsAs = array(
 			'Allocatairelie',
-			'Enumerable' => array(
-				'fields' => array(
-					'typedemandeapre' => array( 'type' => 'typedemandeapre', 'domain' => 'apre' ),
-					'naturelogement' => array( 'type' => 'naturelogement', 'domain' => 'apre' ),
-					'activitebeneficiaire' => array( 'type' => 'activitebeneficiaire', 'domain' => 'apre' ),
-					'typecontrat' => array( 'type' => 'typecontrat', 'domain' => 'apre' ),
-					'statutapre' => array( 'type' => 'statutapre', 'domain' => 'apre' ),
-					'etatdossierapre' => array( 'type' => 'etatdossierapre', 'domain' => 'apre' ),
-					'eligibiliteapre' => array( 'type' => 'eligibiliteapre', 'domain' => 'apre' ),
-					'justificatif' => array( 'type' => 'justificatif', 'domain' => 'apre' ),
-					'isdecision' => array( 'domain' => 'apre' ),
-					'haspiecejointe' => array( 'domain' => 'apre' ),
-					'istransfere' => array( 'domain' => 'apre' )
-				)
-			),
-			'Postgres.PostgresAutovalidate',
-			'Validation2.Validation2Formattable',
-			'Validation2.Validation2RulesFieldtypes',
-			'Frenchfloat' => array(
-				'fields' => array(
-					'montantaverser',
-					'montantattribue',
-					'montantdejaverse'
-				)
-			),
-			'Formattable' => array(
-				'suffix' => array( 'structurereferente_id', 'referent_id' ),
-			),
 			'Gedooo.Gedooo',
 			'Conditionnable',
 			'ModelesodtConditionnables' => array(
@@ -57,108 +40,108 @@
 					'APRE/accordaide.odt',
 					'APRE/refusaide.odt',
 				)
-			)
+			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
+
 		public $validate = array(
 			'activitebeneficiaire' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'typedemandeapre' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'avistechreferent' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'secteurprofessionnel' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
-			'montantaverser' => array(
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.'
-				),
-			),
 			'montantattribue' => array(
-				array(
-					'rule' => 'numeric',
+				'numeric' => array(
+					'rule' => array( 'numeric' ),
 					'message' => 'Veuillez entrer une valeur numérique.'
 				),
 			),
 			'structurereferente_id' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'datedemandeapre' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'referent_id' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			//Partie activité bénéficiaire
 			'typecontrat' => array(
-				array(
+				'notEmptyIf' => array(
 					'rule' => array( 'notEmptyIf', 'activitebeneficiaire', true, array( 'E' ) ),
 					'message' => 'Champ obligatoire',
 					'required' => false
 				)
 			),
 			'dureecontrat' => array(
-				array(
+				'notEmptyIf' => array(
 					'rule' => array( 'notEmptyIf', 'activitebeneficiaire', true, array( 'E' ) ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'nomemployeur' => array(
-				array(
+				'notEmptyIf' => array(
 					'rule' => array( 'notEmptyIf', 'activitebeneficiaire', true, array( 'E' ) ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'adresseemployeur' => array(
-				array(
+				'notEmptyIf' => array(
 					'rule' => array( 'notEmptyIf', 'activitebeneficiaire', true, array( 'E' ) ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'hascer' => array(
-				array(
+				'equalTo' => array(
 					'rule' => array( 'equalTo', '1' ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'isbeneficiaire' => array(
-				array(
+				'equalTo' => array(
 					'rule' => array( 'equalTo', '1' ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'respectdelais' => array(
-				array(
+				'equalTo' => array(
 					'rule' => array( 'equalTo', '1' ),
 					'message' => 'Champ obligatoire'
 				)
 			)
 		);
+
 		public $hasOne = array(
 			'Aideapre66' => array(
 				'className' => 'Aideapre66',
@@ -230,7 +213,7 @@
 					WHERE "%s"."id" = f.fk_value AND f.modele = \'%s\')'
 			)
 		);
-		
+
 		/**
 		 * Les modèles qui seront utilisés par ce modèle.
 		 *
@@ -264,7 +247,7 @@
 
 			return true;
 		}
-		
+
 		/**
 		 * Retourne le PDF par défaut généré par les appels aux méthodes getDataForPdf, modeleOdt et
 		 * à la méthode ged du behavior Gedooo

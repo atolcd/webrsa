@@ -12,7 +12,6 @@
 			'Sanctionep58.origine',
 			'Dossierep.created',
 			'Structurereferente.lib_struc' => array( 'label' => 'Structure référente' ),
-// 			'Foyer.enerreur' => array( 'type' => 'string', 'class' => 'foyer_enerreur' ),
 			'Passagecommissionep.chosen' => array( 'input' => 'checkbox' ),
 		),
 		array(

@@ -8,6 +8,7 @@
 	 * @subpackage Model.Behavior
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'ModelBehavior', 'Model' );
 
 	/**
 	 * La classe Validation2Validation2Behavior ...
@@ -34,44 +35,6 @@
 		 * @var array
 		 */
 		protected $_loadedBehaviors = array();
-
-		/**
-		 * beforeFind(Model $model, $query)
-		 * afterFind(Model $model, $results, $primary)
-		 * beforeValidate(Model $model)
-		 * afterValidate(Model $model)
-		 * beforeSave(Model $model)
-		 * afterSave(Model $model, $created)
-		 * beforeDelete(Model $model, $cascade = true)
-		 * afterDelete(Model $model)
-		 * onError(Model $model, $error)
-		 *
-		 * @var array
-		 */
-		/*public $wish = array(
-			'configs' => array(
-				'Validation2.Validation2Formattable' => array(
-					'Validation2.Validation2DefaultFormatter' => array(
-						'trim' => array( 'NOT' => array( 'binary' ) ),
-						'null' => true,
-						'numeric' => array( 'float', 'integer' ),
-						'suffix'  => '/_id$/'
-					)
-				)
-			),
-			'triggers' => array(
-				'beforeValidate' => array(
-					'Validation2.Validation2Formattable',
-					'Validation2.Validation2RulesComparison',
-					'Validation2.Validation2RulesFieldtypes',
-				),
-				'beforeSave' => array(
-					'Validation2.Validation2Formattable',
-					'Validation2.Validation2RulesComparison',
-					'Validation2.Validation2RulesFieldtypes',
-				),
-			)
-		);*/
 
 		/**
 		 * En premier lieu, le behavior de formattage avec pour chacune des

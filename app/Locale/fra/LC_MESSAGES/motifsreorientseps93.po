@@ -1,0 +1,44 @@
+# Traductions de motifsreorientseps93.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Motifsreorientseps93/index/:heading"
+msgstr "Paramétrage des motifs des demandes de réorientation à passer en EP"
+
+msgid "/Motifsreorientseps93/add/:heading"
+msgstr "Ajout d'un motif de demande de réorientation à passer en EP"
+
+msgid "/Motifsreorientseps93/edit/:heading"
+msgstr "Modification du motif des demande de réorientation à passer en EP « #Motifreorientep93.name# »"
+
+msgid "/Motifsreorientseps93/add"
+msgstr "Ajouter"
+
+msgid "/Motifsreorientseps93/add/:title"
+msgstr "Ajouter un motif de demande de réorientation à passer en EP"
+
+msgid "Motifreorientep93.name"
+msgstr "Motif de la demande"
+
+msgid "/Motifsreorientseps93/edit"
+msgstr "Modifier"
+
+msgid "/Motifsreorientseps93/edit/#Motifreorientep93.id#"
+msgstr "Modifier le motif des demande de réorientation à passer en EP « #Motifreorientep93.name# »"
+
+msgid "/Motifsreorientseps93/delete"
+msgstr "Supprimer"
+
+msgid "/Motifsreorientseps93/delete/#Motifreorientep93.id#"
+msgstr "Supprimer le motif des demande de réorientation à passer en EP « #Motifreorientep93.name# »"
+
+msgid "/Motifsreorientseps93/delete/#Motifreorientep93.id# ?"
+msgstr "Réellement supprimer le motif des demande de réorientation à passer en EP « #Motifreorientep93.name# » ?"

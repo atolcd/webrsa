@@ -14,7 +14,7 @@
 <h1><?php echo 'Ajout d\'une prestation pour le contrat ';?></h1>
 <?php
 	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Prestform',array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Prestform',array( 'type' => 'post', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Prestform.id', array( 'type' => 'hidden') );
 		echo $this->Form->input( 'Prestform.actioninsertion_id', array( 'type' => 'hidden' ) );
@@ -23,7 +23,7 @@
 		echo '</div>';
 	}
 	else {
-		echo $this->Form->create( 'Prestform',array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Prestform',array( 'type' => 'post', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Prestform.id', array( 'type' => 'hidden' ) );
 		echo $this->Form->input( 'Prestform.actioninsertion_id', array( 'type' => 'hidden' ) );

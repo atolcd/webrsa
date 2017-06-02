@@ -3,8 +3,9 @@
 	 * Code source de la classe Dataimpression.
 	 *
 	 * @package app.Model
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Model.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Dataimpression ...
@@ -21,18 +22,15 @@
 		public $name = 'Dataimpression';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
 		 */
-		public $actsAs = array();
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
+		);
 
 		/**
 		 * Associations "Belongs to".

@@ -21,7 +21,7 @@
 	}
 ?>
 
-<?php echo $this->Form->create( 'Infosfinancieres', array( 'type' => 'post', 'action' => '/indexdossier/', 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ) ) );?>
+<?php echo $this->Form->create( 'Infosfinancieres', array( 'type' => 'post', 'url' => array( 'action' => 'indexdossier' ), 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );?>
 	<fieldset>
 		<?php echo $this->Form->input( 'Filtre.recherche', array( 'label' => false, 'type' => 'hidden', 'value' => true ) );?>
 		<?php echo $this->Form->input( 'Filtre.moismoucompta', array( 'label' => 'Recherche des paiements pour le mois de ', 'type' => 'date', 'dateFormat' => 'MY', 'maxYear' => $options['annees']['maxYear'], 'minYear' => $options['annees']['minYear'] ) );?>

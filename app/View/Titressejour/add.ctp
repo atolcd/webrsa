@@ -1,5 +1,5 @@
 <div class="titressejour form">
-<?php echo $this->Form->create('Titresejour');?>
+<?php echo $this->Form->create('Titresejour', array('novalidate' => true));?>
 	<fieldset>
  		<legend><?php echo __('Add Titresejour');?></legend>
 	<?php

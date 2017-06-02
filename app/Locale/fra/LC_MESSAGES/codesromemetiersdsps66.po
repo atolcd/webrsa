@@ -1,0 +1,50 @@
+# Traductions de codesromemetiersdsps66.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Codesromemetiersdsps66/index/:heading"
+msgstr "Paramétrage des codes ROME pour les métiers"
+
+msgid "/Codesromemetiersdsps66/add/:heading"
+msgstr "Ajout d'un code ROME pour les métiers"
+
+msgid "/Codesromemetiersdsps66/edit/:heading"
+msgstr "Modification du code ROME pour les métiers « #Coderomemetierdsp66.code# #Coderomemetierdsp66.name# »"
+
+msgid "/Codesromemetiersdsps66/add"
+msgstr "Ajouter"
+
+msgid "/Codesromemetiersdsps66/add/:title"
+msgstr "Ajouter un code ROME pour les métiers"
+
+msgid "Coderomesecteurdsp66.intitule"
+msgstr "Intutilé du secteur rattaché"
+
+msgid "/Codesromemetiersdsps66/edit"
+msgstr "Modifier"
+
+msgid "/Codesromemetiersdsps66/edit/#Coderomemetierdsp66.id#"
+msgstr "Modifier le code ROME pour les métiers « #Coderomemetierdsp66.code# #Coderomemetierdsp66.name# »"
+
+msgid "/Codesromemetiersdsps66/delete"
+msgstr "Supprimer"
+
+msgid "/Codesromemetiersdsps66/delete/#Coderomemetierdsp66.id#"
+msgstr "Supprimer le code ROME pour les métiers « #Coderomemetierdsp66.code# #Coderomemetierdsp66.name# »"
+
+msgid "/Codesromemetiersdsps66/delete/#Coderomemetierdsp66.id# ?"
+msgstr "Réellement supprimer le code ROME pour les métiers « #Coderomemetierdsp66.code# #Coderomemetierdsp66.name# » ?"
+
+msgid "/Parametrages/dsps"
+msgstr "Retour"
+
+msgid "/Parametrages/dsps/:title"
+msgstr "Retour aux paramétrages des DSP"

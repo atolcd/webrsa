@@ -1,0 +1,47 @@
+# Traductions de statutspdos.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Statutspdos/index/:heading"
+msgstr "Paramétrage des statuts PDO"
+
+msgid "/Statutspdos/add/:heading"
+msgstr "Ajout d'un statut PDO"
+
+msgid "/Statutspdos/edit/:heading"
+msgstr "Modification du statut PDO « #Statutpdo.libelle# »"
+
+msgid "/Statutspdos/add"
+msgstr "Ajouter"
+
+msgid "/Statutspdos/add/:title"
+msgstr "Ajouter un statut PDO"
+
+msgid "/Statutspdos/edit"
+msgstr "Modifier"
+
+msgid "/Statutspdos/edit/#Statutpdo.id#"
+msgstr "Modifier le statut PDO « #Statutpdo.libelle# »"
+
+msgid "/Statutspdos/delete"
+msgstr "Supprimer"
+
+msgid "/Statutspdos/delete/#Statutpdo.id#"
+msgstr "Supprimer le statut PDO « #Statutpdo.libelle# »"
+
+msgid "/Statutspdos/delete/#Statutpdo.id# ?"
+msgstr "Réellement supprimer le statut PDO « #Statutpdo.libelle# » ?"
+
+msgid "/Parametrages/pdos"
+msgstr "Retour"
+
+msgid "/Parametrages/pdos/:title"
+msgstr "Retour aux paramétrages des PDO"

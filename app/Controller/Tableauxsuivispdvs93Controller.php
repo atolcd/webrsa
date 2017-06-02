@@ -7,7 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses('AppController', 'Controller');
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe Tableauxsuivispdvs93Controller ...
@@ -69,26 +69,26 @@
 			'Cohortetransfertpdv93',
 			'WebrsaTableausuivipdv93',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -109,7 +109,7 @@
 			'tableaud2' => 'read',
 			'view' => 'read',
 		);
-		
+
 		/**
 		 *
 		 * @param array $search
@@ -770,12 +770,12 @@
 
 			if( $success ) {
 				$this->Tableausuivipdv93->commit();
-				$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+				$this->Flash->success( __( 'Save->success' ) );
 				$this->setAction( 'view', $this->Tableausuivipdv93->id );
 			}
 			else {
 				$this->Tableausuivipdv93->rollback();
-				$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+				$this->Flash->error( __( 'Save->error' ) );
 				$this->redirect( $this->request->referer() );
 			}
 		}
@@ -786,7 +786,6 @@
 		 * @param string $action
 		 */
 		public function index( $action = null ) {
-			//$search = $this->_applyStructurereferente( $this->request->data );
 			$search = $this->request->data;
 			$this->_setOptions();
 			$this->_prepareFormData( $search );
@@ -974,11 +973,11 @@
 
 			if( $this->Tableausuivipdv93->delete( $id ) ) {
 				$this->Tableausuivipdv93->commit();
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
 				$this->Tableausuivipdv93->rollback();
-				$this->Session->setFlash( 'Erreur lors de la suppression', 'flash/error' );
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 
 			$this->redirect( $this->request->referer() );

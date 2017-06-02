@@ -1,5 +1,5 @@
 <?php
-	require_once( dirname( __FILE__ ).DS.'search.ctp' );
+	require_once  dirname( __FILE__ ).DS.'search.ctp' ;
 
 	if( isset( $results ) ) {
 		$thead = $this->Xhtml->tag(
@@ -35,6 +35,6 @@
 
 		echo $this->Xhtml->tag( 'table', $thead.$tfoot.$tbody ,array( 'class' => 'wide' ) );
 
-		require_once( dirname( __FILE__ ).DS.'footer.ctp' );
+		include_once  dirname( __FILE__ ).DS.'footer.ctp' ;
 	}
 ?>

@@ -441,7 +441,7 @@ div#suiviInsertion tbody tr.even th {
     background: #fffee5;
 }
 
-#flashMessage.error, #authMessage.message /* FIXME */ {
+#flashMessage.error, #authMessage.message {
     background: #ffe5e5;
     color: #cc0000;
 }
@@ -483,6 +483,51 @@ p.success {
 
 .notice a {
     color: blue;
+}
+
+/*****************************************************************************/
+
+div#flashMessage {
+    margin: 1em 0;
+    padding: 0.5em 0.5em 0.5em 2em;
+	line-height: 1.4em;
+}
+
+div#flashMessage.success {
+	background: #ecffe8 url( ../img/icons/accept.png ) no-repeat 0.5em center;
+    color: #158000;
+    border: 1px solid #158000;
+}
+
+div#flashMessage.error {
+	background: #ffe5e5 url( ../img/icons/exclamation.png ) no-repeat 0.5em center;
+    color: #b20000;
+    border: 1px solid #b20000;
+}
+
+div#flashMessage.notice {
+	background: #e1ebf7 url( ../img/icons/information.png ) no-repeat 0.5em center;
+    color: #1d2f54;
+    border: 1px solid #1d2f54;
+}
+
+div#flashMessage.warning {
+	background: #e1ebf7 url( ../img/icons/error.png ) no-repeat 0.5em center;
+    color: #1d2f54;
+    border: 1px solid #1d2f54;
+}
+
+
+div#authMessage {
+    margin: 1em 0;
+    padding: 0.5em;
+	line-height: 1.4em;
+}
+
+div#authMessage.error {
+	background: #ffe5e5;
+    color: #b20000;
+    border: 1px solid #b20000;
 }
 
 /*****************************************************************************/
@@ -1308,11 +1353,11 @@ td.button.printModeleCourrier.disabled a, td.action a.printModeleCourrier.disabl
     background-image: url( ../img/icons/printer_disabled.png );
 }
 
-td.button.email a, td.action a.email, td span.button.email, table.default2 td a.button.email {
+td.button.email a, td.action a.email, td a.button.email, td span.button.email, table.default2 td a.button.email, ul.actionMenu li a.button.email {
     background-image: url( ../img/icons/email.png );
 }
 
-td.button.email.disabled a, td.action a.email.disabled, td span.button.email.disabled, table.default2 td a.button.email.disabled {
+td.button.email.disabled a, td.action a.email.disabled, td span.button.email.disabled, td span.link.email.disabled, td a.button.email.disabled, table.default2 td a.button.email.disabled, ul.actionMenu li a.button.email.disabled {
     background-image: url( ../img/icons/email_disabled.png );
 }
 
@@ -1436,7 +1481,7 @@ td.button.transmitop a, td.action a.transmitop, td span.button.transmitop, table
     background-image: url( ../img/icons/application_view_list.png );
 }
 
-td.button.transmitop.disabled a, td.action a.transmitop.disabled, td span.button.transmitop.disabled, table.default2 td a.button.transmitop.disabled {
+td.button.transmitop.disabled a, td.action span.transmitop.disabled, td.action a.transmitop.disabled, td span.button.transmitop.disabled, table.default2 td a.button.transmitop.disabled {
     background-image: url( ../img/icons/application_view_list_disabled.png );
 }
 
@@ -1590,6 +1635,10 @@ table.checks tr th {
 
 table.checks tr.success th {
 	background-image: url( ../img/icons/tick.png );
+}
+
+table.checks tr.success th div.no-th-background th {
+	background-image: none;
 }
 
 table.checks tr.error th {
@@ -1951,14 +2000,12 @@ body.cers93.view #FormationEtExpérience h3 {
 	font-size: 1em;
 }
 
-/* Demandes de maintien dans le social (nouveau), CG 58 */
+/* Demandes de maintien dans le social, CG 58 */
 body.nonorientationsproscovs58 ul.actions li.action a.cohorte {
 	background-image: url("../img/icons/application_form_magnify.png");
 }
 
-body.nonorientationsproscovs58 table td.hidden,
-body.nonorientationsproscovs58 table #TableNonorientationsproscovs58Cohorte1ColumnInputDataCohorteOrientstructPersonneId,
-body.nonorientationsproscovs58 table #TableNonorientationsproscovs58Cohorte1ColumnInputDataCohorteDossierId {
+body.nonorientationsproscovs58 table td.hidden {
 	display: none;
 }
 
@@ -2105,11 +2152,11 @@ table.results_table.full_size.horizontal_view th {
 	width: 33%;
 }
 
-.custom.color.PDA {
+.custom.color.pda, .custom.color.p_d_a {
 	color: #158000;
 }
 
-.custom.color.PDU {
+.custom.color.pdu, .custom.color.p_d_u {
 	color: #0545df;
 }
 
@@ -2341,7 +2388,7 @@ div#pageContent div.treemenu a.accompagnementsbeneficiaires.index.selected {
 /*******************************************************************************
  * Redimentionnement automatique des textarea
  ******************************************************************************/
-div.autoExpandTextareaContainer > textarea, 
+div.autoExpandTextareaContainer > textarea,
 div.autoExpandTextareaContainer > pre {
 	margin: 0;
 	padding: 0;
@@ -2390,4 +2437,41 @@ div.autoExpandTextareaContainer > pre {
 div.autoExpandTextareaContainer.active > pre {
 	display: block;
 	visibility: hidden;
+}
+
+p.error>ul>li {
+	list-style: decimal;
+	padding-bottom: 10px;
+}
+
+p.error>ul>li>ul {
+	margin-top: 0;
+}
+
+.configuration-parser-container div.configuration-parser-btn {
+	background-image: url("../img/icons/information.png");
+}
+
+/* Paramétrages */
+
+#liste_parametrages ul, #liste_parametrages li {
+	padding: 0;
+	margin: 0;
+}
+
+#liste_parametrages li {
+	margin-left: 1.8em;
+}
+
+#liste_parametrages li.branch {
+	margin-top: 0.25em;
+	margin-bottom: 0.25em;
+}
+/* Enregistrement erronés dans la vérification de l'application */
+body.checks div#data th, body.checks div#data td {
+	border: 1px solid #235f7d;
+}
+
+body.checks div#data tr.even td {
+    background-color: #e6eef2;
 }

@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 	App::uses( 'DefaultUtility', 'Default.Utility' );
 
 	/**
@@ -18,78 +19,66 @@
 	{
 		public $name = 'Rendezvous';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'libelle';
 
 		public $actsAs = array(
 			'Allocatairelie',
-			'Formattable' => array(
-				'suffix' => array( 'referent_id', 'permanence_id' )
-			),
-			'Enumerable' => array(
-				'fields' => array(
-					'haspiecejointe',
-					'isadomicile'
-				)
-			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate',
 			'Gedooo.Gedooo'
 		);
 
 		public $validate = array(
 			'structurereferente_id' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
 				'checkThematiqueAnnuelleParStructurereferente' => array(
-					'rule' => 'checkThematiqueAnnuelleParStructurereferente',
+					'rule' => array( 'checkThematiqueAnnuelleParStructurereferente' )
 				)
 			),
 			'typerdv_id' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				),
 				'checkThematiquesObligatoires' => array(
-					'rule' => 'checkThematiquesObligatoires',
+					'rule' => array( 'checkThematiquesObligatoires' ),
 					'message' => 'Veuillez choisir au moins une thématique de rendez-vous'
 				),
 				'checkThematiqueAnnuelleParQuestionnaireD1' => array(
-					'rule' => 'checkThematiqueAnnuelleParQuestionnaireD1',
+					'rule' => array( 'checkThematiqueAnnuelleParQuestionnaireD1' ),
 					'message' => 'Ce RDV est déjà lié à un D1. Vous ne pouvez pas décocher "Premier RDV de l\'année", sauf en supprimant le D1'
 				),
 				'checkNotPassageCovOrientationSocial' => array(
-					'rule' => 'checkNotPassageCovOrientationSocial',
+					'rule' => array( 'checkNotPassageCovOrientationSocial' ),
 					'message' => 'Ce dossier est actuellement en cours de passage dans une COV pour orientation sociale.'
 				)
 			),
 			'daterdv' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
-				),
-				'date' => array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.'
-				),
+				)
 			),
 			'heurerdv' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
-				),
-			),
-			'rang' => array(
-				'integer' => array(
-					'rule' => 'integer',
-					'message' => 'Veuillez entrer un nombre entier',
 				),
 			),
 			'statutrdv_id' => array(
 				'checkThematiqueAnnuelleParStatutRdvId' => array(
-					'rule' => 'checkThematiqueAnnuelleParStatutRdvId',
+					'rule' => array( 'checkThematiqueAnnuelleParStatutRdvId' ),
 					'message' => 'Si le RDV n\'a pas eu lieu (statut: excusé ou non honoré), il faut supprimer le D1'
 				)
-			),
+			)
 		);
 
 		public $virtualFields = array(
@@ -489,7 +478,7 @@
 				'with' => 'RendezvousThematiquerdv'
 			),
 		);
-		
+
 		/**
 		 * Les modèles qui seront utilisés par ce modèle.
 		 *
@@ -512,6 +501,15 @@
 			if( !( unittesting() && $this->useDbConfig === 'default' ) && Configure::read( 'Rendezvous.useThematique' ) ) {
 				$this->virtualFields['thematiques'] = $this->WebrsaRendezvous->vfListeThematiques( null );
 				$this->virtualFields['thematiques_virgules'] = $this->WebrsaRendezvous->vfListeThematiques( null, ', ' );
+			}
+
+			if( 58 !== (int)Configure::read( 'Cg.departement' ) ){
+				$rule = array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire',
+				);
+
+				$this->validate['statutrdv_id'][NOT_BLANK_RULE_NAME] = $rule;
 			}
 		}
 
@@ -594,15 +592,6 @@
 		public function beforeValidate( $options = array() ) {
 			$return = parent::beforeValidate( $options );
 
-			if( Configure::read( 'Cg.departement' ) != 58 ){
-				$rule = array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire',
-				);
-
-				$this->validate['statutrdv_id']['notEmpty'] = $rule;
-			}
-
 			// -----------------------------------------------------------------
 			// FIXME: ailleurs + la même année
 			// TODO: configuration si on utilise la fonctionnalité ?
@@ -679,7 +668,7 @@
 					ORDER BY {$table}.daterdv DESC
 					LIMIT 1";
 		}
-		
+
 		/**
 		 *
 		 * TODO: si on utilise les thematiquesrdv seulement
@@ -687,7 +676,7 @@
 		 * @param array $results
 		 * @param string $thematiqueAlias -> un array plus complet
 		 * @return array
-		 * 
+		 *
 		 * @deprecated since version 3.1	Utilisé dans une classe dépréciée
 		 */
 		public function containThematique( array $results, $thematiqueAlias = 'Thematiquerdv' ) {
@@ -731,12 +720,12 @@
 
 			return $results;
 		}
-		
+
 		/**
-		 * Permet de vérifier que le dossier n'est pas actuellement en cours de 
+		 * Permet de vérifier que le dossier n'est pas actuellement en cours de
 		 * passage COV pour orientation sociale
-		 * 
-		 * 
+		 *
+		 *
 		 * @param array $check
 		 * @param array $rule
 		 * @return boolean
@@ -745,8 +734,8 @@
 		 */
 		public function checkNotPassageCovOrientationSocial($check, $rule) {
 			$valide = true;
-			
-			if ((int)Configure::read('Cg.departement') === 58 
+
+			if ((int)Configure::read('Cg.departement') === 58
 				&& $check['typerdv_id'] == Configure::read('Rendezvous.elaborationCER.typerdv_id')
 				&& !Hash::get($this->data, 'Rendezvous.id') // N'est pas un ajout si rempli
 				&& Hash::get($this->data, 'Rendezvous.personne_id')
@@ -785,7 +774,7 @@
 					)
 				);
 			}
-			
+
 			return $valide;
 		}
 	}

@@ -3,8 +3,9 @@
 	 * Code source de la classe Valprogfichecandidature66.
 	 *
 	 * @package app.Model
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Model.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Valprogfichecandidature66 ...
@@ -21,24 +22,36 @@
 		public $name = 'Valprogfichecandidature66';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Formattable',
-			'Gedooo.Gedooo',
 			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes',
 		);
-		
+
+		/**
+		 * Règles de validation.
+		 *
+		 * @var array
+		 */
+		public $validate = array(
+			'name' => array(
+				'checkUnique' => array(
+					'rule' => array( 'checkUnique', array( 'progfichecandidature66_id', 'name' ) ),
+					'message' => 'Valeur déjà utilisée'
+				)
+			),
+			'progfichecandidature66_id' => array(
+				'checkUnique' => array(
+					'rule' => array( 'checkUnique', array( 'progfichecandidature66_id', 'name' ) ),
+					'message' => 'Valeur déjà utilisée'
+				)
+			)
+		);
 
 		/**
 		 * Associations "Belongs to".
@@ -56,7 +69,7 @@
 				'counterCache' => null
 			),
 		);
-		
+
 		public function dependantSelectOptions() {
 			$results = $this->find('all',
 				array(
@@ -73,27 +86,27 @@
 					)
 				)
 			);
-			
+
 			$return = array();
 			foreach ($results as $result) {
 				$return[$result['Valprogfichecandidature66']['dependentSelectValues']] = $result['Valprogfichecandidature66']['name'];
 			}
-			
+
 			return $return;
 		}
-		
+
 		/**
 		 * Il faut supprimer le cache en cas de modification
 		 * @param boolean $created
 		 */
-		public function afterSave($created) {
-			parent::afterSave($created);
-			
+		public function afterSave( $created, $options = array() ) {
+			parent::afterSave( $created, $options );
+
 			$possibleCacheKeys = array(
 				"ActionscandidatsPersonnes_add_options",
 				"ActionscandidatsPersonnes_edit_options",
 			);
-			
+
 			foreach ($possibleCacheKeys as $cacheKey) {
 				Cache::delete( $cacheKey );
 			}

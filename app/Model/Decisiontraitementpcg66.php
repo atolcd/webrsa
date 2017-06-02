@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Decisiontraitementpcg66 ...
@@ -17,17 +18,10 @@
 	{
 		public $name = 'Decisiontraitementpcg66';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable',
-			'Enumerable' => array(
-				'fields' => array(
-					'valide'
-				)
-			)
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		public $belongsTo = array(

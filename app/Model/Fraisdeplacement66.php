@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Fraisdeplacement66.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Fraisdeplacement66 ...
@@ -17,39 +18,23 @@
 	{
 		public $name = 'Fraisdeplacement66';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
-			'Autovalidate2',
-			'Formattable',
-			'Frenchfloat' => array(
-				'fields' => array(
-					'nbkmvoiture',
-					'nbtrajetvoiture',
-					'nbtrajettranspub',
-					'prixbillettranspub',
-					'nbtotalkm',
-					'forfaitvehicule',
-					'nbnuithebergt',
-					'nbrepas',
-					'totalvehicule',
-					'totalhebergt',
-					'totaltranspub',
-					'totalrepas'
-				)
-			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
-			'aideapre66_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-				),
-				array(
-					'rule' => 'notEmpty'
-				)
-			),
 			'destination' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			)

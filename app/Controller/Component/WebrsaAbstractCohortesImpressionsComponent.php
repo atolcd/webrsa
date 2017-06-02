@@ -8,7 +8,7 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'WebrsaAbstractRecherchesComponent', 'Controller/Component' );
-	require_once( APPLIBS.'cmis.php' );
+	require_once  APPLIBS.'cmis.php' ;
 
 	/**
 	 * La classe WebrsaAbstractCohortesImpressionsComponent ...
@@ -22,7 +22,7 @@
 		 *
 		 * @var array
 		 */
-		public $components = array( 'Allocataires', 'Gedooo.Gedooo' );
+		public $components = array( 'Allocataires', 'Flash', 'Gedooo.Gedooo' );
 
 		/**
 		 * Retourne un array avec clés de paramètres complétées en fonction du
@@ -68,7 +68,7 @@
 				die();
 			}
 			else {
-				$Controller->Session->setFlash( 'Erreur lors de l\'impression en cohorte.', 'flash/error' );
+				$this->Flash->error( 'Erreur lors de l\'impression en cohorte.' );
 				$Controller->redirect( $Controller->referer() );
 			}
 		}
@@ -99,7 +99,7 @@
 
 			if( !is_array( $results ) ) {
 				$msgstr = "Erreur lors de l'impression en cohorte: %d documents n'ont pas pu être imprimés. Abandon de l'impression de la cohorte. Demandez à votre administrateur d'exécuter la commande bash suivante: sudo -u www-data lib/Cake/Console/cake generationpdfs orientsstructs -username <username> (où <username> est l'identifiant de l'utilisateur qui sera utilisé pour la récupération d'informations lors de l'impression)";
-				$Controller->Session->setFlash( sprintf( $msgstr, $results ), 'flash/error' );
+				$this->Flash->error( sprintf( $msgstr, $results ) );
 				$Controller->redirect( $Controller->referer() );
 			}
 

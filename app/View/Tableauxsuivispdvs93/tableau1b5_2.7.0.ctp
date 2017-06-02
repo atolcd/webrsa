@@ -1,5 +1,5 @@
 <?php
-	require_once( dirname( __FILE__ ).DS.'search.ctp' );
+	require_once  dirname( __FILE__ ).DS.'search.ctp' ;
 
 	if( isset( $results ) ) {
 		$totaux = $results['totaux'];
@@ -118,6 +118,6 @@
 		);
 		echo $this->Xhtml->tag( 'table', $this->Xhtml->tag( 'caption', 'Motifs pour lesquels la prescription n\'est pas effective' ).$this->Xhtml->tag( 'tbody', $rows ) );
 
-		require_once( dirname( __FILE__ ).DS.'footer.ctp' );
+		include_once  dirname( __FILE__ ).DS.'footer.ctp' ;
 	}
 ?>

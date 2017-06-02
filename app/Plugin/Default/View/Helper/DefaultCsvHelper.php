@@ -8,6 +8,7 @@
 	 * @subpackage View.Helper
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppHelper', 'View/Helper' );
 
 	/**
 	 * La classe DefaultCsvHelper ...
@@ -40,6 +41,7 @@
 
 			foreach( $fields as $path => $attributes ) {
 				$domain = ( isset( $attributes['domain'] ) ? $attributes['domain'] : $params['domain'] );
+				$domain = '' === (string)$domain ? 'default' : $domain;
 				$row[] = __d( $domain, $path );
 			}
 

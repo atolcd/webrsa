@@ -21,7 +21,7 @@
 		 *
 		 * @var type
 		 */
-		public $uses = array( 'Orientstruct', 'Cohorte', 'Typeorient' );
+		public $uses = array( 'Orientstruct', 'WebrsaOrientstruct', 'Typeorient' );
 
 		/**
 		 *
@@ -175,7 +175,7 @@
 			$this->XProgressBar->start( count( $personnes ) );
 			foreach( $personnes as $personne ) {
 				$this->XProgressBar->next();
-				$preOrientationTexte = $this->Cohorte->preOrientation( $personne );
+				$preOrientationTexte = $this->WebrsaOrientstruct->preOrientation( $personne );
 				$preOrientation = Set::enum( $preOrientationTexte, $typesOrient );
 				$countTypesOrient[$preOrientation]++;
 

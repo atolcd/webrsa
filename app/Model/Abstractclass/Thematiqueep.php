@@ -7,7 +7,8 @@
 	 * @package app.Model.Abstractclass
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( APPLIBS.'cmis.php' );
+	App::uses( 'AppModel', 'Model' );
+	require_once  APPLIBS.'cmis.php' ;
 
 	/**
 	 * Classe abstraite contenant les signatures de méthodes qui doivent être
@@ -18,11 +19,6 @@
 	 */
 	abstract class Thematiqueep extends AppModel
 	{
-		/**
-		*
-		*/
-		public $recursive = -1;
-
 		/**
 		*
 		*/
@@ -147,12 +143,8 @@
 				);
 
 				// Options
-				$datas['options'] = array();
-				if( $this->Behaviors->attached( 'Enumerable' ) ) {
-					$datas['options'] = $this->enums();
-				}
 				$datas['options'] = Hash::merge(
-					$datas['options'],
+					$this->enums(),
 					array(
 						'Personne' => array(
 							'qual' => ClassRegistry::init( 'Option' )->qual()
@@ -312,7 +304,7 @@
 			$oldRecord['Pdf']['document'] = $pdf;
 
 			$pdfModel->create( $oldRecord );
-			$success = $pdfModel->save();
+			$success = $pdfModel->save( null, array( 'atomic' => false ) );
 
 			if( !$success ) {
 				return false;

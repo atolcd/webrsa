@@ -147,7 +147,7 @@
 						) )
 						: array()
 				);
-				
+
 				// Ajout des cantons
 				$Adresse =& $this->Personne->Foyer->Adressefoyer->Adresse;
 				if (Configure::read( 'CG.cantons' )) {
@@ -294,9 +294,6 @@
 					),
 					'Referentparcours' => array(
 						'qual' => $Option->qual(),
-					),
-					'Structurereferenteparcours' => array(
-						'type_voie' => $Option->typevoie(),
 					),
 					'Situationdossierrsa' => array(
 						'etatdosrsa' => $this->Personne->Foyer->Dossier->Situationdossierrsa->enum( 'etatdosrsa' ),

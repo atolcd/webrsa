@@ -3,7 +3,7 @@
 	 * Code source de la classe BakeSuperFixtureShell.
 	 *
 	 * @package app.Console.Command
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Shell.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 
 	App::uses( 'XShell', 'Console/Command' );

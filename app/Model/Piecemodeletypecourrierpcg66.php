@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Piecemodeletypecourrierpcg66.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Piecemodeletypecourrierpcg66 ...
@@ -17,52 +18,46 @@
 	{
 		public $name = 'Piecemodeletypecourrierpcg66';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $order = 'Piecemodeletypecourrierpcg66.name ASC';
-		
+
 		public $actsAs = array(
-			'Enumerable' => array(
-				'fields' => array(
-					'isautrepiece',
-					'ismontant',
-					'isdates'
-				)
-			),
-                    'Postgres.PostgresAutovalidate',
-                    'Validation2.Validation2Formattable',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
 			'name' => array(
-				array(
+				'checkUnique' => array(
 					'rule' => array(
 						'checkUnique',
 						array( 'name', 'modeletypecourrierpcg66_id' )
 					),
 					'message' => 'Cet intitulé de pièce est déjà utilisé avec ce modèle de courrier.'
-				),
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
 				)
 			),
 			'modeletypecourrierpcg66_id' => array(
-				array(
+				'checkUnique' => array(
 					'rule' => array(
 						'checkUnique',
 						array( 'name', 'modeletypecourrierpcg66_id' )
 					),
 					'message' => 'Ce modèle de courrier est déjà utilisé avec cet intitulé de pièce.'
-				),
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
 				)
 			),
 			'isautrepiece' => array(
-				array(
+				'usedValue' => array(
 					'rule' => array( 'usedValue' ),
 					'message' => 'Valeur déjà utilisée pour ce modèle de courrier.'
-				),
+				)
 			)
 		);
 
@@ -94,7 +89,7 @@
 				'with' => 'Mtpcg66Pmtcpcg66'
 			)
 		);
-		
+
 		/**
 		 *
 		 */
@@ -108,7 +103,7 @@
 					'recursive' => -1,
 					'contain' => false
 				);
-				
+
 				if( isset( $this->data[$this->alias][$this->primaryKey] ) && !empty( $this->data[$this->alias][$this->primaryKey] ) ) {
 					$querydata["{$this->alias}.{$this->primaryKey} <>"] = $this->data[$this->alias][$this->primaryKey];
 				}
@@ -118,7 +113,7 @@
 
 			return true;
 		}
-		
+
 		/**
 		 * Retourne une sous-requête permettant d'obtenir la liste des pièces liées
 		 * au modèle de courrier des traitements PCGs 66.

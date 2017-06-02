@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe IndusController ...
@@ -53,7 +54,6 @@
 		 */
 		public $uses = array(
 			'Infofinanciere',
-			'Cohorteindu',
 			'Dossier',
 			'Foyer',
 			'Indu',
@@ -68,8 +68,6 @@
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'exportcsv' => 'Cohortesindus:exportcsv',
-			'search' => 'Cohortesindus:index',
 			'view' => 'Indus:index',
 		);
 

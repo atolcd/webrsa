@@ -80,7 +80,7 @@
 		 *
 		 * @var array
 		 */
-		public $fixtures = array();
+		public $fixtures = array( 'app.User' );
 
 		/**
 		 * Controller property

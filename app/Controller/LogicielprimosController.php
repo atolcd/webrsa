@@ -5,15 +5,16 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses('AbstractParametragesController', 'Controller');
-	App::import( 'Behaviors', 'Occurences' );
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
 
 	/**
-	 * La classe LogicielprimosController ...
+	 * La classe LogicielprimosController s'occupe du paramétrage des
+	 * logiciels utilisés pour la primo analyse des fiches de liaison.
+	 * de fiches de liaison.
 	 *
 	 * @package app.Controller
 	 */
-	class LogicielprimosController extends AbstractParametragesController
+	class LogicielprimosController extends AbstractWebrsaParametragesController
 	{
 		/**
 		 * Nom du contrôleur.
@@ -27,17 +28,20 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array(
-			'Logicielprimo'
-		);
-		
+		public $uses = array( 'Logicielprimo' );
+
 		/**
-		 * Méthodes ne nécessitant aucun droit.
-		 * 
-		 * @var array
+		 * Surcharge du formulaire de modification d'un logiciel de primo analyse
+		 * pour que l'enregistrement soit actif par défaut lors d'un ajout.
+		 *
+		 * @param integer $id
 		 */
-		public $aucunDroit = array(
-			
-		);
+		public function edit( $id = null ) {
+			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit' ) );
+
+			if( empty( $this->request->data ) ) {
+				$this->request->data[$this->modelClass]['actif'] = true;
+			}
+		}
 	}
 ?>

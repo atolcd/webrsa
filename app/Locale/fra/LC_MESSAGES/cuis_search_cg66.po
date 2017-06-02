@@ -1,0 +1,171 @@
+# Traductions de cg66_cuis_search.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Cuis/search/:heading"
+msgstr "Recherche par Contrat Unique d'Insertion"
+
+msgid "/Cuis/search"
+msgstr "Formulaire"
+
+msgid "/Cuis/search/:title"
+msgstr "Formulaire"
+
+###############################################################################
+# Resultat recherche
+###############################################################################
+
+msgid "Dossier.matricule"
+msgstr "N° CAF/MSA"
+
+msgid "Personne.nom_complet"
+msgstr "Nom complet"
+
+msgid "Personne.nom"
+msgstr "Nom"
+
+msgid "Personne.prenom"
+msgstr "Prenom"
+
+msgid "Personne.dtnai"
+msgstr "Date de naissance"
+
+msgid "Adresse.nomcom"
+msgstr "Commune"
+
+msgid "Canton.canton"
+msgstr "Canton"
+
+msgid "Cui66.etatdossiercui66"
+msgstr "Position du CUI"
+
+msgid "Historiquepositioncui66.created"
+msgstr "Date du dernier changement de position"
+
+msgid "Cui.effetpriseencharge"
+msgstr "Date d’effet de la prise en charge"
+
+msgid "Cui.finpriseencharge"
+msgstr "Date de fin de la prise en charge"
+
+msgid "Decisioncui66.decision"
+msgstr "Décision sur le CUI"
+
+msgid "Decisioncui66.datedecision"
+msgstr "Date de la décision"
+
+msgid "Partenairecui.raisonsociale"
+msgstr "Entreprise"
+
+msgid "Situationdossierrsa.etatdosrsa"
+msgstr "Situation dossier RSA"
+
+msgid "Calculdroitrsa.toppersdrodevorsa"
+msgstr "Soumis à droit et devoir"
+
+msgid "Foyer.sitfam"
+msgstr "Situation familiale"
+
+msgid "Foyer.nbenfants"
+msgstr "Nombre d'enfants"
+
+msgid "Personne.numfixe"
+msgstr "Telephone fixe"
+
+msgid "Personne.numport"
+msgstr "Telephone portable"
+
+msgid "Referentparcours.nom_complet"
+msgstr "Nom du referent"
+
+msgid "Emailcui.textmailcui66_id"
+msgstr "Modèle du dernier e-mail"
+
+msgid "Emailcui.dateenvoi"
+msgstr "Date d'envoi du dernier e-mail"
+
+msgid "/Cuis/view"
+msgstr "Voir"
+
+msgid "/Cuis66/edit"
+msgstr "Modifier"
+
+msgid "/Cuis/edit"
+msgstr "Modifier"
+
+###############################################################################
+# Formulaire
+###############################################################################
+
+msgid "Cui66.email"
+msgstr "Rechercher par Email"
+
+msgid "Cui66.decision"
+msgstr "Rechercher par Decision"
+
+msgid "Search.Cui66.dateeligibilite"
+msgstr "Date d'éligibilité du dossier"
+
+msgid "Search.Cui66.datereception"
+msgstr "Date de réception du dossier"
+
+msgid "Search.Cui66.datecomplet"
+msgstr "Date du dossier complet"
+
+msgid "Search.Cui.dateembauche"
+msgstr "Date d'embauche prévu"
+
+msgid "Search.Cui.findecontrat"
+msgstr "Date prévue de fin de contrat (si CDD)"
+
+msgid "Search.Cui.effetpriseencharge"
+msgstr "Date d’effet de la prise en charge"
+
+msgid "Search.Cui.finpriseencharge"
+msgstr "Date de fin de la prise en charge"
+
+msgid "Search.Cui.decisionpriseencharge"
+msgstr "Date d’effet de la décision modificatrice"
+
+msgid "Search.Cui.faitle"
+msgstr "Demande faite le"
+
+msgid "Search.Emailcui.insertiondate"
+msgstr "Insertion date"
+
+msgid "Search.Emailcui.created"
+msgstr "Date de création de l'e-mail"
+
+msgid "Search.Emailcui.dateenvoi"
+msgstr "Date d'envoi"
+
+msgid "Search.Decisioncui66.datedecision"
+msgstr "Date de la décision"
+
+msgid "Search.Historiquepositioncui66.created"
+msgstr "Date du changement de position"
+
+###############################################################################
+# Actions
+###############################################################################
+
+msgid "/Cuis/index"
+msgstr "Voir"
+
+msgid "/Cuis/index/#Cui.personne_id#"
+msgstr "Voir les CUIs de #Personne.nom_complet#"
+
+###############################################################################
+# Autre
+###############################################################################
+
+msgid "Cui66.positions"
+msgstr "Position du CUI"

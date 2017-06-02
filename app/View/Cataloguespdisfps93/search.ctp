@@ -79,18 +79,17 @@
 			),
 			array(
 				'options' => $options,
-				'format' => __( SearchProgressivePagination::format( !Hash::get( $this->request->data, 'Search.Pagination.nombre_total' ) ) )
+				'format' => $this->element( 'pagination_format' )
 			)
 		);
 	}
 
 	echo $this->Default3->actions(
 		array(
-			"/Parametrages/fichesprescriptions93" => array(
+			"/Parametrages/index/#fichesprescriptions93" => array(
 				'class' => 'back',
-				'disabled' => !$this->Permissions->check( 'parametrages', 'fichesprescriptions93' ),
 				'domain' => 'cataloguespdisfps93'
-			),
+			)
 		)
 	);
 ?>

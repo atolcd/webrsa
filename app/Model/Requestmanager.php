@@ -3,8 +3,9 @@
 	 * Code source de la classe Requestmanager.
 	 *
 	 * @package app.Model
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Model.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Requestmanager ...
@@ -21,19 +22,16 @@
 		public $name = 'Requestmanager';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
 		 */
-		public $actsAs = array();
-		
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
+		);
+
 		/**
 		 * Possède des clefs étrangères vers d'autres models
 		 * @var array
@@ -44,10 +42,10 @@
 				'foreignKey' => 'requestgroup_id',
 			)
 		);
-		
+
 		/**
 		 * Vérifie la présence d'un Modele dans un enregistrement de Requestmanager
-		 * 
+		 *
 		 * @param array $result Résultat d'une query
 		 * @param string $modelName Nom du modele recherché
 		 * @return boolean Présent ou pas
@@ -56,18 +54,18 @@
 			if ( Hash::get($result, 'Requestmanager.model') === $modelName ) {
 				return true;
 			}
-			
+
 			$json = json_decode(Hash::get($result, 'Requestmanager.json'), true);
 			if ( !Hash::get((array)$json, 'joins') ) {
 				return false;
 			}
-			
+
 			foreach( (array)Hash::get($json, 'joins') as $jointure ) {
 				if ( Hash::get($jointure, 'alias') === $modelName ) {
 					return true;
 				}
 			}
-			
+
 			return false;
 		}
 	}

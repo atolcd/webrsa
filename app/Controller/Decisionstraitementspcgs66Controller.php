@@ -7,6 +7,7 @@
 	* @package app.Controller
 	* @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	*/
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	* La classe Decisionstraitementspcgs66Controller ...
@@ -53,27 +54,26 @@
 			'Option',
 			'Pdf',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Decisionstraitementspcgs66:edit',
-			'view' => 'Decisionstraitementspcgs66:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -175,17 +175,6 @@
 				$this->set( compact( 'traitementpcg66' ) );
 				$personne_id = Set::classicExtract( $traitementpcg66_id, 'Personnepcg66.personne_id' );
 			}
-			/*else if( $this->action == 'edit' ) {
-				$decisionpersonnepcg66_id = $id;
-				$decisionpersonnepcg66 = $this->Decisiontraitementpcg66->findById( $decisionpersonnepcg66_id, null, null, 1 );
-				$this->assert( !empty( $decisionpersonnepcg66 ), 'invalidParameter' );
-
-				$personnepcg66_id = Set::classicExtract( $decisionpersonnepcg66, 'Personnepcg66Situationpdo.personnepcg66_id' );
-				$personnepcg66 = $this->Decisiontraitementpcg66->Personnepcg66Situationpdo->Personnepcg66->findById( $personnepcg66_id, null, null, -1 );
-				$personne_id = Set::classicExtract( $personnepcg66, 'Personnepcg66.personne_id' );
-				$dossierpcg66_id = Set::classicExtract( $personnepcg66, 'Personnepcg66.dossierpcg66_id' );
-				$dossier_id = $this->Decisiontraitementpcg66->Personnepcg66Situationpdo->Personnepcg66->Personne->dossierId( $personne_id );;
-			}*/
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $traitementpcg66['Personnepcg66']['personne_id'] ) ) );
 
@@ -200,7 +189,7 @@
 			if( !empty( $this->request->data ) ) {
 				$this->Decisiontraitementpcg66->begin();
 
-				$saved = $this->Decisiontraitementpcg66->save( $this->request->data );
+				$saved = $this->Decisiontraitementpcg66->save( $this->request->data , array( 'atomic' => false ) );
 
 				///FIXME: à remettre pour gérer les états du dossierpcg66
 				if ( $saved ) {
@@ -210,12 +199,12 @@
 				if( $saved ) {
 					$this->Decisiontraitementpcg66->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'decisionstraitementspcgs66', 'action' => 'index', $traitementpcg66['Traitementpcg66']['id'] ) );
 				}
 				else {
 					$this->Decisiontraitementpcg66->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			elseif( $this->action == 'edit' ){

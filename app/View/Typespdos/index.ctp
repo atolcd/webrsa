@@ -1,41 +1,39 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'typepdo', "Typespdos::{$this->action}" )
-	)
-?>
+	$departement = (int)Configure::read( 'Cg.departement' );
 
-<?php
 	$fields = array(
 		'Typepdo.libelle'
 	);
 
-	/*if ( Configure::read( 'Cg.departement' ) == 66 ) {
-		$fields[] = 'Typepdo.originepcg';
-	}*/
+	if( 66 === $departement ) {
+		$fields = array_merge(
+			$fields,
+			array(
+				'Typepdo.originepcg' => array( 'type' => 'radio' ),
+				'Typepdo.cerparticulier' => array( 'type' => 'radio' )
+			)
+		);
+	}
 
-	echo $this->Default2->index(
-		$typespdos,
-		$fields,
+	$fields['Typepdo.actif'] = array( 'type' => 'boolean' );
+
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'options' => $options,
-			'cohorte' => false,
-			'actions' => array(
-				'Typespdos::edit',
-				'Typespdos::delete' => array( 'disabled' => '\'#Typepdo.occurences#\'!= "0"' )
+			'cells' => array_merge(
+				$fields,
+				array(
+					'/Typespdos/edit/#Typepdo.id#' => array(
+						'title' => true
+					),
+					'/Typespdos/delete/#Typepdo.id#' => array(
+						'title' => true,
+						'confirm' => true,
+						'disabled' => 'true == "#Typepdo.has_linkedrecords#"'
+					)
+				)
 			),
-			'add' => 'Typespdos::add',
-		)
-	);
-
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'pdos',
-			'action'     => 'index'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#pdos'
 		)
 	);
 ?>

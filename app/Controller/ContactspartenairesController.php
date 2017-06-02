@@ -7,7 +7,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-     App::import('Behaviors', 'Occurences');
+	App::uses( 'OccurencesBehavior', 'Model/Behavior' );
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe ContactspartenairesController ...
@@ -47,6 +48,9 @@
 			'Default2',
 			'Theme',
 			'Xform',
+			'Default3' => array(
+				'className' => 'Default.DefaultDefault'
+			)
 		);
 
 		/**
@@ -59,27 +63,27 @@
 			'Option',
 			'Partenaire',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Contactspartenaires:edit',
 			'view' => 'Contactspartenaires:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -117,23 +121,13 @@
 		*/
 
 		public function index() {
-//            $this->Contactpartenaire->Behaviors->attach( 'Occurences' );
-//            $querydata = $this->Contactpartenaire->qdOccurencesExists(
-//                array(
-//                    'fields' => array_merge(
-//                        $this->Contactpartenaire->fields(),
-//                        $this->Contactpartenaire->Partenaire->fields()
-//                    ),
-//                    'order' => array('Contactpartenaire.nom ASC')
-//                )
-//            );
-//            $this->paginate = $querydata;
-//            $contactspartenaires = $this->paginate( 'Contactpartenaire' );
-//            $this->_setOptions();
-//            $this->set( compact('contactspartenaires'));
-//
-//		}
-            
+			$messages = array();
+			if( 0 === $this->Partenaire->find( 'count' ) ) {
+				$msg = 'Merci de renseigner au moins un partenaire / prestataire avant de renseigner un contact.';
+				$messages[$msg] = 'error';
+			}
+			$this->set( compact( 'messages' ) );
+
             if( !empty( $this->request->data ) ) {
                 $this->Contactpartenaire->Behaviors->attach( 'Occurences' );
                 $querydata = $this->Contactpartenaire->search( $this->request->data );
@@ -144,7 +138,7 @@
 			}
 			$this->_setOptions();
 		}
-        
+
 
 		/**
 		*

@@ -1,33 +1,20 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'motifrupturecui66', "Motifsrupturescuis66::{$this->action}" )
-	);
-
-	echo $this->Default2->index(
-		$motifsrupturescuis66,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'Motifrupturecui66.name',
-			'Motifrupturecui66.actif' => array( 'type' => 'boolean' ),
-		),
-		array(
-			'cohorte' => false,
-			'actions' => array(
-				'Motifsrupturescuis66::edit',
-				'Motifsrupturescuis66::delete' => array( 'disabled' => '\'#Motifrupturecui66.occurences#\'!= "0"' )
+			'cells' => array(
+				'Motifrupturecui66.name',
+				'Motifrupturecui66.actif' => array( 'type' => 'boolean' ),
+				'/Motifsrupturescuis66/edit/#Motifrupturecui66.id#' => array(
+					'title' => true
+				),
+				'/Motifsrupturescuis66/delete/#Motifrupturecui66.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Motifrupturecui66.has_linkedrecords#"'
+				)
 			),
-			'add' => 'Motifsrupturescuis66::add'
-		)
-	);
-
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'cuis',
-			'action'     => 'indexparams'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#cuis'
 		)
 	);
 ?>

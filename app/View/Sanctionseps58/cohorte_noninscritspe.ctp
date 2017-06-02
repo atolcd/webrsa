@@ -16,7 +16,7 @@
 	);
 ?>
 
-<?php echo $this->Form->create( null, array( 'type' => 'post', 'url' => array( 'action' => $this->request->action ), 'id' => 'Sanctionep58CohorteNoninscritspeSearchForm', 'class' => ( !empty( $this->request->params['named'] ) ? 'folded' : 'unfolded' ) ) );?>
+<?php echo $this->Form->create( null, array( 'type' => 'post', 'url' => array( 'action' => $this->request->action ), 'id' => 'Sanctionep58CohorteNoninscritspeSearchForm', 'class' => ( !empty( $this->request->params['named'] ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );?>
 	<?php
 		echo $this->Allocataires->blocDossier( array( 'prefix' => 'Search', 'options' => $options ) );
 		echo $this->Allocataires->blocAdresse( array( 'prefix' => 'Search', 'options' => $options ) );
@@ -40,8 +40,7 @@
 
 		echo $this->Xform->create( null,
 			array(
-				'id' => 'Sanctionep58CohorteNoninscritspeCohorte',
-//				'url' => Router::url( array( 'controller' => $controller, 'action' => $action ), true )
+				'id' => 'Sanctionep58CohorteNoninscritspeCohorte'
 			)
 		);
 

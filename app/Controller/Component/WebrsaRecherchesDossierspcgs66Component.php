@@ -41,57 +41,42 @@
 			$Controller = $this->_Collection->getController();
 
 			$options = parent::_optionsRecords( $params );
-			
+
 			if( !isset( $Controller->Catalogueromev3 ) ) {
 				$Controller->loadModel( 'Catalogueromev3' );
 			}
-			
+
 			$catalogueromev3 = $Controller->Catalogueromev3->dependantSelects();
 			$options['Categorieromev3'] = $catalogueromev3['Catalogueromev3'];
 			$options['Dossierpcg66']['originepdo_id'] = $Controller->Dossierpcg66->Originepdo->find('list');
 			$options['Dossierpcg66']['typepdo_id'] = $Controller->Dossierpcg66->Typepdo->find('list');
-			$options['Dossierpcg66']['poledossierpcg66_id'] = $Controller->Dossierpcg66->User->Poledossierpcg66->find(
-				'list', 
-				array(
-                    'conditions' => array('Poledossierpcg66.isactif' => '1'),
-                    'order' => array('Poledossierpcg66.name ASC', 'Poledossierpcg66.id ASC')
-				)
-			);
-			$options['Dossierpcg66']['user_id'] = $Controller->Dossierpcg66->User->find(
-				'list', 
-				array(
-                    'fields' => array('User.nom_complet'),
-                    'conditions' => array('User.isgestionnaire' => 'O'),
-                    'order' => array('User.nom ASC', 'User.prenom ASC')
-				)
-			);
+
+			// Poles et gestionnaires PCG, en consultation
+			$options['Dossierpcg66']['poledossierpcg66_id'] = $Controller->Dossierpcg66->User->Poledossierpcg66->WebrsaPoledossierpcg66->polesdossierspcgs66( false );
+			$options['Dossierpcg66']['user_id'] = $Controller->Dossierpcg66->User->WebrsaUser->gestionnaires( false );
+
 			$options['Decisiondossierpcg66']['org_id'] = $Controller->Dossierpcg66->Decisiondossierpcg66->Orgtransmisdossierpcg66->find(
-				'list', 
+				'list',
 				array(
 					'conditions' => array('Orgtransmisdossierpcg66.isactif' => '1'),
 					'order' => array('Orgtransmisdossierpcg66.name ASC')
 				)
 			);
 			$options['Traitementpcg66']['situationpdo_id'] = $Controller->Dossierpcg66->Personnepcg66->Situationpdo->find(
-				'list', 
+				'list',
 				array(
-					'order' => array('Situationpdo.libelle ASC'), 
+					'order' => array('Situationpdo.libelle ASC'),
 					'conditions' => array('Situationpdo.isactif' => '1')
 				)
 			);
 			$options['Traitementpcg66']['statutpdo_id'] = $Controller->Dossierpcg66->Personnepcg66->Statutpdo->find(
-				'list', 
+				'list',
 				array(
-					'order' => array('Statutpdo.libelle ASC'), 
+					'order' => array('Statutpdo.libelle ASC'),
 					'conditions' => array('Statutpdo.isactif' => '1')
 				)
 			);
-			$options['Decisiondossierpcg66']['decisionpdo_id'] = $Controller->Dossierpcg66->Decisiondossierpcg66->Decisionpdo->find(
-				'list', 
-				array(
-					'conditions' => array('Decisionpdo.isactif' => '1')
-				)
-			);
+			$options['Decisiondossierpcg66']['decisionpdo_id'] = $Controller->Dossierpcg66->Decisiondossierpcg66->Decisionpdo->findForRecherche( 'list' );
 
 			return $options;
 		}
@@ -127,16 +112,16 @@
 
 			return $result;
 		}
-		
+
 		/**
 		 * Surcharge en cas d'export csv pour transformer les listes en retour à la ligne
-		 * 
+		 *
 		 * @param array $params
 		 * @param array $results
 		 */
 		public function afterSearch(array $params, array $results) {
 			$results = parent::afterSearch($params, $results);
-			
+
 			if (strpos($this->_Collection->getController()->action, 'exportcsv') === 0) {
 				foreach ($results as $key => $values) {
 					foreach ($values as $modelName => $values) {
@@ -149,7 +134,7 @@
 					}
 				}
 			}
-			
+
 			return $results;
 		}
 	}

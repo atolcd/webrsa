@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Regroupementep.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Regroupementep ...
@@ -17,31 +18,20 @@
 	{
 		public $name = 'Regroupementep';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $order = array( 'Regroupementep.name ASC' );
 
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Enumerable' => array(
-				'fields' => array(
-					// Thèmes 66
-					'saisinebilanparcoursep66',
-					'saisinepdoep66',
-					'defautinsertionep66',
-					// Thèmes 93
-					'nonrespectsanctionep93',
-					'reorientationep93',
-					'nonorientationproep93',
-					'signalementep93',
-					'contratcomplexeep93',
-					// Thèmes 58
-					'nonorientationproep58',
-					'regressionorientationep58',
-					'sanctionep58',
-					'sanctionrendezvousep58',
-				)
-			),
-			'Formattable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $hasMany = array(
@@ -73,15 +63,9 @@
 			)
 		);
 
-		// INFO: le behavior Autovalidate2 ne trouve pas les contraintes UNIQUE (17/02/2011)
 		public $validate = array(
-			'name' => array(
-				array(
-					'rule' => array( 'isUnique' ),
-				)
-			),
 			'nbmaxmembre' => array(
-				array(
+				'greaterThanIfNotZero' => array(
 					'rule' => array( 'greaterThanIfNotZero', 'nbminmembre' )
 				)
 			)
@@ -145,44 +129,57 @@
 		}
 
 		/**
-		 * Retourne les enregistrements pour lesquels une erreur de paramétrage a été détectée.
-		 * Il s'agit des regroupements qui ont des niveaux de décisions traités tantôt au niveau EP, tantôt
-		 * au niveau CG.
+		 * Retourne les enregistrements pour lesquels une erreur de paramétrage
+		 * a été détectée.
+		 * Il s'agit des regroupements qui ne traitent aucune thématique ou qui
+		 * ont des niveaux de décisions traités tantôt au niveau EP, tantôt au
+		 * niveau CG.
 		 *
 		 * @return array
 		 */
 		public function storedDataErrors() {
 			$themes = $this->themes();
 
-			$conditions = array( 'OR' => array() );
-			$fields = array(
-				"{$this->alias}.{$this->primaryKey}",
-				"{$this->alias}.{$this->displayField}"
+			$conditionsErrors = array(
+				'aucune_thematique' => array(),
+				'niveau_decision' => array()
+			);
+
+			$query = array(
+				'fields' => array(
+					"{$this->alias}.{$this->primaryKey}",
+					"{$this->alias}.{$this->displayField}"
+				),
+				'conditions' => array(),
+				'contain' => false,
 			);
 
 			foreach( $themes as $theme ) {
-				$fields[] = "{$this->alias}.{$theme}";
+				$query['fields'][] = "{$this->alias}.{$theme}";
+				$conditionsErrors['aucune_thematique']["{$this->alias}.{$theme}"] = 'nontraite';
 
-				// INFO: on a les combinaisons en double
 				foreach( $themes as $autreTheme ) {
-					if( $theme != $autreTheme ) {
-						$conditions['OR'][] = array(
-							"{$this->alias}.{$theme} <>" => 'nontraite',
-							"{$this->alias}.{$autreTheme} <>" => 'nontraite',
+					if($autreTheme !== $theme) {
+						$conditionsErrors['niveau_decision']['OR'][] = array(
+							'NOT' => array(
+								"{$this->alias}.{$theme}" => 'nontraite',
+								"{$this->alias}.{$autreTheme}" => 'nontraite'
+							),
 							"{$this->alias}.{$theme} <> {$this->alias}.{$autreTheme}"
 						);
 					}
 				}
 			}
 
-			return $this->find(
-				'all',
-				array(
-					'fields' => $fields,
-					'conditions' => $conditions,
-					'contain' => false,
-				)
-			);
+			// Ajout des champs et des conditions concernant les erreurs
+			$Dbo = $this->getDataSource();
+			foreach( $conditionsErrors as $errorName => $errorConditions ) {
+				$conditions = $Dbo->conditions( $errorConditions, true, false );
+				$query['fields'][] = "( {$conditions} ) AS \"{$this->alias}__error_{$errorName}\"";
+			}
+			$query['conditions']['OR'] = array_values( $conditionsErrors );
+
+			return $this->find( 'all', $query );
 		}
 	}
 ?>

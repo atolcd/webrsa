@@ -4,9 +4,9 @@
  * Override selectOption() from protocalendar.js
  * Add support for zero filled date numbers
  */
-selectOption = function(select, value) {
+SelectCalendar.selectOption = function(select, value) {
 	var selectEl = $(select);
-	var options = selectEl.select('option');
+	var options = selectEl.options;
 	for (var i = 0; i < options.length; i++) {
 		if (parseInt(options[i].value, 10) === parseInt(value.toString(), 10)) {
 			options[i].selected = true;
@@ -20,7 +20,7 @@ Cake2Datepicker.extractMinMax = function(select) {
 		i,
 		results = {min: Number.POSITIVE_INFINITY, max: Number.NEGATIVE_INFINITY, "null": false},
 		value;
-	
+
 	for (i=0; i<options.length; i++) {
 		value = parseInt(options[i].getAttribute('value'), 10);
 		if (value < results.min) {
@@ -33,7 +33,7 @@ Cake2Datepicker.extractMinMax = function(select) {
 			results.null = true;
 		}
 	}
-	
+
 	return results;
 };
 
@@ -59,7 +59,7 @@ $$(Cake2Datepicker.div_input_selector).each(function(div) {
 	if (day && month && year) {
 		id = day.substr(0, day.length-3) + '_Cake2Datepicker';
 		div.insert(new Element('img', {src: Cake2Datepicker.img_calendar, "class": 'Cake2Datepicker calendar', id: id}));
-		
+
 		SelectCalendar.createOnLoaded(
 			{
 				yearSelect: year,

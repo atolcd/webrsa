@@ -95,7 +95,7 @@
 				)
 			);
 			$this->Site->create( $data );
-			$this->Site->save();
+			$this->Site->save( null, array( 'atomic' => false ) );
 
 			foreach( $behaviors as $behavior ) {
 				list( $pluginName, $behaviorName ) = pluginSplit( $behavior );

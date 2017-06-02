@@ -5,7 +5,7 @@
 
 	echo $this->Html->tag( 'h1', $title_for_layout );
 
-	echo $this->Form->create();
+	echo $this->Form->create( null, array( 'novalidate' => true ) );
 	echo $this->Search->blocAdresse( $mesCodesInsee, $cantons );
 	echo $this->Form->input( 'Indicateurmensuel.serviceinstructeur', array( 'type' => 'select', 'options' => $servicesinstructeurs, 'empty' => true, 'label' => 'MSP' ) );
 	echo $this->Form->input( 'Indicateurmensuel.annee', array( 'type' => 'select', 'options' => array_combine( range( date( 'Y' ), 2009, -1 ), range( date( 'Y' ), 2009, -1 ) ), 'label' => 'Année' ) );

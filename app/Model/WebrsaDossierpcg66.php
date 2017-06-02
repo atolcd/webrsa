@@ -3,7 +3,7 @@
 	 * Code source de la classe WebrsaDossierpcg66.
 	 *
 	 * @package app.Model
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Model.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'WebrsaAbstractLogic', 'Model' );
 
@@ -40,6 +40,10 @@
 			$results = $this->Dossierpcg66->Foyer->find('all', $query);
 
 			foreach ( $results as $key => $result ) {
+				$results[$key]['Poledossierpcg66']['classname'] = Inflector::underscore(
+					str_replace( ' ', '_', replace_accents( $results[$key]['Poledossierpcg66']['name'] ) )
+				);
+
 				$results[$key]['Dossierpcg66']['etatdossierpcg_full'] = __d(
 					'dossierpcg66',
 					'ENUM::ETATDOSSIERPCG::'.Hash::get($result, 'Dossierpcg66.etatdossierpcg')
@@ -176,7 +180,9 @@
 					'Decisionpdo.libelle',
 					'Poledossierpcg66.name',
 					'Traitementpcg66.datereception',
-					'("Poledossierpcg66"."name" || \' / \' || "User"."nom" || \' \' || "User"."prenom") AS "Pole__user"',
+					'User.nom',
+					'User.prenom',
+					'( COALESCE( "Poledossierpcg66"."name", \'\' ) || \' / \' || COALESCE( "User"."nom", \'\' ) || \' \' || COALESCE( "User"."prenom", \'\' ) ) AS "Pole__user"',
 					"( {$sqBilanPersonne} ) AS \"Bilanparcours66__personne_nom_complet\"",
 					"( ARRAY_TO_STRING(ARRAY(({$sqTransmisOp})), ', ') ) AS \"Decisiondossierpcg66__orgtransmis_list_name\"",
 					"( ARRAY_TO_STRING(ARRAY(({$sqMotifPersonne})), '__') ) AS \"Personnepcg66__situationpdo_list_libelle\"",
@@ -208,7 +214,7 @@
 					),
 					$this->Dossierpcg66->join('Typepdo'),
 					$this->Dossierpcg66->join('User'),
-					$this->Dossierpcg66->User->join('Poledossierpcg66'),
+					$this->Dossierpcg66->join('Poledossierpcg66'),
 					$joinDecision,
 					$this->Dossierpcg66->Decisiondossierpcg66->join('Decisionpdo'),
 				),
@@ -530,90 +536,122 @@
 		}
 
 		/**
-		 * Fonction permettatn la génération automatique d'un dossier PCG
-		 * une fois que le dossier PCG initial s'est vu transmis à un organisme
-		 * de type PDU-MMR, PDAMGA ou PDU-MJP
-		 * @param type $dossierpcg66_id
+		 * Fonction permettant la génération automatique d'un dossier PCG dès lors
+		 * que le dossier PCG initial a été transmis à un organisme pour lequel il
+		 * est possible de générer automatiquement un dossier PCG et que le pôle
+		 * lié est différent du pôle actuel du dossier PCG et qu'il n'existe pas
+		 * encore de dossier PCG généré automatiquement à partir du dossier PCG
+		 * initial.
+		 *
+		 * @param integer $dossierpcg66_id L'id du dossier PCG initial
 		 * @return boolean
 		 */
-		public function generateDossierPCG66Transmis($dossierpcg66_id) {
-			if (empty($dossierpcg66_id)) {
+		public function generateDossierPCG66Transmis( $dossierpcg66_id ) {
+			if( true === empty( $dossierpcg66_id ) ) {
 				return false;
 			}
+
 			$success = true;
 
-			$dossierpcg66EnCours = $this->Dossierpcg66->find(
-					'first', array(
+			$query = array(
 				'fields' => array_merge(
-						$this->Dossierpcg66->fields(), $this->Dossierpcg66->Decisiondossierpcg66->fields(), $this->Dossierpcg66->Decisiondossierpcg66->Orgtransmisdossierpcg66->fields(), $this->Dossierpcg66->Poledossierpcg66->fields()
-				),
-				'conditions' => array(
-					'Dossierpcg66.id' => $dossierpcg66_id
+					$this->Dossierpcg66->fields(),
+					$this->Dossierpcg66->Decisiondossierpcg66->fields(),
+					$this->Dossierpcg66->Decisiondossierpcg66->Orgtransmisdossierpcg66->fields(),
+					$this->Dossierpcg66->Poledossierpcg66->fields(),
+					alias(
+						$this->Dossierpcg66->Decisiondossierpcg66->Orgtransmisdossierpcg66->Poledossierpcg66->fields(),
+						array( 'Poledossierpcg66' => 'Nouveaupoledossierpcg66' )
+					)
 				),
 				'joins' => array(
-					$this->Dossierpcg66->join('Decisiondossierpcg66', array(
-						'order' => array('Decisiondossierpcg66.created DESC'),
-						'type' => 'INNER')
+					$this->Dossierpcg66->join(
+						'Decisiondossierpcg66',
+						array(
+							'type' => 'INNER',
+							'conditions' => array(
+								'Decisiondossierpcg66.id IN ('.
+									$this->Dossierpcg66->Decisiondossierpcg66->sq(
+										array(
+											'alias' => 'decisionsdossierspcgs66',
+											'fields' => array( 'decisionsdossierspcgs66.id' ),
+											'conditions' => array(
+												'decisionsdossierspcgs66.dossierpcg66_id = Decisiondossierpcg66.dossierpcg66_id'
+											),
+											'contain' => false,
+											'order' => array(
+												'decisionsdossierspcgs66.created DESC',
+												'decisionsdossierspcgs66.id DESC'
+											),
+											'limit' => 1
+										)
+									)
+								.')'
+							)
+						)
 					),
 					$this->Dossierpcg66->join('Poledossierpcg66', array('type' => 'INNER')),
-					$this->Dossierpcg66->Decisiondossierpcg66->join('Orgtransmisdossierpcg66', array('type' => 'LEFT OUTER'))
-				),
-				'contain' => false
+					$this->Dossierpcg66->Decisiondossierpcg66->join( 'Orgtransmisdossierpcg66', array( 'type' => 'LEFT OUTER' ) ),
+					alias(
+						$this->Dossierpcg66->Decisiondossierpcg66->Orgtransmisdossierpcg66->join( 'Poledossierpcg66', array( 'type' => 'LEFT OUTER' ) ),
+						array( 'Poledossierpcg66' => 'Nouveaupoledossierpcg66' )
 					)
+				),
+				'contain' => false,
+				'conditions' => array(
+					'Dossierpcg66.id' => $dossierpcg66_id
+				)
 			);
+			$dossierpcg66EnCours = $this->Dossierpcg66->find( 'first', $query );
 
-			$dossierPCGGenerable = false;
-			$organismesConcernes = Configure::read('Generationdossierpcg.Orgtransmisdossierpcg66.id');
-			$orgId = $dossierpcg66EnCours['Decisiondossierpcg66']['orgtransmisdossierpcg66_id'];
+			// Par défaut, on ne génère pas de dossier PCG automatiquement
+			$generationAuto = false;
+
+			// On ne peut générer qu'un seul dossier PCG auto à partir d'un certain dossier PCG
+			$query = array(
+				'fields' => array( 'Dossierpcg66.id' ),
+				'conditions' => array( 'Dossierpcg66.dossierpcg66pcd_id' => $dossierpcg66_id ),
+				'contain' => false
+			);
+			$exists = $this->Dossierpcg66->find( 'first', $query );
 
 			// Pôle chargé de traiter le dossier PCG en cours
-			$poledossierpcg66IdDossierpcg66 = $dossierpcg66EnCours['Dossierpcg66']['poledossierpcg66_id'];
-			// Pôle lié à l'organisme auquel on a tranmis l'information (PDA-MGA ou PDU-MMR)
-			$poledossierpcg66IdOrg66 = $dossierpcg66EnCours['Orgtransmisdossierpcg66']['poledossierpcg66_id'];
+			$poledossierpcg66EncoursId = $dossierpcg66EnCours['Dossierpcg66']['poledossierpcg66_id'];
 
-			if (!empty($orgId) && ( $poledossierpcg66IdDossierpcg66 != $poledossierpcg66IdOrg66 )) {
-				if (!empty($organismesConcernes)) {
-					if (in_array($orgId, $organismesConcernes)) {
-						$dossierPCGGenerable = true;
+			// Pôle lié à l'organisme auquel on a transmis l'information
+			$poledossierpcg66TransmisId = $dossierpcg66EnCours['Orgtransmisdossierpcg66']['poledossierpcg66_id'];
 
-						$poleOrg = $this->Dossierpcg66->Decisiondossierpcg66->Orgtransmisdossierpcg66->find(
-								'first', array(
-							'conditions' => array(
-								'Orgtransmisdossierpcg66.id' => $orgId
-							)
-								)
-						);
-						$poledossierpcg66_id = $poleOrg['Orgtransmisdossierpcg66']['poledossierpcg66_id'];
-					}
-				}
+			// On génère un dossier SSI il n'existe pas encore de dossier auto généré à partir de ce dossier PCG,...
+			$generationAuto = true === empty( $exists )
+				//  et si "Information transmise à" de la décision n'est pas vide, ...
+				&& false === empty( $poledossierpcg66TransmisId )
+				//  et s'il est prévu la création automatique lors du transfert du dossier à l'organisme
+				&& '1' == Hash::get( $dossierpcg66EnCours, 'Orgtransmisdossierpcg66.generation_auto' )
+				//  et si le pôle auquel on transmet est différent du pôle auquel le dossier PCG appartient
+				&& $poledossierpcg66EncoursId != $poledossierpcg66TransmisId;
 
-				$success = true;
+			if( true === $generationAuto ) {
 				$nouveauDossierpcg66 = array(
 					'Dossierpcg66' => array(
 						'foyer_id' => $dossierpcg66EnCours['Dossierpcg66']['foyer_id'],
 						'originepdo_id' => $dossierpcg66EnCours['Poledossierpcg66']['originepdo_id'],
-						'typepdo_id' => $dossierpcg66EnCours['Poledossierpcg66']['typepdo_id'], // FIXME
+						'typepdo_id' => $dossierpcg66EnCours['Nouveaupoledossierpcg66']['typepdo_id'],
 						'orgpayeur' => $dossierpcg66EnCours['Dossierpcg66']['orgpayeur'],
 						'datereceptionpdo' => $dossierpcg66EnCours['Decisiondossierpcg66']['datevalidation'],
 						'commentairepiecejointe' => $dossierpcg66EnCours['Decisiondossierpcg66']['infotransmise'],
 						'haspiecejointe' => 0,
-						'poledossierpcg66_id' => $poledossierpcg66_id,
+						'poledossierpcg66_id' => $poledossierpcg66TransmisId,
 						'etatdossierpcg' => 'attaffect',
 						'dossierpcg66pcd_id' => $dossierpcg66EnCours['Dossierpcg66']['id']
 					)
 				);
 
-				$dossierpcg66pcd_id = $dossierpcg66EnCours['Dossierpcg66']['dossierpcg66pcd_id'];
-
-				if ($dossierPCGGenerable && empty($dossierpcg66pcd_id)) {
-					$this->Dossierpcg66->create($nouveauDossierpcg66);
-					$success = $this->Dossierpcg66->save() && $success;
-				}
+				$this->Dossierpcg66->create( $nouveauDossierpcg66 );
+				$success = $this->Dossierpcg66->save( null, array( 'atomic' => false ) ) && $success;
 			}
+
 			return $success;
 		}
-
-		/**************************************************************************************************************/
 
 		/**
 		 * Retourne les positions et les conditions CakePHP/SQL dans l'ordre dans

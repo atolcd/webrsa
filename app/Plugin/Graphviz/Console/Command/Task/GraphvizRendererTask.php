@@ -8,6 +8,7 @@
 	 * @subpackage Console.Command.Task
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppShell', 'Console/Command' );
 
 	/**
 	 * La classe GraphvizRendererTask s'occupe du rendu au format MPD

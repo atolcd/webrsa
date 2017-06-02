@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par dossier / allocataire (nouveau)"
+	 * Menu "Recherches" > "Par dossier / allocataire"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dossiers.search',
@@ -31,7 +31,7 @@
 				// 1.4 Filtres additionnels : La personne possède un(e)...
 				'has' => array(
 					'Contratinsertion' => array(
-						//'Contratinsertion.decision_ci' => 'V'
+						'Contratinsertion.decision_ci' => 'V'
 					),
 				)
 			),
@@ -87,7 +87,7 @@
 	);
 
 	/**
-	 * Export CSV, menu "Recherches" > "Par dossier / allocataire (nouveau)"
+	 * Export CSV, menu "Recherches" > "Par dossier / allocataire"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dossiers.exportcsv',

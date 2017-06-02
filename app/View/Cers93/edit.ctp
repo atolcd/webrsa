@@ -165,7 +165,7 @@
                 <strong>N° CAF/MSA : </strong><?php echo Set::classicExtract( $this->request->data, 'Cer93.matricule' );?>
                 <!--<br />
                 <strong>Inscrit au Pôle emploi</strong>
-                <?php echo ( !empty( $this->request->data['Cer93']['identifiantpe'] ) ? 'Oui' : 'Non' );?>
+                <?php echo  !empty( $this->request->data['Cer93']['identifiantpe'] ) ? 'Oui' : 'Non' ;?>
 				<br />
 				 <strong>N° identifiant : </strong><?php echo Set::classicExtract( $this->request->data, 'Cer93.identifiantpe' );?> -->
 				<br />

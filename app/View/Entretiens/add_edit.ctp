@@ -34,10 +34,10 @@
 
 <?php
 	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Entretien', array( 'type' => 'post',  'id' => 'Bilan' ) );
+		echo $this->Form->create( 'Entretien', array( 'type' => 'post',  'id' => 'Bilan', 'novalidate' => true ) );
 	}
 	else {
-		echo $this->Form->create( 'Entretien', array( 'type' => 'post', 'id' => 'Bilan' ) );
+		echo $this->Form->create( 'Entretien', array( 'type' => 'post', 'id' => 'Bilan', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Entretien.id', array( 'type' => 'hidden' ) );
 		echo '</div>';

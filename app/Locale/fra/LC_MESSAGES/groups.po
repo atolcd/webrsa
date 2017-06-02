@@ -1,0 +1,56 @@
+# Traductions de groups.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Groups/index/:heading"
+msgstr "Paramétrage des groupes"
+
+msgid "/Groups/add/:heading"
+msgstr "Ajout d'un groupe"
+
+msgid "/Groups/edit/:heading"
+msgstr "Modification du groupe « #Group.name# »"
+
+msgid "/Groups/add"
+msgstr "Ajouter"
+
+msgid "/Groups/add/:title"
+msgstr "Ajouter un groupe"
+
+msgid "Group.name"
+msgstr "Nom du groupe"
+
+msgid "ParentGroup.name"
+msgstr "Groupe parent"
+
+msgid "/Groups/edit"
+msgstr "Modifier"
+
+msgid "/Groups/edit/#Group.id#"
+msgstr "Modifier le groupe « #Group.name# »"
+
+msgid "/Groups/delete"
+msgstr "Supprimer"
+
+msgid "/Groups/delete/#Group.id#"
+msgstr "Supprimer le groupe « #Group.name# »"
+
+msgid "/Groups/delete/#Group.id# ?"
+msgstr "Réellement supprimer le groupe « #Group.name# » ?"
+
+msgid "Group.parent_id"
+msgstr "Parent"
+
+msgid "/Parametrages/index"
+msgstr "Retour"
+
+msgid "/Parametrages/index/:title"
+msgstr "Retour aux paramétrages"

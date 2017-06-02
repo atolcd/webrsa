@@ -1,0 +1,80 @@
+# Traductions de fichedeliaison.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "ENUM::ETAT::attavistech"
+msgstr "En attente d'avis technique"
+
+msgid "ENUM::ETAT::attval"
+msgstr "En attente de validation"
+
+msgid "ENUM::ETAT::decisionnonvalid"
+msgstr "Refusé"
+
+msgid "ENUM::ETAT::decisionvalid"
+msgstr "Validé"
+
+msgid "ENUM::ETAT::traite"
+msgstr "Traité"
+
+msgid "ENUM::ETAT::annule"
+msgstr "Annulé"
+
+msgid "Fichedeliaison.motiffichedeliaison_id"
+msgstr "Motif de la saisine"
+
+msgid "Fichedeliaison.expediteur_id"
+msgstr "Expéditeur"
+
+msgid "Fichedeliaison.destinataire_id"
+msgstr "Destinataire"
+
+msgid "Fichedeliaison.datefiche"
+msgstr "Date"
+
+msgid "Fichedeliaison.commentaire"
+msgstr "Commentaire"
+
+msgid "Fichedeliaison.etat"
+msgstr "Etat de la fiche"
+
+msgid "Fichedeliaison.haspiecejointe"
+msgstr "Pièce jointe"
+
+msgid "Fichedeliaison.direction"
+msgstr "Direction de la fiche"
+
+msgid "Fichedeliaison.traitementafaire"
+msgstr "Traitement à faire"
+
+msgid "Fichedeliaison.envoiemail"
+msgstr "Envoyer un e-mail (notification lors de la validation)"
+
+msgid "Fichedeliaison.dateenvoiemail"
+msgstr "Date d'envoi de l'e-mail"
+
+msgid "ENUM::DIRECTION::interne_vers_externe"
+msgstr "Envoi Hors DASAD"
+
+msgid "ENUM::DIRECTION::externe_vers_interne"
+msgstr "Envoi à la DASAD"
+
+msgid "ENUM::ENVOIEMAIL::0"
+msgstr "Non"
+
+msgid "ENUM::ENVOIEMAIL::1"
+msgstr "Oui"
+
+msgid "ENUM::TRAITEMENTAFAIRE::0"
+msgstr "Non"
+
+msgid "ENUM::TRAITEMENTAFAIRE::1"
+msgstr "Oui"

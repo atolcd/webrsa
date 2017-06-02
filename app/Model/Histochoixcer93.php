@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 	App::uses( 'Sanitize', 'Utility' );
 
 	/**
@@ -24,20 +25,17 @@
 		public $name = 'Histochoixcer93';
 
 		/**
-		 * Récursivité.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés.
 		 *
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Formattable',
-			'Pgsqlcake.PgsqlAutovalidate',
+			'Allocatairelie' => array(
+				'joins' => array( 'Cer93', 'Contratinsertion' )
+			),
+			'Postgres.PostgresAutovalidate',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
 
 		/**
@@ -48,18 +46,18 @@
 		 */
 		public $validate = array(
 			'prevalide' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'decisioncs' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'decisioncadre' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 		);
@@ -309,7 +307,7 @@
 					);
 
 					$this->Cer93->Contratinsertion->Personne->Dossierep->create( $dossierep );
-					$success = ( $this->Cer93->Contratinsertion->Personne->Dossierep->save() !== false ) && $success;
+					$success = ( $this->Cer93->Contratinsertion->Personne->Dossierep->save( null, array( 'atomic' => false ) ) !== false ) && $success;
 
 					// Sauvegarde des données de la thématique
 					$contratcomplexeep93 = array(
@@ -320,7 +318,7 @@
 					);
 
 					$this->Cer93->Contratinsertion->Personne->Dossierep->Contratcomplexeep93->create( $contratcomplexeep93 );
-					$success = ( $this->Cer93->Contratinsertion->Personne->Dossierep->Contratcomplexeep93->save() !== false ) && $success;
+					$success = ( $this->Cer93->Contratinsertion->Personne->Dossierep->Contratcomplexeep93->save( null, array( 'atomic' => false ) ) !== false ) && $success;
 
 					$success = $this->Cer93->updateAllUnBound(
 						array(
@@ -436,7 +434,7 @@
 					);
 
 					$this->Cer93->Contratinsertion->Personne->Dossierep->create( $dossierep );
-					$success = ( $this->Cer93->Contratinsertion->Personne->Dossierep->save() !== false ) && $success;
+					$success = ( $this->Cer93->Contratinsertion->Personne->Dossierep->save( null, array( 'atomic' => false ) ) !== false ) && $success;
 
 					// Sauvegarde des données de la thématique
 					$contratcomplexeep93 = array(
@@ -447,7 +445,7 @@
 					);
 
 					$this->Cer93->Contratinsertion->Personne->Dossierep->Contratcomplexeep93->create( $contratcomplexeep93 );
-					$success = ( $this->Cer93->Contratinsertion->Personne->Dossierep->Contratcomplexeep93->save() !== false ) && $success;
+					$success = ( $this->Cer93->Contratinsertion->Personne->Dossierep->Contratcomplexeep93->save( null, array( 'atomic' => false ) ) !== false ) && $success;
 
 					$success = $this->Cer93->updateAllUnBound(
 						array(
@@ -491,35 +489,6 @@
 						{$table}.cer93_id = ".$field."
 					ORDER BY {$table}.modified DESC
 					LIMIT 1";
-		}
-
-		/**
-		 * Retourne l'id de la personne à laquelle est lié un enregistrement.
-		 *
-		 * @param integer $id L'id de l'enregistrement
-		 * @return integer
-		 */
-		public function personneId( $id ) {
-			$querydata = array(
-				'fields' => array( "Contratinsertion.personne_id" ),
-				'joins' => array(
-					$this->join( 'Cer93', array( 'type' => 'INNER' ) ),
-					$this->Cer93->join( 'Contratinsertion', array( 'type' => 'INNER' ) )
-				),
-				'conditions' => array(
-					"{$this->alias}.id" => $id
-				),
-				'recursive' => -1
-			);
-
-			$result = $this->find( 'first', $querydata );
-
-			if( !empty( $result ) ) {
-				return $result['Contratinsertion']['personne_id'];
-			}
-			else {
-				return null;
-			}
 		}
 	}
 ?>

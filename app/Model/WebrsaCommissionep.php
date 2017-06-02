@@ -103,7 +103,7 @@
 		public function ajoutPossible($personne_id) {
 			return true;
 		}
-		
+
 		/**
 		 * Chemin relatif pour les modèles de documents .odt utilisés lors des
 		 * impressions. Utiliser %s pour remplacer par l'alias.
@@ -207,7 +207,7 @@
 			$themesTraites = array();
 
 			foreach( $themes as $theme ) {
-				if( in_array( $regroupementep['Regroupementep'][$theme], array( 'decisionep', 'decisioncg' ) ) ) {
+				if( isset( $regroupementep['Regroupementep'][$theme] ) && in_array( $regroupementep['Regroupementep'][$theme], array( 'decisionep', 'decisioncg' ) ) ) {
 					$themesTraites[$theme] = $regroupementep['Regroupementep'][$theme];
 				}
 			}
@@ -268,7 +268,7 @@
 			///FIXME : calculer si tous les dossiers ont bien une décision avant de changer l'état ?
 			$this->Commissionep->id = $commissionep_id;
 			$this->Commissionep->set( 'etatcommissionep', "decision{$niveauDecision}" );
-			$success = $this->Commissionep->save() && $success;
+			$success = $this->Commissionep->save( null, array( 'atomic' => false ) ) && $success;
 
 			return $success;
 		}
@@ -364,7 +364,6 @@
 				$modeleDecision = Inflector::classify( "decision{$themeTraite}" );
 				if( isset( $this->Commissionep->Passagecommissionep->{$modeleDecision}->validateFinalisation ) ) {
 					$validates[$modeleDecision] = $this->Commissionep->Passagecommissionep->{$modeleDecision}->validate;
-					// TODO: pas possible de faire un merge avec les règles déduites par Autovalidate2 ?
 					$this->Commissionep->Passagecommissionep->{$modeleDecision}->validate = $this->Commissionep->Passagecommissionep->{$modeleDecision}->validateFinalisation;
 				}
 			}
@@ -525,7 +524,7 @@
 				}
 				$this->Commissionep->id = $commissionep['Commissionep']['id'];
 				$this->Commissionep->set( 'etatcommissionep', $commissionep['Commissionep']['etatcommissionep'] );
-				$success = $this->Commissionep->save() && $success;
+				$success = $this->Commissionep->save( null, array( 'atomic' => false ) ) && $success;
 			}
 
 			$success = $success && empty( $totalErrors );
@@ -576,12 +575,12 @@
 					$themeTraite = Inflector::tableize( $themeTraite );
 					$model = Inflector::classify( $themeTraite );
 					$modeleDecision = 'Decision'.Inflector::underscore($model);
-					
+
 					if( $model == 'Defautinsertionep66' ) {
 						$dateseanceCommission = $commissionep['Commissionep']['dateseance'];
 						$success = $this->Commissionep->Passagecommissionep->Dossierep->{$model}->generateDossierpcg( $commissionep_id, $dateseanceCommission, $niveauDecision ) && $success;
 					}
-					
+
 					$Bilanparcours = $this->Commissionep->Passagecommissionep->Dossierep->{$model}->Bilanparcours66;
 					$bilansIds = Hash::extract(
 						$Bilanparcours->find('all',
@@ -677,11 +676,11 @@
 			$this->Commissionep->id = $commissionep_id;
 			if( ( $nbDossierseps > 0 ) && ( $nbMembresepsNonRenseignes == 0 ) && ( $nbMembresepsTotal > 0 ) && ( $commissionep['Commissionep']['etatcommissionep'] == 'cree' || $commissionep['Commissionep']['etatcommissionep'] == 'quorum' ) ) {
 				$this->Commissionep->set( 'etatcommissionep', 'associe' );
-				$success = $this->Commissionep->save() && $success;
+				$success = $this->Commissionep->save( null, array( 'atomic' => false ) ) && $success;
 			}
 			else if( ( ( $nbDossierseps == 0 ) || ( $nbMembresepsNonRenseignes > 0 ) || ( $nbMembresepsTotal == 0 ) ) && ( $commissionep['Commissionep']['etatcommissionep'] == 'associe' || $commissionep['Commissionep']['etatcommissionep'] == 'quorum' ) ) {
 				$this->Commissionep->set( 'etatcommissionep', 'cree' );
-				$success = $this->Commissionep->save() && $success;
+				$success = $this->Commissionep->save( null, array( 'atomic' => false ) ) && $success;
 			}
 			return $success;
 		}
@@ -728,7 +727,7 @@
 			$this->Commissionep->id = $commissionep_id;
 			if( !empty( $nbMembreseps ) && in_array( $commissionep['Commissionep']['etatcommissionep'], array( 'associe', 'valide', 'quorum' ) ) ) {
 				$this->Commissionep->set( 'etatcommissionep', 'presence' );
-				$success = $this->Commissionep->save() && $success;
+				$success = $this->Commissionep->save( null, array( 'atomic' => false ) ) && $success;
 			}
 			else if(  empty( $nbMembreseps ) && $commissionep['Commissionep']['etatcommissionep'] == 'presence' ) {
 				if( Configure::read( 'Cg.departement' ) == 93 ) {
@@ -737,7 +736,7 @@
 				else {
 					$this->Commissionep->set( 'etatcommissionep', 'associe' );
 				}
-				$success = $this->Commissionep->save() && $success;
+				$success = $this->Commissionep->save( null, array( 'atomic' => false ) ) && $success;
 			}
 
 			if ( Configure::read( 'Cg.departement' ) == 66 ) {
@@ -751,7 +750,7 @@
 				$compositionValide = $this->Commissionep->Ep->Regroupementep->Compositionregroupementep->compositionValide( $commissionep['Ep']['regroupementep_id'], $listeMembrePresentRemplace );
 				if( !$compositionValide['check'] ) {
 					$this->Commissionep->set( 'etatcommissionep', 'quorum' );
-					$success = $this->Commissionep->save() && $success;
+					$success = $this->Commissionep->save( null, array( 'atomic' => false ) ) && $success;
 				}
 			}
 
@@ -848,14 +847,10 @@
 			$options = array( 'Personne' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() ) );
 			foreach( $this->themesTraites( $commissionep_id ) as $theme => $decision ) {
 				$model = Inflector::classify( $theme );
-				if( in_array( 'Enumerable', $this->Commissionep->Passagecommissionep->Dossierep->{$model}->Behaviors->attached() ) ) {
-					$options = Set::merge( $options, $this->Commissionep->Passagecommissionep->Dossierep->{$model}->enums() );
-				}
+				$options = Set::merge( $options, $this->Commissionep->Passagecommissionep->Dossierep->{$model}->enums() );
 
 				$modeleDecision = Inflector::classify( "decision{$theme}" );
-				if( in_array( 'Enumerable', $this->Commissionep->Passagecommissionep->{$modeleDecision}->Behaviors->attached() ) ) {
-					$options = Set::merge( $options, $this->Commissionep->Passagecommissionep->{$modeleDecision}->enums() );
-				}
+				$options = Set::merge( $options, $this->Commissionep->Passagecommissionep->{$modeleDecision}->enums() );
 
 				foreach( array( 'fields', 'joins' ) as $key ) {
 					$qdModele = $this->Commissionep->Passagecommissionep->Dossierep->{$model}->qdProcesVerbal();
@@ -1453,7 +1448,6 @@
 
 
 			$options = $this->Commissionep->Membreep->enums();
-			$options['Membreep']['typevoie'] = ClassRegistry::init( 'Option' )->typevoie();
 
             $modele = null;
             if( Configure::read( 'Cg.departement' ) == 66 ) {
@@ -1533,7 +1527,6 @@
 			$options = Set::merge( $options, $this->Commissionep->CommissionepMembreep->enums() );
 			$options = Set::merge( $options, $this->Commissionep->Passagecommissionep->enums() );
 			$options = Set::merge( $options, $this->Commissionep->Passagecommissionep->Dossierep->Defautinsertionep66->enums() );
-			$options['Participant']['typevoie'] = ClassRegistry::init( 'Option' )->typevoie();
 			$options['Remplacantmembreep'] = $options['Membreep'];
 
 			$dossierseps = $this->Commissionep->Passagecommissionep->Dossierep->find( 'all', $queryData );
@@ -1620,8 +1613,7 @@
 
 			if( Configure::read( 'Cg.departement' ) == 58 ) {
 				$options['Referentpropo']['qual'] = $options['Referentcer']['qual'] = $options['Referent']['qual'] = $options['Personne']['qual'];
-				$options['Structurereferentepropo']['type_voie'] = $options['Structurereferentecer']['type_voie'] = $options['Structurereferente']['type_voie'] = $options['Participant']['typevoie'];
-				$options['Type']['voie'] = $options['type']['voie'] = $options['Structurereferente']['type_voie'];
+				$options['Type']['voie'] = $options['type']['voie'] = $options['Participant']['typevoie'];
 			}
 
 			$typeEp = $convocation['Commissionep']['Ep']['Regroupementep'];
@@ -1744,8 +1736,7 @@
 						$this->Commissionep->Passagecommissionep->Dossierep->Defautinsertionep66->fields(),
 						$this->Commissionep->Passagecommissionep->Dossierep->Defautinsertionep66->Bilanparcours66->fields(),
 						$this->Commissionep->Passagecommissionep->Dossierep->Defautinsertionep66->Bilanparcours66->Referent->fields(),
-						$this->Commissionep->Passagecommissionep->Dossierep->Defautinsertionep66->Bilanparcours66->Structurereferente->fields()/*,
-						$this->Commissionep->Passagecommissionep->Dossierep->Defautinsertionep66->Bilanparcours66->Structurereferente->Permanence->fields()*/
+						$this->Commissionep->Passagecommissionep->Dossierep->Defautinsertionep66->Bilanparcours66->Structurereferente->fields()
 					),
 					'joins' => array(
 						$this->Commissionep->Passagecommissionep->Dossierep->join( 'Defautinsertionep66', array( 'type' => 'LEFT OUTER' ) ),
@@ -1753,7 +1744,6 @@
 						$joinBilanparcours66,
 						$this->Commissionep->Passagecommissionep->Dossierep->Saisinebilanparcoursep66->Bilanparcours66->join( 'Referent', array( 'type' => 'INNER' ) ),
 						$this->Commissionep->Passagecommissionep->Dossierep->Saisinebilanparcoursep66->Bilanparcours66->join( 'Structurereferente', array( 'type' => 'INNER' ) ),
-// 						$this->Commissionep->Passagecommissionep->Dossierep->Saisinebilanparcoursep66->Bilanparcours66->Structurereferente->join( 'Permanence', array( 'type' => 'INNER' ) ),
 						$this->Commissionep->Passagecommissionep->Dossierep->join( 'Passagecommissionep', array( 'type' => 'INNER' ) ),
 						$this->Commissionep->Passagecommissionep->Dossierep->join( 'Personne', array( 'type' => 'INNER' ) ),
 						$this->Commissionep->Passagecommissionep->Dossierep->Personne->join( 'Foyer', array( 'type' => 'INNER' ) ),
@@ -1778,7 +1768,7 @@
 
 			return $queryData;
 		}
-		
+
 		/**
 		 * Impression de la fiche synthétique d'un allocataire pour un passage en commission d'EP
 		 */

@@ -18,7 +18,7 @@
 	});
 </script>
 
-<?php echo $this->Xform->create( 'Gestionsanctionep58', array( 'type' => 'post', 'action' => $this->request->action, 'id' => 'Search', 'class' => ( ( isset( $this->request->data['Search']['active'] ) && !empty( $this->request->data['Search']['active'] ) ) ? 'folded' : 'unfolded' ) ) ); ?>
+<?php echo $this->Xform->create( 'Gestionsanctionep58', array( 'type' => 'post', 'url' => array( 'action' => $this->request->action ), 'id' => 'Search', 'class' => ( ( isset( $this->request->data['Search']['active'] ) && !empty( $this->request->data['Search']['active'] ) ) ? 'folded' : 'unfolded' ) ) ); ?>
 	<?php echo $this->Xform->input( 'Search.active', array( 'type' => 'hidden', 'value' => true ) ); ?>
     <?php echo $this->Xform->input( 'Search.action', array( 'type' => 'hidden', 'value' => $this->request->action ) ); ?>
 	<fieldset>

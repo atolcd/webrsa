@@ -7,6 +7,7 @@
 	 * @package app.Model.Behavior
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'ModelBehavior', 'Model' );
 
 	/**
 	 * La classe Catalogueromev3Behavior ...
@@ -104,7 +105,7 @@
 		 */
 		public function saveParametrage( Model $Model, array $data ) {
 			$Model->create( $data );
-			return ( $Model->save() !== false );
+			return ( $Model->save( null, array( 'atomic' => false ) ) !== false );
 		}
 	}
 ?>

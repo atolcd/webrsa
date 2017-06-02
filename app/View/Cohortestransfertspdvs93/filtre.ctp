@@ -21,25 +21,19 @@
 	).'</li></ul>';
 
 	// Filtre
-	echo $this->Form->create( null, array( 'type' => 'post', 'url' => array( 'controller' => $this->request->params['controller'], 'action' => $this->request->params['action'] ), 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) && isset( $this->request->data['Search']['active'] ) ) ? 'folded' : 'unfolded' ) ) );
+	echo $this->Form->create( null, array( 'type' => 'post', 'url' => array( 'controller' => $this->request->params['controller'], 'action' => $this->request->params['action'] ), 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) && isset( $this->request->data['Search']['active'] ) ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );
 
 	echo $this->Form->input( 'Search.active', array( 'type' => 'hidden', 'value' => true ) );
 
 	echo $this->Search->blocAllocataire( array(), array(), 'Search' );
 	echo $this->Search->toppersdrodevorsa( $options['toppersdrodevorsa'], 'Search.Calculdroitrsa.toppersdrodevorsa' );
 
-	echo $this->Search->date( 'Search.Orientstruct.date_valid' ); // FIXME : A commenter suite à la demande du BUG #6891 ??
-// 	echo $this->Form->input( 'Search.Dossier.dernier', array( 'label' => 'Uniquement la dernière demande RSA pour un même allocataire', 'type' => 'checkbox' ) );
+	echo $this->Search->date( 'Search.Orientstruct.date_valid' );
 	echo $this->Allocataires->blocAdresse( array( 'options' => $options ) );
 
-	// TODO: dans la visualisation
-//	echo $this->Form->input( 'Search.Adresse.departement', array( 'label' => 'Département de la nouvelle adresse', 'type' => 'select', 'options' => $options['departementsnvadresses'], 'empty' => true ) );
-
 	echo $this->Search->blocDossier( $options['etatdosrsa'], 'Search' );
-// 	echo $this->Search->etatdosrsa( $options['etatdosrsa'], 'Search.Situationdossierrsa.etatdosrsa' );
 
     if( $this->action == 'transferes' ) {
-//        echo $this->Search->date( 'Search.Transfertpdv93.created', 'Dates de transfert' );
         echo $this->Form->input( 'Search.Transfertpdv93.created', array( 'label' => 'Filtrer par dates de transfert', 'type' => 'checkbox' ) );
 		echo '<fieldset><legend>Dates de transfert</legend>';
             $created_from = Set::check( $this->request->data, 'Search.Transfertpdv93.created_from' ) ? Set::extract( $this->request->data, 'Search.Transfertpdv93.created_from' ) : strtotime( '-1 week' );

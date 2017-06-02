@@ -14,7 +14,7 @@
 
 	/**
 	 * La classe WebrsaBilanparcours66 possède la logique métier web-rsa
-	 * 
+	 *
 	 * @package app.Model
 	 */
 	class WebrsaBilanparcours66 extends WebrsaAbstractLogic implements WebrsaLogicAccessInterface
@@ -35,7 +35,7 @@
 
 		/**
 		 * Ajoute les virtuals fields pour permettre le controle de l'accès à une action
-		 * 
+		 *
 		 * @param array $query
 		 * @return type
 		 */
@@ -45,17 +45,17 @@
 				'proposition' => 'Bilanparcours66.proposition',
 				'dateimpressionconvoc' => 'Defautinsertionep66.dateimpressionconvoc',
 			);
-			
+
 			if (!WebrsaModelUtility::findJoinKey('Defautinsertionep66', $query)) {
 				$query['joins'][] = $this->Bilanparcours66->join('Defautinsertionep66');
 			}
-			
+
 			return Hash::merge($query, array('fields' => array_values($fields)));
 		}
-		
+
 		/**
 		 * Permet d'obtenir le nécéssaire pour calculer les droits d'accès métier à une action
-		 * 
+		 *
 		 * @param array $conditions
 		 * @return array
 		 */
@@ -75,38 +75,38 @@
 					'Bilanparcours66.id' => 'DESC',
 				)
 			);
-			
+
 			$results = $this->Bilanparcours66->find('all', $this->completeVirtualFieldsForAccess($query));
 			return $results;
 		}
-		
+
 		/**
 		 * Permet d'obtenir les paramètres à envoyer à WebrsaAccess pour une personne en particulier
-		 * 
+		 *
 		 * @see WebrsaAccess::getParamsList
 		 * @param integer $personne_id
 		 * @param array $params - Liste des paramètres actifs
 		 */
 		public function getParamsForAccess($personne_id, array $params = array()) {
 			$results = array();
-			
+
 			if (in_array('ajoutPossible', $params)) {
 				$results['ajoutPossible'] = $this->ajoutPossible($personne_id);
 			}
-			
+
 			return $results;
 		}
-		
+
 		/**
 		 * Permet de savoir si il est possible d'ajouter un enregistrement
-		 * 
+		 *
 		 * @param integer $personne_id
 		 * @return boolean
 		 */
 		public function ajoutPossible($personne_id) {
 			return true;
 		}
-		
+
 		/**
 		 *
 		 * @param array $data
@@ -128,7 +128,7 @@
 				$positionbilan = 'eplparc';
 			return $positionbilan;
 		}
-		
+
 		/**
 		 * Récupère une liste des ids des bilans de parcours à partir d'une liste
 		 * d'ids d'entrées de passages en commissions EP.
@@ -237,7 +237,7 @@
 								);
 
 								$this->Bilanparcours66->create($dataBilanParcours);
-								$success = $success && $this->Bilanparcours66->save();
+								$success = $success && $this->Bilanparcours66->save( null, array( 'atomic' => false ) );
 
 								break;
 							}
@@ -346,7 +346,7 @@
 				if( $data[$this->Bilanparcours66->alias]['proposition'] == 'aucun' ) {
 					// Sauvegarde du bilan de parcours
 					$this->Bilanparcours66->create( $data );
-					$success = $this->Bilanparcours66->save() && $success;
+					$success = $this->Bilanparcours66->save( null, array( 'atomic' => false ) ) && $success;
 
 					// S'il s'agit d'un ajout, on met à jour la position du CER
 					$primaryKey = Hash::get( $data, "{$this->Bilanparcours66->alias}.id" );
@@ -356,10 +356,6 @@
 							$success = $success && $this->Bilanparcours66->Contratinsertion->WebrsaContratinsertion->updatePositionsCersByConditions(
 								array( 'Contratinsertion.personne_id' => Hash::get( $data, "{$this->Bilanparcours66->alias}.personne_id" ) )
 							);
-							/*$success = $success && $this->Contratinsertion->updateAllUnBound(
-								array( 'Contratinsertion.positioncer' => "'attrenouv'" ),
-								array( 'Contratinsertion.id' => Hash::get( $vxContratinsertion, 'Contratinsertion.id' ) )
-							);*/
 						}
 					}
 				}
@@ -431,7 +427,7 @@
                                 )
                             );
                             $this->Bilanparcours66->Orientstruct->create( $orientstruct );
-                            $success = $this->Bilanparcours66->Orientstruct->save() && $success;
+                            $success = $this->Bilanparcours66->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
 
 							// Clôture du référent du parcours actuel
 							$this->Bilanparcours66->Orientstruct->Personne->PersonneReferent->updateAllUnBound(
@@ -515,7 +511,7 @@
 
 							$contratinsertion['Contratinsertion']['rg_ci'] = null;
                             $this->Bilanparcours66->Contratinsertion->create( $contratinsertion );
-                            $success = $this->Bilanparcours66->Contratinsertion->save() && $success;
+                            $success = $this->Bilanparcours66->Contratinsertion->save( null, array( 'atomic' => false ) ) && $success;
 							if( $success ) {
 								$success = $this->Bilanparcours66->Contratinsertion->WebrsaContratinsertion->updateRangsContratsPersonne( $contratinsertion['Contratinsertion']['personne_id'] ) && $success;
 							}
@@ -553,7 +549,7 @@
                         );
 
                         $this->Bilanparcours66->Orientstruct->create( $orientstruct );
-                        $success = $this->Bilanparcours66->Orientstruct->save() && $success;
+                        $success = $this->Bilanparcours66->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
 
                         $data['Bilanparcours66']['typeorientprincipale_id'] = $data['Bilanparcours66']['sansep_typeorientprincipale_id'];
                         $data['Bilanparcours66']['changementref'] = $data['Bilanparcours66']['changementrefsansep'];
@@ -564,7 +560,7 @@
 					}
 
 					$this->Bilanparcours66->create( $data );
-					$success = $this->Bilanparcours66->save() && $success;
+					$success = $this->Bilanparcours66->save( null, array( 'atomic' => false ) ) && $success;
 				}
 			}
 			else {
@@ -654,18 +650,6 @@
 						if( empty( $primaryKey ) ) {
 							$vxContratinsertion = $this->_getDernierContratinsertion( Hash::get( $data, "{$this->Bilanparcours66->alias}.personne_id" ) );
 							if( !empty( $vxContratinsertion ) ) {
-								/*$updatePositionCer = (
-									( Hash::get( $data, 'Bilanparcours66.proposition' ) == 'parcours' )
-									&& ( Hash::get( $data, 'Bilanparcours66.choixparcours' ) == 'maintien' )
-									&& in_array( Hash::get( $data, 'Bilanparcours66.avecep_typeorientprincipale_id' ), (array)Configure::read( 'Orientstruct.typeorientprincipale.SOCIAL' ) )
-								);
-
-								if( $updatePositionCer ) {
-									$success = $success && $this->Contratinsertion->updateAllUnBound(
-										array( 'Contratinsertion.positioncer' => "'bilanrealiseattenteeplparcours'" ),
-										array( 'Contratinsertion.id' => Hash::get( $vxContratinsertion, 'Contratinsertion.id' ) )
-									);
-								}*/
 								$success = $success && $this->Bilanparcours66->Contratinsertion->WebrsaContratinsertion->updatePositionsCersByConditions(
 									array( 'Contratinsertion.personne_id' => Hash::get( $data, "{$this->Bilanparcours66->alias}.personne_id" ) )
 								);
@@ -685,7 +669,7 @@
 					}
 
 					$this->Bilanparcours66->create( $data );
-					$success = $this->Bilanparcours66->save() && $success;
+					$success = $this->Bilanparcours66->save( null, array( 'atomic' => false ) ) && $success;
 
 					if( !empty( $this->Bilanparcours66->validationErrors ) ) {
 						return false;
@@ -699,7 +683,7 @@
 						)
 					);
 					$this->Bilanparcours66->Saisinebilanparcoursep66->Dossierep->create( $dataDossierEp );
-					$success = $this->Bilanparcours66->Saisinebilanparcoursep66->Dossierep->save() && $success;
+					$success = $this->Bilanparcours66->Saisinebilanparcoursep66->Dossierep->save( null, array( 'atomic' => false ) ) && $success;
 
 					// Sauvegarde de la saisine
 					$data['Saisinebilanparcoursep66']['bilanparcours66_id'] = $this->Bilanparcours66->id;
@@ -730,7 +714,7 @@
 					}
 
 					$this->Bilanparcours66->Saisinebilanparcoursep66->create( $data );
-					$success = $this->Bilanparcours66->Saisinebilanparcoursep66->save() && $success;
+					$success = $this->Bilanparcours66->Saisinebilanparcoursep66->save( null, array( 'atomic' => false ) ) && $success;
 
 				}
 			}
@@ -825,7 +809,7 @@
 						}
 
 						$this->Bilanparcours66->create( $data );
-						$success = $this->Bilanparcours66->save() && $success;
+						$success = $this->Bilanparcours66->save( null, array( 'atomic' => false ) ) && $success;
 
 
 						// Sauvegarde du dossier d'EP
@@ -836,7 +820,7 @@
 							)
 						);
 						$this->Bilanparcours66->Defautinsertionep66->Dossierep->create( $dataDossierEp );
-						$success = $this->Bilanparcours66->Defautinsertionep66->Dossierep->save() && $success;
+						$success = $this->Bilanparcours66->Defautinsertionep66->Dossierep->save( null, array( 'atomic' => false ) ) && $success;
 
 						// Sauvegarde de la saisine pour défaut d'insertion
 						$data['Defautinsertionep66']['bilanparcours66_id'] = $this->Bilanparcours66->id;
@@ -844,7 +828,7 @@
 						$data['Defautinsertionep66']['origine'] = 'bilanparcours';
 
 						$this->Bilanparcours66->Defautinsertionep66->create( $data );
-						$success = $this->Bilanparcours66->Defautinsertionep66->save() && $success;
+						$success = $this->Bilanparcours66->Defautinsertionep66->save( null, array( 'atomic' => false ) ) && $success;
 					}
 					else {
 						$vxOrientstruct = $this->Bilanparcours66->Orientstruct->find(
@@ -955,7 +939,7 @@
 						$data[$this->Bilanparcours66->alias]['contratinsertion_id'] = $vxContratinsertion['Contratinsertion']['id'];
 						$data[$this->Bilanparcours66->alias]['cui_id'] = Hash::get($vxCui, 'Cui.id');
 						$this->Bilanparcours66->create( $data );
-						$success = $this->Bilanparcours66->save() && $success;
+						$success = $this->Bilanparcours66->save( null, array( 'atomic' => false ) ) && $success;
 
 						if( !empty( $this->Bilanparcours66->validationErrors ) ) {
 							debug( $this->Bilanparcours66->validationErrors );
@@ -969,7 +953,7 @@
 							)
 						);
 						$this->Bilanparcours66->Defautinsertionep66->Dossierep->create( $dataDossierEp );
-						$success = $this->Bilanparcours66->Defautinsertionep66->Dossierep->save() && $success;
+						$success = $this->Bilanparcours66->Defautinsertionep66->Dossierep->save( null, array( 'atomic' => false ) ) && $success;
 
 						// Sauvegarde de la saisine pour défaut d'insertion
 						$data['Defautinsertionep66']['bilanparcours66_id'] = $this->Bilanparcours66->id;
@@ -980,7 +964,7 @@
 						$data['Defautinsertionep66']['origine'] = 'bilanparcours';
 
 						$this->Bilanparcours66->Defautinsertionep66->create( $data );
-						$success = $this->Bilanparcours66->Defautinsertionep66->save() && $success;
+						$success = $this->Bilanparcours66->Defautinsertionep66->save( null, array( 'atomic' => false ) ) && $success;
 					}
 				}
 			}
@@ -991,7 +975,7 @@
 				$this->Bilanparcours66->create( $data );
 				if( $success = $this->Bilanparcours66->validates() ) {
 
-					$success = $this->Bilanparcours66->save() && $success;
+					$success = $this->Bilanparcours66->save( null, array( 'atomic' => false ) ) && $success;
 
 					// Avant de sauvegarder le dossier d'EP, on va rechercher
 					// la radiation PE qui nous a conduit ici (si nécessaire)
@@ -1011,7 +995,7 @@
 						)
 					);
 					$this->Bilanparcours66->Defautinsertionep66->Dossierep->create( $dossierep );
-					$success = $this->Bilanparcours66->Defautinsertionep66->Dossierep->save() && $success;
+					$success = $this->Bilanparcours66->Defautinsertionep66->Dossierep->save( null, array( 'atomic' => false ) ) && $success;
 
 					$defautinsertionep66 = array(
 						'Defautinsertionep66' => array(
@@ -1024,11 +1008,11 @@
 					);
 
 					$this->Bilanparcours66->Defautinsertionep66->create( $defautinsertionep66 );
-					$success = $this->Bilanparcours66->Defautinsertionep66->save() && $success;
+					$success = $this->Bilanparcours66->Defautinsertionep66->save( null, array( 'atomic' => false ) ) && $success;
 				}
 			}
 			else {
-				$success = $this->Bilanparcours66->save($data) && $success;
+				$success = $this->Bilanparcours66->save( $data, array( 'atomic' => false ) ) && $success;
 			}
 
 			return $success;
@@ -1574,9 +1558,6 @@
 				'Foyer' => array(
 					'sitfam' => ClassRegistry::init( 'Option' )->sitfam()
 				),
-				'Structurereferente' => array(
-					'type_voie' => ClassRegistry::init( 'Option' )->typevoie()
-				),
 				'Bilanparcours66' => array(
 					'duree_engag' => ClassRegistry::init( 'Option' )->duree_engag()
 				),
@@ -1618,10 +1599,10 @@
 
 			return $sq;
 		}
-		
+
 		/**
 		 * Renvoi le querydata pour l'index des bilans de parcours
-		 * 
+		 *
 		 * @return array
 		 */
 		public function getIndexQuery() {
@@ -1679,10 +1660,10 @@
 				)
 			);
 		}
-		
+
 		/**
 		 * Fait les jointures sur les EPs liés, avec séparation par etape et par thématique.
-		 * 
+		 *
 		 * @param array $query
 		 * @return array
 		 */
@@ -1900,15 +1881,15 @@
 							. 'THEN "ParcoursDecision"."decision"::text '
 							. 'ELSE "AuditionDecision"."decision"::text '
 						. 'END) AS "Decision__decision"',
-						
+
 						'(COALESCE("ParcoursDecision"."commentaire", "AuditionDecision"."commentaire")) '
 						. 'AS "Decision__commentaire"',
-						
+
 						'(CASE WHEN COALESCE("ParcoursDecision"."commentaire", "AuditionDecision"."commentaire") IS NOT NULL '
 							. 'THEN TRUE '
 							. 'ELSE FALSE '
 						. 'END) AS "Decision__havecommentaire"',
-						
+
 						// évite les doublons de commentaire
 						'(COALESCE("ParcoursDecision"."commentaire", "AuditionDecision"."commentaire") '
 						. '= COALESCE("ParcoursAvis"."commentaire", "AuditionAvis"."commentaire")) '
@@ -1922,9 +1903,9 @@
 				)
 			) + $query;
 		}
-		
+
 		/**************************************************************************************************************/
-		
+
 		/**
 		 * Retourne les positions et les conditions CakePHP/SQL dans l'ordre dans
 		 * lequel elles doivent être traitées pour récupérer la position actuelle.
@@ -1943,7 +1924,7 @@
 				. 'WHERE a.id = "bilansparcours66"."id" '
 				. "AND cg.id IS NULL)"
 			;
-			
+
 			$sqAttenteCt = "EXISTS("
 				. "SELECT a.id FROM bilansparcours66 a "
 				. "JOIN saisinesbilansparcourseps66 b ON b.bilanparcours66_id = a.id "
@@ -1955,7 +1936,7 @@
 				. 'WHERE a.id = "bilansparcours66"."id" '
 				. "AND cg.id IS NULL)"
 			;
-			
+
 			$sqTraite = array('OR' => array(
 				"EXISTS("
 				. "SELECT a.id FROM bilansparcours66 a "
@@ -1967,7 +1948,7 @@
 				. "AND cg.decision NOT IN ('annule', 'reporte') "
 				. "AND e.etatcommissionep = 'traite' "
 				. "AND d.etatdossierep = 'traite')",
-				
+
 				"EXISTS("
 				. "SELECT a.id FROM bilansparcours66 a "
 				. "JOIN saisinesbilansparcourseps66 b ON b.bilanparcours66_id = a.id "
@@ -1979,13 +1960,13 @@
 				. "AND e.etatcommissionep = 'traite' "
 				. "AND d.etatdossierep = 'traite')",
 			));
-			
+
 			$return = array(
 				// Annulé
 				'annule' => array(
 					$this->Bilanparcours66->alias.'.positionbilan' => 'annule',
 				),
-				
+
 				// Traité
 				'traite' => array(
 					"OR" => array(
@@ -1993,27 +1974,27 @@
 						$sqTraite
 					)
 				),
-				
+
 				// En attente de décision de la CGA
 				'attcga' => array(
 					$sqAttenteCga
 				),
-				
+
 				// En attente de décision du Coordonnateur Technique
 				'attct' => array(
 					$sqAttenteCt
 				),
-				
+
 				// En attente de l'avis de l'EPL Audition
 				'eplaudit' => array(
 					$this->Bilanparcours66->alias.'.proposition' => array('audition', 'auditionpe'),
 				),
-				
+
 				// En attente de l'avis de l'EPL Parcours
 				'eplparc' => array(
 					$this->Bilanparcours66->alias.'.proposition' => array('parcours', 'parcourspe'),
 				),
-				
+
 				// Reporté
 				'ajourne' => array(
 					$this->Bilanparcours66->alias.'.positionbilan' => 'ajourne',
@@ -2031,7 +2012,7 @@
 		public function getCasePosition() {
 			$switch = '';
 			$Dbo = $this->getDataSource();
-			
+
 			foreach ($this->_getConditionsPositions() as $position => $conditions) {
 				$switch .= "WHEN {$Dbo->conditions($conditions, true, false)} THEN '{$position}' ";
 			}
@@ -2049,14 +2030,14 @@
 			if (!$this->Bilanparcours66->find('first', array('conditions' => $conditions))) {
 				return true;
 			}
-			
+
 			$success = $this->Bilanparcours66->updateAllUnBound(
 				array(
-					$this->Bilanparcours66->alias.'.positionbilan' => $this->getCasePosition().'::type_positionbilan'
+					$this->Bilanparcours66->alias.'.positionbilan' => $this->getCasePosition()
 				),
 				$conditions
 			);
-			
+
 			return $success;
 		}
 

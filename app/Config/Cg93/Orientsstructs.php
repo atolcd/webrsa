@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par orientation (nouveau)"
+	 * Menu "Recherches" > "Par orientation"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Orientsstructs.search',
@@ -87,7 +87,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par orientation (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par orientation"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Orientsstructs.exportcsv',
@@ -133,7 +133,7 @@
 	);
 
 	/**
-	 * Menu "Cohortes" > "Orientation" > "Demandes non orientées (nouveau)"
+	 * Menu "Cohortes" > "Orientation" > "Demandes non orientées"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Orientsstructs.cohorte_nouvelles',
@@ -254,7 +254,7 @@
 	);
 
 	/**
-	 * Menu "Cohortes" > "Orientation" > "Demandes non orientées (nouveau)"
+	 * Menu "Cohortes" > "Orientation" > "Demandes non orientées"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Orientsstructs.cohorte_enattente',
@@ -262,7 +262,7 @@
 	);
 
 	/**
-	 * Menu "Cohortes" > "Orientation" > "Demandes orientées (nouveau)"
+	 * Menu "Cohortes" > "Orientation" > "Demandes orientées"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Orientsstructs.cohorte_orientees',

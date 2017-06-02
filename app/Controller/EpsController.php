@@ -7,13 +7,15 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
 
 	/**
-	 * La classe EpsController ...
+	 * La classe EpsController s'occupe du paramétrage et de la gestion des
+	 * équipes pluridisciplinaires.
 	 *
 	 * @package app.Controller
 	 */
-	class EpsController extends AppController
+	class EpsController extends AbstractWebrsaParametragesController
 	{
 		/**
 		 * Nom du contrôleur.
@@ -23,15 +25,6 @@
 		public $name = 'Eps';
 
 		/**
-		 * Components utilisés.
-		 *
-		 * @var array
-		 */
-		public $components = array(
-
-		);
-
-		/**
 		 * Helpers utilisés.
 		 *
 		 * @var array
@@ -39,6 +32,9 @@
 		public $helpers = array(
 			'Default',
 			'Default2',
+			'Default3' => array(
+				'className' => 'Default.DefaultDefault'
+			)
 		);
 
 		/**
@@ -48,16 +44,7 @@
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'add' => 'Eps:edit',
-		);
-
-		/**
-		 * Méthodes ne nécessitant aucun droit.
-		 *
-		 * @var array
-		 */
-		public $aucunDroit = array(
-
+			'add' => 'Eps:edit'
 		);
 
 		/**
@@ -72,13 +59,20 @@
 			'delete' => 'delete',
 			'deleteparticipant' => 'delete',
 			'edit' => 'update',
-			'index' => 'read',
+			'index' => 'read'
 		);
 
 		/**
-		*
-		*/
+		 * Liste des tables à ne pas prendre en compte dans les enregistrements
+		 * vérifiés pour éviter les suppressions en cascade intempestives.
+		 *
+		 * @var array
+		 */
+		public $blacklist = array( 'eps_membreseps', 'eps_zonesgeographiques' );
 
+		/**
+		 *
+		 */
 		protected function _setOptions() {
 			$options = array();
 			if( $this->action != 'index' ) {
@@ -89,71 +83,78 @@
 		}
 
 		/**
-		*
-		*/
-
+		 * Liste des équipes pluridisciplinaires.
+		 */
 		public function index() {
-			$fields = array(
-				'Ep.id',
-				'Ep.name',
-				'Ep.adressemail',
-				'Ep.identifiant',
-				'Regroupementep.name'
-			);
+			if( false === $this->Ep->Behaviors->attached( 'Occurences' ) ) {
+				$this->Ep->Behaviors->attach( 'Occurences' );
+			}
 
 			$this->paginate = array(
-				'fields' => $fields,
+				'fields' => array(
+					'Ep.id',
+					'Ep.name',
+					'Ep.adressemail',
+					'Ep.identifiant',
+					'Regroupementep.name',
+					$this->Ep->sqHasLinkedRecords( true, $this->blacklist )
+				),
 				'contain' => array(
 					'Regroupementep'
 				),
-				'conditions' =>  $this->Ep->sqRestrictionsZonesGeographiques(
+				'conditions' => $this->Ep->sqRestrictionsZonesGeographiques(
 					'Ep.id',
 					$this->Session->read( 'Auth.User.filtre_zone_geo' ),
 					$this->Session->read( 'Auth.Zonegeographique' )
 				),
-				'limit' => 10
+				'limit' => 50,
+				'order' => array( 'Ep.identifiant DESC' )
 			);
+			$results = $this->paginate( $this->Ep );
 
-			$this->_setOptions();
-			$this->set( 'eps', $this->paginate( $this->Ep ) );
-			$compteurs = array(
-				'Regroupementep' => $this->Ep->Regroupementep->find( 'count' ),
-				'Membreep' => $this->Ep->Membreep->find( 'count' )
-			);
-			$this->set( compact( 'compteurs' ) );
+			// Messages
+			$messages = array();
+			if( 0 === $this->Ep->Regroupementep->find( 'count' ) ) {
+				$messages["Merci d'ajouter au moins un regroupement avant d'ajouter une EP."] = 'error';
+			}
+			if( 0 === $this->Ep->Membreep->find( 'count' ) ) {
+				$messages["Merci d'ajouter au moins un membre avant d'ajouter une EP."] = 'error';
+			}
+
+			$options = $this->Ep->enums();
+			$this->set( compact( 'messages', 'results', 'options' ) );
 		}
 
 		/**
-		*
-		*/
-
+		 * Formulaire d'ajout d'une équipe pluridisciplinaire.
+		 */
 		public function add() {
-			$args = func_get_args();
-			call_user_func_array( array( $this, '_add_edit' ), $args );
+			$this->edit();
 		}
 
 		/**
-		*
-		*/
+		 * Formulaire de modification d'une équipe pluridisciplinaire.
+		 *
+		 * @param integer $id
+		 */
+		public function edit( $id = null ) {
+			$departement = (int)Configure::read( 'Cg.departement' );
 
-		public function edit() {
-			$args = func_get_args();
-			call_user_func_array( array( $this, '_add_edit' ), $args );
-		}
-
-		/**
-		*
-		*/
-
-		protected function _add_edit( $id = null ) {
 			if ( !empty( $this->request->data ) ) {
-				$success = true;
+				// Retour à la liste en cas d'annulation
+				if( isset( $this->request->data['Cancel'] ) ) {
+					$this->redirect( array( 'action' => 'index' ) );
+				}
+
 				$this->Ep->begin();
 
-				if ( !empty( $this->request->data['Ep']['regroupementep_id'] ) && Configure::read( 'Cg.departement' ) == 66 ) {
+				$this->Ep->create( $this->request->data );
+				$success = $this->Ep->save( null, array( 'atomic' => false ) );
+
+				if ( 66 === $departement && false === empty( $this->request->data['Ep']['regroupementep_id'] ) ) {
 					$compositionValide = $this->Ep->Regroupementep->Compositionregroupementep->compositionValide( $this->request->data['Ep']['regroupementep_id'], $this->request->data['Membreep']['Membreep'] );
-					$success = $compositionValide['check'];
-					if ( !$success && isset( $compositionValide['error'] ) && !empty( $compositionValide['error'] ) ) {
+					$success = $compositionValide['check'] && $success;
+					if ( false === $compositionValide['check'] && isset( $compositionValide['error'] ) && !empty( $compositionValide['error'] ) ) {
 						$message = null;
 						if ( $compositionValide['error'] == 'obligatoire' ) {
 							$message = "Pour le regroupement sélectionné il faut au moins un membre : ".implode( ', ', $this->Ep->Regroupementep->Compositionregroupementep->listeFonctionsObligatoires( $this->request->data['Ep']['regroupementep_id'] ) ).".";
@@ -168,23 +169,19 @@
 					}
 				}
 
-				if ( empty( $this->request->data['Membreep']['Membreep'] ) ) {
+				if ( true === empty( $this->request->data['Membreep']['Membreep'] ) ) {
 					$success = false;
 					$this->Ep->invalidate( 'Membreep.Membreep', 'Il est obligatoire de saisir au moins un membre pour participer à une commission d\'EP.' );
 				}
-// debug( $this->request->data );
-				if ( $success ) {
-					$this->Ep->create( $this->request->data );
-					$success = $this->Ep->save() && $success;
-				}
 
-				$this->_setFlashResult( 'Save', $success );
 				if( $success ) {
 					$this->Ep->commit();
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index' ) );
 				}
 				else {
 					$this->Ep->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			elseif ( $this->action == 'edit' ) {
@@ -205,12 +202,7 @@
 			}
 
 			$listeFonctionsMembres = $this->Ep->Membreep->Fonctionmembreep->find( 'list' );
-			$this->set(compact('listeFonctionsMembres'));
 
-
-			/**
-			*
-			*/
 			$fonctionsParticipants = $this->Ep->Membreep->Fonctionmembreep->find(
 				'all',
 				array(
@@ -225,37 +217,30 @@
 				)
 			);
 
-			$this->set( compact( 'fonctionsParticipants' ) );
+			$this->set( compact( 'listeFonctionsMembres', 'fonctionsParticipants' ) );
 			$this->_setOptions();
 
 			$this->render( 'add_edit' );
 		}
 
 		/**
-		*
-		*/
-
-		public function delete( $id ) {
-			$success = $this->Ep->delete( $id );
-			$this->_setFlashResult( 'Delete', $success );
-			$this->redirect( array( 'action' => 'index' ) );
-		}
-
-		/**
-		*
-		*/
-
+		 *
+		 * @param integer $ep_id
+		 * @param integer $fonction_id
+		 */
 		public function addparticipant( $ep_id, $fonction_id ) {
 			if ( !empty( $this->request->data ) ) {
 				$this->Ep->EpMembreep->begin();
 				$this->Ep->EpMembreep->create( $this->request->data );
-				$success = $this->Ep->EpMembreep->save();
-				$this->_setFlashResult( 'Save', $success );
+				$success = $this->Ep->EpMembreep->save( null, array( 'atomic' => false ) );
+
 				if ( $success ) {
 					$this->Ep->EpMembreep->commit();
+					$this->Flash->success( __( 'Save->success' ) );
 				}
 				else {
 					$this->Ep->EpMembreep->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -295,9 +280,10 @@
 		}
 
 		/**
-		*
-		*/
-
+		 *
+		 * @param integer $ep_id
+		 * @param integer $participant_id
+		 */
 		public function deleteparticipant($ep_id, $participant_id) {
 			$success = $this->Ep->EpMembreep->deleteAll(
 				array(
@@ -305,7 +291,12 @@
 					'EpMembreep.membreep_id'=>$participant_id
 				)
 			);
-			$this->_setFlashResult( 'Delete', $success );
+			if( $success ) {
+				$this->Flash->success( __( 'Delete->success' ) );
+			}
+			else {
+				$this->Flash->error( __( 'Delete->error' ) );
+			}
 			$this->redirect( array( 'action' => 'edit', $ep_id ) );
 		}
 	}

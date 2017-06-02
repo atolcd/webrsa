@@ -7,7 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( ABSTRACTMODELS.'Thematiqueep.php' );
+	App::uses( 'Thematiqueep', 'Model/Abstractclass' );
 
 	/**
 	 * La classe Regressionorientationep58 ...
@@ -19,15 +19,11 @@
 		public $name = 'Regressionorientationep58';
 
 		public $actsAs = array(
-			'Autovalidate2',
 			'Dependencies',
-			'Formattable' => array(
-				'suffix' => array(
-					'typeorient_id', 'structurereferente_id', 'referent_id', 'structureorientante_id', 'referentorientant_id'
-				)
-			),
 			'Gedooo.Gedooo',
-			'ValidateTranslate'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(
@@ -113,8 +109,8 @@
 				'dependentForeignKeys' => array(
 					'rule' => array( 'dependentForeignKeys', 'Referentorientant', 'Structureorientante', 'Structurereferente' ),
 					'message' => 'La référent orientant n\'appartient pas à la structure chargée de l\'évaluation',
-				),
-			),
+				)
+			)
 		);
 
 		/**
@@ -381,17 +377,6 @@
 				return true;
 			}
 			else {
-// 				foreach( $themeData as $key => $datas ) {
-// 					if ( !empty( $datas['Decision'.Inflector::underscore( $this->alias )]['structurereferente_id'] ) ) {
-// 						list( $typeorient_id, $structurereferente_id ) = explode( '_', $datas['Decision'.Inflector::underscore( $this->alias )]['structurereferente_id'] );
-//
-// 						$themeData[$key]['Decision'.Inflector::underscore( $this->alias )]['typeorient_id'] = $typeorient_id;
-// 						$themeData[$key]['Decision'.Inflector::underscore( $this->alias )]['structurereferente_id'] = $structurereferente_id;
-//
-//
-// 					}
-// 				}
-
 				$success = $this->Dossierep->Passagecommissionep->{'Decision'.Inflector::underscore( $this->alias )}->saveAll( $themeData, array( 'atomic' => false ) ) && $success;
 				$this->Dossierep->Passagecommissionep->updateAllUnBound(
 					array( 'Passagecommissionep.etatdossierep' => '\'decision'.$niveauDecision.'\'' ),
@@ -508,8 +493,6 @@
 				$datas['querydata']['joins'][] = $this->join( 'Referent' );
 
 				// Traductions
-				$Option = ClassRegistry::init( 'Option' );
-				$datas['options']['type']['voie'] = $Option->typevoie();
 				$datas['options']['Referent']['qual'] = $datas['options']['Personne']['qual'];
 
 				Cache::write( $cacheKey, $datas );
@@ -578,7 +561,6 @@
 				// Traductions
 				$datas['options'] = $this->Dossierep->Passagecommissionep->{$modeleDecisions}->enums();
 				$datas['options']['Personne']['qual'] = ClassRegistry::init( 'Option' )->qual();
-				$datas['options']['type']['voie'] = ClassRegistry::init( 'Option' )->typevoie();
 				$datas['options']['Referent']['qual'] = $datas['options']['Personne']['qual'];
 
 				Cache::write( $cacheKey, $datas );
@@ -787,7 +769,7 @@
 						)
 					);
 					$this->Structurereferente->Orientstruct->create( $orientstruct );
-					$success = $this->Structurereferente->Orientstruct->save() && $success;
+					$success = $this->Structurereferente->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
 
 					// Mise à jour de l'enregistrement de la thématique avec l'id de la nouvelle orientation
 					$success = $success && $this->updateAllUnBound(

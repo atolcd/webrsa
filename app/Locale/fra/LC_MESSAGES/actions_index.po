@@ -1,0 +1,47 @@
+# Traductions de actions_index.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Actions/index/:heading"
+msgstr "Paramétrage des actions d'insertion"
+
+msgid "/Actions/add/:heading"
+msgstr "Ajout d'une action d'insertion"
+
+msgid "/Actions/edit/:heading"
+msgstr "Modification de l'action d'insertion « #Action.libelle# »"
+
+msgid "/Actions/add"
+msgstr "Ajouter"
+
+msgid "/Actions/add/:title"
+msgstr "Ajouter une action d'insertion"
+
+msgid "/Actions/edit"
+msgstr "Modifier"
+
+msgid "/Actions/edit/#Action.id#"
+msgstr "Modifier l'action d'insertion « #Action.libelle# »"
+
+msgid "/Actions/delete"
+msgstr "Supprimer"
+
+msgid "/Actions/delete/#Action.id#"
+msgstr "Supprimer l'action d'insertion « #Action.libelle# »"
+
+msgid "/Actions/delete/#Action.id# ?"
+msgstr "Réellement supprimer l'action d'insertion « #Action.libelle# » ?"
+
+msgid "/Parametrages/index"
+msgstr "Retour"
+
+msgid "/Parametrages/index/:title"
+msgstr "Retour aux paramétrages"

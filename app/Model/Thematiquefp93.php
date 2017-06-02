@@ -22,13 +22,6 @@
 		public $name = 'Thematiquefp93';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
@@ -41,6 +34,8 @@
 					'suffix'  => '/_{0,1}id$/'
 				)
 			),
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes'
 		);
 
 		/**
@@ -60,6 +55,26 @@
 				'exclusive' => null,
 				'finderQuery' => null
 			),
+		);
+
+		/**
+		 * Règles de validation
+		 *
+		 * @var array
+		 */
+		public $validate = array(
+			'type' => array(
+				'checkUnique' => array(
+					'rule' => array( 'checkUnique', array( 'type', 'name' ) ),
+					'message' => 'Ce couple de valeurs de type et de thématique est déjà présent'
+				)
+			),
+			'name' => array(
+				'checkUnique' => array(
+					'rule' => array( 'checkUnique', array( 'type', 'name' ) ),
+					'message' => 'Ce couple de valeurs de type et de thématique est déjà présent'
+				)
+			)
 		);
 
 		/**

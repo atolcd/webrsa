@@ -114,7 +114,7 @@
 	<div id="cerview">
 		<h2 class="title">Visualisation du CER</h2>
 		<?php
-			include( dirname( __FILE__ ).'/../Cers93/_view.ctp' );
+			require  dirname( __FILE__ ).'/../Cers93/_view.ctp' ;
 		?>
 	</div>
 </div>

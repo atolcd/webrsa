@@ -1,29 +1,22 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'valprogfichecandidature66', "Valsprogsfichescandidatures66::{$this->action}" )
-	);
-
-	// occurences renvoi false si il n'y a pas de modèle liés autrement que en belongsTo, on s'assure qu'un false/null soit à 0
-	foreach ($requestgroups as $key => $value) {
-		$requestgroups[$key]['Valprogfichecandidature66']['occurences'] = (int)Hash::get($value, 'Valprogfichecandidature66.occurences');
-	}
-	
-	echo $this->Default2->index(
-		$requestgroups,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'Valprogfichecandidature66.progfichecandidature66_id',
-			'Valprogfichecandidature66.name',
-			'Valprogfichecandidature66.actif' => array( 'type' => 'boolean' )
-		),
-		array(
-			'cohorte' => false,
-			'actions' => array(
-				'Valsprogsfichescandidatures66::edit',
-				'Valsprogsfichescandidatures66::delete' => array( 'disabled' => '\'#Valprogfichecandidature66.occurences#\'!= "0"' )
+			'cells' => array(
+				'Progfichecandidature66.name',
+				'Progfichecandidature66.isactif' => array( 'type' => 'boolean' ),
+				'Valprogfichecandidature66.name',
+				'Valprogfichecandidature66.actif' => array( 'type' => 'boolean' ),
+				'/Valsprogsfichescandidatures66/edit/#Valprogfichecandidature66.id#' => array(
+					'title' => true
+				),
+				'/Valsprogsfichescandidatures66/delete/#Valprogfichecandidature66.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Valprogfichecandidature66.has_linkedrecords#"'
+				)
 			),
-			'add' => 'Valsprogsfichescandidatures66::add',
-			'options' => $options
+			'backUrl' => '/Parametrages/index/#actionscandidats'
 		)
 	);
 ?>

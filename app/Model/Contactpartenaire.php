@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Contactpartenaire.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Contactpartenaire ...
@@ -17,36 +18,19 @@
 	{
 		public $name = 'Contactpartenaire';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'nom_candidat';
 
 		public $actsAs = array(
-			'ValidateTranslate',
-		);
-
-		public $validate = array(
-			'qual' => array(
-				array(
-					'rule' => array('notEmpty'),
-				),
-			),
-			'nom' => array(
-				array(
-					'rule' => array('notEmpty'),
-				),
-			),
-			'prenom' => array(
-				array(
-					'rule' => array('notEmpty'),
-				),
-			),
-			'partenaire_id' => array(
-				array(
-					'rule' => array('notEmpty'),
-				),
-				'numeric' => array(
-					'rule' => array('numeric'),
-				),
-			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(
@@ -81,8 +65,8 @@
 				'postgres'  => '( "%s"."qual" || \' \' || "%s"."nom" || \' \' || "%s"."prenom" )'
 			)
 		);
-        
-        
+
+
         /**
 		*	Recherche des contacts de partenaires dans le paramétrage de l'application
 		*
@@ -98,7 +82,7 @@
 					$conditions[] = 'Contactpartenaire.'.$critereContactpartenaire.' ILIKE \''.$this->wildcard( $criteres['Contactpartenaire'][$critereContactpartenaire] ).'\'';
 				}
 			}
-            
+
             if( !empty( $criteres['Contactpartenaire']['partenaire_id'] ) ) {
                 $conditions[] = array( 'Partenaire.id' => $criteres['Contactpartenaire']['partenaire_id'] );
             }

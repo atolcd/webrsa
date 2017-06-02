@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	* Gestion des saisines d'EP pour les réorientations proposées par les structures
@@ -56,26 +57,26 @@
 			'Reorientationep93',
 			'Cohortetransfertpdv93',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Reorientationseps93:edit',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -88,17 +89,12 @@
 			'edit' => 'update',
 			'index' => 'read',
 		);
-		
+
 		/**
 		 *
 		 */
 		protected function _setOptions() {
-// 			$options = $this->Reorientationep93->enums();
-// 			$options['Reorientationep93']['typeorient_id'] = $this->Reorientationep93->Typeorient->listOptions();
-// 			$options['Reorientationep93']['structurereferente_id'] = $this->Reorientationep93->Structurereferente->list1Options( array( 'orientation' => 'O' ) );
-// 			$options['Reorientationep93']['motifreorientep93_id'] = $this->Reorientationep93->Motifreorientep93->find( 'list' );
-// 			$options['Reorientationep93']['referent_id'] = $this->Reorientationep93->Referent->WebrsaReferent->listOptions();
-// 			$this->set( compact( 'options' ) );
+
 		}
 
 		/**
@@ -274,24 +270,24 @@
 					$this->request->data['Dossierep']['personne_id'] = $this->Reorientationep93->Orientstruct->field( 'personne_id' );
 					$dossierep['Dossierep'] = $this->request->data['Dossierep'];
 					$this->Reorientationep93->Dossierep->create( $dossierep );
-					$success = $this->Reorientationep93->Dossierep->save();
+					$success = $this->Reorientationep93->Dossierep->save( null, array( 'atomic' => false ) );
 					$this->request->data['Reorientationep93']['dossierep_id'] = $this->Reorientationep93->Dossierep->id;
 				}
 
 				$reorientationep93['Reorientationep93'] = $this->request->data['Reorientationep93'];
 				$reorientationep93['Reorientationep93']['user_id'] = $this->Session->read( 'Auth.User.id' );
 				$this->Reorientationep93->create( $reorientationep93 );
-				$success = $this->Reorientationep93->save() && $success;
+				$success = $this->Reorientationep93->save( null, array( 'atomic' => false ) ) && $success;
 
-				$this->_setFlashResult( 'Save', $success );
 				if( $success ) {
 					$this->Reorientationep93->commit();
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->Jetons2->release( $dossier_id );
-					//$personne_id = $this->Reorientationep93->Orientstruct->field( 'personne_id', array( 'Orientstruct.id' => $this->request->data['Reorientationep93']['orientstruct_id'] ) );
 					$this->redirect( array( 'controller' => 'orientsstructs', 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$this->Reorientationep93->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {
@@ -331,12 +327,10 @@
 
 			// Lecture de valeurs
 			if( $this->action == 'add' ) {
-				//$personne_id = $this->Reorientationep93->Orientstruct->field( 'personne_id', array( 'Orientstruct.id' => $id ) );
-
 				// Retour à l'index d'orientsstrucs s'il n'est pas possible d'ajouter une réorientation
 				if( !$this->Reorientationep93->ajoutPossible( $personne_id ) ) {
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Impossible d\'ajouter une orientation pour cette personne.', 'flash/error' );
+					$this->Flash->error( 'Impossible d\'ajouter une orientation pour cette personne.' );
 					$this->redirect( array( 'controller' => 'orientsstructs', 'action' => 'index', $personne_id ) );
 				}
 
@@ -358,7 +352,7 @@
 
 				if( !( empty( $reorientationep93['Dossierep']['etatdossierep'] ) || $reorientationep93['Dossierep']['etatdossierep'] == 'cree' ) ) {
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Cette demande de réorientation ne peut pas être modifiée', 'flash/error' );
+					$this->Flash->error( 'Cette demande de réorientation ne peut pas être modifiée' );
 					$this->redirect( array( 'controller' => 'orientsstructs', 'action' => 'index', $reorientationep93['Orientstruct']['personne_id'] ) ); // FIXME
 				}
 
@@ -409,11 +403,11 @@
 			$this->Reorientationep93->begin();
 			if( $this->Reorientationep93->Dossierep->delete( $reorientationep93['Reorientationep93']['dossierep_id'] ) ) {
 				$this->Reorientationep93->commit();
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
 				$this->Reorientationep93->rollback();
-				$this->Session->setFlash( 'Erreur lors de la suppression', 'flash/error' );
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 
 			$this->Jetons2->release( $dossier_id );

@@ -13,10 +13,10 @@
 
 	<?php
 		if( $this->action == 'add' ) {
-			echo $this->Form->create( 'Piecepdo', array( 'type' => 'post' ) );
+			echo $this->Form->create( 'Piecepdo', array( 'type' => 'post', 'novalidate' => true ) );
 		}
 		else {
-			echo $this->Form->create( 'Piecepdo', array( 'type' => 'post' ) );
+			echo $this->Form->create( 'Piecepdo', array( 'type' => 'post', 'novalidate' => true ) );
 		}
 	?>
 

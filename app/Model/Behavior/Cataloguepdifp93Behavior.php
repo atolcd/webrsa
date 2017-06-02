@@ -7,6 +7,7 @@
 	 * @package app.Model.Behavior
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'ModelBehavior', 'Model' );
 
 	/**
 	 * La classe Cataloguepdifp93Behavior ...
@@ -16,10 +17,6 @@
 	class Cataloguepdifp93Behavior extends ModelBehavior
 	{
 		public function searchQuery( Model $Model, array $query = array() ) {
-			// TODO: cache
-//			$cacheKey = sprintf( '%s_%s_%s_%s_%s', $Model->useDbConfig, __CLASS__, $Model->alias, __FUNCTION__, md5( serialize( $query ) ) );
-//			debug( $cacheKey );
-
 			$query += array(
 				'fields' => array(),
 				'joins' => array(),
@@ -71,77 +68,7 @@
 			if( $model->order === null ) {
 				$model->order = "{$model->alias}.name ASC";
 			}
-
-			/*$query = $this->searchQuery( $model );
-			$results = $model->find( 'all', $query );
-
-			debug( array(
-				'model' => $model->alias,
-				'joins' => (array)Hash::extract( $query, 'joins.{n}.alias' ),
-				'list' => Hash::combine( $results, "{n}.{$model->alias}.{$model->primaryKey}", "{n}.{$model->alias}.{$model->displayField}" ),
-				'query' => $query,
-				'results' => $results,
-			) );*/
 		}
-
-		/**
-		 * Recherche l'enregistrement répondant aux conditions. Si celui-ci existe,
-		 * sa clé primaire est renvoyée; sinon, on tente d'enregistrer les données.
-		 *
-		 * En cas de succès, la clé primaire du nouvel enregistrement est retournée.
-		 *
-		 * @deprecated
-		 *
-		 * @param Model $Model
-		 * @param array $conditions
-		 * @return integer
-		 */
-		/*public function createOrUpdate( Model $Model, array $conditions ) {
-			$conditions = Hash::flatten( $Model->doFormatting( Hash::expand( $conditions ) ) );
-			// Remplacement des espaces multiples par un espace simple
-			foreach( $conditions as $key => $value ) {
-				$conditions[$key] = preg_replace( '/ +/', ' ', $value );
-			}
-
-			$primaryKeyField = "{$Model->alias}.{$Model->primaryKey}";
-
-			$query = array(
-				'fields' => array( $primaryKeyField ),
-				'conditions' => $conditions
-			);
-
-			// On cherche un intitulé approchant à la casse et aux accents près
-			foreach( $query['conditions'] as $path => $value ) {
-				if( $value !== null && $value !== '' ) {
-					if( !is_numeric( $value ) ) {
-						unset( $query['conditions'][$path] );
-						list( $m, $f ) = model_field( $path );
-						$query['conditions']["NOACCENTS_UPPER( \"{$m}\".\"{$f}\" )"] = noaccents_upper( $value );
-					}
-				}
-				else {
-					unset( $query['conditions'][$path] );
-					$query['conditions'][] = "{$path} IS NULL";
-				}
-			}
-
-			$record = $Model->find( 'first', $query );
-
-			if( empty( $record ) ) {
-				$record = Hash::expand( $conditions );
-				$Model->create( $record );
-
-				if( !$Model->save() ) {
-					return null;
-				}
-				else {
-					return $Model->{$Model->primaryKey};
-				}
-			}
-			else {
-				return Hash::get( $record, $primaryKeyField );
-			}
-		}*/
 
 		/**
 		 * Recherche de l'enregistrement sinon insertion, avec complément de
@@ -191,7 +118,7 @@
 				);
 
 				$Model->create( $data );
-				if( $Model->save() ) {
+				if( $Model->save( null, array( 'atomic' => false ) ) ) {
 					$primaryKey = $Model->{$Model->primaryKey};
 				}
 				else {

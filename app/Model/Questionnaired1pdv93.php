@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Questionnaired1pdv93 ...
@@ -29,17 +30,12 @@
 		 */
 		public $actsAs = array(
 			'Allocatairelie',
-			'Formattable',
-			'Pgsqlcake.PgsqlAutovalidate',
+			'Postgres.PostgresAutovalidate',
 			'Questionnairepdv93',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
 		);
-
-		/**
-		 * Par défaut, on met la récursivité au minimum.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
 
 		/**
 		 * Associations "Belongs to".
@@ -107,38 +103,38 @@
 		 */
 		public $validate = array(
 			'inscritpe' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'marche_travail' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'vulnerable' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'diplomes_etrangers' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'categorie_sociopro' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'nivetu' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'autre_caracteristique' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'autre_caracteristique_autre' => array(
@@ -148,7 +144,7 @@
 			),
 			'conditions_logement' => array(
 				'notNullIf' => array(
-					'rule' => array( 'notEmpty' )
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'conditions_logement_autre' => array(
@@ -157,8 +153,8 @@
 				)
 			),
 			'date_validation' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				),
 				'checkDateOnceAYear' => array(
 					'rule' => array( 'checkDateOnceAYear', 'personne_id', 'rendezvous_id' )
@@ -428,7 +424,7 @@
 					);
 
 					$this->Personne->Historiquedroit->create( $historiquedroit );
-					$success = $success && $this->Personne->Historiquedroit->save();
+					$success = $success && $this->Personne->Historiquedroit->save( null, array( 'atomic' => false ) );
 				}
 			}
 

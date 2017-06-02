@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Entreeromev3 ...
@@ -23,13 +24,6 @@
 		public $name = 'Entreeromev3';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
@@ -38,6 +32,8 @@
 			'Catalogueromev3',
 			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes',
 		);
 
 		/**
@@ -121,30 +117,6 @@
 				'order' => null,
 				'counterCache' => null
 			),
-			/*'Partenaire' => array(
-				'className' => 'Partenaire',
-				'foreignKey' => 'entreeromev3_id',
-				'conditions' => null,
-				'fields' => null,
-				'order' => null,
-				'dependent' => false
-			),
-			'Cui' => array(
-				'className' => 'Cui',
-				'foreignKey' => 'emploiproposeromev3_id',
-				'conditions' => null,
-				'fields' => null,
-				'order' => null,
-				'dependent' => false
-			),
-			'Periodeimmersioncui66' => array(
-				'className' => 'Periodeimmersioncui66',
-				'foreignKey' => 'affectationromev3_id',
-				'conditions' => null,
-				'fields' => null,
-				'order' => null,
-				'dependent' => false
-			),*/
 			'Personnepcg66' => array(
 				'className' => 'Personnepcg66',
 				'foreignKey' => 'categorieromev3_id',

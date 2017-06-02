@@ -32,13 +32,15 @@
 		</title>
 		<?php
 			if( Configure::read( 'debug' ) ) {
-				echo $this->Xhtml->css( array( 'all.reset' ), 'stylesheet', array( 'media' => 'all' ) );
-				echo $this->Xhtml->css( array( 'all.base' ), 'stylesheet', array( 'media' => 'all' ) );
-				echo $this->Xhtml->css( array( 'bootstrap.custom' ), 'stylesheet', array( 'media' => 'all' ) ); // Ajoute quelques styles issu de bootstrap
-				echo $this->Xhtml->css( array( 'screen.generic', 'screen.search' ), 'stylesheet', array( 'media' => 'screen,presentation' ) );
-				echo $this->Xhtml->css( array( 'print.generic' ), 'stylesheet', array( 'media' => 'print' ) );
-				echo $this->Xhtml->css( array( 'menu' ), 'stylesheet', array( 'media' => 'all' ) );
-				echo $this->Xhtml->css( array( 'popup' ), 'stylesheet', array( 'media' => 'all' ) );
+				echo $this->Html->css( array( 'all.reset' ), 'stylesheet', array( 'media' => 'all' ) );
+				echo $this->Html->css( array( 'all.base' ), 'stylesheet', array( 'media' => 'all' ) );
+				echo $this->Html->css( array( 'bootstrap.custom' ), 'stylesheet', array( 'media' => 'all' ) ); // Ajoute quelques styles issu de bootstrap
+				echo $this->Html->css( array( 'screen.generic', 'screen.search' ), 'stylesheet', array( 'media' => 'screen,presentation' ) );
+				echo $this->Html->css( array( 'print.generic' ), 'stylesheet', array( 'media' => 'print' ) );
+				echo $this->Html->css( array( 'menu' ), 'stylesheet', array( 'media' => 'all' ) );
+				echo $this->Html->css( array( 'popup' ), 'stylesheet', array( 'media' => 'all' ) );
+				echo $this->Html->css( 'Configuration.configuration_parser' );
+				echo $this->Html->css( 'AnalyseSql.analysesql' );
 
 				echo $this->Html->script( 'prototype' );
 				echo $this->Html->script( 'webrsa.extended.prototype' );
@@ -47,10 +49,11 @@
 				echo $this->html->script( 'webrsa.additional' );
 				echo $this->Html->script( 'webrsa.validaterules' );
 				echo $this->Html->script( 'webrsa.validateforms' );
+				echo $this->Html->script( 'Configuration.prototype.configuration-parser' );
 
 			}
 			else {
-				echo $this->Xhtml->css( array( 'webrsa' ), 'stylesheet' );
+				echo $this->Html->css( array( 'webrsa' ), 'stylesheet' );
 				echo $this->Html->script( 'webrsa' );
 			}
 
@@ -68,20 +71,19 @@
 					$backAllowed = true;
 
 					$pagesBackNotAllowed = array(
-						'Cohortesci::index',
-						'Cohortes::nouvelles',
-						'Cohortes::enattente',
-						'Cohortespdos::avisdemande',
 						'Recours::gracieux',
 						'Recours::contentieux',
 						'Contratsinsertion::valider',
 						'Ajoutdossiers::wizard',
 						'Ajoutdossiers::confirm',
-						'Cohortesindus::index',
 						'Users::login',
 					);
 
-					if( ( $this->action == 'add' ) || ( $this->action == 'edit' ) || ( $this->action == 'delete' ) || in_array( $this->name.'::'.$this->action, $pagesBackNotAllowed ) ) {
+					if( ( in_array( $this->action, array( 'add', 'edit', 'delete' ) ) )
+						|| 0 === strpos( $this->request->params['controller'], 'cohorte' )
+						|| 0 === strpos($this->request->params['action'], 'cohorte')
+						|| in_array( $this->name.'::'.$this->action, $pagesBackNotAllowed )
+					) {
 						$backAllowed = false;
 					}
 				?>
@@ -95,7 +97,7 @@
 				<?php } else { ?>
 					var urlmenu = null;
 				<?php } ?>
-				make_treemenus( baseUrl, <?php echo ( Configure::read( 'UI.menu.large' ) ? 'true' : 'false' );?>, urlmenu );
+				make_treemenus( baseUrl, <?php echo  Configure::read( 'UI.menu.large' ) ? 'true' : 'false' ;?>, urlmenu );
 				make_folded_forms();
 				mkTooltipTables();
 				make_external_links();
@@ -108,16 +110,16 @@
 					setTimeout(sessionEnd, sessionTime*1000);
 				}
 				<?php endif;?>
-				
+
 				<?php if (Configure::read('textarea.auto_resize.all')
 					|| Configure::read('textarea.auto_resize.'.$this->request->params['controller'].'.all')
 					|| Configure::read('textarea.auto_resize.'.$this->request->params['controller'].'.'.$this->action)
 				): ?>
-					
+
 				$$('textarea').each(function(element) {
 					makeTextareaAutoExpandable(element);
 				});
-				
+
 				<?php endif;?>
 			} );
 
@@ -196,7 +198,7 @@
 				?>
 			</div>
 			<div id="pageFooter"<?php if( Configure::read( 'debug' ) > 0 ) { echo ' style="color: black;"'; }?>>
-				webrsa v. <?php echo app_version();?> 2009 - 2016 @ Adullact Projet.
+				webrsa v. <?php echo app_version();?> 2009 - 2017 @ Libriciel SCOP.
 				<?php
 					if( Configure::read( 'debug' ) > 0 ) {
 						echo '( CG '.$departement;
@@ -235,5 +237,10 @@
 			//]]>
 		</script>
 		<?php endif; ?>
+		<?php
+	if (Configure::read('Module.DisplayValidationErrors.enabled')) {
+		echo $this->DisplayValidationErrors->into('p.error');
+	}
+		?>
 	</body>
 </html>

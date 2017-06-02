@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Canton ...
@@ -17,7 +18,25 @@
 	{
 		public $name = 'Canton';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'canton';
+
+		/**
+		 * Behaviors utilisés par le modèle.
+		 *
+		 * @var array
+		 */
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
+		);
 
 		public $belongsTo = array(
 			'Zonegeographique' => array(
@@ -28,7 +47,7 @@
 				'order' => ''
 			)
 		);
-		
+
 		/**
 		 * Associations "Has and belongs to many".
 		 *
@@ -55,44 +74,34 @@
 
 		public $validate = array(
 			'canton' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
-			'zonegeographique_id' => array(
-				array(
-					'rule' => 'integer',
-					'message' => 'Veuillez entrer un nombre entier'
-				),
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
-			),
 			'nomcom' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'codepos' => array(
-				array(
+				'between' => array(
 					'rule' => array( 'between', 5, 5 ),
 					'message' => 'Le code postal se compose de 5 caractères',
 					'allowEmpty' => true
 				)
 			),
 			'numcom' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				),
-				array(
+				'between' => array(
 					'rule' => array( 'between', 5, 5 ),
 					'message' => 'Le code INSEE se compose de 5 caractères'
 				)
-			),
+			)
 		);
 
 		/**
@@ -227,7 +236,7 @@
 		public function joinAdresse( $type = 'LEFT OUTER' ) {
 			$dbo = $this->getDataSource( $this->useDbConfig );
 			$fullTableName = $dbo->fullTableName( $this, true, false );
-			
+
 			$conditions = array(
 				'OR' => array(
 					// 156-161
@@ -310,7 +319,7 @@
 					'limit' => 1
 				)
 			);
-			
+
 			$conditions[] = "Canton.id IN ( {$sq} )";
 
 			return array(

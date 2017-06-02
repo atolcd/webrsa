@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 	App::uses( 'CakeEmail', 'Network/Email' );
 	App::uses( 'WebrsaEmailConfig', 'Utility' );
 
@@ -71,20 +72,18 @@
 			'Option',
 			'WebrsaCui',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Cuis:edit',
-			'exportcsv' => 'Criterescuis:exportcsv',
-			'search' => 'Criterescuis:search',
 			'view' => 'Cuis:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -96,7 +95,7 @@
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -166,7 +165,7 @@
 			$options = $this->Cui->enums();
 			$this->set( compact( 'options' ) );
 		}
-		
+
 		/**
 		 * Moteur de recherche
 		 */
@@ -178,7 +177,7 @@
 			$this->Cui->Cui66->Decisioncui66->validate = array();
 			$this->Cui->Partenairecui->Adressecui->validate = array();
 		}
-		
+
 		/**
 		 * Export du tableau de résultats de la recherche
 		 */
@@ -186,19 +185,19 @@
 			$Recherches = $this->Components->load( 'WebrsaRecherchesCuis' );
 			$Recherches->exportcsv();
 		}
-		
+
 		/**
 		 * Liste des CUI du bénéficiaire.
-		 * 
+		 *
 		 * @param integer $personne_id
 		 */
 		public function index( $personne_id ) {
 			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) );
 
 			$this->_setEntriesAncienDossier( $personne_id, 'Cui' );
-			
+
 			$results = $this->WebrsaAccesses->getIndexRecords($personne_id, $this->Cui->WebrsaCui->queryIndex($personne_id));
-			
+
 			$messages = $this->Cui->WebrsaCui->messages( $personne_id );
 			$addEnabled = $this->Cui->WebrsaCui->addEnabled( $messages );
 
@@ -208,12 +207,12 @@
 			$this->set(
 				compact('results', 'dossierMenu', 'messages', 'addEnabled', 'personne_id', 'options', 'isRsaSocle')
 			);
-			
+
 			switch ((int)Configure::read('Cg.departement')) {
 				case 66: $this->view = __FUNCTION__.'_cg66'; break;
 			}
 		}
-		
+
 		/**
 		 * Formulaire d'ajout de fiche de CUI
 		 *
@@ -242,9 +241,9 @@
 
 			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) );
 			$this->Jetons2->get( $dossierMenu['Dossier']['id'] );
-			
+
 			// INFO: champ non obligatoire
-			unset( $this->Cui->Entreeromev3->validate['familleromev3_id']['notEmpty'] );
+			unset( $this->Cui->Entreeromev3->validate['familleromev3_id'][NOT_BLANK_RULE_NAME] );
 
 			// Retour à l'index en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
@@ -260,31 +259,31 @@
 					$cui_id = $this->Cui->id;
 					$this->Cui->WebrsaCui->updatePositionsCuisById( $cui_id );
 					$this->Jetons2->release( $dossierMenu['Dossier']['id'] );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$this->Cui->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
 				$this->request->data = $this->Cui->WebrsaCui->prepareFormDataAddEdit( $personne_id, $id );
 			}
-			
+
 			// Options
 			$options = $this->Cui->WebrsaCui->options($this->Session->read( 'Auth.User.id' ));
 
 			$urlmenu = "/cuis/index/{$personne_id}";
-			
+
 			$queryPersonne = $this->Cui->WebrsaCui->queryPersonne( $personne_id );
 			$this->Cui->Personne->forceVirtualFields = true;
 			$personne = $this->Cui->Personne->find( 'first', $queryPersonne );
 
 			$this->set( compact( 'options', 'personne_id', 'dossierMenu', 'urlmenu', 'personne' ) );
-			
+
 			switch ((int)Configure::read('Cg.departement')) {
-				case 66: 
+				case 66:
 					$this->view = __FUNCTION__.'_cg66';
 					$this->set('mailEmployeur', $this->action !== 'add');
 					$this->set('correspondancesChamps', json_encode($this->Cui->Partenairecui->Partenairecui66->correspondancesChamps));
@@ -292,10 +291,10 @@
 				default: $this->view = __FUNCTION__;
 			}
 		}
-		
+
 		/**
 		 * Vue d'un CUI
-		 * 
+		 *
 		 * @param type $id
 		 */
 		public function view( $id = null ) {
@@ -304,17 +303,17 @@
 
 			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) );
 			$this->Jetons2->get( $dossierMenu['Dossier']['id'] );
-			
+
 			$query = $this->Cui->WebrsaCui->queryView( $id );
 			$this->request->data = $this->Cui->find( 'first', $query );
-					
+
 			// Options
 			$options = $this->Cui->WebrsaCui->options();
-			
+
 			$urlmenu = "/cuis/index/{$personne_id}";
 
 			$Allocataire = ClassRegistry::init( 'Allocataire' );
-			
+
 			$queryPersonne = $Allocataire->searchQuery();
 			$queryPersonne['conditions']['Personne.id'] = $personne_id;
 			$fields = array(
@@ -332,7 +331,7 @@
 				'Adresse.complideadr',
 				'Adresse.compladr',
 				'Adresse.nomcom',
-				'Adresse.canton',				
+				'Adresse.canton',
 				'Dossier.matricule',
 				'Dossier.dtdemrsa',
 				'Dossier.fonorg',
@@ -340,7 +339,7 @@
 				'Titresejour.dftitsej'
 			);
 			$queryPersonne['fields'] = $fields;
-			
+
 			// Jointure spéciale adresse actuelle / département pour obtenir le nom du dpt
 			$queryPersonne['fields'][] = 'Departement.name';
 			$queryPersonne['joins'][] = array(
@@ -359,20 +358,20 @@
 					'Titresejour.personne_id' => $personne_id
 				)
 			);
-			
+
 			$personne = $this->Cui->Personne->find('first', $queryPersonne);
 			$personne['Foyer']['nb_enfants'] = $this->Cui->Personne->Prestation->getNbEnfants( $personne_id );
 
 			$this->set( compact( 'options', 'personne_id', 'dossierMenu', 'urlmenu', 'personne' ) );
-			
+
 			switch ((int)Configure::read('Cg.departement')) {
-				case 66: 
+				case 66:
 					$this->view = __FUNCTION__.'_cg66';
 					break;
 				default: $this->view = __FUNCTION__;
 			}
 		}
-		
+
 		/**
 		 * Tentative de suppression d'un CUI.
 		 *

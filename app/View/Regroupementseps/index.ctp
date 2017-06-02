@@ -1,42 +1,38 @@
-<h1><?php echo $this->pageTitle = h( __d( 'regroupementep', 'Regroupementep::index' ) );?></h1>
-
 <?php
+	$departement = (int)Configure::read( 'Cg.departement' );
+
 	$fields = array(
 		'Regroupementep.name'
 	);
 
-	if ( Configure::read( 'Cg.departement' ) != 93 ) {
-		foreach( $themes as $theme ) {
+	if ( 93 !== $departement ) {
+		foreach( $options['Regroupementep']['themes'] as $theme ) {
 			$fields[] = "Regroupementep.{$theme}";
 		}
 	}
 
-	if ( Configure::read( 'Cg.departement' ) == 66 ) {
+	if ( 66 === $departement ) {
 		$fields[] = "Regroupementep.nbminmembre";
 		$fields[] = "Regroupementep.nbmaxmembre";
 	}
 
-	echo $this->Default2->index(
-		$regroupementeps,
-		$fields,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'actions' => array(
-				'Regroupementseps::edit',
-				'Regroupementseps::delete'
+			'cells' => array_merge(
+				$fields,
+				array(
+					'/Regroupementseps/edit/#Regroupementep.id#' => array(
+						'title' => true
+					),
+					'/Regroupementseps/delete/#Regroupementep.id#' => array(
+						'title' => true,
+						'confirm' => true,
+						'disabled' => 'true == "#Regroupementep.has_linkedrecords#"'
+					)
+				)
 			),
-			'add' => array( 'Regroupementseps.add' ),
-			'options' => $options
-		)
-	);
-
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'gestionseps',
-			'action'     => 'index'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#eps'
 		)
 	);
 ?>

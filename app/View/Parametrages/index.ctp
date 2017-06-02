@@ -1,31 +1,14 @@
 <?php $this->pageTitle = 'Paramétrages';?>
-<h1>Paramétrage des tables</h1>
+<h1><?php echo $this->pageTitle;?></h1>
 
-<?php echo $this->Form->create( 'NouvellesDemandes', array() );?>
-	<table >
-		<thead>
-			<tr>
-				<th>Nom de Table</th>
-				<th colspan="2" class="action">Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php
-				foreach( $links as $label => $link ) {
-					echo $this->Xhtml->tableCells(
-						array(
-							h( $label ),
-							$this->Xhtml->viewLink(
-								'Voir la table',
-								$link,
-								$this->Permissions->check( $link['controller'], $link['action'] )
-							)
-						),
-						array( 'class' => 'odd' ),
-						array( 'class' => 'even' )
-					);
-				}
-			?>
-		</tbody>
-	</table>
-<?php echo $this->Form->end();?>
+<div id="liste_parametrages">
+	<?php
+		$menu = $this->Menu->make2( $items );
+		if( false === empty( $menu ) ) {
+			echo $menu;
+		}
+		else {
+			echo $this->Html->tag( 'p', 'Vous n\'avez pas accès aux éléments de paramétrage.', array( 'class' => 'notice' ) );
+		}
+	?>
+</div>

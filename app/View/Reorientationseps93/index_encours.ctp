@@ -1,6 +1,6 @@
 <h1> <?php echo $this->pageTitle = 'Liste des saisines de demande de réorientation des structures référentes'; ?> </h1>
 <?php
-	require_once( 'index.ctp' );
+	require_once  'index.ctp' ;
 
 	$myServiceinstructeur_id = $this->Session->read( 'Auth.User.serviceinstructeur_id' );
 	$myGroup = $this->Session->read( 'Auth.Group.name' );

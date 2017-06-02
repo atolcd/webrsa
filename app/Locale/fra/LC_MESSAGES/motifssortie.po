@@ -1,0 +1,41 @@
+# Traductions de motifssortie.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Motifssortie/index/:heading"
+msgstr "Paramétrage des motifs de sortie"
+
+msgid "/Motifssortie/add/:heading"
+msgstr "Ajout d'un motif de sortie"
+
+msgid "/Motifssortie/edit/:heading"
+msgstr "Modification du motif de sortie « #Motifsortie.name# »"
+
+msgid "/Motifssortie/add"
+msgstr "Ajouter"
+
+msgid "/Motifssortie/add/:title"
+msgstr "Ajouter un motif de sortie"
+
+msgid "/Motifssortie/edit"
+msgstr "Modifier"
+
+msgid "/Motifssortie/edit/#Motifsortie.id#"
+msgstr "Modifier le motif de sortie « #Motifsortie.name# »"
+
+msgid "/Motifssortie/delete"
+msgstr "Supprimer"
+
+msgid "/Motifssortie/delete/#Motifsortie.id#"
+msgstr "Supprimer le motif de sortie « #Motifsortie.name# »"
+
+msgid "/Motifssortie/delete/#Motifsortie.id# ?"
+msgstr "Réellement supprimer le motif de sortie « #Motifsortie.name# » ?"

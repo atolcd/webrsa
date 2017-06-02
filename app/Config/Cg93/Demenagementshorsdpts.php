@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par allocataires sortants" > "Hors département (nouveau)"
+	 * Menu "Recherches" > "Par allocataires sortants" > "Hors département"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Demenagementshorsdpts.search',
@@ -78,7 +78,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par allocataires sortants" > "Hors département (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par allocataires sortants" > "Hors département"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Demenagementshorsdpts.exportcsv',
@@ -102,32 +102,6 @@
 			),
 			// 4. Temps d'exécution, mémoire maximum, ...
 			'ini_set' => Configure::read( 'ConfigurableQuery.Demenagementshorsdpts.search.ini_set' ),
-		)
-	);
-	//--------------------------------------------------------------------------
-	/**
-	 * Valeurs des filtres de recherche par défaut pour la "Recherche par
-	 * allocataires sortants, hors département"
-	 *
-	 * @deprecated since 3.0.00
-	 *
-	 * @var array
-	 */
-	Configure::write(
-		'Filtresdefaut.Demenagementshorsdpts_search1',
-		array(
-			'Search' => array(
-				'Dossier' => array(
-					'dernier' => '1',
-				),
-				'Pagination' => array(
-					'nombre_total' => '0'
-				),
-				'Situationdossierrsa' => array(
-					'etatdosrsa_choice' => '1',
-					'etatdosrsa' => array( '2', '3', '4' )
-				)
-			)
 		)
 	);
 ?>

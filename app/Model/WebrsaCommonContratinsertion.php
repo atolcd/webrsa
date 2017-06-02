@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe WebrsaCommonContratinsertion ...
@@ -21,14 +22,14 @@
 		 * @var string
 		 */
 		public $name = 'WebrsaCommonContratinsertion';
-		
+
 		/**
 		 * Nom de la table utilisé par le modele
-		 * 
+		 *
 		 * @var boolean
 		 */
 		public $useTable = false;
-		
+
 		/**
 		 * Modèles utilisés par ce modèle.
 		 *
@@ -39,7 +40,7 @@
 			'Contratinsertion',
 			'Canton',
 		);
-		
+
 		/**
 		 * Retourne le querydata de base, en fonction du département, à utiliser
 		 * dans le moteur de recherche.
@@ -114,7 +115,7 @@
 						$this->Contratinsertion->Personne->Orientstruct->join( 'Typeorient', array( 'type' => $types['Typeorient'] ) ),
 					)
 				);
-				
+
 				// 4. Tri par défaut
 				$query['order'] = array( 'Contratinsertion.df_ci' => 'ASC' );
 
@@ -148,7 +149,7 @@
 			$pathsToExplode = array(
 				'Contratinsertion.referent_id'
 			);
-			
+
 			$pathSingleDate = array(
 				'Contratinsertion.datevalidation_ci',
 			);

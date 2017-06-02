@@ -1,4 +1,4 @@
-<?php require_once( dirname( __FILE__ ).DS.'search.ctp' ); ?>
+<?php require_once  dirname( __FILE__ ).DS.'search.ctp' ; ?>
 <?php if( !empty( $this->request->data ) ): ?>
 	<h2>4 - Nombre et profil des personnes réorientées au cours de l'année, au sens de la loi (voir notice)</h2>
 	<?php
@@ -50,9 +50,9 @@
 			<?php foreach( $tranches[$indicateur] as $tranche ):?>
 			<tr>
 				<th><?php echo __d( 'statistiquesministerielles',  $tranche );?></th>
-				<td class="number"><?php echo ( isset( $reorientes[$tranche] ) ? $this->Locale->number( $reorientes[$tranche] ) : 0 );?></td>
-				<td class="number"><?php echo ( isset( $organismes_hors_spe[$tranche] ) ? $this->Locale->number( $organismes_hors_spe[$tranche] ) : 0 );?></td>
-				<td class="number"><?php echo ( isset( $organismes_spe[$tranche] ) ? $this->Locale->number( $organismes_spe[$tranche] ) : 0 );?></td>
+				<td class="number"><?php echo  isset( $reorientes[$tranche] ) ? $this->Locale->number( $reorientes[$tranche] ) : 0 ;?></td>
+				<td class="number"><?php echo  isset( $organismes_hors_spe[$tranche] ) ? $this->Locale->number( $organismes_hors_spe[$tranche] ) : 0 ;?></td>
+				<td class="number"><?php echo  isset( $organismes_spe[$tranche] ) ? $this->Locale->number( $organismes_spe[$tranche] ) : 0 ;?></td>
 			</tr>
 			<?php endforeach;?>
 		</tbody>

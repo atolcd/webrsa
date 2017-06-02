@@ -31,7 +31,7 @@
 			'Gestionzonesgeos',
 			'InsertionsBeneficiaires',
 			'Jetons2',
-			'Search.Filtresdefaut' => array( 'index' ),
+			'Search.SearchFiltresdefaut' => array( 'index' ),
 			'Search.SearchPrg' => array(
 				'actions' => array(
 					'index' => array( 'filter' => 'Search' ),
@@ -61,26 +61,26 @@
 			'Gestiondoublon',
 			'Option',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -226,7 +226,7 @@
 
 					if( $success ) {
 						$this->Foyer->commit();
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->Jetons2->release( $dossier1_id );
 						$this->Jetons2->release( $dossier2_id );
 
@@ -234,7 +234,7 @@
 					}
 					else {
 						$this->Foyer->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement.', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 			}

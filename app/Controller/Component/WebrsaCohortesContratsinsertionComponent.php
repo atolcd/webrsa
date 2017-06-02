@@ -3,7 +3,7 @@
 	 * Code source de la classe WebrsaCohortesContratsinsertionComponent.
 	 *
 	 * @package app.Controller.Component
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Component.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'WebrsaAbstractCohortesComponent', 'Controller/Component' );
 

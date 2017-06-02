@@ -7,7 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses('AppController', 'Controller');
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe Transfertspdvs93Controller ...
@@ -33,7 +33,7 @@
 			'Gedooo.Gedooo',
 			'InsertionsBeneficiaires',
 			'Jetons2',
-			'Search.Filtresdefaut' => array(
+			'Search.SearchFiltresdefaut' => array(
 				'search',
 			),
 			'Search.SearchPrg' => array(
@@ -69,18 +69,6 @@
 		);
 
 		/**
-		 * Utilise les droits d'un autre Controller:action
-		 * sur une action en particulier
-		 *
-		 * @var array
-		 */
-		public $commeDroit = array(
-			'cohorte_atransferer' => 'Cohortestransfertspdvs93:atransferer',
-			'exportcsv' => 'Criterestransfertspdvs93:exportcsv',
-			'search' => 'Criterestransfertspdvs93:index',
-		);
-
-		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
@@ -102,7 +90,7 @@
 		);
 
 		/**
-		 * Moteur de recherche par rendez-vous (nouveau).
+		 * Moteur de recherche par rendez-vous.
 		 */
 		public function search() {
 			$Recherches = $this->Components->load( 'WebrsaRecherchesTransfertspdvs93' );
@@ -115,7 +103,7 @@
 		}
 
 		/**
-		 * Export CSV des résultats de la recherche par rendez-vous (nouveau).
+		 * Export CSV des résultats de la recherche par rendez-vous.
 		 */
 		public function exportcsv() {
 			$Recherches = $this->Components->load( 'WebrsaRecherchesTransfertspdvs93' );

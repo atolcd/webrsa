@@ -42,6 +42,11 @@
 			$controller = null;
 			$this->View = new View( $controller );
 			$this->DefaultHtml = new DefaultHtmlHelper( $this->View );
+
+			$this->DefaultHtml->Permissions = $this->getMock(
+				'PermissionsHelper',
+				array( 'check' )
+			);
 		}
 
 		/**
@@ -89,6 +94,8 @@
 				'prefix' => 'admin',
 				'admin' => true
 			);
+
+			$this->DefaultHtml->Permissions->expects($this->any())->method('check')->will($this->returnValue(true));
 
 			$result = $this->DefaultHtml->link( 'Test', $url );
 			$expected = '<a href="/admin/default/users/add" class="default users admin_add">Test</a>';

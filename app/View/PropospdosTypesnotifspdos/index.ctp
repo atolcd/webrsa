@@ -10,7 +10,7 @@
 
 <div class="with_treemenu">
 
-<?php echo $this->Form->create( 'TraitementsPDOs', array() );?>
+<?php echo $this->Form->create( 'TraitementsPDOs', array('novalidate' => true) );?>
 	<h1>Liste des traitements</h1>
 
 	<?php if( empty( $notifs ) ):?>

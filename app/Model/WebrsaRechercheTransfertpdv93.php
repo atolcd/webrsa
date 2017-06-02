@@ -138,7 +138,7 @@
 				// TODO: VxAdressefoyer ?
 
 				$query['conditions'][] = 'Adressefoyer.id = Transfertpdv93.vx_adressefoyer_id';
-				$query['conditions'][] = 'CAST( DATE_PART( \'year\', "Transfertpdv93"."created" ) + 1 || \'-03-31\' AS date ) >= DATE_TRUNC( \'day\', NOW() )';
+				$query['conditions'][] = '( DATE_PART( \'year\', "Transfertpdv93"."created" ) + 1 || \'-03-31\' )::DATE >= DATE_TRUNC( \'day\', NOW() )';
 
 				$query['order'] = array(
 					'Transfertpdv93.created DESC',

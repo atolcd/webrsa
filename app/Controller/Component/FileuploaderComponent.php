@@ -7,9 +7,10 @@
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses('Folder', 'Utility');
-	App::uses('File', 'Utility');
-	require_once( APPLIBS.'cmis.php' );
+	App::uses( 'Component', 'Controller' );
+	App::uses( 'Folder', 'Utility' );
+	App::uses( 'File', 'Utility' );
+	require_once  APPLIBS.'cmis.php' ;
 
 	/**
 	 * La classe FileuploaderComponent permet de gérer les fichiers liés pour
@@ -34,6 +35,13 @@
 		 * @var string
 		 */
 		protected $_colonneModele = null;
+
+		/**
+		 * Components utilisés par ce component.
+		 *
+		 * @var array
+		 */
+		public $components = array( 'Flash' );
 
 		/**
 		 * Initialisation du component.
@@ -120,7 +128,7 @@
 
                         ClassRegistry::init( $this->_modeleStockage )->create( $record );
 
-                        if( $tmpSaved = ClassRegistry::init( $this->_modeleStockage )->save() ) {
+                        if( $tmpSaved = ClassRegistry::init( $this->_modeleStockage )->save( null, array( 'atomic' => false ) ) ) {
                             $oFile = new File( $dir.DS.$file, true );
                             $tmpSaved = $oFile->delete() && $tmpSaved;
                         }
@@ -523,12 +531,12 @@
 				if( $saved ) {
 					$Controller->{$this->_colonneModele}->commit();
 					//$this->Jetons2->release( $dossier_id );
-					$Controller->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$Controller->redirect( $indexUrl );
 				}
 				else {
 					$Controller->{$this->_colonneModele}->rollback();
-					$Controller->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 

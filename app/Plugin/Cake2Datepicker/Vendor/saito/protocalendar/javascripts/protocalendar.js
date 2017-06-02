@@ -1,16 +1,16 @@
 /*  protocalendar.js
- *  (c) 2008 Spookies
+ *  (c) 2009 Spookies
  * 
  *  License : MIT-style license.
- *  Web site: http://labs.spookies.jp
+ *  Web site: http://labs.spookies.jp/product/protocalendar
  *
- *  protocalendar.js - depends on prototype.js 1.5 or later
+ *  protocalendar.js - depends on prototype.js 1.6 or later
  *  http://www.prototypejs.org/
  *
 /*--------------------------------------------------------------------------*/
 
 var ProtoCalendar = Class.create();
-ProtoCalendar.Version = "1.1.4";
+ProtoCalendar.Version = "1.1.8.2";
 
 ProtoCalendar.LangFile = new Object();
 ProtoCalendar.LangFile['en'] = {
@@ -30,6 +30,43 @@ ProtoCalendar.LangFile['en'] = {
 
 ProtoCalendar.LangFile.defaultLang = 'en';
 ProtoCalendar.LangFile.defaultLangFile = function() { return ProtoCalendar.LangFile[defaultLang]; };
+
+ProtoCalendar.newDate = function() {
+  var d = new Date();
+  d.setDate(1);
+  return d;
+}
+
+//Only check vertically
+ProtoCalendar.withinViewport = function(element) {
+  var dimensions = ProtoCalendar.callWithVisibility(element, function() { return element.getDimensions(); });
+  var width = dimensions.width;
+  var height = dimensions.height;
+  var offsets = ProtoCalendar.callWithVisibility(element, function() { return element.viewportOffset(); });
+  var offsetX = offsets.left;
+  var offsetY = offsets.top;
+  return (offsetY >=0) && (offsetY + height <= document.viewport.getHeight());
+}
+
+ProtoCalendar.callWithVisibility = function(element, func) {
+  element = $(element);
+  var display = $(element).getStyle('display');
+  if (display != 'none' && display != null) {// Safari bug 
+    return func();
+  }
+  var els = element.style;
+  var originalVisibility = els.visibility;
+  var originalPosition = els.position;
+  var originalDisplay = els.display;
+  els.visibility = 'hidden';
+  els.position = 'absolute';
+  els.display = 'block';
+  var result = func();
+  els.display = originalDisplay;
+  els.position = originalPosition;
+  els.visibility = originalVisibility;
+  return result;
+}
 
 Object.extend(ProtoCalendar, {
                 JAN: 0,
@@ -64,7 +101,7 @@ Object.extend(ProtoCalendar, {
 
 ProtoCalendar.prototype = {
   initialize: function(options) {
-    var date = new Date();
+    var date = ProtoCalendar.newDate();
     this.options = Object.extend({
                                    month: date.getMonth(),
                                    year: date.getFullYear(),
@@ -211,21 +248,26 @@ AbstractProtoCalendarRender.prototype = {
                                    saturdayClass: 'cal-saturday',
                                    holidayClass: 'cal-holiday',
                                    otherdayClass: 'cal-otherday',
+                                   disabledDayClass: 'cal-disabled',
                                    selectedDayClass: 'cal-selected',
                                    nextBtnId: this.getIdPrefix() + '-next-btn',
                                    prevBtnId: this.getIdPrefix() + '-prev-btn',
                                    lang: ProtoCalendar.LangFile.defaultLang,
                                    showEffect: 'Appear',
-                                   hideEffect: 'Fade'
+                                   hideEffect: 'Fade',
+                                   ifInvisible: 'Flip', /* None | Scroll | Flip */
+                                   scrollMargin: 20
                                  }, options || {});
     this.langFile = ProtoCalendar.LangFile[this.options.lang];
     this.weekFirstDay = this.options.weekFirstDay;
     this.initWeekData();
     this.container = this.createContainer();
     this.alignTo = $(this.options.alignTo);
+    this.alignOrient = 'Below';
     if (navigator.appVersion.match(/\bMSIE\b/)) {
       this.iframe = this.createIframe();
     }
+    this.resizeHandler = this.setPosition.bind(this);
   },
 
   createContainer: function() {
@@ -305,18 +347,39 @@ AbstractProtoCalendarRender.prototype = {
   },
 
   setPosition: function() {
-    if (!this.alignTo) return;
-    setAlignment(this.alignTo, this.container);
+    if (!this.alignTo) return true;
+    this.setAlignment(this.alignTo, this.container, this.alignOrient);
+    var withinView = ProtoCalendar.withinViewport(this.container);
+    if (!withinView && this.options.ifInvisible == 'Flip') {
+      this.alignOrient = (this.alignOrient == 'Above' ? 'Below' : 'Above');
+      this.setAlignment(this.alignTo, this.container, this.alignOrient);
+    }
     if (this.iframe) {
       var dimensions = Element.getDimensions(this.container);
       this.iframe.setAttribute("width", dimensions.width);
       this.iframe.setAttribute("height", dimensions.height);
-      setAlignment(this.alignTo, this.iframe);
+      this.setAlignment(this.alignTo, this.iframe, this.alignOrient);
+    }
+    if (this.options.ifInvisible == 'Scroll') this.scrollIfInvisible();
+    return true;
+  },
+
+  setAlignment: function(alignTo, element, pos) {
+    var offsets = Position.cumulativeOffset(alignTo);
+    element.setStyle({left: offsets[0] + "px"});
+    if (pos == 'Above') {
+      var elementHeight = ProtoCalendar.callWithVisibility(element, function() { return element.offsetHeight; });
+      element.setStyle({top: (offsets[1] - elementHeight) + "px"});
+    } else if (pos == 'Below') {
+      element.setStyle({top: (offsets[1] + alignTo.offsetHeight) + "px"});
+    } else {
+      //Unknown option
     }
   },
 
   show: function(option) {
-   this.setPosition();
+    Event.observe(window, 'resize', this.resizeHandler);
+    this.setPosition();
     if (typeof Effect != 'undefined') {
       var effect =  this.options['showEffect'] || 'Appear';
       if (!this._effect || this._effect.state == 'finished') {
@@ -328,7 +391,22 @@ AbstractProtoCalendarRender.prototype = {
     if (this.iframe) this.iframe.show();
   },
 
+  scrollIfInvisible: function() {
+    var container = this.container;
+    var dimensions = ProtoCalendar.callWithVisibility(container, function() { return container.getDimensions(); });
+    var width = dimensions.width;
+    var height = dimensions.height;
+    var offsets = ProtoCalendar.callWithVisibility(container, function() { return container.viewportOffset(); });
+    var offsetX = offsets.left;
+    var offsetY = offsets.top;
+    var diff = offsetY + height - document.viewport.getHeight();
+    if (diff > 0) {
+      window.scrollBy(0, diff + this.options.scrollMargin);
+    }
+  },    
+
   hide: function(option) {
+    Event.stopObserving(window, 'resize', this.resizeHandler);
     if (!this.container.visible()) {
       return ;
     }
@@ -340,6 +418,14 @@ AbstractProtoCalendarRender.prototype = {
     } else {
       this.container.hide();
     }
+    if (this.iframe) this.iframe.hide();
+  },
+
+  hideImmediately: function(option) {
+    if (!this.container.visible()) {
+      return ;
+    }
+    this.container.hide();
     if (this.iframe) this.iframe.hide();
   },
 
@@ -460,7 +546,12 @@ AbstractProtoCalendarRender.prototype = {
       new Insertion.Before($(this.options.footerId), this.evaluateWithOptions(errorDivHtml));
       this.errorDiv = $(this.options.errorDivId);
     }
-  }
+    },
+
+  isSelectable: function(date) {
+      return (this.options.minDate - date) <= 0 && (date - this.options.maxDate) <= 0;
+    }
+  
 };
 
 var ProtoCalendarRender = Class.create();
@@ -482,8 +573,8 @@ Object.extend(
 
     rerender: function(calendar) {
       this.getBody().innerHTML = this.evaluateWithOptions(this.renderBody(calendar));
-      selectOption(this.getMonthSelect(), calendar.getMonth());
-      selectOption(this.getYearSelect(), calendar.getYear());
+      SelectCalendar.selectOption(this.getMonthSelect(), calendar.getMonth());
+      SelectCalendar.selectOption(this.getYearSelect(), calendar.getYear());
       if (this.container.visible()) this.setPosition();
     },
 
@@ -491,9 +582,9 @@ Object.extend(
       var html = '';
       // required 'href'
       html += '<div class="#{headerTopClass}"></div><div class="#{headerClass}">' +
-        '<a href="javascript:void(0);" id="#{prevBtnId}" class="#{prevButtonClass}">&lt;&lt;</a>' +
+        '<a href="#" id="#{prevBtnId}" class="#{prevButtonClass}">&lt;&lt;</a>' +
         this.createSelect(calendar.getYear(), calendar.getMonth()) +
-        '<a href="javascript:void(0);" id="#{nextBtnId}" class="#{nextButtonClass}">&gt;&gt;</a>' +
+        '<a href="#" id="#{nextBtnId}" class="#{nextButtonClass}">&gt;&gt;</a>' +
         '</div><div class="#{headerBottomClass}"></div>';
       return html;
     },
@@ -588,16 +679,21 @@ Object.extend(
 
         if (curDay.getDay() == this.weekFirstDay) { html += '<tr>'; }
         var dayId = this.getDayDivId(curDay);
-        html += '<td class="' + divClassName + ' #{dayCellClass}">' +
-          '<a class="#{dayClass}" href="javascript:void(0)" id="' + dayId +
-          (holiday ? '" title="' + holiday : '') +
-          '" year="' + curDay.getFullYear() +
-          '" month="' + curDay.getMonth() +
-          '" day="' + curDay.getDate() +
-          '">' + curDay.getDate() + '</a>';
-
+        var dayHtml = '';
+        if (this.isSelectable(curDay)) {
+          dayHtml = '<a class="#{dayClass}" href="#" id="' + dayId +
+            (holiday ? '" title="' + holiday : '') +
+            '" year="' + curDay.getFullYear() +
+            '" month="' + curDay.getMonth() +
+            '" day="' + curDay.getDate() +
+            '">' + curDay.getDate() + '</a>';
+          this.dayDivs.push(dayId);
+        } else {
+          divClassName += ' ' + this.options.disabledDayClass;
+          dayHtml = curDay.getDate();
+        }
+        html += '<td class="' + divClassName + ' #{dayCellClass}">' + dayHtml + '</td>';
         if (curDay.getDay() == this.weekLastDay) { html += '</tr>'; }
-        this.dayDivs.push(dayId);
       }
       html += '</tbody></table>';
       return html;
@@ -631,7 +727,7 @@ ProtoCalendarController.prototype = {
   },
 
   initializeDate: function() {
-    var date = new Date();
+    var date = ProtoCalendar.newDate();
     if (!this.options.year) {
       if (date.getFullYear() >= this.options.startYear && date.getFullYear() <= this.options.endYear) { 
         this.options.year = date.getFullYear();
@@ -721,6 +817,7 @@ ProtoCalendarController.prototype = {
   },
 
   onClickHandler: function(event) {
+    Event.stop(event);
     var date = this.calendarRender.getDateFromEl(Event.element(event));
     if (date) {
       this.selectDate(date);
@@ -776,6 +873,16 @@ ProtoCalendarController.prototype = {
     this.calendarRender.hide();
   },
 
+  blurCalendar: function(event) {
+    if (event.keyCode == 9) {
+      this.hideImmediatelyCalendar();
+    }
+  },
+
+  hideImmediatelyCalendar: function() {
+    this.calendarRender.hideImmediately();
+  },
+
   toggleCalendar: function() {
     this.calendarRender.toggle();
   },
@@ -792,6 +899,9 @@ ProtoCalendarController.prototype = {
 
   shiftMonthByOffset: function(offset) {
     if (offset == 0) return;
+    var newDate = new Date(this.calendar.getDate().getTime());
+    newDate.setMonth(newDate.getMonth() + offset);
+    if (this.options.startYear > newDate.getFullYear() || this.options.endYear < newDate.getFullYear()) return;
     this.calendar.setMonthByOffset(offset);
     this.afterSet();
   },
@@ -845,13 +955,15 @@ BaseCalendar.prototype = {
   initializeOptions: function(options) {
     if (!options) options = {};
     this.options = Object.extend({
-                                   startYear: new Date().getFullYear() - 10,
-                                   endYear: new Date().getFullYear() + 10,
+                                   startYear: ProtoCalendar.newDate().getFullYear() - 10,
+                                   endYear: ProtoCalendar.newDate().getFullYear() + 10,
+                                   minDate: new Date(1900, 0, 1),
+                                   maxDate: new Date(3000, 0, 1),
                                    format: ProtoCalendar.LangFile[options.lang || ProtoCalendar.LangFile.defaultLang]['DEFAULT_FORMAT'],
                                    enableHourMinute: false,
                                    enableSecond: false,
                                    lang: ProtoCalendar.LangFile.defaultLang,
-           triggers: []
+                                   triggers: []
                                  }, options);
   },
 
@@ -870,7 +982,7 @@ BaseCalendar.prototype = {
   },
 
   observeEvents: function() {
-    Event.observe(document, 'click', this.windowClickHandler.bindAsEventListener(this));
+    Event.observe(document.body, 'click', this.windowClickHandler.bindAsEventListener(this));
     this.calendarController.addChangeHandler(this.onCalendarChange.bind(this));
     this.doObserveEvents();
   },
@@ -881,7 +993,6 @@ BaseCalendar.prototype = {
 
   windowClickHandler: function(event) {
     var target = $(Event.element(event));
-      
     if (this.triggers.include(target)) {
       this.calendarController.toggleCalendar();
     } else if (target != this.input && !Element.descendantOf(target, this.calendarController.getContainer())) {
@@ -947,7 +1058,9 @@ Object.extend(
       if (this.options.enableHourMinute) {
         this.calendarController.calendarRender.selectTime(this.calendarController.selectedDate);
       }
-      if (this.options.inputReadOnly) this.input.setAttribute('readOnly', this.options.inputReadOnly);
+      if (this.options.inputReadOnly) {
+        this.input.setAttribute('readOnly', this.options.inputReadOnly);
+      }
     },
 
     initializeLabel: function() {
@@ -972,6 +1085,7 @@ Object.extend(
     doObserveEvents: function() {
       this.input.observe('change', this.onInputChange.bind(this));
       this.input.observe('focus', this.calendarController.showCalendar.bind(this.calendarController));
+      this.input.observe('keydown', this.calendarController.blurCalendar.bindAsEventListener(this.calendarController));
       this.addChangeHandler(this.changeInputValue.bind(this));
       this.addChangeHandler(this.changeLabel.bind(this));
     },
@@ -980,16 +1094,17 @@ Object.extend(
       var date = this.dateFormat.parse(this.input.value);
       if (date) {
         this.calendarController.selectDate(date, true);
+        if (this.options.enableHourMinute) this.calendarController.calendarRender.selectTime(date);
       } else {
         var inputValue = this.input.value.toLowerCase();
         var date;
         if (this.langFile['today'] && this.langFile['today'] == inputValue || inputValue == 'today') {
-          date = new Date();
+          date = ProtoCalendar.newDate();
         } else if (this.langFile['tomorrow'] && this.langFile['tomorrow'] == inputValue || inputValue == 'tomorrow') {
-          date = new Date();
+          date = ProtoCalendar.newDate();
           date.setDate(date.getDate() + 1);
         } else if (this.langFile['yesterday'] && this.langFile['yesterday'] == inputValue || inputValue == 'yesterday') {
-          date = new Date();
+          date = ProtoCalendar.newDate();
           date.setDate(date.getDate() - 1);
         } else if (this.langFile.parseDate && (date = this.langFile.parseDate(inputValue))) {
           //done is parseDate
@@ -1007,10 +1122,6 @@ Object.extend(
     }
   });
 
-function setAlignment(alignTo, element) {
-  var offsets = Position.cumulativeOffset(alignTo);
-  element.setStyle({left: offsets[0] + "px", top: (offsets[1] + alignTo.offsetHeight) + "px"});
-}
 
 ProtoCalendar.DateFormat = Class.create();
 Object.extend(ProtoCalendar.DateFormat,
@@ -1076,7 +1187,7 @@ ProtoCalendar.DateFormat.prototype =  {
       case 'l':       handlers.push(function(date, lf) { return ProtoCalendar.DateFormat.zeroize(date.getMilliseconds(), 3); }); break;
       case 'tt':      handlers.push(function(date, lf) { return date.getHours() < 12 ? 'am' : 'pm'; }); break;
       case 'TT':      handlers.push(function(date, lf) { return date.getHours() < 12 ? 'AM' : 'PM'; }); break;
-      default:        handlers.push(createIdentity(matches[i]));
+      default:        handlers.push(ProtoCalendar.createIdentity(matches[i]));
       }
     };
     this.formatHandlers = handlers;
@@ -1088,8 +1199,7 @@ ProtoCalendar.DateFormat.prototype =  {
     if (!str) return undefined;
     var results = str.match(this.parserRegexp);
     if (!results) return undefined;
-    var date = new Date();
-    var handler;
+    var date = ProtoCalendar.newDate();
     for (var i = 0, n = this.parseHandlers.length; i < n; i++) {
       if (this.parseHandlers[i] != undefined) {
         (this.parseHandlers[i])(date, results[i+1]);
@@ -1114,7 +1224,10 @@ ProtoCalendar.DateFormat.prototype =  {
                       break;
       case 'm':
       case 'mm':      regstr += '\\d{1,2}';
-                      handlers.push(function(date, value) { date.setMonth(parseInt(value, 10) - 1);});
+                      handlers.push(function(date, value) { 
+                                      var m = parseInt(value, 10) - 1;
+                                      date.setMonth(m); 
+                                    });
                       break;
 //       case 'mmm':     regstr += ProtoCalendar.DateFormat.MONTH_ABBRS.join('|');
 //                       handlers.push(function(date, value) {
@@ -1194,16 +1307,18 @@ ProtoCalendar.DateFormat.prototype =  {
   }
 };
 
-function createIdentity(v) {
+ProtoCalendar.createIdentity = function(v) {
   return function() { return v; }
 }
 
-function selectTimeOption(select, value) {
+var SelectCalendar = Class.create();
+SelectCalendar.selectTimeOption = function(select, value) {
   var newValue = value - 0;
   newValue = newValue < 10 ? "0" + newValue : newValue;
-  selectOption(select, newValue);
+  SelectCalendar.selectOption(select, newValue);
 }
-function selectOption(select, value) {
+
+SelectCalendar.selectOption = function(select, value) {
   var selectEl = $(select);
   var options = selectEl.options;
   for (var i = 0; i < options.length; i++) {
@@ -1214,7 +1329,6 @@ function selectOption(select, value) {
   }
 }
 
-var SelectCalendar = Class.create();
 SelectCalendar.createOnLoaded = function(select, options) {
   BaseCalendar.bindOnLoad(function() { new SelectCalendar(select, options); });
 };
@@ -1274,33 +1388,47 @@ Object.extend(
     changeSelectValue: function() {
       var date = this.calendarController.getSelectedDate();
       if (date) {
-        selectOption(this.yearSelect, date.getFullYear());
-        selectOption(this.monthSelect, date.getMonth() + 1);
-        selectOption(this.daySelect, date.getDate());
+        SelectCalendar.selectOption(this.yearSelect, date.getFullYear());
+        SelectCalendar.selectOption(this.monthSelect, date.getMonth() + 1);
+        SelectCalendar.selectOption(this.daySelect, date.getDate());
         if (this.options.enableHourMinute) {
-          selectTimeOption(this.hourSelect, date.getHours());
-          selectTimeOption(this.minuteSelect, date.getMinutes());
+          SelectCalendar.selectTimeOption(this.hourSelect, date.getHours());
+          SelectCalendar.selectTimeOption(this.minuteSelect, date.getMinutes());
           if (this.options.enableSecond) {
-            selectTimeOption(this.secondSelect, date.getSeconds());
+            SelectCalendar.selectTimeOption(this.secondSelect, date.getSeconds());
           }
         }
       }
     },
 
     getSelectedDate: function() {
-      var d = new Date();
+      if (this.yearSelect.value == '' 
+          || this.monthSelect.value == '' 
+          || this.daySelect.value == '') {
+        return undefined;
+      }
+      var d = ProtoCalendar.newDate();
       d.setFullYear(this.yearSelect.value);
       d.setMonth(this.monthSelect.value - 1);
       d.setDate(this.daySelect.value);
       if (this.options.enableHourMinute) {
+        if (this.hourSelect.value == '' || this.minuteSelect.value == '') {
+          return undefined;
+        }
         d.setHours(this.hourSelect.value - 0);
         d.setMinutes(this.minuteSelect.value - 0);
         if (this.options.enableSecond) {
+          if (this.secondSelect.value == '') {
+            return undefined;
+          }
           d.setSeconds(this.secondSelect.value - 0);
         }
       }
-      if (isNaN(d.getTime()) || d.getTime() < 0) return undefined;
-      else return d;
+      if (isNaN(d.getTime())) {
+        return undefined;
+      } else {
+        return d;
+      }
     }
   });
 

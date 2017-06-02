@@ -3,7 +3,7 @@
 ?>
 <?php
 	echo $this->Xhtml->tag( 'h1', $this->pageTitle );
-	echo $this->Form->create( 'Personnepcg66', array( 'type' => 'post', 'id' => 'personnepcg66form' ) );
+	echo $this->Form->create( 'Personnepcg66', array( 'type' => 'post', 'id' => 'personnepcg66form', 'novalidate' => true ) );
 
 	//Liste des différentes situations de la personne
 	$listeSituations = Set::extract( $personnepcg66, '/Situationpdo/libelle' );

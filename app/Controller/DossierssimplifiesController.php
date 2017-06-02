@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe DossierssimplifiesController ...
@@ -39,7 +40,7 @@
 		 * @var array
 		 */
 		public $helpers = array(
-			
+
 		);
 
 		/**
@@ -58,26 +59,26 @@
 			'Typocontrat',
 			'Zonegeographique',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Dossierssimplifies:edit',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -258,14 +259,14 @@
 
 				if( $validates ) {
 					$this->Dossier->begin();
-					$saved = $this->Dossier->save( $this->request->data );
+					$saved = $this->Dossier->save( $this->request->data , array( 'atomic' => false ) );
 					// Foyer
 					$this->request->data['Foyer']['dossier_id'] = $this->Dossier->id;
-					$saved = $this->Foyer->save( $this->request->data ) && $saved;
+					$saved = $this->Foyer->save( $this->request->data , array( 'atomic' => false ) ) && $saved;
 					// Situation dossier RSA
 					$situationdossierrsa = array( 'Situationdossierrsa' => array( 'dossier_id' => $this->Dossier->id, 'etatdosrsa' => 'Z' ) );
 					$this->Dossier->Situationdossierrsa->validate = array( );
-					$saved = $this->Dossier->Situationdossierrsa->save( $situationdossierrsa ) && $saved;
+					$saved = $this->Dossier->Situationdossierrsa->save( $situationdossierrsa , array( 'atomic' => false ) ) && $saved;
 
 					$orientstruct_validate = $this->Orientstruct->validate;
 
@@ -278,7 +279,7 @@
 							$this->Personne->create();
 							$pData['foyer_id'] = $this->Foyer->id;
 							$this->Personne->set( $pData );
-							$saved = $this->Personne->save() && $saved;
+							$saved = $this->Personne->save( null, array( 'atomic' => false ) ) && $saved;
 							$personneId = $this->Personne->id;
 
 							// Prestation, Calculdroitrsa
@@ -286,7 +287,7 @@
 								$this->Personne->{$tmpModel}->create();
 								$this->request->data[$tmpModel][$key]['personne_id'] = $personneId;
 								$this->Personne->{$tmpModel}->set( $this->request->data[$tmpModel][$key] );
-								$saved = $this->Personne->{$tmpModel}->save( $this->request->data['Prestation'][$key] ) && $saved;
+								$saved = $this->Personne->{$tmpModel}->save( $this->request->data['Prestation'][$key] , array( 'atomic' => false ) ) && $saved;
 							}
 
 							// Orientation
@@ -305,14 +306,14 @@
 									$this->request->data['Orientstruct'][$key]['date_valid'] = date( 'Y-m-d' );
 									$this->request->data['Orientstruct'][$key]['user_id'] = $this->Session->read( 'Auth.User.id' );
 									$this->Orientstruct->create( $this->request->data['Orientstruct'][$key] );
-									$saved = $this->Orientstruct->save() && $saved;
+									$saved = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $saved;
 								}
 								else {
 									$this->Orientstruct->validate = array( );
 									$this->request->data['Orientstruct'][$key]['personne_id'] = $this->Personne->id;
 									$this->request->data['Orientstruct'][$key]['user_id'] = $this->Session->read( 'Auth.User.id' );
 									$this->Orientstruct->create( $this->request->data['Orientstruct'][$key] );
-									$saved = $this->Orientstruct->save() && $saved;
+									$saved = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $saved;
 								}
 
 								// Si on a une erreur lors de l'enregistrement d'une orientation
@@ -325,12 +326,12 @@
 
 					if( $saved ) {
 						$this->Dossier->commit();
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						return $this->redirect( array( 'controller' => 'dossierssimplifies', 'action' => 'view', $this->Dossier->id ) );
 					}
 					else {
 						$this->Dossier->rollback();
-						$this->Session->setFlash( 'Erreur(s) lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 						$this->Orientstruct->validationErrors = $orientsstructsValidationErrors;
 					}
 				}
@@ -439,7 +440,7 @@
 				if( $savePersonne && $saveDossier ) {
 					$this->Dossier->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					return $this->redirect( array( 'controller' => 'dossierssimplifies', 'action' => 'view', $dossier_id ) );
 				}
 				else {

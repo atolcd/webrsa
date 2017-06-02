@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe DetailsdroitsrsaController ...
@@ -38,7 +39,7 @@
 		 * @var array
 		 */
 		public $helpers = array(
-			
+
 		);
 
 		/**
@@ -52,26 +53,24 @@
 			'Dossier',
 			'Option',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
-		public $commeDroit = array(
-			'view' => 'Detailsdroitsrsa:index',
-		);
-		
+		public $commeDroit = array();
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -118,31 +117,6 @@
 			$this->set( 'dossier_id', $dossier_id );
 			$this->set( 'detaildroitrsa', $detaildroitrsa );
 		}
-
-		/**
-		 *
-		 * @param integer $detaildroitrsa_id
-		 */
-		/*public function view( $detaildroitrsa_id = null ) {
-			// Vérification du format de la variable
-			$this->assert( valid_int( $detaildroitrsa_id ), 'error404' );
-
-			$detaildroitrsa = $this->Detaildroitrsa->find(
-				'first',
-				array(
-					'conditions' => array(
-						'Detaildroitrsa.id' => $detaildroitrsa_id
-					),
-				'recursive' => -1
-				)
-			);
-
-			$this->assert( !empty( $detaildroitrsa ), 'error404' );
-
-			// Assignations à la vue
-			$this->set( 'dossier_id', $detaildroitrsa['Detaildroitrsa']['dossier_id'] );
-			$this->set( 'detaildroitrsa', $detaildroitrsa );
-		}*/
 	}
 
 ?>

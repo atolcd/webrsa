@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Actprof.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Actprof ...
@@ -17,14 +18,18 @@
 	{
 		public $name = 'Actprof';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
 			'Aideapre',
-			'Enumerable' => array(
-				'fields' => array(
-					'typecontratact' => array( 'type' => 'typecontratact', 'domain' => 'apre' ),
-				)
-			),
-			'Frenchfloat' => array( 'fields' => array( 'montantaide', 'coutform', 'dureeform' ) )
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(
@@ -65,95 +70,77 @@
 
 		public $validate = array(
 			'tiersprestataireapre_id' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
 			),
 			'adresseemployeur' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
 			),
 			'typecontratact' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
 			),
 			'intituleformation' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
 			),
 			'montantaide' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
-				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
-					'allowEmpty' => true
 				)
 			),
 			'coutform' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
-				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
-					'allowEmpty' => true
 				)
 			),
 			'dureeform' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				),
-				array(
-					'rule' => 'numeric',
+				'numeric' => array(
+					'rule' => array( 'numeric' ),
 					'message' => 'Veuillez entrer une valeur numérique.',
 					'allowEmpty' => true
 				),
-				array(
+				'comparison' => array(
 					'rule' => array( 'comparison', '>=', 0 ),
 					'message' => 'Veuillez saisir une valeur positive.'
 				)
 			),
 			'ddform' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.'
-				),
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'dfform' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.'
-				),
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'ddconvention' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.'
-				),
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'dfconvention' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.'
-				),
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			)

@@ -296,14 +296,28 @@
 			}
 			
 			// Sauvegarde un par un
+			$validationErrors = array();
 			$success = true;
-			foreach ($data as $value) {
+			$this->Tag->begin();
+			foreach ($data as $key => $value) {
 				$this->Tag->create($value['Tag']);
-				$success = $this->Tag->save() && $success;
+				$success = $this->Tag->save( null, array( 'atomic' => false ) ) && $success;
+				$validationErrors['Tag'][$key] = $this->Tag->validationErrors;
 				
 				$value['EntiteTag']['tag_id'] = $this->Tag->id;
 				$this->Tag->EntiteTag->create($value['EntiteTag']);
-				$success = $this->Tag->EntiteTag->save() && $success;
+				$success = $this->Tag->EntiteTag->save( null, array( 'atomic' => false ) ) && $success;
+				$validationErrors['EntiteTag'][$key] = $this->Tag->EntiteTag->validationErrors;
+			}
+			
+			foreach ((array)Hash::filter($validationErrors) as $alias => $errors) {
+				ClassRegistry::getObject($alias)->validationErrors = $errors;
+			}
+			
+			if ($success) {
+				$this->Tag->commit();
+			} else {
+				$this->Tag->rollback();
 			}
 			
 			return $success;

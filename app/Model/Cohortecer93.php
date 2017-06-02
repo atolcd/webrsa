@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Cohortecer93 permet de rechercher le allocataires ne possédant pas de référent de parcours
@@ -349,7 +350,6 @@
 					$Personne->Prestation->fields(),
 					$Personne->Foyer->Dossier->fields(),
 					$Personne->Foyer->Adressefoyer->Adresse->fields(),
-//					$Personne->Foyer->Adressefoyer->NvTransfertpdv93->fields(),
 					$Personne->Rendezvous->fields(),
 					$Personne->PersonneReferent->fields(),
 					$Personne->Foyer->Dossier->Situationdossierrsa->fields(),

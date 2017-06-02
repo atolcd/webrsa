@@ -7,6 +7,8 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'FrValidation', 'Validation' );
 
 	/**
 	 * La classe User ...
@@ -17,16 +19,33 @@
 	{
 		public $name = 'User';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'username';
 
 		public $actsAs = array(
-			'Enumerable',
-			'Formattable' => array(
-				'phone' => array( 'numtel' )
+			'Acl' => array('type' => 'requester'),
+			'Validation2.Validation2Formattable' => array(
+				'Validation2.Validation2DefaultFormatter' => array(
+					'stripNotAlnum' => '/^numtel$/'
+				)
 			),
-			'Validation.ExtraValidationRules',
-			'Pgsqlcake.PgsqlAutovalidate',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
+
+		/**
+		 * Modèles utilisés par ce modèle.
+		 *
+		 * @var array
+		 */
+		public $uses = array( 'Option', 'WebrsaUser' );
 
 		public $virtualFields = array(
 			'nom_complet' => array(
@@ -36,33 +55,23 @@
 		);
 
 		public $validate = array(
-			'username' => array(
-				'isUnique' => array(
-					'rule' => 'isUnique',
-					'message' => 'Cet identifiant est déjà utilisé'
-				),
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				)
-			),
 			'passwd' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				),
 				'passwordStrength' => array(
-					'rule' => 'passwordStrength'
+					'rule' => array( 'passwordStrength' )
 				),
 			),
 			'current_password' => array(
-				array(
-					'rule' => 'checkCurrentPassword'
+				'checkCurrentPassword' => array(
+					'rule' => array( 'checkCurrentPassword' )
 				)
 			),
 			'new_password' => array(
 				'passwordStrength' => array(
-					'rule' => 'passwordStrength'
+					'rule' => array( 'passwordStrength' )
 				),
 				'checkIdenticalValues' => array(
 					'rule' => array( 'checkIdenticalValues', 'new_password_confirmation' )
@@ -70,67 +79,57 @@
 			),
 			'new_password_confirmation' => array(
 				'passwordStrength' => array(
-					'rule' => 'passwordStrength'
+					'rule' => array( 'passwordStrength' )
 				),
 				'checkIdenticalValues' => array(
 					'rule' => array( 'checkIdenticalValues', 'new_password' )
 				),
 			),
 			'group_id' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				)
-			),
-			'serviceinstructeur_id' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'nom' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'prenom' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
+			),
+			'date_deb_hab' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
+			),
+			'date_fin_hab' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'numtel' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
-				),
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
-				)
-			),
-			'date_deb_hab' => array(
-				'date' => array(
-					'rule' => 'date',
-					'message' => 'Veuillez entrer une date valide'
-				)
-			),
-			'date_fin_hab' => array(
-				'date' => array(
-					'rule' => 'date',
-					'message' => 'Veuillez entrer une date valide'
 				)
 			),
 			'isgestionnaire' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'sensibilite' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
@@ -158,7 +157,7 @@
 					'message' => 'Veuillez entrer une adresse mail valide',
 					'allowEmpty' => true
 				)
-			),
+			)
 		);
 
 		public $belongsTo = array(
@@ -545,6 +544,22 @@
 				'insertQuery' => '',
 				'with' => 'ContratinsertionUser'
 			),
+			'Ancienpoledossierpcg66' => array(
+				'className' => 'Poledossierpcg66',
+				'joinTable' => 'polesdossierspcgs66_users',
+				'foreignKey' => 'user_id',
+				'associationForeignKey' => 'poledossierpcg66_id',
+				'unique' => true,
+				'conditions' => null,
+				'fields' => null,
+				'order' => null,
+				'limit' => null,
+				'offset' => null,
+				'finderQuery' => null,
+				'deleteQuery' => null,
+				'insertQuery' => null,
+				'with' => 'Poledossierpcg66User'
+			),
 			'Zonegeographique' => array(
 				'className' => 'Zonegeographique',
 				'joinTable' => 'users_zonesgeographiques',
@@ -574,44 +589,6 @@
 				$this->data['User']['password'] = Security::hash( $this->data['User']['passwd'], null, true );
 			}
 			return parent::beforeSave( $options );
-		}
-
-		/**
-		 * Retourne les enregistrements pour lesquels une erreur de paramétrage
-		 * a été détectée.
-		 * Il s'agit des utilisateurs pour lesquels on ne connaît pas une des
-		 * valeurs suivantes: nom, prenom, service instructeur, date de début
-		 * d'habilitation, date de fin d'habilitation.
-		 *
-		 * @return array
-		 */
-		public function storedDataErrors() {
-			return $this->find(
-				'all',
-				array(
-					'fields' => array(
-						'User.id',
-						'User.username',
-						'User.nom',
-						'User.prenom',
-						'User.serviceinstructeur_id',
-						'User.date_deb_hab',
-						'User.date_fin_hab',
-					),
-					'conditions' => array(
-						'OR' => array(
-							'User.nom IS NULL',
-							'TRIM(User.nom)' => null,
-							'User.prenom IS NULL',
-							'TRIM(User.prenom)' => null,
-							'User.serviceinstructeur_id IS NULL',
-							'User.date_deb_hab IS NULL',
-							'User.date_fin_hab IS NULL',
-						)
-					),
-					'contain' => false,
-				)
-			);
 		}
 
 		/**
@@ -713,6 +690,8 @@
 		public function enums() {
 			$enums = parent::enums();
 
+			$enums[$this->alias]['typevoie'] = $this->Option->libtypevoie();
+
 			if( isset( $enums[$this->alias]['type'] ) && Configure::read( 'Cg.departement' ) == 66 ) {
 				unset( $enums[$this->alias]['type']['externe_cpdv'] );
 				unset( $enums[$this->alias]['type']['externe_secretaire'] );
@@ -722,6 +701,48 @@
 			}
 
 			return $enums;
+		}
+
+		/**
+		 * Permet d'obtenir le noeud parent pour la mise à jour automatique des aros
+		 *
+		 * @return array
+		 */
+		public function parentNode() {
+			if (!$this->id && empty($this->data)) {
+				return null;
+			}
+			if (isset($this->data['User']['group_id'])) {
+				$groupId = $this->data['User']['group_id'];
+			} else {
+				$groupId = $this->field('group_id');
+			}
+			if (!$groupId) {
+				return null;
+			}
+			return array('Group' => array('id' => $groupId));
+		}
+
+		/**
+		 * Ajoute un alias à l'Aro correspondant dans le cadre d'un ajout
+		 *
+		 * @param boolean $created
+		 */
+		public function afterSave( $created, $options = array() ) {
+			parent::afterSave( $created, $options );
+
+			if ($created) {
+				$aro = $this->Aro->find('first',
+					array(
+						'conditions' => array('model' => $this->alias, 'foreign_key' => $this->id),
+						'recursive' => -1
+					)
+				);
+				$this->Aro->id = Hash::get($aro, $this->Aro->alias.'.id');
+				$aro[$this->Aro->alias]['alias'] = Hash::get($this->data, $this->alias.'.username');
+				$this->Aro->create(false);
+				$this->Aro->save( $aro, array( 'atomic' => false ) );
+			}
 		}
 	}
 ?>

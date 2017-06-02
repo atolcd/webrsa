@@ -8,6 +8,8 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	define( 'CHAMP_FACULTATIF_REFERENT', Configure::read( 'Cg.departement' ) == 58 );
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'FrValidation', 'Validation' );
 
 	/**
 	 * La classe Referent s'occupe de la gestion des référents.
@@ -18,20 +20,28 @@
 	{
 		public $name = 'Referent';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'nom_complet';
 
+		/**
+		 * Behaviors utilisés par ce modèle.
+		 *
+		 * @var array
+		 */
 		public $actsAs = array(
-			'Autovalidate2',
-			'Enumerable' => array(
-				'fields' => array(
-					'actif' => array( 'type' => 'no', 'domain' => 'default' )
+			'Validation2.Validation2Formattable' => array(
+				'Validation2.Validation2DefaultFormatter' => array(
+					'stripNotAlnum' => '/^numero_poste$/'
 				)
 			),
-			'Formattable' => array(
-				'phone' => array( 'numero_poste' )
-			),
-			'ValidateTranslate',
-			'Validation.ExtraValidationRules',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		/**
@@ -39,9 +49,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array(
-			'Option', 'WebrsaReferent'
-		);
+		public $uses = array( 'Option', 'WebrsaReferent' );
 
 		public $order = array( 'Referent.nom ASC', 'Referent.prenom ASC' );
 
@@ -57,50 +65,38 @@
 		);
 
 		public $validate = array(
-			'numero_poste' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
-				)
-			),
 			'qual' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire',
 					'allowEmpty' => CHAMP_FACULTATIF_REFERENT
 				)
 			),
 			'nom' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'prenom' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'fonction' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'email' => array(
 				'email' => array(
-					'rule' => 'email',
+					'rule' => array( 'email' ),
 					'message' => 'Veuillez entrer une adresse email valide',
 					'allowEmpty' => true
 				)
-			),
-			'structurereferente_id' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				)
-			),
+			)
 		);
 
 		public $belongsTo = array(
@@ -390,8 +386,8 @@
 		 *
 		 * @param boolean $created True if this save created a new record
 		 */
-		public function afterSave($created) {
-			parent::afterSave($created);
+		public function afterSave( $created, $options = array() ) {
+			parent::afterSave( $created, $options );
 
 			if ((integer)Configure::read('Cg.departement') === 66) {
 				$id = Hash::get($this->data, 'Referent.id');
@@ -418,7 +414,7 @@
 
 				if ($created || $create) {
 					$this->Dernierreferent->create($toSave);
-					$this->Dernierreferent->save();
+					$this->Dernierreferent->save( null, array( 'atomic' => false ) );
 				}
 
 				if ($toSave['dernierreferent_id'] !== $dernierreferent_id && $dernierreferent_id !== null) {
@@ -431,7 +427,8 @@
 		}
 
 		/**
-		 * Surcharge de la méthode enums pour ajouter la qualité.
+		 * Surcharge de la méthode enums pour ajouter la qualité et les valeurs
+		 * du champ "has_datecloture".
 		 *
 		 * @return array
 		 */
@@ -439,6 +436,7 @@
 			$results = parent::enums();
 
 			$results[$this->alias]['qual'] = $this->Option->qual();
+			$results[$this->alias]['has_datecloture'] = array( '0' => 'Non', '1' => 'Oui' );
 
 			return $results;
 		}

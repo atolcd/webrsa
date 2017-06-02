@@ -2,7 +2,7 @@
 
 <?php
 	echo $this->Xhtml->tag( 'h1', $this->pageTitle );
-	echo $this->Form->create( 'Contratsinsertionview', array( 'type' => 'post', 'id' => 'contratform' ) );
+	echo $this->Form->create( 'Contratsinsertionview', array( 'type' => 'post', 'id' => 'contratform', 'novalidate' => true ) );
 
 	if ( isset( $contratinsertion['Contratinsertion']['avenant_id'] ) && !empty( $contratinsertion['Contratinsertion']['avenant_id'] ) ) {
 		$num = 'Avenant';

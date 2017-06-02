@@ -7,7 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( ABSTRACTMODELS.'Thematiqueep.php' );
+	App::uses( 'Thematiqueep', 'Model/Abstractclass' );
 
 	/**
 	 * La classe Signalementep93 ...
@@ -19,10 +19,13 @@
 		public $name = 'Signalementep93';
 
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable',
-			'Gedooo.Gedooo'
+			'Allocatairelie' => array(
+				'joins' => array( 'Contratinsertion' )
+			),
+			'Gedooo.Gedooo',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(
@@ -273,8 +276,6 @@
 					),
 					'conditions' => array(
 						'Passagecommissionep.commissionep_id' => $commissionep_id
-						/*'Dossierep.commissionep_id' => $commissionep_id,
-						'Dossierep.themeep' => Inflector::tableize( $this->alias ),//FIXME: ailleurs aussi*/
 					),
 					'joins' => array(
 						array(
@@ -318,7 +319,7 @@
 					}
 
 					$this->create( $nonrespectsanctionep );
-					$success = $this->save() && $success;
+					$success = $this->save( null, array( 'atomic' => false ) ) && $success;
 
 					// Si l'allocataire est sanctionné et qu'il avait un D1, il sort de l'accompagnement
 					if( in_array( $dossierep[$modeleDecisions]['decision'], array( '1reduction', '2suspensiontotale', '2suspensionpartielle' ) ) ) {
@@ -364,33 +365,6 @@
 				)
 			);
 		}
-
-		/**
-		* Récupération du courrier de convocation à l'allocataire pour un passage
-		* en commission donné.
-		* FIXME: spécifique par thématique
-		*/
-
-		/*public function getConvocationBeneficiaireEpPdf( $passagecommissionep_id ) {
-			$gedooo_data = $this->Dossierep->Passagecommissionep->find(
-				'first',
-				array(
-					'conditions' => array( 'Passagecommissionep.id' => $passagecommissionep_id ),
-					'contain' => array(
-						'Dossierep' => array(
-							'Personne',
-						),
-						'Commissionep'
-					)
-				)
-			);
-
-			if( empty( $gedooo_data ) ) {
-				return false;
-			}
-
-			return $this->ged( $gedooo_data, "Commissionep/convocationep_beneficiaire.odt" );
-		}*/
 
 		/**
 		* Récupération de la décision suite au passage en commission d'un dossier
@@ -636,34 +610,6 @@
 			}
 
 			return $this->ged( $gedooo_data, "{$this->alias}/convocationep_beneficiaire.odt", false, $datas['options'] );
-		}
-
-		/**
-		 * Retourne l'id de la personne à laquelle est lié un enregistrement.
-		 *
-		 * @param integer $id L'id de l'enregistrement
-		 * @return integer
-		 */
-		public function personneId( $id ) {
-			$querydata = array(
-				'fields' => array( "Contratinsertion.personne_id" ),
-				'joins' => array(
-					$this->join( 'Contratinsertion', array( 'type' => 'INNER' ) )
-				),
-				'conditions' => array(
-					"{$this->alias}.id" => $id
-				),
-				'recursive' => -1
-			);
-
-			$result = $this->find( 'first', $querydata );
-
-			if( !empty( $result ) ) {
-				return $result['Contratinsertion']['personne_id'];
-			}
-			else {
-				return null;
-			}
 		}
 	}
 ?>

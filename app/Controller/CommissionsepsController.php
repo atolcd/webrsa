@@ -7,8 +7,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
-	App::uses('WebrsaAccessCommissionseps', 'Utility');
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaAccessCommissionseps', 'Utility' );
 
 	/**
 	 * Gestion des séances d'équipes pluridisciplinaires.
@@ -67,27 +67,27 @@
 			'Commissionep',
 			'Option',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'edit' => 'Commissionseps:add',
 			'view' => 'Commissionseps:recherche',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -252,14 +252,10 @@
 			// Ajout des enums pour les thématiques du CG uniquement
 			foreach( $this->Commissionep->Ep->Regroupementep->themes() as $theme ) {
 				$model = Inflector::classify( $theme );
-				if( in_array( 'Enumerable', $this->Commissionep->Passagecommissionep->Dossierep->{$model}->Behaviors->attached() ) ) {
-					$options = Set::merge( $options, $this->Commissionep->Passagecommissionep->Dossierep->{$model}->enums() );
-				}
+				$options = Set::merge( $options, $this->Commissionep->Passagecommissionep->Dossierep->{$model}->enums() );
 
 				$modeleDecision = Inflector::classify( "decision{$theme}" );
-				if( in_array( 'Enumerable', $this->Commissionep->Passagecommissionep->{$modeleDecision}->Behaviors->attached() ) ) {
-					$options = Set::merge( $options, $this->Commissionep->Passagecommissionep->{$modeleDecision}->enums() );
-				}
+				$options = Set::merge( $options, $this->Commissionep->Passagecommissionep->{$modeleDecision}->enums() );
 			}
 
 			// Suivant l'action demandée
@@ -492,11 +488,14 @@
 		protected function _add_edit( $id = null ) {
 			if( !empty( $this->request->data ) ) {
 				$this->Commissionep->create( $this->request->data );
-				$success = $this->Commissionep->save();
+				$success = $this->Commissionep->save( null, array( 'atomic' => false ) );
 
-				$this->_setFlashResult( 'Save', $success );
 				if( $success ) {
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'view', $this->Commissionep->id ) );
+				}
+				else {
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {
@@ -512,7 +511,7 @@
 				$this->assert( !empty( $this->request->data ), 'error404' );
 
 				if( in_array( $this->request->data['Commissionep']['etatcommissionep'], array( 'decisionep', 'decisioncg', 'annulee' ) ) ) {
-					$this->Session->setFlash( 'Impossible de modifier une commission d\'EP lorsque celle-ci comporte déjà des avis ou des décisions.', 'default', array( 'class' => 'error' ) );
+					$this->Flash->error( 'Impossible de modifier une commission d\'EP lorsque celle-ci comporte déjà des avis ou des décisions.' );
 					$this->redirect( $this->referer() );
 				}
 			}
@@ -544,7 +543,7 @@
 					)
 				);
 				$this->Commissionep->create( $commissionep );
-				$success = $this->Commissionep->save() && $success;
+				$success = $this->Commissionep->save( null, array( 'atomic' => false ) ) && $success;
 
 				$this->Commissionep->Passagecommissionep->updateAllUnBound(
 						array( 'Passagecommissionep.etatdossierep' => '\'reporte\'' ), array(
@@ -552,13 +551,14 @@
 						)
 				);
 
-				$this->_setFlashResult( 'Delete', $success );
 				if( $success ) {
 					$this->Commissionep->commit();
+					$this->Flash->success( __( 'Delete->success' ) );
 					$this->redirect( array( 'controller' => 'commissionseps', 'action' => 'view', $commissionep_id ) );
 				}
 				else {
 					$this->Commissionep->rollback();
+					$this->Flash->error( __( 'Delete->error' ) );
 				}
 			}
 			$this->set( 'commissionep_id', $commissionep_id );
@@ -595,7 +595,7 @@
 					);
 
 			if( !$etapePossible ) {
-				$this->Session->setFlash( 'Impossible de traiter les dossiers d\'une commission d\'EP à une étape antérieure.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de traiter les dossiers d\'une commission d\'EP à une étape antérieure.' );
 				$this->redirect( $this->referer() );
 			}
 
@@ -603,13 +603,14 @@
 				$this->Commissionep->begin();
 				$success = $this->Commissionep->WebrsaCommissionep->saveDecisions( $commissionep_id, $this->request->data, $niveauDecision );
 
-				$this->_setFlashResult( 'Save', $success );
 				if( $success ) {
 					$this->Commissionep->commit();
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'commissionseps', 'action' => 'traiter'.$niveauDecision, $commissionep_id ) );
 				}
 				else {
 					$this->Commissionep->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -655,24 +656,25 @@
 					);
 
 			if( !$etapePossible ) {
-				$this->Session->setFlash( 'Impossible de finaliser les décisions des dossiers d\'une commission d\'EP à une étape antérieure.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de finaliser les décisions des dossiers d\'une commission d\'EP à une étape antérieure.' );
 				$this->redirect( $this->referer() );
 			}
 
 			if( !$this->Gedooo->check( true, false ) ) {
-				$this->Session->setFlash( 'Le serveur d\'impression n\'est pas disponible ou ne fonctionne pas correctement.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Le serveur d\'impression n\'est pas disponible ou ne fonctionne pas correctement.' );
 			}
 			else {
 				$this->Commissionep->begin();
 				$success = $this->Commissionep->WebrsaCommissionep->finaliser( $commissionep_id, $this->request->data, $niveauDecision, $this->Session->read( 'Auth.User.id' ) );
 
-				$this->_setFlashResult( 'Save', $success );
 				if( $success ) {
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->Commissionep->commit();
 					$this->redirect( array( 'action' => "decision{$niveauDecision}", $commissionep_id ) );
 				}
 				else {
 					$this->Commissionep->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 		}
@@ -949,8 +951,13 @@
 		 */
 		public function validecommission( $commissionep_id ) {
 			$this->Commissionep->id = $commissionep_id;
-			$this->Commissionep->saveField( 'etatcommissionep', 'valide' );
-			$this->_setFlashResult( 'Save', true );
+			$success = $this->Commissionep->saveField( 'etatcommissionep', 'valide' );
+			if( $success ) {
+				$this->Flash->success( __( 'Save->success' ) );
+			}
+			else {
+				$this->Flash->error( __( 'Save->error' ) );
+			}
 			$this->redirect( $this->referer() );
 		}
 
@@ -977,7 +984,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, 'pv.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le PV de la commission d\'EP', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le PV de la commission d\'EP' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -1015,7 +1022,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, 'pv.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le PV de la commission d\'EP', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le PV de la commission d\'EP' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -1046,10 +1053,10 @@
 
 			if( ( $reponsesNonIndiquees > 0 ) || ( $nombreDossierseps == 0 ) ) {
 				if( $reponsesNonIndiquees > 0 ) {
-					$this->Session->setFlash( 'Impossible d\'imprimer l\'ordre du jour avant d\'avoir indiqué la réponse des participants.', 'default', array( 'class' => 'error' ) );
+					$this->Flash->error( 'Impossible d\'imprimer l\'ordre du jour avant d\'avoir indiqué la réponse des participants.' );
 				}
 				if( $nombreDossierseps == 0 ) {
-					$this->Session->setFlash( 'Impossible d\'imprimer l\'ordre du jour avant d\'avoir attribué des dossiers.', 'default', array( 'class' => 'error' ) );
+					$this->Flash->error( 'Impossible d\'imprimer l\'ordre du jour avant d\'avoir attribué des dossiers.' );
 				}
 				$this->redirect( $this->referer() );
 			}
@@ -1060,7 +1067,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, 'OJ.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer l\'ordre du jour de la commission d\'EP', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer l\'ordre du jour de la commission d\'EP' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -1093,7 +1100,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, 'ConvocationEPParticipant.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier d\'information', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier d\'information' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -1121,7 +1128,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdfs, 'ConvocationEPParticipant.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer les invitations pour les participants de cette commission.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer les invitations pour les participants de cette commission.' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -1137,7 +1144,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, 'ConvocationEPBeneficiaire.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier d\'information', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier d\'information' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -1166,7 +1173,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdfs, 'ConvocationsEPsBeneficiaire.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer les convocations aux bénéficiaires pour cette commission.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer les convocations aux bénéficiaires pour cette commission.' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -1201,10 +1208,10 @@
 
 			if( ( $reponsesNonIndiquees > 0 ) || ( $nombreDossierseps == 0 ) ) {
 				if( $reponsesNonIndiquees > 0 ) {
-					$this->Session->setFlash( 'Impossible d\'imprimer l\'ordre du jour avant d\'avoir indiqué la réponse des participants.', 'default', array( 'class' => 'error' ) );
+					$this->Flash->error( 'Impossible d\'imprimer l\'ordre du jour avant d\'avoir indiqué la réponse des participants.' );
 				}
 				if( $nombreDossierseps == 0 ) {
-					$this->Session->setFlash( 'Impossible d\'imprimer l\'ordre du jour avant d\'avoir attribué des dossiers.', 'default', array( 'class' => 'error' ) );
+					$this->Flash->error( 'Impossible d\'imprimer l\'ordre du jour avant d\'avoir attribué des dossiers.' );
 				}
 				$this->redirect( $this->referer() );
 			}
@@ -1224,7 +1231,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, 'ConvocationepParticipant.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer les convocations du participant à la commission d\'EP', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer les convocations du participant à la commission d\'EP' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -1260,7 +1267,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdfs, 'ConvocationepParticipant.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer les convocations du participant à la commission d\'EP', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer les convocations du participant à la commission d\'EP' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -1359,7 +1366,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, "CourrierDecision-{$passagecommissionep_id}.pdf" );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier de décision', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier de décision' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -1399,7 +1406,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdfs, 'DecisionsEPsBeneficiaire.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer les courriers de décision pour cette commission.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer les courriers de décision pour cette commission.' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -1416,7 +1423,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, 'FicheSynthetique.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier d\'information', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier d\'information' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -1451,7 +1458,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdfs, 'Fichessynthese.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer les fiches de synthèse pour cette commission.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer les fiches de synthèse pour cette commission.' );
 				$this->redirect( $this->referer() );
 			}
 		}

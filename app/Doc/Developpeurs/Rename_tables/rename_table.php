@@ -1,6 +1,7 @@
 <?php
-
-	App::import(array('Model', 'AppModel', 'File'));
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'Model', 'Model' );
+	App::uses( 'File', 'Utility' );
 
 	class RenameTableShell extends Shell
 	{

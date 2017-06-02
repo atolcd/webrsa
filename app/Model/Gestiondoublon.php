@@ -5,6 +5,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Gestiondoublon ...
@@ -35,16 +36,16 @@
 		public $actsAs = array(
 			'Conditionnable'
 		);
-		
+
 		/**
 		 * Si on ajoute un path en cmis, on stock le path pour éventuellement le supprimer en cas de mauvaise transaction
 		 * @var array
 		 */
 		protected $_cmisNewPath = array();
-		
+
 		/**
 		 * Si on modifie le path en cmis, on stock l'ancienne valeur pour les supprimer si la transaction s'est bien passé
-		 * @var type 
+		 * @var type
 		 */
 		protected $_cmisOldPath = array();
 
@@ -108,7 +109,7 @@
 
 			if (!$query) {
 				$Foyer = ClassRegistry::init('Foyer');
-				
+
 				// Refonte :
 				$query = array(
 					'fields' => array(
@@ -165,7 +166,7 @@
 							'table' => 'prestations',
 							'conditions' => array(
 								"PrestationDem.personne_id = Demandeur.id",
-								"PrestationDem.natprest" => 'RSA', 
+								"PrestationDem.natprest" => 'RSA',
 								"PrestationDem.rolepers" => 'DEM',
 							),
 							'type' => 'INNER',
@@ -229,7 +230,7 @@
 							'table' => 'prestations',
 							'conditions' => array(
 								"PrestationDem2.personne_id = Demandeur2.id",
-								"PrestationDem2.natprest" => 'RSA', 
+								"PrestationDem2.natprest" => 'RSA',
 								"PrestationDem2.rolepers" => 'DEM',
 							),
 							'type' => 'INNER',
@@ -245,59 +246,87 @@
 					),
 					'conditions' => array()
 				);
-				
+
 				$query['group'] = $query['fields'];
 				$query['group'][] = 'Dossier.id';
-				
+
 				// Retirer les lignes taggés
 				$valeurtag_id = Configure::read('Gestionsdoublons.index.Tag.valeurtag_id');
 				if (Configure::read('Gestionsdoublons.index.useTag') && $valeurtag_id) { // N'est pas un doublon
-					$joinEntiteTag = $Foyer->join('EntiteTag');
-					$joinEntiteTag2 = array_words_replace($joinEntiteTag, array('EntiteTag' => 'EntiteTag2', 'Foyer' => 'Foyer2'));
-					
-					$joinEntiteTag['conditions'] = array(
-						$joinEntiteTag['conditions'],
-						'EntiteTag.tag_id IN (SELECT id FROM tags WHERE EntiteTag.tag_id = tags.id AND tags.valeurtag_id = '.$valeurtag_id.' AND tags.etat NOT IN (\'annule\', \'perime\') AND (tags.limite IS NULL OR tags.limite > NOW()))'
+					$EntiteTag = ClassRegistry::init('EntiteTag');
+					$subQuery = array(
+						'fields' => array( 'Tag.id' ),
+						'conditions' => array(
+							'Tag.valeurtag_id' => $valeurtag_id,
+							'Tag.etat <>' => array( 'annule', 'perime' ),
+							'OR' => array(
+								'Tag.limite IS NULL',
+								'Tag.limite > NOW()'
+							)
+						),
+						'contain' => false,
+						'joins' => array(
+							array_words_replace(
+								$EntiteTag->Tag->join(
+									'EntiteTag',
+									array(
+										'type' => 'INNER',
+										'conditions' => array(
+											'EntiteTag.fk_value = Foyer.id',
+											'EntiteTag.modele' => 'Foyer'
+										)
+									)
+								),
+								array( 'EntiteTag' => 'entites_tags1' )
+							),
+							array_words_replace(
+								$EntiteTag->Tag->join(
+									'EntiteTag',
+									array(
+										'type' => 'INNER',
+										'conditions' => array(
+											'EntiteTag.fk_value = Foyer2.id',
+											'EntiteTag.modele' => 'Foyer'
+										)
+									)
+								),
+								array( 'EntiteTag' => 'entites_tags2' )
+							),
+						)
 					);
-					$joinEntiteTag2['conditions'] = array(
-						'EntiteTag2.fk_value = Foyer2.id',
-						'EntiteTag2.modele' => 'Foyer',
-						'EntiteTag2.tag_id = EntiteTag.tag_id'
-					);
-					
-					$query['joins'][] = $joinEntiteTag;
-					$query['joins'][] = $joinEntiteTag2;
-					$query['conditions'][] = 'EntiteTag2.id IS NULL';
+
+					$sql = words_replace( $EntiteTag->Tag->sq($subQuery), array( 'Tag' => 'tags' ) );
+					$query['conditions'][] = "NOT EXISTS( {$sql} )";
 				}
 
 				Cache::write( $cacheKey, $query );
 			}
-			
+
 			// 2. Partie searchConditionsComplexes()
 			$query['conditions'] = $this->conditionsPersonneFoyerDossier( $query['conditions'], $search );
 			$query['conditions'] = array_words_replace( $query['conditions'], array( 'Personne' => 'Demandeur' ) );
-			
+
 			if (Hash::get($search, 'Situationdossierrsa2.etatdosrsa_choice')) {
 				$query['conditions']['Situationdossierrsa2.etatdosrsa'] = Hash::get($search, 'Situationdossierrsa2.etatdosrsa');
 			}
-			
+
 			return $query;
 		}
-		
+
 		/**
 		 * Permet d'obtenir la liste des ids de deux foyers sous la forme :
-		 * array( 
+		 * array(
 		 *		'foyerAGarder' => array( '20150', '20151' ),
 		 *		'foyerASupprimer' => array( '20225', '20226' ),
 		 * )
-		 * 
+		 *
 		 * @param integer $foyerAGarderId
 		 * @param integer $foyerASupprimerId
 		 * @return array
 		 */
 		protected function _listPersonneIdPourFusion( $foyerAGarderId, $foyerASupprimerId ){
 			$Foyer = ClassRegistry::init( 'Foyer' );
-			
+
 			foreach ( array($foyerAGarderId, $foyerASupprimerId) as $key => $id ){
 				$key = $key === 0 ? 'personneAGarder' : 'personneASupprimer';
 				$query = array(
@@ -318,10 +347,10 @@
 					$personne_idList[$key][] = $value['Personne']['id'];
 				}
 			}
-			
+
 			return $personne_idList;
 		}
-		
+
 		/**
 		 * Permet d'obtenir la liste des correspondances des personne_id entre un foyer à garder et celui à supprimer.
 		 * Renvoi un array de cette structure :
@@ -331,7 +360,7 @@
 		 *			'personneASupprimer' => 27751
 		 *		)
 		 * )
-		 * 
+		 *
 		 * @param integer $foyerAGarderId
 		 * @param integer $foyerASupprimerId
 		 * @return array
@@ -358,7 +387,7 @@
 					$aSupprimerQuery = array(
 						'fields' => 'Personne.id',
 						'contain' => false,
-						'conditions' => array( 
+						'conditions' => array(
 							'Personne.id' => $personneAGarder_id,
 							"Personne.dtnai" => "{$aGarder['Personne']['dtnai']}",
 							'OR' => array(
@@ -385,7 +414,7 @@
 					}
 				}
 			}
-			
+
 			return $correspondanceIds;
 		}
 
@@ -406,20 +435,20 @@
 			$foyerASupprimerId = ( ( $foyerAGarderId == $foyer1_id ) ? $foyer2_id : $foyer1_id );
 
 			$Foyer->begin();
-			
+
 			$success = $this->_deplacerFichiersLies( 'Foyer', $foyerAGarderId, $foyerASupprimerId );
-			
+
 			// Spécial dossier pcg
 			if ( Configure::read( 'Cg.departement') == 66 && isset( $data['Dossierpcg66']['id'] ) && !empty( $data['Dossierpcg66']['id'] ) ){
 				$correspondanceIds = $this->_correspondancesId( $foyerAGarderId, $foyerASupprimerId );
-				
+
 				foreach( $correspondanceIds as $correspondance ){
 					$dataPersonnepcg66['Personnepcg66.personne_id'] = $correspondance['personneAGarder'];
 					$condition['Personnepcg66.personne_id'] = $correspondance['personneASupprimer'];
 					$Foyer->Personne->Personnepcg66->updateAll( $dataPersonnepcg66, $condition );
 				}
 			}
-			
+
 			foreach( $data as $modelName => $values ) {
 				if( !in_array( $modelName, array( 'Foyer', 'Save' ) ) ) {
 					$ids = Hash::extract( $results, "{n}.{$modelName}.{n}.id" );
@@ -437,7 +466,7 @@
 						$success = $Foyer->{$modelName}->deleteAll(
 							array( "{$modelName}.id" => $idsASupprimer )
 						) && $success;
-						
+
 						if ( isset($Foyer->{$modelName}->Fichiermodule) ) {
 							$success = $Foyer->{$modelName}->Fichiermodule->deleteAllUnbound(
 								array(
@@ -449,7 +478,7 @@
 					}
 				}
 			}
-			
+
 			$dossier = $Foyer->find(
 				'first',
 				array(
@@ -467,17 +496,17 @@
 
 			return $success;
 		}
-		
+
 		/**
 		 * On réaffecte les fichiers liés d'un idASupprimer vers un autre id
-		 * 
+		 *
 		 * @param integer $id
 		 * @param integer $idASupprimer
 		 */
 		protected function _deplacerFichiersLies( $modelName, $idAGarder, $idASupprimer ) {
 			$Fichiermodule = ClassRegistry::init( 'Fichiermodule' );
 			$success = true;
-			$data = $Fichiermodule->find('all', 
+			$data = $Fichiermodule->find('all',
 				array(
 					'fields' => 'Fichiermodule.id',
 					'conditions' => array(
@@ -486,14 +515,14 @@
 					)
 				)
 			);
-			
+
 			foreach ( (array)Hash::extract($data, '{n}.Fichiermodule.id') as $id ) {
 				$success = $success && $this->_changePath( $id, $idAGarder );
 			}
-			
+
 			return $success;
 		}
-		
+
 		/**
 		 * Changement du path d'un fichier suite à une modification du foreign_key
 		 *
@@ -503,7 +532,7 @@
         protected function _changePath( $id, $fk_value ) {
 			$ModeleStockage = ClassRegistry::init( 'Fichiermodule' );
             $item = $ModeleStockage->find( 'first', array( 'conditions' => array( "Fichiermodule.id" =>  $id) ) );
-			
+
 			if( empty( $item['Fichiermodule']['cmspath'] ) && empty( $item['Fichiermodule']['document'] ) ) {
                 $this->cakeError( 'error500' );
             }
@@ -517,21 +546,21 @@
 				'cmspath' => null,
 				'mime' => Hash::get($item, "Fichiermodule.mime"),
 			);
-			
+
             if( !empty( $item['Fichiermodule']['cmspath'] )  ) {
 				$cmisData = Cmis::read( $item['Fichiermodule']['cmspath'], true );
                 $data['document'] = $cmisData['content'];
 				$this->_cmisNewPath[] = "/{$data['modele']}/{$data['fk_value']}/{$data['name']}";
 				$this->_cmisOldPath[] = $item['Fichiermodule']['cmspath'];
             }
-			
+
 			$ModeleStockage->create($data);
-			return $ModeleStockage->save();
+			return $ModeleStockage->save( null, array( 'atomic' => false ) );
         }
-		
+
 		/**
 		 * Dans le cas d'un _changePath(), à la fin de la transaction, on supprime soit les nouveaux fichiers, soit les anciens
-		 * 
+		 *
 		 * @param boolean $success
 		 */
 		public function cmisTransaction( $success ) {

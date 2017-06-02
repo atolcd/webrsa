@@ -7,8 +7,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
-	App::uses('WebrsaAccessDsps', 'Utility');
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaAccessDsps', 'Utility' );
 
 	/**
 	 * La classe EntretiensController ....
@@ -70,20 +70,18 @@
 			'Option',
 			'WebrsaEntretien',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Entretiens:edit',
-			'exportcsv' => 'Criteresentretiens:exportcsv',
-			'search' => 'Criteresentretiens:index',
 			'view' => 'Entretiens:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -96,7 +94,7 @@
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -263,14 +261,13 @@
 				if( $saved ) {
 					$this->Entretien->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
-// 					$this->redirect( array(  'controller' => 'entretiens','action' => 'index', $personne_id ) );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( $this->referer() );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id );
 					$this->Entretien->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -310,7 +307,7 @@
 			$this->assert( ( $nbrPersonnes == 1 ), 'invalidParameter' );
 
 			$this->_setEntriesAncienDossier( $personne_id, 'Entretien' );
-			
+
 			$entretiens = $this->WebrsaAccesses->getIndexRecords(
 				$personne_id, array(
 					'fields' => array(
@@ -430,12 +427,12 @@
 					if( $this->Entretien->saveAll( $this->request->data, array( 'validate' => 'first', 'atomic' => false ) ) ) {
 						$this->Entretien->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'entretiens', 'action' => 'index', $personne_id ) );
 					}
 					else {
 						$this->Entretien->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 			}
@@ -579,7 +576,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'entretien_%d-%s.pdf', $entretien_id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le PDF.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le PDF.' );
 				$this->redirect( $this->referer() );
 			}
 		}

@@ -9,7 +9,7 @@
 
 <h2 class="title">Informations personnelles</h2>
 <?php
-	echo $this->Form->create( 'User', array( 'type' => 'post' ) );
+	echo $this->Form->create( 'User', array( 'type' => 'post', 'novalidate' => true ) );
 	echo $this->Form->inputs(
 		array(
 			'fieldset' => false,

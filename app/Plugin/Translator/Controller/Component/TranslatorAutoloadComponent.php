@@ -5,7 +5,7 @@
 	 * @package Translator
 	 * @subpackage Component
 	 */
-
+	App::uses( 'Component', 'Controller' );
 	App::uses('Translator', 'Translator.Utility');
 
 	/**
@@ -22,7 +22,7 @@
 		 * @var string
 		 */
 		public $name = 'TranslatorAutoload';
-		
+
 		/**
 		 * Default configuration.
 		 *
@@ -38,28 +38,28 @@
 				'shutdown' => 'save'
 			)
 		);
-	
+
 		/**
 		 * The list of domains to send to the translator class.
 		 *
 		 * @var array
 		 */
 		protected $_domains = null;
-		
+
 		/**
 		 * The cache key to load and save the cache.
 		 *
 		 * @var string
 		 */
 		protected $_cacheKey = null;
-		
+
 		/**
 		 * The instance of the translator class.
 		 *
 		 * @var TranslatorInterface
 		 */
 		protected $_translator = null;
-		
+
 		/**
 		 * Called before the Controller::beforeFilter().
 		 *
@@ -71,10 +71,10 @@
 			parent::initialize($controller);
 			$this->settings += $this->_defaultConfig;
 			call_user_func(array($this->_translator(), 'domains'), $this->domains());
-			
+
 			$this->dispatchEvent(__FUNCTION__);
 		}
-		
+
 		/**
 		 * Donne une liste de domaines potentiels
 		 *
@@ -100,7 +100,7 @@
 		   }
 		   return $this->_domains;
 		}
-		
+
 		/**
 		 * Returns the cache key to be used for the current URL.
 		 *
@@ -116,7 +116,7 @@
 		   }
 		   return $this->_cacheKey;
 		}
-		
+
 		/**
 		 * Returns the translator object, initializing it if needed.
 		 *
@@ -138,7 +138,7 @@
 			}
 			return $this->_translator;
 		}
-		
+
 		/**
 		 * Import the translation cache for the current domains.
 		 *
@@ -153,7 +153,7 @@
 				$translator->import($cache);
 			}
 		}
-		
+
 		/**
 		 * Export the translation cache for the current domains.
 		 *
@@ -167,7 +167,7 @@
 				Cache::write($cacheKey, $cache);
 			}
 		}
-		
+
 		/**
 		 * Dispatch an avent and call the corresponding component method when needed.
 		 *
@@ -184,7 +184,7 @@
 				throw new RuntimeException($msg, 500);
 			}
 		}
-		
+
 		/**
 		 * Called after the Controller::beforeFilter() and before the controller action
 		 *

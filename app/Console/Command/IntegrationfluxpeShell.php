@@ -329,8 +329,10 @@
 		 * @return void
 		 */
 		protected function _initForeignKeysTo() {
-			$this->Informationpe->Behaviors->attach( 'Pgsqlcake.PgsqlSchema' );
-			$this->_foreignKeysToInformationpe = $this->Informationpe->foreignKeysTo();
+			if( false === $this->Informationpe->Behaviors->attached( 'Postgres.PostgresTable' ) ) {
+				$this->Informationpe->Behaviors->attach( 'Postgres.PostgresTable' );
+			}
+			$this->_foreignKeysToInformationpe = $this->Informationpe->getPostgresForeignKeysTo();
 			$tableName = $this->Informationpe->Historiqueetatpe->getDatasource( $this->Informationpe->Historiqueetatpe->useDbConfig )->fullTableName( $this->Informationpe->Historiqueetatpe, false, false );
 
 			foreach( $this->_foreignKeysToInformationpe as $i => $foreignKey ) {
@@ -339,8 +341,10 @@
 				}
 			}
 
-			$this->Informationpe->Historiqueetatpe->Behaviors->attach( 'Pgsqlcake.PgsqlSchema' );
-			$this->_foreignKeysToHistoriqueetatpe = $this->Informationpe->Historiqueetatpe->foreignKeysTo();
+			if( false === $this->Informationpe->Historiqueetatpe->Behaviors->attached( 'Postgres.PostgresTable' ) ) {
+				$this->Informationpe->Historiqueetatpe->Behaviors->attach( 'Postgres.PostgresTable' );
+			}
+			$this->_foreignKeysToHistoriqueetatpe = $this->Informationpe->Historiqueetatpe->getPostgresForeignKeysTo();
 		}
 
 		/**
@@ -501,7 +505,7 @@
 
 							if( $saveInformationpe ) {
 								$this->Informationpe->create( $informationpe );
-								$tmpSuccessInformationpe = $this->Informationpe->save();
+								$tmpSuccessInformationpe = $this->Informationpe->save( null, array( 'atomic' => false ) );
 								$success = $tmpSuccessInformationpe && $success;
 								$informationpe_id = $this->Informationpe->id;
 							}
@@ -546,7 +550,7 @@
 
 							if( empty( $oldRecord ) ) {
 								$this->Informationpe->Historiqueetatpe->create( $record );
-								$tmpSuccessModelClass = $this->Informationpe->Historiqueetatpe->save();
+								$tmpSuccessModelClass = $this->Informationpe->Historiqueetatpe->save( null, array( 'atomic' => false ) );
 								$success = $tmpSuccessModelClass && $success;
 
 								if( $tmpSuccessInformationpe && $tmpSuccessModelClass ) {

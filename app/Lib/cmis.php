@@ -7,13 +7,7 @@
 	 * @package app.Lib
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	if( CAKE_BRANCH == '1.2' ) {
-		require_once( APP.'Vendor'.DS.'apache_chemistry'.DS.'cmis_repository_wrapper.php' );
-		//App::import( 'Vendor', 'apache_chemistry'.DS.'cmis_repository_wrapper' );
-	}
-	else {
-		require_once( APP.'Vendor'.DS.'apache_chemistry'.DS.'cmis_repository_wrapper.php' );
-	}
+	require_once  APP.'Vendor'.DS.'apache_chemistry'.DS.'cmis_repository_wrapper.php' ;
 
 	/**
 	 * Classe utilitaire permettant de dialoguer avec un serveur CMS via le protocole
@@ -65,7 +59,7 @@
 		* FIXME: docs
 		*/
 
-		static public function config( $url, $username, $password, $prefix = null ) {
+		public static function config( $url, $username, $password, $prefix = null ) {
 			self::$_url = $url;
 			self::$_username = $username;
 			self::$_password = $password;
@@ -79,7 +73,7 @@
 		* 	et le mot de passe fournis et si la version de CMIS supportée est la 1.0
 		*/
 
-		static public function configured() {
+		public static function configured() {
 			try {
 				$connection = self::connect();
 
@@ -108,7 +102,7 @@
 		* @return mixed la connection si elle a été crée ou si elle existait déjà, false sinon.
 		*/
 
-		static public function connect( $url = null, $username = null, $password = null ) {
+		public static function connect( $url = null, $username = null, $password = null ) {
 			try {
 				if( empty( self::$_connection ) ) {
 					self::$_connection = new CMISService(
@@ -134,7 +128,7 @@
 		*	faut pas remplacer les espaces par des +
 		*/
 
-		static protected function _buildPath( $path, $prefix = null ) {
+		protected static function _buildPath( $path, $prefix = null ) {
 			return rtrim( $prefix, '/' ).'/'.trim( $path, '/' );
 		}
 
@@ -142,7 +136,7 @@
 		*
 		*/
 
-		static protected function _init() {
+		protected static function _init() {
 			return self::connect();
 		}
 
@@ -153,7 +147,7 @@
 		* @return boolean true si l'objet existe, false sinon.
 		*/
 
-		static protected function _check( $path ) {
+		protected static function _check( $path ) {
 			if( empty( self::$_connection )  ) {
 				return false;
 			}
@@ -173,7 +167,7 @@
 		* @return boolean true si l'objet existe, false sinon.
 		*/
 
-		static public function check( $path ) {
+		public static function check( $path ) {
 			try {
 				self::_init();
 				$path = self::_buildPath( $path, self::$_prefix );
@@ -195,7 +189,7 @@
 		* @return mixed array si le l'objet a pu être obtenu, false sinon.
 		*/
 
-		static protected function _read( $path, $deep = false ) {
+		protected static function _read( $path, $deep = false ) {
 			if( empty( self::$_connection )  ) {
 				return false;
 			}
@@ -241,7 +235,7 @@
 		* @return mixed array si le l'objet a pu être obtenu, false sinon.
 		*/
 
-		static public function read( $path, $deep = false ) {
+		public static function read( $path, $deep = false ) {
 			try {
 				self::_init();
 				$path = self::_buildPath( $path, self::$_prefix );
@@ -259,7 +253,7 @@
 		* @return mixed boolean true si le répertoire a pu être créé, false sinon.
 		*/
 
-		static protected function _mkdir( $path ) {
+		protected static function _mkdir( $path ) {
 			if( empty( self::$_connection )  ) {
 				return false;
 			}
@@ -313,7 +307,7 @@
 		* @return boolean true le document s'il a pu être enregistré, false sinon.
 		*/
 
-		static protected function _write( $path, $document, $mimetype, $replace = false ) {
+		protected static function _write( $path, $document, $mimetype, $replace = false ) {
 			if( empty( self::$_connection )  ) {
 				return false;
 			}
@@ -372,7 +366,7 @@
 		* @return boolean true le document s'il a pu être enregistré, false sinon.
 		*/
 
-		static public function write( $path, $document, $mimetype, $replace = false ) {
+		public static function write( $path, $document, $mimetype, $replace = false ) {
 			try {
 				self::_init();
 				$path = self::_buildPath( $path, self::$_prefix );
@@ -392,7 +386,7 @@
 		* @return boolean true si l'objet a pu être supprimé, false sinon.
 		*/
 
-		static protected function _delete( $path, $recursive = false ) {
+		protected static function _delete( $path, $recursive = false ) {
 			if( empty( self::$_connection )  ) {
 				return false;
 			}
@@ -432,7 +426,7 @@
 
 		*/
 
-		static public function delete( $path, $recursive = false ) {
+		public static function delete( $path, $recursive = false ) {
 			try {
 				self::_init();
 				$path = self::_buildPath( $path, self::$_prefix );

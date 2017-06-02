@@ -9,6 +9,7 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	require_once dirname( __FILE__ ).DS.'..'.DS.'..'.DS.'Lib'.DS.'basics.php';
+	App::uses( 'ModelBehavior', 'Model' );
 
 	/**
 	 * La classe Validation2FormattableBehavior permet d'appliquer des méthodes
@@ -43,7 +44,8 @@
 	 *	'trim' => array( 'NOT' => array( 'binary' ) ),
 	 *	'null' => true,
 	 *	'numeric' => array( 'float', 'integer' ),
-	 *	'suffix'  => '/_id$/'
+	 *	'suffix'  => '/_id$/',
+	 *	'stripNotAlnum' => null
 	 * )
 	 * </pre>
 	 *
@@ -74,7 +76,8 @@
 				'trim' => array( 'NOT' => array( 'binary' ) ),
 				'null' => true,
 				'numeric' => array( 'float', 'integer' ),
-				'suffix'  => '/_id$/'
+				'suffix'  => '/_id$/',
+				'stripNotAlnum' => false
 			)
 		);
 

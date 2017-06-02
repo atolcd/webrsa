@@ -14,10 +14,10 @@
 
 <?php
 	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Memo', array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Memo', array( 'type' => 'post', 'novalidate' => true ) );
 	}
 	else {
-		echo $this->Form->create( 'Memo', array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Memo', array( 'type' => 'post', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Memo.id', array( 'type' => 'hidden' ) );
 		echo '</div>';

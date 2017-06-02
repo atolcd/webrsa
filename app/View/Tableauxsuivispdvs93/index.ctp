@@ -1,5 +1,5 @@
 <?php
-	require_once( dirname( __FILE__ ).DS.'search.ctp' );
+	require_once  dirname( __FILE__ ).DS.'search.ctp' ;
 
 	if( isset( $results ) ) {
 		$this->Default3->DefaultPaginator->options( array( 'url' => $this->request->params['named'] ) );

@@ -223,7 +223,7 @@
 				)
 			);
 			$this->Orientstruct->create( $data );
-			$success = $this->Orientstruct->save();
+			$success = $this->Orientstruct->save( null, array( 'atomic' => false ) );
 			$this->assertTrue( !empty( $success ) );
 
 			$id = $this->Orientstruct->id;
@@ -281,7 +281,7 @@
 				)
 			);
 			$this->Orientstruct->create( $data );
-			$success = $this->Orientstruct->save();
+			$success = $this->Orientstruct->save( null, array( 'atomic' => false ) );
 			$this->assertTrue( !empty( $success ) );
 
 			// 1. Ajout d'une nouvelle orientation à la personne
@@ -333,7 +333,7 @@
 				)
 			);
 			$this->Orientstruct->create( $data );
-			$success = $this->Orientstruct->save();
+			$success = $this->Orientstruct->save( null, array( 'atomic' => false ) );
 			$this->assertTrue( !empty( $success ) );
 
 			// 1. Enregistrement de la seconde orientation
@@ -347,7 +347,7 @@
 				)
 			);
 			$this->Orientstruct->create( $data );
-			$success = $this->Orientstruct->save();
+			$success = $this->Orientstruct->save( null, array( 'atomic' => false ) );
 			$this->assertTrue( !empty( $success ) );
 
 			$id = $this->Orientstruct->id;
@@ -382,7 +382,7 @@
 			);
 			$this->assertEqual( $result, $expected, var_export( $result, true ) );
 
-			$success = $this->Orientstruct->save();
+			$success = $this->Orientstruct->save( null, array( 'atomic' => false ) );
 			$this->assertTrue( !empty( $success ) );
 
 			// 3. Ajout d'une troisième orientation à la personne
@@ -531,7 +531,7 @@
 					1
 				),
 				'haspiecejointe.notEmpty' => array(
-					'notEmpty'
+					NOT_BLANK_RULE_NAME
 				),
 				'id.integer' => array(
 					'integer'
@@ -548,7 +548,7 @@
 					'integer'
 				),
 				'personne_id.notEmpty' => array(
-					'notEmpty'
+					NOT_BLANK_RULE_NAME
 				),
 				'propo_algo.integer' => array(
 					'integer'
@@ -576,7 +576,7 @@
 					15
 				),
 				'statut_orient.notEmpty' => array(
-					'notEmpty'
+					NOT_BLANK_RULE_NAME
 				),
 				'statutrelance.inList' => array(
 					'inList',

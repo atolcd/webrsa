@@ -80,6 +80,11 @@
 			$this->View = new View( $this->Controller );
 			$this->DefaultAction = new DefaultActionHelper( $this->View );
 
+			$this->DefaultAction->Permissions = $this->getMock(
+				'PermissionsHelper',
+				array( 'check' )
+			);
+
 			$this->_setRequest(
 				array(
 					'controller' => 'users',
@@ -106,6 +111,8 @@
 		public function testBack() {
 			$_SERVER['HTTP_REFERER'] = Router::url( '/users/login' );
 
+			$this->DefaultAction->Permissions->expects($this->any())->method('check')->will($this->returnValue(false));
+
 			$result = $this->DefaultAction->back();
 			$expected = array(
 				'/Users/login/' =>
@@ -118,6 +125,8 @@
 			);
 
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			$this->DefaultAction->Permissions->expects($this->any())->method('check')->will($this->returnValue(false));
 
 			$result = $this->DefaultAction->back( '/Foos' );
 			$expected = array(

@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Recoursapre ...
@@ -279,13 +280,7 @@
 					),
 					'Prestation' => array(
 						'rolepers' => ClassRegistry::init('Prestation')->enum('rolepers'),
-					),
-					'Structurereferente' => array(
-						'type_voie' =>  $Option->typevoie(),
-					),
-					'type' => array(
-						'voie' =>  $Option->typevoie(),
-					),
+					)
 				),
 				$Apre->ApreComiteapre->enums()
 			);

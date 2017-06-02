@@ -167,7 +167,7 @@
 							else {
 								if( $this->Domiciliationsbancaire->find( 'count', array( 'conditions' => array( $cleanedDomiciliationsbancaire ) ) ) == 0 ) {
 									$this->Domiciliationsbancaire->create( array( 'Domiciliationsbancaire' => $cleanedDomiciliationsbancaire ) );
-									if( $tmpSuccess = $this->Domiciliationsbancaire->save() ) {
+									if( $tmpSuccess = $this->Domiciliationsbancaire->save( null, array( 'atomic' => false ) ) ) {
 										$nLignesTraitees++;
 									}
 									$success = $tmpSuccess && $success;

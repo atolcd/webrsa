@@ -7,14 +7,16 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
 	App::uses( 'Occurences', 'Model/Behavior' );
+	App::uses( 'WebrsaSessionAclUtility', 'Utility' );
 
 	/**
 	 * La classe GroupsController ...
 	 *
 	 * @package app.Controller
 	 */
-	class GroupsController extends AppController
+	class GroupsController extends AbstractWebrsaParametragesController
 	{
 		/**
 		 * Nom du contrôleur.
@@ -28,10 +30,7 @@
 		 *
 		 * @var array
 		 */
-		public $components = array(
-			'Dbdroits',
-			'Menu',
-		);
+		public $components = array( 'WebrsaParametrages', 'WebrsaPermissions' );
 
 		/**
 		 * Helpers utilisés.
@@ -39,7 +38,11 @@
 		 * @var array
 		 */
 		public $helpers = array(
-			'Xform',
+			'Default3' => array(
+				'className' => 'Default.DefaultDefault'
+			),
+			'WebrsaPermissions',
+			'Xform'
 		);
 
 		/**
@@ -47,9 +50,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array(
-			'Group',
-		);
+		public $uses = array( 'Group' );
 
 		/**
 		 * Utilise les droits d'un autre Controller:action
@@ -58,7 +59,7 @@
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'add' => 'Groups:edit',
+			'add' => 'Groups:edit'
 		);
 
 		/**
@@ -67,26 +68,12 @@
 		 * @var array
 		 */
 		public $aucunDroit = array(
-
-		);
-
-		/**
-		 * Correspondances entre les méthodes publiques correspondant à des
-		 * actions accessibles par URL et le type d'action CRUD.
-		 *
-		 * @var array
-		 */
-		public $crudMap = array(
-			'add' => 'create',
-			'delete' => 'delete',
-			'edit' => 'update',
-			'index' => 'read',
+			'ajax_get_permissions'
 		);
 
 		/**
 		*
 		*/
-
 		public function beforeFilter() {
 			ini_set('max_execution_time', 0);
 			ini_set('memory_limit', '1024M');
@@ -94,256 +81,142 @@
 		}
 
 		/**
-		 *
+		 * Liste des groupes.
 		 */
 		public function index() {
-			$this->Group->Behaviors->attach( 'Occurences' );
+			if( false === $this->Group->Behaviors->attached( 'Occurences' ) ) {
+				$this->Group->Behaviors->attach( 'Occurences' );
+			}
 
-			$querydata = array(
+			$query = array(
 				'fields' => array_merge(
 					$this->Group->fields(),
+					array( $this->Group->sqHasLinkedRecords( true ) ),
 					$this->Group->ParentGroup->fields()
 				),
 				'joins' => array(
 					$this->Group->join( 'ParentGroup', array( 'type' => 'LEFT OUTER' ) )
-				),
-				'contain' => false,
-				'order' => array(
-					'Group.name asc'
 				)
 			);
-			$querydata = $this->Group->qdOccurencesExists( $querydata );
 
-			$groups = $this->Group->find( 'all', $querydata );
-			$this->set( 'groups', $groups );
+			$this->WebrsaParametrages->index( $query );
 		}
 
 		/**
-		*
-		*/
-
+		 * Formulaire d'ajout d'un groupe.
+		 */
 		public function add() {
-			// Retour à l'index en cas d'annulation
-			if( isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'action' => 'index' ) );
-			}
-
-			if( !empty( $this->request->data ) ) {
-				if( $this->Group->saveAll( $this->request->data ) ) {
-					if ($this->request->data['Group']['parent_id']!=0) {
-						$this->request->data['Droits'] = $this->Dbdroits->litCruDroits(array('model'=>'Group','foreign_key'=>$this->request->data['Group']['parent_id']));
-						$this->Dbdroits->MajCruDroits(
-							array(
-								'model'=>'Group',
-								'foreign_key'=>$this->Group->id,
-								'alias'=>$this->request->data['Group']['name']
-							),
-							array (
-								'model'=>'Group',
-								'foreign_key'=>$this->request->data['Group']['parent_id']
-							),
-							$this->request->data['Droits']
-						);
-					}
-					else {
-						$this->Dbdroits->AddCru(
-							array(
-								'model'=>'Group',
-								'foreign_key'=>$this->Group->id,
-								'alias'=>$this->request->data['Group']['name']
-							),
-							null
-						);
-					}
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
-					$this->redirect( array( 'controller' => 'groups', 'action' => 'index' ) );
-				}
-			}
-
-			// Liste des groupes parents pour le menu déroulant
-			$querydata = array(
-				'fields' => array( 'Group.id', 'Group.name' ),
-				'contain' => false,
-				'order' => array( 'Group.name ASC' )
-			);
-			$groups = $this->Group->find( 'list', $querydata );
-			$groups = array( 0 => null ) + $groups;
-			$this->set( compact( 'groups' ) );
-
-			$this->render( 'add_edit' );
+			$args = func_get_args();
+			call_user_func_array( array( $this, 'edit' ), $args );
 		}
 
 		/**
-		*
-		*/
-
+		 * Formulaire de modification d'un groupe.
+		 *
+		 * @param integer $group_id
+		 * @throws NotFoundException
+		 */
 		public function edit( $group_id = null ) {
 			// Retour à l'index en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
 				$this->redirect( array( 'action' => 'index' ) );
 			}
 
-			// TODO : vérif param
-			// Vérification du format de la variable
-			$this->assert( valid_int( $group_id ), 'error404' );
-
-
-			if( !empty( $this->request->data ) ) {
-				$group=$this->Group->read(null,$group_id);
-				if( $this->Group->saveAll( $this->request->data ) ) {
-					$new_droit=array();
-					if ($group['Group']['parent_id']!=$this->request->data['Group']['parent_id']) {
-						$new_droit = Set::diff(
-							$this->Dbdroits->litCruDroits(
-								array(
-									'model'=>'Group',
-									'foreign_key'=>$this->request->data['Group']['parent_id']
-								)
-							),
-							$this->Dbdroits->litCruDroits(
-								array(
-									'model'=>'Group',
-									'foreign_key'=>$group_id
-								)
-							)
-						);
-						$this->Dbdroits->MajCruDroits(
-							array('model'=>'Group','foreign_key'=>$group_id,'alias'=>$this->request->data['Group']['name']),
-							array('model'=>'Group','foreign_key'=>$this->request->data['Group']['parent_id']),
-							$new_droit
-						);
-					}
-					elseif ($this->request->data['Group']['parent_id']==0) {
-						$new_droit = Set::diff($this->request->data['Droits'],$this->Dbdroits->litCruDroits(array('model'=>'Group', 'foreign_key'=>$group_id)));
-							$this->Dbdroits->MajCruDroits(
-							array('model'=>'Group','foreign_key'=>$group_id,'alias'=>$this->request->data['Group']['name']),
-							null,
-							$new_droit
-						);
-					}
-					else {
-						$new_droit = Set::diff($this->request->data['Droits'],$this->Dbdroits->litCruDroits(array('model'=>'Group', 'foreign_key'=>$group_id)));
-							$this->Dbdroits->MajCruDroits(
-							array('model'=>'Group','foreign_key'=>$group_id,'alias'=>$this->request->data['Group']['name']),
-							array('model'=>'Group','foreign_key'=>$this->request->data['Group']['parent_id']),
-							$new_droit
-						);
-					}
-					$this->Dbdroits->restreintCruEnfantsDroits(
-						array('model'=>'Group','foreign_key'=>$group_id),
-						$new_droit
-					);
-
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
-					$this->redirect( array( 'controller' => 'groups', 'action' => 'index' ) );
+			if (!empty($this->request->data)) {
+				if(false === empty($group_id)) {
+					$this->Group->id = $group_id;
 				}
-				else {
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+				$this->request->data = $this->WebrsaPermissions->getCompletedPermissions( $this->request->data );
+
+				$this->Group->begin();
+				if ($this->Group->save( $this->request->data, array( 'atomic' => false ) )
+					&& $this->WebrsaPermissions->updatePermissions($this->Group, $this->Group->id, $this->request->data)
+				) {
+					$this->Group->commit();
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect(array('controller' => 'groups', 'action' => 'index'));
+				} else {
+					$this->Group->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+			} else if( 'edit' === $this->action ) {
+				$this->request->data = $this->Group->find(
+					'first',
+					array(
+						'contain' => false,
+						'conditions' => array(
+							'Group.id' => $group_id,
+						)
+					)
+				);
+
+				if(true === empty($this->request->data)) {
+					throw new NotFoundException();
 				}
 			}
-			$group = $this->Group->find(
-				'first',
-				array(
-					'conditions' => array(
-						'Group.id' => $group_id,
-					)
-				)
-			);
-			$this->request->data = $group;
 
-			$this->set('listeCtrlAction', $this->Menu->menuCtrlActionAffichage());
-			$this->request->data['Droits'] = $this->Dbdroits->litCruDroits(array('model'=>'Group','foreign_key'=>$group_id));
+			// Permissions actuelles s'il y a lieu
+			if( false === isset( $this->request->data['Permission'] ) && false === empty($group_id) ) {
+				$this->request->data['Permission'] = $this->WebrsaPermissions->getPermissionsHeritage($this->Group, $group_id);
+			}
+
+			// Permissions du parent s'il y a lieu
+			$parent_id = Hash::get( $this->request->data, 'Group.parent_id' );
+			$parentPermissions = array();
+			if(false === empty( $parent_id )) {
+				$parentPermissions = $this->WebrsaPermissions->getPermissionsHeritage($this->Group, $parent_id);
+			}
+
+			$acos = $this->WebrsaPermissions->getAcosTreeByDepartement();
 
 			// Vérification: le nombre de champs qui seront renvoyés par le
 			// formulaire ne doit pas excéder ce qui est défini dans max_input_vars
 			$max_input_vars = ini_get( 'max_input_vars' );
 			if( 2500 > $max_input_vars ) {
 				$message = 'La valeur de max_input_vars (%d) est trop faible pour permettre l\'enregistrement des droits. Merci de vérifier la valeur recommandée dans la partie "Vérification de l\'application"';
-				$this->Session->setFlash( sprintf( $message, $max_input_vars ), 'flash/error' );
+				$this->Flash->error( sprintf( $message, $max_input_vars ) );
 			}
 
 			// Liste des groupes parents pour le menu déroulant
 			$querydata = array(
 				'fields' => array( 'Group.id', 'Group.name' ),
 				'contain' => false,
-				'conditions' => array(
-					'NOT' => array(
-						'Group.id' => $group_id
-					)
-				),
+				'conditions' => array(),
 				'order' => array( 'Group.name ASC' )
 			);
-			$groups = $this->Group->find( 'list', $querydata );
-			$groups = array( 0 => null ) + $groups;
-			$this->set( compact( 'groups' ) );
 
-			$this->render( 'add_edit' );
-		}
-
-		/**
-		 * Suppression d'un groupe d'utilisateur.
-		 *
-		 * @param integer $id L'id du groupe à supprimer.
-		 * @throws error404Exception
-		 * @throws error500Exception
-		 */
-		public function delete( $id = null ) {
-			if( !valid_int( $id ) ) {
-				throw new error404Exception();
-			}
-
-			$querydata = array(
-				'fields' => $this->Group->fields(),
-				'conditions' => array( 'Group.id' => $id ),
-				'contain' => false
-			);
-			$this->Group->Behaviors->attach( 'Occurences' );
-			$querydata = $this->Group->qdOccurencesExists( $querydata );
-			$group = $this->Group->find( 'first', $querydata );
-
-			if( empty( $group ) ) {
-				throw new error404Exception();
-			}
-
-			if( $group['Group']['occurences'] ) {
-				$message = "Erreur lors de la tentative de suppression de l'entrée d'id {$id} pour le modèle {$this->Group->alias}: cette entrée possède des enregistrements liés.";
-				throw new error500Exception( $message );
-			}
-
-			// Tentative de suppression
-			$this->Group->begin();
-			$success = $this->Group->delete( $id );
-
-			$querydata = array(
-				'fields' => array( 'id' ),
-				'conditions' => array(
-					'model' => 'Group',
-					'foreign_key' => $id
-				)
-			);
-			$aro = $this->Acl->Aro->find( 'first', $querydata );
-			if( !empty( $aro ) ) {
-				$success = $success && $this->Acl->Aro->delete( $aro['Aro']['id'] );
-				$permissions_ids = Hash::extract( $aro, 'Aco.{n}.Permission.id' );
-				if( !empty( $permissions_ids ) ) {
-					$success = $success && $this->Acl->Aro->Permission->deleteAll(
-						array( 'Permission.id' => $permissions_ids )
+			// On ne peut hériter ni de soi-meme, ni d'un de ses enfants
+			if( false === empty( $group_id ) ) {
+				$children = $this->Group->getChildren( $group_id );
+				$children[] = $group_id;
+				if( false === empty( $children ) ) {
+					$querydata['conditions'] = array(
+						'NOT' => array( 'Group.id' => $children )
 					);
 				}
 			}
 
-			$success = $success && $this->Acl->Aro->recover( 'parent', null );
+			$groups = $this->Group->find( 'list', $querydata );
 
-			if( $success ) {
-				$this->Group->commit();
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
-			}
-			else {
-				$this->Group->rollback();
-				$this->Session->setFlash( 'Erreur lors de la suppression', 'flash/error' );
-			}
+			$this->set( compact( 'groups', 'parentPermissions', 'acos' ) );
+			$this->render( 'add_edit' );
+		}
 
-			$this->redirect( array( 'controller' => 'groups', 'action' => 'index' ) );
+		/**
+		 * Permet d'obtenir par ajax, les droits d'un groupe (parent)
+		 *
+		 * @param integer $group_id
+		 * @return string json
+		 */
+		public function ajax_get_permissions($group_id) {
+			if(true === empty($group_id)) {
+				$group_id = 0;
+			}
+			$permissions = $this->WebrsaPermissions->getPermissionsHeritage($this->Group, $group_id);
+
+			$this->set('json', json_encode($permissions));
+			$this->layout = 'ajax';
+			$this->render('/Elements/json');
 		}
 	}
 ?>

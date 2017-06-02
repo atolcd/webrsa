@@ -7,7 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( ABSTRACTMODELS.'Thematiqueep.php' );
+	App::uses( 'Thematiqueep', 'Model/Abstractclass' );
 
 	/**
 	 * ...
@@ -19,10 +19,10 @@
 		public $name = 'Sanctionrendezvousep58';
 
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable',
-			'Gedooo.Gedooo'
+			'Gedooo.Gedooo',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(

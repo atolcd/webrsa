@@ -10,10 +10,10 @@
 
 <?php
 	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Typocontrat', array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Typocontrat', array( 'type' => 'post', 'novalidate' => true ) );
 	}
 	else {
-		echo $this->Form->create( 'Typocontrat', array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Typocontrat', array( 'type' => 'post', 'novalidate' => true ) );
 		echo $this->Form->input( 'Typocontrat.id', array( 'type' => 'hidden' ) );
 	}
 ?>

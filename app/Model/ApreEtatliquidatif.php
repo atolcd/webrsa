@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe ApreEtatliquidatif ...
@@ -17,12 +18,15 @@
 	{
 
 		public $name = 'ApreEtatliquidatif';
+
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
-			'Frenchfloat' => array(
-				'fields' => array(
-					'montantattribue',
-				)
-			),
 			'Gedooo.Gedooo',
 			'ModelesodtConditionnables' => array(
 				93 => array(
@@ -31,20 +35,22 @@
 					'APRE/Paiement/paiement_formation_beneficiaire.odt',
 					'APRE/Paiement/paiement_horsformation_beneficiaire.odt',
 				)
-			)
+			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
+
 		public $validate = array(
 			'montantattribue' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
-				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Valeur numérique seulement'
 				)
 			)
 		);
+
 		public $belongsTo = array(
 			'Apre' => array(
 				'className' => 'Apre',
@@ -161,9 +167,6 @@
 				),
 				'Personne' => array(
 					'qual' => $Option->qual()
-				),
-				'Tiersprestataireapre' => array(
-					'typevoie' => $Option->typevoie()
 				)
 			);
 
@@ -240,17 +243,6 @@
 //			if( $typeapre == 'forfaitaire' ) {
 			$key = 'forfaitaire';
 			$modeleodt = 'APRE/apreforfaitaire.odt';
-			/* }
-			  else if( $typeapre == 'complementaire' && $dest == 'tiersprestataire' ) {
-			  $key = 'etatliquidatif_tiers';
-			  $modeleodt = 'APRE/Paiement/paiement_tiersprestataire.odt';
-			  $nomfichierpdf = sprintf( 'paiement_tiersprestataire-%s.pdf', date( 'Y-m-d' ) );
-			  }
-			  else if( $typeapre == 'complementaire' && $dest == 'beneficiaire' ) {
-			  $key = 'apreforfaitaire';
-			  $modeleodt = 'APRE/Paiement/paiement_'.$typeformation.'_beneficiaire.odt';
-			  $nomfichierpdf = sprintf( 'paiement_'.$typeformation.'_beneficiaire-%s.pdf', date( 'Y-m-d' ) );
-			  } */
 
 			// Traductions
 			$Option = ClassRegistry::init( 'Option' );
@@ -260,9 +252,6 @@
 				),
 				'Personne' => array(
 					'qual' => $Option->qual()
-				),
-				'Tiersprestataireapre' => array(
-					'typevoie' => $Option->typevoie()
 				)
 			);
 

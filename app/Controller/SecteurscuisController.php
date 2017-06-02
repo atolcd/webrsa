@@ -1,4 +1,4 @@
-<?php    
+<?php
     /**
      * Code source de la classe SecteurscuisController.
      *
@@ -7,7 +7,8 @@
      * @package app.Controller
      * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
      */
-     App::import( 'Behaviors', 'Occurences' );
+     App::uses( 'OccurencesBehavior', 'Model/Behavior' );
+	 App::uses( 'AppController', 'Controller' );
 
     /**
      * La classe SecteurscuisController ...
@@ -40,27 +41,27 @@
 		public $helpers = array(
 			'Default2',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Secteurscuis:edit',
 			'view' => 'Secteurscuis:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -88,11 +89,11 @@
 		}
 
         /**
-         * 
+         *
          */
         public function index() {
 			$this->Secteurcui->Behaviors->attach( 'Occurences' );
-  
+
             $querydata = $this->Secteurcui->qdOccurencesExists(
                 array(
                     'fields' => $this->Secteurcui->fields(),
@@ -137,7 +138,7 @@
         }
 
         /**
-         * 
+         *
          * @param integer $id
          */
         public function delete( $id ) {

@@ -3,8 +3,9 @@
 	 * Code source de la classe WebrsaRequestsmanagerComponent.
 	 *
 	 * @package app.Controller.Component
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Component.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
 
 	/**
 	 * La classe WebrsaRequestsmanagerComponent ...
@@ -23,7 +24,7 @@
 		 */
 		public function optionsAccepted( array $options, array $params ) {
 			$Controller = $this->_Collection->getController();
-			
+
 			if (isset($options['Tag']['valeurtag_id']) && !empty($options['Tag']['valeurtag_id'])) {
 				$options['filter']['Tag']['valeurtag_id'] = $options['Tag']['valeurtag_id'];
 
@@ -41,7 +42,7 @@
 
 			return $options;
 		}
-		
+
 		/**
 		 * Retourne un array avec clés de paramètres suivantes complétées en
 		 * fonction du contrôleur:
@@ -63,23 +64,23 @@
 			$Controller = $this->_Collection->getController();
 
 			if ( Hash::get($Controller->request->data, 'Search.Requestmanager.name') ) {
-				$result = ClassRegistry::init('Requestmanager')->find('first', 
-					array( 
-						'fields' => 'Requestmanager.model', 
+				$result = ClassRegistry::init('Requestmanager')->find('first',
+					array(
+						'fields' => 'Requestmanager.model',
 						'conditions' => array(
-							'Requestmanager.id' => Hash::get($Controller->request->data, 'Search.Requestmanager.name') 
+							'Requestmanager.id' => Hash::get($Controller->request->data, 'Search.Requestmanager.name')
 						)
 					)
 				);
 				$params['modelName'] = Hash::get($result, 'Requestmanager.model');
 			}
-			
+
 			return $params;
 		}
-		
+
 		/**
 		 * Surcharge de _queryConditions permettant de modifier la configuration dans le cas d'une utilisation du Requestmanager
-		 * 
+		 *
 		 * @param array $query
 		 * @param array $filters
 		 * @param array $params
@@ -87,23 +88,23 @@
 		 */
 		public function queryConditions( array $query, array $filters, array $params ) {
 			$Controller = $this->_Collection->getController();
-			
+
 			if ( Hash::get($Controller->request->data, 'Search.Requestmanager.name') ) {
 				$config = Configure::read('ConfigurableQuery.'.$params['configurableQueryFieldsKey']);
 				$actions = array();
-				
+
 				foreach ( $config['results']['fields'] as $key => $value ) {
 					if (strpos((string)$key, '/') === 0 || (is_string($value) && strpos($value, '/') === 0)) {
 						$actions[$key] = $value;
 					}
 				}
-				
+
 				$config['results']['fields'] = array_merge( $query['fields'], $actions );
 				$config['query']['order'] = $query['order'];
 				unset($config['results']['fields']['Dossier.locked']);
-				
+
 				Configure::write('ConfigurableQuery.'.$params['configurableQueryFieldsKey'], $config);
-				
+
 				// Force l'ajout de Foyer.id, Dossier.id et Personne.id si ils ne sont pas présent
 				$fields = Hash::get($query, 'fields');
 				$flippedFields = array_flip($fields);
@@ -117,7 +118,7 @@
 					$query['fields'][] = 'Personne.id';
 				}
 			}
-			
+
 			return $query;
 		}
 	}

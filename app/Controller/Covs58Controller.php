@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
 
 	/**
@@ -60,27 +61,27 @@
 			'Cov58',
 			'Option',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Covs58:edit',
 			'view' => 'Covs58:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -99,7 +100,7 @@
 			'view' => 'read',
 			'visualisationdecisions' => 'read',
 		);
-		
+
 		public $etatsActions = array(
 			'cree' => array(
 				'dossierseps::choose',
@@ -167,8 +168,6 @@
 				$this->Cov58->Passagecov58->Dossiercov58->enums()
 			);
 
-			$typevoie = $this->Option->typevoie();
-// 			$options = array_merge($options, $this->Cov58->Passagecov58->Dossiercov58->enums());
 			$typesorients = $this->Cov58->Passagecov58->Dossiercov58->Propoorientationcov58->Structurereferente->Typeorient->listOptions();
 			$structuresreferentes = $this->Cov58->Passagecov58->Dossiercov58->Propoorientationcov58->Structurereferente->list1Options();
 			$referents = $this->Cov58->Passagecov58->Dossiercov58->Propoorientationcov58->Structurereferente->Referent->WebrsaReferent->listOptions();
@@ -371,15 +370,16 @@
 			if( !empty( $this->request->data ) ) {
 				$this->Cov58->begin();
 				$this->Cov58->create( $this->request->data );
-				$success = $this->Cov58->save();
+				$success = $this->Cov58->save( null, array( 'atomic' => false ) );
 
-				$this->_setFlashResult( 'Save', $success );
 				if( $success ) {
 					$this->Cov58->commit();
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'view', $this->Cov58->id ) );
 				}
 				else {
 					$this->Cov58->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {
@@ -415,8 +415,6 @@
 			$this->_setOptions();
 
 			// Dossiers à passer en séance, par thème traité
-// 			$themes = $this->Cov58->Passagecov58->Dossiercov58->Themecov58->find('list');
-
 			$themes = array_keys( $this->Cov58->themesTraites( $cov58_id ) );
 
 			$this->set(compact('themes'));
@@ -500,13 +498,14 @@
 				$this->Cov58->begin();
 				$success = $this->Cov58->saveDecisions( $cov58_id, $this->request->data );
 
-				$this->_setFlashResult( 'Save', $success );
 				if( $success ) {
 					$this->Cov58->commit();
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'view', $cov58_id ) );
 				}
 				else {
 					$this->Cov58->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -525,7 +524,12 @@
 
 		public function delete( $id ) {
 			$success = $this->Cov58->delete( $id );
-			$this->_setFlashResult( 'Delete', $success );
+			if( $success ) {
+				$this->Flash->success( __( 'Delete->success' ) );
+			}
+			else {
+				$this->Flash->error( __( 'Delete->error' ) );
+			}
 			$this->redirect( array( 'action' => 'index' ) );
 		}
 
@@ -540,7 +544,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, 'OJ.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer l\'ordre du jour de la COV', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer l\'ordre du jour de la COV' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -555,7 +559,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, 'pv.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le PV de la COV', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le PV de la COV' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -588,7 +592,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, 'pv.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier de décision de la COV', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier de décision de la COV' );
 				$this->redirect( $this->referer() );
 			}
 		}

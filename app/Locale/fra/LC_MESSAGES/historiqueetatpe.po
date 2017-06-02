@@ -1,0 +1,63 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "Historiqueetatpe.identifiantpe"
+msgstr "Identifiant Pôle Emploi"
+
+#------------------------------------------------------------------------------
+
+msgid "ENUM::ETAT::inscription"
+msgstr "Inscription"
+
+msgid "ENUM::ETAT::radiation"
+msgstr "Radiation"
+
+msgid "ENUM::ETAT::cessation"
+msgstr "Cessation"
+
+msgid "Historiqueetatpe.date"
+msgstr "Date de radiation"
+
+msgid "ENUM::CODE::1"
+msgstr "Personnes sans emploi, immédiatement disponibles, tenues d'accomplir des actes positifs de recherche d'emploi, à la recherche d'un emploi en CDI à plein temps."
+
+msgid "ENUM::CODE::2"
+msgstr "Personnes sans emploi, tenues d'accomplir des actes positifs de recherche d'emploi, à la recherche d'un emploi en CDI à temps partiel."
+
+msgid "ENUM::CODE::3"
+msgstr "Personnes sans emploi, tenues d'accomplir des actes positifs de recherche d'emploi, à la recherche d'un emploi en CDD, temporaire ou saisonnier, y compris de très courte durée."
+
+msgid "ENUM::CODE::4"
+msgstr "Personnes sans emploi, non immédiatement disponibles, à la recherche d'un emploi ( arrêt maladie de plus de 15 jours, formation de plus de 40 heures...)."
+
+msgid "ENUM::CODE::5"
+msgstr "Personnes pourvues d'un emploi, à la recherche d'un autre emploi ( salarié en préavis effectué ou non, CAE, bénévoles...)."
+
+msgid "ENUM::CODE::6"
+msgstr "Personnes non immédiatement disponibles, à la recherche d'un autre emploi en CDI à temps plein, tenues d'accomplir des actes positifs de recherche d'emploi."
+
+msgid "ENUM::CODE::7"
+msgstr "Personnes non immédiatement disponibles, à la recherche d'un emploi en CDI à temps partiel, tenues d'accomplir des actes positifs de recherche d'emploi."
+
+msgid "ENUM::CODE::8"
+msgstr "Personnes non immédiatement disponibles, à la recherche d'un autre emploi en CDI, temporaire ou saisonnier, y compris de très courte durée, tenues d'accomplir des actes positifs de recherche d'emploi."
+

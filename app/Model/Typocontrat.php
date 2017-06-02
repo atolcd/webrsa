@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Typocontrat.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Typocontrat ...
@@ -17,15 +18,21 @@
 	{
 		public $name = 'Typocontrat';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'lib_typo';
 
 		public $order = 'Typocontrat.id ASC';
 
-		public $validate = array(
-			'lib_typo' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-			)
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		public $hasMany = array(

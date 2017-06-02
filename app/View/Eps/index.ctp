@@ -1,48 +1,40 @@
-<h1><?php echo $this->pageTitle = 'Liste des équipes pluridisciplinaires';?></h1>
-
 <?php
-	if ( $compteurs['Regroupementep'] == 0 ) {
-		echo "<p class='error'>Merci d'ajouter au moins un regroupement avant d'ajouter une EP.</p>";
+	$departement = (int)Configure::read( 'Cg.departement' );
+
+	if( 93 === $departement ){
+		$cells = array(
+			'Ep.identifiant',
+			'Ep.adressemail',
+			'Regroupementep.name',
+			'Ep.name'
+		);
 	}
-	if ( $compteurs['Membreep'] == 0 ) {
-		echo "<p class='error'>Merci d'ajouter au moins un membre avant d'ajouter une EP.</p>";
+	else {
+		$cells = array(
+			'Ep.identifiant',
+			'Regroupementep.name',
+			'Ep.name'
+		);
 	}
 
-	if( Configure::read( 'Cg.departement' ) == 93  ){
-		echo $this->Default2->index(
-			$eps,
-			array(
-				'Ep.identifiant',
-				'Ep.adressemail',
-				'Regroupementep.name',
-				'Ep.name'
+	echo $this->element(
+		'WebrsaParametrages/index',
+		array(
+			'cells' => array_merge(
+				$cells,
+				array(
+					'/Eps/edit/#Ep.id#' => array(
+						'title' => true
+					),
+					'/Eps/delete/#Ep.id#' => array(
+						'title' => true,
+						'confirm' => true,
+						'disabled' => 'true == "#Ep.has_linkedrecords#"'
+					)
+				)
 			),
-			array(
-				'actions' => array(
-					'Eps::edit',
-					'Eps::delete'
-				),
-				'add' => array( 'Ep.add', 'disabled' => ( $compteurs['Regroupementep'] == 0 || $compteurs['Membreep'] == 0 ) ),
-				'options' => $options
-			)
-		);
-	}
-	else{
-		echo $this->Default2->index(
-			$eps,
-			array(
-				'Ep.identifiant',
-				'Regroupementep.name',
-				'Ep.name'
-			),
-			array(
-				'actions' => array(
-					'Eps::edit',
-					'Eps::delete'
-				),
-				'add' => array( 'Ep.add', 'disabled' => ( $compteurs['Regroupementep'] == 0 || $compteurs['Membreep'] == 0 ) ),
-				'options' => $options
-			)
-		);
-	}
+			'addDisabled' => ( false !== array_search( 'error', $messages ) ),
+			'backUrl' => false
+		)
+	);
 ?>

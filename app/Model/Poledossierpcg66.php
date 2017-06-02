@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Poledossierpcg66.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Poledossierpcg66 ...
@@ -15,15 +16,36 @@
 	 */
 	class Poledossierpcg66 extends AppModel
 	{
+		/**
+		 * Nom du modèle.
+		 *
+		 * @var string
+		 */
 		public $name = 'Poledossierpcg66';
 
-		public $recursive = -1;
-
+		/**
+		 * Behaviors utilisés par le modèle.
+		 *
+		 * @var array
+		 */
 		public $actsAs = array(
-			'Pgsqlcake.PgsqlAutovalidate',
-			'Formattable'
+			'Postgres.PostgresAutovalidate',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
-        
+
+		/**
+		 * Les modèles qui seront utilisés par ce modèle.
+		 *
+		 * @var array
+		 */
+		public $uses = array( 'WebrsaPoledossierpcg66' );
+
+		/**
+		 * Associations "Belongs to".
+		 *
+		 * @var array
+		 */
         public $belongsTo = array(
 			'Originepdo' => array(
 				'className' => 'Originepdo',
@@ -41,6 +63,11 @@
 			),
         );
 
+		/**
+		 * Associations "Has many".
+		 *
+		 * @var array
+		 */
 		public $hasMany = array(
 			'User' => array(
 				'className' => 'User',
@@ -82,12 +109,34 @@
 				'counterQuery' => ''
 			)
 		);
-        
-        
-         
+
+		/**
+		 * Associations "Has and belongs to many".
+		 *
+		 * @var array
+		 */
+		public $hasAndBelongsToMany = array(
+			'Ancienuserpoledossierpcg66' => array(
+				'className' => 'User',
+				'joinTable' => 'polesdossierspcgs66_users',
+				'foreignKey' => 'poledossierpcg66_id',
+				'associationForeignKey' => 'user_id',
+				'unique' => true,
+				'conditions' => null,
+				'fields' => null,
+				'order' => null,
+				'limit' => null,
+				'offset' => null,
+				'finderQuery' => null,
+				'deleteQuery' => null,
+				'insertQuery' => null,
+				'with' => 'Poledossierpcg66User'
+			)
+		);
+
         /**
-         * Permet de connaître le nombre d'occurences de Dossierpcg dans 
-         * lesquelles apparaît ce pôle 
+         * Permet de connaître le nombre d'occurences de Dossierpcg dans
+         * lesquelles apparaît ce pôle
          * @return array()
          */
         public function qdOccurences() {
@@ -96,7 +145,7 @@
 					$this->fields(),
 					array( 'COUNT("Dossierpcg66"."id") AS "Poledossierpcg66__occurences"' )
 				),
-				'joins' => array( 
+				'joins' => array(
 					$this->join( 'Dossierpcg66' )
 				),
 				'recursive' => -1,

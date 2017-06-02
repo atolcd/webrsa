@@ -245,7 +245,9 @@ table.cal-table {
 *********************************************************************************/
 
 .cal-day-cell a:hover {
-  background: #FFBEDE;
+  background: #fff url(../images/paper/check.gif) no-repeat top center;
+  font-weight: bold;
+/*  background: #FFBEDE; */
   text-decoration: none;
 }
 
@@ -253,6 +255,11 @@ table.cal-table {
   background: #fff url(../images/paper/check.gif) no-repeat top center;
   font-weight: bold;
   text-align: center;
+}
+
+.cal-disabled {
+  background: url(../images/paper/disabled.gif) no-repeat top center;
+  cursor: default;
 }
 
 .cal-day-cell a:link.cal-selected,

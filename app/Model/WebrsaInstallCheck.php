@@ -7,6 +7,8 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
+
 	/**
 	 * La classe WebrsaInstallCheck ...
 	 *
@@ -209,7 +211,7 @@
 			return array(
 				'Cakephp' => array(
 					'informations' => array(
-						'Version' => $this->Check->version( 'CakePHP', Configure::version(), '2.2.4' ),
+						'Version' => $this->Check->version( 'CakePHP', Configure::version(), '2.9.8' ),
 						'Timeout' => $this->Check->timeout()
 					),
 					'cache' => $this->Check->durations()
@@ -274,6 +276,7 @@
 					'configure_evidence' => $this->WebrsaCheck->allConfigureEvidence(),
 					'tableaux_conditions' => $this->WebrsaCheck->allConfigureTableauxConditions(),
 					'webrsa_access' => WebrsaCheckAccess::checkWebrsaAccess(),
+					'acos' => $this->WebrsaCheck->allControllersAcos(),
 				)
 			);
 		}

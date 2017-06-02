@@ -20,7 +20,7 @@
     ).'</li></ul>';
 
     //Création du formulaire
-    echo $this->Xform->create( 'Offreinsertion', array( 'type' => 'post', 'action' => 'index', 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ) ) );
+    echo $this->Xform->create( 'Offreinsertion', array( 'type' => 'post', 'url' => array( 'action' => 'index' ), 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ) ) );
 ?>
 	<fieldset>
 		<?php
@@ -81,27 +81,6 @@
 							<th>Actions</th>
 						</tr>
 						<tr>
-							<!-- <th><?php /*echo $this->Xpaginator->sort( 'Intitulé de l\'action', 'Actioncandidat.name' );?></th>
-							<th>Code de l'action</th>
-							<th><?php echo $this->Xpaginator->sort( 'Chargé d\'insertion', 'Chargeinsertion.nom_complet' );?></th>
-							<th><?php echo $this->Xpaginator->sort( 'Secrétaire', 'Secretaire.nom_complet' );?></th>
-							<th><?php echo $this->Xpaginator->sort( 'Ville', 'Actioncandidat.lieuaction' );?></th>
-							<th><?php echo $this->Xpaginator->sort( 'Canton', 'Actioncandidat.cantonaction' );?></th>
-							<th><?php echo $this->Xpaginator->sort( 'Début de l\'action', 'Actioncandidat.ddaction' );?></th>
-							<th><?php echo $this->Xpaginator->sort( 'Fin de l\'action', 'Actioncandidat.dfaction' );?></th>
-							<th><?php echo $this->Xpaginator->sort( 'Nombre de postes disponibles', 'Actioncandidat.nbpostedispo' );?></th>
-							<th><?php echo $this->Xpaginator->sort( 'Nombre d\'heures disponibles', 'Actioncandidat.nbheuredispo' );?></th>
-
-							<th><?php echo $this->Xpaginator->sort( 'Nom du contact', 'Contactpartenaire.nom_candidat' );?></th>
-							<th><?php echo $this->Xpaginator->sort( 'N° de téléphone du contact', 'Contactpartenaire.numtel' );?></th>
-							<th><?php echo $this->Xpaginator->sort( 'N° de fax', 'Contactpartenaire.numfax' );?></th>
-							<th><?php echo $this->Xpaginator->sort( 'Email du contact', 'Contactpartenaire.email' );?></th>
-
-							<th><?php echo $this->Xpaginator->sort( 'Libellé du partenaire', 'Partenaire.libstruc' );?></th>
-							<th><?php echo $this->Xpaginator->sort( 'Code du partenaire', 'Partenaire.codepartenaire' );?></th>
-							<th><?php echo $this->Xpaginator->sort( 'Adresse du partenaire', 'Partenaire.adresse' );?></th>
-							<th><?php echo $this->Xpaginator->sort( 'N° de téléphone du partenaire', 'Partenaire.numtel' );*/?></th> -->
-                            
                             <th>Intitulé de l'action</th>
 							<th>Code de l'action</th>
 							<th>Chargé d'insertion</th>
@@ -171,7 +150,6 @@
 					?>
 					</tbody>
 				</table>
-				<?php /*echo $pagination;*/?>
                 <ul class="actionMenu">
                     <li><?php
                         echo $this->Xhtml->exportLink(
@@ -293,23 +271,12 @@
 									array(
 										$results['Partenaire']['libstruc'],
 										$listeActionscandidats,
-//										$this->Xhtml->viewLink(
-//                                            'Voir',
-//                                            array_merge(
-//                                                array(
-//                                                    'controller' => 'offresinsertion', 'action' => 'view', Set::classicExtract( $results, 'Actioncandidat.id' )
-//                                                ),
-//                                                $urlParams
-//                                            )
-//                                        )
 									)
-//									array()
 								);
 							}
 						?>
 					</tbody>
 				</table>
-                <?php /*echo $pagination;*/?>
 			</div>
 		</div>
 		<?php else:?>

@@ -102,7 +102,7 @@
 					array(
 						'"Historiquedroit"."toppersdrodevorsa" IS NOT NULL',
 						'"Calculdroitrsa"."toppersdrodevorsa" IS NOT NULL',
-						'"Historiquedroit"."toppersdrodevorsa" = CAST( "Calculdroitrsa"."toppersdrodevorsa" AS VARCHAR(1) )',
+						'"Historiquedroit"."toppersdrodevorsa" = "Calculdroitrsa"."toppersdrodevorsa"::VARCHAR(1)',
 					),
 					array(
 						'"Historiquedroit"."toppersdrodevorsa" IS NULL',

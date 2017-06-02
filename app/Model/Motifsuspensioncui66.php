@@ -7,6 +7,7 @@
  * @package app.Model
  * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
  */
+App::uses( 'AppModel', 'Model' );
 
 /**
  * La classe Motifsuspensioncui66 ...
@@ -17,18 +18,17 @@ class Motifsuspensioncui66 extends AppModel
 {
     public $name = 'Motifsuspensioncui66';
 
-    public $actsAs = array(
-        'Pgsqlcake.PgsqlAutovalidate',
-        'Formattable'
-    );
+	/**
+	 * Récursivité par défaut du modèle.
+	 *
+	 * @var integer
+	 */
+	public $recursive = 1;
 
-    public $validate = array(
-        'name' => array(
-            array(
-                'rule' => 'isUnique',
-                'message' => 'Valeur déjà utilisée'
-            )
-        )
+    public $actsAs = array(
+        'Postgres.PostgresAutovalidate',
+        'Validation2.Validation2Formattable',
+		'Validation2.Validation2RulesFieldtypes',
     );
 
     /**

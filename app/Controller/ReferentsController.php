@@ -7,18 +7,18 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
+	App::uses( 'DefaultUrl', 'Default.Utility' );
+	App::uses( 'File', 'Utility' );
+	App::uses( 'Folder', 'Utility' );
+	App::uses( 'WebrsaPermissions', 'Utility' );
 
-	App::uses('Folder', 'Utility');
-	App::uses('File', 'Utility');
-	App::uses('DefaultUrl', 'Default.Utility');
-	App::uses('WebrsaPermissions', 'Utility');
-	
 	/**
 	 * La classe ReferentsController ...
 	 *
 	 * @package app.Controller
 	 */
-	class ReferentsController extends AppController
+	class ReferentsController extends AbstractWebrsaParametragesController
 	{
 		/**
 		 * Nom du contrôleur.
@@ -41,7 +41,8 @@
 					'clotureenmasse',
 				),
 			),
-			'Workflowscers93',
+			'WebrsaParametrages',
+			'Workflowscers93'
 		);
 
 		/**
@@ -69,17 +70,17 @@
 			'Option',
 			'Structurereferente',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Referents:edit',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -88,7 +89,7 @@
 		public $aucunDroit = array(
 			'ajax_getreferent',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -105,23 +106,29 @@
 			'index' => 'read',
 		);
 
-		protected function _setOptions() {
+		/**
+		 * Liste des tables à ne pas prendre en compte dans les enregistrements
+		 * vérifiés pour éviter les suppressions en cascade intempestives.
+		 *
+		 * @var array
+		 */
+		public $blacklist = array( 'derniersreferents' );
 
-			$this->set( 'qual', $this->Option->qual() );
-			$this->set( 'referent', $referent = $this->Referent->find( 'list' ) );
+		/**
+		 * Moteur de recherche par référents.
+		 */
+		public function index() {
+			if( !empty( $this->request->data ) ) {
+				$search = $this->request->data['Search'];
+				$query = $this->Referent->WebrsaReferent->search($search);
+				$query['limit'] = 20;
+				$this->paginate = $query;
+				$results = $this->paginate( 'Referent', array(), array(), !Hash::get($search, 'Pagination.nombre_total') );
 
-			$options = array();
+				$this->set( compact( 'results' ) );
+			}
+
 			$options = $this->Referent->enums();
-			$options['Referent']['id'] = $referent;
-			$options['Dernierreferent']['prevreferent_id'] = $this->Referent->find('list',
-				array(
-					'joins' => array($this->Referent->join('Dernierreferent')),
-					'conditions' => array('Dernierreferent.referent_id = Dernierreferent.dernierreferent_id'),
-					'order' => array('Referent.nom', 'Referent.prenom')
-				)
-			);
-
-			$structuresreferentes_ids = $this->Workflowscers93->getUserStructurereferenteId( false );
 			$options['Referent']['structurereferente_id'] = $this->InsertionsBeneficiaires->structuresreferentes(
 				array(
 					'type' => 'optgroup',
@@ -132,60 +139,41 @@
 					)
 				)
 			);
-			$options['Referent']['has_datecloture'] = array( '0' => 'Non', '1' => 'Oui' );
-
 			$this->set( compact( 'options' ) );
 		}
 
-
-		public function index() {
-			// Retour à la liste en cas d'annulation
-			if( isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'controller' => 'parametrages', 'action' => 'index' ) );
-			}
-
-			if( !empty( $this->request->data ) ) {
-				$search = $this->request->data['Search'];
-				$queryData = $this->Referent->WebrsaReferent->search($search);
-				$queryData['limit'] = 20;
-				$this->paginate = $queryData;
-				$referents = $this->paginate( 'Referent', array(), array(), !Hash::get($search, 'Pagination.nombre_total') );
-
-				$this->set( 'referents', $referents );
-
-			}
-			$this->_setOptions();
-		}
-
 		/**
-		*
-		*/
-
-		public function add() {
-			$args = func_get_args();
-			call_user_func_array( array( $this, '_add_edit' ), $args );
-		}
-
-		/**
-		*
-		*/
-
-		public function edit() {
-			$args = func_get_args();
-			call_user_func_array( array( $this, '_add_edit' ), $args );
-		}
-
-		/**
+		 * Formulaire de modification d'un référent.
 		 *
-		 * @param integer $id
+		 * @param integer $id La valeur de la clé primaire de l'enregistrement à
+		 *	modifier.
 		 */
-		public function _add_edit( $id = null ) {
-			$options = $this->Referent->enums();
-			$options['Referent']['structurereferente_id'] = $this->Referent->Structurereferente->find( 'list' );
+		public function edit( $id = null ) {
+			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit' ) );
+
+			$options = $this->viewVars['options'];
+
+			$structuresreferentes_ids = $this->Workflowscers93->getUserStructurereferenteId( false );
+			$options['Referent']['structurereferente_id'] = $this->InsertionsBeneficiaires->structuresreferentes(
+				array(
+					'type' => 'optgroup',
+					'prefix' => false,
+					'conditions' => (
+						false === empty( $structuresreferentes_ids )
+						? array( 'Structurereferente.id' => $structuresreferentes_ids )
+						: array()
+					)
+				)
+			);
+
 			$options['Dernierreferent']['prevreferent_id'] = $this->Referent->find('list',
 				array(
-					'joins' => array($this->Referent->join('Dernierreferent')),
-					'conditions' => array('Dernierreferent.referent_id = Dernierreferent.dernierreferent_id'),
+					'joins' => array(
+						$this->Referent->join('Dernierreferent')
+					),
+					'conditions' => array(
+						'Dernierreferent.referent_id = Dernierreferent.dernierreferent_id'
+					),
 					'order' => array('Referent.nom', 'Referent.prenom')
 				)
 			);
@@ -194,66 +182,9 @@
 			$bindDernierreferent = $this->Referent->hasOne['Dernierreferent'];
 			$this->Referent->unbindModelAll();
 			$this->Referent->bindModel( array( 'hasOne' => array( 'Dernierreferent' => $bindDernierreferent ) ) );
-			call_user_func_array( array( $this->Default, $this->action ), array( $id ) );
-		}
-
-		public function delete( $referent_id = null ) {
-			// Vérification du format de la variable
-			if( !valid_int( $referent_id ) ) {
-				$this->cakeError( 'error404' );
-			}
-
-			// Recherche de l'enregistrement
-			if( false === $this->Referent->Behaviors->attached( 'Occurences' ) ) {
-				$this->Referent->Behaviors->attach( 'Occurences' );
-			}
-
-			$query = array(
-				'fields' => array_merge(
-					$this->Referent->fields(),
-					array(
-						$this->Referent->sqHasLinkedRecords(true, array('derniersreferents'))
-					)
-				),
-				'contain' => false,
-				'conditions' => array(
-					'Referent.id' => $referent_id
-				)
-			);
-			$referent = $this->Referent->find( 'first', $query );
-
-
-			// Mauvais paramètre
-			if( empty( $referent ) ) {
-				$this->cakeError( 'error404' );
-			}
-
-			// Référent encore lié à d'autres enregistrements ?
-			if( true === $referent['Referent']['has_linkedrecords'] ) {
-				$msgid = 'Tentative de suppression du référent d\'id %d par l\'utilisateur %s alors que celui-ci est encore lié à des enregistrements';
-				$msgstr = sprintf( $msgid, $referent_id, $this->Session->read( 'Auth.User.username' ) );
-				throw new RuntimeException( $msgstr, 500 );
-			}
-
-			// Tentative de suppression
-			$this->Referent->begin();
-			if( $this->Referent->delete( array( 'Referent.id' => $referent_id ) ) ) {
-				$this->Referent->commit();
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
-			}
-			else {
-				$this->Referent->rollback();
-				$this->Session->setFlash( 'Impossible de supprimer l\'enregistrement', 'flash/error' );
-			}
-
-			$this->redirect( array( 'controller' => 'referents', 'action' => 'index' ) );
 		}
 
 		/**
-		*	Clôture en masse des référents
-		*/
-
-	/**
 		 * Formulaire de clôture d'un référent du parcours.
 		 *
 		 * @param integer $id L'id technique de l'enregistrement dans la table personnes_referents
@@ -332,11 +263,11 @@
 					) && $success;
 
 					$this->Referent->commit();
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( $redirectUrl );
 				}
 				else {
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 					$this->Referent->rollback();
 				}
 			}
@@ -356,20 +287,31 @@
          */
 		public function clotureenmasse() {
 			$structurereferente_id = $this->Workflowscers93->getUserStructurereferenteId();
-
 			if( !empty( $this->request->data ) ) {
-				$queryData = $this->Referent->WebrsaReferent->search( (array)Hash::get( $this->request->data, 'Search' ) );
-				$queryData['limit'] = 20;
-                $queryData['conditions'][] = array( 'Referent.structurereferente_id' => $structurereferente_id );
-				$this->paginate = $queryData;
+				$query = $this->Referent->WebrsaReferent->search( (array)Hash::get( $this->request->data, 'Search' ) );
+				$query['limit'] = 20;
+                $query['conditions'][] = array( 'Referent.structurereferente_id' => $structurereferente_id );
+				$this->paginate = $query;
 
 				$progressivePaginate = !Hash::get( $this->request->data, 'Search.Pagination.nombre_total' );
-				$referents = $this->paginate( 'Referent', array(), array(), $progressivePaginate );
+				$results = $this->paginate( 'Referent', array(), array(), $progressivePaginate );
 
-				$this->set( 'referents', $referents );
+				$this->set( compact( 'results' ) );
 
 			}
-			$this->_setOptions();
+
+			$options = $this->Referent->enums();
+			$options['Referent']['structurereferente_id'] = $this->InsertionsBeneficiaires->structuresreferentes(
+				array(
+					'type' => 'optgroup',
+					'conditions' => (
+						false === empty( $structuresreferentes_ids )
+						? array( 'Structurereferente.id' => $structuresreferentes_ids )
+						: array()
+					)
+				)
+			);
+			$this->set( compact( 'options' ) );
             $this->render( 'index' );
 		}
 

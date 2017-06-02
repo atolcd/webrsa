@@ -18,6 +18,7 @@
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
 	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
 
 	/**
@@ -91,7 +92,7 @@
 		 */
 		protected function _needsSearch( array $params ) {
 			$Controller = $this->_Collection->getController();
-			return !empty( $Controller->request->data ) /*|| $this->_needsAutoSearch( $params )*/;
+			return !empty( $Controller->request->data );
 		}
 
 		/**
@@ -326,13 +327,6 @@
 			}
 
 			$search = $this->_filtersRestrictions( $search, $params );
-
-			// restrict semble suffisant, en tous cas pour le NIR, ça le fait
-			// Forçage de certaines valeurs des filtres si besoin.
-			/*$force = (array)Configure::read( $this->_configureKey( 'filters.force', $params ) );
-			if( !empty( $force ) ) {
-				$search = Hash::merge( $search, Hash::expand( $force ) );
-			}*/
 
 			return $search;
 		}
@@ -713,7 +707,6 @@
 					'filters.accepted' => array( array( 'rule' => 'isarray', 'allowEmpty' => true ) ),
 					'filters.skip' => array( array( 'rule' => 'isarray', 'allowEmpty' => true ) ),
 					'filters.has' => array( array( 'rule' => 'isarray', 'allowEmpty' => true ) ),
-					//'filters.force' => array( array( 'rule' => 'isarray', 'allowEmpty' => true ) ),
 					'query.restrict' => array( array( 'rule' => 'isarray', 'allowEmpty' => true ) ),
 					'query.conditions' => array( array( 'rule' => 'isarray', 'allowEmpty' => true ) ),
 					'query.order' => array( array( 'rule' => 'isarray', 'allowEmpty' => true ) ),

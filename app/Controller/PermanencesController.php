@@ -7,13 +7,14 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
 
 	/**
 	 * La classe PermanencesController ...
 	 *
 	 * @package app.Controller
 	 */
-	class PermanencesController extends AppController
+	class PermanencesController extends AbstractWebrsaParametragesController
 	{
 		/**
 		 * Nom du contrôleur.
@@ -23,161 +24,58 @@
 		public $name = 'Permanences';
 
 		/**
-		 * Components utilisés.
-		 *
-		 * @var array
-		 */
-		public $components = array(
-			
-		);
-
-		/**
-		 * Helpers utilisés.
-		 *
-		 * @var array
-		 */
-		public $helpers = array(
-			'Xform',
-		);
-
-		/**
 		 * Modèles utilisés.
 		 *
 		 * @var array
 		 */
-		public $uses = array(
-			'Permanence',
-			'Option',
-			'Structurereferente',
-		);
-		
+		public $uses = array( 'Permanence' );
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'add' => 'Permanences:edit',
-		);
-		
-		/**
-		 * Méthodes ne nécessitant aucun droit.
-		 *
-		 * @var array
-		 */
-		public $aucunDroit = array(
-			
-		);
-		
-		/**
-		 * Correspondances entre les méthodes publiques correspondant à des
-		 * actions accessibles par URL et le type d'action CRUD.
-		 *
-		 * @var array
-		 */
-		public $crudMap = array(
-			'add' => 'create',
-			'delete' => 'delete',
-			'edit' => 'update',
-			'index' => 'read',
+			'add' => 'Permanences:edit'
 		);
 
-		protected function _setOptions() {
-			$this->set( 'typevoie', $this->Option->typevoie() );
-			$this->set( 'sr', $this->Structurereferente->find( 'list' ) );
-			$this->set( 'options', (array)Hash::get( $this->Permanence->enums(), 'Permanence' ) );
-		}
-
+		/**
+		 * Liste des permanences
+		 */
 		public function index() {
-			// Retour à la liste en cas d'annulation
-			if( isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'controller' => 'parametrages', 'action' => 'index' ) );
+			if( false === $this->Permanence->Behaviors->attached( 'Occurences' ) ) {
+				$this->Permanence->Behaviors->attach( 'Occurences' );
 			}
 
-			$permanences = $this->Permanence->find(
-				'all',
-				array(
-					'recursive' => -1
-				)
-
+			$query = array(
+				'fields' => array_merge(
+					$this->Permanence->fields(),
+					array( $this->Permanence->sqHasLinkedRecords() ),
+					$this->Permanence->Structurereferente->fields()
+				),
+				'joins' => array(
+					$this->Permanence->join( 'Structurereferente', array( 'type' => 'INNER' ) )
+				),
+				'limit' => 1000,
+				'maxLimit' => 1001
 			);
-			$this->_setOptions();
-			$this->set( 'permanences', $permanences );
+			$this->WebrsaParametrages->index( $query );
+			$options = $this->Permanence->enums();
+			$this->set( compact( 'options' ) );
 		}
 
-		public function add() {
-			// Retour à l'index en cas d'annulation
-			if( !empty( $this->request->data ) && isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'action' => 'index' ) );
-			}
+		/**
+		 * Formulaire de modification d'une permanence.
+		 *
+		 * @param integer $id
+		 */
+		public function edit( $id = null ) {
+			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit' ) );
 
-			if( !empty( $this->request->data ) ) {
-				if( $this->Permanence->saveAll( $this->request->data ) ) {
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
-					$this->redirect( array( 'controller' => 'permanences', 'action' => 'index' ) );
-				}
-			}
-
-			$this->_setOptions();
-			$this->render( 'add_edit' );
-		}
-
-		public function edit( $permanence_id = null ) {
-			// Retour à l'index en cas d'annulation
-			if( !empty( $this->request->data ) && isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'action' => 'index' ) );
-			}
-
-			// TODO : vérif param
-			// Vérification du format de la variable
-			$this->assert( valid_int( $permanence_id ), 'error404' );
-
-			if( !empty( $this->request->data ) ) {
-				if( $this->Permanence->saveAll( $this->request->data ) ) {
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
-					$this->redirect( array( 'controller' => 'permanences', 'action' => 'index' ) );
-				}
-			}
-			else {
-				$permanence = $this->Permanence->find(
-					'first',
-					array(
-						'conditions' => array(
-							'Permanence.id' => $permanence_id,
-						)
-					)
-				);
-				$this->request->data = $permanence;
-			}
-
-			$this->_setOptions();
-			$this->render( 'add_edit' );
-		}
-
-		public function delete( $permanence_id = null ) {
-			// Vérification du format de la variable
-			if( !valid_int( $permanence_id ) ) {
-				$this->cakeError( 'error404' );
-			}
-
-			// Recherche de la personne
-			$permanence = $this->Permanence->find(
-				'first',
-				array( 'conditions' => array( 'Permanence.id' => $permanence_id )
-				)
-			);
-
-			// Mauvais paramètre
-			if( empty( $permanence_id ) ) {
-				$this->cakeError( 'error404' );
-			}
-
-			// Tentative de suppression ... FIXME
-			if( $this->Permanence->delete( array( 'Permanence.id' => $permanence_id ) ) ) {
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
-				$this->redirect( array( 'controller' => 'permanences', 'action' => 'index' ) );
-			}
+			$options = $this->viewVars['options'];
+			$options['Permanence']['structurereferente_id'] = $this->Permanence->Structurereferente->find( 'list' );
+			$this->set( compact( 'options' ) );
 		}
 	}
 ?>

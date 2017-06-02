@@ -7,6 +7,8 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'FrValidation', 'Validation' );
 
 	/**
 	 * La classe Participantcomite ...
@@ -17,15 +19,32 @@
 	{
 		public $name = 'Participantcomite';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $order = 'Participantcomite.id ASC';
 
 		public $actsAs = array(
-			'Formattable' => array(
-				'phone' => array( 'numtel' )
+			'Occurences',
+			'Validation2.Validation2Formattable' => array(
+				'Validation2.Validation2DefaultFormatter' => array(
+					'stripNotAlnum' => '/^numtel$/'
+				)
 			),
-			'ValidateTranslate',
-			'Validation.ExtraValidationRules',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
+
+		/**
+		 * Modèles utilisés par ce modèle.
+		 *
+		 * @var array
+		 */
+		public $uses = array( 'Option' );
 
 		public $hasAndBelongsToMany = array(
 			'Comiteapre' => array(
@@ -48,48 +67,73 @@
 
 		public $validate = array(
 			'nom' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'qual' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'prenom' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'organisme' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'fonction' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'numtel' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
-				),
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
+				)
 			),
 			'mail' => array(
 				'email' => array(
-					'rule' => 'email',
+					'rule' => array( 'email' ),
 					'allowEmpty' => true,
 					'message' => 'Le mail n\'est pas valide'
 				)
 			)
 		);
+
+		/**
+		 * Champ virtuel "Nom complêt" (nomcomplet)
+		 *
+		 * @var array
+		 */
+		public $virtualFields = array(
+			'nomcomplet' => array(
+				'type'      => 'string',
+				'postgres'  => 'COALESCE( "%s"."qual", \'\' ) || \' \' || COALESCE( "%s"."nom", \'\' ) || \' \' || COALESCE( "%s"."prenom", \'\' )'
+			)
+		);
+
+		/**
+		 * Surcharge de la méthode enums pour ajouter la civilité.
+		 *
+		 * @return array
+		 */
+		public function enums() {
+			$results = parent::enums();
+
+			$results[$this->alias]['qual'] = $this->Option->qual();
+
+			return $results;
+		}
 	}
 ?>

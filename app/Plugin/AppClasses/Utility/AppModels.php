@@ -110,13 +110,4 @@
 			return $return;
 		}
 	}
-
-//	App::uses( 'AppModels', 'AppClasses.Utility' );
-////	debug( AppModels::getInstance() );
-//	debug( AppModels::withMethod( 'checkPostgresqlIntervals' ) );
-//	debug( AppModels::withMethod( 'storedDataErrors' ) );
-//	debug( AppModels::withMethod( 'sqrechercheErrors' ) );
-//	debug( AppModels::getInstance()->withMethod( 'search' ) );
-//	App::uses( 'AppModels', 'AppClasses.Utility' );
-//	debug( AppModels::getInstance()->withMethod( 'sqrechercheErrors' ) );
 ?>

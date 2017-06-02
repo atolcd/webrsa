@@ -8,7 +8,7 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	@ini_set( 'memory_limit', '2048M' );
-	App::uses( 'Shell', 'Console' );
+	App::uses( 'AppShell', 'Console/Command' );
 	App::uses( 'ConnectionManager', 'Model' );
 
 	/**
@@ -63,7 +63,7 @@
 		 * @param integer $newlines Number of newlines to pre- and append
 		 * @access public
 		 */
-		public function hr( $newlines = 1, $symbol = '-', $length = 75, $level = Shell::NORMAL ) {
+		public function hr( $newlines = 1, $symbol = '-', $length = 75, $level = self::NORMAL ) {
 			$this->out( str_repeat( $symbol, $length ), $newlines, $level );
 		}
 
@@ -125,13 +125,13 @@
 		 * @return void
 		 */
 		protected function _welcome() {
-			$this->out( '', 1, Shell::QUIET );
-			$this->out( __d( 'cake_console', '<important>Welcome to webrsa %s </important>', 'v'.file_get_contents( APP.DS.'VERSION.txt' ) ), 1, Shell::QUIET );
-			$this->out( __d( 'cake_console', '<info>CakePHP %s Console</info>', 'v'.Configure::version() ), 1, Shell::QUIET );
-			$this->out( '', 1, Shell::QUIET );
-			$this->out( str_repeat( ' ', 25 ).$this->name.' Shell', 1, Shell::QUIET );
-			$this->out( '', 1, Shell::QUIET );
-			$this->hr( 1, '-', 75, Shell::QUIET );
+			$this->out( '', 1, self::QUIET );
+			$this->out( __d( 'cake_console', '<important>Welcome to webrsa %s </important>', 'v'.file_get_contents( APP.DS.'VERSION.txt' ) ), 1, self::QUIET );
+			$this->out( __d( 'cake_console', '<info>CakePHP %s Console</info>', 'v'.Configure::version() ), 1, self::QUIET );
+			$this->out( '', 1, self::QUIET );
+			$this->out( str_repeat( ' ', 25 ).$this->name.' Shell', 1, self::QUIET );
+			$this->out( '', 1, self::QUIET );
+			$this->hr( 1, '-', 75, self::QUIET );
 			$this->out( __d( 'cake_console', '<info>App : </info><important>%s</important>', APP_DIR ) );
 			$this->out( __d( 'cake_console', '<info>Path : </info><important>%s</important>', APP ) );
 			if( !empty( $this->params ) ) {
@@ -156,15 +156,15 @@
 			list($usec, $sec) = explode( ' ', microtime() );
 			$this->_end = (float) $sec + (float) $usec;
 			$elapsed_time = round( $this->_end - $this->_start, 5 );
-			$this->out( '', 1, Shell::QUIET );
+			$this->out( '', 1, self::QUIET );
 			$this->hr();
-			$this->out( '<info>Temps écoulé : </info><important>'.$elapsed_time.'s</important>', 1, Shell::QUIET );
+			$this->out( '<info>Temps écoulé : </info><important>'.$elapsed_time.'s</important>', 1, self::QUIET );
 
 			if( $this->params['log'] ) {
-				$this->out( "<info>Fichier de log : </info><important>".'APP/'.preg_replace( '/^'.str_replace( '/', '\/', APP ).'/', '', $this->_logFile ).'</important>', 1, Shell::QUIET );
+				$this->out( "<info>Fichier de log : </info><important>".'APP/'.preg_replace( '/^'.str_replace( '/', '\/', APP ).'/', '', $this->_logFile ).'</important>', 1, self::QUIET );
 				file_put_contents( $this->_logFile, strip_tags( $this->output ) );
 			}
-			$this->hr( 1, '-', 75, Shell::QUIET );
+			$this->hr( 1, '-', 75, self::QUIET );
 		}
 
 		/**
@@ -190,7 +190,7 @@
 		 *   and the shell has a `main()` method, that will be called instead.
 		 * @param array $argv Array of arguments to run the shell with. This array should be missing the shell name.
 		 * @return void
-		 * @link http://book.cakephp.org/2.0/en/console-and-shells.html#Shell::runCommand
+		 * @link http://book.cakephp.org/2.0/en/console-and-shells.html#self::runCommand
 		 */
 		public function runCommand( $command, $argv ) {
 			$isTask = $this->hasTask( $command );
@@ -206,14 +206,6 @@
 				list($this->params, $this->args) = $this->OptionParser->parse( $argv, $command );
 			}
 			catch( ConsoleException $e ) {
-				/*
-				 * webrsa edit begin
-				 *
-				 * original :
-				 *
-				 * 		$this->out( $this->OptionParser->help( $command ) );
-				 *
-				 */
 				$this->_welcome();
 				$this->out();
 				$this->out( '<error> An error as occured ! </error>' );
@@ -243,13 +235,6 @@
 
 			if( $isTask ) {
 				$command = Inflector::camelize( $command );
-				/*
-				 * webrsa edit begin
-				 *
-				 * original :
-				 *
-				 * 		return $this->{$command}->runCommand( 'execute', $argv );
-				 */
 				$return = $this->{$command}->runCommand( 'execute', $argv );
 				$this->_scritpEnd();
 				return $return;
@@ -300,7 +285,7 @@
 		 * @param type $newlines
 		 * @return type
 		 */
-		public function out( $message = null, $newlines = 1, $level = Shell::NORMAL ) {
+		public function out( $message = null, $newlines = 1, $level = self::NORMAL ) {
 			if( !empty( $this->_logFile ) && isset($this->params['log']) && $this->params['log'] ) {
 				$this->output .= $message;
 				for( $i = 0; $i < $newlines; $i++ ) {

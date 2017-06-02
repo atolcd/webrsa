@@ -1,29 +1,19 @@
-<h1><?php echo $this->pageTitle = 'Liste des fonctions des membres des E.P.';?></h1>
-
 <?php
-	echo $this->Default2->index(
-		$fonctionmembreeps,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'Fonctionmembreep.name'
-		),
-		array(
-			'actions' => array(
-				'Fonctionsmembreseps::edit',
-				'Fonctionsmembreseps::delete'
+			'cells' => array(
+				'Fonctionmembreep.name',
+				'/Fonctionsmembreseps/edit/#Fonctionmembreep.id#' => array(
+					'title' => true
+				),
+				'/Fonctionsmembreseps/delete/#Fonctionmembreep.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Fonctionmembreep.has_linkedrecords#"'
+				)
 			),
-			'add' => array( 'Fonctionsmembreseps.add' ),
-			'options' => $options
-		)
-	);
-
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'gestionseps',
-			'action'     => 'index'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#eps'
 		)
 	);
 ?>

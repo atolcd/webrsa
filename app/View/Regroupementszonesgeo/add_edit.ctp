@@ -10,11 +10,11 @@
 
 	<?php
 		if( $this->action == 'add' ) {
-			echo $this->Form->create( 'Regroupementzonegeo', array( 'type' => 'post' ) );
+			echo $this->Form->create( 'Regroupementzonegeo', array( 'type' => 'post', 'novalidate' => true ) );
 			echo $this->Form->input( 'Regroupementzonegeo.id', array( 'type' => 'hidden', 'value' => null ) );
 		}
 		else {
-			echo $this->Form->create( 'Regroupementzonegeo', array( 'type' => 'post' ) );
+			echo $this->Form->create( 'Regroupementzonegeo', array( 'type' => 'post', 'novalidate' => true ) );
 			echo $this->Form->input( 'Regroupementzonegeo.id', array( 'type' => 'hidden' ) );
 		}
 	?>

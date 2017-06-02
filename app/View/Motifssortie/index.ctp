@@ -1,32 +1,19 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'motifsortie', "Motifssortie::{$this->action}" )
-	);
-
-	echo $this->Default2->index(
-		$motifssortie,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'Motifsortie.name',
-		),
-		array(
-			'cohorte' => false,
-			'actions' => array(
-				'Motifssortie::edit',
-				'Motifssortie::delete' => array( 'disabled' => '\'#Motifsortie.occurences#\' != "0"' )
+			'cells' => array(
+				'Motifsortie.name',
+				'/Motifssortie/edit/#Motifsortie.id#' => array(
+					'title' => true
+				),
+				'/Motifssortie/delete/#Motifsortie.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Motifsortie.has_linkedrecords#"'
+				)
 			),
-			'add' => 'Motifssortie::add'
-		)
-	);
-
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'actionscandidats_personnes',
-			'action'     => 'indexparams'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#actionscandidats'
 		)
 	);
 ?>

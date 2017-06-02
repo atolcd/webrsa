@@ -40,12 +40,6 @@
 				'Proposdecisionscuis66::edit' => array(
 					'disabled' => !$this->Permissions->checkDossier( 'proposdecisionscuis66', 'edit', $dossierMenu )
 				),
-				/*'Proposdecisionscuis66::email' => array(
-					'url' => array( 'controller' => 'proposdecisionscuis66', 'action' => 'maillink', '#Propodecisioncui66.id#' ),
-					'label' => 'Envoi mail',
-					'disabled' => !$this->Permissions->checkDossier( 'actionscandidats_personnes', 'maillink', $dossierMenu )
-							&& ( Configure::read( 'Cg.departement' ) == 66 )
-				),*/
 				'Proposdecisionscuis66::notifelucui' => array(
 					'disabled' => !$this->Permissions->checkDossier( 'proposdecisionscuis66', 'notifelucui', $dossierMenu )
 				),
@@ -62,7 +56,7 @@
 			'options' => $options
 		)
 	);
-	
+
 		echo '<div class="aere">';
 	echo $this->Default->button(
 		'back',

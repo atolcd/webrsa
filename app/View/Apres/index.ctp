@@ -4,11 +4,6 @@
 ?>
 <h1><?php echo $this->pageTitle;?></h1>
 <?php echo $this->element( 'ancien_dossier' );?>
-
-		<!-- <?php /*if( empty( $apres ) ):*/?>
-			<p class="error">Cette personne ne possède pas encore d'APRE forfaitaire, il n'est donc pas possible de créer une APRE Complémentaire.</p>
-		<?php /*endif;*/?> -->
-
 		<!-- Modification de l'affichage suite a la demande du CG93, on peut créer une APRE même si pas de forfaitaire présente-->
 		<?php if( empty( $apres ) ):?>
 			<p class="notice">Cette personne ne possède pas encore d'APRE.</p>
@@ -123,7 +118,7 @@
 						</tr>
 						<tr>
 							<th>Référent APRE</th>
-							<td>'.h( Set::enum( Set::classicExtract( $apre, "{$this->modelClass}.referent_id" ), $referents ) ).'</td>
+							<td>'.h( Hash::get( $apre, 'Referent.nom_complet' ) ).'</td>
 						</tr>
 						<tr>
 							<th>Natures de la demande</th>
@@ -219,14 +214,8 @@
 						array(
 							h( Set::classicExtract( $relanceapre, "{$this->modelClass}.numeroapre" ) ),
 							h( date_short( Set::classicExtract( $relanceapre, 'Relanceapre.daterelance' ) ) ),
-//                                 $textePiecesManquantes,
 							$piecesRestantes,
 							h( Set::classicExtract( $relanceapre, 'Relanceapre.commentairerelance' ) ),
-//                                 $this->Xhtml->viewLink(
-//                                     'Voir la relance',
-//                                     array( 'controller' => 'relancesapres', 'action' => 'view', Set::classicExtract( $relanceapre, 'Relanceapre.id' ) ),
-//                                     $this->Permissions->checkDossier( 'relancesapres', 'view', $dossierMenu )
-//                                 ),
 							$this->Xhtml->editLink(
 								'Editer la relance',
 								array( 'controller' => 'relancesapres', 'action' => 'edit', Set::classicExtract( $relanceapre, 'Relanceapre.id' ) ),

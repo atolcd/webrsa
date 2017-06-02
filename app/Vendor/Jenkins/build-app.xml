@@ -47,7 +47,7 @@
 			<fileset
 				dir="${dir.cakephp.app}"
 				includes="**/*.xml,**/*.xsl"
-				excludes="**/Vendor/Netbeans/Templates/**,**/tmp/**,**/Plugin/PgDbSnapshot/**" />
+				excludes="**/Vendor/Netbeans/Templates/**,**/tmp/**" />
 		</apply>
 	</target>
 

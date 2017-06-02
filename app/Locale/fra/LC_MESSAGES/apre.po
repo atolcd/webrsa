@@ -1,0 +1,814 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+# Apre
+###############################################################################
+
+msgid "Apre66.datedemandeapre"
+msgstr "Date de demande de l'APRE "
+
+msgid "Apre.numeroapre"
+msgstr "N° du dossier APRE "
+
+msgid "Apre.typedemandeapre"
+msgstr "Type de demande d'APRE"
+
+msgid "Apre.datedemandeapre"
+msgstr "Date de l'envoi de la demande au CG "
+
+msgid "Apre.naturelogement"
+msgstr "Logement "
+
+msgid "Apre.precisionsautrelogement"
+msgstr "Si autres, préciser "
+
+msgid "Apre.referent_id"
+msgstr "Référent lié"
+
+msgid "Apre.anciennetepoleemploi"
+msgstr "Ancienneté pôle emploi "
+
+msgid "Apre.activitebeneficiaire"
+msgstr "Activité du bénéficiaire "
+
+msgid "Apre.projetprofessionnel"
+msgstr "Projet professionnel "
+
+msgid "Apre.dateentreeemploi"
+msgstr "Date de l'emploi prévue "
+
+msgid "Apre.typecontrat"
+msgstr "Type de contrat"
+
+msgid "Apre.precisionsautrecontrat"
+msgstr "Si autre, précisez"
+
+msgid "Apre.nbheurestravaillees"
+msgstr "Nombre d'heures travaillées"
+
+msgid "Apre.nomemployeur"
+msgstr "Nom de l'employeur"
+
+msgid "Apre.adresseemployeur"
+msgstr "Adresse de l'employeur"
+
+msgid "Apre.cessderact"
+msgstr "Date de dernière cessation d'activité"
+
+msgid "Apre.nivetu"
+msgstr "Niveau d'étude"
+
+msgid "Apre.montantaverser"
+msgstr "Montant à verser"
+
+msgid "Apre.etatdossierapre"
+msgstr "Etat du dossier APRE"
+
+msgid "Apre.isdecision"
+msgstr "Décision prise ?"
+
+msgid "Apre.structurereferente_id"
+msgstr "Structure référente"
+
+msgid "Apre.avistechreferent"
+msgstr "Avis technique du référent"
+
+msgid "Apre.nbenf12"
+msgstr "Nombre d'enfants de moins de 12 ans"
+
+msgid "Apre.secteuractivite"
+msgstr "Secteur d'activité"
+
+msgid "Apre.montantdejaverse"
+msgstr "Montant déjà versé"
+
+msgid "Apre.statutapre"
+msgstr "Statut de l'APRE"
+
+msgid "Apre.justificatif"
+msgstr "Justificatif"
+
+msgid "Apre.nbpaiementsouhait"
+msgstr "Nombre de paiement souhaité"
+
+msgid "Apre.secteurprofessionnel"
+msgstr "Secteur professionnel en lien avec la demande "
+
+msgid "Apre.ajoutcomiteexamen"
+msgstr "Ajouter comité examen "
+
+msgid "Apre.eligibiliteapre"
+msgstr "Eligibilité de l'APRE"
+
+
+msgid "Apre66.isdecision"
+msgstr "Décision prise ?"
+
+msgid "ENUM::ISDECISION::N"
+msgstr "Non"
+
+msgid "ENUM::ISDECISION::O"
+msgstr "Oui"
+###############################################################################
+# Nom des aides
+###############################################################################
+
+msgid "Amenaglogt"
+msgstr "Aide à l'installation"
+
+msgid "Formqualif"
+msgstr "Formations individuelles qualifiantes"
+
+msgid "Formpermfimo"
+msgstr "Formation Permis Poids Lourd + FIMO"
+
+msgid "Actprof"
+msgstr "Action de professionnalisation des contrats aides et SIAE"
+
+msgid "Permisb"
+msgstr "Permis de conduire B"
+
+msgid "Acccreaentr"
+msgstr "Accompagnement à la création d'entreprise"
+
+msgid "Acqmatprof"
+msgstr "Acquisition de matériels professionnels"
+
+msgid "Locvehicinsert"
+msgstr "Aide à la location d'un véhicule d'insertion"
+
+###############################################################################
+# Enum Referentapre.spe
+###############################################################################
+
+msgid "Referentapre.spe"
+msgstr "Employé au Service pour le Pôle Emploi (SPE) ? "
+
+msgid "Referentapre.organismeref"
+msgstr "Organisme référent"
+
+###############################################################################
+# Enum Referentapre.spe
+###############################################################################
+
+msgid "Relanceapre.daterelance"
+msgstr "Date de la relance "
+
+msgid "Relanceapre.etatdossierapre"
+msgstr "Etat du dossier APRE "
+
+msgid "Relanceapre.commentairerelance"
+msgstr "Commentaire "
+###############################################################################
+# Formqualif pour l'APRE
+###############################################################################
+msgid "Formqualif.intituleform"
+msgstr "Intitulé de la formation "
+
+msgid "Formqualif.organismeform"
+msgstr "Organisme de la formation "
+
+msgid "Formqualif.ddform"
+msgstr "Du "
+
+msgid "Formqualif.dfform"
+msgstr "Au "
+
+msgid "Formqualif.dureeform"
+msgstr "Durée (Heures) "
+
+msgid "Formqualif.modevalidation"
+msgstr "Mode de validation "
+
+msgid "Formqualif.coutform"
+msgstr "Coût de la formation "
+
+msgid "Formqualif.cofinanceurs"
+msgstr "Co-financeurs  "
+
+msgid "Formqualif.montantaide"
+msgstr "Montant "
+
+###############################################################################
+# Formpermfimo pour l'APRE
+###############################################################################
+msgid "Formpermfimo.intituleform"
+msgstr "Intitulé de la formation "
+
+msgid "Formpermfimo.organismeform"
+msgstr "Organisme de la formation "
+
+msgid "Formpermfimo.ddform"
+msgstr "Du "
+
+msgid "Formpermfimo.dfform"
+msgstr "Au "
+
+msgid "Formpermfimo.dureeform"
+msgstr "Durée (Heures) "
+
+msgid "Formpermfimo.modevalidation"
+msgstr "Mode de validation "
+
+msgid "Formpermfimo.coutform"
+msgstr "Coût de la formation "
+
+msgid "Formpermfimo.cofinanceurs"
+msgstr "Co-financeurs  "
+
+msgid "Formpermfimo.montantaide"
+msgstr "Montant "
+###############################################################################
+# Actprof pour l'APRE
+###############################################################################
+
+msgid "Actprof.nomemployeur"
+msgstr "Nom de l'employeur"
+
+msgid "Actprof.adresseemployeur"
+msgstr "Adresse de l'employeur"
+
+msgid "Actprof.ddconvention"
+msgstr "Du "
+
+msgid "Actprof.dfconvention"
+msgstr "Au "
+
+msgid "Actprof.intituleformation"
+msgstr "Intitulé de la formation"
+
+msgid "Actprof.ddform"
+msgstr "Du "
+
+msgid "Actprof.dfform"
+msgstr "Au "
+
+msgid "Actprof.dureeform"
+msgstr "Durée (Heures)"
+
+msgid "Actprof.modevalidation"
+msgstr "Mode de validation"
+
+msgid "Actprof.coutform"
+msgstr "Coût de la formation"
+
+msgid "Actprof.cofinanceurs"
+msgstr "Co-financeurs"
+
+msgid "Actprof.montantaide"
+msgstr "Montant "
+
+
+###############################################################################
+# Permisb pour l'APRE
+###############################################################################
+
+msgid "Permisb.nomautoecole"
+msgstr "Nom de l'auto-école"
+
+msgid "Permisb.montantaide"
+msgstr "Montant de l'aide"
+
+msgid "Permisb.adresseautoecole"
+msgstr "Adresse de l'auto-école"
+
+msgid "Permisb.dureeform"
+msgstr "Nombre d'heures "
+
+msgid "Permisb.coutform"
+msgstr "Coût de la formation"
+
+###############################################################################
+# Amenaglogt pour l'APRE
+###############################################################################
+
+msgid "Amenaglogt.besoins"
+msgstr "Besoins"
+
+msgid "Amenaglogt.montantaide"
+msgstr "Montant"
+
+msgid "Amenaglogt.typeaidelogement"
+msgstr "Type d'aide au logement"
+
+###############################################################################
+# Acccreaentr pour l'APRE
+###############################################################################
+
+msgid "Acccreaentr.nacre"
+msgstr "Dispositif Nacre "
+
+msgid "Acccreaentr.microcredit"
+msgstr "Dispositif Micro-crédit "
+
+msgid "Acccreaentr.projet"
+msgstr "Projet "
+
+msgid "Acccreaentr.montantaide"
+msgstr "Montant "
+
+###############################################################################
+# Acqmatprof pour l'APRE
+###############################################################################
+
+msgid "Acqmatprof.besoins"
+msgstr "Besoins "
+
+msgid "Acqmatprof.montantaide"
+msgstr "Montant "
+
+###############################################################################
+# Locvehicinsert pour l'APRE
+###############################################################################
+
+msgid "Locvehicinsert.societelocation"
+msgstr "Société de location "
+
+msgid "Locvehicinsert.dureelocation"
+msgstr "Durée de location "
+
+msgid "Locvehicinsert.montantaide"
+msgstr "Montant "
+###############################################################################
+# Enum Apre.natureaide
+###############################################################################
+msgid "ENUM::NATUREAIDE::FQU"
+msgstr "Formation qualifiante, permis C ou D + FIMO"
+
+msgid "ENUM::NATUREAIDE::PCA"
+msgstr "Professionnalisation des contrats aidés et salariés SIAE"
+
+msgid "ENUM::NATUREAIDE::PCB"
+msgstr "Permis de conduire B"
+
+msgid "ENUM::NATUREAIDE::AAI"
+msgstr "Aide à l'installation"
+
+msgid "ENUM::NATUREAIDE::ACE"
+msgstr "Accompagnement à la création d'entreprise"
+
+msgid "ENUM::NATUREAIDE::AMP"
+msgstr "Acquisition de matériels professionnels"
+
+msgid "ENUM::NATUREAIDE::LVI"
+msgstr "Aide à la location d'un véhicule d'insertion"
+
+###############################################################################
+# Enum Apre.typedemandeapre
+###############################################################################
+msgid "ENUM::TYPEDEMANDEAPRE::FO"
+msgstr "Formations"
+
+msgid "ENUM::TYPEDEMANDEAPRE::AU"
+msgstr "Autres"
+
+###############################################################################
+# Enum Apre.statutapre
+###############################################################################
+msgid "ENUM::STATUTAPRE::C"
+msgstr "Complémentaire"
+
+msgid "ENUM::STATUTAPRE::F"
+msgstr "Forfaitaire"
+
+###############################################################################
+# Enum Apre.naturelogement
+###############################################################################
+msgid "ENUM::NATURELOGEMENT::P"
+msgstr "Propriétaire"
+
+msgid "ENUM::NATURELOGEMENT::L"
+msgstr "Locataire"
+
+msgid "ENUM::NATURELOGEMENT::H"
+msgstr "Hébergé"
+
+msgid "ENUM::NATURELOGEMENT::S"
+msgstr "SDF"
+
+msgid "ENUM::NATURELOGEMENT::A"
+msgstr "Autres"
+
+###############################################################################
+# Enum Apre.activitebeneficiaire
+###############################################################################
+msgid "ENUM::ACTIVITEBENEFICIAIRE::E"
+msgstr "Emploi"
+
+msgid "ENUM::ACTIVITEBENEFICIAIRE::F"
+msgstr "Formation Qualifiante"
+
+msgid "ENUM::ACTIVITEBENEFICIAIRE::C"
+msgstr "Création d'Entreprise"
+
+msgid "ENUM::ACTIVITEBENEFICIAIRE::P"
+msgstr "Formation Pré-qualifiante"
+###############################################################################
+# Enum Apre.typecontrat
+###############################################################################
+msgid "ENUM::TYPECONTRAT::CDI"
+msgstr "CDI"
+
+msgid "ENUM::TYPECONTRAT::CDD"
+msgstr "CDD"
+
+msgid "ENUM::TYPECONTRAT::CON"
+msgstr "Contrat Aidé"
+
+msgid "ENUM::TYPECONTRAT::AUT"
+msgstr "Autres"
+
+###############################################################################
+# Enum Apre.DECISIONCOMITE
+###############################################################################
+
+msgid "ENUM::DECISIONCOMITE::ACC"
+msgstr "Accord"
+
+msgid "ENUM::DECISIONCOMITE::AJ"
+msgstr "Ajournement"
+
+msgid "ENUM::DECISIONCOMITE::REF"
+msgstr "Refus"
+
+###############################################################################
+# Enum ApreComiteapre.decisionrecours
+###############################################################################
+
+msgid "ENUM::DECISIONRECOURS::ACC"
+msgstr "Accord"
+
+msgid "ENUM::DECISIONRECOURS::AJ"
+msgstr "Ajournement"
+
+msgid "ENUM::DECISIONRECOURS::REF"
+msgstr "Refus"
+
+###############################################################################
+# Enum ApreComiteapre.recoursapre
+###############################################################################
+
+msgid "ENUM::RECOURSAPRE::N"
+msgstr "Non"
+
+msgid "ENUM::RECOURSAPRE::O"
+msgstr "Oui"
+
+
+###############################################################################
+# Enum ComiteapreParticipantcomite.presence
+###############################################################################
+
+msgid "ENUM::PRESENCECA::PRE"
+msgstr "Présent"
+
+msgid "ENUM::PRESENCECA::ABS"
+msgstr "Absent"
+
+msgid "ENUM::PRESENCECA::EXC"
+msgstr "Excusé"
+
+###############################################################################
+# Enum Apre.etatdossierapre
+###############################################################################
+msgid "ENUM::ETATDOSSIERAPRE::COM"
+msgstr "Complet"
+
+msgid "ENUM::ETATDOSSIERAPRE::INC"
+msgstr "Incomplet"
+
+msgid "ENUM::ETATDOSSIERAPRE::VAL"
+msgstr "Validée"
+
+msgid "ENUM::ETATDOSSIERAPRE::TRA"
+msgstr "Traitée"
+
+msgid "ENUM::ETATDOSSIERAPRE::ANN"
+msgstr "Annulé"
+###############################################################################
+# Enum Apre.eligibiliteapre
+###############################################################################
+msgid "ENUM::ELIGIBILITEAPRE::N"
+msgstr "Non éligible"
+
+msgid "ENUM::ELIGIBILITEAPRE::O"
+msgstr "Eligible"
+
+###############################################################################
+# Enum Apre.justificatif
+###############################################################################
+msgid "ENUM::JUSTIFICATIF::CREA"
+msgstr "Justificatif d'entrée en formation ou de création d'entreprise"
+
+msgid "ENUM::JUSTIFICATIF::CDT"
+msgstr "Contrat de travail"
+
+msgid "ENUM::JUSTIFICATIF::CINS"
+msgstr "Contrat d'insertion validé par le Président du Conseil Général (sauf pour SIAE et titulaires de contrats aidés)"
+
+###############################################################################
+# Enum Actprof.typecontratact
+###############################################################################
+msgid "ENUM::TYPECONTRATACT::CI"
+msgstr "CI-RMA"
+
+msgid "ENUM::TYPECONTRATACT::CA"
+msgstr "Contrat d'Avenir"
+
+msgid "ENUM::TYPECONTRATACT::SA"
+msgstr "Salarié en SIAE"
+
+###############################################################################
+# Enum Amenaglogt.typeaidelogement
+###############################################################################
+msgid "ENUM::TYPEAIDELOGEMENT::AEL"
+msgstr "Aide à l'entrée dans le logement"
+
+msgid "ENUM::TYPEAIDELOGEMENT::AML"
+msgstr "Aide au maintien au logement"
+
+###############################################################################
+# Enum Repddtefp.nbrHommesInstruits
+###############################################################################
+msgid "Repddtefp.nbrHommesInstruits"
+msgstr "Hommes"
+
+msgid "Repddtefp.nbrFemmesInstruits"
+msgstr "Femmes"
+
+msgid "Repddtefp.nbrTotalInstruits"
+msgstr "Total"
+
+msgid "Repddtefp.nbrTotalAgesInstruits"
+msgstr "Total"
+
+msgid "Repddtefp.numcom"
+msgstr "Ville du bénéficiaire"
+
+msgid "Repddtefp.nbr0_24Instruits"
+msgstr "Moins de 25 ans"
+
+msgid "Repddtefp.nbr25_34Instruits"
+msgstr "25-34 ans"
+
+msgid "Repddtefp.nbr35_44Instruits"
+msgstr "35-44 ans"
+
+msgid "Repddtefp.nbr45_54Instruits"
+msgstr "45-54 ans"
+
+msgid "Repddtefp.nbr55_59Instruits"
+msgstr "55-59 ans"
+
+msgid "Repddtefp.nbr60_200Instruits"
+msgstr "60 ans et +"
+
+###############################################################################
+# Paramètres financiers pour la gestion de l'APRE
+###############################################################################
+
+msgid "Parametrefinancier.entitefi"
+msgstr "Entité financière"
+
+msgid "Parametrefinancier.engagement"
+msgstr "Engagement"
+
+msgid "Parametrefinancier.tiers"
+msgstr "Tiers"
+
+msgid "Parametrefinancier.codecdr"
+msgstr "Code CDR"
+
+msgid "Parametrefinancier.libellecdr"
+msgstr "Libellé CDR"
+
+msgid "Parametrefinancier.natureanalytique"
+msgstr "Code nature analytique"
+
+msgid "Parametrefinancier.programme"
+msgstr "Programme"
+
+msgid "Parametrefinancier.lib_programme"
+msgstr "Libellé programme"
+
+msgid "Parametrefinancier.apreforfait"
+msgstr "Identification tranche APRE forfaitaire"
+
+msgid "Parametrefinancier.aprecomplem"
+msgstr "Identification tranche APRE complémentaire"
+
+msgid "Parametrefinancier.natureimput"
+msgstr "Nature imputation"
+
+msgid "Parametrefinancier.lib_natureanalytique"
+msgstr "Libellé nature analytique"
+
+###############################################################################
+# États liquidatifs
+###############################################################################
+
+msgid "Etatliquidatif.budgetapre_id"
+msgstr "Budget"
+
+msgid "Etatliquidatif.typeapre"
+msgstr "Type d'APREs traitées"
+
+msgid "Etatliquidatif.commentaire"
+msgstr "Commentaire"
+
+###############################################################################
+# Budgets APREs
+###############################################################################
+
+msgid "Budgetapre.exercicebudgetai"
+msgstr "Exercice budgétaire"
+
+msgid "Budgetapre.montantattretat"
+msgstr "Montant attribué par l'état"
+
+msgid "Budgetapre.ddexecutionbudge"
+msgstr "Date de début d'exécution budgétaire"
+
+msgid "Budgetapre.dfexecutionbudge"
+msgstr "Date de fin d'exécution budgétaire"
+
+###############################################################################
+# Domiciliations bancaires
+###############################################################################
+
+msgid "Domiciliationbancaire.codebanque"
+msgstr "Code banque"
+
+msgid "Domiciliationbancaire.codeagence"
+msgstr "Code agence"
+
+msgid "Domiciliationbancaire.libelledomiciliation"
+msgstr "Libellé domiciliation"
+
+###############################################################################
+# Table Tiersprestataire
+###############################################################################
+
+msgid "Tiersprestataireapre.nomtiers"
+msgstr "Organisme prestataire"
+
+msgid "Tiersprestataireapre.siret"
+msgstr "N° Siret"
+
+msgid "Tiersprestataireapre.numvoie"
+msgstr "N° de voie"
+
+msgid "Tiersprestataireapre.typevoie"
+msgstr "Type de voie"
+
+msgid "Tiersprestataireapre.nomvoie"
+msgstr "Nom de voie"
+
+msgid "Tiersprestataireapre.compladr"
+msgstr "Complément adresse"
+
+msgid "Tiersprestataireapre.codepos"
+msgstr "Code postal"
+
+msgid "Tiersprestataireapre.ville"
+msgstr "Ville"
+
+msgid "Tiersprestataireapre.canton"
+msgstr "Canton"
+
+msgid "Tiersprestataireapre.numtel"
+msgstr "N° de téléphone"
+
+msgid "Tiersprestataireapre.adrelec"
+msgstr "Email"
+
+msgid "Tiersprestataireapre.nomtiturib"
+msgstr "Nom du titulaire du RIB"
+
+msgid "Tiersprestataireapre.etaban"
+msgstr "Code banque"
+
+msgid "Tiersprestataireapre.guiban"
+msgstr "Code guichet"
+
+msgid "Tiersprestataireapre.numcomptban"
+msgstr "Numéro de compte"
+
+msgid "Tiersprestataireapre.nometaban"
+msgstr "Nom de l'établissement bancaire"
+
+msgid "Tiersprestataireapre.clerib"
+msgstr "Clé RIB"
+
+msgid "Tiersprestataireapre.aidesliees"
+msgstr "Tiers prestataire lié à quelle formation ?"
+###############################################################################
+# Lien entre Table Tiersprestataire et les Aides de Formation
+###############################################################################
+msgid "Formqualif.tiersprestataireapre_id"
+msgstr "Organisme de formation"
+
+msgid "Formpermfimo.tiersprestataireapre_id"
+msgstr "Organisme de formation"
+
+msgid "Actprof.tiersprestataireapre_id"
+msgstr "Nom de l'employeur"
+
+msgid "Permisb.tiersprestataireapre_id"
+msgstr "Nom de l'auto-école"
+
+msgid "Apres::filelink"
+msgstr "Liste des fichiers liés à l'APRE"
+
+msgid "Apre.haspiecejointe"
+msgstr "Ajouter une pièce jointe"
+
+msgid "Apre66.haspiecejointe"
+msgstr "Ajouter une pièce jointe"
+
+msgid "ENUM::HASPIECEJOINTE::1"
+msgstr "Oui"
+
+msgid "ENUM::HASPIECEJOINTE::0"
+msgstr "Non"
+
+
+
+msgid "Apre66.isbeneficiaire"
+msgstr "Le demandeur est bénéficiaire du rSa soumis à droit et devoirs à la date de la demande"
+
+msgid "Apre66.hascer"
+msgstr "Avec CER / PPAE"
+
+msgid "Apre66.respectdelais"
+msgstr "Respect des délais"
+
+msgid "Comiteapre.datecomite"
+msgstr "Date du comité d'APRE"
+
+msgid "ApreComiteapre.decisioncomite"
+msgstr "Décision du comité"
+
+
+msgid "Apre.isapre"
+msgstr "Type formulaire"
+
+msgid "ENUM::ISAPRE::0"
+msgstr "ADRE"
+
+msgid "ENUM::ISAPRE::1"
+msgstr "APRE"
+
+msgid "ENUM::HASFRAIS::0"
+msgstr "Non"
+
+msgid "ENUM::HASFRAIS::1"
+msgstr "Oui"
+
+msgid "ENUM::ISBENEFICIAIRE::0"
+msgstr "Non"
+
+msgid "ENUM::ISBENEFICIAIRE::1"
+msgstr "Oui"
+
+msgid "ENUM::HASCER::0"
+msgstr "Non"
+
+msgid "ENUM::HASCER::1"
+msgstr "Oui"
+
+msgid "ENUM::RESPECTDELAIS::0"
+msgstr "Non"
+
+msgid "ENUM::RESPECTDELAIS::1"
+msgstr "Oui"
+
+msgid "ENUM::ISTRAITE::0"
+msgstr "Non"
+
+msgid "ENUM::ISTRAITE::1"
+msgstr "Oui"
+
+msgid "ENUM::ISTRANSFERE::0"
+msgstr "Non"
+
+msgid "ENUM::ISTRANSFERE::1"
+msgstr "Oui"

@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Manifestationbilanparcours66 ...
@@ -17,13 +18,13 @@
 	{
 		public $name = 'Manifestationbilanparcours66';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
-			'Containable',
-			'Formattable',
-			'Enumerable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
+			'Allocatairelie' => array(
+				'joins' => array('Bilanparcours66')
+			),
 		);
 
 		public $belongsTo = array(
@@ -54,33 +55,5 @@
 				'counterQuery' => ''
 			)
 		);
-
-		/**
-		 * Retourne l'id de la personne à laquelle est lié un enregistrement.
-		 *
-		 * @param integer $id L'id de l'enregistrement
-		 * @return integer
-		 */
-		public function personneId( $id ) {
-			$querydata = array(
-				'fields' => array( "Bilanparcours66.personne_id" ),
-				'joins' => array(
-					$this->join( 'Bilanparcours66', array( 'type' => 'INNER' ) )
-				),
-				'conditions' => array(
-					"{$this->alias}.id" => $id
-				),
-				'recursive' => -1
-			);
-
-			$result = $this->find( 'first', $querydata );
-
-			if( !empty( $result ) ) {
-				return $result['Bilanparcours66']['personne_id'];
-			}
-			else {
-				return null;
-			}
-		}
 	}
 ?>

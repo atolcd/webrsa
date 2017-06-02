@@ -120,5 +120,34 @@
 			$expected = 33;
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
+
+		/**
+		 * Test de la méthode Validation2DefaultFormatter::stripNotAlnum();
+		 */
+		public function testStripNotAlnum() {
+			$result = Validation2DefaultFormatter::stripNotAlnum( null );
+			$expected = null;
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			$result = Validation2DefaultFormatter::stripNotAlnum( '_15' );
+			$expected = 15;
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			$result = Validation2DefaultFormatter::stripNotAlnum( '11_21_150_666' );
+			$expected = '1121150666';
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			$result = Validation2DefaultFormatter::stripNotAlnum( '11_' );
+			$expected = '11';
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			$result = Validation2DefaultFormatter::stripNotAlnum( '01 06 04 08 09' );
+			$expected = '0106040809';
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			$result = Validation2DefaultFormatter::stripNotAlnum( '01.06.04.08.09' );
+			$expected = '0106040809';
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+		}
 	}
 ?>

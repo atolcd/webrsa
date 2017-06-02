@@ -139,6 +139,7 @@ ALTER TABLE personnes DROP column idassedic;
 -- /InfosFoyerRSA/Personne/Ressources/CaracteristiquesEmployabilite
 -- *****************************************************************************
 
+DROP VIEW IF EXISTS referentiel.fse_activites;
 DROP TABLE IF EXISTS activites;
 
 -- *****************************************************************************

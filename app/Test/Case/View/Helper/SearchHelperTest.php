@@ -101,7 +101,7 @@
 		public function testBlocAdresse() {
 			// Utile pour réinitialiser la validation sur Adresse qui est modifié en cas de AllTests
 			ClassRegistry::init('Adresse')->validate['nomvoie'] = array();
-			ClassRegistry::init('Adresse')->validate['nomcom'] = array('notEmpty');
+			ClassRegistry::init('Adresse')->validate['nomcom'] = array(NOT_BLANK_RULE_NAME);
 
 			$result = $this->Search->blocAdresse( array( '1' => 'One' ), array( '2' => 'Two' ) );
 			$expected = '<fieldset><legend>Recherche par Adresse</legend><div class="input text"><label for="AdresseNomvoie">Nom de voie de l\'allocataire </label><input name="data[Adresse][nomvoie]" type="text" id="AdresseNomvoie"/></div><div class="input text required"><label for="AdresseNomcom">Commune de l\'allocataire </label><input name="data[Adresse][nomcom]" type="text" id="AdresseNomcom"/></div><div class="input select"><label for="AdresseNumcom">Numéro de commune au sens INSEE</label><select name="data[Adresse][numcom]" id="AdresseNumcom"> <option value=""></option> <option value="1">One</option> </select></div></fieldset>';

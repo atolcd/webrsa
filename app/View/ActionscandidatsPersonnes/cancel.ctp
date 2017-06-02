@@ -1,6 +1,6 @@
 <?php
 	$modelClassName = 'ActioncandidatPersonne';
-	$domain = "actioncandidat_personne_".Configure::read( 'ActioncandidatPersonne.suffixe' );
+	$domain = 'actioncandidat_personne_cg66';
 ?>
 <h1> <?php
 		echo $this->Xhtml->tag(

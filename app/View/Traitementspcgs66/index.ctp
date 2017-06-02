@@ -28,7 +28,7 @@
 	$addLink = $this->Default3->actions(
 		WebrsaAccess::actionAdd("/Traitementspcgs66/add/{$personnepcg66_id}", $ajoutPossible)
 	);
-		
+
 	if( empty( $dossierpcg66_id ) ){
 		echo '<p class="notice"> Veuillez sélectionner un dossier afin d\'afficher les traitements</p>';
 	}
@@ -54,8 +54,8 @@
 			$listeTraitements,
 			$this->Translator->normalize(
 				array(
-					'Situationpdo.libelle' => array( 'type'=>'string' ),
-					'Traitementpcg66.descriptionpdo_id' => array( 'type'=>'string' ),
+					'Situationpdo.libelle',
+					'Descriptionpdo.name',
 					'Traitementpcg66.datedepart',
 					'Traitementpcg66.datereception',
 					'Traitementpcg66.daterevision',
@@ -101,7 +101,8 @@
 							'msgid' => 'Annulé',
 							'class' => 'cancel',
 							'condition' => "'#Traitementpcg66.annule#' === 'O'",
-							'condition_group' => 'annule'
+							'condition_group' => 'annule',
+							'disabled' => true
 						),
 						'/Traitementspcgs66/delete/#Traitementpcg66.id#' => array('confirm' => true),
 					)

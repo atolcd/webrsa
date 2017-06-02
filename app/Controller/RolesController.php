@@ -7,14 +7,14 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+    App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
 
-    App::import( 'Behaviors', 'Occurences' );
 	/**
 	 * La classe RolesController ...
 	 *
 	 * @package app.Controller
 	 */
-	class RolesController extends AppController
+	class RolesController extends AbstractWebrsaParametragesController
 	{
 		/**
 		 * Nom du contrôleur.
@@ -24,98 +24,23 @@
 		public $name = 'Roles';
 
 		/**
-		 * Components utilisés.
-		 *
-		 * @var array
-		 */
-		public $components = array(
-			'Default',
-		);
-
-		/**
-		 * Helpers utilisés.
-		 *
-		 * @var array
-		 */
-		public $helpers = array(
-			'Default', 
-			'Default2', 
-			'Theme',
-			'Xform', 
-		);
-
-		/**
 		 * Modèles utilisés.
 		 *
 		 * @var array
 		 */
-		public $uses = array(
-			'Role',
-		);
-		
+		public $uses = array( 'Role' );
+
 		/**
-		 * Utilise les droits d'un autre Controller:action
-		 * sur une action en particulier
-		 * 
-		 * @var array
-		 */
-		public $commeDroit = array(
-			
-		);
-		
-		/**
-		 * Méthodes ne nécessitant aucun droit.
+		 * Liste des tables à ne pas prendre en compte dans les enregistrements
+		 * vérifiés pour éviter les suppressions en cascade intempestives.
 		 *
 		 * @var array
 		 */
-		public $aucunDroit = array(
-			
-		);
-		
+		public $blacklist = array( 'roles_users' );
+
 		/**
-		 * Correspondances entre les méthodes publiques correspondant à des
-		 * actions accessibles par URL et le type d'action CRUD.
+		 * Modification d'un role.
 		 *
-		 * @var array
-		 */
-		public $crudMap = array(
-			'add' => 'create',
-			'delete' => 'delete',
-			'edit' => 'update',
-			'index' => 'read',
-			'view' => 'read',
-		);
-
-		/**
-		 * Listing du contenu de la table
-		 */
-		public function index() {
-			$this->Role->Behaviors->attach( 'Occurences' );
-  
-            $querydata = $this->Role->qdOccurencesExists(
-                array(
-                    'fields' => $this->Role->fields(),
-                    'order' => array('Role.name ASC')
-                )
-            );
-
-            $this->paginate = $querydata;
-            $roles = $this->paginate('Role');
-			$options = $this->_options();
-            $this->set(compact('roles', 'options'));
-		}
-
-		/**
-		 * Ajout d'une entrée
-		 */
-		public function add() {
-			$args = func_get_args();
-			call_user_func_array( array( $this, 'edit' ), $args );
-		}
-
-		/**
-		 * Modification d'une entrée
-		 * 
 		 * @param integer $id
 		 */
 		public function edit( $id = null ) {
@@ -127,9 +52,9 @@
 			if(!empty($this->request->data)) {
 				$this->Role->begin();
 				$this->Role->create( $this->request->data );
-				$success = $this->Role->save();
+				$success = $this->Role->save( null, array( 'atomic' => false ) );
 				$role_id = $this->Role->id;
-				
+
 				if ($success) {
 					// On prend les anciennes valeurs de RoleUser
 					$old = (array)Hash::extract(
@@ -142,14 +67,14 @@
 							)
 						), '{n}.RoleUser.user_id'
 					);
-					
+
 					// On prend les nouvelles
 					$new = (array)Hash::get($this->request->data, 'RoleUser.user_id');
-					
+
 					// On défini ce qui doit être ajouté ou supprimé de la base de donnée
 					$toWrite = array_diff($new, $old);
 					$notDelete = array_intersect($old, $new);
-					
+
 					// On détruit ce qui n'est pas dans la liste
 					if (!empty($old)) {
 						$conditions = array('role_id' => $role_id);
@@ -158,7 +83,7 @@
 						}
 						$this->Role->RoleUser->deleteAll($conditions);
 					}
-					
+
 					// On enregistre les nouvelles valeurs
 					if (!empty($toWrite)) {
 						$data = array();
@@ -169,7 +94,6 @@
 					}
 				}
 
-				$this->_setFlashResult('Save', $success);
 				if ($success) {
 					Cache::config('one day', array(
 						'engine' => 'File',
@@ -179,9 +103,11 @@
 					));
 					Cache::clear(false, 'one day');
 					$this->Role->commit();
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index' ) );
 				} else {
 					$this->Role->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {
@@ -195,13 +121,13 @@
 				$user_ids = Hash::extract($this->request->data, 'RoleUser.{n}.user_id');
 				unset($this->request->data['RoleUser']);
 				$this->request->data['RoleUser']['user_id'] = $user_ids;
-				
+
 				$this->assert( !empty( $this->request->data ), 'error404' );
 			}
 			else{
 				$this->request->data['Role']['actif'] = true;
 			}
-			
+
 			$users = $this->Role->User->find('all',
 				array(
 					'fields' => array(
@@ -220,40 +146,22 @@
 					)
 				)
 			);
-			
+
 			$dataUsers = array();
 			foreach ($users as $user) {
 				$dataUsers[$user['Group']['name']][$user['User']['id']] = $user['User']['nom_prenom'];
 			}
-			
+
 			$options = $this->_options();
-			
+
 			$this->set( compact( 'options', 'dataUsers' ) );
 
-			$this->view = 'edit';
+			$this->view = 'add_edit';
 		}
 
-		/**
-		 * Suppression d'une entrée
-		 * 
-		 * @param integer $id
-		 */
-		public function delete( $id ) {
-			$this->Default->delete( $id );
-		}
-
-		/**
-		 * Visualisation de la table
-		 * 
-		 * @param integer $id
-		 */
-		public function view( $id ) {
-			$this->Default->view( $id );
-		}
-		
 		/**
 		 * Options pour la vue
-		 * 
+		 *
 		 * @return array
 		 */
 		protected function _options() {

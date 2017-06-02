@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par dossiers EP" > "Radiation de Pôle Emploi (nouveau)"
+	 * Menu "Recherches" > "Par dossiers EP" > "Radiation de Pôle Emploi"
 	 *
 	 * @see les Configure::read() pour les conditions dans app/Model/Abstractclass/AbstractWebrsaCohorteSanctionep58.php
 	 * qui pourraient éventuellement se trouver ici ?
@@ -66,7 +66,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par dossiers EP" > "Radiation de Pôle Emploi (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par dossiers EP" > "Radiation de Pôle Emploi"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Sanctionseps58.exportcsv_radiespe',
@@ -97,7 +97,7 @@
 	);
 
 	/**
-	 * Menu "Recherches" > "Par dossiers EP" > "Non inscription à Pôle Emploi (nouveau)"
+	 * Menu "Recherches" > "Par dossiers EP" > "Non inscription à Pôle Emploi"
 	 *
 	 * @see les Configure::read() pour les conditions dans app/Model/Abstractclass/AbstractWebrsaCohorteSanctionep58.php
 	 * qui pourraient éventuellement se trouver ici ?
@@ -160,7 +160,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par dossiers EP" > "Radiation de Pôle Emploi (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par dossiers EP" > "Radiation de Pôle Emploi"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Sanctionseps58.exportcsv_noninscritspe',

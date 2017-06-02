@@ -1,77 +1,44 @@
 <?php
-	$this->pageTitle = 'Décisions PDOs';
+	$departement = Configure::read( 'Cg.departement' );
 
-	if( Configure::read( 'debug' ) > 0 ) {
-		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
-	}
-?>
+	$fields = array(
+		'Decisionpdo.id',
+		'Decisionpdo.libelle',
+		'Decisionpdo.clos' => array( 'type' => 'radio' ),
+		'Decisionpdo.isactif' => array( 'type' => 'radio' )
+	);
 
-<h1><?php echo $this->pageTitle;?></h1>
-
-<?php
-	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Decisionpdo', array( 'id' => 'decisionpdoform', 'type' => 'post' ) );
-		echo $this->Form->input( 'Decisionpdo.id', array( 'type' => 'hidden', 'value' => '' ) );
-	}
-	else {
-		echo $this->Form->create( 'Decisionpdo', array( 'id' => 'decisionpdoform', 'type' => 'post' ) );
-		echo $this->Form->input( 'Decisionpdo.id', array( 'type' => 'hidden' ) );
-	}
-?>
-
-<fieldset>
-	<?php
-
-		$fields = array(
-			'Decisionpdo.libelle',
-			'Decisionpdo.clos' => array( 'type' => 'radio' ),
-            'Decisionpdo.isactif' => array( 'type' => 'radio' )
-		);
-
-		if ( Configure::read( 'Cg.departement' ) == 66 ) {
-			$fields = array_merge(
-				$fields,
-				array( 'Decisionpdo.cerparticulier' => array( 'type' => 'radio' ) ),
-				array( 'Decisionpdo.decisioncerparticulier' => array( 'type' => 'select', 'options' => $decision_ci, 'empty' => true ) )
-			);
-		}
-		else {
-			$fields = array_merge(
-				$fields,
-				array( 'Decisionpdo.modeleodt' )
-			);
-		}
-
-		echo $this->Default->subform(
+	if( 66 === $departement ) {
+		$fields = array_merge(
 			$fields,
 			array(
-				'options' => $options
+				'Decisionpdo.cerparticulier' => array( 'type' => 'radio' ),
+				'Decisionpdo.decisioncerparticulier' => array( 'type' => 'select', 'empty' => true )
 			)
 		);
-	?>
-</fieldset>
+	}
+	else {
+		$fields = array_merge(
+			$fields,
+			array( 'Decisionpdo.modeleodt' )
+		);
+	}
 
-<div class="submit">
-	<?php
-		echo $this->Xform->submit( 'Enregistrer', array( 'div' => false ) );
-		echo $this->Xform->submit( 'Annuler', array( 'name' => 'Cancel', 'div' => false ) );
-	?>
-</div>
-
-<?php echo $this->Form->end();?>
-
-<div class="clearer"><hr /></div>
+	echo $this->element( 'WebrsaParametrages/add_edit', array( 'fields' => $fields ) );
+?>
+<?php if( 66 === $departement ): ?>
 <script type="text/javascript">
+//<![CDATA[
 	document.observe("dom:loaded", function() {
 		observeDisableFieldsOnRadioValue(
-			'decisionpdoform',
+			'<?php echo Inflector::camelize( Inflector::singularize( $this->request->params['controller'] )."_{$this->request->params['action']}" ).'Form';?>',
 			'data[Decisionpdo][cerparticulier]',
 			[ 'DecisionpdoDecisioncerparticulier' ],
 			'O',
 			true,
 			true
 		);
-
-
 	});
+//]]>
 </script>
+<?php endif; ?>

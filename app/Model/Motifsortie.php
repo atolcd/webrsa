@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Motifsortie s'occupe de la gestion des motifs de sortie liés aux
@@ -18,21 +19,21 @@
 	{
 		public $name = 'Motifsortie';
 
-		public $actsAs = array(
-			'Autovalidate2'
-		);
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
 
-		public $validate = array(
-			'name' => array(
-				array(
-					'rule' => 'isUnique',
-					'message' => 'Valeur déjà utilisée'
-				)
-			)
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
         public $hasAndBelongsToMany = array(
-         'Actioncandidat' => array(
+			'Actioncandidat' => array(
 				'className' => 'Actioncandidat',
 				'joinTable' => 'actionscandidats_motifssortie',
 				'foreignKey' => 'motifsortie_id',

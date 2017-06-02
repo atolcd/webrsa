@@ -24,7 +24,7 @@
 	<tbody>
 		<tr class="odd">
 			<th ><?php echo __d( 'ressource', 'Ressource.topressnotnul' );?></th>
-			<td><?php echo ($ressource['Ressource']['topressnotnul']? 'Oui' : 'Non' );?></td>
+			<td><?php echo $ressource['Ressource']['topressnotnul']? 'Oui' : 'Non' ;?></td>
 		</tr>
 		<tr class="even">
 			<th><?php echo __d( 'ressource', 'Ressource.mtpersressmenrsa' );?></th>

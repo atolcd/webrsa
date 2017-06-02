@@ -16,7 +16,7 @@
 		).'</li></ul>';
 	}
 
-	echo $this->Xform->create( 'Referents', array( 'type' => 'post', 'action' => '/liste_demande_reorient/', 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ) ) );
+	echo $this->Xform->create( 'Referents', array( 'type' => 'post', 'url' => array( 'action' => 'liste_demande_reorient' ), 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ) ) );
 
 	///Formulaire de recherche de référents
 	echo $this->Default->search(

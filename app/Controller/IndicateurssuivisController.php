@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe IndicateurssuivisController ...
@@ -31,7 +32,7 @@
 			'Allocataires',
 			'Gestionzonesgeos',
 			'InsertionsBeneficiaires',
-			'Search.Filtresdefaut' => array(
+			'Search.SearchFiltresdefaut' => array(
 				'index',
 				'search',
 			),
@@ -77,27 +78,16 @@
 			'Referent',
 			'Structurereferente',
 		);
-		
-		/**
-		 * Utilise les droits d'un autre Controller:action
-		 * sur une action en particulier
-		 * 
-		 * @var array
-		 */
-		public $commeDroit = array(
-			'exportcsv_search' => 'Indicateurssuivis:exportcsv',
-			'search' => 'Indicateurssuivis:index',
-		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -105,10 +95,8 @@
 		 * @var array
 		 */
 		public $crudMap = array(
-			'exportcsv' => 'read',
 			'exportcsv_search' => 'read',
-			'index' => 'read',
-			'search' => 'read',
+			'search' => 'read'
 		);
 
 		protected function _setOptions() {
@@ -120,45 +108,6 @@
 			$this->set( 'referents', $this->InsertionsBeneficiaires->referents( array( 'type' => 'list', 'prefix' => false, 'conditions' => array( 'Referent.actif' => 'O' ) ) ) );
 			$this->set( 'options', (array)Hash::get( $this->Dossierep->enums(), 'Dossierep' ) );
 			$this->set( 'etatpe', (array)Hash::get( $this->Informationpe->Historiqueetatpe->enums(), 'Historiqueetatpe' ) );
-		}
-
-
-		/**
-		 * @deprecated
-		 */
-		public function index() {
-			$this->_setOptions();
-			$mesZonesGeographiques = $this->Session->read( 'Auth.Zonegeographique' );
-			$mesCodesInsee = ( !empty( $mesZonesGeographiques ) ? $mesZonesGeographiques : array() );
-
-			//debug($this->request->data);exit;
-			if( !empty( $this->request->data ) ) {
-				$this->paginate = $this->Indicateursuivi->search(
-					$mesCodesInsee,
-					$this->Session->read( 'Auth.User.filtre_zone_geo' ),
-					$this->request->data
-				);
-				$indicateurs = $this->paginate( 'Dossier' );
-
-				foreach($indicateurs as $key => $value ) {
-					//Conjoint :
-					$bindPrestation = $this->Personne->hasOne['Prestation'];
-					$this->Personne->unbindModelAll();
-					$this->Personne->bindModel( array( 'hasOne' => array('Prestation' => $bindPrestation ) ) );
-					$conjoint = $this->Personne->find('first', array(
-						'fields' => array('Personne.qual','Personne.nom', 'Personne.prenom'),
-						'conditions' => array(
-							'Personne.foyer_id' => $value['Foyer']['id'],
-							'Prestation.rolepers' => 'CJT'
-						)
-					));
-					$indicateurs[$key]['Personne']['qualcjt'] = !empty($conjoint['Personne']['qual']) ? $conjoint['Personne']['qual'] : '';
-					$indicateurs[$key]['Personne']['prenomcjt'] = !empty($conjoint['Personne']['prenom']) ? $conjoint['Personne']['prenom'] : '';
-					$indicateurs[$key]['Personne']['nomcjt'] = !empty($conjoint['Personne']['nom']) ? $conjoint['Personne']['nom'] : '';
-				}
-				$this->set('indicateurs', $indicateurs);
-			}
-
 		}
 
 		/**
@@ -201,43 +150,6 @@
 
 			$this->set( compact( 'results', 'options' ) );
 			$this->layout = null;
-		}
-
-
-		public function exportcsv() {
-			$this->_setOptions();
-			$mesZonesGeographiques = $this->Session->read( 'Auth.Zonegeographique' );
-			$mesCodesInsee = ( !empty( $mesZonesGeographiques ) ? $mesZonesGeographiques : array() );
-
-			$querydata = $this->Indicateursuivi->search(
-				$mesCodesInsee,
-				$this->Session->read( 'Auth.User.filtre_zone_geo' ),
-				Hash::expand( $this->request->params['named'], '__' )
-			);
-			unset( $querydata['limit'] );
-			$querydata = $this->_qdAddFilters( $querydata );
-
-			$indicateurs = $this->Dossier->find( 'all', $querydata );
-			foreach($indicateurs as $key => $value ) {
-				//Conjoint :
-				$conjoint = $this->Personne->find('first', array(
-					'fields' => array('Personne.qual', 'Personne.nom', 'Personne.prenom'),
-					'conditions' => array(
-						'Personne.foyer_id' => $value['Foyer']['id'],
-						'Prestation.rolepers' => 'CJT'
-					),
-					'contain' => array(
-						'Prestation'
-					)
-				));
-
-				$indicateurs[$key]['Personne']['qualcjt'] = !empty($conjoint['Personne']['qual']) ? $conjoint['Personne']['qual'] : '';
-				$indicateurs[$key]['Personne']['prenomcjt'] = !empty($conjoint['Personne']['prenom']) ? $conjoint['Personne']['prenom'] : '';
-				$indicateurs[$key]['Personne']['nomcjt'] = !empty($conjoint['Personne']['nom']) ? $conjoint['Personne']['nom'] : '';
-			}
-
-			$this->layout = ''; // FIXME ?
-			$this->set( compact( 'headers', 'indicateurs' ) );
 		}
 	}
 ?>

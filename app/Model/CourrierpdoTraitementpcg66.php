@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe CourrierpdoTraitementpcg66 ...
@@ -17,12 +18,19 @@
 	{
 		public $name = 'CourrierpdoTraitementpcg66';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array (
-			'Formattable',
-			'ValidateTranslate',
-			'Autovalidate2',
 			'Gedooo.Gedooo',
-			'StorablePdf'
+			'StorablePdf',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(
@@ -66,7 +74,6 @@
 			// TODO: error404/error500 si on ne trouve pas les données
 		$optionModel = ClassRegistry::init( 'Option' );
 			$qual = $optionModel->qual();
-			$typevoie = $optionModel->typevoie();
 			$conditions = array( 'CourrierpdoTraitementpcg66.id' => $id );
 
 			$joins = array(

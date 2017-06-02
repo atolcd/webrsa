@@ -197,7 +197,7 @@ function __minify() {
 	# CSS
 	CSSFILE="$CSSDIR/webrsa.tmp.css"
 	echo "@media all {" > "$CSSFILE"
-	cat "$CSSDIR/all.reset.css" "$CSSDIR/all.base.css" "$CSSDIR/bootstrap.custom.css" "$CSSDIR/all.form.css" "$CSSDIR/fileuploader.css" "$CSSDIR/fileuploader.webrsa.css" >> "$CSSFILE"
+	cat "$CSSDIR/all.reset.css" "$CSSDIR/all.base.css" "$CSSDIR/bootstrap.custom.css" "$CSSDIR/all.form.css" "$CSSDIR/fileuploader.css" "$CSSDIR/fileuploader.webrsa.css" "$CSSDIR/permissions.css" "$1/Plugin/Configuration/webroot/css/configuration_parser.css" >> "$CSSFILE"
 	echo "}" >> "$CSSFILE"
 
 	echo "@media screen,presentation {" >> "$CSSFILE"
@@ -213,9 +213,7 @@ function __minify() {
 
 	# Javascript (Prototype)
 	JSFILE="$JSDIR/webrsa.tmp.js"
-	# "$JSDIR/jquery.domec.js"
-	# "$JSDIR/jquery.js"
-	# "$JSDIR/webrsa.common.jquery.js"
+
 	cat "$JSDIR/prototype.js" \
 	"$JSDIR/webrsa.extended.prototype.js" \
 	"$JSDIR/prototype.livepipe.js" \
@@ -231,10 +229,10 @@ function __minify() {
 	"$JSDIR/webrsa.additional.js" \
 	"$JSDIR/fileuploader.js" \
 	"$JSDIR/fileuploader.webrsa.js" \
-	"$JSDIR/droits.js" \
 	"$JSDIR/cake.prototype.js" \
 	"$JSDIR/prototype.fabtabulous.js" \
 	"$JSDIR/prototype.tablekit.js" \
+	"$1/Plugin/Configuration/webroot/js/prototype.configuration-parser.js" \
 	> "$JSFILE"
 
 	java -jar "$YUICOMPRESSOR" "$JSFILE" -o "$JSDIR/webrsa.js" --charset utf-8 --preserve-semi
@@ -242,42 +240,6 @@ function __minify() {
 }
 
 # ------------------------------------------------------------------------------
-
-# function __svnbackup() {
-# 	APP_DIR="`readlink -f "$1"`"
-#
-# 	NOW=`date +"%Y%m%d-%H%M%S"` # FIXME: M sur 2 chars
-# 	PATCH_DIR="$APP_DIR/../svnbackup_$NOW"
-# 	PATCH_DIR="`readlink -f "$PATCH_DIR"`"
-#
-# 	mkdir -p "$PATCH_DIR"
-#
-# 	revision="`svn info $APP_DIR | grep "Revision" | sed 's/^Revision: \(.\+\)$/\1/g'`";
-# 	project="`svn info $APP_DIR | grep "Repository Root:" | sed 's/^Repository Root: .\+\/\([^\/]\+\)$/\1/g'`";
-# echo "$revision"
-# echo "$project"
-# rmdir "$PATCH_DIR"
-# exit
-# 	(
-# 		cd "$APP_DIR"
-# 		status="`svn status . | grep -v "^!" | sed 's/^\(.\) \+\(.*\)$/\2/'`";
-# 		for file in `echo "$status"`; do
-# 			dir="`dirname "$file" | sed "s@^./@$PWD@"|sed "s@^/@@"`"
-# 			if [ "$dir" != '.' ] ; then
-# 				mkdir -p "$PATCH_DIR/app/$dir"
-# 			fi
-# # 			echo "cp \"$file\" \"$PATCH_DIR/app/$dir\""
-# 			cp -R "$file" "$PATCH_DIR/app/$dir"
-# 		done
-# 	)
-#
-# 	(
-# 		cd "$PATCH_DIR"
-# 		zip -o -r -m "../svnbackup-$project-r$revision-$NOW.zip" app >> "/dev/null" 2>&1
-# 		cd ..
-# 		rmdir "$PATCH_DIR"
-# 	)
-# }
 
 function __svnbackup() {
 	APP_DIR="`readlink -f "$1"`"

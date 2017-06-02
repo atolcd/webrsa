@@ -7,9 +7,10 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	 App::uses('ZipUtility', 'Utility');
-	 App::uses('WebrsaPdfUtility', 'Utility');
-	 App::uses('WebrsaAccessDecisionsdossierspcgs66', 'Utility');
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaPdfUtility', 'Utility' );
+	App::uses( 'WebrsaAccessDecisionsdossierspcgs66', 'Utility' );
+	App::uses( 'ZipUtility', 'Utility' );
 
 	/**
 	 * La classe Dossierspcgs66Controller ... (CG 66).
@@ -95,15 +96,7 @@
 		 */
 		public $commeDroit = array(
 			'add' => 'Dossierspcgs66:edit',
-			'cohorte_atransmettre' => 'Cohortesdossierspcgs66:atransmettre',
-			'cohorte_enattenteaffectation' => 'Cohortesdossierspcgs66:enattenteaffectation',
-			'cohorte_imprimer' => 'Cohortesdossierspcgs66:aimprimer',
-			'exportcsv' => 'Criteresdossierspcgs66:exportcsv',
-			'exportcsv_gestionnaire' => 'Criteresdossierspcgs66:exportcsv',
-			'imprimer' => 'Decisionsdossierspcgs66::decisionproposition',
-			'search' => 'Criteresdossierspcgs66:dossier',
-			'search_affectes' => 'Cohortesdossierspcgs66:affectes',
-			'search_gestionnaire' => 'Criteresdossierspcgs66:gestionnaire',
+			'imprimer' => 'Decisionsdossierspcgs66:decisionproposition',
 			'view' => 'Dossierspcgs66:index',
 		);
 
@@ -115,7 +108,6 @@
 		public $aucunDroit = array(
 			'ajax_getetatdossierpcg66',
 			'ajax_view_decisions',
-			'ajaxetatpdo',
 			'ajaxfiledelete',
 			'ajaxfileupload',
 			'download',
@@ -176,63 +168,8 @@
 			$this->set( 'categoriedetail', ClassRegistry::init('Contratinsertion')->enum('emp_occupe') );
 
 			$this->set( 'typeserins', $this->Option->typeserins() );
-			$this->set( 'typepdo', $this->Dossierpcg66->Typepdo->find( 'list' ) );
 			$this->set( 'typenotifpdo', $this->Typenotifpdo->find( 'list' ) );
 			$this->set( 'decisionpdo', $this->Decisionpdo->find( 'list', array( 'order' => 'Decisionpdo.libelle ASC' ) ) );
-
-			$this->set( 'originepdo', $this->Dossierpcg66->Originepdo->find( 'list' ) );
-
-			$this->set( 'serviceinstructeur', $this->Dossierpcg66->Serviceinstructeur->listOptions() );
-			$this->set( 'orgpayeur', array('CAF'=>'CAF', 'MSA'=>'MSA') );
-
-            $gestionnaires = $this->User->find(
-                'all',
-                array(
-                    'fields' => array(
-                        'User.nom_complet',
-                        '( "Poledossierpcg66"."id" || \'_\'|| "User"."id" ) AS "User__gestionnaire"',
-                    ),
-                    'conditions' => array(
-                        'User.isgestionnaire' => 'O'
-                    ),
-                    'joins' => array(
-                        $this->User->join( 'Poledossierpcg66', array( 'type' => 'INNER' ) ),
-                    ),
-                    'order' => array( 'User.nom ASC', 'User.prenom ASC' ),
-                    'contain' => false
-                )
-            );
-            $gestionnaires = Hash::combine( $gestionnaires, '{n}.User.gestionnaire', '{n}.User.nom_complet' );
-            $this->set( compact( 'gestionnaires' ) );
-
-            $this->set( 'gestionnaire', $this->User->find(
-					'list',
-					array(
-						'fields' => array(
-							'User.nom_complet'
-						),
-						'conditions' => array(
-							'User.isgestionnaire' => 'O'
-						),
-                        'order' => array( 'User.nom ASC', 'User.prenom ASC' )
-					)
-				)
-			);
-
-            $this->set(
-                'polesdossierspcgs66',
-                $this->User->Poledossierpcg66->find(
-                    'list',
-                    array(
-                        'fields' => array(
-                            'Poledossierpcg66.id',
-                            'Poledossierpcg66.name'
-                        ),
-                        'conditions' => array( 'Poledossierpcg66.isactif' => '1' ),
-                        'order' => array( 'Poledossierpcg66.name ASC' )
-                    )
-                )
-            );
 
 			$options = Set::merge(
 				$this->Dossierpcg66->Decisiondossierpcg66->enums(),
@@ -434,11 +371,30 @@
 			}
 			else {
 				$this->request->data = $dossierpcg66;
+				// On complète les options avec les valeurs du pole et du gestionnaire enregistrés le cas échéant
+				$options = $this->User->Poledossierpcg66->WebrsaPoledossierpcg66->completeOptions(
+					$this->viewVars['options'],
+					$this->request->data,
+					array( 'prefix' => true )
+				);
+				$options = $this->Dossierpcg66->Originepdo->completeOptions(
+					$options,
+					$this->request->data,
+					array( 'Dossierpcg66.originepdo_id' )
+				);
+				$options = $this->Dossierpcg66->Typepdo->completeOptions(
+					$options,
+					$this->request->data,
+					array( 'Dossierpcg66.typepdo_id' )
+				);
+				$this->set( compact( 'options' ) );
 			}
 
 			// Modification du request data uniquement à la fin
 			$this->set( 'personnedecisionmodifiable', $this->_isDecisionModifiable( $foyer_id, $etatdossierpcg ) );
 			$this->request->data['Dossierpcg66']['user_id'] = $dossierpcg66['Dossierpcg66']['poledossierpcg66_id'].'_'.$dossierpcg66['Dossierpcg66']['user_id'];
+
+			$this->set( 'urlmenu', '/dossierspcgs66/index/'.$foyer_id );
 		}
 
 		/**
@@ -470,6 +426,15 @@
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
 			$this->set( compact( 'personneDem', 'gestionnairemodifiable', 'foyer_id', 'dossier_id' ) );
 			$this->_setOptions();
+
+			// Ajout des options des listes déroulantes
+			$options = $this->viewVars['options'];
+			$options['Dossierpcg66']['originepdo_id'] = $this->Dossierpcg66->Originepdo->findForTraitement( 'list' );
+			$options['Dossierpcg66']['typepdo_id'] = $this->Dossierpcg66->Typepdo->findForTraitement( 'list' );
+			$options['Dossierpcg66']['poledossierpcg66_id'] = $this->User->Poledossierpcg66->WebrsaPoledossierpcg66->polesdossierspcgs66();
+			$options['Dossierpcg66']['serviceinstructeur_id'] = $this->Dossierpcg66->Serviceinstructeur->listOptions();
+			$options['Dossierpcg66']['user_id'] = $this->User->WebrsaUser->gestionnaires( true, true );
+			$this->set( compact( 'options' ) );
 		}
 
 		/**
@@ -503,7 +468,7 @@
 			if( $saved && $this->_saveFichiers($id) ) {
 				$this->Dossierpcg66->commit();
 				$this->Jetons2->release( $this->viewVars['dossier_id'] );
-				$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+				$this->Flash->success( __( 'Save->success' ) );
 				$this->redirect( array(  'controller' => 'dossierspcgs66','action' => 'index', $this->viewVars['foyer_id'] ) );
 			}
 			else {
@@ -513,7 +478,7 @@
 				);
 				$this->set( compact('fichiers') );
 				$this->Dossierpcg66->rollback();
-				$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+				$this->Flash->error( __( 'Save->error' ) );
 			}
 		}
 
@@ -622,7 +587,12 @@
 			$foyer_id = Set::classicExtract( $dossierpcg66, 'Dossierpcg66.foyer_id' );
 
 			$success = $this->Dossierpcg66->delete( $id );
-			$this->_setFlashResult( 'Delete', $success );
+			if( $success ) {
+				$this->Flash->success( __( 'Delete->success' ) );
+			}
+			else {
+				$this->Flash->error( __( 'Delete->error' ) );
+			}
 			$this->redirect( array( 'controller' => 'dossierspcgs66', 'action' => 'index', $foyer_id ) );
 		}
 
@@ -657,17 +627,17 @@
 				$this->Dossierpcg66->begin();
 
 				$this->request->data['Dossierpcg66']['etatdossierpcg'] = 'annule';
-				$saved = $this->Dossierpcg66->save( $this->request->data );
+				$saved = $this->Dossierpcg66->save( $this->request->data , array( 'atomic' => false ) );
 
 				if( $saved ) {
 					$this->Dossierpcg66->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index', $foyer_id ) );
 				}
 				else {
 					$this->Dossierpcg66->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement.', 'flash/erreur' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -734,7 +704,7 @@
 		public function cohorte_enattenteaffectation() {
 			$Recherches = $this->Components->load( 'WebrsaCohortesDossierspcgs66' );
 			$this->Dossierpcg66->validate = array(
-				'poledossierpcg66_id' => array( 'notEmpty' => array( 'rule' => 'notEmpty' ) )
+				'poledossierpcg66_id' => array( NOT_BLANK_RULE_NAME => array( 'rule' => NOT_BLANK_RULE_NAME ) )
 			);
 			$this->Dossierpcg66->Typepdo->validate = array();
 			$this->Dossierpcg66->Originepdo->validate = array();
@@ -759,7 +729,7 @@
 			$this->Dossierpcg66->Typepdo->validate = array();
 			$this->Dossierpcg66->Originepdo->validate = array();
 			$this->Dossierpcg66->Decisiondossierpcg66->Decdospcg66Orgdospcg66->validate = array(
-				'orgtransmisdossierpcg66_id' => array( 'notEmpty' => array( 'rule' => 'notEmpty' ) )
+				'orgtransmisdossierpcg66_id' => array( NOT_BLANK_RULE_NAME => array( 'rule' => NOT_BLANK_RULE_NAME ) )
 			);
 
 			$Recherches->cohorte( array( 'modelRechercheName' => 'WebrsaCohorteDossierpcg66Atransmettre' ) );
@@ -886,7 +856,7 @@
 				if ( Hash::get( $results, 'Dossierpcg66.etatdossierpcg' ) === 'decisionvalid' ) {
 					$results['Dossierpcg66']['dateimpression'] = date('Y-m-d');
 					$results['Dossierpcg66']['etatdossierpcg'] = 'atttransmisop';
-					$success = $this->Dossierpcg66->Decisiondossierpcg66->Dossierpcg66->save($results['Dossierpcg66']);
+					$success = $this->Dossierpcg66->Decisiondossierpcg66->Dossierpcg66->save( $results['Dossierpcg66'], array( 'atomic' => false ) );
 				}
 
 				$decisionPdf = $decisionsdossierspcgs66_id !== null
@@ -940,7 +910,7 @@
 
 			}
 
-			$this->Session->setFlash( 'Impossible de générer le(s) fichier PDF', 'default', array( 'class' => 'error' ) );
+			$this->Flash->error( 'Impossible de générer le(s) fichier PDF' );
 			$this->redirect( $this->referer() );
 		}
 

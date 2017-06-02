@@ -7,8 +7,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
-	App::uses('WebrsaAccessBilansparcours66', 'Utility');
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaAccessBilansparcours66', 'Utility' );
 
 	/**
 	 * La classe CohortesciController permet de gérer les bilans de parcours (CG 66).
@@ -70,19 +70,17 @@
 			'Typeorient',
 			'WebrsaBilanparcours66',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Bilansparcours66:edit',
-			'exportcsv' => 'Criteresbilansparcours66:exportcsv',
-			'search' => 'Criteresbilansparcours66:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -91,7 +89,6 @@
 		public $aucunDroit = array(
 			'ajaxfiledelete',
 			'ajaxfileupload',
-			'choixformulaire',
 			'download',
 			'fileview',
 		);
@@ -125,16 +122,12 @@
 			$params += array( 'find' => true );
 
 			$options = Hash::merge( $options, $this->Bilanparcours66->enums() );
-			$typevoie = $this->Option->typevoie();
 			$this->set( 'rolepers', ClassRegistry::init('Prestation')->enum('rolepers') );
 			$this->set( 'qual', $this->Option->qual() );
 			$this->set( 'nationalite', ClassRegistry::init('Personne')->enum('nati') );
 
-			$options = Hash::insert( $options, 'typevoie', $typevoie );
-
 			if( $params['find'] === true ) {
 				$options[$this->modelClass]['structurereferente_id'] = $this->{$this->modelClass}->Structurereferente->listOptions();
-	// 			$options[$this->modelClass]['referent_id'] = $this->{$this->modelClass}->Referent->find( 'list' );
 				$options[$this->modelClass]['referent_id'] = $this->Bilanparcours66->Referent->WebrsaReferent->listOptions();
 				$options[$this->modelClass]['nvsansep_referent_id'] = $this->{$this->modelClass}->Referent->find( 'list' );
 				$options[$this->modelClass]['nvparcours_referent_id'] = $this->{$this->modelClass}->Referent->find( 'list' );
@@ -284,14 +277,14 @@
 				if( $saved ) {
 					$this->Bilanparcours66->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
-// 					$this->redirect( array(  'controller' => 'bilansparcours66','action' => 'index', $personne_id ) );
+					$this->Flash->success( __( 'Save->success' ) );
+
 					$this->redirect( $this->referer() );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id );
 					$this->Bilanparcours66->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -316,9 +309,9 @@
 			}
 
 			$query['conditions']['Bilanparcours66.personne_id'] = $personne_id;
-			
+
 			$bilansparcours66 = $this->WebrsaAccesses->getIndexRecords($personne_id, $query);
-			
+
 			$this->_setOptions(array(), array('find' => false));
 			$this->set(compact('bilansparcours66', 'nborientstruct', 'struct', 'ajoutPossible'));
 		}
@@ -641,7 +634,7 @@
 						$success = $this->Bilanparcours66->WebrsaBilanparcours66->sauvegardeBilan( $this->request->data ) && $success;
 					}
 					else {
-						$success = $this->Bilanparcours66->save( $this->request->data ) && $success;
+						$success = $this->Bilanparcours66->save( $this->request->data , array( 'atomic' => false ) ) && $success;
 					}
 				}
 				elseif ( ( $this->action == 'edit' ) && empty( $nvcontratinsertionId ) ) {
@@ -656,18 +649,17 @@
 						$success = $this->Bilanparcours66->WebrsaBilanparcours66->sauvegardeBilan( $this->request->data );
 					}
 					else {
-						$success = $this->Bilanparcours66->save( $this->request->data );
+						$success = $this->Bilanparcours66->save( $this->request->data , array( 'atomic' => false ) );
 					}
 				}
 				elseif ( $this->action == 'add' ) {
 					$success = $this->Bilanparcours66->WebrsaBilanparcours66->sauvegardeBilan( $this->request->data );
 				}
 
-				$this->_setFlashResult( 'Save', $success );
 				if( $success ) {
 					$this->Bilanparcours66->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 
 					if ( isset( $this->request->data['Bilanparcours66']['proposition'] ) && $this->request->data['Bilanparcours66']['proposition'] == 'traitement' && isset( $this->request->data['Bilanparcours66']['maintienorientation'] ) && $this->request->data['Bilanparcours66']['maintienorientation'] == 1 ) {
 						$this->redirect( array( 'controller' => 'contratsinsertion', 'action' => 'index', $personne_id ) );
@@ -679,7 +671,7 @@
 				}
 				else {
 					$this->Bilanparcours66->rollback();
-                    $this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+                    $this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			// Premier accès à la page
@@ -894,7 +886,6 @@
 				'saisinesbilansparcourseps66' => !$this->Bilanparcours66->WebrsaBilanparcours66->ajoutPossibleThematique66( 'saisinesbilansparcourseps66', $personne_id )
 			);
 
-			$this->set( 'typevoie', $this->Option->typevoie() );
 			$this->set( 'rolepers', ClassRegistry::init('Prestation')->enum('rolepers') );
 			$this->set( 'qual', $this->Option->qual() );
 			$this->set( 'nationalite', ClassRegistry::init('Personne')->enum('nati') );
@@ -972,7 +963,7 @@
 				}
 
 
-				$saved = $this->Bilanparcours66->save( $this->request->data );
+				$saved = $this->Bilanparcours66->save( $this->request->data , array( 'atomic' => false ) );
 				$saved = $this->{$this->modelClass}->updateAllUnBound(
 					array( 'Bilanparcours66.positionbilan' => '\'annule\'' ),
 					array(
@@ -984,12 +975,12 @@
 				if( $saved ) {
 					$this->Bilanparcours66->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$this->Bilanparcours66->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement.', 'flash/erreur' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -1027,7 +1018,7 @@
 			$this->set( 'personne_id', $personne_id );
 
             $this->_setOptions($this->Bilanparcours66->WebrsaBilanparcours66->optionsView());
-//            $this->set( 'options',$this->Bilanparcours66->WebrsaBilanparcours66->optionsView() );
+
 			$this->set( 'bilanparcours66', $this->Bilanparcours66->WebrsaBilanparcours66->dataView( $bilanparcours66_id ) );
 			$this->set( 'urlmenu', "/bilansparcours66/index/{$personne_id}" );
 		}

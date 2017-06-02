@@ -111,7 +111,7 @@
 <h1>Formulaire de demande de l'APRE COMPLÉMENTAIRE</h1>
 <br />
 <?php
-	echo $this->Form->create( 'Apre', array( 'type' => 'post', 'id' => 'Apre' ) );
+	echo $this->Form->create( 'Apre', array( 'type' => 'post', 'id' => 'Apre', 'novalidate' => true ) );
 	$ApreId = Set::classicExtract( $this->request->data, "{$this->modelClass}.id" );
 	if( $this->action == 'edit' ) {
 		echo '<div>';
@@ -297,12 +297,12 @@
 			<tr>
 				<td class="noborder">
 					<strong><?php echo required( 'Nom de l\'organisme' ); ?></strong>
-					<?php echo $this->Xform->input( "{$this->modelClass}.structurereferente_id", array( 'domain' => 'apre', 'label' => false, 'type' => 'select', 'options' => $structs, 'selected' => $struct_id, 'empty' => true ) );?>
+					<?php echo $this->Xform->input( "{$this->modelClass}.structurereferente_id", array( 'domain' => 'apre', 'label' => false, 'type' => 'select', 'options' => $structuresreferentes, 'empty' => true ) );?>
 					<?php echo $this->Ajax->observeField( $this->modelClass.'StructurereferenteId', array( 'update' => 'StructurereferenteRef', 'url' => array( 'action' => 'ajaxstruct' ) ) ); ?>
 				</td>
 				<td class="noborder">
 					<strong>Nom du référent</strong>
-					<?php echo $this->Xform->input( "{$this->modelClass}.referent_id", array( 'domain' => 'apre', 'label' => false, 'type' => 'select', 'options' => $referents, 'selected' => $struct_id.'_'.$referent_id,'empty' => true ) );?>
+					<?php echo $this->Xform->input( "{$this->modelClass}.referent_id", array( 'domain' => 'apre', 'label' => false, 'type' => 'select', 'options' => $referents,'empty' => true ) );?>
 					<?php echo $this->Ajax->observeField( $this->modelClass.'ReferentId', array( 'update' => 'ReferentRef', 'url' => array( 'action' => 'ajaxref' ) ) ); ?>
 				</td>
 			</tr>

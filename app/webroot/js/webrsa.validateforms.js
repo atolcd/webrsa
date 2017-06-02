@@ -5,7 +5,7 @@
  * Permet la vérification des données d'un formulaire en fonction des règles de validation
  * contenu dans les models. Empèche l'envoi du formulaire et affiche les érreurs si les données
  * ont mal été rempli.
- * 
+ *
  * @package app.View.Helper
  * @subpackage FormValidator
  * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
@@ -20,16 +20,16 @@ var FormValidator = {
 		values: {},
 		editableList: {},
 		errorElements: 'div.input.date, div.input.text, div.input.textarea, div.input.radio, div.input.select',
-		
+
 		// Lié au debug, mettre impérativement à false en production !
 		debugMode: false,
 		verbose: false,
 		ultraVerbose: false
 	},
-	
+
 	/**
 	 * Permet au php par le biais de cette fonction, de définir des variables globales
-	 * 
+	 *
 	 * @param {json} varList {validationRules, traductions, validationJS, validationOnchange, validationOnsubmit}
 	 * @returns {void}
 	 */
@@ -41,11 +41,11 @@ var FormValidator = {
 			}
 		}
 	},
-	
+
 	/**
 	 * Permet de récupérer le nom d'un element débarassé de la premiere paire de crochets si besoin est
 	 * ex : data[Search][Monmodel][Monchamp] deviens data[Monmodel][Monchamp]
-	 * 
+	 *
 	 * @param {String} name
 	 * @returns {String}
 	 */
@@ -55,24 +55,24 @@ var FormValidator = {
 			results = regex.exec( name ),
 			returnName
 		;
-		
+
 		if ( results === null || results.length !== 4 ) {
 			return '';
 		}
-		
+
 		returnName = 'data['+results[1]+']['+results[2]+']';
-		
+
 		if ( results[3] !== undefined ) {
 			returnName += results[3];
 		}
 
 		return returnName;
    },
-   
+
 	/**
 	 * On lui donne un nom d'editable et il renvoi le nom du model dont il dépend
 	 * getModelName( data[Monmodel][Mon_field] ) = 'Monmodel'
-	 * 
+	 *
 	 * @param {String} name
 	 * @returns {String} ModelName
 	 */
@@ -90,11 +90,11 @@ var FormValidator = {
 
 	   return name.substr(crochet1 +1, crochet2 - crochet1 -1);
 	},
-	
+
 	/**
 	 * On lui donne un nom d'editable et il renvoi le nom du champ dont il dépend
 	 * getFieldName( data[Monmodel][Mon_field] ) = 'Mon_field'
-	 * 
+	 *
 	 * @param {String} name
 	 * @returns {String} ModelName
 	 */
@@ -115,11 +115,11 @@ var FormValidator = {
 	   // Renvoi le contenu de la deuxieme paire de crochets
 	   return name.substr(crochet3 +1, crochet4 - crochet3 -1);
 	},
-	
+
 	/**
 	 * Fonctionne comme getModelName(),
 	 * Permet d'obtenir le contenu de la 3e paire de crochets (utile pour les dates)
-	 * 
+	 *
 	 * @param {String} name
 	 * @returns {String}
 	 */
@@ -136,14 +136,14 @@ var FormValidator = {
 
 		return result[2];
 	},
-	
+
 	/**
 	 * Affiche message en console
 	 * Nécéssite l'activation du debug au préalable
 	 * Si v est à true, affichera le message seulement si verbose est activé
 	 * Si vplus est à true, affichera le message seulement si ultraVerbose est activé
 	 * Condition permet d'ajouter une condition suplémentaire
-	 * 
+	 *
 	 * @param {Mixed} message
 	 * @param {Boolean} v (verbose)
 	 * @param {Boolean} vplus (ultraVerbose)
@@ -161,10 +161,10 @@ var FormValidator = {
 			}
 		}
 	},
-	
+
 	/**
 	 * Récupère les params d'une rule
-	 * 
+	 *
 	 * @param {Object} rule
 	 * @returns {Array}
 	 */
@@ -179,31 +179,31 @@ var FormValidator = {
 
 		return varParams;
 	},
-	
+
 	/**
 	 * Lié à getRules() ajoute une nouvelle règle de validation à un editable
-	 * 
+	 *
 	 * @param {Object} contain
 	 * @returns {Object}
 	 */
 	addRule: function ( contain ){
 		'use strict';
-		var		rule = [], 
-				varAllowEmpty = contain.allowEmpty !== undefined ? contain.allowEmpty : false, 
-				varParams = [], 
+		var		rule = [],
+				varAllowEmpty = contain.allowEmpty !== undefined ? contain.allowEmpty : false,
+				varParams = [],
 				message,
 				ruleName;
 
 		// Si le nom de la regle est un String
 		if ( typeof contain.rule === 'string' ) {
-			ruleName = contain.rule;		
+			ruleName = contain.rule;
 		}
 
 		// Si le nom de la regle est stocké dans un array
 		else{
 			varParams = FormValidator.getParams( contain.rule );
 
-			// Note: contain.rule[0] est l'exacte position du nom de règle dans le cas d'un array		
+			// Note: contain.rule[0] est l'exacte position du nom de règle dans le cas d'un array
 			ruleName = contain.rule[0];
 		}
 
@@ -214,10 +214,10 @@ var FormValidator = {
 		FormValidator.debug( rule, true, true );
 		return rule;
 	},
-	
+
 	/**
 	 * extractRules() constitue le moteur de getRules() (Qui lui, effectue des vérifiactions avant)
-	 * 
+	 *
 	 * @param {Object} validation
 	 * @returns {Object}
 	 */
@@ -245,10 +245,10 @@ var FormValidator = {
 		FormValidator.debug( '', true, true );
 		return rules;
 	},
-	
+
 	/**
 	 * Renvoi un fieldName dépourvu de _from et de _to pour vérification des between
-	 * 
+	 *
 	 * @param {String} fieldName
 	 * @returns {Boolean}
 	 */
@@ -265,10 +265,10 @@ var FormValidator = {
 
 		return from > 0 ? fieldName.substr(0, from) : (to > 0 ? fieldName.substr(0, to) : fieldName);
 	},
-	
+
 	/**
 	 * Récupère la règle de validation en fonction du nom de l'editable
-	 * 
+	 *
 	 * @param {String} name
 	 * @returns {Object|Boolean}
 	 */
@@ -292,10 +292,10 @@ var FormValidator = {
 
 		return rules;
 	},
-	
+
 	/**
 	 * Concatene les champs date et renvoi leurs valeurs
-	 * 
+	 *
 	 * @param {Object} listedEditable
 	 * @returns {String}
 	 */
@@ -303,7 +303,7 @@ var FormValidator = {
 		'use strict';
 		var thisDate = {day: '', month: '', year: ''},
 			thirdParam, i;
-	
+
 		if ( !listedEditable || listedEditable.length !== 3 ) {
 			return false;
 		}
@@ -313,7 +313,7 @@ var FormValidator = {
 			thirdParam = FormValidator.getThirdParam( listedEditable[i].editable.name );
 
 			switch ( thirdParam ){
-				case 'day': 
+				case 'day':
 				case 'month':
 				case 'year': thisDate[thirdParam] = listedEditable[i].editable.value; break;
 				default: return false; // Si ne contien pas day, month ou year, c'est que ce n'est pas une date !
@@ -326,10 +326,10 @@ var FormValidator = {
 
 		return thisDate;
 	},
-	
+
 	/**
 	 * Permet d'obtenir les 3 éléments date contenu dans editableList en fonction du name d'origine
-	 * 
+	 *
 	 * @param {string} name
 	 * @param {string} formatedName
 	 * @returns {Array|FormValidator.getDateElementsByName.results|Boolean}
@@ -342,11 +342,11 @@ var FormValidator = {
 			baseName = regex.exec( name ),
 			i = 0
 		;
-		
+
 		if ( baseName === null || baseName.length !== 2 ) {
 			return false;
 		}
-		
+
 		for (; i<list.length; i++) {
 			switch (list[i].editable.name) {
 				case baseName[1]+'[day]':
@@ -355,20 +355,20 @@ var FormValidator = {
 					results.push(list[i]);
 					break;
 			}
-			
+
 			if ( results.length === 3 ) {
 				return results;
 			}
 		}
-		
+
 		return false;
 	},
-	
+
 	/**
 	 * Permet de gérer les elements dates (tordu) de cakephp (les 3 selects)
 	 * On lui donne un nom de champ (peut importe si c'est data[Model][field][day] ou data[Model][field][year]...)
 	 * Il renvoi la date au format 01-01-2015
-	 * 
+	 *
 	 * @param {String} name
 	 * @returns {String}
 	 */
@@ -391,7 +391,7 @@ var FormValidator = {
 
 		return thisDate.day + '-' + thisDate.month + '-' + thisDate.year;
 	},
-	
+
 	/**
 	 * Renvoi la valeur se trouvant après le séparateur ('_' par defaut)
 	 * @param {String} value
@@ -404,7 +404,7 @@ var FormValidator = {
 		var cutPos = value.indexOf(separator) + separator.length;
 		return cutPos > 0 ? value.substr(cutPos, value.length) : value;
 	},
-	
+
 	/**
 	 * Dans le cas d'un fieldName avec un _id, revoi si possible le suffix de cette valeur
 	 * @param {HTML} editable
@@ -420,10 +420,10 @@ var FormValidator = {
 
 		return value.trim();
 	},
-	
+
 	/**
 	 * Récupère la valeur des boutons radio (renvoi la valeur du bouton selectionné)
-	 * 
+	 *
 	 * @param {array} targets
 	 * @returns {getRadioValue.valeur}
 	 */
@@ -438,10 +438,30 @@ var FormValidator = {
 
 		return valeur;
 	},
-	
+
+	/**
+	 * Récupère la valeur d'une case à cocher.
+	 *
+	 * @param {array} targets
+	 * @returns {getRadioValue.valeur}
+	 */
+	getCheckboxValue: function ( targets ){
+		'use strict';
+		var i, valeur = '', hidden = '';
+		for ( i=0; i<targets.length; i++ ){
+			if ( 'hidden' === targets[i].type ) {
+				hidden = targets[i].value;
+			} else if ( true === targets[i].checked ) {
+				valeur += valeur.length ? ','+String( targets[i].value ) : String( targets[i].value );
+			}
+		}
+
+		return 0 < valeur.length ? valeur : hidden;
+	},
+
 	/**
 	 * Permet de savoir si un editable possède une validation de type téléphone
-	 * 
+	 *
 	 * @param {HTML} editable
 	 * @returns {Boolean}
 	 */
@@ -454,11 +474,11 @@ var FormValidator = {
 		}
 		return false;
 	},
-	
+
 	/**
 	 * Renvoi la valeur réelle d'un editable
 	 * Cherche les élements du même model et même field
-	 * 
+	 *
 	 * @param {HTML} editable
 	 * @returns {String}
 	 */
@@ -473,12 +493,13 @@ var FormValidator = {
 
 		// Cas Date
 		thisDate = FormValidator.getDate( FormValidator.globalVars.rules[editable.index].name );
-		cas = thisDate ? 'date' : (	(targets.length === 1) ? 'normal' : 'radio');
+		cas = thisDate ? 'date' : (	(targets.length === 1) ? 'normal' : targets[1].type );
 
 		switch ( cas ){
 			case 'date': valeur = thisDate; break;
 			case 'normal': valeur = FormValidator.isTelephone( editable ) ? String( editable.value ).replace(/[\W]/g, '') : String( editable.value ); break;
 			case 'radio': valeur = FormValidator.getRadioValue( targets ); break;
+			case 'checkbox': valeur = FormValidator.getCheckboxValue( targets ); break;
 			default: FormValidator.debug( '/!\\ BUG /!\\ valeur non trouvé dans ' + editable.name ); return null;
 		}
 
@@ -491,7 +512,7 @@ var FormValidator = {
 	},
 	/**
 	 * Permet le retrait d'un message d'erreur lié à un editable
-	 * 
+	 *
 	 * @param {HTML} editable
 	 * @returns {Boolean}
 	 */
@@ -514,10 +535,10 @@ var FormValidator = {
 			errorDiv[0].remove();
 		}
 	},
-	
+
 	/**
 	 * Insert les paramètres de la validation dans les %s / %d
-	 * 
+	 *
 	 * @param {Object} editable
 	 * @param {String} message
 	 * @returns {String}
@@ -540,10 +561,10 @@ var FormValidator = {
 
 		return message;
 	},
-	
+
 	/**
 	 * Affiche l'érreur lié à un editable (ex: Champ obligatoire)
-	 * 
+	 *
 	 * @param {HTML} editable
 	 * @param {String} message
 	 * @returns {Boolean}
@@ -561,21 +582,23 @@ var FormValidator = {
 
 			// On attribu la class error à la div maman de l'editable
 			parentDiv = editable.up(FormValidator.globalVars.errorElements);
-			parentDiv.addClassName('error');
+			if (undefined !== parentDiv) {
+				parentDiv.addClassName('error');
 
-			// On verifi si un message d'erreur existe deja
-			errorMsg = parentDiv.getElementsByClassName('error-message');
+				// On verifi si un message d'erreur existe deja
+				errorMsg = parentDiv.getElementsByClassName('error-message');
 
-			// On ajoute le message si il n'y en a pas d'autres
-			if ( errorMsg.length === 0 ){
-				parentDiv.insert('<div class="error-message">' + message + '</div>');
+				// On ajoute le message si il n'y en a pas d'autres
+				if ( errorMsg.length === 0 ){
+					parentDiv.insert('<div class="error-message">' + message + '</div>');
+				}
 			}
 		},20);
 	},
-	
+
 	/**
 	 * Récupère et formate les params de rule
-	 * 
+	 *
 	 * @param {HTML} editable
 	 * @param {Number} i
 	 * @returns {Object}
@@ -606,17 +629,17 @@ var FormValidator = {
 				FormValidator.debug( (FormValidator.globalVars.rules[editable.index]), true );
 				return undefined;
 			}
-			params[0] = FormValidator.getValue( target ); 
-			FormValidator.debug( ('Target.value = '+params[0]+'; condition = '+params[1]), true ); 
+			params[0] = FormValidator.getValue( target );
+			FormValidator.debug( ('Target.value = '+params[0]+'; condition = '+params[1]), true );
 			FormValidator.debug( (params[2]), true );
 		}
 
 		return params;
 	},
-	
+
 	/**
 	 * Valide ou pas l'editable concerné et affiche l'erreur le cas échéan
-	 * 
+	 *
 	 * @param {HTML} editable
 	 * @param {String} value
 	 * @param {Number} i
@@ -635,7 +658,7 @@ var FormValidator = {
 		if ( (editable.type.toLowerCase() === 'checkbox' && ruleName === 'date') || editable.type.toLowerCase() === 'hidden' ){
 			return true;
 		}
-		
+
 		// Cas multiple checkbox
 		if (editable.type.toLowerCase() === 'checkbox' && value.indexOf(',') >= 0) {
 			val = value.split(',');
@@ -675,10 +698,10 @@ var FormValidator = {
 
 		return true;
 	},
-	
+
 	/**
 	 * Décide ou pas d'effectuer la verification d'un editable
-	 * 
+	 *
 	 * @param {HTML} editable
 	 * @param {Boolean} onchange
 	 * @returns {Boolean}
@@ -711,13 +734,13 @@ var FormValidator = {
 
 		return true;
 	},
-	
+
 	/**
 	 * Moteur de validation (utilise webrsa.validaterules.js)
 	 * Vérifi un editable
 	 * Renseigner onchange permet ou pas l'affichage du message d'érreur du champ (lié à l'evenement onchange)
 	 * Fonctionne avec doValidation()->isValid()
-	 * 
+	 *
 	 * @param {HTML} editable
 	 * @param {Boolean} onchange
 	 * @returns {Boolean}
@@ -728,7 +751,7 @@ var FormValidator = {
 			return true;
 		}
 
-		// onchange permet l'affichage des erreurs en true 
+		// onchange permet l'affichage des erreurs en true
 		// empeche les evenements comme onkeypress de déclancher l'affichage d'erreurs
 		onchange = giveDefaultValue( onchange, false );
 
@@ -739,10 +762,10 @@ var FormValidator = {
 
 		return FormValidator.doValidation( editable, onchange );
 	},
-	
+
 	/**
 	 * Affiche le message d'erreur sous le menu de navigation (en haut)
-	 * 
+	 *
 	 * @returns {undefined}
 	 */
 	showHeaderError: function (){
@@ -750,12 +773,12 @@ var FormValidator = {
 		// Affiche le message d'erreur si aucun message n'est trouvé
 		$$('#pageContent>p.error, #incrustation_erreur>p.error').each(function( obj ){ obj.remove(); });
 
-		$('incrustation_erreur').innerHTML = '<p class="error"><img src="/img/icons/exclamation.png" alt="Erreur">	Erreur lors de l\'enregistrement</p>';
+		$('incrustation_erreur').innerHTML = '<p class="error"><img src="' + FormValidator.globalVars.baseUrl + 'img/icons/exclamation.png" alt="Erreur">	Erreur lors de l\'enregistrement</p>';
 	},
-	
+
 	/**
 	 * Vérifi l'intégralité des editables d'un formulaire
-	 * 
+	 *
 	 * @param {HTML} form
 	 * @returns {Boolean}
 	 */
@@ -773,7 +796,7 @@ var FormValidator = {
 			if ( editable.getAttribute('type') !== 'hidden' && !editable.disabled && !FormValidator.validate( $( editable ), true ) ){
 				if ( valid ){
 					$( editable ).scrollTo();
-					window.scrollTo(0, window.pageYOffset);				
+					window.scrollTo(0, window.pageYOffset);
 				}
 				FormValidator.debug( ('Validation échoué :') );
 				FormValidator.debug( editable );
@@ -805,13 +828,13 @@ var FormValidator = {
 		// En mode debug, empeche l'envoi du formulaire pour afficher en console les informations
 		return !FormValidator.globalVars.debugMode;
 	},
-	
+
 	/**
 	 * Lié à validate()
 	 * Attend 10 milisecondes avant de vérifier
 	 * Indispensable lors de l'utilisation des evenements onchange et onkeypress
 	 * (sinon l'evenement est envoyé avant la modification effective du champ...)
-	 * 
+	 *
 	 * @param {HTML} editable
 	 * @param {Boolean} onchange
 	 * @returns {Boolean}
@@ -820,10 +843,10 @@ var FormValidator = {
 		'use strict';
 		setTimeout( FormValidator.validate, 10, editable, onchange );
 	},
-	
+
 	/**
 	 * Ajoute les evenements onchange, onclick et onsubmit sur les elements concernés.
-	 * 
+	 *
 	 * @param {HTML} editable
 	 * @param {String} type
 	 * @returns {void}
@@ -863,11 +886,11 @@ var FormValidator = {
 			);
 		}
 	},
-	
+
 	/**
 	 * Initialise les objets en rapport avec les editables pour le traitement des vérifications
 	 * Leurs ajoute si besoin les evenements via addEvent()
-	 * 
+	 *
 	 * @param {HTML} editables
 	 * @returns {void}
 	 */
@@ -912,7 +935,7 @@ var FormValidator = {
 			FormValidator.debug( editable, true, true );
 
 			// On sauvegarde les regles pour cet editable
-			FormValidator.globalVars.rules[i] = editable; 
+			FormValidator.globalVars.rules[i] = editable;
 
 			// On sauvegarde la valeur de l'editable
 			FormValidator.globalVars.values[name] = {value: null};
@@ -926,10 +949,10 @@ var FormValidator = {
 			FormValidator.debug( '', true, true );
 		}
 	},
-	
+
 	/**
 	 * Initialise les formulaires pour leur appliquer via addEvent() l'evenement onsubmit
-	 * 
+	 *
 	 * @param {type} forms
 	 * @returns {undefined}
 	 */
@@ -948,29 +971,33 @@ var FormValidator = {
 			}
 		}
 	},
-	
+
 	/**
 	 * Attribu les règles de validation pour chaques input|select|textarea (editable)
 	 * Surveille égelement quelques evenements :
 	 * onsubmit sur les formulaires
 	 * onchange et onkeypress sur les editables
 	 * Utilise initEditables()|initForms() -> addEvent()
-	 * 
+	 *
 	 * @returns {Boolean}
 	 */
 	init: function (){
 		'use strict';
 		var editables, forms;
-		if ( FormValidator.globalVars.validationJS === undefined 
-				|| FormValidator.globalVars.validationRules === undefined 
-				|| FormValidator.globalVars.validationOnsubmit === undefined 
-				|| FormValidator.globalVars.traductions === undefined 
-				|| Validation === undefined 
-				|| FormValidator.globalVars.validationOnchange === undefined 
+		if ( FormValidator.globalVars.validationJS === undefined
+				|| FormValidator.globalVars.validationRules === undefined
+				|| FormValidator.globalVars.validationOnsubmit === undefined
+				|| FormValidator.globalVars.traductions === undefined
+				|| Validation === undefined
+				|| FormValidator.globalVars.validationOnchange === undefined
 				|| giveDefaultValue === undefined ) {
 			FormValidator.debug( ('validationJS ou validationRules absent!') );
 			return false;
 		}
+
+		FormValidator.globalVars.baseUrl = undefined !== FormValidator.globalVars.baseUrl
+			? FormValidator.globalVars.baseUrl
+			: '/';
 
 		// Editable fait référence à tout ce qui est modifiable par l'utilisateur (input, select et textarea)
 		editables = $$('form input, form select, form textarea');

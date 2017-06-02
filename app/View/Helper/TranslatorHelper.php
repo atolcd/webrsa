@@ -7,8 +7,8 @@
 	 * @package app.View.Helper
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
-	App::uses('DefaultUrl', 'Default.Utility');
+	App::uses( 'AppHelper', 'View/Helper' );
+	App::uses( 'DefaultUrl', 'Default.Utility' );
 
 	/**
 	 * La classe TranslatorHelper
@@ -20,7 +20,7 @@
 	{
 		/**
 		 * Normalize et ajoute les traductions à l'array donné
-		 * 
+		 *
 		 * @param array $fields
 		 * @return array
 		 */
@@ -30,7 +30,7 @@
 				$camel = $key;
 				$field = (array)$field;
 				$params = array();
-				
+
 				if (Hash::get((array)$field, 'type') !== 'hidden') {
 					if (strpos($key, '/') === 0) {
 						$url = DefaultUrl::toArray($key);
@@ -42,11 +42,11 @@
 
 					} elseif (strpos($key, 'data[') !== 0) {
 						$params = array('label' => __m($key));
-					}	
+					}
 				}
-				
+
 				$results[$key] = (array)$field + $params;
-				
+
 				if (Hash::get((array)$field, 'confirm') === true) {
 					$results[$key]['confirm'] = __m($camel.' ?');
 				}

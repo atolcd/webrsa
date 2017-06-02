@@ -5,15 +5,15 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses('AbstractParametragesController', 'Controller');
-	App::import( 'Behaviors', 'Occurences' );
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
 
 	/**
-	 * La classe MotiffichedeliaisonsController ...
+	 * La classe MotiffichedeliaisonsController s'occupe du paramétrage des motifs
+	 * de fiches de liaison.
 	 *
 	 * @package app.Controller
 	 */
-	class MotiffichedeliaisonsController extends AbstractParametragesController
+	class MotiffichedeliaisonsController extends AbstractWebrsaParametragesController
 	{
 		/**
 		 * Nom du contrôleur.
@@ -27,16 +27,19 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array(
-			'Motiffichedeliaison'
-		);
-		
+		public $uses = array( 'Motiffichedeliaison' );
+
 		/**
-		 * Méthodes ne nécessitant aucun droit.
-		 * 
-		 * @var array
+		 * Surcharge du formulaire de modification d'un motif de fiche de liaison
+		 * pour que l'enregistrement soit actif par défaut lors d'un ajout.
+		 *
+		 * @param integer $id
 		 */
-		public $aucunDroit = array(
-			
-		);
+		public function edit( $id = null ) {
+			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit' ) );
+
+			if( empty( $this->request->data ) ) {
+				$this->request->data[$this->modelClass]['actif'] = true;
+			}
+		}
 	}

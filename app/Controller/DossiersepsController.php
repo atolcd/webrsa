@@ -7,7 +7,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::import( 'Core', 'Sanitize' );
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'Sanitize', 'Utility' );
 
 	/**
 	 * La classe DossiersepsController ...
@@ -34,7 +35,7 @@
 			'Gestionzonesgeos',
 			'InsertionsBeneficiaires',
 			'Jetons2',
-			'Search.Filtresdefaut' => array(
+			'Search.SearchFiltresdefaut' => array(
 				'administration',
 			),
 			'Search.SearchPrg' => array(
@@ -72,26 +73,26 @@
 			'Decisionpdo',
 			'Propopdo',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -123,9 +124,7 @@
 			// Ajout des enums pour les thématiques du CG uniquement
 			foreach( $this->Dossierep->Passagecommissionep->Commissionep->Ep->Regroupementep->themes() as $theme ) {
 				$modeleDecision = Inflector::classify( "decision{$theme}" );
-				if( in_array( 'Enumerable', $this->Dossierep->Passagecommissionep->Commissionep->Passagecommissionep->{$modeleDecision}->Behaviors->attached() ) ) {
-					$options = Set::merge( $options, $this->Dossierep->Passagecommissionep->Commissionep->Passagecommissionep->{$modeleDecision}->enums() );
-				}
+				$options = Set::merge( $options, $this->Dossierep->Passagecommissionep->Commissionep->Passagecommissionep->{$modeleDecision}->enums() );
 			}
 
 			$this->set( compact( 'options' ) );
@@ -367,14 +366,12 @@
 
 			// Peut-on travailler à cette étape avec cette commission ?
 			if( in_array( $commissionep['Commissionep']['etatcommissionep'], array( 'decisionep', 'decisioncg', 'annulee' ) ) ) {
-				$this->Session->setFlash( 'Impossible d\'attribuer des dossiers à une commission d\'EP lorsque celle-ci comporte déjà des avis ou des décisions.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible d\'attribuer des dossiers à une commission d\'EP lorsque celle-ci comporte déjà des avis ou des décisions.' );
 				$this->redirect( $this->referer() );
 			}
 
 			// Retour à l'index en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
-				/*$this->Jetons2->release( Set::extract( '/Foyer/dossier_id', $this->request->data ) );
-				$this->Jetonsfonctions2->release( $cov58_id );*/
 				$this->redirect( array( 'controller' => 'commissionseps', 'action' => 'view', $commissionep_id, '#' => "dossiers,{$this->request->data['Choose']['theme']}" ) );
 			}
 
@@ -410,14 +407,14 @@
 				// Changer l'état de la séance
 				$success = $this->Dossierep->Passagecommissionep->Commissionep->WebrsaCommissionep->changeEtatCreeAssocie( $commissionep_id ) && $success;
 
-				$this->_setFlashResult( 'Save', $success );
-
 				if( $success ) {
 					$this->Dossierep->commit();
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller'=>'commissionseps', 'action'=>'view', $commissionep_id, '#' => 'dossiers,'.$this->request->data['Choose']['theme'] ) );
 				}
 				else {
 					$this->Dossierep->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -492,13 +489,13 @@
 			if (!empty($this->request->data)) {
 				$this->Dossierep->begin();
 				if ($this->Dossierep->sauvegardeUnique( $dossierep_id, $this->request->data, $niveauDecision )) {
-					$this->_setFlashResult( 'Save', true );
 					$this->Dossierep->commit();
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect(array('controller'=>'commissionseps', 'action'=>'traitercg', $dossierep['Passagecommissionep'][0]['commissionep_id']));
 				}
 				else {
-					$this->_setFlashResult( 'Save', false );
 					$this->Dossierep->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -607,7 +604,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, 'Courrier_Information.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier d\'information', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier d\'information' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -646,7 +643,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdfs, 'CourriersInformation.pdf' );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer les courriers d\'information pour cette commission.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer les courriers d\'information pour cette commission.' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -735,11 +732,11 @@
 			if( $success ) {
 				$this->Dossierep->commit();
 				$this->Jetons2->release( $dossier_id );
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
 				$this->Dossierep->rollback();
-				$this->Session->setFlash( 'Suppression impossible', 'flash/error' );
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 
 			$this->redirect( $this->referer() );
@@ -778,51 +775,51 @@
 			if( $success ) {
 				$this->Dossierep->commit();
 				$this->Jetons2->release( $dossier_id );
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
 				$this->Dossierep->rollback();
-				$this->Session->setFlash( 'Suppression impossible', 'flash/error' );
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 
 			$this->redirect( $this->referer() );
 		}
-		
+
 		/**
 		 * Permet de passer un dossier EP en actif = false
-		 * 
+		 *
 		 * @param integer $id
 		 */
 		public function disable($id) {
-			$result = $this->Dossierep->find('first', 
+			$result = $this->Dossierep->find('first',
 				array(
 					'fields' => 'Dossierep.id',
 					'contain' => false,
 					'conditions' => array('Dossierep.id' => $id)
 				)
 			);
-			
+
 			$this->assert(!empty($result), 'error404');
-			
+
 			$data = array(
 				'Dossierep' => array(
 					'id' => $id,
 					'actif' => 0
 				)
 			);
-			
+
 			$this->Dossierep->begin();
 			$this->Dossierep->create($data);
-			
-			if ($this->Dossierep->save()) {
+
+			if ($this->Dossierep->save( null, array( 'atomic' => false ) )) {
 				$this->Dossierep->commit();
-				$this->Session->setFlash('Désactivation effectuée', 'flash/success');
+				$this->Flash->success( 'Désactivation effectuée' );
 			}
 			else {
 				$this->Dossierep->rollback();
-				$this->Session->setFlash('Désactivation impossible', 'flash/error');
+				$this->Flash->error( 'Désactivation impossible' );
 			}
-			
+
 			$this->redirect($this->referer());
 		}
 	}

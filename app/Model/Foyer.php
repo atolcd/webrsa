@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Foyer ...
@@ -17,17 +18,25 @@
 	{
 		public $name = 'Foyer';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
             'Postgres.PostgresAutovalidate',
-			'Validation2.Validation2Formattable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
-		
+
 		/**
 		 * Liste de champs et de valeurs possibles qui ne peuvent pas être mis en
 		 * règle de validation inList ou en contrainte dans la base de données en
 		 * raison des valeurs actuellement en base, mais pour lequels un ensemble
 		 * fini de valeurs existe.
-		 * 
+		 *
 		 * @see AppModel::enums
 		 *
 		 * @var array
@@ -314,7 +323,7 @@
 				'counterQuery' => ''
 			),
 		);
-		
+
 		/**
 		 * Retourne l'id du dossier à partir de l'id du foyer
 		 *
@@ -453,7 +462,7 @@
 				$toppersdrodevorsa = $this->Personne->WebrsaPersonne->soumisDroitsEtDevoirs( $personne['Personne']['id'] );
 				$personne['Calculdroitrsa']['toppersdrodevorsa'] = ( $toppersdrodevorsa ? '1' : '0' );
 				$this->Personne->Calculdroitrsa->create( $personne['Calculdroitrsa'] );
-				$saved = $this->Personne->Calculdroitrsa->save( $personne['Calculdroitrsa'] ) && $saved;
+				$saved = $this->Personne->Calculdroitrsa->save( $personne['Calculdroitrsa'] , array( 'atomic' => false ) ) && $saved;
 
 				// Ajout dans la table Orientstruct si aucune entrée
 				$nbrOrientstruct = $this->Personne->Orientstruct->find( 'count', array( 'conditions' => array( 'Orientstruct.personne_id' => $personne['Personne']['id'] ) ) );
@@ -465,7 +474,7 @@
 						)
 					);
 					$this->Personne->Orientstruct->create( $orientstruct );
-					$saved = $this->Personne->Orientstruct->save() && $saved;
+					$saved = $this->Personne->Orientstruct->save( null, array( 'atomic' => false ) ) && $saved;
 				}
 			}
 			return $saved;

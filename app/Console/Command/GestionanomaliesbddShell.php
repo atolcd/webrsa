@@ -53,7 +53,7 @@
 		 */
 		public function initialize() {
 			parent::initialize();
-			$this->Controller = & new Controller();
+			$this->Controller = new Controller();
 			$this->Gestionanomaliesbdd = new GestionanomaliesbddComponent( new ComponentCollection() );
 			$this->Gestionanomaliesbdd->initialize( $this->Controller );
 		}

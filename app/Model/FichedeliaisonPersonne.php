@@ -3,8 +3,9 @@
 	 * Code source de la classe FichedeliaisonPersonne.
 	 *
 	 * @package app.Model
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Model.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe FichedeliaisonPersonne ...
@@ -21,13 +22,6 @@
 		public $name = 'FichedeliaisonPersonne';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
@@ -35,6 +29,7 @@
 		public $actsAs = array(
 			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
 
 		/**
@@ -62,17 +57,17 @@
 				'counterCache' => null
 			),
 		);
-		
+
 		/**
 		 * Permet d'obtenir une liste des personnes dans le foyer sous forme de phrase
 		 * ex: array(12546 => 'Le demandeur (Monsieur JOHN DOE)')
-		 * 
+		 *
 		 * @param integer $foyer_id
 		 * @return array
 		 */
 		public function optionsConcerne($foyer_id) {
 			$Foyer =& $this->Personne->Foyer;
-			
+
 			$query = array(
 				'fields' => array(
 					'Personne.id',
@@ -99,12 +94,12 @@
 				)
 			);
 			$results = $Foyer->find('all', $query);
-			
+
 			$options = array();
 			foreach ($results as $result) {
 				$options[Hash::get($result, 'Personne.id')] = Hash::get($result, 'Personne.appelation');
 			}
-			
+
 			return $options;
 		}
 	}

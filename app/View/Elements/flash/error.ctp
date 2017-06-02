@@ -1,4 +1,4 @@
-<p class="error">
-	<?php echo $this->Xhtml->image('icons/exclamation.png', array('alt' => 'Erreur')); ?>
+<!-- @deprecated since 3.2.0 -->
+<div id="flashMessage" class="error">
 	<?php echo $message; ?>
-</p>
+</div>

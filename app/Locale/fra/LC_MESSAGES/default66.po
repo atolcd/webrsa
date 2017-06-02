@@ -1,0 +1,23 @@
+# Traductions de default66.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Président du Conseil Général"
+msgstr "Présidente du Conseil Départemental"
+
+msgid "le Président du Conseil Général"
+msgstr "la Présidente du Conseil Départemental"
+
+msgid "du Président du Conseil Général"
+msgstr "de la Présidente du Conseil Départemental"
+
+msgid "au Président du Conseil Général"
+msgstr "à la Présidente du Conseil Départemental"

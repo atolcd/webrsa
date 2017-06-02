@@ -8,7 +8,7 @@
 	foreach ($requestgroups as $key => $value) {
 		$requestgroups[$key]['Requestgroup']['occurences'] = (int)Hash::get($value, 'Requestgroup.occurences');
 	}
-	
+
 	echo $this->Default2->index(
 		$requestgroups,
 		array(
@@ -30,8 +30,9 @@
 	echo $this->Default->button(
 		'back',
 		array(
-			'controller' => 'requestsmanager',
-			'action'     => 'indexparams'
+			'controller' => 'parametrages',
+			'action'     => 'index',
+			'#'     => 'requestsmanager'
 		),
 		array(
 			'id' => 'Back'

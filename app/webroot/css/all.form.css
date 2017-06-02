@@ -94,13 +94,13 @@ fieldset div.text {
     clear: both;
 }
 
-fieldset.col2 div.checkbox, fieldset.col2 div.radio {
+fieldset.col2 div.checkbox, fieldset.col2 div.radio, fieldset div.col2 {
     display: block;
     width: 50%;
     float: left;
 }
 
-fieldset.col3 div.checkbox, fieldset.col3 div.radio {
+fieldset.col3 div.checkbox, fieldset.col3 div.radio, fieldset div.col3 {
     display: block;
     width: 33%;
     float: left;

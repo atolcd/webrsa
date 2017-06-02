@@ -7,6 +7,7 @@
 	 * @package app.Model.Behavior
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'ModelBehavior', 'Model' );
 
 	/**
 	 * La classe DependenciesBehavior fournit une règle de validation supplémentaire
@@ -74,11 +75,6 @@
 					}
 				}
 			}
-
-//			if( $return === false ) {
-//				// INFO: ne passe pas dans les tests en console
-//				$this->log( Hash::get( $_SERVER, 'REQUEST_URI' ).': '.var_export( $Model->data, true ), LOG_ERROR );
-//			}
 
 			return $return;
 		}

@@ -7,6 +7,7 @@
 	 * @package app.Model.Behavior
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'ModelBehavior', 'Model' );
 
 	/**
 	 * La classe OccurencesBehavior ...
@@ -193,7 +194,7 @@
 
 			$sql = array();
 			$foreignKeys = $model->getPostgresForeignKeys();
-			if( false === empty( $foreignKeys ) ) {
+			if( false === empty( $foreignKeys ) && isset( $foreignKeys['to'] ) && false === empty( $foreignKeys['to'] ) ) {
 				foreach( $foreignKeys['to'] as $foreignKey ) {
 					if( false === in_array( $foreignKey['From']['table'], $blacklist ) ) {
 						$sql[] = "EXISTS( SELECT * FROM \"{$foreignKey['From']['schema']}\".\"{$foreignKey['From']['table']}\" AS \"{$foreignKey['From']['table']}\" WHERE \"{$foreignKey['From']['table']}\".\"{$foreignKey['From']['column']}\" = \"{$model->alias}\".\"{$foreignKey['To']['column']}\" )";
@@ -201,7 +202,8 @@
 				}
 				$sql = implode( ' OR ', $sql );
 			}
-			else {
+
+			if( true === empty( $sql ) ) {
 				$sql = 'FALSE';
 			}
 

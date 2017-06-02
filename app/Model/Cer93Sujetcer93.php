@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * Classe Cer93Sujetcer93.
@@ -24,42 +25,14 @@
 		public $name = 'Cer93Sujetcer93';
 
 		/**
-		 * Récursivité.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
-		 * Behaviors utilisés.
+		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Validation.Autovalidate',
-			'Formattable' => array(
-				'suffix' => array(
-					'valeurparsoussujetcer93_id'
-				)
-			)
-		);
-
-		/**
-		 * Règles de validation
-		 *
-		 * @var array
-		 */
-		public $validate = array(
-			'cer93_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-				),
-			),
-			'sujetcer93_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-				),
-			)
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		/**

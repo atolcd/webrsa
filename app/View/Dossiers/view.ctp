@@ -294,7 +294,7 @@
 							</tr>
 							<tr class="even">
 								<th><?php echo __d( 'foyer', 'Foyer.sitfam' );?></th>
-								<td colspan="2"><?php echo ( isset( $sitfam[$details['Foyer']['sitfam']] ) ?  $sitfam[$details['Foyer']['sitfam']] : null );?></td>
+								<td colspan="2"><?php echo  isset( $sitfam[$details['Foyer']['sitfam']] ) ?  $sitfam[$details['Foyer']['sitfam']] : null ;?></td>
 							</tr>
 							<tr class="odd">
 								<th><?php echo __( 'adresse' );?></th>
@@ -304,7 +304,7 @@
 							</tr>
 							<tr class="even">
 								<th><?php echo __d( 'adresse', 'Adresse.nomcom' );?></th>
-								<td colspan="2"><?php echo ( isset( $details['Adresse']['nomcom'] ) ? $details['Adresse']['nomcom'] : null );?></td>
+								<td colspan="2"><?php echo  isset( $details['Adresse']['nomcom'] ) ? $details['Adresse']['nomcom'] : null ;?></td>
 							</tr>
 							<tr class="odd">
 								<th>Soumis à droits et devoirs</th>

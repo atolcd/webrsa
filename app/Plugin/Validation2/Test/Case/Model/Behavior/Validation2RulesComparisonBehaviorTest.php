@@ -164,6 +164,11 @@
 			$expected = false;
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
+			$this->Site->create( array( 'value' => 0, 'reference' => 0 ) );
+			$result = $this->Site->greaterThanIfNotZero( array( 'value' => 0 ), 'reference' );
+			$expected = true;
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
 			$this->Site->create( array( 'value' => 1, 'reference' => 1 ) );
 			$result = $this->Site->greaterThanIfNotZero( array( 'value' => 1 ), 'reference' );
 			$expected = true;
@@ -172,6 +177,11 @@
 			$this->Site->create( array( 'value' => 1, 'reference' => 2 ) );
 			$result = $this->Site->greaterThanIfNotZero( array( 'value' => 1 ), 'reference' );
 			$expected = false;
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			$this->Site->create( array( 'value' => 0, 'reference' => 2 ) );
+			$result = $this->Site->greaterThanIfNotZero( array( 'value' => 0 ), 'reference' );
+			$expected = true;
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
@@ -311,17 +321,17 @@
 			$result = $this->Site->checkDureeDates( array( 'duree' => '10' ), 'dd', 'df' );
 			$expected = true;
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
-			
+
 			// Durée de 3, 6, 9 et 12 mois
 			foreach( array(3,6,9,12) as $duree ){
 				// Pour chaques jours d'une année
 				$timestampDebut = strtotime( '2014-12-31' );
 				for($i=1;$i<366; $i++){
 					$timestampDebut = strtotime( '+1 days', $timestampDebut );
-					
+
 					// Même fonctionnement que le javascript (+X mois -1 jour)
 					$timestampFin = strtotime( '-1 days', strtotime( '+' . $duree . ' months', $timestampDebut ) );
-					
+
 					$data = array( 'dd' => date('Y-m-d', $timestampDebut), 'df' => date('Y-m-d', $timestampFin) );
 					$this->Site->create( $data );
 					$result = $this->Site->checkDureeDates( array( 'duree' => $duree ), 'dd', 'df' );
@@ -330,36 +340,74 @@
 				}
 			}
 		}
-		
+
 		/**
 		 * Test de la fonction Validation2RulesComparisonBehavior::emptyIf()
 		 */
 		public function testEmptyIf() {
 			// Cas d'utilisation classique
-			
+
 			$this->Site->create(array('phone' => 'X', 'fax' => 'Y'));
 			$result = $this->Site->emptyIf(array('fax' => 'Y'), 'phone', true, array(null)); // Vide si phone === null
 			$expected = true;
 			$this->assertEquals( $expected, $result, "Validation ok si la condition n'est pas remplie");
-			
+
 			$this->Site->create(array('phone' => null, 'fax' => null));
 			$result = $this->Site->emptyIf(array('fax' => null), 'phone', true, array(null)); // Vide si phone === null
 			$expected = true;
 			$this->assertEquals( $expected, $result, "Validation ok si la condition est remplie et que le champ testé est vide");
-			
+
 			$this->Site->create(array('phone' => null, 'fax' => 'Y'));
 			$result = $this->Site->emptyIf(array('fax' => 'Y'), 'phone', true, array(null)); // Vide si phone === null
 			$expected = false;
 			$this->assertEquals( $expected, $result, "Echec de validation car la condition est rempli mais le champ testé n'est pas vide");
-			
+
 			// Mauvaise utilisation
 			$result = $this->Site->emptyIf(null, null, null, null);
 			$expected = false;
 			$this->assertEquals( $expected, $result, "Params non défini");
-			
+
 			$result = $this->Site->emptyIf(array(), 'phone', true, array(null));
 			$expected = true;
 			$this->assertEquals( $expected, $result, "Pas de champs à vérifier");
+		}
+
+		/**
+		 * Test de la méthode Validation2.Validation2RulesComparisonBehavior::inclusiveRange
+		 *
+		 * @return void
+		 */
+		public function testInclusiveRange() {
+			$result = $this->Site->inclusiveRange( null, null, null );
+			$expected = false;
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			$result = $this->Site->inclusiveRange( array( 'value' => 5 ), 0, 5 );
+			$expected = true;
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+		}
+
+		/**
+		 * Test de la méthode Validation2.Validation2RulesComparisonBehavior::datePassee
+		 *
+		 * @return void
+		 */
+		public function testDatePassee() {
+			$result = $this->Site->datePassee( null, null );
+			$expected = false;
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			$result = $this->Site->datePassee( array( 'foo' => date( 'Y-m-d', strtotime( '-1 day' ) ) ) );
+			$expected = true;
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			$result = $this->Site->datePassee( array( 'foo' => date( 'Y-m-d' ) ) );
+			$expected = true;
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			$result = $this->Site->datePassee( array( 'foo' => date( 'Y-m-d', strtotime( '+1 day' ) ) ) );
+			$expected = false;
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 	}
 ?>

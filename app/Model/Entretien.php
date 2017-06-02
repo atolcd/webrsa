@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Entretien ...
@@ -17,18 +18,18 @@
 	{
 		public $name = 'Entretien';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
 			'Allocatairelie',
-			'Formattable' => array(
-				'suffix' => array( 'structurereferente_id', 'referent_id' ),
-			),
-			'Autovalidate2',
-			'Enumerable' => array(
-				'fields' => array(
-					'typeentretien',
-					'haspiecejointe'
-				)
-			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 			'Gedooo.Gedooo',
 			'ModelesodtConditionnables' => array(
 				66 => array(
@@ -108,12 +109,6 @@
 			)
 		);
 
-		public $validate = array(
-			'dateentretien' => array(
-				'rule' => 'date'
-			),
-		);
-
 		/**
 		 * Revoi la requete pour récuperer toutes les données pour l'affichage d'un Entretien
 		 *
@@ -177,11 +172,6 @@
 			$query['conditions']['Personne.id'] = $personne_id;
 
 			return $query;
-		}
-
-		public function personneId( $entretien_id ){
-			$result = $this->find( 'first', array( 'fields' => 'personne_id', 'contain' => false, 'conditions' => array( 'id' => $entretien_id ) ) );
-			return $result['Entretien']['personne_id'];
 		}
 
 		/**

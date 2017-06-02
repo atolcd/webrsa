@@ -1,6 +1,6 @@
 <?php
 	echo $this->element('default_index');
-	
+
 	// Ajout des dates sur certaines positions du CUI
 	foreach( $results as $key => $value ){
 		$etat = $value['Cui66']['etatdossiercui66'];
@@ -12,11 +12,13 @@
 				case 'dossierrelance': $insert = new DateTime($value['Emailcui']['dateenvoi']); break;
 				default: $insert = '';
 			}
-			$insert = date_format($insert, 'd/m/Y');
+			if( false === empty( $insert ) ) {
+				$insert = date_format( $insert, 'd/m/Y' );
+			}
 		}
 		$results[$key]['Cui66']['positioncui66'] = sprintf( __d('cui66', 'ENUM::ETATDOSSIERCUI66::' . $etat  ), $insert );
 	}
-	
+
 	echo $this->Default3->index(
 		$results,
 		$this->Translator->normalize(
@@ -57,4 +59,3 @@
 			'paginate' => false,
 		)
 	);
-	

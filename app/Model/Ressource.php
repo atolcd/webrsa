@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Ressource ...
@@ -17,21 +18,20 @@
 	{
 		public $name = 'Ressource';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		protected $_modules = array( 'caf' );
 
 		public $actsAs = array(
 			'Allocatairelie',
-		);
-
-		public $validate = array(
-			'ddress' => array(
-				'rule' => 'date',
-				'message' => 'Veuillez entrer une date valide'
-			),
-			'dfress' => array(
-				'rule' => 'date',
-				'message' => 'Veuillez entrer une date valide'
-			)
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		public $belongsTo = array(
@@ -143,7 +143,7 @@
 				$ressource['Ressource']['topressnotnul'] = ( $moyenne != 0 );
 				$ressource['Ressource']['topressnul'] = !$ressource['Ressource']['topressnotnul'];
 				$this->create( $ressource );
-				$saved = $this->save();
+				$saved = $this->save( null, array( 'atomic' => false ) );
 
 				// INFO: en version2 c'est dans Calculdroitrsa
 				$ModelCalculdroitrsa = ClassRegistry::init( 'Calculdroitrsa' );
@@ -159,7 +159,7 @@
 				$calculdroitrsa['Calculdroitrsa']['personne_id'] = $personne_id;
 				$calculdroitrsa['Calculdroitrsa']['mtpersressmenrsa'] = number_format( $moyenne, 2, '.', '' );
 				$ModelCalculdroitrsa->create( $calculdroitrsa );
-				$saved = $ModelCalculdroitrsa->save() && $saved;
+				$saved = $ModelCalculdroitrsa->save( null, array( 'atomic' => false ) ) && $saved;
 
 				return $saved;
 			}
@@ -183,8 +183,8 @@
 		/**
 		 *
 		 */
-		public function afterSave( $created ) {
-			$return = parent::afterSave( $created );
+		public function afterSave( $created, $options = array() ) {
+			parent::afterSave( $created, $options );
 
 			$personne_id = Set::classicExtract( $this->data, 'Ressource.personne_id' );
 			$modelCalculdroitrsa = ClassRegistry::init( 'Calculdroitrsa' );
@@ -206,7 +206,7 @@
 			$calculdroitrsa[$modelCalculdroitrsa->alias]['personne_id'] = $personne_id;
 			$calculdroitrsa[$modelCalculdroitrsa->alias]['mtpersressmenrsa'] = number_format( $moyenne, 2, '.', '' );
 			$modelCalculdroitrsa->create( $calculdroitrsa );
-			$modelCalculdroitrsa->save();
+			$modelCalculdroitrsa->save( null, array( 'atomic' => false ) );
 
 			$qd_thisPersonne = array(
 				'conditions' => array(
@@ -220,8 +220,6 @@
 
 
 			$this->Personne->Foyer->refreshSoumisADroitsEtDevoirs( $thisPersonne['Personne']['foyer_id'] );
-
-			return $return;
 		}
 	}
 ?>

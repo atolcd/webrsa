@@ -17,7 +17,7 @@
 		).'</li></ul>';
 	}
 
-	echo $this->Xform->create( null, array( 'id' => 'Search', 'url' => array( 'controller' => 'gestionsanomaliesbdds', 'action' => 'index' ), 'class' => 'gestionsanomaliesbdd index '.( isset( $results ) ? 'folded' : 'unfolded' ) ) );
+	echo $this->Xform->create( null, array( 'id' => 'Search', 'url' => array( 'controller' => 'gestionsanomaliesbdds', 'action' => 'index' ), 'class' => 'gestionsanomaliesbdd index '.( isset( $results ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );
 	// Types de problèmes à détecter
 	echo '<fieldset id="SearchProblemes"><legend>Détection des problèmes</legend>'.$this->Xform->input(
 			'Gestionanomaliebdd.touteerreur', array( 'type' => 'checkbox', 'domain' => 'gestionanomaliebdd' )

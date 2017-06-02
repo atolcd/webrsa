@@ -7,7 +7,7 @@
 	 * @package app.Console.Command
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( APPLIBS.'cmis.php' );
+	require_once  APPLIBS.'cmis.php' ;
 	App::uses( 'XShell', 'Console/Command' );
 	App::uses( 'Pdf', 'Model' );
 
@@ -125,7 +125,6 @@
 			$this->out();
 			$this->_wait( 'Suppression ...' );
 			if( !empty( $idsASupprimer ) ) {
-//				$conditions = array( 'Pdf.id' => $idsASupprimer );
 				$count = count( $idsASupprimer );
 				$this->XProgressBar->start( $count );
 				for( $i = 0; $i < $count; $i++ ) {

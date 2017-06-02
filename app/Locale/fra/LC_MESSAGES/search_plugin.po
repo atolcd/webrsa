@@ -1,0 +1,243 @@
+# Traductions de search_plugin.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Situationdossierrsa.etatdosrsa_choice"
+msgstr "Filtrer par nature de prestation"
+
+msgid "Situationdossierrsa.etatdosrsa"
+msgstr "Nature de la prestation"
+
+# ------------------------------------------------------------------------------
+
+msgid "Search.Dossier"
+msgstr "Recherche par dossier"
+
+msgid "Search.Adresse"
+msgstr "Recherche par adresse"
+
+msgid "Search.Referentparcours"
+msgstr "Suivi du parcours"
+
+msgid "Search.Pagination"
+msgstr "Comptage des résultats"
+
+msgid "Search.Pagination.nombre_total"
+msgstr "Obtenir le nombre total de résultats (plus lent)"
+
+# ------------------------------------------------------------------------------
+
+msgid "Dossier.dtdemrsa_choice"
+msgstr "Filtrer par date de demande"
+
+msgid "Dossier.dtdemrsa"
+msgstr "Date de demande RSA"
+
+msgid "Dossier.dtdemrsa_from"
+msgstr "Du (inclus)"
+
+msgid "Dossier.dtdemrsa_to"
+msgstr "Au (inclus)"
+
+# ==============================================================================
+# Avec le préfixe Search
+# ==============================================================================
+
+msgid "Search.Situationdossierrsa.etatdosrsa_choice"
+msgstr "Filtrer par état du dossier"
+
+msgid "Search.Situationdossierrsa.etatdosrsa"
+msgstr "États du dossier"
+
+# ------------------------------------------------------------------------------
+
+msgid "Search.Detaildroitrsa.oridemrsa_choice"
+msgstr "Filtrer par code origine demande RSA"
+
+msgid "Search.Detaildroitrsa.oridemrsa"
+msgstr "Code origine demande RSA"
+
+# ------------------------------------------------------------------------------
+
+msgid "Search.Detailcalculdroitrsa.natpf_choice"
+msgstr "Filtrer par nature de prestation"
+
+msgid "Search.Detailcalculdroitrsa.natpf"
+msgstr "Natures de prestation"
+
+msgid "Filtre.Detailcalculdroitrsa.natpf_choice"
+msgstr "Filtrer par nature de prestation"
+
+msgid "Filtre.Detailcalculdroitrsa.natpf"
+msgstr "Natures de prestation"
+
+# ------------------------------------------------------------------------------
+
+msgid "Search.Dossier.numdemrsa"
+msgstr "Numéro de dossier RSA"
+
+msgid "Search.Dossier.matricule"
+msgstr "Numéro CAF/MSA"
+
+msgid "Search.Dossier.dernier"
+msgstr "Uniquement la dernière demande RSA pour un même allocataire"
+
+msgid "Search.Dossier.dtdemrsa_choice"
+msgstr "Filtrer par date de demande"
+
+msgid "Search.Dossier.dtdemrsa"
+msgstr "Date de demande RSA"
+
+msgid "Filtre.Dossier.dtdemrsa_choice"
+msgstr "Filtrer par date de demande"
+
+msgid "Filtre.Dossier.dtdemrsa"
+msgstr "Date de demande RSA"
+
+msgid "Search.Dossier.dtdemrsa_from"
+msgstr "Du (inclus)"
+
+msgid "Search.Dossier.dtdemrsa_to"
+msgstr "Au (inclus)"
+
+msgid "Search.Dossier.anciennete_dispositif"
+msgstr "Ancienneté dans le dispositif"
+
+msgid "Search.Serviceinstructeur.id"
+msgstr "Nom du service instructeur"
+
+msgid "Search.Dossier.fonorg"
+msgstr "Organisme émetteur du dossier"
+
+msgid "Search.Foyer.sitfam"
+msgstr "Filtrer par situation familiale"
+
+# ------------------------------------------------------------------------------
+
+msgid "Search.Adresse.nomvoie"
+msgstr "Nom de voie de l'allocataire"
+
+msgid "Search.Adresse.nomcom"
+msgstr "Commune de l'allocataire"
+
+msgid "Search.Adresse.numcom"
+msgstr "Numéro de commune au sens INSEE"
+
+msgid "Search.Adresse.numcom_choice"
+msgstr "Filtrer par numéro de commune au sens INSEE"
+
+msgid "Search.Canton.canton"
+msgstr "Canton"
+
+msgid "Search.Sitecov58.id"
+msgstr "Site COV"
+
+# ------------------------------------------------------------------------------
+
+msgid "Search.Personne"
+msgstr "Recherche par allocataire"
+
+msgid "Search.Personne.dtnai_choice"
+msgstr "Filtrer par date de naissance"
+
+msgid "Search.Personne.dtnai"
+msgstr "Date de naissance"
+
+msgid "Search.Personne.dtnai_month"
+msgstr "Mois de naissance"
+
+msgid "Search.Personne.dtnai_year"
+msgstr "Année de naissance"
+
+msgid "Search.Personne.dtnai_from"
+msgstr "Du (inclus)"
+
+msgid "Search.Personne.dtnai_to"
+msgstr "Au (inclus)"
+
+msgid "Search.Personne.nom"
+msgstr "Nom"
+
+msgid "Search.Personne.nomnai"
+msgstr "Nom de naissance"
+
+msgid "Search.Personne.prenom"
+msgstr "Prénom"
+
+msgid "Search.Personne.nir"
+msgstr "NIR"
+
+msgid "Search.Personne.sexe"
+msgstr "Sexe"
+
+msgid "Search.Personne.trancheage"
+msgstr "Tranche d'âge"
+
+msgid "Search.Calculdroitrsa.toppersdrodevorsa"
+msgstr "Personne soumise à droits et devoirs ?"
+
+# ------------------------------------------------------------------------------
+
+msgid "Structurereferenteparcours.lib_struc"
+msgstr "Structure du parcours"
+
+msgid "Referentparcours.nom_complet"
+msgstr "Référent du parcours"
+
+msgid "Pagination.nombre_total"
+msgstr "Obtenir le nombre total de résultats (plus lent)"
+
+# ------------------------------------------------------------------------------
+# "Recherches" > "Par dossiers COV" > "Demandes de maintien dans le social"
+# ------------------------------------------------------------------------------
+
+msgid "Filtre.Dossier.numdemrsa"
+msgstr "Numéro de dossier RSA"
+
+msgid "Filtre.Dossier.matricule"
+msgstr "Numéro CAF"
+
+# ------------------------------------------------------------------------------
+
+msgid "Filtre.Adresse.nomvoie"
+msgstr "Nom de voie de l'allocataire"
+
+msgid "Filtre.Adresse.nomcom"
+msgstr "Commune de l'allocataire"
+
+msgid "Filtre.Adresse.numcom"
+msgstr "Numéro de commune au sens INSEE"
+
+msgid "Filtre.Canton.canton"
+msgstr "Canton"
+
+msgid "Filtre.Sitecov58.id"
+msgstr "Site COV"
+
+# ------------------------------------------------------------------------------
+
+msgid "Filtre.Personne.dtnai"
+msgstr "Date de naissance"
+
+msgid "Filtre.Personne.nom"
+msgstr "Nom"
+
+msgid "Filtre.Personne.nomnai"
+msgstr "Nom de naissance"
+
+msgid "Filtre.Personne.prenom"
+msgstr "Prénom"
+
+msgid "Filtre.Personne.nir"
+msgstr "NIR"
+
+msgid "Filtre.Personne.sexe"
+msgstr "Sexe"

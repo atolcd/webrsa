@@ -8,6 +8,7 @@
 	 * @subpackage View.Helper
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppHelper', 'View/Helper' );
 	App::uses( 'DefaultUrl', 'Default.Utility' );
 	App::uses( 'DefaultUtility', 'Default.Utility' );
 
@@ -47,7 +48,6 @@
 
 			if( !isset( $attributes['title'] ) ) {
 				$attributes += array(
-//					'domain' => Inflector::underscore( $this->request->params['controller'] ),
 					'msgid' => DefaultUtility::msgid( $url ).'/:title'
 				);
 

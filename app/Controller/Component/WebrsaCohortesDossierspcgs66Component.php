@@ -3,7 +3,7 @@
 	 * Code source de la classe WebrsaCohortesDossierspcgs66Component.
 	 *
 	 * @package app.Controller.Component
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Component.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'WebrsaAbstractCohortesComponent', 'Controller/Component' );
 
@@ -16,14 +16,14 @@
 	{
 		/**
 		 * Permet de récupérer les options dans le controller
-		 * 
+		 *
 		 * @param array $params
 		 * @return type
 		 */
 		public function getOptions( array $params = array() ) {
 			return $this->_options($this->_params($params));
 		}
-		
+
 		/**
 		 * Retourne les options de type "enum", c'est à dire liées aux schémas des
 		 * tables de la base de données.
@@ -36,9 +36,9 @@
 			$Controller = $this->_Collection->getController();
 			$Controller->loadModel('Tag');
 			$Controller->loadModel('WebrsaOptionTag');
-			
+
 			$options = $Controller->WebrsaOptionTag->optionsEnums( parent::_optionsEnums( $params ) );
-			
+
 			$options['Dossierpcg66']['orgpayeur'] = array('CAF'=>'CAF', 'MSA'=>'MSA');
 			$options['Dossierpcg66']['haspiecejointe'] = array(0 => 'Non', 1 => 'Oui');
 			$options['Dossierpcg66']['create'] = array(0 => 'Non', 1 => 'Oui');
@@ -47,12 +47,12 @@
 				$options,
 				$Controller->Tag->EntiteTag->Foyer->Dossierpcg66->Personnepcg66->Traitementpcg66->enums()
 			);
-			
+
 			$options['Cohorte'] = $options;
-			
+
 			return $options;
 		}
-		
+
 		/**
 		 * Retourne les options stockées liées à des enregistrements en base de
 		 * données, ne dépendant pas de l'utilisateur connecté.
@@ -62,9 +62,9 @@
 		protected function _optionsRecords( array $params = array() ) {
 			$Controller = $this->_Collection->getController();
 			$Controller->loadModel('WebrsaOptionTag');
-			
+
 			$options = $Controller->WebrsaOptionTag->optionsRecords( parent::_optionsRecords( $params ) );
-			
+
 			if( !isset( $Controller->Dossierpcg66 ) ) {
 				$Controller->loadModel( 'Dossierpcg66' );
 			}
@@ -73,43 +73,20 @@
 			$options['Dossierpcg66']['serviceinstructeur_id'] = $Controller->Dossierpcg66->Serviceinstructeur->listOptions();
 			$options['Traitementpcg66']['serviceinstructeur_id'] = $options['Dossierpcg66']['serviceinstructeur_id'];
 
-			 $gestionnaires = $Controller->Dossierpcg66->User->find(
-				'all',
-				array(
-					'fields' => array(
-						'User.nom_complet',
-						'User.id',
-						'("Poledossierpcg66"."id" || \'_\' || "User"."id") AS "User__dependent_user_id"',
-					),
-					'conditions' => array(
-						'User.isgestionnaire' => 'O'
-					),
-					'joins' => array(
-						$Controller->Dossierpcg66->User->join( 'Poledossierpcg66', array( 'type' => 'INNER' ) ),
-					),
-					'order' => array( 'User.nom ASC', 'User.prenom ASC' ),
-					'contain' => false
-				)
-			);
-			$options['Dossierpcg66']['user_id'] = Hash::combine( $gestionnaires, '{n}.User.id', '{n}.User.nom_complet' );
-			$options['Dossierpcg66']['dependent_user_id'] = Hash::combine( $gestionnaires, '{n}.User.dependent_user_id', '{n}.User.nom_complet' );
+			// Concernant les pôles et les gestionnaires: il y a du traitement
+			// et pas de filtre uniquement dans la gestion de liste des dossiers
+			// PCGs en attente d'affectation.
+			$traitement = '/dossierspcgs66/cohorte_enattenteaffectation'
+				=== "/{$Controller->request->params['controller']}/{$Controller->request->params['action']}";
+			$options['Dossierpcg66']['poledossierpcg66_id'] = $Controller->Dossierpcg66->User->Poledossierpcg66->WebrsaPoledossierpcg66->polesdossierspcgs66($traitement);
+			$options['Dossierpcg66']['user_id'] = $Controller->Dossierpcg66->User->WebrsaUser->gestionnaires($traitement);
+			$options['Dossierpcg66']['dependent_user_id'] = $Controller->Dossierpcg66->User->WebrsaUser->gestionnaires($traitement, true);
 
-			$options['Dossierpcg66']['poledossierpcg66_id'] = $Controller->Dossierpcg66->User->Poledossierpcg66->find(
-				'list',
-				array(
-					'fields' => array(
-						'Poledossierpcg66.id',
-						'Poledossierpcg66.name'
-					),
-					'conditions' => array( 'Poledossierpcg66.isactif' => '1' ),
-					'order' => array( 'Poledossierpcg66.name ASC' )
-				)
-			);
 
-			$options['Situationpdo']['Situationpdo'] = $Controller->Dossierpcg66->Personnepcg66->Situationpdo->find( 'list', array( 'order' => 'Situationpdo.libelle ASC', 'conditions' => array( 'Situationpdo.isactif' => '1' ) ) );
+			$options['Situationpdo']['Situationpdo'] = $Controller->Dossierpcg66->Personnepcg66->Situationpdo->findForTraitement( 'list' );
 			$options['Traitementpcg66']['situationpdo_id'] = $options['Situationpdo']['Situationpdo'];
 
-			$options['Statutpdo']['Statutpdo'] = $Controller->Dossierpcg66->Personnepcg66->Statutpdo->find( 'list', array( 'order' => 'Statutpdo.libelle ASC', 'conditions' => array( 'Statutpdo.isactif' => '1' ) ) );
+			$options['Statutpdo']['Statutpdo'] = $Controller->Dossierpcg66->Personnepcg66->Statutpdo->findForTraitement( 'list' );
 
 			$options['Traitementpcg66']['typecourrierpcg66_id'] = $Controller->Dossierpcg66->Personnepcg66->Traitementpcg66->Typecourrierpcg66->find(
 				'list', array(
@@ -123,18 +100,11 @@
 			);
 
 			$options['Traitementpcg66']['descriptionpdo_id'] = $Controller->Dossierpcg66->Personnepcg66->Traitementpcg66->Descriptionpdo->find('list');
-			
-			$options['Decdospcg66Orgdospcg66']['orgtransmisdossierpcg66_id'] = 
-				$Controller->Dossierpcg66->Decisiondossierpcg66->Orgtransmisdossierpcg66->find(
-					'list', array(
-						'conditions' => array( 'Orgtransmisdossierpcg66.isactif' => '1' ),
-						'order' => array('Orgtransmisdossierpcg66.name ASC')
-					)
-				)
-			;
-			
+
+			$options['Decdospcg66Orgdospcg66']['orgtransmisdossierpcg66_id'] = $Controller->Dossierpcg66->Decisiondossierpcg66->Orgtransmisdossierpcg66->findForTraitement( 'list' );
+
 			$options['Cohorte'] = $options;
-			
+
 			return $options;
 		}
 
@@ -151,7 +121,7 @@
 		protected function _optionsRecordsModels( array $params ) {
 			$Controller = $this->_Collection->getController();
 			$Controller->loadModel('WebrsaOptionTag');
-			
+
 			$result = array_merge(
 				$Controller->WebrsaOptionTag->optionsRecordsModels( parent::_optionsRecordsModels( $params ) ),
 				array(
@@ -170,7 +140,7 @@
 
 			return $result;
 		}
-		
+
 		/**
 		 * Permet de filtrer les options envoyées à la vue au moyen de la clé
 		 * 'filters.accepted' dans le fichier de configuration.
@@ -185,7 +155,7 @@
 
 			return $WebrsaRequestsmanager->optionsAccepted( parent::_optionsAccepted($options, $params), $params );
 		}
-		
+
 		/**
 		 * Retourne un array avec clés de paramètres suivantes complétées en
 		 * fonction du contrôleur:
@@ -209,10 +179,10 @@
 
 			return $WebrsaRequestsmanager->params( parent::_params($params) );
 		}
-		
+
 		/**
 		 * Surcharge de _queryConditions permettant de modifier la configuration dans le cas d'une utilisation du Requestmanager
-		 * 
+		 *
 		 * @param array $query
 		 * @param array $filters
 		 * @param array $params
@@ -224,10 +194,10 @@
 
 			return $WebrsaRequestsmanager->queryConditions( parent::_queryConditions($query, $filters, $params), $filters, $params );
 		}
-		
+
 		/**
 		 * Permet de récupérer les cohorteFields du modele de recherche et de lui appliquer les valeurs par défaut
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
@@ -235,7 +205,7 @@
 			$Controller = $this->_Collection->getController();
 			$fields = parent::_getCohorteFields($params);
 			$options = $this->_options($params);
-			
+
 			switch ($Controller->action) {
 				case 'cohorte_enattenteaffectation':
 					$fields['Dossierpcg66.user_id']['options'] = Hash::get($options, 'Dossierpcg66.dependent_user_id');
@@ -261,12 +231,12 @@
 					$fields['Tag.limite']['maxYear'] = date('Y') +4;
 					break;
 			}
-			
+
 			$keyConf = implode('.', array($params['searchKeyPrefix'], $Controller->name, $Controller->action, 'cohorte', 'options'));
 			foreach ((array)Configure::read($keyConf) as $fieldName => $fieldOptions) {
 				$fields[$fieldName]['options'] = $fieldOptions;
 			}
-			
+
 			return $fields;
 		}
 	}

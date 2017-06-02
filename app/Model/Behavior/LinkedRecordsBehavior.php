@@ -7,13 +7,13 @@
 	 * @package app.Model.Behavior
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'ModelBehavior', 'Model' );
 
 	/**
 	 * La classe LinkedRecordsBehavior ...
 	 *
 	 * @todo rechercher toutes les tables ayant un personne_id
 	 * => SELECT table_name, column_name FROM information_schema.columns WHERE column_name = 'personne_id' ORDER BY table_name;
-	 * @todo dans le plugin Pgsqlcake car ça ne fonctionne qu'avec Postgresql (à vérifier) ?
 	 *
 	 * Exemples, dans la recherche par dossier/allocataire:
 	 *	Exemple 1:

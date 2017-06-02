@@ -14,7 +14,7 @@
 					<tr>
 						<td class="wide noborder"><?php echo Set::classicExtract( $contratinsertion, 'Structurereferente.Typeorient.lib_type_orient' );?></td>
 						<td class="wide noborder"><?php echo Set::classicExtract( $contratinsertion, 'Structurereferente.lib_struc' );?></td>
-						<td class="wide noborder"><?php echo Set::classicExtract( $contratinsertion, 'Structurereferente.num_voie').' '.Set::enum( Set::classicExtract( $contratinsertion, 'Structurereferente.type_voie'), $options['Structurereferente']['type_voie'] ).' '.Set::classicExtract( $contratinsertion, 'Structurereferente.nom_voie').'<br /> '.Set::classicExtract( $contratinsertion, 'Structurereferente.code_postal').' '.Set::classicExtract( $contratinsertion, 'Structurereferente.ville');?></td>
+						<td class="wide noborder"><?php echo Set::classicExtract( $contratinsertion, 'Structurereferente.num_voie').' '.Set::classicExtract( $contratinsertion, 'Structurereferente.type_voie').' '.Set::classicExtract( $contratinsertion, 'Structurereferente.nom_voie').'<br /> '.Set::classicExtract( $contratinsertion, 'Structurereferente.code_postal').' '.Set::classicExtract( $contratinsertion, 'Structurereferente.ville');?></td>
 					</tr>
 				</table>
 			</td>
@@ -102,7 +102,7 @@
                 <strong>N° CAF/MSA : </strong><?php echo Set::classicExtract( $contratinsertion, 'Cer93.matricule' );?>
                 <br />
                 <strong>Inscrit au Pôle emploi</strong>
-                <?php echo ( !empty( $contratinsertion['Cer93']['identifiantpe'] ) ? 'Oui' : 'Non' );?>
+                <?php echo  !empty( $contratinsertion['Cer93']['identifiantpe'] ) ? 'Oui' : 'Non' ;?>
 				<br />
 				<strong>N° identifiant : </strong><?php echo Set::classicExtract( $contratinsertion, 'Cer93.identifiantpe' );?>
 				<br />

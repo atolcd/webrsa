@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe Nonorientes66Controller ... (CG 66).
@@ -82,21 +83,15 @@
 			'Nonoriente66',
 			'Option',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
-		public $commeDroit = array(
-			'cohorte_imprimeremploi' => 'Cohortesnonorientes66::notisemploiaimprimer',
-			'cohorte_imprimernotifications' => 'Cohortesnonorientes66::notifaenvoyer',
-			'cohorte_isemploi' => 'Cohortesnonorientes66::isemploi',
-			'cohorte_reponse' => 'Cohortesnonorientes66::notisemploi',
-			'recherche_notifie' => 'Cohortesnonorientes66::oriente',
-		);
-		
+		public $commeDroit = array();
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -108,7 +103,7 @@
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -239,13 +234,13 @@
 				if( $saved ) {
 					$this->Nonoriente66->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( $this->referer() );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id );
 					$this->Nonoriente66->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -282,7 +277,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'nonorientation-%d-%s.pdf', $personne_id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier.' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -352,7 +347,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'orientation-%d-%s.pdf', $orientstruct_id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier.' );
 				$this->redirect( $this->referer() );
 			}
 		}

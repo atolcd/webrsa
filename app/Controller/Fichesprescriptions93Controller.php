@@ -34,14 +34,12 @@
 			'Gedooo.Gedooo',
 			'InsertionsBeneficiaires',
 			'Jetons2',
-			'Search.Filtresdefaut' => array(
-				'search',
-				'search1',
+			'Search.SearchFiltresdefaut' => array(
+				'search'
 			),
 			'Search.SearchPrg' => array(
 				'actions' => array(
-					'search' => array('filter' => 'Search'),
-					'search1' => array('filter' => 'Search'),
+					'search' => array('filter' => 'Search')
 				),
 			),
 			'WebrsaAccesses',
@@ -73,11 +71,11 @@
 			'Ficheprescription93',
 			'Personne',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
@@ -85,20 +83,18 @@
 			'ajax_duree_pdi' => 'Fichesprescriptions93:index',
 			'ajax_prescripteur' => 'Fichesprescriptions93:index',
 			'ajax_prestataire' => 'Fichesprescriptions93:index',
-			'ajax_prestataire_horspdi' => 'Fichesprescriptions93:index',
-			'exportcsv1' => 'Fichesprescriptions93:exportcsv',
-			'search1' => 'Fichesprescriptions93:search',
+			'ajax_prestataire_horspdi' => 'Fichesprescriptions93:index'
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -115,11 +111,9 @@
 			'cancel' => 'update',
 			'edit' => 'update',
 			'exportcsv' => 'read',
-			'exportcsv1' => 'read',
 			'impression' => 'read',
 			'index' => 'read',
 			'search' => 'read',
-			'search1' => 'read',
 		);
 
 		/**
@@ -220,13 +214,7 @@
 				$result = $this->Ficheprescription93->Referent->Structurereferente->find( 'first', $query );
 			}
 
-			$options = array(
-				'Structurereferente' => array(
-					'type_voie' => ClassRegistry::init( 'Option' )->typevoie()
-				)
-			);
-
-			$this->set( compact( 'result', 'options' ) );
+			$this->set( compact( 'result' ) );
 			$this->layout = 'ajax';
 		}
 
@@ -480,57 +468,6 @@
 		}
 
 		/**
-		 * Moteur de recherche des fiches de prescription.
-		 *
-		 * @deprecated since 3.0.00
-		 */
-		public function search1() {
-			if( Hash::check( $this->request->data, 'Search' ) ) {
-				$query = $this->Ficheprescription93->search( $this->request->data['Search'] );
-
-				$query['fields'] = array(
-					'Personne.id',
-					'Dossier.numdemrsa',
-					'Dossier.dtdemrsa',
-					'Dossier.matricule',
-					'Personne.nom_complet',
-					'Prestation.rolepers',
-					'Adresse.nomcom',
-					'Ficheprescription93.id',
-					'Ficheprescription93.statut',
-					'( CASE WHEN "Thematiquefp93"."type" = \'horspdi\' THEN "Ficheprescription93"."actionfp93" ELSE "Actionfp93"."name" END ) AS "Actionfp93__name"',
-				);
-
-				$query = $this->Allocataires->completeSearchQuery( $query, array( 'structurereferente_id' => 'Referent.structurereferente_id' ) );
-
-				// Optimisation: on attaque fichesprescriptions93 en premier lieu
-				if( Hash::get( $this->request->data, 'Search.Ficheprescription93.exists' ) ) {
-					foreach( $query['joins'] as $i => $join ) {
-						if( $join['alias'] == 'Ficheprescription93' ) {
-							unset( $query['joins'][$i] );
-							array_unshift( $query['joins'], $this->Ficheprescription93->join( 'Personne', array( 'type' => 'INNER' ) ) );
-						}
-					}
-					$this->Ficheprescription93->forceVirtualFields = true;
-					$modelName = 'Ficheprescription93';
-				}
-				else {
-					$modelName = 'Personne';
-				}
-
-				$results = $this->Allocataires->paginate( $query, $modelName );
-
-				$this->set( compact( 'results', 'modelName' ) );
-			}
-
-			$options = Hash::merge(
-				$this->Allocataires->options(),
-				$this->Ficheprescription93->options( array( 'allocataire' => false, 'find' => true, 'autre' => false ) )
-			);
-			$this->set( compact( 'options' ) );
-		}
-
-		/**
 		 * Moteur de recherche par fiche de prescription.
 		 */
 		public function search() {
@@ -645,12 +582,12 @@
 				if( $this->Ficheprescription93->saveAddEdit( $this->request->data ) ) {
 					$this->Ficheprescription93->commit();
 					$this->Jetons2->release( $dossierMenu['Dossier']['id'] );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$this->Ficheprescription93->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -700,78 +637,6 @@
 		}
 
 		/**
-		 * Export CSV des résultats de la recherche.
-		 *
-		 * @deprecated since 3.0.00
-		 */
-		public function exportcsv1() {
-			$search = (array)Hash::get( (array)Hash::expand( $this->request->params['named'], '__' ), 'Search' );
-
-			$query = $this->Ficheprescription93->search( $search );
-
-			$query['fields'] = array(
-				'Personne.id',
-				'Dossier.numdemrsa',
-				'Dossier.dtdemrsa',
-				'Dossier.matricule',
-				'Personne.nom_complet',
-				'Prestation.rolepers',
-				'Ficheprescription93.id',
-				'Ficheprescription93.statut',
-				'Referent.nom_complet',
-				'Adresse.numvoie',
-				'Adresse.libtypevoie',
-				'Adresse.nomvoie',
-				'Adresse.complideadr',
-				'Adresse.compladr',
-				'Adresse.lieudist',
-				'Adresse.numcom',
-				'Adresse.codepos',
-				'Adresse.nomcom',
-				'Ficheprescription93.rdvprestataire_date',
-				'Actionfp93.numconvention',
-				'Thematiquefp93.type',
-				'Thematiquefp93.name',
-				'Categoriefp93.name',
-				'Filierefp93.name',
-				'( CASE WHEN "Thematiquefp93"."type" = \'horspdi\' THEN "Prestatairehorspdifp93"."name" ELSE "Prestatairefp93"."name" END ) AS "Prestatairefp93__name"',
-				'( CASE WHEN "Thematiquefp93"."type" = \'horspdi\' THEN "Ficheprescription93"."actionfp93" ELSE "Actionfp93"."name" END ) AS "Actionfp93__name"',
-				'Ficheprescription93.dd_action',
-				'Ficheprescription93.df_action',
-				'Ficheprescription93.date_signature',
-				'Ficheprescription93.date_transmission',
-				'Ficheprescription93.date_retour',
-				'Ficheprescription93.personne_recue',
-				'Ficheprescription93.motifnonreceptionfp93_id',
-				'Ficheprescription93.personne_nonrecue_autre',
-				'Ficheprescription93.personne_retenue',
-				'Ficheprescription93.motifnonretenuefp93_id',
-				'Ficheprescription93.personne_nonretenue_autre',
-				'Ficheprescription93.personne_souhaite_integrer',
-				'Ficheprescription93.motifnonsouhaitfp93_id',
-				'Ficheprescription93.personne_nonsouhaite_autre',
-				'Ficheprescription93.personne_a_integre',
-				'Ficheprescription93.personne_date_integration',
-				'Ficheprescription93.motifnonintegrationfp93_id',
-				'Ficheprescription93.personne_nonintegre_autre',
-				'Ficheprescription93.date_bilan_mi_parcours',
-				'Ficheprescription93.date_bilan_final',
-			);
-
-			$query = $this->Allocataires->completeSearchQuery( $query, array( 'limit' => false, 'structurereferente_id' => 'Referent.structurereferente_id' ) );
-
-			$query = $this->Components->load( 'Search.SearchPaginator' )->setPaginationOrder( $query );
-
-			$this->Ficheprescription93->Personne->forceVirtualFields = true;
-			$results = $this->Ficheprescription93->Personne->find( 'all', $query );
-
-			$options = $this->Ficheprescription93->options( array( 'allocataire' => true, 'find' => true ) );
-
-			$this->set( compact( 'results', 'options' ) );
-			$this->layout = null;
-		}
-
-		/**
 		 * Imprime une fiche de prescription.
 		 *
 		 * @param integer $ficheprescription93_id
@@ -789,7 +654,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, "fichesprescriptions93_{$ficheprescription93_id}.pdf" );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer la fiche de prescription.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer la fiche de prescription.' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -822,8 +687,8 @@
 
 			// On transforme les champs date_annulation et motif_annulation en champs obligatoires
 			$notEmpty = array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' ),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'allowEmpty' => false,
 					'required' => true
 				)
@@ -850,15 +715,15 @@
 
 				$this->Ficheprescription93->create( $ficheprescription93 );
 
-				if( $this->Ficheprescription93->save() ) {
+				if( $this->Ficheprescription93->save( null, array( 'atomic' => false ) ) ) {
 					$this->Ficheprescription93->commit();
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index', $personne_id ) );
 				}
 				else {
 					debug( $this->Ficheprescription93->validationErrors );
 					$this->Ficheprescription93->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {

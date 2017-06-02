@@ -79,21 +79,6 @@
 				$options['legend'] = $options['label'];
 			}
 
-			// maxLength
-			/*if( ( !isset( $options['type'] ) || in_array( $options['type'], array( 'string', 'text' ) ) ) && !isset( $options['maxlength'] ) ) { // FIXME: maxLength
-				list( $model, $field ) = model_field( $fieldName );
-				if( ClassRegistry::isKeySet( $model ) ) {
-					if( !isset( $this->_schemas[$model] ) ) {
-						$this->_schemas[$model] = ClassRegistry::init( $model )->schema();
-					}
-					$schema = $this->_schemas[$model];
-					$field = Set::classicExtract( $schema, $field );
-					if( !empty( $field ) && ( $field['type'] == 'string' ) && isset( $field['length'] ) ) {
-						$options['maxlength'] = $field['length'];
-					}
-				}
-			}*/
-
 			return parent::input( $fieldName, $options );
 		}
 
@@ -387,28 +372,6 @@
 		}
 
 		/**
-		 * Apparemment ça ne sert à rien comme ça.
-		 *
-		 * @param type $elements
-		 * @param type $parents
-		 * @param type $showParents
-		 * @param type $attributes
-		 * @return type
-		 */
-		/*protected function _selectOptions( $elements = array( ), $parents = array( ), $showParents = null, $attributes = array( ) ) {
-			$newElements = array();
-			foreach( $elements as $key => $value ) {
-				$newElements[(string)$key] = $value;
-			}
-			return parent::_selectOptions( $newElements, $parents, $showParents, $attributes );
-		}*/
-
-		/* FIXME: La méthode month c'était peut-être pour la traduction de mois ? */
-		/* FIXME: que faisait la méthode year ? */
-		/* FIXME: day/month/year -> permet d'envoyer un formulaire de recherche
-		en prg avec des champs date_from et date_to sans erreur */
-
-		/**
 		 * Surcharge de la fonction permettant de choisir une plage d'heures (cf. attribut hourRange) pour
 		 * la fonction hour (hour et hour24).
 		 *
@@ -505,10 +468,10 @@
 
 			return $return;
 		}
-		
+
 		/**
 		 * Génère un fieldset de type multiple checkbox
-		 * 
+		 *
 		 * @param string $path
 		 * @param array $options
 		 * @param string $class
@@ -524,10 +487,10 @@
 				'class' => $class
 			));
 		}
-		
+
 		/**
 		 * Génère un fieldset de type multiple checkbox
-		 * 
+		 *
 		 * @param string $path
 		 * @param array $options
 		 * @param string $class
@@ -535,14 +498,14 @@
 		 */
 		public function multipleCheckboxToutCocher( $path, array $options = array(), $class = '' ) {
 			$name = model_field($path);
-			
+
 			$uniqueClass = 'toutCochable'.$name[0].Inflector::camelize($name[1]);
 			$selecteur = 'div.'.$uniqueClass.' input';
 			$buttons = '<div>'
 				.$this->button('Tout cocher', array('type' => 'button', 'onclick' => "return toutCocher('$selecteur', true);"))
 				.$this->button('Tout décocher', array('type' => 'button', 'onclick' => "return toutDecocher('$selecteur', true);"))
 			.'</div>';
-			
+
 			return $this->input($path, array(
 				'label' => __m($path),
 				'type' => 'select',
@@ -552,18 +515,37 @@
 				'class' => trim($class.' '.$uniqueClass)
 			));
 		}
-		
+
 		/**
 		 * Renvoi une div d'afficahge d'erreur
-		 * 
+		 *
 		 * @param mixed $errors Liste des erreurs
 		 * @return string
 		 */
 		public function errorDiv( $errors ) {
 			$result = "<div class='error-message'>";
 			$result .= count((array)$errors) > 1 ? '<ul><li>'.implode('</li><li>', $errors).'</li></ul>' : implode('', (array)$errors);
-			
+
 			return $result.'</div>';
+		}
+
+		/**
+		 * Surcharge de la méthode FormHelper::create pour ajouter l'attribut
+		 * novalidate à true dans les options si celui-ci n'est pas spécifié.
+		 *
+		 * @param string|array $model
+		 * @param array $options
+		 * @return string
+		 */
+		public function create( $model = null, $options = array() ) {
+			if( is_array( $model ) && empty( $options ) ) {
+				$options = $model;
+				$model = null;
+			}
+
+			$options += array( 'novalidate' => true );
+
+			return parent::create( $model, $options );
 		}
 	}
 ?>

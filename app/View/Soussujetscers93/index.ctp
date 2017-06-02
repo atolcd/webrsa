@@ -1,38 +1,22 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'soussujetcer93', "Soussujetscers93::{$this->action}" )
-	)
-?>
-
-<?php
-	$fields = array(
-		'Sujetcer93.name',
-		'Soussujetcer93.name',
-		'Soussujetcer93.isautre' => array( 'type' => 'boolean' ),
-		'Soussujetcer93.actif' => array( 'type' => 'boolean')
-	);
-	echo $this->Default2->index(
-		$soussujetscers93,
-		$fields,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'cohorte' => false,
-			'actions' => array(
-				'Soussujetscers93::edit',
-				'Soussujetscers93::delete',
+			'cells' => array(
+				'Sujetcer93.name',
+				'Soussujetcer93.name',
+				'Soussujetcer93.isautre' => array( 'type' => 'boolean' ),
+				'Soussujetcer93.actif' => array( 'type' => 'boolean'),
+				'/Soussujetscers93/edit/#Soussujetcer93.id#' => array(
+					'title' => true
+				),
+				'/Soussujetscers93/delete/#Soussujetcer93.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Soussujetcer93.has_linkedrecords#"'
+				)
 			),
-			'add' => 'Soussujetscers93::add'
-		)
-	);
-	echo '<br />';
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'cers93',
-			'action'     => 'indexparams'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#contratsinsertion'
 		)
 	);
 ?>

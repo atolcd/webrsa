@@ -1,4 +1,3 @@
-<?php /*$urlParams = $this->request->params['named'];*/ ?>
 <h1><?php echo $this->pageTitle = 'Résolution des problèmes de personnes au sein d\'un foyer';?></h1>
 
 <?php echo $this->element( 'required_javascript' );?>

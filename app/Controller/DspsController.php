@@ -7,8 +7,9 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
-	App::uses('WebrsaAccessDsps', 'Utility');
+	App::uses( 'WebrsaAccessDsps', 'Utility' );
 
 	/**
 	 * La classe DspsController ...
@@ -38,8 +39,7 @@
 			'Jetons2',
 			'Search.SearchPrg' => array(
 				'actions' => array(
-					'index',
-					'search',
+					'search'
 				),
 			),
 			'WebrsaAccesses' => array(
@@ -80,19 +80,17 @@
 			'Option',
 			'WebrsaDsp',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'exportcsv1' => 'Dsps:exportcsv',
-			'findPersonne' => 'Dsps:view',
-			'search' => 'Dsps:index',
+			'findPersonne' => 'Dsps:view'
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -104,7 +102,7 @@
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -118,19 +116,17 @@
 			'download' => 'read',
 			'edit' => 'update',
 			'exportcsv' => 'read',
-			'exportcsv1' => 'read',
 			'filelink' => 'read',
 			'fileview' => 'read',
 			'findPersonne' => 'read',
 			'histo' => 'read',
-			'index' => 'read',
 			'revertTo' => 'update',
 			'search' => 'read',
 			'view' => 'read',
 			'view_diff' => 'read',
 			'view_revs' => 'read',
 		);
-		
+
 		public $paginate = array(
 			'limit' => 10,
 			'order' => array( 'DspRev.created' => 'desc', 'DspRev.id' => 'desc' )
@@ -147,23 +143,6 @@
 			'Dsp.libemploirech',
 			'Dsp.libsecactderact',
 			'Dsp.libderact'
-		);
-
-		/**
-		 * Liste des alias pouvant être triés dans la recherche par Dsps.
-		 *
-		 * @var array
-		 */
-		public $sortableModels = array(
-			'Personne',
-			'Foyer',
-			'Dossier',
-			'Prestation',
-			'Adressefoyer',
-			'Adresse',
-			'Situationdossierrsa',
-			'PersonneReferent',
-			'Structurereferenteparcours'
 		);
 
 		/**
@@ -248,7 +227,7 @@
 
 			$this->Jetons2->get( $dossier_id );
 
-			// Retour à l'index en cas d'annulation
+			// Retour à la liste en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
 				$this->Jetons2->release( $dossier_id );
 				$this->redirect( array( 'action' => 'histo', $personne_id ) );
@@ -274,13 +253,13 @@
 				if( $saved ) {
 					$this->Dsp->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( $this->referer() );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id );
 					$this->Dsp->commit();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -312,7 +291,7 @@
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $id ) ) );
 
 			$this->_setEntriesAncienDossier( $id, 'Dsp' );
-			
+
 			$query = $this->WebrsaDsp->completeVirtualFieldsForAccess(
 				array(
 					'conditions' => array(
@@ -340,7 +319,7 @@
 					)
 				)
 			);
-			
+
 			$paramsAccess = $this->WebrsaDsp->getParamsForAccess($this->Dsp->personneId($id), WebrsaAccessDsps::getParamsList());
 			$this->set('ajoutPossible', Hash::get($paramsAccess, 'ajoutPossible'));
 
@@ -816,14 +795,14 @@
 
 					$this->DspRev->saveAll( $data2, array( 'atomic' => false, 'validate' => 'first' ) );
 
-					$this->Session->setFlash( __( 'Enregistrement effectué' ), 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					// Fin de la transaction
 					$this->Dsp->commit();
 					$this->Jetons2->release( $dossier_id );
 					$this->redirect( array( 'action' => 'histo', Set::classicExtract( $this->request->data, 'Dsp.personne_id' ) ) );
 				}
 				else {
-					$this->Session->setFlash( __( 'Erreur lors de l\'enregistrement' ), 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 					$this->Dsp->rollback();
 				}
 			}
@@ -873,81 +852,6 @@
 
 			$Recherches = $this->Components->load( 'WebrsaRecherchesDsps' );
 			$Recherches->exportcsv( array( 'modelName' => 'Personne' ) );
-		}
-
-		/**
-		 * Moteur de recherche par DSPs.
-		 *
-		 * @deprecated
-		 */
-		public function index() {
-			$params = $this->request->data;
-			if( !empty( $params ) ) {
-				$query = $this->Dsp->WebrsaDsp->search(
-					$this->_wildcardKeys( $this->request->data, $this->wildcardKeys )
-				);
-
-				$query = $this->Gestionzonesgeos->qdConditions( $query );
-				$query['conditions'][] = WebrsaPermissions::conditionsDossier();
-				$query = $this->_qdAddFilters( $query );
-
-				$query['limit'] = 10;
-
-				$key = "{$this->name}.{$this->request->params['action']}";
-				$query = ConfigurableQueryFields::getFieldsByKeys( array( "{$key}.fields", "{$key}.innerTable" ), $query );
-
-				$this->Dsp->Personne->forceVirtualFields = true;
-				$this->paginate = $query;
-				$progressivePaginate = !Hash::get( $this->request->data, 'Pagination.nombre_total' );
-				$dsps = $this->paginate( $this->Dsp->Personne, array(), array(), $progressivePaginate );
-
-				$checkboxesVirtualFields = $this->Dsp->WebrsaDsp->getCheckboxesVirtualFields();
-				$this->set( compact( 'dsps', 'checkboxesVirtualFields' ) );
-			}
-
-			$this->Gestionzonesgeos->setCantonsIfConfigured();
-			$this->set( 'mesCodesInsee', $this->Gestionzonesgeos->listeCodesInsee() );
-
-			$this->set( 'structuresreferentesparcours', $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'optgroup', 'prefix' => false ) ) );
-			$this->set( 'referentsparcours', $this->InsertionsBeneficiaires->referents( array( 'prefix' => true ) ) );
-
-			$options = $this->Dsp->WebrsaDsp->options( array( 'alias' => 'Donnees', 'allocataire' => true ) );
-
-			$this->set( 'sortableModels', $this->sortableModels );
-			$this->set( compact( 'options', 'prefixes', 'suffixes' ) );
-		}
-
-		/**
-		 * Export du tableau en CSV
-		 *
-		 * @deprecated
-		 */
-		public function exportcsv1() {
-			$query = $this->Dsp->WebrsaDsp->search(
-				$this->_wildcardKeys( Hash::expand( $this->request->params['named'], '__' ), $this->wildcardKeys )
-			);
-
-			$query = $this->Gestionzonesgeos->qdConditions( $query );
-			$query['conditions'][] = WebrsaPermissions::conditionsDossier();
-			$query = $this->_qdAddFilters( $query );
-			unset( $query['limit'] );
-
-			$key = "{$this->name}.{$this->request->params['action']}";
-			$query = ConfigurableQueryFields::getFieldsByKeys( $key, $query );
-
-			$this->Dsp->Personne->forceVirtualFields = true;
-			$dsps = $this->Dsp->Personne->find( 'all', $query );
-
-			$qual = $this->Option->qual();
-			$romev3Aliases = $this->Dsp->WebrsaDsp->romev3LinkedModels;
-			$romev3Fields = $this->Dsp->WebrsaDsp->romev3Fields;
-
-			$options = $this->Dsp->WebrsaDsp->options( array( 'alias' => 'Donnees', 'allocataire' => true ) );
-			$this->set( compact( 'options' ) );
-
-			$checkboxesVirtualFields = $this->Dsp->WebrsaDsp->getCheckboxesVirtualFields();
-			$this->set( compact( 'dsps', 'qual', 'romev3Aliases', 'romev3Fields', 'options', 'checkboxesVirtualFields' ) );
-			$this->layout = '';
 		}
 
 		/**

@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par allocataires sortants" > "Intra-département (nouveau)"
+	 * Menu "Recherches" > "Par allocataires sortants" > "Intra-département"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Transfertspdvs93.search',
@@ -68,7 +68,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par allocataires sortants" > "Intra-département (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par allocataires sortants" > "Intra-département"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Transfertspdvs93.exportcsv',
@@ -101,7 +101,7 @@
 	);
 
 	/**
-	 * Menu "Cohortes" > "Transferts PDV" > "Allocataires à transférer (nouveau)"
+	 * Menu "Cohortes" > "Transferts PDV" > "Allocataires à transférer"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Transfertspdvs93.cohorte_atransferer',

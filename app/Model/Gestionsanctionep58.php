@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Gestionsanctionep58 fournit un traitement des filtres de
@@ -232,7 +233,6 @@
 		 * @return array
 		 */
 		public function getQuerydataForPdf( $passagecommissionep_id ) {
-			$typesvoies = ClassRegistry::init( 'Option' )->typevoie();
 			$Personne = ClassRegistry::init( 'Personne' );
 
 			$querydata = array(

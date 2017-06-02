@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Decisionpropocontratinsertioncov58 ...
@@ -17,19 +18,11 @@
 	{
 		public $name = 'Decisionpropocontratinsertioncov58';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
-			'Formattable' => array(
-				'suffix' => array(
-					'structurereferente_id',
-					'referent_id'
-				)
-			),
-			'Enumerable',
-			'Validation2.Validation2RulesComparison'
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		/**

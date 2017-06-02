@@ -1,73 +1,75 @@
-<h1><?php echo $this->pageTitle = 'Liste des membres pour les équipes pluridisciplinaires';?></h1>
-
 <?php
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 	}
-	if ( $compteurs['Fonctionmembreep'] == 0 ) {
-		echo "<p class='error'>Merci d'ajouter au moins une fonction pour les membres avant d'ajouter un membre.</p>";
-	}
 
-	echo '<ul class="actionMenu"><li>'.$this->Xhtml->addLink(
-		'Ajouter',
-		array( 'controller' => 'membreseps', 'action' => 'add' ),
-		$this->Permissions->check( 'membreseps', 'add' ) && ( $compteurs['Fonctionmembreep'] != 0 )
-	).'</li></ul>';
+	$searchFormId = 'MembreepIndexForm';
 
-	// Début du formulaire
-	echo '<ul class="actionMenu"><li>'.$this->Xhtml->link(
-		$this->Xhtml->image(
-			'icons/application_form_magnify.png',
-			array( 'alt' => '' )
-		).' Formulaire',
-		'#',
-		array( 'escape' => false, 'title' => 'Visibilité formulaire', 'onclick' => "$( 'Search' ).toggle(); return false;" )
-	).'</li></ul>';
+	echo $this->Default3->titleForLayout();
 
-	echo $this->Xform->create( 'Membreep', array( 'type' => 'post', 'action' => 'index', 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ) ) );
+	echo $this->Default3->messages( $messages );
 
-	echo '<fieldset>';
-	echo $this->Xform->input( 'Membreep.index', array( 'label' => false, 'type' => 'hidden', 'value' => true ) );
-		echo $this->Default2->subform(
-			array(
-				'Membreep.nom',
-				'Membreep.prenom',
-				'Membreep.ville',
-				'Membreep.organisme',
-				'Membreep.fonctionmembreep_id' => array( 'type' => 'select', 'options' => $options['Membreep']['fonctionmembreep_id']  )
+	echo $this->Default3->actions(
+		array(
+			'/Membreseps/add' => array(
+				'disabled' => false !== array_search( 'error', $messages )
 			),
-			array(
-				'options' => $options
+			'/Membreseps/index/#toggleform' => array(
+				'title' => 'Visibilité formulaire',
+				'text' => 'Formulaire',
+				'class' => 'search',
+				'onclick' => "$( '{$searchFormId}' ).toggle(); return false;"
 			)
-		);
-	echo '</fieldset>';
+		)
+	);
 
-	echo '<div class="submit noprint">';
-		echo $this->Xform->button( 'Rechercher', array( 'type' => 'submit' ) );
-		echo $this->Xform->button( 'Réinitialiser', array( 'type' => 'reset' ) );
-	echo '</div>';
+	// Formulaire de recherche
+	echo $this->Default3->form(
+		$this->Translator->normalize(
+			array(
+				'Membreep.nom' => array( 'required' => false ),
+				'Membreep.prenom' => array( 'required' => false ),
+				'Membreep.ville' => array( 'required' => false ),
+				'Membreep.organisme' => array( 'required' => false ),
+				'Membreep.fonctionmembreep_id' => array( 'empty' => true, 'required' => false )
+			)
+		),
+		array(
+			'id' => $searchFormId,
+			'options' => $options,
+			'class' => isset( $results ) ? 'folded' : 'unfolded',
+			'buttons' => array( 'Search', 'Reset' => array( 'type' => 'reset' ) )
+		)
+	);
 
-	echo $this->Xform->end();
-	// Fin du formulaire
+	echo $this->Observer->disableFormOnSubmit( $searchFormId );
 
-	if( !empty( $this->request->data ) ) {
+	// Résultats
+	if( true === isset( $results ) ) {
 		echo $this->Html->tag( 'h2', 'Résultats de la recherche' );
 
-		echo $this->Default2->index(
-			$membreseps,
-			array(
-				'Membreep.nomcomplet'=>array('type'=>'text'),
-				'Fonctionmembreep.name',
-				'Membreep.organisme',
-				'Membreep.tel',
-				'Membreep.adresse'=>array('type'=>'text'),
-				'Membreep.mail'
+		echo $this->Default3->index(
+			$results,
+			$this->Translator->normalize(
+				array(
+					'Membreep.nomcomplet' => array( 'type' => 'text' ),
+					'Fonctionmembreep.name',
+					'Membreep.organisme',
+					'Membreep.tel',
+					'Membreep.adresse' => array( 'type' => 'text' ),
+					'Membreep.mail',
+					'/Membreseps/edit/#Membreep.id#' => array(
+						'title' => true
+					),
+					'/Membreseps/delete/#Membreep.id#' => array(
+						'title' => true,
+						'confirm' => true,
+						'disabled' => 'true == "#Membreep.has_linkedrecords#"'
+					)
+				)
 			),
 			array(
-				'actions' => array(
-					'Membreseps::edit',
-					'Membreseps::delete'
-				),
+				'format' => $this->element( 'pagination_format', array( 'modelName' => 'Membreep' ) ),
 				'options' => $options
 			)
 		);

@@ -10,9 +10,9 @@
 
 	App::uses('WebrsaTranslatorAutoloadComponent', 'Controller/Component');
 	App::uses('Controller', 'Controller');
-	
+
 	/**
-	 * InsertionsAllocatairesTestController class
+	 * ControllerController class
 	 *
 	 * @package app.Test.Case.Controller.Component
 	 */
@@ -21,7 +21,7 @@
 		public $components = array(
 			'WebrsaTranslatorAutoload'
 		);
-		
+
 		public function action() {}
 	}
 
@@ -50,7 +50,7 @@
 			$this->Controller->WebrsaTranslatorAutoload->initialize($this->Controller);
 			$this->testAction('/controller/action', array('method' => 'GET'));
 		}
-		
+
 		/**
 		 * Test de la méthode WebrsaTranslatorAutoloadComponent::domains();
 		 */

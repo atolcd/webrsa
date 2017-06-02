@@ -31,7 +31,7 @@
 	}
 ?>
 
-<?php echo $this->Form->create( 'Totalisationsacomptes', array( 'type' => 'post', 'action' => '/index/', 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ) ) );?>
+<?php echo $this->Form->create( 'Totalisationsacomptes', array( 'type' => 'post', 'url' => array( 'action' => 'index' ), 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );?>
 		<fieldset>
 			<?php echo $this->Form->input( 'Filtre.dtcreaflux', array( 'label' => 'Recherche des versements pour le mois de ', 'type' => 'date', 'dateFormat' => 'MY', 'maxYear' => date( 'Y' ), 'minYear' => date( 'Y' ) - 10 ) );?>
 	</fieldset>

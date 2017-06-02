@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Locvehicinsert.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Locvehicinsert ...
@@ -17,44 +18,48 @@
 	{
 		public $name = 'Locvehicinsert';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
+		);
+
 		public $validate = array(
-			'apre_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric')
+			'societelocation' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
 				)
 			),
-			'societelocation' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
-			),
 			'montantaide' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
-				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
-					'allowEmpty' => true
 				)
 			),
 			'dureelocation' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				),
-				array(
-					'rule' => 'numeric',
+				'numeric' => array(
+					'rule' => array( 'numeric' ),
 					'message' => 'Veuillez entrer une valeur numérique.',
 					'allowEmpty' => true
 				),
-				array(
+				'comparison' => array(
 					'rule' => array( 'comparison', '>=', 0 ),
 					'message' => 'Veuillez saisir une valeur positive.'
 				)
 			)
 		);
-
 		public $belongsTo = array(
 			'Apre' => array(
 				'className' => 'Apre',

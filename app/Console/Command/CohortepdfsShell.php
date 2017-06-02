@@ -108,7 +108,7 @@
 
 			$nSuccess = 0;
 			$nErrors = 0;
-			$this->Gedooo = & new GedoooComponent( new ComponentCollection() );
+			$this->Gedooo = new GedoooComponent( new ComponentCollection() );
 
 			$orientsstructsQuerydatas = array(
 				'conditions' => array(
@@ -142,7 +142,7 @@
 				$orientstruct['Orientstruct']['user_id'] = $this->user_id;
 
 				$this->Orientstruct->create( $orientstruct );
-				$tmpSuccess = $this->Orientstruct->save();
+				$tmpSuccess = $this->Orientstruct->save( null, array( 'atomic' => false ) );
 
 				if( empty($tmpSuccess) ) {
 					$nErrors++;

@@ -7,7 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( ABSTRACTMODELS.'AbstractThematiquecov58.php' );
+	App::uses( 'AbstractThematiquecov58', 'Model/Abstractclass' );
 
 	/**
 	 * La classe Propocontratinsertioncov58 ...
@@ -18,17 +18,11 @@
 	{
 		public $name = 'Propocontratinsertioncov58';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Containable',
-			'Enumerable',
-			'Formattable' => array(
-				'suffix' => array( 'structurereferente_id', 'referent_id' ),
-			),
-			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
-			'Validation2.Validation2RulesComparison'
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		/**
@@ -42,18 +36,6 @@
 				'choixStructure' => array(
 					'rule' => array( 'choixStructure', 'statut_orient' ),
 					'message' => 'Champ obligatoire'
-				)
-			),
-			'date_propo' => array(
-				'notEmpty' => array(
-					'rule' => 'date',
-					'message' => 'Veuillez entrer une date valide'
-				)
-			),
-			'date_valid' => array(
-				'notEmpty' => array(
-					'rule' => 'date',
-					'message' => 'Veuillez entrer une date valide'
 				)
 			),
 			'duree_engag' => array(
@@ -103,7 +85,7 @@
 		public $uses = array(
 			'WebrsaPropocontratinsertioncov58'
 		);
-		
+
 		/**
 		 * Règle de validation.
 		 *
@@ -364,7 +346,7 @@
 						);
 
 						$this->Dossiercov58->Personne->Contratinsertion->create( $contratinsertion ) && $success;
-						$success = $this->Dossiercov58->Personne->Contratinsertion->save() && $success;
+						$success = $this->Dossiercov58->Personne->Contratinsertion->save( null, array( 'atomic' => false ) ) && $success;
 
 						// Mise à jour de l'enregistrement de la thématique avec l'id du nouveau CER
 						$success = $success && $this->updateAllUnBound(
@@ -394,7 +376,7 @@
 						);
 
 						$this->Dossiercov58->Personne->Contratinsertion->create( $contratinsertion ) && $success;
-						$success = $this->Dossiercov58->Personne->Contratinsertion->save() && $success;
+						$success = $this->Dossiercov58->Personne->Contratinsertion->save( null, array( 'atomic' => false ) ) && $success;
 
 						// Mise à jour de l'enregistrement de la thématique avec l'id du nouveau CER
 						$success = $success && $this->updateAllUnBound(
@@ -486,7 +468,7 @@
 					}
 
 					$this->Dossiercov58->Personne->Contratinsertion->create( $contratinsertion ) && $success;
-					$success = $this->Dossiercov58->Personne->Contratinsertion->save() && $success;
+					$success = $this->Dossiercov58->Personne->Contratinsertion->save( null, array( 'atomic' => false ) ) && $success;
 				}
 			}
 

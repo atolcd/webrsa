@@ -1,4 +1,4 @@
-<?php require_once( dirname( __FILE__ ).DS.'search.ctp' ); ?>
+<?php require_once  dirname( __FILE__ ).DS.'search.ctp' ; ?>
 <?php if( !empty( $this->request->data ) ): ?>
 	<h2>1 - Nombre et type de contrats RSA en cours de validité au 31 décembre de l'année</h2>
 	<?php $annee = Hash::get( $this->request->data, 'Search.annee' ); ?>

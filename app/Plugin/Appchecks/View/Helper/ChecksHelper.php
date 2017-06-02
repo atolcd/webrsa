@@ -8,6 +8,7 @@
 	 * @subpackage View.Helper
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppHelper', 'View/Helper' );
 
 	/**
 	 * La classe ChecksHelper fournit des méthodes pour réprésentater les résultats
@@ -59,7 +60,7 @@
 						$th = $this->Html->tag( 'th', $name );
 						$tdValue = $this->Html->tag( 'td', ( !isset( $result['value'] ) ? '' : $result['value'] ), array( 'class' => 'value' ) );
 						$tdMessage = $this->Html->tag( 'td', ( !isset( $result['message'] ) ? '' : $result['message'] ), array( 'class' => 'message' ) );
-						$rows[] = $this->Html->tag( 'tr', "{$th}{$tdValue}{$tdMessage}", array( 'class' => ( @$result['success'] ? 'success' : 'error' ) ) );
+						$rows[] = $this->Html->tag( 'tr', "{$th}{$tdValue}{$tdMessage}", array( 'class' => ( isset( $result['success'] ) && $result['success'] ? 'success' : 'error' ) ) );
 					}
 				}
 			}

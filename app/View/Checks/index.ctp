@@ -73,6 +73,7 @@
 										"{$modelName}.id" => array( 'type' => 'integer' ),
 										"{$modelName}.name" => array( 'type' => 'string' ),
 										"{$modelName}.sqrecherche" => array( 'type' => 'string' ),
+										"{$modelName}.message" => array( 'type' => 'string' ),
 									),
 									array(
 										'actions' => array(
@@ -273,6 +274,10 @@
 						<h4 class="title">Contrôle des accès métier</h4>
 						<?php echo $this->Checks->table( $results['Webrsa']['webrsa_access'] );?>
 					</div>
+					<div id="acos">
+						<h4 class="title">Contrôle des acos</h4>
+						<?php echo $this->Checks->table( $results['Webrsa']['acos'] );?>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -287,29 +292,35 @@
 	<div id="data">
 		<h2 class="title">Données stockées en base</h2>
 		<?php foreach( $results['Storeddata']['errors'] as $tablename => $errors ):?>
-		<h3 class="storeddata <?php echo ( count( $errors ) > 0 ? 'error' : 'success' );?>"><?php echo h( $tablename );?></h3>
+		<h3 class="storeddata <?php echo  count( $errors ) > 0 ? 'error' : 'success' ;?>"><?php echo h( $tablename );?></h3>
 		<?php
 			$fields = array();
 			$controllerName = Inflector::camelize( $tablename );
 			$modelName = Inflector::classify( $controllerName );
 
 			if( count( $errors ) > 0 ) {
-				$fields = array_keys( Hash::flatten( $errors[0] ) );
+				$fields = Hash::normalize( array_keys( Hash::flatten( $errors[0] ) ) );
+			}
+			$errorFields = array();
+			foreach( array_keys( $fields ) as $fieldName ) {
+				if( false !== strpos( $fieldName, '.error_' ) ) {
+					unset( $fields[$fieldName] );
+					$errorFields[$fieldName] = array( 'type' => 'boolean' );
+				}
+			}
+			$fields = array_merge( $fields, $errorFields );
+
+			if( true === array_key_exists( "{$modelName}.id", $fields ) ) {
+				$fields[] = "/{$controllerName}/edit/#{$modelName}.id#";
 			}
 
-			$cohorteParams = array();
-			if( in_array( "{$modelName}.id", $fields ) ) {
-				$cohorteParams = array(
-					'actions' => array(
-						"{$controllerName}::edit"
-					)
-				);
-			}
-
-			echo $this->Default2->index(
+			echo $this->Default3->index(
 				$errors,
-				$fields,
-				$cohorteParams
+				$this->Translator->normalize( $fields ),
+				array(
+					'paginate' => false,
+					'empty_label' => 'Aucun enregistrement erroné'
+				)
 			);
 		?>
 		<?php endforeach;?>
@@ -368,4 +379,7 @@
 	<?php endforeach;?>
 
 	makeErrorTabs();
+
+	ConfigurationParser.vars.infoBlockClass = 'configuration-parser-info-block no-th-background';
+	ConfigurationParser.incrustationInfo('table.checks.values th', <?php echo json_encode($configurations);?>);
 </script>

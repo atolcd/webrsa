@@ -7,13 +7,15 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
 
 	/**
-	 * La classe MetiersexercesController permet la gestion des CER du CG 93 (hors workflow).
+	 * La classe MetiersexercesController s'occupe du paramétrage des métiers
+	 * exercés pour le CER du CD 93.
 	 *
 	 * @package app.Controller
 	 */
-	class MetiersexercesController extends AppController
+	class MetiersexercesController extends AbstractWebrsaParametragesController
 	{
 		/**
 		 * Nom du contrôleur.
@@ -23,148 +25,10 @@
 		public $name = 'Metiersexerces';
 
 		/**
-		 * Components utilisés.
-		 *
-		 * @var array
-		 */
-		public $components = array(
-			
-		);
-
-		/**
-		 * Helpers utilisés.
-		 *
-		 * @var array
-		 */
-		public $helpers = array(
-			
-		);
-
-		/**
 		 * Modèles utilisés.
 		 *
 		 * @var array
 		 */
-		public $uses = array(
-			'Metierexerce',
-		);
-		
-		/**
-		 * Utilise les droits d'un autre Controller:action
-		 * sur une action en particulier
-		 * 
-		 * @var array
-		 */
-		public $commeDroit = array(
-			
-		);
-		
-		/**
-		 * Méthodes ne nécessitant aucun droit.
-		 *
-		 * @var array
-		 */
-		public $aucunDroit = array(
-			
-		);
-		
-		/**
-		 * Correspondances entre les méthodes publiques correspondant à des
-		 * actions accessibles par URL et le type d'action CRUD.
-		 *
-		 * @var array
-		 */
-		public $crudMap = array(
-			'add' => 'create',
-			'delete' => 'delete',
-			'edit' => 'update',
-			'index' => 'read',
-		);
-		
-		/**
-		 * Pagination sur les <élément>s de la table.
-		 *
-		 * @return void
-		 */
-		public function index() {
-
-			$metiersexerces = $this->Metierexerce->find( 'all', array( 'recursive' => -1 ) );
-
-			$this->set('metiersexerces', $metiersexerces);
-		}
-
-		/**
-		 * Formulaire d'ajout d'un élémént.
-		 *
-		 * @return void
-		 */
-		public function add() {
-			$args = func_get_args();
-			call_user_func_array( array( $this, 'edit' ), $args );
-		}
-
-		/**
-		 * Formulaire de modification d'un <élément>.
-		 *
-		 * @return void
-		 * @throws NotFoundException
-		 */
-		public function edit( $metierexerce_id = null ) {
-			if( $this->action == 'edit') {
-				// Vérification du format de la variable
-				if( !$this->Metierexerce->exists( $metierexerce_id ) ) {
-					throw new NotFoundException();
-				}
-			}
-			// Retour à la liste en cas d'annulation
-			if( isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'controller' => 'metiersexerces', 'action' => 'index' ) );
-			}
-		
-			// Tentative de sauvegarde du formulaire
-			if( !empty( $this->request->data ) ) {
-				$this->Metierexerce->begin();
-				if( $this->Metierexerce->saveAll( $this->request->data ) ) {
-					$this->Metierexerce->commit();
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
-					$this->redirect( array( 'action' => 'index' ) );
-				}
-				else {
-					$this->Metierexerce->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
-				}
-			}
-			else if( $this->action == 'edit') {
-				$this->request->data = $this->Metierexerce->find(
-					'first',
-					array(
-						'conditions' => array(
-							'Metierexerce.id' => $metierexerce_id
-						),
-						'contain' => false
-					)
-				);
-			}
-			$this->render( 'edit' );
-		}
-		
-		public function delete( $metierexerce_id = null ) {
-			// Vérification du format de la variable
-			if( !$this->Metierexerce->exists( $metierexerce_id ) ) {
-				throw new NotFoundException();
-			}
-
-			$metierexerce = $this->Metierexerce->find(
-				'first',
-				array( 'conditions' => array( 'Metierexerce.id' => $metierexerce_id )
-				)
-			);
-
-			// Tentative de suppression ... FIXME
-			if( $this->Metierexerce->deleteAll( array( 'Metierexerce.id' => $metierexerce_id ), true ) ) {
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
-				$this->redirect( array( 'controller' => 'metiersexerces', 'action' => 'index' ) );
-			}
-		}
+		public $uses = array( 'Metierexerce' );
 	}
 ?>

@@ -1,4 +1,4 @@
-<?php require_once( dirname( __FILE__ ).DS.'search.ctp' ); ?>
+<?php require_once  dirname( __FILE__ ).DS.'search.ctp' ; ?>
 
 <?php if( !empty( $this->request->data ) ): ?>
 	<?php $annee = Hash::get( $this->request->data, 'Search.annee' ); ?>

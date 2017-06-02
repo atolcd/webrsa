@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Cohortes" > "Orientation" > "Demandes non orientées (nouveau)"
+	 * Menu "Cohortes" > "Orientation" > "Demandes non orientées"
 	 */
 	Configure::write(
 		'ConfigurableQuery.PersonnesReferents.cohorte_affectation93',
@@ -108,7 +108,7 @@
 	);
 
 	/**
-	 * Export CSV, mpenu "Cohortes" > "Orientation" > "Demandes non orientées (nouveau)"
+	 * Export CSV, mpenu "Cohortes" > "Orientation" > "Demandes non orientées"
 	 */
 	Configure::write(
 		'ConfigurableQuery.PersonnesReferents.exportcsv_affectation93',

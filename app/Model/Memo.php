@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Memo ...
@@ -15,22 +16,45 @@
 	 */
 	class Memo extends AppModel
 	{
+		/**
+		 * Nom du modèle.
+		 *
+		 * @var string
+		 */
 		public $name = 'Memo';
 
 		/**
-		 * Tri par défaut des mémos.
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
+		/**
+		 * Tri par défaut pour ce modèle.
 		 *
 		 * @var array
 		 */
-		public $order = array( 'Memo.created DESC' );
+		public $order = array( '%s.created DESC' );
 
+		/**
+		 * Behaviors utilisés par le modèle.
+		 *
+		 * @var array
+		 */
 		public $actsAs = array(
 			'Allocatairelie',
-			'Validation.Autovalidate',
-			'Formattable',
-			'Enumerable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
+		/**
+		 * Associations "Belongs to".
+		 *
+		 * @var array
+		 */
 		public $belongsTo = array(
 			'Personne' => array(
 				'className' => 'Personne',
@@ -41,6 +65,11 @@
 			)
 		);
 
+		/**
+		 * Associations "Has many".
+		 *
+		 * @var array
+		 */
 		public $hasMany = array(
 			'Fichiermodule' => array(
 				'className' => 'Fichiermodule',

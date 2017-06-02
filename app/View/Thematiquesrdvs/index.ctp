@@ -1,41 +1,22 @@
 <?php
-	echo $this->Default3->titleForLayout();
-
-	echo $this->Default3->actions(
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			"/Thematiquesrdvs/add" => array(
-				'disabled' => !$this->Permissions->check( 'Thematiquesrdvs', 'add' )
+			'cells' => array(
+				'Thematiquerdv.name',
+				'Typerdv.libelle',
+				'Statutrdv.libelle',
+				'Thematiquerdv.linkedmodel',
+				'/Thematiquesrdvs/edit/#Thematiquerdv.id#' => array(
+					'title' => true
+				),
+				'/Thematiquesrdvs/delete/#Thematiquerdv.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Thematiquerdv.has_linkedrecords#"'
+				)
 			),
-		)
-	);
-
-	echo $this->Default3->index(
-		$thematiquesrdvs,
-		array(
-			'Thematiquerdv.name',
-			'Typerdv.libelle',
-			'Statutrdv.libelle',
-			'Thematiquerdv.linkedmodel',
-			'/Thematiquesrdvs/edit/#Thematiquerdv.id#' => array(
-				'disabled' => !$this->Permissions->check( 'Thematiquesrdvs', 'edit' )
-			),
-			'/Thematiquesrdvs/delete/#Thematiquerdv.id#' => array(
-				'disabled' => !$this->Permissions->check( 'Thematiquesrdvs', 'delete' ),
-				'confirm' => true
-			),
-		),
-		array(
-			'options'  => $options
-		)
-	);
-
-	echo $this->Default3->actions(
-		array(
-			"/Gestionsrdvs/index" => array(
-				'text' => 'Retour',
-				'class' => 'back',
-				'disabled' => !$this->Permissions->check( 'Gestionsrdvs', 'index' )
-			),
+			'backUrl' => '/Parametrages/index/#pdos'
 		)
 	);
 ?>

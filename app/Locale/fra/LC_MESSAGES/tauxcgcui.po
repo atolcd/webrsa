@@ -1,0 +1,71 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "Tauxcgcui::index::empty"
+msgstr "Aucun lien défini"
+
+msgid "Tauxcgscuis::index"
+msgstr "Liste des taux par secteurs"
+
+msgid "Tauxcgscuis::add"
+msgstr "Ajouter un taux"
+
+msgid "Tauxcgcui::edit"
+msgstr "Modifier le taux"
+
+msgid "Tauxcgcui::delete"
+msgstr "Supprimer le taux"
+
+msgid "Tauxcgscuis::edit"
+msgstr "Modification des taux"
+
+msgid "Tauxcgscuis::delete::confirm"
+msgstr "Confirmer la suppression ?"
+
+msgid "Tauxcgcui.secteurcui_id"
+msgstr "Secteur du CUI"
+
+msgid "Tauxcgcui.typecui"
+msgstr "Type de CUI"
+
+msgid "ENUM::TYPECUI::cui"
+msgstr "CUI"
+
+msgid "ENUM::TYPECUI::cuieav"
+msgstr "Emploi d'Avenir"
+
+msgid "Tauxcgcui.isaci"
+msgstr "Hors ACI/ACI"
+
+msgid "ENUM::ISACI::horsaci"
+msgstr "Hors ACI"
+
+msgid "ENUM::ISACI::enaci"
+msgstr "ACI"
+
+msgid "Tauxcgcui.tauxmin"
+msgstr "Taux minimal"
+
+msgid "Tauxcgcui.tauxmax"
+msgstr "Taux maximal"
+
+msgid "Tauxcgcui.tauxnominal"
+msgstr "Taux nominal"

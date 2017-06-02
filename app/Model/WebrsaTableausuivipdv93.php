@@ -7,8 +7,9 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses( 'Sanitize', 'Utility' );
+	App::uses( 'AppModel', 'Model' );
 	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
+	App::uses( 'Sanitize', 'Utility' );
 
 	/**
 	 * La classe WebrsaTableausuivipdv93 contient la logique métier concernant
@@ -1133,11 +1134,8 @@
 				}
 			}
 
-			foreach( $results as $categorie1 => $data ) { // $categorie1 = sexe
-//				$return[$categorie1] = $empty;
-//				$return[$categorie1]['dont'] = array();
-
-				foreach( $data as $categorie2 => $data2 ) { // $categorie2 = 1
+			foreach( $results as $categorie1 => $data ) {
+				foreach( $data as $categorie2 => $data2 ) {
 					if( !isset( $return[$categorie1]['dont'][$categorie2] ) ) {
 						$return[$categorie1]['dont'][$categorie2] = $empty;
 					}
@@ -2973,7 +2971,7 @@
 			}
 
 			$this->Tableausuivipdv93->create( $tableausuivipdv93 );
-			$success = $this->Tableausuivipdv93->save() && $success;
+			$success = $this->Tableausuivipdv93->save( null, array( 'atomic' => false ) ) && $success;
 
 			if( $success && empty( $found ) ) {
 				// Sauvegarde complète du corpus
@@ -3030,7 +3028,7 @@
 					);
 
 					$this->Tableausuivipdv93->Corpuspdv93->create( $record );
-					$success = $this->Tableausuivipdv93->Corpuspdv93->save();
+					$success = $this->Tableausuivipdv93->Corpuspdv93->save( null, array( 'atomic' => false ) );
 				}
 			}
 

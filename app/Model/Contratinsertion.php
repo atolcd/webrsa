@@ -10,6 +10,7 @@
 	define( 'DATE_DECISION_FACULTATIVE', Configure::read( 'Cg.departement' ) != 66 );
 	define( 'REFERENT_FACULTATIF', Configure::read( 'Cg.departement' ) != 66 );
 	define( 'STORABLE_PDF_ACTIVE', Configure::read( 'Cg.departement' ) != 66 );
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Contratinsertion permet de gérer les CER de manière individuelle.
@@ -20,28 +21,17 @@
 	{
 		public $name = 'Contratinsertion';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $uses = array( 'Option', 'WebrsaContratinsertion' );
 
 		public $actsAs = array(
 			'Allocatairelie',
-			'Enumerable' => array(
-				'fields' => array(
-					'type_demande' => array( 'type' => 'type_demande', 'domain' => 'contratinsertion' ),
-					'num_contrat' => array( 'type' => 'num_contrat', 'domain' => 'contratinsertion' ),
-					'typeinsertion' => array( 'type' => 'insertion', 'domain' => 'contratinsertion' ),
-					'positioncer' => array( 'domain' => 'contratinsertion' ),
-					'haspiecejointe' => array( 'domain' => 'contratinsertion' ),
-					'cmu',
-					'cmuc',
-					'emploi_act',
-					'objetcerprec'
-				)
-			),
-			'Formattable' => array(
-				'suffix' => array( 'structurereferente_id', 'referent_id' ),
-			),
-			'Autovalidate2',
-			'ValidateTranslate',
 			'Gedooo.Gedooo',
 			'ModelesodtConditionnables' => array(
 				58 => '%s/contratinsertioncg58.odt',
@@ -65,98 +55,83 @@
 				'active' => STORABLE_PDF_ACTIVE,
 				'afterSave' => 'deleteAll'
 			),
-			'Validation2.Validation2RulesComparison'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		public $validate = array(
 			'actions_prev' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				)
-			),
-			'structurereferente_id' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'dd_ci' => array(
-				'notEmpty' => array(
-					'rule' => 'date',
-					'message' => 'Veuillez entrer une date valide'
-				),
 				'compareDates' => array(
 					'rule' => array( 'compareDates', 'df_ci', '<' ),
 					'message' => 'La date de début de contrat doit être strictement inférieure à la date de fin de contrat'
 				)
 			),
 			'df_ci' => array(
-				'notEmpty' => array(
-					'rule' => 'date',
-					'message' => 'Veuillez entrer une date valide'
-				),
 				'compareDates' => array(
 					'rule' => array( 'compareDates', 'dd_ci', '>' ),
 					'message' => 'La date de fin de contrat doit être strictement supérieure à la date de début de contrat'
 				)
 			),
 			'aut_expr_prof' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'forme_ci' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'emp_trouv' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'sect_acti_emp' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'emp_occupe' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'duree_hebdo_emp' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'nat_cont_trav' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'duree_cdd' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'duree_engag' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
-				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.'
 				),
 				'checkDureeDates' => array(
 					'rule' => array( 'checkDureeDates', 'dd_ci', 'df_ci' ),
@@ -164,14 +139,14 @@
 				)
 			),
 			'nature_projet' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'decision_ci' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
@@ -179,60 +154,50 @@
 				'notEmptyIf' => array(
 					'rule' => array( 'notEmptyIf', 'decision_ci', true, array( 'V' ) ),
 					'message' => 'Veuillez entrer une date valide',
-				),
-				'notEmpty' => array(
-					'rule' => 'date',
-					'message' => 'Veuillez entrer une date valide',
-					'allowEmpty' => true
 				)
 			),
 			'lieu_saisi_ci' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'niveausalaire' => array(
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.'
-				),
-				array(
+				'comparison' => array(
 					'rule' => array( 'comparison', '>=', 0 ),
 					'message' => 'Veuillez entrer un nombre positif.'
 				)
 			),
 			'date_saisi_ci' => array(
-				array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				),
+				'datePassee' => array(
 					'rule' => array( 'datePassee' ),
 					'message' => 'Merci de choisir une date antérieure à la date du jour',
-					'on' => 'create'
-				),
-				array(
-					'rule' => 'date',
-					'message' => 'Merci de rentrer une date valide',
-					'allowEmpty' => false,
-					'required' => true,
 					'on' => 'create'
 				)
 			),
 			'datedecision' => array(
-				'rule' => 'date',
-				'message' => 'Veuillez entrer une date valide',
-				'allowEmpty' => DATE_DECISION_FACULTATIVE
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire',
+                    'allowEmpty' => DATE_DECISION_FACULTATIVE
+				)
 			),
 			/**
 			 * Régle ajoutée suite à la demande du CG66
 			 */
 			'nature_projet' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
             'referent_id' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire',
                     'allowEmpty' => REFERENT_FACULTATIF
 				)
@@ -481,19 +446,6 @@
 				'finderQuery' => '',
 				'counterQuery' => ''
 			),
-				/* 'Objetcontratinsertion' => array(
-				  'className' => 'Objetcontratinsertion',
-				  'foreignKey' => 'contratinsertion_id',
-				  'dependent' => true,
-				  'conditions' => '',
-				  'fields' => '',
-				  'order' => '',
-				  'limit' => '',
-				  'offset' => '',
-				  'exclusive' => '',
-				  'finderQuery' => '',
-				  'counterQuery' => ''
-				  ), */
 		);
 		public $hasAndBelongsToMany = array(
 			'User' => array(
@@ -706,20 +658,18 @@
 		/**
 		 *   AfterSave
 		 */
-		public function afterSave( $created ) {
-			$return = parent::afterSave( $created );
+		public function afterSave( $created, $options = array() ) {
+			parent::afterSave( $created, $options );
 
 			// Mise à jour des APREs
-			$return = $this->query( "UPDATE apres SET eligibiliteapre = 'O' WHERE apres.personne_id = ".$this->data[$this->name]['personne_id']." AND apres.etatdossierapre = 'COM';" ) && $return;
-			$return = $this->query( "UPDATE apres SET eligibiliteapre = 'N' WHERE apres.personne_id = ".$this->data[$this->name]['personne_id']." AND apres.etatdossierapre = 'INC';" ) && $return;
+			$this->query( "UPDATE apres SET eligibiliteapre = 'O' WHERE apres.personne_id = ".$this->data[$this->name]['personne_id']." AND apres.etatdossierapre = 'COM';" );
+			$this->query( "UPDATE apres SET eligibiliteapre = 'N' WHERE apres.personne_id = ".$this->data[$this->name]['personne_id']." AND apres.etatdossierapre = 'INC';" );
 
 			if( Configure::read( 'Cg.departement' ) == 66 ) {
-				$return = $return && $this->WebrsaContratinsertion->updatePositionsCersById( $this->{$this->primaryKey} );
+				$this->WebrsaContratinsertion->updatePositionsCersById( $this->{$this->primaryKey} );
 
-				$return = $this->_liaisonDossierpcg66( $created ) && $return;
+				$this->_liaisonDossierpcg66( $created );
 			}
-
-			return $return;
 		}
 
 		/**
@@ -760,6 +710,21 @@
 
 			if (Configure::read( 'nom_form_ci_cg' ) === 'cg66') {
 				$options[$this->alias]['forme_ci'] = array('S' => 'Simple', 'C' => 'Particulier');
+			}
+
+			// Ticket #2007701: suppression des positions "En cours, Bilan à réaliser",
+			// "En attente de renouvellement", "Périmé: bilan à réaliser"
+			if( 66 === $departement ) {
+				$keep = array(
+					'encours'=> null,
+					'attvalid'=> null,
+					'annule'=> null,
+					'fincontrat'=> null,
+					'perime'=> null,
+					'nonvalid'=> null,
+					'bilanrealiseattenteeplparcours'=> null
+				);
+				$options[$this->alias]['positioncer'] = array_intersect_key( $options[$this->alias]['positioncer'], $keep );
 			}
 
 			return $options;
@@ -845,7 +810,7 @@
 
 					if( !empty( $dossierpcg66 ) ) {
 						$this->Dossierpcg66->create( $dossierpcg66 );
-						$success = $this->Dossierpcg66->save() && $success;
+						$success = $this->Dossierpcg66->save( null, array( 'atomic' => false ) ) && $success;
 					}
 				}
 				//else if( $forme_ci == 'S' ) {

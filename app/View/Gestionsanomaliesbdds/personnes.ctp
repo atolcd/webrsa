@@ -1,6 +1,6 @@
 <h1><?php echo $title_for_layout = __d( 'gestionanomaliebdd', 'Gestionsanomaliesbdds::personnes' );$this->set( 'title_for_layout', $title_for_layout );?></h1>
 
-<?php 
+<?php
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->script( array( 'prototype.event.simulate.js' ) );
 	}
@@ -154,7 +154,7 @@
 						<th>id</th>
 						<th>personne_id</th>';
 				foreach( $fields as $field ) {
-					list( $modelName, $field ) = Xinflector::modelField( $field );
+					list( $modelName, $field ) = model_field( $field );
 					echo "<th title=\"".__d(strtolower($modelName), $modelName.'.'.$field)."\">{$field}</th>";
 				}
 				echo "<th class=\"innerTableHeader noprint\">Enregistrements liés</th>";
@@ -174,7 +174,7 @@
 					if( isset( $this->request->data[$modelName]['id'] ) && in_array( $record[$modelName]['id'], $this->request->data[$modelName]['id'] ) ) {
 						$checked = 'checked="checked"';
 					}
-					
+
 					if ( in_array($modelName, $uncheckableRadioModelList) ) {
 						$classList[] = 'uncheckable';
 					}
@@ -230,7 +230,7 @@
 				echo '</tbody>';
 				echo '</table>';
 			}
-			
+
 			echo '<div class="error_message" style="display: none;"><ul id="showerrors"></ul></div>';
 
 			echo $this->Xform->end( 'Enregistrer' );
@@ -344,10 +344,10 @@
 	 * @type {Object}
 	 */
 	var links = <?php echo json_encode($links);?>;
-		
+
 	/**
 	 * Affiche une alerte dans l'element showerrors
-	 * 
+	 *
 	 * @param {string} message - Message à afficher
 	 * @param {boolean} condition - Si à vrai, ajoute le message, se contente de tout retirer sinon
 	 * @param {string} className1 - class à appliquer sur les elements li pour destruction ultérieur
@@ -355,7 +355,7 @@
 	 */
 	function displayAlert(message, condition, className1, className2) {
 		className2 = className2 === undefined ? '' : className2;
-		
+
 		$('showerrors').select('.'+className1+'.'+className2).each(function(toDelete){toDelete.remove();});
 		if (condition) {
 			$('showerrors').insert('<li class="'+className1+' '+className2+'">'+message+'</li>');
@@ -367,7 +367,7 @@
 			$('showerrors').up('div').hide();
 		}
 	}
-	
+
 	/**
 	 * Alerte Relations entre les modeles
 	 */
@@ -403,19 +403,19 @@
 					}
 
 					displayAlert(
-						'Un lien existe entre '+modele+' id:'+links[personne_id][linkPath][i][modele].id+', et '+otherModelName+' id:'+links[personne_id][linkPath][i][otherModelName].id, 
-						coche1 !== coche2, 
-						classMsg1, 
+						'Un lien existe entre '+modele+' id:'+links[personne_id][linkPath][i][modele].id+', et '+otherModelName+' id:'+links[personne_id][linkPath][i][otherModelName].id,
+						coche1 !== coche2,
+						classMsg1,
 						classMsg2
 					);
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * Permet la vérification d'un lien entre deux enregistrements
-	 * 
+	 *
 	 * @param {DOM} element
 	 */
 	function verifyRelations(element) {
@@ -430,12 +430,12 @@
 			verifyRelations(element);
 		}
 	});
-	
+
 	/**
 	 * Alerte spéciale Orientstruct
-	 */ 
+	 */
 	function verifyOrientstruct() {
-		var oriente = 0, 
+		var oriente = 0,
 			nonOriente = 0, // Vide, Non orienté ou En attente
 			classMsg1 = 'special_Orientstruct_1',
 			classMsg2 = 'special_Orientstruct_2'
@@ -447,7 +447,7 @@
 				nonOriente++;
 			}
 		});
-		
+
 		displayAlert(
 			'Aucune Orientation (Orientstruct) n\'a été choisie',
 			oriente === 0 && nonOriente === 0,
@@ -459,14 +459,14 @@
 			classMsg2
 		);
 	}
-	
+
 	if ($('Orientstruct')) {
 		$('Orientstruct').select('input[type="checkbox"], input[type="radio"]').each(function(element){
 			element.observe('change', verifyOrientstruct);
 		});
 		verifyOrientstruct();
 	}
-	
+
 	/**
 	 * Alerte spéciale PersonneReferent
 	 */
@@ -480,7 +480,7 @@
 				sansDateFin++;
 			}
 		});
-		
+
 		displayAlert(
 			'Aucuns référent (PersonneReferent) n\'est actif (dfdesignation à vide)',
 			sansDateFin === 0,
@@ -492,14 +492,14 @@
 			classMsg2
 		);
 	}
-	
+
 	if ($('PersonneReferent')) {
 		$('PersonneReferent').select('input[type="checkbox"], input[type="radio"]').each(function(element){
 			element.observe('change', verifyPersonneReferent);
 		});
 		verifyPersonneReferent();
 	}
-	
+
 	/**
 	 * Alerte spéciale Prestation
 	 */
@@ -515,21 +515,21 @@
 				pfa++;
 			}
 		});
-		
+
 		displayAlert(
 			'Plusieurs Prestations avec même natprest ont été selectionné',
 			pfa > 1 || rsa > 1,
 			classMsg1
 		);
 	}
-	
+
 	if ($('Prestation')) {
 		$('Prestation').select('input[type="checkbox"], input[type="radio"]').each(function(element){
 			element.observe('change', verifyPrestation);
 		});
 		verifyPrestation();
 	}
-	
+
 	/**
 	 * Alerte spéciale Rattachement
 	 */
@@ -543,30 +543,30 @@
 			var nom = element.up('tr').select('td.nomnai').first().innerHTML +'_'+ element.up('tr').select('td.prenom').first().innerHTML,
 				nir = element.up('tr').select('td.nir').first().innerHTML
 			;
-			
+
 			if (in_array(nom, noms) || in_array(nir, nirs)) {
 				displayMsg = true;
 				throw $break;
 			}
-			
+
 			noms.push(nom);
 			nirs.push(nir);
 		});
-		
+
 		displayAlert(
 			'Plusieurs Rattachements pointant sur la même personne ont été selectionné',
 			displayMsg,
 			classMsg1
 		);
 	}
-	
+
 	if ($('Rattachement')) {
 		$('Rattachement').select('input[type="checkbox"], input[type="radio"]').each(function(element){
 			element.observe('change', verifyRattachement);
 		});
 		verifyRattachement();
 	}
-	
+
 	/**
 	 * Liste des noms de modele suivi du nombre maximum de selection possible
 	 * @type {Object}
@@ -591,10 +591,10 @@
 		'Suiviappuiorientation': 1,
 		'Titresejour': 1
 	};
-	
+
 	/**
 	 * Vérifications des quantités selectionné (max autorisé)
-	 * 
+	 *
 	 * @param {string} modelName
 	 * @param {integer} max
 	 */
@@ -605,7 +605,7 @@
 			'verifyMaxCount_'+modelName
 		);
 	}
-	
+
 	for (var modelName in maxCount) {
 		if ($(modelName)) {
 			$(modelName).select('input[type="checkbox"], input[type="radio"]').each(function(element){
@@ -617,17 +617,17 @@
 			});
 		}
 	}
-	
+
 	/**
 	 * Alerte sur les fichiers liés non selectionnés
 	 */
 	$('PersonnesForm').select('td.fichierslies').each(function(td){
 		var modelName, id;
-		
+
 		if (td.innerHTML !== '0') {
 			modelName = td.up('table').getAttribute('id');
 			id = td.up('tr').select('td.id').first().innerHTML;
-			
+
 			td.up('tr').select('input[type="checkbox"], input[type="radio"]').first().observe('change', function(){
 				displayAlert(
 					'Des fichiers liés existent pour '+modelName+' id:'+id,

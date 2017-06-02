@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Propopdo ...
@@ -17,19 +18,18 @@
 	{
 		public $name = 'Propopdo';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
 			'Allocatairelie',
-			'Enumerable' => array(
-				'fields' => array(
-					'choixpdo' => array( 'domain' => 'propopdo' ),
-					'nonadmis' => array( 'domain' => 'propopdo' ),
-					'iscomplet' => array( 'domain' => 'propopdo' ),
-					'haspiece' => array( 'domain' => 'propopdo' ),
-					'etatdossierpdo' => array( 'domain' => 'propopdo' )
-				)
-			),
-			'Formattable',
-			'Autovalidate2',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 			'Gedooo.Gedooo'
 		);
 
@@ -42,39 +42,31 @@
 
 		public $validate = array(
 			'typepdo_id' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
-			),
-			'choixpdo' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire',
-				'allowEmpty' => true
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
 			),
 			'originepdo_id' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
-			),
-			'datereceptionpdo' => array(
-				'rule' => 'date',
-				'message' => 'Veuillez entrer une date valide.',
-				'allowEmpty' => true
-			),
-			'haspiece' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
 			),
             'structurereferente_id' => array(
-                'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
             )
 		);
-		
+
 		/**
 		 * Liste de champs et de valeurs possibles qui ne peuvent pas être mis en
 		 * règle de validation inList ou en contrainte dans la base de données en
 		 * raison des valeurs actuellement en base, mais pour lequels un ensemble
 		 * fini de valeurs existe.
-		 * 
+		 *
 		 * @see AppModel::enums
 		 *
 		 * @var array
@@ -265,150 +257,11 @@
 			)
 		);
 
-		public $_types = array(
-			'propopdo' => array(
-				'fields' => array(
-					'"Propopdo"."id"',
-					'"Propopdo"."personne_id"',
-					'"Propopdo"."typepdo_id"',
-					'"Propopdo"."typenotifpdo_id"',
-					'"Propopdo"."originepdo_id"',
-					'"Propopdo"."datereceptionpdo"',
-					'"Propopdo"."motifpdo"',
-					'"Propopdo"."orgpayeur"',
-					'"Propopdo"."serviceinstructeur_id"',
-					'"Propopdo"."user_id"',
-					'"Propopdo"."categoriegeneral"',
-					'"Propopdo"."iscomplet"',
-					'"Propopdo"."categoriedetail"',
-					'"Propopdo"."etatdossierpdo"',
-					'"Typepdo"."libelle"',
-					'"Decisionpropopdo"."decisionpdo_id"',
-					'"Decisionpropopdo"."datedecisionpdo"',
-					'"Decisionpropopdo"."commentairepdo"',
-					'"Decisionpdo"."libelle"',
-					'"Decisionpdo"."modeleodt"',
-					'"Personne"."id"',
-					'"Personne"."pieecpres"',
-				),
-				'recursive' => -1,
-				'joins' => array(
-					array(
-						'table'      => 'personnes',
-						'alias'      => 'Personne',
-						'type'       => 'INNER',
-						'foreignKey' => false,
-						'conditions' => array( 'Propopdo.personne_id = Personne.id' )
-					),
-					array(
-						'table'      => 'typespdos',
-						'alias'      => 'Typepdo',
-						'type'       => 'INNER',
-						'foreignKey' => false,
-						'conditions' => array( 'Propopdo.typepdo_id = Typepdo.id' )
-					),
-					array(
-						'table'      => 'foyers',
-						'alias'      => 'Foyer',
-						'type'       => 'INNER',
-						'foreignKey' => false,
-						'conditions' => array( 'Personne.foyer_id = Foyer.id' )
-					),
-					array(
-						'table'      => 'adressesfoyers',
-						'alias'      => 'Adressefoyer',
-						'type'       => 'LEFT OUTER',
-						'foreignKey' => false,
-						'conditions' => array(
-							'Foyer.id = Adressefoyer.foyer_id',
-							'Adressefoyer.id IN (
-								SELECT adressesfoyers.id
-									FROM adressesfoyers
-									WHERE
-										adressesfoyers.foyer_id = Adressefoyer.foyer_id
-										AND adressesfoyers.rgadr = \'01\'
-									ORDER BY adressesfoyers.dtemm DESC
-									LIMIT 1
-							)'
-							///FIXME: à revoir car ça ne fonctionne pas mais pourquoi ???? là est la question
-						)
-					),
-					array(
-						'table'      => 'adresses',
-						'alias'      => 'Adresse',
-						'type'       => 'LEFT OUTER',
-						'foreignKey' => false,
-						'conditions' => array( 'Adresse.id = Adressefoyer.adresse_id' )
-					),
-					array(
-						'table'      => 'prestations',
-						'alias'      => 'Prestation',
-						'type'       => 'INNER',
-						'foreignKey' => false,
-						'conditions' => array(
-							'Personne.id = Prestation.personne_id',
-							'Prestation.natprest = \'RSA\'',
-							'( Prestation.rolepers = \'DEM\' OR Prestation.rolepers = \'CJT\' )',
-						)
-					),
-					array(
-						'table'      => 'decisionspropospdos',
-						'alias'      => 'Decisionpropopdo',
-						'type'       => 'LEFT OUTER',
-						'foreignKey' => false,
-						'conditions' => array( 'Decisionpropopdo.propopdo_id = Propopdo.id' )
-					),
-					array(
-						'table'      => 'decisionspdos',
-						'alias'      => 'Decisionpdo',
-						'type'       => 'LEFT OUTER',
-						'foreignKey' => false,
-						'conditions' => array( 'Decisionpdo.id = Decisionpropopdo.decisionpdo_id' )
-					),
-				),
-				'order' => 'Propopdo.datereceptionpdo DESC'
-			)
-		);
-
 		/**
-		*
-		*/
-
-		public function prepare( $type, $params = array() ) {
-			$types = array_keys( $this->_types );
-			if( !in_array( $type, $types ) ) {
-				trigger_error( 'Invalid parameter "'.$type.'" for '.$this->name.'::prepare()', E_USER_WARNING );
-			}
-			else {
-				$query = $this->_types[$type];
-
-				switch( $type ) {
-					case 'etat':
-						$query = Set::merge( $query, $params );
-						break;
-					case 'propopdo':
-						$query = Set::merge( $query, $params );
-						break;
-				}
-
-				return $query;
-			}
-		}
-
-		/**
-		*
-		*/
-
-		public function etatPdo( $pdo ) {
-			$pdo = Hash::expand( Hash::filter( (array)$pdo ) );
-			$typepdo_id = Set::classicExtract( $pdo, 'Propopdo.typepdo_id' );
-			$decision = Set::classicExtract( $pdo, 'Propopdo.decision' );
-		}
-
-		/**
-		* FIXME: bcp trop de nombres magiques
-		*/
-
+		 *
+		 * @param array $options
+		 * @return bool
+		 */
 		public function beforeSave( $options = array() ) {
 			$return = parent::beforeSave( $options );
 
@@ -448,6 +301,17 @@
 			return $return;
 		}
 
+		/**
+		 *
+		 * @param integer $typepdo_id
+		 * @param integer $user_id
+		 * @param integer $decisionpdo_id
+		 * @param type $avistechnique
+		 * @param type $validationavis
+		 * @param type $iscomplet
+		 * @param type $propopdo_id
+		 * @return string
+		 */
 		public function etatDossierPdo( $typepdo_id = null, $user_id = null, $decisionpdo_id = null, $avistechnique = null, $validationavis = null, $iscomplet = null, $propopdo_id = null ) {
 			$etat = null;
 
@@ -504,6 +368,11 @@
 			return $etat;
 		}
 
+		/**
+		 *
+		 * @param integer $decisionpropopdo_id
+		 * @return bool|array
+		 */
 		public function updateEtat( $decisionpropopdo_id ) {
 			$decisionpropopdo = $this->Decisionpropopdo->find(
 				'first',
@@ -620,8 +489,6 @@
 				}
 
 				$propopdo = Hash::merge( $propopdo, $structureactuelle );
-
-				$options['type']['voie'] = $Option->typevoie();
 			}
 
 			// Choix du modèle de document et génération du courrier

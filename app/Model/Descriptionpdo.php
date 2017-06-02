@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Descriptionpdo.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Descriptionpdo ...
@@ -17,35 +18,25 @@
 	{
 		public $name = 'Descriptionpdo';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
-			'Autovalidate2',
-			'Formattable',
-			'Enumerable' => array(
-				'fields' => array(
-					'sensibilite',
-					'dateactive',
-					'decisionpcg',
-					'nbmoisecheance',
-// 					'declencheep'
-				)
-			),
-			'ValidateTranslate'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
-			'name' => array(
-				array(
-					'rule' => array('notEmpty'),
-				),
-				array(
-					'rule' => array('isUnique'),
-				),
-			),
 			'sensibilite' => array(
-				array(
-					'rule' => array('notEmpty'),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array(NOT_BLANK_RULE_NAME),
 				),
-			),
+			)
 		);
 
 		public $hasMany = array(
@@ -76,11 +67,11 @@
 				'counterQuery' => ''
 			)
 		);
-        
+
         /**
-         * Permet de connaître le nombre d'occurences de Traitement PCGs dans 
+         * Permet de connaître le nombre d'occurences de Traitement PCGs dans
          * lesquelles apparaît cette description de Traitements PCGs
-         * @return array() 
+         * @return array()
          */
         public function qdOccurences() {
 			return array(
@@ -88,7 +79,7 @@
 					$this->fields(),
 					array( 'COUNT("Traitementpcg66"."id") AS "Descriptionpdo__occurences"' )
 				),
-				'joins' => array( 
+				'joins' => array(
 					$this->join( 'Traitementpcg66' )
 				),
 				'recursive' => -1,

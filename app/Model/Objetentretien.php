@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Objetentretien.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Objetentretien ...
@@ -17,20 +18,24 @@
 	{
 
 		public $name = 'Objetentretien';
+
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'name';
+
 		public $order = 'Objetentretien.id ASC';
+
 		public $actsAs = array(
-			'Autovalidate2',
-			'Formattable',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
-		public $validate = array(
-			'name' => array(
-				array(
-					'rule' => 'isUnique',
-					'message' => 'Valeur déjà utilisée'
-				),
-			)
-		);
+
 		public $hasMany = array(
 			'Entretien' => array(
 				'className' => 'Entretien',

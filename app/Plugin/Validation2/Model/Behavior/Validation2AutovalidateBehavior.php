@@ -33,7 +33,7 @@
 		 */
 		public $defaultConfig = array(
 			'rules' => array(
-				'notEmpty' => true,
+				NOT_BLANK_RULE_NAME => true,
 				'maxLength' => true,
 				'integer' => true,
 				'numeric' => true,
@@ -54,7 +54,7 @@
 		 * @return boolean
 		 */
 		protected function _isNotEmptyField( Model $Model, $fieldParams ) {
-			return ( $this->settings[$Model->alias]['rules']['notEmpty'] && Hash::check( $fieldParams, 'null' ) && $fieldParams['null'] == false );
+			return ( $this->settings[$Model->alias]['rules'][NOT_BLANK_RULE_NAME] && Hash::check( $fieldParams, 'null' ) && $fieldParams['null'] == false );
 		}
 
 		/**
@@ -119,7 +119,7 @@
 			$rules = array();
 
 			if( $this->_isNotEmptyField( $Model, $params ) && ( $field != $Model->primaryKey ) ) {
-				$rule = $this->normalizeValidationRule( $Model, array( 'rule' => 'notEmpty', 'allowEmpty' => false ) );
+				$rule = $this->normalizeValidationRule( $Model, array( 'rule' => NOT_BLANK_RULE_NAME, 'allowEmpty' => false ) );
 				$rules[$rule['rule'][0]] = $rule;
 			}
 

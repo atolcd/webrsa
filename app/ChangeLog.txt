@@ -1,5 +1,1041 @@
 
 ************************************************************************
+ Version 3.2.0
+************************************************************************
+
+r10330 | cbuffin | 2017-05-15 16:43:10 +0200 (lun. 15 mai 2017) | 1 ligne
+
+Version 3.2.0 stable
+------------------------------------------------------------------------
+r10329 | cbuffin | 2017-05-15 16:42:47 +0200 (lun. 15 mai 2017) | 1 ligne
+
+Version 3.2.0 stable
+------------------------------------------------------------------------
+r10328 | cbuffin | 2017-05-15 16:38:24 +0200 (lun. 15 mai 2017) | 1 ligne
+
+Amélioration: ajout des données du pôle en charge du dossier PCG dans les données envoyées à l'impression des traitements PCG. Clôture le ticket #2008491. (CD 66)
+------------------------------------------------------------------------
+
+************************************************************************
+ Version 3.2.0-rc.2
+************************************************************************
+
+r10327 | cbuffin | 2017-05-12 14:38:30 +0200 (ven. 12 mai 2017) | 1 ligne
+
+Version 3.2.0 rc 2
+------------------------------------------------------------------------
+r10326 | cbuffin | 2017-05-12 14:38:01 +0200 (ven. 12 mai 2017) | 1 ligne
+
+Version 3.2.0 rc 2
+------------------------------------------------------------------------
+r10325 | cbuffin | 2017-05-12 11:04:07 +0200 (ven. 12 mai 2017) | 1 ligne
+
+Paramétrage: dans la gestion de liste "Dossiers PCG" > "Dossiers à imprimer", le filtre "Pôle chargé du dossier" aura la valeur vide par défaut. (CG 66)
+------------------------------------------------------------------------
+r10324 | cbuffin | 2017-05-10 15:08:14 +0200 (mer. 10 mai 2017) | 1 ligne
+
+Correction: à présent, dans les pages "Fichiers liés" des enregstrements liés au CUI du CG 66 (accompagnements, décisions, avis techniques et suspensions), on n'a plus l'erreur 500 causée par un troisième paramètre erroné envoyé à la méthode WebrsaAccessesComponent::check. Corrige le ticket #2008297. (CG 66)
+------------------------------------------------------------------------
+r10323 | cbuffin | 2017-05-10 13:33:32 +0200 (mer. 10 mai 2017) | 1 ligne
+
+Correction: suite à la révision #10319, d'autres écrans pouvaient engendrer une erreur 500 sous certaines conditions. En lien avec le ticket #2008270. (CG 93)
+------------------------------------------------------------------------
+r10322 | cbuffin | 2017-05-10 13:26:25 +0200 (mer. 10 mai 2017) | 1 ligne
+
+Correction: suite à la révision #10319, la cohorte d'affectation d'un référent retournait une erreur 500. En lien avec le ticket #2008270. (CG 93)
+------------------------------------------------------------------------
+r10321 | cbuffin | 2017-05-10 13:16:22 +0200 (mer. 10 mai 2017) | 1 ligne
+
+Correction: suite à la révision #10319, la cohorte d'affectation d'un référent retournait une erreur 500. En lien avec le ticket #2008270. (CG 93)
+------------------------------------------------------------------------
+r10320 | cbuffin | 2017-05-10 11:55:17 +0200 (mer. 10 mai 2017) | 1 ligne
+
+Correction: dans les formulaires de l'APRE (APRE/ADRE au CG 66), on utilise la classe InsertionsBeneficiairesComponent pour obtenir les listes des structures référentes ou des référents (plutôt que les méthodes Structurereferente::listeParType et WebrsaReferent::listOptions ). En lien avec le ticket #2008270. (CG 93)
+------------------------------------------------------------------------
+r10319 | cbuffin | 2017-05-10 11:51:20 +0200 (mer. 10 mai 2017) | 1 ligne
+
+Correction: à présent les fonctions prefix et suffix renvoient null lorsqu'il n'existe pas de préfixe ou de suffixe.
+------------------------------------------------------------------------
+r10318 | cbuffin | 2017-05-09 17:51:56 +0200 (mar. 09 mai 2017) | 1 ligne
+
+Correction: utilisation de la session de l'utilisateur pour stocker la liste des référents dans l'écran d'ajout / de modification d'un rendez-vous. Corrige le ticket #2008270. (CG 93)
+------------------------------------------------------------------------
+r10317 | cbuffin | 2017-05-09 17:49:57 +0200 (mar. 09 mai 2017) | 1 ligne
+
+Correction: utilisation de la session de l'utilisateur pour stocker la liste des référents dans l'écran d'ajout / de modification d'un rendez-vous. Corrige le ticket #2008270. (CG 93)
+------------------------------------------------------------------------
+r10316 | cbuffin | 2017-05-09 17:19:23 +0200 (mar. 09 mai 2017) | 1 ligne
+
+Correction: dans le paramétrage des référents, la liste des structures référentes avait en préfixe l'id du type d'orientation associé, ce qui possait problème en cas de modification.
+------------------------------------------------------------------------
+r10315 | cbuffin | 2017-05-09 16:15:03 +0200 (mar. 09 mai 2017) | 1 ligne
+
+Correction: à présent, dans la validation JavaScript, les cases à cocher "Champ obligatoire" ne posent plus de problème si elles sont non cochées et s'il existe une valeur par défaut en champ caché. Corrections mineures diverses dans la validation JavaScript. Corrige le ticket #2008296. (CG 66)
+------------------------------------------------------------------------
+r10314 | cbuffin | 2017-05-09 14:33:18 +0200 (mar. 09 mai 2017) | 1 ligne
+
+Corrections: à présent dans la liste des CUI d'un allocataire, la date de fin de suspension est correcte; de même, dans la page de résumé d'un dossier RSA, la date de rupture d'un CUI est à présent indiquée correctement. Clôture le ticket #2008297. (CG 66)
+------------------------------------------------------------------------
+r10313 | cbuffin | 2017-05-09 10:34:47 +0200 (mar. 09 mai 2017) | 1 ligne
+
+Correction: ajout de la clé de configuration "Module.Fluxcnaf.enabled" dans le webrsa.inc, permettant de faire apparaître ou non dans le menu "Administration" le sous-menu "Flux CNAF" qui ne sert qu'aux développeurs car ces écrans présentent le format technique des flux CNAF. Cette fonctionnalité est désactivée par défaut. En lien avec le ticket #2008270. (CG 93)
+------------------------------------------------------------------------
+r10312 | cbuffin | 2017-05-09 10:34:40 +0200 (mar. 09 mai 2017) | 1 ligne
+
+Correction: ajout de la clé de configuration "Module.Fluxcnaf.enabled" dans le webrsa.inc, permettant de faire apparaître ou non dans le menu "Administration" le sous-menu "Flux CNAF" qui ne sert qu'aux développeurs car ces écrans présentent le format technique des flux CNAF. Cette fonctionnalité est désactivée par défaut. En lien avec le ticket #2008270. (CG 93)
+------------------------------------------------------------------------
+
+************************************************************************
+ Version 3.2.0-rc.1
+************************************************************************
+
+r10311 | cbuffin | 2017-05-03 11:54:27 +0200 (mer. 03 mai 2017) | 1 ligne
+
+Version 3.2.0 rc 1
+------------------------------------------------------------------------
+r10310 | cbuffin | 2017-05-03 11:53:28 +0200 (mer. 03 mai 2017) | 1 ligne
+
+Version 3.2.0 rc 1
+------------------------------------------------------------------------
+r10309 | cbuffin | 2017-05-03 11:26:22 +0200 (mer. 03 mai 2017) | 1 ligne
+
+Nettoyage du code: simplification et modernisation du code du module PDO pour les départements autres que le CD 66.
+------------------------------------------------------------------------
+r10308 | cbuffin | 2017-05-03 11:22:22 +0200 (mer. 03 mai 2017) | 1 ligne
+
+Nettoyage du code: ajout d'un shell permettant de trouver les tables du module PDO/PCG qui ne sont utilisées par aucun des départements.
+------------------------------------------------------------------------
+r10307 | cbuffin | 2017-05-02 14:24:33 +0200 (mar. 02 mai 2017) | 1 ligne
+
+Modification de la version minimale de CakePHP à utiliser (2.9.8 à la place de 2.9.7).
+------------------------------------------------------------------------
+r10306 | cbuffin | 2017-05-02 14:13:57 +0200 (mar. 02 mai 2017) | 1 ligne
+
+Amélioration: améliorations mineures de l'écran « Mot de passe oublié »
+------------------------------------------------------------------------
+r10305 | cbuffin | 2017-04-28 15:56:34 +0200 (ven. 28 avril 2017) | 1 ligne
+
+Amélioration: simplification des positions du CER. Permet de clôturer le ticket #2007701. (CG 66)
+------------------------------------------------------------------------
+r10304 | cbuffin | 2017-04-28 11:02:10 +0200 (ven. 28 avril 2017) | 1 ligne
+
+Correction: suppression du CAST en type_positionbilan lors de la mise à jour de la position du bilan de parcours du CD 66. Corrige le ticket #2008154. (CG 66)
+------------------------------------------------------------------------
+r10303 | cbuffin | 2017-04-28 10:39:48 +0200 (ven. 28 avril 2017) | 1 ligne
+
+Correction: remplacement de l'utilisation de la classe utilitaire String par l'utilisation du TextHelper dans la liste des mémos d'un allocataire. En lien avec le ticket #2008154. (CG 66)
+------------------------------------------------------------------------
+r10302 | cbuffin | 2017-04-27 16:18:24 +0200 (jeu. 27 avril 2017) | 1 ligne
+
+Correction: à présent, dans les tableaux de bord, le nombre de résultats s'affiche pour URL dont les contrôleurs ont un "_" dans le nom (ex. "Gestion de listes" > "Fiches de candidature" > "Fiches en attente","Gestion de listes" > "Fiches de candidature" > "Fiches en cours", "Recherches" > "Par Fiches de candidature", ...). En lien avec le ticket #2008077. (CG 66)
+------------------------------------------------------------------------
+r10301 | cbuffin | 2017-04-27 16:18:17 +0200 (jeu. 27 avril 2017) | 1 ligne
+
+Correction: à présent, dans les tableaux de bord, le nombre de résultats s'affiche pour URL dont les contrôleurs ont un "_" dans le nom (ex. "Gestion de listes" > "Fiches de candidature" > "Fiches en attente","Gestion de listes" > "Fiches de candidature" > "Fiches en cours", "Recherches" > "Par Fiches de candidature", ...). En lien avec le ticket #2008077. (CG 66)
+------------------------------------------------------------------------
+r10300 | cbuffin | 2017-04-27 11:33:55 +0200 (jeu. 27 avril 2017) | 1 ligne
+
+Correction: à présent, dans la liste des CER d'un allocataire, le motif d'annulation est bien présent dans l'infobulle. Corrige le ticket #2007703. (CG 66)
+------------------------------------------------------------------------
+r10299 | cbuffin | 2017-04-27 11:33:50 +0200 (jeu. 27 avril 2017) | 1 ligne
+
+Correction: à présent, dans la liste des CER d'un allocataire, le motif d'annulation est bien présent dans l'infobulle. Corrige le ticket #2007703. (CG 66)
+------------------------------------------------------------------------
+r10298 | cbuffin | 2017-04-25 17:27:15 +0200 (mar. 25 avril 2017) | 1 ligne
+
+Amélioration: refonte de la liste des fiches de candidature d'un allocataire, ajout de la raison de l'annulation en infobulle. Clôture le ticket #2008065. (CG 66)
+------------------------------------------------------------------------
+r10297 | cbuffin | 2017-04-25 17:08:24 +0200 (mar. 25 avril 2017) | 1 ligne
+
+Amélioration: refonte de la liste des fiches de candidature d'un allocataire, ajout de la raison de l'annulation en infobulle. Clôture le ticket #2008065. (CG 66)
+------------------------------------------------------------------------
+r10296 | cbuffin | 2017-04-24 17:40:29 +0200 (lun. 24 avril 2017) | 1 ligne
+
+Corrections: corrections mineures sur le module PDO/PCG, utilisation des méthodes DesactivableBehavior::findForTraitement et DesactivableBehavior::findForRecherche. En lien avec le ticket #2006764 . (CG 66)
+------------------------------------------------------------------------
+r10295 | cbuffin | 2017-04-24 14:13:39 +0200 (lun. 24 avril 2017) | 1 ligne
+
+Améliorations: à présent, le nom du pole apparait toujours dans la colonne "Gestionnaire du dossier" de la liste des dossiers PCG d'un foyer s'il exite, indépendamment du fait qu'il existe ou non un gestionnaire (utilisateur). Par ailleurs, le champ du formulaire utilisateur permettant de choisir le pole PCG auquel l'utilisateur appartient est à présent une liste déroulante pour améliorer la clarté de cette partie du formulaire. En lien avec le ticket #2006764 . (CG 66)
+------------------------------------------------------------------------
+r10294 | cbuffin | 2017-04-24 11:54:31 +0200 (lun. 24 avril 2017) | 1 ligne
+
+Nettoyage du code: déplacement de la configuration des organismes pour lesquels il faut automatiquement créer un dossier PCG en cas de transmission depuis le fichier webrsa.inc vers la table de paramétrage des organismes auxquels seront transmis les dossiers PCG traités. En lien avec le ticket #. (CG 66)
+------------------------------------------------------------------------
+r10293 | cbuffin | 2017-04-21 16:26:24 +0200 (ven. 21 avril 2017) | 1 ligne
+
+Amélioration: modification du paramétrage des pôles PCG afin que le système à 3 poles fonctionne lors de la génération automatique d'un dossier PCG. En lien avec le ticket #2006764 . (CG 66)
+------------------------------------------------------------------------
+r10292 | cbuffin | 2017-04-21 15:59:50 +0200 (ven. 21 avril 2017) | 1 ligne
+
+Amélioration: ajout de la possibilité de rendre les origines et les types PDO actifs ou inactifs.
+------------------------------------------------------------------------
+r10291 | cbuffin | 2017-04-21 14:01:50 +0200 (ven. 21 avril 2017) | 1 ligne
+
+Corrections et améliorations, plugin Search: corrections des tests unitaires suite au passage en CakePHP 2.9.7, uniformisation du nom des classes afin qu'elles aient toutes le préfixe Search. Mise à jour de l'application avec utilisation des nouveaux noms de classes.
+------------------------------------------------------------------------
+r10290 | cbuffin | 2017-04-21 13:57:41 +0200 (ven. 21 avril 2017) | 1 ligne
+
+Corrections et améliorations, plugin Search: corrections des tests unitaires suite au passage en CakePHP 2.9.7, uniformisation du nom des classes afin qu'elles aient toutes le préfixe Search. Mise à jour de l'application avec utilisation des nouveaux noms de classes.
+------------------------------------------------------------------------
+r10289 | cbuffin | 2017-04-21 12:00:01 +0200 (ven. 21 avril 2017) | 1 ligne
+
+Amélioration: harmonisation des intitulés de pagination, possibilité d'utiliser les fichiers de traduction
+------------------------------------------------------------------------
+r10288 | cbuffin | 2017-04-21 10:31:42 +0200 (ven. 21 avril 2017) | 1 ligne
+
+Amélioration: modification des intitulés des boutons "Remise à zéro" en "Réinitialiser" afin d'harmoniser l'application. En lien avec le ticket #2006764.
+------------------------------------------------------------------------
+r10287 | cbuffin | 2017-04-21 10:16:08 +0200 (ven. 21 avril 2017) | 1 ligne
+
+Amélioarion: à présent, il est possible d'obtenir le nombre total d'enregistrements dans les paramétrages des utilisateurs. En lien avec le ticket #2006764.
+------------------------------------------------------------------------
+r10286 | cbuffin | 2017-04-21 10:09:30 +0200 (ven. 21 avril 2017) | 1 ligne
+
+Correction: à présent, la pagination fonctionne correctement, harmonisation du texte et indication du nombre de pages. En lien avec le ticket #2006764.
+------------------------------------------------------------------------
+r10285 | cbuffin | 2017-04-21 09:59:40 +0200 (ven. 21 avril 2017) | 1 ligne
+
+Correction: dans le paramétrage des décisions PDO, la modification d'un élément n'entraîne plus la création d'un doublon. En lien avec le ticket #2006764.
+------------------------------------------------------------------------
+r10284 | cbuffin | 2017-04-21 09:58:23 +0200 (ven. 21 avril 2017) | 1 ligne
+
+Correction: dans le paramétrage des origines PDO, la modification d'un élément n'entraîne plus la création d'un doublon. En lien avec le ticket #2006764.
+------------------------------------------------------------------------
+r10283 | cbuffin | 2017-04-18 17:08:11 +0200 (mar. 18 avril 2017) | 1 ligne
+
+Amélioration, plugin Password: ajout de la classe PasswordFactory et des tests unitaires associés. Utilisation de cette classe dans la page de mot de passe oublié. modification des fichiers de configuration par défaut de tous les départements pour prendre en compte la nouvelle façon de générer les mots de passe aléatoires.
+------------------------------------------------------------------------
+r10282 | cbuffin | 2017-04-18 15:45:20 +0200 (mar. 18 avril 2017) | 1 ligne
+
+Correction: à présent, dans l'écran de modification d'un utilisateur, le message d'erreur concernant un rattachement à un pôle PCG alors que l'utilisateur n'est pas gestionnaire n'apparaît que lorsque c'est nécessaire. En lien evec le ticket #2006764 (CD 66).
+------------------------------------------------------------------------
+r10281 | cbuffin | 2017-04-18 11:35:25 +0200 (mar. 18 avril 2017) | 1 ligne
+
+Mise à jour de la version minimale de CakePHP à 2.9.7 dans la vérification de l'application.
+------------------------------------------------------------------------
+r10280 | cbuffin | 2017-04-18 10:59:21 +0200 (mar. 18 avril 2017) | 1 ligne
+
+Amélioration: ajout de filtres concernant le pôle PCG dans le moteur de recherche par utilisateurs. En lien avec le ticket #2006764 (CD 66).
+------------------------------------------------------------------------
+r10279 | cbuffin | 2017-04-14 16:56:25 +0200 (ven. 14 avril 2017) | 11 lignes
+
+Correction: dans l'écran de modification d'un utilisateur, lorsque celui-ci n'est pas déclaré comme gestionnaire PDO mais est lié à un pôle PCG, la valeur du champ "Est-il gestionnaire, notamment pour les PDOs ?" passe à "Oui" et un message d'erreur est affiché en haut de la page. (CG 66)
+
+Correction: l'erreur silencieuse dans l'écran de "Transmission à l'organisme payeur" est à présent explicitée si le paramétrage du pôle PCG auquel est lié de dossier PCG ne comporte pas toutes les informations permettant d'en générer automatiquement un nouveau. (CG 66)
+
+Amélioration: les pôles PCG désactivés, leurs gestionnaires et les anciens gestionnaires apparaissent à présent dans les filtres des gestions de listes et des moteurs de recherche. Dans l'écran de modification d'un dossier PCG, les listes déroulantes "Pôle chargé du dossier" et "Gestionnaire du dossier (technicien en charge du dossier)" ne perdent plus leurs valeurs lorsqu'un pôle est désactivé ou que l'utilisateur est uniquement renseigné en tant qu'ancien gestionnaire. (CG 66)
+
+Amélioration: il est à présent possible de déclarer les anciens pôle PCG auxquel un utilisateur a appartenu par le passé. (CG 66)
+
+Amélioration de la vérification de l'application, partie "Données stockées en base", les erreurs sont beaucoup plus explicites pour chacun des enregistrements en erreur (tous départements).
+
+En lien avec le ticket #2006764 (CD 66).
+------------------------------------------------------------------------
+r10278 | cbuffin | 2017-04-14 03:32:41 +0200 (ven. 14 avril 2017) | 1 ligne
+
+Suite des développements, plugin Password: refactorisation des classes utilitaires PasswordPassword et PasswordAnssi, ajout de la fonction utilitaire mb_str_shuffle, correction et ajouts de tests unitaires, ajout de documentation dans le fichier README.md.
+------------------------------------------------------------------------
+r10277 | cbuffin | 2017-04-13 10:18:05 +0200 (jeu. 13 avril 2017) | 1 ligne
+
+Amélioration: suppression de la classe PasswordComponent au profit de la classe PasswordPassword du plugin Password pour générer un mot de passe aléatoire lors de l'utilisation de la méthode UsersController::forgottenpass.
+------------------------------------------------------------------------
+r10276 | cbuffin | 2017-04-12 13:54:32 +0200 (mer. 12 avril 2017) | 1 ligne
+
+Nettoyage du code, plugin Password: renommage de la classe PasswordPassword en PasswordAnssi.
+------------------------------------------------------------------------
+r10275 | cbuffin | 2017-04-12 13:51:26 +0200 (mer. 12 avril 2017) | 1 ligne
+
+Suite des développements, plugin Password: amélioration de la gestion d'erreurs de la méthode PasswordPassword::generate, ajout de la fonction mb_str_split, ajout de tests unitaires.
+------------------------------------------------------------------------
+r10274 | cbuffin | 2017-04-12 09:23:14 +0200 (mer. 12 avril 2017) | 1 ligne
+
+Suite des développements, plugin Password: échappement des caractères dans la méthode permettant de dénombrer les symboles, ajout des méthodes PasswordPassword::possibles qui suivant une configuration renvoie les classes de caractères utilisables et de PasswordPassword::generate qui génère un mot de passe aléatoire, ajout des tests unitaires associés.
+------------------------------------------------------------------------
+r10273 | cbuffin | 2017-04-11 23:15:23 +0200 (mar. 11 avril 2017) | 1 ligne
+
+Suite des développements, plugin Password: ajout d'un seuil pour la force "très forte", de classes de caractères spéciaux, de tsts unitaires et de documentation.
+------------------------------------------------------------------------
+r10272 | cbuffin | 2017-04-11 17:29:45 +0200 (mar. 11 avril 2017) | 1 ligne
+
+Ajout du plugin Password permettant de vérifier la force des mots de passe.
+------------------------------------------------------------------------
+r10271 | cbuffin | 2017-04-11 11:52:48 +0200 (mar. 11 avril 2017) | 1 ligne
+
+Nettoyage du code suite au passage de PHP Code Sniffer.
+------------------------------------------------------------------------
+r10270 | cbuffin | 2017-04-10 09:39:20 +0200 (lun. 10 avril 2017) | 1 ligne
+
+Correction: dans le formulaire d'ajout / de modification d'une équipe pluridisciplinaire, les membres cochés n'étaient pas systématiquement renvoyés pour enregistrement en branche 3.2; amélioration, à présent, les champs de propres à l'EP sont vérifiés avant l'enregistrement des membres, ce qui fait que toutes les erreurs apparaissent lorsque l'on envoie un formulaire vide. Dans la liste des EP, le tri par défaut se fait à présent par "Identifiant EP", du plus récent vers le plus ancien.
+------------------------------------------------------------------------
+r10269 | cbuffin | 2017-04-07 16:43:32 +0200 (ven. 07 avril 2017) | 1 ligne
+
+Nettoyage du code: suppression des fichiers du répertoire app/webroot/js qui ne sont plus utilisés depuis longtemps, modification de la fonction de minification des fichiers javascript du fichier webrsa.js. Ajout de la fonction de validation Javascript notBlank suite au passage en CakePHP 2.9.7.
+------------------------------------------------------------------------
+r10268 | cbuffin | 2017-04-07 14:40:04 +0200 (ven. 07 avril 2017) | 1 ligne
+
+Documentation, plugin Gedooo: ajout de documentation au plugin Gedooo sous la forme d'un fichier README.md.
+------------------------------------------------------------------------
+r10267 | cbuffin | 2017-04-07 11:38:34 +0200 (ven. 07 avril 2017) | 1 ligne
+
+Amélioration: ajout des actions propres à certains départements dans le filtre des Acos pour les permissions (voir la variable de configuration Module.Permissions.all).
+------------------------------------------------------------------------
+r10266 | cbuffin | 2017-04-07 10:35:19 +0200 (ven. 07 avril 2017) | 1 ligne
+
+Nettoyage du code: suppression de la classe PrechargementsController et de la vue liée qui était déprécié depuis la version 3.0.0: le préchargement de l'application se fait depuis via le shell Prechargements..
+------------------------------------------------------------------------
+r10265 | cbuffin | 2017-04-06 09:27:17 +0200 (jeu. 06 avril 2017) | 1 ligne
+
+Correction: ajout de l'option "novalidate" à "true" lors de l'appel à la méthode *Form::create dans les vues et les helpers pour éviter la pseudo-validation HTML 5 suite au passage en CakePHP 2.9.7.
+------------------------------------------------------------------------
+r10264 | cbuffin | 2017-04-05 16:34:58 +0200 (mer. 05 avril 2017) | 1 ligne
+
+Correction: ajout de la traduction du message d'erreur Validate::notBlank (Champ obligatoire).
+------------------------------------------------------------------------
+r10263 | cbuffin | 2017-04-05 16:30:47 +0200 (mer. 05 avril 2017) | 1 ligne
+
+Amélioration, plugin Default: à présent, la méthode DefaultFormHelper::create aura la valeur "novalidate" à "false" dans les options.
+------------------------------------------------------------------------
+r10262 | cbuffin | 2017-04-05 16:14:46 +0200 (mer. 05 avril 2017) | 1 ligne
+
+Correction: mise à jour du code et des tests unitaires du plugin Default pour la version 2.9.7 de CakePHP.
+------------------------------------------------------------------------
+r10261 | cbuffin | 2017-04-05 14:35:40 +0200 (mer. 05 avril 2017) | 1 ligne
+
+Correction: remplacement des licenses erronées dans les en-têtes de fichiers.
+------------------------------------------------------------------------
+r10260 | cbuffin | 2017-04-05 14:34:09 +0200 (mer. 05 avril 2017) | 1 ligne
+
+Correction: remplacement des licenses erronées dans les en-têtes de fichiers.
+------------------------------------------------------------------------
+r10259 | cbuffin | 2017-04-05 14:31:59 +0200 (mer. 05 avril 2017) | 1 ligne
+
+Correction: remplacement des CAST...AS <type> par ::<type> dans le code SQL envoyé à CakePHP en version 2.9.7 pour éviter les erreurs SQL.
+------------------------------------------------------------------------
+r10258 | cbuffin | 2017-04-05 14:03:39 +0200 (mer. 05 avril 2017) | 1 ligne
+
+Correction: correction des dernières valeurs erronées des attributs aucunDroit et commeDroit des contrôleurs.
+------------------------------------------------------------------------
+r10257 | cbuffin | 2017-04-05 14:03:26 +0200 (mer. 05 avril 2017) | 1 ligne
+
+Correction: correction des dernières valeurs erronées des attributs aucunDroit et commeDroit des contrôleurs.
+------------------------------------------------------------------------
+r10256 | cbuffin | 2017-04-05 11:09:37 +0200 (mer. 05 avril 2017) | 1 ligne
+
+Correction: à présent la classe WebrsaPermissionsHelper qui affiche la liste des permissions pour les groupes et les utilisateurs se base sur les chemins des Acos plutôt que sur les intitulés, ce qui permet de ne perdre aucun Aco même si des intitulés sont en double.
+------------------------------------------------------------------------
+r10255 | cbuffin | 2017-04-05 11:09:30 +0200 (mer. 05 avril 2017) | 1 ligne
+
+Correction: à présent la classe WebrsaPermissionsHelper qui affiche la liste des permissions pour les groupes et les utilisateurs se base sur les chemins des Acos plutôt que sur les intitulés, ce qui permet de ne perdre aucun Aco même si des intitulés sont en double.
+------------------------------------------------------------------------
+r10254 | cbuffin | 2017-04-05 10:30:28 +0200 (mer. 05 avril 2017) | 1 ligne
+
+Renommage du shell DevelopmentParametragesCheckShell en DevelopmentCheckParametragesShell par souci de cohérence de nommage.
+------------------------------------------------------------------------
+r10253 | cbuffin | 2017-04-05 10:30:19 +0200 (mer. 05 avril 2017) | 1 ligne
+
+Renommage du shell DevelopmentParametragesCheckShell en DevelopmentCheckParametragesShell par souci de cohérence de nommage.
+------------------------------------------------------------------------
+r10252 | cbuffin | 2017-04-05 10:14:49 +0200 (mer. 05 avril 2017) | 1 ligne
+
+Amélioration: renommage du shell CheckDroitsController en DevelopmentCheckControllers, ajout de la vérification (message d'avertissement) que le contrôleur référencé dans l'attribut commeDroit soit le même que le contrôleur traité, ajout de couleurs dans les messages.
+------------------------------------------------------------------------
+r10251 | cbuffin | 2017-04-05 10:14:38 +0200 (mer. 05 avril 2017) | 1 ligne
+
+Amélioration: renommage du shell CheckDroitsController en DevelopmentCheckControllers, ajout de la vérification (message d'avertissement) que le contrôleur référencé dans l'attribut commeDroit soit le même que le contrôleur traité, ajout de couleurs dans les messages.
+------------------------------------------------------------------------
+r10250 | cbuffin | 2017-04-04 17:05:45 +0200 (mar. 04 avril 2017) | 1 ligne
+
+Passage en CakePHP 2.9.7: la clé 'action' des options de la méthode FormHelper::create étant dépréciée, il faut à prsent utiliser la clé 'url'.
+------------------------------------------------------------------------
+r10249 | cbuffin | 2017-04-04 15:47:10 +0200 (mar. 04 avril 2017) | 1 ligne
+
+Amélioration: migration des sources de l'application et des plugins en CakePHP version 2.9.7, première partie.
+------------------------------------------------------------------------
+r10248 | cbuffin | 2017-04-04 15:36:10 +0200 (mar. 04 avril 2017) | 1 ligne
+
+Amélioration: migration des sources de l'application et des plugins en CakePHP version 2.9.7, première partie.
+------------------------------------------------------------------------
+r10247 | cbuffin | 2017-04-04 11:23:31 +0200 (mar. 04 avril 2017) | 1 ligne
+
+Copie des sources de la future version 3.2.0 en révision #10245 dans la branche de sauvegarde de la future version 3.2.0 en CakePHP 2.2.4
+------------------------------------------------------------------------
+r10246 | cbuffin | 2017-04-04 11:23:09 +0200 (mar. 04 avril 2017) | 1 ligne
+
+Création d'une branche de sauvegarde de la future version 3.2.0 en CakePHP 2.2.4
+------------------------------------------------------------------------
+r10245 | cbuffin | 2017-04-04 11:22:03 +0200 (mar. 04 avril 2017) | 1 ligne
+
+Nettoyage du code: suppression du code propre au CD 93 des fiches de candidature du CD 66 (le CD 93 possède le module de fiches de prescription), suppression de la variable de configuration ActioncandidatPersonne.suffixe.
+------------------------------------------------------------------------
+r10244 | cbuffin | 2017-04-03 16:47:58 +0200 (lun. 03 avril 2017) | 1 ligne
+
+Améliorations: ajout du shell DevelopmentParametragesCheck qui parcourt les modèles de l'application et vérifie si le champ correspondant au displayField est NOT NULL en base de données et s'il possède un index unique, déplacement de règles NOT NULL et d'indexes uniques depuis les modèles de paramétrage de l'application vers la base de données.
+------------------------------------------------------------------------
+r10243 | cbuffin | 2017-04-03 13:19:22 +0200 (lun. 03 avril 2017) | 1 ligne
+
+Correction: ajout de la validation Javascript (si ValidationJS.enabled est à true dans le webrsa.inc) pour les écrans de paramétrages qui utilisent la vue Elements/WebrsaParametrages/add_edit.ctp.
+------------------------------------------------------------------------
+r10242 | cbuffin | 2017-04-03 13:09:19 +0200 (lun. 03 avril 2017) | 1 ligne
+
+Amélioration: ajout des noms des contrôleurs uniquement utilisés par le CD 66 dans la classe de modèle WebrsaAco.
+------------------------------------------------------------------------
+r10241 | cbuffin | 2017-04-03 10:14:25 +0200 (lun. 03 avril 2017) | 1 ligne
+
+Amélioration: suppression du code redondant permettant de récupérer via Ajax les coordonnées de la structure référente, du référent et du prescripteur actuellement factorisé dans la classe WebrsaAjaxInsertionsComponent et dans les vues Elements/WebrsaAjaxInsertions.
+------------------------------------------------------------------------
+r10240 | cbuffin | 2017-04-03 09:33:26 +0200 (lun. 03 avril 2017) | 1 ligne
+
+Message d'accès interdit à une page en français.
+------------------------------------------------------------------------
+r10239 | cbuffin | 2017-04-01 13:42:07 +0200 (sam. 01 avril 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des fiches de candidature du CD 66.
+------------------------------------------------------------------------
+r10238 | cbuffin | 2017-04-01 02:09:59 +0200 (sam. 01 avril 2017) | 1 ligne
+
+Correction du @license non défini dans les en-têtes de certains fichiers sources.
+------------------------------------------------------------------------
+r10237 | cbuffin | 2017-04-01 01:54:30 +0200 (sam. 01 avril 2017) | 1 ligne
+
+Amélioration: ajout de messages dans l'index de certains contrôleurs de paramétrages indiquant lorsqu'il est nécessaire d'avoir au moins un enregistrement dans un autre paramétrage. Suppression de vérifications dans la liste des paramétrages de l'application afin de ne plus cacher de lien en fonction d'autres enregistrements liés.
+------------------------------------------------------------------------
+r10236 | cbuffin | 2017-04-01 00:57:58 +0200 (sam. 01 avril 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des pièces manquantes pour les mails aux employeurs des CUI du CD 66, ajout de la classe de modèle et de règles de validation.
+------------------------------------------------------------------------
+r10235 | cbuffin | 2017-04-01 00:14:33 +0200 (sam. 01 avril 2017) | 1 ligne
+
+Correction: transformation de la fausse clé étrangère depuis tauxcgscuis66.typecontrat vers typescontratscuis66.id et création d'un index unique pour l'intitulé des types de contrats liés aux secteurs du CUI du CG 66
+------------------------------------------------------------------------
+r10234 | cbuffin | 2017-03-31 22:44:17 +0200 (ven. 31 mars 2017) | 1 ligne
+
+Nettoyage du code: suppression du code lié à la table tauxcgscuis qui a disparu en version 2.9.0.
+------------------------------------------------------------------------
+r10233 | cbuffin | 2017-03-31 21:51:14 +0200 (ven. 31 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des taux de prise en charge du CUI du CD 66, ajout de traductions et de protections contre les suppressions intempestives.
+------------------------------------------------------------------------
+r10232 | cbuffin | 2017-03-31 17:33:23 +0200 (ven. 31 mars 2017) | 1 ligne
+
+Correction: suppression de la prise en compte de la valeur de retour de la méthode afterSave des modèles car elle est toujours considérée comme NULL, ce qui empêchait la mise à jour des positions du CER après un enregistrement réussi au CG 66.
+------------------------------------------------------------------------
+r10231 | cbuffin | 2017-03-31 17:33:11 +0200 (ven. 31 mars 2017) | 1 ligne
+
+Correction: suppression de la prise en compte de la valeur de retour de la méthode afterSave des modèles car elle est toujours considérée comme NULL, ce qui empêchait la mise à jour des positions du CER après un enregistrement réussi au CG 66.
+------------------------------------------------------------------------
+
+************************************************************************
+ Version 3.1.9
+************************************************************************
+
+r10230 | cbuffin | 2017-03-31 13:42:27 +0200 (ven. 31 mars 2017) | 1 ligne
+
+Patch correctif 3.1.9
+------------------------------------------------------------------------
+r10229 | cbuffin | 2017-03-31 13:42:01 +0200 (ven. 31 mars 2017) | 1 ligne
+
+Patch correctif 3.1.9
+------------------------------------------------------------------------
+r10228 | cbuffin | 2017-03-30 17:09:42 +0200 (jeu. 30 mars 2017) | 1 ligne
+
+Correction: dans le tableau "Indicateurs de natures des actions des contrats" des statistiques ministérielles, si on utilisait l'optimisation "Statistiquesministerielles.indicateurs_natures_contrats.optim", on avait une erreur 500.
+------------------------------------------------------------------------
+r10227 | cbuffin | 2017-03-30 17:09:34 +0200 (jeu. 30 mars 2017) | 1 ligne
+
+Correction: dans le tableau "Indicateurs de natures des actions des contrats" des statistiques ministérielles, si on utilisait l'optimisation "Statistiquesministerielles.indicateurs_natures_contrats.optim", on avait une erreur 500.
+------------------------------------------------------------------------
+r10226 | cbuffin | 2017-03-30 16:36:30 +0200 (jeu. 30 mars 2017) | 1 ligne
+
+Correction: dans l'écran de "Gestion des dossiers d'EP suppressibles", la vérification des permissions du lien vers la dernière commission d'EP étaient erronée.
+------------------------------------------------------------------------
+r10225 | cbuffin | 2017-03-30 16:36:21 +0200 (jeu. 30 mars 2017) | 1 ligne
+
+Correction: dans l'écran de "Gestion des dossiers d'EP suppressibles", la vérification des permissions du lien vers la dernière commission d'EP étaient erronée.
+------------------------------------------------------------------------
+r10224 | cbuffin | 2017-03-30 16:20:37 +0200 (jeu. 30 mars 2017) | 1 ligne
+
+Ajout du titre "Résultats de la recherche" à l'écran de paramétrage des membres des EP.
+------------------------------------------------------------------------
+r10223 | cbuffin | 2017-03-30 16:18:59 +0200 (jeu. 30 mars 2017) | 1 ligne
+
+Suppression de la mention " (nouveau)" des intitulés des nouveaux moteurs de recherche et de cohorte.
+------------------------------------------------------------------------
+r10222 | cbuffin | 2017-03-30 15:20:18 +0200 (jeu. 30 mars 2017) | 1 ligne
+
+Correction: à présent, le formulaire d'ajout d'un service dans le paramétrage du CD 66 aura la case "actif" cochée par défaut lors d'un ajout.
+------------------------------------------------------------------------
+r10221 | cbuffin | 2017-03-30 15:05:55 +0200 (jeu. 30 mars 2017) | 1 ligne
+
+Amélioration: ajout du shell DatabaseWordsSearch qui permet de chercher des mots dans tous les champs texte de la base de données.
+------------------------------------------------------------------------
+r10220 | cbuffin | 2017-03-30 12:00:38 +0200 (jeu. 30 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage du module de fiches de liaison du CD 66, ajout de contraintes NOT NULL aux champs name de ces tables, suppression de la classe AbstractParametragesController.
+------------------------------------------------------------------------
+r10219 | cbuffin | 2017-03-30 10:39:03 +0200 (jeu. 30 mars 2017) | 1 ligne
+
+Corrections: à présent, les classes de contrôleurs qui étendent la classe AbstractWebrsaParametragesController ne font plus appel à la méthode parente mais à la classe WebrsaParametragesComponent.
+------------------------------------------------------------------------
+r10218 | cbuffin | 2017-03-30 10:31:44 +0200 (jeu. 30 mars 2017) | 1 ligne
+
+Corrections: la valeur d'"Actif" sera à true pour les paramétrages du CUI du CD 66, comme c'était le cas en branche 3.1.
+------------------------------------------------------------------------
+r10217 | cbuffin | 2017-03-29 17:29:19 +0200 (mer. 29 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des CUI du CG 66.
+------------------------------------------------------------------------
+r10216 | cbuffin | 2017-03-29 13:49:46 +0200 (mer. 29 mars 2017) | 1 ligne
+
+Correction: le paramétrage des "Types de traitements PDO" est accessible à tous les départements, hormis le CG 66.
+------------------------------------------------------------------------
+r10215 | cbuffin | 2017-03-29 11:43:55 +0200 (mer. 29 mars 2017) | 1 ligne
+
+Modification d'intitulés concernant les tags dans la partie paramétrages.
+------------------------------------------------------------------------
+r10214 | cbuffin | 2017-03-28 17:24:22 +0200 (mar. 28 mars 2017) | 1 ligne
+
+Amélioration: suite du nettoyage des paramétrages de l'application.
+------------------------------------------------------------------------
+r10213 | cbuffin | 2017-03-28 13:59:56 +0200 (mar. 28 mars 2017) | 1 ligne
+
+Amélioration: suite du nettoyage des paramétrages de l'application.
+------------------------------------------------------------------------
+r10212 | cbuffin | 2017-03-28 11:00:20 +0200 (mar. 28 mars 2017) | 1 ligne
+
+Amélioration: suite du nettoyage des paramétrages de l'application.
+------------------------------------------------------------------------
+r10211 | cbuffin | 2017-03-27 18:00:47 +0200 (lun. 27 mars 2017) | 1 ligne
+
+Amélioration: suite du nettoyage des paramétrages de l'application.
+------------------------------------------------------------------------
+r10210 | cbuffin | 2017-03-27 15:27:12 +0200 (lun. 27 mars 2017) | 1 ligne
+
+Amélioration: nettoyage du paramétrage de l'application.
+------------------------------------------------------------------------
+r10209 | cbuffin | 2017-03-24 09:39:32 +0100 (ven. 24 mars 2017) | 1 ligne
+
+Amélioration: nettoyage du code des paramétrages des APRE/ADRE du CD 66.
+------------------------------------------------------------------------
+r10208 | cbuffin | 2017-03-24 00:14:37 +0100 (ven. 24 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des CER du CD 93, ajout de traductions et de protections contre les suppressions intempestives.
+------------------------------------------------------------------------
+r10207 | cbuffin | 2017-03-23 15:32:32 +0100 (jeu. 23 mars 2017) | 1 ligne
+
+Correction: ajout de l'attribut blackist à la classe CompositionsregroupementsepsController pour éviter un passage de paramètre avec un mauvais type (CD 66).
+------------------------------------------------------------------------
+r10206 | cbuffin | 2017-03-23 11:38:04 +0100 (jeu. 23 mars 2017) | 1 ligne
+
+Correction: à l'ajout d'un utilisateur, le champ "Pôle lié au gestionnaire" n'apparait que si la valeur "Oui" est choisie pour le champ "Est-il gestionnaire, notamment pour les PDOs ?", comme c'est le cas pour la modification d'un utilisateur (CD 66).
+------------------------------------------------------------------------
+r10205 | cbuffin | 2017-03-23 11:37:52 +0100 (jeu. 23 mars 2017) | 1 ligne
+
+Correction: à l'ajout d'un utilisateur, le champ "Pôle lié au gestionnaire" n'apparait que si la valeur "Oui" est choisie pour le champ "Est-il gestionnaire, notamment pour les PDOs ?", comme c'est le cas pour la modification d'un utilisateur (CD 66).
+------------------------------------------------------------------------
+r10204 | cbuffin | 2017-03-22 13:33:25 +0100 (mer. 22 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des APRE CD 93, ajout de traductions et de protections contre les suppressions intempestives. ajout de la possibilité de passer un paramètre en plus aux méthodes WebrsaParametragesComponent::add et WebrsaParametragesComponent::edit, method, qui permet de spécifier si on veut traiter un enregistrement ou un ensemble d'enregistrements.Correction d'intitulés.
+------------------------------------------------------------------------
+r10203 | cbuffin | 2017-03-21 10:32:24 +0100 (mar. 21 mars 2017) | 1 ligne
+
+Amélioration: modification du script bash permettant d'extraire des dossiers des flux XML CAF (app/Doc/scripts/rcv_export_dossier.sh). Meilleures performances, utilisation de la commande xmllint à la place de la commande xpath, possibilité d'extraire des dossiers au moyen d'un autre chemin xpath que /Racine/InfosFoyerRSA/IdentificationRSA/DemandeRSA/NUMDEMRSA, amélioration du descriptif du script, ajout d'exemples.
+------------------------------------------------------------------------
+r10202 | cbuffin | 2017-03-21 10:31:50 +0100 (mar. 21 mars 2017) | 1 ligne
+
+Amélioration: modification du script bash permettant d'extraire des dossiers des flux XML CAF (app/Doc/scripts/rcv_export_dossier.sh). Meilleures performances, utilisation de la commande xmllint à la place de la commande xpath, possibilité d'extraire des dossiers au moyen d'un autre chemin xpath que /Racine/InfosFoyerRSA/IdentificationRSA/DemandeRSA/NUMDEMRSA, amélioration du descriptif du script, ajout d'exemples.
+------------------------------------------------------------------------
+r10201 | cbuffin | 2017-03-21 01:15:48 +0100 (mar. 21 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des APRE/ADRE du CD 66 et des tiers prestataires de l'APRE du CD 93, ajout de traductions et de protections contre les suppressions intempestives. Ajout d'une méthode apres dans la classe ParametragesController. Modification de la classe WebrsaParametragesComponent pour lui permettre d'avoir la blacklist du contrôleur par défaut dans les paramètres de la méthode index.
+------------------------------------------------------------------------
+r10200 | cbuffin | 2017-03-17 16:42:19 +0100 (ven. 17 mars 2017) | 1 ligne
+
+Correction: à présent, le script bash permettant d'extraire les donnée d'un dossier RSA à partir des flux CAF  (app/Doc/scripts/rcv_export_dossier.sh) utilise le binaire xmllint plutôt que xpath, ce qui fonctionne beaucoup mieux meme sur de gros fichiers.
+------------------------------------------------------------------------
+r10199 | cbuffin | 2017-03-17 16:41:56 +0100 (ven. 17 mars 2017) | 1 ligne
+
+Correction: à présent, le script bash permettant d'extraire les donnée d'un dossier RSA à partir des flux CAF  (app/Doc/scripts/rcv_export_dossier.sh) utilise le binaire xmllint plutôt que xpath, ce qui fonctionne beaucoup mieux meme sur de gros fichiers.
+------------------------------------------------------------------------
+r10198 | cbuffin | 2017-03-16 15:59:55 +0100 (jeu. 16 mars 2017) | 1 ligne
+
+Amélioration, plugin Gedooo: ajout de la possibilité de filtrer les variables envoyées à la fusion avec le modèle de document odt (Gedooo. dans le webrsa.inc), ajout d'un script bash (app/Plugin/Gedooo/Doc/scripts/pdfs_compare.sh) permettant de comparer le rendu de deux fichiers PDF. Corrige le ticket #2006735 (CD 66).
+------------------------------------------------------------------------
+r10197 | cbuffin | 2017-03-16 15:58:48 +0100 (jeu. 16 mars 2017) | 1 ligne
+
+Amélioration, plugin Gedooo: ajout de la possibilité de filtrer les variables envoyées à la fusion avec le modèle de document odt (Gedooo. dans le webrsa.inc), ajout d'un script bash (app/Plugin/Gedooo/Doc/scripts/pdfs_compare.sh) permettant de comparer le rendu de deux fichiers PDF. Corrige le ticket #2006735 (CD 66).
+------------------------------------------------------------------------
+r10196 | cbuffin | 2017-03-16 00:53:07 +0100 (jeu. 16 mars 2017) | 1 ligne
+
+Améliorations: transformation des champs "type de voie" des tables métier membreseps, partenaires, permanences, servicesinstructeurs, structuresreferentes, tiersprestatairesapres et users d'abbréviations en mots complets. Nettoyage du code des utilisations de Option::typevoie(), dépréciation de cette méthode, ajout de la méthode Option::libtypevoie() qui permet d'obtenir la liste de valeurs remplir les listes déroulantes, utilisation de cette méthode dans la méthode enums() des modèles concernés. Modernisation du paramétrage des membres de l'EP, des EP et des tiers prestatires de l'APRE (CD 93), ajout de contrôles pour éviter la suppression en cascade..
+------------------------------------------------------------------------
+r10195 | cbuffin | 2017-03-11 08:58:29 +0100 (sam. 11 mars 2017) | 1 ligne
+
+Amélioration: factorisation des méthodes permetttant d'obtenir, via des appels Ajax, les coordonnées d'une structure référente ou d'un référent via des appels Ajax depuis certains formulaires de l'application via l'utilisation de la classe  WebrsaAjaxInsertionsComponent et des éléments (vues) associés. Ajout de la possibilité de désactiver cette fonctionnalité pour la tester durant le développement via la variable de configuration WebrsaAjaxInsertionsComponent.disabled.
+------------------------------------------------------------------------
+r10194 | cbuffin | 2017-03-11 08:52:23 +0100 (sam. 11 mars 2017) | 1 ligne
+
+Paramétrage: activation par défaut du module de synthèse des droit (Administration > Habilitations > Synthèse)s dans le webrsa.inc (Module.Synthesedroits.enabled) pour l'ensemble des départements.
+------------------------------------------------------------------------
+r10193 | cbuffin | 2017-03-08 14:11:31 +0100 (mer. 08 mars 2017) | 1 ligne
+
+Correction: suppression de l'ajout automatique de règles de validation pour les champs datetime du modèle PDF afin d'éviter des erreurs lors de la modification d'un enregistrement.
+------------------------------------------------------------------------
+r10192 | cbuffin | 2017-03-06 16:50:06 +0100 (lun. 06 mars 2017) | 1 ligne
+
+Amélioration: ajout de règles de validation concernant les contraintes d'unicité sur plusieurs champs dans le paramétrage des codes ROME v3.
+------------------------------------------------------------------------
+r10191 | cbuffin | 2017-03-05 18:56:20 +0100 (dim. 05 mars 2017) | 1 ligne
+
+Amélioration: factorisation partielle (jusqu'au module PDO/PCG du CG 66) des vues de paramétrages modernisées (et couverts par les tests fonctionnels automatisés) via les éléments WebrsaParametrages/index et WebrsaParametrages/add_edit.
+------------------------------------------------------------------------
+r10190 | cbuffin | 2017-03-05 18:53:34 +0100 (dim. 05 mars 2017) | 1 ligne
+
+Amélioration: factorisation des contrôleurs de paramétrages modernisés (et couverts par les tests fonctionnels automatisés) via la classe AbstractWebrsaParametragesController.
+------------------------------------------------------------------------
+r10189 | cbuffin | 2017-03-03 17:32:15 +0100 (ven. 03 mars 2017) | 1 ligne
+
+Amélioration: ajout de vérifications d'unicité (pour éviter l'erreur d'indexes uniques venant de la base de données) pour les thématiques, catégories et filières du module "fiche de prescription" (CG 93).
+------------------------------------------------------------------------
+r10188 | cbuffin | 2017-03-03 15:48:46 +0100 (ven. 03 mars 2017) | 1 ligne
+
+Correction: les variables contenant des retours à la ligne envoyées pour être fusionnées dans un modèle de document en vue de l'impression avec Gedooo devraient être correctement rendues. Un paramètre de configuration (Gedooo.dont_force_newlines) a été ajouté pour désactiver le correctif si besoin. Mise à jour de la documentation de la configuration de Gedooo dans les fichiers app/Config/webrsa.cgXXX.inc.default Devrait corriger le ticket #2006549 (CG 66).
+------------------------------------------------------------------------
+r10187 | cbuffin | 2017-03-03 15:46:57 +0100 (ven. 03 mars 2017) | 1 ligne
+
+Correction: les variables contenant des retours à la ligne envoyées pour être fusionnées dans un modèle de document en vue de l'impression avec Gedooo devraient être correctement rendues. Un paramètre de configuration (Gedooo.dont_force_newlines) a été ajouté pour désactiver le correctif si besoin. Mise à jour de la documentation de la configuration de Gedooo dans les fichiers app/Config/webrsa.cgXXX.inc.default Devrait corriger le ticket #2006549 (CG 66).
+------------------------------------------------------------------------
+r10186 | cbuffin | 2017-03-02 11:45:13 +0100 (jeu. 02 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des codes ROME pour les secteurs et des codes ROME pour les métiers des paramétrages des DSP, ajout de protection contre les suppressions intempestives en cascade, utilisation des fichiers de traduction (CG 66).
+------------------------------------------------------------------------
+r10185 | cbuffin | 2017-03-02 10:16:34 +0100 (jeu. 02 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des courriers pour les traitements PDO et des zones de commentaires supplémentaires pour les courriers de traitements PDO du module PDO, ajout de protection contre les suppressions intempestives en cascade, utilisation des fichiers de traduction (CG 66).
+------------------------------------------------------------------------
+r10184 | cbuffin | 2017-03-01 17:19:40 +0100 (mer. 01 mars 2017) | 1 ligne
+
+Amélioration: modification du message de confirmation de suppression du paramétrage des questions PCG du module PDO (CG 66).
+------------------------------------------------------------------------
+r10183 | cbuffin | 2017-03-01 15:11:08 +0100 (mer. 01 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des questions PCG du module PDO, ajout d'une protection contre la suppression en cascade, utilisation des fichiers de traductions (CG 66).
+------------------------------------------------------------------------
+r10182 | cbuffin | 2017-03-01 14:32:29 +0100 (mer. 01 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des décisions PCG du module PDO, correction de l'activation/désactivation qui ne fonctionnait plus, ajout d'une protection contre la suppression en cascade, utilisation des fichiers de traductions (CG 66).
+------------------------------------------------------------------------
+r10181 | cbuffin | 2017-03-01 14:09:53 +0100 (mer. 01 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des compositions de foyers PCG du module PDO, correction de l'activation/désactivation qui ne fonctionnait plus, déplacement de la liste des éléments de paramétrages des décisions de dossiers PCG dans le module parametrages, utilisation des fichiers de traductions (CG 66).
+------------------------------------------------------------------------
+r10180 | cbuffin | 2017-03-01 13:00:32 +0100 (mer. 01 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des organismes auxquels seront transmis les dossiers PCG traités du module PDO, utilisation des fichiers de traductions (CG 66).
+------------------------------------------------------------------------
+r10179 | cbuffin | 2017-03-01 11:37:42 +0100 (mer. 01 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des pôles chargés des dossiers PCG du module PDO, utilisation des fichiers de traductions (CG 66).
+------------------------------------------------------------------------
+r10178 | cbuffin | 2017-03-01 09:49:04 +0100 (mer. 01 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des types de RSA du module PDO, utilisation des fichiers de traductions (CG 66).
+------------------------------------------------------------------------
+r10177 | cbuffin | 2017-03-01 00:01:00 +0100 (mer. 01 mars 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des sites COV, utilisation des fichiers de traductions, protection contre les suppressions en cascade (CG 58).
+------------------------------------------------------------------------
+r10176 | cbuffin | 2017-02-28 17:50:49 +0100 (mar. 28 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage du paramétrage des sanctions des EP, utilisation des fichiers de traductions, protection contre les suppressions en cascade, déplacement du module de liste des sanctions EP dans la partie "Équipes pluridisciplinaires" des paramétrages (CG 58).
+------------------------------------------------------------------------
+r10175 | cbuffin | 2017-02-28 14:27:35 +0100 (mar. 28 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage du module de passages en commission des rendez-vous, utilisation des fichiers de traductions.
+------------------------------------------------------------------------
+r10174 | cbuffin | 2017-02-28 10:40:46 +0100 (mar. 28 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage du module de courriers PCG et des pièces liées aux modèles de courriers PCG, utilisation des fichiers de traductions.
+------------------------------------------------------------------------
+r10173 | cbuffin | 2017-02-28 10:10:52 +0100 (mar. 28 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage du module de courriers PCG et des modèles liés aux types de courriers PCG, utilisation des fichiers de traductions.
+------------------------------------------------------------------------
+r10172 | cbuffin | 2017-02-27 17:33:46 +0100 (lun. 27 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage du module de courriers PCG et des types de courriers PCG, utilisation des fichiers de traductions.
+------------------------------------------------------------------------
+r10171 | cbuffin | 2017-02-27 17:32:08 +0100 (lun. 27 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage du module de courriers PCG et des types de courriers PCG, utilisation des fichiers de traductions.
+------------------------------------------------------------------------
+r10170 | cbuffin | 2017-02-27 16:31:39 +0100 (lun. 27 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des cantons, utilisation des fichiers de traductions.
+------------------------------------------------------------------------
+r10169 | cbuffin | 2017-02-27 16:13:59 +0100 (lun. 27 févr. 2017) | 1 ligne
+
+Correction: on évite une erreur 500 dans la classe OccurencesBehavior lorsqu'il n'existe pas de table liée.
+------------------------------------------------------------------------
+r10168 | cbuffin | 2017-02-27 16:13:42 +0100 (lun. 27 févr. 2017) | 1 ligne
+
+Correction: on évite une erreur 500 dans la classe OccurencesBehavior lorsqu'il n'existe pas de table liée.
+------------------------------------------------------------------------
+r10167 | cbuffin | 2017-02-27 14:24:43 +0100 (lun. 27 févr. 2017) | 1 ligne
+
+Modification d'un intitulé dans la partie de paramétrage des codes ROME v3.
+------------------------------------------------------------------------
+r10166 | cbuffin | 2017-02-27 13:36:18 +0100 (lun. 27 févr. 2017) | 1 ligne
+
+Amélioration: à présent dans le paramétrage des fonctions des membres de l'EP et des regroupements de l'EP, les enregistrements sont suppressibles s'ils n'ont aucun enregistrement lié ou si les enregistrements liés sont uniquement dans les compositions des regroupements des EP.
+------------------------------------------------------------------------
+r10165 | cbuffin | 2017-02-27 13:35:01 +0100 (lun. 27 févr. 2017) | 1 ligne
+
+Amélioration: Amélioration: modernisation du paramétrage des compositions des regroupements des EP, utilisation des fichiers de traductions.
+------------------------------------------------------------------------
+r10164 | cbuffin | 2017-02-27 10:28:15 +0100 (lun. 27 févr. 2017) | 1 ligne
+
+Amélioration: ajout des colonnes "Type par défaut d'un dossier PCG venant d'une EP ?" et "Valeur par défaut lors de la génération depuis un CER Particulier ?" dans l'index du paramétrage des types de PDO pour le CG 66.
+------------------------------------------------------------------------
+r10163 | cbuffin | 2017-02-27 09:42:50 +0100 (lun. 27 févr. 2017) | 1 ligne
+
+Correction, plugin Validation2: la méthode de validation Validation2RulesComparisonBehavior::greaterThanIfNotZero vérifie correctement que la valeur soit supérieur à la valeur de référence uniquement si la valeur est différente de 0.
+------------------------------------------------------------------------
+r10162 | cbuffin | 2017-02-24 16:06:47 +0100 (ven. 24 févr. 2017) | 1 ligne
+
+Correction: dans le paramétrage des référents, il faut pouvoir supprimer un référent lorsqu'il ne possède d'entrées liées que dans la table derniersreferents.
+------------------------------------------------------------------------
+r10161 | cbuffin | 2017-02-24 14:13:07 +0100 (ven. 24 févr. 2017) | 1 ligne
+
+Amélioration: dans le paramétrage des structures référentes, lorsque les types d'orientation ont un parent, les listes déroulantes de types d'orientations ont un optgroup.
+------------------------------------------------------------------------
+r10160 | cbuffin | 2017-02-23 11:24:29 +0100 (jeu. 23 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des types de PDO, utilisation de la classe WebrsaParametragesComponent.
+------------------------------------------------------------------------
+r10159 | cbuffin | 2017-02-23 11:08:53 +0100 (jeu. 23 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des types de traitements PDO, utilisation de la classe WebrsaParametragesComponent.
+------------------------------------------------------------------------
+r10158 | cbuffin | 2017-02-23 10:51:05 +0100 (jeu. 23 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des types de notifications PDO, utilisation de la classe WebrsaParametragesComponent.
+------------------------------------------------------------------------
+r10157 | cbuffin | 2017-02-23 09:31:07 +0100 (jeu. 23 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des statuts PDO, utilisation de la classe WebrsaParametragesComponent.
+------------------------------------------------------------------------
+r10156 | cbuffin | 2017-02-22 17:05:35 +0100 (mer. 22 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des situations PDO, utilisation de la classe WebrsaParametragesComponent.
+------------------------------------------------------------------------
+r10155 | cbuffin | 2017-02-22 16:29:32 +0100 (mer. 22 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des origines de PDO, utilisation de la classe WebrsaParametragesComponent.
+------------------------------------------------------------------------
+r10154 | cbuffin | 2017-02-22 16:01:33 +0100 (mer. 22 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des descriptions des traitements PDO, utilisation de la classe WebrsaParametragesComponent, correction des liens vers le paramétrage des PDO.
+------------------------------------------------------------------------
+r10153 | cbuffin | 2017-02-22 15:12:01 +0100 (mer. 22 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des PDO et plus particulièrement du paramétrage des décisions PDO, utilisation de la classe WebrsaParametragesComponent.
+------------------------------------------------------------------------
+r10152 | cbuffin | 2017-02-22 14:04:30 +0100 (mer. 22 févr. 2017) | 1 ligne
+
+Corrections mineures: indexes non définis dans le code PHP des EP.
+------------------------------------------------------------------------
+r10151 | cbuffin | 2017-02-22 10:49:46 +0100 (mer. 22 févr. 2017) | 1 ligne
+
+Amélioration: fin de l'uniformisation des messages flash, utilisation des fichiers de traduction pour les messages de succès et d'erreur lors d'un enregistrement ou d'une suppression.
+------------------------------------------------------------------------
+r10150 | cbuffin | 2017-02-22 10:31:37 +0100 (mer. 22 févr. 2017) | 1 ligne
+
+Amélioration: suite de l'uniformisation des messages flash (et auth), remplacement de AppController::_setFlashResult par des appels à la classe FlashComponent, mise à jour et dépréciation des vues utilisées anciennement par flash dans View/Elements/flash.
+------------------------------------------------------------------------
+r10149 | cbuffin | 2017-02-22 00:55:19 +0100 (mer. 22 févr. 2017) | 1 ligne
+
+Amélioration: début de l'uniformisation des messages flash (et auth), ajout de la classe FlashComponent, remplacement de toutes les occurences de SessionComponent::setFlash dans app.
+------------------------------------------------------------------------
+r10148 | cbuffin | 2017-02-21 17:44:59 +0100 (mar. 21 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des motifs des demandes de réorientation à passer en EP, utilisation de la classe WebrsaParametragesComponent, ajout de l'impossibilité de supprimer un motif de demande de réorientation à passer en EP si celui-ci est référencée dans un enregistrement (afin d'éviter la suppression en cascade).
+------------------------------------------------------------------------
+r10147 | cbuffin | 2017-02-21 10:24:35 +0100 (mar. 21 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des regroupements d'EP, utilisation de la classe WebrsaParametragesComponent, ajout de l'impossibilité de supprimer un regroupement si celui-ci est référencée dans un enregistrement (afin d'éviter la suppression en cascade).
+------------------------------------------------------------------------
+r10146 | cbuffin | 2017-02-21 10:19:07 +0100 (mar. 21 févr. 2017) | 1 ligne
+
+Correction, plugin Validation2: à présent la méthode Validation2RulesComparisonBehavior::greaterThanIfNotZero fonctionne correctement lorsque la valeur et la valeur de référence valent 0; ajout d'un test unitaire.
+------------------------------------------------------------------------
+r10145 | cbuffin | 2017-02-21 10:16:46 +0100 (mar. 21 févr. 2017) | 1 ligne
+
+Correction, plugin Validation2: à présent la méthode Validation2RulesComparisonBehavior::greaterThanIfNotZero fonctionne correctement lorsque la valeur et la valeur de référence valent 0; ajout d'un test unitaire.
+------------------------------------------------------------------------
+r10144 | cbuffin | 2017-02-20 17:31:43 +0100 (lun. 20 févr. 2017) | 1 ligne
+
+Amélioration: amélioration du paramétrage des EP, déplacement du contenu de la vue de GestionsepsController::index dans ParametragesController::eps, amélioration du paramétrage des fonctions des membres des EP (utilisation de la classe WebrsaParametragesComponent).
+------------------------------------------------------------------------
+r10143 | cbuffin | 2017-02-20 17:21:38 +0100 (lun. 20 févr. 2017) | 1 ligne
+
+Amélioration: amélioration du paramétrage des EP, déplacement du contenu de la vue de GestionsepsController::index dans ParametragesController::eps, amélioration du paramétrage des fonctions des membres des EP (utilisation de la classe WebrsaParametragesComponent).
+------------------------------------------------------------------------
+r10142 | cbuffin | 2017-02-20 15:47:21 +0100 (lun. 20 févr. 2017) | 1 ligne
+
+Amélioration: amélioration du paramétrage des référents (utilisation de la classe WebrsaParametragesComponent).
+------------------------------------------------------------------------
+r10141 | cbuffin | 2017-02-20 14:12:29 +0100 (lun. 20 févr. 2017) | 1 ligne
+
+Amélioration: amélioration du paramétrage des structures référentes (utilisation de la classe WebrsaParametragesComponent).
+------------------------------------------------------------------------
+r10140 | cbuffin | 2017-02-20 14:12:09 +0100 (lun. 20 févr. 2017) | 1 ligne
+
+Amélioration: amélioration du paramétrage des structures référentes (utilisation de la classe WebrsaParametragesComponent).
+------------------------------------------------------------------------
+r10139 | cbuffin | 2017-02-20 10:29:54 +0100 (lun. 20 févr. 2017) | 1 ligne
+
+Amélioration: ajout de la paginatation, modernisation et modification d'intitulés (utilisation des fichiers de traduction) dans le paramétrage des permanences, utilisation de la classe WebrsaParametragesComponent, ajout de l'impossibilité de supprimer une permanence si celle-ci est référencée dans un enregistrement (afin d'éviter la suppression en cascade).
+------------------------------------------------------------------------
+r10138 | cbuffin | 2017-02-17 17:20:30 +0100 (ven. 17 févr. 2017) | 1 ligne
+
+Amélioration: ajout de la paginatation, modernisation et modification d'intitulés (utilisation des fichiers de traduction) dans le paramétrage des objets d'entretien, utilisation de la classe WebrsaParametragesComponent.
+------------------------------------------------------------------------
+r10137 | cbuffin | 2017-02-17 16:25:27 +0100 (ven. 17 févr. 2017) | 1 ligne
+
+Amélioration: ajout de la paginatation, modernisation et modification d'intitulés (utilisation des fichiers de traduction) dans le paramétrage des actions d'insertion, utilisation de la classe WebrsaParametragesComponent.
+------------------------------------------------------------------------
+r10136 | cbuffin | 2017-02-17 15:33:16 +0100 (ven. 17 févr. 2017) | 1 ligne
+
+Correction: vérification de l'existence de clés étrangères vers la table dans la méthode OccurencesBehaviors::sqHasLinkedRecords afin d'éviter une notice pour index non défini.
+------------------------------------------------------------------------
+
+************************************************************************
+ Version 3.1.8
+************************************************************************
+
+r10135 | cbuffin | 2017-02-17 13:33:04 +0100 (ven. 17 févr. 2017) | 1 ligne
+
+Patch correctif 3.1.8
+------------------------------------------------------------------------
+r10134 | cbuffin | 2017-02-17 13:32:57 +0100 (ven. 17 févr. 2017) | 1 ligne
+
+Patch correctif 3.1.8
+------------------------------------------------------------------------
+r10133 | cbuffin | 2017-02-17 11:53:57 +0100 (ven. 17 févr. 2017) | 1 ligne
+
+Mise à jour de la configuration par défaut de Gedooo pour le CG 66.
+------------------------------------------------------------------------
+r10132 | cbuffin | 2017-02-17 11:53:53 +0100 (ven. 17 févr. 2017) | 1 ligne
+
+Mise à jour de la configuration par défaut de Gedooo pour le CG 66.
+------------------------------------------------------------------------
+r10131 | cbuffin | 2017-02-17 11:12:03 +0100 (ven. 17 févr. 2017) | 1 ligne
+
+Correction, plugin Gedooo: si la méthode est "classic", alors il faut aller chercher les fichiers dont l'extension est ".class".
+------------------------------------------------------------------------
+r10130 | cbuffin | 2017-02-17 11:11:58 +0100 (ven. 17 févr. 2017) | 1 ligne
+
+Correction, plugin Gedooo: si la méthode est "classic", alors il faut aller chercher les fichiers dont l'extension est ".class".
+------------------------------------------------------------------------
+r10129 | cbuffin | 2017-02-17 10:58:43 +0100 (ven. 17 févr. 2017) | 1 ligne
+
+Amélioration, plugin Gedooo: ajout de la version 1.0.1 de la librairie phpgedooo_client, utilisée par les méthodes "cloudooo" et "unoconv", ajout des méthodes "cloudooo_ancien" et "unoconv_ancien" qui permettent de revenir à l'utilisation de la version précédente de la librairie phpgedooo, ajout de la vérification du nom de méthode dans la vérification de l'application.
+------------------------------------------------------------------------
+r10128 | cbuffin | 2017-02-17 10:58:14 +0100 (ven. 17 févr. 2017) | 1 ligne
+
+Amélioration, plugin Gedooo: ajout de la version 1.0.1 de la librairie phpgedooo_client, utilisée par les méthodes "cloudooo" et "unoconv", ajout des méthodes "cloudooo_ancien" et "unoconv_ancien" qui permettent de revenir à l'utilisation de la version précédente de la librairie phpgedooo, ajout de la vérification du nom de méthode dans la vérification de l'application.
+------------------------------------------------------------------------
+r10127 | cbuffin | 2017-02-17 10:48:48 +0100 (ven. 17 févr. 2017) | 1 ligne
+
+Paramétrage: mise à jour des champs disponibles dans l'export CSV de la recherche par DSP pour le CG 93, ajout de l'adresse mail et du numéro de portable et déplacement du numéro de téléphone à la fin du tableau. En lien avec le ticket #2005997. (CG 93)
+------------------------------------------------------------------------
+r10126 | cbuffin | 2017-02-17 10:48:41 +0100 (ven. 17 févr. 2017) | 1 ligne
+
+Paramétrage: mise à jour des champs disponibles dans l'export CSV de la recherche par DSP pour le CG 93, ajout de l'adresse mail et du numéro de portable et déplacement du numéro de téléphone à la fin du tableau. En lien avec le ticket #2005997. (CG 93)
+------------------------------------------------------------------------
+r10125 | cbuffin | 2017-02-15 09:43:33 +0100 (mer. 15 févr. 2017) | 1 ligne
+
+Modification de l'intitulé "Adullact Projet" par "Libriciel SCOP" dans le pied de page.
+------------------------------------------------------------------------
+r10124 | cbuffin | 2017-02-15 09:43:20 +0100 (mer. 15 févr. 2017) | 1 ligne
+
+Modification de l'intitulé "Adullact Projet" par "Libriciel SCOP" dans le pied de page.
+------------------------------------------------------------------------
+r10123 | cbuffin | 2017-02-14 17:43:29 +0100 (mar. 14 févr. 2017) | 1 ligne
+
+Améliorations: amélioration de la transaction lors de la transmission d'une proposition de décision PCG à un OP, de plus, il s'agit bien toujours à présent de la dernière proposition de décision prise en compte lors de la tentative de génération automatique d'un dossier PCG. En lien avec le ticket #2005943. (CG 66)
+------------------------------------------------------------------------
+r10122 | cbuffin | 2017-02-14 17:42:12 +0100 (mar. 14 févr. 2017) | 1 ligne
+
+Améliorations: amélioration de la transaction lors de la transmission d'une proposition de décision PCG à un OP, de plus, il s'agit bien toujours à présent de la dernière proposition de décision prise en compte lors de la tentative de génération automatique d'un dossier PCG. En lien avec le ticket #2005943. (CG 66)
+------------------------------------------------------------------------
+r10121 | cbuffin | 2017-02-10 17:25:51 +0100 (ven. 10 févr. 2017) | 1 ligne
+
+Amélioration, plugin Gedooo: ajout d'un shell permettant de vérifier si les modèles odt se trouvant dans le répertoire passé en paramètre et dans ses sous-répertoires sont corrects. Modification de deux fichiers de la librairie gedooo client pour éviter des notices et récupérer le message d'erreur issu de la fusion.
+------------------------------------------------------------------------
+r10120 | cbuffin | 2017-02-10 17:19:07 +0100 (ven. 10 févr. 2017) | 1 ligne
+
+Amélioration, plugin Gedooo: ajout d'un shell permettant de vérifier si les modèles odt se trouvant dans le répertoire passé en paramètre et dans ses sous-répertoires sont corrects. Modification de deux fichiers de la librairie gedooo client pour éviter des notices et récupérer le message d'erreur issu de la fusion.
+------------------------------------------------------------------------
+r10119 | cbuffin | 2017-02-08 15:27:17 +0100 (mer. 08 févr. 2017) | 1 ligne
+
+Correction: les méthodes Apres66Controller::ajaxstruct, Contratsinsertion::ajaxstruct et leurs vues respectives ont été modifiées afin d'obtenir le type de voie de la structure référente lors du remplissage du formulaire et d'éviter de remplir les logs de notices à propos d'une variable non définie. En lien avec le ticket #2005943. (CG 66)
+------------------------------------------------------------------------
+r10118 | cbuffin | 2017-02-08 15:25:25 +0100 (mer. 08 févr. 2017) | 1 ligne
+
+Correction: les méthodes Apres66Controller::ajaxstruct, Contratsinsertion::ajaxstruct et leurs vues respectives ont été modifiées afin d'obtenir le type de voie de la structure référente lors du remplissage du formulaire et d'éviter de remplir les logs de notices à propos d'une variable non définie. En lien avec le ticket #2005943. (CG 66)
+------------------------------------------------------------------------
+r10117 | cbuffin | 2017-02-08 14:43:30 +0100 (mer. 08 févr. 2017) | 1 ligne
+
+Amélioration: factorisation des méthodes index ,add, edit et delete des modules de paramétrage dans la classe WebrsaParametragesComponent.
+------------------------------------------------------------------------
+r10116 | cbuffin | 2017-02-07 15:49:00 +0100 (mar. 07 févr. 2017) | 1 ligne
+
+Correction: à présent, au CG 58, il est impossible d'ajouter un CER à un bénéficiaire orienté en Professionnelle uniquement si la structure référente dans laquelle il est orienté actuellement ne débouche pas sur un CER pro, comme c'était le cas avant la version 3.1.0. Corrige le ticket #2005927. (CG 58)
+------------------------------------------------------------------------
+r10115 | cbuffin | 2017-02-07 15:48:50 +0100 (mar. 07 févr. 2017) | 1 ligne
+
+Correction: à présent, au CG 58, il est impossible d'ajouter un CER à un bénéficiaire orienté en Professionnelle uniquement si la structure référente dans laquelle il est orienté actuellement ne débouche pas sur un CER pro, comme c'était le cas avant la version 3.1.0. Corrige le ticket #2005927. (CG 58)
+------------------------------------------------------------------------
+r10114 | cbuffin | 2017-02-07 14:55:19 +0100 (mar. 07 févr. 2017) | 1 ligne
+
+Amélioration: ajout de la paginatation, modernisation et modification d'intitulés (utilisation des fichiers de traduction) dans le paramétrage des types d'actions d'insertion, ajout de l'impossibilité de supprimer un type d'action d'insertion si celui-ci est référencé dans un enregistrement (afin d'éviter la suppression en cascade).
+------------------------------------------------------------------------
+r10113 | cbuffin | 2017-02-07 14:51:52 +0100 (mar. 07 févr. 2017) | 1 ligne
+
+Correction: suppression de la blacklist (pour les enregistrements liés) dans le paramétrage des zones géographiques.
+------------------------------------------------------------------------
+r10112 | cbuffin | 2017-02-07 14:18:30 +0100 (mar. 07 févr. 2017) | 1 ligne
+
+Amélioration: modernisation de l'ajout et de la modification des objets de rendez-vous (paramétrage).
+------------------------------------------------------------------------
+r10111 | cbuffin | 2017-02-07 11:12:47 +0100 (mar. 07 févr. 2017) | 1 ligne
+
+Amélioration: ajout de la paginatation, modernisation et modification d'intitulés (utilisation des fichiers de traduction) dans le paramétrage des statuts de rendez-vous, modification d'intitulés dans le paramétrage des référents, ajout de l'impossibilité de supprimer un statut de rendez-vous si celui-ci est référencé dans un enregistrement (afin d'éviter la suppression en cascade).
+------------------------------------------------------------------------
+r10110 | cbuffin | 2017-02-06 22:32:07 +0100 (lun. 06 févr. 2017) | 1 ligne
+
+Amélioration: dans la partie "Paramétrages", les "Équipes pluridisciplinaires" ne sont pas disponibles pour le CG 976.
+------------------------------------------------------------------------
+r10109 | cbuffin | 2017-02-06 17:28:57 +0100 (lun. 06 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des objets de rendez-vous.
+------------------------------------------------------------------------
+r10108 | cbuffin | 2017-02-06 16:40:40 +0100 (lun. 06 févr. 2017) | 1 ligne
+
+Correction: dans la partie paramétrages, les lien des actions d'insertion doit etre visible par tous les départements sauf le CG 66.
+------------------------------------------------------------------------
+r10107 | cbuffin | 2017-02-06 16:09:34 +0100 (lun. 06 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du formulaire d'ajout / de modification des structures référentes et des référents, utilisation des fichiers de traduction.
+------------------------------------------------------------------------
+r10106 | cbuffin | 2017-02-06 14:36:27 +0100 (lun. 06 févr. 2017) | 1 ligne
+
+Correction mineure du shell de préchargement de l'application, ajout du nom des modèles dont le préchargement n'a pas réussi dans le résumé affiché par le shell.
+------------------------------------------------------------------------
+r10105 | cbuffin | 2017-02-06 14:03:53 +0100 (lun. 06 févr. 2017) | 1 ligne
+
+Mise en cohérence de certains intitulés dans la partie paramétrage des utilisateurs et des groupes.
+------------------------------------------------------------------------
+r10104 | cbuffin | 2017-02-06 10:41:24 +0100 (lun. 06 févr. 2017) | 1 ligne
+
+Amélioration: à présent, l'entrée "Cantons" n'est plus visible dans la partie "Administration" > "Paramétrages" si l'utilisation des cantons n'est pas configurée, l'entrée "APREs" n'est plus visible dans la partie "Administration" > "Paramétrages" si le département configuré n'est ni le CD 66 ni le CD 93.
+------------------------------------------------------------------------
+r10103 | cbuffin | 2017-02-05 23:25:23 +0100 (dim. 05 févr. 2017) | 1 ligne
+
+Amélioration: ajout de la paginatation, modernisation et modification d'intitulés (utilisation des fichiers de traduction) dans le paramétrage des groupes, modification d'intitulés dans le paramétrage des référents.
+------------------------------------------------------------------------
+r10102 | cbuffin | 2017-02-05 23:05:39 +0100 (dim. 05 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des services instructeurs, utilisation des fichiers de traductions, vérification de la non-existence d'enregistrements pour la suppression, ajout de la pagination sur l'index (et donc de la possiblité de trier les enregistrements), à présent les champs obligatoires sont indiqués dans les formulaires d'ajout et de modification.
+------------------------------------------------------------------------
+r10101 | cbuffin | 2017-02-05 23:01:54 +0100 (dim. 05 févr. 2017) | 1 ligne
+
+Amélioration: modernisation du paramétrage des zones géographiques, utilisation des fichiers de traductions, vérification de la non-existence d'enregistrements pour la suppression, ajout de la pagination sur l'index (et donc de la possiblité de trier les enregistrements), à présent les champs obligatoires sont indiqués dans les formulaires d'ajout et de modification.
+------------------------------------------------------------------------
+r10100 | cbuffin | 2017-02-03 17:24:27 +0100 (ven. 03 févr. 2017) | 1 ligne
+
+Mise à jour de l'année dans le pied de page.
+------------------------------------------------------------------------
+r10099 | cbuffin | 2017-02-03 17:24:06 +0100 (ven. 03 févr. 2017) | 1 ligne
+
+Mise à jour de l'année dans le pied de page.
+------------------------------------------------------------------------
+r10098 | cbuffin | 2017-02-03 17:12:30 +0100 (ven. 03 févr. 2017) | 1 ligne
+
+Correction: à présent, l'accès à l'URL /histoschoixcers93/secondelecture_consultation/<id> est possible. Corrige le ticket #2005814 (CG 93).
+------------------------------------------------------------------------
+r10097 | cbuffin | 2017-02-03 17:12:14 +0100 (ven. 03 févr. 2017) | 1 ligne
+
+Correction: à présent, l'accès à l'URL /histoschoixcers93/secondelecture_consultation/<id> est possible. Corrige le ticket #2005814 (CG 93).
+------------------------------------------------------------------------
+
+************************************************************************
+ Version 3.1.7
+************************************************************************
+
+r10096 | cbuffin | 2017-02-03 15:16:01 +0100 (ven. 03 févr. 2017) | 1 ligne
+
+Patch correctif 3.1.7
+------------------------------------------------------------------------
+r10095 | cbuffin | 2017-02-03 15:15:42 +0100 (ven. 03 févr. 2017) | 1 ligne
+
+Patch correctif 3.1.7
+------------------------------------------------------------------------
+r10094 | cbuffin | 2017-02-03 14:36:48 +0100 (ven. 03 févr. 2017) | 1 ligne
+
+Amélioration: le formulaire d'ajout / de modification d'un référent fait à présent correctement apparaître les champs obligatoires (utilisation de Default.DefaultHelper::subform).
+------------------------------------------------------------------------
+r10093 | cbuffin | 2017-02-03 14:29:37 +0100 (ven. 03 févr. 2017) | 1 ligne
+
+Correction: la méthode Validation2DefaultFormatter::stripNotAlnum renvoie à présent NULL lorsque la valeur passée est NULL.
+------------------------------------------------------------------------
+r10092 | cbuffin | 2017-02-03 10:04:10 +0100 (ven. 03 févr. 2017) | 1 ligne
+
+Correction: ajout de l'utilisation du behavior Validation2.Validation2RulesComparison dans le modèle Typeorient car celui-ci utilise la règle de validation notEmptyIf.
+------------------------------------------------------------------------
+r10091 | cbuffin | 2017-02-02 17:58:12 +0100 (jeu. 02 févr. 2017) | 1 ligne
+
+Amélioration: ajout de la variable de configuration "Module.Permissions.all" qui lorsqu'elle est à "true" permet de retrouver le comportement précédent dans les formulaires de gestion des droits, à savoir lister l'ensemble des modules de l'application, même ceux qui ne sont normalement pas accessibles en fonction de la configuration ou du département connecté.
+------------------------------------------------------------------------
+r10090 | cbuffin | 2017-02-02 16:34:44 +0100 (jeu. 02 févr. 2017) | 1 ligne
+
+Amélioration: refonte partielle du module de gestion des droits de l'application. Ajout d'une clé étrangère depuis groups.parent_id, suppression des restes de l'ancien système de droits, modification des msgid du fichier de traduction de droits, ajout d'un filtre sur les modules accessibles suivant le département connecté et la configuration de certains modules.
+------------------------------------------------------------------------
+r10089 | cbuffin | 2017-01-31 10:47:44 +0100 (mar. 31 janv. 2017) | 1 ligne
+
+Correction: mise à jour de la librairie javascript protocalendar en version 1.1.8.2 afin de corriger un bug concernant le mois de février. Clôture le ticket #2005670 (CG 66).
+------------------------------------------------------------------------
+r10088 | cbuffin | 2017-01-31 10:47:24 +0100 (mar. 31 janv. 2017) | 1 ligne
+
+Correction: mise à jour de la librairie javascript protocalendar en version 1.1.8.2 afin de corriger un bug concernant le mois de février. Clôture le ticket #2005670 (CG 66).
+------------------------------------------------------------------------
+r10087 | cbuffin | 2017-01-23 17:17:04 +0100 (lun. 23 janv. 2017) | 1 ligne
+
+Amélioration, plugin Fluxcnaf: ajout des "traductions" des noms de flux dans les shells de génération de dictionnaire et de schémas.
+------------------------------------------------------------------------
+r10086 | cbuffin | 2017-01-19 11:27:00 +0100 (jeu. 19 janv. 2017) | 1 ligne
+
+Correction: à présent, dans la gestion des doublons complexes, dès lors qu'un couple de foyers a été taggué "N'est pas un doublon", ce couple de foyers ne ressortira pas dans les résultats du moteur de recherche. Corrige le ticket #2005269. (CG 66)
+------------------------------------------------------------------------
+r10085 | cbuffin | 2017-01-19 11:26:52 +0100 (jeu. 19 janv. 2017) | 1 ligne
+
+Correction: à présent, dans la gestion des doublons complexes, dès lors qu'un couple de foyers a été taggué "N'est pas un doublon", ce couple de foyers ne ressortira pas dans les résultats du moteur de recherche. Corrige le ticket #2005269. (CG 66)
+------------------------------------------------------------------------
+r10084 | cbuffin | 2017-01-17 17:45:49 +0100 (mar. 17 janv. 2017) | 1 ligne
+
+Amélioration: ajout de la possibilité de rendre le champ "Date de demande RSA" (dossiers.dtdemrsa) obligatoire à partir de la configuration (clé ValidateAllowEmpty.Dossier.dtdemrsa). Permet de clore le ticket #2005210 (CG 66).
+------------------------------------------------------------------------
+r10083 | cbuffin | 2017-01-17 17:43:44 +0100 (mar. 17 janv. 2017) | 1 ligne
+
+Amélioration: ajout de la possibilité de rendre le champ "Date de demande RSA" (dossiers.dtdemrsa) obligatoire à partir de la configuration (clé ValidateAllowEmpty.Dossier.dtdemrsa). Permet de clore le ticket #2005210 (CG 66).
+------------------------------------------------------------------------
+r10082 | cbuffin | 2017-01-17 16:57:25 +0100 (mar. 17 janv. 2017) | 1 ligne
+
+Correction: mise à jour des patches SQL de la version 3.3.x afin qu'ils passent pour tous les départements avec le schéma de la base de données actuelle en 3.2.x.
+------------------------------------------------------------------------
+
+************************************************************************
  Version 3.1.6
 ************************************************************************
 

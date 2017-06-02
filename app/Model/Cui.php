@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 	App::uses( 'Sanitize', 'Utility' );
 
 	/**
@@ -21,12 +22,6 @@
 		 * @var string
 		 */
 		public $name = 'Cui';
-
-		/**
-		 * Recurcivité du model 
-		 * @var integer
-		 */
-		public $recursive = -1;
 
 		/**
 		 * Possède des clefs étrangères vers d'autres models
@@ -128,12 +123,13 @@
 		 */
 		public $actsAs = array(
 			'Allocatairelie',
-			'Formattable',
 			'Gedooo.Gedooo',
-			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate',
 		);
-		
+
 		/**
 		 * Valeur des checkbox du champ beneficiairede
 		 * @var array
@@ -144,7 +140,7 @@
 			'ATA',
 			'RSA'
 		);
-		
+
 		/**
 		 * Les modèles qui seront utilisés par ce modèle.
 		 *

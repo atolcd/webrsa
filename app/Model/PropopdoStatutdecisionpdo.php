@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe PropopdoStatutdecisionpdo.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe PropopdoStatutdecisionpdo ...
@@ -17,18 +18,17 @@
 	{
 		public $name = 'PropopdoStatutdecisionpdo';
 
-		public $actsAs = array (
-			'Formattable',
-			'ValidateTranslate'
-		);
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
 
-		public $validate = array(
-			'propopdo_id' => array(
-				array( 'rule' => 'notEmpty' )
-			),
-			'statutdecisionpdo_id' => array(
-				array( 'rule' => 'notEmpty' )
-			)
+		public $actsAs = array (
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(

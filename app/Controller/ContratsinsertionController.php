@@ -8,9 +8,9 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
-	App::uses('WebrsaAccessContratsinsertion', 'Utility');
-	App::uses('WebrsaPermissions', 'Utility');
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaAccessContratsinsertion', 'Utility' );
+	App::uses( 'WebrsaPermissions', 'Utility' );
 
 	/**
 	 * La classe ContratsinsertionController permet la gestion des contrats d'insertion au niveau du dossier
@@ -51,6 +51,7 @@
 				),
 			),
 			'WebrsaAccesses',
+			'WebrsaAjaxInsertions'
 		);
 
 		/**
@@ -87,14 +88,6 @@
 		 */
 		public $commeDroit = array(
 			'add' => 'Contratsinsertion:edit',
-			'cohorte_cerparticulieravalider' => 'Cohortesci:nouveauxparticulier',
-			'cohorte_cersimpleavalider' => 'Cohortesci:nouveauxsimple',
-			'cohorte_nouveaux' => 'Cohortesci:nouveaux',
-			'cohorte_valides' => 'Cohortesci:valides',
-			'exportcsv' => 'Criteresci:exportcsv',
-			'exportcsv_valides' => 'Cohortesci:valides',
-			'search' => 'Criteresci:index',
-			'search_valides' => 'Cohortesci:valides',
 			'view' => 'Contratsinsertion:index',
 		);
 
@@ -104,11 +97,9 @@
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			'ajax',
 			'ajaxaction',
 			'ajaxfiledelete',
 			'ajaxfileupload',
-			'ajaxraisonci',
 			'ajaxref',
 			'ajaxstruct',
 			'download',
@@ -271,29 +262,7 @@
 		 * @param integer $referent_id
 		 */
 		public function ajaxref($referent_id = null) {
-			Configure::write('debug', 0);
-
-			if (!empty($referent_id)) {
-				$referent_id = suffix($referent_id);
-			} else {
-				$referent_id = suffix(Set::extract($this->request->data, 'Contratinsertion.referent_id'));
-			}
-
-			$referent = array();
-			if (!empty($referent_id)) {
-				$qd_referent = array(
-					'conditions' => array(
-						'Referent.id' => $referent_id
-					),
-					'fields' => null,
-					'order' => null,
-					'recursive' => -1
-				);
-				$referent = $this->Contratinsertion->Structurereferente->Referent->find('first', $qd_referent);
-			}
-
-			$this->set('referent', $referent);
-			$this->render('ajaxref', 'ajax');
+			return $this->WebrsaAjaxInsertions->referent( $referent_id );
 		}
 
 		/**
@@ -301,26 +270,8 @@
 		 *
 		 * @param type $structurereferente_id
 		 */
-		public function ajaxstruct($structurereferente_id = null) {
-			Configure::write('debug', 0);
-			$this->set('typesorients', $this->Contratinsertion->Personne->Orientstruct->Typeorient->find('list', array('fields' => array('lib_type_orient'))));
-
-			$dataStructurereferente_id = Set::extract($this->request->data, 'Contratinsertion.structurereferente_id');
-			$structurereferente_id = ( empty($structurereferente_id) && !empty($dataStructurereferente_id) ? $dataStructurereferente_id : $structurereferente_id );
-
-			$qd_struct = array(
-				'conditions' => array(
-					'Structurereferente.id' => $structurereferente_id
-				),
-				'fields' => null,
-				'order' => null,
-				'recursive' => -1
-			);
-			$struct = $this->Contratinsertion->Structurereferente->find('first', $qd_struct);
-
-
-			$this->set('struct', $struct);
-			$this->render('ajaxstruct', 'ajax');
+		public function ajaxstruct( $structurereferente_id = null ) {
+			return $this->WebrsaAjaxInsertions->structurereferente( $structurereferente_id );
 		}
 
 		/**
@@ -426,82 +377,18 @@
 				if ($saved) {
 					$this->Contratinsertion->commit();
 					$this->Jetons2->release($dossier_id);
-					$this->Session->setFlash('Enregistrement effectué', 'flash/success');
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect($this->referer());
 				} else {
 					$fichiers = $this->Fileuploader->fichiers($id);
 					$this->Contratinsertion->rollback();
-					$this->Session->setFlash('Erreur lors de l\'enregistrement', 'flash/error');
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
 			$this->_setOptions();
 			$this->set(compact('dossier_id', 'personne_id', 'fichiers', 'contratinsertion'));
 			$this->set('urlmenu', '/contratsinsertion/index/' . $personne_id);
-		}
-
-		/**
-		 * (CG 58, 93)
-		 *
-		 * @deprecated since version 3.1
-		 * @see WebrsaContratinsertion::qdThematiqueEp
-		 * @param type $modele
-		 * @param type $personne_id
-		 * @return type
-		 */
-		protected function _qdThematiqueEp($modele, $personne_id) {
-			trigger_error("Utilisation d'une méthode dépréciée : ".__CLASS__.'::'.__FUNCTION__, E_USER_DEPRECATED);
-			return array(
-				'fields' => array(
-					'Dossierep.id',
-					'Dossierep.personne_id',
-					'Dossierep.themeep',
-					'Dossierep.created',
-					'Dossierep.modified',
-					'Passagecommissionep.etatdossierep',
-					'Contratinsertion.dd_ci',
-					'Contratinsertion.df_ci',
-				),
-				'conditions' => array(
-					'Dossierep.actif' => '1',
-					'Dossierep.personne_id' => $personne_id,
-					'Dossierep.themeep' => Inflector::tableize($modele),
-					'Dossierep.id NOT IN ( ' . $this->Contratinsertion->{$modele}->Dossierep->Passagecommissionep->sq(
-							array(
-								'alias' => 'passagescommissionseps',
-								'fields' => array(
-									'passagescommissionseps.dossierep_id'
-								),
-								'conditions' => array(
-									'passagescommissionseps.etatdossierep' => array('traite', 'annule')
-								)
-							)
-					) . ' )'
-				),
-				'joins' => array(
-					array(
-						'table' => Inflector::tableize($modele),
-						'alias' => $modele,
-						'type' => 'INNER',
-						'foreignKey' => false,
-						'conditions' => array("Dossierep.id = {$modele}.dossierep_id")
-					),
-					array(
-						'table' => 'contratsinsertion',
-						'alias' => 'Contratinsertion',
-						'type' => 'INNER',
-						'foreignKey' => false,
-						'conditions' => array("Contratinsertion.id = {$modele}.contratinsertion_id")
-					),
-					array(
-						'table' => 'passagescommissionseps',
-						'alias' => 'Passagecommissionep',
-						'type' => 'LEFT OUTER',
-						'foreignKey' => false,
-						'conditions' => array('Dossierep.id = Passagecommissionep.dossierep_id')
-					),
-				),
-			);
 		}
 
 		/**
@@ -729,8 +616,6 @@
 					$this->Contratinsertion->Structurereferente->join( 'Typeorient', array( 'type' => 'INNER' ) ),
 					$this->Contratinsertion->join( 'Actioninsertion', array( 'type' => 'LEFT OUTER' ) ),
 					$this->Contratinsertion->join( 'Propodecisioncer66', array( 'type' => 'LEFT OUTER' ) ),
-					// $this->Contratinsertion->Propodecisioncer66->join( 'Motifcernonvalid66Propodecisioncer66', array( 'type' => 'LEFT OUTER' ) ),
-					// $this->Contratinsertion->Propodecisioncer66->Motifcernonvalid66Propodecisioncer66->join( 'Motifcernonvalid66', array( 'type' => 'LEFT OUTER' ) )
 				),
 				'conditions' => array(
 					'Contratinsertion.id' => $contratinsertion_id
@@ -829,7 +714,7 @@
 				$dsp = array('Dsp' => array('personne_id' => $personne_id));
 
 				$this->Contratinsertion->Personne->Dsp->set($dsp);
-				if ($this->Contratinsertion->Personne->Dsp->save($dsp)) {
+				if ($this->Contratinsertion->Personne->Dsp->save( $dsp, array( 'atomic' => false ) )) {
 					$qd_dsp = array(
 						'conditions' => array(
 							'Dsp.personne_id' => $personne_id
@@ -899,8 +784,7 @@
 
 				// TODO: $this->request->data Contratinsertion.forme_ci
 				$valueFormeci = Set::classicExtract($contratinsertion, 'Contratinsertion.forme_ci');
-				//$nbContratsPrecedents = $this->Contratinsertion->find( 'count', array( 'recursive' => -1, 'conditions' => array( 'Contratinsertion.personne_id' => $personne_id ) ) );
-				// TODO: $this->request->data Contratinsertion.num_contrat
+
 				$tc = Set::classicExtract($contratinsertion, 'Contratinsertion.num_contrat');
 			}
 
@@ -1047,7 +931,7 @@
 				$this->request->data = Set::merge(array('Contratinsertion' => array('objetcerprecautre' => null)), $this->request->data);
 
 				$this->Contratinsertion->create($this->request->data);
-				$success = $this->Contratinsertion->save();
+				$success = $this->Contratinsertion->save( null, array( 'atomic' => false ) );
 
 				// Enregistrement des DSP (CG 93)
 				if (Configure::read('nom_form_ci_cg') == 'cg93') {
@@ -1058,7 +942,7 @@
 
 					$isDsp = Hash::filter((array) $this->request->data['Dsp']);
 					if (!empty($isDsp)) {
-						$success = $this->Contratinsertion->Personne->Dsp->save(array('Dsp' => $this->request->data['Dsp'])) && $success;
+						$success = $this->Contratinsertion->Personne->Dsp->save( array( 'Dsp' => $this->request->data['Dsp'] ), array( 'atomic' => false ) ) && $success;
 					}
 				}
 
@@ -1066,7 +950,7 @@
 				if (isset($this->request->data['Personne'])) {
 					$isDataPersonne = Hash::filter((array) $this->request->data['Personne']);
 					if (!empty($isDataPersonne)) {
-						$success = $this->Contratinsertion->Personne->save(array('Personne' => $this->request->data['Personne'])) && $success;
+						$success = $this->Contratinsertion->Personne->save( array( 'Personne' => $this->request->data['Personne'] ), array( 'atomic' => false ) ) && $success;
 					}
 				}
 
@@ -1102,7 +986,7 @@
 					$this->{$this->modelClass}->Actioninsertion->set('contratinsertion_id', $this->{$this->modelClass}->id);
 
 					if (!empty($isActioninsertion)) {
-						$success = $this->Contratinsertion->Actioninsertion->save(array('Actioninsertion' => $this->request->data['Actioninsertion'])) && $success;
+						$success = $this->Contratinsertion->Actioninsertion->save( array( 'Actioninsertion' => $this->request->data['Actioninsertion'] ), array( 'atomic' => false ) ) && $success;
 					}
 				}
 
@@ -1116,7 +1000,7 @@
 					);
 
 					$this->Contratinsertion->Personne->Dossierep->create($dossierep);
-					$tmpSuccess = $this->Contratinsertion->Personne->Dossierep->save();
+					$tmpSuccess = $this->Contratinsertion->Personne->Dossierep->save( null, array( 'atomic' => false ) );
 
 					// Sauvegarde des données de la thématique
 					if ($tmpSuccess) {
@@ -1128,7 +1012,7 @@
 						);
 
 						$this->Contratinsertion->Personne->Dossierep->Contratcomplexeep93->create($contratcomplexeep93);
-						$success = $this->Contratinsertion->Personne->Dossierep->Contratcomplexeep93->save() && $success;
+						$success = $this->Contratinsertion->Personne->Dossierep->Contratcomplexeep93->save( null, array( 'atomic' => false ) ) && $success;
 					}
 					$success = $success && $tmpSuccess;
 				}
@@ -1157,22 +1041,22 @@
 
 						if (!empty($lastrdvorient)) {
 							$lastrdvorient['Rendezvous']['statutrdv_id'] = $cg66Rendezvous['statutrdv_id'];
-							$saved = $this->Contratinsertion->Referent->Rendezvous->save($lastrdvorient) && $saved;
+							$saved = $this->Contratinsertion->Referent->Rendezvous->save( $lastrdvorient, array( 'atomic' => false ) ) && $saved;
 						}
 					}
 
 					if ($saved) {
 						$this->Contratinsertion->commit();
 						$this->Jetons2->release($dossier_id);
-						$this->Session->setFlash('Enregistrement effectué', 'flash/success');
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect(array('controller' => 'contratsinsertion', 'action' => 'index', $personne_id));
 					} else {
 						$this->Contratinsertion->rollback();
-						$this->Session->setFlash('Erreur lors de l\'enregistrement', 'flash/error');
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				} else {
 					$this->Contratinsertion->rollback();
-					$this->Session->setFlash('Erreur lors de l\'enregistrement', 'flash/error');
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			} else { // Préparation des données du formulaire ...: prepareFormData ?
 				if ($this->action == 'edit') {
@@ -1402,7 +1286,7 @@
 			if (!empty($this->request->data)) {
 				if ($this->Contratinsertion->WebrsaContratinsertion->valider($this->request->data)) {
 					$this->Jetons2->release($dossier_id);
-					$this->Session->setFlash('Enregistrement effectué', 'flash/success');
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect(array('controller' => 'contratsinsertion', 'action' => 'index', $contratinsertion['Contratinsertion']['personne_id']));
 				}
 			} else {
@@ -1457,13 +1341,14 @@
 			$this->{$this->modelClass}->begin();
 			$success = $this->{$this->modelClass}->Actioninsertion->deleteAll(array('Actioninsertion.contratinsertion_id' => $id));
 			$success = $this->{$this->modelClass}->delete($id) && $success;
-			$this->_setFlashResult('Delete', $success);
 
 			if ($success) {
 				$this->{$this->modelClass}->commit();
+				$this->Flash->success( __( 'Delete->success' ) );
 				$this->Jetons2->release($dossier_id);
 			} else {
 				$this->{$this->modelClass}->rollback();
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 
 			$this->redirect($this->referer());
@@ -1501,8 +1386,8 @@
 			}
 
 			// Dans ce contexte-ci, la raison de l'annulation est obligatoire
-			$this->Contratinsertion->validate['motifannulation']['notEmpty'] = array(
-				'rule' => array( 'notEmpty' ),
+			$this->Contratinsertion->validate['motifannulation'][NOT_BLANK_RULE_NAME] = array(
+				'rule' => array( NOT_BLANK_RULE_NAME ),
 				'message' => 'Champ obligatoire'
 			);
 
@@ -1512,27 +1397,20 @@
 				$this->request->data['Contratinsertion']['positioncer'] = 'annule';
 				$this->request->data['Contratinsertion']['decision_ci'] = 'A';
 
-				$saved = $this->Contratinsertion->save($this->request->data);
+				$saved = $this->Contratinsertion->save( $this->request->data, array( 'atomic' => false ) );
 
 				$saved = $saved && $this->Contratinsertion->WebrsaContratinsertion->updatePositionsCersByConditions(
 					array( 'Contratinsertion.personne_id' => $contrat['Contratinsertion']['personne_id'] )
 				);
 
-				/*$saved = $this->{$this->modelClass}->updateAllUnBound(
-								array('Contratinsertion.positioncer' => '\'annule\''), array(
-							'"Contratinsertion"."personne_id"' => $contrat['Contratinsertion']['personne_id'],
-							'"Contratinsertion"."id"' => $contrat['Contratinsertion']['id']
-								)
-						) && $saved;*/
-
 				if ($saved) {
 					$this->Contratinsertion->commit();
 					$this->Jetons2->release($dossier_id);
-					$this->Session->setFlash('Enregistrement effectué', 'flash/success');
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect(array('action' => 'index', $personne_id));
 				} else {
 					$this->Contratinsertion->rollback();
-					$this->Session->setFlash('Erreur lors de l\'enregistrement.', 'flash/error');
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			} else {
 				$this->request->data = $contrat;
@@ -1556,7 +1434,7 @@
 			if (!empty($pdf)) {
 				$this->Gedooo->sendPdfContentToClient($pdf, sprintf("contratinsertion_%d_notificationop_%s.pdf", $contratinsertion_id, date('Y-m-d')));
 			} else {
-				$this->Session->setFlash('Impossible de générer la notification du CER pour l\'OP.', 'default', array('class' => 'error'));
+				$this->Flash->error( 'Impossible de générer la notification du CER pour l\'OP.' );
 				$this->redirect($this->referer());
 			}
 		}
@@ -1577,7 +1455,7 @@
 			if (!empty($pdf)) {
 				$this->Gedooo->sendPdfContentToClient($pdf, "contratinsertion_{$contratinsertion_id}_FicheLiaison.pdf");
 			} else {
-				$this->Session->setFlash('Impossible de générer la fiche de liaison', 'default', array('class' => 'error'));
+				$this->Flash->error( 'Impossible de générer la fiche de liaison' );
 				$this->redirect($this->referer());
 			}
 		}
@@ -1599,7 +1477,7 @@
 			if (!empty($pdf)) {
 				$this->Gedooo->sendPdfContentToClient($pdf, "contratinsertion_{$contratinsertion_id}_NotificationBeneficiaire_.pdf");
 			} else {
-				$this->Session->setFlash('Impossible de générer la notification du bénéficiaire', 'default', array('class' => 'error'));
+				$this->Flash->error( 'Impossible de générer la notification du bénéficiaire' );
 				$this->redirect($this->referer());
 			}
 		}
@@ -1622,7 +1500,7 @@
 			if (!empty($pdf)) {
 				$this->Gedooo->sendPdfContentToClient($pdf, "contratinsertion_{$contratinsertion_id}_nouveau.pdf");
 			} else {
-				$this->Session->setFlash('Impossible de générer le courrier de contrat d\'insertion.', 'default', array('class' => 'error'));
+				$this->Flash->error( 'Impossible de générer le courrier de contrat d\'insertion.' );
 				$this->redirect($this->referer());
 			}
 		}
@@ -1680,26 +1558,14 @@
 					array( 'Contratinsertion.personne_id' => $personne_id )
 				);
 
-				/*if ($saved) {
-					$this->request->data['Contratinsertion']['decision_ci'] = $contratinsertion['Contratinsertion']['decision_ci'];
-					$this->request->data['Contratinsertion']['positioncer'] = $this->Contratinsertion->calculPosition($this->request->data);
-
-					$saved = $this->Contratinsertion->updateAllUnBound(
-							array('Contratinsertion.positioncer' => "'" . $this->request->data['Contratinsertion']['positioncer'] . "'"), array(
-						'"Contratinsertion"."personne_id"' => $personne_id,
-						'"Contratinsertion"."id"' => $id
-							)
-					);
-				}*/
-
 				if ($saved) {
 					$this->Contratinsertion->commit();
 					$this->Jetons2->release($dossier_id);
-					$this->Session->setFlash('Enregistrement effectué', 'flash/success');
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect(array('controller' => 'contratsinsertion', 'action' => 'index', $personne_id));
 				} else {
 					$this->Contratinsertion->rollback();
-					$this->Session->setFlash('Erreur lors de l\'enregistrement', 'flash/error');
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			} else {
 				$this->request->data = $contratinsertion;
@@ -1732,7 +1598,7 @@
 						) && $success;
 				$this->Gedooo->sendPdfContentToClient($pdf, "taciteReconductionPlus55ans.pdf");
 			} else {
-				$this->Session->setFlash('Impossible de générer la notification du bénéficiaire', 'default', array('class' => 'error'));
+				$this->Flash->error( 'Impossible de générer la notification du bénéficiaire' );
 			}
 			$this->redirect($this->referer());
 		}

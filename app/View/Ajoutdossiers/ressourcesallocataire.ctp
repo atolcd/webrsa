@@ -4,11 +4,11 @@
 	}
 ?>
 <?php $this->pageTitle = __d( 'ajoutdossier', "Ajoutdossiers::{$this->action}" );?>
-<?php echo $this->Form->create( 'Ajoutdossiers', array( 'id' => 'SignupForm' ) );?>
+<?php echo $this->Form->create( 'Ajoutdossiers', array( 'id' => 'SignupForm', 'novalidate' => true ) );?>
 	<h1>Insertion d'une nouvelle demande de RSA</h1>
 	<h2>Étape 3: ressources allocataire</h2>
 
-	<?php require_once( APP.DS.'View'.DS.'Ressources'.DS.'_form.ctp' );?>
+	<?php require_once  APP.DS.'View'.DS.'Ressources'.DS.'_form.ctp' ;?>
 
 	<div class="submit">
 		<?php echo $this->Form->submit( '< Précédent', array( 'name' => 'Previous', 'div' => false ) );?>

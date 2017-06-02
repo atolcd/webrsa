@@ -7,7 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( ABSTRACTMODELS.'Thematiqueep.php' );
+	App::uses( 'Thematiqueep', 'Model/Abstractclass' );
 
 	/**
 	 * Saisines d'EP pour les PDOs pour le conseil général du
@@ -22,10 +22,10 @@
 		public $name = 'Saisinepdoep66';
 
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable',
-			'Gedooo.Gedooo'
+			'Gedooo.Gedooo',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(
@@ -113,7 +113,7 @@
 							)
 						);
 						$this->Traitementpdo->Propopdo->Decisionpropopdo->create($decisionpropopdo);
-						$success = $this->Traitementpdo->Propopdo->Decisionpropopdo->save() && $success;
+						$success = $this->Traitementpdo->Propopdo->Decisionpropopdo->save( null, array( 'atomic' => false ) ) && $success;
 					}
 				}
 			}
@@ -186,7 +186,7 @@
 					$traitementpdo['Traitementpdo']['propopdo_id'] = $dossierep['Traitementpdo']['Propopdo']['id'];
 
 					$this->Traitementpdo->create($traitementpdo);
-					$success = $this->Traitementpdo->save() && $success;
+					$success = $this->Traitementpdo->save( null, array( 'atomic' => false ) ) && $success;
 
 					$this->Traitementpdo->id = $dossierep['Traitementpdo']['id'];
 					$success = $this->Traitementpdo->saveField('clos', Configure::read( 'traitementClosId' )) && $success;

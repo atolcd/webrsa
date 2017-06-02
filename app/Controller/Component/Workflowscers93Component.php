@@ -7,6 +7,7 @@
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
 
 	/**
 	 * Classe Workflowscers93Component.
@@ -28,6 +29,7 @@
 		 * @var array
 		 */
 		public $components = array(
+			'Flash',
 			'Session',
 			'WebrsaUsers'
 		);
@@ -54,7 +56,7 @@
 
 			// S'il est obligatoire d'être rattaché à une structure référente
 			if( $required && empty( $structuresreferentes_ids ) ) {
-				$this->Session->setFlash( 'L\'utilisateur doit etre rattaché à une structure référente.', 'flash/error' );
+				$this->Flash->error( 'L\'utilisateur doit etre rattaché à une structure référente.' );
 				throw new Error403Exception( null );
 			}
 
@@ -68,7 +70,7 @@
 		 */
 		public function assertUserCpdv() {
 			if( false === $this->isUserCpdv() ) {
-				$this->Session->setFlash( sprintf( $this->_assertErrorTemplate, 'un responsable, une secrétaire ou un chef de projet communautaire' ), 'flash/error' );
+				$this->Flash->error( sprintf( $this->_assertErrorTemplate, 'un responsable, une secrétaire ou un chef de projet communautaire' ) );
 				throw new error403Exception( null );
 			}
 		}
@@ -80,7 +82,7 @@
 		 */
 		public function assertUserCi() {
 			if( false === $this->isUserCi() ) {
-				$this->Session->setFlash( sprintf( $this->_assertErrorTemplate, 'un chargé d\'insertion' ), 'flash/error' );
+				$this->Flash->error( sprintf( $this->_assertErrorTemplate, 'un chargé d\'insertion' ) );
 				throw new error403Exception( null );
 			}
 		}
@@ -92,7 +94,7 @@
 		 */
 		public function assertUserCg() {
 			if( false === $this->isUserCg() ) {
-				$this->Session->setFlash( sprintf( $this->_assertErrorTemplate, 'un utilisateur du conseil général' ), 'flash/error' );
+				$this->Flash->error( sprintf( $this->_assertErrorTemplate, 'un utilisateur du conseil général' ) );
 				throw new error403Exception( null );
 			}
 		}
@@ -105,7 +107,7 @@
 		 */
 		public function assertUserExterne() {
 			if( false === $this->isUserExterne() ) {
-				$this->Session->setFlash( sprintf( $this->_assertErrorTemplate, 'un responsable, une secrétaire, un chargé d\'insertion ou un chef de projet communautaire' ), 'flash/error' );
+				$this->Flash->error( sprintf( $this->_assertErrorTemplate, 'un responsable, une secrétaire, un chargé d\'insertion ou un chef de projet communautaire' ) );
 				throw new error403Exception( null );
 			}
 		}

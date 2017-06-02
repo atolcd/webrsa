@@ -1,0 +1,104 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "Decisioncui66.formulaire"
+msgstr "Prise de décision"
+
+msgid "Decisioncui66.decision"
+msgstr "Décision"
+
+msgid "Decisioncui66.motif"
+msgstr "Motif"
+
+msgid "Decisioncui66.datedecision"
+msgstr "Date de la décision"
+
+msgid "Decisioncui66.observation"
+msgstr "Commentaire pour la notification à l'employeur"
+
+msgid "/Decisionscuis66/add/:heading"
+msgstr "Ajout d'une décision"
+
+msgid "/Decisionscuis66/edit/:heading"
+msgstr "Modification d'une décision"
+
+msgid "/Decisionscuis66/index/:heading"
+msgstr "Décision"
+
+msgid "/Decisionscuis66/add"
+msgstr "Prendre une décision"
+
+msgid "/Decisionscuis66/add/:title"
+msgstr "Prendre une décision"
+
+msgid "/Decisionscuis66/edit"
+msgstr "Modifier"
+
+msgid "/Decisionscuis66/edit/#Decisioncui66.id#"
+msgstr "Modifier"
+
+msgid "/Decisionscuis66/delete"
+msgstr "Supprimer"
+
+msgid "/Decisionscuis66/delete/#Decisioncui66.id#"
+msgstr "Supprimer"
+
+msgid "/Decisionscuis66/filelink"
+msgstr "Fichiers liés"
+
+msgid "/Decisionscuis66/filelink/#Decisioncui66.id#"
+msgstr "Fichiers liés"
+
+msgid "Decisionscuis66::filelink"
+msgstr "Fichiers liés à la décision du CUI"
+
+msgid "Fichiermodule.nombre"
+msgstr " "
+
+msgid "/Decisionscuis66/impression"
+msgstr "Imprimer"
+
+msgid "/Decisionscuis66/impression/#Decisioncui66.id#"
+msgstr "Imprimer"
+
+msgid "/Decisionscuis66/impression_decisionelu"
+msgstr "Décision élu"
+
+msgid "/Decisionscuis66/impression_decisionelu/#Decisioncui66.id#"
+msgstr "Décision élu"
+
+msgid "/Decisionscuis66/impression_notifbenef"
+msgstr "Notification bénéficiaire"
+
+msgid "/Decisionscuis66/impression_notifbenef/#Decisioncui66.id#"
+msgstr "Notification bénéficiaire"
+
+msgid "/Decisionscuis66/impression_notifemployeur"
+msgstr "Notification employeur"
+
+msgid "/Decisionscuis66/impression_notifemployeur/#Decisioncui66.id#"
+msgstr "Notification employeur"
+
+msgid "/Decisionscuis66/impression_attestationcompetence"
+msgstr "Attestation de compétence"
+
+msgid "/Decisionscuis66/impression_attestationcompetence/#Decisioncui66.id#"
+msgstr "Attestation de compétence"

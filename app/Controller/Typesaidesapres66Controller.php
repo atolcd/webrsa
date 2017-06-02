@@ -7,13 +7,15 @@
      * @package app.Controller
      * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
      */
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
 
     /**
-     * La classe Typesaidesapres66Controller ...
+     * La classe Typesaidesapres66Controller s'occupe du paramétrage des aides de
+	 * l'APRE/ADRE.
      *
      * @package app.Controller
      */
-    class Typesaidesapres66Controller extends AppController
+    class Typesaidesapres66Controller extends AbstractWebrsaParametragesController
     {
 		/**
 		 * Nom du contrôleur.
@@ -23,201 +25,89 @@
 		public $name = 'Typesaidesapres66';
 
 		/**
-		 * Components utilisés.
-		 *
-		 * @var array
-		 */
-		public $components = array(
-			'Default',
-		);
-
-		/**
-		 * Helpers utilisés.
-		 *
-		 * @var array
-		 */
-		public $helpers = array(
-			'Default',
-			'Default2',
-		);
-
-		/**
 		 * Modèles utilisés.
 		 *
 		 * @var array
 		 */
-		public $uses = array(
-			'Typeaideapre66',
-			'Pieceaide66',
-			'Piececomptable66',
-			'Themeapre66',
-		);
-		
+		public $uses = array( 'Typeaideapre66' );
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'add' => 'Typesaidesapres66:edit',
-			'view' => 'Typesaidesapres66:index',
+			'add' => 'Typesaidesapres66:edit'
 		);
-		
+
 		/**
-		 * Méthodes ne nécessitant aucun droit.
+		 * Liste des tables à ne pas prendre en compte dans les enregistrements
+		 * vérifiés pour éviter les suppressions en cascade intempestives.
 		 *
 		 * @var array
 		 */
-		public $aucunDroit = array(
-			
-		);
-		
+		public $blacklist = array( 'piecesaides66_typesaidesapres66', 'piecescomptables66_typesaidesapres66' );
+
 		/**
-		 * Correspondances entre les méthodes publiques correspondant à des
-		 * actions accessibles par URL et le type d'action CRUD.
-		 *
-		 * @var array
+		 * Surcharge de liste des aides APRE/ADRE pour obtenir la thématique liée
+		 * et ajouter des messages d'avertissement.
 		 */
-		public $crudMap = array(
-			'add' => 'create',
-			'delete' => 'delete',
-			'edit' => 'update',
-			'index' => 'read',
-			'view' => 'read',
-		);
-
-        /**
-        *
-        */
-
-        public function beforeFilter() {
-            $return = parent::beforeFilter();
-
-            $options = array();
-            $options = $this->{$this->modelClass}->enums();
-
-            foreach( array( 'Themeapre66' ) as $linkedModel ) {
-                $field = Inflector::singularize( Inflector::tableize( $linkedModel ) ).'_id';
-                $options = Hash::insert( $options, "{$this->modelClass}.{$field}", $this->{$this->modelClass}->{$linkedModel}->find( 'list' ) );
-            }
-
-            $this->set( compact( 'options' ) );
-
-            $pieceadmin = $this->Pieceaide66->find(
-                'list',
-                array(
-                    'fields' => array(
-                        'Pieceaide66.id',
-                        'Pieceaide66.name'
-                    )
-                )
-            );
-            $this->set( 'pieceadmin', $pieceadmin );
-            ///TODO: ajouter les pieces comtpables
-            $piececomptable = $this->Piececomptable66->find(
-                'list',
-                array(
-                    'fields' => array(
-                        'Piececomptable66.id',
-                        'Piececomptable66.name'
-                    )
-                )
-            );
-            $this->set( 'piececomptable', $piececomptable );
-
-            return $return;
-        }
-
-
-//         public function index() {
-//
-// 			$this->set( 'occurences', $this->Typeaideapre66->occurences() );
-// // 			debug( $this->Typeaideapre66->occurences() );
-// 			$queryData = array(
-// 				'Typeaideapre66' => array(
-// 					'order' => array( 'Themeapre66.name ASC', 'Typeaideapre66.name ASC' )
-// 				)
-// 			);
-//             $this->Default->index( $queryData );
-//         }
-
-        public function index() {
-
-            // Retour à la liste en cas d'annulation
-			if( isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'controller' => 'typesaidesapres66', 'action' => 'index' ) );
+		public function index() {
+			$messages = array();
+			if( 0 === $this->Typeaideapre66->Pieceaide66->find( 'count' ) ) {
+				$msg = 'Merci de renseigner au moins une pièce administrative avant de renseigner une aide de l\'APRE/ADRE.';
+				$messages[$msg] = 'error';
 			}
+			if( 0 === $this->Typeaideapre66->Themeapre66->find( 'count' ) ) {
+				$msg = 'Merci de renseigner au moins un thème avant de renseigner une aide de l\'APRE/ADRE.';
+				$messages[$msg] = 'error';
+			}
+			$this->set( compact( 'messages' ) );
 
-			App::import( 'Behaviors', 'Occurences' );
-			$this->Typeaideapre66->Behaviors->attach( 'Occurences' );
-
-			$this->set( 'occurences', $this->Typeaideapre66->occurences() );
-
-			$queryData = array(
-				'Typeaideapre66' => array(
-					'fields' => array(
-						'Typeaideapre66.id',
-						'Typeaideapre66.name',
-                        'Typeaideapre66.isincohorte',
+			$query = array(
+				'fields' => array_merge(
+					$this->Typeaideapre66->fields(),
+					array(
 						'Themeapre66.name',
-						'COUNT("Aideapre66"."id") AS "Typeaideapre66__occurences"',
-					),
-					'joins' => array(
-						$this->Typeaideapre66->join( 'Aideapre66' ),
-						$this->Typeaideapre66->join( 'Themeapre66' ),
-					),
-					'recursive' => -1,
-					'group' => array(  'Typeaideapre66.id', 'Typeaideapre66.name', 'Themeapre66.name', 'Typeaideapre66.isincohorte'  ),
-					'order' => array( 'Themeapre66.name ASC', 'Typeaideapre66.name ASC' ),
-                    'limit' => 50
+						$this->Typeaideapre66->sqHasLinkedRecords( true, $this->blacklist )
+					)
+				),
+				'joins' => array(
+					$this->Typeaideapre66->join( 'Themeapre66', array( 'type' => 'INNER' ) )
 				)
 			);
-            $this->Default->index( $queryData );
-        }
+			$this->WebrsaParametrages->index( $query );
+		}
 
-        /**
-        *
-        */
+		/**
+		 * Surcharge de la modification d'une aide APRE/ADRE pour obtenir en plus
+		 * les valeurs des cases à cocher "Pièces administratives" et "Pièces
+		 * comptables", ainsi que l'ajout d'options à envoyer au formulaire..
+		 *
+		 * @param integer $id
+		 */
+		public function edit( $id = null ) {
+			// Ajout des contain pour les cases à cocher
+			$query = array(
+				'contain' => array(
+					'Pieceaide66',
+					'Piececomptable66'
+				)
+			);
+			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit', 'query' => $query ) );
 
-        public function add() {
-            $args = func_get_args();
-            call_user_func_array( array( $this, '_add_edit' ), $args );
-        }
+			// Pré-remplissage du formulaire à l'ajout
+			if( 'add' === $this->action && empty( $this->request->data ) ) {
+				$this->request->data['Typeaideapre66']['typeplafond'] = 'ADRE';
+			}
 
-        /**
-        *
-        */
-
-        public function edit() {
-            $args = func_get_args();
-            call_user_func_array( array( $this, '_add_edit' ), $args );
-        }
-
-        /**
-        *
-        */
-
-        protected function _add_edit(){
-            $args = func_get_args();
-
-            $this->Default->{$this->action}( $args );
-        }
-
-        /**
-        *
-        */
-
-        public function delete( $id ) {
-            $this->Default->delete( $id );
-        }
-
-        /**
-        *
-        */
-
-        public function view( $id ) {
-            $this->Default->view( $id );
-        }
+			// Options
+			$options = $this->viewVars['options'];
+			$options['Typeaideapre66']['themeapre66_id'] = $this->Typeaideapre66->Themeapre66->find( 'list' );
+			$options['Pieceaide66']['Pieceaide66'] = $this->Typeaideapre66->Pieceaide66->find( 'list' );
+			$options['Piececomptable66']['Piececomptable66'] = $this->Typeaideapre66->Piececomptable66->find( 'list' );
+			$this->set( compact( 'options' ) );
+		}
     }
 ?>

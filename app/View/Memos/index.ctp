@@ -1,17 +1,17 @@
-<?php 
+<?php
 	$this->pageTitle = 'Mémos concernant la personne';
 	$defaultParams = array('options' => !empty($options) ? $options : array(), 'paginate' => false);
 	echo $this->element('default_index');
-	
+
 	// Formatage des textes de mémos pour la liste
 	if (!empty($memos)) {
 		foreach (Hash::extract($memos, '{n}.Memo.name') as $key => $value) {
 			$memos[$key]['Memo']['name'] = nl2br(
-				String::truncate($value, 250)
+				$this->Text->truncate($value, 250)
 			);
 		}
 	}
-	
+
 	echo $this->Default3->index(
 		$memos,
 		$this->Translator->normalize(

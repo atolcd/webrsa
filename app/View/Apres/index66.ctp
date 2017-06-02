@@ -1,7 +1,7 @@
 <?php
 	$this->pageTitle = sprintf('APRE/ADREs liées à %s', $personne['Personne']['nom_complet']);
 	$this->modelClass = Inflector::classify($this->request->params['controller']);
-	
+
 	$urlController = 'apres'.Configure::read('Apre.suffixe');
 	App::uses('WebrsaAccess', 'Utility');
 	WebrsaAccess::init($dossierMenu);
@@ -73,7 +73,7 @@
 						</tr>
 						<tr>
 							<th>Référent APRE/ADRE</th>
-							<td>'.h(Set::enum(Hash::get($apre, "{$this->modelClass}.referent_id"), $referents)).'</td>
+							<td>'.h( Hash::get( $apre, 'Referent.nom_complet' ) ).'</td>
 						</tr>
 						<tr>
 							<th>Natures de la demande</th>

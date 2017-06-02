@@ -8,7 +8,7 @@
 	 * @subpackage Model.Behavior
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
+	App::uses( 'ModelBehavior', 'Model' );
 	/**
 	 * La classe Validation2RulesComparisonBehavior fournit des méthodes de
 	 * validation contenant un lien entre les valeurs de plusieurs champs.
@@ -18,6 +18,7 @@
 	 */
 	class Validation2RulesComparisonBehavior extends ModelBehavior
 	{
+
 		/**
 		 * Vérifie que les paramètres sont bons.
 		 *
@@ -45,7 +46,7 @@
 			}
 
 			$success = true;
-			$references = (array)$references;
+			$references = (array) $references;
 
 			foreach( $references as $reference ) {
 				$value = Hash::get( $Model->data, "{$Model->alias}.{$reference}" );
@@ -83,7 +84,7 @@
 
 			if( !empty( $checks ) ) {
 				foreach( $checks as $value ) {
-					if ( in_array( $referenceValue, $values, true ) === $condition ) {
+					if( in_array( $referenceValue, $values, true ) === $condition ) {
 						$success = $success && !empty( $value );
 					}
 				}
@@ -91,10 +92,10 @@
 
 			return $success;
 		}
-		
+
 		/**
 		 * Vérifi qu'un champ est à vide si le champ $reference ($condition ? '===' : '!==') $values
-		 * 
+		 *
 		 * @param Model $Model
 		 * @param array $checks
 		 * @param string $reference
@@ -102,19 +103,19 @@
 		 * @param array $values
 		 * @return boolean
 		 */
-		public function emptyIf(Model $Model, $checks, $reference, $condition, $values) {
-			if (!$this->_checkParams($checks, $reference)) {
+		public function emptyIf( Model $Model, $checks, $reference, $condition, $values ) {
+			if( !$this->_checkParams( $checks, $reference ) ) {
 				return false;
 			}
-			
-			$check = in_array(Hash::get($Model->data, "{$Model->alias}.{$reference}"), (array)$values);
-			
-			if (empty($checks) || $check !== $condition) {
+
+			$check = in_array( Hash::get( $Model->data, "{$Model->alias}.{$reference}" ), (array) $values );
+
+			if( empty( $checks ) || $check !== $condition ) {
 				return true;
 			}
-			
-			foreach ($checks as $value) {
-				if (!empty($value)) {
+
+			foreach( $checks as $value ) {
+				if( !empty( $value ) ) {
 					return false;
 				}
 			}
@@ -143,7 +144,7 @@
 
 			if( !empty( $checks ) ) {
 				foreach( $checks as $value ) {
-					if ( in_array( $referenceValue, $values, true ) === $condition ) {
+					if( in_array( $referenceValue, $values, true ) === $condition ) {
 						$success = $success && !is_null( $value );
 					}
 				}
@@ -154,7 +155,7 @@
 
 		/**
 		 * Vérifie que la valeur soit supérieure à la valeur de référence si
-		 * celle-ci est supérieure à zéro.
+		 * elle est différente de zéro.
 		 *
 		 * @param Model $Model
 		 * @param array $check
@@ -171,7 +172,7 @@
 
 			$reference_value = Hash::get( $Model->data, "{$Model->alias}.{$reference}" );
 
-			return ( ( $check_value > 0 ) && !( $check_value < $reference_value ) );
+			return ( 0 == $check_value ) || ( $reference_value <= $check_value ) ;
 		}
 
 		/**
@@ -230,11 +231,11 @@
 			$success = true;
 
 			foreach( $check as $value ) {
-				foreach( (array)$otherFields as $otherField ) {
+				foreach( (array) $otherFields as $otherField ) {
 					$nullValue = is_null( $value );
 					$nullOtherValue = is_null( $Model->data[$Model->alias][$otherField] );
 
-					$success = ( ( ( $nullValue && $nullOtherValue ) || ( !$nullValue && !$nullOtherValue ) ) ) && $success;
+					$success = ( ( ( $nullValue && $nullOtherValue ) || (!$nullValue && !$nullOtherValue ) ) ) && $success;
 				}
 			}
 
@@ -269,7 +270,7 @@
 				return false;
 			}
 
-			$fields = (array)$fields;
+			$fields = (array) $fields;
 			$available = array_keys( $Model->data[$Model->alias] );
 
 			// A°) On n'a pas tous les champs dans this->data
@@ -325,6 +326,51 @@
 			}
 
 			return $success;
+		}
+
+		/**
+		 * Validate that a number is in specified range.
+		 * if $lower and $upper are not set, will return true if
+		 * $check is a legal finite on this platform
+		 *
+		 * @param Model $Model
+		 * @param array $check Value to check
+		 * @param mixed $lower Lower limit
+		 * @param mixed $upper Upper limit
+		 * @return boolean
+		 */
+		public function inclusiveRange( Model $Model, $check, $lower = null, $upper = null ) {
+			if( !is_array( $check ) ) {
+				return false;
+			}
+
+			$return = true;
+			foreach( $check as $field => $value ) {
+				if( isset( $lower ) && isset( $upper ) ) {
+					$return = ( $value >= $lower && $value <= $upper ) && $return;
+				}
+			}
+			return $return;
+		}
+
+		/**
+		 * Vérification que la date saisie est antérieure ou égale à celle du jour.
+		 *
+		 * @param Model $Model
+		 * @param mixed $check
+		 * @return boolean
+		 */
+		public function datePassee( Model $Model, $check ) {
+			if( !is_array( $check ) ) {
+				return false;
+			}
+
+			$return = true;
+			foreach( $check as $field => $value ) {
+				$return = ( strtotime( $value ) <= strtotime( date( 'Y-m-d' ) ) ) && $return;
+			}
+
+			return $return;
 		}
 	}
 ?>

@@ -109,7 +109,7 @@
 			$additionnal = array(
 				'model1' => array(
 					'champ1' => array( 'regle1' => array(
-						'rule' => 'notEmpty',
+						'rule' => NOT_BLANK_RULE_NAME,
 						'message' => 'custom'
 					)),
 					'champ2' => array( 'regle2' => array(

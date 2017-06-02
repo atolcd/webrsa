@@ -49,7 +49,7 @@
 
 		$pagination = $this->Default3->pagination(
 			array(
-				'format' => __( SearchProgressivePagination::format( !Hash::get( $this->request->data, 'Search.Pagination.nombre_total' ) ) )
+				'format' => $this->element( 'pagination_format' )
 			)
 		);
 	?>

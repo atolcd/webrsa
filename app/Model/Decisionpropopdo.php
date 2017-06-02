@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Decisionpropopdo ...
@@ -17,18 +18,17 @@
 	{
 		public $name = 'Decisionpropopdo';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
-			'Enumerable' => array(
-				'fields' => array(
-					'validationdecision' => array( 'domain' => 'decisionpropopdo' ),
-					'etatdossierpdo' => array( 'domain' => 'propopdo' ),
-					'avistechnique' => array( 'domain' => 'decisionpropopdo' ),
-					'decisionreponseep' => array( 'domain' => 'decisionpropopdo' ),
-					'accordepaudition' => array( 'domain' => 'decisionpropopdo' )
-				)
+			'Allocatairelie' => array(
+				'joins' => array( 'Propopdo' )
 			),
-			'Formattable',
-			'Autovalidate2',
 			'Gedooo.Gedooo',
 			'StorablePdf' => array(
 				'active' => 66
@@ -37,18 +37,18 @@
 				66 => array(
 					'PDO/propositiondecision.odt',
 				)
-			)
+			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
 			'decisionpdo_id' => array(
-				'rule' => 'notEmpty',
-				'message' => 'champ obligatoire'
-			),
-			'datedecisionpdo' => array(
-				'rule' => 'date',
-				'message' => 'Veuillez entrer une date valide.',
-				'allowEmpty' => true
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'champ obligatoire'
+				)
 			)
 		);
 
@@ -110,53 +110,6 @@
 		}
 
 		/**
-		* Retourne l'id technique du dossier RSA auquel ce traitement est lié.
-		*/
-
-		public function dossierId( $decisionpropopdo_id ){
-			$result = $this->find(
-				'first',
-				array(
-					'fields' => array( 'Foyer.dossier_id' ),
-					'conditions' => array(
-						'Decisionpropopdo.id' => $decisionpropopdo_id
-					),
-					'contain' => false,
-					'joins' => array(
-						array(
-							'table'      => 'propospdos',
-							'alias'      => 'Propopdo',
-							'type'       => 'INNER',
-							'foreignKey' => false,
-							'conditions' => array( 'Propopdo.id = Decisionpropopdo.propopdo_id' )
-						),
-						array(
-							'table'      => 'personnes',
-							'alias'      => 'Personne',
-							'type'       => 'INNER',
-							'foreignKey' => false,
-							'conditions' => array( 'Propopdo.personne_id = Personne.id' )
-						),
-						array(
-							'table'      => 'foyers',
-							'alias'      => 'Foyer',
-							'type'       => 'INNER',
-							'foreignKey' => false,
-							'conditions' => array( 'Personne.foyer_id = Foyer.id' )
-						),
-					)
-				)
-			);
-
-			if( !empty( $result ) ) {
-				return $result['Foyer']['dossier_id'];
-			}
-			else {
-				return null;
-			}
-		}
-
-		/**
 		* Récupère les données pour le PDf
 		*/
 
@@ -164,7 +117,6 @@
 			// TODO: error404/error500 si on ne trouve pas les données
 			$optionModel = ClassRegistry::init( 'Option' );
 			$qual = $optionModel->qual();
-			$typevoie = $optionModel->typevoie();
 			$services = $this->Propopdo->Serviceinstructeur->find( 'list' );
 			$typestraitements = $this->Propopdo->Traitementpdo->Traitementtypepdo->find( 'list' );
 			$descriptionspdos = $this->Propopdo->Traitementpdo->Descriptionpdo->find( 'list' );

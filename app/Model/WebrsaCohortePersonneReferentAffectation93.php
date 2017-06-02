@@ -75,14 +75,25 @@
 		)';
 
 		/**
+		 * Behaviors utilisés par le modèle.
+		 *
+		 * @var array
+		 */
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes',
+		);
+
+		/**
 		 * Règles de validation de la cohorte.
 		 *
 		 * @var array
 		 */
 		public $validate = array(
 			'active' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' ),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire',
 					'required' => true
 				)
@@ -328,7 +339,7 @@
 			}
 
 			// Filtrer par affectation précédente: référent précédent
-			$referentpcd_id = Sanitize::clean( suffix( (string)Hash::get( $search, 'PersonneReferentPcd.referent_id' ) ) );
+			$referentpcd_id = (string)Sanitize::clean( suffix( (string)Hash::get( $search, 'PersonneReferentPcd.referent_id' ) ) );
 			if( '' !== $referentpcd_id ) {
 				$subQuery = array(
 					'alias' => 'personnes_referents',

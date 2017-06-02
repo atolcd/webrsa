@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Propodecisioncui66 ...
@@ -17,49 +18,11 @@
 	{
 		public $name = 'Propodecisioncui66';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Pgsqlcake.PgsqlAutovalidate',
-			'Containable',
-			'Enumerable',
-			'Formattable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
-
-// 		public $validate = array(
-// 			'propositioncui' => array(
-// 				'rule' => 'notEmpty',
-// 				'message' => 'Champ obligatoire'
-// 			),
-// 			'datepropositioncui' => array(
-// 				'rule' => 'notEmpty',
-// 				'message' => 'Champ obligatoire'
-// 			),
-// 			'propositioncuielu' => array(
-// 				'notEmptyIf' => array(
-// 					'rule' => array( 'notEmptyIf', 'isaviselu', true, array( '1' ) ),
-// 					'message' => 'Champ obligatoire',
-// 				)
-// 			),
-// 			'datepropositioncuielu' => array(
-// 				'notEmptyIf' => array(
-// 					'rule' => array( 'notEmptyIf', 'isaviselu', true, array( '1' ) ),
-// 					'message' => 'Champ obligatoire',
-// 				)
-// 			),
-// 			'propositioncuireferent' => array(
-// 				'notEmptyIf' => array(
-// 					'rule' => array( 'notEmptyIf', 'isavisreferent', true, array( '1' ) ),
-// 					'message' => 'Champ obligatoire',
-// 				)
-// 			),
-// 			'datepropositioncuireferent' => array(
-// 				'notEmptyIf' => array(
-// 					'rule' => array( 'notEmptyIf', 'isavisreferent', true, array( '1' ) ),
-// 					'message' => 'Champ obligatoire',
-// 				)
-// 			),
-// 		);
 
 		public $belongsTo = array(
 			'Cui' => array(
@@ -181,16 +144,7 @@
 				),
 				'Referent' => array(
 					'qual' => $Option->qual()
-				),
-				'Structurereferente' => array(
-					'type_voie' => $Option->typevoie()
-				),
-				'Type' => array(
-					'voie' => $Option->typevoie()
-				),
-				'type' => array(
-					'voie' => $Option->typevoie()
-				),
+				)
 			);
 
 // debug( $propodecisioncui );
@@ -266,9 +220,9 @@
 
             return $sq;
         }
-        
-        
-        
+
+
+
 		/**
 		 * Retourne le PDF de l'impression de l'avis technique du CUI.
 		 *
@@ -288,20 +242,9 @@
 				),
 				'Referent' => array(
 					'qual' => $Option->qual()
-				),
-				'Structurereferente' => array(
-					'type_voie' => $Option->typevoie()
-				),
-				'Type' => array(
-					'voie' => $Option->typevoie()
-				),
-				'type' => array(
-					'voie' => $Option->typevoie()
-				),
+				)
 			);
 
-// debug( $propodecisioncui );
-// die();
 			return $this->ged(
 				$propodecisioncui,
 				'CUI/avistechniquecui.odt',

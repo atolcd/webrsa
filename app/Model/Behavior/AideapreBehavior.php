@@ -7,6 +7,7 @@
 	 * @package app.Model.Behavior
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'ModelBehavior', 'Model' );
 
 	/**
 	 * La classe AideapreBehavior ...
@@ -20,8 +21,8 @@
 		 * @param Model $model
 		 * @return mixed
 		 */
-        public function beforeSave( Model $model ) {
-            $return = parent::beforeSave( $model );
+        public function beforeSave( Model $model, $options = array() ) {
+            $return = parent::beforeSave( $model, $options );
 
             $suivi = ClassRegistry::init( 'Suiviaideapretypeaide' );
 

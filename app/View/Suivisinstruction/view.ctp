@@ -11,31 +11,31 @@
 			</tr>
 			<tr class="odd">
 				<th ><?php echo __d( 'suiviinstruction', 'Suiviinstruction.date_etat_instruction' );?></th>
-				<td><?php echo (date_short( $suiviinstruction['Suiviinstruction']['date_etat_instruction'] ) );?></td>
+				<td><?php echo date_short( $suiviinstruction['Suiviinstruction']['date_etat_instruction'] ) ;?></td>
 			</tr>
 			<tr class="even">
 				<th ><?php echo __d( 'suiviinstruction', 'Suiviinstruction.nomins' );?></th>
-				<td><?php echo ($suiviinstruction['Suiviinstruction']['nomins']);?></td>
+				<td><?php echo $suiviinstruction['Suiviinstruction']['nomins'];?></td>
 			</tr>
 			<tr class="odd">
 				<th ><?php echo __d( 'suiviinstruction', 'Suiviinstruction.prenomins' );?></th>
-				<td><?php echo ($suiviinstruction['Suiviinstruction']['prenomins']);?></td>
+				<td><?php echo $suiviinstruction['Suiviinstruction']['prenomins'];?></td>
 			</tr>
 			<tr class="even">
 				<th ><?php echo __d( 'suiviinstruction', 'Suiviinstruction.numdepins' );?></th>
-				<td><?php echo ($suiviinstruction['Suiviinstruction']['numdepins']);?></td>
+				<td><?php echo $suiviinstruction['Suiviinstruction']['numdepins'];?></td>
 			</tr>
 			<tr class="odd">
 				<th ><?php echo __d( 'suiviinstruction', 'Suiviinstruction.typeserins' );?></th>
-				<td><?php echo ( isset( $typeserins[$suiviinstruction['Suiviinstruction']['typeserins']] ) ? $typeserins[$suiviinstruction['Suiviinstruction']['typeserins']] : null );?></td>
+				<td><?php echo  isset( $typeserins[$suiviinstruction['Suiviinstruction']['typeserins']] ) ? $typeserins[$suiviinstruction['Suiviinstruction']['typeserins']] : null ;?></td>
 			</tr>
 			<tr class="even">
 				<th ><?php echo __d( 'suiviinstruction', 'Suiviinstruction.numcomins' );?></th>
-				<td><?php echo ($suiviinstruction['Suiviinstruction']['numcomins']);?></td>
+				<td><?php echo $suiviinstruction['Suiviinstruction']['numcomins'];?></td>
 			</tr>
 			<tr class="odd">
 				<th ><?php echo __( 'numagrins' );?></th>
-				<td><?php echo ($suiviinstruction['Suiviinstruction']['numagrins']);?></td>
+				<td><?php echo $suiviinstruction['Suiviinstruction']['numagrins'];?></td>
 			</tr>
 		</tbody>
 	</table>

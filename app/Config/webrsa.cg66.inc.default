@@ -1,52 +1,38 @@
 <?php
 	/**
-	 * Nouvelle façon de paramétrer la génération de documents PDF via Gedooo.
+	 * Paramétrage de la génération de documents PDF au moyen de Gedooo.
 	 *
-	 * Ci-dessous, l'ensemble des clés de configuration possibles.
-	 *
-	 * array(
-	 *	'method' => 'classic', // classic, unoconv, cloudooo
-	 *	// Ancien serveur Gedooo
-	 *	// 'wsdl' => 'http://gedooo.test.adullact.org:8080/axis2/services/OfficeService?wsdl',
-	 *	// Nouveau serveur Gedooo
-	 *	'wsdl' => 'http://gedooo.test.adullact.org:8880/ODFgedooo/OfficeService?wsdl',
-	 *	// Pour Unoconv
-	 *	'unoconv_bin' => '/home/cbuffin/Bureau/1/usr/bin/unoconv',
-	 *	// Pour Cloudooo
-	 *	'cloudooo_host' => '192.168.2.35',
-	 *	'cloudooo_port' => '8012'
-	 * )
+	 * Les clés de configuration possibles sont:
+	 *	- method: la méthode permettant de générer le document de sortie; valeurs
+	 *		possibles: classic, unoconv, cloudooo (ainsi que cloudooo_ancien et
+	 *		unoconv_ancien)
+	 *	- wsdl: l'URL du web-service, utilisé quelle que soit la méthode de
+	 *		génération; exemple: http://192.168.2.35:8880/ODFgedooo/OfficeService?wsdl
+	 *	- unoconv_bin: chemin vers le binaire unoconv, lorsque la méthode unoconv
+	 *		ou unoconv_ancien est paramétrée; exemple: /usr/bin/unoconv
+	 *	- cloudooo_host: le serveur cloudooo, lorsque la méthode cloudooo ou
+	 *		cloudooo_ancien est utilisée; exemple: 192.168.2.35
+	 *	- cloudooo_port: le port du serveur cloudooo, lorsque la méthode cloudooo
+	 *		ou cloudooo_ancien est utilisée; exemple: 8012
+	 *	- debug_export_data: permet d'exporter les données envoyées en plus des noms
+	 *		des variables dans un fichier du répertoire app/tmp/logs lorsque l'on
+	 *		n'est pas en mode production; false (par défaut) ou true
+	 *	- dont_force_newlines: pour que les retours à la ligne ne soient pas forcés
+	 *		(ancien comportement de unoconv et cloudooo); false (par défaut) ou true
+	 *	- filter_vars: permet de filtrer les variables envoyées à l'impression en
+	 *		analysant les variables utilisateur définies dans le modèle ; false
+	 *		(par défaut) ou true
 	 */
-
-	// Exemple de configuration avec l'ancien Gedooo
 	Configure::write(
 		'Gedooo',
 		array(
-			'method' => 'classic',
-			'wsdl' => 'http://127.0.0.1:8080/axis2/services/OfficeService?wsdl',
+			'method' => 'cloudooo',
+			'wsdl' => 'http://127.0.0.1:8880/ODFgedooo-0.8.05/OfficeService?wsdl',
+			'cloudooo_host' => '127.0.0.1',
+			'cloudooo_port' => '8011',
+			'filter_vars' => true
 		)
 	);
-
-	// Exemple de configuration avec le nouveau Gedooo et unoconv
-	/*Configure::write(
-		'Gedooo',
-		array(
-			'method' => 'unoconv',
-			'wsdl' => 'http://gedooo.test.adullact.org:8880/ODFgedooo/OfficeService?wsdl',
-			'unoconv_bin' => '/home/cbuffin/Bureau/1/usr/bin/unoconv',
-		)
-	);*/
-
-	// Exemple de configuration avec le nouveau Gedooo et cloudooo
-	/*Configure::write(
-		'Gedooo',
-		array(
-			'method' => 'cloudooo',
-			'wsdl' => 'http://192.168.2.35:8880/ODFgedooo-0.8.05/OfficeService?wsdl',
-			'cloudooo_host' => 'cloudooo.test.adullact.org',
-			'cloudooo_port' => '8011'
-		)
-	);*/
 
 	Configure::write( 'Cg.departement', 66 );
 	Configure::write( 'MultiDomainsTranslator', array( 'prefix' => 'cg'.Configure::read( 'Cg.departement' ) ) );
@@ -120,13 +106,6 @@
 	 * @default false
 	 */
 	Configure::write( 'User.adresse', true ); // true = cg66, false = cg93
-
-
-	/**
-	 * Paramètre à renseigner pour l'affichage de la bonne fiche de candidature
-	 * @default: 'cg93' (pour le CG93), sinon 'cg66' pour le CG66
-	 */
-	Configure::write( 'ActioncandidatPersonne.suffixe', 'cg66' );
 
 	/**
 	 *   Paramètre à renseigner dans le cas d'un affichage plus large du menu du dossier
@@ -401,21 +380,6 @@
 	);
 
 	/**
-	 * Permet d'indiquer les valeurs par défaut des formulaires de recherche.
-	 * Utilisé pour le fomulaire de recherche par Dossiers PCGs -> Par Gestionnaires PCGs
-	 *
-	 */
-	Configure::write(
-		'Filtresdefaut.Criteresdossierspcgs66_gestionnaire',
-		array(
-			'Dossierpcg66' => array(
-				'etatdossierpcg_choice' => true, // Cases à cocher "Filtrer par état du dossier PCG "
-				'etatdossierpcg' => array( 'attinstr', 'decisionvalid', 'decisionnonvalid', 'attpj' ) // Case à cocher "Filtrer par état du dossier PCG"
-			)
-		)
-	);
-
-	/**
 	 * Permet de rechercher le dernier dossier d'un allocataire dans la table
 	 * derniersdossiersallocataires (il faudra mettre le shell Derniersdossiersallocataires
 	 * en tâche planifiée) afin de se passer d'une sous-requête coûteuse dans les
@@ -462,59 +426,37 @@
 	Configure::write( 'apache_bin', '/usr/sbin/apache2' );
 
 	/**
-	 * Configuration de la gestion des mots de passe aléatoires.
+	 * Configuration de la gestion des mots de passe oubliés et du générateur de
+	 * mots de passes aléatoire.
 	 *
-	 * Configuration par-défaut:
+	 * Configuration par défaut:
 	 * <pre>
 	 * array(
 	 *	// Permet-on l'utilisation de la fonctionnalité "Mot de passe oublié" sur la page de login ?
 	 * 	'mail_forgotten' => false,
-	 *	// Quelles sont les possibilités lors de la création d'un mot de passe aléatoire ?
-	 * 	'possible' => array(
-	 *		// Nombres -> de 0 à 9
-	 * 		'number' => true,
-	 *		// Minuscules -> de a à z
-	 * 		'lower' => true,
-	 *		// Majuscules -> de a à z
-	 * 		'upper' => true,
-	 *		// Caractères spéciaux -> ,;.!?*+-
-	 * 		'symbol' => true,
-	 *		// Supprime-t'on les caractères équivoques (1, i, l, I et 0, o, O) ?
-	 * 		'typesafe' => true,
+	 *	//
+	 * 	'generators' => array(
+	 * 		'default' => 'Password.PasswordPassword'
 	 * 	),
-	 *	// Quels sont les caractères obligatoires ?
-	 * 	'required' => array(
-	 *		// Au moins un nombre ?
-	 * 		'number' => true,
-	 *		// Au moins une lettre en minuscule ?
-	 * 		'lower' => false,
-	 *		// Au moins une lettre en majuscule ?
-	 * 		'upper' => false,
-	 *		// Au moins un caractère spécial ?
-	 * 		'symbol' => true,
+	 * 	'checkers' => array(
+	 * 		'default' => 'Password.PasswordAnssi'
 	 * 	),
+	 *  // 1°) Pour le générateur de mots de passe par défaut Password.PasswordPassword
+	 * 	'length' => 8,
+	 *	// Doit-on exclure les caractères équivoques 0, 1, l, i, o, I, O ?
+	 * 	'typesafe' => true,
+	 *	// Nombres de 0 à 9
+	 * 	'class_number' => true,
+	 *	// Minuscules de a à z
+	 * 	'class_lower' => true,
+	 *	// Majuscules de a à z
+	 * 	'class_upper' => true,
+	 *	// Caractères spéciaux ,;.!?*+-
+	 * 	'class_symbol' => true
 	 * )
 	 * </pre>
 	 */
-	Configure::write(
-		'Password',
-		array(
-			'mail_forgotten' => true,
-			'possible' => array(
-				'number' => true,
-				'lower' => true,
-				'upper' => true,
-				'symbol' => true,
-				'typesafe' => true,
-			),
-			'required' => array(
-				'number' => true,
-				'lower' => false,
-				'upper' => false,
-				'symbol' => true,
-			),
-		)
-	);
+	Configure::write( 'Password', array( 'mail_forgotten' => true ) );
 
     /**
 	 * Variable contenant une chaîne de caractères (stockée en base) pour le
@@ -564,18 +506,6 @@
      * exemple : Configure::write( 'ActioncandidatPersonne.Partenaire.id', array( '61' ) );
 	 */
     Configure::write( 'ActioncandidatPersonne.Partenaire.id', array( '61' ) );
-
-    /**
-	 * Paramètre à renseigner pour détecter les organismes, auxquels les décisions PCG
-     * seront envoyés, qui serviront à générer un dossier PCG de façon automatique
-     * (Utilisé dans le module PCG CG66 )
-     * ex: l'organisme PDA-MGA, PDU-MMR
-	 * @default: id de(s) organismes paramétrés
-     * @param array
-     * exemple : Configure::write( 'Generationdossierpcg.Orgtransmisdossierpcg66.id', array( '4', '6' ) )
-	 */
-    Configure::write( 'Generationdossierpcg.Orgtransmisdossierpcg66.id', array( '4', '6' ) );
-
 
     /**
      * Paramètre permettant de noter l'identifiant de la structure référente
@@ -696,68 +626,6 @@
 	Configure::write( 'ValidationOnsubmit.enabled', true );
 
 	/**
-	 * Valeurs par défaut des filtres pour le moteur de recherche par CUI.
-	 */
-	Configure::write(
-		'Filtresdefaut.Criterescuis_index',
-		array(
-			'Search' => array(
-				'Situationdossierrsa' => array(
-					'etatdosrsa_choice' => true,
-					'etatdosrsa' => array( 'Z', 2, 3, 4 )
-				),
-				'Pagination' => array(
-					'nombre_total' => 0
-				)
-			)
-		)
-	);
-
-	/**
-	 * Liste des champs devant apparaître dans les résultats de la recherche par CUI:
-	 *	- Criterescuis.search.fields contient les champs de chaque ligne du tableau de résultats
-	 *	- Criterescuis.exportcsv contient les champs de chaque ligne du tableau à télécharger au format CSV
-	 *
-	 * Voir l'onglet "Environnement logiciel" > "WebRSA" > "Champs spécifiés dans
-	 * le webrsa.inc" de la vérification de l'application.
-	 */
-	Configure::write(
-		'Criterescuis',
-		array(
-			'search' => array(
-				'fields' => array(
-					'Dossier.matricule',
-					'Personne.nom_complet',
-					'Adresse.nomcom',
-					'Cui66.etatdossiercui66',
-					'Historiquepositioncui66.created' => array( 'type' => 'date' ), // Type datetime
-					'Partenairecui.raisonsociale',
-					'Cui.effetpriseencharge',
-					'Cui.finpriseencharge',
-					'Decisioncui66.decision',
-					'Decisioncui66.datedecision' => array( 'type' => 'date' ), // Type datetime
-					'Emailcui.textmailcui66_id' => array( 'type' => 'varchar' ), // Type integer
-					'Emailcui.dateenvoi' => array( 'type' => 'date' ), // Type datetime
-				)
-			),
-			'exportcsv' => array(
-				'Dossier.matricule',
-				'Personne.nom_complet',
-				'Adresse.nomcom',
-				'Cui66.etatdossiercui66',
-				'Historiquepositioncui66.created' => array( 'type' => 'date' ),
-				'Partenairecui.raisonsociale',
-				'Cui.effetpriseencharge',
-				'Cui.finpriseencharge',
-				'Decisioncui66.decision',
-				'Decisioncui66.datedecision' => array( 'type' => 'date' ),
-				'Emailcui.textmailcui66_id' => array( 'type' => 'varchar' ),
-				'Emailcui.dateenvoi' => array( 'type' => 'date' ),
-			)
-		)
-	);
-
-	/**
 	 * Ordre d'affichage des dossiers EP selon différentes actions (voir l'URL,
 	 * ajouter le suffixe .order).
 	 *
@@ -782,6 +650,8 @@
 	 */
 	Configure::write('ValidateAllowEmpty.Adresse.libtypevoie', true);
 	Configure::write('ValidateAllowEmpty.Adresse.nomvoie', true);
+	// Le champ "Date de demande" d'un dossier RSA doit être un champ obligatoire
+	Configure::write('ValidateAllowEmpty.Dossier.dtdemrsa', false);
 
 	/**
 	 * Permet de désactiver le "cadenas" situé en haut à droite
@@ -1028,23 +898,23 @@
 	 * Tableau de bord principal
 	 */
 	Configure::write('Module.Dashboards.enabled', true);
-	
+
 	/**
 	 * Permet le redimensionnement automatique des textarea
-	 * 
+	 *
 	 * textarea.auto_resize.all => tout les textarea
 	 * textarea.auto_resize.controllername.all => tout les textarea d'un controlleur en particulier
 	 * textarea.auto_resize.controllername.action => tout les textarea d'un controlleur et d'une action en particulier
 	 */
 	Configure::write('textarea.auto_resize.all', true);
-	
+
 	/**
 	 * Filtre de recherche par Prestations
-	 * Il est possible de remplacer la clef "common" par "Controller.action" 
+	 * Il est possible de remplacer la clef "common" par "Controller.action"
 	 * pour spécifier par Controller et par action
-	 * Si "common" est spécifié en plus du "Controller.action", 
+	 * Si "common" est spécifié en plus du "Controller.action",
 	 * la configuration de "Controller.action" prend le dessus
-	 * 
+	 *
 	 * Valeurs possibles (array) :
 	 * 0 = Sans prestation
 	 * 1 = Demandeur ou Conjoint
@@ -1055,4 +925,31 @@
 	 * 'RDO' = Responsable du dossier
 	 */
 	Configure::write('ConfigurableQuery.common.filters.has_prestation', array(0, 1, 'DEM', 'CJT'));
+
+	/**
+	 * Permet l'affichage des erreurs cachés
+	 */
+	Configure::write('Module.DisplayValidationErrors.enabled', true);
+
+	/**
+	 * Permet de filtrer les modules visibles dans l'onglet "Droits" des formulaires
+	 * d'ajout et de modification des groupes et des utilisateurs en fonction du
+	 * département connecté ainsi que des modules activés.
+	 *
+	 * L'idée est que les modules en question ne sont normalement pas accessibles
+	 * et qu'il ne font donc qu'ajouter de la complexité dans ces écrans de droits.
+	 *
+	 * Une valeur "null" ou "false" filtre les permissions, une valeur "true" ne
+	 * les filtre pas (comme avant la version 3.2.0).
+	 *
+	 * @default null
+	 */
+	Configure::write( 'Module.Permissions.all', false );
+
+	/**
+	 * Permet de faire apparaître ou non dans le menu "Administration" le
+	 * sous-menu "Flux CNAF" qui ne sert qu'aux développeurs car ces écrans
+	 * présentent le format technique des flux CNAF.
+	 */
+	Configure::write( 'Module.Fluxcnaf.enabled', false );
 ?>

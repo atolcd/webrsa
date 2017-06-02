@@ -3,8 +3,9 @@
 	 * Code source de la classe Correspondancepersonne.
 	 *
 	 * @package app.Model
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Model.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Correspondancepersonne ...
@@ -21,19 +22,16 @@
 		public $name = 'Correspondancepersonne';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
 		 */
-		public $actsAs = array();
-		
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
+		);
+
 		/**
 		 * Associations "Belongs to".
 		 *
@@ -49,7 +47,7 @@
 				'foreignKey' => 'personne2_id',
 			),
 		);
-		
+
 		/**
 		 * Recalcule les correspondances selon un personne_id donné
 		 * @param integer $personne_id
@@ -64,7 +62,7 @@
 					'Personne2.id' => $personne_id
 				)
 			);
-			
+
 			return $this->updateCorrespondance($conditions, $all, $limit);
 		}
 
@@ -72,10 +70,10 @@
 		 * Recalcule les correspondances entre les differents personne_id
 		 * La suppression ne permet pas d'imposer une limite, donc ne réécrira pas dans la table si $limit != false
 		 * Utile pour ce servir de cette fonction comme recherche
-		 * 
+		 *
 		 * @param array $conditions
 		 * @param boolean $all
-		 * @param integer $limit 
+		 * @param integer $limit
 		 * @return array
 		 */
 		public function updateCorrespondance( $conditions = array(), $all = true, $limit = false ) {
@@ -87,29 +85,29 @@
 				'nir_correct13( Personne2.nir )',
 				'SUBSTRING( TRIM( BOTH \' \' FROM Personne1.nir ) FROM 1 FOR 13 ) = SUBSTRING( TRIM( BOTH \' \' FROM Personne2.nir ) FROM 1 FOR 13 )',
 			);
-			
+
 			$queryAnomalies = 'SELECT
 				"Personne1".id AS "Personne1__id", "Personne2".id AS "Personne2__id"
 				FROM personnes AS "Personne1",  personnes AS "Personne2"
 				WHERE'
-				. $this->getDataSource()->conditions( 
-					array_merge( 
+				. $this->getDataSource()->conditions(
+					array_merge(
 						$baseConditions,
-						array( "Personne1.dtnai <> Personne2.dtnai"	), 
+						array( "Personne1.dtnai <> Personne2.dtnai"	),
 						$conditions
 					), true, false
 				) . $limit
 			;
 			$anomalies = $this->query($queryAnomalies);
-		
+
 			$queryCorrespondances = 'SELECT
 				"Personne1".id AS "Personne1__id", "Personne2".id AS "Personne2__id"
 				FROM personnes AS "Personne1",  personnes AS "Personne2"
 				WHERE'
-				. $this->getDataSource()->conditions( 
-					array_merge( 
+				. $this->getDataSource()->conditions(
+					array_merge(
 						$baseConditions,
-						array( 'Personne1.dtnai = Personne2.dtnai'	), 
+						array( 'Personne1.dtnai = Personne2.dtnai'	),
 						$conditions
 					), true, false
 				) . $limit
@@ -117,14 +115,14 @@
 			$correspondances = $this->query($queryCorrespondances);
 
 			$results = $this->_sort( array_merge($this->_buildSave($anomalies, true), $this->_buildSave($correspondances, false)) );
-			
+
 			$this->deleteAllUnBound( $this->_conditionsForDelete( $conditions ) );
 
 			$this->saveMany( $results );
-			
+
 			return $results;
 		}
-		
+
 		/**
 		 * Prépare les données reçu pour l'enregistrement en saveMany
 		 * @param array $datas
@@ -144,7 +142,7 @@
 			}
 			return $save;
 		}
-		
+
 		/**
 		 * Permet de trier par personne1_id les données destiné à la sauvegardes
 		 * @param array $datas
@@ -152,21 +150,21 @@
 		 */
 		protected function _sort( $datas ) {
 			$key_personne1List = array();
-			
+
 			foreach( $datas as $key => $value ) {
 				$key_personne1List[$value['personne1_id'] . '_' . $key] = $value;
 			}
-			
+
 			array_multisort($key_personne1List);
 			$result = array();
-			
+
 			foreach ( $key_personne1List as $key => $value ) {
 				$result[] = $value;
 			}
-			
+
 			return $result;
 		}
-		
+
 		/**
 		 * Interverti PersonneX.id en personneX_id pour la suppressions des lignes
 		 * @param array $conditions
@@ -177,11 +175,11 @@
 				'Personne1.id' => 'Correspondancepersonne.personne1_id',
 				'Personne2.id' => 'Correspondancepersonne.personne2_id',
 			));
-			
+
 			if ( empty($return) ) {
 				return array('1 = 1');
 			}
-			
+
 			return $return;
 		}
 	}

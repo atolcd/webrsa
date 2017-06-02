@@ -7,6 +7,8 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'FrValidation', 'Validation' );
 
 	/**
 	 * La classe Structurereferente s'occupe de la gestion des structures référentes.
@@ -15,18 +17,43 @@
 	 */
 	class Structurereferente extends AppModel
 	{
+		/**
+		 * Nom du modèle.
+		 *
+		 * @var string
+		 */
 		public $name = 'Structurereferente';
+
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
 
 		public $displayField = 'lib_struc';
 
-		public $order = array( 'lib_struc ASC' );
+		/**
+		 * Tri par défaut pour ce modèle.
+		 *
+		 * @var array
+		 */
+		public $order = array( '%s.lib_struc ASC' );
 
+		/**
+		 * Behaviors utilisés par le modèle.
+		 *
+		 * @var array
+		 */
 		public $actsAs = array(
-			'Formattable' => array(
-				'phone' => array( 'numtel', 'numfax' )
+			'Validation2.Validation2Formattable' => array(
+				'Validation2.Validation2DefaultFormatter' => array(
+					'stripNotAlnum' => '/^(numtel|numfax)$/'
+				)
 			),
-			'Pgsqlcake.PgsqlAutovalidate',
-			'Validation.ExtraValidationRules',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		/**
@@ -41,19 +68,24 @@
 
 		public $validate = array(
 			'numtel' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
 				)
 			),
 			'numfax' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
 				)
-			),
+			)
 		);
 
+		/**
+		 * Associations "Belongs to".
+		 *
+		 * @var array
+		 */
 		public $belongsTo = array(
 			'Typeorient' => array(
 				'className' => 'Typeorient',
@@ -64,6 +96,11 @@
 			)
 		);
 
+		/**
+		 * Associations "Has one".
+		 *
+		 * @var array
+		 */
 		public $hasOne = array(
 			'Contratinsertion' => array(
 				'className' => 'Contratinsertion',
@@ -80,6 +117,11 @@
 			)
 		);
 
+		/**
+		 * Associations "Has many".
+		 *
+		 * @var array
+		 */
 		public $hasMany = array(
 			'Bilanparcours66' => array(
 				'className' => 'Bilanparcours66',
@@ -317,6 +359,11 @@
 			),
 		);
 
+		/**
+		 * Associations "Has and belongs to many".
+		 *
+		 * @var array
+		 */
 		public $hasAndBelongsToMany = array(
 			'Communautesr' => array(
 				'className' => 'Communautesr',
@@ -470,38 +517,6 @@
 			}
 
 			return $this->find( 'list', array( 'conditions' => $conditions, 'recursive' => -1 ) );
-		}
-
-		/**
-		 * Retourne les enregistrements pour lesquels une erreur de paramétrage
-		 * a été détectée.
-		 * Il s'agit des structures pour lesquelles on ne sait pas si elles gèrent
-		 * l'APRE ni le CER.
-		 *
-		 * @return array
-		 */
-		public function storedDataErrors() {
-			return $this->find(
-				'all',
-				array(
-					'fields' => array(
-						'Structurereferente.id',
-						'Structurereferente.lib_struc',
-						'Structurereferente.apre',
-						'Structurereferente.contratengagement',
-						'Structurereferente.cui'
-					),
-					'recursive' => -1,
-					'conditions' => array(
-						'OR' => array(
-							'Structurereferente.apre' => NULL,
-							'Structurereferente.contratengagement' => NULL,
-							'Structurereferente.cui' => NULL
-						)
-					),
-					'contain' => false
-				)
-			);
 		}
 
 		/**
@@ -679,7 +694,7 @@
 			$departement = (int)Configure::read( 'Cg.departement' );
 			$results = parent::enums();
 
-			$results[$this->alias]['type_voie'] = $this->Option->typevoie();
+			$results[$this->alias]['type_voie'] = $this->Option->libtypevoie();
 
 			if( 58 === $departement ) {
 				$results[$this->alias]['typestructure'] = array_merge(

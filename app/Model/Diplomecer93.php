@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * Classe Diplomecer93.
@@ -23,20 +24,14 @@
 		public $name = 'Diplomecer93';
 
 		/**
-		 * Récursivité.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
-		 * Behaviors utilisés.
+		 * Behaviors utilisés par ce modèle.
 		 *
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Validation.Autovalidate',
-			'Formattable',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		/**

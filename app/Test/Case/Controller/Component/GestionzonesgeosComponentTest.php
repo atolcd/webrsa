@@ -75,8 +75,8 @@
 
 			parent::setUp();
 
-			$Request = new CakeRequest( 'criteresci/index', false );
-			$Request->addParams(array( 'controller' => 'criteresci', 'action' => 'index' ) );
+			$Request = new CakeRequest( 'gestionzonesgeos_tests/index', false );
+			$Request->addParams(array( 'controller' => 'gestionzonesgeos_tests', 'action' => 'index' ) );
 
 			$this->Controller = new GestionzonesgeosTestsController( $Request );
 			$this->Controller->Components->init( $this->Controller );

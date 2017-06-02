@@ -7,18 +7,20 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
+	App::uses( 'CakeEmail', 'Network/Email' );
 	App::uses( 'Folder', 'Utility' );
 	App::uses( 'File', 'Utility' );
-	App::uses( 'CakeEmail', 'Network/Email' );
-	App::uses( 'WebrsaEmailConfig', 'Utility' );
 	App::uses( 'Occurences', 'Model/Behavior' );
+	App::uses( 'PasswordFactory', 'Password.Utility' );
+	App::uses( 'WebrsaEmailConfig', 'Utility' );
 
 	/**
 	 * La classe UsersController permet la gestion des utilisateurs.
 	 *
 	 * @package app.Controller
 	 */
-	class UsersController extends AppController
+	class UsersController extends AbstractWebrsaParametragesController
 	{
 		/**
 		 * Nom du contrôleur.
@@ -33,16 +35,15 @@
 		 * @var array
 		 */
 		public $components = array(
-			'Dbdroits',
 			'Jetons2',
-			'Menu',
-			'Password',
 			'Search.SearchPrg' => array(
 				'actions' => array(
 					'index',
 				),
 			),
 			'WebrsaUsers',
+			'WebrsaParametrages',
+			'WebrsaPermissions'
 		);
 
 		/**
@@ -89,6 +90,7 @@
 			'forgottenpass',
 			'login',
 			'logout',
+			'ajax_get_permissions',
 		);
 
 		/**
@@ -99,6 +101,7 @@
 		 */
 		public $crudMap = array(
 			'add' => 'create',
+			'ajax_get_permissions' => 'read',
 			'changepass' => 'update',
 			'delete' => 'delete',
 			'delete_jetons' => 'delete',
@@ -125,6 +128,8 @@
 		 *
 		 */
 		protected function _setOptions() {
+			$departement = (int)Configure::read( 'Cg.departement' );
+
 			$options = array(
 				'Groups' => $this->User->Group->find( 'list' ),
 				'Serviceinstructeur' => $this->User->Serviceinstructeur->listOptions(),
@@ -136,7 +141,6 @@
 						'fields' => array(
 							'Referent.id',
 							'Referent.nom_complet',
-//                            $this->User->Referent->sqVirtualField( 'nom_complet' ),
 							'Structurereferente.lib_struc'
 						),
 						'recursive' => -1,
@@ -205,6 +209,10 @@
 						)
 					)
 				);
+
+				if( 66 === $departement ) {
+					$options['polesdossierspcgs66'] = $this->User->Poledossierpcg66->WebrsaPoledossierpcg66->polesdossierspcgs66( false );
+				}
 			}
 
 			$this->set( compact( 'options' ) );
@@ -219,34 +227,23 @@
 			$this->set( 'zglist', $this->User->Zonegeographique->find( 'list' ) );
 			$this->set( 'gp', $this->User->Group->find( 'list' ) );
 			$this->set( 'si', $this->User->Serviceinstructeur->find( 'list' ) );
-			$this->set( 'typevoie', $this->Option->typevoie() );
 			$this->set( 'options', $this->User->enums() );
 			$this->set( 'structuresreferentes', $this->User->Structurereferente->find( 'list', array( 'conditions' => array( 'Structurereferente.actif' => 'O' ) ) ) );
-			
+
 			if (Configure::read('Cg.departement') === 66) {
-				$internes = $this->User->Service66->find('list', 
+				$internes = $this->User->Service66->find('list',
 					array('conditions' => array('Service66.actif' => 1, 'Service66.interne' => 1))
 				);
-				$externes = $this->User->Service66->find('list', 
+				$externes = $this->User->Service66->find('list',
 					array('conditions' => array('Service66.actif' => 1, 'Service66.interne' => 0))
 				);
-				
+
 				$this->set('services66', array('DASAD' => $internes, 'Hors DASAD' => $externes));
 			}
 
             $this->set(
                 'polesdossierspcgs66',
-                $this->User->Poledossierpcg66->find(
-                    'list',
-                    array(
-                        'fields' => array(
-                            'Poledossierpcg66.id',
-                            'Poledossierpcg66.name'
-                        ),
-                        'conditions' => array( 'Poledossierpcg66.isactif' => '1' ),
-                        'order' => array( 'Poledossierpcg66.name ASC' )
-                    )
-                )
+                $this->User->Poledossierpcg66->WebrsaPoledossierpcg66->polesdossierspcgs66(false)
             );
 			// Obtention de la liste des référents auxquels lier l'utilisateur
 			$conditions = array(
@@ -291,57 +288,9 @@
 		 * 	- http://www.neilcrookes.com/2009/02/26/get-all-acl-permissions/
 		 */
 		protected function _loadPermissions() {
-			// FIXME:à bouger dans un composant ?
-			if( $this->Session->check( 'Auth.User' ) && !$this->Session->check( 'Auth.Permissions' ) ) {
-				$aro = $this->Acl->Aro->find(
-						'first', array(
-					'conditions' => array(
-						'Aro.model' => 'Utilisateur',
-						'Aro.foreign_key' => $this->Session->read( 'Auth.User.id' )
-					)
-						)
-				);
-
-				// Recherche des droits pour les sous-groupes
-				$parent_id = Set::extract( $aro, 'Aro.parent_id' );
-				$parentAros = array( );
-				while( !empty( $parent_id ) && ( $parent_id != 0 ) ) {
-					$parentAro = $this->Acl->Aro->find(
-							'first', array(
-						'conditions' => array(
-							'Aro.id' => $parent_id
-						)
-							)
-					);
-					$parentAros[] = $parentAro;
-					$parent_id = Set::extract( $parentAro, 'Aro.parent_id' );
-				}
-
-				$permissions = array( );
-				if( !empty( $parentAros ) && !empty( $parentAros['Aro'] ) && !empty( $parentAros['Aco'] ) ) {
-					$permissions = Set::combine( $parentAros, '/Aco/alias', '/Aco/Permission/_create' );
-				}
-				if( !empty( $aro ) ) {
-					$qd_permissions = array(
-						'contain' => array(
-							'Aco'
-						),
-						'fields' => array(
-							'Aco.alias',
-							'Permission._create'
-						),
-						'conditions' => array(
-							'Permission.aro_id' => array( $aro['Aro']['id'], $aro['Aro']['parent_id'] )
-						)
-					);
-					$data = $this->Acl->Aro->Permission->find( 'all', $qd_permissions );
-					$permissions = Set::merge( $permissions, Set::combine( $data, '{n}.Aco.alias', '{n}.Permission._create' ) );
-
-					foreach( $permissions as $key => $permission ) {
-						$permissions[$key] = ( $permission != -1 );
-					}
-					$this->Session->write( 'Auth.Permissions', $permissions );
-				}
+			if ($this->Session->check('Auth.User') && !$this->Session->check('Auth.Permissions')) {
+				$permissions = $this->WebrsaPermissions->getPermissions($this->User, $this->Session->read('Auth.User.id'));
+				$this->Session->write('Auth.Permissions', $permissions);
 			}
 		}
 
@@ -416,129 +365,6 @@
 				$group = $this->User->Group->find( 'first', $qd_group );
 				$this->assert( !empty( $group ), 'error500' );
 				$this->Session->write( 'Auth.Group', $group['Group'] );
-			}
-		}
-
-		/**
-		 * Chargement des données de la structure référente et du chargé d'insertion
-		 * auquel l'utilisateur est attaché (CG 93).
-		 *
-		 * Ici, on écrase les zones géographiques de l'utilisateur connecté avec
-		 * celles de la structurereferente s'il y a lieu.
-		 *
-		 * Pour le CG 66, si on est référent d'un OA, on va lire et mettre en
-		 * session la structure référente à laquelle le référent est lié.
-		 *
-		 * @deprecated since 3.1.0
-		 * @see WebrsaUsersComponent::loadStructurereferente()
-		 *
-		 * @return void
-		 */
-		protected function _loadStructurereferente() {
-			if( Configure::read( 'Cg.departement' ) == 93 ) {
-				$referent_id = $this->Session->read( 'Auth.User.referent_id' );
-				$structurereferente_id = $this->Session->read( 'Auth.User.structurereferente_id' );
-
-				// Si l'utilisateur est lié à une structure référente via un CI
-				// FIXME: méthode en commun avec le 66, voir plus bas
-				if( !$this->Session->check( 'Auth.Referent' ) ) {
-					if( !empty( $referent_id ) ) {
-						$querydata = array(
-							'conditions' => array(
-								'Referent.id' => $referent_id
-							),
-							'fields' => null,
-							'order' => null,
-							'contain' => false
-						);
-						$referent = $this->User->Referent->find( 'first', $querydata );
-						$this->Session->write( 'Auth.Referent', empty( $referent ) ? false : $referent['Referent'] );
-
-						if( !empty( $referent ) ) {
-							$structurereferente_id = $referent['Referent']['structurereferente_id'];
-						}
-					}
-					else {
-						$this->Session->write( 'Auth.Referent', false );
-					}
-				}
-
-				// Si l'utilisateur est lié (directement) à une structure référente
-				// TODO: début à factoriser avec le CG 66 ci-dessous
-				if( !$this->Session->check( 'Auth.Structurereferente' ) ) {
-					if( !empty( $structurereferente_id ) ) {
-						$querydata = array(
-							'conditions' => array(
-								'Structurereferente.id' => $structurereferente_id
-							),
-							'fields' => null,
-							'order' => null,
-							'contain' => array(
-								'Zonegeographique'
-							)
-						);
-						$structurereferente = $this->User->Structurereferente->find( 'first', $querydata );
-
-						// Si la structure référente est limitée au niveau des zones géographiques, on fait de même avec l'utilisateur
-						if( $structurereferente['Structurereferente']['filtre_zone_geo'] ) {
-							$this->Session->write(
-								'Auth.Zonegeographique',
-								Set::combine( $structurereferente, 'Zonegeographique.{n}.id', 'Zonegeographique.{n}.codeinsee' )
-							);
-							$this->Session->write( 'Auth.User.filtre_zone_geo', true );
-						}
-						$this->Session->write( 'Auth.Structurereferente', empty( $structurereferente ) ? false : $structurereferente['Structurereferente'] );
-					}
-				}
-				else {
-					$this->Session->write( 'Auth.Structurereferente', false );
-				}
-				// TODO: fin à factoriser avec le CG 66 ci-dessous
-			}
-			else if( Configure::read( 'Cg.departement' ) == 66 ) {
-				if( $this->Session->read( 'Auth.User.type' ) == 'externe_ci' ) {
-					$querydata = array(
-						'fields' => array( 'Referent.structurereferente_id' ),
-						'conditions' => array(
-							'Referent.id' => $this->Session->read( 'Auth.User.referent_id' )
-						)
-					);
-					$referent = $this->User->Referent->find( 'first', $querydata );
-					$this->Session->write( 'Auth.User.structurereferente_id', $referent['Referent']['structurereferente_id'] );
-
-					$structurereferente_id = $referent['Referent']['structurereferente_id'];
-					// Si l'utilisateur est lié (directement) à une structure référente
-					// TODO: début à factoriser avec le CG 93 ci-dessus
-					if( !$this->Session->check( 'Auth.Structurereferente' ) ) {
-						if( !empty( $structurereferente_id ) ) {
-							$querydata = array(
-								'conditions' => array(
-									'Structurereferente.id' => $structurereferente_id
-								),
-								'fields' => null,
-								'order' => null,
-								'contain' => array(
-									'Zonegeographique'
-								)
-							);
-							$structurereferente = $this->User->Structurereferente->find( 'first', $querydata );
-
-							// Si la structure référente est limitée au niveau des zones géographiques, on fait de même avec l'utilisateur
-							if( $structurereferente['Structurereferente']['filtre_zone_geo'] ) {
-								$this->Session->write(
-									'Auth.Zonegeographique',
-									Set::combine( $structurereferente, 'Zonegeographique.{n}.id', 'Zonegeographique.{n}.codeinsee' )
-								);
-								$this->Session->write( 'Auth.User.filtre_zone_geo', true );
-							}
-							$this->Session->write( 'Auth.Structurereferente', empty( $structurereferente ) ? false : $structurereferente['Structurereferente'] );
-						}
-					}
-					else {
-						$this->Session->write( 'Auth.Structurereferente', false );
-					}
-					// TODO: fin à factoriser avec le CG 93 ci-dessus
-				}
 			}
 		}
 
@@ -632,7 +458,7 @@
 						);
 
 						$this->User->Connection->set( $connection );
-						if( $this->User->Connection->save( $connection ) ) {
+						if( $this->User->Connection->save( $connection , array( 'atomic' => false ) ) ) {
 							$this->User->Connection->commit();
 						}
 						else {
@@ -648,10 +474,10 @@
 						$otherConnection = $this->User->Connection->find( 'first', $qd_otherConnection );
 
 						$this->Session->delete( 'Auth' );
-						$this->Session->setFlash(
+						$this->Flash->error(
 								sprintf(
 										'Utilisateur déjà connecté jusqu\'au %s (nous sommes actuellement le %s)', strftime( '%d/%m/%Y à %H:%M:%S', ( strtotime( $otherConnection['Connection']['modified'] ) + readTimeout() ) ), strftime( '%d/%m/%Y, il est %H:%M:%S' )
-								), 'flash/error'
+								)
 						);
 
 						$this->redirect( $this->Auth->logout() );
@@ -686,7 +512,7 @@
 				$this->redirect( $this->Auth->redirect() );
 			}
 			else if( !empty( $this->request->data ) ) {
-				$this->Session->setFlash( __( 'Login failed. Invalid username or password.' ), 'default', array( ), 'auth' );
+				$this->Flash->error( __( 'Login failed. Invalid username or password.' ), array( 'key' => 'auth' ) );
 			}
 		}
 
@@ -775,7 +601,8 @@
 				}
 
 				$this->paginate = $query;
-				$results = $this->paginate( 'User' );
+				$progressivePaginate = !Hash::get( $this->request->data, 'Search.Pagination.nombre_total' );
+				$results = $this->paginate( 'User', array(), array(), $progressivePaginate );
 
 				$this->set( compact( 'results' ) );
 			}
@@ -785,47 +612,18 @@
 		}
 
 		/**
-		 *
+		 * Formulaire d'ajout d'un utilisateur.
 		 */
 		public function add() {
-			// Retour à l'index en cas d'annulation
-			if( isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'action' => 'index' ) );
-			}
-
-			if( !empty( $this->request->data ) ) {
-				$this->User->begin();
-				if( $this->User->saveAll( $this->request->data, array( 'validate' => 'first', 'atomic' => false ) ) ) {
-					// Définition des nouvelles permissions
-
-					$this->request->data['Droits'] = $this->Dbdroits->litCruDroits( array( 'model' => 'Group', 'foreign_key' => $this->request->data['User']['group_id'] ) );
-					$this->Dbdroits->MajCruDroits(
-						array(
-							'model' => 'Utilisateur',
-							'foreign_key' => $this->User->id,
-							'alias' => $this->request->data['User']['username']
-						),
-						array(
-							'model' => 'Group',
-							'foreign_key' => $this->request->data['User']['group_id']
-						),
-						$this->request->data['Droits']
-					);
-					$this->User->commit();
-					$this->Session->setFlash( 'Enregistrement effectué. Veuillez-vous déconnecter et vous reconnecter afin de prendre en compte tous les changements.', 'flash/success' );
-					$this->redirect( array( 'controller' => 'users', 'action' => 'index' ) );
-				}
-				else {
-					$this->User->rollback();
-				}
-			}
-
-			$this->_setOptionsAddEdit();
-			$this->render( 'add_edit' );
+			$args = func_get_args();
+			call_user_func_array( array( $this, 'edit' ), $args );
 		}
 
 		/**
+		 * Formulaire de modification d'un utilisateur.
 		 *
+		 * @param integer $user_id
+		 * @throws NotFoundException
 		 */
 		public function edit( $user_id = null ) {
 			// Retour à l'index en cas d'annulation
@@ -833,164 +631,83 @@
 				$this->redirect( array( 'action' => 'index' ) );
 			}
 
-			// TODO : vérif param
-			// Vérification du format de la variable
-			$this->assert( valid_int( $user_id ), 'error404' );
-
-			$qd_userDb = array(
-				'conditions' => array(
-					'User.id' => $user_id
-				),
-				'contain' => array(
-					'Zonegeographique'
-				)
-			);
-			$userDb = $this->User->find( 'first', $qd_userDb );
-
-			$this->assert( !empty( $userDb ), 'error404' );
-
 			if( empty( $this->request->data['User']['passwd'] ) ) {
 				unset( $this->User->validate['passwd'] );
 			}
 
-			if( !empty( $this->request->data ) ) {
+			if (!empty($this->request->data)) {
+				if(false === empty($user_id)) {
+					$this->User->id = $user_id;
+				}
+				$this->request->data = $this->WebrsaPermissions->getCompletedPermissions( $this->request->data );
+
 				$this->User->begin();
-				// Permet de supprimer les zones associées si on ne filtre pas sur les zones
-				$filtre_zone_geo = Set::classicExtract( $this->request->data, 'User.filtre_zone_geo' );
-				if( empty( $filtre_zone_geo ) ) {
-					$this->request->data['Zonegeographique']['Zonegeographique'] = array( );
-				}
-
-				if( $this->User->saveAll( $this->request->data, array( 'validate' => 'first', 'atomic' => false ) ) ) {
-					if( $userDb['User']['group_id'] != $this->request->data['User']['group_id'] ) {
-						$this->request->data['Droits'] = $this->Dbdroits->litCruDroits( array( 'model' => 'Group', 'foreign_key' => $this->request->data['User']['group_id'] ) );
-					}
-
-					$this->Dbdroits->MajCruDroits(
-						array(
-							'model' => 'Utilisateur',
-							'foreign_key' => $this->request->data['User']['id'],
-							'alias' => $this->request->data['User']['username']
-						),
-						array(
-							'model' => 'Group',
-							'foreign_key' => $this->request->data['User']['group_id']
-						),
-						$this->request->data['Droits']
-					);
+				$this->User->create( $this->request->data );
+				if ($this->User->save( null, array( 'atomic' => false ) )
+					&& $this->WebrsaPermissions->updatePermissions($this->User, $this->User->id, $this->request->data)
+				) {
 					$this->User->commit();
-
-					// Suppression du cache du menu pour la personne concernée
-					Cache::delete('element_'.Hash::get($this->request->data, 'User.username'), 'views');
-
-					$this->Session->setFlash( 'Enregistrement effectué. Veuillez-vous déconnecter et vous reconnecter afin de prendre en compte tous les changements.', 'flash/success' );
-					$this->redirect( array( 'controller' => 'users', 'action' => 'index' ) );
-				}
-				else {
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect(array('controller' => 'users', 'action' => 'index'));
+				} else {
 					$this->User->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
-			else {
-				$this->request->data = $userDb;
-				$this->request->data['Droits'] = $this->Dbdroits->litCruDroits( array( 'model' => 'Utilisateur', 'foreign_key' => $user_id ) );
-
-				// Vérification: le nombre de champs qui seront renvoyés par le
-				// formulaire ne doit pas excéder ce qui est défini dans max_input_vars
-				$max_input_vars = ini_get( 'max_input_vars' );
-				if( 2500 > $max_input_vars ) {
-					$message = 'La valeur de max_input_vars (%d) est trop faible pour permettre l\'enregistrement des droits. Merci de vérifier la valeur recommandée dans la partie "Vérification de l\'application"';
-					$this->Session->setFlash( sprintf( $message, $max_input_vars ), 'flash/error' );
-				}
-			}
-
-			$this->_setOptionsAddEdit();
-			$this->set( 'listeCtrlAction', $this->Menu->menuCtrlActionAffichage() );
-			$this->render( 'add_edit' );
-		}
-
-		/**
-		 * Suppression d'un utilisateur.
-		 *
-		 * @param integer $id L'id de l'utilisateur à supprimer.
-		 * @throws NotFoundException
-		 * @throws RuntimeException
-		 */
-		public function delete( $id = null ) {
-			if( !valid_int( $id ) ) {
-				$message = "L'entrée d'id {$id} pour le modèle {$this->User->alias} n'existe pas";
-				throw new NotFoundException( $message );
-			}
-
-			if( false === $this->User->Behaviors->attached( 'Occurences' ) ) {
-				$this->User->Behaviors->attach( 'Occurences' );
-			}
-
-			$blacklist = array(
-				'connections',
-				// 'jetons', // INFO: pas de foreignkey
-				// 'jetonsfonctions', // INFO: pas de foreignkey
-				'users_zonesgeographiques'
-			);
-
-			$query = array(
-				'fields' => array_merge(
-					$this->User->fields(),
-					array(
-						$this->User->sqHasLinkedRecords( true, $blacklist )
+			else if( 'edit' === $this->action ) {
+				$qd_userDb = array(
+					'conditions' => array(
+						'User.id' => $user_id
+					),
+					'contain' => array(
+						'Ancienpoledossierpcg66',
+						'Zonegeographique'
 					)
-				),
-				'contain' => false,
-				'conditions' => array( 'User.id' => $id )
-			);
+				);
+				$this->request->data = $this->User->find( 'first', $qd_userDb );
 
-			$user = $this->User->find( 'first', $query );
+				if(true === empty($this->request->data)) {
+					throw new NotFoundException();
+				}
 
-			if( empty( $user ) ) {
-				$message = "L'entrée d'id {$id} pour le modèle {$this->User->alias} n'existe pas";
-				throw new NotFoundException( $message );
-			}
+				// Certains utilisateurs ne sont pas déclarés comme gestionnaires mais sont liés à un pole
+				$poledossierpcg66_id = Hash::get( $this->request->data, 'User.poledossierpcg66_id' );
+				$isgestionnaire = Hash::get( $this->request->data, 'User.isgestionnaire' );
 
-			if( true == $user['User']['has_linkedrecords'] ) {
-				$message = "Erreur lors de la tentative de suppression de l'entrée d'id {$id} pour le modèle {$this->User->alias}: cette entrée possède des enregistrements liés.";
-				throw new RuntimeException( $message );
-			}
+				if( false === empty( $poledossierpcg66_id ) && 'O' !== $isgestionnaire ) {
+					$message = 'Cet utilisateur n\'était pas gestionnaire mais était lié à un pole PCG. Il est à nouveau renseigné en tant que gestionnaire dans le formulaire.';
+					$this->Flash->error( $message );
 
-			// Tentative de suppression
-			$this->User->begin();
-			$success = $this->User->delete( $id );
-
-			$query = array(
-				'fields' => array( 'id' ),
-				'conditions' => array(
-					'model' => 'Utilisateur',
-					'foreign_key' => $id
-				)
-			);
-			$aro = $this->Acl->Aro->find( 'first', $query );
-
-			if( !empty( $aro ) ) {
-				$success = $success && $this->Acl->Aro->delete( $aro['Aro']['id'] );
-				$permissions_ids = Hash::extract( $aro, 'Aco.{n}.Permission.id' );
-				if( !empty( $permissions_ids ) ) {
-					$success = $success && $this->Acl->Aro->Permission->deleteAll(
-						array( 'Permission.id' => $permissions_ids )
-					);
+					$this->request->data['User']['isgestionnaire'] = 'O';
 				}
 			}
 
-			$success = $success && $this->Acl->Aro->recover( 'parent', null );
-
-			if( $success ) {
-				$this->User->commit();
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
-			}
-			else {
-				$this->User->rollback();
-				$this->Session->setFlash( 'Erreur lors de la suppression', 'flash/error' );
+			// Vérification: le nombre de champs qui seront renvoyés par le
+			// formulaire ne doit pas excéder ce qui est défini dans max_input_vars
+			$max_input_vars = ini_get( 'max_input_vars' );
+			if( 2500 > $max_input_vars ) {
+				$message = 'La valeur de max_input_vars (%d) est trop faible pour permettre l\'enregistrement des droits. Merci de vérifier la valeur recommandée dans la partie "Vérification de l\'application"';
+				$this->Flash->error( sprintf( $message, $max_input_vars ) );
 			}
 
-			$this->redirect( array( 'controller' => 'users', 'action' => 'index' ) );
+			// Permissions actuelles s'il y a lieu
+			if( false === isset( $this->request->data['Permission'] ) && false === empty($user_id) ) {
+				$this->request->data['Permission'] = $this->WebrsaPermissions->getPermissionsHeritage($this->User, $user_id);
+			}
+
+			// Permissions du parent s'il y a lieu
+			$group_id = Hash::get( $this->request->data, 'User.group_id' );
+			$parentPermissions = array();
+			if(false === empty( $group_id )) {
+				$parentPermissions = $this->WebrsaPermissions->getPermissionsHeritage($this->User->Group, $group_id);
+			}
+
+			$acos = $this->WebrsaPermissions->getAcosTreeByDepartement();
+
+			$this->set( compact( 'parentPermissions', 'acos' ) );
+			$this->_setOptionsAddEdit();
+
+			$this->render( 'add_edit' );
 		}
 
 		/**
@@ -1010,12 +727,12 @@
 				$this->User->begin();
 				if( $this->User->changePassword( $data ) ) {
 					$this->User->commit();
-					$this->Session->setFlash( 'Votre mot de passe a bien été modifié', 'flash/success' );
+					$this->Flash->success( 'Votre mot de passe a bien été modifié' );
 					$this->redirect( '/' );
 				}
 				else {
 					$this->User->rollback();
-					$this->Session->setFlash( 'Erreur lors de la saisie des mots de passe.', 'flash/error' );
+					$this->Flash->error( 'Erreur lors de la saisie des mots de passe.' );
 				}
 			}
 		}
@@ -1027,6 +744,11 @@
 		public function forgottenpass() {
 			if( !Configure::read( 'Password.mail_forgotten' ) ) {
 				throw new NotFoundException();
+			}
+
+			// Retour à l'index en cas d'annulation
+			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->redirect( array( 'action' => 'login' ) );
 			}
 
 			if( !empty( $this->request->data ) ) {
@@ -1042,9 +764,9 @@
 				);
 
 				if( !empty( $user ) ) {
-					$this->User->begin();
+					$password = PasswordFactory::generator()->generate();
 
-					$password = $this->Password->generate();
+					$this->User->begin();
 
 					$success = $this->User->updateAllUnBound(
 						array( 'User.password' => '\''.Security::hash( $password, null, true ).'\'' ),
@@ -1067,7 +789,7 @@
 							}
 
 							$Email->subject( WebrsaEmailConfig::getValue( 'user_generation_mdp', 'subject', 'WebRSA: changement de mot de passe' ) );
-                            $mailBody = "Bonjour,\nsuite à votre demande, veuillez trouver ci-dessous vos nouveaux identifiants:\nRappel de votre identifiant : {$user['User']['username']}\nVotre nouveau mot de passe : {$password}\n";
+                            $mailBody = "Bonjour,\n\nsuite à votre demande, veuillez trouver ci-dessous un rappel de votre identifiant ainsi qu'un mot de passe temporaire que nous vous invitons à modifier après vous être connecté(e).\n\nRappel de votre identifiant : {$user['User']['username']}\nMot de passe : {$password}\n\nCordialement.";
 
                             $result = $Email->send( $mailBody );
                             $success = !empty( $result ) && $success;
@@ -1080,15 +802,15 @@
 
 					if( $success ) {
 						$this->User->commit();
-						$this->Session->setFlash( 'Un courriel contenant votre nouveau mot de passe vient de vous être envoyé.', 'flash/success' );
+						$this->Flash->success( 'Un courriel contenant votre nouveau mot de passe vient de vous être envoyé.' );
 					}
 					else {
 						$this->User->rollback();
-						$this->Session->setFlash( $errorMessage, 'flash/error' );
+						$this->Flash->error( $errorMessage );
 					}
 				}
 				else {
-					$this->Session->setFlash( 'Impossible de trouver ce couple identifiant/adresse de courriel, veuillez contacter votre administrateur.', 'flash/error' );
+					$this->Flash->error( 'Impossible de trouver ce couple identifiant/adresse de courriel, veuillez contacter votre administrateur.' );
 				}
 			}
 		}
@@ -1101,7 +823,7 @@
 		 */
 		public function delete_jetons( $user_id ) {
 			if( Configure::read( 'Jetons2.disabled' ) ) {
-				$this->Session->setFlash( 'L\'utilisation des jetons (Jetons2.disabled) n\'est pas activée dans la configuration', 'flash/error' );
+				$this->Flash->error( 'L\'utilisation des jetons (Jetons2.disabled) n\'est pas activée dans la configuration' );
 			}
 
 			$this->User->Jeton->begin();
@@ -1114,11 +836,11 @@
 
 			if( $success ) {
 				$this->User->Jeton->commit();
-				$this->Session->setFlash( 'Jetons de l\'utilisateur supprimés', 'flash/success' );
+				$this->Flash->success( 'Jetons de l\'utilisateur supprimés' );
 			}
 			else {
 				$this->User->Jeton->rollback();
-				$this->Session->setFlash( 'Impossible de supprimer les jetons de l\'utilisateurs', 'flash/error' );
+				$this->Flash->error( 'Impossible de supprimer les jetons de l\'utilisateurs' );
 			}
 
 			$this->redirect( $this->referer() );
@@ -1132,7 +854,7 @@
 		 */
 		public function delete_jetonsfonctions( $user_id ) {
 			if( Configure::read( 'Jetonfonctionsfonctions2.disabled' ) ) {
-				$this->Session->setFlash( 'L\'utilisation des jetons sur les fonctions (Jetonfonctionsfonctions2.disabled) n\'est pas activée dans la configuration', 'flash/error' );
+				$this->Flash->error( 'L\'utilisation des jetons sur les fonctions (Jetonfonctionsfonctions2.disabled) n\'est pas activée dans la configuration' );
 			}
 
 			$this->User->Jetonfonction->begin();
@@ -1145,11 +867,11 @@
 
 			if( $success ) {
 				$this->User->Jetonfonction->commit();
-				$this->Session->setFlash( 'Jetons sur les fonctions de l\'utilisateur supprimés', 'flash/success' );
+				$this->Flash->success( 'Jetons sur les fonctions de l\'utilisateur supprimés' );
 			}
 			else {
 				$this->User->Jetonfonction->rollback();
-				$this->Session->setFlash( 'Impossible de supprimer les jetons sur les fonctions de l\'utilisateurs', 'flash/error' );
+				$this->Flash->error( 'Impossible de supprimer les jetons sur les fonctions de l\'utilisateurs' );
 			}
 
 			$this->redirect( $this->referer() );
@@ -1162,7 +884,7 @@
 		 */
 		public function force_logout( $user_id ) {
 			if( $user_id == $this->Session->read( 'Auth.User.id' ) ) {
-				$this->Session->setFlash( 'Impossible de forcer la déconnexion de l\'utilisateur qui lance la commande', 'flash/error' );
+				$this->Flash->error( 'Impossible de forcer la déconnexion de l\'utilisateur qui lance la commande' );
 			}
 			else {
 				$query = array(
@@ -1176,7 +898,7 @@
 				$connections = $this->User->Connection->find( 'all', $query );
 
 				if( empty( $connections ) ) {
-					$this->Session->setFlash( 'Cet utilisateur n\'est actuellement pas connecté', 'flash/error' );
+					$this->Flash->error( 'Cet utilisateur n\'est actuellement pas connecté' );
 				}
 				else {
 					$success = true;
@@ -1188,15 +910,32 @@
 					}
 
 					if( $success ) {
-						$this->Session->setFlash( 'Déconnexion de l\'utilisateur effectuée', 'flash/success' );
+						$this->Flash->success( 'Déconnexion de l\'utilisateur effectuée' );
 					}
 					else {
-						$this->Session->setFlash( 'Impossible de déconnecter l\'utilisateur', 'flash/error' );
+						$this->Flash->error( 'Impossible de déconnecter l\'utilisateur' );
 					}
 				}
 			}
 
 			$this->redirect( $this->referer() );
+		}
+
+		/**
+		 * Permet d'obtenir par ajax, les droits d'un groupe (parent)
+		 *
+		 * @param integer $group_id
+		 * @return string json
+		 */
+		public function ajax_get_permissions($group_id) {
+			if(true === empty($group_id)) {
+				$group_id = 0;
+			}
+			$permissions = $this->WebrsaPermissions->getPermissionsHeritage($this->User->Group, $group_id);
+
+			$this->set('json', json_encode($permissions));
+			$this->layout = 'ajax';
+			$this->render('/Elements/json');
 		}
 	}
 ?>

@@ -10,7 +10,7 @@
 <?php
 	echo $this->Html->tag( 'h1', $title_for_layout );
 
-	include( dirname( __FILE__ ).'/_view.ctp' );
+	require  dirname( __FILE__ ).'/_view.ctp' ;
 ?>
 <?php
 	echo $this->Default->button(

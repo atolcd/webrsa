@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Aideapre66.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Aideapre66 ...
@@ -17,20 +18,17 @@
 	{
 		public $name = 'Aideapre66';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
-			'Autovalidate2',
-			'Formattable' => array(
-				'amount' => array( 'montantaide' ),
-				'suffix' => array( 'typeaideapre66_id' ),
-			),
-			'Enumerable' => array(
-				'fields' => array(
-					'virement' => array( 'type' => 'virement', 'domain' => 'aideapre66' ),
-					'versement' => array( 'type' => 'versement', 'domain' => 'aideapre66' ),
-					'autorisationvers' => array( 'type' => 'no', 'domain' => 'aideapre66' ),
-					'decisionapre' => array( 'type' => 'decisionapre', 'domain' => 'aideapre66' ),
-				)
-			)
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(
@@ -109,93 +107,73 @@
 		);
 
 		public $validate = array(
-			'themeapre66_id' => array(
-				array(
-					'rule' => 'notEmpty'
-				)
-			),
 			'montantaide' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
-					'allowEmpty' => true
-				),
-				array(
-					'rule' => 'plafondMontantAideapre',
+				'plafondMontantAideapre' => array(
+					'rule' => array( 'plafondMontantAideapre' ),
 					'message' => 'Plafond dépassé'
 				)
 			),
 			'montantpropose' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
-					'allowEmpty' => true
-				),
-				array(
-					'rule' => 'plafondMontantAideapre',
+				'plafondMontantAideapre' => array(
+					'rule' => array( 'plafondMontantAideapre' ),
 					'message' => 'Plafond dépassé'
 				),
-				array(
-					'rule' => 'plafondMontantGlobalApre66',
+				'plafondMontantGlobalApre66' => array(
+					'rule' => array( 'plafondMontantGlobalApre66' ),
 					'message' => 'Le montant proposé va provoquer un dépassement du plafond ( %.2f €) autorisé sur l\'année %d. Montant maximal autorisé: %.2f €'
 				),
-				array(
-					'rule' => 'plafondMontantAideapre66',
+				'plafondMontantAideapre66' => array(
+					'rule' => array( 'plafondMontantAideapre66' ),
 					'message' => 'Le montant proposé va provoquer un dépassement du plafond de l\'aide sélectionnée ( %.2f €) sur l\'année %d. Montant maximal autorisé: %.2f €'
 				)
 			),
 			'montantaccorde' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
-					'allowEmpty' => true
-				),
-				array(
-					'rule' => 'plafondMontantAideapre',
+				'plafondMontantAideapre' => array(
+					'rule' => array( 'plafondMontantAideapre' ),
 					'message' => 'Plafond dépassé'
 				),
-				array(
-					'rule' => 'plafondMontantGlobalApre66',
+				'plafondMontantGlobalApre66' => array(
+					'rule' => array( 'plafondMontantGlobalApre66' ),
 					'message' => 'Le montant proposé va provoquer un dépassement du plafond ( %.2f €) autorisé sur l\'année %d. Montant maximal autorisé: %.2f €'
 				),
-				array(
-					'rule' => 'plafondMontantAideapre66',
+				'plafondMontantAideapre66' => array(
+					'rule' => array( 'plafondMontantAideapre66' ),
 					'message' => 'Le montant proposé va provoquer un dépassement du plafond de l\'aide sélectionnée ( %.2f €) sur l\'année %d. Montant maximal autorisé: %.2f €'
 				)
 			),
 			'virement' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'versement' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'creancier' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'motivdem' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			)
@@ -227,7 +205,7 @@
 				);
 				$typeaideapre66 = $this->Typeaideapre66->find('first', $qd_typeaideapre66);
 
-				$plafond = Hash::get($this->data, 'Apre66.isapre') 
+				$plafond = Hash::get($this->data, 'Apre66.isapre')
 					? Hash::get($typeaideapre66, 'Typeaideapre66.plafond')
 					: Hash::get($typeaideapre66, 'Typeaideapre66.plafondadre')
 				;
@@ -290,8 +268,7 @@
 				array(
 					'fields' => array( 'id', 'pieceaide66_id' ),
 					'conditions' => array(
-						'Pieceaide66Typeaideapre66.typeaideapre66_id' => $typeaideapre66_id/*,
-						'NOT' => array( 'Pieceaide66Typeaideapre66.pieceaide66_id' => $piecesPresentes )*/
+						'Pieceaide66Typeaideapre66.typeaideapre66_id' => $typeaideapre66_id
 					)
 				)
 			);
@@ -321,8 +298,8 @@
 		*
 		*/
 
-		public function afterSave( $created ) {
-			$return = parent::afterSave( $created );
+		public function afterSave( $created, $options = array() ) {
+			parent::afterSave( $created, $options );
 			$details = $this->_details( $this->id );
 
 			$qd_aideapre = array(
@@ -446,7 +423,7 @@
 					'contain' => false
 				)
 			);
-			$plafondAide = Hash::get($this->data, 'Apre66.isapre') 
+			$plafondAide = Hash::get($this->data, 'Apre66.isapre')
 				? Hash::get($typeaideapre66, 'Typeaideapre66.plafond')
 				: Hash::get($typeaideapre66, 'Typeaideapre66.plafondadre')
 			;

@@ -82,6 +82,8 @@
 				else {
 					unset($data[$key]['Aideapre66']['motifrejetequipe']);
 				}
+				
+				unset($data[$key]['Aideapre66']['montantpropose']);
 			}
 
 			$success = !empty($data) && $this->Apre66->Aideapre66->saveAll( $data );

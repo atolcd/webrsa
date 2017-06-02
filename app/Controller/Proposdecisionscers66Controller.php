@@ -8,8 +8,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
-	App::uses('WebrsaAccessContratsinsertion', 'Utility');
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaAccessContratsinsertion', 'Utility' );
 
 	/**
 	 * La classe Proposdecisionscers66Controller ... (CG 66).
@@ -58,26 +58,26 @@
 			'Option',
 			'WebrsaContratinsertion',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -165,7 +165,7 @@
 				$this->Propodecisioncer66->begin();
 
 				if ($this->Propodecisioncer66->saveAll($this->request->data, array('validate' => 'only', 'atomic' => false))) {
-					$saved = $this->Propodecisioncer66->save($this->request->data);
+					$saved = $this->Propodecisioncer66->save( $this->request->data, array( 'atomic' => false ) );
 
 					if (!isset($this->request->data['Motifcernonvalid66']) && !empty($propodecisioncer66)) {
 						$saved = $this->Propodecisioncer66->Motifcernonvalid66Propodecisioncer66->deleteAll(
@@ -228,11 +228,11 @@
 					if ($saved) {
 						$this->Propodecisioncer66->commit();
 						$this->Jetons2->release($dossier_id);
-						$this->Session->setFlash('Enregistrement effectué', 'flash/success');
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'contratsinsertion', 'action' => 'index', $personne_id ) );
 					} else {
 						$this->Propodecisioncer66->rollback();
-						$this->Session->setFlash('Erreur lors de l\'enregistrement', 'flash/error');
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 			} else {

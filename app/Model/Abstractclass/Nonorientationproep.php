@@ -8,7 +8,7 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'Sanitize', 'Utility' );
-	require_once( ABSTRACTMODELS.'Thematiqueep.php' );
+	App::uses( 'Thematiqueep', 'Model/Abstractclass' );
 
 	/**
 	 * La classe Nonorientationproep ...
@@ -18,11 +18,11 @@
 	abstract class Nonorientationproep extends Thematiqueep
 	{
 		public $actsAs = array(
-			'Autovalidate2',
 			'Conditionnable',
-			'Formattable',
 			'Gedooo.Gedooo',
-			'ValidateTranslate'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(
@@ -233,7 +233,7 @@
 							WHERE "passagescommissionseps"."etatdossierep" = \'traite\'
 						)
 						AND ( DATE( NOW() ) - (
-							SELECT CAST( decisions'.Inflector::tableize( $this->alias ).'.modified AS DATE )
+							SELECT "decisions'.Inflector::tableize( $this->alias ).'"."modified"::DATE
 								FROM decisions'.Inflector::tableize( $this->alias ).'
 									INNER JOIN passagescommissionseps ON ( decisions'.Inflector::tableize( $this->alias ).'.passagecommissionep_id = passagescommissionseps.id )
 									INNER JOIN dossierseps ON ( passagescommissionseps.dossierep_id = dossierseps.id )
@@ -334,7 +334,7 @@
 						)
 					);
 					$this->Dossierep->create( $dossierep );
-					$success = $this->Dossierep->save() && $success;
+					$success = $this->Dossierep->save( null, array( 'atomic' => false ) ) && $success;
 
 					$nonorientationproep = array(
 						$this->alias => array(
@@ -344,7 +344,7 @@
 						)
 					);
 					$this->create( $nonorientationproep );
-					$success = $this->save() && $success;
+					$success = $this->save( null, array( 'atomic' => false ) ) && $success;
 				}
 				else if ( ( Configure::read( 'Cg.departement' ) == 58 ) && isset( $dossier['passagecov'] ) && $dossier['passagecov'] == 1 ) {
 
@@ -362,14 +362,11 @@
 						'Dossiercov58' => array(
 							'themecov58_id' => $themecov58['Themecov58']['id'],
 							'themecov58' => 'proposnonorientationsproscovs58',
-							'personne_id' => $dossier['personne_id']/*,
-							'typeorient_id' => $dossier['typeorient_id'],
-							'structurereferente_id' => $dossier['structurereferente_id'],
-							'orientstruct_id' => $dossier['orientstruct_id']*/
+							'personne_id' => $dossier['personne_id']
 						)
 					);
 					$this->Orientstruct->Propononorientationprocov58->Dossiercov58->create( $dossiercov58 );
-					$success = $this->Orientstruct->Propononorientationprocov58->Dossiercov58->save() && $success;
+					$success = $this->Orientstruct->Propononorientationprocov58->Dossiercov58->save( null, array( 'atomic' => false ) ) && $success;
 
 					$propononorientationprocov58 = array(
 						'Propononorientationprocov58' => array(
@@ -384,7 +381,7 @@
 						)
 					);
 					$this->Orientstruct->Propononorientationprocov58->create( $propononorientationprocov58 );
-					$success = $this->Orientstruct->Propononorientationprocov58->save() && $success;
+					$success = $this->Orientstruct->Propononorientationprocov58->save( null, array( 'atomic' => false ) ) && $success;
 				}
 			}
 			return $success;
@@ -551,17 +548,6 @@
 		public function saveDecisions( $data, $niveauDecision ) {
 			$success = true;
 			if ( isset( $data['Decision'.Inflector::underscore( $this->alias )] ) && !empty( $data['Decision'.Inflector::underscore( $this->alias )] ) ) {
-// 				foreach( $data['Decision'.Inflector::underscore( $this->alias )] as $key => $values ) {
-// 					if ( isset( $values['structurereferente_id'] ) ) $structurereferente = explode( '_', $values['structurereferente_id'] );
-// 					if ( isset( $structurereferente[1] ) && $values['decision'] == 'reorientation' ) {
-// 						$data['Decision'.Inflector::underscore( $this->alias )][$key]['structurereferente_id'] = $structurereferente[1];
-// 					}
-// 					else {
-// 						$data['Decision'.Inflector::underscore( $this->alias )][$key]['structurereferente_id'] = null;
-// 						$data['Decision'.Inflector::underscore( $this->alias )][$key]['typeorient_id'] = null;
-// 					}
-// 				}
-
 				$success = $this->Dossierep->Passagecommissionep->{'Decision'.Inflector::underscore($this->alias)}->saveAll( Set::extract( $data, '/'.'Decision'.Inflector::underscore( $this->alias ) ), array( 'atomic' => false ) );
 				$this->Dossierep->Passagecommissionep->updateAllUnBound(
 					array( 'Passagecommissionep.etatdossierep' => '\'decision'.$niveauDecision.'\'' ),
@@ -669,10 +655,6 @@
 				$datas['querydata']['joins'][] = $this->Orientstruct->join( 'Typeorient' );
 				$datas['querydata']['joins'][] = $this->Orientstruct->join( 'Structurereferente' );
 
-				// Traductions
-				$Option = ClassRegistry::init( 'Option' );
-				$datas['options']['type']['voie'] = $Option->typevoie();
-
 				Cache::write( $cacheKey, $datas );
 			}
 
@@ -735,7 +717,6 @@
 				// Traductions
 				$datas['options'] = $this->Dossierep->Passagecommissionep->{$modeleDecisions}->enums();
 				$datas['options']['Personne']['qual'] = ClassRegistry::init( 'Option' )->qual();
-				$datas['options']['type']['voie'] = ClassRegistry::init( 'Option' )->typevoie();
 
 				Cache::write( $cacheKey, $datas );
 			}

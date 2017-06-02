@@ -7,13 +7,14 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
 
 	/**
-	 * La classe CantonsController ...
+	 * La classe CantonsController s'occupe du paramétrage des cantons.
 	 *
 	 * @package app.Controller
 	 */
-	class CantonsController extends AppController
+	class CantonsController extends AbstractWebrsaParametragesController
 	{
 		/**
 		 * Nom du contrôleur.
@@ -30,18 +31,10 @@
 		public $components = array(
 			'Search.SearchPrg' => array(
 				'actions' => array(
-					'index'
+					'index' => array( 'filter' => 'Search' )
 				)
-			)
-		);
-
-		/**
-		 * Helpers utilisés.
-		 *
-		 * @var array
-		 */
-		public $helpers = array(
-			'Xform',
+			),
+			'WebrsaParametrages'
 		);
 
 		/**
@@ -49,152 +42,65 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array(
-			'Canton',
-			'Option',
-		);
-		
+		public $uses = array( 'Canton' );
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'add' => 'Cantons:edit',
-		);
-		
-		/**
-		 * Méthodes ne nécessitant aucun droit.
-		 *
-		 * @var array
-		 */
-		public $aucunDroit = array(
-			
-		);
-		
-		/**
-		 * Correspondances entre les méthodes publiques correspondant à des
-		 * actions accessibles par URL et le type d'action CRUD.
-		 *
-		 * @var array
-		 */
-		public $crudMap = array(
-			'add' => 'create',
-			'delete' => 'delete',
-			'edit' => 'update',
-			'index' => 'read',
-		);
-		
-		public $paginate = array(
-			'limit' => 20,
-			'recursive' => -1,
-			'order' => array( 'canton ASC' )
+			'add' => 'Cantons:edit'
 		);
 
 		/**
-		 * 	FIXME: docs
+		 * Liste des tables à ne pas prendre en compte dans les enregistrements
+		 * vérifiés pour éviter les suppressions en cascade intempestives.
+		 *
+		 * @var array
 		 */
-		protected function _setOptions() {
-			$this->set( 'zonesgeographiques', $this->Canton->Zonegeographique->find( 'list' ) );
-			$this->set( 'typesvoies', $this->Option->typevoie() );
-			$this->set( 'typevoie', $this->Option->typevoie() );
-			$this->set( 'libtypesvoies', ClassRegistry::init( 'Adresse' )->enum( 'libtypevoie' ) );
-		}
+		public $blacklist = array( 'adresses_cantons' );
 
 		/**
-		 * 	FIXME: docs
+		 * Liste des cantons
 		 */
 		public function index() {
-			// Retour à la liste en cas d'annulation
-			if( isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'controller' => 'parametrages', 'action' => 'index' ) );
+			if( false === $this->Canton->Behaviors->attached( 'Occurences' ) ) {
+				$this->Canton->Behaviors->attach( 'Occurences' );
 			}
 
-			if( !empty( $this->request->data ) ) {
-				$queryData = $this->Canton->search( $this->request->data );
-				$queryData['limit'] = 20;
-				$this->paginate = $queryData;
-				$cantons = $this->paginate( 'Canton' );
-				$this->set( 'cantons', $cantons);
+			// Ajout d'un message lors d'un enregistrement réussi
+			$notice = null;
+			if( 'success' === $this->Session->read( 'Message.flash.params.class' ) ) {
+				$notice = 'Attention, en cas de modifications sur les cantons, il peut être utile de lancer AdresseCantonShell en console pour recalculer les relations entre Adresses et Cantons';
 			}
-			$this->_setOptions();
+
+			if( false === empty( $this->request->data ) ) {
+				$query = $this->Canton->search( $this->request->data['Search'] );
+				$query['fields'][] = $this->Canton->sqHasLinkedRecords( true, $this->blacklist );
+				$query['limit'] = 100;
+				$this->paginate = $query;
+				$results = $this->paginate( 'Canton' );
+				$this->set( compact( 'results' ) );
+			}
+
+			$options = $this->Canton->enums();
+			$options['Canton']['zonegeographique_id'] = $this->Canton->Zonegeographique->find( 'list' );
+			$this->set( compact( 'options', 'notice' ) );
 		}
 
 		/**
-		 * 	FIXME: docs
+		 * Formulaire de modification d'un canton
+		 *
+		 * @param integer $id
 		 */
-		public function add() {
-			$args = func_get_args();
-			call_user_func_array( array( $this, '_add_edit' ), $args );
+		public function edit( $id = null ) {
+			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit' ) );
+
+			$options = $this->viewVars['options'];
+			$options['Canton']['zonegeographique_id'] = $this->Canton->Zonegeographique->find( 'list' );
+			$this->set( compact( 'options' ) );
 		}
-
-		/**
-		 * 	FIXME: docs
-		 */
-		public function edit() {
-			$args = func_get_args();
-			call_user_func_array( array( $this, '_add_edit' ), $args );
-		}
-
-		/**
-		 * 	FIXME: docs
-		 */
-		protected function _add_edit( $id = null ) {
-			// Retour à l'index en cas d'annulation
-			if( !empty( $this->request->data ) && isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'action' => 'index' ) );
-			}
-
-			if( $this->action == 'edit' ) {
-				$qd_canton = array(
-					'conditions' => array(
-						'Canton.id' => $id
-					),
-					'fields' => null,
-					'order' => null,
-					'recursive' => -1
-				);
-				$canton = $this->Canton->find( 'first', $qd_canton );
-				$this->assert( !empty( $canton ), 'invalidParameter' );
-			}
-
-			if( !empty( $this->request->data ) ) {
-				$this->Canton->create( $this->request->data );
-				if( $this->Canton->save() ) {
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
-					$this->Session->setFlash( 'Attention, en cas de modifications sur les cantons, il peut être utile de lancer AdresseCantonShell en console pour recalculer les relations entre Adresses et Cantons', 'flash/notice', array(), 'notice' );
-					$this->redirect( array( 'action' => 'index' ) );
-				}
-			}
-			else if( $this->action == 'edit' ) {
-				$this->request->data = $canton;
-			}
-
-			$this->_setOptions();
-			$this->render( 'add_edit' );
-		}
-
-		/**
-		 * 	FIXME: docs
-		 */
-		public function delete( $id = null ) {
-			$qd_canton = array(
-				'conditions' => array(
-					'Canton.id' => $id
-				),
-				'fields' => null,
-				'order' => null,
-				'recursive' => -1
-			);
-			$canton = $this->Canton->find( 'first', $qd_canton );
-			$this->assert( !empty( $canton ), 'invalidParameter' );
-
-			if( $this->Canton->delete( Set::classicExtract( $canton, 'Canton.id' ) ) ) {
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
-				$this->redirect( array( 'action' => 'index' ) );
-			}
-		}
-
 	}
 ?>

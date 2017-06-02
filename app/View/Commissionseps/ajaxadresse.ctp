@@ -5,7 +5,7 @@
 			'label',
 			'Adresse'
 		);
-		echo Set::classicExtract( $struct, 'Structurereferente.num_voie' ).' '.Set::enum( Set::classicExtract( $struct, 'Structurereferente.type_voie' ), $typevoie ).' '.Set::classicExtract( $struct, 'Structurereferente.nom_voie' );
+		echo Set::classicExtract( $struct, 'Structurereferente.num_voie' ).' '.Set::classicExtract( $struct, 'Structurereferente.type_voie' ).' '.Set::classicExtract( $struct, 'Structurereferente.nom_voie' );
 	echo '</div>';
 
 	echo '<div class="input text">';

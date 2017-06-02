@@ -7,6 +7,7 @@
 	 * @package app.View.Helper
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppHelper', 'View/Helper' );
 
 	/**
 	 * La classe FileuploaderHelper ...
@@ -133,8 +134,7 @@
 
 			$permissionForm = $this->Permissions->checkDossier( $this->request->params['controller'], 'ajaxfileupload', (array)Hash::get( $this->_View->viewVars, 'dossierMenu' ) );
 
-//			$return = $this->Form->create( $modelName, array( 'type' => 'post', 'id' => $formId ) );
-			$return = $this->Form->create( $modelName, array( 'type' => 'post', 'id' => $formId/**/ ) );
+			$return = $this->Form->create( $modelName, array( 'type' => 'post', 'id' => $formId, 'novalidate' => true ) );
 			if( $permissionForm ) {
 				$return .= '<fieldset><legend>'.required( $this->Default2->label( $fieldName ) ).'</legend>';
 				$return .= $this->Form->input( $fieldName, array( 'type' => 'radio', 'options' => $radioOptions, 'legend' => false, 'default' => $haspiecejointeDefault ) );

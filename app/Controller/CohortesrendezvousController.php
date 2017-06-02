@@ -7,7 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses('AppController', 'Controller');
+	App::uses( 'AppController', 'Controller' );
 	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
 
 	/**
@@ -35,7 +35,7 @@
 				'cohorte'
 			),
 			'InsertionsBeneficiaires',
-			'Search.Filtresdefaut' => array(
+			'Search.SearchFiltresdefaut' => array(
 				'cohorte',
 			),
 			'Search.SearchPrg' => array(
@@ -72,26 +72,26 @@
 			'Cohorterendezvous',
 			'Rendezvous',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -102,7 +102,7 @@
 			'cohorte' => 'update',
 			'exportcsv' => 'read'
 		);
-		
+
 		/**
 		 * Retourne le query à utiliser dans la méthode cohorte, que l'appel ait
 		 * été fait en ajax ou non.
@@ -207,7 +207,7 @@
 				}
 
 				$this->Rendezvous->create( $record );
-				$success = $this->Rendezvous->save();
+				$success = $this->Rendezvous->save( null, array( 'atomic' => false ) );
 				$json['success'] = $json['success'] && $success;
 
 				if( !$success ) {

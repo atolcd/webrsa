@@ -1,13 +1,11 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'themeapre66', "Themesapres66::{$this->action}" )
-	)
-?>
-<?php
-	echo $this->Default->form(
+	echo $this->element(
+		'WebrsaParametrages/add_edit',
 		array(
-			'Themeapre66.name' => array('required' => true),
+			'fields' => array(
+				'Themeapre66.id',
+				'Themeapre66.name'
+			)
 		)
 	);
 ?>

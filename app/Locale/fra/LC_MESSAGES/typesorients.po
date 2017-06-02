@@ -1,0 +1,44 @@
+# Traductions de typesorients.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Typesorients/index/:heading"
+msgstr "Paramétrage des types d'orientation"
+
+msgid "/Typesorients/add"
+msgstr "Ajouter"
+
+msgid "/Typesorients/add/:title"
+msgstr "Ajouter un type d'orientation"
+
+msgid "Parent.lib_type_orient"
+msgstr "Parent"
+
+msgid "/Typesorients/edit"
+msgstr "Modifier"
+
+msgid "/Typesorients/delete"
+msgstr "Supprimer"
+
+msgid "/Typesorients/delete/#Typeorient.id# ?"
+msgstr "Réellement supprimer le type d'orientation « #Typeorient.lib_type_orient# » ?"
+
+msgid "/Typesorients/add/:heading"
+msgstr "Ajout d'un type d'orientation"
+
+msgid "/Typesorients/edit/:heading"
+msgstr "Modification d'un type d'orientation"
+
+msgid "/Parametrages/index"
+msgstr "Retour"
+
+msgid "/Parametrages/index/:title"
+msgstr "Retour aux paramétrages"

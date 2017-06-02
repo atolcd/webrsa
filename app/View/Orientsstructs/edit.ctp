@@ -62,11 +62,7 @@
 		$fields['Orientstruct.typenotification'] = array( 'empty' => false, 'type' => 'select' );
 	}
 
-	echo $this->Html->tag(
-		'fieldset',
-		$this->Html->tag( 'legend', 'Orientation' )
-		.$this->Default3->subform( $fields, array( 'options' => $options ) )
-	);
+	echo $this->Default3->subform( $fields, array( 'options' => $options ) );
 
 	echo $this->Default3->DefaultForm->buttons( array( 'Save', 'Cancel' ) );
 	echo $this->Default3->DefaultForm->end();

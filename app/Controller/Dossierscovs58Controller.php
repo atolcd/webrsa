@@ -7,6 +7,7 @@
 	* @package app.Controller
 	* @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	*/
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	* La classe Dossierscovs58Controller ...
@@ -45,22 +46,22 @@
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -131,7 +132,7 @@
 
 			if( in_array( $cov58['Cov58']['etatcov'], array( 'traite', 'finalise' ) ) ) {
 				$this->Jetonsfonctions2->release( $cov58_id );
-				$this->Session->setFlash( 'Impossible d\'attribuer des dossiers à une COV lorsque celle-ci comporte déjà des avis ou des décisions.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible d\'attribuer des dossiers à une COV lorsque celle-ci comporte déjà des avis ou des décisions.' );
 				$this->redirect( $this->referer() );
 			}
 
@@ -167,10 +168,9 @@
 				// Changer l'état de la séance
 				$success = $this->Dossiercov58->Passagecov58->Cov58->changeEtatCreeAssocie( $cov58_id ) && $success;
 
-				$this->_setFlashResult( 'Save', $success );
-
 				if( $success ) {
 					$this->Dossiercov58->commit();
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->Jetonsfonctions2->release( $cov58_id );
 					$dossiersIds = Set::extract( $this->request->data, '/Foyer/dossier_id' );
 					$this->Jetons2->release( $dossiersIds );
@@ -178,6 +178,7 @@
 				}
 				else {
 					$this->Dossiercov58->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 

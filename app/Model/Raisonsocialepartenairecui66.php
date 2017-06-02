@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Raisonsocialepartenairecui66.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Raisonsocialepartenairecui66 ...
@@ -18,26 +19,12 @@
 		public $name = 'Raisonsocialepartenairecui66';
 
 		public $displayField = 'name';
-		
-		public $recursive = -1;
 
 		public $actsAs = array(
-			'Formattable',
-			'Pgsqlcake.PgsqlAutovalidate'
+			'Postgres.PostgresAutovalidate',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
-
-		/*public $validate = array(
-			'libstruc' => array(
-				'isUnique' => array(
-					'rule' => array( 'isUnique' ),
-					'message' => 'Cette valeur est déjà utilisée'
-				),
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' ),
-					'message' => 'Champ obligatoire'
-				)
-			),
-		);*/
 
 		public $hasMany = array(
 			'Partenaire' => array(

@@ -1,15 +1,17 @@
 <?php
 	/**
-	 * Code source de la classe Webrsacheck.
+	 * Code source de la classe WebrsaCheck.
 	 *
 	 * PHP 5.3
 	 *
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses( 'Folder', 'Utility' );
-	require_once( APPLIBS.'cmis.php' );
 	App::uses( 'AppControllers', 'AppClasses.Utility' );
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'Folder', 'Utility' );
+	App::uses( 'WebrsaSessionAclUtility', 'Utility' );
+	require_once  APPLIBS.'cmis.php' ;
 
 	/**
 	 * Classe permettant de connaître la liste des modèles de documents (odt),
@@ -19,12 +21,12 @@
 	 *
 	 * @package app.Model
 	 */
-	class Webrsacheck extends AppModel
+	class WebrsaCheck extends AppModel
 	{
 		/**
 		 * @var string
 		 */
-		public $name = 'Webrsacheck';
+		public $name = 'WebrsaCheck';
 
 		/**
 		 * @var string
@@ -46,7 +48,6 @@
 		public $notMyModels = array(
 			58 => array(
 				'Cohorterendezvous',
-				'Criterecui',
 				'Tableausuivipdv93',
 				'WebrsaRechercheActioncandidatPersonne',
 				'WebrsaRechercheApre',
@@ -66,7 +67,6 @@
 				'WebrsaRecherchePropopdo'
 			),
 			93 => array(
-				'Criterecui',
 				'WebrsaRechercheActioncandidatPersonne',
 				'WebrsaRechercheBilanparcours66',
 				'WebrsaRechercheCui',
@@ -78,7 +78,6 @@
 			),
 			976 => array(
 				'Cohorterendezvous',
-				'Criterecui',
 				'Tableausuivipdv93',
 				'WebrsaRechercheActioncandidatPersonne',
 				'WebrsaRechercheApre',
@@ -92,57 +91,6 @@
 				'WebrsaRechercheTraitementpcg66',
 			)
 		);
-
-		/*public function getModels( $query ) {
-			$models = array();
-
-			$default = array(
-				'methods' => null,
-				'behaviors' => null,
-				'attributes' => null,
-				'useDbConfig' => $connections = array_keys( ConnectionManager::enumConnectionObjects() ),
-				'cg' => null,
-			);
-			$query = Set::merge( $default, $query );
-
-			foreach( App::objects( 'model' ) as $modelName ) {
-				$preg_success = preg_match( '/([0-9]{2}$|[0-9]{2}(?=[A-Z]))/', $modelName, $matches );
-				if( is_null( $query['cg'] ) || !$preg_success || ( $matches[0] == $query['cg'] ) ) {
-//					App::import( 'Model', $modelName );
-//					$classVars = get_class_vars( $modelName );
-//
-//					if( $classVars['useTable'] !== false && in_array( $classVars['useDbConfig'], $query['useDbConfig'] ) ) {
-//						$modelClass = ClassRegistry::init( $modelName );
-//						$classVars = get_object_vars( $modelClass );
-//						$attributes = array_keys( $classVars );
-//						$methods = get_class_methods( $modelClass );
-//						$behaviors = $classVars['actsAs'];
-//					}
-//					else {
-//						$attributes = array_keys( $classVars );
-//						$methods = get_class_methods( $modelName );
-//						$behaviors = $classVars['actsAs'];
-//					}
-
-					$found = true;
-//					foreach( array( 'methods', 'behaviors', 'attributes' ) as $key ) {
-//						if( !is_null( $query[$key] ) ) {
-//							$query[$key] = (array)$query[$key];
-//							$results = array_intersect( $query[$key], ${$key} );
-//							debug( $results );
-//						}
-//					}
-
-					if( $found ) {
-						$models[] = $modelName;
-					}
-				}
-				debug( array( $modelName => array( $preg_success, var_export( $matches, true ) ) ) );
-			}
-
-			sort( $models );
-			return $models;
-		}*/
 
 		/**
 		 * Liste des clefs de type ValidateAllowEmpty
@@ -202,7 +150,7 @@
 			foreach( App::objects( 'model' ) as $modelName ) {
 				// Si le CG se sert de la classe
 				if( !preg_match( '/([0-9]{2})$/', $modelName, $matches ) || ( $matches[1] == $departement ) ) {
-					App::import( 'Model', $modelName );
+					App::uses( $modelName, 'Model' );
 					$attributes = get_class_vars( $modelName );
 
 					// Peut-on instancier la classe ?
@@ -242,160 +190,209 @@
 		 * @return array
 		 */
 		protected function _allConfigureKeysCommon() {
-			$result = array(
-				'Admin.unlockall' => 'boolean',
-				'AjoutOrientationPossible.situationetatdosrsa' => 'isarray',
-				'AjoutOrientationPossible.toppersdrodevorsa' => 'string',
-				'AncienAllocataire.enabled' => 'boolean',
-				'CG.cantons' => 'boolean',
-				'Cg.departement' => array(
-					array( 'rule' => 'inList', array( 58, 66, 93, 976 ) ),
+			$departement = (int)Configure::read( 'Cg.departement' );
+
+			$result = array_merge(
+				array(
+					'AjoutOrientationPossible.situationetatdosrsa' => array(
+						array(
+							'rule' => 'inListArray',
+							array( 'Z', '0', '1', '2', '3', '4', '5', '6' ),
+							'allowEmpty' => true
+						)
+					),
+					'AjoutOrientationPossible.toppersdrodevorsa' => array(
+						array(
+							'rule' => 'inListArray',
+							array( null, '0', '1' ),
+							'allowEmpty' => true
+						)
+					),
+					'AncienAllocataire.enabled' => 'boolean',
+					'CG.cantons' => 'boolean',
+					'Cg.departement' => array(
+						array( 'rule' => 'inList', array( 58, 66, 93, 976 ) ),
+					),
+					'Cohorte.dossierTmpPdfs' => 'string',
+					'Criterecer.delaiavanteecheance' => 'string',
+					'Detailcalculdroitrsa.natpf.socle' => 'isarray',
+					'Dossierep.delaiavantselection' => array(
+						array( 'rule' => 'string', 'allowEmpty' => true ),
+					),
+					'Gestiondoublon.Situationdossierrsa2.etatdosrsa' => array(
+						array( 'rule' => 'isarray' ),
+						array( 'rule' => 'inListArray', array( 'Z', 1, 2, 3, 4, 5, 6 ) ),
+					),
+					'Jetons2.disabled' => 'boolean',
+					'Optimisations.progressivePaginate' => 'boolean',
+					'Optimisations.useTableDernierdossierallocataire' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true ),
+					),
+					'Recherche.identifiantpecourt' => 'boolean',
+					'Recherche.qdFilters.Serviceinstructeur' => 'boolean',
 				),
-				'Cohorte.dossierTmpPdfs' => 'string',
-				'Criterecer.delaiavanteecheance' => 'string',
-				'Detailcalculdroitrsa.natpf.socle' => 'isarray',
-				'Dossierep.delaiavantselection' => array(
-					array( 'rule' => 'string', 'allowEmpty' => true ),
+				(
+					true === in_array( $departement, array( 58, 66 ), true )
+						? array(
+							'Selectionnoninscritspe.intervalleDetection' => array(
+								array(
+									'rule' => 'string',
+									'allowEmpty' => false
+								)
+							)
+						)
+						: array()
 				),
-				'FULL_BASE_URL' => 'url',
-				'Gestiondoublon.Situationdossierrsa2.etatdosrsa' => array(
-					array( 'rule' => 'isarray' ),
-					array( 'rule' => 'inListArray', array( 'Z', 1, 2, 3, 4, 5, 6 ) ),
+				array(
+					'Situationdossierrsa.etatdosrsa.ouvert' => 'isarray',
+					'UI.menu.large' => 'boolean',
+					'UI.menu.lienDemandeur' => array(
+						array( 'rule' => 'url', 'allowEmpty' =>true ),
+					),
+					'User.adresse' => 'boolean',
+					'Utilisateurs.multilogin' => 'boolean',
+					'Zonesegeographiques.CodesInsee' => 'boolean',
+					'alerteFinSession' => 'boolean',
+					'nb_limit_print' => 'integer',
 				),
-				'Jetons2.disabled' => 'boolean',
-				'Optimisations.progressivePaginate' => 'boolean',
-				'Optimisations.useTableDernierdossierallocataire' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true ),
+				(
+					true === in_array( $departement, array( 66, 93 ), true )
+						? array(
+							'nom_form_apre_cg' => array(
+								array( 'rule' => 'inList', array( 'cg66', 'cg93' ) ),
+							)
+						)
+						: array()
 				),
-				'Periode.modifiable.nbheure' => 'integer',
-				'Recherche.identifiantpecourt' => 'boolean',
-				'Recherche.qdFilters.Serviceinstructeur' => 'boolean',
-				'Selectionnoninscritspe.intervalleDetection' => 'string',
-				'Situationdossierrsa.etatdosrsa.ouvert' => 'isarray',
-				'UI.menu.large' => 'boolean',
-				'UI.menu.lienDemandeur' => array(
-					array( 'rule' => 'url', 'allowEmpty' =>true ),
-				),
-				'User.adresse' => 'boolean',
-				'Utilisateurs.multilogin' => 'boolean',
-				'Zonesegeographiques.CodesInsee' => 'boolean',
-				'alerteFinSession' => 'boolean',
-				'nb_limit_print' => 'integer',
-				'nom_form_apre_cg' => array(
-					array( 'rule' => 'inList', array( 'cg58', 'cg66', 'cg93' ) ),
-				),
-				'nom_form_bilan_cg' => array(
-					array( 'rule' => 'inList', array( 'cg58', 'cg66', 'cg93' ) ),
-				),
-				'nom_form_ci_cg' => array(
-					array( 'rule' => 'inList', array( 'cg58', 'cg66', 'cg93' ) ),
-				),
-				'nom_form_cui_cg' => array(
-					array( 'rule' => 'inList', array( 'cg58', 'cg66', 'cg93' ) ),
-				),
-				'nom_form_pdo_cg' => array(
-					array( 'rule' => 'inList', array( 'cg58', 'cg66', 'cg93' ) ),
-				),
-				'with_parentid' => 'boolean',
-				'Utilisateurs.reconnection' => 'boolean',
-                'Rendezvous.useThematique' => 'boolean',
-				'Statistiqueministerielle.conditions_droits_et_devoirs' => 'isarray',
-				'Statistiqueministerielle.conditions_types_parcours.professionnel' => 'isarray',
-				'Statistiqueministerielle.conditions_types_parcours.socioprofessionnel' => 'isarray',
-				'Statistiqueministerielle.conditions_types_parcours.social' => 'isarray',
-				'Statistiqueministerielle.conditions_indicateurs_organismes' => 'isarray',
-				'Statistiqueministerielle.conditions_types_cers.ppae' => 'isarray',
-				'Statistiqueministerielle.conditions_types_cers.cer_pro' => 'isarray',
-				'Statistiqueministerielle.conditions_types_cers.cer_pro_social' => 'isarray',
-				'Statistiqueministerielle.conditions_organismes.SPE' => 'isarray',
-				'Statistiqueministerielle.conditions_organismes.SPE_PoleEmploi' => 'isarray',
-				'Statistiqueministerielle.conditions_organismes.HorsSPE' => 'isarray',
-				'Statistiqueministerielle.conditions_indicateurs_motifs_reorientation' => 'isarray',
-				'WebrsaEmailConfig.testEnvironments' => 'isarray',
-				'Romev3.enabled' => 'boolean',
-				'MultiDomainsTranslator.prefix' => 'string',
-				'Etatjetons.enabled' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'Requestmanager.enabled' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'Canton.useAdresseCanton' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => !Configure::read('CG.cantons') )
-				),
-				'Alerte.changement_adresse.enabled' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'Alerte.changement_adresse.delai' => array(
-					array( 'rule' => 'integer', 'allowEmpty' => !Configure::read('Canton.useAdresseCanton') )
-				),
-				'MultiDomainsTranslator.prefix' => array(
-					array( 'rule' => 'string', 'allowEmpty' => true )
-				),
-				'Module.Cui.enabled' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'Gestionsdoublons.index.useTag' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'Gestionsdoublons.index.Tag.valeurtag_id' => array(
-					array( 'rule' => 'integer', 'allowEmpty' => !Configure::read('Gestionsdoublons.index.useTag') )
-				),
-				'Module.Savesearch.enabled' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => !Configure::read('Module.Savesearch.mon_menu.enabled') )
-				),
-				'Module.Savesearch.mon_menu.enabled' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => !Configure::read('Module.Savesearch.enabled') )
-				),
-				'Module.Savesearch.mon_menu.name' => array(
-					array( 'rule' => 'string', 'allowEmpty' => true )
-				),
-				'Anciensmoteurs.enabled' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'MultiDomainsTranslator.prefix' => array(
-					array( 'rule' => 'inList', array( 'cg58', 'cg66', 'cg93', 'cg976' ) ),
-				),
-				'Module.Synthesedroits.enabled' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'ConfigurableQuery.common.filters.Adresse.numcom.multiple' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'ConfigurableQuery.common.filters.Adresse.numcom.multiple_larger_1' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'Module.Dashboards.enabled' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'ConfigurableQuery.common.two_ways_order.enabled' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'Module.Attributiondroits.enabled' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'Search.Options.enums' => array(
-					array( 'rule' => 'isarray', 'allowEmpty' => true )
-				),
-				'Module.Donneescaf.enabled' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'WebrsaTranslator.suffix' => 'string',
-				'Module.Logtrace.enabled' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'Module.Logtrace.total_duration' => array(
-					array( 'rule' => 'integer', 'allowEmpty' => !Configure::read('Module.Logtrace.enabled') )
-				),
-				'Module.Datepicker.enabled' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true )
-				),
-				'UI.beforeLogo.text' => array(
-					array( 'rule' => 'string', 'allowEmpty' => true )
-				),
-				'UI.afterLogo.text' => array(
-					array( 'rule' => 'string', 'allowEmpty' => true )
-				),
+				array(
+					'nom_form_ci_cg' => array(
+						array( 'rule' => 'inList', array( 'cg58', 'cg66', 'cg93', 'cg976' ) ),
+					),
+					'nom_form_pdo_cg' => array(
+						array(
+							'rule' => 'inList',
+							array( 'cg66', 'cg93' ),
+							'allowEmpty' => false === in_array( $departement, array( 66, 93 ), true )
+						),
+					),
+					'with_parentid' => 'boolean',
+					'Utilisateurs.reconnection' => 'boolean',
+					'Rendezvous.useThematique' => 'boolean',
+					'Statistiqueministerielle.conditions_droits_et_devoirs' => 'isarray',
+					'Statistiqueministerielle.conditions_types_parcours.professionnel' => 'isarray',
+					'Statistiqueministerielle.conditions_types_parcours.socioprofessionnel' => 'isarray',
+					'Statistiqueministerielle.conditions_types_parcours.social' => 'isarray',
+					'Statistiqueministerielle.conditions_indicateurs_organismes' => 'isarray',
+					'Statistiqueministerielle.conditions_types_cers.ppae' => 'isarray',
+					'Statistiqueministerielle.conditions_types_cers.cer_pro' => 'isarray',
+					'Statistiqueministerielle.conditions_types_cers.cer_pro_social' => 'isarray',
+					'Statistiqueministerielle.conditions_organismes.SPE' => 'isarray',
+					'Statistiqueministerielle.conditions_organismes.SPE_PoleEmploi' => 'isarray',
+					'Statistiqueministerielle.conditions_organismes.HorsSPE' => 'isarray',
+					'Statistiqueministerielle.conditions_indicateurs_motifs_reorientation' => 'isarray',
+					'WebrsaEmailConfig.testEnvironments' => array(
+						array( 'rule' => 'isarray', 'allowEmpty' => true )
+					),
+					'Romev3.enabled' => 'boolean',
+					'MultiDomainsTranslator.prefix' => 'string',
+					'Etatjetons.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'Requestmanager.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'Canton.useAdresseCanton' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => !Configure::read('CG.cantons') )
+					),
+					'Alerte.changement_adresse.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'Alerte.changement_adresse.delai' => array(
+						array( 'rule' => 'integer', 'allowEmpty' => !Configure::read('Canton.useAdresseCanton') )
+					),
+					'MultiDomainsTranslator.prefix' => array(
+						array( 'rule' => 'string', 'allowEmpty' => true )
+					),
+					'Module.Cui.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'Gestionsdoublons.index.useTag' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'Gestionsdoublons.index.Tag.valeurtag_id' => array(
+						array( 'rule' => 'integer', 'allowEmpty' => !Configure::read('Gestionsdoublons.index.useTag') )
+					),
+					'Module.Savesearch.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => !Configure::read('Module.Savesearch.mon_menu.enabled') )
+					),
+					'Module.Savesearch.mon_menu.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => !Configure::read('Module.Savesearch.enabled') )
+					),
+					'Module.Savesearch.mon_menu.name' => array(
+						array( 'rule' => 'string', 'allowEmpty' => true )
+					),
+					'Anciensmoteurs.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'MultiDomainsTranslator.prefix' => array(
+						array( 'rule' => 'inList', array( 'cg58', 'cg66', 'cg93', 'cg976' ) ),
+					),
+					'Module.Synthesedroits.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'ConfigurableQuery.common.filters.Adresse.numcom.multiple' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'ConfigurableQuery.common.filters.Adresse.numcom.multiple_larger_1' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'Module.Dashboards.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'ConfigurableQuery.common.two_ways_order.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'Module.Attributiondroits.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'Search.Options.enums' => array(
+						array( 'rule' => 'isarray', 'allowEmpty' => true )
+					),
+					'Module.Donneescaf.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'WebrsaTranslator.suffix' => 'string',
+					'Module.Logtrace.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'Module.Logtrace.total_duration' => array(
+						array( 'rule' => 'integer', 'allowEmpty' => !Configure::read('Module.Logtrace.enabled') )
+					),
+					'Module.Datepicker.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'UI.beforeLogo.text' => array(
+						array( 'rule' => 'string', 'allowEmpty' => true )
+					),
+					'UI.afterLogo.text' => array(
+						array( 'rule' => 'string', 'allowEmpty' => true )
+					),
+					'textarea.auto_resize' => array(
+						array( 'rule' => 'isarray', 'allowEmpty' => true )
+					),
+					'ConfigurableQuery.common.filters.has_prestation' => array(
+						array( 'rule' => 'isarray', 'allowEmpty' => true )
+					),
+					'Module.DisplayValidationErrors.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'Module.Permissions.all' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'Module.Fluxcnaf.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+				)
 			);
 
 			$tmp = Configure::read( 'Rendezvous.thematiqueAnnuelleParStructurereferente' );
@@ -491,7 +488,7 @@
 			}
 
 			// Utilise-t-on les plages horaires ?
-			$plagesHorairesEnabled = ( true === Configure::read( 'PlagesHoraires.enabled' ) );
+			$plagesHorairesEnabled = ( true === Configure::read( 'Module.PlagesHoraires.enabled' ) );
 			$allowEmpty = ( false === $plagesHorairesEnabled );
 			$this->loadModel( 'User' );
 			$groups_ids = array_keys( $this->User->Group->find( 'list', array( 'contain' => false ) ) );
@@ -499,19 +496,19 @@
 			$result = array_merge(
 				$result,
 				array(
-					'PlagesHoraires.enabled' =>  array(
+					'Module.PlagesHoraires.enabled' =>  array(
 						array( 'rule' => 'boolean', 'allowEmpty' => true ),
 					),
-					'PlagesHoraires.heure_debut' =>  array(
+					'Module.PlagesHoraires.heure_debut' =>  array(
 						array( 'rule' => 'inList', range( 0, 23 ), 'allowEmpty' => $allowEmpty ),
 					),
-					'PlagesHoraires.heure_fin' =>  array(
+					'Module.PlagesHoraires.heure_fin' =>  array(
 						array( 'rule' => 'inList', range( 0, 23 ), 'allowEmpty' => $allowEmpty ),
 					),
-					'PlagesHoraires.jours_weekend' =>  array(
+					'Module.PlagesHoraires.jours_weekend' =>  array(
 						array( 'rule' => 'inListArray', array( 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' ), 'allowEmpty' => $allowEmpty ),
 					),
-					'PlagesHoraires.groupes_acceptes' =>  array(
+					'Module.PlagesHoraires.groupes_acceptes' =>  array(
 						array( 'rule' => 'inListArray', $groups_ids, 'allowEmpty' => true ),
 					)
 				)
@@ -553,7 +550,6 @@
 		 */
 		protected function _allConfigureKeys66() {
 			return array(
-				'ActioncandidatPersonne.suffixe' => 'string',
 				'AjoutOrientationPossible.toppersdrodevorsa' => 'isarray',
 				'Fraisdeplacement66.forfaithebergt' => 'numeric',
 				'Fraisdeplacement66.forfaitrepas' => 'numeric',
@@ -571,8 +567,8 @@
 				'Traitementpcg66.fichecalcul_abattbncsrv' => 'integer',
 				'Traitementpcg66.fichecalcul_casrvmax' => 'integer',
 				'Traitementpcg66.fichecalcul_cavntmax' => 'integer',
-				'Traitementpcg66.fichecalcul_coefannee1' => 'integer',
-				'Traitementpcg66.fichecalcul_coefannee2' => 'integer',
+				'Traitementpcg66.fichecalcul_coefannee1' => 'numeric',
+				'Traitementpcg66.fichecalcul_coefannee2' => 'numeric',
 				'Nonoriente66.notisemploi.typeorientId' => 'isarray',
 				'Nonoriente66.TypeorientIdSocial' => 'integer',
 				'Nonoriente66.TypeorientIdPrepro' => 'integer',
@@ -581,12 +577,9 @@
                 'ActioncandidatPersonne.Actioncandidat.typeregionId' => 'isarray',
                 'ActioncandidatPersonne.Partenaire.id' => 'isarray',
                 'Rendezvous.Ajoutpossible.statutrdv_id' => 'integer',
-                'Generationdossierpcg.Orgtransmisdossierpcg66.id' => 'isarray',
 				'Nonorganismeagree.Structurereferente.id' => 'isarray',
                 'ActioncandidatPersonne.Actioncandidat.typeregionPoursuitecgId' => 'isarray',
                 'Contratinsertion.Cg66.toleranceDroitClosCerComplexe' => 'string',
-				'Criterescuis.search.fields' => 'isarray',
-				'Criterescuis.exportcsv' => 'isarray',
 				'Cui.taux.financementexclusif' => 'numeric',
 				'Cui.taux.fixe' => 'numeric',
 				'Cui.taux.prisencharge' => 'numeric',
@@ -799,7 +792,6 @@
 		 *		- Dossierep::checkConfigDossierepDelaiavantselection
 		 *		- Nonrespectsanctionep93::checkConfigUpdateIntervalleCerDo19Cg93
 		 *		- Contratinsertion::checkConfigUpdateEncoursbilanCg66
-		 *		- Contratinsertion::checkConfigCriterecerDelaiavantecheance
 		 *	2°) Bouger AppModel::_checkPostgresqlIntervals ici ?
 		 *  3°) Voir si on ne peut pas combiner la boucle avec celle ci-dessus ?
 		 *  4°) Les anciennes fonctions se trouvant dans les modèles sont-elles encore utilisées ?
@@ -807,7 +799,6 @@
 		 * app/models/informationpe.php:299:                       return $this->_checkSqlIntervalSyntax( Configure::read( 'Selectionnoninscritspe.intervalleDetection' ) );
 		 * app/models/nonrespectsanctionep93.php:1080:                     return $this->_checkSqlIntervalSyntax( Configure::read( 'Nonrespectsanctionep93.intervalleCerDo19' ) );
 		 * app/models/contratinsertion.php:852:                    return $this->_checkSqlIntervalSyntax( Configure::read( 'Contratinsertion.Cg66.updateEncoursbilan' ) );
-		 * app/models/contratinsertion.php:861:                    return $this->_checkSqlIntervalSyntax( Configure::read( 'Criterecer.delaiavanteecheance' ) );
 		 * app/models/dossierep.php:548:                   return $this->_checkSqlIntervalSyntax( $delaiavantselection );
 		 */
 		public function checkAllPostgresqlIntervals( $departement ) {
@@ -817,7 +808,7 @@
 			foreach( App::objects( 'model' ) as $modelName ) {
 				// Si le CG se sert de la classe
 				if( !preg_match( '/([0-9]{2})$/', $modelName, $matches ) || ( $matches[1] == $departement ) ) {
-					App::import( 'Model', $modelName );
+					App::uses( $modelName, 'Model' );
 					$attributes = get_class_vars( $modelName );
 					$methods = get_class_methods( $modelName );
 
@@ -842,11 +833,10 @@
 		 */
 		public function allStoredDataErrors() {
 			return array(
-				'servicesinstructeurs' => ClassRegistry::init( 'Serviceinstructeur' )->storedDataErrors(),
-				'structuresreferentes' => ClassRegistry::init( 'Structurereferente' )->storedDataErrors(),
-				'users' => ClassRegistry::init( 'User' )->storedDataErrors(),
+				'derniersdossiersallocataires' => ClassRegistry::init( 'Dernierdossierallocataire' )->storedDataErrors(),
 				'regroupementseps' => ClassRegistry::init( 'Regroupementep' )->storedDataErrors(),
-				'derniersdossiersallocataires' => ClassRegistry::init( 'Dernierdossierallocataire' )->storedDataErrors()
+				'servicesinstructeurs' => ClassRegistry::init( 'Serviceinstructeur' )->storedDataErrors(),
+				'users' => ClassRegistry::init( 'WebrsaUser' )->storedDataErrors()
 			);
 		}
 
@@ -856,7 +846,7 @@
 		 * @return array
 		 */
 		protected function _serviceGedooo() {
-			App::import( 'Behavior', 'Gedooo.Gedooo' );
+			App::uses( 'GedoooBehavior', 'Gedooo.Model/Behavior' );
 
 			$GedModel = ClassRegistry::init( 'User' );
 			$GedModel->Behaviors->attach( 'Gedooo.Gedooo' );
@@ -868,27 +858,55 @@
 		}
 
 		/**
-		 * Vérifie le bon fonctionnement du service CMIS.
+		 * Vérifie la configuration et le bon fonctionnement du service CMIS.
 		 *
 		 * @return array
 		 */
 		protected function _serviceCmis() {
-			$connected = Cmis::configured();
+			$config = Hash::filter(
+				array(
+					'url' => Configure::read( 'Cmis.url' ),
+					'username' => Configure::read( 'Cmis.username' ),
+					'password' => Configure::read( 'Cmis.password' ),
+					'prefix' => Configure::read( 'Cmis.prefix' )
+				)
+			);
 
-			return array(
+			$configured = false === empty( $config );
+			$connected = $configured && Cmis::configured();
+
+			$stringRule = array(
+				'rule' => 'string',
+				'allowEmpty' => false === $configured
+			);
+
+			if( false === $configured ) {
+				$message = 'Connexion au serveur non paramétrée';
+			}
+			else {
+				$message = ( $connected ? null : 'Impossible de se connecter au serveur' );
+			}
+
+			$result = array(
 				'configure' => array(
-					'Cmis.url' => 'string',
-					'Cmis.username' => 'string',
-					'Cmis.password' => 'string',
-					'Cmis.prefix' => 'string'
+					'Cmis.url' => array(
+						$stringRule,
+						array( 'rule' => 'url', 'allowEmpty' => false === $configured )
+					),
+					'Cmis.username' => array( $stringRule ),
+					'Cmis.password' => array( $stringRule ),
+					'Cmis.prefix' => array( $stringRule )
 				),
 				'tests' => array(
 					'Connexion au serveur' => array(
-						'success' => $connected,
-						'message' => ( $connected ? null : 'Impossible de se connecter au serveur' )
+						'success' => false === $configured || $connected,
+						'message' => $message
 					)
 				)
 			);
+
+
+			return $result;
 		}
 
 		/**
@@ -906,49 +924,14 @@
 
 		/**
 		 *
-		 * @see Webrsacheck::querydataFragmentsErrors()
+		 * @see WebrsaCheck::querydataFragmentsErrors()
 		 * @see Allocataire::testSearchConditions()
 		 *
 		 * @return array
 		 */
 		public function allSqRechercheErrors() {
-			$errors = array( );
-			$modelNames = array( 'Serviceinstructeur' );
-
-			$debugLevel = Configure::read( 'debug' );
-			foreach( $modelNames as $modelName ) {
-				$errors[$modelName] = array();
-
-				if( Configure::read( "Recherche.qdFilters.{$modelName}" ) ) {
-					$Model = ClassRegistry::init( $modelName );
-
-					$results = $Model->find(
-						'all',
-						array(
-							'fields' => array(
-								"{$Model->primaryKey} AS \"{$modelName}__id\"",
-								"{$Model->displayField} AS \"{$modelName}__name\"",
-								"sqrecherche AS \"{$modelName}__sqrecherche\""
-							),
-							'recursive' => -1,
-							'conditions' => array( "{$modelName}.sqrecherche IS NOT NULL" )
-						)
-					);
-
-					Configure::write( 'debug', 0 );
-
-					foreach( $results as $result ) {
-						$error = $Model->sqrechercheErrors( $result[$modelName]['sqrecherche'] );
-						if( !empty( $error ) ) {
-//							$result[$modelName]['errors'] = $error;
-							$errors[$modelName][] = $result;
-						}
-					}
-				}
-			}
-			Configure::write( 'debug', $debugLevel );
-
-			return $errors;
+			$Serviceinstructeur = ClassRegistry::init( 'Serviceinstructeur' );
+			return $Serviceinstructeur->sqRechercheErrors();
 		}
 
 		/**
@@ -1038,7 +1021,6 @@
 					// TODO: Contratinsertion.Cg66.Rendezvous ?
 					'Corbeillepcg.descriptionpdoId' => 'Descriptionpdo',
                     'Rendezvous.Ajoutpossible.statutrdv_id' => 'Statutrdv',
-					'Generationdossierpcg.Orgtransmisdossierpcg66.id' => 'Orgtransmisdossierpcg66',
 					'Nonorganismeagree.Structurereferente.id' => 'Structurereferente',
 					'ActioncandidatPersonne.Partenaire.id' => 'Partenaire',
 					'ActioncandidatPersonne.Actioncandidat.typeregionId' => 'Actioncandidat',
@@ -1106,7 +1088,7 @@
 		 * Vérifie les fragments de querydata se trouvant en paramétrage dans le
 		 * webrsa.inc pour tous les modèles concernés.
 		 *
-		 * @see Webrsacheck::allSqRechercheErrors()
+		 * @see WebrsaCheck::allSqRechercheErrors()
 		 *
 		 * @return array
 		 */
@@ -1185,8 +1167,6 @@
 		/**
 		 * Vérifie si la date du serveur PostgreSQL correspond à la date du serveur Web.
 		 * La tolérance est de moins d'une minute.
-		 *
-		 * Permet de déprécier PgsqlSchemaBehavior::pgCheckTimeDifference().
 		 *
 		 * @return array
 		 */
@@ -1272,7 +1252,7 @@
 
 			foreach( App::objects( 'model' ) as $modelName ) {
 				if( !in_array( $modelName, $this->notMyModels[$departement] ) ) {
-					App::import( 'Model', $modelName );
+					App::uses( $modelName, 'Model' );
 					$Reflection = new ReflectionClass( $modelName );
 					if( $Reflection->isAbstract() === false ) {
 						$Model = ClassRegistry::init( $modelName );
@@ -1321,7 +1301,7 @@
 				$results = array();
 
 				foreach ( $modelNames as $modelName ) {
-					App::import( 'Model', $modelName );
+					App::uses( $modelName, 'Model' );
 					$Reflection = new ReflectionClass( $modelName );
 					if( $Reflection->isAbstract() === false ) {
 						$Model = ClassRegistry::init( $modelName );
@@ -1490,7 +1470,7 @@
 
 			foreach( App::objects( 'model' ) as $modelName ) {
 				if( !in_array( $modelName, $this->notMyModels[$departement] ) ) {
-					App::import( 'Model', $modelName );
+					App::uses( $modelName, 'Model' );
 					$Reflection = new ReflectionClass( $modelName );
 					if( $Reflection->isAbstract() === false ) {
 						$Model = ClassRegistry::init( $modelName );
@@ -1503,6 +1483,32 @@
 			}
 
 			return $results;
+		}
+
+		/**
+		 * Verifie les droits stockés en base par-rapport avec les controllers de l'application
+		 *
+		 * @return array
+		 */
+		public function allControllersAcos() {
+			WebrsaSessionAclUtility::initialize();
+			$check = WebrsaSessionAclUtility::checkControllersActionsAcos();
+
+			$cmd = 'sudo -u www-data lib/Cake/Console/cake WebrsaSessionAcl update Aco';
+			$errormsg = "Les permissions de la base de données et de l'application ne sont pas syncronisées (%s)<br/>Merci de lancer la commande shell suivante:<br/><code>%s</code>";
+
+			return array(
+				'extra' => array(
+					'success' => empty($check['extra']),
+					'value' => var_export($check['extra'], true),
+					'message' => empty($check['extra']) ? null : sprintf( $errormsg, 'il existe des acos en trop', $cmd )
+				),
+				'missing' => array(
+					'success' => empty($check['missing']),
+					'value' => var_export($check['missing'], true),
+					'message' => empty($check['missing']) ? null : sprintf( $errormsg, 'il manque des acos', $cmd )
+				),
+			);
 		}
 	}
 ?>

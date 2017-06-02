@@ -68,9 +68,18 @@
 				}
 			}
 			
-			$success = !empty($data) && $this->Contratinsertion->saveAll( $data )
-				&& (empty($propodecision) || $this->Contratinsertion->Propodecisioncer66->saveAll( $propodecision ))
+			$this->Contratinsertion->begin();
+			$success = !empty($data) && $this->Contratinsertion->saveAll($data, array('atomic' => false));
+			$success = (empty($propodecision) 
+				|| $this->Contratinsertion->Propodecisioncer66->saveAll($propodecision, array('atomic' => false))
+				) && $success
 			;
+			
+			if ($success) {
+				$this->Contratinsertion->commit();
+			} else {
+				$this->Contratinsertion->rollback();
+			}
 			
 			return $success;
 		}

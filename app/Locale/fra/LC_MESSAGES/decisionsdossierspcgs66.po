@@ -1,0 +1,35 @@
+# Traductions de decisionsdossierspcgs66.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Decisionsdossierspcgs66/add"
+msgstr "Ajouter"
+
+msgid "/Decisionsdossierspcgs66/view/:heading"
+msgstr "Vue de la proposition de décision"
+
+msgid "Fichiermodule.nb_fichiers_lies"
+msgstr "Nb fichiers liés"
+
+msgid "Useravistechnique.nom_complet"
+msgstr "Agent ayant émis l'avis technique"
+
+msgid "Userproposition.nom_complet"
+msgstr "Agent ayant émis la validation"
+
+msgid "Notificationdecisiondossierpcg66.name"
+msgstr "Transmission à"
+
+msgid "Notificationdecisiondossierpcg66.0.name"
+msgstr "Transmission à"
+
+msgid "Decisiondossierpcg66.commentaire"
+msgstr "Commentaire global"

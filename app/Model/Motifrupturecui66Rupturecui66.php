@@ -7,6 +7,7 @@
  * @package app.Model
  * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
  */
+App::uses( 'AppModel', 'Model' );
 
 /**
  * La classe Motifrupturecui66Rupturecui66 ...
@@ -16,6 +17,24 @@
 class Motifrupturecui66Rupturecui66 extends AppModel
 {
     public $name = 'Motifrupturecui66Rupturecui66';
+
+	/**
+	 * Récursivité par défaut du modèle.
+	 *
+	 * @var integer
+	 */
+	public $recursive = 1;
+
+	/**
+	 * Behaviors utilisés par le modèle.
+	 *
+	 * @var array
+	 */
+	public $actsAs = array(
+		'Validation2.Validation2Formattable',
+		'Validation2.Validation2RulesFieldtypes',
+		'Postgres.PostgresAutovalidate'
+	);
 
     public $belongsTo = array(
         'Motifrupturecui66' => array(

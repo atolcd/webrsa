@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Typeorient s'occupe de la gestion des types d'orientation.
@@ -17,16 +18,44 @@
 	{
 		public $name = 'Typeorient';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'lib_type_orient';
 
 		public $actsAs = array(
-			'Enumerable' => array(
-				'fields' => array(
-					'actif' => array( 'type' => 'no', 'domain' => 'default' ),
-				)
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate',
+		);
+
+		/**
+		 * Associations "Belongs to".
+		 *
+		 * @var array
+		 */
+		public $belongsTo = array(
+			'Parent' => array(
+				'className' => 'Typeorient',
+				'foreignKey' => 'parentid',
+				'conditions' => null,
+				'type' => null,
+				'fields' => null,
+				'order' => null,
+				'counterCache' => null
 			)
 		);
 
+		/**
+		 * Associations "Has many".
+		 *
+		 * @var array
+		 */
 		public $hasMany = array(
 			'Orientstruct' => array(
 				'className' => 'Orientstruct',
@@ -134,34 +163,44 @@
 			),
 		);
 
-		public $validate = array(
-			'lib_type_orient' => array(
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
-				array(
-					'rule' => 'isUnique',
-					'message' => 'Valeur déjà utilisée'
-				),
-				array(
-					'rule' => array( 'maxLength', 75 ),
-					'message' => 'Maximum 75 caractères'
-				),
-			),
-			'modele_notif' => array(
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				)
-			),
-			'modele_notif_cohorte' => array(
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				)
-			),
-		);
+		/**
+		 * Surcharge du constructeur pour rendre oblitgatoires les champs
+		 * modele_notif et modele_notif_cohorte suivant la valeur de la variable
+		 * de configuration "with_parentid".
+		 *
+		 * @param integer|string|array $id
+		 * @param string $table
+		 * @param string $ds
+		 */
+		public function __construct( $id = false, $table = null, $ds = null ) {
+			parent::__construct( $id, $table, $ds );
+
+			$defaults = array(
+				'rule' => null,
+				'message' => null,
+				'required' => null,
+				'allowEmpty' => null,
+				'on' => null
+			);
+
+			$fields = array( 'modele_notif', 'modele_notif_cohorte' );
+
+			if( true === (bool)Configure::read( 'with_parentid' ) ) {
+				$notEmpty = array( 'notEmptyIf' => array( 'rule' => array( 'notEmptyIf', 'parentid', false, array( '', null ) ) ) + $defaults );
+			}
+			else {
+				$notEmpty = array( NOT_BLANK_RULE_NAME => array( 'rule' => array( NOT_BLANK_RULE_NAME ), 'allowEmpty' => false ) + $defaults );
+			}
+
+			foreach( $fields as $field ) {
+				$this->validate[$field] = array_merge(
+					$notEmpty,
+					isset( $this->validate[$field] )
+						? $this->validate[$field]
+						: array()
+				);
+			}
+		}
 
 		/**
 		*
@@ -245,41 +284,6 @@
 
 			return $results;
 		}
-
-		/**
-		*
-		*/
-
-		/*public function occurences() {
-			// Orientstruct
-			$queryData = array(
-				'fields' => array(
-					'"Typeorient"."id"',
-					'COUNT("Structurereferente"."id") + COUNT("Orientstruct"."id") AS "Typeorient__occurences"',
-				),
-				'joins' => array(
-					array(
-						'table'      => 'structuresreferentes',
-						'alias'      => 'Structurereferente',
-						'type'       => 'LEFT OUTER',
-						'foreignKey' => false,
-						'conditions' => array( 'Structurereferente.typeorient_id = Typeorient.id' )
-					),
-					array(
-						'table'      => 'orientsstructs',
-						'alias'      => 'Orientstruct',
-						'type'       => 'LEFT OUTER',
-						'foreignKey' => false,
-						'conditions' => array( 'Orientstruct.typeorient_id = Typeorient.id' )
-					),
-				),
-				'recursive' => -1,
-				'group' => array( '"Typeorient"."id"' )
-			);
-			$results = $this->find( 'all', $queryData );
-
-			return Set::combine( $results, '{n}.Typeorient.id', '{n}.Typeorient.occurences' );
-		}*/
 
 		/**
 		*   Recherche du type d'orientation qui n'a plus de parent

@@ -7,7 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( ABSTRACTMODELS.'Thematiqueep.php' );
+	App::uses( 'Thematiqueep', 'Model/Abstractclass' );
 
 	/**
 	 * Saisines d'EP pour les bilans de parcours pour le conseil général du
@@ -22,24 +22,12 @@
 		public $name = 'Saisinebilanparcoursep66';
 
 		public $actsAs = array(
-			'Autovalidate2',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate',
 			'Dependencies',
-			'ValidateTranslate',
-			'Formattable' => array(
-				'suffix' => array(
-					'typeorient_id',
-					'structurereferente_id'
-				)
-			),
-			'Gedooo.Gedooo',
-			'Enumerable' => array(
-				'fields' => array(
-					'choixparcours',
-					'maintienorientparcours',
-					'changementrefparcours',
-					'reorientation'
-				)
-			)
+			'Gedooo.Gedooo'
 		);
 
 		public $belongsTo = array(
@@ -213,7 +201,7 @@
 							)
 						);
 						$this->Bilanparcours66->Orientstruct->create( $orientstruct );
-						$success = $this->Bilanparcours66->Orientstruct->save() && $success;
+						$success = $this->Bilanparcours66->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
 
 						// Mise à jour de l'enregistrement de la thématique avec l'id de la nouvelle orientation
 						$success = $success && $this->updateAllUnBound(
@@ -242,19 +230,8 @@
 								)
 							);
 							$this->Bilanparcours66->Orientstruct->Personne->PersonneReferent->create( $referent );
-							$success = $this->Bilanparcours66->Orientstruct->Personne->PersonneReferent->save() && $success;
+							$success = $this->Bilanparcours66->Orientstruct->Personne->PersonneReferent->save( null, array( 'atomic' => false ) ) && $success;
 						}
-
-						/*if( !empty( $dossierep['Bilanparcours66']['contratinsertion_id'] ) ) {
-							// Fin anticipée pour le CER
-							$this->Bilanparcours66->Contratinsertion->updateAllUnBound(
-								array( 'Contratinsertion.df_ci' => "'".date( 'Y-m-d' )."'" ),
-								array(
-									'"Contratinsertion"."personne_id"' => $dossierep['Bilanparcours66']['Orientstruct']['personne_id'],
-									'"Contratinsertion"."id"' => $dossierep['Bilanparcours66']['contratinsertion_id']
-								)
-							);
-						}*/
 					}
 
 					// 2. Passage de la position du CER "Bilan réalisé – En attente de décision de l'EPL Parcours" à "En attente de renouvellement"
@@ -271,10 +248,6 @@
 					$contratinsertion_id = Hash::get( $contratinsertion, 'Contratinsertion.id' );
 					if( !empty( $contratinsertion_id ) ) {
 						$success = $success && $this->Bilanparcours66->Contratinsertion->WebrsaContratinsertion->updatePositionsCersById( $contratinsertion_id );
-						/*$success = $success && $this->Bilanparcours66->Contratinsertion->updateAllUnBound(
-							array( 'Contratinsertion.positioncer' => "'attrenouv'" ),
-							array( 'Contratinsertion.id' => $contratinsertion_id )
-						);*/
 					}
 				}
 
@@ -542,7 +515,6 @@
 					$this->Dossierep->Passagecommissionep->Decisionsaisinebilanparcoursep66->fields(),
 					$this->Dossierep->Passagecommissionep->Decisionsaisinebilanparcoursep66->Typeorient->fields(),
 					$this->Dossierep->Passagecommissionep->Decisionsaisinebilanparcoursep66->Structurereferente->fields(),
-// 					$this->Dossierep->Passagecommissionep->Decisionsaisinebilanparcoursep66->Structurereferente->Permanence->fields(),
 					$this->Dossierep->Passagecommissionep->Decisionsaisinebilanparcoursep66->Referent->fields(),
 					$this->Dossierep->Saisinebilanparcoursep66->Bilanparcours66->fields(),
 					array_words_replace(
@@ -574,7 +546,6 @@
 					),
 					$this->Dossierep->Passagecommissionep->Decisionsaisinebilanparcoursep66->join( 'Typeorient', array( 'type' => 'LEFT OUTER' ) ),
 					$this->Dossierep->Passagecommissionep->Decisionsaisinebilanparcoursep66->join( 'Structurereferente', array( 'type' => 'LEFT OUTER' ) ),
-// 					$this->Dossierep->Passagecommissionep->Decisionsaisinebilanparcoursep66->Structurereferente->join( 'Permanence', array( 'type' => 'LEFT OUTER' ) ),
 					$this->Dossierep->Passagecommissionep->Decisionsaisinebilanparcoursep66->join( 'Referent', array( 'type' => 'LEFT OUTER' ) ),
 					$this->Dossierep->Saisinebilanparcoursep66->join( 'Bilanparcours66', array( 'type' => 'INNER' ) ),
 					array_words_replace(
@@ -768,18 +739,6 @@
                 $datas['querydata']['fields'] = array_merge( $datas['querydata']['fields'], $this->Bilanparcours66->Referent->fields() );
                 $datas['querydata']['joins'][] = $this->Bilanparcours66->join( 'Referent' );
 
-				/* TODO:
-					$this->alias => array(
-						'Typeorient',
-						'Structurereferente',
-						'Bilanparcours66' => array(
-							'Orientstruct' => array(
-								'Typeorient',
-								'Structurereferente',
-							),
-						)
-					),*/
-
 				// Jointures et champs décisions
 				$modelesProposes = array(
 					'Typeorient' => "{$modeleDecisions}typeorient",
@@ -803,7 +762,6 @@
 				// Traductions
 				$datas['options'] = $this->Dossierep->Passagecommissionep->{$modeleDecisions}->enums();
 				$datas['options']['Personne']['qual'] = ClassRegistry::init( 'Option' )->qual();
-				$datas['options']['type']['voie'] = ClassRegistry::init( 'Option' )->typevoie();
 
 				Cache::write( $cacheKey, $datas );
 			}
@@ -857,7 +815,7 @@
 
 			return $this->_getOrCreateDecisionPdf( $passagecommissionep_id, $gedooo_data, $modeleOdt, $datas['options'] );
 		}
-		
+
 		/**
 		 * Retourne le querydata qui sera utilisé par la thématique pour la
 		 * sélection des dossiers à associer à une commission d'EP donnée.
@@ -867,9 +825,9 @@
 		 */
 		public function qdListeDossierChoose($commissionep_id = null) {
 			$query = parent::qdListeDossierChoose($commissionep_id);
-			
+
 			$query['fields'][] = 'Dossierep.is_reporte';
-			
+
 			return $query;
 		}
 	}

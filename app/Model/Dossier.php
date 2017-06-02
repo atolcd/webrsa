@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
 
 	/**
@@ -18,10 +19,18 @@
 	{
 		public $name = 'Dossier';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
 			'Conditionnable',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 			'Postgres.PostgresAutovalidate',
-			'Validation2.Validation2Formattable'
 		);
 
 		/**
@@ -40,27 +49,20 @@
 		public $validate = array(
 			'numdemrsa' => array(
 				'isUnique' => array(
-					'rule' => 'isUnique',
+					'rule' => array( 'isUnique' ),
 					'message' => 'Cette valeur est déjà utilisée'
 				),
 				'alphaNumeric' => array(
-					'rule' => 'alphaNumeric',
+					'rule' => array( 'alphaNumeric' ),
 					'message' => 'Veuillez n\'utiliser que des lettres et des chiffres'
 				),
 				'between' => array(
 					'rule' => array( 'between', 11, 11 ),
 					'message' => 'Le n° de demande est composé de 11 caractères'
 				),
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
-				)
-			),
-			'dtdemrsa' => array(
-				'date' => array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.',
-					'allowEmpty' => true
 				)
 			),
 			'matricule' => array(
@@ -71,13 +73,13 @@
 				)
 			)
 		);
-		
+
 		/**
 		 * Liste de champs et de valeurs possibles qui ne peuvent pas être mis en
 		 * règle de validation inList ou en contrainte dans la base de données en
 		 * raison des valeurs actuellement en base, mais pour lequels un ensemble
 		 * fini de valeurs existe.
-		 * 
+		 *
 		 * @see AppModel::enums
 		 *
 		 * @var array
@@ -210,6 +212,15 @@
 		);
 
 		/**
+		 * Liste des champs où la valeur du notEmpty/allowEmpty est configurable
+		 *
+		 * @var array
+		 */
+		public $configuredAllowEmptyFields = array(
+			'dtdemrsa'
+		);
+
+		/**
 		 * Mise en majuscule du champ numdemrsa.
 		 *
 		 * @param array $options
@@ -221,253 +232,6 @@
 			}
 
 			return parent::beforeSave( $options );
-		}
-
-		/**
-		 * Retourne un querydata prenant en compte les différents filtres du moteur de recherche.
-		 *
-		 * INFO (pour le CG66): ATTENTION, depuis que la possibilité de créer des dossiers avec un numéro
-		 * temporaire existe, il est possible (via le bouton Ajouter) de créer des dossiers avec des allocataires
-		 * ne possédant ni date de naissance, ni NIR.
-		 * Du coup, lors de la recherche, si la case "Uniquement la dernière demande..." est cochée, les dossiers
-		 * temporaires, avec allocataire sans NIR ou sans date de naissance ne ressortiront pas lors de cette
-		 * recherche -> il faut donc décocher la case pour les voir apparaître
-		 *
-		 * @param array $params
-		 * @return array
-		 */
-		public function search( $params ) {
-			$conditions = array();
-
-			$typeJointure = 'INNER';
-			if( Configure::read( 'Cg.departement' ) != 66) {
-				$conditions = array(
-					'OR' => array(
-						'Adressefoyer.id IS NULL',
-						'Adressefoyer.rgadr' => '01'
-					),
-					'Prestation.rolepers' => array( 'DEM', 'CJT' )
-				);
-			}
-			else {
-				$typeJointure = 'LEFT OUTER';
-				$conditions = array(
-					'OR' => array(
-						'Adressefoyer.id IS NULL',
-						'Adressefoyer.rgadr' => '01'
-					)
-				);
-
-				if( isset( $params['Prestation']['rolepers'] ) ){
-					if( $params['Prestation']['rolepers'] == '0' ){
-						$conditions[] = 'Prestation.rolepers IS NULL';
-					}
-					else if( $params['Prestation']['rolepers'] == '1' ){
-						$conditions['Prestation.rolepers'] = array( 'DEM', 'CJT' );
-					}
-					else {
-						$conditions[] = array(
-							'OR' => array(
-								'Prestation.rolepers IS NULL',
-								'Prestation.rolepers IN ( \'DEM\', \'CJT\' )'
-							)
-						);
-					}
-				}
-			}
-
-			$joins = array(
-				$this->join( 'Detaildroitrsa', array( 'type' => 'LEFT OUTER' ) ),
-				$this->join( 'Foyer', array( 'type' => 'INNER' ) ),
-				$this->join( 'Situationdossierrsa', array( 'type' => 'INNER' ) ),
-				$this->Foyer->join( 'Adressefoyer', array( 'type' => 'LEFT OUTER' ) ),
-				$this->Foyer->join( 'Personne', array( 'type' => 'INNER' ) ),
-				$this->Foyer->Adressefoyer->join( 'Adresse', array( 'type' => 'LEFT OUTER' ) ),
-				$this->Foyer->Personne->join( 'Calculdroitrsa', array( 'type' => 'LEFT OUTER' ) ),
-				$this->Foyer->Personne->join( 'Dsp', array( 'type' => 'LEFT OUTER' ) ),
-				$this->Foyer->Personne->join( 'DspRev', array( 'type' => 'LEFT OUTER' ) ),
-				$this->Foyer->Personne->join( 'Orientstruct',
-					array(
-						'type' => 'LEFT OUTER',
-						'conditions' => array( 'Orientstruct.statut_orient' => 'Orienté' )
-					)
-				),
-				$this->Foyer->Personne->join( 'Prestation', array( 'type' => $typeJointure ) ),
-				$this->Foyer->Personne->Orientstruct->join( 'Typeorient', array( 'type' => 'LEFT OUTER' ) ),
-			);
-
-			// Dernière orientation
-			$conditions[] = array(
-				'OR' => array(
-					'Orientstruct.id IS NULL',
-					'Orientstruct.id IN ( '.$this->Foyer->Personne->Orientstruct->WebrsaOrientstruct->sqDerniere().' )',
-				)
-			);
-
-			// Condition sur la nature du logement
-			$natlog = Hash::get( $params, 'Dsp.natlog' );
-			if( !empty( $natlog ) ) {
-				$conditions[] = array(
-					'OR' => array(
-						array(
-							// On cherche dans les Dsp si pas de Dsp mises à jour
-							'DspRev.id IS NULL',
-							'Dsp.natlog' => $natlog
-						),
-						'DspRev.natlog' => $natlog,
-					)
-				);
-			}
-
-			// Dernières Dsp
-			$conditions[] = array(
-				array(
-					'OR' => array(
-						'Dsp.id IS NULL',
-						'Dsp.id IN ( '.$this->Foyer->Personne->Dsp->WebrsaDsp->sqDerniereDsp().' )'
-					),
-				),
-				array(
-					'OR' => array(
-						'DspRev.id IS NULL',
-						'DspRev.id IN ( '.$this->Foyer->Personne->DspRev->sqDerniere().' )'
-					),
-				),
-			);
-
-			$conditions = $this->conditionsAdresse( $conditions, $params );
-			$conditions = $this->conditionsPersonneFoyerDossier( $conditions, $params );
-			$conditions = $this->conditionsDernierDossierAllocataire( $conditions, $params );
-
-			// Critères sur le dossier - service instructeur
-			if( isset( $params['Serviceinstructeur']['id'] ) && !empty( $params['Serviceinstructeur']['id'] ) ) {
-				$conditions[] = "Dossier.id IN ( SELECT suivisinstruction.dossier_id FROM suivisinstruction INNER JOIN servicesinstructeurs ON suivisinstruction.numdepins = servicesinstructeurs.numdepins AND suivisinstruction.typeserins = servicesinstructeurs.typeserins AND suivisinstruction.numcomins = servicesinstructeurs.numcomins AND suivisinstruction.numagrins = servicesinstructeurs.numagrins WHERE servicesinstructeurs.id = '".Sanitize::paranoid( $params['Serviceinstructeur']['id'] )."' )";
-			}
-
-			/// Statut de présence contrat engagement reciproque
-			$hasContrat  = Set::extract( $params, 'Personne.hascontrat' );
-			if( !empty( $hasContrat ) && in_array( $hasContrat, array( 'O', 'N' ) ) ) {
-				if( $hasContrat == 'O' ) {
-					$conditions[] = '( SELECT COUNT(contratsinsertion.id) FROM contratsinsertion WHERE contratsinsertion.personne_id = "Personne"."id" ) > 0';
-				}
-				else {
-					$conditions[] = '( SELECT COUNT(contratsinsertion.id) FROM contratsinsertion WHERE contratsinsertion.personne_id = "Personne"."id" ) = 0';
-				}
-			}
-
-			// Personne ne possédant pas d'orientation, ne possédant aucune entrée dans la table orientsstructs
-			if( isset( $params['Orientstruct']['exists'] ) && ( $params['Orientstruct']['exists'] != '' ) ) {
-				if( $params['Orientstruct']['exists'] ) {
-					$conditions[] = '( SELECT COUNT(orientsstructs.id) FROM orientsstructs WHERE orientsstructs.personne_id = "Personne"."id" ) > 0';
-				}
-				else {
-					$conditions[] = '( SELECT COUNT(orientsstructs.id) FROM orientsstructs WHERE orientsstructs.personne_id = "Personne"."id" ) = 0';
-					if( Configure::read( 'Cg.departement' ) == 66 ) {
-						$joins[] = $this->Foyer->Personne->join( 'Nonoriente66', array( 'type' => 'LEFT OUTER' ) );
-						$conditions[] = array( 'Nonoriente66.id IS NULL' );
-					}
-				}
-			}
-
-			if( $this->Foyer->Personne->Behaviors->attached( 'LinkedRecords' ) === false ) {
-				$this->Foyer->Personne->Behaviors->attach( 'LinkedRecords' );
-			}
-
-			$hasCui = (string)Hash::get( $params, 'Cui.exists' );
-			if( in_array( $hasCui, array( '0', '1' ), true ) ) {
-				$exists = $this->Foyer->Personne->linkedRecordVirtualField( 'Cui' );
-				$conditions[] = $hasCui ? $exists : 'NOT ' . $exists;
-			}
-
-			if( Configure::read( 'Cg.departement' ) == 58 ) {
-				//Travailleur social chargé de l'évaluation
-				// Représente le "Nom du chargé de l'évaluation" lorsque l'on crée une orientation
-				// via la table proposorientaitonscovs58
-				$referent_id = Set::classicExtract( $params, 'PersonneReferent.referent_id' );
-				if( isset( $referent_id ) && !empty( $referent_id ) ) {
-					$joins = array_merge(
-						$joins,
-						array(
-							$this->Foyer->Personne->join( 'Dossiercov58', array( 'type' => 'LEFT OUTER' ) ),
-							$this->Foyer->Personne->Dossiercov58->join( 'Propoorientationcov58', array( 'type' => 'LEFT OUTER' ) )
-						)
-					);
-					$conditions[] = array( 'Propoorientationcov58.referentorientant_id = \''.Sanitize::clean( $referent_id ).'\'' );
-				}
-
-				// Présence DSP ?
-				$sqDspId = 'SELECT dsps.id FROM dsps WHERE dsps.personne_id = "Personne"."id" LIMIT 1';
-				$sqDspExists = "( {$sqDspId} ) IS NOT NULL";
-				if( isset( $params['Dsp']['exists'] ) && ( $params['Dsp']['exists'] != '' ) ) {
-					if( $params['Dsp']['exists'] ) {
-						$conditions[] = "( {$sqDspExists} )";
-					}
-					else {
-						$conditions[] = "( ( {$sqDspId} ) IS NULL )";
-					}
-				}
-			}
-
-
-			$querydata = array(
-				'fields' => array(
-					'Dossier.id',
-					'Dossier.numdemrsa',
-					'Dossier.dtdemrsa',
-					'Dossier.matricule',
-					'Dossier.fonorg',
-					'Personne.nir',
-					'Personne.qual',
-					'Personne.nom',
-					'Personne.prenom',
-					'Personne.prenom2',
-					'Personne.prenom3',
-					'Personne.dtnai',
-					'Personne.idassedic',
-					'Personne.nomcomnai',
-					'Adresse.numvoie',
-					'Adresse.libtypevoie',
-					'Adresse.nomvoie',
-					'Adresse.codepos',
-					'Adresse.numcom',
-					'Adresse.nomcom',
-					'Situationdossierrsa.etatdosrsa',
-					'Prestation.rolepers',
-					'Personne.sexe',
-					'Dsp.natlog',
-					'DspRev.natlog',
-					'Typeorient.lib_type_orient',
-				),
-				'recursive' => -1,
-				'joins' => $joins,
-				'limit' => 10,
-				'order' => array( 'Personne.nom ASC' ),
-				'conditions' => $conditions
-			);
-
-			if( Configure::read( 'Cg.departement' ) == 58 ) {
-				$querydata['fields'][] = 'Activite.act';
-				$querydata['joins'][] = $this->Foyer->Personne->join(
-					'Activite',
-					array(
-						'type' => 'LEFT OUTER',
-						'conditions' => array(
-							'Activite.id IN ( '.$this->Foyer->Personne->Activite->sqDerniere().' )'
-						),
-					)
-				);
-			}
-
-			// Référent du parcours
-			$querydata = $this->Foyer->Personne->PersonneReferent->completeQdReferentParcours( $querydata, $params );
-
-			// Ajout de l'étape du dossier d'orientation de l'allocataire pour le CG 58
-			if( Configure::read( 'Cg.departement' ) == 58 ) {
-				$this->forceVirtualFields = true;
-				$querydata = $this->Foyer->Personne->WebrsaPersonne->completeQueryVfEtapeDossierOrientation58( $querydata, $params );
-			}
-
-			return $querydata;
 		}
 
 		/**
@@ -507,7 +271,7 @@
 			else if( !empty( $params['personne_id'] ) && is_numeric( $params['personne_id'] ) ) {
 				$conditions['Dossier.id'] = $this->Foyer->Personne->dossierId( $params['personne_id'] );
 			}
-			
+
 			if( empty( $conditions ) || end($conditions) === null ) {
 				throw new NotFoundException();
 			}
@@ -537,7 +301,7 @@
 				$querydata[$key] = array_merge( $querydata[$key], $qdPartsJetons[$key] );
 			}
 			$dossier = $this->find( 'first', $querydata );
-			
+
 			if (empty($dossier)) {
 				trigger_error("Aucun Foyer n'a été trouvé avec les conditions suivantes : ".var_export($conditions, true));
 				exit;
@@ -640,7 +404,7 @@
 				$this->_appModelCache[$cacheKey] = Cache::read( $cacheKey );
 
 				// Dans le cache CakePHP ?
-				if( false === $this->_appModelCache[$cacheKey] ) {			
+				if( false === $this->_appModelCache[$cacheKey] ) {
 					$this->_appModelCache[$cacheKey] = parent::enums();
 
 					// FIXME: seulement pour le 93 ?
@@ -652,7 +416,7 @@
 						'6_8' => 'De 6 ans à moins de 9 ans',
 						'9_999' => 'Plus de 9 ans',
 					);
-					
+
 					$this->_cacheOptionsNumorg($cacheKey);
 
 					Cache::write( $cacheKey, $this->_appModelCache[$cacheKey] );
@@ -661,7 +425,7 @@
 
 			return $this->_appModelCache[$cacheKey];
 		}
-		
+
 		/**
 		 * On enregistre la liste des traductions connues, mais on ne met pas en inList,
 		 * sinon on aura des soucis à l'enregistrement d'un nouveau numorg
@@ -677,7 +441,7 @@
 				} else {
 					$numorg = sprintf('%03d', $i);
 				}
-				
+
 				$label = __d( $domain, "ENUM::NUMORG::{$numorg}" );
 				if ($label !== "ENUM::NUMORG::{$numorg}") {
 					$this->_appModelCache[$cacheKey][$this->alias]['numorg'][(string)$numorg] = $label;

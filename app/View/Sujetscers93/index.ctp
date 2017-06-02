@@ -1,38 +1,21 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'sujetcer93', "Sujetscers93::{$this->action}" )
-	)
-?>
-
-<?php
-	$fields = array(
-		'Sujetcer93.name',
-		'Sujetcer93.isautre' => array( 'type' => 'boolean' ),
-		'Sujetcer93.actif' => array( 'type' => 'boolean')
-	);
-
-	echo $this->Default2->index(
-		$sujetscers93,
-		$fields,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'cohorte' => false,
-			'actions' => array(
-				'Sujetscers93::edit',
-				'Sujetscers93::delete',
+			'cells' => array(
+				'Sujetcer93.name',
+				'Sujetcer93.isautre' => array( 'type' => 'boolean' ),
+				'Sujetcer93.actif' => array( 'type' => 'boolean'),
+				'/Sujetscers93/edit/#Sujetcer93.id#' => array(
+					'title' => true
+				),
+				'/Sujetscers93/delete/#Sujetcer93.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Sujetcer93.has_linkedrecords#"'
+				)
 			),
-			'add' => 'Sujetscers93::add'
-		)
-	);
-	echo '<br />';
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'cers93',
-			'action'     => 'indexparams'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#contratsinsertion'
 		)
 	);
 ?>

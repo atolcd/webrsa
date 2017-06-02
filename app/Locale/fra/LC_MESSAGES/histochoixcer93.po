@@ -1,0 +1,151 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+msgid "Histoschoixcers93::decisioncpdv"
+msgstr "Prendre la décision (Responsable)"
+
+msgid "Histoschoixcers93::attdecisioncpdv"
+msgstr "Envoyer au Responsable"
+
+msgid "Histoschoixcers93::attdecisioncg"
+msgstr "Envoyer au CG"
+
+msgid "Histoschoixcers93::premierelecture"
+msgstr "Première lecture"
+
+msgid "Histoschoixcers93::secondelecture"
+msgstr "Valider CS"
+
+msgid "Histoschoixcers93::aviscadre"
+msgstr "Valider au cadre"
+
+msgid "Histoschoixcers93::decisioncg"
+msgstr "Prendre la décision CG"
+
+msgid "Histochoixcer93.commentaire"
+msgstr "Commentaire"
+
+msgid "Histochoixcer93.datechoix"
+msgstr "Date de décision"
+
+msgid "Histochoixcer93.decisioncs"
+msgstr "Décision"
+
+msgid "Histochoixcer93.decisioncadre"
+msgstr "Décision"
+
+msgid "ENUM::PREVALIDE::arelire"
+msgstr "À relire"
+
+msgid "ENUM::PREVALIDE::prevalide"
+msgstr "Pré-validé"
+
+msgid "ENUM::DECISIONCS::valide"
+msgstr "Validé"
+
+msgid "ENUM::DECISIONCS::aviscadre"
+msgstr "Avis cadre"
+
+msgid "ENUM::DECISIONCS::passageep"
+msgstr "Passage en EP"
+
+msgid "ENUM::DECISIONCADRE::valide"
+msgstr "Validé"
+
+msgid "ENUM::DECISIONCADRE::rejete"
+msgstr "Rejeté"
+
+msgid "ENUM::DECISIONCADRE::passageep"
+msgstr "Passage en EP"
+
+msgid "Histochoixcer93.isrejet"
+msgstr "Rejeté ?"
+
+msgid "ENUM::FORMECI::S"
+msgstr "Simple"
+
+msgid "ENUM::FORMECI::C"
+msgstr "Complexe"
+
+msgid "ENUM::ISREJET::0"
+msgstr "Non"
+
+msgid "ENUM::ISREJET::1"
+msgstr "Oui"
+
+msgid "ENUM::ETAPE::02attdecisioncpdv"
+msgstr "Décision Référent"
+
+msgid "ENUM::ETAPE::03attdecisioncg"
+msgstr "Décision Responsable"
+
+msgid "ENUM::ETAPE::04premierelecture"
+msgstr "Décision première lecture"
+
+msgid "ENUM::ETAPE::05secondelecture"
+msgstr "Décision seconde lecture"
+
+msgid "ENUM::ETAPE::06aviscadre"
+msgstr "Avis cadre"
+
+msgid "Histochoixcer93.prevalide"
+msgstr "Pré-validé ou A relire ?"
+
+msgid "Histochoixcer93.formeci"
+msgstr "Forme du contrat"
+
+msgid "Histochoixcer93.user_id"
+msgstr "Émise et rédigée par"
+
+msgid "Histochoixcer93.observationdecision"
+msgstr "Observation sur la décision"
+
+msgid "ENUM::ETAPE::00enregistre"
+msgstr "Enregistré"
+
+msgid "ENUM::ETAPE::01signe"
+msgstr "Signé"
+
+msgid "ENUM::ETAPE::99rejetecpdv"
+msgstr "Rejeté Responsable"
+
+msgid "ENUM::ETAPE::06attaviscadre"
+msgstr "En attente avis cadre"
+
+msgid "ENUM::ETAPE::07attavisep"
+msgstr "En attente passage EP"
+
+msgid "ENUM::ETAPE::99rejete"
+msgstr "Rejeté CG"
+
+msgid "ENUM::ETAPE::99valide"
+msgstr "Validé CG"
+
+msgid "ENUM::DUREE::3"
+msgstr "3 mois"
+
+msgid "ENUM::DUREE::6"
+msgstr "6 mois"
+
+msgid "ENUM::DUREE::9"
+msgstr "9 mois"
+
+msgid "ENUM::DUREE::12"
+msgstr "12 mois"

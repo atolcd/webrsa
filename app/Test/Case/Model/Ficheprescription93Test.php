@@ -96,99 +96,6 @@
 		}
 
 		/**
-		 * Test de la méthode Ficheprescription93::search()
-		 *
-		 * @medium
-		 */
-		public function testSearch() {
-			$result = $this->Ficheprescription93->search();
-			$result = Hash::combine( $result, 'joins.{n}.alias', 'joins.{n}.type' );
-			$expected = array(
-				'Calculdroitrsa' => 'LEFT OUTER',
-				'Foyer' => 'INNER',
-				'Prestation' => 'LEFT OUTER',
-				'Adressefoyer' => 'INNER',
-				'Dossier' => 'INNER',
-				'Adresse' => 'INNER',
-				'Situationdossierrsa' => 'INNER',
-				'Detaildroitrsa' => 'LEFT OUTER',
-				'PersonneReferent' => 'LEFT OUTER',
-				'Referentparcours' => 'LEFT OUTER',
-				'Structurereferenteparcours' => 'LEFT OUTER',
-				'Ficheprescription93' => 'LEFT OUTER',
-				'Actionfp93' => 'LEFT OUTER',
-				'Referent' => 'LEFT OUTER',
-				'Filierefp93' => 'LEFT OUTER',
-				'Prestatairefp93' => 'LEFT OUTER',
-				'Categoriefp93' => 'LEFT OUTER',
-				'Thematiquefp93' => 'LEFT OUTER',
-				'Prestatairehorspdifp93' => 'LEFT OUTER',
-				'Adresseprestatairefp93' => 'LEFT OUTER'
-			);
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
-		}
-
-		/**
-		 * Test de la méthode Ficheprescription93::searchConditions()
-		 */
-		public function testSearchConditions() {
-			$query = array(
-				'conditions' => array( )
-			);
-			$search = array(
-				'Actionfp93' => array(
-					'numconvention' => '007'
-				),
-				'Ficheprescription93' => array(
-					'exists' => '1',
-					'typethematiquefp93_id' => 'pdi',
-					'statut' => '03transmise_partenaire',
-					'has_date_bilan_final' => '1',
-				)
-			);
-			$result = $this->Ficheprescription93->searchConditions( $query, $search );
-			$expected = array(
-				'conditions' => array(
-					'Ficheprescription93.id IS NOT NULL',
-					'Thematiquefp93.type' => 'pdi',
-					'UPPER( Actionfp93.numconvention ) LIKE' => '007%',
-					'Ficheprescription93.statut' => '03transmise_partenaire',
-					'Ficheprescription93.date_bilan_final IS NOT NULL',
-				),
-			);
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
-		}
-
-		/**
-		 * Test de la méthode Ficheprescription93::searchConditions()
-		 */
-		public function testSearchConditions2() {
-			$query = array(
-				'conditions' => array( )
-			);
-			$search = array(
-				'Prestatairehorspdifp93' => array(
-					'name' => 'maison'
-				),
-				'Ficheprescription93' => array(
-					'exists' => '0',
-					'actionfp93_id' => 1,
-					'has_date_bilan_mi_parcours' => '0'
-				)
-			);
-			$result = $this->Ficheprescription93->searchConditions( $query, $search );
-			$expected = array(
-				'conditions' => array(
-					0 => 'Ficheprescription93.id IS NULL',
-					'Actionfp93.id' => 1,
-					'UPPER( Prestatairehorspdifp93.name ) LIKE' => '%MAISON%',
-					1 => 'Ficheprescription93.date_bilan_mi_parcours IS NULL'
-				)
-			);
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
-		}
-
-		/**
 		 * Test de la méthode Ficheprescription93::options()
 		 *
 		 * @medium
@@ -326,7 +233,7 @@
 				'Foyer.regagrifam',
 			);
 			sort( $expected );
-			
+
 			$this->assertEqual( $result, $expected, var_export( $result, true ) );
 		}
 

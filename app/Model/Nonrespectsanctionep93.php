@@ -7,7 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( ABSTRACTMODELS.'Thematiqueep.php' );
+	App::uses( 'Thematiqueep', 'Model/Abstractclass' );
 
 	/**
 	 * La classe Nonrespectsanctionep93 ...
@@ -19,10 +19,10 @@
 
 		public $name = 'Nonrespectsanctionep93';
 		public $actsAs = array(
-			'Enumerable',
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate',
 			'Gedooo.Gedooo',
 			'Conditionnable'
 		);
@@ -118,7 +118,7 @@
 		public function qdDossiersParListe( $commissionep_id, $niveauDecision ) {
 			// Doit-on prendre une décision à ce niveau ?
 			$themes = $this->Dossierep->Passagecommissionep->Commissionep->WebrsaCommissionep->themesTraites( $commissionep_id );
-			$niveauFinal = $themes[Inflector::underscore( $this->alias )];
+			$niveauFinal = Hash::get( $themes, Inflector::underscore( $this->alias ) );
 			if( ( $niveauFinal == 'ep' ) && ( $niveauDecision == 'cg' ) ) {
 				return array( );
 			}
@@ -343,7 +343,7 @@
 					}
 
 					$this->create( $nonrespectsanctionep93 ); // TODO: un saveAll ?
-					$success = $this->save() && $success;
+					$success = $this->save( null, array( 'atomic' => false ) ) && $success;
 				}
 			}
 			return $success;
@@ -586,7 +586,7 @@
 														'conditions' => array(
 															'passagescommissionseps.dossierep_id = dossierseps.id',
 															'passagescommissionseps.etatdossierep' => array( 'traite', 'annule' ),
-															'( DATE( NOW() ) - CAST( dossierseps.modified AS DATE ) ) <=' => Configure::read( $this->alias.'.delaiRegularisation' )
+															'( DATE( NOW() ) - "dossierseps"."modified"::DATE ) <=' => Configure::read( $this->alias.'.delaiRegularisation' )
 														)
 													)
 											)
@@ -801,7 +801,6 @@
 				// Traductions
 				$datas['options'] = $this->Dossierep->Passagecommissionep->Decisionnonrespectsanctionep93->enums();
 				$datas['options']['Personne']['qual'] = ClassRegistry::init( 'Option' )->qual();
-				$datas['options']['type']['voie'] = ClassRegistry::init( 'Option' )->typevoie();
 				$datas['options'] = Hash::merge( $datas['options'], $this->Contratinsertion->Cer93->enums() );
 
 				Cache::write( $cacheKey, $datas );

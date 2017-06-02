@@ -1,4 +1,4 @@
-<?php    
+<?php
     /**
      * Code source de la classe Piecesmodelestypescourrierspcgs66Controller.
      *
@@ -7,14 +7,15 @@
      * @package app.Controller
      * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
      */
-    App::import('Behaviors', 'Occurences');
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
 
-    /**
-     * La classe Piecesmodelestypescourrierspcgs66Controller ...
+	/**
+	 * La classe Piecesmodelestypescourrierspcgs66Controller s'occupe du paramétrage
+	 * des pièces liées aux modèles de courriers PCG.
      *
      * @package app.Controller
      */
-    class Piecesmodelestypescourrierspcgs66Controller extends AppController
+    class Piecesmodelestypescourrierspcgs66Controller extends AbstractWebrsaParametragesController
     {
 		/**
 		 * Nom du contrôleur.
@@ -24,128 +25,56 @@
 		public $name = 'Piecesmodelestypescourrierspcgs66';
 
 		/**
-		 * Components utilisés.
-		 *
-		 * @var array
-		 */
-		public $components = array(
-			'Default',
-		);
-
-		/**
-		 * Helpers utilisés.
-		 *
-		 * @var array
-		 */
-		public $helpers = array(
-			'Default2',
-		);
-		
-		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'add' => 'Piecesmodelestypescourrierspcgs66:edit',
-			'view' => 'Piecesmodelestypescourrierspcgs66:index',
+			'add' => 'Piecesmodelestypescourrierspcgs66:edit'
 		);
-		
+
 		/**
-		 * Méthodes ne nécessitant aucun droit.
-		 *
-		 * @var array
+		 * Liste des pièces liées aux modèles de courriers PCG.
 		 */
-		public $aucunDroit = array(
-			
-		);
-		
-		/**
-		 * Correspondances entre les méthodes publiques correspondant à des
-		 * actions accessibles par URL et le type d'action CRUD.
-		 *
-		 * @var array
-		 */
-		public $crudMap = array(
-			'add' => 'create',
-			'delete' => 'delete',
-			'edit' => 'update',
-			'index' => 'read',
-			'view' => 'read',
-		);
+		public function index() {
+			if( false === $this->Piecemodeletypecourrierpcg66->Behaviors->attached( 'Occurences' ) ) {
+				$this->Piecemodeletypecourrierpcg66->Behaviors->attach( 'Occurences' );
+			}
 
-		protected function _setOptions() {
-			$options = array();
-			$options[$this->modelClass]['modeletypecourrierpcg66_id'] = $this->Piecemodeletypecourrierpcg66->Modeletypecourrierpcg66->find( 'list', array( 'fields' => array( 'id', 'name' ) ) );
-
-			$options = Set::merge( $this->Piecemodeletypecourrierpcg66->enums(), $options);
-			$this->set( compact( 'options' ) );
-
+			$query = array(
+				'fields' => array_merge(
+					$this->Piecemodeletypecourrierpcg66->fields(),
+					array(
+						$this->Piecemodeletypecourrierpcg66->sqHasLinkedRecords( true ),
+						'Typecourrierpcg66.name',
+						'Modeletypecourrierpcg66.name'
+					)
+				),
+				'joins' => array(
+					$this->Piecemodeletypecourrierpcg66->join( 'Modeletypecourrierpcg66', array( 'type' => 'INNER' ) ),
+					$this->Piecemodeletypecourrierpcg66->Modeletypecourrierpcg66->join( 'Typecourrierpcg66', array( 'type' => 'INNER' ) )
+				),
+				'order' => array(
+					'Typecourrierpcg66.name ASC',
+					'Modeletypecourrierpcg66.name ASC',
+					'Piecemodeletypecourrierpcg66.name ASC'
+				)
+			);
+			$this->WebrsaParametrages->index( $query );
 		}
 
-        
-        public function index() {
-            $this->Piecemodeletypecourrierpcg66->Behaviors->attach( 'Occurences' );
-            $querydata = $this->Piecemodeletypecourrierpcg66->qdOccurencesExists(
-                array(
-                    'fields' => array_merge(
-                        $this->Piecemodeletypecourrierpcg66->fields(),
-                        $this->Piecemodeletypecourrierpcg66->Modeletypecourrierpcg66->fields()
-                    ),
-                    'order' => array( 'Piecemodeletypecourrierpcg66.name ASC' )
-                )
-            );
-            $this->paginate = $querydata;
-            $piecesmodelestypescourrierspcgs66 = $this->paginate( 'Piecemodeletypecourrierpcg66' );
+		/**
+		 * Formulaire de modification d'une pièce liée aux modèles de courriers PCG.
+		 *
+		 * @param integer $id
+		 */
+		public function edit( $id = null ) {
+			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit' ) );
 
-            $this->_setOptions();
-            $this->set( compact('piecesmodelestypescourrierspcgs66'));
-        }
-
-        /**
-        *
-        */
-
-        public function add() {
-            $args = func_get_args();
-            call_user_func_array( array( $this, '_add_edit' ), $args );
-        }
-
-        /**
-        *
-        */
-
-        public function edit() {
-            $args = func_get_args();
-            call_user_func_array( array( $this, '_add_edit' ), $args );
-        }
-
-        /**
-        *
-        */
-
-        protected function _add_edit(){
-            $args = func_get_args();
-
-            $this->_setOptions();
-            $this->Default->{$this->action}( $args );
-        }
-
-        /**
-        *
-        */
-
-        public function delete( $id ) {
-            $this->Default->delete( $id );
-        }
-
-        /**
-        *
-        */
-
-        public function view( $id ) {
-            $this->Default->view( $id );
-        }
+			$options = $this->viewVars['options'];
+			$options['Piecemodeletypecourrierpcg66']['modeletypecourrierpcg66_id'] = $this->Piecemodeletypecourrierpcg66->Modeletypecourrierpcg66->find( 'list' );
+			$this->set( compact( 'options' ) );
+		}
     }
 ?>

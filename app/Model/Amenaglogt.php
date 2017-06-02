@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Amenaglogt.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Amenaglogt ...
@@ -17,35 +18,31 @@
 	{
 		public $name = 'Amenaglogt';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
 			'Aideapre',
-			'Enumerable' => array(
-				'fields' => array(
-					'typeaidelogement' => array( 'type' => 'typeaidelogement', 'domain' => 'apre' ),
-				)
-			),
-			'Frenchfloat' => array( 'fields' => array( 'montantaide' ) )
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
-			'apre_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric')
-				),
-			),
 			'typeaidelogement' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
 			),
 			'montantaide' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
-				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
-					'allowEmpty' => true
 				)
 			)
 		);

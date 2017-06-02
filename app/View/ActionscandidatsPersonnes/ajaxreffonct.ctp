@@ -12,7 +12,7 @@
 			</td>
 			<td class="wide noborder">
 				<?php
-					echo Set::classicExtract( $structs, 'Structurereferente.num_voie' ).' '.Set::enum( Set::classicExtract( $structs, 'Structurereferente.type_voie' ), $typevoie ).' '.Set::classicExtract( $structs, 'Structurereferente.nom_voie' ).' <br /> '.Set::classicExtract( $structs, 'Structurereferente.code_postal' ).' '.Set::classicExtract( $structs, 'Structurereferente.ville' );
+					echo Set::classicExtract( $structs, 'Structurereferente.num_voie' ).' '.Set::classicExtract( $structs, 'Structurereferente.type_voie' ).' '.Set::classicExtract( $structs, 'Structurereferente.nom_voie' ).' <br /> '.Set::classicExtract( $structs, 'Structurereferente.code_postal' ).' '.Set::classicExtract( $structs, 'Structurereferente.ville' );
 				?>
 			</td>
 		</tr>

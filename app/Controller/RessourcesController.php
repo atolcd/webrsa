@@ -7,8 +7,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
-	 App::uses('WebrsaAccessRessource', 'Utility');
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaAccessRessource', 'Utility' );
 
 	/**
 	 * La classe RessourcesController permet de gérer les ressources d'un allocataire.
@@ -41,7 +41,7 @@
 		 * @var array
 		 */
 		public $helpers = array(
-			
+
 		);
 
 		/**
@@ -57,27 +57,27 @@
 			'Ressourcemensuelle',
 			'WebrsaRessource',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Ressources:edit',
 			'view' => 'Ressources:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -90,7 +90,7 @@
 			'index' => 'read',
 			'view' => 'read',
 		);
-		
+
 		/**
 		 *
 		 */
@@ -203,34 +203,34 @@
 				}
 
 				if( $validates ) {
-					$saved = $this->Ressource->save( $this->request->data );
+					$saved = $this->Ressource->save( $this->request->data , array( 'atomic' => false ) );
 					if( isset( $this->request->data['Ressourcemensuelle'] ) ) {
 						foreach( $this->request->data['Ressourcemensuelle'] as $index => $dataRm ) {
 							$dataRm['ressource_id'] = $this->Ressource->id;
 							$this->Ressourcemensuelle->create();
-							$saved = $this->Ressourcemensuelle->save( $dataRm ) && $saved;
+							$saved = $this->Ressourcemensuelle->save( $dataRm , array( 'atomic' => false ) ) && $saved;
 							if( isset( $this->request->data['Detailressourcemensuelle'] ) ) {
 								$dataDrm = $this->request->data['Detailressourcemensuelle'][$index];
 								$dataDrm['ressourcemensuelle_id'] = $this->Ressourcemensuelle->id;
 								$this->Detailressourcemensuelle->create();
-								$saved = $this->Detailressourcemensuelle->save( $dataDrm ) && $saved;
+								$saved = $this->Detailressourcemensuelle->save( $dataDrm , array( 'atomic' => false ) ) && $saved;
 							}
 						}
 					}
 					if( $saved ) {
 						$this->Ressource->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'ressources', 'action' => 'index', $personne_id ) );
 					}
 					else {
 						$this->Ressource->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 				else {
 					$this->Ressource->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -295,19 +295,19 @@
 				}
 
 				if( $validates ) {
-					$saved = $this->Ressource->save( $this->request->data );
+					$saved = $this->Ressource->save( $this->request->data , array( 'atomic' => false ) );
 					if( !$this->request->data['Ressource']['topressnul'] ) {
 						if( array_key_exists( 'Ressourcemensuelle', $this->request->data ) ) {
 							foreach( $this->request->data['Ressourcemensuelle'] as $index => $dataRm ) {
 								$this->Ressourcemensuelle->create();
 								$dataRm['ressource_id'] = $this->Ressource->id;
-								$saved = $this->Ressourcemensuelle->save( $dataRm ) && $saved;
+								$saved = $this->Ressourcemensuelle->save( $dataRm , array( 'atomic' => false ) ) && $saved;
 
 								if( array_key_exists( 'Detailressourcemensuelle', $this->request->data ) ) {
 									$dataDrm = $this->request->data['Detailressourcemensuelle'][$index];
 									$dataDrm['ressourcemensuelle_id'] = $this->Ressourcemensuelle->id;
 									$this->Detailressourcemensuelle->create();
-									$saved = $this->Detailressourcemensuelle->save( $dataDrm ) && $saved;
+									$saved = $this->Detailressourcemensuelle->save( $dataDrm , array( 'atomic' => false ) ) && $saved;
 								}
 							}
 						}
@@ -339,17 +339,17 @@
 					if( $saved ) {
 						$this->Ressource->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'ressources', 'action' => 'index', $ressource['Ressource']['personne_id'] ) );
 					}
 					else {
 						$this->Ressource->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 				else {
 					$this->Ressource->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {

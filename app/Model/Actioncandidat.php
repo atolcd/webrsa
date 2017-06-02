@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Actioncandidat s'occupe de la gestion des fiches de candidature.
@@ -19,25 +20,11 @@
 
 		public $displayField = 'name';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable',
-			'Enumerable' => array(
-				'fields' => array(
-					'contractualisation',
-					'correspondantaction',
-					'hasfichecandidature',
-					'typeaction',
-					'actif' => array( 'type' => 'no', 'domain' => 'default' ),
-					'haspiecejointe' => array(
-						'domain' => 'actioncandidat'
-					),
-				)
-			),
-            'Conditionnable',
+			'Conditionnable',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
 			'Postgres.PostgresAutovalidate'
 		);
 

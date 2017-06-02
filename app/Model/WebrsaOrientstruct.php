@@ -31,7 +31,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Orientstruct' );
+		public $uses = array( 'Orientstruct', 'Informationpe', 'Dsp' );
 
 		/**
 		 * Permet d'obtenir les données du formulaire d'ajout / de modification,
@@ -173,7 +173,7 @@
 					)
 				);
 
-				$success = $this->Orientstruct->Personne->Dossierep->save( $dossierep ) && $success;
+				$success = $this->Orientstruct->Personne->Dossierep->save( $dossierep , array( 'atomic' => false ) ) && $success;
 
 				$regressionorientationep = array(
 					$theme => Hash::merge(
@@ -186,7 +186,7 @@
 					)
 				);
 
-				$success = $this->Orientstruct->Personne->Dossierep->{$theme}->save( $regressionorientationep ) && $success;
+				$success = $this->Orientstruct->Personne->Dossierep->{$theme}->save( $regressionorientationep , array( 'atomic' => false ) ) && $success;
 			}
 			else {
 				// Orientstruct
@@ -208,12 +208,12 @@
 
 				$statut_orient = Hash::get( $orientstruct, "{$this->Orientstruct->alias}.statut_orient" );
 				$this->Orientstruct->create( $orientstruct );
-				$success = $this->Orientstruct->save() && $success;
+				$success = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
 
 				// Calculdroitrsa
 				$calculdroitsrsa = array( 'Calculdroitrsa' => (array)Hash::get( $data, 'Calculdroitrsa' ) );
 				$this->Orientstruct->Personne->Calculdroitrsa->create( $calculdroitsrsa );
-				$success = $this->Orientstruct->Personne->Calculdroitrsa->save() && $success;
+				$success = $this->Orientstruct->Personne->Calculdroitrsa->save( null, array( 'atomic' => false ) ) && $success;
 
 				// Tentative d'ajout d'un référent de parcours
 				if( $success && !empty( $referent_id ) && ( $statut_orient == 'Orienté' ) ) {
@@ -690,12 +690,6 @@
 				),
 				'Referent' => array(
 					'qual' => $Option->qual()
-				),
-				'Structurereferente' => array(
-					'type_voie' => $Option->typevoie()
-				),
-				'type' => array(
-					'voie' => $Option->typevoie()
 				)
 			);
 
@@ -748,6 +742,7 @@
 			$fields = array(
 				'dernier' => $this->Orientstruct->sqVirtualField('dernier'),
 				'date_valid' => 'Orientstruct.date_valid',
+				'statut_orient' => 'Orientstruct.statut_orient',
 				'dernier_oriente' => $this->Orientstruct->sqVirtualField('dernier_oriente'),
 				'printable' => $this->getPrintableSq('printable'),
 				'linked_records' => $this->Orientstruct->getSqLinkedModelsDepartement('linked_records'),
@@ -922,7 +917,6 @@
 			else {
 				// TODO: error404/error500 si on ne trouve pas les données
 				$qual = $this->Orientstruct->Option->qual();
-				$typevoie = $this->Orientstruct->Option->typevoie();
 
 				$orientstruct = $this->Orientstruct->find(
 					'first',
@@ -983,7 +977,6 @@
 				}
 
 				if( $departement != 66 ) {
-					$orientstruct['Structurereferente']['type_voie'] = Set::classicExtract( $typevoie, Set::classicExtract( $orientstruct, 'Structurereferente.type_voie' ) );
 					$orientstruct['Personne']['qual'] = Set::classicExtract( $qual, Set::classicExtract( $orientstruct, 'Personne.qual' ) );
 				}
 
@@ -1188,12 +1181,6 @@
 					'Prestation' => array(
 						'rolepers' => ClassRegistry::init('Prestation')->enum('rolepers'),
 					),
-					'Type' => array(
-						'voie' => $this->Orientstruct->Option->typevoie(),
-					),
-					'type' => array(
-						'voie' => $this->Orientstruct->Option->typevoie()
-					),
 					'Detaildroitrsa' => array(
 						'oridemrsa' => ClassRegistry::init('Detaildroitrsa')->enum('oridemrsa'),
 					),
@@ -1207,5 +1194,170 @@
 			$pdf = $this->Orientstruct->ged( $orientstruct, $modeledoc, false, $options );
 
 			return $pdf;
+		}
+
+		/**
+		 * Calcul du type de préorientation d'un allocataire (CG 93).
+		 *
+		 * Dernière version des règles de préorientation:
+		 * 	- prise en compte des informations Pôle Emploi le 04/01/2011, par mail
+		 * 	- changement règle 4 le 16/04/2010, par mail
+		 *
+		 * @param array $element
+		 * @return string
+		 */
+		public function preOrientation( $element ) {
+			$propo_algo = null;
+
+			/// Inscription Pôle Emploi ?
+			$conditions = $this->Informationpe->qdConditionsJoinPersonneOnValues( 'Informationpe', $element['Personne'] );
+
+			$sqDernierePourPersonne = $this->Informationpe->sqDernierePourPersonne( $element );
+			$conditions[] = "Informationpe.id IN ( {$sqDernierePourPersonne} )";
+
+			$informationpe = $this->Informationpe->find(
+				'first',
+				array(
+					'fields' => array(
+						'(
+							SELECT
+									"Historiqueetatpe"."etat"
+								FROM "historiqueetatspe" AS "Historiqueetatpe"
+								WHERE
+									"Historiqueetatpe"."informationpe_id" = "Informationpe"."id"
+									ORDER BY "Historiqueetatpe"."date" DESC LIMIT 1
+						) AS "Historiqueetatpe__dernieretat"'
+					),
+					'conditions' => $conditions,
+					'contain' => false
+				)
+			);
+
+			// La personne se retrouve préorientée en emploi si la dernière information
+			// venant de Pôle Emploi la concernant est une inscription
+			if( !empty( $informationpe ) ) {
+				if( @$informationpe['Historiqueetatpe']['dernieretat'] == 'inscription' ) {
+					return 'Emploi';
+				}
+			}
+
+			// On ne peut pas préorienter à partir des informations Pôle Emploi
+			if( is_null( $propo_algo ) ) {
+				/// Dsp
+				$dsp = $this->Dsp->find(
+					'first',
+					array(
+						'fields' => array(
+							'Dsp.natlog',
+							'Dsp.sitpersdemrsa',
+							'Dsp.cessderact',
+							'Dsp.hispro',
+							'Detaildiflog.diflog',
+						),
+						'conditions' => array( 'Dsp.personne_id' => $element['Personne']['id'] ),
+						'contain' => false,
+						'joins' => array(
+							array(
+								'table'      => 'detailsdiflogs',
+								'alias'      => 'Detaildiflog',
+								'type'       => 'LEFT OUTER',
+								'foreignKey' => false,
+								'conditions' => array(
+									'Detaildiflog.dsp_id = Dsp.id',
+									'Detaildiflog.diflog' => '1006'
+								)
+							),
+						)
+					)
+				);
+
+				/// Règles de gestion déduites depuis les DSP
+				if( !empty( $dsp ) ) {
+					// Règle 1 (Prioritaire) : Code XML instruction : « NATLOG ». Nature du logement ?
+					// 0904 = Logement d'urgence : CHRS → Orientation vers le Social
+					// 0911 = Logement précaire : résidence sociale → Orientation vers le Social
+					$natlog = Set::classicExtract( $dsp, 'Dsp.natlog' );
+					if( empty( $propo_algo ) && !empty( $natlog ) ) {
+						if( in_array( $natlog, array( '0904', '0911' ) ) ) {
+							$propo_algo = 'Social';
+						}
+					}
+
+					// Règle 2 (Prioritaire)  : Code XML instruction : « DIFLOG ». Difficultés logement ?
+					// 1006 = Fin de bail, expulsion → Orientation vers le Service Social
+					$diflog = Set::classicExtract( $dsp, 'Detaildiflog.diflog' );
+					if( empty( $propo_algo ) && !empty( $diflog ) ) {
+						if( $diflog == '1006' ) {
+							$propo_algo = 'Social';
+						}
+					}
+
+					// Règle 3 (Prioritaire)  : Code XML instruction : « sitpersdemrsa ». "Quel est le motif de votre demande de rSa ?"
+					// 0102 = Fin de droits AAH → Orientation vers le Social
+					// 0105 = Attente de pension vieillesse ou invalidité‚ ou d'allocation handicap → Orientation vers le Social
+					// 0109 = Fin d'études → Orientation vers le Pôle Emploi
+					// 0101 = Fin de droits ASSEDIC → Orientation vers le Pôle Emploi
+					$sitpersdemrsa = Set::extract( $dsp, 'Dsp.sitpersdemrsa' );
+					if( empty( $propo_algo ) && !empty( $sitpersdemrsa ) ) {
+						if( in_array( $sitpersdemrsa, array( '0102', '0105' ) ) ) {
+							$propo_algo = 'Social';
+						}
+						else if( in_array( $sitpersdemrsa, array( '0109', '0101' ) ) ) {
+							$propo_algo = 'Emploi';
+						}
+					}
+
+					// Règle 4 : Code XML instruction : « DTNAI ». Date de Naissance.
+					$dtnai = Set::extract( $element, 'Personne.dtnai' );
+					/// FIXME: change chaque année ...
+					$cessderact = Set::extract( $dsp, 'Dsp.cessderact' );
+
+					// Si le code CESSDERACT n'est pas renseigné : Règle 5
+					if( empty( $propo_algo ) && !empty( $cessderact ) ) {
+						$age = age( $dtnai );
+
+						// Si - de 57 a :
+						// "2701" : Encore en activité ou cessation depuis moins d'un an ->Pôle Emploi
+						// "2702" : Cessation d'activité depuis plus d'un an -> PDV
+						if( $age < 57 ) {
+							if( $cessderact == '2701' ) {
+								$propo_algo = 'Emploi';
+							}
+							else if( $cessderact == '2702' ) {
+								$propo_algo = 'Socioprofessionnelle';
+							}
+						}
+
+						// Si + de 57 a :
+						// "2701" : Encore en activité ou cessation depuis moins d'un an -> PDV
+						// "2702" : Cessation d'activité depuis plus d'un an ->Service Social
+						else if( $age >= 57 ) {
+							if( $cessderact == '2701' ) {
+								$propo_algo = 'Socioprofessionnelle';
+							}
+							else if( $cessderact == '2702' ) {
+								$propo_algo = 'Social';
+							}
+						}
+					}
+
+					// Règle 5 : Code XML instruction : « HISPRO ». Question : Passé professionnel ?
+					// 1901 = Oui → Orientation vers le Pôle Emploi
+					// 1902 = Oui → Orientation vers le PDV
+					// 1903 = Oui → Orientation vers le PDV
+					// 1904 = Oui → Orientation vers le PDV
+					$hispro = Set::extract( $dsp, 'Dsp.hispro' );
+					if( empty( $propo_algo ) && !empty( $hispro ) ) {
+						if( $hispro == '1901' ) {
+							$propo_algo = 'Emploi';
+						}
+						else if( in_array( $hispro, array( '1902', '1903', '1904' ) ) ) {
+							$propo_algo = 'Socioprofessionnelle';
+						}
+					}
+				}
+			}
+
+			return $propo_algo;
 		}
 	}

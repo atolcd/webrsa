@@ -5,6 +5,8 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'FrValidation', 'Validation' );
 
 	/**
 	 * La classe Personne ...
@@ -15,69 +17,76 @@
 	{
 		public $name = 'Personne';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'nom_complet';
 
 		public $actsAs = array(
-			'ValidateTranslate',
-			'Enumerable' => array(
-				'fields' => array(
-					'haspiecejointe'
+			'Validation2.Validation2Formattable' => array(
+				'Validation2.Validation2DefaultFormatter' => array(
+					'stripNotAlnum' => '/^(numfixe|numport)$/'
 				)
 			),
-			'Formattable' => array(
-				'phone' => array( 'numfixe', 'numport' )
-			),
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
-			// Qualité
-			'qual' => array( array( 'rule' => 'notEmpty' ) ),
-			'nom' => array( array( 'rule' => 'notEmpty' ) ),
-			'prenom' => array( array( 'rule' => 'notEmpty' ) ),
+			'qual' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
+				)
+			),
+			'nom' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
+				)
+			),
+			'prenom' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
+				)
+			),
 			'nir' => array(
-				array(
+				'between' => array(
 					'rule' => array( 'between', 13, 15 ),
 					'message' => 'Le NIR doit être compris entre 13 et 15 caractères',
 					'allowEmpty' => true
 				),
-				array(
-					'rule' => 'alphaNumeric',
+				'alphaNumeric' => array(
+					'rule' => array( 'alphaNumeric' ),
 					'message' => 'Veuillez entrer une valeur alpha-numérique.',
 					'allowEmpty' => true
 				)
 			),
 			'dtnai' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.'
-				),
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'rgnai' => array(
-				array(
+				'comparison' => array(
 					'rule' => array( 'comparison', '>', 0 ),
 					'message' => 'Veuillez entrer un nombre positif.',
-					'allowEmpty' => true
-				),
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
 					'allowEmpty' => true
 				)
 			),
 			'numfixe' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
 				)
 			),
 			'numport' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
 				)
 			),
 			'email' => array(
@@ -88,18 +97,18 @@
 			),
 			'nati' => array(
 				'inList' => array(
-					'rule' => array('inList', array('A', 'C', 'F')),
+					'rule' => array( 'inList', array( 'A', 'C', 'F' ) ),
 					'allowEmpty' => true
 				)
 			)
 		);
-		
+
 		/**
 		 * Liste de champs et de valeurs possibles qui ne peuvent pas être mis en
 		 * règle de validation inList ou en contrainte dans la base de données en
 		 * raison des valeurs actuellement en base, mais pour lequels un ensemble
 		 * fini de valeurs existe.
-		 * 
+		 *
 		 * @see AppModel::enums
 		 *
 		 * @var array
@@ -109,8 +118,9 @@
 			'pieecpres' => array('E', 'P'),
             'sexe' => array('1', '2'),
             'typedtnai' => array('J', 'N', 'O'),
+			'nati' => array( 'A', 'C', 'F' )
 		);
-		
+
 		public $belongsTo = array(
 			'Foyer' => array(
 				'className' => 'Foyer',
@@ -773,7 +783,7 @@
 				'postgres' => 'EXTRACT(MONTH FROM "%s"."dtnai")'
 			),
 		);
-		
+
 		/**
 		 * Valeurs possibles pour le champ virtuel etat_dossier_orientation (CG 58).
 		 *
@@ -781,7 +791,7 @@
 		 * @see Personne::enums
 		 */
 		public $etat_dossier_orientation = array( 'oriente', 'en_attente', 'non_oriente', 'en_cours_reorientation' );
-		
+
 		/**
 		 * Les modèles qui seront utilisés par ce modèle.
 		 *
@@ -885,7 +895,7 @@
 
 			return $enums;
 		}
-		
+
 		/**
 		 * Préchargement du cache du modèle.
 		 *
@@ -894,12 +904,12 @@
 		public function prechargement() {
 			return $this->WebrsaPersonne->prechargement();
 		}
-		
+
 		 /**
 		 *   Calcul du nombre d emois restant avant la fin du titre de séjour de l'alcoataire
 		 *   @params integer personne_id
          *  return integer Nb de mois avant la fin du titre de séjour
-		 * 
+		 *
 		 * @deprecated since version 3.1		Utilisé dans une methode dépréciée
 		 */
 

@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * Bilan de parcours pour le conseil général du département 66.
@@ -17,45 +18,8 @@
 	{
 		public $name = 'Bilanparcours66';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
 			'Allocatairelie',
-			'Formattable' => array(
-				'suffix' => array(
-					'structurereferente_id',
-					'referent_id',
-					'nvstructurereferente_id'
-				)
-			),
-			'Enumerable' => array(
-				'fields' => array(
-					'presenceallocataire',
-					'saisineepparcours',
-					'maintienorientation',
-					'changereferent',
-					'accordprojet',
-					'maintienorientsansep',
-					'choixparcours',
-					'changementrefsansep',
-					'maintienorientparcours',
-					'changementrefparcours',
-					'reorientation',
-					'examenaudition',
-					'examenauditionpe',
-					'maintienorientavisep',
-					'changementrefeplocale',
-					'reorientationeplocale',
-					'typeeplocale',
-					'accompagnement',
-					'typeformulaire',
-					'saisineepl',
-					'sitfam',
-					'proposition',
-					'positionbilan',
-					'haspiecejointe'
-				)
-			),
 			'Gedooo.Gedooo',
 			'ModelesodtConditionnables' => array(
 				66 => array(
@@ -63,13 +27,16 @@
 					'Bilanparcours/courrierinformationavantep.odt',
 				)
 			),
-            'Pgsqlcake.PgsqlAutovalidate',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
 			'proposition' => array(
-				array(
-					'rule' => 'alphanumeric',
+				'alphaNumeric' => array(
+					'rule' => array( 'alphaNumeric' ),
 					'message' => 'La proposition du référent est obligatoire',
 					'allowEmpty' => false,
 					'required' => true,
@@ -77,16 +44,16 @@
 				)
 			),
 			'datebilan' => array(
-				'datePassee' => array(
-					'rule' => 'datePassee',
-					'message' => 'Merci de choisir une date antérieure à la date du jour'
-				),
-				'date' => array(
-					'rule' => 'date',
-					'message' => 'Merci de rentrer une date valide',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire',
 					'allowEmpty' => false,
 					'required' => true,
 					'on' => 'create'
+				),
+				'datePassee' => array(
+					'rule' => array( 'datePassee' ),
+					'message' => 'Merci de choisir une date antérieure à la date du jour'
 				)
 			),
 			'bilanparcoursinsertion' => array(
@@ -102,53 +69,47 @@
 				)
 			),
 			'sansep_typeorientprincipale_id' => array(
-				array(
+				'notEmptyIf' => array(
 					'rule' => array( 'notEmptyIf', 'proposition', true, array( 'traitement' ) ),
 					'message' => 'Champ obligatoire',
 				)
 			),
 			'avecep_typeorientprincipale_id' => array(
-				array(
+				'notEmptyIf' => array(
 					'rule' => array( 'notEmptyIf', 'proposition', true, array( 'parcours', 'parcourspe' ) ),
 					'message' => 'Champ obligatoire',
 				)
 			),
 			'nvtypeorient_id' => array(
-				array(
+				'notEmptyIf' => array(
 					'rule' => array( 'notEmptyIf', 'proposition', true, array( 'traitement', 'parcours', 'parcourspe' ) ),
 					'message' => 'Champ obligatoire',
 				)
 			),
 			'nvstructurereferente_id' => array(
-				array(
+				'notEmptyIf' => array(
 					'rule' => array( 'notEmptyIf', 'proposition', true, array( 'traitement', 'parcours', 'parcourspe' ) ),
 					'message' => 'Champ obligatoire',
 				)
 			),
 			'choixparcours' => array(
-				array(
+				'notEmptyIf' => array(
 					'rule' => array( 'notEmptyIf', 'proposition', true, array( 'parcours', 'parcourspe' ) ),
 					'message' => 'Champ obligatoire',
 				)
 			),
 			'examenaudition' => array(
-				array(
+				'notEmptyIf' => array(
 					'rule' => array( 'notEmptyIf', 'proposition', true, array( 'audition' ) ),
 					'message' => 'Champ obligatoire',
 				)
 			),
 			'examenauditionpe' => array(
-				array(
+				'notEmptyIf' => array(
 					'rule' => array( 'notEmptyIf', 'proposition', true, array( 'auditionpe' ) ),
 					'message' => 'Champ obligatoire',
 				)
-			),
-            'presenceallocataire' => array(
-				array(
-					'rule' => array( 'notEmpty' ),
-					'message' => 'Champ obligatoire',
-				)
-			),
+			)
 		);
 
 		public $belongsTo = array(
@@ -305,10 +266,10 @@
 				'counterQuery' => ''
 			)
 		);
-		
+
 		/**
 		 * Modèles utilisés par ce modèle.
-		 * 
+		 *
 		 * @var array
 		 */
 		public $uses = array(
@@ -327,7 +288,7 @@
 				$id = $this->data['Pe']['Bilanparcours66']['id'];
 				unset( $this->data['Pe']['Bilanparcours66']['id'] );
 			}
-			if ( isset( $this->data['Pe']['Bilanparcours66'] )/* && !empty( $data['Pe']['Bilanparcours66']['datebilan'] )*/ ) {
+			if ( isset( $this->data['Pe']['Bilanparcours66'] ) ) {
 				$datape = $this->data['Pe'];
 				unset($this->data['Pe']);
 				$this->data = Set::merge( $this->data, $datape );
@@ -350,8 +311,8 @@
 		 * @return void
 		 * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#aftersave
 		 */
-		public function afterSave($created) {
-			parent::afterSave($created);
+		public function afterSave( $created, $options = array() ) {
+			parent::afterSave( $created, $options );
 			$this->WebrsaBilanparcours66->updatePositionsById($this->id);
 		}
 	}

@@ -9,6 +9,7 @@
 	 */
 	ini_set( 'max_execution_time', 0 );
 	ini_set( 'memory_limit', '2.5G' );
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe GestionsanomaliesbddsController permet de rechercher et de traiter les doublons "simples".
@@ -100,30 +101,12 @@
 		*/
 		protected function _methodes() {
 			$methodes = array( /*'stricte' => 'Stricte',*/ 'normale' => 'Normale' );
-			$this->Dossier->Behaviors->attach( 'Pgsqlcake.PgsqlSchema' );
-			$pg_functions = $this->Dossier->pgFunctions( 'difference' );
+			$pg_functions = $this->Dossier->getDataSource()->getPostgresFunctions( array( 'pg_proc.proname = \'difference\'' ) );
 			if( !empty( $pg_functions ) ) {
 				$methodes['approchante'] = 'Approchante';
 			}
 
 			return $methodes;
-		}
-
-		/**
-		* FIXME: à mettre dans le modèle Gestionanomalie, fonction prechargement()
-		*/
-		protected function _foreignKeysTo( &$model ) {
-			// @todo: + tables spéciales (fichiersmodules/personnes)
-			$cacheKey = Inflector::underscore( Inflector::camelize( implode( '_', array( __CLASS__, __FUNCTION__, $model->useDbConfig, $model->alias ) ) ) );
-
-			$foreignKeysTo = Cache::read( $cacheKey );
-			if( $foreignKeysTo === false ) {
-				$model->Behaviors->attach( 'Pgsqlcake.PgsqlSchema' );
-				$foreignKeysTo = $model->foreignKeysTo();
-				Cache::write( $cacheKey, $foreignKeysTo );
-			}
-
-			return Set::extract( '/From/table', $foreignKeysTo );
 		}
 
 		/**
@@ -195,7 +178,6 @@
 			// Options du formulaire de recherche
 			$options = array(
 				'Foyer' => array( 'sitfam' => $this->Option->sitfam() ),
-// 				'Prestation' => array( 'rolepers' => ClassRegistry::init('Prestation')->enum('rolepers') ),
 				'Situationdossierrsa' => array( 'etatdosrsa' => ClassRegistry::init('Dossier')->enum('etatdosrsa') ),
 				'Adresse' => array( 'numcom' => $this->Gestionzonesgeos->listeCodesInsee() ),
 				'Gestionanomaliebdd' => array(
@@ -270,10 +252,7 @@
 
 			// Personnes posant problème au sein du foyer
 			$named = Hash::expand( $this->request->params['named'], '__' );
-			/*$touteerreur = Set::classicExtract( $params, 'Gestionanomaliebdd.touteerreur' );
-			$enerreur = Set::classicExtract( $named, 'Gestionanomaliebdd.enerreur' );
-			$sansprestation = Set::classicExtract( $named, 'Gestionanomaliebdd.sansprestation' );
-			$doublons = Set::classicExtract( $named, 'Gestionanomaliebdd.doublons' );*/
+
 			$methode = Set::classicExtract( $named, 'Gestionanomaliebdd.methode' );
 			$methode = ( empty( $methode ) ? 'normale' : $methode );
 
@@ -330,81 +309,6 @@
 			$problemes = $this->Dossier->Foyer->Personne->find( 'all', $querydata );
 
 			$this->set( compact( 'personnes', 'options', 'methodes', 'problemes', 'foyer' ) );
-
-			/*$named = Hash::expand( $this->request->params['named'], '__' );
-			$enerreur = Set::classicExtract( $named, 'Gestionanomaliebdd.enerreur' );
-			$sansprestation = Set::classicExtract( $named, 'Gestionanomaliebdd.sansprestation' );
-			$doublons = Set::classicExtract( $named, 'Gestionanomaliebdd.doublons' );
-			$methode = Set::classicExtract( $named, 'Gestionanomaliebdd.methode' );
-			$methode = ( empty( $methode ) ? 'normale' : $methode );
-
-			$conditions = array( 'Personne.foyer_id' => $foyer_id, 'OR' => array() );
-
-			if( $enerreur ) {
-				$sq = $this->Dossier->Foyer->Personne->Prestation->sq(
-					array(
-						'fields' => array( 'prestations.personne_id' ),
-						'alias' => 'prestations',
-						'contain' => false,
-						'conditions' => array(
-							'prestations.personne_id = Personne.id',
-							'prestations.natprest' => 'RSA',
-							'prestations.rolepers' => array( 'DEM', 'CJT' ),
-						)
-					)
-				);
-				$conditions['OR'][] = "Personne.id IN ( {$sq} )";
-			}
-
-			if( $sansprestation ) {
-				$sq = $this->Dossier->Foyer->Personne->Prestation->sq(
-					array(
-						'fields' => array( 'prestations.personne_id' ),
-						'alias' => 'prestations',
-						'contain' => false,
-						'conditions' => array(
-							'prestations.personne_id = Personne.id',
-							'prestations.natprest' => 'RSA'
-						)
-					)
-				);
-				$conditions['OR'][] = "Personne.id NOT IN ( {$sq} )";
-			}
-
-			if( $doublons ) {
-				$sq = $this->Gestionanomaliebdd->qdPersonnesEnDoublons(
-					$methode,
-					null,
-					'Personne.foyer_id'
-				);
-				$conditions['OR'][] = "Personne.id IN ( {$sq} )";
-			}
-
-			if( empty( $conditions['OR'] ) ) {
-				unset( $conditions['OR'] );
-			}
-
-			$querydata = array(
-				'fields' => Set::merge(
-					$this->Dossier->Foyer->Personne->fields(),
-					$this->Dossier->Foyer->Personne->Prestation->fields()
-				),
-				'conditions' => $conditions,
-				'contain' => array(
-					'Prestation'
-				),
-				'order' => array(
-					'Personne.dtnai ASC',
-					'Personne.nir ASC',
-					'Personne.nom ASC',
-					'Personne.prenom ASC',
-					'Personne.id DESC',
-				),
-			);
-
-			$personnes = $this->Dossier->Foyer->Personne->find( 'all', $querydata );
-
-			$this->set( compact( 'personnes', 'options', 'methode', 'methodes', 'prestationObligatoire', 'referer' ) );*/
 		}
 
 		// FIXME: UPDATE ou DELETE sur la table « contratsinsertion » viole la contrainte de clé étrangère « actionsinsertion_contratinsertion_id_fkey » de la table « actionsinsertion »
@@ -511,7 +415,7 @@
 					$item['Orientstruct']['personne_id'] = $personneAgarderId;
 
 					$modelClass->create( $item );
-					$success = $modelClass->save( null, array( 'validate' => false, 'callbacks' => false ) ) && $success;
+					$success = $modelClass->save( null, array( 'validate' => false, 'callbacks' => false, 'atomic' => false ) ) && $success;
 				}
 
 				// c°) Remise en ordre des rangs
@@ -667,7 +571,7 @@
 // debug( $item );
 					// Enregistrement
 					$modelClass->create( $item );
-					$success = $modelClass->save() && $success;
+					$success = $modelClass->save( null, array( 'atomic' => false ) ) && $success;
 				}
 			}
 
@@ -723,8 +627,6 @@
 							'Personne.id' => $personnes_id
 						),
 						'joins' => array(
-							// FIXME
-				// 			$this->Dossier->Foyer->Personne->{$linkedModelName}->join( 'Personne', array( 'type' => 'INNER' ) )
 							array(
 								'table' => 'personnes',
 								'alias' => 'Personne',
@@ -962,8 +864,10 @@
 				sort( $linkedModels );
 
 				foreach( $linkedModels as $linkedModel ) {
-					$mainModel->{$linkedModel}->Behaviors->attach( 'Pgsqlcake.PgsqlSchema' );
-					$foreignKeysTo = $mainModel->{$linkedModel}->foreignKeysTo();
+					if( false === $mainModel->{$linkedModel}->Behaviors->attached( 'Postgres.PostgresTable' ) ) {
+						$mainModel->{$linkedModel}->Behaviors->attach( 'Postgres.PostgresTable' );
+					}
+					$foreignKeysTo = $mainModel->{$linkedModel}->getPostgresForeignKeysTo();
 					if( !empty( $foreignKeysTo ) ){
 						foreach( $foreignKeysTo as $foreignKeyTo ) {
 							$modelName = Inflector::classify( $foreignKeyTo['From']['table'] );
@@ -982,7 +886,6 @@
 							}
 						}
 					}
-					$mainModel->{$linkedModel}->Behaviors->detach( 'Pgsqlcake.PgsqlSchema' );
 				}
 				Cache::write( $cacheKey, $dependencies );
 			}
@@ -1127,12 +1030,12 @@
 					$this->Session->delete($baseCacheKey);
 					$this->Dossier->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'foyer', $this->request->params['pass'][0] ) );
 				}
 				else {
 					$this->Dossier->Foyer->Personne->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement.', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {

@@ -1,43 +1,28 @@
 <?php
 	/**
-	 * Nouvelle façon de paramétrer la génération de documents PDF via Gedooo.
+	 * Paramétrage de la génération de documents PDF au moyen de Gedooo.
 	 *
-	 * Ci-dessous, l'ensemble des clés de configuration possibles.
-	 *
-	 * array(
-	 *	'method' => 'classic', // classic, unoconv, cloudooo
-	 *	// Ancien serveur Gedooo
-	 *	// 'wsdl' => 'http://gedooo.test.adullact.org:8080/axis2/services/OfficeService?wsdl',
-	 *	// Nouveau serveur Gedooo
-	 *	'wsdl' => 'http://gedooo.test.adullact.org:8880/ODFgedooo/OfficeService?wsdl',
-	 *	// Pour Unoconv
-	 *	'unoconv_bin' => '/home/cbuffin/Bureau/1/usr/bin/unoconv',
-	 *	// Pour Cloudooo
-	 *	'cloudooo_host' => '192.168.2.35',
-	 *	'cloudooo_port' => '8012'
-	 * )
+	 * Les clés de configuration possibles sont:
+	 *	- method: la méthode permettant de générer le document de sortie; valeurs
+	 *		possibles: classic, unoconv, cloudooo (ainsi que cloudooo_ancien et
+	 *		unoconv_ancien)
+	 *	- wsdl: l'URL du web-service, utilisé quelle que soit la méthode de
+	 *		génération; exemple: http://192.168.2.35:8880/ODFgedooo/OfficeService?wsdl
+	 *	- unoconv_bin: chemin vers le binaire unoconv, lorsque la méthode unoconv
+	 *		ou unoconv_ancien est paramétrée; exemple: /usr/bin/unoconv
+	 *	- cloudooo_host: le serveur cloudooo, lorsque la méthode cloudooo ou
+	 *		cloudooo_ancien est utilisée; exemple: 192.168.2.35
+	 *	- cloudooo_port: le port du serveur cloudooo, lorsque la méthode cloudooo
+	 *		ou cloudooo_ancien est utilisée; exemple: 8012
+	 *	- debug_export_data: permet d'exporter les données envoyées en plus des noms
+	 *		des variables dans un fichier du répertoire app/tmp/logs lorsque l'on
+	 *		n'est pas en mode production; false (par défaut) ou true
+	 *	- dont_force_newlines: pour que les retours à la ligne ne soient pas forcés
+	 *		(ancien comportement de unoconv et cloudooo); false (par défaut) ou true
+	 *	- filter_vars: permet de filtrer les variables envoyées à l'impression en
+	 *		analysant les variables utilisateur définies dans le modèle ; false
+	 *		(par défaut) ou true
 	 */
-
-	// Exemple de configuration avec l'ancien Gedooo
-	/*Configure::write(
-		'Gedooo',
-		array(
-			'method' => 'classic',
-			'wsdl' => 'http://gedooo.test.adullact.org:8080/axis2/services/OfficeService?wsdl',
-		)
-	);*/
-
-	// Exemple de configuration avec le nouveau Gedooo et unoconv
-	/*Configure::write(
-		'Gedooo',
-		array(
-			'method' => 'unoconv',
-			'wsdl' => 'http://gedooo.test.adullact.org:8880/ODFgedooo/OfficeService?wsdl',
-			'unoconv_bin' => '/home/cbuffin/Bureau/1/usr/bin/unoconv',
-		)
-	);*/
-
-	// Exemple de configuration avec le nouveau Gedooo et cloudooo
 	Configure::write(
 		'Gedooo',
 		array(
@@ -115,13 +100,6 @@
 	 * @default false
 	 */
 	Configure::write( 'User.adresse', false ); // true = cg66, false = cg93
-
-
-	/**
-	 * Paramètre à renseigner pour l'affichage de la bonne fiche de candidature
-	 * @default: 'cg93' (pour le CG93), sinon 'cg66' pour le CG66
-	 */
-	Configure::write( 'ActioncandidatPersonne.suffixe', 'cg93' );
 
 	/**
 	 *   Paramètre à renseigner dans le cas d'un affichage plus large du menu du dossier
@@ -407,59 +385,37 @@
 	);
 
 	/**
-	 * Configuration de la gestion des mots de passe aléatoires.
+	 * Configuration de la gestion des mots de passe oubliés et du générateur de
+	 * mots de passes aléatoire.
 	 *
-	 * Configuration par-défaut:
+	 * Configuration par défaut:
 	 * <pre>
 	 * array(
 	 *	// Permet-on l'utilisation de la fonctionnalité "Mot de passe oublié" sur la page de login ?
 	 * 	'mail_forgotten' => false,
-	 *	// Quelles sont les possibilités lors de la création d'un mot de passe aléatoire ?
-	 * 	'possible' => array(
-	 *		// Nombres -> de 0 à 9
-	 * 		'number' => true,
-	 *		// Minuscules -> de a à z
-	 * 		'lower' => true,
-	 *		// Majuscules -> de a à z
-	 * 		'upper' => true,
-	 *		// Caractères spéciaux -> ,;.!?*+-
-	 * 		'symbol' => true,
-	 *		// Supprime-t'on les caractères équivoques (1, i, l, I et 0, o, O) ?
-	 * 		'typesafe' => true,
+	 *	//
+	 * 	'generators' => array(
+	 * 		'default' => 'Password.PasswordPassword'
 	 * 	),
-	 *	// Quels sont les caractères obligatoires ?
-	 * 	'required' => array(
-	 *		// Au moins un nombre ?
-	 * 		'number' => true,
-	 *		// Au moins une lettre en minuscule ?
-	 * 		'lower' => false,
-	 *		// Au moins une lettre en majuscule ?
-	 * 		'upper' => false,
-	 *		// Au moins un caractère spécial ?
-	 * 		'symbol' => true,
+	 * 	'checkers' => array(
+	 * 		'default' => 'Password.PasswordAnssi'
 	 * 	),
+	 *  // 1°) Pour le générateur de mots de passe par défaut Password.PasswordPassword
+	 * 	'length' => 8,
+	 *	// Doit-on exclure les caractères équivoques 0, 1, l, i, o, I, O ?
+	 * 	'typesafe' => true,
+	 *	// Nombres de 0 à 9
+	 * 	'class_number' => true,
+	 *	// Minuscules de a à z
+	 * 	'class_lower' => true,
+	 *	// Majuscules de a à z
+	 * 	'class_upper' => true,
+	 *	// Caractères spéciaux ,;.!?*+-
+	 * 	'class_symbol' => true
 	 * )
 	 * </pre>
 	 */
-	Configure::write(
-		'Password',
-		array(
-			'mail_forgotten' => false,
-			'possible' => array(
-				'number' => true,
-				'lower' => true,
-				'upper' => true,
-				'symbol' => true,
-				'typesafe' => true,
-			),
-			'required' => array(
-				'number' => true,
-				'lower' => false,
-				'upper' => false,
-				'symbol' => true,
-			),
-		)
-	);
+	Configure::write( 'Password', array( 'mail_forgotten' => false ) );
 
     /**
 	 * Variable contenant une chaîne de caractères (stockée en base) pour le
@@ -485,15 +441,6 @@
 	 * @default null
 	 */
 	Configure::write( 'Sanctionseps58.selection.structurereferente_id', 2 );
-
-	/**
-	 * Permet d'obtenir le nombre de résultats pour la "Sélection des allocataires
-	 * radiés de Pôle Emploi" et la "Sélection des allocataires non inscrits à
-	 * Pôle Emploi".
-	 *
-	 * @param boolean
-	 */
-	Configure::write( 'Optimisations.Sanctionseps58.progressivePaginate', false );
 
 	/**
 	 * Etats du dossier RSA pris en compte pour trouver les dossiers à fusionner
@@ -674,7 +621,7 @@
 	/**
 	 * Export CSV des droits des groupes
 	 */
-	Configure::write('Module.Synthesedroits.enabled', false);
+	Configure::write('Module.Synthesedroits.enabled', true);
 
 	/**
 	 * Nouveaux moteurs de recherche, permet d'afficher la liste des codes INSEE
@@ -770,23 +717,23 @@
 	 * Permet de définir l'id du typerdv pour les Rendezvous pour l'élaboration d'un CER
 	 */
 	Configure::write('Rendezvous.elaborationCER.typerdv_id', 13);
-	
+
 	/**
 	 * Permet le redimensionnement automatique des textarea
-	 * 
+	 *
 	 * textarea.auto_resize.all => tout les textarea
 	 * textarea.auto_resize.controllername.all => tout les textarea d'un controlleur en particulier
 	 * textarea.auto_resize.controllername.action => tout les textarea d'un controlleur et d'une action en particulier
 	 */
 	Configure::write('textarea.auto_resize.all', false);
-	
+
 	/**
 	 * Filtre de recherche par Prestations
-	 * Il est possible de remplacer la clef "common" par "Controller.action" 
+	 * Il est possible de remplacer la clef "common" par "Controller.action"
 	 * pour spécifier par Controller et par action
-	 * Si "common" est spécifié en plus du "Controller.action", 
+	 * Si "common" est spécifié en plus du "Controller.action",
 	 * la configuration de "Controller.action" prend le dessus
-	 * 
+	 *
 	 * Valeurs possibles (array) :
 	 * 0 = Sans prestation
 	 * 1 = Demandeur ou Conjoint
@@ -797,4 +744,31 @@
 	 * 'RDO' = Responsable du dossier
 	 */
 	Configure::write('ConfigurableQuery.common.filters.has_prestation', array());
+
+	/**
+	 * Permet l'affichage des erreurs cachés
+	 */
+	Configure::write('Module.DisplayValidationErrors.enabled', true);
+
+	/**
+	 * Permet de filtrer les modules visibles dans l'onglet "Droits" des formulaires
+	 * d'ajout et de modification des groupes et des utilisateurs en fonction du
+	 * département connecté ainsi que des modules activés.
+	 *
+	 * L'idée est que les modules en question ne sont normalement pas accessibles
+	 * et qu'il ne font donc qu'ajouter de la complexité dans ces écrans de droits.
+	 *
+	 * Une valeur "null" ou "false" filtre les permissions, une valeur "true" ne
+	 * les filtre pas (comme avant la version 3.2.0).
+	 *
+	 * @default null
+	 */
+	Configure::write( 'Module.Permissions.all', false );
+
+	/**
+	 * Permet de faire apparaître ou non dans le menu "Administration" le
+	 * sous-menu "Flux CNAF" qui ne sert qu'aux développeurs car ces écrans
+	 * présentent le format technique des flux CNAF.
+	 */
+	Configure::write( 'Module.Fluxcnaf.enabled', false );
 ?>

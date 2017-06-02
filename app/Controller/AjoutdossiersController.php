@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * FIXME
@@ -352,76 +353,76 @@
 				}
 
 				// Tentatives de sauvegarde
-				$saved = $this->Dossier->save( $data['dossier']['Dossier'] );
+				$saved = $this->Dossier->save( $data['dossier']['Dossier'] , array( 'atomic' => false ) );
 
 				// Détails du droit
 				$data['dossier']['Detaildroitrsa']['dossier_id'] = $this->Dossier->id;
-				$saved = $this->Detaildroitrsa->save( $data['dossier']['Detaildroitrsa'] ) && $saved;
+				$saved = $this->Detaildroitrsa->save( $data['dossier']['Detaildroitrsa'] , array( 'atomic' => false ) ) && $saved;
 
 				// Situation dossier RSA
 				$situationdossierrsa = array( 'Situationdossierrsa' => array( 'dossier_id' => $this->Dossier->id, 'etatdosrsa' => 'Z' ) ); ///FIXME Remplacement de l'état de Null à Z
 				$this->Dossier->Situationdossierrsa->validate = array( );
-				$saved = $this->Dossier->Situationdossierrsa->save( $situationdossierrsa ) && $saved;
+				$saved = $this->Dossier->Situationdossierrsa->save( $situationdossierrsa , array( 'atomic' => false ) ) && $saved;
 
 				// Foyer
-				$saved = $this->Foyer->save( array( 'dossier_id' => $this->Dossier->id ) ) && $saved;
+				$saved = $this->Foyer->save( array( 'dossier_id' => $this->Dossier->id ), array( 'atomic' => false ) ) && $saved;
 
 				// Adresse
-				$saved = $this->Adresse->save( $data['adresse']['Adresse'] ) && $saved;
+				$saved = $this->Adresse->save( $data['adresse']['Adresse'] , array( 'atomic' => false ) ) && $saved;
 
 				// Adresse foyer
 				$data['adresse']['Adressefoyer']['foyer_id'] = $this->Foyer->id;
 				$data['adresse']['Adressefoyer']['adresse_id'] = $this->Adresse->id;
-				$saved = $this->Adressefoyer->save( $data['adresse']['Adressefoyer'] ) && $saved;
+				$saved = $this->Adressefoyer->save( $data['adresse']['Adressefoyer'] , array( 'atomic' => false ) ) && $saved;
 
 				// Demandeur
 				$this->Personne->create();
 				$data['allocataire']['Personne']['foyer_id'] = $this->Foyer->id;
 				$this->Personne->set( $data['allocataire'] );
-				$saved = $this->Personne->save( $data['allocataire'] ) && $saved;
+				$saved = $this->Personne->save( $data['allocataire'] , array( 'atomic' => false ) ) && $saved;
 				$demandeur_id = $this->Personne->id;
 
 				// Prestation
 				$this->Personne->Prestation->create();
 				$data['allocataire']['Prestation']['personne_id'] = $demandeur_id;
 				$this->Personne->Prestation->set( $data['allocataire'] );
-				$saved = $this->Personne->Prestation->save( $data['allocataire'] ) && $saved;
+				$saved = $this->Personne->Prestation->save( $data['allocataire'] , array( 'atomic' => false ) ) && $saved;
 
 				// Type orientation demandeur
 				$this->Orientstruct->create();
-				$saved = $this->Orientstruct->save( array( 'Orientstruct' => array( 'personne_id' => $demandeur_id, 'statut_orient' => 'Non orienté' ) ) );
+				$saved = $this->Orientstruct->save( array( 'Orientstruct' => array( 'personne_id' => $demandeur_id, 'statut_orient' => 'Non orienté' ) ), array( 'atomic' => false ) );
 
 				// Conjoint
 				if( hasConjoint( $data['conjoint']['Personne'] ) ) { // FIXME
 					$this->Personne->create();
 					$data['conjoint']['Personne']['foyer_id'] = $this->Foyer->id;
-					$saved = $this->Personne->save( $data['conjoint']['Personne'] );
+					$saved = $this->Personne->save( $data['conjoint']['Personne'] , array( 'atomic' => false ) );
 					$conjoint_id = $this->Personne->id;
 
 					// Prestation
 					$this->Personne->Prestation->create();
 					$data['conjoint']['Prestation']['personne_id'] = $conjoint_id;
 					$this->Personne->Prestation->set( $data['conjoint'] );
-					$saved = $this->Personne->Prestation->save( $data['conjoint'] ) && $saved;
+					$saved = $this->Personne->Prestation->save( $data['conjoint'] , array( 'atomic' => false ) ) && $saved;
 
 					// Type orientation conjoint
 					$this->Orientstruct->create();
-					$saved = $this->Orientstruct->save( array( 'Orientstruct' => array( 'personne_id' => $conjoint_id, 'statut_orient' => 'Non orienté' ) ) );
+					$saved = $this->Orientstruct->save( array( 'Orientstruct' => array( 'personne_id' => $conjoint_id, 'statut_orient' => 'Non orienté' ) ), array( 'atomic' => false ) );
 				}
 				// Ressources demandeur
 				$this->Ressource->create();
 				$data['ressourcesallocataire']['Ressource']['personne_id'] = $demandeur_id;
-				$saved = $this->Ressource->save( $data['ressourcesallocataire'] ) && $saved;
+				$saved = $this->Ressource->save( $data['ressourcesallocataire'] , array( 'atomic' => false ) ) && $saved;
 
 				if( !empty( $data['ressourcesallocataire']['Ressourcemensuelle'] ) ) {
 					foreach( $data['ressourcesallocataire']['Ressourcemensuelle'] as $key => $ressourcemensuelle ) {
 						$ressourcemensuelle['ressource_id'] = $this->Ressource->id;
 						$this->Ressourcemensuelle->create();
-						$saved = $this->Ressourcemensuelle->save( $ressourcemensuelle ) && $saved;
+						$saved = $this->Ressourcemensuelle->save( $ressourcemensuelle , array( 'atomic' => false ) ) && $saved;
 						if( !empty( $data['ressourcesallocataire']['Detailressourcemensuelle'] ) && !empty( $data['ressourcesallocataire']['Detailressourcemensuelle'][$key] ) ) {
 							$this->Detailressourcemensuelle->create();
 							$data['ressourcesallocataire']['Detailressourcemensuelle'][$key]['ressourcemensuelle_id'] = $this->Ressourcemensuelle->id;
-							$saved = $this->Detailressourcemensuelle->save( $data['ressourcesallocataire']['Detailressourcemensuelle'][$key] ) && $saved;
+							$saved = $this->Detailressourcemensuelle->save( $data['ressourcesallocataire']['Detailressourcemensuelle'][$key] , array( 'atomic' => false ) ) && $saved;
 						}
 					}
 				}
@@ -430,17 +431,17 @@
 				if( hasConjoint( $data['conjoint']['Personne'] ) ) { // FIXME
 					$this->Ressource->create();
 					$data['ressourcesconjoint']['Ressource']['personne_id'] = $conjoint_id;
-					$saved = $this->Ressource->save( $data['ressourcesconjoint'] ) && $saved;
+					$saved = $this->Ressource->save( $data['ressourcesconjoint'] , array( 'atomic' => false ) ) && $saved;
 
 					if( !empty( $data['ressourcesconjoint']['Ressourcemensuelle'] ) ) {
 						foreach( $data['ressourcesconjoint']['Ressourcemensuelle'] as $key => $ressourcemensuelle ) {
 							$ressourcemensuelle['ressource_id'] = $this->Ressource->id;
 							$this->Ressourcemensuelle->create();
-							$saved = $this->Ressourcemensuelle->save( $ressourcemensuelle ) && $saved;
+							$saved = $this->Ressourcemensuelle->save( $ressourcemensuelle , array( 'atomic' => false ) ) && $saved;
 							if( !empty( $data['ressourcesconjoint']['Detailressourcemensuelle'] ) && !empty( $data['ressourcesconjoint']['Detailressourcemensuelle'][$key] ) ) {
 								$this->Detailressourcemensuelle->create();
 								$data['ressourcesconjoint']['Detailressourcemensuelle'][$key]['ressourcemensuelle_id'] = $this->Ressourcemensuelle->id;
-								$saved = $this->Detailressourcemensuelle->save( $data['ressourcesconjoint']['Detailressourcemensuelle'][$key] ) && $saved;
+								$saved = $this->Detailressourcemensuelle->save( $data['ressourcesconjoint']['Detailressourcemensuelle'][$key] , array( 'atomic' => false ) ) && $saved;
 							}
 						}
 					}
@@ -485,7 +486,7 @@
 				$this->Suiviinstruction->set( $suiviinstruction );
 
 				if( $this->Suiviinstruction->validates() ) { // FIXME -> plus haut
-					$saved = $this->Suiviinstruction->save( $suiviinstruction ) && $saved;
+					$saved = $this->Suiviinstruction->save( $suiviinstruction , array( 'atomic' => false ) ) && $saved;
 				}
 
 				// Fin de la transaction

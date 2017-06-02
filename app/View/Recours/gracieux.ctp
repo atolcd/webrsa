@@ -11,7 +11,7 @@
 	<p class="notice">Ce dossier ne possède pas de recours gracieux.</p>
 
 <?php else:?>
-	<?php  echo $this->Form->create( 'Indus', array( 'type' => 'post' ));?>
+	<?php  echo $this->Form->create( 'Indus', array( 'type' => 'post', 'novalidate' => true ));?>
 		<h2>Généralités</h2>
 			<?php echo $this->Form->input( 'Recours.type_recours', array( 'label' => false, 'type' => 'radio', 'options' => array( 'G' => 'Gracieux', 'C' => 'Contentieux' ), 'legend' => 'Type de recours' ) ); ?>
 			<?php echo $this->Form->input( 'Recours.date_recours', array( 'label' =>  ( __( 'date_recours' ) ), 'type' => 'date', 'dateFormat'=> 'DMY', 'maxYear'=>date('Y')+10, 'minYear'=> date('Y')-10 , 'empty' => true ) );?>

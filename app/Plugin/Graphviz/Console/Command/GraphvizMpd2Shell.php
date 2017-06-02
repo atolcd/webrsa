@@ -8,6 +8,8 @@
 	 * @subpackage Console.Command
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppShell', 'Console/Command' );
+
 	if( !function_exists( 'preg_test' ) ) {
 		/**
 		 * Permet de savoir si un patron d'expression régulière est valide.

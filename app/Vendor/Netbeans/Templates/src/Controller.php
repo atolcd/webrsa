@@ -79,7 +79,7 @@
 				$this->{$this->modelClass}->begin();
 				$this->{$this->modelClass}->create( $this->request->data );
 
-				if( $this->{$this->modelClass}->save() ) {
+				if( $this->{$this->modelClass}->save( null, array( 'atomic' => false ) ) ) {
 					$this->{$this->modelClass}->commit();
 					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
 					$this->redirect( array( 'action' => 'index' ) );

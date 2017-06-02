@@ -139,7 +139,7 @@
 								$validateSuccess = $this->Canton->validates();
 
 								if( $validateSuccess ) {
-									$tmpSuccess = $this->Canton->save();
+									$tmpSuccess = $this->Canton->save( null, array( 'atomic' => false ) );
 									if( !empty( $tmpSuccess ) ) {
 										$nLignesTraitees++;
 									}

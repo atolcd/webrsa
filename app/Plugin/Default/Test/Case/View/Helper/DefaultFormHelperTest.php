@@ -97,7 +97,7 @@
 			$expected = '<div class="submit">'
 							. '<input name="Save" type="submit" value="Enregistrer"/>'
 							. '<input name="Cancel" type="submit" value="Annuler"/>'
-							. '<input name="Reset" type="reset" value="Remise à zéro"/>'
+							. '<input name="Reset" type="reset" value="Réinitialiser"/>'
 					. '</div>';
 			$this->assertEqualsXhtml( $expected, $result );
 		}
@@ -153,7 +153,7 @@
 			$this->assertEqualsXhtml( $expected, $result );
 
 			$result = $this->DefaultForm->input( 'Apple.category', array( 'required' => true ) );
-			$expected = '<div class="input text"><label for="AppleCategory"><abbr class="required" title="'.__( 'Validate::notEmpty' ).'">*</abbr></label><input name="data[Apple][category]" required="1" type="text" value="red" id="AppleCategory"/></div>';
+			$expected = '<div class="input text"><label for="AppleCategory"><abbr class="required" title="'.__( 'Validate::notEmpty' ).'">*</abbr></label><input name="data[Apple][category]" required="required" type="text" value="red" id="AppleCategory"/></div>';
 			$this->assertEqualsXhtml( $expected, $result );
 
 			$result = $this->DefaultForm->input( 'Apple.category', array( 'label' => 'Foo <', 'escape' => false ) );
@@ -161,7 +161,7 @@
 			$this->assertEqualsXhtml( $expected, $result );
 
 			$result = $this->DefaultForm->input( 'Apple.category', array( 'required' => true, 'label' => 'Foo <' ) );
-			$expected = '<div class="input text"><label for="AppleCategory">Foo &lt; <abbr class="required" title="'.__( 'Validate::notEmpty' ).'">*</abbr></label><input name="data[Apple][category]" required="1" type="text" value="red" id="AppleCategory"/></div>';
+			$expected = '<div class="input text"><label for="AppleCategory">Foo &lt; <abbr class="required" title="'.__( 'Validate::notEmpty' ).'">*</abbr></label><input name="data[Apple][category]" required="required" type="text" value="red" id="AppleCategory"/></div>';
 			$this->assertEqualsXhtml( $expected, $result );
 
 			$result = $this->DefaultForm->input( 'Apple.category', array( 'view' => true ) );
@@ -197,6 +197,33 @@
 
 			$result = $this->DefaultForm->label( 'Apple.id', null, array( 'required' => true ) );
 			$expected = '<label for="AppleId"><abbr class="required" title="'.__( 'Validate::notEmpty' ).'">*</abbr></label>';
+			$this->assertEqualsXhtml( $expected, $result );
+		}
+
+		/**
+		 * Test de la méthode DefaultFormHelper::create()
+		 *
+		 * @return void
+		 */
+		public function testCreate() {
+			// 1. Sans paramètre
+			$result = $this->DefaultForm->create();
+			$expected = '<form action="'.$this->DefaultForm->request->here.'" novalidate="novalidate" id="addForm" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"/></div>';
+			$this->assertEqualsXhtml( $expected, $result );
+
+			// 2. En spécifiant le nom du modèle
+			$result = $this->DefaultForm->create( 'Apple' );
+			$expected = '<form action="'.$this->DefaultForm->request->here.'" novalidate="novalidate" id="AppleAddForm" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="PUT"/></div>';
+			$this->assertEqualsXhtml( $expected, $result );
+
+			// 3. Avec un array en premier paramètre
+			$result = $this->DefaultForm->create( array( 'novalidate' => false ) );
+			$expected = '<form action="'.$this->DefaultForm->request->here.'" id="AppleAddForm" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="POST"/></div>';
+			$this->assertEqualsXhtml( $expected, $result );
+
+			// 4. En spécifiant le nom du modèle et un array en second paramètre
+			$result = $this->DefaultForm->create( 'Apple', array( 'novalidate' => false ) );
+			$expected = '<form action="'.$this->DefaultForm->request->here.'" id="AppleAddForm" method="post" accept-charset="utf-8"><div style="display:none;"><input type="hidden" name="_method" value="PUT"/></div>';
 			$this->assertEqualsXhtml( $expected, $result );
 		}
 	}

@@ -1,41 +1,37 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'originepdo', "Originespdos::{$this->action}" )
-	)
-?>
+	$departement = (int)Configure::read( 'Cg.departement' );
 
-<?php
-	$fields = array(
-		'Originepdo.libelle'
-	);
+	$fields = array( 'Originepdo.libelle' );
 
-	/*if ( Configure::read( 'Cg.departement' ) == 66 ) {
-		$fields[] = 'Originepdo.originepcg';
-	}*/
+	if( 66 === $departement ) {
+		$fields = array_merge(
+			$fields,
+			array(
+				'Originepdo.originepcg',
+				'Originepdo.cerparticulier'
+			)
+		);
+	}
 
-	echo $this->Default2->index(
-		$originespdos,
-		$fields,
+	$fields['Originepdo.actif'] = array( 'type' => 'boolean' );
+
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'options' => $options,
-			'cohorte' => false,
-			'actions' => array(
-				'Originespdos::edit',
-				'Originespdos::delete' => array( 'disabled' => '\'#Originepdo.occurences#\'!= "0"' )
+			'cells' => array_merge(
+				$fields,
+				array(
+					'/Originespdos/edit/#Originepdo.id#' => array(
+						'title' => true
+					),
+					'/Originespdos/delete/#Originepdo.id#' => array(
+						'title' => true,
+						'confirm' => true,
+						'disabled' => 'true == "#Originepdo.has_linkedrecords#"'
+					)
+				)
 			),
-			'add' => 'Originespdos::add',
-		)
-	);
-
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'pdos',
-			'action'     => 'index'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#pdos'
 		)
 	);
 ?>

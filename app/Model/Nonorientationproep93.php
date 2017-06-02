@@ -7,7 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( ABSTRACTMODELS.'Nonorientationproep.php' );
+	App::uses( 'Nonorientationproep', 'Model/Abstractclass' );
 
 	/**
 	 * La classe Nonorientationproep93 ...
@@ -200,7 +200,7 @@
 						);
 
 						$this->Orientstruct->create( $orientstruct );
-						$success = $this->Orientstruct->save() && $success;
+						$success = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
 
 						// Mise à jour de l'enregistrement de la thématique avec l'id de la nouvelle orientation
 						$success = $success && $this->updateAllUnBound(

@@ -8,43 +8,46 @@
  * @package app.Model
  * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
  */
+App::uses( 'AppModel', 'Model' );
 
 /**
  * La classe Decisiondossierpcg66 ...
  *
  * @package app.Model
  */
-class Decisiondossierpcg66 extends AppModel {
+class Decisiondossierpcg66 extends AppModel
+{
 
     public $name = 'Decisiondossierpcg66';
-    public $recursive = -1;
+
     public $actsAs = array(
-        'Postgres.PostgresAutovalidate',
-        'Formattable' => array(
-            'suffix' => array(
-                'orgtransmisdossierpcg66_id'
-            )
-        ),
-        'Enumerable' => array(
-//            'fields' => array(
-//                'avistechnique',
-//                'validationproposition',
-//                'etatop',
-//                'typersa',
-//                'recidive',
-//                'phase',
-//                'defautinsertion',
-//                'haspiecejointe',
-//                'instrencours'
-//            )
-        ),
         'Gedooo.Gedooo',
         'ModelesodtConditionnables' => array(
             66 => array(
                 'PCG66/propositiondecision.odt',
             )
+        ),
+		'Validation2.Validation2Formattable',
+		'Validation2.Validation2RulesFieldtypes',
+		'Postgres.PostgresAutovalidate',
+    );
+
+	/**
+	 * Les modèles qui seront utilisés par ce modèle.
+	 *
+	 * @var array
+	 */
+	public $uses = array('WebrsaDecisiondossierpcg66');
+
+    public $validate = array(
+        'etatop' => array(
+            NOT_BLANK_RULE_NAME => array(
+                'rule' => array( NOT_BLANK_RULE_NAME ),
+                'message' => 'Champ obligatoire'
+            )
         )
     );
+
     public $belongsTo = array(
         'Dossierpcg66' => array(
             'className' => 'Dossierpcg66',
@@ -103,6 +106,7 @@ class Decisiondossierpcg66 extends AppModel {
             'order' => ''
         ),
     );
+
     public $hasAndBelongsToMany = array(
         'Decisiontraitementpcg66' => array(
             'className' => 'Decisiontraitementpcg66',
@@ -187,15 +191,7 @@ class Decisiondossierpcg66 extends AppModel {
             'counterQuery' => ''
         )
     );
-    public $validate = array(
-        'etatop' => array(
-            'notEmpty' => array(
-                'rule' => 'notEmpty',
-                'message' => 'Champ obligatoire'
-            )
-        )
-    );
-	
+
 	public $virtualFields = array(
 			'dernier' => array(
 				'type'      => 'boolean',
@@ -207,13 +203,6 @@ class Decisiondossierpcg66 extends AppModel {
 					LIMIT 1)'
 			),
 	);
-	
-	/**
-	 * Les modèles qui seront utilisés par ce modèle.
-	 *
-	 * @var array
-	 */
-	public $uses = array('WebrsaDecisiondossierpcg66');
 
     public function beforeSave($options = array()) {
         $return = parent::beforeSave($options);
@@ -270,11 +259,11 @@ class Decisiondossierpcg66 extends AppModel {
             return null;
         }
     }
-	
+
 	/**
 	 * Fonction permettant de récupérer les décisions qui ont été uniquement
 	 * transmises à l'OP
-	 * 
+	 *
 	 * @deprecated since version 3.1
 	 */
 	public function sqDatetransmissionOp($dossierpcg66Id = 'Dossierpcg66.id') {
@@ -299,40 +288,6 @@ class Decisiondossierpcg66 extends AppModel {
 							'contain' => false,
 							'limit' => 1
 						)
-		);
-	}
-	
-	/**
-	 * Change un etat de dossier PCG dans le cas ou la position est 'decisionvalid'.
-	 * Ajoute une date d'impression.
-	 * Renvoi vrai si le dossier PCG a déjà été imprimmé.
-	 * 
-	 * @param mixed $ids
-	 * @return boolean
-	 * @deprecated since version 3.1	(utilisé dans Cohortesdossierspcgs66Controller::notificationsCohorte)
-	 */
-	public function updateDossierpcg66Dateimpression($ids) {
-		$query = array(
-			'fields' => array( 'Dossierpcg66.id' ),
-			'conditions' => array(
-				'Decisiondossierpcg66.id' => $ids,
-				'Dossierpcg66.etatdossierpcg' => 'decisionvalid',
-			),
-			'contain' => false,
-			'joins' => array(
-				$this->Dossierpcg66->join( 'Decisiondossierpcg66', array( 'type' => 'INNER' ) )
-			)
-		);
-		$results = $this->Dossierpcg66->find( 'all', $query );
-
-		return ( count( $results ) === 0 ) || $this->Decisiondossierpcg66->Dossierpcg66->updateAllUnBound(
-			array(
-				'Dossierpcg66.dateimpression' => "'" . date('Y-m-d') . "'",
-				'Dossierpcg66.etatdossierpcg' => '\'atttransmisop\''
-			), 
-			array(
-				'Dossierpcg66.id' => Hash::extract( $results, '{n}.Dossierpcg66.id' )
-			)
 		);
 	}
 }

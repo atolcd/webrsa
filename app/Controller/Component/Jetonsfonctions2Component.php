@@ -7,6 +7,7 @@
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
 
 	/**
 	 * @package app.Controller.Component
@@ -114,7 +115,7 @@
 				}
 
 				$this->Jetonfonction->create( $jetonfonction );
-				if( !$this->Jetonfonction->save() ) {
+				if( !$this->Jetonfonction->save( null, array( 'atomic' => false ) ) ) {
 					$this->Jetonfonction->rollback();
 					$this->Controller->cakeError( 'error500' );
 				}

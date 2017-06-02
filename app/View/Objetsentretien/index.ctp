@@ -1,28 +1,19 @@
-<h1><?php echo $this->pageTitle = 'Liste des objets d\'entretien';?></h1>
-
 <?php
-	echo $this->Default2->index(
-		$objetsentretien,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'Objetentretien.name'
-		),
-		array(
-			'actions' => array(
-				'Objetsentretien::edit',
-				'Objetsentretien::delete'
-			),
-			'add' => array( 'Objetsentretien.add' )
-		)
-	);
-
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'parametrages',
-			'action'     => 'index'
-		),
-		array(
-			'id' => 'Back'
+			'cells' => array(
+				'Objetentretien.name',
+				'Objetentretien.modeledocument',
+				'/Objetsentretien/edit/#Objetentretien.id#' => array(
+					'title' => true
+				),
+				'/Objetsentretien/delete/#Objetentretien.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Objetentretien.has_linkedrecords#"'
+				)
+			)
 		)
 	);
 ?>

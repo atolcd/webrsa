@@ -205,5 +205,115 @@
 			);
 			$this->assertEqual( $result, $expected, var_export( $result, true ) );
 		}
+		
+		public function testConfiguredFilter1() {
+			$this->_initConfiguredFilter();
+			
+			$config = $this->Controller->WebrsaRecherche->searches['Dossiers.search'];
+			$this->Controller->paginate = array();
+			$this->Controller->request->data = array( 'Search' => array( 'active' => 1 ) );
+			$this->Controller->WebrsaRecherchesDossiers->search( $config );
+			$result = Hash::get( $this->Controller->viewVars, 'results' );
+			$expected = array(
+				0 => array(
+					'Dossier' => array(
+						'id' => (int) 1,
+						'locked' => false
+					),
+					'Personne' => array(
+						'nom_complet_prenoms' => 'MR BUFFIN CHRISTIAN  '
+					),
+					'Prestation' => array (
+						'rolepers' => 'DEM',
+					),
+				),
+			);
+			
+			$this->assertEqual($result, $expected, "Pas de filtre");
+		}
+		
+		public function testConfiguredFilter2() {
+			$this->_initConfiguredFilter();
+			
+			$config = $this->Controller->WebrsaRecherche->searches['Dossiers.search'];
+			$this->Controller->paginate = array();
+			$this->Controller->request->data = array('Search' => array('Prestation' => array('rolepers' => 'DEM')));
+			$this->Controller->WebrsaRecherchesDossiers->search($config);
+			$result = Hash::get($this->Controller->viewVars, 'results');
+			$expected = array(
+				0 => array(
+					'Dossier' => array(
+						'id' => (int) 1,
+						'locked' => false
+					),
+					'Personne' => array(
+						'nom_complet_prenoms' => 'MR BUFFIN CHRISTIAN  '
+					),
+					'Prestation' => array (
+						'rolepers' => 'DEM',
+					),
+				),
+			);
+			
+			$this->assertEqual($result, $expected, "Filtre DEM");
+		}
+		
+		public function testConfiguredFilter3() {
+			$this->_initConfiguredFilter();
+			
+			$config = $this->Controller->WebrsaRecherche->searches['Dossiers.search'];
+			$this->Controller->paginate = array();
+			$this->Controller->request->data = array('Search' => array('Prestation' => array('rolepers' => 'CJT')));
+			$this->Controller->WebrsaRecherchesDossiers->search($config);
+			$result = Hash::get($this->Controller->viewVars, 'results');
+			$expected = array();
+			
+			$this->assertEqual($result, $expected, "Filtre CJT");
+		}
+		
+		public function testConfiguredFilter4() {
+			$this->_initConfiguredFilter();
+			
+			$config = $this->Controller->WebrsaRecherche->searches['Dossiers.search'];
+			$this->Controller->paginate = array();
+			$this->Controller->request->data = array('Search' => array('Prestation' => array('rolepers' => 'ENF')));
+			$this->Controller->WebrsaRecherchesDossiers->search($config);
+			$result = Hash::get($this->Controller->viewVars, 'results');
+			$expected = array(
+				0 => array(
+					'Dossier' => array(
+						'id' => (int) 1,
+						'locked' => false
+					),
+					'Personne' => array(
+						'nom_complet_prenoms' => 'MR BUFFIN CHRISTIAN  '
+					),
+					'Prestation' => array (
+						'rolepers' => 'DEM',
+					),
+				),
+			);
+			
+			$this->assertEqual($result, $expected, "Filtre ENF (non disponible = pas de filtre)");
+		}
+		
+		protected function _initConfiguredFilter() {
+			Configure::write('ConfigurableQuery.common.filters.has_prestation', null);
+			Configure::write(
+				'ConfigurableQuery.Dossiers.search',
+				array(
+					'filters' => array(
+						'has_prestation' => array('DEM', 'CJT')
+					),
+					'limit' => 10,
+					'results' => array(
+						'fields' => array(
+							'Personne.nom_complet_prenoms',
+							'Prestation.rolepers',
+						),
+					)
+				)
+			);
+		}
 	}
 ?>

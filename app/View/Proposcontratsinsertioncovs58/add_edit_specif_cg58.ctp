@@ -74,7 +74,7 @@
 <h1><?php echo $this->pageTitle;?></h1>
 <?php
 	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Propocontratinsertioncov58', array( 'type' => 'post', 'id' => 'testform' ) );
+		echo $this->Form->create( 'Propocontratinsertioncov58', array( 'type' => 'post', 'id' => 'testform', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Propocontratinsertioncov58.id', array( 'type' => 'hidden', 'value' => '' ) );
 
@@ -86,7 +86,7 @@
 		echo '</div>';
 	}
 	else {
-		echo $this->Form->create( 'Propocontratinsertioncov58', array( 'type' => 'post', 'id' => 'testform' ) );
+		echo $this->Form->create( 'Propocontratinsertioncov58', array( 'type' => 'post', 'id' => 'testform', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Propocontratinsertioncov58.id', array( 'type' => 'hidden' ) );
 

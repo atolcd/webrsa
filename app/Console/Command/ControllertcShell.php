@@ -8,9 +8,7 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'XShell', 'Console/Command' );
-	App::uses( 'Model', 'Cake/Model' );
-	App::uses( 'AppModel', 'Cake/Model' );
-	App::uses( 'File', 'Cake/Utility' );
+	App::uses( 'File', 'Utility' );
 
 	/**
 	 * La classe ControllertcShell ...
@@ -128,7 +126,7 @@
 					$out[] = '';
 					$out[] = '	require_once( dirname( __FILE__ ).\'/../cake_app_controller_test_case.php\' );';
 					$out[] = '';
-					$out[] = sprintf( '	App::import(\'Controller\', \'%s\');', $name );
+					$out[] = sprintf( '	App::uses( \'%sController\', \'Controller\' );', $name );
 					$out[] = '';
 					$out[] = sprintf( '	class Test%sController extends %sController {', $name, $name );
 					$out[] = '';

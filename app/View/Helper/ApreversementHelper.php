@@ -7,6 +7,7 @@
 	 * @package app.View.Helper
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppHelper', 'View/Helper' );
 
 	/**
 	 * La classe ApreversementHelper ...
@@ -20,7 +21,7 @@
 		public $validate = array(
 			'montantattribue' => array(
 				array(
-					'rule' => 'notEmpty',
+					'rule' => NOT_BLANK_RULE_NAME,
 					'message' => 'Champ obligatoire'
 				),
 				array(

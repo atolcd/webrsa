@@ -12,8 +12,8 @@ $departement = Configure::read( 'Cg.departement' );
 		'minYear_to' => '2009',
 		'maxYear_to' => date( 'Y' ) + 4
 	);
-	$notEmptyRule['notEmpty'] = array(
-		'rule' => 'notEmpty',
+	$notEmptyRule[NOT_BLANK_RULE_NAME] = array(
+		'rule' => NOT_BLANK_RULE_NAME,
 		'message' => 'Champ obligatoire'
 	);
 	$dateRule['date'] = array(

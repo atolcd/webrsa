@@ -26,7 +26,7 @@
 				$file = sprintf( 'decisionep.%s.liste.ctp', Inflector::underscore( $theme ) );
 				echo '<div id="'.$theme.'"><h2 class="title">'.__d( 'dossierep', 'ENUM::THEMEEP::'.Inflector::tableize( $theme ) ).'</h2>';
 				if( !empty( $dossiers[$theme]['liste'] ) ) {
-					require_once( $file );
+					include_once  $file ;
 				}
 				else {
 					echo '<p class="notice">Aucun dossier n\'a été traité pour cette thématique.</p>';

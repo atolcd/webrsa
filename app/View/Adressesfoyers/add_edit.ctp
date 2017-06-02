@@ -23,10 +23,10 @@
 
 <?php
 	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Adressefoyer', array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Adressefoyer', array( 'type' => 'post', 'novalidate' => true ) );
 	}
 	else {
-		echo $this->Form->create( 'Adressefoyer', array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Adressefoyer', array( 'type' => 'post', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Adresse.id', array( 'type' => 'hidden' ) );
 		echo $this->Form->input( 'Adressefoyer.id', array( 'type' => 'hidden', 'value' => $this->request->data['Adressefoyer']['id'] ) );

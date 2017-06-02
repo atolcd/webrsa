@@ -5,7 +5,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses('AppController', 'Controller');
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe Decisionscuis66 ...
@@ -65,17 +65,17 @@
 			'Decisioncui66',
 			'Option',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -87,7 +87,7 @@
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -110,7 +110,7 @@
 			'impression_notifemployeur' => 'update',
 			'index' => 'read',
 		);
-		
+
 		/**
 		 * Envoi d'un fichier temporaire depuis le formualaire.
 		 */
@@ -163,22 +163,22 @@
 			$result = $this->Decisioncui66->find( 'first', $query );
 			$personne_id = $result['Cui']['personne_id'];
 			$cui_id = $result['Cui']['id'];
-			
-			$this->WebrsaModelesLiesCuis66->initAccess();
-			$this->WebrsaModelesLiesCuis66->WebrsaAccesses->check($id, $personne_id, 'Decisioncui66');
-			
+
+			$this->WebrsaModelesLiesCuis66->initAccess('Decisioncui66');
+			$this->WebrsaModelesLiesCuis66->WebrsaAccesses->check($id, $personne_id);
+
 			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) );
 
 			$this->Fileuploader->filelink( $id, array( 'action' => 'index', $cui_id ) );
 			$urlmenu = "/cuis/index/{$personne_id}";
-			
+
 			$options = $this->Decisioncui66->enums();
 			$this->set( compact( 'options', 'dossierMenu', 'urlmenu' ) );
 		}
-		
+
 		/**
 		 * Liste des Decisions du CUI du bénéficiaire.
-		 * 
+		 *
 		 * @param integer $cui_id
 		 */
 		public function index( $cui_id ) {
@@ -188,10 +188,10 @@
 				'urlmenu' => "/cuis/index/#0.Cui.personne_id#"
 			);
 			$customQuery['fields'][] = $this->Decisioncui66->Fichiermodule->sqNbFichiersLies( $this->Decisioncui66, 'nombre' );
-			
+
 			$this->WebrsaModelesLiesCuis66->index( $cui_id, $params, $customQuery );
 		}
-			
+
 		/**
 		 * Formulaire d'ajout de decisions du CUI
 		 *
@@ -201,7 +201,7 @@
 			$args = func_get_args();
 			call_user_func_array( array( $this, 'edit' ), $args );
 		}
-		
+
 		/**
 		 * Méthode générique d'ajout et de modification d'une decisions
 		 *
@@ -218,69 +218,69 @@
 			$results = $this->Decisioncui66->getPropositions( $id, $this->action );
 			$this->set ( compact( 'results' ) );
 		}
-		
+
 		/**
 		 * Suppression d'une décision
-		 * 
+		 *
 		 * @param integer $id
 		 * @return boolean
 		 */
 		public function delete( $id ){
 			return $this->WebrsaModelesLiesCuis66->delete( $id );
 		}
-		
-		
+
+
 		/**
 		 * Impression générique
-		 * 
+		 *
 		 * @param integer $id
 		 * @return boolean
 		 */
 		public function impression( $id ){
 			return $this->WebrsaModelesLiesCuis66->impression( $id );
 		}
-		
+
 		/**
 		 * Impression decision élu
-		 * 
+		 *
 		 * @param integer $id
 		 * @return boolean
 		 */
 		public function impression_decisionelu( $id ){
 			return $this->WebrsaModelesLiesCuis66->impression( $id, 'decisionelu' );
 		}
-		
+
 		/**
 		 * Impression notification bénéficiaire
-		 * 
+		 *
 		 * @param integer $id
 		 * @return boolean
 		 */
 		public function impression_notifbenef( $id ){
 			$etatdossiercui66 = $this->Decisioncui66->getDecision( $id );
-			
+
 			$modeleOdt = $etatdossiercui66 === 'accord' ? 'notifbenef_accord' : 'notifbenef_refus';
-					
+
 			return $this->WebrsaModelesLiesCuis66->impression( $id, $modeleOdt );
 		}
-		
+
 		/**
 		 * Impression notification employeur
-		 * 
+		 *
 		 * @param integer $id
 		 * @return boolean
 		 */
 		public function impression_notifemployeur( $id ){
 			$etatdossiercui66 = $this->Decisioncui66->getDecision( $id );
-			
+
 			$modeleOdt = $etatdossiercui66 === 'accord' ? 'notifemployeur_accord' : 'notifemployeur_refus';
-					
+
 			return $this->WebrsaModelesLiesCuis66->impression( $id, $modeleOdt );
 		}
-		
+
 		/**
 		 * Impression attestation de compétence
-		 * 
+		 *
 		 * @param integer $id
 		 * @return boolean
 		 */

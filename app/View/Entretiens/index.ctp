@@ -38,7 +38,7 @@
 					<th>Type d'entretien</th>
 					<th>Objet de l'entretien</th>
 					<th>A revoir le</th>
-					<th class="action" colspan="<?php echo ( $departement == 66 ? 6 : 5 );?>">Action</th>
+					<th class="action" colspan="<?php echo  $departement == 66 ? 6 : 5 ;?>">Action</th>
 				</tr>
 			</thead>
 			<tbody>

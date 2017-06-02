@@ -13,14 +13,14 @@ class GDO_Utility {
      * @access   public
      */
 function ReadFile($sFileName) {
-
+$sData = '';
 //echo $sFileName;
 $iFile = fopen($sFileName, "rb");
 
 while ($tmp = fread($iFile, 1024))
     {
         @$sData .= $tmp;
-    } 
+    }
 //$sData = fread($iFile, filesize($sFileName));
 fclose($iFile);
 
@@ -143,8 +143,8 @@ function extensionToMimeType($sExtension){
    			break;
 		default:
    			return "application/octet-stream";
-   			 
-   		
+
+
 	}
 }
 

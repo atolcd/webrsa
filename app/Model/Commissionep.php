@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * Séance d'équipe pluridisciplinaire.
@@ -19,17 +20,8 @@
 
 		public $displayField = 'dateseance';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable',
-			'Enumerable' => array(
-				'fields' => array(
-					'etatcommissionep'
-				)
-			),
+			'Conditionnable',
 			'Gedooo.Gedooo',
 			'ModelesodtConditionnables' => array(
 				58 => '%s/ordredujour_participant_58.odt',
@@ -39,7 +31,9 @@
 					'%s/fichesynthese.odt',
 				)
 			),
-            'Conditionnable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		public $belongsTo = array(
@@ -102,29 +96,29 @@
 
 		public $validate = array(
 			'raisonannulation' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Ce champ est obligatoire.',
 					'allowEmpty' => false,
 					'required' => false
 				)
 			)
 		);
-		
+
 		/**
 		 * Les modèles qui seront utilisés par ce modèle.
 		 *
 		 * @var array
 		 */
 		public $uses = array('WebrsaCommissionep');
-		
+
 		/**
 		 * Valeurs de etatcommissionep signifiant qu'une commission est "En cours".
 		 *
 		 * @var array
 		 */
 		public static $etatsEnCours = array( 'cree', 'associe', 'valide', 'presence', 'decisionep', 'traiteep', 'decisioncg' );
-		
+
 		/**
 		 * Savoir si la séance est cloturée ou non (suivant le thème l'EP et le CG ce sont prononcés)
 		 * @deprecated since version 3.1 - n'est plus utilisé
@@ -139,7 +133,7 @@
 
 			return $cloture;
 		}
-		
+
 		/**
 		 * Exporte la liste de dossier sélectionnables pour une commission d'EP donnée.
 		 *
@@ -148,7 +142,7 @@
 		public function exportcsv($commissionep_id) {
 			return $this->WebrsaCommissionep->cohorte($commissionep_id);
 		}
-		
+
 		/**
 		 * Retourne une chaîne de 12 caractères formattée comme suit:
 		 * CO, année sur 4 chiffres, mois sur 2 chiffres, nombre de commissions.
@@ -173,7 +167,7 @@
 
 			return $return;
 		}
-		
+
 		/**
 		 * Exécute les différentes méthods du modèle permettant la mise en cache.
 		 * Utilisé au préchargement de l'application (/prechargements/index).
@@ -184,7 +178,7 @@
 		public function prechargement() {
 			return $this->WebrsaCommissionep->prechargement();
 		}
-		
+
 		/**
 		 *
 		 * @see Commissionep::dossiersParListe()

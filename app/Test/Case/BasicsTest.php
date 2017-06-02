@@ -246,7 +246,7 @@
 		}
 
 		/**
-		 * Test de la fonction suffix().
+		 * Test de la fonction suffix() avec une chaine de caractères.
 		 */
 		public function testSuffix() {
 			$result = suffix( '11_4' );
@@ -263,6 +263,27 @@
 
 			$result = suffix( '12+-+5', '+-+' );
 			$expected = '5';
+			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+
+			$result = suffix( '11_' );
+			$this->assertNull( $result );
+
+			$result = suffix( '12+-+', '+-+' );
+			$this->assertNull( $result );
+
+			$this->assertEquals( 12, suffix( '12' ) );
+		}
+
+		/**
+		 * Test de la fonction suffix() avec un array.
+		 */
+		public function testSuffixArray() {
+			$result = suffix( array( '11_4', '13' ) );
+			$expected = array( 4, 13 );
+			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+
+			$result = suffix( array( '11_4.2', '11_4.3', '11_4' ), '.' );
+			$expected = array( 2, 3, '11_4' );
 			$this->assertEqual( $result, $expected, var_export( $result, true ) );
 		}
 
@@ -284,6 +305,27 @@
 
 			$result = prefix( '12+-+5', '+-+' );
 			$expected = '12';
+			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+
+			$result = prefix( '_11' );
+			$this->assertNull( $result );
+
+			$result = prefix( '+-+12', '+-+' );
+			$this->assertNull( $result );
+
+			$this->assertEquals( 12, prefix( '12' ) );
+		}
+
+		/**
+		 * Test de la fonction prefix() avec un array.
+		 */
+		public function testPrefixArray() {
+			$result = prefix( array( '11_4', '13' ) );
+			$expected = array( 11, 13 );
+			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+
+			$result = prefix( array( '11_4.2', '11_4.3', '11_4' ), '.' );
+			$expected = array( '11_4', '11_4', '11_4' );
 			$this->assertEqual( $result, $expected, var_export( $result, true ) );
 		}
 
@@ -526,6 +568,49 @@
 
 			// 2. Pour des conditions de query CakePHP
 			$result = array_words_replace(
+				array( '"Fichiermodule"."modele" = \'Personne\' AND "Fichiermodule"."fk_value" = {$__cakeID__$}' ),
+				array( '{$__cakeID__$}' => 594593 )
+			);
+			$expected = array( '"Fichiermodule"."modele" = \'Personne\' AND "Fichiermodule"."fk_value" = 594593' );
+			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+		 }
+
+		/**
+		 * Test de la fonction alias avec remplacement dans des chaînes de
+		 * caractères.
+		 */
+		 public function testAliasString() {
+			// 1. Pour des "noms de champs" CakePHP
+			$result = alias(
+				'Foo.bar = Bar.foo',
+				array( 'Foo' => 'Baz' )
+			);
+			$expected = 'Baz.bar = Bar.foo';
+			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+
+			// 2. Pour des conditions de query CakePHP
+			$result = alias(
+				'"Fichiermodule"."modele" = \'Personne\' AND "Fichiermodule"."fk_value" = {$__cakeID__$}',
+				array( '{$__cakeID__$}' => 594593 )
+			);
+			$expected = '"Fichiermodule"."modele" = \'Personne\' AND "Fichiermodule"."fk_value" = 594593';
+			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+		 }
+
+		 /**
+		  * Test de la fonction alias avec remplacement dans des array.
+		  */
+		 public function testAliasArray() {
+			// 1. Pour des "noms de champs" CakePHP
+			$result = alias(
+				array( 'Foo.id' => array( 'Bar' => 1 ), 'Foobar' => array( 'Foo.bar = Bar.foo' ) ),
+				array( 'Foo' => 'Baz' )
+			);
+			$expected = array( 'Baz.id' => array( 'Bar' => 1 ), 'Foobar' => array( 'Baz.bar = Bar.foo' ) );
+			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+
+			// 2. Pour des conditions de query CakePHP
+			$result = alias(
 				array( '"Fichiermodule"."modele" = \'Personne\' AND "Fichiermodule"."fk_value" = {$__cakeID__$}' ),
 				array( '{$__cakeID__$}' => 594593 )
 			);

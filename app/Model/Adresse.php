@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Adresse ...
@@ -16,6 +17,24 @@
 	class Adresse extends AppModel
 	{
 		public $name = 'Adresse';
+
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
+		/**
+		 * Behaviors utilisés par le modèle.
+		 *
+		 * @var array
+		 */
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
+		);
 
 		public $virtualFields = array(
 			'localite' => array(
@@ -31,32 +50,35 @@
 
 		public $validate = array(
 			'libtypevoie' => array(
-				'notEmpty' => array( 'rule' => 'notEmpty', 'message' => 'Champ obligatoire' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
 			),
 			'nomvoie' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'codepos' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'nomcom' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'pays' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
-			),
+			)
 		);
 
 		/**
@@ -64,7 +86,7 @@
 		 * règle de validation inList ou en contrainte dans la base de données en
 		 * raison des valeurs actuellement en base, mais pour lequels un ensemble
 		 * fini de valeurs existe.
-		 * 
+		 *
 		 * @see AppModel::enums
 		 *
 		 * @var array
@@ -101,7 +123,7 @@
 				'counterQuery' => ''
 			)
 		);
-		
+
 		/**
 		 * Associations "Has and belongs to many".
 		 *
@@ -319,10 +341,10 @@
 			'ZONE',
 			'ZONE A URBANISER EN PRIORITE'
 		);
-		
+
 		/**
 		 * Liste des champs où la valeur du notEmpty/allowEmpty est configurable
-		 * 
+		 *
 		 * @var array
 		 */
 		public $configuredAllowEmptyFields = array(
@@ -388,14 +410,14 @@
 
 			return Hash::combine( $results, '{n}.Adresse.numcom', array( '%s %s', '{n}.Adresse.numcom', '{n}.Adresse.nomcom' ) );
 		}
-		
+
 		/**
 		 * En cas de sauvegarde sur Adresse, on doit recalculer le canton (si Canton activé)
 		 * @param boolean $created
 		 */
-		public function afterSave($created) {
-			parent::afterSave($created);
-			
+		public function afterSave( $created, $options = array() ) {
+			parent::afterSave( $created, $options );
+
 			if ( Configure::read( 'Canton.useAdresseCanton' ) ) {
 				$this->AdresseCanton->updateByConditions( array( 'Adresse.id' => $this->id ) );
 			}

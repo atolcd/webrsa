@@ -1,6 +1,6 @@
 <h1> <?php echo $this->pageTitle = 'Écran de synthèse des demandes de réorientation étudiées en EP'; ?> </h1>
 <?php
-	require_once( 'index.ctp' );
+	require_once  'index.ctp' ;
 
 	echo $this->Default2->index(
 		$reorientationseps93,

@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe ActprofPieceactprof.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe ActprofPieceactprof ...
@@ -16,6 +17,13 @@
 	class ActprofPieceactprof extends AppModel
 	{
 		public $name = 'ActprofPieceactprof';
+
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
 
 		public $validate = array(
 			'actprof_id' => array(

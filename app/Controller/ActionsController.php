@@ -7,13 +7,18 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AbstractWebrsaParametragesController', 'Controller' );
 
 	/**
-	 * La classe ActionsController ...
+	 * La classe ActionsController s'occupe du paramétrage des actions d'insertion.
+	 *
+	 * ATTENTION: impossible d'ajouter une réelle clé étrangère en base de données
+	 * (66, 93) donc on ne peut pas utiliser les méthodes WebrsaParametrages::index
+	 * et WebrsaParametrages::delete.
 	 *
 	 * @package app.Controller
 	 */
-	class ActionsController extends AppController
+	class ActionsController extends AbstractWebrsaParametragesController
 	{
 		/**
 		 * Nom du contrôleur.
@@ -23,203 +28,109 @@
 		public $name = 'Actions';
 
 		/**
-		 * Components utilisés.
-		 *
-		 * @var array
-		 */
-		public $components = array(
-			
-		);
-
-		/**
-		 * Helpers utilisés.
-		 *
-		 * @var array
-		 */
-		public $helpers = array(
-			'Xform',
-		);
-
-		/**
 		 * Modèles utilisés.
 		 *
 		 * @var array
 		 */
-		public $uses = array(
-			'Actioninsertion',
-			'Action',
-			'Aidedirecte',
-			'Option',
-			'Prestform',
-			'Refpresta',
-			'Typeaction',
-		);
-		
+		public $uses = array( 'Action' );
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'add' => 'Actions:edit',
+			'add' => 'Actions:edit'
 		);
-		
+
 		/**
-		 * Méthodes ne nécessitant aucun droit.
-		 *
-		 * @var array
+		 * Liste des actions d'insertion.
 		 */
-		public $aucunDroit = array(
-			
-		);
-		
-		/**
-		 * Correspondances entre les méthodes publiques correspondant à des
-		 * actions accessibles par URL et le type d'action CRUD.
-		 *
-		 * @var array
-		 */
-		public $crudMap = array(
-			'add' => 'create',
-			'delete' => 'delete',
-			'edit' => 'update',
-			'index' => 'read',
-		);
-
-		/**
-		*
-		*/
-
-		public function beforeFilter() {
-			parent::beforeFilter();
-			$libtypaction = $this->Typeaction->find( 'list', array( 'fields' => array( 'libelle' ) ) );
-			$this->set( 'libtypaction', $libtypaction );
-		}
-
-		/**
-		*
-		*/
-
 		public function index() {
-			// Retour à la liste en cas d'annulation
-			if( isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'controller' => 'parametrages', 'action' => 'index' ) );
-			}
+			$query = array(
+				'fields' => array_merge(
+					$this->Action->fields(),
+					$this->Action->Typeaction->fields(),
+					// @info: impossible d'ajouter une réelle clé étrangère en base de données (66, 93)
+					array(
+						'EXISTS( SELECT "contratsinsertion"."id" FROM contratsinsertion WHERE "contratsinsertion"."engag_object" = "Action"."code" ) AS "Action__has_linkedrecords"'
+					)
+				),
+				'joins' => array(
+					$this->Action->join( 'Typeaction' )
+				),
+				'limit' => 100,
+				'maxLimit' => 101
+			);
+			$this->WebrsaParametrages->index( $query );
+		}
 
-			$actions = $this->Action->find(
-				'all',
-				array(
-					'fields' => array_merge(
-						$this->Action->fields(),
-						$this->Action->Typeaction->fields(),
-						array(
-							'EXISTS( SELECT "contratsinsertion"."id" FROM contratsinsertion WHERE "contratsinsertion"."engag_object" = "Action"."code" ) AS "Action__occurences"'
-						)
-					),
-					'joins' => array(
-						$this->Action->join( 'Typeaction' )
-					),
-					'contain' => false
+		/**
+		 * Formulaire de modification d'une action d'insertion.
+		 *
+		 * @param integer $id
+		 */
+		public function edit( $id = null ) {
+			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit' ) );
+
+			$options = array(
+				'Action' => array(
+					'typeaction_id' => $this->Action->Typeaction->find( 'list', array( 'fields' => array( 'libelle' ) ) )
 				)
 			);
-
-			$this->set( 'actions', $actions );
+			$this->set( compact( 'options' ) );
 		}
 
 		/**
-		*
-		*/
-
-		public function add() {
-			if( !empty( $this->request->data ) ) {
-				$this->Action->begin();
-				if( $this->Action->saveAll( $this->request->data, array( 'validate' => 'first', 'atomic' => false ) ) ) {
-					$this->Action->commit();
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
-					$this->redirect( array( 'controller' => 'actions', 'action' => 'index' ) );
-				}
-				else {
-					$this->Action->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
-				}
+		 * Suppression d'une action d'insertion.
+		 *
+		 * @param integer $id
+		 */
+		public function delete( $id ) {
+			if( false === $this->Action->Behaviors->attached( 'Occurences' ) ) {
+				$this->Action->Behaviors->attach( 'Occurences' );
 			}
 
-			$this->render( 'add_edit' );
-		}
-
-		/**
-		*
-		*/
-
-		public function edit( $action_id = null ){
-			// TODO : vérif param
-			// Vérification du format de la variable
-			$this->assert( valid_int( $action_id ), 'invalidParameter' );
-
-			$action = $this->Action->find(
-				'first',
-				array(
-					'conditions' => array(
-						'Action.id' => $action_id
-					),
-					'recursive' => -1
-				)
+			$query = array(
+				'fields' => array(
+					"Action.{$this->Action->primaryKey}",
+					// @info: impossible d'ajouter une réelle clé étrangère en base de données (66, 93)
+					'EXISTS( SELECT "contratsinsertion"."id" FROM contratsinsertion WHERE "contratsinsertion"."engag_object" = "Action"."code" ) AS "Action__has_linkedrecords"'
+				),
+				'contain' => false,
+				'conditions' => array( "Action.{$this->Action->primaryKey}" => $id )
 			);
 
-			// Si action n'existe pas -> 404
-			if( empty( $action ) ) {
-				$this->cakeError( 'error404' );
-			}
+			$record = $this->Action->find( 'first', $query );
 
-			if( !empty( $this->request->data ) ) {
-				if( $this->Action->saveAll( $this->request->data ) ) {
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
-					$this->redirect( array( 'controller' => 'actions', 'action' => 'index', $action['Action']['id']) );
-				}
-			}
-			else {
-				$this->request->data = $action;
-			}
-			$this->render( 'add_edit' );
-		}
-
-		/**
-		*
-		*/
-
-		public function delete( $action_id = null ) {
-			// Vérification du format de la variable
-			if( !valid_int( $action_id ) ) {
+			if( true === empty( $record ) ) {
 				throw new NotFoundException();
 			}
 
-			// Recherche de la personne
-			$action = $this->Action->find(
-				'first',
-				array(
-					'conditions' => array( 'Action.id' => $action_id ),
-					'contain' => false
-				)
-			);
-
-			// Mauvais paramètre
-			if( empty( $action ) ) {
-				throw new NotFoundException();
+			if( true == $record['Action']['has_linkedrecords'] ) {
+				$msgid = "Erreur lors de la tentative de suppression de l'entrée d'id %d pour le modèle \"%s\" par l'utilisateur \"%s\" (id %d). Cette entrée possède des enregistrements liés.";
+				$message = sprintf(
+					$msgid,
+					$id,
+					$this->Action->alias,
+					$this->Session->read( 'Auth.User.username' ),
+					$this->Session->read( 'Auth.User.id' )
+				);
+				throw new RuntimeException( $message, 500 );
 			}
 
-			// Tentative de suppression
 			$this->Action->begin();
-			if( $this->Action->delete( $action_id ) ) {
+			if( $this->Action->delete( array( "Action.{$this->Action->primaryKey}" => $id ) ) ) {
 				$this->Action->commit();
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
 				$this->Action->rollback();
-				$this->Session->setFlash( 'Erreur lors de la tentative de suppression', 'flash/error' );
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 
-			$this->redirect( $this->referer() );
+			$this->redirect( array( 'action' => 'index' ) );
 		}
 	}
 ?>

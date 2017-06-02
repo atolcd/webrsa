@@ -1,0 +1,698 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+# Dates
+###############################################################################
+msgid "January"
+msgstr "janvier"
+
+msgid "February"
+msgstr "février"
+
+msgid "March"
+msgstr "mars"
+
+msgid "April"
+msgstr "avril"
+
+msgid "May"
+msgstr "mai"
+
+msgid "June"
+msgstr "juin"
+
+msgid "July"
+msgstr "juillet"
+
+msgid "August"
+msgstr "août"
+
+msgid "September"
+msgstr "septembre"
+
+msgid "October"
+msgstr "octobre"
+
+msgid "November"
+msgstr "novembre"
+
+msgid "December"
+msgstr "décembre"
+
+###############################################################################
+# Locale
+###############################################################################
+
+msgid "Yes"
+msgstr "Oui"
+
+msgid "No"
+msgstr "Non"
+
+msgid "Locale->time"
+msgstr "%H:%M"
+
+msgid "Locale->date"
+msgstr "%d/%m/%Y"
+
+msgid "Locale->datetime"
+msgstr "%d/%m/%Y %H:%M"
+
+msgid "Locale->dateFormat"
+msgstr "DMY"
+
+msgid "Locale->timeFormat"
+msgstr "24"
+
+msgid "Date::short"
+msgstr "%d/%m/%Y"
+
+msgid "Date::mini"
+msgstr "%m/%Y"
+
+msgid "Datetime::short"
+msgstr "%d/%m/%Y %H:%M:%S"
+
+msgid "Time::short"
+msgstr "%Hh%M"
+
+msgid "Date::miniLettre"
+msgstr "%B %Y"
+
+msgid "Datetime::full"
+msgstr "%d/%m/%Y à %H:%M:%S"
+
+msgid "Date::lettre"
+msgstr "%d %B %Y"
+###############################################################################
+# Save / Delete
+###############################################################################
+
+msgid "Save->success"
+msgstr "Enregistrement effectué"
+
+msgid "Save->error"
+msgstr "Erreur(s) lors de l'enregistrement"
+
+msgid "Delete->error"
+msgstr "Erreur(s) lors de la suppression"
+
+msgid "Delete->success"
+msgstr "Suppression effectuée"
+
+msgid "Save->cancel"
+msgstr "Opération annulée"
+
+###############################################################################
+# Validate
+###############################################################################
+
+msgid "Validate::date"
+msgstr "Veuillez entrer une date valide"
+
+msgid "Validate::time"
+msgstr "Veuillez entrer une heure valide"
+
+msgid "Validate::datetime"
+msgstr "Veuillez entrer une date et une heure valide"
+
+msgid "Validate::notEmpty"
+msgstr "Champ obligatoire"
+
+msgid "Validate::notBlank"
+msgstr "Champ obligatoire"
+
+msgid "Validate::maxLength"
+msgstr "Maximum %s caractères"
+
+msgid "Validate::minLength"
+msgstr "Minimum %s caractères"
+
+msgid "Validate::email"
+msgstr "Veuillez saisir une adresse de courrier électronique valide"
+
+msgid "Validate::phoneFr"
+msgstr "Merci de saisir un numéro de téléphone valide"
+
+msgid "Validate::phone"
+msgstr "Merci de saisir un numéro de téléphone valide"
+
+msgid "Validate::url"
+msgstr "Veuillez entrer une URL valide"
+
+msgid "Validate::isUnique"
+msgstr "Valeur déjà utilisée"
+
+msgid "Validate::integer"
+msgstr "Veuillez entrer un nombre entier"
+
+msgid "Validate::numeric"
+msgstr "Veuillez entrer une valeur numérique"
+
+msgid "Validate::greaterThanIfNotZero"
+msgstr "Veuillez entrer une valeur plus grande"
+
+msgid "Validate::dir"
+msgstr "Veuillez entrer un répertoire existant et au moins lisible"
+
+msgid "Validate::writableDir"
+msgstr "Veuillez entrer un répertoire existant et inscriptible"
+
+msgid "Validate::inList"
+msgstr "Veuillez entrer une valeur parmi %s"
+
+msgid "Validate::inListArray"
+msgstr "Veuillez entrer des valeurs parmi %s"
+
+msgid "Validate::string"
+msgstr "Veuillez entrer une chaîne de caractères"
+
+msgid "Validate::isarray"
+msgstr "Veuillez entrer un tableau"
+
+msgid "Validate::comparison"
+msgstr "Veuillez entrer une valeur %s %s"
+
+msgid "Validate::checkCurrentPassword"
+msgstr "Ceci n'est pas votre mot de passe actuel"
+
+msgid "Validate::passwordStrength"
+msgstr "Veuillez entrer un mot de passe d'au moins 8 caractères, dont un chiffre et un caractère spécial"
+
+msgid "Validate::checkIdenticalValues"
+msgstr "Veuillez entrer des valeurs identiques"
+
+msgid "Validate::notEmptyIf"
+msgstr "Champ obligatoire"
+
+msgid "Validate::emptyIf"
+msgstr "Le champ doit être vide"
+
+msgid "Validate::notNullIf"
+msgstr "Champ obligatoire"
+
+msgid "Validate::checkDateOnceAYear"
+msgstr "Il existe déjà un enregistrement pour cette année"
+
+msgid "Validate::compareDates"
+msgstr "Veuillez entrer une valeur %2$s %1$s"
+
+msgid "Validate::inclusiveRange"
+msgstr "Veuillez entrer une valeur entre %s et %s"
+
+msgid "Validate::boolean"
+msgstr "Veuillez entrer une valeur booléenne"
+
+###############################################################################
+# Forms/Index
+###############################################################################
+
+msgid "Results %start% - %end% out of %count%."
+msgstr "Résultats %start% à %end% sur un total de %count%."
+
+msgid "Add"
+msgstr "Ajouter"
+
+msgid "View"
+msgstr "Voir"
+
+msgid "Edit"
+msgstr "Modifier"
+
+msgid "Delete"
+msgstr "Supprimer"
+
+msgid "Save"
+msgstr "Enregistrer"
+
+msgid "Search"
+msgstr "Rechercher"
+
+msgid "Cancel"
+msgstr "Annuler"
+
+msgid "Reset"
+msgstr "Réinitialiser"
+
+msgid "Validate"
+msgstr "Valider"
+
+###############################################################################
+# Adresses
+###############################################################################
+
+msgid "dtemm"
+msgstr "Date d'emménagement"
+
+###############################################################################
+# Paramétrage des tables
+##############################################################################
+
+# User
+msgid "date_naissance"
+msgstr "Date de naissance"
+
+msgid "username"
+msgstr "Nom d'utilisateur"
+
+msgid "date_deb_hab"
+msgstr "Date de début d'habilitation"
+
+msgid "date_fin_hab"
+msgstr "Date de fin d'habilitation"
+
+msgid "codeinsee"
+msgstr "Code insee"
+
+msgid "libelle"
+msgstr "Libellé de la zone géographique"
+
+# Typeorient
+msgid "id"
+msgstr "ID"
+
+msgid "parentid"
+msgstr "ID parent"
+
+msgid "parent_id"
+msgstr "Parent"
+
+# User
+msgid "numero_poste"
+msgstr "Numéro de poste"
+
+msgid "fonction"
+msgstr "Fonction du référent"
+
+msgid "password"
+msgstr "Mot de passe"
+
+msgid "oldpassword"
+msgstr "Ancien mot de passe"
+
+msgid "newpassword"
+msgstr "Nouveau mot de passe"
+
+msgid "confnewpassword"
+msgstr "Confirmation du nouveau mot de passe"
+
+msgid "type_voie"
+msgstr "Type de voie"
+
+msgid "num_voie"
+msgstr "Numéro de voie"
+
+msgid "nom_voie"
+msgstr "Nom de voie"
+
+msgid "code_postal"
+msgstr "Code postal"
+
+msgid "ville"
+msgstr "Ville"
+
+msgid "code_insee"
+msgstr "Code INSEE"
+
+msgid "name"
+msgstr "Nom du groupe"
+
+msgid "lib_service"
+msgstr "Nom du service instructeur"
+
+msgid "num_rue"
+msgstr "Numéro de rue"
+
+msgid "nom_rue"
+msgstr "Nom de rue"
+
+msgid "complement_adr"
+msgstr "Complément d'adresse"
+
+msgid "email"
+msgstr "Email"
+
+# contratsinsertion
+msgid "lib_typo"
+msgstr "Type de contrat d'insertion"
+
+msgid "rang"
+msgstr "Rang du contrat d'insertion"
+
+msgid "adresse"
+msgstr "Adresse"
+
+msgid "numtel"
+msgstr "Numéro de téléphone"
+
+msgid "numfax"
+msgstr "Numéro de fax"
+
+###############################################################################
+# Auth
+###############################################################################
+
+msgid "Login failed. Invalid username or password."
+msgstr "Échec de la connexion. Identifiant ou mot de passe invalide."
+
+###############################################################################
+# Paramétrage région (regroupementzonegeo)
+###############################################################################
+
+msgid "lib_rgpt"
+msgstr "Libellé de la région"
+
+###############################################################################
+# Formulaires
+###############################################################################
+
+msgid "Form::Save"
+msgstr "Enregistrer"
+
+###############################################################################
+# Enums généraux
+###############################################################################
+
+msgid "ENUM::NOS::N"
+msgstr "Non"
+
+msgid "ENUM::NOS::O"
+msgstr "Oui"
+
+msgid "ENUM::NOS::S"
+msgstr "Ne sait pas"
+
+###############################################################################
+
+msgid "ENUM::NOV::N"
+msgstr "Non"
+
+msgid "ENUM::NOV::O"
+msgstr "Oui"
+
+msgid "ENUM::NOV::V"
+msgstr "Ne veut pas répondre"
+
+###############################################################################
+# Enums
+###############################################################################
+
+msgid "ENUM::PRESENCE::absent"
+msgstr "Absent"
+
+msgid "ENUM::PRESENCE::present"
+msgstr "Présent"
+
+msgid "ENUM::PRESENCE::remplace"
+msgstr "Remplacé par"
+
+msgid "ENUM::PRESENCE::excuse"
+msgstr "Excusé"
+
+###############################################################################
+
+msgid "ENUM::NO::N"
+msgstr "Non"
+
+msgid "ENUM::NO::O"
+msgstr "Oui"
+
+###############################################################################
+
+msgid "ENUM::BOOLEANNUMBER::0"
+msgstr "Non"
+
+msgid "ENUM::BOOLEANNUMBER::1"
+msgstr "Oui"
+
+
+msgid "ENUM::BILANVENU::VEN"
+msgstr "Venu(e)"
+
+msgid "ENUM::BILANVENU::NVE"
+msgstr "Non Venu(e)"
+
+###############################################################################
+# ...
+###############################################################################
+
+msgid "Button::add"
+msgstr "Ajouter"
+
+msgid "Button::view"
+msgstr "Voir"
+
+msgid "Button::edit"
+msgstr "Modifier"
+
+msgid "Button::delete"
+msgstr "Supprimer"
+
+msgid "Button::print"
+msgstr "Imprimer"
+
+msgid "Button::gedooo"
+msgstr "Imprimer"
+
+msgid "Button::validate"
+msgstr "Valider"
+
+msgid "Button::valider"
+msgstr "Valider"
+
+msgid "Button::cancel"
+msgstr "Annuler"
+
+msgid "Button::clore"
+msgstr "Clore"
+
+msgid "Button::filelink"
+msgstr "Fichiers liés"
+
+msgid "Button::decision"
+msgstr "Décision"
+
+msgid "Button::cloturer"
+msgstr "Clôturer"
+
+msgid "Button::avistechnique"
+msgstr "Contrôle"
+
+msgid "Button::validation"
+msgstr "Validation"
+
+msgid "ENUM::DECISION::accepte"
+msgstr "Accepté"
+
+msgid "ENUM::DECISION::refuse"
+msgstr "Refusé"
+
+###############################################################################
+# FIXME: dans les fichiers de langue appropriés
+###############################################################################
+
+msgid "Button::choose"
+msgstr "Choisir les dossiers"
+
+msgid "Button::traiterep"
+msgstr "Avis EP"
+
+msgid "Button::finaliserep"
+msgstr "Valider la commission EP"
+
+
+msgid "Button::traitercg"
+msgstr "Décisions CG"
+
+msgid "Button::finalisercg"
+msgstr "Valider la commission CG"
+
+msgid "Button::courrierInformation"
+msgstr "Courrier d'information"
+
+msgid "Button::printConvocationParticipant"
+msgstr "Ordre du jour"
+
+msgid "Button::printConvocationBeneficiaire"
+msgstr "Convocation"
+
+msgid "Button::fichesynthese"
+msgstr "Fiche synthétique"
+
+msgid "Button::printFiche"
+msgstr "Imprimer"
+
+msgid "Button::impressionDecision"
+msgstr "Décision"
+
+msgid "Button::ficheliaisoncer"
+msgstr "Fiche de liaison"
+
+msgid "Button::contratinsertion"
+msgstr "Impression"
+
+msgid "Button::notificationsop"
+msgstr "Notification OP"
+
+msgid "Button::notifbenef"
+msgstr "Notification bénéficiaire"
+
+msgid "Button::impression"
+msgstr "Imprimer"
+
+msgid "Button::validersimple"
+msgstr "Décision"
+
+msgid "Button::validerparticulier"
+msgstr "Décision"
+
+msgid "Button::proposition"
+msgstr "Décision"
+
+msgid "Button::propositionsimple"
+msgstr "Décision"
+
+msgid "Button::propositionparticulier"
+msgstr "Décision"
+
+msgid "Button::notification"
+msgstr "Date d'envoi"
+
+msgid "Button::printChangementReferent"
+msgstr "Notif changement de référent"
+
+msgid "Button::impressionsSanctions1"
+msgstr "Impression en cohorte fin sanction 1"
+
+msgid "Button::impressionsSanctions2"
+msgstr "Impression en cohorte fin sanction 2"
+
+msgid "Button::reconduction_cer_plus_55_ans"
+msgstr "Tacite reconduction"
+
+################################################################################
+# Boutons pour le CUI
+################################################################################
+msgid "Button::propositioncui"
+msgstr "Avis techniques"
+
+msgid "Button::notifelucui"
+msgstr "Avis élu"
+
+msgid "Button::decisioncui"
+msgstr "Décisions"
+
+msgid "Button::notifelu"
+msgstr "Décision élu"
+
+msgid "Button::notifemployeur"
+msgstr "Notification employeur"
+
+msgid "Button::envoimailemployeur"
+msgstr "Envoi mail employeur"
+
+################################################################################
+# Pagination
+# INFO: http://forum.cakephp-fr.org/viewtopic.php?id=878
+################################################################################
+
+msgid "Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%"
+msgstr "Page %page% sur %pages%, montrant %current% enregistrements parmi %count% au total, à partir de l'enregistrement n° %start% et jusqu'au n° %end%"
+
+msgid "Page {:page} of {:pages}, from {:start} to {:end}"
+msgstr "Page {:page} sur {:pages}, résultats de {:start} à {:end}"
+
+msgid "<< first"
+msgstr "<<"
+
+msgid "< prev"
+msgstr "<"
+
+msgid "next >"
+msgstr ">"
+
+msgid "last >>"
+msgstr ">>"
+
+################################################################################
+
+msgid "Button::impressionSanction1"
+msgstr "Notification fin sanction 1"
+
+msgid "Button::impressionSanction2"
+msgstr "Notification fin sanction 2"
+
+
+msgid "Button::signature"
+msgstr "Signer"
+
+msgid "Button::attdecisioncpdv"
+msgstr "Envoi Responsable"
+
+msgid "Button::attdecisioncg"
+msgstr "Envoi CG"
+
+msgid "Button::premierelecture"
+msgstr "Première lecture"
+
+msgid "Button::secondelecture"
+msgstr "Valider CS"
+
+msgid "Button::aviscadre"
+msgstr "Valider cadre"
+
+msgid "Button::edit_apres_signature"
+msgstr "Modifier"
+
+msgid "Button::manifestation"
+msgstr "Manifestations"
+
+msgid "Referent::cloturer"
+msgstr "Clôturer"
+
+msgid "Button::maillink"
+msgstr "Mail employeur"
+
+msgid "Button::printaviscui"
+msgstr "Impression Fiche de synthèse"
+
+msgid "Button::synthesecui66"
+msgstr "Synthèse"
+
+msgid "Button::attestationcompetencecui66"
+msgstr "Attestation de compétence"
+
+################################################################################
+
+msgid "%a days, %h hours, %i minutes and %s seconds"
+msgstr "%a jours, %h heures, %i minutes et %s secondes"
+
+################################################################################
+
+msgid "Exception::access_denied"
+msgstr "Accès à la fonction %s::%s refusé pour l'utilisateur: %s"
+
+################################################################################
+
+msgid "/Parametrages/index"
+msgstr "Retour"
+
+msgid "/Parametrages/index/:title"
+msgstr "Retour aux paramétrages"

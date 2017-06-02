@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par indus (nouveau)"
+	 * Menu "Recherches" > "Par indus"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Indus.search',
@@ -78,7 +78,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par indus (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par indus"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Indus.exportcsv',

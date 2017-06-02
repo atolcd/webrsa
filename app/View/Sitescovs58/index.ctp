@@ -1,32 +1,18 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'sitecov58', "Sitescovs58::{$this->action}" )
-	);
-
-	echo $this->Default2->index(
-		$sitescovs58,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'Sitecov58.name'
-		),
-		array(
-			'cohorte' => false,
-			'actions' => array(
-				'Sitescovs58::edit',
-				'Sitescovs58::delete',
-			),
-			'add' => 'Sitescovs58::add'
-		)
-	);
-
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'parametrages',
-			'action'     => 'index'
-		),
-		array(
-			'id' => 'Back'
+			'cells' => array(
+				'Sitecov58.name',
+				'/Sitescovs58/edit/#Sitecov58.id#' => array(
+					'title' => true
+				),
+				'/Sitescovs58/delete/#Sitecov58.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Sitecov58.has_linkedrecords#"'
+				)
+			)
 		)
 	);
 ?>

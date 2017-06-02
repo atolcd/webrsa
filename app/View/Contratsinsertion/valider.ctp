@@ -12,7 +12,7 @@
 ?>
 
 <h1><?php echo $this->pageTitle;?></h1>
-<?php  echo $this->Form->create( 'Contratinsertion',array() ); ?>
+<?php  echo $this->Form->create( 'Contratinsertion',array( 'novalidate' => true ) ); ?>
 <fieldset>
 	<legend> PARTIE RESERVEE AU DEPARTEMENT</legend>
 		<?php

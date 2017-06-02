@@ -5,7 +5,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses('AppController', 'Controller');
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe Propositionscuis66 ...
@@ -65,17 +65,17 @@
 			'Propositioncui66',
 			'Option',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -87,7 +87,7 @@
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -108,7 +108,7 @@
 			'index' => 'read',
 			'view' => 'read',
 		);
-		
+
 		/**
 		 * Envoi d'un fichier temporaire depuis le formualaire.
 		 */
@@ -161,21 +161,21 @@
 			$result = $this->Propositioncui66->find( 'first', $query );
 			$personne_id = $result['Cui']['personne_id'];
 			$cui_id = $result['Cui']['id'];
-			$this->WebrsaModelesLiesCuis66->initAccess();
-			$this->WebrsaModelesLiesCuis66->WebrsaAccesses->check($id, $personne_id, 'Propositioncui66');
-			
+			$this->WebrsaModelesLiesCuis66->initAccess('Propositioncui66');
+			$this->WebrsaModelesLiesCuis66->WebrsaAccesses->check($id, $personne_id);
+
 			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) );
 
 			$this->Fileuploader->filelink( $id, array( 'action' => 'index', $cui_id ) );
 			$urlmenu = "/cuis/index/{$personne_id}";
-			
+
 			$options = $this->Propositioncui66->enums();
 			$this->set( compact( 'options', 'dossierMenu', 'urlmenu' ) );
 		}
-		
+
 		/**
 		 * Liste des avis techniques
-		 * 
+		 *
 		 * @param integer $cui_id
 		 */
 		public function index( $cui_id ) {
@@ -184,15 +184,13 @@
 				'urlmenu' => "/cuis/index/#0.Cui.personne_id#"
 			);
 			$customQuery['fields'][] = $this->Propositioncui66->Fichiermodule->sqNbFichiersLies( $this->Propositioncui66, 'nombre' );
-			
+
 			$this->WebrsaModelesLiesCuis66->index( $cui_id, $params, $customQuery );
-			
-			//$this->Cui->Fichiermodule->sqNbFichiersLies( $this->Cui, 'nombre' ),
 		}
-		
+
 		/**
 		 * Visualisation d'un avis technique
-		 * 
+		 *
 		 * @param integer $id
 		 */
 		public function view( $id ) {
@@ -202,7 +200,7 @@
 			);
 			return $this->WebrsaModelesLiesCuis66->view( $id, $params );
 		}
-			
+
 		/**
 		 * Formulaire d'ajout d'avis technique CUI
 		 *
@@ -212,7 +210,7 @@
 			$args = func_get_args();
 			call_user_func_array( array( $this, 'edit' ), $args );
 		}
-		
+
 		/**
 		 * Méthode générique d'ajout et de modification d'avis technique
 		 *
@@ -227,30 +225,30 @@
 			);
 			return $this->WebrsaModelesLiesCuis66->addEdit( $id, $params );
 		}
-		
+
 		/**
 		 * Suppression d'un avis technique
-		 * 
+		 *
 		 * @param integer $id
 		 * @return boolean
 		 */
 		public function delete( $id ){
 			return $this->WebrsaModelesLiesCuis66->delete( $id );
 		}
-		
+
 		/**
 		 * Impression générique
-		 * 
+		 *
 		 * @param integer $id
 		 * @return boolean
 		 */
 		public function impression( $id ){
 			return $this->WebrsaModelesLiesCuis66->impression( $id );
 		}
-		
+
 		/**
 		 * Impression avis élu
-		 * 
+		 *
 		 * @param integer $id
 		 * @return boolean
 		 */

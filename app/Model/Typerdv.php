@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Typerdv ...
@@ -17,27 +18,30 @@
 	{
 		public $name = 'Typerdv';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'libelle';
 
-		public $order = 'Typerdv.id ASC';
+		public $order = '%s.libelle ASC';
+
+		/**
+		 * Behaviors utilisés par le modèle.
+		 *
+		 * @var array
+		 */
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
+		);
 
 		public $validate = array(
-			'libelle' => array(
-				'isUnique' => array(
-					'rule' => 'isUnique',
-					'message' => 'Cette valeur est déjà utilisée'
-				),
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				)
-			),
-			'modelenotifrdv' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				)
-			),
 			'motifpassageep' => array(
 				'notEmptyIf' => array(
 					'rule' => array( 'notEmptyIf', 'nbabsencesavpassageep', false, array( 0 ) ),

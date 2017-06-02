@@ -8,6 +8,7 @@
 	 * @subpackage View.Helper
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppHelper', 'View/Helper' );
 
 	/**
 	 * La classe PrototypeObserverHelper fournit des méthodes de haut niveau pour

@@ -7,8 +7,9 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+    App::uses( 'OccurencesBehavior', 'Model/Behavior' );
+	App::uses( 'AppController', 'Controller' );
 
-    App::import( 'Behaviors', 'Occurences' );
 	/**
 	 * La classe Piecesmailscuis66Controller ...
 	 *
@@ -219,7 +220,7 @@
 				}
 
 				$this->Piecemailcui66->create( $this->request->data );
-				$success = $this->Piecemailcui66->save();
+				$success = $this->Piecemailcui66->save( null, array( 'atomic' => false ) );
 
                 if( $success ){
 					$path = $this->action === 'add' ? '0' : $this->Piecemailcui66->id;
@@ -233,13 +234,13 @@
 
                 if( $success ) {
 					$this->Piecemailcui66->commit();
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index' ) );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id, false );
 					$this->Piecemailcui66->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {

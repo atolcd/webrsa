@@ -7,7 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( ABSTRACTMODELS.'AbstractThematiquecov58.php' );
+	App::uses( 'AbstractThematiquecov58', 'Model/Abstractclass' );
 
 	/**
 	 * La classe Propononorientationprocov58 ...
@@ -18,16 +18,13 @@
 	{
 		public $name = 'Propononorientationprocov58';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
 			'Containable',
 			'Dependencies',
-			'Formattable' => array(
-				'suffix' => array( 'structurereferente_id', 'referent_id' ),
-			),
-			'Gedooo.Gedooo'
+			'Gedooo.Gedooo',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
@@ -41,21 +38,15 @@
 					'message' => 'La structure référente ne correspond pas au type d\'orientation',
 				),
 			),
-			'typeorient_id' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				)
-			),
 			'date_propo' => array(
-				'notEmpty' => array(
-					'rule' => 'date',
+				'date' => array(
+					'rule' => array( 'date' ),
 					'message' => 'Veuillez entrer une date valide'
 				)
 			),
 			'date_valid' => array(
-				'notEmpty' => array(
-					'rule' => 'date',
+				'date' => array(
+					'rule' => array( 'date' ),
 					'message' => 'Veuillez entrer une date valide'
 				)
 			),
@@ -63,8 +54,8 @@
 				'dependentForeignKeys' => array(
 					'rule' => array( 'dependentForeignKeys', 'Referent', 'Structurereferente' ),
 					'message' => 'Le référent n\'appartient pas à la structure référente',
-				),
-			),
+				)
+			)
 		);
 
 		public $belongsTo = array(
@@ -280,7 +271,7 @@
 
 							//Sauvegarde des décisions
 							$this->Dossiercov58->Passagecov58->{$modelDecisionName}->create( array( $modelDecisionName => $data[$modelDecisionName][$key] ) );
-							$success = $this->Dossiercov58->Passagecov58->{$modelDecisionName}->save() && $success;
+							$success = $this->Dossiercov58->Passagecov58->{$modelDecisionName}->save( null, array( 'atomic' => false ) ) && $success;
 
 							$orientstruct = array(
 								'Orientstruct' => array(
@@ -320,7 +311,7 @@
 								)
 							);
 							$this->Dossiercov58->Passagecov58->Decisionpropononorientationprocov58->Nonorientationproep58->Dossierep->create( $dossierep );
-							$success = $this->Dossiercov58->Passagecov58->Decisionpropononorientationprocov58->Nonorientationproep58->Dossierep->save() && $success;
+							$success = $this->Dossiercov58->Passagecov58->Decisionpropononorientationprocov58->Nonorientationproep58->Dossierep->save( null, array( 'atomic' => false ) ) && $success;
 
 							$nonorientationproep = array(
 								'Nonorientationproep58' => array(
@@ -331,7 +322,7 @@
 								)
 							);
 							$this->Dossiercov58->Passagecov58->Decisionpropononorientationprocov58->Nonorientationproep58->create( $nonorientationproep );
-							$success = $this->Dossiercov58->Passagecov58->Decisionpropononorientationprocov58->Nonorientationproep58->save() && $success;
+							$success = $this->Dossiercov58->Passagecov58->Decisionpropononorientationprocov58->Nonorientationproep58->save( null, array( 'atomic' => false ) ) && $success;
 
 
 						}
@@ -349,7 +340,7 @@
 
 							//Sauvegarde des décisions
 							$this->Dossiercov58->Passagecov58->{$modelDecisionName}->create( array( $modelDecisionName => $data[$modelDecisionName][$key] ) );
-							$success = $this->Dossiercov58->Passagecov58->{$modelDecisionName}->save() && $success;
+							$success = $this->Dossiercov58->Passagecov58->{$modelDecisionName}->save( null, array( 'atomic' => false ) ) && $success;
 
 							$orientstruct = array(
 								'Orientstruct' => array(
@@ -383,7 +374,7 @@
 						}
 
 						$this->Dossiercov58->Personne->Orientstruct->create( $orientstruct );
-						$success = $this->Dossiercov58->Personne->Orientstruct->save() && $success;
+						$success = $this->Dossiercov58->Personne->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
 
 						// Mise à jour de l'enregistrement de la thématique avec l'id du nouveau CER
 						$success = $success && $this->updateAllUnBound(
@@ -394,7 +385,7 @@
 					else{
 						//Sauvegarde des décisions
 						$this->Dossiercov58->Passagecov58->{$modelDecisionName}->create( array( $modelDecisionName => $data[$modelDecisionName][$key] ) );
-						$success = $this->Dossiercov58->Passagecov58->{$modelDecisionName}->save() && $success;
+						$success = $this->Dossiercov58->Passagecov58->{$modelDecisionName}->save( null, array( 'atomic' => false ) ) && $success;
 					}
 
 

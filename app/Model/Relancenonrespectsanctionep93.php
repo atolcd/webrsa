@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Relancenonrespectsanctionep93 ...
@@ -17,32 +18,32 @@
 	{
 		public $name = 'Relancenonrespectsanctionep93';
 
-		public $recursive = -1;
-
-		public $validate = array(
-			'daterelance' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Merci de rentrer une date valide'
-				),
-				array(
-					'rule' => array( 'checkForRelance' ),
-					'message' => 'Date de relance erronée'
-				)
-			)
-		);
-
 		/**
 		 * Behaviors utilisés par ce modèle.
 		 *
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Pgsqlcake.PgsqlAutovalidate',
-			'Formattable',
 			'Gedooo.Gedooo',
 			'StorablePdf',
-			'Conditionnable'
+			'Conditionnable',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
+		);
+
+		/**
+		 * Règles de validation du modèle.
+		 *
+		 * @var array
+		 */
+		public $validate = array(
+			'daterelance' => array(
+				'checkForRelance' => array(
+					'rule' => array( 'checkForRelance' ),
+					'message' => 'Date de relance erronée'
+				)
+			)
 		);
 
 		/**
@@ -149,6 +150,7 @@
 				);
 			}
 
+			$dateminrelance = null;
 			$possible = true;
 			if ($nonrespectsanctionep93['Nonrespectsanctionep93']['origine']=='orientstruct') {
 				switch($this->data['Relancenonrespectsanctionep93']['numrelance']) {
@@ -214,7 +216,7 @@
 				}
 			}
 
-			if ( $dateminrelance >= strtotime( $this->data['Relancenonrespectsanctionep93']['daterelance'] ) ) {
+			if ( null === $dateminrelance || $dateminrelance >= strtotime( $this->data['Relancenonrespectsanctionep93']['daterelance'] ) ) {
 				$possible = false;
 			}
 
@@ -342,7 +344,7 @@
 							)
 						);
 						$this->create( $item );
-						$success = $this->save() && $success;
+						$success = $this->save( null, array( 'atomic' => false ) ) && $success;
 
 						if( !empty( $this->validationErrors ) ) {
 							$validationErrors[$this->alias][$i] = $this->validationErrors;
@@ -366,7 +368,7 @@
 						);
 
 						$this->Nonrespectsanctionep93->Dossierep->create( $dossierep );
-						$success = $this->Nonrespectsanctionep93->Dossierep->save() && $success;
+						$success = $this->Nonrespectsanctionep93->Dossierep->save( null, array( 'atomic' => false ) ) && $success;
 
 						// Nonrespectsanctionep93
 						$nonrespectsanctionep93 = array(
@@ -378,7 +380,7 @@
 						);
 
 						$this->Nonrespectsanctionep93->create( $nonrespectsanctionep93 );
-						$success = $this->Nonrespectsanctionep93->save() && $success;
+						$success = $this->Nonrespectsanctionep93->save( null, array( 'atomic' => false ) ) && $success;
 						break;
 				}
 			}
@@ -659,8 +661,6 @@
 									'Orientstruct.id = Nonrespectsanctionep93.orientstruct_id'
 									// Sous requête pour avoir le Nonrespectsanctionep93 le plus récent
 								),
-// 								'order' => array( 'Nonrespectsanctionep93.created DESC' ),
-// 								'limit' => 1
 							);
 				}
 				else {
@@ -673,8 +673,6 @@
 									'Contratinsertion.id = Nonrespectsanctionep93.contratinsertion_id'
 									// Sous requête pour avoir le Nonrespectsanctionep93 le plus récent
 								),
-	// 							'order' => array( 'Nonrespectsanctionep93.created DESC' ),
-	// 							'limit' => 1
 							);
 				}
 				$joins[] = array(
@@ -788,7 +786,7 @@
 										)
 									).' )
 									AND ( DATE( NOW() ) - (
-										SELECT CAST( decisionsnonrespectssanctionseps93.modified AS DATE )
+										SELECT "decisionsnonrespectssanctionseps93"."modified"::DATE
 											FROM decisionsnonrespectssanctionseps93
 												INNER JOIN passagescommissionseps ON (
 													decisionsnonrespectssanctionseps93.passagecommissionep_id = passagescommissionseps.id
@@ -913,7 +911,7 @@
 										)
 									).' )
 									AND ( DATE( NOW() ) - (
-										SELECT CAST( decisionsnonrespectssanctionseps93.modified AS DATE )
+										SELECT "decisionsnonrespectssanctionseps93"."modified"::DATE
 											FROM decisionsnonrespectssanctionseps93
 												INNER JOIN passagescommissionseps ON (
 													decisionsnonrespectssanctionseps93.passagecommissionep_id = passagescommissionseps.id
@@ -1286,7 +1284,7 @@
 										)
 								).' )',
 								'Dossierep.themeep' => 'nonrespectssanctionseps93',
-								'( DATE( NOW() ) - ( CAST( Commissionep.dateseance AS DATE ) ) ) <= '.Configure::read( 'Nonrespectsanctionep93.relanceDecisionNonRespectSanctions' )
+								'( DATE( NOW() ) - ( "Commissionep"."dateseance"::DATE ) ) <= '.Configure::read( 'Nonrespectsanctionep93.relanceDecisionNonRespectSanctions' )
 							),
 							'contain' => false,
 							'joins' => array(
@@ -1532,7 +1530,6 @@
 			// TODO: error404/error500 si on ne trouve pas les données
 			$optionModel = ClassRegistry::init( 'Option' );
 			$qual = $optionModel->qual();
-			$typevoie = $optionModel->typevoie();
 
 			$qdPersonne = array(
 				'Foyer' => array(
@@ -1635,7 +1632,6 @@
 					'Structurereferente' => 'Structurereferenteactuelle',
 				)
 			);
-			$orientstruct['Structurereferenteactuelle']['type_voie'] = value( $typevoie, Hash::get( $orientstruct, 'Structurereferenteactuelle.type_voie' ) );
 
 			$data = Hash::merge( $data, $orientstruct );
 
@@ -1717,8 +1713,8 @@
 		}
 
 		/**
-		 * Retourne la liste des options venant de EnumerableBehavior, ainsi que
-		 * des champs possédant la règle de validation inList, auxquels on ajoute
+		 * Retourne la liste des options ainsi que des champs possédant la règle
+		 * de validation inList, auxquels on ajoute.
 		 * les options pour numrelance.
 		 *
 		 * @return string
@@ -1735,124 +1731,6 @@
 
 			return $enums;
 		}
-
-		/**
-		 *
-		 * @param integer $personne_id
-		 * @param integer $user_id
-		 * @return array
-		 */
-		/*public function prepareFormDataAdd( $personne_id, $user_id ) {
-			$formData = array();
-
-			$orientstruct = $this->Nonrespectsanctionep93->Orientstruct->find(
-					'first',
-					array(
-						'conditions' => array(
-							'Orientstruct.personne_id' => $personne_id,
-							'Orientstruct.statut_orient' => 'Orienté',
-							'Orientstruct.date_valid IS NOT NULL',
-							'Orientstruct.date_impression IS NOT NULL',
-						),
-						'order' => array( 'Orientstruct.date_impression DESC' ),
-						'contain' => false
-					)
-				);
-
-			$contratinsertion = $this->Nonrespectsanctionep93->Contratinsertion->find(
-				'first',
-				array(
-					'conditions' => array(
-						'Contratinsertion.personne_id' => $personne_id,
-						'Contratinsertion.decision_ci' => 'V',
-						'Contratinsertion.df_ci IS NOT NULL',
-						'Contratinsertion.datevalidation_ci IS NOT NULL',
-
-					),
-					'order' => array( 'Contratinsertion.df_ci DESC' ),
-					'contain' => false
-				)
-			);
-
-			$date_impression = Hash::get( $orientstruct, 'Orientstruct.date_impression' );
-			$datevalidation_ci = Hash::get( $contratinsertion, 'Contratinsertion.datevalidation_ci' );
-			if( ( empty( $orientstruct ) && !empty( $contratinsertion ) ) || ( !is_null( $date_impression ) && !is_null( $datevalidation_ci ) && ( strtotime( $date_impression ) < strtotime( $datevalidation_ci ) ) ) ) {
-				$formData['Nonrespectsanctionep93']['orientstruct_id'] = null;
-				$formData['Nonrespectsanctionep93']['contratinsertion_id'] = $contratinsertion['Contratinsertion']['id'];
-				$formData['Nonrespectsanctionep93']['origine'] = 'contratinsertion';
-			}
-			else {
-				$formData['Nonrespectsanctionep93']['orientstruct_id'] = $orientstruct['Orientstruct']['id'];
-				$formData['Nonrespectsanctionep93']['contratinsertion_id'] = null;
-				$formData['Nonrespectsanctionep93']['origine'] = 'orientstruct';
-			}
-
-			// Continue-t'on une série de relances ?
-			$nonrespectsanctionep93 = $this->Nonrespectsanctionep93->find(
-				'first',
-				array(
-					'conditions' => array(
-						'Nonrespectsanctionep93.orientstruct_id' => $formData['Nonrespectsanctionep93']['orientstruct_id'],
-						'Nonrespectsanctionep93.contratinsertion_id' => $formData['Nonrespectsanctionep93']['contratinsertion_id'],
-						'Nonrespectsanctionep93.origine' => $formData['Nonrespectsanctionep93']['origine'],
-					),
-					'contain' => array(
-						'Relancenonrespectsanctionep93'
-					),
-					'order' => array( 'Nonrespectsanctionep93.modified DESC' ),
-				)
-			);
-
-			if( !empty( $nonrespectsanctionep93 ) ) {
-				$internalStateStatus = (
-					count( $nonrespectsanctionep93['Relancenonrespectsanctionep93'] ) == 1
-					&& is_null( $nonrespectsanctionep93['Nonrespectsanctionep93']['dossierep_id'] )
-					&& $nonrespectsanctionep93['Nonrespectsanctionep93']['rgpassage'] == '1'
-					&& $nonrespectsanctionep93['Nonrespectsanctionep93']['sortieprocedure'] == null
-					&& $nonrespectsanctionep93['Nonrespectsanctionep93']['active'] == '1'
-				);
-				if( !$internalStateStatus ) {
-					throw new InternalErrorException();
-				}
-
-				$formData['Nonrespectsanctionep93'] = $nonrespectsanctionep93['Nonrespectsanctionep93'];
-				$formData['Relancenonrespectsanctionep93'] = array(
-					'nonrespectsanctionep93_id' => $nonrespectsanctionep93['Nonrespectsanctionep93']['id'],
-					'numrelance' => 2,
-					'dateimpression' => null,
-					'daterelance' => null,
-					'user_id' => $user_id
-
-				);
-			}
-			else {
-				$formData['Relancenonrespectsanctionep93'] = array(
-					'nonrespectsanctionep93_id' => null,
-					'numrelance' => 1,
-					'dateimpression' => null,
-					'daterelance' => null,
-					'user_id' => $user_id
-				);
-			}
-
-			$formData['Nonrespectsanctionep93']['dossierep_id'] = null;
-			$formData['Nonrespectsanctionep93']['propopdo_id'] = null;
-			$formData['Nonrespectsanctionep93']['historiqueetatpe_id'] = null;
-			$formData['Nonrespectsanctionep93']['rgpassage'] = 1;
-			$formData['Nonrespectsanctionep93']['sortieprocedure'] = null;
-			$formData['Nonrespectsanctionep93']['active'] = '1';
-
-			$data = Hash::merge( $nonrespectsanctionep93, $orientstruct, $contratinsertion );
-			$data['Relancenonrespectsanctionep93'] = (array)Hash::get( $data, 'Relancenonrespectsanctionep93.0' );
-
-			$formData['Relancenonrespectsanctionep93']['daterelance_min'] = $this->dateRelanceMinimale(
-				$formData['Nonrespectsanctionep93']['origine'],
-				$formData['Relancenonrespectsanctionep93']['numrelance'],
-				$data
-			);
-
-			return $formData;
-		}*/
 
 		/**
 		 *

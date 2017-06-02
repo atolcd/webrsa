@@ -22,10 +22,7 @@
 <?php endif;?>
 <?php
 	// Formulaire
-	echo $this->Form->create( null, array( 'id' => 'Search' ) );
-// 	echo $this->Form->create( null, array( 'type' => 'post', 'action' => $this->action, 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) && isset( $this->request->data['Search']['active'] ) ) ? 'folded' : 'unfolded' ) ) );
-
-// 	echo $this->Form->input( 'Search.active', array( 'type' => 'hidden', 'value' => true ) );
+	echo $this->Form->create( null, array( 'id' => 'Search', 'novalidate' => true ) );
 
 	echo $this->Xhtml->tag( 'fieldset', $this->Xhtml->tag( 'legend', 'Recherche par bénéficiaire' ).
 		$this->Default2->subform(
@@ -96,7 +93,7 @@
 			}
 
 			echo $pagination;
-			echo $this->Form->create( null, array( 'id' => 'Relancenonrespectsanctionep93Form' ) );
+			echo $this->Form->create( null, array( 'id' => 'Relancenonrespectsanctionep93Form', 'novalidate' => true ) );
 
 			foreach( Hash::flatten( $this->request->data ) as $key => $data ) {
 				if( !preg_match( '/^Relancenonrespectsanctionep93\./', $key ) && !( trim( $data ) == '' ) ) {

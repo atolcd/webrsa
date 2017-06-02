@@ -6,6 +6,7 @@
 	 *
 	 * @package app.Model.Behavior
 	 */
+	App::uses( 'ModelBehavior', 'Model' );
 	App::uses( 'Sanitize', 'Utility' );
 
 	/**
@@ -32,7 +33,6 @@
 			/// Critères sur l'adresse - nom de commune
             foreach( array( 'nomcom', 'nomvoie' ) as $filtre ) {
                 if( isset( $search['Adresse'][$filtre] ) && !empty( $search['Adresse'][$filtre] ) ) {
-    // 				$conditions[] = "Adresse.nomcom ILIKE '%".Sanitize::clean( $search['Adresse']['nomcom'], array( 'encode' => false ) )."%'";
                     $conditions[] = "Adresse.$filtre ILIKE '".$model->wildcard( Sanitize::clean( $search['Adresse'][$filtre], array( 'encode' => false ) ) )."'";
                 }
             }

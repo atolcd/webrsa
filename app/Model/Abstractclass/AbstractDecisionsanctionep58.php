@@ -18,20 +18,11 @@
 	abstract class AbstractDecisionsanctionep58 extends AbstractDecisionep
 	{
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Enumerable' => array(
-				'fields' => array(
-					'etape',
-					'decision',
-					'decision2',
-					'arretsanction'
-				)
-			),
-			'Formattable',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		/**
@@ -105,8 +96,8 @@
 		 */
 		public $validateFinalisation = array(
 			'decision' => array(
-				array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'listesanctionep58_id' => array(
@@ -120,7 +111,7 @@
 					'rule' => array( 'notEmptyIf', 'decision', true, array( 'sanction2' ) ),
 					'message' => 'Champ obligatoire',
 				),
-			),
+			)
 		);
 
 		/**

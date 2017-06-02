@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe ComiteapreParticipantcomite.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe ComiteapreParticipantcomite ...
@@ -17,31 +18,17 @@
 	{
 		public $name = 'ComiteapreParticipantcomite';
 
-		public $actsAs = array(
-			'Enumerable' => array(
-				'fields' => array(
-					'presence' => array(
-						'type' => 'presenceca',
-						'domain' => 'apre'
-					)
-				)
-			)
-		);
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
 
-		public $validate = array(
-            'id' => array(
-				array( 'rule' => 'notEmpty' )
-			),
-			'comiteapre_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric')
-				),
-			),
-			'participantcomite_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric')
-				),
-			),
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		public $belongsTo = array(

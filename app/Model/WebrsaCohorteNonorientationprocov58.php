@@ -258,7 +258,7 @@
 								WHERE "passagescovs58"."etatdossiercov" = \'traite\'
 							)
 							AND ( DATE( NOW() ) - (
-								SELECT CAST( decisions%s.modified AS DATE )
+								SELECT decisions%s.modified::DATE
 									FROM decisions%s
 										INNER JOIN passagescovs58 ON ( decisions%s.passagecov58_id = passagescovs58.id )
 										INNER JOIN dossierscovs58 ON ( passagescovs58.dossiercov58_id = dossierscovs58.id )
@@ -278,7 +278,7 @@
 								WHERE "passagescommissionseps"."etatdossierep" = \'traite\'
 							)
 							AND ( DATE( NOW() ) - (
-								SELECT CAST( decisions%s.modified AS DATE )
+								SELECT decisions%s.modified::DATE
 									FROM decisions%s
 										INNER JOIN passagescommissionseps ON ( decisions%s.passagecommissionep_id = passagescommissionseps.id )
 										INNER JOIN dossierseps ON ( passagescommissionseps.dossierep_id = dossierseps.id )
@@ -391,6 +391,7 @@
 		 * @return boolean
 		 */
 		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
+			$validationErrors = array();
 			$success = true;
 
 			$themecov58 = Inflector::tableize( $this->Nonorientationprocov58->alias );
@@ -406,8 +407,10 @@
 			$result = (array)$this->Nonorientationprocov58->Dossiercov58->Themecov58->find( 'first', $query );
 			$themecov58_id = Hash::get( (array)$result, 'Themecov58.id' );
 
+			$this->Nonorientationprocov58->begin();
+
 			// Enregistrement des dossiers COV pour la thématique
-			foreach( $data as $line ) {
+			foreach( $data as $key => $line ) {
 				if( !empty( $line['Orientstruct']['chosen'] ) ) {
 					// Enregistrement de l'entrée de dossier COV
 					$dossiercov58 = array(
@@ -418,7 +421,8 @@
 						)
 					);
 					$this->Nonorientationprocov58->Dossiercov58->create( $dossiercov58 );
-					$success = $success && $this->Nonorientationprocov58->Dossiercov58->save();
+					$success = $success && $this->Nonorientationprocov58->Dossiercov58->save( null, array( 'atomic' => false ) );
+					$validationErrors['Dossiercov58'][$key] = $this->Nonorientationprocov58->Dossiercov58->validationErrors;
 
 					// Enregistrement de l'entrée de la thématique
 					$nonorientationprocov58 = array(
@@ -429,8 +433,19 @@
 						)
 					);
 					$this->Nonorientationprocov58->create( $nonorientationprocov58 );
-					$success = $success && $this->Nonorientationprocov58->save();
+					$success = $success && $this->Nonorientationprocov58->save( null, array( 'atomic' => false ) );
+					$validationErrors['Nonorientationprocov58'][$key] = $this->Nonorientationprocov58->validationErrors;
 				}
+			}
+
+			foreach ((array)Hash::filter($validationErrors) as $alias => $errors) {
+				ClassRegistry::getObject($alias)->validationErrors = $errors;
+			}
+
+			if ($success) {
+				$this->Nonorientationprocov58->commit();
+			} else {
+				$this->Nonorientationprocov58->rollback();
 			}
 
 			return $success;

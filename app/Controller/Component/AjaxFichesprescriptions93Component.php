@@ -120,11 +120,6 @@
 				$fields['Ficheprescription93.numconvention']['value'] = null;
 			}
 
-			/*// Si on change l'action, on de doit pas modifier l'adresse du prestataire hors PDI
-			if( $data['Target']['path'] === 'Ficheprescription93.actionfp93_id' ) {
-				unset( $fields['Ficheprescription93.adresseprestatairefp93_id'] );
-			}*/
-
 			// Si on change l'adresse du prestataire PDI, on ne doit pas modifier le n° de convention
 			if( $data['Target']['path'] === 'Ficheprescription93.adresseprestatairefp93_id' ) {
 				unset( $fields['Ficheprescription93.numconvention'] );

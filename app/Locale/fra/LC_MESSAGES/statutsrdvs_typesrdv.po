@@ -1,0 +1,47 @@
+# Traductions de statutsrdvs_typesrdv.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/StatutsrdvsTypesrdv/index/:heading"
+msgstr "Paramétrage des passages en commissions des rendez-vous"
+
+msgid "/StatutsrdvsTypesrdv/add/:heading"
+msgstr "Ajout d'un passage en commission de rendez-vous"
+
+msgid "/StatutsrdvsTypesrdv/edit/:heading"
+msgstr "Modification du passage en commission des rendez-vous « #StatutrdvTyperdv.motifpassageep# »"
+
+msgid "/StatutsrdvsTypesrdv/add"
+msgstr "Ajouter"
+
+msgid "/StatutsrdvsTypesrdv/add/:title"
+msgstr "Ajouter un passage en commission de rendez-vous"
+
+msgid "/StatutsrdvsTypesrdv/edit"
+msgstr "Modifier"
+
+msgid "/StatutsrdvsTypesrdv/edit/#StatutrdvTyperdv.id#"
+msgstr "Modifier le passage en commission des rendez-vous « #StatutrdvTyperdv.motifpassageep# »"
+
+msgid "/StatutsrdvsTypesrdv/delete"
+msgstr "Supprimer"
+
+msgid "/StatutsrdvsTypesrdv/delete/#StatutrdvTyperdv.id#"
+msgstr "Supprimer le passage en commission des rendez-vous « #StatutrdvTyperdv.motifpassageep# »"
+
+msgid "/StatutsrdvsTypesrdv/delete/#StatutrdvTyperdv.id# ?"
+msgstr "Réellement supprimer le passage en commission des rendez-vous « #StatutrdvTyperdv.motifpassageep# » ?"
+
+msgid "/Parametrages/rendezvous"
+msgstr "Retour"
+
+msgid "/Parametrages/rendezvous/:title"
+msgstr "Retour aux paramétrages des rendez-vous"

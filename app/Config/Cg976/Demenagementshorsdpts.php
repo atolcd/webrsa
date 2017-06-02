@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par allocataires sortants" > "Hors département (nouveau)"
+	 * Menu "Recherches" > "Par allocataires sortants" > "Hors département"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Demenagementshorsdpts.search',
@@ -79,7 +79,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par allocataires sortants" > "Hors département (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par allocataires sortants" > "Hors département"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Demenagementshorsdpts.exportcsv',

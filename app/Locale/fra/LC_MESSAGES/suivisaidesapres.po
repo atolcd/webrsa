@@ -1,0 +1,47 @@
+# Traductions de suivisaidesapres.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Suivisaidesapres/index/:heading"
+msgstr "Paramétrage des personnes chargées du suivi des aides APRE"
+
+msgid "/Suivisaidesapres/add/:heading"
+msgstr "Ajout d'une personne chargée du suivi des aides APRE"
+
+msgid "/Suivisaidesapres/edit/:heading"
+msgstr "Modification du personne chargée du suivi des aides APRE « #Suiviaideapre.nom_complet# »"
+
+msgid "/Suivisaidesapres/add"
+msgstr "Ajouter"
+
+msgid "/Suivisaidesapres/add/:title"
+msgstr "Ajouter une personne chargée du suivi des aides APRE"
+
+msgid "/Suivisaidesapres/edit"
+msgstr "Modifier"
+
+msgid "/Suivisaidesapres/edit/#Suiviaideapre.id#"
+msgstr "Modifier la personne chargée du suivi des aides APRE « #Suiviaideapre.nom_complet# »"
+
+msgid "/Suivisaidesapres/delete"
+msgstr "Supprimer"
+
+msgid "/Suivisaidesapres/delete/#Suiviaideapre.id#"
+msgstr "Supprimer la personne chargée du suivi des aides APRE « #Suiviaideapre.nom_complet# »"
+
+msgid "/Suivisaidesapres/delete/#Suiviaideapre.id# ?"
+msgstr "Réellement supprimer la personne chargée du suivi des aides APRE « #Suiviaideapre.nom_complet# » ?"
+
+msgid "/Parametrages/apres"
+msgstr "Retour"
+
+msgid "/Parametrages/apres/:title"
+msgstr "Retour aux paramétrages des APRE"

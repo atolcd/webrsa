@@ -7,7 +7,8 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( APPLIBS.'cmis.php' );
+	App::uses( 'AppModel', 'Model' );
+	require_once  APPLIBS.'cmis.php' ;
 
 	/**
 	 * La classe Fichiermodule ...
@@ -16,33 +17,25 @@
 	 */
 	class Fichiermodule extends AppModel
 	{
-
 		/**
 		 *
 		 */
-		public $recursive = -1;
 		public $name = 'Fichiermodule';
-		public $actAs = array(
-			'Formattable',
-			'Autovalidate2'
+
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
+
 		public $validate = array(
-			'modele' => array(
-				'notempty' => array(
-					'rule' => array( 'notempty' ),
-				),
-			),
 			'modeledoc' => array(
-				'notempty' => array(
-					'rule' => array( 'notempty' ),
-				),
-			),
-			'fk_value' => array(
-				'numeric' => array(
-					'rule' => array( 'numeric' ),
-				),
-			),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+				)
+			)
 		);
+
 		public $belongsTo = array(
 			'Traitementpdo' => array(
 				'className' => 'Traitementpdo',

@@ -3,7 +3,7 @@
 	 * Code source de la classe CorrespondancepersonneFixture.
 	 *
 	 * @package app.Test.Fixture
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/Test/CakePHP Fixture.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	 require_once( dirname( __FILE__ ).DS.'pgsql_constraints_fixture.php' );
 

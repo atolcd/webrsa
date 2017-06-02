@@ -373,7 +373,7 @@
 					$options['Cui']['partenaire_id'] = $this->Cui->Partenaire->find( 'list', array( 'order' => array( 'Partenaire.libstruc' ) ) );
 
 					// Liste des cantons pour l'adresse du partenaire
-					App::import('Component','Gestionzonesgeos');
+					App::uses( 'GestionzonesgeosComponent', 'Controller/Component' );
 					$Gestionzonesgeos = new GestionzonesgeosComponent(new ComponentCollection());
 					$options['Adressecui']['canton'] = $Gestionzonesgeos->listeCantons();
 					$options['Adressecui']['canton2'] =& $options['Adressecui']['canton'];
@@ -402,13 +402,13 @@
 						// Si le code rome avait un id, on supprime l'entreeromev3 correspondant
 						if ( isset($data['Entreeromev3']['id']) && $data['Entreeromev3']['id'] !== '' ){
 							$this->Cui->Entreeromev3->id = $data['Entreeromev3']['id'];
-							$success = $success && $this->Cui->Entreeromev3->delete();
+							$success = $this->Cui->Entreeromev3->delete() && $success;
 						}
 					}
 					// Dans le cas contraire, on enregistre le tout
 					else{
 						$this->Cui->Entreeromev3->create($data);
-						$success = $success && $this->Cui->Entreeromev3->save();
+						$success = $this->Cui->Entreeromev3->save( null, array( 'atomic' => false ) ) && $success;
 						$data['Cui']['entreeromev3_id'] = $this->Cui->Entreeromev3->id;
 					}
 
@@ -419,22 +419,22 @@
 					
 					// Partenairecui possède une Adressecui, on commence par cette dernière
 					$this->Cui->Partenairecui->Adressecui->create($data);
-					$success = $success && $this->Cui->Partenairecui->Adressecui->save();
+					$success = $this->Cui->Partenairecui->Adressecui->save( null, array( 'atomic' => false ) ) && $success;
 					$data['Partenairecui']['adressecui_id'] = $this->Cui->Partenairecui->Adressecui->id;
 					
 					// Cui possède un Partenairecui, il nous faut son id
 					$this->Cui->Partenairecui->create($data);
-					$success = $success && $this->Cui->Partenairecui->save();
+					$success = $this->Cui->Partenairecui->save( null, array( 'atomic' => false ) ) && $success;
 					$data['Cui']['partenairecui_id'] = $this->Cui->Partenairecui->id;
 					
 					// Cui possède un Personnecui
 					$this->Cui->Personnecui->create($data);
-					$success = $success && $this->Cui->Personnecui->save();
+					$success = $this->Cui->Personnecui->save( null, array( 'atomic' => false ) ) && $success;
 					$data['Cui']['personnecui_id'] = $this->Cui->Personnecui->id;
 
 					// On termine par le Cui
 					$this->Cui->create($data);
-					$success = $success && $this->Cui->save();
+					$success = $this->Cui->save( null, array( 'atomic' => false ) ) && $success;
 			}
 
 			return $success;

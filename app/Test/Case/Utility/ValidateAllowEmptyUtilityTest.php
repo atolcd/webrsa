@@ -14,8 +14,8 @@
 		public $alias = 'Adresse';
 		public $configuredAllowEmptyFields = array( 'libtypevoie', 'canton', 'nomvoie', 'pays' );
 		public $validate = array(
-			'libtypevoie' => array( 'notEmpty' => array( 'rule' => 'notEmpty', 'message' => 'Champ obligatoire' ) ),
-			'nomvoie' => array( 'notEmpty' => array( 'rule' => 'notEmpty', 'message' => 'Champ obligatoire' ) ),
+			'libtypevoie' => array( NOT_BLANK_RULE_NAME => array( 'rule' => NOT_BLANK_RULE_NAME, 'message' => 'Champ obligatoire' ) ),
+			'nomvoie' => array( NOT_BLANK_RULE_NAME => array( 'rule' => NOT_BLANK_RULE_NAME, 'message' => 'Champ obligatoire' ) ),
 			'pays' => array( 'inList' => array( 'rule' => array('inList', array('France', 'Autre'), 'allowEmpty' => true ) ) )
 		);
 	}

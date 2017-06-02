@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Periodeimmersioncui66 ...
@@ -17,13 +18,10 @@
 	{
 		public $name = 'Periodeimmersioncui66';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-            'Pgsqlcake.PgsqlAutovalidate',
-            'Formattable' => array(
-				'suffix' => array( 'metieraffectation_id' ),
-			),
+            'Postgres.PostgresAutovalidate',
+            'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
 
 		public $belongsTo = array(

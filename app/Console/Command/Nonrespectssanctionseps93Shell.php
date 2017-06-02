@@ -77,7 +77,7 @@
 						)
 					);
 					$this->Nonrespectsanctionep93->Dossierep->create( $dossierep );
-					$success = $this->Nonrespectsanctionep93->Dossierep->save() && $success;
+					$success = $this->Nonrespectsanctionep93->Dossierep->save( null, array( 'atomic' => false ) ) && $success;
 
 					if( $success ) {
 						$nonrespectsanctionep93 = array(
@@ -94,7 +94,7 @@
 							)
 						);
 						$this->Nonrespectsanctionep93->create( $nonrespectsanctionep93 );
-						$success = $this->Nonrespectsanctionep93->save() && $success;
+						$success = $this->Nonrespectsanctionep93->save( null, array( 'atomic' => false ) ) && $success;
 					}
 				}
 

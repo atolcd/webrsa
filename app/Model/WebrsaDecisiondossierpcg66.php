@@ -3,7 +3,7 @@
 	 * Code source de la classe WebrsaDecisiondossierpcg66.
 	 *
 	 * @package app.Model
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Model.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'WebrsaAbstractLogic', 'Model' );
 	App::uses('WebrsaLogicAccessInterface', 'Model/Interface');
@@ -29,7 +29,7 @@
 		 * @var array
 		 */
 		public $uses = array('Decisiondossierpcg66');
-		
+
 		/**
 		 * Récupère les données pour le PDf
 		 */
@@ -37,7 +37,6 @@
 			// TODO: error404/error500 si on ne trouve pas les données
 			$optionModel = ClassRegistry::init('Option');
 			$qual = $optionModel->qual();
-			$typevoie = $optionModel->typevoie();
 			$services = $this->Decisiondossierpcg66->Dossierpcg66->Serviceinstructeur->find('list');
 			$situationspdos = $this->Decisiondossierpcg66->Dossierpcg66->Personnepcg66->Personnepcg66Situationpdo->Situationpdo->find('list');
 			$conditions = array('Decisiondossierpcg66.id' => $id);
@@ -389,11 +388,11 @@
 						ORDER BY {$table}.created DESC
 						LIMIT 1";
 		}
-		
+
 		/**
 		 * Donne la query pour un index
 		 * Dans ce cas precis, l'index est l'edit d'un dossier pcg
-		 * 
+		 *
 		 * @param integer $dossierpcg66_id
 		 * @return array
 		 */
@@ -420,10 +419,10 @@
 				)
 			);
 		}
-		
+
 		/**
 		 * Permet d'obtenir le nécéssaire pour calculer les droits d'accès métier à une action
-		 * 
+		 *
 		 * @param array $conditions
 		 * @param array $params
 		 * @return array
@@ -446,31 +445,31 @@
 					'Decisiondossierpcg66.id' => 'DESC',
 				)
 			);
-			
+
 			$results = $this->Decisiondossierpcg66->find('all', $this->completeVirtualFieldsForAccess($query, $params));
 			return $results;
 		}
-		
+
 		/**
 		 * Permet d'obtenir les paramètres à envoyer à WebrsaAccess pour une personne en particulier
-		 * 
+		 *
 		 * @see WebrsaAccess::getParamsList
 		 * @param integer $dossierpcg66_id
 		 * @param array $params - Liste des paramètres actifs
 		 */
 		public function getParamsForAccess($dossierpcg66_id, array $params = array()) {
 			$results = array();
-			
+
 			if (in_array('ajoutPossible', $params)) {
 				$results['ajoutPossible'] = $this->ajoutPossible($dossierpcg66_id, $params);
 			}
-			
+
 			return $results;
 		}
-		
+
 		/**
 		 * Permet de savoir si il est possible d'ajouter un enregistrement
-		 * 
+		 *
 		 * @param integer $dossierpcg66_id
 		 * @param array $params
 		 * @return boolean
@@ -481,7 +480,7 @@
 				'contain' => false,
 				'joins' => array(
 					$this->Decisiondossierpcg66->Dossierpcg66->join('Personnepcg66', array('type' => 'INNER')),
-					$this->Decisiondossierpcg66->Dossierpcg66->join('Decisiondossierpcg66', 
+					$this->Decisiondossierpcg66->Dossierpcg66->join('Decisiondossierpcg66',
 						array(
 							'type' => 'LEFT',
 							'conditions' => array('Decisiondossierpcg66.etatdossierpcg IS NULL') // Décision non annulé
@@ -507,13 +506,13 @@
 				),
 				'order' => array('Decisiondossierpcg66.created' => 'DESC')
 			));
-			
+
 			return !empty($dossierpcg);
 		}
-		
+
 		/**
 		 * Ajoute les virtuals fields pour permettre le controle de l'accès à une action
-		 * 
+		 *
 		 * @param array $query
 		 * @param array $params
 		 * @return type
@@ -533,11 +532,11 @@
 					'Dossierpcg66.dateimpression',
 				)
 			);
-			
+
 			if (WebrsaModelUtility::findJoinKey("Dossierpcg66", $query) === false) {
 				$query['joins'][] = $this->Decisiondossierpcg66->join("Dossierpcg66");
 			}
-			
+
 			return $query;
 		}
 	}

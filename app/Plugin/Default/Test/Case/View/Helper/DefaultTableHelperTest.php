@@ -182,6 +182,12 @@
 			$this->View = new View( $controller );
 			$this->DefaultTable = new DefaultTableHelper( $this->View );
 
+			$this->DefaultTable->DefaultHtml->Permissions = $this->getMock(
+				'PermissionsHelper',
+				array( 'check' )
+			);
+
+
 			$this->_setRequest( self::$requestsParams['page_2_of_7'] );
 			Configure::write('ConfigurableQuery.common.two_ways_order.enabled', false);
 		}
@@ -238,7 +244,7 @@
 			$result = $this->DefaultTable->thead( $this->fields, $params );
 			$expected = '<thead>
 							<tr>
-								<th id="ColumnAppleId"><a href="'.Router::url('/').'apples/index/page:1/sort:Apple.id/direction:asc">Apple.id</a></th>
+								<th id="ColumnAppleId"><a href="'.Router::url('/').'apples/index/sort:Apple.id/direction:asc">Apple.id</a></th>
 								<th id="ColumnInputDataAppleColor">data[Apple][color]</th>
 								<th class="actions" id="ColumnActions">Actions</th>
 							</tr>
@@ -370,6 +376,8 @@
 			$_SESSION['Auth']['Permissions']['Module:Apples'] = true;
 			$params = array();
 
+			$this->DefaultTable->DefaultHtml->Permissions->expects($this->any())->method('check')->will($this->returnValue(true));
+
 			$result = $this->DefaultTable->tbody( array(), $this->fields, $params );
 			$expected = null;
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
@@ -447,6 +455,8 @@
 			$_SESSION['Auth']['Permissions']['Module:Apples'] = true;
 			$params = array();
 
+			$this->DefaultTable->DefaultHtml->Permissions->expects($this->any())->method('check')->will($this->returnValue(true));
+
 			$result = $this->DefaultTable->index( array(), $this->fields, $params );
 			$expected = null;
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
@@ -456,7 +466,7 @@
 			$expected = '<table id="TableApplesIndex" class="apples index">
 							<thead>
 								<tr>
-									<th id="TableApplesIndexColumnAppleId"><a href="'.Router::url('/').'apples/index/page:1/sort:Apple.id/direction:asc">Apple.id</a></th>
+									<th id="TableApplesIndexColumnAppleId"><a href="'.Router::url('/').'apples/index/sort:Apple.id/direction:asc">Apple.id</a></th>
 									<th id="TableApplesIndexColumnInputDataAppleColor">data[Apple][color]</th>
 									<th class="actions" id="TableApplesIndexColumnActions">Actions</th>
 								</tr>
@@ -483,7 +493,7 @@
 			$expected = '<table id="TableTestApplesIndex" class="apples index">
 							<thead>
 								<tr>
-									<th id="TableTestApplesIndexColumnAppleId"><a href="'.Router::url('/').'apples/index/page:1/sort:Apple.id/direction:asc">Apple.id</a></th>
+									<th id="TableTestApplesIndexColumnAppleId"><a href="'.Router::url('/').'apples/index/sort:Apple.id/direction:asc">Apple.id</a></th>
 									<th id="TableTestApplesIndexColumnInputDataAppleColor">data[Apple][color]</th>
 									<th class="actions" id="TableTestApplesIndexColumnActions">Actions</th>
 								</tr>
@@ -513,7 +523,7 @@
 			$expected = '<table id="TableTestApplesIndex" class="apples index">
 							<thead>
 								<tr>
-									<th class="dossier_id" id="TableTestApplesIndexColumnAppleId"><a href="'.Router::url('/').'apples/index/page:1/sort:Apple.id/direction:asc">Apple.id</a></th>
+									<th class="dossier_id" id="TableTestApplesIndexColumnAppleId"><a href="'.Router::url('/').'apples/index/sort:Apple.id/direction:asc">Apple.id</a></th>
 									<th id="TableTestApplesIndexColumnInputDataAppleColor">data[Apple][color]</th>
 									<th class="actions" id="TableTestApplesIndexColumnActions">Actions</th>
 								</tr>
@@ -551,7 +561,7 @@
 									<th class="action"> </th>
 								</tr>
 								<tr>
-									<th class="dossier_id" id="TableTestApplesIndexColumnAppleId"><a href="'.Router::url('/').'apples/index/page:1/sort:Apple.id/direction:asc">Apple.id</a></th>
+									<th class="dossier_id" id="TableTestApplesIndexColumnAppleId"><a href="'.Router::url('/').'apples/index/sort:Apple.id/direction:asc">Apple.id</a></th>
 									<th id="TableTestApplesIndexColumnInputDataAppleColor">data[Apple][color]</th>
 									<th class="actions" id="TableTestApplesIndexColumnActions">Actions</th>
 								</tr>
@@ -586,9 +596,9 @@
 			$expected = '<table id="TableApplesIndex" class="apples index">
 				<thead>
 					<tr>
-						<th id="TableApplesIndexColumnAppleId"><a href="'.Router::url('/').'apples/index/page:1/sort:Apple.id/direction:asc">Apple.id</a></th>
-						<th id="TableApplesIndexColumnAppleCreated"><a href="'.Router::url('/').'apples/index/page:1/sort:Apple.created/direction:asc">Apple.created</a></th>
-						<th id="TableApplesIndexColumnAppleModified"><a href="'.Router::url('/').'apples/index/page:1/sort:Apple.modified/direction:asc">Apple.modified</a></th>
+						<th id="TableApplesIndexColumnAppleId"><a href="'.Router::url('/').'apples/index/sort:Apple.id/direction:asc">Apple.id</a></th>
+						<th id="TableApplesIndexColumnAppleCreated"><a href="'.Router::url('/').'apples/index/sort:Apple.created/direction:asc">Apple.created</a></th>
+						<th id="TableApplesIndexColumnAppleModified"><a href="'.Router::url('/').'apples/index/sort:Apple.modified/direction:asc">Apple.modified</a></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -604,7 +614,7 @@
 			$expected = '<table id="TableApplesIndex" class="apples index">
 							<thead>
 								<tr>
-									<th id="TableApplesIndexColumnAppleId"><a href="'.Router::url('/').'apples/index/page:1/sort:Apple.id/direction:asc">Apple.id</a></th>
+									<th id="TableApplesIndexColumnAppleId"><a href="'.Router::url('/').'apples/index/sort:Apple.id/direction:asc">Apple.id</a></th>
 									<th id="TableApplesIndexColumnInputDataAppleColor">data[Apple][color]</th>
 									<th class="actions" id="TableApplesIndexColumnActions">Actions</th>
 								</tr>
@@ -770,6 +780,8 @@
 		 */
 		public function testTr() {
 			$_SESSION['Auth']['Permissions']['Module:Apples'] = true;
+
+			$this->DefaultTable->DefaultHtml->Permissions->expects($this->any())->method('check')->will($this->returnValue(true));
 
 			// 1. Avec le type list
 			$fields = array(

@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe CompositionsregroupementsepsController.
 	 *
@@ -7,9 +7,11 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
-	 * La classe CompositionsregroupementsepsController ...
+	 * La classe CompositionsregroupementsepsController s'occupe du paramétrage
+	 * des compositions des regroupements de l'EP.
 	 *
 	 * @package app.Controller
 	 */
@@ -27,9 +29,7 @@
 		 *
 		 * @var array
 		 */
-		public $components = array(
-			
-		);
+		public $components = array( 'WebrsaParametrages' );
 
 		/**
 		 * Helpers utilisés.
@@ -37,29 +37,33 @@
 		 * @var array
 		 */
 		public $helpers = array(
-			'Default',
-			'Default2',
+			'Default3' => array(
+				'className' => 'Default.DefaultDefault'
+			)
 		);
-		
+
+		/**
+		 * Modèles utilisés.
+		 *
+		 * @var array
+		 */
+		public $uses = array( 'Compositionregroupementep', 'Regroupementep' );
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
-		public $commeDroit = array(
-			
-		);
-		
+		public $commeDroit = array();
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
-		public $aucunDroit = array(
-			
-		);
-		
+		public $aucunDroit = array();
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -67,65 +71,71 @@
 		 * @var array
 		 */
 		public $crudMap = array(
-			'delete' => 'delete',
 			'edit' => 'update',
 			'index' => 'read',
 		);
 
-		protected function _setOptions() {
-			$options = $this->Compositionregroupementep->enums();
-			$this->set( compact( 'options' ) );
-		}
+		/**
+		 * Liste des tables à ne pas prendre en compte dans les enregistrements
+		 * vérifiés pour éviter les suppressions en cascade intempestives.
+		 *
+		 * @var array
+		 */
+		public $blacklist = array();
 
+		/**
+		 * Liste des compositions des équipes pluridisciplinaires
+		 */
 		public function index() {
-			$this->paginate = array(
-				'limit' => 10
+			$erreurs = array(
+				'Merci d\'ajouter au moins un regroupement avant d\'en indiquer la composition.' => 0 == $this->Compositionregroupementep->Regroupementep->find( 'count' ),
+				'Merci d\'ajouter au moins un membre avant d\'en indiquer la composition.' => 0 == $this->Compositionregroupementep->Fonctionmembreep->find( 'count' )
 			);
 
-			$this->_setOptions();
-			$this->set( 'regroupementseps', $this->paginate( $this->Compositionregroupementep->Regroupementep ) );
-			$compteurs = array(
-				'Regroupementep' => $this->Compositionregroupementep->Regroupementep->find( 'count' ),
-				'Fonctionmembreep' => $this->Compositionregroupementep->Fonctionmembreep->find( 'count' )
+			$query = array(
+				'fields' => array(
+					'Regroupementep.id',
+					'Regroupementep.name'
+				),
+				'contain' => false,
+				'order' => array(
+					'Regroupementep.name ASC'
+				)
 			);
-			$this->set( compact( 'compteurs' ) );
+
+			$this->WebrsaParametrages->index( $query, array( 'modelClass' => 'Regroupementep' ) );
+			$this->set( compact( 'erreurs' ) );
 		}
 
 		/**
-		*
-		*/
-
+		 * Modification d'une composition d'EP.
+		 *
+		 * @param integer $id
+		 */
 		public function edit( $id = null ) {
-			if( !empty( $this->request->data ) ) {
-				$success = true;
-				$this->Compositionregroupementep->begin();
-				$prioritaireExist = false;
-				foreach( $this->request->data['Compositionregroupementep'] as $functionmembreep_id => $fields ) {
-					if ( $this->request->data['Compositionregroupementep'][$functionmembreep_id]['prioritaire'] == 1 ) {
-						$prioritaireExist = true;
-					}
-					$compositionregroupementep['Compositionregroupementep'] = $fields;
-					$compositionregroupementep['Compositionregroupementep']['regroupementep_id'] = $id;
-					$compositionregroupementep['Compositionregroupementep']['fonctionmembreep_id'] = $functionmembreep_id;
-					$this->Compositionregroupementep->create( $compositionregroupementep );
-					$success = $this->Compositionregroupementep->save() && $success;
-				}
-				$success = $prioritaireExist && $success;
-				if ( !$prioritaireExist ) {
-					$this->set( 'prioritaireExist', 'error' );
-				}
+			$fonctionsmembreseps = $this->Compositionregroupementep->Fonctionmembreep->find( 'list' );
 
-				$this->_setFlashResult( 'Save', $success );
-				if( $success ) {
-					$this->Compositionregroupementep->commit();
+			if( false === empty( $this->request->data ) ) {
+				// Retour à la liste en cas d'annulation
+				if( isset( $this->request->data['Cancel'] ) ) {
 					$this->redirect( array( 'action' => 'index' ) );
 				}
-				else{
-					$this->Compositionregroupementep->rollback();
+
+				$prioritaires = Hash::extract( $this->request->data, 'Compositionregroupementep.{n}[prioritaire=1]' );
+
+				if( true === empty( $prioritaires ) ) {
+					$this->Flash->error( 'Merci de mettre au moins un membre prioritaire (les mettre tous prioritaires si aucune gestion).' );
+				}
+				else if( $this->Compositionregroupementep->saveAll( $this->request->data['Compositionregroupementep'] ) ) {
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect( array( 'action' => 'index' ) );
+				}
+				else {
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
-				$regroupementep = $this->Compositionregroupementep->Regroupementep->find(
+				$record = $this->Compositionregroupementep->Regroupementep->find(
 					'first',
 					array(
 						'conditions' => array( 'Regroupementep.id' => $id ),
@@ -134,25 +144,33 @@
 						)
 					)
 				);
-				$this->assert( !empty( $regroupementep ), 'error404' );
-				$this->request->data['Regroupementep'] = $regroupementep['Regroupementep'];
-				foreach( $regroupementep['Compositionregroupementep'] as $compo ) {
-					$this->request->data['Compositionregroupementep'][$compo['fonctionmembreep_id']] = $compo;
+
+				if( true === empty( $record ) ) {
+					throw new NotFoundException();
+				}
+
+				$this->request->data = array(
+					'Regroupementep' => $record['Regroupementep'],
+					'Compositionregroupementep' => array()
+				);
+
+				foreach( $record['Compositionregroupementep'] as $compositionregroupementep ) {
+					$this->request->data['Compositionregroupementep'][$compositionregroupementep['fonctionmembreep_id']] = $compositionregroupementep;
+				}
+
+				foreach( array_keys( $fonctionsmembreseps ) as $fonctionmembreep_id ) {
+					if( false === isset( $this->request->data['Compositionregroupementep'][$fonctionmembreep_id] ) ) {
+						$fields = array_keys( $this->Compositionregroupementep->schema() );
+						$fields = array_combine( $fields, array_fill( 0, count( $fields ), null ) );
+						$fields['fonctionmembreep_id'] = $fonctionmembreep_id;
+						$fields['regroupementep_id'] = $id;
+						$this->request->data['Compositionregroupementep'][$fonctionmembreep_id] = $fields;
+					}
 				}
 			}
-			$fonctionsmembreseps = $this->Compositionregroupementep->Fonctionmembreep->find( 'list' );
-			$this->set( compact( 'fonctionsmembreseps' ) );
-			$this->_setOptions();
-		}
 
-		/**
-		*
-		*/
-
-		public function delete( $id ) {
-			$success = $this->Fonctionmembreep->delete( $id );
-			$this->_setFlashResult( 'Delete', $success );
-			$this->redirect( array( 'action' => 'index' ) );
+			$options = $this->Compositionregroupementep->enums();
+			$this->set( compact( 'options', 'fonctionsmembreseps' ) );
 		}
 	}
 ?>

@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par DSPs (nouveau)"
+	 * Menu "Recherches" > "Par DSPs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dsps.search',
@@ -55,8 +55,6 @@
 				),
 				// 5.2 Colonnes du tableau de résultats
 				'fields' => array(
-					'Personne.email',//@fixme
-					'Modecontact.adrelec',//@fixme
 					// Nom de l'allocataire
 					'Personne.nom_complet_court',
 					// Commune de l'allocataire
@@ -126,7 +124,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par DSPs (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par DSPs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dsps.exportcsv',
@@ -184,23 +182,7 @@
 					'Actrechromev3.appellationromev3',
 					'Personne.numfixe' => array( 'label' => 'Num de telephone fixe' ),
 					'Personne.numport' => array( 'label' => 'Num de telephone portable' ),
-					'Personne.email' => array( 'label' => 'Adresse mail' ),
-					'Dsp.libcooraccosocindi',
-					'Dsp.nivetu',
-					'Dsp.nivdipmaxobt',
-					'Dsp.annobtnivdipmax',
-					'Dsp.topqualipro',
-					'Dsp.libautrqualipro',
-					'Dsp.topcompeextrapro',
-					'Dsp.libcompeextrapro',
-					'Dsp.topengdemarechemploi',
-					'Dsp.inscdememploi',
-					'Dsp.topprojpro',
-					'Dsp.topmoyloco',
-					'Dsp.toppermicondub',
-					'Dsp.topautrpermicondu',
-					'Dsp.libautrpermicondu',
-					'DspRev.modified'
+					'Personne.email' => array( 'label' => 'Adresse mail' )
 				)
 			),
 			// 4. Temps d'exécution, mémoire maximum, ...
@@ -209,141 +191,6 @@
 	);
 
 	// -------------------------------------------------------------------------
-
-	/**
-	 * Liste des champs devant apparaître dans les résultats de la recherche par DSP:
-	 *	- Dsps.index.fields contient les champs de chaque ligne du tableau de résultats
-	 *	- Dsps.index.innerTable contient les champs de l'infobulle de chaque ligne du tableau de résultats
-	 *	- Dsps.exportcsv contient les champs de chaque ligne du tableau à télécharger au format CSV
-	 *
-	 * Voir l'onglet "Environnement logiciel" > "WebRSA" > "Champs spécifiés dans
-	 * le webrsa.inc" de la vérification de l'application.
-	 *
-	 * @deprecated since 3.0.00
-	 */
-	Configure::write(
-		'Dsps',
-		array(
-			'index' => array(
-				'fields' => array(
-					// Nom de l'allocataire
-					'Personne.nom_complet_court',
-					// Commune de l'allocataire
-					'Adresse.nomcom',
-					// N° CAF
-					'Dossier.matricule',
-					// Difficultés sociales
-					'Donnees.difsoc',
-					// Domaine d'accompagnement individuel
-					'Donnees.nataccosocindi',
-					// Obstacles à la recherche d'emploi
-					'Donnees.difdisp',
-					// domaine de la dernière activité
-					'Deractromev3.domaineromev3',
-					// métier de la dernière activité
-					'Deractromev3.metierromev3',
-					// domaine de l'emploi recherché
-					'Actrechromev3.domaineromev3',
-					// métier de l'emploi recherché
-					'Actrechromev3.metierromev3',
-					// Secteur dernière activité
-					'Donnees.libsecactderact',
-					// Dernière activité
-					'Donnees.libderact',
-					// Secteur activité recherchée
-					'Donnees.libsecactrech',
-					// Activité recherchée
-					'Donnees.libemploirech'
-				),
-				'innerTable' => array(
-					'Personne.dtnai',
-					'Adresse.numcom',
-					'Personne.nir',
-					'Situationdossierrsa.etatdosrsa',
-					'Donnees.nivetu',
-					'Donnees.hispro',
-					//intitulés des structures référentes
-					'Structurereferenteparcours.lib_struc' => array(
-						'label' => __d( 'search_plugin_93', 'Structurereferenteparcours.lib_struc' )
-					),
-					'Referentparcours.nom_complet' => array(
-						'label' => __d( 'search_plugin_93', 'Referentparcours.nom_complet' )
-					),
-					'Deractromev3.familleromev3',
-					'Deractromev3.appellationromev3',
-					'Actrechromev3.familleromev3',
-					'Actrechromev3.appellationromev3'
-				),
-				'header' => array(
-					array( 'Dossier' => array( 'colspan' => 3 ) ),
-					array( 'Accompagnement et difficultés' => array( 'colspan' => 3 ) ),
-					array( 'Code ROME' => array( 'colspan' => 4 ) ),
-					array( 'Hors code ROME' => array( 'colspan' => 4 ) ),
-					array( ' ' => array( 'class' => 'action noprint' ) ),
-					array( ' ' => array( 'style' => 'display: none' ) ),
-				)
-			),
-			'exportcsv1' => array(
-				'Dossier.numdemrsa',
-				'Dossier.matricule',
-				'Situationdossierrsa.etatdosrsa',
-				'Personne.qual',
-				'Personne.nom',
-				'Personne.prenom',
-				'Dossier.matricule',
-				'Detaildroitrsa.natpf',
-				'Calculdroitrsa.toppersdrodevorsa',
-				'Memo.name',
-				'Personne.age',
-				'Adresse.numvoie',
-				'Adresse.libtypevoie',
-				'Adresse.nomvoie',
-				'Adresse.complideadr',
-				'Adresse.compladr',
-				'Adresse.codepos',
-				'Adresse.nomcom',
-				'Donnees.libsecactrech',
-				'Donnees.libemploirech',
-				//intitulés des structures référentes
-				'Structurereferenteparcours.lib_struc' => array(
-					'label' => __d( 'search_plugin_93', 'Structurereferenteparcours.lib_struc' )
-				),
-				'Referentparcours.nom_complet' => array(
-					'label' => __d( 'search_plugin_93', 'Referentparcours.nom_complet' )
-				),
-				'Donnees.difsoc',
-				'Donnees.nataccosocindi',
-				'Donnees.difdisp',
-				'Deractromev3.familleromev3',
-				'Deractromev3.domaineromev3',
-				'Deractromev3.metierromev3',
-				'Deractromev3.appellationromev3',
-				'Actrechromev3.familleromev3',
-				'Actrechromev3.domaineromev3',
-				'Actrechromev3.metierromev3',
-				'Actrechromev3.appellationromev3',
-				'Personne.numfixe' => array( 'label' => 'Num de telephone fixe' ),
-				'Personne.numport' => array( 'label' => 'Num de telephone portable' ),
-				'Personne.email' => array( 'label' => 'Adresse mail' ),
-				'Dsp.libcooraccosocindi',
-				'Dsp.nivetu',
-				'Dsp.nivdipmaxobt',
-				'Dsp.annobtnivdipmax',
-				'Dsp.topqualipro',
-				'Dsp.libautrqualipro',
-				'Dsp.topcompeextrapro',
-				'Dsp.libcompeextrapro',
-				'Dsp.topengdemarechemploi',
-				'Dsp.inscdememploi',
-				'Dsp.topprojpro',
-				'Dsp.topmoyloco',
-				'Dsp.toppermicondub',
-				'Dsp.topautrpermicondu',
-				'Dsp.libautrpermicondu',
-				'DspRev.modified',
-			)
-		)
-	);
 
 	/**
 	 * Mise en évidence de certains champs du formulaire des Dsps

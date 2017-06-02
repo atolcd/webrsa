@@ -17,6 +17,8 @@
 		define( 'GEDOOO_TEST_FILE', GEDOOO_PLUGIN_DIR.'Vendor'.DS.'modelesodt'.DS.'test_gedooo.odt' );
 	}
 
+	App::uses( 'ModelBehavior', 'Model' );
+
 	/**
 	 * La classe GedoooBehavior correspond au patron de conception "fabrique"
 	 * (Factory method pattern) et permet d'attacher le bon behavior suivant la
@@ -54,9 +56,11 @@
 					$this->_gedoooBehavior = 'GedoooClassic';
 					break;
 				case 'cloudooo':
+				case 'cloudooo_ancien':
 					$this->_gedoooBehavior = 'GedoooCloudooo';
 					break;
 				case 'unoconv':
+				case 'unoconv_ancien':
 					$this->_gedoooBehavior = 'GedoooUnoconv';
 					break;
 				default:
@@ -67,6 +71,9 @@
 				if( !defined( 'PHPGEDOOO_DIR' ) ) {
 					if( $method == 'classic' ) {
 						define( 'PHPGEDOOO_DIR', GEDOOO_PLUGIN_DIR.'Vendor'.DS.'phpgedooo_ancien'.DS );
+					}
+					else if ( false === strpos( $method, '_ancien' ) ) {
+						define( 'PHPGEDOOO_DIR', GEDOOO_PLUGIN_DIR.'Vendor'.DS.'phpgedooo_client'.DS.'src'.DS );
 					}
 					else {
 						define( 'PHPGEDOOO_DIR', GEDOOO_PLUGIN_DIR.'Vendor'.DS.'phpgedooo_nouveau'.DS );
@@ -102,9 +109,18 @@
 		 */
 		public function gedConfigureKeys( Model $model ) {
 			$keys = array(
-				'Gedooo.method' => 'string',
+				'Gedooo.method' => array(
+					array( 'rule' => 'string', 'allowEmpty' => false ),
+					array( 'rule' => 'inList', array( 'classic', 'cloudooo', 'cloudooo_ancien', 'unoconv', 'unoconv_ancien' ) )
+				),
 				'Gedooo.debug_export_data' => array(
-					array( 'rule' => 'boolean', 'allowEmpty' => true ),
+					array( 'rule' => 'boolean', 'allowEmpty' => true )
+				),
+				'Gedooo.dont_force_newlines' => array(
+					array( 'rule' => 'boolean', 'allowEmpty' => true )
+				),
+				'Gedooo.filter_vars' => array(
+					array( 'rule' => 'boolean', 'allowEmpty' => true )
 				)
 			);
 

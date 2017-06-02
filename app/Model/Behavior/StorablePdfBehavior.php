@@ -7,8 +7,8 @@
 	 * @package app.Model.Behavior
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::import( 'Behavior', 'Gedooo.Gedooo' );
-	require_once( APPLIBS.'cmis.php' );
+	App::uses( 'GedoooBehavior', 'Gedooo.Model/Behavior' );
+	require_once  APPLIBS.'cmis.php' ;
 
 	/**
 	 * Classe StorablePdfBehavior, nécessite le plugin Gedooo.
@@ -106,7 +106,7 @@
 			$oldRecord['Pdf']['document'] = $pdf;
 
 			$Pdf->create( $oldRecord );
-			return $Pdf->save();
+			return $Pdf->save( null, array( 'atomic' => false ) );
 		}
 
 		/**
@@ -152,7 +152,7 @@
 		 * @param boolean $created
 		 * @return boolean
 		 */
-		public function afterSave( Model $model, $created ) {
+		public function afterSave( Model $model, $created, $options = array() ) {
 			if( !$this->settings[$model->alias]['active'] ) {
 				return true;
 			}

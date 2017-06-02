@@ -7,7 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( ABSTRACTMODELS.'Thematiqueep.php' );
+	App::uses( 'Thematiqueep', 'Model/Abstractclass' );
 
 	/**
 	 * Saisines d'EP pour les bilans de parcours pour le conseil général du
@@ -22,15 +22,9 @@
 		public $name = 'Defautinsertionep66';
 
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Enumerable' => array(
-				'fields' => array(
-					'origine',
-					'type'
-				)
-			),
-			'Formattable',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 			'Gedooo.Gedooo',
 			'Conditionnable',
 			'ModelesodtConditionnables' => array(
@@ -480,7 +474,7 @@
 //				if( $nbDossierPCG66PourDecisiondefautinsertion66 == 0 && $etatdossierep != 'reporte' ) {
 				if( $nbDossierPCG66PourDecisiondefautinsertion66 == 0 && !in_array( $etatdossierep, array( 'reporte', 'annule' ) ) ) {
 					$this->Bilanparcours66->Dossierpcg66->create( $dossierpcg66 );
-					$success = $this->Bilanparcours66->Dossierpcg66->save() && $success;
+					$success = $this->Bilanparcours66->Dossierpcg66->save( null, array( 'atomic' => false ) ) && $success;
 				}
 			}
 			return $success;
@@ -516,7 +510,7 @@
 //				$formData['Decisiondefautinsertionep66'][$key]['id'] = $this->_prepareFormDataDecisionId( $dossierep );
 
 				// On modifie les enregistrements de cette étape
-				if( @$dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'][0]['etape'] == $niveauDecision  /*&& !empty( $dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'][0]['decision'] )*/ ) {
+				if( @$dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'][0]['etape'] == $niveauDecision ) {
 					$formData['Decisiondefautinsertionep66'][$key] = @$dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'][0];
 					$formData['Decisiondefautinsertionep66'][$key]['referent_id'] = implode( '_', array( $formData['Decisiondefautinsertionep66'][$key]['structurereferente_id'], $formData['Decisiondefautinsertionep66'][$key]['referent_id'] ) );
 					$formData['Decisiondefautinsertionep66'][$key]['structurereferente_id'] = implode( '_', array( $formData['Decisiondefautinsertionep66'][$key]['typeorient_id'], $formData['Decisiondefautinsertionep66'][$key]['structurereferente_id'] ) );
@@ -642,7 +636,7 @@
 							)
 						);
 						$this->Bilanparcours66->Orientstruct->create( $orientstruct );
-						$success = $this->Bilanparcours66->Orientstruct->save() && $success;
+						$success = $this->Bilanparcours66->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
 
 						// Mise à jour de l'enregistrement de la thématique avec l'id de la nouvelle orientation
 						$success = $success && $this->updateAllUnBound(
@@ -672,13 +666,13 @@
 							);
 
 							$this->Bilanparcours66->Orientstruct->Personne->PersonneReferent->create( $referent );
-							$success = $this->Bilanparcours66->Orientstruct->Personne->PersonneReferent->save() && $success;
+							$success = $this->Bilanparcours66->Orientstruct->Personne->PersonneReferent->save( null, array( 'atomic' => false ) ) && $success;
 						}
 					}
 
 					//	Ancien emplacement de la génération du dossierpcg66
 					$this->create( $defautinsertionep66 );
-					$success = $this->save() && $success;
+					$success = $this->save( null, array( 'atomic' => false ) ) && $success;
 				}
 
 				$themeData[] = isset($dossierep['Dossierep']['Passagecommissionep'][0]['Decisiondefautinsertionep66'][0]) ? array( 'Decisiondefautinsertionep66' => $dossierep['Dossierep']['Passagecommissionep'][0]['Decisiondefautinsertionep66'][0] ) : null;
@@ -764,10 +758,6 @@
 						'type'       => 'INNER',
 						'foreignKey' => false,
 						'conditions' => array( 'Situationdossierrsa.dossier_id = Dossier.id /*AND ( Situationdossierrsa.etatdosrsa IN ( \''.implode( '\', \'', $Situationdossierrsa->etatOuvert() ).'\' ) )*/' )
-						/*'conditions' => array(
-							'Situationdossierrsa.dossier_id = Dossier.id',
-							'Situationdossierrsa.etatdosrsa' => array( 'Z', '2', '3', '4' )
-						)*/
 					),
 					array(
 						'table'      => 'calculsdroitsrsa', // FIXME:
@@ -962,7 +952,6 @@
 					$this->Dossierep->Passagecommissionep->Decisiondefautinsertionep66->fields(),
 					$this->Dossierep->Passagecommissionep->Decisiondefautinsertionep66->Typeorient->fields(),
 					$this->Dossierep->Passagecommissionep->Decisiondefautinsertionep66->Structurereferente->fields(),
-// 					$this->Dossierep->Passagecommissionep->Decisiondefautinsertionep66->Structurereferente->Permanence->fields(),
 					$this->Dossierep->Passagecommissionep->Decisiondefautinsertionep66->Referent->fields(),
 					$this->Dossierep->Defautinsertionep66->Bilanparcours66->fields(),
 					array_words_replace(
@@ -994,7 +983,6 @@
 					),
 					$this->Dossierep->Passagecommissionep->Decisiondefautinsertionep66->join( 'Typeorient', array( 'type' => 'LEFT OUTER' ) ),
 					$this->Dossierep->Passagecommissionep->Decisiondefautinsertionep66->join( 'Structurereferente', array( 'type' => 'LEFT OUTER' ) ),
-// 					$this->Dossierep->Passagecommissionep->Decisiondefautinsertionep66->Structurereferente->join( 'Permanence', array( 'type' => 'LEFT OUTER' ) ),
 					$this->Dossierep->Passagecommissionep->Decisiondefautinsertionep66->join( 'Referent', array( 'type' => 'LEFT OUTER' ) ),
 					$this->Dossierep->Defautinsertionep66->join( 'Bilanparcours66', array( 'type' => 'INNER' ) ),
 					array_words_replace(
@@ -1039,9 +1027,6 @@
 						$this->Dossierep->Personne->Foyer->Adressefoyer->Adresse->fields(),
 						$this->Bilanparcours66->fields(),
 						$this->Bilanparcours66->Structurereferente->fields(),
-// 						$this->Bilanparcours66->Structurereferente->Permanence->fields(),
-// 						$this->Bilanparcours66->Serviceinstructeur->fields(),
-// 						$this->Bilanparcours66->User->fields(),
 						$this->Contratinsertion->fields(),
 						$this->Orientstruct->fields()
 					),
@@ -1056,9 +1041,6 @@
 						$this->join( 'Contratinsertion', array( 'type' => 'LEFT OUTER' ) ),
 						$this->join( 'Orientstruct', array( 'type' => 'LEFT OUTER' ) ),
 						$this->Bilanparcours66->join( 'Structurereferente', array( 'type' => 'LEFT OUTER' ) ),
-// 						$this->Bilanparcours66->join( 'User', array( 'type' => 'LEFT OUTER' ) ),
-// 						$this->Bilanparcours66->join( 'Serviceinstructeur', array( 'type' => 'LEFT OUTER' ) ),
-// 						$this->Bilanparcours66->Structurereferente->join( 'Permanence', array( 'type' => 'LEFT OUTER' ) ),
 					),
 					'recursive' => -1,
 					'conditions' => array(
@@ -1073,9 +1055,6 @@
 				array(
 					'Personne' => array(
 						'qual' => $Option->qual()
-					),
-					'type' => array(
-						'voie' => $Option->typevoie()
 					)
 				),
 				$this->enums()
@@ -1174,7 +1153,6 @@
 				array(
 					$this->join( 'Bilanparcours66' ),
 					$this->Bilanparcours66->join( 'Structurereferente' ),
-// 					$this->Bilanparcours66->Structurereferente->join( 'Permanence', array( 'type' => 'LEFT OUTER' ) ),
 					array_words_replace(
 						$this->Bilanparcours66->join( 'User', array( 'type' => 'LEFT OUTER' ) ),
 						array(
@@ -1189,7 +1167,6 @@
 				array_merge(
 					$this->Bilanparcours66->fields(),
 					$this->Bilanparcours66->Structurereferente->fields(),
-// 					$this->Bilanparcours66->Structurereferente->Permanence->fields(),
 					array_words_replace(
 						$this->Bilanparcours66->User->fields(),
 						array(
@@ -1327,9 +1304,6 @@
 		* d'EP pour un certain niveau de décision. On revoie la chaîne vide car on
 		* n'est pas sensés imprimer de décision pour la commission.
 		*/
-// 		public function getDecisionPdf( $passagecommissionep_id, $user_id = null  ) {
-// 			return '';
-// 		}
 		public function getDecisionPdf( $passagecommissionep_id, $user_id = null  ) {
 			$modele = $this->alias;
 			$modeleDecisions = 'Decision'.Inflector::underscore( $this->alias );
@@ -1383,7 +1357,6 @@
 				// Traductions
 				$datas['options'] = $this->Dossierep->Passagecommissionep->{$modeleDecisions}->enums();
 				$datas['options']['Personne']['qual'] = ClassRegistry::init( 'Option' )->qual();
-				$datas['options']['type']['voie'] = ClassRegistry::init( 'Option' )->typevoie();
 
 				Cache::write( $cacheKey, $datas );
 			}
@@ -1594,7 +1567,7 @@
 			$result = $this->Dossierep->Passagecommissionep->find( 'all', $query );
 			return !empty( $result );
 		}
-		
+
 		/**
 		 * Retourne le querydata qui sera utilisé par la thématique pour la
 		 * sélection des dossiers à associer à une commission d'EP donnée.
@@ -1604,9 +1577,9 @@
 		 */
 		public function qdListeDossierChoose($commissionep_id = null) {
 			$query = parent::qdListeDossierChoose($commissionep_id);
-			
+
 			$query['fields'][] = 'Dossierep.is_reporte';
-			
+
 			return $query;
 		}
 	}

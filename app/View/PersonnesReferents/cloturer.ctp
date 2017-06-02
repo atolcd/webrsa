@@ -8,7 +8,7 @@
 ?>
 
 <h1><?php echo $this->pageTitle;?></h1>
-<?php echo $this->Form->create( 'PersonneReferent',array() );?>
+<?php echo $this->Form->create( 'PersonneReferent',array('novalidate' => true) );?>
 	<fieldset>
 		<?php
 

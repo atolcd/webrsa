@@ -22,13 +22,6 @@
 		public $name = 'Actionfp93';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
@@ -37,6 +30,7 @@
 			'Cataloguepdifp93',
 			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
 
 		/**
@@ -47,29 +41,29 @@
 		 */
 		public $validate = array(
 			'typethematiquefp93_id' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' ),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'allowEmpty' => false,
 					'required' => false
 				)
 			),
 			'thematiquefp93_id' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' ),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'allowEmpty' => false,
 					'required' => false
 				)
 			),
 			'categoriefp93_id' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' ),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'allowEmpty' => false,
 					'required' => false
 				)
 			),
 			'prestatairefp93_id' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' ),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'allowEmpty' => false,
 					'required' => false
 				)

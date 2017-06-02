@@ -6,7 +6,6 @@
 	}
 	else {
 		$this->pageTitle = 'CER ';
-//		$foyer_id = $this->request->data['Personne']['foyer_id'];
 	}
 ?>
 <h1><?php  echo 'CER  ';?></h1>

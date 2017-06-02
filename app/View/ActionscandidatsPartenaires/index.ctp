@@ -28,8 +28,9 @@
 	echo $this->Default->button(
 		'back',
 		array(
-			'controller' => 'actionscandidats_personnes',
-			'action'     => 'indexparams'
+			'controller' => 'parametrages',
+			'action'     => 'index',
+			'#'     => 'actionscandidats_personnes'
 		),
 		array(
 			'id' => 'Back'

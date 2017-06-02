@@ -7,6 +7,7 @@
 	* @package app.Controller
 	* @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	*/
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	* La classe Decisionspersonnespcgs66Controller permet de gérer les décisions
@@ -54,27 +55,27 @@
 			'Option',
 			'Pdf',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Decisionspersonnespcgs66:edit',
 			'view' => 'Decisionspersonnespcgs66:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -178,7 +179,6 @@
 			if( $this->action == 'add' ) {
 				$personnepcg66_id = $id;
 
-// 				$personnepcg66 = $this->Decisionpersonnepcg66->Personnepcg66Situationpdo->Personnepcg66->findById( $id, null, null, -1 );
 				$personnepcg66 = $this->Decisionpersonnepcg66->Personnepcg66Situationpdo->Personnepcg66->find(
 						'first', array(
 					'conditions' => array(
@@ -242,30 +242,22 @@
 				if( $this->Decisionpersonnepcg66->saveAll( $this->request->data, array( 'validate' => 'only', 'atomic' => false ) ) ) {
 					$saved = true;
 
-					$saved = $this->Decisionpersonnepcg66->save( $this->request->data );
-
-// 					if ( $saved ) {
-// 						$saved = $this->Decisionpersonnepcg66->Personnepcg66Situationpdo->Personnepcg66->Dossierpcg66->updateEtatViaPersonne( $dossierpcg66_id ) && $saved;
-// 					}
-//
-// 					if ( $saved ) {
-// 						$saved = $this->Decisionpersonnepcg66->Personnepcg66Situationpdo->Personnepcg66->Dossierpcg66->updateEtatViaDecisionPersonnepcg( $dossierpcg66_id ) && $saved;
-// 					}
+					$saved = $this->Decisionpersonnepcg66->save( $this->request->data , array( 'atomic' => false ) );
 
 					if( $saved ) {
 						$this->Decisionpersonnepcg66->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'decisionspersonnespcgs66', 'action' => 'index', $personnepcg66_id ) );
 					}
 					else {
 						$this->Decisionpersonnepcg66->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 				else {
 					$this->Decisionpersonnepcg66->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			elseif( $this->action == 'edit' ) {
@@ -385,7 +377,12 @@
 
 
 			$success = $this->Decisionpersonnepcg66->delete( $id );
-			$this->_setFlashResult( 'Delete', $success );
+			if( $success ) {
+				$this->Flash->success( __( 'Delete->success' ) );
+			}
+			else {
+				$this->Flash->error( __( 'Delete->error' ) );
+			}
 			$this->redirect( array( 'controller' => 'decisionspersonnespcgs66', 'action' => 'index', $personnepcg66_id ) );
 		}
 	}

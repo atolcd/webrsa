@@ -1,35 +1,23 @@
 <?php
-    echo $this->Xhtml->tag(
-        'h1',
-        $this->pageTitle = __d( 'piecemodeletypecourrierpcg66', "Piecesmodelestypescourrierspcgs66::{$this->action}" )
-    );
-?>
-<?php
-    echo $this->Default2->index(
-        $piecesmodelestypescourrierspcgs66,
-        array(
-            'Piecemodeletypecourrierpcg66.name',
-            'Modeletypecourrierpcg66.name',
-            'Piecemodeletypecourrierpcg66.isautrepiece' => array( 'type' => 'boolean' ),
-            'Piecemodeletypecourrierpcg66.isactif' => array( 'type' => 'boolean' )
-        ),
-        array(
-            'actions' => array(
-                'Piecesmodelestypescourrierspcgs66::edit',
-                'Piecesmodelestypescourrierspcgs66::delete' => array( 'disabled' => '\'#Piecemodeletypecourrierpcg66.occurences#\' != "0"')
-            ),
-            'add' => 'Piecesmodelestypescourrierspcgs66::add'
-        )
-    );
-
-    echo $this->Default->button(
-        'back',
-        array(
-            'controller' => 'courrierspcgs66',
-            'action'     => 'index'
-        ),
-        array(
-            'id' => 'Back'
-        )
-    );
+	echo $this->element(
+		'WebrsaParametrages/index',
+		array(
+			'cells' => array(
+				'Typecourrierpcg66.name',
+				'Modeletypecourrierpcg66.name',
+				'Piecemodeletypecourrierpcg66.name',
+				'Piecemodeletypecourrierpcg66.isautrepiece' => array( 'type' => 'boolean' ),
+				'Piecemodeletypecourrierpcg66.isactif' => array( 'type' => 'boolean' ),
+				'/Piecesmodelestypescourrierspcgs66/edit/#Piecemodeletypecourrierpcg66.id#' => array(
+					'title' => true
+				),
+				'/Piecesmodelestypescourrierspcgs66/delete/#Piecemodeletypecourrierpcg66.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Piecemodeletypecourrierpcg66.has_linkedrecords#"'
+				)
+			),
+			'backUrl' => '/Parametrages/index/#courrierspcgs66'
+		)
+	);
 ?>

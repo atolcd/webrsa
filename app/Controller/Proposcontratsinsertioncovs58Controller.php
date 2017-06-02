@@ -7,8 +7,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
-	App::uses('WebrsaAccessContratsinsertion', 'Utility');
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaAccessContratsinsertion', 'Utility' );
 
 	/**
 	 * La classe Proposcontratsinsertioncovs58Controller ... (CG 58).
@@ -33,6 +33,7 @@
 			'DossiersMenus',
 			'Jetons2',
 			'RequestHandler',
+			'WebrsaAjaxInsertions'
 		);
 
 		/**
@@ -55,30 +56,27 @@
 			'Option',
 			'WebrsaContratinsertion',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Contratsinsertion:edit',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			'ajax',
-			'ajaxraisonci',
 			'ajaxref',
 			'ajaxstruct',
-			'notificationsop',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -126,8 +124,6 @@
 				$this->set( 'nat_cont_trav', ClassRegistry::init('Contratinsertion')->enum('nat_cont_trav') );
 				$this->set( 'duree_cdd', ClassRegistry::init('Contratinsertion')->enum('duree_cdd') );
 
-				$this->set( 'typevoie', $this->Option->typevoie() );
-
 				$this->set( 'lib_action', ClassRegistry::init('Actioninsertion')->enum('lib_action') );
 				$this->set( 'typo_aide', ClassRegistry::init('Aidedirecte')->enum('typo_aide') );
 				$this->set( 'soclmaj', ClassRegistry::init('Infofinanciere')->enum('natpfcre', array('type' => 'soclmaj')));
@@ -143,30 +139,7 @@
 		 * @param integer $referent_id
 		 */
 		public function ajaxref( $referent_id = null ) {
-			Configure::write( 'debug', 0 );
-
-			if( !empty( $referent_id ) ) {
-				$referent_id = suffix( $referent_id );
-			}
-			else {
-				$referent_id = suffix( Set::extract( $this->request->data, 'Propocontratinsertioncov58.referent_id' ) );
-			}
-
-			$referent = array( );
-			if( !empty( $referent_id ) ) {
-				$qd_referent = array(
-					'conditions' => array(
-						'Referent.id' => $referent_id
-					),
-					'fields' => null,
-					'order' => null,
-					'recursive' => -1
-				);
-				$referent = $this->Propocontratinsertioncov58->Referent->find( 'first', $qd_referent );
-			}
-
-			$this->set( 'referent', $referent );
-			$this->render( 'ajaxref', 'ajax' );
+			return $this->WebrsaAjaxInsertions->referent( $referent_id );
 		}
 
 		/**
@@ -175,25 +148,7 @@
 		 * @param integer $structurereferente_id
 		 */
 		public function ajaxstruct( $structurereferente_id = null ) {
-			Configure::write( 'debug', 0 );
-			$this->set( 'typesorients', $this->Propocontratinsertioncov58->Structurereferente->Typeorient->find( 'list', array( 'fields' => array( 'lib_type_orient' ) ) ) );
-
-			$dataStructurereferente_id = Set::extract( $this->request->data, 'Propocontratinsertioncov58.structurereferente_id' );
-			$structurereferente_id = ( empty( $structurereferente_id ) && !empty( $dataStructurereferente_id ) ? $dataStructurereferente_id : $structurereferente_id );
-
-			$qd_struct = array(
-				'conditions' => array(
-					'Structurereferente.id' => $structurereferente_id
-				),
-				'fields' => null,
-				'order' => null,
-				'recursive' => -1
-			);
-			$struct = $this->Propocontratinsertioncov58->Structurereferente->find( 'first', $qd_struct );
-
-			$this->set( 'struct', $struct );
-			$this->set( 'typevoie', $this->Option->typevoie() );
-			$this->render( 'ajaxstruct', 'ajax' );
+			return $this->WebrsaAjaxInsertions->structurereferente( $structurereferente_id );
 		}
 
 		/**
@@ -359,7 +314,7 @@
 					$dossiercov58['Dossiercov58']['personne_id'] = $personne_id;
 					$dossiercov58['Dossiercov58']['themecov58'] = 'proposcontratsinsertioncovs58';
 
-					$success = $this->Propocontratinsertioncov58->Dossiercov58->save( $dossiercov58 ) && $success;
+					$success = $this->Propocontratinsertioncov58->Dossiercov58->save( $dossiercov58 , array( 'atomic' => false ) ) && $success;
 					$this->request->data['Propocontratinsertioncov58']['dossiercov58_id'] = $this->Propocontratinsertioncov58->Dossiercov58->id;
 				}
 
@@ -377,24 +332,24 @@
 					$this->request->data['Propocontratinsertioncov58']['avisraison_ci'] = Set::classicExtract( $this->request->data, 'Propocontratinsertioncov58.avisraison_radiation_ci' );
 				}
 				/// Validation
-				$success = $this->Propocontratinsertioncov58->save( $this->request->data ) && $success;
+				$success = $this->Propocontratinsertioncov58->save( $this->request->data , array( 'atomic' => false ) ) && $success;
 
 				if( $success ) {
 					$saved = true;
 					if( $saved ) {
 						$this->Propocontratinsertioncov58->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'contratsinsertion', 'action' => 'index', $personne_id ) );
 					}
 					else {
 						$this->Propocontratinsertioncov58->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 				else {
 					$this->Propocontratinsertioncov58->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {
@@ -535,21 +490,21 @@
 			$success = $this->Propocontratinsertioncov58->delete( $propocontratinsertioncov58['Propocontratinsertioncov58']['id'] );
 			$success = $this->Propocontratinsertioncov58->Dossiercov58->delete( $propocontratinsertioncov58['Propocontratinsertioncov58']['dossiercov58_id'] ) && $success;
 
-			$this->_setFlashResult( 'Delete', $success );
-
 			if( $success ) {
 				$this->Propocontratinsertioncov58->commit();
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
 				$this->Propocontratinsertioncov58->rollback();
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 			$this->redirect( $this->referer() );
 		}
 
 		/**
-		 * Fait appel à WebrsaAccessContratsinsertion pour vérifier les droits d'accès 
+		 * Fait appel à WebrsaAccessContratsinsertion pour vérifier les droits d'accès
 		 * à une action en fonction d'un enregistrement
-		 * 
+		 *
 		 * @see ContratsinsertionController::_checkAccess
 		 * @param integer $contratinsertion_id
 		 */
@@ -561,7 +516,7 @@
 			$msgstr = 'Impossible d\'effectuer cette action.';
 
 			if (!WebrsaAccessContratsinsertion::check($this->name, $this->action, $record, $params)) {
-				$this->Session->setFlash($msgstr, 'flash/error');
+				$this->Flash->error($msgstr);
 				$this->redirect($redirectUrl);
 			}
 		}

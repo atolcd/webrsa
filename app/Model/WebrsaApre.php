@@ -30,11 +30,11 @@
 		 * @var array
 		 */
 		public $uses = array('Apre');
-		
+
 		public $aidesApre = array( 'Formqualif', 'Formpermfimo', 'Actprof', 'Permisb', 'Amenaglogt', 'Acccreaentr', 'Acqmatprof', 'Locvehicinsert' );
 
 		public $modelsFormation = array( 'Formqualif', 'Formpermfimo', 'Permisb', 'Actprof' );
-		
+
 		/**
 		*
 		*/
@@ -372,7 +372,7 @@
 										)
 									.')',
 									// la date et l'heure du dernier comité avec lequel elles sont associées est inférieure à la date et l'heure de ce comité-ci
-									'CAST( comitesapres.datecomite || \' \' || comitesapres.heurecomite AS TIMESTAMP ) <=' => "{$comiteapre['Comiteapre']['datecomite']} {$comiteapre['Comiteapre']['heurecomite']}",
+									'( "comitesapres"."datecomite" || \' \' || "comitesapres"."heurecomite" )::TIMESTAMP <=' => "{$comiteapre['Comiteapre']['datecomite']} {$comiteapre['Comiteapre']['heurecomite']}",
 									// la date du recours doit être inférieure à la date de ce comité-ci
 									'apres_comitesapres.daterecours <=' => $comiteapre['Comiteapre']['datecomite'],
 								)
@@ -431,7 +431,7 @@
 										.$this->Apre->ApreComiteapre->sqDernierComiteApre( 'Apre.id' )
 									.')',
 									// la date et l'heure du dernier comité avec lequel elles sont associées est plus récente que la date et l'heure de ce comité-ci
-									'CAST( comitesapres.datecomite || \' \' || comitesapres.heurecomite AS TIMESTAMP ) <=' => "{$comiteapre['Comiteapre']['datecomite']} {$comiteapre['Comiteapre']['heurecomite']}",
+									'( "comitesapres"."datecomite" || \' \' || "comitesapres"."heurecomite" )::TIMESTAMP <=' => "{$comiteapre['Comiteapre']['datecomite']} {$comiteapre['Comiteapre']['heurecomite']}",
 								)
 							)
 						)
@@ -467,7 +467,7 @@
 										)
 									.')',
 									// la date et l'heure de ce comité avec lequel elles sont associées est plus récente que la date et l'heure de ce comité-ci
-									'CAST( comitesapres.datecomite || \' \' || comitesapres.heurecomite AS TIMESTAMP ) <=' => "{$comiteapre['Comiteapre']['datecomite']} {$comiteapre['Comiteapre']['heurecomite']}",
+									'( "comitesapres"."datecomite" || \' \' || "comitesapres"."heurecomite" )::TIMESTAMP <=' => "{$comiteapre['Comiteapre']['datecomite']} {$comiteapre['Comiteapre']['heurecomite']}",
 								)
 							)
 						)
@@ -607,13 +607,7 @@
 						),
 						'Prestation' => array(
 							'rolepers' => ClassRegistry::init('Prestation')->enum('rolepers'),
-						),
-						'Type' => array(
-							'voie' =>  $Option->typevoie(),
-						),
-						'type' => array(
-							'voie' => $Option->typevoie()
-						),
+						)
 					)
 				);
 

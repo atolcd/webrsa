@@ -1,0 +1,47 @@
+# Traductions de valeursparsoussujetscers93.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Valeursparsoussujetscers93/index/:heading"
+msgstr "Paramétrage des valeurs par sous-sujets sur lequel le CER porte"
+
+msgid "/Valeursparsoussujetscers93/add/:heading"
+msgstr "Ajout d'une valeur par sous-sujet sur lequel le CER porte"
+
+msgid "/Valeursparsoussujetscers93/edit/:heading"
+msgstr "Modification du métier exercé pour le CER « #Valeurparsoussujetcer93.name# »"
+
+msgid "/Valeursparsoussujetscers93/add"
+msgstr "Ajouter"
+
+msgid "/Valeursparsoussujetscers93/add/:title"
+msgstr "Ajouter une valeur par sous-sujet sur lequel le CER porte"
+
+msgid "/Valeursparsoussujetscers93/edit"
+msgstr "Modifier"
+
+msgid "/Valeursparsoussujetscers93/edit/#Valeurparsoussujetcer93.id#"
+msgstr "Modifier la valeur par sous-sujet sur lequel le CER porte « #Valeurparsoussujetcer93.name# »"
+
+msgid "/Valeursparsoussujetscers93/delete"
+msgstr "Supprimer"
+
+msgid "/Valeursparsoussujetscers93/delete/#Valeurparsoussujetcer93.id#"
+msgstr "Supprimer la valeur par sous-sujet sur lequel le CER porte « #Valeurparsoussujetcer93.name# »"
+
+msgid "/Valeursparsoussujetscers93/delete/#Valeurparsoussujetcer93.id# ?"
+msgstr "Réellement supprimer la valeur par sous-sujet sur lequel le CER porte « #Valeurparsoussujetcer93.name# » ?"
+
+msgid "/Parametrages/contratsinsertion"
+msgstr "Retour"
+
+msgid "/Parametrages/contratsinsertion/:title"
+msgstr "Retour aux paramétrages des CER"

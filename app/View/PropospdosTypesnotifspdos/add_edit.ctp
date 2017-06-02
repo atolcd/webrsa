@@ -18,10 +18,10 @@
 
 	<?php
 		if( $this->action == 'add' ) {
-			echo $this->Form->create( 'PropopdoTypenotifpdo', array( 'type' => 'post' ) );
+			echo $this->Form->create( 'PropopdoTypenotifpdo', array( 'type' => 'post', 'novalidate' => true ) );
 		}
 		else {
-			echo $this->Form->create( 'PropopdoTypenotifpdo', array( 'type' => 'post' ) );
+			echo $this->Form->create( 'PropopdoTypenotifpdo', array( 'type' => 'post', 'novalidate' => true ) );
 			echo '<div>';
 			echo $this->Form->input( 'PropopdoTypenotifpdo.id', array( 'type' => 'hidden' ) );
 			echo '</div>';

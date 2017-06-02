@@ -22,11 +22,14 @@ Element.addMethods(WebrsaFormTags, WebrsaFormMethods);
 //------------------------------------------------------------------------------
 // 2. Surcharge des méthodes enable et disable
 //------------------------------------------------------------------------------
+
 Form.Element.Methods.disable = Form.Element.Methods.disable.wrap(
 	function (callOriginal, element) {
-		var wrapper = $(element).up([ 'div.input', 'div.checkbox' ]);
-		if(wrapper) {
-			wrapper.addClassName( 'disabled' );
+		if(-1 === ['option', 'optgroup'].indexOf(element.tagName.toLowerCase())) {
+			var wrapper = $(element).up([ 'div.input', 'div.checkbox' ]);
+			if(wrapper) {
+				wrapper.addClassName( 'disabled' );
+			}
 		}
 		return callOriginal(element);
 	}
@@ -34,9 +37,11 @@ Form.Element.Methods.disable = Form.Element.Methods.disable.wrap(
 
 Form.Element.Methods.enable = Form.Element.Methods.enable.wrap(
 	function (callOriginal, element) {
-		var wrapper = $(element).up([ 'div.input', 'div.checkbox' ]);
-		if(wrapper) {
-			wrapper.removeClassName( 'disabled' );
+		if(-1 === ['option', 'optgroup'].indexOf(element.tagName.toLowerCase())) {
+			var wrapper = $(element).up([ 'div.input', 'div.checkbox' ]);
+			if(wrapper) {
+				wrapper.removeClassName( 'disabled' );
+			}
 		}
 		return callOriginal(element);
 	}

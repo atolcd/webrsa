@@ -7,6 +7,7 @@
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
 
 	/**
 	 * La classe JetonsComponent ...
@@ -343,7 +344,7 @@
 				}
 
 				$this->Jeton->create( $jeton );
-				return ( $this->Jeton->save() !== false );
+				return ( $this->Jeton->save( null, array( 'atomic' => false ) ) !== false );
 			}
 			else {
 				return false;
@@ -461,7 +462,7 @@
 					}
 
 					$this->Jeton->create( $jeton );
-					$success = ( $this->Jeton->save() !== false ) && $success;
+					$success = ( $this->Jeton->save( null, array( 'atomic' => false ) ) !== false ) && $success;
 				}
 				return $success;
 			}

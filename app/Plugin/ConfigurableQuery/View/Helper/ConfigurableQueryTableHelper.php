@@ -39,14 +39,14 @@
 		 * Permet l'affichage d'érreur dans le cas où un Préfix est appliqué à un input
 		 * Si self::$entityErrorPrefix = 'Cohorte' alors :
 		 *	 Cohorte.0.Monmodel.field = Monmodel.0.field
-		 * 
+		 *
 		 * @var string
 		 */
 		public $entityErrorPrefix = null;
 
 		/**
 		 * TODO
-		 * 
+		 *
 		 * @param array $fields
 		 * @param array $params
 		 * @return type
@@ -54,7 +54,7 @@
 		public function thead( array $fields, array $params ) {
 			if( $this->entityErrorPrefix !== null ) {
 				$cohorte = Hash::get( $this->request->data, $this->entityErrorPrefix );
-				unset($this->request->data[$this->entityErrorPrefix]);	
+				unset($this->request->data[$this->entityErrorPrefix]);
 			}
 
 			$return = parent::thead( $fields, $params );
@@ -126,26 +126,7 @@
 				$params = $this->addClass( $params, 'tooltips' );
 			}
 
-			$return = parent::index( $data, $fields, $params );
-
-			// FIXME: marche pas, #searchResults ?
-			/*// FIXME: on perd de l'information
-			if( !empty( $innerTable ) ) {
-				$class = '';
-				// FIXME: simplement ajouter la classe tooltips
-				if( preg_match( '/^<table([^>]*)>/i', $return, $matches ) ) {
-					debug( $matches );
-					if( preg_match( '/class="([^"]*)"/', $matches[1], $submatches ) ) {
-						debug( $submatches[1] );
-					}
-					else {
-
-					}
-				}
-				$return = preg_replace( '/^<table([^>])*>/', '<table id="searchResults" class="tooltips">', $return );
-			}*/
-
-			return $return;
+			return parent::index( $data, $fields, $params );
 		}
 	}
 ?>

@@ -7,8 +7,8 @@
 	 * @package app.View.Helper
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::import( 'Helper', 'Html' );
 	App::uses( 'ControllerCache', 'Model/Datasource' );
+	App::uses( 'HtmlHelper', 'View/Helper' );
 
 	/**
 	 * La classe XhtmlHelper est une classe d'aide à l'écriture rapide de code
@@ -126,13 +126,8 @@
 			else {
 				unset( $htmlAttributes['enabled'] );
 
-				if( CAKE_BRANCH == '1.2' ) {
-					return parent::link( $title, $url, $htmlAttributes, $confirmMessage, $escapeTitle );
-				}
-				else {
-					$htmlAttributes['escape'] = $escapeTitle;
-					return parent::link( $title, $url, $htmlAttributes, $confirmMessage );
-				}
+				$htmlAttributes['escape'] = $escapeTitle;
+				return parent::link( $title, $url, $htmlAttributes, $confirmMessage );
 			}
 		}
 
@@ -162,13 +157,8 @@
 				$text = ' ';
 			}
 
-			if( CAKE_BRANCH == '1.2' ) {
-				return parent::tag( $name, $text, $attributes, $escape );
-			}
-			else {
-				$attributes['escape'] = $escape;
-				return parent::tag( $name, $text, $attributes );
-			}
+			$attributes['escape'] = $escape;
+			return parent::tag( $name, $text, $attributes );
 		}
 
 
@@ -401,12 +391,7 @@
 			$content = $this->image( 'icons/printer.png', array( 'alt' => '' ) ).' Imprimer la cohorte';
 
 			if( $enabled ) {
-				if( CAKE_BRANCH == '1.2' ) {
-					$View = ClassRegistry::getObject( 'view' );
-				}
-				else {
-					$View = new View( null, false );
-				}
+				$View = new View( null, false );
 
 				return $View->element( $elementName ).$this->link(
 					$content,

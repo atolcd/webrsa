@@ -22,13 +22,6 @@
 		public $name = 'Categoriefp93';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
@@ -36,7 +29,9 @@
 		public $actsAs = array(
 			'Cataloguepdifp93',
 			'Postgres.PostgresAutovalidate',
-			'Validation2.Validation2Formattable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes'
 		);
 
 		/**
@@ -47,15 +42,25 @@
 		 */
 		public $validate = array(
 			'typethematiquefp93_id' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'thematiquefp93_id' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
+				),
+				'checkUnique' => array(
+					'rule' => array( 'checkUnique', array( 'thematiquefp93_id', 'name' ) ),
+					'message' => 'Ce couple de valeurs de thématique et de catégorie est déjà présent'
 				)
 			),
+			'name' => array(
+				'checkUnique' => array(
+					'rule' => array( 'checkUnique', array( 'thematiquefp93_id', 'name' ) ),
+					'message' => 'Ce couple de valeurs de thématique et de catégorie est déjà présent'
+				)
+			)
 		);
 
 		/**

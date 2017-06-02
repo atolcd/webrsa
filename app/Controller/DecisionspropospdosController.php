@@ -7,6 +7,7 @@
 	* @package app.Controller
 	* @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	*/
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	* La classe DecisionspropospdosController ...
@@ -52,27 +53,26 @@
 			'Option',
 			'Pdf',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Decisionspropospdos:edit',
-			'view' => 'Decisionspropospdos:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -167,7 +167,7 @@
 				if( $this->Decisionpropopdo->saveAll( $this->request->data, array( 'validate' => 'only', 'atomic' => false ) ) ) {
 					$saved = true;
 
-					$saved = $this->Decisionpropopdo->save( $this->request->data );
+					$saved = $this->Decisionpropopdo->save( $this->request->data , array( 'atomic' => false ) );
 
 					if( $saved ) {
 						$saved = $this->Decisionpropopdo->Propopdo->updateEtat( $this->Decisionpropopdo->id );
@@ -176,17 +176,17 @@
 					if( $saved ) {
 						$this->Decisionpropopdo->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'propospdos', 'action' => 'edit', $propopdo_id ) );
 					}
 					else {
 						$this->Decisionpropopdo->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 				else {
 					$this->Decisionpropopdo->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {
@@ -264,7 +264,12 @@
 			$pdo_id = Set::classicExtract( $decisionpropopdo, 'Decisionpropopdo.propopdo_id' );
 
 			$success = $this->Decisionpropopdo->delete( $id );
-			$this->_setFlashResult( 'Delete', $success );
+			if( $success ) {
+				$this->Flash->success( __( 'Delete->success' ) );
+			}
+			else {
+				$this->Flash->error( __( 'Delete->error' ) );
+			}
 			$this->redirect( array( 'controller' => 'propospdos', 'action' => 'edit', $pdo_id ) );
 		}
 

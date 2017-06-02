@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Situationdossierrsa ...
@@ -17,38 +18,49 @@
 	{
 
 		public $name = 'Situationdossierrsa';
+
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $useTable = 'situationsdossiersrsa';
+
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
+		);
+
 		public $validate = array(
 			'etatdosrsa' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'dtrefursa' => array(
-				array(
-					'rule' => 'date',
-					'message' => 'Veuillez vérifier le format de la date.'
-				),
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			),
 			'moticlorsa' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			)
 		);
-		
+
 		/**
 		 * Liste de champs et de valeurs possibles qui ne peuvent pas être mis en
 		 * règle de validation inList ou en contrainte dans la base de données en
 		 * raison des valeurs actuellement en base, mais pour lequels un ensemble
 		 * fini de valeurs existe.
-		 * 
+		 *
 		 * @see AppModel::enums
 		 *
 		 * @var array
@@ -58,7 +70,7 @@
 			'motirefursa' => array('F02', 'F04', 'F09', 'F85', 'F97', 'FDD', 'DSD', 'FDB', 'PCG'),
 			'moticlorsa' => array('PCG', 'ECH', 'EFF', 'MUT', 'RGD', 'RFD', 'RAU', 'RST', 'RSO'),
 		);
-		
+
 		public $belongsTo = array(
 			'Dossier' => array(
 				'className' => 'Dossier',
@@ -113,7 +125,7 @@
 
 		/**
 		 * Import de Option::etatdosrsa
-		 * 
+		 *
 		 * Enums pour les champs
 		 *	- historiquesdroits.etatdosrsa
 		 *	- situationsallocataires.etatdosrsa

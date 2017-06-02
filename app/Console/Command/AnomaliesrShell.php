@@ -8,7 +8,7 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'XShell', 'Console/Command' );
-	App::uses( 'Cake', 'Router' );
+	App::uses( 'Router', 'Routing' );
 
 	/**
 	 * La classe AnomaliesrShell ...

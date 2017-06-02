@@ -8,8 +8,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
-	App::uses('WebrsaAccessTraitementspcgs66', 'Utility');
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaAccessTraitementspcgs66', 'Utility' );
 
 	/**
 	 * La classe Traitementspcgs66Controller (CG 66).
@@ -81,8 +81,6 @@
 		 */
 		public $commeDroit = array(
 			'add' => 'Traitementspcgs66:edit',
-			'exportcsv' => 'Criterestraitementspcgs66:exportcsv',
-			'search' => 'Criterestraitementspcgs66:index',
 			'view' => 'Traitementspcgs66:index',
 		);
 
@@ -114,7 +112,6 @@
 			'ajaxpiece_cohorte' => 'update',
 			'cancel' => 'update',
 			'clore' => 'update',
-			'decision' => 'update',
 			'delete' => 'delete',
 			'deverseDO' => 'update',
 			'download' => 'read',
@@ -139,11 +136,8 @@
 
 			$options[$this->modelClass]['descriptionpdo_id'] = $this->Traitementpcg66->Descriptionpdo->find('list');
 			$options[$this->modelClass]['situationpdo_id'] = $this->Traitementpcg66->Situationpdo->find('list');
-	// 			$options[$this->modelClass]['traitementtypepdo_id'] = $this->Traitementpcg66->Traitementtypepdo->find( 'list' );
 			$options[$this->modelClass]['listeDescription'] = $this->Traitementpcg66->Descriptionpdo->find('all', array('contain' => false));
 			$options[$this->modelClass]['compofoyerpcg66_id'] = $this->Traitementpcg66->Compofoyerpcg66->find('list');
-
-	// 			$options[$this->modelClass]['personnepcg66_situationpdo_id'] = $this->Traitementpcg66->Personnepcg66Situationpdo->find( 'list' );
 
 			$this->set(compact('options'));
 
@@ -158,18 +152,6 @@
 			);
 			$this->set(compact('descriptionspdos'));
 
-			$this->set(
-					'gestionnaire', $this->User->find(
-							'list', array(
-						'fields' => array(
-							'User.nom_complet'
-						),
-						'conditions' => array(
-							'User.isgestionnaire' => 'O'
-						)
-							)
-					)
-			);
 			$this->set('typescourrierspcgs66', $this->Traitementpcg66->Typecourrierpcg66->find(
 					'list', array(
 						'fields' => array(
@@ -254,7 +236,6 @@
 								'Piecemodeletypecourrierpcg66.modeletypecourrierpcg66_id' => $i,
 								'Piecemodeletypecourrierpcg66.isactif' => '1'
 							),
-		// 							'fields' => array( 'Piecemodeletypecourrierpcg66.id', 'Piecemodeletypecourrierpcg66.isautrepiece' ),
 							'contain' => false
 						)
 					);
@@ -377,7 +358,8 @@
 					'fields' => array(
 						'Situationpdo.libelle',
 						'Traitementpcg66.id',
-						'Traitementpcg66.descriptionpdo_id',
+						//'Traitementpcg66.descriptionpdo_id',
+						'Descriptionpdo.name',
 						'Traitementpcg66.datedepart',
 						'Traitementpcg66.datereception',
 						'Traitementpcg66.daterevision',
@@ -397,7 +379,8 @@
 					),
 					'joins' => array(
 						$this->Traitementpcg66->join('Personnepcg66', array('type' => 'INNER')),
-						$this->Traitementpcg66->join('Situationpdo', array('type' => 'LEFT OUTER'))
+						$this->Traitementpcg66->join('Situationpdo', array('type' => 'LEFT OUTER')),
+						$this->Traitementpcg66->join('Descriptionpdo', array('type' => 'LEFT OUTER')),
 					),
 					'contain' => false,
 					'conditions' => array(
@@ -481,37 +464,37 @@
 			}
 
 			if (!empty($listDossierspcgs66)) {
-				$dossierspcgs66 = $this->Traitementpcg66->Personnepcg66->Dossierpcg66->find(
-						'all', array(
-					'fields' => array('Dossierpcg66.id', 'Dossierpcg66.datereceptionpdo', 'Dossierpcg66.user_id', 'Typepdo.libelle'),
-					'conditions' => array(
-						'Dossierpcg66.id' => $listDossierspcgs66
+				$query = array(
+					'fields' => array(
+						'Dossierpcg66.id',
+						'Dossierpcg66.datereceptionpdo',
+						'Typepdo.libelle',
+						'User.nom_complet'
 					),
 					'joins' => array(
-						array(
-							'table' => 'typespdos',
-							'alias' => 'Typepdo',
-							'type' => 'INNER',
-							'conditions' => array('Dossierpcg66.typepdo_id = Typepdo.id')
-						)
+						$this->Traitementpcg66->Personnepcg66->Dossierpcg66->join( 'Typepdo', array( 'type' => 'INNER' ) ),
+						$this->Traitementpcg66->Personnepcg66->Dossierpcg66->join( 'User', array( 'type' => 'LEFT OUTER' ) )
+
 					),
-					'contain' => false
-						)
+					'contain' => false,
+					'conditions' => array(
+						'Dossierpcg66.id' => $listDossierspcgs66
+					)
 				);
+				$this->Traitementpcg66->Personnepcg66->Dossierpcg66->forceVirtualFields = true;
+				$dossierspcgs66 = $this->Traitementpcg66->Personnepcg66->Dossierpcg66->find( 'all', $query );
 			} else {
 				$dossierspcgs66 = array();
 			}
 
-			$this->_setOptions();
-
 			$searchOptions['Personnepcg66']['dossierpcg66_id'] = array();
 			foreach ($dossierspcgs66 as $dossierpcg66) {
-				$searchOptions['Personnepcg66']['dossierpcg66_id'][$dossierpcg66['Dossierpcg66']['id']] = $dossierpcg66['Typepdo']['libelle'] . ' (' . date_short($dossierpcg66['Dossierpcg66']['datereceptionpdo']) . ')' . ' géré par ' . Set::enum($dossierpcg66['Dossierpcg66']['user_id'], $this->viewVars['gestionnaire']);
+				$searchOptions['Personnepcg66']['dossierpcg66_id'][$dossierpcg66['Dossierpcg66']['id']] = $dossierpcg66['Typepdo']['libelle'] . ' (' . date_short($dossierpcg66['Dossierpcg66']['datereceptionpdo']) . ')' . ' géré par ' . $dossierpcg66['User']['nom_complet'];
 			}
-			$this->set('searchOptions', $searchOptions);
 
-			$this->set('personne_id', $personne_id);
+			$options = $this->Traitementpcg66->enums();
 
+			$this->set( compact( 'options', 'searchOptions', 'personne_id' ) );
 			$this->set('urlmenu', '/traitementspcgs66/index/' . $personne_id);
 		}
 
@@ -744,17 +727,17 @@
 					if ($saved) {
 						$this->Traitementpcg66->commit();
 						$this->Jetons2->release($dossier_id);
-						$this->Session->setFlash('Enregistrement effectué', 'flash/success');
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect(array('controller' => 'traitementspcgs66', 'action' => 'index', $personne_id, $dossierpcg66_id));
 					} else {
 						$this->Traitementpcg66->rollback();
-						$this->Session->setFlash('Erreur lors de l\'enregistrement', 'flash/error');
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				} else {
 					$fichiers = $this->Fileuploader->fichiers($id, false);
 
 					$this->Traitementpcg66->rollback();
-					$this->Session->setFlash('Erreur lors de l\'enregistrement', 'flash/error');
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			} else if ($this->action == 'edit') {
 				$this->request->data = $traitementpcg66;
@@ -846,7 +829,7 @@
 				$this->redirect(array('controller' => 'traitementspcgs66', 'action' => 'index', $personne_id, $dossierpcg66_id));
 			}
 
-			$this->_setOptions();
+			$this->set( 'options', $this->Traitementpcg66->enums() );
 			$this->set(compact('traitementpcg66', 'personne_id'));
 
 			$this->set('urlmenu', '/traitementspcgs66/index/' . $personne_id);
@@ -890,7 +873,7 @@
 			if (!empty($this->request->data)) {
 				$this->Traitementpcg66->begin();
 
-				$saved = $this->Traitementpcg66->save($this->request->data);
+				$saved = $this->Traitementpcg66->save( $this->request->data, array( 'atomic' => false ) );
 				$saved = $this->Traitementpcg66->updateAllUnBound(
 								array(
 							'Traitementpcg66.clos' => '\'O\'',
@@ -913,11 +896,11 @@
 				if ($saved) {
 					$this->Traitementpcg66->commit();
 					$this->Jetons2->release($dossier_id);
-					$this->Session->setFlash('Enregistrement effectué', 'flash/success');
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect(array('controller' => 'traitementspcgs66', 'action' => 'index', $traitementpcg66['Personnepcg66']['personne_id'], $traitementpcg66['Personnepcg66']['dossierpcg66_id']));
 				} else {
 					$this->Traitementpcg66->rollback();
-					$this->Session->setFlash('Erreur lors de l\'enregistrement.', 'flash/erreur');
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			} else {
 				$this->request->data = $traitementpcg66;
@@ -948,54 +931,12 @@
 
 			if ($success) {
 				$this->Traitementpcg66->commit();
-				$this->Session->setFlash('Le traitement est clôturé', 'flash/success');
+				$this->Flash->success( 'Le traitement est clôturé' );
 			} else {
 				$this->Traitementpcg66->rollback();
-				$this->Session->setFlash('Erreur lors de la clôture du traitement', 'flash/error');
+				$this->Flash->error( 'Erreur lors de la clôture du traitement' );
 			}
 			$this->redirect(array('controller' => 'traitementspcgs66', 'action' => 'index', $traitementpcg66['Personnepcg66']['personne_id'], $traitementpcg66['Personnepcg66']['dossierpcg66_id']));
-		}
-
-		/**
-		 *
-		 * @param integer $id
-		 */
-		public function decision($id) {
-			$traitementpcg66 = $this->Traitementpcg66->find(
-					'first', array(
-				'conditions' => array(
-					'Traitementpcg66.id' => $id
-				),
-				'contain' => array(
-					'Personnepcg66',
-					'Descriptionpdo'
-				)
-					)
-			);
-
-			$this->set('dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu(array('personne_id' => $traitementpcg66['Personnepcg66']['personne_id'])));
-
-			// Retour à la liste en cas d'annulation
-			if (!empty($this->request->data) && isset($this->request->data['Cancel'])) {
-				$this->redirect(array('controller' => 'traitementspcgs66', 'action' => 'index', $traitementpcg66['Personnepcg66']['personne_id'], $traitementpcg66['Personnepcg66']['dossierpcg66_id']));
-			}
-
-			if (!empty($this->request->data)) {
-				$this->Traitementpcg66->begin();
-				$success = $this->Traitementpcg66->save($this->request->data['Traitementpcg66']);
-				$this->_setFlashResult('Save', $success);
-				if ($success) {
-					$this->Traitementpcg66->commit();
-					$this->redirect(array('controller' => 'traitementspcgs66', 'action' => 'index', $traitementpcg66['Personnepcg66']['personne_id'], $traitementpcg66['Personnepcg66']['dossierpcg66_id']));
-				} else {
-					$this->Traitementpcg66->rollback();
-				}
-			} else {
-				$this->request->data = $traitementpcg66;
-			}
-			$this->set('personne_id', $traitementpcg66['Personnepcg66']['personne_id']);
-			$this->set('descriptionpdo', $traitementpcg66['Descriptionpdo']['name']);
-			$this->_setOptions();
 		}
 
 		/**
@@ -1023,10 +964,10 @@
 
 			if ($success) {
 				$this->Traitementpcg66->commit();
-				$this->Session->setFlash('La fiche de calcul sera repercutée dans la décision', 'flash/success');
+				$this->Flash->success( 'La fiche de calcul sera repercutée dans la décision' );
 			} else {
 				$this->Traitementpcg66->rollback();
-				$this->Session->setFlash('Erreur lors de la répercussion de la fiche de calcul', 'flash/error');
+				$this->Flash->error( 'Erreur lors de la répercussion de la fiche de calcul' );
 			}
 			$this->redirect(array('controller' => 'traitementspcgs66', 'action' => 'index', $traitementpcg66['Personnepcg66']['personne_id'], $traitementpcg66['Personnepcg66']['dossierpcg66_id']));
 		}
@@ -1055,10 +996,10 @@
 
 			if ($success) {
 				$this->Traitementpcg66->commit();
-				$this->Session->setFlash('La fiche de calcul ne sera plus repercutée dans la décision', 'flash/success');
+				$this->Flash->success( 'La fiche de calcul ne sera plus repercutée dans la décision' );
 			} else {
 				$this->Traitementpcg66->rollback();
-				$this->Session->setFlash('Erreur lors de la non répercussion de la fiche de calcul', 'flash/error');
+				$this->Flash->error( 'Erreur lors de la non répercussion de la fiche de calcul' );
 			}
 			$this->redirect(array('controller' => 'traitementspcgs66', 'action' => 'index', $traitementpcg66['Personnepcg66']['personne_id'], $traitementpcg66['Personnepcg66']['dossierpcg66_id']));
 		}
@@ -1078,7 +1019,7 @@
 			if ($pdf) {
 				$this->Gedooo->sendPdfContentToClient($pdf, 'Décision.pdf');
 			} else {
-				$this->Session->setFlash('Impossible de générer la fiche de calcul', 'default', array('class' => 'error'));
+				$this->Flash->error( 'Impossible de générer la fiche de calcul' );
 				$this->redirect($this->referer());
 			}
 		}
@@ -1099,7 +1040,7 @@
 				$this->Gedooo->sendPdfContentToClient($pdf, 'ModeleCourrier.pdf');
 			} else {
 				$this->Traitementpcg66->rollback();
-				$this->Session->setFlash('Impossible de générer le modèle de courrier', 'default', array('class' => 'error'));
+				$this->Flash->error( 'Impossible de générer le modèle de courrier' );
 				$this->redirect($this->referer());
 			}
 		}
@@ -1135,46 +1076,15 @@
 			$success = $success && $this->Traitementpcg66->Personnepcg66->Dossierpcg66->WebrsaDossierpcg66->updatePositionsPcgsById( $data['Personnepcg66']['dossierpcg66_id'] );
 
 			if ( $success ){
-				$this->Session->setFlash( __( 'Delete->success' ), 'flash/success' );
+				$this->Flash->success( __( 'Delete->success' ) );
 				$this->Traitementpcg66->commit();
 			}
 			else{
-				$this->Session->setFlash( __( 'Delete->error' ), 'flash/error' );
+				$this->Flash->error( __( 'Delete->error' ) );
 				$this->Traitementpcg66->rollback();
 			}
 
 			$this->redirect($this->referer());
-
-
-			/* @deprecated
-
-			$traitementpcg66 = $this->Traitementpcg66->find(
-					'first', array(
-				'fields' => array_merge(
-						$this->Traitementpcg66->fields(), $this->Traitementpcg66->Personnepcg66->fields(), $this->Traitementpcg66->Personnepcg66->Dossierpcg66->fields()
-				),
-				'conditions' => array(
-					'Traitementpcg66.id' => $id
-				),
-				'contain' => false,
-				'joins' => array(
-					$this->Traitementpcg66->join('Personnepcg66', array('type' => 'INNER')),
-					$this->Traitementpcg66->Personnepcg66->join('Dossierpcg66', array('type' => 'INNER')),
-				)
-					)
-			);
-			$typetraitementpcg = $traitementpcg66['Traitementpcg66']['typetraitement'];
-			$etatdossierpcg = $traitementpcg66['Dossierpcg66']['etatdossierpcg'];
-			$dossierpcg66_id = $traitementpcg66['Dossierpcg66']['id'];
-			if ($typetraitementpcg == 'documentarrive' && $etatdossierpcg == 'attinstrdocarrive') {
-				$this->Traitementpcg66->Personnepcg66->Dossierpcg66->id = $dossierpcg66_id;
-				$this->Traitementpcg66->Personnepcg66->Dossierpcg66->saveField('etatdossierpcg', 'attinstrattpiece');
-			}
-
-
-			$this->Default->delete($id);
-
-			 */
 		}
 
 		/**
@@ -1219,15 +1129,15 @@
 					'fk_value' => $id,
 					'data' => json_encode($dataCourrier)
 				);
-				$success = $success && $this->Traitementpcg66->Dataimpression->save($data);
+				$success = $success && $this->Traitementpcg66->Dataimpression->save( $data, array( 'atomic' => false ) );
 
 				if ($success) {
 					$this->Traitementpcg66->commit();
-					$this->Session->setFlash('La date d\'envoi du courrier a bien été enregistrée', 'flash/success');
+					$this->Flash->success( 'La date d\'envoi du courrier a bien été enregistrée' );
 					$this->redirect(array('controller' => 'traitementspcgs66', 'action' => 'index', $traitementpcg66['Personnepcg66']['personne_id'], $traitementpcg66['Personnepcg66']['dossierpcg66_id']));
 				} else {
 					$this->Traitementpcg66->rollback();
-					$this->Session->setFlash('Erreur lors de l\'enregistrement de la date', 'flash/error');
+					$this->Flash->error( 'Erreur lors de l\'enregistrement de la date' );
 				}
 			}
 			$this->set(compact('traitementpcg66'));
@@ -1296,11 +1206,11 @@
 					: 'Ce courrier n\'est plus disponible en cohorte'
 				;
 
-				$this->Session->setFlash($message, 'flash/success');
+				$this->Flash->success($message);
 			}
 			else {
 				$this->Traitementpcg66->rollback();
-				$this->Session->setFlash('Une erreur s\'est produire !', 'flash/error');
+				$this->Flash->error( 'Une erreur s\'est produite !' );
 			}
 
 			$this->redirect($this->referer());

@@ -8,6 +8,7 @@
 	 * @subpackage Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
 	App::uses( 'SearchProgressivePagination', 'Search.Utility' );
 
 	/**
@@ -48,18 +49,6 @@
 			$Paginator = $this->getPaginator( $progressivePaginate );
 
 			return $Paginator->paginate( $object, $scope, $whitelist );
-			/*if( is_null( $progressivePaginate ) ) {
-				$progressivePaginate = SearchProgressivePagination::enabled( $Controller->name, $Controller->action );
-			}
-
-			if( $progressivePaginate ) {
-				SearchProgressivePagination::enable( $Controller->name, $Controller->action );
-				return $this->_Collection->load( 'Search.ProgressivePaginator', $Controller->paginate )->paginate( $object, $scope, $whitelist );
-			}
-			else {
-				SearchProgressivePagination::disable( $Controller->name, $Controller->action );
-				return $this->_Collection->load( 'Paginator', $Controller->paginate )->paginate( $object, $scope, $whitelist );
-			}*/
 		}
 
 		// TODO: tests
@@ -72,11 +61,11 @@
 
 			if( $progressivePaginate ) {
 				SearchProgressivePagination::enable( $Controller->name, $Controller->action );
-				return $this->_Collection->load( 'Search.ProgressivePaginator', $Controller->paginate );
+				return $this->_Collection->load( 'Search.SearchProgressivePaginator', $Controller->paginate );
 			}
 			else {
 				SearchProgressivePagination::disable( $Controller->name, $Controller->action );
-				return $this->_Collection->load( 'Search.BasicPaginator', $Controller->paginate );
+				return $this->_Collection->load( 'Search.SearchBasicPaginator', $Controller->paginate );
 			}
 		}
 

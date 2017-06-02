@@ -1,5 +1,5 @@
 <?php
-	$this->pageTitle = __d( 'droit', 'Gestionsdoublons:index' );
+	$this->pageTitle = __d( 'droit', 'controllers/Gestionsdoublons/index' );
 
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
@@ -29,11 +29,11 @@
 
 	// Filtres concernant le dossier
 	echo $this->Search->blocDossier( null, 'Search' );
-	
+
 	echo '<fieldset><legend>Volet de gauche</legend>';
 	echo $this->Search->etatdosrsa($options['Situationdossierrsa']['etatdosrsa'],  "Search.Situationdossierrsa.etatdosrsa");
 	echo '</fieldset>';
-	
+
 	echo '<fieldset><legend>Volet de droite</legend>';
 	echo $this->Search->etatdosrsa($options['Situationdossierrsa']['etatdosrsa'],  "Search.Situationdossierrsa2.etatdosrsa");
 	echo '</fieldset>';
@@ -49,7 +49,6 @@
 
 	echo $this->Search->referentParcours( $structuresreferentesparcours, $referentsparcours, 'Search' );
 	echo $this->Search->paginationNombretotal( 'Search.Pagination.nombre_total' );
-	echo $this->Search->observeDisableFormOnSubmit( 'CohortesDossier2pdvs93IndexForm' );
 
 	echo $this->Xform->end( 'Search' );
 
@@ -112,7 +111,7 @@
 			$indexCols,
 			array(
 				'options' => $options,
-				'format' => __( SearchProgressivePagination::format( !Hash::get( $this->request->data, 'Search.Pagination.nombre_total' ) ) )
+				'format' => $this->element( 'pagination_format' )
 			)
 		);
 

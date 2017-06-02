@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 	App::uses( 'Sanitize', 'Utility' );
 
 	/**
@@ -91,9 +92,7 @@
 					'Informationpe.id IN ( '.$Informationpe->sqDerniere().' )'
 				)
 			);
-			// TODO: conditions;
-			//$conditions[] = array( 'Propoorientationcov58.referentorientant_id = \''.Sanitize::clean( $referent_id ).'\'' );
-
+			
 			$query = array(
 				'fields' => array(
 					'Dossier.dtdemrsa',
@@ -117,7 +116,6 @@
 					'Orientstruct.id',
 					'Orientstruct.date_valid',
 					'Orientstruct.rgorient',
-//					str_replace( 'Referent', 'Referentorient', $Dossier->Foyer->Personne->Referent->sqVirtualField( 'nom_complet' ) ),
 					$Dossier->Foyer->Personne->Dossiercov58->Propoorientationcov58->Referentorientant->sqVirtualField( 'nom_complet' ),
 					str_replace( 'Referent', 'Referentunique', $Dossier->Foyer->Personne->Referent->sqVirtualField( 'nom_complet' ) ),
 					'Contratinsertion.dd_ci',
@@ -140,7 +138,6 @@
 					$Dossier->Foyer->Personne->join( 'Prestation', array( 'type' => 'INNER' ) ),
 					$Dossier->Foyer->Personne->join( 'Contratinsertion', array( 'type' => 'LEFT OUTER' ) ),
 					$Dossier->Foyer->Personne->join( 'Orientstruct', array( 'type' => 'LEFT OUTER' ) ),
-//					array_words_replace( $Dossier->Foyer->Personne->Orientstruct->join( 'Referent', array( 'type' => 'LEFT OUTER' ) ), array( 'Referent' => 'Referentorient' ) ),
 					$Dossier->Foyer->Personne->join( 'Dossiercov58', array( 'type' => 'LEFT OUTER' ) ),
 					$Dossier->Foyer->Personne->Dossiercov58->join( 'Propoorientationcov58', array( 'type' => 'LEFT OUTER' ) ),
 					$Dossier->Foyer->Personne->Dossiercov58->Propoorientationcov58->join( 'Referentorientant', array( 'type' => 'LEFT OUTER' ) ),

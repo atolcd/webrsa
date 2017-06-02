@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe AjoutdossierscompletsController ...
@@ -56,26 +57,26 @@
 			'Option',
 			'Personne',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -90,8 +91,7 @@
 			$options = array();
             $services = ClassRegistry::init( 'Serviceinstructeur' )->find( 'list' );
 			$options = array(
-				'qual' => ClassRegistry::init( 'Option' )->qual(),
-				'typevoie' => ClassRegistry::init( 'Option' )->typevoie()
+				'qual' => ClassRegistry::init( 'Option' )->qual()
 			);
 			$options = Hash::merge(
 				$options,
@@ -139,25 +139,25 @@
 					}
 
 					// Tentatives de sauvegarde
-					$saved = $this->Dossier->save( $data['Dossier'] );
+					$saved = $this->Dossier->save( $data['Dossier'] , array( 'atomic' => false ) );
 
 					if( $saved ){
 
 						// Détails du droit
 						$data['Detaildroitrsa']['dossier_id'] = $this->Dossier->id;
-						$saved = $this->Detaildroitrsa->save( $data['Detaildroitrsa'] ) && $saved;
+						$saved = $this->Detaildroitrsa->save( $data['Detaildroitrsa'] , array( 'atomic' => false ) ) && $saved;
 
 						// Situation dossier RSA
 						$situationdossierrsa = array( 'Situationdossierrsa' => array( 'dossier_id' => $this->Dossier->id, 'etatdosrsa' => 'Z' ) );
 						$this->Dossier->Situationdossierrsa->validate = array();
-						$saved = $this->Dossier->Situationdossierrsa->save( $situationdossierrsa ) && $saved;
+						$saved = $this->Dossier->Situationdossierrsa->save( $situationdossierrsa , array( 'atomic' => false ) ) && $saved;
 
 						// Foyer
-						$saved = $this->Foyer->save( array( 'dossier_id' => $this->Dossier->id ) ) && $saved;
+						$saved = $this->Foyer->save( array( 'dossier_id' => $this->Dossier->id ), array( 'atomic' => false ) ) && $saved;
 
 						if( $data['Adresse']['presence'] == 1 ) {
 							// Adresse
-							$saved = $this->Adresse->save( $data['Adresse'] ) && $saved;
+							$saved = $this->Adresse->save( $data['Adresse'] , array( 'atomic' => false ) ) && $saved;
 						}
 						else {
 							//FIXME : création d'une adresse spécifique pour éviter les problèmes de code insee manquants
@@ -172,13 +172,13 @@
 									'foyerid'	=> $this->Foyer->id
 								)
 							);
-							$saved = $this->Adresse->save( $dataAdresse ) && $saved;
+							$saved = $this->Adresse->save( $dataAdresse , array( 'atomic' => false ) ) && $saved;
 						}
 
 						// Adresse foyer
 						$data['Adressefoyer']['foyer_id'] = $this->Foyer->id;
 						$data['Adressefoyer']['adresse_id'] = $this->Adresse->id;
-						$saved = $this->Adressefoyer->save( $data['Adressefoyer'] ) && $saved;
+						$saved = $this->Adressefoyer->save( $data['Adressefoyer'] , array( 'atomic' => false ) ) && $saved;
 
 						// Personne
 						$dataPersonne = array(
@@ -186,7 +186,7 @@
 						);
 						$dataPersonne['Personne']['foyer_id'] = $this->Foyer->id;
 						$this->Personne->create( $dataPersonne );
-						$saved = $this->Personne->save() && $saved;
+						$saved = $this->Personne->save( null, array( 'atomic' => false ) ) && $saved;
 
 						// Prestation
 						$dataPrestation = array(
@@ -194,7 +194,7 @@
 						);
 						$dataPrestation['Prestation']['personne_id'] = $this->Personne->id;
 						$this->Personne->Prestation->create( $dataPrestation );
-						$saved = $this->Personne->Prestation->save() && $saved;
+						$saved = $this->Personne->Prestation->save( null, array( 'atomic' => false ) ) && $saved;
 
 					}
 
@@ -242,7 +242,7 @@
 						$validate = $this->Dossier->Suiviinstruction->validates();
 
 						if( $validate ) {
-							$saved = $this->Dossier->Suiviinstruction->save( $suiviinstruction ) && $saved;
+							$saved = $this->Dossier->Suiviinstruction->save( $suiviinstruction , array( 'atomic' => false ) ) && $saved;
 						}
 					}
 
@@ -253,7 +253,7 @@
 					}
 					// Annulation de la transaction
 					else {
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 			}

@@ -311,6 +311,8 @@
 		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
 			$success = true;
 			$origine = $this->_origine();
+			
+			$this->Sanctionep58->begin();
 
 			foreach( $data as $line ) {
 				// La personne était-elle sélectionnée précédemment ?
@@ -326,7 +328,7 @@
 						)
 					);
 					$this->Sanctionep58->Dossierep->create( $dossierep );
-					$success = $this->Sanctionep58->Dossierep->save() && $success;
+					$success = $this->Sanctionep58->Dossierep->save( null, array( 'atomic' => false ) ) && $success;
 
 					if( $origine === 'radiepe' ) {
 						$sanctionep58 = array(
@@ -349,7 +351,7 @@
 					}
 
 					$this->Sanctionep58->create( $sanctionep58 );
-					$success = $this->Sanctionep58->save() && $success;
+					$success = $this->Sanctionep58->save( null, array( 'atomic' => false ) ) && $success;
 				}
 				// Personnes précédemment sélectionnées, que l'on désélectionne
 				else if( !empty( $dossierep_id ) && empty( $chosen ) ) {
@@ -357,6 +359,12 @@
 					$success = $this->Sanctionep58->Dossierep->delete( $dossierep_id, true ) && $success;
 				}
 				// Personnes précédemment sélectionnées, que l'on garde sélectionnées -> rien à faire
+			}
+			
+			if ($success) {
+				$this->Sanctionep58->commit();
+			} else {
+				$this->Sanctionep58->rollback();
 			}
 
 			return $success;

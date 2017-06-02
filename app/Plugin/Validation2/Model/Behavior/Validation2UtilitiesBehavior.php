@@ -8,6 +8,7 @@
 	 * @subpackage Model.Behavior
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'ModelBehavior', 'Model' );
 
 	/**
 	 * Classe Validation2UtilitiesBehavior.
@@ -109,7 +110,7 @@
 		}
 
 		/**
-		 * 'notEmpty' => Champ obligatoire
+		 * NOT_BLANK_RULE_NAME => Champ obligatoire
 		 *
 		 * @param Model $Model
 		 * @param mixed $rule

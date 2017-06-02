@@ -20,14 +20,14 @@
 
 <?php
 	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Aidedirecte', array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Aidedirecte', array( 'type' => 'post', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Aidedirecte.id', array( 'type' => 'hidden' ) );
 		echo $this->Form->input( 'Aidedirecte.actioninsertion_id', array( 'type' => 'hidden' ) );
 		echo '</div>';
 	}
 	else {
-		echo $this->Form->create( 'Aidedirecte', array( 'type' => 'post' ) );
+		echo $this->Form->create( 'Aidedirecte', array( 'type' => 'post', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Aidedirecte.id', array( 'type' => 'hidden' ) );
 		echo $this->Form->input( 'Aidedirecte.actioninsertion_id', array( 'type' => 'hidden' ) );

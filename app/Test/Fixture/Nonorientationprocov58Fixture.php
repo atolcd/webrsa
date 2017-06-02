@@ -3,16 +3,16 @@
 	 * Code source de la classe Nonorientationprocov58Fixture.
 	 *
 	 * @package app.Test.Fixture
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/Test/CakePHP Fixture.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	 app::uses('CakeAppTestFixture', 'Test/Fixture');
+	 app::uses('PgsqlConstraintsFixture', 'Test/Fixture');
 	 
 	/**
 	 * La classe Nonorientationprocov58Fixture ...
 	 *
 	 * @package app.Test.Fixture
 	 */
-	class Nonorientationprocov58Fixture extends CakeAppTestFixture
+	class Nonorientationprocov58Fixture extends PgsqlConstraintsFixture
 	{
 		/**
 		 * On importe la définition de la table, pas les enregistrements.

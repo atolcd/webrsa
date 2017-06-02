@@ -3,7 +3,7 @@
 		'h1',
 		$this->pageTitle = __d( 'partenaire', "Partenaires::{$this->action}" )
 	);
-	
+
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 	}
@@ -29,7 +29,7 @@
 		array( 'escape' => false, 'title' => 'Visibilité formulaire', 'onclick' => "$( 'Search' ).toggle(); return false;" )
 	).'</li></ul>';
 ?>
-<?php echo $this->Xform->create( 'Partenaire', array( 'type' => 'post', 'action' => 'index', 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ) ) );?>
+<?php echo $this->Xform->create( 'Partenaire', array( 'type' => 'post', 'url' => array( 'action' => 'index' ), 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ) ) );?>
 		<fieldset>
 			<?php echo $this->Xform->input( 'Partenaire.index', array( 'label' => false, 'type' => 'hidden', 'value' => true ) );?>
 
@@ -78,18 +78,5 @@
 		else {
 			echo '<p class="notice">Aucun partenaire présent</p>';
 		}
-	}
-
-	if( Configure::read( 'Cg.departement' ) != 66 ) {
-		echo $this->Default->button(
-			'back',
-			array(
-				'controller' => 'actionscandidats_personnes',
-				'action'     => 'indexparams'
-			),
-			array(
-				'id' => 'Back'
-			)
-		);
 	}
 ?>

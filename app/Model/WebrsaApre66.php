@@ -35,7 +35,7 @@
 
 		/**
 		 * Ajoute les virtuals fields pour permettre le controle de l'accès à une action
-		 * 
+		 *
 		 * @param array $query
 		 * @return type
 		 */
@@ -45,10 +45,10 @@
 			);
 			return Hash::merge($query, array('fields' => array_values($fields)));
 		}
-		
+
 		/**
 		 * Permet d'obtenir le nécéssaire pour calculer les droits d'accès métier à une action
-		 * 
+		 *
 		 * @param array $conditions
 		 * @return array
 		 */
@@ -67,38 +67,38 @@
 					'Apre66.id' => 'DESC',
 				)
 			);
-			
+
 			$results = $this->Apre66->find('all', $this->completeVirtualFieldsForAccess($query));
 			return $results;
 		}
-		
+
 		/**
 		 * Permet d'obtenir les paramètres à envoyer à WebrsaAccess pour une personne en particulier
-		 * 
+		 *
 		 * @see WebrsaAccess::getParamsList
 		 * @param integer $personne_id
 		 * @param array $params - Liste des paramètres actifs
 		 */
 		public function getParamsForAccess($personne_id, array $params = array()) {
 			$results = array();
-			
+
 			if (in_array('ajoutPossible', $params)) {
 				$results['ajoutPossible'] = $this->ajoutPossible($personne_id);
 			}
-			
+
 			return $results;
 		}
-		
+
 		/**
 		 * Permet de savoir si il est possible d'ajouter un enregistrement
-		 * 
+		 *
 		 * @param integer $personne_id
 		 * @return boolean
 		 */
 		public function ajoutPossible($personne_id) {
 			return true;
 		}
-		
+
 		/**
 		 *
 		 * @param integer $apre_id
@@ -160,10 +160,7 @@
 				),
 				'Referent' => array(
 					'qual' => $Option->qual()
-				),
-				'Structurereferente' => array(
-					'type_voie' => $Option->typevoie()
-				),
+				)
 			);
 
 			// On sauvagarde la date de notification si ce n'est pas déjà fait.
@@ -184,7 +181,7 @@
 			$apre['Structurereferente']['adresse'] = implode(
 					' ', array(
 				Set::classicExtract( $apre, 'Structurereferente.num_voie' ),
-				Set::enum( Set::classicExtract( $apre, 'Structurereferente.type_voie' ), $options['Structurereferente']['type_voie'] ),
+				Set::classicExtract( $apre, 'Structurereferente.type_voie' ),
 				Set::classicExtract( $apre, 'Structurereferente.nom_voie' ),
 				Set::classicExtract( $apre, 'Structurereferente.code_postal' ),
 				Set::classicExtract( $apre, 'Structurereferente.ville' )
@@ -203,10 +200,6 @@
 			return $this->Apre66->ged( $apre, $modeleodt, false, $options );
 		}
 
-// 		public function autorisationPlafondAideapre66( $aideapre66_id, $personne_id ){
-//
-// 		}
-		
 		/**
 		 * Retourne le chemin vers le modèle odt utilisé pour l'APRE 66
 		 *
@@ -226,8 +219,6 @@
 		 * @return array
 		 */
 		public function getDataForPdf( $id, $user_id ) {
-			$typesvoies = ClassRegistry::init( 'Option' )->typevoie();
-
 			$apre = $this->Apre66->find(
 				'first',
 				array(
@@ -294,7 +285,7 @@
 			$apre['Structurereferente']['adresse'] = implode(
 					' ', array(
 				Set::classicExtract( $apre, 'Structurereferente.num_voie' ),
-				Set::enum( Set::classicExtract( $apre, 'Structurereferente.type_voie' ), $typesvoies ),
+				Set::classicExtract( $apre, 'Structurereferente.type_voie' ),
 				Set::classicExtract( $apre, 'Structurereferente.nom_voie' ),
 				Set::classicExtract( $apre, 'Structurereferente.code_postal' ),
 				Set::classicExtract( $apre, 'Structurereferente.ville' )
@@ -368,10 +359,7 @@
 				),
 				'Referent' => array(
 					'qual' => $Option->qual()
-				),
-				'Structurereferente' => array(
-					'type_voie' => $Option->typevoie()
-				),
+				)
 			);
 
 			$apre = $this->getDataForPdf( $id, $user_id );
@@ -387,7 +375,7 @@
 				$options
 			);
 		}
-		
+
 		/**
 		 * Utilise Correspondancepersonne pour trouver le montant total d'apre pris dans l'année.
 		 * @param integer $personne_id
@@ -397,10 +385,10 @@
 		public function getMontantApreEnCours( $personne_id, $anomalie = null ){
 			$dateDebut = date( 'Y' ).'-01-01';
 			$dateFin = (date( 'Y' ) + Configure::read( 'Apre.periodeMontantMaxComplementaires' ) - 1).'-12-31';
-			
+
 			return $this->getMontantAprePeriode($dateDebut, $dateFin, $personne_id, $anomalie);
 		}
-		
+
 		/**
 		 * Utilise Correspondancepersonne pour trouver le montant total d'apre pour une période donnée.
 		 * @param string $dateDebut au format SQL
@@ -412,22 +400,22 @@
 		public function getMontantAprePeriode( $dateDebut, $dateFin, $personne_id, $anomalie = null ){
 			$queryCorrespondances = array(
 				'fields' => 'Correspondancepersonne.personne2_id',
-				'conditions' => array( 
+				'conditions' => array(
 					'Correspondancepersonne.personne1_id' => $personne_id,
 				),
 			);
-			
+
 			if ( $anomalie !== null ) {
 				$queryCorrespondances['conditions']['Correspondancepersonne.anomalie'] = $anomalie;
 			}
-			
+
 			$personne_idSearch = $this->Apre66->Personne->Correspondancepersonne->find( 'all', $queryCorrespondances );
-			
+
 			$personne_idList = array();
 			foreach ($personne_idSearch as $value) {
 				$personne_idList[] = $value['Correspondancepersonne']['personne2_id'];
 			}
-			
+
 			$query = array(
 				'fields' => array(
 					'SUM(Aideapre66.montantaccorde) AS "Aideapre66__montantaccorde"',
@@ -449,9 +437,9 @@
 				),
 			);
 			$results = $this->Apre66->find( 'all', $query );
-			
+
 			$montantaccorde = Hash::get($results, '0.Aideapre66.montantaccorde');
-			
+
 			return $montantaccorde;
 		}
 	}

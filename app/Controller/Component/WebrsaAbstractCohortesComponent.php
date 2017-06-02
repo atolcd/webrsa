@@ -24,6 +24,7 @@
 		public $components = array(
 			'Allocataires',
 			'Cohortes',
+			'Flash',
 			'WebrsaRecherches'
 		);
 
@@ -239,11 +240,11 @@
 
 			if ( $saved ) {
 				$Controller->{$params['modelSave']}->commit();
-				$Controller->Session->setFlash('Enregistrement effectué.', 'flash/success');
+				$this->Flash->success(__( 'Save->success' ));
 			}
 			else {
 				$Controller->{$params['modelName']}->rollback();
-				$Controller->Session->setFlash('Erreur lors de l\'enregistrement.', 'flash/error');
+				$this->Flash->error(__( 'Save->error' ));
 			}
 
 			return $saved;
@@ -377,7 +378,7 @@
 
 			foreach ((array)Configure::read($this->_configureKey('cohorte.values', $params)) as $path => $value) {
 				$message = $this->_checkHiddenCohorteValueByPath($path, $value, $success, $params);
-				
+
 				if (!empty($message)) {
 					$messages[] = $message;
 				}
@@ -389,11 +390,11 @@
 				'value' => implode("<br/>", $messages),
 			);
 		}
-		
+
 		/**
 		 * Vérifi l'existance d'un champ et, dans le cas d'un foreign key,
 		 * de l'existance de l'enregistrement cible.
-		 * 
+		 *
 		 * @param type $path
 		 * @return string|null renvoi un message d'erreur si le champ n'est pas correct
 		 */
@@ -409,15 +410,15 @@
 			// $path est de type hasAndBelongsToMany : ex: Monmodel.0_Monmodel
 			$hasAndBelongsToMany = preg_match('/^([\w]+)\.(?:[\d]+.){0,1}([\w]+)$/', $path, $matches)
 				&& $matches[1] === $matches[2];
-			
+
 			$Model = ClassRegistry::init($model_field[0]);
-			
+
 			try {
 				$Model->find('first', array('contain' => false));
 			} catch(Exception $e) {
 				return 'La table du Model '.$model_field[0]." n'a pas été trouvée.";
 			}
-			
+
 //			$this->_rebuildValidation($Model);
 
 			$field = $hasAndBelongsToMany ? $Model->primaryKey : $model_field[1];
@@ -447,13 +448,13 @@
 					return $test['message'];
 				}
 			}
-			
+
 			return null;
 		}
-		
+
 		/**
-		 * Vérifi la possibilité 
-		 * 
+		 * Vérifi la possibilité
+		 *
 		 * @param string $path sous forme Model.field
 		 * @param mixed $value valeur du champ
 		 * @param boolean $success
@@ -467,7 +468,7 @@
 				$success = false;
 				return $testField;
 			}
-			
+
 			list($modelName, $field) = model_field($path);
 			$Model = ClassRegistry::init($modelName);
 			$Dbo = $Model->getDataSource();
@@ -476,13 +477,13 @@
 			$blackList = array();
 			$message = null;
 			$saveSuccess = true;
-			
-			// Condition qu'on peut ajouter dans le model de recherche pour 
+
+			// Condition qu'on peut ajouter dans le model de recherche pour
 			// augmenter la cohérence des données choisies
 			$conditionsSup = isset($ModelRecherche->checkHiddenCohorteValuesConditions)
 				? $ModelRecherche->checkHiddenCohorteValuesConditions
 				: array();
-			
+
 			while (count($blackList) < 10) {
 				$data = $Model->find('first',
 					array(
@@ -502,15 +503,15 @@
 					break;
 				}
 
-				// On teste avant tout l'enregistrement sans rien toucher 
+				// On teste avant tout l'enregistrement sans rien toucher
 				// (vérification par le modèle de l'enregistrement)
 				$saveSuccess = $this->_secureTestSave($Model, $data);
-				
+
 				// Sauvegarde échouée
 				if ($saveSuccess === false) {
 					$blackList[] = Hash::get($data, $Model->alias.'.id');
 					continue;
-					
+
 				// Exception lors de la sauvegarde
 				} elseif ($saveSuccess === null) {
 					$message = 'Exception: '.$Dbo->lastError();
@@ -518,7 +519,7 @@
 				}
 
 				$data[$Model->alias][$field] = $value;
-				
+
 				$saveSuccess = $this->_secureTestSave($Model, $data);
 
 				// Sauvegarde échouée
@@ -526,7 +527,7 @@
 					$errors = implode(', ', (array)Hash::get($Model->validationErrors, $field));
 					$message = "La tentative d'insérer la valeur <b>{$value}</b> "
 						. "dans <b>{$path}</b> a échoué : {$errors}";
-					
+
 				// Exception lors de la sauvegarde
 				} elseif ($saveSuccess === null) {
 					$message = 'Exception: '.$Dbo->lastError();
@@ -535,28 +536,28 @@
 				$success = $success && $saveSuccess;
 				break;
 			}
-			
+
 			return $message;
 		}
-		
+
 		/**
 		 * Permet de tester la sauvegarde sur un model sans risque d'exception
-		 * 
+		 *
 		 * @param Model $Model
 		 * @param type $data
 		 * @return boolean|null résultat de sauvegarde ou null en cas d'exception
 		 */
 		protected function _secureTestSave(Model $Model, $data) {
 			$Model->begin();
-			
+
 			try {
-				$success = $Model->save($data);
+				$success = $Model->save( $data, array( 'atomic' => false ) );
 			} catch (Exception $e) {
 				$success = null;
 			}
-			
+
 			$Model->rollback();
-			
+
 			return $success;
 		}
 
@@ -568,12 +569,13 @@
 		 */
 		protected function _rebuildValidation( Model $Model ) {
 			$behaviors = array(
-				'Validation.ExtraValidationRules' =>  null,
 				'Validation2.Validation2Formattable' => null,
+				'Validation2.Validation2RulesFieldtypes' => null,
+				'Validation2.Validation2RulesComparison' => null
 			);
 			$autovalidate = false;
 			foreach ( Hash::normalize( (array)$Model->actsAs ) as $behavior => $config ) {
-				if ( preg_match( '/(autovalidate|validate|formattable|enumerable)/i', $behavior, $matches ) ) {
+				if ( preg_match( '/(autovalidate|validate|formattable)/i', $behavior, $matches ) ) {
 					$behaviors[$behavior] = $config;
 					$Model->Behaviors->detach( $behavior );
 

@@ -13,7 +13,7 @@
 
 	/**
 	 * La classe WebrsaRendezvous possède la logique métier web-rsa
-	 * 
+	 *
 	 * @package app.Model
 	 */
 	class WebrsaRendezvous extends WebrsaAbstractLogic implements WebrsaLogicAccessInterface
@@ -34,7 +34,7 @@
 
 		/**
 		 * Ajoute les virtuals fields pour permettre le controle de l'accès à une action
-		 * 
+		 *
 		 * @param array $query
 		 * @return type
 		 */
@@ -42,13 +42,13 @@
 			$fields = array(
 				'dernier' => $this->Rendezvous->sqVirtualField('dernier'),
 			);
-			
+
 			return Hash::merge($query, array('fields' => array_values($fields)));
 		}
-		
+
 		/**
 		 * Permet d'obtenir le nécéssaire pour calculer les droits d'accès métier à une action
-		 * 
+		 *
 		 * @param array $conditions
 		 * @return array
 		 */
@@ -65,14 +65,14 @@
 					'Rendezvous.heurerdv DESC'
 				)
 			);
-			
+
 			$results = $this->Rendezvous->find('all', $this->completeVirtualFieldsForAccess($query));
 			return $results;
 		}
-		
+
 		/**
 		 * Permet de savoir si il est possible d'ajouter un enregistrement
-		 * 
+		 *
 		 * @param integer $id
 		 * @param String $modelName - nom du modèle qui désigne id : Personne : $id = $personne_id
 		 * @return boolean
@@ -81,7 +81,7 @@
 			if ((int)Configure::read('Cg.departement') !== 66) {
 				return true;
 			}
-			
+
 			$query = array(
 				'fields' => 'Rendezvous.statutrdv_id',
 				'contain' => false,
@@ -90,7 +90,7 @@
 					'Rendezvous.heurerdv DESC'
 				)
 			);
-			
+
 			// On connait l'id de la Personne
 			if ($modelName === 'Personne') {
 				$query['conditions'] = array(
@@ -98,7 +98,7 @@
 				);
 				$result = $this->Rendezvous->find('first', $query);
 				$statutrdv_id = Hash::get($result, 'Rendezvous.statutrdv_id');
-				
+
 			// On ne connait que l'id du Rendezvous
 			} elseif ($modelName === 'Rendezvous') {
 				$query['conditions'] = array(
@@ -116,25 +116,25 @@
 				);
 				$result = $this->Rendezvous->find('first', $query);
 				$statutrdv_id = Hash::get($result, 'Rendezvous.statutrdv_id');
-				
+
 			// On connait déja l'id du Statutrdv
 			} elseif ($modelName === 'Statutrdv') {
 				$statutrdv_id = $id;
-				
+
 			// Erreur
 			} else {
 				trigger_error("modelName doit contenir Personne, Rendezvous ou Statutrdv");
 				return false;
 			}
-			
+
 			return !in_array(
 				$statutrdv_id, (array)Configure::read('Rendezvous.Ajoutpossible.statutrdv_id')
 			);
 		}
-		
+
 		/**
 		 * Vérifi si un Dossier de commission lié au rendez-vous existe
-		 * 
+		 *
 		 * @param integer $personne_id
 		 * @return boolean
 		 */
@@ -142,7 +142,7 @@
 			if ((int)Configure::read('Cg.departement') !== 58) {
 				return false;
 			}
-			
+
 			$query = array(
 				'fields' => 'Rendezvous.id',
 				'conditions' => array(
@@ -156,7 +156,7 @@
 			);
 			$record = $this->Rendezvous->find('first', $query);
 			$lastrdv_id = Hash::get($record, 'Rendezvous.id');
-			
+
 			$dossierepLie = $this->Rendezvous->Personne->Dossierep->find(
 				'first',
 				array(
@@ -192,7 +192,7 @@
 					'order' => array( 'Dossierep.created ASC' )
 				)
 			);
-			
+
 			if (Hash::get($dossierepLie, 'Dossierep.id')) {
 				return true;
 			}
@@ -230,34 +230,34 @@
 					'contain' => false
 				)
 			);
-			
+
 			if (Hash::get($dossiercovLie, 'Dossiercov58.id')) {
 				return true;
 			} else {
 				return false;
 			}
 		}
-		
+
 		/**
 		 * Permet d'obtenir les paramètres à envoyer à WebrsaAccess pour une personne en particulier
-		 * 
+		 *
 		 * @see WebrsaAccess::getParamsList
 		 * @param integer $personne_id
 		 * @param array $params - Liste des paramètres actifs
 		 */
 		public function getParamsForAccess($personne_id, array $params = array()) {
 			$results = array();
-			
+
 			if (in_array('ajoutPossible', $params)) {
 				$results['ajoutPossible'] = $this->ajoutPossible($personne_id);
 			}
 			if (in_array('dossiercommissionLie', $params)) {
 				$results['dossiercommissionLie'] = $this->haveDossiercommissionLie($personne_id);
 			}
-			
+
 			return $results;
 		}
-		
+
 		/**
 		 * Retourne un booléen selon si un dossier d'EP doit ou non
 		 * être créé pour la personne dont l'id est passé en paramètre
@@ -411,7 +411,7 @@
 
 			return empty( $dossiercommission );
 		}
-		
+
 		/**
 		 * Retourne le PDF d'un rendez-vous.
 		 *
@@ -497,24 +497,12 @@
 
 			$Option = ClassRegistry::init( 'Option' );
 			$options = array(
-				'Permanence' => array(
-					'typevoie' => $Option->typevoie()
-				),
 				'Personne' => array(
 					'qual' => $Option->qual()
 				),
 				'Referent' => array(
 					'qual' => $Option->qual()
-				),
-				'Structurereferente' => array(
-					'type_voie' => $Option->typevoie()
-				),
-				'Type' => array(
-					'voie' => $Option->typevoie()
-				),
-				'type' => array(
-					'voie' => $Option->typevoie()
-				),
+				)
 			);
 
 			return $this->Rendezvous->ged(
@@ -566,7 +554,7 @@
 						'themeep' => 'sanctionsrendezvouseps58'
 					)
 				);
-				$success = $this->Rendezvous->Personne->Dossierep->save( $dossierep );
+				$success = $this->Rendezvous->Personne->Dossierep->save( $dossierep , array( 'atomic' => false ) );
 
 				$sanctionrendezvousep58 = array(
 					'Sanctionrendezvousep58' => array(
@@ -575,7 +563,7 @@
 					)
 				);
 
-				$success = $this->Rendezvous->Personne->Dossierep->Sanctionrendezvousep58->save( $sanctionrendezvousep58 ) && $success;
+				$success = $this->Rendezvous->Personne->Dossierep->Sanctionrendezvousep58->save( $sanctionrendezvousep58 , array( 'atomic' => false ) ) && $success;
 			}
 			else {
 				$themecov58_id = $this->Rendezvous->Propoorientsocialecov58->Dossiercov58->Themecov58->field( 'id', array( 'name' => 'proposorientssocialescovs58' ) );
@@ -586,7 +574,7 @@
 						'themecov58_id' => $themecov58_id,
 					)
 				);
-				$success = $this->Rendezvous->Personne->Dossiercov58->save( $dossiercov58 );
+				$success = $this->Rendezvous->Personne->Dossiercov58->save( $dossiercov58 , array( 'atomic' => false ) );
 
 				$propoorientsocialecov58 = array(
 					'Propoorientsocialecov58' => array(
@@ -596,12 +584,12 @@
 					)
 				);
 
-				$success = $this->Rendezvous->Propoorientsocialecov58->save( $propoorientsocialecov58 ) && $success;
+				$success = $this->Rendezvous->Propoorientsocialecov58->save( $propoorientsocialecov58 , array( 'atomic' => false ) ) && $success;
 			}
 
 			return $success;
 		}
-		
+
 		/**
 		 * Retourne la liste des rendez-vous d'une personne, ordonnés par date
 		 * et heure (du plus récent au plus ancien), et libellé de l'objet,

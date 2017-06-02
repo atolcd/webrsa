@@ -3,11 +3,11 @@
 	 * Code source de la classe AdresseCantonShell.
 	 *
 	 * @package app.Console.Command
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Shell.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	 App::uses( 'XShell', 'Console/Command' );
 	 App::uses( 'ConnectionManager', 'Model' );
-	 App::uses( 'Csv', 'Helper' );
+	 App::uses( 'CsvHelper', 'View/Helper' );
 	 App::uses( 'View', 'View' );
 	 
 	/**
@@ -159,8 +159,6 @@
 				mkdir($path, 0777, true);
 			}
 			
-			App::import('Helper', 'Csv');
-			App::import('View', 'View');
 			$Csv = new CsvHelper( new View() );
 			$Csv->addGrid( $data, false );
 			$fileData = $Csv->render(false);

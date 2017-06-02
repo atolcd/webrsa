@@ -46,7 +46,7 @@
 		 *
 		 * @var array array('validate' => false, 'fieldList' => array(), 'callbacks' => false)
 		 */
-		public $saveParams = array('validate' => false, 'fieldList' => array(), 'callbacks' => false);
+		public $saveParams = array('validate' => false, 'fieldList' => array(), 'callbacks' => false, 'atomic' => false);
 
 		/**
 		 * Constructeur de classe
@@ -68,10 +68,10 @@
 
 			return $this->_savedData;
 		}
-		
+
 		/**
 		 * Produit un rapport sous forme d'array sur les modèles utilisés et le nombre d'enregistrements créé
-		 * 
+		 *
 		 * @return array
 		 */
 		public function report() {
@@ -79,7 +79,7 @@
 			foreach ($this->_savedData as $modelName => $datas) {
 				$report[$modelName] = count($datas);
 			}
-			
+
 			return $report;
 		}
 

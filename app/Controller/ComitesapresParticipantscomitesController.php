@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe ComitesapresParticipantscomitesController ...
@@ -51,26 +52,26 @@
 			'Comiteapre',
 			'Participantcomite',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'ComitesapresParticipantscomites:edit',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -142,11 +143,11 @@
 
 				if( $this->Comiteapre->saveAll( $this->request->data ) ) {
 					$this->Jetonsfonctions2->release( array( 'action' => '_add_edit' ) );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'comitesapres', 'action' => 'view', $comiteapre_id ) );
 				}
 				else{
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -191,12 +192,12 @@
 				$success = true;
 				foreach( $this->request->data['ComiteapreParticipantcomite'] as $item ) {
 					$success = $this->ComiteapreParticipantcomite->create( array( 'ComiteapreParticipantcomite' => $item ) ) && $success;
-					$this->ComiteapreParticipantcomite->save();
+					$this->ComiteapreParticipantcomite->save( null, array( 'atomic' => false ) );
 				}
 
 				if( $success ) {
 					$this->ComiteapreParticipantcomite->commit();
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'comitesapres', 'action' => 'rapport', $comiteapre_id ) );
 				}
 				else {

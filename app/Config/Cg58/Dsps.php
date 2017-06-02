@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par DSPs (nouveau)"
+	 * Menu "Recherches" > "Par DSPs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dsps.search',
@@ -78,7 +78,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par DSPs (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par DSPs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dsps.exportcsv',
@@ -116,70 +116,6 @@
 			),
 			// 4. Temps d'exécution, mémoire maximum, ...
 			'ini_set' => Configure::read( 'ConfigurableQuery.Dsps.search.ini_set' ),
-		)
-	);
-
-	// -------------------------------------------------------------------------
-
-	/**
-	 * Liste des champs devant apparaître dans les résultats de la recherche par DSP:
-	 *	- Dsps.index.fields contient les champs de chaque ligne du tableau de résultats
-	 *	- Dsps.index.innerTable contient les champs de l'infobulle de chaque ligne du tableau de résultats
-	 *	- Dsps.exportcsv contient les champs de chaque ligne du tableau à télécharger au format CSV
-	 *
-	 * Voir l'onglet "Environnement logiciel" > "WebRSA" > "Champs spécifiés dans
-	 * le webrsa.inc" de la vérification de l'application.
-	 *
-	 * @deprecated since 3.0.00
-	 */
-	Configure::write(
-		'Dsps',
-		array(
-			'index' => array(
-				'fields' => array(
-					'Personne.nom_complet_court',
-					'Adresse.nomcom',
-					'Dossier.matricule',
-					'Donnees.libsecactdomi',
-					'Donnees.libactdomi',
-					'Donnees.libsecactrech',
-					'Donnees.libemploirech'
-				),
-				'innerTable' => array(
-					'Personne.dtnai',
-					'Adresse.numcom',
-					'Personne.nir',
-					'Situationdossierrsa.etatdosrsa',
-					'Donnees.nivetu',
-					'Donnees.hispro',
-					'Structurereferenteparcours.lib_struc',
-					'Referentparcours.nom_complet'
-				)
-			),
-			'exportcsv1' => array(
-				'Dossier.numdemrsa', // N° Dossier
-				'Dossier.matricule', // N° CAF
-				'Situationdossierrsa.etatdosrsa', // Etat du droit
-				'Personne.qual', // Qualité
-				'Personne.nom', // Nom
-				'Personne.prenom', // Prénom
-				'Dossier.matricule', // N° CAF
-				'Adresse.numvoie', // Numéro de voie
-				'Adresse.libtypevoie', // Type de voie
-				'Adresse.nomvoie', // Nom de voie
-				'Adresse.complideadr', // Complément adresse 1
-				'Adresse.compladr', // Complément adresse 2
-				'Adresse.codepos', // Code postal
-				'Adresse.nomcom', // Commune
-				'Donnees.libsecactderact', // Secteur dernière activité
-				'Donnees.libderact', // Dernière activité
-				'Donnees.libsecactdomi', // Secteur dernière activité dominante
-				'Donnees.libactdomi', // Dernière activité dominante
-				'Donnees.libsecactrech', // Secteur activité recherché
-				'Donnees.libemploirech', // Activité recherchée
-				'Structurereferenteparcours.lib_struc', // Structure du parcours
-				'Referentparcours.nom_complet', // Référent du parcours
-			)
 		)
 	);
 ?>

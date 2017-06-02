@@ -1,5 +1,5 @@
 <?php
-	require_once( dirname( __FILE__ ).DS.'search.ctp' );
+	require_once  dirname( __FILE__ ).DS.'search.ctp' ;
 
 	if( isset( $results ) ) {
 		$cells = array();
@@ -40,6 +40,6 @@
 		echo $this->Xhtml->tag( 'table', $thead.$tfoot.$tbody );
 		echo $this->Xhtml->tag( 'p', '(1) : à préciser dans le bilan qualitatif' );
 
-		require_once( dirname( __FILE__ ).DS.'footer.ctp' );
+		include_once  dirname( __FILE__ ).DS.'footer.ctp' ;
 	}
 ?>

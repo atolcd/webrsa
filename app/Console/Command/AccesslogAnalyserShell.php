@@ -3,8 +3,9 @@
 	 * Code source de la classe AccesslogAnalyserShell.
 	 *
 	 * @package app.Console.Command
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Shell.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppShell', 'Console/Command' );
 
 	/**
 	 * La classe AccesslogAnalyserShell ...
@@ -20,13 +21,13 @@
 			if ( !isset($this->args[0] ) ){
 				$this->args[0] = $this->in('Indiquez la position du log à analyser (vous devez posséder les droits) :', null, '/var/log/apache2/access.log');
 			}
-			
+
 			$File = fopen( $this->args[0], "r");
 			if (!$File) {
 				$this->out("Le fichier n'a pas été trouvé!");
 				exit;
 			}
-			
+
 			$ip = '((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))'; // de 0 à 255 suivi d'un point 3 fois puis de 0 à 255
 			$date = '\[([0123][0-9]\/[\w]+\/20[0-9]{2}.*) \+[\d]+\]'; // [D/M/Y .*]
 			$method = '"((?:GET)|(?:POST))'; // GET ou POST
@@ -64,7 +65,7 @@
 						'code' => $matches[5],
 						'args' => $vars
 					);
-					
+
 					if (!isset($ipList[$matches[1]])) {
 						$ipList[$matches[1]] = 0;
 					}
@@ -148,7 +149,7 @@
 						}
 					}
 				}
-				
+
 				$diffDates = $this->_moyenneEntreDates( $results[$key] );
 
 				$this->out("IP s'étant le plus connecté (".$max['ip']['count']." fois): ".$max['ip']['value']);
@@ -169,23 +170,23 @@
 				$this->out("L'url la plus consulté (".$max['args']['count']." fois): ");
 				$this->out($max['args']['value']);
 				$this->out('-----------------');
-				
+
 				$this->out("Le temps d'accès minimum a été de ".$this->_formatSecondes($diffDates['min']));
 				$this->out("L'eccart maximum a été de ".$this->_formatSecondes($diffDates['max']));
 				$this->out("En moyenne, cette page est consulté toutes les ".$this->_formatSecondes($diffDates['moy']));
 			}
 		}
-		
+
 		/**
 		 * Permet d'obtenir à partir d'un array contenant des clef 'date', une moyenne (en secondes) des connections entre
 		 * Permet d'obtenir au passage le min et le max
-		 * 
+		 *
 		 * @param array $datas array( array('date' => DateTime), ... )
 		 * @return array array( 'min' => (int), 'max' => (int), 'moy' => (int) )
 		 */
 		protected function _moyenneEntreDates( $datas ) {
 			$diffs = array();
-			
+
 			// On tri par date
 			usort($datas, function($a, $b) {
 				$ad = $a['date'];
@@ -197,14 +198,14 @@
 
 				return $ad > $bd ? 1 : -1;
 			});
-			
+
 			foreach ($datas as $data) {
 				if ($data['date'] === false) {
 					$this->out("Erreur de date!");
 					$this->out(var_export($data, true));
 					continue;
 				}
-				
+
 				if (!isset($memory)) {
 					$memory = $data['date'];
 				}
@@ -214,17 +215,17 @@
 					$memory = $data['date'];
 				}
 			}
-			
+
 			return array(
 				'min' => min($diffs),
 				'max' => max($diffs),
 				'moy' => round(array_sum($diffs) / count($diffs))
 			);
 		}
-		
+
 		/**
 		 * Permet de transformer un nombre de secondes en phrase
-		 * 
+		 *
 		 * @param integer $duree en secondes
 		 * @return string
 		 */
@@ -232,11 +233,11 @@
 			$heures = intval($duree / 3600);
 			$minutes = intval(($duree % 3600) / 60);
 			$secondes = intval((($duree % 3600) % 60));
-			
+
 			$heure_s = $heures > 1 ? 's' : '';
 			$minute_s = $minutes > 1 ? 's' : '';
 			$seconde_s = $secondes > 1 ? 's' : '';
-			
+
 			if ($heures > 0) {
 				return "$heures heure$heure_s, $minutes minute$minute_s et $secondes seconde$seconde_s";
 			}

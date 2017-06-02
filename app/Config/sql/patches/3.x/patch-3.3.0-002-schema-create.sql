@@ -400,6 +400,8 @@ AvisPCGPersonne (0,1 F) -> avispcgpersonnes
 --	- Nouvelle information: ConditionNonSalarie/TOPCONDADMNONSAL
 -- *****************************************************************************
 
+CREATE UNIQUE INDEX avispcgpersonnes_personne_id_unique ON avispcgpersonnes (personne_id);
+
 SELECT add_missing_table_field ('public', 'avispcgpersonnes', 'topcondadmnonsal', 'CHAR(1) DEFAULT NULL' );
 SELECT add_missing_table_field ('public', 'avispcgpersonnes', 'commpropresseva', 'VARCHAR(60) DEFAULT NULL' );
 SELECT add_missing_table_field ('public', 'avispcgpersonnes', 'ddressnonsaleva', 'DATE DEFAULT NULL' );
@@ -977,22 +979,22 @@ INSERT INTO motifsevenements (evenement_id, motitransflux)
 					WHEN fg = 'RECPEN' THEN 'CHCARE'
 					WHEN fg = 'TITPEN' THEN 'CHCARE'
 					WHEN fg = 'CREALI' THEN 'CHCARE'
-					WHEN fg = 'ASF' THEN 'CHCARE'
+					WHEN fg IN ('ASF', 'DEMASF') THEN 'CHCARE'
 					WHEN fg = 'JUSRSAJEU' THEN 'CHCARE'
 					WHEN fg = 'SURPONEXP' THEN 'CHCARE'
 					WHEN fg = 'AIDFAM' THEN 'CHCARE'
 					WHEN fg = 'REDDRO' THEN 'CHCARE'
 					WHEN fg = 'DESALL' THEN 'CHRDOS'
 					WHEN fg = 'RESDOS' THEN 'CHRDOS'
-					WHEN fg = 'ETACIV' THEN 'CHFAMI'
-					WHEN fg = 'SITFAM' THEN 'CHFAMI'
+					WHEN fg IN ('ETACIV', 'NATTITSEJ') THEN 'CHFAMI'
+					WHEN fg IN ('SITFAM', 'CHASITFAM') THEN 'CHFAMI'
 					WHEN fg = 'INTGRO' THEN 'CHFAMI'
 					WHEN fg = 'IDEPER' THEN 'CHFAMI'
 					WHEN fg = 'MODPER' THEN 'CHFAMI'
 					WHEN fg = 'EXAPRE' THEN 'CHFAMI'
 					WHEN fg = 'LIEPAR' THEN 'CHFAMI'
 					WHEN fg = 'SITPRO' THEN 'CHSTPE'
-					WHEN fg = 'SITENFAUT' THEN 'CHSTPE'
+					WHEN fg IN ('SITENF', 'SITENFAUT') THEN 'CHSTPE'
 					WHEN fg = 'PROACC' THEN 'CONACC'
 					WHEN fg = 'RAD' THEN 'CLOTUR'
 					WHEN fg = 'DEMRSA' THEN 'CREDEM'
@@ -1006,7 +1008,8 @@ INSERT INTO motifsevenements (evenement_id, motitransflux)
 					WHEN fg = 'MUT' THEN 'MUTATI'
 					WHEN fg = 'SANRSA' THEN 'SANPCG'
 					WHEN fg = 'SUS' THEN 'SUSADM'
-					ELSE fg
+					WHEN fg IN ('ENTDED', 'CIRMA', 'SUIRMA', 'JUSACT', 'REA') THEN fg
+					ELSE TRIM( BOTH ' ' FROM SUBSTRING( fg FROM 1 FOR 6 ) )
 				END
 			) AS motitransflux
 		FROM evenements;

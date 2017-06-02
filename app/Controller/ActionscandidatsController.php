@@ -7,7 +7,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-     App::import( 'Behaviors', 'Occurences');
+     App::uses( 'OccurencesBehavior', 'Model/Behavior' );
+	 App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe ActionscandidatsController ...
@@ -47,6 +48,9 @@
 			'Theme',
 			'Default2',
 			'Fileuploader',
+			'Default3' => array(
+				'className' => 'Default.DefaultDefault'
+			)
 		);
 
 		/**
@@ -102,18 +106,6 @@
 			'view' => 'read',
 		);
 
-		/**
-		*
-		*/
-
-		public function beforeFilter() {
-			$return = parent::beforeFilter();
-			$options = array();
-			$this->set( 'typevoie', $this->Option->typevoie() );
-			$this->set( compact( 'options', 'typevoie' ) );
-			return $return;
-		}
-
 		protected function _setOptions() {
 			$options = $this->Actioncandidat->enums();
 
@@ -125,39 +117,37 @@
 				$this->set( compact( 'zonesselected' ) );
 
 
-// 				if( Configure::read( 'Cg.departement' ) == 66 ) {
-					$conditionsChargeinsertionSecretaire = Configure::read( 'Chargeinsertion.Secretaire.group_id' );
-					if( $conditionsChargeinsertionSecretaire != NULL ) {
-						$conditionsChargeinsertion = array(
-							'Chargeinsertion.nom IS NOT NULL',
-							"Chargeinsertion.group_id" => $conditionsChargeinsertionSecretaire
-						);
+				$conditionsChargeinsertionSecretaire = Configure::read( 'Chargeinsertion.Secretaire.group_id' );
+				if( $conditionsChargeinsertionSecretaire != NULL ) {
+					$conditionsChargeinsertion = array(
+						'Chargeinsertion.nom IS NOT NULL',
+						"Chargeinsertion.group_id" => $conditionsChargeinsertionSecretaire
+					);
 
-						$conditionsSecretaire = array(
-							'Secretaire.nom IS NOT NULL',
-							"Secretaire.group_id" => $conditionsChargeinsertionSecretaire
-						);
-					}
-					else {
-						$conditionsChargeinsertion = $conditionsSecretaire = array();
-					}
-					$options['Actioncandidat']['chargeinsertion_id'] = $this->Actioncandidat->Chargeinsertion->find(
-						'list',
-						array(
-							'fields' => array( 'id', 'nom_complet' ),
-							'conditions' => $conditionsChargeinsertion,
-							'order' => 'Chargeinsertion.nom ASC'
-						)
+					$conditionsSecretaire = array(
+						'Secretaire.nom IS NOT NULL',
+						"Secretaire.group_id" => $conditionsChargeinsertionSecretaire
 					);
-					$options['Actioncandidat']['secretaire_id'] = $this->Actioncandidat->Secretaire->find(
-						'list',
-						array(
-							'fields' => array( 'id', 'nom_complet' ),
-							'conditions' => $conditionsSecretaire,
-							'order' => 'Secretaire.nom ASC'
-						)
-					);
-// 				}
+				}
+				else {
+					$conditionsChargeinsertion = $conditionsSecretaire = array();
+				}
+				$options['Actioncandidat']['chargeinsertion_id'] = $this->Actioncandidat->Chargeinsertion->find(
+					'list',
+					array(
+						'fields' => array( 'id', 'nom_complet' ),
+						'conditions' => $conditionsChargeinsertion,
+						'order' => 'Chargeinsertion.nom ASC'
+					)
+				);
+				$options['Actioncandidat']['secretaire_id'] = $this->Actioncandidat->Secretaire->find(
+					'list',
+					array(
+						'fields' => array( 'id', 'nom_complet' ),
+						'conditions' => $conditionsSecretaire,
+						'order' => 'Secretaire.nom ASC'
+					)
+				);
 			}
             $this->set( 'cantons', ClassRegistry::init( 'Canton' )->selectList() );
 
@@ -221,6 +211,17 @@
 		public function index() {
 			$this->Actioncandidat->recursive = -1;
 
+			$messages = array();
+			if( 0 === $this->Actioncandidat->Partenaire->find( 'count' ) ) {
+				$msg = 'Merci de renseigner au moins un partenaire / prestataire avant de renseigner une action d\'insertion.';
+				$messages[$msg] = 'error';
+			}
+			if( 0 === $this->Actioncandidat->Partenaire->Contactpartenaire->find( 'count' ) ) {
+				$msg = 'Merci de renseigner au moins un contact pour le partenaire / prestataire avant de renseigner une action d\'insertion.';
+				$messages[$msg] = 'error';
+			}
+			$this->set( compact( 'messages' ) );
+
             if( !empty( $this->request->data ) ) {
                 $querydata = $this->Actioncandidat->search( $this->request->data );
                 $this->paginate = $querydata;
@@ -273,13 +274,13 @@
 
 				if( $saved ) {
 					$this->Actioncandidat->commit();
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array(  'controller' => 'actionscandidats','action' => 'index' ) );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id, false );
 					$this->Actioncandidat->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			elseif( $this->action == 'edit' ) {
@@ -335,24 +336,32 @@
 		}
 
 		/**
-		 * Permet à partir du themecode et de codefamille de trouver le dernier numéro du code famille
+		 * Permet à partir du themecode et de codefamille de trouver le dernier
+		 * numéro du code famille
 		 */
 		public function ajax_getLastNumcodefamille() {
-			$query = array(
-				'fields' => 'Actioncandidat.numcodefamille',
-				'contain' => false,
-				'conditions' => array(
-					'Actioncandidat.themecode' => Hash::get($this->request->data, 'themecode'),
-					'Actioncandidat.codefamille' => Hash::get($this->request->data, 'codefamille'),
-					'Actioncandidat.numcodefamille ~ \'^[0-9]+$\''
-				),
-				'order' => array(
-					'Actioncandidat.numcodefamille' => 'DESC'
-				)
-			);
+			$themecode = Hash::get($this->request->data, 'themecode');
 
-			$result = Hash::get($this->Actioncandidat->find('first', $query), 'Actioncandidat.numcodefamille');
-			echo $result ? $result : 'Aucun numéro du code famille n\'a été trouvé';
+			if ( true === valid_int( $themecode ) ) {
+				$query = array(
+					'fields' => 'Actioncandidat.numcodefamille',
+					'contain' => false,
+					'conditions' => array(
+						'Actioncandidat.themecode' => $themecode,
+						'Actioncandidat.codefamille' => Hash::get($this->request->data, 'codefamille'),
+						'Actioncandidat.numcodefamille ~ \'^[0-9]+$\''
+					),
+					'order' => array(
+						'Actioncandidat.numcodefamille' => 'DESC'
+					)
+				);
+
+				$result = Hash::get($this->Actioncandidat->find('first', $query), 'Actioncandidat.numcodefamille');
+				echo $result ? $result : 'Aucun numéro du code famille n\'a été trouvé';
+			}
+			else {
+				echo 'Erreur: le thème de l\'action doit etre un nombre entier';
+			}
 
 			exit;
 		}

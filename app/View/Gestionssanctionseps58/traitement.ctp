@@ -1,6 +1,6 @@
 <?php $this->pageTitle = 'Gestion des sanctions émises par l\'EP';?>
 <h1><?php echo $this->pageTitle;?></h1>
-<?php require_once( dirname( __FILE__ ).DS.'search.ctp' ); ?>
+<?php require_once  dirname( __FILE__ ).DS.'search.ctp' ; ?>
 
 <?php if( isset( $gestionsanctionseps58 ) ):?>
 	<?php echo $this->Html->tag( 'h2', 'Résultats de la recherche' );?>

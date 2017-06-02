@@ -7,7 +7,8 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( APPLIBS.'cmis.php' );
+	require_once  APPLIBS.'cmis.php' ;
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Pdf ...
@@ -18,22 +19,26 @@
 	{
 		public $name = 'Pdf';
 
-		public $validate = array(
-			'modele' => array(
-				'notempty' => array(
-					'rule' => array('notempty'),
-				),
-			),
-			'modeledoc' => array(
-				'notempty' => array(
-					'rule' => array('notempty'),
-				),
-			),
-			'fk_value' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-				),
-			),
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
+		/**
+		 * Behaviors utilisés par le modèle.
+		 *
+		 * @var array
+		 */
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate' => array(
+				'rules' => array(
+					'datetime' => false
+				)
+			)
 		);
 
 		/**

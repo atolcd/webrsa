@@ -1,0 +1,41 @@
+# Traductions de motifssuspensioncuis66.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Motifssuspensioncuis66/index/:heading"
+msgstr "Paramétrage des motifs de suspension du CUI"
+
+msgid "/Motifssuspensioncuis66/add/:heading"
+msgstr "Ajout d'un motif de suspension du CUI"
+
+msgid "/Motifssuspensioncuis66/edit/:heading"
+msgstr "Modification du motif de suspension du CUI « #Motifsuspensioncui66.name# »"
+
+msgid "/Motifssuspensioncuis66/add"
+msgstr "Ajouter"
+
+msgid "/Motifssuspensioncuis66/add/:title"
+msgstr "Ajouter un motif de suspension du CUI"
+
+msgid "/Motifssuspensioncuis66/edit"
+msgstr "Modifier"
+
+msgid "/Motifssuspensioncuis66/edit/#Motifsuspensioncui66.id#"
+msgstr "Modifier le motif de suspension du CUI « #Motifsuspensioncui66.name# »"
+
+msgid "/Motifssuspensioncuis66/delete"
+msgstr "Supprimer"
+
+msgid "/Motifssuspensioncuis66/delete/#Motifsuspensioncui66.id#"
+msgstr "Supprimer le motif de suspension du CUI « #Motifsuspensioncui66.name# »"
+
+msgid "/Motifssuspensioncuis66/delete/#Motifsuspensioncui66.id# ?"
+msgstr "Réellement supprimer le motif de suspension du CUI « #Motifsuspensioncui66.name# » ?"

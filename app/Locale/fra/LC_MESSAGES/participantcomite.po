@@ -1,0 +1,32 @@
+# Traductions de participantcomiteapre.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Participantcomite.qual"
+msgstr "Civilité"
+
+msgid "Participantcomite.nom"
+msgstr "Nom"
+
+msgid "Participantcomite.prenom"
+msgstr "Prénom"
+
+msgid "Participantcomite.fonction"
+msgstr "Fonction du participant"
+
+msgid "Participantcomite.organisme"
+msgstr "Organisme du participant"
+
+msgid "Participantcomite.numtel"
+msgstr "Numéro de téléphone"
+
+msgid "Participantcomite.mail"
+msgstr "Email"

@@ -29,17 +29,16 @@
 		$fields,
 		array(
 			'options' => $options,
-			'format' => __( SearchProgressivePagination::format() )
+			'format' => $this->element( 'pagination_format' )
 		)
 	);
 
 	echo $this->Default3->actions(
 		array(
-			"/Parametrages/fichesprescriptions93" => array(
+			"/Parametrages/index/#fichesprescriptions93" => array(
 				'class' => 'back',
-				'disabled' => !$this->Permissions->check( 'parametrages', 'fichesprescriptions93' ),
 				'domain' => 'cataloguespdisfps93'
-			),
+			)
 		)
 	);
 ?>

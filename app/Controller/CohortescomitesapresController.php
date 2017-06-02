@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe CohortescomitesapresController permet la gestion de comités
@@ -60,26 +61,26 @@
 			'Comiteapre',
 			'Option',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -144,7 +145,7 @@
 
 					// On oblige le comité à prendre une décision
 					$this->Comiteapre->ApreComiteapre->validate['decisioncomite'][] = array(
-						'rule' => array( 'notEmpty' ),
+						'rule' => array( NOT_BLANK_RULE_NAME ),
 						'required' => true,
 						'message' => 'Champ obligatoire',
 					);
@@ -169,17 +170,17 @@
 
 							$apre['Apre']['montantaverser'] = (!empty( $montantattribue ) ? $montantattribue : 0 );
 							$this->Comiteapre->Apre->create( $apre );
-							$saved = $this->Comiteapre->Apre->save( $apre ) && $saved;
+							$saved = $this->Comiteapre->Apre->save( $apre , array( 'atomic' => false ) ) && $saved;
 						}
 
 						if( $saved ) {
 							$this->Comiteapre->ApreComiteapre->commit();
 							if( !$isRapport ) {
-								$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+								$this->Flash->success( __( 'Save->success' ) );
 								$this->redirect( array( 'controller' => 'comitesapres', 'action' => 'rapport', $idComite ) );
 							}
 							else if( $isRapport ) {
-								$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+								$this->Flash->success( __( 'Save->success' ) );
 								$this->redirect( array( 'controller' => 'comitesapres', 'action' => 'rapport', $idRapport ) );
 							}
 						}
@@ -238,7 +239,6 @@
 
 			// TODO: error404/error500 si on ne trouve pas les données
 			$qual = $this->Option->qual();
-			$typevoie = $this->Option->typevoie();
 			$qd_aprecomiteapre = array(
 				'conditions' => array(
 					'ApreComiteapre.apre_id' => $apre_id
@@ -359,7 +359,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'decision_comite_apre_%d-%s-%s.pdf', $apre_comiteapre_id, $dest, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer l\'impression de la décision du comité APRE.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer l\'impression de la décision du comité APRE.' );
 				$this->redirect( $this->referer() );
 			}
 		}

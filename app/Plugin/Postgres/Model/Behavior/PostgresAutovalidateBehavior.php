@@ -20,8 +20,6 @@
 	 * Ces contraintes doivent porter un nom commençant par cakephp_validate_
 	 * pour être automatiquement ajoutées aux contraintes du modèle.
 	 *
-	 * @see Pgsqlcake.PgsqlAutovalidateBehavior (sera dépréciée par cette classe-ci)
-	 *
 	 * @package Postgres
 	 * @subpackage Model.Behavior
 	 */
@@ -162,7 +160,6 @@
 			if( preg_match_all( '/cakephp_validate_.*\((\(.+\).*|.+)\)/U', $code, $matches, PREG_PATTERN_ORDER ) ) {
 				foreach( $matches[0] as $rule ) {
 					// INFO: '.*'::text, (0)::numeric and ((-1))::double precision are transformed above
-					// if( preg_match( '/^cakephp_validate_(?<function>[^\(]+)\((?<field>\(.*\)::\w+|\w+)(, *(?<params>.*)){0,1}\)$/', $rule, $parameters ) ) {
 					if( preg_match( '/^cakephp_validate_(?<function>[^\(]+)\((?<field>\(.*\)|\w+)(, *(?<params>.*)){0,1}\)$/', $rule, $parameters ) ) {
 						$ruleName = Inflector::camelize( $parameters['function'] );
 						$ruleName[0] = strtolower( $ruleName[0] );

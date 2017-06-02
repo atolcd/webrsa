@@ -7,7 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	require_once( ABSTRACTMODELS.'AbstractThematiquecov58.php' );
+	App::uses( 'AbstractThematiquecov58', 'Model/Abstractclass' );
 
 	/**
 	 * La classe Propoorientsocialecov58 est la classe qui gère la thématique de COV "Orientation sociale de
@@ -19,8 +19,6 @@
 	{
 		public $name = 'Propoorientsocialecov58';
 
-		public $recursive = -1;
-
 		/**
 		 * Chemin relatif pour les modèles de documents .odt utilisés lors des
 		 * impressions. Utiliser %s pour remplacer par l'alias.
@@ -31,9 +29,10 @@
 		);
 
 		public $actsAs = array(
-			'Autovalidate2',
-			'Formattable',
-			'Gedooo.Gedooo'
+			'Gedooo.Gedooo',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(
@@ -72,15 +71,7 @@
 		 * @deprecated
 		 */
 		public function getFields() {
-			/*return array(
-				$this->alias.'.id',
-				$this->alias.'.datedemande',
-				'Typeorient.lib_type_orient',
-				'Structurereferente.lib_struc',
-				'Referent.qual',
-				'Referent.nom',
-				'Referent.prenom'
-			);*/
+
 		}
 
 		/**
@@ -88,40 +79,7 @@
 		 * @deprecated
 		 */
 		public function getJoins() {
-			/*return array(
-				array(
-					'table' => 'proposorientationscovs58',
-					'alias' => $this->alias,
-					'type' => 'INNER',
-					'conditions' => array(
-						'Dossiercov58.id = Propoorientsocialecov58.dossiercov58_id'
-					)
-				),
-				array(
-					'table' => 'structuresreferentes',
-					'alias' => 'Structurereferente',
-					'type' => 'INNER',
-					'conditions' => array(
-						'Propoorientsocialecov58.structurereferente_id = Structurereferente.id'
-					)
-				),
-				array(
-					'table' => 'typesorients',
-					'alias' => 'Typeorient',
-					'type' => 'INNER',
-					'conditions' => array(
-						'Propoorientsocialecov58.typeorient_id = Typeorient.id'
-					)
-				),
-				array(
-					'table' => 'referents',
-					'alias' => 'Referent',
-					'type' => 'LEFT OUTER',
-					'conditions' => array(
-						'Propoorientsocialecov58.referent_id = Referent.id'
-					)
-				)
-			);*/
+
 		}
 
 		/**
@@ -167,76 +125,7 @@
 		 * FIXME: à mettre en commun ?
 		 */
 		public function ajoutPossible( $personne_id ) {
-			/*$nbDossierscov = $this->Dossiercov58->find(
-				'count',
-				array(
-					'conditions' => array(
-						'Dossiercov58.personne_id' => $personne_id
-					),
-					'contain' => array(
-						'Propoorientsocialecov58'
-					)
-				)
-			);
 
-			$nbPersonnes = $this->Personne->find(
-				'count',
-				array(
-					'conditions' => array(
-						'Personne.id' => $personne_id,
-					),
-					'joins' => array(
-						array(
-							'table'      => 'prestations',
-							'alias'      => 'Prestation',
-							'type'       => 'INNER',
-							'foreignKey' => false,
-							'conditions' => array(
-								'Personne.id = Prestation.personne_id',
-								'Prestation.natprest = \'RSA\'',
-								'Prestation.rolepers' => array( 'DEM', 'CJT' )
-							)
-						),
-						array(
-							'table'      => 'calculsdroitsrsa',
-							'alias'      => 'Calculdroitrsa',
-							'type'       => 'INNER',
-							'foreignKey' => false,
-							'conditions' => array(
-								'Personne.id = Calculdroitrsa.personne_id',
-								'Calculdroitrsa.toppersdrodevorsa' => '1'
-							)
-						),
-						array(
-							'table'      => 'foyers',
-							'alias'      => 'Foyer',
-							'type'       => 'INNER',
-							'foreignKey' => false,
-							'conditions' => array( 'Foyer.id = Personne.foyer_id' )
-						),
-						array(
-							'table'      => 'dossiers',
-							'alias'      => 'Dossier',
-							'type'       => 'INNER',
-							'foreignKey' => false,
-							'conditions' => array( 'Foyer.dossier_id = Dossier.id' )
-						),
-						array(
-							'table'      => 'situationsdossiersrsa',
-							'alias'      => 'Situationdossierrsa',
-							'type'       => 'INNER',
-							'foreignKey' => false,
-							'conditions' => array(
-								'Situationdossierrsa.dossier_id = Dossier.id',
-								'Situationdossierrsa.etatdosrsa' => array( 'Z', '2', '3', '4' )
-							)
-						),
-					),
-					'recursive' => -1
-				)
-			);
-
-			return ( ( $nbDossierscov == 0 ) && ( $nbPersonnes == 1 ) );*/
 		}
 
 		/**
@@ -310,7 +199,7 @@
 						) && $success;
 
 						$this->Dossiercov58->Personne->Orientstruct->create( $orientstruct );
-						$success = $this->Dossiercov58->Personne->Orientstruct->save() && $success;
+						$success = $this->Dossiercov58->Personne->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
 
 						// Mise à jour de l'enregistrement de la thématique avec l'id de la nouvelle orientation
 						$success = $success && $this->updateAllUnBound(
@@ -495,8 +384,7 @@
 			);
 
 			$options = array(
-				'Personne' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() ),
-				'type' => array( 'voie' => ClassRegistry::init( 'Option' )->typevoie() )
+				'Personne' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() )
 			);
 			$options = Set::merge( $options, $this->Dossiercov58->enums() );
 

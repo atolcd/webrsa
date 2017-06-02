@@ -1,0 +1,110 @@
+# Traductions de apres66.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Apres66/cohorte_validation/:heading"
+msgstr "APRE/ADREs à valider"
+
+msgid "Apres66.cohorte_validation"
+msgstr "Rechercher par APRE/ADRE"
+
+msgid "Search.Aideapre66.themeapre66_id"
+msgstr "Thème de l'aide"
+
+msgid "Search.Aideapre66.typeaideapre66_id"
+msgstr "Type d'aide"
+
+msgid "Search.Apre66.numeroapre"
+msgstr "N° du dossier APRE/ADRE "
+
+msgid "Search.Apre66.referent_id"
+msgstr "Référent lié"
+
+msgid "Referentapre.nom_complet"
+msgstr "Référent APRE/ADRE"
+
+msgid "/Apres66/index"
+msgstr "Voir"
+
+msgid "/Apres66/index/#Personne.id#"
+msgstr "Voir les APRE/ADREs de #Personne.nom_complet#"
+
+msgid "data[Cohorte][][Apre66][selection]"
+msgstr "Sélectionner"
+
+msgid "data[Cohorte][][Aideapre66][decisionapre]"
+msgstr "Décision APRE/ADRE"
+
+msgid "data[Cohorte][][Aideapre66][montantaccorde]"
+msgstr "Montant accordé"
+
+msgid "data[Cohorte][][Aideapre66][motifrejetequipe]"
+msgstr "Motif du rejet"
+
+msgid "data[Cohorte][][Aideapre66][datemontantaccorde]"
+msgstr "Date de la décision"
+
+msgid "/Apres66/cohorte_imprimer/:heading"
+msgstr "APRE/ADREs à notifier"
+
+msgid "Apres66.cohorte_imprimer"
+msgstr "Rechercher par APRE/ADRE"
+
+msgid "/Apres66/notifications"
+msgstr "Notifications"
+
+msgid "/Apres66/notifications/#Apre66.id#"
+msgstr "Notifier la décision"
+
+msgid "/Apres66/cohorte_notifiees/:heading"
+msgstr "APRE/ADREs notifiées"
+
+msgid "Apres66.cohorte_notifiees"
+msgstr "Rechercher par APRE/ADRE"
+
+msgid "/Apres66/cohorte_transfert/:heading"
+msgstr "APRE/ADREs à transférer à la cellule"
+
+msgid "Apres66.cohorte_transfert"
+msgstr "Rechercher par APRE/ADRE"
+
+msgid "Apre66.nb_fichiers_lies"
+msgstr "Nombre de fichiers liés"
+
+msgid "/Apres66/filelink"
+msgstr "Fichiers liés"
+
+msgid "/Apres66/filelink/#Apre66.id#"
+msgstr "Fichiers liés (#Apre66.nb_fichiers_lies#)"
+
+msgid "data[Cohorte][][Apre66][id]"
+msgstr "Rafraîchir les fichiers liés"
+
+msgid "data[Cohorte][][Apre66][istransfere]"
+msgstr "Transférer cellule"
+
+msgid "/Apres66/cohorte_traitement/:heading"
+msgstr "APRE/ADREs à traiter par la cellule"
+
+msgid "Apres66.cohorte_traitement"
+msgstr "Rechercher par APRE/ADRE"
+
+msgid "data[Cohorte][][Apre66][istraite]"
+msgstr "Traité"
+
+msgid "Apre66.isapre"
+msgstr "Type"
+
+msgid "Search.Dernierreferent.recherche"
+msgstr "Rechercher un référent (hors structure)"
+
+msgid "Search.Dernierreferent.dernierreferent_id"
+msgstr "Nom du référent (hors structure)"

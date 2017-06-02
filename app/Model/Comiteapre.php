@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Comiteapre.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Comiteapre ...
@@ -16,6 +17,13 @@
 	class Comiteapre extends AppModel
 	{
 		public $name = 'Comiteapre';
+
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
 
 		public $displayField = 'intitulecomite';
 
@@ -56,28 +64,39 @@
 			)
 		);
 
+		/**
+		 * Behaviors utilisés par ce modèle.
+		 *
+		 * @var array
+		 */
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
+		);
+
 		public $validate = array(
 			'datecomite' => array(
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				),
-				array(
-					'rule' => 'isUnique',
+				'isUnique' => array(
+					'rule' => array( 'isUnique' ),
 					'message' => 'Un comité d\'examen existe déjà à cette date.'
 				)
 			),
 			'heurecomite' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
 			),
 			'lieucomite' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
-			),
-			'intitulecomite' => array(
-				'rule' => 'notEmpty',
-				'message' => 'Champ obligatoire'
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				)
 			)
 		);
 

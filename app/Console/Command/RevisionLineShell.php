@@ -31,6 +31,10 @@
 				exit;
 			}
 			
+			if (strpos($this->args[0], ROOT) === 0) {
+				$this->args[0] = trim(substr($this->args[0], strlen(ROOT)), '/');
+			}
+			
 			if (!isset($this->args[1])){
 				$this->args[1] = $this->in('Indiquez la ligne');
 			}

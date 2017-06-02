@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 	App::uses( 'DefaultUtility', 'Default.Utility' );
 
 	/**
@@ -39,6 +40,10 @@
 				'webrsaAccessName' => 'WebrsaAccessCers93',
 				'parentModelName' => 'Personne',
 			),
+			'WebrsaAjaxInsertions' => array(
+				'structurereferente_id' => 'Contratinsertion.structurereferente_id',
+				'referent_id' => 'Contratinsertion.referent_id'
+			)
 		);
 
 		/**
@@ -71,28 +76,27 @@
 			'Catalogueromev3',
 			'WebrsaCer93',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			'ajax',
 			'ajaxref',
 			'ajaxstruct',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -110,18 +114,9 @@
 			'impression' => 'read',
 			'impressionDecision' => 'read',
 			'index' => 'read',
-			'indexparams' => 'read',
 			'signature' => 'update',
 			'view' => 'read',
 		);
-		
-		/**
-		 * Action vide pour obtenir l'écran de paramétrage.
-		 *
-		 * @return void
-		 */
-		public function indexparams() {
-		}
 
 		/**
 		 * Ajax pour les coordonnées de la structure référente liée (CG 93).
@@ -129,33 +124,8 @@
 		 * @param type $structurereferente_id
 		 */
 		public function ajaxstruct( $structurereferente_id = null ) {
-			Configure::write( 'debug', 0 );
-			$this->set( 'typesorients', $this->Cer93->Contratinsertion->Personne->Orientstruct->Typeorient->find( 'list', array( 'fields' => array( 'lib_type_orient' ) ) ) );
-
-			$dataStructurereferente_id = Set::extract( $this->request->data, 'Contratinsertion.structurereferente_id' );
-			$structurereferente_id = ( empty( $structurereferente_id ) && !empty( $dataStructurereferente_id ) ? $dataStructurereferente_id : $structurereferente_id );
-
-			$qd_struct = array(
-				'conditions' => array(
-					'Structurereferente.id' => $structurereferente_id
-				),
-				'fields' => null,
-				'contain' => array( 'Typeorient' ),
-				'order' => null
-			);
-			$struct = $this->Cer93->Contratinsertion->Structurereferente->find( 'first', $qd_struct );
-
-			$options = array(
-				'Structurereferente' => array(
-					'type_voie' => ClassRegistry::init( 'Option' )->typevoie()
-				)
-			);
-			$this->set( 'options', $options );
-
-			$this->set( 'struct', $struct );
-			$this->render( 'ajaxstruct', 'ajax' );
+			return $this->WebrsaAjaxInsertions->structurereferente( $structurereferente_id );
 		}
-
 
 		/**
 		 * Ajax pour les coordonnées du référent (CG 58, 66, 93).
@@ -163,29 +133,7 @@
 		 * @param integer $referent_id
 		 */
 		public function ajaxref( $referent_id = null ) {
-			Configure::write( 'debug', 0 );
-
-			if( !empty( $referent_id ) ) {
-				$referent_id = suffix( $referent_id );
-			}
-			else {
-				$referent_id = suffix( Set::extract( $this->request->data, 'Contratinsertion.referent_id' ) );
-			}
-
-			$referent = array( );
-			if( !empty( $referent_id ) ) {
-				$qd_referent = array(
-					'conditions' => array(
-						'Referent.id' => $referent_id
-					),
-					'fields' => null,
-					'order' => null,
-					'recursive' => -1
-				);
-				$referent = $this->Cer93->Contratinsertion->Structurereferente->Referent->find( 'first', $qd_referent );
-			}
-			$this->set( 'referent', $referent );
-			$this->render( 'ajaxref', 'ajax' );
+			return $this->WebrsaAjaxInsertions->referent( $referent_id );
 		}
 
 		/**
@@ -344,12 +292,12 @@
 				if( $this->Cer93->WebrsaCer93->saveFormulaire( $this->request->data, $this->Session->read( 'Auth.User.type' ) ) ) {
 					$this->Cer93->Contratinsertion->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$this->Cer93->Contratinsertion->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -359,7 +307,7 @@
 				}
 				catch( Exception $e ) {
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( $e->getMessage(), 'flash/error' );
+					$this->Flash->error( $e->getMessage() );
 					$this->redirect( array( 'action' => 'index', $personne_id ) );
 				}
 			}
@@ -374,7 +322,6 @@
 			$naturecontratDuree = Set::extract( '/Naturecontrat/id', $naturecontratDuree );
 			$this->set( 'naturecontratDuree', $naturecontratDuree );
 
-			// =================================================================
 			// TODO: on peut certainement combiner avec la liste ci-dessous
 			$listeSujets = $this->Cer93->Sujetcer93->find(
 				'all',
@@ -502,10 +449,8 @@
 				)
 			);
 			$autresoussujet_isautre_id = Hash::extract( $valeursSoussujet, '{n}.Soussujetcer93[isautre=1].id' );
-// 			$autresoussujet_isautre_id = Hash::format( $autresoussujet_isautre_id, array( '{n}.sujetcer93_id', '{n}.id' ), '%%d' );
 			$this->set( 'autresoussujet_isautre_id', $autresoussujet_isautre_id );
 
-			// =================================================================
 			// Quelles sont les valeurs de valeurparsoussujetcer93_id présentes
 			// dans l'ancien formulaire et plus présentes dans les listes actuelles ?
 			$query = array(
@@ -532,8 +477,6 @@
 			);
 			$sujetscers93enregistres = $this->Cer93->Cer93Sujetcer93->find( 'all', $query );
 			$this->set( compact( 'sujetscers93enregistres' ) );
-
-			// =================================================================
 
 			// Options
 			$options = array(
@@ -580,7 +523,7 @@
 				$options,
 				$this->Catalogueromev3->dependantSelects()
 			);
-		
+
 			$this->set( 'personne_id', $personne_id );
 			$this->set( compact( 'options' ) );
 			$this->set( 'urlmenu', '/cers93/index/'.$personne_id );
@@ -654,12 +597,12 @@
 				if( $success ) {
 					$this->Cer93->Contratinsertion->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					return $this->redirect( array( 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$this->Cer93->Contratinsertion->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -712,16 +655,16 @@
 
 			if( !empty( $this->request->data ) ) {
 				$this->Cer93->begin();
-				$saved = $this->Cer93->save( $this->request->data );
+				$saved = $this->Cer93->save( $this->request->data , array( 'atomic' => false ) );
 				if( $saved ) {
 					$this->Cer93->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$this->Cer93->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -752,7 +695,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, "contratinsertion_{$contratinsertion_id}_nouveau.pdf" );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier de contrat d\'engagement réciproque.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier de contrat d\'engagement réciproque.' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -794,14 +737,15 @@
 			$this->Cer93->Contratinsertion->begin();
 			$success = $this->Cer93->Contratinsertion->Actioninsertion->deleteAll( array( 'Actioninsertion.contratinsertion_id' => $id ) );
 			$success = $this->Cer93->Contratinsertion->delete( $id ) && $success;
-			$this->_setFlashResult( 'Delete', $success );
 
 			if( $success ) {
 				$this->Cer93->Contratinsertion->commit();
 				$this->Jetons2->release( $dossier_id );
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
 				$this->Cer93->Contratinsertion->rollback();
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 
 			$this->redirect( $this->referer() );
@@ -826,7 +770,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, "contratinsertion_{$contratinsertion_id}.pdf" );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier.' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -880,15 +824,15 @@
 
 				// Modification des règles de validation
 				$this->Cer93->validate['date_annulation'] = array(
-					'notEmpty' => array(
-						'rule' => array( 'notEmpty' )
+					NOT_BLANK_RULE_NAME => array(
+						'rule' => array( NOT_BLANK_RULE_NAME )
 					),
 					'date' => array(
 						'rule' => array( 'date' )
 					)
 				);
-				$this->Cer93->Contratinsertion->validate['motifannulation']['notEmpty'] = array(
-					'rule' => array( 'notEmpty' )
+				$this->Cer93->Contratinsertion->validate['motifannulation'][NOT_BLANK_RULE_NAME] = array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				);
 
 				$success = $this->Cer93->Contratinsertion->saveAll( $this->request->data, array( 'atomic' => false, 'validate' => 'only' ) )
@@ -914,12 +858,12 @@
 				if( $success ) {
 					$this->Cer93->Contratinsertion->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					return $this->redirect( array( 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$this->Cer93->Contratinsertion->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {

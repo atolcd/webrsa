@@ -1,5 +1,5 @@
 <?php
-	require_once( dirname( __FILE__ ).DS.'search.ctp' );
+	require_once  dirname( __FILE__ ).DS.'search.ctp' ;
 	$annee = Hash::get( $this->request->data, 'Search.annee' );
 ?>
 <?php if( isset( $results ) ): ?>
@@ -29,5 +29,5 @@
 		</tbody>
 	</table>
 
-	<?php require_once( dirname( __FILE__ ).DS.'footer.ctp' );?>
+	<?php include_once  dirname( __FILE__ ).DS.'footer.ctp' ;?>
 <?php endif;?>

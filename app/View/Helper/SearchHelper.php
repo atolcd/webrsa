@@ -7,6 +7,7 @@
 	 * @package app.View.Helper
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppHelper', 'View/Helper' );
 
 	/**
 	 * La classe SearchHelper comprend des combinaisons de champs de formulaire
@@ -96,35 +97,6 @@
 				'fieldset',
 				$this->Xhtml->tag( 'legend', 'Nature de la prestation' ).
 				$this->Xform->input( $path, array( 'label' => false, 'type' => 'select', 'multiple' => 'checkbox', 'options' => $natpf, 'value' => $natpfsCoches, 'fieldset' => false ) ),
-				array( 'id' => $fieldsetId )
-			);
-
-			return $script.$input;
-		}
-
-		/**
-		 * Filtre sur les états du dossierpcg66
-		 *
-		 * @param string $etatdossierpcg
-		 * @param string $path
-		 * @return string
-		 */
-		public function etatDossierPCG66( $etatdossierpcg, $path = 'Dossierpcg66.etatdossierpcg' ) {
-			$fieldsetId = $this->domId( $path );
-
-			$script = $this->_constuctObserve( $this->domId( $path.'_choice' ), $fieldsetId, false );
-
-			$input = $this->Xform->input( $path.'_choice', array( 'label' => 'Filtrer par état du dossier PCG', 'type' => 'checkbox' ) );
-
-			$etatsDossiersPCGCoches = Set::extract( $this->request->data, $path );
-			if( empty( $etatsDossiersPCGCoches ) ) {
-				$etatsDossiersPCGCoches = array_keys( $etatdossierpcg );
-			}
-
-			$input.= $this->Xhtml->tag(
-				'fieldset',
-				$this->Xhtml->tag( 'legend', 'État du dossier PCG' ).
-				$this->Xform->input( $path, array( 'label' => false, 'type' => 'select', 'multiple' => 'checkbox', 'options' => $etatdossierpcg, 'fieldset' => false ) ),
 				array( 'id' => $fieldsetId )
 			);
 
@@ -317,11 +289,11 @@
 			$content = $this->Xform->input( "{$prefix}Dossier.numdemrsa", array( 'label' => 'Numéro de dossier RSA' ) );
 			$content .= $this->Xform->input( "{$prefix}Dossier.matricule", array( 'label' => __d( 'dossier', 'Dossier.matricule.large' ) ) );
 			$content .= $this->date( "{$prefix}Dossier.dtdemrsa" );
-			
+
 			if (!empty($etatsdosrsa)) {
 				$content .= $this->etatdosrsa( $etatsdosrsa, "{$prefix}Situationdossierrsa.etatdosrsa" );
 			}
-			
+
 			$content .= $this->Xform->input( "{$prefix}Dossier.dernier", array( 'label' => 'Uniquement la dernière demande RSA pour un même allocataire', 'type' => 'checkbox' ) );
 
 

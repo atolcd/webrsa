@@ -232,5 +232,24 @@
 			unset( $options['required'] );
 			return parent::label( $fieldName, $text, $options );
 		}
+
+		/**
+		 * Surcharge de la méthode FormHelper::create pour ajouter l'attribut
+		 * novalidate à true dans les options si celui-ci n'est pas spécifié.
+		 *
+		 * @param string|array $model
+		 * @param array $options
+		 * @return string
+		 */
+		public function create( $model = null, $options = array() ) {
+			if( is_array( $model ) && empty( $options ) ) {
+				$options = $model;
+				$model = null;
+			}
+
+			$options += array( 'novalidate' => true );
+
+			return parent::create( $model, $options );
+		}
 	}
 ?>

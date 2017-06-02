@@ -106,7 +106,7 @@
 			// Si le genre d'accompagnement est immersion
 			if ( isset($data['Immersioncui66']) && $data['Accompagnementcui66']['genre'] === 'immersion' ){
 				$data['Immersioncui66']['user_id'] = $user_id;//FIXME
-				unset( $this->Immersioncui66->Immersionromev3->validate['familleromev3_id']['notEmpty'] );
+				unset( $this->Immersioncui66->Immersionromev3->validate['familleromev3_id'][NOT_BLANK_RULE_NAME] );
 				// Si un code famille (rome v3) est vide, on ne sauvegarde pas le code rome
 				if ( !isset($data['Immersionromev3']['familleromev3_id']) || $data['Immersionromev3']['familleromev3_id'] === '' ){ 
 					$data['Immersioncui66']['entreeromev3_id'] = null;
@@ -120,17 +120,17 @@
 				// Dans le cas contraire, on enregistre le tout
 				else{
 					$this->Immersioncui66->Immersionromev3->create($data);
-					$success = $this->Immersioncui66->Immersionromev3->save() && $success;
+					$success = $this->Immersioncui66->Immersionromev3->save( null, array( 'atomic' => false ) ) && $success;
 					$data['Immersioncui66']['entreeromev3_id'] = $this->Immersioncui66->Immersionromev3->id;
 				}
 				
 				$this->Immersioncui66->create($data);
-				$success = $this->Immersioncui66->save() && $success;
+				$success = $this->Immersioncui66->save( null, array( 'atomic' => false ) ) && $success;
 				$data['Accompagnementcui66']['immersioncui66_id'] = $this->Immersioncui66->id;
 			}
 			
 			$this->create($data);
-			$success = $this->save() && $success;
+			$success = $this->save( null, array( 'atomic' => false ) ) && $success;
 			
 			return $success;
 		}

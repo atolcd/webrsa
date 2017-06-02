@@ -14,7 +14,7 @@
 ?>
 
 <?php
-	$charge = Set::enum( Set::classicExtract( $this->request->data, 'Dossierpcg66.user_id' ),  $gestionnaires );
+	$charge = Set::enum( Set::classicExtract( $this->request->data, 'Dossierpcg66.user_id' ),  $options['Dossierpcg66']['user_id'] );
 
 	if( $this->action == 'add' ) {
 		$title = $this->pageTitle = 'Ajout d\'un dossier PCG concernant le '.Set::classicExtract( $rolepers, Set::classicExtract( $personneDem, 'Prestation.rolepers' ) ).' : '.Set::classicExtract( $personneDem, 'Personne.nom_complet');
@@ -50,17 +50,16 @@
 ?>
 
 <div class="aere">
-
 <fieldset>
 	<?php
-		echo $this->Default->subform(
+		echo $this->Default3->subform(
 			array(
 				'Dossierpcg66.etatdossierpcg' => array( 'type' => 'hidden' ),
-				'Dossierpcg66.typepdo_id' => array( 'label' => ( __d( 'dossierpcg66', 'Dossierpcg66.typepdo_id' ) ), 'type' => 'select', 'options' => $typepdo, 'empty' => true ),
+				'Dossierpcg66.typepdo_id' => array( 'label' => ( __d( 'dossierpcg66', 'Dossierpcg66.typepdo_id' ) ), 'type' => 'select', 'empty' => true ),
 				'Dossierpcg66.datereceptionpdo' => array( 'label' =>  ( __d( 'dossierpcg66', 'Dossierpcg66.datereceptionpdo' ) ), 'type' => 'date', 'dateFormat'=>'DMY', 'maxYear'=>date('Y')+1, 'minYear'=> 2009, 'empty' => false ),
-				'Dossierpcg66.originepdo_id' => array( 'label' =>  ( __d( 'dossierpcg66', 'Dossierpcg66.originepdo_id' ) ), 'type' => 'select', 'options' => $originepdo, 'empty' => true ),
-				'Dossierpcg66.orgpayeur' => array( 'label' =>  __d( 'dossierpcg66', 'Dossierpcg66.orgpayeur' ), 'type' => 'select', 'options' => $orgpayeur, 'empty' => true ),
-				'Dossierpcg66.serviceinstructeur_id' => array( 'label' =>  ( __d( 'dossierpcg66', 'Dossierpcg66.serviceinstructeur_id' ) ), 'type' => 'select', 'options' => $serviceinstructeur, 'empty' => true )
+				'Dossierpcg66.originepdo_id' => array( 'label' =>  ( __d( 'dossierpcg66', 'Dossierpcg66.originepdo_id' ) ), 'type' => 'select', 'empty' => true ),
+				'Dossierpcg66.orgpayeur' => array( 'label' =>  __d( 'dossierpcg66', 'Dossierpcg66.orgpayeur' ), 'type' => 'select', 'empty' => true ),
+				'Dossierpcg66.serviceinstructeur_id' => array( 'label' =>  ( __d( 'dossierpcg66', 'Dossierpcg66.serviceinstructeur_id' ) ), 'type' => 'select', 'empty' => true )
 			),
 			array(
 				'domain' => $domain,
@@ -121,10 +120,10 @@ document.observe( "dom:loaded", function() {
 <?php if( $gestionnairemodifiable ):?>
 	<fieldset>
 		<?php
-			echo $this->Default->subform(
+			echo $this->Default3->subform(
 				array(
-                    'Dossierpcg66.poledossierpcg66_id' => array( 'label' =>  ( __d( 'dossierpcg66', 'Dossierpcg66.poledossierpcg66_id' ) ), 'type' => 'select', 'options' => $polesdossierspcgs66, 'empty' => true ),
-					'Dossierpcg66.user_id' => array( 'label' =>  ( __d( 'dossierpcg66', 'Dossierpcg66.user_id' ) ), 'type' => 'select', 'options' => $gestionnaires ),
+                    'Dossierpcg66.poledossierpcg66_id' => array( 'label' =>  ( __d( 'dossierpcg66', 'Dossierpcg66.poledossierpcg66_id' ) ), 'type' => 'select', 'empty' => true ),
+					'Dossierpcg66.user_id' => array( 'label' =>  ( __d( 'dossierpcg66', 'Dossierpcg66.user_id' ) ), 'type' => 'select', 'empty' => true ),
 					'Dossierpcg66.dateaffectation' => array( 'label' =>  ( __d( 'dossierpcg66', 'Dossierpcg66.dateaffectation' ) ), 'type' => 'date', 'dateFormat' => 'DMY', 'empty' => true, 'maxYear' => date( 'Y' ) + 1, 'minYear'=> 2009 ),
 				),
 				array(

@@ -7,6 +7,7 @@
 	 * @package app.View.Helper
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppHelper', 'View/Helper' );
 
 	/**
 	 * La classe MenuHelper fournit des méthodes facilitant la construction de
@@ -181,7 +182,10 @@
 						$actionName = '/';
 					}
 
-					$permission = $controllerName === 'fluxcnaf' || $this->Permissions->check( $controllerName, $actionName );
+					$permission = $controllerName === 'fluxcnaf' 
+						|| $controllerName === '/'
+						|| $actionName === '/'			// NOTE : envoyer des / à Permission->check pose problème
+						|| $this->Permissions->check( $controllerName, $actionName );
 					if( isset( $item['url'] ) && ( $item['url'] != '#' ) && $permission ) {
 						$url = $item['url'];
 						if( is_array( $url ) ) {

@@ -7,7 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses('AppController', 'Controller');
+	App::uses( 'AppController', 'Controller' );
 	App::uses( 'DepartementUtility', 'Utility' );
 	App::uses( 'WebrsaAccessOrientsstructs', 'Utility' );
 
@@ -71,35 +71,29 @@
 			'Orientstruct',
 			'WebrsaOrientstruct',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'ajaxfiledelete' => 'Orientsstructs:filelink',
 			'ajaxfileupload' => 'Orientsstructs:filelink',
-			'cohorte_enattente' => 'Cohortes:enattente',
-			'cohorte_impressions' => 'Cohortes:cohortegedooo',
-			'cohorte_nouvelles' => 'Cohortes:nouvelles',
-			'cohorte_orientees' => 'Cohortes:orientees',
 			'download' => 'Orientsstructs:filelink',
-			'exportcsv' => 'Criteres:exportcsv',
 			'fileview' => 'Orientsstructs:filelink',
-			'search' => 'Criteres:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -125,7 +119,7 @@
 			'index' => 'read',
 			'search' => 'read',
 		);
-		
+
 		/**
 		 * Envoi d'un fichier temporaire depuis le formualaire.
 		 */
@@ -175,78 +169,6 @@
 
 			$options = $this->Orientstruct->enums();
 			$this->set( compact( 'options' ) );
-		}
-
-		/**
-		 * Permet de compléter le tableau de résultats généré par
-		 * Orientstruct::getIndexQuery(), pour les droits (edit, delete) et le
-		 * "Rang d'orientation".
-		 *
-		 * @deprecated since version 3.1
-		 * @param array $results
-		 * @param array $params
-		 * @return array
-		 */
-		protected function _getCompletedIndexResults( array $results, array $params = array() ) {
-			$departement = Configure::read( 'Cg.departement' );
-
-			$rgsorients = Hash::extract( $results, "{n}.Orientstruct[statut_orient=Orienté].rgorient" );
-			$rgorientMax = 0;
-			if( !empty( $rgsorients ) ) {
-				$rgorientMax = max( $rgsorients );
-			}
-
-			foreach( array_keys( $results ) as $key ) {
-				// On ne peut modifier que l'entrée la plus récente
-				$results[$key]['Orientstruct']['edit'] = ( $key == 0 ) && $params['ajout_possible'];
-
-				// On ne peut modifier que l'entrée la plus récente
-				$results[$key]['Orientstruct']['impression'] = ( $results[$key]['Orientstruct']['printable'] == 1 );
-
-				// On ne peut supprimer que l'entrée la plus récente
-				$results[$key]['Orientstruct']['delete'] = ( $key == 0 ) && ( $results[$key]['Orientstruct']['rgorient'] == $rgorientMax ) && !$results[$key]['Orientstruct']['linked_records'] && empty( $params['reorientationseps'] );
-
-				if( $departement == 66 ) {
-					// On ne peut modifier que la dernière orientation, celle dont le rang est le plus élevé
-					$results[$key]['Orientstruct']['edit'] = ( $results[$key]['Orientstruct']['rgorient'] == $rgorientMax ) && $results[$key]['Orientstruct']['edit'];
-
-					//Peut-on imprimer la notif de changement de référent ou non, si 1ère orientation non sinon ok
-					$results[$key]['Orientstruct']['impression_changement_referent'] = ( $results[$key]['Orientstruct']['rgorient'] > 1 ) && $results[$key]['Orientstruct']['notifbenefcliquable'];
-
-					// Délai de modification orientation (10 jours par défaut)
-					$date_valid = Hash::get( $results[$key], "Orientstruct.date_valid" );
-					$periodeblock = !empty( $date_valid ) && ( time() >= ( strtotime( $date_valid ) + 3600 * Configure::read( 'Periode.modifiableorientation.nbheure' ) ) );
-					$results[$key]['Orientstruct']['edit'] = !$periodeblock && $results[$key]['Orientstruct']['edit'];
-				}
-
-				// Le "rang d'orientation"
-				if( !empty( $results[$key]['Orientstruct']['rgorient'] ) ) {
-					if( $departement == 58 ) {
-						if( !isset( $results[$key+1] ) ) {
-							$rgorient = 'Première orientation';
-						}
-						else if( $results[$key]['Orientstruct']['typeorient_id'] != $results[$key+1]['Orientstruct']['typeorient_id'] ) {
-							$rgorient = 'Réorientation';
-						}
-						else if( $results[$key]['Orientstruct']['typeorient_id'] == Configure::read( 'Typeorient.emploi_id' ) ) {
-							$rgorient = 'Maintien en emploi';
-						}
-						else {
-							$rgorient = 'Maintien en social';
-						}
-
-						$results[$key]['Orientstruct']['rgorient'] = $rgorient;
-					}
-					elseif ( $departement == 66 ){
-						$results[$key]['Orientstruct']['rgorient'] = DepartementUtility::getTypeorientName($results, $key);
-					}
-					else {
-						$results[$key]['Orientstruct']['rgorient'] = ( $results[$key]['Orientstruct']['rgorient'] == 1 ? 'Première orientation' : 'Réorientation' );
-					}
-				}
-			}
-
-			return $results;
 		}
 
 		/**
@@ -387,7 +309,7 @@
 		 */
 		protected function _getIndexActionsList(array $records, array $params = array()) {
 			$departement = (int)Configure::read('Cg.departement');
-			
+
 			$msgid = null;
 			if ($departement === 93 && $params['rgorient_max'] >= 1) {
 				$url = "/Reorientationseps93/add/{$records[0]['Orientstruct']['id']}";
@@ -400,7 +322,7 @@
 				$controller = 'orientsstructs';
 				$msgid = $departement === 93 ? 'Demander une réorientation' : 'Ajouter';
 			}
-			
+
 			$actions[$url] = array(
 				'domain' => $this->request->params['controller'],
 				'msgid' => $msgid,
@@ -469,7 +391,7 @@
 					&& empty( $reorientationscovs );
 
 			$en_procedure_relance = $this->WebrsaOrientstruct->enProcedureRelance( $personne_id );
-			
+
 			/**
 			 * Contrôle d'accès
 			 */
@@ -566,13 +488,12 @@
 			// -----------------------------------------------------------------
 			$redirectUrl = array( 'action' => 'index', $personne_id );
 			$user_id = $this->Session->read( 'Auth.User.id' );
-			
-			//$originalAddEditFormData = $this->Orientstruct->getAddEditFormData( $personne_id, $id, $user_id );
+
 			$originalAddEditFormData = $this->WebrsaOrientstruct->getAddEditFormData( $personne_id, $id, $user_id );
 
 			// Retour à l'index si on essaie de modifier une autre orientation que la dernière
 			if( $this->action === 'edit' && !empty( $originalAddEditFormData['Orientstruct']['date_valid'] ) && $originalAddEditFormData['Orientstruct']['statut_orient'] == 'Orienté' && $originalAddEditFormData['Orientstruct']['rgorient'] != $this->Orientstruct->WebrsaOrientstruct->rgorientMax( $originalAddEditFormData['Orientstruct']['personne_id'] ) ) {
-				$this->Session->setFlash( 'Impossible de modifier une autre orientation que la plus récente.', 'flash/error' );
+				$this->Flash->error( 'Impossible de modifier une autre orientation que la plus récente.' );
 				$this->redirect( $redirectUrl );
 			}
 			// -----------------------------------------------------------------
@@ -589,12 +510,12 @@
 				if( $this->WebrsaOrientstruct->saveAddEditFormData( $this->request->data, $user_id ) ) {
 					$this->Orientstruct->commit();
 					$this->Jetons2->release( Hash::get( $dossierMenu, 'Dossier.id' ) );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( $redirectUrl );
 				}
 				else {
 					$this->Orientstruct->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			// Remplissage du formulaire
@@ -680,18 +601,18 @@
 			$personne_id = $this->Orientstruct->personneId( $id );
 			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) );
 			$dossier_id = Hash::get( $dossierMenu, 'Dossier.id' );
-			
+
 			$this->Jetons2->get( $dossier_id );
 
 			$this->Orientstruct->begin();
 			if( $this->Orientstruct->delete( $id ) ) {
 				$this->Orientstruct->commit();
 				$this->Jetons2->release( $dossier_id );
-				$this->Session->setFlash( 'Suppression effectuée', 'flash/success' );
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
 				$this->Orientstruct->rollback();
-				$this->Session->setFlash( 'Erreur lors de la suppression', 'flash/error' );
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 
 			$this->redirect( $this->referer() );
@@ -710,7 +631,7 @@
 			$this->WebrsaAccesses->check($id);
 			$personne_id = $this->Orientstruct->personneId( $id );
 			$this->DossiersMenus->checkDossierMenu( array( 'personne_id' => $personne_id ) );
-			
+
 			if( in_array( Configure::read( 'Cg.departement' ), array( 66, 976 ) ) ) {
 				$pdf = $this->Orientstruct->WebrsaOrientstruct->getDefaultPdf( $id, $this->Session->read( 'Auth.User.id' ) );
 			}
@@ -723,7 +644,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'orientstruct_%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer l\'impression de l\'orientation.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer l\'impression de l\'orientation.' );
 				$this->redirect(array('action' => 'index', $personne_id));
 			}
 		}
@@ -742,14 +663,14 @@
 			$this->WebrsaAccesses->check($id);
 			$personne_id = $this->Orientstruct->personneId( $id );
 			$this->DossiersMenus->checkDossierMenu( array( 'personne_id' => $personne_id ) );
-			
+
 			$pdf = $this->WebrsaOrientstruct->getChangementReferentOrientation( $id, $this->Session->read( 'Auth.User.id' ) );
 
 			if( !empty( $pdf ) ) {
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'Notification_Changement_Referent_%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer la notification.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer la notification.' );
 				$this->redirect(array('action' => 'index', $personne_id));
 			}
 		}
@@ -775,7 +696,7 @@
 		}
 
 		/**
-		 * Cohorte des demandes non orientées (nouveau)
+		 * Cohorte des demandes non orientées
 		 */
 		public function cohorte_nouvelles() {
 			$Gedooo = $this->Components->load( 'Gedooo.Gedooo' );
@@ -795,7 +716,7 @@
 		}
 
 		/**
-		 * Cohorte des demandes en attente de validation d'orientation (nouveau)
+		 * Cohorte des demandes en attente de validation d'orientation
 		 */
 		public function cohorte_enattente() {
 			$Gedooo = $this->Components->load( 'Gedooo.Gedooo' );
@@ -815,7 +736,7 @@
 		}
 
 		/**
-		 * Cohorte des personnes orientées (nouveau)
+		 * Cohorte des personnes orientées
 		 */
 		public function cohorte_orientees() {
 			$Cohortes = $this->Components->load( 'WebrsaCohortesOrientsstructsImpressions' );
@@ -829,7 +750,7 @@
 		}
 
 		/**
-		 * Cohorte des personnes orientées (nouveau)
+		 * Cohorte des personnes orientées
 		 */
 		public function cohorte_impressions() {
 			$Cohortes = $this->Components->load( 'WebrsaCohortesOrientsstructsImpressions' );

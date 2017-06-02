@@ -8,6 +8,7 @@
 	 * @subpackage Console.Command
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppShell', 'Console/Command' );
 	App::uses( 'ConnectionManager', 'Model' );
 
 	// lib/Cake/Console/cake Graphviz.GraphvizMpd && dot -K fdp -T png -o ./graphviz_mpd.png ./graphviz_mpd.dot && gwenview ./graphviz_mpd.png > /dev/null 2>&1

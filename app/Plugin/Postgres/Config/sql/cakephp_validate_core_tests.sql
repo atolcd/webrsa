@@ -878,6 +878,11 @@ SELECT
 	AND ( cakephp_validate_phone( '0102030405', NULL, 'fr' ) = true )
 	AND ( cakephp_validate_phone( '010203040', NULL, 'fr' ) = false )
 	AND ( cakephp_validate_phone( '1010203040', NULL, 'fr' ) = false )
+	-- @fixme: autres n°
+	AND ( cakephp_validate_phone( '118', NULL, 'fr' ) = true )
+	AND ( cakephp_validate_phone( '1013', NULL, 'fr' ) = true )
+	AND ( cakephp_validate_phone( '15', NULL, 'fr' ) = true )
+	AND ( cakephp_validate_phone( '3615', NULL, 'fr' ) = true )
 	AS passed_tests_cakephp_validate_phone;
 
 -- -----------------------------------------------------------------------------

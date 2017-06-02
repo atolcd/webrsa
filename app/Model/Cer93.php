@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Cer93 gère les CER du CG 93.
@@ -23,20 +24,18 @@
 		public $name = 'Cer93';
 
 		/**
-		 * Récursivité.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés.
 		 *
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Formattable',
-			'Pgsqlcake.PgsqlAutovalidate',
+			'Allocatairelie' => array(
+				'joins' => array( 'Contratinsertion' )
+			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate',
 			'Gedooo.Gedooo',
 			'ModelesodtConditionnables' => array(
 				93 => array(
@@ -60,90 +59,66 @@
 
 		public $validate = array(
 			'matricule' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'qual' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
-			// FIXME
-			/*'adresse' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
-				)
-			),*/
 			'codepos' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'nomcom' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'isemploitrouv' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
-			/*'secteuracti_id' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmptyIf', 'isemploitrouv', true, array( 'O' ) ),
-					'message' => 'Champ obligatoire',
-				)
-			),
-			'metierexerce_id' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmptyIf', 'isemploitrouv', true, array( 'O' ) ),
-					'message' => 'Champ obligatoire',
-				)
-			),*/
 			'dureehebdo' => array(
-				'notEmpty' => array(
+				NOT_BLANK_RULE_NAME => array(
 					'rule' => array( 'notEmptyIf', 'isemploitrouv', true, array( 'O' ) ),
 					'message' => 'Champ obligatoire',
 				)
 			),
 			'naturecontrat_id' => array(
-				'notEmpty' => array(
+				NOT_BLANK_RULE_NAME => array(
 					'rule' => array( 'notEmptyIf', 'isemploitrouv', true, array( 'O' ) ),
 					'message' => 'Champ obligatoire',
 				)
 			),
-// 			'dureecdd' => array(
-// 				'notEmpty' => array(
-// 					'rule' => array( 'notEmptyIf', 'isemploitrouv', true, array( 'O' ) ),
-// 					'message' => 'Champ obligatoire',
-// 				)
-// 			),
 			'prevu' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'duree' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'pointparcours' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'datepointparcours' => array(
-				'notEmpty' => array(
+				NOT_BLANK_RULE_NAME => array(
 					'rule' => array( 'notEmptyIf', 'pointparcours', true, array( 'aladate' ) ),
 					'message' => 'Champ obligatoire',
 				)
 			),
 			'datesignature' => array(
 				'datePassee' => array(
-					'rule' => 'datePassee',
+					'rule' => array( 'datePassee' ),
 					'message' => 'Merci de renseigner une date antérieure ou égale à la date du jour'
 				)
 			)
@@ -828,67 +803,6 @@
 			}
 
 			return $this->ged( $data, $modeleodt, false, $options );
-		}
-
-		/**
-		 * Retourne l'id du dossier à partir de l'id du CER (CG 93)
-		 *
-		 * @param integer $id
-		 * @return integer
-		 */
-		public function dossierId( $id ) {
-			$contratinsertion = $this->find(
-				'first',
-				array(
-					'fields' => array(
-						'Foyer.dossier_id'
-					),
-					'joins' => array(
-						$this->join( 'Contratinsertion', array( 'type' => 'INNER' ) ),
-						$this->Contratinsertion->join( 'Personne', array( 'type' => 'INNER' ) ),
-						$this->Contratinsertion->Personne->join( 'Foyer', array( 'type' => 'INNER' ) ),
-					),
-					'conditions' => array(
-						'Cer93.id' => $id
-					),
-					'contain' => false
-				)
-			);
-
-			if( !empty( $contratinsertion ) ) {
-				return $contratinsertion['Foyer']['dossier_id'];
-			}
-			else {
-				return null;
-			}
-		}
-
-		/**
-		 * Retourne l'id de la personne à laquelle est lié un enregistrement.
-		 *
-		 * @param integer $id L'id de l'enregistrement
-		 * @return integer
-		 */
-		public function personneId( $id ) {
-			$querydata = array(
-				'fields' => array( "Contratinsertion.personne_id" ),
-				'joins' => array(
-					$this->join( 'Contratinsertion', array( 'type' => 'INNER' ) )
-				),
-				'conditions' => array(
-					"{$this->alias}.id" => $id
-				),
-				'recursive' => -1
-			);
-
-			$result = $this->find( 'first', $querydata );
-
-			if( !empty( $result ) ) {
-				return $result['Contratinsertion']['personne_id'];
-			}
-			else {
-				return null;
-			}
 		}
 
 		/**

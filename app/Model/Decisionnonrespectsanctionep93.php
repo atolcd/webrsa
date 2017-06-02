@@ -18,25 +18,17 @@
 	{
 		public $name = 'Decisionnonrespectsanctionep93';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Enumerable' => array(
-				'fields' => array(
-					'etape',
-					'decision',
-					'decisionpcg'
-				)
-			),
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		/**
-		*
-		*/
-
+		 *
+		 * @var array
+		 */
 		public $belongsTo = array(
 			'Passagecommissionep' => array(
 				'className' => 'Passagecommissionep',
@@ -61,8 +53,8 @@
 
 		public $validateFinalisation = array(
 			'decision' => array(
-				array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 		);

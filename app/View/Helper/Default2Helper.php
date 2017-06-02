@@ -7,6 +7,7 @@
 	 * @package app.View.Helper
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppHelper', 'View/Helper' );
 
 	/**
 	 * @url http://fr2.php.net/manual/fr/function.array-merge.php#95294
@@ -118,7 +119,7 @@
 			}
 
 			// Post.id
-			list( $currentModelName, $currentFieldName ) = Xinflector::modelField( $column );
+			list( $currentModelName, $currentFieldName ) = model_field( $column );
 			if( empty( $options['domain'] ) ) {
 				$domain = Inflector::singularize( Inflector::tableize( $currentModelName ) );
 			}
@@ -357,7 +358,7 @@
 						$params = $this->Type2->prepare( 'output', $path, $params );
 						unset( $params['sort'] );
 
-						list( $model, $field ) = Xinflector::modelField( $path );
+						list( $model, $field ) = model_field( $path );
 						$validationErrors = $this->validationErrors[$modelName];
 
 						$cohortePath = str_replace( ".", ".$key.", $path );
@@ -560,7 +561,7 @@
 			).$pagination;
 
 			if( $cohorte == true ) {
-				$options = array( 'url' => Set::merge( array( 'controller' => $this->request->params['controller'], 'action' => $this->request->params['action'] ), $this->request->params['pass'], $this->request->params['named'] ) );
+				$options = array( 'novalidate' => true, 'url' => Set::merge( array( 'controller' => $this->request->params['controller'], 'action' => $this->request->params['action'] ), $this->request->params['pass'], $this->request->params['named'] ) );
 				if( isset( $cohorteParams['cohorteFormId'] ) ) {
 					$options['id'] = $cohorteParams['cohorteFormId'];
 				}
@@ -635,7 +636,7 @@
 			$return = '';
 
 			foreach( $fields as $path => $params ) {
-				list( $fieldModelName, $fieldModelfield ) = Xinflector::modelField( $path );
+				list( $fieldModelName, $fieldModelfield ) = model_field( $path );
 				if( !Set::check( $params, 'options' ) ) {
 					$options = Set::extract( $formParams, "options.{$fieldModelName}.{$fieldModelfield}" );
 					if( !empty( $options ) ) {
@@ -663,7 +664,7 @@
 			$primaryKeyValue = Set::classicExtract( $this->request->data, "{$modelName}.{$primaryKey}" );
 
 			$return = '';
-			$return .= $this->Xform->create( null, array( 'inputDefaults' => array( 'domain' => $domain ) ) );
+			$return .= $this->Xform->create( null, array( 'novalidate' => true, 'inputDefaults' => array( 'domain' => $domain ) ) );
 
 			if( !empty( $primaryKeyValue ) ) {
 				$return .= $this->Xform->input( "{$modelName}.{$primaryKey}" );
@@ -704,7 +705,7 @@
 
 		public function search( array $fields, array $params = array() ) {
 			$params = Set::merge(
-				array( 'form' => true ),
+				array( 'form' => true, 'novalidate' => true ),
 				$params
 			);
 			$form = $params['form'];
@@ -739,14 +740,14 @@
 			}
 
 			foreach( Set::normalize( $fields ) as $fieldName => $options ) {
-				list( $fieldModelName, $fieldModelfield ) = Xinflector::modelField( $fieldName );
+				list( $fieldModelName, $fieldModelfield ) = model_field( $fieldName );
 
 				/// TODO: function ?
 				if( Set::check( $paramsOptions, "{$fieldModelName}.{$fieldModelfield}" ) && empty( $options['options'] ) ) {
 					$options['options'] = Set::classicExtract( $paramsOptions, "{$fieldModelName}.{$fieldModelfield}" );
 				}
 
-				list( $options['model'], $options['field'] ) = Xinflector::modelField( $fieldName );
+				list( $options['model'], $options['field'] ) = model_field( $fieldName );
 				$options = $this->Type2->prepare( 'input', $fieldName, $options );
 				$return .= $this->Type2->input( "Search.$fieldName", $options );
 			}
@@ -785,7 +786,7 @@
 			$lineNr = 1;
 			foreach( Set::normalize( $columns ) as $column => $columnOptions ) {
 				$columnOptions = $this->Type2->prepare( 'output', $column, $columnOptions );
-				list( $columnModel, $columnField ) = Xinflector::modelField( $column );
+				list( $columnModel, $columnField ) = model_field( $column );
 				$columnDomain = Inflector::singularize( Inflector::tableize( $columnModel ) );
 				/// dans une fonction ?
 
@@ -912,36 +913,5 @@
 
 			return "<thead><tr>".implode( $firstline )."</tr><tr>".implode( $secondline )."</tr></thead>";
 		}
-
-		/**
-		* TODO: permissions
-		*/
-
-		/*public function menu( $items ) {
-			$return = '';
-			foreach( $items as $key => $item ) {
-				if( is_array( $item ) && isset( $item['controller'] ) && isset( $item['action'] ) ) {
-					$return .= $this->Xhtml->tag(
-						'li',
-						$this->Xhtml->link( $key, $item )
-					);
-				}
-				else if( is_array( $item ) ) {
-					$return .= $this->Xhtml->tag(
-						'li',
-						$this->Xhtml->link( $key, '#' ).$this->menu( $item )
-					);
-				}
-				else {
-					trigger_error( "got {$item} insteat of array", E_USER_ERROR );
-				}
-			}
-
-			if( !empty( $return ) ) {
-				$return = "<ul>{$return}</ul>";
-			}
-
-			return $return;
-		}*/
 	}
 ?>

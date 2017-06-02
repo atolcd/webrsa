@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Thematiquerdv ...
@@ -23,13 +24,6 @@
 		public $name = 'Thematiquerdv';
 
 		/**
-		 * Récursivité
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Tri par défaut.
 		 *
 		 * @var integer
@@ -42,8 +36,10 @@
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Formattable',
-			'Pgsqlcake.PgsqlAutovalidate',
+			'Postgres.PostgresAutovalidate',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes',
 		);
 
 		/**
@@ -119,13 +115,13 @@
 		 * @return array
 		 */
 		public function linkedModels() {
-			if( !$this->Statutrdv->Rendezvous->Behaviors->attached( 'Pgsqlcake.PgsqlSchema' ) ) {
-				$this->Statutrdv->Rendezvous->Behaviors->attach( 'Pgsqlcake.PgsqlSchema' );
+			if( false === $this->Statutrdv->Rendezvous->Behaviors->attached( 'Postgres.PostgresTable' ) ) {
+				$this->Statutrdv->Rendezvous->Behaviors->attach( 'Postgres.PostgresTable' );
 			}
 
 			$return = array();
 			$domain = Inflector::underscore( $this->alias );
-			$foreignKeys = $this->Statutrdv->Rendezvous->foreignKeysTo();
+			$foreignKeys = $this->Statutrdv->Rendezvous->getPostgresForeignKeysTo();
 
 			if( !empty( $foreignKeys ) ) {
 				foreach( $foreignKeys as $foreignKey ) {

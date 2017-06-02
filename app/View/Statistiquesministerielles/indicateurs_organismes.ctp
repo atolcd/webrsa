@@ -1,4 +1,4 @@
-<?php require_once( dirname( __FILE__ ).DS.'search.ctp' ); ?>
+<?php require_once  dirname( __FILE__ ).DS.'search.ctp' ; ?>
 <?php if( !empty( $this->request->data ) ): ?>
 	<h2>2 - Organismes de prise en charge des personnes dans le champ des Droits et Devoirs au 31 décembre de l'année, dont le référent unique a été désigné</h2>
 	<?php

@@ -8,7 +8,8 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	@ini_set( 'memory_limit', '2048M' );
-	App::uses( 'File', 'Cake/Utility' );
+	App::uses( 'AppShell', 'Console/Command' );
+	App::uses( 'File', 'Utility' );
 
 	// lib/Cake/Console/cake ImportCsvApres93 /tmp/APRE.csv
 	// lib/Cake/Console/cake ImportCsvApres93 -d true /tmp/APRE.csv
@@ -634,7 +635,7 @@
 							);
 
 							$this->Apre->create( $apre );
-							$apreSuccess = $this->Apre->save();
+							$apreSuccess = $this->Apre->save( null, array( 'atomic' => false ) );
 							if( empty( $apreSuccess ) ) {
 								$this->_errorMsg = sprintf( "<error>Erreur lors de l'enregistrement d'une APRE, ligne {$line}:</error> %s", $line, var_export( $this->Apre->validationErrors, true ) );
 							}
@@ -675,7 +676,7 @@
 							);
 
 							$this->Apre->Personne->Foyer->Paiementfoyer->create( $paiementfoyer );
-							$paiementfoyerSuccess = $this->Apre->Personne->Foyer->Paiementfoyer->save();
+							$paiementfoyerSuccess = $this->Apre->Personne->Foyer->Paiementfoyer->save( null, array( 'atomic' => false ) );
 							if( empty( $paiementfoyerSuccess ) ) {
 								$this->_errorMsg = sprintf( "<error>Erreur lors de l'enregistrement d'un paiement foyer, ligne {$line}; erreurs de validation:</error> %s", var_export( $this->Apre->Personne->Foyer->Paiementfoyer->validationErrors, true ) );
 							}
@@ -725,7 +726,7 @@
 			);
 
 			$this->Integrationfichierapre->create( $integrationfichierapre );
-			$integrationfichierapreSuccess = $this->Integrationfichierapre->save();
+			$integrationfichierapreSuccess = $this->Integrationfichierapre->save( null, array( 'atomic' => false ) );
 			if( empty( $integrationfichierapreSuccess ) ) {
 				$this->err( sprintf( "<error>Erreur lors de l'enregistrement du résumé du traitement:</error> %s", var_export( $this->Integrationfichierapre->validationErrors, true ) ), 1, Shell::QUIET );
 			}

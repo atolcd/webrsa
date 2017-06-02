@@ -16,7 +16,6 @@
  * @since         CakePHP(tm) v 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-echo $this->Html->css( 'AnalyseSql.analysesql' );
 if (!class_exists('ConnectionManager') || Configure::read('debug') < 2) {
 	return false;
 }
@@ -64,7 +63,7 @@ if ($noLogs || isset($_forced_from_dbo_)):
 				}
 				$i['query'] .= " , params[ " . rtrim($bindParam, ', ') . " ]";
 			}
-			$input = '<input type="hidden" id="sqlvalue_' . ($k + 1) . '" value="' . preg_replace("/[\t\n ]+/", " ", h($i['query'])) . '">';
+			$input = '<input type="hidden" id="sqlvalue_' . ($k + 1) . '" value="' . preg_replace("/[\t\n ]+/", " ", h($i['query'])) . '" />';
 			echo "<tr><td class=\"action\">" . ($k + 1) . "<a class=\"view\" href=\"#analyse_" . ($k + 1) . "\" id=\"linkaction_" . ($k + 1) . "\">Analyse</a></td><td class=\"show_sql_query\">" . h($i['query']) . $input . "<pre style=\"display:none;\" id=\"analyse_" . ($k + 1) . "\"></pre></td><td>{$i['error']}</td><td style = \"text-align: right\">{$i['affected']}</td><td style = \"text-align: right\">{$i['numRows']}</td><td style = \"text-align: right\">{$i['took']}</td></tr>\n";
 		endforeach;
 	?>
@@ -78,7 +77,8 @@ endif;
 echo $this->Html->script( 'AnalyseSql.analysesql' );
 
 ?>
-<script>
+	<script type="text/javascript">
+	//<![CDATA[
 	/**
 	 * Ajoute un évenement de clic au lien Analyse
 	 */
@@ -92,11 +92,12 @@ echo $this->Html->script( 'AnalyseSql.analysesql' );
 				sqlNumber = cutId[1],
 				pre = $('analyse_'+sqlNumber),
 				sql = $('sqlvalue_'+sqlNumber).value;
-				
-			
+
+
 			link.remove();
-			
+
 			analyse( sql, pre, url, image, failureMsg, exceptionMsg );
 		});
 	});
+	//]]>
 </script>

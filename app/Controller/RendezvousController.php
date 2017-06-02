@@ -7,9 +7,10 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::import( 'Helper', 'Locale' );
+	App::uses( 'LocaleHelper', 'View/Helper' );
+	App::uses( 'AppController', 'Controller' );
 	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
-	App::uses('WebrsaAccessRendezvous', 'Utility');
+	App::uses( 'WebrsaAccessRendezvous', 'Utility' );
 
 	/**
 	 * La classe RendezvousController ...
@@ -74,20 +75,18 @@
 			'Option',
 			'WebrsaRendezvous',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Rendezvous:edit',
-			'exportcsv' => 'Criteresrdv:exportcsv',
-			'search' => 'Criteresrdv:index',
 			'view' => 'Rendezvous:index',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -96,13 +95,11 @@
 		public $aucunDroit = array(
 			'ajaxfiledelete',
 			'ajaxfileupload',
-			'ajaxperm',
-			'ajaxreferent',
 			'ajaxreffonct',
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -127,7 +124,7 @@
 		);
 
 		/**
-		 * Moteur de recherche par rendez-vous (nouveau).
+		 * Moteur de recherche par rendez-vous.
 		 */
 		public function search() {
 			$Recherches = $this->Components->load( 'WebrsaRecherchesRendezvous' );
@@ -135,7 +132,7 @@
 		}
 
 		/**
-		 * Export CSV des résultats de la recherche par rendez-vous (nouveau).
+		 * Export CSV des résultats de la recherche par rendez-vous.
 		 */
 		public function exportcsv() {
 			$Recherches = $this->Components->load( 'WebrsaRecherchesRendezvous' );
@@ -277,13 +274,13 @@
 				if( $saved ) {
 					$this->Rendezvous->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect(array('action' => 'index', $personne_id));
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id );
 					$this->Rendezvous->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -317,7 +314,7 @@
 				$query['fields'] = array( 'Dossierep.id' );
 				$result = $this->Rendezvous->Personne->Dossierep->find( 'first', $query );
 				if( !empty( $result ) ) {
-					$this->Session->setFlash( 'Attention, une décision EPL est en cours.', 'flash/error' );
+					$this->Flash->error( 'Attention, une décision EPL est en cours.' );
 				}
 			}
 
@@ -568,6 +565,7 @@
 
 			// Retour à la liste en cas d'annulation
 			if( !empty( $this->request->data ) && isset( $this->request->data['Cancel'] ) ) {
+				$this->Jetons2->release( $dossier_id );
 				$this->redirect( array( 'action' => 'index', $personne_id ) );
 			}
 
@@ -575,10 +573,6 @@
 			$this->assert( !empty( $dossier_id ), 'invalidParameter' );
 
 			$this->Jetons2->get( $dossier_id );
-
-			$referents = $this->Rendezvous->Referent->WebrsaReferent->listOptions();
-			$this->set( 'referents', $referents );
-
 
 			if( !empty( $this->request->data ) ) {
 				$this->Rendezvous->begin();
@@ -624,18 +618,24 @@
 				if( $success ) {
 					$this->Rendezvous->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'rendezvous', 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$this->Rendezvous->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
 				if( $this->action == 'edit' ) {
 					$this->request->data = $rdv;
-					$this->request->data['Rendezvous']['referent_id'] = $rdv['Rendezvous']['structurereferente_id'].'_'.$rdv['Rendezvous']['referent_id'];
+					// Préparation des données pour la modification
+					$this->request->data['Rendezvous']['referent_id'] = false === empty( $rdv['Rendezvous']['referent_id'] )
+						? $rdv['Rendezvous']['structurereferente_id'].'_'.$rdv['Rendezvous']['referent_id']
+						: null;
+					$this->request->data['Rendezvous']['permanence_id'] = false === empty( $rdv['Rendezvous']['permanence_id'] )
+						? $rdv['Rendezvous']['structurereferente_id'].'_'.$rdv['Rendezvous']['permanence_id']
+						: null;
 				}
 				else {
 					//Récupération de la structure référente liée à l'orientation
@@ -690,25 +690,56 @@
 			$struct_id = Set::classicExtract( $this->request->data, "{$this->modelClass}.structurereferente_id" );
 			$this->set( 'struct_id', $struct_id );
 
-// 			$referent_id = Set::classicExtract( $this->request->data, "{$this->modelClass}.referent_id" );
-// 			$referent_id = preg_replace( '/^[0-9]+_([0-9]+)$/', '\1', $referent_id );
-// 			$this->set( 'referent_id', $referent_id );
-
 			$permanence_id = Set::classicExtract( $this->request->data, "{$this->modelClass}.permanence_id" );
 			$permanence_id = preg_replace( '/^[0-9]+_([0-9]+)$/', '\1', $permanence_id );
 			$this->set( 'permanence_id', $permanence_id );
 
-			$typerdv = $this->Rendezvous->Typerdv->find( 'list', array( 'fields' => array( 'id', 'libelle' ) ) );
-			$this->set( 'typerdv', $typerdv );
-
-			$this->_setOptions();
+			// Options
+			$options = Hash::merge(
+				$this->Rendezvous->enums(),
+				array(
+					'Rendezvous' => array(
+						'structurereferente_id' => $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'optgroup', 'prefix' => false ) ),
+						'referent_id' => $this->InsertionsBeneficiaires->referents(),
+						'permanence_id' => $this->Rendezvous->Permanence->listOptions(),
+						'typerdv_id' => $this->Rendezvous->Typerdv->find( 'list' ),
+						'statutrdv_id' => $this->Rendezvous->Statutrdv->find( 'list' ),
+						'permanence_id' => $this->Rendezvous->Permanence->listOptions()
+					)
+				)
+			);
 
             if( Configure::read( 'Rendezvous.useThematique' ) ) {
-                $thematiquesrdvs = $this->Rendezvous->Thematiquerdv->find( 'list', array( 'fields' => array( 'Thematiquerdv.id', 'Thematiquerdv.name', 'Thematiquerdv.typerdv_id' ) ) );
-                $this->set( compact( 'thematiquesrdvs' ) );
+                $options['Thematiquerdv']['Thematiquerdv'] = $this->Rendezvous->Thematiquerdv->find( 'list', array( 'fields' => array( 'Thematiquerdv.id', 'Thematiquerdv.name', 'Thematiquerdv.typerdv_id' ) ) );
             }
 
-			$this->set( 'personne_id', $personne_id );
+			// On complète les options avec les éléments désactivés le cas échéant
+			if( false === empty( $this->request->data ) ) {
+				$options['Rendezvous'] = $this->InsertionsBeneficiaires->completeOptions(
+					$options['Rendezvous'],
+					$this->request->data['Rendezvous'],
+					array(
+						'typesorients' => false,
+						'structuresreferentes' => array(
+							'optgroup' => true,
+							'prefix' => false,
+							'type' => InsertionsBeneficiairesComponent::TYPE_OPTGROUP
+						)
+					)
+				);
+
+				$options = $this->Rendezvous->Permanence->completeOptions(
+					$options,
+					$this->request->data,
+					array(
+						'Rendezvous.permanence_id' => array(
+							'prefix' => 'Permanence.structurereferente_id'
+						)
+					)
+				);
+			}
+
+			$this->set( compact( 'options', 'personne_id' ) );
 			$this->set( 'urlmenu', '/rendezvous/index/'.$personne_id );
 			$this->render( 'add_edit' );
 		}
@@ -754,16 +785,16 @@
 
 			$success = $this->Rendezvous->delete( $id ) && $success;
 
-			$this->_setFlashResult( 'Delete', $success );
-
-			$this->Jetons2->release( $dossier_id );
-
 			if( $success ) {
 				$this->Rendezvous->commit();
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
 				$this->Rendezvous->rollback();
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
+
+			$this->Jetons2->release( $dossier_id );
 
 			$this->redirect( $this->referer() );
 		}
@@ -785,7 +816,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'rendezvous-%d-%s.pdf', $rdv_id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier de rendez-vous.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier de rendez-vous.' );
 				$this->redirect(array('action' => 'index', $personne_id));
 			}
 		}

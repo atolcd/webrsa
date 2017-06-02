@@ -32,7 +32,7 @@
 					if( !in_array( Inflector::pluralize( $theme ), $options['Dossiercov58']['vx_themecov58'] ) || !empty( $dossiers[$theme] ) ) {
 						$class = Inflector::singularize( $theme );
 						echo "<div id=\"$theme\"><h3 class=\"title\">".__d( 'dossiercov58',  'ENUM::THEMECOV::'.Inflector::tableize( $theme ) )."</h3>";
-						require_once( "choose.{$class}.liste.ctp" );
+						include_once  "choose.{$class}.liste.ctp" ;
 						if( !empty( $dossiers[$theme]) ) {
 							echo $this->Form->button( 'Tout cocher', array( 'type' => 'button', 'onclick' => "return toutCocher( '#{$theme} input[type=checkbox]' );" ) );
 							echo $this->Form->button( 'Tout décocher', array( 'type' => 'button', 'onclick' => "return toutDecocher( '#{$theme} input[type=checkbox]' );" ) );

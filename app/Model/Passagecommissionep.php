@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Passagecommissionep ...
@@ -18,14 +19,11 @@
 		/**
 		*
 		*/
-
-		public $recursive = -1;
-
 		public $virtualFields = array(
 			'chosen' => array(
 				'type'      => 'boolean',
 				'postgres'  => '(CASE WHEN "%s"."id" IS NOT NULL THEN true ELSE false END )'
-			),
+			)
 		);
 
 		/**
@@ -33,14 +31,12 @@
 		*/
 
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable',
-			'Enumerable' => array(
-				'fields' => array(
-					'etatdossierep'
-				)
-			)
+			'Allocatairelie' => array(
+				'joins' => array( 'Dossierep' )
+			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		/**
@@ -277,34 +273,6 @@
 					'limit' => 1
 				)
 			);
-		}
-
-		/**
-		 * Retourne l'id de la personne à laquelle est lié un enregistrement.
-		 *
-		 * @param integer $id L'id de l'enregistrement
-		 * @return integer
-		 */
-		public function personneId( $id ) {
-			$querydata = array(
-				'fields' => array( "Dossierep.personne_id" ),
-				'joins' => array(
-					$this->join( 'Dossierep', array( 'type' => 'INNER' ) )
-				),
-				'conditions' => array(
-					"{$this->alias}.id" => $id
-				),
-				'recursive' => -1
-			);
-
-			$result = $this->find( 'first', $querydata );
-
-			if( !empty( $result ) ) {
-				return $result['Dossierep']['personne_id'];
-			}
-			else {
-				return null;
-			}
 		}
 
 		/**

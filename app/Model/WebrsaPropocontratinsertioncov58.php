@@ -36,13 +36,6 @@
 		public $useTable = false;
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
@@ -95,10 +88,10 @@
 
 			return $query;
 		}
-		
+
 		/**
 		 * Ajoute les virtuals fields pour permettre le controle de l'accès à une action
-		 * 
+		 *
 		 * @param array $query
 		 * @return type
 		 */
@@ -106,10 +99,10 @@
 			$fields = array(
 				'Passagecov58.etatdossiercov'
 			);
-			
+
 			$query['joins'] = isset($query['joins']) ? $query['joins'] : array();
 			$joinsAvailables = Hash::extract($query, 'joins.{n}.alias');
-			
+
 			if (!in_array('Dossiercov58', $joinsAvailables)) {
 				$query['joins'][] = $this->Propocontratinsertioncov58->join('Dossiercov58');
 			}
@@ -128,13 +121,13 @@
 					)
 				);
 			}
-			
+
 			return Hash::merge($query, array('fields' => array_values($fields)));
 		}
-		
+
 		/**
 		 * Permet d'obtenir le nécéssaire pour calculer les droits d'accès métier à une action
-		 * 
+		 *
 		 * @param array $conditions
 		 * @return array
 		 */
@@ -156,14 +149,14 @@
 					'Propocontratinsertioncov58.id' => 'DESC',
 				)
 			);
-			
+
 			$results = $this->Contratinsertion->find('all', $this->completeVirtualFieldsForAccess($query));
 			return $results;
 		}
-		
+
 		/**
 		 * Permet d'obtenir les paramètres à envoyer à WebrsaAccess pour une personne en particulier
-		 * 
+		 *
 		 * @see WebrsaAccess::getParamsList
 		 * @param integer $personne_id
 		 * @param array $params - Liste des paramètres actifs

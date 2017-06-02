@@ -104,7 +104,7 @@
 				),
 				array(
 					'options' => $options,
-					'format' => SearchProgressivePagination::format( !Hash::get( $this->request->data, 'Search.Pagination.nombre_total' ) )
+					'format' => $this->element( 'pagination_format' )
 				)
 			);
 		}

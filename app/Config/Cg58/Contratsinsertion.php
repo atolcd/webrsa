@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par contrats" > "Par CER (nouveau)"
+	 * Menu "Recherches" > "Par contrats" > "Par CER"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Contratsinsertion.search',
@@ -78,7 +78,7 @@
 	);
 
 	/**
-	 * Export CSV, menu "Recherches" > "Par contrats" > "Par CER (nouveau)"
+	 * Export CSV, menu "Recherches" > "Par contrats" > "Par CER"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Contratsinsertion.exportcsv',

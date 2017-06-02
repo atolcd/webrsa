@@ -52,11 +52,11 @@
 				parent::_optionsRecords( $params ),
 				array(
 					'Propopdo' => array(
-						'typepdo_id' => $Controller->Propopdo->Typepdo->find( 'list' ),
+						'typepdo_id' => $Controller->Propopdo->Typepdo->findForRecherche( 'list' ),
 						'user_id' => $Controller->User->find( 'list', $query )
 					),
 					'Decisionpropopdo' => array(
-						'decisionpdo_id' => $Controller->Propopdo->Decisionpropopdo->Decisionpdo->find( 'list' )
+						'decisionpdo_id' => $Controller->Propopdo->Decisionpropopdo->Decisionpdo->findForRecherche( 'list' )
 					)
 				)
 			);

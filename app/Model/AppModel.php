@@ -20,6 +20,13 @@
 	class AppModel extends Model
 	{
 		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = -1;
+
+		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
@@ -100,6 +107,7 @@
 		public function __construct( $id = false, $table = null, $ds = null ) {
 			parent::__construct( $id, $table, $ds );
 
+			// Champs virtuels, on ne se préoccupe que du driver utilisé.
 			if( isset( $this->virtualFields ) && !empty( $this->virtualFields ) ) {
 				$driver = $this->driver();
 
@@ -107,7 +115,13 @@
 					if( is_array( $value ) && isset( $value[$driver] ) ) {
 						$this->virtualFields[$name] = $value[$driver];
 					}
-					$this->virtualFields[$name] = str_replace( '%s', $this->alias, $this->virtualFields[$name] );
+				}
+			}
+
+			// Remplacement des %s par l'alias du modèle dans les attributs order et virtualFields
+			foreach( array( 'order', 'virtualFields' ) as $attribute ) {
+				if( false === empty( $this->{$attribute} ) ) {
+					$this->{$attribute} = alias( $this->{$attribute}, array( '%s' => $this->alias ) );
 				}
 			}
 
@@ -262,45 +276,6 @@
 			parent::unbindModel( $unbind, $reset );
 		}
 
-		// FIXME
-		/**
-		 * Surcharge de la méthode saveAll: on retourne un booléen true / false dans tous les cas.
-		 * En CakePHP 2.0, les options ne sont pas les mêmes, donc on reprend les options par défaut de
-		 * CakePHP 1.2.
-		 *
-		 * @param array $data
-		 * @param array $options
-		 * @return boolean
-		 */
-		/*public function saveAll( $data = NULL, $options = array( ) ) {
-			$options = array_merge( array( 'validate' => true, 'atomic' => true ), $options );
-
-			$return = parent::saveAll( $data, $options );
-
-			if( is_array( $return ) && !empty( $return ) ) {
-				$return = Hash::flatten( $return );
-				$return = ( array_sum( $return ) == count( $return ) );
-			}
-			else if( is_array( $return ) && empty( $return ) ) {
-				return false;
-			}
-			return $return;
-		}*/
-
-		/**
-		 * Retourne un booléen dans tous les cas.
-		 *
-		 * @param array $data Data to save.
-		 * @param boolean|array $validate Either a boolean, or an array.
-		 *   If a boolean, indicates whether or not to validate before saving.
-		 *   If an array, allows control of validate, callbacks, and fieldList
-		 * @param array $fieldList List of fields to allow to be written
-		 * @return boolean
-		 */
-//		public function save( $data = null, $validate = true, $fieldList = array( ) ) {
-//			return ( parent::save( $data, $validate, $fieldList ) !== false );
-//		}
-
 		/**
 		 * Retourne les résultats d'une opération de sauvegarde sous forme d'un
 		 * booléen.
@@ -335,30 +310,6 @@
 			$result = parent::saveAll( $data, $options );
 			return $this->saveResultAsBool( $result );
 		}
-
-		/**
-		 * Retourne un booléen dans tous les cas.
-		 *
-		 * @param array $data Record data to save. This should be an array indexed by association name.
-		 * @param array $options Options to use when saving record data, See $options above.
-		 * @return boolean
-		 */
-//		public function saveAssociated( $data = null, $options = array( ) ) {
-//			$result = parent::saveAssociated( $data, $options );
-//			return $this->saveResultAsBool( $result );
-//		}
-
-		/**
-		 * Retourne un booléen dans tous les cas.
-		 *
-		 * @param array $data Record data to save. This should be a numerically-indexed array
-		 * @param array $options Options to use when saving record data, See $options above.
-		 * @return boolean
-		 */
-//		public function saveMany( $data = null, $options = array( ) ) {
-//			$result = parent::saveMany( $data, $options );
-//			return $this->saveResultAsBool( $result );
-//		}
 
 		/**
 		 * Filtre zone géographique
@@ -421,18 +372,9 @@
 				return null;
 			}
 
-			if( CAKE_BRANCH == '1.2' ) {
-				$sq = preg_replace( $virtualField['regex'], $virtualField['alias'], "{$this->alias}.{$field}" );
-
-				if( !$alias ) {
-					$sq = preg_replace( '/ +AS +[^ ]+$/m', '', $sq );
-				}
-			}
-			else {
-				$sq = "( $virtualField )";
-				if( $alias ) {
-					$sq = "{$sq} AS \"{$this->alias}__{$field}\"";
-				}
+			$sq = "( $virtualField )";
+			if( $alias ) {
+				$sq = "{$sq} AS \"{$this->alias}__{$field}\"";
 			}
 
 			return $sq;
@@ -485,38 +427,8 @@
 		}
 
 		/**
-		 * Chargement du behavior Validation.ExtraValidationRules.
-		 *
-		 * @param array $options
-		 * @return boolean
-		 */
-		public function beforeValidate( $options = array( ) ) {
-			$loaded = true;
-			if( !$this->Behaviors->attached( 'Validation.ExtraValidationRules' ) ) {
-				$loaded = $this->Behaviors->attach( 'Validation.ExtraValidationRules' );
-			}
-
-			return parent::beforeValidate( $options ) && $loaded;
-		}
-
-		/**
-		 * Chargement du behavior Validation.ExtraValidationRules.
-		 *
-		 * @param array $options
-		 * @return boolean
-		 */
-		public function beforeSave( $options = array( ) ) {
-			$loaded = true;
-			if( !$this->Behaviors->attached( 'Validation.ExtraValidationRules' ) ) {
-				$loaded = $this->Behaviors->attach( 'Validation.ExtraValidationRules' );
-			}
-
-			return parent::beforeSave( $options ) && $loaded;
-		}
-
-		/**
-		 * Retourne la liste des options venant de EnumerableBehavior, ainsi que
-		 * des champs possédant la règle de validation inList.
+		 * Retourne la liste des options venant des champs possédant la règle de
+		 * validation inList.
 		 *
 		 * @return array
 		 */
@@ -529,14 +441,7 @@
 
 				// Dans le cache CakePHP ?
 				if( false === $this->_appModelCache[$cacheKey] ) {
-
-					// Dans enumerable ?
-					if( $this->Behaviors->attached( 'Enumerable' ) ) {
-						$this->_appModelCache[$cacheKey] = $this->Behaviors->Enumerable->enums( $this );
-					}
-					else {
-						$this->_appModelCache[$cacheKey] = array();
-					}
+					$this->_appModelCache[$cacheKey] = array();
 
 					$domain = Inflector::underscore( $this->alias );
 
@@ -576,7 +481,7 @@
 				}
 			}
 
-			return $this->_appModelCache[$cacheKey];
+			return (array)$this->_appModelCache[$cacheKey];
 		}
 
 		/**
@@ -593,7 +498,7 @@
 			$params += array( 'sort' => false, 'filter' => array() );
 
 			$enums = $this->enums();
-			$values = Hash::get( $enums, "{$this->alias}.{$field}" );
+			$values = (array)Hash::get( $enums, "{$this->alias}.{$field}" );
 
 			// Filtre-t-on les clés ?
 			$accepted = (array)$params['filter'];
@@ -636,8 +541,8 @@
 		 * @param boolean $created True if this save created a new record
 		 * @return void
 		 */
-		public function afterSave( $created ) {
-			parent::afterSave( $created );
+		public function afterSave( $created, $options = array() ) {
+			parent::afterSave( $created, $options );
 			$this->_clearModelCache();
 		}
 
@@ -778,7 +683,7 @@
 		public function getSqLinkedModelsDepartement( $fieldName = 'linked_records' ) {
 			$departement = Configure::read( 'Cg.departement' );
 			if( !$this->Behaviors->attached( 'LinkedRecords' ) ) {
-				App::import( 'Behaviors', 'LinkedRecords' );
+				App::uses( 'LinkedRecordsBehavior', 'Model/Behavior' );
 				$this->Behaviors->attach( 'LinkedRecords' );
 			}
 

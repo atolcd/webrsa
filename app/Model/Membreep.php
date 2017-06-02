@@ -7,6 +7,8 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'FrValidation', 'Validation' );
 
 	/**
 	 * La classe Membreep ...
@@ -20,80 +22,107 @@
 	{
 		public $name = 'Membreep';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Enumerable' => array(
-				'fields' => array(
-					'qual'
+			'Validation2.Validation2Formattable' => array(
+				'Validation2.Validation2DefaultFormatter' => array(
+					'stripNotAlnum' => '/^(tel)$/'
 				)
 			),
-			'Formattable' => array(
-				'phone' => array( 'tel' )
-			),
-			'Validation.ExtraValidationRules',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
 			'mail' => array(
 				'email' => array(
-					'rule' => 'email',
+					'rule' => array( 'email' ),
 					'allowEmpty' => true,
 					'message' => 'Le mail n\'est pas valide'
 				)
 			),
             'organisme' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire',
 					'allowEmpty' => CHAMP_FACULTATIF
 				)
 			),
             'tel' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire',
 					'allowEmpty' => CHAMP_FACULTATIF
 				),
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
-				),
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
+				)
 			),
             'numvoie' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire',
 					'allowEmpty' => CHAMP_FACULTATIF
 				)
 			),
             'typevoie' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire',
 					'allowEmpty' => CHAMP_FACULTATIF
 				)
 			),
             'nomvoie' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire',
 					'allowEmpty' => CHAMP_FACULTATIF
 				)
 			),
             'ville' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire',
 					'allowEmpty' => CHAMP_FACULTATIF
 				)
 			),
             'codepostal' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire',
 					'allowEmpty' => CHAMP_FACULTATIF
 				)
+			)
+		);
+
+		/**
+		 * Modèles utilisés par ce modèle.
+		 *
+		 * @var array
+		 */
+		public $uses = array( 'Option' );
+
+		/**
+		 * Champ virtuel "Nom complêt" (nomcomplet)
+		 *
+		 * @var array
+		 */
+		public $virtualFields = array(
+			'nomcomplet' => array(
+				'type'      => 'string',
+				'postgres'  => 'COALESCE( "%s"."qual", \'\' ) || \' \' || COALESCE( "%s"."nom", \'\' ) || \' \' || COALESCE( "%s"."prenom", \'\' )'
+			),
+			'adresse' => array(
+				'type'      => 'string',
+				'postgres'  => 'COALESCE( "%s"."numvoie", \'\' ) || \' \' || COALESCE( "%s"."typevoie", \'\' ) || \' \' || COALESCE( "%s"."nomvoie", \'\' ) || \' \' || COALESCE( "%s"."compladr", \'\' ) || \' \' || COALESCE( "%s"."codepostal", \'\' ) || \' \' || COALESCE( "%s"."ville", \'\' )'
 			)
 		);
 
@@ -171,6 +200,20 @@
 			);
 
 			return $query;
+		}
+
+		/**
+		 * Surcharge de la méthode enums pour ajouter les valeurs de type de
+		 * voie.
+		 *
+		 * @return array
+		 */
+		public function enums() {
+			$enums = parent::enums();
+
+			$enums[$this->alias]['typevoie'] = $this->Option->libtypevoie();
+
+			return $enums;
 		}
 	}
 ?>

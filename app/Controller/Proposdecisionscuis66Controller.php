@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe Proposdecisionscuis66Controller ... (CG 66).
@@ -56,17 +57,17 @@
 			'Propodecisioncui66',
 			'Option',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -75,11 +76,10 @@
 		public $aucunDroit = array(
 			'ajaxfiledelete',
 			'ajaxfileupload',
-			'ajaxtaux',
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -100,7 +100,7 @@
 			'printaviscui' => 'update',
 			'propositioncui' => 'read',
 		);
-		
+
 		/**
 		 *
 		 */
@@ -209,13 +209,13 @@
 				if( $saved ) {
 					$this->Propodecisioncui66->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( $this->referer() );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id );
 					$this->Propodecisioncui66->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
@@ -361,7 +361,7 @@
 				$this->Propodecisioncui66->begin();
 
 				if( $this->Propodecisioncui66->saveAll( $this->request->data, array( 'validate' => 'only', 'atomic' => false ) ) ) {
-					$saved = $this->Propodecisioncui66->save( $this->request->data );
+					$saved = $this->Propodecisioncui66->save( $this->request->data , array( 'atomic' => false ) );
 
 					if( $saved ) {
 						$saved = $this->Propodecisioncui66->Cui->updatePositionFromPropodecisioncui66( $this->Propodecisioncui66->id ) && $saved;
@@ -370,12 +370,12 @@
 					if( $saved ) {
 						$this->Propodecisioncui66->commit();
 						$this->Jetons2->release( $dossier_id );
-						$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'proposdecisionscuis66', 'action' => 'propositioncui', $cui_id ) );
 					}
 					else {
 						$this->Propodecisioncui66->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 
 				}
@@ -407,7 +407,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'NotifElu_%d_%d.pdf', $id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier à destination de l\'élu.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier à destination de l\'élu.' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -466,7 +466,7 @@
 			$this->assert( !empty( $propodecisioncui66 ), 'error404' );
 
 			if( !isset( $propodecisioncui66['Referent']['email'] ) || empty( $propodecisioncui66['Referent']['email'] ) ) {
-				$this->Session->setFlash( "Mail non envoyé: adresse mail du référent ({$propodecisioncui66['Referent']['nom']} {$propodecisioncui66['Referent']['prenom']}) non renseignée.", 'flash/error' );
+				$this->Flash->error( "Mail non envoyé: adresse mail du référent ({$propodecisioncui66['Referent']['nom']} {$propodecisioncui66['Referent']['prenom']}) non renseignée." );
 				$this->redirect( $this->referer() );
 			}
 
@@ -495,10 +495,10 @@
 			}
 
 			if( $success ) {
-				$this->Session->setFlash( 'Mail envoyé', 'flash/success' );
+				$this->Flash->success( 'Mail envoyé' );
 			}
 			else {
-				$this->Session->setFlash( 'Mail non envoyé', 'flash/error' );
+				$this->Flash->error( 'Mail non envoyé' );
 			}
 
 			$this->redirect( $this->referer() );
@@ -521,7 +521,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'AvisTechnique_%d_%d.pdf', $id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier d\'avis technique.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier d\'avis technique.' );
 				$this->redirect( $this->referer() );
 			}
 		}

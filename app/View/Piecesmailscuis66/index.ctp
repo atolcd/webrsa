@@ -12,7 +12,7 @@
 			),
 		)
 	);
-    
+
     echo $this->Default2->index(
         $piecesmailscuis66,
         array(
@@ -31,8 +31,9 @@
     echo $this->Default->button(
         'back',
         array(
-            'controller' => 'cuis',
-            'action'     => 'indexparams'
+            'controller' => 'parametrages',
+            'action'     => 'index',
+            '#'     => 'cuis66'
         ),
         array(
             'id' => 'Back'

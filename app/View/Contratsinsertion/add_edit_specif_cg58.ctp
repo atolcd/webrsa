@@ -74,7 +74,7 @@
 
 <?php
 	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Contratinsertion', array( 'type' => 'post', 'id' => 'testform' ) );
+		echo $this->Form->create( 'Contratinsertion', array( 'type' => 'post', 'id' => 'testform', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Contratinsertion.id', array( 'type' => 'hidden', 'value' => '' ) );
 
@@ -83,7 +83,7 @@
 		echo '</div>';
 	}
 	else {
-		echo $this->Form->create( 'Contratinsertion', array( 'type' => 'post', 'id' => 'testform' ) );
+		echo $this->Form->create( 'Contratinsertion', array( 'type' => 'post', 'id' => 'testform', 'novalidate' => true ) );
 		echo '<div>';
 		echo $this->Form->input( 'Contratinsertion.id', array( 'type' => 'hidden' ) );
 

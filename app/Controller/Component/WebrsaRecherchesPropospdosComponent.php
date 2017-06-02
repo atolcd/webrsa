@@ -49,14 +49,14 @@
 				$options,
 				array(
 					'Propopdo' => array(
-						'typepdo_id' => $Controller->Propopdo->Typepdo->find( 'list' ),
+						'typepdo_id' => $Controller->Propopdo->Typepdo->findForRecherche( 'list' ),
 						'typenotifpdo_id' => $Controller->Propopdo->Typenotifpdo->find( 'list' ),
-						'originepdo_id' => $Controller->Propopdo->Originepdo->find( 'list' ),
+						'originepdo_id' => $Controller->Propopdo->Originepdo->findForRecherche( 'list' ),
 						'serviceinstructeur_id' => $options['Serviceinstructeur']['id'],
 						'user_id' => $Controller->Propopdo->User->find( 'list', array( 'fields' => array( 'User.nom_complet' ), 'conditions' => array( 'User.isgestionnaire' => 'O' ) ) )
 					),
 					'Decisionpropopdo' => array(
-						'decisionpdo_id' => $Controller->Propopdo->Decisionpropopdo->Decisionpdo->find( 'list' )
+						'decisionpdo_id' => $Controller->Propopdo->Decisionpropopdo->Decisionpdo->findForRecherche( 'list' )
 					)
 				)
 			);

@@ -4,7 +4,7 @@
 		echo $this->Html->script( array( 'prototype.event.simulate.js', 'dependantselect.js' ) );
 	}
 ?>
-<?php  echo $this->Form->create( 'Dossiersimplifie',array() ); ?>
+<?php  echo $this->Form->create( 'Dossiersimplifie',array('novalidate' => true) ); ?>
 
 <script type="text/javascript">
 	document.observe("dom:loaded", function() {
@@ -38,15 +38,15 @@
 <fieldset>
 	<h2>Dossier RSA</h2>
 	<p><?php echo "Numéro de demande RSA : $numdossierrsa";?></p>
-	<p><?php 
-		echo $this->Form->input( 
-			'Dossier.dtdemrsa', 
-			array( 'label' => required( __d( 'dossier', 'Dossier.dtdemrsa' ) ), 
-				'dateFormat' => 'DMY', 
-				'maxYear' => date( 'Y' )+1, 
-				'minYear' => 2009, 
-				'empty' => true 
-			) 
+	<p><?php
+		echo $this->Form->input(
+			'Dossier.dtdemrsa',
+			array( 'label' => ValidateAllowEmptyUtility::label( 'Dossier.dtdemrsa', 'dossiers' ),
+				'dateFormat' => 'DMY',
+				'maxYear' => date( 'Y' )+1,
+				'minYear' => 2009,
+				'empty' => true
+			)
 		);
 	?></p>
 	<p><?php echo "N° CAF : $matricule";?></p>

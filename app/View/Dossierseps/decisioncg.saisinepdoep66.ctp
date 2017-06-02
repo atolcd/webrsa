@@ -7,7 +7,7 @@
 ?>
 <fieldset id="Decision" class="invisible">
 	<?php
-		echo $this->Form->create('Dossierep', array('url'=>'/dossierseps/decisioncg/'.$dossierep_id, 'id'=>'DossierepDecisioncg'));
+		echo $this->Form->create('Dossierep', array('url'=>'/dossierseps/decisioncg/'.$dossierep_id, 'id'=>'DossierepDecisioncg', 'novalidate' => true));
 
 		if (isset($this->request->data['Decisionsaisinepdoep66']['id']))
 			echo $this->Form->input('Decisionsaisinepdoep66.id', array('type'=>'hidden'));

@@ -341,7 +341,7 @@ document.observe( \'dom:loaded\', function() { try {
 
 			// Utile pour réinitialiser la validation sur Adresse qui est modifié en cas de AllTests
 			ClassRegistry::init('Adresse')->validate['nomvoie'] = array();
-			ClassRegistry::init('Adresse')->validate['nomcom'] = array('notEmpty');
+			ClassRegistry::init('Adresse')->validate['nomcom'] = array(NOT_BLANK_RULE_NAME);
 
 			$params = array(
 				'options' => array(

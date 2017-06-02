@@ -19,7 +19,6 @@
 
 	foreach( $themesChoose as $theme ){
 		foreach( $dossiers[$theme] as $dossier ) {
-// debug( $dossier );
 			$row = array(
 				__d( 'dossierep',  'ENUM::THEMEEP::'.Inflector::tableize( $theme ) ),
 				$this->Type2->format( $dossier, 'Dossierep.id', array() ),
@@ -35,26 +34,6 @@
 			);
 			$this->Csv->addRow($row);
 		}
-
-		// __d( 'dossierep',  'ENUM::THEMEEP::'.Inflector::tableize( $theme ) )
-		/*echo $this->Default2->index(
-			$dossiers[$theme],
-			array(
-	// 			'Foyer.enerreur' => array( 'type' => 'string', 'class' => 'foyer_enerreur' ),
-				'Passagecommissionep.chosen' => array( 'input' => 'checkbox' ),
-			),
-			array(
-				'cohorte' => true,
-				'options' => $options,
-				'hidden' => array( 'Dossierep.id', 'Passagecommissionep.id' ),
-				'paginate' => Inflector::classify( $theme ),
-				'actions' => array( 'Personnes::view' ),
-				'id' => $theme,
-				'labelcohorte' => 'Enregistrer',
-				'cohortehidden' => array( 'Choose.theme' => array( 'value' => $theme ) ),
-				'trClass' => $trClass,
-			)
-		);*/
 	}
 
 	Configure::write( 'debug', 0 );

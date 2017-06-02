@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe Proposorientationscovs58Controller ... (CG 58).
@@ -51,26 +52,26 @@
 			'Propoorientationcov58',
 			'WebrsaOrientstruct',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Proposorientationscovs58:edit',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -196,7 +197,7 @@
 					);
 
 					$this->Propoorientationcov58->Dossiercov58->create( $dossiercov58 );
-					$saved = $this->Propoorientationcov58->Dossiercov58->save() && $saved;
+					$saved = $this->Propoorientationcov58->Dossiercov58->save( null, array( 'atomic' => false ) ) && $saved;
 
 					$regressionorientationcov58 = array(
 						'Regressionorientationcov58' => array(
@@ -211,7 +212,7 @@
 					);
 
 					$this->Propoorientationcov58->Dossiercov58->Regressionorientationcov58->create( $regressionorientationcov58 );
-					$saved = $this->Propoorientationcov58->Dossiercov58->Regressionorientationcov58->save() && $saved;
+					$saved = $this->Propoorientationcov58->Dossiercov58->Regressionorientationcov58->save( null, array( 'atomic' => false ) ) && $saved;
 					if( $saved === false ) {
 						$this->Propoorientationcov58->validationErrors = $this->Propoorientationcov58->Dossiercov58->Regressionorientationcov58->validationErrors;
 					}
@@ -231,24 +232,24 @@
 						$dossiercov58['Dossiercov58']['personne_id'] = $personne_id;
 						$dossiercov58['Dossiercov58']['themecov58'] = 'proposorientationscovs58';
 
-						$saved = $this->Propoorientationcov58->Dossiercov58->save($dossiercov58) && $saved;
+						$saved = $this->Propoorientationcov58->Dossiercov58->save( $dossiercov58, array( 'atomic' => false ) ) && $saved;
 
 						$this->Propoorientationcov58->create();
 
 						$this->request->data['Propoorientationcov58']['dossiercov58_id'] = $this->Propoorientationcov58->Dossiercov58->id;
 					}
 
-					$saved = $this->Propoorientationcov58->save( $this->request->data['Propoorientationcov58'] ) && $saved;
+					$saved = $this->Propoorientationcov58->save( $this->request->data['Propoorientationcov58'] , array( 'atomic' => false ) ) && $saved;
 				}
 
 				if( $saved ) {
 					$this->Propoorientationcov58->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'orientsstructs', 'action' => 'index', $personne_id ) );
 				}
 				else {
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 					$this->Propoorientationcov58->rollback();
 				}
 			}
@@ -290,13 +291,13 @@
 			$success = $this->Propoorientationcov58->delete( $propoorientationcov58['Propoorientationcov58']['id'] );
 			$success = $this->Propoorientationcov58->Dossiercov58->delete( $propoorientationcov58['Propoorientationcov58']['dossiercov58_id'] ) && $success;
 
-			$this->_setFlashResult( 'Delete', $success );
-
 			if( $success ) {
 				$this->Propoorientationcov58->commit();
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
 				$this->Propoorientationcov58->rollback();
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 			$this->redirect( $this->referer() );
 		}

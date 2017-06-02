@@ -7,9 +7,9 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
-	App::uses('Folder', 'Utility');
-	App::uses('File', 'Utility');
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'File', 'Utility' );
+	App::uses( 'Folder', 'Utility' );
 
 	/**
 	 * La classe Piecemailcui66 ...
@@ -19,23 +19,13 @@
 	class Piecemailcui66 extends AppModel
 	{
 		public $name = 'Piecemailcui66';
-		
-		public $recursive = -1;
 
 		public $actsAs = array(
-			'Pgsqlcake.PgsqlAutovalidate',
-			'Formattable'
+			'Postgres.PostgresAutovalidate',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
 
-		public $validate = array(
-			'name' => array(
-				array(
-					'rule' => 'isUnique',
-					'message' => 'Valeur déjà utilisée'
-				)
-			)
-		);
-		
 		/**
 		 * Associations "Has Many".
 		 * @var array
@@ -66,9 +56,9 @@
 				),
 			)
 		);
-		
+
 		public function getFichiersLiesById( $id ){
-			$files = ClassRegistry::init( 'Fichiermodule' )->find( 'all', 
+			$files = ClassRegistry::init( 'Fichiermodule' )->find( 'all',
 				array(
 					'conditions' => array(
 						'Fichiermodule.modele' => $this->name,
@@ -76,21 +66,21 @@
 					)
 				)
 			);
-			
+
 			$path = TMP . 'Cui' . DS . $id;
 			if ( !is_dir( $path ) ){
 				mkdir( $path, 0777, true );
-			}			
-			
+			}
+
 			$filesNames = array();
 			foreach( $files as $file ){
 				$this->_generateTmpFile( $file['Fichiermodule'], $path );
 				$filesNames[] = $path . DS . $file['Fichiermodule']['name'];
 			}
-			
+
 			return $filesNames;
 		}
-		
+
 		protected function _generateTmpFile( $data, $path ){
 			if( !empty( $data['cmspath'] )  ) {
 				$document = Cmis::read( $data['cmspath'], true );
@@ -101,10 +91,10 @@
 			else {
 				$this->cakeError( 'error500' );
 			}
-			
+
 			$file = new File( $path . DS . $data['name'], true, 0777 );
-			$file->write( $document['content'] );		
-			
+			$file->write( $document['content'] );
+
 			return $this;
 		}
 	}

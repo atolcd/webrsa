@@ -305,6 +305,8 @@
 		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
 			$success = true;
 			$validationErrors = array();
+			
+			$this->Transfertpdv93->begin();
 
 			foreach( $data as $key => $line ) {
 				if( (string)Hash::get( $line, 'Transfertpdv93.action' ) === '1' ) {
@@ -336,7 +338,7 @@
 					// Info: il faut que le transfert soit créé pour que le bon PDF d'orientation soit généré
 					$this->Orientstruct->Behaviors->disable( 'StorablePdf' );
 					$this->Orientstruct->create( $orientstruct );
-					$success = $this->Orientstruct->save() && $success;
+					$success = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
 					$this->Orientstruct->Behaviors->enable( 'StorablePdf' );
 
 					if( !empty( $this->Orientstruct->validationErrors ) ) {
@@ -350,7 +352,7 @@
 							$line['Transfertpdv93']['nv_orientstruct_id'] = $this->Orientstruct->id;
 
 							$this->Transfertpdv93->create( $line );
-							$success = $this->Transfertpdv93->save() && $success;
+							$success = $this->Transfertpdv93->save( null, array( 'atomic' => false ) ) && $success;
 							if( !empty( $this->Transfertpdv93->validationErrors ) ) {
 								$validationErrors[$key]['structurereferente_dst_id'] = array_unique( Hash::extract( $this->Transfertpdv93->validationErrors, '{s}.{n}' ) );
 							}
@@ -400,6 +402,12 @@
 			}
 
 			$this->Transfertpdv93->validationErrors = $validationErrors;
+			
+			if ($success) {
+				$this->Transfertpdv93->commit();
+			} else {
+				$this->Transfertpdv93->rollback();
+			}
 
 			return $success;
 		}

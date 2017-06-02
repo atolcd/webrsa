@@ -6,7 +6,7 @@
 ?>
 <?php
 
-    
+
     echo $this->Default2->index(
         $secteurscuis,
         array(
@@ -24,8 +24,9 @@
     echo $this->Default->button(
         'back',
         array(
-            'controller' => 'cuis',
-            'action'     => 'indexparams'
+            'controller' => 'parametrages',
+            'action'     => 'index',
+            '#'     => 'cuis'
         ),
         array(
             'id' => 'Back'

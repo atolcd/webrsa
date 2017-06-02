@@ -7,8 +7,8 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-
-	 App::uses('WebrsaAccessHistoriqueseps', 'Utility');
+	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaAccessHistoriqueseps', 'Utility' );
 
 	/**
 	 * La classe HistoriquesepsController ...
@@ -61,26 +61,26 @@
 			'Passagecommissionep',
 			'WebrsaHistoriqueep',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -102,14 +102,14 @@
 			$options['Dossierep']['themeep'] = $this->Dossierep->themesCg();
 			$options['Dossierep']['actif'] = $this->Dossierep->enum( 'actif' );
 
-			if( !empty( $modeleTheme ) && in_array( 'Enumerable', $this->Dossierep->{$modeleTheme}->Behaviors->attached() ) ) {
+			if( !empty( $modeleTheme ) ) {
 				$options = Set::merge(
 					$options,
 					$this->Dossierep->{$modeleTheme}->enums()
 				);
 			}
 
-			if( !empty( $modeleDecision ) && in_array( 'Enumerable', $this->Dossierep->Passagecommissionep->{$modeleDecision}->Behaviors->attached() ) ) {
+			if( !empty( $modeleDecision ) ) {
 				$options = Set::merge(
 					$options,
 					$this->Dossierep->Passagecommissionep->{$modeleDecision}->enums()

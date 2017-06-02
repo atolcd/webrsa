@@ -16,7 +16,7 @@
 </h1>
 
 <?php
-	echo $this->Form->create( 'Commissionep', array( 'type' => 'post' ) );
+	echo $this->Form->create( 'Commissionep', array( 'type' => 'post', 'novalidate' => true ) );
 
 	echo $this->Default->subform(
 		array(

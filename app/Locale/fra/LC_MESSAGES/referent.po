@@ -1,0 +1,95 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+msgid "Referent::edit"
+msgstr "Modifier le référent"
+
+msgid "Referent::add"
+msgstr "Ajout d'un nouveau référent"
+
+msgid "Referent::delete"
+msgstr "Supprimer le référent"
+
+msgid "Referent::cloturer"
+msgstr "Clôturer le référent en masse"
+
+msgid "Referent::delete::confirm"
+msgstr "Confirmer la suppression ?"
+
+msgid "Referent.qual"
+msgstr "Civilité"
+
+msgid "Referent.nom"
+msgstr "Nom"
+
+msgid "Referent.prenom"
+msgstr "Prénom"
+
+msgid "Referent.fonction"
+msgstr "Fonction"
+
+msgid "Referent.numero_poste"
+msgstr "N° téléphone"
+
+msgid "Referent.email"
+msgstr "Email"
+
+msgid "Referent.structurereferente_id"
+msgstr "Structure référente"
+
+msgid "Referent.nom_complet"
+msgstr "Nom du prescripteur"
+
+msgid "Search.Referent.nom"
+msgstr "Nom du référent"
+
+msgid "Search.Referent.prenom"
+msgstr "Prénom du référent"
+
+msgid "Referents::liste_demande_reorient"
+msgstr "Liste des demandes de réorientation par référents"
+
+msgid "Referents::demandes_reorient"
+msgstr "Ecran de synthèse des demandes de réorientation"
+
+msgid "Search.Referent.id"
+msgstr "Nom/Prénom du Référent"
+
+msgid "Referent::index::empty"
+msgstr "Aucune demande de réorientation en cours"
+
+msgid "Referent::liste_demande_reorient"
+msgstr "Liste des demandes de réorientation du référent"
+
+msgid "Referent.actif"
+msgstr "Actif"
+
+msgid "Referent.datecloture"
+msgstr "Date de clôture"
+
+msgid "Referent.nom_correspondant"
+msgstr "Correspondant de l'action"
+
+msgid "ENUM::ACTIF::N"
+msgstr "Non"
+
+msgid "ENUM::ACTIF::O"
+msgstr "Oui"

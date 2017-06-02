@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par dossier / allocataire (nouveau)"
+	 * Menu "Recherches" > "Par dossier / allocataire"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dossiers.search',
@@ -86,7 +86,7 @@
 	);
 
 	/**
-	 * Export CSV, menu "Recherches" > "Par dossier / allocataire (nouveau)"
+	 * Export CSV, menu "Recherches" > "Par dossier / allocataire"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dossiers.exportcsv',

@@ -10,7 +10,7 @@
 <br/>
 <div id="tabbedWrapper" class="tabs">
 	<?php
-		echo $this->Form->create( null, array() );
+		echo $this->Form->create( null, array( 'novalidate' => true ) );
 		foreach( array_keys( $dossiers ) as $theme ) {
 			// S'il s'agit d'une ancienne thématique pour laquelle il n'existe pas de dossier, on n'affiche pas l'onglet
 			if( !in_array( Inflector::tableize( $theme ), $options['Dossiercov58']['vx_themecov58'] ) || !empty( $dossiers[$theme]['liste'] ) ) {
@@ -19,7 +19,7 @@
 
 				echo '<div id="'.$theme.'" class="'.$errorClass.'"><h2 class="title '.$errorClass.'">'.__d( 'dossiercov58', 'ENUM::THEMECOV::'.Inflector::tableize( $theme ) ).'</h2>';
 				if( !empty( $dossiers[$theme]['liste'] ) ) {
-					require_once( 'decisioncov.'.Inflector::tableize( $theme ).'.ctp' );
+					include_once  'decisioncov.'.Inflector::tableize( $theme ).'.ctp' ;
 				}
 				else {
 					echo '<p class="notice">Aucun dossier à traiter pour cette thématique.</p>';

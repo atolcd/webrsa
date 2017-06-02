@@ -1,36 +1,22 @@
 <?php
-    echo $this->Xhtml->tag(
-        'h1',
-        $this->pageTitle = __d( 'orgtransmisdossierpcg66', "Orgstransmisdossierspcgs66::{$this->action}" )
-    );
-?>
-<?php
-
-    
-    echo $this->Default2->index(
-        $orgstransmisdossierspcgs66,
-        array(
-            'Orgtransmisdossierpcg66.name',
-            'Poledossierpcg66.name',
-            'Orgtransmisdossierpcg66.isactif'
-        ),
-        array(
-            'actions' => array(
-                'Orgstransmisdossierspcgs66::edit',
-                'Orgstransmisdossierspcgs66::delete' => array( 'disabled' => '\'#Orgtransmisdossierpcg66.occurences#\'!= "0"' )
-            ),
-            'add' => 'Orgstransmisdossierspcgs66::add',
-            'options' => $options
-        )
-    );
-    echo $this->Default->button(
-        'back',
-        array(
-            'controller' => 'pdos',
-            'action'     => 'index'
-        ),
-        array(
-            'id' => 'Back'
-        )
-    );
+	echo $this->element(
+		'WebrsaParametrages/index',
+		array(
+			'cells' => array(
+				'Orgtransmisdossierpcg66.name',
+				'Poledossierpcg66.name',
+				'Orgtransmisdossierpcg66.generation_auto' => array( 'type' => 'boolean' ),
+				'Orgtransmisdossierpcg66.isactif' => array( 'type' => 'boolean' ),
+				'/Orgstransmisdossierspcgs66/edit/#Orgtransmisdossierpcg66.id#' => array(
+					'title' => true
+				),
+				'/Orgstransmisdossierspcgs66/delete/#Orgtransmisdossierpcg66.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Orgtransmisdossierpcg66.has_linkedrecords#"'
+				)
+			),
+			'backUrl' => '/Parametrages/index/#pdos'
+		)
+	);
 ?>

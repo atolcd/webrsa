@@ -3,8 +3,9 @@
 	 * Code source de la classe WebrsaOptionTag.
 	 *
 	 * @package app.Model
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Model.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe WebrsaOptionTag ...
@@ -26,7 +27,7 @@
 		 * @var mixed
 		 */
 		public $useTable = false;
-		
+
 		/**
 		 * Modèles utilisés par ce modèle.
 		 *
@@ -37,7 +38,7 @@
 			'Requestmanager',
 			'Zonegeographique'
 		);
-		
+
 		/**
 		 * Retourne les options de type "enum", c'est à dire liées aux schémas des
 		 * tables de la base de données.
@@ -69,19 +70,19 @@
 				$this->Tag->EntiteTag->Personne->Prestation->enums(),
 				$this->Tag->EntiteTag->Personne->Dsp->enums()
 			);
-			
+
 			$options['DspRev'] = $options['Dsp'];
-			
+
 			$accepted = array( 'DEM', 'CJT' );
 			foreach( array_keys($options['Prestation']['rolepers']) as $value ) {
 				if( !in_array( $value, $accepted ) ) {
 					unset( $options['Prestation']['rolepers'][$value] );
 				}
 			}
-			
+
 			return $options;
 		}
-		
+
 		/**
 		 * Retourne les options stockées liées à des enregistrements en base de
 		 * données, ne dépendant pas de l'utilisateur connecté.
@@ -93,7 +94,7 @@
 			foreach ( $modeles as $value ) {
 				$options['EntiteTag']['modele'][$value] = $value;
 			}
-			
+
 			// Valeur tag / catégorie
 			$results = $this->Tag->Valeurtag->find('all', array(
 				'fields' => array(
@@ -105,31 +106,31 @@
 					$this->Tag->Valeurtag->join('Categorietag')
 				),
 			));
-			
+
 			foreach ($results as $value) {
 				$categorie = Hash::get($value, 'Categorietag.name') ?: 'Sans catégorie';
 				$valeur = Hash::get($value, 'Valeurtag.name');
 				$valeurtag_id = Hash::get($value, 'Valeurtag.id');
 				$options['Tag']['valeurtag_id'][$categorie][$valeurtag_id] = $valeur;
 			}
-			
+
 			$options['Zonegeographique']['id'] = $this->Zonegeographique->find( 'list' );
-			
+
 			$options['Requestgroup']['name'] = $this->Requestmanager->Requestgroup->find('list', array('order' => 'name'));
 			$requestManager = $this->Requestmanager->find('all', array('conditions' => array( 'actif' => '1' )));
-			
+
 			foreach ($requestManager as $value) {
 				$group_id = $value['Requestmanager']['requestgroup_id'];
 				$group = $options['Requestgroup']['name'][$group_id];
 				$have['Foyer'] = $this->Requestmanager->modelPresence($value, 'Foyer');
 				$have['Personne'] = $this->Requestmanager->modelPresence($value, 'Personne');
 				$have['Dossier'] = $this->Requestmanager->modelPresence($value, 'Dossier');
-				
+
 				if (!in_array(false, $have, true)) {
 					$options['Requestmanager']['name'][$group][$value['Requestmanager']['id']] = $value['Requestmanager']['name'];
 				}
 			}
-			
+
 			return $options;
 		}
 
@@ -142,7 +143,7 @@
 		 * @return array
 		 */
 		public function optionsRecordsModels( array $result = array() ) {
-			return array_merge($result, 
+			return array_merge($result,
 				array(
 					'Valeurtag',
 					'Categorietag',

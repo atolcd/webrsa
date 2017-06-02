@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par PDOs" > "Nouvelles PDOs (nouveau)"
+	 * Menu "Recherches" > "Par PDOs" > "Nouvelles PDOs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Propospdos.search_possibles',
@@ -79,7 +79,7 @@
 	);
 
 	/**
-	 * Export CSV, menu "Recherches" > "Par PDOs" > "Nouvelles PDOs (nouveau)"
+	 * Export CSV, menu "Recherches" > "Par PDOs" > "Nouvelles PDOs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Propospdos.exportcsv_possibles',
@@ -112,7 +112,7 @@
 	);
 
 	/**
-	 * Menu "Recherches" > "Par PDOs" > "Liste des PDOs (nouveau)"
+	 * Menu "Recherches" > "Par PDOs" > "Liste des PDOs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Propospdos.search',
@@ -190,7 +190,7 @@
 	);
 
 	/**
-	 * Export CSV, menu "Recherches" > "Par PDOs" > "Liste des PDOs (nouveau)"
+	 * Export CSV, menu "Recherches" > "Par PDOs" > "Liste des PDOs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Propospdos.exportcsv',

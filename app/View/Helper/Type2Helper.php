@@ -7,7 +7,7 @@
 	 * @package app.View.Helper
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::import( 'Helper', 'Model' );
+	App::uses( 'ModelHelper', 'View/Helper' );
 
 	/**
 	 * TODO: dane une classe, un meilleur nom ?
@@ -48,7 +48,7 @@
 			);
 
 			/// Prepare
-			list( $modelName, $fieldName ) = Xinflector::modelField( $path );
+			list( $modelName, $fieldName ) = model_field( $path );
 			if( isset( $params['model'] ) ) {
 				$modelName = $params['model'];
 			}
@@ -64,7 +64,6 @@
 
 			$typeInfos['domain'] = Inflector::singularize( Inflector::tableize( $modelName ) );
 			$params = Set::merge( $typeInfos, $params );
-			// !isset( $params['type'] ) => error
 
 			if( isset( $params['type'] ) && in_array( $params['type'], array( 'date', 'datetime', 'timestamp' ) ) ) {
 				if( !isset( $params['empty'] ) ) {
@@ -208,7 +207,7 @@
 		*/
 
 		public function format( $data, $path, $params = array() ) {
-			list( $modelName, $fieldName ) = Xinflector::modelField( $path );
+			list( $modelName, $fieldName ) = model_field( $path );
 
 			$defaultParams = array(
 				'tag' => false,
@@ -307,7 +306,7 @@
 
 		public function input( $path, $params = array() ) {
 			$params = $this->prepare( 'input', $path, $params );
-			list( $modelName, $fieldName ) = Xinflector::modelField( $path );
+			list( $modelName, $fieldName ) = model_field( $path );
 
 			if( isset( $params['type'] ) ) {
 				if( $params['type'] == 'text' && isset( $params['length'] ) ) {
@@ -330,19 +329,6 @@
 			);
 
 			list( $model, $field ) = model_field( $path );
-			/*if( $path != "{$model}.{$field}" ) {
-$pathTokens = explode( '.', $path );
-if( !isset( $params['name'] ) ) {
-	$params['name'] = 'data['.implode( '][', $pathTokens ).']';
-}
-if( !isset( $params['id'] ) ) {
-	$params['id'] = Inflector::camelize( implode( '_', $pathTokens ) );
-}
-$path = "{$model}.{$field}";
-// debug( $params );
-
-
-			}*/
 
 			if( isset( $params['type'] ) && $params['type'] == 'radio' ) {
 				unset( $params['empty'] );

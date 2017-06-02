@@ -1,0 +1,47 @@
+# Traductions de textareascourrierspdos.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Textareascourrierspdos/index/:heading"
+msgstr "Paramétrage des zones de commentaires supplémentaires pour les courriers de traitements PDO"
+
+msgid "/Textareascourrierspdos/add/:heading"
+msgstr "Ajout d'une zone de commentaires"
+
+msgid "/Textareascourrierspdos/edit/:heading"
+msgstr "Modification de la zone de commentaires « #Textareacourrierpdo.name# »"
+
+msgid "/Textareascourrierspdos/add"
+msgstr "Ajouter"
+
+msgid "/Textareascourrierspdos/add/:title"
+msgstr "Ajouter une zone de commentaires"
+
+msgid "/Textareascourrierspdos/edit"
+msgstr "Modifier"
+
+msgid "/Textareascourrierspdos/edit/#Textareacourrierpdo.id#"
+msgstr "Modifier la zone de commentaires « #Textareacourrierpdo.name# »"
+
+msgid "/Textareascourrierspdos/delete"
+msgstr "Supprimer"
+
+msgid "/Textareascourrierspdos/delete/#Textareacourrierpdo.id#"
+msgstr "Supprimer la zone de commentaires « #Textareacourrierpdo.name# »"
+
+msgid "/Textareascourrierspdos/delete/#Textareacourrierpdo.id# ?"
+msgstr "Réellement supprimer la zone de commentaires « #Textareacourrierpdo.name# » ?"
+
+msgid "/Parametrages/pdos"
+msgstr "Retour"
+
+msgid "/Parametrages/pdos/:title"
+msgstr "Retour aux paramétrages des PDO"

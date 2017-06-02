@@ -8,6 +8,7 @@
  * @package app.Model
  * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
  */
+App::uses( 'AppModel', 'Model' );
 
 /**
  * La classe Dossierpcg66 ...
@@ -17,7 +18,36 @@
 class Dossierpcg66 extends AppModel {
 
     public $name = 'Dossierpcg66';
-    public $recursive = -1;
+
+	/**
+	 * Modèles utilisés par ce modèle.
+	 *
+	 * @var array
+	 */
+	public $uses = array(
+		'WebrsaDossierpcg66'
+	);
+
+	/**
+	 * Behaviors utilisés par ce modèle.
+	 *
+	 * @var array
+	 */
+    public $actsAs = array(
+		'Validation2.Validation2Formattable',
+		'Validation2.Validation2RulesFieldtypes',
+		'Postgres.PostgresAutovalidate'
+    );
+
+    public $validate = array(
+        'orgpayeur' => array(
+            NOT_BLANK_RULE_NAME => array(
+                'rule' => array( NOT_BLANK_RULE_NAME ),
+                'message' => 'Champ obligatoire',
+            )
+        ),
+    );
+
     public $virtualFields = array(
         'nbpropositions' => array(
             'type' => 'integer',
@@ -29,20 +59,7 @@ class Dossierpcg66 extends AppModel {
 				)',
         ),
     );
-    public $actsAs = array(
-        'Pgsqlcake.PgsqlAutovalidate',
-        'Formattable' => array(
-            'suffix' => array('user_id')
-        ),
-        'Enumerable' => array(
-            'fields' => array(
-                'orgpayeur',
-                'iscomplet',
-                'haspiecejointe',
-                'istransmis'
-            )
-        )
-    );
+
     public $belongsTo = array(
         'Bilanparcours66' => array(
             'className' => 'Bilanparcours66',
@@ -179,23 +196,6 @@ class Dossierpcg66 extends AppModel {
             'counterQuery' => ''
         )
     );
-    public $validate = array(
-        'orgpayeur' => array(
-            'notEmpty' => array(
-                'rule' => 'notEmpty',
-                'message' => 'Champ obligatoire',
-            )
-        ),
-    );
-	
-	/**
-	 * Modèles utilisés par ce modèle.
-	 * 
-	 * @var array
-	 */
-	public $uses = array(
-		'WebrsaDossierpcg66'
-	);
 
     /**
      *	@deprecated since version 3.1	Cette function n'est pas utilisée
@@ -206,17 +206,15 @@ class Dossierpcg66 extends AppModel {
 
         $typepdo_id = Set::classicExtract($dossierpcg66, 'Dossierpcg66.typepdo_id');
     }
-	
+
     /**
      *   AfterSave
      */
-    public function afterSave($created) {
-        $return = parent::afterSave($created);
+    public function afterSave( $created, $options = array() ) {
+        parent::afterSave( $created, $options );
 
 		$this->WebrsaDossierpcg66->updatePositionsPcgsById($this->id);
-        $return = $this->_updateDecisionCerParticulier($created) && $return;
-
-        return $return;
+        $this->_updateDecisionCerParticulier($created);
     }
 
     protected function _updateDecisionCerParticulier($created) {
@@ -307,7 +305,7 @@ class Dossierpcg66 extends AppModel {
             return null;
         }
     }
-	
+
 	/**
 	 * Préparation des données du formulaire d'ajout ou de modification d'un
 	 * Dossier PCG

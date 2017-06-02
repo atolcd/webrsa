@@ -6,7 +6,7 @@
 <h1><?php echo $this->pageTile = 'Indicateurs de suivis mensuels';?></h1>
 
 <?php
-	echo $this->Form->create( 'Indicateurmensuel', array( 'type' => 'post', 'class' => 'noprint' ) );
+	echo $this->Form->create( 'Indicateurmensuel', array( 'type' => 'post', 'class' => 'noprint', 'novalidate' => true ) );
 
 	echo $this->Form->input( 'Indicateurmensuel.annee', array( 'label' => __d( 'indicateurmensuel', 'Indicateurmensuel.annee' ), 'type' => 'select', 'options' => array_range( date( 'Y' ), date( 'Y' ) - 20 ) ) );
 

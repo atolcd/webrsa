@@ -7,6 +7,7 @@
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
 
 	/**
 	 * La classe WebrsaAccessesComponent fournit des méthodes de contrôle d'accès métier
@@ -28,7 +29,7 @@
 		 * @var boolean
 		 */
 		protected $_initialized = false;
-		
+
 		/**
 		 * Assure le chargement des modèles et Utilitaires liés
 		 *
@@ -75,7 +76,7 @@
 			}
 
 			$this->_initialized = true;
-			
+
 			return parent::initialize($controller);
 		}
 

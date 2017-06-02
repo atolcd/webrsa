@@ -14,6 +14,8 @@
 	 * @lastmodified	Date: March 7, 2009
 	 * @license		http://www.opensource.org/licenses/mit-license.php The MIT License
 	 */
+	App::uses( 'Component', 'Controller' );
+
 	class WizardComponent extends Component
 	{
 		/**

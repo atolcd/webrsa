@@ -1,6 +1,7 @@
 <?php
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
+		echo $this->Html->script( array( 'prototype.event.simulate.js' ), array( 'inline' => false ) );
 	}
 
 	echo $this->Default3->titleForLayout( array(), array( 'msgid' => __m( '/Users/index/:heading' ) ) );
@@ -45,6 +46,14 @@
 					)
 					: array()
 				),
+				(
+					( 66 === $departement )
+					? array(
+						'Search.User.poledossierpcg66_id' => array( 'options' => $options['polesdossierspcgs66'], 'empty' => true, 'required' => false ),
+						'Search.User.ancienpoledossierpcg66_id' => array( 'options' => $options['polesdossierspcgs66'], 'empty' => true, 'required' => false )
+					)
+					: array()
+				),
 				array(
 					'Search.User.referent_id' => array( 'empty' => true, 'required' => false )
 				)
@@ -63,6 +72,8 @@
 	if( $jetonsfonctionsEnabled ) {
 		$search['Search.User.has_jetonsfonctions'] = array( 'empty' => true, 'required' => false );
 	}
+
+	$search['Search.Pagination.nombre_total'] = array( 'label' =>  __d( 'search_plugin', 'Search.Pagination.nombre_total' ), 'type' => 'checkbox' );
 
 	echo $this->Default3->form(
 		$this->Translator->normalize(

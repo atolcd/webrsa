@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe StatutrdvTyperdv ...
@@ -17,44 +18,33 @@
 	{
 		public $name = 'StatutrdvTyperdv';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
-			'Enumerable' => array(
-				'fields' => array(
-					'typecommission'
-				)
-			),
-			'ValidateTranslate'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
 			'statutrdv_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-				),
 				'checkUnique' => array(
 					'rule' => array( 'checkUnique', array( 'statutrdv_id', 'typerdv_id' ) ),
 					'message' => 'Ce statut est déjà utilisé avec ce type.'
-				),
+				)
 			),
 			'typerdv_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-				),
 				'checkUnique' => array(
 					'rule' => array( 'checkUnique', array( 'statutrdv_id', 'typerdv_id' ) ),
 					'message' => 'Ce statut est déjà utilisé avec ce type.'
-				),
-			),
-			'nbabsenceavantpassagecommission' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-				),
-			),
-			'typecommission' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' ),
-				),
-			),
+				)
+			)
 		);
 
 		public $belongsTo = array(

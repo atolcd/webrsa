@@ -8,6 +8,7 @@
 
 	echo $this->Default3->actions(
 		array(
+			'/Parametrages/index/#cataloguesromesv3' => array( 'class' => 'back' ),
 			"/Cataloguesromesv3/add/{$modelName}" => array(
 				'title' => __d( 'cataloguesromesv3', "/Cataloguesromesv3/add/{$modelName}/:title" ),
 				'disabled' => !$this->Permissions->check( 'Cataloguesromesv3', 'add' ),
@@ -19,7 +20,7 @@
 	);
 
 	// Début du formulaire de recherche
-	echo $this->Default3->DefaultForm->create( $modelName, array( 'id' => 'Catalogueromev3IndexForm', 'url' => array( 'controller' => $this->request->params['controller'], 'action' => $this->request->params['action'], $modelName ) ) );
+	echo $this->Default3->DefaultForm->create( $modelName, array( 'id' => 'Catalogueromev3IndexForm', 'url' => array( 'controller' => $this->request->params['controller'], 'action' => $this->request->params['action'], $modelName ), 'novalidate' => true ) );
 
 	if( in_array( $this->action, array( 'famillesromesv3', 'domainesromesv3', 'metiersromesv3', 'appellationsromesv3' ) ) ) {
 		echo $this->Html->tag(
@@ -44,8 +45,6 @@
 			$this->Html->tag( 'legend', __d( 'cataloguesromesv3', 'Search.Domaineromev3' ) )
 			.$this->Default3->subform(
 				array(
-					// TODO
-					//'Search.Domaineromev3.familleromev3_id' => array( 'required' => false ),
 					'Search.Domaineromev3.code' => array( 'required' => false ),
 					'Search.Domaineromev3.name' => array( 'required' => false )
 				),
@@ -63,8 +62,6 @@
 			$this->Html->tag( 'legend', __d( 'cataloguesromesv3', 'Search.Metierromev3' ) )
 			.$this->Default3->subform(
 				array(
-					// TODO
-					//'Search.Metierromev3.familleromev3_id' => array( 'required' => false ),
 					'Search.Metierromev3.code' => array( 'required' => false ),
 					'Search.Metierromev3.name' => array( 'required' => false )
 				),
@@ -82,8 +79,6 @@
 			$this->Html->tag( 'legend', __d( 'cataloguesromesv3', 'Search.Appellationromev3' ) )
 			.$this->Default3->subform(
 				array(
-					// TODO
-					//'Search.Appellationromev3.familleromev3_id' => array( 'required' => false ),
 					'Search.Appellationromev3.name' => array( 'required' => false )
 				),
 				array(
@@ -120,18 +115,10 @@
 			$fields,
 			array(
 				'options' => $options,
-				'format' => __( SearchProgressivePagination::format() )
+				'format' => $this->element( 'pagination_format' )
 			)
 		);
 	}
 
-	echo $this->Default3->actions(
-		array(
-			"/Parametrages/cataloguesromesv3" => array(
-				'class' => 'back',
-				'disabled' => !$this->Permissions->check( 'parametrages', 'cataloguesromesv3' ),
-				'domain' => 'cataloguesromesv3'
-			),
-		)
-	);
+	echo $this->Default3->actions( array( '/Parametrages/index/#cataloguesromesv3' => array( 'class' => 'back' ) ) );
 ?>

@@ -7,6 +7,7 @@
 	 * @package app.View.Helper
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppHelper', 'View/Helper' );
 
 	/**
 	 * La classe DefaultHelper ...
@@ -567,7 +568,7 @@
 			).$pagination;
 
 			if( $cohorte == true ) {
-				$return = $this->Xform->create( null, array( 'url' => Set::merge( array( 'controller' => $this->request->params['controller'], 'action' => $this->request->params['action'] ), $this->request->params['pass'], $this->request->params['named'] ) ) ).$return;
+				$return = $this->Xform->create( null, array( 'novalidate' => true, 'url' => Set::merge( array( 'controller' => $this->request->params['controller'], 'action' => $this->request->params['action'] ), $this->request->params['pass'], $this->request->params['named'] ) ) ).$return;
 			}
 
 			/// Hidden -> FIXME $this->request->data
@@ -714,7 +715,7 @@
 
 		public function search( array $fields, array $params = array() ) {
 			$params = Set::merge(
-				array( 'form' => true ),
+				array( 'form' => true, 'novalidate' => true ),
 				$params
 			);
 			$form = $params['form'];
@@ -939,36 +940,5 @@
 
 			return "<thead><tr>".implode( $firstline )."</tr><tr>".implode( $secondline )."</tr></thead>";
 		}
-
-		/**
-		* TODO: permissions
-		*/
-
-		/*public function menu( $items ) {
-			$return = '';
-			foreach( $items as $key => $item ) {
-				if( is_array( $item ) && isset( $item['controller'] ) && isset( $item['action'] ) ) {
-					$return .= $this->Xhtml->tag(
-						'li',
-						$this->Xhtml->link( $key, $item )
-					);
-				}
-				else if( is_array( $item ) ) {
-					$return .= $this->Xhtml->tag(
-						'li',
-						$this->Xhtml->link( $key, '#' ).$this->menu( $item )
-					);
-				}
-				else {
-					/// throw error
-				}
-			}
-
-			if( !empty( $return ) ) {
-				$return = "<ul>{$return}</ul>";
-			}
-
-			return $return;
-		}*/
 	}
 ?>

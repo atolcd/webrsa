@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Typeaideapre66.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Typeaideapre66 ...
@@ -17,12 +18,21 @@
 	{
 		public $name = 'Typeaideapre66';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $order = 'Typeaideapre66.name ASC';
 
 		public $actsAs = array(
-            'Enumerable',
+			'Occurences',
 			'Validation2.Validation2Formattable',
-			'Postgres.PostgresAutovalidate',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
         );
 
 		public $belongsTo = array(
@@ -85,8 +95,25 @@
 				'with' => 'Piececomptable66Typeaideapre66'
 			),
 		);
-		
+
+		/**
+		 * Règles de validation.
+		 *
+		 * @var array
+		 */
 		public $validate = array(
+			'name' => array(
+				'checkUnique' => array(
+					'rule' => array( 'checkUnique', array( 'themeapre66_id', 'name' ) ),
+					'message' => 'Valeur déjà utilisée'
+				)
+			),
+			'themeapre66_id' => array(
+				'checkUnique' => array(
+					'rule' => array( 'checkUnique', array( 'themeapre66_id', 'name' ) ),
+					'message' => 'Valeur déjà utilisée'
+				)
+			),
 			'plafond' => array(
 				'notEmptyIf' => array(
 					'rule' => array('notEmptyIf', 'plafondadre', true, array(null, '')),
@@ -97,8 +124,8 @@
 				'notEmptyIf' => array(
 					'rule' => array('notEmptyIf', 'plafond', true, array(null, '')),
 					'message' => 'Champ obligatoire',
-				),
-			),
+				)
+			)
 		);
 
 
@@ -135,7 +162,7 @@
 					'"Typeaideapre66"."id"',
 					'COUNT("Aideapre66"."id") AS "Typeaideapre66__occurences"',
 				),
-				'joins' => array( 
+				'joins' => array(
 					$this->join( 'Aideapre66' )
 				),
 				'recursive' => -1,

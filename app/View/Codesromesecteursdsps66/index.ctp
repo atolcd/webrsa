@@ -1,34 +1,20 @@
 <?php
-	echo $this->Xhtml->tag(
-		'h1',
-		$this->pageTitle = __d( 'coderomesecteurdsp66', "Codesromesecteursdsps66::{$this->action}" )
-	);
-
-	echo $this->Default->index(
-		$codesromesecteursdsps66,
+	echo $this->element(
+		'WebrsaParametrages/index',
 		array(
-			'Coderomesecteurdsp66.code',
-			'Coderomesecteurdsp66.name'
-		),
-		array(
-			'cohorte' => false,
-			'actions' => array(
-				'Coderomesecteurdsp66.edit',
-				'Coderomesecteurdsp66.delete',
+			'cells' => array(
+				'Coderomesecteurdsp66.code',
+				'Coderomesecteurdsp66.name',
+				'/Codesromesecteursdsps66/edit/#Coderomesecteurdsp66.id#' => array(
+					'title' => true
+				),
+				'/Codesromesecteursdsps66/delete/#Coderomesecteurdsp66.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Coderomesecteurdsp66.has_linkedrecords#"'
+				)
 			),
-			'add' => 'Coderomesecteurdsp66.add',
-			'options' => $options
-		)
-	);
-
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'gestionsdsps',
-			'action'     => 'index'
-		),
-		array(
-			'id' => 'Back'
+			'backUrl' => '/Parametrages/index/#dsps'
 		)
 	);
 ?>

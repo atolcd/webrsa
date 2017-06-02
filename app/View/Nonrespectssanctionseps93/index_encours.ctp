@@ -1,6 +1,6 @@
 <h1> <?php echo $this->pageTitle = __d( 'nonrespectsanctionep93', 'Nonrespectssanctionseps93::index_encours' );?> </h1>
 <?php
-	require_once( 'index.ctp' );
+	require_once  'index.ctp' ;
 
 	echo $this->Default2->index(
 		$nonrespectssanctionseps93,

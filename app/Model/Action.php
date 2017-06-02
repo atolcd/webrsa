@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Action ...
@@ -17,36 +18,36 @@
 	{
 		public $name = 'Action';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'libelle';
 
 		public $order = array( 'Action.libelle ASC' );
 
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate'
+		);
+
 		public $validate = array(
 			'code' => array(
-				array(
-					'rule' => 'isUnique',
-					'message' => 'Cette valeur est déjà utilisée'
-				),
-				array(
-					'rule' => 'alphaNumeric',
+				'alphaNumeric' => array(
+					'rule' => array( 'alphaNumeric' ),
 					'message' => 'Veuillez n\'utiliser que des lettres et des chiffres'
 				),
-				array(
+				'between' => array(
 					'rule' => array( 'between', 2, 2 ),
 					'message' => 'Le code de l\'action est composé de 2 caractères'
 				),
-				array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				)
-			),
-			'libelle' => array(
-				array(
-					'rule' => 'isUnique',
-					'message' => 'Cette valeur est déjà utilisée'
-				),
-				array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			)

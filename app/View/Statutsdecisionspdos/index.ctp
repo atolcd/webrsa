@@ -24,8 +24,9 @@
 	echo $this->Default->button(
 		'back',
 		array(
-			'controller' => 'pdos',
-			'action'     => 'index'
+			'controller' => 'parametrages',
+			'action'     => 'index',
+			'#'     => 'pdos',
 		),
 		array(
 			'id' => 'Back'

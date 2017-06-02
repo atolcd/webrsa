@@ -1,0 +1,859 @@
+# Traductions de dossierspcgs66.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Dossierspcgs66/search/:heading"
+msgstr "Recherche de dossiers PCGs"
+
+msgid "/Dossierspcgs66/search_gestionnaire/:heading"
+msgstr "Gestionnaire de dossiers PCG"
+
+msgid "/Dossierspcgs66/search"
+msgstr "Formulaire"
+
+msgid "/Dossierspcgs66/search/:title"
+msgstr "Formulaire"
+
+msgid "/Dossierspcgs66/search_gestionnaire"
+msgstr "Formulaire"
+
+msgid "/Dossierspcgs66/search_gestionnaire/:title"
+msgstr "Formulaire"
+
+msgid "/Dossierspcgs66/index"
+msgstr "Voir"
+
+msgid "/Dossierspcgs66/index/#Dossierpcg66.foyer_id#"
+msgstr "Voir les dossiers PCGs de #Personne.nom_complet#"
+
+msgid "/Dossierspcgs66/edit"
+msgstr "Modifier"
+
+msgid "/Dossierspcgs66/edit/#Dossierpcg66.id#"
+msgstr "Modifier le dossiers PCGs de #Personne.nom_complet#"
+
+msgid "Dossierpcg66.search"
+msgstr "Recherche par Dossier PCG"
+
+msgid "Search.Dossierpcg66.datereceptionpdo"
+msgstr "Date de réception de la PDO"
+
+msgid "Search.Dossierpcg66.orgpayeur"
+msgstr "Organisme payeur"
+
+msgid "Search.Dossierpcg66.poledossierpcg66_id"
+msgstr "Pôle chargé du dossier"
+
+msgid "Search.Dossierpcg66.user_id"
+msgstr "Gestionnaire du dossier (technicien en charge du dossier)"
+
+msgid "Search.Dossierpcg66.dateaffectation"
+msgstr "Date d'affectation"
+
+msgid "Search.Dossierpcg66.etatdossierpcg"
+msgstr "État du dossier PCG"
+
+msgid "Search.Decisiondossierpcg66.org_id"
+msgstr "Organismes auxquels sont transmis les dossiers"
+
+msgid "Search.Traitementpcg66.situationpdo_id"
+msgstr "Motif concernant la personne"
+
+msgid "Search.Traitementpcg66.statutpdo_id"
+msgstr "Statut concernant la personne"
+
+msgid "Search.Decisiondossierpcg66.useravistechnique_id"
+msgstr "Agent ayant émis l'avis technique"
+
+msgid "Search.Decisiondossierpcg66.userproposition_id"
+msgstr "Agent ayant émis la validation"
+
+msgid "Search.Decisiondossierpcg66.decisionpdo_id"
+msgstr "Décision"
+
+msgid "Search.Decisiondossierpcg66.datevalidation"
+msgstr "Date de décision"
+
+msgid "Search.Decisiondossierpcg66.datetransmissionop"
+msgstr "Date de transmission à l'OP"
+
+msgid "Search.Decisiondossierpcg66.nbproposition"
+msgstr "Nombre de propositions de décision"
+
+msgid "Search.Categorieromev3"
+msgstr "Recherche par catégorie (ROME V3)"
+
+msgid "Search.Categorieromev3.romev3"
+msgstr "Recherche rapide"
+
+msgid "Search.Categorieromev3.familleromev3_id"
+msgstr "Code famille"
+
+msgid "Search.Categorieromev3.domaineromev3_id"
+msgstr "Code domaine"
+
+msgid "Search.Categorieromev3.metierromev3_id"
+msgstr "Code métier"
+
+msgid "Search.Categorieromev3.appellationromev3_id"
+msgstr "Appellation métier"
+
+msgid "User.nom_complet"
+msgstr "Gestionnaire"
+
+msgid "Dossierpcg66.nbpropositions"
+msgstr "Nb de propositions de décisions"
+
+msgid "Decisiondossierpcg66.org_id"
+msgstr "Dossier transmis à"
+
+msgid "Traitementpcg66.statutpdo_id"
+msgstr "Statuts de(s) la(es) personne(s)"
+
+msgid "Fichiermodule.nb_fichiers_lies"
+msgstr "Nb de fichiers dans la corbeille"
+
+msgid "Dossierpcg66.search_gestionnaire"
+msgstr "Informations par Gestionnaire"
+
+msgid "Search.Dossierpcg66.dossierechu"
+msgstr "Dossier échu"
+
+msgid "Personnepcg66.nbtraitements"
+msgstr "Nb traitements"
+
+msgid "Dossierpcg66.listetraitements"
+msgstr "Types de traitements"
+
+msgid "Dossier.locked"
+msgstr "Verrouillé"
+
+msgid "Dossierpcg66.cohorte_enattenteaffectation"
+msgstr "Filtrer par Dossier PCG"
+
+msgid "/Dossierspcgs66/cohorte_enattenteaffectation/:heading"
+msgstr "Dossiers PCGs en attente d'affectation"
+
+msgid "/Dossierspcgs66/cohorte_enattenteaffectation"
+msgstr "Formulaire"
+
+msgid "/Dossierspcgs66/cohorte_enattenteaffectation/:title"
+msgstr "Formulaire"
+
+msgid "data[Cohorte][][Dossierpcg66][atraiter]"
+msgstr "Sélection"
+
+msgid "data[Cohorte][][Dossierpcg66][dateaffectation]"
+msgstr "Date d'affectation"
+
+msgid "Search.Dossierpcg66.originepdo_id"
+msgstr "Origine du dossier"
+
+msgid "Search.Dossierpcg66.serviceinstructeur_id"
+msgstr "Service instructeur"
+
+msgid "Search.Dossierpcg66.typepdo_id"
+msgstr "Type de dossier"
+
+msgid "Dossierpcg66.cohorte_atransmettre"
+msgstr "Filtrer par Dossier PCG"
+
+msgid "/Dossierspcgs66/cohorte_atransmettre/:heading"
+msgstr "Dossiers PCGs à transmettre"
+
+msgid "/Dossierspcgs66/cohorte_atransmettre"
+msgstr "Formulaire"
+
+msgid "/Dossierspcgs66/cohorte_atransmettre/:title"
+msgstr "Formulaire"
+
+msgid "data[Cohorte][][Dossierpcg66][istransmis]"
+msgstr "Transmettre"
+
+msgid "data[Cohorte][][Decdospcg66Orgdospcg66][orgtransmisdossierpcg66_id]"
+msgstr "Organismes"
+
+msgid "data[Cohorte][][Decisiondossierpcg66][datetransmissionop]"
+msgstr "Date transmission"
+
+msgid "/Decisionsdossierspcgs66/add"
+msgstr "Ajouter"
+
+msgid "/Decisionsdossierspcgs66/add/:title"
+msgstr "Ajouter une proposition"
+
+msgid "Decisionpdo.libelle"
+msgstr "Proposition du technicien :"
+
+msgid "Decisiondossierpcg66.avistechnique"
+msgstr "Avis technique"
+
+msgid "Decisiondossierpcg66.dateavistechnique"
+msgstr "Date de l'avis technique"
+
+msgid "Decisiondossierpcg66.validationproposition"
+msgstr "Validation de la proposition"
+
+msgid "Decisiondossierpcg66.datevalidation"
+msgstr "Date de validation de la proposition"
+
+msgid "/Decisionsdossierspcgs66/view"
+msgstr "Voir"
+
+msgid "/Decisionsdossierspcgs66/edit"
+msgstr "Modifier"
+
+msgid "/Decisionsdossierspcgs66/avistechnique"
+msgstr "Contrôle"
+
+msgid "/Decisionsdossierspcgs66/validation"
+msgstr "Validation"
+
+msgid "/Dossierspcgs66/imprimer"
+msgstr "Imprimer"
+
+msgid "/Decisionsdossierspcgs66/transmitop"
+msgstr "Transmettre OP"
+
+msgid "/Decisionsdossierspcgs66/cancel"
+msgstr "Annuler"
+
+msgid "/Decisionsdossierspcgs66/delete"
+msgstr "Supprimer"
+
+msgid "/Decisionsdossierspcgs66/filelink"
+msgstr "Fichiers liés"
+
+msgid "/Decisionsdossierspcgs66/view/#Decisiondossierpcg66.id#"
+msgstr "Vue de la proposition de décision"
+
+msgid "/Decisionsdossierspcgs66/edit/#Decisiondossierpcg66.id#"
+msgstr "Édition d'une décision"
+
+msgid "/Decisionsdossierspcgs66/avistechnique/#Decisiondossierpcg66.id#"
+msgstr "Édition d'une décision"
+
+msgid "/Decisionsdossierspcgs66/validation/#Decisiondossierpcg66.id#"
+msgstr "Validation de la proposition"
+
+msgid "/Dossierspcgs66/imprimer/#Decisiondossierpcg66.dossierpcg66_id#/#Decisiondossierpcg66.id#"
+msgstr "Imprimer la proposition"
+
+msgid "/Decisionsdossierspcgs66/transmitop/#Decisiondossierpcg66.id#"
+msgstr "Transmission à l'organisme payeur (CAF / MSA)"
+
+msgid "/Decisionsdossierspcgs66/cancel/#Decisiondossierpcg66.id#"
+msgstr "Annulation de la proposition"
+
+msgid "/Decisionsdossierspcgs66/delete/#Decisiondossierpcg66.id#"
+msgstr "Supprimer la proposition"
+
+msgid "/Decisionsdossierspcgs66/filelink/#Decisiondossierpcg66.id#"
+msgstr "Liste des fichiers liés à la décision du dossier PCG"
+
+################################################################################
+# Nouveau Dossierpcg66
+################################################################################
+
+msgid "/Dossierspcgs66/index/:heading"
+msgstr "Dossiers PCGs concernant le Demandeur du RSA : #Personne.nom_complet#"
+
+msgid "/Dossierspcgs66/add"
+msgstr "Ajouter"
+
+msgid "Typepdo.libelle"
+msgstr "Type de PDO"
+
+msgid "Dossierpcg66.datereceptionpdo"
+msgstr "Date de réception de la PDO"
+
+msgid "Pole.user"
+msgstr "Gestionnaire du dossier"
+
+msgid "Dossierpcg66.etatdossierpcg_full"
+msgstr "Etat du dossier PDO"
+
+msgid "Personnepcg66.situationpdo_list_libelle"
+msgstr "Motifs de la personne"
+
+msgid "Personnepcg66.situationpdo_list_libelle_ulli"
+msgstr "Motifs de la personne"
+
+msgid "Dossierpcg66.bilan_de"
+msgstr "Présence d'un bilan de parcours ?"
+
+msgid "/Dossierspcgs66/view"
+msgstr "Voir"
+
+msgid "/dossierspcgs66/view/#Dossierpcg66.id#"
+msgstr "Voir le dossier"
+
+msgid "/dossierspcgs66/edit/#Dossierpcg66.id#"
+msgstr "Modifier le dossier"
+
+msgid "/Dossierspcgs66/cancel"
+msgstr "Annuler"
+
+msgid "/dossierspcgs66/cancel/#Dossierpcg66.id#"
+msgstr "Annuler"
+
+msgid "/Dossierspcgs66/delete"
+msgstr "Supprimer"
+
+msgid "/dossierspcgs66/delete/#Dossierpcg66.id#"
+msgstr "Supprimer le dossier"
+
+msgid "/Dossierspcgs66/add/:title"
+msgstr "Ajouter un dossier"
+
+########################################################################
+## 	Cohorte hébergés
+########################################################################
+
+msgid "data[Cohorte][][Adresse][numvoie]"
+msgstr "Numéro de voie"
+
+msgid "data[Cohorte][][Adresse][libtypevoie]"
+msgstr "Type de voie"
+
+msgid "data[Cohorte][][Adresse][nomvoie]"
+msgstr "Nom de voie"
+
+msgid "data[Cohorte][][Adresse][codepos]"
+msgstr "Code postal"
+
+msgid "data[Cohorte][][Adresse][nomcom]"
+msgstr "Nom de commune"
+
+msgid "data[Cohorte][][Adresse][localite]"
+msgstr "Commune de résidence"
+
+msgid "data[Cohorte][][Adresse][complideadr]"
+msgstr "Complément identification adresse"
+
+msgid "data[Cohorte][][Adresse][compladr]"
+msgstr "Complément d'adresse"
+
+msgid "data[Cohorte][][Adresse][lieudist]"
+msgstr "Lieu de distribution"
+
+msgid "data[Cohorte][][Adresse][numcom]"
+msgstr "Numéro de commune sens INSEE"
+
+msgid "data[Cohorte][][Adresse][pays]"
+msgstr "Code Pays"
+
+msgid "data[Cohorte][][Adresse][canton]"
+msgstr "Code Canton"
+
+msgid "data[Cohorte][][Canton][canton]"
+msgstr "Canton"
+
+msgid "data[Cohorte][][DspRev][natlog]"
+msgstr "Nature du logement dans la dernière mise à jour DSP"
+
+msgid "data[Cohorte][][Dossier][numdemrsa]"
+msgstr "N° demande RSA"
+
+msgid "data[Cohorte][][Dossier][dtdemrsa]"
+msgstr "Date de demande RSA"
+
+msgid "data[Cohorte][][Personne][nir]"
+msgstr "NIR"
+
+msgid "data[Cohorte][][Personne][nom_complet_prenoms]"
+msgstr "Nom complet"
+
+msgid "data[Cohorte][][Situationdossierrsa][etatdosrsa]"
+msgstr "Etat du dossier"
+
+msgid "data[Cohorte][][Adresse][complete]"
+msgstr "Adresse complète"
+
+msgid "data[Cohorte][][Adressefoyer][dtemm]"
+msgstr "Date emménagement"
+
+msgid "data[Cohorte][][Dossierpcg66][typepdo_id]"
+msgstr "Type de dossier"
+
+msgid "data[Cohorte][][Dossierpcg66][originepdo_id]"
+msgstr "Origine du dossier"
+
+msgid "data[Cohorte][][Dossierpcg66][etatdossierpdo]"
+msgstr "Etat du dossier"
+
+msgid "data[Cohorte][][Dossierpcg66][user_id]"
+msgstr "Gestionnaire du dossier (technicien en charge du dossier)"
+
+msgid "data[Cohorte][][Dossierpcg66][datereceptionpdo]"
+msgstr "Date de réception du dossier"
+
+msgid "data[Cohorte][][Dossierpcg66][etatdossierpcg]"
+msgstr "Etat du dossier"
+
+msgid "data[Cohorte][][Dossierpcg66][categoriegeneral]"
+msgstr "Métiers ( général )"
+
+msgid "data[Cohorte][][Dossierpcg66][categoriedetail]"
+msgstr "Métiers ( détaillé )"
+
+msgid "data[Cohorte][][Dossierpcg66][serviceinstructeur_id]"
+msgstr "Service instructeur"
+
+msgid "data[Cohorte][][Dossierpcg66][orgpayeur]"
+msgstr "Organisme payeur"
+
+msgid "data[Cohorte][][Dossierpcg66][haspiecejointe]"
+msgstr "Pièce jointe"
+
+msgid "data[Cohorte][][Situationpdo][Situationpdo]"
+msgstr "Motif de la personne"
+
+msgid "data[Cohorte][][Statutpdo][Statutpdo]"
+msgstr "Statut de la personne"
+
+msgid "data[Cohorte][][Traitementpcg66][descriptionpdo_id]"
+msgstr "Description du traitement"
+
+msgid "data[Cohorte][][Traitementpcg66][datereception]"
+msgstr "Date de réception"
+
+msgid "data[Cohorte][][Traitementpcg66][datedepart]"
+msgstr "Date de départ (pour le calcul de l'échéance)"
+
+msgid "data[Cohorte][][Traitementpcg66][dateecheance]"
+msgstr "Date d'échéance"
+
+msgid "data[Cohorte][][Traitementpcg66][daterevision]"
+msgstr "Date de révision"
+
+msgid "data[Cohorte][][Traitementpcg66][imprimer]"
+msgstr "Inclure dans cohorte impression"
+
+msgid "data[Cohorte][][Traitementpcg66][etattraitementpcg]"
+msgstr "Etat du traitement"
+
+msgid "data[Cohorte][][Traitementpcg66][traitementtypepdo_id]"
+msgstr "Type de traitement"
+
+msgid "data[Cohorte][][Traitementpcg66][typetraitement]"
+msgstr "Type de traitement"
+
+msgid "data[Cohorte][][Traitementpcg66][personne_id]"
+msgstr "Personne concernée"
+
+msgid "data[Cohorte][][Traitementpcg66][dossierarevoir]"
+msgstr "Motif(s)"
+
+msgid "data[Cohorte][][Traitementpcg66][hascourrier]"
+msgstr "Courriers"
+
+msgid "data[Cohorte][][Traitementpcg66][hasrevenu]"
+msgstr "Revenu"
+
+msgid "data[Cohorte][][Traitementpcg66][hasficheanalyse]"
+msgstr "Fiche d'analyse"
+
+msgid "data[Cohorte][][Traitementpcg66][haspiecejointe]"
+msgstr "Pièce jointe"
+
+msgid "data[Cohorte][][Traitementpcg66][eplaudition]"
+msgstr "EPL Audition"
+
+msgid "data[Cohorte][][Traitementpcg66][compofoyerpcg66_id]"
+msgstr "Composition du foyer"
+
+msgid "data[Cohorte][][Traitementpcg66][recidive]"
+msgstr "Récidive ?"
+
+msgid "data[Cohorte][][Traitementpcg66][propodecision]"
+msgstr "Proposition de décision"
+
+msgid "data[Cohorte][][Traitementpcg66][commentairepropodecision]"
+msgstr "Commentaire"
+
+msgid "data[Cohorte][][Traitementpcg66][clos]"
+msgstr "Clos ?"
+
+msgid "data[Cohorte][][Traitementpcg66][annule]"
+msgstr "Annulé ?"
+
+msgid "data[Cohorte][][Traitementpcg66][situationpdo_id]"
+msgstr "Motifs concernant la personne"
+
+msgid "data[Cohorte][][Traitementpcg66][typecourrierpcg66_id]"
+msgstr "Type de courrier"
+
+msgid "data[Cohorte][][Traitementpcg66][affiche_couple]"
+msgstr "Afficher le couple dans l'impression ?"
+
+msgid "data[Cohorte][][Traitementpcg66][serviceinstructeur_id]"
+msgstr "Service à contacter (insertion)"
+
+msgid "data[Cohorte][][Traitementpcg66][ficheanalyse]"
+msgstr "Fiche d'analyse"
+
+msgid "data[Cohorte][][Dossierpcg66][commentairepiecejointe]"
+msgstr "Commentaire"
+
+msgid "data[Cohorte][][Dossierpcg66][motifannulation]"
+msgstr "Motif d'annulation"
+
+msgid "data[Cohorte][][Dossierpcg66][poledossierpcg66_id]"
+msgstr "Pôle chargé du dossier"
+
+msgid "data[Cohorte][][Traitementpcg66][dureeecheance]"
+msgstr "Délai avant échéance"
+
+msgid "data[Cohorte][][Traitementpcg66][dureefinprisecompte]"
+msgstr "Délai avant échéance"
+
+msgid "data[Cohorte][][Categorietag][name]"
+msgstr "Catégorie du tag"
+
+msgid "data[Cohorte][][Valeurtag][name]"
+msgstr "Nom du tag"
+
+msgid "data[Cohorte][][Tag][limite]"
+msgstr "Date butoir"
+
+msgid "data[Cohorte][][Tag][created]"
+msgstr "Taggé le"
+
+msgid "data[Cohorte][][Tag][etat]"
+msgstr "Etat du Tag"
+
+msgid "data[Cohorte][][Tag][valeurtag_id]"
+msgstr "Valeur du Tag"
+
+msgid "data[Cohorte][][Tag][commentaire]"
+msgstr "Commentaire Tag"
+
+msgid "data[Cohorte][][Tag][calcullimite]"
+msgstr "Durée avant date butoir"
+
+msgid "data[Cohorte][][Tag][cohorte_fieldset]"
+msgstr "Autres filtres"
+
+msgid "data[Cohorte][][Modeletraitementpcg66][commentaire]"
+msgstr "Commentaire Traitement"
+
+msgid "data[Cohorte][][Dossierpcg66][selection]"
+msgstr "Sélectionner"
+
+msgid "data[Cohorte][][Dossierpcg66][create]"
+msgstr "Création d'un dossier PCG"
+
+msgid "/Dossierspcgs66/cohorte_heberge/:heading"
+msgstr "Cohorte de création de dossier PCG pour les allocataires hébergés"
+
+msgid "/Dossierspcgs66/cohorte_heberge"
+msgstr "Formulaire"
+
+msgid "/Dossierspcgs66/cohorte_heberge/:title"
+msgstr "Formulaire"
+
+msgid "Adresse.numvoie"
+msgstr "Numéro de voie"
+
+msgid "Adresse.libtypevoie"
+msgstr "Type de voie"
+
+msgid "Adresse.nomvoie"
+msgstr "Nom de voie"
+
+msgid "Adresse.codepos"
+msgstr "Code postal"
+
+msgid "Adresse.nomcom"
+msgstr "Nom de commune"
+
+msgid "Adresse.localite"
+msgstr "Commune de résidence"
+
+msgid "Adresse.complideadr"
+msgstr "Complément identification adresse"
+
+msgid "Adresse.compladr"
+msgstr "Complément d'adresse"
+
+msgid "Adresse.lieudist"
+msgstr "Lieu de distribution"
+
+msgid "Adresse.numcom"
+msgstr "Numéro de commune sens INSEE"
+
+msgid "Adresse.pays"
+msgstr "Code Pays"
+
+msgid "Adresse.canton"
+msgstr "Code Canton"
+
+msgid "Canton.canton"
+msgstr "Canton"
+
+msgid "DspRev.natlog"
+msgstr "Nature du logement dans la dernière mise à jour DSP"
+
+msgid "/Dossiers/view/#Dossier.id#"
+msgstr "Voir Dossier"
+
+msgid "/Dossiers/view"
+msgstr "Voir Dossier"
+
+msgid "Dossier.numdemrsa"
+msgstr "N° demande RSA"
+
+msgid "Dossier.dtdemrsa"
+msgstr "Date de demande RSA"
+
+msgid "Personne.nir"
+msgstr "NIR"
+
+msgid "Personne.nom_complet_prenoms"
+msgstr "Nom complet"
+
+msgid "Situationdossierrsa.etatdosrsa"
+msgstr "Etat du dossier"
+
+msgid "Adresse.complete"
+msgstr "Adresse complète"
+
+msgid "Adressefoyer.dtemm"
+msgstr "Date emménagement"
+
+msgid "Dossierpcg66.typepdo_id"
+msgstr "Type de dossier"
+
+msgid "Dossierpcg66.originepdo_id"
+msgstr "Origine du dossier"
+
+msgid "Dossierpcg66.etatdossierpdo"
+msgstr "Etat du dossier"
+
+msgid "Dossierpcg66.user_id"
+msgstr "Gestionnaire du dossier (technicien en charge du dossier)"
+
+msgid "Dossierpcg66.etatdossierpcg"
+msgstr "Etat du dossier"
+
+msgid "Dossierpcg66.categoriegeneral"
+msgstr "Métiers ( général )"
+
+msgid "Dossierpcg66.categoriedetail"
+msgstr "Métiers ( détaillé )"
+
+msgid "Dossierpcg66.serviceinstructeur_id"
+msgstr "Service instructeur"
+
+msgid "Dossierpcg66.orgpayeur"
+msgstr "Organisme payeur"
+
+msgid "Dossierpcg66.haspiecejointe"
+msgstr "Pièce jointe"
+
+msgid "Situationpdo.Situationpdo"
+msgstr "Motif de la personne"
+
+msgid "Statutpdo.Statutpdo"
+msgstr "Statut de la personne"
+
+msgid "Traitementpcg66.descriptionpdo_id"
+msgstr "Description du traitement"
+
+msgid "Traitementpcg66.datereception"
+msgstr "Date de réception"
+
+msgid "Traitementpcg66.datedepart"
+msgstr "Date de départ (pour le calcul de l'échéance)"
+
+msgid "Traitementpcg66.dateecheance"
+msgstr "Date d'échéance"
+
+msgid "Traitementpcg66.daterevision"
+msgstr "Date de révision"
+
+msgid "Traitementpcg66.imprimer"
+msgstr "Inclure dans la cohorte d'impression"
+
+msgid "Traitementpcg66.etattraitementpcg"
+msgstr "Etat du traitement"
+
+msgid "Traitementpcg66.traitementtypepdo_id"
+msgstr "Type de traitement"
+
+msgid "Traitementpcg66.typetraitement"
+msgstr "Type de traitement"
+
+msgid "Traitementpcg66.personne_id"
+msgstr "Personne concernée"
+
+msgid "Traitementpcg66.dossierarevoir"
+msgstr "Motif(s)"
+
+msgid "Traitementpcg66.hascourrier"
+msgstr "Courriers"
+
+msgid "Traitementpcg66.hasrevenu"
+msgstr "Revenu"
+
+msgid "Traitementpcg66.hasficheanalyse"
+msgstr "Fiche d'analyse"
+
+msgid "Traitementpcg66.haspiecejointe"
+msgstr "Pièce jointe"
+
+msgid "Traitementpcg66.eplaudition"
+msgstr "EPL Audition"
+
+msgid "Traitementpcg66.compofoyerpcg66_id"
+msgstr "Composition du foyer"
+
+msgid "Traitementpcg66.recidive"
+msgstr "Récidive ?"
+
+msgid "Traitementpcg66.propodecision"
+msgstr "Proposition de décision"
+
+msgid "Traitementpcg66.commentairepropodecision"
+msgstr "Commentaire"
+
+msgid "Traitementpcg66.clos"
+msgstr "Clos ?"
+
+msgid "Traitementpcg66.annule"
+msgstr "Annulé ?"
+
+msgid "Traitementpcg66.situationpdo_id"
+msgstr "Motifs concernant la personne"
+
+msgid "Traitementpcg66.typecourrierpcg66_id"
+msgstr "Type de courrier"
+
+msgid "Traitementpcg66.affiche_couple"
+msgstr "Afficher le couple dans l'impression ?"
+
+msgid "Traitementpcg66.serviceinstructeur_id"
+msgstr "Service à contacter (insertion)"
+
+msgid "Traitementpcg66.ficheanalyse"
+msgstr "Fiche d'analyse"
+
+msgid "Dossierpcg66.commentairepiecejointe"
+msgstr "Commentaire"
+
+msgid "Dossierpcg66.motifannulation"
+msgstr "Motif d'annulation"
+
+msgid "Dossierpcg66.poledossierpcg66_id"
+msgstr "Pôle chargé du dossier"
+
+msgid "Dossierpcg66.dateaffectation"
+msgstr "Date d'affectation"
+
+msgid "Traitementpcg66.dureeecheance"
+msgstr "Délai avant échéance"
+
+msgid "Traitementpcg66.dureefinprisecompte"
+msgstr "Délai avant échéance"
+
+msgid "Categorietag.name"
+msgstr "Catégorie du tag"
+
+msgid "Valeurtag.name"
+msgstr "Nom du tag"
+
+msgid "Tag.limite"
+msgstr "Date butoir"
+
+msgid "Tag.created"
+msgstr "Taggé le"
+
+msgid "Tag.etat"
+msgstr "Etat du Tag"
+
+msgid "Tag.valeurtag_id"
+msgstr "Valeur du Tag"
+
+msgid "Tag.commentaire"
+msgstr "Commentaire"
+
+msgid "Tag.calcullimite"
+msgstr "Durée avant date butoir"
+
+msgid "Search.Tag.valeurtag_id"
+msgstr "Valeurs possibles de la cohorte"
+
+msgid "Search.Zonegeographique.id"
+msgstr "Zones géographiques"
+
+msgid "Tag.cohorte_fieldset"
+msgstr "Autres filtres"
+
+msgid "Search.Prestation.rolepers"
+msgstr "Rôle de la personne"
+
+msgid "Search.Foyer.composition"
+msgstr "Composition familiale"
+
+msgid "Search.Foyer.nb_enfants"
+msgstr "Nombre d'enfants à charge"
+
+msgid "Search.Adresse.heberge"
+msgstr "Le demandeur est hebergé"
+
+msgid "Search.Requestmanager.name"
+msgstr "Conditions issue d'une requête (remplacera les autres conditions)"
+
+msgid "/Dossierspcgs66/search_affectes/:heading"
+msgstr "Dossiers PCGs affectés"
+
+msgid "Dossierpcg66.search_affectes"
+msgstr "Recherche par Dossier PCG"
+
+msgid "Dossierpcg66.cohorte_imprimer"
+msgstr "Recherche par Dossier PCG"
+
+msgid "/Dossierspcgs66/cohorte_imprimer/:heading"
+msgstr "Dossiers PCGs à imprimer"
+
+msgid "Search.Traitementpcg66.courriersansmodele"
+msgstr "Possède un traitement de type courrier sans modèle"
+
+msgid "Personnepcg66.noms_complet"
+msgstr "Nom de la personne concernée"
+
+msgid "Search.Detailcalculdroitrsa.mtrsavers"
+msgstr "Montant RSA"
+
+msgid "/Dossierspcgs66/cohorte_rsamajore/:heading"
+msgstr "Cohorte de création de dossier PCG pour les RSA majorés"
+
+msgid "Detailcalculdroitrsa.mtrsavers"
+msgstr "Montant RSA"
+
+msgid "Foyer.nb_enfants"
+msgstr "Nombre d'enfants"
+
+msgid "Foyer.ddsitfam"
+msgstr "Date de changement de situation familiale"
+
+msgid "/Dossierspcgs66/delete/#Dossierpcg66.id# ?"
+msgstr "Etes-vous sûr de vouloir supprimer le dossier ?"
+
+msgid "Traitementpcg66.dateecheances"
+msgstr "Dates d'échéance du traitement"
+
+msgid "Situationpdo.libelles"
+msgstr "Motifs de la personne"
+
+msgid "Statutpdo.libelles"
+msgstr "Statuts concernant la personne"

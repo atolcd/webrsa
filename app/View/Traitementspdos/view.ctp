@@ -6,7 +6,7 @@
 <div class="with_treemenu">
 	<?php
 		echo $this->Xhtml->tag( 'h1', $this->pageTitle );
-		echo $this->Form->create( 'Traitementpdo', array( 'type' => 'post', 'id' => 'traitementpdoform' ) );
+		echo $this->Form->create( 'Traitementpdo', array( 'type' => 'post', 'id' => 'traitementpdoform', 'novalidate' => true ) );
 		echo $this->Default2->view(
 			$traitementpdo,
 			array(

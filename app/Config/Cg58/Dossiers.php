@@ -1,22 +1,6 @@
 <?php
 	/**
-	 * Les conditions par défaut du moteur de recherche par dossiers /
-	 * allocataires.
-	 *
-	 * @deprecated since 3.0.00
-	 *
-	 * @var array
-	 */
-	Configure::write(
-		'Filtresdefaut.Dossiers_index', array(
-			'Calculdroitrsa' => array(
-				'toppersdrodevorsa' => '1'
-			)
-		)
-	);
-
-	/**
-	 * Menu "Recherches" > "Par dossier / allocataire (nouveau)"
+	 * Menu "Recherches" > "Par dossier / allocataire"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dossiers.search',
@@ -108,7 +92,7 @@
 	);
 
 	/**
-	 * Export CSV, menu "Recherches" > "Par dossier / allocataire (nouveau)"
+	 * Export CSV, menu "Recherches" > "Par dossier / allocataire"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dossiers.exportcsv',

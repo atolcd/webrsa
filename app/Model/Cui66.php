@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Cui66 est la classe contenant les informations additionnelles du CUI pour le CG 66.
@@ -21,12 +22,6 @@
 		 */
 		public $name = 'Cui66';
 
-		/**
-		 * Recurcivité du model 
-		 * @var integer
-		 */
-		public $recursive = -1;
-		
 		/**
 		 * Possède des clefs étrangères vers d'autres models
 		 * @var array
@@ -48,7 +43,7 @@
 				'dependent' => true,
 			),
         );
-		
+
 		/**
 		 * Ces models possèdent une clef étrangère vers ce model
 		 * @var array
@@ -85,18 +80,18 @@
 				'dependent' => true,
 			),
 		);
-				
+
 		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Formattable',
 			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
 		);
-		
+
 		/**
 		 * Chemin relatif pour les modèles de documents .odt utilisés lors des
 		 * impressions. Utiliser %s pour remplacer par l'alias.
@@ -106,7 +101,7 @@
 			'ficheLiaison' => 'CUI/synthesecui66.odt',
 			'default' => 'CUI/impression.odt',
 		);
-		
+
 		/**
 		 * Permet de faire le lien entre Cui66.etatdossiercui66 et Cui.decision_ci
 		 * @var array
@@ -139,16 +134,16 @@
 				'nonvalide',
 			),
 		);
-		
+
 		/**
 		 * Modèles utilisés par ce modèle.
-		 * 
+		 *
 		 * @var array
 		 */
 		public $uses = array(
 			'WebrsaCui66'
 		);
-		
+
 		/**
 		 * Permet de savoir si un ajout est possible à partir des messages
 		 * renvoyés par la méthode messages.
@@ -159,7 +154,7 @@
 		public function addEnabled( array $messages ) {
 			return $this->WebrsaCui66->addEnabled($messages);
 		}
-		
+
 		/**
 		 * Retourne les options nécessaires au formulaire de recherche, au formulaire,
 		 * aux impressions, ...

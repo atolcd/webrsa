@@ -3,8 +3,9 @@
 	 * Code source de la classe AdresseCanton.
 	 *
 	 * @package app.Model
-	 * @license Expression license is undefined on line 11, column 23 in Templates/CakePHP/CakePHP Model.php.
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe AdresseCanton ...
@@ -21,19 +22,16 @@
 		public $name = 'AdresseCanton';
 
 		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array
 		 */
-		public $actsAs = array();
-		
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
+		);
+
 		/**
 		 * Associations "Belongs to".
 		 *
@@ -59,17 +57,17 @@
 				'counterCache' => null
 			),
 		);
-		
+
 		/**
 		 * Met à jour la table de liaison AdresseCanton selon les conditions indiqué
-		 * 
+		 *
 		 * @param mixed $conditions
 		 * @param boolean $transaction vrai par defaut, effectue un begin et un commit dans ce cas
 		 * @return boolean
 		 */
 		public function updateByConditions( $conditions, $transaction = true ) {
 			$departement = Configure::read('Cg.departement');
-			
+
 			$query = array(
 				'fields' => array(
 					'Adresse.id',
@@ -82,11 +80,11 @@
 				'contain' => false
 			);
 			$results = $this->Adresse->find('all', $query);
-			
+
 			if ( $transaction ) {
 				$this->begin();
 			}
-			
+
 			$data = array();
 			$success = true;
 			foreach ( $results as $value ) {
@@ -95,11 +93,11 @@
 						'adresse_id' => Hash::get($value, 'Adresse.id')
 					), false
 				);
-				
+
 				if ( !$success ) {
 					break;
 				}
-				
+
 				if ( Hash::get($value, 'Canton.id') ) {
 					$data[] = array(
 						'adresse_id' => Hash::get($value, 'Adresse.id'),
@@ -107,11 +105,11 @@
 					);
 				}
 			}
-			
+
 			if ( $success && !empty($data) ) {
 				$success = $this->saveMany($data);
 			}
-			
+
 			if ( $transaction ) {
 				if ( $success ) {
 					$this->commit();
@@ -120,7 +118,7 @@
 					$this->rollback();
 				}
 			}
-			
+
 			return $success;
 		}
 	}

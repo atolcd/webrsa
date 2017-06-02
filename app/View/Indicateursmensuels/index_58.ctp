@@ -9,7 +9,7 @@
 <h1><?php echo $title_for_layout;?></h1>
 
 <?php
-	echo $this->Form->create( 'Search', array( 'type' => 'post', 'class' => 'noprint' ) );
+	echo $this->Form->create( 'Search', array( 'type' => 'post', 'class' => 'noprint', 'novalidate' => true ) );
 
 	echo $this->Form->input( 'Search.year', array( 'label' => __d( 'indicateursmensuels58', 'Search.year' ), 'type' => 'select', 'options' => $options['Search']['year'] ) );
 	echo $this->Form->input( 'Search.sitecov58_id', array( 'label' => __d( 'indicateursmensuels58', 'Search.site' ), 'type' => 'select', 'options' => $options['Search']['sitecov58_id'], 'empty' => true ) );

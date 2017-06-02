@@ -1,0 +1,108 @@
+# Traductions de cohortesd2pdvs93.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Cohortesd2pdvs93/index/:heading"
+msgstr "Formulaires de sortie D2 à saisir"
+
+msgid "/Cohortesd2pdvs93/index"
+msgstr "Formulaire"
+
+# Formulaire de recherche
+
+msgid "Search.Dossier"
+msgstr "Recherche par dossier"
+
+msgid "Search.Dossier.numdemrsa"
+msgstr "Numéro de dossier RSA"
+
+msgid "Search.Dossier.matricule"
+msgstr "Numéro CAF/MSA"
+
+msgid "Search.Personne"
+msgstr "Recherche par allocataire"
+
+msgid "Search.Dossier.dernier"
+msgstr "Uniquement la dernière demande RSA pour un même allocataire"
+
+msgid "Search.Personne.nom"
+msgstr "Nom"
+
+msgid "Search.Personne.prenom"
+msgstr "Prénom"
+
+msgid "Search.Questionnaired2pdv93"
+msgstr "Recherche par D1/D2"
+
+msgid "Search.Questionnaired1pdv93.annee"
+msgstr "Année de suivi"
+
+msgid "Search.Rendezvous.communautesr_id"
+msgstr "Projet de ville territorial proposant le 1er RDV"
+
+msgid "Search.Rendezvous.structurereferente_id"
+msgstr "Structure proposant le 1er RDV"
+
+msgid "Search.Questionnaired2pdv93.exists"
+msgstr "Possédant déjà un formulaire D2 pour l'année de suivi"
+
+msgid "Search.ReponsesQuestionnaired2pdv93"
+msgstr "Filtrer par réponses au questionnaire D2"
+
+msgid "Search.Questionnaired2pdv93.situationaccompagnement"
+msgstr "Statut de l'accompagnement"
+
+msgid "Search.Questionnaired2pdv93.sortieaccompagnementd2pdv93_id"
+msgstr "Sortie de l'obligation d'accompagnement"
+
+msgid "Search.Questionnaired2pdv93.chgmentsituationadmin"
+msgstr "Sortie \"changement administratif\""
+
+# Tableau de résultats
+
+msgid "/Cohortesd2pdvs93/ajaxadd"
+msgstr "Formulaire D2"
+
+msgid "/Questionnairesd2pdvs93/index"
+msgstr "Voir"
+
+msgid "Personne.nir"
+msgstr "NIR"
+
+msgid "Personne.nom"
+msgstr "Nom"
+
+msgid "Personne.prenom"
+msgstr "Prénom"
+
+msgid "Personne.numfixe"
+msgstr "Tél. fixe"
+
+msgid "Personne.numport"
+msgstr "Tél. portable"
+
+msgid "Rendezvous.daterdv"
+msgstr "Date premier RDV"
+
+msgid "Structurereferente.lib_struc"
+msgstr "PDV"
+
+msgid "Referent.nom_complet"
+msgstr "Référent"
+
+msgid "Questionnaired2pdv93.created"
+msgstr "Date sortie"
+
+msgid "Questionnaired2pdv93.date_validation"
+msgstr "Date sortie"
+
+msgid "Dossier.locked"
+msgstr "Dossier verrouillé ?"

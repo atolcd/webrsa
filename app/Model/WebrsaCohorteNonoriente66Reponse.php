@@ -126,9 +126,18 @@
 				$data[$key]['Orientstruct']['statut_orient'] = 'Orienté';
 			}
 			
-			$success = !empty($data) && $this->Nonoriente66->saveAll( $data ) 
-				&& $this->Nonoriente66->Personne->Orientstruct->saveAll($data)
-			;
+			$this->Nonoriente66->begin();
+			
+			$success = !empty($data) && $this->Nonoriente66->saveAll($data, array('atomic' => false));
+			$success = !empty($data)
+				&& $this->Nonoriente66->Personne->Orientstruct->saveAll($data, array('atomic' => false))
+				&& $success;
+			
+			if ($success) {
+				$this->Nonoriente66->commit();
+			} else {
+				$this->Nonoriente66->rollback();
+			}
 			
 			return $success;
 		}

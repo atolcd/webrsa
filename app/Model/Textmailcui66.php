@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Textmailcui66 ...
@@ -17,52 +18,24 @@
 	{
 		public $name = 'Textmailcui66';
 
-		public $actsAs = array(
-			'Pgsqlcake.PgsqlAutovalidate',
-			'Formattable'
-		);
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
 
-		public $validate = array(
-			'name' => array(
-				array(
-					'rule' => 'isUnique',
-					'message' => 'Valeur déjà utilisée'
-				)
-			)
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
         /**
          * Associations "Has Many".
          * @var array
          */
-        public $hasMany = array(
-//            'Cui' => array(
-//				'className' => 'Cui',
-//				'foreignKey' => 'textmailcui66_id',
-//				'dependent' => false,
-//				'conditions' => '',
-//				'fields' => '',
-//				'order' => '',
-//				'limit' => '',
-//				'offset' => '',
-//				'exclusive' => '',
-//				'finderQuery' => '',
-//				'counterQuery' => ''
-//			),
-//            'Decisioncui66' => array(
-//				'className' => 'Decisioncui66',
-//				'foreignKey' => 'textmailcui66_id',
-//				'dependent' => false,
-//				'conditions' => '',
-//				'fields' => '',
-//				'order' => '',
-//				'limit' => '',
-//				'offset' => '',
-//				'exclusive' => '',
-//				'finderQuery' => '',
-//				'counterQuery' => ''
-//			)
-        );
+        public $hasMany = array();
 
 	}
 ?>

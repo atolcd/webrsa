@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe SignalementsepsController ...
@@ -44,7 +45,7 @@
 		 * @var array
 		 */
 		public $helpers = array(
-			
+
 		);
 
 		/**
@@ -55,26 +56,26 @@
 		public $uses = array(
 			'Signalementep93',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Signalementseps:edit',
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -192,16 +193,17 @@
 				}
 				else {
 					$success = $this->{$this->modelClass}->create( $this->request->data );
-					$success = $this->{$this->modelClass}->save();
+					$success = $this->{$this->modelClass}->save( null, array( 'atomic' => false ) );
 				}
 
-				$this->_setFlashResult( 'Save', $success );
 				if( $success ) {
 					$this->{$this->modelClass}->commit();
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( $redirectUrl );
 				}
 				else {
 					$this->{$this->modelClass}->Dossierep->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {
@@ -278,13 +280,14 @@
 
 			$this->{$this->modelClass}->Dossierep->begin();
 			$success = $this->{$this->modelClass}->Dossierep->delete( $signalementep['Dossierep']['id'] );
-			$this->_setFlashResult( 'Delete', $success );
 
 			if( $success ) {
 				$this->{$this->modelClass}->Dossierep->commit();
+				$this->Flash->success( __( 'Delete->success' ) );
 			}
 			else {
 				$this->{$this->modelClass}->Dossierep->rollback();
+				$this->Flash->error( __( 'Delete->error' ) );
 			}
 
 			$this->redirect( $this->referer() );

@@ -7,6 +7,7 @@
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
 
 	/**
 	 * La classe JetonsfonctionsComponent ...
@@ -176,7 +177,7 @@
 					$jeton['Jetonfonction']['created'] = $vieuxJetonfonction['Jetonfonction']['created'];
 				}
 
-				return ( $this->Jetonfonction->save( $jeton ) !== false );
+				return ( $this->Jetonfonction->save( $jeton , array( 'atomic' => false ) ) !== false );
 			}
 			else {
 				return false;

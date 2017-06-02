@@ -4,7 +4,8 @@
 	 *
 	 * PHP 5.3
 	 *
-	 * @package Fluxcnaf.Utility
+	 * @package Fluxcnaf
+	 * @subpackage Utility
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 
@@ -12,7 +13,8 @@
 	 * La classe FluxcnafDico permet de manipuler des fichiers de dictionnaire
 	 * de données <schema>Dico.xml venant de la CNAF.
 	 *
-	 * @package Fluxcnaf.Utility
+	 * @package Fluxcnaf
+	 * @subpackage Utility
 	 */
 	abstract class FluxcnafDico
 	{

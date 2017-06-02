@@ -1,4 +1,6 @@
 <?php
+	App::uses( 'Component', 'Controller' );
+
 	/*
 		// Mouse Events
 		onClick 	The event occurs when the user clicks on an element
@@ -16,7 +18,7 @@
 
 		// Frame/Object Events
 		onAbort 	The event occurs when an image is stopped from loading before completely loaded (for <object>)
-		onError 	The event occurs when an image does not load properly (for <object>, <body> and <frameset>) 	 
+		onError 	The event occurs when an image does not load properly (for <object>, <body> and <frameset>)
 		onLoad 	The event occurs when a document, frameset, or <object> has been loaded
 		onResize 	The event occurs when a document view is resized
 		onScroll 	The event occurs when a document view is scrolled
@@ -46,7 +48,7 @@
 		 */
 		public function onKeyUp() {
 		}
-		
+
 
 		/**
 		 * Form Events. The event occurs when the content of a form element,

@@ -1,4 +1,19 @@
 <?php
+	/**
+	 * Code source de la classe FluxcnafController.
+	 *
+	 * @package Fluxcnaf
+	 * @subpackage Controller
+	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+	 */
+	App::uses( 'AppController', 'Controller' );
+
+	/**
+	 * La classe FluxcnafController ...
+	 *
+	 * @package Fluxcnaf
+	 * @subpackage Controller
+	 */
 	class FluxcnafController extends AppController
 	{
 		public $uses = array( 'Dossier', 'Fluxcnaf.Fluxcnaf' );

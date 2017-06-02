@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 	App::uses( 'Sanitize', 'Utility' );
 
 	/**
@@ -36,7 +37,6 @@
 			'Jetons2',
 			'Search.SearchPrg' => array(
 				'actions' => array(
-					'index',
 					'search',
 				)
 			),
@@ -69,26 +69,17 @@
 			'Option',
 			'Tableausuivipdv93',
 		);
-		
-		/**
-		 * Utilise les droits d'un autre Controller:action
-		 * sur une action en particulier
-		 * 
-		 * @var array
-		 */
-		public $commeDroit = array(
-			'search' => 'Dossiers:index',
-		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			'unlock',
+			'menu',
+			'unlock'
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -98,8 +89,6 @@
 		public $crudMap = array(
 			'edit' => 'update',
 			'exportcsv' => 'read',
-			'exportcsv1' => 'read',
-			'index' => 'read',
 			'menu' => 'read',
 			'search' => 'read',
 			'unlock' => 'read',
@@ -120,7 +109,6 @@
 			$this->set( 'moticlorsa', ClassRegistry::init('Situationdossierrsa')->enum('moticlorsa') );
 			$this->set( 'typeserins', $this->Option->typeserins() );
 			$this->set( 'toppersdrodevorsa', $this->Option->toppersdrodevorsa(true) );
-			$this->set( 'typevoie', $this->Option->typevoie() );
 			$this->set( 'sitfam', $this->Option->sitfam() );
 			$this->set( 'act', ClassRegistry::init('Activite')->enum('act') );
 			$this->set( 'categorie', ClassRegistry::init('Historiqueetatpe')->enum('code') );
@@ -155,17 +143,6 @@
 				$this->set( 'dossierep', (array)Hash::get( $this->Dossier->Foyer->Personne->Dossierep->enums(), 'Dossierep' ) );
 				$this->set( 'options', $this->Dossier->Foyer->Personne->Orientstruct->enums() );
 			}
-			else if( $this->action == 'exportcsv' ) {
-				$typesorient = $this->Dossier->Foyer->Personne->Orientstruct->Typeorient->find( 'list', array( 'fields' => array( 'id', 'lib_type_orient' ) ) );
-				$this->set( 'typesorient', $typesorient );
-			}
-			else if( $this->action == 'index' ) {
-				$this->set( 'typeservice', $this->Dossier->Foyer->Personne->Orientstruct->Serviceinstructeur->listOptions() );
-
-				$referents = $this->Dossier->Foyer->Personne->PersonneReferent->Referent->find( 'list', array( 'order' => array( 'Referent.nom' ) ) );
-				$this->set( compact( 'referents') );
-				$this->set( 'exists', array( '1' => 'Oui', '0' => 'Non' ) );
-			}
 			else if( $this->action == 'edit' ) {
 				$optionsDossier = array(
 					'Dossier' => array(
@@ -192,22 +169,6 @@
 		}
 
 		/**
-		 * Les action index et exportcsv peuvent être consommatrices, donc on augmeta la mémoire
-		 * maximale et le temps d'exécution maximal du script PHP.
-		 *
-		 * @deprecated since 3.0.00
-		 *
-		 * @return voir
-		 */
-		public function beforeFilter() {
-			if( in_array( $this->action, array( 'index', 'exportcsv' ) ) ) {
-				ini_set( 'max_execution_time', 0 );
-				ini_set( 'memory_limit', '512M' );
-			}
-			parent::beforeFilter();
-		}
-
-		/**
 		 * Moteur de recherche par dossier / allocataire
 		 *
 		 * @return void
@@ -226,43 +187,6 @@
 		public function exportcsv() {
 			$Recherches = $this->Components->load( 'WebrsaRecherchesDossiers' );
 			$Recherches->exportcsv();
-		}
-
-		/**
-		 * Moteur de recherche par dossier/allocataire
-		 *
-		 * @deprecated since 3.0.00
-		 *
-		 * @return void
-		 */
-		public function index() {
-			if( !empty( $this->request->data ) ) {
-				$paginate = $this->Dossier->search( $this->request->data );
-
-				$paginate = $this->Gestionzonesgeos->qdConditions( $paginate );
-				$paginate['conditions'][] = WebrsaPermissions::conditionsDossier();
-				$paginate = $this->_qdAddFilters( $paginate );
-
-				$paginate['fields'][] = $this->Jetons2->sqLocked( 'Dossier', 'locked' );
-
-				$this->paginate = $paginate;
-				$progressivePaginate = !Hash::get( $this->request->data, 'Pagination.nombre_total' );
-				$dossiers = $this->paginate( 'Dossier', array(), array(), $progressivePaginate );
-
-				$this->set( 'dossiers', $dossiers );
-			}
-			else {
-				$filtresdefaut = Configure::read( "Filtresdefaut.{$this->name}_{$this->action}" );
-				$this->request->data = Set::merge( $this->request->data, $filtresdefaut );
-			}
-
-			$this->Gestionzonesgeos->setCantonsIfConfigured();
-			$this->set( 'mesCodesInsee', $this->Gestionzonesgeos->listeCodesInsee() );
-
-			$this->set( 'structuresreferentesparcours', $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'optgroup', 'prefix' => false ) ) );
-			$this->set( 'referentsparcours', $this->InsertionsBeneficiaires->referents( array( 'prefix' => true ) ) );
-
-			$this->_setOptions();
 		}
 
 		/**
@@ -423,16 +347,10 @@
 
 			if ( Configure::read('Alerte.changement_adresse.enabled') ) {
 				if ( empty($adresseFoyer) ) {
-					$this->Session->setFlash(
-						'Ce foyer ne possède actuellement aucune adresse.',
-						'flash/error', array(), 'notice'
-					);
+					$this->Flash->error( 'Ce foyer ne possède actuellement aucune adresse.' );
 				}
 				elseif ( !Hash::get($adresseFoyer, 'Adressefoyer.dtemm') ) {
-					$this->Session->setFlash(
-						'La date d\'emménagement pour la dernière adresse n\'est pas renseignée.',
-						'flash/notice', array(), 'notice'
-					);
+					$this->Flash->notice('La date d\'emménagement pour la dernière adresse n\'est pas renseignée.' );
 				}
 				else {
 					$date = new DateTime(Hash::get($adresseFoyer, 'Adressefoyer.dtemm'));
@@ -440,10 +358,7 @@
 					$date->add(new DateInterval('P'.Configure::read('Alerte.changement_adresse.delai').'M'));
 
 					if ( strtotime(date('Y-m-d')) <= strtotime($date->format('Y-m-d')) ) {
-						$this->Session->setFlash(
-							sprintf('Attention, changement d\'adresse depuis le %s.', $olddate),
-							'flash/error', array(), 'notice'
-						);
+						$this->Flash->error( sprintf( 'Attention, changement d\'adresse depuis le %s.', $olddate ) );
 					}
 				}
 			}
@@ -553,18 +468,69 @@
 				$personnesFoyer[$index]['Contratinsertion'] = ( !empty( $tContratinsertion ) ? $tContratinsertion['Contratinsertion'] : array() );
 
 				if( Configure::read( 'Cg.departement' ) == 66 ) {
+					// Utile pour l'affichage des dates de relance par email
+					$sqRelanceQuery = array(
+						'alias' => 'emailscuis',
+						'fields' => 'emailscuis.id',
+						'conditions' => array(
+							'emailscuis.dateenvoi IS NOT NULL',
+							'UPPER(textsmailscuis66.name) LIKE \'%RELANCE%\'',
+							'emailscuis.cui_id = Cui66.cui_id'
+						),
+						'joins' => array(
+							array_words_replace(
+								$this->Dossier->Foyer->Personne->Cui->Emailcui->join( 'Textmailcui66', array( 'type' => 'INNER' ) ),
+								array( 'Emailcui' => 'emailscuis', 'Textmailcui66' => 'textsmailscuis66' )
+							)
+						),
+						'order' => 'emailscuis.dateenvoi DESC',
+						'limit' => 1
+					);
+					$sqRelanceMail = $this->Dossier->Foyer->Personne->Cui->Emailcui->sq( $sqRelanceQuery );
+
+					$sqDerniereSuspension = $this->Dossier->Foyer->Personne->Cui->Cui66->Suspensioncui66->sq(
+						array(
+							'alias' => 'suspensionscuis66',
+							'fields' => 'suspensionscuis66.id',
+							'conditions' => array(
+								'suspensionscuis66.cui66_id = Cui66.id',
+								'suspensionscuis66.datedebut <= NOW()',
+								'suspensionscuis66.datefin >= NOW()',
+							),
+							'order' => array(
+								'suspensionscuis66.datefin' => 'DESC',
+								'suspensionscuis66.created' => 'DESC',
+							),
+							'limit' => 1
+						)
+					);
+
 					$tCui = $this->Dossier->Foyer->Personne->Cui->find(
 						'first',
 						array(
 							'fields' => array_merge(
 								$this->Dossier->Foyer->Personne->Cui->fields(),
 								$this->Dossier->Foyer->Personne->Cui->Cui66->fields(),
-								$this->Dossier->Foyer->Personne->Cui->Cui66->Decisioncui66->fields()
+								$this->Dossier->Foyer->Personne->Cui->Cui66->Decisioncui66->fields(),
+								array(
+									'Emailcui.dateenvoi',
+									'Rupturecui66.daterupture',
+									'Suspensioncui66.datefin'
+								)
 							),
 							'conditions' => array( 'Cui.personne_id' => $personnesFoyer[$index]['Personne']['id'] ),
 							'joins' => array(
 								$this->Dossier->Foyer->Personne->Cui->join( 'Cui66' ),
-								$this->Dossier->Foyer->Personne->Cui->Cui66->join( 'Decisioncui66' ),
+								$this->Dossier->Foyer->Personne->Cui->join( 'Emailcui', array( 'conditions' => array("Emailcui.id IN ({$sqRelanceMail})")) ),
+								$this->Dossier->Foyer->Personne->Cui->Cui66->join( 'Decisioncui66', array( 'type' => 'LEFT OUTER' ) ),
+								$this->Dossier->Foyer->Personne->Cui->Cui66->join( 'Rupturecui66', array( 'type' => 'LEFT OUTER' ) ),
+								$this->Dossier->Foyer->Personne->Cui->Cui66->join(
+									'Suspensioncui66',
+									array(
+										'conditions' => array( "Suspensioncui66.id IN ({$sqDerniereSuspension})" ),
+										'type' => 'LEFT OUTER'
+									)
+								)
 							),
 							'contain' => false,
 							'order' => array(
@@ -1009,11 +975,11 @@
 			if( !empty( $this->request->data ) ) {
 				if( $this->Dossier->saveAll( $this->request->data, array( 'validate' => 'first', 'atomic' => true ) ) ) {
 					$this->Jetons2->release( $id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'dossiers', 'action' => 'view', $id ) );
 				}
 				else{
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement.', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -1021,29 +987,6 @@
 			}
 			$this->_setOptions();
 			$this->set( 'id', $id );
-		}
-
-		/**
-		 * Export du tableau de résultats de recherche au format CSV.
-		 *
-		 * @deprecated since 3.0.00
-		 *
-		 * @return void
-		 */
-		public function exportcsv1() {
-			$querydata = $this->Dossier->search( Hash::expand( $this->request->params['named'], '__' ) );
-
-			$querydata = $this->Gestionzonesgeos->qdConditions( $querydata );
-			$querydata['conditions'][] = WebrsaPermissions::conditionsDossier();
-			$querydata = $this->_qdAddFilters( $querydata );
-
-			unset( $querydata['limit'] );
-
-			$dossiers = $this->Dossier->find( 'all', $querydata );
-
-			$this->layout = '';
-			$this->set( compact( 'headers', 'dossiers' ) );
-			$this->_setOptions();
 		}
 
 		/**
@@ -1055,6 +998,30 @@
 			$this->Jetons2->get( $id );
 			$this->Jetons2->release( $id );
 			$this->redirect( $this->referer() );
+		}
+
+		/**
+		 * Evite une boucle de redirection si l'utilisateur n'a pas les droits sur
+		 * la page d'accueil
+		 *
+		 * @throws Error403Exception
+		 */
+		public function beforeFilter() {
+			if ($this->action === 'search'
+				&& !WebrsaPermissions::check($this->name, $this->action)
+			) {
+				if( true === $this->Session->check('Auth.User') ) {
+					throw new Error403Exception(
+						__("Exception::access_denied",
+							$this->name,
+							$this->action,
+							$this->Session->read('Auth.User.username')
+						)
+					);
+				}
+			} else {
+				parent::beforeFilter();
+			}
 		}
 	}
 ?>

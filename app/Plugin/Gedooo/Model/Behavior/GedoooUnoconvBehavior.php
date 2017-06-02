@@ -7,7 +7,7 @@
 	 * @package Gedooo
 	 * @subpackage Model.Behavior
 	 */
-	App::import( 'Behavior', 'Gedooo.GedoooFusionConverter' );
+	App::uses( 'GedoooFusionConverterBehavior', 'Gedooo.Model/Behavior' );
 
 	/**
 	 * La classe GedoooUnoconvBehavior fournit une méthode de conversion de
@@ -62,7 +62,7 @@
 		 * @return array
 		 */
 		public function gedTests( Model $model ) {
-			App::import( 'Model', 'Appchecks.Check' );
+			App::uses( 'Check', 'Appchecks.Model' );
 			$Check = ClassRegistry::init( 'Appchecks.Check' );
 
 			$results = parent::gedTests( $model );

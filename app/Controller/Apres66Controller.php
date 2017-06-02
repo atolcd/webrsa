@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 	App::uses( 'CakeEmail', 'Network/Email' );
 	App::uses( 'WebrsaEmailConfig', 'Utility' );
 
@@ -99,22 +100,18 @@
 					),
 				)
 			),
-			'WebrsaAccesses'
+			'WebrsaAccesses',
+			'WebrsaAjaxInsertions'
 		);
 
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
 			'add' => 'Apres66:edit',
-			'cohorte_imprimer' => 'Cohortesvalidationapres66::validees',
-			'cohorte_notifiees' => 'Cohortesvalidationapres66::notifiees',
-			'cohorte_traitement' => 'Cohortesvalidationapres66::traitement',
-			'cohorte_transfert' => 'Cohortesvalidationapres66::transfert',
-			'cohorte_validation' => 'Cohortesvalidationapres66::apresvalider',
 			'view66' => 'Apres66:index',
 		);
 
@@ -167,7 +164,6 @@
 			'fileview' => 'read',
 			'impression' => 'read',
 			'index' => 'read',
-			'indexparams' => 'read',
 			'maillink' => 'read',
 			'notifications' => 'read',
 			'view66' => 'read',
@@ -178,7 +174,6 @@
 		 */
 		protected function _setOptions() {
 			$options = (array)Hash::get( $this->{$this->modelClass}->enums(), $this->modelClass );
-			$this->set( 'typevoie', $this->Option->typevoie() );
 			$this->set( 'qual', $this->Option->qual() );
 			$this->set( 'sitfam', $this->Option->sitfam() );
 			$this->set( 'sect_acti_emp', ClassRegistry::init('Contratinsertion')->enum('sect_acti_emp') );
@@ -312,37 +307,19 @@
 				if( $saved ) {
 					$this->{$this->modelClass}->commit();
                     $this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( $this->referer() );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id );
 					$this->{$this->modelClass}->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
 			$this->_setOptions();
 			$this->set( compact( 'dossier_id', 'personne_id', 'fichiers', 'apre' ) );
-			$this->render( (CAKE_BRANCH == '1.2' ? '/apres/' : '/Apres/') .'filelink' );
-		}
-
-		/**
-		 * Permet de regrouper l'ensemble des paramétrages pour l'APRE
-		 */
-		public function indexparams() {
-			// Retour à la liste en cas d'annulation
-			if( isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'controller' => 'parametrages', 'action' => 'index' ) );
-			}
-
-			$compteurs = array(
-				'Pieceaide66' => ClassRegistry::init( 'Pieceaide66' )->find( 'count' ),
-				'Themeapre66' => ClassRegistry::init( 'Themeapre66' )->find( 'count' )
-			);
-			$this->set( compact( 'compteurs' ) );
-
-			$this->render( (CAKE_BRANCH == '1.2' ? '/apres/' : '/Apres/') .'indexparams_'.Configure::read( 'nom_form_apre_cg' ) );
+			$this->render( '/Apres/filelink' );
 		}
 
 		/**
@@ -365,7 +342,7 @@
 			$this->set( 'personne', $personne );
 
 			$this->_setEntriesAncienDossier( $personne_id, 'Apre' );
-			
+
 			$apres = $this->WebrsaAccesses->getIndexRecords(
 				$personne_id, array(
 					'fields' => array_merge(
@@ -374,11 +351,13 @@
 						$this->{$this->modelClass}->Aideapre66->fields(),
 						array(
 							$this->{$this->modelClass}->Fichiermodule->sqNbFichiersLies($this->{$this->modelClass}, 'nombre'),
+							$this->{$this->modelClass}->Referent->sqVirtualField( 'nom_complet' )
 						)
 					),
 					'contain' => array(
 						'Personne',
-						'Aideapre66'
+						'Aideapre66',
+						'Referent'
 					),
                     'conditions' => array(
                         "{$this->modelClass}.personne_id" => $personne_id
@@ -387,9 +366,6 @@
                 )
 			);
 			$this->set( 'apres', $apres );
-
-			$referents = $this->Referent->find( 'list' );
-			$this->set( 'referents', $referents );
 
 			$this->set( 'personne_id', $personne_id );
 
@@ -408,7 +384,7 @@
 			$this->set( 'apres', $apres );
 			$this->set( 'alerteMontantAides', $alerteMontantAides );
 			$this->_setOptions();
-			$this->render( (CAKE_BRANCH == '1.2' ? '/apres/' : '/Apres/') .'index66' );
+			$this->render( '/Apres/index66' );
 		}
 
 		/**
@@ -416,22 +392,8 @@
 		 *
 		 * @param integer $structurereferente_id
 		 */
-		public function ajaxstruct( $structurereferente_id = null ) { // FIXME
-			Configure::write( 'debug', 0 );
-			$dataStructurereferente_id = Set::extract( $this->request->data, "{$this->modelClass}.structurereferente_id" );
-			$structurereferente_id = ( empty( $structurereferente_id ) && !empty( $dataStructurereferente_id ) ? $dataStructurereferente_id : $structurereferente_id );
-			$qd_struct = array(
-				'conditions' => array(
-					'Structurereferente.id' => $structurereferente_id
-				),
-				'fields' => null,
-				'order' => null,
-				'recursive' => -1
-			);
-			$struct = $this->{$this->modelClass}->Structurereferente->find( 'first', $qd_struct );
-
-			$this->set( 'struct', $struct );
-			$this->render( (CAKE_BRANCH == '1.2' ? '/apres/' : '/Apres/') .'ajaxstruct', 'ajax' );
+		public function ajaxstruct( $structurereferente_id = null ) {
+			return $this->WebrsaAjaxInsertions->structurereferente( $structurereferente_id );
 		}
 
 		/**
@@ -439,30 +401,8 @@
 		 *
 		 * @param integer $referent_id
 		 */
-		public function ajaxref( $referent_id = null ) { // FIXME
-			Configure::write( 'debug', 0 );
-			if( !empty( $referent_id ) ) {
-				$referent_id = suffix( $referent_id );
-			}
-			else {
-				$referent_id = suffix( Set::extract( $this->request->data, "{$this->modelClass}.referent_id" ) );
-			}
-			// INFO: éviter les requêtes erronées du style ... WHERE "Referent"."id" = ''
-			$referent = array( );
-			if( !empty( $referent_id ) ) {
-				$qd_referent = array(
-					'conditions' => array(
-						'Referent.id' => $referent_id
-					),
-					'fields' => null,
-					'order' => null,
-					'recursive' => -1
-				);
-				$referent = $this->{$this->modelClass}->Referent->find( 'first', $qd_referent );
-			}
-//             $referent = $this->{$this->modelClass}->Referent->findbyId( $referent_id, null, null, -1 );
-			$this->set( 'referent', $referent );
-			$this->render( (CAKE_BRANCH == '1.2' ? '/apres/' : '/Apres/') .'ajaxref', 'ajax' );
+		public function ajaxref( $referent_id = null ) {
+			return $this->WebrsaAjaxInsertions->referent( $referent_id );
 		}
 
 		/**
@@ -526,7 +466,7 @@
 					'first', array('conditions' => array('Typeaideapre66.id' => $typeaideapre66_id),)
 				);
 			}
-			
+
 			$this->request->data = array( );
 
 			if( !empty( $apre_id ) ) {
@@ -567,7 +507,7 @@
 
 			$this->set( compact( 'piecesadmin', 'piecescomptable', 'typeaideapre', 'isapre' ) );
 
-			$this->render( (CAKE_BRANCH == '1.2' ? '/apres/' : '/Apres/') .'ajaxpiece', 'ajax' );
+			$this->render( '/Apres/ajaxpiece', 'ajax' );
 		}
 
 		/**
@@ -600,7 +540,7 @@
 			$this->set( 'personne_id', $apre['Apre66']['personne_id'] );
 			$this->_setOptions();
 			$this->set( 'urlmenu', '/apres66/index/'.$apre['Personne']['id'] );
-			$this->render( (CAKE_BRANCH == '1.2' ? '/apres/' : '/Apres/') .'view66' );
+			$this->render( '/Apres/view66' );
 		}
 
 		/**
@@ -717,14 +657,6 @@
 				$this->set( compact( 'listesAidesSelonApre' ) );
 			}
 
-
-			///Récupération de la liste des structures référentes liés uniquement à l'APRE
-//			$structs = $this->Structurereferente->listeParType( array( 'apre' => true ) );
-            $structs = $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'list', 'conditions' => array( 'Structurereferente.apre' => 'O' ) + $this->InsertionsBeneficiaires->conditions['structuresreferentes'], 'prefix' => false ) );
-			$this->set( 'structs', $structs );
-			///Récupération de la liste des référents liés à l'APRE
-			$referents = $this->Referent->WebrsaReferent->listOptions();
-			$this->set( 'referents', $referents );
 			///Récupération de la liste des référents liés à l'APRE
 			$typesaides = $this->Typeaideapre66->listOptions();
 			$this->set( 'typesaides', $typesaides );
@@ -771,8 +703,6 @@
 						)
 					);
 					$typeaide = $this->{$this->modelClass}->Aideapre66->Typeaideapre66->find( 'first', $qd_typeaide );
-// debug($typeaide);
-// die();
 
 					$nbNormalPieces['Typeaideapre66'] = count( Set::extract( $typeaide, '/Pieceaide66/id' ) );
 
@@ -799,7 +729,7 @@
 				// Tentative d'enregistrement de l'APRE complémentaire
 				$this->{$this->modelClass}->create( $this->request->data );
 				$this->{$this->modelClass}->set( 'statutapre', 'C' );
-				$success = $this->{$this->modelClass}->save();
+				$success = $this->{$this->modelClass}->save( null, array( 'atomic' => false ) );
 
 				// Tentative d'enregistrement de l'aide liée à l'APRE complémentaire
 				$this->{$this->modelClass}->Aideapre66->create( $this->request->data );
@@ -815,7 +745,7 @@
 				if( $this->action == 'add' ) {
 					$this->{$this->modelClass}->Aideapre66->set( 'apre_id', $this->{$this->modelClass}->getLastInsertID() );
 				}
-				$success = $this->{$this->modelClass}->Aideapre66->save() && $success;
+				$success = $this->{$this->modelClass}->Aideapre66->save( null, array( 'atomic' => false ) ) && $success;
 
 
 				if( $this->action == 'add' ) {
@@ -824,17 +754,8 @@
 					}
 				}
 				if( !empty( $Fraisdeplacement66 ) ) {
-					$success = $this->{$this->modelClass}->Aideapre66->Fraisdeplacement66->save() && $success;
+					$success = $this->{$this->modelClass}->Aideapre66->Fraisdeplacement66->save( null, array( 'atomic' => false ) ) && $success;
 				}
-
-
-				/*
-				  $Modecontact = Hash::expand( Hash::filter( (array)Hash::flatten( $this->request->data['Modecontact'] ) ) );
-				  debug($Modecontact);
-				  die();
-				  if( !empty( $Modecontact ) ){
-				  $success = $this->{$this->modelClass}->Personne->Foyer->Modecontact->saveAll( $Modecontact, array( 'validate' => 'first', 'atomic' => false ) ) && $success;
-				  } */
 
 				// Tentative d'enregistrement des pièces liées à une APRE selon ne aide donnée
 				if( !empty( $this->request->data['Pieceaide66'] ) ) {
@@ -844,26 +765,26 @@
 						),
 						'Pieceaide66' => $this->request->data['Pieceaide66']
 					);
-					$success = $this->{$this->modelClass}->Aideapre66->save( $linkedData ) && $success;
+					$success = $this->{$this->modelClass}->Aideapre66->save( $linkedData , array( 'atomic' => false ) ) && $success;
 				}
 
 
 				// SAuvegarde des numéros ed téléphone si ceux-ci ne sont pas présents en amont
 				$isDataPersonne = Hash::filter( (array)$this->request->data['Personne'] );
 				if( !empty( $isDataPersonne ) ) {
-					$success = $this->{$this->modelClass}->Personne->save( array( 'Personne' => $this->request->data['Personne'] ) ) && $success;
+					$success = $this->{$this->modelClass}->Personne->save( array( 'Personne' => $this->request->data['Personne'] ), array( 'atomic' => false ) ) && $success;
 				}
 
 
 				if( $success ) {
                     $this->{$this->modelClass}->commit();
                     $this->Jetons2->release( $dossier_id );
-                    $this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+                    $this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'apres'.Configure::read( 'Apre.suffixe' ), 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$this->{$this->modelClass}->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else if( $this->action == 'edit' ) {
@@ -915,17 +836,57 @@
 			}
 
 			$this->set('typeaideOptions', $this->_typeaideOptions());
-			
-			$struct_id = Set::classicExtract( $this->request->data, "{$this->modelClass}.structurereferente_id" );
-			$this->set( 'struct_id', $struct_id );
-
-			$referent_id = Set::classicExtract( $this->request->data, "{$this->modelClass}.referent_id" );
-			$referent_id = preg_replace( '/^[0-9]+_([0-9]+)$/', '\1', $referent_id );
-			$this->set( 'referent_id', $referent_id );
 
 			$this->set( 'personne_id', $personne_id );
 			$this->_setOptions();
-			$this->render( (CAKE_BRANCH == '1.2' ? '/apres/' : '/Apres/') .'add_edit_'.Configure::read( 'nom_form_apre_cg' ) );
+
+			// Listes déroulantes des structures référentes et des référents
+			$options = array(
+				$this->modelClass => array(
+					'structurereferente_id' => $this->InsertionsBeneficiaires->structuresreferentes(
+						array(
+							'type' => InsertionsBeneficiairesComponent::TYPE_OPTGROUP,
+							'prefix' => false,
+							'conditions' => array(
+								'Structurereferente.apre' => 'O'
+							) + $this->InsertionsBeneficiaires->conditions['structuresreferentes']
+						)
+					),
+					'referent_id' => $this->InsertionsBeneficiaires->referents(
+						array(
+							'type' => InsertionsBeneficiairesComponent::TYPE_LIST,
+							'prefix' => true,
+							'conditions' => array(
+								'Structurereferente.apre' => 'O'
+							)  + $this->InsertionsBeneficiaires->conditions['referents']
+						)
+					)
+				)
+			);
+
+			// Ajout éventuel de la structure référente ou du référent sélectionné
+			if( false === empty( $this->request->data ) ) {
+				$options[$this->modelClass] = $this->InsertionsBeneficiaires->completeOptions(
+					$options[$this->modelClass],
+					$this->request->data[$this->modelClass],
+					array(
+						'typesorients' => false,
+						'structuresreferentes' => array(
+							'type' => InsertionsBeneficiairesComponent::TYPE_OPTGROUP,
+							'prefix' => false
+						)
+					)
+				);
+			}
+
+			$this->set(
+				array(
+					'structuresreferentes' => $options[$this->modelClass]['structurereferente_id'],
+					'referents' => $options[$this->modelClass]['referent_id']
+				)
+			);
+
+			$this->render( '/Apres/add_edit_'.Configure::read( 'nom_form_apre_cg' ) );
 		}
 
 		/**
@@ -945,7 +906,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'apre_%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer l\'impression de l\'APRE.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer l\'impression de l\'APRE.' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -965,7 +926,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'Notification_APRE_%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer la notification d\'APRE.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer la notification d\'APRE.' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -995,7 +956,7 @@
 			$this->assert( !empty( $apre ), 'error404' );
 
 			if( !isset( $apre['Referent']['email'] ) || empty( $apre['Referent']['email'] ) ) {
-				$this->Session->setFlash( "Mail non envoyé: adresse mail du référent ({$apre['Referent']['nom']} {$apre['Referent']['prenom']}) non renseignée.", 'flash/error' );
+				$this->Flash->error( "Mail non envoyé: adresse mail du référent ({$apre['Referent']['nom']} {$apre['Referent']['prenom']}) non renseignée." );
 				$this->redirect( $this->referer() );
 			}
 
@@ -1023,10 +984,10 @@
 			}
 
 			if( $success ) {
-				$this->Session->setFlash( 'Mail envoyé', 'flash/success' );
+				$this->Flash->success( 'Mail envoyé' );
 			}
 			else {
-				$this->Session->setFlash( 'Mail non envoyé', 'flash/error' );
+				$this->Flash->error( 'Mail non envoyé' );
 			}
 
 			$this->redirect( $this->referer() );
@@ -1070,7 +1031,7 @@
 			if( !empty( $this->request->data ) ) {
 				$this->{$this->modelClass}->begin();
 
-				$saved = $this->{$this->modelClass}->save( $this->request->data );
+				$saved = $this->{$this->modelClass}->save( $this->request->data , array( 'atomic' => false ) );
 
                 $saved = $this->Aideapre66->updateAllUnBound(
 					array(
@@ -1095,12 +1056,12 @@
 				if( $saved ) {
 					$this->{$this->modelClass}->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'action' => 'index', $personne_id ) );
 				}
 				else {
 					$this->{$this->modelClass}->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement.', 'flash/erreur' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			else {
@@ -1108,7 +1069,7 @@
 			}
 			$this->set( 'urlmenu', '/apres66/index/'.$personne_id );
 
-            $this->render( (CAKE_BRANCH == '1.2' ? '/apres/' : '/Apres/') .'cancel' );
+            $this->render( '/Apres/cancel' );
 		}
 
 		/**
@@ -1262,7 +1223,7 @@
 
 		/**
 		 * Fait la distinction entre les options pour les APREs et celles des ADREs
-		 * 
+		 *
 		 * @return array
 		 */
 		protected function _typeaideOptions() {
@@ -1279,7 +1240,7 @@
 					'order' => 'Typeaideapre66.name ASC',
 				)
 			);
-			
+
 			$options = array(
 				'ADRE' => array(),
 				'APRE' => array(),

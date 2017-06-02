@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Motifcernonvalid66.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Motifcernonvalid66 ...
@@ -17,12 +18,10 @@
 	{
 		public $name = 'Motifcernonvalid66';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $hasAndBelongsToMany = array(
@@ -43,9 +42,9 @@
 				'with' => 'Motifcernonvalid66Propodecisioncer66'
 			)
 		);
-		
+
 		/**
-		 * Retourne une sous-requête permettant d'obtenir la liste des motifs 
+		 * Retourne une sous-requête permettant d'obtenir la liste des motifs
          * de non validation de propositions de décisions d'un CER du 66.
          * Les éléments de la liste sont triés et préfixés par une
 		 * chaîne de caractères.

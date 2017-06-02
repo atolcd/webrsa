@@ -7,7 +7,7 @@
 ?>
 <h1><?php echo $this->pageTitle;?></h1>
 
-<?php  echo $this->Form->create( 'Cui',array() ); ?>
+<?php  echo $this->Form->create( 'Cui',array( 'novalidate' => true ) ); ?>
 	<fieldset>
 		<?php echo $this->Xform->input( 'Cui.id', array( 'type' => 'hidden'/*, 'value' => $personne_id*/ ) );?>
 		<?php echo $this->Xform->input( 'Cui.personne_id', array( 'type' => 'hidden', 'value' => $personne_id ) );?>

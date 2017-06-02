@@ -195,8 +195,11 @@
 			$query = $this->searchQuery();
 			$success = false === empty( $query ) && $success;
 
-			$query = $this->listeParCodeInsee();
-			$success = false === empty( $query ) && $success;
+			try {
+				$this->listeParCodeInsee();
+			} catch( Exception $e ) {
+				$result = false;
+			}
 
 			return $success;
 		}

@@ -15,7 +15,7 @@
 		<p class="error"><?php echo $error; ?></p>
 	<?php endif; ?>
 
-	<?php echo $this->Form->create( 'User', array( 'action' => 'login' ) ); ?>
+	<?php echo $this->Form->create( 'User', array( 'url' => array( 'action' => 'login' ), 'novalidate' => true ) ); ?>
 		<?php echo $this->Form->input( 'username', array( 'label' => 'Identifiant' ) ); ?>
 		<?php echo $this->Form->input( 'password', array( 'label' => 'Mot de passe' ) ); ?>
 		<?php echo $this->Form->submit( 'Connexion' ); ?>

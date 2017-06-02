@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe ApreComiteapre ...
@@ -17,14 +18,14 @@
 	{
 		public $name = 'ApreComiteapre';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
-			'Enumerable' => array(
-				'fields' => array(
-					'decisioncomite' => array( 'type' => 'decisioncomite', 'domain' => 'apre' ),
-					'recoursapre' => array( 'type' => 'recoursapre', 'domain' => 'apre' ),
-				)
-			),
-			'Frenchfloat' => array( 'fields' => array( 'montantattribue' ) ),
 			'ModelesodtConditionnables' => array(
 				93 => array(
 					'APRE/DecisionComite/Accord/AccordFormationbeneficiaire.odt',
@@ -36,24 +37,19 @@
 					'APRE/DecisionComite/Refus/Refusbeneficiaire.odt',
 					'APRE/DecisionComite/Refus/Refusreferent.odt',
 				)
-			)
+			),
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $validate = array(
 			'decisioncomite' => array(
-				array(
-					'rule'      => array( 'inList', array( 'AJ', 'ACC', 'REF' ) ),
-					'message'   => 'Veuillez choisir une valeur.',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'allowEmpty' => false
 				)
-			),
-			'montantattribue' => array(
-				array(
-					'rule' => 'numeric',
-					'message' => 'Veuillez entrer une valeur numérique.',
-					'allowEmpty' => false
-				)
-			),
+			)
 		);
 
 		public $belongsTo = array(
@@ -302,11 +298,6 @@
 			$options['Personne'] = array( 'qual' => $Option->qual() );
 			$options['Referent']['qual'] = $options['Personne']['qual'];
 			$options['Dataperssuivi']['qualsuivi'] = $options['Personne']['qual'];
-
-			$typevoie = $Option->typevoie();
-			$options['type']['voie'] = $typevoie;
-			$options['Structurereferente']['type_voie'] = $typevoie;
-			$options['Tiersprestataireapre']['typevoie'] = $typevoie;
 
 			return $this->Apre->ged( $apre, $modeleodt, false, $options );
 		}

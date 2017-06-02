@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Traitementpdo.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Traitementpdo ...
@@ -17,181 +18,159 @@
 	{
 		public $name = 'Traitementpdo';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $actsAs = array(
-			'Enumerable' => array(
-				'fields' => array(
-					'hascourrier',
-					'hasrevenu',
-					'haspiecejointe',
-					'hasficheanalyse',
-					'regime',
-					'aidesubvreint',
-					'dureedepart',
-					'dureefinperiode'
-				)
-			),
-			'Autovalidate2',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 			'Gedooo.Gedooo'
 		);
 
 		public $validate = array(
-			'propopdo_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-				),
-			),
-			'descriptionpdo_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-				),
-			),
-			'traitementtypepdo_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric'),
-				),
-			),
-			'datereception' => array(
-				'date' => array(
-					'rule' => 'date',
-					'required' => false,
-					'allowEmpty' => false,
-					'message' => 'Merci de rentrer une date valide'
-				)
-			),
-			'datedepart' => array(
-				'date' => array(
-					'rule' => 'date',
-					'required' => false,
-					'allowEmpty' => false,
-					'message' => 'Merci de rentrer une date valide'
-				)
-			),
-			'daterevision' => array(
-				'date' => array(
-					'rule' => 'date',
-					'required' => false,
-					'allowEmpty' => false,
-					'message' => 'Merci de rentrer une date valide'
-				)
-			),
-			'dateecheance' => array(
-				'date' => array(
-					'rule' => 'date',
-					'required' => false,
-					'allowEmpty' => false,
-					'message' => 'Merci de rentrer une date valide'
-				)
-			),
-			'regime' => array(
-				array(
-					'rule' => 'notEmpty',
-					'required' => false,
-					'allowEmpty' => false,
-					'message' => 'Champ obligatoire'
-				)
-			),
-			'dtdebutactivite' => array(
-				'date' => array(
-					'rule' => 'date',
-					'required' => false,
-					'allowEmpty' => false,
-					'message' => 'Merci de rentrer une date valide'
-				)
-			),
-			'nrmrcs' => array(
-				array(
-					'rule' => 'alphaNumeric',
-					'required' => false,
-					'allowEmpty' => false
-				)
-			),
-			'raisonsocial' => array(
-				array(
-					'rule' => 'notEmpty',
-					'required' => false,
-					'allowEmpty' => false,
-					'message' => 'Champ obligatoire'
-				)
-			),
-			'dtdebutperiode' => array(
-				'date' => array(
-					'rule' => 'date',
-					'required' => false,
-					'allowEmpty' => false,
-					'message' => 'Merci de rentrer une date valide'
-				)
-			),
-			'datefinperiode' => array(
-				'date' => array(
-					'rule' => 'date',
-					'required' => false,
-					'allowEmpty' => false,
-					'message' => 'Merci de rentrer une date valide'
-				)
-			),
-			'dtprisecompte' => array(
-				'date' => array(
-					'rule' => 'date',
-					'required' => false,
-					'allowEmpty' => false,
-					'message' => 'Merci de rentrer une date valide'
-				)
-			),
-			'dtecheance' => array(
-				'date' => array(
-					'rule' => 'date',
-					'required' => false,
-					'allowEmpty' => false,
-					'message' => 'Merci de rentrer une date valide'
-				)
-			),
-			'chaffvnt' => array(
-				array(
-					'rule' => 'numeric',
-					'required' => false,
-					'allowEmpty' => false
-				)
-			),
-			'chaffsrv' => array(
-				array(
-					'rule' => 'numeric',
-					'required' => false,
-					'allowEmpty' => false
-				)
-			),
-			'benefoudef' => array(
-				array(
-					'rule' => 'numeric',
-					'required' => false,
-					'allowEmpty' => false
-				)
-			),
 			'amortissements' => array(
-				array(
-					'rule' => 'numeric',
-					'required' => false,
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
 					'allowEmpty' => false
 				)
 			),
 			'autrecorrection' => array(
-				array(
-					'rule' => 'numeric',
-					'required' => false,
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
 					'allowEmpty' => false
 				)
 			),
-			'dureeecheance' => array(
-				array(
-					'rule' => 'notEmpty',
-					'required' => false,
+			'benefoudef' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
+					'allowEmpty' => false
+				)
+			),
+			'chaffsrv' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
+					'allowEmpty' => false
+				)
+			),
+			'chaffvnt' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
+					'allowEmpty' => false
+				)
+			),
+			'datedepart' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
+					'allowEmpty' => false
+				)
+			),
+			'dateecheance' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
+					'allowEmpty' => false
+				)
+			),
+			'datefinperiode' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
+					'allowEmpty' => false
+				)
+			),
+			'datereception' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
+					'allowEmpty' => false
+				)
+			),
+			'daterevision' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
+					'allowEmpty' => false
+				)
+			),
+			'dtdebutactivite' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
+					'allowEmpty' => false
+				)
+			),
+			'dtdebutperiode' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
+					'allowEmpty' => false
+				)
+			),
+			'dtecheance' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
+					'allowEmpty' => false
+				)
+			),
+			'dtprisecompte' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
 					'allowEmpty' => false
 				)
 			),
 			'dureedepart' => array(
-				array(
-					'rule' => 'notEmpty',
-					'required' => false,
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
 					'allowEmpty' => false
+				)
+			),
+			'dureeecheance' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
+					'allowEmpty' => false
+				)
+			),
+			'nrmrcs' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
+					'allowEmpty' => false
+				),
+				'alphaNumeric' => array(
+					'rule' => array( 'alphaNumeric' ),
+					'required' => false,
+					'allowEmpty' => true
+				)
+			),
+			'raisonsocial' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => false,
+					'allowEmpty' => false,
+					'message' => 'Champ obligatoire'
+				)
+			),
+			'regime' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => false,
+					'allowEmpty' => false,
+					'message' => 'Champ obligatoire'
 				)
 			)
 		);
@@ -334,7 +313,7 @@
 				foreach( $dataCourrierIds as $dataCourrierId ){
 					$dataCourrierpdoTraitementpdo = array( 'CourrierpdoTraitementpdo' => array( 'courrierpdo_id' => $dataCourrierId, 'traitementpdo_id' => $traitementpdo_id ) );
 					$this->CourrierpdoTraitementpdo->create( $dataCourrierpdoTraitementpdo );
-					$success = $this->CourrierpdoTraitementpdo->save() && $success;
+					$success = $this->CourrierpdoTraitementpdo->save( null, array( 'atomic' => false ) ) && $success;
 
 					if( $success ){
 						foreach( array_keys( $dataContenutextareacourrierpdo ) as $key ) {
@@ -371,7 +350,7 @@
 				);
 
 				$this->Saisinepdoep66->Dossierep->create( $dataDossierEp );
-				$success = $this->Saisinepdoep66->Dossierep->save() && $success;
+				$success = $this->Saisinepdoep66->Dossierep->save( null, array( 'atomic' => false ) ) && $success;
 
 				$dataSaisineepdpdo66 = array(
 					'Saisinepdoep66' => array(
@@ -380,7 +359,7 @@
 					)
 				);
 				$this->Saisinepdoep66->create( $dataSaisineepdpdo66 );
-				$success = $this->Saisinepdoep66->save() && $success;
+				$success = $this->Saisinepdoep66->save( null, array( 'atomic' => false ) ) && $success;
 			}
 
 			return $success;

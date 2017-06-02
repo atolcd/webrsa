@@ -1,22 +1,20 @@
 <?php
-    echo $this->Xhtml->tag(
-        'h1',
-        $this->pageTitle = __d( 'progfichecandidature66', "Progsfichescandidatures66::{$this->action}" )
-    );
-?>
-<?php
-    echo $this->Default2->index(
-        $progsfichescandidatures66,
-        array(
-            'Progfichecandidature66.name',
-            'Progfichecandidature66.isactif' => array( 'type' => 'boolean' )
-        ),
-        array(
-            'actions' => array(
-                'Progsfichescandidatures66::edit',
-                'Progsfichescandidatures66::delete' => array( 'disabled' => '\'#Progfichecandidature66.occurences#\' != "0"' )
-            ),
-            'add' => 'Progsfichescandidatures66::add'
-        )
-    );
+	echo $this->element(
+		'WebrsaParametrages/index',
+		array(
+			'cells' => array(
+				'Progfichecandidature66.name',
+				'Progfichecandidature66.isactif' => array( 'type' => 'boolean' ),
+				'/Progsfichescandidatures66/edit/#Progfichecandidature66.id#' => array(
+					'title' => true
+				),
+				'/Progsfichescandidatures66/delete/#Progfichecandidature66.id#' => array(
+					'title' => true,
+					'confirm' => true,
+					'disabled' => 'true == "#Progfichecandidature66.has_linkedrecords#"'
+				)
+			),
+			'backUrl' => '/Parametrages/index/#actionscandidats'
+		)
+	);
 ?>

@@ -223,8 +223,8 @@
 			 */
 			ClassRegistry::init('Orientstruct')->validate = array(
 				'date_propo' => array(
-					'notEmpty' => array(
-						'rule' => 'notEmpty',
+					NOT_BLANK_RULE_NAME => array(
+						'rule' => NOT_BLANK_RULE_NAME,
 						'message' => 'Test de validation'
 					)
 				)

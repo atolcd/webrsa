@@ -18,19 +18,11 @@
 	{
 		public $name = 'Decisioncontratcomplexeep93';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Enumerable' => array(
-				'fields' => array(
-					'etape',
-					'decision',
-					'decisionpcg'
-				)
-			),
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesComparison',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		/**
@@ -61,8 +53,8 @@
 
 		public $validateFinalisation = array(
 			'decision' => array(
-				array(
-					'rule' => array( 'notEmpty' )
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
 				)
 			),
 			'datevalidation_ci' => array(
@@ -70,12 +62,12 @@
 					'rule' => array( 'notEmptyIf', 'decision', true, array( 'valide' ) ),
 					'message' => 'Champ obligatoire',
 				),
-				'notEmpty' => array(
-					'rule' => 'date',
+				'date' => array(
+					'rule' => array( 'date' ),
 					'message' => 'Veuillez entrer une date valide',
-					'allowEmpty'    => true
+					'allowEmpty' => true
 				)
-			),
+			)
 		);
 	}
 ?>

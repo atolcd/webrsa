@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Personnepcg66 ...
@@ -17,13 +18,11 @@
 	{
 		public $name = 'Personnepcg66';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
 			'Allocatairelie',
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable' => array( 'suffix' => array( 'categoriedetail' ) )
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $virtualFields = array(
@@ -226,7 +225,7 @@
 						else {
 							$date = '';
 						}
-						
+
 						$echeance = Hash::get($traitementpcg66, 'Traitementpcg66.dateecheance');
 						$echeance = $echeance ? ' au '.date_short($echeance) : '';
 

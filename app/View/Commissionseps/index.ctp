@@ -79,7 +79,7 @@
 	});
 </script>
 
-<?php echo $this->Xform->create( 'Commissionep', array( 'type' => 'post', 'action' => $this->action, 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ) ) );?>
+<?php echo $this->Xform->create( 'Commissionep', array( 'type' => 'post', 'url' => array( 'action' => $this->action ), 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );?>
 
 	<fieldset>
 			<?php echo $this->Xform->input( 'Commissionep.recherche', array( 'label' => false, 'type' => 'hidden', 'value' => true ) );?>

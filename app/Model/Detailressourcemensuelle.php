@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Detailressourcemensuelle.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Detailressourcemensuelle ...
@@ -17,39 +18,43 @@
 	{
 		public $name = 'Detailressourcemensuelle';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
+		/**
+		 * Behaviors utilisés par ce modèle.
+		 *
+		 * @var array
+		 */
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate',
+		);
+
 		public $validate = array(
-			'ressourcemensuelle_id' => array(
-				'numeric' => array(
-					'rule' => array('numeric')
-				),
-			),
-			'dfpercress' => array (
-				'rule' => 'date',
-				'message' => 'Veuillez entrer une date valide'
-			),
 			// Montant de la ressource selon la nature
 			'mtnatressmen' => array(
-				array(
-					'rule'          => array( 'comparison', '<=', 33333332 ),
-					'message'       => 'Veuillez entrer un montant compris entre 0 et 33 333 332',
-					'allowEmpty'    => true
+				'comparison_lt' => array(
+					'rule' => array( 'comparison', '<=', 33333332 ),
+					'message' => 'Veuillez entrer un montant compris entre 0 et 33 333 332',
+					'allowEmpty' => true
 				),
-				array(
-					'rule'          => array( 'comparison', '>=', 0 ),
-					'message'       => 'Veuillez entrer un montant compris entre 0 et 33 333 332',
-					'allowEmpty'    => true
+				'comparison_ge' => array(
+					'rule' => array( 'comparison', '>=', 0 ),
+					'message' => 'Veuillez entrer un montant compris entre 0 et 33 333 332',
+					'allowEmpty' => true
 				),
-				array(
-					'rule'      => array( 'between', 0, 11 ),
-					'message'   => 'Veuillez entrer au maximum 11 caractères',
-					'allowEmpty'    => true
-				),
-				array(
-					'rule'      => 'numeric',
-					'message'   => 'Veuillez entrer un nombre valide',
-					'allowEmpty'    => true
+				'between' => array(
+					'rule' => array( 'between', 0, 11 ),
+					'message' => 'Veuillez entrer au maximum 11 caractères',
+					'allowEmpty' => true
 				)
-			),
+			)
 		);
 
 		/**
@@ -57,7 +62,7 @@
 		 * règle de validation inList ou en contrainte dans la base de données en
 		 * raison des valeurs actuellement en base, mais pour lequels un ensemble
 		 * fini de valeurs existe.
-		 * 
+		 *
 		 * @see AppModel::enums
 		 *
 		 * @var array

@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * Classe Expprocer93.
@@ -23,22 +24,15 @@
 		public $name = 'Expprocer93';
 
 		/**
-		 * Récursivité.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
-
-		/**
 		 * Behaviors utilisés.
 		 *
 		 * @var array
 		 */
 		public $actsAs = array(
-			'Formattable' => array(
-				'amount' => array( 'nbduree' )
-			),
-			'Pgsqlcake.PgsqlAutovalidate',
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate',
 		);
 
 		/**
@@ -107,8 +101,8 @@
 				)
 			),
 			'naturecontrat_id' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' ),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
 			)

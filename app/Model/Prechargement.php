@@ -7,9 +7,10 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses( 'Folder', 'Utility' );
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'CakeEvent', 'Event' );
 	App::uses( 'File', 'Utility' );
-	App::uses('CakeEvent', 'Event');
+	App::uses( 'Folder', 'Utility' );
 
 	/**
 	 * La classe Prechargement se charge du préchargement du cache de l'application
@@ -108,7 +109,7 @@
 		 * @return array
 		 */
 		public function preloadModel( $modelName ) {
-			App::import( 'Model', $modelName );
+			App::uses( $modelName, 'Model' );
 			$availableDbConfigs = array_keys( ConnectionManager::enumConnectionObjects() );
 
 			$Reflection = new ReflectionClass( $modelName );

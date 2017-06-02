@@ -8,6 +8,7 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'AbstractElementCataloguefp93', 'Model/Abstractclass' );
+	App::uses( 'FrValidation', 'Validation' );
 
 	/**
 	 * La classe Adresseprestatairefp93 ...
@@ -22,13 +23,6 @@
 		 * @var string
 		 */
 		public $name = 'Adresseprestatairefp93';
-
-		/**
-		 * Récursivité par défaut du modèle.
-		 *
-		 * @var integer
-		 */
-		public $recursive = -1;
 
 		public $displayField = 'name';
 
@@ -53,11 +47,13 @@
 		 */
 		public $actsAs = array(
 			'Cataloguepdifp93',
-			'Formattable' => array(
-				'phone' => array( 'tel', 'fax' )
-			),
 			'Postgres.PostgresAutovalidate',
-			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2Formattable' => array(
+				'Validation2.Validation2DefaultFormatter' => array(
+					'stripNotAlnum' => '/^(tel|fax)$/'
+				)
+			)
 		);
 
 		/**
@@ -67,15 +63,15 @@
 		 */
 		public $validate = array(
 			'tel' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
 				)
 			),
 			'fax' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
 				)
 			),
 			'email' => array(

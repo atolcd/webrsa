@@ -7,8 +7,8 @@
 
 	$searchFormId = 'StructurereferenteIndexForm';
 	$actions =  array(
-		'/Structuresreferentes/add' => array(
-		),
+		'/Parametrages/index' => array( 'class' => 'back' ),
+		'/Structuresreferentes/add' => array(),
 		'/Structuresreferentes/index/#toggleform' => array(
 			'title' => 'Visibilité formulaire',
 			'text' => 'Formulaire',
@@ -18,7 +18,7 @@
 	);
 	echo $this->Default3->actions( $actions );
 
-	echo $this->Form->create( null, array( 'type' => 'post', 'url' => array( 'controller' => $this->request->params['controller'], 'action' => $this->request->action ), 'id' => $searchFormId ) );
+	echo $this->Form->create( null, array( 'type' => 'post', 'url' => array( 'controller' => $this->request->params['controller'], 'action' => $this->request->action ), 'id' => $searchFormId, 'novalidate' => true ) );
 
 	$departement = (int)Configure::read( 'Cg.departement' );
 
@@ -133,11 +133,5 @@
 		);
 	}
 
-	echo $this->Default->button(
-		'back',
-		array(
-			'controller' => 'parametrages',
-			'action'     => 'index'
-		)
-	);
+	echo $this->Default3->actions( array( '/Parametrages/index' => array( 'class' => 'back' ) ) );
 ?>

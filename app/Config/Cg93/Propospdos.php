@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par PDOs" > "Nouvelles PDOs (nouveau)"
+	 * Menu "Recherches" > "Par PDOs" > "Nouvelles PDOs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Propospdos.search_possibles',
@@ -79,7 +79,7 @@
 	);
 
 	/**
-	 * Export CSV, menu "Recherches" > "Par PDOs" > "Nouvelles PDOs (nouveau)"
+	 * Export CSV, menu "Recherches" > "Par PDOs" > "Nouvelles PDOs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Propospdos.exportcsv_possibles',
@@ -112,7 +112,7 @@
 	);
 
 	/**
-	 * Menu "Recherches" > "Par PDOs" > "Liste des PDOs (nouveau)"
+	 * Menu "Recherches" > "Par PDOs" > "Liste des PDOs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Propospdos.search',
@@ -190,7 +190,7 @@
 	);
 
 	/**
-	 * Export CSV, menu "Recherches" > "Par PDOs" > "Liste des PDOs (nouveau)"
+	 * Export CSV, menu "Recherches" > "Par PDOs" > "Liste des PDOs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Propospdos.exportcsv',
@@ -226,7 +226,7 @@
 	);
 
 	/**
-	 * Menu "Cohortes" > "PDOs" > "Nouvelles demandes (nouveau)"
+	 * Menu "Cohortes" > "PDOs" > "Nouvelles demandes"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Propospdos.cohorte_nouvelles',
@@ -308,7 +308,7 @@
 	);
 
 	/**
-	 * Menu "Cohortes" > "PDOs" > "Liste PDOs (nouveau)"
+	 * Menu "Cohortes" > "PDOs" > "Liste PDOs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Propospdos.cohorte_validees',
@@ -384,7 +384,7 @@
 	);
 
 	/**
-	 * Export CSV, menu "Cohortes" > "PDOs" > "Liste PDOs (nouveau)"
+	 * Export CSV, menu "Cohortes" > "PDOs" > "Liste PDOs"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Propospdos.exportcsv_validees',

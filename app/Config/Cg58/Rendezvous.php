@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par rendez-vous (nouveau)"
+	 * Menu "Recherches" > "Par rendez-vous"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Rendezvous.search',
@@ -80,7 +80,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par rendez-vous (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par rendez-vous"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Rendezvous.exportcsv',

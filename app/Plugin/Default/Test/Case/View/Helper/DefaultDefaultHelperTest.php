@@ -89,6 +89,11 @@
 
 			$this->_setRequest( DefaultTableHelperTest::$requestsParams['page_2_of_7'] );
 
+			$this->DefaultDefault->DefaultHtml->Permissions = $this->getMock(
+				'PermissionsHelper',
+				array( 'check' )
+			);
+
 			Configure::write('ConfigurableQuery.common.two_ways_order.enabled', false);
 		}
 
@@ -110,6 +115,8 @@
 		 */
 		public function testActions() {
 			$_SESSION['Auth']['Permissions']['Module:Users'] = true;
+
+			$this->DefaultDefault->DefaultHtml->Permissions->expects($this->any())->method('check')->will($this->returnValue(true));
 
 			$result = $this->DefaultDefault->actions( array() );
 			$expected = null;
@@ -166,9 +173,9 @@
 			$expected = '<div class="pagination">
 							<p class="counter">'.$expectedCounter.'</p>
 							<p class="numbers">
-								<span><a href="'.$this->base.'apples/index/page:1" rel="first">'.h( __( '<< first' ) ).'</a></span>
+								<span><a href="'.$this->base.'apples" rel="first">'.h( __( '<< first' ) ).'</a></span>
 								<span class="prev">'.h( __( '< prev' ) ).'</span>
-								<span><a href="'.$this->base.'apples/index/page:1">1</a></span> | <span class="current">2</span> | <span><a href="'.$this->base.'apples/index/page:3">3</a></span> | <span><a href="'.$this->base.'apples/index/page:4">4</a></span> | <span><a href="'.$this->base.'apples/index/page:5">5</a></span> | <span><a href="'.$this->base.'apples/index/page:6">6</a></span> | <span><a href="'.$this->base.'apples/index/page:7">7</a></span>
+								<span><a href="'.$this->base.'apples">1</a></span> | <span class="current">2</span> | <span><a href="'.$this->base.'apples/index/page:3">3</a></span> | <span><a href="'.$this->base.'apples/index/page:4">4</a></span> | <span><a href="'.$this->base.'apples/index/page:5">5</a></span> | <span><a href="'.$this->base.'apples/index/page:6">6</a></span> | <span><a href="'.$this->base.'apples/index/page:7">7</a></span>
 								<span class="next"><a href="'.$this->base.'apples/index/page:3" rel="next">'.h( __( 'next >' ) ).'</a></span>
 								<span><a href="'.$this->base.'apples/index/page:7" rel="last">'.h( __( 'last >>' ) ).'</a></span>
 							</p>
@@ -176,7 +183,7 @@
 						<table id="TableApplesIndex" class="apples index">
 							<thead>
 								<tr>
-									<th id="TableApplesIndexColumnAppleId"><a href="'.$this->base.'apples/index/page:1/sort:Apple.id/direction:asc">Apple.id</a></th>
+									<th id="TableApplesIndexColumnAppleId"><a href="'.$this->base.'apples/index/sort:Apple.id/direction:asc">Apple.id</a></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -188,9 +195,9 @@
 						<div class="pagination">
 							<p class="counter">'.$expectedCounter.'</p>
 							<p class="numbers">
-								<span><a href="'.$this->base.'apples/index/page:1" rel="first">'.h( __( '<< first' ) ).'</a></span>
+								<span><a href="'.$this->base.'apples" rel="first">'.h( __( '<< first' ) ).'</a></span>
 								<span class="prev">'.h( __( '< prev' ) ).'</span>
-								<span><a href="'.$this->base.'apples/index/page:1">1</a></span> | <span class="current">2</span> | <span><a href="'.$this->base.'apples/index/page:3">3</a></span> | <span><a href="'.$this->base.'apples/index/page:4">4</a></span> | <span><a href="'.$this->base.'apples/index/page:5">5</a></span> | <span><a href="'.$this->base.'apples/index/page:6">6</a></span> | <span><a href="'.$this->base.'apples/index/page:7">7</a></span>
+								<span><a href="'.$this->base.'apples">1</a></span> | <span class="current">2</span> | <span><a href="'.$this->base.'apples/index/page:3">3</a></span> | <span><a href="'.$this->base.'apples/index/page:4">4</a></span> | <span><a href="'.$this->base.'apples/index/page:5">5</a></span> | <span><a href="'.$this->base.'apples/index/page:6">6</a></span> | <span><a href="'.$this->base.'apples/index/page:7">7</a></span>
 								<span class="next"><a href="'.$this->base.'apples/index/page:3" rel="next">'.h( __( 'next >' ) ).'</a></span>
 								<span><a href="'.$this->base.'apples/index/page:7" rel="last">'.h( __( 'last >>' ) ).'</a></span>
 							</p>
@@ -223,7 +230,7 @@
 							<thead>
 								<tr>
 									<th id="TableApplesIndexColumnAppleId">
-										<a href="'.$this->base.'apples/index/page:1/sort:Apple.id/direction:asc">Apple.id</a>
+										<a href="'.$this->base.'apples/index/sort:Apple.id/direction:asc">Apple.id</a>
 									</th>
 								</tr>
 							</thead>
@@ -255,7 +262,7 @@
 							<thead>
 								<tr>
 									<th id="TableApplesIndexColumnAppleId">
-										<a href="'.$this->base.'apples/index/page:1/sort:Apple.id/direction:asc">Apple.id</a>
+										<a href="'.$this->base.'apples/index/sort:Apple.id/direction:asc">Apple.id</a>
 									</th>
 								</tr>
 							</thead>
@@ -284,9 +291,9 @@
 			$expected = '<div class="pagination">
 							<p class="counter">'.$expectedCounter.'</p>
 							<p class="numbers">
-								<span><a href="'.$this->base.'apples/index/page:1" rel="first">'.h( __( '<< first' ) ).'</a></span>
-								<span class="prev"><a href="'.$this->base.'apples/index/page:1" rel="prev">'.h( __( '< prev' ) ).'</a></span>
-								<span><a href="'.$this->base.'apples/index/page:1">1</a></span> | <span class="current">2</span>
+								<span><a href="'.$this->base.'apples" rel="first">'.h( __( '<< first' ) ).'</a></span>
+								<span class="prev"><a href="'.$this->base.'apples" rel="prev">'.h( __( '< prev' ) ).'</a></span>
+								<span><a href="'.$this->base.'apples">1</a></span> | <span class="current">2</span>
 								<span class="next">'.h( __( 'next >' ) ).'</span>
 								<span class="last">'.h( __( 'last >>' ) ).'</span>
 							</p>
@@ -306,9 +313,9 @@
 						<div class="pagination">
 							<p class="counter">'.$expectedCounter.'</p>
 							<p class="numbers">
-								<span><a href="'.$this->base.'apples/index/page:1" rel="first">'.h( __( '<< first' ) ).'</a></span>
-								<span class="prev"><a href="'.$this->base.'apples/index/page:1" rel="prev">'.h( __( '< prev' ) ).'</a></span>
-								<span><a href="'.$this->base.'apples/index/page:1">1</a></span> | <span class="current">2</span>
+								<span><a href="'.$this->base.'apples" rel="first">'.h( __( '<< first' ) ).'</a></span>
+								<span class="prev"><a href="'.$this->base.'apples" rel="prev">'.h( __( '< prev' ) ).'</a></span>
+								<span><a href="'.$this->base.'apples">1</a></span> | <span class="current">2</span>
 								<span class="next">'.h( __( 'next >' ) ).'</span>
 								<span class="last">'.h( __( 'last >>' ) ).'</span>
 							</p>

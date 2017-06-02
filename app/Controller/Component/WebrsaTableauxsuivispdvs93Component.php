@@ -7,6 +7,8 @@
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
+
 	/**
 	 * La classe WebrsaTableauxsuivispdvs93Component ...
 	 *

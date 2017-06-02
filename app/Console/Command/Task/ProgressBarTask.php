@@ -9,6 +9,8 @@
 	 * @license     MIT
 	 *
 	 */
+	App::uses( 'Shell', 'Console' );
+
 	/**
 	 * ProgressBarTask class
 	 *
@@ -238,7 +240,7 @@
 		protected function _setTerminalWidth( $width = null ) {
 			if( $width === null ) {
 				if( DS === '/' ) {
-					$width = `tput cols`;
+					$width = trim( exec( 'tput cols' ) );
 				}
 				if( $width < 80 ) {
 					$width = 80;

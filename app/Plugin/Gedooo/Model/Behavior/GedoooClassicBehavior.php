@@ -7,16 +7,28 @@
 	 * @package Gedooo
 	 * @subpackage Model.Behavior
 	 */
+
 	// Inclusion des fichiers nécessaires à GEDOOo
-	require_once( PHPGEDOOO_DIR.'GDO_Utility.class' );
-	require_once( PHPGEDOOO_DIR.'GDO_FieldType.class' );
-	require_once( PHPGEDOOO_DIR.'GDO_ContentType.class' );
-	require_once( PHPGEDOOO_DIR.'GDO_IterationType.class' );
-	require_once( PHPGEDOOO_DIR.'GDO_PartType.class' );
-	require_once( PHPGEDOOO_DIR.'GDO_FusionType.class' );
-	require_once( PHPGEDOOO_DIR.'GDO_MatrixType.class' );
-	require_once( PHPGEDOOO_DIR.'GDO_MatrixRowType.class' );
-	require_once( PHPGEDOOO_DIR.'GDO_AxisTitleType.class' );
+	$method = Configure::read( 'Gedooo.method' );
+	if( 'classic' !== $method && false === strpos( $method, '_ancien' ) ) {
+		$ext = 'php';
+	}
+	else {
+		$ext = 'class';
+	}
+
+	require_once PHPGEDOOO_DIR.'GDO_Utility.'.$ext;
+	require_once PHPGEDOOO_DIR.'GDO_FieldType.'.$ext;
+	require_once PHPGEDOOO_DIR.'GDO_ContentType.'.$ext;
+	require_once PHPGEDOOO_DIR.'GDO_IterationType.'.$ext;
+	require_once PHPGEDOOO_DIR.'GDO_PartType.'.$ext;
+	require_once PHPGEDOOO_DIR.'GDO_FusionType.'.$ext;
+	require_once PHPGEDOOO_DIR.'GDO_MatrixType.'.$ext;
+	require_once PHPGEDOOO_DIR.'GDO_MatrixRowType.'.$ext;
+	require_once PHPGEDOOO_DIR.'GDO_AxisTitleType.'.$ext;
+
+	App::uses( 'ModelBehavior', 'Model' );
+	App::uses( 'GedoooOdtReader', 'Gedooo.Utility' );
 
 	/**
 	 * La classe GedoooClassicBehavior permet de générer un fichier PDF avec
@@ -29,6 +41,30 @@
 	 */
 	class GedoooClassicBehavior extends ModelBehavior
 	{
+		/**
+		 * Faut-il remplacer les \n par des \r\n dans les variables de type text
+		 * ou string envoyées à la fusion ?
+		 *
+		 * @var boolean
+		 */
+		protected $_forceNewlines = null;
+
+		/**
+		 * Retourne vrai s'il faut remplacer les \n par des \r\n dans les variables
+		 * de type text ou string envoyées à la fusion.
+		 *
+		 * @see la configuration de Gedooo.dont_force_newlines
+		 *
+		 * @return boolean
+		 */
+		public function forceNewlines() {
+			if( null === $this->_forceNewlines ) {
+				$this->_forceNewlines = false === (bool)Configure::read( 'Gedooo.dont_force_newlines' );
+			}
+
+			return $this->_forceNewlines;
+		}
+
 		/**
 		 * INFO: GDO_FieldType: text, string, number, date
 		 */
@@ -52,6 +88,10 @@
 				if( isset( $options[$matches[1]][$matches[3]][$value] ) ) {
 					$value = $options[$matches[1]][$matches[3]][$value];
 				}
+			}
+
+			if( ( 'text' === $type || 'string' === $type ) && $this->forceNewlines() ) {
+				$value = str_replace( "\n", "\r\n", str_replace( "\r\n", "\n", $value ) );
 			}
 
 			$oPart->addElement( new GDO_FieldType( strtolower( $key ), $value, $type ) );
@@ -93,9 +133,17 @@
 				return false;
 			}
 
+			// Doit-on filtrer les champs envoyés à la fusion, et si oui, lesquels sont-il nécessaires ?
+			$filterVars = (bool)Configure::read( 'Gedooo.filter_vars' );
+			$expectedKeys = array();
+			if(true === $filterVars) {
+				$expectedKeys = array_unique( GedoooOdtReader::getUserDeclaredFields( $path_model ) );
+			}
+
 			if( !empty( $mainData ) ) {
 				foreach( Hash::flatten( $mainData, '_' ) as $key => $value ) {
-					if( !( is_array( $value ) && empty( $value ) ) ) {
+					$requiredField = false === $filterVars || in_array( strtolower( $key ), $expectedKeys );
+					if( $requiredField && !( is_array( $value ) && empty( $value ) ) ) {
 						$oMainPart = $this->_addPartValue( $oMainPart, $key, $value, $options );
 					}
 				}
@@ -104,18 +152,6 @@
 			// Ajout d'une variable contenant le chemin vers le fichier et vérification
 			// que le modèle connaisse bien le fichier odt lorsqu'on est en debug
 			if( Configure::read( 'debug' ) > 0 ) {
-				// Attention, c'est le modèle qui doit avoir le comportement Gedooo -> FIXME
-				/* $modelesOdt = str_replace( '%s', $model->alias, $model->modelesOdt );
-
-				  // Récupération des valeurs de la méthode modelesOdt lorsqu'elle est présente
-				  if( in_array( 'modelesOdt', get_class_methods( $model->name ) ) ) {
-				  $modelesOdt = Set::merge( $modelesOdt, $model->modelesOdt() );
-				  }
-
-				  if( !in_array( $document, $modelesOdt ) ) {
-				  $this->log( sprintf( "Le modèle de document %s n'est pas connu du modèle %s.", $document, $model->alias ), LOG_DEBUG );
-				  } */
-
 				$oMainPart->addElement( new GDO_FieldType( 'modeleodt_path', str_replace( MODELESODT_DIR, '', $path_model ), 'text' ) );
 			}
 
@@ -130,7 +166,8 @@
 
 						$sectionData = Hash::flatten( $sectionData, '_' );
 						foreach( $sectionData as $key => $value ) {
-							if( !( is_array( $value ) && empty( $value ) ) ) {
+							$requiredField = false === $filterVars || in_array( strtolower( $key ), $expectedKeys );
+							if( $requiredField && !( is_array( $value ) && empty( $value ) ) ) {
 								$oDevPart = $this->_addPartValue( $oDevPart, $key, $value, $options );
 							}
 						}
@@ -215,7 +252,7 @@
 		 * @return array
 		 */
 		public function gedTests( Model $model ) {
-			App::import( 'Model', 'Appchecks.Check' );
+			App::uses( 'Check', 'Appchecks.Model' );
 			$Check = ClassRegistry::init( 'Appchecks.Check' );
 
             $access = $Check->webservice( GEDOOO_WSDL );

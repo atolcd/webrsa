@@ -25,13 +25,13 @@
 
 <?php
 	if( $this->action == 'add' ) {
-		echo $this->Form->create( 'Propoorientationcov58', array(  'type' => 'post'  ) );
+		echo $this->Form->create( 'Propoorientationcov58', array(  'type' => 'post', 'novalidate' => true  ) );
 		echo '<div>';
 		echo $this->Form->input( 'Propoorientationcov58.id', array( 'type' => 'hidden', 'value' => '' ) );
 		echo '</div>';
 	}
 	else {
-		echo $this->Form->create( 'Propoorientationcov58', array( 'type' => 'post'  ) );
+		echo $this->Form->create( 'Propoorientationcov58', array( 'type' => 'post', 'novalidate' => true  ) );
 		echo '<div>';
 		echo $this->Form->input( 'Propoorientationcov58.id', array( 'type' => 'hidden' ) );
 		echo $this->Form->input( 'Propoorientationcov58.dossiercov58_id', array( 'type' => 'hidden' ) );
@@ -94,9 +94,6 @@
 
 		echo $this->Form->input( 'Propoorientationcov58.structurereferente_id', array( 'label' => required(__d( 'structurereferente', 'Structurereferente.lib_struc' )), 'type' => 'select', 'options' => $structuresreferentes, 'empty' => true, 'selected' => $this->request->data['Propoorientationcov58']['structurereferente_id'] ) );
 		echo $this->Form->input( 'Propoorientationcov58.referent_id', array(  'label' => __d( 'structurereferente', 'Structurereferente.nom_referent' ), 'type' => 'select', 'options' => $referents, 'empty' => true, 'selected' => $this->request->data['Propoorientationcov58']['referent_id'] ) );
-
-// 		echo $this->Form->input( 'Propoorientationcov58.datedemande', array(  'label' =>  required( __d( 'contratinsertion', 'Contratinsertion.date_propo' ) ), 'dateFormat' => 'DMY', 'maxYear' => date( 'Y' ) + 3, 'minYear' => ( date( 'Y' ) - 3 ), 'empty' => true, 'type' => 'date' ) );
-
 		echo $this->Form->input( 'Propoorientationcov58.datedemande', array( 'type' => 'hidden', 'value' => date( 'Y-m-d' ) ) );
 		echo $this->Form->input( 'Propoorientationcov58.user_id', array( 'type' => 'hidden', 'value' => $this->Session->read( 'Auth.User.id' ) ) );
 	?>

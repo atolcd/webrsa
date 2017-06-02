@@ -18,10 +18,10 @@
 if ($departement === 66) {
 	echo $this->Form->input('User.email', array('label' => __('email'), 'type' => 'text', 'maxlength' => 15));
 }
-		
+
 		if( Configure::read( 'User.adresse' ) ) {
 			echo $this->Form->input( 'User.numvoie', array( 'label' =>  __d( 'adresse', 'Adresse.numvoie' ), 'type' => 'text' ) );
-			echo $this->Form->input( 'User.typevoie', array( 'label' =>  __d( 'adresse', 'Adresse.libtypevoie' ), 'type' => 'select', 'options' => $typevoie, 'empty' => true  ) );
+			echo $this->Form->input( 'User.typevoie', array( 'label' =>  __d( 'adresse', 'Adresse.libtypevoie' ), 'type' => 'select', 'options' => $options['User']['typevoie'], 'empty' => true  ) );
 			echo $this->Form->input( 'User.nomvoie', array( 'label' =>  __d( 'adresse', 'Adresse.nomvoie' ), 'type' => 'text' ) );
 			echo $this->Form->input( 'User.compladr', array( 'label' =>  __d( 'adresse', 'Adresse.compladr' ), 'type' => 'text' ) );
 			echo $this->Form->input( 'User.codepos', array( 'label' =>  __d( 'adresse', 'Adresse.codepos' ), 'type' => 'text', 'maxlength' => 5 ) );
@@ -49,12 +49,10 @@ if ($departement === 66) {
 	<?php echo $this->Form->input( 'Zonegeographique.Zonegeographique', array( 'label' => false, 'multiple' => 'checkbox' , 'options' => $zglist ) );?>
 </fieldset>
 <fieldset class="col2">
-	<legend><?php echo required( 'Groupe d\'utilisateur' );?></legend>
-	<?php echo $this->Form->input( 'User.group_id', array( 'label' => false, 'type' => 'select' , 'options' => $gp, 'empty' => true ) );?>
-</fieldset>
-<fieldset class="col2">
-	<legend><?php echo required( 'Service instructeur' );?></legend>
-	<?php echo $this->Form->input( 'User.serviceinstructeur_id', array( 'label' => false, 'type' => 'select' , 'options' => $si, 'empty' => true ) );?>
+	<?php
+		echo $this->Form->input( 'User.group_id', array( 'label' => required( 'Groupe d\'utilisateur' ), 'type' => 'select' , 'options' => $gp, 'empty' => true ) );
+		echo $this->Form->input( 'User.serviceinstructeur_id', array( 'label' => required( 'Service instructeur' ), 'type' => 'select' , 'options' => $si, 'empty' => true ) );
+	?>
 </fieldset>
 <?php if( $departement === 93 ):?>
 <fieldset class="col2">
@@ -69,7 +67,7 @@ if ($departement === 66) {
 <?php elseif( $departement === 66 ):?>
 <fieldset class="col2">
 	<legend>Service de l'utilisateur</legend>
-	<?php echo $this->Form->input('User.service66_id', 
+	<?php echo $this->Form->input('User.service66_id',
 		array(
 			'type' => 'select',
 			'options' => $services66,
@@ -89,14 +87,34 @@ if ($departement === 66) {
 <fieldset class="col2">
 	<legend><?php echo required( 'Est-il gestionnaire, notamment pour les PDOs ? ' );?></legend>
 	<?php
+		echo '<fieldset class="noborder">';
         echo $this->Xform->input( 'User.isgestionnaire', array( 'legend' => false, 'type' => 'radio', 'options' => $options['User']['isgestionnaire'] ) );
-        if( $departement === 66 ) {
-            echo '<fieldset id="poledossierpcg66" class="noborder">';
-            echo $this->Xform->input( 'User.poledossierpcg66_id', array( 'legend' => 'Pôle lié au gestionnaire', 'type' => 'radio', 'options' => $polesdossierspcgs66, 'empty' => false ) );
-            echo '</fieldset>';
+		echo '</fieldset>';
+		echo $this->Xform->input( 'User.poledossierpcg66_id', array( 'type' => 'hidden', 'value' => '', 'id' => false ) );
+        if( 66 === $departement ) {
+			echo $this->Xform->input( 'User.poledossierpcg66_id', array( 'label' => 'Pôle lié au gestionnaire', 'type' => 'select', 'options' => $polesdossierspcgs66, 'empty' => true ) );
         }
     ?>
 </fieldset>
+<?php
+	if( 66 === $departement ) {
+		echo $this->Form->input('Ancienpoledossierpcg66.Ancienpoledossierpcg66', array( 'type' => 'hidden', 'value' => '', 'id' => false ) );
+		echo $this->Html->tag(
+			'fieldset',
+			$this->Html->tag( 'legend', 'Pôle(s) PCG anciennement lié(s) à l\'utilisateur' )
+			.$this->Form->input(
+				'Ancienpoledossierpcg66.Ancienpoledossierpcg66',
+				array(
+					'label' => false,
+					'type' => 'select',
+					'multiple' => 'checkbox',
+					'options' => $polesdossierspcgs66,
+					'class' => 'col3'
+				)
+			)
+		);
+	}
+?>
 <fieldset class="col2">
 	<legend><?php echo required( 'Peut-il accéder aux données sensibles ? ' );?></legend>
 	<?php echo $this->Xform->input( 'User.sensibilite', array( 'legend' => false, 'type' => 'radio', 'options' => $options['User']['sensibilite'] ) );?>
@@ -141,11 +159,11 @@ if ($departement === 66) {
 		false
 	);
 	if( $departement === 66 ) {
-		echo $this->Observer->disableFieldsetOnRadioValue(
-			'UserEditForm',
+		echo $this->Observer->disableFieldsOnRadioValue(
+			$formId,
 			'User.isgestionnaire',
-			'poledossierpcg66',
-			'O',
+			'User.poledossierpcg66_id',
+			array( 'N', '', null ),
 			false,
 			true
 		);

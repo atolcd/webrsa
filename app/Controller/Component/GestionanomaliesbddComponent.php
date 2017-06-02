@@ -7,6 +7,7 @@
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'Component', 'Controller' );
 
 	/**
 	 * La classe GestionanomaliesbddComponent ...
@@ -15,8 +16,6 @@
 	 */
 	class GestionanomaliesbddComponent extends Component
 	{
-// 		public $tablesMetier = array( 'actionscandidats_personnes', 'apres',  'contratsinsertion', 'cuis', 'dossierscovs58', 'dossierseps', 'dsps_revs', 'entretiens', 'memos', 'orientsstructs', 'personnespcgs66', 'personnes_referents', 'propospdos', 'rendezvous' );
-
 		/**
 		* The initialize method is called before the controller's beforeFilter method.
 		*/
@@ -211,14 +210,14 @@
 								unset( $nouvelleAdresse['Adresse']['id'] );
 
 								$Adressefoyer->Adresse->create( $nouvelleAdresse );
-								$success = $Adressefoyer->Adresse->save() && $success;
+								$success = $Adressefoyer->Adresse->save( null, array( 'atomic' => false ) ) && $success;
 
 								if( !empty( $Adressefoyer->Adresse->id ) ) {
 									$adressefoyerMaj = array( 'Adressefoyer' => $adressefoyer['Adressefoyer'] );
 									$adressefoyerMaj['Adressefoyer']['adresse_id'] = $Adressefoyer->Adresse->id;
 
 									$Adressefoyer->create( $adressefoyerMaj );
-									$success = $Adressefoyer->save() && $success;
+									$success = $Adressefoyer->save( null, array( 'atomic' => false ) ) && $success;
 								}
 								else {
 									debug( $adressefoyer );
@@ -236,11 +235,6 @@
 
 				if( $success ) {
 					$count = $Adressefoyer->find( 'count', $querydata );
-
-// 					if( !$uniqueIndexFound && empty( $count ) ) {
-// 						$success = ( $Adressefoyer->query( 'DROP INDEX IF EXISTS adressesfoyers_adresse_id_idx;' ) !== false ) && $success;
-// 						$success = ( $Adressefoyer->query( 'CREATE UNIQUE INDEX adressesfoyers_adresse_id_idx ON adressesfoyers( adresse_id );' ) !== false ) && $success;
-// 					}
 
 					if( $success ) {
 						$Adressefoyer->commit();
@@ -406,13 +400,7 @@
 					$success = $Adressefoyer->deleteAll( array( 'Adressefoyer.id' => array_keys( $listeASupprimer ) ) ) && $success;
 					$success = $Adressefoyer->Adresse->deleteAll( array( 'Adresse.id' => array_values( $listeASupprimer ) ) ) && $success;
 				}
-
-				/*$success = ( $Adressefoyer->query( 'DROP INDEX IF EXISTS adressesfoyers_actuelle_rsa_idx;' ) !== false ) && $success;
-				$success = ( $Adressefoyer->query( 'CREATE UNIQUE INDEX adressesfoyers_actuelle_rsa_idx ON adressesfoyers (foyer_id, rgadr) WHERE rgadr = \'01\';' ) !== false ) && $success;
-
-				$success = ( $Adressefoyer->query( 'DROP INDEX IF EXISTS adressesfoyers_foyer_id_rgadr_idx;' ) !== false ) && $success;
-				$success = ( $Adressefoyer->query( 'CREATE UNIQUE INDEX adressesfoyers_foyer_id_rgadr_idx ON adressesfoyers (foyer_id, rgadr);' ) !== false ) && $success;*/
-
+				
 				if( $success ) {
 					$Adressefoyer->commit();
 				}

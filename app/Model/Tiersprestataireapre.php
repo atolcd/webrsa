@@ -7,6 +7,8 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
+	App::uses( 'FrValidation', 'Validation' );
 
 	/**
 	 * La classe Tiersprestataireapre ...
@@ -17,17 +19,34 @@
 	{
 		public $name = 'Tiersprestataireapre';
 
+		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
 		public $displayField = 'nomtiers';
 
 		public $order = 'Tiersprestataireapre.id ASC';
 
 		public $actsAs = array(
-			'Formattable' => array(
-				'phone' => array( 'numtel' )
+			'Occurences',
+			'Validation2.Validation2Formattable' => array(
+				'Validation2.Validation2DefaultFormatter' => array(
+					'stripNotAlnum' => '/^numtel$/'
+				)
 			),
-			'ValidateTranslate',
-			'Validation.ExtraValidationRules',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
+
+		/**
+		 * Modèles utilisés par ce modèle.
+		 *
+		 * @var array
+		 */
+		public $uses = array( 'Option' );
 
 		public $hasMany = array(
 			'Actprof' => array(
@@ -87,73 +106,54 @@
 		public $modelsFormation = array( 'Formqualif', 'Formpermfimo', 'Permisb', 'Actprof' );
 
 		public $validate = array(
-			'nomtiers' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
-					'message' => 'Champ obligatoire'
-				),
-				'isUnique' => array(
-					'rule' => 'isUnique',
-					'message' => 'Cette valeur est déjà utilisée'
-				),
-			),
 			'siret' => array(
 				'isUnique' => array(
-					'rule' => 'isUnique',
+					'rule' => array( 'isUnique' ),
 					'message' => 'Ce numéro SIRET existe déjà'
 				),
 				'numeric' => array(
-					'rule' => 'numeric',
+					'rule' => array( 'numeric' ),
 					'message' => 'Le numéro SIRET est composé de 14 chiffres',
 					'allowEmpty' => true
 				)
 			),
 			'numtel' => array(
-				'phoneFr' => array(
-					'rule' => array( 'phoneFr' ),
-					'allowEmpty' => true,
+				'phone' => array(
+					'rule' => array( 'phone', null, 'fr' ),
+					'allowEmpty' => true
 				)
 			),
 			'adrelec' => array(
 				'email' => array(
-					'rule' => 'email',
+					'rule' => array( 'email' ),
 					'message' => 'Email non valide',
 					'allowEmpty' => true
 				)
 			),
 			'aidesliees' => array(
-				'notEmpty' => array(
-					'rule' => 'notEmpty',
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => 'Champ obligatoire'
 				)
-			),
+			)
 		);
 
 		/**
-		*   Fonction permettant de récupérer la liste des tiers prestataires ainsi
-		*   qu'un champ virtuel 'deletable' qui indique si le tiers est lié à une aide de l'APRE
-		*/
-
-		public function adminList() {
-			$tiersprestatairesapres = $this->find( 'all', array( 'recursive' => -1 ) );
-
-			foreach( $tiersprestatairesapres as $key => $tiersprestataireapre ) {
-				$subQueries = array();
-				foreach( $this->modelsFormation as $model ) {
-					$tableName = Inflector::tableize( $model );
-					$subQueries[] = "( SELECT COUNT(*) FROM {$tableName} WHERE tiersprestataireapre_id = {$tiersprestatairesapres[$key]['Tiersprestataireapre']['id']} )";
-				}
-				$result = $this->query( 'SELECT ( '.implode( '+', $subQueries ).' ) AS count' );
-				$result = Set::classicExtract( $result, '0.0.count' );
-
-				$tiersprestatairesapres[$key]['Tiersprestataireapre']['deletable'] = empty( $result );
-			}
-
-			return $tiersprestatairesapres;
-		}
+		 * Champs virtuels.
+		 *
+		 * @var array
+		 */
+		public $virtualFields = array(
+			'adresse' => array(
+				'type'      => 'string',
+				'postgres'  => '( COALESCE( "%s"."numvoie", \'\' ) || \' \' || COALESCE( "%s"."typevoie", \'\' ) || \' \' || COALESCE( "%s"."nomvoie", \'\' ) || \' \' || COALESCE( "%s"."codepos", \'\' ) || \' \' || COALESCE( "%s"."ville", \'\' ) )'
+			)
+		);
 
 		/**
 		*   Fonction permettant de vérifier que le RIB est correct
+		 *
+		 * @deprecated since 3.2
 		*/
 
 		public function check_rib( $cbanque = null, $cguichet = null, $nocompte = null, $clerib = null ) {
@@ -184,6 +184,21 @@
 			$return = (strlen($int) >= 21 && bcmod($int, 97) == 0);
 
 			return $return;
+		}
+
+		/**
+		 * Surcharge de la méthode enums pour ajouter le type de voie ainsi que
+		 * des traductions distinctes pour le CG 58.
+		 *
+		 * @return array
+		 */
+		public function enums() {
+			$results = parent::enums();
+
+			$results[$this->alias]['typevoie'] = $this->Option->libtypevoie();
+			$results[$this->alias]['aidesliees'] = $this->Option->natureAidesApres();
+
+			return $results;
 		}
 	}
 ?>

@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu Recherche de dossiers PCGs (nouveau)
+	 * Menu Recherche de dossiers PCGs
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dossierspcgs66.search',
@@ -57,7 +57,7 @@
 					'Decisiondossierpcg66.datetransmissionop',
 					'Canton.canton',
 					'/Dossierspcgs66/ajax_view_decisions/#Dossierpcg66.id#' => array(
-						'class' => 'view ajax-link', 
+						'class' => 'view ajax-link',
 						'msgid' => 'Voir propositions (#Decisiondossierpcg66.count#)',
 						'disabled' => "!'#Decisiondossierpcg66.count#'"
 					),
@@ -82,7 +82,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par entretiens (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par entretiens"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dossierspcgs66.exportcsv',
@@ -125,9 +125,9 @@
 			'ini_set' => Configure::read( 'ConfigurableQuery.Dossierspcgs66.search.ini_set' ),
 		)
 	);
-	
+
 	/**
-	 * Menu Recherche de dossiers PCGs (nouveau)
+	 * Menu Recherche de dossiers PCGs
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dossierspcgs66.search_affectes',
@@ -193,7 +193,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par entretiens (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par entretiens"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dossierspcgs66.exportcsv_affectes',
@@ -225,9 +225,9 @@
 			'ini_set' => Configure::read( 'ConfigurableQuery.Dossierspcgs66.search_affectes.ini_set' ),
 		)
 	);
-	
+
 	/**
-	 * Menu Recherche de dossiers PCGs (nouveau)
+	 * Menu Recherche de dossiers PCGs
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dossierspcgs66.cohorte_imprimer',
@@ -239,11 +239,6 @@
 					'Dossier' => array(
 						// Case à cocher "Uniquement la dernière demande RSA pour un même allocataire"
 						'dernier' => '1'
-					),
-					'Dossierpcg66' => array(
-						'poledossierpcg66_id' => array(
-							2 // PDA
-						)
 					)
 				),
 				// 1.2 Restriction des valeurs qui apparaissent dans les filtres de recherche
@@ -299,7 +294,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par entretiens (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par entretiens"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dossierspcgs66.exportcsv_imprimer',
@@ -332,9 +327,9 @@
 			'ini_set' => Configure::read( 'ConfigurableQuery.Dossierspcgs66.search_imprimer.ini_set' ),
 		)
 	);
-	
+
 	/**
-	 * Menu Gestionnaire de dossiers PCG (nouveau)
+	 * Menu Gestionnaire de dossiers PCG
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dossierspcgs66.search_gestionnaire',
@@ -417,7 +412,7 @@
 	);
 
 	/**
-	 * Export CSV,  menu "Recherches" > "Par entretiens (nouveau)"
+	 * Export CSV,  menu "Recherches" > "Par entretiens"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Dossierspcgs66.exportcsv_gestionnaire',
@@ -449,7 +444,7 @@
 			'ini_set' => Configure::read( 'ConfigurableQuery.Dossierspcgs66.search.ini_set' ),
 		)
 	);
-	
+
 	/**
 	 * Menu Dossiers PCGs en attente d'affectation
 	 */
@@ -510,7 +505,7 @@
 			'ini_set' => array()
 		)
 	);
-	
+
 	/**
 	 * Export CSV
 	 */
@@ -541,7 +536,7 @@
 			'ini_set' => Configure::read( 'ConfigurableQuery.Dossierspcgs66.cohorte_enattenteaffectation.ini_set' ),
 		)
 	);
-	
+
 	/**
 	 * Menu Dossiers PCGs en attente d'affectation
 	 */
@@ -602,7 +597,7 @@
 			'ini_set' => array()
 		)
 	);
-	
+
 	/**
 	 * Export CSV
 	 */
@@ -633,7 +628,7 @@
 			'ini_set' => Configure::read( 'ConfigurableQuery.Dossierspcgs66.cohorte_atransmettre.ini_set' ),
 		)
 	);
-	
+
 	Configure::write(
 		'ConfigurableQuery.Dossierspcgs66.cohorte_heberge',
 		array(
@@ -772,7 +767,7 @@
 			'view' => false,
 		)
 	);
-	
+
 	/**
 	 * Export CSV
 	 */
@@ -801,7 +796,7 @@
 			'ini_set' => Configure::read( 'ConfigurableQuery.Dossierspcgs66.cohorte_heberge.ini_set' ),
 		)
 	);
-	
+
 	Configure::write(
 		'ConfigurableQuery.Dossierspcgs66.cohorte_rsamajore',
 		array(
@@ -938,7 +933,7 @@
 			'view' => false,
 		)
 	);
-	
+
 	/**
 	 * Export CSV
 	 */

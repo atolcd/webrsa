@@ -1,11 +1,30 @@
-/3.2.0/app/Config/core.php
-/3.2.0/app/Config/database.php
-/3.2.0/app/Config/webrsa.inc
-/3.2.0/app/tmp
-/3.2.0/lib/Cake/Console/Templates/skel/tmp/
-/3.2.0/plugins
-/3.2.0/vendors
-/3.2.0/build
-/3.2.0/dist
-/3.2.0.DS_Store
-/3.2.0/tags
+# User specific & automatically generated files #
+#################################################
+/app/Config/database.php
+/app/tmp
+/lib/Cake/Console/Templates/skel/tmp/
+/plugins
+/vendors
+/build
+/dist
+/tags
+*.mo
+
+# IDE and editor specific files #
+#################################
+/nbproject
+.idea
+/.project
+/.buildpath
+/.settings/
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db

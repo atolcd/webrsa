@@ -7,9 +7,9 @@
      * @package app.Utility
      * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
      */
-	App::uses( 'ControllerCache', 'Utility' );
 	App::uses( 'CakeSession', 'Model/Datasource' );
 	App::uses( 'ControllerCache', 'Model/Datasource' );
+	App::uses( 'SessionAcl', 'SessionAcl.Model/Datasource' );
 
     /**
 	 * La classe WebrsaPermissions contient la logique des permissions de WebRSA,
@@ -24,6 +24,31 @@
      */
 	class WebrsaPermissions
 	{
+		/**
+		 * Accès 1 (oui)
+		 */
+		const ACCES_OUI = 1;
+
+		/**
+		 * Accès -1 (non)
+		 */
+		const ACCES_NON = -1;
+
+		/**
+		 * Accès 0 (hérité)
+		 */
+		const ACCES_HERITE = 0;
+
+		/**
+		 * Accès 1 (oui) du parent
+		 */
+		const HERITE_OUI = 10;
+
+		/**
+		 * Accès -1 (non) du parent
+		 */
+		const HERITE_NON = -10;
+
 		/**
 		 * Le chemin vers les données "Acl" dans la session.
 		 *
@@ -70,12 +95,12 @@
 				}
 
 				$sessionPermissionsKey = self::$sessionPermissionsKey;
-				$permissionAction = CakeSession::read( "{$sessionPermissionsKey}.{$controllerName}:{$actionName}" );
+				$permissionAction = SessionAcl::check( "{$sessionPermissionsKey}.controllers/{$controllerName}/{$actionName}" );
 				if( !is_null( $permissionAction ) ) {
 					$return = $permissionAction;
 				}
 				else {
-					$permissionModule = CakeSession::read( "{$sessionPermissionsKey}.Module:{$controllerName}" );
+					$permissionModule = SessionAcl::check( "{$sessionPermissionsKey}.controllers/{$controllerName}" );
 
 					if( !is_null( $permissionModule ) ) {
 						$return = $permissionModule;

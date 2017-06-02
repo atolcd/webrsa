@@ -18,7 +18,7 @@
 
 	// Moteur de recherche
 ?>
-<?php echo $this->Xform->create( null, array( 'type' => 'post', 'action' => $this->action, 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) && isset( $this->request->data['Search']['active'] ) ) ? 'folded' : 'unfolded' ) ) );?>
+<?php echo $this->Xform->create( null, array( 'type' => 'post', 'url' => array( 'action' => $this->action ), 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) && isset( $this->request->data['Search']['active'] ) ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );?>
 	<?php echo $this->Xform->input( 'Search.active', array( 'type' => 'hidden', 'value' => true ) );?>
 	<fieldset>
 		<legend>Recherche par affectation</legend>
@@ -42,9 +42,7 @@
 		echo $this->Form->input( 'Search.Dsp.exists', array( 'label' => 'Possède une DSP ?', 'type' => 'select', 'options' => $options['exists'], 'empty' => true ) );
 		echo $this->Form->input( 'Search.Contratinsertion.exists', array( 'label' => 'Possède un CER ?', 'type' => 'select', 'options' => $options['exists'], 'empty' => true ) );
 		echo $this->Search->date( 'Search.Orientstruct.date_valid' );
-// 		echo $this->Form->input( 'Search.Dossier.dernier', array( 'label' => 'Uniquement la dernière demande RSA pour un même allocataire', 'type' => 'checkbox' ) );
 		echo $this->Search->blocAdresse( $options['mesCodesInsee'], $options['cantons'], 'Search' );
-// 		echo $this->Search->etatdosrsa( $options['etatdosrsa'], 'Search.Situationdossierrsa.etatdosrsa' );
 		echo $this->Search->blocDossier( $options['etatdosrsa'], 'Search' );
 		echo $this->Search->paginationNombretotal( 'Search.Pagination.nombre_total' );
 		echo $this->Search->observeDisableFormOnSubmit( 'Search' );

@@ -43,8 +43,8 @@
 				)
 			),
 			'name' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' ),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => null,
 					'required' => null,
 					'allowEmpty' => false,
@@ -66,8 +66,8 @@
 				),
 			),
 			'user_id' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' ),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => null,
 					'required' => null,
 					'allowEmpty' => false,
@@ -91,8 +91,8 @@
 				)
 			),
 			'published' => array(
-				'notEmpty' => array(
-					'rule' => array( 'notEmpty' ),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => null,
 					'required' => null,
 					'allowEmpty' => false,

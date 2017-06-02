@@ -8,7 +8,7 @@
 		$this->pageTitle = __d( 'ajoutdossiercomplet', "Ajoutdossierscomplets::{$this->action}" )
 	);
 
-	echo $this->Form->create( 'Ajoutdossiercomplet', array( 'id' => 'dossiercomplet' ) );
+	echo $this->Form->create( 'Ajoutdossiercomplet', array( 'id' => 'dossiercomplet', 'novalidate' => true ) );
 
 	echo '<fieldset><legend>Ajout d\'un nouveau dossier</legend>';
 		//On masque les prestations et on leur met des valeurs par défaut
@@ -59,7 +59,7 @@
 				array(
 					 'Dossier.numdemrsatemp' => array( 'label' => 'Génération automatique d\'un N° de demande RSA temporaire', 'type' => 'checkbox' ),
 					 'Dossier.numdemrsa' => array( 'required' => true ),
-					 'Dossier.dtdemrsa' => array( 'type' => 'date', 'format' => 'DMY', 'minYear' => '2009', 'maxYear' => date('Y')+1 ),
+					 'Dossier.dtdemrsa' => array( 'type' => 'date', 'format' => 'DMY', 'minYear' => '2009', 'maxYear' => date('Y')+1, 'required' => ValidateAllowEmptyUtility::isRequired('Dossier.dtdemrsa') ),
 					 'Dossier.matricule',
                     'Serviceinstructeur.id' => array( 'label'=> 'Service instructeur', 'options' => $services ),
 				)

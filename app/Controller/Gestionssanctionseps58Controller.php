@@ -7,6 +7,7 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	 * La classe Gestionssanctionseps58Controller permet de gérer les sanctions émises par une EP pour le cG58.
@@ -69,26 +70,26 @@
 			'Personne',
 			'Zonegeographique',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -129,9 +130,7 @@
 			foreach( $this->Gestionsanctionep58->themes() as $theme => $intitule ) {
 				$theme = Inflector::singularize( $theme );
 				$modeleDecision = Inflector::classify( "decision{$theme}" );
-				if( in_array( 'Enumerable', $this->Commissionep->Passagecommissionep->{$modeleDecision}->Behaviors->attached() ) ) {
-					$options = Set::merge( $options, $this->Commissionep->Passagecommissionep->{$modeleDecision}->enums() );
-				}
+				$options = Set::merge( $options, $this->Commissionep->Passagecommissionep->{$modeleDecision}->enums() );
 			}
 
 			$this->set( 'listesanctionseps58', $this->Commissionep->Passagecommissionep->Decisionsanctionep58->Listesanctionep58->find( 'list' ) );
@@ -146,7 +145,6 @@
 			$this->set( compact( 'typesorients' ) );
 			$this->set( compact( 'structuresreferentes' ) );
 			$this->set( compact( 'referents' ) );
-			$this->set( 'typevoie', $this->Option->typevoie() );
 		}
 
 		/**
@@ -204,7 +202,7 @@
 						$this->Personne->commit();
 						$this->Cohortes->release( Set::extract( '/Foyer/dossier_id', $this->request->data ) );
 
-						$this->Session->setFlash( 'Enregistrement effectué.', 'flash/success' );
+						$this->Flash->success( __( 'Save->success' ) );
 						unset( $this->request->data[$decisionModelTheme] );
 						if( isset( $this->request->data['sessionKey'] ) ) {
 							$this->Session->delete( "{$this->SearchPrg->name}.{$this->name}__{$this->action}.{$this->request->data['sessionKey']}" );
@@ -212,7 +210,7 @@
 					}
 					else {
 						$this->Personne->rollback();
-						$this->Session->setFlash( 'Erreur lors de l\'enregistrement.', 'flash/error' );
+						$this->Flash->error( __( 'Save->error' ) );
 						$validationErrors = true;
 					}
 				}
@@ -329,7 +327,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'impressionSanction-%s.pdf', date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer le courrier.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer le courrier.' );
 				$this->redirect( $this->referer() );
 			}
 		}
@@ -377,7 +375,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'gestionssanctions-%s.pdf', date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Session->setFlash( 'Impossible de générer l\'impression.', 'default', array( 'class' => 'error' ) );
+				$this->Flash->error( 'Impossible de générer l\'impression.' );
 				$this->redirect( $this->referer() );
 			}
 		}

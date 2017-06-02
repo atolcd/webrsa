@@ -1,0 +1,107 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "ENUM::DECISION::maintien"
+msgstr "Maintien du droit"
+
+msgid "ENUM::DECISION::sanction"
+msgstr "Sanction"
+
+msgid "ENUM::DECISION::annule"
+msgstr "Annulé"
+
+msgid "ENUM::DECISION::reporte"
+msgstr "Reporté"
+
+msgid "Decisionsanctionrendezvousep58.decision"
+msgstr "Décision n° 1"
+
+msgid "Listesanctionep58.sanction"
+msgstr "Sanction n° 1"
+
+msgid "Listesanctionep58.duree"
+msgstr "Durée de la sanction n° 1 (en mois)"
+
+msgid "Decisionsanctionrendezvousep58.decision2"
+msgstr "Décision n° 2"
+
+msgid "Autrelistesanctionep58.sanction"
+msgstr "Sanction n° 2"
+
+msgid "Autrelistesanctionep58.duree"
+msgstr "Durée de la sanction n° 2 (en mois)"
+
+msgid "Decisionsanctionrendezvousep58.regularisation"
+msgstr "Régularisation"
+
+msgid "Decisionsanctionrendezvousep58.arretsanction"
+msgstr "Modification de la sanction ?"
+
+msgid "Decisionsanctionrendezvousep58.datearretsanction"
+msgstr "Date de fin de sanction"
+
+msgid "Decisionsanctionrendezvousep58.commentairearretsanction"
+msgstr "Commentaire sur la modification de la sanction"
+
+msgid "Decisionsanctionrendezvousep58.commentaire"
+msgstr "Commentaire"
+
+msgid "Decisionsanctionrendezvousep58.raisonnonpassage"
+msgstr "Raison de non passage"
+
+msgid "ENUM::REGULARISATION::finsanction2"
+msgstr "Fin de suspension n°2"
+
+msgid "ENUM::REGULARISATION::annulation1"
+msgstr "Annulation sanction n°1"
+
+msgid "ENUM::REGULARISATION::annulation2"
+msgstr "Annulation sanction n°2"
+
+msgid "ENUM::DECISION2::maintien"
+msgstr "Maintien du droit"
+
+msgid "ENUM::DECISION2::sanction"
+msgstr "Sanction"
+
+msgid "ENUM::DECISION2::annule"
+msgstr "Annulé"
+
+msgid "ENUM::DECISION2::reporte"
+msgstr "Reporté"
+
+msgid "ENUM::ARRETSANCTION::finsanction1"
+msgstr "Fin de suspension n°1 et annulation sanction n°2"
+
+msgid "ENUM::ARRETSANCTION::finsanction2"
+msgstr "Fin de suspension n°2"
+
+msgid "ENUM::ARRETSANCTION::annulation1"
+msgstr "Annulation sanctions n°1 et n°2"
+
+msgid "ENUM::ARRETSANCTION::annulation2"
+msgstr "Annulation sanction n°2"
+
+msgid "ENUM::ETAPE::ep"
+msgstr "Etape EP"
+
+msgid "ENUM::ETAPE::cg"
+msgstr "Etape CG"

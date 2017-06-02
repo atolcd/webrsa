@@ -1,4 +1,4 @@
-<?php	
+<?php
 	/**
 	 * Code source de la classe Dernierreferent.
 	 *
@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Dernierreferent ...
@@ -16,8 +17,17 @@
 	class Dernierreferent extends AppModel
 	{
 		public $name = 'Dernierreferent';
-		
-		public $recursive = -1;
+
+		/**
+		 * Behaviors utilisés par le modèle.
+		 *
+		 * @var array
+		 */
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
+		);
 
 		public $belongsTo = array(
 			'Referent' => array(
@@ -42,9 +52,9 @@
 				'order' => ''
 			),
 		);
-		
+
 		public function listOptions() {
-			return $this->Referent->find('list', 
+			return $this->Referent->find('list',
 				array(
 					'joins' => array($this->Referent->join('Dernierreferent')),
 					'conditions' => array('Dernierreferent.referent_id = Dernierreferent.dernierreferent_id'),

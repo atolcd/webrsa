@@ -1225,6 +1225,35 @@ function toutDecocher( selecteur, simulate ) {
 }
 
 /**
+* Ajout les boutons "Tout cocher" et "Tout décocher" en haut d'un élément.
+*
+* @param elmt L'élément en haut duquel les bouton seront ajoutés
+* @param selecteur Le sélecteur CSS pour obtenir les cases à cocher (default: input[type="checkbox"])
+*/
+function insertButtonsCocherDecocher( elmt, selecteur ) {
+	elmt = $(elmt);
+
+	if( undefined !== elmt ) {
+		if( selecteur == undefined ) {
+			selecteur = 'input[type="checkbox"]';
+		}
+
+		elmt.insert( {
+			top: new Element(
+				'button', {
+					type: 'button',
+					onclick: "return toutCocher( '" + selecteur + "' );"
+				} ).update( 'Tout cocher' ).outerHTML
+				+ new Element(
+				'button', {
+					type: 'button',
+					onclick: "return toutDecocher( '" + selecteur + "' );"
+				} ).update( 'Tout décocher' ).outerHTML
+		} );
+	}
+}
+
+/**
  * Active et affiche une partie d'un formulaire contenu dans une balise
  */
 
@@ -1424,7 +1453,7 @@ function toutChoisir( radios, valeur, simulate ) {
 function make_external_links() {
 	$$('a.external').each( function ( link ) {
 		var originalJavascript = $( link ).onclick;
-		
+
 		$( link ).onclick = function() {
 			var result = true;
 
@@ -2593,18 +2622,21 @@ function onChangeDependantSelect( slaveId, masterId ) {
 
 		// On "reset"
 		$(slaveId).select( 'optgroup', 'option' ).each( function( option ) {
+			$(option).enable();
 			$(option).show();
 		} );
 
 		if( '' != masterValue ) {
 			$(slaveId).select( 'option' ).each( function( option ) {
 				if( '' != $(option).value && $(option).value.replace( /^([^_]+)_.*$/, '$1' ) !== masterValue ) {
+					$(option).disable();
 					$(option).hide();
 				}
 			} );
 		} else {
 			$(slaveId).select( 'option' ).each( function( option ) {
 				if( '' != $(option).value ) {
+					$(option).disable();
 					$(option).hide();
 				}
 			} );

@@ -9,7 +9,7 @@
 	 */
 	App::uses( 'XShell', 'Console/Command' );
 	App::uses( 'Contratinsertion', 'Model' );
-	App::uses( 'File', 'Cake/Utility' );
+	App::uses( 'File', 'Utility' );
 
 	/**
 	 * La classe Positionscer66Shell effectue la mise à jour de la position des CER qui en ont besoin :
@@ -51,13 +51,6 @@
 		 * @var array
 		 */
 		public $counts = array( 'total' => null );
-
-		/**
-		 * Liste des différentes positions du CER
-		 *
-		 * @var array
-		 */
-		public $positionscer = array();
 
 		/**
 		 * Démarage du shell, vérification de l'environnement et des paramètres.
@@ -105,24 +98,20 @@
 		 * @return array
 		 */
 		public function getUndetectedRecords() {
-			// Obtention des condtions
-			$conditions = array();
-			foreach( array_keys( $this->Contratinsertion->enum( 'positioncer' ) ) as $positioncer ) {
-				$conditionsPosition = $this->Contratinsertion->WebrsaContratinsertion->getConditionsPositioncer( $positioncer );
-				$conditions[] = array( 'NOT' => array( $conditionsPosition ) );
-			}
+			$query = array(
+				'fields' => array( 'Contratinsertion.id' ),
+				'conditions' => array(
+					$this->Contratinsertion->WebrsaContratinsertion->getConditionNonCalculables()
+				),
+				'contain' => false
+			);
 
 			// Indication du nombre
-			$count = $this->Contratinsertion->find( 'count', array( 'conditions' => $conditions, 'recursive' => -1 ) );
+			$count = $this->Contratinsertion->find( 'count', $query );
 			$msgstr = '%d contrats d\'engagement réciproque dont la position ne peut pas être calculée ( %.2f %% )';
 			$this->out( sprintf( $msgstr, $count, ( $count / $this->counts['total'] ) * 100 ) );
 
 			// Génération de la requête SQL permettant de les trouver
-			$query = array(
-				'fields' => array( 'Contratinsertion.id' ),
-				'conditions' => $conditions,
-				'contain' => false
-			);
 			$sql = $this->Contratinsertion->sq( $query );
 			$sql = str_replace( '"Contratinsertion"."id" AS "Contratinsertion__id"', '*', $sql );
 

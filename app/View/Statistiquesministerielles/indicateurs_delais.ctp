@@ -1,4 +1,4 @@
-<?php require_once( dirname( __FILE__ ).DS.'search.ctp' ); ?>
+<?php require_once  dirname( __FILE__ ).DS.'search.ctp' ; ?>
 <?php if( !empty( $this->request->data ) ): ?>
 	<h2>3 - Délais entre les différentes étapes de l'orientation au cours de l'année</h2>
 	<?php

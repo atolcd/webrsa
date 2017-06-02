@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * La classe Ep ...
@@ -17,12 +18,10 @@
 	{
 		public $name = 'Ep';
 
-		public $recursive = -1;
-
 		public $actsAs = array(
-			'Autovalidate2',
-			'ValidateTranslate',
-			'Formattable'
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
 		);
 
 		public $belongsTo = array(
@@ -84,15 +83,6 @@
 				'insertQuery' => '',
 				'with' => 'EpZonegeographique'
 			),
-		);
-
-		// INFO: le behavior Autovalidate2 ne trouve pas les contraintes UNIQUE (17/02/2011)
-		public $validate = array(
-			'name' => array(
-				array(
-					'rule' => array( 'isUnique' ),
-				)
-			)
 		);
 
 		public function listOptions( $filtre_zone_geo, $zonesgeographiques ) {

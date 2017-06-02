@@ -1,4 +1,4 @@
-<?php require_once( dirname( __FILE__ ).DS.'search.ctp' ); ?>
+<?php require_once  dirname( __FILE__ ).DS.'search.ctp' ; ?>
 <?php if( !empty( $this->request->data ) ): ?>
 	<h2>1 - Orientation des personnes dans le champ des Droits et Devoirs au 31 décembre de l'année, au sens du type de parcours (voir notice)</h2>
 	<?php
@@ -56,11 +56,11 @@
 			<?php foreach( $tranches[$indicateur] as $tranche ):?>
 			<tr>
 				<th><?php echo __d( 'statistiquesministerielles',  $tranche );?></th>
-				<td class="number"><?php echo ( isset( $sdd[$tranche] ) ? $this->Locale->number( $sdd[$tranche] ) : 0 );?></td>
-				<td class="number"><?php echo ( isset( $orient_pro[$tranche] ) ? $this->Locale->number( $orient_pro[$tranche] ) : 0 );?></td>
-				<td class="number"><?php echo ( isset( $orient_sociopro[$tranche] ) ? $this->Locale->number( $orient_sociopro[$tranche] ) : 0 );?></td>
-				<td class="number"><?php echo ( isset( $orient_sociale[$tranche] ) ? $this->Locale->number( $orient_sociale[$tranche] ) : 0 );?></td>
-				<td class="number"><?php echo ( isset( $attente_orient[$tranche] ) ? $this->Locale->number( $attente_orient[$tranche] ) : 0 );?></td>
+				<td class="number"><?php echo  isset( $sdd[$tranche] ) ? $this->Locale->number( $sdd[$tranche] ) : 0 ;?></td>
+				<td class="number"><?php echo  isset( $orient_pro[$tranche] ) ? $this->Locale->number( $orient_pro[$tranche] ) : 0 ;?></td>
+				<td class="number"><?php echo  isset( $orient_sociopro[$tranche] ) ? $this->Locale->number( $orient_sociopro[$tranche] ) : 0 ;?></td>
+				<td class="number"><?php echo  isset( $orient_sociale[$tranche] ) ? $this->Locale->number( $orient_sociale[$tranche] ) : 0 ;?></td>
+				<td class="number"><?php echo  isset( $attente_orient[$tranche] ) ? $this->Locale->number( $attente_orient[$tranche] ) : 0 ;?></td>
 			</tr>
 			<?php endforeach;?>
 		</tbody>

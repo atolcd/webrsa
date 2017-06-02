@@ -7,6 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
+	App::uses( 'AppModel', 'Model' );
 
 	/**
 	 * Classe Dernierdossierallocataire.
@@ -23,11 +24,15 @@
 		public $name = 'Dernierdossierallocataire';
 
 		/**
-		 * Récursivité du modèle.
+		 * Behaviors utilisés par le modèle.
 		 *
-		 * @var integer
+		 * @var array
 		 */
-		public $recursive = -1;
+		public $actsAs = array(
+			'Validation2.Validation2Formattable',
+			'Validation2.Validation2RulesFieldtypes',
+			'Postgres.PostgresAutovalidate'
+		);
 
 		/**
 		 * Associations "Belongs to".
@@ -68,7 +73,7 @@
 				$record = $this->find( 'all', array( 'limit' => 1 ) );
 				if( empty( $record ) ) {
 					$message = 'La configuration de <code>Optimisations.useTableDernierdossierallocataire</code> dans le webrsa.inc est à <code>true</code>, mais aucune donnée n\'est présente dans la table <code>derniersdossiersallocataires</code>.<br/>Veuillez lancer le shell Derniersdossiersallocataires: <code>lib/Cake/Console/cake Derniersdossiersallocataires</code> et pensez à mettre cette commande en tâche planifiée.';
-					$entry = array( array( $this->alias => array( 'dossier_id' => $message ) ) );
+					$entry = array( array( $this->alias => array( 'error' => $message ) ) );
 				}
 			}
 

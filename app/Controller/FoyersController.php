@@ -7,6 +7,7 @@
 	* @package app.controllers
 	* @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	*/
+	App::uses( 'AppController', 'Controller' );
 
 	/**
 	* La classe FoyersController.php ...
@@ -53,17 +54,17 @@
 			'Foyer',
 			'Option',
 		);
-		
+
 		/**
 		 * Utilise les droits d'un autre Controller:action
 		 * sur une action en particulier
-		 * 
+		 *
 		 * @var array
 		 */
 		public $commeDroit = array(
-			
+
 		);
-		
+
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -75,7 +76,7 @@
 			'download',
 			'fileview',
 		);
-		
+
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
 		 * actions accessibles par URL et le type d'action CRUD.
@@ -183,13 +184,13 @@
 				if( $saved ) {
 					$this->Foyer->commit();
 					$this->Jetons2->release( $dossier_id );
-					$this->Session->setFlash( 'Enregistrement effectué', 'flash/success' );
+					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( $this->referer() );
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id );
 					$this->Foyer->rollback();
-					$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			$this->set( 'urlmenu', '/foyers/index/'.$id );
@@ -269,16 +270,16 @@
 
 						if( $saved ) {
 							$this->Foyer->commit();
-							$this->Session->setFlash( 'Enregistrement effectué.', 'flash/success' );
+							$this->Flash->success( __( 'Save->success' ) );
 							unset( $this->request->data['Foyer'] );
 						}
 						else {
 							$this->Foyer->rollback();
-							$this->Session->setFlash( 'Erreur lors de l\'enregistrement', 'flash/error' );
+							$this->Flash->error( __( 'Save->error' ) );
 						}
 					}
 					else {
-						$this->Session->setFlash( 'Aucun élément à enregistrer', 'flash/notice' );
+						$this->Flash->notice( 'Aucun élément à enregistrer' );
 					}
 				}
 			}
