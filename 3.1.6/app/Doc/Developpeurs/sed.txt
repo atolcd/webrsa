@@ -1,9 +1,0 @@
-1°) Remplacer le contenu de tous les pdfs d'un dump PostgreSql par NULL (inserts):
-sed -e "s/, '%PDF.*012', /, NULL, /g" cg93_20111005_trunk.sql > cg93_20111005_trunk2.sql
-
-2°) Imprimer la ligne n° 28784:
-sed '28784q;d' 1.sql
-
-3°) Trouver le nombre de jours durant lesquels une personne (cbuffin) a travaille sur le SVN pour une année donnée (2010)
-svn log svn://svn.adullact.net/scmrepos/svn/webrsa | grep "cbuffin" > commits.txt
-sed -e "s/^.*\([0-9]\{4\}\-[0-9]\{2\}\-[0-9]\{2\}\) \([0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\).*$/\1/g"  commits.txt | uniq | grep 2010
