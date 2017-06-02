@@ -1,0 +1,61 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "Avispcgpersonne.id"
+msgstr "Avis n°:"
+
+msgid "Avispcgpersonne.excl"
+msgstr "Exclusion"
+
+msgid "Avispcgpersonne.avisevaressnonsal"
+msgstr "Avis évaluation ressources non salarié"
+
+msgid "Avispcgpersonne.ddexcl"
+msgstr "Date début"
+
+msgid "Avispcgpersonne.dfexcl"
+msgstr "Date fin"
+
+msgid "Avispcgpersonne.dtsouressnonsal"
+msgstr "Date soumission ressource non salarié"
+
+msgid "Avispcgpersonne.dtevaressnonsal"
+msgstr "Date évaluation ressource non salarié"
+
+msgid "Avispcgpersonne.mtevalressnonsal"
+msgstr "Montant évaluation ressource non salarié"
+
+msgid "ENUM::AVISEVARESSNONSAL::D"
+msgstr "Avis demandé au CG"
+
+msgid "ENUM::AVISEVARESSNONSAL::A"
+msgstr "Accord du CG"
+
+msgid "ENUM::AVISEVARESSNONSAL::R"
+msgstr "Refus du CG"
+
+msgid "ENUM::EXCL::T"
+msgstr "Exclusion totale portant sur la personne et sur ses ressources"
+
+msgid "ENUM::EXCL::P"
+msgstr "Exclusion partielle portant uniquement sur la personne"
+

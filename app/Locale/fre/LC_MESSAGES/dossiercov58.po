@@ -1,0 +1,119 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "Dossierscovs58::view"
+msgstr "Voir"
+
+msgid "Dossiercov58::index::empty"
+msgstr "Aucun dossier présent pour cette thématique"
+
+msgid "Dossierscovs58::impressiondecision"
+msgstr "Imprimer la décision"
+
+msgid "Dossiercov58.etapecov"
+msgstr "Etat du dossier"
+
+msgid "Dossiercov58.chosen"
+msgstr "Dossier choisi ?"
+
+msgid "Dossiercov58.decisioncov"
+msgstr "Décision de la COV"
+
+msgid "Dossiercov58.proporeferent"
+msgstr "Proposition du référent"
+
+msgid "Dossiercov58.choixcov"
+msgstr "Choix de la COV"
+
+msgid "Dossiercov58.themecov58_id"
+msgstr "Thème de la COV"
+
+msgid "ENUM::ETAPECOV::cree"
+msgstr "Créé"
+
+msgid "ENUM::ETAPECOV::traitement"
+msgstr "En cours de traitement"
+
+msgid "ENUM::ETAPECOV::ajourne"
+msgstr "Ajourné"
+
+msgid "ENUM::ETAPECOV::finalise"
+msgstr "Finalisé"
+
+msgid "ENUM::THEMECOV::proposorientationscovs58"
+msgstr "Proposition d'orientation"
+
+msgid "ENUM::THEMECOV::proposcontratsinsertioncovs58"
+msgstr "Proposition de CER"
+
+msgid "ENUM::THEMECOV::proposnonorientationsproscovs58"
+msgstr "Proposition de maintien dans le social"
+
+msgid "ENUM::THEMECOV::proposorientssocialescovs58"
+msgstr "Proposition d'orientation sociale de fait"
+
+msgid "ENUM::THEMECOV::propoorientationcov58"
+msgstr "Proposition d'orientation"
+
+msgid "ENUM::THEMECOV::propocontratinsertioncov58"
+msgstr "Proposition de CER"
+
+msgid "ENUM::THEMECOV::propononorientationprocov58"
+msgstr "Proposition de maintien dans le social"
+
+msgid "ENUM::THEMECOV::propoorientsocialecov58"
+msgstr "Orientation sociale de fait"
+
+msgid "Dossiercov58.created"
+msgstr "Dossier créé le"
+
+msgid "Propoorientationcov58.referentorientant_id"
+msgstr "Nom du chargé de l'évaluation"
+
+msgid "ENUM::THEMECOV58::proposorientationscovs58"
+msgstr "Proposition d'orientation"
+
+msgid "ENUM::THEMECOV58::proposcontratsinsertioncovs58"
+msgstr "Proposition de CER"
+
+msgid "ENUM::THEMECOV58::proposnonorientationsproscovs58"
+msgstr "Proposition de maintien dans le social"
+
+msgid "ENUM::THEMECOV58::proposorientssocialescovs58"
+msgstr "Proposition d'orientation sociale de fait"
+
+msgid "ENUM::THEMECOV58::nonorientationsproscovs58"
+msgstr "Maintien dans le social"
+
+msgid "ENUM::THEMECOV::nonorientationprocov58"
+msgstr "Maintien dans le social"
+
+msgid "ENUM::THEMECOV::nonorientationsproscovs58"
+msgstr "Maintien dans le social"
+
+msgid "ENUM::THEMECOV58::regressionsorientationscovs58"
+msgstr "Orientation du professionnel vers le social"
+
+msgid "ENUM::THEMECOV::regressionsorientationscovs58"
+msgstr "Orientation du professionnel vers le social"
+
+msgid "ENUM::THEMECOV::regressionorientationcov58"
+msgstr "Orientation du professionnel vers le social"

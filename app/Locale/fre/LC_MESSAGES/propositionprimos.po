@@ -1,0 +1,44 @@
+# Traductions de propositionprimos.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Propositionprimos/index/:heading"
+msgstr "Propositions pour la primo analyse"
+
+msgid "/Propositionprimos/add/:heading"
+msgstr "Ajouter une proposition pour la primo analyse"
+
+msgid "/Propositionprimos/edit/:heading"
+msgstr "Modifier une proposition pour la primo analyse"
+
+msgid "/Propositionprimos/add"
+msgstr "Ajouter"
+
+msgid "/Propositionprimos/add/:title"
+msgstr "Ajouter"
+
+msgid "/Propositionprimos/edit"
+msgstr "Modifier"
+
+msgid "/Propositionprimos/edit/#Propositionprimo.id#"
+msgstr "Modifier"
+
+msgid "/Propositionprimos/delete"
+msgstr "Supprimer"
+
+msgid "/Propositionprimos/delete/#Propositionprimo.id#"
+msgstr "Supprimer"
+
+msgid "Propositionprimo.name"
+msgstr "Proposition"
+
+msgid "Propositionprimo.actif"
+msgstr "Actif ?"

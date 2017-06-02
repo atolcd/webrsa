@@ -1,0 +1,46 @@
+# Traductions de questionnaired2pdv93.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "ENUM::SITUATIONACCOMPAGNEMENT::sortie_obligation"
+msgstr "Sortie de l'obligation d'accompagnement"
+
+msgid "ENUM::SITUATIONACCOMPAGNEMENT::abandon"
+msgstr "Abandon"
+
+msgid "ENUM::SITUATIONACCOMPAGNEMENT::reorientation"
+msgstr "Ré-orientation"
+
+msgid "ENUM::SITUATIONACCOMPAGNEMENT::changement_situation"
+msgstr "Changements de situation"
+
+msgid "ENUM::SITUATIONACCOMPAGNEMENT::maintien"
+msgstr "Maintien dans l'accompagnement"
+
+# ------------------------------------------------------------------------------
+
+msgid "ENUM::CHGMENTSITUATIONADMIN::modif_sitfam"
+msgstr "Modification de la situation familiale"
+
+msgid "ENUM::CHGMENTSITUATIONADMIN::modif_situ_cjt"
+msgstr "Changement de la situation du conjoint"
+
+msgid "ENUM::CHGMENTSITUATIONADMIN::modif_departement"
+msgstr "Changement de département"
+
+msgid "ENUM::CHGMENTSITUATIONADMIN::modif_commune"
+msgstr "Changement de commune"
+
+msgid "ENUM::CHGMENTSITUATIONADMIN::radiation"
+msgstr "Radiation"
+
+msgid "ENUM::CHGMENTSITUATIONADMIN::autres"
+msgstr "Autres"

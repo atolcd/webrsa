@@ -1,0 +1,50 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2011-05-04 17:03+0100\n"
+"Last-Translator: Nemes <thierry.nemes@adullact-projet.coop>\n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# #############################################################################
+msgid "ActionscandidatsPartenaires::add"
+msgstr "Ajout d'une action liée à un partenaire"
+
+msgid "ActioncandidatPartenaire::add"
+msgstr "Ajouter une action liée à un partenaire"
+
+msgid "ActionscandidatsPartenaires::index"
+msgstr "Action liée à un partenaire"
+
+msgid "ActioncandidatPartenaire::delete"
+msgstr "Suppression d'une action liée à un partenaire"
+
+msgid "ActionscandidatsPartenaires::edit"
+msgstr "Modification d'une action liée à un partenaire"
+
+msgid "ActioncandidatPartenaire::edit"
+msgstr "Modifier une action liée à un partenaire"
+
+msgid "ActioncandidatPartenaire::delete::confirm"
+msgstr "Confirmer la suppression ?"
+
+msgid "ActionscandidatsPartenaire::index::empty"
+msgstr "Aucun lien entre des actions et des partenaires présent"
+
+msgid "ActioncandidatPartenaire.actioncandidat_id"
+msgstr "Type d'action"
+
+msgid "ActioncandidatPartenaire.partenaire_id"
+msgstr "Type de partenaire"
+

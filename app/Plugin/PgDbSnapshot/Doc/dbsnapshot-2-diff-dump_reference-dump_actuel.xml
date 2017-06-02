@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Valeurs de l'attribut "action" d'une balise diff: add, remove, change -->
+<diffs>
+	<functions>
+		<!-- 1 function en moins dans l'actuel par-rapport à la référence -->
+		<diff action="remove">
+			<reference>
+				<function name="add_missing_constraint" result="boolean" arguments="text, text, text, text, text, boolean" />
+			</reference>
+		</diff>
+	</functions>
+	<tables>
+		<table name="dossiers">
+			<fields>
+				<!-- Un champ en moins dans la table dossiers -->
+				<diff action="remove">
+					<reference>
+						<field name="dtdemrsa" type="date" null="true" default="" length="NULL" />
+					</reference>
+				</diff>
+				<!-- Un champ différent dans la table dossiers -->
+				<diff action="remove">
+					<reference>
+						<field name="numdemrsa" type="string" null="true" default="" length="11" />
+					</reference>
+					<current>
+						<field name="numdemrsa" type="string" null="true" default="" length="8" />
+					</current>
+				</diff>
+			</fields>
+			<indexes>
+				<!-- l'index dossiers_avispcgdroitrsa_id_idx en moins -->
+				<diff action="remove">
+					<reference>
+						<index name="dossiers_avispcgdroitrsa_id_idx" unique="false" columns="avispcgdroitrsa_id" table="dossiers" />
+					</reference>
+				</diff>
+			</indexes>
+		</table>
+		<!-- table users en moins dans l'actuel par-rapport à la référence -->
+		<diff action="remove">
+			<reference>
+				<table name="users">
+					<fields>
+						<field name="id" type="integer" null="false" default="null" length="11" key="primary" />
+						<field name="sensibilite" type="type_no" null="true" default="" length="NULL" />
+					</fields>
+					<indexes>
+						<index name="PRIMARY" unique="true" columns="id" />
+						<index name="users_username_key" unique="true" columns="username" />
+					</indexes>
+					<foreignkeys>
+						<foreignkey name="users_serviceinstructeur_id_fkey" onupdate="CASCADE" ondelete="CASCADE" from="users.serviceinstructeur_id" to="servicesinstructeurs.id" />
+					</foreignkeys>
+				</table>
+			</reference>
+		</diff>
+	</tables>
+</diffs>

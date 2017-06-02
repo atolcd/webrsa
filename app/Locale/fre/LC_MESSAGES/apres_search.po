@@ -1,0 +1,41 @@
+# Traductions de apres_search.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Apres/search/:heading"
+msgstr "Recherche de demande APRE (nouveau)"
+
+msgid "/Apres/search"
+msgstr "Formulaire"
+
+msgid "/Apres/search/:title"
+msgstr "Formulaire"
+
+msgid "Search.Apre.structurereferente_id"
+msgstr "Structure référente"
+
+msgid "Search.Apre.referent_id"
+msgstr "Référent/prescripteur"
+
+msgid "Search.Aideapre66.themeapre66_id"
+msgstr "Thème de l'aide"
+
+msgid "Search.Aideapre66.typeaideapre66_id"
+msgstr "Type d'aide"
+
+msgid "Search.Apre.isdecision"
+msgstr "Décision émise concernant le dossier APRE"
+
+msgid "Structurereferenteparcours.lib_struc"
+msgstr "Structure de suivi"
+
+msgid "Referentparcours.nom_complet"
+msgstr "Personne chargée du suivi"

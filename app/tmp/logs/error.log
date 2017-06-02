@@ -1,0 +1,922 @@
+/dev/null
+2017-02-27 17:54:58 Error: [MissingActionException] Action DossiersController::gestionsanomaliesbdds() could not be found.
+#0 /var/www/html/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#1 /var/www/html/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DossiersController), Object(CakeRequest), Object(CakeResponse))
+#2 /var/www/html/webrsa/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-04-25 15:16:53 Error: [MissingControllerException] Controller class Index.phpController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 /var/www/webrsa/index.php(42): require('/var/www/webrsa...')
+#2 {main}
+2017-04-25 15:20:28 Error: [MissingConnectionException] Database connection "PostgresPostgres" is missing, or could not be created.
+#0 /var/www/webrsa/lib/Cake/Model/Datasource/DboSource.php(261): Postgres->connect()
+#1 /var/www/webrsa/lib/Cake/Model/ConnectionManager.php(101): DboSource->__construct(Array)
+#2 /var/www/webrsa/lib/Cake/Model/Model.php(3164): ConnectionManager::getDataSource('default')
+#3 /var/www/webrsa/lib/Cake/Model/Model.php(1096): Model->setDataSource('default')
+#4 /var/www/webrsa/lib/Cake/Model/Model.php(3186): Model->setSource('users')
+#5 /var/www/webrsa/app/Model/Behavior/EnumerableBehavior.php(239): Model->getDataSource()
+#6 /var/www/webrsa/app/Model/Behavior/EnumerableBehavior.php(87): EnumerableBehavior->_readEnums(Object(User))
+#7 /var/www/webrsa/lib/Cake/Model/BehaviorCollection.php(147): EnumerableBehavior->setup(Object(User), Array)
+#8 /var/www/webrsa/lib/Cake/Model/BehaviorCollection.php(67): BehaviorCollection->load('Enumerable', Array)
+#9 /var/www/webrsa/lib/Cake/Model/Model.php(737): BehaviorCollection->init('User', Array)
+#10 /var/www/webrsa/app/Model/AppModel.php(101): Model->__construct(Array, NULL, NULL)
+#11 [internal function]: AppModel->__construct(Array)
+#12 /var/www/webrsa/lib/Cake/Utility/ClassRegistry.php(156): ReflectionClass->newInstance(Array)
+#13 /var/www/webrsa/app/Lib/View/Helper/FormHelper.php(148): ClassRegistry::init(Array)
+#14 /var/www/webrsa/app/Lib/View/Helper/FormHelper.php(188): FormHelper->_getModel('User')
+#15 /var/www/webrsa/app/Lib/View/Helper/FormHelper.php(333): FormHelper->_introspectModel('User', 'key')
+#16 /var/www/webrsa/app/View/Users/login.ctp(18): FormHelper->create('User', Array)
+#17 /var/www/webrsa/lib/Cake/View/View.php(923): include('/var/www/webrsa...')
+#18 /var/www/webrsa/lib/Cake/View/View.php(886): View->_evaluate('/var/www/webrsa...', Array)
+#19 /var/www/webrsa/lib/Cake/View/View.php(476): View->_render('/var/www/webrsa...')
+#20 /var/www/webrsa/lib/Cake/Controller/Controller.php(958): View->render(NULL, NULL)
+#21 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(193): Controller->render()
+#22 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#23 /var/www/webrsa/app/webroot/index.php(92): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#24 {main}
+2017-04-25 15:47:31 Error: Le fichier de configuration de mail app/Config/email.php n'est pas présent.
+2017-04-25 15:48:10 Error: Le fichier de configuration de mail app/Config/email.php n'est pas présent.
+2017-04-26 08:26:06 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-04-26 08:33:38 Error: [error403Exception] 
+#0 /var/www/webrsa/app/Controller/AppController.php(379): AppController->_checkPermissions()
+#1 /var/www/webrsa/app/Controller/DossiersController.php(207): AppController->beforeFilter()
+#2 [internal function]: DossiersController->beforeFilter(Object(CakeEvent))
+#3 /var/www/webrsa/lib/Cake/Event/CakeEventManager.php(246): call_user_func(Array, Object(CakeEvent))
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(669): CakeEventManager->dispatch(Object(CakeEvent))
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(183): Controller->startupProcess()
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DossiersController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-04-26 08:35:27 Error: [error403Exception] 
+#0 /var/www/webrsa/app/Controller/AppController.php(379): AppController->_checkPermissions()
+#1 /var/www/webrsa/app/Controller/DossiersController.php(207): AppController->beforeFilter()
+#2 [internal function]: DossiersController->beforeFilter(Object(CakeEvent))
+#3 /var/www/webrsa/lib/Cake/Event/CakeEventManager.php(246): call_user_func(Array, Object(CakeEvent))
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(669): CakeEventManager->dispatch(Object(CakeEvent))
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(183): Controller->startupProcess()
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DossiersController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-04-26 08:35:31 Error: [error403Exception] 
+#0 /var/www/webrsa/app/Controller/AppController.php(379): AppController->_checkPermissions()
+#1 /var/www/webrsa/app/Controller/DossiersController.php(207): AppController->beforeFilter()
+#2 [internal function]: DossiersController->beforeFilter(Object(CakeEvent))
+#3 /var/www/webrsa/lib/Cake/Event/CakeEventManager.php(246): call_user_func(Array, Object(CakeEvent))
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(669): CakeEventManager->dispatch(Object(CakeEvent))
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(183): Controller->startupProcess()
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DossiersController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-04-26 08:35:35 Error: [error403Exception] 
+#0 /var/www/webrsa/app/Controller/AppController.php(379): AppController->_checkPermissions()
+#1 /var/www/webrsa/app/Controller/DossiersController.php(207): AppController->beforeFilter()
+#2 [internal function]: DossiersController->beforeFilter(Object(CakeEvent))
+#3 /var/www/webrsa/lib/Cake/Event/CakeEventManager.php(246): call_user_func(Array, Object(CakeEvent))
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(669): CakeEventManager->dispatch(Object(CakeEvent))
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(183): Controller->startupProcess()
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DossiersController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-04-26 08:35:45 Error: [dateHabilitationUserException] Mauvaises dates d'habilitation de l'utilisateur
+#0 /var/www/webrsa/app/Controller/AppController.php(378): AppController->_checkHabilitations()
+#1 /var/www/webrsa/app/Controller/DossiersController.php(207): AppController->beforeFilter()
+#2 [internal function]: DossiersController->beforeFilter(Object(CakeEvent))
+#3 /var/www/webrsa/lib/Cake/Event/CakeEventManager.php(246): call_user_func(Array, Object(CakeEvent))
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(669): CakeEventManager->dispatch(Object(CakeEvent))
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(183): Controller->startupProcess()
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DossiersController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-04-26 08:36:49 Error: [dateHabilitationUserException] Mauvaises dates d'habilitation de l'utilisateur
+#0 /var/www/webrsa/app/Controller/AppController.php(378): AppController->_checkHabilitations()
+#1 /var/www/webrsa/app/Controller/DossiersController.php(207): AppController->beforeFilter()
+#2 [internal function]: DossiersController->beforeFilter(Object(CakeEvent))
+#3 /var/www/webrsa/lib/Cake/Event/CakeEventManager.php(246): call_user_func(Array, Object(CakeEvent))
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(669): CakeEventManager->dispatch(Object(CakeEvent))
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(183): Controller->startupProcess()
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(DossiersController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-04-26 09:06:43 Error: Fatal Error (1): Allowed memory size of 536870912 bytes exhausted (tried to allocate 16 bytes) in [/var/www/webrsa/lib/Cake/Model/Datasource/Database/Postgres.php, line 710]
+2017-04-26 09:06:43 Error: [FatalErrorException] Allowed memory size of 536870912 bytes exhausted (tried to allocate 16 bytes)
+#0 /var/www/webrsa/lib/Cake/Error/ErrorHandler.php(161): ErrorHandler::handleFatalError(1, 'Allowed memory ...', '/var/www/webrsa...', 710)
+#1 [internal function]: ErrorHandler::handleError(1, 'Allowed memory ...', '/var/www/webrsa...', 710, Array)
+#2 /var/www/webrsa/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Allowed memory ...', '/var/www/webrsa...', 710, Array)
+#3 /var/www/webrsa/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-04-26 09:07:27 Error: Fatal Error (1): Call to undefined function mb_ereg_replace() in [/var/www/webrsa/app/Lib/basics.php, line 702]
+2017-04-26 09:07:27 Error: [FatalErrorException] Call to undefined function mb_ereg_replace()
+#0 /var/www/webrsa/lib/Cake/Error/ErrorHandler.php(161): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/var/www/webrsa...', 702)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/var/www/webrsa...', 702, Array)
+#2 /var/www/webrsa/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/var/www/webrsa...', 702, Array)
+#3 /var/www/webrsa/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-04-26 09:08:00 Error: Fatal Error (1): Call to undefined function mb_ereg_replace() in [/var/www/webrsa/app/Lib/basics.php, line 702]
+2017-04-26 09:08:00 Error: [FatalErrorException] Call to undefined function mb_ereg_replace()
+#0 /var/www/webrsa/lib/Cake/Error/ErrorHandler.php(161): ErrorHandler::handleFatalError(1, 'Call to undefin...', '/var/www/webrsa...', 702)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', '/var/www/webrsa...', 702, Array)
+#2 /var/www/webrsa/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', '/var/www/webrsa...', 702, Array)
+#3 /var/www/webrsa/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-04-26 11:07:03 Error: [MissingViewException] View file "/var/www/webrsa/app/Plugin/SaveSearch/View/Pages/favicon.png.ctp" is missing.
+#0 /var/www/webrsa/lib/Cake/View/View.php(473): View->_getViewFileName('favicon.png')
+#1 /var/www/webrsa/lib/Cake/Controller/Controller.php(958): View->render('favicon.png', NULL)
+#2 /var/www/webrsa/app/Controller/PagesController.php(75): Controller->render('favicon.png')
+#3 [internal function]: PagesController->display('favicon.png')
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(PagesController), Array)
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-04-26 11:24:34 Error: Fatal Error (1): Class 'SoapClient' not found in [/var/www/webrsa/app/Plugin/Gedooo/Vendor/phpgedooo_nouveau/GDO_FusionType.class, line 116]
+2017-04-26 11:24:34 Error: [FatalErrorException] Class 'SoapClient' not found
+#0 /var/www/webrsa/lib/Cake/Error/ErrorHandler.php(161): ErrorHandler::handleFatalError(1, 'Class 'SoapClie...', '/var/www/webrsa...', 116)
+#1 [internal function]: ErrorHandler::handleError(1, 'Class 'SoapClie...', '/var/www/webrsa...', 116, Array)
+#2 /var/www/webrsa/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'Class 'SoapClie...', '/var/www/webrsa...', 116, Array)
+#3 /var/www/webrsa/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-04-26 11:26:40 Error: Erreur lors de la génération du document (Error num. 000: Error: SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://RSA-GEDO-Q02.cg93.fr:8880/ODFgedooo/OfficeService?wsdl' : failed to load external entity "http://RSA-GEDO-Q02.cg93.fr:8880/ODFgedooo/OfficeService?wsdl"
+).
+2017-04-26 11:26:40 Error: Fatal Error (1): SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://RSA-GEDO-Q02.cg93.fr:8880/ODFgedooo/OfficeService?wsdl' : failed to load external entity "http://RSA-GEDO-Q02.cg93.fr:8880/ODFgedooo/OfficeService?wsdl"
+ in [/var/www/webrsa/app/Plugin/Gedooo/Vendor/phpgedooo_nouveau/GDO_FusionType.class, line 120]
+2017-04-26 11:26:40 Error: [FatalErrorException] SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://RSA-GEDO-Q02.cg93.fr:8880/ODFgedooo/OfficeService?wsdl' : failed to load external entity "http://RSA-GEDO-Q02.cg93.fr:8880/ODFgedooo/OfficeService?wsdl"
+
+#0 /var/www/webrsa/lib/Cake/Error/ErrorHandler.php(161): ErrorHandler::handleFatalError(1, 'SOAP-ERROR: Par...', '/var/www/webrsa...', 120)
+#1 [internal function]: ErrorHandler::handleError(1, 'SOAP-ERROR: Par...', '/var/www/webrsa...', 120, Array)
+#2 /var/www/webrsa/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'SOAP-ERROR: Par...', '/var/www/webrsa...', 120, Array)
+#3 /var/www/webrsa/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-04-26 11:27:40 Error: Erreur lors de la génération du document (Error num. 000: Error: SOAP-ERROR: Parsing WSDL: Couldn't load from 'localhost:8880/ODFgedooo/OfficeService?wsdl' : failed to load external entity "localhost:8880/ODFgedooo/OfficeService?wsdl"
+).
+2017-04-26 11:27:40 Error: Fatal Error (1): SOAP-ERROR: Parsing WSDL: Couldn't load from 'localhost:8880/ODFgedooo/OfficeService?wsdl' : failed to load external entity "localhost:8880/ODFgedooo/OfficeService?wsdl"
+ in [/var/www/webrsa/app/Plugin/Gedooo/Vendor/phpgedooo_nouveau/GDO_FusionType.class, line 120]
+2017-04-26 11:27:40 Error: [FatalErrorException] SOAP-ERROR: Parsing WSDL: Couldn't load from 'localhost:8880/ODFgedooo/OfficeService?wsdl' : failed to load external entity "localhost:8880/ODFgedooo/OfficeService?wsdl"
+
+#0 /var/www/webrsa/lib/Cake/Error/ErrorHandler.php(161): ErrorHandler::handleFatalError(1, 'SOAP-ERROR: Par...', '/var/www/webrsa...', 120)
+#1 [internal function]: ErrorHandler::handleError(1, 'SOAP-ERROR: Par...', '/var/www/webrsa...', 120, Array)
+#2 /var/www/webrsa/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'SOAP-ERROR: Par...', '/var/www/webrsa...', 120, Array)
+#3 /var/www/webrsa/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-04-26 11:29:11 Error: Erreur lors de la génération du document (Error num. 000: Error: SOAP-ERROR: Parsing WSDL: Couldn't load from 'localhost:8880/ODFgedooo/OfficeService?wsdl' : failed to load external entity "localhost:8880/ODFgedooo/OfficeService?wsdl"
+).
+2017-04-26 11:29:11 Error: Fatal Error (1): SOAP-ERROR: Parsing WSDL: Couldn't load from 'localhost:8880/ODFgedooo/OfficeService?wsdl' : failed to load external entity "localhost:8880/ODFgedooo/OfficeService?wsdl"
+ in [/var/www/webrsa/app/Plugin/Gedooo/Vendor/phpgedooo_nouveau/GDO_FusionType.class, line 120]
+2017-04-26 11:29:11 Error: [FatalErrorException] SOAP-ERROR: Parsing WSDL: Couldn't load from 'localhost:8880/ODFgedooo/OfficeService?wsdl' : failed to load external entity "localhost:8880/ODFgedooo/OfficeService?wsdl"
+
+#0 /var/www/webrsa/lib/Cake/Error/ErrorHandler.php(161): ErrorHandler::handleFatalError(1, 'SOAP-ERROR: Par...', '/var/www/webrsa...', 120)
+#1 [internal function]: ErrorHandler::handleError(1, 'SOAP-ERROR: Par...', '/var/www/webrsa...', 120, Array)
+#2 /var/www/webrsa/lib/Cake/Core/App.php(926): call_user_func('ErrorHandler::h...', 1, 'SOAP-ERROR: Par...', '/var/www/webrsa...', 120, Array)
+#3 /var/www/webrsa/lib/Cake/Core/App.php(899): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-04-26 14:15:01 Error: [CakeException] AclNode::node() - Couldn't find Aro node identified by "Array
+(
+    [Aro0.model] => Utilisateur
+    [Aro0.foreign_key] => 569
+)
+"
+#0 /var/www/webrsa/lib/Cake/Model/Permission.php(89): AclNode->node(Array)
+#1 /var/www/webrsa/lib/Cake/Controller/Component/Acl/DbAcl.php(71): Permission->check(Array, 'Dossiers:index', '*')
+#2 /var/www/webrsa/lib/Cake/Controller/Component/AclComponent.php(108): DbAcl->check(Array, 'Dossiers:index', '*')
+#3 /var/www/webrsa/app/Controller/Component/DbdroitsComponent.php(208): AclComponent->check(Array, 'Dossiers:index')
+#4 /var/www/webrsa/app/Controller/UsersController.php(896): DbdroitsComponent->litCruDroits(Array)
+#5 [internal function]: UsersController->edit('569')
+#6 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(UsersController), Array)
+#7 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#8 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest), Object(CakeResponse))
+#9 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2017-04-28 10:19:25 Error: [error403Exception] 
+#0 /var/www/webrsa/app/Controller/Cohortesreferents93Controller.php(116): Workflowscers93Component->assertUserCpdv()
+#1 [internal function]: Cohortesreferents93Controller->affecter()
+#2 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(Cohortesreferents93Controller), Array)
+#3 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#4 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(Cohortesreferents93Controller), Object(CakeRequest), Object(CakeResponse))
+#5 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#6 {main}
+2017-04-28 10:21:29 Error: [error403Exception] 
+#0 /var/www/webrsa/app/Controller/Cohortesreferents93Controller.php(116): Workflowscers93Component->assertUserCpdv()
+#1 [internal function]: Cohortesreferents93Controller->affecter()
+#2 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(Cohortesreferents93Controller), Array)
+#3 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#4 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(Cohortesreferents93Controller), Object(CakeRequest), Object(CakeResponse))
+#5 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#6 {main}
+2017-04-28 11:06:55 Error: [error403Exception] 
+#0 /var/www/webrsa/app/Controller/Cohortesreferents93Controller.php(116): Workflowscers93Component->assertUserCpdv()
+#1 [internal function]: Cohortesreferents93Controller->affecter()
+#2 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(Cohortesreferents93Controller), Array)
+#3 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#4 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(Cohortesreferents93Controller), Object(CakeRequest), Object(CakeResponse))
+#5 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#6 {main}
+2017-04-28 14:12:29 Error: [MissingViewException] View file "/var/www/webrsa/app/Plugin/SaveSearch/View/Pages/favicon.png.ctp" is missing.
+#0 /var/www/webrsa/lib/Cake/View/View.php(473): View->_getViewFileName('favicon.png')
+#1 /var/www/webrsa/lib/Cake/Controller/Controller.php(958): View->render('favicon.png', NULL)
+#2 /var/www/webrsa/app/Controller/PagesController.php(75): Controller->render('favicon.png')
+#3 [internal function]: PagesController->display('favicon.png')
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(PagesController), Array)
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-04-28 14:12:29 Error: [MissingViewException] View file "/var/www/webrsa/app/Plugin/SaveSearch/View/Pages/favicon.png.ctp" is missing.
+#0 /var/www/webrsa/lib/Cake/View/View.php(473): View->_getViewFileName('favicon.png')
+#1 /var/www/webrsa/lib/Cake/Controller/Controller.php(958): View->render('favicon.png', NULL)
+#2 /var/www/webrsa/app/Controller/PagesController.php(75): Controller->render('favicon.png')
+#3 [internal function]: PagesController->display('favicon.png')
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(PagesController), Array)
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-05-03 08:15:28 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:28 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:28 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:29 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:29 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:29 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:29 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:29 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:29 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:29 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:29 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:29 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:29 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:30 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:30 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:30 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:30 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:30 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:30 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:30 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:33 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:33 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:33 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:33 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:33 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:33 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:33 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:33 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:33 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:33 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:34 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:34 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-03 08:15:34 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 08:18:27 Error: [MissingViewException] View file "/var/www/webrsa/app/Plugin/SaveSearch/View/Pages/favicon.png.ctp" is missing.
+#0 /var/www/webrsa/lib/Cake/View/View.php(473): View->_getViewFileName('favicon.png')
+#1 /var/www/webrsa/lib/Cake/Controller/Controller.php(958): View->render('favicon.png', NULL)
+#2 /var/www/webrsa/app/Controller/PagesController.php(75): Controller->render('favicon.png')
+#3 [internal function]: PagesController->display('favicon.png')
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(PagesController), Array)
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-05-04 08:18:28 Error: [MissingViewException] View file "/var/www/webrsa/app/Plugin/SaveSearch/View/Pages/favicon.png.ctp" is missing.
+#0 /var/www/webrsa/lib/Cake/View/View.php(473): View->_getViewFileName('favicon.png')
+#1 /var/www/webrsa/lib/Cake/Controller/Controller.php(958): View->render('favicon.png', NULL)
+#2 /var/www/webrsa/app/Controller/PagesController.php(75): Controller->render('favicon.png')
+#3 [internal function]: PagesController->display('favicon.png')
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(PagesController), Array)
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-05-04 08:29:56 Error: [error403Exception] 
+#0 /var/www/webrsa/app/Controller/Cohortesreferents93Controller.php(116): Workflowscers93Component->assertUserCpdv()
+#1 [internal function]: Cohortesreferents93Controller->affecter()
+#2 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(Cohortesreferents93Controller), Array)
+#3 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#4 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(Cohortesreferents93Controller), Object(CakeRequest), Object(CakeResponse))
+#5 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#6 {main}
+2017-05-04 09:32:51 Error: [error403Exception] Accès à la fonction Histoschoixcers93::aviscadre_consultation refusé pour l'utilisateur: anael
+#0 /var/www/webrsa/app/Controller/Histoschoixcers93Controller.php(171): WebrsaAccessesComponent->check('94558')
+#1 [internal function]: Histoschoixcers93Controller->aviscadre_consultation('94558')
+#2 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(Histoschoixcers93Controller), Array)
+#3 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#4 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(Histoschoixcers93Controller), Object(CakeRequest), Object(CakeResponse))
+#5 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#6 {main}
+2017-05-04 11:06:47 Error: [MissingControllerException] Controller class FluxcnafController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:00 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:00 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:00 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:00 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:00 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:00 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:00 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:00 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:01 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:01 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:01 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:01 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:01 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:01 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:01 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:01 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:01 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:01 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:01 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:01 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:03 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:03 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:03 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:03 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:03 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:03 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:03 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-04 14:02:05 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-15 15:36:33 Error: [MissingViewException] View file "/var/www/webrsa/app/Plugin/SaveSearch/View/Pages/favicon.png.ctp" is missing.
+#0 /var/www/webrsa/lib/Cake/View/View.php(473): View->_getViewFileName('favicon.png')
+#1 /var/www/webrsa/lib/Cake/Controller/Controller.php(958): View->render('favicon.png', NULL)
+#2 /var/www/webrsa/app/Controller/PagesController.php(75): Controller->render('favicon.png')
+#3 [internal function]: PagesController->display('favicon.png')
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(PagesController), Array)
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-05-16 09:33:07 Error: [MissingViewException] View file "/var/www/webrsa/app/Plugin/SaveSearch/View/Pages/favicon.png.ctp" is missing.
+#0 /var/www/webrsa/lib/Cake/View/View.php(473): View->_getViewFileName('favicon.png')
+#1 /var/www/webrsa/lib/Cake/Controller/Controller.php(958): View->render('favicon.png', NULL)
+#2 /var/www/webrsa/app/Controller/PagesController.php(75): Controller->render('favicon.png')
+#3 [internal function]: PagesController->display('favicon.png')
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(PagesController), Array)
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-05-16 14:10:30 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:30 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:30 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:30 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:30 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:31 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:31 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:31 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:31 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:31 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:31 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:31 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:31 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:10:32 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:18 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:18 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:18 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:18 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:18 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:18 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:18 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:19 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:19 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:19 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:19 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:19 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:19 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:19 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:19 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:19 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:19 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:20 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:20 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:20 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:20 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:23 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:23 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:23 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:23 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:23 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:24 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:24 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:24 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:24 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:24 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:24 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:24 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:24 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:24 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:25 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:25 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:25 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:25 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:25 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:25 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 14:14:25 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 16:52:30 Error: [MissingControllerException] Controller class 320Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 16:52:38 Error: [MissingControllerException] Controller class 316Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 16:55:43 Error: [MissingControllerException] Controller class 320Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 16:55:51 Error: [MissingControllerException] Controller class 316Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 16:55:57 Error: [MissingControllerException] Controller class 850Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-16 17:07:55 Error: [MissingControllerException] Controller class Webrsa32Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 09:09:20 Error: [MissingControllerException] Controller class Webrsa32Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 09:09:33 Error: [MissingControllerException] Controller class Webrsa32Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 09:09:49 Error: [MissingControllerException] Controller class 316Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 09:10:52 Error: [MissingControllerException] Controller class Webrsa32Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 09:48:35 Error: [MissingControllerException] Controller class Webrsa32Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 09:48:38 Error: [MissingControllerException] Controller class WebrsaController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 09:50:07 Error: [MissingControllerException] Controller class Webrsa316Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 10:02:24 Error: [MissingControllerException] Controller class WebrsaController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 10:02:27 Error: [MissingControllerException] Controller class Webrsa32Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 10:04:16 Error: [MissingControllerException] Controller class WebrsaController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 10:04:18 Error: [MissingControllerException] Controller class Webrsa32Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 10:29:35 Error: [MissingControllerException] Controller class WebrsaController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 10:29:38 Error: [MissingControllerException] Controller class Webrsa32Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 10:34:16 Error: [MissingControllerException] Controller class Webrsa32Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 10:34:29 Error: [MissingControllerException] Controller class 320Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 11:12:19 Error: [MissingControllerException] Controller class Webrsa320Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 11:12:27 Error: [MissingControllerException] Controller class WebrsaController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 11:32:31 Error: [MissingControllerException] Controller class Webrsa316Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 11:32:39 Error: [MissingControllerException] Controller class Webrsa320Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 11:34:26 Error: [MissingControllerException] Controller class Webrsa316Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 11:34:37 Error: [MissingControllerException] Controller class Webrsa320Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 11:38:49 Error: [MissingControllerException] Controller class WebrsaController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 11:39:04 Error: [MissingControllerException] Controller class Webrsa32Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 11:44:05 Error: [MissingControllerException] Controller class Webrsa316Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 11:45:24 Error: [MissingControllerException] Controller class Webrsa316Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 11:45:32 Error: [MissingControllerException] Controller class Webrsa320Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 11:55:36 Error: [MissingControllerException] Controller class 316Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 11:55:42 Error: [MissingControllerException] Controller class 320Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 13:25:17 Error: [MissingControllerException] Controller class Webrsa316Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-17 13:25:23 Error: [MissingControllerException] Controller class Webrsa320Controller could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-18 10:19:59 Error: [MissingControllerException] Controller class WebrsaController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:03 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:03 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:03 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:03 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:03 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:03 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:04 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:05 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:05 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:05 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:06 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:06 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:06 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-29 08:33:06 Error: [MissingControllerException] Controller class UsersController could not be found.
+#0 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-05-31 14:26:03 Error: [MissingViewException] View file "/var/www/webrsa/app/Plugin/SaveSearch/View/Pages/favicon.png.ctp" is missing.
+#0 /var/www/webrsa/lib/Cake/View/View.php(473): View->_getViewFileName('favicon.png')
+#1 /var/www/webrsa/lib/Cake/Controller/Controller.php(958): View->render('favicon.png', NULL)
+#2 /var/www/webrsa/app/Controller/PagesController.php(75): Controller->render('favicon.png')
+#3 [internal function]: PagesController->display('favicon.png')
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(PagesController), Array)
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-05-31 14:26:54 Error: [MissingViewException] View file "/var/www/webrsa/app/Plugin/SaveSearch/View/Pages/favicon.png.ctp" is missing.
+#0 /var/www/webrsa/lib/Cake/View/View.php(473): View->_getViewFileName('favicon.png')
+#1 /var/www/webrsa/lib/Cake/Controller/Controller.php(958): View->render('favicon.png', NULL)
+#2 /var/www/webrsa/app/Controller/PagesController.php(75): Controller->render('favicon.png')
+#3 [internal function]: PagesController->display('favicon.png')
+#4 /var/www/webrsa/lib/Cake/Controller/Controller.php(485): ReflectionMethod->invokeArgs(Object(PagesController), Array)
+#5 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(186): Controller->invokeAction(Object(CakeRequest))
+#6 /var/www/webrsa/lib/Cake/Routing/Dispatcher.php(161): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest), Object(CakeResponse))
+#7 /var/www/webrsa/app/webroot/index.php(93): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}

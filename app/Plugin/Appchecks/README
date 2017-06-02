@@ -1,0 +1,39 @@
+Plugin Appchecks
+
+Contenu du plugin:
+	I) Modèle: comprend des fonctions pour vérifier différentes choses. N'utilise pas de table.
+	II) Helper: comprend des fonctions pour afficher les vérifications
+
+Il faudra penser à mettre du CSS, par exemple:
+	table.checks, table.checks tbody, table.checks tbody th, table.checks tbody td {
+		background: none;
+		color: black;
+		border: 0;
+	}
+
+	table.checks tr th {
+		background-repeat: no-repeat;
+		background-position: left top;
+		padding-left: 20px;
+		margin-left: 0;
+	}
+
+	table.checks tr.success th {
+		background-image: url( ../img/icons/tick.png );
+	}
+
+	table.checks tr.error th {
+		background-image: url( ../img/icons/cross.png );
+	}
+
+	table.checks tr.error th, table.checks tr.error td {
+		background-color: #fdd;
+	}
+
+	table.checks tr.error td.message {
+		background-color: white;
+	}
+
+	table.checks { width: 100%; }
+	table.checks tr th, table.checks tr td { width: 15%; }
+	table.checks tr td.message { width: 50%; }

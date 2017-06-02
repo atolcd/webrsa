@@ -1,0 +1,41 @@
+# Traductions de personnes_referents_index.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Referent.nom_complet"
+msgstr "Nom/Prénom Référent"
+
+msgid "Structurereferente.lib_struc"
+msgstr "Structure référente"
+
+msgid "PersonneReferent.dddesignation"
+msgstr "Date de désignation"
+
+msgid "/PersonnesReferents/edit"
+msgstr "Modifier"
+
+msgid "/PersonnesReferents/edit/#PersonneReferent.id#"
+msgstr "Modifier"
+
+msgid "/PersonnesReferents/cloturer"
+msgstr "Clôturer"
+
+msgid "/PersonnesReferents/cloturer/#PersonneReferent.id#"
+msgstr "Clôturer"
+
+msgid "/PersonnesReferents/filelink"
+msgstr "Fichiers liés (#Fichiermodule.nombre#)"
+
+msgid "/PersonnesReferents/filelink/#PersonneReferent.id#"
+msgstr "Fichiers liés"
+
+msgid "PersonnesReferents::index::emptyLabel"
+msgstr "Cette personne ne possède pas encore de référents."

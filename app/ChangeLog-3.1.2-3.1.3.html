@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:html="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>ChangeLog</title><style type="text/css">
+					
+						table { border-collapse: collapse; }
+						td, th { border: 1px solid silver; padding: 0.125em 0.25em; vertical-align: top; }
+						thead th, tbody th { text-align: center; background: #cecece; }
+						tbody tr:nth-child(even) { background: #efefef; }
+						tbody th.release { text-align: left; }
+					
+				</style><script type="text/javascript">
+					
+						function toggleColumn( className ) {
+							var elements = document.getElementsByClassName( className );
+							for( var i = 0 ; i < elements.length ; i++ ) {
+								var display = elements[i].style.display;
+								if( display == 'none' ) {
+									elements[i].style.display = 'table-cell';
+								}
+								else {
+									elements[i].style.display = 'none';
+								}
+							}
+						}
+					
+				</script></head><body><h1>ChangeLog</h1><ul><li><a href="#" onclick="toggleColumn( 'fichiers' );return false;" title="Voir la liste des fichiers">Fichiers</a></li></ul><table><thead><tr><th class="revision">Rév.</th><th class="date">Date</th><th class="message">Message</th><th class="fichiers">Fichiers</th></tr></thead><tbody>
+<tr class="logentry"><td class="revision">9947</td><td class="date">28/11/2016 13:44</td><td class="message">Correction : ticket #2003850 Bug sur l'impression d'un rendezvous</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Controller/RendezvousController.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">9949</td><td class="date">28/11/2016 16:09</td><td class="message">Correction : ticket #2003850 bug sur l'impression d'un rendezvous</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Model/WebrsaRendezvous.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">9953</td><td class="date">30/11/2016 15:35</td><td class="message">Correction : ticket #2003962 problèmes sur les options des structures référentes pour les utilisateurs externes (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Controller/Component/InsertionsBeneficiairesComponent.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">9954</td><td class="date">30/11/2016 15:49</td><td class="message">Correction : modification des droits d'accès à une action Decisionsdossierspcgs66::transmitop (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Utility/WebrsaAccessDecisionsdossierspcgs66.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">9957</td><td class="date">30/11/2016 16:27</td><td class="message">Correction : options sur structures referentes (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Controller/Component/InsertionsBeneficiairesComponent.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">9959</td><td class="date">01/12/2016 09:21</td><td class="message">Correction : ticket #2003979 bug sur l'impression d'un bilan de parcours (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Model/WebrsaBilanparcours66.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">9960</td><td class="date">02/12/2016 09:09</td><td class="message">Correction : ticket #2004010 bug sur la pagination et la préselection des dossiers d'ep (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Plugin/Default/View/Helper/DefaultPaginatorHelper.php</li><li><strong>M:</strong>/branches/3.1/app/View/Dossierseps/choose.defautinsertionep66.liste.ctp</li><li><strong>M:</strong>/branches/3.1/app/View/Dossierseps/choose.saisinebilanparcoursep66.liste.ctp</li></ul></td></tr>
+<tr class="logentry"><td class="revision">9962</td><td class="date">02/12/2016 09:35</td><td class="message">Correction : ticket #2004011 retrait de l'obligation de saisir la nationalité de la personne lors de son édition</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Model/Personne.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">9965</td><td class="date">02/12/2016 09:53</td><td class="message">Correction : ticket #2004013 Affichage du commentaire d'annulation dans tout les cas si le bilan est annulé ou reporté (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Model/WebrsaBilanparcours66.php</li><li><strong>M:</strong>/branches/3.1/app/View/Bilansparcours66/index.ctp</li></ul></td></tr>
+<tr class="logentry"><td class="revision">9966</td><td class="date">02/12/2016 09:59</td><td class="message">Correction : ticket #2004014 Affichage de la durée du Contrat (CER) en infobulle (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/View/Contratsinsertion/index_cg66.ctp</li></ul></td></tr>
+<tr class="logentry"><td class="revision">9970</td><td class="date">02/12/2016 10:50</td><td class="message">Backport du javascript 3.2(dev) en 3.1 pour corriger le bug sur le redimensionnement automatique des zones de texte</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/webroot/js/webrsa.additional.js</li><li><strong>M:</strong>/branches/3.1/app/webroot/js/webrsa.js</li></ul></td></tr>
+</tbody></table><script type="text/javascript">
+					
+						toggleColumn( 'fichiers' );
+					
+				</script></body></html>

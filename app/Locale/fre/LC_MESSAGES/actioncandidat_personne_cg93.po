@@ -1,0 +1,102 @@
+###############################################################################
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "ActioncandidatPersonne::delete::confirm"
+msgstr "Voulez-vous supprimer la fiche de prescription ?"
+
+msgid "ActionscandidatsPersonnes::add"
+msgstr "Ajout d'une fiche de prescription"
+
+msgid "ActionscandidatsPersonnes::index"
+msgstr "Fiche de prescription"
+
+msgid "ActionscandidatsPersonnes::edit"
+msgstr "Modification de la fiche de prescription"
+
+msgid "ActioncandidatPersonne::add"
+msgstr "Ajouter une fiche de prescription"
+
+msgid "ActioncandidatPersonne::edit"
+msgstr "Modifier la fiche de prescription"
+
+msgid "ActioncandidatPersonne::gedooo"
+msgstr "Imprimer la fiche de prescription"
+
+msgid "ActionscandidatsPersonne::index::empty"
+msgstr "Aucune fiche de prescription présente pour cette personne"
+
+msgid "ActioncandidatPersonne.actioncandidat_id"
+msgstr "Catégorie d’action prescrite"
+
+msgid "ActioncandidatPersonne.partenaire_id"
+msgstr "Partenaire de l'action"
+
+msgid "ActioncandidatPersonne.referent_id"
+msgstr "Nom du prescripteur"
+
+msgid "ActioncandidatPersonne.ddaction"
+msgstr "Date de transmission de la prescription"
+
+msgid "ActioncandidatPersonne.dfaction"
+msgstr "Date de retour de la prescription"
+
+msgid "ActioncandidatPersonne.motifdemande"
+msgstr "Action prescrite et nom du partenaire/prestataire"
+
+msgid "ActioncandidatPersonne.rendezvous_id"
+msgstr "Rendez-vous"
+
+msgid "ActioncandidatPersonne.enattente"
+msgstr "Candidature en attente"
+
+msgid "ActioncandidatPersonne.datesignature"
+msgstr "Date de la signature"
+
+msgid "ActioncandidatPersonne.infocomplementaire"
+msgstr "Information(s) complémentaire(s)"
+
+msgid "ActioncandidatPersonne.datebilan"
+msgstr "Date"
+
+msgid "ActioncandidatPersonne.daterdvpartenaire"
+msgstr "Date du RDV"
+
+msgid "ActioncandidatPersonne.daterecu"
+msgstr "Le "
+
+msgid "ActioncandidatPersonne.personnerecu"
+msgstr "Par "
+
+msgid "ActioncandidatPersonne.autrepiece"
+msgstr " "
+
+msgid "ActioncandidatPersonne.precisionmotif"
+msgstr "Préciser les motifs"
+
+msgid "ActioncandidatPersonne.horairerdvpartenaire"
+msgstr "Rendez-vous fixé le"
+
+msgid "ActionscandidatsPersonnes::cancel"
+msgstr "Annulation"
+
+msgid "ActioncandidatPersonne.motifannulation"
+msgstr "Motif d'annulation"

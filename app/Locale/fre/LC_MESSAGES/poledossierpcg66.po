@@ -1,0 +1,59 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "Poledossierpcg66::index::empty"
+msgstr "Aucun pôle de défini"
+
+msgid "Polesdossierspcgs66::index"
+msgstr "Intitulé des pôles chargé des dossiers"
+
+msgid "Polesdossierspcgs66::add"
+msgstr "Ajouter un pôle "
+
+msgid "Poledossierpcg66::edit"
+msgstr "Modifier le pôle"
+
+msgid "Poledossierpcg66::delete"
+msgstr "Supprimer le pôle"
+
+msgid "Polesdossierspcgs66::edit"
+msgstr "Modification du pôle"
+
+msgid "Poledossierpcg66.name"
+msgstr "Pôle chargé des dossiers PCGs"
+
+msgid "Polesdossierspcgs66::delete::confirm"
+msgstr "Confirmer la suppression ?"
+
+msgid "Poledossierpcg66.isactif"
+msgstr "Actif ?"
+
+msgid "ENUM::ISACTIF::0"
+msgstr "Non"
+
+msgid "ENUM::ISACTIF::1"
+msgstr "Oui"
+
+msgid "Poledossierpcg66.originepdo_id"
+msgstr "Origine du dossier PCG liée au pôle"
+
+msgid "Poledossierpcg66.typepdo_id"
+msgstr "Type de dossier PCG généré suite à la transmission de la décision"

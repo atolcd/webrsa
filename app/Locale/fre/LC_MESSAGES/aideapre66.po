@@ -1,0 +1,89 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "Aideapre66.name"
+msgstr "Intitulé de l'aide"
+
+msgid "Aideapre66.typeaideapre66_id"
+msgstr "Intitulé de l'aide"
+
+msgid "Aideapre66.themeapre66_id"
+msgstr "Thème de l'aide"
+
+msgid "Aideapre66.montantaide"
+msgstr "Montant demandé"
+
+msgid "Aideapre66.motivdem"
+msgstr "Motivation de la demande"
+
+msgid "Aideapre66.virement"
+msgstr "Type de virement"
+
+msgid "Aideapre66.versement"
+msgstr "Type de versement"
+
+msgid "Aideapre66.datedemande"
+msgstr "Date de la demande"
+
+msgid "Aideapre66.autorisationvers"
+msgstr "Autorisation de versement"
+
+msgid "Aideapre66.motifrejet"
+msgstr "Motif du rejet ou de la modification du montant demandé"
+
+msgid "Aideapre66.montantpropose"
+msgstr "Montant proposé par le référent"
+
+msgid "Aideapre66.datemontantpropose"
+msgstr "Le "
+
+msgid "Aideapre66.creancier"
+msgstr "créancier "
+
+msgid "Aideapre66.decisionapre"
+msgstr "Décision et engagement financier de l'équipe de direction"
+
+msgid "Aideapre66.montantaccorde"
+msgstr "Montant accordé"
+
+msgid "Aideapre66.motifrejetequipe"
+msgstr "Motif de rejet de l'équipe de direction"
+
+msgid "Aideapre66.datemontantaccorde"
+msgstr "Le "
+
+msgid "ENUM::DECISIONAPRE::ACC"
+msgstr "Accord"
+
+msgid "ENUM::DECISIONAPRE::REF"
+msgstr "Rejet"
+
+msgid "ENUM::VIREMENT::RIB"
+msgstr "Virement bancaire RIB"
+
+msgid "ENUM::VIREMENT::CHE"
+msgstr "Par chèque"
+
+msgid "ENUM::VERSEMENT::DEM"
+msgstr "Au demandeur"
+
+msgid "ENUM::VERSEMENT::TIE"
+msgstr "Au tiers"

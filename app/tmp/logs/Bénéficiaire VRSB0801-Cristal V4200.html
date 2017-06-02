@@ -1,0 +1,3837 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+					"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+					<html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
+						<head>
+							<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+							<title>Dictionnaire de données - webrsa - 24/05/2017</title>
+							<style type="text/css" media="all">
+								body, table { font-size: 11px; font-family: sans-serif; }
+								table { border-collapse: collapse; width: 100%;}
+								th, td { border: 1px solid silver; padding: 0.25em 0.5em; font-weight: normal; }
+								th { background: #f0f0f0; color: black; }
+								td { vertical-align: top; }
+								tr.even td { background: #fcfcfc; }
+								pre {padding: 0; margin: 0;}
+								h1, h2, h3 { font-weight: normal; }
+								h1 { font-size: 2.2em; }
+								h2 { font-size: 1.8em; }
+								h3 { font-size: 1.5em; }
+								th.name		{ width: 20%; }
+								th.label	{ width: 15%; }
+								th.comment	{ width: 15%; }
+								th.type		{ width: 15%; }
+								th.size		{ width: 5%; }
+								th.options	{ width: 15%; }
+								th.key		{ width: 15%; }
+								td ul, td li { padding: 0; margin: 0; }
+								td ul { margin-left: 1.2em; }
+								/*dl { display: block; width: 100%; padding: 0; margin: 0; }
+								dt, dd { padding: 0; margin: 0; display: inline-block; }
+								dt { width: 33%; }
+								dd { width: 66%; }*/
+							</style>
+						</head>
+						<body><h1>Dictionnaire de données - webrsa - 24/05/2017</h1><h2>public</h2><h3>activites</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;activites_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>personne_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;personnes.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>reg</td>
+								<td>Régime de protection sociale</td>
+								<td>CHARACTER(2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>AA</strong> ARTISTE/AUTEUR/COMPOSITEUR</li><li><strong>AD</strong> PF DUES PAR ADMINIS. (NON RETRAITE)</li><li><strong>AG</strong> AGRICOLE</li><li><strong>AL</strong> PF DUES PAR ADMINIS. SAUF AL</li><li><strong>AM</strong> ADMINIS. DROIT PF CAF (NON RETRAITE)</li><li><strong>CL</strong> COLLECT. LOCALE/HOPIT (NON RETRAITE)</li><li><strong>EF</strong> EDF - GDF</li><li><strong>EN</strong> EDUCATION NATIONALE</li><li><strong>FP</strong> FONCTION PUBLIC HORS EDUC. NAT.</li><li><strong>FT</strong> FRANCE TELECOM</li><li><strong>GE</strong> GENERAL</li><li><strong>MC</strong> MARIN DE COMMERCE</li><li><strong>MI</strong> MINES - REGIME MINIER</li><li><strong>MO</strong> MINES - REGIME GENERAL</li><li><strong>NI</strong> NAVIGATION INTERIEURE</li><li><strong>PM</strong> PECHE</li><li><strong>PT</strong> LA POSTE</li><li><strong>RE</strong> RETRAITE ETAB. INDUSTRIEL ETAT</li><li><strong>RL</strong> RETRAITE COLLECT. LOCALE/HOPIT.</li><li><strong>RP</strong> PERSONNEL RATP</li><li><strong>SN</strong> S.N.C.F.</li><li><strong>TG</strong> Pensionnés Etat</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>act</td>
+								<td>Code activité</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>O</strong> Oui</li><li><strong>N</strong> Non</li><li><strong>P</strong> Pas de réponse</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>paysact</td>
+								<td>Pays de l&#039;activité</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>FRA</strong> France</li><li><strong>LUX</strong> Luxembourg</li><li><strong>CEE</strong> Communauté Européenne (sauf France, et  Luxembourg)</li><li><strong>ACE</strong> Assimilé à la Communauté Européenne</li><li><strong>CNV</strong> Pays avec convention sauf CEE</li><li><strong>AUT</strong> Autres pays</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>ddact</td>
+								<td>Date de début de l&#039;activité</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dfact</td>
+								<td>Date de fin de l&#039;activité</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>natcontrtra</td>
+								<td>Nature contrat travail</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>CA</strong> Contrat aidé (CAV/CIRMA)</li><li><strong>CDD</strong> Contrat à durée déterminé</li><li><strong>CDI</strong> Contrat à durée indéterminé</li><li><strong>CUI</strong> Contrat unique d'insertion</li><li><strong>CU1</strong> CUI non marchand (CAE) Etat</li><li><strong>CU2</strong> CUI marchand (CIE) Etat</li><li><strong>CU3</strong> CUI non marchand (CAE) Cg</li><li><strong>CU4</strong> CUI marchand (CIE) Cg</li><li><strong>INT</strong> Intérim</li><li><strong>AUT</strong> Autre (CAE, CIE, CEC, …)</li><li><strong>AEN</strong> Autoentrepreneur</li><li><strong>VDI</strong> Vendeur à domicile</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>topcondadmeti</td>
+								<td>Conditions administratives ETI</td>
+								<td>BOOLEAN</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>hauremuscmic</td>
+								<td></td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>adresses</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;adresses_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>numvoie</td>
+								<td>Numéro de voie</td>
+								<td>CHARACTER&nbsp;VARYING(6)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>nomvoie</td>
+								<td>Nom de voie</td>
+								<td>CHARACTER&nbsp;VARYING(32)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>complideadr</td>
+								<td>Complément identification adresse</td>
+								<td>CHARACTER&nbsp;VARYING(38)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>compladr</td>
+								<td>Complément d&#039;adresse</td>
+								<td>CHARACTER&nbsp;VARYING(38)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>lieudist</td>
+								<td>Lieu de distribution</td>
+								<td>CHARACTER&nbsp;VARYING(38)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>codepos</td>
+								<td>Code postal</td>
+								<td>CHARACTER(5)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>pays</td>
+								<td>Code Pays</td>
+								<td>CHARACTER&nbsp;VARYING(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>FRA</strong> France</li><li><strong>HOR</strong> Hors de France</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>canton</td>
+								<td>Code Canton</td>
+								<td>CHARACTER&nbsp;VARYING(20)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>typeres</td>
+								<td>Type de résidence</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>E</strong> Election de domicile</li><li><strong>O</strong> Election de domicile organisme non référencé</li><li><strong>S</strong> Stable</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>topresetr</td>
+								<td>Résidence étranger</td>
+								<td>TYPE_BOOLEANNUMBER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>foyerid</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>libtypevoie</td>
+								<td>Type de voie</td>
+								<td>CHARACTER&nbsp;VARYING(30)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>ABBAYE</strong> ABBAYE</li><li><strong>ANCIEN CHEMIN</strong> ANCIEN CHEMIN</li><li><strong>AGGLOMERATION</strong> AGGLOMERATION</li><li><strong>AIRE</strong> AIRE</li><li><strong>ALLEE</strong> ALLEE</li><li><strong>ANSE</strong> ANSE</li><li><strong>ARCADE</strong> ARCADE</li><li><strong>ANCIENNE ROUTE</strong> ANCIENNE ROUTE</li><li><strong>AUTOROUTE</strong> AUTOROUTE</li><li><strong>AVENUE</strong> AVENUE</li><li><strong>BASTION</strong> BASTION</li><li><strong>BAS CHEMIN</strong> BAS CHEMIN</li><li><strong>BOUCLE</strong> BOUCLE</li><li><strong>BOULEVARD</strong> BOULEVARD</li><li><strong>BEGUINAGE</strong> BEGUINAGE</li><li><strong>BERGE</strong> BERGE</li><li><strong>BOIS</strong> BOIS</li><li><strong>BARRIERE</strong> BARRIERE</li><li><strong>BOURG</strong> BOURG</li><li><strong>BASTIDE</strong> BASTIDE</li><li><strong>BUTTE</strong> BUTTE</li><li><strong>CALE</strong> CALE</li><li><strong>CAMP</strong> CAMP</li><li><strong>CARREFOUR</strong> CARREFOUR</li><li><strong>CARRIERE</strong> CARRIERE</li><li><strong>CARRE</strong> CARRE</li><li><strong>CARREAU</strong> CARREAU</li><li><strong>CAVEE</strong> CAVEE</li><li><strong>CENTRE COMMERCIAL</strong> CENTRE COMMERCIAL</li><li><strong>CAMPAGNE</strong> CAMPAGNE</li><li><strong>CHEMIN</strong> CHEMIN</li><li><strong>CHEMINEMENT</strong> CHEMINEMENT</li><li><strong>CHEZ</strong> CHEZ</li><li><strong>CHARMILLE</strong> CHARMILLE</li><li><strong>CHALET</strong> CHALET</li><li><strong>CHAPELLE</strong> CHAPELLE</li><li><strong>CHAUSSEE</strong> CHAUSSEE</li><li><strong>CHATEAU</strong> CHATEAU</li><li><strong>CHEMIN VICINAL</strong> CHEMIN VICINAL</li><li><strong>CITE</strong> CITE</li><li><strong>CLOITRE</strong> CLOITRE</li><li><strong>CLOS</strong> CLOS</li><li><strong>COL</strong> COL</li><li><strong>COLLINE</strong> COLLINE</li><li><strong>CORNICHE</strong> CORNICHE</li><li><strong>COTE</strong> COTE</li><li><strong>COTEAU</strong> COTEAU</li><li><strong>COTTAGE</strong> COTTAGE</li><li><strong>COUR</strong> COUR</li><li><strong>CAMPING</strong> CAMPING</li><li><strong>COURS</strong> COURS</li><li><strong>CASTEL</strong> CASTEL</li><li><strong>CONTOUR</strong> CONTOUR</li><li><strong>CENTRE</strong> CENTRE</li><li><strong>DARSE</strong> DARSE</li><li><strong>DEGRE</strong> DEGRE</li><li><strong>DIGUE</strong> DIGUE</li><li><strong>DOMAINE</strong> DOMAINE</li><li><strong>DESCENTE</strong> DESCENTE</li><li><strong>ECLUSE</strong> ECLUSE</li><li><strong>EGLISE</strong> EGLISE</li><li><strong>ENCEINTE</strong> ENCEINTE</li><li><strong>ENCLOS</strong> ENCLOS</li><li><strong>ENCLAVE</strong> ENCLAVE</li><li><strong>ESCALIER</strong> ESCALIER</li><li><strong>ESPLANADE</strong> ESPLANADE</li><li><strong>ESPACE</strong> ESPACE</li><li><strong>ETANG</strong> ETANG</li><li><strong>FAUBOURG</strong> FAUBOURG</li><li><strong>FONTAINE</strong> FONTAINE</li><li><strong>FORUM</strong> FORUM</li><li><strong>FORT</strong> FORT</li><li><strong>FOSSE</strong> FOSSE</li><li><strong>FOYER</strong> FOYER</li><li><strong>FERME</strong> FERME</li><li><strong>GALERIE</strong> GALERIE</li><li><strong>GARE</strong> GARE</li><li><strong>GARENNE</strong> GARENNE</li><li><strong>GRAND BOULEVARD</strong> GRAND BOULEVARD</li><li><strong>GRAND ENSEMBLE</strong> GRAND ENSEMBLE</li><li><strong>GROUPE</strong> GROUPE</li><li><strong>GROUPEMENT</strong> GROUPEMENT</li><li><strong>GRAND RUE</strong> GRAND RUE</li><li><strong>GRANDE RUE</strong> GRANDE RUE</li><li><strong>GRILLE</strong> GRILLE</li><li><strong>GRIMPETTE</strong> GRIMPETTE</li><li><strong>HAMEAU</strong> HAMEAU</li><li><strong>HAUT CHEMIN</strong> HAUT CHEMIN</li><li><strong>HIPPODROME</strong> HIPPODROME</li><li><strong>HALLE</strong> HALLE</li><li><strong>HLM</strong> HLM</li><li><strong>ILE</strong> ILE</li><li><strong>IMMEUBLE</strong> IMMEUBLE</li><li><strong>IMPASSE</strong> IMPASSE</li><li><strong>JARDIN</strong> JARDIN</li><li><strong>JETEE</strong> JETEE</li><li><strong>LIEU DIT</strong> LIEU DIT</li><li><strong>LEVEE</strong> LEVEE</li><li><strong>LOTISSEMENT</strong> LOTISSEMENT</li><li><strong>MAIL</strong> MAIL</li><li><strong>MANOIR</strong> MANOIR</li><li><strong>MARCHE</strong> MARCHE</li><li><strong>MAS</strong> MAS</li><li><strong>METRO</strong> METRO</li><li><strong>MAISON FORESTIERE</strong> MAISON FORESTIERE</li><li><strong>MOULIN</strong> MOULIN</li><li><strong>MONTEE</strong> MONTEE</li><li><strong>MUSEE</strong> MUSEE</li><li><strong>NOUVELLE ROUTE</strong> NOUVELLE ROUTE</li><li><strong>PETITE AVENUE</strong> PETITE AVENUE</li><li><strong>PALAIS</strong> PALAIS</li><li><strong>PARC</strong> PARC</li><li><strong>PASSAGE</strong> PASSAGE</li><li><strong>PASSE</strong> PASSE</li><li><strong>PATIO</strong> PATIO</li><li><strong>PAVILLON</strong> PAVILLON</li><li><strong>PORCHE</strong> PORCHE</li><li><strong>PETIT CHEMIN</strong> PETIT CHEMIN</li><li><strong>PERIPHERIQUE</strong> PERIPHERIQUE</li><li><strong>PETITE IMPASSE</strong> PETITE IMPASSE</li><li><strong>PARKING</strong> PARKING</li><li><strong>PLACE</strong> PLACE</li><li><strong>PLAGE</strong> PLAGE</li><li><strong>PLAN</strong> PLAN</li><li><strong>PLACIS</strong> PLACIS</li><li><strong>PASSERELLE</strong> PASSERELLE</li><li><strong>PLAINE</strong> PLAINE</li><li><strong>PLATEAU</strong> PLATEAU</li><li><strong>PASSAGE A NIVEAU</strong> PASSAGE A NIVEAU</li><li><strong>POINTE</strong> POINTE</li><li><strong>PONT</strong> PONT</li><li><strong>PORTIQUE</strong> PORTIQUE</li><li><strong>PORT</strong> PORT</li><li><strong>POTERNE</strong> POTERNE</li><li><strong>POURTOUR</strong> POURTOUR</li><li><strong>PRE</strong> PRE</li><li><strong>PROMENADE</strong> PROMENADE</li><li><strong>PRESQU'ILE</strong> PRESQU'ILE</li><li><strong>PETITE ROUTE</strong> PETITE ROUTE</li><li><strong>PARVIS</strong> PARVIS</li><li><strong>PERISTYLE</strong> PERISTYLE</li><li><strong>PETITE ALLEE</strong> PETITE ALLEE</li><li><strong>PORTE</strong> PORTE</li><li><strong>PETITE RUE</strong> PETITE RUE</li><li><strong>QUAI</strong> QUAI</li><li><strong>QUARTIER</strong> QUARTIER</li><li><strong>RUE</strong> RUE</li><li><strong>RACCOURCI</strong> RACCOURCI</li><li><strong>RAIDILLON</strong> RAIDILLON</li><li><strong>REMPART</strong> REMPART</li><li><strong>RESIDENCE</strong> RESIDENCE</li><li><strong>RUELLE</strong> RUELLE</li><li><strong>ROC</strong> ROC</li><li><strong>ROCADE</strong> ROCADE</li><li><strong>ROQUET</strong> ROQUET</li><li><strong>RAMPE</strong> RAMPE</li><li><strong>ROND POINT</strong> ROND POINT</li><li><strong>ROTONDE</strong> ROTONDE</li><li><strong>ROUTE</strong> ROUTE</li><li><strong>SENT</strong> SENT</li><li><strong>SENTIER</strong> SENTIER</li><li><strong>SQUARE</strong> SQUARE</li><li><strong>STATION</strong> STATION</li><li><strong>STADE</strong> STADE</li><li><strong>TOUR</strong> TOUR</li><li><strong>TERRE PLEIN</strong> TERRE PLEIN</li><li><strong>TRAVERSE</strong> TRAVERSE</li><li><strong>TERRAIN</strong> TERRAIN</li><li><strong>TERTRE</strong> TERTRE</li><li><strong>TERRASSE</strong> TERRASSE</li><li><strong>VALLEE</strong> VALLEE</li><li><strong>VALLON</strong> VALLON</li><li><strong>VIEUX CHEMIN</strong> VIEUX CHEMIN</li><li><strong>VENELLE</strong> VENELLE</li><li><strong>VIA</strong> VIA</li><li><strong>VILLA</strong> VILLA</li><li><strong>VILLAGE</strong> VILLAGE</li><li><strong>VOIE</strong> VOIE</li><li><strong>VIEILLE ROUTE</strong> VIEILLE ROUTE</li><li><strong>ZONE D'ACTIVITE</strong> ZONE D'ACTIVITE</li><li><strong>ZONE D'AMENAGEMENT CONCERTE</strong> ZONE D'AMENAGEMENT CONCERTE</li><li><strong>ZONE D'AMENAGEMENT DIFFERE</strong> ZONE D'AMENAGEMENT DIFFERE</li><li><strong>ZONE ARTISANALE</strong> ZONE ARTISANALE</li><li><strong>ZONE INDUSTRIELLE</strong> ZONE INDUSTRIELLE</li><li><strong>ZONE</strong> ZONE</li><li><strong>ZONE A URBANISER EN PRIORITE</strong> ZONE A URBANISER EN PRIORITE</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>numcom</td>
+								<td>Numéro de commune sens INSEE</td>
+								<td>CHARACTER(5)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>nomcom</td>
+								<td>Nom de commune</td>
+								<td>CHARACTER&nbsp;VARYING(32)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>liblig2adr</td>
+								<td>Ligne 2 - complément d&#039;identification du destinataire</td>
+								<td>CHARACTER&nbsp;VARYING(38)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>liblig3adr</td>
+								<td>Ligne 3 - saisie libre</td>
+								<td>CHARACTER&nbsp;VARYING(38)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>liblig4adr</td>
+								<td>Ligne 4 - saisie libre</td>
+								<td>CHARACTER&nbsp;VARYING(38)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>liblig5adr</td>
+								<td>Ligne 5 - saisie libre</td>
+								<td>CHARACTER&nbsp;VARYING(38)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>liblig6adr</td>
+								<td>Ligne 6 - saisie libre</td>
+								<td>CHARACTER&nbsp;VARYING(38)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>liblig7adr</td>
+								<td>Ligne 7 - pays de destination</td>
+								<td>CHARACTER&nbsp;VARYING(38)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>adressesfoyers</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td>Adresse n°</td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;adressesfoyers_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>adresse_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;adresses.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>foyer_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;foyers.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>rgadr</td>
+								<td>Rang Adresse</td>
+								<td>CHARACTER(2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>01</strong> Dernière adresse</li><li><strong>02</strong> Avant-dernière adresse</li><li><strong>03</strong> Avant-avant-dernière adresse</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dtemm</td>
+								<td>Date emménagement</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>typeadr</td>
+								<td>Code nature adresse</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>D</strong> Définitive</li><li><strong>P</strong> Provisoire</li><li><strong>R</strong> Retour foyer principal</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>etatadr</td>
+								<td>Etat adresse</td>
+								<td>CHARACTER&nbsp;VARYING(2)</td>
+								<td>&#039;NC&#039;</td>
+								<td>NOT NULL</td>
+								<td><ul><li><strong>CO</strong> Adresse vérifiée au regard du contrat Médiapost de la Cnaf</li><li><strong>VO</strong> Forcage du nom de la voie</li><li><strong>VC</strong> Forçage du nom de la voie et du nom de la commune</li><li><strong>NC</strong> Adresse non contrôlée</li><li><strong>AU</strong> Autre situation non répertoriée</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>allocationssoutienfamilial</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;allocationssoutienfamilial_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>personne_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;personnes.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>sitasf</td>
+								<td>Situation vis à vis de l&#039;ASF</td>
+								<td>CHARACTER(2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>DC</strong> HORS D'ETAT</li><li><strong>NR</strong> ENFANT NON RECONNU</li><li><strong>HB</strong> HORS D'ETAT</li><li><strong>OE</strong> ABANDON - SANS JUGEMENT</li><li><strong>PA</strong> ABANDON - JUGEMENT SANS PENSION</li><li><strong>TP</strong> ABANDON - PENSION FIXEE</li><li><strong>AS</strong> SITUATION NON DROIT</li><li><strong>AD</strong> ALLOCATION ADOPTION</li><li><strong>RS</strong> ASF SUITE A RSA</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>parassoasf</td>
+								<td>Parent associé à la situation ASF</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>P</strong> Père</li><li><strong>M</strong> Mère</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>ddasf</td>
+								<td>Date de début de la situation ASF</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dfasf</td>
+								<td>Date de fin de la situation ASF</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>topasf</td>
+								<td>ASF perçue</td>
+								<td>TYPE_BOOLEANNUMBER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>topdemasf</td>
+								<td>Demande d&#039;ASF</td>
+								<td>TYPE_BOOLEANNUMBER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>topenfreconn</td>
+								<td>Enfant reconnu</td>
+								<td>TYPE_BOOLEANNUMBER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>anomalies</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;anomalies_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>foyer_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;foyers.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>libano</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>aviscgssdompersonnes</h3><p>Regroupement des décisions de la CGSS (Caisse Générale Sécurité Sociale) liées à la personne (Mayotte)</p><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;aviscgssdompersonnes_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>personne_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;personnes.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>jusactdom</td>
+								<td></td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>resujusactdom</td>
+								<td></td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>avispcgdroitsrsa</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;avispcgdroitsrsa_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dossier_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;dossiers.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>avisdestpairsa</td>
+								<td>Code avis destination paiement à tiers</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>D</strong> Avis demandé au CG</li><li><strong>A</strong> Accord du CG</li><li><strong>R</strong> Refus du CG</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtavisdestpairsa</td>
+								<td>Date avis destination paiement à tiers</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>nomtie</td>
+								<td>Nom  du tiers</td>
+								<td>CHARACTER&nbsp;VARYING(64)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>typeperstie</td>
+								<td>Type de personne tiers</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>P</strong> S'il s'agit d'un tiers personne physique</li><li><strong>M</strong> S'il s'agit d'un tiers personne morale</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>avispcgpersonnes</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td>Avis n°:</td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;avispcgpersonnes_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>personne_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;personnes.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>avisevaressnonsal</td>
+								<td>Avis évaluation ressources non salarié</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>D</strong> Avis demandé au CG</li><li><strong>A</strong> Accord du CG</li><li><strong>R</strong> Refus du CG</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtsouressnonsal</td>
+								<td>Date soumission ressource non salarié</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dtevaressnonsal</td>
+								<td>Date évaluation ressource non salarié</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>mtevalressnonsal</td>
+								<td>Montant évaluation ressource non salarié</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>excl</td>
+								<td>Exclusion</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>T</strong> Exclusion totale portant sur la personne et sur ses ressources</li><li><strong>P</strong> Exclusion partielle portant uniquement sur la personne</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>ddexcl</td>
+								<td>Date début</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dfexcl</td>
+								<td>Date fin</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>calculsdroitsrsa</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;calculsdroitsrsa_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>personne_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;personnes.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtpersressmenrsa</td>
+								<td>Montant ressource mensuelle</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>mtpersabaneursa</td>
+								<td>Montant Abattement / Neutralisation</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>toppersdrodevorsa</td>
+								<td>Personne soumise à droits et devoirs ?</td>
+								<td>TYPE_BOOLEANNUMBER</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>1</strong> Oui</li><li><strong>0</strong> Non</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>toppersentdrodevorsa</td>
+								<td>Personne entrante soumise à droits et devoirs ?</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>condsadmins</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;condsadmins_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>avispcgdroitrsa_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;avispcgdroitsrsa.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>aviscondadmrsa</td>
+								<td>Avis conditions administratives RSA</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>D</strong> Avis demandé au CG</li><li><strong>A</strong> Accord du CG</li><li><strong>R</strong> Refus du CG</li><li><strong>S</strong> Si avis demandé au CG sans suspension</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>moticondadmrsa</td>
+								<td>Motif avis Conditions administratives RSA</td>
+								<td>CHARACTER(2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>NR</strong> Non respect contrat insertion</li><li><strong>NS</strong> Demande d'avis au Cg sans suspension administrative du droit</li><li><strong>EU</strong> Dossier européen</li><li><strong>AU</strong> Autre motif</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>comm1condadmrsa</td>
+								<td>Commentaires cond. administratives générales RSA</td>
+								<td>CHARACTER&nbsp;VARYING(60)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>comm2condadmrsa</td>
+								<td>Commentaires (suite) cond. administratives générales RSA</td>
+								<td>CHARACTER&nbsp;VARYING(60)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dteffaviscondadmrsa</td>
+								<td>Date effet avis cond. administartives RSA</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>controlesadministratifs</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;controlesadministratifs_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dteffcibcontro</td>
+								<td>Date effet</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>cibcontro</td>
+								<td>Cible contrôle administratif</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>cibcontromsa</td>
+								<td>Cible contrôle administratif MSA</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dtdeteccontro</td>
+								<td>Date de détection</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtclocontro</td>
+								<td>Date cloture</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>libcibcontro</td>
+								<td>Libellé</td>
+								<td>CHARACTER&nbsp;VARYING(45)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>famcibcontro</td>
+								<td>Famille</td>
+								<td>CHARACTER(2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>01</strong> Situation Professionnelle</li><li><strong>02</strong> Logement</li><li><strong>03</strong> Etat Civil</li><li><strong>04</strong> Ressources</li><li><strong>05</strong> Situation Familiale, Charge enfant</li><li><strong>06</strong> Divers</li><li><strong>07</strong> Fraude</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>natcibcontro</td>
+								<td>Nature</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>RSA</strong> Ciblage lié à un droit RSA</li><li><strong>AUR</strong> Ciblage lié à une prestation autre que le RSA</li><li><strong>SIT</strong> Ciblage non lié à une prestation</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>commacontro</td>
+								<td>Commande</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>CAF</strong> Commande contrôle par CAF</li><li><strong>CGA</strong> Commande contrôle par conseil général</li><li><strong>NAT</strong> Commande contrôle national</li><li><strong>API</strong> API</li><li><strong>DEM</strong> Autres</li><li><strong>RMI</strong> RMI</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>typecontro</td>
+								<td>Type</td>
+								<td>CHARACTER(2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>AG</strong> Agent assermenté</li><li><strong>EE</strong> Echanges extérieurs</li><li><strong>PI</strong> Appel de pièce</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>typeimpaccontro</td>
+								<td>Type impact</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>0</strong> Pas d'impact</li><li><strong>1</strong> Impact financier RSA sur fond CG </li><li><strong>2</strong> Impact sur dossier sans répercussion financière RSA</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtindursacgcontro</td>
+								<td>Montant indus RSA fond CG controle</td>
+								<td>NUMERIC(11,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>mtraprsacgcontro</td>
+								<td>Montant rappel RSA fond CG controle</td>
+								<td>NUMERIC(11,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>foyer_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;foyers.id&nbsp;)</td>
+								<td></td>
+							</tr></tbody></table><h3>creancesalimentaires</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;creancesalimentaires_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>etatcrealim</td>
+								<td>Etat créance alimentaire</td>
+								<td>CHARACTER(2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>SA</strong> Sanction appliquée</li><li><strong>DD</strong> Dispense demande</li><li><strong>AT</strong> Attente décision allocataire</li><li><strong>DS</strong> Dispense avec sanction</li><li><strong>SF</strong> Présence d'ASF</li><li><strong>PS</strong> Pas de sanction</li><li><strong>DA</strong> Dispense accord</li><li><strong>PE</strong> Procédure engagée</li><li><strong>DR</strong> Dispense refus</li><li><strong>RM</strong> Ex-RMI</li><li><strong>MS</strong> Maintien sanction</li><li><strong>SI</strong> Sanction immédiate</li><li><strong>RE</strong> Refus engagement</li><li><strong>TR</strong> Tiers recueillant</li><li><strong>AA</strong> Aucune décision allocataire</li><li><strong>AC</strong> Attente décision CG</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>ddcrealim</td>
+								<td>Date début créance alimentaire</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dfcrealim</td>
+								<td>Date fin créance alimentaire</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>orioblalim</td>
+								<td>Origine obligation alimentaire</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>CJT</strong> Obligation ex-conjoint</li><li><strong>PAR</strong> Obligation parent(s)</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>motidiscrealim</td>
+								<td>Motif dispense obligation alimentaire</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>AVA</strong> Avantage en nature autre que le logement</li><li><strong>LOG</strong> Logement fourni par les parents</li><li><strong>PAM</strong> Pension à l'amiable</li><li><strong>PHE</strong> Parent hors d'état ou décédé</li><li><strong>DCG</strong> Dispense CG</li><li><strong>AUT</strong> Autre motif de dispense</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>commcrealim</td>
+								<td>Commentaire sur la créance alimentaire saisie par le technicien Caf</td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>mtsancrealim</td>
+								<td>Montant de la sanction alimentaire applicable  pour la personne traitée.</td>
+								<td>NUMERIC(10,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>topdemdisproccrealim</td>
+								<td>Demande de dispense de créance alimentaire</td>
+								<td>BOOLEAN</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>1</strong> Demande de dispense</li><li><strong>0</strong> Pas de demande de dispense</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>engproccrealim</td>
+								<td>Engagement procédure recouvrement</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>O</strong> Procédure engagée</li><li><strong>N</strong> Pas de procédure engagée</li><li><strong>R</strong> Refus d'engagement de procédure</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>verspa</td>
+								<td>Versement d&#039;une pension alimentaire</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>N</strong> Pas de versement d'une PA</li><li><strong>O</strong> Versement d'une PA</li><li><strong>P</strong> Versement partiel d'une PA</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>topjugpa</td>
+								<td>Jugement pension alimentaire</td>
+								<td>BOOLEAN</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>1</strong> Jugement fixant une pension alimentaire</li><li><strong>0</strong> Pas de jugement fixant une pension alimentaire</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>personne_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;personnes.id&nbsp;)</td>
+								<td></td>
+							</tr></tbody></table><h3>derogations</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;derogations_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>avispcgpersonne_id</td>
+								<td>Lien vers avis n°:</td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;avispcgpersonnes.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>typedero</td>
+								<td>Type de dérogation</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>AGE</strong> Dérogation sur les conditions d'age</li><li><strong>ACT</strong> Dérogation sur les conditions d'activité</li><li><strong>RES</strong> Dérogation sur les conditions de résidence</li><li><strong>NAT</strong> Dérogation sur les conditions de nationnalité</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>avisdero</td>
+								<td>Décision du Conseil Général</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>D</strong> Avis demandé au CG</li><li><strong>O</strong> Accord du CG</li><li><strong>N</strong> Refus du CG</li><li><strong>A</strong> Ajourné</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>ddavisdero</td>
+								<td>Date soumission CAF</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dfavisdero</td>
+								<td>Date de fin dérogation</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>detailscalculsdroitsrsa</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;detailscalculsdroitsrsa_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>detaildroitrsa_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;detailsdroitsrsa.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>natpf</td>
+								<td>Nature de la prestation</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>RSD</strong> RSA Socle (Financement sur fonds Conseil général)</li><li><strong>RSI</strong> RSA Socle majoré (Financement sur fonds Conseil général)</li><li><strong>RSU</strong> RSA Socle Etat Contrat aidé (Financement sur fonds Etat)</li><li><strong>RSB</strong> RSA Socle Local (Financement sur fonds Conseil général)</li><li><strong>RCD</strong> RSA Activité (Financement sur fonds Etat)</li><li><strong>RCI</strong> RSA Activité majoré (Financement sur fonds Etat)</li><li><strong>RCU</strong> RSA Activité Etat Contrat aidé (Financement sur fonds Etat)</li><li><strong>RCB</strong> RSA Activité Local (Financement sur fonds Conseil général)</li><li><strong>RSJ</strong> RSA socle Jeune (Financement sur fonds Etat)</li><li><strong>RCJ</strong> RSA activité Jeune (Financement sur fonds Etat)</li><li><strong>RSD,RCD</strong> RSA Socle et activité</li><li><strong>RSD-RCD</strong> RSA Socle uniquement</li><li><strong>RCD-RSD</strong> RSA Activité uniquement</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>sousnatpf</td>
+								<td>Sous Nature de la prestation</td>
+								<td>CHARACTER(5)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>RSDN1</strong> RSA Socle -25 avec enfants à charge ou grossesse</li><li><strong>RSDN2</strong> RSA Socle +25 ans</li><li><strong>RSIN1</strong> RSA Socle majoré</li><li><strong>RSUN1</strong> RSA Socle Etat Contrat aidé majoré</li><li><strong>RSUN2</strong> RSA Socle Etat Contrat aidé -25ans</li><li><strong>RSUN3</strong> RSA Socle Etat Contrat aidé +25ans</li><li><strong>RSUN4</strong> RSA Socle Etat Jeune</li><li><strong>RSBN1</strong> RSA Socle Local majoré</li><li><strong>RSBN2</strong> RSA Socle Local -25 ans</li><li><strong>RSBN3</strong> RSA Socle Local +25ans</li><li><strong>RSJN1</strong> RSA Socle Jeune</li><li><strong>RCDN1</strong> RSA Activité -25 avec enfants à charge ou grossesse</li><li><strong>RCDN2</strong> RSA Activité +25 ans</li><li><strong>RCIN1</strong> RSA Activité majoré</li><li><strong>RCUN1</strong> RSA Activité Etat Contrat aidé majoré</li><li><strong>RCUN2</strong> RSA Activité Etat Contrat aidé -25ans</li><li><strong>RCUN3</strong> RSA Activité Etat Contrat aidé +25ans</li><li><strong>RCUN4</strong> RSA Activité Etat Jeune</li><li><strong>RCBN1</strong> RSA Activité Local majoré</li><li><strong>RCBN2</strong> RSA Activité Local -25 ans</li><li><strong>RCBN3</strong> RSA Activité Local +25ans</li><li><strong>RCJN1</strong> RSA activité Jeune</li><li><strong>RSID1</strong> RSA socle majoré DOM</li><li><strong>RCID1</strong> RSA activité majoré DOM</li><li><strong>RSDD1</strong> RSA socle -25ans DOM avec enfants à charge ou grossesse</li><li><strong>RSDD2</strong> RSA socle +25ans DOM</li><li><strong>RCDD1</strong> RSA activité -25ans DOM avec enfants à charge ou grossesse</li><li><strong>RCDD2</strong> RSA activ.+25ans DOM</li><li><strong>RSUD1</strong> RSA socle Contrat Aidé majoré DOM</li><li><strong>RSUD2</strong> RSA socle Contrat Aidé -25ans DOM</li><li><strong>RSUD3</strong> RSA socle Contrat Aidé +25ans DOM</li><li><strong>RSUD4</strong> RSA socle Contrat Aidé jeune DOM</li><li><strong>RCUD1</strong> RSA activité Contrat Aidé majoré DOM</li><li><strong>RCUD2</strong> RSA activité Contrat Aidé -25ans DOM</li><li><strong>RCUD3</strong> RSA activité Contrat Aidé +25ans DOM</li><li><strong>RCUD4</strong> RSA activité Contrat Aidé jeune DOM</li><li><strong>RSBD1</strong> RSA socle local majoré DOM</li><li><strong>RSBD2</strong> RSA socle local -25ans DOM</li><li><strong>RSBD3</strong> RSA socle local +25ans DOM</li><li><strong>RCBD1</strong> RSA activité local majoré DOM</li><li><strong>RCBD2</strong> RSA activtié local -25ans DOM</li><li><strong>RCBD3</strong> RSA activité local +25ans DOM</li><li><strong>RSJD1</strong> RSA socle jeune DOM</li><li><strong>RCJD2</strong> RSA activité jeune DOM</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>ddnatdro</td>
+								<td>Date de début d&#039;application de la sous nature de prestation</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dfnatdro</td>
+								<td>Date de fin d&#039;application de la sous nature de prestation</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtrsavers</td>
+								<td>Montant RSA pour la sous nature traitée</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtderrsavers</td>
+								<td>Date dernier mois RSA versable</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>detailsdroitsrsa</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;detailsdroitsrsa_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dossier_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;dossiers.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>topsansdomfixe</td>
+								<td>Allocataire sans domicile fixe</td>
+								<td>BOOLEAN</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>0</strong> Domicile fixe</li><li><strong>1</strong> Sans domicile fixe</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>nbenfautcha</td>
+								<td>Nombre d&#039;enfant et autre personne à charge</td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>oridemrsa</td>
+								<td>Origine demande Rsa</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>DEM</strong> Le droit au Rsa fait suite à une demande de RSA</li><li><strong>RMI</strong> Le droit au rSa est issu de la conversion d'un droit RMI</li><li><strong>API</strong> Le droit au rSa est issu de la conversion d'un droit API</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtoridemrsa</td>
+								<td>Date origine demande RSA</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>topfoydrodevorsa</td>
+								<td>Foyer soumis à  droits et devoir</td>
+								<td>BOOLEAN</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>1</strong> le foyer est soumis à Droits et devoirs (le montant des ressources d'acitivtés (MTRESSMENRSA) pris en compte pour le rSa est inférieur au montant du revenu minimum garanti rSa (MTREVMINGARASA)</li><li><strong>0</strong> le foyer n'est pas soumis à Droits et devoirs (le montant des ressources d'acitivtés (MTRESSMENRSA) pris en compte pour le rSa est supérieur ou égale au montant du revenu minimum garanti rSa (MTREVMINGARASA)</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>ddelecal</td>
+								<td>Date début élément calcul</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dfelecal</td>
+								<td>Date fin élément calcul</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>mtrevminigararsa</td>
+								<td>Montant revenu minimum garanti</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtpentrsa</td>
+								<td>Montant de la pente</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>mtlocalrsa</td>
+								<td>Montant local</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtrevgararsa</td>
+								<td>Montant du revenu garanti</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>mtpfrsa</td>
+								<td>Montant prestations familiales</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtalrsa</td>
+								<td>Montant du forfait logement</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>mtressmenrsa</td>
+								<td>Montant des ressources mensuelles du foyer</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtsanoblalimrsa</td>
+								<td>Montant du forfait logement</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>mtredhosrsa</td>
+								<td>Montant des réductions hospitalières</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtredcgrsa</td>
+								<td>Montant de la réduction Conseil général</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>mtcumintegrsa</td>
+								<td>Montant du cumul intégral</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtabaneursa</td>
+								<td>Montant total des abattements neutralisation</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>mttotdrorsa</td>
+								<td>Montant total du droit</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>surfagridom</td>
+								<td>Surface agricole pondérée DOM</td>
+								<td>NUMERIC(5,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>ddsurfagridom</td>
+								<td>Date début validité surface agricole pondérée DOM</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>surfagridompla</td>
+								<td></td>
+								<td>NUMERIC(5,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>nbtotaidefamsurfdom</td>
+								<td>Nombre total d&#039;aides familiaux externes au foyer travaillant sur la surface agricole</td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>nbtotpersmajosurfdom</td>
+								<td>Nombre total de personnes liées aux aides familiaux externe au foyer  </td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>detailsressourcesmensuelles</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;detailsressourcesmensuelles_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>ressourcemensuelle_id</td>
+								<td>Lien vers Ressource mensuelle n°:</td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;ressourcesmensuelles.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>natress</td>
+								<td>Nature ressources</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>000</strong> Ressources nulles</li><li><strong>001</strong> Salaires sans abattement supplementaire frais p</li><li><strong>002</strong> Frais professionnels reels deductibles</li><li><strong>003</strong> Salaires avec abattement supplementaire frais p</li><li><strong>004</strong> Abattement supplementaire pour frais profession</li><li><strong>005</strong> Salaires percus a l'etranger</li><li><strong>006</strong> Revenus exceptionnels d'activite salarie</li><li><strong>007</strong> Cav / cirma</li><li><strong>008</strong> Prime/access. de salaire - Revenus exceptionnels</li><li><strong>009</strong> Chomage partiel (technique)</li><li><strong>010</strong> Allocations de chomage</li><li><strong>011</strong> Indem. maladie/maternite/pater.</li><li><strong>012</strong> Accident travail/maladie prof.</li><li><strong>013</strong> Indemnites maternite/partenite/adoption</li><li><strong>014</strong> Autres ijss (maladie, at, mp)</li><li><strong>020</strong> Pre-retraite</li><li><strong>021</strong> Pension d'invalidite</li><li><strong>022</strong> Pension de vieillesse imposable</li><li><strong>023</strong> Contrat d'epargne - handicape</li><li><strong>024</strong> Rente viagere a titre gratuit</li><li><strong>025</strong> Allocation de veuvage</li><li><strong>026</strong> Pensions alimentaires recues</li><li><strong>027</strong> Rente viagere onereux - tiers</li><li><strong>028</strong> Pension vieill. non imposable</li><li><strong>029</strong> Majoration pension/retraite non imposable</li><li><strong>030</strong> Revenu des professions non salariees</li><li><strong>031</strong> Revenu profes non salar. non fixe ou inconnu</li><li><strong>032</strong> Forfait agricole</li><li><strong>033</strong> Forfait agricole non fixe</li><li><strong>034</strong> Revenu eti non cga ni micro-bic</li><li><strong>040</strong> Revenus fonciers et immobiliers</li><li><strong>041</strong> Autres revenus imposables</li><li><strong>042</strong> Ressources de l'ex-conjoint (pinna)</li><li><strong>043</strong> Revenus soumis a prelevement liberatoire</li><li><strong>044</strong> Argent placé</li><li><strong>050</strong> Eval forf (salaires) ttes prest</li><li><strong>051</strong> Eval forf (eti) ttes prest</li><li><strong>052</strong> Evaluation forfaitaire (cat)</li><li><strong>053</strong> Evaluat. forfait. (salaires) / apl</li><li><strong>054</strong> Evaluation forfaitaire eti/ apl</li><li><strong>055</strong> Evaluation forfaitaire (esat g.r. 01/2007)</li><li><strong>060</strong> Pension alimentaire versee</li><li><strong>061</strong> Frais de garde</li><li><strong>062</strong> Deficit profes. annee de ref.</li><li><strong>063</strong> Deficit foncier</li><li><strong>064</strong> Csg deductible revenus patrim.</li><li><strong>065</strong> Cotisations volontaires ss</li><li><strong>066</strong> Frais de tutelle deductibles</li><li><strong>070</strong> Rente accident de travail  a titre personnel</li><li><strong>071</strong> Pension militaire invalidite</li><li><strong>072</strong> Pension victime de guerre</li><li><strong>080</strong> Salarie o.d (x 12)</li><li><strong>082</strong> Salarie autre renouvellement (x 12)</li><li><strong>083</strong> Salarie 1er renouvellement (x 12)</li><li><strong>085</strong> Eti od (profession non salariee)</li><li><strong>087</strong> Eti autre renouvellement (profess. non salariee)</li><li><strong>088</strong> Eti 1er renouvellement (profess. non salariee)</li><li><strong>100</strong> Evaluation non connue profession non salariée</li><li><strong>200</strong> Revenus d'activite d'insertion (hors cre, ces)</li><li><strong>201</strong> Remuneration stage formation</li><li><strong>203</strong> Secours ou aides financieres reguliers</li><li><strong>204</strong> Indemnites representatives de frais</li><li><strong>205</strong> Revenu eti/marin pecheur/exploit agricole-rmi</li><li><strong>206</strong> Pf versees par un autre organisme</li><li><strong>207</strong> Nombre de repas rmi</li><li><strong>211</strong> Abattement / neutralisation rmi en montant</li><li><strong>212</strong> Bourse d'etudes</li><li><strong>213</strong> Nombre asf fictives rmi</li><li><strong>214</strong> Montant asf fictive rmi</li><li><strong>215</strong> Revenus d'activite d'insertion (cre, ces)</li><li><strong>216</strong> Nombre d'heures travaillees</li><li><strong>217</strong> RSTA (DOM)</li><li><strong>300</strong> Montant revenu sans pf pour api</li><li><strong>301</strong> Montant pf caf cedante - api</li><li><strong>302</strong> Mt forfait caf cedante - api</li><li><strong>303</strong> Montant allocation veuvage pour api</li><li><strong>305</strong> Avantages fictifs (p.a.,...)</li><li><strong>306</strong> Revenu createur d'entreprise</li><li><strong>400</strong> Mont. (proport.) mensuel pension</li><li><strong>402</strong> Garantie de ressources</li><li><strong>403</strong> Salaire direct (en pourcentage smic)</li><li><strong>404</strong> Complement de remuneration</li><li><strong>405</strong> Salaire direct (en euros)</li><li><strong>406</strong> Maintien avi (oheix)</li><li><strong>407</strong> Maintien garantie de ressources (oheix)</li><li><strong>408</strong> Maintien salaire oheix (pourcent.)</li><li><strong>409</strong> Maintien cplt remun. (oheix)</li><li><strong>410</strong> Maintien salaire oheix (euros)</li><li><strong>500</strong> Montant pf etrangeres percues</li><li><strong>600</strong> Revenu d'activite aged</li><li><strong>602</strong> Revenu trimestriel aged</li><li><strong>777</strong> Autres revenus pour le rso</li><li><strong>888</strong> Ressources effacees sur demande allocataire</li><li><strong>999</strong> Refus declarer ressources superieures plafond</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>mtnatressmen</td>
+								<td>Montant nature ressources mensuelle</td>
+								<td>NUMERIC(10,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>abaneu</td>
+								<td>Abattement / Neutralisation</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>A</strong> Abattement</li><li><strong>N</strong> Neutralisation</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dfpercress</td>
+								<td>Date de fin de perception des ressources</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>topprevsubsress</td>
+								<td>Présence de revenus de substitution ressources</td>
+								<td>BOOLEAN</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>dossiers</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;dossiers_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>numdemrsa</td>
+								<td>N° demande RSA</td>
+								<td>CHARACTER&nbsp;VARYING(11)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dtdemrsa</td>
+								<td>Date de demande RSA</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtdemrmi</td>
+								<td>Date de demande RMI</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>numdepinsrmi</td>
+								<td>N° du département instructeur RMI</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>typeinsrmi</td>
+								<td>Type d&#039;instructeur RMI</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>A</strong> Organisme agréé</li><li><strong>C</strong> CCAS</li><li><strong>F</strong> CAF</li><li><strong>S</strong> Service social</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>numcominsrmi</td>
+								<td>N° de la commune instructeur RMI</td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>numagrinsrmi</td>
+								<td>N° d&#039;agréement instructeur RMI</td>
+								<td>CHARACTER(2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>numdosinsrmi</td>
+								<td>N° de dossier instructeur RMI</td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>numcli</td>
+								<td>N° de CLI</td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>numorg</td>
+								<td>N° de l&#039;organisme</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>011</strong> CAF DE BOURG EN BRESSE</li><li><strong>021</strong> CAF DE SAINT QUENTIN</li><li><strong>022</strong> CAF DE SOISSONS</li><li><strong>031</strong> CAF DE MOULINS</li><li><strong>041</strong> CAF DE DIGNE-LES-BAINS</li><li><strong>051</strong> CAF DE GAP</li><li><strong>061</strong> CAF DE NICE</li><li><strong>071</strong> CAF D'ANNONAY</li><li><strong>072</strong> CAF D'AUBENAS</li><li><strong>081</strong> CAF DE CHARLEVILLE MEZIERES</li><li><strong>091</strong> CAF DE FOIX</li><li><strong>101</strong> CAF DE TROYES</li><li><strong>111</strong> CAF DE CARCASSONNE</li><li><strong>121</strong> CAF DE RODEZ</li><li><strong>131</strong> CAF DE MARSEILLE</li><li><strong>141</strong> CAF DE CAEN</li><li><strong>151</strong> CAF D'AURILLAC</li><li><strong>161</strong> CAF D'ANGOULEME</li><li><strong>171</strong> CAF DE LA ROCHELLE</li><li><strong>172</strong> CAISSE MARITIME D'AF PECHE MARITIME</li><li><strong>181</strong> CAF DE BOURGES</li><li><strong>191</strong> CAF DE BRIVE</li><li><strong>201</strong> CAF D'AJACCIO</li><li><strong>202</strong> CAF DE BASTIA</li><li><strong>211</strong> CAF DE DIJON</li><li><strong>221</strong> CAF DE SAINT BRIEUC</li><li><strong>231</strong> CAF DE GUERET</li><li><strong>241</strong> CAF DE PERIGUEUX</li><li><strong>251</strong> CAF DE BESANCON</li><li><strong>252</strong> CAF DE MONTBELIARD</li><li><strong>261</strong> CAF DE VALENCE</li><li><strong>271</strong> CAF D'EVREUX</li><li><strong>281</strong> CAF DE CHARTRES</li><li><strong>291</strong> CAF DE BREST</li><li><strong>292</strong> CAF DE QUIMPER</li><li><strong>301</strong> CAF DE NIMES</li><li><strong>311</strong> CAF DE TOULOUSE</li><li><strong>321</strong> CAF D'AUCH</li><li><strong>331</strong> CAF DE BORDEAUX</li><li><strong>341</strong> CAF DE BEZIERS</li><li><strong>342</strong> CAF DE MONTPELLIER</li><li><strong>351</strong> CAF DE RENNES</li><li><strong>361</strong> CAF DE CHATEAUROUX</li><li><strong>371</strong> CAF DE TOURS</li><li><strong>381</strong> CAF DE GRENOBLE</li><li><strong>382</strong> CAF DE VIENNE</li><li><strong>391</strong> CAF DE SAINT CLAUDE</li><li><strong>401</strong> CAF DE MONT DE MARSAN</li><li><strong>411</strong> CAF DE BLOIS</li><li><strong>421</strong> CAF DE ROANNE</li><li><strong>422</strong> CAF DE SAINT ETIENNE</li><li><strong>431</strong> CAF DU PUY</li><li><strong>441</strong> CAF DE NANTES</li><li><strong>451</strong> CAF D'ORLEANS</li><li><strong>461</strong> CAF DE CAHORS</li><li><strong>471</strong> CAF D'AGEN</li><li><strong>481</strong> CAF DE MENDE</li><li><strong>491</strong> CAF D'ANGERS</li><li><strong>492</strong> CAF DE CHOLET</li><li><strong>501</strong> CAF D'AVRANCHES</li><li><strong>511</strong> CAF DE REIMS</li><li><strong>521</strong> CAF DE CHAUMONT</li><li><strong>531</strong> CAF DE LAVAL</li><li><strong>541</strong> CAF DE NANCY</li><li><strong>551</strong> CAF DE BAR LE DUC</li><li><strong>561</strong> CAF DE VANNES</li><li><strong>571</strong> CAF DE METZ</li><li><strong>581</strong> CAF DE NEVERS</li><li><strong>591</strong> CAF D'ARMENTIERES</li><li><strong>592</strong> CAF DE CAMBRAI</li><li><strong>593</strong> CAF DE DOUAI</li><li><strong>594</strong> CAF DE DUNKERQUE</li><li><strong>595</strong> CAF DE LILLE</li><li><strong>596</strong> CAF DE MAUBEUGE</li><li><strong>597</strong> CAF DE ROUBAIX</li><li><strong>599</strong> CAF DE VALENCIENNES</li><li><strong>601</strong> CAF DE BEAUVAIS</li><li><strong>602</strong> CAF DE CREIL</li><li><strong>611</strong> CAF D'ALENCON</li><li><strong>621</strong> CAF D'ARRAS</li><li><strong>622</strong> CAF DE CALAIS</li><li><strong>631</strong> CAF DE CLERMONT FERRAND</li><li><strong>641</strong> CAF DE BAYONNE</li><li><strong>642</strong> CAF DE PAU</li><li><strong>651</strong> CAF DE TARBES</li><li><strong>661</strong> CAF DE PERPIGNAN</li><li><strong>671</strong> CAF DE STRASBOURG</li><li><strong>681</strong> CAF DE MULHOUSE</li><li><strong>691</strong> CAF DE LYON</li><li><strong>692</strong> CAF DE VILLEFRANCHE SUR SAONE</li><li><strong>701</strong> CAF DE VESOUL</li><li><strong>711</strong> CAF DE MACON</li><li><strong>721</strong> CAF DU MANS</li><li><strong>731</strong> CAF DE CHAMBERY</li><li><strong>741</strong> CAF D'ANNECY</li><li><strong>751</strong> CAF DE PARIS</li><li><strong>752</strong> CAF de PARIS - NAVIG. INTERIEURE</li><li><strong>754</strong> CAF de PARIS - MARINS DU COMMERCE</li><li><strong>761</strong> CAF DE DIEPPE</li><li><strong>762</strong> CAF D'ELBEUF</li><li><strong>763</strong> CAF DU HAVRE</li><li><strong>764</strong> CAF DE ROUEN</li><li><strong>771</strong> CAF DE MELUN</li><li><strong>781</strong> CAF DE ST QUENTIN EN YVELINES</li><li><strong>791</strong> CAF DE NIORT</li><li><strong>801</strong> CAF D'AMIENS</li><li><strong>811</strong> CAF D'ALBI</li><li><strong>821</strong> CAF DE MONTAUBAN</li><li><strong>831</strong> CAF DE TOULON</li><li><strong>841</strong> CAF D'AVIGNON</li><li><strong>851</strong> CAF DE LA ROCHE SUR YON</li><li><strong>861</strong> CAF DE POITIERS</li><li><strong>871</strong> CAF DE LIMOGES</li><li><strong>881</strong> CAF D'EPINAL</li><li><strong>891</strong> CAF D'AUXERRE</li><li><strong>901</strong> CAF DE BELFORT</li><li><strong>911</strong> CAF D'EVRY</li><li><strong>921</strong> CAF DE NANTERRE</li><li><strong>931</strong> CAF DE ROSNY SOUS BOIS</li><li><strong>941</strong> CAF DE CRETEIL</li><li><strong>951</strong> CAF DE CERGY PONTOISE</li><li><strong>971</strong> CAF DE POINTE A PITRE</li><li><strong>972</strong> CAF DU LAMENTIN</li><li><strong>973</strong> CAF DE CAYENNE</li><li><strong>974</strong> CAF DE SAINT DENIS-DE-LA-REUNION</li><li><strong>976</strong> MAYOTTE</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>fonorg</td>
+								<td>Organisme payeur</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>CAF</strong> CAF</li><li><strong>MSA</strong> MSA</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>matricule</td>
+								<td>N° CAF/MSA</td>
+								<td>CHARACTER(15)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>statudemrsa</td>
+								<td>Statut du demandeur RSA</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>N</strong> Non allocataire</li><li><strong>C</strong> Allocataire de la CAF</li><li><strong>A</strong> Allocataire d'une autre CAF</li><li><strong>M</strong> Allocataire de la MSA</li><li><strong>S</strong> Allocataire d'une autre MSA</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>typeparte</td>
+								<td>Type de partenaire</td>
+								<td>CHARACTER(4)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>CG</strong> Conseil Général</li><li><strong>CT</strong> Collectivité Territoriale</li><li><strong>CCAS</strong> Centre Communal d'Action Sociale</li><li><strong>CIAS</strong> Centre Intercommunal d'Action Sociale</li><li><strong>PE</strong> Pole Emploi</li><li><strong>MDPH</strong> Maison Départementale Pour le Handicap</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>ideparte</td>
+								<td>Code d&#039;identification du partenaire</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>fonorgcedmut</td>
+								<td>Fonction de l&#039;organisme cédant</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>CAF</strong> Demande gérée par la CAF</li><li><strong>MSA</strong> Demande gérée par la MSA</li><li><strong>OPF</strong> Autres organismes débiteur de prestations familiales</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>numorgcedmut</td>
+								<td>N° organisme cédant</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>matriculeorgcedmut</td>
+								<td>Matricule chez l&#039;organisme cédant</td>
+								<td>CHARACTER(15)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>ddarrmut</td>
+								<td>Date de début arrivée mutation</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>codeposanchab</td>
+								<td>Code postal ancienne habitation</td>
+								<td>CHARACTER(5)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>fonorgprenmut</td>
+								<td>Fonction organisme prenant</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>CAF</strong> Demande gérée par la CAF</li><li><strong>MSA</strong> Demande gérée par la MSA</li><li><strong>OPF</strong> Autres organismes débiteur de prestations familiales</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>numorgprenmut</td>
+								<td>N° organisme prenant</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dddepamut</td>
+								<td>Date de début départ mutation</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>detaildroitrsa_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;detailsdroitsrsa.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>avispcgdroitrsa_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;avispcgdroitsrsa.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>organisme_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>dossierscaf</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;dossierscaf_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>personne_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;personnes.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>ddratdos</td>
+								<td>Date début rattachement du dossier</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dfratdos</td>
+								<td>Date fin rattachement du dossier</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>toprespdos</td>
+								<td>Responsable du dossier</td>
+								<td>BOOLEAN</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>numdemrsaprece</td>
+								<td>Numéro de demande RSA précédent</td>
+								<td>CHARACTER&nbsp;VARYING(11)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>evenements</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;evenements_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtliq</td>
+								<td>Date de liquidation</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>heuliq</td>
+								<td>Heure de liquidation</td>
+								<td>TIME&nbsp;WITHOUT&nbsp;TIME&nbsp;ZONE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>fg</td>
+								<td>Fait générateur</td>
+								<td>CHARACTER&nbsp;VARYING(30)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>SUS</strong> suspension</li><li><strong>DESALL</strong> désignation allocataire</li><li><strong>SITPRO</strong> situation professionnelle</li><li><strong>INTGRO</strong> interruption grossesse</li><li><strong>ETACIV</strong> état civil</li><li><strong>SITENFAUT</strong> situation enfant/aut</li><li><strong>RESTRIRSA</strong> ressources trimestrielles RSA</li><li><strong>SITFAM</strong> situation famille</li><li><strong>DECDEMPCG</strong> décision du Président du CG</li><li><strong>CARRSA</strong> caractéristiques RSA</li><li><strong>PROPCG</strong> proposition au Président CG</li><li><strong>HOSPLA</strong> hospitalisation placement</li><li><strong>CIRMA</strong> Cirma ou Cav</li><li><strong>SUIRMA</strong> Suivi de Cirma ou de Cav</li><li><strong>RECPEN</strong> récépissé pension</li><li><strong>TITPEN</strong> titre de pension</li><li><strong>REA</strong> réaffiliation (Fait générateur générique)</li><li><strong>DERPRE</strong> Dérogation du Président du CG</li><li><strong>ABANEURES</strong> abattement ou neuratisation de ressource</li><li><strong>DEMRSA</strong> demande de RSA (Fait générateur générique)</li><li><strong>CREALI</strong> créance alimentaire</li><li><strong>ASF</strong> demande ASF</li><li><strong>EXCPRE</strong> exclusion Prestation</li><li><strong>ADR</strong> Adresse</li><li><strong>RAD</strong> Radiation du dossier</li><li><strong>MUT</strong> Mutation du dossier</li><li><strong>JUSRSAJEU</strong> Justificatif RSA Jeune</li><li><strong>AIDFAM</strong> Aide familiale (DOM)</li><li><strong>ENTDED</strong> Entrant en droits et devoirs</li><li><strong>JUSACT</strong> Justification de l'activité (DOM)</li><li><strong>SURPONEXP</strong> Surface pondérée exploitation (DOM)</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>foyer_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;foyers.id&nbsp;)</td>
+								<td></td>
+							</tr></tbody></table><h3>foyers</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;foyers_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dossier_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;dossiers.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>sitfam</td>
+								<td>Situation familiale</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>ABA</strong> Disparu (jugement d'absence)</li><li><strong>CEL</strong> Célibataire</li><li><strong>DIV</strong> Divorcé(e)</li><li><strong>ISO</strong> Isolement après vie maritale ou PACS</li><li><strong>MAR</strong> Mariage</li><li><strong>PAC</strong> PACS</li><li><strong>RPA</strong> Reprise vie commune sur PACS</li><li><strong>RVC</strong> Reprise vie maritale</li><li><strong>RVM</strong> Reprise mariage</li><li><strong>SEF</strong> Séparation de fait</li><li><strong>SEL</strong> Séparation légale</li><li><strong>VEU</strong> Veuvage</li><li><strong>VIM</strong> Vie maritale</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>ddsitfam</td>
+								<td>Date début situation familiale</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>typeocclog</td>
+								<td>Conditions de logement</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>ACC</strong> Proprietaire avec charges de remboursement</li><li><strong>BAL</strong> Forfait logement a appliquer</li><li><strong>HCG</strong> Hébergement collectif a titre gratuit</li><li><strong>HCO</strong> Hébergement collectif a titre onereux</li><li><strong>HGP</strong> Hébergement à titre gratuit par des particuliers</li><li><strong>HOP</strong> Hébergement onereux par des particuliers</li><li><strong>HOT</strong> Hotel</li><li><strong>LOC</strong> Locataire ou sous locataire</li><li><strong>OLI</strong> Occupation logement inconnue</li><li><strong>PRO</strong> Proprietaire sans charges de remboursement</li><li><strong>SRG</strong> Sans resid. stable avec forfait logement</li><li><strong>SRO</strong> Sans resid. stable sans forfait logement</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>mtvallocterr</td>
+								<td>Montant de la valeur locative du terrain non loué</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtvalloclog</td>
+								<td>Montant de la valeur locative du logement non loué</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>contefichliairsa</td>
+								<td>Contenu de la fiche de liaison</td>
+								<td>TEXT</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtestrsa</td>
+								<td>Montant estimé du droit rSa</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>raisoctieelectdom</td>
+								<td>Nom de la raison sociale du Tiers ou nom d&#039;usage de la personne</td>
+								<td>CHARACTER&nbsp;VARYING(32)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>regagrifam</td>
+								<td>Régime agricole familial</td>
+								<td>CHARACTER&nbsp;VARYING(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>NSA</strong> NON SALARIE AGRICOLE</li><li><strong>SA</strong> SALARIE AGRICOLE</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>haspiecejointe</td>
+								<td>Ajout d&#039;une pièce supplémentaire</td>
+								<td>CHARACTER&nbsp;VARYING(1)</td>
+								<td>&#039;0&#039;</td>
+								<td>NOT NULL</td>
+								<td><ul><li><strong>0</strong> Non</li><li><strong>1</strong> Oui</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>grossesses</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;grossesses_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>personne_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;personnes.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>ddgro</td>
+								<td>Date de début de grossesse</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dfgro</td>
+								<td>Date de fin de grossesse</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dtdeclgro</td>
+								<td>Date de déclaration de grossesse</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>natfingro</td>
+								<td>Motif de fin de grossesse</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>D</strong> Départ de madame du foyer</li><li><strong>I</strong> Interruption de grossesse</li><li><strong>M</strong> Enfant mort -né sans déclaration à l'état civil</li><li><strong>N</strong> Naissance</li><li><strong>R</strong> Dossier radié sans connaissance des suites de la grossesse</li><li><strong>F</strong> Fin de grossesse non justifiée</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>identificationsflux</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;identificationsflux_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>applieme</td>
+								<td>Code de l&#039;application émettrice</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>CRI</strong> Cristal Cnaf</li><li><strong>AGO</strong> Agora Ccmsa</li><li><strong>NRI</strong> @IRMI Cnaf</li><li><strong>NRA</strong> @RSA Cnaf</li><li><strong>IOD</strong> IODAS GFI</li><li><strong>GEN</strong> GENESIS SIRUS-BULL</li><li><strong>IAS</strong> IAS JVS implicit</li><li><strong>PER</strong> Peceaveal INFODB</li><li><strong>54</strong>  Logiciel du CG 54</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>numversionapplieme</td>
+								<td>Numéro de version de l&#039;application émettrice</td>
+								<td>CHARACTER(4)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>typeflux</td>
+								<td>Type de fréquence du flux Xml</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>natflux</td>
+								<td>Nature du flux Xml</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtcreaflux</td>
+								<td>Date de création du flux Xml</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>heucreaflux</td>
+								<td>Heure de création du flux Xml</td>
+								<td>TIME&nbsp;WITHOUT&nbsp;TIME&nbsp;ZONE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtref</td>
+								<td>Mois de référence du flux Xml</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>infosagricoles</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;infosagricoles_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>personne_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;personnes.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtbenagri</td>
+								<td>Montant bénéfice agricole</td>
+								<td>NUMERIC(10,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtbenagri</td>
+								<td>Date bénéfice agricole</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>regfisagri</td>
+								<td>Régime fiscal agricole</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>F</strong> Montant forfaitaire</li><li><strong>R</strong> Montant réél</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>topressevaagri</td>
+								<td>Ressources à évaluer</td>
+								<td>TYPE_BOOLEANNUMBER</td>
+								<td>&#039;0&#039;</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtbenagria1</td>
+								<td>Montant bénéficie agricole année-1</td>
+								<td>NUMERIC(10,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtbenagria1</td>
+								<td>Date du bénéfice agricole année-1</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dtcloexecompta</td>
+								<td>Date de cloture de l&#039;exercice comptable</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>liberalites</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;liberalites_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>avispcgpersonne_id</td>
+								<td>Lien vers avis n°:</td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;avispcgpersonnes.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtlibernondecl</td>
+								<td>Montant mensuel que la personne traitée n&#039;a pas déclarée dans ses ressources</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtabsdeclliber</td>
+								<td>Date à partir de laquelle la personne traitée n&#039;a pas déclarées les libéralités perçues</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>parcours</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;parcours_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>personne_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;personnes.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>natparcocal</td>
+								<td>Nature du parcours calculé</td>
+								<td>TYPE_NATPARCO</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>AS</strong> Parcours professionnel et appui social</li><li><strong>PP</strong> Parcours professionnel</li><li><strong>PS</strong> Parcours social</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>natparcomod</td>
+								<td>Nature du parcours modifié</td>
+								<td>TYPE_NATPARCO</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>AS</strong> Parcours professionnel et appui social</li><li><strong>PP</strong> Parcours professionnel</li><li><strong>PS</strong> Parcours social</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>toprefuparco</td>
+								<td>Refus du parcours</td>
+								<td>TYPE_BOOLEANNUMBER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>motimodparco</td>
+								<td>Motif de la modification du parcours</td>
+								<td>TYPE_MOTIMODPARCO</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>CL</strong> Critère local</li><li><strong>EA</strong> Entretien approfondi</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>raisocorgdeciorie</td>
+								<td>Raison sociale de l&#039;organisme décidant de l&#039;orientation</td>
+								<td>CHARACTER&nbsp;VARYING(60)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>numvoie</td>
+								<td>Numéro de voie de l&#039;organisme décidant de l&#039;orientation</td>
+								<td>CHARACTER&nbsp;VARYING(6)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>nomvoie</td>
+								<td>Nom de voie de l&#039;organisme décidant de l&#039;orientation</td>
+								<td>CHARACTER&nbsp;VARYING(32)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>complideadr</td>
+								<td>Complément d&#039;identification d&#039;adresse de l&#039;organisme décidant de l&#039;orientation</td>
+								<td>CHARACTER&nbsp;VARYING(38)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>compladr</td>
+								<td>Complément d&#039;adresse de l&#039;organisme décidant de l&#039;orientation</td>
+								<td>CHARACTER&nbsp;VARYING(38)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>lieudist</td>
+								<td>Lieu de distribution de l&#039;organisme décidant de l&#039;orientation</td>
+								<td>CHARACTER&nbsp;VARYING(38)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>codepos</td>
+								<td>Code postal de l&#039;organisme décidant de l&#039;orientation</td>
+								<td>CHARACTER&nbsp;VARYING(5)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>numtelorgdeciorie</td>
+								<td>Numéro de téléphone de l&#039;organisme décidant de l&#039;orientation</td>
+								<td>CHARACTER&nbsp;VARYING(10)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dtrvorgdeciorie</td>
+								<td>Date du rendez-vous de l&#039;organisme décidant de l&#039;orientation</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>hrrvorgdeciorie</td>
+								<td>Heure du rendez-vous de l&#039;organisme décidant de l&#039;orientation</td>
+								<td>TIME&nbsp;WITHOUT&nbsp;TIME&nbsp;ZONE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>libadrrvorgdeciorie</td>
+								<td>Libellé de l&#039;adresse de rendez-vous de l&#039;organisme décidant de l&#039;orientation</td>
+								<td>CHARACTER&nbsp;VARYING(160)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>numtelrvorgdeciorie</td>
+								<td>Numéro de téléphone pour le rendez-vous de l&#039;organisme décidant de l&#039;orientation</td>
+								<td>CHARACTER&nbsp;VARYING(10)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>libtypevoie</td>
+								<td>Type de voie de l&#039;organisme décidant de l&#039;orientation</td>
+								<td>CHARACTER&nbsp;VARYING(30)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>nomcom</td>
+								<td>Localité adresse de l&#039;organisme décidant de l&#039;orientation</td>
+								<td>CHARACTER&nbsp;VARYING(32)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>pc</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;pc_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>nom</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>matricule</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(15)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtnai</td>
+								<td></td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>cp</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(5)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>ville</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dtrdvd1</td>
+								<td></td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>marchd1</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(100)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dtsortid2</td>
+								<td></td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>sitaccd2</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>pcreprise</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>nom</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>matricule</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(15)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtnai</td>
+								<td></td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>cp</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(5)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>ville</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dtrdvd1</td>
+								<td></td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>marchd1</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(100)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dtsortid2</td>
+								<td></td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>sitaccd2</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>Dossier__id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>Dossier__numdemrsa</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(11)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>Dossier__dtdemrsa</td>
+								<td></td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>Dossier__matricule</td>
+								<td></td>
+								<td>CHARACTER(15)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>Dossier__fonorg</td>
+								<td></td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>Personne__id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>Personne__nir</td>
+								<td></td>
+								<td>CHARACTER(15)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>Personne__qual</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>Personne__nom</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>Personne__prenom</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>Personne__prenom2</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>Personne__prenom3</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>Personne__dtnai</td>
+								<td></td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>Personne__idassedic</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(8)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>Personne__nomcomnai</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(26)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>Situationdossierrsa__etatdosrsa</td>
+								<td></td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>Prestation__rolepers</td>
+								<td></td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>Personne__sexe</td>
+								<td></td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>personnes</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td>Personne</td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;personnes_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>foyer_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;foyers.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>qual</td>
+								<td>Civilité</td>
+								<td>CHARACTER&nbsp;VARYING(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>MME</strong> Madame</li><li><strong>MR</strong> Monsieur</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>nom</td>
+								<td>Nom</td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>prenom</td>
+								<td>Prénom</td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>nomnai</td>
+								<td>Nom de naissance</td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>prenom2</td>
+								<td>2ème prénom</td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>prenom3</td>
+								<td>3ème prénom</td>
+								<td>CHARACTER&nbsp;VARYING(50)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>nomcomnai</td>
+								<td>Commune de naissance</td>
+								<td>CHARACTER&nbsp;VARYING(26)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtnai</td>
+								<td>Date de naissance</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>rgnai</td>
+								<td>Rang naissance</td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>typedtnai</td>
+								<td>Type date de naissance</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>J</strong> Jour inconnu</li><li><strong>N</strong> Jour et mois connus</li><li><strong>O</strong> Jour et mois inconnus</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>nir</td>
+								<td>NIR</td>
+								<td>CHARACTER(15)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>topvalec</td>
+								<td>Certification de l&#039;état civil de la personne</td>
+								<td>BOOLEAN</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>sexe</td>
+								<td>Sexe</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>1</strong> Homme</li><li><strong>2</strong> Femme</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>nati</td>
+								<td>Nationalité</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>A</strong> Autre nationalité</li><li><strong>C</strong> Ressortissant CEE ou Suisse</li><li><strong>F</strong> Française</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dtnati</td>
+								<td>Date Nationalité</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>pieecpres</td>
+								<td>Pièce d&#039;état civil présentée</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>E</strong> Pièce d'état civil</li><li><strong>P</strong> Certificat de perte</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>idassedic</td>
+								<td>N° identifiant Pôle Emploi</td>
+								<td>CHARACTER&nbsp;VARYING(8)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>numagenpoleemploi</td>
+								<td>Numéro agence Pole emploi</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dtinscpoleemploi</td>
+								<td>Date inscription Pole emploi</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>numfixe</td>
+								<td>N° de téléphone fixe</td>
+								<td>CHARACTER&nbsp;VARYING(14)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>numport</td>
+								<td>N° de téléphone portable</td>
+								<td>CHARACTER&nbsp;VARYING(14)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>haspiecejointe</td>
+								<td>Ajouter une pièce jointe</td>
+								<td>TYPE_BOOLEANNUMBER</td>
+								<td>&#039;0&#039;</td>
+								<td></td>
+								<td><ul><li><strong>0</strong> Non</li><li><strong>1</strong> Oui</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>email</td>
+								<td>Adresse mail</td>
+								<td>CHARACTER&nbsp;VARYING(100)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>personnescuis66</h3><p>Instantané des informations additionnelles affichés sur allocataire : Personnecui66</p><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;personnescuis66_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>adressecomplete</td>
+								<td>Adresse :</td>
+								<td>CHARACTER&nbsp;VARYING(512)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>canton</td>
+								<td>Canton :</td>
+								<td>CHARACTER&nbsp;VARYING(255)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>departement</td>
+								<td></td>
+								<td>CHARACTER&nbsp;VARYING(255)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>referent</td>
+								<td>Référent en cours :</td>
+								<td>CHARACTER&nbsp;VARYING(255)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>orgpayeur</td>
+								<td>Organisme payeur</td>
+								<td>CHARACTER&nbsp;VARYING(255)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>nbpersacharge</td>
+								<td>Nombre de personnes à charge</td>
+								<td>CHARACTER&nbsp;VARYING(255)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtdemrsa</td>
+								<td>Date de demande RSA</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>montantrsa</td>
+								<td>Montant du droit RSA à la date de début du CUI</td>
+								<td>DOUBLE&nbsp;PRECISION</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>prestations</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>personne_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;personnes.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>natprest</td>
+								<td>Nature de la prestation</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>rolepers</td>
+								<td>Rôle personne</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>DEM</strong> Demandeur du RSA</li><li><strong>CJT</strong> Conjoint du demandeur</li><li><strong>ENF</strong> Enfant</li><li><strong>AUT</strong> Autre personne</li><li><strong>RDO</strong> Responsable du dossier</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>topchapers</td>
+								<td></td>
+								<td>BOOLEAN</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;prestations_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr></tbody></table><h3>rattachements</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;rattachements_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>personne_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;personnes.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>nomnai</td>
+								<td>Nom naissance</td>
+								<td>CHARACTER&nbsp;VARYING(28)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>prenom</td>
+								<td>Prenom</td>
+								<td>CHARACTER&nbsp;VARYING(32)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>typepar</td>
+								<td>Type parenté</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>ADP</strong> Adoption simple</li><li><strong>ASC</strong> Ascendant</li><li><strong>AUT</strong> Autre</li><li><strong>BFI</strong> Gendre ou bru</li><li><strong>COL</strong> Coll degré 4</li><li><strong>DES</strong> Descendant</li><li><strong>FRE</strong> Frère ou soeur</li><li><strong>LEG</strong> Légitime</li><li><strong>NAT</strong> Naturel</li><li><strong>NEV</strong> Neveu ou nièce</li><li><strong>ONC</strong> Oncle ou tante</li><li><strong>REA</strong> Recueilli en vue adoption</li><li><strong>REC</strong> Recueilli</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtnai</td>
+								<td>Date naissance</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>nir</td>
+								<td>NIR</td>
+								<td>CHARACTER(15)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>reducsrsa</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;reducsrsa_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>avispcgdroitrsa_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;avispcgdroitsrsa.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtredrsa</td>
+								<td>Montant de la réduction</td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>ddredrsa</td>
+								<td>Date début de la réduction</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>dfredrsa</td>
+								<td>Date fin de la réduction</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>ressources</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;ressources_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>personne_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;personnes.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>topressnul</td>
+								<td>Percevez-vous des ressources ? </td>
+								<td>BOOLEAN</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>mtpersressmenrsa</td>
+								<td>Montant des ressources mensuelles prises en compte pour le RSA </td>
+								<td>NUMERIC(10,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>ddress</td>
+								<td>Date de début de la période correspondant à la DTR RSA </td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dfress</td>
+								<td>Date de fin  de la période correspondant à la DTR RSA </td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>ressourcesmensuelles</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td>Ressource mensuelle n°:</td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;ressourcesmensuelles_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>ressource_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;ressources.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>moisress</td>
+								<td>Mois ressources</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>nbheumentra</td>
+								<td>Nombre heures mensuelles travaillées</td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>mtabaneu</td>
+								<td></td>
+								<td>NUMERIC(9,&nbsp;2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>situationsdossiersrsa</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;situationsdossiersrsa_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dossier_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;dossiers.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>etatdosrsa</td>
+								<td>Etat du dossier</td>
+								<td>CHARACTER(1)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>Z</strong> Non défini</li><li><strong>0</strong> Nouvelle demande en attente de décision CG pour ouverture du droit</li><li><strong>1</strong> Droit refusé</li><li><strong>2</strong> Droit ouvert et versable</li><li><strong>3</strong> Droit ouvert et suspendu (le montant du droit est calculable, mais l'existence du droit est remis en cause)</li><li><strong>4</strong> Droit ouvert mais versement suspendu (le montant du droit n'est pas calculable)</li><li><strong>5</strong> Droit clos</li><li><strong>6</strong> Droit clos sur mois antérieur ayant eu un contrôle dans le mois de référence pour une période antérieure</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtrefursa</td>
+								<td>Date de refus</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>moticlorsa</td>
+								<td>Motif de fin des droits</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>PCG</strong> Cloture suite décision de la Présidente du Conseil Départemental</li><li><strong>ECH</strong> Cloture suite à échéance (4 mois sans droits) </li><li><strong>EFF</strong> Cloture suite à l'annulation de la bascule RMI/API</li><li><strong>MUT</strong> Cloture suite à mutation du dossier dans un autre organisme</li><li><strong>RGD</strong> Cloture pour regroupement de dossier</li><li><strong>RFD</strong> radié fin de droit</li><li><strong>RAU</strong> radié autre motif</li><li><strong>RST</strong> radié option RSTA Dom</li><li><strong>RSO</strong> radié option RSO Dom</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>dtclorsa</td>
+								<td>Date de fin des droits</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>motirefursa</td>
+								<td>Motif de refus du RSA</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>F02</strong> Fin de droit immédiate / moins de 25 ans et personne à charge </li><li><strong>F04</strong> Fin de droit immédiate / titre de séjour non valide</li><li><strong>F09</strong> Fin de droit immédiate / résidence non conforme</li><li><strong>F85</strong> Fin de droit immédiate / pas d'allocataire (si allocataire décédé par exemple)</li><li><strong>F97</strong> Fin de droit immédiate / bénéficiaire AAH réduite</li><li><strong>FDD</strong> ETI n'ouvrant pas droit</li><li><strong>DSD</strong> Demande sans droit (demande pièces justificatives)</li><li><strong>FDB</strong> Etudiant rémunération insuffisante</li><li><strong>PCG</strong> Refus suite décision PCG</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>suspensionsdroits</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;suspensionsdroits_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>situationdossierrsa_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;situationsdossiersrsa.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>motisusdrorsa</td>
+								<td>Motif de suspension droit RSA</td>
+								<td>CHARACTER(2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>DA</strong> Suspension Dossier : Situation de famille</li><li><strong>DB</strong> Suspension Dossier : Ressources</li><li><strong>DC</strong> Suspension Dossier : Enquête administrative</li><li><strong>DD</strong> Suspension Dossier : Enquête sociale</li><li><strong>DE</strong> Suspension Dossier : Abs imprimé campagne contrôle</li><li><strong>DF</strong> Suspension Dossier : Absence avis changement CAF</li><li><strong>DG</strong> Suspension Dossier : Décès Madame</li><li><strong>DH</strong> Suspension Dossier : Décès Monsieur</li><li><strong>DI</strong> Suspension Dossier : Autre motif</li><li><strong>DJ</strong> Suspension Dossier : Présence paiemt réimp/arrêté</li><li><strong>DK</strong> Suspension Dossier : Abs réponse contrôle ASSEDIC</li><li><strong>DL</strong> Suspension Dossier : Pli non distribuable (ex-NPAI)</li><li><strong>DM</strong> Suspension Dossier : Résidence inconnue</li><li><strong>DN</strong> Suspension Dossier : Diverg. droits SS susp anc.mod</li><li><strong>DO</strong> Suspension Dossier : Diverg. droits AV susp anc.mod</li><li><strong>DP</strong> Suspension Dossier : Contrôle ASF hors d'état</li><li><strong>DQ</strong> Suspension Dossier : Election domicile non renouvelé</li><li><strong>DR</strong> Suspension Dossier : Gestion de personne</li><li><strong>GF</strong> Suspension Groupe Prestation : Situation de famille</li><li><strong>GR</strong> Suspension Groupe Prestation : Contrôle activité ressources</li><li><strong>GA</strong> Suspension Groupe Prestation : Enquête administrative</li><li><strong>GS</strong> Suspension Groupe Prestation : Enquête sociale</li><li><strong>GC</strong> Suspension Groupe Prestation : Abs. imprimé campagne contrôle</li><li><strong>GI</strong> Suspension Groupe Prestation : Imprimé chang. CAF non fourni</li><li><strong>GX</strong> Suspension Groupe Prestation : Autre motif</li><li><strong>GE</strong> Suspension Groupe Prestation : Forfait ETI non fourni</li><li><strong>GJ</strong> Suspension Groupe Prestation : RSA: suspension PCG</li><li><strong>GK</strong> Suspension Groupe Prestation : RSA: contrat insertion</li><li><strong>GL</strong> Suspension Groupe Prestation : RSA: action non engagée</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>ddsusdrorsa</td>
+								<td>Date début suspension droit RSA</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>natgroupfsus</td>
+								<td>Groupe de suspension</td>
+								<td>CHARACTER(3)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>RSA</strong> RSA socle+activité</li><li><strong>RSX</strong> RSA socle uniquement</li><li><strong>RCX</strong> RSA activité uniquement</li><li><strong>DIF</strong> PF différentielles</li><li><strong>HOS</strong> PF hospitalisation</li><li><strong>ISO</strong> PF isolement</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>suspensionsversements</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;suspensionsversements_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>situationdossierrsa_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;situationsdossiersrsa.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>motisusversrsa</td>
+								<td>Motif de suspension versement RSA</td>
+								<td>CHARACTER(2)</td>
+								<td>NULL</td>
+								<td></td>
+								<td><ul><li><strong>01</strong> Ressources trop élévées</li><li><strong>02</strong> Moins 25 ans sans enft/autre person. à charge</li><li><strong>03</strong> Activité non conforme</li><li><strong>04</strong> Titre de séjour non valide</li><li><strong>05</strong> RSA inférieur au seuil</li><li><strong>06</strong> Déclaration Trimestrielle Ressources non fournie</li><li><strong>09</strong> Résidence non conforme</li><li><strong>19</strong> Pas d'isolement</li><li><strong>31</strong> Prestation exclue affil partielle</li><li><strong>34</strong> Régime non conforme</li><li><strong>35</strong> Demande avantage vielliesse absent ou tardif</li><li><strong>36</strong> Titre de séjour absent</li><li><strong>44</strong> Hospitalisation</li><li><strong>70</strong> Action non engagée</li><li><strong>78</strong> Surface pondérée > plafond ou inconnue</li><li><strong>84</strong> Droit éteint</li><li><strong>85</strong> Pas d'allocataire</li><li><strong>97</strong> Bénéficiaire AAH réduite</li><li><strong>AB</strong> Allocataire absent du foyer</li><li><strong>CV</strong> Attente décision PCG (le droit reste théorique jusqu'au retour)</li><li><strong>CG</strong> Application Sanction</li><li><strong>CZ</strong> Activité antérieure insuffisante</li><li><strong>DA</strong> Activité antérieure absente</li><li><strong>DB</strong> Etudiant rémunération insuff.</li><li><strong>DC</strong> Activité antérieure non conforme</li></ul></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>ddsusversrsa</td>
+								<td>Date début suspension versement RSA</td>
+								<td>DATE</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table><h3>transmissionsflux</h3><table><thead>
+							<tr>
+								<th class="name">Nom du champ</th>
+								<th class="label">Libellé du champ</th>
+								<th class="type">Type de données</th>
+								<th class="default">Défaut</th>
+								<th class="is_nullable">NULL</th>
+								<th class="options">Liste de choix / valeur</th>
+								<th class="key">Origine / contrainte</th>
+								<th class="comment">Commentaire</th>
+							</tr>
+					</thead><tbody><tr class="odd">
+								<td>id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td><abbr title="nextval(&#039;transmissionsflux_id_seq&#039;::regclass)">nextval(...)</abbr></td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>PRIMARY&nbsp;KEY</td>
+								<td></td>
+							</tr><tr class="even">
+								<td>identificationflux_id</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td>NOT NULL</td>
+								<td></td>
+								<td>FOREIGN&nbsp;KEY&nbsp;(&nbsp;identificationsflux.id&nbsp;)</td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>nbtotdemrsatransm</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="even">
+								<td>nbtotdosrsatransmano</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr><tr class="odd">
+								<td>nbtotdosrsatransm</td>
+								<td></td>
+								<td>INTEGER</td>
+								<td>NULL</td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr></tbody></table>	</body>
+			</html>

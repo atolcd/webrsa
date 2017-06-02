@@ -1,0 +1,17 @@
+# Traductions de dossierspcgs66_edit.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Fichiermodule.nb_fichiers_lies"
+msgstr "Nb fichiers liés"
+
+msgid "/Decisionsdossierspcgs66/delete/#Decisiondossierpcg66.id# ?"
+msgstr "Cette action supprimera définitivement cet enregistrement. Voulez-vous continuer ?"

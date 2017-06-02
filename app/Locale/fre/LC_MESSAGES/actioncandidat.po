@@ -1,0 +1,207 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2011-05-04 17:05+0100\n"
+"Last-Translator: Nemes <thierry.nemes@adullact-projet.coop>\n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# 20110503 : remplace "Actions pour les fiches"
+msgid "Actionscandidats::index"
+msgstr "Création des actions d'insertion"
+
+msgid "Actioncandidat::index::empty"
+msgstr "Aucune action d'insertion présente"
+
+msgid "Actionscandidats::add"
+msgstr "Ajout d'une action"
+
+msgid "Actionscandidats::edit"
+msgstr "Modification d'une action"
+
+msgid "Actioncandidat::add"
+msgstr "Ajout d'une action"
+
+msgid "Actioncandidat::edit"
+msgstr "Modifier l'action"
+
+msgid "Actioncandidat::delete::confirm"
+msgstr "Confirmer la suppression de l'action ?"
+
+msgid "Actioncandidat.name"
+msgstr "Intitulé de l'action"
+
+msgid "Actioncandidat.themecode"
+msgstr "Thème de l'action"
+
+msgid "Actioncandidat.codefamille"
+msgstr "Code famille"
+
+msgid "Actioncandidat.numcodefamille"
+msgstr "Numéro du code famille"
+
+msgid "Actioncandidat.codeaction"
+msgstr "Code de l'action"
+
+msgid "Actioncandidat.contractualisation"
+msgstr "Contractualisation"
+
+msgid "Actioncandidat.lieuaction"
+msgstr "Ville"
+
+msgid "Actioncandidat.cantonaction"
+msgstr "Canton"
+
+msgid "Actioncandidat.ddaction"
+msgstr "Début de l'action"
+
+msgid "Actioncandidat.dfaction"
+msgstr "Fin de l'action"
+
+msgid "Actioncandidat.nbpostedispo"
+msgstr "Nombre de postes disponibles"
+
+msgid "Actioncandidat.nbposterestant"
+msgstr "Nombre de postes restants"
+
+msgid "Actioncandidat.correspondantaction"
+msgstr "Correspondant d'action"
+
+msgid "Actioncandidat.referent_id"
+msgstr "Nom du correspondant de l'action"
+
+msgid "Actioncandidat.hasfichecandidature"
+msgstr "Présence fiche de candidature"
+
+msgid "ENUM::CONTRACTUALISATION::marche"
+msgstr "Marché"
+
+msgid "ENUM::CONTRACTUALISATION::subvention"
+msgstr "Subvention"
+
+msgid "ENUM::CONTRACTUALISATION::internecg"
+msgstr "Interne au CG"
+
+msgid "ENUM::CORRESPONDANTACTION::0"
+msgstr "Non"
+
+msgid "ENUM::CORRESPONDANTACTION::1"
+msgstr "Oui"
+
+msgid "ENUM::HASFICHECANDIDATURE::0"
+msgstr "Sans fiche de candidature"
+
+msgid "ENUM::HASFICHECANDIDATURE::1"
+msgstr "Avec fiche de candidature"
+
+msgid "Actioncandidat.contactpartenaire_id"
+msgstr "Contact lié à cette action ?"
+
+msgid "Actioncandidat.chargeinsertion_id"
+msgstr "Chargé d'insertion"
+
+msgid "Actioncandidat.secretaire_id"
+msgstr "Secrétaire"
+
+msgid "Chargeinsertion.nom_complet"
+msgstr "Chargé d'insertion"
+
+msgid "Secretaire.nom_complet"
+msgstr "Secrétaire"
+
+msgid "Actioncandidat.typeaction"
+msgstr "Données de l'action"
+
+msgid "ENUM::TYPEACTION::heure"
+msgstr "En nombre d'heures"
+
+msgid "ENUM::TYPEACTION::poste"
+msgstr "En nombre de postes"
+
+msgid "Actioncandidat.nbheuredispo"
+msgstr "Nombre d'heures disponibles"
+
+msgid "Actioncandidat.nbheurerestante"
+msgstr "Nombre d'heures restantes"
+
+msgid "Actioncandidat.modele_document"
+msgstr "Modèle de notification"
+
+msgid "Actioncandidat.haspiecejointe"
+msgstr "Ajouter une pièce jointe"
+
+msgid "ENUM::HASPIECEJOINTE::1"
+msgstr "Oui"
+
+msgid "ENUM::HASPIECEJOINTE::0"
+msgstr "Non"
+
+msgid "Actioncandidat.contractualisation93"
+msgstr "Contractualisation"
+
+msgid "Actioncandidat.emailprestataire"
+msgstr "Email partenaire/prestataire"
+
+# ------------------------------------------------------------------------------
+# Natures de contrats, utilisées dans le tableau "Indicateurs de natures des actions
+# des contrats" des statistiques ministérielles
+# ------------------------------------------------------------------------------
+
+msgid "Actioncandidat.naturecer"
+msgstr "Nature des Actions Dress"
+
+msgid "ENUM::NATURECER::01"
+msgstr "activités, stages ou formations destinés à acquérir des compétences professionnelles"
+
+msgid "ENUM::NATURECER::02"
+msgstr "orientation vers le service public de l'emploi, parcours de recherche d'emploi"
+
+msgid "ENUM::NATURECER::03"
+msgstr "mesures d'insertion par l'activité économique (IAE)"
+
+msgid "ENUM::NATURECER::04"
+msgstr "aide à la réalisation d’un projet de création, de reprise ou de poursuite d’une activité non salariée "
+
+msgid "ENUM::NATURECER::05"
+msgstr "emploi aidé (hors CIA)"
+
+msgid "ENUM::NATURECER::06"
+msgstr "contrat d'insertion par l'activité (CIA) (3)"
+
+msgid "ENUM::NATURECER::07"
+msgstr "emploi non aidé"
+
+msgid "ENUM::NATURECER::08"
+msgstr "actions facilitant le lien social (développement de l'autonomie sociale, activités collectives, ...)"
+
+msgid "ENUM::NATURECER::09"
+msgstr "actions facilitant la mobilité (permis de conduire, acquisition / location de véhicule, frais de transport...)"
+
+msgid "ENUM::NATURECER::10"
+msgstr "actions visant l'accès à un logement, relogement ou à l'amélioration de l'habitat"
+
+msgid "ENUM::NATURECER::11"
+msgstr "actions facilitant l'accès aux soins"
+
+msgid "ENUM::NATURECER::12"
+msgstr "actions visant l'autonomie financière (constitution d'un dossier de surendettement,...)"
+
+msgid "ENUM::NATURECER::13"
+msgstr "actions visant la famille et la parentalité (soutien familial, garde d'enfant, ...)"
+
+msgid "ENUM::NATURECER::14"
+msgstr "lutte contre l'illettrisme ; acquisition des savoirs de base"
+
+msgid "ENUM::NATURECER::15"
+msgstr "autres actions"

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database version="2.2">
+	<functions>
+		<function name="add_missing_constraint" result="boolean" arguments="text, text, text, text, text" />
+		<function name="add_missing_constraint" result="boolean" arguments="text, text, text, text, text, boolean" />
+	</functions>
+	<tables>
+		<table name="dossiers">
+			<fields>
+				<field name="id" type="integer" null="false" default="null" length="11" key="primary" />
+				<field name="numdemrsa" type="string" null="true" default="" length="11" />
+				<field name="dtdemrsa" type="date" null="true" default="" length="NULL" />
+			</fields>
+			<indexes>
+				<index name="PRIMARY" unique="true" columns="id" />
+				<index name="dossiers_avispcgdroitrsa_id_idx" unique="false" columns="avispcgdroitrsa_id" />
+			</indexes>
+			<foreignkeys>
+				<foreignkey name="dossiers_avispcgdroitrsa_id_fkey" onupdate="CASCADE" ondelete="CASCADE" from="dossiers.avispcgdroitrsa_id" to="avispcgdroitsrsa.id" />
+			</foreignkeys>
+			<checks>
+				<check name="dossiers_fonorgcedmut_in_list_chk" clause="CHECK (cakephp_validate_in_list(fonorgcedmut::text, ARRAY[\'CAF\'::text, \'MSA\'::text, \'OPF\'::text]))" />
+				<check name="dossiers_fonorgprenmut_in_list_chk" clause="CHECK (cakephp_validate_in_list(fonorgprenmut::text, ARRAY[\'CAF\'::text, \'MSA\'::text, \'OPF\'::text]))" />
+				<check name="dossiers_statudemrsa_in_list_chk" clause="CHECK (cakephp_validate_in_list(statudemrsa::text, ARRAY[\'N\'::text, \'C\'::text, \'A\'::text, \'M\'::text, \'S\'::text]))" />
+			</checks>
+		</table>
+		<table name="users">
+			<fields>
+				<field name="id" type="integer" null="false" default="null" length="11" key="primary" />
+				<field name="sensibilite" type="type_no" null="true" default="" length="NULL" />
+			</fields>
+			<indexes>
+				<index name="PRIMARY" unique="true" columns="id" />
+				<index name="users_username_key" unique="true" columns="username" />
+			</indexes>
+			<foreignkeys>
+				<foreignkey name="users_serviceinstructeur_id_fkey" onupdate="CASCADE" ondelete="CASCADE" from="users.serviceinstructeur_id" to="servicesinstructeurs.id" />
+			</foreignkeys>
+		</table>
+	</table>
+</database>

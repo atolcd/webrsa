@@ -1,0 +1,129 @@
+# Traductions de users_index.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Users/index/:heading"
+msgstr "Paramétrage des utilisateurs"
+
+msgid "/Users/add"
+msgstr "Ajouter"
+
+msgid "/Users/add/:title"
+msgstr "Ajouter un utilisateur"
+
+# ==============================================================================
+
+msgid "Search.User.username"
+msgstr "Identifiant"
+
+msgid "Search.User.nom"
+msgstr "Nom"
+
+msgid "Search.User.prenom"
+msgstr "Prénom"
+
+msgid "Search.User.group_id"
+msgstr "Groupe d'utilisateur"
+
+msgid "Search.User.serviceinstructeur_id"
+msgstr "Service instructeur"
+
+msgid "Search.User.type"
+msgstr "Type d'utilisateur"
+
+msgid "Search.User.communautesr_id"
+msgstr "Projet de ville territorial (chef de projet de ville territorial)"
+
+msgid "Search.User.structurereferente_id"
+msgstr "Structure référente (CPDV, secrétariat PDV, chargé d'insertion)"
+
+msgid "Search.User.referent_id"
+msgstr "Référent (chargé d'insertion)"
+
+msgid "Search.User.has_connections"
+msgstr "Connecté"
+
+msgid "Search.User.has_jetons"
+msgstr "Jetons"
+
+msgid "Search.User.has_jetonsfonctions"
+msgstr "Jetons fonctions"
+
+# ==============================================================================
+
+msgid "User.username"
+msgstr "Identifiant"
+
+msgid "User.date_naissance"
+msgstr "Date de naissance"
+
+msgid "User.numtel"
+msgstr "N° téléphone"
+
+msgid "User.date_deb_hab"
+msgstr "Date début habilitation"
+
+msgid "User.date_fin_hab"
+msgstr "Date fin habilitation"
+
+msgid "Group.name"
+msgstr "Groupe d'utilisateur"
+
+msgid "User.has_connections"
+msgstr "Connecté"
+
+msgid "User.has_jetons"
+msgstr "Jetons"
+
+msgid "User.has_jetonsfonctions"
+msgstr "Jetons fonctions"
+
+msgid "/Users/edit"
+msgstr "Modifier"
+
+msgid "/Users/edit/#User.id#"
+msgstr "Modifier"
+
+msgid "/Users/delete_jetons"
+msgstr "Jetons"
+
+msgid "/Users/delete_jetons/#User.id#"
+msgstr "Jetons"
+
+msgid "/Users/delete_jetons/#User.id# ?"
+msgstr "Supprimer les jetons de l'utilisateur « #User.nom# #User.prenom# (#User.username#) » ?"
+
+msgid "/Users/delete_jetonsfonctions"
+msgstr "Jetons fonctions"
+
+msgid "/Users/delete_jetonsfonctions/#User.id#"
+msgstr "Jetons fonctions"
+
+msgid "/Users/delete_jetonsfonctions/#User.id# ?"
+msgstr "Supprimer les jetons sur les fonctions de l'utilisateur « #User.nom# #User.prenom# (#User.username#) » ?"
+
+msgid "/Users/force_logout"
+msgstr "Déconnecter"
+
+msgid "/Users/force_logout/#User.id#"
+msgstr "Déconnecter"
+
+msgid "/Users/force_logout/#User.id# ?"
+msgstr "Déconnecter l'utilisateur « #User.nom# #User.prenom# (#User.username#) » ?"
+
+msgid "/Users/delete"
+msgstr "Supprimer"
+
+msgid "/Users/delete/#User.id#"
+msgstr "Supprimer"
+
+msgid "/Users/delete/#User.id# ?"
+msgstr "Supprimer l'utilisateur « #User.nom# #User.prenom# (#User.username#) » ?"

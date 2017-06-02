@@ -1,0 +1,23 @@
+# Traductions de cg93_orientsstructs_exportcsv.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Search.Orientstruct.date_valid"
+msgstr "Date d'orientation"
+
+msgid "Structurereferenteparcours.lib_struc"
+msgstr "Structure de suivi"
+
+msgid "Referentparcours.nom_complet"
+msgstr "Personne chargée du suivi"
+
+msgid "Orientstruct.propo_algo"
+msgstr "Préconisation d'orientation"

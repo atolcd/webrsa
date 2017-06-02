@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:html="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>ChangeLog</title><style type="text/css">
+					
+						table { border-collapse: collapse; }
+						td, th { border: 1px solid silver; padding: 0.125em 0.25em; vertical-align: top; }
+						thead th, tbody th { text-align: center; background: #cecece; }
+						tbody tr:nth-child(even) { background: #efefef; }
+						tbody th.release { text-align: left; }
+					
+				</style><script type="text/javascript">
+					
+						function toggleColumn( className ) {
+							var elements = document.getElementsByClassName( className );
+							for( var i = 0 ; i < elements.length ; i++ ) {
+								var display = elements[i].style.display;
+								if( display == 'none' ) {
+									elements[i].style.display = 'table-cell';
+								}
+								else {
+									elements[i].style.display = 'none';
+								}
+							}
+						}
+					
+				</script></head><body><h1>ChangeLog</h1><ul><li><a href="#" onclick="toggleColumn( 'fichiers' );return false;" title="Voir la liste des fichiers">Fichiers</a></li></ul><table><thead><tr><th class="revision">Rév.</th><th class="date">Date</th><th class="message">Message</th><th class="fichiers">Fichiers</th></tr></thead><tbody>
+<tr class="logentry"><td class="revision">10078</td><td class="date">12/01/2017 13:24</td><td class="message">Amélioration: ajout de vérifications et d'une meilleure gestion des erreurs du shell generationpdfs. En lien avec le ticket #2004902. (CG 93)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Console/Command/GenerationpdfsShell.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10076</td><td class="date">12/01/2017 13:20</td><td class="message">Amélioration: ajout de la mise en cache du querydata permettant de récupérer les données utilisées pour l'impression du PDF de transfert PDV. En lien avec le ticket #2004902. (CG 93)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Model/Transfertpdv93.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10074</td><td class="date">11/01/2017 13:35</td><td class="message">Amélioration: à présent, dans la méthode Transfertpdv93::getDataForPdf (réorientation suite à déménagement), le modèle principal de la requête est Orientstruct, de manière à avoir un résultat même si l'entrée de la table transfertspdvs93 a été supprimée depuis par les jobs Talend. Cela permet d'éviter d'avoir toujours 46 orientations à imprimer via le shell generationpdfs orientsstructs. En lien avec le ticket #2004902. (CG 93)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Model/Transfertpdv93.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10072</td><td class="date">11/01/2017 10:25</td><td class="message">Amélioration: optimisation de la requête de recherche des documents à générer dans le shell Generationpdf pour les commandes orientsstructs et relancenonrespectsanctionep93. En lien avec le ticket #2004902. (CG 93)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Console/Command/GenerationpdfsShell.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10070</td><td class="date">09/01/2017 13:13</td><td class="message">Corrections: meilleure utilisation du système de fichiers liés au sein de formulaires métiers, afin d'éviter de perdre les fichiers liés lorsque le formulaire envoyé comporte des erreurs. Les modules impactés sont: paramétrage des actions d'insertion, dossier PCG, paramétrage des pièces liées aux mails employeur du CUI, dossier PDO, traitements PCG. En lien avec le ticket #2004850. (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Controller/ActionscandidatsController.php</li><li><strong>M:</strong>/branches/3.1/app/Controller/Component/FileuploaderComponent.php</li><li><strong>M:</strong>/branches/3.1/app/Controller/Dossierspcgs66Controller.php</li><li><strong>M:</strong>/branches/3.1/app/Controller/Piecesmailscuis66Controller.php</li><li><strong>M:</strong>/branches/3.1/app/Controller/PropospdosController.php</li><li><strong>M:</strong>/branches/3.1/app/Controller/Traitementspcgs66Controller.php</li><li><strong>M:</strong>/branches/3.1/app/View/Actionscandidats/add_edit.ctp</li><li><strong>M:</strong>/branches/3.1/app/View/Dossierspcgs66/edit.ctp</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10068</td><td class="date">06/01/2017 16:07</td><td class="message">Correction: à présent, lorsqu'il y a une erreur dans une des nouvelles cohortes d'impression et que l'on n'est pas en mode production, on évite l'affichage d'avertissement pour mauvais type de second paramètre passé à la méthode WebrsaAbstractMoteursComponent::_fireAfterSearch ou WebrsaAbstractMoteursComponent::afterSearch, ce qui empêche la redirection et l'affichage du message d'erreur. En lien avec le ticket #2004902 (CG 93).</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Controller/Component/WebrsaAbstractCohortesImpressionsComponent.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10066</td><td class="date">06/01/2017 15:25</td><td class="message">Correction: à présent, dans les écrans des tableaux de suivi d'activité, le filtre par "Projet de ville" ne garde plus la valeur précédente. Corrige le ticket #2004870 (CG 93).</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/View/Tableauxsuivispdvs93/search.ctp</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10064</td><td class="date">06/01/2017 10:44</td><td class="message">Correction: à présent, dans les écrans des tableaux de suivi B4, B5 et B6, les intitulés sont correctement traduits. Corrige le ticket #2004869 (CG 93).</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/View/Tableauxsuivispdvs93/search.ctp</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10062</td><td class="date">06/01/2017 10:11</td><td class="message">Amélioration: ajout de l'impossibilité de cliquer deux fois lors de l'ajout d'une personne dans un dossier PCG afin d'éviter les doublons. En lien avec le ticket #2004832. (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/View/Decisionsdossierspcgs66/add_edit.ctp</li><li><strong>M:</strong>/branches/3.1/app/View/Dossierspcgs66/edit.ctp</li><li><strong>M:</strong>/branches/3.1/app/View/Personnespcgs66/add_edit.ctp</li><li><strong>M:</strong>/branches/3.1/app/View/Traitementspcgs66/add_edit.ctp</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10060</td><td class="date">06/01/2017 09:56</td><td class="message">Correction: dans la liste des dossiers PCG, on s'assure de ne prendre en compte que le dernier traitement "Document arrivé" afin d'éviter des doublons d'affichage et le danger de supprimer un dossier PCG apparemment en doublon. Corrige le ticket #2004832 (CG 66).</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Model/WebrsaDossierpcg66.php</li></ul></td></tr>
+</tbody></table><script type="text/javascript">
+					
+						toggleColumn( 'fichiers' );
+					
+				</script></body></html>

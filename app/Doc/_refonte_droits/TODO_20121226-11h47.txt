@@ -1,0 +1,117 @@
+<?php
+	...
+	echo $this->element( 'dossier_menu', array( 'dossierMenu' => $dossierMenu ) );
+?>
+<div class="with_treemenu">
+	...
+</div>
+<div class="clearer"><hr /></div>
+
+// -----------------------------------------------------------------------------
+
+		public $components = array( 'Jetons2', 'DossiersMenus' );
+
+		/**
+		 * Correspondances entre les méthodes publiques correspondant à des
+		 * actions accessibles par URL et le type d'action CRUD.
+		 *
+		 * @var array
+		 */
+		public $crudMap = array(
+			'' => '',
+		);
+
+	TODO: avant Jetons2->get( .. )
+$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $this->Cui->personneId( $id ) ) ) );
+
+$this->DossiersMenus->checkDossierMenu( array( 'personne_id' => $this->Cui->personneId( $id ) ) );
+
+		$this->Permissions->checkDossier( 'personnes', 'add', $dossierMenu )
+
+// FIXME (de manière générale):
+	1°) Pour les fonctions de suppression (Reorientationseps93, Fichiersmodules, Orientsstructs )
+		a°) On ne se préoccupe pas des jetons
+		b°) Cette méthode n'est pas tout à fait adaptée: $this->DossiersMenus->getAndCheckDossierMenu( array( 'id' => $this->Orientstruct->dossierId( $id ) ) );
+		c°) Controller::download()
+
+// -----------------------------------------------------------------------------
+
+		/**
+		 * Retourne l'id de la personne à laquelle est lié un enregistrement.
+		 *
+		 * @param integer $id L'id de l'enregistrement
+		 * @return integer
+		 */
+		public function personneId( $id ) {
+			$querydata = array(
+				'fields' => array( "{$this->alias}.personne_id" ),
+				'conditions' => array(
+					"{$this->alias}.id" => $id
+				),
+				'recursive' => -1
+			);
+
+			$result = $this->find( 'first', $querydata );
+
+			if( !empty( $result ) ) {
+				return $result[$this->alias]['personne_id'];
+			}
+			else {
+				return null;
+			}
+		}
+
+		/**
+		 * Retourne l'id de la personne à laquelle est lié un enregistrement.
+		 *
+		 * @param integer $id L'id de l'enregistrement
+		 * @return integer
+		 */
+		public function personneId( $id ) {
+			$querydata = array(
+				'fields' => array( "XXX.personne_id" ),
+				'joins' => array(
+					$this->join( 'XXX', array( 'type' => 'INNER' ) )
+				),
+				'conditions' => array(
+					"{$this->alias}.id" => $id
+				),
+				'recursive' => -1
+			);
+
+			$result = $this->find( 'first', $querydata );
+
+			if( !empty( $result ) ) {
+				return $result['XXX']['personne_id'];
+			}
+			else {
+				return null;
+			}
+		}
+
+// -----------------------------------------------------------------------------
+
+		/**
+		 * Retourne l'id du dossier auquel est lié un enregistrement.
+		 *
+		 * @param integer $id L'id de l'enregistrement
+		 * @return integer
+		 */
+		public function dossierId( $id ) {
+			$querydata = array(
+				'fields' => array( "{$this->alias}.dossier_id" ),
+				'conditions' => array(
+					"{$this->alias}.id" => $id
+				),
+				'recursive' => -1
+			);
+
+			$result = $this->find( 'first', $querydata );
+
+			if( !empty( $result ) ) {
+				return $result[$this->alias]['dossier_id'];
+			}
+			else {
+				return null;
+			}
+		}

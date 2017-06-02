@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://webrsa.local/" />
+<title>New Test</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">New Test</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Par dossier / allocataire</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Par Orientation</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>CritereStatutOrient</td>
+	<td>label=Orienté</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Rechercher']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//tr[@id='innerTableTrigger1']/td[10]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='pageContent']/div[1]/ul/li[1]/ul/li[1]/ul/li[2]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//img[@alt='Étendre']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//div[@id='pageContent']/div[1]/ul/li[1]/ul/li[1]/ul/li[2]/ul/li[5]/ul/li[1]/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Ajouter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionReferentId</td>
+	<td>label=MME TOURE Rachida</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDdCiDay</td>
+	<td>label=10</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDdCiMonth</td>
+	<td>label=janvier</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDdCiYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDureeEngag</td>
+	<td>label=9 mois</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ContratinsertionActionsPrevO</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ContratinsertionEmpTrouvN</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ContratinsertionNatureProjet</td>
+	<td>à définir</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ContratinsertionLieuSaisiCi</td>
+	<td>Bobigny</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDateSaisiCiDay</td>
+	<td>label=1</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDateSaisiCiMonth</td>
+	<td>label=février</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDateSaisiCiYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Modifier</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDdCiDay</td>
+	<td>label=15</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Supprimer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>Supprimer le CER&nbsp;&nbsp;?</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Ajouter</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionReferentId</td>
+	<td>label=MME Tibi Isabelle</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDdCiDay</td>
+	<td>label=2</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDdCiMonth</td>
+	<td>label=janvier</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDdCiYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDureeEngag</td>
+	<td>label=9 mois</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ContratinsertionActionsPrevO</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ContratinsertionEmpTrouvN</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ContratinsertionNatureProjet</td>
+	<td>ne sais pas encore</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ContratinsertionLieuSaisiCi</td>
+	<td>Bobigny</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDateSaisiCiDay</td>
+	<td>label=10</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDateSaisiCiMonth</td>
+	<td>label=janvier</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDateSaisiCiYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Fichiers liés</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>ContratinsertionHaspiecejointe0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Valider</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>ContratinsertionObservCi</td>
+	<td>Contrat prêt.</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDecisionCi</td>
+	<td>label=Validation à compter du</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDatevalidationCiDay</td>
+	<td>label=14</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDatevalidationCiMonth</td>
+	<td>label=janvier</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>ContratinsertionDatevalidationCiYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Signalement</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Signalementep93DateDay</td>
+	<td>label=7</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Signalementep93DateMonth</td>
+	<td>label=avril</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>Signalementep93DateYear</td>
+	<td>label=2011</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Signalementep93Motif</td>
+	<td>Essaie de signalement</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Modifier</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>Signalementep93Motif</td>
+	<td>Assez de signalement pour les tests</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//input[@value='Enregistrer']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Supprimer</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>Confirmer la suppression du signalement ?</td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

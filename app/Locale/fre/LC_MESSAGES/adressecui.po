@@ -1,0 +1,82 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+
+####################################### Traductions champs CUI #######################################
+
+msgid "Adressecui.numvoie"
+msgstr "Numéro de la voie"
+
+msgid "Adressecui.typevoie"
+msgstr "Type de voie"
+
+msgid "Adressecui.nomvoie"
+msgstr "Nom de la voie"
+
+msgid "Adressecui.complement"
+msgstr "Complément d'adresse"
+
+msgid "Adressecui.codepostal"
+msgstr "Code postal"
+
+msgid "Adressecui.commune"
+msgstr "Commune"
+
+msgid "Adressecui.numtel"
+msgstr "Numéro de téléphone"
+
+msgid "Adressecui.email"
+msgstr "Email"
+
+msgid "Adressecui.numfax"
+msgstr "Numéro de fax"
+
+msgid "Adressecui.canton"
+msgstr "Canton"
+
+msgid "Adressecui.numvoie2"
+msgstr "Numéro de la voie"
+
+msgid "Adressecui.typevoie2"
+msgstr "Type de voie"
+
+msgid "Adressecui.nomvoie2"
+msgstr "Nom de la voie"
+
+msgid "Adressecui.complement2"
+msgstr "Complément d'adresse"
+
+msgid "Adressecui.codepostal2"
+msgstr "Code postal"
+
+msgid "Adressecui.commune2"
+msgstr "Commune"
+
+msgid "Adressecui.numtel2"
+msgstr "Numéro de téléphone"
+
+msgid "Adressecui.email2"
+msgstr "Email"
+
+msgid "Adressecui.numfax2"
+msgstr "Numéro de fax"
+
+msgid "Adressecui.canton2"
+msgstr "Canton"

@@ -1,0 +1,552 @@
+# Traductions de tableauxsuivispdvs93.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Search.annee"
+msgstr "Année d'opération"
+
+msgid "Search.mode"
+msgstr "Mode de calcul"
+
+msgid "Search.communautesr_id"
+msgstr "Projet de ville territoriale"
+
+msgid "Search.structurereferente_id_choice"
+msgstr "Filtrer par plusieurs projets de ville"
+
+msgid "Search.structurereferente_id"
+msgstr "Projet de ville"
+
+msgid "Search.referent_id"
+msgstr "Référent"
+
+msgid "Search.type"
+msgstr "Niveau de statistiques"
+
+msgid "Search.dsps_maj_dans_annee"
+msgstr "Dont les DSP ont été mises à jour dans l'année"
+
+msgid "Search.user_id"
+msgstr "Photographe"
+
+msgid "Search.tableau"
+msgstr "Tableau de bord"
+
+msgid "Search.typethematiquefp93_id"
+msgstr "Type d'action"
+
+msgid "Search.rdv_structurereferente"
+msgstr "Dont le bénéficiaire possède au moins un rendez-vous individuel honoré dans l'année"
+
+msgid "Search.soumis_dd_dans_annee"
+msgstr "Soumis à droits et devoirs au moins une fois dans l'année (par opposition à soumis à droits et devoirs au moment du remplissage du formulaire D1)"
+
+# ------------------------------------------------------------------------------
+
+msgid "Tableau1b5.distinct_personnes_prescription"
+msgstr "Nombre de personnes différentes bénéficiant d'une prescription"
+
+msgid "Tableau1b5.distinct_personnes_action"
+msgstr "Nombre de personnes différentes ayant participé à une action"
+
+msgid "Tableau1b5.beneficiaires_pas_deplaces"
+msgstr "Nbre de fois ou un bénéficiaire ne s'est pas déplacé "
+
+msgid "Tableau1b5.nombre_fiches_attente"
+msgstr "Nbre de fiches de prescription en attente d'un retour"
+
+msgid "Tableau1b5.thematique"
+msgstr "Thématique"
+
+msgid "Tableau1b5.categorie"
+msgstr "Catégorie"
+
+msgid "Tableau1b5.nombre"
+msgstr "Nb de prescriptions effectuées"
+
+msgid "Tableau1b5.nombre_effectives"
+msgstr "Nombre de prescriptions effectives"
+
+msgid "Tableau1b5.raison_non_participation"
+msgstr "Raisons de la non participation"
+
+msgid "Tableau1b5.nombre_refus_beneficiaire"
+msgstr "Refus du bénéficiaire"
+
+msgid "Tableau1b5.nombre_refus_organisme"
+msgstr "Refus de l'organisme"
+
+msgid "Tableau1b5.nombre_en_attente"
+msgstr "En attente"
+
+msgid "Tableau1b5.nombre_participants"
+msgstr "Nb de participants à une action"
+
+msgid "Tableau1b5.nombre_participations"
+msgstr "Nb de participations à une action"
+
+# ------------------------------------------------------------------------------
+# Tableau 1 B3
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/tableau1b3/:heading"
+msgstr "3 - Problématiques des bénéficiaires de l'opération"
+
+# ------------------------------------------------------------------------------
+
+msgid "Tableau1b3.sante"
+msgstr "De santé"
+
+msgid "Tableau1b3.logement"
+msgstr "De logement"
+
+msgid "Tableau1b3.familiales"
+msgstr "Familiale(s)"
+
+msgid "Tableau1b3.modes_gardes"
+msgstr "Modes de garde"
+
+msgid "Tableau1b3.surendettement"
+msgstr "De surendettement"
+
+msgid "Tableau1b3.administratives"
+msgstr "Administrative(s)"
+
+msgid "Tableau1b3.linguistiques"
+msgstr "Linguistique(s)"
+
+msgid "Tableau1b3.mobilisation"
+msgstr "De mobilisation"
+
+msgid "Tableau1b3.qualification_professionnelle"
+msgstr "De qualification professionnelle"
+
+msgid "Tableau1b3.acces_emploi"
+msgstr "D'accés à l'emploi"
+
+msgid "Tableau1b3.autres"
+msgstr "Autres (1)"
+
+# ------------------------------------------------------------------------------
+# Tableau 1 B4
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/tableau1b4/:heading"
+msgstr "4 - Prescriptions vers les acteurs sociaux, culturels et de sante"
+
+msgid "Tableau1b4.libelle"
+msgstr "Thématiques"
+
+msgid "Tableau1b4.structure"
+msgstr "Catégorie"
+
+# ------------------------------------------------------------------------------
+
+msgid "Tableau1b4.acteur"
+msgstr "Type d'acteur"
+
+msgid "Tableau1b4.nombre"
+msgstr "Nombre de prescriptions"
+
+msgid "Tableau1b4.thematique"
+msgstr "Thématique"
+
+msgid "Tableau1b4.categorie"
+msgstr "Catégorie"
+
+msgid "Tableau1b4.nombre_unique"
+msgstr "Nombre de personnes différentes bénéficiant d'une prescription"
+
+msgid "Tableau1b4.acteurs_sociaux"
+msgstr "a. Acteurs Sociaux"
+
+msgid "Tableau1b4.acteurs_sante"
+msgstr "b. Acteurs de la Santé"
+
+msgid "Tableau1b4.acteurs_culture"
+msgstr "c. Acteurs de la culture, des loisirs et des vacances"
+
+# ------------------------------------------------------------------------------
+# Tableau 1 B5
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/tableau1b5/:heading"
+msgstr "5 - Prescription sur les actions à caractère socio-professionnel et professionnel"
+
+# ------------------------------------------------------------------------------
+
+msgid "Tableau1b5.name"
+msgstr "Prescriptions proposées"
+
+msgid "Tableau1b5.prescription_count"
+msgstr "(1) Nb de prescriptions effectuées "
+
+msgid "Tableau1b5.prescriptions_effectives_count"
+msgstr "Nombre de prescription effectives"
+
+msgid "Tableau1b5.raisons"
+msgstr "Raisons de la non participation"
+
+msgid "Tableau1b5.prescriptions_refus_beneficiaire_count"
+msgstr "Refus du bénéficiaire"
+
+msgid "Tableau1b5.prescriptions_refus_organisme_count"
+msgstr "Refus de l'organisme"
+
+msgid "Tableau1b5.prescriptions_en_attente_count"
+msgstr "En attente"
+
+msgid "Tableau1b5.prescriptions_retenu_count"
+msgstr "Nb de participations à une action"
+
+msgid "Tableau1b5.prescriptions_abandon_count"
+msgstr "Abandon en cours d'action"
+
+# ------------------------------------------------------------------------------
+# Recherche
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/index/:heading"
+msgstr "Recherche d'historique de tableaux de suivi PDV"
+
+msgid "Tableausuivipdv93.annee"
+msgstr "Année"
+
+msgid "Tableausuivipdv93.type"
+msgstr "Niveau"
+
+msgid "Communautesr.name"
+msgstr "Projet de ville territorial"
+
+msgid "Pdv.lib_struc"
+msgstr "PDV"
+
+msgid "Referent.nom_complet"
+msgstr "Référent"
+
+msgid "Tableausuivipdv93.name"
+msgstr "Tableau"
+
+msgid "Tableausuivipdv93.version"
+msgstr "Version"
+
+msgid "Photographe.nom_complet"
+msgstr "Photographe"
+
+msgid "Tableausuivipdv93.created"
+msgstr "Création"
+
+msgid "Tableausuivipdv93.modified"
+msgstr "Modification"
+
+msgid "/Tableauxsuivispdvs93/view"
+msgstr "Voir"
+
+msgid "/Tableauxsuivispdvs93/delete"
+msgstr "Supprimer"
+
+msgid "/Tableauxsuivispdvs93/delete/#Tableausuivipdv93.id# ?"
+msgstr "Réellement supprimer ce résultat ?"
+
+# ------------------------------------------------------------------------------
+# Historisation
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/historiser"
+msgstr "Historiser"
+
+msgid "/Tableauxsuivispdvs93/historiser/:title"
+msgstr "Historiser les résultats"
+
+# ------------------------------------------------------------------------------
+# Exports CSV
+# ------------------------------------------------------------------------------
+
+# Données
+
+msgid "/Tableauxsuivispdvs93/exportcsvdonnees"
+msgstr "Télécharger le tableau"
+
+msgid "/Tableauxsuivispdvs93/exportcsvdonnees/:title"
+msgstr "Télécharger le tableau au format CSV"
+
+# Corpus
+
+msgid "/Tableauxsuivispdvs93/exportcsvcorpus"
+msgstr "Télécharger le corpus"
+
+msgid "/Tableauxsuivispdvs93/exportcsvcorpus/:title"
+msgstr "Télécharger le corpus au format CSV"
+
+# ------------------------------------------------------------------------------
+# Visualisation
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/view/:heading"
+msgstr "Visualisation du tableau #Tableausuivipdv93.name# pour l'année #Tableausuivipdv93.annee#"
+
+# ------------------------------------------------------------------------------
+# Tableau D1
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/tableaud1/:heading"
+msgstr "Tableau D1 - Indicateurs de réalisation : caractéristiques des participants"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/sexe"
+msgstr "Ligne 1 - Total participants"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/marche_travail"
+msgstr "Ligne 2 - Statut sur le marché de l'emploi"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/tranche_age"
+msgstr "Ligne 3 - Tranche d'âge"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/vulnerable"
+msgstr "Ligne 4 - Groupes vulnérables"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/nivetu"
+msgstr "Ligne 5 - Niveau d'instruction (dont diplômes étrangers non reconnus en France)"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/categorie_sociopro"
+msgstr "Ligne 6 - Professions et catégories socioprofessionnelles"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/autre_caracteristique"
+msgstr "Ligne 7 - Autres caractéristiques"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/natpf"
+msgstr "Ligne 8 - Type de bénéficiaires"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/nati"
+msgstr "Ligne 9 - Nationalité"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/sitfam"
+msgstr "Ligne 10 - Situation familiale"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/conditions_logement"
+msgstr "Ligne 11 - Condition de logement"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/inscritpe"
+msgstr "Ligne 12 - Inscription Pôle Emploi"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/anciennete_dispositif"
+msgstr "Ligne 13 - Ancienneté dans le dispositif"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/non_scolarise"
+msgstr "Ligne 14 - Non scolarisé"
+
+msgid "/Tableauxsuivispdvs93/tableaud1/diplomes_etrangers"
+msgstr "Ligne 15 - Diplômes étrangers non reconnus en France"
+
+# ------------------------------------------------------------------------------
+# Tableau D2
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/tableaud2/:heading"
+msgstr "Tableau D2 - Situation des participants à l'issue de l'opération"
+
+msgid "/Tableauxsuivispdvs93/tableaud2/totaux"
+msgstr "Total des participants"
+
+msgid "/Tableauxsuivispdvs93/view/totaux"
+msgstr "Total des participants"
+
+msgid "/Tableauxsuivispdvs93/exportcsvdonnees/totaux"
+msgstr "Total des participants"
+
+msgid "/Tableauxsuivispdvs93/tableaud2/maintien"
+msgstr "Maintien dans l'accompagnement"
+
+msgid "/Tableauxsuivispdvs93/view/maintien"
+msgstr "Maintien dans l'accompagnement"
+
+msgid "/Tableauxsuivispdvs93/exportcsvdonnees/maintien"
+msgstr "Maintien dans l'accompagnement"
+
+msgid "/Tableauxsuivispdvs93/tableaud2/sortie_obligation"
+msgstr "Sortie de l'obligation d'accompagnement"
+
+msgid "/Tableauxsuivispdvs93/view/sortie_obligation"
+msgstr "Sortie de l'obligation d'accompagnement"
+
+msgid "/Tableauxsuivispdvs93/exportcsvdonnees/sortie_obligation"
+msgstr "Sortie de l'obligation d'accompagnement"
+
+msgid "/Tableauxsuivispdvs93/tableaud2/abandon"
+msgstr "Abandon (Ruptures / abandons de parcours socioprofessionnels signalés)"
+
+msgid "/Tableauxsuivispdvs93/view/abandon"
+msgstr "Abandon (Ruptures / abandons de parcours socioprofessionnels signalés)"
+
+msgid "/Tableauxsuivispdvs93/exportcsvdonnees/abandon"
+msgstr "Abandon (Ruptures / abandons de parcours socioprofessionnels signalés)"
+
+msgid "/Tableauxsuivispdvs93/tableaud2/reorientation"
+msgstr "Réorientation (Réorientation vers un autre service référent validée en EP)"
+
+msgid "/Tableauxsuivispdvs93/view/reorientation"
+msgstr "Réorientation (Réorientation vers un autre service référent validée en EP)"
+
+msgid "/Tableauxsuivispdvs93/exportcsvdonnees/reorientation"
+msgstr "Réorientation (Réorientation vers un autre service référent validée en EP)"
+
+msgid "/Tableauxsuivispdvs93/tableaud2/changement_situation"
+msgstr "Changement de situation administrative"
+
+msgid "/Tableauxsuivispdvs93/view/changement_situation"
+msgstr "Changement de situation administrative"
+
+msgid "/Tableauxsuivispdvs93/exportcsvdonnees/changement_situation"
+msgstr "Changement de situation administrative"
+
+msgid "/Tableauxsuivispdvs93/tableaud2/total"
+msgstr "Total des sorties \"%s\""
+
+msgid "/Tableauxsuivispdvs93/view/total"
+msgstr "Total des sorties \"%s\""
+
+msgid "/Tableauxsuivispdvs93/exportcsvdonnees/total"
+msgstr "Total des sorties \"%s\""
+
+msgid "SORTIE::changement_situation"
+msgstr "Sortie \"Changement administratif\""
+
+# ------------------------------------------------------------------------------
+# Tableau 1 B6
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/tableau1b6/:heading"
+msgstr "6 - Actions collectives"
+
+# ------------------------------------------------------------------------------
+
+msgid "Tableau1b6.name"
+msgstr "Intitulé (1)"
+
+msgid "Tableau1b6.theme"
+msgstr "Thématique (2)"
+
+msgid "Tableau1b6.count_personnes_prevues"
+msgstr "Nbre de personnes différentes invitées ou positionnées"
+
+msgid "Tableau1b6.count_seances"
+msgstr "Nbre  de séances réalisées dans l'année"
+
+msgid "Tableau1b6.count_personnes"
+msgstr "Nombre de personnes différentes participant à l'action (3)"
+
+msgid "Tableau1b6.count_invitations"
+msgstr "Nbre d'invitations"
+
+msgid "Tableau1b6.count_participations"
+msgstr "Nbre  de participations"
+
+# ------------------------------------------------------------------------------
+# Export CSV du tableau 1B3
+# ------------------------------------------------------------------------------
+
+msgid "Rendezvous.daterdv"
+msgstr "Date du RDV"
+
+msgid "Structurereferente.lib_struc"
+msgstr "PDV"
+
+msgid "Personne.nom"
+msgstr "Nom"
+
+msgid "Personne.prenom"
+msgstr "Prénom"
+
+msgid "Personne.dtnai"
+msgstr "Date de naissance"
+
+msgid "Personne.sexe"
+msgstr "Sexe"
+
+msgid "Prestation.rolepers"
+msgstr "Rôle de l'allocataire"
+
+msgid "Adresse.codepos"
+msgstr "Code postal"
+
+msgid "Adresse.nomcom"
+msgstr "Nom de commune"
+
+msgid "Foyer.sitfam"
+msgstr "Situation familiale"
+
+msgid "Dossier.matricule"
+msgstr "N° CAF/MSA"
+
+msgid "Difficulte.sante"
+msgstr "Difficultés de santé"
+
+msgid "Difficulte.logement"
+msgstr "Difficultés de logement"
+
+msgid "Difficulte.familiales"
+msgstr "Difficultés familiales"
+
+msgid "Difficulte.modes_gardes"
+msgstr "Difficultés de modes de garde"
+
+msgid "Difficulte.surendettement"
+msgstr "Difficultés de surendettement"
+
+msgid "Difficulte.administratives"
+msgstr "Difficultés administrative(s)"
+
+msgid "Difficulte.linguistiques"
+msgstr "Difficultés linguistique(s)"
+
+msgid "Difficulte.qualification_professionnelle"
+msgstr "Difficultés de qualification professionnelle"
+
+msgid "Difficulte.acces_emploi"
+msgstr "Difficultés d'accés à l'emploi"
+
+msgid "Difficulte.autres"
+msgstr "Autres difficultés"
+
+# ------------------------------------------------------------------------------
+# Export CSV du tableau 1B4
+# ------------------------------------------------------------------------------
+
+msgid "Ficheprescription93.date_signature"
+msgstr "Date de signature"
+
+msgid "Thematiquefp93.type"
+msgstr "Type de prescription"
+
+msgid "Thematiquefp93.name"
+msgstr "Thématique"
+
+msgid "Categoriefp93.name"
+msgstr "Catégorie"
+
+# ------------------------------------------------------------------------------
+# Export CSV du tableau 1B5
+# ------------------------------------------------------------------------------
+
+msgid "Ficheprescription93.personne_a_integre"
+msgstr "Personne a intégré l'action"
+
+msgid "Ficheprescription93.personne_pas_deplace"
+msgstr "Bénéficiaire pas déplacé"
+
+msgid "Ficheprescription93.en_attente"
+msgstr "Fiche en attente"

@@ -1,0 +1,215 @@
+# Traductions de cataloguesromesv3.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+# FIXME ?
+msgid "/Cataloguesromesv3/index"
+msgstr "Formulaire"
+
+msgid "/Parametrages/cataloguesromesv3/:heading"
+msgstr "Paramétrage du catalogue ROME V3"
+
+msgid "/Cataloguesromesv3/famillesromesv3/:heading"
+msgstr "Paramétrage des code ROME familles V3"
+
+msgid "/Cataloguesromesv3/domainesromesv3/:heading"
+msgstr "Paramétrage des code ROME domaines V3"
+
+msgid "/Cataloguesromesv3/metiersromesv3/:heading"
+msgstr "Paramétrage des code ROME métiers V3"
+
+msgid "/Cataloguesromesv3/appellationsromesv3/:heading"
+msgstr "Paramétrage des appellations ROME V3"
+
+msgid "/Parametrages/cataloguesromesv3"
+msgstr "Retour"
+
+# ------------------------------------------------------------------------------
+
+msgid "/Cataloguesromesv3/add"
+msgstr "Ajouter"
+
+msgid "/Cataloguesromesv3/edit"
+msgstr "Modifier"
+
+msgid "/Cataloguesromesv3/delete"
+msgstr "Supprimer"
+
+# ------------------------------------------------------------------------------
+
+msgid "/Cataloguesromesv3/add/Familleromev3/:heading"
+msgstr "Ajout d'un code ROME famille V3"
+
+msgid "/Cataloguesromesv3/edit/Familleromev3/:heading"
+msgstr "Modification d'un code ROME famille V3"
+
+msgid "/Cataloguesromesv3/edit/Familleromev3/#Familleromev3.id#"
+msgstr "Modification du code ROME famille V3 « #Familleromev3.name# »"
+
+msgid "/Cataloguesromesv3/delete/Familleromev3/#Familleromev3.id#"
+msgstr "Suppression du code ROME famille V3 « #Familleromev3.name# »"
+
+msgid "/Cataloguesromesv3/delete/Familleromev3/#Familleromev3.id# ?"
+msgstr "Réellement supprimer le code ROME famille V3 « #Familleromev3.name# » ?"
+
+msgid "Familleromev3.code"
+msgstr "Code famille"
+
+msgid "Familleromev3.name"
+msgstr "Intitulé famille"
+
+msgid "Familleromev3.created"
+msgstr "Créé le"
+
+msgid "Familleromev3.modified"
+msgstr "Modifié le"
+
+# ------------------------------------------------------------------------------
+
+msgid "/Cataloguesromesv3/add/Domaineromev3/:heading"
+msgstr "Ajout d'un code ROME domaine V3"
+
+msgid "/Cataloguesromesv3/edit/Domaineromev3/:heading"
+msgstr "Modification d'un code ROME domaine V3"
+
+msgid "/Cataloguesromesv3/edit/Domaineromev3/#Domaineromev3.id#"
+msgstr "Modification du code ROME domaine V3 « #Domaineromev3.name# »"
+
+msgid "/Cataloguesromesv3/delete/Domaineromev3/#Domaineromev3.id#"
+msgstr "Suppression du code ROME domaine V3 « #Domaineromev3.name# »"
+
+msgid "/Cataloguesromesv3/delete/Domaineromev3/#Domaineromev3.id# ?"
+msgstr "Réellement supprimer le code ROME domaine V3 « #Domaineromev3.name# » ?"
+
+msgid "Domaineromev3.code"
+msgstr "Code domaine"
+
+msgid "Domaineromev3.name"
+msgstr "Intitulé domaine"
+
+msgid "Domaineromev3.created"
+msgstr "Créé le"
+
+msgid "Domaineromev3.modified"
+msgstr "Modifié le"
+
+# ------------------------------------------------------------------------------
+
+msgid "/Cataloguesromesv3/add/Metierromev3/:heading"
+msgstr "Ajout d'un code ROME métier V3"
+
+msgid "/Cataloguesromesv3/edit/Metierromev3/:heading"
+msgstr "Modification d'un code ROME métier V3"
+
+msgid "/Cataloguesromesv3/edit/Metierromev3/#Metierromev3.id#"
+msgstr "Modification du code ROME métier V3 « #Metierromev3.name# »"
+
+msgid "/Cataloguesromesv3/delete/Metierromev3/#Metierromev3.id#"
+msgstr "Suppression du code ROME métier V3 « #Metierromev3.name# »"
+
+msgid "/Cataloguesromesv3/delete/Metierromev3/#Metierromev3.id# ?"
+msgstr "Réellement supprimer le code ROME métier V3 « #Metierromev3.name# » ?"
+
+msgid "Metierromev3.code"
+msgstr "Code métier"
+
+msgid "Metierromev3.name"
+msgstr "Intitulé métier"
+
+msgid "Metierromev3.created"
+msgstr "Créé le"
+
+msgid "Metierromev3.modified"
+msgstr "Modifié le"
+
+# ------------------------------------------------------------------------------
+
+msgid "/Cataloguesromesv3/add/Appellationromev3/:heading"
+msgstr "Ajout d'une appellation ROME V3"
+
+msgid "/Cataloguesromesv3/edit/Appellationromev3/:heading"
+msgstr "Modification d'une appellation ROME V3"
+
+msgid "/Cataloguesromesv3/edit/Appellationromev3/#Appellationromev3.id#"
+msgstr "Modification de l'appellation ROME V3 « #Appellationromev3.name# »"
+
+msgid "/Cataloguesromesv3/delete/Appellationromev3/#Appellationromev3.id#"
+msgstr "Suppression de l'appellation ROME V3 « #Appellationromev3.name# »"
+
+msgid "/Cataloguesromesv3/delete/Appellationromev3/#Appellationromev3.id# ?"
+msgstr "Réellement supprimer l'appellation ROME V3 « #Appellationromev3.name# » ?"
+
+msgid "Appellationromev3.name"
+msgstr "Appellation"
+
+msgid "Appellationromev3.created"
+msgstr "Créé le"
+
+msgid "Appellationromev3.modified"
+msgstr "Modifié le"
+
+# ------------------------------------------------------------------------------
+
+msgid "Domaineromev3.familleromev3_id"
+msgstr "Intitulé famille"
+
+msgid "Metierromev3.familleromev3_id"
+msgstr "Intitulé famille"
+
+msgid "Metierromev3.domaineromev3_id"
+msgstr "Intitulé domaine"
+
+# ------------------------------------------------------------------------------
+
+msgid "Appellationromev3.familleromev3_id"
+msgstr "Intitulé famille"
+
+msgid "Appellationromev3.domaineromev3_id"
+msgstr "Intitulé domaine"
+
+msgid "Appellationromev3.metierromev3_id"
+msgstr "Intitulé métier"
+
+
+# ------------------------------------------------------------------------------
+
+msgid "Search.Familleromev3"
+msgstr "Filtrer par famille"
+
+msgid "Search.Familleromev3.code"
+msgstr "Code famille"
+
+msgid "Search.Familleromev3.name"
+msgstr "Intitulé famille"
+
+msgid "Search.Domaineromev3"
+msgstr "Filtrer par domaine"
+
+msgid "Search.Domaineromev3.code"
+msgstr "Code domaine"
+
+msgid "Search.Domaineromev3.name"
+msgstr "Intitulé domaine"
+
+msgid "Search.Metierromev3"
+msgstr "Filtrer par métier"
+
+msgid "Search.Metierromev3.code"
+msgstr "Code métier"
+
+msgid "Search.Metierromev3.name"
+msgstr "Intitulé métier"
+
+msgid "Search.Appellationromev3"
+msgstr "Filtrer par appellation"
+
+msgid "Search.Appellationromev3.name"
+msgstr "Intitulé appellation"

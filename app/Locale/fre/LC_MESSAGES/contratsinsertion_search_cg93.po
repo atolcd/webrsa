@@ -1,0 +1,260 @@
+# Traductions de cg93_contratsinsertion.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Contratsinsertion/search/:heading"
+msgstr "Recherche par CER (nouveau)"
+
+msgid "/Contratsinsertion/search"
+msgstr "Formulaire"
+
+msgid "/Contratsinsertion/search/:title"
+msgstr "Formulaire"
+
+msgid "Contratinsertion.search"
+msgstr "Recherche par CER"
+
+msgid "Search.Contratinsertion.dernier"
+msgstr "Uniquement le dernier contrat d'insertion pour un même allocataire"
+
+msgid "Search.Contratinsertion.forme_ci"
+msgstr "Forme du contrat"
+
+msgid "Search.Contratinsertion.created"
+msgstr "Date de saisie du contrat"
+
+msgid "Search.Contratinsertion.decision_ci"
+msgstr "Statut du contrat"
+
+msgid "Search.Contratinsertion.positioncer"
+msgstr "Position du contrat"
+
+msgid "Search.Contratinsertion.duree_engag"
+msgstr "Filtrer par durée du CER"
+
+msgid "Search.Contratinsertion.datevalidation_ci"
+msgstr "Date de validation du contrat"
+
+msgid "Search.Contratinsertion.dd_ci"
+msgstr "Date de début du contrat"
+
+msgid "Search.Contratinsertion.df_ci"
+msgstr "Date de fin du contrat"
+
+msgid "Search.Contratinsertion.periode_validite"
+msgstr "Période de validité"
+
+msgid "Search.Contratinsertion.arriveaecheance"
+msgstr "Allocataire dont le CER est arrivé à échéance"
+
+msgid "Search.Contratinsertion.notifienonvalide"
+msgstr "CER non validé et notifié il y a 45 jours"
+
+msgid "Search.Contratinsertion.istacitereconduction"
+msgstr "Hors tacite reconduction"
+
+msgid "Search.Contratinsertion.orientation"
+msgstr "Filtrer par dernière orientation"
+
+msgid "Search.Orientstruct.typeorient_id"
+msgstr "Type d'orientation"
+
+msgid "Search.Personne.etat_dossier_orientation"
+msgstr "Étape du dossier d'orientation"
+
+msgid "Search.Orientstruct.not_typeorient_id"
+msgstr "Type d'orientation à exclure"
+
+msgid "Search.Contratinsertion.communautesr_id"
+msgstr "Projet de ville territorial établissant le CER"
+
+msgid "Search.Contratinsertion.structurereferente_id"
+msgstr "Structure établissant le CER"
+
+msgid "Search.Contratinsertion.referent_id"
+msgstr "Personne établissant le CER"
+
+msgid "/Cers93/index"
+msgstr "Voir"
+
+msgid "/Cers93/index/#Contratinsertion.personne_id#"
+msgstr "Voir le CER"
+
+# ==============================================================================
+
+msgid "Search.Sujetromev3"
+msgstr "Votre contrat porte sur l'emploi"
+
+msgid "Search.Sujetromev3.romev3"
+msgstr "Recherche rapide"
+
+msgid "Search.Sujetromev3.familleromev3_id"
+msgstr "Code famille"
+
+msgid "Search.Sujetromev3.domaineromev3_id"
+msgstr "Code domaine"
+
+msgid "Search.Sujetromev3.metierromev3_id"
+msgstr "Code métier"
+
+msgid "Search.Sujetromev3.appellationromev3_id"
+msgstr "Appellation métier"
+
+# ------------------------------------------------------------------------------
+
+msgid "Expprocer93Expprocer93"
+msgstr "Filtrer par expériences professionnelles significatives"
+
+msgid "Search.Expprocer93"
+msgstr "Expérience professionnelle significative, ROME v.3"
+
+msgid "Expprocer93Insee"
+msgstr "Expérience professionnelle significative, INSEE"
+
+msgid "Search.Expprocer93.metierexerce_id"
+msgstr "Métier exercé"
+
+msgid "Search.Expprocer93.secteuracti_id"
+msgstr "Secteur d'activité"
+
+msgid "Search.Expprocer93.romev3"
+msgstr "Recherche rapide"
+
+msgid "Search.Expprocer93.familleromev3_id"
+msgstr "Code famille"
+
+msgid "Search.Expprocer93.domaineromev3_id"
+msgstr "Code domaine"
+
+msgid "Search.Expprocer93.metierromev3_id"
+msgstr "Code métier"
+
+msgid "Search.Expprocer93.appellationromev3_id"
+msgstr "Appellation métier"
+
+# ------------------------------------------------------------------------------
+
+msgid "Emptrouvromev3Emptrouvromev3"
+msgstr "Filtrer par emploi trouvé"
+
+msgid "Search.Emptrouvromev3"
+msgstr "Filtrer par emploi trouvé, ROME v.3"
+
+msgid "Search.Emptrouvromev3.romev3"
+msgstr "Recherche rapide"
+
+msgid "Search.Emptrouvromev3.familleromev3_id"
+msgstr "Code famille"
+
+msgid "Search.Emptrouvromev3.domaineromev3_id"
+msgstr "Code domaine"
+
+msgid "Search.Emptrouvromev3.metierromev3_id"
+msgstr "Code métier"
+
+msgid "Search.Emptrouvromev3.appellationromev3_id"
+msgstr "Appellation métier"
+
+msgid "Emptrouvromev3Insee"
+msgstr "Filtrer par emploi trouvé, INSEE"
+
+msgid "Search.Cer93.positioncer"
+msgstr "Statut du contrat"
+
+msgid "Search.Cer93.metierexerce_id"
+msgstr "Métier exercé"
+
+msgid "Search.Cer93.secteuracti_id"
+msgstr "Secteur d'activité"
+
+# ------------------------------------------------------------------------------
+# A dupliquer dans cg93_contratsinsertion_exportcsv
+# ------------------------------------------------------------------------------
+
+msgid "Secteuractiexppro.name"
+msgstr "Expériences significatives, secteur INSEE"
+
+msgid "Metierexerceexppro.name"
+msgstr "Expériences significatives, métier INSEE"
+
+msgid "Familleexppro.name"
+msgstr "Expériences significative Code famille"
+
+msgid "Domaineexppro.name"
+msgstr "Expériences significatives Code domaine"
+
+msgid "Metierexppro.name"
+msgstr "Expériences significatives Code métier"
+
+msgid "Appellationexppro.name"
+msgstr "Expériences significatives Appellation métier"
+
+# ------------------------------------------------------------------------------
+
+msgid "Secteuracti.name"
+msgstr "Emploi trouvé Secteur INSEE"
+
+msgid "Metierexerce.name"
+msgstr "Emploi trouvé Métier INSEE"
+
+msgid "Familleemptrouv.name"
+msgstr "Emploi trouvé Code famille"
+
+msgid "Domaineemptrouv.name"
+msgstr "Emploi trouvé Code domaine"
+
+msgid "Metieremptrouv.name"
+msgstr "Emploi trouvé Code métier"
+
+msgid "Appellationemptrouv.name"
+msgstr "Emploi trouvé Appellation métier"
+
+# ------------------------------------------------------------------------------
+
+msgid "Famillesujet.name"
+msgstr "Contrat Code famille"
+
+msgid "Domainesujet.name"
+msgstr "Contrat Code domaine"
+
+msgid "Metiersujet.name"
+msgstr "Contrat Code métier"
+
+msgid "Appellationsujet.name"
+msgstr "Contrat Appellation métier"
+
+# ------------------------------------------------------------------------------
+
+msgid "Structurereferente.lib_struc"
+msgstr "Structure établissant le CER"
+
+msgid "Referent.nom_complet"
+msgstr "Personne établissant le CER"
+
+msgid "Typeorient.lib_type_orient"
+msgstr "Type d'orientation"
+
+msgid "Structurereferenteparcours.lib_struc"
+msgstr "Structure de suivi"
+
+msgid "Referentparcours.nom_complet"
+msgstr "Personne chargée du suivi"
+
+# ------------------------------------------------------------------------------
+
+msgid "Cer93Sujetcer93.commentaireautre"
+msgstr "Autre, précisez"
+
+msgid "Cer93Sujetcer93.autresoussujet"
+msgstr "Autre, précisez"
+
+msgid "Cer93Sujetcer93.autrevaleur"
+msgstr "Autre, précisez"

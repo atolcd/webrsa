@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:html="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>ChangeLog</title><style type="text/css">
+					
+						table { border-collapse: collapse; }
+						td, th { border: 1px solid silver; padding: 0.125em 0.25em; vertical-align: top; }
+						thead th, tbody th { text-align: center; background: #cecece; }
+						tbody tr:nth-child(even) { background: #efefef; }
+						tbody th.release { text-align: left; }
+					
+				</style><script type="text/javascript">
+					
+						function toggleColumn( className ) {
+							var elements = document.getElementsByClassName( className );
+							for( var i = 0 ; i < elements.length ; i++ ) {
+								var display = elements[i].style.display;
+								if( display == 'none' ) {
+									elements[i].style.display = 'table-cell';
+								}
+								else {
+									elements[i].style.display = 'none';
+								}
+							}
+						}
+					
+				</script></head><body><h1>ChangeLog</h1><ul><li><a href="#" onclick="toggleColumn( 'fichiers' );return false;" title="Voir la liste des fichiers">Fichiers</a></li></ul><table><thead><tr><th class="revision">Rév.</th><th class="date">Date</th><th class="message">Message</th><th class="fichiers">Fichiers</th></tr></thead><tbody>
+<tr class="logentry"><td class="revision">9978</td><td class="date">05/12/2016 10:57</td><td class="message">Correction: dans les moteurs de recherche du menu "Tableaux de bord" &gt; "Tableaux de suivi d'actvité", le choix de la structure référente était perdu lors de l'envoi du formulaire de recherche. Corrige le ticket #2004086. (CG 93)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Plugin/Search/View/Helper/SearchFormHelper.php</li><li><strong>M:</strong>/branches/3.1/app/View/Tableauxsuivispdvs93/search.ctp</li></ul></td></tr>
+<tr class="logentry"><td class="revision">9982</td><td class="date">06/12/2016 08:41</td><td class="message">Correction : mis en virtualField du champ nb_fichiers_lies des Apre66 afin de permettre le tri sur la colonne (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Controller/Apres66Controller.php</li><li><strong>M:</strong>/branches/3.1/app/Model/Abstractclass/AbstractWebrsaCohorteApre66.php</li><li><strong>M:</strong>/branches/3.1/app/Model/Apre66.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">9995</td><td class="date">07/12/2016 10:34</td><td class="message">Correction : vérification de l'identité de l'utilisateur avant affectation au dossier PCG créé par une cohorte PDU (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Controller/Component/WebrsaCohortesDossierspcgs66Component.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">9998</td><td class="date">07/12/2016 17:11</td><td class="message">Correction : ticket #2003057 ajout date manquante dans index Dossier PCG (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Model/WebrsaDossierpcg66.php</li><li><strong>M:</strong>/branches/3.1/app/View/Dossierspcgs66/index.ctp</li></ul></td></tr>
+<tr class="logentry"><td class="revision">9999</td><td class="date">08/12/2016 16:25</td><td class="message">Correction: dans la classe DictionnaireShell, on n'appelle la méthode "enums" sur le modèle que si on a vérifié que si celle-ci existe.</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Console/Command/DictionnaireShell.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10007</td><td class="date">12/12/2016 13:45</td><td class="message">Correction : les accès au module de sauvegarde sont à présent fonctionnel</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/View/Elements/ConfigurableQuery/cohorte.ctp</li><li><strong>M:</strong>/branches/3.1/app/View/Elements/ConfigurableQuery/search.ctp</li><li><strong>M:</strong>/branches/3.1/app/View/Elements/search_footer.ctp</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10011</td><td class="date">14/12/2016 16:02</td><td class="message">Proposition de correction: à présent, dans la recherche par RDV, lorsque l'utilisateur est lié à une ou plusieurs structures référentes, on prend en compte l'adresse de l'allocataire au moment du RDV pour faire apparaître ou pas le RDV dans les résultats. En lien avec le ticket #2003882. (CG 93)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Config/Cg93/Rendezvous.php</li><li><strong>M:</strong>/branches/3.1/app/Controller/Component/WebrsaRecherchesRendezvousComponent.php</li><li><strong>M:</strong>/branches/3.1/app/Model/WebrsaRechercheRendezvous.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10017</td><td class="date">16/12/2016 16:31</td><td class="message">Correction : ticket #2004401 Calcul de la position d'un bilan de parcours (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Model/Bilanparcours66.php</li><li><strong>M:</strong>/branches/3.1/app/Model/WebrsaBilanparcours66.php</li><li><strong>M:</strong>/branches/3.1/app/Model/WebrsaCommissionep.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10019</td><td class="date">19/12/2016 08:55</td><td class="message">Correction : ticket #2004404 Dans une EP Audition, la décision de sanction ne peut pas venir de l'EP mais uniquement du dossier PCG (retrait de la colonne décision dans une EP Audition et de la decision sup dans une EP Audition transformée) (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/View/Bilansparcours66/index.ctp</li><li><strong>M:</strong>/branches/3.1/app/View/Commissionseps/decisioncg.defautinsertionep66.liste.ctp</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10022</td><td class="date">19/12/2016 09:06</td><td class="message">Correction : ticket #2004407 Bug sur l'affichage de l'infobulle d'annulation d'un Dossier PCG (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/View/Dossierspcgs66/index.ctp</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10025</td><td class="date">19/12/2016 14:31</td><td class="message">Correction : ticket #2004512 Correction de la requête pour trouver la décision dans l'impression d'un dossier PCG (CG 66)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Controller/Component/WebrsaCohortesDossierspcgs66ImpressionsComponent.php</li><li><strong>M:</strong>/branches/3.1/app/Model/WebrsaDossierpcg66.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10028</td><td class="date">19/12/2016 15:42</td><td class="message">Correction: lorsque l'on change de référent du parcours suite à une décision de COV, on prend maintenant le suffixe du champ structurereferente_id (auparavant, on prenait l'id du type d'orientation puisqu'on prenait le préfixe). (CG 58)</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Model/PersonneReferent.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10030</td><td class="date">19/12/2016 15:43</td><td class="message">Correction : backport d'une correction sur l'User id dans le préchargement présent sur trunk</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/branches/3.1/app/Controller/Component/WebrsaCohortesDossierspcgs66Component.php</li></ul></td></tr>
+</tbody></table><script type="text/javascript">
+					
+						toggleColumn( 'fichiers' );
+					
+				</script></body></html>

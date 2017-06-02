@@ -1,0 +1,19 @@
+
+th {color:#000080;background-color:#fffff;}
+tr{border-top:solid gray 1px;border-bottom:solid gray 2px;}
+td{padding:5px;text-align:left;color:navy;font-size:10pt;font-weight:normal;}
+
+
+/* Style des lignes impaires sur le 1er tableau : */
+table tr:nth-child(odd){background-color:#FFE4C4;}
+
+/* Style des lignes paires sur le 1ème tableau : */
+table tr:nth-child(even) {background:#FFFFFF;}
+
+/* tr.impaire {
+	background: #FFE4C4;
+}
+
+tr.paire {
+	background: #fff;
+} */

@@ -1,0 +1,81 @@
+INFO: voir le fichier app/config/sql/patches/2.x/eps-consolidation-test.sql pour
+	- requête permettant de trouver les ids des personnes qui peuvent passer pour ce thème
+	- bloc de requêtes (à passer après les patches eps-schema-current et eps-datas-current) permettant de
+		* supprimer les nouvelles orientations/contrats
+		* avancer la date de fin de contrat d'un mois pour les contrats ayant été clôturés à la date du jour
+
+--
+
+1°) Grâce à la requête, trouver des allocataires qui peuvent passer pour ce thème:
+	- 12490
+	- 17609
+	- 16738
+
+2°) Remplir le bilan de parcours:
+	a) 12490:
+		- allocataire présent
+		- Pas de maintien de l'orientation
+		- Nouvelle orientation: Emploi - MSA
+		- Nouvelle structure référente: MSA
+	b) 17609:
+		- allocataire présent
+		- Pas de maintien de l'orientation
+		- Nouvelle orientation: Prépro - AFIJ
+		- Nouvelle structure référente: AFIJ
+	c) 16738:
+		- allocataire présent
+		- Maintien de l'orientation
+		- Date de début de reconduction du contrat: 30/10/2010
+		- Date de fin de reconduction du contrat:  01/01/2011
+
+3°) Résultats du point 2:
+	a) 12490:
+		- nouveau dossier EP
+			* thème saisinesepsbilansparcours66
+			* création du dossier: date du jour
+			* état du dossier: crée
+	b) 17609:
+		- nouveau dossier EP
+			* thème saisinesepsbilansparcours66
+			* création du dossier: date du jour
+			* état du dossier: crée
+	c) 16738:
+		- nouvelle orientation qui est une copie de celle de la saisine
+			* date de demande: date du jour
+			* date d'orientation: date du jour
+		- nouveau CER qui est une copie de celui lié à l'orientation liée à la saisine
+			* date de début: 30/10/2010
+			* date de fin: 01/01/2011
+		- le CER lié à l'orientation liée à la saisine a sa date de fin égale à la date du jour
+
+4°) Association des dossiers à la séance d'EP
+
+5°) Décisions EP pour cette séance
+	a) 12490:
+		- Avis EP: accepté
+		- Orientation: Emploi - MSA
+		- Structure référente: MSA
+	b) 17609:
+		- Avis EP: refusé
+
+6°) Validation de la séance EP
+
+7°) Décisions CG pour cette séance
+	a) 12490:
+		- Avis EP: accepté
+		- Orientation: Emploi - MSA
+		- Structure référente: MSA
+	b) 17609:
+		- Avis EP: refusé
+
+8°) Validation de la séance CG
+
+9°) Résultats:
+	a) 12490:
+		- nouvelle orientation
+			* date de demande: date du jour
+			* date d'orientation: date du jour
+			* préconisation d'orientation: Emploi - MSA
+			* structure référente: MSA
+		- le CER lié à l'orientation liée à la saisine a sa date de fin égale à la date du jour
+	b) 17609: aucun changement par-rapport à avant la procédure

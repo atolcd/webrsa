@@ -1,0 +1,159 @@
+Partie;Nom de la section;Champ;Type;Traduction
+contenu;;orientstruct_id;text;Orientstruct.id
+contenu;;orientstruct_personne_id;text;Orientstruct.personne_id
+contenu;;orientstruct_typeorient_id;text;Type d'orientation
+contenu;;orientstruct_structurereferente_id;text;Structure référente
+contenu;;orientstruct_propo_algo;text;Orientstruct.propo_algo
+contenu;;orientstruct_valid_cg;text;Orientstruct.valid_cg
+contenu;;orientstruct_date_propo;date;Date de la demande
+contenu;;orientstruct_date_valid;date;Date d'orientation
+contenu;;orientstruct_statut_orient;text;Statut de l'orientation
+contenu;;orientstruct_date_impression;text;Orientstruct.date_impression
+contenu;;orientstruct_daterelance;text;Orientstruct.daterelance
+contenu;;orientstruct_statutrelance;text;Orientstruct.statutrelance
+contenu;;orientstruct_date_impression_relance;text;Orientstruct.date_impression_relance
+contenu;;orientstruct_referent_id;text;Orientstruct.referent_id
+contenu;;orientstruct_etatorient;text;Etat de l'orientation
+contenu;;orientstruct_rgorient;text;Rang de l'orientation
+contenu;;orientstruct_structureorientante_id;text;Structure
+contenu;;orientstruct_referentorientant_id;text;Nom du professionnel
+contenu;;orientstruct_user_id;text;Orientstruct.user_id
+contenu;;orientstruct_haspiecejointe;text;Ajouter une pièce jointe
+contenu;;orientstruct_origine;text;Origine de l'orientation
+contenu;;orientstruct_typenotification;text;Orientstruct.typenotification
+contenu;;orientstruct_nbjours;text;Nombre de jours depuis l'orientation
+contenu;;personne_id;text;Personne
+contenu;;personne_foyer_id;text;Personne.foyer_id
+contenu;;personne_qual;text;Civilité
+contenu;;personne_nom;text;Nom
+contenu;;personne_prenom;text;Prénom
+contenu;;personne_nomnai;text;Nom de naissance
+contenu;;personne_prenom2;text;2ème prénom
+contenu;;personne_prenom3;text;3ème prénom
+contenu;;personne_nomcomnai;text;Commune de naissance
+contenu;;personne_dtnai;date;Date de naissance
+contenu;;personne_rgnai;text;Rang naissance
+contenu;;personne_typedtnai;text;Type date de naissance
+contenu;;personne_nir;text;NIR
+contenu;;personne_topvalec;text;Certification de l'état civil de la personne
+contenu;;personne_sexe;text;Sexe
+contenu;;personne_nati;text;Nationalité
+contenu;;personne_dtnati;text;Date Nationalité
+contenu;;personne_pieecpres;text;Pièce d'état civil présentée
+contenu;;personne_idassedic;text;N° identifiant Pôle Emploi
+contenu;;personne_numagenpoleemploi;text;Personne.numagenpoleemploi
+contenu;;personne_dtinscpoleemploi;text;Personne.dtinscpoleemploi
+contenu;;personne_numfixe;text;N° de téléphone fixe
+contenu;;personne_numport;text;N° de téléphone portable
+contenu;;personne_haspiecejointe;text;Ajouter une pièce jointe
+contenu;;personne_email;text;Adresse mail
+contenu;;personne_nom_complet;text;Nom de la personne
+contenu;;personne_nom_complet_court;text;Personne.nom_complet_court
+contenu;;personne_age;text;Personne.age
+contenu;;typeorient_id;text;Typeorient.id
+contenu;;typeorient_parentid;text;Typeorient.parentid
+contenu;;typeorient_lib_type_orient;text;Type d'orientation
+contenu;;typeorient_modele_notif;text;Modèle de notification
+contenu;;typeorient_modele_notif_cohorte;text;Modèle de notification pour les cohortes
+contenu;;typeorient_actif;text;Typeorient.actif
+contenu;;structurereferente_id;text;Structurereferente.id
+contenu;;structurereferente_typeorient_id;text;Structurereferente.typeorient_id
+contenu;;structurereferente_lib_struc;text;Type de structure
+contenu;;structurereferente_num_voie;text;Structurereferente.num_voie
+contenu;;structurereferente_type_voie;text;Structurereferente.type_voie
+contenu;;structurereferente_nom_voie;text;Structurereferente.nom_voie
+contenu;;structurereferente_code_postal;text;Structurereferente.code_postal
+contenu;;structurereferente_ville;text;Ville
+contenu;;structurereferente_code_insee;text;Structurereferente.code_insee
+contenu;;structurereferente_filtre_zone_geo;text;Structurereferente.filtre_zone_geo
+contenu;;structurereferente_contratengagement;text;Gestion des CERs
+contenu;;structurereferente_apre;text;Gestion des APREs
+contenu;;structurereferente_orientation;text;Structurereferente.orientation
+contenu;;structurereferente_pdo;text;Structurereferente.pdo
+contenu;;structurereferente_numtel;text;Structurereferente.numtel
+contenu;;structurereferente_actif;text;Structurereferente.actif
+contenu;;structurereferente_typestructure;text;Structurereferente.typestructure
+contenu;;structurereferente_cui;text;Gestion des CUIs
+contenu;;referent_id;text;Referent.id
+contenu;;referent_structurereferente_id;text;Referent.structurereferente_id
+contenu;;referent_nom;text;Nom
+contenu;;referent_prenom;text;Prénom
+contenu;;referent_numero_poste;text;N° téléphone
+contenu;;referent_email;text;Email
+contenu;;referent_qual;text;Civilité
+contenu;;referent_fonction;text;Fonction
+contenu;;referent_actif;text;Actif
+contenu;;referent_datecloture;date;Date de clôture
+contenu;;referent_nom_complet;text;Nom du prescripteur
+contenu;;referent_nom_complet_court;text;Referent.nom_complet_court
+contenu;;user_id;text;User.id
+contenu;;user_group_id;text;User.group_id
+contenu;;user_serviceinstructeur_id;text;User.serviceinstructeur_id
+contenu;;user_username;text;Login
+contenu;;user_password;text;User.password
+contenu;;user_nom;text;Nom
+contenu;;user_prenom;text;Prénom
+contenu;;user_date_naissance;text;User.date_naissance
+contenu;;user_date_deb_hab;date;User.date_deb_hab
+contenu;;user_date_fin_hab;date;User.date_fin_hab
+contenu;;user_numtel;text;User.numtel
+contenu;;user_filtre_zone_geo;text;User.filtre_zone_geo
+contenu;;user_numvoie;text;User.numvoie
+contenu;;user_typevoie;text;User.typevoie
+contenu;;user_nomvoie;text;User.nomvoie
+contenu;;user_compladr;text;User.compladr
+contenu;;user_codepos;text;User.codepos
+contenu;;user_ville;text;User.ville
+contenu;;user_isgestionnaire;text;Est-il gestionnaire, notamment pour les PDOs ? 
+contenu;;user_sensibilite;text;Peut-il accéder aux données sensibles ? 
+contenu;;user_structurereferente_id;text;User.structurereferente_id
+contenu;;user_referent_id;text;User.referent_id
+contenu;;user_type;text;Type d'utilisateur
+contenu;;user_email;text;User.email
+contenu;;user_nom_complet;text;User.nom_complet
+contenu;;dossier_id;text;Dossier.id
+contenu;;dossier_numdemrsa;text;N° demande RSA
+contenu;;dossier_dtdemrsa;date;Date de demande RSA
+contenu;;dossier_dtdemrmi;text;Date de demande RMI
+contenu;;dossier_numdepinsrmi;text;N° du département instructeur RMI
+contenu;;dossier_typeinsrmi;text;Type d'instructeur RMI
+contenu;;dossier_numcominsrmi;text;N° de la commune instructeur RMI
+contenu;;dossier_numagrinsrmi;text;N° d'agréement instructeur RMI
+contenu;;dossier_numdosinsrmi;text;N° de dossier instructeur RMI
+contenu;;dossier_numcli;text;N° de CLI
+contenu;;dossier_numorg;text;N° de l'organisme
+contenu;;dossier_fonorg;text;Organisme payeur
+contenu;;dossier_matricule;text;N° CAF
+contenu;;dossier_statudemrsa;text;Statut du demandeur RSA
+contenu;;dossier_typeparte;text;Type de partenaire
+contenu;;dossier_ideparte;text;Code d'identification du partenaire
+contenu;;dossier_fonorgcedmut;text;Fonction de l'organisme cédant
+contenu;;dossier_numorgcedmut;text;N° organisme cédant
+contenu;;dossier_matriculeorgcedmut;text;Matricule chez l'organisme cédant
+contenu;;dossier_ddarrmut;text;Date de début arrivée mutation
+contenu;;dossier_codeposanchab;text;Code postal ancienne habitation
+contenu;;dossier_fonorgprenmut;text;Fonction organisme prenant
+contenu;;dossier_numorgprenmut;text;N° organisme prenant
+contenu;;dossier_dddepamut;text;Date de début départ mutation
+contenu;;dossier_detaildroitrsa_id;text;Dossier.detaildroitrsa_id
+contenu;;dossier_avispcgdroitrsa_id;text;Dossier.avispcgdroitrsa_id
+contenu;;dossier_organisme_id;text;Dossier.organisme_id
+contenu;;adresse_id;text;Adresse.id
+contenu;;adresse_numvoie;text;Numéro de voie
+contenu;;adresse_typevoie;text;Type de voie
+contenu;;adresse_nomvoie;text;Nom de voie
+contenu;;adresse_complideadr;text;Complément identification adresse
+contenu;;adresse_compladr;text;Complément d'adresse
+contenu;;adresse_lieudist;text;Lieu de distribution
+contenu;;adresse_numcomrat;text;Numéro de commune
+contenu;;adresse_numcomptt;text;Numéro de commune sens INSEE
+contenu;;adresse_codepos;text;Code postal
+contenu;;adresse_locaadr;text;Nom de commune
+contenu;;adresse_pays;text;Code Pays
+contenu;;adresse_canton;text;Code Canton
+contenu;;adresse_typeres;text;Adresse.typeres
+contenu;;adresse_topresetr;text;Adresse.topresetr
+contenu;;adresse_foyerid;text;Adresse.foyerid
+contenu;;adresse_localite;text;Commune de résidence
+contenu;;modeleodt_path;text;
+;;adresse_nomcom;text;nom de la commune

@@ -1,0 +1,92 @@
+# Traductions de questionnairesd2pdvs93.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Questionnaired2pdv93.situationaccompagnement"
+msgstr "Statut de l'accompagnement"
+
+msgid "Questionnaired2pdv93.sortieaccompagnementd2pdv93_id"
+msgstr "Sortie de l'obligation d'accompagnement"
+
+msgid "Pdv.lib_struc"
+msgstr "Projet de ville"
+
+msgid "Sortieaccompagnementd2pdv93.name"
+msgstr "Sortie de l'obligation d'accompagnement"
+
+msgid "Questionnaired2pdv93.chgmentsituationadmin"
+msgstr "Sortie \"changement administratif\""
+
+msgid "Questionnaired2pdv93.modified"
+msgstr "Dernière modification"
+
+msgid "Questionnaired2pdv93.date_validation"
+msgstr "Date validation"
+
+msgid "Structurereferente.lib_struc"
+msgstr "Structure referente"
+
+# ------------------------------------------------------------------------------
+
+msgid "Questionnaired2pdv93.exists"
+msgstr "Un formulaire D2 est déjà enregistré pour l’année en cours."
+
+msgid "Questionnaired1pdv93.missing"
+msgstr "Cet allocataire ne possède pas de formulaire D1 pour l'année en cours."
+
+msgid "Calculdroitrsa.toppersdrodevorsa_notice"
+msgstr "Cet allocataire n'est actuellement pas soumis à droits et devoirs."
+
+msgid "Situationdossierrsa.etatdosrsa_ouverts"
+msgstr "Cet allocataire n'est actuellement pas dans un dossier en état ouvert."
+
+# ------------------------------------------------------------------------------
+
+msgid "/Questionnairesd2pdvs93/index/:heading"
+msgstr "Questionnaires D2 de #Personne.qual# #Personne.nom# #Personne.prenom#"
+
+msgid "/Questionnairesd2pdvs93/add/:heading"
+msgstr "Questionnaire D2 de #Personne.qual# #Personne.nom# #Personne.prenom#"
+
+msgid "/Questionnairesd2pdvs93/edit/:heading"
+msgstr "Questionnaire D2 de #Personne.qual# #Personne.nom# #Personne.prenom#"
+
+msgid "/Questionnairesd2pdvs93/view/:heading"
+msgstr "Questionnaire D2 de #Personne.qual# #Personne.nom# #Personne.prenom#"
+
+# Index
+
+msgid "/Questionnairesd2pdvs93/add/:title"
+msgstr "Ajouter un questionnaire D2"
+
+msgid "/Questionnairesd2pdvs93/add"
+msgstr "Ajouter"
+
+msgid "/Questionnairesd2pdvs93/view"
+msgstr "Voir"
+
+msgid "/Questionnairesd2pdvs93/view/#Questionnaired2pdv93.id#"
+msgstr "Voir le questionnaire D2 de #Personne.qual# #Personne.nom# #Personne.prenom#"
+
+msgid "/Questionnairesd2pdvs93/edit"
+msgstr "Modifier"
+
+msgid "/Questionnairesd2pdvs93/edit/#Questionnaired2pdv93.id#"
+msgstr "Modifier le questionnaire D2 de #Personne.qual# #Personne.nom# #Personne.prenom#"
+
+msgid "/Questionnairesd2pdvs93/delete"
+msgstr "Supprimer"
+
+msgid "/Questionnairesd2pdvs93/delete/#Questionnaired2pdv93.id#"
+msgstr "Supprimer le questionnaire D2 de #Personne.qual# #Personne.nom# #Personne.prenom#"
+
+msgid "/Questionnairesd2pdvs93/delete/#Questionnaired2pdv93.id# ?"
+msgstr "Réellement supprimer le questionnaire D2 de #Personne.qual# #Personne.nom# #Personne.prenom# ?"

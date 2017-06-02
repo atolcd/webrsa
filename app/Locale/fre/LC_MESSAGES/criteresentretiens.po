@@ -1,0 +1,46 @@
+# Traductions de entretiens.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Structurereferenteparcours.lib_struc"
+msgstr "Structure du parcours"
+
+msgid "Referentparcours.nom_complet"
+msgstr "Référent du parcours"
+
+# Résultats
+
+msgid "Personne.nom_complet"
+msgstr "Nom de l'allocataire"
+
+msgid "Adresse.nomcom"
+msgstr "Commune de l'allocataire"
+
+msgid "Structurereferente.lib_struc"
+msgstr "Structure référente"
+
+msgid "Referent.nom_complet"
+msgstr "Référent"
+
+msgid "/Entretiens/view"
+msgstr "Voir"
+
+msgid "/Entretiens/view/#Entretien.id#"
+msgstr "Voir l'entretien de #Personne.nom_complet#"
+
+msgid "/Entretiens/index"
+msgstr "Voir"
+
+msgid "/Entretiens/index/#Entretien.personne_id#"
+msgstr "Voir les entretiens de #Personne.nom_complet#"
+
+msgid "Adresse.numcom"
+msgstr "Code INSEE"

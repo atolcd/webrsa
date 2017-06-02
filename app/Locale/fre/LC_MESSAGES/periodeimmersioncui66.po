@@ -1,0 +1,77 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "Periodeimmersioncui66.nomentaccueil"
+msgstr "Nom de l'entreprise d'accueil"
+
+msgid "Periodeimmersioncui66.numvoieentaccueil"
+msgstr "N° de voie"
+
+msgid "Periodeimmersioncui66.typevoieentaccueil"
+msgstr "Type de voie"
+
+msgid "Periodeimmersioncui66.nomvoieentaccueil"
+msgstr "Nom de voie"
+
+msgid "Periodeimmersioncui66.compladrentaccueil"
+msgstr "Complément d'adresse"
+
+msgid "Periodeimmersioncui66.codepostalentaccueil"
+msgstr "Code postal"
+
+msgid "Periodeimmersioncui66.villeentaccueil"
+msgstr "Commune"
+
+msgid "Periodeimmersioncui66.activiteentaccueil"
+msgstr "Activité principale"
+
+msgid "Periodeimmersioncui66.datedebperiode"
+msgstr "Date de début de la période"
+
+msgid "Periodeimmersioncui66.datefinperiode"
+msgstr "Date de fin de la période"
+
+msgid "Periodeimmersioncui66.nbjourperiode"
+msgstr "Soit un nombre de jours équivalent à "
+
+msgid "Periodeimmersioncui66.objectifimmersion"
+msgstr "Objectif principal de l'immersion"
+
+msgid "Periodeimmersioncui66.datesignatureimmersion"
+msgstr "Date de signature"
+
+msgid "ENUM::OBJECTIFIMMERSION::acquerir"
+msgstr "Acquérir de nouvelles compétences"
+
+msgid "ENUM::OBJECTIFIMMERSION::confirmer"
+msgstr "Confirmer un projet professionnel"
+
+msgid "ENUM::OBJECTIFIMMERSION::decouvrir"
+msgstr "Découvrir un métier ou un secteur d'activité"
+
+msgid "ENUM::OBJECTIFIMMERSION::initier"
+msgstr "Initier une démarche de recrutement"
+
+msgid "Periodeimmersioncui66.secteuraffectation_id"
+msgstr "Secteur d'affectation"
+
+msgid "Periodeimmersioncui66.metieraffectation_id"
+msgstr "Poste d'affectation"

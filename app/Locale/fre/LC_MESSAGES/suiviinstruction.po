@@ -1,0 +1,87 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+#############################################################################
+# Suivi instruction
+##############################################################################
+
+msgid "Suiviinstruction.suiirsa"
+msgstr "Suivi de l'instruction @RSA"
+
+msgid "Suiviinstruction.date_etat_instruction"
+msgstr "Date de l'état de l'instruction"
+
+msgid "Suiviinstruction.nomins"
+msgstr "Nom de l'agent instructeur"
+
+msgid "Suiviinstruction.prenomins"
+msgstr "Prénom de l'agent instructeur"
+
+msgid "Suiviinstruction.numdepins"
+msgstr "Numéro du département du service instructeur"
+
+msgid "Suiviinstruction.typeserins"
+msgstr "Type de service instructeur"
+# msgstr "Organisme instructeur"
+
+
+msgid "Suiviinstruction.numcomins"
+msgstr "Numéro de la commune du service instructeur"
+
+msgid "Suiviinstruction.numagrins"
+msgstr "Numero d'agréement du service instructeur"
+
+msgid "ENUM::SUIIRSA::01"
+msgstr "Données administratives"
+
+msgid "ENUM::SUIIRSA::11"
+msgstr "Données socio-profesionnelles du demandeur"
+
+msgid "ENUM::SUIIRSA::12"
+msgstr "Données socio-profesionnelles du conjoint"
+
+msgid "ENUM::SUIIRSA::13"
+msgstr "Nouvelles Données socio-professionnelles du demandeur"
+
+msgid "ENUM::SUIIRSA::14"
+msgstr "Nouvelles Données socio-professionnelles du conjoint"
+
+msgid "ENUM::SUIIRSA::21"
+msgstr "Données parcours du demandeur"
+
+msgid "ENUM::SUIIRSA::22"
+msgstr "Données parcours du conjoint"
+
+msgid "ENUM::SUIIRSA::23"
+msgstr "Nouvelles Données parcours du demandeur"
+
+msgid "ENUM::SUIIRSA::24"
+msgstr "Nouvelles Données parcours du conjoint"
+
+msgid "ENUM::SUIIRSA::31"
+msgstr "Données orientation du demandeur"
+
+msgid "ENUM::SUIIRSA::32"
+msgstr "Données orientation du conjoint"
+
+msgid "ENUM::SUIIRSA::33"
+msgstr "Nouvelles Données orientation du demandeur"
+
+msgid "ENUM::SUIIRSA::34"
+msgstr "Nouvelles Données orientation du conjoint"
