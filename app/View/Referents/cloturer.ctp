@@ -1,5 +1,8 @@
 <?php
-	$title_for_layout = 'Clôture en masse du référent';
+
+	$title_for_layout = 'Clôture en masse du référent ';
+	$title_for_layout .= $referent['Referent']['nom_complet'];
+
 	$this->set( 'title_for_layout', $title_for_layout );
 
 	if( Configure::read( 'debug' ) > 0 ) {

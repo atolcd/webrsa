@@ -203,6 +203,8 @@
 			);
 			$this->assert( !empty( $referent ), 'invalidParameter' );
 
+			$this->set( compact( 'referent' ) );
+
 			// Les administrateurs n'ont pas accès à la cohorte de clôture en masse
 			$referer = Hash::get( $this->request->data, 'Referent.referer' );
 			if( null !== $referer ) {
