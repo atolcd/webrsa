@@ -89,6 +89,28 @@ class DATABASE_CONFIG {
 		'encoding' => 'utf8',
 	);
 
+ public  $req = array(
+        'datasource' => 'Postgres.Database/PostgresPostgres',
+        'persistent' => false,
+        'host'       => 'localhost',
+        'login'      => 'webrsa',
+        'password'   => 'webrsa',
+        'database'   => 'webrsa',
+        'prefix'     => '',
+    );
+
+  public $ref  = array(
+        'datasource' => 'Postgres.Database/PostgresPostgres',
+        'persistent' => false,
+        'host'       => 'localhost',
+        'login'      => 'webrsa',
+        'password'   => 'webrsa',
+        'database'   => 'webrsa',
+        'schema'     => 'referentiel',
+        'prefix'     => '',
+        'encoding'   => 'utf8'
+    );
+
 	public $test = array(
 		'datasource' => 'Postgres.Database/PostgresPostgres',
 		'persistent' => false,
