@@ -650,7 +650,12 @@ div.clearer hr {
     background-color: #A8DBEF;
 }
 /*.treemenu li, .treemenu li ul { background: #f9ffe6; }
-.treemenu li li, .treemenu li li ul { background: white; }
+.treemenu li li, .treemenu li li ul { background: white; } */
+
+.treemenu_table {
+    width: 70% !important;
+    float: none;
+}
 
 /**
 * Menu large
