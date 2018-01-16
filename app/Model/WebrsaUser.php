@@ -84,7 +84,7 @@
 					),
 					'contain' => false,
 					'conditions' => array(),
-					'order' => array( 'User.nom ASC' )
+					'order' => array( 'User.nom' )
 				);
 
 				// Préparation de champs virtuels
