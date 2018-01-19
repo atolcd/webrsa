@@ -101,7 +101,10 @@ msgid "/Dossiers/view/#Dossier.id#"
 msgstr "Voir dossier"
 
 msgid "Search.Tag.valeurtag_id"
-msgstr "Valeurs possibles de la cohorte"
+msgstr "Valeurs possibles des tags de la cohorte"
+
+msgid "Search.Tag.text.required"
+msgstr "Sélectionnez des valeurs de tag pour pouvoir les attribuer aux allocataires après la recherche"
 
 msgid "Search.Zonegeographique.id"
 msgstr "Zones géographiques"

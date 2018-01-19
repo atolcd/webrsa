@@ -142,7 +142,6 @@
                 'url' => array( 'controller' => 'cohortesrendezvous', 'action' => 'cohorte' )
 			),
 			'Tags' => array(
-				'disabled' => ( $departement != 66 ),
 				'url' => array( 'controller' => 'tags', 'action' => 'cohorte' )
 			),
 		),

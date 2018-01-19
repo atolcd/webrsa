@@ -138,6 +138,10 @@ div.textarea.address label, div.textarea.address textarea {
     cursor: pointer;
 }
 
+div.tag.legend>fieldset.multiple>legend{
+	font-weight: bold;
+}
+
 /*********************************************************************/
 
 fieldset.partenaire.bilan div.radio {

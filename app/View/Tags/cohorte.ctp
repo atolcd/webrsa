@@ -10,9 +10,17 @@
 		'maxYear_to' => date( 'Y' ) + 4
 	);
 
+	// Bloc beforeSearch
+	$this->start( 'before_search_filters' );
+	echo ('<div class="tag legend">');
+	echo $this->Xform->multipleCheckbox( 'Search.Tag.valeurtag_id', $options['filter'], '',  'Search.Tag.text.required');
+	echo ('</div>');
+	echo ('<hr/>');
+	$this->end();
+
+	// Bloc customSearch
 	$this->start( 'custom_search_filters' );
 
-	echo $this->Xform->multipleCheckbox( 'Search.Tag.valeurtag_id', $options['filter'] );
 	echo $this->Xform->multipleCheckbox( 'Search.Prestation.rolepers', $options, 'divideInto2Columns' );
 	echo $this->Xform->multipleCheckbox( 'Search.Foyer.composition', $options, 'divideInto2Columns' );
 
@@ -118,8 +126,17 @@
 </script>
 <?php
 
+	/*
+	 *
+	 * Affichage des blocs ci-desssus dans la vue ConfigurableQuery/cohorte se trouvant dans le fichier :
+	 * View/Elements/ConfigurationQuery/cohorte.ctp
+	 *
+	 */
 	echo $this->element(
 		'ConfigurableQuery/cohorte',
+		array(
+			'beforeSearch' => $this->fetch( 'before_search_filters' ),
+		),
 		array(
 			'customSearch' => $this->fetch( 'custom_search_filters' ),
 		)

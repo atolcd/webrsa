@@ -92,7 +92,13 @@ msgid "Dsp.natlog"
 msgstr "Conditions de logement"
 
 msgid "Search.Tag.valeurtag_id"
-msgstr "Recherche par Tag"
+msgstr "Recherche par valeur du tag"
 
 msgid "Search.Tag.etat"
-msgstr "Recherche par état du Tag"
+msgstr "Recherche par état du tag"
+
+msgid "Search.Tag.search_title"
+msgstr "Rechercher par tag"
+
+msgid "Search.Tag.filter_title"
+msgstr "Filtrer par tag"

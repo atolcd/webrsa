@@ -88,7 +88,7 @@
 			'controllers/Apres' => array( 66, 93 ),
 			'controllers/ApresComitesapres' => array( 93 ),
 			'controllers/Budgetsapres' => array( 93 ),
-			'controllers/Categorietags' => array( 66 ),
+			'controllers/Categorietags' => array( 58, 93, 66 ),
 			'controllers/Cohortescomitesapres' => array( 93 ),
 			'controllers/Cohortesrendezvous' => array( 93 ),
 			'controllers/Comitesapres' => array( 93 ),
@@ -131,11 +131,11 @@
 			'controllers/StatutsrdvsTypesrdv' => array( 58 ),
 			'controllers/Suivisaidesapres' => array( 93 ),
 			'controllers/Suivisaidesaprestypesaides' => array( 93 ),
-			'controllers/Tags' => array( 66 ),
+			'controllers/Tags' => array( 58, 93, 66 ),
 			'controllers/Tiersprestatairesapres' => array( 93 ),
 			'controllers/Traitementstypespdos' => array( 58, 93, 976 ),
 			'controllers/Typesactions' => array( 58, 93, 976 ),
-			'controllers/Valeurstags' => array( 66 )
+			'controllers/Valeurstags' => array( 58, 93, 66 )
 		);
 
 		/**

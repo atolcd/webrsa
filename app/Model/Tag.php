@@ -190,9 +190,11 @@
 		 * @param string|integer $foyer_id mettre <= à 0 pour ignorer
 		 * @param string|integer $personne_id mettre <= à 0 pour ignorer
 		 * @param string $etat L'état du tag à traiter, pas de condition si NULL
+		 * @param boolean $exclusionValeur Exclusion des valeurs de tag
+		 * @param boolean $exclusionEtat Exclusion des états de tag
 		 * @return string
 		 */
-		public function sqHasTagValue($valeurtag_id, $foyer_id = '"Foyer"."id"', $personne_id = '"Personne"."id"', $etat = 'encours') {
+		public function sqHasTagValue($valeurtag_id, $foyer_id = '"Foyer"."id"', $personne_id = '"Personne"."id"', $etat = 'encours', $exclusionValeur = false, $exclusionEtat = false) {
 			$query = array(
 				'fields' => 'Tag.id',
 				'joins' => array(
@@ -218,15 +220,27 @@
 
 			if( false === empty( $valeurtag_id ) ) {
 				if(true === is_string($valeurtag_id)) {
-					$query['conditions'][] = 'Tag.valeurtag_id = '.$valeurtag_id;
+					if ($exclusionValeur) {
+						$query['conditions'][] = 'Tag.valeurtag_id NOT IN ('.$valeurtag_id.')';
+					} else {
+						$query['conditions'][] = 'Tag.valeurtag_id = '.$valeurtag_id;
+					}
 				}
 				else {
-					$query['conditions']['Tag.valeurtag_id'] = $valeurtag_id;
+					if ($exclusionValeur) {
+						$query['conditions']['Tag.valeurtag_id NOT IN'] = $valeurtag_id;
+					} else {
+						$query['conditions']['Tag.valeurtag_id'] = $valeurtag_id;
+					}
 				}
 			}
 
 			if( false === empty( $etat ) ) {
-				$query['conditions']['Tag.etat'] = $etat;
+				if ($exclusionEtat) {
+					$query['conditions']['Tag.etat NOT IN'] = $etat;
+				} else {
+					$query['conditions']['Tag.etat'] = $etat;
+				}
 			}
 
 			$sq = words_replace(

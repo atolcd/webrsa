@@ -566,21 +566,14 @@
 		 * @return array
 		 */
 		protected function _tags() {
-			$departement = (integer)Configure::read( 'Cg.departement' );
-
-			if( 66 === $departement ) {
-				$items = array(
-					'Catégories de tags' => array(
-						'url' => array( 'controller' => 'categorietags', 'action' => 'index' )
-					),
-					'Valeurs de tags' => array(
-						'url' => array( 'controller' => 'valeurstags', 'action' => 'index' )
-					)
-				);
-			}
-			else {
-				$items = array( 'disabled' => true );
-			}
+			$items = array(
+				'Catégories de tags' => array(
+					'url' => array( 'controller' => 'categorietags', 'action' => 'index' )
+				),
+				'Valeurs de tags' => array(
+					'url' => array( 'controller' => 'valeurstags', 'action' => 'index' )
+				)
+			);
 
 			return $items;
 		}

@@ -477,10 +477,10 @@
 		 * @param string $class
 		 * @return string
 		 */
-		public function multipleCheckbox( $path, array $options = array(), $class = '' ) {
+		public function multipleCheckbox( $path, array $options = array(), $class = '', $textInfo = '' ) {
 			$name = model_field($path);
 			return $this->input($path, array(
-				'label' => __m($path),
+				'label' => __m($path) . ('' == $textInfo ? '' : ' <abbr class="required" title="'. __m($textInfo) .'">*</abbr>'),
 				'type' => 'select',
 				'multiple' => 'checkbox',
 				'options' => Hash::get($options, "{$name[0]}.{$name[1]}"),
