@@ -320,7 +320,13 @@
 				)
 			);
 
-			$paramsAccess = $this->WebrsaDsp->getParamsForAccess($this->Dsp->personneId($id), WebrsaAccessDsps::getParamsList());
+			/**
+			 * ATOLCD : methode personneId non trouvée depuis PHP 5.6
+			 * On enlève l'appel à cette méthode.
+			 * Supprimer la ligne commentée à partie de la version 3.4.0
+			 */
+			//$paramsAccess = $this->WebrsaDsp->getParamsForAccess($this->Dsp->personneId($id), WebrsaAccessDsps::getParamsList());
+			$paramsAccess = $this->WebrsaDsp->getParamsForAccess($id, WebrsaAccessDsps::getParamsList());
 			$this->set('ajoutPossible', Hash::get($paramsAccess, 'ajoutPossible'));
 
 			$dsp = WebrsaAccessDsps::access($this->Dsp->find('first', $query), $paramsAccess);
