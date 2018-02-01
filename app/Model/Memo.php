@@ -44,6 +44,7 @@
 		 */
 		public $actsAs = array(
 			'Allocatairelie',
+			'Fichiermodulelie',
 			'Validation2.Validation2Formattable',
 			'Validation2.Validation2RulesFieldtypes',
 			'Validation2.Validation2RulesComparison',

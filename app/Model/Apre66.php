@@ -32,6 +32,7 @@
 
 		public $actsAs = array(
 			'Allocatairelie',
+			'Fichiermodulelie',
 			'Gedooo.Gedooo',
 			'Conditionnable',
 			'ModelesodtConditionnables' => array(
@@ -205,11 +206,11 @@
 				'counterQuery' => ''
 			)
 		);
-		
+
 		public $virtualFields = array(
 			'nb_fichiers_lies' => array(
 				'type' => 'integer',
-				'postgres'  => '(SELECT COUNT(*) FROM fichiersmodules AS f 
+				'postgres'  => '(SELECT COUNT(*) FROM fichiersmodules AS f
 					WHERE "%s"."id" = f.fk_value AND f.modele = \'%s\')'
 			)
 		);

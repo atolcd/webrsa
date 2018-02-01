@@ -487,7 +487,8 @@ $irregularPlural = array(
 	'accompagnementbeneficiaire' => 'accompagnementsbeneficiaires',
 	// Liens entre referents
 	'dernierreferent' => 'derniersreferents',
-	'poledossierpcg66_user' => 'polesdossierspcgs66_users'
+	'poledossierpcg66_user' => 'polesdossierspcgs66_users',
+	'actionroleresultuser' => 'actionrolesresultsusers'
 );
 
 /**

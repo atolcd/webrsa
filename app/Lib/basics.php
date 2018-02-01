@@ -537,6 +537,33 @@
 	}
 
 	/**
+	 * Retourne un array contenant le nom de classe passé en paramètre ainsi que
+	 * la liste des classes parentes de la classe dont le nom est passé en
+	 * paramètre, précédent l'éventuel nom de classe passé en second paramètre.
+	 *
+	 * @param string $className Le nom de la classe de laquelle on souhaite l'héritage.
+	 * @param string $before Le nom de la classe avant laquelle on souhaite s'arrêter.
+	 * @return array
+	 */
+	function get_class_hierarchy( $className, $before = null ) {
+		$result = array();
+
+		if( false === empty( $className ) ) {
+			if( $before !== $className ) {
+				$result[] = $className;
+				$className = get_parent_class( $className );
+
+				while( $before !== $className && false === empty( $className ) ) {
+					$result[] = $className;
+					$className = get_parent_class( $className );
+				}
+			}
+		}
+
+		return $result;
+	}
+
+	/**
 	 * @deprecated (pas / plus utilisée)
 	 *
 	 * @param string $string
@@ -1208,6 +1235,26 @@
 	}
 
 	/**
+	 * Transforme le contenu d'un array à un niveau en chaîne de caractères prête
+	 * à être exportée dans un fichier CSV.
+	 *
+	 * @link http://php.net/manual/fr/function.str-getcsv.php#88773 Code source de la fonction.
+	 *
+	 * @param array $input
+	 * @param string $delimiter
+	 * @param string $enclosure
+	 * @return string
+	 */
+    function str_putcsv( array $fields, $delimiter = ',', $enclosure = '"' ) {
+		$fp = fopen( 'php://temp', 'r+' );
+		fputcsv( $fp, $fields, $delimiter, $enclosure );
+		rewind( $fp );
+		$data = fgets( $fp );
+		fclose( $fp );
+		return rtrim( $data, "\n" );
+	}
+
+	/**
 	 * Retourne les chemins des clés de l'array pasé en paramètre jusqu'au niveau
 	 * maximum.
 	 *
@@ -1465,5 +1512,38 @@
 		}
 
 		return $array1;
+	}
+
+	/**
+	 * Parse une URL de moteur de recherche et retourne un tableau de request
+	 * CakePHP dont certaines clés peuvent etre supprimées via le paramètre
+	 * optionnel $namedKeys, ou un tableau vide lorsque le parsage n'est pas
+	 * possible.
+	 *
+	 * L'URL doit avoir la forme '.../controller/action/param1:valeur1'.
+	 *
+	 * @param string $url L'URL de moteur de recherche.
+	 * @param array $namedKeys Le nom des clés de la partie params à supprimer.
+	 * @return array
+	 */
+	function parseSearchUrl( $url, array $namedKeys = array() ) {
+		$matches = array();
+		$url = urldecode( urldecode( $url ) );
+
+		$regexp = '\/([\w]+)\/([\w]+)((?:\/[\w]+:[\w]*|\/[\d]+)*)$';
+		if( false === mb_ereg( $regexp, $url, $matches ) ) {
+			return array();
+		}
+
+		$request = Router::parse( $matches[0] );
+		if( true === empty( $request ) ) {
+			return array();
+		}
+
+		foreach( $namedKeys as $namedKey ) {
+			unset( $request['named'][$namedKey] );
+		}
+
+		return $request;
 	}
 ?>

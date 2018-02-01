@@ -49,7 +49,66 @@
 				'conditions' => '',
 				'fields' => '',
 				'order' => ''
-			),
+			)
 		);
+
+		/**
+		 * Relations hasMany
+		 *
+		 * @var array
+		 */
+		public $hasMany = array(
+			'Actionroleresultuser' => array(
+				'className' => 'Actionroleresultuser',
+				'foreignKey' => 'actionrole_id',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			)
+		);
+
+		/**
+		 * Retourne le nombre de résultats d'un moteur de recherche pour
+		 * l'utilisateur connecté à partir d'une URL contenant les critères de
+		 * recherche en paramètres nommés (à la CakePHP).
+		 *
+		 * @param string $url
+		 * @return array
+		 */
+		public function count( $url ) {
+			$request = parseSearchUrl( $url, array( 'sessionKey' ) );
+			if( true === empty( $request ) ) {
+				return null;
+			}
+
+			$request['controller'] = Inflector::camelize( Inflector::underscore( $request['controller'] ) );
+			$request['named'] = Hash::expand( $request['named'], '__' );
+
+			$searchKey = "{$request['controller']}.{$request['action']}";
+			$WebrsaRecherche = ClassRegistry::init( 'WebrsaRecherche' );
+			if( false === isset( $WebrsaRecherche->searches[$searchKey] ) ) {
+				return null;
+			}
+
+			$params = $WebrsaRecherche->searches[$searchKey];
+			$params['jetons'] = false;
+
+			$modelRecherche = ClassRegistry::init($params['modelRechercheName']);
+			$query = $modelRecherche->searchConditions(
+				$modelRecherche->searchQuery(),
+				(array)Hash::get( $request, 'named.Search' )
+			);
+
+			$Component = $WebrsaRecherche->component($searchKey);
+			$query = $Component->query($params, $request['named']);
+
+			return ClassRegistry::init( $params['modelName'] )->find( 'count', $query );
+		}
 	}
 ?>

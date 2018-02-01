@@ -21,6 +21,7 @@ class Decisiondossierpcg66 extends AppModel
     public $name = 'Decisiondossierpcg66';
 
     public $actsAs = array(
+		'Fichiermodulelie',
         'Gedooo.Gedooo',
         'ModelesodtConditionnables' => array(
             66 => array(

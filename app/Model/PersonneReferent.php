@@ -28,6 +28,7 @@
 		public $actsAs = array(
 			'Allocatairelie',
 			'Dependencies',
+			'Fichiermodulelie',
 			'Validation2.Validation2Formattable',
 			'Validation2.Validation2RulesFieldtypes',
 			'Validation2.Validation2RulesComparison',

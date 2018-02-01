@@ -1,5 +1,239 @@
 
 ************************************************************************
+ Version 3.2.3
+************************************************************************
+
+r10382 | cbuffin | 2017-07-24 09:55:41 +0200 (lun. 24 juil. 2017) | 1 ligne
+
+Patch correctif 3.2.3
+------------------------------------------------------------------------
+r10381 | cbuffin | 2017-07-24 09:55:19 +0200 (lun. 24 juil. 2017) | 1 ligne
+
+Patch correctif 3.2.3
+------------------------------------------------------------------------
+r10380 | cbuffin | 2017-07-24 09:27:28 +0200 (lun. 24 juil. 2017) | 1 ligne
+
+Ajout du fichier CSS minifié
+------------------------------------------------------------------------
+r10379 | cbuffin | 2017-07-11 10:17:22 +0200 (mar. 11 juil. 2017) | 1 ligne
+
+Amélioration: module "Tableaux de bord", ajout d'un filtre par "Rôle lié à l'utilisateur" dans l'écran de paramétrage des actions de rôles, ajout de la colonne "Rôle lié actif ?" et inversion des colonnes "Catégorie de l'action du rôle (onglet)" et "Role lié" dans les résultats de la recherche. En lien avec le ticket #2008077 (CG 66)
+------------------------------------------------------------------------
+r10378 | cbuffin | 2017-07-11 09:44:32 +0200 (mar. 11 juil. 2017) | 1 ligne
+
+Correction: prise en compte des caractères accentués dans les URL des tableaux de bord pour PHP 5.3.2. En lien avec le ticket #2008077 (CG 66)
+------------------------------------------------------------------------
+r10377 | cbuffin | 2017-07-10 13:14:49 +0200 (lun. 10 juil. 2017) | 1 ligne
+
+Correcection: refonte partielle du module "Tableaux de bord" afin de prendre en compte les différentes restrictions liées à l'utilisateur dans le shell permettant le calcul du cache; déplacement des méthodes de chargement de données liées à l'utilisateur connecté depuis UsersController vers WebrsaUsersComponent; ajout d'un moteur de recherche dans l'écran de paramétrage des actions de roles. Corrige le ticket #2008077 (CG 66)
+------------------------------------------------------------------------
+r10376 | cbuffin | 2017-06-30 17:34:26 +0200 (ven. 30 juin 2017) | 1 ligne
+
+Amélioration: ajout de documentation (utilisateur et dans le code source) pour le shell Fichiersmodules. Ajout d'une demande de confirmation avant de réparer réellement les enregistrements pour éviter notamment de supprimer des enregistrements sur le serveur CMIS de production. En lien avec le ticket #2009191. (CG 66)
+------------------------------------------------------------------------
+r10375 | cbuffin | 2017-06-29 13:36:08 +0200 (jeu. 29 juin 2017) | 1 ligne
+
+Correction: ajout de la classe FichiermodulelieBehavior qui permet de supprimer les fichiers liés après la suppression de l'enregistrement métier auquel ceux-ci sont liés. Utilisation de ce behavior dans les modèles concernés, ajout de traductions de modules ayant des fichiers liés. En lien avec le ticket #2009191. (CG 66)
+------------------------------------------------------------------------
+r10374 | cbuffin | 2017-06-29 11:30:08 +0200 (jeu. 29 juin 2017) | 1 ligne
+
+Correction dans la fonction str_putcsv car en PHP 5.3, la fonction fputcsv n'accepte que 4 paramètres. En lien avec le ticket #2009191. (CG 66)
+------------------------------------------------------------------------
+r10373 | cbuffin | 2017-06-29 11:17:14 +0200 (jeu. 29 juin 2017) | 1 ligne
+
+Correction d'une erreur de syntaxe dans le fichier FichiersmodulesShell. En lien avec le ticket #2009191. (CG 66)
+------------------------------------------------------------------------
+r10372 | cbuffin | 2017-06-29 11:10:19 +0200 (jeu. 29 juin 2017) | 1 ligne
+
+Amélioration: le shell Fichiersmodules corrige à présent les différents problèmes des enregistrements de fichiers liés et exporte un tableau de métriques ainsi que la liste des chemins CMIS qui n'ont pu être supprimés lors de la correction. Ajout de la fonction str_putcsv et des tests unitaires associés. En lien avec le ticket #2009191. (CG 66)
+------------------------------------------------------------------------
+r10371 | cbuffin | 2017-06-26 15:54:08 +0200 (lun. 26 juin 2017) | 1 ligne
+
+Amélioration: ajout de précisions avec/sans fichier(s) lié(s) au shell Fichiersmodules. En lien avec le ticket #2009191. (CG 66)
+------------------------------------------------------------------------
+r10370 | cbuffin | 2017-06-26 15:29:07 +0200 (lun. 26 juin 2017) | 1 ligne
+
+Amélioration: à présent, dans les formulaires d'ajout de pièces jointes ainsi que dans les formulaires d'ajout/modification contenant  un pavé "Pièce jointe" (Paramétrage des actions d'insertion, Dossiers PCG d'un foyer, Paramétrage des pièces liées aux mails employeur des CUIs, PDO d'un allocataire, Traitement PCG d'un allocataire et Traitement d'une PDO (déprécié)), lorsque l'on sélectionne la valeur "Non" à la question "Ajouter une pièce jointe" et qu'il existe au moins une pièce jointe, un message d'alerte apparaîtra afin d'éviter de perdre des données à l'enregistrement. En lien avec le ticket #2009191. (CG 66)
+------------------------------------------------------------------------
+r10369 | cbuffin | 2017-06-26 12:50:44 +0200 (lun. 26 juin 2017) | 1 ligne
+
+Correction: une variable du formulaire d'ajout/de modification d'une APRE/ADRE avait été supprimée par méagrde en révision #10320 . En lien avec le ticket #2009191. (CG 66)
+------------------------------------------------------------------------
+r10368 | cbuffin | 2017-06-26 11:55:33 +0200 (lun. 26 juin 2017) | 1 ligne
+
+Correction: ajout de détails au shell Fichiersmodules, on s'assure à présent d'obtenir le nombre correct d'enregistrements corrigés. En lien avec le ticket #2009191. (CG 66)
+------------------------------------------------------------------------
+r10367 | cbuffin | 2017-06-26 10:48:23 +0200 (lun. 26 juin 2017) | 1 ligne
+
+Correction: remplacement de la commande "repare" par "repair" dans le shell Fichiersmodules. En lien avec le ticket #2009191. (CG 66)
+------------------------------------------------------------------------
+r10366 | cbuffin | 2017-06-26 10:46:28 +0200 (lun. 26 juin 2017) | 1 ligne
+
+Correction: à présent, dans l'écran de modification d'un dossier PCG, si l'enregistrement concerne un des anciens pôles (PDA, PDU) désactivé, une ancienne origine du dossier désactivée ou un ancien type de dossier désactivé et que l'on retourne sur le formulaire suite à une erreur de validation, on ne perd plus les ancienns valeurs. En lien avec le ticket #2009191. (CG 66)
+------------------------------------------------------------------------
+r10365 | cbuffin | 2017-06-20 13:42:05 +0200 (mar. 20 juin 2017) | 1 ligne
+
+Amélioration: ajout du shell Fichiersmodules qui permet de détecter et de corriger le statut "Fichiers liés Oui/Non" des enregistrements métiers en fonction du nombre de fichiers effectivement liés. En lien avec le ticket #2009191.
+------------------------------------------------------------------------
+r10364 | cbuffin | 2017-06-19 14:06:26 +0200 (lun. 19 juin 2017) | 1 ligne
+
+Amélioration: ajout des données de la structure orientante dans le moteur de recherche par orientation, ajout du paramétrage dans le fichier app/Config/Cg66/Orientsstructs.php pour faire apparaître le libellé de la structure orientante dans le tableau de résultats de la recherche. Clôture le ticket #2009100. (CG 66)
+------------------------------------------------------------------------
+r10363 | cbuffin | 2017-06-19 13:47:25 +0200 (lun. 19 juin 2017) | 1 ligne
+
+Amélioration: à présent, lorsque l'utilisateur essaie d'accéder à la racine de l'application et qu'il est redirigé vers le formualire de connexion, le message "Vous n'êtes pas autorisé(e) à accéder à cette page." ne s'affiche plus. Corrige le ticket #2008992. (CG 66)
+------------------------------------------------------------------------
+r10362 | cbuffin | 2017-05-31 15:55:50 +0200 (mer. 31 mai 2017) | 1 ligne
+
+Amélioration: prise en compte des types de données "biginteger" et "decimal" dans le CSS
+------------------------------------------------------------------------
+r10361 | cbuffin | 2017-05-31 15:28:04 +0200 (mer. 31 mai 2017) | 1 ligne
+
+Amélioration, plugin Default: prise en compte des types de données "biginteger" et "decimal"
+------------------------------------------------------------------------
+r10360 | cbuffin | 2017-05-31 15:26:32 +0200 (mer. 31 mai 2017) | 1 ligne
+
+Amélioration, plugin Validation2: prise en compte des types de données "biginteger" et "decimal"
+------------------------------------------------------------------------
+r10359 | cbuffin | 2017-05-31 15:09:10 +0200 (mer. 31 mai 2017) | 1 ligne
+
+Correction: prise en compte du type de données decimal dans la classe ThemeHelper.
+------------------------------------------------------------------------
+
+************************************************************************
+ Version 3.2.2
+************************************************************************
+
+r10358 | cbuffin | 2017-05-31 00:43:47 +0200 (mer. 31 mai 2017) | 1 ligne
+
+Patch correctif 3.2.2
+------------------------------------------------------------------------
+r10357 | cbuffin | 2017-05-31 00:43:11 +0200 (mer. 31 mai 2017) | 1 ligne
+
+Patch correctif 3.2.2
+------------------------------------------------------------------------
+r10356 | cbuffin | 2017-05-31 00:41:00 +0200 (mer. 31 mai 2017) | 1 ligne
+
+Correction: il manquait la méthode WebrsaAccessHistoschoixcers93::_aviscadre_consultation, ce qui entraînait une erreur 403 dans la visualisation d'un CER au CD 93.
+------------------------------------------------------------------------
+r10355 | cbuffin | 2017-05-31 00:38:07 +0200 (mer. 31 mai 2017) | 1 ligne
+
+Correction: les méthodes prepareFormData des différentes thématiques d'ep renvoient à présent les données correctes, ajout de tests unitaires, corrections d'incohérences du même type dans les vues decisionep.xxx, decisioncg.xxx, ... Seconde et dernière partie des corrections du ticket #2008731
+------------------------------------------------------------------------
+r10354 | cbuffin | 2017-05-29 14:04:02 +0200 (lun. 29 mai 2017) | 1 ligne
+
+Correction: les méthodes prepareFormData des différentes thématiques d'ep renvoient à présent les données correctes, ajout de tests unitaires. Première partie des corrections du ticket #2008731.
+------------------------------------------------------------------------
+r10353 | cbuffin | 2017-05-26 15:25:15 +0200 (ven. 26 mai 2017) | 1 ligne
+
+Correction: à présent, dans le traitement d'une commission d'EP, lorsque l'on n'arrive pas à clôturer la séance, on restaure correctement les règls de validation des modèles de décision, ce qui permet d'avoir les valeurs de décision dans les listes déroulantes. En lien avec le ticket #2008731.
+------------------------------------------------------------------------
+r10352 | cbuffin | 2017-05-26 10:39:02 +0200 (ven. 26 mai 2017) | 1 ligne
+
+Correction: à présent, les components des nouveaux moteurs de recherche fusionnent les noms des components utilisés dans toutes les classes parentes. Corrige le ticket #2008823. (CG 66, tous départements)
+------------------------------------------------------------------------
+r10351 | cbuffin | 2017-05-23 13:35:44 +0200 (mar. 23 mai 2017) | 1 ligne
+
+Correction: à présent, les règles de validation automatiques et le formattage des valeurs de champs avant l'enregistrement se fait également pour les champs de type decimal et biginteger. Ajout de tests unitaires. Clôture le ticket #2008736.
+------------------------------------------------------------------------
+r10350 | cbuffin | 2017-05-22 17:09:14 +0200 (lun. 22 mai 2017) | 1 ligne
+
+Correction: dans les écrans du menu "Cohortes" > "Cohorte de rendez-vous" et du menu "CER" (traitement Ajax), on pouvait obtenir une erreur 500 suite aux changements effectués en révision #10290.
+------------------------------------------------------------------------
+r10349 | cbuffin | 2017-05-22 16:57:34 +0200 (lun. 22 mai 2017) | 6 lignes
+
+Correction: à présent, dans les moteurs de recherche et de cohorte (de gestion de liste) ci-dessous, lorsque l'on fait une première recherche puis que l'on effectue une seconde recherche en changeant de valeurs de filtres, les anciennes valeurs de filtres ne sont plus prises en compte. Corrige le ticket #2008421. (CG 66, tous départements).
+Moteurs de recherche et de cohorte (de gestion de liste) concernés:
+- Tous départements: menu "Administration" > "Gestion des dossiers d'EP suppressibles", menu "Administration" > "Gesion des anomalies" > "Doublons complexes", menu "Tableaux de bord" > "Statistiques ministérielles", menu "Tableaux de bord" > "Indicateurs mensuels", menu "Tableaux de bord" > "Indicateurs de suivi"
+- CD 58: menu "Eq. Pluri." > "5. Gestion des sanctions"
+- CD 66: menu "Recherches" > "Demande de maintien dans le social"
+- CD 93: menu "Administration" > "Paramétrages" > "Fiches de prescription" > "Tableau de suivi du référentiel", menu "APRE" > "Comité d'examen", menu "Cohortes" > "Formulaires de sortie D2 à saisir", menu "Cohortes" > "EPs", menu "APRE" > "Liste des demandes d'APRE" > "Demande de recours", menu "APRE" > "Liste des demandes d'APRE" > "Visualisation des recours"
+------------------------------------------------------------------------
+
+************************************************************************
+ Version 3.2.1
+************************************************************************
+
+r10348 | cbuffin | 2017-05-22 14:08:36 +0200 (lun. 22 mai 2017) | 1 ligne
+
+Patch correctif 3.2.1
+------------------------------------------------------------------------
+
+************************************************************************
+ Version 3.1.10
+************************************************************************
+
+r10347 | cbuffin | 2017-05-22 14:08:26 +0200 (lun. 22 mai 2017) | 1 ligne
+
+Patch correctif 3.1.10
+------------------------------------------------------------------------
+r10346 | cbuffin | 2017-05-22 14:07:33 +0200 (lun. 22 mai 2017) | 1 ligne
+
+Patch correctif 3.1.10
+------------------------------------------------------------------------
+r10345 | cbuffin | 2017-05-22 14:07:13 +0200 (lun. 22 mai 2017) | 1 ligne
+
+Patch correctif 3.2.1
+------------------------------------------------------------------------
+r10344 | cbuffin | 2017-05-22 13:51:03 +0200 (lun. 22 mai 2017) | 1 ligne
+
+Correction: les statistiques ministérielles, tableau "Indicateurs de natures des actions des contrats", correction d'une faute d'orthographe.
+------------------------------------------------------------------------
+r10343 | cbuffin | 2017-05-22 13:50:36 +0200 (lun. 22 mai 2017) | 1 ligne
+
+Correction: les statistiques ministérielles, tableau "Indicateurs de natures des actions des contrats", correction d'une faute d'orthographe.
+------------------------------------------------------------------------
+r10342 | cbuffin | 2017-05-22 11:58:07 +0200 (lun. 22 mai 2017) | 1 ligne
+
+Correction: dans les statistiques ministérielles, tableau "Indicateurs de délais", correction d'une erreur 500 lorsq'on utilisait la table historiquesdroits.
+------------------------------------------------------------------------
+r10341 | cbuffin | 2017-05-22 11:58:02 +0200 (lun. 22 mai 2017) | 1 ligne
+
+Correction: dans les statistiques ministérielles, tableau "Indicateurs de délais", correction d'une erreur 500 lorsq'on utilisait la table historiquesdroits.
+------------------------------------------------------------------------
+r10340 | cbuffin | 2017-05-19 16:27:26 +0200 (ven. 19 mai 2017) | 1 ligne
+
+Mise à jour des statistiques ministérielles, paramétrage du tableau "Indicateurs de natures des actions des contrats" pour le CD 93. Ajout des clés de configuration "Statistiqueministerielle.conditions_indicateurs_organismes.dont accompagnement de droit commun", "Statistiqueministerielle.conditions_indicateurs_organismes.dont accompagnement global", "Statistiqueministerielle.structure_cer_orientation" et "Statistiqueministerielle.useHistoriquedroit". Backport des révisions #10331, #10335 et #10337 de la branche 3.2 en branche 3.1. Permet de clôturer le ticket #2008148. (Tous départements)
+------------------------------------------------------------------------
+r10339 | cbuffin | 2017-05-19 16:06:49 +0200 (ven. 19 mai 2017) | 1 ligne
+
+Amélioration, plugin Gedooo: à présent, la classe GedoooOdtReader récupère aussi les variable utilisateurs non déclarées et utilisées dans des conditions. Backport de la révision #10336 en branche 3.1.
+------------------------------------------------------------------------
+r10338 | cbuffin | 2017-05-19 16:03:51 +0200 (ven. 19 mai 2017) | 1 ligne
+
+Correction: à présent, la méthode DatabaseTableBehavior::sqLatest n'écrase plus la condition de la jointure entre les deux modèles lorsque l'on ajoute des conditions avec une clé numérique. Backport de la révision #10334 en branche 3.1.
+------------------------------------------------------------------------
+r10337 | cbuffin | 2017-05-19 15:39:47 +0200 (ven. 19 mai 2017) | 1 ligne
+
+Mise à jour des statistiques ministérielles pour tous les départements; ajout de la clé de configuration "Statistiqueministerielle.useHistoriquedroit" permettant de choisir ou non d'utiliser la table historiquesdroits pour savoir si un allocataire est soumis à droits et devoirs à une certaine date. Troisième et dernière partie du ticket #2008148. (Tous départements)
+------------------------------------------------------------------------
+r10336 | cbuffin | 2017-05-19 13:21:13 +0200 (ven. 19 mai 2017) | 1 ligne
+
+Amélioration, plugin Gedooo: à présent, la classe GedoooOdtReader récupère aussi les variable utilisateurs non déclarées et utilisées dans des conditions.
+------------------------------------------------------------------------
+r10335 | cbuffin | 2017-05-18 17:43:31 +0200 (jeu. 18 mai 2017) | 2 lignes
+
+Mise à jour des statistiques ministérielles (tableaux "Indicateurs de réorientations", "Indicateurs de motifs de réorientations", "Indicateurs de caractéristiques des contrats" et "Indicateurs de natures des actions des contrats"). Ajout de la clé de configuration "Statistiqueministerielle.structure_cer_orientation". Seconde partie du ticket #2008148. (Tous départements)
+
+------------------------------------------------------------------------
+r10334 | cbuffin | 2017-05-18 17:40:27 +0200 (jeu. 18 mai 2017) | 1 ligne
+
+Correction: à présent, la méthode DatabaseTableBehavior::sqLatest n'écrase plus la condition de la jointure entre les deux modèles lorsque l'on ajoute des conditions avec une clé numérique.
+------------------------------------------------------------------------
+r10333 | cbuffin | 2017-05-17 16:59:39 +0200 (mer. 17 mai 2017) | 1 ligne
+
+Première partie des corrections des tests unitaires de l'application.
+------------------------------------------------------------------------
+r10332 | cbuffin | 2017-05-17 16:58:07 +0200 (mer. 17 mai 2017) | 1 ligne
+
+Première partie des corrections des tests unitaires de l'application.
+------------------------------------------------------------------------
+r10331 | cbuffin | 2017-05-16 09:39:33 +0200 (mar. 16 mai 2017) | 1 ligne
+
+Mise à jour des statistiques ministérielles (tableaux "Indicateurs d'orientations", "Indicateurs d'organismes", "Indicateurs de délais", paramétrage du tableau "Indicateurs de natures des actions des contrats" pour le CD 93). Première partie du ticket #2008148. (Tous départements)
+------------------------------------------------------------------------
+
+************************************************************************
  Version 3.2.0
 ************************************************************************
 

@@ -22,6 +22,7 @@
 
 		public $actsAs = array(
 			'Conditionnable',
+			'Fichiermodulelie',
 			'Validation2.Validation2Formattable',
 			'Validation2.Validation2RulesFieldtypes',
 			'Validation2.Validation2RulesComparison',
@@ -428,7 +429,9 @@
             $querydata = $this->qdOccurencesExists(
                 $querydata,
                 array(
-                    'Fichiermodule'
+                    'Fichiermodule',
+                    'Motifsortie',
+                    'Zonegeographique'
                 )
             );
 

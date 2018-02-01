@@ -42,6 +42,7 @@
 		public $actsAs = array(
 			'Allocatairelie',
 			'Dependencies',
+			'Fichiermodulelie',
             'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
 			'Validation2.Validation2RulesComparison',

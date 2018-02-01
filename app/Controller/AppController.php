@@ -521,8 +521,26 @@
 			}
 		}
 
+		/**
+		 * Suppression du message "Vous n'etes pas autorisé(e) à accéder à cette
+		 * page." lorsque l'utilisateur n'est pas connecté et que l'on accède à
+		 * la racine du site.
+		 */
+		protected function _clearAuthError() {
+			if( null === $this->Auth->user() ) {
+				$auth = $this->Auth->flash;
+				$sessionKey = "Message.{$auth['key']}";
+				$root = rtrim( $this->request->here, '/#' ) === rtrim( $this->request->base, '/#' );
+
+				if( true === $root && $this->Session->check( $sessionKey ) ) {
+					$this->Session->delete( $sessionKey );
+				}
+			}
+		}
+
 		public function beforeRedirect($url, $status = null, $exit = true) {
 			$this->_logTrace();
+			$this->_clearAuthError();
 			return parent::beforeRedirect( $url, $status, $exit );
 		}
 

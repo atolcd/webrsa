@@ -51,6 +51,7 @@
 			}
 		?>
 	</fieldset>
+	<?php echo $this->Fileuploader->validation( 'ActioncandidatAddEditForm', 'Actioncandidat' );?>
 </fieldset>
 
 <script type="text/javascript">

@@ -213,6 +213,19 @@
 		);
 
 		public $hasMany = array(
+			'Actionroleresultuser' => array(
+				'className' => 'Actionroleresultuser',
+				'foreignKey' => 'user_id',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
 			'Annulateurcer93' => array(
 				'className' => 'Cer93',
 				'foreignKey' => 'annulateur_id',

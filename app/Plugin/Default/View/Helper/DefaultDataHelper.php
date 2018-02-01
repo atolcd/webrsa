@@ -194,9 +194,11 @@
 						$format = $format === null ? $this->_formats[$type] : $format;
 						$return = strftime( $format, strtotime( $value ) );
 						break;
+					case 'decimal':
 					case 'float':
 						$return = number_format( $value, 2, ',', '' );
 						break;
+					case 'biginteger':
 					case 'integer':
 						$return = number_format( $value );
 						break;
@@ -240,6 +242,8 @@
 					case 'boolean':
 						$class = ( empty( $value ) ? 'false' : 'true' );
 						break;
+					case 'biginteger':
+					case 'decimal':
 					case 'float':
 					case 'integer':
 					case 'numeric':

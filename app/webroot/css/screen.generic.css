@@ -2136,7 +2136,7 @@ td.dossier_locked a:hover {
 	background-image: url("../img/icons/lock_open.png");
 }
 
-td.data.integer, td.data.float, td.data.numeric {
+td.data.integer, td.data.biginteger, td.data.float, td.data.decimal, td.data.numeric {
 	text-align: right;
 }
 

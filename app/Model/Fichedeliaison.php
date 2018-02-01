@@ -27,6 +27,7 @@
 		 * @var array
 		 */
 		public $actsAs = array(
+			'Fichiermodulelie',
 			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
 			'Validation2.Validation2RulesFieldtypes',

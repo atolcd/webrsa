@@ -8,7 +8,7 @@
 		$this->pageTitle = __d( 'piecemailcui66', "Piecesmailscuis66::{$this->action}" )
 	);
 
-	
+
     echo $this->Xform->create( 'Piecemailcui66', array( 'id' => 'piecemailcui66form' ) );
 
 	echo $this->Default2->subform(
@@ -20,7 +20,7 @@
 	);
 
 	echo '<br />';
-	
+
     // Ajout de pièces jointes
     echo "<fieldset><legend>".required( $this->Default2->label( 'Piecemailcui66.haspiecejointe' ) )."</legend>";
     echo $this->Form->input( 'Piecemailcui66.haspiecejointe', array( 'type' => 'radio', 'options' => $options['Piecemailcui66']['haspiecejointe'], 'legend' => false, 'fieldset' => false ) );
@@ -37,6 +37,7 @@
             );
         }
     echo '</fieldset>';
+	echo $this->Fileuploader->validation( 'piecemailcui66form', 'Piecemailcui66', 'Pièce jointe' );
     echo '</fieldset>';
 
 	echo $this->Html->tag(
@@ -47,7 +48,7 @@
 	);
 
 	echo $this->Xform->end();
-	
+
 ?>
 <script type="text/javascript">
 document.observe( "dom:loaded", function() {

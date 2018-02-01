@@ -26,6 +26,7 @@
 		public $recursive = 1;
 
 		public $actsAs = array(
+			'Fichiermodulelie',
             'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
 			'Validation2.Validation2RulesFieldtypes',

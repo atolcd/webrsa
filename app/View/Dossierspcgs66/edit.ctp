@@ -86,6 +86,7 @@
 		}
 	?>
 </fieldset>
+<?php echo $this->Fileuploader->validation( 'dossierpcg66form', 'Dossierpcg66', 'Pièce jointe' );?>
 </fieldset>
 <fieldset>
 	<legend><?php echo $this->Default2->label( 'Dossierpcg66.commentairepiecejointe' );?></legend>

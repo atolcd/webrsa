@@ -43,5 +43,28 @@ msgstr "Réellement supprimer l'action de rôles « #Actionrole.name# » ?"
 msgid "Role.name"
 msgstr "Rôle lié"
 
+msgid "Role.actif"
+msgstr "Rôle lié actif ?"
+
 msgid "Categorieactionrole.name"
 msgstr "Catégorie de l'action du rôle (onglet)"
+
+#-------------------------------------------------------------------------------
+
+msgid "Search.Actionrole.categorieactionrole_id"
+msgstr "Catégorie de l'action du rôle (onglet)"
+
+msgid "Search.Actionrole.role_id"
+msgstr "Rôle lié"
+
+msgid "Search.Role.actif"
+msgstr "Rôle lié actif ?"
+
+msgid "Search.Actionrole.name"
+msgstr "Intitulé de l'action du rôle"
+
+msgid "Search.Actionrole.description"
+msgstr "Description de l'action du rôle"
+
+msgid "Search.RoleUser.user_id"
+msgstr "Rôle lié à l'utilisateur"

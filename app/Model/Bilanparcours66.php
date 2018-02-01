@@ -20,6 +20,7 @@
 
 		public $actsAs = array(
 			'Allocatairelie',
+			'Fichiermodulelie',
 			'Gedooo.Gedooo',
 			'ModelesodtConditionnables' => array(
 				66 => array(
@@ -303,7 +304,7 @@
 
 			return $return;
 		}
-		
+
 		/**
 		 * Called after each successful save operation.
 		 *

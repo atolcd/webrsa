@@ -32,6 +32,7 @@
 
 		public $actsAs = array(
 			'Allocatairelie',
+			'Fichiermodulelie',
 			'Gedooo.Gedooo',
 			'ModelesodtConditionnables' => array(
 				58 => '%s/contratinsertioncg58.odt',

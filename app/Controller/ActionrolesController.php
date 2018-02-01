@@ -47,18 +47,110 @@
 		public $uses = array( 'Actionrole' );
 
 		/**
-		 * Liste des éléments.
+		 * Components utilisés.
 		 *
-		 * @todo final
+		 * @var array
+		 */
+		public $components = array(
+			'Search.SearchPrg' => array(
+				'actions' => array( 'index' )
+			),
+			'WebrsaParametrages'
+		);
+
+		/**
+		 * Moteur de recherche par actions de rôles.
 		 */
 		public function index() {
-			$query = array(
-				'contain' => array(
-					'Role.name',
-					'Categorieactionrole.name'
+			if( !empty( $this->request->data ) ) {
+				$search = $this->request->data['Search'];
+				$query = array(
+					'contain' => array(
+						'Role.name',
+						'Role.actif',
+						'Categorieactionrole.name'
+					),
+					'conditions' => array(),
+					'order' => array(
+						'Categorieactionrole.name',
+						'Role.name',
+						'Actionrole.name'
+					)
+				);
+				foreach( array_keys( $search ) as $modelName ) {
+					if( 'Pagination' !== $modelName ) {
+						foreach( (array)Hash::get( $search, $modelName ) as $fieldName => $value ) {
+							$value = trim( (string)$value );
+							if( '' !== $value ) {
+								if( false !== strpos( $fieldName, '_id' ) ) {
+									if( 'RoleUser' === $modelName ) {
+										$subQuery = array(
+											'alias' => 'roles_users',
+											'fields' => array( 'roles_users.id' ),
+											'conditions' => array(
+												'roles_users.user_id' => $value,
+												'roles_users.role_id = Role.id'
+											),
+											'contain' => false
+										);
+										$sql = $this->Actionrole->Role->RoleUser->sq( $subQuery );
+										$query['conditions'][] = "EXISTS( {$sql} )";
+									}
+									else {
+										$query['conditions']["{$modelName}.{$fieldName}"] = suffix( $value );
+									}
+								}
+								else {
+									if('actif' === $fieldName) {
+										$query['conditions']["{$modelName}.{$fieldName}"] = $value;
+									}
+									else {
+										$query['conditions']["{$modelName}.{$fieldName} ILIKE"] = "%{$value}%";
+									}
+								}
+							}
+						}
+					}
+				}
+				$query['limit'] = 100;
+				$this->WebrsaParametrages->index( $query, array( 'progressivePaginate' => !Hash::get($search, 'Pagination.nombre_total') ) );
+			}
+
+			$options = array_merge(
+				$this->Actionrole->Role->enums(),
+				array(
+					'Actionrole' => array(
+						'categorieactionrole_id' => $this->Actionrole->Categorieactionrole->find( 'list' ),
+						'role_id' => $this->Actionrole->Role->find( 'list' )
+					)
+				),
+				array(
+					'RoleUser' => array(
+						'user_id' => Hash::combine(
+							$this->Actionrole->Role->RoleUser->User->find(
+								'all',
+								array(
+									'fields' => array(
+										'User.id',
+										'User.nom',
+										'User.prenom',
+										'User.username'
+									),
+									'contain' => false,
+									'order' => array(
+										'User.nom',
+										'User.prenom',
+										'User.username'
+									)
+								)
+							),
+							'{n}.User.id',
+							array( '%s %s (%s)', '{n}.User.nom', '{n}.User.prenom', '{n}.User.username' )
+						)
+					)
 				)
 			);
-			$this->WebrsaParametrages->index( $query );
+			$this->set( compact( 'options' ) );
 		}
 
 		/**
@@ -78,13 +170,6 @@
 
 				if( $success ) {
 					$this->Flash->success( __( 'Save->success' ) );
-					Cache::config('one day', array(
-						'engine' => 'File',
-						'duration' => '+1 day',
-						'path' => CACHE,
-						'prefix' => 'cake_oneday_'
-					));
-					Cache::clear(false, 'one day');
 					$this->redirect( array( 'action' => 'index' ) );
 				}
 				else {

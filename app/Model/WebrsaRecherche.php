@@ -928,6 +928,14 @@
 			return $Recherches;
 		}
 
+		public function component($key) {
+			$path = APP.'Config'.DS.'Cg'.Configure::read( 'Cg.departement' );
+			list($controllerName, $actionName) = explode('.', $key);
+			include $path.DS.$controllerName.'.php';
+			$config = Configure::read("ConfigurableQuery.{$key}");
+			return $this->_component($key, $this->searches[$key]);
+		}
+
 		/**
 		 * Exécute les différentes méthods du modèle permettant la mise en cache.
 		 * Utilisé au préchargement de l'application (/prechargements/index).

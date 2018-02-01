@@ -107,7 +107,7 @@
 						$this->Poledossierpcg66->User->join( 'Poledossierpcg66', array( 'type' => 'INNER' ) ),
 					),
 					'conditions' => array(
-						'User.id' => $user_id
+						'User.id' => true === $params['prefix'] ? suffix( $user_id ) : $user_id
 					)
 				);
 				$users = $this->Poledossierpcg66->User->find( 'all', $query );
@@ -131,7 +131,7 @@
 						$this->Poledossierpcg66->User->join( 'Poledossierpcg66User', array( 'type' => 'INNER' ) )
 					),
 					'conditions' => array(
-						'User.id' => $user_id
+						'User.id' => true === $params['prefix'] ? suffix( $user_id ) : $user_id
 					)
 				);
 				$users = $this->Poledossierpcg66->User->find( 'all', $query );

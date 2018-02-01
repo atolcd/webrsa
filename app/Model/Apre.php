@@ -38,6 +38,7 @@
 
 		public $actsAs = array(
 			'Allocatairelie',
+			'Fichiermodulelie',
 			'Gedooo.Gedooo',
 			'StorablePdf' => array(
 				'afterSave' => 'deleteAll'

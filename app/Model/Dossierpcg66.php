@@ -34,6 +34,7 @@ class Dossierpcg66 extends AppModel {
 	 * @var array
 	 */
     public $actsAs = array(
+		'Fichiermodulelie',
 		'Validation2.Validation2Formattable',
 		'Validation2.Validation2RulesFieldtypes',
 		'Postgres.PostgresAutovalidate'

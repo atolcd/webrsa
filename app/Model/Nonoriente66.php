@@ -27,6 +27,7 @@
 
 		public $actsAs = array(
 			'Conditionnable',
+			'Fichiermodulelie',
 			'Gedooo.Gedooo',
 			'Validation2.Validation2Formattable',
 			'Validation2.Validation2RulesFieldtypes',

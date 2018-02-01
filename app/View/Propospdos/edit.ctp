@@ -99,6 +99,7 @@
                     }
 				?>
 			</fieldset>
+			<?php echo $this->Fileuploader->validation( 'propopdoform', 'Propopdo.haspiece', 'Pièce jointe' );?>
 		</fieldset>
 	<?php endif;?>
 <script type="text/javascript">

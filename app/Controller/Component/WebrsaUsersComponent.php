@@ -30,7 +30,8 @@
 		 * @var array
 		 */
 		public $components = array(
-			'Session'
+			'Session',
+			'WebrsaPermissions'
 		);
 
 		/**
@@ -231,6 +232,142 @@
 
 				$Controller->User->Jetonfonction->deleteAll( $conditions );
 			}
+		}
+
+		/**
+		 * Chargement et mise en cache (session) des zones géographiques associées
+		 * à l'utilisateur.
+		 *
+		 * @info n'est réellement exécuté que la première fois
+		 */
+		public function loadZonesgeographiques() {
+			$Controller = $this->_Collection->getController();
+			$Controller->loadModel( 'User' );
+
+			if( $this->Session->check( 'Auth.User' ) && $this->Session->read( 'Auth.User.filtre_zone_geo' ) && !$this->Session->check( 'Auth.Zonegeographique' ) ) {
+				$qd_users_zonegeographiques = array(
+					'fields' => array(
+						'Zonegeographique.id',
+						'Zonegeographique.codeinsee'
+					),
+					'contain' => array(
+						'Zonegeographique'
+					),
+					'conditions' => array(
+						'UserZonegeographique.user_id' => $this->Session->read( 'Auth.User.id' )
+					)
+				);
+				$results = $Controller->User->UserZonegeographique->find( 'all', $qd_users_zonegeographiques );
+
+				if( count( $results ) > 0 ) {
+					$zones = array( );
+					foreach( $results as $result ) {
+						$zones[$result['Zonegeographique']['id']] = $result['Zonegeographique']['codeinsee'];
+					}
+					$this->Session->write( 'Auth.Zonegeographique', $zones ); // FIXME: vide -> rééxécute ?
+				}
+			}
+		}
+
+		/**
+		 * Chargement du groupe de l'utilisateur connecté, lancement
+		 * d'une erreur 500 si aucun groupe n'est associé à l'utilisateur
+		 *
+		 * @return void
+		 */
+		public function loadGroup() {
+			$Controller = $this->_Collection->getController();
+			$Controller->loadModel( 'User' );
+
+			if( !$this->Session->check( 'Auth.Group' ) ) {
+				$qd_group = array(
+					'conditions' => array(
+						'Group.id' => $this->Session->read( 'Auth.User.group_id' )
+					),
+					'fields' => null,
+					'order' => null,
+					'recursive' => -1
+				);
+				$group = $Controller->User->Group->find( 'first', $qd_group );
+				if( true === empty( $group ) ) {
+					$message = sprintf(
+						'Impossible de charger le groupe d\'id %d',
+						$this->Session->read( 'Auth.User.group_id' )
+					);
+					throw new RuntimeException( $message, 500 );
+				}
+				$this->Session->write( 'Auth.Group', $group['Group'] );
+			}
+		}
+
+		/**
+		 * Chargement du service instructeur de l'utilisateur connecté, lancement
+		 * d'une erreur 500 si aucun service instructeur n'est associé à l'utilisateur
+		 *
+		 * @return void
+		 */
+		public function loadServiceInstructeur() {
+			$Controller = $this->_Collection->getController();
+			$Controller->loadModel( 'User' );
+
+			if( !$this->Session->check( 'Auth.Serviceinstructeur' ) ) {
+				$qd_service = array(
+					'conditions' => array(
+						'Serviceinstructeur.id' => $this->Session->read( 'Auth.User.serviceinstructeur_id' )
+					),
+					'fields' => null,
+					'order' => null,
+					'recursive' => -1
+				);
+				$service = $Controller->User->Serviceinstructeur->find( 'first', $qd_service );
+				if( true === empty( $service ) ) {
+					$message = sprintf(
+						'Impossible de charger le service instructeur d\'id %d',
+						$this->Session->read( 'Auth.User.serviceinstructeur_id' )
+					);
+					throw new RuntimeException( $message, 500 );
+				}
+				$this->Session->write( 'Auth.Serviceinstructeur', $service['Serviceinstructeur'] );
+			}
+		}
+
+		/**
+		 * Chargement et mise en cache (session) des permissions de l'utilisateur
+		 * INFO:
+		 * 	- n'est réellement exécuté que la première fois
+		 * 	- http://dsi.vozibrale.com/articles/view/all-cakephp-acl-permissions-for-your-views
+		 * 	- http://www.neilcrookes.com/2009/02/26/get-all-acl-permissions/
+		 */
+		public function loadPermissions() {
+			$Controller = $this->_Collection->getController();
+			$Controller->loadModel( 'User' );
+
+			if ($this->Session->check('Auth.User') && !$this->Session->check('Auth.Permissions')) {
+				$permissions = $this->WebrsaPermissions->getPermissions(
+					$Controller->User,
+					$this->Session->read('Auth.User.id')
+				);
+				$this->Session->write('Auth.Permissions', $permissions);
+			}
+		}
+
+		/**
+		 * Chargement et mise en cache (session) de différentes informations
+		 * liées à l'utilisateur connecté.
+		 */
+		public function load() {
+			$Controller = $this->_Collection->getController();
+			$Controller->loadModel( 'User' );
+
+			$user = $this->Session->read( 'Auth.User');
+			$user['aroAlias'] = $this->Session->read( 'Auth.User.username');
+			$this->Session->write( 'Auth.User', $user );
+
+			$this->loadPermissions();
+			$this->loadZonesgeographiques();
+			$this->loadGroup();
+			$this->loadServiceInstructeur();
+			$this->loadStructurereferente();
 		}
 	}
 ?>

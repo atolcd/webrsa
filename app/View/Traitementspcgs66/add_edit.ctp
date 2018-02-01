@@ -776,6 +776,7 @@
 				}
 			?>
 		</fieldset>
+		<?php echo $this->Fileuploader->validation( 'traitementpcg66form', 'Traitementpcg66', 'Pièce jointe' );?>
 	</fieldset>
 
 

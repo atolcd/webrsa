@@ -349,7 +349,7 @@
 		}
 
 		/**
-		 *
+		 * @see FichiersmodulesShell::_repairOrphans
 		 */
 		public function delete( $id = NULL, $cascade = true ) {
 			$conditions = array( );
@@ -380,7 +380,7 @@
 		}
 
 		/**
-		 *
+		 * @see FichiersmodulesShell::_repairOrphans
 		 */
 		public function deleteAll( $conditions, $cascade = true, $callbacks = false ) {
 			$records = $this->find(

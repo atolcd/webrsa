@@ -281,94 +281,6 @@
 		}
 
 		/**
-		 * Chargement et mise en cache (session) des permissions de l'utilisateur
-		 * INFO:
-		 * 	- n'est réellement exécuté que la première fois
-		 * 	- http://dsi.vozibrale.com/articles/view/all-cakephp-acl-permissions-for-your-views
-		 * 	- http://www.neilcrookes.com/2009/02/26/get-all-acl-permissions/
-		 */
-		protected function _loadPermissions() {
-			if ($this->Session->check('Auth.User') && !$this->Session->check('Auth.Permissions')) {
-				$permissions = $this->WebrsaPermissions->getPermissions($this->User, $this->Session->read('Auth.User.id'));
-				$this->Session->write('Auth.Permissions', $permissions);
-			}
-		}
-
-		/**
-		 * Chargement et mise en cache (session) des zones géographiques associées à l'utilisateur
-		 * INFO: n'est réellement exécuté que la première fois
-		 */
-		protected function _loadZonesgeographiques() {
-			if( $this->Session->check( 'Auth.User' ) && $this->Session->read( 'Auth.User.filtre_zone_geo' ) && !$this->Session->check( 'Auth.Zonegeographique' ) ) {
-				$qd_users_zonegeographiques = array(
-					'fields' => array(
-						'Zonegeographique.id',
-						'Zonegeographique.codeinsee'
-					),
-					'contain' => array(
-						'Zonegeographique'
-					),
-					'conditions' => array(
-						'UserZonegeographique.user_id' => $this->Session->read( 'Auth.User.id' )
-					)
-				);
-				$results = $this->User->UserZonegeographique->find( 'all', $qd_users_zonegeographiques );
-
-				if( count( $results ) > 0 ) {
-					$zones = array( );
-					foreach( $results as $result ) {
-						$zones[$result['Zonegeographique']['id']] = $result['Zonegeographique']['codeinsee'];
-					}
-					$this->Session->write( 'Auth.Zonegeographique', $zones ); // FIXME: vide -> rééxécute ?
-				}
-			}
-		}
-
-		/**
-		 * Chargement du service instructeur de l'utilisateur connecté, lancement
-		 * d'une erreur 500 si aucun service instructeur n'est associé à l'utilisateur
-		 *
-		 * @return void
-		 */
-		protected function _loadServiceInstructeur() {
-			if( !$this->Session->check( 'Auth.Serviceinstructeur' ) ) {
-				$qd_service = array(
-					'conditions' => array(
-						'Serviceinstructeur.id' => $this->Session->read( 'Auth.User.serviceinstructeur_id' )
-					),
-					'fields' => null,
-					'order' => null,
-					'recursive' => -1
-				);
-				$service = $this->User->Serviceinstructeur->find( 'first', $qd_service );
-				$this->assert( !empty( $service ), 'error500' );
-				$this->Session->write( 'Auth.Serviceinstructeur', $service['Serviceinstructeur'] );
-			}
-		}
-
-		/**
-		 * Chargement du groupe de l'utilisateur connecté, lancement
-		 * d'une erreur 500 si aucun groupe n'est associé à l'utilisateur
-		 *
-		 * @return void
-		 */
-		protected function _loadGroup() {
-			if( !$this->Session->check( 'Auth.Group' ) ) {
-				$qd_group = array(
-					'conditions' => array(
-						'Group.id' => $this->Session->read( 'Auth.User.group_id' )
-					),
-					'fields' => null,
-					'order' => null,
-					'recursive' => -1
-				);
-				$group = $this->User->Group->find( 'first', $qd_group );
-				$this->assert( !empty( $group ), 'error500' );
-				$this->Session->write( 'Auth.Group', $group['Group'] );
-			}
-		}
-
-		/**
 		 * Supprime les jetons et l'entrée dans la table connections.
 		 *
 		 * @param integer $user_id
@@ -485,26 +397,7 @@
 				}
 				// Fin utilisateurs concurrents
 
-				// lecture du service de l'utilisateur authentifié
-				$group = $this->User->Group->find(
-					'first',
-					array(
-						'conditions' => array(
-							'Group.id' => $authUser['User']['group_id']
-						),
-						'contain' => false
-					)
-				);
-				$authUser['User']['aroAlias'] = $authUser['User']['username'];
-				/* lecture de la collectivite de l'utilisateur authentifié */
-				$this->Session->write( 'Auth', $authUser );
-
-				// chargements des informations complémentaires
-				$this->_loadPermissions();
-				$this->_loadZonesgeographiques();
-				$this->_loadGroup();
-				$this->_loadServiceInstructeur();
-				$this->WebrsaUsers->loadStructurereferente();
+				$this->WebrsaUsers->load();
 
 				// Supprimer la vue cachée du menu
 				$this->_deleteCachedElements( $authUser );

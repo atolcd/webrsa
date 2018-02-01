@@ -51,7 +51,7 @@
 				'Validation2.Validation2DefaultFormatter' => array(
 					'trim' => array( 'NOT' => array( 'binary' ) ),
 					'null' => true,
-					'numeric' => array( 'float', 'integer' ),
+					'numeric' => array( 'float', 'decimal', 'integer', 'biginteger' ),
 					'suffix'  => '/_id$/'
 				)
 			),

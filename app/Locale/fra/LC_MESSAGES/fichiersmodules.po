@@ -1,0 +1,77 @@
+# Traductions de fichiersmodules.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+# FichiersmodulesShell
+# ==============================================================================
+
+msgid "module"
+msgstr "Module (nom technique)"
+
+msgid "module_long"
+msgstr "Module"
+
+msgid "count"
+msgstr "Enregistrements du module"
+
+msgid "linked"
+msgstr "Enregistrements du module ayant des fichiers liés"
+
+msgid "files"
+msgstr "Fichiers liés aux enregistrements du module"
+
+msgid "error_has_0"
+msgstr "Enregistrements du module dont le statut « sans fichier lié » est faux"
+
+msgid "error_has_1"
+msgstr "Enregistrements du module dont le statut « avec fichier(s) lié(s) » est faux"
+
+msgid "error_orphans"
+msgstr "Fichiers orphelins liés au module"
+
+# ------------------------------------------------------------------------------
+# Modules
+# ------------------------------------------------------------------------------
+
+msgid "APRE"
+msgstr "APRE"
+
+msgid "Contratinsertion"
+msgstr "CER"
+
+msgid "Cui"
+msgstr "CUI"
+
+msgid "Dsp"
+msgstr "DSP mises à jour"
+
+msgid "Entretien"
+msgstr "Entretiens"
+
+msgid "Memo"
+msgstr "Mémos"
+
+msgid "Orientstruct"
+msgstr "Orientations"
+
+msgid "Personne"
+msgstr "Personnes"
+
+msgid "PersonneReferent"
+msgstr "Référents du parcours"
+
+msgid "Propopdo"
+msgstr "PDO"
+
+msgid "Rendezvous"
+msgstr "Rendez-vous"
+
+msgid "Traitementpdo"
+msgstr "Traitement PDO"

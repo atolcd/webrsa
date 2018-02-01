@@ -591,7 +591,7 @@
 		 */
 		public function deleteAllUnBound( $conditions, $cascade = true, $callbacks = false ) {
 			$this->unbindModelAll();
-			$success = parent::deleteAll( $conditions, $cascade, $callbacks );
+			$success = $this->deleteAll( $conditions, $cascade, $callbacks );
 			$this->resetAssociations();
 
 			return $success;

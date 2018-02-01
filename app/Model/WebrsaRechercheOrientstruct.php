@@ -76,6 +76,7 @@
 				'Modecontact' => 'LEFT OUTER',
 				'Typeorient' => 'LEFT OUTER',
 				'Structurereferente' => 'LEFT OUTER',
+				'Structureorientante' => 'LEFT OUTER',
 				'Structurereferenteparcours' => 'LEFT OUTER',
 				'Suiviinstruction' => 'LEFT OUTER',
 				'Serviceinstructeur' => 'LEFT OUTER',
@@ -97,6 +98,7 @@
 							$this->Orientstruct->Personne->PersonneReferent,
 							$this->Orientstruct->Typeorient,
 							$this->Orientstruct->Typeorient->Structurereferente,
+							$this->Orientstruct->Structureorientante,
 							$this->Informationpe,
 							$this->Informationpe->Historiqueetatpe,
 							$this->Orientstruct->Personne->Foyer->Modecontact
@@ -116,6 +118,7 @@
 					array(
 						$this->Orientstruct->join( 'Typeorient', array( 'type' => $types['Typeorient'] ) ),
 						$this->Orientstruct->join( 'Structurereferente', array( 'type' => $types['Structurereferente'] ) ),
+						$this->Orientstruct->join( 'Structureorientante', array( 'type' => $types['Structureorientante'] ) ),
 						$this->Informationpe->joinPersonneInformationpe( 'Personne', 'Informationpe', $types['Informationpe'] ),
 						$this->Informationpe->Historiqueetatpe->joinInformationpeHistoriqueetatpe( true, 'Informationpe', 'Historiqueetatpe', $types['Historiqueetatpe'] ),
 						$this->Orientstruct->Personne->Foyer->join(

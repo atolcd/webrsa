@@ -31,6 +31,16 @@
 	}
 
 	/**
+	 * GrandChildClass class
+	 *
+	 * @package app.Test.Case
+	 */
+	class GrandChildClass extends ChildClass
+	{
+		public function baz() {}
+	}
+
+	/**
 	 * BasicsTest class
 	 *
 	 * @see http://book.cakephp.org/2.0/en/development/testing.html
@@ -54,11 +64,11 @@
 
 			$result = array_filter_keys( $array, array( 'foo' ), false );
 			$expected = array( 'foo' => 1 );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = array_filter_keys( $array, array( 'foo' ), true );
 			$expected = array( 'bar' => 2 );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -69,7 +79,7 @@
 
 			$result = recursive_key_value_preg_replace( $array, array( '/foo/' => 'Foo' ) );
 			$expected = array( 'Foo' => 1, 'bar' => 'Foo', 'baz' => array( 'Foo' => 'Foo' ) );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -80,11 +90,11 @@
 
 			$result = strallpos( $string, "'" );
 			$expected = array( 20 );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = strallpos( $string, 'sse' );
 			$expected = array( 8, 31 );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -103,11 +113,11 @@
 		public function testModelField() {
 			$result = model_field( 'Foo.bar' );
 			$expected = array( 'Foo', 'bar' );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = model_field( 'Foo.Bar.baz' );
 			$expected = array( 'Bar', 'baz' );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -132,15 +142,15 @@
 		public function testByteSize() {
 			$result = byteSize( 1024 );
 			$expected = '1.00 KB';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = byteSize( 2 * 1024 * 1024 );
 			$expected = '2.00 MB';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = byteSize( 3 * 1024 * 1024 * 1024 );
 			$expected = '3.00 GB';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -149,19 +159,19 @@
 		public function testValidInt() {
 			$result = valid_int( 1024 );
 			$expected = true;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = valid_int( '1024' );
 			$expected = true;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = valid_int( 'foo' );
 			$expected = false;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = valid_int( null );
 			$expected = false;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -170,15 +180,15 @@
 		public function testValidDate() {
 			$result = valid_date( array( 'day' => '30', 'month' => '01', 'year' => '2009' ) );
 			$expected = true;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = valid_date( array( 'day' => '30', 'month' => '', 'year' => '2009' ) );
 			$expected = false;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = valid_int( null );
 			$expected = false;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -187,15 +197,15 @@
 		public function testDateShort() {
 			$result = date_short( '2012-01-02' );
 			$expected = '02/01/2012';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = date_short( '2012-02-28 11:05:33' );
 			$expected = '28/02/2012';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = date_short( null );
 			$expected = null;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -204,7 +214,7 @@
 		public function testRequired() {
 			$result = required( 'Foo' );
 			$expected = 'Foo <abbr class="required" title="Champ obligatoire">*</abbr>';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -230,19 +240,19 @@
 		public function testSec2hms() {
 			$result = sec2hms( 12 );
 			$expected = '0:00:12';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = sec2hms( ( ( 60 * 2 ) + 12 ) );
 			$expected = '0:02:12';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = sec2hms( ( ( 3 * 60 * 60 ) + ( 2* 60 ) + 12 ) );
 			$expected = '3:02:12';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = sec2hms( ( ( 3 * 60 * 60 ) + ( 2* 60 ) + 12 ), true );
 			$expected = '03:02:12';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -251,19 +261,19 @@
 		public function testSuffix() {
 			$result = suffix( '11_4' );
 			$expected = 4;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = suffix( '11_4.2', '.' );
 			$expected = 2;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = suffix( '11+4', '+' );
 			$expected = '4';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = suffix( '12+-+5', '+-+' );
 			$expected = '5';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = suffix( '11_' );
 			$this->assertNull( $result );
@@ -280,11 +290,11 @@
 		public function testSuffixArray() {
 			$result = suffix( array( '11_4', '13' ) );
 			$expected = array( 4, 13 );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = suffix( array( '11_4.2', '11_4.3', '11_4' ), '.' );
 			$expected = array( 2, 3, '11_4' );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -293,19 +303,19 @@
 		public function testPrefix() {
 			$result = prefix( '11_4' );
 			$expected = 11;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = prefix( '11_4.2', '.' );
 			$expected = '11_4';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = prefix( '11+4', '+' );
 			$expected = '11';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = prefix( '12+-+5', '+-+' );
 			$expected = '12';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = prefix( '_11' );
 			$this->assertNull( $result );
@@ -322,11 +332,11 @@
 		public function testPrefixArray() {
 			$result = prefix( array( '11_4', '13' ) );
 			$expected = array( 11, 13 );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = prefix( array( '11_4.2', '11_4.3', '11_4' ), '.' );
 			$expected = array( '11_4', '11_4', '11_4' );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -335,7 +345,7 @@
 		public function testArrayDepth() {
 			$result = array_depth( array( array( null ) ) );
 			$expected = 2;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -346,11 +356,11 @@
 
 			$result = dateComplete( $data, 'User.birthday' );
 			$expected = true;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = dateComplete( $data, 'User.arrival' );
 			$expected = false;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -361,15 +371,15 @@
 
 			$result = implode_assoc( '/', ':', $data );
 			$expected = 'foo:bar/bar:baz/baz:';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = implode_assoc( '/', ':', $data, false );
 			$expected = 'foo:bar/bar:baz';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = implode_assoc( '/', ':', array( 'foo' => array( 'bar', 'baz' ) ) );
 			$expected = 'foo[]:bar/foo[]:baz';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -379,11 +389,11 @@
 			$data = array( 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 );
 			$result = array_avg( $data );
 			$expected = 5;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = array_avg( array() );
 			$expected = false;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -392,11 +402,11 @@
 		public function testArrayRange() {
 			$result = array_range( 2, 3 );
 			$expected = array( 2 => 2, 3 => 3 );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = array_range( 2, 5, 2 );
 			$expected = array( 2 => 2, 4 => 4 );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -407,11 +417,11 @@
 
 			$result = array_intersects( array( 1, 2, 3 ), $haystack );
 			$expected = array( 1, 2 );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = array_intersects( array( 3, 5 ), $haystack );
 			$expected = array();
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -422,11 +432,11 @@
 
 			$result = array_filter_values( $data, array( 'bar' ) );
 			$expected = array( 'foo' => 'bar' );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = array_filter_values( $data, array( 'bar' ), true );
 			$expected = array( 'bar' => 'baz', 'baz' => null );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -435,11 +445,41 @@
 		public function testGetThisClassMethods() {
 			$result = get_this_class_methods( 'ParentClass' );
 			$expected = array( 'foo' );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = get_this_class_methods( 'ChildClass' );
 			$expected = array( 1 => 'bar' );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+		}
+
+		/**
+		 * Test de la fonction get_class_hierarchy()
+		 */
+		public function testGetClassHierarchy() {
+			// 1. Avec un nom de classe vide.
+			$result = get_class_hierarchy( null );
+			$expected = array();
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			// 2. Avec une sous-sous classe
+			$result = get_class_hierarchy( 'GrandChildClass' );
+			$expected = array( 'GrandChildClass', 'ChildClass', 'ParentClass' );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			// 3. Avec une sous classe
+			$result = get_class_hierarchy( 'ChildClass' );
+			$expected = array( 'ChildClass', 'ParentClass' );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			// 4. Avec une sous classe, en s'arrêtant avant la classe parente
+			$result = get_class_hierarchy( 'ChildClass', 'ParentClass' );
+			$expected = array( 'ChildClass' );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			// 5. En s'arrêtant avant le nom de classe passé en paramètre
+			$result = get_class_hierarchy( 'ChildClass', 'ChildClass' );
+			$expected = array();
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -450,11 +490,11 @@
 
 			$result = array_any_key_exists( array( 'bar', 'mu' ), $data );
 			$expected = true;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = array_any_key_exists( 'mu', $data );
 			$expected = false;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -463,11 +503,11 @@
 		public function testNullifyEmptyValues() {
 			$result = nullify_empty_values( array( 'foo' => ' ', 'bar' => '', 'baz' => null ) );
 			$expected = array( 'foo' => null, 'bar' => null, 'baz' => null );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = nullify_empty_values( array( 'foo' => ' x ' ) );
 			$expected = array( 'foo' => ' x ' );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -476,19 +516,19 @@
 		public function testAge() {
 			$result = age( null );
 			$expected = null;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = age( date( 'Y-m-d', strtotime( '-1 year' ) ) );
 			$expected = 1;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = age( date( 'Y-m-d', strtotime( '-33 year -6 months' ) ) );
 			$expected = 33;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = age( date( 'Y-m-d', strtotime( '1979-01-24' ) ), date( 'Y-m-d', strtotime( '2013-07-02' ) ) );
 			$expected = 34;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -497,11 +537,11 @@
 		 public function testCleNir() {
 			$result = cle_nir( '179012A001234' );
 			$expected = '71';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = cle_nir( '179012B001234' );
 			$expected = '01';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -526,11 +566,11 @@
 		 public function testValidNir() {
 			$result = valid_nir( '179012A00123471' );
 			$expected = true;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = valid_nir( 'A79012A00123471' );
 			$expected = false;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -543,7 +583,7 @@
 				array( 'Foo' => 'Baz' )
 			);
 			$expected = 'Baz.bar = Bar.foo';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			// 2. Pour des conditions de query CakePHP
 			$result = words_replace(
@@ -551,7 +591,7 @@
 				array( '{$__cakeID__$}' => 594593 )
 			);
 			$expected = '"Fichiermodule"."modele" = \'Personne\' AND "Fichiermodule"."fk_value" = 594593';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -564,7 +604,7 @@
 				array( 'Foo' => 'Baz' )
 			);
 			$expected = array( 'Baz.id' => array( 'Bar' => 1 ), 'Foobar' => array( 'Baz.bar = Bar.foo' ) );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			// 2. Pour des conditions de query CakePHP
 			$result = array_words_replace(
@@ -572,7 +612,7 @@
 				array( '{$__cakeID__$}' => 594593 )
 			);
 			$expected = array( '"Fichiermodule"."modele" = \'Personne\' AND "Fichiermodule"."fk_value" = 594593' );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -586,7 +626,7 @@
 				array( 'Foo' => 'Baz' )
 			);
 			$expected = 'Baz.bar = Bar.foo';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			// 2. Pour des conditions de query CakePHP
 			$result = alias(
@@ -594,7 +634,7 @@
 				array( '{$__cakeID__$}' => 594593 )
 			);
 			$expected = '"Fichiermodule"."modele" = \'Personne\' AND "Fichiermodule"."fk_value" = 594593';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		 /**
@@ -607,7 +647,7 @@
 				array( 'Foo' => 'Baz' )
 			);
 			$expected = array( 'Baz.id' => array( 'Bar' => 1 ), 'Foobar' => array( 'Baz.bar = Bar.foo' ) );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			// 2. Pour des conditions de query CakePHP
 			$result = alias(
@@ -615,7 +655,7 @@
 				array( '{$__cakeID__$}' => 594593 )
 			);
 			$expected = array( '"Fichiermodule"."modele" = \'Personne\' AND "Fichiermodule"."fk_value" = 594593' );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -625,7 +665,7 @@
 			 $data = array( 'Foo.id' => array( 'Bar' => 1 ), 'Foobar' => array( 'Foo.bar = Bar.foo' ) );
 			$result = php_associative_array_to_js( $data );
 			$expected = '{ "Foo.id" : { "Bar" : "1" }, "Foobar" : { "0" : "Foo.bar = Bar.foo" } }';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -675,11 +715,11 @@
 		 public function testDateCakephpToSql() {
 			$result = date_cakephp_to_sql( array( 'year' => '1979', 'month' => '01', 'day' => '24' ) );
 			$expected = '1979-01-24';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = date_cakephp_to_sql( array( 'year' => '1979', 'month' => '01', 'day' => '24', 'minutes' => 50 ) );
 			$expected = false;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -688,15 +728,15 @@
 		 public function testTimeCakephpToSql() {
 			$result = time_cakephp_to_sql( array( 'hour' => '15', 'min' => '01' ) );
 			$expected = '15:01:00';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = time_cakephp_to_sql( array( 'hour' => '15', 'min' => '01', 'sec' => '30' ) );
 			$expected = '15:01:30';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = time_cakephp_to_sql( array( 'hour' => '15', 'min' => '01', 'sec' => '30', 'year' => '2012' ) );
 			$expected = false;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -705,11 +745,11 @@
 		 public function testDateSqlToCakephp() {
 			$result = date_sql_to_cakephp( '1979-01-24' );
 			$expected = array( 'year' => '1979', 'month' => '01', 'day' => '24' );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = date_sql_to_cakephp( '1979-01' );
 			$expected = array( 'year' => null, 'month' => null, 'day' => null );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -722,15 +762,15 @@
 
 			$result = full_array_diff( $a1, $a1 );
 			$expected = array();
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = full_array_diff( $a1, $a2 );
 			$expected = array( 4 => 'baz' );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = full_array_diff( $a1, $a3 );
 			$expected = array( 'foo', 3 => 'baz' );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -739,11 +779,11 @@
 		 public function testValue() {
 			$result = value( array( 'foo' => 'bar', 'bar' => 'baz' ), 'bar' );
 			$expected = 'baz';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = value( array( 'foo' => 'bar', 'bar' => 'baz' ), 'baz' );
 			$expected = null;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -752,7 +792,7 @@
 		 public function testReplaceAccents() {
 			$result = replace_accents( 'Âéï' );
 			$expected = 'Aei';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -761,7 +801,7 @@
 		 public function testNoaccentsUpper() {
 			$result = noaccents_upper( 'Âéï' );
 			$expected = 'AEI';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -770,7 +810,7 @@
 		 public function testDomId() {
 			$result = domId( 'Foo.bar_id' );
 			$expected = 'FooBarId';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -779,11 +819,11 @@
 		 public function testValidRib() {
 			$result = validRib( '20041', '01005', '0500013M026', '06' );
 			$expected = true;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = validRib( '00000', '0000000000', '0000000000', '97' );
 			$expected = false;
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -792,7 +832,7 @@
 		 public function testVfListeToArray() {
 			$result =  vfListeToArray( "- CAF\n\r- MSA" );
 			$expected = array( ' CAF', ' MSA' );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		/**
@@ -801,7 +841,7 @@
 		 public function testJsEscape() {
 			$result =  js_escape( "Bonjour Monsieur \"Auzolat\"\nvous devez vous présenter ..." );
 			$expected = 'Bonjour Monsieur \\"Auzolat\\"\\nvous devez vous présenter ...';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
 		 /**
@@ -845,7 +885,7 @@
 			$string = ' "Foo, bar" ';
 			$result = trim_mixed( $string );
 			$expected = 'Foo, bar';
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			// 2. Avec un array à une dimension
 			$array = array(
@@ -857,7 +897,7 @@
 				0 => 'Baz',
 				'foo' => 'Foo, bar',
 			);
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			// 3. Avec un array à plusieurs dimensions
 			$array = array(
@@ -875,7 +915,7 @@
 					2 => 'Bar',
 				),
 			);
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -897,7 +937,7 @@
 				'93200',
 				'Saint   Denis',
 			);
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			// 2. Séparateur et délimiteur spécifiés
 			$line = "Foo;' Bar; ';'\'Baz'";
@@ -907,7 +947,24 @@
 				'Bar;',
 				'\\\'Baz',
 			);
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+		}
+
+		/**
+		 * Test de la fonction str_putcsv().
+		 */
+		public function testStrPutcsv() {
+			// Sans données
+			$data = array();
+			$result = str_putcsv( $data );
+			$expected = '';
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			// Avec des données
+			$data = array( 'Foo Bar', 123, 987.654, 'Baz' );
+			$result = str_putcsv( $data );
+			$expected = '"Foo Bar",123,"987,654",Baz';
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -932,7 +989,7 @@
 				'Bar.Baz',
 				'Baz',
 			);
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -1004,7 +1061,7 @@
 				)
 			);
 
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -1066,7 +1123,7 @@
 			);
 
 			$result = hash_filter_keys( $data, $filters );
-			$this->assertEqual( $result, $expected, var_export( $result, true ) );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
 		/**
@@ -1212,6 +1269,123 @@
 			$array2 = array( 1 => array( 4 => array( 0 => 'Bar' ), 5 => 'Boz' ), 6 => 'Buz' );
 			$result = array_complete_recursive( $array1, $array2 );
 			$expected = array( 1 => array( 4 => 'Foo', 5 => 'Boz' ), 2 => 'Bar', 3 => 'Baz', 6 => 'Buz' );
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+		}
+
+		/**
+		 * Test de la fonction parseSearchUrl().
+		 */
+		public function testParseSearchUrl() {
+			// Une URL erronée
+			$result = parseSearchUrl( '123' );
+			$expected = array();
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			// Une URL sans l'action
+			$result = parseSearchUrl( '/users' );
+			$expected = array();
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			// Une URL avec des paramètres GET
+			$result = parseSearchUrl( '/users/search/?foo=bar' );
+			$expected = array();
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			// Une URL simple
+			$result = parseSearchUrl( '.../controller/action/param1:valeur1' );
+			$expected = array(
+				'controller' => 'controller',
+				'action' => 'action',
+				'named' => array(
+					'param1' => 'valeur1',
+				),
+				'pass' => array(),
+				'plugin' => NULL,
+			);
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			// Une URL au format attendu, à la racine.
+			$url = 'http://webrsa.cg66.fr/traitementspcgs66/search/Search__Dossier__dernier:0/Search__Dossier__dtdemrsa:0/Search__Situationdossierrsa__etatdosrsa_choice:0/Search__Detailcalculdroitrsa__natpf_choice:0/Search__Detaildroitrsa__oridemrsa_choice:0/Search__Dossierpcg66__user_id__0:438/Search__Dossierpcg66__user_id__1:539/Search__Dossierpcg66__user_id__2:440/Search__Dossierpcg66__user_id__3:443/Search__Dossierpcg66__user_id__4:444/Search__Dossierpcg66__user_id__5:439/Search__Dossierpcg66__user_id__6:437/Search__Dossierpcg66__dateaffectation:0/Search__Traitementpcg66__dateecheance:0/Search__Traitementpcg66__daterevision:0/Search__Traitementpcg66__created:1/Search__Traitementpcg66__created_from__day:01/Search__Traitementpcg66__created_from__month:01/Search__Traitementpcg66__created_from__year:2017/Search__Traitementpcg66__created_to__day:31/Search__Traitementpcg66__created_to__month:12/Search__Traitementpcg66__created_to__year:2017/Search__Traitementpcg66__etattraitementpcg:contr%C3%B4ler/Search__Pagination__nombre_total:1';
+			$result = parseSearchUrl( $url );
+			$expected = array(
+				'controller' => 'traitementspcgs66',
+				'action' => 'search',
+				'named' => array(
+					'Search__Dossier__dernier' => '0',
+					'Search__Dossier__dtdemrsa' => '0',
+					'Search__Situationdossierrsa__etatdosrsa_choice' => '0',
+					'Search__Detailcalculdroitrsa__natpf_choice' => '0',
+					'Search__Detaildroitrsa__oridemrsa_choice' => '0',
+					'Search__Dossierpcg66__user_id__0' => '438',
+					'Search__Dossierpcg66__user_id__1' => '539',
+					'Search__Dossierpcg66__user_id__2' => '440',
+					'Search__Dossierpcg66__user_id__3' => '443',
+					'Search__Dossierpcg66__user_id__4' => '444',
+					'Search__Dossierpcg66__user_id__5' => '439',
+					'Search__Dossierpcg66__user_id__6' => '437',
+					'Search__Dossierpcg66__dateaffectation' => '0',
+					'Search__Traitementpcg66__dateecheance' => '0',
+					'Search__Traitementpcg66__daterevision' => '0',
+					'Search__Traitementpcg66__created' => '1',
+					'Search__Traitementpcg66__created_from__day' => '01',
+					'Search__Traitementpcg66__created_from__month' => '01',
+					'Search__Traitementpcg66__created_from__year' => '2017',
+					'Search__Traitementpcg66__created_to__day' => '31',
+					'Search__Traitementpcg66__created_to__month' => '12',
+					'Search__Traitementpcg66__created_to__year' => '2017',
+					'Search__Traitementpcg66__etattraitementpcg' => 'contrôler',
+					'Search__Pagination__nombre_total' => '1',
+				),
+				'pass' => array(),
+				'plugin' => NULL,
+			);
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			// Une URL au format attendu, dans un sous-répertoire
+			$url = 'http://localhost/webrsa/WebRSA-trunk/dossierspcgs66/search/Search__Dossier__dernier:0/Search__Dossier__dtdemrsa:0/Search__Situationdossierrsa__etatdosrsa_choice:0/Search__Detailcalculdroitrsa__natpf_choice:0/Search__Detaildroitrsa__oridemrsa_choice:0/Search__Dossierpcg66__datereceptionpdo:0/Search__Dossierpcg66__user_id__0:528/Search__Dossierpcg66__dateaffectation:0/Search__Dossierpcg66__etatdossierpcg__0:attinstr/Search__Dossierpcg66__etatdossierpcg__1:attinstrdocarrive/Search__Dossierpcg66__etatdossierpcg__2:instrencours/Search__Decisiondossierpcg66__datevalidation:0/Search__Decisiondossierpcg66__datetransmissionop:0/Search__Pagination__nombre_total:1';
+			$result = parseSearchUrl( $url );
+			$expected = array(
+				'controller' => 'dossierspcgs66',
+				'action' => 'search',
+				'named' => array(
+					'Search__Dossier__dernier' => '0',
+					'Search__Dossier__dtdemrsa' => '0',
+					'Search__Situationdossierrsa__etatdosrsa_choice' => '0',
+					'Search__Detailcalculdroitrsa__natpf_choice' => '0',
+					'Search__Detaildroitrsa__oridemrsa_choice' => '0',
+					'Search__Dossierpcg66__datereceptionpdo' => '0',
+					'Search__Dossierpcg66__user_id__0' => '528',
+					'Search__Dossierpcg66__dateaffectation' => '0',
+					'Search__Dossierpcg66__etatdossierpcg__0' => 'attinstr',
+					'Search__Dossierpcg66__etatdossierpcg__1' => 'attinstrdocarrive',
+					'Search__Dossierpcg66__etatdossierpcg__2' => 'instrencours',
+					'Search__Decisiondossierpcg66__datevalidation' => '0',
+					'Search__Decisiondossierpcg66__datetransmissionop' => '0',
+					'Search__Pagination__nombre_total' => '1',
+				),
+				'pass' => array(),
+				'plugin' => NULL,
+			);
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			// Une URL au format attendu, dans un sous-répertoire
+			$url = 'http://localhost/webrsa/WebRSA-trunk/contratsinsertion/cohorte_cersimpleavalider/Search__Dossier__dernier:1/Search__Dossier__dtdemrsa:0/Search__Situationdossierrsa__etatdosrsa_choice:0/Search__Detailcalculdroitrsa__natpf_choice:0/Search__Detaildroitrsa__oridemrsa_choice:0/Search__Contratinsertion__created:0/Search__Pagination__nombre_total:0/sessionKey:da39a3ee5e6b4b0d3255bfef95601890afd80709';
+			$result = parseSearchUrl( $url, array( 'sessionKey' ) );
+			$expected = array(
+				'controller' => 'contratsinsertion',
+				'action' => 'cohorte_cersimpleavalider',
+				'named' => array(
+					'Search__Dossier__dernier' => '1',
+					'Search__Dossier__dtdemrsa' => '0',
+					'Search__Situationdossierrsa__etatdosrsa_choice' => '0',
+					'Search__Detailcalculdroitrsa__natpf_choice' => '0',
+					'Search__Detaildroitrsa__oridemrsa_choice' => '0',
+					'Search__Contratinsertion__created' => '0',
+					'Search__Pagination__nombre_total' => '0',
+				),
+				'pass' => array(),
+				'plugin' => NULL,
+			);
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 	}

@@ -99,42 +99,65 @@
 				'joins' => array(
 					$this->Role->join('RoleUser'),
 				),
-				'contain' => array('Actionrole' => array('Categorieactionrole')),
+				'contain' => array(
+					'Actionrole' => array(
+						'Actionroleresultuser' => array(
+							'conditions' => array(
+								'Actionroleresultuser.user_id' => $this->Session->read('Auth.User.id')
+							)
+						),
+						'Categorieactionrole'
+					)
+				),
 				'conditions' => array(
 					'Role.actif' => 1,
 					'RoleUser.user_id' => $this->Session->read('Auth.User.id'),
 				)
 			);
 			$roles = $this->Role->find('all', $query);
-
-			$this->set('roles', $this->Dashboard->addCounts($roles));
+			$this->set(compact('roles'));
 		}
 
 		/**
-		 * Supprime le cache pour un role_id donné
+		 * Mise à jour du cache pour un role_id donné.
 		 *
-		 * @param integer $id_reset - role_id
+		 * @param integer $role_id
 		 */
-		public function reset_cache($id_reset) {
-			Cache::config('one day', array(
-				'engine' => 'File',
-				'duration' => '+1 day',
-				'path' => CACHE,
-				'prefix' => 'cake_oneday_'
-			));
-
-			// On vérifi que l'utilisateur possède le role avant reset
+		public function reset_cache($role_id) {
+			// On vérifie que l'utilisateur possède le role avant reset
 			$query = array(
-				'fields' => 'RoleUser.id',
 				'conditions' => array(
 					'RoleUser.user_id' => $this->Session->read('Auth.User.id'),
-					'RoleUser.role_id' => $id_reset
+					'RoleUser.role_id' => $role_id
+				),
+				'contain' => array(
+					'Role' => array(
+						'Actionrole' => array(
+							'Actionroleresultuser'
+						)
+					)
 				)
 			);
-			if ($this->Role->RoleUser->find('first', $query)) {
-				$keyCache = 'role_'.$id_reset;
-				Cache::delete($keyCache, 'one day');
-				$this->Flash->success( 'Calcul du nombre de résultats effectué' );
+			$result = $this->Role->RoleUser->find('first', $query);
+
+			if (false === empty($result)) {
+				$this->Role->begin();
+				$success = true;
+
+				foreach($result['Role']['Actionrole'] as $actionrole) {
+					$success = $this->Role->Actionrole->Actionroleresultuser->refresh(
+						$actionrole['id'],
+						$this->Session->read('Auth.User.id')
+					) && $success;
+				}
+				if(true === $success) {
+					$this->Role->commit();
+					$this->Flash->success( 'Calcul du nombre de résultats effectué' );
+				}
+				else {
+					$this->Role->rollback();
+					$this->Flash->error( 'Erreur(s) lors du calcul du nombre de résultats' );
+				}
 			} else {
 				$this->Flash->error( 'Le calcul vous a été refusé' );
 			}

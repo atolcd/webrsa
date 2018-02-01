@@ -200,6 +200,7 @@
 					}
 					break;
 				case 'float':
+				case 'decimal':
 					$classes = "number $type ".( ( $value >= 0 ) ? 'positive' : 'negative' );
 					$value = $this->Locale->number( $value, 2 );
 					break;

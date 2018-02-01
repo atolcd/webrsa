@@ -37,6 +37,24 @@
 		public $components = array( 'Allocataires' );
 
 		/**
+		 * Surcharge du constructeur pour s'assurer que les components des
+		 * différentes classes de l'héritage soient chargées.
+		 *
+		 * @param \ComponentCollection $collection
+		 * @param array $settings
+		 */
+		public function __construct( \ComponentCollection $collection, $settings = array() ) {
+			$ancestors = get_class_hierarchy( get_called_class(), 'Component' );
+
+			foreach( $ancestors as $ancestor ) {
+				$parentClass = get_parent_class( $ancestor );
+				$this->_mergeVars( array( 'components' ), $parentClass );
+			}
+
+			parent::__construct( $collection, $settings );
+		}
+
+		/**
 		 * Retourne un array avec clés de paramètres suivantes complétées en
 		 * fonction du contrôleur:
 		 *	- modelName: le nom du modèle sur lequel se fera la pagination
@@ -295,7 +313,7 @@
 			$Controller = $this->_Collection->getController();
 
 			$search = array();
-			if( $Controller->request->is( 'get' ) ) {
+			if( $Controller->request->is( 'get' ) || false !== strpos( PHP_SAPI, 'cli' ) ) {
 				if( empty( $params['searchKey'] ) === false ) {
 					if( isset( $Controller->request->data[$params['searchKey']] ) ) {
 						$search = $Controller->request->data[$params['searchKey']];
@@ -390,13 +408,13 @@
 				$query,
 				$filters
 			);
-			
+
 			// Conditions configurables
 			$query['conditions'] = array_merge(
 				(array)Hash::get($query, 'conditions'),
 				$this->Allocataires->configurableConditions($filters, $params)
 			);
-			
+
 			return $query;
 		}
 
@@ -506,7 +524,7 @@
 				);
 				$Controller->set('moduleSavesearchDispo', ClassRegistry::init('Savesearch')->getAvailablesSearchs($conditions));
 			}
-			
+
 			$Controller->set('configurableQueryParams', $params);
 		}
 
@@ -586,6 +604,32 @@
 			// Propre à l'export CSV, fichier de vue pour le rendu, sans layout
 			$Controller->view = $params['view'];
 			$Controller->layout = null;
+		}
+
+		/**
+		 *
+		 * @param array $params
+		 */
+		final public function query( array $params = array(), array $filters = array() ) {
+			$Controller = $this->_Collection->getController();
+			$defaults = array( 'keys' => array( 'results.fields' ), 'limit' => false, 'view' => '/Elements/ConfigurableQuery/exportcsv' );
+			$params = $this->_params( $params + $defaults );
+
+			// Initialisation de la recherche
+			$this->_initializeSearch( $params );
+
+			// Récupération des valeurs du formulaire de recherche
+			$Controller->request->data = $filters;
+			$filters = $this->_filters( $params );
+
+			// Récupération du query
+			$query = $this->_query( $filters, $params );
+
+			// Exécution du query et assignation des résultats
+			$Controller->{$params['modelName']}->forceVirtualFields = true;
+			$query = $this->_fireBeforeSearch( $params, $query );
+
+			return $query;
 		}
 
 		/**

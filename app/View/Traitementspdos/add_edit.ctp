@@ -816,6 +816,7 @@
 			);
 		?>
 	</fieldset>
+	<?php echo $this->Fileuploader->validation( 'traitementpdoform', 'Traitementpdo', 'Pièce jointe' );?>
 </fieldset>
 
 <script type="text/javascript">

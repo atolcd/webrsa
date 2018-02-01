@@ -49,6 +49,9 @@
 					'Adresse.nomcom',
 					'Dossier.dtdemrsa',
 					'Orientstruct.date_valid',
+					'Structureorientante.lib_struc' => array(
+						'label' => 'Structure orientante'
+					),
 					'Typeorient.lib_type_orient',
 					'Structurereferente.lib_struc',
 					'Orientstruct.statut_orient',
@@ -123,7 +126,7 @@
 			'ini_set' => Configure::read( 'ConfigurableQuery.Orientsstructs.search.ini_set' ),
 		)
 	);
-	
+
 	/**
 	 * Menu "Cohortes" > "Orientation" > "Demandes non orientées"
 	 */
@@ -147,7 +150,7 @@
 			)
 		)
 	);
-	
+
 	/**
 	 * Menu "Cohortes" > "Orientation" > "Demandes orientées"
 	 */

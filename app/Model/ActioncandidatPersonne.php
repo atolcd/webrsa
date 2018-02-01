@@ -65,6 +65,7 @@
 
 		public $actsAs = array (
 			'Allocatairelie',
+			'Fichiermodulelie',
 			'Gedooo.Gedooo',
 			'Validation2.Validation2Formattable',
 			'Validation2.Validation2RulesFieldtypes',

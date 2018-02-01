@@ -819,6 +819,15 @@
 			if( empty( $dataStructurereferente_id ) && empty( $dataReferent_id ) ) {
 				$structurereferente_id = $referent_id = null;
 
+				$structs = $this->InsertionsBeneficiaires->structuresreferentes(
+					array(
+						'type' => InsertionsBeneficiairesComponent::TYPE_IDS,
+						'prefix' => false,
+						'conditions' => array(
+							'Structurereferente.apre' => 'O'
+						) + $this->InsertionsBeneficiaires->conditions['structuresreferentes']
+					)
+				);
 
 				$structPersRef = Set::classicExtract( $personne_referent, 'PersonneReferent.structurereferente_id' );
 				// Valeur par défaut préférée: à partir de personnes_referents

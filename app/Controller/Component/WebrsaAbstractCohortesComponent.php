@@ -53,8 +53,12 @@
 		}
 
 		/**
-		 * Surcharge de queryConditions ajoutant des conditions à un querydata afin d'exclure du jeu de résultats
-		 * les dossiers lockés par d'autres utilisateurs.
+		 * Surcharge de queryConditions ajoutant des conditions à un querydata
+		 * afin d'exclure du jeu de résultats les dossiers lockés par d'autres
+		 * utilisateurs.
+		 *
+		 * Si la clé "jetons" des $params vaut false, alors les jetons sur les
+		 * dossiers ne seront pas pris en compte.
 		 *
 		 * @param array $query
 		 * @param array $filters
@@ -65,7 +69,9 @@
 			$Controller = $this->_Collection->getController();
 
 			$query = parent::_queryConditions( $query, $filters, $params );
-			$query = $Controller->Cohortes->qdConditions( $query );
+			if( false !== Hash::get( $params, 'jetons' ) ) {
+				$query = $Controller->Cohortes->qdConditions( $query );
+			}
 
 			return $query;
 		}

@@ -22,6 +22,13 @@
 		public $name = 'Categorieactionrole';
 
 		/**
+		 * Tri par défaut des enregistrements.
+		 *
+		 * @var array
+		 */
+		public $order = array( '%s.name ASC' );
+
+		/**
 		 * Behaviors utilisés par le modèle.
 		 *
 		 * @var array

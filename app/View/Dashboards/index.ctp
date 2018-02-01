@@ -1,10 +1,17 @@
 <?php
 	echo $this->Default3->titleForLayout();
-	
-	function getActionLink($url, $controller, $action) {
-		if (WebrsaPermissions::check($controller, $action)) {
+
+	function getActionLink($url) {
+		$request = parseSearchUrl( $url, array( 'sessionKey' ) );
+		if( true === empty( $request ) ) {
+			return null;
+		}
+
+		$url = Router::reverse( array( 'url' => null ) + $request );
+		if( true === WebrsaPermissions::check( $request['controller'], $request['action'] ) ) {
 			return '<a href="'.$url.'">Effectuer&nbsp;l\'action</a>';
-		} else {
+		}
+		else {
 			return '<span class="disabled">Effectuer&nbsp;l\'action</a>';
 		}
 	}
@@ -13,48 +20,39 @@
 		'controller' => 'dashboards',
 		'action' => 'reset_cache',
 	);
-	
+
 	// Séparation des onglets
 	$onglets = array();
 	foreach ($roles as $key => $role) {
 		foreach ($role['Actionrole'] as $actionrole) {
 			$onglet = Hash::get($actionrole, 'Categorieactionrole.name');
-			
+
 			if (!isset($onglets[$onglet][$key]['Role'])) {
 				$onglets[$onglet][$key]['Role'] = $role['Role'];
 			}
-			
+
 			if (!isset($onglets[$onglet][$key]['Actionrole'])) {
 				$onglets[$onglet][$key]['Actionrole'] = array();
 			}
-			
+
 			$onglets[$onglet][$key]['Actionrole'][] = $actionrole;
 		}
 	}
-	
+
 	ksort($onglets);
 ?>
-
-<ul class="ui-tabs-nav">
-	<li class="tab">
-		<a href="#">
-<?php
-	echo implode('</a></li><li class="tab"><a href="#">', array_keys($onglets));
-?>
-		</a>
-	</li>
-</ul>
 
 <div id="tabbedWrapper" class="tabs">
 <?php
 	foreach ($onglets as $ongletName => $onglet) {
-		echo '<div class="tab" id="'.$ongletName.'">';
-		
+		echo '<div id="'.Inflector::slug( $ongletName ).'">';
+		echo $this->Html->tag( 'h2', $ongletName, array( 'class' => 'title' ) );
+
 		foreach ($onglet as $role) {
 			$resetUrl = preg_replace('/%3A/', ':', Router::url($route+array(Hash::get($role, 'Role.id'))));
 
-			$reset = WebrsaPermissions::check('dashboards', 'reset_cache') 
-				? '<a href="'.$resetUrl.'">Recalculer les nombres (très longue attente)</a>' 
+			$reset = WebrsaPermissions::check('dashboards', 'reset_cache')
+				? '<p><a href="'.$resetUrl.'">Recalculer les nombres (très longue attente)</a></p>'
 				: ''
 			;
 
@@ -62,10 +60,13 @@
 				'.$reset.'
 				<table>
 					<thead>
-						<th>Intitulé de l\'action</th>
-						<th>Description</th>
-						<th>Nombre de résultats depuis le '.Hash::get($role, 'Role.date_count').'</th>
-						<th>Action</th>
+						<tr>
+							<th>Intitulé de l\'action</th>
+							<th>Description</th>
+							<th>Nombre de résultats</th>
+							<th>Dernière mise à jour</th>
+							<th>Action</th>
+						</tr>
 					</thead>
 					<tbody>'
 			;
@@ -75,45 +76,32 @@
 				echo '<tr class="'.$class.'">
 						<td>'.Hash::get($action, 'name').'</td>
 						<td>'.Hash::get($action, 'description').'</td>
-						<td>'.Hash::get($action, 'count').'</td>
-						<td>'.getActionLink(Hash::get($action, 'url'), Hash::get($action, 'controller'), Hash::get($action, 'action')).'</td>
+						<td class="number">'.Hash::get($action, 'Actionroleresultuser.0.results').'</td>
+						<td class="date">'.$this->Default3->DefaultTable->DefaultTableCell->DefaultData->format(Hash::get($action, 'Actionroleresultuser.0.modified'), 'datetime').'</td>
+						<td>'.getActionLink(Hash::get($action, 'url')).'</td>
 					</tr>'
 				;
 			}
 
 			echo '</tbody></table><br/><br/>';
 		}
-		
+
 		echo '</div>';
 	}
 ?>
 </div>
+<?php
+	if( Configure::read( 'debug' ) > 0 ) {
+		echo $this->Html->script( 'prototype.livepipe.js' );
+		echo $this->Html->script( 'prototype.tabs.js' );
+	}
+?>
 <script type="text/javascript">
-	$$('div.tab').each(function(div) {
-		div.hide();
-	});
-	
-	$$('ul.ui-tabs-nav li.tab a').each(function(a) {
-		a.observe('click', function(event) {
-			event.preventDefault();
-			
-			$$('ul.ui-tabs-nav li.tab a').each(function(a) {
-				a.removeClassName('active');
-			});
-			
-			event.target.addClassName('active');
-			
-			$$('div.tab').each(function(div) {
-				div.hide();
-			});
-			
-			$(event.target.innerHTML.trim()).show();
-		});
-	});
-	$$('ul.ui-tabs-nav li.tab a').first().dispatchEvent(new Event('click'));
+	//<![CDATA[
+	makeTabbed( 'tabbedWrapper', 2 );
+	//]]>
 </script>
-	
-	
-	
-	
-	
+
+
+
+

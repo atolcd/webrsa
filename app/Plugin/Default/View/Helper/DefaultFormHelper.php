@@ -37,8 +37,10 @@
 		 * @var array
 		 */
 		public $map = array(
+			'decimal' => 'text',
 			'float' => 'text',
-			'integer' => 'text'
+			'integer' => 'text',
+			'biginteger' => 'text'
 		);
 
 		/**

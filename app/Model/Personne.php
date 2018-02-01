@@ -27,6 +27,7 @@
 		public $displayField = 'nom_complet';
 
 		public $actsAs = array(
+			'Fichiermodulelie',
 			'Validation2.Validation2Formattable' => array(
 				'Validation2.Validation2DefaultFormatter' => array(
 					'stripNotAlnum' => '/^(numfixe|numport)$/'

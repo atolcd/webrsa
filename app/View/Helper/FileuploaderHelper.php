@@ -19,7 +19,7 @@
 		/**
 		*
 		*/
-		public $helpers = array( 'Xhtml', 'Html', 'Locale', 'Form', 'Default2', 'Permissions' );
+		public $helpers = array( 'Xhtml', 'Html', 'Locale', 'Form', 'Default2', 'Permissions', 'Observer' );
 
 		/**
 		* $urls = array(
@@ -92,7 +92,7 @@
 		public function results( $files ) {
 			$return = '';
 			if( !empty( $files ) ){
-				$return .=  '<table class="aere"><tbody>';
+				$return .=  '<table class="aere fichiersmodules"><tbody>';
 				$return .=  '<tr><th>Nom de la pièce jointe</th><th>Date d\'ajout</th><th colspan="2">Action</th></tr>';
 				foreach( $files as $i => $fichier ){
 					$return .= '<tr><td>'.$fichier['name'].'</td>';
@@ -147,6 +147,7 @@
 				<script type="text/javascript">
 				// <![CDATA[
 					document.observe( "dom:loaded", function() {
+						// On cache le conteneur de pièces jointes le cas échéant
 						observeDisableFieldsetOnRadioValue(
 							\''.$formId.'\',
 							\'data['.$modelName.'][haspiecejointe]\',
@@ -157,7 +158,8 @@
 						);
 					} );
 				// ]]>
-				</script>';
+				</script>'
+				.$this->validation( $formId, $modelName );
 			}
 
 			$return .= '<h2>Pièces déjà présentes</h2>'
@@ -169,9 +171,66 @@
 			}
 			$return .= $this->Form->submit( 'Retour', array( 'name' => 'Cancel', 'div' => false ) )
 			.'</div>'
-			.$this->Form->end();
+			.$this->Form->end()
+			.$this->Observer->disableFormOnSubmit( $formId );
 
 			return $return;
+		}
+
+		/**
+		 * Retourne un bout de code JavaScript qui sera exécuté lorsque l'utilisateur
+		 * choisira la réponse "Non" à la question "Ajouter une pièce jointe".
+		 * S'il existe déjà des pièces joijntes, un message d'information sera
+		 * affiché précisant la perte possible de pièces jointes pour
+		 * l'enregistrement.
+		 *
+		 * @param string $formId L'id du formulaire
+		 * @param string $modelName Le nom du modèle (éventuellement suivi du nom
+		 *	du champ si celui-ci n'est pas "haspiecejointe") indiquant la présence
+		 *	d'une pièce jointe.
+		 * @param string $question L'intitulé de la question indiquant la présence
+		 *	d'une pièce jointe.
+		 * @return string
+		 */
+		public function validation( $formId, $modelName, $question = 'Ajouter une pièce jointe' ) {
+			if( false !== strpos( $modelName, '.' ) ) {
+				list( $modelName, $fieldName ) = model_field( $modelName );
+			}
+			else {
+				$fieldName = 'haspiecejointe';
+			}
+
+			return '<script type="text/javascript">
+				// <![CDATA[
+					document.observe( "dom:loaded", function() {
+						// Vérification: s\'apprète-t-on à supprimer des pièces jointes ?
+						$( \''.$formId.'\' ).getInputs( \'radio\', \'data['.$modelName.']['.$fieldName.']\' ).each( function( radio ) {
+							$( radio ).observe( \'change\', function( event ) {
+								if( 0 == $( radio ).value ) {
+									var attente = 0, presentes = 0;
+
+									try {
+										attente = $$(\'.qq-upload-list\')[0].select(\'li\').length;
+									} catch(e) {}
+									try {
+										presentes = $$(\'table.fichiersmodules\')[0].select(\'tr\').length - 1;
+									} catch(e) {}
+
+									if( 0 < attente || 0 < presentes ) {
+										var msg = \'ATTENTION\\n\\nSi vous enregistrez ce formulaire en l\\\'état (réponse "Non" à la question "'.$question.'"), vous supprimerez \'
+											+ ( attente + presentes )
+											+ \' pièce(s) jointe(s)!\\n\'
+											+ \'  - \' + attente + \' pièce(s) jointe(s) en attente \\n\'
+											+ \'  - \' + presentes + \' pièce(s) jointe(s) déjà présentes\\n\\n\'
+											+ \'Pour éviter cette suppression, répondez "Oui" à la question "'.$question.'" avant de cliquer sur le bouton "Enregistrer".\';
+										alert(msg);
+									}
+								}
+							} );
+						} );
+					} );
+				// ]]>
+				</script>';
 		}
 	}
 ?>

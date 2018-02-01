@@ -371,24 +371,25 @@
 			}
 			else {
 				$this->request->data = $dossierpcg66;
-				// On complète les options avec les valeurs du pole et du gestionnaire enregistrés le cas échéant
-				$options = $this->User->Poledossierpcg66->WebrsaPoledossierpcg66->completeOptions(
-					$this->viewVars['options'],
-					$this->request->data,
-					array( 'prefix' => true )
-				);
-				$options = $this->Dossierpcg66->Originepdo->completeOptions(
-					$options,
-					$this->request->data,
-					array( 'Dossierpcg66.originepdo_id' )
-				);
-				$options = $this->Dossierpcg66->Typepdo->completeOptions(
-					$options,
-					$this->request->data,
-					array( 'Dossierpcg66.typepdo_id' )
-				);
-				$this->set( compact( 'options' ) );
 			}
+
+			// On complète les options avec les valeurs du pole et du gestionnaire enregistrés le cas échéant
+			$options = $this->User->Poledossierpcg66->WebrsaPoledossierpcg66->completeOptions(
+				$this->viewVars['options'],
+				$this->request->data,
+				array( 'prefix' => true )
+			);
+			$options = $this->Dossierpcg66->Originepdo->completeOptions(
+				$options,
+				$this->request->data,
+				array( 'Dossierpcg66.originepdo_id' )
+			);
+			$options = $this->Dossierpcg66->Typepdo->completeOptions(
+				$options,
+				$this->request->data,
+				array( 'Dossierpcg66.typepdo_id' )
+			);
+			$this->set( compact( 'options' ) );
 
 			// Modification du request data uniquement à la fin
 			$this->set( 'personnedecisionmodifiable', $this->_isDecisionModifiable( $foyer_id, $etatdossierpcg ) );
