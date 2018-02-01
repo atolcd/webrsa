@@ -136,6 +136,7 @@
 				<th>Régime</th>
                 <th>Chiffre d'affaire Ventes</th>
                 <th>Chiffre d'affaire Services</th>
+                <th>Chiffre d'Affaire Expl. Agricol</th>
 				<th>Bénéfice pris en compte</th>
 				<th>Montant des revenus arrêtés à</th>
 				<th>Date de début de période</th>
@@ -160,6 +161,7 @@
 						h( Set::enum( Hash::get( $fichecalcul, 'regime' ), $options['Traitementpcg66']['regime'] ) ),
 						h( $this->Locale->money( Hash::get( $fichecalcul, 'chaffvnt' ) ) ),
                         h( $this->Locale->money( Hash::get( $fichecalcul, 'chaffsrv' ) ) ),
+                        h( $this->Locale->money( Hash::get( $fichecalcul, 'chaffagri' ) ) ),
                         h( $this->Locale->money( $montanttotal ) ),
 						h( $this->Locale->money( Hash::get( $fichecalcul, 'revenus' ) ).' par mois' ),
 						h( date_short( Hash::get( $fichecalcul, 'dtdebutperiode' ) ) ),

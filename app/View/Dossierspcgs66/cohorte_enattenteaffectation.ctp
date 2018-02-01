@@ -5,11 +5,11 @@
 	$formId = ucfirst($controller) . ucfirst($action) . 'Form';
 	$availableDomains = WebrsaTranslator::domains();
 	$domain = isset( $availableDomains[0] ) ? $availableDomains[0] : $controller;
-	$paramDate = array( 
-		'domain' => $domain, 
-		'minYear_from' => '2009', 
-		'maxYear_from' => date( 'Y' ) + 1, 
-		'minYear_to' => '2009', 
+	$paramDate = array(
+		'domain' => $domain,
+		'minYear_from' => '2009',
+		'maxYear_from' => date( 'Y' ) + 1,
+		'minYear_to' => '2009',
 		'maxYear_to' => date( 'Y' ) + 4
 	);
 	$notEmptyRule[NOT_BLANK_RULE_NAME] = array(
@@ -30,9 +30,9 @@
 		),
 	);
 	echo $this->FormValidator->generateJavascript($validationCohorte, false);
-	
+
 	$this->start( 'custom_search_filters' );
-	
+
 	echo '<fieldset><legend>' . __m( 'Dossierpcg66.'.$action ) . '</legend>'
 		. $this->Allocataires->SearchForm->dateRange( 'Search.Dossierpcg66.datereceptionpdo', $paramDate )
 		. $this->Default3->subform(
@@ -41,17 +41,18 @@
 				'Search.Dossierpcg66.serviceinstructeur_id' => array( 'empty' => true ),
 				'Search.Dossierpcg66.typepdo_id' => array( 'empty' => true ),
 				'Search.Dossierpcg66.orgpayeur' => array( 'empty' => true ),
+				'Search.Dossierpcg66.has_poledossierpcg66_id' => array( 'empty' => true ),
 			),
 			array( 'options' => array( 'Search' => $options ), 'domain' => $domain )
 		)
 		. '</fieldset>'
 	;
-	
+
 	$this->end();
 
 	$explAction = explode('_', $action);
 	$exportcsvActionName = isset($explAction[1]) ? 'exportcsv_'.$explAction[1] : 'exportcsv';
-	
+
 	echo $this->element(
 		'ConfigurableQuery/cohorte',
 		array(

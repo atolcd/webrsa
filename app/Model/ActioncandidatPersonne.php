@@ -118,11 +118,6 @@
 					'message' => 'Champ obligatoire'
 				)
 			),
-			'ddaction' => array(
-				NOT_BLANK_RULE_NAME => array(
-					'rule' => array( NOT_BLANK_RULE_NAME )
-				)
-			),
 			'motifdemande' => array(
 				NOT_BLANK_RULE_NAME => array(
 					'rule' => array( NOT_BLANK_RULE_NAME ),

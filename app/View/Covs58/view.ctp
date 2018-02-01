@@ -104,7 +104,7 @@
 
 						$class = Inflector::classify( $theme );
 
-						echo "<div id=\"$theme\"><h3 class=\"title\">".__d( 'dossiercov58', 'ENUM::THEMECOV::'.$theme )."</h3>";
+						echo "<div id=\"$class\"><h3 class=\"title\">".__d( 'dossiercov58', 'ENUM::THEMECOV::'.$theme )."</h3>";
 
 						echo $this->Default2->index(
 							$dossiers[$theme],
@@ -145,10 +145,13 @@
 		echo $this->Html->script( 'prototype.tabs.js' );
 	}
 ?>
-
 <script type="text/javascript">
-	makeTabbed( 'dossierscovs', 3 );
+//<![CDATA[
+	document.observe( "dom:loaded", function() {
+		makeTabbed( 'dossierscovs', 3 );
 
-	observeOnclickUrlFragments( 'ul.ui-tabs-nav li.tab a', '#dossiers ul.actionMenu li a' );
-	observeOnloadUrlFragments( '#dossiers ul.actionMenu li a' );
+		observeOnclickUrlFragments( 'ul.ui-tabs-nav li.tab a', '#dossiers ul.actionMenu li a', 'tabbedWrapper' );
+		observeOnloadUrlFragments( '#dossiers ul.actionMenu li a', 'tabbedWrapper' );
+	});
+//]]>
 </script>

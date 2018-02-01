@@ -225,7 +225,7 @@
 				'Adressecui.canton',
 				'Entreeromev3.familleromev3_id',
 			);
-			
+
 			$pathsToExplode = array(
 				'Entreeromev3.domaineromev3_id',
 				'Entreeromev3.metierromev3_id',
@@ -276,7 +276,7 @@
 					$query['conditions'][$path] = $value;
 				}
 			}
-			
+
 			foreach( $pathsToExplode as $path ) {
 				$value = Hash::get( $search, $path );
 				if( $value !== null && $value !== '' && strpos($value, '_') > 0 ) {
@@ -297,6 +297,23 @@
 				}
 
 				$query['conditions']['beneficiaire_' . $type] = 1;
+			}
+
+			// Filtre par "Avis technique"
+			if ( 66 === (int)Configure::read( 'Cg.departement' ) ) {
+				$avis = (string)Hash::get( $search, 'Propositioncui66.avis' );
+				if( '' !== $avis ) {
+					$subQuery = array(
+						'alias' => 'propositionscuis66',
+						'fields' => array( 'propositionscuis66.cui66_id' ),
+						'conditions' => array(
+							'propositionscuis66.cui66_id = Cui66.id',
+							'propositionscuis66.avis' => $avis,
+						)
+					);
+					$sql = $this->Cui->Cui66->Propositioncui66->sq( $subQuery );
+					$query['conditions'][] = "Cui66.id IN ( {$sql} )";
+				}
 			}
 
 			return $query;

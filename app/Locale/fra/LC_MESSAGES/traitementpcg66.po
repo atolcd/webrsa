@@ -221,6 +221,9 @@ msgstr "Régime Micro-bic Auto-Entrepreneur"
 msgid "ENUM::REGIME::microbnc"
 msgstr "Régime Micro BNC"
 
+msgid "ENUM::REGIME::microbicagri"
+msgstr "Régime Micro-bic Agricole"
+
 msgid "Traitementpcg66.regime"
 msgstr "Régime"
 
@@ -280,6 +283,9 @@ msgstr "Chiffre d'Affaire Ventes"
 
 msgid "Traitementpcg66.chaffsrv"
 msgstr "Chiffre d'Affaire Services"
+
+msgid "Traitementpcg66.chaffagri"
+msgstr "Chiffre d'Affaire Expl. Agricole"
 
 msgid "Traitementpcg66.benefoudef"
 msgstr "Bénéfice ou déficit"

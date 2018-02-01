@@ -189,9 +189,10 @@
 		 * @param array|string|integer $valeurtag_id
 		 * @param string|integer $foyer_id mettre <= à 0 pour ignorer
 		 * @param string|integer $personne_id mettre <= à 0 pour ignorer
+		 * @param string $etat L'état du tag à traiter, pas de condition si NULL
 		 * @return string
 		 */
-		public function sqHasTagValue($valeurtag_id, $foyer_id = '"Foyer"."id"', $personne_id = '"Personne"."id"') {
+		public function sqHasTagValue($valeurtag_id, $foyer_id = '"Foyer"."id"', $personne_id = '"Personne"."id"', $etat = 'encours') {
 			$query = array(
 				'fields' => 'Tag.id',
 				'joins' => array(
@@ -211,12 +212,22 @@
 						)
 					))
 				),
-				'conditions' => array(
-					is_string($valeurtag_id) ? 'Tag.valeurtag_id = '.$valeurtag_id : 'Tag.valeurtag_id' => $valeurtag_id,
-					"Tag.etat" => 'encours'
-				),
+				'conditions' => array(),
 				'limit' => 1
 			);
+
+			if( false === empty( $valeurtag_id ) ) {
+				if(true === is_string($valeurtag_id)) {
+					$query['conditions'][] = 'Tag.valeurtag_id = '.$valeurtag_id;
+				}
+				else {
+					$query['conditions']['Tag.valeurtag_id'] = $valeurtag_id;
+				}
+			}
+
+			if( false === empty( $etat ) ) {
+				$query['conditions']['Tag.etat'] = $etat;
+			}
 
 			$sq = words_replace(
 				$this->sq($query),

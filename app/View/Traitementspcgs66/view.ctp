@@ -132,6 +132,31 @@
 						)
 					);
 					break;
+				case 'microbicagri':
+					echo $this->Default2->view(
+						$traitementpcg66,
+						array(
+							'Traitementpcg66.regime' => array( 'type' => 'text', 'value' => $regime ),
+							'Traitementpcg66.saisonnier' => array( 'type' => 'boolean' ),
+							'Traitementpcg66.nrmrcs',
+							'Traitementpcg66.dtdebutactivite',
+							'Traitementpcg66.raisonsocial',
+							'Traitementpcg66.dtdebutperiode',
+							'Traitementpcg66.datefinperiode',
+							'Traitementpcg66.nbmoisactivite',
+							'Traitementpcg66.chaffvnt',
+							'Traitementpcg66.chaffsrv',
+							'Traitementpcg66.chaffagri',
+							// FIXME: calculs javascript
+							'Traitementpcg66.aidesubvreint',
+							'Traitementpcg66.benefpriscompte',
+							'Traitementpcg66.revenus',
+							'Traitementpcg66.dtdebutprisecompte',
+							'Traitementpcg66.datefinprisecompte',
+							'Traitementpcg66.dateecheance',
+						)
+					);
+					break;
 				case 'reel':
 				case 'ragri':
 					echo $this->Default2->view(

@@ -790,6 +790,58 @@
 		}
 
 		/**
+		 * Vérification de l'utilisateur et du groupe propriétaires des fichiers
+		 * et dossiers du cache, ainsi que des permissions sur ces fichiers.
+		 *
+		 * @return array
+		 */
+		public function cacheFilePermissions() {
+			$return = array();
+			$configNames = (array)Cache::configured();
+			$user = posix_getpwuid(posix_geteuid());
+			$group = posix_getgrgid($user['gid']);
+			$uname = posix_uname();
+
+			foreach( $configNames as $configName ) {
+				$config = Cache::config( $configName );
+				if( 'file' === strtolower( $config['engine'] ) ) {
+					$dir = $config['settings']['path'];
+					if( 'linux' !== strtolower( $uname['sysname'] ) ) {
+						$success = false;
+						$message = sprintf( 'Vérification du propriétaire et des permissions du dossier <var>%s</var> non prévue sur un système %s', $dir, $uname['sysname'] );
+					}
+					else {
+						$files = array();
+						$return_var = 0;
+						$command = "find {$dir} -maxdepth 1 \\( -not -group {$group['name']} \\) -o \\( -not -user {$user['name']} \\) -o \\( -not -perm -u=rw -o -not -perm -g=rw \\) | sort";
+						exec( $command, $files, $return_var );
+
+						if( 0 == $return_var ) {
+							$success = true === empty( $files );
+							$message = null;
+							if( false === $success ) {
+								$message = "Des fichiers ou des dossiers du dossier <var>{$dir}</var> n'appartiennent pas au bon utilisateur ou groupe ou n'ont pas les bonnes permissions.<br/>";
+								$message .= "Il faudrait lancer la commande suivante pour corriger le problème: <code>sudo chown -R {$user['name']}:{$group['name']} {$dir} && sudo chmod o+rwX,g+rwX -R {$dir}</code><br/>";
+								$message .= "Les fichiers concernés sont: <br/><ul><li>".implode( "</li><li>", $files )."</li></ul>";
+							}
+						}
+						else {
+							$success = false;
+							$message = sprintf( 'Erreur lors de l\'exécution de la commande %s (%d)', $command, $return_var );
+						}
+					}
+
+					$return[$configName] = array(
+						'success' => $success,
+						'message' => $message
+					);
+				}
+			}
+
+			return $return;
+		}
+
+		/**
 		 * Effectue des tests d'écriture, de lecture et de suppression du cache,
 		 * pour toutes les configurations définies.
 		 *

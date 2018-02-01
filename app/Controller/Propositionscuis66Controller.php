@@ -223,7 +223,17 @@
 				'redirect' => "/Propositionscuis66/index/#Cui.id#",
 				'urlmenu' => "/cuis/index/#Cui.personne_id#"
 			);
-			return $this->WebrsaModelesLiesCuis66->addEdit( $id, $params );
+			$result = $this->WebrsaModelesLiesCuis66->addEdit( $id, $params );
+
+			// L'avis "En attente de décision" ne devrait pas être là, donc on ne le met pas dans la liste si ce n'est pas la valeur courante
+			$options = Hash::get( $this->viewVars, 'options' );
+			$avis = Hash::get( $this->request->data, 'Propositioncui66.avis' );
+			if( 'attentedecision' !== $avis ) {
+				unset( $options['Propositioncui66']['avis']['attentedecision'] );
+				$this->set( compact( 'options' ) );
+			}
+
+			return $result;
 		}
 
 		/**

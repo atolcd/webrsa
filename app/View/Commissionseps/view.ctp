@@ -428,13 +428,18 @@
 		echo $this->Html->script( 'prototype.tabs.js' );
 	}
 ?>
+<script type="text/javascript">
+//<![CDATA[
+	document.observe( "dom:loaded", function() {
+		makeTabbed( 'tabbedWrapper', 2 );
+		makeTabbed( 'dossierseps', 3 );
 
-<script type="text/javascript">
-	makeTabbed( 'tabbedWrapper', 2 );
-	makeTabbed( 'dossierseps', 3 );
-</script>
-<script type="text/javascript">
-	$$( 'td.action a' ).each( function( elmt ) {
-		$( elmt ).addClassName( 'external' );
-	} );
+		observeOnclickUrlFragments( 'ul.ui-tabs-nav li.tab a', '#dossiers ul.actionMenu li a', 'dossiers' );
+		observeOnloadUrlFragments( '#dossiers ul.actionMenu li a', 'dossiers' );
+
+		$$( 'td.action a' ).each( function( elmt ) {
+			$( elmt ).addClassName( 'external' );
+		} );
+	});
+//]]>
 </script>

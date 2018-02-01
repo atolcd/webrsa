@@ -46,6 +46,9 @@ msgstr "Supprimer"
 msgid "/Propositionscuis66/delete/#Propositioncui66.id#"
 msgstr "Supprimer"
 
+msgid "/Propositionscuis66/delete/#Propositioncui66.id# ?"
+msgstr "Réellement supprimer l'avis technique ?"
+
 msgid "/Propositionscuis66/view/:heading"
 msgstr "Voir un avis technique"
 

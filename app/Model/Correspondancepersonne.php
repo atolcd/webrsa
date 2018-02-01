@@ -118,7 +118,18 @@
 
 			$this->deleteAllUnBound( $this->_conditionsForDelete( $conditions ) );
 
-			$this->saveMany( $results );
+			// Sauvegarde par "tranches" pour éviter une saturation de la mémoire
+			$max = Configure::read( 'Correspondancepersonne.max' );
+			$max = true !== empty( $max ) && true === is_int( $max )
+				? $max
+				: 250000;
+
+			$count = count( $results );
+			$slices = ceil( $count / $max );
+			for( $i = 0; $i < $slices; $i++ ) {
+				$tmp = array_slice( $results, $i * $max, $max );
+				$this->saveMany( $tmp );
+			}
 
 			return $results;
 		}

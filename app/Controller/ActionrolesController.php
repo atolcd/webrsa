@@ -169,7 +169,21 @@
 				$success = $this->Actionrole->save( null, array( 'atomic' => false ) );
 
 				if( $success ) {
-					$this->Flash->success( __( 'Save->success' ) );
+					$url = trim( Hash::get( $this->request->data, 'Actionrole.url' ) );
+					$isWebrsaRecherche = $this->Actionrole->isWebrsaRecherche( $url );
+
+					if(true === $isWebrsaRecherche) {
+						$this->Flash->success( __( 'Save->success' ) );
+					}
+					else {
+						if( true === empty( $url ) ) {
+							$message = 'L\'URL est vide, aucun résultat ne sera donc calculable.';
+						}
+						else {
+							$message = 'L\'URL ne fait pas partie des nouveaux moteurs de recherche, aucun résultat ne sera donc calculable.';
+						}
+						$this->Flash->warning( $message );
+					}
 					$this->redirect( array( 'action' => 'index' ) );
 				}
 				else {

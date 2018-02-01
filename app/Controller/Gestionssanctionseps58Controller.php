@@ -177,7 +177,17 @@
 				$modelTheme = Inflector::singularize( $theme );
 				$decisionModelTheme = 'Decision'.$modelTheme;
 
-				$this->Personne->Dossierep->Passagecommissionep->{$decisionModelTheme}->validate = $this->Personne->Dossierep->Passagecommissionep->{$decisionModelTheme}->validateGestionSanctions;
+				$oldValidate = $this->Personne->Dossierep->Passagecommissionep->{$decisionModelTheme}->validate;
+				$newValidate = $this->Personne->Dossierep->Passagecommissionep->{$decisionModelTheme}->validateGestionSanctions;
+				foreach( $oldValidate as $fieldName => $rules ) {
+					foreach( $rules as $ruleName => $rule ) {
+						if( 'inList' === $ruleName ) {
+							$newValidate[$fieldName][$ruleName] = $rule;
+						}
+					}
+				}
+
+				$this->Personne->Dossierep->Passagecommissionep->{$decisionModelTheme}->validate = $newValidate;
 				$decisionsClasses[] = $decisionModelTheme;
 			}
 

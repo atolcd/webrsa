@@ -46,10 +46,10 @@
 			'WebrsaRechercheDossierpcg66',
 			'Dossierpcg66'
 		);
-		
+
 		/**
 		 * Liste des champs de formulaire à inserer dans le tableau de résultats
-		 * 
+		 *
 		 * @var array
 		 */
 		public $cohorteFields = array(
@@ -59,13 +59,13 @@
 			'Dossierpcg66.dateaffectation' => array( 'type' => 'date' ),
 			'Dossierpcg66.id' => array( 'type' => 'hidden' ),
 		);
-		
+
 		/**
 		 * Valeurs par défaut pour le préremplissage des champs du formulaire de cohorte
-		 * array( 
+		 * array(
 		 *		'Mymodel' => array( 'Myfield' => 'MyValue' ) )
 		 * )
-		 * 
+		 *
 		 * @var array
 		 */
 		public $defaultValues = array();
@@ -80,18 +80,40 @@
 		 */
 		public function searchConditions( array $query, array $search ) {
 			$query = parent::searchConditions( $query, $search );
-			
+
 			$query['conditions'][] = array(
 				'Dossierpcg66.etatdossierpcg' => 'attaffect',
-				'Dossierpcg66.poledossierpcg66_id IS NULL'
 			);
-			
+
+			// Possède un pôle chargé du dossier ?
+			$has_poledossierpcg66_id = (string)Hash::get($search, 'Dossierpcg66.has_poledossierpcg66_id');
+			if('' !== $has_poledossierpcg66_id) {
+				if('0' === $has_poledossierpcg66_id) {
+					$query['conditions'][] = 'Dossierpcg66.poledossierpcg66_id IS NULL';
+				} else {
+					$query['conditions'][] = 'Dossierpcg66.poledossierpcg66_id IS NOT NULL';
+				}
+			}
+
+			return $query;
+		}
+
+		/**
+		 * Surcharge du searchQuery pour obtenir le champ permettant de pré-remplir
+		 * le "Pôle chargé du dossier" le cas échéant.
+		 *
+		 * @param array $types
+		 * @return array
+		 */
+		public function searchQuery( array $types = array() ) {
+			$query = parent::searchQuery( $types );
+			$query['fields'][] = 'Dossierpcg66.poledossierpcg66_id';
 			return $query;
 		}
 
 		/**
 		 * Logique de sauvegarde de la cohorte
-		 * 
+		 *
 		 * @param type $data
 		 * @param type $params
 		 * @return boolean
@@ -106,15 +128,15 @@
 					$data[$key]['Dossierpcg66']['user_id'] = suffix(Hash::get($value, 'Dossierpcg66.user_id'));
 				}
 			}
-			
+
 			$success = !empty($data) && $this->Dossierpcg66->saveAll( $data )
-				&& $this->Dossierpcg66->WebrsaDossierpcg66->updatePositionsPcgsByConditions( 
+				&& $this->Dossierpcg66->WebrsaDossierpcg66->updatePositionsPcgsByConditions(
 					array(
 						'Dossierpcg66.id' => Hash::extract($data, '{n}.Dossierpcg66.id')
 					)
 				)
 			;
-						
+
 			return $success;
 		}
 	}

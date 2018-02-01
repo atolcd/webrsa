@@ -54,27 +54,15 @@
 		protected function _propospdos() {
 			$query = array(
 				'joins' => array(
-					array(
-						'table' => 'decisionspropospdos',
-						'alias' => 'Decisionpropopdo',
-						'type' => 'INNER',
-						'foreignKey' => false,
-						'conditions' => array( 'Decisionpropopdo.propopdo_id = Propopdo.id' )
-					),
-					array(
-						'table' => 'decisionspdos',
-						'alias' => 'Decisionpdo',
-						'type' => 'INNER',
-						'foreignKey' => false,
-						'conditions' => array( 'Decisionpropopdo.decisionpdo_id = Decisionpdo.id' )
-					),
+					$this->Propopdo->join( 'Decisionpropopdo', array( 'type' => 'INNER' ) ),
+					$this->Propopdo->Decisionpropopdo->join( 'Decisionpdo', array( 'type' => 'INNER' ) )
 				),
 				'contain' => false,
 				'conditions' => array(
 					'Decisionpdo.libelle LIKE' => 'DO 19%',
 					'Decisionpropopdo.datedecisionpdo IS NOT NULL',
-					//La date de décision de la PDO doit être supérieure à celle de la validation du CER
-					// Une fois la décision émise, le CEr doit être validé par la suite et non pas avant
+					// La date de décision de la PDO doit être supérieure à celle de la validation du CER
+					// Une fois la décision émise, le CER doit être validé par la suite et non pas avant
 					// + intervalle d'1 mois entre la date de décision et la validation du CER
 					'Propopdo.personne_id NOT IN (
 						SELECT contratsinsertion.personne_id
@@ -127,6 +115,17 @@
 								AND passagescommissionseps.etatdossierep IN ( \'traite\', \'annule\' )
 								AND ( commissionseps.dateseance + INTERVAL \''.Configure::read( 'Nonrespectsanctionep93.intervalleCerDo19' ).' days\' ) <= NOW()
 					)',
+					// Et qui ne sont pas sortis de la procédure pour la même DO
+					'Propopdo.id NOT IN (
+						SELECT nonrespectssanctionseps93.propopdo_id
+							FROM nonrespectssanctionseps93
+								INNER JOIN dossierseps ON (
+									nonrespectssanctionseps93.dossierep_id = dossierseps.id
+								)
+							WHERE
+								nonrespectssanctionseps93.propopdo_id = Propopdo.id
+								AND nonrespectssanctionseps93.sortieprocedure IS NOT NULL
+					)'
 				)
 			);
 
@@ -202,6 +201,7 @@
 				} catch( PDOException $e ) {
 					$thrown = $e;
 					$success = false;
+					$this->log( $e->getMessage(), LOG_ERR );
 				}
 
 				if( $success ) {

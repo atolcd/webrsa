@@ -45,10 +45,10 @@
 	function array_filter_keys( array $array, array $filterKeys, $remove = false ) {
 		$newArray = array();
 		foreach( $array as $key => $value ) {
-			if( $remove && !in_array( $key, $filterKeys ) ) {
+			if( $remove && !in_array( $key, $filterKeys, true ) ) {
 				$newArray[$key] = $value;
 			}
-			else if( !$remove && in_array( $key, $filterKeys ) ) {
+			else if( !$remove && in_array( $key, $filterKeys, true ) ) {
 				$newArray[$key] = $value;
 			}
 		}
@@ -1528,20 +1528,27 @@
 	 */
 	function parseSearchUrl( $url, array $namedKeys = array() ) {
 		$matches = array();
-		$url = urldecode( urldecode( $url ) );
 
-		$regexp = '\/([\w]+)\/([\w]+)((?:\/[\w]+:[\w]*|\/[\d]+)*)$';
+		// L'URL ressemble-t-elle à une URL de moteur de recherche ?
+		$regexp = '\/([\w]+)\/([\w]+)((?:\/[\w]+:[^:\/]*|\/[\d]+)*)$';
 		if( false === mb_ereg( $regexp, $url, $matches ) ) {
 			return array();
 		}
 
+		// On laisse CakePHP parser l'URL
 		$request = Router::parse( $matches[0] );
 		if( true === empty( $request ) ) {
 			return array();
 		}
 
+		// Suppression de certaines clés
 		foreach( $namedKeys as $namedKey ) {
 			unset( $request['named'][$namedKey] );
+		}
+
+		// Décodage des paramètres nommés
+		foreach( $request['named'] as $key => $value ) {
+			$request['named'][$key] = urldecode( urldecode( $value ) );
 		}
 
 		return $request;

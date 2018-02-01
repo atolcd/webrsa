@@ -230,6 +230,7 @@ function __minify() {
 	"$JSDIR/fileuploader.js" \
 	"$JSDIR/fileuploader.webrsa.js" \
 	"$JSDIR/cake.prototype.js" \
+	"$JSDIR/webrsa.cake.tabbed.paginator.js" \
 	"$JSDIR/prototype.fabtabulous.js" \
 	"$JSDIR/prototype.tablekit.js" \
 	"$1/Plugin/Configuration/webroot/js/prototype.configuration-parser.js" \

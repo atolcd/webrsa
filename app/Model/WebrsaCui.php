@@ -35,7 +35,7 @@
 
 		/**
 		 * Ajoute les virtuals fields pour permettre le controle de l'accès à une action
-		 * 
+		 *
 		 * @param array $query
 		 * @return type
 		 */
@@ -43,9 +43,9 @@
 			$departement = (integer)Configure::read('Cg.departement');
 			$modelDepartement = 'Cui'.$departement;
 			$fields = array(
-				
+
 			);
-			
+
 			if (isset($this->Cui->{$modelDepartement})) {
 				if (!isset($query['joins'])) {
 					$query['joins'] = array();
@@ -53,20 +53,20 @@
 				if (WebrsaModelUtility::findJoinKey($modelDepartement, $query) === false) {
 					$query['joins'][] = $this->Cui->join($modelDepartement);
 				}
-				
+
 				$fields[] = $modelDepartement.'.cui_id';
-				
+
 				if ($departement === 66) {
 					$fields[] = 'Cui66.etatdossiercui66';
 				}
 			}
-			
+
 			return Hash::merge($query, array('fields' => array_values($fields)));
 		}
-		
+
 		/**
 		 * Permet d'obtenir le nécéssaire pour calculer les droits d'accès métier à une action
-		 * 
+		 *
 		 * @param array $conditions
 		 * @return array
 		 */
@@ -79,7 +79,8 @@
 				),
 				'conditions' => $conditions,
 				'joins' => array(
-					$this->Cui->join('Personne')
+					$this->Cui->join('Personne'),
+					$this->Cui->join('Emailcui')
 				),
 				'contain' => false,
 				'order' => array(
@@ -87,34 +88,34 @@
 					'Cui.id' => 'DESC',
 				)
 			);
-			
+
 			$results = $this->Cui->find('all', $this->completeVirtualFieldsForAccess($query, $params));
 			return $results;
 		}
-		
+
 		/**
 		 * Permet d'obtenir les paramètres à envoyer à WebrsaAccess pour une personne en particulier
-		 * 
+		 *
 		 * @see WebrsaAccess::getParamsList
 		 * @param integer $personne_id
 		 * @param array $params - Liste des paramètres actifs
 		 */
 		public function getParamsForAccess($personne_id, array $params = array()) {
 			$results = array();
-			
+
 			if (in_array('ajoutPossible', $params)) {
 				$results['ajoutPossible'] = $this->ajoutPossible($personne_id, $params);
 			}
 			if (in_array('isModuleEmail', $params)) {
 				$results['isModuleEmail'] = true;
 			}
-			
+
 			return $results;
 		}
-		
+
 		/**
 		 * Permet de savoir si il est possible d'ajouter un enregistrement
-		 * 
+		 *
 		 * @param integer $personne_id
 		 * @param array $params
 		 * @return boolean
@@ -122,7 +123,7 @@
 		public function ajoutPossible($personne_id, array $params = array()) {
 			return true;
 		}
-		
+
 		/**
 		 * Recherche des données CAF liées à l'allocataire dans le cadre du CUI.
 		 *
@@ -211,7 +212,7 @@
 
 		/**
 		 * Permet de savoir si une personne lié au CUI possède un RSA Socle
-		 * 
+		 *
 		 * @param numeric $personne_id
 		 * @return boolean
 		 */
@@ -233,36 +234,36 @@
 					),
 					'recursive' => -1
 				)
-			);			
+			);
 			$isRsaSocle = isset($result['Dossier']['rsasocle']) && $result['Dossier']['rsasocle'] === true ? true : false;
 			return $isRsaSocle;
 		}
-		
-		/** 	 
-		 * Sous-requête permettant de récupérer le dernier CUI d'un allocataire. 	 
-		 * 	 
-		 * @param string $personneIdField Le champ où trouver l'id de la personne. 	 
-		 * @return string 	 
-		 */ 	 
+
+		/**
+		 * Sous-requête permettant de récupérer le dernier CUI d'un allocataire.
+		 *
+		 * @param string $personneIdField Le champ où trouver l'id de la personne.
+		 * @return string
+		 */
 		public function sqDernierContrat( $personneIdField = 'Personne.id' ) {
-			return $this->Cui->sq( 	 
-				array( 	 
-					'fields' => array( 	 
-						'cuis.id' 	 
+			return $this->Cui->sq(
+				array(
+					'fields' => array(
+						'cuis.id'
 					),
-					'alias' => 'cuis', 	 
-					'conditions' => array( 	 
-						"cuis.personne_id = {$personneIdField}" 	 
+					'alias' => 'cuis',
+					'conditions' => array(
+						"cuis.personne_id = {$personneIdField}"
 					),
-					'order' => array( 'cuis.faitle DESC', 'cuis.created DESC' ), 	 
-					'limit' => 1 	 
-				) 	 
-			); 	 
+					'order' => array( 'cuis.faitle DESC', 'cuis.created DESC' ),
+					'limit' => 1
+				)
+			);
 		}
-		
+
 		/**
 		 * Revoi la requete pour récuperer toutes les données pour l'affichage de l'index du CUI
-		 * 
+		 *
 		 * @param integer $personne_id
 		 * @return array
 		 */
@@ -286,27 +287,27 @@
 					'order' => array( 'Cui.created DESC' )
 				);
 			}
-			
+
 			return $query;
 		}
-		
+
 		/**
 		 * Affiche des messages dans index
-		 * 
+		 *
 		 * @param integer $personne_id
 		 * @return array
 		 */
 		public function messages( $personne_id ) {
 			$messages = array();
 			$isRsaSocle = $this->isRsaSocle( $personne_id );
-			
+
 			if ( !$isRsaSocle ){
 				$messages['Personne.rsasocle'] = 'error';
 			}
 
 			return $messages;
 		}
-		
+
 		/**
 		 * Permet de savoir si un ajout est possible à partir des messages
 		 * renvoyés par la méthode messages.
@@ -317,7 +318,7 @@
 		public function addEnabled( array $messages ) {
 			return !in_array( 'error', $messages );
 		}
-		
+
 		/**
 		 * Retourne les options nécessaires au formulaire de recherche, au formulaire,
 		 * aux impressions, ...
@@ -328,17 +329,17 @@
 		public function options($user_id = null) {
 			switch ((int)Configure::read('Cg.departement')) {
 				case 66: $options = $this->Cui->Cui66->WebrsaCui66->options(); break;
-				default: 
+				default:
 					$options = Hash::merge(
 						$this->Cui->enums(),
 						$this->Cui->Partenairecui->enums(),
 						$this->Cui->Personnecui->enums()
 					);
-					
+
 					foreach( $this->Cui->beneficiairede as $value ){
 						$options['Cui']['beneficiairede'][] = $value;
 					}
-					
+
 					if ($user_id !== null) {
 						// Récupération de la liste des actions avec une fiche de candidature (pour Cui.organismedesuivi)
 						$qd_user = array(
@@ -381,22 +382,22 @@
 
 			return $options;
 		}
-		
+
 		/**
 		 * Sauvegarde d'un CUI
-		 * 
+		 *
 		 * @param array $data
 		 * @return boolean
 		 */
 		public function saveAddEdit( array $data, $user_id = null ) {
 			switch ((int)Configure::read('Cg.departement')) {
 				case 66: $success = $this->Cui->Cui66->WebrsaCui66->saveAddEdit($data, $user_id); break;
-				default: 
+				default:
 					$success = true;
 					$data['Cui']['user_id'] = $user_id;
-					
+
 					// Si un code famille (rome v3) est vide, on ne sauvegarde pas le code rome
-					if ( !isset($data['Entreeromev3']['familleromev3_id']) || $data['Entreeromev3']['familleromev3_id'] === '' ){ 
+					if ( !isset($data['Entreeromev3']['familleromev3_id']) || $data['Entreeromev3']['familleromev3_id'] === '' ){
 						$data['Cui']['entreeromev3_id'] = null;
 
 						// Si le code rome avait un id, on supprime l'entreeromev3 correspondant
@@ -416,17 +417,17 @@
 					if ( $data['Cui']['typecontrat'] === 'CDI' ){
 						$data['Cui']['findecontrat'] = null;
 					}
-					
+
 					// Partenairecui possède une Adressecui, on commence par cette dernière
 					$this->Cui->Partenairecui->Adressecui->create($data);
 					$success = $this->Cui->Partenairecui->Adressecui->save( null, array( 'atomic' => false ) ) && $success;
 					$data['Partenairecui']['adressecui_id'] = $this->Cui->Partenairecui->Adressecui->id;
-					
+
 					// Cui possède un Partenairecui, il nous faut son id
 					$this->Cui->Partenairecui->create($data);
 					$success = $this->Cui->Partenairecui->save( null, array( 'atomic' => false ) ) && $success;
 					$data['Cui']['partenairecui_id'] = $this->Cui->Partenairecui->id;
-					
+
 					// Cui possède un Personnecui
 					$this->Cui->Personnecui->create($data);
 					$success = $this->Cui->Personnecui->save( null, array( 'atomic' => false ) ) && $success;
@@ -439,7 +440,7 @@
 
 			return $success;
 		}
-		
+
 		/**
 		 * Mise à jour des positions des CUI suivant des conditions données.
 		 *
@@ -451,7 +452,7 @@
 				case 66: $success = $this->Cui->Cui66->WebrsaCui66->updatePositionsCuisByConditions($conditions); break;
 				default: $success = true;
 			}
-			
+
 			return $success;
 		}
 
@@ -467,7 +468,7 @@
 				case 66: $success = $this->Cui->Cui66->WebrsaCui66->updatePositionsCuisByPosition($position); break;
 				default: $success = true;
 			}
-			
+
 			return $success;
 		}
 
@@ -478,7 +479,7 @@
 		 * @param integer $id La clé primaire d'un CUI.
 		 * @return boolean
 		 */
-		
+
 		public function updatePositionsCuisById( $id ) {
 			$return = $this->updatePositionsCuisByConditions(
 				array( "Cui.id" => $id )
@@ -486,10 +487,10 @@
 
 			return $return;
 		}
-		
+
 		/**
 		 * Récupère les donnés par defaut dans le cas d'un ajout, ou récupère les données stocké en base dans le cas d'une modification
-		 * 
+		 *
 		 * @param integer $personne_id
 		 * @param integer $id
 		 * @return array
@@ -528,7 +529,7 @@
 
 						$record = $this->Cui->Personne->find( 'first', $query );
 
-						/** 
+						/**
 						 * INFO: si one ne met pas le modèle Adressecui dans le $this->Cui->request->data, il n'est
 						 * pas instancié dans la vue, donc pas d'astérisque ni validation javascript...
 						 */
@@ -562,13 +563,13 @@
 						$result = $this->Cui->Entreeromev3->prepareFormDataAddEdit( $result );
 					}
 			}
-			
+
 			return $result;
 		}
-		
+
 		/**
 		 * Permet d'obtenir les informations lié à un Allocataire d'un Cui
-		 * 
+		 *
 		 * @param integer $personne_id
 		 * @return array
 		 */
@@ -586,15 +587,15 @@
 
 			$query['joins'][] = $this->Cui->Personne->Foyer->Adressefoyer->Adresse->join( 'Departement', array( 'type' => 'LEFT OUTER' ) );
 			$query['joins'][] = $this->Cui->Personne->join( 'Titresejour', array( 'type' => 'LEFT OUTER' ) );
-			
+
 			$query['conditions']['Personne.id'] = $personne_id;
-			
+
 			return $query;
 		}
-		
+
 		/**
 		 * Revoi la requete pour récuperer toutes les données pour l'affichage d'un CUI (Hors modules)
-		 * 
+		 *
 		 * @param integer $id
 		 * @return array
 		 */
@@ -616,7 +617,7 @@
 							$this->Cui->join( 'Personnecui' ),
 							$this->Cui->join( 'Partenairecui' ),
 							$this->Cui->join( 'Entreeromev3' ),
-							$this->Cui->Partenairecui->join( 'Adressecui' ),						
+							$this->Cui->Partenairecui->join( 'Adressecui' ),
 						)
 					);
 
@@ -624,7 +625,7 @@
 						$query['conditions']['Cui.id'] = $id;
 					}
 			}
-			
+
 			return $query;
 		}
 	}

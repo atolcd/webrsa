@@ -72,6 +72,13 @@
 					'allowEmpty' => false
 				)
 			),
+			'chaffagri' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'required' => null,
+					'allowEmpty' => false
+				)
+			),
 			'commentairepropodecision' => array(
 				NOT_BLANK_RULE_NAME => array(
 					'rule' => array( NOT_BLANK_RULE_NAME ),
@@ -361,29 +368,38 @@
 				$regime = Hash::get( $this->data, "{$this->alias}.regime" );
 				// Si 'fagri', on n'en garde aucun
 				if( $regime == 'fagri' ) {
-					unset( $this->validate['chaffvnt'], $this->validate['chaffsrv'], $this->validate['benefoudef'] );
+					unset( $this->validate['chaffvnt'], $this->validate['chaffsrv'], $this->validate['chaffagri'], $this->validate['benefoudef'] );
 					$this->data[$this->alias]['chaffvnt'] = null;
 					$this->data[$this->alias]['chaffsrv'] = null;
+					$this->data[$this->alias]['chaffagri'] = null;
 					$this->data[$this->alias]['benefoudef'] = null;
 				}
 				// Si 'ragri' ou 'reel', on garde tout (chaffvnt, chaffsrv, benefoudef)
 				// Si 'microbic' ou 'microbicauto', on garde chaffvnt, chaffsrv
 				else if( in_array( $regime, array( 'microbic', 'microbicauto' ) ) ) {
-					unset( $this->validate['benefoudef'] );
+					unset( $this->validate['benefoudef'], $this->validate['chaffagri'] );
+					$this->data[$this->alias]['chaffagri'] = null;
 					$this->data[$this->alias]['benefoudef'] = null;
 				}
 				// Si 'microbnc', on garde chaffsrv
 				else if( $regime == 'microbnc' ) {
-					unset( $this->validate['chaffvnt'], $this->validate['benefoudef'] );
+					unset( $this->validate['chaffvnt'], $this->validate['chaffagri'], $this->validate['benefoudef'] );
 					$this->data[$this->alias]['chaffvnt'] = null;
+					$this->data[$this->alias]['chaffagri'] = null;
+					$this->data[$this->alias]['benefoudef'] = null;
+				}
+				// Si 'microbicagri', on garde chaffvnt, chaffsrv, chaffagri
+				else if( in_array( $regime, array( 'microbicagri' ) ) ) {
+					unset( $this->validate['benefoudef'] );
 					$this->data[$this->alias]['benefoudef'] = null;
 				}
 			}
 			// Si le type de traitement est autre que "Fiche de calcul"
 			else {
-				unset( $this->validate['chaffvnt'], $this->validate['chaffsrv'], $this->validate['benefoudef'] );
+				unset( $this->validate['chaffvnt'], $this->validate['chaffsrv'], $this->validate['chaffagri'], $this->validate['benefoudef'] );
 				$this->data[$this->alias]['chaffvnt'] = null;
 				$this->data[$this->alias]['chaffsrv'] = null;
+				$this->data[$this->alias]['chaffagri'] = null;
 				$this->data[$this->alias]['benefoudef'] = null;
 			}
 

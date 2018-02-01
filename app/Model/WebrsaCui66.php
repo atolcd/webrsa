@@ -1015,7 +1015,7 @@
 			}
 			if ( $different ){
 				$result = $result && $this->Cui66->Historiquepositioncui66->saveMany( $updateValues );
-				$this->updateDecisionCui($conditions);
+				$result = $result && $this->updateDecisionCui($conditions);
 			}
 
 			return $result;

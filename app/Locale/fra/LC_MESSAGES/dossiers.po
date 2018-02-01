@@ -93,3 +93,6 @@ msgstr "Conditions de logement"
 
 msgid "Search.Tag.valeurtag_id"
 msgstr "Recherche par Tag"
+
+msgid "Search.Tag.etat"
+msgstr "Recherche par état du Tag"

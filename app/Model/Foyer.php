@@ -458,6 +458,9 @@
 
 			$personnesFoyer = $this->Personne->find( 'all', $query );
 
+			// Doit-on automatiquement ajouter une entrée "Non orienté" dans orientsstructs ?
+			$ajoutOrientstruct = Configure::read( 'Foyer.refreshSoumisADroitsEtDevoirs.ajoutOrientstruct' );
+
 			$saved = true;
 			foreach( $personnesFoyer as $personne ) {
 				$toppersdrodevorsa = $this->Personne->WebrsaPersonne->soumisDroitsEtDevoirs( $personne['Personne']['id'] );
@@ -465,17 +468,19 @@
 				$this->Personne->Calculdroitrsa->create( $personne['Calculdroitrsa'] );
 				$saved = $this->Personne->Calculdroitrsa->save( $personne['Calculdroitrsa'] , array( 'atomic' => false ) ) && $saved;
 
-				// Ajout dans la table Orientstruct si aucune entrée
-				$nbrOrientstruct = $this->Personne->Orientstruct->find( 'count', array( 'conditions' => array( 'Orientstruct.personne_id' => $personne['Personne']['id'] ) ) );
-				if( $personne['Calculdroitrsa']['toppersdrodevorsa'] && $nbrOrientstruct == 0 ) {
-					$orientstruct = array(
-						'Orientstruct' => array(
-							'personne_id' => $personne['Personne']['id'],
-							'statut_orient' => 'Non orienté'
-						)
-					);
-					$this->Personne->Orientstruct->create( $orientstruct );
-					$saved = $this->Personne->Orientstruct->save( null, array( 'atomic' => false ) ) && $saved;
+				if( true === $ajoutOrientstruct ) {
+					// Ajout dans la table orientsstructs si aucune entrée
+					$nbrOrientstruct = $this->Personne->Orientstruct->find( 'count', array( 'conditions' => array( 'Orientstruct.personne_id' => $personne['Personne']['id'] ) ) );
+					if( $personne['Calculdroitrsa']['toppersdrodevorsa'] && $nbrOrientstruct == 0 ) {
+						$orientstruct = array(
+							'Orientstruct' => array(
+								'personne_id' => $personne['Personne']['id'],
+								'statut_orient' => 'Non orienté'
+							)
+						);
+						$this->Personne->Orientstruct->create( $orientstruct );
+						$saved = $this->Personne->Orientstruct->save( null, array( 'atomic' => false ) ) && $saved;
+					}
 				}
 			}
 			return $saved;

@@ -290,6 +290,12 @@
 					'Statistiqueministerielle.conditions_organismes.SPE_PoleEmploi' => 'isarray',
 					'Statistiqueministerielle.conditions_organismes.HorsSPE' => 'isarray',
 					'Statistiqueministerielle.conditions_indicateurs_motifs_reorientation' => 'isarray',
+					'Statistiqueministerielle.structure_cer_orientation' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'Statistiqueministerielle.useHistoriquedroit' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
 					'WebrsaEmailConfig.testEnvironments' => array(
 						array( 'rule' => 'isarray', 'allowEmpty' => true )
 					),
@@ -390,6 +396,12 @@
 						array( 'rule' => 'boolean', 'allowEmpty' => true )
 					),
 					'Module.Fluxcnaf.enabled' => array(
+						array( 'rule' => 'boolean', 'allowEmpty' => true )
+					),
+					'Correspondancepersonne.max' => array(
+						array( 'rule' => 'integer', 'allowEmpty' => true )
+					),
+					'Foyer.refreshSoumisADroitsEtDevoirs.ajoutOrientstruct' => array(
 						array( 'rule' => 'boolean', 'allowEmpty' => true )
 					),
 				)
@@ -565,8 +577,10 @@
 				'Traitementpcg66.fichecalcul_abattbicsrv' => 'integer',
 				'Traitementpcg66.fichecalcul_abattbicvnt' => 'integer',
 				'Traitementpcg66.fichecalcul_abattbncsrv' => 'integer',
+				'Traitementpcg66.fichecalcul_abattagriagri' => 'integer',
 				'Traitementpcg66.fichecalcul_casrvmax' => 'integer',
 				'Traitementpcg66.fichecalcul_cavntmax' => 'integer',
+				'Traitementpcg66.fichecalcul_caagrimax' => 'integer',
 				'Traitementpcg66.fichecalcul_coefannee1' => 'numeric',
 				'Traitementpcg66.fichecalcul_coefannee2' => 'numeric',
 				'Nonoriente66.notisemploi.typeorientId' => 'isarray',

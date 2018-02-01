@@ -1562,13 +1562,20 @@ function observeDisableFormOnSubmit( formId, message ) {
  * Pour chacun des liens trouvés par le chemin, on remplace la partie signet
  * (#...) existante par le signet passé en paramètre.
  *
- * @param string links Le chemin des liens à modifier
- * @param string fragment Le signet à utiliser pour la modification
+ * @param String links Le chemin des liens à modifier
+ * @param String fragment Le signet à utiliser pour la modification
+ * @param String prefix Le préfixe éventuel (ex. tabbedWrapper) qui sera ajouté
+ *	avec une virgule le cas échéant.
  * @returns void
  */
-function replaceUrlFragments( links, fragment ) {
+function replaceUrlFragments( links, fragment, prefix ) {
+	prefix = 'undefined' === typeof prefix ? null : prefix + ',';
+
 	$$( links ).each( function( link ) {
 		var href = $(link).readAttribute( 'href' );
+		if(null !== prefix) {
+			fragment = fragment.replace( /^#/, '#' + prefix );
+		}
 		href = href.replace( /#.*$/, '' ) + fragment;
 		$(link).writeAttribute( 'href', href );
 	} );
@@ -1579,16 +1586,18 @@ function replaceUrlFragments( links, fragment ) {
  * doivent être composés que de signet (#nomsignet), pour modifier les signets
  * des liens du second chemin.
  *
- * @param string observedPath Le chemin des liens à observer
- * @param string replacedPath Le chemin des liens pour lesquels modifier le signet
+ * @param String observedPath Le chemin des liens à observer
+ * @param String replacedPath Le chemin des liens pour lesquels modifier le signet
+ * @param String prefix Le préfixe éventuel (ex. tabbedWrapper) qui sera ajouté
+ *	avec une virgule le cas échéant.
  * @returns void
  */
-function observeOnclickUrlFragments( observedPath, replacedPath ) {
+function observeOnclickUrlFragments( observedPath, replacedPath, prefix ) {
 	$$( observedPath ).each( function( observed ) {
 		$(observed).observe(
 			'click',
 			function() {
-				replaceUrlFragments( replacedPath, $(observed).readAttribute( 'href' ) );
+				replaceUrlFragments( replacedPath, $(observed).readAttribute( 'href' ), prefix );
 			}
 		);
 	} );
@@ -1599,14 +1608,16 @@ function observeOnclickUrlFragments( observedPath, replacedPath ) {
  * fonction de la dernière partie du signet (#dossiers,propononorientationprocov58
  * donnera #propononorientationprocov58) présent dans l'URL de la page.
  *
- * @param string replacedPath Le chemin des liens pour lesquels modifier le signet
+ * @param String replacedPath Le chemin des liens pour lesquels modifier le signet
+ * @param String prefix Le préfixe éventuel (ex. tabbedWrapper) qui sera ajouté
+ *	avec une virgule le cas échéant.
  * @returns void
  */
-function observeOnloadUrlFragments( replacedPath ) {
+function observeOnloadUrlFragments( replacedPath, prefix ) {
 	document.observe( "dom:loaded", function() {
 		if( window.location.href.indexOf( '#' ) !== -1 ) {
 			var fragment = window.location.href.replace( /^.*#/, '#' ).replace( /^.*,([^,]+$)/g, '#$1' );
-			replaceUrlFragments( replacedPath, fragment );
+			replaceUrlFragments( replacedPath, fragment, prefix );
 		}
 	} );
 }
@@ -2847,3 +2858,41 @@ function dependantSelectsCommunautesrReferent( communautesrId, referentId, links
 		console.log(e);
 	}
 }
+
+/**
+ * Remplace ou ajoute un paramètre nommé dans une URL "à la CakePHP".
+ *
+ * @param {String} url
+ * @param {String} key
+ * @param {*} value
+ * @returns {String}
+ */
+var replaceUrlNamedParam = function(url, key, value) {
+	var re = /^([a-z]+:\/\/|\/)([^#]*)(#.*){0,1}$/gi,
+		matches = re.exec(url);
+
+	if(null !== matches) {
+		if('undefined' === typeof matches[3]) {
+			matches[3] = '';
+		}
+
+		matches[2] = matches[2].replace( new RegExp( '\/' + key + ':[^\/]+' ), '/' );
+		matches[2] = matches[2] + '/' + key + ':' + value;
+
+		url = matches[1] + matches[2].replace( /\/+/g, '/' ) + matches[3];
+
+	}
+
+	return url;
+};
+
+/**
+ *
+ * @see {@url https://stackoverflow.com/a/2593661}
+ *
+ * @param {String} str
+ * @returns {String}
+ */
+var regExpQuote = function(str) {
+    return (str+'').replace(/[.?*+^$[\]\\(){}\/|-]/g, "\\$&");
+};

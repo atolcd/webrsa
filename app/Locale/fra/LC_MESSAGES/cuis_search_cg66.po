@@ -169,3 +169,6 @@ msgstr "Voir les CUIs de #Personne.nom_complet#"
 
 msgid "Cui66.positions"
 msgstr "Position du CUI"
+
+msgid "Cui.Propositioncui66"
+msgstr "Rechercher par avis technique"

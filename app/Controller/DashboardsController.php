@@ -106,7 +106,10 @@
 								'Actionroleresultuser.user_id' => $this->Session->read('Auth.User.id')
 							)
 						),
-						'Categorieactionrole'
+						'Categorieactionrole',
+						'order' => array(
+							'Actionrole.name ASC'
+						)
 					)
 				),
 				'conditions' => array(

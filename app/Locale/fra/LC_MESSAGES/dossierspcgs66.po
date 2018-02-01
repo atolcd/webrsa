@@ -52,6 +52,9 @@ msgstr "Organisme payeur"
 msgid "Search.Dossierpcg66.poledossierpcg66_id"
 msgstr "Pôle chargé du dossier"
 
+msgid "Search.Dossierpcg66.has_poledossierpcg66_id"
+msgstr "Possède un pôle chargé du dossier ?"
+
 msgid "Search.Dossierpcg66.user_id"
 msgstr "Gestionnaire du dossier (technicien en charge du dossier)"
 

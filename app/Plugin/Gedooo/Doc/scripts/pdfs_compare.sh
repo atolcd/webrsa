@@ -9,7 +9,7 @@ verify_pdf_result="0"
 function convert_pdf() {
 	local src="${1}"
 	local dir="${2}"
-	local dst="`basename ${src}`"
+	local dst="`basename "${src}"`"
 
 	convert -density 150 "${src}" -quality 90 "${dir}/%05d.png"
 	echo "${?}"
@@ -19,7 +19,7 @@ function compare_image() {
 	local src="${1}"
 	local dst="${2}"
 	local diff="${3}"
-	local diff_file="`basename ${src}`"
+	local diff_file="`basename "${src}"`"
 	local result=$(compare -metric PSNR -compose src "${src}" "${dst}" "${diff}/${diff_file}" 2>&1)
 
 	if [ "${result}" = "inf" ] ; then
@@ -38,7 +38,7 @@ function verify_pdf() {
 
 	# Pages manquantes ou différentes ?
 	for srcpage in ${srcdir}/*.png ; do
-		page="`basename ${srcpage}`"
+		page="`basename "${srcpage}"`"
 		dstpage="${dstdir}/${page}"
 		num_page="`expr ${page%.*} + 1`"
 
@@ -62,7 +62,7 @@ function verify_pdf() {
 
 	# Pages en trop ?
 	for dstpage in ${dstdir}/*.png ; do
-		page="`basename ${dstpage}`"
+		page="`basename "${dstpage}"`"
 		srcpage="${srcdir}/${page}"
 
 		if [ ! -e "${srcpage}" ] ; then
@@ -75,7 +75,7 @@ function verify_pdf() {
 # ------------------------------------------------------------------------------
 # Préparation: traitement des paramètres
 # ------------------------------------------------------------------------------
-dir="`basename ${0%.*}`"
+dir="`basename "${0%.*}"`"
 dir="/tmp/${dir}"
 
 # Vérification du nombre de paramètres envoyés

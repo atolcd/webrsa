@@ -110,5 +110,28 @@
 
 			return ClassRegistry::init( $params['modelName'] )->find( 'count', $query );
 		}
+
+		/**
+		 * Vérifie qu'une URL soit parsable et traitable par les nouveaux moteurs
+		 * de recherche.
+		 *
+		 * @param string $url
+		 * @return boolean
+		 */
+		public function isWebrsaRecherche( $url ) {
+			if( false === empty( $url ) ) {
+				$request = parseSearchUrl( $url );
+				if( false === empty( $request ) ) {
+					$WebrsaRecherche = ClassRegistry::init( 'WebrsaRecherche' );
+					$controller = Inflector::camelize( Inflector::underscore( $request['controller'] ) );
+					$action = $request['action'];
+					$key = "{$controller}.{$action}";
+					return ( true === isset( $WebrsaRecherche->searches[$key] ) );
+				}
+			}
+
+			return false;
+		}
+
 	}
 ?>

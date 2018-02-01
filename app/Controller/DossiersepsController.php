@@ -45,6 +45,7 @@
 					),
 				)
 			),
+			'MultiplePaginator'
 		);
 
 		/**
@@ -162,9 +163,9 @@
 		 * $options, $dossierseps, $commissionep, $commissionep_id dans la vue.
 		 *
 		 * @param array $commissionep L'enregistrement de la commission d'EP
-		 * @param boolean $paginate Soit on pagine (pour le choose), soit on find tout, pour l'export CSV
+		 * @param boolean $doPaginate Soit on pagine (pour le choose), soit on find tout, pour l'export CSV
 		 */
-		protected function _setListeDossiersSelectionnables( $commissionep, $paginate ) {
+		protected function _setListeDossiersSelectionnables( $commissionep, $doPaginate ) {
 			$commissionep_id = $commissionep['Commissionep']['id'];
 
 			$conditionsAdresses = array( 'OR' => array() );
@@ -263,6 +264,7 @@
 
 			$themesChoose = array_keys( $this->Dossierep->Passagecommissionep->Commissionep->WebrsaCommissionep->themesTraites( $commissionep_id ) );
 
+			$paginate = array();
 			$dossiers = array();
 			$countDossiers = 0;
 			$originalPaginate = $this->paginate;
@@ -300,13 +302,20 @@
 					)
 				);
 
-				if( $paginate ) {
-					$this->paginate = $qd;
-					$dossiers[$theme] = $this->paginate( $this->Dossierep->{$class} );
-					$this->refreshPaginator();
+				$paginate[$class] = $qd;
+			}
+
+			// Pagination des différents thèmes
+			$paginate = $this->MultiplePaginator->prepare( $paginate );
+			foreach( $paginate as $modelClass => $qd ) {
+				$theme = Inflector::underscore( $modelClass );
+				if( $doPaginate ) {
+					$this->paginate = $paginate;
+					$dossiers[$theme] = $this->paginate( $this->Dossierep->{$modelClass} );
 				}
 				else {
-					$dossiers[$theme] = $this->Dossierep->{$class}->find( 'all', $qd );
+					unset( $qd['limit'] );
+					$dossiers[$theme] = $this->Dossierep->{$modelClass}->find( 'all', $qd );
 				}
 
 				// INFO: pour avoir le formulaire pré-rempli ... à mettre dans le modèle également ?
@@ -317,7 +326,7 @@
 				}
 				$countDossiers += count($dossiers[$theme]);
 			}
-			$this->paginate = $originalPaginate;
+
 			$this->set( compact( 'dossiers', 'themesChoose' ) );
 			$this->set( compact( 'countDossiers' ) );
 
@@ -372,7 +381,8 @@
 
 			// Retour à l'index en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
-				$this->redirect( array( 'controller' => 'commissionseps', 'action' => 'view', $commissionep_id, '#' => "dossiers,{$this->request->data['Choose']['theme']}" ) );
+				$themeClass = Inflector::classify( $this->request->data['Choose']['theme'] );
+				$this->redirect( array( 'controller' => 'commissionseps', 'action' => 'view', $commissionep_id, '#' => "tabbedWrapper,dossiers,{$themeClass}" ) );
 			}
 
 			// Enregistrement des cases cochées / décochées
@@ -410,7 +420,8 @@
 				if( $success ) {
 					$this->Dossierep->commit();
 					$this->Flash->success( __( 'Save->success' ) );
-					$this->redirect( array( 'controller'=>'commissionseps', 'action'=>'view', $commissionep_id, '#' => 'dossiers,'.$this->request->data['Choose']['theme'] ) );
+					$themeClass = Inflector::classify( $this->request->data['Choose']['theme'] );
+					$this->redirect( array( 'controller'=>'commissionseps', 'action'=>'view', $commissionep_id, '#' => "tabbedWrapper,dossiers,{$themeClass}" ) );
 				}
 				else {
 					$this->Dossierep->rollback();

@@ -142,6 +142,7 @@
 						ROOT.DS
 					),
 					'cache' => $this->Check->cachePermissions(),
+					'cache_check' => $this->Check->cacheFilePermissions(),
 					'freespace' => $this->Check->freespace(
 						array(
 							// 1. Répertoire temporaire de CakePHP

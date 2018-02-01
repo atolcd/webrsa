@@ -93,7 +93,12 @@ function classMap() {
 // mais ce n'est pas sa place.
 //
 function wsdl() {
-    return Configure::read('GEDOOO_WSDL');
+	if(true === class_exists('Configure')) {
+		return Configure::read('GEDOOO_WSDL');
+	} elseif(true === defined('GEDOOO_WSDL')) {
+		return GEDOOO_WSDL;
+	}
+	return null;
 }
 
 

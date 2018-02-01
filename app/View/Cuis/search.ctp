@@ -72,6 +72,17 @@
 			. '</fieldset>'
 		;
 
+
+		// @fixme: traductions
+		echo '<fieldset id="Propositioncui66"><legend>' . __m( 'Cui.Propositioncui66' ) . '</legend>'
+			. $this->Default3->subform(
+				array(
+					'Search.Propositioncui66.avis' => array( 'empty' => true, 'label' => __m( 'Propositioncui66.avis' ), 'options' => $options['Propositioncui66']['avis'], 'required' => false ),
+				),
+				array( 'options' => array( 'Search' => $options ) )
+			) . '</fieldset>'
+		;
+
 		echo '<fieldset id="Cui66Decision"><legend>' . __m( 'Cui66.decision' ) . '</legend>'
 			. $this->Default3->subform(
 				array(

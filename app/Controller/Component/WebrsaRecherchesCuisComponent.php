@@ -23,7 +23,7 @@
 			'Allocataires',
 			'Gestionzonesgeos'
 		);
-		
+
 		/**
 		 * Retourne les options de type "enum", c'est à dire liées aux schémas des
 		 * tables de la base de données.
@@ -32,13 +32,13 @@
 		 */
 		protected function _optionsEnums( array $params = array() ) {
 			$Controller = $this->_Collection->getController();
-			$cgDepartement = Configure::read( 'Cg.departement' );
+			$cgDepartement = (int)Configure::read( 'Cg.departement' );
 			$modelCuiDpt = 'Cui' . $cgDepartement;
 			$options = array();
-			
+
 			if( isset( $Controller->Cui->{$modelCuiDpt} ) ) {
 				$options = $Controller->Cui->{$modelCuiDpt}->enums();
-				
+
 				// Liste de modeles potentiel pour un CG donné
 				$modelPotentiel = array(
 					'Accompagnementcui' . $cgDepartement,
@@ -49,16 +49,20 @@
 					'Rupturecui' . $cgDepartement,
 					'Suspensioncui' . $cgDepartement,
 				);
-				
+
 				foreach ( $modelPotentiel as $modelName ){
 					if ( isset( $Controller->Cui->{$modelCuiDpt}->{$modelName} ) ){
 						$options = Hash::merge( $options, $Controller->Cui->{$modelCuiDpt}->{$modelName}->enums() );
 					}
 				}
 			}
-			
+
+			if( 66 === $cgDepartement ) {
+				$options['Propositioncui66']['avis'] = $Controller->Cui->Cui66->Propositioncui66->enum( 'avis' );
+			}
+
 			$options['Adressecui']['canton'] = $this->Gestionzonesgeos->listeCantons();
-			
+
 			foreach( $Controller->Cui->beneficiairede as $key => $value ){
 				$options['Cui']['beneficiairede'][] = $value;
 			}
@@ -88,55 +92,55 @@
 			$libsec = 'Libsecactderact' . $cgDepartement . 'Secteur';
 
 			$options = parent::_optionsRecords( $params );
-			
+
 			// On vérifi que les tables existent avant de charger les modeles
 			$modelList = Hash::normalize(App::objects( 'model' ));
 			foreach( array_keys($modelList) as $modelName ) {
 				$modelList[$modelName] = true;
 			}
-						
+
 			if( isset($modelList[$typeContrat]) && !isset( $Controller->{$typeContrat} ) ) {
 				$Controller->loadModel( $typeContrat );
 			}
-			
+
 			if( isset($modelList[$libsec]) && !isset( $Controller->{$libsec} ) ) {
 				$Controller->loadModel( $libsec );
 			}
-			
+
 			if ( isset($modelList[$modelCuiDpt]) && isset( $Controller->Cui->{$modelCuiDpt}) ) {
 				$options[$modelCuiDpt]['datebutoir_select'] = array(
 					1 => __d( $modelCuiDpt, 'ENUM::DATEBUTOIR_SELECT::1' ),
 					2 => __d( $modelCuiDpt, 'ENUM::DATEBUTOIR_SELECT::2' ),
 					3 => __d( $modelCuiDpt, 'ENUM::DATEBUTOIR_SELECT::3' ),
 				);
-				
+
 				if ( isset($modelList[$typeContrat]) && isset($Controller->{$typeContrat}) ) {
-					$options[$modelCuiDpt]['typecontrat'] = $Controller->{$typeContrat}->find( 'list', 
+					$options[$modelCuiDpt]['typecontrat'] = $Controller->{$typeContrat}->find( 'list',
 						array( 'order' => 'name' )
 					);
-					$options[$modelCuiDpt]['typecontrat_actif'] = $Controller->{$typeContrat}->find( 'list', 
+					$options[$modelCuiDpt]['typecontrat_actif'] = $Controller->{$typeContrat}->find( 'list',
 						array( 'conditions' => array( 'actif' => true ), 'order' => 'name' )
 					);
 				}
 			}
-			
+
 			if ( isset($Controller->{$libsec}) && is_object($Controller->{$libsec}) ) {
 				$options['Partenairecui'] = array(
 					'naf' => $Controller->{$libsec}->find(
-						'list',	
+						'list',
 						array( 'contain' => false, 'order' => array( 'code' ) )
 					),
 				);
 			}
-			
+
 			$communes = $Controller->Cui->Partenairecui->Adressecui->query('SELECT commune AS "Adressecui__commune" FROM adressescuis GROUP BY commune');
 			foreach ( $communes as $value ) {
 				$commune = Hash::get($value, 'Adressecui.commune');
 				$options['Adressecui']['commune'][$commune] = $commune;
 			}
-			
+
 			$options['Cui']['partenaire_id'] = $Controller->Cui->Partenaire->find( 'list', array( 'order' => array( 'Partenaire.libstruc' ) ) );
-			
+
 			$options = array_merge(
 				$options,
 				$Controller->Cui->Entreeromev3->options()
@@ -160,7 +164,7 @@
 			$modelCuiDpt = 'Cui' . $cgDepartement;
 			$typeContrat = 'Typecontratcui' . $cgDepartement;
 			$libsec = 'Libsecactderact' . $cgDepartement . 'Secteur';
-			
+
 			$result = array_merge(
 				parent::_optionsRecordsModels( $params ),
 				array(

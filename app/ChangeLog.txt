@@ -1,5 +1,110 @@
 
 ************************************************************************
+ Version 3.2.4
+************************************************************************
+
+r10407 | cbuffin | 2017-11-14 16:34:54 +0100 (mar. 14 nov. 2017) | 1 ligne
+
+Patch correctif 3.2.4
+------------------------------------------------------------------------
+r10406 | cbuffin | 2017-11-14 16:33:38 +0100 (mar. 14 nov. 2017) | 1 ligne
+
+Patch correctif 3.2.4
+------------------------------------------------------------------------
+r10405 | cbuffin | 2017-11-14 16:21:15 +0100 (mar. 14 nov. 2017) | 1 ligne
+
+Correction: dans la méthode AbstractWebrsaCohorteApre66::searchQuery(), on faisait appel à la méthode de modèle inexistante "virtualField", ce qui ne posait pas de souci avant PHP 5.6 mais qui génère une erreur interne du serveur en PHP 5.6+; à présent, on appelle la méthode de modèle "sqVirtualField" afin d'obtenir le bon résultat. (Atol CD par mail et téléphone).
+------------------------------------------------------------------------
+r10404 | cbuffin | 2017-11-13 11:24:02 +0100 (lun. 13 nov. 2017) | 1 ligne
+
+Amélioration: ajout du filtre par "Recherche par état du Tag" dans le formulaire de recherche par dossier / allocataire. Clôture le ticket #41909 (CD 66, Atol CD).
+------------------------------------------------------------------------
+r10403 | cbuffin | 2017-11-06 16:09:55 +0100 (lun. 06 nov. 2017) | 1 ligne
+
+Correction: à présent, on ne crée plus d'entrée dans la table orientsstructs pour les bénéficiaires soumis à droits et devoirs lorsque l'on ajoute ou modifie une personne ou une ressource d'une personne d'un foyer (cf. la nouvelle clé de configuration "Foyer.refreshSoumisADroitsEtDevoirs.ajoutOrientstruct" pour retrouver l'ancien comportement). Ajout du patch SQL patch-3.2.4-datas-cg66.sql permettant de supprimer un maximum d'entrées erronées de la table orientsstructs pour le CD 66. Permet de clôturer le ticket #41544. (CD 66, Atol CD)
+------------------------------------------------------------------------
+r10402 | cbuffin | 2017-11-06 14:47:34 +0100 (lun. 06 nov. 2017) | 1 ligne
+
+Améliorations: à présent, dans l'écran d'ajout ou de modification d'avis technique pour le CUI, la valeur "En attente de décision" ne figure plus dans la liste déroulante de l'avis, les champs "Avis" et "Motif" ont à présent la valeur vide en cas d'ajout afin d'éviter les erreurs de manipulation. Ajout d'une demande de confirmation lorsque l'on clique sur le lien "Supprimer" dans la liste des avis techniques du CUI d'un bénéficiaire afin d'éviter des erreurs de manipulation. Ajout du filtre "Rechercher par avis technique" > "Avis" dans le moteur de recherche par CUI du CD 66 afin de pouvoir trouver et corriger les avis techniques "En attente de décision". Clôture le ticket #40470 (CD 66, Atol CD).
+------------------------------------------------------------------------
+r10401 | cbuffin | 2017-10-31 13:55:36 +0100 (mar. 31 oct. 2017) | 1 ligne
+
+Correction: à présent, dans la liste des traitements non clos liés à n'importe quel dossier du Foyer qui apparaît en bas du formulaire d'ajout / de modification d'un traitement PCG, on retrouve bien tous les traitements non clos du foyer, même ceux liés à l'autre personne du foyer lorsque le dossier PCG ne concerne pas la personne pour laquelle on crée le nouveau traitement PCG. Permet de clôturer le ticket #41448. (CD 66, Atol CD)
+------------------------------------------------------------------------
+r10400 | cbuffin | 2017-10-30 14:51:00 +0100 (lun. 30 oct. 2017) | 1 ligne
+
+Correction: à présent, l'accès aux liens "Modifier" et "Supprimer" des mails du CUI n'engendrent plus d'erreur 500. Amélioration du shell Positionscui66, ajout de la ventialtion du nombre de CUI par position après le re-calcul des positions. En lien avec le ticket #40470 (CD 66, Atol CD)
+------------------------------------------------------------------------
+r10399 | cbuffin | 2017-10-27 15:46:39 +0200 (ven. 27 oct. 2017) | 1 ligne
+
+Correction: à présent, dans les écrans de choix des dossiers à passer en EP ou en COV, on n'a plus l'erreur 404 lorsque l'on essaie de passer en page 2 des dossiers d'une thématique et qu'il existe au moins une autre thématique n'ayant pas autant de pages. Il subsiste un bug, sur les onglets autres que le premier, où le tri par ordre descendant sur une colonne n'est pas possible
+------------------------------------------------------------------------
+r10398 | cbuffin | 2017-10-26 13:36:22 +0200 (jeu. 26 oct. 2017) | 1 ligne
+
+Correction: à présent le shell Correspondancespersonnes sauvgarde les correspondances par "tranches" afin d'éviter de saturer la mémoire lorsqu'il y a de nombreux enregistrement. Ajout de la variable de configuration "Correspondancepersonne.max" (250000 par défaut) qui permet de spécifier le nombre d'enregistrements à traiter dans chacune des "tranches". (CD 93, Atol CD par mail)
+------------------------------------------------------------------------
+r10397 | cbuffin | 2017-10-26 10:23:17 +0200 (jeu. 26 oct. 2017) | 1 ligne
+
+Correction: à présent, dans le shell Automatisationseps, on affiche l'erreur explicitement lorsque l'on a une erreur de la base de données comme la violation d'un index unique. Par ailleurs, ne sont plus pris en compte par le shell dans la création d'un dossier d'EP pour la thématique "Demandes de suspension" avec comme origine "PDO (DO 19)" les allocataires ayant contractualisé entre-temps (ce qui générait l'erreur sur l'index unique nonrespectssanctionseps93_origine_propopdo_id_rgpassage_idx). (CD 93, Atol CD par mail)
+------------------------------------------------------------------------
+r10396 | cbuffin | 2017-10-20 13:31:50 +0200 (ven. 20 oct. 2017) | 1 ligne
+
+Mise à jour de la configuration par défaut du CD 66 afin de "désactiver" les chiffres d'affaires maximum pour la fiche de caclul des traitements PCG (clés "Traitementpcg66.fichecalcul_ca<type>max'") au moyen de la constante PHP PHP_INT_MAX. En lien avec le ticket #40390 (CG 66).
+------------------------------------------------------------------------
+r10395 | cbuffin | 2017-10-20 13:18:18 +0200 (ven. 20 oct. 2017) | 1 ligne
+
+Mise à jour des valeurs de tranches d'âge pour les moteurs de recherche par défaut du CD 66 à partir des valeurs utilisées en production au 12/10/2017.
+------------------------------------------------------------------------
+r10394 | cbuffin | 2017-10-19 11:49:17 +0200 (jeu. 19 oct. 2017) | 1 ligne
+
+Amélioration: ajout du "Régime Micro-bic Agricole" à la fiche de calcul des traitements PCG, ajout de 2 nouvelles clé de configuration "Traitementpcg66.fichecalcul_caagrimax" et "Traitementpcg66.fichecalcul_abattagriagri" au fichier app/Config/webrsa.cg66.inc.default. Permet de clôturer le ticket #40390 (CG 66).
+------------------------------------------------------------------------
+r10393 | cbuffin | 2017-10-16 14:15:56 +0200 (lun. 16 oct. 2017) | 1 ligne
+
+Amélioration: à présent, lorsque l'on ajoute ou modifie une action de rôle (pour le tableau de bord principal du CD 66), si l'URL est vide alors le message d'avertissement "L'URL est vide, aucun résultat ne sera donc calculable." apparaît après un enregistrement réussi, sinon si l'URL ne concerne pas un des nouveaux moteurs de recherche, alors le message d'avertissement "L'URL ne fait pas partie des nouveaux moteurs de recherche, aucun résultat ne sera donc calculable." apparaît. En lien avec le ticket #40774 (CG 66).
+------------------------------------------------------------------------
+r10392 | cbuffin | 2017-10-16 13:13:54 +0200 (lun. 16 oct. 2017) | 1 ligne
+
+Correction: à présent, dans le tableau de bord principal, les colonnes "Nombre de résultats" et "Action" ne sont plus vides et fonctionnent correctement même lorsque l'URL contient des caractères spéciaux (ex. "-"). En lien avec le ticket #40774 (CG 66).
+------------------------------------------------------------------------
+r10391 | cbuffin | 2017-10-12 15:25:53 +0200 (jeu. 12 oct. 2017) | 1 ligne
+
+Correction: à présent, dans le tableau de bord principal, les colonnes "Nombre de résultats" et "Action" ne sont plus vides et fonctionnent correctement même lorsque l'URL contient un espace (ex. "Search__Canton__canton:PERPIGNAN%2B1"). Clôture le ticket #40774 (CG 66).
+------------------------------------------------------------------------
+r10390 | cbuffin | 2017-10-12 14:34:35 +0200 (jeu. 12 oct. 2017) | 1 ligne
+
+Amélioration: ajout du tri par "Intitulé de l'action" dans les tableaux des onglets du tableau de bord principal. Clôture le ticket #40755 (CG 66).
+------------------------------------------------------------------------
+r10389 | cbuffin | 2017-10-10 13:42:51 +0200 (mar. 10 oct. 2017) | 1 ligne
+
+Correction: dans les gestions de listes de fiches de candidatures, les fiches en cours ne repassent plus en attente et les erreurs de validation s'affichent à présent correctement dans les formulaires. Clôture le ticket #38482 (CG 66).
+------------------------------------------------------------------------
+r10388 | cbuffin | 2017-10-04 16:11:05 +0200 (mer. 04 oct. 2017) | 1 ligne
+
+Plugin Gedooo: correction de la classe vendor GDO_FusionType afin de ne plus utiliser la classe Configure si celle-ci n'existe pas.
+------------------------------------------------------------------------
+r10387 | cbuffin | 2017-10-04 16:10:04 +0200 (mer. 04 oct. 2017) | 1 ligne
+
+Plugin Gedooo: correction du script pdfs_compare.sh afin de pouvoir prendre en compte des fichiers comportant des espaces dans leur chemin.
+------------------------------------------------------------------------
+r10386 | cbuffin | 2017-09-28 16:03:03 +0200 (jeu. 28 sept. 2017) | 1 ligne
+
+Amélioration: ajout de la vérification fine des propriétaires et des permissions des fichiers et dossiers de cache dans la partie "Vérification de l'application". En lien avec le ticket #40260 (CG 66).
+------------------------------------------------------------------------
+r10385 | cbuffin | 2017-09-27 13:17:44 +0200 (mer. 27 sept. 2017) | 1 ligne
+
+Correction: modification des critères par défaut de la gestion de listes "Dossiers PCGs en attente d'affectation" afin d'avoir dans les résultats tous les dossiers "En attente d'affectation", même ceux dont le pôle a déjà été choisi. Ajout du filtre "Filtrer par Dossier PCG" > "Possède un pôle chargé du dossier ?" permetttant d'obtenir des résultats plus fins. Corrige le ticket #38480 (CG 66)
+------------------------------------------------------------------------
+r10384 | cbuffin | 2017-09-22 13:26:19 +0200 (ven. 22 sept. 2017) | 1 ligne
+
+Correction: dans les méthodes traitement et visualisation de la classe Gestionssanctionseps58Controller, il manquait les enumérations des décisons, ce qui impliqait que dans l'écran "Gestion des sanctions émises par l'EP", les listes déroulantes de "Modification de la sanction" étaient vides et ne permettaient pas le traitement. En lien avec le ticket #2011194 (CG 58)
+------------------------------------------------------------------------
+r10383 | cbuffin | 2017-09-22 13:20:38 +0200 (ven. 22 sept. 2017) | 1 ligne
+
+Correction: la méthode ajaxadd de la classe Cohortesd2pdvs93Controller a à présent les mêmes droits que la méthode index de la classe Cohortesd2pdvs93Controller; en effet, si un utilisateur a accès à la cohorte de traitement, il faut automatiquement qu'il ait la possibilité de remplir le formulaire D2. (CG 93)
+------------------------------------------------------------------------
+
+************************************************************************
  Version 3.2.3
 ************************************************************************
 

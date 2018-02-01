@@ -21,7 +21,19 @@
 		 * @var string
 		 */
 		public $name = 'Propositioncui66';
-		
+
+		/**
+		 *
+		 * @var array
+		 */
+		public $validate = array(
+			'motif' => array(
+				'notEmptyIf' => array(
+					'rule' => array( 'notEmptyIf', 'avis', true, array( 'refus', 'avisreserve' ) )
+				)
+			)
+		);
+
 		/**
 		* Chemin relatif pour les modèles de documents .odt utilisés lors des
 		* impressions. Utiliser %s pour remplacer par l'alias.
@@ -30,7 +42,7 @@
 			'default' => 'CUI/%s/impression.odt',
 			'aviselu' => 'CUI/%s/aviselu.odt',
 		);
-		
+
 		/**
 		 * Retourne les options nécessaires au formulaire de recherche, au formulaire,
 		 * aux impressions, ...
@@ -40,7 +52,7 @@
 		 */
 		public function options( array $params = array() ) {
 			$options = array();
-			
+
 			$optionRefus = $this->enums();
 			$optionRefus['Propositioncui66']['motif'] = ClassRegistry::init( 'motifrefuscui66' )->find( 'list' );
 

@@ -30,6 +30,8 @@
 				<?php echo $this->Checks->table( $results['Environment']['files'] );?>
 				<h4>Cache</h4>
 				<?php echo $this->Checks->table( $results['Environment']['cache'] );?>
+				<h4>Accès au cache</h4>
+				<?php echo $this->Checks->table( $results['Environment']['cache_check'] );?>
 				<h4>Espace libre</h4>
 				<?php echo $this->Checks->table( $results['Environment']['freespace'] );?>
 			</div>

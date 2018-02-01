@@ -23,7 +23,7 @@
 		 * @var string
 		 */
 		public $name = 'AbstractWebrsaCohorteApre66';
-		
+
 		/**
 		 * Modèles utilisés par ce modèle.
 		 *
@@ -97,7 +97,7 @@
 						'Aideapre66.montantpropose',
 						'Aideapre66.datemontantpropose',
 						'Aideapre66.typeaideapre66_id',
-						$this->Apre66->virtualField('nb_fichiers_lies')
+						$this->Apre66->sqVirtualField('nb_fichiers_lies', 'Apre66')
 					)
 				);
 
@@ -146,7 +146,7 @@
 			$pathsToExplode = array(
 				'Aideapre66.typeaideapre66_id',
 			);
-			
+
 			foreach( $paths as $path ) {
 				$value = Hash::get( $search, $path );
 				if( $value !== null && $value !== '' ) {

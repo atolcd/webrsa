@@ -440,4 +440,25 @@
 	 * présentent le format technique des flux CNAF.
 	 */
 	Configure::write( 'Module.Fluxcnaf.enabled', false );
+
+	/**
+	 * Nombre d'enregistrements de la table correspondancespersonnes à sauvegarder
+	 * par "tranche" via le shell CorrespondancepersonneShell afin d'éviter de
+	 * saturer la mémoire lors du traitement.
+	 *
+	 * @type integer
+	 * @default 250000
+	 */
+	Configure::write( 'Correspondancepersonne.max', 250000 );
+
+	/**
+	 * Permet d'ajouter une orientation "Non orienté" aux bénéficiaires d'un foyer
+	 * dès lors qu'ils sont soumis à droits et devoirs et que l'on ajoute ou
+	 * modifie une personne du foyer ou que l'on ajoute ou modifie une ressource
+	 * d'une personne du foyer.
+	 *
+	 * @type boolean
+	 * @default null|false
+	 */
+	Configure::write( 'Foyer.refreshSoumisADroitsEtDevoirs.ajoutOrientstruct', null );
 ?>

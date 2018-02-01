@@ -42,6 +42,7 @@
 			$options['Dossierpcg66']['orgpayeur'] = array('CAF'=>'CAF', 'MSA'=>'MSA');
 			$options['Dossierpcg66']['haspiecejointe'] = array(0 => 'Non', 1 => 'Oui');
 			$options['Dossierpcg66']['create'] = array(0 => 'Non', 1 => 'Oui');
+			$options['Dossierpcg66']['has_poledossierpcg66_id'] = array(0 => 'Non', 1 => 'Oui');
 
 			$options = array_merge(
 				$options,

@@ -60,14 +60,14 @@
 		 * Test de la fonction array_filter_keys().
 		 */
 		public function testArrayFilterKeys() {
-			$array = array( 'foo' => 1, 'bar' => 2 );
+			$array = array( 0 => 666, 'foo' => 1, 'bar' => 2 );
 
 			$result = array_filter_keys( $array, array( 'foo' ), false );
 			$expected = array( 'foo' => 1 );
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
 			$result = array_filter_keys( $array, array( 'foo' ), true );
-			$expected = array( 'bar' => 2 );
+			$expected = array( 0 => 666, 'bar' => 2 );
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 
@@ -1382,6 +1382,54 @@
 					'Search__Detaildroitrsa__oridemrsa_choice' => '0',
 					'Search__Contratinsertion__created' => '0',
 					'Search__Pagination__nombre_total' => '0',
+				),
+				'pass' => array(),
+				'plugin' => NULL,
+			);
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			// Une URL avec un espace dans les paramètres nommés
+			$url = 'http://webrsa.cg66.fr/dossiers/search/Search__Dossier__dernier:1/Search__Dossier__dtdemrsa:0/Search__Situationdossierrsa__etatdosrsa_choice:1/Search__Situationdossierrsa__etatdosrsa__0:2/Search__Detailcalculdroitrsa__natpf_choice:0/Search__Detaildroitrsa__oridemrsa_choice:0/Search__Canton__canton:PERPIGNAN%2B1/Search__Personne__has_orientstruct:0/Search__Calculdroitrsa__toppersdrodevorsa:1/Search__Pagination__nombre_total:0';
+			$result = parseSearchUrl( $url, array( 'sessionKey' ) );
+			$expected = array(
+				'controller' => 'dossiers',
+				'action' => 'search',
+				'named' => array(
+					'Search__Dossier__dernier' => '1',
+					'Search__Dossier__dtdemrsa' => '0',
+					'Search__Situationdossierrsa__etatdosrsa_choice' => '1',
+					'Search__Situationdossierrsa__etatdosrsa__0' => '2',
+					'Search__Detailcalculdroitrsa__natpf_choice' => '0',
+					'Search__Detaildroitrsa__oridemrsa_choice' => '0',
+					'Search__Canton__canton' => 'PERPIGNAN 1',
+					'Search__Personne__has_orientstruct' => '0',
+					'Search__Calculdroitrsa__toppersdrodevorsa' => '1',
+					'Search__Pagination__nombre_total' => '0',
+				),
+				'pass' => array(),
+				'plugin' => NULL,
+			);
+			$this->assertEquals( $expected, $result, var_export( $result, true ) );
+
+			// Une URL avec des caractères spéciaux dans les paramètres nommés
+			$url = 'http://webrsa.cg66.fr/dossiers/search/Search__Dossier__dernier:1/Search__Dossier__dtdemrsa:0/Search__Situationdossierrsa__etatdosrsa_choice:1/Search__Situationdossierrsa__etatdosrsa__0:2/Search__Detailcalculdroitrsa__natpf_choice:0/Search__Detaildroitrsa__oridemrsa_choice:0/Search__Canton__canton:PERPIGNAN%2B1/Search__Personne__nom:%252A-%2B%252F%253A%2526%252A/Search__Personne__has_orientstruct:0/Search__Personne__has_contratinsertion:0/Search__Calculdroitrsa__toppersdrodevorsa:1/Search__Pagination__nombre_total:1';
+			$result = parseSearchUrl( $url, array( 'sessionKey' ) );
+			$expected = array(
+				'controller' => 'dossiers',
+				'action' => 'search',
+				'named' => array(
+					'Search__Dossier__dernier' => '1',
+					'Search__Dossier__dtdemrsa' => '0',
+					'Search__Situationdossierrsa__etatdosrsa_choice' => '1',
+					'Search__Situationdossierrsa__etatdosrsa__0' => '2',
+					'Search__Detailcalculdroitrsa__natpf_choice' => '0',
+					'Search__Detaildroitrsa__oridemrsa_choice' => '0',
+					'Search__Canton__canton' => 'PERPIGNAN 1',
+					'Search__Personne__nom' => '*- /:&*',
+					'Search__Personne__has_orientstruct' => '0',
+					'Search__Personne__has_contratinsertion' => '0',
+					'Search__Calculdroitrsa__toppersdrodevorsa' => '1',
+					'Search__Pagination__nombre_total' => '1',
 				),
 				'pass' => array(),
 				'plugin' => NULL,

@@ -375,14 +375,14 @@
 					'td',
 					__d( 'traitementpcg66', 'Traitementpcg66.abattement' ),
 					array(
-						'class' => 'microbic microbicauto'
+						'class' => 'microbic microbicauto microbicagri'
 					)
 				).
 				$this->Xhtml->tag(
 					'td',
 					Configure::read('Traitementpcg66.fichecalcul_abattbicvnt').' %',
 					array(
-						'class' => 'microbic microbicauto',
+						'class' => 'microbic microbicauto microbicagri',
 						'id' => 'abattbicvnt'
 					)
 				).
@@ -395,7 +395,7 @@
 					)
 				),
 				array(
-					'class' => 'ragri reel microbic microbicauto'
+					'class' => 'ragri reel microbic microbicauto microbicagri'
 				)
 			);
 
@@ -421,14 +421,14 @@
 					'td',
 					__d( 'traitementpcg66', 'Traitementpcg66.abattement' ),
 					array(
-						'class' => 'microbic microbicauto microbnc'
+						'class' => 'microbic microbicauto microbnc microbicagri'
 					)
 				).
 				$this->Xhtml->tag(
 					'td',
 					Configure::read('Traitementpcg66.fichecalcul_abattbicsrv').' %',
 					array(
-						'class' => 'microbic microbicauto',
+						'class' => 'microbic microbicauto microbicagri',
 						'id' => 'abattbicsrv'
 					)
 				).
@@ -449,7 +449,45 @@
 					)
 				),
 				array(
-					'class' => 'ragri reel microbic microbicauto microbnc'
+					'class' => 'ragri reel microbic microbicauto microbnc microbicagri'
+				)
+			);
+
+			echo $this->Xhtml->tag(
+				'tr',
+				$this->Xhtml->tag(
+					'td',
+					$this->Xform->required( __d( 'traitementpcg66', 'Traitementpcg66.chaffagri' ) )
+				).
+				$this->Xhtml->tag(
+					'td',
+					$this->Form->input('Traitementpcg66.chaffagri', array('label'=>false, 'type'=>'text')).
+					$this->Xhtml->tag(
+						'p',
+						'Attention CA dépassant '.Configure::read('Traitementpcg66.fichecalcul_caagrimax').' €',
+						array(
+							'class' => 'notice',
+							'id' => 'infoChaffagri'
+						)
+					)
+				).
+				$this->Xhtml->tag(
+					'td',
+					__d( 'traitementpcg66', 'Traitementpcg66.abattement' ),
+					array(
+						'class' => 'microbicagri'
+					)
+				).
+				$this->Xhtml->tag(
+					'td',
+					Configure::read('Traitementpcg66.fichecalcul_abattagriagri').' %',
+					array(
+						'class' => 'microbicagri',
+						'id' => 'abattagriagri'
+					)
+				),
+				array(
+					'class' => 'microbicagri'
 				)
 			);
 
@@ -474,7 +512,7 @@
 					)
 				),
 				array(
-					'class' => 'microbic microbicauto microbnc'
+					'class' => 'microbic microbicauto microbnc microbicagri'
 				)
 			);
 
@@ -1183,6 +1221,11 @@
 			// Infobulle
 			infobulle('srv');
 		});
+		$('Traitementpcg66Chaffagri').observe( 'change', function (event) {
+			recalculbenefpriscompte();
+			// Infobulle
+			infobulle('agri');
+		});
 	} );
 
 	function loadFiche() {
@@ -1224,6 +1267,7 @@
 		recalculbenefpriscompte();
 		infobulle('vnt');
 		infobulle('srv');
+		infobulle('agri');
 	}
 
 	function recalculnbmoisactivite() {
@@ -1303,7 +1347,7 @@
 	function recalculbenefpriscompte() {
 		var benefpriscompte = 0;
 
-		if ($F('Traitementpcg66Regime')=='microbic' || $F('Traitementpcg66Regime')=='microbicauto') {
+		if ($F('Traitementpcg66Regime')=='microbic' || $F('Traitementpcg66Regime')=='microbicauto' || $F('Traitementpcg66Regime')=='microbicagri') {
 			var chaffvnt = parseFloat($F('Traitementpcg66Chaffvnt').replace(',', '.'));
 			var chaffsrv = parseFloat($F('Traitementpcg66Chaffsrv').replace(',', '.'));
 			var abattbicvnt = $('abattbicvnt').innerHTML.split(' ');
@@ -1317,6 +1361,13 @@
 				benefpriscompte += Math.round( (chaffsrv * valueabattbicsrv ) * 100 ) / 100;
 			if (!isNaN(chaffvnt) && !isNaN(valueabattbicvnt))
 				benefpriscompte += Math.round( ( chaffvnt * valueabattbicvnt ) * 100 ) / 100;
+
+			var chaffagri = parseFloat($F('Traitementpcg66Chaffagri').replace(',', '.'));
+			var abattagriagri = $('abattagriagri').innerHTML.split(' ');
+			var valueabattagriagri = abattagriagri[0].replace(',', '.');
+			valueabattagriagri = 1 - parseFloat(valueabattagriagri)/100;
+			if (!isNaN(chaffagri) && !isNaN(valueabattagriagri))
+				benefpriscompte += Math.round( ( chaffagri * valueabattagriagri ) * 100 ) / 100;
 		}
 		else if ($F('Traitementpcg66Regime')=='microbnc') {
 			var chaffsrv = parseFloat($F('Traitementpcg66Chaffsrv').replace(',', '.'));
@@ -1336,12 +1387,14 @@
 
 	function infobulle(champ) {
 		var p = $('infoChaff'+champ);
-		if ($F('Traitementpcg66Regime')=='reel' || $F('Traitementpcg66Regime')=='microbic' || $F('Traitementpcg66Regime')=='microbicauto' || $F('Traitementpcg66Regime')=='microbnc') {
+		if ($F('Traitementpcg66Regime')=='reel' || $F('Traitementpcg66Regime')=='microbic' || $F('Traitementpcg66Regime')=='microbicauto' || $F('Traitementpcg66Regime')=='microbnc' || $F('Traitementpcg66Regime')=='microbicagri') {
 			var valuemax = 0;
 			if (champ=='srv')
 				valuemax = <?php echo Configure::read( 'Traitementpcg66.fichecalcul_casrvmax' ) ?>;
 			else if (champ=='vnt')
 				valuemax = <?php echo Configure::read( 'Traitementpcg66.fichecalcul_cavntmax' ) ?>;
+			else if (champ=='agri')
+				valuemax = <?php echo Configure::read( 'Traitementpcg66.fichecalcul_caagrimax' ) ?>;
 			if( $F('Traitementpcg66Chaff'+champ) > valuemax )
 				p.show();
 			else
@@ -1364,7 +1417,7 @@
 			if (!isNaN(valuemnttotal) && !isNaN(valuenbmois) && valuemnttotal!=0 && valuenbmois!=0)
 				revenus = Math.round( parseFloat( valuemnttotal ) / parseFloat( valuenbmois ) * 100 ) / 100;
 		}
-		else if ($F('Traitementpcg66Regime')=='microbic' || $F('Traitementpcg66Regime')=='microbicauto' || $F('Traitementpcg66Regime')=='microbnc') {
+		else if ($F('Traitementpcg66Regime')=='microbic' || $F('Traitementpcg66Regime')=='microbicauto' || $F('Traitementpcg66Regime')=='microbnc' || $F('Traitementpcg66Regime')=='microbicagri') {
 			var benefpriscompte = $('benefpriscompte').innerHTML.split(' ');
 			var valuebenefpriscompte = benefpriscompte[0].replace(',', '.');
 			valuebenefpriscompte = parseFloat(valuebenefpriscompte);

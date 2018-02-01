@@ -31,6 +31,7 @@
 		public $components = array(
 			'Jetons2',
 			'Jetonsfonctions2',
+			'MultiplePaginator'
 		);
 
 		/**
@@ -97,7 +98,8 @@
 			if( isset( $this->request->data['Cancel'] ) ) {
 				$this->Jetons2->release( Set::extract( '/Foyer/dossier_id', $this->request->data ) );
 				$this->Jetonsfonctions2->release( $cov58_id );
-				$this->redirect( array( 'controller' => 'covs58', 'action' => 'view', $cov58_id, '#' => "dossiers,{$this->request->data['Choose']['theme']}" ) );
+				$themeClass = Inflector::classify( $this->request->data['Choose']['theme'] );
+				$this->redirect( array( 'controller' => 'covs58', 'action' => 'view', $cov58_id, '#' => "tabbedWrapper,{$themeClass}" ) );
 			}
 
 			$cov58 = $this->Dossiercov58->Passagecov58->Cov58->find(
@@ -174,7 +176,8 @@
 					$this->Jetonsfonctions2->release( $cov58_id );
 					$dossiersIds = Set::extract( $this->request->data, '/Foyer/dossier_id' );
 					$this->Jetons2->release( $dossiersIds );
-					$this->redirect( array( 'controller'=>'covs58', 'action'=>'view', $cov58_id, '#' => "dossiers,{$this->request->data['Choose']['theme']}" ) );
+					$themeClass = Inflector::classify($this->request->data['Choose']['theme']);
+					$this->redirect( array( 'controller'=>'covs58', 'action'=>'view', $cov58_id, '#' => "tabbedWrapper,{$themeClass}" ) );
 				}
 				else {
 					$this->Dossiercov58->rollback();
@@ -270,7 +273,7 @@
 						'NOT '.$this->Jetons2->sqLocked( 'Dossier' )
 					),
 					'limit' => 50,
-					'order' => array( 'Dossiercov58.id ASC' )
+					'order' => array( 'Dossiercov58.id' => 'ASC' )
 				);
 
 				$options['Dossiercov58']['cov58_id'] = $this->Dossiercov58->Passagecov58->Cov58->find(
@@ -288,6 +291,7 @@
 
 			$themesChoose = array_keys( $this->Dossiercov58->Passagecov58->Cov58->themesTraites( $cov58_id ) );
 
+			$paginate = array();
 			$dossiers = array();
 			$countDossiers = 0;
 			$originalPaginate = $this->paginate;
@@ -318,9 +322,15 @@
 					)
 				);
 
-				$this->paginate = $qd;
-				$dossiers[$theme] = $this->paginate( $this->Dossiercov58->{$class} );
-				$this->refreshPaginator();
+				$paginate[$class] = $qd;
+			}
+
+			// Pagination des différents thèmes
+			$paginate = $this->MultiplePaginator->prepare( $paginate );
+			foreach( array_keys( $paginate ) as $modelClass ) {
+				$theme = Inflector::underscore( $modelClass );
+				$this->paginate = $paginate;
+				$dossiers[$theme] = $this->paginate( $this->Dossiercov58->{$modelClass} );
 
 				// INFO: pour avoir le formulaire pré-rempli ... à mettre dans le modèle également ?
 				if( empty( $this->request->data ) ) {

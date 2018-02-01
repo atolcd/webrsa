@@ -35,6 +35,7 @@
 <?php
 	if ($departement === 66) {
 		echo $this->Xform->multipleCheckbox('Search.Tag.valeurtag_id', $options);
+		echo $this->Xform->multipleCheckbox('Search.Tag.etat', $options);
 	}
 ?>
 <?php $this->end();?>

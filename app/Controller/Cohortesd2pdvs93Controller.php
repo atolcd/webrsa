@@ -80,7 +80,7 @@
 		 * @var array
 		 */
 		public $commeDroit = array(
-
+			'ajaxadd' => 'Questionnairesd2pdvs93:index'
 		);
 
 		/**

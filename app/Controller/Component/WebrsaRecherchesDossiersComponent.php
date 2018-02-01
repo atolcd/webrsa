@@ -56,6 +56,11 @@
 				$options['Personne']['etat_dossier_orientation'] = $Controller->Dossier->Foyer->Personne->enum( 'etat_dossier_orientation' );
 			}
 
+			if ($departement === 66) {
+				$Controller->loadModel( 'Tag' );
+				$options['Tag']['etat'] = $Controller->Tag->enum( 'etat' );
+			}
+
 			return $options;
 		}
 
@@ -74,7 +79,7 @@
 			if( $departement === 58 ) {
 				$options['Propoorientationcov58']['referentorientant_id'] = $Controller->Dossier->Foyer->Personne->PersonneReferent->Referent->find( 'list', array( 'order' => array( 'Referent.nom' ) ) );
 			}
-			
+
 			if ($departement === 66) {
 				$options = ClassRegistry::init('WebrsaOptionTag')->optionsRecords($options);
 			}
@@ -101,7 +106,7 @@
 			if( $departement === 58 ) {
 				$result = array_merge( $result, array( 'Typeorient', 'Structurereferente', 'Referent' ) );
 			}
-			
+
 			if ($departement === 66) {
 				$result[] = 'Valeurtag';
 				$result[] = 'Categorietag';
