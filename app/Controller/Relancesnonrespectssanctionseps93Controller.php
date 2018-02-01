@@ -291,6 +291,11 @@
 				$search = Hash::filter( (array)$search );
 				unset( $search['Pagination.nombre_total'] );
 
+				$search['limit'] = Configure::read( 'ResultatsParPage.nombre_par_defaut' );
+				if (isset ($this->request->data['Search']['limit'])) {
+					$search['limit'] = $this->request->data['Search']['limit'];
+				}
+
 				$progressivePaginate = !Hash::get( $this->request->data, 'Search.Pagination.nombre_total' );
 
 				if( $this->request->data['Search']['Relance']['contrat'] == 0 ) {
@@ -453,7 +458,10 @@
 					$search
 				);
 
-				$queryData['limit'] = 10;
+				$queryData['limit'] = Configure::read( 'ResultatsParPage.nombre_par_defaut' );
+				if (isset ($this->request->data['Search']['limit'])) {
+					$queryData['limit'] = $this->request->data['Search']['limit'];
+				}
 
 				$this->Relancenonrespectsanctionep93->forceVirtualFields = true;
 

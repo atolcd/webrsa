@@ -53,7 +53,7 @@
 			<?php echo $this->Xform->input( 'Comiteapre.datecomite_to', array( 'label' => 'Au (inclus)', 'type' => 'date', 'dateFormat' => 'DMY', 'maxYear' => date( 'Y' ) + 5, 'minYear' => date( 'Y' ) - 120, 'selected' => $datecomite_to ) );?>
 		</fieldset>
 	</fieldset>
-
+	<?php  require_once  'limitpage.ctp' ;?>
 	<div class="submit noprint">
 		<?php echo $this->Xform->button( 'Rechercher', array( 'type' => 'submit' ) );?>
 		<?php echo $this->Xform->button( 'Réinitialiser', array( 'type' => 'reset' ) );?>

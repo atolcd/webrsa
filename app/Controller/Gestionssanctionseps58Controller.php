@@ -232,7 +232,8 @@
 					$this->Session->read( 'Auth.User.filtre_zone_geo' ),
 					( ( $this->action == 'traitement' ) ? $this->Cohortes->sqLocked( 'Dossier' ) : null )
 				);
-				$paginate['limit'] = ( ( $this->action == 'traitement' ) ? 10 : 100 );
+				//$paginate['limit'] = ( ( $this->action == 'traitement' ) ? 10 : 100 );
+				$paginate['limit'] = isset ($this->request->data['Search']['limit']) ? $this->request->data['Search']['limit'] : Configure::read( 'ResultatsParPage.nombre_par_defaut' ) ;
 
 				$this->paginate = $paginate;
 				$gestionsanctionseps58 = $this->paginate(

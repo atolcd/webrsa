@@ -435,7 +435,7 @@
 					$Dossier->Foyer->Adressefoyer->join( 'Adresse' ),
 				),
 				'contain' => false,
-				'limit' => 10
+				'limit' => isset ($params['Search']['limit']) ? $params['Search']['limit'] : Configure::read('ResultatsParPage.nombre_par_defaut')
 			);
 
 			$querydata['conditions'] = Set::merge( $querydata['conditions'], $conditions );

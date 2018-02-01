@@ -217,10 +217,28 @@
 		 * @return string
 		 */
 		public function paginationNombretotal( $path = 'Pagination.nombre_total' ) {
+			$value = Configure::read( 'ResultatsParPage.nombre_par_defaut' );
+			if (!is_null(Configure::read( 'ConfigurableQuery.'.ucfirst ($this->params['controller']).'.limit' ))) {
+				$value = Configure::read( 'ConfigurableQuery.'.ucfirst ($this->params['controller']).'.limit' );
+			}
+			if (isset ($this->request->data['Search']['limit'])) {
+				$value = $this->request->data['Search']['limit'];
+			}
+
 			return $this->Xhtml->tag(
 				'fieldset',
-				$this->Xhtml->tag( 'legend', 'Comptage des résultats' )
+				$this->Xhtml->tag( 'legend', __d( 'search_plugin', 'Search.Pagination' ) )
 				.$this->Xform->input( $path, array( 'label' =>  __d( 'search_plugin', 'Pagination.nombre_total' ), 'type' => 'checkbox' ) )
+				.'<br />'
+				.$this->Xform->input(
+					"Search.limit",
+					array(
+						'label' =>  __d( 'search_plugin', "Search.Pagination.resultats_par_page" ),
+						'type' => 'radio',
+						'options' => Configure::read( 'ResultatsParPage.nombre_de_resultats' ),
+						'value' => $value
+					)
+				)
 			);
 		}
 

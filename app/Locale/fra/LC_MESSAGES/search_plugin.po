@@ -28,10 +28,13 @@ msgid "Search.Referentparcours"
 msgstr "Suivi du parcours"
 
 msgid "Search.Pagination"
-msgstr "Comptage des résultats"
+msgstr "Résultats"
 
 msgid "Search.Pagination.nombre_total"
 msgstr "Obtenir le nombre total de résultats (plus lent)"
+
+msgid "Search.Pagination.resultats_par_page"
+msgstr "Nombre de résultats par page"
 
 # ------------------------------------------------------------------------------
 

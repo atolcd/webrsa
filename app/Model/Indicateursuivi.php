@@ -337,6 +337,8 @@
 				}
 			}
 
+			$query['limit'] = isset ($search['limit']) ? $search['limit'] : Configure::read('ResultatsParPage.nombre_par_defaut');
+
 			return $query;
 		}
 

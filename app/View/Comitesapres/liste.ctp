@@ -46,7 +46,7 @@
 			</fieldset>
 
 	</fieldset>
-
+	<?php  require_once  'limitpage.ctp' ;?>
 	<div class="submit noprint">
 		<?php echo $this->Xform->button( 'Rechercher', array( 'type' => 'submit' ) );?>
 		<?php echo $this->Xform->button( 'Réinitialiser', array( 'type' => 'reset' ) );?>

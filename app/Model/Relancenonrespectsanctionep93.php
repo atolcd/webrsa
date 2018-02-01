@@ -435,7 +435,12 @@
 		 * @return array
 		 */
 		public function search( $mesCodesInsee, $filtre_zone_geo, $search, $lockedDossiers ) {
-			unset( $search['page'], $search['sort'], $search['direction'] );
+			$limit = Configure::read( 'ResultatsParPage.nombre_par_defaut' );
+			if (isset ($search['limit'])) {
+				$limit = $search['limit'];
+			}
+
+			unset( $search['page'], $search['sort'], $search['direction'], $search['limit'] );
 
 			$conditions = array();
 			$joins = array();
@@ -829,7 +834,7 @@
 					'conditions' => $conditions,
 					'joins' => $joins,
 					'contain' => false,
-					'limit' => 10,
+					'limit' => $limit,
 					'order' => array( 'Orientstruct.date_impression ASC' ),
 				);
 
@@ -953,7 +958,7 @@
 					'conditions' => $conditions,
 					'joins' => $joins,
 					'contain' => false,
-					'limit' => 10,
+					'limit' => $limit,
 					'order' => array( 'Contratinsertion.df_ci ASC' ),
 				);
 

@@ -38,6 +38,22 @@
 				<?php echo $this->Xform->input( 'Cohortecomiteapre.datecomite_to', array( 'label' => 'Au (inclus)', 'type' => 'date', 'dateFormat' => 'DMY', 'maxYear' => date( 'Y' ), 'minYear' => date( 'Y' ) - 120, 'selected' => $datecomite_to ) );?>
 			</fieldset>
 	</fieldset>
+	<?php
+		$value = Configure::read( 'ResultatsParPage.nombre_par_defaut' );
+		if (isset ($this->request->data['Search']['limit'])) {
+			$value = $this->request->data['Search']['limit'];
+		}
+
+		echo $this->Xform->input(
+			"Search.limit",
+			array(
+				'label' =>  __d( 'search_plugin', "Search.Pagination.resultats_par_page" ),
+				'type' => 'radio',
+				'options' => Configure::read( 'ResultatsParPage.nombre_de_resultats' ),
+				'value' => $value
+			)
+		);
+	?>
 	<div class="submit noprint">
 		<?php echo $this->Xform->button( 'Rechercher', array( 'type' => 'submit' ) );?>
 		<?php echo $this->Xform->button( 'Réinitialiser', array( 'type' => 'reset' ) );?>

@@ -625,6 +625,26 @@
 
 			$content = $this->Xform->input( "{$params['prefix']}Pagination.nombre_total", array( 'label' =>  __d( $params['domain'], 'Search.Pagination.nombre_total' ), 'type' => 'checkbox' ) );
 
+			$value = Configure::read( 'ResultatsParPage.nombre_par_defaut' );
+			if (!is_null(Configure::read( 'ConfigurableQuery.'.ucfirst ($this->params['controller']).'.limit' ))) {
+				$value = Configure::read( 'ConfigurableQuery.'.ucfirst ($this->params['controller']).'.limit' );
+			}
+			if (isset ($this->request->data['limit'])) {
+				$value = $this->request->data['limit'];
+			} elseif (isset ($this->request->data['Search']['limit'])) {
+				$value = $this->request->data['Search']['limit'];
+			}
+
+			$content .= '<br />'.$this->Xform->input(
+				"limit",
+				array(
+					'label' =>  __d( $params['domain'], "{$params['prefix']}Pagination.resultats_par_page" ),
+					'type' => 'radio',
+					'options' => Configure::read( 'ResultatsParPage.nombre_de_resultats' ),
+					'value' => $value
+				)
+			);
+
 			return $this->_fieldset( 'Search.Pagination', $content, $params );
 		}
 

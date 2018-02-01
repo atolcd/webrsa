@@ -185,7 +185,11 @@
 					$this->request->data
 				);
 
-				$recoursapres['limit'] = 10;
+				$recoursapres['limit'] = Configure::read( 'ResultatsParPage.nombre_par_defaut' );
+				if (isset ($this->request->data['Search']['limit'])) {
+					$recoursapres['limit'] = $this->request->data['Search']['limit'];
+				}
+
 				$this->paginate = $recoursapres;
 				$recoursapres = $this->paginate( 'ApreComiteapre' );
 

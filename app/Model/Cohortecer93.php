@@ -304,7 +304,7 @@
 					)
 				);
 			}
-//debug($statut);
+
 			/// Dossiers lockés
 			if( !empty( $lockedDossiers ) && ( $statut != 'visualisation' && ( $mode_operation != 'impression' ) ) ) {
 				if( is_array( $lockedDossiers ) ) {
@@ -339,6 +339,8 @@
 					}
 				}
 			}
+
+			$limit = isset ($search['limit']) ? $search['limit'] : Configure::read('ResultatsParPage.nombre_par_defaut');
 
 			$querydata = array(
 				'fields' => array_merge(
@@ -404,7 +406,7 @@
 					'Personne.nom ASC',
 					'Personne.prenom ASC',
 				),
-				'limit' => ( ( $mode_operation != 'impression' ) ? 10 : Hash::get( $search, 'Cer93.limit' ) )
+				'limit' => ( ( $mode_operation != 'impression' ) ? $limit : Hash::get( $search, 'Cer93.limit' ) )
 			);
 
 			//

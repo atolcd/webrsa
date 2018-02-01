@@ -156,7 +156,10 @@
 					array( 'Filtre' => $filtre )
 				);
 
-				$paginate['limit'] = 10;
+				$paginate['limit'] = Configure::read( 'ResultatsParPage.nombre_par_defaut' );
+				if (isset ($this->request->data['Search']['limit'])) {
+					$paginate['limit'] = $this->request->data['Search']['limit'];
+				}
 
 				$paginate['conditions'][] = WebrsaPermissions::conditionsDossier();
 

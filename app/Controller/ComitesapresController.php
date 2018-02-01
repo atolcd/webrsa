@@ -133,7 +133,10 @@
 			if( !empty( $this->request->data ) ) {
 				$this->Dossier->begin(); // Pour les jetons
 				$comitesapres = $this->Comiteapre->search( $display, $this->request->data );
-				$comitesapres['limit'] = 10;
+				$comitesapres['limit'] = Configure::read( 'ResultatsParPage.nombre_par_defaut' );
+				if (isset ($this->request->data['Search']['limit'])) {
+					$comitesapres['limit'] = $this->request->data['Search']['limit'];
+				}
 				$comitesapres['recursive'] = 1;
 				$this->paginate = $comitesapres;
 				$comitesapres = $this->paginate( $this->Comiteapre );

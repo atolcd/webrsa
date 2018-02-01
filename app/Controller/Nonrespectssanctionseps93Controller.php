@@ -423,7 +423,10 @@
 				//Recherche des radiés de Pôle Emploi par critères
 				$this->Nonrespectsanctionep93->Dossierep->Personne->forceVirtualFields = true;
 				$queryData = $this->Nonrespectsanctionep93->qdRadies( $this->request->data['Search'], ( !empty( $mesZonesGeographiques ) ? $mesZonesGeographiques : array() ), $this->Session->read( 'Auth.User.filtre_zone_geo' ));
-				$queryData['limit'] = 10;
+				$queryData['limit'] = Configure::read( 'ResultatsParPage.nombre_par_defaut' );
+				if (isset ($this->request->data['Search']['limit'])) {
+					$queryData['limit'] = $this->request->data['Search']['limit'];
+				}
 
 				$this->paginate = array( 'Personne' => $queryData );
 

@@ -132,7 +132,7 @@
 					'Rendezvous.daterdv ASC',
 					'Questionnaired1pdv93.id ASC',
 				),
-				'limit' => 10
+				'limit' => isset ($search['limit']) ? $search['limit'] : Configure::read('ResultatsParPage.nombre_par_defaut')
 			);
 
 			// Condition sur le projet de ville territorial de la structure de rendez-vous

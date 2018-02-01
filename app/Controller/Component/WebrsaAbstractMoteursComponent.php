@@ -371,6 +371,11 @@
 				$query['limit'] = $limit;
 			}
 
+			$Controller = $this->_Collection->getController();
+			if (isset ($Controller->request->data['limit']) && is_numeric ($Controller->request->data['limit'])) {
+				$query['limit'] = $Controller->request->data['limit'];
+			}
+
 			if( in_array( $query['limit'], array( null, false ) ) ) {
 				unset( $query['limit'] );
 			}

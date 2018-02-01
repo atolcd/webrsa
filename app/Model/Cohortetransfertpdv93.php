@@ -178,7 +178,7 @@
 				'conditions' => $conditions,
 				'contain' => false,
 				'order' => array( 'Adressefoyer.dtemm DESC', 'Dossier.id ASC', 'Personne.nom ASC', 'Personne.prenom ASC' ),
-				'limit' => 10
+				'limit' => isset ($search['limit']) ? $search['limit'] : Configure::read('ResultatsParPage.nombre_par_defaut')
 			);
 
 			if( $statut != 'atransferer' ) {

@@ -192,7 +192,10 @@
 
 				$comitesapres = $this->Cohortecomiteapre->search( $avisComite, $this->request->data );
 
-				$comitesapres['limit'] = 10;
+				$comitesapres['limit'] = Configure::read( 'ResultatsParPage.nombre_par_defaut' );
+				if (isset ($this->request->data['Search']['limit'])) {
+					$comitesapres['limit'] = $this->request->data['Search']['limit'];
+				}
 				$this->paginate = $comitesapres;
 				$comitesapres = $this->paginate( 'Comiteapre' );
 

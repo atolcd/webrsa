@@ -767,7 +767,7 @@
 					),
 				),
 				'contain' => false,
-				'limit' => 10
+				'limit' => isset ($search['limit']) ? $search['limit'] : Configure::read('ResultatsParPage.nombre_par_defaut')
 			);
 
 			// On peut supprimer des dossiers qui ne sont pas encore attaché à une

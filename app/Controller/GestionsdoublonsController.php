@@ -104,9 +104,14 @@
 				$query['fields'][] = $this->Jetons2->sqLocked( 'Dossier', 'locked' );
 				$query['fields'][] = str_replace( 'Dossier__locked', 'Dossier2__locked', $this->Jetons2->sqLocked( 'Dossier', 'locked' ) );
 
+				$limit = Configure::read( 'ResultatsParPage.nombre_par_defaut' );
+				if (isset ($this->request->data['Search']['limit'])) {
+					$limit = $this->request->data['Search']['limit'];
+				}
+
 				$this->paginate = Hash::merge(
 					$query,
-					array( 'limit' => 10 )
+					array( 'limit' => $limit )
 				);
 
 				$progressivePaginate = !Hash::get( $this->request->data, 'Search.Pagination.nombre_total' );
