@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:html="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>ChangeLog</title><style type="text/css">
+					
+						table { border-collapse: collapse; }
+						td, th { border: 1px solid silver; padding: 0.125em 0.25em; vertical-align: top; }
+						thead th, tbody th { text-align: center; background: #cecece; }
+						tbody tr:nth-child(even) { background: #efefef; }
+						tbody th.release { text-align: left; }
+					
+				</style><script type="text/javascript">
+					
+						function toggleColumn( className ) {
+							var elements = document.getElementsByClassName( className );
+							for( var i = 0 ; i < elements.length ; i++ ) {
+								var display = elements[i].style.display;
+								if( display == 'none' ) {
+									elements[i].style.display = 'table-cell';
+								}
+								else {
+									elements[i].style.display = 'none';
+								}
+							}
+						}
+					
+				</script></head><body><h1>ChangeLog</h1><ul><li><a href="#" onclick="toggleColumn( 'fichiers' );return false;" title="Voir la liste des fichiers">Fichiers</a></li></ul><table><thead><tr><th class="revision">Rév.</th><th class="date">Date</th><th class="message">Message</th><th class="fichiers">Fichiers</th></tr></thead><tbody>
+<tr class="logentry"><td class="revision">10409</td><td class="date">23/11/2017 15:33</td><td class="message">Correction: à présent, le shell ChecksShell initialise la classe SessionAclComponent ce qui permet d'initialiser la classe SessionAcl utilisée par le classe SessionAclUtility dans la vérification de l'applcation. (Atol CD par mail).</td><td class="fichiers"><ul class="paths"><li><strong>M:</strong>/trunk/app/Console/Command/ChecksShell.php</li></ul></td></tr>
+<tr class="logentry"><td class="revision">10408</td><td class="date">17/11/2017 15:48</td><td class="message">Correction: ajout de la fonction Pl/PgSQL public.permissions_inherit_module qui permet de faire hériter les AROS d'un certain modèle pour les ACO d'un module particulier ainsi que ses descendants directs. Ajout du module "Apre" dans les modules disponibles pour le CD 66. Pour le CD 66, les permissions de l'ensemble des utilisateurs pour le module "Apre" sont héritées de celles de leurs groupes respectifs. Permet de corriger l'issue #42210 (CD 66, Atol CD).</td><td class="fichiers"><ul class="paths"><li><strong>A:</strong>/trunk/app/Config/sql/patches/3.x/patch-3.2.5-datas-cg66.sql</li><li><strong>A:</strong>/trunk/app/Config/sql/patches/3.x/patch-3.2.5.sql</li><li><strong>M:</strong>/trunk/app/Model/WebrsaAco.php</li></ul></td></tr>
+</tbody></table><script type="text/javascript">
+					
+						toggleColumn( 'fichiers' );
+					
+				</script></body></html>

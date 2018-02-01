@@ -85,7 +85,7 @@
 			'controllers/Actionsinsertion' => array( 66 ),
 			'controllers/Ajoutdossiers' => array( 58, 93, 976 ),
 			'controllers/Ajoutdossierscomplets' => array( 66 ),
-			'controllers/Apres' => array( 93 ),
+			'controllers/Apres' => array( 66, 93 ),
 			'controllers/ApresComitesapres' => array( 93 ),
 			'controllers/Budgetsapres' => array( 93 ),
 			'controllers/Categorietags' => array( 66 ),

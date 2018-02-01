@@ -8,8 +8,10 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'XShell', 'Console/Command' );
+	App::uses( 'ComponentCollection', 'Controller' );
 	App::uses( 'Component', 'Controller' );
 	App::uses( 'GedoooComponent', 'Gedooo.Controller/Component' );
+	App::uses( 'SessionAclComponent', 'SessionAcl.Controller/Component' );
 	App::uses( 'TranslatorHash', 'Translator.Utility' );
 
 	/**
@@ -172,15 +174,20 @@
 		 * Méthode principale.
 		 */
 		public function main() {
-			// 1. Création éventuelle du répertoire temporaire pour les PDF
-			$Gedooo = new GedoooComponent( new ComponentCollection() );
+			$componentCollection = new ComponentCollection();
+
+			// Création éventuelle du répertoire temporaire pour les PDF
+			$Gedooo = new GedoooComponent( $componentCollection );
 			$Gedooo->makeTmpDir( Configure::read( 'Cohorte.dossierTmpPdfs' ) );
 
-			// 2. Vérification de l'application
+			// Initialisation de la classe SessionAcl pour pouvoir utiliser la classe SessionAclUtility
+			$sessionAclComponent = new SessionAclComponent( $componentCollection );
+
+			// Vérification de l'application
 			$results = $this->WebrsaInstallCheck->all();
 			$success = $this->_analyze( $results );
 
-			// 3. Affichage des résultats
+			// Affichage des résultats
 			$this->_report( $results );
 
 			$this->_scritpEnd();

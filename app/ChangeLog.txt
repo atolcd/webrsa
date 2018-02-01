@@ -1,5 +1,26 @@
 
 ************************************************************************
+ Version 3.2.5
+************************************************************************
+
+r10411 | cbuffin | 2017-12-05 13:24:47 +0100 (mar. 05 déc. 2017) | 1 ligne
+
+Patch correctif 3.2.5
+------------------------------------------------------------------------
+r10410 | cbuffin | 2017-12-05 13:24:15 +0100 (mar. 05 déc. 2017) | 1 ligne
+
+Patch correctif 3.2.5
+------------------------------------------------------------------------
+r10409 | cbuffin | 2017-11-23 16:33:47 +0100 (jeu. 23 nov. 2017) | 1 ligne
+
+Correction: à présent, le shell ChecksShell initialise la classe SessionAclComponent ce qui permet d'initialiser la classe SessionAcl utilisée par le classe SessionAclUtility dans la vérification de l'applcation. (Atol CD par mail).
+------------------------------------------------------------------------
+r10408 | cbuffin | 2017-11-17 16:48:08 +0100 (ven. 17 nov. 2017) | 1 ligne
+
+Correction: ajout de la fonction Pl/PgSQL public.permissions_inherit_module qui permet de faire hériter les AROS d'un certain modèle pour les ACO d'un module particulier ainsi que ses descendants directs. Ajout du module "Apre" dans les modules disponibles pour le CD 66. Pour le CD 66, les permissions de l'ensemble des utilisateurs pour le module "Apre" sont héritées de celles de leurs groupes respectifs. Permet de corriger l'issue #42210 (CD 66, Atol CD).
+------------------------------------------------------------------------
+
+************************************************************************
  Version 3.2.4
 ************************************************************************
 
