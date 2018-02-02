@@ -40,7 +40,7 @@
 				$stringUp = ".up( 'fieldset' )";
 			}
 			$out = "document.observe('dom:loaded', function() {
-				observeDisableFieldsetOnCheckbox( '{$observeId}', $( '{$updateId}' ){$stringUp}, false );
+				observeDisableFieldsetOnCheckbox( '{$observeId}', $( '{$updateId}' ){$stringUp}, false, true );
 			});";
 			return "<script type='text/javascript'>{$out}</script>";
 		}

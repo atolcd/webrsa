@@ -221,7 +221,11 @@
 			);
 			foreach( $dcbPaths as $dcbPath ) {
 				if( Hash::check( $params, "options.{$dcbPath}" ) ) {
-					$content .= $this->_dependantCheckboxes( "{$params['prefix']}{$dcbPath}", $params, array( 'options' => (array)Hash::get( $params, "options.{$dcbPath}" ) ) );
+					$content .= $this->_dependantCheckboxes(
+						 "{$params['prefix']}{$dcbPath}",
+						  $params,
+						  array( 'options' => (array)Hash::get( $params, "options.{$dcbPath}" ),
+						'hide' => TRUE  ) );
 				}
 			}
 
@@ -262,7 +266,19 @@
 			$multiple = Configure::read( 'ConfigurableQuery.common.filters.Adresse.numcom.multiple' );
 			$multiple_larger_1 = Configure::read( 'ConfigurableQuery.common.filters.Adresse.numcom.multiple_larger_1' );
 			if( $multiple && ( !$multiple_larger_1 || count( $numscoms ) > 1 ) ) {
-				$content .= $this->_dependantCheckboxes( "{$params['prefix']}Adresse.numcom", $params, array( 'type' => 'select', 'multiple' => 'checkbox', 'options' => $numscoms, 'class' => 'divideInto3Columns', 'buttons' => true, 'autoCheck' => true ) );
+				$content .= $this->_dependantCheckboxes( 
+					"{$params['prefix']}Adresse.numcom", 
+					$params,
+					array( 
+						'type' => 'select', 
+						'multiple' => 'checkbox',
+						'options' => $numscoms,
+						'class' => 'divideInto3Columns',
+						'buttons' => true,
+						'autoCheck' => true,
+						'hide' => TRUE 
+					 )
+				);
 			}
 			else {
 				$content .= $this->_input( "{$params['prefix']}Adresse.numcom", $params, array( 'type' => 'select', 'options' => $numscoms, 'empty' => true ) );
