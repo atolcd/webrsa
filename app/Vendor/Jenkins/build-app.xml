@@ -7,12 +7,11 @@
 	<property name="dir.cakephp.tmp" value="${dir.cakephp.app}/tmp" />
 	<property name="dir.phpcs.ruleset" value="${dir.cakephp.app}/Vendor/Jenkins/phpcs/ruleset-app.xml" />
 	<property name="file.phpmd.ruleset" value="${dir.cakephp.app}/Vendor/Jenkins/phpmd/ruleset-app.xml" />
-	<property name="file.phpunit.config" value="${dir.cakephp.app}/Vendor/Jenkins/phpunit/config-app.xml" />
 	<property name="ignorelist" value="*/Config/sql/*,*/Config/Schema/*,*/docs/*,*/locale/*,*/Test/*,*/tmp/*,*/Vendor/*,*/webroot/*" />
 
 	<!-- Build -->
-	<target name="quality" depends="clean,lint,phpunit,phploc,phpdoc,phpcs,phpmd,pdepend,phpcpd,phpcb"/>
-	<target name="build" depends="clean,lint,phpunit"/>
+	<target name="quality" depends="clean,lint,phploc,phpdoc,phpcs,phpmd,pdepend,phpcpd,phpcb"/>
+	<target name="build" depends="clean,lint"/>
 
 	<!-- Nettoyage des répertoires de travail -->
 	<target name="clear">
@@ -58,7 +57,7 @@
 			<fileset
 				dir="${dir.cakephp.app}"
 				includes="**/*.php,**/*.ctp"
-				excludes="**/Vendor/Netbeans/Templates/**,**/tmp/**" />
+				excludes="**/Vendor/Netbeans/Templates/**,**/tmp/**,**/Plugin/SuperFixture/**" />
 		</apply>
 	</target>
 
@@ -129,21 +128,6 @@
 	<!-- <target name="lint" depends="php-lint,sql-lint,po-lint,js-lint,css-lint"/> -->
 	<target name="lint" depends="bash-lint,xml-lint,php-lint,po-lint,js-lint,css-lint"/>
 
-	<!-- Tests unitaires -->
-	<target name="phpunit" depends="clean,lint">
-		<exec executable="lib/Cake/Console/cake" dir="${basedir}/.." failonerror="true">
-			<arg line="test app AllTests
-				--verbose
-				--strict
-				--no-colors
-				--stderr
-				--configuration ${file.phpunit.config}
-				--log-junit ${dir.ant.logs}/phpunit.xml
-				--coverage-clover ${dir.ant.logs}/phpunit.coverage.xml
-				--coverage-html ${dir.ant.build}/coverage
-				-app app" />
-		</exec>
-	</target>
 
 	<!-- Mesures du code -->
 	<target name="phploc" depends="clean,lint">
