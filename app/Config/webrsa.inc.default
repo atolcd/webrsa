@@ -1,5 +1,29 @@
 <?php
 	/**
+	 * Paramétrage de la génération de documents PDF au moyen de Gedooo.
+	 *
+	 * Les clés de configuration possibles sont:
+	 *	- method: la méthode permettant de générer le document de sortie; valeurs
+	 *		possibles: classic, unoconv, cloudooo (ainsi que cloudooo_ancien et
+	 *		unoconv_ancien)
+	 *	- wsdl: l'URL du web-service, utilisé quelle que soit la méthode de
+	 *		génération; exemple: http://192.168.2.35:8880/ODFgedooo/OfficeService?wsdl
+	 *	- unoconv_bin: chemin vers le binaire unoconv, lorsque la méthode unoconv
+	 *		ou unoconv_ancien est paramétrée; exemple: /usr/bin/unoconv
+	 *	- cloudooo_host: le serveur cloudooo, lorsque la méthode cloudooo ou
+	 *		cloudooo_ancien est utilisée; exemple: 192.168.2.35
+	 *	- cloudooo_port: le port du serveur cloudooo, lorsque la méthode cloudooo
+	 *		ou cloudooo_ancien est utilisée; exemple: 8012
+	 *	- debug_export_data: permet d'exporter les données envoyées en plus des noms
+	 *		des variables dans un fichier du répertoire app/tmp/logs lorsque l'on
+	 *		n'est pas en mode production; false (par défaut) ou true
+	 *	- dont_force_newlines: pour que les retours à la ligne ne soient pas forcés
+	 *		(ancien comportement de unoconv et cloudooo); false (par défaut) ou true
+	 *	- filter_vars: permet de filtrer les variables envoyées à l'impression en
+	 *		analysant les variables utilisateur définies dans le modèle ; false
+	 *		(par défaut) ou true
+	 */
+	/**
 	 * Nouvelle façon de paramétrer la génération de documents PDF via Gedooo.
 	 *
 	 * Ci-dessous, l'ensemble des clés de configuration possibles.
@@ -13,11 +37,10 @@
 	 *	// Pour Unoconv
 	 *	'unoconv_bin' => '/home/cbuffin/Bureau/1/usr/bin/unoconv',
 	 *	// Pour Cloudooo
-	 *	'cloudooo_host' => '192.168.2.35',
+	 *	'cloudooo_host' => 'xx.xx.xx.xx',
 	 *	'cloudooo_port' => '8012'
 	 * )
 	 */
-
 	// Exemple de configuration avec l'ancien Gedooo
 	/*Configure::write(
 		'Gedooo',
@@ -26,7 +49,6 @@
 			'wsdl' => 'http://gedooo.test.adullact.org:8080/axis2/services/OfficeService?wsdl',
 		)
 	);*/
-
 	// Exemple de configuration avec le nouveau Gedooo et unoconv
 	/*Configure::write(
 		'Gedooo',
@@ -36,16 +58,9 @@
 			'unoconv_bin' => '/home/cbuffin/Bureau/1/usr/bin/unoconv',
 		)
 	);*/
-
-	// Exemple de configuration avec le nouveau Gedooo et cloudooo
 	Configure::write(
 		'Gedooo',
-		array(
-			'method' => 'cloudooo',
-			'wsdl' => 'http://127.0.0.1:8080/ODFgedooo/OfficeService?wsdl',
-			'cloudooo_host' => '172.31.76.12',
-			'cloudooo_port' => '8011'
-		)
+		array()
 	);
 
 	/**
@@ -53,27 +68,28 @@
 	 *
 	 * @default: null
 	 */
-	Configure::write( 'FULL_BASE_URL', 'http://localhost/webrsa/trunk' );
+	Configure::write( 'FULL_BASE_URL', 'http://webrsa.atolcd.com' );
+	Configure::write( 'Cg.departement', xx );
 
-	Configure::write( 'Cg.departement', 58 );
 	Configure::write( 'MultiDomainsTranslator', array( 'prefix' => 'cg'.Configure::read( 'Cg.departement' ) ) );
-
 	Configure::write( 'Utilisateurs.multilogin', true );
 	Configure::write( 'with_parentid', false ); // true = cg66
-	Configure::write( 'nom_form_ci_cg', 'cg58' );
-	Configure::write('CG.cantons', false); // false = cg93, true = cg66
-	Configure::write('Zonesegeographiques.CodesInsee', true);
+	Configure::write( 'nom_form_ci_cg', Configure::read( 'MultiDomainsTranslator.prefix') );
+	Configure::write( 'CG.cantons', false ); // false = cg93, true = cg66
+	Configure::write( 'Zonesegeographiques.CodesInsee', true );
 	//Configure::write( 'Etatliquidatif.limit', 1000 ); // INFO: commenter pour ne pas avoir de limite
 
 	/**
 	 * Champs spécifique selon le CG pour le formulaire de l'APRE
 	 * @default: 'cg93' (pour le CG93), 'cg66' (pour le CG66)
 	 */
-	Configure::write( 'nom_form_apre_cg', 'cg93' );
+	Configure::write( 'nom_form_apre_cg', Configure::read( 'MultiDomainsTranslator.prefix') );
 
-	// Limit pour le nombre de documents à éditer dans la cohorte par orientation
+	/**
+	 * Limit pour le nombre de documents à éditer dans la cohorte par orientation
+	 * @default: 2000
+	 */
 	Configure::write( 'nb_limit_print', 2000 );
-
 
 	/**
 	 * Permet à l'administrateur d'accéder à toutes les parties de l'application
@@ -119,17 +135,6 @@
 	Configure::write( 'Cohorte.dossierTmpPdfs', APP.'tmp/files/pdf' );
 
 	/**
-	 *   Paramètres à renseigner pour les montants des
-	 *   forfaits de déplacements des APREs pour le CG66
-	 *   @default:   0.20€ pour les forfaits au Km
-	 *               23€ pour les frais d'hebergement
-	 *               3.81€ pour les frais de repas
-	 */
-	Configure::write( 'Fraisdeplacement66.forfaitvehicule', 0.20 );
-	Configure::write( 'Fraisdeplacement66.forfaithebergt', 23 );
-	Configure::write( 'Fraisdeplacement66.forfaitrepas', 3.81 );
-
-	/**
 	 * Permet à l'administrateur d'ajouter une adresse pour l'utilisateur
 	 * connecté à l'application.
 	 * Besoin pour le CG66 lors de l'impression des courriers de rendez-vous
@@ -137,12 +142,11 @@
 	 */
 	Configure::write( 'User.adresse', false ); // true = cg66, false = cg93
 
-
 	/**
 	 * Paramètre à renseigner pour l'affichage de la bonne fiche de candidature
 	 * @default: 'cg93' (pour le CG93), sinon 'cg66' pour le CG66
 	 */
-	Configure::write( 'ActioncandidatPersonne.suffixe', 'cg93' );
+	Configure::write( 'ActioncandidatPersonne.suffixe', Configure::read( 'MultiDomainsTranslator.prefix' ) );
 
 	/**
 	 *   Paramètre à renseigner dans le cas d'un affichage plus large du menu du dossier
@@ -150,12 +154,10 @@
 	 */
 	Configure::write( 'UI.menu.large', true );
 
-
 	/**
 	 *   Paramètre à renseigner pour le CG58 pour le lien pointant sur leur application
 	 */
-	Configure::write( 'UI.menu.lienDemandeur', 'http://intranet.cg58.fr/applications/xbase/xbase_list.php?DBNAME=xbase_rsa&APPCODE=ALLOCATAIRE&LIST=Fichier RSA&NAV=NO-L&DISPLAYSTYLE=DISPLAYSTD&nCurPage=0&FILTER=;;;;;%s;;;;' );
-
+	Configure::write( 'UI.menu.lienDemandeur', false );
 
 	/**
 	 *   Paramètre à renseigner pour déterminer la plage horaire que l'on dispose pour pouvoir accéder
@@ -165,26 +167,26 @@
 	 *   @default: 48 --> nombre d'heures pendant lesquelles on pourra accéder au bouton
 	 */
 	Configure::write( 'Periode.modifiable.nbheure', 48 );
-
-
+	Configure::write( 'Periode.modifiablecer.nbheure', 240 );
+	Configure::write( 'Periode.modifiableorientation.nbheure', 240 );
 
 	/**
 	 * Champs spécifique selon le CG pour le formulaire des PDOs
 	 * @default: 'cg93' (pour le CG93), 'cg66' (pour le CG66)
 	 */
-	Configure::write( 'nom_form_pdo_cg', 'cg93' );
+	Configure::write( 'nom_form_pdo_cg', Configure::read( 'MultiDomainsTranslator.prefix' ) );
 
 	/**
 	 * Champs spécifique selon le CG pour le formulaire du bilan de parcours / Fiche de saisine
 	 * @default: 'cg93' (pour le CG93), 'cg66' (pour le CG66)
 	 */
-	Configure::write( 'nom_form_bilan_cg', 'cg93' );
+	Configure::write( 'nom_form_bilan_cg', Configure::read( 'MultiDomainsTranslator.prefix' ) );
 
 	/**
 	 * Champs spécifique selon le CG pour le formulaire du Contrat Unqiue d'Insertion
 	 * @default: 'cg93' (pour le CG93), 'cg66' (pour le CG66)
 	 */
-	Configure::write( 'nom_form_cui_cg', 'cg93' );
+	Configure::write( 'nom_form_cui_cg', Configure::read( 'MultiDomainsTranslator.prefix' ) );
 
 	/**
 	 *   Paramètre pour connaître le pourcentage du 1er versement, lors d'un versement en 2 fois,
@@ -225,6 +227,29 @@
 	Configure::write( 'Optimisations.progressivePaginate', true );
 
 	/**
+	 * Surcharge de la pagination progressive pour les cohorte d'orientations, demandes orientées
+	 */
+	Configure::write( 'Optimisations.Cohortes_orientees.progressivePaginate', false );
+
+	/**
+	 * Surcharge de la pagination progressive pour l'action nouveaux
+	 * du contrôleur Cohortesci.
+	 */
+	Configure::write( 'Optimisations.Cohortesci_nouveaux.progressivePaginate', false );
+
+	/**
+	 * Surcharge de la pagination progressive pour l'action avisdemande
+	 * du contrôleur Cohortespdos.
+	 */
+	Configure::write( 'Optimisations.Cohortespdos_avisdemande.progressivePaginate', false );
+
+	/**
+	 * Surcharge de la pagination progressive pour l'action cohorte
+	 * du contrôleur Relancesnonrespectssanctionseps93.
+	 */
+	Configure::write( 'Optimisations.Relancesnonrespectssanctionseps93_cohorte.progressivePaginate', false );
+	
+	/**
 	 * Variables apparaissant dans la fiche de calcul du journal de traitement d'une PDO
 	 */
 	Configure::write( 'Traitementpdo.fichecalcul_coefannee1', 34 );
@@ -243,31 +268,16 @@
 	Configure::write( 'alerteFinSession', false );
 
 	/**
-	 * Durée du délai (en jours) accordé pour la création d'un nouveau contrat pour
-	 * le thème "non orientation professionelle"
-	 *
-	 * @deprecated
+	 * Variable contenant un array avec les id des typesorients du social, sociopro et de l'emploi
 	 */
-	Configure::write( 'Nonorientationproep58.delaiCreationContrat', 60 );
-
-	/**
-	 * Durée de la tolérance (en nombre de jours) par-rapport à la date de fin
-	 * d'un CER que l'on voudrait passer en EP pour le thème "sanctionep58" et
-	 * l'origine "nonrespectcer"
-	 */
-	Configure::write( 'Sanctionep58.nonrespectcer.dureeTolerance', 365 );
+	Configure::write( 'Orientstruct.typeorientprincipale', array( 'Socioprofessionnelle' => array( 1 ), 'Social' => array( 2 ), 'Emploi' => array( 3 ) ) );
 
 	/**
 	 * Configuration pour le dialogue avec un CMS (système de gestion de contenu)
 	 * comme Alfresco, servant à stocker les PDF
 	 */
 	Configure::write(
-		'Cmis', array(
-			'url' => 'http://xxxxxx/alfresco/service/api/cmis',
-			'username' => 'user',
-			'password' => 'pass',
-			'prefix' => '/Sites/Webrsa',
-		)
+	 	'Cmis', array()
 	);
 
 	/**
@@ -276,8 +286,7 @@
 	 *
 	 * @default false
 	 */
-	Configure::write( 'Recherche.qdFilters.Serviceinstructeur', ( Configure::read( 'Cg.departement' ) == 58 ) );
-
+	Configure::write( 'Recherche.qdFilters.Serviceinstructeur', false );
 
 	/**
 	 * Permet de définir si on peut ou non ajouter une nouvelle orientation à un dossier
@@ -297,7 +306,6 @@
 	 * @default false
 	 */
 	Configure::write( 'Recherche.identifiantpecourt', false );
-
 
 	/**
 	 * Variable contenant un array avec les id des typesorients du grand social et de l'emploi
@@ -323,7 +331,6 @@
 	 * 	Délai pour la détection des CERs arrivant à échéance
 	 */
 	Configure::write( 'Criterecer.delaiavanteecheance', '1 months' );
-
 
 	/**
 	 * 	Pour le CG66: Délai durant lequel les dossiers d'EP ne seront ni détectables, ni sélectionnables dans la corbeille
@@ -375,7 +382,6 @@
 	 */
 	Configure::write( 'Optimisations.useTableDernierdossierallocataire', true );
 
-
 	/**
 	 * Permet de donner des valeurs par défaut au formulaire de cohorte des PDOs (cohortespdos/avisdemande)
 	 */
@@ -394,8 +400,7 @@
 	 * Permet de donner des valeurs par défaut au formulaire de cohorte des PDOs (cohortespdos/valide)
 	 */
 	Configure::write(
-		'Filtresdefaut.Cohortespdos_valide',
-		Configure::read( 'Filtresdefaut.Cohortespdos_avisdemande' )
+		'Filtresdefaut.Cohortespdos_valide', Configure::read( 'Filtresdefaut.Cohortespdos_avisdemande' )
 	);
 
 	/**
@@ -505,27 +510,6 @@
 	Configure::write('Rendezvous.useThematique', false );
 
 	/**
-	 * Permet d'indiquer l'id technique (ou les ids techniques) des enregistrements
-	 * de la table structuresreferentes afin de limiter les résultats des
-	 * recherches "Sélection des allocataires radiés de Pôle Emploi" et "Sélection
-	 * des allocataires non inscrits à Pôle Emploi" aux allocataires actuellement
-	 * orientés Pôle Emploi.
-	 *
-	 * @param integer|array
-	 * @default null
-	 */
-	Configure::write( 'Sanctionseps58.selection.structurereferente_id', 2 );
-
-	/**
-	 * Permet d'obtenir le nombre de résultats pour la "Sélection des allocataires
-	 * radiés de Pôle Emploi" et la "Sélection des allocataires non inscrits à
-	 * Pôle Emploi".
-	 *
-	 * @param boolean
-	 */
-	Configure::write( 'Optimisations.Sanctionseps58.progressivePaginate', false );
-
-	/**
 	 * Etats du dossier RSA pris en compte pour trouver les dossiers à fusionner
 	 * dans la gestion des doublons complexes.
 	 *
@@ -620,20 +604,6 @@
 	 * @default null
 	 */
 	Configure::write( 'AncienAllocataire.enabled', true );
-
-	/**
-	 * Intervalle entre la date de la commission pour une des thématiques de
-	 * sanctions des EP du CG 58 et la date prévisionnelle de radiation du RSA.
-	 *
-	 * Utilisé dans les écrans
-	 *	- « Eq. Pluri. » → « 5. Gestion des sanctions » → « Gestion des sanctions »
-	 *	- « Eq. Pluri. » → « 5. Gestion des sanctions » → « Visualisation des sanctions »
-	 *	- Menu du dossier RSA → sous-menu demandeur ou conjoint → « Accompagnement du parcours » → « Historique des EPs » → lien « Passage »
-	 *
-	 * @var string
-	 * @default null
-	 */
-	Configure::write( 'Decisionsanctionep58.datePrevisionnelleRadiation', '8 months' );
 
 	/**
 	 * Paramétrage du module "Statistiques ministérielles"
@@ -824,7 +794,7 @@
 	 *
 	 * @default null
 	 */
-	Configure::write( 'WebrsaEmailConfig.testEnvironments', array( 'skoltest.cg58.fr' ) );
+	Configure::write( 'WebrsaEmailConfig.testEnvironments', array( null ) );
 
 	/**
 	 * Permet d'utiliser le module ROME V3:
@@ -838,27 +808,25 @@
 	Configure::write( 'Romev3.enabled', false );
 
 	/**
-	 * Durée du délai (en jours) accordé pour la création d'un nouveau contrat pour
-	 * les dossiers de COV "non orientation professionelle"
-	 */
-	Configure::write( 'Nonorientationprocov58.delaiCreationContrat', 60 );
-
-	/**
-	 * Valeurs par défaut des filtres pour le moteur de recherche "Recherches" >
-	 * "Par dossiers COV" > "Demande de maintien dans le social (nouveau)"
+	 * Valeur possible du nombre de résultats possible par recherche
 	 */
 	Configure::write(
-		'Filtresdefaut.Nonorientationsproscovs58_cohorte',
+		'ResultatsParPage.nombre_de_resultats',
 		array(
-			'Search' => array(
-				'Contratinsertion' => array(
-					'df_ci_from' => strtotime( '-1 week' ),
-					'df_ci_to' => strtotime( 'now' )
-				),
-				'Pagination' => array(
-					'nombre_total' => 0
-				)
-			)
+			'10' => '10',
+			'20' => '20',
+			'50' => '50',
+			'100' => '100',
 		)
 	);
+
+	/**
+	 * Valeur sélectionnée par défaut du nombre de résultats dans une recherche
+	 */
+	Configure::write('ResultatsParPage.nombre_par_defaut', '10' );
+
+	/**
+	 * Récupération du fichier de config propre au département
+	 */
+	require_once ('webrsa.cg'.Configure::read( 'Cg.departement' ).'.inc');
 ?>
