@@ -81,13 +81,23 @@
 		}
 
 		public function diffs() {
+			$vrsb0801 = $this->_normalize( $this->Fluxcnaf->flux['Bénéficiaire VRSB0801-Cristal V4200'] );
 			$vrsd0301 = $this->_normalize( $this->Fluxcnaf->flux['Bénéficiaire VRSD0301'] );
 			$vrsd0101 = $this->_normalize( $this->Fluxcnaf->flux['Bénéficiaire VRSD0101'] );
 
-			$results = array(
+			$results[0301] = array(
 				'vrsd0301_vrsd0101' => $this->_diff( $vrsd0301, $vrsd0101 ),
 				'vrsd0101_vrsd0301' => $this->_diff( $vrsd0101, $vrsd0301 )
 			);
+			$results[0308] = array(
+				'vrsd0301_vrsb0801' => $this->_diff( $vrsd0301, $vrsb0801 ),
+				'vrsb0801_vrsd0301' => $this->_diff( $vrsb0801, $vrsd0301 )
+			);
+			$results[0108] = array(
+				'vrsd0101_vrsb0801' => $this->_diff( $vrsd0101, $vrsb0801 ),
+				'vrsb0801_vrsd0101' => $this->_diff( $vrsb0801, $vrsd0101 )
+			);
+
 			$this->set( compact( 'results' ) );
 		}
 
