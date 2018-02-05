@@ -450,14 +450,19 @@
 								<th>Date d'entrée au RSA/RMI/API</th>
 								<td><?php echo h( date_short( Set::extract( 'Detaildroitrsa.dtoridemrsa', $details ) ) );?></td>
 							</tr>
-							<tr class="odd">
-								<th>Date de fin de droits</th>
-								<td><?php echo h( date_short( Set::extract( 'Situationdossierrsa.dtclorsa', $details ) ) );?></td>
-							</tr>
-							<tr class="even">
-								<th>Motif de fin de droits</th>
-								<td><?php echo h( value( $moticlorsa, Set::extract( 'Situationdossierrsa.moticlorsa', $details ) ) );?></td>
-							</tr>
+							<?php if (
+								Set::extract( 'Situationdossierrsa.etatdosrsa', $details )  == 5
+								|| Set::extract( 'Situationdossierrsa.etatdosrsa', $details )  == 6
+							){?>
+								<tr class="odd">
+									<th>Date de fin de droits</th>
+									<td><?php echo h( date_short( Set::extract( 'Situationdossierrsa.dtclorsa', $details ) ) );?></td>
+								</tr>
+								<tr class="even">
+									<th>Motif de fin de droits</th>
+									<td><?php echo h( value( $moticlorsa, Set::extract( 'Situationdossierrsa.moticlorsa', $details ) ) );?></td>
+								</tr>
+							<?php }?>
 							<tr class="odd">
 								<th>Numéro de demande RSA</th>
 								<td><?php echo Set::extract( 'Dossier.numdemrsa', $details );?></td>
