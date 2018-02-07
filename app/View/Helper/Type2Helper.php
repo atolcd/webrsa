@@ -159,7 +159,7 @@
 			if( $params['type'] == 'boolean' ) {
 				return $this->_formatBooleanValue( $value, $params );
 			}
-			else if( in_array( $params['type'], array( 'float', 'integer' ) ) ) {
+			else if( in_array( $params['type'], array( 'float', 'integer','decimal'  ) ) ) {
 				return $this->_formatNumericValue( $value, $params );
 			}
 			else if( in_array( $params['type'], array( 'date', 'time', 'timestamp', 'datetime' ) ) ) {
