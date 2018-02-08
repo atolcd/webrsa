@@ -16,6 +16,9 @@ msgstr "Paramétrage des utilisateurs"
 msgid "/Users/add/:heading"
 msgstr "Ajout d'un utilisateur"
 
+msgid "/Users/duplicate/:heading"
+msgstr "Duplication d'un utilisateur"
+
 msgid "/Users/edit/:heading"
 msgstr "Modification de l'utilisateur « #User.prenom# #User.nom# (#User.username#) »"
 

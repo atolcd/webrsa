@@ -1190,6 +1190,9 @@ td.button.view.disabled a, td.action a.view.disabled, td span.button.view.disabl
 td.button.edit a, td.action a.edit, td span.button.edit, table.default2 td a.button.edit {
 	background-image: url( ../img/icons/pencil.png );
 }
+td.button.duplicate a, td.action a.duplicate, td span.button.duplicate, table.default2 td a.button.duplicate {
+	background-image: url( ../img/icons/group.png );
+}
 td.button.edit.disabled a, td.action a.edit.disabled, td span.button.edit.disabled, table.default2 td a.button.edit.disabled, td.action span.edit.disabled {
 	background-image: url( ../img/icons/pencil_disabled.png );
 }

@@ -160,6 +160,9 @@
 						'/Users/edit/#User.id#' => array(
 							'title' => false
 						),
+						'/Users/duplicate/#User.id#' => array(
+							'title' => false,
+						),
 						'/Users/delete_jetons/#User.id#' => array(
 							'condition' => $jetonsEnabled,
 							'condition_group' => 'jetons',

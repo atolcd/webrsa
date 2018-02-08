@@ -112,6 +112,7 @@
 			'index' => 'read',
 			'login' => 'read',
 			'logout' => 'read',
+			'duplicate' => 'update',
 		);
 
 		/**
@@ -513,6 +514,20 @@
 		}
 
 		/**
+		 * Formulaire de duplication d'un utilisateur.
+		 */
+		public function duplicate($user_id = null) {
+			// Au retour du formulaire, on passe l'id de l'utilisateur à null pour forcer l'ajout.
+			if (!empty($this->request->data)) {
+				$user_id = null;
+			}
+
+			// Tout se passe dans la méthode edit.
+			$this->edit($user_id);
+		}
+
+
+		/**
 		 * Formulaire de modification d'un utilisateur.
 		 *
 		 * @param integer $user_id
@@ -558,6 +573,53 @@
 					)
 				);
 				$this->request->data = $this->User->find( 'first', $qd_userDb );
+
+				if(true === empty($this->request->data)) {
+					throw new NotFoundException();
+				}
+
+				// Certains utilisateurs ne sont pas déclarés comme gestionnaires mais sont liés à un pole
+				$poledossierpcg66_id = Hash::get( $this->request->data, 'User.poledossierpcg66_id' );
+				$isgestionnaire = Hash::get( $this->request->data, 'User.isgestionnaire' );
+
+				if( false === empty( $poledossierpcg66_id ) && 'O' !== $isgestionnaire ) {
+					$message = 'Cet utilisateur n\'était pas gestionnaire mais était lié à un pole PCG. Il est à nouveau renseigné en tant que gestionnaire dans le formulaire.';
+					$this->Flash->error( $message );
+
+					$this->request->data['User']['isgestionnaire'] = 'O';
+				}
+			}
+			else if( 'duplicate' === $this->action ) {
+				$qd_userDb = array(
+					'conditions' => array(
+						'User.id' => $user_id
+					),
+					'contain' => array(
+						'Ancienpoledossierpcg66',
+						'Zonegeographique'
+					)
+				);
+				$this->request->data = $this->User->find( 'first', $qd_userDb );
+
+				// On ne récupère pas les données personnelles
+				// Données communes aux CG
+				$this->request->data['User']['password'] = '';
+				$this->request->data['User']['id'] = '';
+				$this->request->data['User']['username'] = '';
+				$this->request->data['User']['nom'] = '';
+				$this->request->data['User']['prenom'] = '';
+				$this->request->data['User']['date_naissance'] = '';
+				$this->request->data['User']['date_deb_hab'] = '';
+				$this->request->data['User']['date_fin_hab'] = '';
+				$this->request->data['User']['numtel'] = '';
+				// Données en plus dans CG66
+				if (isset ($this->request->data['User']['numvoie'])) { $this->request->data['User']['numvoie'] = ''; }
+				if (isset ($this->request->data['User']['typevoie'])) { $this->request->data['User']['typevoie'] = ''; }
+				if (isset ($this->request->data['User']['nomvoie'])) { $this->request->data['User']['nomvoie'] = ''; }
+				if (isset ($this->request->data['User']['compladr'])) { $this->request->data['User']['compladr'] = ''; }
+				if (isset ($this->request->data['User']['codepos'])) { $this->request->data['User']['codepos'] = ''; }
+				if (isset ($this->request->data['User']['ville'])) { $this->request->data['User']['ville'] = ''; }
+				if (isset ($this->request->data['User']['email'])) { $this->request->data['User']['email'] = ''; }
 
 				if(true === empty($this->request->data)) {
 					throw new NotFoundException();

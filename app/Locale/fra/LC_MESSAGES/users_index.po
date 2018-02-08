@@ -124,3 +124,9 @@ msgstr "Supprimer"
 
 msgid "/Users/delete/#User.id# ?"
 msgstr "Supprimer l'utilisateur « #User.nom# #User.prenom# (#User.username#) » ?"
+
+msgid "/Users/duplicate"
+msgstr "Dupliquer"
+
+msgid "/Users/duplicate/#User.id#"
+msgstr "Dupliquer"
