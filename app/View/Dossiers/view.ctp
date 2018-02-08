@@ -284,6 +284,11 @@
 								<td><?php echo Set::extract( 'CJT.Personne.prenom', $details );?></td>
 							</tr>
 							<tr class="odd">
+								<th>Départ du foyer </th>
+								<td><?php echo h( date_short( Set::extract( 'DEM.Dossiercaf.dfratdos', $details ) ) );?></td>
+								<td><?php echo h( date_short( Set::extract( 'CJT.Dossiercaf.dfratdos', $details ) ) );?></td>
+							</tr>
+							<tr class="odd">
 								<th><?php echo __d( 'personne', 'Personne.dtnai' );?></th>
 								<td><?php echo date_short( Set::extract( 'DEM.Personne.dtnai', $details ) ).' ('.age( ( Set::extract( 'DEM.Personne.dtnai', $details ) ) ).' ans)';?></td>
 								<td>

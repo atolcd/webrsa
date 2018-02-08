@@ -210,6 +210,11 @@
 					<td><?php echo Set::extract( 'CJT.Personne.prenom', $details );?></td>
 				</tr>
 				<tr class="odd">
+					<th>Départ du foyer </th>
+					<td><?php echo h( date_short( Set::extract( 'DEM.Dossiercaf.dfratdos', $details ) ) );?></td>
+					<td><?php echo h( date_short( Set::extract( 'CJT.Dossiercaf.dfratdos', $details ) ) );?></td>
+				</tr>
+				<tr class="odd">
 					<th><?php echo __d( 'personne', 'Personne.dtnai' );?></th>
 					<td><?php echo date_short( Set::extract( 'DEM.Personne.dtnai', $details ) ).' ('.age( ( Set::extract( 'DEM.Personne.dtnai', $details ) ) ).' ans)';?></td>
 					<td>
@@ -276,50 +281,54 @@
 					<td><?php echo Set::extract( 'Dossier.matricule', $details );;?></td>
 				</tr>
 				<tr class="odd">
-					<th>Date d'ouverture des droits</th>
+					<th>Date d'obtention du numéro de RSA</th>
 					<td><?php echo h( date_short( Set::extract( 'Dossier.dtdemrsa', $details ) ) );?></td>
 				</tr>
 				<tr class="even">
+					<th>Date d'entrée au RSA/RMI/API</th>
+					<td><?php echo h( date_short( Set::extract( 'Detaildroitrsa.dtoridemrsa', $details ) ) );?></td>
+				</tr>
+				<tr class="odd">
 					<th>Date de fin de droits</th>
 					<td><?php echo h( date_short( Set::extract( 'Situationdossierrsa.dtclorsa', $details ) ) );?></td>
 				</tr>
-				<tr class="odd">
+				<tr class="even">
 					<th>Motif de fin de droits</th>
 					<td><?php echo h( value( $moticlorsa, Set::extract( 'Situationdossierrsa.moticlorsa', $details ) ) );?></td>
 				</tr>
-				<tr class="even">
+				<tr class="odd">
 					<th>Numéro de demande RSA</th>
 					<td><?php echo Set::extract( 'Dossier.numdemrsa', $details );?></td>
 				</tr>
-				<tr class="odd">
+				<tr class="even">
 					<th>Date dernier(s) montant(s)</th>
 					<td><?php echo date_short( Set::extract( 'Detailcalculdroitrsa.0.dtderrsavers', $details ) );?></td>
 				</tr>
 				<?php if( isset( $details['Detailcalculdroitrsa'] ) ):?>
 					<?php foreach( $details['Detailcalculdroitrsa'] as $detailcalculdroitrsa ):?>
-					<tr class="even">
+					<tr class="odd">
 						<th>Motif montant</th>
 						<td><?php echo value( $natpf, Set::extract( 'natpf', $detailcalculdroitrsa ) );?></td>
 					</tr>
-					<tr class="odd">
+					<tr class="even">
 						<th>Montant RSA</th>
 						<td><?php echo $this->Locale->money( Set::extract( 'mtrsavers', $detailcalculdroitrsa ) ); ?></td>
 					</tr>
 					<?php endforeach;?>
 				<?php endif;?>
-				<tr class="even">
+				<tr class="odd">
 					<th>Montant INDUS</th>
 					<td><?php echo $this->Locale->money( Set::extract( 'Infofinanciere.mtmoucompta', $details ) );?></td>
 				</tr>
-				<tr class="odd">
+				<tr class="even">
 					<th>Motif INDUS</th>
 					<td><?php echo h( Set::extract( 'Creance.motiindu', $details ) );/*FIXME: traduction, manque dans Option*/?></td>
 				</tr>
-				<tr class="even">
+				<tr class="odd">
 					<th>Début du traitement CAF / MSA</th>
 					<td><?php echo $this->Locale->date( 'Date::short', Set::extract( 'DEM.Dossiercaf.ddratdos', $details ) );?></td>
 				</tr>
-				<tr class="odd">
+				<tr class="even">
 					<th>Fin du traitement CAF / MSA</th>
 					<td><?php echo h(  date_short( Set::extract( 'DEM.Dossiercaf.dfratdos', $details ) ) );?></td>
 				</tr>
