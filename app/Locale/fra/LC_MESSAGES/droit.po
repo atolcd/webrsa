@@ -2782,6 +2782,9 @@ msgstr "Paramétrage des utilisateurs"
 msgid "controllers/Users/index"
 msgstr "Visualisation des utilisateurs"
 
+msgid "controllers/Users/duplicate"
+msgstr "Duplication des utilisateurs"
+
 msgid "controllers/Users/edit"
 msgstr "Ajout/Édition d'un utilisateur"
 
