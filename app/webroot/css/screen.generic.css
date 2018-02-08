@@ -909,7 +909,7 @@ div.aere {
 }
 /*****************************************************************************/
 /*Pour le dossier_menu dans l'entête*/
-p.etatDossier {
+p.etatDossier , p.etatFlux, p.numCaf{
     font-size: 14px;
     border-bottom: 1px solid #235F7D;
     line-height: 1em;

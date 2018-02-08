@@ -103,6 +103,20 @@
 	}
 ?>
 
+<p class="etatFlux">
+	<?php
+				$dtliqValue = Set::classicExtract( $dossier, 'Evenement.dtliq' );
+				$motitransfluxValue = Set::classicExtract( $dossier, 'Evenement.fg' );
+				$motitransflux = ClassRegistry::init('Evenement')->enum('fg');
+			    if ( isset( $dtliqValue ) ){
+					echo "Date MAJ Flux : $dtliqValue  <br>" ;
+					echo isset( $motitransfluxValue) ? $motitransflux[$motitransfluxValue] : 'Aucun Motif Transmis' ;
+			    } else{
+					echo "Aucune transmission repertorié";
+			    }
+	?>
+</p>
+
 <p class="etatDossier">
 <?php
     $etatdosrsa = ClassRegistry::init('Dossier')->enum('etatdosrsa');
@@ -110,7 +124,7 @@
     echo  isset( $etatdosrsa[$etatdosrsaValue] ) ? $etatdosrsa[$etatdosrsaValue] : 'Non défini' ;?>
 </p>
 
-	<p class="etatDossier">
+<p class="numCaf">
 	<?php
 		$numcaf = $dossier['Dossier']['matricule'];
 		$fonorg = $dossier['Dossier']['fonorg'];
@@ -122,7 +136,7 @@
 			echo '';
 		}
 	?>
-	</p>
+</p>
 
 	<?php
 		$itemsAllocataires = array();

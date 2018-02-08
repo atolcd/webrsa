@@ -287,10 +287,13 @@
 					$this->Foyer->sqVirtualField( 'enerreur' ),
 					$this->Foyer->sqVirtualField( 'sansprestation' ),
 					'Situationdossierrsa.etatdosrsa',
+					'Evenement.dtliq',
+					'Evenement.fg'
 				),
 				'joins' => array(
 					$this->join( 'Foyer', array( 'type' => 'INNER' ) ),
 					$this->join( 'Situationdossierrsa', array( 'type' => 'LEFT' ) ),
+					$this->Foyer->join('Evenement')
 				),
 				'conditions' => $conditions,
 				'contain' => false
