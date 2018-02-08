@@ -230,10 +230,12 @@
 						'Situationdossierrsa.dtclorsa',
 						'Situationdossierrsa.etatdosrsa',
 						'Situationdossierrsa.moticlorsa',
+						'Detaildroitrsa.dtoridemrsa'
 					),
 					'contain' => array(
 						'Foyer',
-						'Situationdossierrsa'
+						'Situationdossierrsa',
+						'Detaildroitrsa'
 					),
 					'conditions' => array(
 						'Dossier.id' => $id
