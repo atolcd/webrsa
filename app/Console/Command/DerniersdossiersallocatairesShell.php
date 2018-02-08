@@ -102,11 +102,13 @@
 				$sqlSelectInsert = "{$sqlSelectInsert} AND personnes.id NOT IN ( ".implode( ', ', $personnesSansDtdemrsa )." )";
 			}
 
-			$this->out( 'Population de la table derniersdossiersallocataires' );
+			$this->out( 'Population de la table derniersdossiersallocataires : Des personnes avec DTDEMRS' );
 
 			// Insertion des allocataires se trouvant dans un dossier avec une dtdemrsa NOT NULL
 			$sql = "INSERT INTO derniersdossiersallocataires (personne_id, dossier_id) {$sqlSelectInsert} ;";
 			$success = ( $this->Dernierdossierallocataire->query( $sql ) !== false ) && $success;
+
+			$this->out( 'Population de la table derniersdossiersallocataires : Ajout des Sans DTDEMRSA' );
 
 			// Insertion des allocataires se trouvant dans un dossier avec une dtdemrsa NULL
 			if( !empty( $personnesSansDtdemrsa ) ) {
