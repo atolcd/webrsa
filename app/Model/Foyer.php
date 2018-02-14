@@ -614,5 +614,24 @@
 
 			return $result;
 		}
+
+		/**
+         * Fonction retournant les dossiers PCGs existants
+         *
+         * @return type
+         */
+        public function dossiersPCG66 () {
+			return $this->Dossierpcg66->sq(
+				array(
+					'fields' => array(
+						'dossierspcgs66.id'
+					),
+					'alias' => 'dossierspcgs66',
+					'conditions' => array(
+						'dossierspcgs66.foyer_id = Foyer.id'
+					)
+				)
+			);
+        }
 	}
 ?>

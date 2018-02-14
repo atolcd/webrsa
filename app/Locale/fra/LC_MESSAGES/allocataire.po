@@ -32,7 +32,7 @@ msgid "Search.Personne.has_cui"
 msgstr "Possède un CUI ?"
 
 msgid "Search.Personne.has_personnepcg66"
-msgstr "Possède un dossier PCG ?"
+msgstr "Possède un traitement PCG ?"
 
 msgid "Search.Personne.has_contratinsertion"
 msgstr "Possède un CER ?"
