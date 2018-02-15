@@ -58,7 +58,7 @@ msgid "Indicateurmensuel.montantsIndusTransferes"
 msgstr "Montant des indus transférés"
 
 msgid "Indicateurmensuel.nbrCiNouveauxEntrantsCg"
-msgstr "Nombre de contrats d'insertion pour les nouveaux entrants CG"
+msgstr "Nombre de contrats d'insertion pour les nouveaux entrants CD"
 
 msgid "Indicateurmensuel.nbrSuspensionsDroits"
 msgstr "Nombre de suspensions de droits"
@@ -132,7 +132,7 @@ msgid "Indicateurmensuel.orientees_pe"
 msgstr "Nombre personnes orientées PE"
 
 msgid "Indicateurmensuel.orientees_cg"
-msgstr "Nombre personnes orientées CG"
+msgstr "Nombre personnes orientées CD"
 
 msgid "Indicateurmensuel.orientees_oa"
 msgstr "Nombre personnes orientées OA"

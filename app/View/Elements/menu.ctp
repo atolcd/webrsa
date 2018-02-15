@@ -104,7 +104,7 @@
 				'Nouvelles demandes' => array(
 					'class' => 'search',
 					'url' => array( 'controller' => 'propospdos', 'action' => 'cohorte_nouvelles' ),
-					'title' => 'Avis CG demandé',
+					'title' => 'Avis CD demandé',
 				),
 				'Liste PDOs' => array(
 					'class' => 'search',
@@ -305,7 +305,7 @@
 				( $departement == 66 ? 'Avis EP' : 'EP' ) => array(
 					'url' => array( 'controller' => 'commissionseps', 'action' => 'arbitrageep' ),
 				),
-				( $departement == 66 ? 'Décisions CG' : 'CG' ) => array(
+				( $departement == 66 ? 'Décisions CD' : 'CD' ) => array(
 					'url' => array( 'controller' => 'commissionseps', 'action' => 'arbitragecg' ),
 				),
 			),
@@ -336,7 +336,7 @@
 				'disabled' => false === $user_cpdv,
 				'url' => array( 'controller' => 'cohortescers93', 'action' => 'avalidercpdv'  )
 			),
-			'4. Décision CG' => array(
+			'4. Décision CD' => array(
 				'4.1 Première lecture' => array(
 					'class' => 'search',
 					'disabled' => false === $user_cg,

@@ -49,20 +49,20 @@
 						<th rowspan="2">Déménagement ?</th>
 						<th colspan="4">Etape du Responsable</th>
 
-						<th colspan="5">Etape du CG</th>
+						<th colspan="5">Etape du CD</th>
 						<th class="action" rowspan="2">Actions</th>
 					</tr>
 					<tr>
 						<th>Validation Responsable</th>
 						<th>Forme du CER</th>
 						<th>Commentaire du Responsable</th>
-						<th>Date de transfert au CG</th>
+						<th>Date de transfert au CD</th>
 
-						<th>Validation CG (1ère lecture)</th>
+						<th>Validation CD (1ère lecture)</th>
 						<th>Validation CS</th>
 						<th>Validation Cadre</th>
 						<th>Forme CER</th>
-						<th>Commentaire du CG</th>
+						<th>Commentaire du CD</th>
 					</tr>
 				</thead>';
 			echo '<tbody>';

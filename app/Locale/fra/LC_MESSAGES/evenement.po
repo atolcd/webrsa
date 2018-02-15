@@ -54,13 +54,13 @@ msgid "ENUM::FG::SITFAM"
 msgstr "situation famille"
 
 msgid "ENUM::FG::DECDEMPCG"
-msgstr "décision du Président du CG"
+msgstr "décision du Président du CD"
 
 msgid "ENUM::FG::CARRSA"
 msgstr "caractéristiques RSA"
 
 msgid "ENUM::FG::PROPCG"
-msgstr "proposition au Président CG"
+msgstr "proposition au Président CD"
 
 msgid "ENUM::FG::HOSPLA"
 msgstr "hospitalisation placement"
@@ -81,7 +81,7 @@ msgid "ENUM::FG::REA"
 msgstr "réaffiliation (Fait générateur générique)"
 
 msgid "ENUM::FG::DERPRE"
-msgstr "Dérogation du Président du CG"
+msgstr "Dérogation du Président du CD"
 
 msgid "ENUM::FG::ABANEURES"
 msgstr "abattement ou neuratisation de ressource"

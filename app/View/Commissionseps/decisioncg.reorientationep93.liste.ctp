@@ -11,7 +11,7 @@ echo '<table id="Decisionreorientationep93" class="tooltips"><thead>
 <th>Orientation préconisée</th>
 <th>Structure référente préconisée</th>
 <th>Avis EP</th>
-<th colspan=\'4\'>Décision CG</th>
+<th colspan=\'4\'>Décision CD</th>
 <th>Observations</th>
 <th>Action</th>
 <th class="innerTableHeader noprint">Avis EP</th>

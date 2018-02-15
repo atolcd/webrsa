@@ -316,7 +316,7 @@ msgstr "Organisme de recouvrement des cotisations sociales :"
 ###############################################################################
 
 msgid "Partenairecui66.informationssup"
-msgstr "Informations additionnelles pour le cg66"
+msgstr "Informations additionnelles pour le cd66"
 
 msgid "Partenairecui66.codepartenaire"
 msgstr "Code partenaire"
@@ -346,13 +346,13 @@ msgid "Partenairecui66.nblits"
 msgstr "Nombre de lits"
 
 msgid "Partenairecui66.nbcontratsaideshorscg"
-msgstr "Nombre de contrats aidés hors CG"
+msgstr "Nombre de contrats aidés hors CD"
 
 msgid "Partenairecui66.nbcontratsaidescg"
-msgstr "Nombre de contrats aidés CG"
+msgstr "Nombre de contrats aidés CD"
 
 msgid "Partenairecui66.subventioncg"
-msgstr "Subventionné par CG"
+msgstr "Subventionné par CD"
 
 msgid "Partenairecui66.commentaire"
 msgstr "Commentaire"

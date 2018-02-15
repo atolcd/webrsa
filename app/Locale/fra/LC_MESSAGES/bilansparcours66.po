@@ -163,7 +163,7 @@ msgid "Avis.lib"
 msgstr "Avis de l'EP"
 
 msgid "Decision.lib"
-msgstr "Décision du CG"
+msgstr "Décision du CD"
 
 msgid "/Bilansparcours66/view"
 msgstr "Voir"
@@ -208,7 +208,7 @@ msgid "Avis.commentaire"
 msgstr "Commentaire de l'EP (étape EP)"
 
 msgid "Decision.commentaire"
-msgstr "Commentaire de l'EP (étape CG)"
+msgstr "Commentaire de l'EP (étape CD)"
 
 msgid "Bilansparcours66::index::emptyLabel"
 msgstr "Aucun bilan de parcours présent pour cette personne."

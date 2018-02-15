@@ -49,7 +49,7 @@ msgid "ENUM::BENEF_POSITIONCER::validationpdv"
 msgstr "En cours de validation PDV"
 
 msgid "ENUM::BENEF_POSITIONCER::validationcg"
-msgstr "En cours de  validation par le CG"
+msgstr "En cours de  validation par le CD"
 
 msgid "ENUM::BENEF_POSITIONCER::valide"
 msgstr "Validé"
@@ -94,7 +94,7 @@ msgid "ENUM::BENEF_ETATDOSRSA::Z"
 msgstr "Non défini"
 
 msgid "ENUM::BENEF_ETATDOSRSA::0"
-msgstr "Nouvelle demande en attente de décision CG pour ouverture du droit"
+msgstr "Nouvelle demande en attente de décision CD pour ouverture du droit"
 
 msgid "ENUM::BENEF_ETATDOSRSA::1"
 msgstr "Droit refusé"

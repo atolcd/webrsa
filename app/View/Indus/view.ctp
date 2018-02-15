@@ -23,7 +23,7 @@
 					<td><?php echo $this->Locale->date( 'Date::short', $infofinanciere['Infofinanciere']['moismoucompta'] );?></td>
 				</tr>
 				<tr class="even">
-					<th class="aere">Date transfert CG</th>
+					<th class="aere">Date transfert CD</th>
 					<td><?php echo $this->Locale->date( 'Date::short', $infofinanciere['Infofinanciere']['dttraimoucompta'] );?></td>
 				</tr>
 		</tbody>
@@ -60,7 +60,7 @@
 				<td></td>
 			</tr>
 			<tr class="even">
-				<th class="aere">Remise CG</th>
+				<th class="aere">Remise CD</th>
 				<td class="number"><?php echo $this->Locale->money( $infofinanciere[0]['mt_remises_indus'] );?></td>
 				<td></td>
 			</tr>

@@ -32,7 +32,7 @@ msgid "Propopdo.motifpdo"
 msgstr "Motif de la décision"
 
 msgid "Decisionpropopdo.datedecisionpdo"
-msgstr "Date de la décision CG"
+msgstr "Date de la décision CD"
 
 msgid "Decisionpropopdo.commentairepdo"
 msgstr "Commentaire PDO"

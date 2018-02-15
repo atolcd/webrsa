@@ -188,13 +188,13 @@ msgid "Decisiondossierpcg66.defautinsertion"
 msgstr "Défaut d'insertion"
 
 msgid "ENUM::DEFAUTINSERTION::suspensiondefaut_audition_orientation"
-msgstr "NC (CG)"
+msgstr "NC (CD)"
 
 msgid "ENUM::DEFAUTINSERTION::suspensiondefaut_auditionpe"
 msgstr "NC (PE)"
 
 msgid "ENUM::DEFAUTINSERTION::suspensionnonrespect_audition"
-msgstr "NR (CG)"
+msgstr "NR (CD)"
 
 msgid "ENUM::DEFAUTINSERTION::suspensionnonrespect_auditionpe"
 msgstr "NR (PE)"

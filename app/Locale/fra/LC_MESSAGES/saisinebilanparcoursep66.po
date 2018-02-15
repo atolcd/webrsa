@@ -32,7 +32,7 @@ msgid "Saisinebilanparcoursep66.avisep"
 msgstr "Avis de l'EP"
 
 msgid "Saisinebilanparcoursep66.decisioncg"
-msgstr "Décision du CG"
+msgstr "Décision du CD"
 
 msgid "ENUM::CHOIXPARCOURS::reorientation"
 msgstr "Réorientation"

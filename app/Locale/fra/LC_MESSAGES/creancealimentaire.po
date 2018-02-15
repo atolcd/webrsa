@@ -99,7 +99,7 @@ msgid "ENUM::ETATCREALIM::AA"
 msgstr "Aucune décision allocataire"
 
 msgid "ENUM::ETATCREALIM::AC"
-msgstr "Attente décision CG"
+msgstr "Attente décision CD"
 
 msgid "ENUM::ORIOBLALIM::CJT"
 msgstr "Obligation ex-conjoint"
@@ -120,7 +120,7 @@ msgid "ENUM::MOTIDISCREALIM::PHE"
 msgstr "Parent hors d'état ou décédé"
 
 msgid "ENUM::MOTIDISCREALIM::DCG"
-msgstr "Dispense CG"
+msgstr "Dispense CD"
 
 msgid "ENUM::MOTIDISCREALIM::AUT"
 msgstr "Autre motif de dispense"

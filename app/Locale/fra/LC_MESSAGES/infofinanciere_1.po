@@ -172,7 +172,7 @@ msgid "ENUM::TYPE_ALLOCATION::IndusConstates"
 msgstr "Indu constaté"
 
 msgid "ENUM::TYPE_ALLOCATION::IndusTransferesCG"
-msgstr "Indu transféré au CG"
+msgstr "Indu transféré au CD"
 
 msgid "ENUM::TYPE_ALLOCATION::RemisesIndus"
 msgstr "Remise d'indu"

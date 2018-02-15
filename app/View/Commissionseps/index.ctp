@@ -28,10 +28,10 @@
 			break;
 		case 'arbitragecg':
 			if( Configure::read( 'Cg.departement' ) == 66 ) {
-				$this->pageTitle = '3. Décisions CG';
+				$this->pageTitle = '3. Décisions CD';
 			}
 			else {
-				$this->pageTitle = '3. Arbitrage d\'une commission d\'EP (niveau CG)';
+				$this->pageTitle = '3. Arbitrage d\'une commission d\'EP (niveau CD)';
 			}
 
 			break;

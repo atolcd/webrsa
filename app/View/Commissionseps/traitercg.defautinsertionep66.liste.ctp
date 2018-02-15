@@ -20,7 +20,7 @@ echo '<table id="Decisiondefautinsertionep66" class="tooltips">
 				<th rowspan="2">Structure</th>
 				<th rowspan="2">Motif saisine</th>
 				<th rowspan="2">Avis EPL</th>
-				<th colspan="4">Décision CG</th>
+				<th colspan="4">Décision CD</th>
 				<th rowspan="2">Observations</th>
 				<th rowspan="2">Action</th>
 				<th class="innerTableHeader noprint">Avis EP</th>

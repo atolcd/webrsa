@@ -8,7 +8,7 @@ echo '<table id="Decisionsaisinepdoep66" class="tooltips"><thead>
 <th>Motif(s) de la PDO</th>
 <th>Description du traitement</th>
 <th colspan=\'2\'>Avis de l\'EP</th>
-<th>Décision du CG</th>
+<th>Décision du CD</th>
 <th>Observations</th>
 <th>Action</th>
 <th class="innerTableHeader noprint">Avis EP</th>

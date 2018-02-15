@@ -247,7 +247,7 @@ msgstr "Organisme de recouvrement des cotisations sociales :"
 ###############################################################################
 
 msgid "Partenairecui.informationssup"
-msgstr "Informations additionnelles pour le cg"
+msgstr "Informations additionnelles pour le cd"
 
 msgid "Partenairecui.codepartenaire"
 msgstr "Code partenaire"
@@ -277,10 +277,10 @@ msgid "Partenairecui.nblits"
 msgstr "Nombre de lits"
 
 msgid "Partenairecui.nbcontratsaideshorscg"
-msgstr "Nombre de contrats aidés hors CG"
+msgstr "Nombre de contrats aidés hors CD"
 
 msgid "Partenairecui.nbcontratsaidescg"
-msgstr "Nombre de contrats aidés CG"
+msgstr "Nombre de contrats aidés CD"
 
 ###############################################################################
 # Dossier Reçu/Éligible/complet

@@ -12,7 +12,7 @@ echo '<table id="Decisionnonrespectsanctionep93" class="tooltips"><thead>
 <th>Nombre d\'enfants</th>
 <th>Dossier actif</th>
 <th>Avis EP</th>
-<th colspan="3">Décision CG</th>
+<th colspan="3">Décision CD</th>
 <th>Observations</th>
 <th class="action">Action</th>
 <th class="innerTableHeader noprint">Avis EP</th>

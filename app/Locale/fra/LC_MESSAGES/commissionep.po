@@ -80,10 +80,10 @@ msgid "Commissionseps::impressionpv"
 msgstr "Imprimer le PV de la commission"
 
 msgid "Commissionseps::traitercg"
-msgstr "8. Emettre la décision du CG"
+msgstr "8. Emettre la décision du CD"
 
 msgid "Commissionseps::finalisercg"
-msgstr "9. Finaliser la décision CG"
+msgstr "9. Finaliser la décision CD"
 
 msgid "Commissionseps::printDecision"
 msgstr "10. Imprimer les décisions"
@@ -101,7 +101,7 @@ msgid "Commissionseps::impressionsDecisions"
 msgstr "Impression des décisions"
 
 msgid "ENUM::FINALISEE::cg"
-msgstr "Décision CG"
+msgstr "Décision CD"
 
 msgid "ENUM::FINALISEE::ep"
 msgstr "Avis de l'EP"
@@ -149,7 +149,7 @@ msgid "ENUM::ETATCOMMISSIONEP::decisionep"
 msgstr "En cours de décision niveau EP"
 
 msgid "ENUM::ETATCOMMISSIONEP::decisioncg"
-msgstr "En cours de décision niveau CG"
+msgstr "En cours de décision niveau CD"
 
 msgid "ENUM::ETATCOMMISSIONEP::traiteep"
 msgstr "Traitée au niveau de l'EP"

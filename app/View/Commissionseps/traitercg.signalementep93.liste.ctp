@@ -14,7 +14,7 @@ echo '<table id="Decisionsignalementep93" class="tooltips"><thead>
 <th>Situation familiale</th>
 <th>Nombre d\'enfants</th>
 <th>Avis EP</th>
-<th colspan="2">Décision CG</th>
+<th colspan="2">Décision CD</th>
 <th>Observations</th>
 </tr>
 </thead><tbody>';

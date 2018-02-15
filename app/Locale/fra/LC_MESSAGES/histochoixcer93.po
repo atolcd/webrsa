@@ -25,7 +25,7 @@ msgid "Histoschoixcers93::attdecisioncpdv"
 msgstr "Envoyer au Responsable"
 
 msgid "Histoschoixcers93::attdecisioncg"
-msgstr "Envoyer au CG"
+msgstr "Envoyer au CD"
 
 msgid "Histoschoixcers93::premierelecture"
 msgstr "Première lecture"
@@ -37,7 +37,7 @@ msgid "Histoschoixcers93::aviscadre"
 msgstr "Valider au cadre"
 
 msgid "Histoschoixcers93::decisioncg"
-msgstr "Prendre la décision CG"
+msgstr "Prendre la décision CD"
 
 msgid "Histochoixcer93.commentaire"
 msgstr "Commentaire"
@@ -133,10 +133,10 @@ msgid "ENUM::ETAPE::07attavisep"
 msgstr "En attente passage EP"
 
 msgid "ENUM::ETAPE::99rejete"
-msgstr "Rejeté CG"
+msgstr "Rejeté CD"
 
 msgid "ENUM::ETAPE::99valide"
-msgstr "Validé CG"
+msgstr "Validé CD"
 
 msgid "ENUM::DUREE::3"
 msgstr "3 mois"

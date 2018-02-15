@@ -142,7 +142,7 @@
 
 			$etats = array(
 				'Z' => 'Non défini',
-				'0'  => 'Nouvelle demande en attente de décision CG pour ouverture du droit',
+				'0'  => 'Nouvelle demande en attente de décision CD pour ouverture du droit',
 				'1'  => 'Droit refusé',
 				'2'  => 'Droit ouvert et versable',
 				'3'  => 'Droit ouvert et suspendu (le montant du droit est calculable, mais l\'existence du droit est remis en cause)',

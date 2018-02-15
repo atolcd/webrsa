@@ -39,7 +39,7 @@ msgid "ENUM::TYPE_TOTALISATION::TotalIndusConstates"
 msgstr "Total des indus constates"
 
 msgid "ENUM::TYPE_TOTALISATION::TotalIndusTransferesCG"
-msgstr "Total des indus transferés au CG"
+msgstr "Total des indus transferés au CD"
 
 msgid "ENUM::TYPE_TOTALISATION::TotalRemisesIndus"
 msgstr "Total des remises des indus"

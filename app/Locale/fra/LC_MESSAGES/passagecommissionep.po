@@ -32,7 +32,7 @@ msgid "ENUM::ETATDOSSIEREP::decisionep"
 msgstr "En attente de validation de l'EP"
 
 msgid "ENUM::ETATDOSSIEREP::decisioncg"
-msgstr "En attente de validation du CG"
+msgstr "En attente de validation du CD"
 
 msgid "ENUM::ETATDOSSIEREP::traite"
 msgstr "Traité"

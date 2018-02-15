@@ -477,7 +477,7 @@ msgid "controllers/Commissionseps/arbitrageep"
 msgstr "Arbitrage/avis EP"
 
 msgid "controllers/Commissionseps/arbitragecg"
-msgstr "Décision CG"
+msgstr "Décision CD"
 
 msgid "controllers/Commissionseps/decisions"
 msgstr "Consultation/impressions des décisions"
@@ -528,7 +528,7 @@ msgid "controllers/Commissionseps/decisionep"
 msgstr "Décisions/Avis niveau EP d'une commission"
 
 msgid "controllers/Commissionseps/decisioncg"
-msgstr "Décisions niveau CG d'une commission"
+msgstr "Décisions niveau CD d'une commission"
 
 msgid "controllers/Commissionseps/impressionDecision"
 msgstr "Impression d'une décision"
@@ -680,7 +680,7 @@ msgstr "Suppression d'un courrier"
 ###############################################################################
 
 msgid "controllers/Covs58"
-msgstr "COV (CG58)"
+msgstr "COV (CD58)"
 
 msgid "controllers/Covs58/index"
 msgstr "Recherche de COV"
@@ -709,7 +709,7 @@ msgstr "Visualisation des décisions"
 ###############################################################################
 
 msgid "controllers/Criteresdossierscovs58"
-msgstr "Recherche par Dossiers COV (CG58)"
+msgstr "Recherche par Dossiers COV (CD58)"
 
 msgid "controllers/Criteresdossierscovs58/index"
 msgstr "Moteur de recherche"
@@ -810,7 +810,7 @@ msgstr "Recalculer les nombres dans les Tableaux de bord"
 ###############################################################################
 
 msgid "controllers/Decisionsdossierspcgs66"
-msgstr "Propositions de décision au niveau foyer (Dossier PCG CG66)"
+msgstr "Propositions de décision au niveau foyer (Dossier PCG CD66)"
 
 msgid "controllers/Decisionsdossierspcgs66/add"
 msgstr "Ajout d'une proposition de décision"
@@ -845,7 +845,7 @@ msgstr "Annuler la décision d'un dossier PCG"
 ###############################################################################
 
 msgid "controllers/Decisionspcgs66"
-msgstr "Paramétrage des décisions PCGs (CG66)"
+msgstr "Paramétrage des décisions PCGs (CD66)"
 
 msgid "controllers/Decisionspcgs66/index"
 msgstr "Visualisation des décisions PCG"
@@ -859,7 +859,7 @@ msgstr "Suppression d'une décision PCG"
 ###############################################################################
 
 msgid "controllers/Decisionstraitementspcgs66"
-msgstr "Paramétrage des décisions liées à un traitement PCG (CG66)"
+msgstr "Paramétrage des décisions liées à un traitement PCG (CD66)"
 
 msgid "controllers/Decisionstraitementspcgs66/index"
 msgstr "Visualisation des décisions liées à un traitement PCG"
@@ -884,7 +884,7 @@ msgstr "Suppression d'une décision"
 ###############################################################################
 
 msgid "controllers/Decisionspersonnespcgs66"
-msgstr "Propositions de décision au niveau personne (Dossier PCG CG66)"
+msgstr "Propositions de décision au niveau personne (Dossier PCG CD66)"
 
 msgid "controllers/Decisionspersonnespcgs66/index"
 msgstr "Visualisation des propositions de décision"
@@ -918,7 +918,7 @@ msgstr "Suppression d'une proposition de décision"
 ###############################################################################
 
 msgid "controllers/Defautsinsertionseps66"
-msgstr "Défaut d'insertion (EP CG66)"
+msgstr "Défaut d'insertion (EP CD66)"
 
 msgid "controllers/Defautsinsertionseps66/search_noninscrits"
 msgstr "Recherche des personnes non inscrites à Pôle Emploi"
@@ -991,7 +991,7 @@ msgstr "Modification du dossier RSA"
 ###############################################################################
 
 msgid "controllers/Dossierscovs58"
-msgstr "Dossiers à passer en COV (CG58)"
+msgstr "Dossiers à passer en COV (CD58)"
 
 msgid "controllers/Dossierscovs58/choose"
 msgstr "Sélection des dossiers"
@@ -1008,7 +1008,7 @@ msgid "controllers/Dossierseps/choose"
 msgstr "Sélection des dossiers à passer en EP"
 
 msgid "controllers/Dossierseps/decisioncg"
-msgstr "Prise de décision au niveau CG (CG66)"
+msgstr "Prise de décision au niveau CD (CD66)"
 
 msgid "controllers/Dossierseps/decisions"
 msgstr "Liste des décisions des dossiers d'EP"
@@ -1037,7 +1037,7 @@ msgstr "Désactiver un dossier EP"
 ###############################################################################
 
 msgid "controllers/Dossierspcgs66"
-msgstr "Dossier PCG (PDO niveau foyer CG66)"
+msgstr "Dossier PCG (PDO niveau foyer CD66)"
 
 msgid "controllers/Dossierspcgs66/index"
 msgstr "Visualisation des dossiers PCG"
@@ -1097,10 +1097,10 @@ msgid "controllers/Dossierspcgs66/search_affectes"
 msgstr "Dossiers PCGs affectés"
 
 msgid "controllers/Dossierspcgs66/search"
-msgstr "Recherche par Dossiers PCGs (CG66)"
+msgstr "Recherche par Dossiers PCGs (CD66)"
 
 msgid "controllers/Dossierspcgs66/search_gestionnaire"
-msgstr "Recherche par Gestionnaires PCGs (CG66)"
+msgstr "Recherche par Gestionnaires PCGs (CD66)"
 
 ###############################################################################
 
@@ -1398,13 +1398,13 @@ msgid "controllers/Indicateursmensuels/index"
 msgstr "Indicateurs de suivis mensuels"
 
 msgid "controllers/Indicateursmensuels/nombre_allocataires"
-msgstr "(CG 66) Nombre d'allocataires"
+msgstr "(CD 66) Nombre d'allocataires"
 
 msgid "controllers/Indicateursmensuels/orientations"
-msgstr "(CG 66) Les orientations"
+msgstr "(CD 66) Les orientations"
 
 msgid "controllers/Indicateursmensuels/contratsinsertion"
-msgstr "(CG 66) Les CER"
+msgstr "(CD 66) Les CER"
 
 ###############################################################################
 
@@ -1472,7 +1472,7 @@ msgstr "Télécharger le fichier"
 ###############################################################################
 
 msgid "controllers/Listesanctionseps58"
-msgstr "Liste des sanctions (EP CG58)"
+msgstr "Liste des sanctions (EP CD58)"
 
 msgid "controllers/Listesanctionseps58/index"
 msgstr "Visualisation des sanctions"
@@ -1514,7 +1514,7 @@ msgstr "Visualisation de graphiques sur les appels de page"
 ###############################################################################
 
 msgid "controllers/Manifestationsbilansparcours66"
-msgstr "Manifestations en lien avec le bilan de parcours (CG66)"
+msgstr "Manifestations en lien avec le bilan de parcours (CD66)"
 
 msgid "controllers/Manifestationsbilansparcours66/index"
 msgstr "Visualisation des manifestations"
@@ -1581,7 +1581,7 @@ msgstr "Ajout/Édition d'un mode de contact"
 ###############################################################################
 
 msgid "controllers/Motifsreorientseps93"
-msgstr "Motifs de réorientation (EP CG 93)"
+msgstr "Motifs de réorientation (EP CD 93)"
 
 msgid "controllers/Motifsreorientseps93/index"
 msgstr "Visualisation des motifs de réorientation"
@@ -1619,7 +1619,7 @@ msgstr "Export CSV"
 ###############################################################################
 
 msgid "controllers/Nonrespectssanctionseps93"
-msgstr "Non respect et sanction (EP CG 93)"
+msgstr "Non respect et sanction (EP CD 93)"
 
 msgid "controllers/Nonrespectssanctionseps93/index"
 msgstr "Liste des dossiers pour la thèmatique non respect et sanction"
@@ -1668,7 +1668,7 @@ msgid "controllers/Orientsstructs/delete"
 msgstr "Suppression d'une orientation"
 
 msgid "controllers/Orientsstructs/impression_changement_referent"
-msgstr "Notification de changement de référent (CG66)"
+msgstr "Notification de changement de référent (CD66)"
 
 msgid "controllers/Orientsstructs/cohorte_nouvelles"
 msgstr "Demandes non orientées"
@@ -1711,7 +1711,7 @@ msgid "controllers/Parametrages/index"
 msgstr "Accès aux paramétrages"
 
 msgid "controllers/Parametrages/fichesprescriptions93"
-msgstr "Accès au paramétrage des fiches de prescription (CG 93)"
+msgstr "Accès au paramétrage des fiches de prescription (CD 93)"
 
 msgid "controllers/Parametrages/cataloguesromesv3"
 msgstr "Accès au paramétrage du catalogue ROME V3"
@@ -1829,15 +1829,15 @@ msgid "controllers/PersonnesReferents/cloturer"
 msgstr "Clôturer le référent"
 
 msgid "controllers/PersonnesReferents/cohorte_affectation93"
-msgstr "Workflow CER (CG 93): affectation d'un référent"
+msgstr "Workflow CER (CD 93): affectation d'un référent"
 
 msgid "controllers/PersonnesReferents/exportcsv_affectation93"
-msgstr "Workflow CER (CG 93): affectation d'un référent - télécharger le tableau"
+msgstr "Workflow CER (CD 93): affectation d'un référent - télécharger le tableau"
 
 ###############################################################################
 
 msgid "controllers/Personnespcgs66"
-msgstr "Personne concernée par le dossier PCG (CG66)"
+msgstr "Personne concernée par le dossier PCG (CD66)"
 
 msgid "controllers/Personnespcgs66/edit"
 msgstr "Ajout/Édition d'une personne au dossier PCG"
@@ -1941,7 +1941,7 @@ msgstr "Action \"A faire\" de la primo analyse"
 ###############################################################################
 
 msgid "controllers/Proposcontratsinsertioncovs58"
-msgstr "CER (COV CG58)"
+msgstr "CER (COV CD58)"
 
 msgid "controllers/Proposcontratsinsertioncovs58/edit"
 msgstr "Ajout/Édition d'un CER"
@@ -2001,7 +2001,7 @@ msgstr "Imprimer l'avis de l'élu d'une proposition du CUI"
 ###############################################################################
 
 msgid "controllers/Proposorientationscovs58"
-msgstr "Orientations (COV CG58)"
+msgstr "Orientations (COV CD58)"
 
 msgid "controllers/Proposorientationscovs58/edit"
 msgstr "Ajout/Édition d'une orientation"
@@ -2012,7 +2012,7 @@ msgstr "Suppression d'une orientation"
 ###############################################################################
 
 msgid "controllers/Propospdos"
-msgstr "PDOs (CG 93)"
+msgstr "PDOs (CD 93)"
 
 msgid "controllers/Propospdos/index"
 msgstr "Visualisation des PDOs"
@@ -2047,7 +2047,7 @@ msgstr "Export CSV (possibles)"
 ###############################################################################
 
 msgid "controllers/Questionspcgs66"
-msgstr "Paramétrage des questions liées au dossier PCG (EP CG66)"
+msgstr "Paramétrage des questions liées au dossier PCG (EP CD66)"
 
 msgid "controllers/Questionspcgs66/index"
 msgstr "Visualisation des questions"
@@ -2104,7 +2104,7 @@ msgid "controllers/Referents/cloturer"
 msgstr "Clôture des référents"
 
 msgid "controllers/Referents/clotureenmasse"
-msgstr "Cohortes de Clôture en masse des référents (CG 93)"
+msgstr "Cohortes de Clôture en masse des référents (CD 93)"
 
 ###############################################################################
 
@@ -2208,7 +2208,7 @@ msgstr "Export CSV"
 ###############################################################################
 
 msgid "controllers/Reorientationseps93"
-msgstr "Réorientations (CG 93)"
+msgstr "Réorientations (CD 93)"
 
 msgid "controllers/Reorientationseps93/index"
 msgstr "Visualisation des réorientations"
@@ -2310,7 +2310,7 @@ msgstr "Visualisation d'un rôle"
 ###############################################################################
 
 msgid "controllers/Sanctionseps58"
-msgstr "Passage en EP pour sanction (CG58)"
+msgstr "Passage en EP pour sanction (CD58)"
 
 msgid "controllers/Sanctionseps58/cohorte_noninscritspe"
 msgstr "Sélection des non inscrits au Pôle Emploi"
@@ -2384,7 +2384,7 @@ msgstr "Suppression d'un signalement"
 ###############################################################################
 
 msgid "controllers/Sitescovs58"
-msgstr "Liste des sites d'actions médico-sociale COVs (CG58)"
+msgstr "Liste des sites d'actions médico-sociale COVs (CD58)"
 
 msgid "controllers/Sitescovs58/index"
 msgstr "Visualisation des sites"
@@ -2462,7 +2462,7 @@ msgstr "Suppression d'un statut de rendez-vous"
 ###############################################################################
 
 msgid "controllers/StatutsrdvsTypesrdv"
-msgstr "Paramétrage des liens entre statuts de RDV et objets de RDV (EP CG58)"
+msgstr "Paramétrage des liens entre statuts de RDV et objets de RDV (EP CD58)"
 
 msgid "controllers/StatutsrdvsTypesrdv/index"
 msgstr "Visualisation des liens"
@@ -2584,7 +2584,7 @@ msgstr "Export CSV"
 ###############################################################################
 
 msgid "controllers/Traitementspcgs66"
-msgstr "Traitements pour les dossiers PCG (CG66)"
+msgstr "Traitements pour les dossiers PCG (CD66)"
 
 msgid "controllers/Traitementspcgs66/index"
 msgstr "Visualisation des traitements PCG"
@@ -2623,15 +2623,15 @@ msgid "controllers/Traitementspcgs66/switch_imprimer"
 msgstr "Inclure le traitement dans la décision/cohorte"
 
 msgid "controllers/Traitementspcgs66/search"
-msgstr "Formulaire de recherche par traitements PCGs (CG66)"
+msgstr "Formulaire de recherche par traitements PCGs (CD66)"
 
 msgid "controllers/Traitementspcgs66/exportcsv"
-msgstr "Export CSV (CG66)"
+msgstr "Export CSV (CD66)"
 
 ###############################################################################
 
 msgid "controllers/Traitementspdos"
-msgstr "Traitements PDOs (CG 93)"
+msgstr "Traitements PDOs (CD 93)"
 
 msgid "controllers/Traitementspdos/add"
 msgstr "Ajout d'un traitement PDO"
@@ -2651,7 +2651,7 @@ msgstr "Impression du courrier de traitement PDO"
 ###############################################################################
 
 msgid "controllers/Traitementstypespdos"
-msgstr "Paramétrage des types de traitements PDOs (CG 93)"
+msgstr "Paramétrage des types de traitements PDOs (CD 93)"
 
 msgid "controllers/Traitementstypespdos/index"
 msgstr "Visualisation des types de traitements PDO"
@@ -2665,7 +2665,7 @@ msgstr "Suppression d'un type de traitement PDO"
 ###############################################################################
 
 msgid "controllers/Typesactions"
-msgstr "Paramétrage des types d'actions d'insertion (CG 93)"
+msgstr "Paramétrage des types d'actions d'insertion (CD 93)"
 
 msgid "controllers/Typesactions/index"
 msgstr "Visualisation des types d'actions d'insertion"
@@ -2679,7 +2679,7 @@ msgstr "Suppression d'un type d'actions d'insertion"
 ###############################################################################
 
 msgid "controllers/Typesaidesapres66"
-msgstr "Paramétrage des types d'aides APRE (CG66)"
+msgstr "Paramétrage des types d'aides APRE (CD 66)"
 
 msgid "controllers/Typesaidesapres66/index"
 msgstr "Visualisation des types d'aides APRE"
@@ -2749,7 +2749,7 @@ msgstr "Suppression d'un type de rendez-vous"
 ###############################################################################
 
 msgid "controllers/Typesrsapcgs66"
-msgstr "Paramétrage des différents types de RSA (lié au dossierPCG CG66)"
+msgstr "Paramétrage des différents types de RSA (lié au dossierPCG CD66)"
 
 msgid "controllers/Typesrsapcgs66/index"
 msgstr "Visualisation des types de RSA"
@@ -2904,7 +2904,7 @@ msgstr "Ajout d'un dossier complet"
 ###############################################################################
 
 msgid "controllers/Courrierspcgs66"
-msgstr "Paramétrage du module courrier lié aux traitements PCGs (CG66)"
+msgstr "Paramétrage du module courrier lié aux traitements PCGs (CD66)"
 
 msgid "controllers/Courrierspcgs66/index"
 msgstr "Visualisation de la liste des courriers"
@@ -2912,7 +2912,7 @@ msgstr "Visualisation de la liste des courriers"
 ###############################################################################
 
 msgid "controllers/Decisionscuis66"
-msgstr "Décisions liées au module CUI (CG66)"
+msgstr "Décisions liées au module CUI (CD 66)"
 
 msgid "controllers/Decisionscuis66/add"
 msgstr "Ajout d'une décision du CUI"
@@ -2947,7 +2947,7 @@ msgstr "Liste des décisions du CUI"
 ###############################################################################
 
 msgid "controllers/Gestionssanctionseps58"
-msgstr "Gestion des sanctions émises par l'EP (CG58))"
+msgstr "Gestion des sanctions émises par l'EP (CD 58))"
 
 msgid "controllers/Gestionssanctionseps58/traitement"
 msgstr "Formulaire de traitement des sanctions"
@@ -2984,7 +2984,7 @@ msgstr "Export CSV"
 ###############################################################################
 
 msgid "controllers/Modelestypescourrierspcgs66"
-msgstr "Paramétrage des modèles liés aux types de courriers PCGs (CG66)"
+msgstr "Paramétrage des modèles liés aux types de courriers PCGs (CD 66)"
 
 msgid "controllers/Modelestypescourrierspcgs66/index"
 msgstr "Visualisation des modèles"
@@ -2998,7 +2998,7 @@ msgstr "Suppression d'un modèle de type de courrier PCG"
 ###############################################################################
 
 msgid "controllers/Motifscersnonvalids66"
-msgstr "Paramétrage des motifs de non validation du CER (CG66)"
+msgstr "Paramétrage des motifs de non validation du CER (CD 66)"
 
 msgid "controllers/Motifscersnonvalids66/index"
 msgstr "Visualisation des motifs de non validation"
@@ -3046,7 +3046,7 @@ msgstr "Suppression d'un motif de refus d'un CUI"
 ###############################################################################
 
 msgid "controllers/Nonorientes66"
-msgstr "Module de non orientation (CG66)"
+msgstr "Module de non orientation (CD66)"
 
 msgid "controllers/Nonorientes66/filelink"
 msgstr "Ajout de pièce jointe à une non orientation"
@@ -3096,7 +3096,7 @@ msgstr "Non orientation -> Orientés et notifiés"
 ###############################################################################
 
 msgid "controllers/Offresinsertion"
-msgstr "Offre d'insertion (CG66)"
+msgstr "Offre d'insertion (CD66)"
 
 msgid "controllers/Offresinsertion/index"
 msgstr "Visualisation du tableau de l'offre d'insertion"
@@ -3106,7 +3106,7 @@ msgstr "Export CSV"
 ###############################################################################
 
 msgid "controllers/Piecesmodelestypescourrierspcgs66"
-msgstr "Paramétrage des pièces liées aux modèles de courriers PCGs (CG66)"
+msgstr "Paramétrage des pièces liées aux modèles de courriers PCGs (CD 66)"
 
 msgid "controllers/Piecesmodelestypescourrierspcgs66/index"
 msgstr "Visualisation des pièces"
@@ -3120,7 +3120,7 @@ msgstr "Suppression d'une pièce"
 ###############################################################################
 
 msgid "controllers/Typescourrierspcgs66"
-msgstr "Paramétrage des types de courriers PCGs (CG66)"
+msgstr "Paramétrage des types de courriers PCGs (CD 66)"
 
 msgid "controllers/Typescourrierspcgs66/index"
 msgstr "Visualisation des types"
@@ -3133,7 +3133,7 @@ msgstr "Suppression d'un type"
 ###############################################################################
 
 msgid "controllers/Proposdecisionscers66"
-msgstr "Décision du CER (CG66)"
+msgstr "Décision du CER (CD 66)"
 
 msgid "controllers/Proposdecisionscers66/proposition"
 msgstr "Validation de décision"
@@ -3147,7 +3147,7 @@ msgstr "Validation de décision pour CER Particulier"
 ###############################################################################
 
 msgid "controllers/Proposdecisionscuis66"
-msgstr "Proposition de décision du CUI(CG66)"
+msgstr "Proposition de décision du CUI(CD 66)"
 
 msgid "controllers/Proposdecisionscuis66/propositioncui"
 msgstr "Proposition de décision"
@@ -3176,7 +3176,7 @@ msgstr "Impression de l'avis technique"
 ###############################################################################
 
 msgid "controllers/Suspensionscuis66"
-msgstr "Suspensions du CUI (CG66)"
+msgstr "Suspensions du CUI (CD 66)"
 
 msgid "controllers/Suspensionscuis66/index"
 msgstr "Visualisation des suspensions"
@@ -3199,10 +3199,10 @@ msgstr "Lier un fichier à une suspension de CUI"
 ###############################################################################
 
 msgid "controllers/Cers93"
-msgstr "CER (CG 93)"
+msgstr "CER (CD 93)"
 
 msgid "controllers/Cers93/indexparams"
-msgstr "Liste des paramétrage du CER (CG 93)"
+msgstr "Liste des paramétrage du CER (CD 93)"
 
 msgid "controllers/Cers93/index"
 msgstr "Liste des CER d'un allocataire"
@@ -3237,7 +3237,7 @@ msgstr "Annuler le CER"
 ###############################################################################
 
 msgid "controllers/Cohortescers93"
-msgstr "CER (CG 93): cohortes et recherches (workflow CER)"
+msgstr "CER (CD 93): cohortes et recherches (workflow CER)"
 
 msgid "controllers/Cohortescers93/saisie"
 msgstr "Workflow CER: 2. Saisie d'un CER (moteur de recherche)"
@@ -3249,13 +3249,13 @@ msgid "controllers/Cohortescers93/avalidercpdv"
 msgstr "Workflow CER: 3. Validation Responsable (cohorte)"
 
 msgid "controllers/Cohortescers93/premierelecture"
-msgstr "Workflow CER: 4. Décision CG - 4.1 Première lecture (cohorte)"
+msgstr "Workflow CER: 4. Décision CD - 4.1 Première lecture (cohorte)"
 
 msgid "controllers/Cohortescers93/validationcs"
-msgstr "Workflow CER: 4. Décision CG - 4.2 Validation CS (cohorte)"
+msgstr "Workflow CER: 4. Décision CD - 4.2 Validation CS (cohorte)"
 
 msgid "controllers/Cohortescers93/validationcadre"
-msgstr "Workflow CER: 4. Décision CG - 4.3 Validation Cadre (cohorte)"
+msgstr "Workflow CER: 4. Décision CD - 4.3 Validation Cadre (cohorte)"
 
 msgid "controllers/Cohortescers93/exportcsv"
 msgstr "Workflow CER: 2. Saisie d'un CER (télécharger le tableau)"
@@ -3266,36 +3266,36 @@ msgstr "Imprimer les décisions"
 ###############################################################################
 
 msgid "controllers/Histoschoixcers93"
-msgstr "CER (CG 93): workflow CER, validations individuelles"
+msgstr "CER (CD 93): workflow CER, validations individuelles"
 
 msgid "controllers/Histoschoixcers93/attdecisioncpdv"
 msgstr "Workflow CER: 2.3. Validation Responsable (individuel)"
 
 msgid "controllers/Histoschoixcers93/attdecisioncg"
-msgstr "Workflow CER: 3. Envoi CG (individuel)"
+msgstr "Workflow CER: 3. Envoi CD (individuel)"
 
 msgid "controllers/Histoschoixcers93/premierelecture"
-msgstr "Workflow CER: 4. Décision CG - 4.1 Première lecture (individuel)"
+msgstr "Workflow CER: 4. Décision CD - 4.1 Première lecture (individuel)"
 
 msgid "controllers/Histoschoixcers93/premierelecture_consultation"
-msgstr "Workflow CER: 4. Décision CG - 4.1 Première lecture (consultation, individuel)"
+msgstr "Workflow CER: 4. Décision CD - 4.1 Première lecture (consultation, individuel)"
 
 msgid "controllers/Histoschoixcers93/secondelecture"
-msgstr "Workflow CER: 4. Décision CG - 4.2 Validation CS (individuel)"
+msgstr "Workflow CER: 4. Décision CD - 4.2 Validation CS (individuel)"
 
 msgid "controllers/Histoschoixcers93/secondelecture_consultation"
-msgstr "Workflow CER: 4. Décision CG - 4.2 Validation CS (consultation, individuel)"
+msgstr "Workflow CER: 4. Décision CD - 4.2 Validation CS (consultation, individuel)"
 
 msgid "controllers/Histoschoixcers93/aviscadre"
-msgstr "Workflow CER: 4. Décision CG - 4.3 Validation Cadre (individuel)"
+msgstr "Workflow CER: 4. Décision CD - 4.3 Validation Cadre (individuel)"
 
 msgid "controllers/Histoschoixcers93/aviscadre_consultation"
-msgstr "Workflow CER: 4. Décision CG - 4.3 Validation Cadre (consultation, individuel)"
+msgstr "Workflow CER: 4. Décision CD - 4.3 Validation Cadre (consultation, individuel)"
 
 ###############################################################################
 
 msgid "controllers/Metiersexerces"
-msgstr "CER (CG 93): paramétrages, métiers exercés"
+msgstr "CER (CD 93): paramétrages, métiers exercés"
 
 msgid "controllers/Metiersexerces/index"
 msgstr "Liste des métiers exercés"
@@ -3312,7 +3312,7 @@ msgstr "Suppresion d'un métier exercé"
 ###############################################################################
 
 msgid "controllers/Naturescontrats"
-msgstr "CER (CG 93): paramétrages, natures de contrat"
+msgstr "CER (CD 93): paramétrages, natures de contrat"
 
 msgid "controllers/Naturescontrats/index"
 msgstr "Liste des natures de contrat"
@@ -3329,7 +3329,7 @@ msgstr "Suppression d'une nature de contrat"
 ###############################################################################
 
 msgid "controllers/Secteursactis"
-msgstr "CER (CG 93): paramétrages, secteurs d'activité"
+msgstr "CER (CD 93): paramétrages, secteurs d'activité"
 
 msgid "controllers/Secteursactis/index"
 msgstr "Liste des secteurs d'activité"
@@ -3346,7 +3346,7 @@ msgstr "Suppression d'un secteur d'activité"
 ###############################################################################
 
 msgid "controllers/Soussujetscers93"
-msgstr "CER (CG 93): paramétrages, sous-sujets du CER"
+msgstr "CER (CD 93): paramétrages, sous-sujets du CER"
 
 msgid "controllers/Soussujetscers93/index"
 msgstr "Liste des sous-sujets du CER"
@@ -3363,7 +3363,7 @@ msgstr "Suppression d'un sous-sujet du CER"
 ###############################################################################
 
 msgid "controllers/Sujetscers93"
-msgstr "CER (CG 93): paramétrages, sujets du CER"
+msgstr "CER (CD 93): paramétrages, sujets du CER"
 
 msgid "controllers/Sujetscers93/index"
 msgstr "Liste des sujets du CER"
@@ -3380,7 +3380,7 @@ msgstr "Suppression d'un sujet du CER"
 ###############################################################################
 
 msgid "controllers/Valeursparsoussujetscers93"
-msgstr "CER (CG 93): paramétrages, valeurs par sous-sujets du CER"
+msgstr "CER (CD 93): paramétrages, valeurs par sous-sujets du CER"
 
 msgid "controllers/Valeursparsoussujetscers93/index"
 msgstr "Liste des valeurs par sous-sujets du CER"
@@ -3397,10 +3397,10 @@ msgstr "Suppression d'une valeur par sous-sujet du CER"
 ###############################################################################
 
 msgid "controllers/Cohortestransfertspdvs93"
-msgstr "Cohortes de transferts PDV (CG 93)"
+msgstr "Cohortes de transferts PDV (CD 93)"
 
 msgid "controllers/Transfertspdvs93"
-msgstr "Cohortes de transferts PDV (CG 93)"
+msgstr "Cohortes de transferts PDV (CD 93)"
 
 msgid "controllers/Transfertspdvs93/cohorte_atransferer"
 msgstr "Transferts PDV : Allocataires à transférer"
@@ -3420,7 +3420,7 @@ msgstr "Transferts PDV : Impression individuelle"
 ###############################################################################
 
 msgid "controllers/Commentairesnormescers93"
-msgstr "CER (CG 93) : paramétrages, commentaires normés"
+msgstr "CER (CD 93) : paramétrages, commentaires normés"
 
 msgid "controllers/Commentairesnormescers93/index"
 msgstr "Liste des commentaires normés"
@@ -3456,7 +3456,7 @@ msgstr "Export CSV"
 ###############################################################################
 
 msgid "controllers/Foyers"
-msgstr "Corbeille PCG (CG66)"
+msgstr "Corbeille PCG (CD 66)"
 
 msgid "controllers/Foyers/filelink"
 msgstr "Lier un fichier à une corbeille PCG"
@@ -3467,7 +3467,7 @@ msgstr "Corbeille PCG"
 ###############################################################################
 
 msgid "controllers/Raisonssocialespartenairescuis66"
-msgstr "CUI (CG66) : paramétrages, raisons sociales des employeurs liés au CUI"
+msgstr "CUI (CD 66) : paramétrages, raisons sociales des employeurs liés au CUI"
 
 msgid "controllers/Raisonssocialespartenairescuis66/index"
 msgstr "Liste des raisons sociales des employeurs"
@@ -3484,7 +3484,7 @@ msgstr "Suppression d'une raison sociale des employeurs"
 ###############################################################################
 
 msgid "controllers/Secteurscuis"
-msgstr "CUI (CG66) : paramétrages, types de secteurs des CUIs"
+msgstr "CUI (CD 66) : paramétrages, types de secteurs des CUIs"
 
 msgid "controllers/Secteurscuis/index"
 msgstr "Liste des secteurs"
@@ -3498,10 +3498,10 @@ msgstr "Suppression d'un secteur"
 ###############################################################################
 
 msgid "controllers/Tauxcgscuis"
-msgstr "CUI (CG66) : paramétrages, lien entre les secteurs et les taux du CG"
+msgstr "CUI (CD 66) : paramétrages, lien entre les secteurs et les taux du CD"
 
 msgid "controllers/Tauxcgscuis/index"
-msgstr "Liste des liens entre les secteurs et les taux du CG"
+msgstr "Liste des liens entre les secteurs et les taux du CD"
 
 msgid "controllers/Tauxcgscuis/edit"
 msgstr "Ajout/Modification d'un lien"
@@ -3544,16 +3544,16 @@ msgid "controllers/Tauxcgscuis66"
 msgstr "Paramétrage des Taux CG du CUI"
 
 msgid "controllers/Tauxcgscuis66/index"
-msgstr "liste des Taux CG du CUI"
+msgstr "liste des Taux CD du CUI"
 
 msgid "controllers/Tauxcgscuis66/add"
 msgstr "Ajout d'un Taux CG du CUI"
 
 msgid "controllers/Tauxcgscuis66/edit"
-msgstr "Modification d'un Taux CG du CUI"
+msgstr "Modification d'un Taux CD du CUI"
 
 msgid "controllers/Tauxcgscuis66/delete"
-msgstr "Suppression d'un Taux CG du CUI"
+msgstr "Suppression d'un Taux CD du CUI"
 
 ###############################################################################
 
@@ -3572,7 +3572,7 @@ msgstr "Supprimer un type de contrat du CUI"
 ###############################################################################
 
 msgid "controllers/Orgstransmisdossierspcgs66"
-msgstr "Dossier PCG (CG66) : paramétrages, organismes auxquels les dossiers PCG sont transmis"
+msgstr "Dossier PCG (CD66) : paramétrages, organismes auxquels les dossiers PCG sont transmis"
 
 msgid "controllers/Orgstransmisdossierspcgs66/index"
 msgstr "Liste des organismes"
@@ -3586,7 +3586,7 @@ msgstr "Suppression d'un organisme"
 ###############################################################################
 
 msgid "controllers/Motifssuspensioncuis66"
-msgstr "CUI (CG66) : paramétrages, motifs de suspension des CUIs"
+msgstr "CUI (CD 66) : paramétrages, motifs de suspension des CUIs"
 
 msgid "controllers/Motifssuspensioncuis66/index"
 msgstr "Liste des motifs de suspension"
@@ -3601,7 +3601,7 @@ msgstr "Suppression d'un motif de suspension"
 ###############################################################################
 
 msgid "controllers/Motifsrupturescuis66"
-msgstr "CUI (CG66) : paramétrages, motifs de rupture des CUIs"
+msgstr "CUI (CD 66) : paramétrages, motifs de rupture des CUIs"
 
 msgid "controllers/Motifsrupturescuis66/index"
 msgstr "Liste des motifs de rupture"
@@ -3615,7 +3615,7 @@ msgstr "Suppression d'un motif de rupture"
 ###############################################################################
 
 msgid "controllers/Rupturescuis66"
-msgstr "Ruptures du CUI (CG66)"
+msgstr "Ruptures du CUI (CD 66)"
 
 msgid "controllers/Rupturescuis66/index"
 msgstr "Liste des ruptures du CUI"
@@ -3635,7 +3635,7 @@ msgstr "Fichiers liés à une rupture du CUI"
 ###############################################################################
 
 msgid "controllers/RejetHistorique"
-msgstr "Rejet historique (CG 93)"
+msgstr "Rejet historique (CD 93)"
 
 msgid "controllers/RejetHistorique/affrej"
 msgstr "affrej"
@@ -3646,7 +3646,7 @@ msgstr "affxml"
 ###############################################################################
 
 msgid "controllers/Questionnairesd1pdvs93"
-msgstr "Module Questionnaire D1 (CG 93)"
+msgstr "Module Questionnaire D1 (CD 93)"
 
 msgid "controllers/Questionnairesd1pdvs93/index"
 msgstr "Questionnaires D1"
@@ -3689,7 +3689,7 @@ msgstr "Indicateurs de délais"
 ###############################################################################
 
 msgid "controllers/Tableauxsuivispdvs93"
-msgstr "Module Tableaux de suivis PDV (CG 93)"
+msgstr "Module Tableaux de suivis PDV (CD 93)"
 
 msgid "controllers/Tableauxsuivispdvs93/tableaud1"
 msgstr "Tableau de suivi D1"
@@ -3730,7 +3730,7 @@ msgstr "Suppression d'un tableau historisé"
 ###############################################################################
 
 msgid "controllers/Polesdossierspcgs66"
-msgstr "Dossier PCG (CG66) : paramétrages, pôles liés aux gestionnaires (PDA/PDU)"
+msgstr "Dossier PCG (CD 66) : paramétrages, pôles liés aux gestionnaires (PDA/PDU)"
 
 msgid "controllers/Polesdossierspcgs66/index"
 msgstr "Liste des pôles affectés au gestionnaire de dossier PCG"
@@ -3744,7 +3744,7 @@ msgstr "Suppression d'un pôle"
 ###############################################################################
 
 msgid "controllers/Progsfichescandidatures66"
-msgstr "Programmes de formation liés aux fiches de candidature (CG66) : paramétrages"
+msgstr "Programmes de formation liés aux fiches de candidature (CD 66) : paramétrages"
 
 msgid "controllers/Progsfichescandidatures66/index"
 msgstr "Liste des programmes liés à une fiche de candidature"
@@ -3758,7 +3758,7 @@ msgstr "Suppression d'un programme"
 ###############################################################################
 
 msgid "controllers/Thematiquesrdvs"
-msgstr "Thématiques de RDV (CG 93) : paramétrages"
+msgstr "Thématiques de RDV (CD 93) : paramétrages"
 
 msgid "controllers/Thematiquesrdvs/index"
 msgstr "Liste des thématiques de RDV"
@@ -3775,7 +3775,7 @@ msgstr "Suppression d'une thématique de RDV"
 ###############################################################################
 
 msgid "controllers/Cohortesd2pdvs93"
-msgstr "Module cohorte de formulaires de sortie D2 à saisir (CG 93)"
+msgstr "Module cohorte de formulaires de sortie D2 à saisir (CD 93)"
 
 msgid "controllers/Cohortesd2pdvs93/index"
 msgstr "Cohorte de formulaires de sortie D2 à saisir"
@@ -3783,7 +3783,7 @@ msgstr "Cohorte de formulaires de sortie D2 à saisir"
 ###############################################################################
 
 msgid "controllers/Questionnairesd2pdvs93"
-msgstr "Module Questionnaire D2 (CG 93)"
+msgstr "Module Questionnaire D2 (CD 93)"
 
 msgid "controllers/Questionnairesd2pdvs93/index"
 msgstr "Questionnaires D2"
@@ -3800,7 +3800,7 @@ msgstr "Modification d'un questionnaire D2"
 ###############################################################################
 
 msgid "controllers/Sortiesaccompagnementsd2pdvs93"
-msgstr "Module FSE (CG 93) : paramétrages, sorties de l'accompagnement"
+msgstr "Module FSE (D 93) : paramétrages, sorties de l'accompagnement"
 
 msgid "controllers/Sortiesaccompagnementsd2pdvs93/index"
 msgstr "Liste des sorties de l'accompagnement"
@@ -3815,11 +3815,11 @@ msgid "controllers/Sortiesaccompagnementsd2pdvs93/edit"
 msgstr "Modification d'une sortie de l'accompagnement"
 
 ###############################################################################
-# Fiche de prescription (CG 93)
+# Fiche de prescription (CD 93)
 ###############################################################################
 
 msgid "controllers/Fichesprescriptions93"
-msgstr "Module fiche de prescription (CG 93)"
+msgstr "Module fiche de prescription (CD 93)"
 
 msgid "controllers/Fichesprescriptions93/search"
 msgstr "Recherche des fiches de prescription"
@@ -3843,7 +3843,7 @@ msgid "controllers/Fichesprescriptions93/cancel"
 msgstr "Annulation d'une fiche de prescription"
 
 msgid "controllers/Cataloguespdisfps93"
-msgstr "Paramétrage du référentiel pour fiches de prescription (CG 93)"
+msgstr "Paramétrage du référentiel pour fiches de prescription (CD 93)"
 
 msgid "controllers/Cataloguespdisfps93/search"
 msgstr "Tableau de suivi du référentiel pour fiches de prescription"
@@ -3897,7 +3897,7 @@ msgstr "Suppression d'une pièce manquante d'un CUI"
 ###############################################################################
 
 msgid "controllers/Piecesmailscuis66"
-msgstr "Pièces mails liées aux employeurs CUI (CG66)"
+msgstr "Pièces mails liées aux employeurs CUI (CD 66)"
 
 msgid "controllers/Piecesmailscuis66/index"
 msgstr "Visualisation des pièces liées aux mails employeurs"
@@ -3914,7 +3914,7 @@ msgstr "Suppression d'une pièce liée aux mails employeurs"
 ###############################################################################
 
 msgid "controllers/Textsmailscuis66"
-msgstr "Modèles de mails liés au CUI (CG66)"
+msgstr "Modèles de mails liés au CUI (CD 66)"
 
 msgid "controllers/Textsmailscuis66/index"
 msgstr "Visualisation des modèles de mails liés aux CUI"

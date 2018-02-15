@@ -44,7 +44,7 @@
 			echo $this->Xform->input( 'Propopdo.motifpdo', array( 'label' =>  ( __( 'Motif de la décision' ) ), 'type' => 'select', 'options' => $options['Propopdo']['motifpdo'], 'empty' => true ) );
 			echo $this->Xform->input( 'Propopdo.iscomplet', array( 'label' =>  __( 'Etat du dossier' ),  'type' => 'radio', 'options' => $options['Propopdo']['iscomplet'] ) );
 
-			echo $this->Xform->input( 'Decisionpropopdo.datedecisionpdo', array( 'label' =>  ( __( 'Date de décision CG' ) ), 'type' => 'date', 'dateFormat'=>'DMY', 'maxYear'=>date('Y')+5, 'minYear'=>2009, 'empty' => true ) );
+			echo $this->Xform->input( 'Decisionpropopdo.datedecisionpdo', array( 'label' =>  ( __( 'Date de décision CD' ) ), 'type' => 'date', 'dateFormat'=>'DMY', 'maxYear'=>date('Y')+5, 'minYear'=>2009, 'empty' => true ) );
 
 			echo $this->Xform->input( 'Decisionpropopdo.commentairepdo', array( 'label' =>  'Observations', 'type' => 'textarea', 'empty' => true ) );
 

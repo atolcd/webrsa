@@ -8,7 +8,7 @@ echo '<table id="Decisionnonorientationproep93" class="tooltips"><thead>
 <th>Date d\'orientation</th>
 <th>Orientation actuelle</th>
 <th>Avis EPL</th>
-<th colspan="4">Décision CG</th>
+<th colspan="4">Décision CD</th>
 <th>Observations</th>
 <th>Action</th>
 <th class="innerTableHeader noprint">Avis EP</th>

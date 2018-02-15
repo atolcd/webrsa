@@ -54,10 +54,10 @@ msgid "Controleadministratif.typeimpaccontro"
 msgstr "Type impact"
 
 msgid "Controleadministratif.mtindursacgcontro"
-msgstr "Montant indus RSA fond CG controle"
+msgstr "Montant indus RSA fond CD controle"
 
 msgid "Controleadministratif.mtraprsacgcontro"
-msgstr "Montant rappel RSA fond CG controle"
+msgstr "Montant rappel RSA fond CD controle"
 
 msgid "ENUM::FAMCIBCONTRO::01"
 msgstr "Situation Professionnelle"
@@ -120,7 +120,7 @@ msgid "ENUM::TYPEIMPACCONTRO::0"
 msgstr "Pas d'impact"
 
 msgid "ENUM::TYPEIMPACCONTRO::1"
-msgstr "Impact financier RSA sur fond CG "
+msgstr "Impact financier RSA sur fond CD "
 
 msgid "ENUM::TYPEIMPACCONTRO::2"
 msgstr "Impact sur dossier sans répercussion financière RSA"
