@@ -138,6 +138,38 @@
 		 * @return array
 		 */
 		protected function _bilansparcours66IdsDepuisPassagescommissionsepsIds( $modeleThematique, $passagescommissionseps_ids ) {
+
+// Fichier de logs : app/tmp/debug.log
+Debugger::log(array(
+		'fields' => array( "{$modeleThematique}.id", "{$modeleThematique}.bilanparcours66_id" ),
+		'conditions' => array(
+			"{$modeleThematique}.dossierep_id IN ("
+				.$this->Bilanparcours66->{$modeleThematique}->Dossierep->sq(
+					array(
+						'alias' => 'dossierseps',
+						'fields' => array( 'dossierseps.id' ),
+						'conditions' => array(
+							'dossierseps.id IN ('
+								.$this->Bilanparcours66->{$modeleThematique}->Dossierep->Passagecommissionep->sq(
+									array(
+										'alias' => 'passagescommissionseps',
+										'fields' => array( 'passagescommissionseps.dossierep_id' ),
+										'conditions' => array(
+											'passagescommissionseps.id' => $passagescommissionseps_ids
+										),
+										'contain' => false
+									)
+								)
+							.')'
+						),
+						'contain' => false
+					)
+				)
+			.')'
+		),
+		'contain' => false
+	));
+
 			return $this->Bilanparcours66->{$modeleThematique}->find(
 				'list',
 				array(
@@ -194,6 +226,11 @@
 					array( 'Bilanparcours66.positionbilan' => "'{$position}'" ),
 					array( '"Bilanparcours66"."id"' => array_values( $bilansparcours66_ids ) )
 				) && $success;
+
+Debugger::log($bilansparcours66_ids);
+Debugger::log(array( 'Bilanparcours66.positionbilan' => "'{$position}'" ));
+Debugger::log(array( '"Bilanparcours66"."id"' => array_values( $bilansparcours66_ids ) ));
+
 			}
 			// Niveau CG
 			else {
@@ -244,9 +281,13 @@
 						}
 					}
 				}
-
+Debugger::log($passagescommissionseps_ids_annule);
+Debugger::log($passagescommissionseps_ids_reporte);
+Debugger::log($passagescommissionseps_ids_autre);
 				if( !empty( $passagescommissionseps_ids_autre ) ) {
 					$bilansparcours66_ids = $this->_bilansparcours66IdsDepuisPassagescommissionsepsIds( $modeleThematique, $passagescommissionseps_ids_autre );
+// Fichier de logs : app/tmp/debug.log
+Debugger::log($bilansparcours66_ids);
 					$success = $this->Bilanparcours66->updateAllUnBound(
 						array( 'Bilanparcours66.positionbilan' => '\'traite\'' ),
 						array( '"Bilanparcours66"."id"' => array_values( $bilansparcours66_ids ) )
@@ -2037,7 +2078,8 @@
 				),
 				$conditions
 			);
-
+Debugger::log(array($this->Bilanparcours66->alias.'.positionbilan' => $this->getCasePosition()));
+Debugger::log($conditions);
 			return $success;
 		}
 
