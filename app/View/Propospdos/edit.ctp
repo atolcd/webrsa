@@ -83,8 +83,9 @@
 	<?php if( $this->action == 'edit' ):?>
 		<fieldset>
 			<legend><?php echo required( $this->Default2->label( 'Propopdo.haspiece' ) );?></legend>
-
-			<?php echo $this->Form->input( 'Propopdo.haspiece', array( 'type' => 'radio', 'options' => $options['Propopdo']['haspiece'], 'legend' => false, 'fieldset' => false ) );?>
+			<div style='display: none;'>
+			<?php echo $this->Form->input( 'Propopdo.haspiece', array( 'type' => 'radio', 'options' => $options['Propopdo']['haspiece'], 'legend' => false, 'fieldset' => false, 'value' => 1 ) );?>
+			</div>
 			<fieldset id="filecontainer-piece" class="noborder invisible">
 				<?php
 					echo $this->Fileuploader->create(
@@ -92,28 +93,14 @@
                         array( 'action' => 'ajaxfileupload' )
                     );
 
-                    if( !empty( $fichiersEnBase ) ) {
-                        echo $this->Fileuploader->results(
-                            $fichiersEnBase
-                        );
-                    }
+                    echo $this->Fileuploader->results(
+                        $fichiersEnBase
+                    );
 				?>
 			</fieldset>
 			<?php echo $this->Fileuploader->validation( 'propopdoform', 'Propopdo.haspiece', 'Pièce jointe' );?>
 		</fieldset>
 	<?php endif;?>
-<script type="text/javascript">
-document.observe( "dom:loaded", function() {
-	observeDisableFieldsetOnRadioValue(
-		'propopdoform',
-		'data[Propopdo][haspiece]',
-		$( 'filecontainer-piece' ),
-		'1',
-		false,
-		true
-	);
-} );
-</script>
 
 </div>
 <div class="submit">

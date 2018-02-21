@@ -35,8 +35,9 @@
 ?>
 <fieldset>
 	<legend><?php echo required( $this->Default2->label( 'Actioncandidat.haspiecejointe' ) );?></legend>
-
-	<?php echo $this->Form->input( 'Actioncandidat.haspiecejointe', array( 'type' => 'radio', 'options' => $options['Actioncandidat']['haspiecejointe'], 'legend' => false, 'fieldset' => false ) );?>
+	<div style='display: none;'>
+	<?php echo $this->Form->input( 'Actioncandidat.haspiecejointe', array( 'type' => 'radio', 'options' => $options['Actioncandidat']['haspiecejointe'], 'legend' => false, 'fieldset' => false, 'value' => 1 ) );?>
+	</div>
 	<fieldset id="filecontainer-piecejointe" class="noborder invisible">
 		<?php
 			echo $this->Fileuploader->create(
@@ -44,11 +45,9 @@
 				array( 'action' => 'ajaxfileupload' )
 			);
 
-			if( !empty( $fichiersEnBase ) ) {
-				echo $this->Fileuploader->results(
-					$fichiersEnBase
-				);
-			}
+			echo $this->Fileuploader->results(
+				$fichiersEnBase
+			);
 		?>
 	</fieldset>
 	<?php echo $this->Fileuploader->validation( 'ActioncandidatAddEditForm', 'Actioncandidat' );?>
@@ -56,15 +55,6 @@
 
 <script type="text/javascript">
 	document.observe( "dom:loaded", function() {
-		observeDisableFieldsetOnRadioValue(
-			'ActioncandidatAddEditForm',
-			'data[Actioncandidat][haspiecejointe]',
-			$( 'filecontainer-piecejointe' ),
-			'1',
-			false,
-			true
-		);
-
 		function lastCodeFamille() {
 			if ($('ActioncandidatThemecode').getValue() && $('ActioncandidatCodefamille').getValue()) {
 				new Ajax.Updater(

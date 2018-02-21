@@ -797,9 +797,10 @@
 	?>
 
 	<fieldset>
-		<legend><?php echo required( $this->Default2->label( 'Traitementpcg66.haspiecejointe' ) );?></legend>
-
-		<?php echo $this->Form->input( 'Traitementpcg66.haspiecejointe', array( 'type' => 'radio', 'options' => $options['Traitementpcg66']['haspiecejointe'], 'legend' => false, 'fieldset' => false ) );?>
+		<legend><?php echo $this->Default2->label( 'Traitementpcg66.haspiecejointe' );?></legend>
+		<div style='display: none;'>
+		<?php echo $this->Form->input( 'Traitementpcg66.haspiecejointe', array( 'type' => 'radio', 'options' => $options['Traitementpcg66']['haspiecejointe'], 'legend' => false, 'fieldset' => false, 'value' => 1 ) );?>
+		</div>
 		<fieldset id="filecontainer-piecejointe" class="noborder invisible">
 			<?php
 				echo $this->Fileuploader->create(
@@ -807,11 +808,9 @@
 					array( 'action' => 'ajaxfileupload' )
 				);
 
-				if( !empty( $fichiersEnBase ) ) {
-					echo $this->Fileuploader->results(
-						$fichiersEnBase
-					);
-				}
+				echo $this->Fileuploader->results(
+					$fichiersEnBase
+				);
 			?>
 		</fieldset>
 		<?php echo $this->Fileuploader->validation( 'traitementpcg66form', 'Traitementpcg66', 'Pièce jointe' );?>
@@ -978,15 +977,6 @@
 ?>
 <script type="text/javascript">
 		document.observe( "dom:loaded", function() {
-			observeDisableFieldsetOnRadioValue(
-				'traitementpcg66form',
-				'data[Traitementpcg66][haspiecejointe]',
-				$( 'filecontainer-piecejointe' ),
-				'1',
-				false,
-				true
-			);
-
 			observeDisableFieldsetOnRadioValue(
 				'traitementpcg66form',
 				'data[Traitementpcg66][typetraitement]',
