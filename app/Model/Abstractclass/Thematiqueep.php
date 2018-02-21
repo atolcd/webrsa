@@ -391,6 +391,15 @@
 					)
 				.' )';
 
+				// Correction du bug des sélections des defautsinsertionseps66
+				$query['conditions'][] =
+				'Dossierep.id NOT IN (
+					SELECT "defautsinsertionseps66"."dossierep_id" AS "defautsinsertionseps66__dossierep_id"
+					FROM "defautsinsertionseps66", "bilansparcours66"
+					WHERE "defautsinsertionseps66"."bilanparcours66_id" = "bilansparcours66"."id"
+						AND "bilansparcours66"."positionbilan" IN (\'ajourne\', \'annule\', \'traite\')
+				)';
+
 				$delaiAvantSelection = Configure::read( 'Dossierep.delaiavantselection' );
 				if( !empty( $delaiAvantSelection ) ) {
 					$query['conditions'][] = array(
