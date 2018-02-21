@@ -156,10 +156,10 @@ msgid "ENUM::NATCONTRTRA::CU2"
 msgstr "CUI marchand (CIE) Etat"
 
 msgid "ENUM::NATCONTRTRA::CU3"
-msgstr "CUI non marchand (CAE) Cg"
+msgstr "CUI non marchand (CAE) CD"
 
 msgid "ENUM::NATCONTRTRA::CU4"
-msgstr "CUI marchand (CIE) Cg"
+msgstr "CUI marchand (CIE) CD"
 
 msgid "ENUM::NATCONTRTRA::INT"
 msgstr "Intérim"

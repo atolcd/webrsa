@@ -183,7 +183,7 @@
 	<?php
 		echo $this->Default->subform(
 			array(
-				'ActioncandidatPersonne.poursuitesuivicg' => array( 'type' => 'checkbox' , 'label' => 'Poursuite suivi CG' )
+				'ActioncandidatPersonne.poursuitesuivicg' => array( 'type' => 'checkbox' , 'label' => 'Poursuite suivi CD' )
 			),
 			array(
 				'domain' => $domain,

@@ -112,7 +112,7 @@ msgid "ENUM::ETAPEDOSSIEREP::decisionep"
 msgstr "En attente de décision EP"
 
 msgid "ENUM::ETAPEDOSSIEREP::decisioncg"
-msgstr "En attente de décision CG"
+msgstr "En attente de décision CD"
 
 msgid "ENUM::ETAPEDOSSIEREP::traite"
 msgstr "Décision prise"

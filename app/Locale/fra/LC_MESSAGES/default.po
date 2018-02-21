@@ -519,10 +519,10 @@ msgstr "Valider la commission EP"
 
 
 msgid "Button::traitercg"
-msgstr "Décisions CG"
+msgstr "Décisions CD"
 
 msgid "Button::finalisercg"
-msgstr "Valider la commission CG"
+msgstr "Valider la commission CD"
 
 msgid "Button::courrierInformation"
 msgstr "Courrier d'information"
@@ -647,7 +647,7 @@ msgid "Button::attdecisioncpdv"
 msgstr "Envoi Responsable"
 
 msgid "Button::attdecisioncg"
-msgstr "Envoi CG"
+msgstr "Envoi CD"
 
 msgid "Button::premierelecture"
 msgstr "Première lecture"

@@ -45,13 +45,13 @@ msgid "Avispcgpersonne.mtevalressnonsal"
 msgstr "Montant évaluation ressource non salarié"
 
 msgid "ENUM::AVISEVARESSNONSAL::D"
-msgstr "Avis demandé au CG"
+msgstr "Avis demandé au CD"
 
 msgid "ENUM::AVISEVARESSNONSAL::A"
-msgstr "Accord du CG"
+msgstr "Accord du CD"
 
 msgid "ENUM::AVISEVARESSNONSAL::R"
-msgstr "Refus du CG"
+msgstr "Refus du CD"
 
 msgid "ENUM::EXCL::T"
 msgstr "Exclusion totale portant sur la personne et sur ses ressources"

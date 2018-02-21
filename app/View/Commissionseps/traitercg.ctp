@@ -1,4 +1,4 @@
-<h1><?php echo $this->pageTitle = '3. Traitement de la commission du '.date('d/m/Y à H:i', strtotime($commissionep['Commissionep']['dateseance'])).' par le CG '; ?></h1>
+<h1><?php echo $this->pageTitle = '3. Traitement de la commission du '.date('d/m/Y à H:i', strtotime($commissionep['Commissionep']['dateseance'])).' par le CD '; ?></h1>
 <?php
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->script( array( 'prototype.event.simulate.js', 'dependantselect.js' ) );

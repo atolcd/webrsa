@@ -39,7 +39,7 @@ msgid "ENUM::ETATDOSRSA::Z"
 msgstr "Non défini"
 
 msgid "ENUM::ETATDOSRSA::0"
-msgstr "Nouvelle demande en attente de décision CG pour ouverture du droit"
+msgstr "Nouvelle demande en attente de décision CD pour ouverture du droit"
 
 msgid "ENUM::ETATDOSRSA::1"
 msgstr "Droit refusé"

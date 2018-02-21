@@ -90,7 +90,7 @@
 			$niveauxUniques = array_unique( array_values( $niveaux ) );
 			if( count( $niveauxUniques ) > 1 ) {
 				foreach( $niveaux as $theme => $niveau ) {
-					$this->invalidate( $theme, 'Les niveaux de décisions (EP ou CG) gérés par un regroupement d\'EP doivent être identiques' );
+					$this->invalidate( $theme, 'Les niveaux de décisions (EP ou CD) gérés par un regroupement d\'EP doivent être identiques' );
 				}
 				$return = false;
 			}

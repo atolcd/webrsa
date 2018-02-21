@@ -47,7 +47,7 @@ msgid "IndusConstates.mtmoucompta"
 msgstr "Montant initial de l'indu"
 
 msgid "IndusTransferesCG.mtmoucompta"
-msgstr "Montant transféré CG"
+msgstr "Montant transféré CD"
 
 msgid "RemisesIndus.mtmoucompta"
-msgstr "Remise CG"
+msgstr "Remise CD"

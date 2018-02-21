@@ -69,7 +69,7 @@
 			$departement = (array)$departement;
 
 			if( !in_array( Configure::read( 'Cg.departement' ), $departement ) ) {
-				$msgstr = __n( 'Ce shell est réservé au CG %s', 'Ce shell est réservé aux CGs %s', count( $departement ) );
+				$msgstr = __n( 'Ce shell est réservé au CD %s', 'Ce shell est réservé aux CDs %s', count( $departement ) );
 				$this->error( sprintf( $msgstr, implode( ', ', $departement ) ) );
 			}
 		}

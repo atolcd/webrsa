@@ -455,10 +455,10 @@
 			trigger_error("Utilisation d'une méthode dépréciée : ".__CLASS__.'::'.__FUNCTION__, E_USER_DEPRECATED);
 			// ClassRegistry::init('Condadmin')->enum('aviscondadmrsa')
 			return array(
-				'D' => 'Avis demandé au CG',
-				'A' => 'Accord du CG',
-				'R' => 'Refus du CG',
-				"S" => 'Si avis demandé au CG sans suspension'
+				'D' => 'Avis demandé au CD',
+				'A' => 'Accord du CD',
+				'R' => 'Refus du CD',
+				"S" => 'Si avis demandé au CD sans suspension'
 			);
 		}
 
@@ -472,9 +472,9 @@
 			trigger_error("Utilisation d'une méthode dépréciée : ".__CLASS__.'::'.__FUNCTION__, E_USER_DEPRECATED);
 			// ClassRegistry::init('Derogation')->enum('avisdero')
 			return array(
-				'D' => 'Avis demandé au CG',
-				'O' => 'Accord du CG',
-				'N' => 'Refus du CG',
+				'D' => 'Avis demandé au CD',
+				'O' => 'Accord du CD',
+				'N' => 'Refus du CD',
 				'A' => 'Ajourné'
 			);
 		}
@@ -489,9 +489,9 @@
 			trigger_error("Utilisation d'une méthode dépréciée : ".__CLASS__.'::'.__FUNCTION__, E_USER_DEPRECATED);
 			// ClassRegistry::init('Avispcgdroitrsa')->enum('avisdestpairsa')
 			return array(
-				'D' => 'Avis demandé au CG',
-				'A' => 'Accord du CG',
-				'R' => 'Refus du CG'
+				'D' => 'Avis demandé au CD',
+				'A' => 'Accord du CD',
+				'R' => 'Refus du CD'
 			);
 		}
 
@@ -1007,7 +1007,7 @@
 
 			$etats = array(
 				'Z' => 'Non défini',
-				'0'  => 'Nouvelle demande en attente de décision CG pour ouverture du droit',
+				'0'  => 'Nouvelle demande en attente de décision CD pour ouverture du droit',
 				'1'  => 'Droit refusé',
 				'2'  => 'Droit ouvert et versable',
 				'3'  => 'Droit ouvert et suspendu (le montant du droit est calculable, mais l\'existence du droit est remis en cause)',
@@ -1074,16 +1074,16 @@
 				'SITENFAUT' => 'situation enfant/aut',
 				'RESTRIRSA' => 'ressources trimestrielles RSA',
 				'SITFAM' => 'situation famille',
-				'DECDEMPCG' => 'décision du Président du CG',
+				'DECDEMPCG' => 'décision du Président du CD',
 				'CARRSA' => 'caractéristiques RSA',
-				'PROPCG' => 'proposition au Président CG',
+				'PROPCG' => 'proposition au Président CD',
 				'HOSPLA'  => 'hospitalisation placement',
 				'CIRMA' => 'Cirma ou Cav',
 				'SUIRMA' => 'Suivi de Cirma ou de Cav',
 				'RECPEN' => 'récépissé pension',
 				'TITPEN'  => 'titre de pension',
 				'REA' => 'réaffiliation (Fait générateur générique)',
-				'DERPRE'  => 'Dérogation du Président du CG',
+				'DERPRE'  => 'Dérogation du Président du CD',
 				'ABANEURES'  => 'abattement ou neuratisation de ressource',
 				'DEMRSA'  => 'demande de RSA (Fait générateur générique)',
 				'CREALI' => 'créance alimentaire',
@@ -1236,7 +1236,7 @@
 				'LOG' => 'Logement fourni par les parents',
 				'PAM' => 'Pension à l\'amiable',
 				'PHE' => 'Parent hors d\'état ou décédé',
-				'DCG' => 'Dispense CG',
+				'DCG' => 'Dispense DG',
 				'AUT' => 'Autre motif de dispense'
 			);
 		}
@@ -2640,7 +2640,7 @@
 			return array(
 				'AllocationsComptabilisees' => 'Allocations comptabilisées',
 				'IndusConstates' => 'Indu constaté',
-				'IndusTransferesCG' => 'Indu transféré au CG',
+				'IndusTransferesCG' => 'Indu transféré au CD',
 				'RemisesIndus' => 'Remise d\'indu',
 				'AnnulationsFaibleMontant' => 'Annulation pour faible montant',
 				'AutresAnnulations' => 'Autre annulation'
@@ -2912,7 +2912,7 @@
 			return array(
 				'TotalAllocationsComptabilisees' => 'Total des allocations comptabilisees',
 				'TotalIndusConstates' => 'Total des indus constates',
-				'TotalIndusTransferesCG' => 'Total des indus transferés au CG',
+				'TotalIndusTransferesCG' => 'Total des indus transferés au CD',
 				'TotalRemisesIndus' => 'Total des remises des indus',
 				'TotalAnnulationsIndus' => 'Total des annulations des indus',
 				'MontantTotalAcompte' => 'Montant total de l\'acompte'

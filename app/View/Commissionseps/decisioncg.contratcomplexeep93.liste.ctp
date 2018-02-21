@@ -8,7 +8,7 @@ echo '<table id="Decisioncontratcomplexeep93" class="tooltips"><thead>
 <th rowspan="2">Date de début du contrat</th>
 <th rowspan="2">Date de fin du contrat</th>
 <th rowspan="2">Avis EP</th>
-<th colspan="5">Décision CG</th>
+<th colspan="5">Décision CD</th>
 <th rowspan="2">Observations</th>
 <th rowspan="2">Action</th>
 <th rowspan="2" class="innerTableHeader noprint">Avis EP</th>

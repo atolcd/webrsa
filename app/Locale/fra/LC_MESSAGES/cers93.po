@@ -118,10 +118,10 @@ msgid "/Histoschoixcers93/attdecisioncpdv/#Contratinsertion.id#"
 msgstr "Envoyer au responsable"
 
 msgid "/Histoschoixcers93/attdecisioncg"
-msgstr "Envoi CG"
+msgstr "Envoi CD"
 
 msgid "/Histoschoixcers93/attdecisioncg/#Contratinsertion.id#"
-msgstr "Envoyer au CG"
+msgstr "Envoyer au CD"
 
 msgid "/Histoschoixcers93/premierelecture"
 msgstr "Première lecture"

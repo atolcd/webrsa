@@ -41,7 +41,7 @@
 		 */
 		public function getOptionParser() {
 			$parser = parent::getOptionParser();
-			$parser->description( 'Ce script permet, au CG66, d\'importer, via des fichiers .csv, la liste des cantons du département des Pyrénées Orientales.' );
+			$parser->description( 'Ce script permet, au CD66, d\'importer, via des fichiers .csv, la liste des cantons du département des Pyrénées Orientales.' );
 			$args = array(
 				'csv' => array(
 					'help' => 'chemin et nom du fichier à importer',

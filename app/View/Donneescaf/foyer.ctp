@@ -386,7 +386,7 @@
 	
 	echo '<br/><br/><h2>Avis PCG Droit RSA<div class="information" for="avispcg"></div></h2>';
 	echo '<div class="info-data remarque" id="avispcg" style="display: none;">'
-		."<p>Regroupement des décisions du CG liées à au dossier RSA</p>"
+		."<p>Regroupement des décisions du CD liées à au dossier RSA</p>"
 		."<p>Il s'agit de la restitution des informations présentes dans le modèle de gestion Caf/Msa. Les demandes d'avis sont isolées dans la suite du flux.</p>"
 		.'</div>'
 	;
@@ -414,7 +414,7 @@
 	echo '<br/><br/><h2>Avis PCG Droit RSA - Réduction RSA<div class="information" for="reducrsa"></div></h2>';
 	echo '<div class="info-data remarque" id="reducrsa" style="display: none;">'
 		."<p>Pénalité sur l'ensemble du droit</p>"
-		."<p>Présence d'une réduction demandée par le CG. Cette réduction s'applique après calcul du droit</p>"
+		."<p>Présence d'une réduction demandée par le CD. Cette réduction s'applique après calcul du droit</p>"
 		.'</div>'
 	;
 	if (!empty($reducsrsa)) {
@@ -508,7 +508,7 @@
 	echo '<div class="info-data remarque" id="creance" style="display: none;">'
 		."<p>Liste des créances communiquées au Conseil général</p>"
 		."<p>Description de la créance transférée</p>"
-		."<p>Il y a un bloc par créance à transférer au CG. La créance est transferée immédiatement après sa constation par la chaine mensuel de gestion des créances ou manuellement par le service agence comptable</p>"
+		."<p>Il y a un bloc par créance à transférer au CD. La créance est transferée immédiatement après sa constation par la chaine mensuel de gestion des créances ou manuellement par le service agence comptable</p>"
 		.'</div>'
 	;
 	if (!empty($creances)) {
@@ -550,7 +550,7 @@
 			)
 		),
 		'IndusTransferesCG' => array(
-			'title' => 'Indus Transferes CG',
+			'title' => 'Indus Transferes CD',
 			'info' => array(
 				'Opération comptable de transfert de la créance de la Caf au Conseil général suite au constat de non recouvrement par la caf de celle et à la cloture du droit au rSa',
 				'Ce bloc vient augmenter le montant total de l\'acompte demandé par la Caf ou la Msa au Conseil Général.',

@@ -59,7 +59,7 @@
 			'affecteLink' => array( 'icons/pencil.png', 'Affecter les dossiers' ),
 			'avenantLink' => array( 'icons/add.png', 'Avenant' ),
 			// Avec des valeurs de $attributes (voir $this->_linksMapAttributes)
-			'conseilLink' => array( 'icons/door_out.png', 'Traitement par CG' ),
+			'conseilLink' => array( 'icons/door_out.png', 'Traitement par CD' ),
 			'courrierLink' => array( 'icons/page_white_text.png', 'Courrier d\'information' ),
 			'decisionLink' => array( 'icons/user_comment.png', 'Décisions' ),
 			'equipeLink' => array( 'icons/door_out.png', 'Traitement par équipe' ),

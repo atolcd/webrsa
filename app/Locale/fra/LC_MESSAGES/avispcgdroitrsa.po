@@ -33,13 +33,13 @@ msgid "Avispcgdroitrsa.typeperstie"
 msgstr "Type de personne tiers"
 
 msgid "ENUM::AVISDESTPAIRSA::D"
-msgstr "Avis demandé au CG"
+msgstr "Avis demandé au CD"
 
 msgid "ENUM::AVISDESTPAIRSA::A"
-msgstr "Accord du CG"
+msgstr "Accord du CD"
 
 msgid "ENUM::AVISDESTPAIRSA::R"
-msgstr "Refus du CG"
+msgstr "Refus du CD"
 
 msgid "ENUM::TYPEPERSTIE::P"
 msgstr "S'il s'agit d'un tiers personne physique"

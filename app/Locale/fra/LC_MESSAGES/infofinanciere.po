@@ -112,13 +112,13 @@ msgid "ENUM::NATPFCRE::ITP"
 msgstr "Indu RSU RCU transféré"
 
 msgid "ENUM::NATPFCRE::ACB"
-msgstr "Acompte RSA (RCB CG)"
+msgstr "Acompte RSA (RCB CD)"
 
 msgid "ENUM::NATPFCRE::ASB"
-msgstr "Acompte RSA (RSB CG)"
+msgstr "Acompte RSA (RSB CD)"
 
 msgid "ENUM::NATPFCRE::ASI"
-msgstr "Acompte RSA (RSI CG)"
+msgstr "Acompte RSA (RSI CD)"
 
 msgid "ENUM::NATPFCRE::INS"
 msgstr "Indu RCB"
@@ -142,13 +142,13 @@ msgid "ENUM::NATPFCRE::ITT"
 msgstr "Indu RCU transféré"
 
 msgid "ENUM::NATPFCRE::VCB"
-msgstr "Avance RSA (RCB CG)"
+msgstr "Avance RSA (RCB CD)"
 
 msgid "ENUM::NATPFCRE::VSB"
-msgstr "Avance RSA (RSB CG)"
+msgstr "Avance RSA (RSB CD)"
 
 msgid "ENUM::NATPFCRE::VSI"
-msgstr "Avance RSA (RSI CG)"
+msgstr "Avance RSA (RSI CD)"
 
 msgid "ENUM::TYPEOPECOMPTA::PME"
 msgstr "Pour le paiement mensuel"
@@ -211,7 +211,7 @@ msgid "ENUM::TYPE_ALLOCATION::IndusConstates"
 msgstr "Indu constaté"
 
 msgid "ENUM::TYPE_ALLOCATION::IndusTransferesCG"
-msgstr "Indu transféré au CG"
+msgstr "Indu transféré au CD"
 
 msgid "ENUM::TYPE_ALLOCATION::RemisesIndus"
 msgstr "Remise d'indu"

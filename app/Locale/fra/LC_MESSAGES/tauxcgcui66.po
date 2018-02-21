@@ -26,4 +26,4 @@ msgid "Tauxcgcui66.priseenchargeeffectif"
 msgstr "Taux de prise en charge effectif"
 
 msgid "Tauxcgcui66.tauxcg"
-msgstr "Taux CG"
+msgstr "Taux CD"

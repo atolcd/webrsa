@@ -91,7 +91,7 @@ msgid "ENUM::CONTRACTUALISATION::subvention"
 msgstr "Subvention"
 
 msgid "ENUM::CONTRACTUALISATION::internecg"
-msgstr "Interne au CG"
+msgstr "Interne au CD"
 
 msgid "ENUM::CORRESPONDANTACTION::0"
 msgstr "Non"

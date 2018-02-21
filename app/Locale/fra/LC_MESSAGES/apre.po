@@ -32,7 +32,7 @@ msgid "Apre.typedemandeapre"
 msgstr "Type de demande d'APRE"
 
 msgid "Apre.datedemandeapre"
-msgstr "Date de l'envoi de la demande au CG "
+msgstr "Date de l'envoi de la demande au CD "
 
 msgid "Apre.naturelogement"
 msgstr "Logement "

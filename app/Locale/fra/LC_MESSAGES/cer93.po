@@ -139,10 +139,10 @@ msgid "ENUM::POSITIONCER::07attavisep"
 msgstr "En attente passage EP"
 
 msgid "ENUM::POSITIONCER::99rejete"
-msgstr "Rejeté CG"
+msgstr "Rejeté CD"
 
 msgid "ENUM::POSITIONCER::99valide"
-msgstr "Validé CG"
+msgstr "Validé CD"
 
 msgid "Cer93.datesignature"
 msgstr "Date de signature"

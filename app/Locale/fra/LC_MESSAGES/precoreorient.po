@@ -29,4 +29,4 @@ msgid "Precosreorients::index"
 msgstr "Liste des préconisations de réorientation à gérer par l'équipe"
 
 msgid "Precosreorients::conseil"
-msgstr "Liste des préconisations de réorientation à gérer par le CG"
+msgstr "Liste des préconisations de réorientation à gérer par le CD"

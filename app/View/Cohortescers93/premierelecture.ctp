@@ -1,5 +1,5 @@
 <?php
-	$this->pageTitle = '4. Décision CG - 4.1 Première lecture';
+	$this->pageTitle = '4. Décision CD - 4.1 Première lecture';
 
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->script( array( 'prototype.event.simulate.js' ) );

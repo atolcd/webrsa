@@ -366,7 +366,7 @@
 	
 	echo '<br/><br/><h2>Avis PCG - Décisions CD<div class="information" for="avispcg"></div></h2>';
 	echo '<div class="info-data remarque" id="avispcg" style="display: none;">'
-		."<p>Regroupement des décisions du CG liées à la personne traitée</p>"
+		."<p>Regroupement des décisions du CD liées à la personne traitée</p>"
 		."<p>Il s'agit de la restitution des informations présentes dans le modèle de gestion Caf/Msa. Les demandes d'avis sont isolées dans la suite du flux.</p>"
 		.'</div>'
 	;
@@ -439,7 +439,7 @@
 	echo '<br/><br/><h3>Décisions CD - Libéralité non déclarée<div class="information" for="liberalite"></div></h3>';
 	echo '<div class="info-data remarque" id="liberalite" style="display: none;">'
 		."<p>Présence de libéralité non déclarée par la personne traitée</p>"
-		."<p>Ce bloc fait suite à un contrôle où il a été constaté des pensions (ou assimilées) allouées en espèces à cette personne alors qu'elles n'ont pas été déclarées. Cette information a fait l'ojet d'une demande de prise en compte auprès du CG pour savoir si le montant doit être intégré dans les ressources de la personne.</p>"
+		."<p>Ce bloc fait suite à un contrôle où il a été constaté des pensions (ou assimilées) allouées en espèces à cette personne alors qu'elles n'ont pas été déclarées. Cette information a fait l'ojet d'une demande de prise en compte auprès du CD pour savoir si le montant doit être intégré dans les ressources de la personne.</p>"
 		.'</div>'
 	;
 	if (!empty($liberalites)) {

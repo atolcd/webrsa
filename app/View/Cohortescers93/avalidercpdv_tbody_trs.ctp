@@ -109,7 +109,7 @@
                 'Confirmez-vous le rejet du CER ?'
 			).'</li><li>'
 			.$this->Ajax->link(
-				'Transférer au CG',
+				'Transférer au CD',
 				array( 'action' => $this->action, 'decision' => '03attdecisioncg' ),
 				array(
 					'update' => $rowId,
@@ -117,7 +117,7 @@
 					'complete' => 'mkTooltipTables();make_external_links();',
 					'class' => 'transferer cg'
 				),
-                'Confirmez-vous le transfert au CG du CER ?'
+                'Confirmez-vous le transfert au CD du CER ?'
 			).'</li></ul>',
 			$this->Xhtml->printLink( 'Imprimer', array( 'controller' => 'cers93', 'action' => 'impression', $cer93['Contratinsertion']['id'] ), true, true ),
 			array( $this->Xhtml->link( 'Voir', array( 'controller' => 'histoschoixcers93', 'action' => 'attdecisioncg', $cer93['Contratinsertion']['id'] ), array( 'target' => 'histoschoixcers93_attdecisioncg' ) ), array( 'class' => 'button view' ) ),

@@ -34,7 +34,7 @@ msgid "Apre66.typedemandeapre"
 msgstr "Type de demande d'APRE/ADRE"
 
 msgid "Apre66.datedemandeapre"
-msgstr "Date de l'envoi de la demande au CG "
+msgstr "Date de l'envoi de la demande au CD "
 
 msgid "Apre66.naturelogement"
 msgstr "Logement "

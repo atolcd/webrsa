@@ -316,7 +316,7 @@ msgid "Bilanparcours66.typeformulaire"
 msgstr "Choix du formulaire"
 
 msgid "ENUM::TYPEFORMULAIRE::cg"
-msgstr "Formulaire CG"
+msgstr "Formulaire CD"
 
 msgid "ENUM::TYPEFORMULAIRE::pe"
 msgstr "Formulaire Pôle Emploi"

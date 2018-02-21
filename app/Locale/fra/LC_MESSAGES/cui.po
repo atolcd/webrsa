@@ -306,7 +306,7 @@ msgid "ENUM::EXCLUSIFCG::1"
 msgstr "Oui"
 
 msgid "ENUM::ORGANISMEPAYEUR::CG"
-msgstr "CG"
+msgstr "CD"
 
 msgid "ENUM::ORGANISMEPAYEUR::CAF"
 msgstr "CAF"

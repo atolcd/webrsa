@@ -48,13 +48,13 @@ msgid "ENUM::TYPEDERO::NAT"
 msgstr "Dérogation sur les conditions de nationnalité"
 
 msgid "ENUM::AVISDERO::D"
-msgstr "Avis demandé au CG"
+msgstr "Avis demandé au CD"
 
 msgid "ENUM::AVISDERO::O"
-msgstr "Accord du CG"
+msgstr "Accord du CD"
 
 msgid "ENUM::AVISDERO::N"
-msgstr "Refus du CG"
+msgstr "Refus du CD"
 
 msgid "ENUM::AVISDERO::A"
 msgstr "Ajourné"

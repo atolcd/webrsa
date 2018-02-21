@@ -67,7 +67,7 @@ msgid "ENUM::APPLIEME::PER"
 msgstr "Peceaveal INFODB"
 
 msgid "ENUM::APPLIEME::54"
-msgstr " Logiciel du CG 54"
+msgstr " Logiciel du CD 54"
 
 msgid "ENUM::APPLIEME::NRA"
 msgstr "@RSA Cnaf"

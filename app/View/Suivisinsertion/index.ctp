@@ -649,14 +649,14 @@
 						<th>Motif de passage en EP</th>
 						<th>État dossier EP</th>
 						<th>Décision de l'EP</th>
-						<th>Décision du CG</th>
+						<th>Décision du CD</th>
 						<th></th>
 
 						<th>Date de la commission d'EP</th>
 						<th>Motif de passage en EP</th>
 						<th>État dossier EP</th>
 						<th>Décision de l'EP</th>
-						<th>Décision du CG</th>
+						<th>Décision du CD</th>
 
 					</tr>
 						<td><?php echo @$detailsEp['DEM']['dateEp'];?></td>

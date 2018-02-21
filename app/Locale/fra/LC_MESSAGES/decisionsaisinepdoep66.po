@@ -50,7 +50,7 @@ msgid "ENUM::ETAPE::ep"
 msgstr "Etape EP"
 
 msgid "ENUM::ETAPE::cg"
-msgstr "Etape CG"
+msgstr "Etape CD"
 
 msgid "ENUM::NONADMIS::CAN"
 msgstr "Conditions d'admission non remplies"

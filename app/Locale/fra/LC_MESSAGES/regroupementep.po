@@ -55,7 +55,7 @@ msgid "ENUM::SAISINEBILANPARCOURSEP66::decisionep"
 msgstr "Décision émise par l'EP"
 
 msgid "ENUM::SAISINEBILANPARCOURSEP66::decisioncg"
-msgstr "Décision émise par le CG"
+msgstr "Décision émise par le CD"
 
 msgid "Regroupementep.saisinepdoep66"
 msgstr "Saisine PDO"
@@ -67,7 +67,7 @@ msgid "ENUM::SAISINEPDOEP66::decisionep"
 msgstr "Décision émise par l'EP"
 
 msgid "ENUM::SAISINEPDOEP66::decisioncg"
-msgstr "Décision émise par le CG"
+msgstr "Décision émise par le CD"
 
 msgid "Regroupementep.defautinsertionep66"
 msgstr "Défaut d'insertion"
@@ -79,7 +79,7 @@ msgid "ENUM::DEFAUTINSERTIONEP66::decisionep"
 msgstr "Décision émise par l'EP"
 
 msgid "ENUM::DEFAUTINSERTIONEP66::decisioncg"
-msgstr "Décision émise par le CG"
+msgstr "Décision émise par le CD"
 
 # Spécifique CG 93
 
@@ -102,7 +102,7 @@ msgid "ENUM::REORIENTATIONEP93::decisionep"
 msgstr "Décision émise par l'EP"
 
 msgid "ENUM::REORIENTATIONEP93::decisioncg"
-msgstr "Décision émise par le CG"
+msgstr "Décision émise par le CD"
 
 msgid "ENUM::NONRESPECTSANCTIONEP93::nontraite"
 msgstr "Décision non traitée"
@@ -111,7 +111,7 @@ msgid "ENUM::NONRESPECTSANCTIONEP93::decisionep"
 msgstr "Décision émise par l'EP"
 
 msgid "ENUM::NONRESPECTSANCTIONEP93::decisioncg"
-msgstr "Décision émise par le CG"
+msgstr "Décision émise par le CD"
 
 msgid "ENUM::NONORIENTATIONPROEP93::nontraite"
 msgstr "Décision non traitée"
@@ -120,7 +120,7 @@ msgid "ENUM::NONORIENTATIONPROEP93::decisionep"
 msgstr "Décision émise par l'EP"
 
 msgid "ENUM::NONORIENTATIONPROEP93::decisioncg"
-msgstr "Décision émise par le CG"
+msgstr "Décision émise par le CD"
 
 msgid "ENUM::SIGNALEMENTEP93::nontraite"
 msgstr "Décision non traitée"
@@ -129,7 +129,7 @@ msgid "ENUM::SIGNALEMENTEP93::decisionep"
 msgstr "Décision émise par l'EP"
 
 msgid "ENUM::SIGNALEMENTEP93::decisioncg"
-msgstr "Décision émise par le CG"
+msgstr "Décision émise par le CD"
 
 # Spécifique cg 58
 
@@ -140,7 +140,7 @@ msgid "ENUM::NONORIENTATIONPROEP58::decisionep"
 msgstr "Décision émise par l'EP"
 
 msgid "ENUM::NONORIENTATIONPROEP58::decisioncg"
-msgstr "Décision émise par le CG"
+msgstr "Décision émise par le CD"
 
 msgid "Regroupementep.nonorientationproep58"
 msgstr "Dossier non réorienté vers le professionnel"
@@ -152,7 +152,7 @@ msgid "ENUM::REGRESSIONORIENTATIONEP58::decisionep"
 msgstr "Décision émise par l'EP"
 
 msgid "ENUM::REGRESSIONORIENTATIONEP58::decisioncg"
-msgstr "Décision émise par le CG"
+msgstr "Décision émise par le CD"
 
 msgid "Regroupementep.regressionorientationep58"
 msgstr "Dossier orienté du professionnel vers le social"
@@ -167,7 +167,7 @@ msgid "ENUM::SANCTIONEP58::decisionep"
 msgstr "Décision émise par l'EP"
 
 msgid "ENUM::SANCTIONEP58::decisioncg"
-msgstr "Décision émise par le CG"
+msgstr "Décision émise par le CD"
 
 msgid "Regroupementep.sanctionrendezvousep58"
 msgstr "Sanctions pour rendez-vous non honorés"
@@ -179,7 +179,7 @@ msgid "ENUM::SANCTIONRENDEZVOUSEP58::decisionep"
 msgstr "Décision émise par l'EP"
 
 msgid "ENUM::SANCTIONRENDEZVOUSEP58::decisioncg"
-msgstr "Décision émise par le CG"
+msgstr "Décision émise par le CD"
 
 msgid "Regroupementep.contratcomplexeep93"
 msgstr "Validation des contrats complexes"
@@ -191,4 +191,4 @@ msgid "ENUM::CONTRATCOMPLEXEEP93::decisionep"
 msgstr "Décision émise par l'EP"
 
 msgid "ENUM::CONTRATCOMPLEXEEP93::decisioncg"
-msgstr "Décision émise par le CG"
+msgstr "Décision émise par le CD"
