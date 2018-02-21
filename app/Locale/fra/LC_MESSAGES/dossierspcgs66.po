@@ -64,6 +64,9 @@ msgstr "Date d'affectation"
 msgid "Search.Dossierpcg66.etatdossierpcg"
 msgstr "État du dossier PCG"
 
+msgid "Search.Dossierpcg66.has_dossierpcg66"
+msgstr "Possède un dossier PCG ?"
+
 msgid "Search.Decisiondossierpcg66.org_id"
 msgstr "Organismes auxquels sont transmis les dossiers"
 

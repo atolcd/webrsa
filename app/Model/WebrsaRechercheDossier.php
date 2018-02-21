@@ -218,6 +218,12 @@
 				}
 			}
 
+			// Recherche dossier PCG
+			$etat_dossierpcg66 = (string)Hash::get( $search, 'Dossierpcg66.has_dossierpcg66' );
+			if ($etat_dossierpcg66 === '0') {
+				$query['conditions'][] = 'NOT ' . ' EXISTS ( ' . $this->Dossier->Foyer->dossiersPCG66 () . ' )';
+			}
+
 			// CD 66: Personne ne possédant pas d'orientation et sans entrée Nonoriente66
 			if( $departement === 66 ) {
 				$exists = (string)Hash::get( $search, 'Personne.has_orientstruct' );
