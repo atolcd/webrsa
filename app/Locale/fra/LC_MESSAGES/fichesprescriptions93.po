@@ -43,8 +43,14 @@ msgstr "Possède une fiche de prescription"
 msgid "Search.Ficheprescription93.numconvention"
 msgstr "Numéro de convention ou code action d'attente"
 
+msgid "Search.Ficheprescription93.yearthematiquefp93"
+msgstr "Année"
+
 msgid "Search.Ficheprescription93.typethematiquefp93_id"
 msgstr "Type de prescription"
+
+msgid "Search.Ficheprescription93.yearthematiquefp93_id"
+msgstr "Année de la prescription"
 
 msgid "Search.Ficheprescription93.thematiquefp93_id"
 msgstr "Thématique"
@@ -181,6 +187,9 @@ msgstr "Type"
 
 msgid "Thematiquefp93.name"
 msgstr "Thématique"
+
+msgid "Thematiquefp93.yearthema"
+msgstr "Année"
 
 msgid "Categoriefp93.name"
 msgstr "Catégorie d'action prescrite"
@@ -348,6 +357,9 @@ msgstr "Numéro de convention ou code action d'attente"
 
 msgid "Ficheprescription93.typethematiquefp93_id"
 msgstr "Type"
+
+msgid "Ficheprescription93.yearthematiquefp93_id"
+msgstr "Année"
 
 msgid "Ficheprescription93.thematiquefp93_id"
 msgstr "Thématique"

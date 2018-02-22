@@ -160,6 +160,7 @@
 			$fields = array(
 				"{$this->alias}.id" => array(),
 				"{$this->alias}.typethematiquefp93_id" => array( 'empty' => true ),
+				"{$this->alias}.yearthematiquefp93_id" => array( 'empty' => true ),
 				"{$this->alias}.thematiquefp93_id" => array( 'empty' => true ),
 				"{$this->alias}.categoriefp93_id" => array( 'empty' => true ),
 				"{$this->alias}.name" => array(),
@@ -179,6 +180,7 @@
 			$query = array(
 				'fields' => array(
 					"Thematiquefp93.type",
+					"Thematiquefp93.yearthema",
 					"{$this->alias}.{$this->primaryKey}",
 					"{$this->alias}.{$this->displayField}",
 					"Categoriefp93.thematiquefp93_id",
@@ -197,13 +199,15 @@
 
 			if( !empty( $result ) ) {
 				$typethematiquefp93_id = Hash::get( $result, "Thematiquefp93.type" );
+				$yearthematiquefp93_id = $typethematiquefp93_id.Hash::get( $result, "Thematiquefp93.yearthema" );				
 				$thematiquefp93_id = Hash::get( $result, "Categoriefp93.thematiquefp93_id" );
 
 				$result = array(
 					$this->alias => array(
 						$this->primaryKey => Hash::get( $result, "{$this->alias}.{$this->primaryKey}" ),
 						'typethematiquefp93_id' => $typethematiquefp93_id,
-						'thematiquefp93_id' => $typethematiquefp93_id.'_'.$thematiquefp93_id,
+						'yearthematiquefp93_id' => $typethematiquefp93_id.'_'.$yearthematiquefp93_id,
+						'thematiquefp93_id' => $yearthematiquefp93_id.'_'.$thematiquefp93_id,
 						'categoriefp93_id' => $thematiquefp93_id.'_'.Hash::get( $result, "{$this->alias}.categoriefp93_id" ),
 						$this->displayField => Hash::get( $result, "{$this->alias}.{$this->displayField}" ),
 					)

@@ -100,7 +100,7 @@
 
 			foreach( $fields as $path => $params ) {
 				$params = (array)$params;
-				if( Hash::check( $enums, $path ) || ( strrpos( $path, '_id' ) === ( strlen( $path ) - 3 ) ) ) {
+			    if( Hash::check( $enums, $path ) || ( strrpos( $path, '_id' ) === ( strlen( $path ) - 3 ) ) || $path = 'Thematiquefp93.yearthema' ) {
 					$params['empty'] = true;
 				}
 				$fields[$path] = $params;

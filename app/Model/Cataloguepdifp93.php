@@ -96,6 +96,7 @@
 				$query = array(
 					'fields' => array(
 						'Thematiquefp93.type',
+						'Thematiquefp93.yearthema',
 						'Thematiquefp93.name',
 						'Categoriefp93.name',
 						'Filierefp93.name',
@@ -145,6 +146,7 @@
 			// 1. Valeurs exactes
 			$paths = array(
 				'Thematiquefp93.type',
+				'Thematiquefp93.yearthema',
 				'Actionfp93.annee',
 				'Actionfp93.actif'
 			);

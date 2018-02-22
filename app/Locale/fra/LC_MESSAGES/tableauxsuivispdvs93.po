@@ -535,6 +535,9 @@ msgstr "Type de prescription"
 msgid "Thematiquefp93.name"
 msgstr "Thématique"
 
+msgid "Thematiquefp93.yearthema"
+msgstr "Année"
+
 msgid "Categoriefp93.name"
 msgstr "Catégorie"
 

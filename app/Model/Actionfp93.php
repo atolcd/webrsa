@@ -126,12 +126,15 @@
 
 			$virtualFields = array(
 				"{$this->alias}.typethematiquefp93_id" => array( 'empty' => true ),
+				"{$this->alias}.yearthematiquefp93_id" => array( 'empty' => true ),
 				"{$this->alias}.thematiquefp93_id" => array( 'empty' => true ),
 				"{$this->alias}.categoriefp93_id" => array( 'empty' => true ),
 				"{$this->alias}.filierefp93_id" => array( 'empty' => true ),
 				"{$this->alias}.prestatairefp93_id" => array( 'empty' => true )
 			);
 			$fields = $virtualFields + $fields;
+
+			unset($fields['Thematiquefp93.yearthema']);
 
 			return $fields;
 		}
@@ -152,7 +155,8 @@
 						'Filierefp93.id',
 						'Categoriefp93.id',
 						'Thematiquefp93.id',
-						'Thematiquefp93.type'
+						'Thematiquefp93.type',
+						'Thematiquefp93.yearthema'
 					)
 				),
 				'conditions' => array(
@@ -170,6 +174,7 @@
 
 			if( !empty( $return ) ) {
 				$typethematiquefp93_id = Hash::get( $return, 'Thematiquefp93.type' );
+				$yearthematiquefp93_id = $typethematiquefp93_id.Hash::get( $return, "Thematiquefp93.yearthema" );
 				$thematiquefp93_id = Hash::get( $return, 'Thematiquefp93.id' );
 				$categoriefp93_id = Hash::get( $return, 'Categoriefp93.id' );
 				$filierefp93_id = Hash::get( $return, 'Filierefp93.id' );
@@ -181,7 +186,8 @@
 					array(
 						$this->alias => array(
 							'typethematiquefp93_id' => $typethematiquefp93_id,
-							'thematiquefp93_id' => "{$typethematiquefp93_id}_{$thematiquefp93_id}",
+							'yearthematiquefp93_id' => $typethematiquefp93_id.'_'.$yearthematiquefp93_id,
+							'thematiquefp93_id' => $yearthematiquefp93_id.'_'.$thematiquefp93_id,
 							'categoriefp93_id' => "{$thematiquefp93_id}_{$categoriefp93_id}",
 							'filierefp93_id' => "{$categoriefp93_id}_{$filierefp93_id}",
 							'prestatairefp93_id' => $prestatairefp93_id,
@@ -257,7 +263,8 @@
 		 */
 		public function getParametrageDependantFields() {
 			$return = array(
-				"{$this->alias}.typethematiquefp93_id" => "{$this->alias}.thematiquefp93_id",
+				"{$this->alias}.typethematiquefp93_id" => "{$this->alias}.yearthematiquefp93_id",
+				"{$this->alias}.yearthematiquefp93_id" => "{$this->alias}.thematiquefp93_id",
 				"{$this->alias}.thematiquefp93_id" => "{$this->alias}.categoriefp93_id",
 				"{$this->alias}.categoriefp93_id" => "{$this->alias}.filierefp93_id",
 				"{$this->alias}.prestatairefp93_id" => "{$this->alias}.adresseprestatairefp93_id",

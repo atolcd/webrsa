@@ -155,6 +155,7 @@
 			array(
 				'Ficheprescription93.numconvention' => array( 'type' => 'text' ),
 				'Ficheprescription93.typethematiquefp93_id' => array( 'empty' => true ),
+				'Ficheprescription93.yearthematiquefp93_id' => array( 'empty' => true ),
 				'Ficheprescription93.thematiquefp93_id' => array( 'empty' => true ),
 				'Ficheprescription93.categoriefp93_id' => array( 'empty' => true ),
 				'Ficheprescription93.filierefp93_id' => array( 'empty' => true ),
@@ -480,6 +481,7 @@
 		array(
 			'Ficheprescription93.numconvention' => array( 'event' => 'keyup' ),
 			'Ficheprescription93.typethematiquefp93_id',
+			'Ficheprescription93.yearthematiquefp93_id',
 			'Ficheprescription93.thematiquefp93_id',
 			'Ficheprescription93.categoriefp93_id',
 			'Ficheprescription93.filierefp93_id',

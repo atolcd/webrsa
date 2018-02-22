@@ -146,6 +146,7 @@
 			$fields = array(
 				"{$this->alias}.{$this->primaryKey}" => array(),
 				"{$this->alias}.typethematiquefp93_id" => array( 'empty' => true ),
+				"{$this->alias}.yearthematiquefp93_id" => array( 'empty' => true ),
 				"{$this->alias}.thematiquefp93_id" => array( 'empty' => true ),
 				"{$this->alias}.{$this->displayField}" => array(),
 			);
@@ -164,6 +165,7 @@
 			$query = array(
 				'fields' => array(
 					"Thematiquefp93.type",
+					"Thematiquefp93.yearthema",
 					"{$this->alias}.{$this->primaryKey}",
 					"{$this->alias}.{$this->displayField}",
 					"{$this->alias}.thematiquefp93_id",
@@ -177,15 +179,19 @@
 			);
 
 			$result = $this->find( 'first', $query );
+			debug($result);
 
 			if( !empty( $result ) ) {
 				$typethematiquefp93_id = Hash::get( $result, "Thematiquefp93.type" );
-
+				$yearthematiquefp93_id = $typethematiquefp93_id.Hash::get( $result, "Thematiquefp93.yearthema" );				
+				$thematiquefp93_id = Hash::get( $result, "Categoriefp93.thematiquefp93_id" );
+				
 				$result = array(
 					$this->alias => array(
 						$this->primaryKey => Hash::get( $result, "{$this->alias}.{$this->primaryKey}" ),
 						'typethematiquefp93_id' => $typethematiquefp93_id,
-						'thematiquefp93_id' => $typethematiquefp93_id.'_'.Hash::get( $result, "{$this->alias}.thematiquefp93_id" ),
+						'yearthematiquefp93_id' => $typethematiquefp93_id.'_'.$yearthematiquefp93_id,
+						'thematiquefp93_id' => $yearthematiquefp93_id.'_'.$thematiquefp93_id,
 						$this->displayField => Hash::get( $result, "{$this->alias}.{$this->displayField}" ),
 					)
 				);
@@ -204,29 +210,51 @@
 		 */
 		public function getParametrageOptions( $hasDescendant = false ) {
 			$options = $this->Thematiquefp93->getParametrageOptions( true );
+
 			$options = array(
 				$this->alias => array(
-					'typethematiquefp93_id' => (array)Hash::get( $options, 'Thematiquefp93.type' )
+					'typethematiquefp93_id' => (array)Hash::get( $options, 'Thematiquefp93.type' ),
 				)
 			);
 
 			// Liste des thématiques
 			$query = array(
 				'fields' => array(
-					'( "Thematiquefp93"."type" || \'_\' || "Thematiquefp93"."id" ) AS "Thematiquefp93__id"',
-					'Thematiquefp93.name',
-				),
+					'( "Thematiquefp93"."type" || "Thematiquefp93"."yearthema" || \'_\' || "Thematiquefp93"."id" ) AS "Thematiquefp93__id"',
+					'Thematiquefp93.name'
+				), //|| \'_\' || "Thematiquefp93"."year"
 				'conditions' => array()
 			);
-
 			// ... et qui possède au moins un descendant ?
 			if( $hasDescendant ) {
 				$this->Thematiquefp93->Behaviors->attach( 'LinkedRecords' );
 				$query['conditions'][] = $this->Thematiquefp93->linkedRecordVirtualField( $this->alias );
 			}
-
 			$results = $this->Thematiquefp93->find( 'all', $query );
+
 			$options[$this->alias]['thematiquefp93_id'] = Hash::combine( $results, '{n}.Thematiquefp93.id', '{n}.Thematiquefp93.name' );
+
+			$query = array(
+				'fields' => array(
+					' DISTINCT "Thematiquefp93"."type" ',
+					'"Thematiquefp93"."yearthema" AS "Thematiquefp93__yearthema" ' ,
+					'( "Thematiquefp93"."type" || \'_\' ||"Thematiquefp93"."type" || "Thematiquefp93"."yearthema" ) AS "Thematiquefp93__id" '
+				),
+				'conditions' => array(
+				),
+				'order' => array(
+					'"Thematiquefp93"."type"'
+				)
+			);
+			// ... et qui possède au moins un descendant ?
+			if( $hasDescendant ) {
+				$this->Thematiquefp93->Behaviors->attach( 'LinkedRecords' );
+				$query['conditions'][] = $this->Thematiquefp93->linkedRecordVirtualField( $this->alias );
+			}
+			$results = $this->Thematiquefp93->find( 'all', $query );
+			$options[$this->alias]['yearthematiquefp93_id'] = Hash::combine( $results, '{n}.Thematiquefp93.id', '{n}.Thematiquefp93.yearthema' );
+
+
 
 			return $options;
 		}

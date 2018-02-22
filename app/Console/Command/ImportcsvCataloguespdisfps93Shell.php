@@ -85,7 +85,8 @@
 			'Thematiquefp93' => array(
 				'paths' => array(
 					'Thematiquefp93.type',
-					'Thematiquefp93.name'
+					'Thematiquefp93.name',
+					'Thematiquefp93.yearthema'
 				)
 			),
 			'Categoriefp93' => array(

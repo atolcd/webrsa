@@ -49,7 +49,9 @@
 				if( !in_array( 'Thematiquefp93.type', $query['fields'] ) ) {
 					array_unshift( $query['fields'], 'Thematiquefp93.type' );
 				}
-
+				if( !in_array( 'Thematiquefp93.yearthema', $query['fields'] ) ) {
+					array_unshift( $query['fields'], 'Thematiquefp93.yearthema' );
+				}
 				if( !in_array( 'Thematiquefp93.type DESC', $query['order'] ) ) {
 					array_unshift( $query['order'], 'Thematiquefp93.type DESC' );
 				}

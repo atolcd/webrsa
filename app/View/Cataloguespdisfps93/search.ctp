@@ -19,6 +19,7 @@
 	echo $this->Default3->subform(
 		array(
 			'Search.Thematiquefp93.type' => array( 'required' => false, 'empty' => true ),
+			'Search.Thematiquefp93.yearthema' => array( 'required' => false ),
 			'Search.Thematiquefp93.name' => array( 'required' => false ),
 			'Search.Categoriefp93.name' => array( 'required' => false ),
 			'Search.Filierefp93.name' => array( 'required' => false ),
@@ -62,6 +63,7 @@
 			$results,
 			array(
 				'Thematiquefp93.type',
+				'Thematiquefp93.yearthema',
 				'Thematiquefp93.name',
 				'Categoriefp93.name',
 				'Filierefp93.name',

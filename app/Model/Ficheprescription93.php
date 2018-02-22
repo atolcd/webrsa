@@ -29,6 +29,7 @@
 		 */
 		public $correspondances = array(
 			'Ficheprescription93.typethematiquefp93_id' => 'Thematiquefp93.type',
+			'Ficheprescription93.yearthematiquefp93_id' => 'Thematiquefp93.yearthema',
 			'Ficheprescription93.thematiquefp93_id' => 'Thematiquefp93.id',
 			'Ficheprescription93.categoriefp93_id' => 'Categoriefp93.id',
 			'Ficheprescription93.filierefp93_id' => 'Filierefp93.id',
@@ -471,6 +472,7 @@
 							'Filierefp93.categoriefp93_id',
 							'Categoriefp93.thematiquefp93_id',
 							'Thematiquefp93.type',
+							'Thematiquefp93.yearthema',
 						)
 					),
 					'contain' => false,
@@ -533,6 +535,7 @@
 				$return[$this->alias]['categoriefp93_id'] = $data['Filierefp93']['categoriefp93_id'];
 				$return[$this->alias]['thematiquefp93_id'] = $data['Categoriefp93']['thematiquefp93_id'];
 				$return[$this->alias]['typethematiquefp93_id'] = $data['Thematiquefp93']['type'];
+				$return[$this->alias]['yearthematiquefp93_id'] = $data['Thematiquefp93']['yearthema'];
 
 				$return[$this->alias]['rdvprestataire_adresse_check'] = ( trim( (string)$data[$this->alias]['rdvprestataire_adresse'] ) !== '' );
 			}

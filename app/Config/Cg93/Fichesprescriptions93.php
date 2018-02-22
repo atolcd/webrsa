@@ -135,6 +135,7 @@
 					'Actionfp93.numconvention' => array( 'domain' => 'cataloguespdisfps93' ),
 					'Thematiquefp93.type' => array( 'domain' => 'cataloguespdisfps93' ),
 					'Thematiquefp93.name' => array( 'domain' => 'cataloguespdisfps93' ),
+					'Thematiquefp93.yearthema' => array( 'domain' => 'cataloguespdisfps93' ),
 					'Categoriefp93.name' => array( 'domain' => 'cataloguespdisfps93' ),
 					'Filierefp93.name' => array( 'domain' => 'cataloguespdisfps93' ),
 					'Prestatairefp93.name' => array( 'domain' => 'cataloguespdisfps93' ),

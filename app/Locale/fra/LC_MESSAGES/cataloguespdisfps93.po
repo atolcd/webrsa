@@ -27,6 +27,9 @@ msgstr "Filtrer le référentiel"
 msgid "Search.Thematiquefp93.type"
 msgstr "Type"
 
+msgid "Search.Thematiquefp93.yearthema"
+msgstr "Année"
+
 msgid "Search.Thematiquefp93.name"
 msgstr "Thématique"
 
@@ -60,6 +63,9 @@ msgstr "Type"
 
 msgid "Thematiquefp93.name"
 msgstr "Thématique"
+
+msgid "Thematiquefp93.yearthema"
+msgstr "Année"
 
 msgid "Filierefp93.name"
 msgstr "Filière"
@@ -161,6 +167,9 @@ msgstr "Réellement supprimer la thématique « #Thematiquefp93.name# » ?"
 msgid "/Cataloguespdisfps93/index/Categoriefp93/:heading"
 msgstr "Catégories d'action"
 
+msgid "Categoriefp93.yearthematiquefp93_id"
+msgstr "Année"
+
 msgid "Categoriefp93.typethematiquefp93_id"
 msgstr "Type de prescription"
 
@@ -205,6 +214,9 @@ msgstr "Type"
 msgid "Filierefp93.thematiquefp93_id"
 msgstr "Thématique"
 
+msgid "Filierefp93.yearthematiquefp93_id"
+msgstr "Année"
+
 msgid "Filierefp93.categoriefp93_id"
 msgstr "Catégorie d'action"
 
@@ -239,6 +251,9 @@ msgstr "Type"
 
 msgid "Actionfp93.thematiquefp93_id"
 msgstr "Thématique"
+
+msgid "Actionfp93.yearthematiquefp93_id"
+msgstr "Année"
 
 msgid "Actionfp93.categoriefp93_id"
 msgstr "Catégorie"

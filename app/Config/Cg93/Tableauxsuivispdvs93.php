@@ -96,6 +96,7 @@
 					// Fiche de prescription
 					'Thematiquefp93.type',
 					'Thematiquefp93.name',
+					'Thematiquefp93.yearthema',
 					'Categoriefp93.name',
 				)
 			),
@@ -126,6 +127,7 @@
 					// Fiche de prescription
 					'Thematiquefp93.type',
 					'Thematiquefp93.name',
+					'Thematiquefp93.yearthema',
 					'Categoriefp93.name',
 				)
 			),

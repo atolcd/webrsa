@@ -142,6 +142,12 @@
 				'Ficheprescription93.typethematiquefp93_id' => array(
 					'real' => 'Thematiquefp93.type',
 					'modelName' => 'Thematiquefp93',
+					'next' => 'Ficheprescription93.yearthematiquefp93_id'
+				),
+				// Year
+				'Ficheprescription93.yearthematiquefp93_id' => array(
+					'real' => 'Thematiquefp93.yearthema',
+					'modelName' => 'Thematiquefp93',
 					'next' => 'Ficheprescription93.thematiquefp93_id'
 				),
 				// Thématique
@@ -159,9 +165,17 @@
 			);
 
 			if( !empty( $value ) ) {
-				// On sélectionne le type, la thématique ou la catégorie
-				if( in_array( $data['Target']['path'], array( 'Ficheprescription93.typethematiquefp93_id', 'Ficheprescription93.thematiquefp93_id', 'Ficheprescription93.categoriefp93_id' ) ) ) {
+				// On sélectionne le type,
+			if (
+				in_array(
+					$data['Target']['path'],
+					array( 'Ficheprescription93.typethematiquefp93_id')
+				)
+			) {
 					$virtual = $vfsFicheprescription93[$data['Target']['path']];
+
+					$Model = ClassRegistry::init($virtual['modelName']);
+
 					$query = array( 'conditions' => array( $virtual['real'] => $value ) );
 
 					$query['conditions'][] = ClassRegistry::init( $virtual['modelName'] )->getDependantListCondition(
@@ -169,8 +183,83 @@
 						$conditionsActionfp93
 					);
 
-					$fields[$virtual['next']]['options'] = $this->ajaxOptions( $virtual['modelName'], $query );
+					$query = Hash::merge(
+						$query,
+						array(
+							'fields' => array(
+								' DISTINCT "Thematiquefp93"."type" ',
+								'"Thematiquefp93"."yearthema" '
+							),
+							'order' => array(
+								'"Thematiquefp93"."type"'
+							)
+						)
+					);
+
+					$tmpresults = $Model->find( 'all', $query );
+
+					$results = array();
+					foreach ($tmpresults as $key => $element){
+						$results[$key]['id'] = $element['Thematiquefp93']['yearthema'];
+						$results[$key]['name'] = $element['Thematiquefp93']['yearthema'];
+					}
+
+					//$fields[$virtual['next']]['options'] = Hash::extract( (array)$results, "{n}.{$Model->alias}" );
+					$fields[$virtual['next']]['options'] = $results;
+
 				}
+				//On selectionne L'année
+				else if(
+					in_array(
+							//'Ficheprescription93.typethematiquefp93_id','Ficheprescription93.yearthematiquefp93_id',
+						$data['Target']['path'],
+						array(
+							  'Ficheprescription93.yearthematiquefp93_id',
+						)
+					)
+				) {
+					$virtual = $vfsFicheprescription93[$data['Target']['path']];
+
+					$typethematiquefp93_id = Hash::get( $data, 'Ficheprescription93.typethematiquefp93_id' );
+
+					$query = array( 'conditions' =>
+						array(
+							'Thematiquefp93.type' => $typethematiquefp93_id,
+							$virtual['real'] => $value )
+						);
+
+					$query['conditions'][] = ClassRegistry::init( $virtual['modelName'] )->getDependantListCondition(
+						Hash::get( $data, 'Ficheprescription93.typethematiquefp93_id' ),
+						$conditionsActionfp93
+					);
+					$fields[$virtual['next']]['options'] = $this->ajaxOptions( $virtual['modelName'], $query );
+
+			}
+				// On selectionne la thématique ou la catégorie
+				else if(
+					in_array(
+							//'Ficheprescription93.typethematiquefp93_id','Ficheprescription93.yearthematiquefp93_id',
+						$data['Target']['path'],
+						array(
+							  'Ficheprescription93.thematiquefp93_id', 'Ficheprescription93.categoriefp93_id' 
+						)
+					)
+				) {
+					$virtual = $vfsFicheprescription93[$data['Target']['path']];
+
+					$typethematiquefp93_id = Hash::get( $data, 'Ficheprescription93.typethematiquefp93_id' );
+
+					$query = array( 'conditions' =>
+						array(
+							$virtual['real'] => $value )
+						);
+
+					$query['conditions'][] = ClassRegistry::init( $virtual['modelName'] )->getDependantListCondition(
+						Hash::get( $data, 'Ficheprescription93.typethematiquefp93_id' ),
+						$conditionsActionfp93
+					);
+					$fields[$virtual['next']]['options'] = $this->ajaxOptions( $virtual['modelName'], $query );
+			}
 				// On sélectionne la filière
 				else if( $current == $invertedPaths['Ficheprescription93.filierefp93_id'] ) {
 					// Liste des actions
@@ -399,7 +488,6 @@
 					'type' => 'select',
 					'options' => array()
 				);
-
 				if( $pathOffset === 0 ) {
 					$types = ClassRegistry::init( 'Thematiquefp93' )->enum( 'type' );
 					$options = array();
@@ -407,6 +495,38 @@
 						$options[] = compact( 'id', 'name' );
 					}
 					$elmt['options'] = $options;
+				}
+				else if( $path == 'Ficheprescription93.yearthematiquefp93_id' ) {
+
+					$Model = ClassRegistry::init('Thematiquefp93' );
+					$conditionsActionfp93  = array();
+					$query['conditions'][] = ClassRegistry::init( 'Thematiquefp93' )->getDependantListCondition(
+						Hash::get( $data, 'Ficheprescription93.typethematiquefp93_id' ),
+						$conditionsActionfp93
+					);
+
+					$query = Hash::merge(
+						$query,
+						array(
+							'fields' => array(
+								' DISTINCT "Thematiquefp93"."type" ',
+								'"Thematiquefp93"."yearthema" '
+							),
+							'order' => array(
+								'"Thematiquefp93"."type"'
+							)
+						)
+					);
+
+					$tmpresults = $Model->find( 'all', $query );
+
+					$results = array();
+					foreach ($tmpresults as $key => $element){
+						$results[$key]['id'] = $element['Thematiquefp93']['yearthema'];
+						$results[$key]['name'] = $element['Thematiquefp93']['yearthema'];
+					}
+
+					$elmt['options'] = $results;
 				}
 				else if( $path == 'Ficheprescription93.prestatairefp93_id' ) {
 					$Prestatairefp93 = ClassRegistry::init( 'Prestatairefp93' );
@@ -464,6 +584,7 @@
 					);
 
 					$typethematiquefp93_id = Hash::get( $data, 'Ficheprescription93.typethematiquefp93_id' );
+					
 					$action = Hash::get( $data, 'Ficheprescription93.action' );
 
 					if( $typethematiquefp93_id === 'pdi' && $action === 'add' ) {
@@ -604,6 +725,7 @@
 						'"Categoriefp93"."id" AS "Ficheprescription93__categoriefp93_id"',
 						'"Thematiquefp93"."id" AS "Ficheprescription93__thematiquefp93_id"',
 						'"Thematiquefp93"."type" AS "Ficheprescription93__typethematiquefp93_id"',
+						'"Thematiquefp93"."yearthema" AS "Ficheprescription93__yearthematiquefp93_id"',
 					),
 					'joins' => array(
 						$Actionfp93->join( 'Filierefp93', array( 'type' => 'INNER' ) ),

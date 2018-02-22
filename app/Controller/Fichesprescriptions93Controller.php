@@ -503,6 +503,7 @@
 					'Ficheprescription93.modified',
 					'Thematiquefp93.type',
 					'Thematiquefp93.name',
+					'Thematiquefp93.yearthema',
 					'Categoriefp93.name',
 					'Ficheprescription93.dd_action',
 					'Ficheprescription93.df_action',

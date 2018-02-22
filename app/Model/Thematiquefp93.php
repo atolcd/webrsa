@@ -65,14 +65,20 @@
 		public $validate = array(
 			'type' => array(
 				'checkUnique' => array(
-					'rule' => array( 'checkUnique', array( 'type', 'name' ) ),
-					'message' => 'Ce couple de valeurs de type et de thématique est déjà présent'
+					'rule' => array( 'checkUnique', array( 'type', 'name','yearthema'  ) ),
+					'message' => 'Ce groupe de valeurs de type et de thématique est déjà présent'
 				)
 			),
 			'name' => array(
 				'checkUnique' => array(
-					'rule' => array( 'checkUnique', array( 'type', 'name' ) ),
-					'message' => 'Ce couple de valeurs de type et de thématique est déjà présent'
+					'rule' => array( 'checkUnique', array( 'type', 'name','yearthema'  ) ),
+					'message' => 'Ce groupe de valeurs de type et de thématique est déjà présent'
+				)
+			),
+			'yearthema' => array(
+				'checkUnique' => array(
+					'rule' => array( 'checkUnique', array( 'type', 'name','yearthema'  ) ),
+					'message' => 'Ce groupe de valeurs de type et de thématique est déjà présent'
 				)
 			)
 		);
@@ -124,13 +130,32 @@
 		 * @return array
 		 */
 		public function getParametrageFields() {
-			$fields = array(
-				"{$this->alias}.{$this->primaryKey}" => array(),
-				"{$this->alias}.type" => array( 'empty' => true ),
-				"{$this->alias}.{$this->displayField}" => array(),
-			);
+
+			$fields = parent::getParametrageFields();
 
 			return $fields;
+		}
+
+		/**
+		 * Retourne les options à utiliser dans le formulaire d'ajout / de
+		 * modification de la partie paramétrage.
+		 *
+		 * @param boolean Permet de s'assurer que l'on possède au moins un
+		 *	enregistrement au niveau inférieur.
+		 * @return array
+		 */
+		public function getParametrageOptions( $hasDescendant = false ) {
+			$options = $this->enums();
+
+			$startDate = date('Y', strtotime('+1 year')) ;
+			$arrayYears = array();
+			for( $year = (INT)$startDate; $year >= 2017 ; $year -- ){
+				$arrayYears["$year"] = strval($year) ;
+			}
+
+			$options[$this->alias]['yearthema'] = $arrayYears;
+
+			return $options;
 		}
 	}
 ?>
