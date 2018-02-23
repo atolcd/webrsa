@@ -47,6 +47,10 @@
 		array(
 			'method' => 'classic',
 			'wsdl' => 'http://gedooo.test.adullact.org:8080/axis2/services/OfficeService?wsdl',
+			'cloudooo_host' => 'xx.xx.xx.xx',
+			'cloudooo_port' => 'yyyy',
+			'filter_vars' => false,			// Pour pouvoir récupérer les fichiers .csv sinon true
+			'debug_export_data' => true		// Pour pouvoir récupérer les fichiers .csv sinon false
 		)
 	);*/
 	// Exemple de configuration avec le nouveau Gedooo et unoconv
@@ -824,6 +828,43 @@
 	 * Valeur sélectionnée par défaut du nombre de résultats dans une recherche
 	 */
 	Configure::write('ResultatsParPage.nombre_par_defaut', '10' );
+
+	/**
+	 * Écart (en minutes) entre deux rendez-vous lors d'une ep.
+	 */
+	Configure::write( 'commissionep.heure.ecart.minute', '15' );
+
+	/**
+	 * Heure de début standard d'une ep si elle n'est pas renseignée.
+	 */
+	Configure::write( 'commissionep.heure.debut.standard', '09:00' );
+
+	/**
+	 * Heure de fin standard d'une ep.
+	 */
+	Configure::write( 'commissionep.heure.fin.standard', '17:00' );
+
+	/**
+	 * Heure de début de pause méridienne.
+	 */
+	Configure::write(
+		'commissionep.heure.debut.pause.meridienne',
+		array(
+			'heure' => '12',
+			'minute' => '00',
+		)
+	);
+
+	/**
+	 * Heure de fin de pause méridienne.
+	 */
+	Configure::write(
+		'commissionep.heure.fin.pause.meridienne',
+		array(
+			'heure' => '14',
+			'minute' => '00',
+		)
+	);
 
 	/**
 	 * Récupération du fichier de config propre au département

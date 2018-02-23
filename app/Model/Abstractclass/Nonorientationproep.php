@@ -761,7 +761,8 @@
 					'Orientstruct.date_valid',
 					'Passagecommissionep.id',
 					'Passagecommissionep.commissionep_id',
-					'Passagecommissionep.etatdossierep'
+					'Passagecommissionep.etatdossierep',
+					'Passagecommissionep.heureseance',
 				)
 			);
 

@@ -29,6 +29,7 @@
 				'Typeorient.lib_type_orient',
 				'Structurereferente.lib_struc',
 				'Orientstruct.date_valid',
+				'Passagecommissionep.heureseance',
 				'Foyer.enerreur' => array( 'type' => 'string', 'sort' => false, 'class' => 'foyer_enerreur' ),
 			),
 			array(

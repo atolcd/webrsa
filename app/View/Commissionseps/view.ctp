@@ -341,6 +341,11 @@
 									'Dossierseps::view' => array( 'label' => 'Voir', 'url' => array( 'controller' => 'historiqueseps', 'action' => 'index', '#Personne.id#' ), 'class' => 'external' ),
 								);
 
+								$touteslesheuresdepassage = array ();
+								foreach ($dossierseps as $key => $value) {
+									$touteslesheuresdepassage[$value['Passagecommissionep']['id']] = $value['Passagecommissionep']['heureseance'];
+								}
+
 								if( Configure::read( 'Cg.departement' ) == 93 ){
 									$fields = array(
 										'Personne.qual',
@@ -352,6 +357,13 @@
 										'Dossierep.created',
 										'Dossierep.themeep',
 										'Passagecommissionep.etatdossierep',
+										'Passagecommissionep.heureseance' => array (
+											'input' => 'heureseance',
+											'type' => 'text',
+											'hidden' => 'Passagecommissionep.id',
+											'dateseance' => $commissionep['Commissionep']['dateseance'],
+											'touteslesheuresdepassage' => $touteslesheuresdepassage,
+										),
 										'Foyer.enerreur' => array( 'type' => 'string', 'sort' => false, 'class' => 'foyer_enerreur' )
 									);
 
@@ -371,12 +383,20 @@
 										'Dossierep.created',
 										'Dossierep.themeep',
 										'Passagecommissionep.etatdossierep',
+										'Passagecommissionep.heureseance' => array (
+											'input' => 'heureseance',
+											'type' => 'text',
+											'hidden' => 'Passagecommissionep.id',
+											'dateseance' => $commissionep['Commissionep']['dateseance'],
+											'touteslesheuresdepassage' => $touteslesheuresdepassage,
+										),
 										'Cov58.datecommission' => array( 'label' => 'Proposition validée par la COV le' ),
 										'Foyer.enerreur' => array( 'type' => 'string', 'sort' => false, 'class' => 'foyer_enerreur' )
 									);
 								}
-
-
+?>
+<form action="<?php echo Router::url( array( 'controller' => $controller, 'action' => 'view/'.$commissionep['Commissionep']['id'].'#tabbedWrapper,dossiers,synthese' ) );?>" method="post" id="FormRequestmaster">
+<?php
 								echo $this->Default2->index(
 									$dossierseps,
 									$fields,
@@ -390,7 +410,10 @@
 										),
 									)
 								);
-
+?>
+	<?php echo $this->Xform->submit( 'Enregistrer les heures de passage', array ( 'name' => 'enregistreheureseance') );?>
+</form>
+<?php
 								if( Configure::read( 'Cg.departement' ) == 58 ) {
 									echo '<ul class="actionMenu">';
 										echo '<li>'.$this->Xhtml->exportLink(

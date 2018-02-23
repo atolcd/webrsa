@@ -31,6 +31,7 @@
 				'Reorientationep93.accordallocataire' => array( 'type' => 'boolean' ),
 				'Reorientationep93.urgent' => array( 'type' => 'boolean' ),
 				'Reorientationep93.datedemande',
+				'Passagecommissionep.heureseance',
 				'Foyer.enerreur' => array( 'type' => 'string', 'sort' => false, 'class' => 'foyer_enerreur' ),
 			),
 			array(

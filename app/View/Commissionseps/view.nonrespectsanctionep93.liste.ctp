@@ -16,7 +16,7 @@
 		echo '<p class="notice">Il n\'existe aucun dossier de cette thématique associé à cette commission d\'EP.</p>';
 	}
 	else {
-// 	debug( $dossiers[$theme] );
+
 		echo $this->Default2->index(
 			$dossiers[$theme],
 			array(
@@ -28,6 +28,7 @@
 				'Personne.dtnai',
 				'Adresse.nomcom',
 				'Nonrespectsanctionep93.origine',
+				'Passagecommissionep.heureseance',
 				'Foyer.enerreur' => array( 'type' => 'string', 'sort' => false, 'class' => 'foyer_enerreur' ),
 			),
 			array(

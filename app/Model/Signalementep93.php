@@ -472,7 +472,8 @@
 					'Structurereferente.lib_struc',
 					"{$this->alias}.rang",
 					'Passagecommissionep.id',
-					'Passagecommissionep.commissionep_id'
+					'Passagecommissionep.commissionep_id',
+					'Passagecommissionep.heureseance',
 				)
 			);
 

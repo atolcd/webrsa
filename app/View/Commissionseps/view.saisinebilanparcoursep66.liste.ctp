@@ -29,6 +29,7 @@
 				'Dossierep.created',
 				'Dossierep.themeep',
 				'Passagecommissionep.etatdossierep',
+				'Passagecommissionep.heureseance',
 				'Foyer.enerreur' => array( 'type' => 'string', 'sort' => false, 'class' => 'foyer_enerreur' ),
 			),
 			array(

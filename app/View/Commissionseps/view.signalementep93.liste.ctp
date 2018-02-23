@@ -28,6 +28,7 @@
 				'Structurereferente.lib_struc',
 				'Contratinsertion.nature_projet',
 				'Contratinsertion.type_demande',
+				'Passagecommissionep.heureseance',
 				'Foyer.enerreur' => array( 'type' => 'string', 'sort' => false, 'class' => 'foyer_enerreur' ),
 			),
 			array(

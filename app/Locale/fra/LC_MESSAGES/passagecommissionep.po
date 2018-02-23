@@ -19,6 +19,9 @@ msgstr ""
 
 ###############################################################################
 
+msgid "Passagecommissionep.heureseance"
+msgstr "Heure de passage"
+
 msgid "Passagecommissionep.etatdossierep"
 msgstr "État du dossier d'EP"
 

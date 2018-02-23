@@ -465,6 +465,7 @@
 					'Passagecommissionep.id',
 					'Passagecommissionep.commissionep_id',
 					'Passagecommissionep.etatdossierep',
+					'Passagecommissionep.heureseance',
 					'Typerdv.motifpassageep',
 					'StatutrdvTyperdv.motifpassageep',
 				)
