@@ -133,6 +133,12 @@ msgstr "Selectionner"
 msgid "Cohorte.EntiteTag.modele"
 msgstr "Tagger sur"
 
+msgid "Cohorte.EntiteTag.personne"
+msgstr "Personne"
+
+msgid "Cohorte.EntiteTag.foyer"
+msgstr "Foyer"
+
 msgid "Cohorte.Tag.valeurtag_id"
 msgstr "Valeur du tag"
 

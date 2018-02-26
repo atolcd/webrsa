@@ -34,7 +34,10 @@
 		);
 	?>
 </fieldset>
-<?php $this->end();?>
+<?php
+require_once ('tag.ctp');
+$this->end();
+?>
 
 <?php
 	$buttons = '<ul class="actionMenu">

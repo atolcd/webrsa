@@ -250,5 +250,32 @@
 
 			return "(SELECT EXISTS($sq))";
 		}
+
+		/**
+		 * Renvoie les valeurs de tag
+		 *
+		 * @return array
+		 */
+		public function getValeursTag($options) {
+			$results = $this->Valeurtag->find('all', array(
+				'fields' => array(
+					'Categorietag.name',
+					'Valeurtag.id',
+					'Valeurtag.name'
+				),
+				'joins' => array(
+					$this->Valeurtag->join('Categorietag')
+				),
+			));
+
+			foreach ($results as $value) {
+				$categorie = Hash::get($value, 'Categorietag.name') ? Hash::get($value, 'Categorietag.name') : 'Sans catégorie';
+				$valeur = Hash::get($value, 'Valeurtag.name');
+				$valeurtag_id = Hash::get($value, 'Valeurtag.id');
+				$options['Tag']['valeurtag_id'][$categorie][$valeurtag_id] = $valeur;
+			}
+
+			return $options;
+		}
 	}
 ?>
