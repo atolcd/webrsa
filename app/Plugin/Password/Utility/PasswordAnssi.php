@@ -163,6 +163,23 @@
 		}
 
 		/**
+		* Retourne les valeurs minimales (seuils) d'entropie, en ordre
+		* descendant, pour les différentes forces de mots de passe.
+		*
+		* @return array
+		*/
+		public static function thresholds() {
+			$result = array(
+				128 => static::STRENGTH_VERY_STRONG,
+				100 => static::STRENGTH_STRONG,
+				80 => static::STRENGTH_MEDIUM,
+				64 => static::STRENGTH_WEAK,
+				0 => static::STRENGTH_REALLY_WEAK
+			);
+			return $result;
+		}
+
+		 /**
 		 * Retourne la "force" d'un mot de passe.
 		 *
 		 * Il s'agit d'un chiffre entre 1 (très faible) et 5 (très fort) qui
@@ -177,17 +194,14 @@
 		 */
 		public static function strength($string) {
 			$entropyBits = static::entropyBits($string);
-
-			if(128 <= $entropyBits) {
-				return static::STRENGTH_VERY_STRONG;
-			} elseif(100 <= $entropyBits) {
-				return static::STRENGTH_STRONG;
-			} elseif(80 <= $entropyBits) {
-				return static::STRENGTH_MEDIUM;
-			} elseif(64 <= $entropyBits) {
-				return static::STRENGTH_WEAK;
+ 			$thresholds = static::thresholds();
+			
+			foreach($thresholds as $threshold => $strength) {
+				if($entropyBits >= $threshold) {
+					return $strength;
+				}
 			}
-
+				
 			return static::STRENGTH_REALLY_WEAK;
 		}
 	}
