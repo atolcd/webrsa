@@ -57,6 +57,9 @@
 						$this->request->params['named']['direction'] = true === is_array( $order ) ? Hash::get( $order, $this->request->params['named']['sort'] ) : null;
 						//------------------------------------------------------
 						include_once  "choose.{$theme}.liste.ctp" ;
+						if (!isset ($this->Default2->Xpaginator2->options['url'])) {
+							$this->Default2->Xpaginator2->options['url'] = array ();
+						}
 						$this->Default2->Xpaginator2->options['url'] = array_filter_keys(
 							$this->Default2->Xpaginator2->options['url'],
 							array( 'page', 'limit', 'sort', 'direction' ),

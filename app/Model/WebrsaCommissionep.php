@@ -1940,6 +1940,7 @@
 				),
 				'contain' => false,
 				'order' => array(
+					'Passagecommissionep.heureseance' => 'asc',
 					'Personne.nom' => 'asc',
 					'Personne.prenom' => 'asc',
 					'Dossierep.id' => 'asc'

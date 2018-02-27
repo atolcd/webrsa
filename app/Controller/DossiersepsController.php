@@ -414,6 +414,13 @@
 					$success = $this->Dossierep->Passagecommissionep->delete( $suppressions ) && $success;
 				}
 
+				// Ajout de l'heure de rendez-vous pour les participants à l'EP
+				$passagecommissioneps = $this->Dossierep->Passagecommissionep->gereHeureCommissionEp ($commissionep_id);
+
+				if( !empty( $passagecommissioneps ) ) {
+					$success = $this->Dossierep->Passagecommissionep->saveAll( $passagecommissioneps, array( 'atomic' => false ) ) && $success;
+				}
+
 				// Changer l'état de la séance
 				$success = $this->Dossierep->Passagecommissionep->Commissionep->WebrsaCommissionep->changeEtatCreeAssocie( $commissionep_id ) && $success;
 

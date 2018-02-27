@@ -696,6 +696,51 @@
 		public function view( $commissionep_id = null ) {
 			$this->WebrsaAccesses->check( $commissionep_id );
 
+			// Enregistrement des heures de passage
+			if (isset ($this->request->data['Passagecommissionep'])) {
+				$passagecommissioneps = $this->Commissionep->Passagecommissionep->find(
+					'all',
+					array(
+						'conditions' => array(
+							'Passagecommissionep.commissionep_id' => $commissionep_id
+						),
+					)
+				);
+
+				$dataPassagecommissioneps = $this->request->data['Passagecommissionep'];
+				$nbPassagecommissionep = count ($passagecommissioneps);
+
+				for ($i = 0; $i < $nbPassagecommissionep; $i++) {
+					foreach ($dataPassagecommissioneps as $dataPassagecommissionep) {
+						if ($dataPassagecommissionep['id'] == $passagecommissioneps[$i]['Passagecommissionep']['id']) {
+							$temp = new DateTime ();
+							$heure = explode(':', $dataPassagecommissionep['heureseance']);
+							if (is_array($heure) && count($heure) >= 2) {
+								$temp->setTime($heure[0], $heure[1]);
+								$dataPassagecommissionep['heureseance'] = $temp->format('H:i:s');
+								$passagecommissioneps[$i]['Passagecommissionep']['heureseance'] = $dataPassagecommissionep['heureseance'];
+							}
+							break;
+						}
+					}
+				}
+
+				$success = true;
+
+				if( !empty( $passagecommissioneps ) ) {
+					$success = $this->Commissionep->Passagecommissionep->saveAll( $passagecommissioneps, array( 'atomic' => false ) ) && $success;
+				}
+
+				if( $success ) {
+					$this->Commissionep->commit();
+					$this->Flash->success( __( 'Save->success' ) );
+				}
+				else {
+					$this->Commissionep->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+			}
+
 			$commissionep = $this->Commissionep->find(
 					'first', array(
 				'conditions' => array( 'Commissionep.id' => $commissionep_id ),
@@ -943,6 +988,7 @@
 			}
 			$this->set( compact( 'listemembreseps' ) );
 
+			$this->set( 'controller', 'commissionseps' );
 			$this->set( 'etatsActions', $this->etatsActions );
 		}
 

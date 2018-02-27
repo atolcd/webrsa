@@ -196,6 +196,7 @@
 
 				$querydata['joins'] = array_merge( $querydata['joins'], $joins );
 				$querydata['fields'][] = 'Cov58.datecommission';
+				$querydata['fields'][] = 'Passagecommissionep.heureseance';
 
 
 			return $querydata;

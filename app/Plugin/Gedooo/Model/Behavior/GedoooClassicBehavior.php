@@ -67,8 +67,19 @@
 
 		/**
 		 * INFO: GDO_FieldType: text, string, number, date
+		 *
+		 * Modifie le type et le formatage des données en fonction de leur masque.
+		 * Concerne les dates. Pour lesquelles l'heure est ajoutée avec un suffixe _time si elle existe.
+		 * Rajout des heures. On enlève les secondes.
+		 *
+		 * @param object $oPart
+		 * @param string $key
+		 * @param string $value
+		 * @param array $options
+		 * @return object $oPart Élément de GDO_PartType
 		 */
 		protected function _addPartValue( $oPart, $key, $value, $options ) {
+
 			$type = 'text';
 			if( preg_match( '/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/', $value ) ) {
 				$type = 'date';
@@ -81,6 +92,10 @@
 				$type = 'date';
 				$value = "{$matches[3]}/{$matches[2]}/{$matches[1]}";
 				$oPart->addElement( new GDO_FieldType( strtolower( $key ).'_time', preg_replace( '/([0-9]{2}:[0-9]{2}):[0-9]{2}/', '\1', $matches[4] ), 'text' ) );
+			}
+			else if( preg_match( '/^([0-9]{2}):([0-9]{2}):([0-9]{2})$/', $value, $matches ) ) {
+				$type = 'time';
+				$value = "{$matches[1]}:{$matches[2]}";
 			}
 
 			// Traduction des enums

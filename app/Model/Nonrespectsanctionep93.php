@@ -965,7 +965,8 @@
 					"{$this->alias}.origine",
 					"{$this->alias}.rgpassage",
 					'Passagecommissionep.id',
-					'Passagecommissionep.commissionep_id'
+					'Passagecommissionep.commissionep_id',
+					'Passagecommissionep.heureseance',
 				)
 			);
 

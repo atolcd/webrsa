@@ -739,7 +739,8 @@
 					'Reorientationep93.urgent',
 					'Reorientationep93.datedemande',
 					'Passagecommissionep.id',
-					'Passagecommissionep.commissionep_id'
+					'Passagecommissionep.commissionep_id',
+					'Passagecommissionep.heureseance',
 				)
 			);
 

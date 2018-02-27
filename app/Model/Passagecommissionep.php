@@ -302,5 +302,106 @@
 
 			parent::afterDelete();
 		}
+
+		/**
+		 * Gestion de l'heure de rendez-vous pour les participants à l'EP
+		 *
+		 * Données configurable dans les .inc :
+		 *  - commissionep.heure.debut.standard
+		 *  - commissionep.heure.ecart.minute
+		 *
+		 * @param int $commissionep_id L'identifiant de la commission d'EP
+		 * @return array Les allocataires participant à l'EP
+		 */
+		public function gereHeureCommissionEp ( $commissionep_id ) {
+			// Récupération de la date de la séance
+			$commissionep = $this->Commissionep->find(
+				'first',
+				array(
+					'conditions' => array(
+						'Commissionep.id' => $commissionep_id
+					)
+				)
+			);
+			try {
+				$dateseance = new DateTime ($commissionep['Commissionep']['dateseance']);
+			} catch (Exception $e) {
+				$dateseance = new DateTime ('2000-01-01 '.Configure::read( 'commissionep.heure.debut.standard' ).':00');
+			}
+
+			if ($dateseance->format ('H:i:00') == '00:00:00') {
+				$dateseance = new DateTime ('2000-01-01 '.Configure::read( 'commissionep.heure.debut.standard' ).':00');
+			}
+
+			// Récupération des allocataires participant
+			$passagecommissioneps = $this->find(
+				'all',
+				array(
+					'conditions' => array(
+					'Passagecommissionep.commissionep_id' => $commissionep_id
+				),
+				'joins' => array(
+					array(
+						'table' => 'dossierseps',
+						'alias' => 'Dossierep',
+						'type' => 'RIGHT',
+						'conditions' => array(
+							'Passagecommissionep.dossierep_id = Dossierep.id',
+						)
+					),
+					array(
+					'table' => 'personnes',
+					'alias' => 'Personne',
+					'type' => 'RIGHT',
+					'conditions' => array(
+						'Dossierep.personne_id = Personne.id',
+						)
+					),
+				),
+				'order' => array (
+					'Personne.nom' => 'ASC',
+					'Personne.prenom' => 'ASC',
+					),
+				)
+			);
+
+			// Enregistrement des résultats en bdd avec l'écart en config.
+			$success = true;
+			$nbPassagecommissioneps = count ($passagecommissioneps);
+
+			// Dans le cas où une pause méridienne a été définie en config.
+			if (is_array (Configure::read( 'commissionep.heure.debut.pause.meridienne' ))) {
+				$heureDebPause = Configure::read( 'commissionep.heure.debut.pause.meridienne' );
+				$heureFinPause = Configure::read( 'commissionep.heure.fin.pause.meridienne' );
+
+				$pauseMeridienneDeb = new DateTime ();
+				$pauseMeridienneDeb->setTimestamp($dateseance->getTimestamp ());
+				$pauseMeridienneDeb->setTime ($heureDebPause['heure'], $heureDebPause['minute'], 0);
+				$pauseMeridienneFin = new DateTime ();
+				$pauseMeridienneFin->setTimestamp($dateseance->getTimestamp ());
+				$pauseMeridienneFin->setTime ($heureFinPause['heure'], $heureFinPause['minute'], 0);
+			}
+
+			for ($i = 0; $i < $nbPassagecommissioneps; $i++) {
+				$passagecommissioneps[$i]['Passagecommissionep']['heureseance'] = $dateseance->format ('H:i:00');
+				$passagecommissioneps[$i] = $passagecommissioneps[$i]['Passagecommissionep'];
+
+				$dateseance->add (new DateInterval('PT'. Configure::read( 'commissionep.heure.ecart.minute' ) .'M'));
+
+				// On teste si la date de séance tombera pendant la pause méridienne.
+				if (is_array (Configure::read( 'commissionep.heure.debut.pause.meridienne' ))) {
+					$diffDeb = $dateseance->diff ($pauseMeridienneDeb);
+					$diffFin = $dateseance->diff ($pauseMeridienneFin);
+
+					if (((($diffDeb->h > 0 || $diffDeb->i > 0) && $diffDeb->invert == 1) // Après l'heure de début
+						|| ($diffDeb->h == 0 && $diffDeb->i == 0 && $diffDeb->invert == 0)) // Égal à l'heure de début
+						&& (($diffFin->h > 0 || $diffFin->i > 0) && $diffFin->invert == 0)) { // Avant l'heure de fin
+						$dateseance = $pauseMeridienneFin;
+					}
+				}
+			}
+
+			return $passagecommissioneps;
+		}
 	}
 ?>
