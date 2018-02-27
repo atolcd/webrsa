@@ -40,6 +40,14 @@
 
 	$this->end();
 
+	// Les entités des tags sont maintenant définies ici.
+	$options['EntiteTag'] = array(
+		'modele' => array (
+			__d('tags', 'Cohorte.EntiteTag.personne') => __d('tags', 'Cohorte.EntiteTag.personne'),
+			__d('tags', 'Cohorte.EntiteTag.foyer') => __d('tags', 'Cohorte.EntiteTag.foyer'),
+		)
+	);
+
 	echo '<fieldset id="CohorteTagPreremplissage" style="display: '.(isset( $results ) ? 'block' : 'none').';"><legend>' . __m( 'Tag.preremplissage_fieldset' ) . '</legend>'
 		. $this->Default3->subform(
 			array(
@@ -57,7 +65,6 @@
 		. '<div class="center"><input type="button" id="preremplissage_cohorte_button" value="Préremplir"/></div>'
 		. '</fieldset>'
 	;
-
 ?>
 <script type="text/javascript">
 	<!--//--><![CDATA[//><!--
@@ -89,18 +96,22 @@
 	 */
 	function setDateCloture(){
 		'use strict';
-		var duree = parseInt( $F('CohorteTagCalcullimite'), 10 ),
+		var duree = parseFloat( $F('CohorteTagCalcullimite'), 10 ),
 			now = new Date(),
 			jour = now.getUTCDate(),
 			mois = now.getUTCMonth() +1,
 			annee = now.getUTCFullYear(),
 			dateButoir;
+		var dureeJour = 0;
+		if ( duree == 1.5) {
+			dureeJour = 15;
+		}
 
 		if ( isNaN(duree*2) ){
 			return false;
 		}
 
-		dateButoir = new Date(annee, mois + duree - 1, jour -1);
+		dateButoir = new Date(annee, mois + duree - 1, jour + dureeJour -1);
 
 		$('CohorteTagLimiteDay').select('option').each(function(option){
 			option.selected = false;

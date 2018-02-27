@@ -39,7 +39,10 @@
 		echo $this->Xform->input( 'Search.Orientstruct.propo_algo', array( 'type' => 'select', 'options' => $options['Orientstruct']['propo_algo'], 'empty' => true, 'label' => __m( 'Search.Orientstruct.propo_algo' ) ) )
 	?>
 </fieldset>
-<?php $this->end();?>
+<?php
+require_once ('tag.ctp');
+$this->end();
+?>
 
 <?php
 	echo $this->element(
