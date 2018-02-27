@@ -86,6 +86,28 @@
 					</script>';
 		}
 
+		/*
+		* Vérifie les droits de l'utilisateur sur le contrôleur et l'action et
+		* le cas échéant, par-rapport à la vériable dossierMenu si celle-ci est
+		* présente.
+		*
+		* @param string $controller Le nom du contrôleur
+		* @param string $action Le nom de l'action
+		* @return boolean
+		*/
+		protected function _checkPermissions( $controller, $action ) {
+			if( true === Hash::check( $this->_View->viewVars, 'dossierMenu' ) ) {
+				return $this->Permissions->checkDossier(
+					$controller,
+					$action,
+					(array) Hash::get( $this->_View->viewVars, 'dossierMenu' )
+				);
+			}
+			else {
+				return $this->Permissions->check( $controller, $action );
+			}
+		}
+
 		/**
 		*
 		*/
@@ -100,12 +122,20 @@
 					$return .= '<td>'.$this->Xhtml->link(
 						'Télécharger',
 						array( 'action' => 'download', $fichier['id'] ),
-						array( 'enabled' => $this->Permissions->checkDossier( $this->request->params['controller'], 'download', (array)Hash::get( $this->_View->viewVars, 'dossierMenu' ) ), )
+						array(
+							'enabled' => $this->Permissions->_checkPermissions(
+								$this->request->params['controller']
+							),
+						 )
 					).'</td>';
 					$return .= '<td>'.$this->Xhtml->link(
 						'Supprimer',
 						array( 'controller' => 'fichiersmodules', 'action' => 'delete', $fichier['id'], $fichier['name'] ),
-						array( 'enabled' => $this->Permissions->checkDossier( 'fichiersmodules', 'delete', (array)Hash::get( $this->_View->viewVars, 'dossierMenu' ) ) ),
+						array( 'enabled' => $this->Permissions->_checkPermissions(
+								'fichiersmodules',
+								'delete'
+							)
+						),
 						'Êtes-vous sûr de vouloir supprimer la pièce ?'
 						).'</td></tr>';
 				}
@@ -132,7 +162,7 @@
 			$datasFichiermodule = Set::classicExtract( $datas, 'Fichiermodule' );
 			$haspiecejointeDefault = ( ( count( $fichiers ) + count( $datasFichiermodule ) ) > 0 );
 
-			$permissionForm = $this->Permissions->checkDossier( $this->request->params['controller'], 'ajaxfileupload', (array)Hash::get( $this->_View->viewVars, 'dossierMenu' ) );
+			$permissionForm = $this->Permissions->_checkPermissions( $this->request->params['controller'], 'ajaxfileupload');
 
 			$return = $this->Form->create( $modelName, array( 'type' => 'post', 'id' => $formId, 'novalidate' => true ) );
 			if( $permissionForm ) {
