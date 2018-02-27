@@ -245,7 +245,7 @@
 						'url' => array( 'controller' => 'actionscandidats_personnes', 'action' => 'index', $personne['id'] ),
 						'disabled' => ( $departement != 66 )
 					),
-					'Fiche de prescription' => array(
+					'Fiche de positionnement' => array(
 						'url' => array( 'controller' => 'fichesprescriptions93', 'action' => 'index', $personne['id'] ),
 						'disabled' => ( $departement != 93 )
 					)

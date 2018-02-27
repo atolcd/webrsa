@@ -59,7 +59,7 @@ msgstr "Soumis à droits et devoirs au moins une fois dans l'année (par opposit
 # ------------------------------------------------------------------------------
 
 msgid "Tableau1b5.distinct_personnes_prescription"
-msgstr "Nombre de personnes différentes bénéficiant d'une prescription"
+msgstr "Nombre de personnes différentes bénéficiant d'une positionnement"
 
 msgid "Tableau1b5.distinct_personnes_action"
 msgstr "Nombre de personnes différentes ayant participé à une action"
@@ -68,7 +68,7 @@ msgid "Tableau1b5.beneficiaires_pas_deplaces"
 msgstr "Nbre de fois ou un bénéficiaire ne s'est pas déplacé "
 
 msgid "Tableau1b5.nombre_fiches_attente"
-msgstr "Nbre de fiches de prescription en attente d'un retour"
+msgstr "Nbre de fiches de positionnement en attente d'un retour"
 
 msgid "Tableau1b5.thematique"
 msgstr "Thématique"
@@ -77,10 +77,10 @@ msgid "Tableau1b5.categorie"
 msgstr "Catégorie"
 
 msgid "Tableau1b5.nombre"
-msgstr "Nb de prescriptions effectuées"
+msgstr "Nb de positionnements effectuées"
 
 msgid "Tableau1b5.nombre_effectives"
-msgstr "Nombre de prescriptions effectives"
+msgstr "Nombre de positionnements effectives"
 
 msgid "Tableau1b5.raison_non_participation"
 msgstr "Raisons de la non participation"
@@ -147,7 +147,7 @@ msgstr "Autres (1)"
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableau1b4/:heading"
-msgstr "4 - Prescriptions vers les acteurs sociaux, culturels et de sante"
+msgstr "4 - Positionnements vers les acteurs sociaux, culturels et de sante"
 
 msgid "Tableau1b4.libelle"
 msgstr "Thématiques"
@@ -161,7 +161,7 @@ msgid "Tableau1b4.acteur"
 msgstr "Type d'acteur"
 
 msgid "Tableau1b4.nombre"
-msgstr "Nombre de prescriptions"
+msgstr "Nombre de positionnements"
 
 msgid "Tableau1b4.thematique"
 msgstr "Thématique"
@@ -170,7 +170,7 @@ msgid "Tableau1b4.categorie"
 msgstr "Catégorie"
 
 msgid "Tableau1b4.nombre_unique"
-msgstr "Nombre de personnes différentes bénéficiant d'une prescription"
+msgstr "Nombre de personnes différentes bénéficiant d'un positionnement"
 
 msgid "Tableau1b4.acteurs_sociaux"
 msgstr "a. Acteurs Sociaux"
@@ -186,18 +186,18 @@ msgstr "c. Acteurs de la culture, des loisirs et des vacances"
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableau1b5/:heading"
-msgstr "5 - Prescription sur les actions à caractère socio-professionnel et professionnel"
+msgstr "5 - Positionnement sur les actions à caractère socio-professionnel et professionnel"
 
 # ------------------------------------------------------------------------------
 
 msgid "Tableau1b5.name"
-msgstr "Prescriptions proposées"
+msgstr "positionnements proposées"
 
 msgid "Tableau1b5.prescription_count"
-msgstr "(1) Nb de prescriptions effectuées "
+msgstr "(1) Nb de positionnements effectuées "
 
 msgid "Tableau1b5.prescriptions_effectives_count"
-msgstr "Nombre de prescription effectives"
+msgstr "Nombre de positionnements effectives"
 
 msgid "Tableau1b5.raisons"
 msgstr "Raisons de la non participation"
@@ -530,7 +530,7 @@ msgid "Ficheprescription93.date_signature"
 msgstr "Date de signature"
 
 msgid "Thematiquefp93.type"
-msgstr "Type de prescription"
+msgstr "Type de positionnement"
 
 msgid "Thematiquefp93.name"
 msgstr "Thématique"

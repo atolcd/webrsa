@@ -108,7 +108,7 @@ msgid "/Parametrages/fichesprescriptions93"
 msgstr "Retour"
 
 msgid "/Parametrages/fichesprescriptions93/:title"
-msgstr "Retour au paramétrage du module fiches de prescription"
+msgstr "Retour au paramétrage du module fiches de positionnement"
 
 # ------------------------------------------------------------------------------
 
@@ -171,7 +171,7 @@ msgid "Categoriefp93.yearthematiquefp93_id"
 msgstr "Année"
 
 msgid "Categoriefp93.typethematiquefp93_id"
-msgstr "Type de prescription"
+msgstr "Type de positionnement"
 
 msgid "Categoriefp93.thematiquefp93_id"
 msgstr "Thématique"

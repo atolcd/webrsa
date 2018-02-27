@@ -73,7 +73,7 @@
 						'class' => 'external'
 					),
 					'/Fichesprescriptions93/index/#Personne.id#' => array(
-						'title' => 'Voir les fiches de prescription de #Personne.nom_complet#',
+						'title' => 'Voir les fiches de proposition de #Personne.nom_complet#',
 						'disabled' => "( '#Referent.horszone#' == true )",
 						'class' => 'view external'
 					),

@@ -406,13 +406,13 @@
 			</thead>
 			<tbody>
 				<tr class="odd">
-					<th>Dernière action prescrite</th>
+					<th>Dernière action proposée</th>
 					<th>Date d'effectivité</th>
 					<th>A participé</th>
 					<th>Catégorie d'action</th>
 					<th class="action">Action</th>
 
-					<th>Dernière action prescrite</th>
+					<th>Dernière action prroposée</th>
 					<th>Date d'effectivité</th>
 					<th>A participé</th>
 					<th>Catégorie d'action</th>
@@ -428,7 +428,7 @@
 							$personne_id = Hash::get( $details, "{$rolepers}.Ficheprescription93.Ficheprescription93.personne_id" );
 						if( !empty( $personne_id ) ){
 							echo $this->Xhtml->viewLink(
-								'Voir la fiche de prescription',
+								'Voir la fiche de positionnement',
 								array( 'controller' => 'fichesprescriptions93', 'action' => 'index', $personne_id ),
 								$this->Permissions->checkDossier( 'fichesprescriptions93', 'index', $dossierMenu )
 							);

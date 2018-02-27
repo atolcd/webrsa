@@ -45,16 +45,16 @@ msgstr "Suppression d'une action"
 ###############################################################################
 
 msgid "controllers/Actionscandidats"
-msgstr "Actions pour fiche de candidature/prescription"
+msgstr "Actions pour fiche de candidature/positionnement"
 
 msgid "controllers/Actionscandidats/index"
-msgstr "Visualisation des actions pour fiche de candidature/prescription"
+msgstr "Visualisation des actions pour fiche de candidature/positionnement"
 
 msgid "controllers/Actionscandidats/edit"
-msgstr "Ajout/Édition d'une action pour fiche de candidature/prescription"
+msgstr "Ajout/Édition d'une action pour fiche de candidature/positionnement"
 
 msgid "controllers/Actionscandidats/delete"
-msgstr "Suppression d'une action pour fiche de candidature/prescription"
+msgstr "Suppression d'une action pour fiche de candidature/positionnement"
 
 ###############################################################################
 
@@ -73,31 +73,31 @@ msgstr "Suppression d'une action liée à un partenaire"
 ###############################################################################
 
 msgid "controllers/ActionscandidatsPersonnes"
-msgstr "Fiches de candidature/prescription"
+msgstr "Fiches de candidature/positionnement"
 
 msgid "controllers/ActionscandidatsPersonnes/indexparams"
-msgstr "Paramètrage des fiches de candidature/prescription"
+msgstr "Paramètrage des fiches de candidature/positionnement"
 
 msgid "controllers/ActionscandidatsPersonnes/filelink"
-msgstr "Lier un fichier à une fiche de candidature/prescription"
+msgstr "Lier un fichier à une fiche de candidature/positionnement"
 
 msgid "controllers/ActionscandidatsPersonnes/index"
-msgstr "Accès aux fiches de candidature/prescription"
+msgstr "Accès aux fiches de candidature/positionnement"
 
 msgid "controllers/ActionscandidatsPersonnes/view"
-msgstr "Visualisation des fiches de candidature/prescription"
+msgstr "Visualisation des fiches de candidature/positionnement"
 
 msgid "controllers/ActionscandidatsPersonnes/edit"
-msgstr "Ajout/Édition d'une fiche de candidature/prescription"
+msgstr "Ajout/Édition d'une fiche de candidature/positionnement"
 
 msgid "controllers/ActionscandidatsPersonnes/delete"
-msgstr "Suppression d'une fiche de candidature/prescription"
+msgstr "Suppression d'une fiche de candidature/positionnement"
 
 msgid "controllers/ActionscandidatsPersonnes/printFiche"
-msgstr "Impression d'une fiche de candidature/prescription"
+msgstr "Impression d'une fiche de candidature/positionnement"
 
 msgid "controllers/ActionscandidatsPersonnes/cancel"
-msgstr "Annulation d'une fiche de candidature/prescription"
+msgstr "Annulation d'une fiche de candidature/positionnement"
 
 msgid "controllers/ActionscandidatsPersonnes/maillink"
 msgstr "Envoi de mail"
@@ -106,10 +106,10 @@ msgid "controllers/ActionscandidatsPersonnes/exportcsv"
 msgstr "Export CSV"
 
 msgid "controllers/ActionscandidatsPersonnes/exportcsv_enattente"
-msgstr "Export CSV des fiches de candidature/prescription en attente"
+msgstr "Export CSV des fiches de candidature/positionnement en attente"
 
 msgid "controllers/ActionscandidatsPersonnes/exportcsv_encours"
-msgstr "Export CSV des fiches de candidature/prescription en attente"
+msgstr "Export CSV des fiches de candidature/positionnement en attente"
 
 msgid "controllers/ActionscandidatsPersonnes/cohorte_enattente"
 msgstr "Fiches de candidature en attente"
@@ -1711,7 +1711,7 @@ msgid "controllers/Parametrages/index"
 msgstr "Accès aux paramétrages"
 
 msgid "controllers/Parametrages/fichesprescriptions93"
-msgstr "Accès au paramétrage des fiches de prescription (CD 93)"
+msgstr "Accès au paramétrage des fiches de positionnement (CD 93)"
 
 msgid "controllers/Parametrages/cataloguesromesv3"
 msgstr "Accès au paramétrage du catalogue ROME V3"
@@ -3819,34 +3819,38 @@ msgstr "Modification d'une sortie de l'accompagnement"
 ###############################################################################
 
 msgid "controllers/Fichesprescriptions93"
-msgstr "Module fiche de prescription (CD 93)"
+msgstr "Module fiche de positionnement (CD 93)"
 
 msgid "controllers/Fichesprescriptions93/search"
-msgstr "Recherche des fiches de prescription"
+msgstr "Recherche des fiches de positionnement"
 
 msgid "controllers/Fichesprescriptions93/index"
-msgstr "Liste des fiches de prescription de l'allocataire"
+msgstr "Liste des fiches de positionnement de l'allocataire"
 
 msgid "controllers/Fichesprescriptions93/add"
-msgstr "Ajout d'une fiche de prescription"
+msgstr "Ajout d'une fiche de positionnement"
 
 msgid "controllers/Fichesprescriptions93/edit"
-msgstr "Modification d'une fiche de prescription"
+msgstr "Modification d'une fiche de positionnement"
 
 msgid "controllers/Fichesprescriptions93/exportcsv"
-msgstr "Export CSV des résultats de la recherche par fiches de prescription"
+msgstr "Export CSV des résultats de la recherche par fiches de positionnement"
 
 msgid "controllers/Fichesprescriptions93/impression"
-msgstr "Impression d'une fiche de prescription"
+msgstr "Impression d'une fiche de positionnement"
 
 msgid "controllers/Fichesprescriptions93/cancel"
-msgstr "Annulation d'une fiche de prescription"
+msgstr "Annulation d'une fiche de positionnement"
 
 msgid "controllers/Cataloguespdisfps93"
+<<<<<<< d6e68e1f082bc1b4363128d1ed2ba7876f338089
 msgstr "Paramétrage du référentiel pour fiches de prescription (CD 93)"
+=======
+msgstr "Paramétrage du référentiel pour fiches de positionnement (CG 93)"
+>>>>>>> Correction Wording pour PDI
 
 msgid "controllers/Cataloguespdisfps93/search"
-msgstr "Tableau de suivi du référentiel pour fiches de prescription"
+msgstr "Tableau de suivi du référentiel pour fiches de positionnement"
 
 msgid "controllers/Cataloguespdisfps93/index"
 msgstr "Liste des éléments"

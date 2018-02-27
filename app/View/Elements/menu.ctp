@@ -217,7 +217,7 @@
 					'url' => array( 'controller' => 'demenagementshorsdpts', 'action' => 'search'  )
 				),
 			),
-			'Par fiches de prescription' => array(
+			'Par fiches de positionnement' => array(
 				'class' => 'search',
 				'disabled' => ( $departement != 93 ),
 				'url' => array( 'controller' => 'fichesprescriptions93', 'action' => 'search'  )

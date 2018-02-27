@@ -116,7 +116,7 @@
 				)
 			)
 		);
-		echo $this->Xhtml->tag( 'table', $this->Xhtml->tag( 'caption', 'Motifs pour lesquels la prescription n\'est pas effective' ).$this->Xhtml->tag( 'tbody', $rows ) );
+		echo $this->Xhtml->tag( 'table', $this->Xhtml->tag( 'caption', 'Motifs pour lesquels le positionnement n\'est pas effectif' ).$this->Xhtml->tag( 'tbody', $rows ) );
 
 		include_once  dirname( __FILE__ ).DS.'footer.ctp' ;
 	}
