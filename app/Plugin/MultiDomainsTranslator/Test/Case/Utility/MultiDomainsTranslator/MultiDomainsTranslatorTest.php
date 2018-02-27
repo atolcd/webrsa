@@ -154,9 +154,9 @@
 			$expected = 'eng';
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 
-			$_SESSION['Config']['language'] = 'fre';
+			$_SESSION['Config']['language'] = 'fra';
 			$result = MultiDomainsTranslator::language();
-			$expected = 'fre';
+			$expected = 'fra';
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		}
 

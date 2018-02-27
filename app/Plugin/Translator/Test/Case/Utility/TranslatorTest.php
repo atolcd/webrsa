@@ -25,7 +25,7 @@
 		 */
 		public function setUp() {
 			parent::setUp();
-			Configure::write('Config.language', 'fre');
+			Configure::write('Config.language', 'fra');
 			App::build(array('locales' => CakePlugin::path('Translator').'Test'.DS.'Locale'.DS));
 			Translator::reset();
 			Translator::domains(array('domain1', 'domain2', 'domain3'));
@@ -98,7 +98,7 @@
 
 			$_SESSION = null;
 			$result = Translator::lang();
-			$expected = 'fre';
+			$expected = 'fra';
 
 			$this->assertEquals($expected, $result, "Language changé par Config");
 		}
@@ -118,7 +118,7 @@
 		 */
 		public function testImport() {
 			$cache = array(
-				'fre' => array(
+				'fra' => array(
 					'["groups_index","groups"]' => array(
 						'{"plural":null,"category":6,"count":null,"language":null}' => array(
 							'name' => 'Nom',
@@ -179,7 +179,7 @@
 			Translator::translate('test1');
 			$result = Translator::export();
 			$expected = array(
-				'fre' => array(
+				'fra' => array(
 					'["domain1","domain2","domain3"]' => array(
 						'{"plural":null,"category":6,"count":null,"language":null}' => array(
 							'test1' => 'traduction domain1/test1'
