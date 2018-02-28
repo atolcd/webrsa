@@ -65,9 +65,9 @@
 			'sitfam' => array(
 				'01 - Homme seul sans enfant',
 				'02 - Femme seule sans enfant',
-				'03 - Homme seul avec enfant, RSA majoré',
+				'03 - Homme seul avec enfant, RSA majoré(4)',
 				'04 - Homme seul avec enfant, RSA non majoré',
-				'05 - Femme seule avec enfant, RSA majoré',
+				'05 - Femme seule avec enfant, RSA majoré(4)',
 				'06 - Femme seule avec enfant, RSA non majoré',
 				'07 - Homme en couple sans enfant',
 				'08 - Femme en couple sans enfant',
@@ -140,8 +140,8 @@
 			'02' => 'orientation vers le service public de l\'emploi, parcours de recherche d\'emploi',
 			'03' => 'mesures d\'insertion par l\'activité économique (IAE)',
 			'04' => 'aide à la réalisation d’un projet de création, de reprise ou de poursuite d’une activité non salariée ',
-			'05' => 'emploi aidé (hors CIA)',
-			'06' => 'contrat d\'insertion par l\'activité (CIA) (3)',
+			'05' => 'emploi aidé (hors CIA)(4)',
+			'06' => 'contrat d\'insertion par l\'activité (CIA) (4)',
 			'07' => 'emploi non aidé',
 			'08' => 'actions facilitant le lien social (développement de l\'autonomie sociale, activités collectives, ...)',
 			'09' => 'actions facilitant la mobilité (permis de conduire, acquisition / location de véhicule, frais de transport...)',
@@ -295,7 +295,7 @@
 							AND '.$parts['seul'].'
 							AND '.$parts['avec_enfant'].'
 							AND '.$parts['rsa_majore'].'
-						) THEN \'03 - Homme seul avec enfant, RSA majoré\'
+						) THEN \'03 - Homme seul avec enfant, RSA majoré (4)\'
 						WHEN (
 							'.$parts['homme'].'
 							AND '.$parts['seul'].'
@@ -307,7 +307,7 @@
 							AND '.$parts['seul'].'
 							AND '.$parts['avec_enfant'].'
 							AND '.$parts['rsa_majore'].'
-						) THEN \'05 - Femme seule avec enfant, RSA majoré\'
+						) THEN \'05 - Femme seule avec enfant, RSA majoré (4)\'
 						WHEN (
 							'.$parts['femme'].'
 							AND '.$parts['seul'].'
@@ -653,7 +653,7 @@
 			// 0. Query de base
 			$base = $this->_getBaseQueryIndicateursOrientations( $search );
 			$base['fields'] = $fields;
-			$base['conditions'][] = $this->_getConditionsDroitsEtDevoirs();
+			$base = $this->_completeQuerySoumisDd( $base, $annee, true );
 			$base['group'] = $group;
 			$base['order'] = $group;
 
@@ -745,7 +745,7 @@
 			// 0. Query de base
 			$base = $this->_getBaseQueryIndicateursOrientations( $search );
 			$base['fields'] = array( 'COUNT(DISTINCT(Personne.id)) AS "count"' );
-			$base['conditions'][] = $this->_getConditionsDroitsEtDevoirs();
+			 $base = $this->_completeQuerySoumisDd( $base, $annee, true );
 
 			// 0. Dont le référent unique a été désigné
 			$base['joins'][] = $Dossier->Foyer->Personne->Orientstruct->join( 'Structurereferente', array( 'type' => 'LEFT OUTER' ) );
@@ -873,11 +873,13 @@
 
 			// 0. On est dans le champ des bénéficiaires soumis à droits et devoirs.
 			$query = $this->_getBaseQuery( $search );
-			$query['conditions'][] = $this->_getConditionsDroitsEtDevoirs();
+
+			// Préparation du query de primo-orientation
+			$queryPrimoOrientation = $query;
 
 			// 0. On ne prend en compte que la toute première orientation, si elle a lieu cette année-là
 			$sq = $this->_sqPremiereOrientation();
-			$query['joins'][] = $Dossier->Foyer->Personne->join(
+			$queryPrimoOrientation['joins'][] = $Dossier->Foyer->Personne->join(
 				'Orientstruct',
 				array(
 					'type' => 'INNER',
@@ -889,16 +891,36 @@
 					)
 				)
 			);
-			$query['joins'][] = $Dossier->Foyer->Personne->Orientstruct->join( 'Typeorient', array( 'type' => 'INNER' ) );
+			$queryPrimoOrientation['joins'][] = $Dossier->Foyer->Personne->Orientstruct->join( 'Typeorient', array( 'type' => 'INNER' ) );
+
+			// On ne s'occupe que des personnes dans le champ des droits et devoirs
+			$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueministerielle.useHistoriquedroit' );
+			$queryPrimoOrientation = $this->_completeQuerySoumisDd(
+				$queryPrimoOrientation,
+				$annee,
+				true,
+				$useHistoriquedroit
+					? array(
+						'historiquesdroits.created::DATE <= Orientstruct.date_valid',
+						'historiquesdroits.modified::DATE >= Orientstruct.date_valid'
+					)
+					: array()
+			);
 
 			// Délai moyen pour la première orientation
 			$queryOrientation = $query;
+			$dateReference = true === $useHistoriquedroit ? '"Historiquedroit"."created"' : '"Dossier"."dtdemrsa"';
 			$queryOrientation['fields'] = array( 'AVG( DATE_PART( \'DAYS\', "Orientstruct"."date_valid" - DATE_TRUNC( \'MONTH\', "Dossier"."dtdemrsa" ) ) ) AS "count"' );
 			$results['Indicateurdelai']['delai_moyen_orientation'] = Hash::get( $Dossier->find( 'all', $queryOrientation ), '0.0.count' );
 
+			// Nombre de personnes dans le champ des droits et devoirs primo-orientées au 31 décembre
+			$queryOrientation = $queryPrimoOrientation;
+			$queryOrientation['fields'] = array( 'COUNT( "Personne"."id" ) AS "count"' );
+			$results['Indicateurdelai']['nombre_primo_orientees'] = Hash::get( $Dossier->find( 'all', $queryOrientation ), '0.0.count' );
+
 			// Délai moyen pour la signature du premier CER
 			$querySignature = $query;
-			$querySignature['fields'] = array( 'AVG("Contratinsertion"."datevalidation_ci" - "Orientstruct"."date_valid") AS "count"' );
+			$querySignature['fields'] = array( 'AVG("Contratinsertion"."date_saisi_ci" - "Orientstruct"."date_valid") AS "count"' );
 			$sq = $this->_sqPremierContratinsertion();
 			$querySignature['joins'][] = $Dossier->Foyer->Personne->join(
 				'Contratinsertion',
@@ -913,6 +935,39 @@
 					)
 				)
 			);
+
+			 // On ne prend en compte que l'orientation précédant le CER SSI les structures sont les mêmes
+			$sq = $Dossier->Foyer->Personne->Orientstruct->sq(
+				array(
+					'fields' => array(
+							'orientsstructs.id'
+					),
+					'alias' => 'orientsstructs',
+					'conditions' => array(
+						"orientsstructs.personne_id = Personne.id",
+						'orientsstructs.statut_orient = \'Orienté\'',
+						'orientsstructs.date_valid IS NOT NULL',
+						'orientsstructs.date_valid <= Contratinsertion.date_saisi_ci'
+					),
+					'order' => array( 'orientsstructs.date_valid ASC' ),
+					'limit' => 1
+				)
+			);
+			$querySignature['joins'][] = $Dossier->Foyer->Personne->join(
+					'Orientstruct',
+					array(
+						'type' => 'INNER',
+						'conditions' => array(
+							"Orientstruct.id IN ( {$sq} )",
+							'Orientstruct.structurereferente_id = Contratinsertion.structurereferente_id'
+						)
+					)
+				);
+			$querySignature['joins'][] = $Dossier->Foyer->Personne->Orientstruct->join( 'Typeorient', array( 'type' => 'INNER' ) );
+
+			// On ne s'occupe que des personnes dans le champ des droits et devoirs
+			$querySignature = $this->_completeQuerySoumisDd( $querySignature, $annee, true );
+
 			$results['Indicateurdelai']['delai_moyen_signature'] = Hash::get( $Dossier->find( 'all', $querySignature ), '0.0.count' );
 
 			// Préparation du query par type de CER
@@ -1292,8 +1347,6 @@
 			$annee = Hash::get( $search, 'Search.annee' );
 			$modeleNonorientationproep = $this->_getModeleNonOrientationProEp();
 
-			// FIXME
-			//$query = $this->_getBaseQueryIndicateursReorientationsSpeHorsSpe( $search );
 			$query = $this->_getBaseQuery( $search );
 			$query = $this->_completeQueryDspDspRev( $query, $search );
 
@@ -1436,7 +1489,173 @@
 			);
 		}
 
-		// ---------------------------------------------------------------------
+		/**
+		* Complète le querydata avec une jointure sur la table historiquesdroits
+		* et l'ajout éventuel de conditions pour obtenir ou non des allocataires
+		* soumis à droits et devoirs.
+		*
+		* @param array $query
+		* @param integer $annee
+		* @param boolean $soumisDd
+		* @param array $conditions Conditions supplémentaires à utiliser dans la sous-requête.
+		* @return array
+		*/
+		protected function _completeQueryDernierHistoriqueDroit( array $query, $annee, $soumisDd = null, array $conditions = array() ) {
+			$Dossier = ClassRegistry::init( 'Dossier' );
+			$replacements = array(
+				'Situationdossierrsa' => 'Historiquedroit',
+				'Calculdroitrsa' => 'Historiquedroit'
+			);
+
+			$sqHistoriquedroit = $Dossier->Foyer->Personne->sqLatest(
+				'Historiquedroit',
+				'created',
+				array_merge(
+					array(
+						"Historiquedroit.created::DATE <= '{$annee}-12-31'",
+						"Historiquedroit.modified::DATE >= '{$annee}-12-31'"
+					),
+					$conditions
+				),
+				false
+			);
+
+			$conditions = array();
+
+			$query['joins'][] = $Dossier->Foyer->Personne->join(
+				'Historiquedroit',
+				array(
+					'type' => true === $soumisDd ? 'INNER' : 'LEFT OUTER',
+					'conditions' => array( "Historiquedroit.id IN ( {$sqHistoriquedroit} )" )
+				)
+			);
+
+			if( null !== $soumisDd ) {
+				if( true === $soumisDd ) {
+					$conditions[] = alias( $this->_getConditionsDroitsEtDevoirs(), $replacements );
+				}
+				else {
+					$conditions[] = array(
+						'OR' => array(
+							'Historiquedroit.id IS NULL',
+							array(
+								'Historiquedroit.id IS NOT NULL',
+								'NOT' => array(
+									alias( $this->_getConditionsDroitsEtDevoirs(), $replacements )
+								)
+							)
+						)
+					);
+				}
+			}
+
+			$query['conditions'][] = $conditions;
+			return $query;
+		}
+
+		/**
+		* Complète le querydata, pour l'année donnée, afin de cibler les
+		* allocataires soumis à droits et devoirs, via la table historiquesdroits
+		* ou les tables situationsdossiersrsa et calculsdroitsrsa
+		*
+		* @see clé de configuration Statistiqueministerielle.useHistoriquedroit
+		* @see clé de configuration Statistiqueministerielle.conditions_droits_et_devoirs
+		*
+		* @param array $query
+		* @param integer $annee
+		* @param boolean $soumisDd
+		* @param array $conditions Conditions supplémentaires à utiliser dans la sous-requête.
+		* @return array
+		*/
+		protected function _completeQuerySoumisDd( array $query, $annee, $soumisDd = null, array $conditions = array() ) {
+			$Dossier = ClassRegistry::init( 'Dossier' );
+
+			//@fixme: true au 93
+			$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueministerielle.useHistoriquedroit' );
+			if( true === $useHistoriquedroit ) {
+				$query = $this->_completeQueryDernierHistoriqueDroit( $query, $annee, $soumisDd, $conditions );
+			}
+			else {
+				$type = true === $soumisDd ? 'INNER' : 'LEFT OUTER';
+
+				$query['joins'][] = $Dossier->join( 'Situationdossierrsa', array( 'type' => $type ) );
+				$query['joins'][] = $Dossier->Foyer->Personne->join( 'Calculdroitrsa', array( 'type' => $type ) );
+
+				if( null !== $soumisDd ) {
+					if( true === $soumisDd ) {
+						$conditions[] = $this->_getConditionsDroitsEtDevoirs();
+					}
+					else {
+						$conditions[] = array(
+							'OR' => array(
+								'Calculdroitrsa.id IS NULL',
+								'Situationdossierrsa.id IS NULL',
+								array(
+									array(
+										'Calculdroitrsa.id IS NOT NULL',
+										'Situationdossierrsa.id IS NOT NULL'
+									),
+									'NOT' => array( $this->_getConditionsDroitsEtDevoirs() )
+								)
+							)
+						);
+					}
+				}
+
+				$query['conditions'][] = $conditions;
+			}
+
+			return $query;
+		}
+
+		/**
+		* Ajoute une jointure sur l'orientation qui doit précéder la saisie du
+		* CER, avec une condition éventuelle concernant le structure référente
+		* du CER et de l'orientation.
+		* Utilisée dans les tableaux "Indicateurs de caractéristiques des contrats"
+		* et "Indicateurs de natures des actions des contrats".
+		* Voir la clé de configuration "Statistiqueministerielle.structure_cer_orientation".
+		*
+		* @param array $query
+		* @return array
+		*/
+		protected function _completeQueryOrientstructCer( array $query ) {
+			$Dossier = ClassRegistry::init( 'Dossier' );
+
+			$sqOrientstruct = words_replace(
+				$Dossier->Foyer->Personne->Orientstruct->sq(
+					array(
+						'alias' => 'orientsstructs',
+						'fields' => 'orientsstructs.id',
+						'contain' => false,
+						'conditions' => array(
+							'Orientstruct.personne_id = Personne.id',
+							'Orientstruct.statut_orient' => 'Orienté',
+							'Orientstruct.date_valid <= Contratinsertion.date_saisi_ci'
+						),
+						'order' => array( 'Orientstruct.date_valid DESC' ),
+						'limit' => 1
+					)
+				),
+				array( 'Orientstruct' => 'orientsstructs' )
+			);
+
+			if( true === Configure::read( 'Statistiqueministerielle.structure_cer_orientation' ) ) {
+				$query['conditions'][] = 'Orientstruct.structurereferente_id = Contratinsertion.structurereferente_id';
+			}
+
+			$query['joins'][] = $Dossier->Foyer->Personne->join(
+				'Orientstruct',
+				array(
+					'type' => 'INNER',
+					'conditions' => array(
+						'Orientstruct.personne_id = Personne.id',
+						"Orientstruct.id IN ( {$sqOrientstruct} )"
+					)
+				)
+			);
+			return $query;
+		}
 
 		/**
 		 *
@@ -1470,6 +1689,8 @@
 				$replacements
 			);
 
+			$query = $this->_completeQueryOrientstructCer( $query );
+
 			// Pour chacune des lignes
 			$categories_cers = array(
 				'cer' => array(),
@@ -1486,11 +1707,11 @@
 			// Pour chacune des colonnes
 			foreach( Hash::normalize( $categories_cers ) as $categorie_cer => $conditionsCategorie ) {
 				$conditions = (array)Configure::read( "Statistiqueministerielle.conditions_caracteristiques_contrats.{$categorie_cer}" );
-
+				$queryBase = $query;
 				if( $conditionsCategorie !== false ) {
 					// 1. Nombre total
-					$queryTotal = $query;
-					$queryTotal['conditions'] = Hash::merge(
+					$queryTotal = $queryBase;
+					$queryTotal['conditions'] = array_merge(
 						$queryTotal['conditions'],
 						$conditions,
 						$conditionsCategorie
@@ -1498,22 +1719,28 @@
 					$results['Indicateurcaracteristique']["{$categorie_cer}_total"] = Hash::get( $Dossier->find( 'all', $queryTotal ), '0.Contratinsertion.count' );
 
 					// 2. Nombre dont le bénéficiaire est soumis à droits et devoirs
-					$queryChampDd = $query;
-					$queryChampDd['conditions'] = Hash::merge(
+					$queryChampDd = $queryBase;
+					$queryChampDd['conditions'] = array_merge(
 						$queryChampDd['conditions'],
 						$conditions,
 						$conditionsCategorie
 					);
-					$queryChampDd['conditions'][] = $this->_getConditionsDroitsEtDevoirs();
+					$queryChampDd = $this->_completeQuerySoumisDd(
+						$queryChampDd,
+						$annee,
+						true
+					);
+
 					$results['Indicateurcaracteristique']["{$categorie_cer}_droitsdevoirs"] = Hash::get( $Dossier->find( 'all', $queryChampDd ), '0.Contratinsertion.count' );
 
 					// 3. Nombre dont le bénéficiaire n'est pas soumis à droits et devoirs
-					$queryHorsChampDd = $query;
-					$queryHorsChampDd['conditions'] = Hash::merge(
-						$queryHorsChampDd['conditions'],
-						$conditions,
-						$conditionsCategorie
+					$queryHorsChampDd = $queryBase;
+					$queryHorsChampDd = $this->_completeQuerySoumisDd(
+						$queryHorsChampDd,
+						$annee,
+						false
 					);
+
 					$queryHorsChampDd['conditions'][] = array( 'NOT' => array( $this->_getConditionsDroitsEtDevoirs() ) );
 					$results['Indicateurcaracteristique']["{$categorie_cer}_horsdroitsdevoirs"] = Hash::get( $Dossier->find( 'all', $queryHorsChampDd ), '0.Contratinsertion.count' );
 				}
@@ -1524,7 +1751,7 @@
 				if( in_array( $categorie_cer, array( 'cer_pro', 'cer_social_pro' ) ) ) {
 					foreach( $this->durees_cers as $duree_cer => $conditionsDureescers ) {
 						$queryDureeCer = $query;
-						$queryDureeCer['conditions'] = Hash::merge(
+						$queryDureeCer['conditions'] = array_merge(
 							$queryDureeCer['conditions'],
 							$conditionsCategorie,
 							$conditionsDureescers
@@ -1536,12 +1763,20 @@
 
 						// 2. Nombre dont le bénéficiaire est soumis à droits et devoirs
 						$queryChampDd = $queryDureeCer;
-						$queryChampDd['conditions'][] = $this->_getConditionsDroitsEtDevoirs();
+						$queryChampDd = $this->_completeQuerySoumisDd(
+							$queryChampDd,
+							$annee,
+							true
+						);
 						$results['Indicateurcaracteristique']["{$categorie_cer}_{$duree_cer}_droitsdevoirs"] = Hash::get( $Dossier->find( 'all', $queryChampDd ), '0.Contratinsertion.count' );
 
 						// 3. Nombre dont le bénéficiaire n'est pas soumis à droits et devoirs
 						$queryHorsChampDd = $queryDureeCer;
-						$queryHorsChampDd['conditions'][] = array( 'NOT' => array( $this->_getConditionsDroitsEtDevoirs() ) );
+						$queryHorsChampDd = $this->_completeQuerySoumisDd(
+							$queryChampDd,
+							$annee,
+							true
+						);
 						$results['Indicateurcaracteristique']["{$categorie_cer}_{$duree_cer}_horsdroitsdevoirs"] = Hash::get( $Dossier->find( 'all', $queryHorsChampDd ), '0.Contratinsertion.count' );
 					}
 				}
@@ -1634,6 +1869,13 @@
 			$base['joins'][] = array_words_replace(
 				$Dossier->Foyer->Personne->Contratinsertion->Structurereferente->join( 'Typeorient', array( 'type' => 'LEFT OUTER' ) ),
 				$replacements
+			);
+
+			$base = $this->_completeQueryOrientstructCer( $base );
+			$base = $this->_completeQuerySoumisDd(
+				$base,
+				$annee,
+				true
 			);
 
 			$departement = (int)Configure::read( 'Cg.departement' );
@@ -1895,7 +2137,8 @@
 
 			// 1. conditions_droits_et_devoirs
 			$query = $this->_getBaseQuery( $search );
-			$query['conditions'][] = $this->_getConditionsDroitsEtDevoirs();
+			$query = $this->_completeQuerySoumisDd( $query, $search['Search']['annee'], true );
+			//$query['conditions'][] = $this->_getConditionsDroitsEtDevoirs();
 			$return['Statistiqueministerielle.conditions_droits_et_devoirs'] = $query;
 
 			// 2. conditions_types_parcours
