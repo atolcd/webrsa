@@ -62,6 +62,11 @@
 			// Récupération des options
 			$options = $this->_options( $params );
 
+			// Récupération des options des tags
+			$Controller->loadModel( 'Tag' );
+			$options['Tag']['etat'] = $Controller->Tag->enum( 'etat' );
+			$options = $Controller->Tag->getValeursTag($options);
+
 			// Assignation à la vue
 			$Controller->set( 'options', $options );
 		}
