@@ -20,7 +20,7 @@ msgid "/Parametrages/index/:title"
 msgstr "Retour aux paramétrages"
 
 msgid "/Parametrages/fichesprescriptions93/:heading"
-msgstr "Paramétrages du module fiche de prescription"
+msgstr "Paramétrages du module fiche de positionnement"
 
 msgid "/Parametrages/cataloguesromesv3/:heading"
 msgstr "Codes ROME V3"

@@ -193,7 +193,7 @@
 	?>
 	</fieldset>
 <fieldset id="motifdemande">
-	<legend><?php echo required( "Motif de la demande (donner des précisions sur le parcours d'insertion et les motifs de la prescription)" ); ?></legend>
+	<legend><?php echo required( "Motif de la demande (donner des précisions sur le parcours d'insertion et les motifs du positionnement)" ); ?></legend>
 		<?php
 			echo $this->Default->subform(
 				array(

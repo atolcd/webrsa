@@ -19,7 +19,7 @@ msgid "/Fichesprescriptions93/search/:title"
 msgstr "Visibilité formulaire"
 
 msgid "/Fichesprescriptions93/search/:heading"
-msgstr "Recherche par fiches de prescription"
+msgstr "Recherche par fiches de positionnement"
 
 # ------------------------------------------------------------------------------
 
@@ -30,15 +30,15 @@ msgid "/Fichesprescriptions93/search1/:title"
 msgstr "Visibilité formulaire"
 
 msgid "/Fichesprescriptions93/search1/:heading"
-msgstr "Recherche par fiches de prescription"
+msgstr "Recherche par fiches de positionnement"
 
 # ------------------------------------------------------------------------------
 
 msgid "Search.Ficheprescription93"
-msgstr "Recherche par fiche de prescription"
+msgstr "Recherche par fiche de positionnement"
 
 msgid "Search.Ficheprescription93.exists"
-msgstr "Possède une fiche de prescription"
+msgstr "Possède une fiche de positionnement"
 
 msgid "Search.Ficheprescription93.numconvention"
 msgstr "Numéro de convention ou code action d'attente"
@@ -47,7 +47,7 @@ msgid "Search.Ficheprescription93.yearthematiquefp93"
 msgstr "Année"
 
 msgid "Search.Ficheprescription93.typethematiquefp93_id"
-msgstr "Type de prescription"
+msgstr "Type de positionnement"
 
 msgid "Search.Ficheprescription93.yearthematiquefp93_id"
 msgstr "Année de la prescription"
@@ -163,7 +163,7 @@ msgid "/Fichesprescriptions93/index"
 msgstr "Voir"
 
 msgid "/Fichesprescriptions93/index/#Personne.id#"
-msgstr "Voir les fiches de prescription de #Personne.nom_complet#"
+msgstr "Voir les fiches de positionnement de #Personne.nom_complet#"
 
 # ------------------------------------------------------------------------------
 
@@ -174,7 +174,7 @@ msgid "Instantanedonneesfp93.benef_etatdosrsa_ouverts"
 msgstr "Cet allocataire n'est actuellement pas dans un dossier en état ouvert."
 
 msgid "/Fichesprescriptions93/index/:heading"
-msgstr "Fiches de prescription de l'allocataire"
+msgstr "Fiches de positionnement de l'allocataire"
 
 msgid "Ficheprescription93.created"
 msgstr "Date de création"
@@ -192,7 +192,7 @@ msgid "Thematiquefp93.yearthema"
 msgstr "Année"
 
 msgid "Categoriefp93.name"
-msgstr "Catégorie d'action prescrite"
+msgstr "Catégorie d'action proposée"
 
 msgid "Ficheprescription93.dd_action"
 msgstr "Date de début de l'action"
@@ -228,19 +228,19 @@ msgid "/Fichesprescriptions93/edit"
 msgstr "Modifier"
 
 msgid "/Fichesprescriptions93/edit/#Ficheprescription93.id#"
-msgstr "Modifier la fiche de prescription"
+msgstr "Modifier la fiche de positionnement"
 
 msgid "/Fichesprescriptions93/cancel"
 msgstr "Annuler"
 
 msgid "/Fichesprescriptions93/cancel/#Ficheprescription93.id#"
-msgstr "Annuler la fiche de prescription"
+msgstr "Annuler la fiche de positionnement"
 
 msgid "/Fichesprescriptions93/impression"
 msgstr "Imprimer"
 
 msgid "/Fichesprescriptions93/impression/#Ficheprescription93.id#"
-msgstr "Imprimer la fiche de prescription"
+msgstr "Imprimer la fiche de positionnement"
 
 ################################################################################
 # Formulaire d'ajout / de modification
@@ -259,7 +259,7 @@ msgid "Referent.nom_complet"
 msgstr "Nom du référent"
 
 msgid "Ficheprescription93.objet"
-msgstr "Motif de la prescription"
+msgstr "Motif du positionnement"
 
 ################################################################################
 
@@ -332,16 +332,16 @@ msgstr "Date de fin du CER"
 ################################################################################
 
 msgid "/Fichesprescriptions93/add/:title"
-msgstr "Ajouter une fiche de prescription"
+msgstr "Ajouter une fiche de positionnement"
 
 msgid "/Fichesprescriptions93/add/:heading"
-msgstr "Ajout d'une fiche de prescription"
+msgstr "Ajout d'une fiche de positionnement"
 
 msgid "/Fichesprescriptions93/edit/:heading"
-msgstr "Modification d'une fiche de prescription"
+msgstr "Modification d'une fiche de positionnement"
 
 msgid "/Fichesprescriptions93/cancel/:heading"
-msgstr "Annulation d'une fiche de prescription"
+msgstr "Annulation d'une fiche de positionnement"
 
 msgid "Ficheprescription93.Prestataire"
 msgstr "Prestataire/Partenaire"
@@ -438,7 +438,7 @@ msgstr "Modalités de transmission"
 ################################################################################
 
 msgid "Ficheprescription93.Effectivite"
-msgstr "Effectivité de la prescription"
+msgstr "Effectivité de la positionnement"
 
 msgid "Ficheprescription93.date_retour"
 msgstr "Date de retour de la fiche au prescripteur ou au référent"
