@@ -128,7 +128,7 @@
 			Configure::write( 'ConfigurableQuery', null );
 			Configure::write( 'Users', null );
 			Configure::write( 'MultiDomainsTranslator', array( 'prefix' => 'cg66' ) );
-			Configure::write( 'Config.language', 'fre' );
+			Configure::write( 'Config.language', 'fra' );
 			App::build( array( 'locales' => CakePlugin::path( 'ConfigurableQuery' ).'Test'.DS.'Locale'.DS ) );
 
 			Translator::reset();
@@ -136,7 +136,7 @@
 			Translator::domains( $domains );
 
 			CakeTestSession::start();
-			$_SESSION['Config']['language'] = 'fre';
+			$_SESSION['Config']['language'] = 'fra';
 
 			$this->Controller = new Controller( $request );
 			$this->Controller->User = ClassRegistry::init( array( 'class' => 'ConfigurableQuery.ConfigurableQueryUser', 'alias' => 'User' ) );
@@ -301,13 +301,13 @@
 						</tr>
 						<tr>
 							<th id="TableUsersIndexColumnUserUsername">
-								<a href="'.$base.'users/index/page:1/sort:User.username/direction:asc">Identifiant</a>
+								<a href="'.$base.'users/index/sort:User.username/direction:asc">Identifiant</a>
 							</th>
 							<th id="TableUsersIndexColumnUserCreated">
-								<a href="'.$base.'users/index/page:1/sort:User.created/direction:asc">Créé le</a>
+								<a href="'.$base.'users/index/sort:User.created/direction:asc">Créé le</a>
 							</th>
 							<th id="TableUsersIndexColumnGroupName">
-								<a href="'.$base.'users/index/page:1/sort:Group.name/direction:asc">Groupe</a>
+								<a href="'.$base.'users/index/sort:Group.name/direction:asc">Groupe</a>
 							</th>
 							<th colspan="2" class="actions" id="TableUsersIndexColumnActions">Actions</th>
 						</tr>
@@ -350,16 +350,16 @@
 						</tr>
 						<tr>
 							<th id="TableUsersIndexColumnUserUsername">
-								<a href="'.$base.'users/index/page:1/sort:User.username/direction:asc">Identifiant</a>
+								<a href="'.$base.'users/index/sort:User.username/direction:asc">Identifiant</a>
 							</th>
 							<th id="TableUsersIndexColumnUserCreated">
-								<a href="'.$base.'users/index/page:1/sort:User.created/direction:asc">Créé le</a>
+								<a href="'.$base.'users/index/sort:User.created/direction:asc">Créé le</a>
 							</th>
 							<th id="TableUsersIndexColumnGroupName">
-								<a href="'.$base.'users/index/page:1/sort:Group.name/direction:asc">Groupe</a>
+								<a href="'.$base.'users/index/sort:Group.name/direction:asc">Groupe</a>
 							</th>
 							<th id="TableUsersIndexColumnUserModified">
-								<a href="'.$base.'users/index/page:1/sort:User.modified/direction:asc">Modifié le</a>
+								<a href="'.$base.'users/index/sort:User.modified/direction:asc">Modifié le</a>
 							</th>
 							<th colspan="2" class="actions" id="TableUsersIndexColumnActions">Actions</th>
 						</tr>
@@ -468,13 +468,13 @@
 						</tr>
 						<tr>
 							<th id="ColumnUserUsername">
-								<a href="'.$base.'users/index/page:1/sort:User.username/direction:asc">Identifiant</a>
+								<a href="'.$base.'users/index/sort:User.username/direction:asc">Identifiant</a>
 							</th>
 							<th id="ColumnUserCreated">
-								<a href="'.$base.'users/index/page:1/sort:User.created/direction:asc">Créé le</a>
+								<a href="'.$base.'users/index/sort:User.created/direction:asc">Créé le</a>
 							</th>
 							<th id="ColumnGroupName">
-								<a href="'.$base.'users/index/page:1/sort:Group.name/direction:asc">Groupe</a>
+								<a href="'.$base.'users/index/sort:Group.name/direction:asc">Groupe</a>
 							</th>
 							<th class="input" id="ColumnInputDataTestTest">Test cohorte</th>
 							<th colspan="2" class="actions" id="ColumnActions">Actions</th>
@@ -535,13 +535,13 @@
 					<thead>
 						<tr>
 							<th id="ColumnUserUsername">
-								<a href="'.$base.'users/index/page:1/sort:User.username/direction:asc">Identifiant</a>
+								<a href="'.$base.'users/index/sort:User.username/direction:asc">Identifiant</a>
 							</th>
 							<th id="ColumnUserCreated">
-								<a href="'.$base.'users/index/page:1/sort:User.created/direction:asc">Créé le</a>
+								<a href="'.$base.'users/index/sort:User.created/direction:asc">Créé le</a>
 							</th>
 							<th id="ColumnGroupName">
-								<a href="'.$base.'users/index/page:1/sort:Group.name/direction:asc">Groupe</a>
+								<a href="'.$base.'users/index/sort:Group.name/direction:asc">Groupe</a>
 							</th>
 							<th class="input" id="ColumnInputDataTestTest">Test cohorte</th>
 						</tr>
@@ -631,13 +631,13 @@
 					</tr>
 					<tr>
 						<th id="TableUsersIndexColumnUserUsername">
-							<a href="'.$base.'users/index/page:1/sort:User.username/direction:asc">Identifiant</a>
+							<a href="'.$base.'users/index/sort:User.username/direction:asc">Identifiant</a>
 						</th>
 						<th id="TableUsersIndexColumnUserCreated">
-							<a href="'.$base.'users/index/page:1/sort:User.created/direction:asc">Créé le</a>
+							<a href="'.$base.'users/index/sort:User.created/direction:asc">Créé le</a>
 						</th>
 						<th id="TableUsersIndexColumnGroupName">
-							<a href="'.$base.'users/index/page:1/sort:Group.name/direction:asc">Groupe</a>
+							<a href="'.$base.'users/index/sort:Group.name/direction:asc">Groupe</a>
 						</th>
 						<th class="innerTableHeader noprint">Informations complémentaires</th>
 					</tr>

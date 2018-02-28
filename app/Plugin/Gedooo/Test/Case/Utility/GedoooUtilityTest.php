@@ -22,7 +22,7 @@
 		public function setUp() {
 			parent::setUp();
 
-			Configure::write( 'Config.language', 'fre' );
+			Configure::write( 'Config.language', 'fra' );
 			App::build( array( 'locales' => CakePlugin::path( 'Gedooo' ).'Test'.DS.'Locale'.DS ) );
 		}
 

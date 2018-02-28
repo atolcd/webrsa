@@ -118,7 +118,7 @@
 			$afterLoad = Translator::export();
 
 			$expected = array(
-				'fre' => array(
+				'fra' => array(
 					'["domain1_index","domain1","default"]' => array(
 						'{"plural":null,"category":6,"count":null,"language":null}' => array(
 							'test1' => 'traduction domain1/test1'
