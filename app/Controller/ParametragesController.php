@@ -608,7 +608,7 @@
 				'Entretiens' => $this->_entretiens(),
 				'Fiches de candidature' => $this->_actionscandidats_personnes(),
 				'Fiches de liaisons' => $this->_fichedeliaisons(),
-				'Fiches de prescription' => $this->_fichesprescriptions93(),
+				'Fiches de positionnement' => $this->_fichesprescriptions93(),
 				'Module FSE' => $this->_modulefse93(),
 				'PDO' => $this->_pdos(),
 				'Référents pour les structures' => array(

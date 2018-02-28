@@ -50,7 +50,7 @@ msgid "Search.Ficheprescription93.typethematiquefp93_id"
 msgstr "Type de positionnement"
 
 msgid "Search.Ficheprescription93.yearthematiquefp93_id"
-msgstr "Année de la prescription"
+msgstr "Année du positionnement"
 
 msgid "Search.Ficheprescription93.thematiquefp93_id"
 msgstr "Thématique"
@@ -71,13 +71,13 @@ msgid "Search.Ficheprescription93.actionfp93"
 msgstr "Intitulé"
 
 msgid "Search.Ficheprescription93.Referent"
-msgstr "Filtrer par prescripteur"
+msgstr "Filtrer par Prescripteur"
 
 msgid "Search.Ficheprescription93.communautesr_id"
-msgstr "Projet de ville territorial du prescripteur"
+msgstr "Projet de ville territorial du Prescripteur"
 
 msgid "Search.Ficheprescription93.structurereferente_id"
-msgstr "Structure du prescripteur"
+msgstr "Structure du Prescripteur"
 
 msgid "Search.Ficheprescription93.referent_id"
 msgstr "Prescripteur"
