@@ -38,6 +38,13 @@
 		$configuredCohorteParams['paginate'] = $paginate;
 	}
 
+	// ATTENTION
+	// voir aussi View/Tags/cohorte.ctp
+	// Les entités des tags sont maintenant définies ici.
+	$configuredCohorteParams['cohorteFields']['data[Cohorte][][EntiteTag][modele]']['options'] = $options['EntiteTag']['modele'];
+	// Pour garder les propositions des tags après avoir enlevé les valeurs de tags possibles.
+	$configuredCohorteParams['cohorteFields']['data[Cohorte][][Tag][valeurtag_id]']['options'] = $options['filter']['Tag']['valeurtag_id'];
+
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 		echo $this->Html->script( array( 'prototype.event.simulate.js', 'dependantselect.js', 'cake.prototype.js' ) );

@@ -47,6 +47,8 @@
 
 	$this->end();
 
+	// ATTENTION
+	// voir aussi View/Elements/ConfigurableQuery/cohorte.ctp
 	// Les entités des tags sont maintenant définies ici.
 	$options['EntiteTag'] = array(
 		'modele' => array (
@@ -54,6 +56,7 @@
 			__d('tags', 'Cohorte.EntiteTag.foyer') => __d('tags', 'Cohorte.EntiteTag.foyer'),
 		)
 	);
+	// Pour garder les propositions des tags après avoir enlevé les valeurs de tags possibles.
 	$options['Tag'] = $options['filter']['Tag'];
 
 	echo '<fieldset id="CohorteTagPreremplissage" style="display: '.(isset( $results ) ? 'block' : 'none').';"><legend>' . __m( 'Tag.preremplissage_fieldset' ) . '</legend>'
