@@ -299,3 +299,15 @@ msgstr "Accéder aux informations de #Personne.nom_complet_court#"
 
 msgid "/Orientsstructs/index/:heading"
 msgstr "Orientations de #qual# #nom# #prenom#"
+
+msgid "Search.Tag.valeurtag_id"
+msgstr "Recherche par valeur du tag"
+
+msgid "Search.Tag.etat"
+msgstr "Recherche par état du tag"
+
+msgid "Search.Tag.search_title"
+msgstr "Rechercher par tag"
+
+msgid "Search.Tag.filter_title"
+msgstr "Filtrer par tag"

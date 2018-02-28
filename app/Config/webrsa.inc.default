@@ -835,6 +835,11 @@
 	Configure::write( 'commissionep.heure.ecart.minute', '15' );
 
 	/**
+	 * Nombre de personnes convoquées à la même heure
+	 */
+	Configure::write( 'commissionep.heure.personnes.convoquees', '3' );
+
+	/**
 	 * Heure de début standard d'une ep si elle n'est pas renseignée.
 	 */
 	Configure::write( 'commissionep.heure.debut.standard', '09:00' );
@@ -863,6 +868,19 @@
 		array(
 			'heure' => '14',
 			'minute' => '00',
+		)
+	);
+
+	/**
+	 * Alertes des heures de passage en ep
+	 */
+	Configure::write(
+		'commissionep.heure.alertes',
+		array(
+			'journee.debut' => true,
+			'pause.meridienne' => true,
+			'journee.fin' => true,
+			'meme.heure' => false,
 		)
 	);
 

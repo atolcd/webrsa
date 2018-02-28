@@ -323,6 +323,7 @@
 					)
 				)
 			);
+
 			try {
 				$dateseance = new DateTime ($commissionep['Commissionep']['dateseance']);
 			} catch (Exception $e) {
@@ -364,6 +365,8 @@
 					),
 				)
 			);
+			$nbAllocataireParLot = Configure::read( 'commissionep.heure.personnes.convoquees' );
+			$numeroAllocataireLot = 1;
 
 			// Enregistrement des résultats en bdd avec l'écart en config.
 			$success = true;
@@ -386,7 +389,10 @@
 				$passagecommissioneps[$i]['Passagecommissionep']['heureseance'] = $dateseance->format ('H:i:00');
 				$passagecommissioneps[$i] = $passagecommissioneps[$i]['Passagecommissionep'];
 
-				$dateseance->add (new DateInterval('PT'. Configure::read( 'commissionep.heure.ecart.minute' ) .'M'));
+				if ($nbAllocataireParLot == $numeroAllocataireLot++) {
+					$dateseance->add (new DateInterval('PT'. Configure::read( 'commissionep.heure.ecart.minute' ) .'M'));
+					$numeroAllocataireLot = 1;
+				}
 
 				// On teste si la date de séance tombera pendant la pause méridienne.
 				if (is_array (Configure::read( 'commissionep.heure.debut.pause.meridienne' ))) {
