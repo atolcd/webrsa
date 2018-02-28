@@ -2896,3 +2896,106 @@ var replaceUrlNamedParam = function(url, key, value) {
 var regExpQuote = function(str) {
     return (str+'').replace(/[.?*+^$[\]\\(){}\/|-]/g, "\\$&");
 };
+
+
+	/**
+	* Complète une chaîne jusqu'à une taille donnée.
+	*
+	* @param {String} value La chaîne d'entrée.
+	* @param {Number} length La longueur que doit avoir la chaîne retournée.
+	* @param {String|Number} pattern Le caractère devant compléter la chaîne.
+	* @returns {@var;pattern|@var;value|String}
+	*/
+	var pad_left = function(value, length, pattern) {
+		var i;
+
+		value = String(value);
+		length = Number(length);
+		pattern = String(pattern);
+
+		if(1 !== pattern.length) {
+			message = "La longueur du paramètre pattern est différente de 1 (" + pattern.length + "): " + pattern;
+			throw new Error(message);
+		}
+
+		if(value.length < length) {
+			for(i=0;i<=length-value.length;i++) {
+				value = pattern + value;
+			}
+		}
+
+		return value;
+	};
+
+	/**
+	* Permet de manipuler simplement des dates CakePHP dans des selects.
+	*
+	* @type Object
+	*/
+	var CakeDateSelects = {
+	/**
+	* Retourne un objet contenant les attributs year, month et day du champ
+	* date désiré.
+	*
+	* @param {String} id
+	* @returns {Object}
+	*/
+	get: function(id) {
+		var result = {}, message;
+
+		try {
+			result = {
+				year: $F(id + 'Year'),
+				month: $F(id + 'Month'),
+				day: $F(id + 'Day')
+			};
+		} catch(e) {
+			message = "Impossible de trouver les suffixes Year, Month ou Day pour l'id de champ de date " + id;
+			console.error(message);
+			result = { year: null, month: null, day: null };
+		}
+
+		return result;
+	},
+	/**
+	* Affecte une date donnée au champ date désiré (avec les suffixes Year,
+	* Month, Day).
+	*
+	* @param {String} id
+	* @param {Date} target
+	* @returns {undefined}
+	*/
+	set: function(id, target) {
+		var year, month, day;
+
+		try {
+			year = $(id + 'Year');
+			month = $(id + 'Month');
+			day = $(id + 'Day');
+		} catch(e) {
+			message = "Impossible de trouver les suffixes Year, Month ou Day pour l'id de champ de date: " + id;
+			console.error(message);
+			return;
+		}
+
+		try {
+			$(year).value = parseInt(target.getFullYear(), 10);
+			$(month).value = pad_left(parseInt(target.getMonth(), 10)+1, 2, 0);
+			$(day).value = pad_left(parseInt(target.getDate(), 10), 2, 0);
+		} catch(e) {
+			message = "Le paramètre target n'est pas une date correcte (type " + typeof target + "): " + target;
+			console.error(message);
+		}
+	},
+	/**
+	* Vérife si les champs ayant le suffixe Year, Month et Day sont vides.
+	*
+	* @param {String} id
+	* @returns {Boolean}
+	*/
+	empty: function(id) {
+		var date = this.get(id);
+		return '' === date.year && '' === date.month && '' === date.day;
+	}
+
+};
