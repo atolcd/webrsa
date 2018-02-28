@@ -122,10 +122,26 @@
 		}
 
 		/**
-		 * Test de la méthode DefaultUtility::linkParams()
-		 *
-		 * @return void
-		 */
+		* Test de la méthode DefaultUtility::evaluate()... @fixme
+		*
+		* @return void
+		*/
+		public function testEvaluateFixme() {
+			$evaluated = "http://www.example.com/#
+
+				#User.lastname#";
+			$result = DefaultUtility::evaluate( $this->data, $evaluated );
+			$expected = "http://www.example.com/#
+
+				bar";
+			$this->assertEquals( $expected, $result, $result );
+		}
+
+		/**
+		* Test de la méthode DefaultUtility::linkParams()
+		*
+		* @return void
+		*/
 		public function testLinkParams() {
 			$evaluated = array(
 				'fuu#User.lastname#baz' => array(

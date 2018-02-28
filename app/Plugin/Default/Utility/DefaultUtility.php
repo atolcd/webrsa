@@ -29,7 +29,7 @@
 		 */
 		public static function evaluateString( array $data, $string ) {
 			if( strpos( $string, '#' ) !== false ) {
-				$pattern = '/("#[^#]+#"|\'#[^#]#\'|#[^#]+#)/';
+				$pattern = '/("#[^#\s]+#"|\'#[^#\s]#\'|#[^#\s]+#)/';
 				if( preg_match_all( $pattern, $string, $out ) ) {
 					$tokens = $out[0];
 					foreach( array_unique( $tokens ) as $token ) {
