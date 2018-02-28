@@ -3843,11 +3843,7 @@ msgid "controllers/Fichesprescriptions93/cancel"
 msgstr "Annulation d'une fiche de positionnement"
 
 msgid "controllers/Cataloguespdisfps93"
-<<<<<<< d6e68e1f082bc1b4363128d1ed2ba7876f338089
-msgstr "Paramétrage du référentiel pour fiches de prescription (CD 93)"
-=======
-msgstr "Paramétrage du référentiel pour fiches de positionnement (CG 93)"
->>>>>>> Correction Wording pour PDI
+msgstr "Paramétrage du référentiel pour fiches de positionnement (CD 93)"
 
 msgid "controllers/Cataloguespdisfps93/search"
 msgstr "Tableau de suivi du référentiel pour fiches de positionnement"
