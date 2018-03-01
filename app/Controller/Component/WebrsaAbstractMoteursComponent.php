@@ -421,18 +421,21 @@
 			);
 
 			// Recherche par Tag / état du Tag
-			$valeurtag_id = '';
-			if (isset ($filters['Tag']['valeurtag_id'])) {
-				$valeurtag_id = $filters['Tag']['valeurtag_id'];
-			}
-			$etat = '';
-			if (isset ($filters['Tag']['etat'])) {
-				$etat = $filters['Tag']['etat'];
-			}
-			$exclusionValeur = isset ($filters['Tag']['exclusionValeur']) ? true : false;
-			$exclusionEtat = isset ($filters['Tag']['exclusionEtat']) ? true : false;
-			if (false === empty($valeurtag_id) || false === empty($etat)) {
-				$query['conditions'][] = ClassRegistry::init('Tag')->sqHasTagValue($valeurtag_id, '"Foyer"."id"', '"Personne"."id"', $etat, $exclusionValeur, $exclusionEtat);
+			// SAUF SI ON TAGUE PAR COHORTE
+			if ($params['configurableQueryFieldsKey'] != 'Tags.cohorte') {
+				$valeurtag_id = '';
+				if (isset ($filters['Tag']['valeurtag_id'])) {
+					$valeurtag_id = $filters['Tag']['valeurtag_id'];
+				}
+				$etat = '';
+				if (isset ($filters['Tag']['etat'])) {
+					$etat = $filters['Tag']['etat'];
+				}
+				$exclusionValeur = isset ($filters['Tag']['exclusionValeur']) ? true : false;
+				$exclusionEtat = isset ($filters['Tag']['exclusionEtat']) ? true : false;
+				if (false === empty($valeurtag_id) || false === empty($etat)) {
+					$query['conditions'][] = ClassRegistry::init('Tag')->sqHasTagValue($valeurtag_id, '"Foyer"."id"', '"Personne"."id"', $etat, $exclusionValeur, $exclusionEtat);
+				}
 			}
 
 			return $query;

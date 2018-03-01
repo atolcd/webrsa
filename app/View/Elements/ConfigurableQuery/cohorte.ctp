@@ -38,12 +38,19 @@
 		$configuredCohorteParams['paginate'] = $paginate;
 	}
 
-	// ATTENTION
-	// voir aussi View/Tags/cohorte.ctp
-	// Les entités des tags sont maintenant définies ici.
-	$configuredCohorteParams['cohorteFields']['data[Cohorte][][EntiteTag][modele]']['options'] = $options['EntiteTag']['modele'];
-	// Pour garder les propositions des tags après avoir enlevé les valeurs de tags possibles.
-	$configuredCohorteParams['cohorteFields']['data[Cohorte][][Tag][valeurtag_id]']['options'] = $options['filter']['Tag']['valeurtag_id'];
+	/**
+	 * ATTENTION
+	 * Voir aussi View/Tags/cohorte.ctp
+	 * Les entités des tags sont maintenant définies ici.
+	 *
+	 * Mais uniquement pour la page de tag en cohorte.
+	 */
+	if ($configurableQueryParams['configurableQueryFieldsKey'] == 'Tags.cohorte') {
+		$configuredCohorteParams['cohorteFields']['data[Cohorte][][EntiteTag][modele]']['options'] = array (
+			__d('tags', 'Cohorte.EntiteTag.personne') => __d('tags', 'Cohorte.EntiteTag.personne'),
+			__d('tags', 'Cohorte.EntiteTag.foyer') => __d('tags', 'Cohorte.EntiteTag.foyer'),
+		);
+	}
 
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
