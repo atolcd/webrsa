@@ -24,6 +24,14 @@
 		echo '<p class="notice">Il n\'existe aucun dossier de cette thématique associé à cette commission d\'EP.</p>';
 	}
 	else {
+?>
+<form action="<?php echo Router::url( array( 'controller' => $controller, 'action' => 'view/'.$commissionep['Commissionep']['id']."#tabbedWrapper,dossiers,Defautinsertionep66" ) );?>" method="post" id="FormRequestmaster">
+<?php
+		$touteslesheuresdepassage = array ();
+		foreach ($dossierseps as $key => $value) {
+			$touteslesheuresdepassage[$value['Passagecommissionep']['id']] = $value['Passagecommissionep']['heureseance'];
+		}
+
 		echo $this->Default2->index(
 			$dossiers[$theme],
 			array(
@@ -35,7 +43,13 @@
 				'Dossierep.created',
 				'Dossierep.themeep',
 				'Passagecommissionep.etatdossierep',
-				'Passagecommissionep.heureseance',
+				'Passagecommissionep.heureseance' => array (
+					'input' => 'heureseance',
+					'type' => 'text',
+					'hidden' => 'Passagecommissionep.id',
+					'dateseance' => $commissionep['Commissionep']['dateseance'],
+					'touteslesheuresdepassage' => $touteslesheuresdepassage,
+				),
 				'Foyer.enerreur' => array( 'type' => 'string', 'sort' => false, 'class' => 'foyer_enerreur' ),
 			),
 			array(
@@ -50,5 +64,9 @@
 			)
 		);
 	}
+?>
+	<?php echo $this->Xform->submit( 'Enregistrer les heures de passage', array ( 'name' => 'enregistreheureseance') );?>
+</form>
+<?php
 	echo "</div>";
 ?>
