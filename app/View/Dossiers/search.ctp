@@ -48,6 +48,7 @@
 		}
 	?>
 </fieldset>
+
 <?php if ($viewTag) { ?>
 	<fieldset>
 		<legend><?php echo __d('dossiers', 'Search.Tag.search_title') ?></legend>

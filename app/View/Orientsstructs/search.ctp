@@ -128,6 +128,7 @@
 	//]]>
 	</script>
 <?php } ?>
+
 	<?php
 	echo '<fieldset><legend>' . __m( 'Orientstruct.search' ) . '</legend>'
 		. $this->Default3->subform(
