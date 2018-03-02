@@ -25,7 +25,7 @@
 	}
 	else {
 ?>
-<form action="<?php echo Router::url( array( 'controller' => $controller, 'action' => 'view/'.$commissionep['Commissionep']['id']."#tabbedWrapper,dossiers,Defautinsertionep66" ) );?>" method="post" id="FormRequestmaster">
+<form action="<?php echo Router::url( array( 'controller' => $controller, 'action' => 'view/'.$commissionep['Commissionep']['id']."/sort:Passagecommissionep.heureseance/direction:asc/#tabbedWrapper,dossiers,Defautinsertionep66" ) );?>" method="post" id="FormRequestmaster">
 <?php
 		$touteslesheuresdepassage = array ();
 		foreach ($dossierseps as $key => $value) {
