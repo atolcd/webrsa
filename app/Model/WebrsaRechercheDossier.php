@@ -223,6 +223,9 @@
 			if ($etat_dossierpcg66 === '0') {
 				$query['conditions'][] = 'NOT ' . ' EXISTS ( ' . $this->Dossier->Foyer->dossiersPCG66 () . ' )';
 			}
+			else if ($etat_dossierpcg66 === '1') {
+				$query['conditions'][] = ' EXISTS ( ' . $this->Dossier->Foyer->dossiersPCG66 () . ' )';
+			}
 
 			// CD 66: Personne ne possédant pas d'orientation et sans entrée Nonoriente66
 			if( $departement === 66 ) {
