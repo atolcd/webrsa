@@ -85,4 +85,15 @@
 		d'insertion, Agence départementale d'insertion dans les DOM.</p>
 	<p>Si le dossier d'une même personne a été réexaminé <em>plusieurs fois</em> au cours de l'année, ne le compter qu'une fois et
 		indiquer uniquement la dernière décision.</p>
+
+	<ul class="actionMenu">
+	<li><?php
+		echo $this->Xhtml->exportLink(
+			'Télécharger le tableau',
+			array( 'action' => 'exportcsv_motifs_reorientation', 'visualisation' ) + Hash::flatten( $this->request->data, '__' ),
+			true
+		);
+	?></li>
+	</ul>
+
 <?php endif; ?>
