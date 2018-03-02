@@ -448,80 +448,85 @@
 									$tabHidden = explode(".", $params['hidden']);
 									$idPassageCommissionEp = $data[$tabHidden[0]][$tabHidden[1]];
 									$hiddenFields .= $this->Xform->input( str_replace( ".", ".$key.", $params['hidden'] ), array( 'label' => false, 'type' => 'hidden', 'value' => $idPassageCommissionEp ));
+									$heureAlerte = '';
 
-									$alertes = Configure::read( 'commissionep.heure.alertes' );
+									if (!is_null ($data['Passagecommissionep']['heureseance'])) {
+										$alertes = Configure::read( 'commissionep.heure.alertes' );
 
-									// Comparaison des heures
-									$heurePassage = new DateTime ($params['dateseance']);
-									$temp = explode(':', $data['Passagecommissionep']['heureseance']);
-									$heurePassage->setTime($temp[0], $temp[1]);
-									$heureEnErreur = false;
+										// Comparaison des heures
+										$heurePassage = new DateTime ($params['dateseance']);
+										$temp = explode(':', $data['Passagecommissionep']['heureseance']);
+										$heurePassage->setTime($temp[0], $temp[1]);
+										$heureEnErreur = false;
 
-									// Comparaison avec l'heure de début
-									if ($alertes['journee.debut']) {
-										$heureDeb = new DateTime ($params['dateseance']);
-										if ($heureDeb->format('H') == 0) {
-											$temp = explode(':', Configure::read( 'commissionep.heure.debut.standard' ));
-											$heureDeb->setTime($temp[0], $temp[1]);
-										}
-										$interval = $heurePassage->diff($heureDeb);
-										if (($interval->h > 0 || $interval->i > 0) && $interval->invert == 0) { // Avant l'heure de début
-											$heureEnErreur = true;
-										}
-									}
-
-									// Comparaison avec l'heure de fin
-									if ($alertes['journee.fin']) {
-										$temp = explode(':', Configure::read( 'commissionep.heure.fin.standard' ));
-										$heureFin = new DateTime ($params['dateseance']);
-										$heureFin->setTime($temp[0], $temp[1]);
-										$interval = $heurePassage->diff($heureFin);
-										if ((($interval->h > 0 || $interval->i > 0) && $interval->invert == 1) // Après l'heure de fin
-											|| ($interval->h == 0 && $interval->i == 0 && $interval->invert == 0)) { // Égal à l'heure de fin
-											$heureEnErreur = true;
-										}
-									}
-
-									// Comparaison avec la pause méridienne
-									if ($alertes['pause.meridienne']) {
-										$temp = Configure::read( 'commissionep.heure.debut.pause.meridienne' );
-										$pauseDeb = new DateTime ($params['dateseance']);
-										$pauseDeb->setTime($temp['heure'], $temp['minute']);
-										$temp = Configure::read( 'commissionep.heure.fin.pause.meridienne' );
-										$pauseFin = new DateTime ($params['dateseance']);
-										$pauseFin->setTime($temp['heure'], $temp['minute']);
-										$diffDeb = $heurePassage->diff ($pauseDeb);
-										$diffFin = $heurePassage->diff ($pauseFin);
-										if (((($diffDeb->h > 0 || $diffDeb->i > 0) && $diffDeb->invert == 1) // Après l'heure de début
-											|| ($diffDeb->h == 0 && $diffDeb->i == 0 && $diffDeb->invert == 0)) // Égal à l'heure de début
-											&& (($diffFin->h > 0 || $diffFin->i > 0) && $diffFin->invert == 0)) { // Avant l'heure de fin
-											$heureEnErreur = true;
-										}
-									}
-
-									// Comparaison avec les autres dates
-									if ($alertes['meme.heure']) {
-										$touteslesheuresdepassage = $params['touteslesheuresdepassage'];
-										foreach ($touteslesheuresdepassage as $keyB => $valueB) {
-											$heureComparee = new DateTime ($params['dateseance']);
-											$temp = explode(':', $valueB);
-											$heureComparee->setTime($temp[0], $temp[1]);
-											$interval = $heurePassage->diff($heureComparee);
-
-											if ($interval->h == 0 && $interval->i == 0 && $interval->invert == 0 // Égal à une heure de passage
-												&& $idPassageCommissionEp != $keyB) { // N'est pas lui-même
+										// Comparaison avec l'heure de début
+										if ($alertes['journee.debut']) {
+											$heureDeb = new DateTime ($params['dateseance']);
+											if ($heureDeb->format('H') == 0) {
+												$temp = explode(':', Configure::read( 'commissionep.heure.debut.standard' ));
+												$heureDeb->setTime($temp[0], $temp[1]);
+											}
+											$interval = $heurePassage->diff($heureDeb);
+											if (($interval->h > 0 || $interval->i > 0) && $interval->invert == 0) { // Avant l'heure de début
 												$heureEnErreur = true;
-												break;
 											}
 										}
+
+										// Comparaison avec l'heure de fin
+										if ($alertes['journee.fin']) {
+											$temp = explode(':', Configure::read( 'commissionep.heure.fin.standard' ));
+											$heureFin = new DateTime ($params['dateseance']);
+											$heureFin->setTime($temp[0], $temp[1]);
+											$interval = $heurePassage->diff($heureFin);
+											if ((($interval->h > 0 || $interval->i > 0) && $interval->invert == 1) // Après l'heure de fin
+												|| ($interval->h == 0 && $interval->i == 0 && $interval->invert == 0)) { // Égal à l'heure de fin
+												$heureEnErreur = true;
+											}
+										}
+
+										// Comparaison avec la pause méridienne
+										if ($alertes['pause.meridienne']) {
+											$temp = Configure::read( 'commissionep.heure.debut.pause.meridienne' );
+											$pauseDeb = new DateTime ($params['dateseance']);
+											$pauseDeb->setTime($temp['heure'], $temp['minute']);
+											$temp = Configure::read( 'commissionep.heure.fin.pause.meridienne' );
+											$pauseFin = new DateTime ($params['dateseance']);
+											$pauseFin->setTime($temp['heure'], $temp['minute']);
+											$diffDeb = $heurePassage->diff ($pauseDeb);
+											$diffFin = $heurePassage->diff ($pauseFin);
+											if (((($diffDeb->h > 0 || $diffDeb->i > 0) && $diffDeb->invert == 1) // Après l'heure de début
+												|| ($diffDeb->h == 0 && $diffDeb->i == 0 && $diffDeb->invert == 0)) // Égal à l'heure de début
+												&& (($diffFin->h > 0 || $diffFin->i > 0) && $diffFin->invert == 0)) { // Avant l'heure de fin
+												$heureEnErreur = true;
+											}
+										}
+
+										// Comparaison avec les autres dates
+										if ($alertes['meme.heure']) {
+											$touteslesheuresdepassage = $params['touteslesheuresdepassage'];
+											foreach ($touteslesheuresdepassage as $keyB => $valueB) {
+												if (!is_null($valueB)) {
+													$heureComparee = new DateTime ($params['dateseance']);
+													$temp = explode(':', $valueB);
+													$heureComparee->setTime($temp[0], $temp[1]);
+													$interval = $heurePassage->diff($heureComparee);
+
+													if ($interval->h == 0 && $interval->i == 0 && $interval->invert == 0 // Égal à une heure de passage
+														&& $idPassageCommissionEp != $keyB) { // N'est pas lui-même
+														$heureEnErreur = true;
+														break;
+													}
+												}
+											}
+										}
+
+										if ($heureEnErreur) {
+											$heureAlerte = 'style="background: #f20000;"';
+										}
+
+										$data['Passagecommissionep']['heureseance'] = substr($data['Passagecommissionep']['heureseance'], 0, -3);
 									}
 
-									$heureAlerte = '';
-									if ($heureEnErreur) {
-										$heureAlerte = 'style="background: #f20000;"';
-									}
-
-									$data['Passagecommissionep']['heureseance'] = substr($data['Passagecommissionep']['heureseance'], 0, -3);
 									$line[] = '<td class="input heureseance">'.$hiddenFields.'<input '.$heureAlerte.' name="data[Passagecommissionep]['.$key.'][heureseance]"  type="text" value="'.$data['Passagecommissionep']['heureseance'].'" id="Passagecommissionep'.$key.'Heureseance"/></td>';
 									break;
 

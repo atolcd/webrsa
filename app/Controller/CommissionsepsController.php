@@ -720,6 +720,9 @@
 								$dataPassagecommissionep['heureseance'] = $temp->format('H:i:s');
 								$passagecommissioneps[$i]['Passagecommissionep']['heureseance'] = $dataPassagecommissionep['heureseance'];
 							}
+							else {
+								$passagecommissioneps[$i]['Passagecommissionep']['heureseance'] = '';
+							}
 							break;
 						}
 					}
