@@ -102,3 +102,6 @@ msgstr "Rechercher par tag"
 
 msgid "Search.Tag.filter_title"
 msgstr "Filtrer par tag"
+
+msgid "Search.Tag.created"
+msgstr "Date d'affectation du tag (attention, ce n'est pas la date butoir)"

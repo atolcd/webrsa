@@ -438,8 +438,15 @@
 				}
 				$exclusionValeur = isset ($filters['Tag']['exclusionValeur']) ? true : false;
 				$exclusionEtat = isset ($filters['Tag']['exclusionEtat']) ? true : false;
-				if (false === empty($valeurtag_id) || false === empty($etat)) {
-					$query['conditions'][] = ClassRegistry::init('Tag')->sqHasTagValue($valeurtag_id, '"Foyer"."id"', '"Personne"."id"', $etat, $exclusionValeur, $exclusionEtat);
+				$createdFrom =  null;
+				$createdTo = null;
+				if (isset ($filters['Tag']['created']) && $filters['Tag']['created'] === '1') {
+					$createdFrom = isset ($filters['Tag']['created_from']) ? $filters['Tag']['created_from'] : null;
+					$createdTo = isset ($filters['Tag']['created_to']) ? $filters['Tag']['created_to'] : null;
+				}
+
+				if (false === empty($valeurtag_id) || false === empty($etat) || false === is_null($createdFrom)) {
+					$query['conditions'][] = ClassRegistry::init('Tag')->sqHasTagValue($valeurtag_id, '"Foyer"."id"', '"Personne"."id"', $etat, $exclusionValeur, $exclusionEtat, $createdFrom, $createdTo);
 				}
 			}
 

@@ -192,9 +192,11 @@
 		 * @param string $etat L'état du tag à traiter, pas de condition si NULL
 		 * @param boolean $exclusionValeur Exclusion des valeurs de tag
 		 * @param boolean $exclusionEtat Exclusion des états de tag
+		 * @param array $createdFrom Date de début de recherche sur la date de création du tag
+		 * @param array $createdTo Date de fin de recherche sur la date de création du tag
 		 * @return string
 		 */
-		public function sqHasTagValue($valeurtag_id, $foyer_id = '"Foyer"."id"', $personne_id = '"Personne"."id"', $etat = 'encours', $exclusionValeur = false, $exclusionEtat = false) {
+		public function sqHasTagValue($valeurtag_id, $foyer_id = '"Foyer"."id"', $personne_id = '"Personne"."id"', $etat = 'encours', $exclusionValeur = false, $exclusionEtat = false, $createdFrom = null, $createdTo = null) {
 			$query = array(
 				'fields' => 'Tag.id',
 				'joins' => array(
@@ -241,6 +243,11 @@
 				} else {
 					$query['conditions']['Tag.etat'] = $etat;
 				}
+			}
+
+			if (!is_null($createdFrom) && !is_null($createdTo)) {
+				$query['conditions']['Tag.created >='] = $createdFrom['year'].'-'.$createdFrom['month'].'-'.$createdFrom['day'].' 00:00:00';
+				$query['conditions']['Tag.created <='] = $createdTo['year'].'-'.$createdTo['month'].'-'.$createdTo['day'].' 23:59:59';
 			}
 
 			$sq = words_replace(
