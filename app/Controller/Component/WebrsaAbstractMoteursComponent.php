@@ -420,9 +420,14 @@
 				$this->Allocataires->configurableConditions($filters, $params)
 			);
 
-			// Recherche par Tag / état du Tag
-			// SAUF SI ON TAGUE PAR COHORTE
-			if ($params['configurableQueryFieldsKey'] != 'Tags.cohorte') {
+			/**
+			 * Recherche par Tag / état du Tag
+			 *
+			 * SAUF SI ON TAGUE PAR COHORTE
+			 * ET
+			 * UNIQUEMENT SI ON RECHERCHE PAR COHORTE
+			 */
+			if ($params['configurableQueryFieldsKey'] != 'Tags.cohorte' && preg_match("|cohorte|", $params['configurableQueryFieldsKey'])) {
 				$valeurtag_id = '';
 				if (isset ($filters['Tag']['valeurtag_id'])) {
 					$valeurtag_id = $filters['Tag']['valeurtag_id'];
