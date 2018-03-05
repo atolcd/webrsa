@@ -123,7 +123,7 @@
 						'Télécharger',
 						array( 'action' => 'download', $fichier['id'] ),
 						array(
-							'enabled' => $this->Permissions->_checkPermissions(
+							'enabled' => $this->_checkPermissions(
 								$this->request->params['controller']
 							),
 						 )
@@ -131,7 +131,7 @@
 					$return .= '<td>'.$this->Xhtml->link(
 						'Supprimer',
 						array( 'controller' => 'fichiersmodules', 'action' => 'delete', $fichier['id'], $fichier['name'] ),
-						array( 'enabled' => $this->Permissions->_checkPermissions(
+						array( 'enabled' => $this->_checkPermissions(
 								'fichiersmodules',
 								'delete'
 							)
@@ -162,7 +162,7 @@
 			$datasFichiermodule = Set::classicExtract( $datas, 'Fichiermodule' );
 			$haspiecejointeDefault = ( ( count( $fichiers ) + count( $datasFichiermodule ) ) > 0 );
 
-			$permissionForm = $this->Permissions->_checkPermissions( $this->request->params['controller'], 'ajaxfileupload');
+			$permissionForm = $this->_checkPermissions( $this->request->params['controller'], 'ajaxfileupload');
 
 			$return = $this->Form->create( $modelName, array( 'type' => 'post', 'id' => $formId, 'novalidate' => true ) );
 			if( $permissionForm ) {
