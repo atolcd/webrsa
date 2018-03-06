@@ -200,6 +200,10 @@
 				}
 
 				if( $departement == 93 ) {
+					$subAllocataire['Accompagnement du parcours']['Accès à l\'emploi en cours d\'accompagnement'] = array(
+						'url' => array( 'controller' => 'questionnairesb7pdvs93', 'action' => 'index', $personne['id'] )
+					);
+
 					$subAllocataire['Accompagnement du parcours']['Questionnaires D1'] = array(
 						'url' => array( 'controller' => 'questionnairesd1pdvs93', 'action' => 'index', $personne['id'] )
 					);

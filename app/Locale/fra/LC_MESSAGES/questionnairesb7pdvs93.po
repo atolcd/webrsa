@@ -1,0 +1,87 @@
+# Traductions de questionnairesb7pdvs93.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+# Titres
+
+msgid "/Questionnairesb7pdvs93/index/:heading"
+msgstr "Accès à l'emploi en cours d'accompagnement de #Personne.qual# #Personne.nom# #Personne.prenom#"
+
+msgid "/Questionnairesb7pdvs93/add/:heading"
+msgstr "Ajout - Accès à l'emploi en cours d'accompagnement de #Personne.qual# #Personne.nom# #Personne.prenom#"
+
+msgid "/Questionnairesb7pdvs93/edit/:heading"
+msgstr "Modification - Accès à l'emploi en cours d'accompagnement de #Personne.qual# #Personne.nom# #Personne.prenom#"
+
+msgid "/Questionnairesb7pdvs93/add"
+msgstr "Ajouter"
+
+# ==============================================================================
+# Rome V3
+
+msgid "Expproromev3"
+msgstr "L'emploi occupé (ROME V3)"
+
+msgid "Expproromev3.romev3"
+msgstr "Recherche rapide"
+
+msgid "Expproromev3.familleromev3_id"
+msgstr "Code famille"
+
+msgid "Expproromev3.domaineromev3_id"
+msgstr "Code domaine"
+
+msgid "Expproromev3.metierromev3_id"
+msgstr "Code métier"
+
+msgid "Expproromev3.appellationromev3_id"
+msgstr "Appellation métier"
+
+# ==============================================================================
+# Questionnaire
+
+msgid "Questionnaireb7pdv93.dureeemploi"
+msgstr "Durée de l'emploi"
+
+msgid "Questionnaireb7pdv93.typeemploi"
+msgstr "Type de l'emploi"
+
+msgid "Questionnaireb7pdv93.dateemploi"
+msgstr "Date d'embauche"
+
+msgid "Appellationromev3.name"
+msgstr "Appellation métier"
+
+msgid "Dureeemploi.name"
+msgstr "Durée de l'emploi"
+
+msgid "Typeemploi.name"
+msgstr "Type de l'emploi"
+
+msgid "Questionnaireb7pdv93.created"
+msgstr "Date de création"
+
+msgid "Questionnaireb7pdv93.modified"
+msgstr "Date de modification"
+
+msgid "Questionnaireb7pdv93.generalites"
+msgstr "Généralités"
+
+# ==============================================================================
+# Actions
+
+msgid "/Questionnairesb7pdvs93/edit"
+msgstr "Modifier"
+
+msgid "/Questionnairesb7pdvs93/delete"
+msgstr "Supprimer"
+
+msgid "/Questionnairesb7pdvs93/delete/#Questionnaireb7pdv93.id# ?"
+msgstr "Cette action supprimera définitivement cet enregistrement. Voulez-vous continuer ?"

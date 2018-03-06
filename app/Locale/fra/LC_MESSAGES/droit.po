@@ -4053,9 +4053,27 @@ msgstr "Visualisation du didacticiel"
 ###############################################################################
 ## Créances alimentaires
 ###############################################################################
-
 msgid "controllers/Creancesalimentaires"
 msgstr "Paramétrage des Créances Alimentaires"
 
 msgid "controllers/Creancesalimentaires/index"
 msgstr "Visualisation des Créances Alimentaires"
+
+###############################################################################
+## Questionniare B7
+###############################################################################
+msgid "controllers/Questionnairesb7pdvs93"
+msgstr "Module : Accès à l'emploi en cours d'accompagnement (CD 93)"
+
+msgid "controllers/Questionnairesb7pdvs93/index"
+msgstr "Liste des accès à l'emploi"
+
+msgid "controllers/Questionnairesb7pdvs93/add"
+msgstr "Ajout d'un accès à l'emploi"
+
+msgid "controllers/Questionnairesb7pdvs93/delete"
+msgstr "Suppression d'un accès à l'emploi"
+
+msgid "controllers/Questionnairesb7pdvs93/edit"
+msgstr "Modification d'un accès à l'emploi"
+

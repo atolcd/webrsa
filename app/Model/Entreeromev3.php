@@ -108,6 +108,14 @@
 				'order' => null,
 				'dependent' => false
 			),
+			'Expproromev3' => array(
+				'className' => 'Questionnaireb7pdv93',
+				'foreignKey' => 'expproromev3_id',
+				'conditions' => null,
+				'fields' => null,
+				'order' => null,
+				'dependent' => false
+			),
 			'Expprocer93' => array(
 				'className' => 'Expprocer93',
 				'foreignKey' => 'entreeromev3_id',
