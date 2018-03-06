@@ -335,7 +335,7 @@
 		protected function _setOptions() {
 			$options = $this->Tag->enums();
 
-			$results = $this->Tag->Valeurtag->find('all', array(
+			$query = array(
 				'fields' => array(
 					'Categorietag.name',
 					'Valeurtag.id',
@@ -344,7 +344,13 @@
 				'joins' => array(
 					$this->Tag->Valeurtag->join('Categorietag')
 				),
-			));
+			);
+
+			if (!is_null(Configure::read( 'tag.affichage.actif.attribution' ))) {
+				$query['conditions']['Valeurtag.actif'] = Configure::read( 'tag.affichage.actif.attribution' );
+			}
+
+			$results = $this->Tag->Valeurtag->find('all', $query);
 
 			foreach ($results as $value) {
 				$categorie = Hash::get($value, 'Categorietag.name') ? Hash::get($value, 'Categorietag.name') : 'Sans catégorie';

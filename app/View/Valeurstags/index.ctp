@@ -5,6 +5,7 @@
 			'cells' => array(
 				'Valeurtag.name',
 				'Categorietag.name',
+				'Valeurtag.actif' => array( 'type' => 'boolean' ),
 				'/Valeurstags/edit/#Valeurtag.id#' => array(
 					'title' => true
 				),

@@ -263,8 +263,8 @@
 		 *
 		 * @return array
 		 */
-		public function getValeursTag($options) {
-			$results = $this->Valeurtag->find('all', array(
+		public function getValeursTag($options, $actif = null) {
+			$query = array(
 				'fields' => array(
 					'Categorietag.name',
 					'Valeurtag.id',
@@ -273,7 +273,13 @@
 				'joins' => array(
 					$this->Valeurtag->join('Categorietag')
 				),
-			));
+			);
+
+			if (!is_null(Configure::read( 'tag.affichage.actif.recherche' ))) {
+				$query['conditions']['Valeurtag.actif'] = Configure::read( 'tag.affichage.actif.recherche' );
+			}
+
+			$results = $this->Valeurtag->find('all', $query);
 
 			foreach ($results as $value) {
 				$categorie = Hash::get($value, 'Categorietag.name') ? Hash::get($value, 'Categorietag.name') : 'Sans catégorie';

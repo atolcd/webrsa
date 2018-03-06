@@ -54,10 +54,6 @@
 				)
 			);
 
-			$Controller->loadModel( 'Tag' );
-			$result['Tag']['etat'] = $Controller->Tag->enum( 'etat' );
-			$result = $Controller->Tag->getValeursTag($result);
-
 			return $result;
 		}
 

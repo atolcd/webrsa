@@ -96,7 +96,7 @@
 			}
 
 			// Valeur tag / catégorie
-			$results = $this->Tag->Valeurtag->find('all', array(
+			$query = array(
 				'fields' => array(
 					'Categorietag.name',
 					'Valeurtag.id',
@@ -105,7 +105,13 @@
 				'joins' => array(
 					$this->Tag->Valeurtag->join('Categorietag')
 				),
-			));
+			);
+
+			if (!is_null(Configure::read( 'tag.affichage.actif.recherche' ))) {
+				$query['conditions']['Valeurtag.actif'] = Configure::read( 'tag.affichage.actif.recherche' );
+			}
+
+			$results = $this->Tag->Valeurtag->find('all', $query);
 
 			foreach ($results as $value) {
 				$categorie = Hash::get($value, 'Categorietag.name') ?: 'Sans catégorie';
