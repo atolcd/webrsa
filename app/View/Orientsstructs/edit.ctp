@@ -48,7 +48,18 @@
 		);
 	}
 
+	/**
+	 * Orientation externe par prestataire pour le CD 93 uniquement
+	 * On ne veut proposer que les origines des prestataires
+	 */
+	foreach ($options['Orientstruct']['origine'] as $key => $value) {
+		if (!preg_match('|^presta|', $key)) {
+			unset ($options['Orientstruct']['origine'][$key]);
+		}
+	}
+
 	$fields = array(
+		'Orientstruct.origine' => ( $departement == 93 ? array( 'empty' => true, 'label' => __d ('orientstruct', 'Orientstruct.origine.externe') ) : array(  'label' =>  false, 'type' => 'hidden', 'value' => '' ) ),
 		'Orientstruct.typeorient_id' => array( 'empty' => true ),
 		'Orientstruct.structurereferente_id' => array( 'empty' => true, 'label' => ( $departement == 93 ? 'Structure référente' : 'Type de structure' ) ),
 		'Orientstruct.referent_id' => array( 'empty' => true, 'required' => false, 'label' => 'Nom du référent' ),

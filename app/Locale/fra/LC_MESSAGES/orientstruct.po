@@ -90,6 +90,15 @@ msgstr "Réorientation"
 msgid "ENUM::ORIGINE::demenagement"
 msgstr "Transfert de PDV"
 
+msgid "ENUM::ORIGINE::prestadiagno"
+msgstr "Orientation prestataire diagnostic"
+
+msgid "ENUM::ORIGINE::prestadefaut"
+msgstr "Orientation prestataire par défaut"
+
+msgid "Orientstruct.origine.externe"
+msgstr "Orientation externe"
+
 # statut_orient
 msgid "ENUM::STATUT_ORIENT::Orienté"
 msgstr "Orienté"

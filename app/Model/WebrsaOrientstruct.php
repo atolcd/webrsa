@@ -863,6 +863,11 @@
 			else if( $departement === 93 && Hash::get( $data, 'NvOrientstruct.origine' ) === 'demenagement' ) {
 				return $this->Orientstruct->Transfertpdv93->modeleOdt( $data );
 			}
+			// Au CD 93, si l'orientation est une orientation externe faite par un prestataire,
+			// if faut tenir compte de l'origine de l'orientation pour définir le fichier odt.
+			else if( $departement === 93 && preg_match('|^presta|', $data['Orientstruct']['origine'])) {
+				return "Orientation/{$data['Typeorient']['modele_notif']}_{$data['Orientstruct']['origine']}.odt";
+			}
 
 			return "Orientation/{$data['Typeorient']['modele_notif']}.odt";
 		}

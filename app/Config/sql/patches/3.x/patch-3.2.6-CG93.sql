@@ -32,6 +32,56 @@ CREATE UNIQUE INDEX thematiquesfps93_type_name_idx
   (type, name, yearthema);
 
 
+ALTER TABLE orientsstructs DROP CONSTRAINT orientsstructs_origine_check;
+ALTER TABLE orientsstructs
+  ADD CONSTRAINT orientsstructs_origine_check CHECK
+	(
+	origine IS NULL
+	AND date_valid IS NULL
+
+	OR
+
+	origine IS NOT NULL
+	AND date_valid IS NOT NULL
+	AND
+		(
+		rgorient = 1
+		AND (origine::text = ANY (
+			ARRAY[
+				'manuelle'::character varying::text,
+				'cohorte'::character varying::text,
+				'prestadiagno'::character varying::text,
+				'prestadefaut'::character varying::text
+			]))
+
+		OR
+
+		rgorient > 1
+		AND origine::text = 'reorientation'::text
+
+		OR
+
+		rgorient > 1
+		AND origine::text = 'demenagement'::text
+		)
+	);
+
+ALTER TABLE orientsstructs DROP CONSTRAINT orientsstructs_origine_in_list_chk;
+ALTER TABLE orientsstructs
+  ADD CONSTRAINT orientsstructs_origine_in_list_chk CHECK
+	(
+	cakephp_validate_in_list
+		(
+		origine::text,
+		ARRAY[
+			'manuelle'::text,
+			'cohorte'::text,
+			'reorientation'::text,
+			'demenagement'::text,
+			'prestadiagno'::text,
+			'prestadefaut'::text
+		]));
+
 -- *****************************************************************************
 COMMIT;
 SELECT NOW();
