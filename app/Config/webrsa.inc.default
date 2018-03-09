@@ -885,6 +885,11 @@
 	);
 
 	/**
+	 * Afficher heure de passage par défaut
+	 */
+	Configure::write( 'commissionep.heure.par.defaut', true );
+
+	/**
 	 * Récupération du fichier de config propre au département
 	 */
 	require_once ('webrsa.cg'.Configure::read( 'Cg.departement' ).'.inc');

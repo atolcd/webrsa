@@ -386,24 +386,29 @@
 			}
 
 			for ($i = 0; $i < $nbPassagecommissioneps; $i++) {
-				$passagecommissioneps[$i]['Passagecommissionep']['heureseance'] = $dateseance->format ('H:i:00');
-				$passagecommissioneps[$i] = $passagecommissioneps[$i]['Passagecommissionep'];
+				if (Configure::read( 'commissionep.heure.par.defaut' )) {
+					$passagecommissioneps[$i]['Passagecommissionep']['heureseance'] = $dateseance->format ('H:i:00');
+					$passagecommissioneps[$i] = $passagecommissioneps[$i]['Passagecommissionep'];
 
-				if ($nbAllocataireParLot == $numeroAllocataireLot++) {
-					$dateseance->add (new DateInterval('PT'. Configure::read( 'commissionep.heure.ecart.minute' ) .'M'));
-					$numeroAllocataireLot = 1;
-				}
-
-				// On teste si la date de séance tombera pendant la pause méridienne.
-				if (is_array (Configure::read( 'commissionep.heure.debut.pause.meridienne' ))) {
-					$diffDeb = $dateseance->diff ($pauseMeridienneDeb);
-					$diffFin = $dateseance->diff ($pauseMeridienneFin);
-
-					if (((($diffDeb->h > 0 || $diffDeb->i > 0) && $diffDeb->invert == 1) // Après l'heure de début
-						|| ($diffDeb->h == 0 && $diffDeb->i == 0 && $diffDeb->invert == 0)) // Égal à l'heure de début
-						&& (($diffFin->h > 0 || $diffFin->i > 0) && $diffFin->invert == 0)) { // Avant l'heure de fin
-						$dateseance = $pauseMeridienneFin;
+					if ($nbAllocataireParLot == $numeroAllocataireLot++) {
+						$dateseance->add (new DateInterval('PT'. Configure::read( 'commissionep.heure.ecart.minute' ) .'M'));
+						$numeroAllocataireLot = 1;
 					}
+
+					// On teste si la date de séance tombera pendant la pause méridienne.
+					if (is_array (Configure::read( 'commissionep.heure.debut.pause.meridienne' ))) {
+						$diffDeb = $dateseance->diff ($pauseMeridienneDeb);
+						$diffFin = $dateseance->diff ($pauseMeridienneFin);
+
+						if (((($diffDeb->h > 0 || $diffDeb->i > 0) && $diffDeb->invert == 1) // Après l'heure de début
+							|| ($diffDeb->h == 0 && $diffDeb->i == 0 && $diffDeb->invert == 0)) // Égal à l'heure de début
+							&& (($diffFin->h > 0 || $diffFin->i > 0) && $diffFin->invert == 0)) { // Avant l'heure de fin
+							$dateseance = $pauseMeridienneFin;
+						}
+					}
+				}
+				else {
+					$passagecommissioneps[$i]['Passagecommissionep']['heureseance'] = '';
 				}
 			}
 
