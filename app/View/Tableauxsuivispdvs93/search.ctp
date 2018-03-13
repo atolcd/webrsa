@@ -157,6 +157,7 @@
 			echo $this->Default3->subform(
 				array(
 					'Search.typethematiquefp93_id' => array( 'type' => 'select', 'empty' => true ),
+					'Search.yearthematiquefp93_id' => array( 'type' => 'select', 'empty' => true ),
 					'Search.rdv_structurereferente' => array( 'type' => 'checkbox' )
 				),
 				array(

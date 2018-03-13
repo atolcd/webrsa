@@ -1,6 +1,5 @@
 <?php
 	require_once  dirname( __FILE__ ).DS.'search.ctp' ;
-
 	if( isset( $results ) ) {
 		$totaux = $results['totaux'];
 		$results = $results['results'];

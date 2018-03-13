@@ -50,6 +50,9 @@ msgstr "Tableau de bord"
 msgid "Search.typethematiquefp93_id"
 msgstr "Type d'action"
 
+msgid "Search.yearthematiquefp93_id"
+msgstr "Année du réferentiel des thématiques"
+
 msgid "Search.rdv_structurereferente"
 msgstr "Dont le bénéficiaire possède au moins un rendez-vous individuel honoré dans l'année"
 

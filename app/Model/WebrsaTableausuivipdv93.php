@@ -46,7 +46,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Tableausuivipdv93', 'User' );
+		public $uses = array( 'Tableausuivipdv93', 'Thematiquefp93','User' );
 
 		/**
 		 * Liste des filtres acceptés en fonction du tableau.
@@ -81,6 +81,7 @@
 				'Search.structurereferente_id',
 				'Search.referent_id',
 				'Search.typethematiquefp93_id',
+				'Search.yearthematiquefp93_id',
 				'Search.rdv_structurereferente',
 			),
 			'tableau1b5' => array(
@@ -89,6 +90,7 @@
 				'Search.structurereferente_id',
 				'Search.referent_id',
 				'Search.typethematiquefp93_id',
+				'Search.yearthematiquefp93_id',
 				'Search.rdv_structurereferente',
 			),
 			'tableau1b6' => array(
@@ -1855,6 +1857,13 @@
 				$conditiontype = $Dbo->conditions( array( 'Thematiquefp93.type' => $typethematiquefp93_id ), true, false );
 			}
 
+			// Filtre sur l'année de l'action
+			$conditionyear = null;
+			$yearthematiquefp93_id = Hash::get( $search, 'Search.yearthematiquefp93_id' );
+			if( !empty( $yearthematiquefp93_id ) ) {
+				$conditionyear = $Dbo->conditions( array( 'Thematiquefp93.yearthema' => $yearthematiquefp93_id ), true, false );
+			}
+
 			// Filtre sur le RDV individuel
 			$conditionsrdv = $this->_conditionsFicheprescription93Rendezvous( $search, 'AND' );
 			if( $conditionsrdv !== null ) {
@@ -1879,7 +1888,8 @@
 					$this->_conditionStructurereferenteIsPdv( 'Referent.structurereferente_id' ),
 					$conditionpdv,
 					$conditionsrdv,
-					$conditiontype
+					$conditiontype,
+					$conditionyear
 				),
 				'contain' => false
 			);
@@ -1925,7 +1935,6 @@
 			$Ficheprescription93 = ClassRegistry::init( 'Ficheprescription93' );
 
 			$base = $this->qdTableau1b4( $search );
-
 			// Ajout des libellés des catégories et des thématiques
 			$Dbo = $this->Tableausuivipdv93->getDataSource();
 			$categories = $this->_tableau1b41b5Categories( 'tableau1b4', $search );
@@ -2340,6 +2349,7 @@
 				$categories = (array)Configure::read( "Tableausuivi93.{$tableau}.categories" );
 
 				$typethematiquefp93_id = Hash::get( $search, 'Search.typethematiquefp93_id' );
+				$yearthematiquefp93_id = Hash::get( $search, 'Search.yearthematiquefp93_id' );
 
 				$Thematiquefp93 = ClassRegistry::init( 'Thematiquefp93' );
 				$Dbo = $this->Tableausuivipdv93->getDataSource();
@@ -2369,8 +2379,12 @@
 							$query['conditions']['Thematiquefp93.type'] = $typethematiquefp93_id;
 						}
 
-						$sql = $Thematiquefp93->sq( $query );
+						// Ajout de condition si nécessaire
+						if( $yearthematiquefp93_id !== null ) {
+							$query['conditions']['Thematiquefp93.yearthema'] = $yearthematiquefp93_id;
+						}
 
+						$sql = $Thematiquefp93->sq( $query );
 						$thematique = Sanitize::clean( $thematiqueName, array( 'encode' => false ) );
 						$categorie = Sanitize::clean( $categorieName, array( 'encode' => false ) );
 
@@ -2378,7 +2392,6 @@
 						$unions[] = $sql;
 					}
 				}
-
 				$results = $Dbo->query( implode( ' UNION ', $unions ) );
 				foreach( $results as $result ) {
 					if( empty( $result[$modelName]['exists'] ) ) {
@@ -2388,8 +2401,6 @@
 						}
 					}
 				}
-
-
 				$this->{$attribute} = $categories;
 			}
 
@@ -2408,9 +2419,9 @@
 		protected function _tableau1b5Results( array $search ) {
 			$Ficheprescription93 = ClassRegistry::init( 'Ficheprescription93' );
 			$base = $this->_qdTableau1b41b5( $search, 'tableau1b5' );
-
 			// Ajout des libellés des catégories et des thématiques
 			$Dbo = $this->Tableausuivipdv93->getDataSource();
+
 			$categories = $this->_tableau1b41b5Categories( 'tableau1b5', $search );
 
 			$vFields = array(
@@ -3676,6 +3687,19 @@
 				'acteurs' => $this->acteurs(),
 				'Tableausuivipdv93' => array( 'name' => $this->tableaux )
 			);
+
+			// Get liste des années
+			$query = array(
+				'fields' => array(
+					' DISTINCT "Thematiquefp93"."yearthema" ' ,
+				),
+				'conditions' => array(
+				),
+				'order' => array(
+				)
+			);
+			$results = $this->Thematiquefp93->find( 'all', $query );
+			$options['Search']['yearthematiquefp93_id'] = Hash::combine( $results, '{n}.Thematiquefp93.yearthema', '{n}.Thematiquefp93.yearthema' );
 
 			return $options;
 		}
