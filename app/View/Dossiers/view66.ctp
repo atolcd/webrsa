@@ -488,8 +488,8 @@
 				</tr>
 				<tr class="odd">
 					<th>Type de CUI</th>
-					<td><?php echo Set::enum( Set::classicExtract( $details, 'DEM.Cui66.typeformulaire' ), $enumcui['Cui66']['typeformulaire'] );?></td>
-					<td><?php echo Set::enum( Set::classicExtract( $details, 'CJT.Cui66.typeformulaire' ), $enumcui['Cui66']['typeformulaire'] );?></td>
+					<td><?php echo Set::enum( Set::classicExtract( $details, 'DEM.Cui66.typecontrat' ), $enumcui['Typecontratcui66'] );?></td>
+					<td><?php echo Set::enum( Set::classicExtract( $details, 'CJT.Cui66.typecontrat' ), $enumcui['Typecontratcui66'] );?></td>
 				</tr>
 				<tr class="even">
 					<th>Décision</th>
