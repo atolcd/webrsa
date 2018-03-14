@@ -132,11 +132,14 @@
 
 			// à intégrer à la fonction view pour ne pas avoir d'énormes variables
 			if( $this->action == 'view' ) {
+				// Ajout du type de contrat
+				$this->loadModel('Typecontratcui66');
 				$this->set( 'numcontrat', (array)Hash::get( $this->Dossier->Foyer->Personne->Contratinsertion->enums(), 'Contratinsertion' ) );
 				$this->set( 'enumcui', array_merge(
 					$this->Dossier->Foyer->Personne->Cui->enums(),
 					$this->Dossier->Foyer->Personne->Cui->Cui66->enums(),
-					$this->Dossier->Foyer->Personne->Cui->Cui66->Decisioncui66->enums()
+					$this->Dossier->Foyer->Personne->Cui->Cui66->Decisioncui66->enums(),
+					array ('Typecontratcui66' => $this->Typecontratcui66->find ('list'))
 				));
 				$this->set( 'etatpe', (array)Hash::get( $this->Informationpe->Historiqueetatpe->enums(), 'Historiqueetatpe' ) );
 				$this->set( 'relance', (array)Hash::get( $this->Dossier->Foyer->Personne->Orientstruct->Nonrespectsanctionep93->enums(), 'Nonrespectsanctionep93' ) );
@@ -783,7 +786,7 @@
                        )
                    );
                    $personnesFoyer[$index]['Bilanparcours66']['dernier'] = $tBilanparcours66;
-//    debug($details);
+
                     if( !empty( $tBilanparcours66 ) ){
                         $tDossierpcg66 = $this->Dossier->Foyer->Personne->Bilanparcours66->Dossierpcg66->find(
                             'first',
