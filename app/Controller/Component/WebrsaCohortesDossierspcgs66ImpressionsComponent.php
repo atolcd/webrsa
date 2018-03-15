@@ -213,7 +213,10 @@
 
 			if (!empty($traitementspcgs66_ids)) {
 				$success = $Controller->Dossierpcg66->Personnepcg66->Traitementpcg66->updateAllUnbound(
-					array( 'etattraitementpcg' => "'attente'" ),
+					array(
+						'etattraitementpcg' => "'attente'",
+						'imprimer' => 0
+					),
 					array( 'id' => $traitementspcgs66_ids )
 				);
 			}

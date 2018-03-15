@@ -1185,9 +1185,24 @@
 
 			$imprimer = (int)!Hash::get( $oldImprimer, 'Traitementpcg66.imprimer' );
 			$ancienetatpcg = Hash::get( $oldImprimer, 'Traitementpcg66.etattraitementpcg' );
+			/*
 			$etattraitementpcg = $imprimer === 1 && $ancienetatpcg === "contrôler" ? "'imprimer'"
 				: ($imprimer === 0 && $ancienetatpcg === "imprimer" ? "'contrôler'" : "'".$ancienetatpcg."'")
 			;
+			*/
+			$etattraitementpcg = '\''.$ancienetatpcg.'\'';
+			if ($imprimer === 1 && $ancienetatpcg === "contrôler") {
+				$etattraitementpcg = '\'imprimer\'';
+			}
+			elseif ($imprimer === 0 && $ancienetatpcg === "imprimer") {
+				$etattraitementpcg = '\'contrôler\'';
+			}
+			elseif ($imprimer === 1 && $ancienetatpcg === "attente") {
+				$etattraitementpcg = '\'imprimer\'';
+			}
+			elseif ($imprimer === 0 && $ancienetatpcg === "attente") {
+				$etattraitementpcg = '\'contrôler\'';
+			}
 
 			// Pour éviter de passer dans beforeValidate() qui ajoute des champs à valeur NULL
 			$success = $this->Traitementpcg66->updateAllUnbound(
