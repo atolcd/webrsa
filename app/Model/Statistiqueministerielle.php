@@ -1578,8 +1578,8 @@
 			else {
 				$type = true === $soumisDd ? 'INNER' : 'LEFT OUTER';
 
-				$query['joins'][] = $Dossier->join( 'Situationdossierrsa', array( 'type' => $type ) );
-				$query['joins'][] = $Dossier->Foyer->Personne->join( 'Calculdroitrsa', array( 'type' => $type ) );
+				//$query['joins'][] = $Dossier->join( 'Situationdossierrsa', array( 'type' => $type ) );
+				//$query['joins'][] = $Dossier->Foyer->Personne->join( 'Calculdroitrsa', array( 'type' => $type ) );
 
 				if( null !== $soumisDd ) {
 					if( true === $soumisDd ) {
