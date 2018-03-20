@@ -107,6 +107,14 @@
 				'order' => null,
 				'counterCache' => null
 			),
+			'Emploiromev3' => array(
+				'className' => 'Entreeromev3',
+				'foreignKey' => 'emploiromev3_id',
+				'conditions' => null,
+				'fields' => null,
+				'order' => null,
+				'counterCache' => null
+			),
 		);
 
 
@@ -390,10 +398,20 @@
 					'conditions' => array(
 						"{$this->alias}.id" => $id
 					),
-					'contain' => false
+					'contain' => array(
+						'Emploiromev3'
+					),
 				);
 
 				$formData = $this->find( 'first', $querydata );
+
+				// Rome V3
+				$data = array ();
+				$data['familleromev3_id'] = $formData['Emploiromev3']['familleromev3_id'];
+				$data['domaineromev3_id'] = $formData['Emploiromev3']['familleromev3_id'].'_'.$formData['Emploiromev3']['domaineromev3_id'];
+				$data['metierromev3_id'] = $formData['Emploiromev3']['domaineromev3_id'].'_'.$formData['Emploiromev3']['metierromev3_id'];
+				$data['appellationromev3_id'] = $formData['Emploiromev3']['metierromev3_id'].'_'.$formData['Emploiromev3']['appellationromev3_id'];
+				$formData['Emploiromev3'] = $data;
 			}
 			else {
 				$formData[$this->alias]['personne_id'] = $personne_id;
@@ -479,6 +497,41 @@
 			}
 
 			return $options;
+		}
+
+		/**
+		 * Sauvegarde du questionnaire B7 d'un allocataire.
+		 *
+		 * @param integer $personne_id L'id de la personne traitée.
+		 * @param array $data Les données renvoyées par le formulaire B7
+		 *	(Questionnaireb7pdv93)
+		 * @return boolean
+		 */
+		public function getEmploiromev3Id( array $data ) {
+			if (!empty ($data['Emploiromev3']['appellationromev3_id'])) {
+				$domaineromev3_id = explode("_", $data['Emploiromev3']['domaineromev3_id']);
+				$metierromev3_id = explode("_", $data['Emploiromev3']['metierromev3_id']);
+				$appellationromev3_id = explode("_", $data['Emploiromev3']['appellationromev3_id']);
+
+				$this->loadModel('Entreeromev3');
+				$entreeromev3 = $this-> Entreeromev3->find (
+					'first',
+					array (
+						'conditions' => array (
+							'familleromev3_id' => $data['Emploiromev3']['familleromev3_id'],
+							'domaineromev3_id' => $domaineromev3_id[1],
+							'metierromev3_id' => $metierromev3_id[1],
+							'appellationromev3_id' => $appellationromev3_id[1],
+						),
+					)
+				);
+
+				if (isset ($entreeromev3['Entreeromev3'])) {
+					return $entreeromev3['Entreeromev3']['id'];
+				}
+			}
+
+			return null;
 		}
 	}
 ?>

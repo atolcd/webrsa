@@ -36,6 +36,13 @@
 		public $uses = array( 'Questionnaired2pdv93' );
 
 		/**
+		 * Liste des alias vers Entreeromev3
+		 *
+		 * @var array
+		 */
+		public $romev3LinkedModels = array('Emploiromev3');
+
+		/**
 		 * Ajoute les virtuals fields pour permettre le controle de l'accès à une action
 		 *
 		 * @todo
@@ -44,7 +51,6 @@
 		 * @return type
 		 */
 		public function completeVirtualFieldsForAccess(array $query = array(), array $params = array()) {
-			$query['fields'][] = 'Rendezvous.structurereferente_id';
 			return $query;
 		}
 
@@ -100,5 +106,35 @@
 		public function ajoutPossible( $personne_id, $messages = null ) {
 			$status = $this->Questionnaired2pdv93->statusQuestionnaireD2( $personne_id );
 			return $status['button'];
-		}	}
+		}
+
+		/**
+		 * Retourne les options à utiliser dans le moteur de recherche, le
+		 * formulaire d'ajout / de modification, etc.. suivant le CG connecté.
+		 *
+		 * @param array $params
+		 * @return array
+		 */
+		public function options( array $params = array() ) {
+			$params = $params + array( 'find' => true, 'allocataire' => false, 'alias' => 'Questionnaired2pdv93', 'enums' => true );
+
+			$cacheKey = Inflector::underscore( $this->Questionnaired2pdv93->useDbConfig ).'_'.Inflector::underscore( $this->Questionnaired2pdv93->alias ).'_'.Inflector::underscore( __FUNCTION__ ).'_'.sha1( serialize( $params ) );
+			$return = Cache::read( $cacheKey );
+
+			if( $return === false ) {
+				$return = array();
+
+				if( $params['find'] ) {
+					foreach( $this->romev3LinkedModels as $alias ) {
+						$return = Hash::merge(
+							$return,
+							$this->Questionnaired2pdv93->{$alias}->options()
+						);
+					}
+				}
+			}
+
+			return $return;
+		}
+	}
 ?>

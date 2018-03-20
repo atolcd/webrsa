@@ -62,7 +62,8 @@
 				'url' => array( 'controller' => 'cataloguesromesv3', 'action' => 'ajax_appellation' ),
 				'required' => false,
 				'prefix' => null,
-				'multi_domain_translator' => false
+				'multi_domain_translator' => false,
+				'disabled' => false
 			);
 			$params = $this->addClass( $params, 'romev3' );
 
@@ -79,12 +80,12 @@
 
 				$return .= $this->Default3->subform(
 					array(
-						$ajaxFieldPath => array( 'type' => 'text', 'required' => false, 'label' => ( $params['multi_domain_translator'] ? __m( $ajaxFieldPath ) : null ) ),
+						$ajaxFieldPath => array( 'disabled' => $params['disabled'], 'type' => 'text', 'required' => false, 'label' => ( $params['multi_domain_translator'] ? __m( $ajaxFieldPath ) : null ) ),
 						"{$prefix}{$modelName}.id" => array( 'type' => 'hidden' ),
-						"{$prefix}{$modelName}.familleromev3_id" => array( "options" => $params['options'][$modelName]["familleromev3_id"], 'empty' => true, 'required' => $params['required'], 'label' => ( $params['multi_domain_translator'] ? __m( "{$prefix}{$modelName}.familleromev3_id" ) : null ) ),
-						"{$prefix}{$modelName}.domaineromev3_id" => array( "options" => $params['options'][$modelName]["domaineromev3_id"], 'empty' => true, 'required' => $params['required'], 'label' => ( $params['multi_domain_translator'] ? __m( "{$prefix}{$modelName}.domaineromev3_id" ) : null ) ),
-						"{$prefix}{$modelName}.metierromev3_id" => array( "options" => $params['options'][$modelName]["metierromev3_id"], 'empty' => true, 'required' => $params['required'], 'label' => ( $params['multi_domain_translator'] ? __m( "{$prefix}{$modelName}.metierromev3_id" ) : null ) ),
-						"{$prefix}{$modelName}.appellationromev3_id" => array( "options" => $params['options'][$modelName]["appellationromev3_id"], 'empty' => true, 'required' => $params['required'], 'label' => ( $params['multi_domain_translator'] ? __m( "{$prefix}{$modelName}.appellationromev3_id" ) : null ) )
+						"{$prefix}{$modelName}.familleromev3_id" => array( 'disabled' => $params['disabled'], "options" => $params['options'][$modelName]["familleromev3_id"], 'empty' => true, 'required' => $params['required'], 'label' => ( $params['multi_domain_translator'] ? __m( "{$prefix}{$modelName}.familleromev3_id" ) : null ) ),
+						"{$prefix}{$modelName}.domaineromev3_id" => array( 'disabled' => $params['disabled'], "options" => $params['options'][$modelName]["domaineromev3_id"], 'empty' => true, 'required' => $params['required'], 'label' => ( $params['multi_domain_translator'] ? __m( "{$prefix}{$modelName}.domaineromev3_id" ) : null ) ),
+						"{$prefix}{$modelName}.metierromev3_id" => array( 'disabled' => $params['disabled'], "options" => $params['options'][$modelName]["metierromev3_id"], 'empty' => true, 'required' => $params['required'], 'label' => ( $params['multi_domain_translator'] ? __m( "{$prefix}{$modelName}.metierromev3_id" ) : null ) ),
+						"{$prefix}{$modelName}.appellationromev3_id" => array( 'disabled' => $params['disabled'], "options" => $params['options'][$modelName]["appellationromev3_id"], 'empty' => true, 'required' => $params['required'], 'label' => ( $params['multi_domain_translator'] ? __m( "{$prefix}{$modelName}.appellationromev3_id" ) : null ) )
 					),
 					array(
 						"options" => $params['options']

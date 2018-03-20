@@ -84,6 +84,12 @@ INSERT INTO typeemplois (name, created, modified) VALUES
 ('Accès à un emploi salarié SIAE', now(), now()),
 ('Accès à une activité d\'indépendant, création d\'entreprise', now(), now());
 
+ALTER TABLE questionnairesd2pdvs93 ADD COLUMN emploiromev3_id integer;
+ALTER TABLE questionnairesd2pdvs93 ADD CONSTRAINT questionnairesb7pdvs93_emploiromev3_id_fkey FOREIGN KEY (emploiromev3_id)
+	REFERENCES entreesromesv3 (id) MATCH SIMPLE
+	ON UPDATE CASCADE ON DELETE SET NULL;
+
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

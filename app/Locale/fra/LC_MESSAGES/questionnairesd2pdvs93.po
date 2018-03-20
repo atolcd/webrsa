@@ -93,3 +93,30 @@ msgstr "Supprimer le questionnaire D2 de #Personne.qual# #Personne.nom# #Personn
 
 msgid "/Questionnairesd2pdvs93/delete/#Questionnaired2pdv93.id# ?"
 msgstr "Réellement supprimer le questionnaire D2 de #Personne.qual# #Personne.nom# #Personne.prenom# ?"
+
+# ==============================================================================
+# Rome V3
+
+msgid "Emploiromev3"
+msgstr "Renseigner l'emploi (ROME V3)"
+
+msgid "Emploiromev3.romev3"
+msgstr "Recherche rapide"
+
+msgid "Emploiromev3.familleromev3_id"
+msgstr "Code famille"
+
+msgid "Emploiromev3.domaineromev3_id"
+msgstr "Code domaine"
+
+msgid "Emploiromev3.metierromev3_id"
+msgstr "Code métier"
+
+msgid "Emploiromev3.appellationromev3_id"
+msgstr "Appellation métier"
+
+# ==============================================================================
+# Questionnaire
+
+msgid "Appellationromev3.name"
+msgstr "Appellation métier"

@@ -20,12 +20,13 @@
 	echo $this->Default3->index(
 		$questionnairesd2pdvs93,
 		array(
-			'Structurereferente.lib_struc',
+			'Questionnaired1pdv93.Rendezvous.Structurereferente.lib_struc',
 			'Questionnaired2pdv93.date_validation',
 			'Questionnaired2pdv93.modified',
 			'Questionnaired2pdv93.situationaccompagnement',
 			'Sortieaccompagnementd2pdv93.name',
 			'Questionnaired2pdv93.chgmentsituationadmin',
+			'Emploiromev3.Appellationromev3.name',
 		)+ WebrsaAccess::links(
 			array(
 				'/Questionnairesd2pdvs93/edit/#Questionnaired2pdv93.id#',

@@ -141,6 +141,14 @@
 				'order' => null,
 				'dependent' => false
 			),
+			'Emploiromev3' => array(
+				'className' => 'Questionnaired2pdv93',
+				'foreignKey' => 'emploiromev3_id',
+				'conditions' => null,
+				'fields' => null,
+				'order' => null,
+				'dependent' => false
+			),
 		);
 
 		/**

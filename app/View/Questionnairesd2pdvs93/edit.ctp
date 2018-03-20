@@ -1,4 +1,7 @@
 <?php
+	echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
+	echo $this->Html->script( array( 'prototype.event.simulate.js', 'dependantselect.js' ) );
+
 	echo $this->Default3->titleForLayout( $personne );
 
 	if( Configure::read( 'debug' ) > 0 ) {
@@ -33,6 +36,19 @@
 			),
 		)
 	);
+
+	// Rome V3
+	//echo ('<div id="IdDivEmploiRomeV3" style="display: none;">');
+	echo $this->Romev3->fieldset(
+		'Emploiromev3',
+		array(
+			'options' => $options,
+			'required' => true,
+			'disabled' => true
+		)
+	);
+	//echo ('</div>');
+
 
 	if( $isAjax ) {
 		$onComplete = 'try {
@@ -132,5 +148,20 @@ catch(e) {
 		false,
 		false
 	);
+	observeDisableFieldsOnValue(
+		'Questionnaired2pdv93Sortieaccompagnementd2pdv93Id',
+		[ 'Emploiromev3Romev3', 'Emploiromev3Familleromev3Id', 'Emploiromev3Domaineromev3Id', 'Emploiromev3Metierromev3Id', 'Emploiromev3Appellationromev3Id' ],
+		[ 3, 4, 5, 6, 11, 12 ],
+		false,
+		false
+	);
+	Event.observe($('Questionnaired2pdv93Situationaccompagnement'), 'change', function(e){
+		$('Questionnaired2pdv93Sortieaccompagnementd2pdv93Id').setValue(0);
+		$('Emploiromev3Romev3').disable();
+		$('Emploiromev3Familleromev3Id').disable();
+		$('Emploiromev3Domaineromev3Id').disable();
+		$('Emploiromev3Metierromev3Id').disable();
+		$('Emploiromev3Appellationromev3Id').disable();
+	});
 	//]]>
 </script>
