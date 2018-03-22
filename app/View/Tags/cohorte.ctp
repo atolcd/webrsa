@@ -33,10 +33,8 @@
 
 	// Bloc customSearch
 	$this->start( 'custom_search_filters' );
-
 	echo $this->Xform->multipleCheckbox( 'Search.Prestation.rolepers', $options, 'divideInto2Columns' );
 	echo $this->Xform->multipleCheckbox( 'Search.Foyer.composition', $options, 'divideInto2Columns' );
-
 	echo '<fieldset><legend>' . __m( 'Tag.cohorte_fieldset' ) . '</legend>'
 		. $this->Default3->subform(
 			array(
@@ -50,7 +48,24 @@
 		)
 		. '</fieldset>'
 	;
+	$this->end();
 
+	// Bloc tagCohorteSearch
+	$this->start( 'tag_cohorte_search_filters' );
+	echo '<fieldset><legend>' . __m( 'Orientstruct.search' ) . '</legend>';
+	echo $this->Default3->subform(
+		array(
+			'Search.Orientstruct.origine' => array('empty' => true),
+		),
+		array( 'options' => array( 'Search' => $options ) )
+	);
+	echo $this->Default3->subform(
+		array(
+			'Search.Orientstruct.typeorient_id' => array('empty' => true, 'required' => false),
+		),
+		array( 'options' => array( 'Search' => $options ) )
+	);
+	echo '</fieldset>';
 	$this->end();
 
 	echo '<fieldset id="CohorteTagPreremplissage" style="display: '.(isset( $results ) ? 'block' : 'none').';"><legend>' . __m( 'Tag.preremplissage_fieldset' ) . '</legend>'
@@ -152,8 +167,7 @@
 		'ConfigurableQuery/cohorte',
 		array(
 			'beforeSearch' => $this->fetch( 'before_search_filters' ),
-		),
-		array(
 			'customSearch' => $this->fetch( 'custom_search_filters' ),
+			'tagCohorteSearch' => $this->fetch( 'tag_cohorte_search_filters' ),
 		)
 	);

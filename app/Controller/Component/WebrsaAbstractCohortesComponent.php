@@ -220,6 +220,12 @@
 				}
 			}
 
+			//Orientation
+			$Controller->loadModel ('Orientstruct');
+			$options = array_merge ($options, $Controller->Orientstruct->enums());
+			$Controller->loadModel ('Typeorient');
+			$options['Orientstruct']['typeorient_id'] = $Controller->Typeorient->find('list', array ('recursive' => -1));
+
 			// Assignation à la vue
 			$configurableQueryParams = $params;
 			$Controller->set( compact('options', 'configurableQueryParams') );

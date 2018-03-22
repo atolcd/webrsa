@@ -7,6 +7,7 @@
 	$beforeSearch = isset( $beforeSearch ) ? $beforeSearch : '';
 	$customSearch = isset( $customSearch ) ? $customSearch : '';
 	$afterSearch = isset( $afterSearch ) ? $afterSearch : '';
+	$tagCohorteSearch = isset( $tagCohorteSearch ) ? $tagCohorteSearch : '';
 	$beforeResults = isset( $beforeResults ) ? $beforeResults : '';
 	$afterResults = isset( $afterResults ) ? $afterResults : '';
 	// -------------------------------------------------------------------------
@@ -80,6 +81,7 @@
 	);
 	echo $customSearch;
 	echo $this->Allocataires->blocHave( array( 'prefix' => 'Search', 'options' => $options ) );
+	echo $tagCohorteSearch;
 	echo $this->Allocataires->blocReferentparcours( array( 'prefix' => 'Search', 'options' => $options ) );
 	echo $this->Allocataires->blocPagination( array( 'prefix' => 'Search', 'options' => $options ) );
 	echo $this->Allocataires->blocScript( array( 'prefix' => 'Search', 'options' => $options ) );

@@ -124,6 +124,8 @@
 			 * Generateur de conditions
 			 */
 			$paths = array(
+				'Orientstruct.origine',
+				'Orientstruct.typeorient_id',
 				'Prestation.rolepers'
 			);
 			
@@ -405,6 +407,12 @@
 					$query['joins'],
 					array(
 						$joinDsp,
+						array(
+							'table' => 'orientsstructs',
+							'alias' => 'Orientstruct',
+							'type' => 'INNER',
+							'conditions' => '"Orientstruct"."personne_id" = "Personne"."id"'
+						),
 						$this->Tag->EntiteTag->Foyer->Dossier->Detaildroitrsa->join('Detailcalculdroitrsa', array('type' => $types['Detailcalculdroitrsa']))
 					)
 				);
