@@ -194,6 +194,12 @@ msgstr "Année"
 msgid "Categoriefp93.name"
 msgstr "Catégorie d'action proposée"
 
+msgid "Ficheprescription93.prestaname"
+msgstr "Prestataire"
+
+msgid "Ficheprescription93.actionname"
+msgstr "Intitulé de l'action"
+
 msgid "Ficheprescription93.dd_action"
 msgstr "Date de début de l'action"
 
