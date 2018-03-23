@@ -1883,7 +1883,7 @@
 					$Ficheprescription93->Filierefp93->Categoriefp93->join( 'Thematiquefp93', array( 'type' => 'INNER' ) ),
 				),
 				'conditions' => array(
-					'"Ficheprescription93"."statut" <>' => '99annulee',
+					'"Ficheprescription93"."statut" <>' => array ('01renseignee','99annulee' ),
 					"EXTRACT( 'YEAR' FROM \"Ficheprescription93\".\"date_signature\" )" => $annee,
 					$this->_conditionStructurereferenteIsPdv( 'Referent.structurereferente_id' ),
 					$conditionpdv,
@@ -2313,13 +2313,23 @@
 
 			// Ajout des champs spécifiques à cette requête
 			$query['fields'] = array(
+				//A. Nombre total de personne distinctes ayant Signée des fiches
 				'COUNT( DISTINCT "Ficheprescription93"."personne_id" ) AS "distinct_personnes_prescription"',
+				//B. Nombre de personnes différentes ayant participé à une action
 				// "Suivi de l'action", on a L'allocataire a intégré l'action=oui.
 				'COUNT( DISTINCT ( CASE WHEN "Ficheprescription93"."personne_a_integre" = \'1\' THEN "Ficheprescription93"."personne_id" ELSE NULL END ) ) AS "distinct_personnes_action"',
-				// H. Cadre effectivité : La personne s'est présentée=non ou s'est excusée
-				'COALESCE( SUM( CASE WHEN "Ficheprescription93"."benef_retour_presente" IN ( \'non\', \'excuse\' ) THEN 1 ELSE 0 END ), 0 ) AS "beneficiaires_pas_deplaces"',
-				// I. Cadre effectivité : "Signé par le partenaire le"=vide et La personne s'est présentée=vide ou =oui.
-				'COALESCE( SUM( CASE WHEN ( "Ficheprescription93"."benef_retour_presente" IS NULL OR "Ficheprescription93"."benef_retour_presente" = \'oui\' ) THEN 1 ELSE 0 END ), 0 ) AS "nombre_fiches_attente"',
+				// I. Cadre effectivité : La personne s'est présentée=non
+				'COALESCE( SUM( CASE WHEN "Ficheprescription93"."benef_retour_presente" IN ( \'non\') THEN 1 ELSE 0 END ), 0 ) AS "beneficiaires_pas_deplaces"',
+				// J. Cadre effectivité : "Signé par le partenaire le"=vide et La personne s'est présentée=vide ou =oui.
+				'COALESCE( SUM(
+					CASE
+						WHEN (
+							("Ficheprescription93"."benef_retour_presente" IS NULL OR "Ficheprescription93"."benef_retour_presente" = \'oui\')
+							AND  "Ficheprescription93"."date_retour" IS NULL
+						 ) THEN 1
+						 ELSE 0
+					 END
+				), 0 ) AS "nombre_fiches_attente"',
 			);
 
 			$results = $Ficheprescription93->find( 'all', $query );
@@ -2425,29 +2435,36 @@
 			$categories = $this->_tableau1b41b5Categories( 'tableau1b5', $search );
 
 			$vFields = array(
-				// A. nombre total de fiches quel que soit le statut renseigné
+				// C. Cadre C. Nombre de prescriptions effectuées
 				'COUNT( Ficheprescription93.id ) AS "nombre"',
-				// B. Cadre "Effectivité de la prescription": Nombre de fiches pour lesquelles l'allocataire s'est présenté ="oui" et date de signature du partenaire est renseignée
-				'COALESCE( SUM( CASE WHEN "Ficheprescription93"."benef_retour_presente" = \'oui\' AND "Ficheprescription93"."date_signature_partenaire" IS NOT NULL THEN 1 ELSE 0 END ), 0 ) AS "nombre_effectives"',
-				// C. Cadre "Suivi de l'action" : "La personne souhaite intégrer l'action=non"
-				//'COALESCE( SUM( CASE WHEN "Ficheprescription93"."personne_souhaite_integrer" = \'0\' THEN 1 ELSE 0 END ), 0 ) AS "nombre_refus_beneficiaire"',
-				// D. Cadre "Suivi de l'action" : "La personne a été retenue par la structure=non"
-				'COALESCE( SUM( CASE WHEN "Ficheprescription93"."personne_retenue" = \'0\' THEN 1 ELSE 0 END ), 0 ) AS "nombre_refus_organisme"',
-				// E. Cadre "Suivi de l'action" : La personne a été reçue en entretien=oui La personne a été retenue par la structure:oui La personne souhaite intégrer l'action:oui L'allocataire a intégré l'action= vide Avec la date du jour antérieure à la date de début de l'action si elle existe
+				// D. Cadre "Effectivité de la prescription" -> Nombre de fiches pour lequelles la personne c'est présentée
 				'COALESCE( SUM(
 					CASE
 						WHEN (
-							"Ficheprescription93"."personne_retenue" = \'1\'
-							AND "Ficheprescription93"."personne_a_integre" IS NULL
-							AND (
-								"Ficheprescription93"."dd_action" IS NULL
-								OR "Ficheprescription93"."dd_action" > NOW()
-							)
+							"Ficheprescription93"."benef_retour_presente" = \'oui\'
+							AND
+								"Ficheprescription93"."date_retour" IS NOT NULL
+								OR "Ficheprescription93"."date_retour" < NOW()
 						) THEN 1
 						ELSE 0
 					END
-				), 0 ) AS "nombre_en_attente"',
-				// F. Cadre "Suivi de l'action": L'allocataire a intégré l'action=oui
+				), 0 ) AS "nombre_effectives"',
+				// Raison de la non participation :
+					// E. Retiré par atol
+					// F. Cadre Refus de l’organisme : "La personne a été retenue par la structure=non"
+					'COALESCE( SUM( CASE WHEN "Ficheprescription93"."personne_retenue" = \'0\' THEN 1 ELSE 0 END ), 0 ) AS "nombre_refus_organisme"',
+					// G. Cadre En attente :
+						//La personne a été reçue en entretien=oui La personne a été retenue par la structure:oui La personne souhaite intégrer l'action:oui L'allocataire a intégré l'action= vide Avec la date du jour antérieure à la date de début de l'action si elle existe
+					'COALESCE( SUM(
+						CASE
+							WHEN (
+								"Ficheprescription93"."personne_retenue" = \'1\'
+								AND "Ficheprescription93"."personne_a_integre" IS NULL
+							) THEN 1
+							ELSE 0
+						END
+					), 0 ) AS "nombre_en_attente"',
+				// H. Nombre de participations à une action : L'allocataire a intégré l'action=oui
 				'COUNT( DISTINCT ( CASE WHEN "Ficheprescription93"."personne_a_integre" = \'1\' THEN "Ficheprescription93"."id" ELSE NULL END ) ) AS "nombre_participations"'
 			);
 
@@ -2476,7 +2493,6 @@
 						$vFields
 					);
 					$query['conditions'][] = $conditions;
-
 					$sqls[] = $Ficheprescription93->sq( $query );
 					$counter++;
 				}
@@ -2555,7 +2571,8 @@
 			// Ajout de champs se trouvant dans les tableaux de résultats
 			$query['fields']['Ficheprescription93.personne_a_integre'] = '( CASE WHEN "Ficheprescription93"."personne_a_integre" = \'1\' THEN \'Oui\' ELSE NULL END ) AS "Ficheprescription93__personne_a_integre"';
 			$query['fields']['Ficheprescription93.personne_pas_deplace'] = '( CASE WHEN "Ficheprescription93"."benef_retour_presente" IN ( \'non\', \'excuse\' ) THEN \'Oui\' ELSE NULL END ) AS "Ficheprescription93__personne_pas_deplace"';
-			$query['fields']['Ficheprescription93.en_attente'] = '( CASE WHEN ( "Ficheprescription93"."date_signature_partenaire" IS NULL ) AND ( "Ficheprescription93"."benef_retour_presente" IS NULL OR "Ficheprescription93"."benef_retour_presente" = \'oui\' ) THEN \'Oui\' ELSE NULL END ) AS "Ficheprescription93__en_attente"';
+			//( "Ficheprescription93"."date_signature_partenaire" IS NULL ) AND
+			$query['fields']['Ficheprescription93.en_attente'] = '( CASE WHEN  ( "Ficheprescription93"."benef_retour_presente" IS NULL OR "Ficheprescription93"."benef_retour_presente" = \'oui\' ) THEN \'Oui\' ELSE NULL END ) AS "Ficheprescription93__en_attente"';
 
 			return $query;
 		}
@@ -3421,7 +3438,8 @@
 			if( $tableau === 'tableau1b5' ) {
 				$query['fields']['Ficheprescription93.personne_a_integre'] = '( CASE WHEN "Ficheprescription93"."personne_a_integre" = \'1\' THEN \'Oui\' ELSE NULL END ) AS "Ficheprescription93__personne_a_integre"';
 				$query['fields']['Ficheprescription93.personne_pas_deplace'] = '( CASE WHEN "Ficheprescription93"."benef_retour_presente" IN ( \'non\', \'excuse\' ) THEN \'Oui\' ELSE NULL END ) AS "Ficheprescription93__personne_pas_deplace"';
-				$query['fields']['Ficheprescription93.en_attente'] = '( CASE WHEN ( "Ficheprescription93"."date_signature_partenaire" IS NULL ) AND ( "Ficheprescription93"."benef_retour_presente" IS NULL OR "Ficheprescription93"."benef_retour_presente" = \'oui\' ) THEN \'Oui\' ELSE NULL END ) AS "Ficheprescription93__en_attente"';
+				//( "Ficheprescription93"."date_signature_partenaire" IS NULL ) AND
+				$query['fields']['Ficheprescription93.en_attente'] = '( CASE WHEN ( "Ficheprescription93"."benef_retour_presente" IS NULL OR "Ficheprescription93"."benef_retour_presente" = \'oui\' ) THEN \'Oui\' ELSE NULL END ) AS "Ficheprescription93__en_attente"';
 			}
 
 			return $query;

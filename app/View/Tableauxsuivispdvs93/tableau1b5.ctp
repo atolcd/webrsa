@@ -27,8 +27,14 @@
 					array( __d( $domain, 'Tableau1b5.categorie' ) => array( 'rowspan' => 2 ) ),
 					array( __d( $domain, 'Tableau1b5.nombre' ) => array( 'rowspan' => 2 ) ),
 					array( __d( $domain, 'Tableau1b5.nombre_effectives' ) => array( 'rowspan' => 2 ) ),
-					array( __d( $domain, 'Tableau1b5.raison_non_participation' ) => array( 'colspan' => 3 ) ),
+					array( __d( $domain, 'Tableau1b5.raison_non_participation' ) => array( 'colspan' => 2 ) ),
 					array( __d( $domain, 'Tableau1b5.nombre_participations' ) => array( 'rowspan' => 2 ) ),
+				)
+			)
+			.$this->Xhtml->tableHeaders(
+				array(
+					__d( $domain, 'Tableau1b5.nombre_refus_organisme' ),
+					__d( $domain, 'Tableau1b5.nombre_en_attente' ),
 				)
 			)
 		);
