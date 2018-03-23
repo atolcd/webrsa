@@ -106,6 +106,7 @@
 <p class="etatFlux">
 	<?php
 				$dtliqValue = Set::classicExtract( $dossier, 'Evenement.dtliq' );
+				$dtliqValue = date('d/m/Y',strtotime($dtliqValue));
 				$motitransfluxValue = Set::classicExtract( $dossier, 'Evenement.fg' );
 				$motitransflux = ClassRegistry::init('Evenement')->enum('fg');
 			    if ( isset( $dtliqValue ) ){
