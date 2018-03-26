@@ -908,7 +908,7 @@
 			);
 
 			// Délai moyen pour la première orientation
-			$queryOrientation = $query;
+			$queryOrientation = $queryPrimoOrientation;
 			$dateReference = true === $useHistoriquedroit ? '"Historiquedroit"."created"' : '"Dossier"."dtdemrsa"';
 			$queryOrientation['fields'] = array( 'AVG( DATE_PART( \'DAYS\', "Orientstruct"."date_valid" - DATE_TRUNC( \'MONTH\', "Dossier"."dtdemrsa" ) ) ) AS "count"' );
 			$results['Indicateurdelai']['delai_moyen_orientation'] = Hash::get( $Dossier->find( 'all', $queryOrientation ), '0.0.count' );
@@ -1578,8 +1578,28 @@
 			else {
 				$type = true === $soumisDd ? 'INNER' : 'LEFT OUTER';
 
-				//$query['joins'][] = $Dossier->join( 'Situationdossierrsa', array( 'type' => $type ) );
-				//$query['joins'][] = $Dossier->Foyer->Personne->join( 'Calculdroitrsa', array( 'type' => $type ) );
+				// Correction erreur :  Duplicate alias: 7 ERREUR: le nom de la table est spécifié plus d'une fois
+				$addJoin = true ;
+				foreach ($query['joins'] as $join) {
+					if ($join['table'] == '"situationsdossiersrsa"') {
+						$addJoin = false;
+						break;
+					}
+				}
+				if ($addJoin) {
+					$query['joins'][] = $Dossier->join( 'Situationdossierrsa', array( 'type' => $type ) );
+				}
+				$addJoin = true ;
+				foreach ($query['joins'] as $join) {
+					if ($join['table'] == '"calculsdroitsrsa"') {
+						$addJoin = false;
+						break;
+					}
+				}
+				if ($addJoin) {
+					$query['joins'][] = $Dossier->Foyer->Personne->join( 'Calculdroitrsa', array( 'type' => $type ) );
+				}
+				// FIN Correction erreur
 
 				if( null !== $soumisDd ) {
 					if( true === $soumisDd ) {
