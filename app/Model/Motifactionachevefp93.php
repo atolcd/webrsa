@@ -40,22 +40,17 @@
 		 *
 		 * @var array
 		 */
-		public $hasAndBelongsToMany = array(
+		public $hasMany = array(
 			'Ficheprescription93' => array(
-				'className' => 'Motifactionachevefp93',
-				'joinTable' => 'fichesprescriptions93_motifsactionachevesfps93',
+				'className' => 'Ficheprescription93',
 				'foreignKey' => 'motifactionachevefp93_id',
-				'associationForeignKey' => 'ficheprescription93_id',
-				'unique' => true,
 				'conditions' => null,
-				'fields' => null,
 				'order' => null,
 				'limit' => null,
 				'offset' => null,
-				'finderQuery' => null,
-				'deleteQuery' => null,
-				'insertQuery' => null,
-				'with' => 'Ficheprescription93Motifactionachevefp93'
+				'dependent' => true,
+				'exclusive' => null,
+				'finderQuery' => null
 			)
 		);
 	}

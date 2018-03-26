@@ -147,6 +147,7 @@
 					'Ficheprescription93.date_signature',
 					'Ficheprescription93.date_transmission',
 					'Ficheprescription93.date_retour',
+					'Ficheprescription93.motifcontactfp93_id',
 					'Ficheprescription93.personne_retenue',
 					'Ficheprescription93.motifnonretenuefp93_id',
 					'Ficheprescription93.personne_nonretenue_autre',

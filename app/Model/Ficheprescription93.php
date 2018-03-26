@@ -198,7 +198,7 @@
 			),
 			'Motifcontactfp93' => array(
 				'className' => 'Motifcontactfp93',
-				'foreignKey' => 'ficheprescription93_id',
+				'foreignKey' => 'motifcontactfp93_id',
 				'conditions' => null,
 				'type' => 'LEFT OUTER',
 				'fields' => null,
@@ -207,7 +207,7 @@
 			),
 			'Motifactionachevefp93' => array(
 				'className' => 'Motifactionachevefp93',
-				'foreignKey' => 'ficheprescription93_id',
+				'foreignKey' => 'motifactionachevefp93_id',
 				'conditions' => null,
 				'type' => 'LEFT OUTER',
 				'fields' => null,
@@ -216,7 +216,7 @@
 			),
 			'Motifnonactionachevefp93' => array(
 				'className' => 'Motifnonactionachevefp93',
-				'foreignKey' => 'ficheprescription93_id',
+				'foreignKey' => 'motifnonactionachevefp93_id',
 				'conditions' => null,
 				'type' => 'LEFT OUTER',
 				'fields' => null,
@@ -263,54 +263,6 @@
 				'deleteQuery' => null,
 				'insertQuery' => null,
 				'with' => 'Ficheprescription93Modtransmfp93'
-			),
-			'Motifcontactfp93' => array(
-				'className' => 'Motifcontactfp93',
-				'joinTable' => 'fichesprescriptions93_motifscontactsfps93',
-				'foreignKey' => 'ficheprescription93_id',
-				'associationForeignKey' => 'motifcontactfp93_id',
-				'unique' => true,
-				'conditions' => null,
-				'fields' => null,
-				'order' => null,
-				'limit' => null,
-				'offset' => null,
-				'finderQuery' => null,
-				'deleteQuery' => null,
-				'insertQuery' => null,
-				'with' => 'Ficheprescription93Motifcontactfp93'
-			),
-			'Motifactionachevefp93' => array(
-				'className' => 'Motifactionachevefp93',
-				'joinTable' => 'fichesprescriptions93_motifsactionachevesfps93',
-				'foreignKey' => 'ficheprescription93_id',
-				'associationForeignKey' => 'motifactionachevefp93_id',
-				'unique' => true,
-				'conditions' => null,
-				'fields' => null,
-				'order' => null,
-				'limit' => null,
-				'offset' => null,
-				'finderQuery' => null,
-				'deleteQuery' => null,
-				'insertQuery' => null,
-				'with' => 'Ficheprescription93Motifactionachevefp93'
-			),
-			'Motifnonactionachevefp93' => array(
-				'className' => 'Motifnonactionachevefp93',
-				'joinTable' => 'fichesprescriptions93_motifsnonactionachevesfps93',
-				'foreignKey' => 'ficheprescription93_id',
-				'associationForeignKey' => 'motifnonactionachevefp93_id',
-				'unique' => true,
-				'conditions' => null,
-				'fields' => null,
-				'order' => null,
-				'limit' => null,
-				'offset' => null,
-				'finderQuery' => null,
-				'deleteQuery' => null,
-				'insertQuery' => null,
-				'with' => 'Ficheprescription93Motifnonactionachevefp93'
 			)
 		);
 
@@ -422,7 +374,7 @@
 			// Les options pdf nécessitent les options de l'allocataire
 			$params['allocataire'] = ( $params['allocataire'] || $params['pdf'] );
 
-			$motifsNames = array(  'Motifnonretenuefp93', 'Motifnonintegrationfp93','Motifactionachevefp93','Motifnonactionachevefp93', 'Documentbeneffp93' );
+			$motifsNames = array(  'Motifnonretenuefp93', 'Motifnonintegrationfp93','Motifcontactfp93','Motifactionachevefp93','Motifnonactionachevefp93', 'Documentbeneffp93' );
 
 			if( Hash::get( $params, 'allocataire' ) ) {
 				$Allocataire = ClassRegistry::init( 'Allocataire' );
@@ -448,9 +400,6 @@
 					$options,
 					array( 'Ficheprescription93' => array( 'typethematiquefp93_id' => $this->Filierefp93->Categoriefp93->Thematiquefp93->enum( 'type' ) ) ),
 					array( 'Modtransmfp93' => array( 'Modtransmfp93' => $this->Modtransmfp93->find( 'list' ) ) ),
-					array( 'Ficheprescription93' => array( 'Motifcontactfp93' => $this->Motifcontactfp93->find( 'list' ) ) ),
-					array( 'Ficheprescription93' => array( 'Motifactionachevefp93' => $this->Motifactionachevefp93->find( 'list' ) ) ),
-					array( 'Ficheprescription93' => array( 'Motifnonactionachevefp93' => $this->Motifnonactionachevefp93->find( 'list' ) ) ),
 					array( 'Documentbeneffp93' => array( 'Documentbeneffp93' => $this->Documentbeneffp93->find( 'list' ) ) )
 				);
 				foreach( $motifsNames as $motifName ) {
@@ -567,17 +516,6 @@
 					)
 				);
 				$data['Modtransmfp93']['Modtransmfp93'] = (array)$this->Ficheprescription93Modtransmfp93->find( 'list', $query );
-
-				// Récupération des motifs de contacts
-				$query = array(
-					'fields' => array(
-						'Ficheprescription93Motifcontactfp93.id',
-						'Ficheprescription93Motifcontactfp93.motifcontactfp93_id'
-					),
-					'conditions' => array(
-						'Ficheprescription93Motifcontactfp93.ficheprescription93_id' => $id
-					)
-				);
 
 				// Récupération des documents dont le bénéficiaire est invité à se munir
 				$query = array(
@@ -699,21 +637,21 @@
 			// Champs liée a personne acheve
 			$value = Hash::get( $data, 'Ficheprescription93.personne_acheve' );
 			if( $value === '' ) {
-				$data['Ficheprescription93']['Motifactionachevefp93'] = null;
+				$data['Ficheprescription93']['motifactionachevefp93_id'] = null;
 				$data['Ficheprescription93']['motifnonactionachevefp93_id'] = null;
 				$data['Ficheprescription93']['personne_acheve_autre'] = null;
 			}
 			else if( $value === '0' ) {
-				$data['Ficheprescription93']['Motifactionachevefp93'] = null;
-				if (!in_array( $data['Ficheprescription93']['Motifactionachevefp93'], $autres['Ficheprescription93']['motifactionachevefp93_id'])
-				&& !in_array( $data['Ficheprescription93']['Motifnonactionachevefp93'], $autres['Ficheprescription93']['motifnonactionachevefp93_id'])	) {
+				$data['Ficheprescription93']['motifactionachevefp93_id'] = null;
+				if (!in_array( $data['Ficheprescription93']['motifactionachevefp93_id'], $autres['Ficheprescription93']['motifactionachevefp93_id'])
+				&& !in_array( $data['Ficheprescription93']['motifnonactionachevefp93_id'], $autres['Ficheprescription93']['motifnonactionachevefp93_id'])	) {
 					$data['Ficheprescription93']['personne_acheve_autre'] = null;
 				}
 			}
 			else if( $value === '1' ) {
-				$data['Ficheprescription93']['Motifnonactionachevefp93'] = null;
-				if (!in_array( $data['Ficheprescription93']['Motifactionachevefp93'], $autres['Ficheprescription93']['motifactionachevefp93_id'])
-				&& !in_array( $data['Ficheprescription93']['Motifnonactionachevefp93'], $autres['Ficheprescription93']['motifnonactionachevefp93_id'])	) {
+				$data['Ficheprescription93']['motifnonactionachevefp93_id'] = null;
+				if (!in_array( $data['Ficheprescription93']['motifactionachevefp93_id'], $autres['Ficheprescription93']['motifactionachevefp93_id'])
+				&& !in_array( $data['Ficheprescription93']['motifnonactionachevefp93_id'], $autres['Ficheprescription93']['motifnonactionachevefp93_id'])	) {
 					$data['Ficheprescription93']['personne_acheve_autre'] = null;
 				}
 			}
@@ -740,11 +678,6 @@
 				$statut = '05suivi_renseigne';
 			}*/
 			$data[$this->alias]['statut'] = $statut;
-
-			//Recuper la valeur de Motif de contact pour sauvegarde
-			$data['Motifcontactfp93']['Motifcontactfp93']  = $data['Ficheprescription93']['Motifcontactfp93'] ;
-			$data['Motifactionachevefp93']['Motifactionachevefp93']  = $data['Ficheprescription93']['Motifactionachevefp93'] ;
-			$data['Motifnonactionachevefp93']['Motifnonactionachevefp93']  = $data['Ficheprescription93']['Motifnonactionachevefp93'] ;
 
 			// Début Instantanedonnees93 ...
 			$referent_id = suffix( Hash::get( $data, "{$this->alias}.referent_id" ) );

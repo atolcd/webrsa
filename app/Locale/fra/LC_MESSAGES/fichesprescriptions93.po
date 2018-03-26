@@ -432,7 +432,7 @@ msgstr "Fiche transmise le"
 msgid "Modtransmfp93.Modtransmfp93"
 msgstr "Modalités de transmission"
 
-msgid "Ficheprescription93.Motifcontactfp93"
+msgid "Ficheprescription93.motifcontactfp93_id"
 msgstr "Motif de 1er contact"
 
 ################################################################################
