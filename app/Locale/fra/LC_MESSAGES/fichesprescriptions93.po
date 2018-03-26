@@ -115,6 +115,9 @@ msgstr "L'allocataire a été retenu"
 msgid "Search.Ficheprescription93.personne_a_integre"
 msgstr "L'allocataire a intégré l'action"
 
+msgid "Search.Ficheprescription93.personne_acheve"
+msgstr "Le bénéficiaire a achevé l'action"
+
 msgid "Search.Ficheprescription93.has_date_bilan_mi_parcours"
 msgstr "Date du bilan à mi-parcours renseignée"
 
@@ -459,6 +462,18 @@ msgstr "Si autre, préciser"
 
 msgid "Ficheprescription93.personne_a_integre"
 msgstr "L'allocataire a intégré l'action"
+
+msgid "Ficheprescription93.personne_acheve"
+msgstr "Le bénéficiaire a achevé l'action"
+
+msgid "Ficheprescription93.motifactionachevefp93_id"
+msgstr "Avec"
+
+msgid "Ficheprescription93.motifnonactionachevefp93_id"
+msgstr "Motif"
+
+msgid "Ficheprescription93.personne_acheve_autre"
+msgstr "Si autre, préciser"
 
 msgid "Ficheprescription93.personne_date_integration"
 msgstr "Date"

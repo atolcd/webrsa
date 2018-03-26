@@ -553,3 +553,6 @@ msgstr "Bénéficiaire pas déplacé"
 
 msgid "Ficheprescription93.en_attente"
 msgstr "Fiche en attente"
+
+msgid "Ficheprescription93.personne_acheve"
+msgstr "Le bénéficiaire a achevé l'action"

@@ -46,6 +46,8 @@
 			'Adresseprestatairefp93',
 			'Motifnonretenuefp93',
 			'Motifnonintegrationfp93',
+			'Motifactionachevefp93',
+			'Motifnonactionachevefp93',
 			'Documentbeneffp93'
 		);
 

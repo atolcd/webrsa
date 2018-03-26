@@ -277,6 +277,13 @@
 				'Ficheprescription93.motifnonintegrationfp93_id' => array( 'empty' => true ),
 				'Ficheprescription93.personne_nonintegre_autre',
 
+				'Ficheprescription93.personne_acheve' => array( 'empty' => true ),
+				//'Ficheprescription93.motifactionachevefp93_id' => array(  'empty' => true ),
+				//'Ficheprescription93.motifnonactionachevefp93_id' => array( 'empty' => true ),
+				'Ficheprescription93.Motifactionachevefp93' => array(  'empty' => true ),
+				'Ficheprescription93.Motifnonactionachevefp93' => array( 'empty' => true ),
+				'Ficheprescription93.personne_acheve_autre',
+
 				'Ficheprescription93.date_bilan_mi_parcours' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 ),
 				'Ficheprescription93.date_bilan_final' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 ),
 			),
@@ -350,7 +357,7 @@
 		'Ficheprescription93.personne_retenue',
 		array(
 			'Ficheprescription93.motifnonretenuefp93_id',
-			//'Ficheprescription93.personne_nonretenue_autre',
+			'Ficheprescription93.personne_nonretenue_autre',
 		),
 		array( null, '', '1' ),
 		true,
@@ -372,7 +379,7 @@
 		'Ficheprescription93.personne_a_integre',
 		array(
 			'Ficheprescription93.motifnonintegrationfp93_id',
-			//'Ficheprescription93.personne_nonintegre_autre',
+			'Ficheprescription93.personne_nonintegre_autre',
 		),
 		array( null, '', '1' ),
 		true,
@@ -409,6 +416,81 @@
 		true
 	);
 
+// Personne a acheve l'action
+echo $this->Observer->disableFieldsOnValue(
+		'Ficheprescription93.personne_acheve',
+		array(
+			'Ficheprescription93.Motifactionachevefp93'
+		),
+		array(  '1' ),
+		false,
+		true
+	);
+	echo $this->Observer->disableFieldsOnValue(
+		'Ficheprescription93.Motifactionachevefp93',
+		array(
+			'Ficheprescription93.personne_acheve_autre'
+		),
+		(array)Hash::get( $options, 'Autre.Ficheprescription93.motifactionachevefp93_id' ),
+		false,
+		true
+	);
+	echo $this->Observer->disableFieldsOnValue(
+		'Ficheprescription93.personne_acheve',
+		array(
+			'Ficheprescription93.Motifnonactionachevefp93'
+		),
+		array(  '0' ),
+		false,
+		true
+	);
+	echo $this->Observer->disableFieldsOnValue(
+		'Ficheprescription93.Motifnonactionachevefp93',
+		array(
+			'Ficheprescription93.personne_acheve_autre'
+		),
+		(array)Hash::get( $options, 'Autre.Ficheprescription93.motifnonactionachevefp93_id' ),
+		false,
+		true
+	);
+	/*echo $this->Observer->disableFieldsOnValue(
+		'Ficheprescription93.personne_acheve',
+		array(
+			'Ficheprescription93.motifactionachevefp93_id'
+		),
+		array(  '1' ),
+		false,
+		true
+	);
+	echo $this->Observer->disableFieldsOnValue(
+		'Ficheprescription93.motifactionachevefp93_id',
+		array(
+			'Ficheprescription93.personne_acheve_autre'
+		),
+		(array)Hash::get( $options, 'Autre.Ficheprescription93.motifactionachevefp93_id' ),
+		false,
+		true
+	);
+	echo $this->Observer->disableFieldsOnValue(
+		'Ficheprescription93.personne_acheve',
+		array(
+			'Ficheprescription93.motifnonactionachevefp93_id'
+		),
+		array(  '0' ),
+		false,
+		true
+	);
+	echo $this->Observer->disableFieldsOnValue(
+		'Ficheprescription93.motifnonactionachevefp93_id',
+		array(
+			'Ficheprescription93.personne_acheve_autre'
+		),
+		(array)Hash::get( $options, 'Autre.Ficheprescription93.motifnonactionachevefp93_id' ),
+		false,
+		true
+	);*/
+
+//fiche prescritpteur
 	echo $this->Ajax2->updateDivOnFieldsChange(
 		'CoordonneesPrescripteur',
 		array( 'action' => 'ajax_prescripteur' ),

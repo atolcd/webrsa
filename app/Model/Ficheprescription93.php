@@ -196,6 +196,33 @@
 				'order' => null,
 				'counterCache' => null
 			),
+			'Motifcontactfp93' => array(
+				'className' => 'Motifcontactfp93',
+				'foreignKey' => 'ficheprescription93_id',
+				'conditions' => null,
+				'type' => 'LEFT OUTER',
+				'fields' => null,
+				'order' => null,
+				'counterCache' => null
+			),
+			'Motifactionachevefp93' => array(
+				'className' => 'Motifactionachevefp93',
+				'foreignKey' => 'ficheprescription93_id',
+				'conditions' => null,
+				'type' => 'LEFT OUTER',
+				'fields' => null,
+				'order' => null,
+				'counterCache' => null
+			),
+			'Motifnonactionachevefp93' => array(
+				'className' => 'Motifnonactionachevefp93',
+				'foreignKey' => 'ficheprescription93_id',
+				'conditions' => null,
+				'type' => 'LEFT OUTER',
+				'fields' => null,
+				'order' => null,
+				'counterCache' => null
+			)
 		);
 
 
@@ -252,6 +279,38 @@
 				'deleteQuery' => null,
 				'insertQuery' => null,
 				'with' => 'Ficheprescription93Motifcontactfp93'
+			),
+			'Motifactionachevefp93' => array(
+				'className' => 'Motifactionachevefp93',
+				'joinTable' => 'fichesprescriptions93_motifsactionachevesfps93',
+				'foreignKey' => 'ficheprescription93_id',
+				'associationForeignKey' => 'motifactionachevefp93_id',
+				'unique' => true,
+				'conditions' => null,
+				'fields' => null,
+				'order' => null,
+				'limit' => null,
+				'offset' => null,
+				'finderQuery' => null,
+				'deleteQuery' => null,
+				'insertQuery' => null,
+				'with' => 'Ficheprescription93Motifactionachevefp93'
+			),
+			'Motifnonactionachevefp93' => array(
+				'className' => 'Motifnonactionachevefp93',
+				'joinTable' => 'fichesprescriptions93_motifsnonactionachevesfps93',
+				'foreignKey' => 'ficheprescription93_id',
+				'associationForeignKey' => 'motifnonactionachevefp93_id',
+				'unique' => true,
+				'conditions' => null,
+				'fields' => null,
+				'order' => null,
+				'limit' => null,
+				'offset' => null,
+				'finderQuery' => null,
+				'deleteQuery' => null,
+				'insertQuery' => null,
+				'with' => 'Ficheprescription93Motifnonactionachevefp93'
 			)
 		);
 
@@ -363,7 +422,7 @@
 			// Les options pdf nécessitent les options de l'allocataire
 			$params['allocataire'] = ( $params['allocataire'] || $params['pdf'] );
 
-			$motifsNames = array(  'Motifnonretenuefp93', 'Motifnonintegrationfp93', 'Documentbeneffp93' );
+			$motifsNames = array(  'Motifnonretenuefp93', 'Motifnonintegrationfp93','Motifactionachevefp93','Motifnonactionachevefp93', 'Documentbeneffp93' );
 
 			if( Hash::get( $params, 'allocataire' ) ) {
 				$Allocataire = ClassRegistry::init( 'Allocataire' );
@@ -390,6 +449,8 @@
 					array( 'Ficheprescription93' => array( 'typethematiquefp93_id' => $this->Filierefp93->Categoriefp93->Thematiquefp93->enum( 'type' ) ) ),
 					array( 'Modtransmfp93' => array( 'Modtransmfp93' => $this->Modtransmfp93->find( 'list' ) ) ),
 					array( 'Ficheprescription93' => array( 'Motifcontactfp93' => $this->Motifcontactfp93->find( 'list' ) ) ),
+					array( 'Ficheprescription93' => array( 'Motifactionachevefp93' => $this->Motifactionachevefp93->find( 'list' ) ) ),
+					array( 'Ficheprescription93' => array( 'Motifnonactionachevefp93' => $this->Motifnonactionachevefp93->find( 'list' ) ) ),
 					array( 'Documentbeneffp93' => array( 'Documentbeneffp93' => $this->Documentbeneffp93->find( 'list' ) ) )
 				);
 				foreach( $motifsNames as $motifName ) {
@@ -511,13 +572,12 @@
 				$query = array(
 					'fields' => array(
 						'Ficheprescription93Motifcontactfp93.id',
-						'Ficheprescription93Motifcontactfp93.motifcontactfp93_id',
+						'Ficheprescription93Motifcontactfp93.motifcontactfp93_id'
 					),
 					'conditions' => array(
 						'Ficheprescription93Motifcontactfp93.ficheprescription93_id' => $id
 					)
 				);
-				$data[$this->alias]['Motifcontactfp93'] = (array)$this->Ficheprescription93Motifcontactfp93->find( 'list', $query );
 
 				// Récupération des documents dont le bénéficiaire est invité à se munir
 				$query = array(
@@ -602,9 +662,6 @@
 
 			$data = Hash::merge( $ficheprescription, $data );
 
-			//Recuper la valeur de Motif de contact pour sauvegarde
-			$data['Motifcontactfp93']['Motifcontactfp93']  = $data['Ficheprescription93']['Motifcontactfp93'] ;
-
 			// Case à cocher "Adresse du lieu de RDV"
 			$rdvprestataire_adresse_check = Hash::get( $data, "{$this->alias}.rdvprestataire_adresse_check" );
 			if( in_array( $rdvprestataire_adresse_check, array( '0', 0, null ), true ) ) {
@@ -613,7 +670,7 @@
 
 			// Certains champs sont désactivés via javascript et ne sont pas renvoyés
 			$autres = Hash::get( $this->options( array( 'allocataire' => false, 'find' => false, 'autre' => true ) ), 'Autre' );
-
+			//champs liée a personne retenu
 			$value = Hash::get( $data, 'Ficheprescription93.personne_retenue' );
 			if( $value !== '0' ) {
 				$data['Ficheprescription93']['motifnonretenuefp93_id'] = null;
@@ -622,7 +679,7 @@
 			else if( !in_array( $data['Ficheprescription93']['motifnonretenuefp93_id'], $autres['Ficheprescription93']['motifnonretenuefp93_id'] ) ) {
 				$data['Ficheprescription93']['personne_nonretenue_autre'] = null;
 			}
-
+			// champs liée a personne intégré
 			$value = Hash::get( $data, 'Ficheprescription93.personne_a_integre' );
 			if( $value === '' ) {
 				$data['Ficheprescription93']['personne_date_integration'] = null;
@@ -638,6 +695,27 @@
 			}
 			else if( $value === '1' && !in_array( $data['Ficheprescription93']['motifnonintegrationfp93_id'], $autres['Ficheprescription93']['motifnonintegrationfp93_id'] ) ) {
 				$data['Ficheprescription93']['personne_nonintegre_autre'] = null;
+			}
+			// Champs liée a personne acheve
+			$value = Hash::get( $data, 'Ficheprescription93.personne_acheve' );
+			if( $value === '' ) {
+				$data['Ficheprescription93']['Motifactionachevefp93'] = null;
+				$data['Ficheprescription93']['motifnonactionachevefp93_id'] = null;
+				$data['Ficheprescription93']['personne_acheve_autre'] = null;
+			}
+			else if( $value === '0' ) {
+				$data['Ficheprescription93']['Motifactionachevefp93'] = null;
+				if (!in_array( $data['Ficheprescription93']['Motifactionachevefp93'], $autres['Ficheprescription93']['motifactionachevefp93_id'])
+				&& !in_array( $data['Ficheprescription93']['Motifnonactionachevefp93'], $autres['Ficheprescription93']['motifnonactionachevefp93_id'])	) {
+					$data['Ficheprescription93']['personne_acheve_autre'] = null;
+				}
+			}
+			else if( $value === '1' ) {
+				$data['Ficheprescription93']['Motifnonactionachevefp93'] = null;
+				if (!in_array( $data['Ficheprescription93']['Motifactionachevefp93'], $autres['Ficheprescription93']['motifactionachevefp93_id'])
+				&& !in_array( $data['Ficheprescription93']['Motifnonactionachevefp93'], $autres['Ficheprescription93']['motifnonactionachevefp93_id'])	) {
+					$data['Ficheprescription93']['personne_acheve_autre'] = null;
+				}
 			}
 
 			// Cases à cocher "Le bénéficiaire est invité à se munir de"
@@ -662,6 +740,11 @@
 				$statut = '05suivi_renseigne';
 			}*/
 			$data[$this->alias]['statut'] = $statut;
+
+			//Recuper la valeur de Motif de contact pour sauvegarde
+			$data['Motifcontactfp93']['Motifcontactfp93']  = $data['Ficheprescription93']['Motifcontactfp93'] ;
+			$data['Motifactionachevefp93']['Motifactionachevefp93']  = $data['Ficheprescription93']['Motifactionachevefp93'] ;
+			$data['Motifnonactionachevefp93']['Motifnonactionachevefp93']  = $data['Ficheprescription93']['Motifnonactionachevefp93'] ;
 
 			// Début Instantanedonnees93 ...
 			$referent_id = suffix( Hash::get( $data, "{$this->alias}.referent_id" ) );
@@ -872,6 +955,8 @@
 						$this->Instantanedonneesfp93->fields(),
 						$this->Motifnonintegrationfp93->fields(),
 						$this->Motifnonretenuefp93->fields(),
+						$this->Motifactionachevefp93->fields(),
+						$this->Motifnonactionachevefp93->fields(),
 						$this->Personne->fields(),
 						$this->Referent->fields(),
 						$this->Adresseprestatairefp93->Prestatairefp93->fields(),
@@ -888,6 +973,8 @@
 						$this->join( 'Instantanedonneesfp93', array( 'type' => 'INNER' ) ),
 						$this->join( 'Motifnonintegrationfp93', array( 'type' => 'LEFT OUTER' ) ),
 						$this->join( 'Motifnonretenuefp93', array( 'type' => 'LEFT OUTER' ) ),
+						$this->join( 'Motifactionachevefp93', array( 'type' => 'LEFT OUTER' ) ),
+						$this->join( 'Motifnonactionachevefp93', array( 'type' => 'LEFT OUTER' ) ),
 						$this->join( 'Personne', array( 'type' => 'INNER' ) ),
 						$this->join( 'Prestatairehorspdifp93', array( 'type' => 'LEFT OUTER' ) ),
 						$this->join( 'Referent', array( 'type' => 'INNER' ) ),
@@ -933,11 +1020,13 @@
 				$data,
 				'documentbeneffp93' => array(),
 				'modtransmfp93' => array(),
-				'motifcontactfp93' => array()
+				'motifcontactfp93' => array(),
+				'motifactionachevefp93' => array(),
+				'motifnonactionachevefp93' => array()
 			);
 
 			// Lecture des données HABTM
-			foreach( array( 'Documentbeneffp93', 'Modtransmfp93' , 'Motifcontactfp93') as $habtmModelName ) {
+			foreach( array( 'Documentbeneffp93', 'Modtransmfp93' , 'Motifcontactfp93', 'Motifactionachevefp93', 'Motifnonactionachevefp93') as $habtmModelName ) {
 				$with = $this->hasAndBelongsToMany[$habtmModelName]['with'];
 
 				$query = array(

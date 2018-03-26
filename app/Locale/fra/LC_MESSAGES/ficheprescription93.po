@@ -54,3 +54,13 @@ msgstr "Non"
 
 msgid "ENUM::PERSONNE_A_INTEGRE::1"
 msgstr "Oui"
+
+# ==============================================================================
+
+msgid "ENUM::PERSONNE_ACHEVE::0"
+msgstr "Non"
+
+msgid "ENUM::PERSONNE_ACHEVE::1"
+msgstr "Oui"
+
+# ==============================================================================

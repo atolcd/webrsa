@@ -30,7 +30,7 @@ VALUES
 -- Mise a jour des valeurs de la liste déroulante de motifs de non retenue par la structure
 UPDATE motifsnonretenuesfps93
 	SET name = 'Sur liste d''attente'
-	WHERE name LIKE 'En file dattente'
+	WHERE name LIKE 'En file dattente';
 
 INSERT INTO motifsnonretenuesfps93
     (name, autre, created, modified)
@@ -43,12 +43,38 @@ INSERT INTO motifsnonretenuesfps93
 -- Mise a jour des valeurs de la liste déroulante de motifs de non intégration a l'action
 UPDATE motifsnonintegrationsfps93
 	SET name = 'Changement de Projet Professionnel'
-	WHERE name LIKE 'Abandon'
+	WHERE name LIKE 'Abandon';
 
 INSERT INTO motifsnonintegrationsfps93
 	(name, autre, created, modified)
-    VALUES ( 'Le bénéficiaire ne souhaite plus intégrer l''action', 0, NOW(), NOW() )
+    VALUES ( 'Le bénéficiaire ne souhaite plus intégrer l''action', 0, NOW(), NOW()
 );
+
+--------------------------------------------------------------------------------
+
+-- Mise a jour des valeurs de la liste déroulante de motifs d'avoir achevé de l'action
+INSERT INTO motifsactionachevesfps93 (name, autre, created, modified)
+VALUES
+	( 'A obtenu le diplôme', 0, NOW(), NOW() ),
+	( 'Attestation de formation', 0, NOW(), NOW() ),
+	( 'Niveau supplémentaire', 0, NOW(), NOW() ),
+	( 'Certification', 0, NOW(), NOW() ),
+	( 'Autre', 1, NOW(), NOW() );
+
+--------------------------------------------------------------------------------
+
+-- Mise a jour des valeurs de la liste déroulante de motifs de n'avoir pas achevé de l'action
+INSERT INTO motifsnonactionachevesfps93 (name, autre, created, modified)
+VALUES
+	( 'Le bénéficiaire ne souhaite plus poursuivre l''action', 0, NOW(), NOW() ),
+	( 'Problème de garde d’enfants', 0, NOW(), NOW() ),
+	( 'Problème de mobilité', 0, NOW(), NOW() ),
+	( 'Problème de santé', 0, NOW(), NOW() ),
+	( 'A été acceptée dans une autre action', 0, NOW(), NOW() ),
+	( 'Difficultés financières', 0, NOW(), NOW() ),
+	( 'A trouvé un emploi', 0, NOW(), NOW() ),
+	( 'Changement de projet professionnel', 0, NOW(), NOW() ),
+	( 'Autre', 1, NOW(), NOW() );
 
 -- *****************************************************************************
 COMMIT;

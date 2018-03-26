@@ -84,6 +84,7 @@
 					'Personne.age' => array( 'label' => 'Age' ),
 					'Ficheprescription93.benef_retour_presente',
 					'Ficheprescription93.personne_a_integre',
+					'Ficheprescription93.personne_acheve',
 					'Personne.dtnai',
 					'Dossier.numdemrsa',
 					'Personne.nir',
@@ -153,6 +154,10 @@
 					'Ficheprescription93.personne_date_integration',
 					'Ficheprescription93.motifnonintegrationfp93_id',
 					'Ficheprescription93.personne_nonintegre_autre',
+					'Ficheprescription93.personne_acheve',
+					'Ficheprescription93.motifactionachevefp93_id',
+					'Ficheprescription93.motifnonactionachevefp93_id',
+					'Ficheprescription93.personne_acheve_autre',
 					'Ficheprescription93.date_bilan_mi_parcours',
 					'Ficheprescription93.date_bilan_final',
 				)
