@@ -124,7 +124,8 @@
 						array( 'action' => 'download', $fichier['id'] ),
 						array(
 							'enabled' => $this->_checkPermissions(
-								$this->request->params['controller']
+								$this->request->params['controller'],
+								'download'
 							),
 						 )
 					).'</td>';
