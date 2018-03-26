@@ -31,13 +31,6 @@
 					array( __d( $domain, 'Tableau1b5.nombre_participations' ) => array( 'rowspan' => 2 ) ),
 				)
 			)
-			.$this->Xhtml->tableHeaders(
-				array(
-					__d( $domain, 'Tableau1b5.nombre_refus_beneficiaire' ),
-					__d( $domain, 'Tableau1b5.nombre_refus_organisme' ),
-					__d( $domain, 'Tableau1b5.nombre_en_attente' ),
-				)
-			)
 		);
 
 		// Corps du tableau
@@ -71,7 +64,6 @@
 				$cell[] = array( $result[0]['thematique'], array( 'class' => $class ) );
 				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre" ) ), array( 'class' => "integer number {$class}" ) );
 				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_effectives" ) ), array( 'class' => "integer number {$class}" ) );
-				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_refus_beneficiaire" ) ), array( 'class' => "integer number {$class}" ) );
 				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_refus_organisme" ) ), array( 'class' => "integer number {$class}" ) );
 				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_en_attente" ) ), array( 'class' => "integer number {$class}" ) );
 				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_participations" ) ), array( 'class' => "integer number {$class}" ) );
@@ -92,7 +84,6 @@
 				array( 'Total', array( 'colspan' => 2 ) ),
 				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre" ) ), array( 'class' => 'integer number' ) ),
 				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_effectives" ) ), array( 'class' => 'integer number' ) ),
-				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_refus_beneficiaire" ) ), array( 'class' => 'integer number' ) ),
 				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_refus_organisme" ) ), array( 'class' => 'integer number' ) ),
 				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_en_attente" ) ), array( 'class' => 'integer number' ) ),
 				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_participations" ) ), array( 'class' => 'integer number' ) ),

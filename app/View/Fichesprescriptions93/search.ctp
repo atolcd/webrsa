@@ -34,7 +34,6 @@
 
 	$paths = array(
 		'Ficheprescription93.benef_retour_presente',
-		'Ficheprescription93.personne_recue',
 		'Ficheprescription93.personne_retenue',
 		'Ficheprescription93.personne_a_integre',
 	);

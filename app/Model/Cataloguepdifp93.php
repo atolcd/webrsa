@@ -43,9 +43,7 @@
 			'Prestatairefp93',
 			'Modtransmfp93',
 			'Adresseprestatairefp93',
-			'Motifnonreceptionfp93',
 			'Motifnonretenuefp93',
-			'Motifnonsouhaitfp93',
 			'Motifnonintegrationfp93',
 			'Documentbeneffp93'
 		);

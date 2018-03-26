@@ -2319,7 +2319,7 @@
 				// H. Cadre effectivité : La personne s'est présentée=non ou s'est excusée
 				'COALESCE( SUM( CASE WHEN "Ficheprescription93"."benef_retour_presente" IN ( \'non\', \'excuse\' ) THEN 1 ELSE 0 END ), 0 ) AS "beneficiaires_pas_deplaces"',
 				// I. Cadre effectivité : "Signé par le partenaire le"=vide et La personne s'est présentée=vide ou =oui.
-				'COALESCE( SUM( CASE WHEN ( "Ficheprescription93"."date_signature_partenaire" IS NULL ) AND ( "Ficheprescription93"."benef_retour_presente" IS NULL OR "Ficheprescription93"."benef_retour_presente" = \'oui\' ) THEN 1 ELSE 0 END ), 0 ) AS "nombre_fiches_attente"',
+				'COALESCE( SUM( CASE WHEN ( "Ficheprescription93"."benef_retour_presente" IS NULL OR "Ficheprescription93"."benef_retour_presente" = \'oui\' ) THEN 1 ELSE 0 END ), 0 ) AS "nombre_fiches_attente"',
 			);
 
 			$results = $Ficheprescription93->find( 'all', $query );
@@ -2430,16 +2430,14 @@
 				// B. Cadre "Effectivité de la prescription": Nombre de fiches pour lesquelles l'allocataire s'est présenté ="oui" et date de signature du partenaire est renseignée
 				'COALESCE( SUM( CASE WHEN "Ficheprescription93"."benef_retour_presente" = \'oui\' AND "Ficheprescription93"."date_signature_partenaire" IS NOT NULL THEN 1 ELSE 0 END ), 0 ) AS "nombre_effectives"',
 				// C. Cadre "Suivi de l'action" : "La personne souhaite intégrer l'action=non"
-				'COALESCE( SUM( CASE WHEN "Ficheprescription93"."personne_souhaite_integrer" = \'0\' THEN 1 ELSE 0 END ), 0 ) AS "nombre_refus_beneficiaire"',
+				//'COALESCE( SUM( CASE WHEN "Ficheprescription93"."personne_souhaite_integrer" = \'0\' THEN 1 ELSE 0 END ), 0 ) AS "nombre_refus_beneficiaire"',
 				// D. Cadre "Suivi de l'action" : "La personne a été retenue par la structure=non"
 				'COALESCE( SUM( CASE WHEN "Ficheprescription93"."personne_retenue" = \'0\' THEN 1 ELSE 0 END ), 0 ) AS "nombre_refus_organisme"',
 				// E. Cadre "Suivi de l'action" : La personne a été reçue en entretien=oui La personne a été retenue par la structure:oui La personne souhaite intégrer l'action:oui L'allocataire a intégré l'action= vide Avec la date du jour antérieure à la date de début de l'action si elle existe
 				'COALESCE( SUM(
 					CASE
 						WHEN (
-							"Ficheprescription93"."personne_recue" = \'1\'
-							AND "Ficheprescription93"."personne_retenue" = \'1\'
-							AND "Ficheprescription93"."personne_souhaite_integrer" = \'1\'
+							"Ficheprescription93"."personne_retenue" = \'1\'
 							AND "Ficheprescription93"."personne_a_integre" IS NULL
 							AND (
 								"Ficheprescription93"."dd_action" IS NULL

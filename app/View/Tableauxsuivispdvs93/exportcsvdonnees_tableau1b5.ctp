@@ -31,18 +31,6 @@
 			__d( 'tableauxsuivispdvs93', 'Tableau1b5.nombre_participations' )
 		)
 	);
-	$this->Csv->addRow(
-		array(
-			null,
-			null,
-			null,
-			null,
-			__d( 'tableauxsuivispdvs93', 'Tableau1b5.nombre_refus_beneficiaire' ),
-			__d( 'tableauxsuivispdvs93', 'Tableau1b5.nombre_refus_organisme' ),
-			__d( 'tableauxsuivispdvs93', 'Tableau1b5.nombre_en_attente' ),
-			null
-		)
-	);
 
 	// Tableau principal
 	$rowspans = array();
@@ -70,7 +58,6 @@
 			$row[] = $result[0]['thematique'];
 			$row[] = (int)Hash::get( $result, "0.nombre" );
 			$row[] = (int)Hash::get( $result, "0.nombre_effectives" );
-			$row[] = (int)Hash::get( $result, "0.nombre_refus_beneficiaire" );
 			$row[] = (int)Hash::get( $result, "0.nombre_refus_organisme" );
 			$row[] = (int)Hash::get( $result, "0.nombre_en_attente" );
 			$row[] = (int)Hash::get( $result, "0.nombre_participations" );
@@ -91,7 +78,6 @@
 			null,
 			(int)Hash::get( $total, "0.nombre" ),
 			(int)Hash::get( $total, "0.nombre_effectives" ),
-			(int)Hash::get( $total, "0.nombre_refus_beneficiaire" ),
 			(int)Hash::get( $total, "0.nombre_refus_organisme" ),
 			(int)Hash::get( $total, "0.nombre_en_attente" ),
 			(int)Hash::get( $total, "0.nombre_participations" )

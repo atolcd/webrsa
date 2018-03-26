@@ -207,7 +207,6 @@
 			array(
 				'Ficheprescription93.duree_action',
 				'Ficheprescription93.rdvprestataire_date' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 ),
-				'Ficheprescription93.rdvprestataire_personne' => array( 'type' => 'text' ),
 				'Documentbeneffp93.Documentbeneffp93' => array( 'multiple' => 'checkbox' ),
 				'Ficheprescription93.documentbeneffp93_autre',
 			),
@@ -255,9 +254,9 @@
 			array(
 				'Ficheprescription93.date_retour' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 ),
 				'Ficheprescription93.benef_retour_presente' => array( 'empty' => true ),
-				'Ficheprescription93.date_presente_benef' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 ),
+				/*
 				'Ficheprescription93.retour_nom_partenaire' => array( 'type' => 'text' ),
-				'Ficheprescription93.date_signature_partenaire' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 ),
+				'Ficheprescription93.date_signature_partenaire' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 ),*/
 			),
 			array(
 				'options' => $options,
@@ -271,17 +270,9 @@
 		$this->Html->tag( 'legend', __d( $this->request->params['controller'], 'Ficheprescription93.Suivi' ) )
 		.$this->Default3->subform(
 			array(
-				'Ficheprescription93.personne_recue' => array( 'empty' => true ),
-				'Ficheprescription93.motifnonreceptionfp93_id' => array( 'empty' => true ),
-				'Ficheprescription93.personne_nonrecue_autre',
-
 				'Ficheprescription93.personne_retenue' => array( 'empty' => true ),
 				'Ficheprescription93.motifnonretenuefp93_id' => array( 'empty' => true ),
 				'Ficheprescription93.personne_nonretenue_autre',
-
-				'Ficheprescription93.personne_souhaite_integrer' => array( 'empty' => true ),
-				'Ficheprescription93.motifnonsouhaitfp93_id' => array( 'empty' => true ),
-				'Ficheprescription93.personne_nonsouhaite_autre',
 
 				'Ficheprescription93.personne_a_integre' => array( 'empty' => true ),
 				'Ficheprescription93.personne_date_integration' => array( 'dateFormat' => 'DMY' ),
@@ -355,40 +346,6 @@
 		)
 	);
 
-	// Personne reçue
-	echo $this->Observer->disableFieldsOnValue(
-		'Ficheprescription93.personne_recue',
-		array(
-			'Ficheprescription93.motifnonreceptionfp93_id',
-			'Ficheprescription93.personne_nonrecue_autre'
-		),
-		array( null, '', '1' ),
-		true
-	);
-
-	// La personne s'est présentée
-	echo $this->Observer->disableFieldsOnValue(
-		'Ficheprescription93.benef_retour_presente',
-		array(
-			'Ficheprescription93.date_presente_benef.day',
-			'Ficheprescription93.date_presente_benef.month',
-			'Ficheprescription93.date_presente_benef.year'
-		),
-		array( null, '', 'non', 'excuse' ),
-		true,
-		true
-	);
-
-	// Personne reçue
-	echo $this->Observer->disableFieldsOnValue(
-		'Ficheprescription93.motifnonreceptionfp93_id',
-		array(
-			'Ficheprescription93.personne_nonrecue_autre'
-		),
-		(array)Hash::get( $options, 'Autre.Ficheprescription93.motifnonreceptionfp93_id' ),
-		false
-	);
-
 	// Personne retenue
 	echo $this->Observer->disableFieldsOnValue(
 		'Ficheprescription93.personne_retenue',
@@ -406,26 +363,6 @@
 			'Ficheprescription93.personne_nonretenue_autre'
 		),
 		(array)Hash::get( $options, 'Autre.Ficheprescription93.motifnonretenuefp93_id' ),
-		false
-	);
-
-	// Personne souhaite intégrer
-	echo $this->Observer->disableFieldsOnValue(
-		'Ficheprescription93.personne_souhaite_integrer',
-		array(
-			'Ficheprescription93.motifnonsouhaitfp93_id',
-			'Ficheprescription93.personne_nonsouhaite_autre',
-		),
-		array( null, '', '1' ),
-		true
-	);
-
-	echo $this->Observer->disableFieldsOnValue(
-		'Ficheprescription93.motifnonsouhaitfp93_id',
-		array(
-			'Ficheprescription93.personne_nonsouhaite_autre'
-		),
-		(array)Hash::get( $options, 'Autre.Ficheprescription93.motifnonsouhaitfp93_id' ),
 		false
 	);
 
@@ -597,8 +534,7 @@
 				'Ficheprescription93.rdvprestataire_date.month',
 				'Ficheprescription93.rdvprestataire_date.year',
 				'Ficheprescription93.rdvprestataire_date.hour',
-				'Ficheprescription93.rdvprestataire_date.min',
-				'Ficheprescription93.rdvprestataire_personne'
+				'Ficheprescription93.rdvprestataire_date.min'
 			);
 		?>
 		<?php foreach( $fields as $field ): ?>

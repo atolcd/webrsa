@@ -109,9 +109,6 @@ msgstr "Date de fin de formation"
 msgid "Search.Ficheprescription93.benef_retour_presente"
 msgstr "L'allocataire s'est présenté"
 
-msgid "Search.Ficheprescription93.personne_recue"
-msgstr "L'allocataire a été reçu"
-
 msgid "Search.Ficheprescription93.personne_retenue"
 msgstr "L'allocataire a été retenu"
 
@@ -349,9 +346,6 @@ msgstr "Prestataire/Partenaire"
 msgid "Ficheprescription93.rdvprestataire_date"
 msgstr "Rendez-vous fixé le"
 
-msgid "Ficheprescription93.rdvprestataire_personne"
-msgstr "Avec"
-
 msgid "Ficheprescription93.numconvention"
 msgstr "Numéro de convention ou code action d'attente"
 
@@ -443,31 +437,13 @@ msgstr "Effectivité de la positionnement"
 msgid "Ficheprescription93.date_retour"
 msgstr "Date de retour de la fiche au prescripteur ou au référent"
 
-msgid "Ficheprescription93.retour_nom_partenaire"
-msgstr "Nom du partenaire qui a reçu l'allocataire"
-
 msgid "Ficheprescription93.benef_retour_presente"
 msgstr "La personne s'est présentée"
-
-msgid "Ficheprescription93.date_presente_benef"
-msgstr "Date à laquelle la personne s'est présentée"
-
-msgid "Ficheprescription93.date_signature_partenaire"
-msgstr "Signé par le partenaire le"
 
 ################################################################################
 
 msgid "Ficheprescription93.Suivi"
-msgstr "Suivi de l'action"
-
-msgid "Ficheprescription93.personne_recue"
-msgstr "La personne a été reçue en entretien"
-
-msgid "Ficheprescription93.motifnonreceptionfp93_id"
-msgstr "Motif"
-
-msgid "Ficheprescription93.personne_nonrecue_autre"
-msgstr "Si autre, préciser"
+msgstr "Suivi de la prescription"
 
 msgid "Ficheprescription93.personne_retenue"
 msgstr "La personne a été retenue par la structure"
@@ -476,15 +452,6 @@ msgid "Ficheprescription93.motifnonretenuefp93_id"
 msgstr "Motif"
 
 msgid "Ficheprescription93.personne_nonretenue_autre"
-msgstr "Si autre, préciser"
-
-msgid "Ficheprescription93.personne_souhaite_integrer"
-msgstr "La personne souhaite intégrer l'action"
-
-msgid "Ficheprescription93.motifnonsouhaitfp93_id"
-msgstr "Motif"
-
-msgid "Ficheprescription93.personne_nonsouhaite_autre"
 msgstr "Si autre, préciser"
 
 msgid "Ficheprescription93.personne_a_integre"

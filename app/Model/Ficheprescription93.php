@@ -160,27 +160,9 @@
 				'order' => null,
 				'counterCache' => null
 			),
-			'Motifnonreceptionfp93' => array(
-				'className' => 'Motifnonreceptionfp93',
-				'foreignKey' => 'motifnonreceptionfp93_id',
-				'conditions' => null,
-				'type' => 'LEFT OUTER',
-				'fields' => null,
-				'order' => null,
-				'counterCache' => null
-			),
 			'Motifnonretenuefp93' => array(
 				'className' => 'Motifnonretenuefp93',
 				'foreignKey' => 'motifnonretenuefp93_id',
-				'conditions' => null,
-				'type' => 'LEFT OUTER',
-				'fields' => null,
-				'order' => null,
-				'counterCache' => null
-			),
-			'Motifnonsouhaitfp93' => array(
-				'className' => 'Motifnonsouhaitfp93',
-				'foreignKey' => 'motifnonsouhaitfp93_id',
 				'conditions' => null,
 				'type' => 'LEFT OUTER',
 				'fields' => null,
@@ -324,13 +306,13 @@
 				)
 			),
 			// Fin champs virtuels pour le formulaire d'ajout / modification
-			'objet' => array(
+			/*'objet' => array(
 				NOT_BLANK_RULE_NAME => array(
 					'rule' => array( NOT_BLANK_RULE_NAME ),
 					'message' => null,
 					'allowEmpty' => false
 				)
-			),
+			),*/
 			'dd_action' => array(
 				'compareDates' => array(
 					'rule' => array( 'compareDates', 'df_action', '<' ),
@@ -365,7 +347,7 @@
 			// Les options pdf nécessitent les options de l'allocataire
 			$params['allocataire'] = ( $params['allocataire'] || $params['pdf'] );
 
-			$motifsNames = array( 'Motifnonreceptionfp93', 'Motifnonretenuefp93', 'Motifnonsouhaitfp93', 'Motifnonintegrationfp93', 'Documentbeneffp93' );
+			$motifsNames = array(  'Motifnonretenuefp93', 'Motifnonintegrationfp93', 'Documentbeneffp93' );
 
 			if( Hash::get( $params, 'allocataire' ) ) {
 				$Allocataire = ClassRegistry::init( 'Allocataire' );
@@ -601,20 +583,6 @@
 			// Certains champs sont désactivés via javascript et ne sont pas renvoyés
 			$autres = Hash::get( $this->options( array( 'allocataire' => false, 'find' => false, 'autre' => true ) ), 'Autre' );
 
-			$value = Hash::get( $data, 'Ficheprescription93.personne_recue' );
-			if( $value !== '0' ) {
-				$data['Ficheprescription93']['motifnonreceptionfp93_id'] = null;
-				$data['Ficheprescription93']['personne_nonrecue_autre'] = null;
-			}
-			else if( !in_array( $data['Ficheprescription93']['motifnonreceptionfp93_id'], $autres['Ficheprescription93']['motifnonreceptionfp93_id'] ) ) {
-				$data['Ficheprescription93']['personne_nonrecue_autre'] = null;
-			}
-
-			$value = Hash::get( $data, 'Ficheprescription93.benef_retour_presente' );
-			if( $value !== 'oui' ) {
-				$data['Ficheprescription93']['date_presente_benef'] = null;
-			}
-
 			$value = Hash::get( $data, 'Ficheprescription93.personne_retenue' );
 			if( $value !== '0' ) {
 				$data['Ficheprescription93']['motifnonretenuefp93_id'] = null;
@@ -622,15 +590,6 @@
 			}
 			else if( !in_array( $data['Ficheprescription93']['motifnonretenuefp93_id'], $autres['Ficheprescription93']['motifnonretenuefp93_id'] ) ) {
 				$data['Ficheprescription93']['personne_nonretenue_autre'] = null;
-			}
-
-			$value = Hash::get( $data, 'Ficheprescription93.personne_souhaite_integrer' );
-			if( $value !== '0' ) {
-				$data['Ficheprescription93']['motifnonsouhaitfp93_id'] = null;
-				$data['Ficheprescription93']['personne_nonsouhaite_autre'] = null;
-			}
-			else if( !in_array( $data['Ficheprescription93']['motifnonsouhaitfp93_id'], $autres['Ficheprescription93']['motifnonsouhaitfp93_id'] ) ) {
-				$data['Ficheprescription93']['personne_nonsouhaite_autre'] = null;
 			}
 
 			$value = Hash::get( $data, 'Ficheprescription93.personne_a_integre' );
@@ -665,11 +624,12 @@
 				$statut = '03transmise_partenaire';
 			}
 			if( $statut == '03transmise_partenaire' && dateComplete(  $data, 'Ficheprescription93.date_retour' ) ) {
-				$statut = '04effectivite_renseignee';
+				$statut = '05suivi_renseigne'; // 04effectivite_renseignee
 			}
-			if( $statut == '04effectivite_renseignee' && Hash::get(  $data, 'Ficheprescription93.personne_recue' ) != '' ) {
+			/*Retirer en Version 3.2.6 sur la simplification de la fiche prescription
+			 * if( $statut == '04effectivite_renseignee' && Hash::get(  $data, 'Ficheprescription93.personne_recue' ) != '' ) {
 				$statut = '05suivi_renseigne';
-			}
+			}*/
 			$data[$this->alias]['statut'] = $statut;
 
 			// Début Instantanedonnees93 ...
@@ -880,9 +840,7 @@
 						$this->Filierefp93->fields(),
 						$this->Instantanedonneesfp93->fields(),
 						$this->Motifnonintegrationfp93->fields(),
-						$this->Motifnonreceptionfp93->fields(),
 						$this->Motifnonretenuefp93->fields(),
-						$this->Motifnonsouhaitfp93->fields(),
 						$this->Personne->fields(),
 						$this->Referent->fields(),
 						$this->Adresseprestatairefp93->Prestatairefp93->fields(),
@@ -898,9 +856,7 @@
 						$this->join( 'Filierefp93', array( 'type' => 'INNER' ) ),
 						$this->join( 'Instantanedonneesfp93', array( 'type' => 'INNER' ) ),
 						$this->join( 'Motifnonintegrationfp93', array( 'type' => 'LEFT OUTER' ) ),
-						$this->join( 'Motifnonreceptionfp93', array( 'type' => 'LEFT OUTER' ) ),
 						$this->join( 'Motifnonretenuefp93', array( 'type' => 'LEFT OUTER' ) ),
-						$this->join( 'Motifnonsouhaitfp93', array( 'type' => 'LEFT OUTER' ) ),
 						$this->join( 'Personne', array( 'type' => 'INNER' ) ),
 						$this->join( 'Prestatairehorspdifp93', array( 'type' => 'LEFT OUTER' ) ),
 						$this->join( 'Referent', array( 'type' => 'INNER' ) ),
