@@ -410,7 +410,7 @@ msgstr "Mail"
 ################################################################################
 
 msgid "Ficheprescription93.texte_engagement"
-msgstr "Je m'engage à me rendre disponible au rendez vous qui a été fixé avec la structure partenaire avec les documents justifiant de sa situation (notification CAF, CER ou PPAE) En cas de force majeure, je m'engage à prévenir le conseiller d'insertion ou l'assistante sociale chargé de mon suivi ainsi que la structure partenaire (Organisme de formation, SIAE, autres...)."
+msgstr "Je m'engage à me rendre disponible au rendez vous qui a été fixé avec la structure partenaire avec les documents justifiant de sa situation (notification CAF, CER ou PPAE) En cas d'empêchement, je m'engage à prévenir le(la) conseiller(e) en insertion ou l'assistant(e) social(e) chargé(e) de mon suivi ainsi que la structure partenaire (Organisme de formation, SIAE, autres...)."
 
 msgid "Ficheprescription93.date_signature"
 msgstr "Signé le"
@@ -429,10 +429,13 @@ msgstr "Fiche transmise le"
 msgid "Modtransmfp93.Modtransmfp93"
 msgstr "Modalités de transmission"
 
+msgid "Ficheprescription93.Motifcontactfp93"
+msgstr "Motif de 1er contact"
+
 ################################################################################
 
 msgid "Ficheprescription93.Effectivite"
-msgstr "Effectivité de la positionnement"
+msgstr "Effectivité du positionnement"
 
 msgid "Ficheprescription93.date_retour"
 msgstr "Date de retour de la fiche au prescripteur ou au référent"
@@ -443,7 +446,7 @@ msgstr "La personne s'est présentée"
 ################################################################################
 
 msgid "Ficheprescription93.Suivi"
-msgstr "Suivi de la prescription"
+msgstr "Suivi du positionnement"
 
 msgid "Ficheprescription93.personne_retenue"
 msgstr "La personne a été retenue par la structure"

@@ -41,6 +41,7 @@
 			'Filierefp93',
 			'Actionfp93',
 			'Prestatairefp93',
+			'Motifcontactfp93',
 			'Modtransmfp93',
 			'Adresseprestatairefp93',
 			'Motifnonretenuefp93',

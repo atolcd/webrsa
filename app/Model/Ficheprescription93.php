@@ -237,6 +237,22 @@
 				'insertQuery' => null,
 				'with' => 'Ficheprescription93Modtransmfp93'
 			),
+			'Motifcontactfp93' => array(
+				'className' => 'Motifcontactfp93',
+				'joinTable' => 'fichesprescriptions93_motifscontactsfps93',
+				'foreignKey' => 'ficheprescription93_id',
+				'associationForeignKey' => 'motifcontactfp93_id',
+				'unique' => true,
+				'conditions' => null,
+				'fields' => null,
+				'order' => null,
+				'limit' => null,
+				'offset' => null,
+				'finderQuery' => null,
+				'deleteQuery' => null,
+				'insertQuery' => null,
+				'with' => 'Ficheprescription93Motifcontactfp93'
+			)
 		);
 
 		/**
@@ -373,9 +389,9 @@
 					$options,
 					array( 'Ficheprescription93' => array( 'typethematiquefp93_id' => $this->Filierefp93->Categoriefp93->Thematiquefp93->enum( 'type' ) ) ),
 					array( 'Modtransmfp93' => array( 'Modtransmfp93' => $this->Modtransmfp93->find( 'list' ) ) ),
+					array( 'Ficheprescription93' => array( 'Motifcontactfp93' => $this->Motifcontactfp93->find( 'list' ) ) ),
 					array( 'Documentbeneffp93' => array( 'Documentbeneffp93' => $this->Documentbeneffp93->find( 'list' ) ) )
 				);
-
 				foreach( $motifsNames as $motifName ) {
 					$foreignKey = Inflector::underscore( $motifName ).'_id';
 
@@ -491,6 +507,18 @@
 				);
 				$data['Modtransmfp93']['Modtransmfp93'] = (array)$this->Ficheprescription93Modtransmfp93->find( 'list', $query );
 
+				// Récupération des motifs de contacts
+				$query = array(
+					'fields' => array(
+						'Ficheprescription93Motifcontactfp93.id',
+						'Ficheprescription93Motifcontactfp93.motifcontactfp93_id',
+					),
+					'conditions' => array(
+						'Ficheprescription93Motifcontactfp93.ficheprescription93_id' => $id
+					)
+				);
+				$data[$this->alias]['Motifcontactfp93'] = (array)$this->Ficheprescription93Motifcontactfp93->find( 'list', $query );
+
 				// Récupération des documents dont le bénéficiaire est invité à se munir
 				$query = array(
 					'fields' => array(
@@ -573,6 +601,9 @@
 			}
 
 			$data = Hash::merge( $ficheprescription, $data );
+
+			//Recuper la valeur de Motif de contact pour sauvegarde
+			$data['Motifcontactfp93']['Motifcontactfp93']  = $data['Ficheprescription93']['Motifcontactfp93'] ;
 
 			// Case à cocher "Adresse du lieu de RDV"
 			$rdvprestataire_adresse_check = Hash::get( $data, "{$this->alias}.rdvprestataire_adresse_check" );
@@ -901,11 +932,12 @@
 			$return = array(
 				$data,
 				'documentbeneffp93' => array(),
-				'modtransmfp93' => array()
+				'modtransmfp93' => array(),
+				'motifcontactfp93' => array()
 			);
 
 			// Lecture des données HABTM
-			foreach( array( 'Documentbeneffp93', 'Modtransmfp93' ) as $habtmModelName ) {
+			foreach( array( 'Documentbeneffp93', 'Modtransmfp93' , 'Motifcontactfp93') as $habtmModelName ) {
 				$with = $this->hasAndBelongsToMany[$habtmModelName]['with'];
 
 				$query = array(

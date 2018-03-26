@@ -207,6 +207,7 @@
 			array(
 				'Ficheprescription93.duree_action',
 				'Ficheprescription93.rdvprestataire_date' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 ),
+				'Ficheprescription93.Motifcontactfp93' => array( 'empty' => true ),
 				'Documentbeneffp93.Documentbeneffp93' => array( 'multiple' => 'checkbox' ),
 				'Ficheprescription93.documentbeneffp93_autre',
 			),
@@ -223,7 +224,7 @@
 		.$this->Html->tag( 'p', __d( $this->request->params['controller'], 'Ficheprescription93.texte_engagement' ) )
 		.$this->Default3->subform(
 			array(
-				'Ficheprescription93.date_signature' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 ),
+				'Ficheprescription93.date_signature' => array( 'dateFormat' => 'DMY',  'timeFormat' => 24,'maxYear' => date( 'Y' ) + 1  ),// , 'empty' => true
 			),
 			array(
 				'options' => $options,
@@ -237,7 +238,7 @@
 		$this->Html->tag( 'legend', __d( $this->request->params['controller'], 'Ficheprescription93.Transmission' ) )
 		.$this->Default3->subform(
 			array(
-				'Ficheprescription93.date_transmission' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 ),
+				'Ficheprescription93.date_transmission' => array('dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 ),// 'empty' => true,
 				'Modtransmfp93.Modtransmfp93' => array( 'multiple' => 'checkbox' ),
 			),
 			array(
@@ -246,7 +247,7 @@
 		)
 	);
 
-	// Cadre "Résultat de l'effectivité de la prescription"
+	// Cadre "Résultat de l'effectivité du positionnement"
 	echo $this->Html->tag(
 		'fieldset',
 		$this->Html->tag( 'legend', __d( $this->request->params['controller'], 'Ficheprescription93.Effectivite' ) )
@@ -254,9 +255,6 @@
 			array(
 				'Ficheprescription93.date_retour' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 ),
 				'Ficheprescription93.benef_retour_presente' => array( 'empty' => true ),
-				/*
-				'Ficheprescription93.retour_nom_partenaire' => array( 'type' => 'text' ),
-				'Ficheprescription93.date_signature_partenaire' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 ),*/
 			),
 			array(
 				'options' => $options,
@@ -264,7 +262,7 @@
 		)
 	);
 
-	// Cadre "Suivi de l'action"
+	// Cadre "Suivi du positionnement
 	echo $this->Html->tag(
 		'fieldset',
 		$this->Html->tag( 'legend', __d( $this->request->params['controller'], 'Ficheprescription93.Suivi' ) )
@@ -336,7 +334,8 @@
 			"Documentbeneffp93.Documentbeneffp93.{$documentbeneffp93_id}",
 			'Ficheprescription93.documentbeneffp93_autre',
 			false,
-			false
+			false,
+			true
 		);
 	}
 
@@ -351,9 +350,10 @@
 		'Ficheprescription93.personne_retenue',
 		array(
 			'Ficheprescription93.motifnonretenuefp93_id',
-			'Ficheprescription93.personne_nonretenue_autre',
+			//'Ficheprescription93.personne_nonretenue_autre',
 		),
 		array( null, '', '1' ),
+		true,
 		true
 	);
 
@@ -363,7 +363,8 @@
 			'Ficheprescription93.personne_nonretenue_autre'
 		),
 		(array)Hash::get( $options, 'Autre.Ficheprescription93.motifnonretenuefp93_id' ),
-		false
+		false,
+		true
 	);
 
 	// Personne a intégré
@@ -371,9 +372,10 @@
 		'Ficheprescription93.personne_a_integre',
 		array(
 			'Ficheprescription93.motifnonintegrationfp93_id',
-			'Ficheprescription93.personne_nonintegre_autre',
+			//'Ficheprescription93.personne_nonintegre_autre',
 		),
 		array( null, '', '1' ),
+		true,
 		true
 	);
 	echo $this->Observer->disableFieldsOnValue(
@@ -384,6 +386,7 @@
 			'Ficheprescription93.personne_date_integration.year',
 		),
 		array( null, '', '0' ),
+		true,
 		true
 	);
 
@@ -402,7 +405,8 @@
 			'Ficheprescription93.personne_nonintegre_autre'
 		),
 		(array)Hash::get( $options, 'Autre.Ficheprescription93.motifnonintegrationfp93_id' ),
-		false
+		false,
+		true
 	);
 
 	echo $this->Ajax2->updateDivOnFieldsChange(
