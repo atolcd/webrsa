@@ -296,7 +296,8 @@
 					$this->Foyer->join('Evenement')
 				),
 				'conditions' => $conditions,
-				'contain' => false
+				'contain' => false,
+				'order' => array ('Evenement.dtliq DESC')
 			);
 
 			$keys = array( 'fields', 'joins' );
