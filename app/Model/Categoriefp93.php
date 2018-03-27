@@ -179,7 +179,6 @@
 			);
 
 			$result = $this->find( 'first', $query );
-			debug($result);
 
 			if( !empty( $result ) ) {
 				$typethematiquefp93_id = Hash::get( $result, "Thematiquefp93.type" );
