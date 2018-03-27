@@ -4040,6 +4040,7 @@ msgstr "Suppression d'un service"
 msgid "controllers/Services66/view"
 msgstr "Visualisation d'un service"
 
+
 ###############################################################################
 ## Didacticiel
 ###############################################################################
@@ -4060,6 +4061,7 @@ msgstr "Paramétrage des Créances Alimentaires"
 msgid "controllers/Creancesalimentaires/index"
 msgstr "Visualisation des Créances Alimentaires"
 
+
 ###############################################################################
 ## Questionniare B7
 ###############################################################################
@@ -4078,8 +4080,10 @@ msgstr "Suppression d'un accès à l'emploi"
 msgid "controllers/Questionnairesb7pdvs93/edit"
 msgstr "Modification d'un accès à l'emploi"
 
-###############################################################################
 
+###############################################################################
+## RsaQuery
+###############################################################################
 msgid "controllers/Requetes"
 msgstr "RsaQuery"
 
@@ -4097,6 +4101,34 @@ msgstr "RsaQuery"
 
 msgid "controllers/Requetes/view"
 msgstr "Visualisation RsaQuery"
+
+
+###############################################################################
+## Page d'accueil
+###############################################################################
+msgid "controllers/Accueils"
+msgstr "Accueil"
+
+msgid "controllers/Accueils/index"
+msgstr "Page d'accueil"
+
+###############################################################################
+## Paramétrage de la page d'accueil
+###############################################################################
+msgid "controllers/Accueilsarticles"
+msgstr "Paramétrage des articles en page d'accueil"
+
+msgid "controllers/Accueilsarticles/index"
+msgstr "Liste des articles en page d'accueil"
+
+msgid "controllers/Accueilsarticles/add"
+msgstr "Ajout des articles en page d'accueil"
+
+msgid "controllers/Accueilsarticles/edit"
+msgstr "Modification des articles en page d'accueil"
+
+msgid "controllers/Accueilsarticles/delete"
+msgstr "Suppression des articles en page d'accueil"
 
 
 

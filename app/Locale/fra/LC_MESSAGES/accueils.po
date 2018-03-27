@@ -1,0 +1,74 @@
+# Traductions de accueils.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+# Page d'accueil
+# ==============================================================================
+
+msgid "Accueil.titre"
+msgstr "Page d'accueil"
+
+# Nom des colonnes =============================================================
+
+msgid "Accueil.demandeur"
+msgstr "Demandeur"
+
+msgid "Accueil.date.creation"
+msgstr "Date de création"
+
+msgid "Accueil.date.rendezvous"
+msgstr "Date de rendez-vous"
+
+msgid "Accueil.description"
+msgstr "Description"
+
+msgid "Accueil.thematiques"
+msgstr "Thématiques"
+
+msgid "Accueil.objet"
+msgstr "Objet"
+
+msgid "Accueil.type"
+msgstr "Type"
+
+msgid "Accueil.statut"
+msgstr "Statut"
+
+msgid "Accueil.actions"
+msgstr "Actions"
+
+msgid "Accueil.action.voir"
+msgstr "Voir"
+
+# Titres rubriques =============================================================
+
+msgid "Accueil.cer.titre"
+msgstr "Vos CER du __DU__ au __AU__"
+
+msgid "Accueil.fiche.titre"
+msgstr "Vos fiches de prescription de plus de __LIMITE__ mois non cloturées"
+
+msgid "Accueil.rendezvous.titre"
+msgstr "Vos rendez-vous dans les __LIMITE__ jours à venir"
+
+# Aucune donnée ================================================================
+
+msgid "Accueil.article.aucun"
+msgstr "Vous n'avez aucun message"
+
+msgid "Accueil.cer.aucun"
+msgstr "Vous n'avez aucun CER sur la période donnée"
+
+msgid "Accueil.fiche.aucun"
+msgstr "Vous n'avez aucune fiche de prescription sur la période donnée"
+
+msgid "Accueil.rendezvous.aucun"
+msgstr "Vous n'avez aucun rendez-vous sur la période donnée"
+

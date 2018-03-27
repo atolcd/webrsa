@@ -585,6 +585,10 @@
 			$departement = (integer)Configure::read( 'Cg.departement' );
 
 			$items = array(
+				'Accueil' => array(
+					'disabled' => false,
+					'url' => array( 'controller' => 'accueilsarticles', 'action' => 'index' )
+				),
 				'Actions d\'insertion' => array(
 					'disabled' => 66 === $departement,
 					'url' => array( 'controller' => 'actions', 'action' => 'index' )

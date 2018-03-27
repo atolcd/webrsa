@@ -2060,6 +2060,20 @@ div.col-2.droite{
 	width: 100%;
 }
 
+div.colonne-accueil {
+	width: 50%;
+	float: left;
+}
+
+div.col-2-accueil{
+	vertical-align: top;
+	padding: 1%;
+}
+
+div.col-2-accueil table{
+	width: 100%;
+}
+
 /* Page de résumé du dossier, taille des titres pour les départements autres que le 66 */
 body.cg58.dossiers.view #resumeDossier h1, body.cg58.dossiers.view #resumeDossier h2,
 body.cg93.dossiers.view #resumeDossier h1, body.cg93.dossiers.view #resumeDossier h2,

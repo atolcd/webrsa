@@ -125,21 +125,26 @@
 			}
 
 			if (!empty($this->request->data)) {
-				if(false === empty($group_id)) {
-					$this->Group->id = $group_id;
-				}
-				$this->request->data = $this->WebrsaPermissions->getCompletedPermissions( $this->request->data );
-
-				$this->Group->begin();
-				if ($this->Group->save( $this->request->data, array( 'atomic' => false ) )
-					&& $this->WebrsaPermissions->updatePermissions($this->Group, $this->Group->id, $this->request->data)
-				) {
-					$this->Group->commit();
-					$this->Flash->success( __( 'Save->success' ) );
-					$this->redirect(array('controller' => 'groups', 'action' => 'index'));
-				} else {
-					$this->Group->rollback();
+				if ($this->request->data['Group']['code'] == 'by-default') {
 					$this->Flash->error( __( 'Save->error' ) );
+				}
+				else {
+					if(false === empty($group_id)) {
+						$this->Group->id = $group_id;
+					}
+					$this->request->data = $this->WebrsaPermissions->getCompletedPermissions( $this->request->data );
+
+					$this->Group->begin();
+					if ($this->Group->save( $this->request->data, array( 'atomic' => false ) )
+						&& $this->WebrsaPermissions->updatePermissions($this->Group, $this->Group->id, $this->request->data)
+					) {
+						$this->Group->commit();
+						$this->Flash->success( __( 'Save->success' ) );
+						$this->redirect(array('controller' => 'groups', 'action' => 'index'));
+					} else {
+						$this->Group->rollback();
+						$this->Flash->error( __( 'Save->error' ) );
+					}
 				}
 			} else if( 'edit' === $this->action ) {
 				$this->request->data = $this->Group->find(

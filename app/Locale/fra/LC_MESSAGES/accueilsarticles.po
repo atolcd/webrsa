@@ -1,0 +1,32 @@
+# Traductions de accueilsarticles.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Accueilsarticles/index/:heading"
+msgstr "Paramétrage des articles en page d'accueil"
+
+msgid "/Accueilsarticles/add/:heading"
+msgstr "Ajout d'un article"
+
+msgid "/Accueilsarticles/edit/:heading"
+msgstr "Modification d'un article"
+
+msgid "/Accueilsarticles/add"
+msgstr "Ajouter"
+
+msgid "/Accueilsarticles/edit"
+msgstr "Modifier"
+
+msgid "/Accueilsarticles/delete"
+msgstr "Supprimer"
+
+msgid "/Accueilsarticles/delete/#Accueilarticle.id# ?"
+msgstr "Réellement supprimer le tag « #Accueilarticle.title# » ?"

@@ -27,6 +27,9 @@
 
 	$items = array(
 		$nomDuMenu => $monMenu,
+		'Accueil' => array (
+			'url' => array( 'controller' => 'accueils', 'action' => 'index' ),
+		),
 		( $departement == 66 ? 'Gestion de listes' : 'Cohortes' ) => array(
 			'APRE' => array(
 				'disabled' => ( $departement != 66 ),

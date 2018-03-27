@@ -919,6 +919,16 @@
 	);
 
 	/**
+	 * Affichage de messages autour du logo
+	 */
+	$enabled = Configure::read('debug') > 0; // Ne s'affiche que si mode debug activé
+	$beforeLogoText = '';//$enabled && isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ''; // Affichera le nom du serveur
+	$afterLogoText = $enabled ? file_get_contents(APP.'VERSION.txt') : ''; // Affichera la version webrsa
+
+	Configure::write('UI.beforeLogo.text', $beforeLogoText);
+	Configure::write('UI.afterLogo.text', $afterLogoText);
+
+	/**
 	 * Récupération du fichier de config propre au département
 	 */
 	require_once ('webrsa.cg'.Configure::read( 'Cg.departement' ).'.inc');

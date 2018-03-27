@@ -20,6 +20,7 @@
 						array(
 							'Group.id',
 							'Group.name',
+							'Group.code',
 							'Group.parent_id' => array( 'empty' => true )
 						)
 					),

@@ -5,6 +5,7 @@
 			'cells' => array(
 				'Group.name',
 				'ParentGroup.name',
+				'Group.code',
 				'/Groups/edit/#Group.id#' => array(
 					'title' => true
 				),
