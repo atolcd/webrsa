@@ -394,16 +394,6 @@
 		true,
 		true
 	);
-
-	echo $this->Observer->disableFieldsOnValue(
-		'Ficheprescription93.motifnonintegrationfp93_id',
-		array(
-			'Ficheprescription93.personne_date_integration',
-		),
-		(array)Hash::get( $options, 'Autre.Ficheprescription93.motifnonintegrationfp93_id' ),
-		false
-	);
-
 	echo $this->Observer->disableFieldsOnValue(
 		'Ficheprescription93.motifnonintegrationfp93_id',
 		array(
@@ -421,7 +411,7 @@
 			'Ficheprescription93.motifactionachevefp93_id',
 			'Ficheprescription93.personne_acheve_autre'
 		),
-		array(  '1' ),
+		array( '1' ),
 		false,
 		true
 	);
@@ -431,8 +421,17 @@
 			'Ficheprescription93.motifnonactionachevefp93_id',
 			'Ficheprescription93.personne_acheve_autre'
 		),
-		array(  '0' ),
+		array( '0' ),
 		false,
+		true
+	);
+	echo $this->Observer->disableFieldsOnValue(
+		'Ficheprescription93.personne_acheve',
+		array(
+			'Ficheprescription93.personne_acheve_autre'
+		),
+		array( null,'' ),
+		true,
 		true
 	);
 	echo $this->Observer->disableFieldsOnValue(
@@ -451,7 +450,7 @@
 		),
 		(array)Hash::get( $options, 'Autre.Ficheprescription93.motifnonactionachevefp93_id' ),
 		false,
-		true
+		false
 	);
 
 //fiche prescritpteur
@@ -591,4 +590,21 @@
 			clearFicheprescription93FormField( '<?php echo $this->Html->domId( $field );?>' );
 		<?php endforeach; ?>
 	} );
+
+	document.addEventListener('DOMContentLoaded', function() {
+    if( ( $F( 'Ficheprescription93Motifactionachevefp93Id' ) != null ) ) {
+			var strjson = '<?php echo json_encode ( Hash::get( $options, 'Autre.Ficheprescription93.motifactionachevefp93_id' ) ) ; ?>';
+			var objjson = JSON.parse(strjson) ;
+			var value = $( 'Ficheprescription93Motifactionachevefp93Id' ).value;
+			var keys = [];
+			for(var k in objjson) keys.push(k);
+			var index = keys.indexOf( value );
+			if (index != null){
+				 var field = $( 'Ficheprescription93PersonneAcheveAutre' );
+				  field.enable();
+					field.show();
+			}
+		}
+}, false);
+
 </script>
