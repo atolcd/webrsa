@@ -47,6 +47,7 @@
 				),
 			),
 			'Workflowscers93',
+			'Filtresdefaut'
 		);
 
 		/**
@@ -327,7 +328,7 @@
 			else {
 				// Traitement du formulaire de recherche
 				if( empty( $this->request->data ) ) {
-					$this->request->data = $this->Filtresdefaut->values();
+					$this->Filtresdefaut->merge();
 				}
 				// On relache les jetons obtenus lors de l'accès précédent à la page
 				else {
