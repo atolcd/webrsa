@@ -80,6 +80,10 @@
 			array( 'action' => 'ajaxfileupload' )
 		);
 
+		if (!isset ($fichiersEnBase)) {
+			$fichiersEnBase = array ();
+		}
+
 		echo $this->Fileuploader->results(
 			$fichiersEnBase
 		);
