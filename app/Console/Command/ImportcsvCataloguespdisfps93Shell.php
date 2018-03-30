@@ -62,6 +62,7 @@
 		 */
 		protected $_correspondances = array(
 			'Thematiquefp93.name',
+			'Thematiquefp93.yearthema',
 			'Categoriefp93.name',
 			'Actionfp93.numconvention',
 			'Prestatairefp93.name',
