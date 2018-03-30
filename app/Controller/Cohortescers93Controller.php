@@ -72,6 +72,7 @@
 			),
 			'WebrsaUsers',
 			'Workflowscers93',
+			'Filtresdefaut'
 
 		);
 
@@ -183,8 +184,9 @@
 			if( !$this->request->is( 'ajax' ) ) {
 				// On doit pouvoir obtenir les résultats dès le premier accès à la page
 				if( !isset( $this->request->data['Search'] ) ) {
+					$this->Filtresdefaut->merge();
 					$this->request->data = Set::merge(
-						$this->Filtresdefaut->values(),
+						$this->request->data,
 						array( 'Search' => array( 'active' => true ) )
 					);
 				}
