@@ -10,6 +10,27 @@
 		)
 	);
 
+	//Si on doit affichée l'année alors on corrige l'effet texte
+	$keypos = array_keys($fields, 'Actionfp93.annee');
+	if (!empty ($keypos) ) {
+			$fields = array(
+		'Thematiquefp93.yearthema',
+		'Thematiquefp93.type',
+		'Thematiquefp93.name',
+		'Categoriefp93.name',
+		'Filierefp93.name',
+		'Prestatairefp93.name',
+		'Adresseprestatairefp93.name',
+		'Actionfp93.name',
+		'Actionfp93.numconvention',
+		'Actionfp93.annee' => array( 'type' => 'text' ),
+		'Actionfp93.duree',
+		'Actionfp93.actif',
+		'Actionfp93.created',
+		'Actionfp93.modified',
+	  );
+	}
+
 	$fields["/Cataloguespdisfps93/edit/{$modelName}/#{$modelName}.id#"] = array(
 		'disabled' => !$this->Permissions->check( 'Cataloguespdisfps93', 'edit' )
 	);
