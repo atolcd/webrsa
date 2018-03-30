@@ -114,6 +114,15 @@ document.observe( 'dom:loaded', function() { try {
 	}
 
 	if ($departement === 93) {
+		$user_externe = strpos( $this->Session->read( 'Auth.User.type' ), 'externe_' ) === 0;
+		if ( $user_externe == true ) {
+		    foreach ($options['Orientstruct']['origine'] as $key => $value) {
+		        if (preg_match('|^presta|', $key)) {
+		            unset ($options['Orientstruct']['origine'][$key]);
+		        }
+		    }
+		}
+
 		echo $this->Default3->subform(
 			array(
 				'Search.Orientstruct.origine' => array('empty' => true),
