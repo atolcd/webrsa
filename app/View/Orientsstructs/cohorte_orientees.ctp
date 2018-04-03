@@ -1,5 +1,10 @@
-<?php $this->start( 'custom_search_filters' );?>
 <?php
+
+	$user_type = $this->Session->read( 'Auth.User.type' );
+	$user_externe = strpos( $user_type, 'externe_' ) === 0;
+
+	$this->start( 'custom_search_filters' );
+
 	$paramDate = array(
 		'minYear_from' => '2009',
 		'maxYear_from' => date( 'Y' ) + 1,
@@ -35,7 +40,9 @@
 	?>
 </fieldset>
 <?php
-require_once ('tag.ctp');
+if (  ! ( $departement == 93 & true === $user_externe ) ) {
+	require_once ('tag.ctp');
+}
 $this->end();
 ?>
 
