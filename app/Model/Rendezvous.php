@@ -78,6 +78,10 @@
 				'checkThematiqueAnnuelleParStatutRdvId' => array(
 					'rule' => array( 'checkThematiqueAnnuelleParStatutRdvId' ),
 					'message' => 'Si le RDV n\'a pas eu lieu (statut: excusé ou non honoré), il faut supprimer le D1'
+				),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
 				)
 			)
 		);
@@ -503,14 +507,8 @@
 				$this->virtualFields['thematiques'] = $this->WebrsaRendezvous->vfListeThematiques( null );
 				$this->virtualFields['thematiques_virgules'] = $this->WebrsaRendezvous->vfListeThematiques( null, ', ' );
 			}
-
-			if( 58 !== (int)Configure::read( 'Cg.departement' ) ){
-				$rule = array(
-					'rule' => array( NOT_BLANK_RULE_NAME ),
-					'message' => 'Champ obligatoire',
-				);
-
-				$this->validate['statutrdv_id'][NOT_BLANK_RULE_NAME] = $rule;
+			if( Configure::read( 'Cg.departement' ) == 58 ){
+				  unset($this->validate['statutrdv_id'][NOT_BLANK_RULE_NAME]);
 			}
 		}
 
