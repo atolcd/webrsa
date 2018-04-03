@@ -42,7 +42,10 @@
 				// 2.2 Conditions supplémentaires optionnelles
 				'conditions' => array(),
 				// 2.3 Tri par défaut
-				'order' => array( 'Personne.nom' )
+				'order' => array(
+					'Dossier.dtdemrsa' => 'DESC',
+					'Personne.nom' => 'ASC'
+				)
 			),
 			// 3. Nombre d'enregistrements par page
 			'limit' => 10,
