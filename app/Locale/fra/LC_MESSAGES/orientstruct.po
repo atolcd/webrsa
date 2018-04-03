@@ -94,7 +94,7 @@ msgid "ENUM::ORIGINE::prestadiagno"
 msgstr "Orientation prestataire diagnostic"
 
 msgid "ENUM::ORIGINE::prestadefaut"
-msgstr "Orientation prestataire par défaut"
+msgstr "Orientation autre prestataire"
 
 msgid "Orientstruct.origine.externe"
 msgstr "Orientation externe"
