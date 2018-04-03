@@ -107,6 +107,9 @@
 			'tableau1b6' => 'read',
 			'tableaud1' => 'read',
 			'tableaud2' => 'read',
+			'tableaub7' => 'read',
+			'tableaub7d2typecontrat' => 'read',
+			'tableaub7d2familleprofessionnelle' => 'read',
 			'view' => 'read',
 		);
 
@@ -981,6 +984,57 @@
 			}
 
 			$this->redirect( $this->request->referer() );
+		}
+
+		/**
+		 * Tableau B7
+		 */
+		public function tableaub7() {
+			$search = $this->_filters( $this->request->data );
+
+			$this->_setOptions();
+			$this->_prepareFormData( $search );
+
+			if( !empty( $search ) ) {
+				//$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7( $search );
+				$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7( $this->request->data );
+
+				$this->set( compact( 'results' ) );
+			}
+		}
+
+		/**
+		 * Tableau B7 + D2 par type de contrat
+		 */
+		public function tableaub7d2typecontrat() {
+			$search = $this->_filters( $this->request->data );
+
+			$this->_setOptions();
+			$this->_prepareFormData( $search );
+
+			if( !empty( $search ) ) {
+				//$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7d2typecontrat( $search );
+				$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7d2typecontrat( $this->request->data );
+
+				$this->set( compact( 'results' ) );
+			}
+		}
+
+		/**
+		 * Tableau B7 + D2 par famille professionnelle
+		 */
+		public function tableaub7d2familleprofessionnelle() {
+			$search = $this->_filters( $this->request->data );
+
+			$this->_setOptions();
+			$this->_prepareFormData( $search );
+
+			if( !empty( $search ) ) {
+				//$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7d2familleprofessionnelle( $search );
+				$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7d2familleprofessionnelle( $this->request->data );
+
+				$this->set( compact( 'results' ) );
+			}
 		}
 	}
 ?>

@@ -659,6 +659,19 @@
 				'finderQuery' => '',
 				'counterQuery' => ''
 			),
+			'Questionnaireb7pdv93' => array(
+				'className' => 'Questionnaireb7pdv93',
+				'foreignKey' => 'personne_id',
+				'dependent' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
 			'Ficheprescription93' => array(
 				'className' => 'Ficheprescription93',
 				'foreignKey' => 'personne_id',

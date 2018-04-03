@@ -3697,6 +3697,15 @@ msgstr "Tableau de suivi D1"
 msgid "controllers/Tableauxsuivispdvs93/tableaud2"
 msgstr "Tableau de suivi D2"
 
+msgid "controllers/Tableauxsuivispdvs93/tableaub7"
+msgstr "Tableau de suivi B7 : accès à l'emploi"
+
+msgid "controllers/Tableauxsuivispdvs93/tableaub7d2typecontrat"
+msgstr "Tableau de suivi B7 + D2 : accès à l'emploi par type de contrat"
+
+msgid "controllers/Tableauxsuivispdvs93/tableaub7d2familleprofessionnelle"
+msgstr "Tableau de suivi B7 + D2 : accès à l'emploi par famille professionnelle"
+
 msgid "controllers/Tableauxsuivispdvs93/exportcsvcorpus"
 msgstr "Export CSV du corpus pris en compte"
 

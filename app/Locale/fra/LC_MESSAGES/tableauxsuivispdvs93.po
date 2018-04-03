@@ -556,3 +556,45 @@ msgstr "Fiche en attente"
 
 msgid "Ficheprescription93.personne_acheve"
 msgstr "Le bénéficiaire a achevé l'action"
+
+# ------------------------------------------------------------------------------
+# Tableau B7
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/tableaub7/:heading"
+msgstr "Tableau B7 - Accès à l'emploi avec maintien ou sortie de l'accompagnement"
+
+msgid "Tableaub7.chiffres.cles"
+msgstr "Accès à l'emploi : chiffres clés"
+
+msgid "Tableaub7.nb.personnes.differentes"
+msgstr "Nombre de personnes différentes ayant accédé à un emploi"
+
+msgid "Tableaub7.avec.ou.sans"
+msgstr "avec ou sans sortie de l'accompagnement"
+
+msgid "Tableaub7.avec"
+msgstr "et maintenues dans l'accompagnement"
+
+msgid "Tableaub7.sans"
+msgstr "et sorties de l'accompagnement"
+
+msgid "Tableaub7.par.type.contrat"
+msgstr "Accès à l'emploi : nombre d'accès à l'emploi par type de contrat"
+
+msgid "Tableaub7.par.famille.romev3"
+msgstr "Accès à l'emploi : nombre d'accès à l'emploi par familles professioinnelles"
+
+# ------------------------------------------------------------------------------
+# Tableau B7 + D2 par type de contrat
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/tableaub7d2typecontrat/:heading"
+msgstr "Tableau B7 + D2 - Nombre d'accès à l'emploi par type de contrat"
+
+# ------------------------------------------------------------------------------
+# Tableau B7 + D2 par famille professionnelle
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/tableaub7d2familleprofessionnelle/:heading"
+msgstr "Tableau B7 + D2 - Nombre d'accès à l'emploi par famille professionnelle"

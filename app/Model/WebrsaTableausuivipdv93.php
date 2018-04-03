@@ -138,6 +138,7 @@
 		 * @var array
 		 */
 		public $tableaux = array(
+			'tableaub7' => 'B 7',
 			'tableaud1' => 'D 1',
 			'tableaud2' => 'D 2',
 			'tableau1b3' => 'B 3',
@@ -1239,7 +1240,7 @@
 				)
 			);
 			$sortiesaccompagnement = $Questionnaired2pdv93->Sortieaccompagnementd2pdv93->find( 'list', $querydata );
-
+debug ($sortiesaccompagnement);
 			foreach( $sortiesaccompagnement as $group => $sortiesniveau2 ) {
 				$sortiesaccompagnement[$group] = array();
 				foreach( $sortiesniveau2 as $id => $sortieniveau2 ) {
@@ -3718,6 +3719,456 @@
 			$options['Search']['yearthematiquefp93_id'] = Hash::combine( $results, '{n}.Thematiquefp93.yearthema', '{n}.Thematiquefp93.yearthema' );
 
 			return $options;
+		}
+
+		/**
+		 * Retourne les conditions issues des filtres du moteur de recherche à
+		 * utiliser dans le tableau B7.
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		protected function _conditionsb7b7( array $search ) {
+			$conditions = array (
+				'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $search['Search']['annee'],
+			);
+			
+			return $conditions;
+		}
+
+		/**
+		 * Sortie de l'obligation d'accompagnement
+		 *
+		 *  3 => Création d'activité
+		 *  4 => Accès à un contrat aidé
+		 *  5 => Accès à un emploi durable (plus de 6 mois)
+		 *  6 => Maintien ou développement de l'emploi ou de l'activité
+		 * 11 => Accès à un emploi salarié SIAE (hors contrat aidé)
+		 * 12 => Accès à un emploi temporaire ou saisonnier (- ou = à 6 mois)
+		 */
+		private $sortieaccompagnementd2pdv93_ids = array (3, 4, 5, 6, 11, 12);
+
+		/**
+		 * Retourne les conditions issues des filtres du moteur de recherche à
+		 * utiliser dans le tableau D2.
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		protected function _conditionsb7d2( array $search ) {
+			$conditions = array (
+				
+			);
+
+			return $conditions;
+		}
+
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		public function tableaub7( array $search ) {
+			$questionnaireb7pdv93 = ClassRegistry::init( 'Questionnaireb7pdv93' );
+			$questionnaired2pdv93 = ClassRegistry::init( 'Questionnaired2pdv93' );
+
+			$personne = ClassRegistry::init( 'Personne' );
+
+			/*
+			 * Toutes les personnes ayant un questionnaire B7 ou un questionnaire D2
+			 */
+			// Questionnaires b7
+			$query = array (
+				'fields' => array (
+					'Personne.id',
+				),
+				'joins' => array(
+					array(
+						'alias' => 'Questionnaireb7pdv93',
+						'table' => 'questionnairesb7pdvs93',
+						'type' => 'INNER',
+						'conditions' => array(
+							'Questionnaireb7pdv93.personne_id = Personne.id',
+							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $search['Search']['annee'],
+						)
+					)
+				),
+				'contain' => array (
+					'Questionnaireb7pdv93',
+				),
+				'group' => array ('Personne.id'),
+			);
+			$personneb7s = $personne->find (
+				'all',
+				$query
+			);
+			// Questionnaires d2
+			$query = array (
+				'fields' => array (
+					'Personne.id',
+				),
+				'joins' => array(
+					array(
+						'alias' => 'Questionnaired2pdv93',
+						'table' => 'questionnairesd2pdvs93',
+						'type' => 'INNER',
+						'conditions' => array(
+							'Questionnaired2pdv93.personne_id = Personne.id',
+							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $search['Search']['annee'],
+							'Questionnaired2pdv93.emploiromev3_id IS NOT NULL',
+						)
+					)
+				),
+				'contain' => array (
+					'Questionnaired2pdv93',
+				),
+				'group' => array ('Personne.id'),
+			);
+			$personned2s = $personne->find (
+				'all',
+				$query
+			);
+
+			/*
+			 * Toutes les personnes ayant un questionnaire B7 ou un questionnaire D2 = 'maintien'
+			 */
+			$query = array (
+				'fields' => array (
+					'Personne.id',
+				),
+				'contain' => array (
+					'Questionnaireb7pdv93',
+					'Questionnaired2pdv93',
+				),
+				'joins' => array(
+					array(
+						'alias' => 'Questionnaireb7pdv93',
+						'table' => 'questionnairesb7pdvs93',
+						'type' => 'INNER',
+						'conditions' => array(
+							'Questionnaireb7pdv93.personne_id = Personne.id',
+							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $search['Search']['annee'],
+						)
+					),
+					array(
+						'alias' => 'Questionnaired2pdv93',
+						'table' => 'questionnairesd2pdvs93',
+						'type' => 'INNER',
+						'conditions' => array(
+							'Questionnaired2pdv93.personne_id = Personne.id',
+							'Questionnaired2pdv93.situationaccompagnement' => 'maintien',
+							'Questionnaired2pdv93.situationaccompagnement !=' => 'sortie_obligation',
+							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $search['Search']['annee'],
+						)
+					),
+				),
+				'group' => array ('Personne.id'),
+			);
+			$personneb7smaintenues = $personne->find (
+				'all',
+				$query
+			);
+
+			/*
+			 * Toutes les personnes ayant un questionnaire B7 ou un questionnaire D2 = 'sortie_obligation'
+			 * et une des 6 sorties emploi
+			 */
+			$query = array (
+				'fields' => array (
+					'Personne.id',
+				),
+				'contain' => array (
+					'Questionnaireb7pdv93',
+					'Questionnaired2pdv93',
+				),
+				'joins' => array(
+					array(
+						'alias' => 'Questionnaireb7pdv93',
+						'table' => 'questionnairesb7pdvs93',
+						'type' => 'INNER',
+						'conditions' => array(
+							'Questionnaireb7pdv93.personne_id = Personne.id',
+							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $search['Search']['annee'],
+						)
+					),
+					array(
+						'alias' => 'Questionnaired2pdv93',
+						'table' => 'questionnairesd2pdvs93',
+						'type' => 'INNER',
+						'conditions' => array(
+							'Questionnaired2pdv93.personne_id = Personne.id',
+							'Questionnaired2pdv93.situationaccompagnement' => 'sortie_obligation',
+							'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->sortieaccompagnementd2pdv93_ids,
+							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $search['Search']['annee'],
+						)
+					),
+				),
+				'group' => array ('Personne.id'),
+			);
+			$personneb7ssorties = $personne->find (
+				'all',
+				$query
+			);
+
+			$return = array();
+			$return['maintenues_sorties'] = count ($personneb7s) + count ($personned2s);
+			$return['maintenues'] = count ($personneb7smaintenues);
+			$return['sorties'] = count ($personneb7ssorties);
+
+			return $return;
+		}
+
+
+		/**
+		 * Tableau B7 + D2 par type de contrat
+		 */
+		public function tableaub7d2typecontrat( array $search ) {
+			$typeEmploi = ClassRegistry::init( 'Typeemploi' );
+			$questionnaireb7pdv93 = ClassRegistry::init( 'Questionnaireb7pdv93' );
+			$questionnaired2pdv93 = ClassRegistry::init( 'Questionnaired2pdv93' );
+			$familleromev3 = ClassRegistry::init( 'Familleromev3' );
+
+			$return = array();
+
+			// Types d'emploi
+			$familles = $familleromev3->find (
+				'list',
+				array (
+					'order' => array ('id' => 'ASC'),
+				)
+			);
+
+			// Types d'emploi
+			$typeEmplois = $typeEmploi->find (
+				'list',
+				array (
+					'order' => array ('id' => 'ASC'),
+				)
+			);
+
+			// Questionnaires b7
+			$questionnaireb7s = $questionnaireb7pdv93->find (
+				'all',
+				array (
+					'contain' => array (
+						'Expproromev3',
+						'Dureeemploi',
+						'Personne'=> array (
+							'Questionnaired2pdv93' => array (),
+						),
+					),
+				)
+			);
+
+			// Formatage réponse
+
+			// Par type de contrat
+			$tableauB7 = array ();
+			$tableauD2 = array ();
+			$total = 0;
+			$totalB7 = 0;
+			$totalD2 = 0;
+
+			foreach ($typeEmplois as $idTypeEmploi => $intitule) {
+				$tableauB7['complet'][$idTypeEmploi] = 0;
+				$tableauB7['partiel'][$idTypeEmploi] = 0;
+				$tableauD2['complet'][$idTypeEmploi] = 0;
+				$tableauD2['partiel'][$idTypeEmploi] = 0;
+
+				foreach ($questionnaireb7s as $questionnaireb7) {
+					if ($idTypeEmploi == $questionnaireb7['Questionnaireb7pdv93']['typeemploi_id']) {
+						$d2 = $questionnaireb7['Personne']['Questionnaired2pdv93'][0];
+
+						if ($d2['situationaccompagnement'] == 'maintien') {
+							if ($questionnaireb7['Dureeemploi']['id'] == 1) {
+								$tableauB7['complet'][$idTypeEmploi]++;
+							}
+							else {
+								$tableauB7['partiel'][$idTypeEmploi]++;
+							}
+							$totalB7++;
+						}
+						else {
+							if ($questionnaireb7['Dureeemploi']['id'] == 1) {
+								$tableauD2['complet'][$idTypeEmploi]++;
+							}
+							else {
+								$tableauD2['partiel'][$idTypeEmploi]++;
+							}
+							$totalD2++;
+						}
+
+						$total++;
+					}
+				}
+			}
+
+			$return['tableauB7'] = $tableauB7;
+			$return['tableauD2'] = $tableauD2;
+			$return['typeemploi'] = $typeEmplois;
+			$return['total'] = $total;
+			$return['totalB7'] = $totalB7;
+			$return['totalD2'] = $totalD2;
+
+			// Par famille professionelle
+			$tableauRomev3 = array ();
+			$totalFamilleTotal = 0;
+			$totalFamilleB7 = 0;
+			$totalFamilleD2 = 0;
+
+			foreach ($familles as $idFamille => $intitule) {
+				$tableauRomev3['B7'][$idFamille] = 0;
+				$tableauRomev3['D2'][$idFamille] = 0;
+				$tableauRomev3['TOTAL'][$idFamille] = 0;
+
+				foreach ($questionnaireb7s as $questionnaireb7) {
+					if ($idFamille == $questionnaireb7['Expproromev3']['familleromev3_id']) {
+						$d2 = $questionnaireb7['Personne']['Questionnaired2pdv93'][0];
+
+						if ($d2['situationaccompagnement'] == 'maintien') {
+							$tableauRomev3['B7'][$idFamille]++;
+							$totalFamilleB7++;
+						}
+						else {
+							$tableauRomev3['D2'][$idFamille]++;
+							$totalFamilleD2++;
+						}
+
+						$tableauRomev3['TOTAL'][$idFamille]++;
+						$totalFamilleTotal++;
+					}
+				}
+			}
+
+			$return['familleRomev3'] = $familles;
+			$return['tableauRomev3'] = $tableauRomev3;
+			$return['totalFamilleTotal'] = $totalFamilleTotal;
+			$return['totalFamilleB7'] = $totalFamilleB7;
+			$return['totalFamilleD2'] = $totalFamilleD2;
+//debug ($return);
+			return $return;
+		}
+
+		/**
+		 * Tableau B7 + D2 par famille professionnelle
+		 */
+		public function tableaub7d2familleprofessionnelle( array $search ) {
+			$questionnaireb7pdv93 = ClassRegistry::init( 'Questionnaireb7pdv93' );
+			$questionnaired2pdv93 = ClassRegistry::init( 'Questionnaired2pdv93' );
+			$familleromev3 = ClassRegistry::init( 'Familleromev3' );
+
+			// Familles professionnelles
+			$familles = $familleromev3->find (
+				'list',
+				array (
+					'order' => array ('id' => 'ASC'),
+				)
+			);
+
+			// Questionnaires b7
+			$questionnaireb7s = $questionnaireb7pdv93->find (
+				'all',
+				array (
+					'contain' => array (
+						'Expproromev3',
+					),
+					'conditions' => array (
+						'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $search['Search']['annee'],
+					),
+					'joins' => array(
+						array(
+							'alias' => 'Entreeromev3',
+							'table' => 'entreesromesv3',
+							'type' => 'INNER',
+							'conditions' => array(
+								'Questionnaireb7pdv93.expproromev3_id = Entreeromev3.id'
+							)
+						),
+						array(
+							'alias' => 'Personne',
+							'table' => 'personnes',
+							'type' => 'INNER',
+							'conditions' => array(
+								'Questionnaireb7pdv93.personne_id = Personne.id'
+							)
+						),
+						array(
+							'alias' => 'Questionnaired2pdv93',
+							'table' => 'questionnairesd2pdvs93',
+							'type' => 'INNER',
+							'conditions' => array(
+								'Questionnaired2pdv93.personne_id = Personne.id',
+								'Questionnaired2pdv93.situationaccompagnement' => 'maintien',
+								'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $search['Search']['annee'],
+							)
+						),
+					),
+				)
+			);
+
+			// Questionnaires d2
+			$questionnaired2s = $questionnaired2pdv93->find (
+				'all',
+				array (
+					'conditions' => array (
+						'Questionnaired2pdv93.situationaccompagnement' => 'sortie_obligation',
+						'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->sortieaccompagnementd2pdv93_ids,
+						'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $search['Search']['annee'],
+					),
+					'contain' => array (
+						'Emploiromev3',
+					),
+					'joins' => array(
+						array(
+							'alias' => 'Entreeromev3',
+							'table' => 'entreesromesv3',
+							'type' => 'INNER',
+							'conditions' => array(
+								'Questionnaired2pdv93.emploiromev3_id = Entreeromev3.id'
+							)
+						)
+					),
+				)
+			);
+
+			// Par famille professionelle
+			$tableauRomev3 = array ();
+			$totalFamilleTotal = 0;
+			$totalFamilleB7 = 0;
+			$totalFamilleD2 = 0;
+
+			foreach ($familles as $idFamille => $intitule) {
+				$tableauRomev3['B7'][$idFamille] = 0;
+				$tableauRomev3['D2'][$idFamille] = 0;
+				$tableauRomev3['TOTAL'][$idFamille] = 0;
+
+				foreach ($questionnaireb7s as $questionnaireb7) {
+					if ($idFamille == $questionnaireb7['Expproromev3']['familleromev3_id']) {
+						$tableauRomev3['B7'][$idFamille]++;
+						$tableauRomev3['TOTAL'][$idFamille]++;
+						$totalFamilleB7++;
+						$totalFamilleTotal++;
+					}
+				}
+
+				foreach ($questionnaired2s as $questionnaired2) {
+					if ($idFamille == $questionnaired2['Emploiromev3']['familleromev3_id']) {
+						$tableauRomev3['D2'][$idFamille]++;
+						$tableauRomev3['TOTAL'][$idFamille]++;
+						$totalFamilleD2++;
+						$totalFamilleTotal++;
+					}
+				}
+			}
+
+			$return = array();
+			$return['familleRomev3'] = $familles;
+			$return['tableauRomev3'] = $tableauRomev3;
+			$return['totalFamilleTotal'] = $totalFamilleTotal;
+			$return['totalFamilleB7'] = $totalFamilleB7;
+			$return['totalFamilleD2'] = $totalFamilleD2;
+
+			return $return;
 		}
 	}
 ?>
