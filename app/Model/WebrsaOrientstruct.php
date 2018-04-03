@@ -1213,7 +1213,7 @@
 		 */
 		public function preOrientation( $element ) {
 			$propo_algo = null;
-
+/*
 			/// Inscription Pôle Emploi ?
 			$conditions = $this->Informationpe->qdConditionsJoinPersonneOnValues( 'Informationpe', $element['Personne'] );
 
@@ -1245,9 +1245,9 @@
 					return 'Emploi';
 				}
 			}
-
+*/
 			// On ne peut pas préorienter à partir des informations Pôle Emploi
-			if( is_null( $propo_algo ) ) {
+//			if( is_null( $propo_algo ) ) {
 				/// Dsp
 				$dsp = $this->Dsp->find(
 					'first',
@@ -1359,6 +1359,41 @@
 						else if( in_array( $hispro, array( '1902', '1903', '1904' ) ) ) {
 							$propo_algo = 'Socioprofessionnelle';
 						}
+					}
+				}
+//			}
+
+			// On ne peut pas préorienter à partir des informations Pôle Emploi
+			if( is_null( $propo_algo ) ) {
+				/// Inscription Pôle Emploi ?
+				$conditions = $this->Informationpe->qdConditionsJoinPersonneOnValues( 'Informationpe', $element['Personne'] );
+
+				$sqDernierePourPersonne = $this->Informationpe->sqDernierePourPersonne( $element );
+				$conditions[] = "Informationpe.id IN ( {$sqDernierePourPersonne} )";
+
+				$informationpe = $this->Informationpe->find(
+					'first',
+					array(
+						'fields' => array(
+							'(
+								SELECT
+										"Historiqueetatpe"."etat"
+									FROM "historiqueetatspe" AS "Historiqueetatpe"
+									WHERE
+										"Historiqueetatpe"."informationpe_id" = "Informationpe"."id"
+										ORDER BY "Historiqueetatpe"."date" DESC LIMIT 1
+							) AS "Historiqueetatpe__dernieretat"'
+						),
+						'conditions' => $conditions,
+						'contain' => false
+					)
+				);
+
+				// La personne se retrouve préorientée en emploi si la dernière information
+				// venant de Pôle Emploi la concernant est une inscription
+				if( !empty( $informationpe ) ) {
+					if( @$informationpe['Historiqueetatpe']['dernieretat'] == 'inscription' ) {
+						return 'Emploi';
 					}
 				}
 			}
