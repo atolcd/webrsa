@@ -1,4 +1,7 @@
 <?php
+	$user_type = $this->Session->read( 'Auth.User.type' );
+	$user_externe = strpos( $user_type, 'externe_' ) === 0;
+
 	// "Pagination" un peu spéciale: on veut simplement le nombre de résultats, pas passer de page en page
 	$pagination = null;
 	if( isset( $results ) ) {
@@ -40,7 +43,9 @@
 	?>
 </fieldset>
 <?php
-require_once ('tag.ctp');
+if (  ! ( $departement == 93 & true === $user_externe ) ) {
+	require_once ('tag.ctp');
+}
 $this->end();
 ?>
 
