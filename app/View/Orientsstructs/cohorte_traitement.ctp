@@ -1,6 +1,21 @@
 <?php
+	// Conditions d'accès aux tags
+	$departement = (int)Configure::read( 'Cg.departement' );
 	$user_type = $this->Session->read( 'Auth.User.type' );
-	$user_externe = strpos( $user_type, 'externe_' ) === 0;
+	$utilisateursAutorises = (array)Configure::read( 'acces.recherche.tag' );
+	$viewTag = false;
+
+	foreach ($utilisateursAutorises as $utilisateurAutorise) {
+		if ($utilisateurAutorise == $user_type) {
+			$viewTag = true;
+			break;
+		}
+	}
+
+	if ($departement != 93) {
+		$viewTag = true;
+	}
+	// Conditions d'accès aux tags
 
 	// "Pagination" un peu spéciale: on veut simplement le nombre de résultats, pas passer de page en page
 	$pagination = null;
@@ -43,7 +58,7 @@
 	?>
 </fieldset>
 <?php
-if (  ! ( $departement == 93 & true === $user_externe ) ) {
+if ($viewTag) {
 	require_once ('tag.ctp');
 }
 $this->end();

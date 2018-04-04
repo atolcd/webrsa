@@ -1202,4 +1202,26 @@
 	 * @default null|false
 	 */
 	Configure::write( 'Foyer.refreshSoumisADroitsEtDevoirs.ajoutOrientstruct', null );
+
+	/**
+	 * Types d'utilisateur pouvant accéder aux origines d'orientation prestataire
+	 */
+	Configure::write(
+		'acces.origine.orientation.prestataire',
+		array(
+			'cg',
+			'prestataire',
+		)
+	);
+
+	/**
+	 * Types d'utilisateur pouvant accéder aux tags dans les recherches
+	 */
+	Configure::write(
+		'acces.recherche.tag',
+		array(
+			'cg',
+			'prestataire',
+		)
+	);
 ?>

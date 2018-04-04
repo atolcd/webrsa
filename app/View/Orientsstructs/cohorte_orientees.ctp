@@ -1,7 +1,41 @@
 <?php
-
+	// Conditions d'accès aux tags
+	$departement = (int)Configure::read( 'Cg.departement' );
 	$user_type = $this->Session->read( 'Auth.User.type' );
-	$user_externe = strpos( $user_type, 'externe_' ) === 0;
+	$utilisateursAutorises = (array)Configure::read( 'acces.recherche.tag' );
+	$viewTag = false;
+
+	foreach ($utilisateursAutorises as $utilisateurAutorise) {
+		if ($utilisateurAutorise == $user_type) {
+			$viewTag = true;
+			break;
+		}
+	}
+
+	if ($departement != 93) {
+		$viewTag = true;
+	}
+	// Conditions d'accès aux tags
+
+	// Conditions d'accès aux origines d'orientation prestataires
+	$utilisateursAutorises = (array)Configure::read( 'acces.origine.orientation.prestataire' );
+	$viewOriginePresta = false;
+
+	foreach ($utilisateursAutorises as $utilisateurAutorise) {
+		if ($utilisateurAutorise == $user_type) {
+			$viewOriginePresta = true;
+			break;
+		}
+	}
+
+	if ($departement == 93 && $viewOriginePresta == false) {
+	    foreach ($options['Orientstruct']['origine'] as $key => $value) {
+	        if (preg_match('|^presta|', $key)) {
+	            unset ($options['Orientstruct']['origine'][$key]);
+	        }
+	    }
+	}
+	// Conditions d'accès aux origines d'orientation prestataires
 
 	$this->start( 'custom_search_filters' );
 
@@ -40,7 +74,7 @@
 	?>
 </fieldset>
 <?php
-if (  ! ( $departement == 93 & true === $user_externe ) ) {
+if ($viewTag) {
 	require_once ('tag.ctp');
 }
 $this->end();

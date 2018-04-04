@@ -2,7 +2,42 @@
 <?php
 	$departement = (int)Configure::read( 'Cg.departement' );
 	$user_type = $this->Session->read( 'Auth.User.type' );
-	$user_externe = strpos( $user_type, 'externe_' ) === 0;
+
+	// Conditions d'accès aux tags
+	$utilisateursAutorises = (array)Configure::read( 'acces.recherche.tag' );
+	$viewTag = false;
+
+	foreach ($utilisateursAutorises as $utilisateurAutorise) {
+		if ($utilisateurAutorise == $user_type) {
+			$viewTag = true;
+			break;
+		}
+	}
+
+	if ($departement != 93) {
+		$viewTag = true;
+	}
+	// Conditions d'accès aux tags
+
+	// Conditions d'accès aux origines d'orientation prestataires
+	$utilisateursAutorises = (array)Configure::read( 'acces.origine.orientation.prestataire' );
+	$viewOriginePresta = false;
+
+	foreach ($utilisateursAutorises as $utilisateurAutorise) {
+		if ($utilisateurAutorise == $user_type) {
+			$viewOriginePresta = true;
+			break;
+		}
+	}
+
+	if ($departement == 93 && $viewOriginePresta == false) {
+	    foreach ($options['Orientstruct']['origine'] as $key => $value) {
+	        if (preg_match('|^presta|', $key)) {
+	            unset ($options['Orientstruct']['origine'][$key]);
+	        }
+	    }
+	}
+	// Conditions d'accès aux origines d'orientation prestataires
 
 	$controller = $this->params->controller;
 	$action = $this->action;
@@ -56,7 +91,7 @@
 	);
 	?>
 
-<?php if (  ! ( $departement == 93 & true === $user_externe ) ) { ?>
+<?php if ($viewTag) { ?>
 	<fieldset>
 		<legend><?php echo __d('dossiers', 'Search.Tag.search_title') ?></legend>
 		<div class="input checkbox">
@@ -118,15 +153,6 @@
 	}
 
 	if ($departement === 93) {
-		$user_externe = strpos( $this->Session->read( 'Auth.User.type' ), 'externe_' ) === 0;
-		if ( $user_externe == true ) {
-		    foreach ($options['Orientstruct']['origine'] as $key => $value) {
-		        if (preg_match('|^presta|', $key)) {
-		            unset ($options['Orientstruct']['origine'][$key]);
-		        }
-		    }
-		}
-
 		echo $this->Default3->subform(
 			array(
 				'Search.Orientstruct.origine' => array('empty' => true),

@@ -82,6 +82,13 @@ ALTER TABLE orientsstructs
 			'prestadefaut'::text
 		]));
 
+
+ALTER TABLE users DROP CONSTRAINT users_type_in_list_chk;
+
+ALTER TABLE users
+  ADD CONSTRAINT users_type_in_list_chk CHECK (cakephp_validate_in_list(type::text, ARRAY['cg'::text, 'externe_cpdvcom'::text, 'externe_cpdv'::text, 'externe_secretaire'::text, 'externe_ci'::text, 'prestataire'::text]));
+
+
 -- *****************************************************************************
 COMMIT;
 SELECT NOW();
