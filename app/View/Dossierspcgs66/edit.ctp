@@ -351,25 +351,19 @@ document.observe( "dom:loaded", function() {
 *      Et que l'on sélectionne un "Gestionnaire du dossier"
 *      @fixme Sur /dossierspcgs66/edit/66777, le champ ne devrait pas être rempli
 */
-$('<?php echo $this -> Html -> domId('Dossierpcg66.user_id'); ?>
-	'
-	).observe('change', function(event) {
+$('<?php echo $this -> Html -> domId('Dossierpcg66.user_id'); ?>').observe('change', function(event) {
 	// On ne traite pas l'événement lorsque sa cause est dûe à l'initialisation des selects dépendants
 	if( false === $(event).isTrusted) {
-	return;
+		return;
 	}
 
 	var elmt = $(event).target,
 	user_id = $F(elmt),
-	date_id = '
-<?php echo $this -> Html -> domId('Dossierpcg66.dateaffectation'); ?>
-	'
-	;
+	date_id = '<?php echo $this -> Html -> domId('Dossierpcg66.dateaffectation'); ?>';
 
 	if('' !== user_id && CakeDateSelects.empty(date_id)) {
-	CakeDateSelects.set(date_id, new Date());
+		CakeDateSelects.set(date_id, new Date());
 	}
-	});
-
+});
 </script>
 <?php } ?>
