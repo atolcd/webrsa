@@ -35,8 +35,15 @@ echo '<table id="Decisioncontratcomplexeep93" class="tooltips"><thead>
 			</tbody>
 		</table>";
 
-		$hiddenFields = $this->Form->input( "Decisioncontratcomplexeep93.{$i}.id", array( 'type' => 'hidden' ) ).
-						$this->Form->input( "Decisioncontratcomplexeep93.{$i}.passagecommissionep_id", array( 'type' => 'hidden' ) ).
+		$idDecision = null;
+		$idPassage = null;
+		if (isset ($dossierep['Passagecommissionep'][0]['Decisioncontratcomplexeep93'])) {
+			$idDecision = Set::classicExtract( $dossierep, "Passagecommissionep.0.Decisioncontratcomplexeep93.{$indexDecision}.id" );
+			$idPassage = Set::classicExtract( $dossierep, "Passagecommissionep.0.Decisioncontratcomplexeep93.{$indexDecision}.passagecommissionep_id" );
+		}
+
+		$hiddenFields = $this->Form->input( "Decisioncontratcomplexeep93.{$i}.id", array( 'type' => 'hidden', 'value' => $idDecision ) ).
+						$this->Form->input( "Decisioncontratcomplexeep93.{$i}.passagecommissionep_id", array( 'type' => 'hidden', 'value' => $idPassage ) ).
 						$this->Form->input( "Decisioncontratcomplexeep93.{$i}.etape", array( 'type' => 'hidden', 'value' => 'cg' ) ).
 						$this->Form->input( "Decisioncontratcomplexeep93.{$i}.user_id", array( 'type' => 'hidden', 'value' => $this->Session->read( 'Auth.User.id' ) ) );
 
