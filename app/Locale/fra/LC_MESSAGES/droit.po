@@ -4041,9 +4041,21 @@ msgid "controllers/Services66/view"
 msgstr "Visualisation d'un service"
 
 ###############################################################################
+## Didacticiel
+###############################################################################
 
 msgid "controllers/Pages"
 msgstr "Didacticiel"
 
 msgid "controllers/Pages/display"
 msgstr "Visualisation du didacticiel"
+
+###############################################################################
+## Didacticiel
+###############################################################################
+
+msgid "controllers/Creancesalimentaires"
+msgstr "Paramétrage des Créances Alimentaires"
+
+msgid "controllers/Creancesalimentaires/index"
+msgstr "Visualisation des Créances Alimentaires"
