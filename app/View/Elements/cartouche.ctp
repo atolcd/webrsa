@@ -17,6 +17,27 @@
 						<?php echo $this->Xhtml->link("QUERY", sprintf( Configure::read( 'Apre.complementaire.queryUrl' ), $nomuser ),array("target" => "_blank")); ?>
 					</td>
 					<?php endif;?>
+					<?php
+					if ($this->Permissions->check( 'pages', 'display' ) && Configure::read('Cg.departement') == 93) {
+					?>
+					<td>
+						<?php
+							echo $this->Xhtml->link(
+								__d('droit', 'controllers/Pages'),
+								array(
+									'controller'=>'pages',
+									'action'=>'display',
+								),
+								array(
+									'enabled' => $this->Permissions->check( 'pages', 'display' ),
+									'target' => '_blank'
+								)
+							);
+						?>
+					</td>
+					<?php
+					}
+					?>
 					<td>
 						<?php
 							echo $this->Xhtml->link(

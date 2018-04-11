@@ -1,0 +1,22 @@
+.bandeau-bleu {
+    background-color: #00B8E6;
+    color: #FFFFFF;
+    font-size: 1.1em;
+    left: -15px;
+    padding: 3px 15px;
+    position: absolute;
+    top: 25px;
+    z-index: 1;
+}
+.bandeau-bleu-ombre {
+    background-color: #0183A4;
+    content: "";
+    display: block;
+    height: 30px;
+    left: -14px;
+    position: absolute;
+    top: 48px;
+    transform: rotate(30deg);
+    width: 100px;
+    z-index: -2;
+}

@@ -4030,3 +4030,11 @@ msgstr "Suppression d'un service"
 
 msgid "controllers/Services66/view"
 msgstr "Visualisation d'un service"
+
+###############################################################################
+
+msgid "controllers/Pages"
+msgstr "Didacticiel"
+
+msgid "controllers/Pages/display"
+msgstr "Visualisation du didacticiel"
