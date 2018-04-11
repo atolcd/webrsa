@@ -775,16 +775,16 @@
 	Configure::write(
 		'Tableausuivi93.tableau1b5',
 		array(
-			// Conditions générales à prendre en compte pour filtrer les fiches à comptabiliser
+			// Conditions générales a  prendre en compte pour filtrer les fiches a  comptabiliser
 			'conditions' => array(
-				// Dont le n° de convention n'est pas un n° fictif (mais en gardant tout de même les actions Hors PDI)
+				// Dont le nÂ° de convention n'est pas un nÂ° fictif (mais en gardant tout de maªme les actions Hors PDI)
 				'OR' => array(
 					'Actionfp93.id IS NULL',
 					'Actionfp93.numconvention NOT LIKE' => 'NF%',
 				),
 			),
 			'categories' => array(
-				// Catégories (colonne 1), Thématiques (colonne 2) et conditions à appliquer
+				// Catégories (colonne 1), Thématiques (colonne 2) et conditions a  appliquer
 				'Prescriptions Socio - professionnelles' => array(
 					'Actions locales' => array(
 						'Thematiquefp93.name LIKE' => 'Prescription socio%professionnelle',
@@ -817,7 +817,7 @@
 							'Actions linguistiques tous niveaux hors pole diagnostic'
 						)
 					),
-					'Remise à niveau' => array(
+					'Remise a niveau' => array(
 						// Défini, voir document "réponse demande de CB du 16 06 2014.ods"
 						'Thematiquefp93.name LIKE' => 'Prescription socio%professionnelle',
 						'Categoriefp93.name' => 'Remise a niveau'
@@ -870,7 +870,7 @@
 						'Thematiquefp93.name LIKE' => 'Prescription professionnelle',
 						'Categoriefp93.name' => 'Creation d entreprise'
 					),
-					'Formations de Droit Commun (Région, AFPA, etc…)' => array(
+					'Formations de Droit Commun (Région, AFPA, etc...)' => array(
 						// Défini, voir document "réponse demande de CB du 16 06 2014.ods"
 						'Thematiquefp93.name LIKE' => 'Prescription professionnelle',
 						'Categoriefp93.name' => 'Formation de droit commun Region AFPA'
@@ -916,6 +916,69 @@
 						// Non défini
 						'Thematiquefp93.name LIKE' => '%pole emploi',
 						'Categoriefp93.name' => 'Inscription au pole emploi'
+					),
+				),
+				'DEPARTEMENT' => array(
+					'Passerelle emploi' => array(
+						'Thematiquefp93.name LIKE' => 'DEPARTEMENT',
+						'Categoriefp93.name' => 'Passerelle emploi'
+					),
+				),
+				'REGION' => array(
+					'Developpement des competences transversales' => array(
+						'Thematiquefp93.name LIKE' => 'REGION',
+						'Categoriefp93.name' => 'Developpement des competences transversales'
+					),
+					'Elaboration de projet' => array(
+						// Non défini
+						'Thematiquefp93.name LIKE' => 'REGION',
+						'Categoriefp93.name' => 'Elaboration de projet'
+					),
+				),
+				'Accompagnement renforce' => array(
+					'Acceder a l emploi' => array(
+						'Thematiquefp93.name LIKE' => 'Accompagnement renforce',
+						'Categoriefp93.name' => 'Acceder a l emploi'
+					),
+					'Developper un accompagnement cible levier d insertion pro' => array(
+						'Thematiquefp93.name LIKE' => 'Accompagnement renforce',
+						'Categoriefp93.name' => 'Developper un accompagnement cible levier d insertion pro'
+					),
+				),
+				'Competences de base' => array(
+					'Acquisition ou renforcement du francais' => array(
+						'Thematiquefp93.name LIKE' => 'Competences de base',
+						'Categoriefp93.name' => 'Acquisition ou renforcement du francais'
+					),
+					'Remise a niveau' => array(
+						'Thematiquefp93.name LIKE' => 'Competences de base',
+						'Categoriefp93.name' => 'Remise a niveau'
+					),
+				),
+				'Competences personnelles' => array(
+					'Developpement des aptitudes personnelles' => array(
+						'Thematiquefp93.name LIKE' => 'Competences personnelles',
+						'Categoriefp93.name' => 'Developpement des aptitudes personnelles'
+					),
+					'Mobilite permis de conduire' => array(
+						'Thematiquefp93.name LIKE' => 'Competences personnelles',
+						'Categoriefp93.name' => 'Mobilite permis de conduire'
+					),
+				),
+				'Competences professionnelles' => array(
+					'Pre qualification' => array(
+						'Thematiquefp93.name LIKE' => 'Competences professionnelles',
+						'Categoriefp93.name' => 'Pre qualification'
+					),
+					'Qualification' => array(
+						'Thematiquefp93.name LIKE' => 'Competences professionnelles',
+						'Categoriefp93.name' => 'Qualification'
+					),
+				),
+				'Elaboration du projet professionnel' => array(
+					'Elaboration du projet professionnel' => array(
+						'Thematiquefp93.name LIKE' => 'Elaboration du projet professionnel',
+						'Categoriefp93.name' => 'Elaboration du projet professionnel'
 					),
 				),
 				'Autres' => array(
