@@ -187,6 +187,18 @@
 		}
 
 		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _annulervalidation(array $record, array $params) {
+			$etatcommissionep = Hash::get( $record, 'Commissionep.etatcommissionep' );
+			return in_array( $etatcommissionep, array( 'traiteep', 'traite' ) );
+		}
+
+		/**
 		 * Liste les actions disponnible
 		 * Si une action pointe sur un autre controler, il faut préciser son nom
 		 * ex : Moncontroller.monaction
@@ -212,6 +224,7 @@
 					'traitercg',
 					'view',
 					'Historiqueseps.view_passage',
+					'annulervalidation',
 				)
 			);
 

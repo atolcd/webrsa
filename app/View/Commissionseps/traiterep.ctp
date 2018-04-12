@@ -108,9 +108,6 @@
 
 		$validationErrors = $this->validationErrors;
 		$validationErrors = Hash::filter( $validationErrors );
-		if( !empty( $validationErrors ) ) {
-			debug( $validationErrors );
-		}
 	}
 ?>
 

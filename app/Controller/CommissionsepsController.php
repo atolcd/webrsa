@@ -124,6 +124,7 @@
 			'traiterep' => 'update',
 			'validecommission' => 'update',
 			'view' => 'read',
+			'annulervalidation' => 'update',
 		);
 
 		/**
@@ -196,6 +197,7 @@
 				'commissionseps::traitercg',
 				'commissionseps::printConvocationBeneficiaire',
 				'commissionseps::printConvocationsBeneficiaires',
+				'commissionseps::annulervalidation',
 			),
 			'decisioncg' => array(
 				'membreseps::printConvocationParticipant',
@@ -1526,6 +1528,30 @@
 
 			$this->layout = '';
 			$this->set( compact( 'dossierseps' ) );
+		}
+
+		/**
+		 * Annule la validation de la commission EP
+		 *
+		 * @param integer $commissionep_id
+		 */
+		public function annulervalidation( $commissionep_id = null ) {
+			$success = $this->WebrsaCommissionep->annulervalidation($commissionep_id);
+
+			if ($success) {
+				$this->Flash->success( __( 'L\'annulation de l\'arbitrage est effectuée.' ) );
+				$this->redirect(
+					array (
+						'controller' => 'Commissionseps',
+						'action' => 'traiterep',
+						$commissionep_id
+					)
+				);
+			}
+			else {
+				$this->Flash->error( 'Impossible de dévalider cette commission.' );
+				$this->redirect( $this->referer() );
+			}
 		}
 	}
 ?>

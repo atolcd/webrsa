@@ -145,6 +145,10 @@ msgstr "Instruction en cours - Attente de pièces"
 
 msgid "ENUM::ETATDOSSIERPCG::arevoir"
 msgstr "Dossier à revoir"
+
+msgid "ENUM::ETATDOSSIERPCG::annulationep"
+msgstr "Commission EP annulée"
+
 ########################################################################
 ## 	Traduction pour la recherche par PDO
 ########################################################################

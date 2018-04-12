@@ -547,6 +547,9 @@ msgstr "Export CSV"
 
 msgid "controllers/Commissionseps/impressionpvcohorte"
 msgstr "Impression du PV de l'EP (CG66)"
+
+msgid "controllers/Commissionseps/annulervalidation"
+msgstr "Annuler la validation"
 ###############################################################################
 
 msgid "controllers/Composfoyerspcgs66"

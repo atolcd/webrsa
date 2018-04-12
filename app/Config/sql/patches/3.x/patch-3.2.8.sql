@@ -11,6 +11,38 @@ SET default_with_oids = false;
 BEGIN;
 -- *****************************************************************************
 
+
+-- *****************************************************************************
+-- Annulation commission EP
+
+ALTER TABLE dossierspcgs66 DROP CONSTRAINT dossierspcgs66_etatdossierpcg_in_list_chk;
+ALTER TABLE dossierspcgs66 ADD CONSTRAINT dossierspcgs66_etatdossierpcg_in_list_chk CHECK
+(
+	cakephp_validate_in_list
+	(
+		etatdossierpcg::text, 
+		ARRAY[
+			'attaffect'::text, 
+			'attinstr'::text, 
+			'instrencours'::text, 
+			'attavistech'::text, 
+			'attval'::text, 
+			'decisionvalid'::text, 
+			'decisionnonvalid'::text, 
+			'decisionnonvalidretouravis'::text, 
+			'decisionvalidretouravis'::text, 
+			'transmisop'::text, 
+			'atttransmisop'::text, 
+			'annule'::text, 
+			'attinstrattpiece'::text, 
+			'attinstrdocarrive'::text, 
+			'arevoir'::text,
+			'annulationep'::text
+		]
+	)
+);
+
+
 -- *****************************************************************************
 -- Page d'accueil
 

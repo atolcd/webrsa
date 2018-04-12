@@ -280,6 +280,9 @@ msgstr "Dossier traité et transmis"
 msgid "ENUM::ETATDOSSIERPCG::annule"
 msgstr "Dossier annulé"
 
+msgid "ENUM::ETATDOSSIERPCG::annulationep"
+msgstr "Commission EP annulée"
+
 msgid "ENUM::RETOURAVISTECHNIQUE::0"
 msgstr "Non"
 

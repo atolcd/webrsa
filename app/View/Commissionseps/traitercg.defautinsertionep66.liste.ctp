@@ -43,7 +43,13 @@ echo '<table id="Decisiondefautinsertionep66" class="tooltips">
 
 			$indexDecision = count( $dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'] ) - 1;
 			$idDecisionDefaut = null;
+			
+			/**
+			 * TODO : à retirer en 3.2.8
+			 * Garder pour vérification conflit 3.2.7
+			 */
 			if (isset ($dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66']) && $indexDecision > 0) {
+			//if (isset ($dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'])) {
 				$idDecisionDefaut = Set::classicExtract( $dossierep, "Passagecommissionep.0.Decisiondefautinsertionep66.{$indexDecision}.id" );
 			}
 			$this->request->data['Decisiondefautinsertionep66'][$i]['id'] = $idDecisionDefaut;
@@ -78,11 +84,18 @@ echo '<table id="Decisiondefautinsertionep66" class="tooltips">
 
 			$indexDecision = count( $dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'] ) - 1;
 			$idDecisionDefaut = null;
+
+			/**
+			 * TODO : à retirer en 3.2.8
+			 * Garder pour vérification conflit 3.2.7
+			 */
 			if (isset ($dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66']) && $indexDecision > 0) {
+			//if (isset ($dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'])) {
 				$idDecisionDefaut = Set::classicExtract( $dossierep, "Passagecommissionep.0.Decisiondefautinsertionep66.{$indexDecision}.id" );
 			}
 			$idDefautinsertionep66 = null;
 			if (isset ($dossierep['Defautinsertionep66']) && $indexDecision > 0) {
+			//if (isset ($dossierep['Defautinsertionep66'])) {
 				$idDefautinsertionep66 = Set::classicExtract( $dossierep, "Defautinsertionep66.id" );
 			}
 

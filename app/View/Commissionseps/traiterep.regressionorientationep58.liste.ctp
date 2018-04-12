@@ -18,7 +18,7 @@ echo '<table><thead>
 						$this->Form->input( "Decisionregressionorientationep58.{$i}.passagecommissionep_id", array( 'type' => 'hidden' ) ).
 						$this->Form->input( "Decisionregressionorientationep58.{$i}.etape", array( 'type' => 'hidden', 'value' => 'ep' ) ).
 						$this->Form->input( "Decisionregressionorientationep58.{$i}.user_id", array( 'type' => 'hidden', 'value' => $this->Session->read( 'Auth.User.id' ) ) );
-// debug( $dossierep );
+
 		echo $this->Xhtml->tableCells(
 			array(
 				implode( ' ', array( $dossierep['Personne']['qual'], $dossierep['Personne']['nom'], $dossierep['Personne']['prenom'] ) ),

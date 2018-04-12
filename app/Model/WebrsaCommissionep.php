@@ -2060,5 +2060,34 @@
 
 			return $checks;
 		}
+
+		/**
+		 * Annule la validation de la commission EP
+		 *
+		 * @param integer $commissionep_id
+		 */
+		public function annulervalidation( $commissionep_id = null ) {
+			$commissionep = $this->Commissionep->findById ($commissionep_id);
+			$this->Commissionep->create($commissionep);
+			$response = $this->Commissionep->saveField('etatcommissionep', 'decisionep');
+
+			if (isset ($response['Commissionep']['id'])) {
+				$query = "
+					UPDATE dossierspcgs66
+					SET etatdossierpcg = 'annulationep'
+					FROM personnes
+						INNER JOIN dossierseps ON (dossierseps.personne_id = personnes.id)
+						INNER JOIN passagescommissionseps ON (dossierseps.id = passagescommissionseps.dossierep_id)
+					WHERE dossierspcgs66.foyer_id = personnes.foyer_id
+						AND etatdossierpcg = 'attaffect'
+						AND passagescommissionseps.commissionep_id = ".$response['Commissionep']['id'].";
+				";
+				$this->Commissionep->query($query);
+
+				return true;
+			}
+
+			return false;
+		}
 	}
 ?>

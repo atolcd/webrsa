@@ -221,6 +221,16 @@
 				return true;
 			}
 			else {
+				$count = count ($themeData);
+				for ($i = 0; $i < $count; $i++) {
+					$query = "SELECT id FROM decisionsdefautsinsertionseps66 AS Decisiondefautinsertionep66 WHERE passagecommissionep_id='".$themeData[$i]['Decisiondefautinsertionep66']['passagecommissionep_id']."' AND etape ='".$themeData[$i]['Decisiondefautinsertionep66']['etape']."'";
+					$exist = $this->query ($query);
+
+					if (isset ($exist['0']['0']['id'])) {
+						$themeData[$i]['Decisiondefautinsertionep66']['id'] = $exist['0']['0']['id'];
+					}
+				}
+
 				$success = $this->Dossierep->Passagecommissionep->Decisiondefautinsertionep66->saveAll( $themeData, array( 'atomic' => false ) );
 
 				$passagescommissionseps_ids = Set::extract( $themeData, '/Decision'.Inflector::underscore( $this->alias ).'/passagecommissionep_id' );
@@ -476,7 +486,12 @@
 					$this->Bilanparcours66->Dossierpcg66->create( $dossierpcg66 );
 					$success = $this->Bilanparcours66->Dossierpcg66->save( null, array( 'atomic' => false ) ) && $success;
 				}
+				// OU la commission a été annulée et le dossier PCG est à l'état annulationep
+				if( $nbDossierPCG66PourDecisiondefautinsertion66 == 1 && !in_array( $etatdossierep, array( 'annulationep' ) ) ) {
+					$succes = $this->query ('UPDATE dossierspcgs66 SET etatdossierpcg = \'attaffect\' WHERE decisiondefautinsertionep66_id = '.$decisiondefautinsertion_id) && $success;
+				}
 			}
+
 			return $success;
 		}
 

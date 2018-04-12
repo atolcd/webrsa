@@ -19,7 +19,14 @@
 	}
 	else {
 ?>
-<form action="<?php echo Router::url( array( 'controller' => $controller, 'action' => 'view/'.$commissionep['Commissionep']['id']."/sort:Passagecommissionep.heureseance/direction:asc/#tabbedWrapper,dossiers,Defautinsertionep66" ) );?>" method="post" id="FormRequestmaster">
+<?php
+/**
+ * TODO : à retirer en 3.2.8
+ * Garder pour vérification conflit 3.2.7
+ */
+//<form action="<?php echo Router::url( array( 'controller' => $controller, 'action' => 'view/'.$commissionep['Commissionep']['id']."/sort:Passagecommissionep.heureseance/direction:asc/#tabbedWrapper,dossiers,Defautinsertionep66" ) );?>" method="post" id="FormRequestmaster">
+?>
+<form action="<?php echo Router::url( array( 'controller' => $controller, 'action' => 'view/'.$commissionep['Commissionep']['id']."/sort:Passagecommissionep.heureseance/direction:asc/#tabbedWrapper,dossiers,Saisineepdoep66" ) );?>" method="post" id="FormRequestmaster">
 <?php
 		$touteslesheuresdepassage = array ();
 		foreach ($dossierseps as $key => $value) {

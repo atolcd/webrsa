@@ -157,10 +157,10 @@
 					break;
 				case 'decisions':
 					if( Configure::read( 'Cg.departement' ) == 66 ) {
-						$colspan = 2;
+						$colspan = 3;
 					}
 					else {
-						$colspan = 1;
+						$colspan = 2;
 					}
 					break;
 				default:
@@ -223,6 +223,23 @@
 							$libelledecisionmax = $commissionep['Commissionep']['libelledecisionmax'];
 							$lien = '<td>'.$this->Xhtml->link( $libelledecisionmax, array( 'controller' => 'commissionseps', 'action' => $niveaudecisionmax, $commissionep['Commissionep']['id'] ), array( 'enabled' => in_array( $commissionep['Commissionep']['etatcommissionep'], array( 'traite', 'annule' ) ) ) ).'</td>';
 						}
+
+						$enabled = false;
+						if (in_array( $commissionep['Commissionep']['etatcommissionep'], array( 'traite', 'annule' ) )
+							&& $this->Permissions->check( 'commissionseps', 'annulervalidation' )) {
+							$enabled = true;
+						}
+						$lien .= '<td>'.$this->Xhtml->link(
+							'Annule et remplace',
+							array(
+								'controller' => 'commissionseps',
+								'action' => 'annulervalidation',
+								$commissionep['Commissionep']['id']
+							),
+							array( 'enabled' => $enabled ),
+							'Souhaitez-vous continuer l\'annulation de la commission EP ?'
+						).'</td>';
+
 						break;
 					default:
 						$lien = '<td>'.$this->Xhtml->link( 'Voir', array( 'controller' => 'commissionseps', 'action' => 'view', $commissionep['Commissionep']['id'] ) ).'</td>';
