@@ -182,7 +182,22 @@
 					'Actrechromev3.appellationromev3',
 					'Personne.numfixe' => array( 'label' => 'Num de telephone fixe' ),
 					'Personne.numport' => array( 'label' => 'Num de telephone portable' ),
-					'Personne.email' => array( 'label' => 'Adresse mail' )
+					'Personne.email' => array( 'label' => 'Adresse mail' ),
+					/*'Dsp.libcooraccosocindi',
+					'Dsp.nivetu',
+					'Dsp.nivdipmaxobt',
+					'Dsp.annobtnivdipmax',
+					'Dsp.topqualipro',
+					'Dsp.libautrqualipro',
+					'Dsp.topcompeextrapro',
+					'Dsp.libcompeextrapro',
+					'Dsp.topengdemarechemploi',
+					'Dsp.inscdememploi',
+					'Dsp.topprojpro',
+					'Dsp.topmoyloco',*/
+					'Dsp.toppermicondub',
+					'Dsp.topautrpermicondu',
+					'Dsp.libautrpermicondu'
 				)
 			),
 			// 4. Temps d'exécution, mémoire maximum, ...
