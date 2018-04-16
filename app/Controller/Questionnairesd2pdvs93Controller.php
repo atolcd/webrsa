@@ -96,8 +96,9 @@
 			$this->_setEntriesAncienDossier( $personne_id, 'Questionnaired2pdv93' );
 
 			// Remplit-on les conditions initiales ? / Messages à envoyer à l'utilisateur
+			$status = $this->Questionnaired2pdv93->statusQuestionnaireD2( $personne_id );
 			$messages = $this->Questionnaired2pdv93->messages( $personne_id );
-			$ajoutPossible = $this->Questionnaired2pdv93->addEnabled( $messages );
+			$ajoutPossible = $status['button'];
 			$options = $this->Questionnaired2pdv93->enums();
 			$this->set( compact( 'messages', 'ajoutPossible', 'options' ) );
 

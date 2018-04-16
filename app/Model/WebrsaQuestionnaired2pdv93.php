@@ -98,11 +98,7 @@
 		 * @return boolean
 		 */
 		public function ajoutPossible( $personne_id, $messages = null ) {
-			$messages = (
-				$messages === null || !is_array( $messages )
-				? $this->Questionnaired2pdv93->messages( $personne_id )
-				: $messages
-			);
-			return $this->Questionnaired2pdv93->addEnabled( $messages );
+			$status = $this->Questionnaired2pdv93->statusQuestionnaireD2( $personne_id );
+			return $status['button'];
 		}	}
 ?>

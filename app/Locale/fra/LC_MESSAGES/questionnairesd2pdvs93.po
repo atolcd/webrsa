@@ -39,6 +39,9 @@ msgstr "Structure referente"
 msgid "Questionnaired2pdv93.exists"
 msgstr "Un formulaire D2 est déjà enregistré pour l’année en cours."
 
+msgid "Questionnaired2pdv93.notexists"
+msgstr "Le formulaire D1 n'est pas celui de l’année en cours."
+
 msgid "Questionnaired1pdv93.missing"
 msgstr "Cet allocataire ne possède pas de formulaire D1 pour l'année en cours."
 
