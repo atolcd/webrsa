@@ -204,7 +204,16 @@
 						$results[$key]['name'] = $element['Thematiquefp93']['yearthema'];
 					}
 
-					//$fields[$virtual['next']]['options'] = Hash::extract( (array)$results, "{n}.{$Model->alias}" );
+					$anneesRetrait = Configure::read( 'FichesPrescription93.anneeThematiques.limit' );
+					foreach($anneesRetrait AS $anneeRetrait ){
+						foreach ($results as $key => $result) {
+							if ( $result['id'] == $anneeRetrait ){
+								unset($results[$key]);
+							}
+						}
+					}
+					$results = array_values($results);
+
 					$fields[$virtual['next']]['options'] = $results;
 
 				}
@@ -505,25 +514,27 @@
 						$conditionsActionfp93
 					);
 
-					$query = Hash::merge(
-						$query,
-						array(
-							'fields' => array(
-								' DISTINCT "Thematiquefp93"."type" ',
-								'"Thematiquefp93"."yearthema" '
-							),
-							'order' => array(
-								'"Thematiquefp93"."type"'
-							)
-						)
-					);
-
-					$tmpresults = $Model->find( 'all', $query );
-
 					$results = array();
-					foreach ($tmpresults as $key => $element){
-						$results[$key]['id'] = $element['Thematiquefp93']['yearthema'];
-						$results[$key]['name'] = $element['Thematiquefp93']['yearthema'];
+					$typeID =  Hash::get( $data, 'Ficheprescription93.typethematiquefp93_id' ) ;
+					if ( !empty( $typeID ) ) {
+						$query = Hash::merge(
+							$query,
+							array(
+								'fields' => array(
+									' DISTINCT "Thematiquefp93"."type" ',
+									'"Thematiquefp93"."yearthema" '
+								),
+								'order' => array(
+									'"Thematiquefp93"."type"'
+								)
+							)
+						);
+						$tmpresults = $Model->find( 'all', $query );
+
+						foreach ($tmpresults as $key => $element){
+							$results[$key]['id'] = $element['Thematiquefp93']['yearthema'];
+							$results[$key]['name'] = $element['Thematiquefp93']['yearthema'];
+						}
 					}
 
 					$elmt['options'] = $results;
@@ -619,6 +630,7 @@
 
 				$return[$path] = $elmt;
 			}
+
 
 			$return = $this->prefixAjaxResult( $data['prefix'], $return );
 

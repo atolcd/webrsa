@@ -1287,4 +1287,13 @@
 			'prestataire',
 		)
 	);
+	
+	/**
+	 * Permet de limité les années affichées dans les fiches prescriptions
+	 *
+	 * @type array
+	 * @default empty
+	 */
+	Configure::write( 'FichesPrescription93.anneeThematiques.limit', array('2017') );
+
 ?>
