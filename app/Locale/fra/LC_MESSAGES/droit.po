@@ -4051,7 +4051,7 @@ msgid "controllers/Pages/display"
 msgstr "Visualisation du didacticiel"
 
 ###############################################################################
-## Didacticiel
+## Créances alimentaires
 ###############################################################################
 
 msgid "controllers/Creancesalimentaires"
