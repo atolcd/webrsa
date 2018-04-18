@@ -47,9 +47,9 @@ echo '<table id="Decisiondefautinsertionep66" class="tooltips">
 
 			$multiple = ( count( $dossiersAllocataires[$dossierep['Personne']['id']] ) > 1 ? 'multipleDossiers' : null );
 
-			$decisionep = @$dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'][1];
-			$decisioncg = @$dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'][0];
-			
+			$decisionep = @$dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'][0];
+			$decisioncg = @$dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'][1];
+
 			// Affiche la décision du dossier PCG attaché à l'EP si commission Audition ne s'est pas transformé en Parcours
 			$decisionPCG = null;
 			foreach ((array)Hash::get($dossierep, 'Personne.Foyer.Dossierpcg66') as $dossierpcg) {

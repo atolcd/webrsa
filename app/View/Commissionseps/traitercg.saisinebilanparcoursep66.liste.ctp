@@ -50,12 +50,20 @@ $typeorientemploiId = $typeorientprincipale['Emploi'][0];
 			</tbody>
 		</table>";
 
+		$indexDecision = count( $dossierep['Passagecommissionep'][0]['Decisionsaisinebilanparcoursep66'] ) - 1;
+		$idDecision = null;
+		$idPassage = null;
+		if (isset ($dossierep['Passagecommissionep'][0]['Decisionsaisinebilanparcoursep66'])) {
+			$idDecision = Set::classicExtract( $dossierep, "Passagecommissionep.0.Decisionsaisinebilanparcoursep66.{$indexDecision}.id" );
+			$idPassage = Set::classicExtract( $dossierep, "Passagecommissionep.0.Decisionsaisinebilanparcoursep66.{$indexDecision}.passagecommissionep_id" );
+		}
+
 		$hiddenFields =
 						$this->Form->input( "Bilanparcours66.{$i}.parenttypeorient_id", array( 'type' => 'hidden', 'value' => $dossierep['Saisinebilanparcoursep66']['Bilanparcours66']['Orientstruct']['Typeorient']['parentid'] ) ).
 						$this->Form->input( "Bilanparcours66.{$i}.oldstructurereferente_id", array( 'type' => 'hidden', 'value' => $dossierep['Saisinebilanparcoursep66']['Bilanparcours66']['Orientstruct']['structurereferente_id'] ) ).
-						$this->Form->input( "Decisionsaisinebilanparcoursep66.{$i}.id", array( 'type' => 'hidden' ) ).
+						$this->Form->input( "Decisionsaisinebilanparcoursep66.{$i}.id", array( 'type' => 'hidden', 'value' => $idDecision ) ).
 						$this->Form->input( "Decisionsaisinebilanparcoursep66.{$i}.etape", array( 'type' => 'hidden', 'value' => 'cg' ) ).
-						$this->Form->input( "Decisionsaisinebilanparcoursep66.{$i}.passagecommissionep_id", array( 'type' => 'hidden' ) ).
+						$this->Form->input( "Decisionsaisinebilanparcoursep66.{$i}.passagecommissionep_id", array( 'type' => 'hidden', 'value' => $idPassage ) ).
 						$this->Form->input( "Decisionsaisinebilanparcoursep66.{$i}.user_id", array( 'type' => 'hidden', 'value' => $this->Session->read( 'Auth.User.id' ) ) );
 
 		$typesorientsprincipales =
