@@ -41,6 +41,13 @@ echo '<table id="Decisiondefautinsertionep66" class="tooltips">
 			$this->request->data['Decisiondefautinsertionep66'][$i]['etape'] = 'cg';
 			$this->request->data['Decisiondefautinsertionep66'][$i]['user_id'] = $this->Session->read( 'Auth.User.id' );
 
+			$indexDecision = count( $dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'] ) - 1;
+			$idDecisionDefaut = null;
+			if (isset ($dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66']) && $indexDecision > 0) {
+				$idDecisionDefaut = Set::classicExtract( $dossierep, "Passagecommissionep.0.Decisiondefautinsertionep66.{$indexDecision}.id" );
+			}
+			$this->request->data['Decisiondefautinsertionep66'][$i]['id'] = $idDecisionDefaut;
+
 			$hiddenDossiers['Decisiondefautinsertionep66'][$i] = $this->request->data['Decisiondefautinsertionep66'][$i];
 		}
 		else {
@@ -52,22 +59,32 @@ echo '<table id="Decisiondefautinsertionep66" class="tooltips">
 
 			$multiple = ( count( $dossiersAllocataires[$dossierep['Personne']['id']] ) > 1 ? 'multipleDossiers' : null );
 
-			$decisionep = $dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'][count($dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'])-1];
+			$decisionep = $dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'][0];
 			$avisEp = implode( ' - ', Hash::filter( (array)array( Set::enum( @$decisionep['decisionsup'], $options['Decisiondefautinsertionep66']['decisionsup'] ), Set::enum( @$decisionep['decision'], $options['Decisiondefautinsertionep66']['decision'] ), @$listeTypesorients[@$decisionep['typeorient_id']], @$listeStructuresreferentes[@$decisionep['structurereferente_id']], @$listeReferents[@$decisionep['referent_id']] ) ) );
+			$avisEpCommentaire = Set::classicExtract( $decisionep, "commentaire" );
+
+			$decisionep = $dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'][count($dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'])-1];
 
 			$innerTable = "<table id=\"innerTableDecisiondefautinsertionep66{$i}\" class=\"innerTable\">
 				<tbody>
 					<tr>
 						<th>Observations de l'EP</th>
-						<td>".Set::classicExtract( $decisionep, "commentaire" )."</td>
+						<td>".$avisEpCommentaire."</td>
 					</tr>
 				</tbody>
 			</table>";
 
-			$hiddenFields = $this->Form->input( "Decisiondefautinsertionep66.{$i}.id", array( 'type' => 'hidden' ) ).
-							$this->Form->input( "Decisiondefautinsertionep66.{$i}.etape", array( 'type' => 'hidden', 'value' => 'cg' ) ).
-							$this->Form->input( "Decisiondefautinsertionep66.{$i}.passagecommissionep_id", array( 'type' => 'hidden' ) ).
-							$this->Form->input( "Decisiondefautinsertionep66.{$i}.user_id", array( 'type' => 'hidden', 'value' => $this->Session->read( 'Auth.User.id' ) ) );
+			$hiddenFields = $this->Form->input( "Decisiondefautinsertionep66.{$i}.user_id", array( 'type' => 'hidden', 'value' => $this->Session->read( 'Auth.User.id' ) ) );
+
+			$indexDecision = count( $dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'] ) - 1;
+			$idDecisionDefaut = null;
+			if (isset ($dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66']) && $indexDecision > 0) {
+				$idDecisionDefaut = Set::classicExtract( $dossierep, "Passagecommissionep.0.Decisiondefautinsertionep66.{$indexDecision}.id" );
+			}
+			$idDefautinsertionep66 = null;
+			if (isset ($dossierep['Defautinsertionep66']) && $indexDecision > 0) {
+				$idDefautinsertionep66 = Set::classicExtract( $dossierep, "Defautinsertionep66.id" );
+			}
 
 			echo $this->Xhtml->tableCells(
 				array(
@@ -80,33 +97,33 @@ echo '<table id="Decisiondefautinsertionep66" class="tooltips">
 
 					$examenaudition,
 
-					$this->Form->input( "Defautinsertionep66.{$i}.id", array( 'type' => 'hidden' ) ).
+					$this->Form->input( "Defautinsertionep66.{$i}.id", array( 'type' => 'hidden', 'value' => $idDefautinsertionep66 ) ).
 					$this->Form->input( "Defautinsertionep66.{$i}.dossierep_id", array( 'type' => 'hidden', 'value' => $dossierep['Dossierep']['id'] ) ).
-					$this->Form->input( "Decisiondefautinsertionep66.{$i}.id", array( 'type' => 'hidden' ) ).
+					$this->Form->input( "Decisiondefautinsertionep66.{$i}.id", array( 'type' => 'hidden', 'value' => $idDecisionDefaut ) ).
 					$this->Form->input( "Decisiondefautinsertionep66.{$i}.etape", array( 'type' => 'hidden', 'value' => 'cg' ) ).
-					$this->Form->input( "Decisiondefautinsertionep66.{$i}.passagecommissionep_id", array( 'type' => 'hidden', 'value' ) ).
+					$this->Form->input( "Decisiondefautinsertionep66.{$i}.passagecommissionep_id", array( 'type' => 'hidden' ) ).
 
 					$avisEp,
 
 					array(
-						$this->Form->input( "Decisiondefautinsertionep66.{$i}.decision", array( 'type' => 'select', 'label' => false, 'empty' => true, 'options' => $options['Decisiondefautinsertionep66']['decision'] ) ).
-						$this->Form->input( "Decisiondefautinsertionep66.{$i}.decisionsup", array( 'type' => 'select', 'label' => false, 'empty' => true, 'options' => $options['Decisiondefautinsertionep66']['decisionsup'], 'value' => @$decisionsdefautsinsertionseps66[$i]['decisionsup'] ) ),
+						$this->Form->input( "Decisiondefautinsertionep66.{$i}.decision", array( 'type' => 'select', 'label' => false, 'empty' => true, 'options' => $options['Decisiondefautinsertionep66']['decision'], 'value' => $decisionep['decision'] ) ).
+						$this->Form->input( "Decisiondefautinsertionep66.{$i}.decisionsup", array( 'type' => 'select', 'label' => false, 'empty' => true, 'options' => $options['Decisiondefautinsertionep66']['decisionsup'], 'value' => $decisionep['decisionsup'] ) ),
 						array( 'id' => "Decisiondefautinsertionep66{$i}DecisionColumn", 'class' => ( !empty( $this->validationErrors['Decisiondefautinsertionep66'][$i]['decision'] ) || !empty( $this->validationErrors['Decisiondefautinsertionep66'][$i]['decisionsup'] ) ? 'error' : '' ) )
 					),
 					array(
-						$this->Form->input( "Decisiondefautinsertionep66.{$i}.typeorient_id", array( 'label' => false, 'options' => $typesorients, 'empty' => true ) ),
+						$this->Form->input( "Decisiondefautinsertionep66.{$i}.typeorient_id", array( 'label' => false, 'options' => $typesorients, 'empty' => true, 'value' => $decisionep['typeorient_id'] ) ),
 						( !empty( $this->validationErrors['Decisiondefautinsertionep66'][$i]['typeorient_id'] ) ? array( 'class' => 'error' ) : array() )
 					),
 					array(
-						$this->Form->input( "Decisiondefautinsertionep66.{$i}.structurereferente_id", array( 'label' => false, 'options' => $structuresreferentes, 'empty' => true, 'type' => 'select' ) ),
+						$this->Form->input( "Decisiondefautinsertionep66.{$i}.structurereferente_id", array( 'label' => false, 'options' => $structuresreferentes, 'empty' => true, 'type' => 'select', 'value' => $decisionep['typeorient_id'].'_'.$decisionep['structurereferente_id'] ) ),
 						( !empty( $this->validationErrors['Decisiondefautinsertionep66'][$i]['structurereferente_id'] ) ? array( 'class' => 'error' ) : array() )
 					),
 					array(
-						$this->Form->input( "Decisiondefautinsertionep66.{$i}.referent_id", array( 'label' => false, 'options' => $referents, 'empty' => true, 'type' => 'select' ) ),
+						$this->Form->input( "Decisiondefautinsertionep66.{$i}.referent_id", array( 'label' => false, 'options' => $referents, 'empty' => true, 'type' => 'select', 'value' => $decisionep['structurereferente_id'].'_'.$decisionep['referent_id'] ) ),
 						( !empty( $this->validationErrors['Decisiondefautinsertionep66'][$i]['referent_id'] ) ? array( 'class' => 'error' ) : array() )
 					),
 	// 				array( $this->Form->input( "Decisiondefautinsertionep66.{$i}.raisonnonpassage", array( 'label' => false, 'type' => 'textarea' ) ), array( 'colspan' => '3' ) ),
-					$this->Form->input( "Decisiondefautinsertionep66.{$i}.commentaire", array( 'label' =>false, 'type' => 'textarea' ) ).
+					$this->Form->input( "Decisiondefautinsertionep66.{$i}.commentaire", array( 'label' =>false, 'type' => 'textarea', 'value' => $decisionep['commentaire'] ) ).
 					$hiddenFields,
 					array( $this->Xhtml->link( 'Voir', array( 'controller' => 'dossiers', 'action' => 'view', $dossierep['Personne']['Foyer']['dossier_id'] ), array( 'class' => 'external' ) ), array( 'class' => 'button view' ) )
 				),

@@ -32,9 +32,17 @@ echo '<table id="Decisionsaisinepdoep66" class="tooltips"><thead>
 			</tbody>
 		</table>";
 
-		$hiddenFields = $this->Form->input( "Decisionsaisinepdoep66.{$i}.id", array( 'type' => 'hidden' ) ).
+		$indexDecision = count( $dossierep['Passagecommissionep'][0]['Decisionsaisinepdoep66'] ) - 1;
+		$idDecision = null;
+		$idPassage = null;
+		if (isset ($dossierep['Passagecommissionep'][0]['Decisionsaisinepdoep66'])) {
+			$idDecision = Set::classicExtract( $dossierep, "Passagecommissionep.0.Decisionsaisinepdoep66.{$indexDecision}.id" );
+			$idPassage = Set::classicExtract( $dossierep, "Passagecommissionep.0.Decisionsaisinepdoep66.{$indexDecision}.passagecommissionep_id" );
+		}
+
+		$hiddenFields = $this->Form->input( "Decisionsaisinepdoep66.{$i}.id", array( 'type' => 'hidden', 'value' => $idDecision ) ).
 						$this->Form->input( "Decisionsaisinepdoep66.{$i}.etape", array( 'type' => 'hidden', 'value' => 'cg' ) ).
-						$this->Form->input( "Decisionsaisinepdoep66.{$i}.passagecommissionep_id", array( 'type' => 'hidden' ) ).
+						$this->Form->input( "Decisionsaisinepdoep66.{$i}.passagecommissionep_id", array( 'type' => 'hidden', 'value' => $idPassage ) ).
 						$this->Form->input( "Decisionsaisinepdoep66.{$i}.user_id", array( 'type' => 'hidden', 'value' => $this->Session->read( 'Auth.User.id' ) ) );
 
 		echo $this->Xhtml->tableCells(
