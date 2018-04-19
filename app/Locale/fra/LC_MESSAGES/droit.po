@@ -4077,3 +4077,23 @@ msgstr "Suppression d'un accès à l'emploi"
 msgid "controllers/Questionnairesb7pdvs93/edit"
 msgstr "Modification d'un accès à l'emploi"
 
+
+###############################################################################
+
+msgid "controllers/Requetes"
+msgstr "RsaQuery"
+
+msgid "controllers/Requetes/add"
+msgstr "Ajout RsaQuery"
+
+msgid "controllers/Requetes/delete"
+msgstr "Suppression RsaQuery"
+
+msgid "controllers/Requetes/edit"
+msgstr "Édition RsaQuery"
+
+msgid "controllers/Requetes/index"
+msgstr "RsaQuery"
+
+msgid "controllers/Requetes/view"
+msgstr "Visualisation RsaQuery"
