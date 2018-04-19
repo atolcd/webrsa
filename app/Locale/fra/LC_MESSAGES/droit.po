@@ -4038,3 +4038,22 @@ msgstr "Didacticiel"
 
 msgid "controllers/Pages/display"
 msgstr "Visualisation du didacticiel"
+###############################################################################
+
+msgid "controllers/Requetes"
+msgstr "RsaQuery"
+
+msgid "controllers/Requetes/add"
+msgstr "Ajout RsaQuery"
+
+msgid "controllers/Requetes/delete"
+msgstr "Suppression RsaQuery"
+
+msgid "controllers/Requetes/edit"
+msgstr "Édition RsaQuery"
+
+msgid "controllers/Requetes/index"
+msgstr "RsaQuery"
+
+msgid "controllers/Requetes/view"
+msgstr "Visualisation RsaQuery"
