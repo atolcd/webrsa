@@ -111,7 +111,8 @@
 					array(
 						'Cui.id',
 						'Cui.personne_id',
-						'Cui.faitle'
+						'Cui.faitle',
+						'( \'ENUM::ETATDOSSIERCUI66::\' || "Cui66"."etatdossiercui66" || \'__cui66 \' || to_char("Rupturecui66"."daterupture", \'DD/MM/YYYY\') ) AS "Cui__positioncui66"',
 					)
 				);
 
