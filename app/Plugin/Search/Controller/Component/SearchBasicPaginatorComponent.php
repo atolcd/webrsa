@@ -50,7 +50,23 @@
 				$field = key( $options['order'] );
 				$inWhitelist = in_array($field, $whitelist, true);
 				if (!$inWhitelist) {
-					$options['order'] = null;
+
+					// Si $field n'est pas un champ de la table, cela peut être un alias.
+					$alias = str_replace('.', '__', $field);
+					$isAlias = false;
+					foreach ($whitelist as $value) {
+						if (preg_match('#AS "'.$alias.'"#', $value)) {
+							$isAlias = true;
+							break;
+						}
+					}
+
+					if ($isAlias) {
+						$options['order'] = array ($alias => $options['order'][$field]);
+					}
+					else {
+						$options['order'] = null;
+					}
 				}
 				return $options;
 			}
