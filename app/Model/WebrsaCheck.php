@@ -93,6 +93,59 @@
 		);
 
 		/**
+		 * Liste des modèles ODT ne ressortant pas dans le check de l'appli
+		 *
+		 * @var array
+		 */
+		public $modelesStatiquesEnPlus = array();
+
+		/**
+		 * Liste des modèles ODT ne ressortant pas dans le check de l'appli
+		 *
+		 * @var array
+		 */
+		public $modelesParametrablesEnPlus = array(
+			58 => array(),
+			66 => array(),
+			93 => array(
+				// 3.2.6
+				'Bilanparcours/bilanparcourspe_audition.odt',
+				'Bilanparcours/bilanparcourspe_parcours.odt',
+				'Commissionep/ordredujour_participant_audition.odt',
+				'Commissionep/ordredujour_participant_parcours.odt',
+				'Entretien/impression.odt',
+				'Orientation/ADRH.odt',
+				'Orientation/changement_referent_cgcg.odt',
+				'Orientation/changement_referent_cgoa.odt',
+				'Orientation/changement_referent_oacg.odt',
+				'Orientation/orientationpe.odt',
+				'Orientation/orientationpedefait.odt',
+				'Orientation/orientationsociale.odt',
+				'Orientation/orientationsocialeauto.odt',
+				'Orientation/orientationsystematiquepe.odt',
+				'Orientation/proposition_orientation_vers_SS_ou_PDV_prestadefaut.odt',
+				'Orientation/proposition_orientation_vers_SS_ou_PDV_prestadiagno.odt',
+				'Orientation/proposition_orientation_vers_pole_emploi_prestadefaut.odt',
+				'Orientation/proposition_orientation_vers_pole_emploi_prestadiagno.odt',
+			),
+			976 => array(),
+		);
+
+		/**
+		 * Liste des modèles ODT n'étant plus utilisés à enlever
+		 *
+		 * @var array
+		 */
+		public $modelesStatiquesEnMoins = array();
+
+		/**
+		 * Liste des modèles ODT n'étant plus utilisés à enlever
+		 *
+		 * @var array
+		 */
+		public $modelesParametrablesEnMoins = array();
+
+		/**
 		 * Liste des clefs de type ValidateAllowEmpty
 		 *
 		 * @var array
@@ -147,6 +200,13 @@
 			$modelesStatiques = array( );
 			$modelesParametrables = array();
 
+			if (isset ($this->modelesStatiquesEnPlus[$departement])) {
+				$modelesStatiques = $this->modelesStatiquesEnPlus[$departement];
+			}
+			if (isset ($this->modelesParametrablesEnPlus[$departement])) {
+				$modelesParametrables = $this->modelesParametrablesEnPlus[$departement];
+			}
+
 			foreach( App::objects( 'model' ) as $modelName ) {
 				// Si le CG se sert de la classe
 				if( !preg_match( '/([0-9]{2})$/', $modelName, $matches ) || ( $matches[1] == $departement ) ) {
@@ -176,6 +236,13 @@
 						}
 					}
 				}
+			}
+
+			if (isset ($this->modelesStatiquesEnMoins[$departement])) {
+				$modelesStatiques = array_diff($modelesStatiques, $this->modelesStatiquesEnMoins[$departement]);
+			}
+			if (isset ($this->modelesParametrablesEnMoins[$departement])) {
+				$modelesParametrables = array_diff($modelesParametrables, $this->modelesParametrablesEnMoins[$departement]);
 			}
 
 			return array(
