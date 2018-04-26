@@ -1294,6 +1294,7 @@
 	 * @type array
 	 * @default empty
 	 */
-	Configure::write( 'FichesPrescription93.anneeThematiques.limit', array('2017') );
+	//Configure::write( 'FichesPrescription93.anneeThematiques.limit', array('2017') );
+	Configure::write( 'FichesPrescription93.anneeThematiques.limit', array() );
 
 ?>

@@ -136,6 +136,16 @@
 		return false;
 	} );
 
+
+	// Suppression du contenu du champ Year au changement de Type
+	Element.observe( $( 'SearchFicheprescription93Typethematiquefp93Id' ), 'click', function( event ) {
+			$( 'SearchFicheprescription93Yearthematiquefp93Id' ).value = '';
+	} );
+	// Suppression du contenu du champ Prescription au changement de Year
+	Element.observe( $( 'SearchFicheprescription93Yearthematiquefp93Id' ), 'click', function( event ) {
+			$( 'SearchFicheprescription93Thematiquefp93Id' ).value = '';
+	} );
+
 	/**
 	 * Filtre des lignes de la table d'actions par type d'action suivant la valeur
 	 * du champ de liste déroulante (et de la plage de dates le cas échéant).
