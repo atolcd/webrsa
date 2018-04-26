@@ -155,7 +155,7 @@
 			array(
 				'Ficheprescription93.numconvention' => array( 'type' => 'text' ),
 				'Ficheprescription93.typethematiquefp93_id' => array( 'empty' => true ),
-				'Ficheprescription93.yearthematiquefp93_id' => array( 'empty' => true ),
+				'Ficheprescription93.yearthematiquefp93_id' => array( 'empty' => true, 'required' => true ),
 				'Ficheprescription93.thematiquefp93_id' => array( 'empty' => true ),
 				'Ficheprescription93.categoriefp93_id' => array( 'empty' => true ),
 				'Ficheprescription93.filierefp93_id' => array( 'empty' => true ),
@@ -546,6 +546,15 @@
 		if( ( $F( 'Ficheprescription93RdvprestataireAdresseCheck' ) == null ) ) {
 			$( 'Ficheprescription93RdvprestataireAdresse' ).value = '';
 		}
+	} );
+
+	// Suppression du contenu du champ Year au changement de Type
+	Element.observe( $( 'Ficheprescription93Typethematiquefp93Id' ), 'click', function( event ) {
+			$( 'Ficheprescription93Yearthematiquefp93Id' ).value = '';
+	} );
+	// Suppression du contenu du champ Prescription au changement de Year
+	Element.observe( $( 'Ficheprescription93Yearthematiquefp93Id' ), 'click', function( event ) {
+			$( 'Ficheprescription93Thematiquefp93Id' ).value = '';
 	} );
 
 	function clearFicheprescription93FormField( fieldId ) {
