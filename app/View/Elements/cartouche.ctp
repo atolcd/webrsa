@@ -54,35 +54,23 @@
                     <td> <?php echo $this->Session->read( 'Auth.Group.name' ) ;?> </td>
                     <td> <?php echo $this->Session->read( 'Auth.Serviceinstructeur.lib_service' ) ;?> </td>
 				<?php if( !Configure::read( 'Jetons2.disabled' ) && Configure::read( 'Etatjetons.enabled' ) && isset($jetons_count) ) {?>
-                    <td class="dossier_locked"><a href="#" id="jetons_count" onclick="jetonDelete()"><?php echo $jetons_count;?></a></td>
+					<td class="dossier_locked">
+					<?php
+						echo $this->Xhtml->link(
+							$jetons_count,
+							array(
+								'controller'=>'users',
+								'action'=>'delete_jetons',
+								$this->Session->read( 'Auth.User.id' ),
+							),
+							array(),
+							'La libération des dossiers nécessite un rechargement de la page, toutes les modifications non sauvegardées seront perdues. Voulez-vous continuer ?'
+						);
+					?>
+					</td>
 				<?php } ?>
                 </tr>
             </tbody>
         </table>
     </div>
-<?php if( !Configure::read( 'Jetons2.disabled' ) && Configure::read( 'Etatjetons.enabled' ) ) {?>
-	<script type="text/javascript">
-		//<![CDATA[
-		function jetonDelete( user_id ) {
-			if ( $('jetons_count').innerHTML !== '0'
-				&& confirm("La libération des dossiers nécessite un rechargement de la page, toutes les modifications non sauvegardées seront perdues. Voulez-vous continuer ?") ) {
-				new Ajax.Request('<?php echo Router::url( array( 'controller' => 'jetons', 'action' => 'ajax_delete' ) ).'/';?>', {
-					asynchronous:true,
-					evalScripts:true,
-					requestHeaders: {Accept: 'application/json'},
-					onComplete: function(request, json) {
-						if ( json ) {
-							$('jetons_count').innerHTML = '0';
-							location.reload();
-						}
-					},
-					onFailure: function() {
-						$('jetons_count').innerHTML = '?';
-					}
-				});
-			}
-		}
-		//]]>
-	</script>
-<?php }?>
 <?php endif;?>
