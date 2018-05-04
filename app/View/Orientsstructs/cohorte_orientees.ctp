@@ -74,10 +74,7 @@
 	?>
 </fieldset>
 <?php
-if ($viewTag) {
-	require_once ('tag.ctp');
-}
-$this->end();
+	$this->end();
 ?>
 
 <?php

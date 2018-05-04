@@ -39,20 +39,6 @@
 		$configuredCohorteParams['paginate'] = $paginate;
 	}
 
-	/**
-	 * ATTENTION
-	 * Voir aussi View/Tags/cohorte.ctp
-	 * Les entités des tags sont maintenant définies ici.
-	 *
-	 * Mais uniquement pour la page de tag en cohorte.
-	 */
-	if ($configurableQueryParams['configurableQueryFieldsKey'] == 'Tags.cohorte') {
-		$configuredCohorteParams['cohorteFields']['data[Cohorte][][EntiteTag][modele]']['options'] = array (
-			__d('tags', 'Cohorte.EntiteTag.personne') => __d('tags', 'Cohorte.EntiteTag.personne'),
-			__d('tags', 'Cohorte.EntiteTag.foyer') => __d('tags', 'Cohorte.EntiteTag.foyer'),
-		);
-	}
-
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 		echo $this->Html->script( array( 'prototype.event.simulate.js', 'dependantselect.js', 'cake.prototype.js' ) );
@@ -83,6 +69,7 @@
 	echo $this->Allocataires->blocHave( array( 'prefix' => 'Search', 'options' => $options ) );
 	echo $tagCohorteSearch;
 	echo $this->Allocataires->blocReferentparcours( array( 'prefix' => 'Search', 'options' => $options ) );
+	require_once ('searchbytag.ctp');
 	echo $this->Allocataires->blocPagination( array( 'prefix' => 'Search', 'options' => $options ) );
 	echo $this->Allocataires->blocScript( array( 'prefix' => 'Search', 'options' => $options ) );
 	echo $afterSearch;

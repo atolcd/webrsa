@@ -57,10 +57,6 @@
 				)
 			);
 
-			$Controller->loadModel( 'Tag' );
-			$result['Tag']['etat'] = $Controller->Tag->enum( 'etat' );
-			$result = $Controller->Tag->getValeursTag($result);
-
 			unset( $result['Orientstruct']['statut_orient']['Non orienté'] ); // FIXME: dans la conf ?
 
 			return $result;
