@@ -19,7 +19,7 @@
 	{
 		/**
 		 * Paramètres par défaut
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
@@ -30,61 +30,61 @@
 				'ajoutPossible' => true
 			);
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
 		 */
 		protected static function _propositionsimple(array $record, array $params) {
 			$params = self::params($params);
-			
-			return !in_array(Hash::get($record, 'Contratinsertion.positioncer'), array('fincontrat', 'annule'))
+
+			return !in_array(Hash::get($record, 'Contratinsertion.positioncer'), array('annule'))
 				&& Hash::get($record, 'Contratinsertion.decision_ci') === 'E'
 				&& !Hash::get($record, 'Contratinsertion.datenotification')
 				&& Hash::get($record, 'Contratinsertion.forme_ci') === 'S'
 			;
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
 		 */
 		protected static function _propositionparticulier(array $record, array $params) {
 			$params = self::params($params);
-			
-			return !in_array(Hash::get($record, 'Contratinsertion.positioncer'), array('fincontrat', 'annule'))
+
+			return !in_array(Hash::get($record, 'Contratinsertion.positioncer'), array('annule'))
 				&& Hash::get($record, 'Contratinsertion.decision_ci') === 'E'
 				&& !Hash::get($record, 'Contratinsertion.datenotification')
 				&& Hash::get($record, 'Contratinsertion.forme_ci') === 'C'
 			;
 		}
-		
+
 		/**
 		 * Liste les actions disponnible
 		 * Si une action pointe sur un autre controler, il faut préciser son nom
 		 * ex : Moncontroller.monaction
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
 		public static function actions(array $params = array()) {
 			$result = self::normalize_actions(
 				array(
-					'propositionsimple', 
+					'propositionsimple',
 					'propositionparticulier'
 				)
 			);
-			
+
 			if ($params['departement'] !== 66) {
 				$result = array();
 			}
-			
+
 			return $result;
 		}
 	}
