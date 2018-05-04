@@ -1,4 +1,5 @@
 <?php
+	$departement = (int)Configure::read( 'Cg.departement' );
 	$controller = $this->params->controller;
 	$availableDomains = WebrsaTranslator::domains();
 	$domain = isset( $availableDomains[0] ) ? $availableDomains[0] : $controller;
@@ -48,6 +49,26 @@
 		)
 		. '</fieldset>'
 	;
+
+	if ($departement === 66) {
+?>
+	<fieldset>
+		<legend><?php echo __d( 'dossierspcgs66', 'Dossierpcg66.search' ); ?></legend>
+		<?php
+			echo $this->Xform->input(
+				'Search.Dossierpcg66.has_dossierpcg66',
+				array(
+					'label' => __d( 'dossierspcgs66', 'Search.Dossierpcg66.has_dossierpcg66' ),
+					'type' => 'select',
+					'empty' => true,
+					'options' => array ('Non', 'Oui')
+				)
+			);
+		?>
+	</fieldset>
+<?php
+	}
+
 	$this->end();
 
 	// Bloc tagCohorteSearch

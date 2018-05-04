@@ -420,6 +420,16 @@
 				$this->Allocataires->configurableConditions($filters, $params)
 			);
 
+			// Recherche dossier PCG
+			$etat_dossierpcg66 = (string)Hash::get( $filters, 'Dossierpcg66.has_dossierpcg66' );
+			$Controller->loadModel( 'Dossier' );
+			if ($etat_dossierpcg66 === '0') {
+				$query['conditions'][] = 'NOT ' . ' EXISTS ( ' . $Controller->Dossier->Foyer->dossiersPCG66 () . ' )';
+			}
+			else if ($etat_dossierpcg66 === '1') {
+				$query['conditions'][] = ' EXISTS ( ' . $Controller->Dossier->Foyer->dossiersPCG66 () . ' )';
+			}
+
 			/**
 			 * Recherche par Tag / état du Tag
 			 *
