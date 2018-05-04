@@ -86,7 +86,6 @@
 
 		protected function _setOptions() {
 			$options = $this->Membreep->enums();
-
 			$options['Membreep']['fonctionmembreep_id'] = $this->Membreep->Fonctionmembreep->find( 'list' );
 			$options['Membreep']['ep_id'] = $this->Membreep->Ep->find( 'list' );
 
@@ -120,6 +119,7 @@
 			}
 
 			$options = $this->Membreep->enums();
+			$options['Membreep']['fonctionmembreep_id'] = $this->Membreep->Fonctionmembreep->find( 'list' );
 
 			$messages = array();
 			if ( 0 === $this->Membreep->Fonctionmembreep->find( 'count' ) ) {
