@@ -62,6 +62,7 @@
 								'controller'=>'users',
 								'action'=>'delete_jetons',
 								$this->Session->read( 'Auth.User.id' ),
+								'full_base' => true,
 							),
 							array(),
 							'La libération des dossiers nécessite un rechargement de la page, toutes les modifications non sauvegardées seront perdues. Voulez-vous continuer ?'
