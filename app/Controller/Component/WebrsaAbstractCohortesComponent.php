@@ -190,6 +190,7 @@
 					'page' => Hash::get($Controller->request->data, 'page' ),
 					'sort' => Hash::get($Controller->request->data, 'sort' ),
 					'direction' => Hash::get($Controller->request->data, 'direction' ),
+					'limit' => Hash::get($Controller->request->data, 'limit' ),
 				);
 
 				$configuredCohorteParams = array(
