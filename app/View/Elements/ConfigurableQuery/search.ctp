@@ -57,6 +57,7 @@
 	echo $customSearch;
 	echo $this->Allocataires->blocHave( array( 'prefix' => 'Search', 'options' => $options ) );
 	echo $this->Allocataires->blocReferentparcours( array( 'prefix' => 'Search', 'options' => $options ) );
+	require_once ('searchbytag.ctp');
 	echo $this->Allocataires->blocPagination( array( 'prefix' => 'Search', 'options' => $options ) );
 	echo $this->Allocataires->blocScript( array( 'prefix' => 'Search', 'options' => $options ) );
 	echo $afterSearch;

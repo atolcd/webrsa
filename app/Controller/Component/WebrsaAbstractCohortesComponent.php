@@ -227,6 +227,11 @@
 			$Controller->loadModel ('Typeorient');
 			$options['Orientstruct']['typeorient_id'] = $Controller->Typeorient->find('list', array ('recursive' => -1));
 
+			// Récupération des options des tags
+			$Controller->loadModel( 'Tag' );
+			$options['Tag']['etat'] = $Controller->Tag->enum( 'etat' );
+			$options = $Controller->Tag->getValeursTag($options);
+
 			// Assignation à la vue
 			$configurableQueryParams = $params;
 			$Controller->set( compact('options', 'configurableQueryParams') );

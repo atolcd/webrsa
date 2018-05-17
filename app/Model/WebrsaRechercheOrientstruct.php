@@ -273,22 +273,6 @@
 				array( 'Orientstruct.communautesr_id' => 'Orientstruct.structurereferente_id' )
 			);
 
-			// Recherche par Tag / état du Tag / Date de création du tag
-			$valeurtag_id = (array)Hash::get($search, 'Tag.valeurtag_id');
-			$etat = (array)Hash::get($search, 'Tag.etat');
-			$exclusionValeur = isset ($search['Tag']['exclusionValeur']) ? true : false;
-			$exclusionEtat = isset ($search['Tag']['exclusionEtat']) ? true : false;
-			$createdFrom =  null;
-			$createdTo = null;
-			if (isset ($search['Tag']['created']) && $search['Tag']['created'] === '1') {
-				$createdFrom = isset ($search['Tag']['created_from']) ? $search['Tag']['created_from'] : null;
-				$createdTo = isset ($search['Tag']['created_to']) ? $search['Tag']['created_to'] : null;
-			}
-
-			if (false === empty($valeurtag_id) || false === empty($etat) || false === is_null($createdFrom)) {
-				$query['conditions'][] = ClassRegistry::init('Tag')->sqHasTagValue($valeurtag_id, '"Foyer"."id"', '"Personne"."id"', $etat, $exclusionValeur, $exclusionEtat, $createdFrom, $createdTo);
-			}
-
 			return $query;
 		}
 	}
