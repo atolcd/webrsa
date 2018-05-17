@@ -723,7 +723,8 @@
 				'instrencours' => array(
 					array(
 						$this->Dossierpcg66->alias.'.user_id IS NOT NULL',
-						$this->Dossierpcg66->Decisiondossierpcg66->alias . '.decisionpdo_id IS NOT NULL',
+						// Ne doit pas dépendre du type de proposition.
+						//$this->Dossierpcg66->Decisiondossierpcg66->alias . '.decisionpdo_id IS NOT NULL',
 						$this->Dossierpcg66->Decisiondossierpcg66->alias . '.instrencours IS NOT NULL',
 						$this->Dossierpcg66->Decisiondossierpcg66->alias . '.instrencours' => '1',
 						$this->Dossierpcg66->Decisiondossierpcg66->alias . '.etatdossierpcg IS NULL',
