@@ -20,6 +20,7 @@
 	echo $this->Default3->index(
 		$questionnairesd2pdvs93,
 		array(
+			'Questionnaired2pdv93.toujoursenemploi' => array( 'type' => 'boolean' ),
 			'Questionnaired1pdv93.Rendezvous.Structurereferente.lib_struc',
 			'Questionnaired2pdv93.date_validation',
 			'Questionnaired2pdv93.modified',
@@ -27,6 +28,7 @@
 			'Sortieaccompagnementd2pdv93.name',
 			'Questionnaired2pdv93.chgmentsituationadmin',
 			'Emploiromev3.Appellationromev3.name',
+			'Dureeemploi.name',
 		)+ WebrsaAccess::links(
 			array(
 				'/Questionnairesd2pdvs93/edit/#Questionnaired2pdv93.id#',

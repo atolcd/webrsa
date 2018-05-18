@@ -48,7 +48,7 @@ msgstr "Appellation métier"
 # Questionnaire
 
 msgid "Questionnaireb7pdv93.dureeemploi"
-msgstr "Durée de l'emploi"
+msgstr "Temps de travail"
 
 msgid "Questionnaireb7pdv93.typeemploi"
 msgstr "Type de l'emploi"
@@ -60,7 +60,7 @@ msgid "Appellationromev3.name"
 msgstr "Appellation métier"
 
 msgid "Dureeemploi.name"
-msgstr "Durée de l'emploi"
+msgstr "Temps de travail"
 
 msgid "Typeemploi.name"
 msgstr "Type de l'emploi"

@@ -562,7 +562,7 @@ msgstr "Le bénéficiaire a achevé l'action"
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableaub7/:heading"
-msgstr "Tableau B7 - Accès à l'emploi avec maintien ou sortie de l'accompagnement"
+msgstr "B7a - Nombre de personnes accédant à l'emploi"
 
 msgid "Tableaub7.chiffres.cles"
 msgstr "Accès à l'emploi : chiffres clés"
@@ -577,7 +577,7 @@ msgid "Tableaub7.avec"
 msgstr "et maintenues dans l'accompagnement"
 
 msgid "Tableaub7.sans"
-msgstr "et sorties de l'accompagnement"
+msgstr "et sorties de l'accompagnement (D2)"
 
 msgid "Tableaub7.par.type.contrat"
 msgstr "Accès à l'emploi : nombre d'accès à l'emploi par type de contrat"
@@ -590,11 +590,11 @@ msgstr "Accès à l'emploi : nombre d'accès à l'emploi par familles professioi
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableaub7d2typecontrat/:heading"
-msgstr "Tableau B7 + D2 - Nombre d'accès à l'emploi par type de contrat"
+msgstr "B7b - Synthèse des accès à l'emploi"
 
 # ------------------------------------------------------------------------------
 # Tableau B7 + D2 par famille professionnelle
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableaub7d2familleprofessionnelle/:heading"
-msgstr "Tableau B7 + D2 - Nombre d'accès à l'emploi par famille professionnelle"
+msgstr "B7c - Accès à l'emploi selon les secteurs professionnels"

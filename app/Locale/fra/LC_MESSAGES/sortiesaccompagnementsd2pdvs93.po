@@ -27,6 +27,9 @@ msgstr "Retour"
 msgid "Sortieaccompagnementd2pdv93.name"
 msgstr "Intitulé"
 
+msgid "Sortieaccompagnementd2pdv93.actif"
+msgstr "Actif"
+
 msgid "Sortieaccompagnementd2pdv93.parent_id"
 msgstr "Parent"
 

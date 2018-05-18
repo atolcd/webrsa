@@ -126,6 +126,7 @@
 							'Structurereferente'
 						),
 					),
+					'Dureeemploi',
 				),
 				'conditions' => array(
 					'Questionnaired2pdv93.personne_id' => $personne_id,

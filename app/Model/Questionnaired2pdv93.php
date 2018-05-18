@@ -115,6 +115,13 @@
 				'order' => null,
 				'counterCache' => null
 			),
+			'Dureeemploi' => array(
+				'className' => 'Dureeemploi',
+				'foreignKey' => 'dureeemploi_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
+			),
 		);
 
 
@@ -491,7 +498,10 @@
 						),
 						'joins' => array(
 							$this->Sortieaccompagnementd2pdv93->join( 'Parent', array( 'type' => 'INNER' ) )
-						)
+						),
+						'conditions' => array (
+							'Sortieaccompagnementd2pdv93.actif' => 1
+						),
 					)
 				);
 			}
