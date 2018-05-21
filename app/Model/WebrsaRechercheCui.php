@@ -77,7 +77,7 @@
 				'Adressefoyer' => 'LEFT OUTER',
 				'Dossier' => 'INNER',
 				'Adresse' => 'LEFT OUTER',
-				'Situationdossierrsa' => 'INNER',
+				'Situationdossierrsa' => 'LEFT OUTER',
 				'Detaildroitrsa' => 'LEFT OUTER',
 				'Emailcui' => 'LEFT OUTER',
 				'Partenairecui' => 'LEFT OUTER',

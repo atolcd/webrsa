@@ -65,7 +65,7 @@
 				'Adressefoyer' => 'INNER',
 				'Dossier' => 'INNER',
 				'Adresse' => 'INNER',
-				'Situationdossierrsa' => 'INNER',
+				'Situationdossierrsa' => 'LEFT OUTER',
 				'Detaildroitrsa' => 'LEFT OUTER',
 				'PersonneReferent' => 'LEFT OUTER',
 				'Personne' => 'INNER',

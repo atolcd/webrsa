@@ -66,7 +66,7 @@
 				// INNER
 				'Foyer' => 'INNER',
 				'Dossier' => 'INNER',
-				'Situationdossierrsa' => 'INNER',
+				'Situationdossierrsa' => 'LEFT OUTER',
 				
 				// LEFT
 				'Personne' => 'LEFT OUTER',

@@ -67,7 +67,7 @@
 					'Adressefoyer' => 'LEFT OUTER',
 					'Dossier' => 'INNER',
 					'Adresse' => 'LEFT OUTER',
-					'Situationdossierrsa' => 'INNER',
+					'Situationdossierrsa' => 'LEFT OUTER',
 					'Detaildroitrsa' => 'LEFT OUTER'
 				);
 				$query = $this->Allocataire->searchQuery( $types, 'Dossier' );

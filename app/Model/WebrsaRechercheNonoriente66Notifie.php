@@ -39,7 +39,7 @@
 				'Adressefoyer' => 'INNER',
 				'Calculdroitrsa' => 'INNER',
 				'Dossier' => 'INNER',
-				'Situationdossierrsa' => 'INNER',
+				'Situationdossierrsa' => 'LEFT OUTER',
 				'Adresse' => 'INNER',
 				'Nonoriente66' => 'INNER',
 				'Orientstruct' => 'INNER',
