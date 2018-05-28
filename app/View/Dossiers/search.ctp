@@ -51,18 +51,6 @@
 		);
 	?>
 </fieldset>
-<fieldset>
-	<legend>Faux orientés</legend>
-	<?php
-		echo $this->Xform->input(
-			'Search.Dossierpcg66.faux_orientes',
-			array(
-				'label' => 'Exclure les faux orientés',
-				'type' => 'checkbox',
-			)
-		);
-	?>
-</fieldset>
 <?php
 	}
 ?>

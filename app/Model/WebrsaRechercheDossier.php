@@ -230,8 +230,12 @@
 			// CD 66: Personne ne possédant pas d'orientation et sans entrée Nonoriente66
 			if( $departement === 66 ) {
 				$exists = (string)Hash::get( $search, 'Personne.has_orientstruct' );
-				$fauxorientes = (string)Hash::get( $search, 'Dossierpcg66.faux_orientes' );
-				if( $exists === '0' && $fauxorientes === '1') {
+				if( $exists === '0' ) {
+					$this->Dossier->Foyer->Personne->Behaviors->load('LinkedRecords');
+					$sql = $this->Dossier->Foyer->Personne->linkedRecordVirtualField( 'Nonoriente66' );
+					$query['conditions'][] = ' ' . $sql;
+				}
+				else if ( $exists === '1' ) {
 					$this->Dossier->Foyer->Personne->Behaviors->load('LinkedRecords');
 					$sql = $this->Dossier->Foyer->Personne->linkedRecordVirtualField( 'Nonoriente66' );
 					$query['conditions'][] = 'NOT ' . $sql;
