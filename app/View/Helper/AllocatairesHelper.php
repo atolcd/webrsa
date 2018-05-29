@@ -232,6 +232,7 @@
 			$paths = array(
 				'Dossier.anciennete_dispositif',
 				'Serviceinstructeur.id',
+				'Suiviinstruction.typeserins',
 				'Dossier.fonorg',
 				'Foyer.sitfam'
 			);

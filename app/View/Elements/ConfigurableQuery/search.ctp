@@ -100,5 +100,25 @@
 	Event.observe( window, 'load', function() {
 		Event.observe( '<?php echo $searchFormId;?>', 'submit', Cake.Search.onSubmit );
 	} );
+
+	Event.observe($('SearchServiceinstructeurId'), 'change', function(e){
+		if ($('SearchServiceinstructeurId').getValue() == '') {
+			$('SearchSuiviinstructionTypeserins').enable();
+		}
+		else {
+			$('SearchSuiviinstructionTypeserins').setValue(0);
+			$('SearchSuiviinstructionTypeserins').disable();
+		}
+	});
+
+	Event.observe($('SearchSuiviinstructionTypeserins'), 'change', function(e){
+		if ($('SearchSuiviinstructionTypeserins').getValue() == '') {
+			$('SearchServiceinstructeurId').enable();
+		}
+		else {
+			$('SearchServiceinstructeurId').setValue(0);
+			$('SearchServiceinstructeurId').disable();
+		}
+	});
 //]]>
 </script>
