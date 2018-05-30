@@ -1198,6 +1198,9 @@ td.button.edit a, td.action a.edit, td span.button.edit, table.default2 td a.but
 td.button.duplicate a, td.action a.duplicate, td span.button.duplicate, table.default2 td a.button.duplicate {
 	background-image: url( ../img/icons/group.png );
 }
+td.button.resetDroitGroupUsers a, td.action a.resetDroitGroupUsers, td span.button.resetDroitGroupUsers, table.default2 td a.button.resetDroitGroupUsers {
+	background-image: url( ../img/icons/database_refresh.png );
+}
 td.button.edit.disabled a, td.action a.edit.disabled, td span.button.edit.disabled, table.default2 td a.button.edit.disabled, td.action span.edit.disabled {
 	background-image: url( ../img/icons/pencil_disabled.png );
 }

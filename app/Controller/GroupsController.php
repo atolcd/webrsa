@@ -50,7 +50,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Group' );
+		public $uses = array( 'Group', 'User' );
 
 		/**
 		 * Utilise les droits d'un autre Controller:action
@@ -59,7 +59,8 @@
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'add' => 'Groups:edit'
+			'add' => 'Groups:edit',
+			'resetDroitGroupUsers' => 'Groups:edit',
 		);
 
 		/**
@@ -217,6 +218,38 @@
 			$this->set('json', json_encode($permissions));
 			$this->layout = 'ajax';
 			$this->render('/Elements/json');
+		}
+
+		/**
+		 * Réinitialise tous les droits de tous les utilisateurs de ce groupe à 'hérité'.
+		 *
+		 * @param integer $group_id
+		 */
+		public function resetDroitGroupUsers($group_id) {
+			$permissions['Permission'] = $this->WebrsaPermissions->getPermissionsHeritage($this->Group, $group_id);
+			$permissions['Permission'] = array_fill_keys(array_keys ($permissions['Permission']), 0);
+			$users = $this->User->find( 'all', array ('contain' => false, 'conditions' => array ('group_id' => $group_id)) );
+
+			foreach ($users as $user) {
+				$this->User->id = $user['User']['id'];
+				$this->User->begin();
+				$success = $this->WebrsaPermissions->updatePermissions($this->User, $user['User']['id'], $permissions);
+
+				if ($success) {
+					$this->User->commit();
+				} else {
+					$this->User->rollback();
+					break;
+				}
+			}
+
+			if ($success) {
+				$this->Flash->success( __( 'Save->success' ) );
+			} else {
+				$this->Flash->error( __( 'Save->error' ) );
+			}
+
+			$this->redirect(array('controller' => 'groups', 'action' => 'index'));
 		}
 	}
 ?>
