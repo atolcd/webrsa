@@ -67,8 +67,41 @@
 			$options['Tag']['etat'] = $Controller->Tag->enum( 'etat' );
 			$options = $Controller->Tag->getValeursTag($options);
 
+			// Gestion des exceptions
+			$options = $this->optionsExceptions ($options);
+
 			// Assignation à la vue
 			$Controller->set( 'options', $options );
+		}
+
+		/**
+		 * Gestion des exceptions difficilement gérables ailleurs.
+		 *
+		 * @param array $options
+		 * @return array $options
+		 */
+		final public function optionsExceptions (array $options = array()) {
+			/*
+			 * Dédoublonnage du sexe lorsque $params['modelName'] vaut Personne
+			 * dans WebrsaAbstractMoteursComponent->_optionsEnums
+			 */
+			if (isset ($options['Personne']['sexe'])) {
+				$doublons = array ();
+				$sexes = $options['Personne']['sexe'];
+
+				foreach ($sexes as $key => $value) {
+					if (in_array ($value, $doublons)) {
+						unset ($sexes[$key]);
+					}
+					else {
+						$doublons[] = $value;
+					}
+				}
+
+				$options['Personne']['sexe'] = $sexes;
+			}
+
+			return $options;
 		}
 	}
 ?>
