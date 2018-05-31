@@ -199,6 +199,45 @@
 				$conditions[] = '"Dossier"."id" IN ( '.$Dossier->Suiviinstruction->sq( $subQuery ).' )';
 			}
 
+			$suiviinstruction_typeserins = (string)Hash::get( $search, 'Suiviinstruction.typeserins' );
+			if( $suiviinstruction_typeserins !== '' ) {
+				/*
+				 * Comme la valeur '' ne passe pas lors de la génération de la liste déroulante.
+				 * l'option choisie a été de mettre un 0 à la place.
+				 *
+				 * Pour un dossier "Non renseigné", il n'y a pas de suivi instruction
+				 */
+				if ($suiviinstruction_typeserins === '0') {
+					$Dossier = ClassRegistry::init( 'Dossier' );
+
+					$subQuery = array_words_replace(
+						array(
+							'alias' => 'Suiviinstruction',
+							'fields' => array( 'Suiviinstruction.dossier_id' ),
+							'contain' => false,
+						),
+						array( 'Suiviinstruction' => 'suivisinstruction' )
+					);
+					$conditions[] = '"Dossier"."id" NOT IN ( '.$Dossier->Suiviinstruction->sq( $subQuery ).' )';
+				}
+				else {
+					$Dossier = ClassRegistry::init( 'Dossier' );
+
+					$subQuery = array_words_replace(
+						array(
+							'alias' => 'Suiviinstruction',
+							'fields' => array( 'Suiviinstruction.dossier_id' ),
+							'contain' => false,
+							'conditions' => array(
+								'Suiviinstruction.typeserins' => $suiviinstruction_typeserins
+							)
+						),
+						array( 'Suiviinstruction' => 'suivisinstruction' )
+					);
+					$conditions[] = '"Dossier"."id" IN ( '.$Dossier->Suiviinstruction->sq( $subQuery ).' )';
+				}
+			}
+
 			return $conditions;
 		}
 

@@ -259,6 +259,9 @@
 				$this->Personne->Foyer->Dossier->enums(),
 				$this->Personne->Foyer->enums(),
 				array(
+					'Suiviinstruction' => array(
+						'typeserins' => $Option->typeserins(),
+					),
 					'Adresse' => array(
 						'pays' => ClassRegistry::init('Adresse')->enum('pays'),
 						'typeres' => ClassRegistry::init('Adresse')->enum('typeres')

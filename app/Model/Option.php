@@ -2887,8 +2887,10 @@
 		 * @return array
 		 */
 		public function typeserins() {
+			// Il y a deux ligne "Non renseigné" car la valeur '' ne passe pas lors de la génération de la liste déroulante.
 			return array(
 				'' => 'Non renseigné',
+				'0' => 'Non renseigné',
 				'A' => 'Organisme agréé',
 				'C' => 'Centre Communal d\'Action Sociale',
 				'F' => 'Caisse d\'Allocation Familiale',
