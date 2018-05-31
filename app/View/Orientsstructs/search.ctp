@@ -99,12 +99,14 @@
 		;
 	}
 
-	echo $this->Default3->subform(
-		array(
-			'Search.Orientstruct.origine' => array('empty' => true),
-		),
-		array( 'options' => array( 'Search' => $options ) )
-	);
+	if ($departement === 93) {
+		echo $this->Default3->subform(
+			array(
+				'Search.Orientstruct.origine' => array('empty' => true),
+			),
+			array( 'options' => array( 'Search' => $options ) )
+		);
+	}
 
 	echo $this->Default3->subform(
 			array(
