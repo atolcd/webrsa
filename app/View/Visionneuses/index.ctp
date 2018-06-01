@@ -7,6 +7,14 @@
 
 	echo $this->Xhtml->tag( 'h1', $this->pageTitle );
 
+	echo $this->Xhtml->link(
+		'Recalculer les rejets',
+		array(
+			'controller'=>'visionneuses',
+			'action'=>'calculrejetes',
+		)
+	);
+
 	if( empty( $visionneuses ) ) {
 		echo $this->Xhtml->tag( 'p', 'Aucun fichier intégré pour l\'instant.', array( 'class' => 'notice' ) );
 	}
@@ -56,7 +64,7 @@
 				(0<$rejet)?$this->Xhtml->Link(
 					$rejet,
 					array( 'controller' => 'rejet_historique', 'action' => 'affrej',$visionneuse['Visionneuse']['nomfic'] ),
-					array( 'enabled' => $this->Permissions->check( 'Visionneuses', 'affrej' ) )
+					array( 'enabled' => true )
 				):'0',
 				Set::classicExtract( $visionneuse, 'Visionneuse.nbinser' ),
 				Set::classicExtract( $visionneuse, 'Visionneuse.nbmaj' ),
@@ -84,7 +92,6 @@
 		echo $this->Default->search(
 		array(
 			'Visionneuse.flux' => array( 'type' => 'select','options' => $options,'empty' => 'Choissisez votre flux'),
-			'Visionneuse.dtdeb' => array( 'type' => 'date', 'dateFormat' => 'DMY', 'minYear' => date( 'Y' ) , 'maxYear' => date( 'Y' ) + 2 ),
 			)
 		);
 	}
