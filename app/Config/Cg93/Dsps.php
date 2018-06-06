@@ -137,6 +137,7 @@
 			'results' => array(
 				'fields' => array(
 					'Dossier.numdemrsa',
+					'Dossier.dtdemrsa' => date_sql_to_cakephp( date( 'Y-m-d')),
 					'Dossier.matricule',
 					'Situationdossierrsa.etatdosrsa',
 					'Personne.qual',
@@ -145,7 +146,7 @@
 					'Dossier.matricule',
 					'Detaildroitrsa.natpf',
 					'Calculdroitrsa.toppersdrodevorsa',
-					'Memo.name',
+					//'Memo.name',
 					'Personne.age',
 					'Adresse.numvoie',
 					'Adresse.libtypevoie',
@@ -154,6 +155,7 @@
 					'Adresse.compladr',
 					'Adresse.codepos',
 					'Adresse.nomcom',
+					'Donnees.topcreareprientre' => array( 'label' => 'Création ou reprise d\' entreprise' ),					
 					'Donnees.libsecactrech',
 					'Donnees.libemploirech',
 					//intitulés des structures référentes
@@ -183,21 +185,22 @@
 					'Personne.numfixe' => array( 'label' => 'Num de telephone fixe' ),
 					'Personne.numport' => array( 'label' => 'Num de telephone portable' ),
 					'Personne.email' => array( 'label' => 'Adresse mail' ),
-					/*'Dsp.libcooraccosocindi',
+					'Dsp.libcooraccosocindi',
 					'Dsp.nivetu',
 					'Dsp.nivdipmaxobt',
 					'Dsp.annobtnivdipmax',
-					'Dsp.topqualipro',
+					'Dsp.topqualipro' => array('type' => 'boolean'),
 					'Dsp.libautrqualipro',
-					'Dsp.topcompeextrapro',
+					'Dsp.topcompeextrapro' => array('type' => 'boolean'),
 					'Dsp.libcompeextrapro',
-					'Dsp.topengdemarechemploi',
+					'Dsp.topengdemarechemploi' => array('type' => 'boolean'),
 					'Dsp.inscdememploi',
-					'Dsp.topprojpro',
-					'Dsp.topmoyloco',*/
-					'Dsp.toppermicondub',
-					'Dsp.topautrpermicondu',
-					'Dsp.libautrpermicondu'
+					'Dsp.topprojpro' => array('type' => 'boolean'),
+					'Dsp.topmoyloco' => array('type' => 'boolean'),
+					'Dsp.toppermicondub' => array('type' => 'boolean'),
+					'Dsp.topautrpermicondu' => array('type' => 'boolean'),
+					'Dsp.libautrpermicondu',
+					'DspRev.modified' => array( 'label' => 'DSP Modifiée' )	
 				)
 			),
 			// 4. Temps d'exécution, mémoire maximum, ...
