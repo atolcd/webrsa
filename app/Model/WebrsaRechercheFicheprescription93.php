@@ -170,9 +170,9 @@
 			$paths = array(
 				'Ficheprescription93.statut',
 				'Ficheprescription93.benef_retour_presente',
-				'Ficheprescription93.personne_recue',
 				'Ficheprescription93.personne_retenue',
 				'Ficheprescription93.personne_a_integre',
+				'Ficheprescription93.personne_acheve',
 			);
 			foreach( $paths as $path ) {
 				$value = Hash::get( $search, $path );

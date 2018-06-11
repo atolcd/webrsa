@@ -57,6 +57,7 @@
 	echo $customSearch;
 	echo $this->Allocataires->blocHave( array( 'prefix' => 'Search', 'options' => $options ) );
 	echo $this->Allocataires->blocReferentparcours( array( 'prefix' => 'Search', 'options' => $options ) );
+	require_once ('searchbytag.ctp');
 	echo $this->Allocataires->blocPagination( array( 'prefix' => 'Search', 'options' => $options ) );
 	echo $this->Allocataires->blocScript( array( 'prefix' => 'Search', 'options' => $options ) );
 	echo $afterSearch;
@@ -99,5 +100,25 @@
 	Event.observe( window, 'load', function() {
 		Event.observe( '<?php echo $searchFormId;?>', 'submit', Cake.Search.onSubmit );
 	} );
+
+	Event.observe($('SearchServiceinstructeurId'), 'change', function(e){
+		if ($('SearchServiceinstructeurId').getValue() == '') {
+			$('SearchSuiviinstructionTypeserins').enable();
+		}
+		else {
+			$('SearchSuiviinstructionTypeserins').setValue(0);
+			$('SearchSuiviinstructionTypeserins').disable();
+		}
+	});
+
+	Event.observe($('SearchSuiviinstructionTypeserins'), 'change', function(e){
+		if ($('SearchSuiviinstructionTypeserins').getValue() == '') {
+			$('SearchServiceinstructeurId').enable();
+		}
+		else {
+			$('SearchServiceinstructeurId').setValue(0);
+			$('SearchServiceinstructeurId').disable();
+		}
+	});
 //]]>
 </script>

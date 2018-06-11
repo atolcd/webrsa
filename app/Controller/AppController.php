@@ -422,7 +422,7 @@
 
 			// Affiche un cadenas avec le nombre de jetons pris par l'utilisateur
 			$is = $this->_is();
-			if (!Configure::read('Jetons2.disabled') && Configure::read('Etatjetons.enabled') && !in_array( true, $is )) {
+			if (!Configure::read('Jetons2.disabled') && Configure::read('Etatjetons.enabled')) {
 				$this->set('jetons_count', $this->Components->load('Jetons2')->count());
 			}
 

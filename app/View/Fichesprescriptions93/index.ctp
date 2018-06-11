@@ -22,12 +22,10 @@
 		$results,
 		array(
 			'Ficheprescription93.created' => array( 'type' => 'date' ),
-			'Ficheprescription93.modified' => array( 'type' => 'date' ),
-			'Thematiquefp93.type',
 			'Thematiquefp93.name',
 			'Categoriefp93.name',
-			'Ficheprescription93.dd_action',
-			'Ficheprescription93.df_action',
+			'Ficheprescription93.prestaname',
+			'Ficheprescription93.actionname',
 			'Ficheprescription93.statut',
 		)
 		+ WebrsaAccess::links(
@@ -39,7 +37,20 @@
 		),
 		array(
 			'options' => $options,
-			'paginate' => false
+			'paginate' => false,
+			'innerTable'  => array(
+				'Ficheprescription93.modified' => array(
+					'type' => 'date',
+				),
+				'Thematiquefp93.type',
+				//'Thematiquefp93.yearthema',
+				'Ficheprescription93.dd_action' => array(
+					'type' => 'date',
+				),
+				'Ficheprescription93.df_action' => array(
+					'type' => 'date',
+				),
+			)
 		)
 	);
 ?>

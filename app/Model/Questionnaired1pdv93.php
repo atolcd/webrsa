@@ -361,7 +361,6 @@
 		 */
 		public function saveFormData( $personne_id, array $data ) {
 			// Sauvegarde des données du formulaire
-			debug($data);
 			try {
 			$result = $this->saveAssociated(
 				$data,
@@ -584,7 +583,7 @@
 					$messages['Rendezvous.premierrdv'] = 'error';
 				}
 				else {
-					$messages['Rendezvous.premierrdv_utilisable'] = 'error';
+					$messages['Rendezvous.premierrdv_utilisable'] = 'notice';
 				}
 			}
 
@@ -622,7 +621,10 @@
 		 * @return boolean
 		 */
 		public function addEnabled( array $messages ) {
-			return !in_array( 'error', $messages ) && !array_key_exists( 'Questionnaired1pdv93.exists', $messages );
+
+			$status = ! ( in_array( 'error', $messages ) || array_key_exists( 'Questionnaired1pdv93.exists', $messages ) || array_key_exists( 'Rendezvous.premierrdv_utilisable', $messages )  )  ;
+
+			return $status;
 		}
 	}
 ?>

@@ -265,19 +265,21 @@
 		 *
 		 * @param Model $Model
 		 * @param integer $foreign_key
+		 * @param boolean $light
 		 * @return array 'controllers/Module/action' => (int){-10, -1, 1, 10}
 		 */
-		public function getPermissionsHeritage(Model $Model, $foreign_key) {
+		public function getPermissionsHeritage(Model $Model, $foreign_key, $light = false) {
 			$aros_acos = $this->getArosAcos($Model, $foreign_key);
 			$keys_aros_acos = array_keys($aros_acos);
 			$droits = $this->getPermissions($Model, $foreign_key);
 
 			$perms = array();
 			foreach ($droits as $key => $value) {
+				$keyPermission = $light ? substr ($key, 12) : $key;
 				if (in_array($key, $keys_aros_acos)) {
-					$perms[$key] = $aros_acos[$key] ? 1 : -1;
+					$perms[$keyPermission] = $aros_acos[$key] ? 1 : -1;
 				} else {
-					$perms[$key] = $value ? 10 : -10;
+					$perms[$keyPermission] = $value ? 10 : -10;
 				}
 			}
 

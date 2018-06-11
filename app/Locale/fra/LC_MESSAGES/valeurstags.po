@@ -39,3 +39,6 @@ msgstr "Supprimer le tag « #Valeurtag.name# »"
 
 msgid "/Valeurstags/delete/#Valeurtag.id# ?"
 msgstr "Réellement supprimer le tag « #Valeurtag.name# » ?"
+
+msgid "Valeurtag.actif"
+msgstr "Actif"

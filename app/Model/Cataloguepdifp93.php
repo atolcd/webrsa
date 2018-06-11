@@ -41,12 +41,13 @@
 			'Filierefp93',
 			'Actionfp93',
 			'Prestatairefp93',
+			'Motifcontactfp93',
 			'Modtransmfp93',
 			'Adresseprestatairefp93',
-			'Motifnonreceptionfp93',
 			'Motifnonretenuefp93',
-			'Motifnonsouhaitfp93',
 			'Motifnonintegrationfp93',
+			'Motifactionachevefp93',
+			'Motifnonactionachevefp93',
 			'Documentbeneffp93'
 		);
 

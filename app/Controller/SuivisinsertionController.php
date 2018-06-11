@@ -214,6 +214,7 @@
 								'Ficheprescription93.personne_id',
 								'Ficheprescription93.date_retour',
 								'Ficheprescription93.personne_a_integre',
+								'Ficheprescription93.personne_acheve',
 								'Actionfp93.name',
 								'Categoriefp93.name',
 							),

@@ -22,6 +22,12 @@ msgstr "Projet de ville"
 msgid "Sortieaccompagnementd2pdv93.name"
 msgstr "Sortie de l'obligation d'accompagnement"
 
+msgid "Questionnaired2pdv93.toujoursenemploi"
+msgstr "Toujours en emploi"
+
+msgid "Dureeemploi.name"
+msgstr "Temps de travail"
+
 msgid "Questionnaired2pdv93.chgmentsituationadmin"
 msgstr "Sortie \"changement administratif\""
 
@@ -38,6 +44,9 @@ msgstr "Structure referente"
 
 msgid "Questionnaired2pdv93.exists"
 msgstr "Un formulaire D2 est déjà enregistré pour l’année en cours."
+
+msgid "Questionnaired2pdv93.notexists"
+msgstr "Le formulaire D1 n'est pas celui de l’année en cours."
 
 msgid "Questionnaired1pdv93.missing"
 msgstr "Cet allocataire ne possède pas de formulaire D1 pour l'année en cours."
@@ -90,3 +99,30 @@ msgstr "Supprimer le questionnaire D2 de #Personne.qual# #Personne.nom# #Personn
 
 msgid "/Questionnairesd2pdvs93/delete/#Questionnaired2pdv93.id# ?"
 msgstr "Réellement supprimer le questionnaire D2 de #Personne.qual# #Personne.nom# #Personne.prenom# ?"
+
+# ==============================================================================
+# Rome V3
+
+msgid "Emploiromev3"
+msgstr "Renseigner l'emploi (ROME V3)"
+
+msgid "Emploiromev3.romev3"
+msgstr "Recherche rapide"
+
+msgid "Emploiromev3.familleromev3_id"
+msgstr "Code famille"
+
+msgid "Emploiromev3.domaineromev3_id"
+msgstr "Code domaine"
+
+msgid "Emploiromev3.metierromev3_id"
+msgstr "Code métier"
+
+msgid "Emploiromev3.appellationromev3_id"
+msgstr "Appellation métier"
+
+# ==============================================================================
+# Questionnaire
+
+msgid "Appellationromev3.name"
+msgstr "Appellation métier"

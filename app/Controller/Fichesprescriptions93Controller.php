@@ -505,6 +505,10 @@
 					'Thematiquefp93.name',
 					'Thematiquefp93.yearthema',
 					'Categoriefp93.name',
+					'Prestatairehorspdifp93.name',
+					'Prestatairefp93.name',
+					'Actionfp93.name',
+					'Ficheprescription93.actionfp93',
 					'Ficheprescription93.dd_action',
 					'Ficheprescription93.df_action',
 					'Ficheprescription93.statut',
@@ -515,7 +519,10 @@
 				'contain' => false,
 				'joins' => array(
 					$this->Ficheprescription93->join( 'Actionfp93', array( 'type' => 'LEFT OUTER' ) ),
+					$this->Ficheprescription93->Actionfp93->join( 'Adresseprestatairefp93', array( 'type' => 'LEFT OUTER' ) ),
+					$this->Ficheprescription93->Actionfp93->Adresseprestatairefp93->join( 'Prestatairefp93', array( 'type' => 'LEFT OUTER' ) ),
 					$this->Ficheprescription93->join( 'Filierefp93' ),
+					$this->Ficheprescription93->join( 'Prestatairehorspdifp93', array( 'type' => 'LEFT OUTER' ) ),
 					$this->Ficheprescription93->Filierefp93->join( 'Categoriefp93' ),
 					$this->Ficheprescription93->Filierefp93->Categoriefp93->join( 'Thematiquefp93' )
 				),
@@ -525,6 +532,23 @@
 			);
 
 			$results = $this->WebrsaAccesses->getIndexRecords( $personne_id,  $query );
+
+			foreach ($results AS $key => $result )  {
+				if ($result['Thematiquefp93']['type'] == 'pdi') {
+					//'Prestatairefp93.name',
+					$results[$key]['Ficheprescription93']['prestaname'] = $result['Prestatairefp93']['name'];
+					//'Actionfp93.name',
+					$results[$key]['Ficheprescription93']['actionname'] = $result['Actionfp93']['name'];
+				} elseif ($result['Thematiquefp93']['type'] == 'horspdi') {
+					//'Prestatairehorspdifp93.name',
+					$results[$key]['Ficheprescription93']['prestaname'] = $result['Prestatairehorspdifp93']['name'];
+					//'Ficheprescription93.actionfp93',
+					$results[$key]['Ficheprescription93']['actionname'] = $result['Ficheprescription93']['actionfp93'] ;
+				}	else {
+					$results[$key]['Ficheprescription93']['prestaname'] = null;
+					$results[$key]['Ficheprescription93']['actionname'] = null;
+				}
+			}
 
 			$options = $this->Ficheprescription93->options();
 

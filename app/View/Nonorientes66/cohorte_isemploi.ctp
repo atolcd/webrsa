@@ -34,6 +34,11 @@
 	
 	$this->end();
 
+	$this->start( 'custom_after_results' );
+	echo $this->Form->button( 'Tout cocher', array( 'type' => 'button', 'onclick' => "return toutCocher( 'input[type=checkbox]' );" ) );
+	echo $this->Form->button( 'Tout décocher', array( 'type' => 'button', 'onclick' => "return toutDecocher( 'input[type=checkbox]' );" ) );
+	$this->end();
+
 	$explAction = explode('_', $action);
 	$exportcsvActionName = isset($explAction[1]) ? 'exportcsv_'.$explAction[1] : 'exportcsv';
 	
@@ -41,6 +46,7 @@
 		'ConfigurableQuery/cohorte',
 		array(
 			'customSearch' => $this->fetch( 'custom_search_filters' ),
+			'afterResults' => $this->fetch( 'custom_after_results' ),
 			'exportcsv' => array( 'action' => $exportcsvActionName ),
 			'modelName' => 'Personne'
 		)

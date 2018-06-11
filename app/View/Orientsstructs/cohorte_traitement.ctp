@@ -1,21 +1,6 @@
 <?php
-	// Conditions d'accès aux tags
 	$departement = (int)Configure::read( 'Cg.departement' );
 	$user_type = $this->Session->read( 'Auth.User.type' );
-	$utilisateursAutorises = (array)Configure::read( 'acces.recherche.tag' );
-	$viewTag = false;
-
-	foreach ($utilisateursAutorises as $utilisateurAutorise) {
-		if ($utilisateurAutorise == $user_type) {
-			$viewTag = true;
-			break;
-		}
-	}
-
-	if ($departement != 93) {
-		$viewTag = true;
-	}
-	// Conditions d'accès aux tags
 
 	// "Pagination" un peu spéciale: on veut simplement le nombre de résultats, pas passer de page en page
 	$pagination = null;
@@ -57,12 +42,7 @@
 		echo $this->Xform->input( 'Search.Orientstruct.propo_algo', array( 'type' => 'select', 'options' => $options['Orientstruct']['propo_algo'], 'empty' => true, 'label' => __m( 'Search.Orientstruct.propo_algo' ) ) )
 	?>
 </fieldset>
-<?php
-if ($viewTag) {
-	require_once ('tag.ctp');
-}
-$this->end();
-?>
+<?php $this->end(); ?>
 
 <?php
 	echo $this->element(

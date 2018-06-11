@@ -58,6 +58,17 @@
 		</tbody>
 	</table>
 	<?php endforeach;?>
+
+	<ul class="actionMenu">
+	<li><?php
+		echo $this->Xhtml->exportLink(
+			'Télécharger le tableau',
+			array( 'action' => 'exportcsv_reorientations', 'visualisation' ) + Hash::flatten( $this->request->data, '__' ),
+			true
+		);
+	?></li>
+	</ul>
+
 	<p>(1) On entend par <strong>réorientation</strong>, le passage d'un organisme participant au service public de l'emploi (SPE)
 		vers un organisme hors SPE, ou réciproquement. Les autres changements d'organisme au sein du SPE ou
 		entre organismes hors SPE ne sont pas comptabilisés comme des réorientations dans ce tableau. Le SPE est

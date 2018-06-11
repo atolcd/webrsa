@@ -69,7 +69,7 @@
 		 * @var array
 		 */
 		public $aucunDroit = array(
-
+			'calculrejetes',
 		);
 
 		/**
@@ -80,6 +80,7 @@
 		 */
 		public $crudMap = array(
 			'index' => 'read',
+			'calculrejetes' => 'read',
 		);
 
 		public $paginate = array(
@@ -100,6 +101,28 @@
 					)
 				);
 			}
+		}
+
+		public function calculrejetes () {
+			$this->loadModel ('Visionneuse');
+			$visionneuses = $this->Visionneuse->query ('SELECT * FROM administration.visionneuses;');
+
+			foreach ($visionneuses as $visionneuse) {
+				$query = '
+					SELECT COUNT(*) AS nombre
+					FROM administration.rejet_historique
+					WHERE administration.rejet_historique.fic = \''.$visionneuse['0']['nomfic'].'\';';
+				$nbRejete = $this->Visionneuse->query ($query);
+
+				$update = '
+					UPDATE administration.visionneuses
+					SET nbrejete = '.$nbRejete[0][0]['nombre'].'
+					WHERE id = '.$visionneuse['0']['id'];
+
+				$this->Visionneuse->query ($update);
+			}
+
+			$this->redirect( array( 'controller' => 'visionneuses', 'action' => 'index' ) );
 		}
 	}
 ?>

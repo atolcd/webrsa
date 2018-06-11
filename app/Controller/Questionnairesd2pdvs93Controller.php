@@ -53,6 +53,7 @@
 		 */
 		public $uses = array(
 			'Questionnaired2pdv93',
+			'WebrsaQuestionnaired2pdv93',
 		);
 
 		/**
@@ -96,8 +97,9 @@
 			$this->_setEntriesAncienDossier( $personne_id, 'Questionnaired2pdv93' );
 
 			// Remplit-on les conditions initiales ? / Messages à envoyer à l'utilisateur
+			$status = $this->Questionnaired2pdv93->statusQuestionnaireD2( $personne_id );
 			$messages = $this->Questionnaired2pdv93->messages( $personne_id );
-			$ajoutPossible = $this->Questionnaired2pdv93->addEnabled( $messages );
+			$ajoutPossible = $status['button'];
 			$options = $this->Questionnaired2pdv93->enums();
 			$this->set( compact( 'messages', 'ajoutPossible', 'options' ) );
 
@@ -112,28 +114,22 @@
 				)
 			);
 
-			// Liste des questionnaires D2 de l'allocataire
-			$querydata = array(
-				'fields' => array_merge(
-					$this->Questionnaired2pdv93->fields(),
-					array(
-						'Personne.qual',
-						'Personne.nom',
-						'Personne.prenom',
-						'Sortieaccompagnementd2pdv93.name',
-						'Structurereferente.id',
-						'Structurereferente.lib_struc',
-					)
+			$querydata = array (
+				'contain' => array(
+					'Personne',
+					'Emploiromev3' => array (
+						'Appellationromev3',
+					),
+					'Sortieaccompagnementd2pdv93',
+					'Questionnaired1pdv93' => array (
+						'Rendezvous' => array (
+							'Structurereferente'
+						),
+					),
+					'Dureeemploi',
 				),
 				'conditions' => array(
 					'Questionnaired2pdv93.personne_id' => $personne_id,
-				),
-				'joins' => array(
-					$this->Questionnaired2pdv93->join( 'Personne', array( 'type' => 'INNER' ) ),
-					$this->Questionnaired2pdv93->join( 'Sortieaccompagnementd2pdv93', array( 'type' => 'LEFT OUTER' ) ),
-					$this->Questionnaired2pdv93->join( 'Questionnaired1pdv93', array( 'type' => 'INNER' ) ),
-					$this->Questionnaired2pdv93->Questionnaired1pdv93->join( 'Rendezvous', array( 'type' => 'INNER' ) ),
-					$this->Questionnaired2pdv93->Questionnaired1pdv93->Rendezvous->join( 'Structurereferente', array( 'type' => 'INNER' ) ),
 				),
 				'order' => array(
 					'Questionnaired2pdv93.date_validation DESC'
@@ -141,6 +137,7 @@
 			);
 
 			$questionnairesd2pdvs93 = $this->WebrsaAccesses->getIndexRecords( $personne_id, $querydata );
+
 			$this->set( compact( 'questionnairesd2pdvs93', 'personne' ) );
 		}
 
@@ -222,6 +219,9 @@
 				$empty = array_combine( $fields, array_pad( array(), count( $fields ), null ) );
 				$data = Hash::merge( array( 'Questionnaired2pdv93' => $empty ), $this->request->data );
 
+				// Rome V3
+				$data['Questionnaired2pdv93']['emploiromev3_id'] = $this->Questionnaired2pdv93->getEmploiromev3Id( $data );
+
 				$this->Questionnaired2pdv93->create( $data );
 
 				if( $this->Questionnaired2pdv93->save( null, array( 'atomic' => false ) ) ) {
@@ -269,7 +269,11 @@
 			);
 
 			// Options
-			$options = $this->Questionnaired2pdv93->options( array( 'find' => true ) );
+			$options = array_merge(
+				$this->Questionnaired2pdv93->options( array( 'find' => true ) ),
+				$this->WebrsaQuestionnaired2pdv93->options()
+			);
+
 			$urlmenu = "/questionnairesd2pdvs93/index/{$personne_id}";
 
 			$this->set( compact( 'personne_id', 'personne', 'options', 'dossierMenu', 'isAjax', 'urlmenu' ) );

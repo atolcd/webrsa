@@ -5,7 +5,8 @@
 			'fields' => array(
 				'Valeurtag.id',
 				'Valeurtag.categorietag_id' => array( 'empty' => true ),
-				'Valeurtag.name'
+				'Valeurtag.name',
+				'Valeurtag.actif' => array( 'type' => 'checkbox' )
 			)
 		)
 	);

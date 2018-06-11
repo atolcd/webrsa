@@ -91,6 +91,7 @@
 			'login',
 			'logout',
 			'ajax_get_permissions',
+			'ajax_get_permissions_light',
 		);
 
 		/**
@@ -880,17 +881,28 @@
 		 * Permet d'obtenir par ajax, les droits d'un groupe (parent)
 		 *
 		 * @param integer $group_id
+		 * @param boolean $light
 		 * @return string json
 		 */
-		public function ajax_get_permissions($group_id) {
+		public function ajax_get_permissions($group_id, $light = false) {
 			if(true === empty($group_id)) {
 				$group_id = 0;
 			}
-			$permissions = $this->WebrsaPermissions->getPermissionsHeritage($this->User->Group, $group_id);
+			$permissions = $this->WebrsaPermissions->getPermissionsHeritage($this->User->Group, $group_id, $light);
 
 			$this->set('json', json_encode($permissions));
 			$this->layout = 'ajax';
 			$this->render('/Elements/json');
+		}
+
+		/**
+		 * Permet d'obtenir par ajax, les droits d'un groupe (parent)
+		 *
+		 * @param integer $group_id
+		 * @return string json
+		 */
+		public function ajax_get_permissions_light ($group_id) {
+			$this->ajax_get_permissions($group_id, true);
 		}
 	}
 ?>

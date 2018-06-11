@@ -41,6 +41,17 @@
 			</tr>
 		</tbody>
 	</table>
+
+	<ul class="actionMenu">
+	<li><?php
+		echo $this->Xhtml->exportLink(
+			'Télécharger le tableau',
+			array( 'action' => 'exportcsv_organismes', 'visualisation' ) + Hash::flatten( $this->request->data, '__' ),
+			true
+		);
+	?></li>
+	</ul>
+
 	<p>(1) Les <strong>personnes</strong> sont définies comme les adultes du foyer, c'est-à-dire les allocataires et conjoints appartenant à un foyer ayant un droit
 		ouvert au RSA. La définition des droits et devoirs à retenir est celle des organismes payeurs. Pour mémoire, selon la loi, une personne
 		relève du périmètre des <strong>droits et devoirs</strong> (L262-28) lorsqu'elle appartient à un foyer ayant un droit <u>ouvert</u> au RSA socle et si elle est sans

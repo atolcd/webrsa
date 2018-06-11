@@ -890,6 +890,20 @@
 	Configure::write( 'commissionep.heure.par.defaut', true );
 
 	/**
+	 * Tag : affichage des inactifs dans la recherche
+	 * 1 : n'affiche que les actifs
+	 * null : affiche tous les tags
+	 */
+	Configure::write( 'tag.affichage.actif.recherche', 1 );
+
+	/**
+	 * Tag : affichage des inactifs pour les attributions de tag
+	 * 1 : n'affiche que les actifs
+	 * null : affiche tous les tags
+	 */
+	Configure::write( 'tag.affichage.actif.attribution', 1 );
+
+	/**
 	 * Récupération du fichier de config propre au département
 	 */
 	require_once ('webrsa.cg'.Configure::read( 'Cg.departement' ).'.inc');

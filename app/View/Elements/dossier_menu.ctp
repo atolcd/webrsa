@@ -121,7 +121,6 @@
 <p class="etatDossier">
 <?php
     $etatdosrsa = ClassRegistry::init('Dossier')->enum('etatdosrsa');
-//     debug($this->viewVars);
     echo  isset( $etatdosrsa[$etatdosrsaValue] ) ? $etatdosrsa[$etatdosrsaValue] : 'Non défini' ;?>
 </p>
 
@@ -201,6 +200,10 @@
 				}
 
 				if( $departement == 93 ) {
+					$subAllocataire['Accompagnement du parcours']['B7 accès à l\'emploi'] = array(
+						'url' => array( 'controller' => 'questionnairesb7pdvs93', 'action' => 'index', $personne['id'] )
+					);
+
 					$subAllocataire['Accompagnement du parcours']['Questionnaires D1'] = array(
 						'url' => array( 'controller' => 'questionnairesd1pdvs93', 'action' => 'index', $personne['id'] )
 					);
@@ -251,16 +254,17 @@
 						'disabled' => ( $departement != 93 )
 					)
 				);
-
-				if( true === in_array( $departement, array( 66, 93 ), true ) ) {
-					$subAllocataire['Accompagnement du parcours']['Aides financières'] = array(
+				$subAllocataire['Accompagnement du parcours']['Aides financières'] = array(
 						'url' => '#',
-						'Aides / APRE' => array(
-							'url' => array( 'controller' => 'apres'.Configure::read( 'Apre.suffixe' ), 'action' => 'index', $personne['id'] )
+						'Créances Alimentaires' => array(
+							'url' => array( 'controller' => 'Creancesalimentaires', 'action' => 'index', $personne['id'] )
 						)
 					);
+				if( true === in_array( $departement, array( 66, 93 ), true ) ) {
+						$subAllocataire['Accompagnement du parcours']['Aides financières']['Aides / APRE'] = array(
+							'url' => array( 'controller' => 'apres'.Configure::read( 'Apre.suffixe' ), 'action' => 'index', $personne['id'] )
+						);
 				}
-
 				if( $departement != 66 ) {
 					$subAllocataire['Accompagnement du parcours']['Mémos'] = array(
 						'url' => array( 'controller' => 'memos', 'action' => 'index', $personne['id'] ),

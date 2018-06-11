@@ -168,3 +168,12 @@ msgstr "Etat du dossier"
 
 msgid "/Tags/delete/#Tag.id# ?"
 msgstr "Cette action supprimera définitivement cet enregistrement. Voulez-vous continuer ?"
+
+msgid "Orientstruct.search"
+msgstr "Recherche par orientation"
+
+msgid "Search.Orientstruct.origine"
+msgstr "Origine de l'orientation"
+
+msgid "Search.Orientstruct.typeorient_id"
+msgstr "Type d'orientation"

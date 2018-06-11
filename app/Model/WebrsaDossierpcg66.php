@@ -686,10 +686,19 @@
 					AND traitementspcgs66_sq.created > traitementspcgs66.created
 					LIMIT 1
 				)
+				AND traitementspcgs66.id IN (
+					SELECT traitementspcgs66_sq2.id
+					FROM traitementspcgs66 AS traitementspcgs66_sq2
+					WHERE personnespcgs66.id = traitementspcgs66_sq2.personnepcg66_id
+						AND personnespcgs66.dossierpcg66_id = "Dossierpcg66"."id"
+						AND traitementspcgs66_sq2.typetraitement IS NOT NULL
+					ORDER BY traitementspcgs66_sq2.id DESC
+					LIMIT 1
+				)
 				ORDER BY traitementspcgs66.id DESC
 				LIMIT 1
 			)';
-
+;
 			$sqAttinstrattpiece = 'EXISTS(
 				SELECT traitementspcgs66.id
 				FROM traitementspcgs66
@@ -723,7 +732,8 @@
 				'instrencours' => array(
 					array(
 						$this->Dossierpcg66->alias.'.user_id IS NOT NULL',
-						$this->Dossierpcg66->Decisiondossierpcg66->alias . '.decisionpdo_id IS NOT NULL',
+						// Ne doit pas dépendre du type de proposition.
+						//$this->Dossierpcg66->Decisiondossierpcg66->alias . '.decisionpdo_id IS NOT NULL',
 						$this->Dossierpcg66->Decisiondossierpcg66->alias . '.instrencours IS NOT NULL',
 						$this->Dossierpcg66->Decisiondossierpcg66->alias . '.instrencours' => '1',
 						$this->Dossierpcg66->Decisiondossierpcg66->alias . '.etatdossierpcg IS NULL',

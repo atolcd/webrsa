@@ -106,6 +106,18 @@
 			else {
 				$value = Hash::get( $this->_data, $path );
 
+				/*
+				 * On vérifie si on a un code de traduction dans la valeur
+				 * Si oui, on affiche la traduction avec le restant de la
+				 * ligne de résultat.
+				 */
+				$codeTraduction = array ();
+				if (preg_match('#ENUM::[a-zA-Z0-9]+::[a-zA-Z0-9]+__[a-zA-Z0-9]+#', $value, $codeTraduction)) {
+					$resteDuResultat = trim (str_replace($codeTraduction[0], '', $value));
+					$codeTraduction = explode('__', $codeTraduction[0]);
+					$value = sprintf( __d($codeTraduction[1], $codeTraduction[0]), $resteDuResultat);
+				}
+
 				// On prend les attributs avant la valeur, sinon on aura des bugs, par exemple avec boolean
 				$attributes = $this->DefaultData->attributes( $value, $type );
 				$value = $this->DefaultData->format( $value, $type, Hash::get( $htmlAttributes, 'format' ) );

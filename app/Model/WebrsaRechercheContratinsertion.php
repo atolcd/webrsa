@@ -61,7 +61,7 @@
 				'Adressefoyer' => 'LEFT OUTER',
 				'Dossier' => 'INNER',
 				'Adresse' => 'LEFT OUTER',
-				'Situationdossierrsa' => 'INNER',
+				'Situationdossierrsa' => 'LEFT OUTER',
 				'Detaildroitrsa' => 'LEFT OUTER',
 				'PersonneReferent' => 'LEFT OUTER',
 				'Personne' => 'INNER',
@@ -105,7 +105,6 @@
 					array(
 						$this->Contratinsertion->join( 'Structurereferente', array( 'type' => $types['Structurereferente'] ) ),
 						$this->Contratinsertion->join( 'Referent', array( 'type' => $types['Referent'] ) ),
-						$this->Contratinsertion->Referent->join( 'Dernierreferent', array( 'type' => $types['Dernierreferent'] ) ),
 						$this->Contratinsertion->Personne->join(
 							'Orientstruct',
 							array(

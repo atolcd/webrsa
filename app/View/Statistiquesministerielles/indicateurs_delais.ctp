@@ -59,6 +59,17 @@
 			<?php endforeach;?>
 		</tbody>
 	</table>
+
+	<ul class="actionMenu">
+	<li><?php
+		echo $this->Xhtml->exportLink(
+			'Télécharger le tableau',
+			array( 'action' => 'exportcsv_delais', 'visualisation' ) + Hash::flatten( $this->request->data, '__' ),
+			true
+		);
+	?></li>
+	</ul>
+
 	<p>(1) Sur le champ des bénéficiaires dans le champ des droits et devoirs dont la date d'orientation (première orientation)
 		est dans l'année (la date d'ouverture de droit n'est pas nécessairement dans l'année). On considère que la date
 		d'ouverture de droit correspond à la date de dépôt de la demande, c'est-à-dire, selon la loi, le premier jour du mois du

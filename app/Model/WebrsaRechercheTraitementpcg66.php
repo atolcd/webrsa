@@ -65,7 +65,7 @@
 				'Foyer' => 'INNER',
 				'Prestation' => 'INNER',
 				'Dossier' => 'INNER',
-				'Situationdossierrsa' => 'INNER',
+				'Situationdossierrsa' => 'LEFT OUTER',
 				
 				// LEFT
 				'Situationpdo' => 'LEFT OUTER',

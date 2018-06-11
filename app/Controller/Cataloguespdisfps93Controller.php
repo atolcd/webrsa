@@ -104,6 +104,10 @@
 			if( Hash::check( $this->request->data, 'Search' ) ) {
 				$query = $this->Cataloguepdifp93->search( $this->request->data['Search'] );
 
+				if (Hash::get( $this->request->data, 'Search.limit')) {
+					$query['limit'] = $this->request->data['Search']['limit'];
+				}
+
 				$this->paginate = array( 'Thematiquefp93' => $query );
 				$results = $this->paginate(
 					'Thematiquefp93',

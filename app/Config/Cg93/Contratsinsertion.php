@@ -92,13 +92,16 @@
 			'results' => array(
 				'fields' => array(
 					'Dossier.numdemrsa',
+					'Dossier.dtdemrsa',
 					'Dossier.matricule',
 					'Situationdossierrsa.etatdosrsa',
+					'Prestation.natprest',
 					'Calculdroitrsa.toppersdrodevorsa',
 					'Personne.qual',
 					'Personne.nom',
 					'Personne.prenom',
-					'Dossier.matricule',
+					'Personne.age' => array( 'label' => 'Age' ),
+					'Dsp.nivetu',
 					'Personne.numport',
 					'Personne.email',
 					'Adresse.numvoie',
@@ -116,6 +119,7 @@
 					'Cer93.duree',
 					'Contratinsertion.df_ci' => array( 'type' => 'date' ),
 					'Cer93.positioncer',
+					'Contratinsertion.rg_ci',
 					'Contratinsertion.datevalidation_ci' => array( 'type' => 'date' ),
 					'Structurereferenteparcours.lib_struc',
 					'Referentparcours.nom_complet',
@@ -150,7 +154,9 @@
 					'Famillesujet.name',
 					'Domainesujet.name',
 					'Metiersujet.name',
-					'Appellationsujet.name'
+					'Appellationsujet.name',
+					'Dsp.inscdememploi',
+					'Cer93.inscritpe'
 				)
 			),
 			// 4. Temps d'exécution, mémoire maximum, ...

@@ -88,9 +88,6 @@ msgstr "Nombre de positionnements effectives"
 msgid "Tableau1b5.raison_non_participation"
 msgstr "Raisons de la non participation"
 
-msgid "Tableau1b5.nombre_refus_beneficiaire"
-msgstr "Refus du bénéficiaire"
-
 msgid "Tableau1b5.nombre_refus_organisme"
 msgstr "Refus de l'organisme"
 
@@ -556,3 +553,48 @@ msgstr "Bénéficiaire pas déplacé"
 
 msgid "Ficheprescription93.en_attente"
 msgstr "Fiche en attente"
+
+msgid "Ficheprescription93.personne_acheve"
+msgstr "Le bénéficiaire a achevé l'action"
+
+# ------------------------------------------------------------------------------
+# Tableau B7
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/tableaub7/:heading"
+msgstr "B7a - Nombre de personnes accédant à l'emploi"
+
+msgid "Tableaub7.chiffres.cles"
+msgstr "Accès à l'emploi : chiffres clés"
+
+msgid "Tableaub7.nb.personnes.differentes"
+msgstr "Nombre de personnes différentes ayant accédé à un emploi"
+
+msgid "Tableaub7.avec.ou.sans"
+msgstr "avec ou sans sortie de l'accompagnement"
+
+msgid "Tableaub7.avec"
+msgstr "et maintenues dans l'accompagnement"
+
+msgid "Tableaub7.sans"
+msgstr "et sorties de l'accompagnement (D2)"
+
+msgid "Tableaub7.par.type.contrat"
+msgstr "Accès à l'emploi : nombre d'accès à l'emploi par type de contrat"
+
+msgid "Tableaub7.par.famille.romev3"
+msgstr "Accès à l'emploi : nombre d'accès à l'emploi par familles professioinnelles"
+
+# ------------------------------------------------------------------------------
+# Tableau B7 + D2 par type de contrat
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/tableaub7d2typecontrat/:heading"
+msgstr "B7b - Synthèse des accès à l'emploi"
+
+# ------------------------------------------------------------------------------
+# Tableau B7 + D2 par famille professionnelle
+# ------------------------------------------------------------------------------
+
+msgid "/Tableauxsuivispdvs93/tableaub7d2familleprofessionnelle/:heading"
+msgstr "B7c - Accès à l'emploi selon les secteurs professionnels"

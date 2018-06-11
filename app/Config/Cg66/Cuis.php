@@ -43,7 +43,7 @@
 					'Dossier.matricule',
 					'Personne.nom_complet',
 					'Adresse.nomcom',
-					'Cui66.etatdossiercui66',
+					'Cui.positioncui66',
 					'Historiquepositioncui66.created' => array( 'type' => 'date' ), // Type datetime
 					'Partenairecui.raisonsociale',
 					'Cui.effetpriseencharge',

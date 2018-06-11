@@ -107,8 +107,66 @@
 				'order' => null,
 				'counterCache' => null
 			),
+			'Emploiromev3' => array(
+				'className' => 'Entreeromev3',
+				'foreignKey' => 'emploiromev3_id',
+				'conditions' => null,
+				'fields' => null,
+				'order' => null,
+				'counterCache' => null
+			),
+			'Dureeemploi' => array(
+				'className' => 'Dureeemploi',
+				'foreignKey' => 'dureeemploi_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
+			),
 		);
 
+
+		/** 
+		 * Retourne l'état de la D2 de l'utilisateur
+		 * @param integer $personne_id
+		 * @return array
+		 * 		$status[button]  ( 0 : no button, 1 : activate button)
+		 * 		$status[messageExist] (0 : pas de message, 1 : aucun D1, 2 : possede un D2),
+		 * 		$status[messageMissing] (0 : pas de message, 1 : aucun D1, 2 : possede un D2),
+		 */
+		public function statusQuestionnaireD2( $personne_id ) {
+			$status['button']=false;
+			$status['messageExist']=false;
+			$status['messageNotExist']=false;
+			$status['messageMissing']=false;
+
+			// Rechercher le D1 pour obtenir une date de validation logique
+
+			// identifant d'une D1 auquel il manque une D2
+			$questionnaired1pdv93_id = $this->questionnairesd1pdv93Id( $personne_id );
+			if( !empty( $questionnaired1pdv93_id ) ) {
+				$date_validation = $this->_getDateValidation( $questionnaired1pdv93_id );
+				$status['button']=true;
+				$year_validation = date( 'Y', strtotime( $date_validation ) );
+				if( $year_validation != date( 'Y' ) ) {
+					$status['messageNotExist']=true;
+				}
+			}else{
+				$status['messageMissing']=true;
+			}
+
+			// identifiant d'une D2 pour l'année en cours 
+			$questionnaired1avecd2pdv93_id = $this->questionnairesd1avecd2pdv93Id( $personne_id );
+			if( !empty( $questionnaired1avecd2pdv93_id ) ) {
+				$date_validationD2 = $this->_getDateValidation( $questionnaired1avecd2pdv93_id );
+				$year_validationD2 = date( 'Y', strtotime( $date_validationD2 ) );
+				if( $year_validationD2 == date( 'Y' ) ) {
+					$status['messageMissing']=false;
+					$status['messageExist']=true;
+				}
+			}
+
+			return $status ;
+		}
 		/**
 		 * Retourne l'id du questionnaire D1 pour lequel l'allocataire doit encore
 		 * remplir un questionnaire D2 (pour l'année en cours).
@@ -145,6 +203,49 @@
 					'Questionnaired1pdv93.date_validation DESC'
 				)
 			);
+
+			$questionnaired1pdv93 = $this->Personne->Questionnaired1pdv93->find( 'first', $querydata );
+
+			return Hash::get( $questionnaired1pdv93, 'Questionnaired1pdv93.id' );
+		}
+
+		/**
+		 * Retourne l'id du questionnaire D1 pour lequel l'allocataire posséde
+		 *  un questionnaire D2 (pour l'année en cours).
+		 *
+		 * @param integer $personne_id
+		 * @return boolean
+		 */
+		public function questionnairesd1avecd2pdv93Id( $personne_id ) {
+			$sq = $this->sq(
+				array(
+					'alias' => 'questionnairesd2pdvs93',
+					'fields' => 'questionnairesd2pdvs93.questionnaired1pdv93_id',
+					'contain' => false,
+					'conditions' => array(
+						'questionnairesd2pdvs93.personne_id' => $personne_id,
+						'EXTRACT( \'YEAR\' FROM questionnairesd2pdvs93.date_validation ) = EXTRACT( \'YEAR\' FROM Rendezvous.daterdv )',
+						'questionnairesd2pdvs93.questionnaired1pdv93_id = Questionnaired1pdv93.id'
+					)
+				)
+			);
+
+			$querydata = array(
+				'fields' => array( 'Questionnaired1pdv93.id' ),
+				'contain' => false,
+				'joins' => array(
+					$this->Personne->Questionnaired1pdv93->join( 'Rendezvous', array( 'type' => 'INNER' ) )
+				),
+				'conditions' => array(
+					'Questionnaired1pdv93.personne_id' => $personne_id,
+					'EXTRACT( \'YEAR\' FROM Questionnaired1pdv93.date_validation ) = EXTRACT( \'YEAR\' FROM Rendezvous.daterdv )',
+					"Questionnaired1pdv93.id IN ( {$sq} )",
+				),
+				'order' => array(
+					'Questionnaired1pdv93.date_validation DESC'
+				)
+			);
+
 			$questionnaired1pdv93 = $this->Personne->Questionnaired1pdv93->find( 'first', $querydata );
 
 			return Hash::get( $questionnaired1pdv93, 'Questionnaired1pdv93.id' );
@@ -205,25 +306,23 @@
 		 * Messages à envoyer à l'utilisateur.
 		 *
 		 * @param integer $personne_id
+		 * @param array $status
 		 * @return array
 		 */
 		public function messages( $personne_id ) {
 			$messages = array();
 
-			// Rechercher le D1 pour obtenir une date de validation logique
-			$date_validation = date( 'Y-m-d' );
-			$questionnaired1pdv93_id = $this->questionnairesd1pdv93Id( $personne_id );
-			if( !empty( $questionnaired1pdv93_id ) ) {
-				$date_validation = $this->_dateValidation( $questionnaired1pdv93_id );
-			}
-			else {
-				 $messages['Questionnaired1pdv93.missing'] = 'error';
-			}
+			$status = $this->statusQuestionnaireD2( $personne_id );
 
-			$this->create( array( 'personne_id' => $personne_id ) );
-			$exists = !$this->checkDateOnceAYear( array( 'date_validation' => $date_validation ), 'personne_id' );
-			if( $exists ) {
-				$messages['Questionnaired2pdv93.exists'] = 'error';
+			// Rechercher le D1 pour obtenir une date de validation logique
+			if( $status['messageMissing'] ) {
+					$messages['Questionnaired1pdv93.missing'] = 'error';
+			}
+			if( $status['messageExist']  ) {
+				$messages['Questionnaired2pdv93.exists'] = 'notice';
+			}
+			if( $status['messageNotExist']  ) {
+				$messages['Questionnaired2pdv93.notexists'] = 'notice';
 			}
 
 			$droitsouverts = $this->droitsouverts( $personne_id );
@@ -240,79 +339,24 @@
 		}
 
 		/**
-		 * @param array $check
-		 * @return boolean
-		 */
-		public function checkDateOnceAYear( $check, $group_column ) {
-			if( !is_array( $check ) ) {
-				return false;
-			}
-
-			$result = true;
-			foreach( Hash::normalize( $check ) as $key => $value ) {
-				list( $year, ) = explode( '-', $value );
-
-				if( !empty( $year ) ) {
-					// Pas encore de questionnaire D1 pour l'année en question
-					$querydata = array( 'contain' => false );
-
-					$personne_id = Hash::get( $this->data, "{$this->alias}.{$group_column}" );
-					$querydata['conditions'] = array(
-						"{$this->alias}.{$group_column}" => $personne_id,
-						"{$this->alias}.{$key} BETWEEN '{$year}-01-01' AND '{$year}-12-31'"
-					);
-
-					$id = Hash::get( $this->data, "{$this->alias}.{$this->primaryKey}" );
-					if( !empty( $id ) ) {
-						$querydata['conditions']["{$this->alias}.{$this->primaryKey} <>"] = $id;
-					}
-
-					$count = $this->find( 'count', $querydata );
-
-					if( $count == 0 ) {
-						$result = ( $count == 0 ) && $result;
-					}
-					else {
-						// Tous les D1 ont déjà un D2 correspondant ?
-						$sq = $this->sq(
-							array(
-								'alias' => 'questionnairesd2pdvs93',
-								'fields' => array( 'questionnairesd2pdvs93.questionnaired1pdv93_id' ),
-								'conditions' => array(
-									'questionnairesd2pdvs93.questionnaired1pdv93_id = Questionnaired1pdv93.id',
-									'questionnairesd2pdvs93.personne_id = Questionnaired1pdv93.personne_id',
-								),
-								'contain' => false
-							)
-						);
-
-						$querydata = array(
-							'contain' => false,
-							'conditions' => array(
-								"Questionnaired1pdv93.id NOT IN ( {$sq} )",
-								'Questionnaired1pdv93.personne_id' => $personne_id,
-							),
-						);
-
-						$count = $this->Personne->Questionnaired1pdv93->find( 'count', $querydata );
-
-						$result = ( $count > 0 ) && $result;
-					}
-				}
-			}
-
-			return $result;
-		}
-
-		/**
-		 * Permet de savoir si un ajout est possible à partir des messages
-		 * renvoyés par la méthode messages.
+		 * Récupère la date de validation du questionnaire PDV
 		 *
-		 * @param array $messages
-		 * @return boolean
+		 * @param integer $rendezvous_id
+		 * @return string
 		 */
-		public function addEnabled( array $messages ) {
-			return !in_array( 'error', $messages ) && !array_key_exists( 'Questionnaired2pdv93.exists', $messages );
+		protected function _getDateValidation( $questionnaired1pdv93_id ) {
+			$querydata = array(
+				'fields' => array( 'Questionnaired1pdv93.date_validation' ),
+				'contain' => false,
+				'conditions' => array(
+					'Questionnaired1pdv93.id' => $questionnaired1pdv93_id
+				)
+			);
+			$questionnaired1pdv93 = $this->Personne->Questionnaired1pdv93->find( 'first', $querydata );
+
+			$date_validation = Hash::get( $questionnaired1pdv93, 'Questionnaired1pdv93.date_validation' );
+
+			return $date_validation;
 		}
 
 		/**
@@ -322,7 +366,7 @@
 		 * @param integer $rendezvous_id
 		 * @return string
 		 */
-		protected function _dateValidation( $questionnaired1pdv93_id ) {
+		protected function _createDateValidation( $questionnaired1pdv93_id ) {
 			$querydata = array(
 				'fields' => array( 'Questionnaired1pdv93.date_validation' ),
 				'contain' => false,
@@ -344,6 +388,7 @@
 			return $date_validation;
 		}
 
+
 		/**
 		 *
 		 *
@@ -360,15 +405,25 @@
 					'conditions' => array(
 						"{$this->alias}.id" => $id
 					),
-					'contain' => false
+					'contain' => array(
+						'Emploiromev3'
+					),
 				);
 
 				$formData = $this->find( 'first', $querydata );
+
+				// Rome V3
+				$data = array ();
+				$data['familleromev3_id'] = $formData['Emploiromev3']['familleromev3_id'];
+				$data['domaineromev3_id'] = $formData['Emploiromev3']['familleromev3_id'].'_'.$formData['Emploiromev3']['domaineromev3_id'];
+				$data['metierromev3_id'] = $formData['Emploiromev3']['domaineromev3_id'].'_'.$formData['Emploiromev3']['metierromev3_id'];
+				$data['appellationromev3_id'] = $formData['Emploiromev3']['metierromev3_id'].'_'.$formData['Emploiromev3']['appellationromev3_id'];
+				$formData['Emploiromev3'] = $data;
 			}
 			else {
 				$formData[$this->alias]['personne_id'] = $personne_id;
 				$formData[$this->alias]['questionnaired1pdv93_id'] = $this->questionnairesd1pdv93Id( $personne_id );
-				$formData[$this->alias]['date_validation'] = $this->_dateValidation( $formData[$this->alias]['questionnaired1pdv93_id'] );
+				$formData[$this->alias]['date_validation'] = $this->_createDateValidation( $formData[$this->alias]['questionnaired1pdv93_id'] );
 
 				// Lorsque l'allocataire ne possède pas encore de D2 et est soumis à droits et devoirs, on préremplit en maintien
 				$querydata = array(
@@ -409,7 +464,7 @@
 						'situationaccompagnement' => $situationaccompagnement,
 						'sortieaccompagnementd2pdv93_id' => null,
 						'chgmentsituationadmin' => $chgmentsituationadmin,
-						'date_validation' => $this->_dateValidation( $questionnaired1pdv93_id ),
+						'date_validation' => $this->_createDateValidation( $questionnaired1pdv93_id ),
 					)
 				);
 
@@ -443,12 +498,50 @@
 						),
 						'joins' => array(
 							$this->Sortieaccompagnementd2pdv93->join( 'Parent', array( 'type' => 'INNER' ) )
-						)
+						),
+						'conditions' => array (
+							'Sortieaccompagnementd2pdv93.actif' => 1
+						),
 					)
 				);
 			}
 
 			return $options;
+		}
+
+		/**
+		 * Sauvegarde du questionnaire B7 d'un allocataire.
+		 *
+		 * @param integer $personne_id L'id de la personne traitée.
+		 * @param array $data Les données renvoyées par le formulaire B7
+		 *	(Questionnaireb7pdv93)
+		 * @return boolean
+		 */
+		public function getEmploiromev3Id( array $data ) {
+			if (!empty ($data['Emploiromev3']['appellationromev3_id'])) {
+				$domaineromev3_id = explode("_", $data['Emploiromev3']['domaineromev3_id']);
+				$metierromev3_id = explode("_", $data['Emploiromev3']['metierromev3_id']);
+				$appellationromev3_id = explode("_", $data['Emploiromev3']['appellationromev3_id']);
+
+				$this->loadModel('Entreeromev3');
+				$entreeromev3 = $this-> Entreeromev3->find (
+					'first',
+					array (
+						'conditions' => array (
+							'familleromev3_id' => $data['Emploiromev3']['familleromev3_id'],
+							'domaineromev3_id' => $domaineromev3_id[1],
+							'metierromev3_id' => $metierromev3_id[1],
+							'appellationromev3_id' => $appellationromev3_id[1],
+						),
+					)
+				);
+
+				if (isset ($entreeromev3['Entreeromev3'])) {
+					return $entreeromev3['Entreeromev3']['id'];
+				}
+			}
+
+			return null;
 		}
 	}
 ?>

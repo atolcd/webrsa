@@ -41,26 +41,10 @@ msgstr "S'est excusée"
 
 # ==============================================================================
 
-msgid "ENUM::PERSONNE_RECUE::0"
-msgstr "Non"
-
-msgid "ENUM::PERSONNE_RECUE::1"
-msgstr "Oui"
-
-# ==============================================================================
-
 msgid "ENUM::PERSONNE_RETENUE::0"
 msgstr "Non"
 
 msgid "ENUM::PERSONNE_RETENUE::1"
-msgstr "Oui"
-
-# ==============================================================================
-
-msgid "ENUM::PERSONNE_SOUHAITE_INTEGRER::0"
-msgstr "Non"
-
-msgid "ENUM::PERSONNE_SOUHAITE_INTEGRER::1"
 msgstr "Oui"
 
 # ==============================================================================
@@ -70,3 +54,13 @@ msgstr "Non"
 
 msgid "ENUM::PERSONNE_A_INTEGRE::1"
 msgstr "Oui"
+
+# ==============================================================================
+
+msgid "ENUM::PERSONNE_ACHEVE::0"
+msgstr "Non"
+
+msgid "ENUM::PERSONNE_ACHEVE::1"
+msgstr "Oui"
+
+# ==============================================================================

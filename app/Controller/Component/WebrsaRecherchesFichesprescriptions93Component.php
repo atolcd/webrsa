@@ -84,7 +84,16 @@
 		protected function _optionsRecordsModels( array $params ) {
 			return array_merge(
 				parent::_optionsRecordsModels( $params ),
-				array( 'Thematiquefp93', 'Modtransmfp93', 'Documentbeneffp93', 'Motifnonreceptionfp93', 'Motifnonretenuefp93', 'Motifnonsouhaitfp93', 'Motifnonintegrationfp93', 'Documentbeneffp93' )
+				array(
+					'Thematiquefp93',
+					'Modtransmfp93',
+					'Motifcontactfp93',
+					'Motifnonretenuefp93',
+					'Motifnonintegrationfp93',
+					'Motifactionachevefp93',
+					'Motifnonactionachevefp93',
+					'Documentbeneffp93'
+				)
 			);
 		}
 

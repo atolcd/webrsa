@@ -364,7 +364,7 @@
 		?>
 		$('<?php echo $parentId;?>').observe( 'change', function(event) {
 			var elmt = event.findElement(),
-				url = '<?php echo Router::url(array('controller' => $this->request->params['controller'], 'action' => 'ajax_get_permissions' ) );?>/'+$F(elmt);
+				url = '<?php echo Router::url(array('controller' => $this->request->params['controller'], 'action' => 'ajax_get_permissions_light') );?>/'+$F(elmt);
 
 			$('loading-wait').show();
 			setTimeout(function(){
@@ -387,7 +387,7 @@
 								}
 
 								try {
-									select = $(WebrsaPermission.domId(key));
+									select = $(WebrsaPermission.domId('controllers/' + key));
 									if(null !== select) {
 										tr = select.up('tr');
 

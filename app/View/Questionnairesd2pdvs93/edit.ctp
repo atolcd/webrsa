@@ -1,4 +1,7 @@
 <?php
+	echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
+	echo $this->Html->script( array( 'prototype.event.simulate.js', 'dependantselect.js' ) );
+
 	echo $this->Default3->titleForLayout( $personne );
 
 	if( Configure::read( 'debug' ) > 0 ) {
@@ -16,6 +19,10 @@
 			'Questionnaired2pdv93.questionnaired1pdv93_id' => array( 'type' => 'hidden' ),
 			'Questionnaired2pdv93.isajax' => array( 'type' => 'hidden' ),
 			'Questionnaired2pdv93.date_validation' => array( 'type' => 'hidden' ),
+			'Questionnaired2pdv93.toujoursenemploi' => array(
+				'options' => array ('Non', 'Oui'),
+				'required' => true
+			),
 			'Questionnaired2pdv93.situationaccompagnement' => array(
 				'options' => $options['Questionnaired2pdv93']['situationaccompagnement'],
 				'empty' => true,
@@ -33,6 +40,27 @@
 			),
 		)
 	);
+
+	echo $this->Form->input(
+		'Questionnaired2pdv93.dureeemploi_id',
+		array(
+			'options' => $options['Dureeemploi'],
+			'empty' => '',
+			'label' => required (__d ('questionnairesb7pdvs93', 'Questionnaireb7pdv93.dureeemploi')),
+			'disabled' => true
+		)
+	);
+
+	// Rome V3
+	echo $this->Romev3->fieldset(
+		'Emploiromev3',
+		array(
+			'options' => $options,
+			'required' => true,
+			'disabled' => true
+		)
+	);
+
 
 	if( $isAjax ) {
 		$onComplete = 'try {
@@ -132,5 +160,21 @@ catch(e) {
 		false,
 		false
 	);
+	observeDisableFieldsOnValue(
+		'Questionnaired2pdv93Sortieaccompagnementd2pdv93Id',
+		[ 'Emploiromev3Romev3', 'Emploiromev3Familleromev3Id', 'Emploiromev3Domaineromev3Id', 'Emploiromev3Metierromev3Id', 'Emploiromev3Appellationromev3Id', 'Questionnaired2pdv93DureeemploiId' ],
+		[ 28, 29, 30, 31, 32, 33 ],
+		false,
+		false
+	);
+	Event.observe($('Questionnaired2pdv93Situationaccompagnement'), 'change', function(e){
+		$('Questionnaired2pdv93Sortieaccompagnementd2pdv93Id').setValue(0);
+		$('Emploiromev3Romev3').disable();
+		$('Emploiromev3Familleromev3Id').disable();
+		$('Emploiromev3Domaineromev3Id').disable();
+		$('Emploiromev3Metierromev3Id').disable();
+		$('Emploiromev3Appellationromev3Id').disable();
+		$('Questionnaired2pdv93DureeemploiId').disable();
+	});
 	//]]>
 </script>

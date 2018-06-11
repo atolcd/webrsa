@@ -43,6 +43,17 @@
 			<?php endforeach;?>
 		</tbody>
 	</table>
+
+	<ul class="actionMenu">
+	<li><?php
+		echo $this->Xhtml->exportLink(
+			'Télécharger le tableau',
+			array( 'action' => 'exportcsv_natures_contrats', 'visualisation' ) + Hash::flatten( $this->request->data, '__' ),
+			true
+		);
+	?></li>
+	</ul>
+
 	<p>(1) Selon la loi, un <strong>Contrat d'Engagement Réciproque en matière d'insertion professionnelle</strong> (L262-35) est signé par la personne bénéficiaire
 		du RSA orientée vers un <strong>organisme appartenant ou participant au service public de l'emploi (SPE) autre que Pôle emploi</strong> : organismes
 		publics (ou émanant de collectivités publiques) de placement professionnel (PLIE, AFPA, maison de l'emploi, mission locale, etc.) autres que Pôle

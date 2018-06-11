@@ -190,6 +190,7 @@
 					'page' => Hash::get($Controller->request->data, 'page' ),
 					'sort' => Hash::get($Controller->request->data, 'sort' ),
 					'direction' => Hash::get($Controller->request->data, 'direction' ),
+					'limit' => Hash::get($Controller->request->data, 'limit' ),
 				);
 
 				$configuredCohorteParams = array(
@@ -219,6 +220,17 @@
 					return $this->_auto( $defaults, $params );
 				}
 			}
+
+			//Orientation
+			$Controller->loadModel ('Orientstruct');
+			$options = array_merge ($options, $Controller->Orientstruct->enums());
+			$Controller->loadModel ('Typeorient');
+			$options['Orientstruct']['typeorient_id'] = $Controller->Typeorient->find('list', array ('recursive' => -1));
+
+			// Récupération des options des tags
+			$Controller->loadModel( 'Tag' );
+			$options['Tag']['etat'] = $Controller->Tag->enum( 'etat' );
+			$options = $Controller->Tag->getValeursTag($options);
 
 			// Assignation à la vue
 			$configurableQueryParams = $params;

@@ -117,6 +117,9 @@ msgstr "Ancienneté dans le dispositif"
 msgid "Search.Serviceinstructeur.id"
 msgstr "Nom du service instructeur"
 
+msgid "Search.Suiviinstruction.typeserins"
+msgstr "Type du service instructeur"
+
 msgid "Search.Dossier.fonorg"
 msgstr "Organisme émetteur du dossier"
 

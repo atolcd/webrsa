@@ -34,6 +34,9 @@ msgstr "Groupe parent"
 msgid "/Groups/edit"
 msgstr "Modifier"
 
+msgid "/Groups/resetDroitGroupUsers"
+msgstr "Réinitialiser droits utilisateurs"
+
 msgid "/Groups/edit/#Group.id#"
 msgstr "Modifier le groupe « #Group.name# »"
 

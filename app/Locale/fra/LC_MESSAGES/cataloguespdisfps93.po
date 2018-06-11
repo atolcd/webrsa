@@ -392,41 +392,6 @@ msgstr "Réellement supprimer l'adresse d'un prestataire « #Adresseprestatairef
 
 # ------------------------------------------------------------------------------
 
-msgid "/Cataloguespdisfps93/index/Motifnonreceptionfp93/:heading"
-msgstr "Motifs de non réception"
-
-msgid "Motifnonreceptionfp93.name"
-msgstr "Motif"
-
-msgid "Motifnonreceptionfp93.autre"
-msgstr "Valeur de type autre"
-
-msgid "Motifnonreceptionfp93.created"
-msgstr "Créé"
-
-msgid "Motifnonreceptionfp93.modified"
-msgstr "Modifié"
-
-msgid "/Cataloguespdisfps93/add/Motifnonreceptionfp93/:title"
-msgstr "Ajouter un motif de non réception"
-
-msgid "/Cataloguespdisfps93/add/Motifnonreceptionfp93/:heading"
-msgstr "Ajout d'un motif de non réception"
-
-msgid "/Cataloguespdisfps93/edit/Motifnonreceptionfp93/:heading"
-msgstr "Modification d'un motif de non réception"
-
-msgid "/Cataloguespdisfps93/edit/Motifnonreceptionfp93/#Motifnonreceptionfp93.id#"
-msgstr "Modifier le motif de non réception « #Motifnonreceptionfp93.name# »"
-
-msgid "/Cataloguespdisfps93/delete/Motifnonreceptionfp93/#Motifnonreceptionfp93.id#"
-msgstr "Supprimer le motif de non réception « #Motifnonreceptionfp93.name# »"
-
-msgid "/Cataloguespdisfps93/delete/Motifnonreceptionfp93/#Motifnonreceptionfp93.id# ?"
-msgstr "Réellement supprimer le motif de non réception « #Motifnonreceptionfp93.name# » ?"
-
-# ------------------------------------------------------------------------------
-
 msgid "/Cataloguespdisfps93/index/Motifnonretenuefp93/:heading"
 msgstr "Motifs de non rétention par la structure"
 
@@ -459,41 +424,6 @@ msgstr "Supprimer le motif de non rétention par la structure « #Motifnonretenu
 
 msgid "/Cataloguespdisfps93/delete/Motifnonretenuefp93/#Motifnonretenuefp93.id# ?"
 msgstr "Réellement supprimer le motif de non rétention par la structure « #Motifnonretenuefp93.name# » ?"
-
-# ------------------------------------------------------------------------------
-
-msgid "/Cataloguespdisfps93/index/Motifnonsouhaitfp93/:heading"
-msgstr "Motifs de non souhait d'intégration"
-
-msgid "Motifnonsouhaitfp93.name"
-msgstr "Motif"
-
-msgid "Motifnonsouhaitfp93.autre"
-msgstr "Valeur de type autre"
-
-msgid "Motifnonsouhaitfp93.created"
-msgstr "Créé"
-
-msgid "Motifnonsouhaitfp93.modified"
-msgstr "Modifié"
-
-msgid "/Cataloguespdisfps93/add/Motifnonsouhaitfp93/:title"
-msgstr "Ajouter un motif de non souhait d'intégration"
-
-msgid "/Cataloguespdisfps93/add/Motifnonsouhaitfp93/:heading"
-msgstr "Ajout d'un motif de non souhait d'intégration"
-
-msgid "/Cataloguespdisfps93/edit/Motifnonsouhaitfp93/:heading"
-msgstr "Modification d'un motif de non souhait d'intégration"
-
-msgid "/Cataloguespdisfps93/edit/Motifnonsouhaitfp93/#Motifnonsouhaitfp93.id#"
-msgstr "Modifier le motif de non souhait d'intégration « #Motifnonsouhaitfp93.name# »"
-
-msgid "/Cataloguespdisfps93/delete/Motifnonsouhaitfp93/#Motifnonsouhaitfp93.id#"
-msgstr "Supprimer le motif de non souhait d'intégration « #Motifnonsouhaitfp93.name# »"
-
-msgid "/Cataloguespdisfps93/delete/Motifnonsouhaitfp93/#Motifnonsouhaitfp93.id# ?"
-msgstr "Réellement supprimer le motif de non souhait d'intégration « #Motifnonsouhaitfp93.name# » ?"
 
 # ------------------------------------------------------------------------------
 
