@@ -6,7 +6,7 @@
 <?php if( isset( $results ) ): ?>
 	<h2><?php echo __d ('tableauxsuivispdvs93', 'Tableaub7.chiffres.cles') ?></h2>
 	<br />
-	<table class="tableaud1">
+	<table class="tableaud2">
 		<tbody>
 			<tr class="total">
 				<th><?php echo __d ('tableauxsuivispdvs93', 'Tableaub7.nb.personnes.differentes') ?> :</th>
@@ -17,12 +17,12 @@
 				<td class="number"><?php echo $results['maintenues_sorties']; ?></td>
 			</tr>
 			<tr>
-				<th> - <?php echo __d ('tableauxsuivispdvs93', 'Tableaub7.avec') ?></th>
-				<td class="number"><?php echo $results['maintenues']; ?></td>
-			</tr>
-			<tr>
 				<th> - <?php echo __d ('tableauxsuivispdvs93', 'Tableaub7.sans') ?></th>
 				<td class="number"><?php echo $results['sorties']; ?></td>
+			</tr>
+			<tr>
+				<th> - <?php echo __d ('tableauxsuivispdvs93', 'Tableaub7.avec') ?></th>
+				<td class="number"><?php echo $results['maintenues']; ?></td>
 			</tr>
 		</tbody>
 	</table>

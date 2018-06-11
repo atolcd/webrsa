@@ -10,21 +10,21 @@
 	<legend><?php echo __d ('questionnairesb7pdvs93', 'Questionnaireb7pdv93.generalites') ?></legend>
 	<?php
 		echo $this->Form->input(
-			'Questionnaireb7pdv93.dureeemploi',
-			array(
-				'options' => $options['Dureeemploi'],
-				'empty' => '',
-				'label' => required (__d ('questionnairesb7pdvs93', 'Questionnaireb7pdv93.dureeemploi'))
-			)
-		);
-	?>
-	<?php
-		echo $this->Form->input(
 			'Questionnaireb7pdv93.typeemploi',
 			array(
 				'options' => $options['Typeemploi'],
 				'empty' => '' ,
 				'label' => required (__d ('questionnairesb7pdvs93', 'Questionnaireb7pdv93.typeemploi'))
+			)
+		);
+	?>
+	<?php
+		echo $this->Form->input(
+			'Questionnaireb7pdv93.dureeemploi',
+			array(
+				'options' => $options['Dureeemploi'],
+				'empty' => '',
+				'label' => required (__d ('questionnairesb7pdvs93', 'Questionnaireb7pdv93.dureeemploi'))
 			)
 		);
 	?>

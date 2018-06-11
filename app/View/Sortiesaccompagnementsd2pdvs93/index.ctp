@@ -5,6 +5,7 @@
 			'cells' => array(
 				'Sortieaccompagnementd2pdv93.name',
 				'Parent.name',
+				'Sortieaccompagnementd2pdv93.actif' => array( 'type' => 'boolean' ),
 				'/Sortiesaccompagnementsd2pdvs93/edit/#Sortieaccompagnementd2pdv93.id#' => array(
 					'title' => true
 				),

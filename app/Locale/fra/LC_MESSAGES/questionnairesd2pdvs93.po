@@ -22,6 +22,12 @@ msgstr "Projet de ville"
 msgid "Sortieaccompagnementd2pdv93.name"
 msgstr "Sortie de l'obligation d'accompagnement"
 
+msgid "Questionnaired2pdv93.toujoursenemploi"
+msgstr "Toujours en emploi"
+
+msgid "Dureeemploi.name"
+msgstr "Temps de travail"
+
 msgid "Questionnaired2pdv93.chgmentsituationadmin"
 msgstr "Sortie \"changement administratif\""
 

@@ -19,6 +19,10 @@
 			'Questionnaired2pdv93.questionnaired1pdv93_id' => array( 'type' => 'hidden' ),
 			'Questionnaired2pdv93.isajax' => array( 'type' => 'hidden' ),
 			'Questionnaired2pdv93.date_validation' => array( 'type' => 'hidden' ),
+			'Questionnaired2pdv93.toujoursenemploi' => array(
+				'options' => array ('Non', 'Oui'),
+				'required' => true
+			),
 			'Questionnaired2pdv93.situationaccompagnement' => array(
 				'options' => $options['Questionnaired2pdv93']['situationaccompagnement'],
 				'empty' => true,
@@ -37,8 +41,17 @@
 		)
 	);
 
+	echo $this->Form->input(
+		'Questionnaired2pdv93.dureeemploi_id',
+		array(
+			'options' => $options['Dureeemploi'],
+			'empty' => '',
+			'label' => required (__d ('questionnairesb7pdvs93', 'Questionnaireb7pdv93.dureeemploi')),
+			'disabled' => true
+		)
+	);
+
 	// Rome V3
-	//echo ('<div id="IdDivEmploiRomeV3" style="display: none;">');
 	echo $this->Romev3->fieldset(
 		'Emploiromev3',
 		array(
@@ -47,7 +60,6 @@
 			'disabled' => true
 		)
 	);
-	//echo ('</div>');
 
 
 	if( $isAjax ) {
@@ -150,8 +162,8 @@ catch(e) {
 	);
 	observeDisableFieldsOnValue(
 		'Questionnaired2pdv93Sortieaccompagnementd2pdv93Id',
-		[ 'Emploiromev3Romev3', 'Emploiromev3Familleromev3Id', 'Emploiromev3Domaineromev3Id', 'Emploiromev3Metierromev3Id', 'Emploiromev3Appellationromev3Id' ],
-		[ 3, 4, 5, 6, 11, 12 ],
+		[ 'Emploiromev3Romev3', 'Emploiromev3Familleromev3Id', 'Emploiromev3Domaineromev3Id', 'Emploiromev3Metierromev3Id', 'Emploiromev3Appellationromev3Id', 'Questionnaired2pdv93DureeemploiId' ],
+		[ 28, 29, 30, 31, 32, 33 ],
 		false,
 		false
 	);
@@ -162,6 +174,7 @@ catch(e) {
 		$('Emploiromev3Domaineromev3Id').disable();
 		$('Emploiromev3Metierromev3Id').disable();
 		$('Emploiromev3Appellationromev3Id').disable();
+		$('Questionnaired2pdv93DureeemploiId').disable();
 	});
 	//]]>
 </script>

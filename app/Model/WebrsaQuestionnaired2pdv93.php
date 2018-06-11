@@ -33,7 +33,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Questionnaired2pdv93' );
+		public $uses = array( 'Questionnaired2pdv93', 'Dureeemploi' );
 
 		/**
 		 * Liste des alias vers Entreeromev3
@@ -123,6 +123,8 @@
 
 			if( $return === false ) {
 				$return = array();
+
+				$return['Dureeemploi'] = $this->Dureeemploi->find ('list');
 
 				if( $params['find'] ) {
 					foreach( $this->romev3LinkedModels as $alias ) {

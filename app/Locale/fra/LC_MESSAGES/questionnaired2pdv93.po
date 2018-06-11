@@ -25,6 +25,9 @@ msgstr "Changements de situation"
 msgid "ENUM::SITUATIONACCOMPAGNEMENT::maintien"
 msgstr "Maintien dans l'accompagnement"
 
+msgid "Dureeemploi.name"
+msgstr "Temps de travail"
+
 # ------------------------------------------------------------------------------
 
 msgid "ENUM::CHGMENTSITUATIONADMIN::modif_sitfam"

@@ -40,6 +40,7 @@
 					'Sortieaccompagnementd2pdv93.id',
 					'Sortieaccompagnementd2pdv93.name',
 					'Parent.name',
+					'Sortieaccompagnementd2pdv93.actif',
 					$this->Sortieaccompagnementd2pdv93->sqHasLinkedRecords( true, $this->blacklist )
 				),
 				'joins' => array(

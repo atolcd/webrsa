@@ -6,12 +6,12 @@
 <?php if( isset( $results ) ): ?>
 	<h2><?php echo __d ('tableauxsuivispdvs93', 'Tableaub7.par.famille.romev3') ?></h2>
 	<br />
-	<table class="tableaud1">
+	<table class="tableaud2">
 		<tbody>
 			<tr class="total">
 				<th></th>
-				<th colspan="2">B7</th>
-				<th colspan="2">D2</th>
+				<th colspan="2">Nombre d'accès à l'emploi - maintien dans l'accompagnement</th>
+				<th colspan="2">Nombre d'accès à l'emploi - sortie</th>
 				<th colspan="2">TOTAL</th>
 			</tr>
 			<tr class="total">

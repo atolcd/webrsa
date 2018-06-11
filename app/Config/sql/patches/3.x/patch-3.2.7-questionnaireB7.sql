@@ -89,6 +89,22 @@ ALTER TABLE questionnairesd2pdvs93 ADD CONSTRAINT questionnairesb7pdvs93_emploir
 	REFERENCES entreesromesv3 (id) MATCH SIMPLE
 	ON UPDATE CASCADE ON DELETE SET NULL;
 
+ALTER TABLE sortiesaccompagnementsd2pdvs93 ADD COLUMN actif smallint NOT NULL DEFAULT 1;
+
+INSERT INTO sortiesaccompagnementsd2pdvs93 (name, parent_id, created, modified, actif) VALUES
+('Accès à un emploi CDI', '1', '2018-06-08 11:30:00', '2018-06-08 11:30:00', 1),
+('Accès à un emploi CDD de + de 6 mois', '1', '2018-06-08 11:30:00', '2018-06-08 11:30:00', 1),
+('Accès à un emploi temporaire (CDD de - de 6 mois, intérim)', '1', '2018-06-08 11:30:00', '2018-06-08 11:30:00', 1),
+('Accès à une activité d''indépendant, création d''entreprise', '1', '2018-06-08 11:30:00', '2018-06-08 11:30:00', 1),
+('Accès à un emploi aidé', '1', '2018-06-08 11:30:00', '2018-06-08 11:30:00', 1),
+('Accès à un emploi salarié SIAE', '1', '2018-06-08 11:30:00', '2018-06-08 11:30:00', 1);
+
+UPDATE sortiesaccompagnementsd2pdvs93 SET actif = 0 WHERE id = 5;
+UPDATE sortiesaccompagnementsd2pdvs93 SET actif = 0 WHERE id = 6;
+UPDATE sortiesaccompagnementsd2pdvs93 SET actif = 0 WHERE id = 4;
+UPDATE sortiesaccompagnementsd2pdvs93 SET actif = 0 WHERE id = 11;
+
+ALTER TABLE questionnairesd2pdvs93 ADD COLUMN toujoursenemploi smallint NOT NULL DEFAULT 0;
 
 -- *****************************************************************************
 COMMIT;
