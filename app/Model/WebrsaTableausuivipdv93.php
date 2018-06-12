@@ -2476,18 +2476,13 @@
 				'COUNT( Ficheprescription93.id ) AS "nombre"',
 				// D. Cadre "Effectivité de la prescription" -> Nombre de fiches pour lequelles la personne c'est présentée
 				'COALESCE( SUM(
-					CASE
-						WHEN (
-							"Ficheprescription93"."benef_retour_presente" = \'oui\'
-							AND
-								"Ficheprescription93"."date_retour" IS NOT NULL
-								OR "Ficheprescription93"."date_retour" < NOW()
-						) THEN 1
-						ELSE 0
-					END
-				), 0 ) AS "nombre_effectives"',
+					CASE WHEN ( "Ficheprescription93"."benef_retour_presente" = \'oui\' ) THEN 1	ELSE 0 END ), 0 ) AS "nombre_effectives"',
 				// Raison de la non participation :
-					// E. Retiré par atol
+					// E. Cadre Refus du bénéficiaire : "Le bénéficiaire a été retenu par la structure : OUI et Le bénéficiaire a intégré l’action : NON"
+					'COALESCE( SUM( CASE WHEN (
+						"Ficheprescription93"."personne_retenue" = \'1\'
+						AND "Ficheprescription93"."personne_a_integre"  = \'0\'
+					) THEN 1 ELSE 0 END ), 0 ) AS "nombre_refus_beneficiaire"',
 					// F. Cadre Refus de l’organisme : "La personne a été retenue par la structure=non"
 					'COALESCE( SUM( CASE WHEN "Ficheprescription93"."personne_retenue" = \'0\' THEN 1 ELSE 0 END ), 0 ) AS "nombre_refus_organisme"',
 					// G. Cadre En attente :

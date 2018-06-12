@@ -28,15 +28,19 @@ VALUES
 --------------------------------------------------------------------------------
 
 -- Mise a jour des valeurs de la liste déroulante de motifs de non retenue par la structure
+
 UPDATE motifsnonretenuesfps93
 	SET name = 'Sur liste d''attente'
-	WHERE name LIKE 'En file dattente';
+	WHERE name LIKE 'En file d''attente';
+
+UPDATE motifsnonretenuesfps93
+	SET name = 'Le bénéficaire n''a pas réussi les tests'
+	WHERE name LIKE 'L''allocataire n''a pas réussi les tests';
 
 INSERT INTO motifsnonretenuesfps93
     (name, autre, created, modified)
     VALUES ( 'Refus de financement', 0, NOW(), NOW()
 );
-
 
 --------------------------------------------------------------------------------
 
@@ -70,6 +74,7 @@ VALUES
 	( 'Problème de garde d’enfants', 0, NOW(), NOW() ),
 	( 'Problème de mobilité', 0, NOW(), NOW() ),
 	( 'Problème de santé', 0, NOW(), NOW() ),
+	( 'Problème de logement', 0, NOW(), NOW() ),
 	( 'A été acceptée dans une autre action', 0, NOW(), NOW() ),
 	( 'Difficultés financières', 0, NOW(), NOW() ),
 	( 'A trouvé un emploi', 0, NOW(), NOW() ),

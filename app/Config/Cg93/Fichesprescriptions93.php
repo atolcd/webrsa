@@ -199,24 +199,14 @@
 				'#Ficheprescription93Typethematiquefp93Id',
 				// Thématique
 				'#Ficheprescription93Thematiquefp93Id',
+				// Année
+				'#Ficheprescription93Yearthematiquefp93Id',
 				// Catégorie
 				'#Ficheprescription93Categoriefp93Id',
 				// Date de début de l'action
 				'#Ficheprescription93DdActionDay',
 				// Signé le
-				'#Ficheprescription93DateSignatureDay',
-				// La personne s'est présentée
-				'#Ficheprescription93BenefRetourPresente',
-				// Signé par le partenaire le
-				'#Ficheprescription93DateSignaturePartenaireDay',
-				// La personne a été reçue en entretien
-				'#Ficheprescription93PersonneRecue',
-				// La personne a été retenue par la structure
-				'#Ficheprescription93PersonneRetenue',
-				// La personne souhaite intégrer l'action
-				'#Ficheprescription93PersonneSouhaiteIntegrer',
-				// L'allocataire a intégré l'action
-				'#Ficheprescription93PersonneAIntegre',
+				'#Ficheprescription93DateSignatureDay'
 			)
 		)
 	);

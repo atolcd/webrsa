@@ -462,6 +462,69 @@ msgstr "Réellement supprimer le motif de non intégration « #Motifnonintegrati
 
 # ------------------------------------------------------------------------------
 
+msgid "/Cataloguespdisfps93/index/Motifactionachevefp93/:heading"
+msgstr "Le bénéficiaire a achevé l'action"
+
+msgid "Motifactionachevefp93.name"
+msgstr "Motif de fin d'action"
+
+msgid "Motifactionachevefp93.autre"
+msgstr "Valeur de type autre"
+
+msgid "Motifactionachevefp93.created"
+msgstr "Créé"
+
+msgid "Motifactionachevefp93.modified"
+msgstr "Modifié"
+
+msgid "/Cataloguespdisfps93/add/Motifactionachevefp93/:heading"
+msgstr "Ajouter un motif de fin de d'action"
+
+msgid "/Cataloguespdisfps93/edit/Motifactionachevefp93/:heading"
+msgstr "Modification d'un motif de fin de d'action"
+
+msgid "/Cataloguespdisfps93/edit/Modtransmfp93/#Modtransmfp93.id#"
+msgstr "Modifier le motif de fin de d'action « #Modtransmfp93.name# »"
+
+msgid "/Cataloguespdisfps93/delete/Modtransmfp93/#Modtransmfp93.id#"
+msgstr "Supprimer le motif de fin de d'action « #Modtransmfp93.name# »"
+
+msgid "/Cataloguespdisfps93/delete/Modtransmfp93/#Modtransmfp93.id# ?"
+msgstr "Réellement supprimer le motif de fin de d'action « #Modtransmfp93.name# » ?"
+# ------------------------------------------------------------------------------
+
+msgid "/Cataloguespdisfps93/index/Motifnonactionachevefp93/:heading"
+msgstr "Le bénéficiaire a achevé l'action"
+
+msgid "Motifnonactionachevefp93.name"
+msgstr "Motif de fin d'action"
+
+msgid "Motifnonactionachevefp93.autre"
+msgstr "Valeur de type autre"
+
+msgid "Motifnonactionachevefp93.created"
+msgstr "Créé"
+
+msgid "Motifnonactionachevefp93.modified"
+msgstr "Modifié"
+
+msgid "/Cataloguespdisfps93/add/Motifnonactionachevefp93/:heading"
+msgstr "Ajouter un motif de fin de d'action"
+
+msgid "/Cataloguespdisfps93/edit/Motifnonactionachevefp93/:heading"
+msgstr "Modification d'un motif de fin de d'action"
+
+msgid "/Cataloguespdisfps93/edit/Motifnonactionachevefp93/#Modtransmfp93.id#"
+msgstr "Modifier le motif de fin de d'action « #Modtransmfp93.name# »"
+
+msgid "/Cataloguespdisfps93/delete/Motifnonactionachevefp93/#Modtransmfp93.id#"
+msgstr "Supprimer le motif de fin de d'action « #Modtransmfp93.name# »"
+
+msgid "/Cataloguespdisfps93/delete/Motifnonactionachevefp93/#Modtransmfp93.id# ?"
+msgstr "Réellement supprimer le motif de fin de d'action « #Modtransmfp93.name# » ?"
+
+# ------------------------------------------------------------------------------
+
 msgid "/Cataloguespdisfps93/index/Documentbeneffp93/:heading"
 msgstr "Documents dont le bénéficiaire est invité à se munir"
 

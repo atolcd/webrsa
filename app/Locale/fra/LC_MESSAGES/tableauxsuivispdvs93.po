@@ -88,6 +88,9 @@ msgstr "Nombre de positionnements effectives"
 msgid "Tableau1b5.raison_non_participation"
 msgstr "Raisons de la non participation"
 
+msgid "Tableau1b5.nombre_refus_beneficiaire"
+msgstr "Refus du bénéficiaire"
+
 msgid "Tableau1b5.nombre_refus_organisme"
 msgstr "Refus de l'organisme"
 
