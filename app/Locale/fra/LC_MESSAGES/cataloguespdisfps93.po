@@ -304,7 +304,40 @@ msgstr "Supprimer le prestataire « #Prestatairefp93.name# »"
 
 msgid "/Cataloguespdisfps93/delete/Prestatairefp93/#Prestatairefp93.id# ?"
 msgstr "Réellement supprimer le prestataire « #Prestatairefp93.name# » ?"
+# ------------------------------------------------------------------------------
 
+msgid "/Cataloguespdisfps93/index/Motifcontactfp93/:heading"
+msgstr "Motif de 1er contact"
+
+msgid "Motifcontactfp93.name"
+msgstr "Motif de 1er contact"
+
+msgid "Motifcontactfp93.autre"
+msgstr "Valeur de type autre (0)"
+
+msgid "Motifcontactfp93.created"
+msgstr "Créé"
+
+msgid "Motifcontactfp93.modified"
+msgstr "Modifié"
+
+msgid "/Cataloguespdisfps93/add/Motifcontactfp93/:title"
+msgstr "Ajouter un motif de 1er contact"
+
+msgid "/Cataloguespdisfps93/add/Motifcontactfp93/:heading"
+msgstr "Ajout d'un motif de 1er contact"
+
+msgid "/Cataloguespdisfps93/edit/Motifcontactfp93/:heading"
+msgstr "Modification d'un motif de 1er contact"
+
+msgid "/Cataloguespdisfps93/edit/Motifcontactfp93/#Modtransmfp93.id#"
+msgstr "Modifier le motif de 1er contact « #Modtransmfp93.name# »"
+
+msgid "/Cataloguespdisfps93/delete/Motifcontactfp93/#Modtransmfp93.id#"
+msgstr "Supprimer le motif de 1er contact « #Modtransmfp93.name# »"
+
+msgid "/Cataloguespdisfps93/delete/Motifcontactfp93/#Modtransmfp93.id# ?"
+msgstr "Réellement supprimer le motif de 1er contact « #Modtransmfp93.name# » ?"
 # ------------------------------------------------------------------------------
 
 msgid "/Cataloguespdisfps93/index/Modtransmfp93/:heading"

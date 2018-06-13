@@ -45,7 +45,15 @@
 				)
 			);*/
 
-			if( !in_array( $Model->alias, array( 'Prestatairefp93', 'Adresseprestatairefp93' ) ) ) {
+			if( !in_array( $Model->alias, array(
+				'Prestatairefp93', 'Adresseprestatairefp93',
+				'Modtransmfp93',
+				'Motifnonretenuefp93',
+				'Motifnonintegrationfp93',
+				'Motifactionachevefp93',
+				'Motifnonactionachevefp93',
+				'Documentbeneffp93'
+			 ) ) ) {
 				if( !in_array( 'Thematiquefp93.type', $query['fields'] ) ) {
 					array_unshift( $query['fields'], 'Thematiquefp93.type' );
 				}

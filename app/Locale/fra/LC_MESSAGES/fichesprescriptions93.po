@@ -458,7 +458,7 @@ msgid "Ficheprescription93.Suivi"
 msgstr "Suivi du positionnement"
 
 msgid "Ficheprescription93.personne_retenue"
-msgstr "Le bénéficaire a été retenue par la structure"
+msgstr "Le bénéficaire a été retenu par la structure"
 
 msgid "Ficheprescription93.motifnonretenuefp93_id"
 msgstr "Motif"

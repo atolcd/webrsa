@@ -91,7 +91,6 @@
 		 */
 		public function getParametrageFields() {
 			$fields = array_keys( $this->schema() );
-
 			array_remove( $fields, 'created' );
 			array_remove( $fields, 'modified' );
 
@@ -104,6 +103,20 @@
 					$params['empty'] = true;
 				}
 				$fields[$path] = $params;
+			}
+
+			if( in_array($this->alias, array(
+				'Prestatairefp93',
+				'Adresseprestatairefp93',
+				'Motifcontactfp93',
+				'Modtransmfp93',
+				'Motifnonretenuefp93',
+				'Motifnonintegrationfp93',
+				'Motifactionachevefp93',
+				'Motifnonactionachevefp93',
+				'Documentbeneffp93'
+			) ) ) {
+				unset($fields['Thematiquefp93.yearthema']);
 			}
 
 			return $fields;
