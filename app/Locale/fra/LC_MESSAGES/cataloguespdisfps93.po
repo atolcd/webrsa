@@ -304,7 +304,40 @@ msgstr "Supprimer le prestataire « #Prestatairefp93.name# »"
 
 msgid "/Cataloguespdisfps93/delete/Prestatairefp93/#Prestatairefp93.id# ?"
 msgstr "Réellement supprimer le prestataire « #Prestatairefp93.name# » ?"
+# ------------------------------------------------------------------------------
 
+msgid "/Cataloguespdisfps93/index/Motifcontactfp93/:heading"
+msgstr "Motif de 1er contact"
+
+msgid "Motifcontactfp93.name"
+msgstr "Motif de 1er contact"
+
+msgid "Motifcontactfp93.autre"
+msgstr "Valeur de type autre (0)"
+
+msgid "Motifcontactfp93.created"
+msgstr "Créé"
+
+msgid "Motifcontactfp93.modified"
+msgstr "Modifié"
+
+msgid "/Cataloguespdisfps93/add/Motifcontactfp93/:title"
+msgstr "Ajouter un motif de 1er contact"
+
+msgid "/Cataloguespdisfps93/add/Motifcontactfp93/:heading"
+msgstr "Ajout d'un motif de 1er contact"
+
+msgid "/Cataloguespdisfps93/edit/Motifcontactfp93/:heading"
+msgstr "Modification d'un motif de 1er contact"
+
+msgid "/Cataloguespdisfps93/edit/Motifcontactfp93/#Modtransmfp93.id#"
+msgstr "Modifier le motif de 1er contact « #Modtransmfp93.name# »"
+
+msgid "/Cataloguespdisfps93/delete/Motifcontactfp93/#Modtransmfp93.id#"
+msgstr "Supprimer le motif de 1er contact « #Modtransmfp93.name# »"
+
+msgid "/Cataloguespdisfps93/delete/Motifcontactfp93/#Modtransmfp93.id# ?"
+msgstr "Réellement supprimer le motif de 1er contact « #Modtransmfp93.name# » ?"
 # ------------------------------------------------------------------------------
 
 msgid "/Cataloguespdisfps93/index/Modtransmfp93/:heading"
@@ -459,6 +492,69 @@ msgstr "Supprimer le motif de non intégration « #Motifnonintegrationfp93.name#
 
 msgid "/Cataloguespdisfps93/delete/Motifnonintegrationfp93/#Motifnonintegrationfp93.id# ?"
 msgstr "Réellement supprimer le motif de non intégration « #Motifnonintegrationfp93.name# » ?"
+
+# ------------------------------------------------------------------------------
+
+msgid "/Cataloguespdisfps93/index/Motifactionachevefp93/:heading"
+msgstr "Le bénéficiaire a achevé l'action"
+
+msgid "Motifactionachevefp93.name"
+msgstr "Motif de fin d'action"
+
+msgid "Motifactionachevefp93.autre"
+msgstr "Valeur de type autre"
+
+msgid "Motifactionachevefp93.created"
+msgstr "Créé"
+
+msgid "Motifactionachevefp93.modified"
+msgstr "Modifié"
+
+msgid "/Cataloguespdisfps93/add/Motifactionachevefp93/:heading"
+msgstr "Ajouter un motif de fin de d'action"
+
+msgid "/Cataloguespdisfps93/edit/Motifactionachevefp93/:heading"
+msgstr "Modification d'un motif de fin de d'action"
+
+msgid "/Cataloguespdisfps93/edit/Modtransmfp93/#Modtransmfp93.id#"
+msgstr "Modifier le motif de fin de d'action « #Modtransmfp93.name# »"
+
+msgid "/Cataloguespdisfps93/delete/Modtransmfp93/#Modtransmfp93.id#"
+msgstr "Supprimer le motif de fin de d'action « #Modtransmfp93.name# »"
+
+msgid "/Cataloguespdisfps93/delete/Modtransmfp93/#Modtransmfp93.id# ?"
+msgstr "Réellement supprimer le motif de fin de d'action « #Modtransmfp93.name# » ?"
+# ------------------------------------------------------------------------------
+
+msgid "/Cataloguespdisfps93/index/Motifnonactionachevefp93/:heading"
+msgstr "Le bénéficiaire a achevé l'action"
+
+msgid "Motifnonactionachevefp93.name"
+msgstr "Motif de fin d'action"
+
+msgid "Motifnonactionachevefp93.autre"
+msgstr "Valeur de type autre"
+
+msgid "Motifnonactionachevefp93.created"
+msgstr "Créé"
+
+msgid "Motifnonactionachevefp93.modified"
+msgstr "Modifié"
+
+msgid "/Cataloguespdisfps93/add/Motifnonactionachevefp93/:heading"
+msgstr "Ajouter un motif de fin de d'action"
+
+msgid "/Cataloguespdisfps93/edit/Motifnonactionachevefp93/:heading"
+msgstr "Modification d'un motif de fin de d'action"
+
+msgid "/Cataloguespdisfps93/edit/Motifnonactionachevefp93/#Modtransmfp93.id#"
+msgstr "Modifier le motif de fin de d'action « #Modtransmfp93.name# »"
+
+msgid "/Cataloguespdisfps93/delete/Motifnonactionachevefp93/#Modtransmfp93.id#"
+msgstr "Supprimer le motif de fin de d'action « #Modtransmfp93.name# »"
+
+msgid "/Cataloguespdisfps93/delete/Motifnonactionachevefp93/#Modtransmfp93.id# ?"
+msgstr "Réellement supprimer le motif de fin de d'action « #Modtransmfp93.name# » ?"
 
 # ------------------------------------------------------------------------------
 

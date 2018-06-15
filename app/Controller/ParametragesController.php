@@ -389,7 +389,6 @@
 						'url' => array( 'controller' => 'cataloguespdisfps93', 'action' => 'search' )
 					)
 				);
-
 				foreach( $this->Cataloguepdifp93->modelesParametrages as $modelName ) {
 					$items[__d( 'cataloguespdisfps93', "/Cataloguespdisfps93/index/{$modelName}/:heading" )] = array(
 						'url' => array( 'controller' => 'cataloguespdisfps93', 'action' => 'index', $modelName )

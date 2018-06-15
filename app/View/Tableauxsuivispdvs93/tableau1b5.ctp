@@ -27,12 +27,13 @@
 					array( __d( $domain, 'Tableau1b5.categorie' ) => array( 'rowspan' => 2 ) ),
 					array( __d( $domain, 'Tableau1b5.nombre' ) => array( 'rowspan' => 2 ) ),
 					array( __d( $domain, 'Tableau1b5.nombre_effectives' ) => array( 'rowspan' => 2 ) ),
-					array( __d( $domain, 'Tableau1b5.raison_non_participation' ) => array( 'colspan' => 2 ) ),
+					array( __d( $domain, 'Tableau1b5.raison_non_participation' ) => array( 'colspan' => 3 ) ),
 					array( __d( $domain, 'Tableau1b5.nombre_participations' ) => array( 'rowspan' => 2 ) ),
 				)
 			)
 			.$this->Xhtml->tableHeaders(
 				array(
+					__d( $domain, 'Tableau1b5.nombre_refus_beneficiaire' ),
 					__d( $domain, 'Tableau1b5.nombre_refus_organisme' ),
 					__d( $domain, 'Tableau1b5.nombre_en_attente' ),
 				)
@@ -70,6 +71,7 @@
 				$cell[] = array( $result[0]['thematique'], array( 'class' => $class ) );
 				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre" ) ), array( 'class' => "integer number {$class}" ) );
 				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_effectives" ) ), array( 'class' => "integer number {$class}" ) );
+				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_refus_beneficiaire" ) ), array( 'class' => "integer number {$class}" ) );
 				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_refus_organisme" ) ), array( 'class' => "integer number {$class}" ) );
 				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_en_attente" ) ), array( 'class' => "integer number {$class}" ) );
 				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_participations" ) ), array( 'class' => "integer number {$class}" ) );

@@ -253,8 +253,8 @@
 		$this->Html->tag( 'legend', __d( $this->request->params['controller'], 'Ficheprescription93.Effectivite' ) )
 		.$this->Default3->subform(
 			array(
-				'Ficheprescription93.date_retour' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 ),
 				'Ficheprescription93.benef_retour_presente' => array( 'empty' => true ),
+				'Ficheprescription93.date_retour' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 )
 			),
 			array(
 				'options' => $options,
