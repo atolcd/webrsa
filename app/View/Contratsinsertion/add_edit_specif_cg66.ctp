@@ -651,10 +651,10 @@ Event.observe( $( 'ContratinsertionStructurereferenteId' ), 'change', function( 
 	</tr>
 	<tr>
 		<td class="mediumSize noborder">
-			<strong>Du <?php echo REQUIRED_MARK;?></strong><?php echo $this->Form->input( 'Contratinsertion.dd_ci', array( 'label' => false, 'type' => 'date', 'dateFormat'=>'DMY', 'maxYear' => date('Y') + 1, 'minYear' => 2009 , 'empty' => true)  );?>
+			<strong>Du <?php echo REQUIRED_MARK;?></strong><?php echo $this->Form->input( 'Contratinsertion.dd_ci', array( 'label' => false, 'type' => 'date', 'dateFormat'=>'DMY', 'maxYear' => date('Y') + 3, 'minYear' => date('Y') - 10 , 'empty' => true)  );?>
 		</td>
 		<td class="mediumSize noborder">
-			<strong>Au <?php echo REQUIRED_MARK;?></strong><?php echo $this->Form->input( 'Contratinsertion.df_ci', array( 'label' => false, 'type' => 'date', 'dateFormat'=>'DMY', 'maxYear' => date('Y') + 1, 'minYear' => 2009 , 'empty' => true ) ) ;?>
+			<strong>Au <?php echo REQUIRED_MARK;?></strong><?php echo $this->Form->input( 'Contratinsertion.df_ci', array( 'label' => false, 'type' => 'date', 'dateFormat'=>'DMY', 'maxYear' => date('Y') + 3, 'minYear' => date('Y') - 10 , 'empty' => true ) ) ;?>
 		</td>
 	</tr>
 </table>

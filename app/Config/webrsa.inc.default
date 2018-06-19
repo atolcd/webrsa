@@ -904,6 +904,21 @@
 	Configure::write( 'tag.affichage.actif.attribution', 1 );
 
 	/**
+	 * Paramétrage de la durée d'engagement d'un CER
+	 */
+	Configure::write(
+		'cer.duree.engagement',
+		array (
+			'3' => '3 mois',
+			'6' => '6 mois',
+			'9' => '9 mois',
+			'12' => '12 mois',
+			'18' => '18 mois',
+			'24' => '24 mois',
+		)
+	);
+
+	/**
 	 * Récupération du fichier de config propre au département
 	 */
 	require_once ('webrsa.cg'.Configure::read( 'Cg.departement' ).'.inc');
