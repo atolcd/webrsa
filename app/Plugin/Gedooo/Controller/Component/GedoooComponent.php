@@ -80,7 +80,8 @@
 			  umask($old); */
 			$this->makeTmpDir( $pdfTmpDir );
 
-			$places = (int)( count( $pdfs ) / 10 ) + 1;
+			//$places =  round ( ( count( $pdfs ) / 10 ) + 1 );
+			$places = 6;
 			foreach( $pdfs as $i => $pdf ) {
 				$fileName = str_pad( $i, $places, '0', STR_PAD_LEFT );
 				file_put_contents( "{$pdfTmpDir}/{$fileName}.pdf", $pdf );
