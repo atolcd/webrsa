@@ -887,6 +887,7 @@
 						$this->Filierefp93->fields(),
 						$this->Instantanedonneesfp93->fields(),
 						$this->Motifnonintegrationfp93->fields(),
+						$this->Motifcontactfp93->fields(),
 						$this->Motifnonretenuefp93->fields(),
 						$this->Motifactionachevefp93->fields(),
 						$this->Motifnonactionachevefp93->fields(),
@@ -907,6 +908,7 @@
 						$this->join( 'Motifnonintegrationfp93', array( 'type' => 'LEFT OUTER' ) ),
 						$this->join( 'Motifnonretenuefp93', array( 'type' => 'LEFT OUTER' ) ),
 						$this->join( 'Motifactionachevefp93', array( 'type' => 'LEFT OUTER' ) ),
+						$this->join( 'Motifcontactfp93', array( 'type' => 'LEFT OUTER' ) ),
 						$this->join( 'Motifnonactionachevefp93', array( 'type' => 'LEFT OUTER' ) ),
 						$this->join( 'Personne', array( 'type' => 'INNER' ) ),
 						$this->join( 'Prestatairehorspdifp93', array( 'type' => 'LEFT OUTER' ) ),
@@ -953,13 +955,14 @@
 				$data,
 				'documentbeneffp93' => array(),
 				'modtransmfp93' => array(),
-				'motifcontactfp93' => array(),
+				/*'motifcontactfp93' => array(),
 				'motifactionachevefp93' => array(),
-				'motifnonactionachevefp93' => array()
+				'motifnonactionachevefp93' => array()*/
 			);
 
 			// Lecture des données HABTM
-			foreach( array( 'Documentbeneffp93', 'Modtransmfp93' , 'Motifcontactfp93', 'Motifactionachevefp93', 'Motifnonactionachevefp93') as $habtmModelName ) {
+			//, 'Motifcontactfp93', 'Motifactionachevefp93', 'Motifnonactionachevefp93'
+			foreach( array( 'Documentbeneffp93', 'Modtransmfp93' ) as $habtmModelName ) {
 				$with = $this->hasAndBelongsToMany[$habtmModelName]['with'];
 
 				$query = array(
