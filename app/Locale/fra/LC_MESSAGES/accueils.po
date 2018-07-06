@@ -23,6 +23,12 @@ msgstr "Demandeur"
 msgid "Accueil.date.creation"
 msgstr "Date de création"
 
+msgid "Accueil.date.signature"
+msgstr "Date de signature"
+
+msgid "Accueil.date.debut.contrat"
+msgstr "Date de début de contrat"
+
 msgid "Accueil.date.rendezvous"
 msgstr "Date de rendez-vous"
 
@@ -53,7 +59,7 @@ msgid "Accueil.cer.titre"
 msgstr "Vos CER du __DU__ au __AU__"
 
 msgid "Accueil.fiche.titre"
-msgstr "Vos fiches de prescription de plus de __LIMITE__ mois non cloturées"
+msgstr "Vos fiches de positionnement de plus de __LIMITE__ mois sans information sur l'entrée en action"
 
 msgid "Accueil.rendezvous.titre"
 msgstr "Vos rendez-vous dans les __LIMITE__ jours à venir"

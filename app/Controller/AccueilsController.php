@@ -22,6 +22,8 @@
 		 */
 		public $aucunDroit = array(
 			'alertmail',
+			'index',
+			'test',
 		);
 
 		/**
@@ -35,6 +37,58 @@
 		);
 
 		/**
+		 * Identifiant de l'utilisateur.
+		 *
+		 * @var array
+		 */
+		public $idReferent = null;
+
+		/**
+		 *
+		 */
+		public function test () {
+			$this->loadModel('User');
+			$this->loadModel('Referent');
+
+			$query = array (
+				'conditions' => array(
+					'User.structurereferente_id IS NOT NULL',
+				),
+				'recursive' => -1
+			);
+			$users = $this->User->find ('all', $query);
+			$referents = $this->Referent->find ('all', array ('recursive' => -1));
+
+			$ok = array ();
+			$ko = array ();
+			foreach ($users as $user) {
+				$name = strtoupper (iconv ('UTF-8', 'ASCII//TRANSLIT//IGNORE', $user['User']['nom']));
+				$firstname = strtoupper (iconv ('UTF-8', 'ASCII//TRANSLIT//IGNORE', $user['User']['prenom']));
+				$matched = false;
+
+				foreach ($referents as $referent) {
+					$nom = strtoupper (iconv ('UTF-8', 'ASCII//TRANSLIT//IGNORE', $referent['Referent']['nom']));
+					$prenom = strtoupper (iconv ('UTF-8', 'ASCII//TRANSLIT//IGNORE', $referent['Referent']['prenom']));
+
+					if ($nom === $name && $prenom === $firstname) {
+						$ok[] = $user;
+						$matched = true;
+						break;
+					}
+				}
+
+				if (!$matched) {
+					$ko[] = $user;
+				}
+			}
+
+			debug ($ok);
+			debug ($ko);
+
+			$this->render(false);
+		}
+
+		/**
 		 * Page d'accueil
 		 */
 		public function index() {
@@ -43,6 +97,7 @@
 			$accueil = Configure::read('page.accueil.profil');
 			$profil = $this->Session->read( 'Auth.User.Group.code' );
 			$blocs = $accueil['by-default'];
+			$this->idReferent = $this->idReferent ();
 
 			if (isset ($accueil[$profil])) {
 				$blocs = $accueil[$profil];
@@ -56,7 +111,7 @@
 			$articles = $this->_getArticles();
 
 			// Blocs
-			if (count ($blocs) > 0) {
+			if ($this->idReferent !== false && count ($blocs) > 0) {
 				foreach ($blocs as $key => $value) {
 					if (method_exists($this, '_get'.ucfirst($key))) {
 						$results[$key] = $this->{'_get'.ucfirst($key)} ($departement, $value);
@@ -65,6 +120,100 @@
 			}
 
 			$this->set(compact('departement', 'articles', 'results', 'blocs'));
+		}
+
+		/**
+		 * Récupération de l'identifiant du référent.
+		 *
+		 * @return array
+		 */
+		public function idReferent() {
+			$user = $this->Session->read( 'Auth.User' );
+
+			switch ($user['accueil_reference_affichage']) {
+				// Retourne le referent_id s'il est défini.
+				case 'REFER':
+					if (is_numeric ($user['accueil_referent_id'])) {
+						return $user['accueil_referent_id'];
+					}
+					else {
+						return false;
+					}
+					break;
+
+				// Retourne la lsite des referent_id s'ils sont définis pour tous les utilisateurs du groupe.
+				case 'GROUP':
+					$this->loadModel('User');
+					$query = array (
+						'conditions' => array(
+							'User.group_id' => $user['group_id'], 
+							'User.accueil_referent_id IS NOT NULL',
+						)
+					);
+					$users = $this->User->find ('all', $query);
+					$idReferent = '';
+					$separateur = '';
+					foreach ($users as $item) {
+						if (is_numeric($item['User']['accueil_referent_id'])) {
+							$idReferent .= $separateur.$item['User']['accueil_referent_id'];
+							$separateur = ',';
+						}
+					}
+
+					if (!empty ($idReferent)) {
+						return $idReferent;
+					}
+					else {
+						return false;
+					}
+					break;
+
+				// Retourne la liste des referent_id de tous les référents de la structure référente du référent de l'utilisateur s'il est défini
+				case 'STRUC':
+					if (is_numeric ($user['accueil_referent_id'])) {
+						$this->loadModel('Referent');
+						$query = array (
+							'conditions' => array(
+								'Referent.id' => $user['accueil_referent_id'],
+							),
+							'recursive' => -1
+						);
+						$referent = $this->Referent->find ('first', $query);
+
+						$query = array (
+							'conditions' => array(
+								'Referent.structurereferente_id' => $referent['Referent']['structurereferente_id'],
+							),
+							'recursive' => -1
+						);
+						$referents = $this->Referent->find ('all', $query);
+
+						$idReferent = '';
+						$separateur = '';
+						foreach ($referents as $item) {
+							if (is_numeric($item['Referent']['id'])) {
+								$idReferent .= $separateur.$item['Referent']['id'];
+								$separateur = ',';
+							}
+						}
+
+						if (!empty ($idReferent)) {
+							return $idReferent;
+						}
+						else {
+							return false;
+						}
+					}
+					else {
+						return false;
+					}
+					break;
+
+				// Rien sinon
+				default:
+					return false;
+					break;
+			}
 		}
 
 		/**
@@ -104,81 +253,29 @@
 		protected function _getCers ($departement, $parametres = array ()) {
 			$cers = array ();
 
-			if (method_exists($this, '_getCers'.$departement)) {
-				$aujourdhui = new DateTime ();
-				$du = new DateTime ();
-				$du->sub (new DateInterval('P'. abs ( ($aujourdhui->format('N') - 1) + (7 * $parametres['du']) ) .'D'));
-				$au = new DateTime ();
-				$au->add (new DateInterval('P'. abs (7 * $parametres['au'] - $aujourdhui->format('N')) .'D'));
-				$cers = $this->{'_getCers'.$departement}($du->format ('d/m/Y'), $au->format ('d/m/Y'));
-				$cers['du'] = $du->format ('d/m/Y');
-				$cers['au'] = $au->format ('d/m/Y');
-			}
+			$aujourdhui = new DateTime ();
+			$du = new DateTime ();
+			$du->sub (new DateInterval('P'. abs ( ($aujourdhui->format('N') - 1) + (7 * $parametres['du']) ) .'D'));
+			$au = new DateTime ();
+			$au->add (new DateInterval('P'. abs (7 * $parametres['au'] - $aujourdhui->format('N')) .'D'));
 
-			return $cers;
-		}
-
-		/**
-		 * CER du 93
-		 *
-		 * @param $du date de début de semaine au format texte
-		 * @param $au date de fin de semaine au format texte
-		 * @return array
-		 */
-		protected function _getCers93($du, $au) {
-			$this->loadModel('Cer93');
-			$query = array (
-				'conditions' => array(
-					'Cer93.created IS NOT NULL',
-					'DATE( Cer93.created ) BETWEEN \''.$du.'\' AND \''.$au.'\'',
-					'Cer93.user_id = '.$this->Session->read( 'Auth.User.id' ),
-				),
-				'order' => array(
-					'Cer93.created ASC',
-				),
-			);
-
-			return $this->Cer93->find (
-				'all',
-				$query
-			);
-		}
-
-		/**
-		 * CER du 66
-		 *
-		 * @param $du date de début de semaine au format texte
-		 * @param $au date de fin de semaine au format texte
-		 * @return array
-		 */
-		protected function _getCers66($du, $au) {
 			$this->loadModel('Contratinsertion');
 			$query = array (
 				'conditions' => array(
-					'Contratinsertion.created IS NOT NULL',
-					'DATE( Contratinsertion.created ) BETWEEN \''.$du.'\' AND \''.$au.'\'',
-					'Contratinsertion.referent_id = '.$this->Session->read( 'Auth.User.id' ),
+					'Contratinsertion.dd_ci IS NOT NULL',
+					'DATE( Contratinsertion.dd_ci ) BETWEEN \''.$du->format ('d/m/Y').'\' AND \''.$au->format ('d/m/Y').'\'',
+					'Contratinsertion.referent_id IN ('.$this->idReferent.')',
 				),
 				'order' => array(
-					'Contratinsertion.created ASC',
+					'Contratinsertion.dd_ci ASC',
 				),
 			);
 
-			return $this->Contratinsertion->find (
-				'all',
-				$query
-			);
-		}
+			$cers = $this->Contratinsertion->find ('all', $query);
+			$cers['du'] = $du->format ('d/m/Y');
+			$cers['au'] = $au->format ('d/m/Y');
 
-		/**
-		 * CER du 58
-		 *
-		 * @param $du date de début de semaine au format texte
-		 * @param $au date de fin de semaine au format texte
-		 * @return array
-		 */
-		protected function _getCers58($du, $au) {
-			return $this->_getCers66($du, $au);
+			return $cers;
 		}
 
 		/**
@@ -211,9 +308,9 @@
 			$this->loadModel('Ficheprescription93');
 			$query = array (
 				'conditions' => array(
-					'Ficheprescription93.created IS NOT NULL',
-					'Ficheprescription93.created >= \''.$limite.'\'',
-					'Ficheprescription93.referent_id = '.$this->Session->read( 'Auth.User.id' ),
+					'Ficheprescription93.date_signature IS NOT NULL',
+					'Ficheprescription93.date_signature >= \''.$limite.'\'',
+					'Ficheprescription93.referent_id IN ('.$this->idReferent.')',
 					'Ficheprescription93.statut IN (\'03transmise_partenaire\', \'04effectivite_renseignee\')',
 				),
 				'contain' => array(
@@ -252,7 +349,7 @@
 				),
 				'conditions' => array(
 					'DATE( Rendezvous.daterdv ) BETWEEN \''.date ('Y-m-d H:i:s').'\' AND \''.$limite->format ('d/m/Y').'\'',
-					'Rendezvous.referent_id = '.$this->Session->read( 'Auth.User.id' ),
+					'Rendezvous.referent_id IN ('.$this->idReferent.')',
 				),
 				'order' => array(
 					'Rendezvous.daterdv ASC',

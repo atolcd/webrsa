@@ -65,6 +65,24 @@ ALTER TABLE valeurstags
   OWNER TO webrsa;
 
 
+ALTER TABLE users ADD COLUMN accueil_referent_id integer;
+ALTER TABLE users ADD CONSTRAINT users_accueil_referent_id_fk FOREIGN KEY (referent_id)
+      REFERENCES referents (id) MATCH SIMPLE
+      ON UPDATE CASCADE ON DELETE SET NULL;
+ALTER TABLE users ADD COLUMN accueil_reference_affichage character varying(5);
+ALTER TABLE users ADD CONSTRAINT users_accueil_reference_affichage_in_list_chk CHECK
+(
+	cakephp_validate_in_list
+	(
+		accueil_reference_affichage::text, 
+		ARRAY[
+			'AUCUN'::text,
+			'REFER'::text, 
+			'GROUP'::text, 
+			'STRUC'::text
+		]
+	)
+);
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

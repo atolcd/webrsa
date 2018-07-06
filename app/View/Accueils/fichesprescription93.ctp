@@ -16,7 +16,7 @@
 	<thead>
 		<tr>
 			<th><?php echo __d('accueils', 'Accueil.demandeur'); ?></th>
-			<th><?php echo __d('accueils', 'Accueil.date.creation'); ?></th>
+			<th><?php echo __d('accueils', 'Accueil.date.signature'); ?></th>
 			<th><?php echo __d('accueils', 'Accueil.description'); ?></th>
 			<th><?php echo __d('accueils', 'Accueil.statut'); ?></th>
 			<th><?php echo __d('accueils', 'Accueil.actions'); ?></th>

@@ -4,12 +4,12 @@
 	$count = count($articles);
 	if ($count > 0) {
 		for ($i = 0; $i < $count; $i++) { ?>
-<p class="notice">
+<div class="notice">
 	<?php if (strlen ($articles[$i]['Accueilarticle']['title']) > 0) {?>
 	<strong><?php echo $articles[$i]['Accueilarticle']['title']; ?></strong><br />
 	<?php } ?>
 	<?php echo $articles[$i]['Accueilarticle']['content']; ?>
-</p>
+</div>
 <?php
 		}
 	}
