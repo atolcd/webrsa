@@ -83,3 +83,28 @@ msgstr "Date début habilitation"
 
 msgid "User.date_fin_hab"
 msgstr "Date fin habilitation"
+
+
+###############################################################################
+# Page d'accueil
+
+msgid "User.titre_bloc_accueil"
+msgstr "Page d'accueil"
+
+msgid "User.accueil_referent_id"
+msgstr "Référent"
+
+msgid "User.accueil_reference_affichage"
+msgstr "Référence d'affichage des blocs"
+
+msgid "ENUM::ACCUEIL_REFERENCE_AFFICHAGE::AUCUN"
+msgstr "Aucun"
+
+msgid "ENUM::ACCUEIL_REFERENCE_AFFICHAGE::REFER"
+msgstr "Utilisateur"
+
+msgid "ENUM::ACCUEIL_REFERENCE_AFFICHAGE::GROUP"
+msgstr "Groupe d'utilisateur"
+
+msgid "ENUM::ACCUEIL_REFERENCE_AFFICHAGE::STRUC"
+msgstr "Structure référente du référent"

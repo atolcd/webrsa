@@ -704,6 +704,7 @@
 			$enums = parent::enums();
 
 			$enums[$this->alias]['typevoie'] = $this->Option->libtypevoie();
+			$enums[$this->alias]['accueil_reference_affichage'] = $this->Option->accueil_reference_affichage();
 
 			if( isset( $enums[$this->alias]['type'] ) && Configure::read( 'Cg.departement' ) == 66 ) {
 				unset( $enums[$this->alias]['type']['externe_cpdv'] );
@@ -711,6 +712,20 @@
 				unset( $enums[$this->alias]['type']['externe_cpdvcom'] );
 
 				$enums[$this->alias]['type']['externe_ci'] = 'Référent organisme agrée';
+			}
+
+			$this->loadModel('Referent');
+			$query = array (
+				'order by' => array (
+					'nom ASC',
+					'prenom ASC'
+				),
+				'recursive' => -1
+			);
+			$referents = $this->Referent->find ('all', $query);
+			$enums[$this->alias]['accueil_referent_id'] = array ();
+			foreach ($referents as $referent) {
+				$enums[$this->alias]['accueil_referent_id'][$referent['Referent']['id']] =  $referent['Referent']['nom'].' '.$referent['Referent']['prenom'];
 			}
 
 			return $enums;

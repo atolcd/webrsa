@@ -1989,6 +1989,20 @@
 		}
 
 		/**
+		 * Enums pour le champ User.accueil_reference_affichage
+		 *
+		 * @return array
+		 */
+		public function accueil_reference_affichage() {
+			return array (
+				'AUCUN' => '',
+				'REFER' => 'Référent',
+				'GROUP' => 'Groupe de l\'utilisateur',
+				'STRUC' => 'Structure référente'
+			);
+		}
+
+		/**
 		 * Enums pour le champ activites.reg
 		 *
 		 * @return array

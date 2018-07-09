@@ -96,6 +96,13 @@ if ($departement === 66) {
         }
     ?>
 </fieldset>
+<fieldset class="col2">
+	<legend><?php echo (__d( 'user', 'User.titre_bloc_accueil' )); ?></legend>
+	<?php
+		echo $this->Form->input( 'User.accueil_referent_id', array( 'label' => __d( 'user', 'User.accueil_referent_id' ), 'type' => 'select' , 'options' => $options['User']['accueil_referent_id'], 'empty' => true ) );
+		echo $this->Form->input( 'User.accueil_reference_affichage', array( 'label' => __d( 'user', 'User.accueil_reference_affichage' ), 'type' => 'select' , 'options' => $options['User']['accueil_reference_affichage'] ) );
+	?>
+</fieldset>
 <?php
 	if( 66 === $departement ) {
 		echo $this->Form->input('Ancienpoledossierpcg66.Ancienpoledossierpcg66', array( 'type' => 'hidden', 'value' => '', 'id' => false ) );
