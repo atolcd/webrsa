@@ -155,8 +155,15 @@ function __deployconfig() {
 	ln -nfs /etc/webrsa/ $dir/Config
 	cd /var/tmp/
 	cd $dir/
-	
+
 }
+
+# ------------------------------------------------------------------------------
+
+ function __cleanODT() {
+             cd "./Vendor/modelesodt" && find . -type f -iname "*.odt.default" | while read -r ; do mv "$REPLY" `echo "$REPLY" |sed 's/\.default$//g'` ; done
+}
+
 # ------------------------------------------------------------------------------
 
 case $1 in
@@ -188,14 +195,12 @@ case $1 in
 		__deployconfig "$APP_DIR" "$2"
 		exit 0
 	;;
+	cleanODT)
+		__cleanODT "$APP_DIR"
+		exit 0
+	;;
 	*)
-		echo "Usage: $ME {clearcache|clear|clearlogs|minify|deploy|deployconfig}"
+		echo "Usage: $ME {clearcache|clear|clearlogs|minify|deploy|deployconfig|cleanODT}"
 		exit 1
 	;;
 esac
-
-#  Afin d'enlever l'extension defualt des fichiers ODT sans avoir à le faire à la main
-#         (
-#             cd "app/Vendor/modelesodt" && \
-#             find . -type f -iname "*.odt.default" | while read -r ; do mv "$REPLY" `echo "$REPLY" |sed 's/\.default$//g'` ; done
-#         )
