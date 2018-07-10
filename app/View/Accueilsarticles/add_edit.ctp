@@ -18,6 +18,7 @@
 <script>
 	tinymce.init({
 		selector:'textarea',
+		plugins: "link",
 		toolbar1: "bold italic underline strikethrough | alignleft aligncenter alignright alignjustify",
 		toolbar2: "cut copy paste | outdent indent blockquote | link unlink code | undo redo",
 //		toolbar1: "newdocument fullpage | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | styleselect formatselect fontselect fontsizeselect",
