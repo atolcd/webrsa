@@ -210,6 +210,13 @@
 				'fields' => '',
 				'order' => ''
 			),
+			'ReferentAccueil' => array(
+				'className' => 'Referent',
+				'foreignKey' => 'accueil_referent_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
+			),
 		);
 
 		public $hasMany = array(

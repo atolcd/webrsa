@@ -1,0 +1,44 @@
+# Traductions de accueilscorrespondances.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Accueilscorrespondances/index/:heading"
+msgstr "Correspondance utilisateurs / référents"
+
+msgid "Accueilscorrespondances.titre"
+msgstr "Correspondance utilisateurs / référents"
+
+msgid "Accueilscorrespondances.nom"
+msgstr "Nom d'utilisateur"
+
+msgid "Accueilscorrespondances.prenom"
+msgstr "Prénom d'utilisateur"
+
+msgid "Accueilscorrespondances.utilisateurs"
+msgstr "Utilisateurs"
+
+msgid "Accueilscorrespondances.referents"
+msgstr "Référents"
+
+msgid "Accueilscorrespondances.utilisateur"
+msgstr "Utilisateur"
+
+msgid "Accueilscorrespondances.referent"
+msgstr "Référent"
+
+msgid "Accueilscorrespondances.enregistrer"
+msgstr "Enregistrer"
+
+msgid "Accueilscorrespondances.groupe"
+msgstr "Groupe d'utilisateurs"
+
+msgid "Accueilscorrespondances.accueil_reference_affichage"
+msgstr "Référence d'affichage des blocs"

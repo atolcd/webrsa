@@ -196,7 +196,9 @@
 				'innerTable' => $this->Translator->normalize(
 					array(
 						'User.date_naissance',
-						'User.numtel'
+						'User.numtel',
+						'ReferentAccueil.nom',
+						'ReferentAccueil.prenom',
 					)
 				)
 			)

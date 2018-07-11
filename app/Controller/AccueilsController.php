@@ -97,7 +97,7 @@
 			$accueil = Configure::read('page.accueil.profil');
 			$profil = $this->Session->read( 'Auth.User.Group.code' );
 			$blocs = $accueil['by-default'];
-			$this->idReferent = $this->idReferent ();
+			$this->idReferent = $this->_idReferent ();
 
 			if (isset ($accueil[$profil])) {
 				$blocs = $accueil[$profil];
@@ -127,7 +127,7 @@
 		 *
 		 * @return array
 		 */
-		public function idReferent() {
+		protected function _idReferent() {
 			$user = $this->Session->read( 'Auth.User' );
 
 			switch ($user['accueil_reference_affichage']) {

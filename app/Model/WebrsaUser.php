@@ -76,11 +76,14 @@
 						'User.type',
 						'Group.name',
 						'Serviceinstructeur.lib_service',
+						'ReferentAccueil.nom',
+						'ReferentAccueil.prenom',
 						$this->User->sqHasLinkedRecords( true, $blacklist )
 					),
 					'joins' => array(
 						$this->User->join( 'Group', array( 'type' => 'INNER' ) ),
-						$this->User->join( 'Serviceinstructeur', array( 'type' => 'INNER' ) )
+						$this->User->join( 'Serviceinstructeur', array( 'type' => 'INNER' ) ),
+						$this->User->join( 'ReferentAccueil', array( 'type' => 'INNER' ) )
 					),
 					'contain' => false,
 					'conditions' => array(),

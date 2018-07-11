@@ -42,3 +42,10 @@ msgstr "Projet de ville territoriale"
 
 msgid "/Users/forgottenpass/:heading"
 msgstr "Mot de passe oublié"
+
+msgid "ReferentAccueil.nom"
+msgstr "Nom du référent liée à l'accueil"
+
+msgid "ReferentAccueil.prenom"
+msgstr "Prénom du référent liée à l'accueil"
+
