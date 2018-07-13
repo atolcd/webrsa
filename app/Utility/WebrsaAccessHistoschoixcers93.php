@@ -122,6 +122,19 @@
 			$positioncer = Hash::get( $record, 'Cer93.positioncer' );
 			return ( $positioncer === '05secondelecture' );
 		}
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _aviscadre_consultation(array $record, array $params) {
+			$params = self::params( $params );
+			$positioncer = Hash::get( $record, 'Cer93.positioncer' );
+			$position = preg_replace( '/^([0-9]+).*$/', '\1', $positioncer );
+			return intval( $position, 10 ) >= 5;
+		}
 
 		/**
 		 * Liste les actions disponnible
@@ -143,6 +156,7 @@
 					'secondelecture',
 					'secondelecture_consultation',
 					'aviscadre',
+					'aviscadre_consultation',
 				)
 			);
 
