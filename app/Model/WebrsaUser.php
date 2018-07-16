@@ -83,7 +83,7 @@
 					'joins' => array(
 						$this->User->join( 'Group', array( 'type' => 'INNER' ) ),
 						$this->User->join( 'Serviceinstructeur', array( 'type' => 'INNER' ) ),
-						$this->User->join( 'ReferentAccueil', array( 'type' => 'INNER' ) )
+						$this->User->join( 'ReferentAccueil', array( 'type' => 'LEFT' ) )
 					),
 					'contain' => false,
 					'conditions' => array(),
