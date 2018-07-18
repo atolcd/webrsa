@@ -46,7 +46,7 @@
 		array(
 			'options' => $options['Dureeemploi'],
 			'empty' => '',
-			'label' => required (__d ('questionnairesb7pdvs93', 'Questionnaireb7pdv93.dureeemploi')),
+			'label' => __d ('questionnairesb7pdvs93', 'Questionnaireb7pdv93.dureeemploi'),
 			'disabled' => true
 		)
 	);
@@ -56,7 +56,6 @@
 		'Emploiromev3',
 		array(
 			'options' => $options,
-			'required' => true,
 			'disabled' => true
 		)
 	);
