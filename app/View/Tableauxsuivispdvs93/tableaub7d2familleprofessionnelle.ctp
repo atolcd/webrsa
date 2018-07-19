@@ -27,21 +27,21 @@
 			<tr>
 				<th><?php echo $intitule; ?></th>
 				<td class="number"><?php echo $results['tableauRomev3']['B7'][$id]; ?></td>
-				<td class="number"><?php echo $results['totalFamilleB7'] == 0 ? 0 : round (100 * $results['tableauRomev3']['B7'][$id] / $results['totalFamilleB7'], 2); ?></td>
+				<td class="number"><?php echo $results['totalFamilleB7'] == 0 ? 0 : round (100 * $results['tableauRomev3']['B7'][$id] / $results['totalFamilleB7'], 2)."%"; ?></td>
 				<td class="number"><?php echo $results['tableauRomev3']['D2'][$id]; ?></td>
-				<td class="number"><?php echo $results['totalFamilleD2'] == 0 ? 0 : round (100 * $results['tableauRomev3']['D2'][$id] / $results['totalFamilleD2'], 2); ?></td>
+				<td class="number"><?php echo $results['totalFamilleD2'] == 0 ? 0 : round (100 * $results['tableauRomev3']['D2'][$id] / $results['totalFamilleD2'], 2)."%"; ?></td>
 				<td class="number"><?php echo $results['tableauRomev3']['TOTAL'][$id]; ?></td>
-				<td class="number"><?php echo $results['totalFamilleTotal'] == 0 ? 0 : round (100 * $results['tableauRomev3']['TOTAL'][$id] / $results['totalFamilleTotal'], 2); ?></td>
+				<td class="number"><?php echo $results['totalFamilleTotal'] == 0 ? 0 : round (100 * $results['tableauRomev3']['TOTAL'][$id] / $results['totalFamilleTotal'], 2)."%"; ?></td>
 			</tr>
 			<?php endforeach;?>
 			<tr class="total">
 				<th>TOTAL</th>
 				<td class="number"><?php echo $results['totalFamilleB7']; ?></td>
-				<td class="number"><?php echo $results['totalFamilleB7'] == 0 ? 0 : 100; ?></td>
+				<td class="number"><?php echo $results['totalFamilleB7'] == 0 ? 0 : "100%"; ?></td>
 				<td class="number"><?php echo $results['totalFamilleD2']; ?></td>
-				<td class="number"><?php echo $results['totalFamilleD2'] == 0 ? 0 : 100; ?></td>
+				<td class="number"><?php echo $results['totalFamilleD2'] == 0 ? 0 : "100%"; ?></td>
 				<td class="number"><?php echo $results['totalFamilleTotal']; ?></td>
-				<td class="number"><?php echo $results['totalFamilleTotal'] == 0 ? 0 : 100; ?></td>
+				<td class="number"><?php echo $results['totalFamilleTotal'] == 0 ? 0 : "100%"; ?></td>
 			</tr>
 		</tbody>
 	</table>
