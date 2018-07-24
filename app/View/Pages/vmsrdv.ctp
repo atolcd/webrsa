@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -88,12 +88,13 @@
 <a href="vmsrdv">Voir, Modifier, Supprimer un Rendez-vous</a> <br/>
 <a href="rdvcer#mcer">Depuis le menu CER</a> <br/>
 <a href="rdvcohorte">Mise à jour des statuts des rendez-vous en masse</a> <br/>
+<a href="vmsrdv#ficli">Lier un fichier à un RDV</a> <br/>
 </div>
 <p><u>Les liens de la liste de rendez-vous</u>&nbsp;:</p>
 <p>Le lien Voir  &nbsp;: &nbsp;<img class="bimg" src="/didac/images/livoir.jpg" alt="Lien Voir" width="31px" height="45px" />  Permet de visualiser les détails du rendez-vous &nbsp;:</p>
 <img src="/didac/images/voirdv.jpg" alt="Voir le rdv" width="605px" height="177px" />
 <p>Le lien Modifier  &nbsp;:&nbsp;<img class="bimg" src="/didac/images/modrdv.jpg" alt="Lien Voir" width="51px" height="43px" />   Permet de modifier le rendez-vous, par exemple pour mettre à jour le statut du rendez-vous, modifier la date, l'horaire, l'objet, le nom du référent  &nbsp;:</p>
-<img src="/didac/images/mrdv.jpg" alt="rdv collectif" width="605px" height="321px" />
+<img src="/didac/images/mrdv.jpg" alt="rdv collectif" width="690px" height="265px" />
 <ul>
 <li>Pour un bénéficiaire qui s’est présenté à son RDV, vous devez mettre à jour le statut du rendez-vous à la valeur ‘Honoré’.</li>
 </ul>
@@ -103,9 +104,15 @@
 <!--Déplacer le paragraphe à côté de l'image-->
 <p>Cliquer sur OK pour rendre la suppression effective.</p>
 <br/><br/>
+<a name="ficli"></a>
+<p><u>Lier un fichier à un RDV</u></p>
+
+<p>Le lien &nbsp;:&nbsp;<img class="bimg" src="/didac/images/fichli.jpg" alt="Fichier rdv" width="53px" height="56px" />   permet d'ajouter des pièces jointes sur vos RDV.</p>
+<p>Dans la liste des RDV, le comptage des fichiers liés apparaît.</p>
+<img src="/didac/images/flirdv.jpg" alt="rdv fichiers liés" width="482px" height="179px" />
 <a href="#haut">Haut de la page</a>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>

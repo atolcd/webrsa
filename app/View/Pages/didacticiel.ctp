@@ -81,7 +81,7 @@
 	<img style="position:absolute; top:250px; left:50px;" src="/didac/images/guide.jpg" width="575px" height="218px" alt="Guide utilisateur"/>
 	<p style="position:absolute;bottom:10px;">Crée par DPAS/CESDI</p>
 	</div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 	</div>
 </body>
 </html>

@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -95,13 +95,13 @@
 <ul><li>Mise à disposition des tableaux de bord du bilan d’activité du PDV (annexe 3), à l’exception des tableaux B1 et B2  « bilans et objectifs semestriels et annuels » et B7 « nombre d’accès à l’emploi des personnes maintenues dans l’accompagnement du PDV RSA ».</li></ul>
 
 <p>Le schéma ci-dessous récapitule quelles sont les actions liées à votre activité qui alimentent vos tableaux statistiques.</p>
-<img src="/didac/images/sstat.jpg" alt="Schéma des champs d'alimentation des tableaux de bords " width="657px" height="675px" />
+<img src="/didac/images/sstat.jpg" alt="Schéma des champs d'alimentation des tableaux de bords " width="667px" height="689px" />
 
 
 <br/>
 <a href="#haut">Haut de la page</a>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>

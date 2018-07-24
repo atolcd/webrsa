@@ -97,7 +97,7 @@
 <br/>
 <a href="#haut">Haut de la page</a>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>

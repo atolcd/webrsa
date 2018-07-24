@@ -15,7 +15,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -96,6 +96,7 @@
 <a href="icones#icones">Les icônes d'information</a>
 <a href="icones#acces">Les Accès concurrents</a>
 <a href="dosssep#separe">Cas des couples séparés</a>
+<a href="dossacc#modacc">Le module accompagnement</a>
 
 </div>
 <br/>	
@@ -146,7 +147,7 @@ Dans le cas où le conjoint sortant fait sa propre demande de RSA avec un nouvea
 
 
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 
 	</body>

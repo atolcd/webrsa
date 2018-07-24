@@ -15,7 +15,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -96,16 +96,24 @@
 <a href="icones#icones">Les icônes d'information</a>
 <a href="icones#acces">Les Accès concurrents</a>
 <a href="dosssep#separe">Cas des couples séparés</a>
+<a href="dossacc#modacc">Le module accompagnement</a>
 </div>
 <br/>	
 <a name="rechalloc"></a>
 <ol>
 <li style="list-style-type:decimal type">Recherche d'un bénéficiaire</li>
 </ol>
-<p>Le menu <b>"Recherches"</b> permet de rechercher et de consulter les dossiers selon certains critères qui peuvent se combiner (recherche multi-critères).</p>
+<p>L'écran de recherche par allocataire est celui sur lequel vous arrivez lorsque vous vous connectez à WebRSA.
+Le menu <b>"Recherches / par dossier / allocataire"</b> permet de rechercher et de consulter les dossiers selon certains critères qui peuvent se combiner (recherche multi-critères).
+</br></br>
+Lorsqu'on se connecte à WebRSA, on arrive directement sur le formulaire de recherche par allocataire.
+</p>
 <p style="line-height:1.5em;"><b><u>Menu Recherches</u></b>&nbsp;<img class="bimg" src="../didac/images/brech.jpg" alt="Menu de recherches" width="97px" height="29px" /></p>
-<p>Lorsqu'on se connecte à WebRSA, on arrive directement sur le formulaire de recherche par allocataire.</p>
-<img src="/didac/images/alloc.jpg" alt="Menu de recherches" width="670px" height="874px" />
+<p>Afin d'activer les filtres qui apparaissent en "grisé", il faut cocher les cases à l'intérieur du formulaire. Les cases à cocher permettent les choix multiples.</p>
+<img src="/didac/images/alloc.jpg" alt="Menu de recherches" width="695px" height="468px" />
+<img src="/didac/images/alloc1.jpg" alt="Menu de recherches" width="695px" height="449px" />
+<p>Les filtres ci-dessus contiennent des listes déroulantes permettant un choix de filtre unique :</br>Ces filtres sont détaillés dans la partie "Les Recherches" de ce didacticiel.</p>
+<img src="/didac/images/alloc2.jpg" alt="Menu de recherches" width="695px" height="211px" />
 
 <p>Cliquer sur le bouton Rechercher <img class="bimg" src="../didac/images/bval.jpg" alt="Bouton de validation" width="98px" height="29px" /> pour obtenir tous les dossiers.</p>
 <p><u>Résultat de la recherche</u> &nbsp;:</p>
@@ -122,7 +130,7 @@
 </ul>
 <p>
 Un filtre de suivi de parcours par structure : Il s'agit de la structure d'accompagnement.
-Ce filtre vous permet de récupérer tous vos suivis <u>quelque soit l'orientation CG</u>.
+Ce filtre vous permet de récupérer tous vos suivis <u>quelque soit l'orientation du Conseil Départemental</u>.
 </p>
 <img src="/didac/images/suiref.jpg" alt="Suivis pdv" width="670px" height="148px" />
 <p>Les listes sont interdépendantes&nbsp;:&nbsp;le choix de la structure du parcours conditionne les noms de la liste de référents sur la liste suivante&nbsp;:</p>
@@ -164,7 +172,7 @@ En positionnant la souris sur un bénéficiaire, certaines informations apparais
 <a href="#haut">Haut de la page</a>
 <br/>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 
 	</body>

@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -86,6 +86,8 @@
 <!-- <a href="#rem">Remplacer en masse un référent</a> <br/> -->
 <a href="affectdos#affdoss">Affectation depuis le dossier</a> <br/>
 <a href="#cloref">Clôturer un référent</a> <br/>
+<a href="cohcloref#clorefma">Clôturer un référent en masse</a> <br/>
+<a href="cohcloref#reafma">Réaffecter les dossiers du référents clôturé</a> <br/>
 </div>
 <ol start="3"><li><a name="affdoss">Affecter un référent directement depuis le dossier du bénéficiaire</a></li></ol>
 <p>Il est possible d’affecter un référent à partir du dossier principalement pour les cas suivants  &nbsp;: dossier non orientés, dossiers orientés Pôle Emploi et dossiers orientés SSD.<br/>
@@ -125,7 +127,7 @@ Seule la clôture du référent permet de conserver l'historique.
 <br/>
 <a href="#haut">Haut de la page</a>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>

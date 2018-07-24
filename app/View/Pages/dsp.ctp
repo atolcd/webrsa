@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -84,6 +84,7 @@
 <a href="dsp#rub">Les rubriques de la DSP</a> <br/>
 <a href="ajoudsp#ajou">Ajouter une DSP</a>
 <a href="majdsp#maj">Mise à jour d'une DSP</a>
+<a href="incdsp#grasdsp">Champs du B3</a>
 </div>
 <p>Lors de l’instruction d’une demande RSA par les services instructeurs, les données socio-professionnelles (DSP) sont enregistrées via le logiciel I-RSA. Les informations concernant les DSP sont intégrées tous les mois dans WebRSA. Si une DSP a été enregistrée lors de l’instruction d’une demande RSA, elle sera visible dans la partie DSP du dossier.</p>		
 <p class="nb"><b>NB</b> &nbsp;: Afin de renseigner vos tableaux de statistiques, il est impératif de mettre à jour la DSP régulièrement.</p>
@@ -129,7 +130,7 @@
 <br/>
 <a href="#haut">Haut de la page</a>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>

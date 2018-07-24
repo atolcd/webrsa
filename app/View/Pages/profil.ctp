@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -80,11 +80,12 @@
 	<a style="text-align:left;" href="javascript:history.back()">&lsaquo;&lsaquo;&nbsp;Page précédente</a>&nbsp;
 	<a style="text-align:right;padding-right:15px;float:right;" href="javascript:history.forward(+1)">Page suivante&nbsp;&rsaquo;&rsaquo;</a>
 		<h2>Les profils d'habilitation</h2>
-	<p>Dans webrsa, il existe 3 profils d'habilitations pour les projet de ville&nbsp;:</p>
+	<p>Dans webrsa, il existe 3 profils d'habilitations pour les projet de ville&nbsp;:<br>Depuis la version 3 de WebRSA (Janvier 2017), s'est ajouté le profil communautaire qui permet l'agrégation des statistiques ainsi que les requêtes sur plusieurs territoires.</p>
 <div class="nav">
 <a href="#resp">Responsable structure</a>&nbsp;&nbsp;
 <a href="#secr">Secrétaire</a>&nbsp;&nbsp;
 <a href="#ci">Chargé d'insertion</a>&nbsp;&nbsp;
+<a href="#cc">Responsable communautaire</a>&nbsp;&nbsp;
 </div>
 <p>Les habilitations sont différentes en fonction des profils métiers.<br/>
 Les items des menus sont différents en fonction des habilitations.<br/>
@@ -125,10 +126,36 @@ Les items du menu "Recherches" sont identiques pour tous les profils.
 <li>Saisir un CER.</li>
 <li>Accéder au tableau de suivi des CER.</li>
 </ul>
+<ol start="4"><li><a name="cc">Le profil communautaire</a></li></ol>
+<p>Ce profil est attribué aux responsables "projet de ville communautaire". 
+Il a été conçu pour permettre le regroupement de plusieurs communes, tant dans les calculs statistiques des tableaux de bords que dans les requêtes issues des écrans de recherche.
+</p>
+<ul><li>Sur les écrans de recherche</li>
+<li>Sur tous les tableaux de bords</li></ul>
+<p>Ce profil permet d'accéder à toutes les requêtes des communes qui y sont liées.
+Dans le cas de plaine commune, La responsable peut visualiser l'activité des projets de ville soit individuellement, soit en regroupement de plusieurs territoires.
+</p>
+<p>Sur les écrans de recherche, les résultats par défaut sont ceux des communes regroupées :</p>
+<img src="/didac/images/comu.jpg" alt="Profil Communautaire" width="658px" height="86px"/>
+<img src="/didac/images/rescomu.jpg" alt="Profil Communautaire" width="658px" height="189px"/>
+<p>Le champ "Suivi du parcours" permet de sélectionner soit:</p>
+<ul><li>Une structure à partir de la liste déroulante </li>
+<li>Soit uniquement les projets de ville de Plaine Commune</li></ul>
+<img src="/didac/images/vpc.jpg" alt="Profil Communautaire" width="658px" height="325px"/>
+<p>Uniquement plaine commune, soit un projet de ville de plaine commune</p>
+<img src="/didac/images/uvpc.jpg" alt="Profil Communautaire" width="658px" height="117px"/>
+<p>La liste des référents est toujours interdépendante des projets de ville qui y sont rattachés.<br><b>Sur tous les tableaux de bords</b>
+Par défaut, c'est le tableau communautaire qui est sélectionné :</p>
+<img src="/didac/images/tabcom.jpg" alt="Profil Communautaire" width="658px" height="154px"/>
+<p>La liste déroulante "Projet de ville" permet de sélectionner l'activité de chaque projet de ville indépendamment :</p>
+<img src="/didac/images/seltabcom.jpg" alt="Profil Communautaire" width="658px" height="137px"/>
+<p class="nb">Les résultats du tableau communautaire prennent en compte les personnes ayant déménagés au sein de plaine commune.</p>
+<p>Les tableaux offrent également la possibilité de filtrer sur plusieurs communes en cochant la case "Filtrer par plusieurs projets de ville".</p>
+<img src="/didac/images/selmutabcom.jpg" alt="Profil Communautaire" width="658px" height="172px"/>
 <br/>
 <a href="#haut">Haut de la page</a>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>

@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -88,6 +88,7 @@
 <a href="fpimprim">Impression de la fiche de prescription</a> <br/>
 <a href="fpeffec">Retour de l'effectivité de la prescription</a> <br/>
 <a href="fpstatuts">Les statuts de la fiche de prescription</a> <br/>
+<a href="incfp#b45">Champs des B4 et B5</a> <br/>
 </div>
 
 <!-- Procédure pour les fiches de prescription en attente de conventionnement. -->
@@ -171,7 +172,7 @@ Extrait du formulaire de recherche "Par fiches de prescription".
 <br/>
 <a href="#haut">Haut de la page</a>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>

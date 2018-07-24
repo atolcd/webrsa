@@ -78,7 +78,7 @@ dd{font-style:italic;color:#808080;margin-bottom:5px;margin-top:5px;}
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -145,7 +145,7 @@ dd{font-style:italic;color:#808080;margin-bottom:5px;margin-top:5px;}
 	<a style="text-align:left;" href="javascript:history.back()">&lsaquo;&lsaquo;&nbsp;Page précédente</a>&nbsp;
 	<a style="text-align:right;padding-right:15px;float:right;" href="javascript:history.forward(+1)">Page suivante&nbsp;&rsaquo;&rsaquo;</a>
 	<h2>Foire aux questions</h2>
-	<p>Vous trouverez dans cette FAQ les réponses à vos questions les plus fréquentes. Cette FAQ s'inspire des questions que vous envoyez à notre centre de services (CDS à la DSI).<br/> S'il y a d'autres questions que vous vous posez et dont vous souhaiteriez voir figurer les réponses dans cette FAQ, n'hésitez pas à nous solliciter via le centre de service.</p>
+	<p>Vous trouverez dans cette FAQ les réponses à vos questions les plus fréquentes. Cette FAQ s'inspire des questions que vous envoyez à notre centre de services (CDS à la DINSI).<br/> S'il y a d'autres questions que vous vous posez et dont vous souhaiteriez voir figurer les réponses dans cette FAQ, n'hésitez pas à nous solliciter via le centre de service.</p>
 <div class="nav">
 
 <div id="accordion" >
@@ -276,7 +276,7 @@ Sur la ligne du motif, sélectionnez "<b><i>Abandon</i></b>". Les réponses se t
 	</div>
 </div>
 </div>
-	<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+	<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>

@@ -15,7 +15,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -96,6 +96,7 @@
 <a href="icones#icones">Les icônes d'information</a>
 <a href="icones#acces">Les Accès concurrents</a>
 <a href="dosssep#separe">Cas des couples séparés</a>
+<a href="dossacc#modacc">Le module accompagnement</a>
 
 </div>
 <br/>	
@@ -161,18 +162,19 @@ A l'intérieur de ces rubriques se trouvent les détails des informations auxque
 <li><b>Le rendez-vous</b>  &nbsp;: Pour saisir vos rendez-vous.</li>
 <li><b>Les CER </b> &nbsp;: Vous pouvez enregistrer, imprimer un CER  et imprimer la décision du CER.</li>
 <li><b>La fiche de prescription</b>  &nbsp;: Enregistrement et impression des fiches prescription.</li>
-<li><b>Le mémo</b> : Vous permet d'enregistrer différentes informations, tel que les numéros de téléphone ou les adresses mails par exemple..</li>
+<!-- <li><b>Le mémo</b> : Vous permet d'enregistrer différentes informations, tel que les numéros de téléphone ou les adresses mails par exemple..</li> -->
+<li><b>Le module accompagnement</b> : Accessible depuis le lien "Synthèse du suivi", ce module regroupe tout le suivi en consultation. Il contient des liens d'accès aux différentes rubriques du dossier.</li>
 </ul>
 
-<a name="filie"></a><p><u>La composition du foyer</u>&nbsp;:</p>
+<a name="cf"></a><p><u>La composition du foyer</u>&nbsp;:</p>
 
-<p>Le lien "Composition du foyer", vous permet d'insérer des pièces jointes sur chaque personne composant le foyer :  &nbsp;:</p>
-<img src="/didac/images/liensalloc.jpg" alt="Lier des fichiers" width="605px" height="221px" />
+<p>Le lien "Composition du foyer", vous permet de Visualiser chaque personne composant le foyer  :  &nbsp;:</p>
+<img src="/didac/images/liensalloc.jpg" alt="Composition du foyer" width="690px" height="174px" />
 
-<p>Le lien&nbsp;<img class="bimg" src="../didac/images/filie.jpg" alt="Lien fichiers liés" width="53px" height="56px" />   sur chaque personne composant le foyer; il peut être utilisé pour la convocation par exemple.</p>
+<!--<p>Le lien&nbsp;<img class="bimg" src="../didac/images/filie.jpg" alt="Lien fichiers liés" width="53px" height="56px" />   sur chaque personne composant le foyer; il peut être utilisé pour la convocation par exemple.</p>
 <img src="/didac/images/pj.jpg" alt="Fichier liés" width="643px" height="289px" />
 <p>Dans la liste des personnes composant le foyer, le comptage des fichiers liés apparaît.</p>
-<img src="/didac/images/numpj.jpg" alt="Nombre de fichiers liés" width="482px" height="179px" />
+<img src="/didac/images/numpj.jpg" alt="Nombre de fichiers liés" width="482px" height="179px" /> -->
 
 
 <a name="coord"></a><li>3.4&nbsp;Les fiches personnes&nbsp;/&nbsp; Modification des coordonnées.</li>
@@ -232,9 +234,10 @@ La procédure est la même pour le conjoint (CJT).</p>
 </ul>
 <li  type="A"><u>Accompagnement du parcours.</u></li>
 </ol>
-<img src="/didac/images/accdos.jpg" alt="le droit" width="221px" height="169px" />
+<img src="/didac/images/accdos.jpg" alt="le droit" width="201px" height="228px" />
 
 <ul>
+<li><b> La synthèse du suivi</b>  : Le module accompagnement.</li>
 <li><b> Référent du parcours</b>  : Consulter le référent ou modifier le référent.</li>
 <li><b> Gestion RdV</b> : Consulter ou ajouter un rendez-vous.</li>
 <li><b> Questionnaire D1</b>  : Renseigner le formulaire pour mettre à jour vos statistiques.</li>
@@ -249,11 +252,11 @@ La procédure est la même pour le conjoint (CJT).</p>
 
 <b><li> c)&nbsp;Offre d'insertion</b> </li>
 
-<li>Fiche de prescription : Ajouter, consulter et modifier une fiche de prescription.</li>
-<li>Le mémo</li>
-</ul>
+<li>Fiche de prescription : Ajouter, consulter et modifier une fiche de prescription.</li></ul>
+<!-- <li>Le mémo</li>
 
-<!--Le mémo-->
+
+<!--Le mémo
 <p><b>Le "Mémo"</b> se trouve au dessus des informations du foyer.</p>
 <div style="height:250px;"><img src="/didac/images/locmem.jpg" alt="Le mémo" width="235px" height="184px" />
 <p style="display:inline;position:relative;top:-190px;">Cliquer sur le lien "Mémos". Puis cliquer sur le bouton "Ajouter".</p>
@@ -261,7 +264,7 @@ La procédure est la même pour le conjoint (CJT).</p>
 <p>Vous pouvez ensuite ajouter vos annotations dans la zone de commentaire :</p>
 <img src="/didac/images/ecrmem.jpg" alt="Le mémo" width="606px" height="121px" />
 <p>Le mémo est ensuite disponible sur le dossier.<br/> Vous pouvez le modifier ou en ajouter d'autres.</p>
-<img src="/didac/images/lime.jpg" alt="Le mémo" width="690px" height="144px" />
+<img src="/didac/images/lime.jpg" alt="Le mémo" width="690px" height="144px" /> -->
 
 
 
@@ -309,7 +312,7 @@ Le bouton "Ajouter" a été rendu inactif.
 
 
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 
 	</body>

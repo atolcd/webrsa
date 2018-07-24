@@ -58,7 +58,7 @@ border-radius:0 0 10px 10px;}
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -126,7 +126,7 @@ border-radius:0 0 10px 10px;}
 	<a title="Revenir à la page précédente" style="text-align:left;" href="javascript:history.back()">&lsaquo;&lsaquo;&nbsp;Page précédente</a>&nbsp;
 	<a title="Aller à la page suivante" style="text-align:right;padding-right:15px;float:right;" href="javascript:history.forward(+1)">Page suivante&nbsp;&rsaquo;&rsaquo;</a>
 		<h2>Les notices métier</h2>
-<p>Cette page contient toutes les notices métier qui vous sont remises lors des formations, ou qui vous ont envoyées jointes aux infos flash.</p>
+<p>Cette page contient toutes les notices métier qui vous sont remises lors des formations, ou qui vous sont envoyées jointes aux infos flash.</p>
 <div id="notice">
 <a href="/didac/pdf/notices/n1.pdf" target="_blank">Notice 1 : Les secteurs d'activités</a><br/>
 
@@ -152,15 +152,18 @@ border-radius:0 0 10px 10px;}
 <li>Prescription vers les acteurs de la Santé</li>
 <li>Culture loisirs vacances</li>
 </ul>
+<a href="/didac/pdf/notices/n8.pdf" target="_blank">Notice 8: Le sourcing</a><br/>
+<p style="height:40px;">Cette notice est celle remise lors des ateliers "Sourcing", il s'agit de cibler et identifier des publics pour mieux les mobiliser dans leur parcours d’insertion. </p>
+<a href="/didac/pdf/notices/n9.pdf" target="_blank">Notice 9: Le FTP </a><br/>
+<p style="height:40px;">Cette notice vous permet d'Exploiter les données mises à disposition sur le FTP - Listing B2 partie 3 analyse  parcours - Indicateurs socio démographiques .</p>
 <a href="/didac/pdf/notices/ftp.pdf" target="_blank">Procédure d'accès au FTP (SFTP)</a><br/>
 <p style="height:60px;">Notice explicative permettant d'accéder au FTP : Celui-ci est sécurisé (SFTP). Si la connexion ne se fait pas voyez votre service informatique afin de savoir si le firewall autorise ce type d'accès et si l'envoi de fichiers en SFTP est autorisé. Sinon n'hésitez pas à revenir vers nous.</p>
 
-</div>
 
 <br/>
 
-</div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+</div></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>

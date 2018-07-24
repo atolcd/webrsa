@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -87,6 +87,7 @@
 <a href="vmsrdv">Voir, Modifier, Supprimer un Rendez-vous</a> <br/>
 <a href="rdvcer#mcer">Depuis le menu CER</a> <br/>
 <a href="rdvcohorte">Mise à jour des statuts des rendez-vous en masse</a> <br/>
+<a href="vmsrdv#ficli">Lier un fichier à un RDV</a> <br/>
 </div>
 
 <ul style="list-style-type:none;">
@@ -126,7 +127,7 @@ En passant la souris sur le rendez-vous, un popup renvoie les Objectifs et les c
 <br/><br/>
 <a href="#haut">Haut de la page</a>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>
