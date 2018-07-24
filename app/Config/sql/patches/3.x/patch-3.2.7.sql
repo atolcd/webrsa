@@ -90,7 +90,7 @@ INSERT INTO typeemplois (name, created, modified) VALUES
 ('Accès à un emploi CDI', now(), now()),
 ('Accès à un emploi aidé', now(), now()),
 ('Accès à un emploi salarié SIAE', now(), now()),
-('Accès à une activité d\'indépendant, création d\'entreprise', now(), now());
+('Accès à une activité d indépendant, création d entreprise', now(), now());
 
 ALTER TABLE questionnairesd2pdvs93 ADD COLUMN emploiromev3_id integer;
 ALTER TABLE questionnairesd2pdvs93 ADD CONSTRAINT questionnairesd2pdvs93_emploiromev3_id_fkey FOREIGN KEY (emploiromev3_id)
