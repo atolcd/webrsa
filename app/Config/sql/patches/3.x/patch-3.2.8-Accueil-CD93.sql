@@ -41,6 +41,7 @@ UPDATE groups SET code = 'responsable-asso' WHERE id = 25;
 UPDATE groups SET code = 'secretaire-asso' WHERE id = 26;
 UPDATE groups SET code = 'referent-asso' WHERE id = 27;
 UPDATE groups SET code = 'consultation' WHERE id = 28;
+UPDATE groups SET code = 'prestataire_non_orientes' WHERE id = 29;
 ALTER TABLE groups ALTER COLUMN code SET NOT NULL;
 ALTER TABLE groups ADD CONSTRAINT groups_code_by_default CHECK (code != 'by-default');
 
