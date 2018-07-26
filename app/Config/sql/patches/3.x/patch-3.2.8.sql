@@ -61,8 +61,6 @@ CREATE TABLE accueilsarticles
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE valeurstags
-  OWNER TO webrsa;
 
 
 ALTER TABLE users ADD COLUMN accueil_referent_id integer;

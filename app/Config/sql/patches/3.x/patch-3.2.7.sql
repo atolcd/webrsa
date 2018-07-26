@@ -31,8 +31,6 @@ CREATE TABLE dureeemplois
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE dureeemplois
-  OWNER TO webrsa;
 
 CREATE TABLE typeemplois
 (
@@ -46,8 +44,6 @@ CREATE TABLE typeemplois
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE typeemplois
-  OWNER TO webrsa;
 
 CREATE TABLE questionnairesb7pdvs93
 (
@@ -76,9 +72,6 @@ CREATE TABLE questionnairesb7pdvs93
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE questionnairesb7pdvs93
-  OWNER TO postgres;
-
 
 INSERT INTO dureeemplois (name, created, modified) VALUES
 ('Temps complet', now(), now()),
