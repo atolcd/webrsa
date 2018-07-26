@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -48,7 +48,7 @@
 		<li><a href="stats">Les statistiques</a></li>
 		</ul>
 	<ul>
-		<li  id="activation"><a title="Faire des requêtes" href="recherches">Les Recherches&nbsp;+</a>
+		<li  id="activation"><a title="Faire des requêtes" href="rechharmo">Les Recherches&nbsp;+</a>
 	<ul>		
 		<li id="activ"><a title="Retrouver votre suivi" href="cpsuivi">Cas pratique &nbsp;: Retrouver votre suivi</a></li>
 		<li id="activ"><a title="Les nouvelles orientations" href="cpnvorient">Cas pratique &nbsp;: Les nouvelles orientations</a></li>
@@ -82,69 +82,89 @@
 	<a title="Aller à la page suivante" style="text-align:right;padding-right:15px;float:right;" href="javascript:history.forward(+1)">Page suivante&nbsp;&rsaquo;&rsaquo;</a>
 		<h2>Les Recherches&nbsp;:&nbsp;<i>Par dossier</i></h2>
 <div class="nav">
+<a href="rechharmo">Harmonisation des écrans de recherches</a><br/>
 <a href="recherches">Les recherches</a><br/>
 <a href="rechdoss">Par dossier allocataire</a><br/>
 <a href="rechorien">Par Orientation</a><br/>
 <a href="rechcer">Par Contrats / Par CER</a><br/>
 <a href="rechdsp">Par DSPs</a><br/>
 <a href="rechrdv">Par Rendez-vous</a><br/>
-<a href="rechtrans">Par allocataires transférés</a><br/>
+<a href="rechtrans">Par allocataires sortants</a><br/>
 <a href="rechfp">Par fiches de prescription</a><br/>
 <a href="rechrestran">Présence des actions des allocataires transférés<br/> dans les résultats des recherches</a><br/>
 </div>
 <img style="position:relative;float:right;right:192px;top:-158px;" src="/didac/images/rechdos.jpg" alt="Les recherches par dossier" width="171px" height="215px" />
 <div style="margin-top:120px;"></div>
-<ol><li><a name="all">La Recherche Par dossier&nbsp;/&nbsp;allocataire.</a></li></ol>
-<ul><li>Filtre sur la situation familiale</li>
-<li>Filtre sur les conditions de logement</li></ul>
-<p>Dans la version 2.6.1 rc4, nous avions vue que le <i>rôle de la personne</i>, à savoir le "demandeur" ou "une personne sans prestation" étaient disponibles dans les filtres de la recherche par allocataire.</p>
-<p>Un filtre permet d'extraire les Bénéficiaires en fonction de la composition du foyer correspondant à la situation familiale&nbsp; :</p>
-<img src="/didac/images/frasf.jpg" alt="Filtre composition du foyer" width="690px" height="150px" />
-<p>Filtrer sur les conditions de logement &nbsp;:</p>
-<img src="/didac/images/fracl.jpg" alt="Filtre conditions de logement" width="690px" height="180px" />
-<p>La recherche par sexe est également disponible: Ce filtre permet d'extraire des hommes ou des femmes.</p>
-<img src="/didac/images/fras.jpg" alt="Filtre par sexe" width="690px" height="47px" />
-<p>Filtrer selon l'ancienneté dans le dispositif &nbsp;:<br/>
-Ce filtre permet de filtrer les allocataires des plus récents au plus anciens.
-</p>
-<img src="/didac/images/fanc.jpg" alt="Filtre par ancienneté" width="690px" height="77px" />
+<ol start="2"><li><a name="all">La Recherche Par dossier&nbsp;/&nbsp;allocataire.</a></li></ol>
 
-<p>Le formulaire de recherche &quot;Par dossier/allocataire&quot; combine plusieurs critères (numéro dossier RSA, CAF, nom, prénom…). Nous allons présenter ici les principaux.</p>
+<p>Le formulaire de recherche ‘Par dossier/Allocataire’ combine plusieurs critères (numéro dossier RSA, CAF, nom, prénom…).</br>Nous allons présenter ici les principaux.</br></p>
+
 <p><u>Groupe de recherche par dossier</u></p>
-<p>Nature de la prestation</p>
-<img src="/didac/images/rdnp.jpg" alt="Recherche par dossier allocataire" width="605px" height="205px" />
-<p>Soumis à droit et devoirs</p>
-<img src="/didac/images/rdadd.jpg" alt="Recherche par dossier allocataire" width="605px" height="138px" />
-<p>Service instructeur</p>
-<img src="/didac/images/rasi.jpg" alt="Recherche par dossier allocataire" width="605px" height="247px" />
-<p>Organisme émetteur</p>
-<img src="/didac/images/rae.jpg" alt="Recherche par dossier allocataire" width="607px" height="69px" />
 
+<p>Sur les N° de CAF et de demande RSA</p>
+<img src="/didac/images/numdoss.jpg" alt="Recherche par dossier allocataire" width="690px" height="115px" />
+<p><u>Par "Uniquement la dernière demande RSA pour un même allocataire"</u>.<br/>La case est cochée par défaut, le résultat affiche la dernière demande RSA pour un même allocataire.<br/>Si vous décochez cette case, toutes les demandes d’un même allocataire s’affichent.<br/></p><p class="nb"><u>NB</u>  &nbsp;: Il peut être indispensable de décocher cette case pour récupérer les bénéficiaires. Dont la demande n'a pas été actualisée.</p>
+<img src="/didac/images/dra.jpg" alt="Recherche par dossier allocataire" width="579px" height="52px" />
+<p><u>Par date de demande RSA</u></p>
+<img src="/didac/images/rad.jpg" alt="Recherche par dossier allocataire" width="605px" height="75px" />
+<p><u>Par état du dossier</u></p>
+<img src="/didac/images/red.jpg" alt="Recherche par dossier allocataire" width="605px" height="172px" />
+<p><u>Nature de la prestation</u></p>
+<img src="/didac/images/natpre.jpg" alt="Recherche par dossier allocataire" width="665px" height="293px" />
+<p><u>Par code d'origine de la demande RSA</u></p>
+<img src="/didac/images/codeori.jpg" alt="Recherche par dossier allocataire" width="425px" height="114px" />
+<p><u>Filtrer selon l'ancienneté dans le dispositif</u> &nbsp;:<br/>
+Ce filtre permet de filtrer les allocataires des plus récents au plus anciens.</p>
+<img src="/didac/images/fanc.jpg" alt="Filtre par ancienneté" width="690px" height="77px" />
+<p><u>Service instructeur</u></p>
+<img src="/didac/images/rasi.jpg" alt="Recherche par dossier allocataire" width="690px" height="352px" />
+
+
+<p><u>Organisme émetteur</u></p>
+<img src="/didac/images/rae.jpg" alt="Recherche par dossier allocataire" width="602px" height="135px" />
 <ul>
 <li>CAF (Caisse Allocations Familiales) qui reçoit les demandes de RSA.</li>
 <li>MSA (Mutuelle Sociale Agricole).</li>
 </ul>
-<p><u>Par date de demande RSA</u></p>
-<img src="/didac/images/rad.jpg" alt="Recherche par dossier allocataire" width="605px" height="75px" />
-<p>Ce filtre permet une recherche sur une amplitude de date.<br/>Dans cet exemple, seuls s'afficheront les dossiers dont les demandes datent du 20 février 2013 <em>inclus</em> jusqu'au 26 février 2013 <em>inclus (=n-1)</em>.<br/>
-<u>Par "Uniquement la dernière demande RSA pour un même allocataire"</u>.<br/>La case est cochée par défaut, le résultat affiche la dernière demande RSA pour un même allocataire.<br/>Si vous décochez cette case, toutes les demandes d’un même allocataire s’affichent.<br/><u>NB</u>  &nbsp;: Il peut être indispensable de décocher cette case pour récupérer les bénéficiaires.</p>
-<img src="/didac/images/dra.jpg" alt="Recherche par dossier allocataire" width="579px" height="52px" />
-<p><u>Par état du dossier</u></p>
-<img src="/didac/images/red.jpg" alt="Recherche par dossier allocataire" width="605px" height="172px" />
-<p><u>Par adresse</u></p>
-<p>Le filtre permet d'obtenir les allocataires de votre commune directement par le biais de la liste déroulante, vous n'avez accès qu'aux données des allocataires de votre commune.</p>
-<img src="/didac/images/rpa.jpg" alt="Recherche par dossier allocataire" width="605px" height="125px" />
-<p><u>Par allocataire</u></p>
-<img src="/didac/images/ra.jpg" alt="Recherche par dossier allocataire" width="605px" height="192px" />
-<p><u>Par parcours de l'allocataire</u></p>
-<img src="/didac/images/rap.jpg" alt="Recherche par dossier allocataire" width="605px" height="64px" />
-<p>On peut également extraire les bénéficiaires qui possèdent ou non un CER.<br/>Cette extraction permet également de proposer un CER à ceux qui n'en ont pas. <br/>Cette recherche peut également se faire depuis le menu CER / Saisie d'un CER pour les bénéficiaires n'ayant pas encore de CER en cours de validité.<br/><u>Résultats de la recherche</u></p>
-<img src="/didac/images/rra.jpg" alt="Recherche par dossier allocataire" width="605px" height="202px" />
-<p>Cet exemple renvoie la liste des bénéficiaires ayant des droits ouverts.</p>
+<p><u>Par situation familiale</u></p>
+<img src="/didac/images/sifam.jpg" alt="Recherche par dossier allocataire" width="690px" height="315px" />
+<p><u>Par adresse</u></p></br>
+<p>Noter le nom complet sans le type de voie (rue avenue bvd etc...).</br>
+Dans le champ <b>"Nom de voie de l'allocataire"</b> :</br>
+Si je saisie <b>"de paris"</b>, on retrouve les Brsas des Lilas qui habitent rue de Paris.</p>
+<img src="/didac/images/rpa.jpg" alt="Recherche par dossier allocataire" width="690px" height="81px" />
+<p>Cliquer sur <img class="bimg" width="99px" height="29px" alt="Le bouton rechercher" src="/didac/images/bval.jpg">&nbsp;	pour valider la recherche. Si je saisie "rue de paris" ou "paris", ou paris*, le résultat ne renvoie rien.</p>
+
+<p><u>Bloc de recherche par allocataire</u></p>
+<p>Ce bloc vous permet de filtrer sur l'état civil des Brsas, et par tranche d'âge.</p>
+
+<img src="/didac/images/ra.jpg" alt="Recherche par dossier allocataire" width="690px" height="157px" />
+<p>Il contient également la possibilité de filtrer sur le sexe, et sur les droits et devoirs.</p>
+<p>Par sexe</p>
+<img src="/didac/images/fras.jpg" alt="Filtre par sexe" width="631px" height="79px" />
+<p><u>Soumis à droit et devoirs</u></p>
+<img src="/didac/images/rdadd.jpg" alt="Recherche par dossier allocataire" width="674px" height="101px" />
+
+<p><u>Filtrer sur les conditions de logement</u> &nbsp;:</p>
+<img src="/didac/images/fracl.jpg" alt="Filtre conditions de logement" width="690px" height="180px" />
+<p><u>Si l'allocataire possède un CER</u></p>
+<img src="/didac/images/allcer.jpg" alt="Recherche par dossier allocataire CER" width="646px" height="108px" />
+
+<p>On peut également extraire les bénéficiaires qui possèdent ou non un CER.<br/>Cette extraction permet également de proposer un CER à ceux qui n'en ont pas. <br/>La recherche sur les CER peut également se faire depuis le menu CER / Saisie d'un CER pour les bénéficiaires n'ayant pas encore de CER en cours de validité.</p>
+
+
+
+
+
+
+
+
+
+
 <br/>
 <a href="#haut">Haut de la page</a>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>

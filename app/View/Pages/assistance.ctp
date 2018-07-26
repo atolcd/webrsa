@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -86,7 +86,7 @@
 <ul>
 <li>Seul le référent fonctionnel du Projet de Ville est habilité à contacter le Centre de Services.</li>
 <li>Contact par téléphone du lundi au vendredi de 8h30 à 17h30  &nbsp;: <b>01 43 93 97 17</b>.</li>
-<li>Contact par mail 24h/24h  &nbsp;: <b>DSI_centreservices@cg93.fr</b>.</li>
+<li>Contact par mail 24h/24h  &nbsp;: <b>dinsi-transition-mail@seinesaintdenis.fr</b>.</li>
 </ul>
 <p><b>Comment suivre ses déclarations ?</b></p>
 <ul>
@@ -130,7 +130,7 @@ Le texte disparaît alors (remplissage en blanc).
 <br/>
 <a href="#haut">Haut de la page</a>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 
 </body>

@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -48,7 +48,7 @@
 		<li><a href="stats">Les statistiques</a></li>
 		</ul>
 	<ul>
-		<li  id="activation"><a title="Faire des requêtes" href="recherches">Les Recherches&nbsp;+</a>
+		<li  id="activation"><a title="Faire des requêtes" href="rechharmo">Les Recherches&nbsp;+</a>
 	<ul>		
 		<li id="activ"><a title="Retrouver votre suivi" href="cpsuivi">Cas pratique &nbsp;: Retrouver votre suivi</a></li>
 		<li id="activ"><a title="Les nouvelles orientations" href="cpnvorient">Cas pratique &nbsp;: Les nouvelles orientations</a></li>
@@ -82,19 +82,20 @@
 	<a title="Aller à la page suivante" style="text-align:right;padding-right:15px;float:right;" href="javascript:history.forward(+1)">Page suivante&nbsp;&rsaquo;&rsaquo;</a>
 		<h2>Les Recherches&nbsp;:&nbsp;<i>Par CER</i></h2>
 <div class="nav">
+<a href="rechharmo">Harmonisation des écrans de recherches</a><br/>
 <a href="recherches">Les recherches</a><br/>
 <a href="rechdoss">Par dossier allocataire</a><br/>
 <a href="rechorien">Par Orientation</a><br/>
 <a href="rechcer">Par Contrats / Par CER</a><br/>
 <a href="rechdsp">Par DSPs</a><br/>
 <a href="rechrdv">Par Rendez-vous</a><br/>
-<a href="rechtrans">Par allocataires transférés</a><br/>
+<a href="rechtrans">Par allocataires sortants</a><br/>
 <a href="rechfp">Par fiches de prescription</a><br/>
 <a href="rechrestran">Présence des actions des allocataires transférés<br/> dans les résultats des recherches</a><br/>
 </div>	
 <img style="position:relative;float:right;right:192px;top:-158px;" src="/didac/images/rechcer.jpg" alt="Les recherches par CER" width="164px" height="260px" />
 <div style="margin-top:85px;"></div>
-<ol start="3"><li style="margin-top:25px;"><a name="cer">La recherche par contrat (CER)</a></li></ol>
+<ol start="4"><li style="margin-top:25px;"><a name="cer">La recherche par contrat (CER)</a></li></ol>
 <p>La recherche par contrat vous permet de consulter la liste des CER selon des critères choisis.<br/>Le formulaire de recherche &quot;par contrat&quot; propose les critères de recherches communs  &nbsp;: recherche par dossier, par prestation, par état du dossier, par date de demande RSA et d’autres critères de recherche spécifiques au contrat.</p>
 <img src="/didac/images/mcer.jpg" alt="Recherche par CER" width="537px" height="260px" />
 <p><u>Recherche par CER</u></p>
@@ -144,7 +145,7 @@ La case à cocher "Allocataire dont le CER est arrivé à échéance renvoie la 
 
 <a href="#haut">Haut de la page</a>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>

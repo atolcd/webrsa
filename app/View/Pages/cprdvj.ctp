@@ -14,7 +14,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -49,7 +49,7 @@
 		<li><a href="stats">Les statistiques</a></li>
 		</ul>
 	<ul>
-		<li id="activation"><a title="Faire des requêtes" href="recherches">Les Recherches&nbsp;+</a>
+		<li id="activation"><a title="Faire des requêtes" href="rechharmo">Les Recherches&nbsp;+</a>
 	<ul>		
 		<li id="activ"><a title="Les nouvelles orientations" href="cpnvorient">Cas pratique &nbsp;: Les nouvelles orientations</a></li>
 		<li id="activ"><a title="La file active des CER" href="cpcerfa">Cas pratique &nbsp;: File active des CER</a></li>
@@ -80,7 +80,7 @@
 	<div id="main">
 	<a style="text-align:left;" href="javascript:history.back()">&lsaquo;&lsaquo;&nbsp;Page précédente</a>&nbsp;
 	<a style="text-align:right;padding-right:15px;float:right;" href="javascript:history.forward(+1)">Page suivante&nbsp;&rsaquo;&rsaquo;</a><br/><br/><br/>
-	<a title="Faire des requêtes" href="recherches">Les Recherches</a> > <i>Cas pratique&nbsp;:Retrouver nos rendez-vous.</i>
+	<a title="Faire des requêtes" href="rechharmo">Les Recherches</a> > <i>Cas pratique&nbsp;:Retrouver nos rendez-vous.</i>
 		<h2>Les Recherches</h2>
 		
 	<p>Depuis le menu Recherches / Par rendez-vous.</p>	
@@ -104,7 +104,7 @@ Prenons l'exemple d'un Chargé d'insertion qui souhaite consulter ses rendez-vou
 <br/>
 <a href="#haut">Haut de la page</a>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 
 	</body>

@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -86,6 +86,8 @@
 <!-- <a href="#rem">Remplacer en masse un référent</a> <br/> -->
 <a href="affectdos#affdoss">Affectation depuis le dossier</a> <br/>
 <a href="affectdos#cloref">Clôturer un référent</a> <br/>
+<a href="cohcloref#clorefma">Clôturer un référent en masse</a> <br/>
+<a href="cohcloref#reafma">Réaffecter les dossiers du référents clôturé</a> <br/>
 </div>
 <ol start="2">
 <li><a name="affiner">Affiner les recherches d'affectation</a> </li></ol>
@@ -135,7 +137,7 @@ A supprimer-->
 <a href="#haut">Haut de la page</a>
 <br/>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>

@@ -13,7 +13,7 @@
 	<div id="container">
 		<div id="header"></div>
 		<a name="haut"></a>
-		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 2.9.07&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
+		<div><h1>Guide utilisateur</h1><span style="margin-left:450px;font-size:12pt;">Version 3.1.6&nbsp;</span><a href="http://www.seine-saint-denis.fr/" target="_blank"><img style="position:absolute;top:109px;right:10px;"src="/didac/images/logo_cg.jpg" width="178px" height="50px" alt="logo cg93"/></a></div>
 		<hr/>
 <div id="menu">
 		<ul>
@@ -48,7 +48,7 @@
 		<li><a href="stats">Les statistiques</a></li>
 		</ul>
 	<ul>
-		<li  id="activation"><a title="Faire des requêtes" href="recherches">Les Recherches&nbsp;+</a>
+		<li  id="activation"><a title="Faire des requêtes" href="rechharmo">Les Recherches&nbsp;+</a>
 	<ul>		
 		<li id="activ"><a title="Retrouver votre suivi" href="cpsuivi">Cas pratique &nbsp;: Retrouver votre suivi</a></li>
 		<li id="activ"><a title="Les nouvelles orientations" href="cpnvorient">Cas pratique &nbsp;: Les nouvelles orientations</a></li>
@@ -82,14 +82,14 @@
 	<a title="Aller à la page suivante" style="text-align:right;padding-right:15px;float:right;" href="javascript:history.forward(+1)">Page suivante&nbsp;&rsaquo;&rsaquo;</a>
 		<h2>Les Recherches</h2>
 <div class="nav">
-
+<a href="rechharmo">Harmonisation des écrans de recherches</a><br/>
 <a href="recherches">Les recherches</a><br/>
 <a href="rechdoss">Par dossier allocataire</a><br/>
 <a href="rechorien">Par Orientation</a><br/>
 <a href="rechcer">Par Contrats / Par CER</a><br/>
 <a href="rechdsp">Par DSPs</a><br/>
 <a href="rechrdv">Par Rendez-vous</a><br/>
-<a href="rechtrans">Par allocataires transférés</a><br/>
+<a href="rechtrans">Par allocataires sortants</a><br/>
 <a href="rechfp">Par fiches de prescription</a><br/>
 <a href="rechrestran">Présence des actions des allocataires transférés<br/> dans les résultats des recherches</a><br/></div>
 <img style="position:relative;float:right;right:192px;top:-158px;" src="/didac/images/rech.jpg" alt="Les recherches" width="169px" height="262px" />
@@ -98,7 +98,7 @@
 <p>Sur&nbsp; <b><i><u>tous</u></i></b>&nbsp; les écrans de recherche.</p>
 <ul>
 <li><pre>Le comptage des résultats est disponible, ce qui vous permet de visualiser vos totaux.</pre></li>
-<li>Un filtre sur la structure du parcours.</li>
+<li>Un filtre sur la structure de suivi.</li>
 </ul>
 <p>Tous les écrans de recherche permettent dorénavant d'obtenir le nombre de résultats sur vos requêtes.</p>
 
@@ -128,7 +128,7 @@ Date de demande, NIR, Etat du droit, Nom/Prénom allocataire, Date de naissance,
 </p>
 <br/><a href="#haut">Haut de la page</a><br/>
 </div>
-<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>

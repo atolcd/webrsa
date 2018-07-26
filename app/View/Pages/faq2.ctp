@@ -191,7 +191,7 @@ background-color:#ADD8E6;border:solid 1px #808080;" title="Cliquez sur les quest
 	
 	
 
-	<div id="footer"><hr/><p>Crée par DPAS/CESDI</p></div>
+	<div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>
 </body>
 </html>
