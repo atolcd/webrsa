@@ -35,13 +35,13 @@
 	$this->end();
 
 	$this->start( 'custom_after_results' );
-	echo $this->Form->button( 'Tout cocher', array( 'type' => 'button', 'onclick' => "return toutCocher( 'input[type=checkbox]' );" ) );
-	echo $this->Form->button( 'Tout décocher', array( 'type' => 'button', 'onclick' => "return toutDecocher( 'input[type=checkbox]' );" ) );
+	echo $this->Form->button( 'Tout cocher', array( 'type' => 'button', 'onclick' => "return toutCocherAction( 'input.input[type=checkbox]' );" ) );
+	echo $this->Form->button( 'Tout décocher', array( 'type' => 'button', 'onclick' => "return toutDecocherAction( 'input.input[type=checkbox]' );" ) );
 	$this->end();
 
 	$explAction = explode('_', $action);
 	$exportcsvActionName = isset($explAction[1]) ? 'exportcsv_'.$explAction[1] : 'exportcsv';
-	
+
 	echo $this->element(
 		'ConfigurableQuery/cohorte',
 		array(
@@ -51,7 +51,7 @@
 			'modelName' => 'Personne'
 		)
 	);
-	
+
 	$results = isset( $results ) ? $results : array();
 	?><script type="text/javascript"><?php
 	foreach ($results as $i => $value) {
@@ -64,6 +64,47 @@
 			],
 			{element: 'Cohorte<?php echo $i;?>Nonoriente66Selection', value: '1', operator: '!='}
 		);
-	<?php } ?>
+	<?php
+	}
+	?>
+
+function toutCocherAction( selecteur, simulate ) {
+	 toutCocher( selecteur, simulate );
+	<?php
+	foreach ($results as $i => $value) {
+	?>
+	disableElementsOnValues(
+			[
+				'Cohorte<?php echo $i;?>OrientstructDateValidDay',
+				'Cohorte<?php echo $i;?>OrientstructDateValidMonth',
+				'Cohorte<?php echo $i;?>OrientstructDateValidYear'
+			],
+			{element: 'Cohorte<?php echo $i;?>Nonoriente66Selection', value: '1', operator: '!='}
+		);
+	<?php
+	}
+	?>
+	return false;
+}
+
+function toutDecocherAction( selecteur, simulate ) {
+	toutDecocher( selecteur, simulate );
+	<?php
+	foreach ($results as $i => $value) {
+	?>
+	disableElementsOnValues(
+			[
+				'Cohorte<?php echo $i;?>OrientstructDateValidDay',
+				'Cohorte<?php echo $i;?>OrientstructDateValidMonth',
+				'Cohorte<?php echo $i;?>OrientstructDateValidYear'
+			],
+			{element: 'Cohorte<?php echo $i;?>Nonoriente66Selection', value: '1', operator: '!='}
+		);
+	<?php
+	}
+	?>
+	return false;
+}
+
 	</script>
 	
