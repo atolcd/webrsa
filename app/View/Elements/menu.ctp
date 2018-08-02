@@ -404,7 +404,9 @@
 				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaub7d2typecontrat/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaub7d2typecontrat' ) ),
 				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaub7d2familleprofessionnelle/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaub7d2familleprofessionnelle' ) ),
 			),
-			'Rsa Query'  => array( 'url' => array( 'controller' => 'requetes', 'action' => 'index' ),
+			'Rsa Query'  => array(
+				'disabled' => ( $departement != 93 ),
+				 'url' => array( 'controller' => 'requetes', 'action' => 'index' ),
 			),
 		),
 		'Administration' => array(
