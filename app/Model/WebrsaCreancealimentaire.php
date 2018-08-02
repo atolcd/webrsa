@@ -51,7 +51,7 @@
 					$query['joins'] = array();
 				}
 				if (WebrsaModelUtility::findJoinKey($modelDepartement, $query) === false) {
-					$query['joins'][] = $this->Cui->join($modelDepartement);
+					$query['joins'][] = $this->Creancealimentaire->join($modelDepartement);
 				}
 
 				$fields[] = $modelDepartement.'.cui_id';
