@@ -64,7 +64,10 @@
 		 */
 		public function getDataForAccess( array $conditions, array $params = array() ) {
 			$query = array(
-				'fields' => array(),
+				'fields' => array(
+					'Questionnaired2pdv93.id',
+					'Rendezvous.structurereferente_id',
+				),
 				'joins' => array(
 					$this->Questionnaired2pdv93->join( 'Questionnaired1pdv93', array( 'type' => 'INNER' ) ),
 					$this->Questionnaired2pdv93->Questionnaired1pdv93->join( 'Rendezvous', array( 'type' => 'INNER' ) )

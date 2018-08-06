@@ -53,7 +53,11 @@
 		 */
 		protected static function _edit( array $record, array $params ) {
 			$params = self::params( $params );
-			return WebrsaPermissions::checkD1D2( Hash::get( $record, 'Rendezvous.structurereferente_id' ) );
+			$return = (
+				WebrsaPermissions::checkD1D2( Hash::get( $record, 'Questionnaired1pdv93.Rendezvous.structurereferente_id' ) )
+				|| WebrsaPermissions::checkD1D2( Hash::get( $record, 'Rendezvous.structurereferente_id' ) )
+			);
+			return  $return ;
 		}
 
 		/**
@@ -65,7 +69,11 @@
 		 */
 		protected static function _delete(array $record, array $params) {
 			$params = self::params( $params );
-			return WebrsaPermissions::checkD1D2( Hash::get( $record, 'Rendezvous.structurereferente_id' ) );
+			$return = (
+				WebrsaPermissions::checkD1D2( Hash::get( $record, 'Questionnaired1pdv93.Rendezvous.structurereferente_id' ) )
+				|| WebrsaPermissions::checkD1D2( Hash::get( $record, 'Rendezvous.structurereferente_id' ) )
+			);
+			return $return ;
 		}
 
 		/**
