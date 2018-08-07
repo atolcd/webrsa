@@ -202,38 +202,29 @@
 				'joins' => array(
 					$this->join('EntiteTag', array(
 						'type' => 'INNER',
-						'conditions' => array(
-							'OR' => array(
-								array(
-									'EntiteTag.modele' => 'Foyer',
-									'EntiteTag.fk_value = '.$foyer_id
-								),
-								array(
-									'EntiteTag.modele' => 'Personne',
-									'EntiteTag.fk_value = '.$personne_id
-								),
-							)
-						)
+						'conditions' => array()
 					))
 				),
-				'conditions' => array(),
+				'conditions' => array(
+					'OR' => array(
+						array(
+							'EntiteTag.modele' => 'Foyer',
+							'EntiteTag.fk_value = '.$foyer_id
+						),
+						array(
+							'EntiteTag.modele' => 'Personne',
+							'EntiteTag.fk_value = '.$personne_id
+						),
+					)),
 				'limit' => 1
 			);
 
 			if( false === empty( $valeurtag_id ) ) {
 				if(true === is_string($valeurtag_id)) {
-					if ($exclusionValeur) {
-						$query['conditions'][] = 'Tag.valeurtag_id NOT IN ('.$valeurtag_id.')';
-					} else {
-						$query['conditions'][] = 'Tag.valeurtag_id = '.$valeurtag_id;
-					}
+					$query['conditions'][] = 'Tag.valeurtag_id = '.$valeurtag_id;
 				}
 				else {
-					if ($exclusionValeur) {
-						$query['conditions']['Tag.valeurtag_id NOT IN'] = $valeurtag_id;
-					} else {
-						$query['conditions']['Tag.valeurtag_id'] = $valeurtag_id;
-					}
+					$query['conditions']['Tag.valeurtag_id'] = $valeurtag_id;
 				}
 			}
 
@@ -255,7 +246,11 @@
 				array('EntiteTag' => 'entites_tags', 'Tag' => 'tags')
 			);
 
-			return "(SELECT EXISTS($sq))";
+			if ($exclusionValeur) {
+				return "(SELECT NOT EXISTS($sq))";
+			} else {
+				return "(SELECT EXISTS($sq))";
+			}
 		}
 
 		/**
