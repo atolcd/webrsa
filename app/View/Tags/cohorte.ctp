@@ -34,7 +34,6 @@
 
 	// Bloc customSearch
 	$this->start( 'custom_search_filters' );
-	echo $this->Xform->multipleCheckbox( 'Search.Prestation.rolepers', $options, 'divideInto2Columns' );
 	echo $this->Xform->multipleCheckbox( 'Search.Foyer.composition', $options, 'divideInto2Columns' );
 	echo '<fieldset><legend>' . __m( 'Tag.cohorte_fieldset' ) . '</legend>'
 		. $this->Default3->subform(

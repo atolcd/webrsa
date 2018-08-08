@@ -340,10 +340,10 @@
 				'Adressefoyer' => 'LEFT OUTER',
 				'Dossier' => 'INNER',
 				'Adresse' => 'LEFT OUTER',
-				'Situationdossierrsa' => 'INNER',
+				'Situationdossierrsa' => 'LEFT OUTER',
 				'Detaildroitrsa' => 'LEFT OUTER',
 				'PersonneReferent' => 'LEFT OUTER',
-				'Personne' => 'LEFT OUTER',
+				'Personne' => 'INNER',
 				'Structurereferente' => 'LEFT OUTER',
 				'Referent' => 'LEFT OUTER',
 				'DspRev' => 'LEFT OUTER',
@@ -410,7 +410,7 @@
 						array(
 							'table' => 'orientsstructs',
 							'alias' => 'Orientstruct',
-							'type' => 'INNER',
+							'type' => 'LEFT OUTER',
 							'conditions' => '"Orientstruct"."personne_id" = "Personne"."id"'
 						),
 						$this->Tag->EntiteTag->Foyer->Dossier->Detaildroitrsa->join('Detailcalculdroitrsa', array('type' => $types['Detailcalculdroitrsa']))
