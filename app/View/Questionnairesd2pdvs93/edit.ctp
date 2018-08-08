@@ -56,6 +56,7 @@
 		'Emploiromev3',
 		array(
 			'options' => $options,
+			'requiredOnlyFirst' => true,
 			'disabled' => true
 		)
 	);
@@ -147,7 +148,7 @@ catch(e) {
 	//<![CDATA[
 	observeDisableFieldsOnValue(
 		'Questionnaired2pdv93Situationaccompagnement',
-		[ 'Questionnaired2pdv93Sortieaccompagnementd2pdv93Id' ],
+		[ 'Questionnaired2pdv93Sortieaccompagnementd2pdv93Id', 'Emploiromev3Romev3', 'Emploiromev3Familleromev3Id', 'Emploiromev3Domaineromev3Id', 'Emploiromev3Metierromev3Id', 'Emploiromev3Appellationromev3Id', 'Questionnaired2pdv93DureeemploiId' ],
 		[ 'sortie_obligation' ],
 		false,
 		false
@@ -159,20 +160,8 @@ catch(e) {
 		false,
 		false
 	);
-	observeDisableFieldsOnValue(
-		'Questionnaired2pdv93Sortieaccompagnementd2pdv93Id',
-		[ 'Emploiromev3Romev3', 'Emploiromev3Familleromev3Id', 'Emploiromev3Domaineromev3Id', 'Emploiromev3Metierromev3Id', 'Emploiromev3Appellationromev3Id', 'Questionnaired2pdv93DureeemploiId' ],
-		[ 28, 29, 30, 31, 32, 33 ],
-		false,
-		false
-	);
 	Event.observe($('Questionnaired2pdv93Situationaccompagnement'), 'change', function(e){
 		$('Questionnaired2pdv93Sortieaccompagnementd2pdv93Id').setValue(0);
-		$('Emploiromev3Romev3').disable();
-		$('Emploiromev3Familleromev3Id').disable();
-		$('Emploiromev3Domaineromev3Id').disable();
-		$('Emploiromev3Metierromev3Id').disable();
-		$('Emploiromev3Appellationromev3Id').disable();
 		$('Questionnaired2pdv93DureeemploiId').disable();
 	});
 	//]]>

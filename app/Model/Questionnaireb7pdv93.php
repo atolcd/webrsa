@@ -202,30 +202,9 @@
 		public function saveFormData( $personne_id, array $data ) {
 			$success = false;
 
-			if (!isset ($data['Expproromev3']['appellationromev3_id'])) {
-				return $success;
-			}
-
-			$domaineromev3_id = explode("_", $data['Expproromev3']['domaineromev3_id']);
-			$metierromev3_id = explode("_", $data['Expproromev3']['metierromev3_id']);
-			$appellationromev3_id = explode("_", $data['Expproromev3']['appellationromev3_id']);
-
-			$this->loadModel('Entreeromev3');
-			$entreeromev3 = $this-> Entreeromev3->find (
-				'first',
-				array (
-					'conditions' => array (
-						'familleromev3_id' => $data['Expproromev3']['familleromev3_id'],
-						'domaineromev3_id' => $domaineromev3_id[1],
-						'metierromev3_id' => $metierromev3_id[1],
-						'appellationromev3_id' => $appellationromev3_id[1],
-					),
-				)
-			);
-
-			if (!isset ($entreeromev3['Entreeromev3'])) {
-				return $success;
-			}
+			$this->loadModel('Questionnaired2pdv93');
+			$data['Emploiromev3'] = $data['Expproromev3'];
+			$entreeromev3['Entreeromev3']['id'] = $this->Questionnaired2pdv93->getEmploiromev3Id( $data );
 
 			$dateemploi = $data['Questionnaireb7pdv93']['dateemploi']['year'].
 				'-'.$data['Questionnaireb7pdv93']['dateemploi']['month'].

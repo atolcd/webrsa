@@ -35,6 +35,7 @@
 					'dateFormat' => 'MY',
 					'minYear' => date('Y') - 39,
 					'maxYear' => date('Y') + 1,
+					'label' => required (__d ('questionnairesb7pdvs93', 'Questionnaireb7pdv93.dateemploi'))
 				)
 			)
 		);
@@ -47,7 +48,7 @@
 		'Expproromev3',
 		array(
 			'options' => $options,
-			'required' => true
+			'requiredOnlyFirst' => true
 		)
 	);
 ?>

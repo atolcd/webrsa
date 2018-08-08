@@ -387,15 +387,38 @@
 		/**
 		 * Sortie de l'obligation d'accompagnement
 		 *
-		 *  3 => Création d'activité
-		 *  4 => Accès à un contrat aidé
-		 *  5 => Accès à un emploi durable (plus de 6 mois)
-		 *  6 => Maintien ou développement de l'emploi ou de l'activité
-		 * 11 => Accès à un emploi salarié SIAE (hors contrat aidé)
-		 * 12 => Accès à un emploi temporaire ou saisonnier (- ou = à 6 mois)
+		 *  Accès à un emploi CDI
+		 *  Accès à un emploi CDD de + de 6 mois
+		 *  Accès à un emploi temporaire (CDD de - de 6 mois, intérim)
+		 *  Accès à une activité d'indépendant, création d''entreprise
+		 *  Accès à un emploi aidé
+		 *  Accès à un emploi salarié SIAE
+		 *
+		 * @param string $mode
+		 * @return array
 		 */
-		//private $sortieaccompagnementd2pdv93_ids = array (3, 4, 5, 6, 11, 12);
-		private $sortieaccompagnementd2pdv93_ids = array (28, 29, 30, 31, 32, 33);
+		private function _sortieaccompagnementd2pdv93_ids ($mode = 'list') {
+			$sortieaccompagnementd2pdv93 = ClassRegistry::init( 'Sortieaccompagnementd2pdv93' );
+
+			$query = array (
+				'conditions' => array (
+					'code' => 'SORTIE_D2',
+				),
+				'order' => array ('name' => 'ASC'),
+			);
+			$sortieaccompagnementd2s = $sortieaccompagnementd2pdv93->find ('all', $query);
+
+			if ($mode == 'all') {
+				return $sortieaccompagnementd2s;
+			}
+
+			$return = array ();
+			foreach ($sortieaccompagnementd2s as $item) {
+				$return [] = $item['Sortieaccompagnementd2pdv93']['id'];
+			}
+
+			return $return;
+		}
 
 		/**
 		 *
@@ -4040,7 +4063,7 @@
 						'conditions' => array(
 							'Questionnaired2pdv93.personne_id = Personne.id',
 							'Questionnaired2pdv93.situationaccompagnement' => 'sortie_obligation',
-							'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->sortieaccompagnementd2pdv93_ids,
+							'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->_sortieaccompagnementd2pdv93_ids (),
 							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $search['Search']['annee'],
 						)
 					),
@@ -4071,20 +4094,15 @@
 			$return = array();
 
 			// Types d'emploi
-			$familles = $familleromev3->find (
-				'list',
+			$typeEmplois = $typeEmploi->find (
+				'all',
 				array (
-					'order' => array ('id' => 'ASC'),
+					'order' => array ('name' => 'ASC'),
 				)
 			);
 
-			// Types d'emploi
-			$typeEmplois = $typeEmploi->find (
-				'list',
-				array (
-					'order' => array ('id' => 'ASC'),
-				)
-			);
+			// Type d'emploi pour la questionnaire D2
+			$typeEmploisD2 = $this->_sortieaccompagnementd2pdv93_ids ('all');
 
 			// Questionnaires b7
 			$query = array (
@@ -4117,7 +4135,7 @@
 				),
 				'conditions' => array(
 					'Questionnaired2pdv93.situationaccompagnement' => 'sortie_obligation',
-					'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->sortieaccompagnementd2pdv93_ids,
+					'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->_sortieaccompagnementd2pdv93_ids (),
 					'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $annee,
 				),
 				'joins' => array (
@@ -4135,8 +4153,6 @@
 			$questionnaired2s = $questionnaired2pdv93->find ('all', $query);
 
 			// Formatage réponse
-
-			// Par type de contrat B7
 			$tableauB7 = array ();
 			$tableauD2 = array ();
 			$total = array ();
@@ -4148,19 +4164,22 @@
 			$total['D2']['partiel'] = 0;
 			$total['total'] = 0;
 
-			foreach ($typeEmplois as $idTypeEmploi => $intitule) {
-				$tableauB7['complet'][$idTypeEmploi] = 0;
-				$tableauB7['partiel'][$idTypeEmploi] = 0;
+			// Par type de contrat B7
+			foreach ($typeEmplois as $numero => $typeEmploi) {
+				$numero = $typeEmploi['Typeemploi']['codetypeemploi'];
+				$idTypeEmploi = $typeEmploi['Typeemploi']['id'];
+				$tableauB7['complet'][$numero] = 0;
+				$tableauB7['partiel'][$numero] = 0;
 
 				foreach ($questionnaireb7s as $questionnaireb7) {
 					if ($idTypeEmploi == $questionnaireb7['Questionnaireb7pdv93']['typeemploi_id']) {
 
 						if ($questionnaireb7['Dureeemploi']['id'] == 1) {
-							$tableauB7['complet'][$idTypeEmploi]++;
+							$tableauB7['complet'][$numero]++;
 							$total['B7']['complet']++;
 						}
 						else {
-							$tableauB7['partiel'][$idTypeEmploi]++;
+							$tableauB7['partiel'][$numero]++;
 							$total['B7']['partiel']++;
 						}
 
@@ -4171,20 +4190,22 @@
 			}
 
 			// Par type de contrat D2
-			foreach ($typeEmplois as $idTypeEmploi => $intitule) {
-				$tableauD2['complet'][$idTypeEmploi] = 0;
-				$tableauD2['partiel'][$idTypeEmploi] = 0;
+			foreach ($typeEmploisD2 as $numero => $typeEmploi) {
+				$numero = $typeEmploi['Sortieaccompagnementd2pdv93']['codetypeemploi'];
+				$idTypeEmploi = $typeEmploi['Sortieaccompagnementd2pdv93']['id'];
+				$tableauD2['complet'][$numero] = 0;
+				$tableauD2['partiel'][$numero] = 0;
 
 				foreach ($questionnaired2s as $questionnaired2) {
 					if ($idTypeEmploi == $questionnaired2['Questionnaired2pdv93']['sortieaccompagnementd2pdv93_id']) {
 
 						if ($questionnaired2['Questionnaired2pdv93']['situationaccompagnement'] == 'sortie_obligation') {
 							if ($questionnaired2['Dureeemploi']['id'] == 1) {
-								$tableauD2['complet'][$idTypeEmploi]++;
+								$tableauD2['complet'][$numero]++;
 								$total['D2']['complet']++;
 							}
 							else {
-								$tableauD2['partiel'][$idTypeEmploi]++;
+								$tableauD2['partiel'][$numero]++;
 								$total['D2']['partiel']++;
 							}
 
@@ -4214,9 +4235,9 @@
 
 			// Familles professionnelles
 			$familles = $familleromev3->find (
-				'list',
+				'all',
 				array (
-					'order' => array ('id' => 'ASC'),
+					'order' => array ('code' => 'ASC'),
 				)
 			);
 
@@ -4264,7 +4285,7 @@
 			$query = array (
 				'conditions' => array (
 					'Questionnaired2pdv93.situationaccompagnement' => 'sortie_obligation',
-					'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->sortieaccompagnementd2pdv93_ids,
+					'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->_sortieaccompagnementd2pdv93_ids (),
 					'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $annee,
 				),
 				'contain' => array (
@@ -4298,7 +4319,8 @@
 			$totalFamilleB7 = 0;
 			$totalFamilleD2 = 0;
 
-			foreach ($familles as $idFamille => $intitule) {
+			foreach ($familles as $famille) {
+				$idFamille = $famille['Familleromev3']['id'];
 				$tableauRomev3['B7'][$idFamille] = 0;
 				$tableauRomev3['D2'][$idFamille] = 0;
 				$tableauRomev3['TOTAL'][$idFamille] = 0;

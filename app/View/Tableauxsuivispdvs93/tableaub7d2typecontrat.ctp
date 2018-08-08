@@ -10,8 +10,8 @@
 		<tbody>
 			<tr class="total">
 				<th></th>
-				<th colspan="4">Maintiens dans l’accompagnement</th>
-				<th colspan="4">Sortie de l’accompagnement</th>
+				<th colspan="4" style="text-align: center;">Maintiens dans l’accompagnement</th>
+				<th colspan="4" style="text-align: center;">Sortie de l’accompagnement</th>
 			</tr>
 			<tr class="total">
 				<th></th>
@@ -31,17 +31,20 @@
 				<th>Nb d'accès</th>
 				<th>%</th>
 			</tr>
-			<?php foreach( $results['typeemploi'] as $id => $intitule ):?>
+			<?php foreach( $results['typeemploi'] as $numero => $typeemploi ):?>
+			<?php
+				$numero = $typeemploi['Typeemploi']['codetypeemploi'];
+			?>
 			<tr>
-				<th><?php echo $intitule; ?></th>
-				<td class="number"><?php echo $results['tableauB7']['complet'][$id]; ?></td>
-				<td class="number"><?php echo $results['total']['B7']['complet'] == 0 ? 0 : round (100 * $results['tableauB7']['complet'][$id] / $results['total']['B7']['complet'], 2)."%"; ?></td>
-				<td class="number"><?php echo $results['tableauB7']['partiel'][$id]; ?></td>
-				<td class="number"><?php echo $results['total']['B7']['partiel'] == 0 ? 0 : round (100 * $results['tableauB7']['partiel'][$id] / $results['total']['B7']['partiel'], 2)."%"; ?></td>
-				<td class="number"><?php echo $results['tableauD2']['complet'][$id]; ?></td>
-				<td class="number"><?php echo $results['total']['D2']['complet'] == 0 ? 0 : round (100 * $results['tableauD2']['complet'][$id] / $results['total']['D2']['complet'], 2)."%"; ?></td>
-				<td class="number"><?php echo $results['tableauD2']['partiel'][$id]; ?></td>
-				<td class="number"><?php echo $results['total']['D2']['partiel'] == 0 ? 0 : round (100 * $results['tableauD2']['partiel'][$id] / $results['total']['D2']['partiel'], 2)."%"; ?></td>
+				<th><?php echo $typeemploi['Typeemploi']['name']; ?></th>
+				<td class="number"><?php echo $results['tableauB7']['complet'][$numero]; ?></td>
+				<td class="number"><?php echo $results['total']['B7']['complet'] == 0 ? 0 : round (100 * $results['tableauB7']['complet'][$numero] / $results['total']['B7']['complet'], 2)."%"; ?></td>
+				<td class="number"><?php echo $results['tableauB7']['partiel'][$numero]; ?></td>
+				<td class="number"><?php echo $results['total']['B7']['partiel'] == 0 ? 0 : round (100 * $results['tableauB7']['partiel'][$numero] / $results['total']['B7']['partiel'], 2)."%"; ?></td>
+				<td class="number"><?php echo $results['tableauD2']['complet'][$numero]; ?></td>
+				<td class="number"><?php echo $results['total']['D2']['complet'] == 0 ? 0 : round (100 * $results['tableauD2']['complet'][$numero] / $results['total']['D2']['complet'], 2)."%"; ?></td>
+				<td class="number"><?php echo $results['tableauD2']['partiel'][$numero]; ?></td>
+				<td class="number"><?php echo $results['total']['D2']['partiel'] == 0 ? 0 : round (100 * $results['tableauD2']['partiel'][$numero] / $results['total']['D2']['partiel'], 2)."%"; ?></td>
 			</tr>
 			<?php endforeach;?>
 			<tr class="total">

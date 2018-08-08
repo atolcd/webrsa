@@ -10,9 +10,9 @@
 		<tbody>
 			<tr class="total">
 				<th></th>
-				<th colspan="2">Nombre d'accès à l'emploi - maintien dans l'accompagnement</th>
-				<th colspan="2">Nombre d'accès à l'emploi - sortie</th>
-				<th colspan="2">TOTAL</th>
+				<th colspan="2" style="text-align: center;">Nombre d'accès à l'emploi - maintien dans l'accompagnement</th>
+				<th colspan="2" style="text-align: center;">Nombre d'accès à l'emploi - sortie</th>
+				<th colspan="2" style="text-align: center;">TOTAL</th>
 			</tr>
 			<tr class="total">
 				<th></th>
@@ -23,9 +23,12 @@
 				<th>Nb</th>
 				<th>%</th>
 			</tr>
-			<?php foreach( $results['familleRomev3'] as $id => $intitule ):?>
+			<?php foreach( $results['familleRomev3'] as $famille ):?>
+			<?php
+				$id = $famille['Familleromev3']['id'];
+			?>
 			<tr>
-				<th><?php echo $intitule; ?></th>
+				<th><?php echo $famille['Familleromev3']['code'].' - '.$famille['Familleromev3']['name']; ?></th>
 				<td class="number"><?php echo $results['tableauRomev3']['B7'][$id]; ?></td>
 				<td class="number"><?php echo $results['totalFamilleB7'] == 0 ? 0 : round (100 * $results['tableauRomev3']['B7'][$id] / $results['totalFamilleB7'], 2)."%"; ?></td>
 				<td class="number"><?php echo $results['tableauRomev3']['D2'][$id]; ?></td>

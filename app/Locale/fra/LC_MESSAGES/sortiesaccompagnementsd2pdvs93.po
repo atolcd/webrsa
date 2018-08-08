@@ -27,6 +27,12 @@ msgstr "Retour"
 msgid "Sortieaccompagnementd2pdv93.name"
 msgstr "Intitulé"
 
+msgid "Sortieaccompagnementd2pdv93.code"
+msgstr "Code (ne pas modifier)"
+
+msgid "Sortieaccompagnementd2pdv93.codetypeemploi"
+msgstr "Code type emploi (ne pas modifier)"
+
 msgid "Sortieaccompagnementd2pdv93.actif"
 msgstr "Actif"
 
