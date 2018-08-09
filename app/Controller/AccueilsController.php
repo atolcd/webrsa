@@ -6,7 +6,6 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'AppController', 'Controller' );
-//	App::uses( 'CakeEmail', 'Network/Email' );
 
 	/**
 	 * La classe AccueilsController ...
@@ -21,9 +20,7 @@
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			'alertmail',
 			'index',
-			'test',
 		);
 
 		/**
@@ -42,51 +39,6 @@
 		 * @var array
 		 */
 		public $idReferent = null;
-
-		/**
-		 *
-		 */
-		public function test () {
-			$this->loadModel('User');
-			$this->loadModel('Referent');
-
-			$query = array (
-				'conditions' => array(
-					'User.structurereferente_id IS NOT NULL',
-				),
-				'recursive' => -1
-			);
-			$users = $this->User->find ('all', $query);
-			$referents = $this->Referent->find ('all', array ('recursive' => -1));
-
-			$ok = array ();
-			$ko = array ();
-			foreach ($users as $user) {
-				$name = strtoupper (iconv ('UTF-8', 'ASCII//TRANSLIT//IGNORE', $user['User']['nom']));
-				$firstname = strtoupper (iconv ('UTF-8', 'ASCII//TRANSLIT//IGNORE', $user['User']['prenom']));
-				$matched = false;
-
-				foreach ($referents as $referent) {
-					$nom = strtoupper (iconv ('UTF-8', 'ASCII//TRANSLIT//IGNORE', $referent['Referent']['nom']));
-					$prenom = strtoupper (iconv ('UTF-8', 'ASCII//TRANSLIT//IGNORE', $referent['Referent']['prenom']));
-
-					if ($nom === $name && $prenom === $firstname) {
-						$ok[] = $user;
-						$matched = true;
-						break;
-					}
-				}
-
-				if (!$matched) {
-					$ko[] = $user;
-				}
-			}
-
-			debug ($ok);
-			debug ($ko);
-
-			$this->render(false);
-		}
 
 		/**
 		 * Page d'accueil
@@ -361,67 +313,6 @@
 			$fiches['limite'] = $parametres['limite'];;
 
 			return $fiches;
-		}
-
-		/**
-		 * Alerte par mail les membres des CD concernés
-		 *
-		 * TODO
-		 */
-		public function alertmail() {
-			// Paramètres
-			$departement = Configure::read('Cg.departement');
-			$users = array ();
-
-			// CER
-			$cers = $this->_getCers($departement);
-			foreach ($cers as $i => $cer) {
-				if (is_numeric($i)) {
-					if (!isset ($users[$cer['Contratinsertion']['referent_id']])) {
-						$users[$cer['Contratinsertion']['referent_id']]['CER'] = array ();
-					}
-
-					$users[$cer['Contratinsertion']['referent_id']]['CER'][] = $cer;
-				}
-				break;
-			}
-
-			// Mail
-			$this->loadModel('User');
-			foreach ($users as $user_id => $informations) {
-				if (is_numeric($user_id)) {
-					$user = $this->User->findById ($user_id);
-					$user_email = $user['User']['email'];
-					$user_email = 'pla@atolcd.com';
-
-					$sautDeLigne = '<br />';
-					$mailBody = '';
-					$mailBody .= 'Connectez vous à Webrsa pour gérer les actions suivantes :'.$sautDeLigne;
-					$mailBody .= '<a href="'.Configure::read('FULL_BASE_URL').'/accueils/index/">Webrsa</a>';
-
-					$mailBody .= '<h2>CER</h2>';
-					foreach ($informations['CER'] as $item) {
-						$date = new DateTime ($item['Contratinsertion']['created']);
-
-						$mailBody .= '<b>'.$item['Personne']['nom'].' '.$item['Personne']['prenom'].'</b>'.$sautDeLigne;
-						$mailBody .= $date->format('d/m/Y').$sautDeLigne;
-						$mailBody .= $sautDeLigne;
-					}
-
-					//mail($user_email, '[Webrsa] Alerte', $mailBody, "Content-type: text/html; charset=utf-8");
-
-					/*
-					$mail = new CakeEmail('test');
-				    $mail->to($user_email);
-				    $mail->from(array('p.lavigne@atolcd.com' => 'Webrsa'));
-				    $mail->subject('Alerte Webrsa');
-				    $mail->emailFormat('html');
-				    $mail->send($mailBody);
-					 */
-				}
-			}
-
-			$this->render(false);
 		}
 	}
 ?>
