@@ -4159,9 +4159,11 @@
 			$total['B7']['total'] = 0;
 			$total['B7']['complet'] = 0;
 			$total['B7']['partiel'] = 0;
+			$total['B7']['non_com'] = 0;
 			$total['D2']['total'] = 0;
 			$total['D2']['complet'] = 0;
 			$total['D2']['partiel'] = 0;
+			$total['D2']['non_com'] = 0;
 			$total['total'] = 0;
 
 			// Par type de contrat B7
@@ -4170,6 +4172,7 @@
 				$idTypeEmploi = $typeEmploi['Typeemploi']['id'];
 				$tableauB7['complet'][$numero] = 0;
 				$tableauB7['partiel'][$numero] = 0;
+				$tableauB7['non_com'][$numero] = 0;
 
 				foreach ($questionnaireb7s as $questionnaireb7) {
 					if ($idTypeEmploi == $questionnaireb7['Questionnaireb7pdv93']['typeemploi_id']) {
@@ -4178,9 +4181,13 @@
 							$tableauB7['complet'][$numero]++;
 							$total['B7']['complet']++;
 						}
-						else {
+						else if ($questionnaireb7['Dureeemploi']['id'] == 2) {
 							$tableauB7['partiel'][$numero]++;
 							$total['B7']['partiel']++;
+						}
+						else {
+							$tableauB7['non_com'][$numero]++;
+							$total['B7']['non_com']++;
 						}
 
 						$total['B7']['total']++;
@@ -4195,6 +4202,7 @@
 				$idTypeEmploi = $typeEmploi['Sortieaccompagnementd2pdv93']['id'];
 				$tableauD2['complet'][$numero] = 0;
 				$tableauD2['partiel'][$numero] = 0;
+				$tableauD2['non_com'][$numero] = 0;
 
 				foreach ($questionnaired2s as $questionnaired2) {
 					if ($idTypeEmploi == $questionnaired2['Questionnaired2pdv93']['sortieaccompagnementd2pdv93_id']) {
@@ -4204,9 +4212,13 @@
 								$tableauD2['complet'][$numero]++;
 								$total['D2']['complet']++;
 							}
-							else {
+							else if ($questionnaired2['Dureeemploi']['id'] == 2) {
 								$tableauD2['partiel'][$numero]++;
 								$total['D2']['partiel']++;
+							}
+							else {
+								$tableauD2['non_com'][$numero]++;
+								$total['D2']['non_com']++;
 							}
 
 							$total['D2']['total']++;

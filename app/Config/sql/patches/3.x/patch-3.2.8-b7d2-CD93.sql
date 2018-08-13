@@ -39,6 +39,12 @@ UPDATE typeemplois SET codeTypeEmploi = 'ACT_IND' WHERE name = 'Accès à une ac
 UPDATE typeemplois SET codeTypeEmploi = 'EMP_AIDE' WHERE name = 'Accès à un emploi aidé';
 UPDATE typeemplois SET codeTypeEmploi = 'EMP_SIAE' WHERE name = 'Accès à un emploi salarié SIAE';
 
+INSERT INTO dureeemplois (name, created, modified) VALUES ('Non communiqué', '2018-08-13 08:14:55', '2018-08-13 08:14:55');
+
+INSERT INTO famillesromesv3 (id, code, name, created, modified) VALUES (15, 'Z', 'NON COMMUNIQUÉ', '2018-08-13 08:14:55', '2018-08-13 08:14:55');
+INSERT INTO entreesromesv3 (familleromev3_id, domaineromev3_id, metierromev3_id, appellationromev3_id, created, modified)
+VALUES (15, null, null, null, '2018-08-13 08:14:55', '2018-08-13 08:14:55');
+
 
 -- *****************************************************************************
 COMMIT;

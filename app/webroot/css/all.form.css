@@ -43,7 +43,7 @@ div.input.textarea span.input {
 	padding-left: 1em;
 }
 
-div.text input, div.password input, div.select select, div.input.text span.input, dl.inform dd {
+div.text input, div.password input, div.email input, div.select select, div.input.text span.input, dl.inform dd {
     display: -moz-inline-box;
     display: inline-table;
     display: inline-block;
