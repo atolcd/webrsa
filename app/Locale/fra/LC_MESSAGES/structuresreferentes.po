@@ -19,6 +19,9 @@ msgstr "Modification de la structure référente « #Structurereferente.lib_stru
 msgid "Structurereferente.lib_struc"
 msgstr "Nom de la structure"
 
+msgid "Structurereferente.lib_struc_mini"
+msgstr "Nom de la structure (Nom court)"
+
 msgid "Structurereferente.num_voie"
 msgstr "Numéro de voie"
 

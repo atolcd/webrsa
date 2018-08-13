@@ -621,6 +621,15 @@
 				'Référents pour les structures' => array(
 					'url' => array( 'controller' => 'referents', 'action' => 'index' )
 				),
+				'Relances SMS' => array(
+					'disabled' => 66 !== $departement,
+					'Paramétrage des relances' => array(
+						'url' => array( 'controller' => 'relances', 'action' => 'index' )
+					),
+					'Logs des relances' => array(
+						'url' => array( 'controller' => 'relanceslogs', 'action' => 'index' )
+					),
+				),
 				'Rendez-vous' => $this->_rendezvous(),
 				'Services' => array(
 					'disabled' => 66 !== $departement,
