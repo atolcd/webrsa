@@ -179,7 +179,7 @@
 	Configure::write(
 		'Cataloguepdifp93.urls',
 		array(
-			'Consultation du catalogue des actions (PDI)' => 'https://formation-rsa.seinesaintdenis.fr',
+			'Consultation du catalogue des actions (IFE)' => 'https://formation-rsa.seinesaintdenis.fr',
 			'Consultation du site Defi Metiers' => 'http://www.carif-idf.org/',
 			'Consultation INSER\'ECO93' => 'http://www.insereco93.com/',
 		)
