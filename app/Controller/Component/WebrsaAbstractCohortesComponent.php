@@ -223,7 +223,7 @@
 
 			//Orientation
 			$Controller->loadModel ('Orientstruct');
-			$options = array_merge ($options, $Controller->Orientstruct->enums());
+			$options = array_merge ($Controller->Orientstruct->enums(), $options);
 			$Controller->loadModel ('Typeorient');
 			$options['Orientstruct']['typeorient_id'] = $Controller->Typeorient->find('list', array ('recursive' => -1));
 

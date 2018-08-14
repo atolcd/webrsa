@@ -162,7 +162,7 @@ catch(e) {
 	);
 	Event.observe($('Questionnaired2pdv93Situationaccompagnement'), 'change', function(e){
 		$('Questionnaired2pdv93Sortieaccompagnementd2pdv93Id').setValue(0);
-		$('Questionnaired2pdv93DureeemploiId').disable();
+		$('Questionnaired2pdv93DureeemploiId').setValue(0);
 	});
 	//]]>
 </script>
