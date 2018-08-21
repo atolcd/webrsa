@@ -113,7 +113,7 @@
 					echo "Date MAJ Flux : $dtliqText  <br>" ;
 					echo isset( $motitransfluxValue) ? $motitransflux[$motitransfluxValue] : 'Aucun Motif Transmis' ;
 			    } else{
-					echo "Aucune transmission repertorié";
+					echo "Aucune transmission repertoriée";
 			    }
 	?>
 </p>
