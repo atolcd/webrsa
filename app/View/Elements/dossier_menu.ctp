@@ -304,6 +304,24 @@ $fonorg = $dossier['Dossier']['fonorg'];
 					$personne['id'],
 				)
 			);
+			$subAllocataire['Informations Pôle Emploi']['Informations'] = array(
+				'disabled' => !Configure::read('Module.Fluxpoleemplois.enabled'),
+				'url' => array(
+					'controller' => 'fluxpoleemplois',
+					'action' => 'personne',
+					$dossier['Foyer']['id'],
+					$personne['id'],
+				)
+			);
+			$subAllocataire['Informations Pôle Emploi']['Historique'] = array(
+				'disabled' => !Configure::read('Module.Fluxpoleemplois.enabled'),
+				'url' => array(
+					'controller' => 'fluxpoleemplois',
+					'action' => 'historique',
+					$dossier['Foyer']['id'],
+					$personne['id'],
+				)
+			);
 
 			// INFO: on ajoute des espaces à la clé pour éviter d'écraser avec les doublons
 			$key = implode( ' ', array( '(', $personne['Prestation']['rolepers'], ')', $personne['qual'], $personne['nom'], $personne['prenom'] ) );
@@ -353,7 +371,15 @@ $fonorg = $dossier['Dossier']['fonorg'];
 					'action' => 'foyer',
 					$dossier['Foyer']['id'],
 				)
-			)
+			),
+			'Données PE' => array(
+				'disabled' => !Configure::read('Module.fluxpoleemploi.enabled'),
+				'url' => array(
+					'controller' => 'fluxpoleemplois',
+					'action' => 'personne',
+					$dossier['Foyer']['id'],
+				)
+			),
 		);
 
 		// Dossier PCG (CG 66)

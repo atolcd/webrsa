@@ -12,6 +12,7 @@ BEGIN;
 -- *****************************************************************************
 
 
+
 ALTER TABLE decisionsdefautsinsertionseps66 ADD COLUMN commentairebeneficiaire text;
 
 
@@ -270,6 +271,242 @@ CREATE TABLE relanceslogs
 WITH (
   OIDS=FALSE
 );
+
+-- *****************************************************************************
+-- Flux Pôle Emploi
+
+
+-- informationspe
+
+ALTER TABLE informationspe ADD COLUMN individu_nom_marital character varying(150);
+ALTER TABLE informationspe ADD COLUMN individu_certification_identite character varying(1);
+ALTER TABLE informationspe ADD COLUMN individu_commune_residence integer;
+ALTER TABLE informationspe ADD COLUMN allocataire_identifiant_caf character varying(15);
+ALTER TABLE informationspe ADD COLUMN allocataire_identifiant_msa character varying(15);
+ALTER TABLE informationspe ADD COLUMN allocataire_code_pe character varying(10);
+ALTER TABLE informationspe ADD COLUMN allocataire_identifiant_pe character varying(8);
+ALTER TABLE informationspe ADD COLUMN inscription_date_debut_ide date;
+ALTER TABLE informationspe ADD COLUMN inscription_code_categorie character varying(10);
+ALTER TABLE informationspe ADD COLUMN inscription_lib_categorie character varying(150);
+ALTER TABLE informationspe ADD COLUMN inscription_code_situation character varying(10);
+ALTER TABLE informationspe ADD COLUMN inscription_lib_situation character varying(150);
+ALTER TABLE informationspe ADD COLUMN inscription_date_cessation_ide date;
+ALTER TABLE informationspe ADD COLUMN inscription_motif_cessation_ide character varying(150);
+ALTER TABLE informationspe ADD COLUMN inscription_lib_cessation_ide character varying(150);
+ALTER TABLE informationspe ADD COLUMN inscription_date_radiation_ide date;
+ALTER TABLE informationspe ADD COLUMN inscription_motif_radiation_ide character varying(150);
+ALTER TABLE informationspe ADD COLUMN inscription_lib_radiation_ide character varying(150);
+ALTER TABLE informationspe ADD COLUMN suivi_structure_principale_nom character varying(150);
+ALTER TABLE informationspe ADD COLUMN suivi_structure_principale_voie character varying(150);
+ALTER TABLE informationspe ADD COLUMN suivi_structure_principale_complement character varying(150);
+ALTER TABLE informationspe ADD COLUMN suivi_structure_principale_code_postal character varying(5);
+ALTER TABLE informationspe ADD COLUMN suivi_structure_principale_cedex character varying(2);
+ALTER TABLE informationspe ADD COLUMN suivi_structure_principale_bureau character varying(150);
+ALTER TABLE informationspe ADD COLUMN suivi_structure_deleguee_nom character varying(150);
+ALTER TABLE informationspe ADD COLUMN suivi_structure_deleguee_voie character varying(150);
+ALTER TABLE informationspe ADD COLUMN suivi_structure_deleguee_complement character varying(150);
+ALTER TABLE informationspe ADD COLUMN suivi_structure_deleguee_code_postal character varying(5);
+ALTER TABLE informationspe ADD COLUMN suivi_structure_deleguee_cedex character varying(2);
+ALTER TABLE informationspe ADD COLUMN suivi_structure_deleguee_bureau character varying(150);
+ALTER TABLE informationspe ADD COLUMN formation_code_niveau character varying(10);
+ALTER TABLE informationspe ADD COLUMN formation_lib_niveau character varying(150);
+ALTER TABLE informationspe ADD COLUMN formation_code_secteur character varying(10);
+ALTER TABLE informationspe ADD COLUMN formation_lib_secteur character varying(150);
+ALTER TABLE informationspe ADD COLUMN romev3_code_rome character varying(10);
+ALTER TABLE informationspe ADD COLUMN romev3_lib_rome character varying(150);
+ALTER TABLE informationspe ADD COLUMN ppae_conseiller_pe character varying(150);
+ALTER TABLE informationspe ADD COLUMN ppae_date_signature date;
+ALTER TABLE informationspe ADD COLUMN ppae_date_notification date;
+ALTER TABLE informationspe ADD COLUMN ppae_axe_code character varying(10);
+ALTER TABLE informationspe ADD COLUMN ppae_axe_libelle character varying(150);
+ALTER TABLE informationspe ADD COLUMN ppae_modalite_code character varying(10);
+ALTER TABLE informationspe ADD COLUMN ppae_modalite_libelle character varying(150);
+ALTER TABLE informationspe ADD COLUMN ppae_date_dernier_ent date;
+
+ALTER TABLE informationspe ADD COLUMN date_creation timestamp without time zone DEFAULT NULL;
+ALTER TABLE informationspe ADD COLUMN date_modification timestamp without time zone DEFAULT NULL;
+
+
+-- informationsperejets
+
+CREATE TABLE informationsperejets
+(
+  id serial NOT NULL,
+  nir character varying(15) DEFAULT NULL::character varying,
+  nom character varying(50) DEFAULT NULL::character varying,
+  prenom character varying(50) NOT NULL,
+  dtnai date NOT NULL,
+  individu_nom_marital character varying(150),
+  individu_certification_identite character varying(1),
+  individu_commune_residence character varying(15),
+  allocataire_identifiant_caf character varying(15),
+  allocataire_identifiant_msa character varying(15),
+  allocataire_code_pe character varying(10),
+  allocataire_identifiant_pe character varying(8),
+  inscription_date_debut_ide date,
+  inscription_code_categorie character varying(10),
+  inscription_lib_categorie character varying(150),
+  inscription_code_situation character varying(10),
+  inscription_lib_situation character varying(150),
+  inscription_date_cessation_ide date,
+  inscription_motif_cessation_ide character varying(150),
+  inscription_lib_cessation_ide character varying(150),
+  inscription_date_radiation_ide date,
+  inscription_motif_radiation_ide character varying(150),
+  inscription_lib_radiation_ide character varying(150),
+  suivi_structure_principale_nom character varying(150),
+  suivi_structure_principale_voie character varying(150),
+  suivi_structure_principale_complement character varying(150),
+  suivi_structure_principale_code_postal character varying(5),
+  suivi_structure_principale_cedex character varying(2),
+  suivi_structure_principale_bureau character varying(150),
+  suivi_structure_deleguee_nom character varying(150),
+  suivi_structure_deleguee_voie character varying(150),
+  suivi_structure_deleguee_complement character varying(150),
+  suivi_structure_deleguee_code_postal character varying(5),
+  suivi_structure_deleguee_cedex character varying(2),
+  suivi_structure_deleguee_bureau character varying(150),
+  formation_code_niveau character varying(10),
+  formation_lib_niveau character varying(150),
+  formation_code_secteur character varying(10),
+  formation_lib_secteur character varying(150),
+  romev3_code_rome character varying(10),
+  romev3_lib_rome character varying(150),
+  ppae_conseiller_pe character varying(150),
+  ppae_date_signature date,
+  ppae_date_notification date,
+  ppae_axe_code character varying(10),
+  ppae_axe_libelle character varying(150),
+  ppae_modalite_code character varying(10),
+  ppae_modalite_libelle character varying(150),
+  ppae_date_dernier_ent date,
+  errorcode character varying(255),
+  errormessage character varying(255),
+  CONSTRAINT informationsperejets_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+ALTER TABLE informationsperejets ADD COLUMN date_creation timestamp without time zone DEFAULT NULL;
+ALTER TABLE informationsperejets ADD COLUMN date_modification timestamp without time zone DEFAULT NULL;
+
+
+-- historiqueetatspe
+
+ALTER TABLE historiqueetatspe ADD COLUMN inscription_date_debut_ide date;
+ALTER TABLE historiqueetatspe ADD COLUMN inscription_code_categorie character varying(10);
+ALTER TABLE historiqueetatspe ADD COLUMN inscription_lib_categorie character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN inscription_code_situation character varying(10);
+ALTER TABLE historiqueetatspe ADD COLUMN inscription_lib_situation character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN inscription_date_cessation_ide date;
+ALTER TABLE historiqueetatspe ADD COLUMN inscription_motif_cessation_ide character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN inscription_lib_cessation_ide character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN inscription_date_radiation_ide date;
+ALTER TABLE historiqueetatspe ADD COLUMN inscription_motif_radiation_ide character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN inscription_lib_radiation_ide character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN suivi_structure_principale_nom character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN suivi_structure_principale_voie character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN suivi_structure_principale_complement character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN suivi_structure_principale_code_postal character varying(5);
+ALTER TABLE historiqueetatspe ADD COLUMN suivi_structure_principale_cedex character varying(2);
+ALTER TABLE historiqueetatspe ADD COLUMN suivi_structure_principale_bureau character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN suivi_structure_deleguee_nom character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN suivi_structure_deleguee_voie character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN suivi_structure_deleguee_complement character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN suivi_structure_deleguee_code_postal character varying(5);
+ALTER TABLE historiqueetatspe ADD COLUMN suivi_structure_deleguee_cedex character varying(2);
+ALTER TABLE historiqueetatspe ADD COLUMN suivi_structure_deleguee_bureau character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN formation_code_niveau character varying(10);
+ALTER TABLE historiqueetatspe ADD COLUMN formation_lib_niveau character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN formation_code_secteur character varying(10);
+ALTER TABLE historiqueetatspe ADD COLUMN formation_lib_secteur character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN romev3_code_rome character varying(10);
+ALTER TABLE historiqueetatspe ADD COLUMN romev3_lib_rome character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN ppae_conseiller_pe character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN ppae_date_signature date;
+ALTER TABLE historiqueetatspe ADD COLUMN ppae_date_notification date;
+ALTER TABLE historiqueetatspe ADD COLUMN ppae_axe_code character varying(10);
+ALTER TABLE historiqueetatspe ADD COLUMN ppae_axe_libelle character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN ppae_modalite_code character varying(10);
+ALTER TABLE historiqueetatspe ADD COLUMN ppae_modalite_libelle character varying(150);
+ALTER TABLE historiqueetatspe ADD COLUMN ppae_date_dernier_ent date;
+
+ALTER TABLE historiqueetatspe ADD COLUMN date_creation timestamp without time zone DEFAULT NULL;
+ALTER TABLE historiqueetatspe ADD COLUMN date_modification timestamp without time zone DEFAULT NULL;
+
+
+-- historiqueetatsperejets
+
+CREATE TABLE historiqueetatsperejets
+(
+  id serial NOT NULL,
+  informationpe_id integer,
+  identifiantpe character varying(11),
+  date date,
+  etat character varying(11),
+  code character varying(2) DEFAULT NULL::character varying,
+  motif character varying(250) DEFAULT NULL::character varying,
+  codeinsee character(5),
+  localite character varying(250),
+  adresse character varying(255),
+  ale character(5),
+  individu_nom_marital character varying(150),
+  individu_certification_identite character varying(1),
+  individu_commune_residence integer,
+  allocataire_identifiant_caf character varying(15),
+  allocataire_identifiant_msa character varying(15),
+  allocataire_code_pe character varying(10),
+  allocataire_identifiant_pe character varying(8),
+  inscription_date_debut_ide date,
+  inscription_code_categorie character varying(10),
+  inscription_lib_categorie character varying(150),
+  inscription_code_situation character varying(10),
+  inscription_lib_situation character varying(150),
+  inscription_date_cessation_ide date,
+  inscription_motif_cessation_ide character varying(150),
+  inscription_lib_cessation_ide character varying(150),
+  inscription_date_radiation_ide date,
+  inscription_motif_radiation_ide character varying(150),
+  inscription_lib_radiation_ide character varying(150),
+  suivi_structure_principale_nom character varying(150),
+  suivi_structure_principale_voie character varying(150),
+  suivi_structure_principale_complement character varying(150),
+  suivi_structure_principale_code_postal character varying(5),
+  suivi_structure_principale_cedex character varying(2),
+  suivi_structure_principale_bureau character varying(150),
+  suivi_structure_deleguee_nom character varying(150),
+  suivi_structure_deleguee_voie character varying(150),
+  suivi_structure_deleguee_complement character varying(150),
+  suivi_structure_deleguee_code_postal character varying(5),
+  suivi_structure_deleguee_cedex character varying(2),
+  suivi_structure_deleguee_bureau character varying(150),
+  formation_code_niveau character varying(10),
+  formation_lib_niveau character varying(150),
+  formation_code_secteur character varying(10),
+  formation_lib_secteur character varying(150),
+  romev3_code_rome character varying(10),
+  romev3_lib_rome character varying(150),
+  ppae_conseiller_pe character varying(150),
+  ppae_date_signature date,
+  ppae_date_notification date,
+  ppae_axe_code character varying(10),
+  ppae_axe_libelle character varying(150),
+  ppae_modalite_code character varying(10),
+  ppae_modalite_libelle character varying(150),
+  ppae_date_dernier_ent date,
+  date_creation timestamp without time zone,
+  date_modification timestamp without time zone,
+  CONSTRAINT historiqueetatspe_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+ALTER TABLE historiqueetatsperejets ADD COLUMN errorcode character varying(255);
+ALTER TABLE historiqueetatsperejets ADD COLUMN errormessage character varying(255);	
+
+
 
 
 -- *****************************************************************************
