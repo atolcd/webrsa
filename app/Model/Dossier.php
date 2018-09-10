@@ -394,6 +394,16 @@
 				$dossier['personne_id'] = $params['personne_id'];
 			}
 
+			// Nombre de dossiers PCGs
+			$dossier['PCG'] = ClassRegistry::init( 'Dossierpcg66' )->find(
+				'count',
+				array (
+					'conditions' => array(
+						'Dossierpcg66.foyer_id' => $dossier['Foyer']['id'],
+					),
+				)
+			);
+
 			return $dossier;
 		}
 
