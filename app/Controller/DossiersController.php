@@ -227,6 +227,7 @@
 						'Dossier.numdemrsa',
 						'Dossier.statudemrsa',
 						'Dossier.dtdemrsa',
+						'Dossier.fonorg',
 						'Foyer.id',
 						'Foyer.sitfam',
 						'Situationdossierrsa.id',

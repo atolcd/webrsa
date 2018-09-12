@@ -124,20 +124,20 @@
     echo  isset( $etatdosrsa[$etatdosrsaValue] ) ? $etatdosrsa[$etatdosrsaValue] : 'Non défini' ;?>
 </p>
 
-<p class="numCaf">
-	<?php
-		$numcaf = $dossier['Dossier']['matricule'];
-		$fonorg = $dossier['Dossier']['fonorg'];
-
-		if( !empty( $numcaf ) && !empty( $fonorg ) ) {
-			echo 'N°'.( isset( $fonorg ) ? $fonorg : '' ).' : '.( isset( $numcaf ) ? $numcaf : '' );
-		}
-		else {
-			echo '';
-		}
-	?>
+<?php
+$numcaf = $dossier['Dossier']['matricule'];
+$fonorg = $dossier['Dossier']['fonorg'];
+?>
+<p class="numCaf <?php echo ($fonorg=='MSA')?'numMSA':''; ?>">
+    <?php
+        if( !empty( $numcaf ) && !empty( $fonorg ) ) {
+            echo 'N°'.( isset( $fonorg ) ? $fonorg : '' ).' : '.( isset( $numcaf ) ? $numcaf : '' );
+        }
+        else {
+            echo '';
+        }
+    ?>
 </p>
-
 	<?php
 		$itemsAllocataires = array();
 		foreach( $dossier['Foyer']['Personne'] as $personne ) {

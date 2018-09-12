@@ -922,6 +922,8 @@ p.etatDossier , p.etatFlux, p.numCaf{
     padding: 0.5em;
     background: #E6EEF2;
 }
+/*Cas du bénéficiaire MSA - Affichage dans le menu Gauche en fond vert*/
+p.numMSA {background: #00CC00;}
 /*****************************************************************************/
 
 .noborder, table.noborder tbody {
