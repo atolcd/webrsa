@@ -266,6 +266,13 @@ msgid "/Decisionsdossierspcgs66/filelink/#Decisiondossierpcg66.id#"
 msgstr "Liste des fichiers liés à la décision du dossier PCG"
 
 ################################################################################
+# Alerte contrôle
+################################################################################
+
+msgid "Dossierpcg66.alertControle"
+msgstr "Le dernier contrôle remonte à plus de 3 ans."
+
+################################################################################
 # Nouveau Dossierpcg66
 ################################################################################
 

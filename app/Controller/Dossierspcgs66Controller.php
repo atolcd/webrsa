@@ -290,7 +290,29 @@
 
 			$results = $this->WebrsaDossierpcg66->getIndexData( $foyer_id );
 
-			$this->set( compact( 'personneDem', 'results', 'foyer_id' ) );
+			// Alerte controle sur place effectué de moins de 3 ans.
+			$alertControleSurPlace = false;
+			$controleadministratif = ClassRegistry::init( 'Controleadministratif' )->find(
+				'first',
+				array (
+					'conditions' => array(
+						'Controleadministratif.foyer_id' => $foyer_id,
+					),
+					'order' => array (
+						'Controleadministratif.dtdeteccontro DESC'
+					)
+				)
+			);
+			if (isset ($controleadministratif['Controleadministratif'])) {
+				$dateDuJour = new DateTime ();
+				$dateControle = new DateTime ($controleadministratif['Controleadministratif']['dtdeteccontro']);
+				$diff = $dateDuJour->diff($dateControle);
+				if ($diff->format ('%y') > 3) {
+					$alertControleSurPlace = true;
+				}
+			}
+
+			$this->set( compact( 'personneDem', 'results', 'foyer_id', 'alertControleSurPlace' ) );
 			$this->_setOptions();
 		}
 
