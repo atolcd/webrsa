@@ -107,11 +107,34 @@
 					)
 				);
 
+                //gestion des couleurs en fonction des paramètres de recherche (dans la config du dossier)
+                $innerTable = $this->checkCouleur($innerTable);
+
 				$return = str_replace( '</tr>', "<td class=\"innerTableCell noprint\">{$innerTable}</td></tr>", $return );
 			}
 
 			return $return;
 		}
+
+        /*
+         * Function de vérification des différents statuts des bénéficiaires
+         * Si c'est le cas la classe correspondante est passée en paramètres de la cellule
+         */
+        public function checkCouleur($chaine)
+        {
+            //récupère le contenu de tous les TD
+            preg_match('#<td(.+)>(.+)</td>#', $chaine, $liste);
+            //récupère la configuration donnée dans le fichier "Config/Cg66/Dossiers.php"
+            $configuration   =   Configure::read('ConfigurableQuery.Dossiers.couleurs');
+
+            //pour chaque configuration, vérifie si le champ de recherche est dispo et le remplace par sa valeur de remplacement
+            if(!empty($configuration))
+                foreach($configuration as $index=>$value)
+                    if($liste[2]==$value["valeurCompare"] && strpos($liste[0], $value["param"])!==FALSE)
+                        $chaine =   str_replace($value["param"], $value["replace"], $chaine);
+
+            return  $chaine;
+        }
 
 		/**
 		 *

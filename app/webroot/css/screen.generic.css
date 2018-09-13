@@ -849,6 +849,8 @@ p.actions a {
 .innerTable { min-width: 20em; }
 .innerTable td { min-width: 10em; }
 .dynamic td { cursor: help; }
+/*change le fond s'il s'agit d'un bénéficiaire MSA*/
+.contenuMSA {background:#81de82 !important;}
 
 /*****************************************************************************/
 
