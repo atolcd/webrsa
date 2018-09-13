@@ -41,7 +41,7 @@
 
 			foreach ( $results as $key => $result ) {
 				$results[$key]['Poledossierpcg66']['classname'] = Inflector::underscore(
-					str_replace( ' ', '_', replace_accents( $results[$key]['Poledossierpcg66']['name'] ) )
+					str_replace( array(' ', '\''), '_', replace_accents( $results[$key]['Poledossierpcg66']['name'] ) )
 				);
 
 				$results[$key]['Dossierpcg66']['etatdossierpcg_full'] = __d(
