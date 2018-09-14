@@ -179,3 +179,6 @@ msgstr "Oui"
 
 msgid "ENUM::ISADOMICILE::0"
 msgstr "Non"
+
+msgid "Rendezvous::Alert55Ans"
+msgstr "Attention : + de 55 ans"

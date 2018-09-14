@@ -559,9 +559,20 @@
 				$dossier_id = $this->Rendezvous->dossierId( $rdv_id );
 			}
 
+            //date de naissance - pour alert sur +55ans
+            $reqDateNaissance     =   $this->Rendezvous->Personne->find ('first', array (
+                                        'recursive' => -1,
+                                        'fields' => array ('Personne.dtnai'),
+                                        'conditions' => array ('Personne.id' => $personne_id)
+                                    ));
+            $ageBeneficiaire  =   age($reqDateNaissance['Personne']['dtnai']);
+            //CER actif - pour alert sur +55ans
+            $nbCER  =   $this->Rendezvous->query("SELECT COUNT(id) FROM contratsinsertion WHERE df_ci>='".date('Y-m-d')."' AND decision_ci='V' AND personne_id='".$personne_id."'");
+            $alertTrancheAge    =   ($ageBeneficiaire>55 && $nbCER[0][0]['count']>0) ? true : false;
+            //stockage des variables - Si l'age est >55ans et qu'il y a un CER, on affiche une alerte sur la vue
+            $this->set('alertTrancheAge', $alertTrancheAge);
+
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) ) );
-
-
 
 			// Retour à la liste en cas d'annulation
 			if( !empty( $this->request->data ) && isset( $this->request->data['Cancel'] ) ) {
