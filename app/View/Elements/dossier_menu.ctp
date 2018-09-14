@@ -285,22 +285,23 @@
 			}
 
 			// Informations personne
-			$subAllocataire['Informations personne'] = array(
-				'url' => '#',
-				'Tags allocataire' => array(
+			$subAllocataire['Informations personne'] = array();
+			$subAllocataire['Informations personne']['url'] = '#';
+			if ($personne['Prestation']['rolepers'] != 'ENF') {
+				$subAllocataire['Informations personne']['Tags allocataire'] = array(
 					'url' => array(
 						'controller' => 'tags',
 						'action' => 'index',
 						'Personne', $personne['id']
 					)
-				),
-				'Données CAF' => array(
-					'disabled' => !Configure::read('Module.Donneescaf.enabled'),
-					'url' => array(
-						'controller' => 'donneescaf',
-						'action' => 'personne',
-						$personne['id'],
-					)
+				);
+			}
+			$subAllocataire['Informations personne']['Données CAF'] = array(
+				'disabled' => !Configure::read('Module.Donneescaf.enabled'),
+				'url' => array(
+					'controller' => 'donneescaf',
+					'action' => 'personne',
+					$personne['id'],
 				)
 			);
 
