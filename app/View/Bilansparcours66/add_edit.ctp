@@ -1,4 +1,9 @@
 <?php
+    if(!isset($messages))
+        $messages   =   array();
+    if(!$alertNbOrientation) {
+        $messages[__d('bilansparcours66.po', 'AucuneOrientationAvantSaisineEPL')] = 'error';
+    }
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 	}
@@ -812,6 +817,7 @@
 		?>
 		<fieldset id="auditionpe" class="invisible">
 			<?php
+			    echo $this->Default3->messages( $messages );//affichage de l'alerte si aucune orientation
 				echo $this->Default2->subform(
 					array(
 						'Pe.Bilanparcours66.examenauditionpe' => array( 'type' => 'radio', 'required' => true )

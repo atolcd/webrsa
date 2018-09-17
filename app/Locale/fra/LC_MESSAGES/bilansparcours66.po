@@ -212,3 +212,6 @@ msgstr "Commentaire de l'EP (étape CD)"
 
 msgid "Bilansparcours66::index::emptyLabel"
 msgstr "Aucun bilan de parcours présent pour cette personne."
+
+msgid "AucuneOrientationAvantSaisineEPL"
+msgstr "Attention, ce bénéficiaire doit être orienté avant toute saisie d'un bilan de parcours avec saisine EPL Audition"

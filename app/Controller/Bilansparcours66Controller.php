@@ -885,6 +885,11 @@
 				'defautsinsertionseps66' => !$this->Bilanparcours66->WebrsaBilanparcours66->ajoutPossibleThematique66( 'defautsinsertionseps66', $personne_id ),
 				'saisinesbilansparcourseps66' => !$this->Bilanparcours66->WebrsaBilanparcours66->ajoutPossibleThematique66( 'saisinesbilansparcourseps66', $personne_id )
 			);
+            
+            //calcul du nombre d'orientation
+            $nbOrientation  =   $this->Bilanparcours66->query("SELECT COUNT(id) FROM orientsstructs WHERE personne_id='".$personne_id."'");
+            $alertNbOrientation    =   ($nbOrientation[0][0]['count']>0) ? true : false;
+            $this->set('alertNbOrientation', $alertNbOrientation);
 
 			$this->set( 'rolepers', ClassRegistry::init('Prestation')->enum('rolepers') );
 			$this->set( 'qual', $this->Option->qual() );
