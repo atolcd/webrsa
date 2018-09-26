@@ -251,6 +251,25 @@
 		}
 
 		/**
+		 * Récupération des fiches de prescription du bon département
+		 *
+		 * @param $departement
+		 * @param $parametres
+		 * @return array
+		 */
+		protected function _getFichesprescriptionresultataction($departement, $parametres = array ()) {
+		    $fiches = array ();
+		    if (method_exists($this, '_getFichesPrescriptionresultataction'.$departement)) {
+		        $limite = new DateTime ();
+		        $limite->sub (new DateInterval('P'. $parametres['limite'] .'M'));
+		        $fiches = $this->{'_getFichesPrescriptionresultataction'.$departement}($limite->format ('d/m/Y'));
+		        $fiches['limite'] = $parametres['limite'];
+		    }
+
+		    return $fiches;
+		}
+
+		/**
 		 * Fiches de prescription du 93
 		 *
 		 * @param $limite date limite des fiches au format texte
@@ -272,12 +291,40 @@
 					'Ficheprescription93.created ASC',
 				),
 			);
-
 			return $this->Ficheprescription93->find (
 				'all',
 				$query
 			);
 		}
+
+        /**
+         * Fiches de prescription du 93
+         *
+         * @param $limite date limite des fiches au format texte
+         * @return array
+         */
+        protected function _getFichesprescriptionresultataction93($limite) {
+            $this->loadModel('Ficheprescription93');
+            $query = array (
+                'conditions' => array(
+                    'Ficheprescription93.date_retour IS NOT NULL',
+                    'Ficheprescription93.date_retour >= \''.$limite.'\'',
+                    'Ficheprescription93.referent_id IN ('.$this->idReferent.')',
+                    'Ficheprescription93.benef_retour_presente =\'oui\'',
+                ),
+                'contain' => array(
+                    'Personne',
+                ),
+                'order' => array(
+                    'Ficheprescription93.created ASC',
+                ),
+            );
+
+            return $this->Ficheprescription93->find (
+                'all',
+                $query
+            );
+        }
 
 		/**
 		 * Récupération des rendez-vous du bon département

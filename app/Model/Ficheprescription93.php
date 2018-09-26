@@ -405,7 +405,7 @@
 				foreach( $motifsNames as $motifName ) {
 					$foreignKey = Inflector::underscore( $motifName ).'_id';
 
-					$options[$this->alias][$foreignKey] = $this->{$motifName}->find( 'list' );
+					$options[$this->alias][$foreignKey] = $this->{$motifName}->find( 'list', array( 'order' => 'autre ASC, name ASC' ) );
 				}
 			}
 
