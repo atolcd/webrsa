@@ -117,12 +117,17 @@
 		/**
 		 * Fonction de génération de documents générique
 		 * @param $datas peut prendre la forme suivante:
-		 *     - array( ... ) si $section == false
-		 *     - array( 0 => array( ... ), 'section1' => array( ... ), 'section2' => array( ... ) ) si $section == true
+		 *	 - array( ... ) si $section == false
+		 *	 - array( 0 => array( ... ), 'section1' => array( ... ), 'section2' => array( ... ) ) si $section == true
 		 */
 		public function ged( Model $model, $datas, $document, $section = false, $options = array( ) ) {
 			// Définition des variables & macros
-			$sMimeType = "application/pdf"; // FIXME
+			if( Configure::read('Gedooo.method') === 'classic') {
+				$sMimeType = "application/pdf";
+			} else {
+				$sMimeType = "application/vnd.oasis.opendocument.text";
+			}
+
 			$path_model = ( ( isset( $document[0] ) && $document[0] == '/' ) ? '' : MODELESODT_DIR ).$document;
 
 			// Quel type de données a-t-on reçu ?
@@ -243,19 +248,19 @@
 		}
 
 		public function gedTestPrint( Model $model, array $access ) {
-            if( $access['success'] ) {
-                if( get_class( $this ) == 'GedoooClassicBehavior' ) {
-                    $test_print = $this->ged( $model, array( ), GEDOOO_TEST_FILE );
-                }
-                else {
-                    $test_print = $this->gedFusion( $model, array( 'foo' => 'bar' ), GEDOOO_TEST_FILE );
-                }
+			if( $access['success'] ) {
+				if( get_class( $this ) == 'GedoooClassicBehavior' ) {
+					$test_print = $this->ged( $model, array( ), GEDOOO_TEST_FILE );
+				}
+				else {
+					$test_print = $this->gedFusion( $model, array( 'foo' => 'bar' ), GEDOOO_TEST_FILE );
+				}
 
-                $test_print = !empty( $test_print ) && preg_match( '/^(%PDF\-[0-9]|PK)/m', $test_print );
-            }
-            else {
-                $test_print = false;
-            }
+				$test_print = !empty( $test_print ) && preg_match( '/^(%PDF\-[0-9]|PK)/m', $test_print );
+			}
+			else {
+				$test_print = false;
+			}
 
 			return array(
 				'success' => $test_print,
@@ -270,7 +275,7 @@
 			App::uses( 'Check', 'Appchecks.Model' );
 			$Check = ClassRegistry::init( 'Appchecks.Check' );
 
-            $access = $Check->webservice( GEDOOO_WSDL );
+			$access = $Check->webservice( GEDOOO_WSDL );
 
 			return array(
 				'Accès au WebService' => $access,
