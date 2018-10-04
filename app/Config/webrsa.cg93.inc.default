@@ -547,7 +547,14 @@
 					'Typeorient.id' => Configure::read( 'Orientstruct.typeorientprincipale.Socioprofessionnelle' ),
 					'Typeorient.parentid' => Configure::read( 'Orientstruct.typeorientprincipale.Socioprofessionnelle' ),
 				),
-				'Pdv.lib_struc LIKE' => '%Projet de Ville%'
+				'Pdv.lib_struc LIKE' => '%Projet de Ville%',
+			),
+			'conditionsPdvPIE' => array(
+				'OR' => array(
+					'Typeorient.id' => Configure::read( 'Orientstruct.typeorientprincipale.Socioprofessionnelle' ),
+					'Typeorient.parentid' => Configure::read( 'Orientstruct.typeorientprincipale.Socioprofessionnelle' ),
+				),
+				'Pdv.lib_struc LIKE' => '%Projet Insertion Emploi%',
 			),
 			// Paramétrages spéciaux pour le tableau 1 B 6
 			'Tableau1b6' => array(

@@ -3716,17 +3716,38 @@
 		 * @return array
 		 */
 		public function listePdvs() {
-			return $this->Tableausuivipdv93->Pdv->find(
-				'list',
-				array(
-					'contain' => false,
-					'joins' => array(
-						$this->Tableausuivipdv93->Pdv->join( 'Typeorient', array( 'type' => 'INNER' ) ),
-					),
-					'conditions' => (array)Configure::read( 'Tableausuivipdv93.conditionsPdv' ),
-					'order' => array( 'Pdv.lib_struc' )
-				)
-			);
+			$listePDV = $this->Tableausuivipdv93->Pdv->find(
+			'list',
+			array(
+				'contain' => false,
+				'joins' => array(
+					$this->Tableausuivipdv93->Pdv->join( 'Typeorient', array( 'type' => 'INNER' ) ),
+				),
+				'conditions' => (array)Configure::read( 'Tableausuivipdv93.conditionsPdv' ),
+				'order' => array( 'Pdv.lib_struc' )
+			)
+		);
+			 $listePIE = $this->Tableausuivipdv93->Pdv->find(
+			'list',
+			array(
+				'contain' => false,
+				'joins' => array(
+					$this->Tableausuivipdv93->Pdv->join( 'Typeorient', array( 'type' => 'INNER' ) ),
+				),
+				'conditions' => (array)Configure::read( 'Tableausuivipdv93.conditionsPdvPIE' ),
+				'order' => array( 'Pdv.lib_struc' )
+			)
+		);
+			//combine les 2 tableaux, array_merge combine en mettant des index à partir de 0. Donc obligation de faire 2 boucles pour combiner sans perdre les index
+			//puis tri par valeur croissantes
+			$listeComplete =	array();
+			foreach($listePDV as $index=>$value)
+				$listeComplete[$index]	=	$value;
+			foreach($listePIE as $index=>$value)
+				$listeComplete[$index]	=	$value;
+			asort($listeComplete);
+
+			return $listeComplete;
 		}
 
 		/**
