@@ -286,7 +286,7 @@
 			}
 
 			if( Configure::read( 'CG.cantons' ) ) {
-				$content .= $this->_input( "{$params['prefix']}Canton.canton", $params, array( 'type' => 'select', 'options' => (array)Hash::get( $params, 'options.Canton.canton' ), 'empty' => true ) );
+				$content .= $this->_input( "{$params['prefix']}Canton.canton", $params, array( 'type' => 'select', 'class'=>'checkboxCanton', 'multiple' => 'checkbox', 'options' => (array)Hash::get( $params, 'options.Canton.canton' ) ) );
 			}
 
 			if( Configure::read( 'Cg.departement' ) == 58 ) {
