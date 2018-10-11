@@ -291,5 +291,56 @@
 
 			return $query;
 		}
+
+
+		/**
+		 * Cherche l'emploi sélectionné ou le créé sinon
+		 *
+		 * @param array $record
+		 * @return array
+		 */
+		public function existeEntreeRomeV3( $record ) {
+			$return = false;
+
+			// On cherche si l'entrée existe
+			$entreeromev3 = $this->find (
+				'first',
+				array (
+					'conditions' => array (
+						'familleromev3_id' => $record['Entreeromev3']['familleromev3_id'],
+						'domaineromev3_id' => $record['Entreeromev3']['domaineromev3_id'],
+						'metierromev3_id' => $record['Entreeromev3']['metierromev3_id'],
+						'appellationromev3_id' => $record['Entreeromev3']['appellationromev3_id'],
+					),
+				)
+			);
+
+			// Si non, on tente de la créer
+			if (empty($entreeromev3)) {
+				$return = $this->createEntreeRomeV3($record);
+			}
+			else {
+				$return = true;
+			}
+
+			return $return;
+		}
+
+		/**
+		 * Création d'un emploi
+		 *
+		 * @param array $record
+		 * @return array
+		 */
+		public function createEntreeRomeV3( $record ) {
+			$return = false;
+			$this->create();
+
+			if ($this->save($record)) {
+				$return = true;
+			}
+
+			return $return;
+		}
 	}
 ?>
