@@ -1032,16 +1032,26 @@
 		 * @return integer
 		 */
 		public function rgorientMax( $personne_id ) {
-			return $this->Orientstruct->find(
-				'count',
+			$return = 0;
+
+			$result = $this->Orientstruct->find(
+				'first',
 				array(
+					'recursive' => -1,
+					'fields' => 'rgorient',
+					'order' => 'rgorient DESC',
 					'conditions' => array(
 						"{$this->Orientstruct->alias}.statut_orient" => 'Orienté',
 						"{$this->Orientstruct->alias}.personne_id" => $personne_id
 					),
-					'contain' => false
 				)
 			);
+
+			if (!empty($result)) {
+				$return = $result['Orientstruct']['rgorient'];
+			}
+
+			return $return;
 		}
 
 		/**
