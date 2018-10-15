@@ -2502,3 +2502,7 @@ body.checks div#data th, body.checks div#data td {
 body.checks div#data tr.even td {
     background-color: #e6eef2;
 }
+
+.service__vie_du__parcours_d__insertion {color:#f78d1d;}/*Orange*/
+.service__suivi_et__controle_des__droits__r_s_a {color:#9419f3;}/*Violet*/
+.service__acces_aux__droits__r_s_a {color:#0b3efc;}/*Bleu*/
