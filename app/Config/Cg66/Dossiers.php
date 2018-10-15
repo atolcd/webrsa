@@ -71,6 +71,9 @@
 				),
 				// 5.3 Infobulle optionnelle du tableau de résultats
 				'innerTable' => array(
+				    'Dossier.fonorg' => array(
+                        'verifMSA'=>true//ajoute la couleur dans le cas d'un bénéficiare MSA
+                    ),
 					'Dossier.matricule',
 					'Personne.dtnai',
 					'Adresse.numcom' => array(
@@ -129,4 +132,14 @@
 			'ini_set' => Configure::read( 'ConfigurableQuery.Dossiers.search.ini_set' ),
 		)
 	);
+
+    /**
+     * Configuration des couleurs en fonction de différents attribut (appartenance bénéficiaire, type de dossiers, etc)
+     */
+    Configure::write(
+        'ConfigurableQuery.Dossiers.couleurs',
+        array(
+           0    =>  array('valeurCompare'=>'MSA', 'param'=>' " verifMSA="1', 'replace'=>' contenuMSA')
+        )
+    );
 ?>
