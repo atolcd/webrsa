@@ -470,19 +470,19 @@ msgid "Ficheprescription93.personne_a_integre"
 msgstr "Le bénéficaire a intégré l'action"
 
 msgid "Ficheprescription93.personne_acheve"
-msgstr "Le bénéficiaire a-t'il achevé l'action ?"
+msgstr "Le bénéficiaire a-t'il terminé l'action ?"
 
 msgid "Ficheprescription93.motifactionachevefp93_id"
-msgstr "Avec"
+msgstr "Résultat à l'issu de l'action"
 
 msgid "Ficheprescription93.motifnonactionachevefp93_id"
-msgstr "Motif"
+msgstr "Motif de l'abandon"
 
 msgid "Ficheprescription93.personne_acheve_autre"
 msgstr "Si autre, préciser"
 
 msgid "Ficheprescription93.personne_date_integration"
-msgstr "Date"
+msgstr "Date d'entrée dans l'action"
 
 msgid "Ficheprescription93.motifnonintegrationfp93_id"
 msgstr "Motif"

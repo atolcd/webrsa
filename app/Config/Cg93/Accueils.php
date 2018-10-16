@@ -27,7 +27,10 @@
 				),
 				'rendezvous' => array (
 					'limite' => 1 // Nombre de jour après à la date du jour
-				)
+				),
+				'fichesprescriptionresultataction' => array ( // Réservé au CD 93
+					'limite' => 9 // Nombre de mois antérieur à la date du jour
+				),
 			),
 		)
 	);

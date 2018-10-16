@@ -253,7 +253,7 @@
 		$this->Html->tag( 'legend', __d( $this->request->params['controller'], 'Ficheprescription93.Effectivite' ) )
 		.$this->Default3->subform(
 			array(
-				'Ficheprescription93.benef_retour_presente' => array( 'empty' => true ),
+				'Ficheprescription93.benef_retour_presente' => array( 'empty' => true, 'required' => true ),
 				'Ficheprescription93.date_retour' => array( 'empty' => true, 'dateFormat' => 'DMY', 'timeFormat' => 24, 'maxYear' => date( 'Y' ) + 1 )
 			),
 			array(
@@ -273,7 +273,7 @@
 				'Ficheprescription93.personne_nonretenue_autre',
 
 				'Ficheprescription93.personne_a_integre' => array( 'empty' => true ),
-				'Ficheprescription93.personne_date_integration' => array( 'dateFormat' => 'DMY' ),
+				'Ficheprescription93.personne_date_integration' => array( 'dateFormat' => 'DMY', 'empty'=>true ),
 				'Ficheprescription93.motifnonintegrationfp93_id' => array( 'empty' => true ),
 				'Ficheprescription93.personne_nonintegre_autre',
 
@@ -383,6 +383,7 @@
 		true,
 		true
 	);
+    //date pour "le bénéficiaire a intégré l'action"
 	echo $this->Observer->disableFieldsOnValue(
 		'Ficheprescription93.personne_a_integre',
 		array(
@@ -556,6 +557,55 @@
 	Element.observe( $( 'Ficheprescription93Yearthematiquefp93Id' ), 'click', function( event ) {
 			$( 'Ficheprescription93Thematiquefp93Id' ).value = '';
 	} );
+	//cache les éléments "suivi du positionnement" si "Le bénéficaire a été retenu par la structure" est à non
+	Element.observe( $( 'Ficheprescription93PersonneRetenue' ), 'change', function( event ) {
+	    if($( 'Ficheprescription93PersonneRetenue' ).value=='0'){
+	        disabledFromRetenuStructure(true);
+	    }
+	    else {
+	        disabledFromRetenuStructure(false);
+	    }
+	} );
+
+	//bloque d'office les champs date si le choix "Le bénéficiaire s'est présenté n'est pas renseigné à "OUI"
+	disabledFromBeneficiairePresente(true);
+	Element.observe( $( 'Ficheprescription93BenefRetourPresente' ), 'change', function( event ) {
+	    if($( 'Ficheprescription93BenefRetourPresente' ).value=='oui'){
+	        disabledFromBeneficiairePresente(false);
+	    }
+	    else {
+	        disabledFromBeneficiairePresente(true);
+	        $('Ficheprescription93DateRetourDay').value='';
+	        $('Ficheprescription93DateRetourMonth').value='';
+	        $('Ficheprescription93DateRetourYear').value='';
+	    }
+	} );
+
+	//vide la date d'entrée dans l'action dans le cas où cette dernière est rempli puis le select changé à "non" ou "vide"
+	Element.observe( $( 'Ficheprescription93PersonneAIntegre' ), 'change', function( event ) {
+	    if($( 'Ficheprescription93PersonneAIntegre' ).value!='1'){
+	        $('Ficheprescription93PersonneDateIntegrationDay').value='';
+	        $('Ficheprescription93PersonneDateIntegrationMonth').value='';
+	        $('Ficheprescription93PersonneDateIntegrationYear').value='';
+	    }
+	} );
+
+	function disabledFromBeneficiairePresente(statut){
+	    $('Ficheprescription93DateRetourDay').disabled=statut;
+	    $('Ficheprescription93DateRetourMonth').disabled=statut;
+	    $('Ficheprescription93DateRetourYear').disabled=statut;
+	}
+
+	function disabledFromRetenuStructure(statut) {
+	    $('Ficheprescription93PersonneAIntegre').disabled=statut;
+	    $('Ficheprescription93PersonneAcheve').disabled=statut;
+	    $('Ficheprescription93DateBilanMiParcoursDay').disabled=statut;
+	    $('Ficheprescription93DateBilanMiParcoursMonth').disabled=statut;
+	    $('Ficheprescription93DateBilanMiParcoursYear').disabled=statut;
+	    $('Ficheprescription93DateBilanFinalDay').disabled=statut;
+	    $('Ficheprescription93DateBilanFinalMonth').disabled=statut;
+	    $('Ficheprescription93DateBilanFinalYear').disabled=statut;
+	}
 
 	function clearFicheprescription93FormField( fieldId ) {
 		try {
