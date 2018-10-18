@@ -1,4 +1,10 @@
 <?php
+    if(!isset($messages))
+        $messages   =   array();
+    if($alertTrancheAge) {
+        $messages[__d('rendezvous.po', 'Rendezvous::Alert55Ans')] = 'error';
+    }
+
 	if( $this->action == 'add' ) {
 		$this->pageTitle = 'Ajout Rendez-vous';
 	}
@@ -57,8 +63,8 @@
 </script>
 
 <h1><?php echo $this->pageTitle;?></h1>
-
 <?php
+    echo $this->Default3->messages( $messages );//affichage de l'alerte +55ans si nécessaire
 	echo $this->Form->create( 'Rendezvous', array( 'type' => 'post', 'novalidate' => true ) );
 	echo '<div>'.$this->Form->input( 'Rendezvous.id', array( 'type' => 'hidden' ) ).'</div>';
 	echo '<div>'.$this->Form->input( 'Rendezvous.personne_id', array( 'type' => 'hidden', 'value' => $personne_id ) ).'</div>';
