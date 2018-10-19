@@ -148,71 +148,6 @@
 				$delaiCreationContrat = Configure::read( "{$this->Nonorientationprocov58->alias}.delaiCreationContrat" );
 				$typesorientEmploiIds = (array)Configure::read( 'Typeorient.emploi_id' );
 
-				// Sous-requête pour qu'il n'existe pas actuellement de dossier de COV pouvant déboucher sur une réorientation
-				$Cov58 = $this->Nonorientationprocov58->Dossiercov58->Passagecov58->Cov58;
-				$queryDossierscovs58ReorientationsEnCours = $this->Nonorientationprocov58->Dossiercov58->getDossiersQuery();
-				$queryDossierscovs58ReorientationsEnCours['fields'] = array( 'Dossiercov58.id' );
-				$queryDossierscovs58ReorientationsEnCours['conditions'][] = array(
-					'Dossiercov58.personne_id = Personne.id',
-					'Dossiercov58.themecov58' => $this->Nonorientationprocov58->Dossiercov58->getThematiquesReorientations(),
-					array(
-						'OR' => array(
-							'Cov58.id IS NULL',
-							'Cov58.etatcov' => $Cov58::$etatsEnCours,
-							array(
-								'NOT' => array(
-									'Passagecov58.etatdossiercov' => array( 'traite', 'annule' )
-								)
-							)
-						)
-					)
-				);
-				$queryDossierscovs58ReorientationsEnCours = array_words_replace(
-					$queryDossierscovs58ReorientationsEnCours,
-					array(
-						'Cov58' => 'covs58',
-						'Dossiercov58' => 'dossierscovs58',
-						'Passagecov58' => 'passagescovs58'
-					)
-				);
-				$alias = $this->Nonorientationprocov58->Dossiercov58->alias;
-				$this->Nonorientationprocov58->Dossiercov58->alias = 'dossierscovs58';
-				$sqDossierscovs58ReorientationsEnCours = $this->Nonorientationprocov58->Dossiercov58->sq( $queryDossierscovs58ReorientationsEnCours );
-				$this->Nonorientationprocov58->Dossiercov58->alias = $alias;
-
-				// TODO: Sous-requête pour qu'il n'existe pas actuellement de dossier d'EP pouvant déboucher sur une réorientation
-				$Commissionep = $this->Nonorientationprocov58->Dossiercov58->Personne->Dossierep->Passagecommissionep->Commissionep;
-				$queryDossiersepsReorientationsEnCours = $this->Nonorientationprocov58->Dossiercov58->Personne->Dossierep->getDossiersQuery();
-				$queryDossiersepsReorientationsEnCours['fields'] = array( 'Dossierep.id' );
-				$queryDossiersepsReorientationsEnCours['conditions'][] = array(
-					'Dossierep.actif' => '1',
-					'Dossierep.personne_id = Personne.id',
-					'Dossierep.themeep' => $this->Nonorientationprocov58->Dossiercov58->Personne->Dossierep->getThematiquesReorientations(),
-					array(
-						'OR' => array(
-							'Commissionep.id IS NULL',
-							'Commissionep.etatcommissionep' => $Commissionep::$etatsEnCours,
-							array(
-								'NOT' => array(
-									'Passagecommissionep.etatdossierep' => array( 'traite', 'annule' )
-								)
-							)
-						)
-					)
-				);
-				$queryDossiersepsReorientationsEnCours = array_words_replace(
-					$queryDossiersepsReorientationsEnCours,
-					array(
-						'Commissionep' => 'commissionseps',
-						'Dossierep' => 'dossierseps',
-						'Passagecommissionep' => 'passagescommissionseps'
-					)
-				);
-				$alias = $this->Nonorientationprocov58->Dossiercov58->Personne->Dossierep->alias;
-				$this->Nonorientationprocov58->Dossiercov58->Personne->Dossierep->alias = 'dossierseps';
-				$sqDossiersepsReorientationsEnCours = $this->Nonorientationprocov58->Dossiercov58->Personne->Dossierep->sq( $queryDossiersepsReorientationsEnCours );
-				$this->Nonorientationprocov58->Dossiercov58->Personne->Dossierep->alias = $alias;
-
 				// On souhaite n'afficher que les orientations en social ne possédant encore pas de dossier COV
 				// 1°) On a un dossier COV en cours de passage (<> finalisé (accepté/refusé), <> reporté) // {cree,traitement,ajourne,finalise}
 				// 2°) Si COV accepte -> on a un dossier en EP -> OK (voir plus haut)
@@ -335,9 +270,6 @@
 						str_replace( '%s', $ancienneTableCov, $sqOrientstructDelaiPassageCov ),
 						// Même chose pour l'ancienne thématique EP
 						str_replace( '%s', $ancienneTableEp, $sqOrientstructDelaiPassageEp ),
-						// Pour lequel il n'existe ni de dossier COV ni de dossier d'EP pouvant déboucher sur une réorientation
-						"NOT EXISTS( {$sqDossierscovs58ReorientationsEnCours} )",
-						"NOT EXISTS( {$sqDossiersepsReorientationsEnCours} )"
 					)
 				);
 
