@@ -120,7 +120,9 @@
 								'actions' => array(
 									'Dossierscovs58::view' => array(
 										'label' => 'Voir',
-										'url' => array( 'controller' => $controller, 'action' => 'index', '#Personne.id#' )
+										'url' => array( 'controller' => $controller, 'action' => 'index', '#Personne.id#' ),
+										'class' => 'external',
+										'target' => '_blank',
 									),
 									'Dossierscovs58::impressiondecision' => array(
 										'label' => 'Imprimer la décision',

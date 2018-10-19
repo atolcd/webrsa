@@ -338,7 +338,15 @@
 								echo '</ul>';
 
 								$actions = array(
-									'Dossierseps::view' => array( 'label' => 'Voir', 'url' => array( 'controller' => 'historiqueseps', 'action' => 'index', '#Personne.id#' ), 'class' => 'external' ),
+									'Dossierseps::view' => array(
+										'label' => 'Voir',
+										'url' => array(
+											'controller' => 'historiqueseps',
+											'action' => 'index',
+											'#Personne.id#' ),
+										'class' => 'external',
+										'target' => '_blank',
+									),
 								);
 
 								$touteslesheuresdepassage = array ();
