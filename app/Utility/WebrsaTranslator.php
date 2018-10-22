@@ -29,7 +29,7 @@
 		 * @return string translated string.
 		 * @throws Exception
 		 */
-		public static function translate($singular, $plural = null, $category = 6, $count = null, $language = null) {
+		public static function translate($singular, $plural = null, $category = 6, $count = null, $language = null, $useCache = true) {
 			$className = get_called_class();
 			$instance = $className::getInstance();
 			
