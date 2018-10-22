@@ -18,11 +18,12 @@ echo '<table>
 				<th rowspan="2">Orientation actuelle</th>
 				<th rowspan="2">Structure</th>
 				<th rowspan="2">Motif saisine</th>
-				<th colspan="4">Avis EPL</th>
+				<th colspan="5">Avis EPL</th>
 				<th rowspan="2">Observations</th>
 				<th rowspan="2">Action</th>
 			</tr>
 			<tr>
+				<th>Commentaire<br />Bénéficiaire</th>
 				<th>Avis</th>
 				<th>Type d\'orientation</th>
 				<th>Structure référente</th>
@@ -54,6 +55,7 @@ echo '<table>
 
 				$examenaudition,
 
+				$this->Form->input( "Decisiondefautinsertionep66.{$i}.commentairebeneficiaire", array( 'label' =>false, 'type' => 'textarea' ) ),
 
 				array(
 					$this->Form->input( "Decisiondefautinsertionep66.{$i}.decision", array( 'type' => 'select', 'label' => false, 'empty' => true, 'options' => $options['Decisiondefautinsertionep66']['decision'], 'value' => @$decisionsdefautsinsertionseps66[$i]['decision'] ) ).
