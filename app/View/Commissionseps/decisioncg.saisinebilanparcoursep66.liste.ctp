@@ -70,10 +70,19 @@ echo '<table id="Decisionsaisinebilanparcoursep66">
 			@$liste_structuresreferentes[Set::classicExtract( $dossierep, "Saisinebilanparcoursep66.structurereferente_id" )]
 		);
 
+		$commentaire = implode( ' - ', Hash::filter( (array)array(
+			@$options['Decisionsaisinebilanparcoursep66']['decision'][Set::classicExtract( $decisionep, "decision" )],
+			@$options['Saisinebilanparcoursep66']['choixparcours'][Set::classicExtract( $decisionep, "choixparcours" )],
+			@$options['Saisinebilanparcoursep66']['maintienorientparcours'][Set::classicExtract( $decisionep, "maintienorientparcours" )],
+			@$liste_typesorients[Set::classicExtract( $decisionep, "typeorient_id" )],
+			@$liste_structuresreferentes[Set::classicExtract( $decisionep, "structurereferente_id" )],
+			@$liste_referents[Set::classicExtract( $decisionep, "referent_id" )]
+		) ) );
+
 		if(isset($dossierep["Passagecommissionep"][0]["Decisionsaisinebilanparcoursep66"][0]["commentaire"]))
-			$listeFields[]	=	$dossierep["Passagecommissionep"][0]["Decisionsaisinebilanparcoursep66"][0]["commentaire"];
-		else
-			$listeFields[]	=	'';
+			$commentaire .= ' '.$dossierep["Passagecommissionep"][0]["Decisionsaisinebilanparcoursep66"][0]["commentaire"];
+
+		$listeFields[] = $commentaire;
 
 		$enabled = ( $commissionep['Commissionep']['etatcommissionep'] != 'annule' );
 

@@ -1257,9 +1257,52 @@ if ( $this->action == 'edit' && isset( $passagecommissionep['Decisiondefautinser
 	echo '</fieldset>';
 }
 
-if(isset($passagecommissionep['Decisionsaisinebilanparcoursep66'][0]) && !isset($passagecommissionep['Decisionsaisinebilanparcoursep66'][1]))
-	$passagecommissionep['Decisionsaisinebilanparcoursep66'][1]	=	$passagecommissionep['Decisionsaisinebilanparcoursep66'][0];
-
+//avis EP (index [0])
+if ( $this->action == 'edit' && isset( $passagecommissionep['Decisionsaisinebilanparcoursep66'][0]['id'] ) && !empty( $passagecommissionep['Decisionsaisinebilanparcoursep66'][0]['id'] ) ) {
+	echo $this->Xhtml->tag(
+		'p',
+		'AVIS EP',
+		array(
+			'style' => 'text-align: center; font-size: 14px; font-weight:bold;'
+		)
+	);
+	$decisioncg = $passagecommissionep['Decisionsaisinebilanparcoursep66'][0];
+	echo '<fieldset><legend><strong>Suite à l\'avis de l\'EP Locale "Commission Parcours"</strong></legend>';
+		if ( $decisioncg['decision'] == 'reorientation' ) {
+			echo $this->Xhtml->tag(
+				'strong',
+				'Réorientation du PROFESSIONNEL vers le SOCIAL'
+			);
+			$accord = ( $avisep['decision'] == $decisioncg['decision'] ) ? 'Oui' : 'Non';
+			echo $this->Xhtml->tag(
+				'p',
+				"En accord avec l'avis de l'EPL commission Parcours : ".$accord
+			);
+		}
+		elseif ( $decisioncg['decision'] == 'maintien' ) {
+			echo $this->Xhtml->tag(
+				'strong',
+				'Maintien de l\'orientation SOCIALE : '.$decisioncg['Typeorient']['lib_type_orient']//$options['Decisionsaisinebilanparcoursep66']['maintienorientparcours'][$decisioncg['maintienorientparcours']]
+			);
+			echo $this->Xhtml->tag(
+				'p',
+				$options['Decisionsaisinebilanparcoursep66']['changementrefparcours'][$decisioncg['changementrefparcours']]
+			);
+		}
+		echo $this->Xhtml->tag(
+			'p',
+			"Commentaire :",
+			array(
+				'style' => 'font-weight:bold; text-decoration:underline'
+			)
+		);
+		echo $this->Xhtml->tag(
+			'p',
+			$decisioncg['commentaire']
+		);
+	echo '</fieldset>';
+}
+//Decision coordonnateur technique (index [1])
 if ( $this->action == 'edit' && isset( $passagecommissionep['Decisionsaisinebilanparcoursep66'][1]['id'] ) && !empty( $passagecommissionep['Decisionsaisinebilanparcoursep66'][1]['id'] ) ) {
 	echo $this->Xhtml->tag(
 		'p',

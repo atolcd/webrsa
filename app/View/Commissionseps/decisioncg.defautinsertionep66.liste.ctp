@@ -39,7 +39,7 @@ echo '<table id="Decisiondefautinsertionep66" class="tooltips">
 	$decisionOrientation = array_keys((array)Configure::read('Commissionseps.defautinsertionep66.decision.type'));
 	foreach( $dossiers[$theme]['liste'] as $i => $dossierep ) {
 //		if( in_array( $dossierep['Passagecommissionep'][0]['Decisiondefautinsertionep66'][0]['decision'], array( 'reorientationsocversprof', 'reorientationprofverssoc' ) ) ) {
-			
+
 			$examenaudition = Set::enum( @$dossierep['Defautinsertionep66']['Bilanparcours66']['examenaudition'], $options['Defautinsertionep66']['type'] );
 			if( !empty( $dossierep['Defautinsertionep66']['Bilanparcours66']['examenauditionpe'] ) ){
 				$examenaudition = Set::enum( @$dossierep['Defautinsertionep66']['Bilanparcours66']['examenauditionpe'], $options['Bilanparcours66']['examenauditionpe'] );
@@ -75,27 +75,29 @@ echo '<table id="Decisiondefautinsertionep66" class="tooltips">
 
             // NOTE : vrai si l'EP Audition s'est transformée en EP Parcours (réorientation)
 			$isParcours = in_array($decisioncg['decision'], $decisionOrientation);
-            
-			$avisEp = implode(
-                ' - ',
-                Hash::filter(
-                    (array)array(
-                        Set::enum( @$decisionep['decisionsup'], $options['Decisiondefautinsertionep66']['decisionsup'] ),
-                        Set::enum( @$decisionep['decision'], $options['Decisiondefautinsertionep66']['decision'] ),
-                        @$listeTypesorients[@$decisionep['typeorient_id']],
-                        @$listeStructuresreferentes[@$decisionep['structurereferente_id']],
-                        @$listeReferents[@$decisionep['referent_id']]
-                    )
-                )
-            );
-			
+
+			$avisEp	= implode(
+			                ' - ',
+			                Hash::filter(
+			                    (array)array(
+			                        Set::enum( @$decisionep['decisionsup'], $options['Decisiondefautinsertionep66']['decisionsup'] ),
+			                        Set::enum( @$decisionep['decision'], $options['Decisiondefautinsertionep66']['decision'] ),
+			                        @$listeTypesorients[@$decisionep['typeorient_id']],
+			                        @$listeStructuresreferentes[@$decisionep['structurereferente_id']],
+			                        @$listeReferents[@$decisionep['referent_id']]
+			                    )
+			                ));
+
+			if(isset($dossierep["Personne"]["Foyer"]["Dossierpcg66"][0]["Decisiondefautinsertionep66"]["commentaire"]))
+				$avisEp	.= ' '.$dossierep["Personne"]["Foyer"]["Dossierpcg66"][0]["Decisiondefautinsertionep66"]["commentaire"];
+
 			$decisionCT = !$isParcours 
 				? ''
 				: array(
 				Hash::get($options, 'Decisiondefautinsertionep66.decision.'.Hash::get($decisioncg, 'decision')), 
 				array('id' => "Decisiondefautinsertionep66{$i}DecisionColumn")
 			);
-			
+
 			$typeorient = !$isParcours 
 				? ''
 				: array(
@@ -104,7 +106,7 @@ echo '<table id="Decisiondefautinsertionep66" class="tooltips">
 					: null,
 				array('id' => "Decisiondefautinsertionep66{$i}TypeorientId")
 			);
-			
+
 			$structurereferente = !$isParcours 
 				? ''
 				: array(
@@ -113,7 +115,7 @@ echo '<table id="Decisiondefautinsertionep66" class="tooltips">
 					: null,
 				array('id' => "Decisiondefautinsertionep66{$i}StructurereferenteId")
 			);
-			
+
 			$referent = !$isParcours 
 				? ''
 				: array(
@@ -143,9 +145,9 @@ echo '<table id="Decisiondefautinsertionep66" class="tooltips">
 					$typeorient,
 					$structurereferente,
 					$referent,
-					
+
 					$decisionPCG,
-						
+
 					array( $this->Xhtml->link( 'Voir', array( 'controller' => 'historiqueseps', 'action' => 'view_passage', $dossierep['Passagecommissionep'][0]['id'] ), array( 'class' => 'external' ) ), array( 'class' => 'button view' ) ),
                     $this->Xhtml->printLink( 'Imprimer', array( 'controller' => 'commissionseps', 'action' => 'impressionDecision', $dossierep['Passagecommissionep'][0]['id'] ), ( $enabled ) ),
 				),
