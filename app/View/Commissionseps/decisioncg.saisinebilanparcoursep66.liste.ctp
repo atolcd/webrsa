@@ -51,7 +51,6 @@ echo '<table id="Decisionsaisinebilanparcoursep66">
 		$decisionep = @$dossierep['Passagecommissionep'][0]['Decisionsaisinebilanparcoursep66'][1];
 		$decisioncg = @$dossierep['Passagecommissionep'][0]['Decisionsaisinebilanparcoursep66'][0];
 
-
 		$listeFields = array(
 			implode( ' ', array( $dossierep['Personne']['qual'], $dossierep['Personne']['nom'], $dossierep['Personne']['prenom'] ) ),
 			implode( ' ', array( $dossierep['Personne']['Foyer']['Adressefoyer'][0]['Adresse']['numvoie'], $dossierep['Personne']['Foyer']['Adressefoyer'][0]['Adresse']['libtypevoie'], $dossierep['Personne']['Foyer']['Adressefoyer'][0]['Adresse']['nomvoie'] ) ),
@@ -71,22 +70,12 @@ echo '<table id="Decisionsaisinebilanparcoursep66">
 			@$liste_structuresreferentes[Set::classicExtract( $dossierep, "Saisinebilanparcoursep66.structurereferente_id" )]
 		);
 
-		$listeFields[] = implode( ' - ', Hash::filter( (array)array(
-			@$options['Decisionsaisinebilanparcoursep66']['decision'][Set::classicExtract( $decisionep, "decision" )],
-			@$options['Saisinebilanparcoursep66']['choixparcours'][Set::classicExtract( $decisionep, "choixparcours" )],
-			@$options['Saisinebilanparcoursep66']['maintienorientparcours'][Set::classicExtract( $decisionep, "maintienorientparcours" )],
-			@$liste_typesorients[Set::classicExtract( $decisionep, "typeorient_id" )],
-			@$liste_structuresreferentes[Set::classicExtract( $decisionep, "structurereferente_id" )],
-			@$liste_referents[Set::classicExtract( $decisionep, "referent_id" )]
-		) ) );
+		if(isset($dossierep["Passagecommissionep"][0]["Decisionsaisinebilanparcoursep66"][0]["commentaire"]))
+			$listeFields[]	=	$dossierep["Passagecommissionep"][0]["Decisionsaisinebilanparcoursep66"][0]["commentaire"];
+		else
+			$listeFields[]	=	'';
 
 		$enabled = ( $commissionep['Commissionep']['etatcommissionep'] != 'annule' );
-// 		if( $decisioncg['decision'] == 'maintien' ){
-// 			$enabled = false;
-// 		}
-// 		else{
-// 			$enabled = $enabled;
-// 		}
 
 		$typeorientPrincipale = null;
 		if( in_array( @$decisioncg['Typeorient']['parentid'], $typeorientprincipaleSocial ) ) {
