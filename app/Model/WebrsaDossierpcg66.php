@@ -221,9 +221,9 @@
 				'conditions' => $conditions,
 				'contain' => false,
 				'order' => array(
+					'Dossierpcg66.datereceptionpdo' => 'DESC NULLS LAST',
 					'Decisiondossierpcg66.datetransmissionop' => 'DESC NULLS FIRST',
 					'Decisiondossierpcg66.datevalidation' => 'DESC NULLS FIRST',
-					'Dossierpcg66.datereceptionpdo' => 'DESC NULLS LAST',
 					'Dossierpcg66.id' => 'DESC',
 				)
 			);
