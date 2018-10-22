@@ -523,26 +523,45 @@
 					$data['Emploiromev3']['domaineromev3_id'] = '';
 					$data['Emploiromev3']['metierromev3_id'] = '';
 				}
-	
+
+				// On formate le Rome V3 pour pouvoir l'exploiter
+				$familleromev3_id = $data['Emploiromev3']['familleromev3_id'];
 				$domaineromev3_id = explode("_", $data['Emploiromev3']['domaineromev3_id']);
 				$metierromev3_id = explode("_", $data['Emploiromev3']['metierromev3_id']);
 				$appellationromev3_id = explode("_", $data['Emploiromev3']['appellationromev3_id']);
-	
-				$this->loadModel('Entreeromev3');
-				$entreeromev3 = $this-> Entreeromev3->find (
-					'first',
-					array (
-						'conditions' => array (
-							'familleromev3_id' => $data['Emploiromev3']['familleromev3_id'],
-							'domaineromev3_id' => (count($domaineromev3_id) > 1 ? $domaineromev3_id[1] : ''),
-							'metierromev3_id' => (count($metierromev3_id) > 1 ? $metierromev3_id[1] : ''),
-							'appellationromev3_id' => (count($appellationromev3_id) > 1 ? $appellationromev3_id[1] : ''),
-						),
+
+				$domaineromev3_id = count($domaineromev3_id) > 1 ? $domaineromev3_id[1] : '';
+				$metierromev3_id = count($metierromev3_id) > 1 ? $metierromev3_id[1] : '';
+				$appellationromev3_id = count($appellationromev3_id) > 1 ? $appellationromev3_id[1] : '';
+
+				$record = array (
+					'Entreeromev3' => array (
+						'familleromev3_id' => $familleromev3_id,
+						'domaineromev3_id' => $domaineromev3_id,
+						'metierromev3_id' => $metierromev3_id,
+						'appellationromev3_id' => $appellationromev3_id,
 					)
 				);
-	
-				if (isset ($entreeromev3['Entreeromev3'])) {
-					return $entreeromev3['Entreeromev3']['id'];
+
+				// On teste si le métier existe sinon on le créé.
+				$this->loadModel('Entreeromev3');
+				if ($this->Entreeromev3->existeEntreeRomeV3($record)) {
+					// On récupère l'identifiant du métier
+					$entreeromev3 = $this->Entreeromev3->find (
+						'first',
+						array (
+							'conditions' => array (
+								'familleromev3_id' => $familleromev3_id,
+								'domaineromev3_id' => $domaineromev3_id,
+								'metierromev3_id' => $metierromev3_id,
+								'appellationromev3_id' => $appellationromev3_id,
+							),
+						)
+					);
+
+					if (isset ($entreeromev3['Entreeromev3'])) {
+						return $entreeromev3['Entreeromev3']['id'];
+					}
 				}
 			}
 
