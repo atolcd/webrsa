@@ -1060,7 +1060,7 @@
 			$options = array(
 				'Referent' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() ),
 				'Personne' => array( 'qual' => ClassRegistry::init( 'Option' )->qual() ),
-				'duree' => array( 'engag' => ClassRegistry::init( 'Option' )->duree_engag_cg66() )
+				'duree' => array( 'engag' => Configure::read( 'cer.duree.engagement' ) )
 			);
 
 
