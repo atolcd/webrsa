@@ -351,7 +351,7 @@ $fonorg = $dossier['Dossier']['fonorg'];
 		// Dossier PCG (CG 66)
 		if( $departement == 66 ) {
 			$items['PCGs'] = array(
-				'Dossier PCG' => array( 'url' => array( 'controller' => 'dossierspcgs66', 'action' => 'index', $dossier['Foyer']['id'] ) ),
+				'Dossier PCG ('.$dossier['PCG'].')' => array( 'url' => array( 'controller' => 'dossierspcgs66', 'action' => 'index', $dossier['Foyer']['id'] ) ),
 				'Corbeille PCG' => array( 'url' => array( 'controller' => 'foyers', 'action' => 'corbeille', $dossier['Foyer']['id'] ) )
 			);
 		}
