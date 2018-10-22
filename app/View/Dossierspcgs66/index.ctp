@@ -1,6 +1,12 @@
 <?php
 	echo $this->Default3->titleForLayout($personneDem);
 
+	if ($alertControleSurPlace) {
+?>
+	<div id="flashMessage" class="error"><?php echo __d ('dossierspcgs66', 'Dossierpcg66.alertControle'); ?></div>
+<?php
+	}
+
 	echo $this->element( 'ancien_dossier' );
 
 	$perm = $this->Permissions->permList(array( 'add', 'view', 'edit', 'cancel', 'delete' ), $dossierMenu);
