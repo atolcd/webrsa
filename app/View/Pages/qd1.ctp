@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -95,7 +95,7 @@
 <p><u><em><strong>NB</u></em></strong>: Vous pouvez à présent renseigner vos D1 et D2 2013.
 (Créez votre 1er rendez-vous de l'année 2013 avec le statut prévu etc. procédure habituelle).</p>
 <p><em>Quels allocataires sont comptabilisés dans les statistiques D1?</em></p>
-<p><u>Il s'agit des allocataires qui sont suivis par le projet de ville</u>&nbsp;:</p>
+<p><u>Il s'agit des allocataires qui sont suivis par le projet insertion emploi</u>&nbsp;:</p>
 <ul>
 <li>Si ceux-ci sont soumis à droit et devoirs : 
 Le D1 renseigné pour cet allocataire est comptabilisé dans les statistiques
@@ -150,7 +150,7 @@ Dispositions concernant la grille D1 « indicateurs de réalisation  &nbsp;: car
 <li>Autres caractéristiques</li>
 </ul>
 <p>Renseigner les champs obligatoires (avec un astérisque <span style="color:red">*</span> ).</p>
-<p>Tous les champs sont obligatoires pour la validation du formulaire.<br/>La plupart des champs renseignés sont rapatriés à partir des données présentes dans l’application. Vous n’aurez qu’à compléter seulement les champs manquants (proposés automatiquement par WebRSA).<br/>Pour faciliter ce travail de récupération de données, cette fonctionnalité est ouverte à tous les agents du PDV.</p>
+<p>Tous les champs sont obligatoires pour la validation du formulaire.<br/>La plupart des champs renseignés sont rapatriés à partir des données présentes dans l’application. Vous n’aurez qu’à compléter seulement les champs manquants (proposés automatiquement par WebRSA).<br/>Pour faciliter ce travail de récupération de données, cette fonctionnalité est ouverte à tous les agents du PIE.</p>
 <img src="/didac/images/questid1.jpg" alt="Le questionnaire D1" width="605px" height="382px" /><br/>
 
 <a href="#haut" style="font-weight:normal;line-height:55px;">Haut de la page</a>

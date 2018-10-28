@@ -62,7 +62,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -90,7 +90,7 @@ Prenons l'exemple d'un Chargé d'insertion qui souhaite consulter ses rendez-vou
 <img src="/didac/images/cprdvj.jpg" alt="Rendez-vous du jour CI" width="690px" height="272px" />
 <ul>
 <li>Sélectionner le statut du rendez-vous (Prévu dans cet exemple).</li>
-<li>Sélectionner la structure référente (Votre Projet de Ville).</li>
+<li>Sélectionner la structure référente (Votre Projet Insertion Emploi).</li>
 <li>Sélectionner votre nom.</li>
 <li>Activer les filtres par dates.</li>
 </ul>

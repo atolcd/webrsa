@@ -62,7 +62,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -185,7 +185,7 @@ Sélectionnez un "Type de prescription"&nbsp; :</p>
 <img src="/didac/images/rechfpdabi.jpg" alt="Recherche par fiche de prescription" width="406px" height="177px" />
 <p>Bilan final? Oui / Non</p>
 <img src="/didac/images/rechfpbifi.jpg" alt="Recherche par fiche de prescription" width="427px" height="214px" />
-<p>Comme dans tous les formulaires de recherche, un( e ) Chargé( e ) d'insertion peut retrouver des prescriptions&nbsp; :&nbsp; Sélectionner votre structure "Projet de ville", puis votre nom dans la liste déroulante qui en découle.</p>
+<p>Comme dans tous les formulaires de recherche, un( e ) Chargé( e ) d'insertion peut retrouver des prescriptions&nbsp; :&nbsp; Sélectionner votre structure "Projet insertion emploi", puis votre nom dans la liste déroulante qui en découle.</p>
 <img src="/didac/images/suipar.jpg" alt="Recherche par fiche de prescription" width="586px" height="88px" />
 <p>Cocher la case&nbsp; :&nbsp; "Obtenir le nombre total de résultats" pour visualiser le total.</p>
 <img src="/didac/images/comptrechhd.jpg" alt="Recherche par fiche de prescription" width="326px" height="66px" />

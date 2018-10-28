@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -93,7 +93,7 @@
 <ol start="5"><li><a name="clorefma">Clôture des dossiers d’un référent et réaffectation de la file active en masse</a></li></ol>
 <ol style="font-weight:normal;list-style-type:lower-alpha;"><li>Clôture des dossiers d’un référent</li>
 
-<p>Cette cohorte de clôture est disponible uniquement sur les profils : responsable du projet de ville et secrétaire. Ce formulaire vous permettra de mettre une date de fin de désignation à l’ensemble des dossiers d’un référent qui a quitté la structure (Personne chargée du suivi du dossier).
+<p>Cette cohorte de clôture est disponible uniquement sur les profils : responsable du projet insertion emploi et secrétaire. Ce formulaire vous permettra de mettre une date de fin de désignation à l’ensemble des dossiers d’un référent qui a quitté la structure (Personne chargée du suivi du dossier).
 </br>A partir du menu "Cohortes" / "Clôture référents"</p>
 <img src="/didac/images/cohclo.jpg" alt="Affectation en masse" width="202px" height="119px" />
 

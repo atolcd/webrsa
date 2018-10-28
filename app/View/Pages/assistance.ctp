@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li id="activation"><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -80,11 +80,11 @@
 	<a style="text-align:left;" href="javascript:history.back()">&lsaquo;&lsaquo;&nbsp;Page précédente</a>&nbsp;
 	<a style="text-align:right;padding-right:15px;float:right;" href="javascript:history.forward(+1)">Page suivante&nbsp;&rsaquo;&rsaquo;</a>
 		<h2>Annexe 1&nbsp;: Assistance WebRSA</h2>
-<p>Un référent fonctionnel est défini dans chaque projet de ville. Il est le référent entre le PDV et le centre de services pour la déclaration et la résolution de vos incidents.</p>		
-<p><b>Comment contacter l’assistance (Centre de Services) du Conseil général de la Seine-Saint-Denis ?</b></p>		
+<p>Un référent fonctionnel est défini dans chaque projet insertion emploi. Il est le référent entre le PIE et le centre de services pour la déclaration et la résolution de vos incidents.</p>
+<p><b>Comment contacter l’assistance (Centre de Services) du Conseil départemental de la Seine-Saint-Denis ?</b></p>
 	
 <ul>
-<li>Seul le référent fonctionnel du Projet de Ville est habilité à contacter le Centre de Services.</li>
+<li>Seul le référent fonctionnel du Projet Insertion Emploi est habilité à contacter le Centre de Services.</li>
 <li>Contact par téléphone du lundi au vendredi de 8h30 à 17h30  &nbsp;: <b>01 43 93 97 17</b>.</li>
 <li>Contact par mail 24h/24h  &nbsp;: <b>dinsi-transition-mail@seinesaintdenis.fr</b>.</li>
 </ul>
@@ -92,9 +92,9 @@
 <ul>
 <li>Le référent remonte l’incident en rédigeant une fiche avec des captures écran du problème rencontré dans WebRSA (voir ci-dessous la rédaction d’une fiche incident). </li>
 <li>Une fois le Centre de Services contacté, une déclaration d’incident est faite, avec l’outil de gestion PSSOFT.</li>
-<li>Un mail d’information est envoyé au référent du Projet de ville  &nbsp;: ce mail contient entre autre, un numéro de ticket unique associé à la déclaration et une description de l’incident.</li>
+<li>Un mail d’information est envoyé au référent du Projet Insertion Emploi  &nbsp;: ce mail contient entre autre, un numéro de ticket unique associé à la déclaration et une description de l’incident.</li>
 <li>L’incident est transmis par le Centre de Services au service compétent du CG93.</li>
-<li>Une fois l’incident résolu, un mail de résolution est envoyé au référent du Projet de ville, ce mail contient un descriptif des actions menées pour arriver à la résolution de l’incident.</li>
+<li>Une fois l’incident résolu, un mail de résolution est envoyé au référent du Projet Insertion Emploi, ce mail contient un descriptif des actions menées pour arriver à la résolution de l’incident.</li>
 <li>Le référent est chargé de vérifier la résolution de l’incident. Si l’incident n’est pas résolu, il doit en informer le centre de service en répondant au mail de résolution.  </li>
 </ul>
 

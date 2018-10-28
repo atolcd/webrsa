@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -90,7 +90,7 @@
 <a href="fpstatuts">Les statuts de la fiche de prescription</a> <br/>
 <a href="incfp#b45">Champs des B4 et B5</a> <br/>
 </div>
-<p>La fiche de prescription est une fiche de liaison entre le projet de ville qui positionne le bénéficiaire sur une <b><em>action d'insertion</em></b> et le prestataire qui va dispenser cette action. </p>		
+<p>La fiche de prescription est une fiche de liaison entre le projet insertion emploi qui positionne le bénéficiaire sur une <b><em>action d'insertion</em></b> et le prestataire qui va dispenser cette action. </p>		
 <ol><li><a name="pfp">Processus fiche de prescription</a></li>
 
 <p>Rencontre Référent&nbsp;/&nbsp;Allocataire&nbsp;:</p>
@@ -102,7 +102,7 @@
 <li>Impression de la fiche de prescription  &nbsp;: compléter manuellement la partie &quot;prestataire&quot;.</li>
 <li>Le référent remet la fiche à l’allocataire ou la transmet par fax.</li>
 <li>L’allocataire se présente à l’organisme de formation ou d’insertion.</li>
-<li>L’organisme signe la fiche de prescription et la transmet au PDV ou à l’allocataire.</li>
+<li>L’organisme signe la fiche de prescription et la transmet au PIE ou à l’allocataire.</li>
 <li>Le référent renseigne la partie effectivité de la prescription.</li>
 </ul>
 <p>Trois étapes sont identifiées pour le renseignement de la fiche, correspondant à 3 états.</p>

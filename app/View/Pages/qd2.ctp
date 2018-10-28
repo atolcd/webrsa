@@ -62,7 +62,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -87,11 +87,11 @@
 <p>Il est rempli&nbsp; :</p>
 <ul>
 <li>En flux constant, si la situation de l’allocataire change en cours d’année.</li>
-<li>Au 31 décembre de l’année, si l’allocataire poursuit son accompagnement avec le référent du Projet de Ville RSA.</li>
+<li>Au 31 décembre de l’année, si l’allocataire poursuit son accompagnement avec le référent du Projet insertion emploi RSA.</li>
 </ul>
 <p><u>Un préalable obligatoire</u>&nbsp; : Il faut saisir un questionnaire D1 avant de pouvoir saisir un questionnaire D2.</p>
 <p>Les informations de l’allocataire sont saisies sur un seul et unique questionnaire D1 et un seul et unique questionnaire D2 dans l’année N (un suivi = une sortie éventuelle). </p>
-<p>Mais, un bénéficiaire qui peut faire l’objet d’une sortie d’accompagnement et revenir en cours d’année au Projet de Ville RSA, la consigne reste identique : Un questionnaire D1 pour un questionnaire D2 sera renseigné. Il est laissé au professionnel le soin d’en apprécier le mieux disant.</p>
+<p>Mais, un bénéficiaire qui peut faire l’objet d’une sortie d’accompagnement et revenir en cours d’année au Projet insertion emploi RSA, la consigne reste identique : Un questionnaire D1 pour un questionnaire D2 sera renseigné. Il est laissé au professionnel le soin d’en apprécier le mieux disant.</p>
 <p><u>Renseigner le D2</u>&nbsp;:</p>
 <p><u>Profils concernés</u>&nbsp;:</p>
 <p>Tous les profils sont habilités à renseigner les D2: Responsable, secrétaire, chargé d'insertion.</p>
@@ -151,7 +151,7 @@ Lorsqu'on active l'affichage du questionnaire D2, celui-ci propose par défaut l
 <li>Changement de situation </li>
 </ul>
 <p>Les listes du formulaire sont interdépendantes : La sélection d'un statut impacte la liste du motif de sortie de l'obligation d'accompagnement.</p>
-<ul><li>Maintien dans l'accompagnement&nbsp;:&nbsp;Lorsque le bénéficiaire est toujours suivi par le projet de ville.</li></ul>
+<ul><li>Maintien dans l'accompagnement&nbsp;:&nbsp;Lorsque le bénéficiaire est toujours suivi par le projet insertion emploi.</li></ul>
 <img src="/didac/images/D2acc.jpg" alt="Questionnaire D2" width="550px" height="276px" />
 <ul><li>Sortie de l'obligation d'accompagnement : Les motifs de la sortie apparaissent en dessous : Les thèmes sont décomposés en sortie pour l'emploi ou la formation, ou pour d'autres droits (que le RSA).</li></ul>
 <img src="/didac/images/D2sortie.jpg" alt="Questionnaire D2" width="664px" height="456px" />

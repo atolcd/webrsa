@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE" href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -93,7 +93,7 @@
 Les référents peuvent être affectés par  &nbsp;:
 </p>
 <ul>
-<li>Le Responsable du Projet de Ville.</li>
+<li>Le Responsable du Projet Insertion Emploi.</li>
 <li>Les secrétaires.</li>
 </ul>
 
@@ -103,8 +103,8 @@ Les référents peuvent être affectés par  &nbsp;:
 <li>Soit <b>directement sur le dossier</b> d'un bénéficiaire.</li>
 </ul>
 <p class="nb"><b>NB</b> &nbsp;: L'affectation du référent est obligatoire notamment pour la saisie des CER. <br/>
-	Si le référent n'est pas affecté lors de la saisie du CER, celui-ci ne sera pas 	présent dans la cohorte du responsable de Projet de Ville. <br/>
-	Par extension, il n'ira pas non plus dans la cohorte des CER à valider au 	niveau du Conseil général.
+	Si le référent n'est pas affecté lors de la saisie du CER, celui-ci ne sera pas 	présent dans la cohorte du responsable de Projet Insertion Emploi. <br/>
+	Par extension, il n'ira pas non plus dans la cohorte des CER à valider au 	niveau du Conseil départemental.
 </p>
 	
 <ol>

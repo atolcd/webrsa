@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -93,7 +93,7 @@
 </div>
 
 <ol start="6"><li><a name="his">Consulter votre historique </a></li></ol>
-<p>L'historique de vos statistiques peut être mémorisé sur tous les résultats de vos consultations en cliquant sur le bouton "Historiser"&nbsp;<img class="bimg"src="/didac/images/bhi.jpg" alt="Le bouton Historiser" width="105px" height="33px" />&nbsp;   en bas de tous les écrans.<br/>Vos historiques sont ensuite accessibles depuis le menu Tableaux de bord / Recherche d'historique de tableaux de suivi PDV.</p>
+<p>L'historique de vos statistiques peut être mémorisé sur tous les résultats de vos consultations en cliquant sur le bouton "Historiser"&nbsp;<img class="bimg"src="/didac/images/bhi.jpg" alt="Le bouton Historiser" width="105px" height="33px" />&nbsp;   en bas de tous les écrans.<br/>Vos historiques sont ensuite accessibles depuis le menu Tableaux de bord / Recherche d'historique de tableaux de suivi PDI.</p>
 <img src="/didac/images/hi.jpg" alt="Rechercher un historique" width="429px" height="422px" />
 <p>La photographie retourne par défaut les dernières consultations.<br/>Pour retrouver vos historiques mémorisés, sélectionner votre nom dans la liste de photographes.</p>
 <img src="/didac/images/rhi.jpg" alt="Rechercher un historique" width="644px" height="171px" />

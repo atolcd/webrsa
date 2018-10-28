@@ -63,7 +63,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li id="activation"><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -88,10 +88,10 @@
 L'ancien enregistrement est toujours visible dans la composition familiale, mais ses informations métier ne sont plus accessibles. 
 <p> 
 <p><u>Comment se traitent les doublons</u>&nbsp; ?</p>
-<p>Une action manuelle du Conseil général sur le dossier est nécessaire afin de pouvoir rattacher les informations métier (RDV, CER, D1...) au dossier actualisé.</p>
+<p>Une action manuelle du Conseil départemental sur le dossier est nécessaire afin de pouvoir rattacher les informations métier (RDV, CER, D1...) au dossier actualisé.</p>
 <p><u>Comment éviter les doublons d'information métier</u>&nbsp; ?</p>
-<p>Un dossier possédant un doublon est signalé via un petit panneau triangulaire jaune avec un point d'exclamation en haut à droite. ll convient que vous alertiez le Conseil général si le dossier sur lequel vous travaillez est en alerte avec ce petit panneau triangulaire et que vous indiquiez quelle est la personne en doublon.<br/>
-Les doublons seront traités par le Conseil général dés votre demande d’intervention au centre de services.
+<p>Un dossier possédant un doublon est signalé via un petit panneau triangulaire jaune avec un point d'exclamation en haut à droite. ll convient que vous alertiez le Conseil départemental si le dossier sur lequel vous travaillez est en alerte avec ce petit panneau triangulaire et que vous indiquiez quelle est la personne en doublon.<br/>
+Les doublons seront traités par le Conseil départemental dés votre demande d’intervention au centre de services.
 </p>
 
 </div>

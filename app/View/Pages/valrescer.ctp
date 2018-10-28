@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -90,7 +90,7 @@
 <!--A Modifier et à corriger dans le guide P64"-->
 
 	<ul style="list-style-type:none"><li>2.5 Validation responsable et envoi au CG</li></ul>
-	<p>La ou le Responsable du Projet de ville dispose de 2 moyens pour valider son CER  &nbsp;:</p>
+	<p>La ou le Responsable du projet insertion emploi dispose de 2 moyens pour valider son CER  &nbsp;:</p>
 	<li style="list-style-type:square">Depuis le Menu CER / Validation responsable.</li>
 	<li style="list-style-type:square">Directement sur le dossier du bénéficiaire.</li>
 	<p>A partir du <b>Menu CER</b> -> <b>Validation Responsable</b>, le (la) responsable récupère les CER à valider dans sa cohorte  &nbsp;:</p>
@@ -107,7 +107,7 @@
 	
 	<img src="/didac/images/ongletresp.jpg" alt="Onglet responsable" width="468px" height="118px" />
 	<img src="/didac/images/deciresp.jpg" alt="Décision responsable" width="605px" height="488px" />
-	<p>Pour lire le CER, le responsable doit cliquer sur l'onglet <u>Visualisation du CER</u>.<br/>Le chef de projet de ville peut prendre sa décision  &nbsp;:</p>
+	<p>Pour lire le CER, le responsable doit cliquer sur l'onglet <u>Visualisation du CER</u>.<br/>Le chef de projet insertion emploi peut prendre sa décision  &nbsp;:</p>
 	<li style="list-style-type:square">Soit en cliquant sur l’onglet &quot;Décision du responsable&quot;</li>
 	<li style="list-style-type:square">Soit à partir du tableau de validation des CER</li>
 	<p><u>Validation à partir de l’onglet &quot;Décision du responsable&quot;</u>&nbsp;:</p>
@@ -117,7 +117,7 @@
 	<p>Une fois la décision validée, revenez sur l’onglet sur le tableau "Validation Responsable";&nbsp;vous constaterez que la ligne du dossier pour laquelle vous avez enregistré la décision a été supprimée du tableau.</p>
 	<img src="/didac/images/cohorteresp.jpg" alt="Cohorte responsable" width="605px" height="199px" />
 	<p>Avant d’enregistrer la décision, vous devez lire le CER en cliquant sur le lien &quot;<u>Voir</u>&quot;.<br/>Sur ce tableau, cliquez sur le lien &quot;<u>Commentaire</u>&quot; pour visualiser les commentaires du / de la référent(e).</p>
-	 <br/>A partir de la consultation de ces informations, le chef de projet de ville peut &nbsp;:</p>
+	 <br/>A partir de la consultation de ces informations, le chef de projet insertion emploi peut &nbsp;:</p>
 	<li style="list-style-type :square;">Valider et transférer le CER au CG en cliquant sur &quot;Transférer au CG&quot;.</li>
 	<p>ou</p>
 	<li style="list-style-type:square">Rejeter le contrat en cliquant sur &quot;Rejeter&quot;. </li>

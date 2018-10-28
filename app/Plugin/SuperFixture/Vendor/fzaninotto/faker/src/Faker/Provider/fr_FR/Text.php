@@ -1736,7 +1736,7 @@ marquis d'Andervilliers.
 Secrétaire d'État sous la Restauration, le Marquis, cherchant à
 rentrer dans la vie politique, préparait de longue main sa
 candidature à la Chambre des députés. Il faisait, l'hiver, de
-nombreuses distributions de fagots, et, au Conseil général,
+nombreuses distributions de fagots, et, au Conseil départemental,
 réclamait avec exaltation toujours des routes pour son
 arrondissement. Il avait eu, lors des grandes chaleurs, un abcès
 dans la bouche, dont Charles l'avait soulagé comme par miracle, en

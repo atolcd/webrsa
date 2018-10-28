@@ -126,7 +126,7 @@ dd{font-style:italic;color:#808080;margin-bottom:5px;margin-top:5px;}
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -154,7 +154,7 @@ dd{font-style:italic;color:#808080;margin-bottom:5px;margin-top:5px;}
 <dl>
 <span style="font-weight:bold;font-style:italic;color:#000080;">NB: Merci de veiller à ce qu'un référent actif soit affecté sur vos dossiers, afin que vos CER puissent être validés par le CG.</span>
 	<dt>Je ne peux pas faire de CER : Le bouton n'est pas actif</dt>
-		<dd>Vérifier le statut du dernier CER du dossier : est-il à l'étape signature? Envoi responsable ? Envoi CG? Ou en attente de validation CG?<br/>Si le CER nécessite une validation rapide par le BADA (situation personnelle, demande d’APRE, passage en équipe pluridisciplinaire, CER de 3 mois …), merci de le signaler à l’adresse fonctionnelle bada-secretariat@cg93.fr.<br/>Nous vous rappellons qu'un <u>référent actif</u>&nbsp;est obligatoire pour que le CER puisse être validé par le CG.</dd>
+		<dd>Vérifier le statut du dernier CER du dossier : est-il à l'étape signature? Envoi responsable ? Envoi CG? Ou en attente de validation CG?<br/>Si le CER nécessite une validation rapide par le BOP (situation personnelle, demande d’APRE, passage en équipe pluridisciplinaire, CER de 3 mois …), merci de le signaler à l’adresse fonctionnelle bada-secretariat@cg93.fr.<br/>Nous vous rappellons qu'un <u>référent actif</u>&nbsp;est obligatoire pour que le CER puisse être validé par le CG.</dd>
 	<dt>Comment visualiser mes CER en cours de validité?</dt>
 		<dd>Menu Recherches / Par contrats / par CER. <br/>Cocher la case "par période de validité, puis indiquer les dates de début et de fin de la période concernée;<br/>Vous avez tout le détail <a href="cpcerfa">ici</a></dd>
 	<dt>Le niveau d'étude n'est pas le même sur le CER que ce que j'ai renseigné dans la DSP&nbsp;:</dt>
@@ -197,7 +197,7 @@ Le total fait 334 et pas 336 (le nombre de suivis) ?<br><br>
 	<h5 title="Cliquez sur les questions ci-dessous pour afficher les réponses" >Les D2</h5>
 	<dl>
 	<dt>Comment puis-je renseigner les D2 des allocataires transférés dans une autre commune?</dt>
-		<dd>Après transfert par le BADA, si le PDV source a enregistré une D1, une D2 est enregistrée automatiquement après le transfert. Si vous constatez une incohérence, merci de la remonter via le centre de service.</dd>
+		<dd>Après transfert par le BOP, si le PIE source a enregistré une D1, une D2 est enregistrée automatiquement après le transfert. Si vous constatez une incohérence, merci de la remonter via le centre de service.</dd>
 	<dt>Quelles sont les informations rapportées dans la colonne du D2 "Dont couvert par un CER = Objectif "SORTIE"</dt>
 	<dd>La colonne  < Dont couvert par un CER = Objectif "SORTIE" > correspond au nombre de personnes avec :
 <ul>
@@ -235,11 +235,11 @@ En effet, cette ligne comptabilisant tous les D1, la colonne < Dont couvert par 
 <h5 title="Cliquez sur les questions ci-dessous pour afficher les réponses">Le dossier allocataire</h5>
 <dl>
 	<dt>Je ne trouve pas le dossier d'un allocataire</dt>
-	<dd>Retourner sur le formulaire de recherche par allocataire et décocher la case "Uniquement la dernière demande pour un même allocataire"; néanmoins veillez bien à <u>ne pas réaliser de CER sur des dossiers en droits clos ou non défini.</u>.<br/>Si le dossier n'est toujours pas visible, il se peut que l'allocataire ait changé de commune : Le BADA procède mensuellement aux transferts des allocataires ayant changé de commune à l’intérieur du département. Si vous ne retrouvez toujours pas l’allocataire dans WebRSA, merci de contacter le BADA par mail à l’adresse fonctionnelle bada-secretariat@cg93.fr.</dd>
+	<dd>Retourner sur le formulaire de recherche par allocataire et décocher la case "Uniquement la dernière demande pour un même allocataire"; néanmoins veillez bien à <u>ne pas réaliser de CER sur des dossiers en droits clos ou non défini.</u>.<br/>Si le dossier n'est toujours pas visible, il se peut que l'allocataire ait changé de commune : Le BOP procède mensuellement aux transferts des allocataires ayant changé de commune à l’intérieur du département. Si vous ne retrouvez toujours pas l’allocataire dans WebRSA, merci de contacter le BOP par mail à l’adresse fonctionnelle bada-secretariat@cg93.fr.</dd>
 	<dt>Les données de l'allocataire ne correspondent pas à son état civil</dt>
 	<dd>C'est à  l'allocataire d'aller demander la correction de son état civil auprès de la CAF.</dd>	
 	<dt>Je suis cet allocataire depuis longtemps et son orientation ne correspond pas</dt>
-	<dd>Ceci est lié a l'évolution d'un dossier sur le parcours d'un allocataire : Il se peut pour les allocataires rentrants et sortants du dispositif ("les yoyos") que l'orientation ne correspondent pas à votre suivi: L'allocataire peut avoir alors une nouvelle orientation; ceci ne vous empêche pas de continuer son suivi dans votre projet de ville; si vous le souhaitez, vous pouvez demander sa ré-orentation ou son orientation vers votre structure.</dd>
+	<dd>Ceci est lié a l'évolution d'un dossier sur le parcours d'un allocataire : Il se peut pour les allocataires rentrants et sortants du dispositif ("les yoyos") que l'orientation ne correspondent pas à votre suivi: L'allocataire peut avoir alors une nouvelle orientation; ceci ne vous empêche pas de continuer son suivi dans votre projet insertion emploi; si vous le souhaitez, vous pouvez demander sa ré-orentation ou son orientation vers votre structure.</dd>
 </dl>
 
 <h5 title="Cliquez sur les questions ci-dessous pour afficher les réponses">Les Exports</h5>

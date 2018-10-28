@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -105,12 +105,12 @@
 <p><i>Si je coche la case " Soumis à droits et devoirs au moins une fois dans l'année (par opposition à soumis à droits et devoirs au moment du remplissage du formulaire D1)</i> " :</p>
 <img src="/didac/images/d1dd.jpg" alt="Les tableaux D1" width="690px" height="24px" />
 <img src="/didac/images/resd1coche.jpg" alt="Les tableaux D1" width="690px" height="135px" />
-<p>Le tableau nous renvoie un total de 244 D1 renseignées pour mon projet de ville.</p>
+<p>Le tableau nous renvoie un total de 244 D1 renseignées pour mon projet insertion emploi.</p>
 <p>A présent si je décoche la case " <u>Soumis à droits et devoirs au moins une fois dans l'année (par opposition à soumis à droits et devoirs au moment du remplissage du formulaire D1)</u> " :</p>
 <img src="/didac/images/d1ndd.jpg" alt="Les tableaux D1" width="690px" height="24px" />
 
 <img src="/didac/images/resd1dec.jpg" alt="Les tableaux D1" width="690px" height="133px" />
-<p>Le tableau nous renvoie un total de 207 D1 renseignées pour mon projet de ville.</p>
+<p>Le tableau nous renvoie un total de 207 D1 renseignées pour mon projet insertion emploi.</p>
 <p>Ce différentiel s'explique par le nombre de personnes qui ne sont plus soumis à droits et devoirs.</p>
 
 <p class="nb"><b>Indicateurs de réalisation&nbsp;:&nbsp;Caractéristiques des participants</b></p>

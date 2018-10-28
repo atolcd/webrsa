@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -118,7 +118,7 @@ Dans le dossier, cliquer sur Référent du parcours &nbsp;:</p>
 <p>Le bouton "Ajouter" devient actif &nbsp;:&nbsp;<img class="bimg"src="/didac/images/bajouref.jpg" alt="Ajouter un référent" width="101px" height="62px" /></p>
 <p>
 Une fois clôturé, vous pouvez ajouter le nouveau référent et ainsi conserver l'historique des référents ayant suivi le bénéficiaire.<br/>
-Cette fonctionnalité est accessible uniquement aux <u>secrétaires</u> et aux <u>responsables</u> des PDV.<br/><br/>
+Cette fonctionnalité est accessible uniquement aux <u>secrétaires</u> et aux <u>responsables</u> des PIE.<br/><br/>
 
 Le lien "modifier" permet de modifier un référent affecté en le remplaçant.<br/><br/>
 

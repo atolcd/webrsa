@@ -107,7 +107,7 @@ border-radius:0 0 10px 10px;}
 		<li id="activation"><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -134,7 +134,7 @@ border-radius:0 0 10px 10px;}
 
 
 <a href="/didac/pdf/notices/n2.pdf" target="_blank">Notice 2 : Calcul des CERs</a><br/>
-<p style="height:60px;">Cette notice convient pour : - le calcul de la moyenne annuelle des CER en cours de validité à la fin de chaque mois (article 4.2 de la convention CG93/PDV 2013et 19-2 de la conventionCG93/PDV 2014-2016)  
+<p style="height:60px;">Cette notice convient pour : - le calcul de la moyenne annuelle des CER en cours de validité à la fin de chaque mois (article 4.2 de la convention CG93/PIE 2013et 19-2 de la conventionCG93/PIE 2014-2016)  
 <br/>- le calcul des CER en cours de validité pour une période de votre choix </p>
 <a href="/didac/pdf/notices/n3.pdf" target="_blank">Notice 3 : Les tableaux de bords</a><br/>
 <p style="height:40px;">Cette notice vous inform des champs à renseigner dans webRSA pour mettre à jour les tableaux B3 (difficultés sociales), B4 et B5 (fiche de prescription) et B6 (Actions collectives).</p>

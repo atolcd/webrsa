@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -88,17 +88,17 @@
 <img src="/didac/images/facernvcg.jpg" alt="Recherche par CER" width="645px" height="495px" />
 <p style="color:red;"><b><u>2ème requête</u>  &nbsp;:</b></p>
 <img src="/didac/images/cpcernvcg.jpg" alt="Recherche par CER" width="620px" height="484px" />
-<p style="font-weight:bold;font-size:13pt;">Ainsi, le nombre total de CER en cours de validité en janvier 2013 pour le PDV des Lilas = 34 + 182 ; soit 216.<br/><br/><u>Remarques&nbsp;:</u></p>
+<p style="font-weight:bold;font-size:13pt;">Ainsi, le nombre total de CER en cours de validité en janvier 2013 pour le PIE des Lilas = 34 + 182 ; soit 216.<br/><br/><u>Remarques&nbsp;:</u></p>
 <ul>
-<li>Pour la 1ère requête, si j’enlève le filtre « Structure référente Projet de Ville RSA » Les Lilas-Service Insertion RSA » et que je rajoute juste le filtre Numéro de commune = LES LILAS (voir ci-dessous), j’obtiens un résultat = 39 au lieu de 34.<br/>Il y a 5 CER en plus dont  &nbsp;:</li>
-<li>1 a pour structure référente le Pôle Emploi. Mais le bénéficiaire a fait un CER auprès du PDV des Lilas.</li>
-<li>Pour la 2ème requête, si j’enlève le filtre "Structure référente" "Projet de Ville RSA Les Lilas-Service Insertion RSA" et que je rajoute juste le filtre Numéro de commune = LES LILAS (voir ci-dessous), j’obtiens un résultat = à 185 au lieu des 182.
+<li>Pour la 1ère requête, si j’enlève le filtre « Structure référente Projet Insertion Emploi RSA » Les Lilas-Service Insertion RSA » et que je rajoute juste le filtre Numéro de commune = LES LILAS (voir ci-dessous), j’obtiens un résultat = 39 au lieu de 34.<br/>Il y a 5 CER en plus dont  &nbsp;:</li>
+<li>1 a pour structure référente le Pôle Emploi. Mais le bénéficiaire a fait un CER auprès du PIE des Lilas.</li>
+<li>Pour la 2ème requête, si j’enlève le filtre "Structure référente" "Projet Insertion Emploi RSA Les Lilas-Service Insertion RSA" et que je rajoute juste le filtre Numéro de commune = LES LILAS (voir ci-dessous), j’obtiens un résultat = à 185 au lieu des 182.
 <br/>Il y a 3 CER supplémentaires dont  &nbsp;:</li>
-<li>2 ont pour structure référente le Pôle Emploi. Les bénéficiaires du RSA sont venus au PDV des Lilas pour élaborer leur CER.</li>
+<li>2 ont pour structure référente le Pôle Emploi. Les bénéficiaires du RSA sont venus au PIE des Lilas pour élaborer leur CER.</li>
 <li> 	1 a pour structure référente le service social.</li>
 </ul>
 <img src="/didac/images/cprcernvcg.jpg" alt="Recherche par CER" width="629px" height="123px" />
-<p style="font-weight:bold;font-size:13pt;color:red;">En résumé, les copies d’écrans des 2 requêtes ne prennent pas en compte les CER réalisés par le PDV quand la structure référente est « Le Pôle Emploi ». C’est très à la marge.</p>
+<p style="font-weight:bold;font-size:13pt;color:red;">En résumé, les copies d’écrans des 2 requêtes ne prennent pas en compte les CER réalisés par le PIE quand la structure référente est « Le Pôle Emploi ». C’est très à la marge.</p>
 <br/>
 <a href="#haut">Haut de la page</a>
 </div>

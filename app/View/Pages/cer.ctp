@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -94,21 +94,21 @@
 		<li>Le référent indique dans WebRSA que le CER a été signé par l’allocataire. Attention, une fois cette étape renseigné, il ne sera plus possible de modifier le contenu du CER.</li>
 		<li>L’entretien fini, l’allocataire part avec son CER papier signé.</li>
 		<li>Le référent valide le CER et le transmet à son responsable pour validation. A cette étape, le référent qualifie le CER de simple ou complexe et il peut également émettre des avis sur le CER.</li>
-		<li>Le responsable valide le CER, la forme du CER ainsi que les avis émis par le référent sur le contrat. Le responsable peut ou non modifier les avis émis par le référent. Les avis transmis au conseil général sont donc ceux validés par le responsable. 
+		<li>Le responsable valide le CER, la forme du CER ainsi que les avis émis par le référent sur le contrat. Le responsable peut ou non modifier les avis émis par le référent. Les avis transmis au conseil départemental sont donc ceux validés par le responsable. 
 	Le responsable peut valider ou rejeter le CER.
-	Une fois le CER validé par le responsable, ce dernier est transmis au Conseil général pour validation. Si le CER est rejeté, le référent devra convoquer de nouveau le bénéficiaire pour établir un nouveau contrat.
+	Une fois le CER validé par le responsable, ce dernier est transmis au Conseil départemental pour validation. Si le CER est rejeté, le référent devra convoquer de nouveau le bénéficiaire pour établir un nouveau contrat.
 		</li>
-		<li>Le Conseil général valide le contrat. Le BADA peut modifier la forme du CER (simple ou complexe) et la durée du contrat. Une décision est émise « validé » ou « rejeté ».</li>
-		<li>Le Conseil général transmet un courrier de décision à l'allocataire. Le courrier de décision est disponible au niveau du CER et au niveau du tableau de suivi.</li>
+		<li>Le Conseil départemental valide le contrat. Le BOP peut modifier la forme du CER (simple ou complexe) et la durée du contrat. Une décision est émise « validé » ou « rejeté ».</li>
+		<li>Le Conseil départemental transmet un courrier de décision à l'allocataire. Le courrier de décision est disponible au niveau du CER et au niveau du tableau de suivi.</li>
 	</ul>
 			<p><u>Pré-requis</u>&nbsp;:</p>
-			<p>Le projet de ville peut enregistrer un contrat sur l’ensemble des bénéficiaires de la (ou des) commune(s)  couverte(s) y compris sur les dossiers  &nbsp;:</p>
+			<p>Le projet insertion emploi peut enregistrer un contrat sur l’ensemble des bénéficiaires de la (ou des) commune(s)  couverte(s) y compris sur les dossiers  &nbsp;:</p>
 	<ul>
 		<li>Bénéficiaires non orientés. </li>
 		<li>Bénéficiaires orientés vers Pôle Emploi. </li>
 		<li>Bénéficiaires orientés vers Service Social Départemental.</li>
 	</ul>
-	<p>L’affectation d’un référent à un allocataire concerne uniquement les dossiers orientés vers le projet de ville. </p>
+	<p>L’affectation d’un référent à un allocataire concerne uniquement les dossiers orientés vers le projet insertion emploi. </p>
 	
 	
 </ul>

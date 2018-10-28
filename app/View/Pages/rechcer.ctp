@@ -62,7 +62,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -110,7 +110,7 @@ Il s'agit des contrats n'étant plus en cours de validité.</p>
 <p><u>Résultats</u>&nbsp;:<br/>
 La case à cocher "Allocataire dont le CER est arrivé à échéance renvoie la liste de tous les CER qui ne sont plus en cours de validité. (Nouveauté de la version 2.6.2).</p>
 <img src="/didac/images/rescerech.jpg" alt="Recherche par CER" width="690px" height="208px" />
-<p>Le résultat prend en compte tous les CER arrivé à échéance pour le projet de ville <b>depuis 2009</b>.</p>
+<p>Le résultat prend en compte tous les CER arrivé à échéance pour le projet insertion emploi <b>depuis 2009</b>.</p>
 <p>C'est pourquoi, il est préférable de combiner ce filtre avec une amplitude de dates précisées : Dans cet exemple, j'ai choisi une amplitude sur la date de fin.</p>
 <img src="/didac/images/datefincer.jpg" alt="Recherche par CER" width="605px" height="51px" />
 <p>Le résultat ne renverra que les CER arrivés à échéance sur les dates choisies.</p>
