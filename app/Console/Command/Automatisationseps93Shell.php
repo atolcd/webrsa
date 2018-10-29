@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Fichier source de la classe AutomatisationsepsShell.
+	 * Fichier source de la classe Automatisationseps93Shell.
 	 *
 	 * PHP 5.3
 	 *
@@ -10,11 +10,11 @@
 	App::uses( 'XShell', 'Console/Command' );
 
 	/**
-	 * La classe AutomatisationsepsShell ...
+	 * La classe Automatisationseps93Shell ...
 	 *
 	 * @package app.Console.Command
 	 */
-	class AutomatisationsepsShell extends XShell
+	class Automatisationseps93Shell extends XShell
 	{
 		/**
 		 * Modèles utilisés par le shell.

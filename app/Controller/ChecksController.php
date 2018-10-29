@@ -96,7 +96,7 @@
 			$this->set(
 				'configurations',
 				CakephpConfigurationParser::parseFile(
-					APP.'Config'.DS.'webrsa.cg'.Configure::read('Cg.departement').'.inc.default')
+					APP.'Config'.DS.'webrsa.cg'.Configure::read('Cg.departement').'.inc')
 			);
 		}
 	}
