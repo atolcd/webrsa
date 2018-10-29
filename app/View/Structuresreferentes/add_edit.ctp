@@ -17,6 +17,7 @@
 					'Structurereferente.id',
 					'Zonegeographique.id',
 					'Structurereferente.lib_struc',
+					'Structurereferente.lib_struc_mini',
 					'Structurereferente.num_voie',
 					'Structurereferente.type_voie' => array( 'empty' => true ),
 					'Structurereferente.nom_voie',

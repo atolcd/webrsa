@@ -4142,5 +4142,42 @@ msgstr "Modification des articles en page d'accueil"
 msgid "controllers/Accueilsarticles/delete"
 msgstr "Suppression des articles en page d'accueil"
 
+###############################################################################
+## Relance par SMS
+###############################################################################
+msgid "controllers/Relances"
+msgstr "Relances SMS - paramétrage"
+
+msgid "controllers/Relances/index"
+msgstr "Liste des relances SMS"
+
+msgid "controllers/Relances/add"
+msgstr "Ajout des relances SMS"
+
+msgid "controllers/Relances/edit"
+msgstr "Modification des relances SMS"
+
+msgid "controllers/Relances/delete"
+msgstr "Suppression des relances SMS"
+
+
+###############################################################################
+## Logs des relances par SMS
+###############################################################################
+msgid "controllers/Relanceslogs"
+msgstr "Relances SMS - logs"
+
+msgid "controllers/Relanceslogs/index"
+msgstr "Liste des logs des relances SMS"
+
+msgid "controllers/Relanceslogs/add"
+msgstr "Ajout des logs des relances SMS"
+
+msgid "controllers/Relanceslogs/edit"
+msgstr "Modification des logs des relances SMS"
+
+msgid "controllers/Relanceslogs/delete"
+msgstr "Suppression des logs des relances SMS"
+
 
 

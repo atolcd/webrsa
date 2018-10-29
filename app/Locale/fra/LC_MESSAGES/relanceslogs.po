@@ -1,0 +1,70 @@
+# translation of relanceslogs.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+# ==============================================================================
+# Titres
+
+msgid "/Relanceslogs/index/:heading"
+msgstr "Logs des relances"
+
+msgid "/Relanceslogs/add/:heading"
+msgstr "Logs des relances"
+
+
+# ==============================================================================
+# Actions
+
+msgid "/Relanceslogs/add"
+msgstr "Actualiser la liste"
+
+# ==============================================================================
+# Formulaire
+
+msgid "Search.Relanceslogs.search"
+msgstr "Affiner la recherche"
+
+msgid "Search.Relanceslogs.daterdv"
+msgstr "Date de rendez-vous client"
+
+# ==============================================================================
+# Questionnaire
+
+msgid "Relancelog.personne"
+msgstr "Personne"
+
+msgid "Relancelog.relance1"
+msgstr "Informations rendez-vous"
+
+msgid "Relancelog.relance2"
+msgstr "Type de relance"
+
+msgid "Relancelog.contenu"
+msgstr "Contenu de la relance"
+
+msgid "Relancelog.statut"
+msgstr "Statut"
+
+msgid "Relancelog.support"
+msgstr "Mode d'envoi utilisé"
+
+msgid "Relancelog.voir"
+msgstr "Voir la personne"
+
