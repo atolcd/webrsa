@@ -112,13 +112,25 @@
 						'Cui.id',
 						'Cui.personne_id',
 						'Cui.faitle',
-						'( \'ENUM::ETATDOSSIERCUI66::\' || "Cui66"."etatdossiercui66" || \'__cui66 \' || to_char("Rupturecui66"."daterupture", \'DD/MM/YYYY\') ) AS "Cui__positioncui66"',
+						'(CASE
+							WHEN "Cui"."finpriseencharge"<\''.date('Y-m-d').'\'
+								THEN
+									(CASE
+										WHEN "Rupturecui66"."daterupture" IS NOT NULL
+											THEN ( \'ENUM::ETATDOSSIERCUI66::\' || "Cui66"."etatdossiercui66" || \'__cui66 \' || to_char("Rupturecui66"."daterupture", \'DD/MM/YYYY\') )
+										ELSE
+											\'Fin de contrat\'
+									END)
+							ELSE
+								( \'ENUM::ETATDOSSIERCUI66::\' || "Cui66"."etatdossiercui66" || \'__cui66 \' || to_char("Rupturecui66"."daterupture", \'DD/MM/YYYY\') )
+						END)
+						AS "Cui__positioncui66"',
 					)
 				);
 
 				// 2. Ajout des jointures supplémentaires
 
-				// Joiture spéciale pour les emails
+				// Jointure spéciale pour les emails
 				$emailQuery = array(
 					'alias' => 'emailscuis',
 					'fields' => array( "emailscuis.id" ),

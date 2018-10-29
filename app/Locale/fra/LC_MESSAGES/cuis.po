@@ -828,3 +828,10 @@ msgstr "Fichiers liés au CUI"
 
 msgid "/Cuis/delete/#Cui.id# ?"
 msgstr "Cette action supprimera définitivement cet enregistrement. Voulez-vous continuer ?"
+
+################################################################################
+# Recherche par CUI
+################################################################################
+
+msgid "Cui.positioncui66"
+msgstr "Position du CUI"
