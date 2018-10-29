@@ -91,8 +91,6 @@
 
         protected function _setOptions() {
 			$this->set( 'qual', ClassRegistry::init('Titrecreancier')->enum('qual') );
-			$this->set( 'etatranstitr', ClassRegistry::init('Titrecreancier')->enum('etatranstitr') );
-			$this->set( 'typetitre', ClassRegistry::init('Titrecreancier')->enum('typetitre') );
 		}
 
 		/**
@@ -117,7 +115,7 @@
 			$foyer_id = $this->Titrecreancier->foyerId( $creance_id );
 			$this->set('dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu(array( 'foyer_id' => $foyer_id )));
 
-			$this->set( 'options', $this->Titrecreancier->enums() );
+			$this->set( 'options', $this->Titrecreancier->options() );
 
 			$titresCreanciers = $this->WebrsaAccesses->getIndexRecords(
 				$foyer_id,
@@ -270,7 +268,7 @@
 				$this->request->data = $titrecreancier;
 			}
 
-			$this->set( 'options', $this->Titrecreancier->enums() );
+			$this->set( 'options', $this->Titrecreancier->options() );
 			$this->set( 'creance_id', $creance_id );
 			$this->set( 'foyer_id', $foyer_id );
 
@@ -387,7 +385,7 @@
 				}
 			}
 
-			$this->set( 'options', (array)Hash::get( $this->Titrecreancier->enums(), 'Titrecreancier' ) );
+			$this->set( 'options', (array)Hash::get( $this->Titrecreancier->options(), 'Titrecreancier' ) );
 			$this->set( compact( 'dossier_id', 'personne_id', 'fichiers', 'titrescreanciers' ) );
 		}
 	}

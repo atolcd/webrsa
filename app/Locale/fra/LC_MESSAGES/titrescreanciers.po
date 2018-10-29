@@ -66,7 +66,7 @@ msgstr "Ajouter une pièce jointe"
 # Champs de recherches
 ###############################################################################
 
-msgid "Titrecreancier.etattranstitr"
+msgid "Titrecreancier.etat"
 msgstr "Etat transmission titre"
 
 msgid "Titrecreancier.dtemissiontitre"
@@ -84,7 +84,7 @@ msgstr "Numéro du Titre"
 msgid "Titrecreancier.mnttitr"
 msgstr "Montant du Titre"
 
-msgid "Titrecreancier.typetitre"
+msgid "Titrecreancier.type"
 msgstr "Type du Titre"
 
 msgid "Titrecreancier.mention"

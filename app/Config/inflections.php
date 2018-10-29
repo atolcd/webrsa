@@ -492,6 +492,10 @@ $irregularPlural = array(
 	'actionroleresultuser' => 'actionrolesresultsusers',
 	//Gestion des Titres créanciers
     'titrecreancier' => 'titrescreanciers',
+	'etattitrecreancier' => 'etatstitrescreanciers',
+	'etattitrecreancier_titrecreancier' => 'etatstitrescreanciers_titrescreanciers',
+	'typetitrecreancier' => 'typestitrescreanciers',
+	'typetitrecreancier_titrecreancier' => 'typestitrescreanciers_titrescreanciers',
 	//Rapport talends
     'rapporttalendcreance' => 'rapportstalendscreances',
     'rejettalendcreance' => 'rejetstalendscreances'

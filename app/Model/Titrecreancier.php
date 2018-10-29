@@ -27,8 +27,6 @@
 
 		public $fakeInLists = array(
 			'haspiecejointe' => array('0', '1'),
-			'typetitre' => array('A', 'B'),
-			'etatranstitr' => array('CRE', 'VAL', 'SEN', 'PAY','SUP')
 		);
 
 		public $validate = array(
@@ -152,6 +150,21 @@
 				return null;
 			}
 
+		}
+
+		/**
+		 * Retourne les options nécessaires au formulaire de recherche, au formulaire,
+		 * aux impressions, ...
+		 *
+		 * @return array
+		 */
+		public function options() {
+			$options = $this->enums();
+			$options['Typetitrecreancier']['type'] = ClassRegistry::init( 'Typetitrecreancier' )->find( 'list' );
+			$options['Typetitrecreancier']['type_actif'] = ClassRegistry::init( 'Typetitrecreancier' )->find( 'list', array( 'conditions' => array( 'actif' => true ) ) );
+			$options['Etattitrecreancier']['etat'] = ClassRegistry::init( 'Etattitrecreancier' )->find( 'list' );
+			$options['Etattitrecreancier']['etat_actif'] = ClassRegistry::init( 'Etattitrecreancier' )->find( 'list', array( 'conditions' => array( 'actif' => true ) ) );
+			return $options;
 		}
 	}
 ?>

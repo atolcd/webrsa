@@ -169,6 +169,33 @@
 		}
 
 		/**
+		 * Paramétrages des CREANCES.
+		 *
+		 * @return array
+		 */
+		protected function _creances() {
+			$activateTitreCreancier = Configure::read( 'Creances.titrescreanciers' );
+
+			if( $activateTitreCreancier ) {
+				$items = array (
+					'Titres Creanciers' => array(
+						'Etat Transmission du Titre' => array(
+							'url' => array(
+								'controller' => 'etatstitrescreanciers', 'action' => 'index' )
+						),
+						'Type du Titre' => array(
+							'url' => array( 'controller' => 'typestitrescreanciers', 'action' => 'index' )
+						)
+					)
+				);
+			}else{
+				$items = array( 'disabled' => true );
+			}
+
+			return $items;
+		}
+
+		/**
 		 * Paramétrages des CUI.
 		 *
 		 * @return array
@@ -608,6 +635,7 @@
 					'disabled' => ( 93 !== $departement ),
 					'url' => array( 'controller' => 'communautessrs', 'action' => 'index' )
 				),
+				'CREANCES' => $this->_creances(),
 				'CUI' => $this->_cuis(),
 				'DSP' => $this->_dsps(),
 				'Editeur de requêtes' => $this->_requestsmanager(),

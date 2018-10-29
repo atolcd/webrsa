@@ -20,33 +20,6 @@ msgstr ""
 
 ###############################################################################
 
-msgid "Titrecreancier.etattranstitr"
-msgstr "Etat transmission titre"
-
-msgid "ENUM::ETATRANSTITR::CRE"
-msgstr "Crée"
-
-msgid "ENUM::ETATRANSTITR::VAL"
-msgstr "Validée"
-
-msgid "ENUM::ETATRANSTITR::SEN"
-msgstr "Transmise"
-
-msgid "ENUM::ETATRANSTITR::PAY"
-msgstr "Payée"
-
-msgid "ENUM::ETATRANSTITR::SUP"
-msgstr "Annulée"
-
-msgid "Titrecreancier.typetitre"
-msgstr "Type du Titre"
-
-msgid "ENUM::TYPETITRE::A"
-msgstr "Type A"
-
-msgid "ENUM::TYPETITRE::B"
-msgstr "Type B"
-
 msgid "Titrecreancier.qual"
 msgstr "Qualité de la personne"
 

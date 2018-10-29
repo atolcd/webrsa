@@ -4116,6 +4116,35 @@ msgstr "Modification d'un Titre Créancier"
 msgid "controllers/Titrescreanciers/filelink"
 msgstr "Ajout de Fichiers"
 
+
+###############################################################################
+
+msgid "controllers/Etatstitrescreanciers"
+msgstr "Paramétrages, etats des titres créancier"
+
+msgid "controllers/Etatstitrescreanciers/index"
+msgstr "Liste des etats des titres créancier"
+
+msgid "controllers/Etatstitrescreanciers/edit"
+msgstr "Ajout/Modification d'un etats des titres créancier"
+
+msgid "controllers/Etatstitrescreanciers/delete"
+msgstr "Suppression d'un etats des titres créancier"
+
+###############################################################################
+
+msgid "controllers/Typestitrescreanciers"
+msgstr "Paramétrages, type des titres créancier"
+
+msgid "controllers/Typestitrescreanciers/index"
+msgstr "Liste des type des titres créancier"
+
+msgid "controllers/Typestitrescreanciers/edit"
+msgstr "Ajout/Modification d'un type des titres créancier"
+
+msgid "controllers/Typestitrescreanciers/delete"
+msgstr "Suppression d'un type des titres créancier"
+
 ###############################################################################
 ## Rapport Talends Créances
 ###############################################################################
@@ -4124,6 +4153,15 @@ msgstr "Rapports Talends Créances"
 
 msgid "controllers/Rapportstalendscreances/index"
 msgstr "Visualisation des RapportsTalendsCréances"
+
+###############################################################################
+## Rapport Talends Créances
+###############################################################################
+msgid "controllers/Rejetstalendscreances"
+msgstr "Rejet des Talends Créances"
+
+msgid "controllers/Rejetstalendscreances/index"
+msgstr "Visualisation des Rejet des Talends Créances"
 
 ###############################################################################
 ## Questionniare B7

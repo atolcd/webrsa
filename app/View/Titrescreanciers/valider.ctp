@@ -14,7 +14,7 @@
 	echo $this->Default3->subform(
 		array(
 			'Titrecreancier.id' => array( 'type' => 'hidden' ),
-			'Titrecreancier.etatranstitr',
+			'Titrecreancier.etat'=> array('type' => 'select', 'options' => $options['Etattitrecreancier']['etat_actif'] ),
 			'Titrecreancier.dtvalidation' => array('type' => 'date', 'dateFormat' => 'DMY'),
 			'Titrecreancier.mention'=> array('type' => 'textarea'),
 		),
