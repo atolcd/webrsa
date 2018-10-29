@@ -415,6 +415,9 @@
 				'Listes nominatives' => array( 'url' => array( 'controller' => 'infosfinancieres', 'action' => 'indexdossier' ) ),
 				'Mandats mensuels' => array( 'url' => array( 'controller' => 'totalisationsacomptes', 'action' => 'index' ) ),
 			),
+			'Administration Créances' => array(
+				'Listes Entrants Créanciers' => array( 'url' => array( 'controller' => 'creances', 'action' => 'dossierEntrantsCreanciers' ) ),
+			),
 			'Gestion des anomalies' => array(
 				'Doublons simples' => array(
 					'class' => 'search',

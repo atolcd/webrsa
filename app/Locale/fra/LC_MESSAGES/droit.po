@@ -4080,6 +4080,9 @@ msgstr "Ajout d'une Créance"
 msgid "controllers/Creances/edit"
 msgstr "Modification d'une Créance"
 
+msgid "controllers/Creances/dossierEntrantsCreanciers"
+msgstr "Recherche des entrants avec créances"
+
 
 ###############################################################################
 ## Rapport Talends Créances

@@ -172,6 +172,147 @@
 				return null;
 			}
 		}
-		
+
+		/**
+		*
+		* Methode de recherche pour
+		*/
+		public function search( $criteres ) {
+			/// Conditions de base
+			$conditions = array();
+
+			/// Critères
+			$mois = Set::extract( $criteres, 'Filtre.moisentrants' );
+			$dossierdernier = Set::extract( $criteres, 'Filtre.dossier_dernier' );
+			$etatdossier = Set::extract( $criteres, 'Filtre.etat_dossier' );
+			$droitdevoirs = Set::extract( $criteres, 'Filtre.droit_devoirs' );
+			$orgcre = Set::extract( $criteres, 'Filtre.orig_creance' );
+			$creancepositive = Set::extract( $criteres, 'Filtre.creance_positive' );
+
+			/// Mois d'activité du dossier
+			if( !empty( $mois ) && dateComplete( $criteres, 'Filtre.moisentrants' ) ) {
+				$month = $mois['month'];
+				$year = $mois['year'];
+				$conditions[] = 'EXTRACT(MONTH FROM Dossier.dtdemrsa ) = '.$month;
+				$conditions[] = 'EXTRACT(YEAR FROM Dossier.dtdemrsa ) = '.$year;
+			}
+
+			/// Par dernier dossier allocataire
+			if( !empty( $dossierdernier ) ) {
+				$conditions[] = ' Dossier.id IN ( SELECT derniersdossiersallocataires.dossier_id FROM derniersdossiersallocataires WHERE derniersdossiersallocataires.personne_id = Personne.id )'; 				
+			}
+
+			/// Par état
+			if( !empty( $etatdossier ) ) {
+				$conditions[] = ' Situationdossierrsa.etatdosrsa IN (\''.implode("','",$etatdossier).'\') ';
+			}
+
+			/// Par droit et devoirs
+			if( !empty( $droitdevoirs ) ) {
+				$conditions[] = ' Calculdroitrsa.toppersdrodevorsa ILIKE \'%'.Sanitize::clean( $droitdevoirs, array( 'encode' => false ) ).'%\' ';
+			}
+
+			/// Par origine de la créance
+			if( !empty( $orgcre ) ) {
+				$conditions[] = ' Creance.orgcre ILIKE \'%'.Sanitize::clean( $orgcre, array( 'encode' => false ) ).'%\' ';
+			}
+
+			/// Pour les créances positives
+			if( !empty( $creancepositive ) ) {
+				$conditions[] = ' Creance.mtsolreelcretrans > \'0\' ';
+			}
+
+			/// Requête
+			$this->Foyer = ClassRegistry::init( 'Foyer' );
+
+			$query = array(
+				'fields' => array(
+					'"Creance"."id"',
+					'"Creance"."dtimplcre"',
+					'"Creance"."natcre"',
+					'"Creance"."rgcre"',
+					'"Creance"."motiindu"',
+					'"Creance"."oriindu"',
+					'"Creance"."respindu"',
+					'"Creance"."ddregucre"',
+					'"Creance"."dfregucre"',
+					'"Creance"."dtdercredcretrans"',
+					'"Creance"."mtsolreelcretrans"',
+					'"Creance"."mtinicre"',
+					'"Creance"."foyer_id"',
+					'"Creance"."moismoucompta"',
+					'"Creance"."orgcre"',
+					'"Creance"."haspiecejointe"',
+					'"Dossier"."id"',
+					'"Dossier"."numdemrsa"',
+					'"Dossier"."matricule"',
+					'"Dossier"."typeparte"',
+					'"Calculdroitrsa"."toppersdrodevorsa"',
+					'"Calculdroitrsa"."toppersentdrodevorsa"',
+					'"Personne"."id"',
+					'"Personne"."nom"',
+					'"Personne"."prenom"',
+					'"Personne"."nir"',
+					'"Personne"."dtnai"',
+					'"Personne"."qual"',
+					'"Personne"."nomcomnai"',
+					'"Situationdossierrsa"."etatdosrsa"'
+				),
+				'recursive' => -1,
+				'joins' => array(
+					array(
+						'table'      => 'foyers',
+						'alias'      => 'Foyer',
+						'type'       => 'INNER',
+						'foreignKey' => false,
+						'conditions' => array( 'Creance.foyer_id = Foyer.id' )
+					),
+					array(
+						'table'      => 'dossiers',
+						'alias'      => 'Dossier',
+						'type'       => 'INNER',
+						'foreignKey' => false,
+						'conditions' => array( 'Foyer.dossier_id = Dossier.id' )
+					),
+					array(
+						'table'      => 'situationsdossiersrsa',
+						'alias'      => 'Situationdossierrsa',
+						'type'       => 'INNER',
+						'foreignKey' => false,
+						'conditions' => array( 'Situationdossierrsa.dossier_id = Dossier.id' )
+					),
+					array(
+						'table'      => 'personnes',
+						'alias'      => 'Personne',
+						'type'       => 'INNER',
+						'foreignKey' => false,
+						'conditions' => array( 'Personne.foyer_id = Foyer.id' )
+					),
+					array(
+						'table'      => 'calculsdroitsrsa',
+						'alias'      => 'Calculdroitrsa',
+						'type'       => 'INNER',
+						'foreignKey' => false,
+						'conditions' => array( 'Calculdroitrsa.personne_id = Personne.id' )
+					),
+					array(
+						'table'      => 'prestations',
+						'alias'      => 'Prestation',
+						'type'       => 'INNER',
+						'foreignKey' => false,
+						'conditions' => array(
+							'Personne.id = Prestation.personne_id',
+							'Prestation.natprest = \'RSA\'',
+							'( Prestation.rolepers = \'DEM\' )'
+						)
+					),
+				),
+				'order' => array( '"Dossier"."numdemrsa"' ),
+				'conditions' => $conditions
+			);
+
+			return $query;
+		}
+
 	}
 ?>

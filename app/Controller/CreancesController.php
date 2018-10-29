@@ -37,7 +37,12 @@
 			'Jetons2',
 			'WebrsaAccesses',
 			'Fileuploader',
-			);
+			'Search.SearchPrg' => array(
+				'actions' => array(
+					'dossierEntrantsCreanciers',
+				),
+			)
+		);
 
 		/**
 		 * Helpers utilisés.
@@ -45,6 +50,9 @@
 		 * @var array
 		 */
 		public $helpers = array(
+			'Csv',
+			'Locale',
+			'Paginator',
 			'Default',
 			'Default2',
 			'Default3' => array(
@@ -69,6 +77,8 @@
 			'ajaxfiledelete' => 'delete',
 			'ajaxfileupload' => 'update',
 			'ajaxreffonct' => 'read',
+			'dossierEntrantsCreanciers' => 'read',
+			'exportcsv' => 'read'
 		);
 
 		/**
@@ -78,8 +88,25 @@
 		 */
 		public $uses = array(
 			'Creance',
-			'WebrsaCreance'
+			'WebrsaCreance',
+			'Dossier',
+			'Foyer',
+			'Personne',
+			'Situationdossierrsa',
+			'Calculdroitrsa',
+			'Option'
 			);
+
+        protected function _setOptions() {
+			$this->set( 'etatdosrsa', ClassRegistry::init('Dossier')->enum('etatdosrsa') );
+			$this->set( 'droitdevoirs', ClassRegistry::init('Calculdroitrsa')->enum('toppersdrodevorsa') );
+			$this->set( 'orgcre', ClassRegistry::init('Creance')->enum('orgcre') );
+			$this->set( 'motiindu', ClassRegistry::init('Creance')->enum('motiindu') );
+			$this->set( 'natcre', ClassRegistry::init('Creance')->enum('natcre') );
+			$this->set( 'oriindu', ClassRegistry::init('Creance')->enum('oriindu') );
+			$this->set( 'respindu', ClassRegistry::init('Creance')->enum('respindu') );
+		}
+
 
 		/**
 		 * Méthodes ne nécessitant aucun droit.
@@ -328,5 +355,45 @@
 			$this->set( 'options', (array)Hash::get( $this->Creance->enums(), 'Creance' ) );
 			$this->set( compact( 'dossier_id', 'personne_id', 'fichiers', 'creances' ) );
 		}
+
+		/**
+		 *
+		 */
+		public function dossierEntrantsCreanciers() {
+			$options = array(
+				'annees' => array( 'minYear' => date( 'Y', strtotime('01-01-2009') ), 'maxYear' => date( 'Y' ) ),
+			);
+			$this->set( compact( 'options' ) );
+
+			if( !empty( $this->request->data ) ) {
+				$this->Dossier->begin(); // Pour les jetons
+
+				$paginate = $this->Creance->search( $this->request->data );
+				$paginate['limit'] = 15;
+
+				$this->paginate = $paginate;
+				$dossierEntrantsCreanciers = $this->paginate( 'Creance' );
+
+				$this->set( 'dossierEntrantsCreanciers', $dossierEntrantsCreanciers );
+
+				$this->Dossier->commit();
+			}
+            $this->_setOptions();
+		}
+
+		/**
+		 *
+		 */
+		public function exportcsv() {
+			$options = $this->Creance->search( Hash::expand( $this->request->params['named'], '__' ) );
+
+			unset( $options['limit'] );
+			$dossierEntrantsCreanciers = $this->Creance->find( 'all', $options );
+
+            $this->_setOptions();
+			$this->layout = '';
+			$this->set( compact( 'headers', 'dossierEntrantsCreanciers' ) );
+		}
+
 	}
 ?>
