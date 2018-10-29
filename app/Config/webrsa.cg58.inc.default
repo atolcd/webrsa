@@ -423,4 +423,15 @@
 			)
 		)
 	);
+
+	/**
+	 * Blocage des thématiques pour les EP
+	 */
+	Configure::write(
+		'Blocage.thematique.ep',
+		array (
+			'nonorientationproep58',
+			'regressionorientationep58',
+		)
+	);
 ?>

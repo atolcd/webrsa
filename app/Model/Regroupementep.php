@@ -120,11 +120,18 @@
 		 */
 		public function themes() {
 			$enums = $this->enums();
+			$blocageThemes = Configure::read( 'Blocage.thematique.ep' );
+
 			foreach( array_keys( $enums[$this->alias] ) as $key ) {
 				if( substr( $key, -2 ) != Configure::read( 'Cg.departement' ) ) {
 					unset( $enums[$this->alias][$key] );
 				}
+
+				if (in_array ($key, $blocageThemes)) {
+					unset( $enums[$this->alias][$key] );
+				}
 			}
+
 			return array_keys( $enums[$this->alias] );
 		}
 

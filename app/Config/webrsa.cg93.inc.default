@@ -1304,4 +1304,12 @@
 	//Configure::write( 'FichesPrescription93.anneeThematiques.limit', array('2017') );
 	Configure::write( 'FichesPrescription93.anneeThematiques.limit', array() );
 
+	/**
+	 * Blocage des thématiques pour les EP
+	 */
+	Configure::write(
+		'Blocage.thematique.ep',
+		array (
+		)
+	);
 ?>

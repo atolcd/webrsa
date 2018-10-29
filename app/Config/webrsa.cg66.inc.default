@@ -755,4 +755,13 @@
 	 * @default null|false
 	 */
 	Configure::write( 'Foyer.refreshSoumisADroitsEtDevoirs.ajoutOrientstruct', null );
+
+	/**
+	 * Blocage des thématiques pour les EP
+	 */
+	Configure::write(
+		'Blocage.thematique.ep',
+		array (
+		)
+	);
 ?>
