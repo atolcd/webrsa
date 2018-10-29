@@ -27,6 +27,8 @@
 
 		public $fakeInLists = array(
 			'haspiecejointe' => array('0', '1'),
+			'typetitre' => array('A', 'B'),
+			'etatranstitr' => array('CRE', 'VAL', 'SEN', 'PAY','SUP')
 		);
 
 		public $validate = array(
@@ -34,24 +36,6 @@
 				'numeric' => array(
 					'rule' => array('numeric')
 				),
-			),
-			'etatranstitr' => array(
-				'inList' => array(
-					'rule' => array('inList',
-						array(
-							'CRE', 'VAL', 'SEN', 'PAY','SUP'
-						)
-					)
-				)
-			),
-			'typetitre' => array(
-				'inList' => array(
-					'rule' => array('inList',
-						array(
-							'A', 'B',
-						)
-					)
-				)
 			),
 			'qual' => array(
 				'inList' => array(

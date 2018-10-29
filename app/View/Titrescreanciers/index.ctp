@@ -53,6 +53,9 @@ if( empty( $creances ) ) {
 					'Titrecreancier.qual',
 					'Titrecreancier.nom',
 					'Titrecreancier.nir',
+					'Titrecreancier.iban',
+					'Titrecreancier.bic',
+					'Titrecreancier.titulairecompte',
 					'Titrecreancier.numtel',
 				)+ WebrsaAccess::links(
 					array(

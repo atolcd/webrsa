@@ -99,5 +99,14 @@ msgstr "Nom de la personne"
 msgid "Titrecreancier.nir"
 msgstr "Nir de la personne"
 
+msgid "Titrecreancier.iban"
+msgstr "IBAN"
+
+msgid "Titrecreancier.bic"
+msgstr "BIC"
+
+msgid "Titrecreancier.titulairecompte"
+msgstr "Titulaire du Compte"
+
 msgid "Titrecreancier.numtel"
 msgstr "Numéro de la personne facturée"

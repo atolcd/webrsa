@@ -1,4 +1,10 @@
 <?php
+	$activateTitreCreancier = Configure::read( 'Creances.titrescreanciers' );
+	if ( !empty($activateTitreCreancier)	&& $activateTitreCreancier == true ){
+		$activateTitreCreancier = true;
+	}else{
+		$activateTitreCreancier = false;
+	}
 
 	App::uses('WebrsaAccess', 'Utility');
 	WebrsaAccess::init($dossierMenu);
@@ -28,7 +34,11 @@ if( empty( $creances ) ) {
 				'Creance.mtinicre',
 			)+ WebrsaAccess::links(
 				array(
-					'/Titrescreanciers/index/#Creance.id#' => array('class' => 'view'),
+					'/Titrescreanciers/index/#Creance.id#'
+						=> array(
+							'class' => 'view',
+							'condition' => $activateTitreCreancier,
+						),
 					'/Creances/edit/#Creance.id#',
 					'/Creances/filelink/#Creance.id#',
 				)

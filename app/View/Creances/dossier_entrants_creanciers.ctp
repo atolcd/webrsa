@@ -72,13 +72,15 @@
 				'type' => 'checkbox',
 				)
 			);
-	echo "</fieldset><fieldset><legend>Titres Créanciers</legend>";
-		echo $this->Form->input( 'Filtre.has_titre_creancier',
-			array(
-				'label' => 'Uniquement les créances avec un titre créancier',
-				'type' => 'checkbox',
-				)
-			);
+			if ( Configure::read( 'Creances.titrescreanciers' ) ) {
+				echo "</fieldset><fieldset><legend>Titres Créanciers</legend>";
+				echo $this->Form->input( 'Filtre.has_titre_creancier',
+					array(
+						'label' => 'Uniquement les créances avec un titre créancier',
+						'type' => 'checkbox',
+					)
+				);
+			}
 		?>
 	</fieldset>
 	<div class="submit noprint">

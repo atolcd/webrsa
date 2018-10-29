@@ -12,9 +12,12 @@ BEGIN;
 -- *****************************************************************************
 
 ALTER TABLE creances ADD COLUMN moismoucompta date;
-ALTER TABLE creances ADD COLUMN orgcre character(3);
+ALTER TABLE creances ADD COLUMN orgcre character(3) NOT NULL DEFAULT 'FLU'::character varying;
 ALTER TABLE creances ADD COLUMN haspiecejointe character varying(1) NOT NULL DEFAULT '0'::character varying;
 ALTER TABLE creances ADD COLUMN hastitrecreancier integer NOT NULL DEFAULT 0;
+
+ UPDATE creances SET  orgcre='FLU' WHERE orgcre NOT LIKE 'MAN' AND orgcre NOT LIKE 'FLU' AND orgcre IS NULL;
+
 
 /*
 *
@@ -34,6 +37,9 @@ CREATE TABLE titrescreanciers (
   qual character varying(3),
   nom character varying(50),
   nir character varying(15),
+  iban character varying(32),
+  bic character varying(12),
+  titulairecompte character varying(80),
   numtel character varying(14),
   haspiecejointe character varying(1) DEFAULT '0'::character varying,
 );

@@ -929,6 +929,12 @@
 	Configure::write('UI.afterLogo.text', $afterLogoText);
 
 	/**
+	 * Activation du module TitreCréanciers
+	 * 'Creances.titrescreanciers' => true pour activée, false pour inactivée
+	 */
+	Configure::write('Creances.titrescreanciers',true);
+
+	/**
 	 * Récupération du fichier de config propre au département
 	 */
 	require_once ('webrsa.cg'.Configure::read( 'Cg.departement' ).'.inc');

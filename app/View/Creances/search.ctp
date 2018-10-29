@@ -28,15 +28,17 @@
 				'options' => $options['Creance']['motiindu']
 			)
 		);
-		//Has Titre créancier
-		 echo $this->Xform->input(
-			'Search.Creance.hastitrecreancier',
-			array(
-				'label' => 'A un Titres Créanciers',
-				'type' => 'checkbox',
-				'empty' => true
-			)
-		);
+		if ( Configure::read( 'Creances.titrescreanciers' ) ) {
+			//Has Titre créancier
+			echo $this->Xform->input(
+				'Search.Creance.hastitrecreancier',
+				array(
+					'label' => 'A un Titres Créanciers',
+					'type' => 'checkbox',
+					'empty' => true
+				)
+			);
+		}
 	?>
 </fieldset>
 <?php $this->end();?>

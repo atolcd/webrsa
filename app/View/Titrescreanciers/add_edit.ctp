@@ -23,6 +23,9 @@
 			'Titrecreancier.nom',
 			'Titrecreancier.nir' => array('type' => 'number'),
 			'Titrecreancier.numtel' => array('type' => 'number'),
+			'Titrecreancier.iban',
+			'Titrecreancier.bic',
+			'Titrecreancier.titulairecompte',
 		),
 		array(
 			'options' => $options
