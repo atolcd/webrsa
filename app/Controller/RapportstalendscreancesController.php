@@ -37,6 +37,7 @@
 		 * @var array
 		 */
 		public $helpers = array(
+			'Paginator',
 			'Default3' => array(
 				'className' => 'Default.DefaultDefault'
 			)
@@ -67,18 +68,19 @@
 		 */
 		public function index() {
 			$this->set( 'options', $this->Rapporttalendcreance->enums() );
-			$Rapportstalendscreances = $this->Rapporttalendcreance->find(
-			    'all',
-			    array(
+
+			$query =  array(
 					'fields' => $this->Rapporttalendcreance->fields(),
 					'order' => array(
 						'Rapporttalendcreance.dtexec DESC',
 					),
 					'contain' => FALSE,
 					'limit' => 20,
-				)
-			);
-			$this->set( 'RapportsTalendsCreances', $RapportsTalendsCreances );
+				) ;
+			$this->paginate = $query;
+			$Rapportstalendscreances = $this->paginate( 'Rapporttalendcreance' );
+			
+			$this->set( 'Rapportstalendscreances', $Rapportstalendscreances );
 		}
 	}
 ?>

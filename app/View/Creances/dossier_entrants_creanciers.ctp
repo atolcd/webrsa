@@ -23,6 +23,7 @@
 
 <?php echo $this->Form->create( 'Creances', array( 'type' => 'post', 'url' => array( 'action' => 'dossierEntrantsCreanciers' ), 'id' => 'Search', 'class' => ( ( is_array( $this->request->data ) && !empty( $this->request->data ) ) ? 'folded' : 'unfolded' ), 'novalidate' => true ) );?>
 	<fieldset>
+		<fieldset><legend>Beneficiaire</legend>
 		<?php echo $this->Form->input( 'Filtre.recherche',
 			array(
 				'label' => false,
@@ -44,8 +45,8 @@
 				'type' => 'checkbox',
 				)
 			);
-		echo "<fieldset>" . $this->Form->input( 'Filtre.etat_dossier',
-			array( 'label' => 'Etat de Dossier',
+		echo "<fieldset><legend>Etat de Dossier</legend>" . $this->Form->input( 'Filtre.etat_dossier',
+			array( 'label' => FALSE,
 				'multiple' => 'checkbox',
 				'options' => $etatdosrsa,
 				)
@@ -57,6 +58,7 @@
 				'empty' => true
 			)
 		);
+	echo "</fieldset><fieldset><legend>Créance</legend>";
 		echo $this->Form->input( 'Filtre.orig_creance',
 			array( 'label' => 'Origine de la Créance',
 				'type' => 'select',
@@ -70,14 +72,21 @@
 				'type' => 'checkbox',
 				)
 			);
+	echo "</fieldset><fieldset><legend>Titres Créanciers</legend>";
+		echo $this->Form->input( 'Filtre.has_titre_creancier',
+			array(
+				'label' => 'Uniquement les créances avec un titre créancier',
+				'type' => 'checkbox',
+				)
+			);
 		?>
 	</fieldset>
-
 	<div class="submit noprint">
 		<?php echo $this->Form->button( 'Rechercher', array( 'type' => 'submit' ) );?>
 		<?php echo $this->Form->button( 'Réinitialiser', array( 'type' => 'reset' ) );?>
 	</div>
 <?php echo $this->Form->end();?>
+</fieldset>
 
 <!-- Résultats -->
 <?php if( isset( $dossierEntrantsCreanciers ) ):?>

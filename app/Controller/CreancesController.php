@@ -450,8 +450,6 @@
 			$this->set( compact( 'options' ) );
 
 			if( !empty( $this->request->data ) ) {
-				$this->Dossier->begin(); // Pour les jetons
-
 				$paginate = $this->Creance->search( $this->request->data );
 				$paginate['limit'] = 15;
 
@@ -459,8 +457,6 @@
 				$dossierEntrantsCreanciers = $this->paginate( 'Creance' );
 
 				$this->set( 'dossierEntrantsCreanciers', $dossierEntrantsCreanciers );
-
-				$this->Dossier->commit();
 			}
             $this->_setOptions();
 		}

@@ -145,6 +145,11 @@
 		public function searchConditions( array $query, array $search ) {
 			$query = $this->Allocataire->searchConditions( $query, $search );
 
+			// if hastitrecreancier checked then Creances.hasTitreCreancier > 0 
+			$etat_hastitrecreancier = (string)Hash::get( $search, 'Creance.hastitrecreancier' );
+			if ($etat_hastitrecreancier === '1') {
+				$query['conditions'][] = " Creance.hastitrecreancier > 0 ";
+			}
 			// Début des spécificités par département
 			$departement = (int)Configure::read( 'Cg.departement' );
 

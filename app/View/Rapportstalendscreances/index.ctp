@@ -8,6 +8,9 @@ if( empty( $Rapportstalendscreances ) ) {
 	echo '<p class="notice">Cette personne ne possède pas de Rapportstalendscreances.</p>';
 }else{
 
+	$pagination = $this->Xpaginator->paginationBlock( 'Rapporttalendcreance', $this->passedArgs );
+	echo $pagination;
+
 	echo $this->Default3->index(
 		$Rapportstalendscreances,
 		$this->Translator->normalize(
@@ -37,6 +40,7 @@ if( empty( $Rapportstalendscreances ) ) {
 			'options' => $options
 		)
 	);
+	echo $pagination;
 
 }
 ?>

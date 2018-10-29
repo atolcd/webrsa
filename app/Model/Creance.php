@@ -180,6 +180,7 @@
 			$droitdevoirs = Set::extract( $criteres, 'Filtre.droit_devoirs' );
 			$orgcre = Set::extract( $criteres, 'Filtre.orig_creance' );
 			$creancepositive = Set::extract( $criteres, 'Filtre.creance_positive' );
+			$hastitrecreancier = Set::extract( $criteres, 'Filtre.has_titre_creancier' );
 
 			/// Mois d'activité du dossier
 			if( !empty( $mois ) && dateComplete( $criteres, 'Filtre.moisentrants' ) ) {
@@ -212,6 +213,10 @@
 			/// Pour les créances positives
 			if( !empty( $creancepositive ) ) {
 				$conditions[] = ' Creance.mtsolreelcretrans > \'0\' ';
+			}
+			/// Pour les créances positives
+			if( !empty( $hastitrecreancier ) ) {
+				$conditions[] = ' Creance.hastitrecreancier > 0 ';
 			}
 
 			/// Requête
@@ -297,7 +302,7 @@
 							'Prestation.natprest = \'RSA\'',
 							'( Prestation.rolepers = \'DEM\' )'
 						)
-					),
+					)
 				),
 				'order' => array( '"Dossier"."numdemrsa"' ),
 				'conditions' => $conditions

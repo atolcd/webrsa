@@ -222,8 +222,7 @@
 			// Essai de sauvegarde
 			if( !empty( $this->request->data ) ) {
 				$this->Titrecreancier->begin();
-				$data = $this->request->data;
-
+				$data = $this->request->data;		
 				if ( $data['Titrecreancier']['mnttitr'] == '' ) {
 					$this->Titrecreancier->rollback();
 					$this->Flash->error( __( 'Save->error' ) );
@@ -233,6 +232,9 @@
 							$this->Titrecreancier->commit();
 							$this->Jetons2->release( $dossier_id );
 							$this->Flash->success( __( 'Save->success' ) );
+							if ( $this->action == 'add' ) {
+								$this->Titrecreancier->query('UPDATE creances SET hastitrecreancier = hastitrecreancier+1 WHERE creances.id ='. $creance_id);
+							}
 							$this->redirect( array( 'action' => 'index', $creance_id ) );
 						}
 						else {
