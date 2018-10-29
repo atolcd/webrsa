@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Code source de la classe CreancesController.
+	 * Code source de la classe RapportstalendscreancesController.
 	 *
 	 *
 	 * @package app.Controller
@@ -9,18 +9,18 @@
 	App::uses( 'AppController', 'Controller' );
 
 	/**
-	 * La classe CreancesController ...
+	 * La classe RapportstalendscreancesController ...
 	 *
 	 * @package app.Controller
 	 */
-	class RapportsTalendsCreancesController extends AppController
+	class RapportstalendscreancesController extends AppController
 	{
 		/**
 		 * Nom du contrôleur.
 		 *
 		 * @var string
 		 */
-		public $name = 'RapportsTalendsCreances';
+		public $name = 'Rapportstalendscreances';
 
 		/**
 		 * Components utilisés.
@@ -29,7 +29,7 @@
 		 */
 		public $components = array(
 			//'WebrsaAccesses'
-			);
+		);
 
 		/**
 		 * Helpers utilisés.
@@ -58,28 +58,27 @@
 		 * @var array
 		 */
 		public $uses = array(
-			'RapportTalendCreance'
+			'Rapporttalendcreance',
+			'Rejettalendcreance'
 		);
 
 		/**
 		 * Pagination sur les <éléments> de la table.
 		 */
 		public function index() {
-
-			$RapportsTalendsCreances = $this->RapportTalendCreance->find(
+			$this->set( 'options', $this->Rapporttalendcreance->enums() );
+			$Rapportstalendscreances = $this->Rapporttalendcreance->find(
 			    'all',
 			    array(
-					//'fields' => '',
+					'fields' => $this->Rapporttalendcreance->fields(),
 					'order' => array(
-						'RapportTalendCreance.dtexec DESC',
+						'Rapporttalendcreance.dtexec DESC',
 					),
-					'contain' => FALSE
+					'contain' => FALSE,
+					'limit' => 20,
 				)
 			);
-
 			$this->set( 'RapportsTalendsCreances', $RapportsTalendsCreances );
-
 		}
-
 	}
 ?>

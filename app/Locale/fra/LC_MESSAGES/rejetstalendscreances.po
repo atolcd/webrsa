@@ -1,0 +1,242 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "/Rejetstalendscreances/index/:heading"
+msgstr "Rejet Talends Creances"
+
+msgid "/Creances/fluxadd"
+msgstr "Choisir Foyer"
+
+###############################################################################
+
+msgid "Rejettalendcreance.fusion"
+msgstr "Rejet fusioné"
+
+msgid "Rejettalendcreance.flux"
+msgstr "Noms du flux"
+
+msgid "Rejettalendcreance.typeflux"
+msgstr "Type du flux"
+
+msgid "Rejettalendcreance.natflux"
+msgstr "Nature du flux"
+
+msgid "Rejettalendcreance.dtflux"
+msgstr "Date d'envoi du flux"
+
+msgid "Rejettalendcreance.dtref"
+msgstr "Date de reference du flux"
+
+msgid "Rejettalendcreance.dtexec"
+msgstr "Date d'execution du talend"
+
+msgid "Rejettalendcreance.fichierflux"
+msgstr "Fichier du flux"
+
+msgid "Rejettalendcreance.matricule"
+msgstr "Matricule CAF"
+
+msgid "Rejettalendcreance.numdemrsa"
+msgstr "Num° demande rsa du benef"
+
+msgid "Rejettalendcreance.dtdemrsa"
+msgstr "Date demande rsa du benef"
+
+msgid "Rejettalendcreance.ddratdos"
+msgstr "Date rattacchement au dossier"
+
+msgid "Rejettalendcreance.dfratdos"
+msgstr "Date fin rattachement au dossier"
+
+msgid "Rejettalendcreance.toprespdos"
+msgstr "Responsable du dossier"
+
+msgid "Rejettalendcreance.nir"
+msgstr "Nir du benef"
+
+msgid "Rejettalendcreance.qual"
+msgstr "Qual"
+
+msgid "Rejettalendcreance.nom"
+msgstr "Nom"
+
+msgid "Rejettalendcreance.nomnai"
+msgstr "Nom naissance"
+
+msgid "Rejettalendcreance.prenom"
+msgstr "Prenom"
+
+msgid "Rejettalendcreance.prenom2"
+msgstr "Prenom 2"
+
+msgid "Rejettalendcreance.prenom3"
+msgstr "Prenom 3"
+
+msgid "Rejettalendcreance.dtnai"
+msgstr "Date naissace"
+
+msgid "Rejettalendcreance.nomcomnai"
+msgstr "Comune naissance"
+
+msgid "Rejettalendcreance.typedtnai"
+msgstr "Type date nai"
+
+msgid "Rejettalendcreance.typeparte"
+msgstr "Type parte"
+
+msgid "Rejettalendcreance.ideparte"
+msgstr "ide parte"
+
+msgid "Rejettalendcreance.topvalec"
+msgstr "top val ec"
+
+msgid "Rejettalendcreance.sexe"
+msgstr "Sexe"
+
+msgid "Rejettalendcreance.rgadr"
+msgstr "Rang adress"
+
+msgid "Rejettalendcreance.dtemm"
+msgstr "Date emm"
+
+msgid "Rejettalendcreance.typeadr"
+msgstr "Type adress"
+
+msgid "Rejettalendcreance.numvoie"
+msgstr "Num voie"
+
+msgid "Rejettalendcreance.libtypevoie"
+msgstr "Lib type voie"
+
+msgid "Rejettalendcreance.nomvoie"
+msgstr "Nom voie"
+
+msgid "Rejettalendcreance.complideadr"
+msgstr "Compli de adress"
+
+msgid "Rejettalendcreance.compladr"
+msgstr "Complement adress"
+
+msgid "Rejettalendcreance.lieudist"
+msgstr "Lieu distribution"
+
+msgid "Rejettalendcreance.numcom"
+msgstr "Num comune"
+
+msgid "Rejettalendcreance.codepos"
+msgstr "Code postale"
+
+msgid "Rejettalendcreance.dtimplcre"
+msgstr "Date implémentation creance"
+
+msgid "Rejettalendcreance.natcre"
+msgstr "Nature creance"
+
+msgid "Rejettalendcreance.rgcre"
+msgstr "Rang creance"
+
+msgid "Rejettalendcreance.motiindu"
+msgstr "Motif indus"
+
+msgid "Rejettalendcreance.oriindu"
+msgstr "Origine indu"
+
+msgid "Rejettalendcreance.respindu"
+msgstr "Responsable indu"
+
+msgid "Rejettalendcreance.ddregucre"
+msgstr "Date debut regulation creance"
+
+msgid "Rejettalendcreance.dfregucre"
+msgstr "Date fin regulation creance"
+
+msgid "Rejettalendcreance.dtdercredcretrans"
+msgstr "Date dernier crédit positif créance transférée"
+
+msgid "Rejettalendcreance.mtsolreelcretrans"
+msgstr "Montant solde réel créance transférée"
+
+msgid "Rejettalendcreance.mtinicre"
+msgstr "Montant initial créance"
+
+msgid "Rejettalendcreance.moismoucompta"
+msgstr "Mois comptable"
+
+msgid "Rejettalendcreance.liblig2adr"
+msgstr "liblig2adr"
+
+msgid "Rejettalendcreance.liblig3adr"
+msgstr "liblig3adr"
+
+msgid "Rejettalendcreance.liblig5adr"
+msgstr "liblig5adr"
+
+msgid "Rejettalendcreance.liblig6adr"
+msgstr "liblig6adr"
+
+msgid "Rejettalendcreance.liblig7adr"
+msgstr "liblig7adr"
+
+
+###############################################################################
+
+msgid "Rapporttalendcreance.flux"
+msgstr "Noms du flux"
+
+msgid "Rapporttalendcreance.typeflux"
+msgstr "Type du flux"
+
+msgid "Rapporttalendcreance.natflux"
+msgstr "Nature du flux"
+
+msgid "Rapporttalendcreance.dtflux"
+msgstr "Date d'envoi du flux"
+
+msgid "Rapporttalendcreance.dtref"
+msgstr "Date de reference du flux"
+
+msgid "Rapporttalendcreance.dtexec"
+msgstr "Date d'execution du talend"
+
+msgid "Rapporttalendcreance.fichierflux"
+msgstr "Fichier du flux"
+
+msgid "Rapporttalendcreance.nbtotdosrsatransm"
+msgstr "Nombre de dossiers transmis"
+
+msgid "Rapporttalendcreance.nbtotdosrsatransmano"
+msgstr "Nombre de dossiers manuellement transmis"
+
+msgid "Rapporttalendcreance.nbrejete"
+msgstr "Nb Rejets"
+
+msgid "Rapporttalendcreance.fichierrejet"
+msgstr "Fichier de rejets"
+
+msgid "Rapporttalendcreance.nbinser"
+msgstr "NB Insert"
+
+msgid "Rapporttalendcreance.nbmaj"
+msgstr "Nb Maj"
+
+msgid "Rapporttalendcreance.message"
+msgstr "Message"

@@ -493,7 +493,8 @@ $irregularPlural = array(
 	//Gestion des Titres créanciers
     'titrecreancier' => 'titrescreanciers',
 	//Rapport talends
-    'rapporttalendcreance' => 'rapportstalendscreances'
+    'rapporttalendcreance' => 'rapportstalendscreances',
+    'rejettalendcreance' => 'rejetstalendscreances'
 );
 
 /**

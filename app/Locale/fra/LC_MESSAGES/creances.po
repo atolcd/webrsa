@@ -24,6 +24,19 @@ msgstr ""
 msgid "/Creances/index/:heading"
 msgstr "Créances"
 
+msgid "/Creances/fluxadd/:heading"
+msgstr "Ajout d'une Creance depuis un rejet"
+
+msgid "/Creances/add/:heading"
+msgstr "Ajout d'une Creance"
+
+msgid "/Creances/edit/:heading"
+msgstr "Modification d'une Creance"
+
+###############################################################################
+# Lien
+###############################################################################
+
 msgid "/Creances/index"
 msgstr "Voir"
 
@@ -38,12 +51,6 @@ msgstr "Ajouter Titre Creancier"
 
 msgid "/Titrescreanciers/index"
 msgstr "Voir les Titres Creanciers"
-
-msgid "/Creances/add/:heading"
-msgstr "Ajout d'une Creance"
-
-msgid "/Creances/edit/:heading"
-msgstr "Modification d'une Creance"
 
 msgid "Creances::index::emptyLabel"
 msgstr "Cette personne ne possède pas de creances."
@@ -83,6 +90,12 @@ msgstr "Recherche par créances de l'allocataire"
 ###############################################################################
 # Champs de recherches
 ###############################################################################
+
+msgid "Creance.foyer_id"
+msgstr "Identifiant du foyer"
+
+msgid "Dossier.numdemrsa"
+msgstr "Numéro de demande au foyer duquel liée la créance"
 
 msgid "Creance.dtimplcre"
 msgstr "Date implantation créance"

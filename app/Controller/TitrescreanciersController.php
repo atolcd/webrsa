@@ -138,7 +138,6 @@
 				)
 			);
 
-			//$creances = $this->query('SELECT * FROM Creances WHERE Creances.id ='. $creance_id);
 			$creances = $this->Creance->find('all',
 				array(
 					'conditions' => array(

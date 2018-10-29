@@ -20,5 +20,52 @@ msgstr ""
 
 ###############################################################################
 
-msgid "/RapportsTalendsCreances/index/:heading"
+msgid "/Rapportstalendscreances/index/:heading"
 msgstr "Rapports Talends Creances"
+
+msgid "/Rejetstalendscreances/index"
+msgstr "Voir les Rejets"
+
+###############################################################################
+
+msgid "Rapporttalendcreance.flux"
+msgstr "Noms du flux"
+
+msgid "Rapporttalendcreance.typeflux"
+msgstr "Type du flux"
+
+msgid "Rapporttalendcreance.natflux"
+msgstr "Nature du flux"
+
+msgid "Rapporttalendcreance.dtflux"
+msgstr "Date d'envoi du flux"
+
+msgid "Rapporttalendcreance.dtref"
+msgstr "Date de reference du flux"
+
+msgid "Rapporttalendcreance.dtexec"
+msgstr "Date d'execution du talend"
+
+msgid "Rapporttalendcreance.fichierflux"
+msgstr "Fichier du flux"
+
+msgid "Rapporttalendcreance.nbtotdosrsatransm"
+msgstr "Nombre de dossiers transmis"
+
+msgid "Rapporttalendcreance.nbtotdosrsatransmano"
+msgstr "Nombre de dossiers manuellement transmis"
+
+msgid "Rapporttalendcreance.nbrejete"
+msgstr "Nb Rejets"
+
+msgid "Rapporttalendcreance.fichierrejet"
+msgstr "Fichier de rejets"
+
+msgid "Rapporttalendcreance.nbinser"
+msgstr "NB Insert"
+
+msgid "Rapporttalendcreance.nbmaj"
+msgstr "Nb Maj"
+
+msgid "Rapporttalendcreance.message"
+msgstr "Message"

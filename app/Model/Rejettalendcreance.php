@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Code source de la classe RapportTalendCreance.
+	 * Code source de la classe Rejettalendcreance.
 	 *
 	 * PHP 5.3
 	 *
@@ -10,25 +10,19 @@
 	App::uses( 'AppModel', 'Model' );
 
 	/**
-	 * La classe RapportTalendCreance ...
+	 * La classe Rejettalendcreance ...
 	 *
 	 * @package app.Model
 	 */
-	class RapportTalendCreance extends AppModel
+	class Rejettalendcreance extends AppModel
 	{
-		/**
-		 * Ce model utilise cette table de la base de données
-		 *
-		 * @var string
-		 */
-		public $useTable = 'RapportsTalendsCreances';
 
 		/**
 		 * Nom.
 		 *
 		 * @var string
 		 */
-		 public $name = 'RapportTalendCreance';
+		 public $name = 'Rejettalendcreance';
 
 		/**
 		 * Récursivité par défaut du modèle.
@@ -40,4 +34,4 @@
 		public $useDbConfig = 'log';
 
 	}
-		?>
+?>

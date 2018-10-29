@@ -19,27 +19,3 @@ msgstr ""
 
 
 ###############################################################################
-
-msgid "RapportTalendCreance.flux"
-msgstr "Noms du flux"
-
-msgid "RapportTalendCreance.dtexec"
-msgstr "Date du flux"
-
-msgid "RapportTalendCreance.fichierflux"
-msgstr "Fichier du flux"
-
-msgid "RapportTalendCreance.nbrejete"
-msgstr "Nb Rejets"
-
-msgid "RapportTalendCreance.fichierrejet"
-msgstr "Fichier de rejets"
-
-msgid "RapportTalendCreance.nbinser"
-msgstr "NB Insert"
-
-msgid "RapportTalendCreance.nbmaj"
-msgstr "Nb Maj"
-
-msgid "RapportTalendCreance.message"
-msgstr "Message"

@@ -4119,10 +4119,10 @@ msgstr "Ajout de Fichiers"
 ###############################################################################
 ## Rapport Talends Créances
 ###############################################################################
-msgid "controllers/RapportsTalendsCreances"
+msgid "controllers/Rapportstalendscreances"
 msgstr "Rapports Talends Créances"
 
-msgid "controllers/RapportsTalendsCreances/index"
+msgid "controllers/Rapportstalendscreances/index"
 msgstr "Visualisation des RapportsTalendsCréances"
 
 ###############################################################################

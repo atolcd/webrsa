@@ -73,6 +73,7 @@
 			'index' => 'read',
 			'add' => 'create',
 			'edit' => 'update',
+			'fluxadd' => 'create',
 			'search' => 'read',
 			'filelink' => 'read',
 			'fileview' => 'read',
@@ -92,6 +93,7 @@
 			'Creance',
 			'Titrecreancier',
 			'WebrsaCreance',
+			'Rejettalendcreance',
 			'Dossier',
 			'Foyer',
 			'Personne',
@@ -222,6 +224,7 @@
 
 			// Essai de sauvegarde
 			if( !empty( $this->request->data ) ) {
+
 				$this->Creance->begin();
 				$data = $this->request->data;
 				
@@ -272,6 +275,66 @@
 			$this->set( 'foyer_id', $foyer_id );
 			$this->render( 'add_edit' );
 			
+		}
+
+		/**
+		 * Ajouter une creances à un foyer depuis un rejet d'un flux
+		 *
+		 * @param integer $foyer_id L'id technique du foyer auquel ajouter la créance
+		 * @return void
+		 */
+		public function fluxadd($rejet_id) {
+
+			// Retour à l'index en cas d'annulation
+			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->redirect( array('controller' => 'Rejetstalendscreances', 'action' => 'index', $rejet_id ) );
+			}
+
+			// Essai de sauvegarde
+			if( !empty( $this->request->data ) ) {
+				$foyerQuery =  array(
+					'fields' => array('Foyer.id',),
+					'conditions' => array('Dossier.numdemrsa' => 	$this->request->data['Dossier']['numdemrsa'],),
+					'joins' => array($this->Dossier->join( 'Foyer', array( 'type' => 'INNER' ))),
+					'recursive' => -1
+				);
+				$foyerResult = $this->Dossier->find('first',$foyerQuery);
+				$this->request->data['Creance']['foyer_id'] = $foyerResult['Foyer']['id'];
+
+				$this->Creance->begin();
+				if( $this->Creance->saveAll( $this->request->data, array( 'validate' => 'only' ) ) ) {
+					if( $this->Creance->saveAll( $this->request->data, array( 'atomic' => false ) ) ) {
+						$this->Creance->commit();
+						$this->Flash->success( __( 'Save->success' ) );
+						$this->Rejettalendcreance->query('UPDATE administration.rejetstalendscreances SET fusion = true WHERE rejetstalendscreances.id ='. $rejet_id);
+						$this->redirect( array( 'controller' => 'creances', 'action' => 'index', $this->request->data['Creance']['foyer_id'] ) );
+					}
+					else {
+						$this->Creance->rollback();
+						$this->Flash->error( __( 'Save->error' ) );
+					}
+				}
+				else {
+					$this->Creance->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+			}
+			// Afficage des données
+			else {
+				$rejetQuery =  array(
+						'fields' => $this->Rejettalendcreance->fields(),
+						'conditions' => array(
+							'Rejettalendcreance.id' =>$rejet_id,
+						),
+						'contain' => FALSE
+					);
+				$rejetstalendscreances = $this->Rejettalendcreance->find('first',$rejetQuery);
+				// Assignation au formulaire
+				$this->request->data = $rejetstalendscreances;
+			}
+
+			$this->set( 'options', $this->Creance->enums() );
+			$this->render( 'fluxadd' );
 		}
 
 		/**

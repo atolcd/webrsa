@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Code source de la classe WebrsaAccessCreances.
+	 * Code source de la classe WebrsaAccessRejetstalendscreances.
 	 *
 	 * PHP 5.3
 	 *
@@ -11,11 +11,11 @@
 	App::uses('WebrsaAbstractAccess', 'Utility');
 
 	/**
-	 * La classe WebrsaAccessCreances ...
+	 * La classe WebrsaAccessRejetstalendscreances ...
 	 *
 	 * @package app.Utility
 	 */
-	abstract class WebrsaAccessCreances extends WebrsaAbstractAccess
+	abstract class WebrsaAccessRejetstalendscreances extends WebrsaAbstractAccess
 	{
 		/**
 		 * Paramètres par défaut
@@ -25,7 +25,7 @@
 		 */
 		public static function params(array $params = array()) {
 			return $params + array(
-				'alias' => 'Creances',
+				'alias' => 'WebrsaAccessRejetstalendscreances',
 				'departement' => (int)Configure::read('Cg.departement')
 			);
 		}
@@ -37,9 +37,8 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function _add(array $record, array $params) {
-			$params = self::params($params);
-			return Hash::get($params, 'ajoutPossible');
+		protected static function _index(array $record, array $params) {
+			return true;
 		}
 
 		/**
@@ -60,7 +59,7 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function _fluxadd(array $record, array $params) {
+		protected static function _view(array $record, array $params) {
 			return true;
 		}
 
@@ -76,28 +75,13 @@
 			$params = self::params($params);
 			$result = self::normalize_actions(
 				array(
-					'add' => array('ajoutPossible' => true),
 					'view',
 					'edit',
-					'fluxadd',
-					'filelink',
-					'Titrescreanciers.index',
+					'index'
 				)
 			);
 
 			return $result;
 		}
-
-		  /**
-         * Permission d'accès
-         *
-         * @param array $record
-         * @param array $params
-         * @return boolean
-         */
-        protected static function _filelink(array $record, array $params) {
-            return true;
-        }
-
 	}
 ?>

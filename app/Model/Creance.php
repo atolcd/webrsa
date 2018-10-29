@@ -103,6 +103,11 @@
 			)
 		);
 
+		/**
+		 * Associations "Has many".
+		 *
+		 * @var array
+		 */
 		public $hasMany = array(
 			'Fichiermodule' => array(
 				'className' => 'Fichiermodule',
@@ -131,30 +136,6 @@
 				'exclusive' => null,
 				'finderQuery' => null
 			)
-		);
-
-		/**
-		 * Associations "Has many".
-		 *
-		 * @var array
-		 */
-		public $hasMany = array(
-			'Fichiermodule' => array(
-				'className' => 'Fichiermodule',
-				'foreignKey' => false,
-				'dependent' => false,
-				'conditions' => array(
-					'Fichiermodule.modele = \'Creance\'',
-					'Fichiermodule.fk_value = {$__cakeID__$}'
-				),
-				'fields' => '',
-				'order' => '',
-				'limit' => '',
-				'offset' => '',
-				'exclusive' => '',
-				'finderQuery' => '',
-				'counterQuery' => ''
-			),
 		);
 
 		/**
