@@ -488,4 +488,11 @@ msgstr "Montant solde réel créance transférée"
 msgid "Creance.mtinicre"
 msgstr "Montant initial créance"
 
+msgid "Creances.haspiecejointe"
+msgstr "Ajouter une pièce jointe"
 
+msgid "ENUM::HASPIECEJOINTE::1"
+msgstr "Oui"
+
+msgid "ENUM::HASPIECEJOINTE::0"
+msgstr "Non"

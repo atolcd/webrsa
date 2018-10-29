@@ -13,7 +13,7 @@ BEGIN;
 
 ALTER TABLE creances ADD COLUMN moismoucompta date;
 ALTER TABLE creances ADD COLUMN orgcre character(3);
-
+ALTER TABLE creances ADD COLUMN haspiecejointe character varying(1) NOT NULL DEFAULT '0'::character varying;
 
 CREATE TABLE administration.rapportstalendscreances (
   id serial NOT NULL,

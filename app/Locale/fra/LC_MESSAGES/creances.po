@@ -39,6 +39,28 @@ msgstr "Modification d'une Creance"
 msgid "Creances::index::emptyLabel"
 msgstr "Cette personne ne possède pas de creances."
 
+msgid "/Creances/filelink"
+msgstr "Fichiers liés (#Fichiermodule.nb_fichiers_lies#)"
+
+msgid "/Creances/filelink/#Creance.id#"
+msgstr "Fichiers liés"
+
+msgid "Creances::filelink"
+msgstr "Fichiers liés à une créance"
+
+msgid "Creances.haspiecejointe"
+msgstr "Ajouter une pièce jointe"
+
+###############################################################################
+# Trad des recherches
+###############################################################################
+
+msgid "/Creances/search/:heading"
+msgstr "Recherche par Créances"
+
+msgid "Search.Creances"
+msgstr "Recherche par créances de l'allocataire"
+
 ###############################################################################
 # Champs de recherches
 ###############################################################################

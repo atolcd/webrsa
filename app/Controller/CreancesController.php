@@ -35,7 +35,8 @@
 			'Default',
 			'DossiersMenus',
 			'Jetons2',
-			'WebrsaAccesses'
+			'WebrsaAccesses',
+			'Fileuploader',
 			);
 
 		/**
@@ -48,7 +49,9 @@
 			'Default2',
 			'Default3' => array(
 				'className' => 'Default.DefaultDefault'
-			)
+			),
+			'Fileuploader',
+			'Cake1xLegacy.Ajax',
 		);
 
 		/**
@@ -60,7 +63,12 @@
 		public $crudMap = array(
 			'index' => 'read',
 			'add' => 'create',
-			'edit' => 'update'
+			'edit' => 'update',
+			'filelink' => 'read',
+			'fileview' => 'read',
+			'ajaxfiledelete' => 'delete',
+			'ajaxfileupload' => 'update',
+			'ajaxreffonct' => 'read',
 		);
 
 		/**
@@ -72,6 +80,19 @@
 			'Creance',
 			'WebrsaCreance'
 			);
+
+		/**
+		 * Méthodes ne nécessitant aucun droit.
+		 *
+		 * @var array
+		*/
+		public $aucunDroit = array(
+			'ajaxfiledelete',
+			'ajaxfileupload',
+			'ajaxreffonct',
+			'download',
+			'fileview',
+		);
 
 		/**
 		 * Pagination sur les <éléments> de la table. *
@@ -87,7 +108,10 @@
 				$foyer_id,
 				array(
 					'fields' => array_merge(
-						$this->Creance->fields()
+						$this->Creance->fields(),
+						array(
+							$this->Creance->Fichiermodule->sqNbFichiersLies( $this->Creance, 'nb_fichiers_lies' )
+						)
 					),
 					'conditions' => array(
 						'Creance.foyer_id' => $foyer_id
@@ -200,6 +224,109 @@
 			$this->set( 'foyer_id', $foyer_id );
 			$this->render( 'add_edit' );
 			
+		}
+
+		/**
+		 * http://valums.com/ajax-upload/
+		 * http://doc.ubuntu-fr.org/modules_php
+		 * increase post_max_size and upload_max_filesize to 10M
+		 * debug( array( ini_get( 'post_max_size' ), ini_get( 'upload_max_filesize' ) ) ); -> 10M
+		 */
+		public function ajaxfileupload() {
+			$this->Fileuploader->ajaxfileupload();
+		}
+
+		/**
+		 * http://valums.com/ajax-upload/
+		 * http://doc.ubuntu-fr.org/modules_php
+		 * increase post_max_size and upload_max_filesize to 10M
+		 * debug( array( ini_get( 'post_max_size' ), ini_get( 'upload_max_filesize' ) ) ); -> 10M
+		 * FIXME: traiter les valeurs de retour
+		 */
+		public function ajaxfiledelete() {
+			$this->Fileuploader->ajaxfiledelete();
+		}
+
+		/**
+		 *   Fonction permettant de visualiser les fichiers chargés dans la vue avant leur envoi sur le serveur
+		 */
+		public function fileview( $id ) {
+			$this->Fileuploader->fileview( $id );
+		}
+
+		/**
+		 *   Téléchargement des fichiers préalablement associés à un traitement donné
+		 */
+		public function download( $fichiermodule_id ) {
+			$this->assert( !empty( $fichiermodule_id ), 'error404' );
+			$this->Fileuploader->download( $fichiermodule_id );
+		}
+
+		/**
+		 * Fonction permettant d'accéder à la page pour lier les fichiers.
+		 *
+		 * @param type $id
+		 */
+		public function filelink( $id ) {
+			$this->WebrsaAccesses->check($id);
+			$dossier_id = $this->Creance->dossierId( $id );
+			$this->assert( !empty( $dossier_id ), 'invalidParameter' );
+			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'id' => $dossier_id ) ) );
+
+			$fichiers = array();
+
+			$creances = $this->Creance->find(
+				'first',
+				array(
+					'conditions' => array(
+						'Creance.id' => $id
+					),
+					'contain' => array(
+						'Fichiermodule' => array(
+							'fields' => array( 'name', 'id', 'created', 'modified' )
+						)
+					)
+				)
+			);
+
+			$this->Jetons2->get( $dossier_id );
+
+			// Retour à l'index en cas d'annulation
+			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->Creance->id = $id;
+				$this->Jetons2->release( $dossier_id );
+				$this->redirect( array( 'action' => 'index', $this->Creance->field( 'foyer_id' )) );
+			}
+
+			if( !empty( $this->request->data ) ) {
+				$this->Creance->begin();
+
+				$saved = $this->Creance->updateAllUnBound(
+					array( 'Creance.haspiecejointe' => '\''.$this->request->data['Creances']['haspiecejointe'].'\'' ),
+					array( '"Creance"."id"' => $id)
+				);
+
+				if( $saved ) {
+					// Sauvegarde des fichiers liés à une PDO
+					$dir = $this->Fileuploader->dirFichiersModule( $this->action, $this->request->params['pass'][0] );
+					$saved = $this->Fileuploader->saveFichiers( $dir, Set::classicExtract( $this->request->data, "Creance.haspiecejointe" ), $id ) && $saved;
+				}
+
+				if( $saved ) {
+					$this->Creance->commit();
+					$this->Jetons2->release( $dossier_id );
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect(array('action' => 'filelink', $id));
+				}
+				else {
+					$fichiers = $this->Fileuploader->fichiers( $id );
+					$this->Creance->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+			}
+
+			$this->set( 'options', (array)Hash::get( $this->Creance->enums(), 'Creance' ) );
+			$this->set( compact( 'dossier_id', 'personne_id', 'fichiers', 'creances' ) );
 		}
 	}
 ?>

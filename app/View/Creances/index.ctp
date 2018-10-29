@@ -28,9 +28,8 @@ if( empty( $creances ) ) {
 				'Creance.mtinicre',
 			)+ WebrsaAccess::links(
 				array(
-					'/Creances/edit/#Creance.id#' => array(
-						//'condition' => "'#Creance.orgcre#' == 'MAN'",
-					),
+					'/Creances/edit/#Creance.id#',
+					'/Creances/filelink/#Creance.id#',
 				)
 			)
 		),

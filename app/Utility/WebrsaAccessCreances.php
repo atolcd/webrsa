@@ -68,10 +68,23 @@
 					'add' => array('ajoutPossible' => true),
 					'view',
 					'edit',
+					'filelink',
 				)
 			);
 
 			return $result;
 		}
+
+		  /**
+         * Permission d'accès
+         *
+         * @param array $record
+         * @param array $params
+         * @return boolean
+         */
+        protected static function _filelink(array $record, array $params) {
+            return true;
+        }
+
 	}
 ?>
