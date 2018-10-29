@@ -477,7 +477,7 @@ msgid "Creance.ddregucre"
 msgstr "Date début créance"
 
 msgid "Creance.dfregucre"
-msgstr "Date fin  créance"
+msgstr "Date fin créance"
 
 msgid "Creance.dtdercredcretrans"
 msgstr "Date dernier crédit positif créance transférée"

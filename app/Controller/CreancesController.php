@@ -40,6 +40,7 @@
 			'Search.SearchPrg' => array(
 				'actions' => array(
 					'dossierEntrantsCreanciers',
+					'search',
 				),
 			)
 		);
@@ -53,13 +54,13 @@
 			'Csv',
 			'Locale',
 			'Paginator',
-			'Default',
 			'Default2',
 			'Default3' => array(
-				'className' => 'Default.DefaultDefault'
+				'className' => 'ConfigurableQuery.ConfigurableQueryDefault'
 			),
 			'Fileuploader',
 			'Cake1xLegacy.Ajax',
+			'Search',
 		);
 
 		/**
@@ -72,6 +73,7 @@
 			'index' => 'read',
 			'add' => 'create',
 			'edit' => 'update',
+			'search' => 'read',
 			'filelink' => 'read',
 			'fileview' => 'read',
 			'ajaxfiledelete' => 'delete',
@@ -120,6 +122,16 @@
 			'download',
 			'fileview',
 		);
+
+		/**
+		 * Moteur de recherche par creances
+		 *
+		 * @return void
+		 */
+		public function search() {
+			$Recherches = $this->Components->load( 'WebrsaRecherchesCreances' );
+			$Recherches->search();
+		}
 
 		/**
 		 * Pagination sur les <éléments> de la table. *

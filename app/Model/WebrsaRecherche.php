@@ -309,6 +309,18 @@
 				'component' => 'WebrsaRecherchesCuis',
 				'keys' => array( 'results.fields' )
 			),
+			'Creances.search' => array(
+				'modelName' => 'Creance',
+				'modelRechercheName' => 'WebrsaRechercheCreance',
+				'component' => 'WebrsaRecherchesCreances',
+				'keys' => array( 'results.fields', 'results.innerTable' )
+			),
+			'Creances.exportcsv' => array(
+				'modelName' => 'Creance',
+				'modelRechercheName' => 'WebrsaRechercheCreance',
+				'component' => 'WebrsaRecherchesCreances',
+				'keys' => array( 'results.fields' )
+			),
 			'Defautsinsertionseps66.search_noninscrits' => array(
 				'departement' => 66,
 				'modelName' => 'Personne',

@@ -4083,6 +4083,14 @@ msgstr "Modification d'une Créance"
 msgid "controllers/Creances/dossierEntrantsCreanciers"
 msgstr "Recherche des entrants avec créances"
 
+msgid "controllers/Creances/filelink"
+msgstr "Ajout de Fichiers"
+
+msgid "controllers/Creances/exportcsv"
+msgstr "Export CSV"
+
+msgid "controllers/Creances/search"
+msgstr "Recherche"
 
 ###############################################################################
 ## Rapport Talends Créances

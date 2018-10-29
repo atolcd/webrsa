@@ -24,6 +24,9 @@ msgstr ""
 msgid "/Creances/index/:heading"
 msgstr "Créances"
 
+msgid "/Creances/index"
+msgstr "Voir"
+
 msgid "/Creances/add"
 msgstr "Ajouter"
 
@@ -50,6 +53,16 @@ msgstr "Fichiers liés à une créance"
 
 msgid "Creances.haspiecejointe"
 msgstr "Ajouter une pièce jointe"
+
+###############################################################################
+# Trad des recherches
+###############################################################################
+
+msgid "/Creances/search/:heading"
+msgstr "Recherche par Créances"
+
+msgid "Search.Creances"
+msgstr "Recherche par créances de l'allocataire"
 
 ###############################################################################
 # Trad des recherches
@@ -103,3 +116,14 @@ msgstr "Montant solde réel créance transférée"
 
 msgid "Creance.mtinicre"
 msgstr "Montant initial créance"
+
+# ==============================================================================
+# Résultats du moteur de recherche
+# ==============================================================================
+
+msgid "Personne.nom_complet_prenoms"
+msgstr "Allocataire"
+
+msgid "Dossier.locked"
+msgstr "Verrouillé"
+

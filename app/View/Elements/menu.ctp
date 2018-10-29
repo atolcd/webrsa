@@ -230,6 +230,10 @@
 				'disabled' => ( $departement != 66 ),
 				'url' => array( 'controller' => 'changementsadresses', 'action' => 'search'  )
 			),
+			'Par créances' => array(
+				'class' => 'search',
+				'url' => array( 'controller' => 'creances', 'action' => 'search'  )
+			),
 		),
 		'APRE' => array(
 			'disabled' => ( $departement != 93 || true === $user_externe ),
