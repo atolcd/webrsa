@@ -490,6 +490,8 @@ $irregularPlural = array(
 	'dernierreferent' => 'derniersreferents',
 	'poledossierpcg66_user' => 'polesdossierspcgs66_users',
 	'actionroleresultuser' => 'actionrolesresultsusers',
+	//Gestion des Titres créanciers
+    'titrecreancier' => 'titrescreanciers',
 	//Rapport talends
     'rapporttalendcreance' => 'rapportstalendscreances'
 );

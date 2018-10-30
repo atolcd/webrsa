@@ -4093,6 +4093,30 @@ msgid "controllers/Creances/search"
 msgstr "Recherche"
 
 ###############################################################################
+## Titres Créances
+###############################################################################
+msgid "controllers/Titrescreanciers"
+msgstr "Titres Créanciers"
+
+msgid "controllers/Titrescreanciers/index"
+msgstr "Visualisation des Titres Créanciers"
+
+msgid "controllers/Titrescreanciers/view"
+msgstr "Visualisation d'un Titre Créancier"
+
+msgid "controllers/Titrescreanciers/valider"
+msgstr "Validation d'un Titre Créancier"
+
+msgid "controllers/Titrescreanciers/add"
+msgstr "Ajout d'un Titre Créancier"
+
+msgid "controllers/Titrescreanciers/edit"
+msgstr "Modification d'un Titre Créancier"
+
+msgid "controllers/Titrescreanciers/filelink"
+msgstr "Ajout de Fichiers"
+
+###############################################################################
 ## Rapport Talends Créances
 ###############################################################################
 msgid "controllers/RapportsTalendsCreances"

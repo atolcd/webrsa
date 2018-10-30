@@ -15,6 +15,33 @@ ALTER TABLE creances ADD COLUMN moismoucompta date;
 ALTER TABLE creances ADD COLUMN orgcre character(3);
 ALTER TABLE creances ADD COLUMN haspiecejointe character varying(1) NOT NULL DEFAULT '0'::character varying;
 
+/*
+*
+* Creation de la table des titres emmis
+*
+*/
+CREATE TABLE titrescreanciers (
+  id serial NOT NULL,
+  creance_id integer NOT NULL,
+  dtemissiontitre date,
+  dtvalidation date,
+  etatranstitr character varying(3) NOT NULL,
+  numtitr character varying(30) NOT NULL,
+  mnttitr numeric(9,2) NOT NULL,
+  typetitre character varying(3) NOT NULL,
+  mention character varying(255),
+  qual character varying(3),
+  nom character varying(50),
+  nir character(15),
+  numtel character varying(14)
+  haspiecejointe character varying(1) DEFAULT '0'::character varying,
+);
+
+/*
+*
+* Creation de la table des rapport crée par les talends d'intégration des flux CNAF
+*
+*/
 CREATE TABLE administration.rapportstalendscreances (
   id serial NOT NULL,
   flux character(15),

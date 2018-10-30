@@ -97,6 +97,7 @@
 			'controllers/Communautessrs' => array( 93 ),
 			'controllers/Compositionsregroupementseps' => array( 58, 66, 93 ),
 			'controllers/Creances' => array( 58, 66, 93 ),
+			'controllers/Titrescreances' => array( 58, 66, 93 ),
 			'controllers/Creancesalimentaires' => array( 58, 66, 93 ),
 			'controllers/Contactspartenaires' => array( 66 ),
 			'controllers/Dossierseps' => array( 58, 66, 93 ),

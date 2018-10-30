@@ -28,6 +28,7 @@ if( empty( $creances ) ) {
 				'Creance.mtinicre',
 			)+ WebrsaAccess::links(
 				array(
+					'/Titrescreanciers/index/#Creance.id#' => array('class' => 'view'),
 					'/Creances/edit/#Creance.id#',
 					'/Creances/filelink/#Creance.id#',
 				)

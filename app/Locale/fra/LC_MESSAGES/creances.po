@@ -33,6 +33,12 @@ msgstr "Ajouter"
 msgid "/Creances/edit"
 msgstr "Modifier"
 
+msgid "/Titrescreanciers/add"
+msgstr "Ajouter Titre Creancier"
+
+msgid "/Titrescreanciers/index"
+msgstr "Voir les Titres Creanciers"
+
 msgid "/Creances/add/:heading"
 msgstr "Ajout d'une Creance"
 

@@ -120,6 +120,17 @@
 				'finderQuery' => '',
 				'counterQuery' => ''
 			),
+            'Titrecreancier' => array(
+				'className' => 'Titrecreancier',
+				'foreignKey' => 'creance_id',
+				'conditions' => null,
+				'order' => null,
+				'limit' => null,
+				'offset' => null,
+				'dependent' => true,
+				'exclusive' => null,
+				'finderQuery' => null
+			)
 		);
 
 		/**
@@ -312,6 +323,33 @@
 			);
 
 			return $query;
+		}
+
+		/**
+		 * Retourne l'id d'un Foyer à partir de l'id d'une Creance.
+		 *
+		 * @param integer $creance_id
+		 * @return integer
+		 */
+		public function foyerId( $creance_id ) {
+			$qd_creance = array(
+				'fields' => array( 'Creance.foyer_id' ),
+				'joins' => array(
+					$this->join( 'Creance', array( 'type' => 'INNER' ) )
+				),
+				'conditions' => array(
+					'Creance.id' => $creance_id
+				),
+				'recursive' => -1
+			);
+			$creance= $this->find('first', $qd_creance);
+
+			if( !empty( $creance ) ) {
+				return $creance['Creance']['foyer_id'];
+			}
+			else {
+				return null;
+			}
 		}
 
 	}

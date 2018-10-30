@@ -1,0 +1,67 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team: <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "Titrecreancier.etattranstitr"
+msgstr "Etat transmission titre"
+
+msgid "ENUM::ETATRANSTITR::CRE"
+msgstr "Crée"
+
+msgid "ENUM::ETATRANSTITR::VAL"
+msgstr "Validée"
+
+msgid "ENUM::ETATRANSTITR::SEN"
+msgstr "Transmise"
+
+msgid "ENUM::ETATRANSTITR::PAY"
+msgstr "Payée"
+
+msgid "ENUM::ETATRANSTITR::SUP"
+msgstr "Annulée"
+
+msgid "Titrecreancier.typetitre"
+msgstr "Type du Titre"
+
+msgid "ENUM::TYPETITRE::A"
+msgstr "Type A"
+
+msgid "ENUM::TYPETITRE::B"
+msgstr "Type B"
+
+msgid "Titrecreancier.qual"
+msgstr "Qualité de la personne"
+
+msgid "ENUM::QUAL::MR"
+msgstr "Monsieur"
+
+msgid "ENUM::QUAL::MME"
+msgstr "Madame"
+
+msgid "Titrescreanciers.haspiecejointe"
+msgstr "Ajouter une pièce jointe"
+
+msgid "ENUM::HASPIECEJOINTE::1"
+msgstr "Oui"
+
+msgid "ENUM::HASPIECEJOINTE::0"
+msgstr "Non"
+

@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Code source de la classe WebrsaAccessCreances.
+	 * Code source de la classe WebrsaAccessTitrescreanciers.
 	 *
 	 * PHP 5.3
 	 *
@@ -11,11 +11,11 @@
 	App::uses('WebrsaAbstractAccess', 'Utility');
 
 	/**
-	 * La classe WebrsaAccessCreances ...
+	 * La classe WebrsaAccessTitrescreanciers ...
 	 *
 	 * @package app.Utility
 	 */
-	abstract class WebrsaAccessCreances extends WebrsaAbstractAccess
+	abstract class WebrsaAccessTitrescreanciers extends WebrsaAbstractAccess
 	{
 		/**
 		 * Paramètres par défaut
@@ -25,7 +25,7 @@
 		 */
 		public static function params(array $params = array()) {
 			return $params + array(
-				'alias' => 'Creances',
+				'alias' => 'Titrescreanciers',
 				'departement' => (int)Configure::read('Cg.departement')
 			);
 		}
@@ -54,6 +54,39 @@
 		}
 
 		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _index(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _valider(array $record, array $params) {
+			return true;
+		}
+
+		 /**
+         * Permission d'accès
+         *
+         * @param array $record
+         * @param array $params
+         * @return boolean
+         */
+        protected static function _filelink(array $record, array $params) {
+            return true;
+        }
+
+		/**
 		 * Liste les actions disponnible
 		 * Si une action pointe sur un autre controler, il faut préciser son nom
 		 * ex : Moncontroller.monaction
@@ -68,24 +101,12 @@
 					'add' => array('ajoutPossible' => true),
 					'view',
 					'edit',
-					'filelink',
-					'Titrescreanciers.index',
+					'valider',
+					'filelink'
 				)
 			);
 
 			return $result;
 		}
-
-		  /**
-         * Permission d'accès
-         *
-         * @param array $record
-         * @param array $params
-         * @return boolean
-         */
-        protected static function _filelink(array $record, array $params) {
-            return true;
-        }
-
 	}
 ?>

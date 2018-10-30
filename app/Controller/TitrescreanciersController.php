@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Code source de la classe CreancesController.
+	 * Code source de la classe TitrescreanciersController.
 	 *
 	 * PHP 5.3
 	 *
@@ -10,21 +10,21 @@
 	App::uses( 'LocaleHelper', 'View/Helper' );
 	App::uses( 'AppController', 'Controller' );
 	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
-	App::uses( 'WebrsaAccessCreances', 'Utility' );
+	App::uses( 'WebrsaAccessTitrescreanciers', 'Utility' );
 
 	/**
-	 * La classe CreancesController ...
+	 * La classe TitrescreanciersController ...
 	 *
 	 * @package app.Controller
 	 */
-	class CreancesController extends AppController
+	class TitrescreanciersController extends AppController
 	{
 		/**
 		 * Nom du contrôleur.
 		 *
 		 * @var string
 		 */
-		public $name = 'Creances';
+		public $name = 'Titrescreanciers';
 
 		/**
 		 * Components utilisés.
@@ -36,13 +36,7 @@
 			'DossiersMenus',
 			'Jetons2',
 			'WebrsaAccesses',
-			'Fileuploader',
-			'Search.SearchPrg' => array(
-				'actions' => array(
-					'dossierEntrantsCreanciers',
-					'search',
-				),
-			)
+			'Fileuploader'
 		);
 
 		/**
@@ -56,11 +50,10 @@
 			'Paginator',
 			'Default2',
 			'Default3' => array(
-				'className' => 'ConfigurableQuery.ConfigurableQueryDefault'
+				'className' => 'Default.DefaultDefault'
 			),
 			'Fileuploader',
-			'Cake1xLegacy.Ajax',
-			'Search',
+			'Cake1xLegacy.Ajax'
 		);
 
 		/**
@@ -73,14 +66,11 @@
 			'index' => 'read',
 			'add' => 'create',
 			'edit' => 'update',
-			'search' => 'read',
 			'filelink' => 'read',
 			'fileview' => 'read',
 			'ajaxfiledelete' => 'delete',
 			'ajaxfileupload' => 'update',
 			'ajaxreffonct' => 'read',
-			'dossierEntrantsCreanciers' => 'read',
-			'exportcsv' => 'read'
 		);
 
 		/**
@@ -89,27 +79,21 @@
 		 * @var array
 		 */
 		public $uses = array(
-			'Creance',
 			'Titrecreancier',
+			'WebrsaTitrecreancier',
+			'Creance',
 			'WebrsaCreance',
 			'Dossier',
 			'Foyer',
 			'Personne',
-			'Situationdossierrsa',
-			'Calculdroitrsa',
 			'Option'
 			);
 
         protected function _setOptions() {
-			$this->set( 'etatdosrsa', ClassRegistry::init('Dossier')->enum('etatdosrsa') );
-			$this->set( 'droitdevoirs', ClassRegistry::init('Calculdroitrsa')->enum('toppersdrodevorsa') );
-			$this->set( 'orgcre', ClassRegistry::init('Creance')->enum('orgcre') );
-			$this->set( 'motiindu', ClassRegistry::init('Creance')->enum('motiindu') );
-			$this->set( 'natcre', ClassRegistry::init('Creance')->enum('natcre') );
-			$this->set( 'oriindu', ClassRegistry::init('Creance')->enum('oriindu') );
-			$this->set( 'respindu', ClassRegistry::init('Creance')->enum('respindu') );
+			$this->set( 'qual', ClassRegistry::init('Titrecreancier')->enum('qual') );
+			$this->set( 'etatranstitr', ClassRegistry::init('Titrecreancier')->enum('etatranstitr') );
+			$this->set( 'typetitre', ClassRegistry::init('Titrecreancier')->enum('typetitre') );
 		}
-
 
 		/**
 		 * Méthodes ne nécessitant aucun droit.
@@ -125,54 +109,56 @@
 		);
 
 		/**
-		 * Moteur de recherche par creances
-		 *
-		 * @return void
-		 */
-		public function search() {
-			$Recherches = $this->Components->load( 'WebrsaRecherchesCreances' );
-			$Recherches->search();
-		}
-
-		/**
 		 * Pagination sur les <éléments> de la table. *
-		 * @param integer $foyer_id L'id technique du Foyer pour lequel on veut les Creances.
+		 * @param integer $creance_id L'id technique du Foyer pour lequel on veut les Creances.
 		 *
 		 */
-		public function index($foyer_id) {
+		public function index($creance_id) {
+			$foyer_id = $this->Titrecreancier->foyerId( $creance_id );
 			$this->set('dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu(array( 'foyer_id' => $foyer_id )));
 
-			$this->set( 'options', $this->Creance->enums() );
+			$this->set( 'options', $this->Titrecreancier->enums() );
 
-			$creances = $this->WebrsaAccesses->getIndexRecords(
+			$titresCreanciers = $this->WebrsaAccesses->getIndexRecords(
 				$foyer_id,
 				array(
 					'fields' => array_merge(
-						$this->Creance->fields(),
-						array(
-							$this->Creance->Fichiermodule->sqNbFichiersLies( $this->Creance, 'nb_fichiers_lies' )
+						$this->Titrecreancier->fields()
+						,array(
+							$this->Titrecreancier->Fichiermodule->sqNbFichiersLies( $this->Titrecreancier, 'nb_fichiers_lies' )
 						)
 					),
 					'conditions' => array(
-						'Creance.foyer_id' => $foyer_id
+						'Titrecreancier.creance_id' => $creance_id
 					),
 					'contain' => false,
 					'order' => array(
-						'Creance.dtimplcre DESC',
+						'Titrecreancier.dtemissiontitre DESC',
 					)
+				)
+			);
+
+			//$creances = $this->query('SELECT * FROM Creances WHERE Creances.id ='. $creance_id);
+			$creances = $this->Creance->find('all',
+				array(
+					'conditions' => array(
+						'Creance.id ' => $creance_id
+					),
+					'contain' => false
 				)
 			);
 
 			// Assignations à la vue
 			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'creances', $creances );
+			$this->set( 'titresCreanciers', $titresCreanciers );
 			$this->set( 'urlmenu', '/creances/index/'.$foyer_id );
 		}
 
 		/**
-		 * Ajouter une creances à un foyer
+		 * Ajouter une Titrecreancier à une Créance
 		 *
-		 * @param integer $foyer_id L'id technique du foyer auquel ajouter la créance
+		 * @param integer $foyer_id L'id technique de la creance auquel ajouter le Titrecreancier
 		 * @return void
 		 */
 		public function add() {
@@ -181,9 +167,9 @@
 		}
 
 		/**
-		 * Modification d'une creance du foyer.
+		 * Modification d'un Titrecreancier d'une creance.
 		 *
-		 * @param integer $id L'id technique dans la table creances.
+		 * @param integer $id L'id technique dans la table titrescreanciers.
 		 * @return void
 		 */
 		public function edit() {
@@ -192,86 +178,108 @@
 		}
 
 		/**
-		 * Fonction commune d'ajout/modification d'une créances
+		 * Validation d'une Titrecreancier d'une Créance
 		 *
-		 * @param integer $id
-		 * 		Soit l'id technique du foyer auquel ajouter la créance
-		 * 		Soit l'id technique dans la table creances.
+		 * @param integer $id L'id technique dans la table titrescreanciers
 		 * @return void
 		 */
-		protected function _add_edit($id = null) {
-			if($this->action == 'add' ) {
-				$foyer_id = $id;
-				$id = null;
-				$dossier_id = $this->Creance->Foyer->dossierId( $foyer_id );
-			}elseif($this->action == 'edit' ){
-				$this->WebrsaAccesses->check($id);
-				$this->Creance->id = $id;
-				$foyer_id = $this->Creance->field( 'foyer_id' );
-				$dossier_id = $this->Creance->dossierId( $id );
-			}
+		public function valider() {
+			$args = func_get_args();
+			call_user_func_array( array( $this, '_add_edit' ), $args );
+		}
 
-			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
+		/**
+		 * Fonction commune d'ajout/modification d'un titrecreancier
+		 *
+		 * @param integer $id
+		 * 		Soit l'id technique de la creance auquel ajouter le Titrecreancier
+		 * 		Soit l'id technique dans la table titrescreanciers
+		 * @return void
+		 */
+		public function _add_edit( $id = null ) {
+			if($this->action == 'add' ) {
+				$creance_id = $id;
+				$foyer_id = $this->Titrecreancier->foyerId( $creance_id );
+				$dossier_id = $this->Titrecreancier->dossierId( $creance_id );
+			}elseif($this->action == 'edit' || $this->action == 'valider'){
+				$this->WebrsaAccesses->check($id);
+				$creance_id = $this->Titrecreancier->creanceId( $id );
+				$foyer_id = $this->Titrecreancier->foyerId( $creance_id );
+				$dossier_id = $this->Titrecreancier->dossierId( $creance_id );
+			}
+			$this->assert( !empty( $dossier_id ), 'invalidParameter' );
+
+			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'id' => $dossier_id ) ) );
+
 			$this->Jetons2->get( $dossier_id );
 
 			// Retour à l'index en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->Titrecreancier->id = $id;
 				$this->Jetons2->release( $dossier_id );
-				$this->redirect( array( 'action' => 'index', $foyer_id ) );
+				$this->redirect( array( 'action' => 'index', $creance_id ) );
 			}
 
 			// Essai de sauvegarde
 			if( !empty( $this->request->data ) ) {
-				$this->Creance->begin();
+				$this->Titrecreancier->begin();
 				$data = $this->request->data;
-				
-				if ( $data['Creance']['mtsolreelcretrans'] == '' ||  $data['Creance']['mtinicre'] =='' ) {
-					$this->Creance->rollback();
+
+				if ( $data['Titrecreancier']['mnttitr'] == '' ) {
+					$this->Titrecreancier->rollback();
 					$this->Flash->error( __( 'Save->error' ) );
 				}else{
-					if($this->action == 'add' ) {
-						$data['Creance']['foyer_id'] = $foyer_id;
-					}
-					if( $this->Creance->saveAll( $data, array( 'validate' => 'only' ) ) ) {
-						if( $this->Creance->save( $data ) ) {
-							$this->Creance->commit();
+					if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) ) {
+						if( $this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) ) {
+							$this->Titrecreancier->commit();
 							$this->Jetons2->release( $dossier_id );
 							$this->Flash->success( __( 'Save->success' ) );
-							$this->redirect( array( 'controller' => 'Creances', 'action' => 'index', $foyer_id ) );
+							$this->redirect( array( 'action' => 'index', $creance_id ) );
 						}
 						else {
-							$this->Creance->rollback();
+							$this->Titrecreancier->rollback();
 							$this->Flash->error( __( 'Save->error' ) );
 						}
+					}
+					else {
+						$this->Titrecreancier->rollback();
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 			}
 			// Affichage des données
-			elseif($this->action == 'edit' ) {
-				$creance = $this->Creance->find(
+			elseif ($this->action != 'add' ) {
+				$titrecreancier = $this->Titrecreancier->find(
 					'first',
 					array(
 						'fields' => array_merge(
-							$this->Creance->fields()
+							$this->Titrecreancier->fields()
 						),
 						'conditions' => array(
-							'Creance.id' => $id
+							'Titrecreancier.id' => $id
 						),
 						'contain' => FALSE
 					)
 				);
-				if (!empty( $creance ) ){
-					// Assignation au formulaire
-					$this->request->data = $creance;		
-				}
+
+				// Mauvais paramètre
+				$this->assert( !empty( $titrecreancier ), 'invalidParameter' );
+
+				// Assignation au formulaire
+				$this->request->data = $titrecreancier;
 			}
 
-			// Assignation à la vue
-			$this->set( 'options', $this->Creance->enums() );
-			$this->set( 'urlmenu', '/creances/index/'.$foyer_id );
+			$this->set( 'options', $this->Titrecreancier->enums() );
+			$this->set( 'creance_id', $creance_id );
 			$this->set( 'foyer_id', $foyer_id );
-			$this->render( 'add_edit' );
-			
+
+			$this->set( 'urlmenu', '/titrescreanciers/index/'.$creance_id );
+
+			if($this->action == 'valider' ) {
+				$this->render( 'valider' );
+			}elseif($this->action == 'edit' || $this->action == 'add'){
+				$this->render( 'add_edit' );
+			}
 		}
 
 		/**
@@ -317,17 +325,21 @@
 		 */
 		public function filelink( $id ) {
 			$this->WebrsaAccesses->check($id);
-			$dossier_id = $this->Creance->dossierId( $id );
+
+			$creance_id = $this->Titrecreancier->creanceId( $id );
+			$foyer_id = $this->Titrecreancier->foyerId( $creance_id );
+			$dossier_id = $this->Titrecreancier->dossierId( $creance_id );
+
 			$this->assert( !empty( $dossier_id ), 'invalidParameter' );
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'id' => $dossier_id ) ) );
 
 			$fichiers = array();
 
-			$creances = $this->Creance->find(
+			$titrescreanciers = $this->Titrecreancier->find(
 				'first',
 				array(
 					'conditions' => array(
-						'Creance.id' => $id
+						'Titrecreancier.id' => $id
 					),
 					'contain' => array(
 						'Fichiermodule' => array(
@@ -341,80 +353,41 @@
 
 			// Retour à l'index en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
-				$this->Creance->id = $id;
+				$this->Titrecreancier->id = $id;
 				$this->Jetons2->release( $dossier_id );
-				$this->redirect( array( 'action' => 'index', $this->Creance->field( 'foyer_id' )) );
+				$this->redirect( array( 'action' => 'index', $creance_id) );
 			}
 
 			if( !empty( $this->request->data ) ) {
-				$this->Creance->begin();
+				$this->Titrecreancier->begin();
 
-				$saved = $this->Creance->updateAllUnBound(
-					array( 'Creance.haspiecejointe' => '\''.$this->request->data['Creances']['haspiecejointe'].'\'' ),
-					array( '"Creance"."id"' => $id)
+				$saved = $this->Titrecreancier->updateAllUnBound(
+					array( 'Titrecreancier.haspiecejointe' => '\''.$this->request->data['Titrescreanciers']['haspiecejointe'].'\'' ),
+					array( '"Titrecreancier"."id"' => $id)
 				);
 
 				if( $saved ) {
 					// Sauvegarde des fichiers liés à une PDO
 					$dir = $this->Fileuploader->dirFichiersModule( $this->action, $this->request->params['pass'][0] );
-					$saved = $this->Fileuploader->saveFichiers( $dir, Set::classicExtract( $this->request->data, "Creance.haspiecejointe" ), $id ) && $saved;
+					$saved = $this->Fileuploader->saveFichiers( $dir, Set::classicExtract( $this->request->data, "Titrecreancier.haspiecejointe" ), $id ) && $saved;
+					//$saved = $this->Fileuploader->saveFichiers( $dir, false, $id ) && $saved;
 				}
 
 				if( $saved ) {
-					$this->Creance->commit();
+					$this->Titrecreancier->commit();
 					$this->Jetons2->release( $dossier_id );
 					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect(array('action' => 'filelink', $id));
 				}
 				else {
 					$fichiers = $this->Fileuploader->fichiers( $id );
-					$this->Creance->rollback();
+					$this->Titrecreancier->rollback();
 					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 
-			$this->set( 'options', (array)Hash::get( $this->Creance->enums(), 'Creance' ) );
-			$this->set( compact( 'dossier_id', 'personne_id', 'fichiers', 'creances' ) );
+			$this->set( 'options', (array)Hash::get( $this->Titrecreancier->enums(), 'Titrecreancier' ) );
+			$this->set( compact( 'dossier_id', 'personne_id', 'fichiers', 'titrescreanciers' ) );
 		}
-
-		/**
-		 *
-		 */
-		public function dossierEntrantsCreanciers() {
-			$options = array(
-				'annees' => array( 'minYear' => date( 'Y', strtotime('01-01-2009') ), 'maxYear' => date( 'Y' ) ),
-			);
-			$this->set( compact( 'options' ) );
-
-			if( !empty( $this->request->data ) ) {
-				$this->Dossier->begin(); // Pour les jetons
-
-				$paginate = $this->Creance->search( $this->request->data );
-				$paginate['limit'] = 15;
-
-				$this->paginate = $paginate;
-				$dossierEntrantsCreanciers = $this->paginate( 'Creance' );
-
-				$this->set( 'dossierEntrantsCreanciers', $dossierEntrantsCreanciers );
-
-				$this->Dossier->commit();
-			}
-            $this->_setOptions();
-		}
-
-		/**
-		 *
-		 */
-		public function exportcsv() {
-			$options = $this->Creance->search( Hash::expand( $this->request->params['named'], '__' ) );
-
-			unset( $options['limit'] );
-			$dossierEntrantsCreanciers = $this->Creance->find( 'all', $options );
-
-            $this->_setOptions();
-			$this->layout = '';
-			$this->set( compact( 'headers', 'dossierEntrantsCreanciers' ) );
-		}
-
 	}
 ?>

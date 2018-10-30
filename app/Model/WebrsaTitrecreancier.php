@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Code source de la classe WebrsaCreance.
+	 * Code source de la classe WebrsaTitrecreancier.
 	 *
 	 * PHP 5.3
 	 *
@@ -13,25 +13,25 @@
 	App::uses('WebrsaModelUtility', 'Utility');
 
 	/**
-	 * La classe WebrsaCreance possède la logique métier web-rsa
+	 * La classe WebrsaTitrecreancier possède la logique métier web-rsa
 	 *
 	 * @package app.Model
 	 */
-	class WebrsaCreance extends WebrsaAbstractLogic implements WebrsaLogicAccessInterface
+	class WebrsaTitrecreancier extends WebrsaAbstractLogic implements WebrsaLogicAccessInterface
 	{
 		/**
 		 * Nom du modèle.
 		 *
 		 * @var string
 		 */
-		public $name = 'WebrsaCreance';
+		public $name = 'WebrsaTitrecreancier';
 
 		/**
 		 * Les modèles qui seront utilisés par ce modèle.
 		 *
 		 * @var array
 		 */
-		public $uses = array('Creance','Titrecreancier');
+		public $uses = array('Titrecreancier');
 
 		/**
 		 * Ajoute les virtuals fields pour permettre le controle de l'accès à une action
@@ -46,15 +46,15 @@
 
 			);
 
-			if (isset($this->Creance->{$modelDepartement})) {
+			if (isset($this->Titrecreancier->{$modelDepartement})) {
 				if (!isset($query['joins'])) {
-					$query['joins'] = array(
-					$this->Creance->join('Titrecreancier')
-					);
+					$query['joins'] = array();
 				}
 				if (WebrsaModelUtility::findJoinKey($modelDepartement, $query) === false) {
-					$query['joins'][] = $this->Creance->join($modelDepartement);
+					$query['joins'][] = $this->Titrecreancier->join($modelDepartement);
 				}
+
+				//$fields[] = $modelDepartement.'.cui_id';
 
 			}
 
@@ -68,16 +68,20 @@
 		 * @return array
 		 */
 		public function getDataForAccess(array $conditions, array $params = array()) {
+
 			$query = array(
 				'fields' => array(
+					'Titrecreancier.id',
 					'Creance.id',
 					'Creance.foyer_id',
 					'Foyer.id',
+					'Personne.id',
 				),
 				'conditions' => $conditions,
 				'joins' => array(
-					$this->Creance->join('Foyer'),
-					$this->Creance->join('Titrecreancier')
+					$this->Titrecreancier->join('Creance'),
+					$this->Titrecreancier->Creance->join('Foyer'),
+					$this->Titrecreancier->Creance->Foyer->join('Personne')
 				),
 				'contain' => false,
 				'order' => array(
@@ -85,7 +89,8 @@
 				)
 			);
 
-			$results = $this->Creance->find('all', $this->completeVirtualFieldsForAccess($query, $params));
+			$results = $this->Titrecreancier->find('all', $this->completeVirtualFieldsForAccess($query, $params));
+
 			return $results;
 		}
 

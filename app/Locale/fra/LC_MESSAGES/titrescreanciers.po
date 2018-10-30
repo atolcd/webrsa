@@ -1,0 +1,103 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+# Titres
+###############################################################################
+
+msgid "/Titrescreanciers/index/:heading"
+msgstr "Liste des Titres Créanciers"
+
+msgid "/Titrescreanciers/index"
+msgstr "Voir"
+
+msgid "/Titrescreanciers/add"
+msgstr "Ajouter un Titre Créancier"
+
+msgid "/Titrescreanciers/edit"
+msgstr "Modifier"
+
+msgid "/Titrescreanciers/valider"
+msgstr "Valider"
+
+msgid "/Titrescreanciers/add/:heading"
+msgstr "Ajout d'un Titre Créancier"
+
+msgid "/Titrescreanciers/edit/:heading"
+msgstr "Modification du Titre Créancier"
+
+msgid "/Titrescreanciers/valider/:heading"
+msgstr "Validation du Titre Créancier"
+
+msgid "/Titrescreanciers/filelink"
+msgstr "Fichiers liés (#Fichiermodule.nb_fichiers_lies#)"
+
+msgid "/Titrescreanciers/filelink/#Titrecreancier.id#"
+msgstr "Fichiers liés"
+
+msgid "Titrescreanciers::filelink"
+msgstr "Fichiers liés à un Titre créancier"
+
+msgid "Titrescreanciers.haspiecejointe"
+msgstr "Ajouter une pièce jointe"
+
+###############################################################################
+# Trad des recherches
+###############################################################################
+
+
+###############################################################################
+# Champs de recherches
+###############################################################################
+
+msgid "Titrecreancier.etattranstitr"
+msgstr "Etat transmission titre"
+
+msgid "Titrecreancier.dtemissiontitre"
+msgstr "Date d'emission du titre"
+
+msgid "Titrecreancier.etatranstitr"
+msgstr "Etat du titre"
+
+msgid "Titrecreancier.dtvalidation"
+msgstr "Date de validation du titre"
+
+msgid "Titrecreancier.numtitr"
+msgstr "Numéro du Titre"
+
+msgid "Titrecreancier.mnttitr"
+msgstr "Montant du Titre"
+
+msgid "Titrecreancier.typetitre"
+msgstr "Type du Titre"
+
+msgid "Titrecreancier.mention"
+msgstr "Mention du Titre"
+
+msgid "Titrecreancier.qual"
+msgstr "Qual. de la personne"
+
+msgid "Titrecreancier.nom"
+msgstr "Nom de la personne"
+
+msgid "Titrecreancier.nir"
+msgstr "Nir de la personne"
+
+msgid "Titrecreancier.numtel"
+msgstr "Numéro de la personne facturée"
