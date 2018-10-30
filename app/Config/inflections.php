@@ -489,7 +489,9 @@ $irregularPlural = array(
 	// Liens entre referents
 	'dernierreferent' => 'derniersreferents',
 	'poledossierpcg66_user' => 'polesdossierspcgs66_users',
-	'actionroleresultuser' => 'actionrolesresultsusers'
+	'actionroleresultuser' => 'actionrolesresultsusers',
+	//Rapport talends
+    'rapporttalendcreance' => 'rapportstalendscreances'
 );
 
 /**

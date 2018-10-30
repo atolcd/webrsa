@@ -450,8 +450,15 @@
 			'Vérification de l\'application' => array(
 				'url' => array( 'controller' => 'checks', 'action' => 'index' ),
 			),
-			'Visionneuse' => array(
-				'logs' => array( 'url' => array( 'controller' => 'visionneuses', 'action' => 'index' ) ),
+			'Rapport Talends' => array(
+				'Beneficiaire' => array(
+					 'url' => array( 'controller' => 'visionneuses', 'action' => 'index' ),
+					 'title' => 'logs'
+				),
+				'Creances' => array(
+					 'url' => array( 'controller' => 'rapportstalendscreances', 'action' => 'index' ),
+					 'title' => 'logs'
+				),
 			),
 			'Flux CNAF' => array(
 				'disabled' => true !== Configure::read( 'Module.Fluxcnaf.enabled' ),

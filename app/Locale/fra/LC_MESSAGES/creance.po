@@ -29,41 +29,56 @@ msgstr "Nature créance"
 msgid "ENUM::NATCRE::INK"
 msgstr "Indu sur nature prestation RSD (RSA socle)"
 
-msgid "ENUM::NATCRE::ITK"
-msgstr "Indu sur nature prestation RSD transféré"
-
 msgid "ENUM::NATCRE::INL"
 msgstr "Indu sur nature prestation RSI (RSA socle majoration parent isolé)"
 
-msgid "ENUM::NATCRE::ITL"
-msgstr "Indu sur nature prestation RSI transféré"
-
 msgid "ENUM::NATCRE::INM"
-msgstr "Indu sur nature prestation RSB (RSA local)"
-
-msgid "ENUM::NATCRE::ITM"
-msgstr "Indu sur nature presation RSB transféré"
+msgstr "Indu sur nature prestation RSB (RSA local et RSA activité local)"
 
 msgid "ENUM::NATCRE::INS"
 msgstr "Indu sur nature prestation RCB "
 
+msgid "ENUM::NATCRE::ISK"
+msgstr "Indu sur nature prestation RSD subrogé"
+
+msgid "ENUM::NATCRE::ISL"
+msgstr "Indu sur nature prestation RSI subrogé"
+
+msgid "ENUM::NATCRE::ISM"
+msgstr "Indu sur nature prestation RSB subrogé"
+
+msgid "ENUM::NATCRE::ISS"
+msgstr "Indu sur nature prestation RCB subrogé"
+
+msgid "ENUM::NATCRE::ITK"
+msgstr "Indu sur nature prestation RSD transféré"
+
+msgid "ENUM::NATCRE::ITL"
+msgstr "Indu sur nature prestation RSI transféré"
+
+msgid "ENUM::NATCRE::ITM"
+msgstr "Indu sur nature presation RSB transféré"
+
 msgid "ENUM::NATCRE::ITS"
 msgstr "Indu sur nature prestation RCB transféré"
 
-msgid "ENUM::NATCRE::ISK"
-msgstr "Subrogation RSD (RSA socle)"
+msgid "Creance.orgcre"
+msgstr "Origine créance"
 
-msgid "ENUM::NATCRE::ISL"
-msgstr "Subrogation RSI (RSA socle majoration parent isolé)"
+msgid "ENUM::ORGCRE::"
+msgstr "vide"
 
-msgid "ENUM::NATCRE::ISM"
-msgstr "Subrogation RSB (RSA local)"
+msgid "ENUM::ORGCRE::FLU"
+msgstr "Flux Creances"
 
-msgid "ENUM::NATCRE::ISS"
-msgstr "Subrogation RCB"
+msgid "ENUM::ORGCRE::MAN"
+msgstr "Manuelle"
 
 msgid "Creance.rgcre"
 msgstr "Rang créance"
+
+msgid "Creance.moismoucompta"
+msgstr "Mois comptable"
 
 msgid "Creance.motiindu"
 msgstr "Motif indu"
@@ -472,3 +487,5 @@ msgstr "Montant solde réel créance transférée"
 
 msgid "Creance.mtinicre"
 msgstr "Montant initial créance"
+
+

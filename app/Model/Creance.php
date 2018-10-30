@@ -31,6 +31,15 @@
 					'rule' => array('numeric')
 				),
 			),
+			'orgcre' => array(
+				'inList' => array(
+					'rule' => array('inList',
+						array(
+							'','FLU', 'MAN'
+						)
+					)
+				)
+			),
 			'motiindu' => array(
 				'inList' => array(
 					'rule' => array('inList',
@@ -89,5 +98,33 @@
 				'order' => ''
 			)
 		);
+
+		/**
+		 * Retourne l'id d'un Dossier à partir de l'id d'une Creance.
+		 *
+		 * @param integer $creance_id
+		 * @return integer
+		 */
+		public function dossierId( $creance_id ) {
+			$qd_creance = array(
+				'fields' => array( 'Foyer.dossier_id' ),
+				'joins' => array(
+					$this->join( 'Foyer', array( 'type' => 'INNER' ) )
+				),
+				'conditions' => array(
+					'Creance.id' => $creance_id
+				),
+				'recursive' => -1
+			);
+			$creance= $this->find('first', $qd_creance);
+
+			if( !empty( $creance ) ) {
+				return $creance['Foyer']['dossier_id'];
+			}
+			else {
+				return null;
+			}
+		}
+		
 	}
 ?>

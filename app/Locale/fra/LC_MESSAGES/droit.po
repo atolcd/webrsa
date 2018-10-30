@@ -4066,6 +4066,31 @@ msgstr "Visualisation des Créances Alimentaires"
 
 
 ###############################################################################
+## Créances
+###############################################################################
+msgid "controllers/Creances"
+msgstr "Créances"
+
+msgid "controllers/Creances/index"
+msgstr "Visualisation des Créances"
+
+msgid "controllers/Creances/add"
+msgstr "Ajout d'une Créance"
+
+msgid "controllers/Creances/edit"
+msgstr "Modification d'une Créance"
+
+
+###############################################################################
+## Rapport Talends Créances
+###############################################################################
+msgid "controllers/RapportsTalendsCreances"
+msgstr "Rapports Talends Créances"
+
+msgid "controllers/RapportsTalendsCreances/index"
+msgstr "Visualisation des RapportsTalendsCréances"
+
+###############################################################################
 ## Questionniare B7
 ###############################################################################
 msgid "controllers/Questionnairesb7pdvs93"
@@ -4178,6 +4203,5 @@ msgstr "Modification des logs des relances SMS"
 
 msgid "controllers/Relanceslogs/delete"
 msgstr "Suppression des logs des relances SMS"
-
 
 

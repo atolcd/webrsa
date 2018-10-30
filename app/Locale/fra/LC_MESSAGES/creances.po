@@ -1,0 +1,83 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+# Titres
+###############################################################################
+
+msgid "/Creances/index/:heading"
+msgstr "Créances"
+
+msgid "/Creances/add"
+msgstr "Ajouter"
+
+msgid "/Creances/edit"
+msgstr "Modifier"
+
+msgid "/Creances/add/:heading"
+msgstr "Ajout d'une Creance"
+
+msgid "/Creances/edit/:heading"
+msgstr "Modification d'une Creance"
+
+msgid "Creances::index::emptyLabel"
+msgstr "Cette personne ne possède pas de creances."
+
+###############################################################################
+# Champs de recherches
+###############################################################################
+
+msgid "Creance.dtimplcre"
+msgstr "Date implantation créance"
+
+msgid "Creance.natcre"
+msgstr "Nature créance"
+
+msgid "Creance.orgcre"
+msgstr "Origine créance"
+
+msgid "Creance.rgcre"
+msgstr "Rang créance"
+
+msgid "Creance.moismoucompta"
+msgstr "Mois comptable"
+
+msgid "Creance.motiindu"
+msgstr "Motif indu"
+
+msgid "Creance.oriindu"
+msgstr "Origine indu"
+
+msgid "Creance.respindu"
+msgstr "Responsabilité de l'indu"
+
+msgid "Creance.ddregucre"
+msgstr "Date début créance"
+
+msgid "Creance.dfregucre"
+msgstr "Date fin  créance"
+
+msgid "Creance.dtdercredcretrans"
+msgstr "Date dernier crédit positif créance transférée"
+
+msgid "Creance.mtsolreelcretrans"
+msgstr "Montant solde réel créance transférée"
+
+msgid "Creance.mtinicre"
+msgstr "Montant initial créance"

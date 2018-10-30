@@ -1,0 +1,45 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team: <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "RapportTalendCreance.flux"
+msgstr "Noms du flux"
+
+msgid "RapportTalendCreance.dtexec"
+msgstr "Date du flux"
+
+msgid "RapportTalendCreance.fichierflux"
+msgstr "Fichier du flux"
+
+msgid "RapportTalendCreance.nbrejete"
+msgstr "Nb Rejets"
+
+msgid "RapportTalendCreance.fichierrejet"
+msgstr "Fichier de rejets"
+
+msgid "RapportTalendCreance.nbinser"
+msgstr "NB Insert"
+
+msgid "RapportTalendCreance.nbmaj"
+msgstr "Nb Maj"
+
+msgid "RapportTalendCreance.message"
+msgstr "Message"

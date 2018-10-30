@@ -319,12 +319,20 @@ $fonorg = $dossier['Dossier']['fonorg'];
 			)
 			+ $itemsAllocataires,
 			'Informations foyer' => array(
+				'Informations financières' => array(
+					'url' => '#',
+						'Créances' => array(
+							'url' => array( 'controller' => 'creances', 'action' => 'index', $dossier['Foyer']['id'] )
+						),
+						'Informations financières' => array(
+							'url' => array('controller' => 'infosfinancieres', 'action' => 'index', $dossier['Dossier']['id'] )
+						),
+				),
 				'Historique du droit' => array( 'url' => array( 'controller' => 'situationsdossiersrsa', 'action' => 'index', $dossier['Dossier']['id'] ) ),
 				'Détails du droit RSA' => array( 'url' => array( 'controller' => 'detailsdroitsrsa', 'action' => 'index', $dossier['Dossier']['id'] ) ),
 				'Adresses' => array( 'url' => array( 'controller' => 'adressesfoyers', 'action' => 'index', $dossier['Foyer']['id'] ) ),
 				'Evénements' => array( 'url' => array( 'controller' => 'evenements', 'action' => 'index', $dossier['Foyer']['id'] ) ),
 				'Modes de contact' => array( 'url' => array( 'controller' => 'modescontact', 'action' => 'index', $dossier['Foyer']['id'] ) ),
-				'Informations financières' => array( 'url' => array( 'controller' => 'infosfinancieres', 'action' => 'index', $dossier['Dossier']['id'] ) ),
 				'Liste des Indus' => array( 'url' => array( 'controller' => 'indus', 'action' => 'index', $dossier['Dossier']['id'] ) ),
 				'Suivi instruction du dossier' => array( 'url' => array( 'controller' => 'suivisinstruction', 'action' => 'index', $dossier['Dossier']['id'] ) ),
 			)
