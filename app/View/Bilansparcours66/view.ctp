@@ -252,6 +252,19 @@
                     'p',
                     $bilanparcours66['Decisiondefautinsertionep66ep']['commentaire']
                 );
+				if( !empty( $bilanparcours66['Decisiondefautinsertionep66ep']['commentairebeneficiaire'] ) ) {
+					 echo $this->Xhtml->tag(
+	                    'p',
+	                    "Commentaire bénéficiaire :",
+	                    array(
+	                        'style' => 'font-weight:bold; text-decoration:underline'
+	                    )
+	                );
+                    echo $this->Xhtml->tag(
+	                    'p',
+	                    $bilanparcours66['Decisiondefautinsertionep66ep']['commentairebeneficiaire']
+	                );
+                }
                 echo '</fieldset>';
             }
             ?>

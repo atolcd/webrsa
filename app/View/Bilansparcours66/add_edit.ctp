@@ -1150,6 +1150,19 @@ elseif ( $this->action == 'edit' && isset( $passagecommissionep['Decisiondefauti
 			'p',
 			$avisep['commentaire']
 		);
+		if( !empty( $avisep['commentairebeneficiaire'] ) ) {
+			 echo $this->Xhtml->tag(
+	            'p',
+	            "Commentaire bénéficiaire :",
+	            array(
+	                'style' => 'font-weight:bold; text-decoration:underline'
+	            )
+	        );
+	        echo $this->Xhtml->tag(
+	            'p',
+	            $avisep['commentairebeneficiaire']
+	        );
+	    }
 	echo '</fieldset>';
 }
 
