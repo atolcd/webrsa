@@ -1257,6 +1257,9 @@ if ( $this->action == 'edit' && isset( $passagecommissionep['Decisiondefautinser
 	echo '</fieldset>';
 }
 
+if(isset($passagecommissionep['Decisionsaisinebilanparcoursep66'][0]) && !isset($passagecommissionep['Decisionsaisinebilanparcoursep66'][1]))
+	$passagecommissionep['Decisionsaisinebilanparcoursep66'][1]	=	$passagecommissionep['Decisionsaisinebilanparcoursep66'][0];
+
 if ( $this->action == 'edit' && isset( $passagecommissionep['Decisionsaisinebilanparcoursep66'][1]['id'] ) && !empty( $passagecommissionep['Decisionsaisinebilanparcoursep66'][1]['id'] ) ) {
 	echo $this->Xhtml->tag(
 		'p',
