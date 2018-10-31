@@ -182,5 +182,35 @@
 
 			return $result;
 		}
+
+		/**
+		 *
+		 * method afterSearch
+		 *
+		 * On redéfinit afterSearch pour faire de la correction spécifique
+		 *
+		 */
+		public function afterSearch( array $params, array $results ) {
+			/*
+			 * On met la bonne traduction car le système d'export CSV n'ai pas prévu pour
+			 * faire du remplacement de valeurs au sein de traductions.
+			 */
+			if ($params['configurableQueryFieldsKey'] == 'Cuis.exportcsv') {
+				foreach ($results as $key => $result) {
+					/*
+					 * CD 66 : pour l'état du dossier CUI
+					 */
+					$find = 'ENUM::ETATDOSSIERCUI66::rupturecontrat__cui66';
+					$replace = 'ENUM::ETATDOSSIERCUI66::rupturecontrat';
+					if (preg_match ('#'.$find.'#', $result['Cui']['positioncui66'])) {
+						$replace = __d ('cui66', $replace);
+						$replace = preg_replace ('# %s#', '', $replace);
+						$results[$key]['Cui']['positioncui66'] = preg_replace ('#'.$find.'#', $replace, $results[$key]['Cui']['positioncui66']);
+					}
+				}
+			}
+
+			return $results;
+		}
 	}
 ?>
