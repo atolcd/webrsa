@@ -64,3 +64,9 @@ msgstr "Ajouter"
 msgid "/Contratsinsertion/index/:heading"
 msgstr "CER"
 
+msgid "Contratinsertion.total"
+msgstr "Cumul CER"
+
+msgid "Contratinsertion.type_pacea"
+msgstr "Contrat PACEA"
+

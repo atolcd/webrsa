@@ -1638,7 +1638,7 @@
 					'Contratinsertion.personne_id' => $personne_id
 				),
 				'order' => array(
-					'Contratinsertion.date_saisi_ci DESC',
+					'Contratinsertion.date_saisi_ci ASC',
 					'Contratinsertion.df_ci DESC',
 					'Contratinsertion.id DESC'
 				),
