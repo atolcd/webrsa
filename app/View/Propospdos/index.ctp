@@ -43,7 +43,7 @@
 				),
 				'/Propospdos/printCourrier/#Propopdo.id#' => array(
 					'class' => 'impression',
-					'disabled' => 'empty( "#Decisionpdo.modeleodt#" )',
+					'disabled' => '! (is_string("#Decisionpdo.modeleodt#") && strlen("#Decisionpdo.modeleodt#") > 0 )',
 					'title' => false
 				)
 			)
