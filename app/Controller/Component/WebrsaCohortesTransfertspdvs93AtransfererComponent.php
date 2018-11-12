@@ -110,7 +110,11 @@
 						'listeParTypeorientId' => $Controller->InsertionsBeneficiaires->structuresreferentes(
 							array(
 								'prefix' => false,
-								'type' => 'typeorient_id'
+								'type' => 'typeorient_id',
+								'conditions' => array (
+									'Structurereferente.actif' => 'O',
+									'Structurereferente.actif_cohorte' => 'O',
+								)
 							)
 						)
 					)

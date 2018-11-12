@@ -56,6 +56,7 @@
 				'Structurereferente.typeorient_id' => array( 'empty' => true ),
 				'Structurereferente.typestructure' => array( 'empty' => true ),
 				'Structurereferente.actif' => array( 'empty' => true ),
+				'Structurereferente.actif_cohorte' => array( 'empty' => false ),
 			)
 		),
 		array(

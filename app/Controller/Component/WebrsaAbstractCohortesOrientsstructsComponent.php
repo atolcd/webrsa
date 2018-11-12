@@ -90,7 +90,7 @@
 						'typeorient_id' => $departement === 93
 							? $Controller->Personne->Orientstruct->Typeorient->listOptionsCohortes93()
 							: $Controller->Personne->Orientstruct->Typeorient->listOptions(),
-						'structurereferente_id' => $Controller->Personne->Orientstruct->Structurereferente->list1Options(),
+						'structurereferente_id' => $Controller->Personne->Orientstruct->Structurereferente->list1Options('O'),
 					),
 					'structuresAutomatiques' => $Controller->{$params['modelRechercheName']}->structuresAutomatiques()
 				)

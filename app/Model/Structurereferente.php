@@ -419,23 +419,27 @@
 		 *
 		 * @return array
 		 */
-		public function list1Options() {
+		public function list1Options($actif_cohorte = null) {
 			$cacheKey = 'structurereferente_list1_options';
 			$results = Cache::read( $cacheKey );
 
 			if( $results === false ) {
+				$query = array(
+					'conditions' => array( 'Structurereferente.actif' => 'O' ),
+					'fields' => array(
+						'Structurereferente.id',
+						'Structurereferente.typeorient_id',
+						'Structurereferente.lib_struc'
+					),
+					'order'  => array( 'Structurereferente.lib_struc ASC' ),
+					'recursive' => -1
+				);
+				if (!is_null($actif_cohorte)) {
+					$query['conditions']['Structurereferente.actif_cohorte'] = 'O';
+				}
 				$tmp = $this->find(
 					'all',
-					array(
-						'conditions' => array( 'Structurereferente.actif' => 'O' ),
-						'fields' => array(
-							'Structurereferente.id',
-							'Structurereferente.typeorient_id',
-							'Structurereferente.lib_struc'
-						),
-						'order'  => array( 'Structurereferente.lib_struc ASC' ),
-						'recursive' => -1
-					)
+					$query
 				);
 
 				$results = array();

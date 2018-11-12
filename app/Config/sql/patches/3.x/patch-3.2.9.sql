@@ -265,5 +265,12 @@ WITH (
 
 
 -- *****************************************************************************
+-- Structures référentes
+
+ALTER TABLE structuresreferentes ADD COLUMN actif_cohorte character varying(1) NOT NULL DEFAULT 'O'::character varying;
+ALTER TABLE structuresreferentes ADD CONSTRAINT structuresreferentes_actif_cohorte_in_list_chk CHECK (cakephp_validate_in_list(actif_cohorte::text, ARRAY['O'::text, 'N'::text]));
+
+
+-- *****************************************************************************
 COMMIT;
 -- *****************************************************************************
