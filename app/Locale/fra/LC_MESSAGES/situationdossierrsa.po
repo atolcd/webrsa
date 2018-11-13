@@ -90,6 +90,9 @@ msgstr "radié option RSTA Dom"
 msgid "ENUM::MOTICLORSA::RSO"
 msgstr "radié option RSO Dom"
 
+msgid "ENUM::ETATDOSRSA::NULL"
+msgstr "Etat dossier vide"
+
 msgid "ENUM::ETATDOSRSA::Z"
 msgstr "Non défini"
 
