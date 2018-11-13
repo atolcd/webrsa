@@ -275,8 +275,18 @@
 		 */
 		public function conditionsSituationdossierrsa( Model $model, $conditions, $search ) {
 			$etatdossier = Set::extract( $search, 'Situationdossierrsa.etatdosrsa' );
-			if( ( Hash::get( $search, 'Situationdossierrsa.etatdosrsa_choice' ) !== '0' ) && isset( $search['Situationdossierrsa']['etatdosrsa'] ) && !empty( $search['Situationdossierrsa']['etatdosrsa'] ) ) {
-				$conditions[] = '( Situationdossierrsa.etatdosrsa IN ( \''.implode( '\', \'', $etatdossier ).'\' ) )';
+			if( ( Hash::get( $search, 'Situationdossierrsa.etatdosrsa_choice' ) !== '0' )
+				&& isset( $search['Situationdossierrsa']['etatdosrsa'] )
+				&& !empty( $search['Situationdossierrsa']['etatdosrsa'] )
+			) {
+				$key =  array_search ('NULL',$etatdossier);
+				$strCondition = '';
+				if ($key !== false) {
+					unset($etatdossier[$key]);
+					$strCondition = 'Situationdossierrsa.etatdosrsa IS NULL OR ' ;
+				}
+				$strCondition .= '( Situationdossierrsa.etatdosrsa IN ( \''.implode( '\', \'', $etatdossier ).'\' ) )';
+				$conditions[] = $strCondition;
 			}
 
 			return $conditions;
