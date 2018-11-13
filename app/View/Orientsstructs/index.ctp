@@ -33,7 +33,7 @@
 	echo $this->Default3->actions( $actions );
 
 	if( !empty( $reorientationseps ) ) {
-		echo $this->Html->tag( 'h2', 'Réorientations en cours de passage en EP' );
+		echo $this->Html->tag( 'h2', 'Orientations en cours de passage en EP' );
 		echo $this->Default3->index(
 			$reorientationseps,
 			array(
@@ -99,7 +99,7 @@
 	}
 
 	if( !empty( $reorientationscovs ) ) {
-		echo $this->Html->tag( 'h2', 'Réorientations en cours de passage en COV' );
+		echo $this->Html->tag( 'h2', 'Orientations en cours de passage en COV' );
 		echo $this->Default3->index(
 			$reorientationscovs,
 			array(
@@ -139,102 +139,104 @@
 		);
 	}
 
-	echo $this->Html->tag( 'h2', 'Orientations effectives' );
+	if (!empty ($orientsstructs)) {
+		echo $this->Html->tag( 'h2', 'Orientations effectives' );
 
-	if( $departement == 93 ) {
-		if( $this->Session->read( 'Auth.User.type' ) === 'cg' ) {
+		if( $departement == 93 ) {
+			if( $this->Session->read( 'Auth.User.type' ) === 'cg' ) {
+				$fields = array(
+					'Orientstruct.date_propo' => array( 'label' => 'Date de préOrientation' ),
+					'Orientstruct.date_valid',
+					'Orientstruct.propo_algo' => array( 'type' => 'text' ),
+					'Orientstruct.origine',
+					'Typeorient.lib_type_orient' => array( 'label' => 'Orientation' ),
+					'Structurereferente.lib_struc',
+					'Orientstruct.rgorient' => array( 'type' => 'text' ),
+					'Fichiermodule.nombre' => array( 'type' => 'integer', 'class' => 'number' ),
+				);
+			}
+			else  {
+				$fields = array(
+					'Orientstruct.date_valid',
+					'Orientstruct.origine',
+					'Typeorient.lib_type_orient' => array( 'label' => 'Orientation' ),
+					'Structurereferente.lib_struc',
+					'Orientstruct.rgorient' => array( 'type' => 'text' ),
+					'Fichiermodule.nombre' => array( 'type' => 'integer', 'class' => 'number' ),
+				);
+			}
+		}
+		else if( $departement == 66 ) {
 			$fields = array(
-				'Orientstruct.date_propo' => array( 'label' => 'Date de préOrientation' ),
+				'Orientstruct.date_propo',
 				'Orientstruct.date_valid',
-				'Orientstruct.propo_algo' => array( 'type' => 'text' ),
-				'Orientstruct.origine',
-				'Typeorient.lib_type_orient' => array( 'label' => 'Orientation' ),
+				'Typeorient.lib_type_orient',
 				'Structurereferente.lib_struc',
 				'Orientstruct.rgorient' => array( 'type' => 'text' ),
 				'Fichiermodule.nombre' => array( 'type' => 'integer', 'class' => 'number' ),
 			);
 		}
-		else  {
+		else if( $departement == 58 ) {
 			$fields = array(
+				'Orientstruct.date_propo',
 				'Orientstruct.date_valid',
-				'Orientstruct.origine',
-				'Typeorient.lib_type_orient' => array( 'label' => 'Orientation' ),
+				'Typeorient.lib_type_orient',
+				'Structurereferente.lib_struc',
+				'Orientstruct.rgorient' => array( 'type' => 'text' ),
+				'Sitecov58.name',
+				'Cov58.datecommission',
+				'Cov58.observation',
+				'Fichiermodule.nombre' => array( 'type' => 'integer', 'class' => 'number' ),
+			);
+		}
+		else {
+			$fields = array(
+				'Orientstruct.date_propo',
+				'Orientstruct.statut_orient',
+				'Orientstruct.date_valid',
+				'Typeorient.lib_type_orient',
 				'Structurereferente.lib_struc',
 				'Orientstruct.rgorient' => array( 'type' => 'text' ),
 				'Fichiermodule.nombre' => array( 'type' => 'integer', 'class' => 'number' ),
 			);
 		}
-	}
-	else if( $departement == 66 ) {
-		$fields = array(
-			'Orientstruct.date_propo',
-			'Orientstruct.date_valid',
-			'Typeorient.lib_type_orient',
-			'Structurereferente.lib_struc',
-			'Orientstruct.rgorient' => array( 'type' => 'text' ),
-			'Fichiermodule.nombre' => array( 'type' => 'integer', 'class' => 'number' ),
-		);
-	}
-	else if( $departement == 58 ) {
-		$fields = array(
-			'Orientstruct.date_propo',
-			'Orientstruct.date_valid',
-			'Typeorient.lib_type_orient',
-			'Structurereferente.lib_struc',
-			'Orientstruct.rgorient' => array( 'type' => 'text' ),
-			'Sitecov58.name',
-			'Cov58.datecommission',
-			'Cov58.observation',
-			'Fichiermodule.nombre' => array( 'type' => 'integer', 'class' => 'number' ),
-		);
-	}
-	else {
-		$fields = array(
-			'Orientstruct.date_propo',
-			'Orientstruct.statut_orient',
-			'Orientstruct.date_valid',
-			'Typeorient.lib_type_orient',
-			'Structurereferente.lib_struc',
-			'Orientstruct.rgorient' => array( 'type' => 'text' ),
-			'Fichiermodule.nombre' => array( 'type' => 'integer', 'class' => 'number' ),
-		);
-	}
 
-	if( $departement == 66 ) {
-		$links = WebrsaAccess::links(
+		if( $departement == 66 ) {
+			$links = WebrsaAccess::links(
+				array(
+					'/Orientsstructs/edit/#Orientstruct.id#',
+					'/Orientsstructs/impression/#Orientstruct.id#',
+					'/Orientsstructs/impression_changement_referent/#Orientstruct.id#',
+					'/Orientsstructs/delete/#Orientstruct.id#' => array(
+						'confirm' => true
+					),
+					'/Orientsstructs/filelink/#Orientstruct.id#'
+				)
+			);
+		}
+		else {
+			$links = WebrsaAccess::links(
+				array(
+					'/Orientsstructs/edit/#Orientstruct.id#',
+					'/Orientsstructs/impression/#Orientstruct.id#',
+					'/Orientsstructs/delete/#Orientstruct.id#' => array(
+						'confirm' => true,
+					),
+					'/Orientsstructs/filelink/#Orientstruct.id#'
+				)
+			);
+		}
+
+		// Rendu du tableau
+		echo $this->Default3->index(
+			$orientsstructs,
+			$fields + $links,
 			array(
-				'/Orientsstructs/edit/#Orientstruct.id#',
-				'/Orientsstructs/impression/#Orientstruct.id#',
-				'/Orientsstructs/impression_changement_referent/#Orientstruct.id#',
-				'/Orientsstructs/delete/#Orientstruct.id#' => array(
-					'confirm' => true
-				),
-				'/Orientsstructs/filelink/#Orientstruct.id#'
+				'paginate' => false,
+				'options' => $options
 			)
 		);
 	}
-	else {
-		$links = WebrsaAccess::links(
-			array(
-				'/Orientsstructs/edit/#Orientstruct.id#',
-				'/Orientsstructs/impression/#Orientstruct.id#',
-				'/Orientsstructs/delete/#Orientstruct.id#' => array(
-					'confirm' => true,
-				),
-				'/Orientsstructs/filelink/#Orientstruct.id#'
-			)
-		);
-	}
-
-	// Rendu du tableau
-	echo $this->Default3->index(
-		$orientsstructs,
-		$fields + $links,
-		array(
-			'paginate' => false,
-			'options' => $options
-		)
-	);
 ?>
 <script type="text/javascript">
 	//<![CDATA[
