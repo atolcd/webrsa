@@ -40,7 +40,7 @@
 			echo $this->Xform->input( 'Propopdo.datereceptionpdo', array( 'label' =>  ( __( 'Date de réception de la PDO' ) ), 'type' => 'date', 'dateFormat'=>'DMY', 'maxYear'=>date('Y')+5, 'minYear'=>2009, 'empty' => true ) );
 			echo $this->Xform->input( 'Propopdo.originepdo_id', array( 'label' =>  $this->Xform->required( __( 'Origine' ) ), 'type' => 'select', 'options' => $options['Propopdo']['originepdo_id'], 'empty' => true ) );
 			echo $this->Xform->input( 'Propopdo.decision', array( 'type' => 'hidden', 'value' => '1' ) )
-				.$this->Xform->input( 'Decisionpropopdo.decisionpdo_id', array( 'label' =>  $this->Xform->required( __( 'Décision du Conseil Général' ) ), 'type' => 'select', 'options' => $options['Decisionpropopdo']['decisionpdo_id'], 'empty' => true ) );
+				.$this->Xform->input( 'Decisionpropopdo.decisionpdo_id', array( 'label' =>  $this->Xform->required( __( 'Décision du Conseil Départemental' ) ), 'type' => 'select', 'options' => $options['Decisionpropopdo']['decisionpdo_id'], 'empty' => true ) );
 			echo $this->Xform->input( 'Propopdo.motifpdo', array( 'label' =>  ( __( 'Motif de la décision' ) ), 'type' => 'select', 'options' => $options['Propopdo']['motifpdo'], 'empty' => true ) );
 			echo $this->Xform->input( 'Propopdo.iscomplet', array( 'label' =>  __( 'Etat du dossier' ),  'type' => 'radio', 'options' => $options['Propopdo']['iscomplet'] ) );
 

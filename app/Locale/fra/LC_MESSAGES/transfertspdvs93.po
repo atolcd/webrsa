@@ -29,7 +29,7 @@ msgid "Search.Orientstruct.typeorient_id"
 msgstr "Type de transfert"
 
 msgid "Search.NvOrientstruct.communautesr_id"
-msgstr "Transféré vers le projet de ville territorial"
+msgstr "Transféré vers le projet insertion emploi territorial"
 
 msgid "Search.NvOrientstruct.structurereferente_id"
 msgstr "Transféré vers"
@@ -66,7 +66,7 @@ msgstr "Voir le transfert PDV de #Personne.nom_complet#"
 # ------------------------------------------------------------------------------
 
 msgid "/Transfertspdvs93/cohorte_atransferer/:heading"
-msgstr "Transferts PDV - Allocataires à transférer"
+msgstr "Transferts - Allocataires à transférer"
 
 msgid "Search.Orientstruct.date_valid"
 msgstr "Date d'orientation"

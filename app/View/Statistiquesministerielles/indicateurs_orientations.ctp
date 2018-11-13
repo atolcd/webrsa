@@ -80,8 +80,8 @@
 	<p>(1) Les <strong>personnes</strong> sont définies comme les adultes du foyer, c'est-à-dire les allocataires et conjoints appartenant à un foyer ayant un droit ouvert au RSA. Selon la
 		loi, une personne relève du périmètre des <strong>droits et devoirs</strong> (L262-28) lorsqu'elle appartient à un foyer ayant un droit ouvert au RSA socle et si elle est sans emploi
 		ou a un revenu d'activité professionnelle inférieur à 500 euros par mois. La définition des droits et devoirs à retenir est celle des organismes payeurs.</p>
-	<p>(2) L'<strong>orientation</strong> peut être professionnelle, sociale ou, pour certains conseils généraux, socioprofessionnelle. La définition des parcours professionnel,
-		socioprofessionnel et social est laissée à la libre-appréciation du conseil général, en fonction des spécificités locales.
+	<p>(2) L'<strong>orientation</strong> peut être professionnelle, sociale ou, pour certains conseils départementaux, socioprofessionnelle. La définition des parcours professionnel,
+		socioprofessionnel et social est laissée à la libre-appréciation du conseil départemental, en fonction des spécificités locales.
 		Selon la loi, l'orientation concerne une personne, et non un foyer.<br/>
 		Les <strong>personnes</strong> sont définies comme les adultes du foyer, c'est-à-dire les allocataires et conjoints appartenant à un foyer ayant un droit ouvert au RSA. Selon la loi,
 		une personne relève du périmètre des <strong>droits et devoirs</strong> (L262-28) lorsqu'elle appartient à un foyer ayant un droit ouvert au RSA socle et si elle est sans emploi ou a

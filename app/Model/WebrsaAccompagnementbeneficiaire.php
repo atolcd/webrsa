@@ -1135,7 +1135,7 @@
 							'Contratinsertion' => 'CER',
 							'Ficheprescription93' => 'Prescription',
 							'Orientstruct' => 'Orientation',
-							'Transfertpdv93' => 'Transfert PDV',
+							'Transfertpdv93' => 'Transfert PIE',
 						)
 					),
 					'Questionnaired1pdv93' => array(

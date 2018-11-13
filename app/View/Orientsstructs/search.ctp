@@ -139,7 +139,7 @@
 	);
 ?>
 <?php
-	// Si l'utilisateur connecté a accès aux projets de villes communautaires
+	// Si l'utilisateur connecté a accès aux projets insertion emploi communautaires
 	if( true === Hash::check($options, 'Orientstruct.communautesr_id') ) {
 		echo $this->Observer->disableFieldsOnValue(
 			'Search.Orientstruct.typeorient_id',

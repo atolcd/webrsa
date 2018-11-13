@@ -46,7 +46,7 @@
 		professionnel (PLIE, AFPA, maison de l'emploi, mission locale, etc.), organismes d'appui à la création et au
 		développement d'entreprise, entreprises de travail temporaire, agences privées de placement, insertion par l'activité
 		économique (IAE), autres organismes publics ou privés de placement professionnel.<br/>
-		<strong>Organismes hors SPE</strong> : Conseil général, Caf, Msa, CCAS/CIAS, associations d'insertion, autres organismes
+		<strong>Organismes hors SPE</strong> : Conseil départemental, Caf, Msa, CCAS/CIAS, associations d'insertion, autres organismes
 		d'insertion, Agence départementale d'insertion dans les DOM.</p>
 	<p>Si une personne a été réorientée <em>plusieurs fois</em> au cours de l'année, indiquer uniquement le motif de sa dernière
 		réorientation.</p>
@@ -71,7 +71,7 @@
 	</table>
 	<p>(1) Selon la loi, si une personne a été orientée vers un organisme compétent en matière d'insertion sociale, sa
 		situation est réexaminée au bout de 6 mois (jusqu'à 12 mois dans certains cas), par une équipe pluridisciplinaire
-		constituée par le conseil général, afin de vérifier si la personne peut s'engager dans un parcours vers l'emploi. Suite
+		constituée par le conseil départemental, afin de vérifier si la personne peut s'engager dans un parcours vers l'emploi. Suite
 		à cet examen, on compte les personnes maintenues dans un organisme hors SPE et les personnes réorientées vers
 		un organisme appartenant ou participant au SPE.<br/>
 		Les <strong>personnes</strong> sont définies comme les adultes du foyer, c'est-à-dire les allocataires et conjoints appartenant à un
@@ -81,7 +81,7 @@
 		professionnel (PLIE, AFPA, maison de l'emploi, mission locale, etc.), organismes d'appui à la création et au
 		développement d'entreprise, entreprises de travail temporaire, agences privées de placement, insertion par l'activité
 		économique (IAE), autres organismes publics ou privés de placement professionnel.<br/>
-		<strong>Organismes hors SPE</strong> : Conseil général, Caf, Msa, CCAS/CIAS, associations d'insertion, autres organismes
+		<strong>Organismes hors SPE</strong> : Conseil départemental, Caf, Msa, CCAS/CIAS, associations d'insertion, autres organismes
 		d'insertion, Agence départementale d'insertion dans les DOM.</p>
 	<p>Si le dossier d'une même personne a été réexaminé <em>plusieurs fois</em> au cours de l'année, ne le compter qu'une fois et
 		indiquer uniquement la dernière décision.</p>

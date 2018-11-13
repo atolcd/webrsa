@@ -680,8 +680,8 @@
 					'Situationdossierrsa.etatdosrsa' => array('2'), // Droit ouvert et versable
 					'Detailcalculdroitrsa.natpf_choice' => '1',
 					'Detailcalculdroitrsa.natpf' => array(
-						'RSD', // RSA Socle (Financement sur fonds Conseil général)
-						'RSI', // RSA Socle majoré (Financement sur fonds Conseil général)
+						'RSD', // RSA Socle (Financement sur fonds Conseil départemental)
+						'RSI', // RSA Socle majoré (Financement sur fonds Conseil départemental)
 					),
 					'Calculdroitrsa.toppersdrodevorsa' => '1', // Personne soumise à droits et devoirs ? > Oui
 				),
@@ -847,7 +847,7 @@
 					'Situationdossierrsa.etatdosrsa' => array('2'), // Droit ouvert et versable
 					'Detailcalculdroitrsa.natpf_choice' => '1',
 					'Detailcalculdroitrsa.natpf' => array(
-						'RSI', // RSA Socle majoré (Financement sur fonds Conseil général)
+						'RSI', // RSA Socle majoré (Financement sur fonds Conseil départemental)
 					),
 					'Calculdroitrsa.toppersdrodevorsa' => '1', // Personne soumise à droits et devoirs ? > Oui
 				),

@@ -154,8 +154,8 @@ document.observe( \'dom:loaded\', function() { try {
 				'options' => array(
 					'Detailcalculdroitrsa' => array(
 						'natpf' => array(
-							'RSD' => 'RSA Socle (Financement sur fonds Conseil général)',
-							'RSI' => 'RSA Socle majoré (Financement sur fonds Conseil général)',
+							'RSD' => 'RSA Socle (Financement sur fonds Conseil départemental)',
+							'RSI' => 'RSA Socle majoré (Financement sur fonds Conseil départemental)',
 						)
 					),
 					'Dossier' => array(
@@ -221,8 +221,8 @@ document.observe( \'dom:loaded\', function() { try {
 //]]>
 </script><div class="input checkbox"><input type="hidden" name="data[Search][Detailcalculdroitrsa][natpf_choice]" id="SearchDetailcalculdroitrsaNatpfChoice_" value="0"/><input type="checkbox" name="data[Search][Detailcalculdroitrsa][natpf_choice]"  value="1" id="SearchDetailcalculdroitrsaNatpfChoice"/><label for="SearchDetailcalculdroitrsaNatpfChoice">Filtrer par nature de prestation</label></div><fieldset id="SearchDetailcalculdroitrsaNatpfFieldset"><legend>Natures de prestation</legend><div class="input select"><input type="hidden" name="data[Search][Detailcalculdroitrsa][natpf]" value="" id="SearchDetailcalculdroitrsaNatpf"/>
 
-<div class="checkbox"><input type="checkbox" name="data[Search][Detailcalculdroitrsa][natpf][]" value="RSD" id="SearchDetailcalculdroitrsaNatpfRSD" /><label for="SearchDetailcalculdroitrsaNatpfRSD">RSA Socle (Financement sur fonds Conseil général)</label></div>
-<div class="checkbox"><input type="checkbox" name="data[Search][Detailcalculdroitrsa][natpf][]" value="RSI" id="SearchDetailcalculdroitrsaNatpfRSI" /><label for="SearchDetailcalculdroitrsaNatpfRSI">RSA Socle majoré (Financement sur fonds Conseil général)</label></div>
+<div class="checkbox"><input type="checkbox" name="data[Search][Detailcalculdroitrsa][natpf][]" value="RSD" id="SearchDetailcalculdroitrsaNatpfRSD" /><label for="SearchDetailcalculdroitrsaNatpfRSD">RSA Socle (Financement sur fonds Conseil départemental)</label></div>
+<div class="checkbox"><input type="checkbox" name="data[Search][Detailcalculdroitrsa][natpf][]" value="RSI" id="SearchDetailcalculdroitrsaNatpfRSI" /><label for="SearchDetailcalculdroitrsaNatpfRSI">RSA Socle majoré (Financement sur fonds Conseil départemental)</label></div>
 </div></fieldset><script type="text/javascript">
 //<![CDATA[
 document.observe( \'dom:loaded\', function() { try {

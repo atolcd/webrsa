@@ -93,7 +93,7 @@ msgid "ENUM::COMMACONTRO::CAF"
 msgstr "Commande contrôle par CAF"
 
 msgid "ENUM::COMMACONTRO::CGA"
-msgstr "Commande contrôle par conseil général"
+msgstr "Commande contrôle par conseil départemental"
 
 msgid "ENUM::COMMACONTRO::NAT"
 msgstr "Commande contrôle national"

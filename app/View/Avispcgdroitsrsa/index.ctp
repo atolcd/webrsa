@@ -1,4 +1,4 @@
-<?php  $this->pageTitle = 'Avis '.__d('default'.Configure::read('Cg.departement'), 'du Président du Conseil Général').' sur les droits RSA';?>
+<?php  $this->pageTitle = 'Avis '.__d('default'.Configure::read('Cg.departement'), 'du Président du Conseil Départemental').' sur les droits RSA';?>
 
 <h1><?php echo $this->pageTitle;?></h1>
 

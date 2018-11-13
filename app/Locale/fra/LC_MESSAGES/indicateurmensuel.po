@@ -43,7 +43,7 @@ msgid "Indicateurmensuel.nbrPreorientationsSocial"
 msgstr "Nombre de préorientations vers le SSD"
 
 msgid "Indicateurmensuel.nbrPreorientationsSocioprofessionnelle"
-msgstr "Nombre de préorientations vers le PDV RMI"
+msgstr "Nombre de préorientations vers le PIE"
 
 msgid "Indicateurmensuel.delaiOuvertureNotification"
 msgstr "Délai entre l'ouverture de droit et la notification d'orientation"

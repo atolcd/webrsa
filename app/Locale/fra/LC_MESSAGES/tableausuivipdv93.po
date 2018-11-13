@@ -17,10 +17,10 @@ msgid "ENUM::TYPE::cg"
 msgstr "Département"
 
 msgid "ENUM::TYPE::communaute"
-msgstr "Projet de ville territoriale"
+msgstr "Projet insertion emploi territorial"
 
 msgid "ENUM::TYPE::pdv"
-msgstr "Projet de ville"
+msgstr "Projet Insertion Emploi"
 
 msgid "ENUM::TYPE::referent"
 msgstr "Référent"

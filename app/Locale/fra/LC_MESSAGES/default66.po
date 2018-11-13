@@ -10,14 +10,14 @@ msgstr ""
 
 # ==============================================================================
 
-msgid "Président du Conseil Général"
+msgid "Président du Conseil Départemental"
 msgstr "Présidente du Conseil Départemental"
 
-msgid "le Président du Conseil Général"
+msgid "le Président du Conseil Départemental"
 msgstr "la Présidente du Conseil Départemental"
 
-msgid "du Président du Conseil Général"
+msgid "du Président du Conseil Départemental"
 msgstr "de la Présidente du Conseil Départemental"
 
-msgid "au Président du Conseil Général"
+msgid "au Président du Conseil Départemental"
 msgstr "à la Présidente du Conseil Départemental"

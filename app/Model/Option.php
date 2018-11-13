@@ -1121,7 +1121,7 @@
 			trigger_error("Utilisation d'une méthode dépréciée : ".__CLASS__.'::'.__FUNCTION__, E_USER_DEPRECATED);
 			// ClassRegistry::init('Situationdossierrsa')->enum('moticlorsa')
 			return array(
-				'PCG' => 'Cloture suite décision '.__d('default'.Configure::read('Cg.departement'), 'du Président du Conseil Général'),
+				'PCG' => 'Cloture suite décision '.__d('default'.Configure::read('Cg.departement'), 'du Président du Conseil Départemental'),
 				'ECH' => 'Cloture suite à échéance (4 mois sans droits) ',
 				'EFF' => 'Cloture suite à l\'annulation de la bascule RMI/API',
 				'MUT' => 'Cloture suite à mutation du dossier dans un autre organisme',
@@ -1622,14 +1622,14 @@
 			trigger_error("Utilisation d'une méthode dépréciée : ".__CLASS__.'::'.__FUNCTION__, E_USER_DEPRECATED);
 			// ClassRegistry::init('Detailcalculdroitrsa')->enum('natpf')
 			$natpfs = array(
-				'RSD' => 'RSA Socle (Financement sur fonds Conseil général)',
-				'RSI' => 'RSA Socle majoré (Financement sur fonds Conseil général)',
+				'RSD' => 'RSA Socle (Financement sur fonds Conseil départemental)',
+				'RSI' => 'RSA Socle majoré (Financement sur fonds Conseil départemental)',
 				'RSU' => 'RSA Socle Etat Contrat aidé  (Financement sur fonds Etat)',
-				'RSB' => 'RSA Socle Local (Financement sur fonds Conseil général)',
+				'RSB' => 'RSA Socle Local (Financement sur fonds Conseil départemental)',
 				'RCD' => 'RSA Activité (Financement sur fonds Etat)',
 				'RCI' => 'RSA Activité majoré (Financement sur fonds Etat)',
 				'RCU' => 'RSA Activité Etat Contrat aidé (Financement sur fonds Etat)',
-				'RCB' => 'RSA Activité Local (Financement sur fonds Conseil général)',
+				'RCB' => 'RSA Activité Local (Financement sur fonds Conseil départemental)',
 				//ajout suite à l'arrivée du RSAJeune
 				'RSJ' => 'RSA socle Jeune (Financement sur fonds Etat)',
 				'RCJ' => 'RSA activité Jeune (Financement sur fonds Etat)',
@@ -2709,15 +2709,15 @@
 				'CDC' => 'Implantation d\'un  débit complémentaire (augmentation de la créance)',
 				/*Indus constatés*/
 				/*Indus transférés*/
-				'CCP' => 'Transfert  de la créance au Conseil général',
+				'CCP' => 'Transfert  de la créance au Conseil départemental',
 				/*Indus transférés*/
 				/*Remises indus*/
-				'CRC' => 'Remise de la créance par le Conseil général',
+				'CRC' => 'Remise de la créance par le Conseil départemental',
 				'CRG' => 'Remise de la créance par la Caf',
 				/*Remises indus*/
 				/*Annulation faible*/
 				'CAF' => 'Annulation de faible montant  inférieur au seuil réglementaire',
-				'CFC' => 'Annulation de faible montant selon seuil fixé par le Conseil général (supérieur au seuil réglementaire)',
+				'CFC' => 'Annulation de faible montant selon seuil fixé par le Conseil départemental (supérieur au seuil réglementaire)',
 				/*Annulation faible*/
 				/*Autre annulations*/
 				'CEX' => 'Annulation exceptionelle',
@@ -2763,7 +2763,7 @@
 			trigger_error("Utilisation d'une méthode dépréciée : ".__CLASS__.'::'.__FUNCTION__, E_USER_DEPRECATED);
 			// ClassRegistry::init('Dossier')->enum('typeparte')
 			return array(
-				'CG' => 'Conseil Général', // Code identification partenaire = n° de département sur 3 positions
+				'CG' => 'Conseil Départemental', // Code identification partenaire = n° de département sur 3 positions
 				'CT' => 'Collectivité Territoriale',
 				'CCAS' => 'Centre Communal d\'Action Sociale', // Code identification partenaire = N° de commune Insee sur 5 positions
 				'CIAS' => 'Centre Intercommunal d\'Action Sociale', // Code identification partenaire = N° de commune Insee du siège de l'intercommunalité sur 5 positions

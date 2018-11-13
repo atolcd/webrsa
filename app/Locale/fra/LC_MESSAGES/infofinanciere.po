@@ -175,10 +175,10 @@ msgid "ENUM::TYPEOPECOMPTA::CDC"
 msgstr "Implantation d'un débit complémentaire (augmentation de la créance)"
 
 msgid "ENUM::TYPEOPECOMPTA::CCP"
-msgstr "Transfert de la créance au Conseil général"
+msgstr "Transfert de la créance au Conseil départemental"
 
 msgid "ENUM::TYPEOPECOMPTA::CRC"
-msgstr "Remise de la créance par le Conseil général"
+msgstr "Remise de la créance par le Conseil départemental"
 
 msgid "ENUM::TYPEOPECOMPTA::CRG"
 msgstr "Remise de la créance par la Caf"
@@ -187,7 +187,7 @@ msgid "ENUM::TYPEOPECOMPTA::CAF"
 msgstr "Annulation de faible montant inférieur au seuil réglementaire"
 
 msgid "ENUM::TYPEOPECOMPTA::CFC"
-msgstr "Annulation de faible montant selon seuil fixé par le Conseil général (supérieur au seuil réglementaire)"
+msgstr "Annulation de faible montant selon seuil fixé par le Conseil départemental (supérieur au seuil réglementaire)"
 
 msgid "ENUM::TYPEOPECOMPTA::CEX"
 msgstr "Annulation exceptionelle"

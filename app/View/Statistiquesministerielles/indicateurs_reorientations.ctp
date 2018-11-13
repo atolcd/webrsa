@@ -77,7 +77,7 @@
 		professionnel (PLIE, AFPA, maison de l'emploi, mission locale, etc.), organismes d'appui à la création et au
 		développement d'entreprise, entreprises de travail temporaire, agences privées de placement, insertion par
 		l'activité économique (IAE), autres organismes publics ou privés de placement professionnel.<br/>
-		<strong>Organismes hors SPE</strong> : Conseil général, Caf, Msa, CCAS/CIAS, associations d'insertion, autres organismes
+		<strong>Organismes hors SPE</strong> : Conseil départemental, Caf, Msa, CCAS/CIAS, associations d'insertion, autres organismes
 		d'insertion, Agence départementale d'insertion dans les DOM.</p>
 	<p>Les <strong>personnes</strong> sont définies comme les adultes du foyer, c'est-à-dire les allocataires et conjoints appartenant
 		à un foyer ayant un droit ouvert au RSA. Selon la loi, la réorientation concerne une personne, et non un foyer.</p>
@@ -86,7 +86,7 @@
 		professionnel (PLIE, AFPA, maison de l'emploi, mission locale, etc.), organismes d'appui à la création et au
 		développement d'entreprise, entreprises de travail temporaire, agences privées de placement, insertion par
 		l'activité économique (IAE), autres organismes publics ou privés de placement professionnel.<br/>
-		<strong>Organismes hors SPE</strong> : Conseil général, Caf, Msa, CCAS/CIAS, associations d'insertion, autres organismes
+		<strong>Organismes hors SPE</strong> : Conseil départemental, Caf, Msa, CCAS/CIAS, associations d'insertion, autres organismes
 		d'insertion, Agence départementale d'insertion dans les DOM.</p>
 	<p>(3) L'ancienneté dans le dispositif est mesurée par rapport à la dernière date d'entrée dans le dispositif, y
 		compris anciens minima (RMI, API). Le passage automatique du RMI/API au RSA au moment de l'entrée en

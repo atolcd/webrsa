@@ -38,7 +38,7 @@ msgid "User.email"
 msgstr "Adresse de courriel"
 
 msgid "User.communautesr_id"
-msgstr "Projet de ville territoriale"
+msgstr "Projet insertion emploi territorial"
 
 msgid "/Users/forgottenpass/:heading"
 msgstr "Mot de passe oublié"

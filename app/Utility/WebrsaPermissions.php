@@ -154,7 +154,7 @@
 		}
 
 		/**
-		 * Pour tous les conseils généraux, le droit d'accès aux données se base sur
+		 * Pour tous les conseils départementaux, le droit d'accès aux données se base sur
 		 * le nom du contrôleur, le nom de l'action (voir la méthode check()) et,
 		 * si l'utilisateur est limité au niveau des zones géographiques, au code
 		 * INSEE de l'adresse de rang 01.

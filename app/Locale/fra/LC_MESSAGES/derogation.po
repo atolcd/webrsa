@@ -27,7 +27,7 @@ msgid "Derogation.typedero"
 msgstr "Type de dérogation"
 
 msgid "Derogation.avisdero"
-msgstr "Décision du Conseil Général"
+msgstr "Décision du Conseil Départemental"
 
 msgid "Derogation.ddavisdero"
 msgstr "Date soumission CAF"

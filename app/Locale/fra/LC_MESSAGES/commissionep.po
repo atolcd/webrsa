@@ -116,7 +116,7 @@ msgid "Commissionep.gestionnairebat"
 msgstr "Gestionnaire BAT de la commission"
 
 msgid "Commissionep.gestionnairebada"
-msgstr "Gestionnaire BADA de la commission"
+msgstr "Gestionnaire BOP de la commission"
 
 msgid "Commissionep.adresseseance"
 msgstr "Adresse de la commission"

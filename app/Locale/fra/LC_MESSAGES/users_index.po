@@ -43,10 +43,10 @@ msgid "Search.User.ancienpoledossierpcg66_id"
 msgstr "Ancien pôle lié au gestionnaire"
 
 msgid "Search.User.communautesr_id"
-msgstr "Projet de ville territorial (chef de projet de ville territorial)"
+msgstr "Projet insertion emploi territorial (chef de projet insertion emploi territorial)"
 
 msgid "Search.User.structurereferente_id"
-msgstr "Structure référente (CPDV, secrétariat PDV, chargé d'insertion)"
+msgstr "Structure référente (CPIE, secrétariat PIE, chargé d'insertion)"
 
 msgid "Search.User.referent_id"
 msgstr "Référent (chargé d'insertion)"

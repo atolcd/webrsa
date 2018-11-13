@@ -8,7 +8,7 @@
 		<caption>Délais entre les différentes étapes de l'orientation au cours de l'année <?php echo $annee;?></caption>
 		<tbody>
 			<tr>
-				<th><strong>a. Délai moyen entre la date d'ouverture de droit, telle qu'enregistrée par les organismes chargés du service de l'allocation, et la décision d'orientation validée par <?php echo __d('default'.Configure::read('Cg.departement'), 'le Président du Conseil Général');?> au cours de l'année (1)</strong></th>
+				<th><strong>a. Délai moyen entre la date d'ouverture de droit, telle qu'enregistrée par les organismes chargés du service de l'allocation, et la décision d'orientation validée par <?php echo __d('default'.Configure::read('Cg.departement'), 'le Président du Conseil Départemental');?> au cours de l'année (1)</strong></th>
 				<td><strong><?php echo $this->Locale->number( Hash::get( $results, 'Indicateurdelai.delai_moyen_orientation' ) );?></strong></td>
 			</tr>
 			<tr>
@@ -99,6 +99,6 @@
 		est dans l'année et dont la date de signature du contrat est dans l'année (en ne comptant que les primo-contrats et non
 		les renouvellements de contrat).<br/>
 		Selon la loi, un <strong>Contrat d'Engagement Réciproque en matière d'insertion sociale ou professionnelle</strong> (L262-36) est
-		signé par la personne bénéficiaire du RSA orientée vers un <strong>autre organisme</strong> : Conseil général, Caf, Msa, CCAS/CIAS,
+		signé par la personne bénéficiaire du RSA orientée vers un <strong>autre organisme</strong> : Conseil départemental, Caf, Msa, CCAS/CIAS,
 		associations d'insertion, autres organismes d'insertion, Agence départementale d'insertion dans les DOM.</p>
 <?php endif;?>

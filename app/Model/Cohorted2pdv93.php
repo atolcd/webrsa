@@ -135,7 +135,7 @@
 				'limit' => isset ($search['limit']) ? $search['limit'] : Configure::read('ResultatsParPage.nombre_par_defaut')
 			);
 
-			// Condition sur le projet de ville territorial de la structure de rendez-vous
+			// Condition sur le projet insertion emploi territorial de la structure de rendez-vous
 			$querydata['conditions'] = $this->conditionCommunautesr(
 				$querydata['conditions'],
 				$search,

@@ -55,7 +55,7 @@ msgid "User.type"
 msgstr "Type d'utilisateur"
 
 msgid "ENUM::TYPE::cg"
-msgstr "Conseil général"
+msgstr "Conseil départemental"
 
 msgid "ENUM::TYPE::externe_cpdv"
 msgstr "Externe, responsable structure référente"

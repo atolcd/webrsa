@@ -459,7 +459,7 @@
 			);
 			$querydata['joins'][] = $Personne->PersonneReferent->join( 'Referent', array( 'type' => 'INNER' ) );
 
-			// Condition sur le projet de ville territorial de la structure du référent
+			// Condition sur le projet insertion emploi territorial de la structure du référent
 			$querydata['conditions'] = $this->conditionCommunautesr(
 				$querydata['conditions'],
 				$search,

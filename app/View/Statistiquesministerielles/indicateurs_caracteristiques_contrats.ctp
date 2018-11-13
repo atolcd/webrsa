@@ -126,7 +126,7 @@
 		devoirs à retenir est celle des organismes payeurs.</p>
 	<p>(2) Selon la loi, le contrat concerne une personne, et non un foyer. Les <strong>personnes</strong> sont définies comme les adultes du foyer, c'est-à-dire
 		les allocataires et conjoints appartenant à un foyer ayant un droit ouvert au RSA.<br/>
-		<strong>Un contrat aidé ne vaut pas contrat RSA, même s'il est financé par le conseil général.</strong></p>
+		<strong>Un contrat aidé ne vaut pas contrat RSA, même s'il est financé par le conseil départemental.</strong></p>
 	<p>(3) La personne bénéficiaire du RSA orientée vers <strong>Pôle emploi</strong> signe un <strong>PPAE</strong> (L262-34). Les PPAE signés par une personne
 		bénéficiaire du RSA mais dont le référent unique n'appartient pas à Pôle emploi ne sont pas à prendre en compte.<br/>
 		<strong>Un contrat aidé ne vaut pas PPAE.</strong></p>
@@ -137,7 +137,7 @@
 		autres organismes publics ou privés de placement professionnel. Le <strong>SPE</strong> est compris au sens large.<br/>
 		<strong>Un contrat aidé ne vaut pas CER (même si le référent unique appartient à l'IAE).</strong></p>
 	<p>(5) Selon la loi, un <strong>Contrat d'Engagement Réciproque en matière d'insertion sociale ou professionnelle </strong>(L262-36) est signé par la
-		personne bénéficiaire du RSA orientée vers un <strong>autre organisme</strong> : Conseil général, Caf, Msa, CCAS/CIAS, associations d'insertion, autres
+		personne bénéficiaire du RSA orientée vers un <strong>autre organisme</strong> : Conseil départemental, Caf, Msa, CCAS/CIAS, associations d'insertion, autres
 		organismes d'insertion, Agence départementale d'insertion dans les DOM.<br/>
 		<strong>Un contrat aidé ne vaut pas CER.</strong></p>
 <?php endif; ?>

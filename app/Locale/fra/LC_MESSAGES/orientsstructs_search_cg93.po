@@ -28,4 +28,4 @@ msgid "Orientstruct.propo_algo"
 msgstr "Préconisation d'orientation"
 
 msgid "Search.Orientstruct.communautesr_id"
-msgstr "Projet de Ville Territorial"
+msgstr "Projet Insertion Emploi Territorial"

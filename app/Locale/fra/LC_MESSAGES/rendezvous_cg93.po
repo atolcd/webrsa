@@ -38,7 +38,7 @@ msgstr "Personne chargée du suivi"
 # ==============================================================================
 
 msgid "Search.Rendezvous.communautesr_id"
-msgstr "Projet de ville territorial proposant le RDV"
+msgstr "Projet insertion emploi territorial proposant le RDV"
 
 msgid "Search.Rendezvous.structurereferente_id"
 msgstr "Structure proposant le RDV"
