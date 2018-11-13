@@ -130,8 +130,9 @@
             //pour chaque configuration, vérifie si le champ de recherche est dispo et le remplace par sa valeur de remplacement
             if(!empty($configuration))
                 foreach($configuration as $index=>$value)
-                    if($liste[2]==$value["valeurCompare"] && strpos($liste[0], $value["param"])!==FALSE)
+                    if (isset ($liste[2]) && $liste[2]==$value["valeurCompare"] && strpos($liste[0], $value["param"])!==FALSE) {
                         $chaine =   str_replace($value["param"], $value["replace"], $chaine);
+					}
 
             return  $chaine;
         }
