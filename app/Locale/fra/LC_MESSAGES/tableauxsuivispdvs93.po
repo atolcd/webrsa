@@ -24,13 +24,13 @@ msgid "Search.mode"
 msgstr "Mode de calcul"
 
 msgid "Search.communautesr_id"
-msgstr "Projet de ville territoriale"
+msgstr "Projet insertion emploi territorial"
 
 msgid "Search.structurereferente_id_choice"
-msgstr "Filtrer par plusieurs projets de ville"
+msgstr "Filtrer par plusieurs projets insertion emploi"
 
 msgid "Search.structurereferente_id"
-msgstr "Projet de ville"
+msgstr "Projet Insertion Emploi"
 
 msgid "Search.referent_id"
 msgstr "Référent"
@@ -225,7 +225,7 @@ msgstr "Abandon en cours d'action"
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/index/:heading"
-msgstr "Recherche d'historique de tableaux de suivi PDV"
+msgstr "Recherche d'historique de tableaux de suivi PIE"
 
 msgid "Tableausuivipdv93.annee"
 msgstr "Année"
@@ -234,10 +234,10 @@ msgid "Tableausuivipdv93.type"
 msgstr "Niveau"
 
 msgid "Communautesr.name"
-msgstr "Projet de ville territorial"
+msgstr "Projet insertion emploi territorial"
 
 msgid "Pdv.lib_struc"
-msgstr "PDV"
+msgstr "PIE"
 
 msgid "Referent.nom_complet"
 msgstr "Référent"
@@ -466,7 +466,7 @@ msgid "Rendezvous.daterdv"
 msgstr "Date du RDV"
 
 msgid "Structurereferente.lib_struc"
-msgstr "PDV"
+msgstr "PIE"
 
 msgid "Personne.nom"
 msgstr "Nom"

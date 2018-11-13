@@ -46,7 +46,7 @@ msgstr "Union européenne"
 # ==============================================================================
 
 msgid "ENUM::BENEF_POSITIONCER::validationpdv"
-msgstr "En cours de validation PDV"
+msgstr "En cours de validation PIE"
 
 msgid "ENUM::BENEF_POSITIONCER::validationcg"
 msgstr "En cours de  validation par le CD"

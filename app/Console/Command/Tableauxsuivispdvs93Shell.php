@@ -43,7 +43,7 @@
 		 */
 		public function _welcome() {
 			$this->out();
-			$this->out( 'Shell de photographie des tableaux de suivi PDV' );
+			$this->out( 'Shell de photographie des tableaux de suivi PIE' );
 			$this->out();
 			$this->hr();
 		}
@@ -78,7 +78,7 @@
 		 */
 		public $subcomands = array(
 			'historisation' => array(
-				'help' => 'Historisation automatique des tableaux de suivi PDV (commande par défaut)'
+				'help' => 'Historisation automatique des tableaux de suivi PIE (commande par défaut)'
 			),
 			'update' => array(
 				'help' => 'Mise à jour des résultats des anciens tableaux de suivi'
@@ -255,7 +255,7 @@
 
 
 		/**
-		 * Mise à jour des entrées d'historiques de tableaux de suivi PDV antérieures
+		 * Mise à jour des entrées d'historiques de tableaux de suivi PIE antérieures
 		 * à la version 3.1.0 de l'application.
 		 */
 		public function update() {

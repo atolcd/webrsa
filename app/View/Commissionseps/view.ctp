@@ -83,7 +83,7 @@
 					<td><?php echo isset( $commissionep['Commissionep']['gestionnairebat'] ) ? $commissionep['Commissionep']['gestionnairebat'] : null ;?></td>
 				</tr>
 				<tr class="even">
-					<th><?php echo "Gestionnaire BADA de la commission";?></th>
+					<th><?php echo "Gestionnaire BOP de la commission";?></th>
 					<td><?php echo isset( $commissionep['Commissionep']['gestionnairebada'] ) ? $commissionep['Commissionep']['gestionnairebada'] : null ;?></td>
 				</tr>
 			<?php endif;?>

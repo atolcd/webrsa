@@ -220,7 +220,7 @@
 				}
 			}
 
-			// Condition sur le projet de ville territorial de la structure de la fiche de prescription
+			// Condition sur le projet insertion emploi territorial de la structure de la fiche de prescription
 			$query['conditions'] = $this->conditionCommunautesr(
 				$query['conditions'],
 				$search,

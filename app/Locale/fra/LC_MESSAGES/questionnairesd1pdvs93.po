@@ -39,7 +39,7 @@ msgid "Questionnaired1pdv93.date_validation"
 msgstr "Date de validation"
 
 msgid "Structurereferente.lib_struc"
-msgstr "Projet de ville"
+msgstr "Projet Insertion Emploi"
 
 msgid "/Questionnairesd1pdvs93/add"
 msgstr "Ajouter"

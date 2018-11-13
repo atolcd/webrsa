@@ -94,7 +94,7 @@
 		 */
 		public function assertUserCg() {
 			if( false === $this->isUserCg() ) {
-				$this->Flash->error( sprintf( $this->_assertErrorTemplate, 'un utilisateur du conseil général' ) );
+				$this->Flash->error( sprintf( $this->_assertErrorTemplate, 'un utilisateur du conseil départemental' ) );
 				throw new error403Exception( null );
 			}
 		}

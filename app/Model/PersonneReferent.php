@@ -346,7 +346,7 @@
 				$query['conditions'][] = array( 'Referentparcours.structurereferente_id' => $structurereferente_id );
 			}
 
-			// Condition sur le projet de ville territorial du référent du parcours
+			// Condition sur le projet insertion emploi territorial du référent du parcours
 			$communautesr_id = suffix( Hash::get( $search, 'PersonneReferent.communautesr_id' ) );
 			if( 93 === $departement && !empty( $communautesr_id ) ) {
 				$sql = $this->Referent->Structurereferente->Communautesr->sqStructuresreferentes( $communautesr_id );

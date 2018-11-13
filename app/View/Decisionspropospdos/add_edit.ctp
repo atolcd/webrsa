@@ -26,7 +26,7 @@
 				echo $this->Default2->subform(
 					array(
 						'Decisionpropopdo.datedecisionpdo' => array( 'label' =>  ( __( 'Date de décision de la PDO' ) ), 'type' => 'date', 'dateFormat'=>'DMY', 'maxYear'=>date('Y')+5, 'minYear'=>2009, 'empty' => false ),
-						'Decisionpropopdo.decisionpdo_id' => array( 'label' =>  ( __( 'Décision du Conseil Général' ) ), 'type' => 'select', 'options' => $decisionpdo, 'required' => true, 'empty' => true )
+						'Decisionpropopdo.decisionpdo_id' => array( 'label' =>  ( __( 'Décision du Conseil Départemental' ) ), 'type' => 'select', 'options' => $decisionpdo, 'required' => true, 'empty' => true )
 					),
 					array(
 						'options' => $options

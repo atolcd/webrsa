@@ -11,7 +11,7 @@
 
 	/**
 	 * Saisines d'EP pour les réorientations proposées par les structures
-	 * référentes pour le conseil général du département 93.
+	 * référentes pour le conseil départemental du département 93.
 	 *
 	 * Il s'agit de l'un des thèmes des EPs pour le CG 93.
 	 *

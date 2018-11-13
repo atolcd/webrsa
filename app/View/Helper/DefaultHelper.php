@@ -73,7 +73,7 @@
 					break;
 				case 'conseil':
 					$icon = 'icons/door_out'.$iconFileSuffix.'.png';
-					$text = __( 'Traitement conseil général' );
+					$text = __( 'Traitement conseil départemental' );
 					break;
 				case 'ordre':
 					$icon = 'icons/book_open'.$iconFileSuffix.'.png';

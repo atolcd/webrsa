@@ -1,5 +1,5 @@
 <?php
-	$title_for_layout = 'Transferts PDV - Allocataires transférés';
+	$title_for_layout = 'Transferts - Allocataires transférés';
 	$this->set( compact( 'title_for_layout' ) );
 	echo $this->Html->tag( 'h1', $title_for_layout );
 

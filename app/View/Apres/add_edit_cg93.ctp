@@ -219,7 +219,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" class="mediumSize noborder">
-					<strong>Date de validation du contrat d'insertion par le <?php echo __d('default'.Configure::read('Cg.departement'), 'Président du Conseil Général');?>  </strong> <?php echo date_short( Set::classicExtract( $personne, 'Contratinsertion.dernier.datevalidation_ci' ) );?>
+					<strong>Date de validation du contrat d'insertion par le <?php echo __d('default'.Configure::read('Cg.departement'), 'Président du Conseil Départemental');?>  </strong> <?php echo date_short( Set::classicExtract( $personne, 'Contratinsertion.dernier.datevalidation_ci' ) );?>
 					<br />(joindre obligatoirement la copie du contrat d'insertion)
 				</td>
 			</tr>

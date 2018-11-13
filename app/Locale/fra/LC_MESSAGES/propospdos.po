@@ -52,7 +52,7 @@ msgid "Search.Propopdo.typepdo_id"
 msgstr "Type de dossier"
 
 msgid "Search.Decisionpropopdo.decisionpdo_id"
-msgstr "Décision du Conseil Général"
+msgstr "Décision du Conseil Départemental"
 
 # ==============================================================================
 

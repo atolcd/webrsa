@@ -171,7 +171,7 @@
 			// Recherche par thématique de rendez-vous si nécessaire
 			$query['conditions'] = $this->Rendezvous->WebrsaRendezvous->conditionsThematique( $query['conditions'], $search, 'Rendezvous.thematiquerdv_id' );
 
-			// Condition sur le projet de ville territorial de la structure de rendez-vous
+			// Condition sur le projet insertion emploi territorial de la structure de rendez-vous
 			$query['conditions'] = $this->conditionCommunautesr(
 				$query['conditions'],
 				$search,

@@ -20,7 +20,7 @@
 			array(
 				'Decisionsaisinepdoep66.decision' => array( 'label' =>  ( __( 'État du dossier' ) ), 'type' => 'select', 'empty' => true ),
 				'Decisionsaisinepdoep66.datedecisionpdo' => array( 'label' =>  ( __( 'Date de décision de la PDO' ) ), 'type' => 'date', 'dateFormat'=>'DMY', 'maxYear'=>date('Y')+5, 'minYear'=>date('Y')-1, 'empty' => false ),
-				'Decisionsaisinepdoep66.decisionpdo_id' => array( 'label' =>  ( __( 'Décision du Conseil Général' ) ), 'type' => 'select', 'options' => $decisionpdo, 'empty' => true )
+				'Decisionsaisinepdoep66.decisionpdo_id' => array( 'label' =>  ( __( 'Décision du Conseil Départemental' ) ), 'type' => 'select', 'options' => $decisionpdo, 'empty' => true )
 			),
 			array(
 				'domain' => $domain,

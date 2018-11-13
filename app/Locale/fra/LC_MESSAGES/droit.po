@@ -3400,25 +3400,25 @@ msgstr "Suppression d'une valeur par sous-sujet du CER"
 ###############################################################################
 
 msgid "controllers/Cohortestransfertspdvs93"
-msgstr "Cohortes de transferts PDV (CD 93)"
+msgstr "Cohortes de transferts (CD 93)"
 
 msgid "controllers/Transfertspdvs93"
-msgstr "Cohortes de transferts PDV (CD 93)"
+msgstr "Cohortes de transferts (CD 93)"
 
 msgid "controllers/Transfertspdvs93/cohorte_atransferer"
-msgstr "Transferts PDV : Allocataires à transférer"
+msgstr "Transferts : Allocataires à transférer"
 
 msgid "controllers/Cohortestransfertspdvs93/transferes"
-msgstr "Transferts PDV : Allocataires transférés"
+msgstr "Transferts : Allocataires transférés"
 
 msgid "controllers/Cohortestransfertspdvs93/exportcsv"
-msgstr "Transferts PDV : Télécharger le tableau "
+msgstr "Transferts : Télécharger le tableau "
 
 msgid "controllers/Cohortestransfertspdvs93/impressions"
-msgstr "Transferts PDV : Impressions en cohorte"
+msgstr "Transferts : Impressions en cohorte"
 
 msgid "controllers/Cohortestransfertspdvs93/impression"
-msgstr "Transferts PDV : Impression individuelle"
+msgstr "Transferts : Impression individuelle"
 
 ###############################################################################
 
@@ -3692,7 +3692,7 @@ msgstr "Indicateurs de délais"
 ###############################################################################
 
 msgid "controllers/Tableauxsuivispdvs93"
-msgstr "Module Tableaux de suivis PDV (CD 93)"
+msgstr "Module Tableaux de suivis PIE (CD 93)"
 
 msgid "controllers/Tableauxsuivispdvs93/tableaud1"
 msgstr "Tableau de suivi D1"
@@ -3970,19 +3970,19 @@ msgstr "Export CSV des résultats de la cohorte de rendez-vous"
 #-------------------------------------------------------------------------------
 
 msgid "controllers/Communautessrs"
-msgstr "Paramétrage des projets de villes territoriaux"
+msgstr "Paramétrage des Projets Insertion Emploi Territoriaux"
 
 msgid "controllers/Communautessrs/index"
-msgstr "Liste des projets de villes territoriaux"
+msgstr "Liste des Projets Insertion Emploi territoriaux"
 
 msgid "controllers/Communautessrs/add"
-msgstr "Ajout d'un projet de ville territorial"
+msgstr "Ajout d'un projet insertion emploi territorial"
 
 msgid "controllers/Communautessrs/edit"
-msgstr "Modification d'un projet de ville territorial"
+msgstr "Modification d'un projet insertion emploi territorial"
 
 msgid "controllers/Communautessrs/delete"
-msgstr "Suppression d'un projet de ville territorial"
+msgstr "Suppression d'un projet insertion emploi territorial"
 
 #-------------------------------------------------------------------------------
 

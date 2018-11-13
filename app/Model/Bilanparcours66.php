@@ -10,7 +10,7 @@
 	App::uses( 'AppModel', 'Model' );
 
 	/**
-	 * Bilan de parcours pour le conseil général du département 66.
+	 * Bilan de parcours pour le conseil départemental du département 66.
 	 *
 	 * @package app.Model
 	 */

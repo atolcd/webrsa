@@ -190,7 +190,7 @@
 				}
 			}
 
-			// Condition sur le projet de ville territorial de la nouvelle structure d'orientation
+			// Condition sur le projet insertion emploi territorial de la nouvelle structure d'orientation
 			$query['conditions'] = $this->conditionCommunautesr(
 				$query['conditions'],
 				$search,

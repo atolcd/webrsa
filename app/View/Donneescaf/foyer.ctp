@@ -48,7 +48,7 @@
 	echo '<br/><br/><h2>Partenaire<div class="information" for="ideparte"></div></h2>';
 	echo '<div class="info-data remarque" id="ideparte" style="display: none;">'
 		."<p>Identification de la collectivité territoriale récepteur ou émetteur du flux.</p>"
-		."<p>Pour le flux rSa, il s'agit de l'identification du Conseil Général effectuant l'échange avec la Caf ou la Msa.</p>"
+		."<p>Pour le flux rSa, il s'agit de l'identification du Conseil Départemental effectuant l'échange avec la Caf ou la Msa.</p>"
 		.'</div>'
 	;
 	if (!empty($foyers[0]['Dossier']['ideparte'])) {
@@ -506,7 +506,7 @@
 	
 	echo '<br/><br/><h2>Créances<div class="information" for="creance"></div></h2>';
 	echo '<div class="info-data remarque" id="creance" style="display: none;">'
-		."<p>Liste des créances communiquées au Conseil général</p>"
+		."<p>Liste des créances communiquées au Conseil départemental</p>"
 		."<p>Description de la créance transférée</p>"
 		."<p>Il y a un bloc par créance à transférer au CD. La créance est transferée immédiatement après sa constation par la chaine mensuel de gestion des créances ou manuellement par le service agence comptable</p>"
 		.'</div>'
@@ -539,29 +539,29 @@
 			'title' => 'Autres Annulations',
 			'info' => array(
 				"Opération comptable d'annulation pour d'autres motifs que les annulations de faibles montants.",
-				"Ce bloc vient augmenter le montant total de l'acompte demandé par la Caf ou la Msa au Conseil Général"
+				"Ce bloc vient augmenter le montant total de l'acompte demandé par la Caf ou la Msa au Conseil Départemental"
 			)
 		),
 		'IndusConstates' => array(
 			'title' => 'Indus Constates',
 			'info' => array(
 				'Opération comptable de constation d\'implantation d\'un indu au cours du moirs comptable de référence',
-				'Ce bloc vient diminuer le montant total de l\'acompte demandé par la Caf ou la Msa au Conseil Général'
+				'Ce bloc vient diminuer le montant total de l\'acompte demandé par la Caf ou la Msa au Conseil Départemental'
 			)
 		),
 		'IndusTransferesCG' => array(
 			'title' => 'Indus Transferes CD',
 			'info' => array(
-				'Opération comptable de transfert de la créance de la Caf au Conseil général suite au constat de non recouvrement par la caf de celle et à la cloture du droit au rSa',
-				'Ce bloc vient augmenter le montant total de l\'acompte demandé par la Caf ou la Msa au Conseil Général.',
+				'Opération comptable de transfert de la créance de la Caf au Conseil départemental suite au constat de non recouvrement par la caf de celle et à la cloture du droit au rSa',
+				'Ce bloc vient augmenter le montant total de l\'acompte demandé par la Caf ou la Msa au Conseil Départemental.',
 				'Le détail des créances transférées se trouve dans le flux mensuel bénéficiaires.'
 			)
 		),
 		'RemisesIndus' => array(
 			'title' => 'Remises Indus',
 			'info' => array(
-				'Opération comptable de remise d\'indu effectuée par la Caf ou par le Conseil général',
-				'Ce bloc vient augmenter le montant total de l\'acompte demandé par la Caf ou la Msa au Conseil Général',
+				'Opération comptable de remise d\'indu effectuée par la Caf ou par le Conseil départemental',
+				'Ce bloc vient augmenter le montant total de l\'acompte demandé par la Caf ou la Msa au Conseil Départemental',
 				'Les remises d\'indus peuvent être totale ou partielle'
 			)
 		),
@@ -576,7 +576,7 @@
 			'title' => 'Annulations Faible Montant',
 			'info' => array(
 				'Opération comptable d\'annulation des créances de faible montant',
-				"Ce bloc vient augmenter le montant total de l'acompte demandé par la Caf ou la Msa au Conseil Général",
+				"Ce bloc vient augmenter le montant total de l'acompte demandé par la Caf ou la Msa au Conseil Départemental",
 				"L'annulation pour faible montant intervient lorsque la somme des soldes d'indus Département et Etat à recouvrer pour le rSa est inférieure au seuil réglementaire (77 euros) ou fixé par le département.",
 				'Lorsque le département fait une annulation de faible montant supérieur au seuil réglementaire, le montants des indus"Etat" annulés sont à la charge du département.'
 			)

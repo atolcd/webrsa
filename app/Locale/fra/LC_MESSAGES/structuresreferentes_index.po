@@ -34,7 +34,7 @@ msgid "Search.Structurereferente.typeorient_id"
 msgstr "Type d'orientation"
 
 msgid "Search.Structurereferente.communautesr_id"
-msgstr "Projet de ville communautaire"
+msgstr "Projet insertion emploi communautaire"
 
 msgid "Search.Structurereferente.typestructure"
 msgstr "Type de structure"

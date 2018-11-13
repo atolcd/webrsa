@@ -11,7 +11,7 @@ msgstr ""
 # ==============================================================================
 
 msgid "Communautesrparcours.lib_struc"
-msgstr "Projet de Ville Territorial"
+msgstr "Projet Insertion Emploi Territorial"
 
 msgid "Structurereferenteparcours.lib_struc"
 msgstr "Structure de suivi"

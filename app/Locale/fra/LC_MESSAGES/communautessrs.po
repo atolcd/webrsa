@@ -11,13 +11,13 @@ msgstr ""
 # ==============================================================================
 
 msgid "/Communautessrs/index/:heading"
-msgstr "Paramétrage des projets de villes territoriaux"
+msgstr "Paramétrage des Projets Insertion Emploi Territoriaux"
 
 msgid "/Communautessrs/add/:heading"
-msgstr "Ajout d'un projet de ville territorial"
+msgstr "Ajout d'un projet insertion emploi territorial"
 
 msgid "/Communautessrs/edit/:heading"
-msgstr "Modification du projet de ville territorial « #Communautesr.name# »"
+msgstr "Modification du projet insertion emploi territorial « #Communautesr.name# »"
 
 msgid "Communautesr.name"
 msgstr "Nom"
@@ -32,19 +32,19 @@ msgid "/Communautessrs/add"
 msgstr "Ajouter"
 
 msgid "/Communautessrs/add/:title"
-msgstr "Ajouter un projet de ville territorial"
+msgstr "Ajouter un projet insertion emploi territorial"
 
 msgid "/Communautessrs/edit"
 msgstr "Modifier"
 
 msgid "/Communautessrs/edit/#Communautesr.id#"
-msgstr "Modifier le projet de ville territorial « #Communautesr.name# »"
+msgstr "Modifier le projet insertion emploi territorial « #Communautesr.name# »"
 
 msgid "/Communautessrs/delete"
 msgstr "Supprimer"
 
 msgid "/Communautessrs/delete/#Communautesr.id#"
-msgstr "Supprimer le projet de ville territorial « #Communautesr.name# »"
+msgstr "Supprimer le projet insertion emploi territorial « #Communautesr.name# »"
 
 msgid "/Communautessrs/delete/#Communautesr.id# ?"
-msgstr "Réellement supprimer le projet de ville territorial « #Communautesr.name# » ?"
+msgstr "Réellement supprimer le projet insertion emploi territorial « #Communautesr.name# » ?"

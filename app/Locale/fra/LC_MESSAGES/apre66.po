@@ -520,7 +520,7 @@ msgid "ENUM::JUSTIFICATIF::CDT"
 msgstr "Contrat de travail"
 
 msgid "ENUM::JUSTIFICATIF::CINS"
-msgstr "Contrat d'insertion validé par la Présidente du Conseil Général (sauf pour SIAE et titulaires de contrats aidés)"
+msgstr "Contrat d'insertion validé par la Présidente du Conseil Départemental (sauf pour SIAE et titulaires de contrats aidés)"
 
 ###############################################################################
 # Enum Actprof.typecontratact

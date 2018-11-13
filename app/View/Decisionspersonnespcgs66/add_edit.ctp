@@ -21,7 +21,7 @@
 			echo $this->Default2->subform(
 				array(
 					'Decisionpersonnepcg66.personnepcg66_situationpdo_id' => array( 'label' =>  ( __( 'Motifs' ) ), 'type' => 'select', 'empty' => true, 'required' => true, 'options' => $personnespcgs66Situationspdos ),
-					'Decisionpersonnepcg66.decisionpdo_id' => array( 'label' =>  ( __( 'Décision du Conseil Général' ) ), 'type' => 'select', 'options' => $options, 'required' => true, 'empty' => true ),
+					'Decisionpersonnepcg66.decisionpdo_id' => array( 'label' =>  ( __( 'Décision du Conseil Départemental' ) ), 'type' => 'select', 'options' => $options, 'required' => true, 'empty' => true ),
 					'Decisionpersonnepcg66.datepropositions' => array( 'label' =>  ( __( 'Date de propositon' ) ), 'type' => 'date', 'dateFormat' => 'DMY', 'required' => true, 'empty' => true, 'minYear' => date('Y') - 5, 'maxYear' => date('Y') + 1 )
 				),
 				array(

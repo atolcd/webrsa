@@ -210,9 +210,9 @@
 	/**
 	 *   Paramètre pour définir les taux dans le formulaire du CUI :
 	 *   Cui.taux.fixe                   => Taux fixé par l'arrêté du Préfet de région (en % )
-	 *   Cui.taux.prisencharge           => Taux de prise en charge effectif si le Conseil Général fixe
+	 *   Cui.taux.prisencharge           => Taux de prise en charge effectif si le Conseil Départemental fixe
 	 *                                       un taux supérieur au taux fixé par le Préfet de région (en %)
-	 *   Cui.taux.financementexclusif    => Financement exclusif du Conseil Général, Si oui, taux (en %)
+	 *   Cui.taux.financementexclusif    => Financement exclusif du Conseil Départemental, Si oui, taux (en %)
 	 *   @default: à définir par chaque CG
 	 */
 	Configure::write( 'Cui.taux.fixe', 60 );

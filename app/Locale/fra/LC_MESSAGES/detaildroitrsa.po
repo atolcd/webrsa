@@ -69,7 +69,7 @@ msgid "Detaildroitrsa.mtredhosrsa"
 msgstr "Montant des réductions hospitalières"
 
 msgid "Detaildroitrsa.mtredcgrsa"
-msgstr "Montant de la réduction Conseil général"
+msgstr "Montant de la réduction Conseil départemental"
 
 msgid "Detaildroitrsa.mtcumintegrsa"
 msgstr "Montant du cumul intégral"

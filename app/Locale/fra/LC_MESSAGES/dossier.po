@@ -532,7 +532,7 @@ msgid "ENUM::NUMORG::976"
 msgstr "MAYOTTE"
 
 msgid "ENUM::TYPEPARTE::CG"
-msgstr "Conseil Général"
+msgstr "Conseil Départemental"
 
 msgid "ENUM::TYPEPARTE::CT"
 msgstr "Collectivité Territoriale"

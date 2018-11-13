@@ -759,10 +759,10 @@ msgid "Cui.validationacquis"
 msgstr "Une ou plusieurs de ces actions s’inscrivent elles dans le cadre de la validation des acquis de l’expérience ?"
 
 msgid "Cui.exclusifcg"
-msgstr "Financement exclusif du conseil général :"
+msgstr "Financement exclusif du conseil départemental :"
 
 msgid "Cui.organismepayeur"
-msgstr "Organisme payeur de l’aide du conseil général à l’employeur :"
+msgstr "Organisme payeur de l’aide du conseil départemental à l’employeur :"
 
 msgid "Cui66.positions"
 msgstr "Position du CUI"

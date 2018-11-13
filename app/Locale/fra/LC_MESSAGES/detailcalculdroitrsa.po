@@ -171,16 +171,16 @@ msgid "ENUM::SOUSNATPF::RCJD2"
 msgstr "RSA activité jeune DOM"
 
 msgid "ENUM::NATPF::RSD"
-msgstr "RSA Socle (Financement sur fonds Conseil général)"
+msgstr "RSA Socle (Financement sur fonds Conseil départemental)"
 
 msgid "ENUM::NATPF::RSI"
-msgstr "RSA Socle majoré (Financement sur fonds Conseil général)"
+msgstr "RSA Socle majoré (Financement sur fonds Conseil départemental)"
 
 msgid "ENUM::NATPF::RSU"
 msgstr "RSA Socle Etat Contrat aidé (Financement sur fonds Etat)"
 
 msgid "ENUM::NATPF::RSB"
-msgstr "RSA Socle Local (Financement sur fonds Conseil général)"
+msgstr "RSA Socle Local (Financement sur fonds Conseil départemental)"
 
 msgid "ENUM::NATPF::RCD"
 msgstr "RSA Activité (Financement sur fonds Etat)"
@@ -192,7 +192,7 @@ msgid "ENUM::NATPF::RCU"
 msgstr "RSA Activité Etat Contrat aidé (Financement sur fonds Etat)"
 
 msgid "ENUM::NATPF::RCB"
-msgstr "RSA Activité Local (Financement sur fonds Conseil général)"
+msgstr "RSA Activité Local (Financement sur fonds Conseil départemental)"
 
 msgid "ENUM::NATPF::RSJ"
 msgstr "RSA socle Jeune (Financement sur fonds Etat)"

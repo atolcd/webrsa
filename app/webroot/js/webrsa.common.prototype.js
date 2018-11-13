@@ -2728,7 +2728,7 @@ function onChangeDependantSelectsCommunautesr( communautesrId, structurereferent
 		} );
 
 		if( '' != communautesrValue ) {
-			// Suppression des options non présentes dans le projet de ville territorial
+			// Suppression des options non présentes dans le projet insertion emploi territorial
 			$(structurereferenteId).select( 'option' ).each( function( option ) {
 				if( '' != $(option).value && false === in_array( $(option).value.replace( /^.*_([^_]+)$/, '$1' ), links[communautesrValue], true ) ) {
 					$(option).hide();
@@ -2806,7 +2806,7 @@ function onChangeDependantSelectsCommunautesrReferent( communautesrId, referentI
 		} );
 
 		if( '' != communautesrValue ) {
-			// Suppression des options non présentes dans le projet de ville territorial
+			// Suppression des options non présentes dans le projet insertion emploi territorial
 			$(referentId).select( 'option' ).each( function( option ) {
 				if( '' != $(option).value && false === in_array( $(option).value.replace( /^([^_]+)_.*$/, '$1' ), links[communautesrValue], true ) ) {
 					$(option).hide();

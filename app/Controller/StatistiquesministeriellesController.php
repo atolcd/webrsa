@@ -446,7 +446,7 @@
 			$export = array ();
 			$export[0][0] = "Délais entre les différentes étapes de l'orientation au cours de l'année ".$named['Search']['annee'];
 			$export[0][1] = '';
-			$export[1][0] = "a. Délai moyen entre la date d'ouverture de droit, telle qu'enregistrée par les organismes chargés du service de l'allocation, et la décision d'orientation validée par ".__d('default'.Configure::read('Cg.departement'), 'le Président du Conseil Général')." au cours de l'année";
+			$export[1][0] = "a. Délai moyen entre la date d'ouverture de droit, telle qu'enregistrée par les organismes chargés du service de l'allocation, et la décision d'orientation validée par ".__d('default'.Configure::read('Cg.departement'), 'le Président du Conseil Départemental')." au cours de l'année";
 			$export[1][1] = round (Hash::get( $results, 'Indicateurdelai.delai_moyen_orientation' ));
 			$export[2][0] = "b. Délai moyen entre la décision d'orientation et la signature d'un contrat au cours de l'année";
 			$export[2][1] = round (Hash::get( $results, 'Indicateurdelai.delai_moyen_signature' ));

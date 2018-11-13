@@ -474,7 +474,7 @@ document.observe( "dom:loaded", function() {
 		<table class="noborder">
 			<tr>
 				<td colspan="2" class="noborder center">
-					<em><strong>Lorsque le contrat conditionne l'ouverture du droit, il ne sera effectif qu'après décision <?php echo __d('default'.Configure::read('Cg.departement'), 'du Président du Conseil Général');?></strong></em>
+					<em><strong>Lorsque le contrat conditionne l'ouverture du droit, il ne sera effectif qu'après décision <?php echo __d('default'.Configure::read('Cg.departement'), 'du Président du Conseil Départemental');?></strong></em>
 				</td>
 			</tr>
 		</table>
@@ -531,11 +531,11 @@ Event.observe( $( 'ContratinsertionStructurereferenteId' ), 'change', function( 
 <p>
 	Loi N°2008-1249 du 1er Décembre, généralisant le revenu de solidarité active et réformant les politiques d'engagement réciproque : <strong>Contrat librement débattu avec engagements réciproques</strong> ( articles L.263.35 et L.262.36 )<br />
 	<strong>Respect du Contrat</strong> ( Article L-262-37 1° et 2° ) :<br />
-	<em>"Sauf décision prise au regard de la situation particulière du bénéficiaire, le versement du revenu de solidarité active est suspendu, en tout ou partie, par <?php echo __d('default'.Configure::read('Cg.departement'), 'le Président du Conseil Général');?> :<br />
+	<em>"Sauf décision prise au regard de la situation particulière du bénéficiaire, le versement du revenu de solidarité active est suspendu, en tout ou partie, par <?php echo __d('default'.Configure::read('Cg.departement'), 'le Président du Conseil Départemental');?> :<br />
 	lorsque, du fait du bénéficiaire et sans motif légitime, le projet personnalisé d'accès à l'emploi ou l'un des contrats mentionnés aux articles L.262-35 et L.262-36 ne sont pas établis dans les délais prévus ou ne sont pas renouvelés.<br />
 	lorsque, sans motif légitime, les dispositions du projet personnalisé d'accès à l'emploi ou les stipulations de l'un des contrats mentionnés aux articles L.262-35 et L.262-36 ne sont pas respectés par le bénéficiaire."<br />
 	</em>
-	<strong>Lorsque le bénéficiaire ne respecte pas les conditions de ce contrat, l'organisme signataire le signale <?php echo __d('default'.Configure::read('Cg.departement'), 'au Président du Conseil Général');?>.</strong>
+	<strong>Lorsque le bénéficiaire ne respecte pas les conditions de ce contrat, l'organisme signataire le signale <?php echo __d('default'.Configure::read('Cg.departement'), 'au Président du Conseil Départemental');?>.</strong>
 </p>
 </fieldset>
 <input type="button" id="cacheEntretien" value="<?php echo __d('bilansparcours66', 'Afficher/Cacher les entretiens');?>"/>
@@ -638,8 +638,8 @@ Event.observe( $( 'ContratinsertionStructurereferenteId' ), 'change', function( 
 </fieldset>
 <fieldset>
 <p>
-	Entre <?php echo Set::enum( Set::classicExtract( $personne, 'Personne.qual') , $qual ).' '.$personne['Personne']['nom'].' '.$personne['Personne']['prenom'];?> bénéficiare du rSa et le Département représenté par le référent signataire désigné par l'organisme choisi par <?php echo __d('default'.Configure::read('Cg.departement'), 'le Président du Conseil Général');?>, il est conclu le présent contrat visant à faciliter son insertion sociale ou professionnelle.<br />
-	Le bénéficiaire <strong>s'engage à respecter les orientations et le suivi</strong> du parcours d'insertion, ainsi que les différents moyens d'actions proposés. Le Département, représenté par le référent signataire désigné par l'organisme choisi par <?php echo __d('default'.Configure::read('Cg.departement'), 'le Président du Conseil Général');?> <strong>s'engage à mettre en oeuvre les actions pré-citées et/ou un accompagnement adapté.</strong>
+	Entre <?php echo Set::enum( Set::classicExtract( $personne, 'Personne.qual') , $qual ).' '.$personne['Personne']['nom'].' '.$personne['Personne']['prenom'];?> bénéficiare du rSa et le Département représenté par le référent signataire désigné par l'organisme choisi par <?php echo __d('default'.Configure::read('Cg.departement'), 'le Président du Conseil Départemental');?>, il est conclu le présent contrat visant à faciliter son insertion sociale ou professionnelle.<br />
+	Le bénéficiaire <strong>s'engage à respecter les orientations et le suivi</strong> du parcours d'insertion, ainsi que les différents moyens d'actions proposés. Le Département, représenté par le référent signataire désigné par l'organisme choisi par <?php echo __d('default'.Configure::read('Cg.departement'), 'le Président du Conseil Départemental');?> <strong>s'engage à mettre en oeuvre les actions pré-citées et/ou un accompagnement adapté.</strong>
 </p>
 </fieldset>
 <fieldset>
@@ -679,7 +679,7 @@ Event.observe( $( 'ContratinsertionStructurereferenteId' ), 'change', function( 
 	<tr>
 		<td class="mediumSize noborder"></td>
 		<td class="mediumSize noborder">
-			<p class="caution center">Attention : lorsque le contrat conditionne le paiement du rsa il ne sera effectif qu'après décision <?php echo __d('default'.Configure::read('Cg.departement'), 'du Président du Conseil Général');?>. La responsabilité du référent signataire n'est nullement engagée par la signature de ce contrat</p>
+			<p class="caution center">Attention : lorsque le contrat conditionne le paiement du rsa il ne sera effectif qu'après décision <?php echo __d('default'.Configure::read('Cg.departement'), 'du Président du Conseil Départemental');?>. La responsabilité du référent signataire n'est nullement engagée par la signature de ce contrat</p>
 		</td>
 	</tr>
 </table>

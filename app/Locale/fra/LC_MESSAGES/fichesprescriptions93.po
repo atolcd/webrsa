@@ -74,7 +74,7 @@ msgid "Search.Ficheprescription93.Referent"
 msgstr "Filtrer par Prescripteur"
 
 msgid "Search.Ficheprescription93.communautesr_id"
-msgstr "Projet de ville territorial du Prescripteur"
+msgstr "Projet insertion emploi territorial du Prescripteur"
 
 msgid "Search.Ficheprescription93.structurereferente_id"
 msgstr "Structure du Prescripteur"

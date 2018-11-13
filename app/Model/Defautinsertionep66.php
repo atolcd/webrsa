@@ -10,7 +10,7 @@
 	App::uses( 'Thematiqueep', 'Model/Abstractclass' );
 
 	/**
-	 * Saisines d'EP pour les bilans de parcours pour le conseil général du
+	 * Saisines d'EP pour les bilans de parcours pour le conseil départemental du
 	 * département 66.
 	 *
 	 * Une saisine regoupe plusieurs thèmes des EPs pour le CG 66.

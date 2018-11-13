@@ -17,7 +17,7 @@
 	<?php
 		echo $this->Xform->input( 'Search.active', array( 'type' => 'hidden', 'value' => true ) );
 
-		echo $this->Allocataires->communautesrSelect( 'PersonneReferent', array( 'options' => array( 'Search' => $options ), 'hide' => false, 'label' => 'Projet de ville territorial d\'affectation' ) );
+		echo $this->Allocataires->communautesrSelect( 'PersonneReferent', array( 'options' => array( 'Search' => $options ), 'hide' => false, 'label' => 'Projet insertion emploi territorial d\'affectation' ) );
 		echo $this->Form->input( 'Search.PersonneReferent.referent_id', array( 'label' => 'Affectation', 'type' => 'select', 'options' => $options['referents'], 'empty' => true ) );
 		echo $this->Search->date( 'Search.PersonneReferent.dddesignation', 'Date d\'affectation' );
 

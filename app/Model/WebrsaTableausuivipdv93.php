@@ -13,7 +13,7 @@
 
 	/**
 	 * La classe WebrsaTableausuivipdv93 contient la logique métier concernant
-	 * les tableaux de suivi PDV pour le CG 93.
+	 * les tableaux de suivi PDI pour le CG 93.
 	 *
 	 * @package app.Model
 	 */

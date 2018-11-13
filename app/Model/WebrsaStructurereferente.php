@@ -104,7 +104,7 @@
 				}
 			}
 
-			// 3. Filtre par projet de ville communautaire
+			// 3. Filtre par Projet Insertion Emploi communautaire
 			if( 93 === $departement ) {
 				$communautesr_id = (string)Hash::get( $search, 'Structurereferente.communautesr_id' );
 				if( '' !== $communautesr_id ) {
