@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -91,16 +91,16 @@ Les CER Validés CG ?
 <p>Il est important de tenir compte du fait que le résultat de cette requête ne compte que les <u>CER validés CG</u>&nbsp;. Ce qui signifie que ceux que vous avez créés qui sont en attente de validation CG ne sont pas inclus dans le résultat.</p>
 <ul><li>Filtrer par période de validité : Ce filtre vous permet d'obtenir votre file active.</li>
 <li>Filtrer les allocataires dont le CER est arrivé à échéance.</li></ul>
-<p>Dans cet exemple, nous allons rechercher le nombre de CER en cours de validité au dernier jour du mois de Janvier 2014 pour un projet de ville.</p>
+<p>Dans cet exemple, nous allons rechercher le nombre de CER en cours de validité au dernier jour du mois de Janvier 2014 pour un projet insertion emploi.</p>
 <ol>
-<li>Pour 1 projet de ville</li>
+<li>Pour 1 projet insertion emploi</li>
 <p>Décocher la case "Uniquement la dernière demande RSA pour un même allocataire".</p>
 <img src="/didac/images/facercsedec.jpg" alt="Recherche par CER" width="395px" height="44px" />
 <p>Sélectionner votre structure, puis "filtrer par période de validité".</p>
 <img src="/didac/images/facer.jpg" alt="Recherche par CER" width="556px" height="116px" />
 <p><u>Résultats</u>&nbsp;:</p>
 <img src="/didac/images/resfacer.jpg" alt="Recherche par CER" width="642px" height="208px" />
-<p>Pour le mois de janvier, la file active des CER en cours de validité du projet de ville est de 207.<br/>
+<p>Pour le mois de janvier, la file active des CER en cours de validité du projet insertion emploi est de 207.<br/>
 Ce chiffre comprend tous les CER des bénéficiaires quelque soit la structure référente, c'est-à-dire celle de l'orientation faite par le CG.</p>
 <li>Pour un chargé d'insertion</li>
 <p>A la requête précédente, rajouter le filtre de suivi du parcours&nbsp; :</p>
@@ -113,7 +113,7 @@ Ce chiffre comprend tous les CER des bénéficiaires quelque soit la structure r
 <p><u>Résultats&nbsp;:</u></p>
 
 <img src="/didac/images/cprcer.jpg" alt="Recherche par CER" width="643px" height="210px" />
-<p>Le résultat pour le référent du projet de ville RSA sélectionné dans la liste, est de <b><i>92 CER en cours de validité sur le mois de Janvier</i></b>.</p>
+<p>Le résultat pour le référent du projet insertion emploi RSA sélectionné dans la liste, est de <b><i>92 CER en cours de validité sur le mois de Janvier</i></b>.</p>
 <li>par type d'orientation</li>
 <p>Le filtre par "structure du parcours" renvoie toutes les personnes pour lesquelles il y a un référent.</p>
 <p>Différence entre "<b>Structure de parcours</b>" et "<b>Structure référente</b>":</p>
@@ -122,12 +122,12 @@ Ce chiffre comprend tous les CER des bénéficiaires quelque soit la structure r
 <p><b><i>Structure de parcours</i></b>&nbsp;  : &nbsp; Ce champ récupère les informations du dossier du Brsa dans Webrsa.</p>
 <img src="/didac/images/cpstparc.jpg" alt="Recherche par CER" width="690px" height="51px" />
 
-<p>Exemple : Visualiser le nombre de CER en cours de validité effectué par un projet de ville pour les allocataires orientés emploi&nbsp; :<br/>
+<p>Exemple : Visualiser le nombre de CER en cours de validité effectué par un projet insertion emploi pour les allocataires orientés emploi&nbsp; :<br/>
 Sélectionner le type d'orientation dans la liste déroulante: Cette liste correspond à l'orientation CG.</p>
 <img src="/didac/images/cpcerori.jpg" alt="Recherche par CER" width="604px" height="55px" />
 <p><u>Résultats&nbsp;:</u></p>
 <img src="/didac/images/rescerori.jpg" alt="Recherche par CER" width="605px" height="120px" />
-<p>Ici le résultat des <b><i>CER réalisés par le Projet de Ville pour des bénéficiaires orientés "Emploi" est de 4</i></b>.</p>
+<p>Ici le résultat des <b><i>CER réalisés par le Projet Insertion Emploi pour des bénéficiaires orientés "Emploi" est de 4</i></b>.</p>
 </ol>
 <br/>
 <a href="#haut">Haut de la page</a>

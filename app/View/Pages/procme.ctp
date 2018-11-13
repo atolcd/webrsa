@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li id="activation"><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -81,9 +81,9 @@
 	<a style="text-align:right;padding-right:15px;float:right;" href="javascript:history.forward(+1)">Page suivante&nbsp;&rsaquo;&rsaquo;</a>
 	<h2><a name="anx2"></a>Annexe 2  &nbsp;: Procédures métier</h2>
 <ol><li><a name="bno">Procédure pour les bénéficiaires non orientés.</a></li></ol>
-<ul><li>Le projet de ville contacte le BADA par mail  bada-secretariat@cg93.fr pour demander l'orientation du bénéficiaire.</li></ul>
-<p>Le projet de ville attend alors que l'allocataire soit orienté pour saisir le CER.</p>
-<ul><li>Si le projet de ville souhaite faire un contrat dès le premier entretien, il peut le réaliser sur un format "papier" puis le saisir une fois l'orientation faite.</li></ul>
+<ul><li>Le projet insertion emploi contacte le BOP par mail  bada-secretariat@cg93.fr pour demander l'orientation du bénéficiaire.</li></ul>
+<p>Le projet insertion emploi attend alors que l'allocataire soit orienté pour saisir le CER.</p>
+<ul><li>Si le projet insertion emploi souhaite faire un contrat dès le premier entretien, il peut le réaliser sur un format "papier" puis le saisir une fois l'orientation faite.</li></ul>
 <ol start="2"><li><a name="coii">Cas des demandes de changement d'orientation</a></li></ol>
 <p><u>Suite à une orientation initiale inappropriée&nbsp;:</u></p>
 <p>Pour les demandes de réorientation suite à une orientation inappropriée la procédure de signalement <u>ne passe pas par WebRSA</u>. Elle reste la même que celle utilisée actuellement et ne fait pas l'objet d'un passage en EP.</p>
@@ -91,7 +91,7 @@
 <p>Les demandes de réorientations pour d'autres raisons que l'orientation initiale inappropriée passe par WebRSA.La procédure des demande de réorientation se trouve <a href="demorien">ici</a></p>
 <ol start="3"><li><a name="cco">Cas des réorientations</a></li></ol>
 <p><b>Rappel des règles relatives aux réorientations&nbsp; :</b> </p>
-<p><ul><li>Après examen en concertation locale, la demande de réorientation est adressée au BADA, qui le met à l’ordre du jour de la prochaine équipe pluridisciplinaire (les réorientations sont traitées au fur et à mesure de leur réception) 
+<p><ul><li>Après examen en concertation locale, la demande de réorientation est adressée au BOP, qui le met à l’ordre du jour de la prochaine équipe pluridisciplinaire (les réorientations sont traitées au fur et à mesure de leur réception) 
 -L’équipe pluridisciplinaire valide, sur délégation du Président du Conseil départemental, les réorientations vers les différents services référents.</li></ul></p>
 <p><b>Règles sur WebRSA&nbsp;</b> : 
 <ul><li>Les demandes de réorientations sont saisies sur WebRSA pour les inscrire à l’ordre du jour </li>

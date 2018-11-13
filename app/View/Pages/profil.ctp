@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -92,7 +92,7 @@ Les items des menus sont différents en fonction des habilitations.<br/>
 Les items du menu "Recherches" sont identiques pour tous les profils.
 </p>
 
-<ol><li><a name="resp">Profil du/de la responsable du projet de ville</a></li></ol>
+<ol><li><a name="resp">Profil du/de la responsable du projet insertion emploi</a></li></ol>
 <img src="/didac/images/resp.jpg" alt="Profil responsable" width="528px" height="180px"/>
 <p>Le/la responsable est habilité(e) à  &nbsp;:</p>
 <ul>
@@ -127,7 +127,7 @@ Les items du menu "Recherches" sont identiques pour tous les profils.
 <li>Accéder au tableau de suivi des CER.</li>
 </ul>
 <ol start="4"><li><a name="cc">Le profil communautaire</a></li></ol>
-<p>Ce profil est attribué aux responsables "projet de ville communautaire". 
+<p>Ce profil est attribué aux responsables "projet insertion emploi communautaire". 
 Il a été conçu pour permettre le regroupement de plusieurs communes, tant dans les calculs statistiques des tableaux de bords que dans les requêtes issues des écrans de recherche.
 </p>
 <ul><li>Sur les écrans de recherche</li>
@@ -142,12 +142,12 @@ Dans le cas de plaine commune, La responsable peut visualiser l'activité des pr
 <ul><li>Une structure à partir de la liste déroulante </li>
 <li>Soit uniquement les projets de ville de Plaine Commune</li></ul>
 <img src="/didac/images/vpc.jpg" alt="Profil Communautaire" width="658px" height="325px"/>
-<p>Uniquement plaine commune, soit un projet de ville de plaine commune</p>
+<p>Uniquement plaine commune, soit un projet insertion emploi de plaine commune</p>
 <img src="/didac/images/uvpc.jpg" alt="Profil Communautaire" width="658px" height="117px"/>
 <p>La liste des référents est toujours interdépendante des projets de ville qui y sont rattachés.<br><b>Sur tous les tableaux de bords</b>
 Par défaut, c'est le tableau communautaire qui est sélectionné :</p>
 <img src="/didac/images/tabcom.jpg" alt="Profil Communautaire" width="658px" height="154px"/>
-<p>La liste déroulante "Projet de ville" permet de sélectionner l'activité de chaque projet de ville indépendamment :</p>
+<p>La liste déroulante "Projet insertion emploi" permet de sélectionner l'activité de chaque projet insertion emploi indépendamment :</p>
 <img src="/didac/images/seltabcom.jpg" alt="Profil Communautaire" width="658px" height="137px"/>
 <p class="nb">Les résultats du tableau communautaire prennent en compte les personnes ayant déménagés au sein de plaine commune.</p>
 <p>Les tableaux offrent également la possibilité de filtrer sur plusieurs communes en cochant la case "Filtrer par plusieurs projets de ville".</p>

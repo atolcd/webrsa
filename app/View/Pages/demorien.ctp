@@ -62,7 +62,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -81,7 +81,7 @@
 	<a style="text-align:left;" href="javascript:history.back()">&lsaquo;&lsaquo;&nbsp;Page précédente</a>&nbsp;
 	<a style="text-align:right;padding-right:15px;float:right;" href="javascript:history.forward(+1)">Page suivante&nbsp;&rsaquo;&rsaquo;</a>
 		<h2>La demande de réorientation</h2>
-<p>A la suite des concertations locales ou autres concertations, le chef de projet de ville ainsi que les chargés d'insertion qui y sont habilités peuvent enregistrer les demandes de réorientation. Une demande de réorientation se fait dans la partie <b>&quot;Orientation&quot;</b> du dossier du bénéficiaire.<br/>Effectuer une recherche par dossier puis cliquer sur le lien &quot;<u>Voir</u>&quot;.</p>		
+<p>A la suite des concertations locales ou autres concertations, le chef de projet insertion emploi ainsi que les chargés d'insertion qui y sont habilités peuvent enregistrer les demandes de réorientation. Une demande de réorientation se fait dans la partie <b>&quot;Orientation&quot;</b> du dossier du bénéficiaire.<br/>Effectuer une recherche par dossier puis cliquer sur le lien &quot;<u>Voir</u>&quot;.</p>		
 <img src="/didac/images/vor.jpg" alt="Accéder à la demande de réorientation" width="605px" height="264px" />
 <p>Depuis le dossier du bénéficiaire, cliquer sur le lien <u>Orientation</u> dans la rubrique du <u>droit</u>. </p>
 <p>Cliquer sur le bouton &quot;Demander une réorientation&quot;&nbsp;<img class="bimg" src="/didac/images/bdor.jpg" alt="Le bouton Demander une réorientation" width="214px" height="36px" />&nbsp; </p>
@@ -101,7 +101,7 @@
 <p>Observez que le bouton de demande de réorientation est désactivé et que l'Etat de la demande a un statut &quot;En attente&quot; (avant passage en EP).<br/>Il est possible de recevoir un bénéficiaire non orienté en entretien, en créant votre rendez-vous, sélectionner votre structure ainsi que le nom du référent&nbsp;; il est important ensuite d'appliquer la procédure de demande d'orientation ou de réorientation puisque  &nbsp;:</p>
 <ul>
 <li>Pour les personnes qui ne sont pas orientées, remplir « structure référente » dans l’orientation ne constitue pas une orientation de la personne.</li>
-<li>Pour les personnes qui sont orientées sur un autre référent (comme ci-dessous), le fait de sélectionner le PDV ne modifie pas l’orientation.</li>
+<li>Pour les personnes qui sont orientées sur un autre référent (comme ci-dessous), le fait de sélectionner le PIE ne modifie pas l’orientation.</li>
 </ul>
 <p>Les demandes de réorientation concernent les bénéficiaires du RSA qui ont été orientés. Pour les demandes d'orientation des bénéficiaires non orientés ou pour les demandes de réorientations dans le cas des orientations initiales inappropriées, référez vous aux <a title="Les procédures métiers" href="cpnvorient">procédures métiers</a>.</p>
 <br/>

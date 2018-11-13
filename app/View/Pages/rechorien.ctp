@@ -62,7 +62,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -96,7 +96,7 @@
 <img style="position:relative;float:right;right:192px;top:-158px;" src="/didac/images/rechori.jpg" alt="Les recherches par Orientation" width="171px" height="267px" />
 <div style="margin-top:85px;"></div>
 <ol start="3"><li style="margin-top:25px;"><a name="orientation">La recherche par orientation</a></li></ol>
-<p>La recherche par orientation vous permet de consulter la liste des bénéficiaires orientés dans votre projet de ville.<br/>Le formulaire de recherche propose les critères de recherches communs  &nbsp;: recherche par dossier, par prestation, par état du dossier, par date de demande RSA et d’autres critères de recherche spécifiques à l’orientation.<br/><u>Recherche par date de l'orientation</u></p>
+<p>La recherche par orientation vous permet de consulter la liste des bénéficiaires orientés dans votre projet insertion emploi.<br/>Le formulaire de recherche propose les critères de recherches communs  &nbsp;: recherche par dossier, par prestation, par état du dossier, par date de demande RSA et d’autres critères de recherche spécifiques à l’orientation.<br/><u>Recherche par date de l'orientation</u></p>
 <img src="/didac/images/rpo.jpg" alt="Recherche par orientation" width="605px" height="123px" />
 <p><u>Recherche par origine de l’orientation</u></p>
 <img src="/didac/images/roo.jpg" alt="Recherche par orientation" width="690px" height="92px" />
@@ -107,7 +107,7 @@ Pour ceux dont la réorientation est "socioprofessionnelle", vous pouvez consult
 <p>Le lien vous amène directement sur la partie "<b><i>Orientation</i></b>" du dossier : Ce qui vous permet de visualiser l'historique des orientations.</p>
 <img src="/didac/images/dosor.jpg" alt="Recherche par orientation" width="605px" height="108px" />
 
-<p>Si vous sélectionnez &quot;<b><i>Transfert de PDV</i></b>&quot;, vous consulterez la liste des dossiers transférés depuis l'ancienne commune, vers votre commune (bénéficiaires ayant déménagés).</p>
+<p>Si vous sélectionnez &quot;<b><i>Transfert de PIE</i></b>&quot;, vous consulterez la liste des dossiers transférés depuis l'ancienne commune, vers votre commune (bénéficiaires ayant déménagés).</p>
 <img src="/didac/images/trans.jpg" alt="Recherche par orientation" width="605px" height="265px" />
 <p>Si vous souhaitez visualiser la commune d'où proviennent ces allocataires, il vous faut cliquer sur le lien "<u>Voir</u>" pour accéder au dossier puis vous rendre sur l'adresse dans les informations du foyer.<br/>
 La recherche sur les allocataires <b><i>réorientés</i></b> permet d'obtenir quelques informations utiles, comme la date de passage en EP de la réorientation ainsi que son statut. </p>

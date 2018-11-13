@@ -63,7 +63,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -128,7 +128,7 @@ Dans le cas où le conjoint sortant fait sa propre demande de RSA avec un nouvea
 <img src="/didac/images/dacer.jpg" alt="Historique du dossier : CER" width="604px" height="222px" />
 
 
-<p>Cette information est disponible sur toute l'activité du projet de ville et pour tout le parcours du Bénéficiaire :
+<p>Cette information est disponible sur toute l'activité du projet insertion emploi et pour tout le parcours du Bénéficiaire :
 <ul>
 <li>CER</li>
 <li>Orientations</li>

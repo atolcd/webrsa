@@ -62,7 +62,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -96,13 +96,13 @@
 <img style="position:relative;float:right;right:70px;top:-158px;" src="/didac/images/rechtran.jpg" alt="Les recherches" width="318px" height="261px" /><div style="margin-top:159px;"></div>
 <ol start="7"><li style="margin-top:25px;"><a name="alls">La recherche par allocataires sortants</a></li></ol>
 <p>La recherche ‘Par Allocataire sortants’ vous permet de consulter la liste des bénéficiaires qui ont déménagé dans une autre commune. 
-Ce sont les allocataires <b><i>sortants</i></b>de la (ou des) commune(s) couverte(s) par votre projet de ville.<br/>Les dossiers sortants ne sont plus modifiables par votre PDV, vous avez cependant la possibilité de les consulter jusqu’au 31 mars de l’année n+1. 
-Le dossier est modifiable par le PDV vers lequel le dossier a été transféré.</p>
+Ce sont les allocataires <b><i>sortants</i></b>de la (ou des) commune(s) couverte(s) par votre projet insertion emploi.<br/>Les dossiers sortants ne sont plus modifiables par votre PIE, vous avez cependant la possibilité de les consulter jusqu’au 31 mars de l’année n+1.
+Le dossier est modifiable par le PIE vers lequel le dossier a été transféré.</p>
 
 <ol type="A"><li><u>Allocataires sortants intra-département</u></li>
 
 
-<p>Le menu Recherches-> Par Allocataires sortants / Intra-département vous permet de rechercher et consulter les allocataires <b><i>sortants</i></b> de votre Projet de ville.</p>
+<p>Le menu Recherches-> Par Allocataires sortants / Intra-département vous permet de rechercher et consulter les allocataires <b><i>sortants</i></b> de votre projet insertion emploi.</p>
 <img src="/didac/images/rechalls.jpg" alt="Recherche par allocataires transférés" width="318px" height="261px" />
 <p><u>La recherche spécifique</u>&nbsp;: <br/>Le formulaire de recherche "Par allocataires sortants" vous propose les critères de recherches communs  &nbsp;: recherche par dossier, par prestation, par état du dossier, par date de demande RSA, par adresse… et d’autres critères de recherche spécifique aux transferts de dossiers.</p>
 <img src="/didac/images/rechallscri.jpg" alt="Recherche par allocataires transférés" width="605px" height="117px" /><br/>
@@ -110,7 +110,7 @@ Le dossier est modifiable par le PDV vers lequel le dossier a été transféré.
 <u>Par type d'orientation</u><br/>
 <img src="/didac/images/rechallsori.jpg" alt="Recherche par allocataires transférés" width="605px" height="75px" />
 <p>Ce filtre permet de visualiser les bénéficiaires sortants par type d’orientation.<br/>
-<u>Résultat </u> &nbsp;: dans cet exemple, nous visualisons la liste des bénéficiaires sortants du PDV et dont l’orientation est socio-professionnelle.<br/>
+<u>Résultat </u> &nbsp;: dans cet exemple, nous visualisons la liste des bénéficiaires sortants du PIE et dont l’orientation est socio-professionnelle.<br/>
 <img src="/didac/images/resallsori.jpg" alt="Recherche par allocataires transférés" width="605px" height="179px" /><br/>
 <p><u>Selon la structure référente cible</u></p><p>La structure cible est la structure vers laquelle le dossier RSA a été transféré suite au déménagement du bénéficiaire.
 <img src="/didac/images/rechallst.jpg" alt="Recherche par allocataires transférés" width="605px" height="87px" /><br/>

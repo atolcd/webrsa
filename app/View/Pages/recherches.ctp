@@ -62,7 +62,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -103,7 +103,7 @@
 <p>Tous les écrans de recherche permettent dorénavant d'obtenir le nombre de résultats sur vos requêtes.</p>
 
 
-<p>Le filtre par "structure du parcours" renvoie toutes les personnes pour lesquelles il y a un référent affecté<br/> au dossier&nbsp; :&nbsp; Ce qui correspond au référent qui suit l’allocataire au projet de ville.</p>
+<p>Le filtre par "structure du parcours" renvoie toutes les personnes pour lesquelles il y a un référent affecté<br/> au dossier&nbsp; :&nbsp; Ce qui correspond au référent qui suit l’allocataire au projet insertion emploi.</p>
 <p>Ces informations sont visibles sur la synthèse du dossier :</p>
 <img src="/didac/images/rechsyn.jpg" alt="Synthèse du dossier" width="650px" height="361px" />
 
@@ -114,8 +114,8 @@
 <img src="/didac/images/rechpar.jpg" alt="Recherche par dossier allocataire" width="690px" height="115px" />
 <p>Les listes sont interdépendantes : Le choix de la structure du parcours conditionne les noms de la liste de référents sur la liste suivante :</p>
 <img src="/didac/images/rechparl.jpg" alt="Recherche par dossier allocataire" width="690px" height="122px" />
-<p>Par exemple, si vous sélectionnez le projet de ville comme structure du parcours, ce sont les noms des référents du projet de ville qui vont apparaître dans la liste.
-Le résultat obtenu sera l'ensemble des allocataires suivis par le référent du projet de ville quelque soit l'orientation.
+<p>Par exemple, si vous sélectionnez le projet insertion emploi comme structure du parcours, ce sont les noms des référents du projet insertion emploi qui vont apparaître dans la liste.
+Le résultat obtenu sera l'ensemble des allocataires suivis par le référent du projet insertion emploi quelque soit l'orientation.
 </p>
 <p>Ce filtre permet donc au référent de consulter tout leur suivi et d'obtenir le nombre de dossiers à leur actif, en cochant la case " Obtenir le nombre total de résultats ".</p>
 <img src="/didac/images/ercompt.jpg" alt="Recherche par suivi" width="372px" height="66px" />

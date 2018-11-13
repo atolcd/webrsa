@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -114,7 +114,7 @@ Dérouler les listes pour avoir les options des filtres.</p>
 <img src="/didac/images/reforient.jpg" alt="Formulaire d'affectation" width="605px" height="66px" />
 <p>Filtrer sur la commune (par adresse) </p>
 <img src="/didac/images/refcom.jpg" alt="Formulaire d'affectation" width="605px" height="71px" />
-<p>La commune présente dans le filtre est celle de votre Projet de ville.</p>
+<p>La commune présente dans le filtre est celle de votre Projet Insertion Emploi.</p>
 <p>Filtrer par dossier </p>
 <img src="/didac/images/refdoss.jpg" alt="Formulaire d'affectation" width="605px" height="118px" />
 <p>Les options d'état du dossier </p>

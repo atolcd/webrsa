@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -99,7 +99,7 @@
 <!-- Explications de Sharmila -->
 <h3>Champs à remplir dans webRSA <br/> pour renseigner le tableau de bord B3</h3>
 <p class="nb" style="text-align:center;"><b>B3 : Problématiques des bénéficiaires de l'opération</b></p>
-<p><b>Pré-requis :</b> L’allocataire doit avoir un RDV qui est <u>individuel</u>&nbsp;<u>honoré</u>&nbsp;<u>dans l’année avec un PDV</u> .</p>
+<p><b>Pré-requis :</b> L’allocataire doit avoir un RDV qui est <u>individuel</u>&nbsp;<u>honoré</u>&nbsp;<u>dans l’année avec un PIE</u> .</p>
 <img src="/didac/images/b3rdv.jpg" alt="Rdv B3" width="681px" height="391px" />
 
 <p><b>Renseigner dans la DSP les écrans suivants&nbsp;</b>:</p>

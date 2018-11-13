@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -95,7 +95,7 @@
 	<li>Identifiant&nbsp;: 1ère lettre du prénom puis nom de famille en minuscule &nbsp;:pnomdefamille.</li>
 	<li>Mot de passe&nbsp;: Le formateur vous communiquera le mot de passe, en principe &nbsp;: pnomdefamille93* (1ère lettre du prénom puis nom de famille en minuscule93*).</li>
 	</ul>
-<p>En <a href="https://rsa.cg93.fr" target="_blank">https://rsa.cg93.fr</a>&nbsp;(accès externe au Conseil Général).
+<p>En <a href="https://rsa.cg93.fr" target="_blank">https://rsa.cg93.fr</a>&nbsp;(accès externe au Conseil Départemental).
 Se connecter avec votre identifiant et votre mot de passe qui vous seront communiqués par le formateur lors des journées d’accompagnement.</p>
 <img src="/didac/images/connexion.jpg" alt="connexion" width="605px" height="192px"/>
 <ol start="2"><li><a name="pswd">Modification du mot de passe</a></li>
@@ -109,7 +109,7 @@ Pour modifier votre mot de passe, cliquer sur le lien de votre nom utilisateur e
 <img src="/didac/images/chgpswd.jpg" alt="Modifier votre mot de passe" width="600px" height="123px"/>
 <div class="nb"><b><u>NB</u></b>&nbsp;: Le format du mot de passe doit comporter 8 caractères minimum et doit être 	composé de lettres, au moins 2 chiffres et un caractère spécial.</div>
 <p>Une fois connecté, certains champs sont réservés à l'identification. 
-Les informations affichées sont propres au profil de l'utilisateur. Il existe trois profils utilisateurs &nbsp;: Chef de projet de ville, Secrétaire et Chargé d’insertion.
+Les informations affichées sont propres au profil de l'utilisateur. Il existe trois profils utilisateurs &nbsp;: Chef de Projet Insertion Emploi, Secrétaire et Chargé d’insertion.
 </p>
 <img src="/didac/images/infos.jpg" alt="Vos informations utilisateur" width="600px" height="78px"/>
 <img src="/didac/images/logout.jpg" alt="Se déconnecter" width="605px" height="108px"/><br/>

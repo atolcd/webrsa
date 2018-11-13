@@ -63,7 +63,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -93,7 +93,7 @@
 <li>Une résolution d'écran minimale de 1280 par 1024 pixels est préconisée</li>
 </ul>
 <p><b><u>Assistance WebRSA&nbsp; :</u></b></p>
-<p><b>Comment contacter l’assistance (Centre de Services) du Conseil Général
+<p><b>Comment contacter l’assistance (Centre de Services) du Conseil Départemental
 de la Seine-Saint-Denis ?</b></p>
 <img src="/didac/images/prequis.jpg" alt="Pré-requis" width="155px" height="168px" />
 <div style="float:right; position:relative;left:-55px;">
@@ -110,11 +110,11 @@ de la Seine-Saint-Denis ?</b></p>
 avec le logiciel de gestion des demandes et des incidents. Le Centre de
 Service s’engage à prendre en compte la demande dans un délai de quatre
 heures maximum.</li>
-<li>Un mail d’information est envoyé au référent du Projet de Ville RSA : ce mail
+<li>Un mail d’information est envoyé au référent du Projet Insertion Emploi RSA : ce mail
 contient entre autre, un numéro de ticket unique associé à la déclaration et une
 description de l’incident.</li>
 <li>L’incident est transmis par le Centre de Services au service compétent du
-Conseil général de la Seine-Saint-Denis.</li>
+Conseil départemental de la Seine-Saint-Denis.</li>
 <li>Une fois l’incident résolu, un mail de résolution est envoyé au référent du Projet
 de Ville RSA, ce mail contient un descriptif des actions menées pour arriver à
 la résolution de l’incident.</li>

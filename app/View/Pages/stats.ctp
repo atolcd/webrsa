@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -92,7 +92,7 @@
 <a href="imprimstats">Imprimer les tableaux de bords</a><br/>
 </div>
 <p>Le menu &quot;Tableaux de bord&quot; vous permet de suivre les statistiques de l'activité de votre structure.</p>		
-<ul><li>Mise à disposition des tableaux de bord du bilan d’activité du PDV (annexe 3), à l’exception des tableaux B1 et B2  « bilans et objectifs semestriels et annuels » et B7 « nombre d’accès à l’emploi des personnes maintenues dans l’accompagnement du PDV RSA ».</li></ul>
+<ul><li>Mise à disposition des tableaux de bord du bilan d’activité du PIE (annexe 3), à l’exception des tableaux B1 et B2  « bilans et objectifs semestriels et annuels » et B7 « nombre d’accès à l’emploi des personnes maintenues dans l’accompagnement du PIE RSA ».</li></ul>
 
 <p>Le schéma ci-dessous récapitule quelles sont les actions liées à votre activité qui alimentent vos tableaux statistiques.</p>
 <img src="/didac/images/sstat.jpg" alt="Schéma des champs d'alimentation des tableaux de bords " width="667px" height="689px" />

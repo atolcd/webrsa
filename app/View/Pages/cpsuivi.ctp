@@ -62,7 +62,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -84,17 +84,17 @@
 		<h2>Votre suivi</h2>
 	<p><i>Cas pratique : Comment retrouver son portefeuille de suivi?</i></p>	
 	<p>Tous les écrans de recherche vous permettent à présent de consulter vos suivis quelque soit l'orientation faite par le CG :</p>	
-	<p>Dans la liste déroulante "Structure du parcours", sélectionnez votre projet de ville. Sélectionnez ensuite votre nom (le nom du référent) dans la liste "Référent du parcours".</p>	
-	<p>Ces listes sont interdépendantes: Le choix de la structure conditionne la liste des référents.<br/>Pour que le résultat soit exact, il est impératif qu’il y ait un référent du projet de ville affecté au dossier.
+	<p>Dans la liste déroulante "Structure du parcours", sélectionnez votre projet insertion emploi. Sélectionnez ensuite votre nom (le nom du référent) dans la liste "Référent du parcours".</p>	
+	<p>Ces listes sont interdépendantes: Le choix de la structure conditionne la liste des référents.<br/>Pour que le résultat soit exact, il est impératif qu’il y ait un référent du projet insertion emploi affecté au dossier.
 <br/>Les dossiers sont comptabilisés dans le résultat uniquement si le référent de parcours est actif (pas de date de fin de désignation).</p>	
 	<img src="/didac/images/ersuipar.jpg" alt="Recherche par suivi" width="605px" height="107px" />
 	<p>En cochant la case "Obtenir le nombre total de résultats", vous pouvez obtenir le volume de votre suivi.</p>
 	<img src="/didac/images/ercompt.jpg" alt="Recherche par suivi" width="372px" height="66px" />
 	<p><u>Résultats</u>&nbsp;:</p>
 	<img src="/didac/images/resersui.jpg" alt="Recherche par suivi" width="605px" height="198px" />
-	<p>Par exemple, si vous sélectionnez le projet de ville comme structure du parcours, ce sont les noms des référents du projet de ville qui vont apparaître dans la liste.<br/>
-<b><i>Le résultat obtenu sera l'ensemble des allocataires suivis par le référent du projet de ville quelque soit l'orientation faite par le CG.</i></b></p>
-<p>En résumé, ce nouveau filtre vous permet de récupérer les allocataires que vous accompagnez&nbsp; :&nbsp;Ceux orientés projet de ville, ceux orientés emploi, ainsi que ceux orientés SSD. </p>
+	<p>Par exemple, si vous sélectionnez le projet insertion emploi comme structure du parcours, ce sont les noms des référents du projet insertion emploi qui vont apparaître dans la liste.<br/>
+<b><i>Le résultat obtenu sera l'ensemble des allocataires suivis par le référent du projet insertion emploi quelque soit l'orientation faite par le CG.</i></b></p>
+<p>En résumé, ce nouveau filtre vous permet de récupérer les allocataires que vous accompagnez&nbsp; :&nbsp;Ceux orientés projet insertion emploi, ceux orientés emploi, ainsi que ceux orientés SSD. </p>
 	</div>
 <div id="footer"><hr/><p>Crée par DEIAT/PSI</p></div>
 </div>

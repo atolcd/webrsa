@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -93,7 +93,7 @@
 <li>Un flux d’information régulier sur les données CAF et Pôle Emploi.</li>
 <li>Une dématérialisation du Contrat d’Engagement Réciproque et de sa validation.</li>
 <li>Une simplification des procédures et des délais, une fiabilisation des informations.</li>
-<li>Une vision globale du chef de projet de ville sur l’activité du service.</li>
+<li>Une vision globale du chef de projet insertion emploi sur l’activité du service.</li>
 </ul>
 <ol start="3"><li>Processus de gestion des dossiers des bénéficiaires du RSA</li></ol>
 <ol type="A" style="font-weight:normal;">
@@ -103,7 +103,7 @@
 <li>La structure référente utilise l’application WebRSA pour gérer le suivi:</li>
 </ol>
 <ol type="a" style="font-weight:normal;">
-<li>Le chef de projet de ville affecte à chaque chargé(e) d’insertion les dossiers des bénéficiaires</li>
+<li>Le chef de projet insertion emploi affecte à chaque chargé(e) d’insertion les dossiers des bénéficiaires</li>
 <li>Chaque chargé(e) d’Insertion gère son porte-feuille d’accompagnement. Chaque accompagnement doit être matérialisé par l’élaboration d’un CER</li>
 <li>Au sein d'un service référent, tous les CER doivent être validés par le responsable de la structure avant d'être envoyés via WebRSA au Service de l'Insertion et de la Solidarité</li>
 </ol>

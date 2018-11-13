@@ -61,7 +61,7 @@
 		<li><a title="Notices métier" href="notices">Notices métier</a></li>
 		<li><a title="Annexe 1: L'assistance Webrsa" href="assistance">L'Assistance</a></li>
 		<li><a title="Annexe 2: Les procédures métiers" href="procme">Procédures métier</a></li>
-		<li><a title="Annexe 3: Les éléments remplissant le TDB/PDV " href="ann3">Remplir le TDB&nbsp; /&nbsp; PDV</a></li>
+		<li><a title="Annexe 3: Les éléments remplissant le TDB/PIE " href="ann3">Remplir le TDB&nbsp; /&nbsp; PIE</a></li>
 		<li><a title="Annexe 4: Les listes métiers " href="ann4">Les listes métiers</a></li>
 		<li><a title="Annexe 5: Informations sur les doublons" href="ann5">Informations sur les doublons</a></li>
 		<li><a title="Annexe 6: L'enregistrement de la structure de parcours " href="ann6">La structure de parcours</a></li>
@@ -84,7 +84,7 @@
 <img src="/didac/images/menutabsui.jpg" alt="Accéder au tableau de suivi" width="534px" height="174px" />
 <p>Sur le formulaire de recherche, il est possible de filtrer la consultation des CER sur plusieurs critères  &nbsp;: par référent, statut du CER, nom de l’allocataire, date d’orientation, statut du dossier…)<br/>Une fois les filtres sélectionnés, cliquez sur le bouton &nbsp;<img class="bimg" src="/didac/images/bval.jpg" alt="Le lien signer le CER" width="98px" height="29px" /></p>
 <img src="/didac/images/formutabsui.jpg" alt="Accéder au tableau de suivi" width="605px" height="213px" />
-<p><u>Résultat de la recherche</u><br/><br/>Pour chaque CER, vous pouvez suivre l’état du CER notamment les étapes PDV et les étapes de validation du CG.</p>
+<p><u>Résultat de la recherche</u><br/><br/>Pour chaque CER, vous pouvez suivre l’état du CER notamment les étapes PIE et les étapes de validation du CG.</p>
 <img src="/didac/images/resutabsui.jpg" alt="Accéder au tableau de suivi" width="605px" height="279px" />
 <ul><li><b>Téléchargement des données</b></li></ul>
 <p>Il est ici possible de télécharger le tableau au format Excel.</p>
