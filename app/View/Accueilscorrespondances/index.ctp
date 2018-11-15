@@ -67,6 +67,9 @@
 			foreach ($referents as $referent) {
 				$value = 'value="'.$referent['Referent']['id'].'"';
 				$nom = $referent['Referent']['nom'].' '.$referent['Referent']['prenom'];
+				if (isset ($referent['Structurereferente']['lib_struc'])) {
+					$nom .= ' ('.$referent['Structurereferente']['lib_struc'].')';
+				}
 				$selected = $referent['Referent']['id'] == $user['User']['accueil_referent_id'] ? 'selected="selected"' : '';
 ?>
 							<option <?php echo ($value); ?> <?php echo ($selected); ?>><?php echo ($nom); ?></option>

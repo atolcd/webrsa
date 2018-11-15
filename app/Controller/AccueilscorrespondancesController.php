@@ -75,8 +75,17 @@
 				}
 
 				// Recherche des utilisateurs
-				$query = array ('recursive' => -1);
-				$query['conditions'] = array ();
+				$query = array (
+					'recursive' => -1,
+					'conditions' => array (
+						'User.date_deb_hab <= NOW()',
+						'User.date_fin_hab >= NOW()',
+					),
+					'order' => array (
+						'User.nom ASC',
+						'User.prenom ASC'
+					)
+				);
 
 				if (isset ($this->request->data['Search']['Correspondance'])) {
 					$conditions = $this->request->data['Search']['Correspondance'];
@@ -93,7 +102,26 @@
 				}
 
 				$users = $this->User->find ('all', $query);
-				$referents = $this->Referent->find ('all', array ('recursive' => -1));
+				$referents = $this->Referent->find (
+					'all',
+					array (
+						'recursive' => 0,
+						'contains' => array (
+							'Structurereferente'
+						),
+						'conditions' => array (
+							'Referent.actif' => 'O',
+							'OR' => array (
+								'Referent.datecloture' => '',
+								'Referent.datecloture >= NOW()',
+							)
+						),
+						'order' => array (
+							'Referent.nom ASC',
+							'Referent.prenom ASC'
+						)
+					)
+				);
 
 				$this->set(compact('users', 'referents'));
 			}
