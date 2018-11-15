@@ -3,11 +3,15 @@
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 	}
 ?>
-<h1><?php echo $this->pageTile = __m( 'Admin.Indicateurmensuel.General' ); ?></h1>
+<h1><?php echo $this->pageTile = __m( 'Admin.Indicateurmensuel.RDVCER' ); ?></h1>
 
 <?php
 	echo $this->Form->create( 'Indicateurmensuel', array( 'type' => 'post', 'class' => 'noprint', 'novalidate' => true ) );
 	echo $this->Form->input( 'Indicateurmensuel.annee', array( 'label' => __d( 'indicateurmensuel', 'Indicateurmensuel.annee' ), 'type' => 'select', 'options' => array_range( date( 'Y' ), date( 'Y' ) - 20 ) ) );
+	echo $this->Form->input( 'Indicateurmensuel.departement', array( 'label' => __d( 'indicateurmensuel', 'Indicateurmensuel.departement' ), 'type' => 'select', 'empty' => true, 'options' => $optionsDpt ) );
+	echo $this->Form->input( 'Indicateurmensuel.structuresreferentes', array( 'label' => __d( 'indicateurmensuel', 'Indicateurmensuel.structuresreferentes' ), 'empty' => true, 'type' => 'select', 'options' => $options ) );
+	echo $this->Form->input( 'Indicateurmensuel.communautessrs', array( 'label' => __d( 'indicateurmensuel', 'Indicateurmensuel.communautessrs' ), 'empty' => true, 'type' => 'select', 'options' => $optionsSrs ) );
+
 	echo $this->Form->submit( 'Calculer' );
 	echo $this->Form->end();
 ?>
@@ -22,19 +26,13 @@
 	if( !empty( $this->request->data ) && isset( $indicateurs ) ) {
 		$annee = Set::extract( $this->request->data, 'Indicateurmensuel.annee' );
 		$types = array(
-			'nbrDossiersInstruits'						=> array( 'type' => 'int', 'result' => 'sum' ),
-			'nbrDossiersRejetesCaf'						=> array( 'type' => 'int', 'result' => 'sum' ),
-			'nbrOuverturesDroits'						=> array( 'type' => 'int', 'result' => 'sum' ),
-			'nbrAllocatairesDroitsEtDevoirs'			=> array( 'type' => 'int', 'result' => 'sum' ),
-			'nbrPreorientationsEmploi'					=> array( 'type' => 'int', 'result' => 'sum' ),
-			'nbrPreorientationsSocial'					=> array( 'type' => 'int', 'result' => 'sum' ),
-			'nbrPreorientationsSocioprofessionnelle'	=> array( 'type' => 'int', 'result' => 'sum' ),
-			'delaiOuvertureNotification'				=> array( 'type' => 'float', 'result' => 'avg' ),
-			'delaiNotificationSignature'				=> array( 'type' => 'float', 'result' => 'avg' ),
-			'montantsIndusConstates'					=> array( 'type' => 'int', 'result' => 'sum' ),
-			'montantsIndusTransferes'					=> array( 'type' => 'int', 'result' => 'sum' ),
-			'nbrCiNouveauxEntrantsCg'					=> array( 'type' => 'int', 'result' => 'sum' ),
-			'nbrSuspensionsDroits'						=> array( 'type' => 'int', 'result' => 'sum' ),
+			//nouveautés ticket 54177
+			'nbMoyJrsRdvIndivPrevuPIE' => array( 'type' => 'float', 'result' => 'avg' ),
+			'nbMoyJrsRdvIndivHonorePIE' => array( 'type' => 'float', 'result' => 'avg' ),
+			'nbMoyJrsRdvCollPrevuPIE' => array( 'type' => 'float', 'result' => 'avg' ),
+			'nbMoyJrsRdvCollHonorePIE' => array( 'type' => 'float', 'result' => 'avg' ),
+			'nbMoyJrsCerEtabliPIE' => array( 'type' => 'float', 'result' => 'avg' ),
+			'nbMoyJrsRdvIndivCerEtabliePIE' => array( 'type' => 'float', 'result' => 'avg' )
 		);
 
 		//**************************************************************************

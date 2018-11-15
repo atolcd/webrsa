@@ -39,6 +39,11 @@
 		 */
 		public $helpers = array(
 			'Search',
+			'Default',
+			'Default2',
+			'Default3' => array(
+				'className' => 'Default.DefaultDefault'
+			)
 		);
 
 		/**
@@ -81,6 +86,8 @@
 			'index' => 'read',
 			'nombre_allocataires' => 'read',
 			'orientations' => 'read',
+			'rdvcer' => 'read',
+			'rdvcervagues' => 'read'
 		);
 
 		/**
@@ -108,6 +115,107 @@
 			$this->render( 'index' );
 		}
 
+		/**
+		 * Indicateurs propres au 93
+		 */
+		public function rdvcer() {
+			$annee = Set::extract( $this->request->data, 'Indicateurmensuel.annee' );
+			$structureReferente =   Set::extract( $this->request->data, 'Indicateurmensuel.structuresreferentes' );
+			$communautesSrs =   Set::extract( $this->request->data, 'Indicateurmensuel.communautessrs' );
+			$commune =   Set::extract( $this->request->data, 'Indicateurmensuel.departement' );
+			if( !empty( $annee ) ) {
+				$indicateurs = $this->Indicateurmensuel->listeRdvCer( $annee, $structureReferente, $communautesSrs, $commune );
+				$this->set( compact( 'indicateurs' ) );
+			}
+
+			//liste des PDV
+			$StructRef = ClassRegistry::init( 'Structuresreferentes' );
+			$options	=   $StructRef->find('list', array(
+					'fields'=>array(
+					'Structuresreferentes.id',
+					'Structuresreferentes.lib_struc',
+				),
+				'conditions' => array( 'Structuresreferentes.typeorient_id' => '1' ),
+				'order' => array( 'Structuresreferentes.lib_struc ASC' )
+			));
+			$this->set( compact( 'options' ) );
+
+			//liste des EPT
+			$comSrs = ClassRegistry::init( 'Communautessrs' );
+				$optionsSrs	=   $comSrs->find('list', array(
+				'fields'=>array(
+					'Communautessrs.id',
+					'Communautessrs.name',
+				),
+				'order' => array( 'Communautessrs.name ASC' )
+			));
+			$this->set( compact( 'optionsSrs' ) );
+
+			//liste des communes
+			$communes = ClassRegistry::init( 'Zonesgeographiques' );
+			$optionsDpt	=   $communes->find('list', array(
+				'fields'=>array(
+					'Zonesgeographiques.codeinsee',
+					'Zonesgeographiques.libelle',
+				),
+				'order' => array( 'Zonesgeographiques.libelle ASC' )
+			));
+			$this->set( compact( 'optionsDpt' ) );
+
+			$this->render( 'rdvcer' );
+		}
+
+		/**
+		 * Indicateurs propres au 93
+		 */
+		public function rdvcervagues() {
+			$annee = Set::extract( $this->request->data, 'Indicateurmensuel.annee' );
+			$structureReferente =   Set::extract( $this->request->data, 'Indicateurmensuel.structuresreferentes' );
+			$communautesSrs =   Set::extract( $this->request->data, 'Indicateurmensuel.communautessrs' );
+			$commune =   Set::extract( $this->request->data, 'Indicateurmensuel.departement' );
+			if( !empty( $annee ) ) {
+				$vagues	=	$this->Indicateurmensuel->listeVagues( $annee);
+				$this->set( compact('vagues') );
+				$indicateurs = $this->Indicateurmensuel->listeRdvCerVagues( $annee, $structureReferente, $communautesSrs, $commune );
+				$this->set( compact( 'indicateurs' ) );
+			}
+
+			//liste des PDV
+			$StructRef = ClassRegistry::init( 'Structuresreferentes' );
+			$options	=   $StructRef->find('list', array(
+					'fields'=>array(
+					'Structuresreferentes.id',
+					'Structuresreferentes.lib_struc',
+				),
+				'conditions' => array( 'Structuresreferentes.typeorient_id' => '1' ),
+				'order' => array( 'Structuresreferentes.lib_struc ASC' )
+			));
+			$this->set( compact( 'options' ) );
+
+			//liste des EPT
+			$comSrs = ClassRegistry::init( 'Communautessrs' );
+				$optionsSrs	=   $comSrs->find('list', array(
+				'fields'=>array(
+					'Communautessrs.id',
+					'Communautessrs.name',
+				),
+				'order' => array( 'Communautessrs.name ASC' )
+			));
+			$this->set( compact( 'optionsSrs' ) );
+
+			//liste des communes
+			$communes = ClassRegistry::init( 'Zonesgeographiques' );
+			$optionsDpt	=   $communes->find('list', array(
+				'fields'=>array(
+					'Zonesgeographiques.codeinsee',
+					'Zonesgeographiques.libelle',
+				),
+				'order' => array( 'Zonesgeographiques.libelle ASC' )
+			));
+			$this->set( compact( 'optionsDpt' ) );
+
+			$this->render( 'rdvcervagues' );
+		}
 
 		/**
 		 * Indicateurs mensuels du CG 58

@@ -381,8 +381,10 @@
 					'Les CER' => array( 'url' => array( 'controller' => 'indicateursmensuels', 'action' => 'contratsinsertion' ) ),
 				)
 				: array(
-					'disabled' => ( $departement == 66 ),
-					'url' => array( 'controller' => 'indicateursmensuels', 'action' => 'index' ),
+				    'disabled' => ( $departement == 66 ),
+                    'Statistiques générales' => array( 'url' => array( 'controller' => 'indicateursmensuels', 'action' => 'index' ) ),
+                    'RDV & CER' => array( 'url' => array( 'controller' => 'indicateursmensuels', 'action' => 'rdvcer' ) ),
+                    'RDV & CER - Par vagues' => array( 'url' => array( 'controller' => 'indicateursmensuels', 'action' => 'rdvcervagues' ) ),
 				)
 			),
 			'Statistiques ministérielles' => array(
@@ -481,7 +483,11 @@
 			'Log trace' => array(
 				'disabled' => !Configure::read('Module.Logtrace.enabled'),
 				'url' => array('controller' => 'logtraces', 'action' => 'index'),
-			)
+			),
+			'Gestion des vagues' => array(
+				'disabled' => ( $departement != 93 ),
+				'url' => array( 'controller' => 'vagues93', 'action' => 'index' ),
+			),
 		),
 		'Déconnexion '.$this->Session->read( 'Auth.User.username' ) => array(
 			'url' => array( 'controller' => 'users', 'action' => 'logout' )

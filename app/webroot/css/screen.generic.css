@@ -834,7 +834,7 @@ p.actions a {
     z-index: 2;
 }
 
-.dynamic.innerTableHeader, .dynamic .innerTableCell {
+.dynamic.innerTableHeader, .dynamic .innerTableCell, .innerTableCell {
     position: absolute;
     top: 0;
     left: 0;
@@ -2505,8 +2505,29 @@ body.checks div#data tr.even td {
     background-color: #e6eef2;
 }
 
-.service__vie_du__parcours_d__insertion {color:#f78d1d;}/*Orange*/
-.service__suivi_et__controle_des__droits__r_s_a {color:#9419f3;}/*Violet*/
-.service__acces_aux__droits__r_s_a {color:#0b3efc;}/*Bleu*/
-.checkboxCanton {float:left;width:25%;font-size:0.95em;margin:0 0 5px 0;}
-.checkboxCanton label {width:90% !important;margin:-2px 0 0 2px;}
+/* Couleur pour les états dans les Tableaux  */
+.service__vie_du__parcours_d__insertion { /*Orange*/
+	color:#f78d1d;
+}
+.service__suivi_et__controle_des__droits__r_s_a { /*Violet*/
+	color:#9419f3;
+}
+.service__acces_aux__droits__r_s_a { /*Bleu*/
+	color:#0b3efc;
+}
+
+/* Choix du canton par Checkbox */
+.checkboxCanton {
+	float:left;width:25%;font-size:0.95em;margin:0 0 5px 0;
+}
+.checkboxCanton label {
+	width:90% !important;margin:-2px 0 0 2px;
+}
+
+.noResult {
+	border:1px solid #235F7D;
+	padding:10px;background:#E6EEF2;
+	text-align:center;
+	font-weight:bold;
+}
+

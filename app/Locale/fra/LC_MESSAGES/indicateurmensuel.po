@@ -191,3 +191,48 @@ msgstr "Nombre de cer réalisés"
 
 msgid "Indicateurmensuel.delai_moyen_signature_cer"
 msgstr "Délais moyen de signature du cer"
+
+msgid "Indicateurmensuel.nbMoyJrsRdvIndivPrevuPIE"
+msgstr "<b>Délai moyen</b> entre orientation socio-pro et 1er RDV individuel prévu"
+
+msgid "Indicateurmensuel.nbMoyJrsRdvIndivHonorePIE"
+msgstr "<b>Délai moyen</b> entre orientation socio-pro et 1er RDV individuel honoré"
+
+msgid "Indicateurmensuel.nbMoyJrsRdvCollPrevuPIE"
+msgstr "<b>Délai moyen</b> entre orientation socio-pro et 1er RDV collectif prévu"
+
+msgid "Indicateurmensuel.nbMoyJrsRdvCollHonorePIE"
+msgstr "<b>Délai moyen</b> entre orientation socio-pro et 1er RDV collectif honoré"
+
+msgid "Indicateurmensuel.nbMoyJrsRdvIndivNonHonorePIEVagues"
+msgstr "<b>Délai moyen</b> entre orientation socio-pro<br />et 1er RDV individuel non honoré / excusé / prévu"
+
+msgid "Indicateurmensuel.nbMoyJrsRdvIndivHonorePIEVagues"
+msgstr "<b>Délai moyen</b> entre orientation socio-pro<br />et 1er RDV individuel honoré"
+
+msgid "Indicateurmensuel.nbMoyJrsRdvCollectifNonHonorePIEVagues"
+msgstr "<b>Délai moyen</b> entre orientation socio-pro<br />et 1er RDV collectif non honoré / excusé / prévu"
+
+msgid "Indicateurmensuel.nbMoyJrsRdvCollectifHonorePIEVagues"
+msgstr "<b>Délai moyen</b> entre orientation socio-pro<br />et 1er RDV collectif honoré"
+
+msgid "Indicateurmensuel.nbMoyJrsCerEtabliPIE"
+msgstr "<b>Délai moyen</b> entre orientation socio-pro<br />et 1er CER établi"
+
+msgid "Indicateurmensuel.nbMoyJrsRdvIndivCerEtabliePIE"
+msgstr "<b>Délai moyen</b> entre 1er RDV individuel honoré<br />et 1er CER établi"
+
+msgid "Indicateurmensuel.structuresreferentes"
+msgstr "PDV"
+
+msgid "Indicateurmensuel.communautessrs"
+msgstr "EPT"
+
+msgid "Indicateurmensuel.departement"
+msgstr "Communes"
+
+msgid "Admin.Indicateurmensuel.General"
+msgstr "Indicateurs de suivis mensuels / Statistiques générales"
+
+msgid "Admin.Indicateurmensuel.RDVCER"
+msgstr "Indicateurs de suivis mensuels / RDV & CER"

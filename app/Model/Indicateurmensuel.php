@@ -25,6 +25,18 @@
 			'Conditionnable'
 		);
 
+		public $validate = array(
+			'lib_struc' => array(
+				'inList' => array(
+					'rule' => array('inList', array('','FLU', 'MAN')
+					)
+				)
+			),
+		);
+
+		public	$vagues	=	array();
+		private	$communes	=	'0';
+
 		/**
 		 *
 		 * @param string $sql
@@ -41,9 +53,9 @@
 		 * @return array
 		 */
 		protected function _nbrDossiersInstruits( $annee ) {
-			$sql = 'SELECT EXTRACT(MONTH FROM dossiers.dtdemrsa) AS mois, EXTRACT(YEAR FROM dossiers.dtdemrsa) AS annee, COUNT(dossiers.*) AS indicateur
+			$sql = 'SELECT EXTRACT(MONTH FROM dossiers.dtdemrsa) AS mois, EXTRACT(YEAR FROM dossiers.dtdemrsa) AS annee, COUNT(dossiers.id) AS indicateur
 						FROM dossiers
-						WHERE EXTRACT(YEAR FROM dossiers.dtdemrsa) = '.Sanitize::clean( $annee, array( 'encode' => false ) ).'
+						WHERE dossiers.dtdemrsa BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
 						GROUP BY annee, mois
 						ORDER BY annee, mois;';
 			return $this->_query( $sql );
@@ -55,11 +67,11 @@
 		 * @return array
 		 */
 		protected function _nbrDossiersRejetesCaf( $annee ) {
-			$sql = 'SELECT EXTRACT(MONTH FROM dossiers.dtdemrsa) AS mois, EXTRACT(YEAR FROM dossiers.dtdemrsa) AS annee, COUNT(dossiers.*) AS indicateur
+			$sql = 'SELECT EXTRACT(MONTH FROM dossiers.dtdemrsa) AS mois, EXTRACT(YEAR FROM dossiers.dtdemrsa) AS annee, COUNT(dossiers.id) AS indicateur
 						FROM dossiers
 							INNER JOIN situationsdossiersrsa ON situationsdossiersrsa.dossier_id = dossiers.id
 						WHERE situationsdossiersrsa.etatdosrsa = \'1\'
-							AND EXTRACT(YEAR FROM dossiers.dtdemrsa) = '.Sanitize::clean( $annee, array( 'encode' => false ) ).'
+							AND dossiers.dtdemrsa BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
 						GROUP BY annee, mois
 						ORDER BY annee, mois;';
 			return $this->_query( $sql );
@@ -71,11 +83,11 @@
 		 * @return array
 		 */
 		protected function _nbrOuverturesDroits( $annee ) {
-			$sql = 'SELECT EXTRACT(MONTH FROM dossiers.dtdemrsa) AS mois, EXTRACT(YEAR FROM dossiers.dtdemrsa) AS annee, COUNT(dossiers.*) AS indicateur
+			$sql = 'SELECT EXTRACT(MONTH FROM dossiers.dtdemrsa) AS mois, EXTRACT(YEAR FROM dossiers.dtdemrsa) AS annee, COUNT(dossiers.id) AS indicateur
 						FROM dossiers
 							INNER JOIN situationsdossiersrsa ON situationsdossiersrsa.dossier_id = dossiers.id
 						WHERE situationsdossiersrsa.etatdosrsa IN ( \'2\', \'3\', \'4\' )
-							AND EXTRACT(YEAR FROM dossiers.dtdemrsa) = '.Sanitize::clean( $annee, array( 'encode' => false ) ).'
+							AND dossiers.dtdemrsa BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
 						GROUP BY annee, mois
 						ORDER BY annee, mois;';
 			return $this->_query( $sql );
@@ -87,7 +99,7 @@
 		 * @return array
 		 */
 		protected function _nbrAllocatairesDroitsEtDevoirs( $annee ) {
-			$sql = 'SELECT EXTRACT(MONTH FROM dossiers.dtdemrsa) AS mois, EXTRACT(YEAR FROM dossiers.dtdemrsa) AS annee, COUNT(prestations.*) AS indicateur
+			$sql = 'SELECT EXTRACT(MONTH FROM dossiers.dtdemrsa) AS mois, EXTRACT(YEAR FROM dossiers.dtdemrsa) AS annee, COUNT(prestations.id) AS indicateur
 						FROM prestations
 							INNER JOIN personnes
 								ON  prestations.personne_id = personnes.id
@@ -100,7 +112,7 @@
 						WHERE calculsdroitsrsa.toppersdrodevorsa = \'1\'
 							AND prestations.natprest = \'RSA\'
 							AND prestations.rolepers IN ( \'DEM\', \'CJT\' )
-							AND EXTRACT(YEAR FROM dossiers.dtdemrsa) = '.Sanitize::clean( $annee, array( 'encode' => false ) ).'
+							AND dossiers.dtdemrsa BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
 						GROUP BY annee, mois
 						ORDER BY annee, mois;';
 			return $this->_query( $sql );
@@ -113,7 +125,7 @@
 		 * @return array
 		 */
 		protected function _nbrPreorientations( $annee, $type ) {
-			$sql = 'SELECT EXTRACT(MONTH FROM orientsstructs.date_propo) AS mois, EXTRACT(YEAR FROM orientsstructs.date_propo) AS annee, COUNT(orientsstructs.*) AS indicateur
+			$sql = 'SELECT EXTRACT(MONTH FROM orientsstructs.date_propo) AS mois, EXTRACT(YEAR FROM orientsstructs.date_propo) AS annee, COUNT(orientsstructs.id) AS indicateur
 						FROM orientsstructs
 						WHERE orientsstructs.statut_orient = \'Orienté\'
 							AND orientsstructs.propo_algo IN
@@ -121,7 +133,7 @@
 									FROM typesorients
 										WHERE typesorients.lib_type_orient = \''.$type.'\'
 								)
-							AND EXTRACT(YEAR FROM orientsstructs.date_propo) = '.Sanitize::clean( $annee, array( 'encode' => false ) ).'
+							AND orientsstructs.date_propo BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
 						GROUP BY annee, mois
 						ORDER BY annee, mois;';
 			return $this->_query( $sql );
@@ -141,7 +153,7 @@
 						WHERE orientsstructs.statut_orient = \'Orienté\'
 							AND orientsstructs.date_impression IS NOT NULL
 							AND dossiers.dtdemrsa IS NOT NULL
-							AND EXTRACT(YEAR FROM dossiers.dtdemrsa) = '.Sanitize::clean( $annee, array( 'encode' => false ) ).'
+							AND dossiers.dtdemrsa BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
 						GROUP BY annee, mois
 						ORDER BY annee, mois;';
 			return $this->_query( $sql );
@@ -156,7 +168,7 @@
 			$sql = 'SELECT EXTRACT(MONTH FROM orientsstructs.date_impression) AS mois, EXTRACT(YEAR FROM orientsstructs.date_impression) AS annee, AVG( ABS( contratsinsertion.date_saisi_ci - orientsstructs.date_impression ) ) AS indicateur
 						FROM orientsstructs
 							INNER JOIN contratsinsertion ON contratsinsertion.personne_id = orientsstructs.personne_id
-						WHERE EXTRACT(YEAR FROM orientsstructs.date_impression) = '.Sanitize::clean( $annee, array( 'encode' => false ) ).'
+						WHERE orientsstructs.date_impression BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
 							AND orientsstructs.date_impression IS NOT NULL
 							AND contratsinsertion.date_saisi_ci IS NOT NULL
 						GROUP BY annee, mois
@@ -173,7 +185,7 @@
 			$sql = 'SELECT EXTRACT(MONTH FROM infosfinancieres.moismoucompta) AS mois, EXTRACT(YEAR FROM infosfinancieres.moismoucompta) AS annee, SUM(infosfinancieres.mtmoucompta) AS indicateur
 						FROM infosfinancieres
 						WHERE infosfinancieres.type_allocation = \'IndusConstates\'
-							AND EXTRACT(YEAR FROM infosfinancieres.moismoucompta) = '.Sanitize::clean( $annee, array( 'encode' => false ) ).'
+							AND infosfinancieres.moismoucompta BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
 							AND infosfinancieres.moismoucompta IS NOT NULL
 						GROUP BY annee, mois
 						ORDER BY annee, mois;';
@@ -185,16 +197,16 @@
 		 * @param integer $annee
 		 * @return array
 		 */
-        protected function _montantsIndusTransferes( $annee ) {
-            $sql = 'SELECT EXTRACT(MONTH FROM infosfinancieres.moismoucompta) AS mois, EXTRACT(YEAR FROM infosfinancieres.moismoucompta) AS annee, SUM(infosfinancieres.mtmoucompta) AS indicateur
-                        FROM infosfinancieres
-                        WHERE infosfinancieres.type_allocation = \'IndusTransferesCG\'
-                            AND EXTRACT(YEAR FROM infosfinancieres.moismoucompta) = '.Sanitize::clean( $annee, array( 'encode' => false ) ).'
-                            AND infosfinancieres.moismoucompta IS NOT NULL
-                        GROUP BY annee, mois
-                        ORDER BY annee, mois;';
-            return $this->_query( $sql );
-        }
+		protected function _montantsIndusTransferes( $annee ) {
+			$sql = 'SELECT EXTRACT(MONTH FROM infosfinancieres.moismoucompta) AS mois, EXTRACT(YEAR FROM infosfinancieres.moismoucompta) AS annee, SUM(infosfinancieres.mtmoucompta) AS indicateur
+						FROM infosfinancieres
+						WHERE infosfinancieres.type_allocation = \'IndusTransferesCG\'
+							AND infosfinancieres.moismoucompta BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
+							AND infosfinancieres.moismoucompta IS NOT NULL
+						GROUP BY annee, mois
+						ORDER BY annee, mois;';
+			return $this->_query( $sql );
+		}
 
 		/**
 		 *
@@ -202,7 +214,7 @@
 		 * @return array
 		 */
 		protected function _nbrCiNouveauxEntrantsCg( $annee ) {
-			$sql = 'SELECT EXTRACT(MONTH FROM contratsinsertion.date_saisi_ci) AS mois, EXTRACT(YEAR FROM contratsinsertion.date_saisi_ci) AS annee, COUNT(contratsinsertion.*) AS indicateur
+			$sql = 'SELECT EXTRACT(MONTH FROM contratsinsertion.date_saisi_ci) AS mois, EXTRACT(YEAR FROM contratsinsertion.date_saisi_ci) AS annee, COUNT(contratsinsertion.id) AS indicateur
 						FROM contratsinsertion
 							INNER JOIN personnes ON personnes.id = contratsinsertion.personne_id
 							INNER JOIN foyers ON foyers.id = personnes.foyer_id
@@ -211,7 +223,7 @@
 							AND contratsinsertion.num_contrat = \'PRE\'
 							AND contratsinsertion.rg_ci = 1
 							AND contratsinsertion.date_saisi_ci IS NOT NULL
-							AND EXTRACT(YEAR FROM contratsinsertion.date_saisi_ci) = '.Sanitize::clean( $annee, array( 'encode' => false ) ).'
+							AND contratsinsertion.date_saisi_ci BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
 						GROUP BY annee, mois
 						ORDER BY annee, mois;';
 			return $this->_query( $sql );
@@ -223,10 +235,266 @@
 		 * @return array
 		 */
 		protected function _nbrSuspensionsDroits( $annee ) {
-			$sql = 'SELECT EXTRACT(MONTH FROM suspensionsdroits.ddsusdrorsa) AS mois, EXTRACT(YEAR FROM suspensionsdroits.ddsusdrorsa) AS annee, COUNT(suspensionsdroits.*) AS indicateur
+			$sql = 'SELECT EXTRACT(MONTH FROM suspensionsdroits.ddsusdrorsa) AS mois, EXTRACT(YEAR FROM suspensionsdroits.ddsusdrorsa) AS annee, COUNT(suspensionsdroits.id) AS indicateur
 						FROM suspensionsdroits
-						WHERE EXTRACT(YEAR FROM suspensionsdroits.ddsusdrorsa) = '.Sanitize::clean( $annee, array( 'encode' => false ) ).'
+						WHERE suspensionsdroits.ddsusdrorsa BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
 							AND suspensionsdroits.ddsusdrorsa IS NOT NULL
+						GROUP BY annee, mois
+						ORDER BY annee, mois;';
+			return $this->_query( $sql );
+		}
+
+		/**
+		 * Retourne le délai moyen ( en jour ) entre l'orientation socio-professionnelle et le 1er RDV individuel prévu par le PIE
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		protected function _nbMoyJrsRdvIndivPrevuPIE( $annee, $structureReferente='', $communautesSrs='', $commune='' ) {
+			$where  =   "";
+			if($structureReferente!='' && $structureReferente>0)
+				$where  .=   " AND orientsstructs.structurereferente_id='".$structureReferente."'";
+			if($communautesSrs!='' && $communautesSrs>0)
+				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
+			if($commune!='' && $commune>0)
+				$where  .=  $this->_addSearchCommune($commune);
+			$sql =	  'SELECT
+							EXTRACT(MONTH FROM orientsstructs.date_valid) AS mois,
+							EXTRACT(YEAR FROM orientsstructs.date_valid) AS annee,
+							AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur
+						FROM orientsstructs
+							INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
+							INNER JOIN foyers ON personnes.foyer_id = foyers.id
+							INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
+							LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
+							LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
+						WHERE
+							orientsstructs.typeorient_id=1
+							'.$where.'
+							AND orientsstructs.date_valid BETWEEN \''.$annee.'-01-01\' AND \''.($annee+1).'-12-31\'
+							AND rdv.daterdv>=orientsstructs.date_propo
+							AND rdv.statutrdv_id=2
+							AND rdv.typerdv_id=15
+							AND rdv.id IN (
+								SELECT id FROM rendezvous
+								WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
+								ORDER BY id
+								LIMIT 1
+							)
+						GROUP BY annee, mois
+						ORDER BY annee, mois;';
+			return $this->_query( $sql );
+		}
+
+		/**
+		 * Retourne le délai moyen ( en jour ) entre l'orientation socio-professionnelle et le 1er RDV individuel honoré par le PIE
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		protected function _nbMoyJrsRdvIndivHonorePIE( $annee, $structureReferente='', $communautesSrs='', $commune='' ) {
+			$where  =   "";
+			if($structureReferente!='' && $structureReferente>0)
+				$where  .=   " AND orientsstructs.structurereferente_id='".$structureReferente."'";
+			if($communautesSrs!='' && $communautesSrs>0)
+				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
+			if($commune!='' && $commune>0)
+				$where  .=  $this->_addSearchCommune($commune);
+			$sql =	  'SELECT
+							EXTRACT(MONTH FROM orientsstructs.date_valid) AS mois,
+							EXTRACT(YEAR FROM orientsstructs.date_valid) AS annee,
+							AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur
+						FROM orientsstructs
+							INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
+							INNER JOIN foyers ON personnes.foyer_id = foyers.id
+							INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
+							LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
+							LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
+						WHERE
+							orientsstructs.typeorient_id=1
+							'.$where.'
+							AND orientsstructs.date_valid BETWEEN \''.$annee.'-01-01\' AND \''.($annee+1).'-12-31\'
+							AND rdv.daterdv>=orientsstructs.date_propo
+							AND rdv.statutrdv_id=1
+							AND rdv.typerdv_id=15
+							AND rdv.id IN (
+								SELECT id FROM rendezvous
+								WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
+								ORDER BY id
+								LIMIT 1
+							)
+						GROUP BY annee, mois
+						ORDER BY annee, mois;';
+			return $this->_query( $sql );
+		}
+
+		/**
+		 * Retourne le délai moyen ( en jour ) entre l'orientation socio-professionnelle et le 1er RDV collectif prévu par le PIE
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		protected function _nbMoyJrsRdvCollPrevuPIE( $annee, $structureReferente='', $communautesSrs='', $commune='' ) {
+			$where  =   "";
+			if($structureReferente!='' && $structureReferente>0)
+				$where  .=   " AND orientsstructs.structurereferente_id='".$structureReferente."'";
+			if($communautesSrs!='' && $communautesSrs>0)
+				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
+			if($commune!='' && $commune>0)
+				$where  .=  $this->_addSearchCommune($commune);
+			$sql =	  'SELECT
+							EXTRACT(MONTH FROM orientsstructs.date_valid) AS mois,
+							EXTRACT(YEAR FROM orientsstructs.date_valid) AS annee,
+							AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur
+						FROM orientsstructs
+							INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
+							INNER JOIN foyers ON personnes.foyer_id = foyers.id
+							INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
+							LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
+							LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
+						WHERE
+							orientsstructs.typeorient_id=1
+							'.$where.'
+							AND orientsstructs.date_valid BETWEEN \''.$annee.'-01-01\' AND \''.($annee+1).'-12-31\'
+							AND rdv.daterdv>=orientsstructs.date_propo
+							AND rdv.statutrdv_id=2
+							AND rdv.typerdv_id=14
+							AND rdv.id IN (
+								SELECT id FROM rendezvous
+								WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
+								ORDER BY id
+								LIMIT 1
+							)
+						GROUP BY annee, mois
+						ORDER BY annee, mois;';
+			return $this->_query( $sql );
+		}
+
+		/**
+		 * Retourne le délai moyen ( en jour ) entre l'orientation socio-professionnelle et le 1er RDV collectif honoré par le PIE
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		protected function _nbMoyJrsRdvCollHonorePIE( $annee, $structureReferente='', $communautesSrs='', $commune='' ) {
+			$where  =   "";
+			if($structureReferente!='' && $structureReferente>0)
+				$where  .=   " AND orientsstructs.structurereferente_id='".$structureReferente."'";
+			if($communautesSrs!='' && $communautesSrs>0)
+				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
+			if($commune!='' && $commune>0)
+				$where  .=  $this->_addSearchCommune($commune);
+			$sql =	  'SELECT
+							EXTRACT(MONTH FROM orientsstructs.date_valid) AS mois,
+							EXTRACT(YEAR FROM orientsstructs.date_valid) AS annee,
+							AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur
+						FROM orientsstructs
+							INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
+							INNER JOIN foyers ON personnes.foyer_id = foyers.id
+							INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
+							LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
+							LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
+						WHERE
+							orientsstructs.typeorient_id=1
+							'.$where.'
+							AND orientsstructs.date_valid BETWEEN \''.$annee.'-01-01\' AND \''.($annee+1).'-12-31\'
+							AND rdv.daterdv>=orientsstructs.date_propo
+							AND rdv.statutrdv_id=1
+							AND rdv.typerdv_id=14
+							AND rdv.id IN (
+								SELECT id FROM rendezvous
+								WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
+								ORDER BY id
+								LIMIT 1
+							)
+						GROUP BY annee, mois
+						ORDER BY annee, mois;';
+			return $this->_query( $sql );
+		}
+
+		/**
+		 * Retourne le délai moyen ( en jour ) entre l'orientation socio-professionnelle et le 1er CER établi par le PIE
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		protected function _nbMoyJrsCerEtabliPIE( $annee, $structureReferente='', $communautesSrs='', $commune='' ) {
+			$where  =   "";
+			if($structureReferente!='' && $structureReferente>0)
+				$where  .=   " AND orientsstructs.structurereferente_id='".$structureReferente."'";
+			if($communautesSrs!='' && $communautesSrs>0)
+				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
+			if($commune!='' && $commune>0)
+				$where  .=  $this->_addSearchCommune($commune);
+			$sql =	  'SELECT
+							EXTRACT(MONTH FROM orientsstructs.date_valid) AS mois,
+							EXTRACT(YEAR FROM orientsstructs.date_valid) AS annee,
+							AVG( ABS(cer.dd_ci - orientsstructs.date_valid ) ) AS indicateur
+						FROM orientsstructs
+							INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
+							INNER JOIN foyers ON personnes.foyer_id = foyers.id
+							INNER JOIN contratsinsertion cer ON cer.personne_id=personnes.id
+							LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
+							LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
+						WHERE
+							orientsstructs.typeorient_id=1
+							'.$where.'
+							AND orientsstructs.date_valid BETWEEN \''.$annee.'-01-01\' AND \''.($annee+1).'-12-31\'
+							AND cer.dd_ci>=orientsstructs.date_propo
+							AND cer.id IN (
+								SELECT id FROM contratsinsertion
+								WHERE personne_id=personnes.id AND dd_ci>=orientsstructs.date_valid
+								ORDER BY id
+								LIMIT 1
+							)
+						GROUP BY annee, mois
+						ORDER BY annee, mois;';
+			return $this->_query( $sql );
+		}
+
+		/**
+		 * Retourne le délai moyen ( en jour ) entre le 1er RDV individuel honoré PIE et le 1er CER établi par le PIE
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		protected function _nbMoyJrsRdvIndivCerEtabliePIE( $annee, $structureReferente='', $communautesSrs='', $commune='' ) {
+			$where  =   "";
+			if($structureReferente!='' && $structureReferente>0)
+				$where  .=   " AND orientsstructs.structurereferente_id='".$structureReferente."'";
+			if($communautesSrs!='' && $communautesSrs>0)
+				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
+			if($commune!='' && $commune>0)
+				$where  .=  $this->_addSearchCommune($commune);
+
+			$sql =	  'SELECT
+							EXTRACT(MONTH FROM cer.dd_ci) AS mois,
+							EXTRACT(YEAR FROM cer.dd_ci) AS annee,
+							AVG( ABS(cer.dd_ci - rdv.daterdv ) ) AS indicateur
+						FROM rendezvous rdv
+							INNER JOIN personnes ON rdv.personne_id = personnes.id
+							INNER JOIN foyers ON personnes.foyer_id = foyers.id
+							INNER JOIN contratsinsertion cer ON cer.personne_id=personnes.id
+							INNER JOIN orientsstructs ON orientsstructs.personne_id = personnes.id
+							LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
+							LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
+						WHERE
+							rdv.daterdv BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
+							'.$where.'
+							AND cer.dd_ci>=rdv.daterdv
+							AND rdv.id IN (
+								SELECT id FROM rendezvous
+								WHERE personne_id=personnes.id AND rdv.daterdv BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
+								ORDER BY id
+								LIMIT 1
+							)
+							AND cer.id IN (
+								SELECT id FROM contratsinsertion
+								WHERE personne_id=personnes.id AND cer.dd_ci BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
+								ORDER BY id
+								LIMIT 1
+							)
+							AND rdv.daterdv BETWEEN \''.$annee.'-01-01\' AND \''.($annee+1).'-12-31\'
 						GROUP BY annee, mois
 						ORDER BY annee, mois;';
 			return $this->_query( $sql );
@@ -238,6 +506,7 @@
 		 * @return array
 		 */
 		public function liste( $annee ) {
+			$annee  =   Sanitize::clean( $annee, array( 'encode' => false ) );
 			$results['nbrDossiersInstruits'] = $this->_nbrDossiersInstruits( $annee );
 			$results['nbrDossiersRejetesCaf'] = $this->_nbrDossiersRejetesCaf( $annee );
 			$results['nbrOuverturesDroits'] = $this->_nbrOuverturesDroits( $annee );
@@ -245,17 +514,101 @@
 			$results['nbrPreorientationsEmploi'] = $this->_nbrPreorientations( $annee, 'Emploi' );
 			$results['nbrPreorientationsSocial'] = $this->_nbrPreorientations( $annee, 'Social' );
 			$results['nbrPreorientationsSocioprofessionnelle'] = $this->_nbrPreorientations( $annee, 'Socioprofessionnelle' );
-
 			$results['delaiOuvertureNotification'] = $this->_delaiOuvertureNotification( $annee );
 			$results['delaiNotificationSignature'] = $this->_delaiNotificationSignature( $annee );
-
 			$results['montantsIndusConstates'] = $this->_montantsIndusConstates( $annee );
 			$results['montantsIndusTransferes'] = $this->_montantsIndusTransferes( $annee );
-
 			$results['nbrCiNouveauxEntrantsCg'] = $this->_nbrCiNouveauxEntrantsCg( $annee );
 			$results['nbrSuspensionsDroits'] = $this->_nbrSuspensionsDroits( $annee );
 
 			return $results;
+		}
+
+		/**
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		public function listeRdvCer( $annee, $structureReferente='', $communautesSrs='', $commune='' ) {
+			$annee  =   Sanitize::clean( $annee, array( 'encode' => false ) );
+			$results['nbMoyJrsRdvIndivPrevuPIE'] = $this->_nbMoyJrsRdvIndivPrevuPIE( $annee, $structureReferente, $communautesSrs, $commune );
+			$results['nbMoyJrsRdvIndivHonorePIE'] = $this->_nbMoyJrsRdvIndivHonorePIE($annee, $structureReferente, $communautesSrs, $commune);
+			$results['nbMoyJrsRdvCollPrevuPIE'] = $this->_nbMoyJrsRdvCollPrevuPIE($annee, $structureReferente, $communautesSrs, $commune);
+			$results['nbMoyJrsRdvCollHonorePIE'] = $this->_nbMoyJrsRdvCollHonorePIE($annee, $structureReferente, $communautesSrs, $commune);
+			$results['nbMoyJrsCerEtabliPIE'] = $this->_nbMoyJrsCerEtabliPIE($annee, $structureReferente, $communautesSrs, $commune);
+			$results['nbMoyJrsRdvIndivCerEtabliePIE'] = $this->_nbMoyJrsRdvIndivCerEtabliePIE($annee, $structureReferente, $communautesSrs, $commune);
+
+			return $results;
+		}
+
+		/**
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		public function listeRdvCerVagues( $annee, $structureReferente='', $communautesSrs='', $commune='' ) {
+			$annee  =   Sanitize::clean( $annee, array( 'encode' => false ) );
+			if($commune!='')
+				$this->setCommunes($commune);
+			$results['nbMoyJrsRdvIndivNonHonorePIEVagues'] = $this->_nbMoyJrsRdvIndivNonHonorePIEVagues( $annee, $structureReferente, $communautesSrs, $commune );
+			$results['nbMoyJrsRdvIndivHonorePIEVagues'] = $this->_nbMoyJrsRdvIndivHonorePIEVagues( $annee, $structureReferente, $communautesSrs, $commune );
+			$results['nbMoyJrsRdvCollectifNonHonorePIEVagues'] = $this->_nbMoyJrsRdvCollectifNonHonorePIEVagues( $annee, $structureReferente, $communautesSrs, $commune );
+			$results['nbMoyJrsRdvCollectifHonorePIEVagues'] = $this->_nbMoyJrsRdvCollectifHonorePIEVagues( $annee, $structureReferente, $communautesSrs, $commune );
+			$results['nbMoyJrsCerEtabliPIE'] = $this->_nbMoyJrsCerEtabliPIEVagues($annee, $structureReferente, $communautesSrs, $commune);
+			$results['nbMoyJrsRdvIndivCerEtabliePIE'] = $this->_nbMoyJrsRdvIndivCerEtabliePIEVagues($annee, $structureReferente, $communautesSrs, $commune);
+
+			return $results;
+		}
+
+		public function setCommunes($communes) {
+			$sql	=	'SELECT foyers2.id
+						FROM foyers as foyers2
+						INNER JOIN adressesfoyers as adressesfoyers2 ON adressesfoyers2.foyer_id=foyers2.id
+						INNER JOIN adresses as adresses2 ON adresses2.id=adressesfoyers2.adresse_id
+						WHERE adresses2.numcom=\''.$communes.'\'
+						GROUP BY foyers2.id';
+			$result	=	$this->query($sql);
+			foreach($result as $index=>$value) {
+				$this->communes	.=	', '.$value[0]["id"];
+			}
+		}
+
+		public function getCommunes() {
+			return $this->communes;
+		}
+
+		/**
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		public function listeVagues( $annee ) {
+			$sql 	=	'SELECT dateDebut, dateFin
+						FROM vagues93
+						WHERE dateDebut BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
+						ORDER BY dateDebut ASC';
+			$result	=	$this->query( $sql );
+
+			foreach($result as $index=>$value)
+				$this->vagues[($index+1)]	=	array('dateDebut'=>$value[0]["datedebut"], 'dateFin'=>$value[0]["datefin"]);
+
+			return $this->vagues;
+		}
+
+		/**
+		 *
+		 * @param integer $commune
+		 * @return string
+		 */
+		public function _addSearchCommune($commune) {
+			return  ' AND foyers.id IN (
+						SELECT foyers2.id
+						FROM foyers as foyers2
+						INNER JOIN adressesfoyers as adressesfoyers2 ON adressesfoyers2.foyer_id=foyers2.id
+						INNER JOIN adresses as adresses2 ON adresses2.id=adressesfoyers2.adresse_id
+						WHERE adresses2.numcom=\''.$commune.'\'
+						GROUP BY foyers2.id
+					)';
 		}
 
 		// ---------------------------------------------------------------------
@@ -468,7 +821,6 @@
 				);
 
 				$return[] = $Dossier->sq( $querydata );
-//debug( $return[count($return)-1] );
 			}
 
 			$return = implode( ' UNION ', $return ).' GROUP BY "mois" ORDER BY "mois"';
@@ -1760,6 +2112,447 @@
 			}
 
 			return $dossierseps;
+		}
+
+		/**
+		 * Retourne le délai moyen ( en jour ) entre l'orientation socio-professionnelle et le 1er RDV individuel prévu/excusé/non honoré par le PIE
+		 * en fonction d'une plage de date (vague)
+		 * Calcul propre au CD93
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		protected function _nbMoyJrsRdvIndivNonHonorePIEVagues( $annee, $structureReferente='', $communautesSrs='', $commune='' ) {
+			$where  =   "";
+			if($structureReferente!='' && $structureReferente>0)
+				$where  .=   " AND orientsstructs.structurereferente_id='".$structureReferente."'";
+			if($communautesSrs!='' && $communautesSrs>0)
+				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
+			if($commune!='' && $commune>0)
+				$where  .=  ' AND foyers.id IN ('.$this->getCommunes().')';
+
+			$tabInfos	=	array();
+			$dateDebut	=	'';
+			$dateFin	=	'';
+			$reqDateDebutFin	=	'';
+			$dernierIndex	=	0;
+			$moyenne	=	0;
+			$nbMoisAvecResult	=	0;
+			$nbPersonnes	=	0;
+
+			foreach($this->vagues as $index=>$value)
+			{
+				if($dateDebut=='')
+					$dateDebut	=	$value['dateDebut'];
+				$dateFin	=	$value['dateFin'];
+				$dernierIndex	=	$index;
+
+				$reqDateDebutFin	.=	(($reqDateDebutFin!='')? 'OR' : '').' orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\' ';
+
+				$sql =	  'SELECT
+								AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur,
+								COUNT(DISTINCT(personnes.id)) as nbPersonnes
+							FROM orientsstructs
+								INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
+								INNER JOIN foyers ON personnes.foyer_id = foyers.id
+								INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
+								LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
+								LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
+							WHERE
+								orientsstructs.typeorient_id=1
+								'.$where.'
+								AND orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\'
+								AND rdv.daterdv>=orientsstructs.date_propo
+								AND rdv.statutrdv_id IN (2, 3, 4)
+								AND rdv.typerdv_id=15
+								AND rdv.id IN (
+									SELECT id FROM rendezvous
+									WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
+									ORDER BY id
+									LIMIT 1
+								)';
+				$result	=	$this->query($sql);
+				$tabInfos[$index]	=	$result;
+				$moyenne	+=	$result[0][0]["indicateur"];
+				$nbPersonnes	+=	$result[0][0]["nbpersonnes"];
+				if($result[0][0]["indicateur"]>0)
+					$nbMoisAvecResult++;
+			}
+
+			if($dernierIndex>0){
+				$moyenne	=	$moyenne / $nbMoisAvecResult;
+				$tabInfos[($dernierIndex+1)]	=	array(0=>array(0=>array('indicateur'=>$moyenne)));
+				$tabInfos[($dernierIndex+2)]	=	array(0=>array(0=>array('indicateur'=>$nbPersonnes)));
+			}
+
+			return $tabInfos;
+		}
+
+		/**
+		 * Retourne le délai moyen ( en jour ) entre l'orientation socio-professionnelle et le 1er RDV individuel honoré par le PIE
+		 * en fonction d'une plage de date (vague)
+		 * Calcul propre au CD93
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		protected function _nbMoyJrsRdvIndivHonorePIEVagues( $annee, $structureReferente='', $communautesSrs='', $commune='' ) {
+			$where  =   "";
+			if($structureReferente!='' && $structureReferente>0)
+				$where  .=   " AND orientsstructs.structurereferente_id='".$structureReferente."'";
+			if($communautesSrs!='' && $communautesSrs>0)
+				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
+			if($commune!='' && $commune>0)
+				$where  .=  ' AND foyers.id IN ('.$this->getCommunes().')';
+
+			$tabInfos	=	array();
+			$dateDebut	=	'';
+			$dateFin	=	'';
+			$reqDateDebutFin	=	'';
+			$dernierIndex	=	0;
+			$moyenne	=	0;
+			$nbMoisAvecResult	=	0;
+			$nbPersonnes	=	0;
+
+			foreach($this->vagues as $index=>$value)
+			{
+				if($dateDebut=='')
+					$dateDebut	=	$value['dateDebut'];
+				$dateFin	=	$value['dateFin'];
+				$dernierIndex	=	$index;
+
+				$reqDateDebutFin	.=	(($reqDateDebutFin!='')? 'OR' : '').' orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\' ';
+
+				$sql =	  'SELECT
+								AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur,
+								COUNT(DISTINCT(personnes.id)) as nbPersonnes
+							FROM orientsstructs
+								INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
+								INNER JOIN foyers ON personnes.foyer_id = foyers.id
+								INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
+								LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
+								LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
+							WHERE
+								orientsstructs.typeorient_id=1
+								'.$where.'
+								AND orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\'
+								AND rdv.daterdv>=orientsstructs.date_propo
+								AND rdv.statutrdv_id=1
+								AND rdv.typerdv_id=15
+								AND rdv.id IN (
+									SELECT id FROM rendezvous
+									WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
+									ORDER BY id
+									LIMIT 1
+								)';
+				$result	=	$this->query($sql);
+				$tabInfos[$index]	=	$result;
+				$moyenne	+=	$result[0][0]["indicateur"];
+				$nbPersonnes	+=	$result[0][0]["nbpersonnes"];
+				if($result[0][0]["indicateur"]>0)
+					$nbMoisAvecResult++;
+			}
+
+			if($dernierIndex>0){
+				$moyenne	=	$moyenne / $nbMoisAvecResult;
+				$tabInfos[($dernierIndex+1)]	=	array(0=>array(0=>array('indicateur'=>$moyenne)));
+				$tabInfos[($dernierIndex+2)]	=	array(0=>array(0=>array('indicateur'=>$nbPersonnes)));
+			}
+
+			return $tabInfos;
+		}
+
+/**
+		 * Retourne le délai moyen ( en jour ) entre l'orientation socio-professionnelle et le 1er RDV collectif prévu/excusé/non honoré par le PIE
+		 * en fonction d'une plage de date (vague)
+		 * Calcul propre au CD93
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		protected function _nbMoyJrsRdvCollectifNonHonorePIEVagues( $annee, $structureReferente='', $communautesSrs='', $commune='' ) {
+			$where  =   "";
+			if($structureReferente!='' && $structureReferente>0)
+				$where  .=   " AND orientsstructs.structurereferente_id='".$structureReferente."'";
+			if($communautesSrs!='' && $communautesSrs>0)
+				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
+			if($commune!='' && $commune>0)
+				$where  .=  ' AND foyers.id IN ('.$this->getCommunes().')';
+
+			$tabInfos	=	array();
+			$dateDebut	=	'';
+			$dateFin	=	'';
+			$reqDateDebutFin	=	'';
+			$dernierIndex	=	0;
+			$moyenne	=	0;
+			$nbMoisAvecResult	=	0;
+			$nbPersonnes	=	0;
+
+			foreach($this->vagues as $index=>$value)
+			{
+				if($dateDebut=='')
+					$dateDebut	=	$value['dateDebut'];
+				$dateFin	=	$value['dateFin'];
+				$dernierIndex	=	$index;
+
+				$reqDateDebutFin	.=	(($reqDateDebutFin!='')? 'OR' : '').' orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\' ';
+
+				$sql =	  'SELECT
+								AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur,
+								COUNT(DISTINCT(personnes.id)) as nbPersonnes
+							FROM orientsstructs
+								INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
+								INNER JOIN foyers ON personnes.foyer_id = foyers.id
+								INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
+								LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
+								LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
+							WHERE
+								orientsstructs.typeorient_id=1
+								'.$where.'
+								AND orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\'
+								AND rdv.daterdv>=orientsstructs.date_propo
+								AND rdv.statutrdv_id IN (2, 3, 4)
+								AND rdv.typerdv_id=14
+								AND rdv.id IN (
+									SELECT id FROM rendezvous
+									WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
+									ORDER BY id
+									LIMIT 1
+								)';
+				$result	=	$this->query($sql);
+				$tabInfos[$index]	=	$result;
+				$moyenne	+=	$result[0][0]["indicateur"];
+				$nbPersonnes	+=	$result[0][0]["nbpersonnes"];
+				if($result[0][0]["indicateur"]>0)
+					$nbMoisAvecResult++;
+			}
+
+			if($dernierIndex>0){
+				$moyenne	=	$moyenne / $nbMoisAvecResult;
+				$tabInfos[($dernierIndex+1)]	=	array(0=>array(0=>array('indicateur'=>$moyenne)));
+				$tabInfos[($dernierIndex+2)]	=	array(0=>array(0=>array('indicateur'=>$nbPersonnes)));
+			}
+
+			return $tabInfos;
+		}
+
+		/**
+		 * Retourne le délai moyen ( en jour ) entre l'orientation socio-professionnelle et le 1er RDV individuel prévu/excusé/non honoré par le PIE
+		 * en fonction d'une plage de date (vague)
+		 * Calcul propre au CD93
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		protected function _nbMoyJrsRdvCollectifHonorePIEVagues( $annee, $structureReferente='', $communautesSrs='', $commune='' ) {
+			$where  =   "";
+			if($structureReferente!='' && $structureReferente>0)
+				$where  .=   " AND orientsstructs.structurereferente_id='".$structureReferente."'";
+			if($communautesSrs!='' && $communautesSrs>0)
+				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
+			if($commune!='' && $commune>0)
+				$where  .=  ' AND foyers.id IN ('.$this->getCommunes().')';
+
+			$tabInfos	=	array();
+			$dateDebut	=	'';
+			$dateFin	=	'';
+			$reqDateDebutFin	=	'';
+			$dernierIndex	=	0;
+			$moyenne	=	0;
+			$nbMoisAvecResult	=	0;
+			$nbPersonnes	=	0;
+
+			foreach($this->vagues as $index=>$value)
+			{
+				if($dateDebut=='')
+					$dateDebut	=	$value['dateDebut'];
+				$dateFin	=	$value['dateFin'];
+				$dernierIndex	=	$index;
+
+				$reqDateDebutFin	.=	(($reqDateDebutFin!='')? 'OR' : '').' orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\' ';
+
+				$sql =	  'SELECT
+								AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur,
+								COUNT(DISTINCT(personnes.id)) as nbPersonnes
+							FROM orientsstructs
+								INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
+								INNER JOIN foyers ON personnes.foyer_id = foyers.id
+								INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
+								LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
+								LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
+							WHERE
+								orientsstructs.typeorient_id=1
+								'.$where.'
+								AND orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\'
+								AND rdv.daterdv>=orientsstructs.date_propo
+								AND rdv.statutrdv_id=1
+								AND rdv.typerdv_id=14
+								AND rdv.id IN (
+									SELECT id FROM rendezvous
+									WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
+									ORDER BY id
+									LIMIT 1
+								)';
+				$result	=	$this->query($sql);
+				$tabInfos[$index]	=	$result;
+				$moyenne	+=	$result[0][0]["indicateur"];
+				$nbPersonnes	+=	$result[0][0]["nbpersonnes"];
+				if($result[0][0]["indicateur"]>0)
+					$nbMoisAvecResult++;
+			}
+
+			if($dernierIndex>0){
+				$moyenne	=	$moyenne / $nbMoisAvecResult;
+				$tabInfos[($dernierIndex+1)]	=	array(0=>array(0=>array('indicateur'=>$moyenne)));
+				$tabInfos[($dernierIndex+2)]	=	array(0=>array(0=>array('indicateur'=>$nbPersonnes)));
+			}
+
+			return $tabInfos;
+		}
+
+		/**
+		 * Retourne le délai moyen ( en jour ) entre l'orientation socio-professionnelle et le 1er CER établi par le PIE
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		protected function _nbMoyJrsCerEtabliPIEVagues( $annee, $structureReferente='', $communautesSrs='', $commune='' ) {
+			$where  =   "";
+			if($structureReferente!='' && $structureReferente>0)
+				$where  .=   " AND orientsstructs.structurereferente_id='".$structureReferente."'";
+			if($communautesSrs!='' && $communautesSrs>0)
+				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
+			if($commune!='' && $commune>0)
+				$where  .=  ' AND foyers.id IN ('.$this->getCommunes().')';
+
+			$tabInfos	=	array();
+			$dateDebut	=	'';
+			$dateFin	=	'';
+			$reqDateDebutFin	=	'';
+			$dernierIndex	=	0;
+			$moyenne	=	0;
+			$nbMoisAvecResult	=	0;
+			$nbPersonnes	=	0;
+
+			foreach($this->vagues as $index=>$value)
+			{
+				if($dateDebut=='')
+					$dateDebut	=	$value['dateDebut'];
+				$dateFin	=	$value['dateFin'];
+				$dernierIndex	=	$index;
+
+				$reqDateDebutFin	.=	(($reqDateDebutFin!='')? 'OR' : '').' orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\' ';
+				$sql =	  'SELECT
+								AVG( ABS(cer.dd_ci - orientsstructs.date_valid ) ) AS indicateur,
+								COUNT(DISTINCT(personnes.id)) as nbPersonnes
+							FROM orientsstructs
+								INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
+								INNER JOIN foyers ON personnes.foyer_id = foyers.id
+								INNER JOIN contratsinsertion cer ON cer.personne_id=personnes.id
+								LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
+								LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
+							WHERE
+								orientsstructs.typeorient_id=1
+								'.$where.'
+								AND orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\'
+								AND cer.dd_ci>=orientsstructs.date_propo
+								AND cer.id IN (
+									SELECT id FROM contratsinsertion
+									WHERE personne_id=personnes.id AND dd_ci>=orientsstructs.date_valid
+									ORDER BY id
+									LIMIT 1
+								)';
+				$result	=	$this->query($sql);
+				$tabInfos[$index]	=	$result;
+				$moyenne	+=	$result[0][0]["indicateur"];
+				$nbPersonnes	+=	$result[0][0]["nbpersonnes"];
+				if($result[0][0]["indicateur"]>0)
+					$nbMoisAvecResult++;
+			}
+
+			if($dernierIndex>0){
+				$moyenne	=	$moyenne / $nbMoisAvecResult;
+				$tabInfos[($dernierIndex+1)]	=	array(0=>array(0=>array('indicateur'=>$moyenne)));
+				$tabInfos[($dernierIndex+2)]	=	array(0=>array(0=>array('indicateur'=>$nbPersonnes)));
+			}
+
+			return $tabInfos;
+		}
+
+		/**
+		 * Retourne le délai moyen ( en jour ) entre le 1er RDV individuel honoré PIE et le 1er CER établi par le PIE
+		 *
+		 * @param integer $annee
+		 * @return array
+		 */
+		protected function _nbMoyJrsRdvIndivCerEtabliePIEVagues( $annee, $structureReferente='', $communautesSrs='', $commune='' ) {
+			$where  =   "";
+			if($structureReferente!='' && $structureReferente>0)
+				$where  .=   " AND orientsstructs.structurereferente_id='".$structureReferente."'";
+			if($communautesSrs!='' && $communautesSrs>0)
+				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
+			if($commune!='' && $commune>0)
+				$where  .=  ' AND foyers.id IN ('.$this->getCommunes().')';
+
+			$tabInfos	=	array();
+			$dateDebut	=	'';
+			$dateFin	=	'';
+			$reqDateDebutFin	=	'';
+			$dernierIndex	=	0;
+			$moyenne	=	0;
+			$nbMoisAvecResult	=	0;
+			$nbPersonnes	=	0;
+
+			foreach($this->vagues as $index=>$value)
+			{
+				if($dateDebut=='')
+					$dateDebut	=	$value['dateDebut'];
+				$dateFin	=	$value['dateFin'];
+				$dernierIndex	=	$index;
+
+				$reqDateDebutFin	.=	(($reqDateDebutFin!='')? 'OR' : '').' rdv.daterdv BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\' ';
+
+				$sql =	  'SELECT
+								AVG( ABS(cer.dd_ci - rdv.daterdv ) ) AS indicateur,
+								COUNT(DISTINCT(personnes.id)) as nbPersonnes
+							FROM rendezvous rdv
+								INNER JOIN personnes ON rdv.personne_id = personnes.id
+								INNER JOIN foyers ON personnes.foyer_id = foyers.id
+								INNER JOIN contratsinsertion cer ON cer.personne_id=personnes.id
+								INNER JOIN orientsstructs ON orientsstructs.personne_id = personnes.id
+								LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
+								LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
+							WHERE
+								rdv.daterdv BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\'
+								'.$where.'
+								AND cer.dd_ci>=rdv.daterdv
+								AND rdv.id IN (
+									SELECT id FROM rendezvous
+									WHERE personne_id=personnes.id AND rdv.daterdv BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
+									ORDER BY id
+									LIMIT 1
+								)
+								AND cer.id IN (
+									SELECT id FROM contratsinsertion
+									WHERE personne_id=personnes.id AND cer.dd_ci BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
+									ORDER BY id
+									LIMIT 1
+								)';
+				$result	=	$this->query($sql);
+				$tabInfos[$index]	=	$result;
+				$moyenne	+=	$result[0][0]["indicateur"];
+				$nbPersonnes	+=	$result[0][0]["nbpersonnes"];
+				if($result[0][0]["indicateur"]>0)
+					$nbMoisAvecResult++;
+			}
+
+			if($dernierIndex>0){
+				$moyenne	=	$moyenne / $nbMoisAvecResult;
+				$tabInfos[($dernierIndex+1)]	=	array(0=>array(0=>array('indicateur'=>$moyenne)));
+				$tabInfos[($dernierIndex+2)]	=	array(0=>array(0=>array('indicateur'=>$nbPersonnes)));
+			}
+
+			return $tabInfos;
 		}
 	}
 ?>
