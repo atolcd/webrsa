@@ -66,7 +66,13 @@
 		 * @var array
 		 */
 		public $commeDroit = array(
-
+			'exportcsv_caracteristiques_contrats' => 'Statistiquesministerielles:exportcsv_caracteristiques_contrats',
+			'exportcsv_delais' => 'Statistiquesministerielles:exportcsv_delais',
+			'exportcsv_motifs_reorientation' => 'Statistiquesministerielles:exportcsv_motifs_reorientation',
+			'exportcsv_natures_contrats' => 'Statistiquesministerielles:exportcsv_natures_contrats',
+			'exportcsv_organismes' => 'Statistiquesministerielles:exportcsv_organismes',
+			'exportcsv_orientations' => 'Statistiquesministerielles:exportcsv_orientations',
+			'exportcsv_reorientations' => 'Statistiquesministerielles:exportcsv_reorientations'
 		);
 
 		/**

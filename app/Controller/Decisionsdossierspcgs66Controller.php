@@ -69,7 +69,9 @@
 		 *
 		 * @var array
 		 */
-		public $commeDroit = array();
+		public $commeDroit = array(
+			'view' => 'Dossierspcgs66:index'
+		);
 
 		/**
 		 * Méthodes ne nécessitant aucun droit.
