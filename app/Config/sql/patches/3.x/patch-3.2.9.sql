@@ -24,6 +24,7 @@ ALTER TABLE creances ADD COLUMN hastitrecreancier integer NOT NULL DEFAULT 0;
 -- /****************************************************************
 -- Creation de la table des titres emmis
 
+DROP TABLE IF EXISTS titrescreanciers CASCADE;
 CREATE TABLE titrescreanciers (
   id serial NOT NULL,
   creance_id integer NOT NULL,
@@ -132,6 +133,8 @@ CREATE INDEX typestitrescreanciers_titrescreanciers_titrecreancier_id_idx ON typ
 -- *********************************************************************************
 -- Creation de la table des rapport crée par les talends d'intégration des flux CNAF
 
+
+DROP TABLE IF EXISTS administration.rapportstalendscreances CASCADE;
 CREATE TABLE administration.rapportstalendscreances (
   id serial NOT NULL,
   flux character varying(15),
@@ -151,6 +154,7 @@ CREATE TABLE administration.rapportstalendscreances (
 );
 
 -- Creation de la table des personnes rejetées par les talends d'intégration des flux CNAF
+DROP TABLE IF EXISTS administration.rejetstalendscreances CASCADE;
 CREATE TABLE administration.rejetstalendscreances (
 	id 					serial NOT NULL,
 	fusion 				BOOLEAN DEFAULT FALSE,
@@ -212,13 +216,12 @@ CREATE TABLE administration.rejetstalendscreances (
 	liblig7adr 			VARCHAR(38) DEFAULT NULL
 );
 
-
-
 -- *****************************************************************************
 -- Relances
 
 ALTER TABLE "structuresreferentes" ADD COLUMN "lib_struc_mini" CHARACTER varying(100);
 
+DROP TABLE IF EXISTS relances CASCADE;
 CREATE TABLE relances
 (
   id serial NOT NULL,
@@ -239,6 +242,7 @@ WITH (
   OIDS=FALSE
 );
 
+DROP TABLE IF EXISTS relanceslogs CASCADE;
 CREATE TABLE relanceslogs
 (
   id serial NOT NULL,
