@@ -274,6 +274,56 @@ WITH (
 ALTER TABLE structuresreferentes ADD COLUMN actif_cohorte character varying(1) NOT NULL DEFAULT 'O'::character varying;
 ALTER TABLE structuresreferentes ADD CONSTRAINT structuresreferentes_actif_cohorte_in_list_chk CHECK (cakephp_validate_in_list(actif_cohorte::text, ARRAY['O'::text, 'N'::text]));
 
+-- *****************************************************************************
+-- Index des tables
+
+CREATE INDEX adresses_cantons_adresse_id_idx ON adresses_cantons USING btree (adresse_id);
+CREATE INDEX adresses_cantons_canton_id_idx ON adresses_cantons USING btree (canton_id);
+
+CREATE INDEX savesearchs_user_id_idx ON savesearchs USING btree (user_id);
+CREATE INDEX savesearchs_group_id_idxx ON savesearchs USING btree (group_id);
+CREATE INDEX savesearchs_action_idx ON savesearchs USING btree (action);
+
+CREATE INDEX typescontratscuis66_actif_idx ON typescontratscuis66 USING btree (actif);
+
+CREATE INDEX codesromesecteursdsps66_code_idx ON codesromesecteursdsps66 USING btree (code);
+
+CREATE INDEX jetons_user_id_php_sid_idx ON jetons USING btree (user_id, php_sid);
+CREATE INDEX jetons_modified_idx ON jetons USING btree (modified);
+CREATE INDEX jetons_php_sid_idx ON jetons USING btree (php_sid);
+
+CREATE INDEX actionscandidats_personnes_positionfiche_idx ON actionscandidats_personnes USING btree (positionfiche);
+
+CREATE INDEX entites_tags_modele_idx ON entites_tags USING btree (modele);
+CREATE INDEX entites_tags_tag_idx ON entites_tags USING btree (tag_id);
+
+CREATE INDEX dossierspcgs66_etatdossierpcg_idx ON dossierspcgs66 USING btree (etatdossierpcg);
+
+CREATE INDEX acos_rght_idx ON acos USING btree (rght);
+CREATE INDEX acos_lft_idx ON acos USING btree (lft);
+
+CREATE INDEX structuresreferentes_actif_idx ON structuresreferentes USING btree (actif);
+
+CREATE INDEX nonorientes66_origine_idx ON nonorientes66 USING btree (origine);
+CREATE INDEX nonorientes66_datenotification_idx ON nonorientes66 USING btree (datenotification);
+
+CREATE INDEX valeurstags_actif_idx ON valeurstags USING btree (actif);
+
+CREATE INDEX infosfinancieres_type_allocation_idx ON infosfinancieres USING btree (type_allocation);
+
+CREATE INDEX contratsinsertion_rg_ci_idx ON contratsinsertion USING btree (rg_ci);
+
+CREATE INDEX vagues93_dateDebut_idx ON vagues93 USING btree (dateDebut);
+CREATE INDEX vagues93_dateFin_idx ON vagues93 USING btree (dateFin);
+
+CREATE INDEX dsps_revs_personne_id_modified_idx ON dsps_revs USING btree (personne_id, modified);
+
+CREATE INDEX dossiers_dtdemrsa_id_idx ON dossiers USING btree (dtdemrsa, id);
+
+-- *****************************************************************************
+CREATE INDEX fichesprescriptions93_benef_retour_presente_idx ON fichesprescriptions93 USING btree (benef_retour_presente);
+CREATE INDEX fichesprescriptions93_created_idx ON fichesprescriptions93 USING btree (created);
+
 
 -- *****************************************************************************
 COMMIT;
