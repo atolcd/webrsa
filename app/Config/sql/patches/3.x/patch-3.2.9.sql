@@ -11,6 +11,10 @@ SET default_with_oids = false;
 BEGIN;
 -- *****************************************************************************
 
+
+ALTER TABLE decisionsdefautsinsertionseps66 ADD COLUMN commentairebeneficiaire text;
+
+
 -- /****************************************************************
 -- Modification des créances
 
