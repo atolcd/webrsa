@@ -1409,6 +1409,12 @@ msgstr "(CD 66) Les orientations"
 msgid "controllers/Indicateursmensuels/contratsinsertion"
 msgstr "(CD 66) Les CER"
 
+msgid "controllers/Indicateursmensuels/rdvcer"
+msgstr "Indicateurs de CER suivant Rendez-vous"
+
+msgid "controllers/Indicateursmensuels/rdvcervagues"
+msgstr "Indicateurs de CER suivant Rendez-vous par vagues"
+
 ###############################################################################
 
 msgid "controllers/Indus"

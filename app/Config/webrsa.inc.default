@@ -940,6 +940,13 @@
 	Configure::write('Resultats.ligne.erreur', 'red');
 
 	/**
+	 * Activation du module Vagues D'Orientations
+	 * Spécifique CD 93
+	 * 'Indicateursmensuels.vaguesdorientations' => true pour activée, false pour inactivée
+	 */
+	Configure::write('Indicateursmensuels.vaguesdorientations',true);
+
+	/**
 	 * Récupération du fichier de config propre au département
 	 */
 	require_once ('webrsa.cg'.Configure::read( 'Cg.departement' ).'.inc');

@@ -280,5 +280,16 @@ ALTER TABLE structuresreferentes ADD CONSTRAINT structuresreferentes_actif_cohor
 
 
 -- *****************************************************************************
+-- Création de la table contenant les vagues des orientations du 93
+
+DROP TABLE IF EXISTS vaguesdorientations CASCADE;
+CREATE TABLE vaguesdorientations
+(
+  id serial NOT NULL,
+  dateDebut date,
+  dateFin date
+);
+
+-- *****************************************************************************
 COMMIT;
 -- *****************************************************************************
