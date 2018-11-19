@@ -20,10 +20,10 @@ ALTER TABLE decisionsdefautsinsertionseps66 ADD COLUMN commentairebeneficiaire t
 
 ALTER TABLE creances ADD COLUMN moismoucompta date;
 ALTER TABLE creances ADD COLUMN orgcre character(3) NOT NULL DEFAULT 'FLU'::character varying;
-ALTER TABLE creances ADD COLUMN haspiecejointe character varying(1) NOT NULL DEFAULT '0'::character varying;
-ALTER TABLE creances ADD COLUMN hastitrecreancier integer NOT NULL DEFAULT 0;
+ALTER TABLE creances ADD COLUMN mention character varying(255);
+ALTER TABLE creances ADD COLUMN haspiecejointe character varying(1) NOT NULL DEFAULT '0'::character
 
- UPDATE creances SET  orgcre='FLU' WHERE orgcre NOT LIKE 'MAN' AND orgcre NOT LIKE 'FLU' AND orgcre IS NULL;
+UPDATE creances SET  orgcre='FLU' WHERE orgcre NOT LIKE 'MAN' AND orgcre NOT LIKE 'FLU' AND orgcre IS NULL;
 
 -- /****************************************************************
 -- Creation de la table des titres emmis
@@ -34,7 +34,7 @@ CREATE TABLE titrescreanciers (
   creance_id integer NOT NULL,
   dtemissiontitre date,
   dtvalidation date,
-  etat integer NOT NULL,
+  etat character varying(4) NOT NULL,
   numtitr character varying(30) NOT NULL,
   mnttitr numeric(9,2) NOT NULL,
   type integer NOT NULL,
@@ -52,48 +52,9 @@ CREATE TABLE titrescreanciers (
 DROP INDEX IF EXISTS titrescreanciers_id_idx;
 CREATE UNIQUE INDEX titrescreanciers_id_idx ON titrescreanciers( id );
 
--- Etats des titres créanciers
-DROP TABLE IF EXISTS etatstitrescreanciers CASCADE;
-CREATE TABLE etatstitrescreanciers(
-  id			SERIAL NOT NULL PRIMARY KEY,
-  name			VARCHAR(250) NOT NULL,
-  actif			SMALLINT DEFAULT 1,
-  created		TIMESTAMP WITHOUT TIME ZONE,
-  modified		TIMESTAMP WITHOUT TIME ZONE
-);
-COMMENT ON TABLE etatstitrescreanciers IS 'Liste des etats des titres creanciers';
+-- /****************************************************************
+-- Creation de la table  titres creanciers
 
-DROP INDEX IF EXISTS etatstitrescreanciers_name_idx;
-CREATE UNIQUE INDEX etatstitrescreanciers_name_idx ON etatstitrescreanciers( name );
-
--- Insertion de 'CRE', 'VAL', 'SEN', 'PAY','SUP'
-INSERT INTO etatstitrescreanciers
-	( name, actif, created, modified )
-VALUES
-	('Supprimer', 1, NOW(), NOW() ),
-	('Créer', 1, NOW(), NOW() ),
-	('Vérifier', 1, NOW(), NOW() ),
-	('Valider', 1, NOW(), NOW() ),
-	('Imprimer', 1, NOW(), NOW() )
-;
-
--- table de lien 
-DROP TABLE IF EXISTS etatstitrescreanciers_titrescreanciers CASCADE;
-CREATE TABLE etatstitrescreanciers_titrescreanciers (
-  id                 			SERIAL NOT NULL PRIMARY KEY,
-  etattitrecreancier_id			INTEGER NOT NULL REFERENCES etatstitrescreanciers(id) ON DELETE CASCADE ON UPDATE CASCADE,  
-  titrecreancier_id				INTEGER NOT NULL REFERENCES titrescreanciers(id) ON DELETE CASCADE ON UPDATE CASCADE,
-  created						TIMESTAMP WITHOUT TIME ZONE,
-  modified						TIMESTAMP WITHOUT TIME ZONE
-);
-COMMENT ON TABLE etatstitrescreanciers_titrescreanciers IS 'Table de liaison entre les etats des titres creanciers et les titres creanciers';
-DROP INDEX IF EXISTS etatstitrescreanciers_titrescreanciers_etattitrecreancier_id_idx;
-CREATE INDEX etatstitrescreanciers_titrescreanciers_etattitrecreancier_id_idx ON etatstitrescreanciers_titrescreanciers(etattitrecreancier_id);
-
-DROP INDEX IF EXISTS etatstitrescreanciers_titrescreanciers_titrecreancier_id_idx;
-CREATE INDEX etatstitrescreanciers_titrescreanciers_titrecreancier_id_idx ON etatstitrescreanciers_titrescreanciers(titrecreancier_id);
-
--- Type des titres creanciers
 DROP TABLE IF EXISTS typestitrescreanciers CASCADE;
 CREATE TABLE typestitrescreanciers(
   id			SERIAL NOT NULL PRIMARY KEY,

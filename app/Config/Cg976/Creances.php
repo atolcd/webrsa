@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Menu "Recherches" > "Par Creances"
+	 * Menu "Recherches" > "Par indus transférés"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Creances.search',
@@ -87,7 +87,7 @@
 	);
 
 	/**
-	 * Export CSV, menu "Recherches" > "Creances"
+	 * Export CSV, menu "Recherches" > "indus transférés"
 	 */
 	Configure::write(
 		'ConfigurableQuery.Creances.exportcsv',

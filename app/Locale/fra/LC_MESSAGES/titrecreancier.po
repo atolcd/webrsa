@@ -20,6 +20,31 @@ msgstr ""
 
 ###############################################################################
 
+
+msgid "Titrecreancier.etat
+msgstr "Etat du titre"
+
+msgid "ENUM::ETAT::CREE"
+msgstr "Crée"
+
+msgid "ENUM::ETAT::VALI"
+msgstr "Validée"
+
+msgid "ENUM::ETAT::ENV1"
+msgstr "Transmise à la Compta"
+
+msgid "ENUM::ETAT::RET"
+msgstr "Donnée retour ajouté"
+
+msgid "ENUM::ETAT::ENV2"
+msgstr "Transmise au payeur"
+
+msgid "ENUM::ETAT::PAY"
+msgstr "Payée"
+
+msgid "ENUM::ETAT::SUP"
+msgstr "Annulée"
+
 msgid "Titrecreancier.qual"
 msgstr "Qualité de la personne"
 
@@ -37,4 +62,5 @@ msgstr "Oui"
 
 msgid "ENUM::HASPIECEJOINTE::0"
 msgstr "Non"
+
 

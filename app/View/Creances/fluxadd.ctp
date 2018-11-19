@@ -26,7 +26,8 @@
 			'Creance.dtdercredcretrans' => array('value' =>$this->request->data['Rejettalendcreance']['dtdercredcretrans'],'type' => 'date', 'dateFormat' => 'DMY'),
 			'Creance.mtsolreelcretrans'=> array('value' =>$this->request->data['Rejettalendcreance']['mtsolreelcretrans'],'type' => 'money','required' => true),
 			'Creance.mtinicre'		=> array('value' =>$this->request->data['Rejettalendcreance']['mtinicre'],'type' => 'money','required' => true),
-			'Creance.moismoucompta'	=> array('value' =>$this->request->data['Rejettalendcreance']['moismoucompta'],'type' => 'date', 'dateFormat' => 'DMY')
+			'Creance.moismoucompta'	=> array('value' =>$this->request->data['Rejettalendcreance']['moismoucompta'],'type' => 'date', 'dateFormat' => 'DMY'),
+			'Creance.mention'		=> array('value' =>$this->request->data['Rejettalendcreance']['mention'],'required' => true)
 		),
 		array(
 			'options' => $options

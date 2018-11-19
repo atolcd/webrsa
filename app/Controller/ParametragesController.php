@@ -178,11 +178,7 @@
 
 			if( $activateTitreCreancier ) {
 				$items = array (
-					'Titres Creanciers' => array(
-						'Etat Transmission du Titre' => array(
-							'url' => array(
-								'controller' => 'etatstitrescreanciers', 'action' => 'index' )
-						),
+					'Titres de recettes' => array(
 						'Type du Titre' => array(
 							'url' => array( 'controller' => 'typestitrescreanciers', 'action' => 'index' )
 						)

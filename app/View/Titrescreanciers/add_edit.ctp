@@ -14,7 +14,7 @@
 			'Titrecreancier.creance_id' => array( 'type' => 'hidden', 'value' => $creance_id),
 			'Titrecreancier.dtemissiontitre' => array('type' => 'date', 'dateFormat' => 'DMY'),
 			'Titrecreancier.dtvalidation' => array('type' => 'hidden', 'dateFormat' => 'DMY','empty'=> true),
-			'Titrecreancier.etat'=> array('type' => 'select', 'options' => $options['Etattitrecreancier']['etat_actif'] ),
+			'Titrecreancier.etat'=> array('type' => 'hidden','value' => 'CREE'),
 			'Titrecreancier.type' => array( 'type' => 'select', 'options' => $options['Typetitrecreancier']['type_actif'] ),
 			'Titrecreancier.numtitr',
 			'Titrecreancier.mnttitr' => array('type' => 'number','required' => true),
