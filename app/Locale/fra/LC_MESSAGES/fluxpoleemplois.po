@@ -1,0 +1,285 @@
+# Traductions de fluxpoleemplois.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+# RECHERCHE
+# ==============================================================================
+
+msgid "/Fluxpoleemplois/search/:heading"
+msgstr "Recherche par Pôle Emploi"
+
+msgid "/Dossiers/view"
+msgstr "Voir"
+
+msgid "Personne.nom_complet_prenoms"
+msgstr "Nom complet"
+
+msgid "Dossier.locked"
+msgstr "Locked"
+
+msgid "Search.Fluxpoleemploi.legend.inscription"
+msgstr " Recherche par données Pôle Emploi - Inscription "
+
+msgid "Search.Fluxpoleemploi.inscription_date_debut_ide"
+msgstr "Date de début IDE"
+
+msgid "Search.Fluxpoleemploi.inscription_date_cessation_ide"
+msgstr "Date de cessation"
+
+msgid "Search.Fluxpoleemploi.inscription_date_radiation_ide"
+msgstr "Date de radiation"
+
+
+msgid "Search.Fluxpoleemploi.legend.allocataire"
+msgstr " Recherche par données Pôle Emploi - Allocataire "
+
+msgid "Search.Fluxpoleemploi.allocataire_code_pe"
+msgstr "Code Pôle Emploi"
+
+msgid "Search.Fluxpoleemploi.allocataire_identifiant_pe"
+msgstr "Identifiant Pôle Emploi"
+
+
+msgid "Search.Fluxpoleemploi.legend.ppae"
+msgstr " Recherche par données Pôle Emploi - PPAE "
+
+msgid "Search.Fluxpoleemploi.ppae_date_signature"
+msgstr "Date de signature"
+
+msgid "Search.Fluxpoleemploi.ppae_date_notification"
+msgstr "Date de notification"
+
+msgid "Search.Fluxpoleemploi.ppae_date_dernier_ent"
+msgstr "Date de dernier entretien"
+
+
+# ==============================================================================
+# DOSSIER
+# ==============================================================================
+
+msgid "/Fluxpoleemplois/personne/:heading"
+msgstr "Données du flux Pôle Emploi"
+
+# ------------------------------------------------------------------------------
+# Individu
+# ------------------------------------------------------------------------------
+msgid "Fluxpoleemplois.individu"
+msgstr "Individu"
+
+msgid "Fluxpoleemplois.individu_nir"
+msgstr "NIR"
+
+msgid "Fluxpoleemplois.individu_nom_naissance"
+msgstr "Nom naissance"
+
+msgid "Fluxpoleemplois.individu_nom_marital"
+msgstr "Nom marital"
+
+msgid "Fluxpoleemplois.individu_prenom"
+msgstr "Prénom"
+
+msgid "Fluxpoleemplois.individu_date_naissance"
+msgstr "Date de naissance"
+
+msgid "Fluxpoleemplois.individu_certification_identite"
+msgstr "Statut certification identité"
+
+msgid "Fluxpoleemplois.individu_commune_residence"
+msgstr "Code INSEE commune de résidence"
+
+# ------------------------------------------------------------------------------
+# Allocataire
+# ------------------------------------------------------------------------------
+msgid "Fluxpoleemplois.allocataire"
+msgstr "Allocataire"
+
+msgid "Fluxpoleemplois.allocataire_identifiant_caf"
+msgstr "Identifiant CAF"
+
+msgid "Fluxpoleemplois.allocataire_identifiant_msa"
+msgstr "Identifiant MSA"
+
+msgid "Fluxpoleemplois.allocataire_code_pe"
+msgstr "Code Pôle Emploi"
+
+msgid "Fluxpoleemplois.allocataire_identifiant_pe"
+msgstr "Identifiant Pôle Emploi"
+
+# ------------------------------------------------------------------------------
+# Inscription
+# ------------------------------------------------------------------------------
+msgid "Fluxpoleemplois.inscription"
+msgstr "Inscription"
+
+msgid "Fluxpoleemplois.inscription_date_debut_ide"
+msgstr "Date de début IDE"
+
+msgid "Fluxpoleemplois.inscription_code_categorie"
+msgstr "Code catégorie"
+
+msgid "Fluxpoleemplois.inscription_lib_categorie"
+msgstr "Libellé catégorie"
+
+msgid "Fluxpoleemplois.inscription_code_situation"
+msgstr "Code situation"
+
+msgid "Fluxpoleemplois.inscription_lib_situation"
+msgstr "Libellé situation"
+
+msgid "Fluxpoleemplois.inscription_date_cessation_ide"
+msgstr "Date de cessation IDE"
+
+msgid "Fluxpoleemplois.inscription_motif_cessation_ide"
+msgstr "Motif de cessation IDE"
+
+msgid "Fluxpoleemplois.inscription_lib_cessation_ide"
+msgstr "Libellé de cessation IDE"
+
+msgid "Fluxpoleemplois.inscription_date_radiation_ide"
+msgstr "Date de radiation IDE"
+
+msgid "Fluxpoleemplois.inscription_motif_radiation_ide"
+msgstr "Motif de radiation IDE"
+
+msgid "Fluxpoleemplois.inscription_lib_radiation_ide"
+msgstr "Libellé de radiation IDE"
+
+# ------------------------------------------------------------------------------
+# Formation
+# ------------------------------------------------------------------------------
+msgid "Fluxpoleemplois.formation"
+msgstr "Formation"
+
+msgid "Fluxpoleemplois.formation_code_niveau"
+msgstr "Code niveau"
+
+msgid "Fluxpoleemplois.formation_lib_niveau"
+msgstr "Libellé niveau"
+
+msgid "Fluxpoleemplois.formation_code_secteur"
+msgstr "Code secteur"
+
+msgid "Fluxpoleemplois.formation_lib_secteur"
+msgstr "Libellé secteur"
+
+# ------------------------------------------------------------------------------
+# Rome V3
+# ------------------------------------------------------------------------------
+msgid "Fluxpoleemplois.romev3"
+msgstr "Rome V3"
+
+msgid "Fluxpoleemplois.romev3_code_rome"
+msgstr "Code rome"
+
+msgid "Fluxpoleemplois.romev3_lib_rome"
+msgstr "Libellé rome"
+
+# ------------------------------------------------------------------------------
+# Structure principale
+# ------------------------------------------------------------------------------
+msgid "Fluxpoleemplois.structure_principale"
+msgstr "Structure principale"
+
+msgid "Fluxpoleemplois.suivi_structure_principale_nom"
+msgstr "Nom"
+
+msgid "Fluxpoleemplois.suivi_structure_principale_voie"
+msgstr "Voie"
+
+msgid "Fluxpoleemplois.suivi_structure_principale_complement"
+msgstr "Complément"
+
+msgid "Fluxpoleemplois.suivi_structure_principale_code_postal"
+msgstr "Code postal"
+
+msgid "Fluxpoleemplois.suivi_structure_principale_cedex"
+msgstr "Cedex"
+
+msgid "Fluxpoleemplois.suivi_structure_principale_bureau"
+msgstr "Bureau"
+
+# ------------------------------------------------------------------------------
+# Structure déléguée
+# ------------------------------------------------------------------------------
+msgid "Fluxpoleemplois.structure_deleguee"
+msgstr "Structure déléguée"
+
+msgid "Fluxpoleemplois.suivi_structure_deleguee_nom"
+msgstr "Nom"
+
+msgid "Fluxpoleemplois.suivi_structure_deleguee_voie"
+msgstr "Voie"
+
+msgid "Fluxpoleemplois.suivi_structure_deleguee_complement"
+msgstr "Complément"
+
+msgid "Fluxpoleemplois.suivi_structure_deleguee_code_postal"
+msgstr "Code postal"
+
+msgid "Fluxpoleemplois.suivi_structure_deleguee_cedex"
+msgstr "Cedex"
+
+msgid "Fluxpoleemplois.suivi_structure_deleguee_bureau"
+msgstr "Bureau"
+
+# ------------------------------------------------------------------------------
+# PPAE
+# ------------------------------------------------------------------------------
+msgid "Fluxpoleemplois.ppae"
+msgstr "PPAE"
+
+msgid "Fluxpoleemplois.ppae_conseiller_pe"
+msgstr "Conseiller Pôle Emploi"
+
+msgid "Fluxpoleemplois.ppae_date_signature"
+msgstr "Date de signature"
+
+msgid "Fluxpoleemplois.ppae_date_notification"
+msgstr "Date de notification"
+
+msgid "Fluxpoleemplois.ppae_axe_code"
+msgstr "Axe code"
+
+msgid "Fluxpoleemplois.ppae_axe_libelle"
+msgstr "Axe libellé"
+
+msgid "Fluxpoleemplois.ppae_modalite_code"
+msgstr "Modalité code"
+
+msgid "Fluxpoleemplois.ppae_modalite_libelle"
+msgstr "Modalité libellé"
+
+msgid "Fluxpoleemplois.ppae_date_dernier_ent"
+msgstr "Date du dernier entretien"
+
+# ------------------------------------------------------------------------------
+# Historique
+# ------------------------------------------------------------------------------
+msgid "Fluxpoleemplois.historique"
+msgstr "Historique du "
+
+msgid "Fluxpoleemplois.historique.date"
+msgstr "Date"
+
+msgid "Fluxpoleemplois.historique.etat"
+msgstr "État"
+
+msgid "Fluxpoleemplois.historique.code"
+msgstr "Code"
+
+msgid "Fluxpoleemplois.historique.motif"
+msgstr "Motif"
+
+msgid "Fluxpoleemplois.historique.adresse"
+msgstr "Adresse"
+
+msgid "Fluxpoleemplois.historique.ale"
+msgstr "ALE"
+
