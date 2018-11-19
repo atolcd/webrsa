@@ -280,11 +280,10 @@
 		/**
 		 * Ajouter une creances à un foyer depuis un rejet d'un flux
 		 *
-		 * @param integer $foyer_id L'id technique du foyer auquel ajouter la créance
+		 * @param integer $rejet_id L'id technique du rejet duquel prendre la créance
 		 * @return void
 		 */
 		public function fluxadd($rejet_id) {
-
 			// Retour à l'index en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
 				$this->redirect( array('controller' => 'Rejetstalendscreances', 'action' => 'index', $rejet_id ) );
@@ -294,7 +293,7 @@
 			if( !empty( $this->request->data ) ) {
 				$foyerQuery =  array(
 					'fields' => array('Foyer.id',),
-					'conditions' => array('Dossier.numdemrsa' => 	$this->request->data['Dossier']['numdemrsa'],),
+					'conditions' => array('Dossier.numdemrsa' => 	$this->request->data['Dossier']['numdemrsa']),
 					'joins' => array($this->Dossier->join( 'Foyer', array( 'type' => 'INNER' ))),
 					'recursive' => -1
 				);

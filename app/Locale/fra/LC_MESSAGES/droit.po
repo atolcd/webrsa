@@ -4092,26 +4092,29 @@ msgstr "Export CSV"
 msgid "controllers/Creances/search"
 msgstr "Recherche"
 
+msgid "controllers/Creances/fluxadd"
+msgstr "Correction des rejets"
+
 ###############################################################################
 ## Titres Créances
 ###############################################################################
 msgid "controllers/Titrescreanciers"
-msgstr "Titres Créanciers"
+msgstr "Titres de recettes"
 
 msgid "controllers/Titrescreanciers/index"
-msgstr "Visualisation des Titres Créanciers"
+msgstr "Visualisation des Titres de recettes"
 
 msgid "controllers/Titrescreanciers/view"
-msgstr "Visualisation d'un Titre Créancier"
+msgstr "Visualisation d'un Titre de recette"
 
 msgid "controllers/Titrescreanciers/valider"
-msgstr "Validation d'un Titre Créancier"
+msgstr "Validation d'un Titre de recette"
 
 msgid "controllers/Titrescreanciers/add"
-msgstr "Ajout d'un Titre Créancier"
+msgstr "Ajout d'un Titre de recette"
 
 msgid "controllers/Titrescreanciers/edit"
-msgstr "Modification d'un Titre Créancier"
+msgstr "Modification d'un Titre de recette"
 
 msgid "controllers/Titrescreanciers/filelink"
 msgstr "Ajout de Fichiers"
@@ -4119,31 +4122,17 @@ msgstr "Ajout de Fichiers"
 
 ###############################################################################
 
-msgid "controllers/Etatstitrescreanciers"
-msgstr "Paramétrages, etats des titres créancier"
-
-msgid "controllers/Etatstitrescreanciers/index"
-msgstr "Liste des etats des titres créancier"
-
-msgid "controllers/Etatstitrescreanciers/edit"
-msgstr "Ajout/Modification d'un etats des titres créancier"
-
-msgid "controllers/Etatstitrescreanciers/delete"
-msgstr "Suppression d'un etats des titres créancier"
-
-###############################################################################
-
 msgid "controllers/Typestitrescreanciers"
-msgstr "Paramétrages, type des titres créancier"
+msgstr "Paramétrages, type des Titres de recettes"
 
 msgid "controllers/Typestitrescreanciers/index"
-msgstr "Liste des type des titres créancier"
+msgstr "Liste des type des Titres de recettes"
 
 msgid "controllers/Typestitrescreanciers/edit"
-msgstr "Ajout/Modification d'un type des titres créancier"
+msgstr "Ajout/Modification d'un type des Titres de recettes"
 
 msgid "controllers/Typestitrescreanciers/delete"
-msgstr "Suppression d'un type des titres créancier"
+msgstr "Suppression d'un type des Titres de recettes"
 
 ###############################################################################
 ## Rapport Talends Créances

@@ -29,7 +29,8 @@
 			'Creance.dtdercredcretrans' => array('type' => 'date', 'dateFormat' => 'DMY'),
 			'Creance.mtsolreelcretrans'=> array('type' => 'number','required' => true),
 			'Creance.mtinicre'=> array('type' => 'number','required' => true),
-			'Creance.moismoucompta'=> array('type' => 'date', 'dateFormat' => 'DMY')
+			'Creance.moismoucompta'=> array('type' => 'date', 'dateFormat' => 'DMY'),
+			'Creance.mention'=> array('type' => 'textarea')
 		),
 		array(
 			'options' => $options

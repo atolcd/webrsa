@@ -5,6 +5,7 @@
 
 	echo $this->element('default_index');
 
+
 if( empty( $creances ) ) {
 		echo '<p class="notice">Aucun creance trouvée.</p>';
 }else{
@@ -48,7 +49,7 @@ if( empty( $creances ) ) {
 					'Titrecreancier.mnttitr',
 					'Titrecreancier.type'=> array( 'type' => 'select' ),
 					'Titrecreancier.dtvalidation',
-					'Titrecreancier.etat'=> array( 'type' => 'select' ),
+					'Titrecreancier.etat',
 					'Titrecreancier.mention',
 					'Titrecreancier.qual',
 					'Titrecreancier.nom',
@@ -72,5 +73,9 @@ if( empty( $creances ) ) {
 			)
 		);
 	}
+	echo $this->Xhtml->link(
+		'Retour',
+		array('controller' => 'creances', 'action' => 'index', $foyer_id)
+	);
 }
 ?>

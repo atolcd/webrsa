@@ -21,49 +21,49 @@ msgstr ""
 ###############################################################################
 
 msgid "Creance.dtimplcre"
-msgstr "Date implantation créance"
+msgstr "Date implantation de l'indu"
 
 msgid "Creance.natcre"
-msgstr "Nature créance"
+msgstr "Nature de l'indu"
 
 msgid "ENUM::NATCRE::INK"
-msgstr "Indu sur nature prestation RSD (RSA socle)"
+msgstr "Indu sur nature prestation RSD (RSA socle) [INK]"
 
 msgid "ENUM::NATCRE::INL"
-msgstr "Indu sur nature prestation RSI (RSA socle majoration parent isolé)"
+msgstr "Indu sur nature prestation RSI (RSA socle majoration parent isolé) [INL]"
 
 msgid "ENUM::NATCRE::INM"
-msgstr "Indu sur nature prestation RSB (RSA local et RSA activité local)"
+msgstr "Indu sur nature prestation RSB (RSA local et RSA activité local) [INM]"
 
 msgid "ENUM::NATCRE::INS"
-msgstr "Indu sur nature prestation RCB "
+msgstr "Indu sur nature prestation RCB [INS]"
 
 msgid "ENUM::NATCRE::ISK"
-msgstr "Indu sur nature prestation RSD subrogé"
+msgstr "Indu sur nature prestation RSD subrogé [ISK]"
 
 msgid "ENUM::NATCRE::ISL"
-msgstr "Indu sur nature prestation RSI subrogé"
+msgstr "Indu sur nature prestation RSI subrogé [ISL]"
 
 msgid "ENUM::NATCRE::ISM"
-msgstr "Indu sur nature prestation RSB subrogé"
+msgstr "Indu sur nature prestation RSB subrogé [ISM]"
 
 msgid "ENUM::NATCRE::ISS"
-msgstr "Indu sur nature prestation RCB subrogé"
+msgstr "Indu sur nature prestation RCB subrogé [ISS]"
 
 msgid "ENUM::NATCRE::ITK"
-msgstr "Indu sur nature prestation RSD transféré"
+msgstr "Indu sur nature prestation RSD transféré [ITK]"
 
 msgid "ENUM::NATCRE::ITL"
-msgstr "Indu sur nature prestation RSI transféré"
+msgstr "Indu sur nature prestation RSI transféré [ITL]"
 
 msgid "ENUM::NATCRE::ITM"
-msgstr "Indu sur nature presation RSB transféré"
+msgstr "Indu sur nature presation RSB transféré [ITM]"
 
 msgid "ENUM::NATCRE::ITS"
-msgstr "Indu sur nature prestation RCB transféré"
+msgstr "Indu sur nature prestation RCB transféré [ITS]"
 
 msgid "Creance.orgcre"
-msgstr "Origine créance"
+msgstr "Origine de l'indus"
 
 msgid "ENUM::ORGCRE::"
 msgstr "vide"
@@ -73,6 +73,9 @@ msgstr "Flux Creances"
 
 msgid "ENUM::ORGCRE::MAN"
 msgstr "Manuelle"
+
+msgid "ENUM::ORGCRE::COP"
+msgstr "Copie"
 
 msgid "Creance.rgcre"
 msgstr "Rang créance"
@@ -84,409 +87,409 @@ msgid "Creance.motiindu"
 msgstr "Motif indu"
 
 msgid "ENUM::MOTIINDU::10"
-msgstr "Situation de famille"
+msgstr "Situation de famille [10]"
 
 msgid "ENUM::MOTIINDU::11"
-msgstr "Modif codres desall resdos"
+msgstr "Modif codres desall resdos [11]"
 
 msgid "ENUM::MOTIINDU::12"
-msgstr "Décès"
+msgstr "Décès [12]"
 
 msgid "ENUM::MOTIINDU::20"
-msgstr "Changement d'adresse"
+msgstr "Changement d'adresse [20]"
 
 msgid "ENUM::MOTIINDU::21"
-msgstr "Mutation / Radiation"
+msgstr "Mutation / Radiation [21]"
 
 msgid "ENUM::MOTIINDU::30"
-msgstr "Mouvement enfant"
+msgstr "Mouvement enfant [30]"
 
 msgid "ENUM::MOTIINDU::31"
-msgstr "Mouvement enfant codres"
+msgstr "Mouvement enfant codres [31]"
 
 msgid "ENUM::MOTIINDU::32"
-msgstr "Décès enfant"
+msgstr "Décès enfant [32]"
 
 msgid "ENUM::MOTIINDU::33"
-msgstr "Etat civil enfant"
+msgstr "Etat civil enfant [33]"
 
 msgid "ENUM::MOTIINDU::34"
-msgstr "Arrivée enfant"
+msgstr "Arrivée enfant [34]"
 
 msgid "ENUM::MOTIINDU::35"
-msgstr "Mouvement enfant sitenfaut"
+msgstr "Mouvement enfant sitenfaut [35]"
 
 msgid "ENUM::MOTIINDU::40"
-msgstr "Eléments calcul (ressources)"
+msgstr "Eléments calcul (ressources) [40]"
 
 msgid "ENUM::MOTIINDU::41"
-msgstr "Eléments calcul (droits)"
+msgstr "Eléments calcul (droits) [41]"
 
 msgid "ENUM::MOTIINDU::42"
-msgstr "Maintien de droits"
+msgstr "Maintien de droits [42]"
 
 msgid "ENUM::MOTIINDU::50"
-msgstr "Modification activité professionnelle"
+msgstr "Modification activité professionnelle [50]"
 
 msgid "ENUM::MOTIINDU::51"
-msgstr "Justification d'activité"
+msgstr "Justification d'activité [51]"
 
 msgid "ENUM::MOTIINDU::52"
-msgstr "Situation professionnelle"
+msgstr "Situation professionnelle [52]"
 
 msgid "ENUM::MOTIINDU::60"
-msgstr "Autre nature indu"
+msgstr "Autre nature indu [60]"
 
 msgid "ENUM::MOTIINDU::61"
-msgstr "Maintien des droits"
+msgstr "Maintien des droits [61]"
 
 msgid "ENUM::MOTIINDU::62"
-msgstr "Barèmes"
+msgstr "Barèmes [62]"
 
 msgid "ENUM::MOTIINDU::63"
-msgstr "Indus autre organisme"
+msgstr "Indus autre organisme [63]"
 
 msgid "ENUM::MOTIINDU::64"
-msgstr "Subrogations"
+msgstr "Subrogations [64]"
 
 msgid "ENUM::MOTIINDU::65"
-msgstr "Renégociation pap"
+msgstr "Renégociation pap [65]"
 
 msgid "ENUM::MOTIINDU::70"
-msgstr "Calculs de droits"
+msgstr "Calculs de droits [70]"
 
 msgid "ENUM::MOTIINDU::71"
-msgstr "Modif éléments de droits"
+msgstr "Modif éléments de droits [71]"
 
 msgid "ENUM::MOTIINDU::72"
-msgstr "Radiation"
+msgstr "Radiation [72]"
 
 msgid "ENUM::MOTIINDU::73"
-msgstr "Droits enfants"
+msgstr "Droits enfants [73]"
 
 msgid "ENUM::MOTIINDU::74"
-msgstr "Réaffiliation"
+msgstr "Réaffiliation [74]"
 
 msgid "ENUM::MOTIINDU::75"
-msgstr "Droit prime de Noël"
+msgstr "Droit prime de Noël [75]"
 
 msgid "ENUM::MOTIINDU::76"
-msgstr "Droit AJPP"
+msgstr "Droit AJPP [76]"
 
 msgid "ENUM::MOTIINDU::80"
-msgstr "Réexamen de droits"
+msgstr "Réexamen de droits [80]"
 
 msgid "ENUM::MOTIINDU::81"
-msgstr "Barèmes"
+msgstr "Barèmes [81]"
 
 msgid "ENUM::MOTIINDU::82"
-msgstr "Rattrapage exceptionnel"
+msgstr "Rattrapage exceptionnel [82]"
 
 msgid "ENUM::MOTIINDU::90"
-msgstr "Divers"
+msgstr "Divers [90]"
 
 msgid "ENUM::MOTIINDU::91"
-msgstr "Interruption de grossesse"
+msgstr "Interruption de grossesse [91]"
 
 msgid "ENUM::MOTIINDU::92"
-msgstr "Hôspitalisation placement"
+msgstr "Hôspitalisation placement [92]"
 
 msgid "ENUM::MOTIINDU::93"
-msgstr "Impayés de loyer"
+msgstr "Impayés de loyer [93]"
 
 msgid "ENUM::MOTIINDU::94"
-msgstr "Assurance"
+msgstr "Assurance [94]"
 
 msgid "ENUM::MOTIINDU::95"
-msgstr "Remboursement anticipé"
+msgstr "Remboursement anticipé [95]"
 
 msgid "ENUM::MOTIINDU::AA"
-msgstr "Situation famille uniquement"
+msgstr "Situation famille uniquement [AA]"
 
 msgid "ENUM::MOTIINDU::AB"
-msgstr "Situat. famille et chgt adresse"
+msgstr "Situat. famille et chgt adresse [AB]"
 
 msgid "ENUM::MOTIINDU::AC"
-msgstr "Situat. famille et mvt enfant"
+msgstr "Situat. famille et mvt enfant [AC]"
 
 msgid "ENUM::MOTIINDU::AD"
-msgstr "Situat. famille et eéém. calcul"
+msgstr "Situat. famille et eéém. calcul [AD]"
 
 msgid "ENUM::MOTIINDU::AE"
-msgstr "Situat. famille et modif act. prof"
+msgstr "Situat. famille et modif act. prof [AE]"
 
 msgid "ENUM::MOTIINDU::AF"
-msgstr "Situat. famille et modif élém droit"
+msgstr "Situat. famille et modif élém droit [AF]"
 
 msgid "ENUM::MOTIINDU::AG"
-msgstr "Situat. famille et réexamen droit"
+msgstr "Situat. famille et réexamen droit [AG]"
 
 msgid "ENUM::MOTIINDU::AH"
-msgstr "Situat. famille et autre modif"
+msgstr "Situat. famille et autre modif [AH]"
 
 msgid "ENUM::MOTIINDU::BB"
-msgstr "Changement adresse uniquement"
+msgstr "Changement adresse uniquement [BB]"
 
 msgid "ENUM::MOTIINDU::BC"
-msgstr "Changement adresse et mvt enfant"
+msgstr "Changement adresse et mvt enfant [BC]"
 
 msgid "ENUM::MOTIINDU::BD"
-msgstr "Changement adresse et élém. calcul"
+msgstr "Changement adresse et élém. calcul [BD]"
 
 msgid "ENUM::MOTIINDU::BE"
-msgstr "Changement adresse et modif act prof"
+msgstr "Changement adresse et modif act prof [BE]"
 
 msgid "ENUM::MOTIINDU::BF"
-msgstr "Changement adresse et modif élém droit"
+msgstr "Changement adresse et modif élém droit [BF]"
 
 msgid "ENUM::MOTIINDU::BG"
-msgstr "Changement adresse et réexamen droit"
+msgstr "Changement adresse et réexamen droit [BG]"
 
 msgid "ENUM::MOTIINDU::BH"
-msgstr "Changement adresse et autre modif."
+msgstr "Changement adresse et autre modif. [BH]"
 
 msgid "ENUM::MOTIINDU::CC"
-msgstr "Mouvement enfant uniquement"
+msgstr "Mouvement enfant uniquement [CC]"
 
 msgid "ENUM::MOTIINDU::CD"
-msgstr "Mouvement enfant et élém. calcul"
+msgstr "Mouvement enfant et élém. calcul [CD]"
 
 msgid "ENUM::MOTIINDU::CE"
-msgstr "Mouvement enfant et modif act prof"
+msgstr "Mouvement enfant et modif act prof [CE]"
 
 msgid "ENUM::MOTIINDU::CF"
-msgstr "Mouvement enfant et modif élément droit"
+msgstr "Mouvement enfant et modif élément droit [CF]"
 
-msgid "ENUM::MOTIINDU::CG"
-msgstr "Mouvement enfant et réexamen droit"
+msgid "ENUM::MOTIINDU::CF"
+msgstr "Mouvement enfant et réexamen droit [CF]"
 
 msgid "ENUM::MOTIINDU::CH"
-msgstr "Mouvement enfant et autre modif"
+msgstr "Mouvement enfant et autre modif [CH]"
 
 msgid "ENUM::MOTIINDU::DD"
-msgstr "Elements calcul uniquement"
+msgstr "Elements calcul uniquement [DD]"
 
 msgid "ENUM::MOTIINDU::DE"
-msgstr "Elem. calcul et modif act prof"
+msgstr "Elem. calcul et modif act prof [DE]"
 
 msgid "ENUM::MOTIINDU::DF"
-msgstr "Elem. calcul et modif élém droit"
+msgstr "Elem. calcul et modif élém droit [DF]"
 
 msgid "ENUM::MOTIINDU::DG"
-msgstr "Elem. calcul et réexamen droit"
+msgstr "Elem. calcul et réexamen droit [DG]"
 
 msgid "ENUM::MOTIINDU::DH"
-msgstr "Elem. calcul et autre modif"
+msgstr "Elem. calcul et autre modif [DH]"
 
 msgid "ENUM::MOTIINDU::EE"
-msgstr "Modif activité prof uniquement"
+msgstr "Modif activité prof uniquement [EE]"
 
 msgid "ENUM::MOTIINDU::EF"
-msgstr "Modif act. et modif élém droit"
+msgstr "Modif act. et modif élém droi [EF]"
 
 msgid "ENUM::MOTIINDU::EG"
-msgstr "Modif act. et réexamen droit"
+msgstr "Modif act. et réexamen droit [EG]"
 
-msgid "ENUM::MOTIINDU::EH"
-msgstr "Modif act. prof et autre modif"
+msgid "ENUM::MOTIINDU::EG"
+msgstr "Modif act. prof et autre modif [EG]"
 
 msgid "ENUM::MOTIINDU::FF"
-msgstr "Modif élém droits uniquement"
+msgstr "Modif élém droits uniquement [FF]"
 
 msgid "ENUM::MOTIINDU::FG"
-msgstr "Modif élém droits et réexamen droits"
+msgstr "Modif élém droits et réexamen droits [FG]"
 
 msgid "ENUM::MOTIINDU::FH"
-msgstr "Modif élém droits et autre modif"
+msgstr "Modif élém droits et autre modif [FH]"
 
 msgid "ENUM::MOTIINDU::GG"
-msgstr "Réexamen de droits uniquement"
+msgstr "Réexamen de droits uniquement [GG]"
 
 msgid "ENUM::MOTIINDU::GH"
-msgstr "Réexamen droits et autre modif"
+msgstr "Réexamen droits et autre modif [GH]"
 
 msgid "ENUM::MOTIINDU::HH"
-msgstr "Autre modification uniquement"
+msgstr "Autre modification uniquement [HH]"
 
 msgid "ENUM::MOTIINDU::K1"
-msgstr "Non primo demandeur"
+msgstr "Non primo demandeur [K1]"
 
 msgid "ENUM::MOTIINDU::K2"
-msgstr "Fin droit AL-droit aux parents"
+msgstr "Fin droit AL-droit aux parents [K2]"
 
 msgid "ENUM::MOTIINDU::K3"
-msgstr "Non étudiant boursier"
+msgstr "Non étudiant boursier [K3]"
 
 msgid "ENUM::MOTIINDU::K4"
-msgstr "Révision des droits"
+msgstr "Révision des droits [K4]"
 
 msgid "Creance.oriindu"
-msgstr "Origine indu"
+msgstr "Origine de l'indu"
 
 msgid "ENUM::ORIINDU::10"
-msgstr "Justificatif de masse"
+msgstr "Justificatif de masse [10]"
 
 msgid "ENUM::ORIINDU::20"
-msgstr "Rapport enquête"
+msgstr "Rapport enquête [20]"
 
 msgid "ENUM::ORIINDU::30"
-msgstr "Vérification comptable"
+msgstr "Vérification comptable [30]"
 
 msgid "ENUM::ORIINDU::40"
-msgstr "Signal. système"
+msgstr "Signal. système [40]"
 
 msgid "ENUM::ORIINDU::50"
-msgstr "Plan de contrôle"
+msgstr "Plan de contrôle [50]"
 
 msgid "ENUM::ORIINDU::55"
-msgstr "Echange CAF/bailleur"
+msgstr "Echange CAF/bailleur [55]"
 
 msgid "ENUM::ORIINDU::60"
-msgstr "Recy err CAF"
+msgstr "Recy err CAF [60]"
 
 msgid "ENUM::ORIINDU::61"
-msgstr "Liq. incomplète"
+msgstr "Liq. incomplète [61]"
 
 msgid "ENUM::ORIINDU::62"
-msgstr "Erreur législation"
+msgstr "Erreur législation [62]"
 
 msgid "ENUM::ORIINDU::63"
-msgstr "Erreur codification"
+msgstr "Erreur codification [63]"
 
 msgid "ENUM::ORIINDU::64"
-msgstr "Traitement BATCH"
+msgstr "Traitement BATCH [64]"
 
 msgid "ENUM::ORIINDU::65"
-msgstr "Nouveau traitement"
+msgstr "Nouveau traitement [65]"
 
 msgid "ENUM::ORIINDU::70"
-msgstr "Pièce allocataire"
+msgstr "Pièce allocataire [70]"
 
 msgid "ENUM::ORIINDU::71"
-msgstr "Pièce reçue"
+msgstr "Pièce reçue [71]"
 
 msgid "ENUM::ORIINDU::72"
-msgstr "Commu téléph"
+msgstr "Commu téléph [72]"
 
 msgid "ENUM::ORIINDU::73"
-msgstr "Pièce accueil"
+msgstr "Pièce accueil [73]"
 
 msgid "ENUM::ORIINDU::80"
-msgstr "Pièce tiers"
+msgstr "Pièce tiers [80]"
 
 msgid "Creance.respindu"
 msgstr "Responsabilité de l'indu"
 
 msgid "ENUM::RESPINDU::12"
-msgstr "Erreur législative CAF"
+msgstr "Erreur législative CAF [12]"
 
 msgid "ENUM::RESPINDU::66"
-msgstr "Indus tiers"
+msgstr "Indus tiers [66]"
 
 msgid "ENUM::RESPINDU::67"
-msgstr "Indus allocataires"
+msgstr "Indus allocataires [67]"
 
 msgid "ENUM::RESPINDU::26"
-msgstr "Avance"
+msgstr "Avance [26]"
 
 msgid "ENUM::RESPINDU::24"
-msgstr "Retroactivité"
+msgstr "Retroactivité [24]"
 
 msgid "ENUM::RESPINDU::10"
-msgstr "Erreur CAF"
+msgstr "Erreur CAF [10]"
 
 msgid "ENUM::RESPINDU::65"
-msgstr "Subrogations"
+msgstr "Subrogations [65]"
 
 msgid "ENUM::RESPINDU::54"
-msgstr "Suspicion fraude ges"
+msgstr "Suspicion fraude ges [54]"
 
 msgid "ENUM::RESPINDU::62"
-msgstr "Décl err/incomp all"
+msgstr "Décl err/incomp all [62]"
 
 msgid "ENUM::RESPINDU::13"
-msgstr "Erreur codification CAF"
+msgstr "Erreur codification CAF [13]"
 
 msgid "ENUM::RESPINDU::64"
-msgstr "Fraude ou faux all"
+msgstr "Fraude ou faux all [64]"
 
 msgid "ENUM::RESPINDU::51"
-msgstr "Enquête/place ges"
+msgstr "Enquête/place ges [51]"
 
 msgid "ENUM::RESPINDU::52"
-msgstr "Recycl vérific ges"
+msgstr "Recycl vérific ges [52]"
 
 msgid "ENUM::RESPINDU::50"
-msgstr "Plan controle ges"
+msgstr "Plan controle ges [50]"
 
 msgid "ENUM::RESPINDU::61"
-msgstr "Défaut déclarat all"
+msgstr "Défaut déclarat all [61]"
 
 msgid "ENUM::RESPINDU::20"
-msgstr "Date d'effet"
+msgstr "Date d'effet [20]"
 
 msgid "ENUM::RESPINDU::41"
-msgstr "Infos err/tard org"
+msgstr "Infos err/tard org [41]"
 
 msgid "ENUM::RESPINDU::31"
-msgstr "Règlementation tardive"
+msgstr "Règlementation tardive [31]"
 
 msgid "ENUM::RESPINDU::40"
-msgstr "Prise en charge indu"
+msgstr "Prise en charge indu [40]"
 
 msgid "ENUM::RESPINDU::30"
-msgstr "Défaut modèle"
+msgstr "Défaut modèle [30]"
 
 msgid "ENUM::RESPINDU::22"
-msgstr "Maintiens"
+msgstr "Maintiens [22]"
 
 msgid "ENUM::RESPINDU::53"
-msgstr "Ech CAF/ASSEDIC ges"
+msgstr "Ech CAF/ASSEDIC ges [53]"
 
 msgid "ENUM::RESPINDU::15"
-msgstr "Retard"
+msgstr "Retard [15]"
 
 msgid "ENUM::RESPINDU::11"
-msgstr "Liq incomplete CAF"
+msgstr "Liq incomplete CAF [11]"
 
 msgid "ENUM::RESPINDU::74"
-msgstr "Fraude potentielle"
+msgstr "Fraude potentielle [74]"
 
 msgid "ENUM::RESPINDU::63"
-msgstr "Décl tardive all"
+msgstr "Décl tardive all [63]"
 
 msgid "ENUM::RESPINDU::32"
-msgstr "Erreur traitement"
+msgstr "Erreur traitement [32]"
 
 msgid "ENUM::RESPINDU::60"
-msgstr "Ano déclaration all"
+msgstr "Ano déclaration all [60]"
 
 msgid "ENUM::RESPINDU::25"
-msgstr "Barème tardif"
+msgstr "Barème tardif [25]"
 
 msgid "ENUM::RESPINDU::23"
-msgstr "Compens maj indu"
+msgstr "Compens maj indu [23]"
 
 msgid "ENUM::RESPINDU::21"
-msgstr "Délai notif APL"
+msgstr "Délai notif APL [21]"
 
 msgid "ENUM::RESPINDU::14"
-msgstr "Erreur saisie CAF"
+msgstr "Erreur saisie CAF [14]"
 
 msgid "Creance.ddregucre"
-msgstr "Date début créance"
+msgstr "Date début indu"
 
 msgid "Creance.dfregucre"
-msgstr "Date fin créance"
+msgstr "Date fin indu"
 
 msgid "Creance.dtdercredcretrans"
 msgstr "Date dernier crédit positif créance transférée"
 
 msgid "Creance.mtsolreelcretrans"
-msgstr "Montant solde réel créance transférée"
+msgstr "Montant solde réel indus transféré"
 
 msgid "Creance.mtinicre"
-msgstr "Montant initial créance"
+msgstr "Montant initial indus transféré"
 
 msgid "Creances.haspiecejointe"
 msgstr "Ajouter une pièce jointe"

@@ -32,6 +32,7 @@ if( empty( $creances ) ) {
 				'Creance.dtdercredcretrans',
 				'Creance.mtsolreelcretrans',
 				'Creance.mtinicre',
+				'Creance.mention'
 			)+ WebrsaAccess::links(
 				array(
 					'/Titrescreanciers/index/#Creance.id#'

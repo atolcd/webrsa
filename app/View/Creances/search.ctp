@@ -33,7 +33,7 @@
 			echo $this->Xform->input(
 				'Search.Creance.hastitrecreancier',
 				array(
-					'label' => 'A un Titres Créanciers',
+					'label' => 'A un Titre de recettes',
 					'type' => 'checkbox',
 					'empty' => true
 				)

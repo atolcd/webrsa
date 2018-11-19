@@ -321,7 +321,7 @@ $fonorg = $dossier['Dossier']['fonorg'];
 			'Informations foyer' => array(
 				'Informations financières' => array(
 					'url' => '#',
-						'Créances' => array(
+						'Indus Transférés' => array(
 							'url' => array( 'controller' => 'creances', 'action' => 'index', $dossier['Foyer']['id'] )
 						),
 						'Informations financières' => array(

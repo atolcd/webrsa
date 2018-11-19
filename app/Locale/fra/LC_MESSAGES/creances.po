@@ -22,16 +22,16 @@ msgstr ""
 ###############################################################################
 
 msgid "/Creances/index/:heading"
-msgstr "Créances"
+msgstr "Indus Transférés"
 
 msgid "/Creances/fluxadd/:heading"
-msgstr "Ajout d'une Creance depuis un rejet"
+msgstr "Ajout d'un indus transféré depuis un rejet"
 
 msgid "/Creances/add/:heading"
-msgstr "Ajout d'une Creance"
+msgstr "Ajout d'un Indus Transféré"
 
 msgid "/Creances/edit/:heading"
-msgstr "Modification d'une Creance"
+msgstr "Modification d'une Indus Transféré"
 
 ###############################################################################
 # Lien
@@ -47,13 +47,13 @@ msgid "/Creances/edit"
 msgstr "Modifier"
 
 msgid "/Titrescreanciers/add"
-msgstr "Ajouter Titre Creancier"
+msgstr "Ajouter Titre de Recettes"
 
 msgid "/Titrescreanciers/index"
-msgstr "Voir les Titres Creanciers"
+msgstr "Préparer le Titre de Recettes"
 
 msgid "Creances::index::emptyLabel"
-msgstr "Cette personne ne possède pas de creances."
+msgstr "Cette personne ne possède pas d'Indus Transféré."
 
 msgid "/Creances/filelink"
 msgstr "Fichiers liés (#Fichiermodule.nb_fichiers_lies#)"
@@ -62,7 +62,7 @@ msgid "/Creances/filelink/#Creance.id#"
 msgstr "Fichiers liés"
 
 msgid "Creances::filelink"
-msgstr "Fichiers liés à une créance"
+msgstr "Fichiers liés à un Indus Transféré"
 
 msgid "Creances.haspiecejointe"
 msgstr "Ajouter une pièce jointe"
@@ -75,17 +75,7 @@ msgid "/Creances/search/:heading"
 msgstr "Recherche par Créances"
 
 msgid "Search.Creances"
-msgstr "Recherche par créances de l'allocataire"
-
-###############################################################################
-# Trad des recherches
-###############################################################################
-
-msgid "/Creances/search/:heading"
-msgstr "Recherche par Créances"
-
-msgid "Search.Creances"
-msgstr "Recherche par créances de l'allocataire"
+msgstr "Recherche par Indus Transféré de l'allocataire"
 
 ###############################################################################
 # Champs de recherches
@@ -95,7 +85,7 @@ msgid "Creance.foyer_id"
 msgstr "Identifiant du foyer"
 
 msgid "Dossier.numdemrsa"
-msgstr "Numéro de demande au foyer duquel liée la créance"
+msgstr "Numéro de demande RSA"
 
 msgid "Creance.dtimplcre"
 msgstr "Date implantation créance"
@@ -104,7 +94,7 @@ msgid "Creance.natcre"
 msgstr "Nature créance"
 
 msgid "Creance.orgcre"
-msgstr "Origine créance"
+msgstr "Type saisie"
 
 msgid "Creance.rgcre"
 msgstr "Rang créance"
@@ -131,10 +121,13 @@ msgid "Creance.dtdercredcretrans"
 msgstr "Date dernier crédit positif créance transférée"
 
 msgid "Creance.mtsolreelcretrans"
-msgstr "Montant solde réel créance transférée"
+msgstr "Solde réel indu"
 
 msgid "Creance.mtinicre"
 msgstr "Montant initial créance"
+
+msgid "Creance.mention"
+msgstr "Mention de l'indus"
 
 # ==============================================================================
 # Résultats du moteur de recherche

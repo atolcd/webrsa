@@ -91,6 +91,7 @@
 
         protected function _setOptions() {
 			$this->set( 'qual', ClassRegistry::init('Titrecreancier')->enum('qual') );
+			$this->set( 'etat', ClassRegistry::init('Titrecreancier')->enum('etat') );
 		}
 
 		/**
@@ -107,8 +108,8 @@
 		);
 
 		/**
-		 * Pagination sur les <éléments> de la table. *
-		 * @param integer $creance_id L'id technique du Foyer pour lequel on veut les Creances.
+		 *
+		 * @param integer $creance_id L'id technique de la créance pour laquel on veut les Titre créanciers.
 		 *
 		 */
 		public function index($creance_id) {
@@ -221,7 +222,7 @@
 			if( !empty( $this->request->data ) ) {
 				$this->Titrecreancier->begin();
 				$data = $this->request->data;		
-				if ( $data['Titrecreancier']['mnttitr'] == '' ) {
+				if (  $this->action != 'valider' && $data['Titrecreancier']['mnttitr'] == '' ) {
 					$this->Titrecreancier->rollback();
 					$this->Flash->error( __( 'Save->error' ) );
 				}else{
