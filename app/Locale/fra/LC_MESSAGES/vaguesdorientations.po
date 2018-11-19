@@ -1,0 +1,38 @@
+# Traductions de vaguesdorientations.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Vaguesdorientations/index/:heading"
+msgstr "Paramétrage des vagues"
+
+msgid "Vaguedorientation.datedebut"
+msgstr "Date de début"
+
+msgid "Vaguedorientation.datefin"
+msgstr "Date de fin"
+
+msgid "/Vaguesdorientations/edit"
+msgstr "Modifier"
+
+msgid "/Vaguesdorientations/delete"
+msgstr "Supprimer"
+
+msgid "/Vaguesdorientations/add"
+msgstr "Ajouter"
+
+msgid "/Vaguesdorientations/edit/:heading"
+msgstr "Modifier une vague"
+
+msgid "/Vaguesdorientations/add/:heading"
+msgstr "Ajouter une vague"
+
+msgid "/Vaguesdorientations/delete/#Vaguedorientation.id# ?"
+msgstr "Êtes-vous certain de vouloir supprimer cette vague ?"

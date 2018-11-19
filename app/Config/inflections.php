@@ -160,6 +160,7 @@ $irregularPlural = array(
     'identificationflux' => 'identificationsflux',
     'indicateurmensuel' => 'indicateursmensuels',
     'indicateursuivi' => 'indicateurssuivis',
+    'vaguedorientation' => 'vaguesdorientations',
     'informationeti' => 'informationseti',
     'infoagricole' => 'infosagricoles',
     'infofinanciere' => 'infosfinancieres',

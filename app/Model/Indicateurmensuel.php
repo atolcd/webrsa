@@ -584,7 +584,7 @@
 		 */
 		public function listeVagues( $annee ) {
 			$sql 	=	'SELECT dateDebut, dateFin
-						FROM vagues93
+						FROM vaguesdorientations
 						WHERE dateDebut BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
 						ORDER BY dateDebut ASC';
 			$result	=	$this->query( $sql );
@@ -2254,7 +2254,10 @@
 			}
 
 			if($dernierIndex>0){
-				$moyenne	=	$moyenne / $nbMoisAvecResult;
+				if($nbMoisAvecResult>0)
+					$moyenne = $moyenne / $nbMoisAvecResult;
+				else
+					$moyenne = 0;
 				$tabInfos[($dernierIndex+1)]	=	array(0=>array(0=>array('indicateur'=>$moyenne)));
 				$tabInfos[($dernierIndex+2)]	=	array(0=>array(0=>array('indicateur'=>$nbPersonnes)));
 			}
@@ -2328,9 +2331,12 @@
 			}
 
 			if($dernierIndex>0){
-				$moyenne	=	$moyenne / $nbMoisAvecResult;
-				$tabInfos[($dernierIndex+1)]	=	array(0=>array(0=>array('indicateur'=>$moyenne)));
-				$tabInfos[($dernierIndex+2)]	=	array(0=>array(0=>array('indicateur'=>$nbPersonnes)));
+				if($nbMoisAvecResult>0)
+					$moyenne = $moyenne / $nbMoisAvecResult;
+				else
+					$moyenne = 0;
+				$tabInfos[($dernierIndex+1)] = array(0=>array(0=>array('indicateur'=>$moyenne)));
+				$tabInfos[($dernierIndex+2)] = array(0=>array(0=>array('indicateur'=>$nbPersonnes)));
 			}
 
 			return $tabInfos;
@@ -2402,7 +2408,10 @@
 			}
 
 			if($dernierIndex>0){
-				$moyenne	=	$moyenne / $nbMoisAvecResult;
+				if($nbMoisAvecResult>0)
+					$moyenne = $moyenne / $nbMoisAvecResult;
+				else
+					$moyenne = 0;
 				$tabInfos[($dernierIndex+1)]	=	array(0=>array(0=>array('indicateur'=>$moyenne)));
 				$tabInfos[($dernierIndex+2)]	=	array(0=>array(0=>array('indicateur'=>$nbPersonnes)));
 			}
@@ -2471,7 +2480,10 @@
 			}
 
 			if($dernierIndex>0){
-				$moyenne	=	$moyenne / $nbMoisAvecResult;
+				if($nbMoisAvecResult>0)
+					$moyenne = $moyenne / $nbMoisAvecResult;
+				else
+					$moyenne = 0;
 				$tabInfos[($dernierIndex+1)]	=	array(0=>array(0=>array('indicateur'=>$moyenne)));
 				$tabInfos[($dernierIndex+2)]	=	array(0=>array(0=>array('indicateur'=>$nbPersonnes)));
 			}
@@ -2547,7 +2559,10 @@
 			}
 
 			if($dernierIndex>0){
-				$moyenne	=	$moyenne / $nbMoisAvecResult;
+				if($nbMoisAvecResult>0)
+					$moyenne = $moyenne / $nbMoisAvecResult;
+				else
+					$moyenne = 0;
 				$tabInfos[($dernierIndex+1)]	=	array(0=>array(0=>array('indicateur'=>$moyenne)));
 				$tabInfos[($dernierIndex+2)]	=	array(0=>array(0=>array('indicateur'=>$nbPersonnes)));
 			}

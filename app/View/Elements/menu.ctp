@@ -485,8 +485,8 @@
 				'url' => array('controller' => 'logtraces', 'action' => 'index'),
 			),
 			'Gestion des vagues' => array(
-				'disabled' => ( $departement != 93 ),
-				'url' => array( 'controller' => 'vagues93', 'action' => 'index' ),
+				'disabled' => !(Configure::read('Indicateursmensuels.vaguesdorientations')),
+				'url' => array( 'controller' => 'vaguesdorientations', 'action' => 'index' ),
 			),
 		),
 		'Déconnexion '.$this->Session->read( 'Auth.User.username' ) => array(
