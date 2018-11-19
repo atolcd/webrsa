@@ -23,10 +23,10 @@ msgid "Accueilscorrespondances.prenom"
 msgstr "Prénom d'utilisateur"
 
 msgid "Accueilscorrespondances.utilisateurs"
-msgstr "Utilisateurs"
+msgstr "Utilisateurs habilités"
 
 msgid "Accueilscorrespondances.referents"
-msgstr "Référents"
+msgstr "Référents actifs non clôturés"
 
 msgid "Accueilscorrespondances.utilisateur"
 msgstr "Utilisateur"
