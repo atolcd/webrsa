@@ -16,11 +16,12 @@ echo '<table>
 				<th rowspan="2">Création du dossier EP</th>
 				<th rowspan="2">Orientation actuelle</th>
 				<th colspan="4" rowspan="2">Proposition référent</th>
-				<th colspan="5">Avis EPL</th>
+				<th colspan="6">Avis EPL</th>
 				<th rowspan="2">Observations</th>
 				<th rowspan="2">Action</th>
 			</tr>
 			<tr>
+				<th>Commentaire<br />Bénéficiaire</th>
 				<th>Avis</th>
 				<th>SOCIAL/Emploi</th>
 				<th>Type d\'orientation</th>
@@ -68,6 +69,9 @@ $typeorientemploiId = $typeorientprincipale['Emploi'][0];
 				@$options['Saisinebilanparcoursep66']['changementrefparcours'][Set::classicExtract( $dossierep, "Saisinebilanparcoursep66.changementrefparcours" )],
 				@$liste_typesorients[Set::classicExtract( $dossierep, "Saisinebilanparcoursep66.typeorient_id" )],
 				@$liste_structuresreferentes[Set::classicExtract( $dossierep, "Saisinebilanparcoursep66.structurereferente_id" )],
+				//commentaire bénéficiaire
+				$this->Form->input( "Decisionsaisinebilanparcoursep66.{$i}.commentairebeneficiaire", array( 'label' =>false, 'type' => 'textarea' ) ),
+
 				array(
 					$this->Form->input( "Decisionsaisinebilanparcoursep66.{$i}.decision", array( 'label' => false, 'options' => @$options['Decisionsaisinebilanparcoursep66']['decision'] ) ),
 					array( 'id' => "Decisionsaisinebilanparcoursep66{$i}DecisionColumn", 'class' => ( !empty( $this->validationErrors['Decisionsaisinebilanparcoursep66'][$i]['decision'] ) ? 'error' : '' ) )

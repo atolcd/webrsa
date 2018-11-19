@@ -13,6 +13,7 @@ BEGIN;
 
 
 ALTER TABLE decisionsdefautsinsertionseps66 ADD COLUMN commentairebeneficiaire text;
+ALTER TABLE decisionssaisinesbilansparcourseps66 ADD COLUMN commentairebeneficiaire text;
 
 
 -- /****************************************************************
