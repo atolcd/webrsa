@@ -53,9 +53,12 @@
 	);
 
 	$results = isset( $results ) ? $results : array();
-	?><script type="text/javascript"><?php
+?>
+
+<script type="text/javascript">
+<?php
 	foreach ($results as $i => $value) {
-	?>
+?>
 		observeDisableElementsOnValues(
 			[
 				'Cohorte<?php echo $i;?>OrientstructDateValidDay',
@@ -64,16 +67,16 @@
 			],
 			{element: 'Cohorte<?php echo $i;?>Nonoriente66Selection', value: '1', operator: '!='}
 		);
-	<?php
+<?php
 	}
-	?>
+?>
 
-function toutCocherAction( selecteur, simulate ) {
-	 toutCocher( selecteur, simulate );
-	<?php
+	function toutCocherAction( selecteur, simulate ) {
+		toutCocher( selecteur, simulate );
+<?php
 	foreach ($results as $i => $value) {
-	?>
-	disableElementsOnValues(
+?>
+		disableElementsOnValues(
 			[
 				'Cohorte<?php echo $i;?>OrientstructDateValidDay',
 				'Cohorte<?php echo $i;?>OrientstructDateValidMonth',
@@ -81,18 +84,18 @@ function toutCocherAction( selecteur, simulate ) {
 			],
 			{element: 'Cohorte<?php echo $i;?>Nonoriente66Selection', value: '1', operator: '!='}
 		);
-	<?php
+<?php
 	}
-	?>
-	return false;
-}
+?>
+		return false;
+	}
 
-function toutDecocherAction( selecteur, simulate ) {
-	toutDecocher( selecteur, simulate );
-	<?php
+	function toutDecocherAction( selecteur, simulate ) {
+		toutDecocher( selecteur, simulate );
+<?php
 	foreach ($results as $i => $value) {
-	?>
-	disableElementsOnValues(
+?>
+		disableElementsOnValues(
 			[
 				'Cohorte<?php echo $i;?>OrientstructDateValidDay',
 				'Cohorte<?php echo $i;?>OrientstructDateValidMonth',
@@ -100,11 +103,21 @@ function toutDecocherAction( selecteur, simulate ) {
 			],
 			{element: 'Cohorte<?php echo $i;?>Nonoriente66Selection', value: '1', operator: '!='}
 		);
-	<?php
+<?php
 	}
-	?>
-	return false;
-}
+?>
+		return false;
+	}
 
-	</script>
-	
+	$$('form#Nonorientes66CohorteIsemploiCohorte>table>tbody>tr>td').each(function(td){
+		if (td.innerHTML == "ALERTE") {
+			for (var i = 0; i < td.parentNode.childNodes.length; i++) {
+				if (typeof td.parentNode.childNodes[i].innerHTML !== 'undefined') {
+					td.parentNode.childNodes[i].setStyle ({
+						'background-color': '<?php echo (Configure::read( 'Resultats.ligne.erreur' )); ?>'
+					});
+				}
+			}
+		}
+	});
+</script>

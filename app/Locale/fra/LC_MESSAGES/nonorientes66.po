@@ -90,3 +90,6 @@ msgstr "Fichiers liés"
 
 msgid "Orientstruct.nbfichier_lies"
 msgstr "Nombre de fichiers liés"
+
+msgid "Historiqueetatpe.alert_exists"
+msgstr "Alerte"

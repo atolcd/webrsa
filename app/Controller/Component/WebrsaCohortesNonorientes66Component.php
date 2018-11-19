@@ -81,5 +81,35 @@
 
 			return $result;
 		}
+
+		/**
+		 * Surcharge de la méthode afterSearch pour du code spécifique
+		 *
+		 * @param type $params
+		 * @param type $results
+		 * @return array
+		 */
+		public function afterSearch( array $params, array $results ) {
+			$results = parent::afterSearch( $params, $results );
+			$Nonoriente66 = ClassRegistry::init( 'Nonoriente66' );
+
+			foreach ($results as $key => $result) {
+				$historique = $Nonoriente66->find (
+					'first',
+					array (
+						'recurssive' => -1,
+						'conditions' => array (
+							'historiqueetatpe_id' => $result['Historiqueetatpe']['id']
+						)
+					)
+				);
+
+				if (isset ($historique['Nonoriente66'])) {
+					$results[$key]['Historiqueetatpe']['alert_exists'] = 'ALERTE';
+				}
+			}
+
+			return $results;
+		}
 	}
 ?>

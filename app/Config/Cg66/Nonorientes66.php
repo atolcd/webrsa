@@ -48,6 +48,7 @@
 					'Adresse.nomcom',
 					'Foyer.enerreur',
 					'Canton.canton',
+					'Historiqueetatpe.alert_exists',
 					'/Dossiers/view/#Dossier.id#' => array( 'class' => 'view external' ),
 				),
 				// 5.3 Infobulle optionnelle du tableau de résultats
