@@ -1706,7 +1706,10 @@ msgid "controllers/Originespdos/index"
 msgstr "Visualisation des origines"
 
 msgid "controllers/Originespdos/edit"
-msgstr "Ajout/Édition d'une origine"
+msgstr "Édition d'une origine"
+
+msgid "controllers/Originespdos/add"
+msgstr "Ajout d'une origine"
 
 msgid "controllers/Originespdos/delete"
 msgstr "Suppression d'une origine"
