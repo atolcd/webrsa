@@ -77,6 +77,7 @@
 		public $uses = array(
 			'Contratinsertion',
 			'Option',
+			'Personne',
 			'WebrsaContratinsertion',
 		);
 
@@ -151,6 +152,14 @@
 		);
 
 		/**
+		 * Variables utilisées pour certains fonction (notamment le calcul du cumul des CER)
+		 */
+		private $cumulDuree = 0;
+		private $dateFinCERPrecedent = '';
+		private $debutPlacePrecedente = '';
+		private $finPlacePrecedente = '';
+
+		/**
 		 * Envoi des options communes à la vue (CG 58, 66, 93).
 		 *
 		 * @return void
@@ -160,7 +169,6 @@
 				$this->Contratinsertion->enums(),
 				$this->Contratinsertion->Personne->Dossierep->Passagecommissionep->enums()
 			);
-			$this->set('duree_engag', $this->Option->duree_engag());
 
 			if (in_array($this->action, array('index', 'add', 'edit', 'view', 'valider', 'validersimple', 'validerparticulier'))) {
 				$this->set( 'duree_engag', $this->Option->duree_engag() );
@@ -582,9 +590,92 @@
 					}
 				}
 			}
+			//récupère le cumul des CER
+			foreach($contratsinsertion as $index=>$value) {
+				$contratsinsertion[$index]["Contratinsertion"]["total"]	=	$this->getDureeCER($value);
+			}
+
+			//inversion du tableau
+			$contratsinsertion = $this->reverseArray($contratsinsertion);
 
 			$this->set(compact('personne_id', 'contratsinsertion', 'messages', 'dossierMenu', 'ajoutPossible'));
 			$this->view = Configure::read('nom_form_ci_cg') ? 'index_'.Configure::read('nom_form_ci_cg') : 'index';
+		}
+
+		/**
+		 * Inverse l'ordre complet d'un array dans les cas où array_reverse n'est pas utilisable
+		 *
+		 * @param array $array
+		 */
+		private function reverseArray($array) {
+			$arrayTemp	=	array();
+			$boucle = count($array)-1;
+			foreach($array as $index=>$value) {
+				$arrayTemp[$boucle] = $value;
+				$boucle--;
+			}
+			sort($arrayTemp, SORT_NUMERIC);
+
+			return $arrayTemp;
+		}
+
+		/**
+		 * Calcul la durée cumulée des CER
+		 * En incluant les plages de dates communes
+		 *
+		 * @param object $contratInsertion Infos du CER
+		 */
+		private function getDureeCER($contratInsertion) {
+			$dureeCER = 0;
+			$dureeMaximaleCER = array_pop (array_keys ($this->Option->duree_engag ()));
+
+			//si un contrat est validé
+			//ne fonctionne pas s'il est annulé ou en attente de décision
+			if($contratInsertion["Contratinsertion"]["decision_ci"] == 'V' && $contratInsertion["Contratinsertion"]["datevalidation_ci"] != null) {
+				$this->cumulDuree += $contratInsertion["Contratinsertion"]["duree_engag"];
+
+				if($this->finPlacePrecedente == '' || $contratInsertion["Contratinsertion"]["dd_ci"]>=$this->finPlacePrecedente) {
+					if($this->cumulDuree <= $dureeMaximaleCER) {
+						$dureeCER = $this->cumulDuree;
+					}
+					else {
+						$dureeCER = $this->cumulDuree - $dureeMaximaleCER;
+						$this->cumulDuree = $dureeCER;
+					}
+				}
+				else {//on doit déterminer le nombre de mois commun entre le contrat précédent et le contrat actuel
+					$diffMois	=	$this->getNbMoisEntre2Dates($contratInsertion["Contratinsertion"]["dd_ci"], $this->finPlacePrecedente);
+					$this->cumulDuree -=  $diffMois;
+					$dureeCER = $this->cumulDuree;
+				}
+
+				$this->debutPlacePrecedente = $contratInsertion["Contratinsertion"]["dd_ci"];
+				$this->finPlacePrecedente = $contratInsertion["Contratinsertion"]["df_ci"];
+			}
+
+			if($dureeCER == 0) {
+				$dureeCER = '';
+			}
+			else {
+				$dureeCER .= ' mois';
+			}
+
+			return $dureeCER;
+		}
+
+		/**
+		 * Calcul le nombre de mois entre 2 dates
+		 *
+		 * @param date $dateDebut Date de début du CER
+		 * @param date $dateFin Date de fin du CER précédent
+		 */
+		private function getNbMoisEntre2Dates ($dateDebut, $dateFin) {
+			$dtDeb = new DateTime($dateDebut);
+			$dtFin = new DateTime($dateFin);
+			$interval = $dtDeb->diff($dtFin);
+			$nbmonth= $interval->format('%m');
+			$nbyear = $interval->format('%y');
+			return 12 * $nbyear + $nbmonth;
 		}
 
 		/**
@@ -1209,7 +1300,155 @@
 			$this->set(compact('structures', 'referents'));
 			$this->set('urlmenu', '/contratsinsertion/index/' . $personne_id);
 
+			//récupère le cumul des CER
+			$querydata = Hash::merge(
+				$this->Contratinsertion->WebrsaContratinsertion->qdIndex($personne_id),
+				array(
+					'fields' => array(
+						'(SELECT COUNT(*) FROM fichiersmodules AS a WHERE a.modele = \'Contratinsertion\' AND a.fk_value = "Contratinsertion"."id") AS "Fichiermodule__count"',
+						'Contratinsertion.personne_id'
+					)
+				)
+			);
+			$querydata['contain'] = false;
+			$contratsinsertion = $this->WebrsaAccesses->getIndexRecords($personne_id, $querydata);
+			$dureeTotalCER = $this->getDureeTotalCER($contratsinsertion);
+			$infosPersonne = $this->Personne->find('first', array('recursive'=>(-1), 'conditions'=>array('Personne.id'=>$personne_id)));
+			$agePersonne = $infosPersonne['Personne']['age'];
+			$this->set(compact('dureeTotalCER', 'agePersonne'));
+
+			$duree_engag = $this->Option->duree_engag();
+			$isEpParcoursBeforeLastCer = $this->isEpParcoursBeforeLastCer($personne_id, $contratsinsertion);
+			$tabDureeEngag = $this->setDureeEngag($duree_engag, $dureeTotalCER, $agePersonne, $isEpParcoursBeforeLastCer);
+			$this->set('duree_engag', $duree_engag);
+			$this->set('dureeMaximaleTrancheContrat', array_pop (array_keys ($duree_engag)));
+			$this->set('tabDureeEngag', $tabDureeEngag);
+			$this->set('isEpParcoursBeforeLastCer', $isEpParcoursBeforeLastCer);
+
 			$this->render( 'add_edit_specif_'.Configure::read( 'nom_form_ci_cg' ) );
+		}
+
+		/**
+		 * Définition de la liste déroulante possible pour la durée d'ajout d'un CER
+		 *
+		 * @param array $duree_engag
+		 */
+		protected function isEpParcoursBeforeLastCer ($personne_id, $contratsinsertion) {
+			$dateFinDernierContrat = array_pop ($contratsinsertion);
+
+			$Passagecommissionep = ClassRegistry::init ('Passagecommissionep');
+			$nbEpParcours = $Passagecommissionep->find (
+				'count',
+				array (
+					'recursive' => 1,
+					'joins' => array (
+						array(
+							'alias' => 'Decisiondefautinsertionep66',
+							'table' => 'decisionsdefautsinsertionseps66',
+							'type' => 'LEFT OUTER',
+							'conditions' => array(
+								'Decisiondefautinsertionep66.passagecommissionep_id = Passagecommissionep.id',
+							)
+						),
+						array(
+							'alias' => 'Decisionsaisinebilanparcoursep66',
+							'table' => 'decisionssaisinesbilansparcourseps66',
+							'type' => 'LEFT OUTER',
+							'conditions' => array(
+								'Decisionsaisinebilanparcoursep66.passagecommissionep_id = Passagecommissionep.id',
+							)
+						)
+					),
+					'conditions' => array (
+						'Dossierep.personne_id' => $personne_id,
+						/**
+						 * Liste des thématiques :
+						 * Demande de réorientation ou maintien
+						 * 		saisinesbilansparcourseps66
+						 * Maintien dans le social
+						 * 		nonorientationsproseps66
+						 * Défaut d'insertion
+						 * 		defautsinsertionseps66
+						 * Saisine PDO
+						 * 		saisinespdoseps66
+						 */
+						'Dossierep.themeep' => array (
+								'saisinesbilansparcourseps66',
+								'defautsinsertionseps66',
+							),
+						'Passagecommissionep.etatdossierep' => 'traite',
+						'Commissionep.dateseance >= \''.$dateFinDernierContrat['Contratinsertion']['df_ci'].'\'',
+						'OR' => array (
+							'Decisiondefautinsertionep66.decision' => array (
+								'maintienorientsoc'
+							),
+							'Decisionsaisinebilanparcoursep66.decision' => array (
+								'maintien'
+							),
+						)
+					),
+				)
+			);
+
+			if ($nbEpParcours > 0) {
+				return true;
+			}
+
+			return false;
+		}
+
+		/**
+		 * Définition de la liste déroulante possible pour la durée d'ajout d'un CER
+		 *
+		 * @param array $duree_engag
+		 */
+		protected function setDureeEngag ($duree_engag, $dureeTotalCER, $agePersonne, $isEpParcoursBeforeLastCer) {
+			// Pas de limite de contrat si l'allocataire a plus que l'age de tacite reconduction (55 ans).
+			if ($agePersonne >= Configure::read( 'Tacitereconduction.limiteAge' )) {
+				return $duree_engag;
+			}
+
+			// Pas de limite de contrat si l'allocataire est passé en EP PARCOURS et si la date de décision
+			// de l'EP est postérieure à la date de fin du dernier CER
+			if ($isEpParcoursBeforeLastCer) {
+				return $duree_engag;
+			}
+
+			// La différence entre le plus long contrat et le temps de contrat déjà effectué pour une tranche
+			$dureeCerMax = array_pop (array_keys ($duree_engag)) - $dureeTotalCER;
+			foreach ($duree_engag as $key => $value) {
+				if ($key > $dureeCerMax) {
+					unset ($duree_engag[$key]);
+				}
+			}
+
+			return $duree_engag;
+		}
+
+		/**
+		 * Calcul le cumul total des CER, et renvoi le nombre de mois restants par plage de X mois (24 mois par défaut)
+		 * Exemple : si le cumule est de 30mois, il renvoi 18mois encore possible
+		 *
+		 * @param object $CER
+		 */
+		private function getDureeTotalCER($CER) {
+			$dureeTotalCER = 0;
+
+			foreach($CER as $index=>$value) {
+				if($value["Contratinsertion"]["decision_ci"] == 'V' && $value["Contratinsertion"]["datevalidation_ci"] != null) {
+					$dureeTotalCER += $value["Contratinsertion"]["duree_engag"];
+
+					if($this->finPlacePrecedente != '' && $value["Contratinsertion"]["dd_ci"]<=$this->finPlacePrecedente) {
+						//on doit déterminer le nombre de mois commun entre le contrat précédent et le contrat actuel
+						$diffMois	=	$this->getNbMoisEntre2Dates($value["Contratinsertion"]["dd_ci"], $this->finPlacePrecedente);
+						$dureeTotalCER -=  $diffMois;
+					}
+
+					$this->debutPlacePrecedente = $value["Contratinsertion"]["dd_ci"];
+					$this->finPlacePrecedente = $value["Contratinsertion"]["df_ci"];
+				}
+			}
+			return ($dureeTotalCER % array_pop (array_keys ($this->Option->duree_engag ())));
 		}
 
 		/**

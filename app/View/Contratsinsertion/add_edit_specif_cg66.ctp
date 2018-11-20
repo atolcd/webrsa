@@ -642,11 +642,74 @@ Event.observe( $( 'ContratinsertionStructurereferenteId' ), 'change', function( 
 	Le bénéficiaire <strong>s'engage à respecter les orientations et le suivi</strong> du parcours d'insertion, ainsi que les différents moyens d'actions proposés. Le Département, représenté par le référent signataire désigné par l'organisme choisi par <?php echo __d('default'.Configure::read('Cg.departement'), 'le Président du Conseil Départemental');?> <strong>s'engage à mettre en oeuvre les actions pré-citées et/ou un accompagnement adapté.</strong>
 </p>
 </fieldset>
+
+
+<script type="text/javascript">
+	document.observe("dom:loaded", function() {
+		$('ContratinsertionTypePacea').observe('click', function() {
+			if (this.checked) {
+				$('ContratinsertionDureeEngag').innerHTML = '';
+				$('ContratinsertionDureeEngag').insert(new Element('option', {value: ''}).update(''));
+<?php
+	foreach ($duree_engag as $key => $value) {
+?>
+				$('ContratinsertionDureeEngag').insert(new Element('option', {value: '<?php echo ($key); ?>'}).update('<?php echo ($value); ?>'));
+<?php
+	}
+?>
+			}
+			else {
+				$('ContratinsertionDureeEngag').innerHTML = '';
+				$('ContratinsertionDureeEngag').insert(new Element('option', {value: ''}).update(''));
+<?php
+	foreach ($tabDureeEngag as $key => $value) {
+?>
+				$('ContratinsertionDureeEngag').insert(new Element('option', {value: '<?php echo ($key); ?>'}).update('<?php echo ($value); ?>'));
+<?php
+	}
+?>
+			}
+		});
+	});
+</script>
 <fieldset>
 <table class="wide noborder">
 	<tr>
 		<td colspan="2" class="noborder contratinsertion_duree_engag">
-			<?php echo $this->Form->input( 'Contratinsertion.duree_engag', array( 'label' => 'Le présent contrat est conclu pour une durée de '.REQUIRED_MARK, 'type' => 'select', 'options' => $duree_engag, 'empty' => true )  ); ?>
+			<?php
+			if ($agePersonne >= Configure::read( 'Tacitereconduction.limiteAge' )) {
+				echo '<div class="notice">Le bénéficiaire a '.$agePersonne.' ans</div>';
+			}
+			if ($isEpParcoursBeforeLastCer) {
+				echo '<div class="notice">La date de la dernière EPL PARCOURS est postérieure à la date de fin du dernier CER.</div>';
+			}
+			if ($dureeTotalCER > 0 && $dureeTotalCER < $dureeMaximaleTrancheContrat) {
+				echo '<div class="error_message">Attention, le bénéficiaire a déjà cumulé '.$dureeTotalCER.' mois de CER, vous ne pouvez pas dépasser '.$dureeMaximaleTrancheContrat.' mois, sauf pour une tacite reconduction (+ de '.Configure::read( 'Tacitereconduction.limiteAge' ).' ans)</div>';
+			}
+			elseif ($dureeTotalCER >= $dureeMaximaleTrancheContrat && $agePersonne < Configure::read( 'Tacitereconduction.limiteAge' )) {
+				echo '<div class="error_message">Attention, le bénéficiaire a déjà cumulé les '.$dureeMaximaleTrancheContrat.' mois possibles, vous ne pouvez pas créer un nouveau CER</div>';
+			}
+			?>
+	</tr>
+	<tr>
+		<td class="mediumSize noborder">
+			<?php
+			$contratPacea = 'checked';
+			echo $this->Form->input (
+				'Contratinsertion.type_pacea',
+				array (
+					'type' => 'checkbox',
+					'label' => '<strong>'.__d( 'contratsinsertion_cg66', 'Contratinsertion.type_pacea' ).'</strong>',
+					'value' => $contratPacea,
+				)
+			);
+			?>
+		</td>
+		<td class="mediumSize noborder"></td>
+	</tr>
+	<tr>
+		<td colspan="2" class="noborder contratinsertion_duree_engag">
+			<?php echo $this->Form->input( 'Contratinsertion.duree_engag', array( 'label' => 'Le présent contrat est conclu pour une durée de '.REQUIRED_MARK, 'type' => 'select', 'options' => $tabDureeEngag, 'empty' => true )  ); ?>
 		</td>
 	</tr>
 	<tr>
