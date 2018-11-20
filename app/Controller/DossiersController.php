@@ -814,6 +814,8 @@
                     }
                 }
 
+				// Nouveau bloc Pôle Emploi
+				$personnesFoyer[$index]['Fluxpoleemploi'] = $this->Informationpe->derniereInformation($personnesFoyer[$index]);
 
 				// Utilisation des nouvelles tables de stockage des infos Pôle Emploi
 				$tInfope = $this->Informationpe->derniereInformation($personnesFoyer[$index]);

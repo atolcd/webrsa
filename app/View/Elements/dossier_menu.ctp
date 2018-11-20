@@ -213,6 +213,25 @@ $fonorg = $dossier['Dossier']['fonorg'];
 					);
 				}
 
+				$subAllocataire['Accompagnement du parcours']['Informations Pôle Emploi'] = array(
+					'disabled' => !Configure::read('Module.Fluxpoleemplois.enabled'),
+					'url' => array(
+						'controller' => 'fluxpoleemplois',
+						'action' => 'personne',
+						$dossier['Foyer']['id'],
+						$personne['id'],
+					)
+				);
+				$subAllocataire['Accompagnement du parcours']['Historique Pôle Emploi'] = array(
+					'disabled' => !Configure::read('Module.Fluxpoleemplois.enabled'),
+					'url' => array(
+						'controller' => 'fluxpoleemplois',
+						'action' => 'historique',
+						$dossier['Foyer']['id'],
+						$personne['id'],
+					)
+				);
+
 				$contratcontroller = 'contratsinsertion';
 				if( $departement == 93 ) {
 					$contratcontroller = 'cers93';
@@ -301,24 +320,6 @@ $fonorg = $dossier['Dossier']['fonorg'];
 				'url' => array(
 					'controller' => 'donneescaf',
 					'action' => 'personne',
-					$personne['id'],
-				)
-			);
-			$subAllocataire['Informations Pôle Emploi']['Informations'] = array(
-				'disabled' => !Configure::read('Module.Fluxpoleemplois.enabled'),
-				'url' => array(
-					'controller' => 'fluxpoleemplois',
-					'action' => 'personne',
-					$dossier['Foyer']['id'],
-					$personne['id'],
-				)
-			);
-			$subAllocataire['Informations Pôle Emploi']['Historique'] = array(
-				'disabled' => !Configure::read('Module.Fluxpoleemplois.enabled'),
-				'url' => array(
-					'controller' => 'fluxpoleemplois',
-					'action' => 'historique',
-					$dossier['Foyer']['id'],
 					$personne['id'],
 				)
 			);

@@ -429,6 +429,44 @@
 							</tr>
 						</tbody>
 					</table>
+
+					<h2>Informations Pôle Emploi</h2>
+					<table>
+					<?php echo thead( 10 );?>
+						<tbody>
+							<tr class="even">
+								<th>Identifiant Pôle Emploi</th>
+								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.allocataire_identifiant_pe', $details);?></td>
+								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.allocataire_identifiant_pe', $details);?></td>
+							</tr>
+							<tr class="odd">
+								<th>Date de début IDE</th>
+								<td><?php echo date_short(Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_date_debut_ide', $details));?></td>
+								<td><?php echo date_short(Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_date_debut_ide', $details));?></td>
+							</tr>
+							<tr class="even">
+								<th>Date de radiation</th>
+								<td><?php echo date_short(Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_date_radiation_ide', $details));?></td>
+								<td><?php echo date_short(Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_date_radiation_ide', $details));?></td>
+							</tr>
+							<tr class="odd">
+								<th>Motif de radiation</th>
+								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_lib_radiation_ide', $details );?></td>
+								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_lib_radiation_ide', $details );?></td>
+							</tr>
+							<tr class="even">
+								<th>Niveau de formation</th>
+								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.formation_lib_niveau', $details );?></td>
+								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.formation_lib_niveau', $details );?></td>
+							</tr>
+							<tr class="odd">
+								<th>Date de notification PPAE</th>
+								<td><?php echo date_short( Set::extract( 'DEM.Fluxpoleemploi.Informationpe.ppae_date_notification', $details) );?></td>
+								<td><?php echo date_short( Set::extract( 'CJT.Fluxpoleemploi.Informationpe.ppae_date_notification', $details) );?></td>
+							</tr>
+						</tbody>
+					</table>
+
 				</td>
 			</tr>
 			<tr>
