@@ -2465,6 +2465,7 @@
 								'.$where.'
 								AND orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\'
 								AND cer.dd_ci>=orientsstructs.date_propo
+                                AND cer.dd_ci BETWEEN orientsstructs.date_propo AND \''.$annee.'-12-31\'
 								AND cer.id IN (
 									SELECT id FROM contratsinsertion
 									WHERE personne_id=personnes.id AND dd_ci>=orientsstructs.date_valid

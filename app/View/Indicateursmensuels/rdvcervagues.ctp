@@ -44,10 +44,10 @@
 				$nbResult++;
 				if($index<=($nbColonne-2)) {
 					$personnes	=	(isset($value[0][0]['nbpersonnes'])) ? '<br /><i>'.$value[0][0]['nbpersonnes'].' pers.</i>' : '';
-					$row[] = '<td class="number">'.number_format($value[0][0]['indicateur'], 2, ',', ' ').' j.'.$personnes.'</td>';
+					$row[] = '<td class="number">'.number_format($value[0][0]['indicateur'], 0, ',', ' ').' jour'.(($value[0][0]['indicateur']>1)?'s':'').$personnes.'</td>';
 				}
 				else
-					$row[] = '<td class="number"><strong>'.number_format($value[0][0]['indicateur'], (($index==$nbColonne)?0:2), ',', ' ').'</strong</td>';
+					$row[] = '<td class="number"><strong>'.number_format($value[0][0]['indicateur'], 0, ',', ' ').'</strong</td>';
 			}
 			$rows[] = '<tr class="'.( ( ( count( $rows ) + 1 ) % 2 ) == 0 ? 'even' : 'odd' ).'">'.implode( '', $row ).'</tr>';
 		}
