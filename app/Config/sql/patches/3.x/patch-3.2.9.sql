@@ -91,11 +91,11 @@ CREATE TABLE typestitrescreanciers_titrescreanciers (
   modified						TIMESTAMP WITHOUT TIME ZONE
 );
 COMMENT ON TABLE typestitrescreanciers_titrescreanciers IS 'Table de liaison entre les types des titres creanciers et les titres creanciers';
-DROP INDEX IF EXISTS typestitrescreanciers_titrescreanciers_typetitrecreancier_id_idx;
-CREATE INDEX typestitrescreanciers_titrescreanciers_typetitrecreancier_id_idx ON typestitrescreanciers_titrescreanciers(typetitrecreancier_id);
+DROP INDEX IF EXISTS typestitrescreanciers_titrecreancier_typetitrecreancier_id_idx;
+CREATE INDEX typestitrescreanciers_titrecreancier_typetitrecreancier_id_idx ON typestitrescreanciers_titrescreanciers(typetitrecreancier_id);
 
-DROP INDEX IF EXISTS typestitrescreanciers_titrescreanciers_titrecreancier_id_idx;
-CREATE INDEX typestitrescreanciers_titrescreanciers_titrecreancier_id_idx ON typestitrescreanciers_titrescreanciers(titrecreancier_id);
+DROP INDEX IF EXISTS typestitrescreanciers_titrecreancier_titrecreancier_id_idx;
+CREATE INDEX typestitrescreanciers_titrecreancier_titrecreancier_id_idx ON typestitrescreanciers_titrescreanciers(titrecreancier_id);
 
 -- *********************************************************************************
 -- Creation de la table des rapport crée par les talends d'intégration des flux CNAF
@@ -459,7 +459,7 @@ CREATE TABLE historiqueetatsperejets
   ppae_date_dernier_ent date,
   date_creation timestamp without time zone,
   date_modification timestamp without time zone,
-  CONSTRAINT historiqueetatspe_pkey PRIMARY KEY (id)
+  CONSTRAINT historiqueetatsperejets_pkey PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE
