@@ -23,7 +23,7 @@ ALTER TABLE decisionssaisinesbilansparcourseps66 ADD COLUMN commentairebeneficia
 ALTER TABLE creances ADD COLUMN moismoucompta date;
 ALTER TABLE creances ADD COLUMN orgcre character(3) NOT NULL DEFAULT 'FLU'::character varying;
 ALTER TABLE creances ADD COLUMN mention character varying(255);
-ALTER TABLE creances ADD COLUMN haspiecejointe character varying(1) NOT NULL DEFAULT '0'::character
+ALTER TABLE creances ADD COLUMN haspiecejointe character varying(1) NOT NULL DEFAULT '0'::character;
 
 UPDATE creances SET  orgcre='FLU' WHERE orgcre NOT LIKE 'MAN' AND orgcre NOT LIKE 'FLU' AND orgcre IS NULL;
 
@@ -516,9 +516,6 @@ CREATE INDEX infosfinancieres_type_allocation_idx ON infosfinancieres USING btre
 
 CREATE INDEX contratsinsertion_rg_ci_idx ON contratsinsertion USING btree (rg_ci);
 
-CREATE INDEX vagues93_dateDebut_idx ON vagues93 USING btree (dateDebut);
-CREATE INDEX vagues93_dateFin_idx ON vagues93 USING btree (dateFin);
-
 CREATE INDEX dsps_revs_personne_id_modified_idx ON dsps_revs USING btree (personne_id, modified);
 
 CREATE INDEX dossiers_dtdemrsa_id_idx ON dossiers USING btree (dtdemrsa, id);
@@ -538,6 +535,9 @@ CREATE TABLE vaguesdorientations
   dateDebut date,
   dateFin date
 );
+
+CREATE INDEX vaguesdorientations_dateDebut_idx ON vaguesdorientations USING btree (dateDebut);
+CREATE INDEX vaguesdorientations_dateFin_idx ON vaguesdorientations USING btree (dateFin);
 
 -- *****************************************************************************
 COMMIT;
