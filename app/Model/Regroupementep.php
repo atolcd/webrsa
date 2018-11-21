@@ -127,7 +127,7 @@
 					unset( $enums[$this->alias][$key] );
 				}
 
-				if (in_array ($key, $blocageThemes)) {
+				if (in_array ($key, (array) $blocageThemes)) {
 					unset( $enums[$this->alias][$key] );
 				}
 			}
