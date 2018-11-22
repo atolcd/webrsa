@@ -147,6 +147,12 @@ msgstr "Oui"
 msgid "ENUM::HASPIECEJOINTE::0"
 msgstr "Non"
 
+msgid "ENUM::ELIGIBLEFSE::1"
+msgstr "Oui"
+
+msgid "ENUM::ELIGIBLEFSE::0"
+msgstr "Non"
+
 msgid "Actioncandidat.emailprestataire"
 msgstr "Email partenaire/prestataire"
 

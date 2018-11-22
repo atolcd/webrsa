@@ -109,6 +109,8 @@
 		protected function _setOptions() {
 			$options = $this->Actioncandidat->enums();
 
+			$options['Actioncandidat']['eligiblefse'] = array(0=>'Non', 1=>'Oui');
+
 			if( $this->action != 'index' ) {
 				$options['Actioncandidat']['referent_id'] = $this->Actioncandidat->ActioncandidatPersonne->Referent->find('list');
 

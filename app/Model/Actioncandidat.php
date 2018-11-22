@@ -383,6 +383,7 @@
 
             $hasFiche = Hash::get( $criteres, 'Actioncandidat.hasfichecandidature' );
             $isactive = Hash::get( $criteres, 'Actioncandidat.actif' );
+			$eligiblefse = Hash::get( $criteres, 'Actioncandidat.eligiblefse' );
 
 			// Critères sur l'action
 			foreach( array( 'name', 'lieuaction', 'cantonaction', 'themecode', 'codefamille', 'numcodefamille', 'naturecer' ) as $critereAction ) {
@@ -399,6 +400,11 @@
             // Critère sur le fait ou non d'être active
             if( isset( $isactive ) && !empty( $isactive ) ){
 				$conditions[] = 'Actioncandidat.actif = \''.Sanitize::clean( $isactive, array( 'encode' => false )  ).'\'';
+			}
+
+			// Critère sur le fait ou non d'être éligible FSE
+            if( isset( $eligiblefse ) && !empty( $eligiblefse ) ){
+				$conditions[] = 'Actioncandidat.eligiblefse = \''.Sanitize::clean( $eligiblefse, array( 'encode' => false )  ).'\'';
 			}
 
             $conditions = $this->conditionsDates( $conditions, $criteres, 'Actioncandidat.ddaction' );

@@ -28,6 +28,7 @@
 	echo $this->Default2->subform(
 		array(
 			'Actioncandidat.hasfichecandidature' => array( 'domain' => 'actioncandidat', 'required' => true, 'type'=>'radio', 'options' => $options['Actioncandidat']['hasfichecandidature'] ),
+			'Actioncandidat.eligiblefse' => array( 'label' => 'Eligible FSE ?', 'type' => 'radio', 'options' => $options['Actioncandidat']['eligiblefse'] ),
 			'Actioncandidat.actif' => array( 'label' => 'Active ?', 'type' => 'radio', 'options' => $options['Actioncandidat']['actif'] ),
 			'Actioncandidat.modele_document' => array( 'label' => __d( 'actioncandidat', 'Actioncandidat.modele_document' ), 'required' => true, 'value' => isset( $this->request->data['Actioncandidat']['modele_document'] ) ? $this->request->data['Actioncandidat']['modele_document'] : 'fichecandidature' )
 		)
