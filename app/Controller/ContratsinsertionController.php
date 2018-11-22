@@ -1415,13 +1415,15 @@
 			}
 
 			// La différence entre le plus long contrat et le temps de contrat déjà effectué pour une tranche
+			// Plus d'actualité pour le moment seulement, laisser le code pour le moment.
+/*
 			$dureeCerMax = array_pop (array_keys ($duree_engag)) - $dureeTotalCER;
 			foreach ($duree_engag as $key => $value) {
 				if ($key > $dureeCerMax) {
 					unset ($duree_engag[$key]);
 				}
 			}
-
+*/
 			return $duree_engag;
 		}
 

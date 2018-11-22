@@ -917,6 +917,7 @@
 			'24' => '24 mois',
 		)
 	);
+	Configure::write( 'cer.duree.tranche', 24 );
 
 	/**
 	 * Affichage de messages autour du logo
