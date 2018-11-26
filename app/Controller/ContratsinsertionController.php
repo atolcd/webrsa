@@ -1357,6 +1357,22 @@
 							'conditions' => array(
 								'Decisionsaisinebilanparcoursep66.passagecommissionep_id = Passagecommissionep.id',
 							)
+						),
+						array(
+							'alias' => 'Decisionssaisinespdoseps66',
+							'table' => 'decisionssaisinespdoseps66',
+							'type' => 'LEFT OUTER',
+							'conditions' => array(
+								'Decisionssaisinespdoseps66.passagecommissionep_id = Passagecommissionep.id',
+							)
+						),
+						array(
+							'alias' => 'Decisionsnonorientationsproseps66',
+							'table' => 'decisionsnonorientationsproseps66',
+							'type' => 'LEFT OUTER',
+							'conditions' => array(
+								'Decisionsnonorientationsproseps66.passagecommissionep_id = Passagecommissionep.id',
+							)
 						)
 					),
 					'conditions' => array (
@@ -1374,7 +1390,9 @@
 						 */
 						'Dossierep.themeep' => array (
 								'saisinesbilansparcourseps66',
+								'nonorientationsproseps66',
 								'defautsinsertionseps66',
+								'saisinespdoseps66',
 							),
 						'Passagecommissionep.etatdossierep' => 'traite',
 						'Commissionep.dateseance >= \''.$dateFinDernierContrat['Contratinsertion']['df_ci'].'\'',
@@ -1383,6 +1401,12 @@
 								'maintienorientsoc'
 							),
 							'Decisionsaisinebilanparcoursep66.decision' => array (
+								'maintien'
+							),
+							'Decisionssaisinespdoseps66.decision' => array (
+								'maintien'
+							),
+							'Decisionsnonorientationsproseps66.decision' => array (
 								'maintien'
 							),
 						)

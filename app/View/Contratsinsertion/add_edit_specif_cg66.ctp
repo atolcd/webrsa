@@ -651,14 +651,10 @@ Event.observe( $( 'ContratinsertionStructurereferenteId' ), 'change', function( 
 			if ($agePersonne >= Configure::read( 'Tacitereconduction.limiteAge' )) {
 				echo '<div class="notice">Le bénéficiaire a plus de '.Configure::read( 'Tacitereconduction.limiteAge' ).' ans</div>';
 			}
-			if ($isEpParcoursBeforeLastCer) {
-				echo '<div class="notice">La date de la dernière EPL PARCOURS est postérieure à la date de fin du dernier CER.</div>';
-			}
-			if ($dureeTotalCER > 0 && $dureeTotalCER < $dureeMaximaleTrancheContrat) {
+			//Cumul de la durée des CER > 0
+			//Date EP < Date de début du dernier CER. Décision EP est "maintien dans le social"
+			if ($dureeTotalCER > 0 && $dureeTotalCER < $dureeMaximaleTrancheContrat && $isEpParcoursBeforeLastCer==true) {
 				echo '<div class="error_message">Attention, le bénéficiaire a déjà cumulé '.$dureeTotalCER.' mois de CER, vous ne pouvez pas dépasser '.$dureeMaximaleTrancheContrat.' mois, sauf pour une tacite reconduction (+ de '.Configure::read( 'Tacitereconduction.limiteAge' ).' ans ou FSE) ou PACEA</div>';
-			}
-			elseif ($dureeTotalCER >= $dureeMaximaleTrancheContrat && $agePersonne < Configure::read( 'Tacitereconduction.limiteAge' )) {
-				echo '<div class="error_message">Attention, le bénéficiaire a déjà cumulé les '.$dureeMaximaleTrancheContrat.' mois possibles, vous ne pouvez pas créer un nouveau CER</div>';
 			}
 			?>
 	</tr>
