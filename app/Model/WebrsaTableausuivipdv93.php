@@ -19,6 +19,12 @@
 	 */
 	class WebrsaTableausuivipdv93 extends AppModel
 	{
+		/**
+		 * User connecté
+		 *
+		 * @var string
+		 */
+		public $userConnected = null;
 
 		/**
 		 * Nom du modèle.
@@ -4029,6 +4035,11 @@
 			$personne = ClassRegistry::init( 'Personne' );
 			$annee = Hash::get( $search, 'Search.annee' );
 
+			//dans le cas d'un user PDV/PIE on filtre sur ses résultats
+			if(isset($this->userConnected["type"]) && $this->userConnected["type"]=='externe_cpdv' && $this->userConnected["structurereferente_id"]>0) {
+				$search["Search"]["structurereferente_id"] = $this->userConnected["structurereferente_id"];
+			}
+
 			/*
 			 * Toutes les personnes ayant un questionnaire B7 ou un questionnaire D2
 			 */
@@ -4181,6 +4192,11 @@
 			$annee = Hash::get( $search, 'Search.annee' );
 
 			$return = array();
+
+			//dans le cas d'un user PDV/PIE on filtre sur ses résultats
+			if(isset($this->userConnected["type"]) && $this->userConnected["type"]=='externe_cpdv' && $this->userConnected["structurereferente_id"]>0) {
+				$search["Search"]["structurereferente_id"] = $this->userConnected["structurereferente_id"];
+			}
 
 			// Types d'emploi
 			$typeEmplois = $typeEmploi->find (
@@ -4351,6 +4367,11 @@
 					'order' => array ('code' => 'ASC'),
 				)
 			);
+
+			//dans le cas d'un user PDV/PIE on filtre sur ses résultats
+			if(isset($this->userConnected["type"]) && $this->userConnected["type"]=='externe_cpdv' && $this->userConnected["structurereferente_id"]>0) {
+				$search["Search"]["structurereferente_id"] = $this->userConnected["structurereferente_id"];
+			}
 
 			// Questionnaires b7
 			$query = array (

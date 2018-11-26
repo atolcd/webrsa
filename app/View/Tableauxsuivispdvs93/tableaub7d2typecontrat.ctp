@@ -49,12 +49,12 @@
 				<td class="number"><?php echo $results['total']['B7']['partiel'] == 0 ? 0 : round (100 * $results['tableauB7']['partiel'][$numero] / $results['total']['B7']['partiel'], 2)."%"; ?></td>
 				<td class="number"><?php echo $results['tableauB7']['non_com'][$numero]; ?></td>
 				<td class="number"><?php echo $results['total']['B7']['non_com'] == 0 ? 0 : round (100 * $results['tableauB7']['non_com'][$numero] / $results['total']['B7']['non_com'], 2)."%"; ?></td>
-				<td class="number"><?php echo $results['tableauD2']['complet'][$numero]; ?></td>
-				<td class="number"><?php echo $results['total']['D2']['complet'] == 0 ? 0 : round (100 * $results['tableauD2']['complet'][$numero] / $results['total']['D2']['complet'], 2)."%"; ?></td>
-				<td class="number"><?php echo $results['tableauD2']['partiel'][$numero]; ?></td>
-				<td class="number"><?php echo $results['total']['D2']['partiel'] == 0 ? 0 : round (100 * $results['tableauD2']['partiel'][$numero] / $results['total']['D2']['partiel'], 2)."%"; ?></td>
-				<td class="number"><?php echo $results['tableauD2']['non_com'][$numero]; ?></td>
-				<td class="number"><?php echo $results['total']['D2']['non_com'] == 0 ? 0 : round (100 * $results['tableauD2']['non_com'][$numero] / $results['total']['D2']['non_com'], 2)."%"; ?></td>
+				<td class="number"><?php echo @$results['tableauD2']['complet'][$numero]; ?></td>
+				<td class="number"><?php echo @$results['total']['D2']['complet'] == 0 ? 0 : round (100 * @$results['tableauD2']['complet'][$numero] / @$results['total']['D2']['complet'], 2)."%"; ?></td>
+				<td class="number"><?php echo @$results['tableauD2']['partiel'][$numero]; ?></td>
+				<td class="number"><?php echo @$results['total']['D2']['partiel'] == 0 ? 0 : round (100 * @$results['tableauD2']['partiel'][$numero] / @$results['total']['D2']['partiel'], 2)."%"; ?></td>
+				<td class="number"><?php echo @$results['tableauD2']['non_com'][$numero]; ?></td>
+				<td class="number"><?php echo @$results['total']['D2']['non_com'] == 0 ? 0 : round (100 * @$results['tableauD2']['non_com'][$numero] / @$results['total']['D2']['non_com'], 2)."%"; ?></td>
 			</tr>
 			<?php endforeach;?>
 			<tr class="total">

@@ -997,7 +997,8 @@
 
 			if( !empty( $search ) ) {
 				//$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7( $search );
-				$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7( $this->request->data );
+				$this->Tableausuivipdv93->WebrsaTableausuivipdv93->userConnected = $this->Session->read( 'Auth.User' );
+				$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7( $this->request->data);
 
 				$this->set( compact( 'results' ) );
 			}
@@ -1014,7 +1015,8 @@
 
 			if( !empty( $search ) ) {
 				//$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7d2typecontrat( $search );
-				$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7d2typecontrat( $this->request->data );
+				$this->Tableausuivipdv93->WebrsaTableausuivipdv93->userConnected = $this->Session->read( 'Auth.User' );
+				$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7d2typecontrat( $this->request->data);
 
 				$this->set( compact( 'results' ) );
 			}
@@ -1031,7 +1033,8 @@
 
 			if( !empty( $search ) ) {
 				//$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7d2familleprofessionnelle( $search );
-				$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7d2familleprofessionnelle( $this->request->data );
+				$this->Tableausuivipdv93->WebrsaTableausuivipdv93->userConnected = $this->Session->read( 'Auth.User' );
+				$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7d2familleprofessionnelle( $this->request->data, $this->Session->read( 'Auth.User' ) );
 
 				$this->set( compact( 'results' ) );
 			}
