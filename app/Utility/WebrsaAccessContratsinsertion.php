@@ -226,7 +226,7 @@
 			$params = self::params($params);
 			
 			return Hash::get($record, $params['alias'].'.positioncer') !== 'annule'
-				&& Hash::get($record, 'Personne.age') >= 55
+				&& Hash::get($record, 'Personne.age') >= Configure::read( 'Tacitereconduction.limiteAge' )
 			;
 		}
 
