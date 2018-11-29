@@ -6,7 +6,7 @@
 				'Relance.id',
 				'Relance.relancesupport',
 				'Relance.relancetype',
-				'Relance.relancemode' => array ('disabled' => 'disabled'),
+				'Relance.relancemode',
 				'Relance.nombredejour',
 				'Relance.contenu' => array( 'type' => 'textarea' ),
 				'Relance.actif' => array( 'type' => 'checkbox' )
