@@ -56,7 +56,8 @@
                         'Actioncandidat.lieuaction',
                         'Actioncandidat.cantonaction' => array( 'options' => $cantons ),
                         'Actioncandidat.hasfichecandidature',
-                        'Actioncandidat.actif' => array( 'label' => 'Active ?' )
+                        'Actioncandidat.actif' => array( 'label' => 'Active ?' ),
+                        'Actioncandidat.eligiblefse' => array( 'label' => 'Eligible FSE ?' )
 					),
 					array(
 						'options' => $options
