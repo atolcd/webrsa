@@ -70,6 +70,9 @@ msgstr "CER non validé et notifié il y a 45 jours"
 msgid "Search.Contratinsertion.istacitereconduction"
 msgstr "Hors tacite reconduction"
 
+msgid "Search.Contratinsertion.istacitereconductionNotNull"
+msgstr "Tacite reconduction"
+
 msgid "Contratinsertion.orientation"
 msgstr "Filtrer par dernière orientation"
 

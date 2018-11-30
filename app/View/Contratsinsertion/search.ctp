@@ -189,6 +189,7 @@
 				(
 					$departement === 66
 					? array(
+						'Search.Contratinsertion.istacitereconductionNotNull' => array( 'type' => 'checkbox' ),
 						'Search.Contratinsertion.istacitereconduction' => array( 'type' => 'checkbox' )
 					)
 					: array()

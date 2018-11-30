@@ -314,6 +314,9 @@
 					}
 				}
 
+				//infos de la dernière fiche de candidature en cours
+				$ficheCandidature = $this->getInfosFicheCandidature($personne_id);
+
 				$results = array(
 					'haveOrient' => (boolean)Hash::get($record, 'Personne.haveoriente'),
 					'haveOrientEmploi' => (boolean)Hash::get($record, 'Personne.haveoriente_emploi'),
@@ -322,12 +325,53 @@
 					'isSoumisdroitetdevoir' => (boolean)Hash::get($record, 'Personne.isSoumisdroitetdevoir'),
 					'haveDemandemaintiencovnonfinal' => (boolean)Hash::get($record, 'Personne.haveDemandemaintiencovnonfinal'),
 					'needReorientationsociale' => (boolean)Hash::get($record, 'Personne.needReorientationsociale'),
+					'dureeFicheCandidature' => $ficheCandidature["dureeFicheCandidature"],
+					'idFicheCandidature' => $ficheCandidature["idFicheCandidature"],
+					'eligibleFSE' => $ficheCandidature["eligibleFSE"]
 				);
 
 				$this->_mem[$memKey] = $results;
 			}
 
 			return $this->_mem[$memKey];
+		}
+
+		/**
+		 * Récupère les informations de la dernière fiche de candidature en cours
+		 * Traité ensuite dans l'activation ou non de la "tacite reconduction"
+		 */
+		private function getInfosFicheCandidature($personne_id) {
+			$infos = array(	'dureeFicheCandidature'=>0,
+							'idFicheCandidature'=>0,
+							'eligibleFSE'=>0);
+
+			$infoFicheCandidature = $this->Contratinsertion->query('SELECT MAX(ap.id), ap.datesignature, ac.eligiblefse
+																	FROM actionscandidats_personnes ap
+																	LEFT JOIN actionscandidats ac ON ac.id=ap.actioncandidat_id
+																	WHERE ap.personne_id='.$personne_id.' AND ap.positionfiche IN (\'encours\', \'enattente\')
+																	GROUP BY ap.datesignature, ac.eligiblefse');
+			if(isset($infoFicheCandidature[0][0]["max"])) {
+				$infos['dureeFicheCandidature'] = $this->getNbMoisEntre2Dates($infoFicheCandidature[0][0]["datesignature"], date('Y-m-d'));
+				$infos['idFicheCandidature'] = $infoFicheCandidature[0][0]["max"];
+				$infos['eligibleFSE'] = $infoFicheCandidature[0][0]["eligiblefse"];
+			}
+
+			return $infos;
+		}
+
+		/**
+		 * Calcul le nombre de mois entre 2 dates
+		 *
+		 * @param date $dateDebut Date de début du CER
+		 * @param date $dateFin Date de fin du CER précédent
+		 */
+		private function getNbMoisEntre2Dates ($dateDebut, $dateFin) {
+			$dtDeb = new DateTime($dateDebut);
+			$dtFin = new DateTime($dateFin);
+			$interval = $dtDeb->diff($dtFin);
+			$nbmonth= $interval->format('%m');
+			$nbyear = $interval->format('%y');
+			return 12 * $nbyear + $nbmonth;
 		}
 
 		/**

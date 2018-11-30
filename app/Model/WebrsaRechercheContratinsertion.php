@@ -244,6 +244,9 @@
 			if( Hash::get( $search, 'Contratinsertion.istacitereconduction' ) ) {
 				$query['conditions'][] = 'Contratinsertion.datetacitereconduction IS NULL';
 			}
+			if( Hash::get( $search, 'Contratinsertion.istacitereconductionNotNull' ) ) {
+				$query['conditions'][] = 'Contratinsertion.datetacitereconduction IS NOT NULL';
+			}
 
 			// Filtre par durée du contrat, avec des subtilités pour les CG 58 et 93
 			$duree_engag = preg_replace( '/^[^0-9]*([0-9]+)[^0-9]*$/', '\1', Hash::get( $search, 'Contratinsertion.duree_engag' ) );

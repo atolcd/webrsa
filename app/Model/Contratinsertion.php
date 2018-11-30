@@ -861,9 +861,10 @@
 				)
 			);
 
+			//AND EXTRACT( YEAR FROM AGE( "'.$this->alias.'"."dd_ci", ( '.$sql.' ) ) ) >= 55
 			$this->virtualFields['num_contrat_66'] = '(
 				CASE
-					WHEN ( "'.$this->alias.'"."num_contrat" = \'REN\' AND EXTRACT( YEAR FROM AGE( "'.$this->alias.'"."dd_ci", ( '.$sql.' ) ) ) >= 55 AND "'.$this->alias.'"."datetacitereconduction" IS NOT NULL ) THEN \'REN_TACITE\'
+					WHEN ( "'.$this->alias.'"."num_contrat" = \'REN\'  AND "'.$this->alias.'"."datetacitereconduction" IS NOT NULL ) THEN \'REN_TACITE\'
 					ELSE "'.$this->alias.'"."num_contrat"::text
 				END
 			)';

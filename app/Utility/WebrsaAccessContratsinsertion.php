@@ -224,10 +224,23 @@
 		 */
 		protected static function _reconduction_cer_plus_55_ans(array $record, array $params) {
 			$params = self::params($params);
-			
-			return Hash::get($record, $params['alias'].'.positioncer') !== 'annule'
-				&& Hash::get($record, 'Personne.age') >= Configure::read( 'Tacitereconduction.limiteAge' )
-			;
+			$tabAllow = array('encours', 'fincontrat');
+
+			# L'affichage du lien se fait dans 2 cas :
+			# --> Soit le CER n'est pas annulé et l'âge est d'au moins 55 ans
+			# --> Soit il y a une fiche de candidature en cours, inférieure à 24 mois, éligible FSE, et que le CER soit "en cours" ou "fin de contrat"
+
+			return ((
+						Hash::get($record, $params['alias'].'.positioncer') !== 'annule' &&
+						Hash::get($record, 'Personne.age') >= 55
+					)
+					||
+					(
+						$params['idFicheCandidature']>0 &&
+						$params['dureeFicheCandidature']<24 &&
+						$params['eligibleFSE']==1 &&
+						in_array(Hash::get($record, $params['alias'].'.positioncer'), $tabAllow)
+					));
 		}
 
 		/**
@@ -241,8 +254,6 @@
 			return true;
 		}
 
-		
-		
 		/**
 		 * Liste les actions disponnible
 		 * Si une action pointe sur un autre controler, il faut préciser son nom
