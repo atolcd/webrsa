@@ -386,71 +386,72 @@
 				);
 			}
 
-			$conditionsSituationetatdosrsa = array( 'Situationdossierrsa.etatdosrsa' => array( 'Z', '2', '3', '4' ) );
-			if( Configure::read( 'AjoutOrientationPossible.situationetatdosrsa' )  != NULL ) {
+			//Ancienne valeur par défaut
+			//$conditionsSituationetatdosrsa = array( 'Situationdossierrsa.etatdosrsa' => array( 'Z', '2', '3', '4' ) );
+			$conditionsSituationetatdosrsa = null;
+			if( !is_null (Configure::read( 'AjoutOrientationPossible.situationetatdosrsa' )) ) {
 				$conditionsSituationetatdosrsa = $this->_conditionsAjoutOrientationPossible(
 					'Situationdossierrsa.etatdosrsa',
 					Configure::read( 'AjoutOrientationPossible.situationetatdosrsa' )
 				);
 			}
 
-
-			$nbPersonnes = $this->Orientstruct->Personne->find(
-				'count',
-				array(
-					'conditions' => array(
-						'Personne.id' => $personne_id,
+			$query = array(
+				'conditions' => array(
+					'Personne.id' => $personne_id,
+				),
+				'joins' => array(
+					array(
+						'table'      => 'prestations',
+						'alias'      => 'Prestation',
+						'type'       => 'INNER',
+						'foreignKey' => false,
+						'conditions' => array(
+							'Personne.id = Prestation.personne_id',
+							'Prestation.natprest = \'RSA\'',
+							'Prestation.rolepers' => array( 'DEM', 'CJT' )
+						)
 					),
-					'joins' => array(
-						array(
-							'table'      => 'prestations',
-							'alias'      => 'Prestation',
-							'type'       => 'INNER',
-							'foreignKey' => false,
-							'conditions' => array(
-								'Personne.id = Prestation.personne_id',
-								'Prestation.natprest = \'RSA\'',
-								'Prestation.rolepers' => array( 'DEM', 'CJT' )
-							)
-						),
-						array(
-							'table'      => 'calculsdroitsrsa',
-							'alias'      => 'Calculdroitrsa',
-							'type'       => 'LEFT OUTER',
-							'foreignKey' => false,
-							'conditions' => Set::merge(
-								array( 'Personne.id = Calculdroitrsa.personne_id' ),
-								$conditionsToppersdrodevorsa
-							)
-						),
-						array(
-							'table'      => 'foyers',
-							'alias'      => 'Foyer',
-							'type'       => 'INNER',
-							'foreignKey' => false,
-							'conditions' => array( 'Foyer.id = Personne.foyer_id' )
-						),
-						array(
-							'table'      => 'dossiers',
-							'alias'      => 'Dossier',
-							'type'       => 'INNER',
-							'foreignKey' => false,
-							'conditions' => array( 'Foyer.dossier_id = Dossier.id' )
-						),
-						array(
-							'table'      => 'situationsdossiersrsa',
-							'alias'      => 'Situationdossierrsa',
-							'type'       => 'INNER',
-							'foreignKey' => false,
-							'conditions' => Set::merge(
-								array( 'Situationdossierrsa.dossier_id = Dossier.id' ),
-								$conditionsSituationetatdosrsa
-							)
-						),
+					array(
+						'table'      => 'calculsdroitsrsa',
+						'alias'      => 'Calculdroitrsa',
+						'type'       => 'LEFT OUTER',
+						'foreignKey' => false,
+						'conditions' => Set::merge(
+							array( 'Personne.id = Calculdroitrsa.personne_id' ),
+							$conditionsToppersdrodevorsa
+						)
 					),
-					'recursive' => -1
-				)
+					array(
+						'table'      => 'foyers',
+						'alias'      => 'Foyer',
+						'type'       => 'INNER',
+						'foreignKey' => false,
+						'conditions' => array( 'Foyer.id = Personne.foyer_id' )
+					),
+					array(
+						'table'      => 'dossiers',
+						'alias'      => 'Dossier',
+						'type'       => 'INNER',
+						'foreignKey' => false,
+						'conditions' => array( 'Foyer.dossier_id = Dossier.id' )
+					),
+				),
+				'recursive' => -1
 			);
+			if ( !is_null($conditionsSituationetatdosrsa) ) {
+				$query['joins'][] = array(
+					'table'      => 'situationsdossiersrsa',
+					'alias'      => 'Situationdossierrsa',
+					'type'       => 'INNER',
+					'foreignKey' => false,
+					'conditions' => Set::merge(
+						array( 'Situationdossierrsa.dossier_id = Dossier.id' ),
+						$conditionsSituationetatdosrsa
+					)
+				);
+			}
+			$nbPersonnes = $this->Orientstruct->Personne->find ('count', $query);
 
 			$success = (( $nbDossiersep == 0 ) && ( $nbPersonnes == 1 ));
 
