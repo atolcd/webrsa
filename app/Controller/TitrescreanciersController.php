@@ -221,7 +221,7 @@
 			// Essai de sauvegarde
 			if( !empty( $this->request->data ) ) {
 				$this->Titrecreancier->begin();
-				$data = $this->request->data;		
+				$data = $this->request->data;
 				if (  $this->action != 'valider' && $data['Titrecreancier']['mnttitr'] == '' ) {
 					$this->Titrecreancier->rollback();
 					$this->Flash->error( __( 'Save->error' ) );
@@ -231,9 +231,6 @@
 							$this->Titrecreancier->commit();
 							$this->Jetons2->release( $dossier_id );
 							$this->Flash->success( __( 'Save->success' ) );
-							if ( $this->action == 'add' ) {
-								$this->Titrecreancier->query('UPDATE creances SET hastitrecreancier = hastitrecreancier+1 WHERE creances.id ='. $creance_id);
-							}
 							$this->redirect( array( 'action' => 'index', $creance_id ) );
 						}
 						else {
@@ -267,7 +264,75 @@
 
 				// Assignation au formulaire
 				$this->request->data = $titrecreancier;
+			}elseif ( $this->action == 'add'){
+				$titrecreancier['Titrecreancier']['etat'] = 'CREE';
+
+				/* get value from Créance */
+				$creances = $this->Creance->find('first',
+					array(
+						'conditions' => array(
+							'Creance.id ' => $creance_id
+						),
+						'contain' => false
+					)
+				);
+				if ( !empty ($creances['Creance'] ) ) {
+					$titrecreancier['Titrecreancier']['mnttitr'] = $creances['Creance']['mtsolreelcretrans'];
+				}
+
+				/* get nom, prénom, nir du bénéficiaire */
+				$personne = $this->Personne->find('first',
+					array(
+						'conditions' => array(
+							'Foyer.id ' => $foyer_id,
+							'Prestation.rolepers' => 'DEM'
+						),
+						'contain' => array (
+							'Foyer',
+							'Prestation'
+						)
+					)
+				);
+				if ( !empty ($personne['Personne'] ) ) {
+					$titrecreancier['Titrecreancier']['qual'] = $personne['Personne']['qual'] ;
+					$titrecreancier['Titrecreancier']['nom'] = $personne['Personne']['nom']." ". $personne['Personne']['prenom']  ;
+					$titrecreancier['Titrecreancier']['nir'] = $personne['Personne']['nir'] ;
+					$titrecreancier['Titrecreancier']['numtel'] =( $personne['Personne']['numfixe'] == null ) ? $personne['Personne']['numport'] : $personne['Personne']['numfixe'] ;
+				}
+
+				/* get RIB from RIB  */
+				$infoRib = $this->Foyer->find('first',
+					array(
+						'conditions' => array(
+							'Foyer.id ' => $foyer_id
+						),
+						'contain' => array (
+							'Paiementfoyer'
+						)
+					)
+				);
+				if ( !empty ($infoRib['Paiementfoyer'] ) ) {
+					$titrecreancier['Titrecreancier']['titulairecompte'] = $infoRib['Paiementfoyer'][0]['nomprenomtiturib'];
+					$titrecreancier['Titrecreancier']['iban'] = $infoRib['Paiementfoyer'][0]['numdebiban'].$infoRib['Paiementfoyer'][0]['numfiniban'];
+					$titrecreancier['Titrecreancier']['bic'] = $infoRib['Paiementfoyer'][0]['bic'];
+					$titrecreancier['Titrecreancier']['comban'] = $infoRib['Paiementfoyer'][0]['comban'];
+				}
+
+				$this->assert( !empty( $titrecreancier ), 'invalidParameter' );
+				// Assignation au formulaire
+				$this->request->data = $titrecreancier;
+
 			}
+
+			$creances = $this->Creance->find('all',
+				array(
+					'conditions' => array(
+						'Creance.id ' => $creance_id
+					),
+					'contain' => false
+				)
+			);
+			$this->set( 'creances', $creances );
 
 			$this->set( 'options', $this->Titrecreancier->options() );
 			$this->set( 'creance_id', $creance_id );

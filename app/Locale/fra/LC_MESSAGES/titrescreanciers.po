@@ -102,8 +102,11 @@ msgstr "IBAN"
 msgid "Titrecreancier.bic"
 msgstr "BIC"
 
+msgid "Titrecreancier.comban"
+msgstr "Commune Bancaire"
+
 msgid "Titrecreancier.titulairecompte"
 msgstr "Titulaire du Compte"
 
 msgid "Titrecreancier.numtel"
-msgstr "Numéro de la personne facturée"
+msgstr "Téléphone"

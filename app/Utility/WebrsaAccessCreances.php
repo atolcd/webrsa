@@ -8,7 +8,7 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 
-	App::uses('WebrsaAbstractAccess', 'Utility');
+	App::uses('WebrsaAbstractAccess', 'Utility', 'Creance');
 
 	/**
 	 * La classe WebrsaAccessCreances ...
@@ -60,7 +60,38 @@
 		 * @param array $params
 		 * @return boolean
 		 */
+		protected static function _delete(array $record, array $params) {
+			if ($record['Creance']['orgcre'] == 'FLU'){
+				return false;
+			}
+			if ( $record['Titrecreancier']['etat'] == null
+				|| $record['Titrecreancier']['etat'] == 'CREE'
+				|| $record['Titrecreancier']['etat'] == 'VALI' 
+			) {
+				return true;
+			}
+			return false;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
 		protected static function _fluxadd(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _copycreance(array $record, array $params) {
 			return true;
 		}
 
@@ -79,9 +110,12 @@
 					'add' => array('ajoutPossible' => true),
 					'view',
 					'edit',
+					'delete',
 					'fluxadd',
+					'copycreance',
 					'filelink',
 					'Titrescreanciers.index',
+					'Titrescreanciers.add',
 				)
 			);
 

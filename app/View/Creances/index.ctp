@@ -35,12 +35,22 @@ if( empty( $creances ) ) {
 				'Creance.mention'
 			)+ WebrsaAccess::links(
 				array(
-					'/Titrescreanciers/index/#Creance.id#'
+					/*'/Titrescreanciers/index/#Creance.id#'
 						=> array(
 							'class' => 'view',
 							'condition' => $activateTitreCreancier,
 						),
+					 */
+					 /*'/Titrescreanciers/add/#Creance.id#'
+						=> array(
+							'class' => 'edit',
+							'condition' => $activateTitreCreancier,
+					),*/
 					'/Creances/edit/#Creance.id#',
+					'/Creances/delete/#Creance.id#',
+					'/Creances/copycreance/#Creance.id#' => array(
+							'class' => 'edit'
+					),
 					'/Creances/filelink/#Creance.id#',
 				)
 			)
