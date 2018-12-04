@@ -652,9 +652,9 @@ Event.observe( $( 'ContratinsertionStructurereferenteId' ), 'change', function( 
 				echo '<div class="notice">Le bénéficiaire a plus de '.Configure::read( 'Tacitereconduction.limiteAge' ).' ans</div>';
 			}
 			//Cumul de la durée des CER > 0
-			//Date EP < Date de début du dernier CER. Décision EP est "maintien dans le social"
-			if ($dureeTotalCER > 0 && $dureeTotalCER < $dureeMaximaleTrancheContrat && $isEpParcoursBeforeLastCer==true) {
-				echo '<div class="error_message">Attention, le bénéficiaire a déjà cumulé '.$dureeTotalCER.' mois de CER, vous ne pouvez pas dépasser '.$dureeMaximaleTrancheContrat.' mois, sauf pour une tacite reconduction (+ de '.Configure::read( 'Tacitereconduction.limiteAge' ).' ans ou FSE) ou PACEA</div>';
+			//Date EP APRÈS Date de début du dernier CER. Décision EP est "maintien dans le social"
+			if ($dureeTotalCER > 0 && !$isEpParcoursAfterLastCer) {
+				echo '<div class="error_message">Attention, le bénéficiaire a déjà cumulé '.$dureeTotalCER.' mois de CER depuis la dernière EP, vous ne pouvez pas dépasser '.$dureeMaximaleTrancheContrat.' mois, sauf pour une tacite reconduction (+ de '.Configure::read( 'Tacitereconduction.limiteAge' ).' ans ou FSE) ou PACEA</div>';
 			}
 			?>
 	</tr>
@@ -669,6 +669,11 @@ Event.observe( $( 'ContratinsertionStructurereferenteId' ), 'change', function( 
 		</td>
 		<td class="mediumSize noborder">
 			<strong>Au <?php echo REQUIRED_MARK;?></strong><?php echo $this->Form->input( 'Contratinsertion.df_ci', array( 'label' => false, 'type' => 'date', 'dateFormat'=>'DMY', 'maxYear' => date('Y') + 3, 'minYear' => date('Y') - 10 , 'empty' => true ) ) ;?>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="noborder">
+			<div class="error_message" id="messageErreurCER">Cet allocataire dépasse les <?php echo Configure::read( 'cer.duree.tranche' ); ?> mois de contractualisation dans une orientation SOCIALE. Vous devez donc proposer un bilan pour passage en EPL.</div>
 		</td>
 	</tr>
 </table>
@@ -703,15 +708,27 @@ Event.observe( $( 'ContratinsertionStructurereferenteId' ), 'change', function( 
 
 </fieldset>
 <script type="text/javascript">
-Event.observe( $( 'ContratinsertionDdCiDay' ), 'change', function( event ) {
-	$( 'ContratinsertionDateSaisiCiDay' ).value = $F( 'ContratinsertionDdCiDay' );
-} );
-Event.observe( $( 'ContratinsertionDdCiMonth' ), 'change', function( event ) {
-	$( 'ContratinsertionDateSaisiCiMonth' ).value = $F( 'ContratinsertionDdCiMonth' );
-} );
-Event.observe( $( 'ContratinsertionDdCiYear' ), 'change', function( event ) {
-	$( 'ContratinsertionDateSaisiCiYear' ).value = $F( 'ContratinsertionDdCiYear' );
-} );
+	Event.observe( $( 'ContratinsertionDureeEngag' ), 'change', function( event ) {
+	    var selection = parseInt($( 'ContratinsertionDureeEngag' ).value);
+	    var dureeTotalCER = parseInt(<?php echo $dureeTotalCER; ?>);
+	    var dureeMaximaleTrancheContrat = parseInt(<?php echo $dureeMaximaleTrancheContrat; ?>);
+
+	    if((selection + dureeTotalCER) > dureeMaximaleTrancheContrat) {
+			document.getElementById('messageErreurCER').style.display = 'block';
+		}
+	    else {
+			document.getElementById('messageErreurCER').style.display = 'none';
+		}
+	} );
+	Event.observe( $( 'ContratinsertionDdCiDay' ), 'change', function( event ) {
+		$( 'ContratinsertionDateSaisiCiDay' ).value = $F( 'ContratinsertionDdCiDay' );
+	} );
+	Event.observe( $( 'ContratinsertionDdCiMonth' ), 'change', function( event ) {
+		$( 'ContratinsertionDateSaisiCiMonth' ).value = $F( 'ContratinsertionDdCiMonth' );
+	} );
+	Event.observe( $( 'ContratinsertionDdCiYear' ), 'change', function( event ) {
+		$( 'ContratinsertionDateSaisiCiYear' ).value = $F( 'ContratinsertionDdCiYear' );
+	} );
 </script>
 
 
