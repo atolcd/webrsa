@@ -280,12 +280,15 @@
 				&& !empty( $search['Situationdossierrsa']['etatdosrsa'] )
 			) {
 				$key =  array_search ('NULL',$etatdossier);
-				$strCondition = '';
 				if ($key !== false) {
 					unset($etatdossier[$key]);
-					$strCondition = 'Situationdossierrsa.etatdosrsa IS NULL OR ' ;
 				}
-				$strCondition .= '( Situationdossierrsa.etatdosrsa IN ( \''.implode( '\', \'', $etatdossier ).'\' ) )';
+
+				$strCondition = '( Situationdossierrsa.etatdosrsa IN ( \''.implode( '\', \'', $etatdossier ).'\' ) )';
+
+				if ($key !== false) {
+					$strCondition = '( Situationdossierrsa.etatdosrsa IS NULL OR '.$strCondition.')' ;
+				}
 				$conditions[] = $strCondition;
 			}
 
