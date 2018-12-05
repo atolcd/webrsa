@@ -381,7 +381,16 @@
 			'tableau1b3' => 'Rendezvous',
 			'tableau1b4' => 'Ficheprescription93',
 			'tableau1b5' => 'Ficheprescription93',
-			'tableau1b6' => 'Rendezvous'
+			'tableau1b6' => 'Rendezvous',
+			'tableaub7' => 'Personne',
+			'tableaub7d2typecontrat' => array (
+				'Questionnaireb7pdv93',
+				'Questionnaired2pdv93',
+			),
+			'tableaub7d2familleprofessionnelle' => array (
+				'Questionnaireb7pdv93',
+				'Questionnaired2pdv93',
+			),
 		);
 
 		/**
@@ -3060,7 +3069,16 @@
 					$query = $this->queryCorpus($action, $search);
 					$modelClass = $this->modelsCorpus[$action];
 
-					$models = array( $modelClass => null ) + Hash::normalize(Hash::extract( $query, 'joins.{n}.alias' ));
+					if (is_array($modelClass)) {
+						$models = array_merge(
+							array( $modelClass => null ) + Hash::normalize(Hash::extract( $query[0], 'joins.{n}.alias' )),
+							array( $modelClass => null ) + Hash::normalize(Hash::extract( $query[1], 'joins.{n}.alias' ))
+						);
+					}
+					else {
+						$models = array( $modelClass => null ) + Hash::normalize(Hash::extract( $query, 'joins.{n}.alias' ));
+					}
+
 					foreach( array_keys( $models ) as $model ) {
 						$models[$model] = ClassRegistry::init( $model )->schema();
 					}
@@ -3095,15 +3113,29 @@
 						$query['fields']['Demenagement.interne'] = "( CASE WHEN ( {$sqlRendezvous} ) IN ( {$sqlCommunautesr} ) = TRUE THEN TRUE ELSE FALSE END ) AS \"Demenagement__interne\"";
 					}
 
-					$modelClass = ClassRegistry::init( $modelClass );
-					$modelClass->forceVirtualFields = true;
+					$recordResults = '';
+					if (is_array ($modelClass)) {
+						$modelClass0 = ClassRegistry::init( $modelClass[0] );
+						$modelClass0->forceVirtualFields = true;
+						$modelClass1 = ClassRegistry::init( $modelClass[1] );
+						$modelClass1->forceVirtualFields = true;
+
+						$recordResults .= $modelClass0->find( 'all', $query[0] );
+						$recordResults .= $modelClass1->find( 'all', $query[1] );
+					}
+					else {
+						$modelClass = ClassRegistry::init( $modelClass );
+						$modelClass->forceVirtualFields = true;
+
+						$recordResults = $modelClass->find( 'all', $query );
+					}
 
 					// TODO: le faire dans le modèle beforeSave / afterFind ?
 					$record = array(
 						'Corpuspdv93' => array(
 							'tableausuivipdv93_id' => $this->Tableausuivipdv93->id,
 							'fields' => json_encode( $models ),
-							'results' => json_encode( $modelClass->find( 'all', $query ) ),
+							'results' => json_encode( $recordResults ),
 							'options' => json_encode( $this->getOptions( $action ) )
 						)
 					);
@@ -3526,6 +3558,28 @@
 			return $query;
 		}
 
+		protected function _queryCorpusB7( $tableau, array $search ) {
+			$query = $this->tableaub7 ($search, true);
+
+			return $query;
+		}
+
+		protected function _queryCorpusB7TypeContrat( $tableau, array $search ) {
+			$query = array ();
+			$query[] = $this->tableaub7d2typecontrat($search, true, false);
+			$query[] = $this->tableaub7d2typecontrat($search, false, true);
+
+			return $query;
+		}
+
+		protected function _queryCorpusB7FamilleProfessionnelle( $tableau, array $search ) {
+			$query = array ();
+			$query[] = $this->tableaub7d2familleprofessionnelle($search, true, false);
+			$query[] = $this->tableaub7d2familleprofessionnelle($search, false, true);
+
+			return $query;
+		}
+
 		/**
 		 * Retourne le querydata à utiliser pour réaliser l'export du corpus d'un
 		 * tableau de suivi.
@@ -3549,6 +3603,15 @@
 			}
 			else if( $tableau === 'tableau1b6' ) {
 				$query = $this->_queryCorpus1B6( $tableau, $search );
+			}
+			else if( $tableau === 'tableaub7' ) {
+				$query = $this->_queryCorpusB7( $tableau, $search );
+			}
+			else if( $tableau === 'tableaub7d2typecontrat' ) {
+				$query = $this->_queryCorpusB7TypeContrat( $tableau, $search );
+			}
+			else if( $tableau === 'tableaub7d2familleprofessionnelle' ) {
+				$query = $this->_queryCorpusB7FamilleProfessionnelle( $tableau, $search );
 			}
 			else {
 				$msg = sprintf( 'Valeur du paramètre $tableau non valide (%s)', $tableau );
@@ -3960,7 +4023,7 @@
 		 * @param array $search
 		 * @return array
 		 */
-		public function tableaub7( array $search ) {
+		public function tableaub7( array $search, $returnQuery = false ) {
 			$questionnaireb7pdv93 = ClassRegistry::init( 'Questionnaireb7pdv93' );
 			$questionnaired2pdv93 = ClassRegistry::init( 'Questionnaired2pdv93' );
 			$personne = ClassRegistry::init( 'Personne' );
@@ -4092,6 +4155,11 @@
 				'group' => array ('Personne.id'),
 			);
 			$query = $this->_conditionsb7b7($search, $query);
+
+			if ($returnQuery) {
+				return $query;
+			}
+
 			$personneb7ssorties = $personne->find ('all', $query);
 
 			$return = array();
@@ -4105,7 +4173,7 @@
 		/**
 		 * Tableau B7 + D2 par type de contrat
 		 */
-		public function tableaub7d2typecontrat( array $search ) {
+		public function tableaub7d2typecontrat( array $search, $returnQueryB7 = false, $returnQueryD2 = false ) {
 			$typeEmploi = ClassRegistry::init( 'Typeemploi' );
 			$questionnaireb7pdv93 = ClassRegistry::init( 'Questionnaireb7pdv93' );
 			$questionnaired2pdv93 = ClassRegistry::init( 'Questionnaired2pdv93' );
@@ -4146,6 +4214,11 @@
 				),
 			);
 			$query = $this->_conditionsb7b7($search, $query);
+
+			if ($returnQueryB7) {
+				return $query;
+			}
+
 			$questionnaireb7s = $questionnaireb7pdv93->find ('all', $query);
 
 			// Questionnaire D2
@@ -4171,6 +4244,11 @@
 				),
 			);
 			$query = $this->_conditionsb7b7($search, $query);
+
+			if ($returnQueryD2) {
+				return $query;
+			}
+
 			$questionnaired2s = $questionnaired2pdv93->find ('all', $query);
 
 			// Formatage réponse
@@ -4260,7 +4338,7 @@
 		/**
 		 * Tableau B7 + D2 par famille professionnelle
 		 */
-		public function tableaub7d2familleprofessionnelle( array $search ) {
+		public function tableaub7d2familleprofessionnelle( array $search, $returnQueryB7 = false, $returnQueryD2 = false ) {
 			$questionnaireb7pdv93 = ClassRegistry::init( 'Questionnaireb7pdv93' );
 			$questionnaired2pdv93 = ClassRegistry::init( 'Questionnaired2pdv93' );
 			$familleromev3 = ClassRegistry::init( 'Familleromev3' );
@@ -4312,6 +4390,11 @@
 				),
 			);
 			$query = $this->_conditionsb7b7($search, $query);
+
+			if ($returnQueryB7) {
+				return $query;
+			}
+
 			$questionnaireb7s = $questionnaireb7pdv93->find ('all', $query);
 
 			// Questionnaires d2
@@ -4344,6 +4427,11 @@
 				),
 			);
 			$query = $this->_conditionsb7b7($search, $query);
+
+			if ($returnQueryD2) {
+				return $query;
+			}
+
 			$questionnaired2s = $questionnaired2pdv93->find ('all', $query);
 
 			// Par famille professionelle
