@@ -42,23 +42,14 @@
 		public function completeVirtualFieldsForAccess(array $query = array(), array $params = array()) {
 			$departement = (integer)Configure::read('Cg.departement');
 			$modelDepartement = 'Creance'.$departement;
-			$fields = array(
-
+			$fields = array();
+			$query['fields'] = array_merge(
+				$query['fields'],
+				$this->Creance->Titrecreancier->fields()
 			);
+			$query['joins'][] = $this->Creance->join('Titrecreancier');
 
-			if (isset($this->Creance->{$modelDepartement})) {
-				if (!isset($query['joins'])) {
-					$query['joins'] = array(
-					$this->Creance->join('Titrecreancier')
-					);
-				}
-				if (WebrsaModelUtility::findJoinKey($modelDepartement, $query) === false) {
-					$query['joins'][] = $this->Creance->join($modelDepartement);
-				}
-
-			}
-
-			return Hash::merge($query, array('fields' => array_values($fields)));
+			return $query;
 		}
 
 		/**
@@ -72,12 +63,14 @@
 				'fields' => array(
 					'Creance.id',
 					'Creance.foyer_id',
+					'Creance.orgcre',
+					'Titrecreancier.id',
+					'Titrecreancier.etat',
 					'Foyer.id',
 				),
 				'conditions' => $conditions,
 				'joins' => array(
-					$this->Creance->join('Foyer'),
-					$this->Creance->join('Titrecreancier')
+					$this->Creance->join('Foyer')
 				),
 				'contain' => false,
 				'order' => array(
@@ -85,8 +78,8 @@
 				)
 			);
 
-			$results = $this->Creance->find('all', $this->completeVirtualFieldsForAccess($query, $params));
-			return $results;
+			return $this->Creance->find('all', $this->completeVirtualFieldsForAccess($query, $params));
+
 		}
 
 		/**

@@ -39,7 +39,7 @@
 				'inList' => array(
 					'rule' => array('inList',
 						array(
-							'','FLU', 'MAN'
+							'','FLU', 'MAN', 'COP'
 						)
 					)
 				)
@@ -108,6 +108,27 @@
 		 *
 		 * @var array
 		 */
+		public $hasOne = array(
+			'Titrecreancier' => array(
+				'className' => 'Titrecreancier',
+				'foreignKey' => 'creance_id',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			)
+		);
+
+		/**
+		 * Associations "Has many".
+		 *
+		 * @var array
+		 */
 		public $hasMany = array(
 			'Fichiermodule' => array(
 				'className' => 'Fichiermodule',
@@ -124,17 +145,6 @@
 				'exclusive' => '',
 				'finderQuery' => '',
 				'counterQuery' => ''
-			),
-            'Titrecreancier' => array(
-				'className' => 'Titrecreancier',
-				'foreignKey' => 'creance_id',
-				'conditions' => null,
-				'order' => null,
-				'limit' => null,
-				'offset' => null,
-				'dependent' => true,
-				'exclusive' => null,
-				'finderQuery' => null
 			)
 		);
 

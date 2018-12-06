@@ -18,18 +18,56 @@
 			'Creance.id' => array( 'type' => 'hidden' ),
 			'Creance.orgcre' => array( 'type' => 'hidden','value' =>'MAN'),
 			'Creance.foyer_id' => array( 'type' => 'hidden','value' =>$foyer_id),
-			'Creance.dtimplcre' => array('type' => 'date', 'dateFormat' => 'DMY'),
-			'Creance.natcre' => array('required' => true),
-			'Creance.rgcre' => array('type' => 'number','required' => true),
-			'Creance.motiindu',
-			'Creance.oriindu',
-			'Creance.respindu',
-			'Creance.ddregucre' => array('type' => 'date', 'dateFormat' => 'DMY'),
-			'Creance.dfregucre' => array( 'type' => 'date','dateFormat' => 'DMY'),
-			'Creance.dtdercredcretrans' => array('type' => 'date', 'dateFormat' => 'DMY'),
-			'Creance.mtsolreelcretrans'=> array('type' => 'number','required' => true),
-			'Creance.mtinicre'=> array('type' => 'number','required' => true),
-			'Creance.moismoucompta'=> array('type' => 'date', 'dateFormat' => 'DMY'),
+		),
+		array(
+			'options' => $options
+		)
+	);
+
+	if ( $this->action == 'edit') {
+		echo $this->Default3->subform(
+			array(
+				'Creance.dtimplcre' => array('type' => 'hidden'),
+				'Creance.natcre' => array('type' => 'hidden'),
+				'Creance.rgcre' => array('type' => 'hidden'),
+				'Creance.motiindu'=> array('type' => 'hidden'),
+				'Creance.oriindu'=> array('type' => 'hidden'),
+				'Creance.respindu'=> array('type' => 'hidden'),
+				'Creance.ddregucre' => array('type' => 'hidden'),
+				'Creance.dfregucre' => array( 'type' => 'hidden'),
+				'Creance.dtdercredcretrans' => array('type' => 'hidden'),
+				'Creance.mtsolreelcretrans'=> array('type' => 'hidden'),
+				'Creance.mtinicre'=> array('type' => 'hidden'),
+				'Creance.moismoucompta'=> array('type' => 'hidden'),
+				'Creance.mention'=> array('type' => 'hidden')
+			),
+			array(
+				'options' => $options
+			)
+		);
+	}else{
+		echo $this->Default3->subform(
+			array(
+				'Creance.dtimplcre' => array('type' => 'date', 'dateFormat' => 'DMY'),
+				'Creance.natcre' => array('required' => true),
+				'Creance.rgcre' => array('type' => 'number','required' => true),
+				'Creance.motiindu',
+				'Creance.oriindu',
+				'Creance.respindu',
+				'Creance.ddregucre' => array('type' => 'date', 'dateFormat' => 'DMY'),
+				'Creance.dfregucre' => array( 'type' => 'date','dateFormat' => 'DMY'),
+				'Creance.dtdercredcretrans' => array('type' => 'date', 'dateFormat' => 'DMY'),
+				'Creance.mtsolreelcretrans'=> array('type' => 'number','required' => true),
+				'Creance.mtinicre'=> array('type' => 'number','required' => true),
+				'Creance.moismoucompta'=> array('type' => 'date', 'dateFormat' => 'DMY'),
+			),
+			array(
+				'options' => $options
+			)
+		);
+	}
+	echo $this->Default3->subform(
+		array(
 			'Creance.mention'=> array('type' => 'textarea')
 		),
 		array(

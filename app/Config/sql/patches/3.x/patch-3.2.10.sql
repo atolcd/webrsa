@@ -16,6 +16,15 @@ BEGIN;
 ALTER TABLE actionscandidats ADD COLUMN eligiblefse character varying(1);
 ALTER TABLE actionscandidats ALTER COLUMN eligiblefse SET DEFAULT 'O'::character varying;
 
+
+-- /****************************************************************
+-- Modification des créances
+
+ALTER TABLE creances ALTER COLUMN mention SET DEFAULT ''::character varying;
+
+ALTER TABLE titrescreanciers ADD COLUMN comban character varying(24);
+
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

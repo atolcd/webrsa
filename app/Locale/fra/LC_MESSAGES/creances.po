@@ -33,6 +33,9 @@ msgstr "Ajout d'un Indus Transféré"
 msgid "/Creances/edit/:heading"
 msgstr "Modification d'une Indus Transféré"
 
+msgid "/Creances/copycreance/:heading"
+msgstr "Copier/Réaffecter la créance"
+
 ###############################################################################
 # Lien
 ###############################################################################
@@ -40,11 +43,26 @@ msgstr "Modification d'une Indus Transféré"
 msgid "/Creances/index"
 msgstr "Voir"
 
+msgid "/Creances/index/#Creance.id#"
+msgstr "Voir #Creance.id#"
+
 msgid "/Creances/add"
 msgstr "Ajouter"
 
 msgid "/Creances/edit"
 msgstr "Modifier"
+
+msgid "/Creances/delete"
+msgstr "Supprimer"
+
+msgid "/Creances/delete/#Creance.id#"
+msgstr "Supprimer créance #Creance.id#"
+
+msgid "/Creances/copycreance"
+msgstr "Copier/Réaffecter la créance"
+
+msgid "/Creances/copycreance/#Creance.id#"
+msgstr "Copier/Réaffecter la créance #Creance.id#"
 
 msgid "/Titrescreanciers/add"
 msgstr "Ajouter Titre de Recettes"

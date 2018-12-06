@@ -73,7 +73,9 @@
 			'index' => 'read',
 			'add' => 'create',
 			'edit' => 'update',
+			'delete' => 'delete',
 			'fluxadd' => 'create',
+			'copycreance' => 'create',
 			'search' => 'read',
 			'filelink' => 'read',
 			'fileview' => 'read',
@@ -112,7 +114,6 @@
 			$this->set( 'respindu', ClassRegistry::init('Creance')->enum('respindu') );
 		}
 
-
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -123,7 +124,18 @@
 			'ajaxfileupload',
 			'ajaxreffonct',
 			'download',
-			'fileview',
+			'fileview'
+		);
+
+		/**
+		 * Utilise les droits d'un autre Controller:action
+		 * sur une action en particulier
+		 *
+		 * @var array
+		 */
+		public $commeDroit = array(
+			'copycreance' => 'Creances:add',
+			'delete' => 'Creances:add'
 		);
 
 		/**
@@ -265,7 +277,7 @@
 				);
 				if (!empty( $creance ) ){
 					// Assignation au formulaire
-					$this->request->data = $creance;		
+					$this->request->data = $creance;
 				}
 			}
 
@@ -274,7 +286,117 @@
 			$this->set( 'urlmenu', '/creances/index/'.$foyer_id );
 			$this->set( 'foyer_id', $foyer_id );
 			$this->render( 'add_edit' );
-			
+
+		}
+
+	/**
+		 * Supprimée une creance d'un foyer en copiant une autre créance
+		 *
+		 * @param integer $id L'id technique de la créance a supprimée
+		 * @return void
+		 */
+		public function delete($id) {
+				$this->WebrsaAccesses->check($id);
+				$foyer_id = $this->Creance->field( 'foyer_id' );
+				$dossier_id = $this->Creance->dossierId( $id );
+
+				$creanceQuery =  array(
+						'fields' =>	$this->Creance->fields(),
+						'conditions' => array(
+							'Creance.id' =>$id,
+						),
+						'contain' => array (
+							'Titrecreancier' => array (
+								'fields' => array ('Titrecreancier.id'),
+							)
+						)
+					);
+				$creances = $this->Creance->find('first',$creanceQuery);
+
+				if ($creances['Titrecreancier']['id'] != null ) {
+					$success = $this->Creance->query("DELETE FROM titrescreanciers WHERE id = ".$creances['Titrecreancier']['id']  );
+				}
+
+				$success = $this->Creance->delete( $id );
+				if( $success ) {
+					$this->Flash->success( __( 'Delete->success' ) );
+				}
+				else {
+					$this->Flash->error( __( 'Delete->error' ) );
+				}
+				$this->redirect( array( 'controller' => 'creances', 'action' => 'index', $foyer_id ) );
+		}
+
+		/**
+		 * Ajouter une creances à un foyer en copiant une autre créance
+		 *
+		 * @param integer $id L'id technique de la créance a copiée
+		 * @return void
+		 */
+		public function copycreance($id) {
+				$this->WebrsaAccesses->check($id);
+				$foyer_id = $this->Creance->field( 'foyer_id' );
+				$dossier_id = $this->Creance->dossierId( $id );
+
+			// Retour à l'index en cas d'annulation
+			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->redirect( array( 'action' => 'index', $foyer_id) );
+			}
+
+			// Essai de sauvegarde
+			if( !empty( $this->request->data ) ) {
+				$foyerQuery =  array(
+					'fields' => array('Foyer.id',),
+					'conditions' => array('Dossier.numdemrsa' => 	$this->request->data['Dossier']['numdemrsa']),
+					'joins' => array($this->Dossier->join( 'Foyer', array( 'type' => 'INNER' ))),
+					'recursive' => -1
+				);
+
+				$foyerResult = $this->Dossier->find('first',$foyerQuery);
+				$this->request->data['Creance']['foyer_id'] = $foyerResult['Foyer']['id'];
+
+				$this->Creance->begin();
+				if( $this->Creance->saveAll( $this->request->data, array( 'validate' => 'only' ) ) ) {
+					if( $this->Creance->saveAll( $this->request->data, array( 'atomic' => false ) ) ) {
+						$this->Creance->commit();
+						$this->Flash->success( __( 'Save->success' ) );
+						$this->Creance->query(" UPDATE creances SET mention = '' WHERE mention IS NULL AND creances.id = ".$id );
+						$this->Creance->query(" UPDATE creances SET mention = ' Créance copiée vers le dossier ".$this->request->data['Dossier']['numdemrsa']." '|| creances.mention WHERE creances.id = ".$id );
+						$this->redirect( array( 'controller' => 'creances', 'action' => 'index', $this->request->data['Creance']['foyer_id'] ) );
+					}
+					else {
+						$this->Creance->rollback();
+						$this->Flash->error( __( 'Save->error' ) );
+					}
+				}
+				else {
+					$this->Creance->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+			}
+			// Afficage des données
+			else {
+				$creanceQuery =  array(
+						'fields' =>	$this->Creance->fields(),
+						'conditions' => array(
+							'Creance.id' =>$id,
+						),
+						'contain' => array (
+							'Foyer' => array (
+								'fields' => array ('Foyer.dossier_id'),
+								'Dossier' => array (
+									'fields' => array ('Dossier.numdemrsa')
+								)
+							)
+						)
+					);
+				$creances = $this->Creance->find('first',$creanceQuery);
+				// Assignation au formulaire
+				$this->request->data = $creances;
+			}
+
+			$this->set( 'options', $this->Creance->enums() );
+			$this->render( 'copycreance' );
 		}
 
 		/**

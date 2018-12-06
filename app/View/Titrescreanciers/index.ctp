@@ -35,6 +35,7 @@ if( empty( $creances ) ) {
 		)
 	);
 
+
 	//Visualisation des Créances
 	if( empty( $titresCreanciers ) ) {
 		echo '<p class="notice">Cette creance ne possède pas de Titres creanciers liée</p>';
