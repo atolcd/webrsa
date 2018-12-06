@@ -25,9 +25,15 @@
 		 */
 		public $recursive = 1;
 
+		/*
+		 * List des valeurs pour les selections
+		 * La valeur des etat decrit est dans le fichier titrecreancier.po
+		 */
 		public $fakeInLists = array(
 			'haspiecejointe' => array('0', '1'),
-			'etat' => array('CREE', 'VALI', 'AENV','ENV1','RET', 'ENV2', 'PAY','SUP')
+			'etat' => array('CREE', 'VALI', 'AENV','ENV1','RET', 'ENV2', 'PAY','SUP'),
+			'typeadr' => array('D', 'P', 'R'),
+			'etatadr' => array('CO', 'VO', 'VC', 'NC', 'AU'),
 		);
 
 		public $validate = array(

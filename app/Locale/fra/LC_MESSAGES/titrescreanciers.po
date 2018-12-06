@@ -110,3 +110,20 @@ msgstr "Titulaire du Compte"
 
 msgid "Titrecreancier.numtel"
 msgstr "Téléphone"
+
+###############################################################################
+
+msgid "Titrecreancier.dtemm"
+msgstr "Date emménagement"
+
+msgid "Titrecreancier.typeadr"
+msgstr "Code nature adresse"
+
+msgid "Titrecreancier.etatadr"
+msgstr "Etat adresse"
+
+msgid "Titrecreancier.complete"
+msgstr "Adresse complete"
+
+msgid "Titrecreancier.localite"
+msgstr "Commune de résidence"

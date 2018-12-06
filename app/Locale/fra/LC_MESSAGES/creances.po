@@ -53,13 +53,13 @@ msgid "/Creances/edit"
 msgstr "Modifier"
 
 msgid "/Creances/delete"
-msgstr "Supprimer"
+msgstr "Supprimer l'indus"
 
 msgid "/Creances/delete/#Creance.id#"
-msgstr "Supprimer créance #Creance.id#"
+msgstr "Supprimer l'indus #Creance.id#"
 
 msgid "/Creances/copycreance"
-msgstr "Copier/Réaffecter la créance"
+msgstr "Copier/Réaffecter l'indus"
 
 msgid "/Creances/copycreance/#Creance.id#"
 msgstr "Copier/Réaffecter la créance #Creance.id#"

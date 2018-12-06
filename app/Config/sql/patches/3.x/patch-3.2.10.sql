@@ -23,6 +23,11 @@ ALTER TABLE actionscandidats ALTER COLUMN eligiblefse SET DEFAULT 'O'::character
 ALTER TABLE creances ALTER COLUMN mention SET DEFAULT ''::character varying;
 
 ALTER TABLE titrescreanciers ADD COLUMN comban character varying(24);
+ALTER TABLE titrescreanciers ADD COLUMN dtemm date;
+ALTER TABLE titrescreanciers ADD COLUMN typeadr character(1);
+ALTER TABLE titrescreanciers ADD COLUMN etatadr character varying(2);
+ALTER TABLE titrescreanciers ADD COLUMN complete character varying(160);
+ALTER TABLE titrescreanciers ADD COLUMN localite character varying(160);
 
 
 -- *****************************************************************************
