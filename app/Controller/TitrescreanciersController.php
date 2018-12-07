@@ -86,13 +86,10 @@
 			'Dossier',
 			'Foyer',
 			'Personne',
-			'Option'
+			'Adresse',
+			'Adressefoyer',
+			'Option',
 			);
-
-        protected function _setOptions() {
-			$this->set( 'qual', ClassRegistry::init('Titrecreancier')->enum('qual') );
-			$this->set( 'etat', ClassRegistry::init('Titrecreancier')->enum('etat') );
-		}
 
 		/**
 		 * Méthodes ne nécessitant aucun droit.
@@ -109,14 +106,23 @@
 
 		/**
 		 *
+		 * Fonction de définition des options des selections
+		 */
+        protected function _setOptions() {
+			$this->set( 'qual', ClassRegistry::init('Titrecreancier')->enum('qual') );
+			$this->set( 'etat', ClassRegistry::init('Titrecreancier')->enum('etat') );
+			$this->set( 'typeadr', ClassRegistry::init('Titrecreancier')->enum('typeadr') );
+			$this->set( 'etatadr', ClassRegistry::init('Titrecreancier')->enum('etatadr') );
+		}
+
+		/**
+		 *
 		 * @param integer $creance_id L'id technique de la créance pour laquel on veut les Titre créanciers.
 		 *
 		 */
 		public function index($creance_id) {
 			$foyer_id = $this->Titrecreancier->foyerId( $creance_id );
 			$this->set('dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu(array( 'foyer_id' => $foyer_id )));
-
-			$this->set( 'options', $this->Titrecreancier->options() );
 
 			$titresCreanciers = $this->WebrsaAccesses->getIndexRecords(
 				$foyer_id,
@@ -147,6 +153,11 @@
 			);
 
 			// Assignations à la vue
+			$this->set( 'options', array_merge(
+					$this->Titrecreancier->options(),
+					$this->Creance->enums()
+				)
+			);
 			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'creances', $creances );
 			$this->set( 'titresCreanciers', $titresCreanciers );
@@ -300,7 +311,7 @@
 					$titrecreancier['Titrecreancier']['numtel'] =( $personne['Personne']['numfixe'] == null ) ? $personne['Personne']['numport'] : $personne['Personne']['numfixe'] ;
 				}
 
-				/* get RIB from RIB  */
+				/* get RIB from RIB foyer */
 				$infoRib = $this->Foyer->find('first',
 					array(
 						'conditions' => array(
@@ -318,7 +329,25 @@
 					$titrecreancier['Titrecreancier']['comban'] = $infoRib['Paiementfoyer'][0]['comban'];
 				}
 
-				$this->assert( !empty( $titrecreancier ), 'invalidParameter' );
+				/* get Adresse from Adresse foyer */
+				$infoAdress = $this->Adressefoyer->find('all',
+					array(
+						'conditions' => array(
+							'Foyer.id ' => $foyer_id,
+							'Adressefoyer.rgadr' => '01'
+						),
+						'contain' => array (
+							'Adresse',
+							'Foyer'
+						)
+					)
+				);
+				$titrecreancier['Titrecreancier']['dtemm'] = $infoAdress[0]['Adressefoyer']['dtemm'];
+				$titrecreancier['Titrecreancier']['typeadr'] = $infoAdress[0]['Adressefoyer']['typeadr'];
+				$titrecreancier['Titrecreancier']['etatadr'] = $infoAdress[0]['Adressefoyer']['etatadr'];
+				$titrecreancier['Titrecreancier']['complete'] = $infoAdress[0]['Adresse']['complete'];
+				$titrecreancier['Titrecreancier']['localite'] = $infoAdress[0]['Adresse']['localite'];
+
 				// Assignation au formulaire
 				$this->request->data = $titrecreancier;
 
@@ -334,7 +363,12 @@
 			);
 			$this->set( 'creances', $creances );
 
-			$this->set( 'options', $this->Titrecreancier->options() );
+			//Assignation a la vue
+			$this->set( 'options', array_merge(
+					$this->Titrecreancier->options(),
+					$this->Creance->enums()
+				)
+			);
 			$this->set( 'creance_id', $creance_id );
 			$this->set( 'foyer_id', $foyer_id );
 

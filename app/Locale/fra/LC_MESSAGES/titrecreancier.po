@@ -63,4 +63,32 @@ msgstr "Oui"
 msgid "ENUM::HASPIECEJOINTE::0"
 msgstr "Non"
 
+msgid "Titrecreancier.etatadr"
+msgstr "Etat adresse"
 
+msgid "ENUM::ETATADR::CO"
+msgstr "Adresse vérifiée au regard du contrat Médiapost de la Cnaf"
+
+msgid "ENUM::ETATADR::VO"
+msgstr "Forcage du nom de la voie"
+
+msgid "ENUM::ETATADR::VC"
+msgstr "Forçage du nom de la voie et du nom de la commune"
+
+msgid "ENUM::ETATADR::NC"
+msgstr "Adresse non contrôlée"
+
+msgid "ENUM::ETATADR::AU"
+msgstr "Autre situation non répertoriée"
+
+msgid "Titrecreancier.typeadr"
+msgstr "Code nature adresse"
+
+msgid "ENUM::TYPEADR::D"
+msgstr "Définitive"
+
+msgid "ENUM::TYPEADR::P"
+msgstr "Provisoire"
+
+msgid "ENUM::TYPEADR::R"
+msgstr "Retour foyer principal"
