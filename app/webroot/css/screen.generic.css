@@ -1521,6 +1521,10 @@ ul.actionMenu a.button.printcohorte1, ul.actionMenu a.button.printcohorte2 {
 	margin: 11px;
 }
 
+#messageErreurCER {
+    display:none;
+}
+
 /**/
 
 td.boolean span, table tr:nth-child(2n) td.boolean span {

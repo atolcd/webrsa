@@ -556,15 +556,26 @@
 
 			$this->set('options', $options);
 
+			//récupère le cumul des CER
+			foreach($contratsinsertion as $index=>$value) {
+				$contratsinsertion[$index]["Contratinsertion"]["total"]	=	$this->getDureeCER($value);
+			}
+
 			/**
 			 * Spécifique aux Départements
 			 */
 			if ($departement === 66) {
+				//$dureeTotalCER = $this->getDureeTotalCER($contratsinsertion);
+				$dateLastEpParcours = $this->_dateLastEpParcours($personne_id, $contratsinsertion);
+				$dureeTotalCER = $this->getDureeTotalCERPostLastEP($contratsinsertion, $dateLastEpParcours);
+
 				if (Hash::get($personne, 'Personne.age') < (int)Configure::read('Tacitereconduction.limiteAge')
-					&& $this->Contratinsertion->WebrsaContratinsertion->limiteCumulDureeCER($personne_id) > 24
-				) {
-					$message = "Cet allocataire dépasse les 24 mois de contractualisation "
-						. "dans une orientation SOCIALE. Vous devez donc proposer un bilan pour passage en EPL.";
+					&& $dureeTotalCER > Configure::read( 'cer.duree.tranche' )) {
+					$message = 'Cet allocataire dépasse les '.Configure::read( 'cer.duree.tranche' ).' mois de contractualisation '
+						. 'dans une orientation SOCIALE. Vous devez donc proposer un bilan pour passage en EPL.'
+						. '<br />'
+						. 'Il cumule '.$dureeTotalCER.' mois de CER depuis la dernière EP qui a eu lieu le '.date_format (date_create ($dateLastEpParcours), 'd/m/Y').'.'
+						. '';
 					$messages[$message] = 'error';
 				}
 				if (!Hash::get($personne, 'PersonneReferent.id')) {
@@ -589,10 +600,6 @@
 						).' le '.date_short($datenotif);
 					}
 				}
-			}
-			//récupère le cumul des CER
-			foreach($contratsinsertion as $index=>$value) {
-				$contratsinsertion[$index]["Contratinsertion"]["total"]	=	$this->getDureeCER($value);
 			}
 
 			//inversion du tableau
@@ -1312,20 +1319,67 @@
 			);
 			$querydata['contain'] = false;
 			$contratsinsertion = $this->WebrsaAccesses->getIndexRecords($personne_id, $querydata);
-			$dureeTotalCER = $this->getDureeTotalCER($contratsinsertion);
+
+			// Date de la dernière EP
+			$dateLastEpParcours = $this->_dateLastEpParcours($personne_id, $contratsinsertion);
+			$dateFinDernierContrat = array_pop ($contratsinsertion);
+
+			$dureeTotalCER = $this->getDureeTotalCERPostLastEP($contratsinsertion, $dateLastEpParcours);
 			$infosPersonne = $this->Personne->find('first', array('recursive'=>(-1), 'conditions'=>array('Personne.id'=>$personne_id)));
 			$agePersonne = $infosPersonne['Personne']['age'];
 			$this->set(compact('dureeTotalCER', 'agePersonne'));
 
 			$duree_engag = $this->Option->duree_engag();
-			$isEpParcoursBeforeLastCer = $this->isEpParcoursBeforeLastCer($personne_id, $contratsinsertion);
-			$tabDureeEngag = $this->setDureeEngag($duree_engag, $dureeTotalCER, $agePersonne, $isEpParcoursBeforeLastCer);
+
+			$isEpParcoursAfterLastCer = $this->_isEpParcoursAfterLastCer($dateLastEpParcours, $dateFinDernierContrat['Contratinsertion']['dd_ci']);
+			$tabDureeEngag = $this->setDureeEngag($duree_engag, $dureeTotalCER, $agePersonne, $isEpParcoursAfterLastCer);
 			$this->set('duree_engag', $duree_engag);
-			$this->set('dureeMaximaleTrancheContrat', array_pop (array_keys ($duree_engag)));
+			$this->set('dureeMaximaleTrancheContrat', Configure::read( 'cer.duree.tranche' ));
 			$this->set('tabDureeEngag', $tabDureeEngag);
-			$this->set('isEpParcoursBeforeLastCer', $isEpParcoursBeforeLastCer);
+			$this->set('isEpParcoursAfterLastCer', $isEpParcoursAfterLastCer);
 
 			$this->render( 'add_edit_specif_'.Configure::read( 'nom_form_ci_cg' ) );
+		}
+
+		/**
+		 * Calcul le cumul total des CER, et renvoi le nombre de mois restants par plage de X mois (24 mois par défaut)
+		 * Exemple : si le cumule est de 30mois, il renvoi 18mois encore possible
+		 *
+		 * @param object $CER
+		 */
+		private function getDureeTotalCERPostLastEP($CER, $dateLastEpParcours) {
+			$dureeTotalCER = 0;
+
+            //initialisation, car la variable de classe peut être utilisée par une autre fonction
+			$this->finPlacePrecedente = '';
+
+			foreach($CER as $index=>$value) {
+				if($value["Contratinsertion"]["decision_ci"] == 'V' && $value["Contratinsertion"]["datevalidation_ci"] != null) {
+					// Les périodes après la dernière EP 
+					if ($dateLastEpParcours <= $value["Contratinsertion"]["dd_ci"]
+						|| ($dateLastEpParcours >= $value["Contratinsertion"]["dd_ci"] && $dateLastEpParcours <= $value["Contratinsertion"]["df_ci"])) {
+
+						// Si l'EP est entre les dates
+						if ($dateLastEpParcours >= $value["Contratinsertion"]["dd_ci"] && $dateLastEpParcours <= $value["Contratinsertion"]["df_ci"]) {
+							$value["Contratinsertion"]["duree_engag"] = $this->getNbMoisEntre2Dates($value["Contratinsertion"]["df_ci"], $dateLastEpParcours);
+							$value["Contratinsertion"]["dd_ci"] = $dateLastEpParcours;
+						}
+
+						$dureeTotalCER += $value["Contratinsertion"]["duree_engag"];
+
+						if($this->finPlacePrecedente != '' && $value["Contratinsertion"]["dd_ci"]<=$this->finPlacePrecedente) {
+							//on doit déterminer le nombre de mois commun entre le contrat précédent et le contrat actuel
+							$diffMois	=	$this->getNbMoisEntre2Dates($value["Contratinsertion"]["dd_ci"], $this->finPlacePrecedente);
+							$dureeTotalCER -=  $diffMois;
+						}
+
+						$this->debutPlacePrecedente = $value["Contratinsertion"]["dd_ci"];
+						$this->finPlacePrecedente = $value["Contratinsertion"]["df_ci"];
+					}
+				}
+			}
+
+			return $dureeTotalCER;
 		}
 
 		/**
@@ -1333,12 +1387,33 @@
 		 *
 		 * @param array $duree_engag
 		 */
-		protected function isEpParcoursBeforeLastCer ($personne_id, $contratsinsertion) {
+		protected function _isEpParcoursAfterLastCer ($dateLastEpParcours, $dateFinDernierContrat) {
+			if (!is_null ($dateFinDernierContrat) && !is_null ($dateLastEpParcours)) {
+				$datetimeFinDernierContrat = new DateTime($dateFinDernierContrat);
+				$datetimeLastEpParcours = new DateTime($dateLastEpParcours);
+
+				$interval = $datetimeFinDernierContrat->diff($datetimeLastEpParcours);
+
+				// La date de la dernière Équipe Pluridisciplinaire EST APRÈS la date de fin de dernier de contrat
+				if ($interval->format('%R') !== '+') {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		/**
+		 * Définition de la liste déroulante possible pour la durée d'ajout d'un CER
+		 *
+		 * @param array $duree_engag
+		 */
+		protected function _dateLastEpParcours ($personne_id, $contratsinsertion) {
 			$dateFinDernierContrat = array_pop ($contratsinsertion);
 
 			$Passagecommissionep = ClassRegistry::init ('Passagecommissionep');
-			$nbEpParcours = $Passagecommissionep->find (
-				'count',
+			$passage = $Passagecommissionep->find (
+				'first',
 				array (
 					'recursive' => 1,
 					'joins' => array (
@@ -1377,17 +1452,6 @@
 					),
 					'conditions' => array (
 						'Dossierep.personne_id' => $personne_id,
-						/**
-						 * Liste des thématiques :
-						 * Demande de réorientation ou maintien
-						 * 		saisinesbilansparcourseps66
-						 * Maintien dans le social
-						 * 		nonorientationsproseps66
-						 * Défaut d'insertion
-						 * 		defautsinsertionseps66
-						 * Saisine PDO
-						 * 		saisinespdoseps66
-						 */
 						'Dossierep.themeep' => array (
 								'saisinesbilansparcourseps66',
 								'nonorientationsproseps66',
@@ -1395,30 +1459,15 @@
 								'saisinespdoseps66',
 							),
 						'Passagecommissionep.etatdossierep' => 'traite',
-						'Commissionep.dateseance >= \''.$dateFinDernierContrat['Contratinsertion']['df_ci'].'\'',
-						'OR' => array (
-							'Decisiondefautinsertionep66.decision' => array (
-								'maintienorientsoc'
-							),
-							'Decisionsaisinebilanparcoursep66.decision' => array (
-								'maintien'
-							),
-							'Decisionssaisinespdoseps66.decision' => array (
-								'maintien'
-							),
-							'Decisionsnonorientationsproseps66.decision' => array (
-								'maintien'
-							),
-						)
 					),
 				)
 			);
 
-			if ($nbEpParcours > 0) {
-				return true;
+			if (isset ($passage['Commissionep']['dateseance'])) {
+				return $passage['Commissionep']['dateseance'];
 			}
 
-			return false;
+			return null;
 		}
 
 		/**
@@ -1426,7 +1475,7 @@
 		 *
 		 * @param array $duree_engag
 		 */
-		protected function setDureeEngag ($duree_engag, $dureeTotalCER, $agePersonne, $isEpParcoursBeforeLastCer) {
+		protected function setDureeEngag ($duree_engag, $dureeTotalCER, $agePersonne, $isEpParcoursAfterLastCer) {
 			// Pas de limite de contrat si l'allocataire a plus que l'age de tacite reconduction (55 ans).
 			if ($agePersonne >= Configure::read( 'Tacitereconduction.limiteAge' )) {
 				return $duree_engag;
@@ -1434,7 +1483,7 @@
 
 			// Pas de limite de contrat si l'allocataire est passé en EP PARCOURS et si la date de décision
 			// de l'EP est postérieure à la date de fin du dernier CER
-			if ($isEpParcoursBeforeLastCer) {
+			if ($isEpParcoursAfterLastCer) {
 				return $duree_engag;
 			}
 
@@ -1460,6 +1509,9 @@
 		private function getDureeTotalCER($CER) {
 			$dureeTotalCER = 0;
 
+            //initialisation, car la variable de classe peut être utilisée par une autre fonction
+			$this->finPlacePrecedente = '';
+
 			foreach($CER as $index=>$value) {
 				if($value["Contratinsertion"]["decision_ci"] == 'V' && $value["Contratinsertion"]["datevalidation_ci"] != null) {
 					$dureeTotalCER += $value["Contratinsertion"]["duree_engag"];
@@ -1474,7 +1526,8 @@
 					$this->finPlacePrecedente = $value["Contratinsertion"]["df_ci"];
 				}
 			}
-			return ($dureeTotalCER % array_pop (array_keys ($this->Option->duree_engag ())));
+
+			return ($dureeTotalCER % Configure::read( 'cer.duree.tranche' ));
 		}
 
 		/**
