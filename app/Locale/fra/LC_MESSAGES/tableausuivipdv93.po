@@ -27,9 +27,6 @@ msgstr "Référent"
 
 # ------------------------------------------------------------------------------
 
-msgid "ENUM::NAME::tableaub7"
-msgstr "B 7"
-
 msgid "ENUM::NAME::tableaud1"
 msgstr "D 1"
 
@@ -47,3 +44,12 @@ msgstr "B 5"
 
 msgid "ENUM::NAME::tableau1b6"
 msgstr "B 6"
+
+msgid "ENUM::NAME::tableaub7"
+msgstr "B 7a"
+
+msgid "ENUM::NAME::tableaub7d2typecontrat"
+msgstr "B 7b"
+
+msgid "ENUM::NAME::tableaub7d2familleprofessionnelle"
+msgstr "B 7c"
