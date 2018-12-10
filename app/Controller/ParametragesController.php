@@ -678,6 +678,11 @@
 				'Types d\'orientations' => array(
 					'url' => array( 'controller' => 'typesorients', 'action' => 'index' )
 				),
+				'Vagues d\'orientation' => array(
+					'Paramétrage des dates des vagues' => array(
+						'url' => array( 'controller' => 'vaguesdorientations', 'action' => 'index' )
+					),
+				),
 				'Zones géographiques' => array(
 					'url' => array( 'controller' => 'zonesgeographiques', 'action' => 'index' )
 				)
