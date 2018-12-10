@@ -21,6 +21,7 @@
 		*/
 
 		public function date( $format, $date ) {
+			setlocale (LC_TIME, 'fr_FR.utf8','fra');
 			return h( ( empty( $date ) || !is_string( $date ) ) ? null : strftime( __( $format ), strtotime( $date ) ) );
 		}
 
