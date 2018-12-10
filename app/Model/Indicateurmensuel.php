@@ -2180,7 +2180,7 @@
 			}
 
 			if($dernierIndex>0){
-				$moyenne	=	$moyenne / $nbMoisAvecResult;
+				$moyenne	=	($nbMoisAvecResult>0) ? $moyenne / $nbMoisAvecResult : 0;
 				$tabInfos[($dernierIndex+1)]	=	array(0=>array(0=>array('indicateur'=>$moyenne)));
 				$tabInfos[($dernierIndex+2)]	=	array(0=>array(0=>array('indicateur'=>$nbPersonnes)));
 			}
