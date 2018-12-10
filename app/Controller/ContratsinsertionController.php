@@ -1322,7 +1322,8 @@
 
 			// Date de la dernière EP
 			$dateLastEpParcours = $this->_dateLastEpParcours($personne_id, $contratsinsertion);
-			$dateFinDernierContrat = array_pop ($contratsinsertion);
+			$tempContratsinsertion = $contratsinsertion;
+			$dateFinDernierContrat = array_pop ($tempContratsinsertion);
 
 			$dureeTotalCER = $this->getDureeTotalCERPostLastEP($contratsinsertion, $dateLastEpParcours);
 			$infosPersonne = $this->Personne->find('first', array('recursive'=>(-1), 'conditions'=>array('Personne.id'=>$personne_id)));
