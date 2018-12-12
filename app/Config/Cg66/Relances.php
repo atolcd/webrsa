@@ -19,7 +19,7 @@
 	/**
 	 * Objet du message du mail contenant les les SMS à envoyer.
 	 */
-	Configure::write('relances.prestataire.mail.sujet', 'Relance par SMS');
+	Configure::write('relances.prestataire.mail.sujet.sujet', 'Relance par SMS');
 
 	/**
 	 * Contenu du message du mail contenant les les SMS à envoyer.

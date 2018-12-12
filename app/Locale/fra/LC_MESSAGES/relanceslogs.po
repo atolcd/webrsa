@@ -35,6 +35,9 @@ msgstr "Logs des relances"
 msgid "/Relanceslogs/add"
 msgstr "Actualiser la liste"
 
+msgid "/Personnes/view"
+msgstr "Voir"
+
 # ==============================================================================
 # Formulaire
 
@@ -42,7 +45,7 @@ msgid "Search.Relanceslogs.search"
 msgstr "Affiner la recherche"
 
 msgid "Search.Relanceslogs.daterdv"
-msgstr "Date de rendez-vous client"
+msgstr "Date du rendez-vous (séance commission EP, ...) de l'allocataire (ATTENTION : cela ne correspond pas à la date de la relance)"
 
 # ==============================================================================
 # Questionnaire
