@@ -376,7 +376,7 @@
 		);
 
 		/**
-		 * Liste, pour achacun des tableaux de suivi, le modèle sur lequel
+		 * Liste, pour chacun des tableaux de suivi, le modèle sur lequel
 		 * effectuer la requête pour obtenir l'export CSV.
 		 *
 		 * @var array
@@ -2742,6 +2742,18 @@
 		}
 
 		/**
+		 * Retourne le querydata nécessaire à l'export CSV du corpus pris en
+		 * compte dans un historique de tableau B7.
+		 *
+		 * @param array $results
+		 * @return array
+		 */
+		public function qdExportcsvCorpus1b7( $results ) {
+
+			return $results;
+		}
+
+		/**
 		 * Retourne les enregistrements des thématiques de rendez-vous à prendre
 		 * en compte dans le tableau 1B6, le modèle est aliasé par Tableau1b6.
 		 *
@@ -3076,10 +3088,12 @@
 					$modelClass = $this->modelsCorpus[$action];
 
 					if (is_array($modelClass)) {
-						$models = array_merge(
-							array( $modelClass => null ) + Hash::normalize(Hash::extract( $query[0], 'joins.{n}.alias' )),
-							array( $modelClass => null ) + Hash::normalize(Hash::extract( $query[1], 'joins.{n}.alias' ))
-						);
+						foreach($modelClass as $index=>$contenu) {
+							$models = array_merge(
+								array( $modelClass[$index] => null ) + Hash::normalize(Hash::extract( $query[0], 'joins.{n}.alias' )),
+								array( $modelClass[$index] => null ) + Hash::normalize(Hash::extract( $query[1], 'joins.{n}.alias' ))
+							);
+						}
 					}
 					else {
 						$models = array( $modelClass => null ) + Hash::normalize(Hash::extract( $query, 'joins.{n}.alias' ));
@@ -3121,13 +3135,14 @@
 
 					$recordResults = '';
 					if (is_array ($modelClass)) {
+						$recordResults = array();
 						$modelClass0 = ClassRegistry::init( $modelClass[0] );
 						$modelClass0->forceVirtualFields = true;
 						$modelClass1 = ClassRegistry::init( $modelClass[1] );
 						$modelClass1->forceVirtualFields = true;
 
-						$recordResults .= $modelClass0->find( 'all', $query[0] );
-						$recordResults .= $modelClass1->find( 'all', $query[1] );
+						$recordResults[] = $modelClass0->find( 'all', $query[0] );
+						$recordResults[] = $modelClass1->find( 'all', $query[1] );
 					}
 					else {
 						$modelClass = ClassRegistry::init( $modelClass );
@@ -4029,11 +4044,12 @@
 		 * @param array $search
 		 * @return array
 		 */
-		public function tableaub7( array $search, $returnQuery = false ) {
+		public function tableaub7( array $search, $returnQuery = false, $returnForCorpus = false ) {
 			$questionnaireb7pdv93 = ClassRegistry::init( 'Questionnaireb7pdv93' );
 			$questionnaired2pdv93 = ClassRegistry::init( 'Questionnaired2pdv93' );
 			$personne = ClassRegistry::init( 'Personne' );
 			$annee = Hash::get( $search, 'Search.annee' );
+			$tabCorpus = array();
 
 			//dans le cas d'un user PDV/PIE on filtre sur ses résultats
 			if(isset($this->userConnected["type"]) && $this->userConnected["type"]=='externe_cpdv' && $this->userConnected["structurereferente_id"]>0) {
@@ -4046,7 +4062,7 @@
 			// Questionnaires b7
 			$query = array (
 				'fields' => array (
-					'Personne.id',
+					'DISTINCT Personne.id',
 				),
 				'joins' => array (
 					array(
@@ -4061,16 +4077,20 @@
 				),
 				'contain' => array (
 					'Questionnaireb7pdv93',
-				),
-				'group' => array ('Personne.id'),
+				)
 			);
 			$query = $this->_conditionsb7b7($search, $query);
-			$personneb7s = $personne->find ('all', $query);
+			if($returnForCorpus) {
+				$tabCorpus[] = $query;
+			}
+			else {
+				$personneb7s = $personne->find ('all', $query);
+			}
 
 			// Questionnaires d2
 			$query = array (
 				'fields' => array (
-					'Personne.id',
+					'DISTINCT Personne.id',
 				),
 				'joins' => array(
 					array(
@@ -4086,18 +4106,22 @@
 				),
 				'contain' => array (
 					'Questionnaired2pdv93',
-				),
-				'group' => array ('Personne.id'),
+				)
 			);
 			$query = $this->_conditionsb7b7($search, $query);
-			$personned2s = $personne->find ('all', $query);
+			if($returnForCorpus) {
+				$tabCorpus[] = $query;
+			}
+			else {
+				$personned2s = $personne->find ('all', $query);
+			}
 
 			/*
 			 * Toutes les personnes ayant un questionnaire B7 ou un questionnaire D2 = 'maintien'
 			 */
 			$query = array (
 				'fields' => array (
-					'Personne.id',
+					'DISTINCT Personne.id',
 				),
 				'contain' => array (
 					'Questionnaireb7pdv93',
@@ -4123,11 +4147,15 @@
 							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $search['Search']['annee'],
 						)
 					),
-				),
-				'group' => array ('Personne.id'),
+				)
 			);
 			$query = $this->_conditionsb7b7($search, $query);
-			$personneb7smaintenues = $personne->find ('all', $query);
+			if($returnForCorpus) {
+				$tabCorpus[] = $query;
+			}
+			else {
+				$personneb7smaintenues = $personne->find ('all', $query);
+			}
 
 			/*
 			 * Toutes les personnes ayant un questionnaire B7 ou un questionnaire D2 = 'sortie_obligation'
@@ -4162,8 +4190,7 @@
 							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $search['Search']['annee'],
 						)
 					),
-				),
-				'group' => array ('Personne.id'),
+				)
 			);
 			$query = $this->_conditionsb7b7($search, $query);
 
@@ -4171,7 +4198,13 @@
 				return $query;
 			}
 
-			$personneb7ssorties = $personne->find ('all', $query);
+			if($returnForCorpus) {
+				$tabCorpus[] = $query;
+				return $tabCorpus;
+			}
+			else {
+				$personneb7ssorties = $personne->find ('all', $query);
+			}
 
 			$return = array();
 			$return['maintenues_sorties'] = count ($personneb7s) + count ($personned2s);
@@ -4184,7 +4217,7 @@
 		/**
 		 * Tableau B7 + D2 par type de contrat
 		 */
-		public function tableaub7d2typecontrat( array $search, $returnQueryB7 = false, $returnQueryD2 = false ) {
+		public function tableaub7d2typecontrat( array $search, $returnQueryB7 = false, $returnQueryD2 = false, $returnForCorpus = false ) {
 			$typeEmploi = ClassRegistry::init( 'Typeemploi' );
 			$questionnaireb7pdv93 = ClassRegistry::init( 'Questionnaireb7pdv93' );
 			$questionnaired2pdv93 = ClassRegistry::init( 'Questionnaired2pdv93' );
@@ -4192,6 +4225,8 @@
 			$annee = Hash::get( $search, 'Search.annee' );
 
 			$return = array();
+			$tabCorpus = array();
+			$tabObjet = array();
 
 			//dans le cas d'un user PDV/PIE on filtre sur ses résultats
 			if(isset($this->userConnected["type"]) && $this->userConnected["type"]=='externe_cpdv' && $this->userConnected["structurereferente_id"]>0) {
@@ -4235,7 +4270,13 @@
 				return $query;
 			}
 
-			$questionnaireb7s = $questionnaireb7pdv93->find ('all', $query);
+			if($returnForCorpus) {
+				$tabCorpus[] = $query;
+				$tabObjet[] = $questionnaireb7pdv93;
+			}
+			else {
+				$questionnaireb7s = $questionnaireb7pdv93->find ('all', $query);
+			}
 
 			// Questionnaire D2
 			$query = array (
@@ -4265,7 +4306,14 @@
 				return $query;
 			}
 
-			$questionnaired2s = $questionnaired2pdv93->find ('all', $query);
+			if($returnForCorpus) {
+				$tabCorpus[] = $query;
+				$tabObjet[] = $questionnaired2pdv93;
+				return array($tabCorpus, $tabObjet);
+			}
+			else {
+				$questionnaired2s = $questionnaired2pdv93->find ('all', $query);
+			}
 
 			// Formatage réponse
 			$tableauB7 = array ();
@@ -4354,11 +4402,13 @@
 		/**
 		 * Tableau B7 + D2 par famille professionnelle
 		 */
-		public function tableaub7d2familleprofessionnelle( array $search, $returnQueryB7 = false, $returnQueryD2 = false ) {
+		public function tableaub7d2familleprofessionnelle( array $search, $returnQueryB7 = false, $returnQueryD2 = false, $returnForCorpus = false ) {
 			$questionnaireb7pdv93 = ClassRegistry::init( 'Questionnaireb7pdv93' );
 			$questionnaired2pdv93 = ClassRegistry::init( 'Questionnaired2pdv93' );
 			$familleromev3 = ClassRegistry::init( 'Familleromev3' );
 			$annee = Hash::get( $search, 'Search.annee' );
+			$tabCorpus = array();
+			$tabObjet = array();
 
 			// Familles professionnelles
 			$familles = $familleromev3->find (
@@ -4416,7 +4466,13 @@
 				return $query;
 			}
 
-			$questionnaireb7s = $questionnaireb7pdv93->find ('all', $query);
+			if($returnForCorpus) {
+				$tabCorpus[] = $query;
+				$tabObjet[] = $questionnaireb7pdv93;
+			}
+			else {
+				$questionnaireb7s = $questionnaireb7pdv93->find ('all', $query);
+			}
 
 			// Questionnaires d2
 			$query = array (
@@ -4453,7 +4509,14 @@
 				return $query;
 			}
 
-			$questionnaired2s = $questionnaired2pdv93->find ('all', $query);
+			if($returnForCorpus) {
+				$tabCorpus[] = $query;
+				$tabObjet[] = $questionnaired2pdv93;
+				return array($tabCorpus, $tabObjet);
+			}
+			else {
+				$questionnaired2s = $questionnaired2pdv93->find ('all', $query);
+			}
 
 			// Par famille professionelle
 			$tableauRomev3 = array ();
@@ -4494,6 +4557,90 @@
 			$return['totalFamilleD2'] = $totalFamilleD2;
 
 			return $return;
+		}
+
+		/*
+		 * Récupère les bénéficiaires du tableau b7
+		 */
+		public function resultsCorpusTableaub7($search) {
+			$personne = ClassRegistry::init( 'Personne' );
+
+			$listeChamps = array (
+					'DISTINCT Personne.id',
+					'Personne.nom',
+					'Personne.prenom',
+					'Personne.dtnai',
+					'Personne.sexe',
+				);
+			$tabGlobal = array();
+
+			//récupération des requêtes initiales
+			$query = $this->tableaub7($search, false, true);
+
+			//ajout des champs spéficiques dans les différentes requêtes
+			foreach($query as $index=>$tab) {
+				$tab["fields"] = $listeChamps;
+				$request = $personne->find ('all', $tab);
+				$tabGlobal = array_merge($tabGlobal, $request);
+			}
+
+			return $tabGlobal;
+		}
+
+		/*
+		 * Récupère les bénéficiaires du tableau b7 Type Contrat
+		 */
+		public function resultsCorpusTableaub7d2TypeContrat($search) {
+			$listeChamps = array (
+					'DISTINCT Personne.id',
+					'Personne.nom',
+					'Personne.prenom',
+					'Personne.dtnai',
+					'Personne.sexe',
+				);
+			$tabGlobal = array();
+
+			//récupération des requêtes initiales et des modèles
+			$arrayRecup = $this->tableaub7d2typecontrat($search, false, false, true);
+			$query = $arrayRecup[0];
+			$model = $arrayRecup[1];
+
+			//ajout des champs spéficiques dans les différentes requêtes
+			foreach($query as $index=>$tab) {
+				$tab["fields"] = $listeChamps;
+				$request = $model[$index]->find ('all', $tab);
+				$tabGlobal = array_merge($tabGlobal, $request);
+			}
+
+			return $tabGlobal;
+		}
+
+		/*
+		 * Récupère les bénéficiaires du tableau b7 Famille Professionnelle
+		 */
+		function resultsCorpusTableaub7d2FamilleProfessionnelle ($search) {
+			$listeChamps = array (
+					'DISTINCT Personne.id',
+					'Personne.nom',
+					'Personne.prenom',
+					'Personne.dtnai',
+					'Personne.sexe',
+				);
+			$tabGlobal = array();
+
+			//récupération des requêtes initiales et des modèles
+			$arrayRecup = $this->tableaub7d2familleprofessionnelle($search, false, false, true);
+			$query = $arrayRecup[0];
+			$model = $arrayRecup[1];
+
+			//ajout des champs spéficiques dans les différentes requêtes
+			foreach($query as $index=>$tab) {
+				$tab["fields"] = $listeChamps;
+				$request = $model[$index]->find ('all', $tab);
+				$tabGlobal = array_merge($tabGlobal, $request);
+			}
+
+			return $tabGlobal;
 		}
 	}
 ?>

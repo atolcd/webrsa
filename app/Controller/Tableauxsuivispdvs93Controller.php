@@ -599,7 +599,7 @@
 			$corpuspdv93 = $this->Tableausuivipdv93->Corpuspdv93->find( 'first', $query );
 
 			// Nouvelle façon de faire, avec la table corpuspdvs93
-			if( !empty( $corpuspdv93 ) ) {
+			if( !empty( $corpuspdv93 )) {
 				// TODO: le faire dans le modèle beforeSave / afterFind ?
 				$fields = json_decode( $corpuspdv93['Corpuspdv93']['fields'], true );
 				$results = json_decode( $corpuspdv93['Corpuspdv93']['results'], true );
@@ -642,14 +642,30 @@
 			$csvfile = $this->_csvFileName( $this->action, $tableausuivipdv93 );
 			$search = unserialize( $tableausuivipdv93['Tableausuivipdv93']['search'] );
 
+			//détail du resultat des corpus afin de récupérer les infos bénéficiaires
+			switch($action) {
+				case 'tableaub7' :
+					$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->resultsCorpusTableaub7($search);
+				break;
+				case 'tableaub7d2typecontrat' :
+					$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->resultsCorpusTableaub7d2TypeContrat($search);
+				break;
+				case 'tableaub7d2familleprofessionnelle' :
+					$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->resultsCorpusTableaub7d2FamilleProfessionnelle($search);
+				break;
+			}
+
 			$this->set( compact( 'results', 'options', 'csvfile', 'action', 'search' ) );
 			$this->layout = null;
 
-			if( in_array( $action, array( 'tableaud1', 'tableaud2' ) )  ) {
-				$this->view = 'exportcsvcorpus_d1d2';
-			}
-			else {
-				$this->view = 'exportcsvcorpus';
+			switch($action) {
+				case 'tableaud1' :
+				case 'tableaud2' :
+					$this->view = 'exportcsvcorpus_d1d2';
+				break;
+				default :
+					$this->view = 'exportcsvcorpus';
+				break;
 			}
 		}
 
@@ -762,7 +778,6 @@
 				Hash::get( $this->request->params, 'pass.0' )
 			);
 			$this->_setOptions();
-			$this->_prepareFormData( $search );
 
 			$this->Tableausuivipdv93->begin();
 			$success = $this->WebrsaTableausuivipdv93->historiser(
@@ -1034,7 +1049,7 @@
 			if( !empty( $search ) ) {
 				//$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7d2familleprofessionnelle( $search );
 				$this->Tableausuivipdv93->WebrsaTableausuivipdv93->userConnected = $this->Session->read( 'Auth.User' );
-				$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7d2familleprofessionnelle( $this->request->data, $this->Session->read( 'Auth.User' ) );
+				$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub7d2familleprofessionnelle( $this->request->data );
 
 				$this->set( compact( 'results' ) );
 			}
