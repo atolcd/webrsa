@@ -653,8 +653,9 @@ Event.observe( $( 'ContratinsertionStructurereferenteId' ), 'change', function( 
 			}
 			//Cumul de la durée des CER > 0
 			//Date EP APRÈS Date de début du dernier CER. Décision EP est "maintien dans le social"
-			if ($dureeTotalCER > 0 && !$isEpParcoursAfterLastCer) {
-				echo '<div class="error_message">Attention, le bénéficiaire a déjà cumulé '.$dureeTotalCER.' mois de CER depuis la dernière EP, vous ne pouvez pas dépasser '.$dureeMaximaleTrancheContrat.' mois, sauf pour une tacite reconduction (+ de '.Configure::read( 'Tacitereconduction.limiteAge' ).' ans ou FSE) ou PACEA</div>';
+			//&& !$isEpParcoursAfterLastCer
+			if ($dureeTotalCER > 0)  {
+				echo '<div class="error_message">Attention, le bénéficiaire a déjà cumulé '.$dureeTotalCER.' mois de CER, vous ne pouvez pas dépasser '.$dureeMaximaleTrancheContrat.' mois, sauf pour une tacite reconduction (+ de '.Configure::read( 'Tacitereconduction.limiteAge' ).' ans ou FSE) ou PACEA</div>';
 			}
 			?>
 	</tr>
@@ -673,7 +674,7 @@ Event.observe( $( 'ContratinsertionStructurereferenteId' ), 'change', function( 
 	</tr>
 	<tr>
 		<td colspan="2" class="noborder">
-			<div class="error_message" id="messageErreurCER">Cet allocataire dépasse les <?php echo Configure::read( 'cer.duree.tranche' ); ?> mois de contractualisation dans une orientation SOCIALE. Vous devez donc proposer un bilan pour passage en EPL.</div>
+			<div class="error_message" id="messageErreurCER">Cet allocataire dépasse les <?php echo $dureeMaximaleTrancheContrat; ?> mois de contractualisation dans une orientation SOCIALE. Vous devez donc proposer un bilan pour passage en EPL.</div>
 		</td>
 	</tr>
 </table>

@@ -135,7 +135,7 @@
 				),
 				'contain' => false,
 				'order' => array(
-					'Contratinsertion.date_saisi_ci' => 'DESC',
+					'Contratinsertion.dd_ci' => 'DESC',
 					'Contratinsertion.df_ci' => 'DESC',
 					'Contratinsertion.id' => 'DESC',
 				)

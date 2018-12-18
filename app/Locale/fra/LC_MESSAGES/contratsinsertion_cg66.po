@@ -67,6 +67,9 @@ msgstr "CER"
 msgid "Contratinsertion.total"
 msgstr "Cumul CER"
 
+msgid "Contratinsertion.totalCumulCER"
+msgstr "Cumul CER"
+
 msgid "Contratinsertion.type_pacea"
 msgstr "Contrat PACEA"
 

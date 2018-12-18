@@ -5,7 +5,8 @@
 		$contratsinsertion,
 		$this->Translator->normalize(
 			array(
-				'Contratinsertion.total',
+				//'Contratinsertion.total',
+				'Contratinsertion.totalCumulCER',
 				'Contratinsertion.forme_ci',
 				'Contratinsertion.num_contrat_66',
 				'Contratinsertion.dd_ci',

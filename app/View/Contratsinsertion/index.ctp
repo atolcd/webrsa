@@ -14,6 +14,7 @@
 	);
 
 	// A-t'on des messages à afficher à l'utilisateur ?
+	//la gestion globale des messages se fait dans le contrôleur du CD concerné
 	foreach ((array)$messages as $message => $class) {
 		echo $this->Html->tag('p', __m($message), array('class' => "message {$class}"));
 	}
