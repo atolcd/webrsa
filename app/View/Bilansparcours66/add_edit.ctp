@@ -646,6 +646,7 @@
 		?>
 		<fieldset id="audition" class="invisible">
 			<?php
+				echo $this->Default3->messages( $messages );//affichage de l'alerte si aucune orientation
 				echo $this->Default2->subform(
 					array(
 						'Bilanparcours66.examenaudition' => array( 'type' => 'radio', 'required' => true )
