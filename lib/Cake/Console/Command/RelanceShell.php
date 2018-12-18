@@ -85,7 +85,8 @@ class RelanceShell extends Shell {
 			array (
 				'recursive' => 1,
 				'conditions' => array (
-					'Rendezvous.daterdv' => $date->format('Y-m-d')//'2018-12-15'
+					'Rendezvous.daterdv' => $date->format('Y-m-d'),// Testable avec '2018-12-15'
+					'Rendezvous.statutrdv_id' => 17// Prévu
 				),
 			)
 		);
@@ -130,7 +131,7 @@ class RelanceShell extends Shell {
 		$Dossierep = ClassRegistry::init( 'Dossierep' );
 		$date = new DateTime ();
 		$date->add(new DateInterval('P'.$relance['Relance']['nombredejour'].'D'));
-		$formatDate = $date->format('Y-m-d');//'2018-06-13'
+		$formatDate = $date->format('Y-m-d');// Testable avec '2018-06-13'
 
 		$commissions = $Model->find (
 			'all',
@@ -140,6 +141,19 @@ class RelanceShell extends Shell {
 					'Commissionep.dateseance >= \''.$formatDate.' 00:00:00\'',
 					'Commissionep.dateseance <= \''.$formatDate.' 23:59:59\'',
 				),
+				'joins' => array (
+					array (
+						'table' => 'passagescommissionseps',
+						'alias' => 'Passagecommissionep',
+						'type' => 'INNER',
+						'conditions' => array (
+							'Commissionep.id = Passagecommissionep.commissionep_id',
+							'Passagecommissionep.heureseance >= \'00:00:00\'',// Ayant une heure de passage
+							'Passagecommissionep.heureseance <= \'23:59:59\'',// Ayant une heure de passage
+							'Passagecommissionep.impressionconvocation IS NOT NULL'// Ayant déjà eu l'impression de la convocation
+						)
+					)
+				)
 			)
 		);
 
@@ -369,10 +383,15 @@ class RelanceShell extends Shell {
 	 * Formatage du numéro de téléphone
 	 */
 	private function _formatTel ($numero) {
-		$numero = substr($numero, 1);
-		$numero = '+33'.$numero;
+		$numero = preg_replace ('/[^0-9]/', '', $numero);
 
-		$numero = str_replace (array ('.', ''), '', $numero);
+		if (substr ($numero, 0, 1) == '0') {
+			$numero = substr ($numero, 1);
+		}
+
+		if (substr ($numero, 0, 3) != '+33') {
+			$numero = '+33'.$numero;
+		}
 
 		return $numero;
 	}
@@ -590,7 +609,7 @@ class RelanceShell extends Shell {
 
 			$this->_envoimail (
 				Configure::read('relances.prestataire.mail.destinataire'),
-				Configure::read('relances.prestataire.mail.sujet').' '.$relanceType,
+				Configure::read('relances.prestataire.mail.sujet.sujet').' '.$relanceType,
 				Configure::read('relances.prestataire.mail.message'),
 				Configure::read('relances.prestataire.mail.domaine'),
 				Configure::read('relances.prestataire.mail.expéditeur'),
