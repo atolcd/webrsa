@@ -558,7 +558,8 @@
 
 			//récupère le cumul des CER
 			foreach($contratsinsertion as $index=>$value) {
-				$contratsinsertion[$index]["Contratinsertion"]["total"]	=	$this->getDureeCER($value);
+				$contratsinsertion[$index]["Contratinsertion"]["totalCumulCER"] = $this->getDureeCERVersion2($value);
+				//$contratsinsertion[$index]["Contratinsertion"]["total"] = $this->getDureeCER($value);
 			}
 
 			/**
@@ -569,7 +570,8 @@
 				$dateLastEpParcours = $this->_dateLastEpParcours($personne_id, $contratsinsertion);
 				$dureeTotalCER = $this->getDureeTotalCERPostLastEP($contratsinsertion, $dateLastEpParcours);
 
-				if (Hash::get($personne, 'Personne.age') < (int)Configure::read('Tacitereconduction.limiteAge')
+				//message supprimé le 20/12/2018 à la demande de Mijo
+				/*if (Hash::get($personne, 'Personne.age') < (int)Configure::read('Tacitereconduction.limiteAge')
 					&& $dureeTotalCER > Configure::read( 'cer.duree.tranche' )) {
 					$message = 'Cet allocataire dépasse les '.Configure::read( 'cer.duree.tranche' ).' mois de contractualisation '
 						. 'dans une orientation SOCIALE. Vous devez donc proposer un bilan pour passage en EPL.'
@@ -577,7 +579,7 @@
 						. 'Il cumule '.$dureeTotalCER.' mois de CER depuis la dernière EP qui a eu lieu le '.date_format (date_create ($dateLastEpParcours), 'd/m/Y').'.'
 						. '';
 					$messages[$message] = 'error';
-				}
+				}*/
 				if (!Hash::get($personne, 'PersonneReferent.id')) {
 					$message = "Aucun référent n'est lié au parcours de cette personne.";
 					$messages[$message] = 'error';
@@ -603,7 +605,7 @@
 			}
 
 			//inversion du tableau
-			$contratsinsertion = $this->reverseArray($contratsinsertion);
+			$contratsinsertion = array_reverse($contratsinsertion);
 
 			$this->set(compact('personne_id', 'contratsinsertion', 'messages', 'dossierMenu', 'ajoutPossible'));
 			$this->view = Configure::read('nom_form_ci_cg') ? 'index_'.Configure::read('nom_form_ci_cg') : 'index';
@@ -666,6 +668,44 @@
 			else {
 				$dureeCER .= ' mois';
 			}
+
+			return $dureeCER;
+		}
+
+		/**
+		 * Calcul la durée cumulée des CER
+		 * En incluant les plages de dates communes
+		 * Nouveau système de calcul définit par le 66 le 18/12/2018
+		 *
+		 * @param object $contratInsertion Infos du CER
+		 */
+		private function getDureeCERVersion2($contratInsertion) {
+			$dureeCER = 0;
+			$dureeMaximaleCER = array_pop (array_keys ($this->Option->duree_engag ()));
+
+			//si un contrat est validé
+			//ne fonctionne pas s'il est annulé ou en attente de décision
+			if($contratInsertion["Contratinsertion"]["decision_ci"] == 'V' && $contratInsertion["Contratinsertion"]["datevalidation_ci"] != null) {
+
+				$dureeCER = $contratInsertion["Contratinsertion"]["duree_engag"] + $this->cumulDuree;
+
+				if($this->finPlacePrecedente != '' && $contratInsertion["Contratinsertion"]["dd_ci"]<$this->finPlacePrecedente) {
+					//on doit déterminer le nombre de mois commun entre le contrat précédent et le contrat actuel
+					$diffMois	=	$this->getNbMoisEntre2Dates($contratInsertion["Contratinsertion"]["dd_ci"], $this->finPlacePrecedente);
+					$dureeCER -= $diffMois;
+					$this->cumulDuree -=  $diffMois;
+				}
+
+				$this->cumulDuree += $contratInsertion["Contratinsertion"]["duree_engag"];
+
+				if($this->cumulDuree>=$dureeMaximaleCER)
+					$this->cumulDuree = 0;
+
+				$this->debutPlacePrecedente = $contratInsertion["Contratinsertion"]["dd_ci"];
+				$this->finPlacePrecedente = $contratInsertion["Contratinsertion"]["df_ci"];
+			}
+
+			$dureeCER = ($dureeCER == 0) ? '' : $dureeCER.' mois';
 
 			return $dureeCER;
 		}
@@ -1321,11 +1361,13 @@
 			$contratsinsertion = $this->WebrsaAccesses->getIndexRecords($personne_id, $querydata);
 
 			// Date de la dernière EP
-			$dateLastEpParcours = $this->_dateLastEpParcours($personne_id, $contratsinsertion);
+			//$dateLastEpParcours = $this->_dateLastEpParcours($personne_id, $contratsinsertion);
 			$tempContratsinsertion = $contratsinsertion;
 			$dateFinDernierContrat = array_pop ($tempContratsinsertion);
 
-			$dureeTotalCER = $this->getDureeTotalCERPostLastEP($contratsinsertion, $dateLastEpParcours);
+			//plus de notions de date EP pour le moment
+			//$dureeTotalCER = $this->getDureeTotalCERPostLastEP($contratsinsertion, $dateLastEpParcours);
+			$dureeTotalCER = $this->getDureeTotalCERVersion2($contratsinsertion);
 			$infosPersonne = $this->Personne->find('first', array('recursive'=>(-1), 'conditions'=>array('Personne.id'=>$personne_id)));
 			$agePersonne = $infosPersonne['Personne']['age'];
 			$this->set(compact('dureeTotalCER', 'agePersonne'));
@@ -1335,7 +1377,7 @@
 			$isEpParcoursAfterLastCer = $this->_isEpParcoursAfterLastCer($dateLastEpParcours, $dateFinDernierContrat['Contratinsertion']['dd_ci']);
 			$tabDureeEngag = $this->setDureeEngag($duree_engag, $dureeTotalCER, $agePersonne, $isEpParcoursAfterLastCer);
 			$this->set('duree_engag', $duree_engag);
-			$this->set('dureeMaximaleTrancheContrat', Configure::read( 'cer.duree.tranche' ));
+			$this->set('dureeMaximaleTrancheContrat', array_pop (array_keys ($duree_engag)));
 			$this->set('tabDureeEngag', $tabDureeEngag);
 			$this->set('isEpParcoursAfterLastCer', $isEpParcoursAfterLastCer);
 
@@ -1529,6 +1571,38 @@
 			}
 
 			return ($dureeTotalCER % Configure::read( 'cer.duree.tranche' ));
+		}
+
+		/**
+		 * Calcul le cumul total des CER, et renvoi le nombre de mois restants par plage de X mois (24 mois par défaut)
+		 * Exemple : si le cumule est de 30mois, il renvoi 18mois encore possible
+		 *
+		 * @param object $CER
+		 */
+		private function getDureeTotalCERVersion2($CER) {
+			$dureeTotalCER = 0;
+			$dureeMaximaleCER = array_pop (array_keys ($this->Option->duree_engag ()));
+			$finPlacePrecedente = '';
+
+			foreach($CER as $index=>$value) {
+				if($value["Contratinsertion"]["decision_ci"] == 'V' && $value["Contratinsertion"]["datevalidation_ci"] != null) {
+
+					if($finPlacePrecedente != '' && $value["Contratinsertion"]["dd_ci"]<$finPlacePrecedente) {
+						//on doit déterminer le nombre de mois commun entre le contrat précédent et le contrat actuel
+						$diffMois	=	$this->getNbMoisEntre2Dates($value["Contratinsertion"]["dd_ci"], $finPlacePrecedente);
+						$dureeTotalCER -=  $diffMois;
+					}
+
+					$dureeTotalCER += $value["Contratinsertion"]["duree_engag"];
+
+					if($dureeTotalCER>=$dureeMaximaleCER)
+						$dureeTotalCER = 0;
+
+					$finPlacePrecedente = $value["Contratinsertion"]["df_ci"];
+				}
+			}
+
+			return $dureeTotalCER;
 		}
 
 		/**
