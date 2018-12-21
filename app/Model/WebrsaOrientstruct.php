@@ -1131,7 +1131,16 @@
 		public function getPdfNonoriente66 ( $orientstruct_id, $user_id ) {
 			$data = $this->getDataForPdf( $orientstruct_id, $user_id );
 
-			$options = array();
+			// Options pour les traductions
+			$Option = ClassRegistry::init( 'Option' );
+			$options = array(
+				'Personne' => array(
+					'qual' => $Option->qual()
+				),
+				'Referent' => array(
+					'qual' => $Option->qual()
+				)
+			);
 
 			$nonoriente66 = $this->Orientstruct->Personne->Nonoriente66->find(
 				'first',
@@ -1191,7 +1200,16 @@
 		 * @return string
 		 */
 		public function getDefaultPdf( $id, $user_id ) {
+			$Option = ClassRegistry::init( 'Option' );
 			$options = Hash::merge(
+				array (
+					'Personne' => array(
+						'qual' => $Option->qual()
+					),
+					'Referent' => array(
+						'qual' => $Option->qual()
+					)
+				),
 				$this->Orientstruct->Personne->Foyer->enums(),
 				array(
 					'Prestation' => array(

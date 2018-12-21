@@ -784,10 +784,6 @@
 				'type' => 'string',
 				'postgres' => '( COALESCE( "%s"."qual", \'\' ) || \' \' || "%s"."nom" || \' \' || "%s"."prenom" || \' \' || COALESCE( "%s"."prenom2", \'\' ) || \' \' || COALESCE( "%s"."prenom3", \'\' ) )'
 			),
-			'civilite_nom_complet_prenoms' => array(
-				'type' => 'string',
-				'postgres' => '( (CASE COALESCE( "%s"."qual", \'\' ) WHEN \'MR\' THEN \'Monsieur\' WHEN \'MME\' THEN \'Madame\' ELSE \'\' END) || \' \' || "%s"."nom" || \' \' || "%s"."prenom" || \' \' || COALESCE( "%s"."prenom2", \'\' ) || \' \' || COALESCE( "%s"."prenom3", \'\' ) )'
-			),
 			'age' => array(
 				'type' => 'integer',
 				'postgres' => '( EXTRACT ( YEAR FROM AGE( "%s"."dtnai" ) ) )'
