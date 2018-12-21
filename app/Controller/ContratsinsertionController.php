@@ -1374,12 +1374,12 @@
 
 			$duree_engag = $this->Option->duree_engag();
 
-			$isEpParcoursAfterLastCer = $this->_isEpParcoursAfterLastCer($dateLastEpParcours, $dateFinDernierContrat['Contratinsertion']['dd_ci']);
-			$tabDureeEngag = $this->setDureeEngag($duree_engag, $dureeTotalCER, $agePersonne, $isEpParcoursAfterLastCer);
+			//$isEpParcoursAfterLastCer = $this->_isEpParcoursAfterLastCer($dateLastEpParcours, $dateFinDernierContrat['Contratinsertion']['dd_ci']);
+			$tabDureeEngag = $this->setDureeEngag($duree_engag, $dureeTotalCER, $agePersonne);
 			$this->set('duree_engag', $duree_engag);
 			$this->set('dureeMaximaleTrancheContrat', array_pop (array_keys ($duree_engag)));
 			$this->set('tabDureeEngag', $tabDureeEngag);
-			$this->set('isEpParcoursAfterLastCer', $isEpParcoursAfterLastCer);
+			//$this->set('isEpParcoursAfterLastCer', $isEpParcoursAfterLastCer);
 
 			$this->render( 'add_edit_specif_'.Configure::read( 'nom_form_ci_cg' ) );
 		}
@@ -1518,7 +1518,7 @@
 		 *
 		 * @param array $duree_engag
 		 */
-		protected function setDureeEngag ($duree_engag, $dureeTotalCER, $agePersonne, $isEpParcoursAfterLastCer) {
+		protected function setDureeEngag ($duree_engag, $dureeTotalCER, $agePersonne, $isEpParcoursAfterLastCer = false) {
 			// Pas de limite de contrat si l'allocataire a plus que l'age de tacite reconduction (55 ans).
 			if ($agePersonne >= Configure::read( 'Tacitereconduction.limiteAge' )) {
 				return $duree_engag;
