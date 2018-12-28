@@ -397,6 +397,15 @@
 				'Indicateurs de caractéristiques de contrats' => array( 'url' => array( 'controller' => 'statistiquesministerielles', 'action' => 'indicateurs_caracteristiques_contrats'  ) ),
 				'Indicateurs de natures des actions des contrats' => array( 'url' => array( 'controller' => 'statistiquesministerielles', 'action' => 'indicateurs_natures_contrats'  ) ),
 			),
+			'Statistiques DREES' => array (
+				'disabled' => ( $departement != 93 ),
+				'Tableau 1' => array( 'url' => array( 'controller' => 'statistiquesdrees', 'action' => 'indicateurs_tableau1'  ) ),
+				'Tableau 2' => array( 'url' => array( 'controller' => 'statistiquesdrees', 'action' => 'indicateurs_tableau2'  ) ),
+				'Tableau 3' => array( 'url' => array( 'controller' => 'statistiquesdrees', 'action' => 'indicateurs_tableau3'  ) ),
+				'Tableau 4' => array( 'url' => array( 'controller' => 'statistiquesdrees', 'action' => 'indicateurs_tableau4'  ) ),
+				'Tableau 5' => array( 'url' => array( 'controller' => 'statistiquesdrees', 'action' => 'indicateurs_tableau5'  ) ),
+				'Tableau 6' => array( 'url' => array( 'controller' => 'statistiquesdrees', 'action' => 'indicateurs_tableau6'  ) ),
+			),
 			'Indicateurs de suivi' => array( 'url' => array( 'controller' => 'indicateurssuivis', 'action' => 'search' ) ),
 			'Tableaux de suivi d\'activité' => array(
 				'disabled' => ( $departement != 93 ),

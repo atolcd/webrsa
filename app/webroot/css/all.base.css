@@ -910,6 +910,131 @@ body.statistiquesministerielles ul.actions li.action a {
 	background-image: url( ../img/icons/application_form_magnify.png );
 }
 
+/**
+ * Statistiques DREES (2018-12)	
+ */
+body.statistiquesdrees #pageContent h2 {
+	font-weight: bold;
+	font-size: 1em;
+	margin-bottom: 0.5em;
+}
+body.statistiquesdrees #pageContent caption {
+	caption-side: top;
+	text-align: center;
+	background: #235f7d;
+	border: 1px solid #235f7d;
+	color: white;
+	padding: 0.125em 0.25em;
+}
+body.statistiquesdrees #pageContent table {
+	border-collapse: collapse;
+	width: 100%;
+	margin: 0;
+}
+body.statistiquesdrees #pageContent th,
+body.statistiquesdrees #pageContent td {
+	border: 1px solid black;
+	padding: 0.125em 0.25em;
+	background: white;
+	color: black;
+}
+body.statistiquesdrees #pageContent th {
+	font-weight: normal;
+}
+body.statistiquesdrees #pageContent thead tr.main th {
+	border: 0;
+}
+body.statistiquesdrees #pageContent tbody th,
+body.statistiquesdrees #pageContent tfoot th {
+	text-align: left;
+}
+body.statistiquesdrees #pageContent tbody td,
+body.statistiquesdrees #pageContent tfoot td {
+	text-align: right;
+}
+body.statistiquesdrees #pageContent table.middle caption,
+body.statistiquesdrees #pageContent table.middle thead tr.main,
+body.statistiquesdrees #pageContent table.last caption,
+body.statistiquesdrees #pageContent table.last thead tr.main { /*TODO: au milieu aussi -> position-first/... ?*/
+	display: none;
+}
+body.statistiquesdrees #pageContent thead tr th,
+body.statistiquesdrees #pageContent tbody tr.total th {
+	background: #235F7D;
+	color: white;
+}
+body.statistiquesdrees #pageContent thead tr.category th {
+	text-align: left;
+}
+body.statistiquesdrees #pageContent tfoot th,
+body.statistiquesdrees #pageContent tfoot td,
+body.statistiquesdrees #pageContent tbody th.total,
+body.statistiquesdrees #pageContent tbody td.total {
+	background: #E6EEF2;
+}
+
+/* Largeur des colonnes: orientations */
+body.statistiquesdrees.indicateurs_orientations #pageContent tbody th,
+body.statistiquesdrees.indicateurs_orientations #pageContent tfoot th {
+	width: 33.33%;
+	min-width: 33.33%;
+}
+body.statistiquesdrees.indicateurs_orientations #pageContent tbody td,
+body.statistiquesdrees.indicateurs_orientations #pageContent tfoot td {
+	width: 13.13%;
+	min-width: 13.33%;
+}
+
+/* Décalage des intitulés des sous-points des indicateurs d'organismes */
+body.statistiquesdrees.indicateurs_organismes #pageContent tr.dont_orientation_professionnelle_ou_socioprofessionnelle th,
+body.statistiquesdrees.indicateurs_organismes #pageContent tr.dont_orientation_sociale th{
+	padding-left: 2em;
+}
+
+/* Largeur des colonnes: réorientations */
+body.statistiquesdrees.indicateurs_reorientations #pageContent tbody th,
+body.statistiquesdrees.indicateurs_reorientations #pageContent tfoot th,
+body.statistiquesdrees.indicateurs_reorientations2 #pageContent tbody th,
+body.statistiquesdrees.indicateurs_reorientations2 #pageContent tfoot th {
+	width: 40%;
+	min-width: 40%;
+}
+body.statistiquesdrees.indicateurs_reorientations #pageContent tbody td,
+body.statistiquesdrees.indicateurs_reorientations #pageContent tfoot td,
+body.statistiquesdrees.indicateurs_reorientations2 #pageContent tbody td,
+body.statistiquesdrees.indicateurs_reorientations2 #pageContent tfoot td {
+	width: 20%;
+	min-width: 20%;
+}
+
+body.statistiquesdrees.indicateurs_motifs_reorientation #pageContent tbody tr.total th {
+	width: 80%;
+	min-width: 80%;
+}
+
+body.statistiquesdrees.indicateurs_caracteristiques_contrats #pageContent table,
+body.statistiquesdrees.indicateurs_caracteristiques_contrats2 #pageContent table {
+	width: 100%;
+	margin-bottom: 1em;
+}
+
+body.statistiquesdrees.indicateurs_caracteristiques_contrats #pageContent table tbody th,
+body.statistiquesdrees.indicateurs_caracteristiques_contrats2 #pageContent table tbody th {
+	width: 40%;
+}
+
+body.statistiquesdrees.indicateurs_caracteristiques_contrats #pageContent table tbody td,
+body.statistiquesdrees.indicateurs_caracteristiques_contrats2 #pageContent table tbody td {
+	width: 20%;
+}
+
+body.statistiquesdrees ul.actions li.action a {
+	background-image: url( ../img/icons/application_form_magnify.png );
+}
+
+
+
+
 /* Codes ROME V3 */
 body.cataloguesromesv3 ul.actions li.action a.cataloguesromesv3.index {
 	background-image: url( ../img/icons/application_form_magnify.png );
