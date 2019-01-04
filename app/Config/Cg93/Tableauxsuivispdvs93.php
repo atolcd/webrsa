@@ -156,6 +156,48 @@
 					'Dossier.matricule',
 				)
 			),
+			'tableaub7' => array(
+				'defaults' => array(
+					'Search' => array(
+						'rdv_structurereferente' => '1'
+					)
+				),
+				'exportcsvcorpus' => array(
+					// Allocataire
+					'Personne.nom',
+					'Personne.prenom',
+					'Personne.dtnai',
+					'Personne.sexe'
+				)
+			),
+			'tableaub7d2typecontrat' => array(
+				'defaults' => array(
+					'Search' => array(
+						'rdv_structurereferente' => '1'
+					)
+				),
+				'exportcsvcorpus' => array(
+					// Allocataire
+					'Personne.nom',
+					'Personne.prenom',
+					'Personne.dtnai',
+					'Personne.sexe'
+				)
+			),
+			'tableaub7d2familleprofessionnelle' => array(
+				'defaults' => array(
+					'Search' => array(
+						'rdv_structurereferente' => '1'
+					)
+				),
+				'exportcsvcorpus' => array(
+					// Allocataire
+					'Personne.nom',
+					'Personne.prenom',
+					'Personne.dtnai',
+					'Personne.sexe'
+				)
+			)
 		)
 	);
 
