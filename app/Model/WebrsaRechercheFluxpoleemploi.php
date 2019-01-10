@@ -270,6 +270,31 @@
 				);
 			}
 
+			// Pour le type d'orientation
+			$paths = array (
+				'Orientstruct.typeorient_id',
+			);
+
+			foreach( $paths as $path ) {
+				$value = suffix( Hash::get( $search, $path ) );
+				if( $value !== null && $value !== '' ) {
+					$query['conditions'][$path] = $value;
+				}
+			}
+
+			// Modalité d'accompagnement
+			if (isset ($search['Fluxpoleemploi']['accompagnement']) && is_array ($search['Fluxpoleemploi']['accompagnement'])) {
+				$accompagnement = '';
+				$separateur = '(';
+
+				foreach ($search['Fluxpoleemploi']['accompagnement'] as $key => $value) {
+					$accompagnement .= $separateur.'Fluxpoleemploi.ppae_modalite_code LIKE \''.$value.'\'';
+					$separateur = ' OR ';
+				}
+
+				$query['conditions'][] = $accompagnement.')';
+			}
+
 			// Début des spécificités par département
 			$departement = (int)Configure::read( 'Cg.departement' );
 

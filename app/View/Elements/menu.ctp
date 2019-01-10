@@ -234,7 +234,7 @@
 				'class' => 'search',
 				'url' => array( 'controller' => 'creances', 'action' => 'search'  )
 			),
-			'Par Pôle Emploi' => array( 'class' => 'search', 'url' => array( 'controller' => 'fluxpoleemplois', 'action' => 'search' ) ),
+			'Par données Pôle Emploi' => array( 'class' => 'search', 'url' => array( 'controller' => 'fluxpoleemplois', 'action' => 'search' ) ),
 		),
 		'APRE' => array(
 			'disabled' => ( $departement != 93 || true === $user_externe ),

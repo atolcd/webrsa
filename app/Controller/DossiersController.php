@@ -114,6 +114,7 @@
 			$this->set( 'categorie', ClassRegistry::init('Historiqueetatpe')->enum('code') );
 			$this->set( 'sexe', $this->Option->sexe() );
 			$this->set( 'anciennete_dispositif', $this->Tableausuivipdv93->WebrsaTableausuivipdv93->anciennetes_dispositif );
+			$this->set( 'modaliteaccompagnements', $this->Option->ppae_modalite_code () );
 
 			$enums = $this->Dossier->Foyer->Personne->Dsp->enums();
 			asort( $enums['Dsp']['natlog'] );

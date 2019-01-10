@@ -1112,6 +1112,21 @@
 		}
 
 		/**
+		 * Enums pour le champ informationspe.ppae_modalite_code
+		 *
+		 * @return array
+		 */
+		public function ppae_modalite_code () {
+			return array(
+				'APR' => 'À approfondir',
+				'GUI' => 'Accompagnement guidé',
+				'REN' => 'Accompagnement renforcé',
+				'GLO' => 'Accompagnement global',
+				'SUI' => 'Suivi',
+			);
+		}
+
+		/**
 		 * Enums pour le champ situationsdossiersrsa.moticlorsa
 		 *
 		 * @return array
