@@ -82,12 +82,6 @@
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			'indicateurs_tableau1',
-			'indicateurs_tableau2',
-			'indicateurs_tableau3',
-			'indicateurs_tableau4',
-			'indicateurs_tableau5',
-			'indicateurs_tableau6',
 			'exportcsv_tableau1',
 			'exportcsv_tableau2',
 			'exportcsv_tableau3',

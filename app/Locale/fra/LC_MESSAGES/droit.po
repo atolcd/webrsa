@@ -4276,3 +4276,28 @@ msgid "controllers/Relanceslogs/delete"
 msgstr "Suppression des logs des relances SMS"
 
 
+###############################################################################
+## Statistiques DREES
+###############################################################################
+msgid "controllers/Statistiquesdrees"
+msgstr "Statistiques DREES"
+
+msgid "controllers/Statistiquesdrees/indicateurs_tableau1"
+msgstr "Tableau 1"
+
+msgid "controllers/Statistiquesdrees/indicateurs_tableau2"
+msgstr "Tableau 2"
+
+msgid "controllers/Statistiquesdrees/indicateurs_tableau3"
+msgstr "Tableau 3"
+
+msgid "controllers/Statistiquesdrees/indicateurs_tableau4"
+msgstr "Tableau 4"
+
+msgid "controllers/Statistiquesdrees/indicateurs_tableau5"
+msgstr "Tableau 5"
+
+msgid "controllers/Statistiquesdrees/indicateurs_tableau6"
+msgstr "Tableau 6"
+
+
