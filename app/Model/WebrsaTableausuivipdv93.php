@@ -4559,88 +4559,321 @@
 			return $return;
 		}
 
+		####################################################################################################
+		####################################################################################################
+		####################################################################################################
+
+		private $fieldsB7 = array (
+			'Typeemploi.name',
+			'Dureeemploi.name',
+			'Questionnaireb7pdv93.dateemploi',
+			'FamilleRomeV3.name',
+			'DomaineRomeV3.name',
+			'MetierRomeV3.name',
+			'AppellationRomeV3.name',
+		);
+
+		private $joinsB7 = array (
+			array(
+				'alias' => 'Typeemploi',
+				'table' => 'typeemplois',
+				'type' => 'INNER',
+				'conditions' => array(
+					'Questionnaireb7pdv93.typeemploi_id = Typeemploi.id'
+				)
+			),
+			array(
+				'alias' => 'Dureeemploi',
+				'table' => 'dureeemplois',
+				'type' => 'INNER',
+				'conditions' => array(
+					'Questionnaireb7pdv93.dureeemploi_id = Dureeemploi.id'
+				)
+			),
+			array(
+				'alias' => 'EntreeRomeV3',
+				'table' => 'entreesromesv3',
+				'type' => 'INNER',
+				'conditions' => array(
+					'Questionnaireb7pdv93.expproromev3_id = EntreeRomeV3.id'
+				)
+			),
+			array(
+				'alias' => 'FamilleRomeV3',
+				'table' => 'famillesromesv3',
+				'type' => 'INNER',
+				'conditions' => array(
+					'EntreeRomeV3.familleromev3_id = FamilleRomeV3.id'
+				)
+			),
+			array(
+				'alias' => 'DomaineRomeV3',
+				'table' => 'domainesromesv3',
+				'type' => 'INNER',
+				'conditions' => array(
+					'EntreeRomeV3.domaineromev3_id = DomaineRomeV3.id'
+				)
+			),
+			array(
+				'alias' => 'AppellationRomeV3',
+				'table' => 'appellationsromesv3',
+				'type' => 'INNER',
+				'conditions' => array(
+					'EntreeRomeV3.appellationromev3_id = AppellationRomeV3.id'
+				)
+			),
+			array(
+				'alias' => 'MetierRomeV3',
+				'table' => 'metiersromesv3',
+				'type' => 'INNER',
+				'conditions' => array(
+					'EntreeRomeV3.metierromev3_id = MetierRomeV3.id'
+				)
+			),
+		);
+
 		/*
 		 * Récupère les bénéficiaires du tableau b7
 		 */
 		public function resultsCorpusTableaub7($search) {
-			$personne = ClassRegistry::init( 'Personne' );
+			$Personne = ClassRegistry::init( 'Personne' );
 
-			$listeChamps = array (
-					'DISTINCT Personne.id',
-					'Personne.nom',
-					'Personne.prenom',
-					'Personne.dtnai',
-					'Personne.sexe',
-				);
-			$tabGlobal = array();
+			// Récupération des requêtes initiales
+			$queries = $this->tableaub7 ($search, false, true);
+			$models = array (
+				$Personne,
+				$Personne,
+				$Personne,
+				$Personne,
+			);
 
-			//récupération des requêtes initiales
-			$query = $this->tableaub7($search, false, true);
+			// Génération des compléments de requête pour récupérer les inofrmations à mettre dans le CSV
+			$complements = $this->_complementQuery();
+			$complements['fields'][0] = $this->fieldsB7;
+			$complements['fields'][1] = array (
+				'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'maintien\' THEN \'OUI\' ELSE \'NON\' END) AS "maintien"',
+				'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'sortie_obligation\' THEN \'OUI\' ELSE \'NON\' END) AS "sortie_obligation"',
+			);
+			$complements['fields'][2] = array_merge (
+				$this->fieldsB7,
+				array (
+					'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'maintien\' THEN \'OUI\' ELSE \'NON\' END) AS "maintien"',
+					'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'sortie_obligation\' THEN \'OUI\' ELSE \'NON\' END) AS "sortie_obligation"',
+				)
+			);
+			$complements['fields'][3] = array_merge (
+				$this->fieldsB7,
+				array (
+					'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'maintien\' THEN \'OUI\' ELSE \'NON\' END) AS "maintien"',
+					'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'sortie_obligation\' THEN \'OUI\' ELSE \'NON\' END) AS "sortie_obligation"',
+				)
+			);
+			$complements['joins'][0] = $this->joinsB7;
+			$complements['joins'][2] = $this->joinsB7;
+			$complements['joins'][3] = $this->joinsB7;
 
-			//ajout des champs spéficiques dans les différentes requêtes
-			foreach($query as $index=>$tab) {
-				$tab["fields"] = $listeChamps;
-				$request = $personne->find ('all', $tab);
-				$tabGlobal = array_merge($tabGlobal, $request);
-			}
+			// Exécution des requêtes et renvoie des résultats
+			$results = $this->_resultsCorpusB7 ($queries, $models, $complements);
+			$results = $this->_dedoublonnage ($results, 'Personne');
 
-			return $tabGlobal;
+			return $results;
 		}
 
 		/*
 		 * Récupère les bénéficiaires du tableau b7 Type Contrat
 		 */
 		public function resultsCorpusTableaub7d2TypeContrat($search) {
-			$listeChamps = array (
-					'DISTINCT Personne.id',
-					'Personne.nom',
-					'Personne.prenom',
-					'Personne.dtnai',
-					'Personne.sexe',
-				);
-			$tabGlobal = array();
+			// Récupération des requêtes initiales
+			$queries = $this->tableaub7d2typecontrat($search, false, false, true);
 
-			//récupération des requêtes initiales et des modèles
-			$arrayRecup = $this->tableaub7d2typecontrat($search, false, false, true);
-			$query = $arrayRecup[0];
-			$model = $arrayRecup[1];
+			// Génération des compléments de requête pour récupérer les inofrmations à mettre dans le CSV
+			$complements = $this->_complementQuery();
 
-			//ajout des champs spéficiques dans les différentes requêtes
-			foreach($query as $index=>$tab) {
-				$tab["fields"] = $listeChamps;
-				$request = $model[$index]->find ('all', $tab);
-				$tabGlobal = array_merge($tabGlobal, $request);
-			}
+			$joinsB7 = $this->joinsB7;
+			unset ($joinsB7[1]);
 
-			return $tabGlobal;
+			$complements['fields'][0] = array_merge (
+				$this->fieldsB7,
+				array (
+					'Questionnaireb7pdv93.id',
+				)
+			);
+			$complements['fields'][1] = array (
+				'Questionnaired2pdv93.id',
+				'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'maintien\' THEN \'OUI\' ELSE \'NON\' END) AS "maintien"',
+				'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'sortie_obligation\' THEN \'OUI\' ELSE \'NON\' END) AS "sortie_obligation"',
+			);
+			$complements['joins'][0] = $joinsB7;
+
+			// Exécution des requêtes et renvoie des résultats
+			$results = $this->_resultsCorpusB7 ($queries[0], $queries[1], $complements);
+			$results = $this->_dedoublonnage ($results, 'Personne');
+
+			return $results;
 		}
 
 		/*
 		 * Récupère les bénéficiaires du tableau b7 Famille Professionnelle
 		 */
 		function resultsCorpusTableaub7d2FamilleProfessionnelle ($search) {
-			$listeChamps = array (
-					'DISTINCT Personne.id',
+			// Récupération des requêtes initiales
+			$queries = $this->tableaub7d2familleprofessionnelle($search, false, false, true);
+
+			// Génération des compléments de requête pour récupérer les inofrmations à mettre dans le CSV
+			$complements = $this->_complementQuery();
+
+			$complements['fields'][0] = array_merge (
+				array (
+					'Questionnaireb7pdv93.id',
+					'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'maintien\' THEN \'OUI\' ELSE \'NON\' END) AS "maintien"',
+					'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'sortie_obligation\' THEN \'OUI\' ELSE \'NON\' END) AS "sortie_obligation"',
+				),
+				$this->fieldsB7
+			);
+			$complements['fields'][1] = array_merge (
+				array (
+					'Questionnaired2pdv93.id',
+					'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'maintien\' THEN \'OUI\' ELSE \'NON\' END) AS "maintien"',
+					'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'sortie_obligation\' THEN \'OUI\' ELSE \'NON\' END) AS "sortie_obligation"',
+				),
+				$this->fieldsB7
+			);
+			$complements['joins'][0] = $this->joinsB7;
+			$complements['joins'][1] = array_merge (
+				array (
+					array (
+						'alias' => 'Questionnaireb7pdv93',
+						'table' => 'questionnairesb7pdvs93',
+						'type' => 'INNER',
+						'conditions' => array(
+							'Questionnaireb7pdv93.personne_id = Personne.id'
+						)
+					)
+				),
+				$this->joinsB7
+			);
+
+			// Exécution des requêtes et renvoie des résultats
+			$results = $this->_resultsCorpusB7 ($queries[0], $queries[1], $complements);
+			$results = $this->_dedoublonnage ($results, 'Personne');
+
+			return $results;
+		}
+
+		/*
+		 *
+		 */
+		protected function _resultsCorpusB7 ($queries, $models, $complements) {
+			$results = array ();
+
+			//ajout des champs spéficiques dans les différentes requêtes
+			foreach ($queries as $key => $query) {
+				// Fields
+				$query['fields'] = $complements['fields']['all'];
+				if (isset ($complements['fields'][$key])) {
+					$query['fields'] = array_merge ($query['fields'], $complements['fields'][$key]);
+				}
+
+				// Conditions
+				$query['joins'] = array_merge ($query['joins'], $complements['joins']['all']);
+				if (isset ($complements['joins'][$key])) {
+					$query['joins'] = array_merge ($query['joins'], $complements['joins'][$key]);
+				}
+
+				// Query
+				$result = $models[$key]->find ('all', $query);
+				//$result = $this->_dedoublonnage ($result, get_class($models[$key]));
+				$results = array_merge ($results, $result);
+			}
+
+			return $results;
+		}
+
+		/*
+		 *
+		 */
+		protected function _complementQuery () {
+			$Personne = ClassRegistry::init( 'Personne' );
+
+			$joins = array (
+				'all' => array (
+					$Personne->join ( 'Foyer', array( 'type' => 'INNER' ) ),
+					array(
+						'alias' => 'Prestation',
+						'table' => 'prestations',
+						'type' => 'INNER',
+						'conditions' => array(
+							'Personne.id = Prestation.personne_id'
+						)
+					),
+					$Personne->Foyer->join ( 'Adressefoyer', array( 'type' => 'LEFT OUTER', 'conditions' => array( 'Adressefoyer.id IN( '.$Personne->Foyer->Adressefoyer->sqDerniereRgadr01( 'Foyer.id' ).' )' ) ) ),
+					$Personne->Foyer->join ( 'Dossier', array( 'type' => 'INNER' ) ),
+					$Personne->Foyer->Adressefoyer->join ( 'Adresse', array( 'type' => 'LEFT OUTER' ) ),
+					$Personne->join ( 'Contratinsertion', array( 'type' => 'LEFT OUTER', 'conditions' => array( 'Contratinsertion.id IN( '.$Personne->Contratinsertion->sqDernierContrat ('Personne.id').' )' ) ) ),
+					$Personne->join ( 'Ficheprescription93', array( 'type' => 'LEFT OUTER' ) ),
+					$Personne->Ficheprescription93->join ( 'Filierefp93', array( 'type' => 'LEFT OUTER' ) ),
+					$Personne->Ficheprescription93->Filierefp93->join( 'Categoriefp93', array( 'type' => 'LEFT OUTER' ) ),
+					$Personne->Ficheprescription93->Filierefp93->Categoriefp93->join( 'Thematiquefp93', array( 'type' => 'LEFT OUTER' ) ),
+					$Personne->Ficheprescription93->join ( 'Referent', array( 'type' => 'LEFT OUTER' ) ),
+					$Personne->Ficheprescription93->Referent->join ( 'Structurereferente', array( 'type' => 'LEFT OUTER' ) ),
+					$Personne->Ficheprescription93->join ( 'Motifactionachevefp93', array( 'type' => 'LEFT OUTER' ) ),
+				)
+			);
+
+			$fields = array (
+				'all' => array (
+					'Personne.id',
+					'Structurereferente.lib_struc', // PIE
+					'Referent.nom', // Référent
+					'Referent.prenom',
 					'Personne.nom',
 					'Personne.prenom',
 					'Personne.dtnai',
 					'Personne.sexe',
-				);
-			$tabGlobal = array();
+					'Prestation.rolepers',
+					'Adresse.codepos',
+					'Adresse.nomcom',
+					'Foyer.sitfam',
+					'Dossier.matricule',
+					'(CASE WHEN "Personne"."nir" IS NOT NULL THEN \'OUI\' ELSE \'NON\' END) AS "inscritpoleemploi"',// Inscrit à Pôle Emploi
+					'Contratinsertion.dd_ci',
+					'Contratinsertion.df_ci',
+					// Thématique dernier CER
+					'Ficheprescription93.created',
+					'(CASE WHEN "Thematiquefp93"."name" LIKE \'horspdi\' THEN \'HORS IFE\' ELSE \'IFE\' END) AS "typethematiquefp93"',
+					'Thematiquefp93.name', // Type
+					'Categoriefp93.name',
+					'Filierefp93.name',
+					'(CASE WHEN "Ficheprescription93"."personne_a_integre" LIKE \'1\' THEN \'OUI\' ELSE \'NON\' END) AS "personne_a_integre"',
+					'(CASE WHEN "Ficheprescription93"."personne_acheve" LIKE \'1\' THEN \'OUI\' ELSE \'NON\' END) AS "personne_acheve"',
+					'Motifactionachevefp93.name',
+				)
+			);
 
-			//récupération des requêtes initiales et des modèles
-			$arrayRecup = $this->tableaub7d2familleprofessionnelle($search, false, false, true);
-			$query = $arrayRecup[0];
-			$model = $arrayRecup[1];
+			$complements = array (
+				'fields' => $fields,
+				'joins' => $joins,
+			);
 
-			//ajout des champs spéficiques dans les différentes requêtes
-			foreach($query as $index=>$tab) {
-				$tab["fields"] = $listeChamps;
-				$request = $model[$index]->find ('all', $tab);
-				$tabGlobal = array_merge($tabGlobal, $request);
+			return $complements;
+		}
+
+		/*
+		 *
+		 */
+		protected function _dedoublonnage ($result, $class) {
+			$doublons = array ();
+
+			foreach ($result as $key => $value) {
+				if (!in_array ($value[$class]['id'], $doublons)) {
+					$doublons[] = $value[$class]['id'];
+				}
+				else {
+					unset ($result[$key]);
+				}
 			}
 
-			return $tabGlobal;
+			return $result;
 		}
 	}
 ?>

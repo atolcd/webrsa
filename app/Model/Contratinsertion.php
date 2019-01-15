@@ -898,5 +898,30 @@
 		public function modeleOdt( $data ) {
 			return $this->WebrsaContratinsertion->modeleOdt( $data );
 		}
+
+		/**
+		 * On prend le dernier contrat d'insertion
+		 *
+		 * @param string $field (ex.: Foyer.id)
+		 * @return string
+		 */
+		public function sqDernierContrat( $field ) {
+			$alias = $this->getDataSource()->fullTableName( $this, false, false );
+
+			$query = array(
+				'alias' => $alias,
+				'fields' => array( "{$alias}.{$this->primaryKey}" ),
+				'contain' => false,
+				'conditions' => array(
+					"{$alias}.personne_id = {$field}",
+				),
+				'order' => "{$alias}.dd_ci DESC",
+				'limit' => 1,
+
+			);
+
+			return $this->sq( $query );
+		}
+
 	}
 ?>
