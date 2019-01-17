@@ -11,6 +11,8 @@
 	App::uses( 'SearchProgressivePagination', 'Search.Utility' );
 	App::uses( 'SessionAclComponent', 'SessionAcl.Controller/Component' );
 
+	ini_set('memory_limit', '1024M');
+
 	/**
 	 * Classe de base de tous les contrôleurs de l'application.
 	 *
