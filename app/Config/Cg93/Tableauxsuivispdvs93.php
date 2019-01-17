@@ -163,11 +163,40 @@
 					)
 				),
 				'exportcsvcorpus' => array(
-					// Allocataire
+					'Personne.id',
+					'0.maintien',
+					'0.sortie_obligation',
+					'Structurereferente.lib_struc', // PIE
+					'Referent.nom', // Référent
+					'Referent.prenom',
 					'Personne.nom',
 					'Personne.prenom',
 					'Personne.dtnai',
-					'Personne.sexe'
+					'Personne.sexe',
+					'Prestation.rolepers',
+					'Adresse.codepos',
+					'Adresse.nomcom',
+					'Foyer.sitfam',
+					'Dossier.matricule',
+					'0.inscritpoleemploi',// Inscrit à Pôle Emploi
+					'Contratinsertion.dd_ci',
+					'Contratinsertion.df_ci',
+					// Thématique dernier CER
+					'Typeemploi.name',
+					'Dureeemploi.name',
+					'Questionnaireb7pdv93.dateemploi',
+					'FamilleRomeV3.name',
+					'DomaineRomeV3.name',
+					'MetierRomeV3.name',
+					'AppellationRomeV3.name',
+					'Ficheprescription93.created',
+					'0.typethematiquefp93', // Type
+					'Thematiquefp93.name', // Type
+					'Categoriefp93.name',
+					'Filierefp93.name',
+					'0.personne_a_integre',
+					'0.personne_acheve',
+					'Motifactionachevefp93.name',
 				)
 			),
 			'tableaub7d2typecontrat' => array(
@@ -177,11 +206,40 @@
 					)
 				),
 				'exportcsvcorpus' => array(
-					// Allocataire
+					'Personne.id',
+					'0.maintien',
+					'0.sortie_obligation',
+					'Structurereferente.lib_struc', // PIE
+					'Referent.nom', // Référent
+					'Referent.prenom',
 					'Personne.nom',
 					'Personne.prenom',
 					'Personne.dtnai',
-					'Personne.sexe'
+					'Personne.sexe',
+					'Prestation.rolepers',
+					'Adresse.codepos',
+					'Adresse.nomcom',
+					'Foyer.sitfam',
+					'Dossier.matricule',
+					'0.inscritpoleemploi',// Inscrit à Pôle Emploi
+					'Contratinsertion.dd_ci',
+					'Contratinsertion.df_ci',
+					// Thématique dernier CER
+					'Typeemploi.name',
+					'Dureeemploi.name',
+					'Questionnaireb7pdv93.dateemploi',
+					'FamilleRomeV3.name',
+					'DomaineRomeV3.name',
+					'MetierRomeV3.name',
+					'AppellationRomeV3.name',
+					'Ficheprescription93.created',
+					'0.typethematiquefp93', // Type
+					'Thematiquefp93.name', // Type
+					'Categoriefp93.name',
+					'Filierefp93.name',
+					'0.personne_a_integre',
+					'0.personne_acheve',
+					'Motifactionachevefp93.name',
 				)
 			),
 			'tableaub7d2familleprofessionnelle' => array(
@@ -191,11 +249,40 @@
 					)
 				),
 				'exportcsvcorpus' => array(
-					// Allocataire
+					'Personne.id',
+					'0.maintien',
+					'0.sortie_obligation',
+					'Structurereferente.lib_struc', // PIE
+					'Referent.nom', // Référent
+					'Referent.prenom',
 					'Personne.nom',
 					'Personne.prenom',
 					'Personne.dtnai',
-					'Personne.sexe'
+					'Personne.sexe',
+					'Prestation.rolepers',
+					'Adresse.codepos',
+					'Adresse.nomcom',
+					'Foyer.sitfam',
+					'Dossier.matricule',
+					'0.inscritpoleemploi',// Inscrit à Pôle Emploi
+					'Contratinsertion.dd_ci',
+					'Contratinsertion.df_ci',
+					// Thématique dernier CER
+					'Typeemploi.name',
+					'Dureeemploi.name',
+					'Questionnaireb7pdv93.dateemploi',
+					'FamilleRomeV3.name',
+					'DomaineRomeV3.name',
+					'MetierRomeV3.name',
+					'AppellationRomeV3.name',
+					'Ficheprescription93.created',
+					'0.typethematiquefp93', // Type
+					'Thematiquefp93.name', // Type
+					'Categoriefp93.name',
+					'Filierefp93.name',
+					'0.personne_a_integre',
+					'0.personne_acheve',
+					'Motifactionachevefp93.name',
 				)
 			)
 		)

@@ -13,6 +13,7 @@
 	}
 	else {
 		$actions = $this->Default3->DefaultAction->back();
+		$id = $tableausuivipdv93['Tableausuivipdv93']['id'];
 
 		// On permet l'export CSV des tableaux
 		if( in_array( $tableausuivipdv93['Tableausuivipdv93']['name'], array( 'tableaud1', 'tableaud2', 'tableau1b3', 'tableau1b4', 'tableau1b5', 'tableau1b6', 'tableaub7', 'tableaub7d2typecontrat', 'tableaub7d2familleprofessionnelle' ) ) ) {
