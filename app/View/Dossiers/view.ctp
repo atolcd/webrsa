@@ -430,43 +430,6 @@
 						</tbody>
 					</table>
 
-					<h2>Informations Pôle Emploi</h2>
-					<table>
-					<?php echo thead( 10 );?>
-						<tbody>
-							<tr class="even">
-								<th>Identifiant Pôle Emploi</th>
-								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.allocataire_identifiant_pe', $details);?></td>
-								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.allocataire_identifiant_pe', $details);?></td>
-							</tr>
-							<tr class="odd">
-								<th>Date de début IDE</th>
-								<td><?php echo date_short(Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_date_debut_ide', $details));?></td>
-								<td><?php echo date_short(Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_date_debut_ide', $details));?></td>
-							</tr>
-							<tr class="even">
-								<th>Date de radiation</th>
-								<td><?php echo date_short(Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_date_radiation_ide', $details));?></td>
-								<td><?php echo date_short(Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_date_radiation_ide', $details));?></td>
-							</tr>
-							<tr class="odd">
-								<th>Motif de radiation</th>
-								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_lib_radiation_ide', $details );?></td>
-								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_lib_radiation_ide', $details );?></td>
-							</tr>
-							<tr class="even">
-								<th>Niveau de formation</th>
-								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.formation_lib_niveau', $details );?></td>
-								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.formation_lib_niveau', $details );?></td>
-							</tr>
-							<tr class="odd">
-								<th>Date de notification PPAE</th>
-								<td><?php echo date_short( Set::extract( 'DEM.Fluxpoleemploi.Informationpe.ppae_date_notification', $details) );?></td>
-								<td><?php echo date_short( Set::extract( 'CJT.Fluxpoleemploi.Informationpe.ppae_date_notification', $details) );?></td>
-							</tr>
-						</tbody>
-					</table>
-
 				</td>
 			</tr>
 			<tr>
@@ -576,35 +539,92 @@
 			</tr>
 			<tr>
 				<td>
-					<h2>Dernière Information Pôle Emploi</h2>
+
+					<h2>Informations Pôle Emploi</h2>
 					<table>
 					<?php echo thead( 10 );?>
 						<tbody>
-							<tr class="even">
-								<th>Identifiant pôle-emploi</th>
-								<td><?php echo Set::extract( 'DEM.Informationpe.0.identifiantpe', $details);?></td>
-								<td><?php echo Set::extract( 'CJT.Informationpe.0.identifiantpe', $details);?></td>
-							</tr>
 							<tr class="odd">
+								<th>Identifiant Pôle Emploi</th>
+								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.allocataire_identifiant_pe', $details);?></td>
+								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.allocataire_identifiant_pe', $details);?></td>
+							</tr>
+							<tr class="even">
 								<th>Etat actuel Pôle Emploi</th>
 								<td><?php echo Set::enum( Set::extract( 'DEM.Informationpe.0.etat', $details ), $etatpe['etat'] );?></td>
 								<td><?php echo Set::enum( Set::extract( 'CJT.Informationpe.0.etat', $details ), $etatpe['etat'] );?></td>
 							</tr>
-							<tr class="even">
+							<tr class="odd">
 								<th>Dernière date</th>
 								<td><?php echo date_short( Set::extract( 'DEM.Informationpe.0.date', $details) );?></td>
 								<td><?php echo date_short( Set::extract( 'CJT.Informationpe.0.date', $details) );?></td>
 							</tr>
-							<tr class="odd">
+							<tr class="even">
 								<th>Code état</th>
 								<td><?php echo Set::enum( Set::extract( 'DEM.Informationpe.0.code', $details), $categorie );?></td>
 								<td><?php echo Set::enum( Set::extract( 'CJT.Informationpe.0.code', $details), $categorie );?></td>
 							</tr>
-							<tr class="even">
+							<tr class="odd">
 								<th>Motif</th>
 								<td><?php echo Set::extract( 'DEM.Informationpe.0.motif', $details);?></td>
 								<td><?php echo Set::extract( 'CJT.Informationpe.0.motif', $details);?></td>
 							</tr>
+
+							<tr class="even">
+								<th>Date de mise à jour du flux PE</th>
+								<td><?php echo h (date_short(Set::extract( 'DEM.Fluxpoleemploi.Informationpe.date_modification', $details)));?></td>
+								<td><?php echo h (date_short(Set::extract( 'CJT.Fluxpoleemploi.Informationpe.date_modification', $details)));?></td>
+							</tr>
+							<tr class="odd">
+								<th>Agence de rattachement</th>
+								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.suivi_structure_principale_nom', $details);?></td>
+								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.suivi_structure_principale_nom', $details);?></td>
+							</tr>
+							<tr class="even">
+								<th>Modalité d'accompagnement</th>
+								<td>
+									<?php
+										$accompagnement = Set::extract( 'DEM.Fluxpoleemploi.Informationpe.ppae_modalite_code', $details);
+										if (!empty ($accompagnement)) {
+											echo $modaliteaccompagnements[$accompagnement];
+										}
+									?>
+								</td>
+								<td>
+									<?php
+										$accompagnement = Set::extract( 'CJT.Fluxpoleemploi.Informationpe.ppae_modalite_code', $details);
+										if (!empty ($accompagnement)) {
+											echo $modaliteaccompagnements[$accompagnement];
+										}
+									?>
+								</td>
+							</tr>
+							<tr class="odd">
+								<th>Date de début IDE</th>
+								<td><?php echo h (date_short(Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_date_debut_ide', $details)));?></td>
+								<td><?php echo h (date_short(Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_date_debut_ide', $details)));?></td>
+							</tr>
+							<tr class="even">
+								<th>Date de radiation</th>
+								<td><?php echo h (date_short(Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_date_radiation_ide', $details)));?></td>
+								<td><?php echo h (date_short(Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_date_radiation_ide', $details)));?></td>
+							</tr>
+							<tr class="odd">
+								<th>Motif de radiation</th>
+								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_motif_radiation_ide', $details );?></td>
+								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_motif_radiation_ide', $details );?></td>
+							</tr>
+							<tr class="even">
+								<th>Niveau de formation</th>
+								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.formation_lib_niveau', $details );?></td>
+								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.formation_lib_niveau', $details );?></td>
+							</tr>
+							<tr class="odd">
+								<th>Date de notification PPAE</th>
+								<td><?php echo date_short( Set::extract( 'DEM.Fluxpoleemploi.Informationpe.ppae_date_notification', $details) );?></td>
+								<td><?php echo date_short( Set::extract( 'CJT.Fluxpoleemploi.Informationpe.ppae_date_notification', $details) );?></td>
+							</tr>
+
 						</tbody>
 					</table>
 				</td>

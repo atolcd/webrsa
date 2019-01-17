@@ -4301,3 +4301,32 @@ msgid "controllers/Statistiquesdrees/indicateurs_tableau6"
 msgstr "Tableau 6"
 
 
+## Flux Pôle Emploi
+###############################################################################
+msgid "controllers/Fluxpoleemplois"
+msgstr "Flux Pôle Emploi"
+
+msgid "controllers/Fluxpoleemplois/historique"
+msgstr "Historique"
+
+msgid "controllers/Fluxpoleemplois/personne"
+msgstr "Accès inofrmations des allocataires"
+
+msgid "controllers/Fluxpoleemplois/rejets"
+msgstr "Rejets"
+
+
+###############################################################################
+## Vagues d'orientation
+###############################################################################
+msgid "controllers/Vaguesdorientations"
+msgstr "Vagues d'orientation"
+
+msgid "controllers/Vaguesdorientations/delete"
+msgstr "Suppression"
+
+msgid "controllers/Vaguesdorientations/edit"
+msgstr "Modification"
+
+msgid "controllers/Vaguesdorientations/index"
+msgstr "Visualisation"

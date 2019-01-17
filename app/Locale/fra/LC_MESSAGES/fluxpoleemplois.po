@@ -13,7 +13,7 @@ msgstr ""
 # ==============================================================================
 
 msgid "/Fluxpoleemplois/search/:heading"
-msgstr "Recherche par Pôle Emploi"
+msgstr "Recherche par données Pôle Emploi"
 
 msgid "/Dossiers/view"
 msgstr "Voir"
@@ -28,7 +28,7 @@ msgid "Search.Fluxpoleemploi.legend.inscription"
 msgstr " Recherche par données Pôle Emploi - Inscription "
 
 msgid "Search.Fluxpoleemploi.inscription_date_debut_ide"
-msgstr "Date de début IDE"
+msgstr "Date de début IDE (Inscription des Demandeurs d'Emploi)"
 
 msgid "Search.Fluxpoleemploi.inscription_date_cessation_ide"
 msgstr "Date de cessation"
@@ -57,7 +57,20 @@ msgid "Search.Fluxpoleemploi.ppae_date_notification"
 msgstr "Date de notification"
 
 msgid "Search.Fluxpoleemploi.ppae_date_dernier_ent"
-msgstr "Date de dernier entretien"
+msgstr "Date de dernier contact"
+
+msgid "Orientstruct.search"
+msgstr "Recherche par orientation"
+
+msgid "Search.Orientstruct.typeorient_id"
+msgstr "Type d'orientation"
+
+
+msgid "Search.Fluxpoleemploi.legend.accompagnement"
+msgstr "Recherche par modalité d'accompagnement en cours"
+
+msgid "Search.Fluxpoleemploi.accompagnement"
+msgstr "Modalités d'accompagnement en cours"
 
 
 # ==============================================================================

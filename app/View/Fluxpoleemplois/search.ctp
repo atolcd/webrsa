@@ -46,6 +46,35 @@
 	);
 ?>
 
+<?php
+	echo '<fieldset><legend>' . __m( 'Orientstruct.search' ) . '</legend>';
+	echo $this->Default3->subform(
+			array ('Search.Orientstruct.typeorient_id' => array ('empty' => true, 'required' => false)),
+			array ('options' => array ('Search' => $options))
+		);
+	echo '</fieldset>';
+?>
+
+	<fieldset>
+		<legend><?php echo __d('fluxpoleemplois', 'Search.Fluxpoleemploi.legend.accompagnement') ?></legend>
+		<div class="input checkbox">
+			<input type="checkbox" name="data[Search][ByAccompagnement][accompagnement_choice]" value="1" id="SearchByAccompagnementChoice" <?php echo isset ($this->request->data['Search']['ByAccompagnement']['accompagnement_choice']) ? 'checked="checked"' : ''  ?> />
+			<label for="SearchByAccompagnementChoice"><?php echo __d('fluxpoleemplois', 'Search.Fluxpoleemploi.accompagnement') ?></label>
+		</div>
+		<div id="SearchByAccompagnementFieldset">
+			<?php echo $this->Xform->multipleCheckbox( 'Search.Fluxpoleemploi.accompagnement', $options ); ?>
+		</div>
+	</fieldset>
+	<script type="text/javascript">
+	//<![CDATA[
+	document.observe( 'dom:loaded', function() { try {
+		observeDisableFieldsetOnCheckbox( 'SearchByAccompagnementChoice', 'SearchByAccompagnementFieldset', false, true );
+	} catch( e ) {
+		console.error( e );
+	} } );
+	//]]>
+	</script>
+
 <?php $this->end();?>
 
 <?php
