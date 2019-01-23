@@ -458,7 +458,7 @@ msgid "Ficheprescription93.Suivi"
 msgstr "Suivi du positionnement"
 
 msgid "Ficheprescription93.personne_retenue"
-msgstr "Le bénéficaire a été retenu par la structure"
+msgstr "Le bénéficiaire a été retenu par la structure"
 
 msgid "Ficheprescription93.motifnonretenuefp93_id"
 msgstr "Motif"
@@ -467,7 +467,7 @@ msgid "Ficheprescription93.personne_nonretenue_autre"
 msgstr "Si autre, préciser"
 
 msgid "Ficheprescription93.personne_a_integre"
-msgstr "Le bénéficaire a intégré l'action"
+msgstr "Le bénéficiaire a intégré l'action"
 
 msgid "Ficheprescription93.personne_acheve"
 msgstr "Le bénéficiaire a-t'il terminé l'action ?"

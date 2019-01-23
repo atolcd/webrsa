@@ -34,7 +34,7 @@ UPDATE motifsnonretenuesfps93
 	WHERE name LIKE 'En file d''attente';
 
 UPDATE motifsnonretenuesfps93
-	SET name = 'Le bénéficaire n''a pas réussi les tests'
+	SET name = 'Le bénéficiaire n''a pas réussi les tests'
 	WHERE name LIKE 'L''allocataire n''a pas réussi les tests';
 
 INSERT INTO motifsnonretenuesfps93

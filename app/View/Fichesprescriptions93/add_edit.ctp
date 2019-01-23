@@ -557,7 +557,7 @@
 	Element.observe( $( 'Ficheprescription93Yearthematiquefp93Id' ), 'click', function( event ) {
 			$( 'Ficheprescription93Thematiquefp93Id' ).value = '';
 	} );
-	//cache les éléments "suivi du positionnement" si "Le bénéficaire a été retenu par la structure" est à non
+	//cache les éléments "suivi du positionnement" si "Le bénéficiaire a été retenu par la structure" est à non
 	Element.observe( $( 'Ficheprescription93PersonneRetenue' ), 'change', function( event ) {
 	    if($( 'Ficheprescription93PersonneRetenue' ).value=='0'){
 	        disabledFromRetenuStructure(true);
