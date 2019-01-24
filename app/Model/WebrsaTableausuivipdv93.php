@@ -4448,16 +4448,6 @@
 							'Questionnaireb7pdv93.personne_id = Personne.id'
 						)
 					),
-					array(
-						'alias' => 'Questionnaired2pdv93',
-						'table' => 'questionnairesd2pdvs93',
-						'type' => 'INNER',
-						'conditions' => array(
-							'Questionnaired2pdv93.personne_id = Personne.id',
-							'Questionnaired2pdv93.situationaccompagnement' => 'maintien',
-							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $annee,
-						)
-					),
 				),
 			);
 			$query = $this->_conditionsb7b7($search, $query);
