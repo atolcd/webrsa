@@ -4712,14 +4712,7 @@
 			// Génération des compléments de requête pour récupérer les inofrmations à mettre dans le CSV
 			$complements = $this->_complementQuery();
 
-			$complements['fields'][0] = array_merge (
-				array (
-					'Questionnaireb7pdv93.id',
-					'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'maintien\' THEN \'OUI\' ELSE \'NON\' END) AS "maintien"',
-					'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'sortie_obligation\' THEN \'OUI\' ELSE \'NON\' END) AS "sortie_obligation"',
-				),
-				$this->fieldsB7
-			);
+			$complements['fields'][0] = $this->fieldsB7;
 			$complements['fields'][1] = array_merge (
 				array (
 					'Questionnaired2pdv93.id',
