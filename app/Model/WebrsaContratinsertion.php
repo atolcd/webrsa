@@ -1198,6 +1198,7 @@
 					'fields' => array_merge(
 						$this->Contratinsertion->fields(),
 						$this->Contratinsertion->Personne->fields(),
+						array ($this->Contratinsertion->Personne->sqVirtualField ('age')),
 						$this->Contratinsertion->Referent->fields(),
 						$this->Contratinsertion->Structurereferente->fields(),
 						$this->Contratinsertion->Structurereferente->Typeorient->fields(),
