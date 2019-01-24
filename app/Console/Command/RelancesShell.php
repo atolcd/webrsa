@@ -1,33 +1,15 @@
 <?php
 /**
- * Relance Shell
+ * Code source de la classe TagShell.
  *
- * This Shell allows the running of test suites via the cake command line
- *
- * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://book.cakephp.org/2.0/en/development/testing.html
- * @since         CakePHP(tm) v 1.2.0.4433
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @package app.Console.Command
+ * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
  */
-
-App::uses('Shell', 'Console');
+App::uses( 'XShell', 'Console/Command' );
 App::uses('CakeEmail', 'Network/Email');
 App::uses('CakeTime', 'Utility');
 
-/**
- * Provides a CakePHP wrapper around PHPUnit.
- * Adds in CakePHP's fixtures and gives access to plugin, app and core test cases
- *
- * @package       Cake.Console.Command
- */
-class RelanceShell extends Shell {
+class RelancesShell extends Shell {
 
 	/**
 	 * Variables
@@ -222,18 +204,27 @@ class RelanceShell extends Shell {
 
 		foreach ($modeContact as $value) {
 			// Un autre numéro de portable
-			if (isset ($value[0]["numtel"]) && $value[0]["numtel"] != '' && !in_array ($value[0]["numtel"], $autresNumeros)) {
+			if (isset ($value[0]['numtel']) 
+				&& $value[0]['numtel'] != '' 
+				&& !in_array ($value[0]['numtel'], $autresNumeros) 
+				&& $value[0]['autorutitel'] == 'A'
+				&& (substr ($value[0]['numtel'], 0, 2) == '06' || substr ($value[0]['numtel'], 0, 2) == '06')
+			) {
 				$ajout = $temporaire;
-				$ajout['numport'] = $value[0]["numtel"];
-				$autresNumeros[] = $value[0]["numtel"];
+				$ajout['numport'] = $value[0]['numtel'];
+				$autresNumeros[] = $value[0]['numtel'];
 				$contacts[] = $ajout;
 			}
 
 			// Une autre adresse électronique
-			if (isset ($value[0]["adrelec"]) && $value[0]["adrelec"] != '' && !in_array ($value[0]["adrelec"], $autresMails)) {
+			if (isset ($value[0]['adrelec']) 
+				&& $value[0]['adrelec'] != '' 
+				&& !in_array ($value[0]['adrelec'], $autresMails) 
+				&& $value[0]['autorutiadrelec'] == 'A'
+			) {
 				$ajout = $temporaire;
-				$ajout['email'] = $value[0]["adrelec"];
-				$autresMails[] = $value[0]["adrelec"];
+				$ajout['email'] = $value[0]['adrelec'];
+				$autresMails[] = $value[0]['adrelec'];
 				$contacts[] = $ajout;
 			}
 		}

@@ -69,6 +69,7 @@
 				)
 			),
 			array(
+				'paginate' => false,
 				'format' => $this->element( 'pagination_format', array( 'modelName' => 'Relancelog' ) )
 			)
 		);
