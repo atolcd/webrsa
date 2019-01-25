@@ -208,7 +208,6 @@ class RelancesShell extends Shell {
 				&& $value[0]['numtel'] != '' 
 				&& !in_array ($value[0]['numtel'], $autresNumeros) 
 				&& $value[0]['autorutitel'] == 'A'
-				&& (substr ($value[0]['numtel'], 0, 2) == '06' || substr ($value[0]['numtel'], 0, 2) == '06')
 			) {
 				$ajout = $temporaire;
 				$ajout['numport'] = $value[0]['numtel'];
