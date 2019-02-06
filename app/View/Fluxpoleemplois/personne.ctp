@@ -35,12 +35,8 @@
 		<table class="index details" style="width: 95%;">
 			<tbody>
 				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.individu_nir' )); ?></th>
-					<td class="data string " style="width: 70%"><?php echo (isset ($donnees['Informationpe']['nir']) ? $donnees['Informationpe']['nir'] : ''); ?></td>
-				</tr>
-				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
 					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.individu_nom_marital' )); ?></th>
-					<td class="data string "><?php echo (isset ($donnees['Informationpe']['individu_nom_marital']) ? $donnees['Informationpe']['individu_nom_marital'] : ''); ?></td>
+					<td class="data string " style="width: 70%"><?php echo (isset ($donnees['Informationpe']['individu_nom_marital']) ? $donnees['Informationpe']['individu_nom_marital'] : ''); ?></td>
 				</tr>
 				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
 					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.individu_nom_naissance' )); ?></th>
