@@ -1,0 +1,25 @@
+{
+    "name": "atolcd/webrsa",
+    "description": "AtolCD WebRSA",
+    "version": "3.99.0",
+    "require": {
+        "staempfli/symlinker-pro": "~1.1",
+        "cakephp/cakephp": "2.9.8"
+    },
+    "config": {
+        "vendor-dir": "vendor/"
+    },
+    "provide": { "ext-mcrypt": "*" },
+    "scripts": {
+        "init-project":"ls app/index.php > /dev/null 2>&1 || echo \"Y\" | vendor/bin/cake bake project app",
+        "copy-project-files": "vendor/bin/symlinker-pro create:from:file config/webrsa.symlinks -f --enable-wildcards -c > /dev/null",
+        "post-install-cmd": [
+            "@init-project",
+            "@copy-project-files"
+        ],
+        "post-update-cmd": [
+            "@init-project",
+            "@copy-project-files"
+        ]
+    }
+}
