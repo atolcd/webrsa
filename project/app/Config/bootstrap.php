@@ -146,7 +146,7 @@ define( 'REQUIRED_MARK', '<abbr class="required" title="Champ obligatoire">*</ab
 
 // Définition de certains répertoires
 define( 'MODELESODT_DIR', APP.'Vendor'.DS.'modelesodt'.DS );
-define( 'CONFIGS', APP.DS.'Config'.DS );
+define( 'CONFIGS', APP.'Config'.DS );
 
 // @see http://api.cakephp.org/2.7/annotation-group-deprecated.html
 if( false === defined( 'NOT_BLANK_RULE_NAME' ) ) {

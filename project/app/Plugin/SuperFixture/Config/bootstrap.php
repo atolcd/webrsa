@@ -14,16 +14,16 @@
 			'SuperFixture' => array(TESTS.'SuperFixture'.DS),
 		), App::REGISTER
 	);
-	
+
 	/**
 	 *  Trouve le chemin actuel
 	 */
 	foreach (App::path('Plugin') as $path) {
-		if ($path . 'SuperFixture' . DS . 'Config' === __DIR__) {
+		if ($path === PLUGIN_DIR) {
 			break;
 		}
 	}
-	
+
 	/**
 	 * Inclusion de la bibliothèque Faker
 	 */
