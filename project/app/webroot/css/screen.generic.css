@@ -25,23 +25,54 @@ p {
 
 /*---------------------------------------------------------------------------*/
 
-#pageCartouche * { font-size: 10px; color:black; }
-#pageCartouche thead { display: none; }
+#pageCartouche * { 
+	font-size: 10px;
+}
+
+#pageCartouche thead { 
+	display: none;
+}
 
 #pageCartouche {
     position: absolute;
-    top: 10px;
-    right: 30px;
+    top: -30px;
+    right: 0;
+	background: #333645;
+	width: 100%;
 }
 
-#pageCartouche table {
-    position: absolute;
-    right: 0;
-    top: 1em;
+#pageCartouche table{
+	width: 100%;
+}
+
+#pageCartouche table tbody{
+	border: none;
+}
+
+#pageCartouche table tbody tr{
+	display: flex;
+	align-items: stretch;
+	justify-content: flex-end;
+    width: 100%;
 }
 
 #pageCartouche table td {
-	vertical-align: middle;
+	border: none;
+	margin: 0 15px;
+    background: none;
+    color: #fff;
+    font-size: 12px;
+	padding: 5px;
+}
+
+#pageCartouche table td a{
+	color: #fff;
+	text-decoration: none;
+	font-size: 12px;
+}
+
+#pageCartouche table td a:hover{
+	text-decoration: underline;
 }
 
 /*---------------------------------------------------------------------------*/
@@ -50,22 +81,25 @@ table {
     border-collapse: collapse;
 }
 
-td, th {
-    border: 1px solid #235f7d;
-    padding: 0.125em 0.25em;
+td {
+    padding: 10px 5px;
+	border: none;
+}
+
+th {
+	padding: 10px 5px;
+	border: none;
+}
+
+th a, td a{
+	text-decoration: none;
 }
 
 table th {
-    background: #dcdcdc;
-}
-
-table thead, table tbody {
-    border: 2px solid #235f7d;
-}
-
-table th {
-    background: #235f7d;
+    background: #86b2c7;
     color: white;
+	vertical-align: middle;
+	font-weight: bold;
 }
 
 tr.even td {
@@ -113,27 +147,40 @@ table thead a {
 #pageMenu ul, #pageContent, #pageCartouche, table.cake-sql-log {
     /*max-width: 1000px;*/
     margin: 0 auto;
-    padding: 0.5em;
+    padding: 0 5px;
 }
 
 #pageHeader {
-    height: 64px;
+	height: 75px;
+    margin-top: 30px;
 }
+
+
 
 /*****************************************************************************/
 
 #pageContent {
     margin-top: 0em;
+	padding: 0 20px;
+	box-sizing: border-box;
+	width: 100%;
 }
 
 /*****************************************************************************/
 
 #pageFooter {
-    margin: 1em 0 0 0;
-    border-top: 1px solid #235f7d;
-    padding: 0.5em;
+    background-color: #f1f1f1;
     text-align: center;
     color: silver;
+	position: absolute;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+	font-size: 0.85em;
+	display: flex;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
 }
 
 /*****************************************************************************
@@ -298,6 +345,15 @@ table#ficheDossier table tbody tr.even td {
 
 
 /* Affichage vue Dossier */
+
+#resumeDossier table thead{
+	font-size: 0.85em;
+}
+
+#resumeDossier table thead th{
+	min-width: 70px;
+}
+
 #resumeDossier table {
     width: 350px;
     margin-bottom: 1em;
@@ -307,28 +363,16 @@ table#ficheDossier table tbody tr.even td {
     width: 100%;
 }
 
-#resumeDossier tbody th {
-    width: 175px;
+#resumeDossier tbody tr.even th, table.demcjt tbody tr.even th,
+#resumeDossier tbody tr.even td, table.demcjt tbody tr.even td {
+    background: #fff;
+    color: #222;
 }
 
-#resumeDossier table tbody tr.even td {
-    background: white;
-    color: black;
-}
-
-#resumeDossier tbody tr.odd td {
-    background: white;
-    color: black;
-}
-
-#resumeDossier tbody tr.even th, table.demcjt tbody tr.even th {
-    background: #83c2e2;
-    color: black;
-}
-
-#resumeDossier tbody tr.odd th, table.demcjt tbody tr.odd th {
-    background: #a8dbef;
-    color: black;
+#resumeDossier tbody tr.odd th, table.demcjt tbody tr.odd th,
+#resumeDossier tbody tr.odd td, table.demcjt tbody tr.odd td {
+    background: #ecf4f7;
+    color: #222;
 }
 
 
@@ -466,10 +510,10 @@ p.error, div.error_message {
 }
 
 p.notice, div.notice {
-    background: #e1ebf7;
+    background: #f9f9f9;
     margin: 1em 0;
-    border: 1px solid #1d2f54;
-    padding: 0.5em;
+    border: 1px solid #e6e6e6;
+    padding: 15px;
     color: #1d2f54;
 }
 
@@ -552,6 +596,7 @@ table.tooltips tbody tr.hover td {
 
 .dynamic td.input, .dynamic td.action {
     cursor: default;
+	vertical-align: middle;
 }
 
 table.tooltips tbody tr.hover td.tooltip_table {
@@ -568,6 +613,11 @@ table.tooltips tbody tr.hover td.tooltip_table {
 table.tooltips td table {
     padding: 0;
     margin: 0;
+	-moz-box-shadow: 1px 1px 50px 0px #c3c3c3;
+    -webkit-box-shadow: 1px 1px 50px 0px #c3c3c3;
+    -o-box-shadow: 1px 1px 50px 0px #c3c3c3;
+    box-shadow: 1px 1px 50px 0px #c3c3c3;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#c3c3c3, Direction=134, Strength=50);
 }
 
 
@@ -589,32 +639,72 @@ div.clearer hr {
     margin-left: 18em;
 }
 
-.treemenu {
-    width: 215px;/*17em*/
-    border: 1px solid #235f7d;
-    float: left;
-    /*z-index: 100;*/
+.treemenu a{
+	text-decoration: none;
+	color: #fff;
 }
 
-.treemenu ul {
+.treemenu p{
+	text-align: left;
+}
+
+.treemenu {
+    float: left;
+    margin: 0 0 0 -20px;
+    background: #5a5e70;
+    color: #fff;
+    text-align: left;
+}
+
+.treemenu ul/*,  .treemenu ul ul ul*/{
     display: block;
     margin: 0;
     padding: 0;
     list-style: none;
-    background: #e6eef2;
+    background: #202334;
+	color: #fff;
+	width: 100%;
 }
 
+/*.treemenu ul ul, .treemenu ul ul ul ul {
+    background: #252833;
+    margin-top: 15px;
+}
+
+.treemenu ul ul ul, .treemenu ul ul ul ul ul{
+    background: #161921;
+    margin-top: 15px;
+}*/
+
+
 .treemenu li {
-    display: block;
     position: relative;
     margin: 0;
     padding: 0;
-    padding-left: 1em;
+    padding: 10px;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.treemenu ul li {
+	padding-right: 0;
+}
+
+.treemenu ul li.branch a:first-child, 
+.treemenu ul li.branch span:first-child{
+	padding-left: 13px;
 }
 
 .treemenu a, .treemenu span {
     display: block;
     padding: 0.125em 0;
+}
+
+.treemenu a:hover {
+    text-decoration: underline;
 }
 
 .treemenu a.toggler {
@@ -635,9 +725,11 @@ div.clearer hr {
 
 .treemenu h2 {
     font-size: 1em;
-    background: #235f7d;
+    background: #202334;
     padding: 0.25em;
-    border-bottom: 1px solid #235f7d;
+	padding: 20px 0;
+	color: #fff;
+	font-weight: bold;
 }
 
 .treemenu h2 a {
@@ -645,20 +737,8 @@ div.clearer hr {
     display: inline;
 }
 
-
-.treemenu a.selected {
-    background-color: #A8DBEF;
-}
-/*.treemenu li, .treemenu li ul { background: #f9ffe6; }
-.treemenu li li, .treemenu li li ul { background: white; } */
-
-.treemenu_table {
-    width: 70% !important;
-    float: none;
-}
-
 /**
-* Menu large
+* Treemenu
 */
 
 #pageWrapper.treemenu_large .with_treemenu {
@@ -669,8 +749,17 @@ div.clearer hr {
     width: 220px;
 }
 
-#pageWrapper.treemenu_large .treemenu li {
-    padding-left: 1.4em;
+#pageWrapper.treemenu_large .treemenu.treemenu_table{
+	float: none;
+	width: 100%;
+	margin: 15px 0 0 0;
+	padding: 15px 0;
+	background: #202334;
+	overflow: hidden;
+}
+
+#pageWrapper.treemenu_large .treemenu.treemenu_table ul li span{
+	padding-left: 20px;
 }
 
 #pageWrapper.treemenu_large .treemenu a, #pageWrapper.treemenu_large .treemenu span {
@@ -678,13 +767,16 @@ div.clearer hr {
 }
 
 #pageWrapper.treemenu_large .treemenu a.toggler {
-    width: 1em;
-    height: 1.2em;
-    line-height: 1.2em;
+	display: flex;
+    align-items: flex-start;
+    padding-top: 10px;
+    flex-wrap: wrap;
 }
 
 #pageWrapper.treemenu_large .treemenu li, #pageWrapper.treemenu_large .treemenu a, #pageWrapper.treemenu_large .treemenu span {
-    line-height: 1.2em;
+    line-height: 1em;
+	padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 
@@ -717,11 +809,17 @@ ul.actionMenu li {
 }
 
 ul.actionMenu a {
-    padding: 0.33em 0.5em;
-    border: 1px solid #235f7d;
-    display: inline-block;
+	background-repeat: no-repeat;
+    padding: 7px 10px;
+    background-color: #3e82a6;
+    color: #fff;
     text-decoration: none;
-    color: black;
+    background-position: 7px center;
+	border: none;
+}
+
+ul.actionMenu a:hover{
+	background-color: #126692;
 }
 
 
@@ -830,8 +928,11 @@ p.actions a {
 /*****************************************************************************/
 
 #pageWrapper {
-    position: relative;
     z-index: 2;
+	position: relative;
+	min-height: 100%;
+    padding-bottom: 60px;
+    box-sizing: border-box;
 }
 
 .dynamic.innerTableHeader, .dynamic .innerTableCell, .innerTableCell {
@@ -851,6 +952,18 @@ p.actions a {
 .dynamic td { cursor: help; }
 /*change le fond s'il s'agit d'un bénéficiaire MSA*/
 .contenuMSA {background:#81de82 !important;}
+
+.dynamic td:hover {
+    background-color: #f4f4f4;
+}
+
+.dynamic td:hover {
+    background-color: #f4f4f4;
+}
+
+.dynamic.even td:hover {
+    background-color: #dae6ec;
+}
 
 /*****************************************************************************/
 
@@ -917,12 +1030,11 @@ div.aere {
 /*****************************************************************************/
 /*Pour le dossier_menu dans l'entête*/
 p.etatDossier , p.etatFlux, p.numCaf{
-    font-size: 14px;
-    border-bottom: 1px solid #235F7D;
+    font-size: 13px;
+    border-bottom: 1px solid #202334;
     line-height: 1em;
     margin: 0;
     padding: 0.5em;
-    background: #E6EEF2;
 }
 /*Cas du bénéficiaire MSA - Affichage dans le menu Gauche en fond vert*/
 p.numMSA {background: #00CC00;}
@@ -1068,6 +1180,7 @@ ul.ui-tabs-nav a {
     border: 1px solid silver;
     padding: 0.5em;
     background: #ddd;
+	text-decoration: none;
 }
 
 ul.ui-tabs-nav a.active {
@@ -1106,17 +1219,22 @@ ul.actions {
 }
 
 ul.actions li {
-	display: inline;
-	padding: 0.33em 0.5em;
-	margin: 0 1.5em 0 0;
-	border: 1px solid #235F7D;
+	display: inline-block;
+	margin: 0 15px 15px 0;
 }
 
 ul.actions li a, ul.actions li span, ul.actionMenu li a.button {
-	background-repeat: no-repeat;
-	padding-left: 20px;
-	text-decoration: none;
-	background-position: left center;
+background-repeat: no-repeat;
+    padding: 7px 10px 7px 30px;
+    background-color: #3e82a6;
+    color: #fff;
+    text-decoration: none;
+    background-position: 7px center;
+    border: none;
+}
+
+ul.actions li a:hover, ul.actions li span:hover, ul.actionMenu li a.button:hover {
+	background-color: #126692;
 }
 
 ul.actionMenu span.disabled, span.button.disabled, span.link.disabled {
@@ -1242,8 +1360,20 @@ ul li a.button.add {
 	background-position: 5px 5px;
 	padding: 0.5em 0.5em 0.5em 2em;
 }
+
+/* si disabled */
+ul li a.button.disabled, span.button.disabled, ul.actions li span.link.disabled {
+	background-color: #f4f4f4 !important;
+	color: #cccaca !important;
+}
+
+td.button.disabled a, td.action a.disabled, td span.button.disabled, table.default2 td a.button.disabled{
+	color: #cccaca !important;
+}
+/* fin*/
+
+
 ul li a.button.add.disabled, span.button.add.disabled, ul.actions li span.link.add.disabled {
-	background-image: url( ../img/icons/add_disabled.png );
 	background-position: 5px 5px;
 	padding: 0.5em 0.5em 0.5em 2em;
 }
@@ -2064,18 +2194,40 @@ div.col-2.droite{
 	padding-left: 1%;
 }
 
+#resumeDossier .col-2 h2{
+	margin-top: 50px;
+	text-transform: uppercase;
+	font-size: 15px;
+	font-weight: bold;
+}
+
 #resumeDossier .col-2 table{
 	width: 100%;
+	margin: 10px 0 50px 0;
 }
 
 div.colonne-accueil {
-	width: 50%;
-	float: left;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: stretch;
+	justify-content: space-between;
 }
 
 div.col-2-accueil{
-	vertical-align: top;
-	padding: 1%;
+	width: calc(50% - 20px);
+	padding: 15px;
+	box-sizing: border-box;
+	background-color: #f4f4f4;
+	margin-bottom: 20px;
+}
+
+div.col-2-accueil h2{
+	text-transform: uppercase;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px 0;
+    color: #333645;
 }
 
 div.col-2-accueil table{
@@ -2104,8 +2256,14 @@ body.search td.data.dossier_locked.boolean.true {
 	background-image: url("../img/icons/lock.png");
 }
 
-table.innerTable tr.odd td {
+table.innerTable tr.odd td, table.innerTable tr.even td {
 	background: white;
+	border-bottom: solid 1px #F4f4f4;
+}
+
+table.innerTable tr.odd th{
+	background-color: #235f7d;
+	border-bottom: solid 1px #204d54;
 }
 
 button[disabled=disabled], button:disabled, input[disabled=disabled], input:disabled, input[type="text"]:disabled {
@@ -2234,14 +2392,9 @@ body table thead th a:hover {
 	color: #C2E0EF;
 }
 
-body table thead th div.container {
-	position: absolute;
-	right: 0;
-	top: 0;
-}
-
 body table thead th div.container, body table thead th div.order-container>a {
 	display: inline-block;
+	text-decoration: none;
 }
 
 body table thead th div.img-asc, body table thead th div.img-desc {
@@ -2263,8 +2416,9 @@ body table thead th div.container a.arrow-up {
 body table thead th div.order-container {
 	padding-right: 20px;
 	position: relative;
-	display: inline-block;
+	display: flex;
 	min-height: 30px;
+	align-items: center;
 }
 
 body table thead th div.img-asc,
@@ -2349,10 +2503,11 @@ body div.beforeLogo {
 
 body div.afterLogo {
 	position: absolute;
-	top: 40px;
-	left: 360px;
-	z-index: 3;
-	font-size: 20px;
+    top: 70px;
+    left: 125px;
+    z-index: 3;
+    font-size: 20px;
+    color: #939da8;
 }
 
 /*******************************************************************************
@@ -2534,4 +2689,67 @@ body.checks div#data tr.even td {
 	text-align:center;
 	font-weight:bold;
 }
+
+
+/* pagination */
+
+.pagination{
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+	width: fit-content;
+}
+
+div.pagination{
+	width: 100%;
+}
+
+.pagination .counter{
+	font-style: italic;
+	color: grey;
+}
+
+.pagination .numbers{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.pagination span{
+	padding: 5px;
+	border: solid 1px grey;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #222;
+	margin: 5px;
+    min-width: 15px;
+}
+
+.pagination span.current{
+	background: #3b87af;
+	color: #fff;
+	border-color: #3b87af;
+}
+
+.pagination span.current a{
+	color: #fff;
+}
+
+.pagination span a{
+	display: block;
+	text-decoration: none;
+	color: #222;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+
+
+
+
+
+
+
 

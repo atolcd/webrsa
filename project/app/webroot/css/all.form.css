@@ -16,9 +16,10 @@ div.input label, div.input span.label, dl.inform dt {
     display: -moz-inline-box;
     display: inline-table;
     display: inline-block;
-    width: 48%;
+    width: 50%;
     vertical-align: middle;
     cursor: pointer;
+	box-sizing: border-box;
 }
 
 fieldset.multiple div.input div.checkbox label {
@@ -47,8 +48,15 @@ div.text input, div.password input, div.email input, div.select select, div.inpu
     display: -moz-inline-box;
     display: inline-table;
     display: inline-block;
-    width: 48%; /* Grrrr */
+    width: 50%; /* Grrrr */
+	max-width: 300px;
 	font-size: 1em;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+div.text input{
+	padding: 13px 5px;
 }
 
 dl.inform dt, dl.inform dd {
@@ -67,6 +75,7 @@ td div.text input, td div.password input, td div.select select {
 div.submit {
     text-align: center;
     padding: 0.5em;
+	margin-bottom: 15px;
 }
 
 div.submit input {
@@ -87,7 +96,17 @@ form div.error div.error-message, form fieldset.error div.error-message, form ta
 
 fieldset {
     margin: 0 0 1em 0;
-    padding: 0.5em;
+    padding: 50px 20px 20px 20px;
+	width: 100%;
+	box-sizing: border-box;
+	border: none;
+	background-color: #f5f5f5;
+	position: relative;
+	
+}
+
+fieldset h2{
+	margin-bottom: 25px;
 }
 
 fieldset div.text {
@@ -133,9 +152,10 @@ div.textarea.address label, div.textarea.address textarea {
     display: -moz-inline-box;
     display: inline-table;
     display: inline-block;
-    width: 48%;
+    width: 50%;
     vertical-align: top;
     cursor: pointer;
+	box-sizing: border-box;
 }
 
 div.tag.legend>fieldset.multiple>legend{
@@ -316,9 +336,6 @@ input.miniInput, div.text input.miniInput{
 }
 
 input[type=text],input[type=number],input[type=email],input[type=date],input[type=password]{
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	border-radius: 4px;
 	border-style: solid;
 	-webkit-appearance: textfield;
 	-webkit-rtl-ordering: logical;
@@ -357,10 +374,10 @@ input[type=text],input[type=number],input[type=email],input[type=date],input[typ
 	margin-left: 0px;
 	margin-right: 0px;
 	margin-top: 0px;
-	padding-bottom: 1px;
+	padding-bottom: 5px;
 	padding-left: 4px;
 	padding-right: 4px;
-	padding-top: 1px;
+	padding-top: 5px;
 	text-align: start;
 	text-indent: 0px;
 	text-shadow: none;
@@ -441,12 +458,14 @@ div.divideInto2Columns label, div.divideInto3Columns label, div.input.divideInto
 }
 
 #FormRequestmaster div.input.checkbox label {
-	width: 48%;
+	width: 50%;
 	min-height: 25px;
+	box-sizing: border-box;
 }
 
 #FormRequestmaster div.input.checkbox input[type=text], #FormRequestmaster div.input.checkbox select {
-	width: 48%;
+	width: 50%;
+	box-sizing: border-box;
 }
 
 #FormRequestmaster div.subinput {
@@ -454,7 +473,8 @@ div.divideInto2Columns label, div.divideInto3Columns label, div.input.divideInto
 }
 
 #FormRequestmaster div.subinput input[type=text], #FormRequestmaster div.subinput select {
-	margin-left: 48%;
+	margin-left: 50%;
+	box-sizing: border-box;
 }
 
 #FormRequestmaster div.subinput input[type=text] {

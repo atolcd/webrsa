@@ -132,9 +132,33 @@ button,
 html input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-  -webkit-appearance: button;
-  cursor: pointer;
+	-webkit-appearance: button;
+	cursor: pointer;
+	border: none;
+	padding: 5px 10px;
+	color: #fff;
 }
+
+button,
+html input[type="button"],
+input[type="submit"] {
+	background-color: #3e82a6;
+}
+
+button:hover,
+html input[type="button"]:hover,
+input[type="submit"]:hover {
+	background-color: #126692;
+}
+
+input[type="reset"]{
+	background-color: #b5b5b5;
+}
+
+input[type="reset"]:hover{
+	background-color: #868686;
+}
+
 button[disabled],
 html input[disabled] {
   cursor: default;
@@ -174,8 +198,13 @@ fieldset {
   border: 1px solid #c0c0c0;
 }
 legend {
-  padding: 0;
-  border: 0;
+	padding: 0;
+	border: 0;
+	position: absolute;
+	top: 15px;
+	font-size: 15px;
+	font-weight: bold;
+	color: #333645;
 }
 textarea {
   overflow: auto;
@@ -1010,7 +1039,7 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: Arial, sans-serif;
   line-height: 1.42857143;
   color: #333;
   background-color: #fff;
@@ -1022,6 +1051,7 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+  padding: 5px;
 }
 a {
   color: #337ab7;
@@ -1183,19 +1213,19 @@ h6 .small,
 }
 h1,
 .h1 {
-  font-size: 36px;
+  font-size: 25px;
 }
 h2,
 .h2 {
-  font-size: 30px;
+  font-size: 20px;
 }
 h3,
 .h3 {
-  font-size: 24px;
+  font-size: 18px;
 }
 h4,
 .h4 {
-  font-size: 18px;
+  font-size: 15px;
 }
 h5,
 .h5 {

@@ -2,11 +2,19 @@
     Général
 ******************************************************************************/
 
-* { line-height: 1.2; }
+html{
+	height: 100%;
+}
+
+* {
+	line-height: 1.2;
+	outline: none;
+ }
 
 body {
     font-family: sans-serif;
     font-size: 13px;
+	height: calc(100% - 60px);
 }
 
 p, ul, ol, dl { margin: 0.75em 0; }
@@ -20,7 +28,18 @@ sup { vertical-align: super; }
 sub { vertical-align: sub; }
 sup, sub { font-size: 65%; }
 
-a { text-decoration: underline;}
+a{
+	color: #000;
+	text-decoration: underline;
+}
+
+a:visited{
+	color: #3b87af;
+}
+
+a:hover{
+	color: #3b87af;
+}
 
 /******************************************************************************
     Titres
