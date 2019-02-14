@@ -72,8 +72,8 @@
 	 *
 	 * @default: null
 	 */
-	Configure::write( 'FULL_BASE_URL', 'http://webrsa.atolcd.com' );
-	Configure::write( 'Cg.departement', 66 );
+	Configure::write( 'FULL_BASE_URL', (isset($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST'] );
+	Configure::write( 'Cg.departement', env('CD_DEPARTEMENT') );
 
 	Configure::write( 'MultiDomainsTranslator', array( 'prefix' => 'cg'.Configure::read( 'Cg.departement' ) ) );
 	Configure::write( 'Utilisateurs.multilogin', true );
