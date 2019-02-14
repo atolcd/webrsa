@@ -4,10 +4,31 @@
  *
  * Use it to configure core behavior of Cake.
  *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ * Licensed under The MIT License
+ * For full copyright and license information, please see the LICENSE.txt
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       app.Config
  * @since         CakePHP(tm) v 0.2.9
+ * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
+
+$locales = array( 'fr_FR', 'fr_FR@euro', 'fr', 'fr_FR.UTF8' );
+setlocale( LC_ALL, $locales );
+Configure::write('Config.language', 'fra');
+
+/**
+ * En production: le debug est à 0 et le cache activé.
+ * Sinon: le debug est à 2 et le cache désactivé.
+ *
+ * @var boolean
+ */
+Configure::write('production', false);
 
 /**
  * CakePHP Debug Level:
@@ -22,7 +43,7 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', 2);
+	Configure::write( 'debug', ( Configure::read( 'production' ) ? 0 : 2 ) );
 
 /**
  * Configure the Error handler used to handle errors for your application. By default
@@ -59,6 +80,8 @@
  * - `renderer` - string - The class responsible for rendering uncaught exceptions. If you choose a custom class you
  *   should place the file for that class in app/Lib/Error. This class needs to implement a render method.
  * - `log` - boolean - Should Exceptions be logged?
+ * - `extraFatalErrorMemory` - integer - Increases memory limit at shutdown so fatal errors are logged. Specify
+ *   amount in megabytes or use 0 to disable (default: 4 MB)
  * - `skipLog` - array - list of exceptions to skip for logging. Exceptions that
  *   extend one of the listed exceptions will also be skipped for logging.
  *   Example: `'skipLog' => array('NotFoundException', 'UnauthorizedException')`
@@ -67,7 +90,7 @@
  */
 	Configure::write('Exception', array(
 		'handler' => 'ErrorHandler::handleException',
-		'renderer' => 'ExceptionRenderer',
+		'renderer' => 'AppExceptionRenderer',
 		'log' => true
 	));
 
@@ -102,9 +125,16 @@
  * for any URL generation inside the application, set the following
  * configuration variable to the http(s) address to your domain. This
  * will override the automatic detection of full base URL and can be
- * useful when generating links from the CLI (e.g. sending emails)
+ * useful when generating links from the CLI (e.g. sending emails).
+ * If the application runs in a subfolder, you should also set App.base.
  */
 	//Configure::write('App.fullBaseUrl', 'http://example.com');
+
+/**
+ * The base directory the app resides in. Should be used if the
+ * application runs in a subfolder and App.fullBaseUrl is set.
+ */
+	//Configure::write('App.base', '/my_app');
 
 /**
  * Web path to the public images directory under webroot.
@@ -144,7 +174,7 @@
 /**
  * Turn off all caching application-wide.
  */
-	//Configure::write('Cache.disable', true);
+	Configure::write( 'Cache.disable', ( Configure::read( 'production' ) ? false : true ) );
 
 /**
  * Enable cache checking.
@@ -187,6 +217,8 @@
  *    to the ini array.
  * - `Session.autoRegenerate` - Enabling this setting, turns on automatic renewal of sessions, and
  *    sessionids that change frequently. See CakeSession::$requestCountdown.
+ * - `Session.cacheLimiter` - Configure the cache control headers used for the session cookie.
+ *   See http://php.net/session_cache_limiter for accepted values.
  * - `Session.ini` - An associative array of additional ini values to set.
  *
  * The built in defaults are:
@@ -202,17 +234,39 @@
  * To use database sessions, run the app/Config/Schema/sessions.php schema using
  * the cake shell command: cake schema create Sessions
  */
-	Configure::write('Session', array(
-		'defaults' => 'php'
-	));
+	$sessionDurationMinutes = 4 * 60; // Test 4 * 60 minutes
+	Configure::write(
+		'Session',
+		array(
+			'defaults' => 'php',
+			'cookie' => 'WebRSA320Dev',
+			'timeout' => $sessionDurationMinutes,
+			'cookieTimeout' => $sessionDurationMinutes,
+			'checkAgent' => false,
+			'autoRegenerate' => false,
+			'ini' => array(
+				'session.cookie_secure' => 0,
+				'session.cookie_lifetime' => 0,
+				'session.cookie_httponly' => 0,
+				'session.gc_maxlifetime' => $sessionDurationMinutes * 60,
+			),
+		)
+	);
+
+/**
+ * The level of CakePHP security.
+ */
+	Configure::write( 'Security.level', 'medium' );
 
 /**
  * A random string used in security hashing methods.
- */	Configure::write('Security.salt', '235395f91452ed1b7500348aa4e43ff474c04232');
+ */
+	Configure::write('Security.salt', 'AYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');
 
 /**
  * A random numeric string (digits only) used to encrypt/decrypt strings.
- */	Configure::write('Security.cipherSeed', '313335383961356164666433356263');
+ */
+	Configure::write('Security.cipherSeed', '06859309657453542496749683645');
 
 /**
  * Apply timestamps with the last modified time to static assets (js, css, images).
@@ -252,7 +306,15 @@
  * Uncomment this line and correct your server timezone to fix
  * any date & time related errors.
  */
-	//date_default_timezone_set('UTC');
+	date_default_timezone_set( 'Europe/Paris' );
+
+/**
+ * `Config.timezone` is available in which you can set users' timezone string.
+ * If a method of CakeTime class is called with $timezone parameter as null and `Config.timezone` is set,
+ * then the value of `Config.timezone` will be used. This feature allows you to set users' timezone just
+ * once instead of passing it each time in function calls.
+ */
+	Configure::write('Config.timezone', 'Europe/Paris');
 
 /**
  * Cache Engine Configuration
@@ -291,18 +353,20 @@
  *		'password' => 'password', //plaintext password (xcache.admin.pass)
  *	));
  *
- * Memcache (http://www.danga.com/memcached/)
+ * Memcached (http://www.danga.com/memcached/)
+ *
+ * Uses the memcached extension. See http://php.net/memcached
  *
  * 	 Cache::config('default', array(
- *		'engine' => 'Memcache', //[required]
+ *		'engine' => 'Memcached', //[required]
  *		'duration' => 3600, //[optional]
  *		'probability' => 100, //[optional]
  * 		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional]  prefix every cache file with this string
  * 		'servers' => array(
  * 			'127.0.0.1:11211' // localhost, default port 11211
  * 		), //[optional]
- * 		'persistent' => true, // [optional] set this to false for non-persistent connections
- * 		'compress' => false, // [optional] compress data in Memcache (slower, but uses less memory)
+ * 		'persistent' => 'my_connection', // [optional] The name of the persistent connection.
+ * 		'compress' => false, // [optional] compress data in Memcached (slower, but uses less memory)
  *	));
  *
  *  Wincache (http://php.net/wincache)
@@ -334,7 +398,7 @@ if (Configure::read('debug') > 0) {
 }
 
 // Prefix each application on the same server with a different string, to avoid Memcache and APC conflicts.
-$prefix = 'app_';
+$prefix = 'myapp_';
 
 /**
  * Configure the cache used for general framework caching. Path information,
@@ -345,6 +409,7 @@ Cache::config('_cake_core_', array(
 	'prefix' => $prefix . 'cake_core_',
 	'path' => CACHE . 'persistent' . DS,
 	'serialize' => ($engine === 'File'),
+	'mask' => 0777,
 	'duration' => $duration
 ));
 
@@ -357,5 +422,18 @@ Cache::config('_cake_model_', array(
 	'prefix' => $prefix . 'cake_model_',
 	'path' => CACHE . 'models' . DS,
 	'serialize' => ($engine === 'File'),
+	'mask' => 0777,
 	'duration' => $duration
 ));
+
+/**
+ * Configure the cache for views.
+ */
+Cache::config( 'views', array(
+	'engine' => $engine,
+	'prefix' => $prefix.'cake_view_',
+	'path' => CACHE.'views'.DS,
+	'serialize' => false,
+	'mask' => 0777,
+	'duration' => $duration
+) );

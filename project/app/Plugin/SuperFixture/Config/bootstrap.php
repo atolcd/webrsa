@@ -19,7 +19,7 @@
 	 *  Trouve le chemin actuel
 	 */
 	foreach (App::path('Plugin') as $path) {
-		if ($path === PLUGIN_DIR) {
+		if ($path === ROOT . DS . APP_DIR . DS . 'Plugin' . DS) {
 			break;
 		}
 	}

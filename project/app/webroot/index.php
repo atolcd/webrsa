@@ -44,13 +44,6 @@ if (!defined('APP_DIR')) {
 }
 
 /**
- * The directory name for the "plugin".
- */
-if (!defined('PLUGIN_DIR')) {
-	define('PLUGIN_DIR', ROOT . DS . APP_DIR . DS . 'Plugin' . DS);
-}
-
-/**
  * The absolute path to the "cake" directory, WITHOUT a trailing DS.
  *
  * Un-comment this line to specify a fixed path to CakePHP.
