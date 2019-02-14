@@ -1129,4 +1129,3 @@
 	 * Récupération du fichier de config propre au département
 	 */
 	require_once ('webrsa.cg'.Configure::read( 'Cg.departement' ).'.inc');
-?>
