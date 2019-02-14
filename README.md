@@ -119,14 +119,29 @@ Adapter le fichier /etc/hosts
 Démarrer la VM virtualbox avec Vagrant et la provisionner
 --------------------------------------------------
 
-# Pour démarrer la vm :
+# vagrant-disksize
+* Source :
+[Source](https://github.com/dotless-de/vagrant-vbguest/issues/292)
+
+* Commandes :
+`wget -c https://releases.hashicorp.com/vagrant/2.0.3/vagrant_2.0.3_x86_64.deb`
+`sudo dpkg -i vagrant_2.0.3_x86_64.deb`
+`vagrant plugin install vagrant-disksize`
+
+# vagrant
+* Premier démarrage la vm :
 `vagrant up`
 `vagrant provision`
 
-# Pour se connecter à la vm :
+* Pour démarrer la vm :
+`vagrant up`
+
+* Pour se connecter à la vm :
 `vagrant ssh`
 
-# Pour arrêter la vm :
+* Pour arrêter la vm :
 `vagrant halt`
 
+* Pour supprimer la vm :
+`vagrant destroy`
 
