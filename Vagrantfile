@@ -5,6 +5,7 @@ PUPPET_PATH = ENV['PUPPET_PATH']
 
 Vagrant.configure("2") do |config|
   config.vm.box = "centos-7-puppet5.box"
+  config.disksize.size = "70GB"
   config.vm.box_url = [ "http://nexus3.priv.atolcd.com/repository/atolcd-vagrant/centos-7-puppet5.box", "https://vagrant-mirror-ovh.priv.atolcd.com/centos-7-puppet5.box" ]
   config.vm.host_name = "atolcd-webrsa-demo.hosting.priv.atolcd.com"
   config.vm.network :forwarded_port, guest:   80, host: 8080
@@ -13,14 +14,20 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/var/www/66test/public_html", create: true
   config.vm.synced_folder ".", "/var/www/58test/public_html", create: true
   config.vm.synced_folder ".", "/var/www/93test/public_html", create: true
-  config.vm.synced_folder "../pgsql-data", "/var/lib/pgsql", create: true
-
   
   config.vm.provider :virtualbox do |vb|
     vb.memory = 1024
     vb.customize ["modifyvm", :id, "--cpus", "2"]
     vb.name = "atolcd-webrsa-demo"
   end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    yum install -y cloud-utils-growpart
+    growpart /dev/sda 2
+    pvresize /dev/sda2
+    lvresize -r -l +100%FREE $(mount| grep "on / " | cut -d " " -f 1)
+  SHELL
+
   config.vm.provision :puppet do |puppet|
 
     puppet.hiera_config_path = PUPPET_PATH + "/hiera.yaml"
