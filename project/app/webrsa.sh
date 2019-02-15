@@ -105,16 +105,16 @@ function __minify() {
 function __predeploy() {
 	dir="$1"
 	version="$2"
-	
+
 	echo "Minify"
 	bash $dir/webrsa.sh minify
-	
-	echo "Test Codes"	
-	chmod +x app/webrsa.sh app/Doc/scripts/find_non_utf8.sh 
+
+	echo "Test Codes"
+	chmod +x app/webrsa.sh app/Doc/scripts/find_non_utf8.sh
 	bash $dir//Doc/scripts/find_non_utf8.sh
 	chmod +x app/Doc/scripts/find_whitespace.sh
 	bash $dir/Doc/scripts/find_whitespace.sh
-	
+
 }
 
 # ------------------------------------------------------------------------------
@@ -122,31 +122,31 @@ function __predeploy() {
 function __deploy() {
 	dir="$1"
 	version="$2"
-	
+
 	echo "minify"
 	bash $dir/webrsa.sh minify
-	
+
 	echo "droits et permissions"
 	sudo chown apache: -R .
 	sudo chmod u+r,g+r,o+r -R app
 	sudo chmod u+w,g+w -R app/tmp
-	chmod +x lib/Cake/Console/cake
-	
+	chmod +x vendor/cakephp/cakephp/lib/Cake/Console/cake
+
 	echo "cache"
 	bash $dir/webrsa.sh clearcache
-	
+
 	echo "test modelesodt"
-	sudo -u apache lib/Cake/Console/cake Gedooo.test_modeles_odt "$dir/Vendor/modelesodt"
-	
+	sudo -u apache vendor/cakephp/cakephp/lib/Cake/Console/cake Gedooo.test_modeles_odt "$dir/Vendor/modelesodt"
+
 }
 # ------------------------------------------------------------------------------
 
 function __deployconfig() {
 	dir="$1"
 	version="$2"
-	
+
 	echo "Déplacement Config"
-	
+
 	cd  $dir/webrsa/app/Console/
 	mkdir /etc/webrsa/
 	rm -Rf /etc/webrsa/*
