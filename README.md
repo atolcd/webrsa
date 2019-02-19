@@ -89,6 +89,10 @@ Mettre cette ligne dans le fichier /home/{trigramme}/.bashrc :
 * Commandes :
 `make dependency`
 
+* Ajouter cette variable d'environnement dans le .bashrc :
+`nano ~/.bashrc`
+`export PUPPET_PATH="{dossier_infrastructure}"`
+
 
 Récupérer le projet webrsa
 --------------------------------------------------
@@ -129,6 +133,9 @@ Démarrer la VM virtualbox avec Vagrant et la provisionner
 `vagrant plugin install vagrant-disksize`
 
 # vagrant
+
+Depuis le répertoire {dossier_webrsa}.
+
 * Premier démarrage la vm :
 `vagrant up`
 `vagrant provision`
