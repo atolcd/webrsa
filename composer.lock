@@ -1,32 +1,35 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "55401a74aa3c7422d5b6115665782e4d",
+    "content-hash": "62d9440895f206a337ebebf009e1f967",
     "packages": [
         {
             "name": "cakephp/cakephp",
-            "version": "2.9.8",
+            "version": "2.10.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "043b320358e6cbe300dbb761d5b87e7901c6831e"
+                "reference": "7da7a9fab4276b4b0f61360bf20b3366822f38ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/043b320358e6cbe300dbb761d5b87e7901c6831e",
-                "reference": "043b320358e6cbe300dbb761d5b87e7901c6831e",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/7da7a9fab4276b4b0f61360bf20b3366822f38ff",
+                "reference": "7da7a9fab4276b4b0f61360bf20b3366822f38ff",
                 "shasum": ""
             },
             "require": {
-                "ext-mcrypt": "*",
                 "php": ">=5.3.0"
             },
             "require-dev": {
                 "cakephp/cakephp-codesniffer": "^1.0.0",
-                "phpunit/phpunit": "3.7.*"
+                "phpunit/phpunit": "^3.7"
+            },
+            "suggest": {
+                "ext-mcrypt": "You need to install ext-openssl or ext-mcrypt to use AES-256 encryption",
+                "ext-openssl": "You need to install ext-openssl or ext-mcrypt to use AES-256 encryption"
             },
             "bin": [
                 "lib/Cake/Console/cake"
@@ -47,7 +50,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2017-04-22T01:26:39+00:00"
+            "time": "2019-01-26T02:41:55+00:00"
         },
         {
             "name": "composer/ca-bundle",

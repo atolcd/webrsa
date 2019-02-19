@@ -4,7 +4,7 @@
     "version": "3.99.0",
     "require": {
         "staempfli/symlinker-pro": "~1.1",
-        "cakephp/cakephp": "2.9.8"
+        "cakephp/cakephp": "2.10.15"
     },
     "config": {
         "vendor-dir": "vendor/"

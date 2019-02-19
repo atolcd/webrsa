@@ -1,5 +1,12 @@
 <?php
 	/**
+	 * Path to the tests directory.
+	 */
+	if (!defined('TESTS')) {
+		define('TESTS', APP . 'Test' . DS);
+	}
+
+	/**
 	 * Chemin vers les super fixtures
 	 * 
 	 * @package SuperFixture
