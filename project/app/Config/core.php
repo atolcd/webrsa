@@ -18,9 +18,24 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-$locales = array( 'fr_FR', 'fr_FR@euro', 'fr', 'fr_FR.UTF8' );
-setlocale( LC_ALL, $locales );
-Configure::write('Config.language', 'fra');
+/**
+ * Import any environment variables from the .env file (if it exists)
+ *
+ */
+	if (is_file( ROOT . DS . '.env.dist' )) {
+	    $vars = json_decode(file_get_contents( ROOT . DS . '.env.dist' ), true);
+	    foreach ($vars as $name => $val) {
+	        putenv("$name=$val");
+	    }
+	}
+
+/**
+ * Language
+ *
+ */
+	$locales = array( 'fr_FR', 'fr_FR@euro', 'fr', 'fr_FR.UTF8' );
+	setlocale( LC_ALL, $locales );
+	Configure::write('Config.language', 'fra');
 
 /**
  * En production: le debug est à 0 et le cache activé.
@@ -28,7 +43,7 @@ Configure::write('Config.language', 'fra');
  *
  * @var boolean
  */
-Configure::write('production', false);
+	Configure::write('production', (boolean)env('PRODUCTION'));
 
 /**
  * CakePHP Debug Level:
