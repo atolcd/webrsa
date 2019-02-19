@@ -386,7 +386,7 @@
 				foreach( $nbNormalPieces as $aide => $nbPieces ) {
 					$key = 'Piece'.strtolower( $aide );
 					if( isset( $this->data[$aide] ) && isset( $this->data[$key] ) && isset( $this->data[$key][$key] ) ) {
-						$valide = ( count( $this->data[$key][$key] ) == $nbPieces ) && $valide;
+						$valide = ( count( (array)$this->data[$key][$key] ) == $nbPieces ) && $valide;
 					}
 				}
 				$this->data['Apre']['etatdossierapre'] = ( $valide ? 'COM' : 'INC' );

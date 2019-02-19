@@ -43,42 +43,42 @@
 		// Corps du tableau
 		$rowspans = array();
 		foreach( $results as $result ) {
-			if( !isset( $rowspans[$result[0]['categorie']] ) ) {
-				$rowspans[$result[0]['categorie']] = 0;
+			if( !isset( $rowspans[$result[0][0]['categorie']] ) ) {
+				$rowspans[$result[0][0]['categorie']] = 0;
 			}
-			$rowspans[$result[0]['categorie']]++;
+			$rowspans[$result[0][0]['categorie']]++;
 		}
 
 		$total = array();
 		$cells = array();
 		$categoriepcd = null;
 		foreach( $results as $result ) {
-			if( $result[0]['categorie'] !== 'Total' ) {
+			if( $result[0][0]['categorie'] !== 'Total' ) {
 				// TODO: sous-totaux ?
 				$cell = array();
 
-				if( $result[0]['thematique'] === 'Sous-total' ) {
+				if( $result[0][0]['thematique'] === 'Sous-total' ) {
 					$class = 'subtotal';
 				}
 				else {
 					$class = null;
 				}
 
-				if( $categoriepcd !== $result[0]['categorie'] ) {
-					$cell[] = array( $result[0]['categorie'], array( 'rowspan' => $rowspans[$result[0]['categorie']], 'class' => $class ) );
+				if( $categoriepcd !== $result[0][0]['categorie'] ) {
+					$cell[] = array( $result[0][0]['categorie'], array( 'rowspan' => $rowspans[$result[0][0]['categorie']], 'class' => $class ) );
 				}
 
-				$cell[] = array( $result[0]['thematique'], array( 'class' => $class ) );
-				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre" ) ), array( 'class' => "integer number {$class}" ) );
-				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_effectives" ) ), array( 'class' => "integer number {$class}" ) );
-				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_refus_beneficiaire" ) ), array( 'class' => "integer number {$class}" ) );
-				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_refus_organisme" ) ), array( 'class' => "integer number {$class}" ) );
-				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_en_attente" ) ), array( 'class' => "integer number {$class}" ) );
-				$cell[] = array( $this->Locale->number( (int)Hash::get( $result, "0.nombre_participations" ) ), array( 'class' => "integer number {$class}" ) );
+				$cell[] = array( $result[0][0]['thematique'], array( 'class' => $class ) );
+				$cell[] = array( $this->Locale->number( (int)Hash::get( $result[0], "0.nombre" ) ), array( 'class' => "integer number {$class}" ) );
+				$cell[] = array( $this->Locale->number( (int)Hash::get( $result[0], "0.nombre_effectives" ) ), array( 'class' => "integer number {$class}" ) );
+				$cell[] = array( $this->Locale->number( (int)Hash::get( $result[0], "0.nombre_refus_beneficiaire" ) ), array( 'class' => "integer number {$class}" ) );
+				$cell[] = array( $this->Locale->number( (int)Hash::get( $result[0], "0.nombre_refus_organisme" ) ), array( 'class' => "integer number {$class}" ) );
+				$cell[] = array( $this->Locale->number( (int)Hash::get( $result[0], "0.nombre_en_attente" ) ), array( 'class' => "integer number {$class}" ) );
+				$cell[] = array( $this->Locale->number( (int)Hash::get( $result[0], "0.nombre_participations" ) ), array( 'class' => "integer number {$class}" ) );
 
 				$cells[] = $cell;
 
-				$categoriepcd = $result[0]['categorie'];
+				$categoriepcd = $result[0][0]['categorie'];
 			}
 			else {
 				$total = $result;

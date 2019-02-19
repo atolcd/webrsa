@@ -198,13 +198,13 @@
 				?>
 			</div>
 			<div id="pageFooter"<?php if( Configure::read( 'debug' ) > 0 ) { echo ' style="color: black;"'; }?>>
-				webrsa v. <?php echo app_version();?> 2017-2018 AtolCD, 2009-2017 Libriciel.
+				WebRSA v. <?php echo app_version();?> 2017-<?php echo date('Y');?> AtolCD, 2009-2017 Libriciel.
 				<?php
 					if( Configure::read( 'debug' ) > 0 ) {
-						echo '( CD '.$departement;
+						echo '(CD '.$departement;
 						echo ', BDD '.ClassRegistry::init( 'User' )->getDataSource()->config['database'];
-						echo ', '.$this->Html->link( 'requêtes SQL', '#', array( 'onclick' => '$( "sqldump" ).toggle();return false;', 'id' => 'SqlDumpToggler' ) );
-						echo " )\n";
+						echo ',&nbsp;'.$this->Html->link( 'requêtes SQL', '#', array( 'onclick' => '$( "sqldump" ).toggle();return false;', 'id' => 'SqlDumpToggler' ) );
+						echo "&nbsp;PHP ".phpversion().")&nbsp;";
 					}
 					echo sprintf(
 						"Page construite en %s secondes. %s / %s. %s modèles",

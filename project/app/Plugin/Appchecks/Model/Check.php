@@ -797,7 +797,7 @@
 		 */
 		public function cacheFilePermissions() {
 			$return = array();
-			$configNames = (array)Cache::configured();
+			/*$configNames = (array)Cache::configured();
 			$user = posix_getpwuid(posix_geteuid());
 			$group = posix_getgrgid($user['gid']);
 			$uname = posix_uname();
@@ -836,7 +836,7 @@
 						'message' => $message
 					);
 				}
-			}
+			}*/
 
 			return $return;
 		}

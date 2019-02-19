@@ -104,10 +104,25 @@
 		public function ajoutPossible( $personne_id, $messages = null ) {
 			$messages = (
 				$messages === null || !is_array( $messages )
-				? $this->Questionnaireb7pdv93->messages( $personne_id )
+				? $this->Questionnaireb7pdv93->findById( $personne_id )
 				: $messages
 			);
-			return $this->Questionnaireb7pdv93->addEnabled( $messages );
+			return $this->addEnabled( $messages );
+		}
+
+		/**
+		 * Permet de savoir si un ajout est possible à partir des messages
+		 * renvoyés par la méthode messages.
+		 * Fonction rajoutée en PHP pour que le système fonctionne /!\ Pourquoi ??? à creuser ...
+		 *
+		 * @param array $messages
+		 * @return boolean
+		 */
+		public function addEnabled( array $messages ) {
+
+			$status = ! ( in_array( 'error', $messages ) || array_key_exists( 'Questionnaireb1pdv93.exists', $messages ) )  ;
+
+			return $status;
 		}
 
 		/**

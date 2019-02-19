@@ -55,7 +55,7 @@
 			return array(
 				'Apache' => array(
 					'informations' => array(
-						'Version' => $this->Check->version( 'Apache', apache_version(), '2.2' )
+						'Version' => $this->Check->version( 'Apache', apache_version(), '2.4' )
 					),
 					'modules' => $this->Check->apacheModules(
 						array(

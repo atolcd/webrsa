@@ -2597,9 +2597,15 @@
 			$sqls[] = $Ficheprescription93->sq( $query );
 			$counter++;
 
+			$results	=	array();
+			$nbLigne	=	count($sqls);
+			for($i=0;$i<$nbLigne;$i++) {
+				$results[$i] = $Ficheprescription93->query( $sqls[$i] );
+			}
+
 			// Requête complète
-			$results = $Ficheprescription93->query( '( '.implode( $sqls, ' UNION ' ).' ) ORDER BY "counter" ASC;' );
-			$results = Hash::remove( $results, '{n}.0.counter' );
+			//$results = $Ficheprescription93->query( '( '.implode( $sqls, ' UNION ' ).' ) ORDER BY "counter" ASC;' );
+			//$results = Hash::remove( $results, '{n}.0.counter' );
 
 			return $results;
 		}

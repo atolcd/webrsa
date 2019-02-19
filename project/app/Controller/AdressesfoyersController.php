@@ -139,7 +139,7 @@
 		 */
 		public function view( $id = null ) {
 			$this->WebrsaAccesses->check($id);
-			$foyer_id = $this->Adressefoyer->foyerId($id);
+			$foyer_id = $this->Adressefoyer->findById($id);
 
 			$query = $this->WebrsaAdressefoyer->completeVirtualFieldsForAccess(
 				array(

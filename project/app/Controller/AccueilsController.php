@@ -215,7 +215,7 @@
 			$query = array (
 				'conditions' => array(
 					'Contratinsertion.dd_ci IS NOT NULL',
-					'DATE( Contratinsertion.dd_ci ) BETWEEN \''.$du->format ('d/m/Y').'\' AND \''.$au->format ('d/m/Y').'\'',
+					'DATE( Contratinsertion.dd_ci ) BETWEEN \''.$du->format ('Y-m-d').'\' AND \''.$au->format ('Y-m-d').'\'',
 					'Contratinsertion.referent_id IN ('.$this->idReferent.')',
 				),
 				'order' => array(
@@ -243,7 +243,7 @@
 			if (method_exists($this, '_getFichesPrescription'.$departement)) {
 				$limite = new DateTime ();
 				$limite->sub (new DateInterval('P'. $parametres['limite'] .'M'));
-				$fiches = $this->{'_getFichesPrescription'.$departement}($limite->format ('d/m/Y'));
+				$fiches = $this->{'_getFichesPrescription'.$departement}($limite->format ('Y-m-d'));
 				$fiches['limite'] = $parametres['limite'];
 			}
 
@@ -347,7 +347,7 @@
 					'Typerdv',
 				),
 				'conditions' => array(
-					'DATE( Rendezvous.daterdv ) BETWEEN \''.date ('Y-m-d H:i:s').'\' AND \''.$limite->format ('d/m/Y').'\'',
+					'DATE( Rendezvous.daterdv ) BETWEEN \''.date ('Y-m-d H:i:s').'\' AND \''.$limite->format ('Y-m-d').'\'',
 					'Rendezvous.referent_id IN ('.$this->idReferent.')',
 				),
 				'order' => array(

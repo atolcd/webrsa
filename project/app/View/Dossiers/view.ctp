@@ -686,7 +686,7 @@
 						<?php echo theadPastDossierCJT( 50, 8 );?>
 						<tbody>
 							<?php
-								$nbcjt = count( Set::extract( 'CJT.Dossiermultiple', $details ) );
+								$nbcjt = count( (array)Set::extract( 'CJT.Dossiermultiple', $details ) );
 								if( $nbcjt == 0 ):
 							?>
 							<tr class="odd">
@@ -781,7 +781,7 @@
 							<?php echo theadPastDossierCJT( 50, 8 );?>
 							<tbody>
 								<?php
-									$nbcjt = count( Set::extract( 'CJT.AncienDossier', $details ) );
+									$nbcjt = count( (array)Set::extract( 'CJT.AncienDossier', $details ) );
 									if( $nbcjt == 0 ):
 								?>
 								<tr class="odd">

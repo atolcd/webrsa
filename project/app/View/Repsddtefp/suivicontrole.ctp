@@ -115,7 +115,7 @@
 				<?php
 					///Calcul de l'age des bénéficiaires
 					if( !empty( $apre ) ){
-						$dtnai = Set::classicExtract( $apre, 'Personne.dtnai' );
+						$dtnai = substr(Set::classicExtract( $apre, 'Personne.dtnai' ), 0, 4);
 						$today = ( date( 'Y' ) );
 						if( !empty( $dtnai ) ){
 							$age = ($today - $dtnai);

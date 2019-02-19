@@ -636,7 +636,8 @@
 		 */
 		private function getDureeCER($contratInsertion) {
 			$dureeCER = 0;
-			$dureeMaximaleCER = array_pop (array_keys ($this->Option->duree_engag ()));
+			$dureeTemp = array_keys ($this->Option->duree_engag ());
+			$dureeMaximaleCER = array_pop ($dureeTemp);
 
 			//si un contrat est validé
 			//ne fonctionne pas s'il est annulé ou en attente de décision
@@ -681,7 +682,8 @@
 		 */
 		private function getDureeCERVersion2($contratInsertion) {
 			$dureeCER = 0;
-			$dureeMaximaleCER = array_pop (array_keys ($this->Option->duree_engag ()));
+			$dureeTemp = array_keys ($this->Option->duree_engag ());
+			$dureeMaximaleCER = array_pop ($dureeTemp);
 
 			//si un contrat est validé
 			//ne fonctionne pas s'il est annulé ou en attente de décision
@@ -1377,7 +1379,8 @@
 			//$isEpParcoursAfterLastCer = $this->_isEpParcoursAfterLastCer($dateLastEpParcours, $dateFinDernierContrat['Contratinsertion']['dd_ci']);
 			$tabDureeEngag = $this->setDureeEngag($duree_engag, $dureeTotalCER, $agePersonne);
 			$this->set('duree_engag', $duree_engag);
-			$this->set('dureeMaximaleTrancheContrat', array_pop (array_keys ($duree_engag)));
+			$dureeTmp = array_keys ($duree_engag);
+			$this->set('dureeMaximaleTrancheContrat', array_pop ($dureeTmp));
 			$this->set('tabDureeEngag', $tabDureeEngag);
 			//$this->set('isEpParcoursAfterLastCer', $isEpParcoursAfterLastCer);
 
@@ -1581,7 +1584,8 @@
 		 */
 		private function getDureeTotalCERVersion2($CER) {
 			$dureeTotalCER = 0;
-			$dureeMaximaleCER = array_pop (array_keys ($this->Option->duree_engag ()));
+			$dureeTmp = array_keys ($this->Option->duree_engag ());
+			$dureeMaximaleCER = array_pop ($dureeTmp);
 			$finPlacePrecedente = '';
 
 			foreach($CER as $index=>$value) {
