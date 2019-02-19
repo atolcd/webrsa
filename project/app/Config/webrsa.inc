@@ -72,7 +72,6 @@
 	 *
 	 * @default: null
 	 */
-	Configure::write( 'FULL_BASE_URL', (isset($_SERVER['HTTPS']) ? 'https://'.$_SERVER['HTTP_HOST'] : '') );
 	Configure::write( 'Cg.departement', env('CD_DEPARTEMENT') );
 
 	Configure::write( 'MultiDomainsTranslator', array( 'prefix' => 'cg'.Configure::read( 'Cg.departement' ) ) );

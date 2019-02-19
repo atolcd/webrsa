@@ -14,7 +14,7 @@
 	);
 ?>
 
-<script src="<?php echo (Configure::read( 'FULL_BASE_URL' )); ?>/js/tinymce/tinymce.min.js"></script>
+<script src="<?php echo ((isset($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST']); ?>/js/tinymce/tinymce.min.js"></script>
 <script>
 	tinymce.init({
 		selector:'textarea',
