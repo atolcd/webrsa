@@ -22,8 +22,16 @@
  * Import any environment variables from the .env file (if it exists)
  *
  */
-	if (is_file( ROOT . DS . '.env.dist' )) {
-	    $vars = json_decode(file_get_contents( ROOT . DS . '.env.dist' ), true);
+	// Environnement client
+	if (is_file( APP . 'Config' . DS . '.env' )) {
+	    $vars = json_decode(file_get_contents( APP . 'Config' . DS . '.env' ), true);
+	    foreach ($vars as $name => $val) {
+	        putenv("$name=$val");
+	    }
+	}
+	// Environnement de développement multi-sites
+	else if (is_file( APP . '..' . DS . '..' . DS . '.env' )) {
+	    $vars = json_decode(file_get_contents( APP . '..' . DS . '..' . DS . '.env' ), true);
 	    foreach ($vars as $name => $val) {
 	        putenv("$name=$val");
 	    }
