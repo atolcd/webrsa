@@ -31,31 +31,8 @@
 			?>
 		</title>
 		<?php
-			if( Configure::read( 'debug' ) ) {
-				echo $this->Html->css( array( 'all.reset' ), 'stylesheet', array( 'media' => 'all' ) );
-				echo $this->Html->css( array( 'all.base' ), 'stylesheet', array( 'media' => 'all' ) );
-				echo $this->Html->css( array( 'bootstrap.custom' ), 'stylesheet', array( 'media' => 'all' ) ); // Ajoute quelques styles issu de bootstrap
-				echo $this->Html->css( array( 'screen.generic', 'screen.search' ), 'stylesheet', array( 'media' => 'screen,presentation' ) );
-				echo $this->Html->css( array( 'print.generic' ), 'stylesheet', array( 'media' => 'print' ) );
-				echo $this->Html->css( array( 'menu' ), 'stylesheet', array( 'media' => 'all' ) );
-				echo $this->Html->css( array( 'popup' ), 'stylesheet', array( 'media' => 'all' ) );
-				echo $this->Html->css( 'Configuration.configuration_parser' );
-				echo $this->Html->css( 'AnalyseSql.analysesql' );
-
-				echo $this->Html->script( 'prototype' );
-				echo $this->Html->script( 'webrsa.extended.prototype' );
-				echo $this->Html->script( 'tooltip.prototype' );
-				echo $this->Html->script( 'webrsa.common.prototype' );
-				echo $this->html->script( 'webrsa.additional' );
-				echo $this->Html->script( 'webrsa.validaterules' );
-				echo $this->Html->script( 'webrsa.validateforms' );
-				echo $this->Html->script( 'Configuration.prototype.configuration-parser' );
-
-			}
-			else {
-				echo $this->Html->css( array( 'webrsa' ), 'stylesheet' );
-				echo $this->Html->script( 'webrsa' );
-			}
+			echo $this->Html->css( array( 'webrsa' ), 'stylesheet' );
+			echo $this->Html->script( 'webrsa' );
 
 			echo $this->fetch( 'meta' );
 			echo $this->fetch( 'css' );

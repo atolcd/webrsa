@@ -1,4 +1,5 @@
-vendor
 app
+node_modules
+vendor
 
 .vagrant
