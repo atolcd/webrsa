@@ -30,6 +30,7 @@ pipeline {
           }
         }
         script {
+          sh 'echo $VERSION > app/VERSION.txt'
           sh 'ls final > /dev/null 2>&1 && rm -fr final || true'
           sh 'mkdir final && cp -RLp app vendor final/ || true'
           sh 'find final/ -type d -exec chmod 750 {} \\; && find final/ -type f -exec chmod 640 {} \\;'
