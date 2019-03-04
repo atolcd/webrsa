@@ -45,27 +45,15 @@ function __clear() {
 # ------------------------------------------------------------------------------
 function __deploy() {
 	dir="$1"
-	APP_LINK=$(readlink -f $(dirname $0))
-	APP_DEPARTEMENT=$(readlink -f $(dirname $0)/../..)
-
-	ln -s $APP_DEPARTEMENT/contrib/modelesodt $APP_LINK/Vendor/modelesodt
 
 	echo "     Lien symbolique des modèles odt"
+
+	APP_LINK=$(readlink -f $(dirname $0))
+	APP_DEPARTEMENT=$(readlink -f $(dirname $0)/../..)
+	ln -s $APP_DEPARTEMENT/contrib/modelesodt $APP_LINK/Vendor/modelesodt
+
 	echo "     $APP_DEPARTEMENT/contrib/modelesodt vers $APP_LINK/Vendor/modelesodt"
 	echo "     Pour supprimer le lien symbolique : unlink $APP_LINK/Vendor/modelesodt"
-	echo ""
-
-	ln -s $APP_DEPARTEMENT/contrib/didacticiel/app/View/Pages $APP_LINK/View/Pages
-
-	echo "     Lien symbolique du didacticiel"
-	echo "     $APP_DEPARTEMENT/contrib/didacticiel/app/View/Pages vers $APP_LINK/View/Pages"
-	echo "     Pour supprimer le lien symbolique : unlink $APP_LINK/View/Pages"
-	echo ""
-
-	ln -s $APP_DEPARTEMENT/contrib/didacticiel/app/webroot/didac $APP_LINK/webroot/didac
-
-	echo "     $APP_DEPARTEMENT/contrib/didacticiel/app/webroot/didac vers $APP_LINK/webroot/didac"
-	echo "     Pour supprimer le lien symbolique : unlink $APP_LINK/webroot/didac"
 	echo ""
 
 	echo "     Droits et permissions"
