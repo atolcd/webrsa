@@ -1,0 +1,31 @@
+{
+  "name": "webrsa",
+  "version": "1.0.0",
+  "description": "Installation ==================================================",
+  "main": "index.js",
+  "scripts": {
+    "default": "node_modules/gulp/bin/gulp.js default",
+    "css": "node_modules/gulp/bin/gulp.js css",
+    "watch-css": "node_modules/gulp/bin/gulp.js watch-css",
+    "js": "node_modules/gulp/bin/gulp.js js",
+    "watch-js": "node_modules/gulp/bin/gulp.js watch-js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://pla@gerrit:29418/atolcd/webrsa"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-concat-css": "^3.1.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.1",
+    "gulp-uglify-es": "^1.0.4",
+    "gulp-watch": "^5.0.1",
+    "pump": "^3.0.0"
+  }
+}

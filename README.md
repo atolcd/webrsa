@@ -152,3 +152,14 @@ Depuis le répertoire {dossier_webrsa}.
 * Pour supprimer la vm :
 `vagrant destroy`
 
+
+Installation de Node.js
+--------------------------------------------------
+
+`sudo apt-get update`
+`sudo apt-get install nodejs npm`
+
+`sudo ln -s /usr/bin/nodejs /usr/local/bin/node`
+`sudo ln -s /usr/bin/npm /usr/local/bin/npm`
+
+`npm install`
