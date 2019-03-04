@@ -64,6 +64,10 @@ function __deploy() {
 	sudo chmod u+w,g+w -R app/tmp
 	chmod +x vendor/cakephp/cakephp/lib/Cake/Console/cake
 
+	chmod 755 -R app/
+	chmod 755 -R vendor/
+	chmod 777 -R app/tmp/
+
 	echo "     Cache"
 	echo ""
 
