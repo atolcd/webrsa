@@ -163,3 +163,4 @@ Installation de Node.js
 `sudo ln -s /usr/bin/npm /usr/local/bin/npm`
 
 `npm install`
+
