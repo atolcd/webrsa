@@ -164,3 +164,50 @@ Installation de Node.js
 
 `npm install`
 
+Mise en place bdd
+--------------------------------------------------
+
+* Récupération des backup de la BDD
+[Wiki] <https://redmine.atolcd.com/projects/webrsa--support/wiki>
+# A placer dans {dossier_webrsa}/webrsa/vendor
+`tar zxvf dump_base_webrsa-p03_20190115_2104.sql.tar.gz`
+
+* Se connecter à la VM
+`vagrant ssh`
+
+* CD 66
+
+# Copie du fichier de variable d'environnement par défaut
+'cp /var/www/66test/public_html/project/app/Config /var/www/66test/.env`
+`sudo vi /var/www/66test/.env`
+
+# Modification du fichier, le mot de passe et la configuration selon l'environnement se trouve dans 
+[Wiki] <https://redmine.atolcd.com/projects/webrsa--support/wiki>
+
+# Création de la BDD & restauration
+`cd /var/www/66test/public_html/vendor`
+`sudo su postgres`
+`psql`
+`CREATE ROLE webrsa WITH LOGIN PASSWORD 'webrsa';`
+`CREATE DATABASE "66test-2" OWNER "66test";`
+`CTRL + D`
+`pg_restore -d 66test-2 -U 66test -h 127.0.0.1 -v ./remus.BACKUP`
+`CTRL + D`
+
+* CD 93
+
+# Copie du fichier de variable d'environnement par défaut
+'cp /var/www/93test/public_html/project/app/Config /var/www/93test/.env`
+`sudo vi /var/www/93test/.env`
+
+# Modification du fichier, le mot de passe et la configuration selon l'environnement se trouve dans 
+[Wiki] <https://redmine.atolcd.com/projects/webrsa--support/wiki>
+
+`cd /var/www/93test/public_html/vendor`
+
+`sudo su postgres`
+`psql`
+
+`CREATE DATABASE "93test-2" OWNER "webrsa";`
+`CTRL + D`
+`psql -U postgres 93test-2 < dump_base_webrsa-p03_20190115_2104.sql`
