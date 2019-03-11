@@ -65,7 +65,6 @@ gulp.task('watch-css', function () {
 gulp.task('js', function () {
   return gulp.src(listJs)
     .pipe(concatJs('webrsa.js'))
-    .pipe(uglify())
     .pipe(gulp.dest('project/app/webroot/js/'));
 });
 
