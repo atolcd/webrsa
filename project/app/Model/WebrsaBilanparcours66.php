@@ -1315,7 +1315,7 @@ Debugger::log($bilansparcours66_ids);
 										'conditions' => array(
 											'passagescommissionseps.dossierep_id = Dossierep.id',
 											'NOT' => array(
-												'passagescommissionseps.etatdossierep' => array( 'traite', 'annule' )
+												'passagescommissionseps.etatdossierep' => array( 'traite', 'annule', 'reporte' )
 											)
 										),
 										'contain' => false
