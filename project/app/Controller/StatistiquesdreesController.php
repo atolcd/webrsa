@@ -157,7 +157,7 @@
 			$results = $this->Statistiquedrees->getIndicateursTableau1( $named );
 			$tranches = $this->Statistiquedrees->tranches;
 			$filename = 'indicateurs_tableau1';
-			$colonnes = array( 'droits_et_devoirs', 'orientes', 'non_orientes', 'orientes_pole_emploi', 'orientes_autre_que_pole_emploi', 'spe_mission_locale',
+			$colonnes = array( 'droits_et_devoirs', 'non_orientes', 'orientes', 'orientes_pole_emploi', 'orientes_autre_que_pole_emploi', 'spe_mission_locale',
 				'spe_mde_mdef_plie', 'spe_creation_entreprise', 'spe_iae', 'spe_autre_placement_pro', 'hors_spe_ssd', 'hors_spe_caf', 'hors_spe_msa',
 				'hors_spe_ccas_cias', 'hors_spe_autre_organisme');
 			$intitules = array (
