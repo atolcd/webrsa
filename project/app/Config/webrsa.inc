@@ -1124,6 +1124,13 @@
 	 */
 	Configure::write('Indicateursmensuels.vaguesdorientations',true);
 
+		/**
+	 * Variable contenant un integer (âge de l'allocataire) pour la limite d'âge à atteindre
+	 * pour que la tacite reconduction soit autorisée.
+	 * Permet également d'autoriser la création d'un CER au-delà de la limite des 24 mois
+	 */
+	Configure::write( 'Tacitereconduction.limiteAge', 55 );
+
 	/**
 	 * Récupération du fichier de config propre au département
 	 */
