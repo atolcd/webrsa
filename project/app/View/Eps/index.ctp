@@ -6,14 +6,16 @@
 			'Ep.identifiant',
 			'Ep.adressemail',
 			'Regroupementep.name',
-			'Ep.name'
+			'Ep.name',
+			'Ep.actif' => array( 'type' => 'boolean' ),
 		);
 	}
 	else {
 		$cells = array(
 			'Ep.identifiant',
 			'Regroupementep.name',
-			'Ep.name'
+			'Ep.name',
+			'Ep.actif' => array( 'type' => 'boolean' ),
 		);
 	}
 

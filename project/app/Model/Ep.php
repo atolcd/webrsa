@@ -103,10 +103,13 @@
 							)
 						)
 					),
-					'conditions' => $this->sqRestrictionsZonesGeographiques(
-						'Ep.id',
-						$filtre_zone_geo,
-						$zonesgeographiques
+					'conditions' => array(
+							$this->sqRestrictionsZonesGeographiques(
+									'Ep.id',
+									$filtre_zone_geo,
+									$zonesgeographiques
+									),
+							'Ep.actif' => true
 					),
 					'order' => array(
 						'Ep.name'

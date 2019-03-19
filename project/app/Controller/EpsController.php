@@ -96,6 +96,7 @@
 					'Ep.name',
 					'Ep.adressemail',
 					'Ep.identifiant',
+					'Ep.actif',
 					'Regroupementep.name',
 					$this->Ep->sqHasLinkedRecords( true, $this->blacklist )
 				),
