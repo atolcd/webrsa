@@ -262,7 +262,7 @@
 		    if (method_exists($this, '_getFichesPrescriptionresultataction'.$departement)) {
 		        $limite = new DateTime ();
 		        $limite->sub (new DateInterval('P'. $parametres['limite'] .'M'));
-		        $fiches = $this->{'_getFichesPrescriptionresultataction'.$departement}($limite->format ('d/m/Y'));
+		        $fiches = $this->{'_getFichesPrescriptionresultataction'.$departement}($limite->format ('Y-m-d'));
 		        $fiches['limite'] = $parametres['limite'];
 		    }
 
