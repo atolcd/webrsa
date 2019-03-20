@@ -568,21 +568,19 @@
 					'conditions' => array ('Personne.id' => $personne_id)
 				)
 			);
-            $ageBeneficiaire = age ($reqDateNaissance['Personne']['dtnai']);
+			$ageBeneficiaire = age ($reqDateNaissance['Personne']['dtnai']);
 
-            //CER actif - pour alert sur +55ans
-            $query = 'SELECT COUNT(id) FROM contratsinsertion WHERE decision_ci = \'V\' AND personne_id = '.$personne_id;
-            $nbCER = $this->Rendezvous->query ($query);
-			
+			//CER actif - pour alert sur +55ans
+			$query = 'SELECT COUNT(id) FROM contratsinsertion WHERE decision_ci = \'V\' AND personne_id = '.$personne_id;
+			$nbCER = $this->Rendezvous->query ($query);
+
 			$ageLimite = Configure::read( 'Tacitereconduction.limiteAge' );
-			
+
 			if( is_numeric( $ageLimite ) ) {
 				$alertTrancheAge = ($ageBeneficiaire >= $ageLimite && $nbCER[0][0]['count'] > 0) ? true : false;
 				//stockage des variables - Si l'age est >55ans et qu'il y a un CER, on affiche une alerte sur la vue
-            	$this->set('alertTrancheAge', $alertTrancheAge);
+				$this->set('alertTrancheAge', $alertTrancheAge);
 			}
-			
-            
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) ) );
 
