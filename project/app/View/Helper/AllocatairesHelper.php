@@ -286,20 +286,12 @@
 			}
 
 			if( Configure::read( 'CG.cantons' ) ) {
-				$content .= '<div class="input checkbox">
-								<input type="checkbox" name="data[Search][ByCanton]" value="1" id="SearchByCantonChoice" '.((isset($this->request->data['Search']['ByCanton'])) ? 'checked="checked"' : '').' />
-								<label for="SearchByCantonChoice">Filtrer par canton</label>
-							</div>
-							<div id="SearchByCantonFieldset" class="'.((isset($this->request->data['Search']['ByCanton'])) ? 'enabled' : 'disabled').'"">';
-				$content .= $this->_input( "{$params['prefix']}Canton.canton", $params, array( 'type' => 'select', 'class'=>'checkboxCanton', 'multiple' => 'checkbox', 'options' => (array)Hash::get( $params, 'options.Canton.canton' ) ) );
-				$content .= '</div>
-							<script type="text/javascript">
-							document.observe( \'dom:loaded\', function() { try {
-								observeDisableFieldsetOnCheckbox( \'SearchByCantonChoice\', \'SearchByCantonFieldset\', false, true );
-							} catch( e ) {
-								console.error( e );
-							} } );
-							</script>';
+				$content .= $this->_input( "{$params['prefix']}Canton.canton", 
+									$params,
+									array( 	'type' => 'select',
+											'options' => (array)Hash::get( $params, 'options.Canton.canton' ),
+									  		'empty' => true 
+									) );
 			}
 
 			if( Configure::read( 'Cg.departement' ) == 58 ) {
