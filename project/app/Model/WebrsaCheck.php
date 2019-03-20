@@ -444,12 +444,6 @@
 					'Module.Datepicker.enabled' => array(
 						array( 'rule' => 'boolean', 'allowEmpty' => true )
 					),
-					'UI.beforeLogo.text' => array(
-						array( 'rule' => 'string', 'allowEmpty' => true )
-					),
-					'UI.afterLogo.text' => array(
-						array( 'rule' => 'string', 'allowEmpty' => true )
-					),
 					'textarea.auto_resize' => array(
 						array( 'rule' => 'isarray', 'allowEmpty' => true )
 					),

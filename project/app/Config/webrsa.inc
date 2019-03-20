@@ -1097,16 +1097,6 @@
 	Configure::write( 'cer.duree.tranche', 24 );
 
 	/**
-	 * Affichage de messages autour du logo
-	 */
-	$enabled = Configure::read('debug') > 0; // Ne s'affiche que si mode debug activé
-	$beforeLogoText = '';//$enabled && isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : ''; // Affichera le nom du serveur
-	$afterLogoText = $enabled ? file_get_contents(APP.'VERSION.txt') : ''; // Affichera la version webrsa
-
-	Configure::write('UI.beforeLogo.text', $beforeLogoText);
-	Configure::write('UI.afterLogo.text', $afterLogoText);
-
-	/**
 	 * Activation du module TitreCréanciers
 	 * 'Creances.titrescreanciers' => true pour activée, false pour inactivée
 	 */
