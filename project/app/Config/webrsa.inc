@@ -280,7 +280,13 @@
 	 * comme Alfresco, servant à stocker les PDF
 	 */
 	Configure::write(
-	 	'Cmis', array()
+		'Cmis',
+		array(
+			'url' => env('CMIS_URL'),
+			'username' => env('CMIS_USERNAME'),
+			'password' => env('CMIS_PASSWORD'),
+			'prefix' => env('CMIS_PREFIX'),
+		)
 	);
 
 	/**
