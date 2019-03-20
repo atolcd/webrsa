@@ -621,7 +621,7 @@
 		protected function _getQueryTableau( array $search , $annee) {
 			$base = $this->_getBaseQueryIndicateursOrientations( $search );
 			$base['fields'] = array (
-				'DISTINCT("Personne"."id") AS "idPersonne"',
+				'DISTINCT ON ("Personne"."id") "Personne"."id" AS "idPersonne"',
 				'"Typeorient"."id" AS "idTypeorient"',
 				'"Orientstruct"."id" AS "idOrientstruct"',
 				'"Orientstruct"."date_propo" AS "dateOrientstruct"',
@@ -696,7 +696,7 @@
 		protected function _getQueryTableauCer( array $search , $annee) {
 			$base = $this->_getBaseQueryIndicateursOrientations( $search );
 			$base['fields'] = array (
-				'DISTINCT("Personne"."id") AS "idPersonne"',
+				'DISTINCT ON ("Personne"."id") "Personne"."id" AS "idPersonne"',
 				'"Typeorient"."id" AS "idTypeorient"',
 				'"Orientstruct"."id" AS "idOrientstruct"',
 				'"Foyer"."sitfam" AS "situationFamiliale"',
@@ -1251,13 +1251,13 @@
 			$base = $this->_unsetJoinsQuery ($unsets, $base);
 
 			// Suppression des champs
-			$unsets = array ('DISTINCT("Personne"."id") AS "idPersonne"');
+			$unsets = array ('DISTINCT ON ("Personne"."id") "Personne"."id" AS "idPersonne"',);
 			$base = $this->_unsetFieldsQuery ($unsets, $base);
 
 			// Ajout des champs en remplacement.
 			$base['fields'] = array_merge(
 				array (
-					'DISTINCT("Cer93Sujetcer93"."id") AS "idCer93Sujetcer93"',
+					'DISTINCT ON ("Cer93Sujetcer93"."id") "Cer93Sujetcer93"."id" AS "idCer93Sujetcer93"',
 					'"Contratinsertion"."id" AS "idContratinsertion"',
 					'"Cer93Sujetcer93"."sujetcer93_id" AS "idSujetcer93"',
 					'"Cer93Sujetcer93"."soussujetcer93_id" AS "idSoussujetcer93"',
