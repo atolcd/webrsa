@@ -799,5 +799,44 @@
 
 			return false;
 		}
+
+		/**
+		 * Lorsque la configuration de AncienAllocataire.enabled est à true, envoie
+		 * la liste des dossiers dans lesquels l'allocataire est à présent sans
+		 * prestation mais pour lesquels au moins un enregistrement du modèle existe.
+		 *
+		 * @param integer $personne_id
+		 * @param string $modelAlias
+		 */
+		public function _setEntriesAncienDossier( $personne_id, $modelAlias ) {
+			if( Configure::read( 'AncienAllocataire.enabled' ) ) {
+				if (!isset($this->helpers['Default3'])) {
+					$this->helpers['Default3'] = array('className' => 'Default.DefaultDefault');
+				}
+				$entriesAncienDossier = ClassRegistry::init( 'Personne' )->WebrsaPersonne->getEntriesAnciensDossiers( $personne_id, $modelAlias );
+				$this->set( compact( 'entriesAncienDossier' ) );
+			}
+		}
+
+		/**
+		 * Affiche des messages dans index
+		 *
+		 * @param integer $personne_id
+		 * @return array
+		 */
+		public function messages( $personne_id ) {
+			return array ();
+		}
+
+		/**
+		 * Permet de savoir si un ajout est possible à partir des messages
+		 * renvoyés par la méthode messages.
+		 *
+		 * @param array $messages
+		 * @return boolean
+		 */
+		public function addEnabled( array $messages ) {
+			return !in_array( 'error', $messages );
+		}
+
 	}
-?>

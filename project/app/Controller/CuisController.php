@@ -360,7 +360,6 @@
 			);
 
 			$personne = $this->Cui->Personne->find('first', $queryPersonne);
-			$personne['Foyer']['nb_enfants'] = $this->Cui->Personne->Prestation->getNbEnfants( $personne_id );
 
 			$this->set( compact( 'options', 'personne_id', 'dossierMenu', 'urlmenu', 'personne' ) );
 
