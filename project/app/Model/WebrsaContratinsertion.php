@@ -350,6 +350,7 @@
 																	LEFT JOIN actionscandidats ac ON ac.id=ap.actioncandidat_id
 																	WHERE ap.personne_id='.$personne_id.' AND ap.positionfiche IN (\'encours\', \'enattente\')
 																	GROUP BY ap.datesignature, ac.eligiblefse');
+			$infoFicheCandidature = array_reverse ($infoFicheCandidature);
 			if(isset($infoFicheCandidature[0][0]["max"])) {
 				$infos['dureeFicheCandidature'] = $this->getNbMoisEntre2Dates($infoFicheCandidature[0][0]["datesignature"], date('Y-m-d'));
 				$infos['idFicheCandidature'] = $infoFicheCandidature[0][0]["max"];
