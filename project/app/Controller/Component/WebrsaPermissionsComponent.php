@@ -90,6 +90,7 @@
 				Cache::write( $cacheKey, $acos );
 			}
 
+			$acos = $this->getAcosNotEmpty($acos);
 			return $acos;
 		}
 
@@ -103,9 +104,28 @@
 		 */
 		public function getCompletedPermissions( array $data, $key = 'Permission' ) {
 			$acos = $this->getAcosTree();
+			$acos = $this->getAcosNotEmpty($acos);
+
 			$default = array_combine( $acos, array_fill( 0, count( $acos ), -1 ) );
 			$data[$key] = $data[$key] + $default;
 			return $data;
+		}
+
+		/**
+		 * Correction lignes vides non corrigées par rechargement Aco et Aro
+		 *
+		 * @param array
+		 * @return array
+		 */
+		private function getAcosNotEmpty ($acos) {
+			foreach ($acos as $cle => $valeur) {
+				if (empty ($valeur)) {
+					unset ($acos[$cle]);
+				}
+			}
+			$acos = array_values($acos);
+
+			return $acos;
 		}
 
 		/**
