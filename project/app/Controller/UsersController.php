@@ -902,7 +902,13 @@
 		 * @return string json
 		 */
 		public function ajax_get_permissions_light ($group_id) {
-			$this->ajax_get_permissions($group_id, true);
+			if(true === empty($group_id)) {
+				$group_id = 0;
+			}
+			$permissions = $this->WebrsaPermissions->getPermissionsHeritage($this->User->Group, $group_id, true);
+
+			echo (json_encode($permissions));
+			exit ();
 		}
 	}
 ?>

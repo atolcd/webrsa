@@ -375,6 +375,7 @@
 						evalScripts:true,
 						requestHeaders: {Accept: 'application/json'},
 						onSuccess:function(request, json) {
+							var json = request.responseText;
 							var permissions = JSON.parse(json),
 								key,
 								select,
