@@ -89,39 +89,6 @@ class DATABASE_CONFIG {
 		'encoding' => 'utf8',
 	);
 
-	public $req = array(
-		'datasource' => 'Postgres.Database/PostgresPostgres',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'webrsa',
-		'password' => 'webrsa',
-		'database' => 'webrsa',
-		'prefix' => '',
-	);
-
-	public $ref  = array(
-		'datasource' => 'Postgres.Database/PostgresPostgres',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'webrsa',
-		'password' => 'webrsa',
-		'database' => 'webrsa',
-		'schema' => 'referentiel',
-		'prefix' => '',
-		'encoding' => 'utf8'
-	);
-
-	public $test = array(
-		'datasource' => 'Postgres.Database/PostgresPostgres',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'webrsa',
-		'password' => 'webrsa',
-		'database' => 'testunit',
-		'prefix' => '',
-		'encoding' => 'utf8',
-	);
-
 	public function __construct () {
 		$this->default['host'] = env('DATABASE_CONFIG_DEFAULT_HOST');
 		$this->default['login'] = env('DATABASE_CONFIG_DEFAULT_LOGIN');
@@ -134,23 +101,5 @@ class DATABASE_CONFIG {
 		$this->log['password'] = env('DATABASE_CONFIG_LOG_PASSWORD');
 		$this->log['schema'] = env('DATABASE_CONFIG_LOG_SCHEMA');
 		$this->log['database'] = env('DATABASE_CONFIG_LOG_DATABASE');
-
-		$this->req['host'] = env('DATABASE_CONFIG_REQ_HOST');
-		$this->req['login'] = env('DATABASE_CONFIG_REQ_LOGIN');
-		$this->req['password'] = env('DATABASE_CONFIG_REQ_PASSWORD');
-		$this->req['schema'] = env('DATABASE_CONFIG_REQ_SCHEMA');
-		$this->req['database'] = env('DATABASE_CONFIG_REQ_DATABASE');
-
-		$this->ref['host'] = env('DATABASE_CONFIG_REF_HOST');
-		$this->ref['login'] = env('DATABASE_CONFIG_REF_LOGIN');
-		$this->ref['password'] = env('DATABASE_CONFIG_REF_PASSWORD');
-		$this->ref['schema'] = env('DATABASE_CONFIG_REF_SCHEMA');
-		$this->ref['database'] = env('DATABASE_CONFIG_REF_DATABASE');
-
-		$this->test['host'] = env('DATABASE_CONFIG_TEST_HOST');
-		$this->test['login'] = env('DATABASE_CONFIG_TEST_LOGIN');
-		$this->test['password'] = env('DATABASE_CONFIG_TEST_PASSWORD');
-		$this->test['schema'] = env('DATABASE_CONFIG_TEST_SCHEMA');
-		$this->test['database'] = env('DATABASE_CONFIG_TEST_DATABASE');
 	}
 }
