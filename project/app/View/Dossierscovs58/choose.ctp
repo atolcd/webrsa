@@ -54,14 +54,22 @@
 
 						$this->request->params['named']['sort'] = true === is_array( $order ) ? Hash::get( array_keys($order), 0 ) : null;
 						$this->request->params['named']['direction'] = true === is_array( $order ) ? Hash::get( $order, $this->request->params['named']['sort'] ) : null;
+
 						//------------------------------------------------------
 						include_once  "choose.{$class}.liste.ctp" ;
+
+						$urlOptions = array ();
+						if (isset ($this->Default2->Xpaginator2->options['url']) && is_array ($this->Default2->Xpaginator2->options['url'])) {
+							$urlOptions = $this->Default2->Xpaginator2->options['url'];
+						}
+
 						$this->Default2->Xpaginator2->options['url'] = array_filter_keys(
-							$this->Default2->Xpaginator2->options['url'],
+							$urlOptions,
 							array( 'page', 'limit', 'sort', 'direction' ),
 							false
 						);
 						//------------------------------------------------------
+
 						if( !empty( $dossiers[$theme]) ) {
 							echo $this->Form->button( 'Tout cocher', array( 'type' => 'button', 'onclick' => "return toutCocher( '#{$theme} input[type=checkbox]' );" ) );
 							echo $this->Form->button( 'Tout décocher', array( 'type' => 'button', 'onclick' => "return toutDecocher( '#{$theme} input[type=checkbox]' );" ) );
