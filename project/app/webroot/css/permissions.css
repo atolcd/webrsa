@@ -1,29 +1,64 @@
+.permissions{
+	background: #f8f8f8;
+}
+
 table.permissions tr th, table.permissions tr td {
 	vertical-align: middle;
 }
 
-table.permissions tr th {
-	background-color: white;
-	color: black;
+.permissions .level0, .permissions .level1 td, .permissions .level2 td {
+	border-bottom: solid 1px #939393;
+}
+
+.permissions .level1 .module {
+    border-bottom: solid 1px #bfbfbf;
+}
+
+.permissions .level2 .module {
+    border-bottom: solid 1px #e8e8e8;
 }
 
 table.permissions tr.level0 th {
 	font-weight: bold;
+	background: #dcebf9;
+    font-size: 1.05em;
 }
 
 table.permissions tr.level1 th {
 	padding-left: 2em;
 	font-weight: bold;
+	background: #e8e8e8;
 }
 
 table.permissions tr.level2 th {
 	padding-left: 4em;
+	background: white;
 }
 
-table.permissions tr.inherit_no th, table.permissions tr.inherit_no td, table.permissions tr.no th, table.permissions tr.no td {
+/*table.permissions tr.inherit_no th, table.permissions tr.inherit_no td, table.permissions tr.no th, table.permissions tr.no td {
 	background: #ffdddd;
 }
 
 table.permissions tr.inherit_yes th, table.permissions tr.inherit_yes td, table.permissions tr.yes th, table.permissions tr.yes td {
 	background: #ddffdd;
+}*/
+
+.parent, .actual, .real{
+	text-align: center;
+}
+
+.yes{
+	background: #00c238;
+}
+
+.no {
+    background: #ff4848;
+}
+
+.inherit_yes {
+    background: #b3ecae;
+}
+
+.inherit_no {
+    background: #ffc9c9;
 }

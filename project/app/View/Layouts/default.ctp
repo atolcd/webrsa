@@ -120,9 +120,7 @@
 		<![endif]-->
 	</head><?php $departement = Configure::read( 'Cg.departement' );?>
 	<body class="<?php echo 'cg'.$departement.' '.Inflector::underscore( $this->name ).' '.$this->action;?>">
-		<div style="position: relative">
-			<div class="afterLogo"><?php if( file_exists(APP.'VERSION.txt') ) { echo file_get_contents(APP.'VERSION.txt'); }?></div>
-		</div>
+
 <?php if( isset( $useAlerteFinSession ) && $useAlerteFinSession ):?>
 	<div id="alertEndSession" style="display: none;">
 		<div id="popups" style="z-index: 1000;">
@@ -143,7 +141,9 @@
 
 		<div id="pageWrapper"<?php if( Configure::read( 'UI.menu.large' ) ) { echo ' class="treemenu_large"'; } ?>>
 			<div id="pageHeader">
-				&nbsp;
+				<div style="position: relative">
+					<div class="afterLogo"><?php if( file_exists(APP.'VERSION.txt') ) { echo file_get_contents(APP.'VERSION.txt'); }?></div>
+				</div>
 			</div>
 			<?php
 				if( $this->Session->check( 'Auth.User.username' ) ) {

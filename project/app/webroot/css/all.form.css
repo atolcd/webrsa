@@ -3,6 +3,30 @@ form {
     text-align: left;
 }
 
+/* user login form */
+#UserLoginForm div.input label{
+	width: 100px;
+}
+
+#UserLoginForm input{
+	width: 250px;
+}
+
+#UserLoginForm .submit{
+	margin-left: 160px;
+	text-align: left;
+	margin-bottom: 0;
+}
+
+#UserLoginForm .submit input{
+	width: 100px;
+}
+
+#forgottenpass{
+	margin-left: 170px;
+    font-size: 0.8em;
+}
+
 div.aere {
   margin-top: 0.5em;
 }
@@ -49,7 +73,6 @@ div.text input, div.password input, div.email input, div.select select, div.inpu
     display: inline-table;
     display: inline-block;
     width: 50%; /* Grrrr */
-	max-width: 300px;
 	font-size: 1em;
 	padding: 5px;
 	box-sizing: border-box;
@@ -95,7 +118,7 @@ form div.error div.error-message, form fieldset.error div.error-message, form ta
 }
 
 fieldset {
-    margin: 0 0 1em 0;
+    margin: 1em 0;
     padding: 50px 20px 20px 20px;
 	width: 100%;
 	box-sizing: border-box;

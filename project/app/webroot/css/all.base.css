@@ -14,7 +14,7 @@ html{
 body {
     font-family: sans-serif;
     font-size: 13px;
-	height: calc(100% - 60px);
+	height: 100%;
 }
 
 p, ul, ol, dl { margin: 0.75em 0; }

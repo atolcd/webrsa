@@ -17,7 +17,7 @@ div#menu1Wrapper div.menu1>ul {
 	width: 100%;
 	box-sizing: border-box;
     padding: 0 20px;
-    margin: 40px auto 20px auto;
+    margin: 0 auto;
 	background: rgb(129,183,208); /* Old browsers */
 	background: -moz-linear-gradient(left, rgba(129,183,208,1) 0%, rgba(62,129,165,1) 100%); /* FF3.6-15 */
 	background: -webkit-linear-gradient(left, rgba(129,183,208,1) 0%,rgba(62,129,165,1) 100%); /* Chrome10-25,Safari5.1-6 */

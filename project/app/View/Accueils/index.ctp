@@ -4,7 +4,7 @@
 	$count = count($articles);
 	if ($count > 0) {
 		for ($i = 0; $i < $count; $i++) { ?>
-<div class="notice">
+<div class="notice-accueil">
 	<?php if (strlen ($articles[$i]['Accueilarticle']['title']) > 0) {?>
 	<strong><?php echo $articles[$i]['Accueilarticle']['title']; ?></strong><br />
 	<?php } ?>
@@ -15,7 +15,7 @@
 	}
 	else {
 ?>
-<p class="notice">
+<p class="notice-accueil">
 	<strong><?php echo __d('accueils', 'Accueil.article.aucun'); ?></strong>
 </p>
 <?php

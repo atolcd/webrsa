@@ -1,10 +1,10 @@
-/**
+/*!
  * Bootstrap v3.3.4 (http://getbootstrap.com) - Customisé
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- **/
+ */
 
-/** normalize.css v3.0.2 | MIT License | git.io/normalize **/
+/*! normalize.css v3.0.2 | MIT License | git.io/normalize */
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
@@ -138,7 +138,10 @@ input[type="submit"] {
 	padding: 5px 10px;
 	color: #fff;
 }
-
+.submit *{
+  padding: 10px 15px;
+  margin: 5px;
+}
 button,
 html input[type="button"],
 input[type="submit"] {
@@ -197,14 +200,19 @@ fieldset {
   margin: 0 2px;
   border: 1px solid #c0c0c0;
 }
-legend {
-	padding: 0;
-	border: 0;
-	position: absolute;
-	top: 15px;
-	font-size: 15px;
-	font-weight: bold;
-	color: #333645;
+
+legend{
+    width: 100%;
+    margin-left: -20px;
+    top: 0;
+    padding: 5px 20px; 
+    background: #d2d2d2;
+    color: #333645;
+    box-sizing: border-box;
+    font-size: 13px;
+    font-weight: bold;
+    border: 0;
+	  position: absolute;
 }
 textarea {
   overflow: auto;
@@ -1052,6 +1060,7 @@ textarea {
   font-size: inherit;
   line-height: inherit;
   padding: 5px;
+
 }
 a {
   color: #337ab7;
