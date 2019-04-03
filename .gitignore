@@ -2,5 +2,7 @@ app
 node_modules
 vendor
 
+.pydevprojet
 .vagrant
-.project
+/.project
+!/project/*
