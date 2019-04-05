@@ -55,11 +55,11 @@ function __deploy() {
 	echo "     Pour supprimer le lien symbolique : unlink $APP_LINK/Vendor/modelesodt"
 	echo ""
 
-	ln -s $APP_DEPARTEMENT/contrib/didacticiel/app/View/Pages $APP_LINK/View/Pages
+	ln -s $APP_DEPARTEMENT/contrib/didacticiel/app/View/Didacticiels $APP_LINK/View/Didacticiels
 
 	echo "     Lien symbolique du didacticiel"
-	echo "     $APP_DEPARTEMENT/contrib/didacticiel/app/View/Pages vers $APP_LINK/View/Pages"
-	echo "     Pour supprimer le lien symbolique : unlink $APP_LINK/View/Pages"
+	echo "     $APP_DEPARTEMENT/contrib/didacticiel/app/View/Didacticiels vers $APP_LINK/View/Didacticiels"
+	echo "     Pour supprimer le lien symbolique : unlink $APP_LINK/View/Didacticiels"
 	echo ""
 
 	ln -s $APP_DEPARTEMENT/contrib/didacticiel/app/webroot/didac $APP_LINK/webroot/didac

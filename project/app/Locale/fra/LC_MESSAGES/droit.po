@@ -4057,10 +4057,10 @@ msgstr "Visualisation d'un service"
 ## Didacticiel
 ###############################################################################
 
-msgid "controllers/Pages"
+msgid "controllers/Didacticiels"
 msgstr "Didacticiel"
 
-msgid "controllers/Pages/display"
+msgid "controllers/Didacticiels/display"
 msgstr "Visualisation du didacticiel"
 
 
