@@ -18,18 +18,18 @@
 					</td>
 					<?php endif;?>
 					<?php
-					if ($this->Permissions->check( 'pages', 'display' ) && Configure::read('Cg.departement') == 93) {
+					if ($this->Permissions->check( 'didacticiels', 'display' )) {
 					?>
 					<td>
 						<?php
 							echo $this->Xhtml->link(
-								__d('droit', 'controllers/Pages'),
+								__d('droit', 'controllers/Didacticiels'),
 								array(
-									'controller'=>'pages',
-									'action'=>'display',
+									'controller'=>'didacticiels',
+									'action'=>'index',
 								),
 								array(
-									'enabled' => $this->Permissions->check( 'pages', 'display' ),
+									'enabled' => $this->Permissions->check( 'didacticiels', 'display' ),
 									'target' => '_blank'
 								)
 							);

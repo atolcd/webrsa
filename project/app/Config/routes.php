@@ -30,6 +30,10 @@
 	 * ...and connect the rest of 'Pages' controller's urls.
 	 */
 	Router::connect( '/pages/*', array( 'controller' => 'pages', 'action' => 'display' ) );
+	/**
+	 * ...and connect the rest of 'Didacticiels' controller's urls.
+	 */
+	Router::connect( '/didacticiels/*', array( 'controller' => 'didacticiels', 'action' => 'display' ) );
 
 	/**
 	 * Ajout de la route pour la réponse REST à Allo.
