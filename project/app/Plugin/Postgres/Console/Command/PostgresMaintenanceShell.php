@@ -66,7 +66,7 @@
 		 */
 		public function reindex() {
 			$this->out( date( 'H:i:s' )." - {$this->commands[__FUNCTION__]['help']} (reindex)" );
-			$sql = "REINDEX DATABASE {$this->Dbo->config['database']};";
+			$sql = "REINDEX DATABASE \"{$this->Dbo->config['database']}\";";
 			$success = ( $this->Dbo->query( $sql ) !== false );
 
 			if( $this->command === __FUNCTION__ ) {
