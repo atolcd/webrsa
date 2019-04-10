@@ -1,4 +1,8 @@
 <?php
+    if( Configure::read( 'debug' ) > 0 ) {
+        echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
+    }
+
 	$title = implode(
 		' ',
 		array(
@@ -36,6 +40,15 @@
 			'title' => 'Éditer la personne « '.$title.' »',
 			'enabled' => WebrsaAccess::isEnabled($personne, '/Personnes/edit'),
 			'class' => 'personnes edit'
+		)
+	).' </li>';
+	echo '<li class="action">'.$this->Xhtml->link(
+		'Voir l\'historique des coordonnées',
+		array( 'controller' => 'personnes', 'action' => 'histoinfocontactpersonne', $personne['Personne']['id'] ),
+		array(
+			'title' => 'Voir l\'historique des coordonnées de « '.$title.' »',
+			'enabled' => WebrsaAccess::isEnabled($personne, '/Personnes/coordonnees'),
+			'class' => 'personnes coordonnees infocontact'
 		)
 	).' </li>';
 	echo '<li class="action">'.$this->Xhtml->link(

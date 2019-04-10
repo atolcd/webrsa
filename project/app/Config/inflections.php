@@ -499,7 +499,10 @@ $irregularPlural = array(
 	'typetitrecreancier_titrecreancier' => 'typestitrescreanciers_titrescreanciers',
 	//Rapport talends
     'rapporttalendcreance' => 'rapportstalendscreances',
-    'rejettalendcreance' => 'rejetstalendscreances'
+    'rejettalendcreance' => 'rejetstalendscreances',
+    // F-RSA
+    'personnelangue' => 'personneslangues',
+    'infocontactpersonne' => 'infoscontactspersonne'
 );
 
 /**

@@ -2,6 +2,7 @@
 	/**
 	 * Code source de la classe Ficheprescription93.
 	 *
+	 * PHP 7.2
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
@@ -555,6 +556,7 @@
 				.' '.$return['Instantanedonneesfp93']['benef_nomvoie']
 				.( !empty( $return['Instantanedonneesfp93']['benef_complideadr'] ) ? "\n".$return['Instantanedonneesfp93']['benef_complideadr'] : '' )
 				.( !empty( $return['Instantanedonneesfp93']['benef_compladr'] ) ? "\n".$return['Instantanedonneesfp93']['benef_compladr'] : '' );
+			$return['Ficheprescription93']['frsa_datetransmi'] = NULL;
 
 			return $return;
 		}

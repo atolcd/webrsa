@@ -58,6 +58,7 @@
 			'Personne',
 			'Foyer',
 			'Grossesse',
+			'Infocontactpersonne',
 			'Option',
 			'WebrsaPersonne',
 		);
@@ -71,8 +72,8 @@
 		public $commeDroit = array(
 			'add' => 'Personnes:edit',
 			'view' => 'Personnes:index',
+			'histoinfocontactpersonne' => 'Personnes:coordonnees',
 		);
-
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -102,6 +103,7 @@
 			'fileview' => 'read',
 			'index' => 'read',
 			'view' => 'read',
+			'histoinfocontactpersonne' => 'read',
 		);
 
 		/**
@@ -508,12 +510,59 @@
 			$this->view = 'add_edit';
 		}
 
-                /**
-                 * Éditer les coordonnées spécifique d'une personne.
-                 *
-                 * @param integer $id L'id de la personne
-                 * @throws NotFoundException
-                 */
+		/**
+         * Voir l'historique des coordonnées spécifique d'une personne.
+         *
+         * @param integer $id L'id de la personne
+         * @throws NotFoundException
+         */
+		public function histoinfocontactpersonne ( $id = null ) {
+			//$this->WebrsaAccesses->check($id);
+
+			/*Historique donnée contact*/
+			$queryData =
+				array(
+					'fields' => array(
+						'Infocontactpersonne.fixe',
+						'Infocontactpersonne.mobile',	
+						'Infocontactpersonne.email',
+						'Infocontactpersonne.modified',
+						'Personne.qual',
+						'Personne.nom',
+						'Personne.prenom'
+					),
+					'conditions' => array( 'Infocontactpersonne.personne_id' => $id ),
+					'contain' => array( 'Personne'),
+					'order' => array('Infocontactpersonne.modified DESC')
+				);
+			$infocontactpersonne = $this->Infocontactpersonne->find('all', $queryData);
+
+			if (empty($infocontactpersonne)) {
+				throw new NotFoundException();
+			}
+			$actionsParams = WebrsaAccessPersonnes::getActionParamsList($this->action);
+			$paramsAccess = $this->WebrsaPersonne->getParamsForAccess($id, $actionsParams);
+
+			foreach ($infocontactpersonne as $key => $value) {
+				$infocontactpersonne[$key] = WebrsaAccessPersonnes::access($infocontactpersonne[$key], $paramsAccess);	
+			}
+
+			// Mauvais paramètre ?
+			$this->assert( !empty( $infocontactpersonne ), 'invalidParameter' );
+
+			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $id ) );
+
+			$urlmenu = "/personnes/view/{$id}";
+			$this->_setOptions();
+			$this->set( compact('infocontactpersonne', 'dossierMenu', 'urlmenu' ) );
+		}
+
+        /**
+         * Éditer les coordonnées spécifique d'une personne.
+         *
+         * @param integer $id L'id de la personne
+         * @throws NotFoundException
+         */
 		public function coordonnees( $id = null ) {
 			$this->WebrsaAccesses->check($id);
 
@@ -539,11 +588,24 @@
 
 			if( $this->request->is('post') || $this->request->is('put') ) {
 				$this->Personne->begin();
-
 				$data = Hash::merge( $personne, $this->request->data );
+
 				$this->Personne->create( $data );
 				if ( $this->Personne->save( null, array( 'atomic' => false ) ) ) {
 					$this->Personne->commit();
+					//Historiser le contact
+					$this->Infocontactpersonne->begin();
+					$infocontactdata['Infocontactpersonne']['personne_id'] = $data['Personne']['id'];
+					$infocontactdata['Infocontactpersonne']['fixe'] = $data['Personne']['numfixe'];
+					$infocontactdata['Infocontactpersonne']['mobile'] = $data['Personne']['numport'];
+					$infocontactdata['Infocontactpersonne']['email'] = $data['Personne']['email'];
+					$this->Infocontactpersonne->create( $infocontactdata );
+					if ( $this->Infocontactpersonne->save( null, array( 'atomic' => false ) )) {
+						$this->Infocontactpersonne->commit();
+						$this->Flash->success( __( 'Save->success' ) );
+					}else{
+						$this->Flash->error( __( 'Save->error' ) );
+					}
 					$this->Jetons2->release( $dossierMenu['Dossier']['id'] );
 					$this->Flash->success( __( 'Save->success' ) );
 					return $this->redirect( $redirectUrl );

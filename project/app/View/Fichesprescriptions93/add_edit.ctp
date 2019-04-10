@@ -15,6 +15,31 @@
 			'Ficheprescription93.action' => array( 'type' => 'hidden', 'value' => $this->request->params['action'] ),
 		)
 	);
+// Cadre Origine Positionnement
+ if ( $this->request->data['Ficheprescription93']['frsa_datetransmi']!= NULL ) {
+		echo $this->Html->tag(
+		'fieldset',
+		$this->Html->tag( 'legend', __d( $this->request->params['controller'], 'Ficheprescription93.OriginePositionnement' ) )
+		.$this->Default3->subform(
+			array(
+				'Ficheprescription93.posorigine' => array('view' => true,	'empty' => true ),
+				'Ficheprescription93.frsa_datetransmi' => array('view' => true, 'empty' => true ),
+				'Ficheprescription93.frsa_decouverteaction' => array('view' => true, 'empty' => true  ),
+				'Ficheprescription93.frsa_motivation' => array('view' => true, 'empty' => true ),
+			),
+			array(
+				'options' => $options,
+			)
+		)
+	);
+ }else{
+	echo $this->Html->tag(
+		'fieldset',
+		$this->Html->tag( 'legend', __d( $this->request->params['controller'], 'Ficheprescription93.OriginePositionnement' ) ).
+		$this->Html->tag( 'text', __d( $this->request->params['controller'], 'Ficheprescription93.AucunFRSA' ) )
+	);
+ }
+
 
 	// Cadre prescripteur / référent
 	echo $this->Html->tag(
