@@ -1229,9 +1229,15 @@ ul.actions li.add span.disabled, ul.actions li span.add.disabled, td.action span
 ul.actions li.edit a, ul.actions li a.edit, ul.actions li a.personnes.coordonnees {
 	background-image: url( ../img/icons/pencil.png );
 }
-
 ul.actions li.edit span.disabled, ul.actions li span.edit.disabled, ul.actions li.action span.personnes.coordonnees.disabled {
 	background-image: url( ../img/icons/pencil_disabled.png );
+}
+
+ul.actions li.action a.personnes.infocontact {
+	background-image: url( ../img/icons/zoom.png );
+}
+ul.actions li.action span.personnes.infocontact.disabled{
+	background-image: url( ../img/icons/zoom_disabled.png );
 }
 
 ul.actions li.action a.back {

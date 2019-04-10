@@ -252,6 +252,12 @@ msgstr "Imprimer la fiche de positionnement"
 # Formulaire d'ajout / de modification
 ################################################################################
 
+msgid "Ficheprescription93.OriginePositionnement"
+msgstr "Origine du positionnement"
+
+msgid "Ficheprescription93.AucunFRSA"
+msgstr "WEBRSA uniquement aucun élément F-RSA"
+
 msgid "Ficheprescription93.Prescripteur"
 msgstr "Prescripteur/Référent"
 
@@ -267,6 +273,21 @@ msgstr "Nom du référent"
 msgid "Ficheprescription93.objet"
 msgstr "Motif du positionnement"
 
+
+################################################################################
+# Section Origine du POS
+
+msgid "Ficheprescription93.posorigine"
+msgstr "Origine du positionnement"
+
+msgid "Ficheprescription93.frsa_datetransmi"
+msgstr "Dernière transmision par F-RSA"
+
+msgid "Ficheprescription93.frsa_decouverteaction"
+msgstr "Découverte de l'action :"
+
+msgid "Ficheprescription93.frsa_motivation"
+msgstr "Motivation pour l'action: "
 ################################################################################
 
 msgid "Ficheprescription93.Beneficiaire"

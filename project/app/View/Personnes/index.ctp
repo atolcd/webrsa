@@ -1,6 +1,6 @@
 <?php
 	echo $this->element('default_index');
-	
+
 	echo $this->Default3->index(
 		$personnes,
 		$this->Translator->normalize(

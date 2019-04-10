@@ -70,6 +70,7 @@
 		public $uses = array(
 			'Ficheprescription93',
 			'Personne',
+			'Infocontactpersonne',
 		);
 
 		/**
@@ -606,8 +607,49 @@
 				$this->Ficheprescription93->begin();
 				if( $this->Ficheprescription93->saveAddEdit( $this->request->data ) ) {
 					$this->Ficheprescription93->commit();
-					$this->Jetons2->release( $dossierMenu['Dossier']['id'] );
+					if($this->request->data['Ficheprescription93']['action']=='add'){
+						//Lors d'une création on historise le contact
+						$personnedata['Personne']['id'] = $this->request->data['Ficheprescription93']['personne_id'];
+						$personnedata['Personne']['numfixe'] = $this->request->data['Instantanedonneesfp93']['benef_tel_fixe'];
+						$personnedata['Personne']['numport'] = $this->request->data['Instantanedonneesfp93']['benef_tel_port'];
+						$personnedata['Personne']['email'] = $this->request->data['Instantanedonneesfp93']['benef_email'];
+						$infocontactdata['Infocontactpersonne']['personne_id'] = $this->request->data['Ficheprescription93']['personne_id'];
+						$infocontactdata['Infocontactpersonne']['fixe'] = $this->request->data['Instantanedonneesfp93']['benef_tel_fixe'];
+						$infocontactdata['Infocontactpersonne']['mobile'] = $this->request->data['Instantanedonneesfp93']['benef_tel_port'];
+						$infocontactdata['Infocontactpersonne']['email'] = $this->request->data['Instantanedonneesfp93']['benef_email'];
+						$queryData =
+							array(
+								'fields' => array(
+									'Personne.id',
+									'Personne.numfixe',
+									'Personne.numport',
+									'Personne.email'
+								),
+								'recursive' => 0,
+								'conditions' => array( 'Personne.id' => $this->request->data['Ficheprescription93']['personne_id'] ),
+							);
+						$personne = $this->Personne->find('first', $queryData);
+						if (
+							$personne['Personne']['numfixe'] != $infocontactdata['Infocontactpersonne']['fixe']
+							|| $personne['Personne']['numport'] != $infocontactdata['Infocontactpersonne']['mobile']
+							|| $personne['Personne']['email'] != $infocontactdata['Infocontactpersonne']['email']
+						) {
+							//Sauvegarder les informations de contact sur la personne
+							$this->Personne->begin();
+							$this->Personne->create($personnedata);
+							if ($this->Personne->save( null, array( 'atomic' => false ) )) {
+								$this->Personne->commit();
+							}
+							//Historiser la nouvelle information contact
+							$this->Infocontactpersonne->begin();
+							$this->Infocontactpersonne->create( $infocontactdata );
+							if ($this->Infocontactpersonne->save( null, array( 'atomic' => false ) )) {
+								$this->Infocontactpersonne->commit();
+							}
+						}
+					}
 					$this->Flash->success( __( 'Save->success' ) );
+					$this->Jetons2->release( $dossierMenu['Dossier']['id'] );
 					$this->redirect( array( 'action' => 'index', $personne_id ) );
 				}
 				else {

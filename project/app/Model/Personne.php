@@ -2,6 +2,8 @@
 	/**
 	 * Code source de la classe Personne.
 	 *
+	 * PHP 7.2
+	 *
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
@@ -701,6 +703,32 @@
 			'Correspondancepersonne' => array(
 				'className' => 'Correspondancepersonne',
 				'foreignKey' => 'personne1_id',
+			),
+			'Personnelangue' => array(
+				'className' => 'Personnelangue',
+				'foreignKey' => 'personne_id',
+				'dependent' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
+			'Infocontactpersonne' => array(
+				'className' => 'Infocontactpersonne',
+				'foreignKey' => 'personne_id',
+				'dependent' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
 			),
 		);
 		public $hasAndBelongsToMany = array(

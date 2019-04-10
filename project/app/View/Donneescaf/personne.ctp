@@ -862,6 +862,22 @@
 	} else {
 		echo $noData;
 	}
+
+	echo '<br/><br/><h2>Informations Importé FRSA</h2>';
+	if (!empty($personneslangues)) {
+		echo $this->Default3->index(
+			$personneslangues,
+			array(
+				'Personnelangue.maternelles',
+				'Personnelangue.francais_niveau',
+				'Personnelangue.francais_niveau_validation',
+				'Personnelangue.niveaux_professionnels'
+			),
+			array('domain' => 'personnelangue') + $defaultParams
+		);
+	} else {
+		echo $noData;
+	}
 ?>
 	</div>
 </div>
