@@ -1901,7 +1901,7 @@
 		}
 
 		/**
-		 * Retourne la query de base utillisé dans les tableaux 1B et 1B5, suivant
+		 * Retourne la query de base utillisé dans les tableaux 1B4 et 1B5, suivant
 		 * le tableau.
 		 *
 		 * @param array $search
@@ -1964,7 +1964,8 @@
 					$conditionpdv,
 					$conditionsrdv,
 					$conditiontype,
-					$conditionyear
+					$conditionyear,
+					"NOT" => array('"Ficheprescription93"."posorigine"' => array('FRSA') )
 				),
 				'contain' => false
 			);
