@@ -1,21 +1,24 @@
 <?php
 	/**
-	 * Code source de la classe ImportcsvCataloguespdisfps93Shell.
+	 * Code source de la classe ImportcsvFrsaPositionnements93Shell.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Console.Command
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+	 *
+	 * Se lance avec :  sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake ImportcsvFrsaPositionnements93Shell -v -s ';' -app app app/tmp/BENEF_F_2019_03_12__13_39.csv 
+	 *
 	 */
 	App::uses( 'CsvAbstractImporterShell', 'Csv.Console/Command/Abstract' );
 
 	/**
-	 * La classe ImportcsvCataloguespdisfps93Shell permet d'importer le catalogue PDI
-	 * pour le module fiches de rpescriptions du CG 93.
+	 * La classe ImportcsvFrsaPositionnements93Shell permet d'importer le catalogue PDIE de FRSA
+	 * pour le module fiches de prescriptions du CG 93.
 	 *
 	 * @package app.Console.Command
 	 */
-	class ImportcsvCataloguespdisfps93Shell extends CsvAbstractImporterShell
+	class ImportcsvFrsaPositionnements93Shell extends CsvAbstractImporterShell
 	{
 		/**
 		 * Les modèles utilisés par ce shell.
@@ -25,7 +28,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Thematiquefp93', 'Categoriefp93', 'Filierefp93', 'Prestatairefp93', 'Adresseprestatairefp93', 'Actionfp93' );
+		public $uses = array( 'Ficheprescription93');
 
 		/**
 		 * Les tâches utilisées par ce shell.
@@ -56,20 +59,6 @@
 		 * @var array
 		 */
 		public $processModelDetails = array();
-
-		/**
-		 * Nettoyage et normalisation de la ligne d'en-tête.
-		 *
-		 * @param array $headers
-		 * @return array
-		 */
-		public function processHeaders( array $headers ) {
-			foreach( $headers as $key => $value ) {
-				$headers[$key] = preg_replace( '/[\W_ ]+/', ' ', noaccents_upper( trim( $value ) ) );
-			}
-
-			return $headers;
-		}
 
 		/**
 		 * Nettoyage des valeurs des champs (suppression des espaces excédentaires)
@@ -108,21 +97,10 @@
 
 			foreach( $paths as $path ) {
 				list( , $fieldName ) = model_field( $path );
-
-				// Si c'est une clé étrangère, le chemin sera celui de la clé primaire du modèle associé.
-				if( preg_match( '/_id$/', $fieldName ) ) {
-					$linkedModelName = Inflector::classify( preg_replace( '/_id$/', '', $fieldName ) );
-					$Linked = $Model->{$linkedModelName};
-					$valuePath = "{$linkedModelName}.{$Linked->primaryKey}";
-				}
-				else {
-					$valuePath = $path;
-				}
-
+				$valuePath = $path;
 				$conditions[$path] = Hash::get( $row, $valuePath );
 			}
-
-			return $Model->getInsertedPrimaryKey( $conditions, $complement );
+			return $Model->csvUpdate( $conditions, $complement );
 		}
 
 		/**
@@ -133,53 +111,78 @@
 		 */
 		public function processRow( array $row ) {
 			$success = true;
-
 			if( empty( $row ) ) {
 				$this->empty[] = $row;
 			}
 			else {
-				$this->Actionfp93->begin();
+				$this->Ficheprescription93->begin();
 
 				$data = $this->normalizeRow( $row );
 
-				// Formatage des données de la ligne
-				$data = Hash::insert( $data, 'Thematiquefp93.type', 'pdi' );
-				$path = 'Actionfp93.numconvention';
-				$data = Hash::insert( $data, $path, strtoupper( Hash::get( $data, $path ) ) );
-
-				// Recherche du numéro de convention
+				// Recherche de l'existance du positionnement dans le deux systèmes
 				$query = array(
-					'fields' => array( 'Actionfp93.id' ),
+					'fields' => array(
+						'Ficheprescription93.id'
+					),
+					'recursive' => 0,
 					'conditions' => array(
-						'Actionfp93.numconvention' => Hash::get( $data, 'Actionfp93.numconvention' )
+						'Ficheprescription93.id' => Hash::get( $data, 'Ficheprescription93.id' ),
+						'Ficheprescription93.frsa_id' => Hash::get( $data, 'Ficheprescription93.frsa_id' )
 					),
 				);
-
-				$found = $this->Actionfp93->find( 'first', $query );
-				if( !empty( $found ) ) {
-					$this->rejectRow( $row, $this->Actionfp93, 'N° de convention d\'action déjà présent' );
-					$success = false;
+				$found = $this->Ficheprescription93->find( 'all', $query );
+				if( empty( $found ) ) {
+					// Recherche de l'existance du positionnement uniquement dans webrsa sans import précédents
+					$query = array(
+						'fields' => array(
+							'Ficheprescription93.id'
+						),
+						'recursive' => 0,
+						'conditions' => array(
+							'Ficheprescription93.id' => Hash::get( $data, 'Ficheprescription93.id' )
+						),
+					);
+					$query['conditions'][] = 'Ficheprescription93.frsa_id IS NULL';
+					$found = $this->Ficheprescription93->find( 'all', $query );
 				}
 
-				foreach( $this->uses as $modelName ) {
-					if(  $success ) {
-						$primaryKey = $this->processModel( $this->{$modelName}, $data );
+				if( !empty( $found ) && count($found)<2 ) {
 
-						if( $primaryKey === null ) {
-							$this->rejectRow( $row, $this->{$modelName} );
-							$success = false;
-						}
-						else {
-							$data = Hash::insert( $data, "{$modelName}.id", $primaryKey );
+					foreach ( $data as  $table => $contenu ) {
+						foreach ( $contenu as  $key => $value ) {
+								if ($value=='') {
+									$data[$table][$key]=NULL;
+								}elseif($value=='true'){
+									$data[$table][$key]=1;
+								}elseif($value=='false'){
+									$data[$table][$key]=0;
+								}
+							}
+					}
+
+					//Traitement par model
+					foreach( $this->uses as $modelName ) {
+						if(  $success ) {
+							$primaryKey = $this->processModel( $this->{$modelName}, $data );
+							if( $primaryKey === null ) {
+								$this->rejectRow( $row, $this->{$modelName} );
+								$success = false;
+							}
 						}
 					}
+				}else{
+					$this->rejectRow( $row, $this->Ficheprescription93, 'Id de Ficheprescription93 non trouvée / Corrompue' );
+					$success = false;
 				}
-
 				if( $success ) {
-					$this->Actionfp93->commit();
+					foreach( $this->uses as $modelName ) {
+						$this->{$modelName}->commit();
+					}
 				}
 				else {
-					$this->Actionfp93->rollback();
+					foreach( $this->uses as $modelName ) {
+						$this->{$modelName}->rollback();
+					}
 				}
 			}
 
@@ -194,13 +197,12 @@
 		public function startup() {
 			// Chargement du fichier de configuration lié, s'il existe
 			$department=Configure::read('Cg.departement');
-			$path = APP.'Config'.DS.'Cg'.$department.DS.$this->name.'.php';
+			$path = APP.'Config'.DS.'Cg'.$department.DS.'ImportCSVFRSA.php';
 			if( file_exists( $path ) ) {
 				include_once $path;
-
-				$this->_defaultHeaders = Configure::read('CSVImport.CataloguePDI.Headers');
-				$this->_correspondances = Configure::read('CSVImport.CataloguePDI.Correspondances');
-				$this->processModelDetails =  Configure::read('CSVImport.CataloguePDI.ModelDetails');
+				$this->_defaultHeaders = Configure::read('CSVImport.FRSA.Positionnement.Headers');
+				$this->_correspondances = Configure::read('CSVImport.FRSA.Positionnement.Correspondances');
+				$this->processModelDetails =  Configure::read('CSVImport.FRSA.Positionnement.ModelDetails');
 			}
 
 			parent::startup();

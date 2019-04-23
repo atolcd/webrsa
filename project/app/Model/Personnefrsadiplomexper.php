@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Code source de la classe Personnelangue.
+	 * Code source de la classe Personnefrsadiplomexper.
 	 *
 	 * PHP 7.2
 	 *
@@ -8,21 +8,20 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'AppModel', 'Model' );
-	App::uses( 'FrValidation', 'Validation' );
 
 	/**
 	 * La classe Personnelangue ...
 	 *
 	 * @package app.Model
 	 */
-	class Personnelangue extends AppModel
+	class Personnefrsadiplomexper extends AppModel
 	{
 		/**
 		 * Nom.
 		 *
 		 * @var string
 		 */
-		public $name = 'Personnelangue';
+		public $name = 'Personnefrsadiplomexper';
 
 		/**
 		 * Behaviors utilisés.

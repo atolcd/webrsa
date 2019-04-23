@@ -976,6 +976,14 @@ msgstr "Flux CAF d'un foyer"
 
 ###############################################################################
 
+msgid "controllers/Donneesfrsa"
+msgstr "Module Flux F-RSA"
+
+msgid "controllers/Donneesfrsa/personne"
+msgstr "Flux F-RSA d'une personne"
+
+###############################################################################
+
 msgid "controllers/Dossiers"
 msgstr "Recherche par dossier/allocataire"
 
