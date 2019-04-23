@@ -81,7 +81,8 @@
 			),
 			'Validation2.Validation2RulesFieldtypes',
 			'Validation2.Validation2RulesComparison',
-			'Postgres.PostgresAutovalidate'
+			'Postgres.PostgresAutovalidate',
+			'Ficheprescription93CSV'
 		);
 
 		/**
@@ -664,22 +665,7 @@
 				$data['Ficheprescription93']['documentbeneffp93_autre'] = null;
 			}
 
-			// Modification de l'état suivant les données
-			$statut = '01renseignee';
-			if( dateComplete(  $data, 'Ficheprescription93.date_signature' ) ) {
-				$statut = '02signee';
-			}
-			if( $statut == '02signee' && dateComplete(  $data, 'Ficheprescription93.date_transmission' ) ) {
-				$statut = '03transmise_partenaire';
-			}
-			if( $statut == '03transmise_partenaire' && dateComplete(  $data, 'Ficheprescription93.date_retour' ) ) {
-				$statut = '05suivi_renseigne'; // 04effectivite_renseignee
-			}
-			/*Retirer en Version 3.2.6 sur la simplification de la fiche prescription
-			 * if( $statut == '04effectivite_renseignee' && Hash::get(  $data, 'Ficheprescription93.personne_recue' ) != '' ) {
-				$statut = '05suivi_renseigne';
-			}*/
-			$data[$this->alias]['statut'] = $statut;
+			$data = $this->calculStatusFP($data);
 
 			// Début Instantanedonnees93 ...
 			$referent_id = suffix( Hash::get( $data, "{$this->alias}.referent_id" ) );
@@ -814,6 +800,32 @@
 			}
 
 			return $success;
+		}
+
+		/**
+		 * Calcul du statu en fonction des états de la fiche.
+		 *
+		 * @param array $data
+		 * @return array $data
+		 */
+		public function calculStatusFP(array $data) {
+			// Modification de l'état suivant les données
+				$statut = '01renseignee';
+				if( dateComplete(  $data, 'Ficheprescription93.date_signature' ) ) {
+					$statut = '02signee';
+				}
+				if( $statut == '02signee' && dateComplete(  $data, 'Ficheprescription93.date_transmission' ) ) {
+					$statut = '03transmise_partenaire';
+				}
+				if( $statut == '03transmise_partenaire' && dateComplete(  $data, 'Ficheprescription93.date_retour' ) ) {
+					$statut = '05suivi_renseigne'; // 04effectivite_renseignee
+				}
+				/*Retirer en Version 3.2.6 sur la simplification de la fiche prescription
+				 * if( $statut == '04effectivite_renseignee' && Hash::get(  $data, 'Ficheprescription93.personne_recue' ) != '' ) {
+					$statut = '05suivi_renseigne';
+				}*/
+				$data[$this->alias]['statut'] = $statut;
+			return $data;
 		}
 
 		/**

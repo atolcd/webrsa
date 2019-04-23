@@ -138,5 +138,78 @@
 
 			return $primaryKey;
 		}
+
+		/**
+		 * Recherche de l'enregistrement sinon insertion, avec complément de
+		 * données si besoin et retourne la vlauer de la clé primaire ou null.
+		 *
+		 * @param Model $Model
+		 * @param array $conditions
+		 * @param array $complement
+		 * @return integer
+		 */
+		public function getInsertedUpdatedPrimaryKey( Model $Model, array $conditions, array $complement = array() ) {
+			$conditions = Hash::flatten( $Model->doFormatting( Hash::expand( $conditions ) ) );
+
+			$modelPrimaryKey = "{$Model->alias}.{$Model->primaryKey}";
+
+			$query = array(
+				'fields' => array( $modelPrimaryKey ),
+				'conditions' => $conditions
+			);
+
+			// Début copie ci-dessus.
+			// On cherche un intitulé approchant à la casse et aux accents près
+			foreach( $query['conditions'] as $path => $value ) {
+				if( $value !== null && $value !== '' ) {
+					if(
+						!is_numeric( $value )
+						&& !(preg_match('/^\{?[0-9a-f]{8}\-?[0-9a-f]{4}\-?[0-9a-f]{4}\-?'.'[0-9a-f]{4}\-?[0-9a-f]{12}\}?$/i', $value) === 1)
+						&& !$this->validateDate($value)
+					) {
+						unset( $query['conditions'][$path] );
+						list( $m, $f ) = model_field( $path );
+						$noacc_upp_value = noaccents_upper( $value );
+						$encoding = mb_detect_encoding($noacc_upp_value, 'UTF-8', true);
+						if ( $encoding != 'UTF-8' ) {
+							// Check string encode
+							$noacc_upp_value = $value;
+						}
+						$query['conditions']["NOACCENTS_UPPER( \"{$m}\".\"{$f}\" )"] = $noacc_upp_value;
+					}
+				}
+				else {
+					unset( $query['conditions'][$path] );
+					$query['conditions'][] = "{$path} IS NULL";
+				}
+			}
+			// Fin copie ci-dessus.
+			$record = $Model->find( 'first', $query );
+
+			if( !empty( $record ) ) {
+				$primaryKey = Hash::get( $record, $modelPrimaryKey );
+			}
+			else {
+				$data = Hash::merge(
+					Hash::expand( $conditions ),
+					Hash::expand( $complement )
+				);
+				$Model->create( $data );
+				if( $Model->save( null, array( 'atomic' => false ) ) ) {
+					$primaryKey = $Model->{$Model->primaryKey};
+				}
+				else {
+					$primaryKey = null;
+				}
+			}
+
+			return $primaryKey;
+		}
+
+		function validateDate($date, $format = 'Y-m-d'){
+			$d = DateTime::createFromFormat($format, $date);
+			return $d && $d->format($format) === $date;
+		}
+
 	}
 ?>

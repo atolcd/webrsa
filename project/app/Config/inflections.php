@@ -502,6 +502,7 @@ $irregularPlural = array(
     'rejettalendcreance' => 'rejetstalendscreances',
     // F-RSA
     'personnelangue' => 'personneslangues',
+    'personnefrsadiplomexper' => 'personnesfrsadiplomexper',
     'infocontactpersonne' => 'infoscontactspersonne'
 );
 

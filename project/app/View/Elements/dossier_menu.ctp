@@ -381,6 +381,14 @@ $fonorg = $dossier['Dossier']['fonorg'];
 					$dossier['Foyer']['id'],
 				)
 			),
+			'Données FRSA' => array(
+				'disabled' => !Configure::read('Module.Donneesfrsa.enabled'),
+				'url' => array(
+					'controller' => 'donneesfrsa',
+					'action' => 'personne',
+					$dossier['Foyer']['id'],
+				)
+			),
 		);
 
 		// Dossier PCG (CG 66)

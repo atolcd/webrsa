@@ -8,6 +8,7 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'AppModel', 'Model' );
+	App::uses( 'FrValidation', 'Validation' );
 
 	/**
 	 * La classe Infocontactpersonne ...
@@ -24,6 +25,23 @@
 		public $name = 'Infocontactpersonne';
 
 		/**
+		 * Behaviors utilisés.
+		 *
+		 * @var array
+		 */
+		public $actsAs = array(
+			'Validation2.Validation2Formattable' => array(
+				'Validation2.Validation2DefaultFormatter' => array(
+					'stripNotAlnum' => '/^(numfixe|numport)$/'
+				)
+			),
+			'Validation2.Validation2RulesFieldtypes',
+			'Validation2.Validation2RulesComparison',
+			'Postgres.PostgresAutovalidate',
+			'PersonneCSV'
+		);
+
+		/**
 		 * Récursivité par défaut du modèle.
 		 *
 		 * @var integer
@@ -35,8 +53,8 @@
 		 *
 		 */
 		public $validate = array(
-			'numfixe' => array(
-				'fixe' => array(
+			'fixe' => array(
+				'phone' => array(
 					'rule' => array( 'phone', null, 'fr' ),
 					'allowEmpty' => true
 				)
@@ -71,7 +89,5 @@
 				'counterCache' => null
 			),
 		);
-
-
 	}
 ?>

@@ -1,21 +1,24 @@
 <?php
 	/**
-	 * Code source de la classe ImportcsvCataloguespdisfps93Shell.
+	 * Code source de la classe ImportcsvFrsaCataloguespdiefps93Shell.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Console.Command
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+	 *
+	 * Se lance avec : sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake  ImportcsvFrsaCataloguespdiefps93 -v -s ';' -app app app/tmp/CATALOGUE_F_yyyy_mm_dd__hh_mm.csv
+	 *
 	 */
 	App::uses( 'CsvAbstractImporterShell', 'Csv.Console/Command/Abstract' );
 
 	/**
-	 * La classe ImportcsvCataloguespdisfps93Shell permet d'importer le catalogue PDI
-	 * pour le module fiches de rpescriptions du CG 93.
+	 * La classe ImportcsvFrsaCataloguespdiefps93Shell permet d'importer le catalogue PDIE de FRSA
+	 * pour le module fiches de prescriptions du CG 93.
 	 *
 	 * @package app.Console.Command
 	 */
-	class ImportcsvCataloguespdisfps93Shell extends CsvAbstractImporterShell
+	class ImportcsvFrsaCataloguespdiefps93Shell extends CsvAbstractImporterShell
 	{
 		/**
 		 * Les modèles utilisés par ce shell.
@@ -58,20 +61,6 @@
 		public $processModelDetails = array();
 
 		/**
-		 * Nettoyage et normalisation de la ligne d'en-tête.
-		 *
-		 * @param array $headers
-		 * @return array
-		 */
-		public function processHeaders( array $headers ) {
-			foreach( $headers as $key => $value ) {
-				$headers[$key] = preg_replace( '/[\W_ ]+/', ' ', noaccents_upper( trim( $value ) ) );
-			}
-
-			return $headers;
-		}
-
-		/**
 		 * Nettoyage des valeurs des champs (suppression des espaces excédentaires)
 		 * et transformation des clés via les correspondances.
 		 *
@@ -112,17 +101,22 @@
 				// Si c'est une clé étrangère, le chemin sera celui de la clé primaire du modèle associé.
 				if( preg_match( '/_id$/', $fieldName ) ) {
 					$linkedModelName = Inflector::classify( preg_replace( '/_id$/', '', $fieldName ) );
-					$Linked = $Model->{$linkedModelName};
-					$valuePath = "{$linkedModelName}.{$Linked->primaryKey}";
-				}
-				else {
+					if ( $linkedModelName != 'Frsa' ) {
+						$Linked = $Model->{$linkedModelName};
+						$valuePath = "{$linkedModelName}.{$Linked->primaryKey}";
+					} else {
+						$valuePath = $path;
+					}
+				} else {
 					$valuePath = $path;
 				}
-
 				$conditions[$path] = Hash::get( $row, $valuePath );
 			}
-
-			return $Model->getInsertedPrimaryKey( $conditions, $complement );
+			$path = 'Actionfp93.id';
+			if ( $Model->alias == 'Actionfp93' && !empty(Hash::get( $row, $path )) ){
+				$conditions[$path] = Hash::get( $row, $path );
+			}
+			return $Model->getInsertedUpdatedPrimaryKey( $conditions, $complement );
 		}
 
 		/**
@@ -133,7 +127,6 @@
 		 */
 		public function processRow( array $row ) {
 			$success = true;
-
 			if( empty( $row ) ) {
 				$this->empty[] = $row;
 			}
@@ -144,9 +137,33 @@
 
 				// Formatage des données de la ligne
 				$data = Hash::insert( $data, 'Thematiquefp93.type', 'pdi' );
+				$path = 'Thematiquefp93.yearthema';
+				$data = Hash::insert( $data, $path, date("Y", strtotime(Hash::get( $data, $path )) ) );
+				$path = 'Actionfp93.duree';
+				$data = Hash::insert( $data, $path, Hash::get($data,$path)." mois" );
 				$path = 'Actionfp93.numconvention';
 				$data = Hash::insert( $data, $path, strtoupper( Hash::get( $data, $path ) ) );
+				$path = 'Actionfp93.annee';
+				$data = Hash::insert( $data, $path, date("Y", strtotime(Hash::get( $data, $path )) ) );
 
+				$arraypath = array (
+					'Actionfp93.name',
+					'Prestatairefp93.name',
+					'Filierefp93.name',
+					'Categoriefp93.name',
+					'Thematiquefp93.name',
+					'Adresseprestatairefp93.adresse',
+					'Adresseprestatairefp93.localite'
+				);
+				foreach ($arraypath AS $path ) {
+					$str = Hash::get( $data, $path );
+					$encoding = mb_detect_encoding($str, 'UTF-8', true);
+					if ($encoding != 'UTF-8' ) {
+						// Check string encode
+						$str = mb_convert_encoding ($str, 'UTF-8');
+						$data = Hash::insert( $data, $path, $str );
+					}
+				}
 				// Recherche du numéro de convention
 				$query = array(
 					'fields' => array( 'Actionfp93.id' ),
@@ -154,17 +171,16 @@
 						'Actionfp93.numconvention' => Hash::get( $data, 'Actionfp93.numconvention' )
 					),
 				);
-
 				$found = $this->Actionfp93->find( 'first', $query );
+				//Si le numéro de convetion existe déjà alors il faut editer
 				if( !empty( $found ) ) {
-					$this->rejectRow( $row, $this->Actionfp93, 'N° de convention d\'action déjà présent' );
-					$success = false;
+					$path = 'Actionfp93.id';
+					$action_id = $found['Actionfp93']['id'];
+					$data = Hash::insert( $data, $path, $action_id );
 				}
-
 				foreach( $this->uses as $modelName ) {
 					if(  $success ) {
 						$primaryKey = $this->processModel( $this->{$modelName}, $data );
-
 						if( $primaryKey === null ) {
 							$this->rejectRow( $row, $this->{$modelName} );
 							$success = false;
@@ -174,7 +190,6 @@
 						}
 					}
 				}
-
 				if( $success ) {
 					$this->Actionfp93->commit();
 				}
@@ -194,13 +209,12 @@
 		public function startup() {
 			// Chargement du fichier de configuration lié, s'il existe
 			$department=Configure::read('Cg.departement');
-			$path = APP.'Config'.DS.'Cg'.$department.DS.$this->name.'.php';
+			$path = APP.'Config'.DS.'Cg'.$department.DS.'ImportCSVFRSA.php';
 			if( file_exists( $path ) ) {
 				include_once $path;
-
-				$this->_defaultHeaders = Configure::read('CSVImport.CataloguePDI.Headers');
-				$this->_correspondances = Configure::read('CSVImport.CataloguePDI.Correspondances');
-				$this->processModelDetails =  Configure::read('CSVImport.CataloguePDI.ModelDetails');
+				$this->_defaultHeaders = Configure::read('CSVImport.FRSA.CataloguePDIE.Headers');
+				$this->_correspondances = Configure::read('CSVImport.FRSA.CataloguePDIE.Correspondances');
+				$this->processModelDetails =  Configure::read('CSVImport.FRSA.CataloguePDIE.ModelDetails');
 			}
 
 			parent::startup();

@@ -17,6 +17,11 @@
 	 */
 	class Personne extends AppModel
 	{
+		/**
+		 * Nom.
+		 *
+		 * @var string
+		 */
 		public $name = 'Personne';
 
 		/**
@@ -28,6 +33,11 @@
 
 		public $displayField = 'nom_complet';
 
+		/**
+		 * Behaviors utilisés.
+		 *
+		 * @var array
+		 */
 		public $actsAs = array(
 			'Fichiermodulelie',
 			'Validation2.Validation2Formattable' => array(
@@ -37,7 +47,8 @@
 			),
 			'Validation2.Validation2RulesFieldtypes',
 			'Validation2.Validation2RulesComparison',
-			'Postgres.PostgresAutovalidate'
+			'Postgres.PostgresAutovalidate',
+			'PersonneCSV'
 		);
 
 		public $validate = array(
@@ -717,6 +728,19 @@
 				'finderQuery' => '',
 				'counterQuery' => ''
 			),
+			'Personnefrsadiplomexper' => array(
+				'className' => 'Personnefrsadiplomexper',
+				'foreignKey' => 'personne_id',
+				'dependent' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
 			'Infocontactpersonne' => array(
 				'className' => 'Infocontactpersonne',
 				'foreignKey' => 'personne_id',
@@ -985,6 +1009,5 @@
 
             return $result;
 		}
-
 	}
 ?>

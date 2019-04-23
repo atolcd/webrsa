@@ -92,13 +92,7 @@ fichesprescriptions93.date_transmission AS "date_transmission",
 	ON ( modstransmsfps93.id = fichesprescriptions93_modstransmsfps93.modtransmfp93_id )
 	WHERE fichesprescriptions93_modstransmsfps93.ficheprescription93_id = fichesprescriptions93.id
 ) AS "modalite_transmission",
-/*
-fichesprescriptions93. AS "reception_candidature",
-fichesprescriptions93. AS "reception_candidature_refusee_raison",
-*/
-null AS "reception_candidature",
-null AS "reception_candidature_refusee_raison",
-to_char( fichesprescriptions93.rdvprestataire_date, 'YYYY-MM-DD') AS "date_entretien",
+to_char( fichesprescriptions93.rdvprestataire_date, 'YYYY-MM-DDTHH24:MI') AS "date_entretien",
 fichesprescriptions93.motifcontactfp93_id AS "motif_entretien",
 fichesprescriptions93.benef_retour_presente AS "beneficiaire_present",
 CASE fichesprescriptions93.personne_retenue

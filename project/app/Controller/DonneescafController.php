@@ -188,8 +188,7 @@
 						'Orientation',
 						'Titresejour',
 						'Informationeti',
-						'Conditionactiviteprealable',
-						'Personnelangue'
+						'Conditionactiviteprealable'
 					),
 					'conditions' => array('Personne.id' => $personne_id)
 				)
@@ -208,7 +207,7 @@
 					'Rattachement', 'Ressource', 'Activite', 'Allocationsoutienfamilial',
 					'Creancealimentaire', 'Grossesse', 'Infoagricole', 'Avispcgpersonne',
 					'Derogation', 'Liberalite', 'Suiviappuiorientation', 'Parcours',
-					'Orientation', 'Titresejour', 'Informationeti', 'Conditionactiviteprealable','Personnelangue'
+					'Orientation', 'Titresejour', 'Informationeti', 'Conditionactiviteprealable'
 				), $personnes
 			);
 
