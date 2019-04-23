@@ -93,8 +93,8 @@ LEFT OUTER JOIN referents ON (personnes_referents.referent_id = referents.id)
 LEFT OUTER JOIN contratsinsertion ON (
 	personnes.id = contratsinsertion.personne_id
 	AND contratsinsertion.id IN(
-		SELECT  max(contratsinsertion.id) AS id
-		FROM contratsinsertion AS contratsinsertion
+		SELECT  max(sub_contratsinsertion.id) AS id
+		FROM contratsinsertion AS sub_contratsinsertion
 		WHERE sub_contratsinsertion.personne_id = contratsinsertion.personne_id
 	)
 )
