@@ -9,6 +9,7 @@
 
 	$formId = Inflector::camelize( Inflector::singularize($this->request->params['controller'])."_{$this->request->params['action']}_form" );
 
+	echo ('<br>');
 	echo $this->Form->create( 'User', array( 'type' => 'post', 'autocomplete' => 'off', 'id' => $formId, 'novalidate' => true ) );
 
 	if( $this->action == 'add' ) {
