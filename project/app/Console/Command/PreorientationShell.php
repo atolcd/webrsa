@@ -77,9 +77,10 @@
 									OR prestations.rolepers = 'CJT'
 								)
 							)
-						WHERE personnes.id NOT IN (
+						WHERE NOT EXISTS (
 							SELECT orientsstructs.personne_id
-								FROM orientsstructs
+							FROM orientsstructs
+							WHERE orientsstructs.personne_id = personnes.id
 						)
 				);";
 			return ( $this->Orientstruct->query( $sql ) !== false );

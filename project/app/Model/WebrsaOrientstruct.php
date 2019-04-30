@@ -1413,7 +1413,7 @@
 										ORDER BY "Historiqueetatpe"."date" DESC LIMIT 1
 							) AS "Historiqueetatpe__dernieretat"'
 						),
-						'conditions' => $conditions,
+						'conditions' => str_replace("\\'", "''", $conditions),
 						'contain' => false
 					)
 				);
