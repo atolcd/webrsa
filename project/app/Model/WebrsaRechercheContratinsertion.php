@@ -471,6 +471,27 @@
 				}
 			}
 
+			// Recherche par type de contrat CER (CG66)
+			if($departement === 66) {
+				$typeContrat = Hash::get( $search, 'Contratinsertion.num_contrat_66');
+
+				if( isset($typeContrat) ) {
+					switch($typeContrat){
+						case 'PRE':
+							$query['conditions'][] = 'Contratinsertion.num_contrat LIKE \'PRE\'';
+							break;
+						case 'REN':
+							$query['conditions'][] = 'Contratinsertion.num_contrat LIKE \'REN\'';
+							$query['conditions'][] = 'Contratinsertion.datetacitereconduction IS NULL';
+							break;
+						case 'REN_TACITE':
+							$query['conditions'][] = 'Contratinsertion.num_contrat LIKE \'REN\'';
+							$query['conditions'][] = 'Contratinsertion.datetacitereconduction IS NOT NULL';
+							break;
+					}
+				}
+			}
+
 			// Condition sur le projet insertion emploi territorial de la structure de l'orientation
 			$query['conditions'] = $this->conditionCommunautesr(
 				$query['conditions'],
