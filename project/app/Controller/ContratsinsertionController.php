@@ -159,6 +159,7 @@
 		private $debutPlacePrecedente = '';
 		private $finPlacePrecedente = '';
 		private $datesEpParcoursDecisionMaintien = null;
+		private $datesReorientationAutrePoleEmploi = null;
 
 		/**
 		 * Envoi des options communes à la vue (CG 58, 66, 93).
@@ -559,6 +560,8 @@
 
 			// Calcul du cumul des CER
 			$this->datesEpParcoursDecisionMaintien = $this->getDatesEpParcoursDecisionMaintien($personne_id);
+			$this->datesReorientationAutrePoleEmploi = $this->getDatesReorientationsAutrePoleEmploi($personne_id);
+
 			foreach ($contratsinsertion as $index => $value) {
 				$contratsinsertion[$index]["Contratinsertion"]["totalCumulCER"] = $this->getDureeCER ($value);
 			}
@@ -616,12 +619,14 @@
 		}
 
 		/**
-		 * Définition de la liste déroulante possible pour la durée d'ajout d'un CER
+		 * Récupération des dates des parcours EPs avec décision de maintien
 		 *
-		 * @param array $duree_engag
+		 * @param int $personne_id
+		 *
+		 * @return array
 		 */
 		private function getDatesEpParcoursDecisionMaintien ($personne_id) {
-			// Récupératio des EP Parcours
+			// Récupération des EP Parcours
 			$Ep = ClassRegistry::init ('Ep');
 			$epParcours = array_keys ($Ep->find ('list', array ('conditions' => '"regroupementep_id" = 1')));
 
@@ -692,11 +697,39 @@
 						$results[$passage ['Commissionep']['id']] = $passage ['Commissionep']['dateseance'];
 					}
 				}
-
 				return array_values($results);
 			}
 
 			return null;
+		}
+
+		/**
+		 * Récupération des dates de réorientations faites par les autres que Pôle Emploi
+		 *
+		 * @param int $personne_id
+		 *
+		 * @return array
+		 */
+		private function getDatesReorientationsAutrePoleEmploi($personne_id) {
+			$results = null;
+			$datesReorientation = $this->Contratinsertion->Personne->Orientstruct->find('all', array(
+				'conditions' => array(
+					'Orientstruct.personne_id' => $personne_id,
+					'Typeorient.lib_type_orient NOT LIKE' => '%Pôle emploi%',
+					'Orientstruct.origine LIKE' => 'reorientation',
+
+			),
+				'fields' => array('Orientstruct.date_valid', 'Orientstruct.origine', 'Orientstruct.personne_id', 'Typeorient.lib_type_orient'),
+				'order' => array('Orientstruct.date_valid' => 'ASC')
+			));
+
+			if(isset($datesReorientation)) {
+				$results = array();
+				foreach($datesReorientation as $key => $reorientation) {
+					$results[$key] = $reorientation['Orientstruct']['date_valid'];
+				}
+			}
+			return $results;
 		}
 
 		/**
@@ -714,8 +747,7 @@
 			//si un contrat est validé
 			//ne fonctionne pas s'il est annulé ou en attente de décision
 			if($contratInsertion["Contratinsertion"]["decision_ci"] == 'V' && $contratInsertion["Contratinsertion"]["datevalidation_ci"] != null) {
-
-				// Remise à zéro du cumul si un eEP Parcours avec décision de maintien est avant le CER validé.
+				// Remise à zéro du cumul si un EP Parcours avec décision de maintien est avant le CER validé.
 				if (!is_null ($this->datesEpParcoursDecisionMaintien)) {
 					$dateDecision = new DateTime ($contratInsertion['Contratinsertion']['datedecision']);
 					$dateEpParcours = new DateTime ($this->datesEpParcoursDecisionMaintien[0]);
@@ -723,6 +755,17 @@
 						$this->cumulDuree = 0;
 						unset ($this->datesEpParcoursDecisionMaintien[0]);
 						$this->datesEpParcoursDecisionMaintien = array_values($this->datesEpParcoursDecisionMaintien);
+					}
+				}
+
+				// Remise à zéro du cumul si une réorientations a été faite autre que par Pôle Emploi avant le CER validé.
+				if (isset ($this->datesReorientationAutrePoleEmploi)) {
+					$dateDecision = new DateTime ($contratInsertion['Contratinsertion']['datedecision']);
+					$dateReorientation = new DateTime ($this->datesReorientationAutrePoleEmploi[0]);
+					if ($dateDecision->diff ($dateReorientation)->format ('%R') == '-') {
+						$this->cumulDuree = 0;
+						unset ($this->datesReorientationAutrePoleEmploi[0]);
+						$this->datesReorientationAutrePoleEmploi = array_values($this->datesReorientationAutrePoleEmploi);
 					}
 				}
 
