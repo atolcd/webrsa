@@ -37,7 +37,8 @@
 		public function index() {
 			$query = array(
 				'contain' => array(
-					'Sujetcer93.name'
+					'Sujetcer93.name',
+					'Dreesactionscer.lib_dreesactioncer'
 				),
 				'order' => array(
 					'Sujetcer93.name ASC'
@@ -58,6 +59,14 @@
 				'conditions' => array( 'Sujetcer93.isautre' => '0' )
 			);
 			$options['Soussujetcer93']['sujetcer93_id'] = $this->Soussujetcer93->Sujetcer93->find( 'list', $query );
+
+			$query = array(
+				'fields' => array( 'id', 'lib_dreesactioncer' ),
+				'conditions' => array( 'Dreesactionscer.actif' => '1' )
+			);
+
+			$options['Soussujetcer93']['dreesactionscer_id'] = $this->Soussujetcer93->Dreesactionscer->find( 'list', $query );
+
 			$this->set( compact( 'options' ) );
 		}
 	}

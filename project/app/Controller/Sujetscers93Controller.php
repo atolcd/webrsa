@@ -40,5 +40,34 @@
 		public $commeDroit = array(
 			'add' => 'Sujetscers93:edit'
 		);
+
+		/**
+		 * Liste des sujets sur lequel le CER porte
+		 */
+		public function index() {
+			$query = array(
+				'contain' => array(
+					'Dreesactionscer.lib_dreesactioncer'
+				),
+			);
+			$this->WebrsaParametrages->index( $query, array( 'blacklist' => $this->blacklist ) );
+		}
+
+
+		/**
+		 * Modification d'un sujet sur lequel le CER porte.
+		 */
+		public function edit( $id = null ) {
+			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit' ) );
+
+			$query = array(
+				'fields' => array( 'id', 'lib_dreesactioncer' ),
+				'conditions' => array( 'Dreesactionscer.actif' => '1' )
+			);
+
+			$options['Sujetcer93']['dreesactionscer_id'] = $this->Sujetcer93->Dreesactionscer->find( 'list', $query );
+
+			$this->set( compact( 'options' ) );
+		}
 	}
 ?>

@@ -5,6 +5,7 @@
 			'cells' => array(
 				'Sujetcer93.name',
 				'Soussujetcer93.name',
+				'Dreesactionscer.lib_dreesactioncer',
 				'Soussujetcer93.isautre' => array( 'type' => 'boolean' ),
 				'Soussujetcer93.actif' => array( 'type' => 'boolean'),
 				'/Soussujetscers93/edit/#Soussujetcer93.id#' => array(

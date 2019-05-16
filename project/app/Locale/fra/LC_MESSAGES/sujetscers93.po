@@ -19,6 +19,9 @@ msgstr "Ajout d'un sujet sur lequel le CER porte"
 msgid "/Sujetscers93/edit/:heading"
 msgstr "Modification du sujet sur lequel le CER porte « #Sujetcer93.name# »"
 
+msgid "Dreesactionscer.lib_dreesactioncer"
+msgstr "Action CER DREES associée"
+
 msgid "/Sujetscers93/add"
 msgstr "Ajouter"
 

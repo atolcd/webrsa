@@ -1,0 +1,50 @@
+# Traductions de accueilsarticles.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Dreesorganismes/index/:heading"
+msgstr "Paramétrage des organismes"
+
+msgid "/Dreesorganismes/add/:heading"
+msgstr "Ajout d'un organisme"
+
+msgid "/Dreesorganismes/edit/:heading"
+msgstr "Modification d'un organisme"
+
+msgid "Parent.lib_dreesorganisme"
+msgstr "Type d'organisme"
+
+msgid "Dreesorganisme.id"
+msgstr "Id"
+
+msgid "Dreesorganisme.lib_dreesorganisme"
+msgstr "Nom"
+
+msgid "Dreesorganisme.parentid"
+msgstr "Type d'organisme"
+
+msgid "Dreesorganisme.actif"
+msgstr "Actif"
+
+msgid "/Dreesorganismes/add"
+msgstr "Ajouter"
+
+msgid "/Dreesorganismes/edit"
+msgstr "Modifier"
+
+msgid "/Dreesorganismes/delete"
+msgstr "Supprimer"
+
+msgid "/Dreesorganismes/delete/#Dreesorganisme.id# ?"
+msgstr "Réellement supprimer le tag « #Dreesorganisme.lib_dreesorganisme# » ?"
+
+msgid "/Parametrages/index"
+msgstr "Retour"

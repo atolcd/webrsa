@@ -93,6 +93,13 @@
 				'conditions' => '',
 				'fields' => '',
 				'order' => ''
+			),
+			'Dreesorganisme' => array(
+				'className' => 'Dreesorganisme',
+				'foreignKey' => 'dreesorganisme_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
 			)
 		);
 

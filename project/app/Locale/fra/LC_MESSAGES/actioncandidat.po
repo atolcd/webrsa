@@ -156,58 +156,16 @@ msgstr "Non"
 msgid "Actioncandidat.emailprestataire"
 msgstr "Email partenaire/prestataire"
 
+msgid "Actioncandidat.dreesactionscer_id"
+msgstr "Action CER DREES"
+
 # ------------------------------------------------------------------------------
 # Natures de contrats, utilisées dans le tableau "Indicateurs de natures des actions
 # des contrats" des statistiques ministérielles
 # ------------------------------------------------------------------------------
 
 msgid "Actioncandidat.naturecer"
-msgstr "Nature des Actions Dress"
-
-msgid "ENUM::NATURECER::01"
-msgstr "activités, stages ou formations destinés à acquérir des compétences professionnelles"
-
-msgid "ENUM::NATURECER::02"
-msgstr "orientation vers le service public de l'emploi, parcours de recherche d'emploi"
-
-msgid "ENUM::NATURECER::03"
-msgstr "mesures d'insertion par l'activité économique (IAE)"
-
-msgid "ENUM::NATURECER::04"
-msgstr "aide à la réalisation d’un projet de création, de reprise ou de poursuite d’une activité non salariée "
-
-msgid "ENUM::NATURECER::05"
-msgstr "emploi aidé (hors CIA)"
-
-msgid "ENUM::NATURECER::06"
-msgstr "contrat d'insertion par l'activité (CIA) (3)"
-
-msgid "ENUM::NATURECER::07"
-msgstr "emploi non aidé"
-
-msgid "ENUM::NATURECER::08"
-msgstr "actions facilitant le lien social (développement de l'autonomie sociale, activités collectives, ...)"
-
-msgid "ENUM::NATURECER::09"
-msgstr "actions facilitant la mobilité (permis de conduire, acquisition / location de véhicule, frais de transport...)"
-
-msgid "ENUM::NATURECER::10"
-msgstr "actions visant l'accès à un logement, relogement ou à l'amélioration de l'habitat"
-
-msgid "ENUM::NATURECER::11"
-msgstr "actions facilitant l'accès aux soins"
-
-msgid "ENUM::NATURECER::12"
-msgstr "actions visant l'autonomie financière (constitution d'un dossier de surendettement,...)"
-
-msgid "ENUM::NATURECER::13"
-msgstr "actions visant la famille et la parentalité (soutien familial, garde d'enfant, ...)"
-
-msgid "ENUM::NATURECER::14"
-msgstr "lutte contre l'illettrisme ; acquisition des savoirs de base"
-
-msgid "ENUM::NATURECER::15"
-msgstr "autres actions"
+msgstr "Nature des actions Dress"
 
 msgid "ENUM::ACTIF::N"
 msgstr "Non"

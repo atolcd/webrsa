@@ -109,6 +109,14 @@
 		protected function _setOptions() {
 			$options = $this->Actioncandidat->enums();
 
+			$options['Actioncandidat']['dreesactionscer_id'] = $this->Actioncandidat->Dreesactionscer->find(
+				 'list',
+				  array(
+				  		'fields' => array( 'id', 'lib_dreesactioncer' ),
+						'conditions' => array( 'Dreesactionscer.actif' => '1' )
+				  )
+				 );
+
 			$options['Actioncandidat']['eligiblefse'] = array(0=>'Non', 1=>'Oui');
 
 			if( $this->action != 'index' ) {

@@ -89,6 +89,9 @@
 			),
 			'communautessrs' => array(
 				'Communautesr.actif' => '1'
+			),
+			'dreesorganismes' => array(
+				'Dreesorganisme.actif' => '1'
 			)
 		);
 
@@ -144,6 +147,14 @@
 						'conditions' => $this->conditions['communautessrs'],
 						'type' => self::TYPE_LIST,
 						'cache' => true
+					);
+					break;
+				case 'dreesorganismes':
+					$options += array(
+						'conditions' => $this->conditions['dreesorganismes'],
+						'empty' => false,
+						'cache' => true,
+						'with_parentid' => true
 					);
 					break;
 				default:
@@ -225,7 +236,7 @@
 										)
 									) : array(
 										'typesorients.id = structuresreferentes.typeorient_id'
-									)	
+									)
 							)
 						),
 						'conditions' => array(
@@ -886,6 +897,129 @@
 					$msgstr = sprintf( 'La valeur du paramètre "type" "%s" n\'est pas acceptée dans la méthode %s::%s', $options['type'], __CLASS__, __FUNCTION__ );
 					throw new RuntimeException( $msgstr, 500 );
 				}
+			}
+
+			return $results;
+		}
+
+		/**
+		 * Retourne la liste des types d'organismes DREES.
+		 * Mise en cache dans la session de l'utilisateur.
+		 *
+		 * Appelle la méthode InsertionsBeneficiairesComponent::_dreesorganismes
+		 * 		 *
+		 * Options par défaut
+		 * <pre>
+		 * array(
+		 * 	'conditions' => array(
+		 *		'Dreesorganisme.actif' => '1'
+		 *	),
+		 * 	'empty' => false,
+		 * 	'cache' => true,
+		 *	'with_parentid' => true
+		 * );
+		 * </pre>
+		 *
+		 * @todo Dreesorganisme->listOptions() -> -9 requêtes (max, en debug), -5 sinon
+		 *
+		 * @see InsertionsBeneficiairesComponent::_dreesorganismes()
+		 * @see options()
+		 *
+		 * @param array $options La clé conditions permet de spécifier ou
+		 *	de surcharger les conditions, la clé empty permet de spécifier si
+		 *	l'on veut une entrée dont la clé sera 0 et la valeur 'Non orienté',
+		 *	la clé with_parentid permet de surcharger la valeur lue par
+		 *	Configure::read( 'with_parentid' ).
+		 * @return array
+		 */
+		public function dreesorganismes( array $options = array() ) {
+			$options = $this->options('dreesorganismes');
+
+			return $this->_dreesorganismes( $options );
+		}
+
+        /**
+		 * Retourne la liste des types d'organismes DREES.
+		 * Mise en cache dans la session de l'utilisateur.
+		 *
+		 * Options par défaut
+		 * <pre>
+		 * array(
+		 * 	'conditions' => array(
+		 *		'Dreesorganisme.actif' => '1'
+		 *	),
+		 * 	'empty' => false,
+		 * 	'cache' => true,
+		 *	'with_parentid' => true
+		 * );
+		 * </pre>
+		 *
+		 * @todo Dreesorganismes->listOptions() -> -9 requêtes (max, en debug), -5 sinon
+		 *
+		 * @see options()
+		 *
+		 * @param array $options La clé conditions permet de spécifier ou
+		 *	de surcharger les conditions, la clé empty permet de spécifier si
+		 *	l'on veut une entrée dont la clé sera 0 et la valeur 'Non orienté',
+		 *	la clé with_parentid permet de surcharger la valeur lue par
+		 *	Configure::read( 'with_parentid' ).
+		 * @return array
+		 */
+		protected function _dreesorganismes( array $options = array() ) {
+			$Controller = $this->_Collection->getController();
+			$Controller->loadModel( 'Structurereferente' );
+
+			$options = $this->options( 'dreesorganismes', $options );
+
+			$sessionKey = $this->sessionKey( __FUNCTION__, $options['conditions'] );
+
+			$results = $this->Session->read( $sessionKey );
+
+
+			if( $results === null || false == $options['cache'] ) {
+				$query = array(
+					'fields' => array(
+						'Dreesorganisme.id',
+						'Dreesorganisme.parentid',
+						'Dreesorganisme.lib_dreesorganisme',
+					),
+					'conditions' => $options['conditions'],
+					'contain' => false,
+					'order' => array(
+						'Dreesorganisme.parentid IS NOT NULL ASC',
+						'Dreesorganisme.lib_dreesorganisme ASC'
+					)
+				);
+
+				$parents = array();
+				$results = array();
+
+				$dreesorganismes = $Controller->Structurereferente->Dreesorganisme->find( 'all', $query );
+
+				if( !empty( $dreesorganismes ) ) {
+					foreach( $dreesorganismes as $dreesorganisme ) {
+						if( true === $options['with_parentid'] ) {
+							if( null === $dreesorganisme['Dreesorganisme']['parentid'] ) {
+								$parents[$dreesorganisme['Dreesorganisme']['id']] = $dreesorganisme['Dreesorganisme']['lib_dreesorganisme'];
+							}
+							else {
+								$optgroup = $parents[$dreesorganisme['Dreesorganisme']['parentid']];
+								$results[$optgroup][$dreesorganisme['Dreesorganisme']['id']] = $dreesorganisme['Dreesorganisme']['lib_dreesorganisme'];
+							}
+						}
+						else {
+							$results[$dreesorganisme['Dreesorganisme']['id']] = $dreesorganisme['Dreesorganisme']['lib_dressorganisme'];
+						}
+					}
+				}
+
+				if( true == $options['cache'] ) {
+					$this->Session->write( $sessionKey, $results );
+				}
+			}
+
+			if( Hash::get( $options, 'empty' ) ) {
+				$results = array( 0 => 'Non orienté' ) + (array)$results;
 			}
 
 			return $results;

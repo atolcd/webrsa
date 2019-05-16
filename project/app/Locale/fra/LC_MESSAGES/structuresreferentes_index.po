@@ -39,6 +39,9 @@ msgstr "Projet insertion emploi communautaire"
 msgid "Search.Structurereferente.typestructure"
 msgstr "Type de structure"
 
+msgid "Search.Structurereferente.dreesorganisme_id"
+msgstr "Type d'organisme"
+
 msgid "Search.Structurereferente.actif"
 msgstr "Active"
 

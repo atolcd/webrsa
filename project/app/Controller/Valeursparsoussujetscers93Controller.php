@@ -37,7 +37,8 @@
 		public function index() {
 			$query = array(
 				'contain' => array(
-					'Soussujetcer93.name'
+					'Soussujetcer93.name',
+					'Dreesactionscer.lib_dreesactioncer'
 				),
 				'order' => array(
 					'Soussujetcer93.name ASC'
@@ -58,6 +59,14 @@
 				'conditions' => array( 'Soussujetcer93.isautre' => '0' )
 			);
 			$options['Valeurparsoussujetcer93']['soussujetcer93_id'] = $this->Valeurparsoussujetcer93->Soussujetcer93->find( 'list', $query );
+
+			$query = array(
+				'fields' => array( 'id', 'lib_dreesactioncer' ),
+				'conditions' => array( 'Dreesactionscer.actif' => '1' )
+			);
+
+			$options['Valeurparsoussujetcer93']['dreesactionscer_id'] = $this->Valeurparsoussujetcer93->Dreesactionscer->find( 'list', $query );
+
 			$this->set( compact( 'options' ) );
 		}
 	}

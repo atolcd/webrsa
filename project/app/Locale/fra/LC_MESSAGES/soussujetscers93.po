@@ -40,6 +40,9 @@ msgstr "Supprimer le sous-sujet sur lequel le CER porte « #Soussujetcer93.name#
 msgid "/Soussujetscers93/delete/#Soussujetcer93.id# ?"
 msgstr "Réellement supprimer le sous-sujet sur lequel le CER porte « #Soussujetcer93.name# » ?"
 
+msgid "Dreesactionscer.lib_dreesactioncer"
+msgstr "Action CER DREES associée"
+
 msgid "/Parametrages/contratsinsertion"
 msgstr "Retour"
 

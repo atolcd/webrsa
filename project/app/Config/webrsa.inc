@@ -899,6 +899,8 @@
 			 * soumis à droits et devoirs.
 			 */
 			'useHistoriquedroit' => false,
+
+			'actionscandidats' => true,
 		)
 	);
 

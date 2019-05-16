@@ -4,6 +4,7 @@
 		array(
 			'cells' => array(
 				'Sujetcer93.name',
+				'Dreesactionscer.lib_dreesactioncer',
 				'Sujetcer93.isautre' => array( 'type' => 'boolean' ),
 				'Sujetcer93.actif' => array( 'type' => 'boolean'),
 				'/Sujetscers93/edit/#Sujetcer93.id#' => array(

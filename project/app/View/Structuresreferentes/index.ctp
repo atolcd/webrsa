@@ -21,7 +21,6 @@
 	echo $this->Form->create( null, array( 'type' => 'post', 'url' => array( 'controller' => $this->request->params['controller'], 'action' => $this->request->action ), 'id' => $searchFormId, 'novalidate' => true ) );
 
 	$departement = (int)Configure::read( 'Cg.departement' );
-
 	echo $this->Default3->subform(
 		$this->Translator->normalize(
 			array_merge(
@@ -38,6 +37,7 @@
 				),
 				array(
 					'Search.Structurereferente.typestructure' => array( 'empty' => true, 'required' => false ),
+					'Search.Structurereferente.dreesorganisme_id' => array( 'empty' => true, 'required' => false ),
 					'Search.Structurereferente.actif' => array( 'empty' => true, 'required' => false )
 				)
 			)
@@ -116,6 +116,7 @@
 					'Typeorient.lib_type_orient',
 					'Structurereferente.actif',
 					'Structurereferente.typestructure',
+					'Dreesorganisme.lib_dreesorganisme',
 					'/Structuresreferentes/edit/#Structurereferente.id#' => array(
 						'title' => false
 					),

@@ -60,13 +60,15 @@
 					'fields' => array_merge(
 						$this->Structurereferente->fields(),
 						$this->Structurereferente->Typeorient->fields(),
+						$this->Structurereferente->Dreesorganisme->fields(),
 						array(
 							$this->Structurereferente->sqHasLinkedRecords()
 						)
 					),
 					'order' => array( 'Structurereferente.lib_struc ASC' ),
 					'joins' => array(
-						$this->Structurereferente->join( 'Typeorient', array( 'type' => 'INNER' ) )
+						$this->Structurereferente->join( 'Typeorient', array( 'type' => 'INNER' ) ),
+						$this->Structurereferente->join( 'Dreesorganisme', array( 'type' => 'INNER' ) )
 					),
 					'recursive' => -1,
 					'conditions' => array()

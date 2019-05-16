@@ -24,6 +24,9 @@ msgstr "Sous-sujet sur lequel le CER porte"
 msgid "Soussujetcer93.sujetcer93_id"
 msgstr "Sujet lié"
 
+msgid "Soussujetcer93.dreesactionscer_id"
+msgstr "Action CER DREES associée"
+
 msgid "Soussujetcer93.isautre"
 msgstr "Champ de type texte ?"
 

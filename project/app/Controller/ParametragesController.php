@@ -666,6 +666,14 @@
 					'disabled' => ( 58 !== $departement ),
 					'url' => array( 'controller' => 'sitescovs58', 'action' => 'index' )
 				),
+				'Statistiques DREES' => array(
+					'Paramétrage des organismes DREES' => array(
+						'url' => array('controller' => 'dreesorganismes', 'action' => 'index' )
+					),
+					'Paramétrage des actions CER DREES' => array(
+						'url' => array('controller' => 'dreesactionscers', 'action' => 'index' )
+					),
+				),
 				'Structures référentes' => array(
 					'url' => array( 'controller' => 'structuresreferentes', 'action' => 'index' )
 				),

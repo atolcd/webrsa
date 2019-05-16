@@ -4338,3 +4338,40 @@ msgstr "Modification"
 
 msgid "controllers/Vaguesdorientations/index"
 msgstr "Visualisation"
+
+###############################################################################
+## DREES : Organismes
+###############################################################################
+msgid "controllers/Dreesorganismes"
+msgstr "Paramétrage des organismes DREES"
+
+msgid "controllers/Dreesorganismes/index"
+msgstr "Liste des organismes DREES"
+
+msgid "controllers/Dreesorganismes/add"
+msgstr "Ajout des organismes DREES"
+
+msgid "controllers/Dreesorganismes/edit"
+msgstr "Modification des organismes DREES"
+
+msgid "controllers/Dreesorganismes/delete"
+msgstr "Suppression des organismes DREES"
+
+
+###############################################################################
+## DREES : Actions CER
+###############################################################################
+msgid "controllers/Dreesactionscers"
+msgstr "Paramétrage des actions CER DREES"
+
+msgid "controllers/Dreesactionscers/index"
+msgstr "Liste des actions CER DREES"
+
+msgid "controllers/Dreesactionscers/add"
+msgstr "Ajout des actions CER DREES"
+
+msgid "controllers/Dreesactionscers/edit"
+msgstr "Modification des actions CER DREES"
+
+msgid "controllers/Dreesactionscers/delete"
+msgstr "Suppression des actions CER DREES"

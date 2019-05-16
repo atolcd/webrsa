@@ -57,6 +57,7 @@
 				'Structurereferente.typestructure' => array( 'empty' => true ),
 				'Structurereferente.actif' => array( 'empty' => true ),
 				'Structurereferente.actif_cohorte' => array( 'empty' => false ),
+				'Structurereferente.dreesorganisme_id' => array( 'empty' => true ),
 			)
 		),
 		array(

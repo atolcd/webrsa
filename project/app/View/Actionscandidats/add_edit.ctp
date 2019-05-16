@@ -20,6 +20,7 @@
 			'Actioncandidat.codefamille' => array( 'domain' => 'actioncandidat', 'required' => true ),
 			'Actioncandidat.numcodefamille' => array( 'domain' => 'actioncandidat', 'required' => true ),
 			'Actioncandidat.naturecer' => array( 'domain' => 'actioncandidat', 'options' => $options['Actioncandidat']['naturecer'], 'empty' => true ),
+			'Actioncandidat.dreesactionscer_id' => array( 'domain' => 'actioncandidat', 'options' => $options['Actioncandidat']['dreesactionscer_id'], 'empty' => true ),
 		)
 	);
 

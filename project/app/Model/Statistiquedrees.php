@@ -1,11 +1,12 @@
 <?php
 	/**
-	 * Code source de la classe Statistiquedrees.
+	 * Fichier source du plugin StatistiquesDrees.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
-	 * @package app.Model
+	 * @package StatistiquesDrees.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+	 * @author Atol CD
 	 */
 	App::uses( 'AppModel', 'Model' );
 
@@ -571,15 +572,16 @@
 		*/
 		protected function _completeQueryCer( array $query, $annee, $configuration ) {
 			$Dossier = ClassRegistry::init( 'Dossier' );
-
 			$query['joins'][] = $Dossier->Foyer->Personne->join( 'Contratinsertion', array( 'type' => 'LEFT OUTER' ) );
-			$query['joins'][] = $Dossier->Foyer->Personne->Contratinsertion->join( 'Cer93', array( 'type' => 'LEFT' ) );
 
+			if (!$configuration['actionscandidats']) {
+				$query['joins'][] = $Dossier->Foyer->Personne->Contratinsertion->join( 'Cer93', array( 'type' => 'LEFT' ) );
+			}
 			$query['conditions'][] = '"Orientstruct"."id" IS NOT NULL';
 
 			$query['fields'][] = $this->_getFieldsIndicateurCer($annee);
 			$query['fields'][] = '"Contratinsertion"."duree_engag" AS "duree_engag"';
-			$query['fields'][] = '"Cer93"."duree" AS "duree_cer"';
+			$query['fields'][] = '"Contratinsertion"."duree_engag" AS "duree_cer"';
 
 			return $query;
 		}
@@ -602,7 +604,7 @@
 		}
 
 		/**
-		 * Retourn les conditions permettant de s'assurer qu'un allocataire soit
+		 * Retourne les conditions permettant de s'assurer qu'un allocataire soit
 		 * dans le champ des droits et devoirs.
 		 *
 		 * @see Statistiquedrees.conditions_droits_et_devoirs dans le webrsa.inc
@@ -862,13 +864,12 @@
 		 * @return array
 		 */
 		public function getIndicateursTableau1( array $search ) {
-			set_time_limit (300);
 			$Dossier = ClassRegistry::init( 'Dossier' );
 			$annee = Hash::get( $search, 'Search.annee' );
 			$results = array();
 
 			// Récupération des variables de configuration
-			$configuration = Configure::read('Statistiquedrees');
+			$configuration = $this->_getConfigStatistiqueDrees();
 
 			// Query de base
 			$base = $this->_getQueryTableau ($search, $annee);
@@ -999,19 +1000,18 @@
 		/**
 		 * ...
 		 *
-		 * 
+		 *
 		 *
 		 * @param array $search
 		 * @return array
 		 */
 		public function getIndicateursTableau2( array $search ) {
-			set_time_limit (300);
 			$Dossier = ClassRegistry::init( 'Dossier' );
 			$annee = Hash::get( $search, 'Search.annee' );
 			$results = array();
 
 			// Récupération des variables de configuration
-			$configuration = Configure::read('Statistiquedrees');
+			$configuration = $this->_getConfigStatistiqueDrees();
 
 			// Query de base
 			$base = $this->_getQueryTableau ($search, $annee);
@@ -1029,7 +1029,7 @@
 
 			return $resultats;
 		}
-		
+
 		/**
 		 *
 		 */
@@ -1132,19 +1132,18 @@
 		/**
 		 * ...
 		 *
-		 * 
+		 *
 		 *
 		 * @param array $search
 		 * @return array
 		 */
 		public function getIndicateursTableau3( array $search ) {
-			set_time_limit (300);
 			$Dossier = ClassRegistry::init( 'Dossier' );
 			$annee = Hash::get( $search, 'Search.annee' );
 			$results = array();
 
 			// Récupération des variables de configuration
-			$configuration = Configure::read('Statistiquedrees');
+			$configuration = $this->_getConfigStatistiqueDrees();
 
 			// Query de base
 			$base = $this->_getQueryTableau ($search, $annee);
@@ -1204,25 +1203,35 @@
 		/**
 		 * ...
 		 *
-		 * 
+		 *
 		 *
 		 * @param array $search
 		 * @return array
 		 */
 		public function getIndicateursTableau4( array $search ) {
-			set_time_limit (300);
-			$Dossier = ClassRegistry::init( 'Cer93Sujetcer93' );
 			$annee = Hash::get( $search, 'Search.annee' );
 			$results = array();
 
 			// Récupération des variables de configuration
-			$configuration = Configure::read('Statistiquedrees');
+			$configuration = $this->_getConfigStatistiqueDrees();
+
+			if ($configuration['actionscandidats']) {
+				$Dossier = ClassRegistry::init( 'Actioncandidat' );
+			}
+			else {
+				$Dossier = ClassRegistry::init( 'Cer93Sujetcer93' );
+			}
 
 			// Query de base
 			$base = $this->_getQueryTableau ($search, $annee);
 			$base = $this->_completeQueryCer ($base, $annee, $configuration);
 			$base = $this->_completeQueryRestrictionCer($base, $annee, $configuration);
-			$base = $this->_adaptQueryTableau4 ($base, $search, $annee, $configuration);
+			if ($configuration['actionscandidats']) {
+				$base = $this->_adaptQueryTableau4Actioncandidat ($base, $search, $annee, $configuration);
+			}
+			else {
+				$base = $this->_adaptQueryTableau4 ($base, $search, $annee, $configuration);
+			}
 
 			// Recherche
 			$results = $Dossier->find( 'all', $base);
@@ -1240,7 +1249,65 @@
 		/**
 		 * ...
 		 *
-		 * 
+		 *
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		private function _adaptQueryTableau4Actioncandidat( $base, array $search , $annee, $configuration ) {
+			// Suppression des jointures
+			$unsets = array ('"cers93"', '"contratsinsertion"', '"personnes"', '"foyers"');
+			$base = $this->_unsetJoinsQuery ($unsets, $base);
+
+			// Suppression des champs
+			$unsets = array ('DISTINCT ON ("Personne"."id") "Personne"."id" AS "idPersonne"');
+			$base = $this->_unsetFieldsQuery ($unsets, $base);
+
+			// Ajout des champs en remplacement.
+			$base['fields'] = array_merge(
+				array (
+					'DISTINCT ON ("Actioncandidat"."id") "Actioncandidat"."id" AS "idActioncandidat"',
+					'"Contratinsertion"."id" AS "idContratinsertion"',
+				),
+				$base['fields']
+			);
+			$base['joins'] = array_merge(
+				array (
+					array (
+						'table' => 'contratsinsertion',
+						'alias' => 'Contratinsertion',
+						'type' => 'INNER',
+						'conditions' => '"Contratinsertion"."actioncandidat_id" = "Actioncandidat"."id"'
+					),
+					array (
+						'table' => 'personnes',
+						'alias' => 'Personne',
+						'type' => 'INNER',
+						'conditions' => '"Personne"."id" = "Contratinsertion"."personne_id"'
+					),
+					array (
+						'table' => 'foyers',
+						'alias' => 'Foyer',
+						'type' => 'INNER',
+						'conditions' => '"Foyer"."id" = "Personne"."foyer_id"'
+					),
+					array (
+						'table' => 'dossiers',
+						'alias' => 'Dossier',
+						'type' => 'INNER',
+						'conditions' => '"Dossier"."id" = "Foyer"."dossier_id"'
+					)
+				),
+				$base['joins']
+			);
+
+			return $base;
+		}
+
+		/**
+		 * ...
+		 *
+		 *
 		 *
 		 * @param array $search
 		 * @return array
@@ -1251,7 +1318,7 @@
 			$base = $this->_unsetJoinsQuery ($unsets, $base);
 
 			// Suppression des champs
-			$unsets = array ('DISTINCT ON ("Personne"."id") "Personne"."id" AS "idPersonne"',);
+			$unsets = array ('DISTINCT ON ("Personne"."id") "Personne"."id" AS "idPersonne"');
 			$base = $this->_unsetFieldsQuery ($unsets, $base);
 
 			// Ajout des champs en remplacement.
@@ -1312,37 +1379,11 @@
 			if (!isset ($resultats[$categorie])) {
 				$resultats[$categorie] = array ();
 			}
+			$actionsCers = $this->_getConfigActionsCer();
 
-			//… au moins une action visant à trouver des activités, stages ou formations destinés à acquérir des compétences professionnelles
-			$resultats[$categorie]['acquerir_competences_pro'][$souscategorie] = 0;
-			//… au moins une action visant à s'inscrire dans un parcours de recherche d'emploi
-			$resultats[$categorie]['parcours_recherche_emploi'][$souscategorie] = 0;
-			//… au moins une action visant à s'inscrire dans une mesure d'insertion par l'activité économique (IAE)
-			$resultats[$categorie]['iae'][$souscategorie] = 0;
-			//… au moins une action aidant à la réalisation d’un projet de création, de reprise ou de poursuite d’une activité non salariée 
-			$resultats[$categorie]['activite_non_salariale'][$souscategorie] = 0;
-			//… au moins une action visant à trouver un emploi aidé 
-			$resultats[$categorie]['emploi_aide'][$souscategorie] = 0;
-			//… au moins une action visant à trouver un emploi non aidé
-			$resultats[$categorie]['emploi_non_aide'][$souscategorie] = 0;
-			//… au moins une action visant à faciliter le lien social (développement de l'autonomie sociale, activités collectives,…)
-			$resultats[$categorie]['lien_social'][$souscategorie] = 0;
-			//… au moins une action visant la mobilité (permis de conduire, acquisition / location de véhicule, frais de transport…)
-			$resultats[$categorie]['mobilite'][$souscategorie] = 0;
-			// … au moins une action visant l'accès à un logement, au relogement ou à l'amélioration de l'habitat
-			$resultats[$categorie]['acces_logement'][$souscategorie] = 0;
-			//… au moins une action visant l'accès aux soins
-			$resultats[$categorie]['acces_soins'][$souscategorie] = 0;
-			//… au moins une action visant l'autonomie financière (constitution d'un dossier de surendettement,...)
-			$resultats[$categorie]['autonomie_financiere'][$souscategorie] = 0;
-			//… au moins une action visant la famille et la parentalité (soutien familial, garde d'enfant, …)
-			$resultats[$categorie]['famille_parentalite'][$souscategorie] = 0;
-			// … au moins une action visant la lutte contre l'illettrisme ou l'acquisition des savoirs de base
-			$resultats[$categorie]['illettrisme'][$souscategorie] = 0;
-			//… au moins une action visant l'accès aux droits ou l'aide dans les démarches administratives
-			$resultats[$categorie]['demarches_administratives'][$souscategorie] = 0;
-			//… au moins une action non classée dans les items précédents 
-			$resultats[$categorie]['autres'][$souscategorie] = 0;
+			foreach($actionsCers as $libActionCer => $actionCer) {
+				$resultats[$categorie][$libActionCer][$souscategorie] = 0;
+			}
 		}
 
 		/**
@@ -1415,14 +1456,21 @@
 		 *
 		 */
 		private function _validRowInformationsTableau4 ($row, $configuration, $sujet) {
-			if (!empty ($configuration['actions_cer'][$sujet]['valeurparsoussujetcer93_id']) && in_array ($row['idValeurparsoussujetcer93'], $configuration['actions_cer'][$sujet]['valeurparsoussujetcer93_id'])) {
-				return true;
+			if ($configuration['actionscandidats']) {
+				if (!empty ($configuration['actions_cer'][$sujet]['actioncandidat_id']) && in_array ($row['idActioncandidat'], $configuration['actions_cer'][$sujet]['actioncandidat_id'])) {
+					return true;
+				}
 			}
-			else if (!empty ($configuration['actions_cer'][$sujet]['soussujetcer93_id']) && in_array ($row['idSoussujetcer93'], $configuration['actions_cer'][$sujet]['soussujetcer93_id'])) {
-				return true;
-			}
-			else if (!empty ($configuration['actions_cer'][$sujet]['sujetcer93_id']) && in_array ($row['idSujetcer93'], $configuration['actions_cer'][$sujet]['sujetcer93_id'])) {
-				return true;
+			else {
+				if (!empty ($configuration['actions_cer'][$sujet]['valeurparsoussujetcer93_id']) && in_array ($row['idValeurparsoussujetcer93'], $configuration['actions_cer'][$sujet]['valeurparsoussujetcer93_id'])) {
+					return true;
+				}
+				else if (!empty ($configuration['actions_cer'][$sujet]['soussujetcer93_id']) && in_array ($row['idSoussujetcer93'], $configuration['actions_cer'][$sujet]['soussujetcer93_id'])) {
+					return true;
+				}
+				else if (!empty ($configuration['actions_cer'][$sujet]['sujetcer93_id']) && in_array ($row['idSujetcer93'], $configuration['actions_cer'][$sujet]['sujetcer93_id'])) {
+					return true;
+				}
 			}
 
 			return false;
@@ -1434,19 +1482,18 @@
 		/**
 		 * ...
 		 *
-		 * 
+		 *
 		 *
 		 * @param array $search
 		 * @return array
 		 */
 		public function getIndicateursTableau5( array $search ) {
-			set_time_limit (300);
 			$Dossier = ClassRegistry::init( 'Dossier' );
 			$annee = Hash::get( $search, 'Search.annee' );
 			$results = array();
 
 			// Récupération des variables de configuration
-			$configuration = Configure::read('Statistiquedrees');
+			$configuration = $this->_getConfigStatistiqueDrees();
 
 			// Query de base
 			$base = $this->_getQueryTableau ($search, $annee);
@@ -1546,7 +1593,7 @@
 		/**
 		 * ...
 		 *
-		 * 
+		 *
 		 *
 		 * @param array $search
 		 * @return array
@@ -1555,10 +1602,10 @@
 			$Dossier = ClassRegistry::init( 'Dossier' );
 			$annee = Hash::get( $search, 'Search.annee' );
 			$results = array();
-			set_time_limit(360);
 
 			// Récupération des variables de configuration
-			$configuration = Configure::read('Statistiquedrees');
+			$configuration = $this->_getConfigStatistiqueDrees();
+
 			$configuration['spe'] = array_merge (
 				$configuration['organismes']['orientes_pole_emploi'],
 				$configuration['organismes']['spe_mission_locale'],
@@ -1601,7 +1648,7 @@
 		/**
 		 * ...
 		 *
-		 * 
+		 *
 		 *
 		 * @param array $search
 		 * @return array
@@ -1622,32 +1669,32 @@
 			);
 
 			$base['conditions'][] = '
-				"Orientstructpcd"."id" IN ( 
-					SELECT "orientsstructspcds"."id" AS "orientsstructspcds__id" 
-					FROM orientsstructs AS orientsstructspcds 
-					WHERE 
-						"orientsstructspcds"."personne_id" = "Personne"."id" 
-						AND "orientsstructspcds"."statut_orient" = \'Orienté\' 
-						AND "orientsstructspcds"."date_valid" IS NOT NULL 
-						AND "orientsstructspcds"."date_valid" < "Orientstruct"."date_valid" 
-					ORDER BY "orientsstructspcds"."date_valid" DESC 
+				"Orientstructpcd"."id" IN (
+					SELECT "orientsstructspcds"."id" AS "orientsstructspcds__id"
+					FROM orientsstructs AS orientsstructspcds
+					WHERE
+						"orientsstructspcds"."personne_id" = "Personne"."id"
+						AND "orientsstructspcds"."statut_orient" = \'Orienté\'
+						AND "orientsstructspcds"."date_valid" IS NOT NULL
+						AND "orientsstructspcds"."date_valid" < "Orientstruct"."date_valid"
+					ORDER BY "orientsstructspcds"."date_valid" DESC
 					LIMIT 1 )';
 
 			$base['conditions'][] = '
 				((((NOT ("Typeorient"."id" = (3))) AND ("Typeorientpcd"."id" = (3)))) OR ((("Typeorient"."id" = (3)) AND (NOT ("Typeorientpcd"."id" = (3))))))';
 
-			$base['conditions'][] = ' 
-				NOT EXISTS( 
-					SELECT "changementsorientations"."id" AS "changementsorientations__id" 
-					FROM orientsstructs AS changementsorientations 
-						INNER JOIN "public"."typesorients" AS "changementstypesorients" ON ("changementsorientations"."typeorient_id" = "changementstypesorients"."id") 
-						INNER JOIN "public"."structuresreferentes" AS "changementsstructuresreferentes" ON ("changementsorientations"."structurereferente_id" = "changementsstructuresreferentes"."id") 
-					WHERE 
-						"changementsorientations"."personne_id" = "Personne"."id" 
-						AND "changementsorientations"."statut_orient" = \'Orienté\' 
-						AND "changementsorientations"."date_valid" IS NOT NULL 
-						AND "changementsorientations"."date_valid" > "Orientstruct"."date_valid" 
-						AND "changementsorientations"."date_valid" BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\' 
+			$base['conditions'][] = '
+				NOT EXISTS(
+					SELECT "changementsorientations"."id" AS "changementsorientations__id"
+					FROM orientsstructs AS changementsorientations
+						INNER JOIN "public"."typesorients" AS "changementstypesorients" ON ("changementsorientations"."typeorient_id" = "changementstypesorients"."id")
+						INNER JOIN "public"."structuresreferentes" AS "changementsstructuresreferentes" ON ("changementsorientations"."structurereferente_id" = "changementsstructuresreferentes"."id")
+					WHERE
+						"changementsorientations"."personne_id" = "Personne"."id"
+						AND "changementsorientations"."statut_orient" = \'Orienté\'
+						AND "changementsorientations"."date_valid" IS NOT NULL
+						AND "changementsorientations"."date_valid" > "Orientstruct"."date_valid"
+						AND "changementsorientations"."date_valid" BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
 						AND ((((NOT ("Typeorient"."id" = (3))) AND ("changementstypesorients"."id" = (3)))) OR ((("Typeorient"."id" = (3)) AND (NOT ("changementstypesorients"."id" = (3)))))) )';
 
 			return $base;
@@ -1687,5 +1734,69 @@
 			}
 		}
 
+		/**
+		 *
+		 */
+		private function _getConfigStatistiqueDrees () {
+			$conf = array();
+
+			$conf['organismes'] = $this->_getConfigOrganismesDrees();
+			$conf['actions_cer'] = $this->_getConfigActionsCer();
+			$conf['actionscandidats'] = (boolean)Configure::read( 'Statistiquedrees.actionscandidats' );
+
+			return $conf;
+		}
+
+ 		/**
+		*
+		*/
+		private function _getConfigOrganismesDrees () {
+			$organismes = ClassRegistry::init( 'Dreesorganisme' )->find('all');
+			$conf = array();
+
+			foreach ($organismes as $organisme) {
+				if(!empty($organisme['Dreesorganisme']['lib_dreesorganisme_code'])) {
+					$libOrganisme = $organisme['Dreesorganisme']['lib_dreesorganisme_code'];
+					$conf[$libOrganisme] = array();
+					foreach ($organisme['Structurereferente'] as $structureRef) {
+						$conf[$libOrganisme][]  = $structureRef['id'];
+					}
+				}
+			}
+
+			return $conf;
+		}
+
+		/**
+		 *
+		 */
+		private function _getConfigActionsCer () {
+			$actions = ClassRegistry::init( 'Dreesactionscer' )->find('all');
+			$conf = array();
+
+			foreach ($actions as $action) {
+				$libActionCer = $action['Dreesactionscer']['lib_dreesactioncer_code'];
+				$conf[$libActionCer] = array();
+
+				$conf[$libActionCer]['sujetcer93_id'] = $this->_getConfigActionsCerParSujet($action['Sujetcer93']);
+				$conf[$libActionCer]['soussujetcer93_id'] = $this->_getConfigActionsCerParSujet($action['Soussujetcer93']);
+				$conf[$libActionCer]['valeurparsoussujetcer93_id'] = $this->_getConfigActionsCerParSujet($action['Valeurparsoussujetcer93']);
+
+			}
+			return $conf;
+		}
+
+		/*
+		 *
+		 * @param array $tab
+		 * @return array
+		 */
+		private function _getConfigActionsCerParSujet ($tab) {
+			$result = array();
+			foreach ($tab as $sujet) {
+				$result[]  = $sujet['id'];
+			}
+			return $result;
+		}
 	}
 ?>

@@ -27,6 +27,9 @@ msgstr "Sous-sujet lié"
 msgid "Valeurparsoussujetcer93.soussujetcer93_id"
 msgstr "Sous-sujet lié ?"
 
+msgid "Valeurparsoussujetcer93.dreesactionscer_id"
+msgstr "Action CER DREES associée"
+
 msgid "Valeurparsoussujetcer93.isautre"
 msgstr "Champ de type texte ?"
 

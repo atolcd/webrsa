@@ -55,6 +55,9 @@ msgstr "Structure active"
 msgid "Structurereferente.actif_cohorte"
 msgstr "Structure active pour les résultats des recherches en cohorte"
 
+msgid "Structurereferente.dreesorganisme_id"
+msgstr "Type d'organisme DREES"
+
 msgid "Structurereferente.typestructure"
 msgstr "Type de structure"
 

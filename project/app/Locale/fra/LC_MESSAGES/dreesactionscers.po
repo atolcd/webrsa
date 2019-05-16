@@ -1,0 +1,44 @@
+# Traductions de accueilsarticles.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Dreesactionscers/index/:heading"
+msgstr "Paramétrage des actions CER"
+
+msgid "/Dreesactionscers/add/:heading"
+msgstr "Ajout d'une action CER"
+
+msgid "/Dreesactionscers/edit/:heading"
+msgstr "Modification d'une action CER"
+
+msgid "Dreesactionscer.id"
+msgstr "Id"
+
+msgid "Dreesactionscer.lib_dreesactioncer"
+msgstr "Nom"
+
+msgid "Dreesactionscer.actif"
+msgstr "Actif"
+
+msgid "/Dreesactionscers/add"
+msgstr "Ajouter"
+
+msgid "/Dreesactionscers/edit"
+msgstr "Modifier"
+
+msgid "/Dreesactionscers/delete"
+msgstr "Supprimer"
+
+msgid "/Dreesactionscers/delete/#Dreesactionscer.id# ?"
+msgstr "Réellement supprimer le tag « #Dreesactionscer.lib_dreesactioncer# » ?"
+
+msgid "/Parametrages/index"
+msgstr "Retour"

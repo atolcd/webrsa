@@ -31,6 +31,9 @@ msgstr "Modifier"
 msgid "/Valeursparsoussujetscers93/edit/#Valeurparsoussujetcer93.id#"
 msgstr "Modifier la valeur par sous-sujet sur lequel le CER porte « #Valeurparsoussujetcer93.name# »"
 
+msgid "Dreesactionscer.lib_dreesactioncer"
+msgstr "Action CER DREES associée"
+
 msgid "/Valeursparsoussujetscers93/delete"
 msgstr "Supprimer"
 

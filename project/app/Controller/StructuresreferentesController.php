@@ -75,6 +75,7 @@
 			$departement = (int)Configure::read( 'Cg.departement' );
 			$options = $this->Structurereferente->enums();
 			$options['Structurereferente']['typeorient_id'] = $this->InsertionsBeneficiaires->typesorients( array( 'conditions' => array() ) );
+			$options['Structurereferente']['dreesorganisme_id'] = $this->InsertionsBeneficiaires->dreesorganismes( array( 'conditions' => array() ) );
 			if( 93 === $departement ) {
 				$options['Structurereferente']['communautesr_id'] = $this->Structurereferente->Communautesr->find( 'list' );
 			}
@@ -97,6 +98,7 @@
 
 			$options = $this->viewVars['options'];
 			$options['Structurereferente']['typeorient_id'] = $this->InsertionsBeneficiaires->typesorients( array( 'conditions' => array() ) );
+			$options['Structurereferente']['dreesorganisme_id'] = $this->InsertionsBeneficiaires->dreesorganismes( array( 'conditions' => array() ) );
 			$options['Zonegeographique']['Zonegeographique'] = $this->Structurereferente->Zonegeographique->find( 'list' );
 			$this->set( compact( 'options' ) );
 		}

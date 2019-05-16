@@ -402,7 +402,6 @@
 				'Indicateurs de natures des actions des contrats' => array( 'url' => array( 'controller' => 'statistiquesministerielles', 'action' => 'indicateurs_natures_contrats'  ) ),
 			),
 			'Statistiques DREES' => array (
-				'disabled' => ( $departement != 93 ),
 				'Tableau 1' => array( 'url' => array( 'controller' => 'statistiquesdrees', 'action' => 'indicateurs_tableau1'  ) ),
 				'Tableau 2' => array( 'url' => array( 'controller' => 'statistiquesdrees', 'action' => 'indicateurs_tableau2'  ) ),
 				'Tableau 3' => array( 'url' => array( 'controller' => 'statistiquesdrees', 'action' => 'indicateurs_tableau3'  ) ),

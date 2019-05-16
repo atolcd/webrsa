@@ -127,6 +127,13 @@
 				'conditions' => '',
 				'fields' => '',
 				'order' => ''
+			),
+			'Dreesactionscer' => array(
+				'className' => 'Dreesactionscer',
+				'foreignKey' => 'dreesactionscer_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
 			)
 		);
 

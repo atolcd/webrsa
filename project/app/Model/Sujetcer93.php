@@ -41,6 +41,16 @@
 			'Postgres.PostgresAutovalidate'
 		);
 
+		public $belongsTo = array(
+			'Dreesactionscer' => array(
+				'className' => 'Dreesactionscer',
+				'foreignKey' => 'dreesactionscer_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
+			)
+		);
+
 		/**
 		 * Liaisons "hasMany" avec d'autres modèles.
 		 *
