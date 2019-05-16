@@ -13,6 +13,7 @@
 			'Ep.name',
 			'Ep.adressemail',
 			'Ep.regroupementep_id' => array( 'empty' => true ),
+			'Ep.actif' => array( 'type' => 'checkbox' ),
 			'Membreep.Membreep' => array( 'type' => 'hidden', 'value' => '' )
 		);
 	}
@@ -21,6 +22,7 @@
 			'Ep.id',
 			'Ep.name',
 			'Ep.regroupementep_id' => array( 'empty' => true ),
+			'Ep.actif' => array( 'type' => 'checkbox' ),
 			'Membreep.Membreep' => array( 'type' => 'hidden', 'value' => '' )
 		);
 	}
