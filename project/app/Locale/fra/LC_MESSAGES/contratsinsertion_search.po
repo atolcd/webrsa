@@ -107,3 +107,7 @@ msgstr "Rang du contrat"
 
 msgid "Contratinsertion.forme_ci"
 msgstr "Forme du contrat"
+
+# ==============================================================================
+msgid "Search.Contratinsertion.num_contrat_66"
+msgstr "Type de contrat"

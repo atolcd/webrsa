@@ -92,6 +92,7 @@
 					$departement === 66
 					? array(
 						'Search.Contratinsertion.positioncer' => array( 'empty' => true ),
+						'Search.Contratinsertion.num_contrat_66' => array( 'empty' => true ),
 					)
 					: array()
 				),
