@@ -68,7 +68,7 @@
 					'order' => array( 'Structurereferente.lib_struc ASC' ),
 					'joins' => array(
 						$this->Structurereferente->join( 'Typeorient', array( 'type' => 'INNER' ) ),
-						$this->Structurereferente->join( 'Dreesorganisme', array( 'type' => 'INNER' ) )
+						$this->Structurereferente->join( 'Dreesorganisme', array( 'type' => 'LEFT' ) )
 					),
 					'recursive' => -1,
 					'conditions' => array()
@@ -122,6 +122,11 @@
 					$sql = $this->Structurereferente->CommunautesrStructurereferente->sq( $subQuery );
 					$query['conditions'][] = "Structurereferente.id IN ( {$sql} )";
 				}
+			}
+
+			// Véfirication de l'organisme DREES
+			if(isset($search['Structurereferente']['dreesorganisme_id'])) {
+				$query['conditions'][] = array('Structurereferente.dreesorganisme_id' => $search['Structurereferente']['dreesorganisme_id']);
 			}
 
 			return $query;
