@@ -49,7 +49,7 @@
 					) {
 						unset( $query['conditions'][$path] );
 						list( $m, $f ) = model_field( $path );
-						$query['conditions']["NOACCENTS_UPPER( \"{$m}\".\"{$f}\" )"] = noaccents_upper( $value );
+						$query['conditions']["NOACCENTS_UPPER( \"{$m}\".\"{$f}\" ) LIKE"] = noaccents_upper( $value );
 					}
 				}
 				else {
@@ -71,12 +71,13 @@
 					Hash::expand( $complement )
 				);
 			}
+
+			$primaryKey = null;
 			$Model->create($data);
 			if ( $Model->save( null, array( 'atomic' => false ) ) ) {
 				$primaryKey = $Model->{$Model->primaryKey};
-			}else{
-				$primaryKey = null;
 			}
+
 			return $primaryKey;
 		}
 

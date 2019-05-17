@@ -135,7 +135,6 @@
 					$primaryKey = null;
 				}
 			}
-
 			return $primaryKey;
 		}
 
@@ -175,7 +174,7 @@
 							// Check string encode
 							$noacc_upp_value = $value;
 						}
-						$query['conditions']["NOACCENTS_UPPER( \"{$m}\".\"{$f}\" )"] = $noacc_upp_value;
+						$query['conditions']["NOACCENTS_UPPER( \"{$m}\".\"{$f}\" ) LIKE"] = $noacc_upp_value;
 					}
 				}
 				else {
@@ -184,23 +183,22 @@
 				}
 			}
 			// Fin copie ci-dessus.
+			$data = Hash::merge(
+				Hash::expand( $conditions ),
+				Hash::expand( $complement )
+			);
+
 			$record = $Model->find( 'first', $query );
 
+			$primaryKey = null;
 			if( !empty( $record ) ) {
 				$primaryKey = Hash::get( $record, $modelPrimaryKey );
+				$data[$Model->alias]['id'] = $primaryKey;
 			}
-			else {
-				$data = Hash::merge(
-					Hash::expand( $conditions ),
-					Hash::expand( $complement )
-				);
-				$Model->create( $data );
-				if( $Model->save( null, array( 'atomic' => false ) ) ) {
-					$primaryKey = $Model->{$Model->primaryKey};
-				}
-				else {
-					$primaryKey = null;
-				}
+
+			$Model->create( $data );
+			if( $Model->save( null, array( 'atomic' => false ) ) ) {
+				$primaryKey = $Model->{$Model->primaryKey};
 			}
 
 			return $primaryKey;
