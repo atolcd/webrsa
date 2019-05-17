@@ -747,8 +747,9 @@
 			//si un contrat est validé
 			//ne fonctionne pas s'il est annulé ou en attente de décision
 			if($contratInsertion["Contratinsertion"]["decision_ci"] == 'V' && $contratInsertion["Contratinsertion"]["datevalidation_ci"] != null) {
-				// Remise à zéro du cumul si un EP Parcours avec décision de maintien est avant le CER validé.
-				if (!is_null ($this->datesEpParcoursDecisionMaintien)) {
+
+				// Remise à zéro du cumul si un eEP Parcours avec décision de maintien est avant le CER validé.
+				if (!empty($this->datesEpParcoursDecisionMaintien) && !is_null($this->datesEpParcoursDecisionMaintien)) {
 					$dateDecision = new DateTime ($contratInsertion['Contratinsertion']['datedecision']);
 					$dateEpParcours = new DateTime ($this->datesEpParcoursDecisionMaintien[0]);
 					if ($dateDecision->diff ($dateEpParcours)->format ('%R') == '-') {
