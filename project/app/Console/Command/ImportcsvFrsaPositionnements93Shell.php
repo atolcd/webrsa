@@ -119,19 +119,42 @@
 
 				$data = $this->normalizeRow( $row );
 
-				// Recherche de l'existance du positionnement dans le deux systèmes
-				$query = array(
-					'fields' => array(
-						'Ficheprescription93.id'
-					),
-					'recursive' => 0,
-					'conditions' => array(
-						'Ficheprescription93.id' => Hash::get( $data, 'Ficheprescription93.id' ),
-						'Ficheprescription93.frsa_id' => Hash::get( $data, 'Ficheprescription93.frsa_id' )
-					),
-				);
-				$found = $this->Ficheprescription93->find( 'all', $query );
-				if( empty( $found ) ) {
+				//Correction des données
+				if (
+					!empty(Hash::get( $data,'Ficheprescription93.id'))
+					&& !is_numeric(Hash::get( $data,'Ficheprescription93.id'))
+				){
+					$data['Ficheprescription93']['id'] = null;
+				}
+
+				// Recherche de la fiche prescription
+				if (!empty(Hash::get( $data, 'Ficheprescription93.id' ) ) && !empty(Hash::get( $data, 'Ficheprescription93.frsa_id' )) ) {
+					// Recherche de l'existance du positionnement dans le deux systèmes
+					$query = array(
+						'fields' => array(
+							'Ficheprescription93.id'
+						),
+						'recursive' => 0,
+						'conditions' => array(
+							'Ficheprescription93.id' => Hash::get( $data, 'Ficheprescription93.id' ),
+							'Ficheprescription93.frsa_id' => Hash::get( $data, 'Ficheprescription93.frsa_id' )
+						),
+					);
+					$found = $this->Ficheprescription93->find( 'all', $query );
+				}elseif ( !empty(Hash::get( $data, 'Ficheprescription93.frsa_id' )) ) {
+					// Recherche de l'existance du positionnement avec un FRSA ID
+					$query = array(
+						'fields' => array(
+							'Ficheprescription93.id'
+						),
+						'recursive' => 0,
+						'conditions' => array(
+							'Ficheprescription93.frsa_id' => Hash::get( $data, 'Ficheprescription93.frsa_id' )
+						),
+					);
+					$query['conditions'][] = 'Ficheprescription93.frsa_id IS NULL';
+					$found = $this->Ficheprescription93->find( 'all', $query );
+				}elseif (!empty(Hash::get( $data, 'Ficheprescription93.id' ) )){
 					// Recherche de l'existance du positionnement uniquement dans webrsa sans import précédents
 					$query = array(
 						'fields' => array(
@@ -145,7 +168,6 @@
 					$query['conditions'][] = 'Ficheprescription93.frsa_id IS NULL';
 					$found = $this->Ficheprescription93->find( 'all', $query );
 				}
-
 				if( !empty( $found ) && count($found)<2 ) {
 
 					foreach ( $data as  $table => $contenu ) {

@@ -267,47 +267,48 @@
 		public function createInstantaneeDonnee( Model $Model, $primaryKey, array $data) {
 			$instantaneeKey = null;
 
-			$instantanedonneesfp93 = $Model->Instantanedonneesfp93->getInstantane( $data['Ficheprescription93']['personne_id'] );
+			$instantanedonneesfp93 = $Model->Instantanedonneesfp93->getInstantane( $data['Ficheprescription93']['personne_id'] );//Get Information Beneficiaire
+			$instantanedonneesfp93['Instantanedonneesfp93']['ficheprescription93_id'] = $primaryKey;
 
 			//Get Referent et Structure
 			$fields = array_merge(
-						$Model->Personne->PersonneReferent->Referent->fields(),
-						$Model->Personne->PersonneReferent->Referent->Structurereferente->fields()
+				$Model->Personne->PersonneReferent->Referent->fields(),
+				$Model->Personne->PersonneReferent->Referent->Structurereferente->fields()
 			);
-			$structReferent = $Model->Personne->PersonneReferent->find(
+			$structReferent = $Model->Personne->PersonneReferent->Referent->find(
 				'first',
 				array(
 					'fields' => $fields,
 					'contain' => array(
-						'Referent',
 						'Structurereferente'
 					),
-					'conditions' => array( 'PersonneReferent.personne_id' => $data['Ficheprescription93']['personne_id'], 'PersonneReferent.dfdesignation IS NULL' ),
-					'order' => array( 'PersonneReferent.dddesignation DESC' )
+					'conditions' => array( 'Referent.id' => $data['Ficheprescription93']['referent_id'])
 				)
 			);
-			$instantanedonneesfp93['Instantanedonneesfp93']['referent_fonction'] = $structReferent['Referent']['fonction'] ;
-			$instantanedonneesfp93['Instantanedonneesfp93']['referent_email'] = $structReferent['Referent']['email'];
-			$instantanedonneesfp93['Instantanedonneesfp93']['structure_name'] = $structReferent['Structurereferente']['lib_struc'];
-			$instantanedonneesfp93['Instantanedonneesfp93']['structure_num_voie'] = $structReferent['Structurereferente']['num_voie'];
-			$instantanedonneesfp93['Instantanedonneesfp93']['structure_type_voie'] = $structReferent['Structurereferente']['type_voie'];
-			$instantanedonneesfp93['Instantanedonneesfp93']['structure_nom_voie'] = $structReferent['Structurereferente']['nom_voie'];
-			$instantanedonneesfp93['Instantanedonneesfp93']['structure_code_postal'] = $structReferent['Structurereferente']['code_postal'];
-			$instantanedonneesfp93['Instantanedonneesfp93']['structure_ville'] = $structReferent['Structurereferente']['ville'];
-			$instantanedonneesfp93['Instantanedonneesfp93']['structure_tel'] = $structReferent['Structurereferente']['numtel'];
-			$instantanedonneesfp93['Instantanedonneesfp93']['structure_fax'] = $structReferent['Structurereferente']['numfax'];
+			if (!empty( $structReferent )) {
+				$instantanedonneesfp93['Instantanedonneesfp93']['referent_fonction'] = $structReferent['Referent']['fonction'] ;
+				$instantanedonneesfp93['Instantanedonneesfp93']['referent_email'] = $structReferent['Referent']['email'];
+				$instantanedonneesfp93['Instantanedonneesfp93']['structure_name'] = $structReferent['Structurereferente']['lib_struc'];
+				$instantanedonneesfp93['Instantanedonneesfp93']['structure_num_voie'] = $structReferent['Structurereferente']['num_voie'];
+				$instantanedonneesfp93['Instantanedonneesfp93']['structure_type_voie'] = $structReferent['Structurereferente']['type_voie'];
+				$instantanedonneesfp93['Instantanedonneesfp93']['structure_nom_voie'] = $structReferent['Structurereferente']['nom_voie'];
+				$instantanedonneesfp93['Instantanedonneesfp93']['structure_code_postal'] = $structReferent['Structurereferente']['code_postal'];
+				$instantanedonneesfp93['Instantanedonneesfp93']['structure_ville'] = $structReferent['Structurereferente']['ville'];
+				$instantanedonneesfp93['Instantanedonneesfp93']['structure_tel'] = $structReferent['Structurereferente']['numtel'];
+				$instantanedonneesfp93['Instantanedonneesfp93']['structure_fax'] = $structReferent['Structurereferente']['numfax'];
 
-			//Get Information Beneficiaire
-			$instantanedonneesfp93['Instantanedonneesfp93']['ficheprescription93_id'] = $primaryKey;
+				$Model->Instantanedonneesfp93->create($instantanedonneesfp93['Instantanedonneesfp93']);
+				if ( $Model->Instantanedonneesfp93->save( null, array( 'atomic' => false ) ) ) {
+					$instantaneeKey = $primaryKey;
+				}else{
+					$instantaneeKey = null;
+				}
 
-			$Model->Instantanedonneesfp93->create($instantanedonneesfp93['Instantanedonneesfp93']);
-			if ( $Model->Instantanedonneesfp93->save( null, array( 'atomic' => false ) ) ) {
-				$instantaneeKey = $Model->Instantanedonneesfp93->{$Model->primaryKey};
-			}else{
-				$primaryKey = null;
+			}else {
+				$instantaneeKey = null;
 			}
 
-			return $primaryKey ;
+			return $instantaneeKey ;
 		}
 
 	}

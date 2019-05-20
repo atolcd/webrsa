@@ -128,6 +128,14 @@
 
 				$data = $this->normalizeRow( $row );
 
+				//Correction des données
+				if (
+					!empty(Hash::get( $data,'Ficheprescription93.id'))
+					&& !is_numeric(Hash::get( $data,'Ficheprescription93.id'))
+				){
+					$data['Ficheprescription93']['id'] = null;
+				}
+
 				// Recherche de l'ID de la personne
 				$query = array(
 					'fields' => array(
@@ -154,12 +162,18 @@
 							}
 					}
 					//Mise en place des id et copie des données
-					$data['Personnelangue']['personne_id'] = Hash::get( $data, 'Personne.id' );
-					$data['Personnefrsadiplomexper']['personne_id'] = Hash::get( $data, 'Personne.id' );
-					$data['Infocontactpersonne']['personne_id'] = Hash::get( $data, 'Personne.id' );
-					$data['Infocontactpersonne']['fixe'] = $data['Personne']['numfixe'];
-					$data['Infocontactpersonne']['mobile'] = $data['Personne']['numport'];
-					$data['Infocontactpersonne']['email'] = $data['Personne']['email'];
+					$path = 'Personnelangue.personne_id';
+					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.id' ) );
+					$path = 'Personnefrsadiplomexper.personne_id';
+					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.id' ) );
+					$path = 'Infocontactpersonne.personne_id';
+					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.id' ) );
+					$path = 'Infocontactpersonne.fixe';
+					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.numfixe' ) );
+					$path = 'Infocontactpersonne.mobile';
+					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.numport' ) );
+					$path = 'Infocontactpersonne.email';
+					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.email' ) );
 
 					//Traitement par model
 					foreach( $this->uses as $modelName ) {

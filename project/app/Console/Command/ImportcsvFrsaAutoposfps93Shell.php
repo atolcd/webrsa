@@ -146,6 +146,14 @@
 				//Récupération des données de la Ligne
 				$data = $this->normalizeRow( $row );
 
+				//Correction des données
+				if (
+					!empty(Hash::get( $data,'Ficheprescription93.id'))
+					&& !is_numeric(Hash::get( $data,'Ficheprescription93.id'))
+				){
+					$data['Ficheprescription93']['id'] = null;
+				}
+
 				// I. Verification de l'existance ou Abscence de valeur obligatoires
 				// I.1 Recherche de l'abscence de l'ID du positionnement F-RSA dans Webrsa.
 				$query = array(
@@ -186,12 +194,18 @@
 							}
 					}
 					//II.1.2 Copie des données d'informations pour historisation et des identifiants de personne
-					$data['Personnelangue']['personne_id'] = Hash::get( $data, 'Personne.id' );
-					$data['Personnefrsadiplomexper']['personne_id'] = Hash::get( $data, 'Personne.id' );
-					$data['Infocontactpersonne']['personne_id'] = Hash::get( $data, 'Personne.id' );
-					$data['Infocontactpersonne']['fixe'] = $data['Personne']['numfixe'];
-					$data['Infocontactpersonne']['mobile'] = $data['Personne']['numport'];
-					$data['Infocontactpersonne']['email'] = $data['Personne']['email'];
+					$path = 'Personnelangue.personne_id';
+					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.id' ) );
+					$path = 'Personnefrsadiplomexper.personne_id';
+					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.id' ) );
+					$path = 'Infocontactpersonne.personne_id';
+					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.id' ) );
+					$path = 'Infocontactpersonne.fixe';
+					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.numfixe' ) );
+					$path = 'Infocontactpersonne.mobile';
+					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.numport' ) );
+					$path = 'Infocontactpersonne.email';
+					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.email' ) );
 
 					//2) Section Catalogue
 					//II.2.1 Verification des valeurs
