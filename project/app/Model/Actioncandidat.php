@@ -384,7 +384,6 @@
 
 
         public function search( $criteres ) {
-
             /// Conditions de base
 			$conditions = array();
 
@@ -414,6 +413,12 @@
 				$conditions[] = 'Actioncandidat.eligiblefse = \''.Sanitize::clean( $eligiblefse, array( 'encode' => false )  ).'\'';
 			}
 
+			// Ajout de la condition action CER
+			if( isset( $criteres['Actioncandidat']['dreesactionscer_id'])) {
+				$actioncer = $criteres['Actioncandidat']['dreesactionscer_id'];
+				$conditions[] = array('Actioncandidat.dreesactionscer_id' => $actioncer);
+			}
+
             $conditions = $this->conditionsDates( $conditions, $criteres, 'Actioncandidat.ddaction' );
             $conditions = $this->conditionsDates( $conditions, $criteres, 'Actioncandidat.dfaction' );
 
@@ -424,14 +429,16 @@
                     $this->Contactpartenaire->join( 'Partenaire', array( 'type' => 'LEFT OUTER' ) ),
                     $this->join( 'Chargeinsertion', array( 'type' => 'LEFT OUTER' ) ),
                     $this->join( 'Secretaire', array( 'type' => 'LEFT OUTER' ) ),
-                    $this->join( 'Referent', array( 'type' => 'LEFT OUTER' ) )
+                    $this->join( 'Referent', array( 'type' => 'LEFT OUTER' ) ),
+                    $this->join( 'Dreesactionscer', array( 'type' => 'LEFT OUTER' ) )
                 ),
                 'fields' => array_merge(
                     $this->fields(),
                     $this->Contactpartenaire->fields(),
                     $this->Contactpartenaire->Partenaire->fields(),
                     $this->Chargeinsertion->fields(),
-                    $this->Secretaire->fields()
+                    $this->Secretaire->fields(),
+                    $this->Dreesactionscer->fields()
                 ),
                  'conditions' => $conditions,
                  'recursive' => -1
