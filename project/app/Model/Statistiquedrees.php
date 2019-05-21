@@ -1209,35 +1209,83 @@
 		 * @return array
 		 */
 		public function getIndicateursTableau4( array $search ) {
+			$Dossier = ClassRegistry::init( 'Dossier' );
 			$annee = Hash::get( $search, 'Search.annee' );
 			$results = array();
 
 			// Récupération des variables de configuration
 			$configuration = $this->_getConfigStatistiqueDrees();
 
-			if ($configuration['actionscandidats']) {
-				$Dossier = ClassRegistry::init( 'Actioncandidat' );
-			}
-			else {
-				$Dossier = ClassRegistry::init( 'Cer93Sujetcer93' );
-			}
-
 			// Query de base
 			$base = $this->_getQueryTableau ($search, $annee);
 			$base = $this->_completeQueryCer ($base, $annee, $configuration);
 			$base = $this->_completeQueryRestrictionCer($base, $annee, $configuration);
-			if ($configuration['actionscandidats']) {
-				$base = $this->_adaptQueryTableau4Actioncandidat ($base, $search, $annee, $configuration);
-			}
-			else {
-				$base = $this->_adaptQueryTableau4 ($base, $search, $annee, $configuration);
-			}
-
-			// Recherche
-			$results = $Dossier->find( 'all', $base);
 
 			// Initialisation tableau de résultats
 			$resultats = array ();
+
+			if ($configuration['actionscandidats']) {
+				// Recherche des personnes
+				$results = $Dossier->find( 'all', $base);
+
+				// Extraction des id personnes
+				$idPersonnes = '';
+				$separateur = '';
+				$personnes = array ();
+				foreach ($results as $result) {
+					$idPersonnes .= $separateur.$result[0]['idPersonne'];
+					$separateur = ', ';
+					$personnes[$result[0]['idPersonne']] = $result[0];
+				}
+
+				// Recherche des actions des fiches de candidature
+				$query = array (
+					'fields' => array (
+						'DISTINCT ON ("ActioncandidatPersonne"."id") "ActioncandidatPersonne"."id" AS "idActioncandidatpersonne"',
+						'"Actioncandidat"."dreesactionscer_id" AS "idDreesactioncer"',
+						'"Actioncandidat"."id" AS "idActioncandidat"',
+						'"ActioncandidatPersonne"."personne_id" AS "idPersonne"',
+					),
+					'joins' => array (
+						array (
+							'table' => 'actionscandidats',
+							'alias' => 'Actioncandidat',
+							'type' => 'INNER',
+							'conditions' => '"ActioncandidatPersonne"."actioncandidat_id" = "Actioncandidat"."id"'
+						),
+					),
+					'conditions' => array (
+						'"ActioncandidatPersonne"."datesignature" >= \''.$annee.'-01-01\'',
+						'"ActioncandidatPersonne"."datesignature" <= \''.$annee.'-12-31\'',
+						'"Actioncandidat"."dreesactionscer_id" IS NOT NULL',
+						'"ActioncandidatPersonne"."actioncandidat_id" IN ('.$idPersonnes.')',
+					),
+					'contain' => false,
+				);
+
+				$Actioncandidatpersonne = ClassRegistry::init( 'ActioncandidatPersonne' );
+				$results = $Actioncandidatpersonne->find( 'all', $query);
+
+				// Merge des résultats
+				foreach ($results as $key => $result) {
+					if (isset ($personnes[$result[0]['idPersonne']])) {
+						$results[$key][0] = array_merge ($result[0], $personnes[$result[0]['idPersonne']]);
+					} else {
+						unset ($results[$key]);
+					}
+				}
+			}
+			else {
+				$Dossier = ClassRegistry::init( 'Cer93Sujetcer93' );
+
+				// Query
+				$base = $this->_adaptQueryTableau4 ($base, $search, $annee, $configuration);
+
+				// Recherche
+				$results = $Dossier->find( 'all', $base);
+			}
+
+			// Remplissage tableau de résultats
 			$this->_initialiseResults($resultats, 'Tableau4');
 
 			// Génération du tableau de résultats
@@ -1782,7 +1830,9 @@
 				$conf[$libActionCer]['soussujetcer93_id'] = $this->_getConfigActionsCerParSujet($action['Soussujetcer93']);
 				$conf[$libActionCer]['valeurparsoussujetcer93_id'] = $this->_getConfigActionsCerParSujet($action['Valeurparsoussujetcer93']);
 
+				$conf[$libActionCer]['actioncandidat_id'] = $this->_getConfigActionsCerParSujet($action['Actioncandidat']);
 			}
+
 			return $conf;
 		}
 
