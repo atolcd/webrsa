@@ -14,6 +14,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/var/www/66test/public_html", create: true
   config.vm.synced_folder ".", "/var/www/58test/public_html", create: true
   config.vm.synced_folder ".", "/var/www/93test/public_html", create: true
+  config.vm.synced_folder ".", "/var/www/976test/public_html", create: true
   
   config.vm.provider :virtualbox do |vb|
     vb.memory = 1024
