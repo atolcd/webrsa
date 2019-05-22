@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
   config.vm.synced_folder ".", "/var/www/976test/public_html", create: true
   
   config.vm.provider :virtualbox do |vb|
-    vb.memory = 1024
+    vb.memory = 3072
     vb.customize ["modifyvm", :id, "--cpus", "2"]
     vb.name = "atolcd-webrsa-demo"
   end
