@@ -270,6 +270,42 @@ class EmailConfig {
 		'headerCharset' => 'utf-8',
 	);
 
+	/**
+	 * Configuration de l'envoi de mails aux administrateur pour les imports FRSA en rejet
+	 * CG 93.
+	 *
+	 * Les clés 'port', 'timeout', 'host', 'username', 'password', 'client'
+	 * remplacent les valeurs qui étaient contenues dans 'Email.smtpOptions'
+	 * du fichier webrsa.inc.
+	 *
+	 *
+	 * Lorsque l'application est en debug > 0, alors le mail est envoyé à
+	 * l'adresse spécifiée pour la clé 'to', ou à l'expéditeur (clé 'from').
+	 *
+	 * De même, si une clé 'subject' est spécifiée, elle sera utilisée comme
+	 * sujet du mail.
+	 *
+	 * @var array
+	 */
+	public $import_frsa = array(
+		'transport' => 'Smtp',
+		'from' => '',
+		'replyTo' => '',
+		'to' => '',
+		'subject' => '',
+		'host' => '',
+		'username' => '',
+		'password' => '',
+		'client' => '',
+
+		'port' => 25,
+		'timeout' => 30,
+		'log' => false,
+		'charset' => 'utf-8',
+		'headerCharset' => 'utf-8',
+
+	);
+
 	public function __construct () {
 		$this->user_generation_mdp['transport'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_TRANSPORT');
 		$this->user_generation_mdp['from'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_FROM');
@@ -341,5 +377,14 @@ class EmailConfig {
 		$this->fiche_de_liaison['password'] = env('EMAIL_CONFIG_MAIL_FICHE_DE_LIAISON_PASSWORD');
 		$this->fiche_de_liaison['client'] = env('EMAIL_CONFIG_MAIL_FICHE_DE_LIAISON_CLIENT');
 
+		$this->import_frsa['transport'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_TRANSPORT');
+		$this->import_frsa['from'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_FROM');
+		$this->import_frsa['replyTo'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_REPLYTO');
+		$this->import_frsa['to'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_TO');
+		$this->import_frsa['subject'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_SUBJECT');
+		$this->import_frsa['host'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_HOST');
+		$this->import_frsa['username'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_USERNAME');
+		$this->import_frsa['password'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_PASSWORD');
+		$this->import_frsa['client'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_CLIENT');
 	}
 }
