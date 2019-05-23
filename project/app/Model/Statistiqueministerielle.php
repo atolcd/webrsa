@@ -237,16 +237,19 @@
 		 */
 		protected function _getFieldsTrancheAge( array $search ) {
 			$annee = Hash::get( $search, 'Search.annee' );
-
+			//auparavant le calcul de l'âge était traité ainsi :
+			//WHEN EXTRACT( YEAR FROM AGE(TIMESTAMP'2018-12-31', "Personne"."dtnai" ) ) BETWEEN 0 AND 24 THEN '0 - 24'
+			//cependant la génération de la requête est 10% plus rapide avec la syntaxe "between"
+			//avec postgres 8.4 la page se charge en plus de 7min, il faut donc optimiser au maximum
 			return array(
 				'(
 					CASE
-						WHEN EXTRACT( YEAR FROM AGE(TIMESTAMP\''.$annee.'-12-31\', "Personne"."dtnai" ) ) BETWEEN 0 AND 24 THEN \'0 - 24\'
-						WHEN EXTRACT( YEAR FROM AGE(TIMESTAMP \''.$annee.'-12-31\', "Personne"."dtnai" ) ) BETWEEN 25 AND 29 THEN \'25 - 29\'
-						WHEN EXTRACT( YEAR FROM AGE(TIMESTAMP \''.$annee.'-12-31\', "Personne"."dtnai" ) ) BETWEEN 30 AND 39 THEN \'30 - 39\'
-						WHEN EXTRACT( YEAR FROM AGE(TIMESTAMP \''.$annee.'-12-31\', "Personne"."dtnai" ) ) BETWEEN 40 AND 49 THEN \'40 - 49\'
-						WHEN EXTRACT( YEAR FROM AGE(TIMESTAMP \''.$annee.'-12-31\', "Personne"."dtnai" ) ) BETWEEN 50 AND 59 THEN \'50 - 59\'
-						WHEN EXTRACT( YEAR FROM AGE(TIMESTAMP \''.$annee.'-12-31\', "Personne"."dtnai" ) ) >= 60 THEN \'>= 60\'
+						WHEN "Personne"."dtnai" BETWEEN \''.($annee-24).'-01-01\' AND \''.$annee.'-12-31\' THEN \'0 - 24\'
+						WHEN "Personne"."dtnai" BETWEEN \''.($annee-29).'-01-01\' AND \''.($annee-25).'-12-31\' THEN \'25 - 29\'
+						WHEN "Personne"."dtnai" BETWEEN \''.($annee-39).'-01-01\' AND \''.($annee-30).'-12-31\' THEN \'30 - 39\'
+						WHEN "Personne"."dtnai" BETWEEN \''.($annee-49).'-01-01\' AND \''.($annee-40).'-12-31\' THEN \'40 - 49\'
+						WHEN "Personne"."dtnai" BETWEEN \''.($annee-59).'-01-01\' AND \''.($annee-50).'-12-31\' THEN \'50 - 59\'
+						WHEN "Personne"."dtnai" BETWEEN \'1900-01-01\' AND \''.($annee-60).'-12-31\' THEN \'>= 60\'
 						ELSE \'NC\'
 					END
 				) AS "age_range"',
