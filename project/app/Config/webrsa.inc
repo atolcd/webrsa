@@ -746,160 +746,16 @@
 				'Calculdroitrsa.toppersdrodevorsa' => '1'
 			),
 			/**
-			 * Catégories (intitulés) et conditions des différents types de référents
-			 * uniques (structures référentes) pour la tableau "2 - Organismes de
-			 * prise en charge des personnes ... dont le référent unique a été désigné"
-			 *
-			 * Modèles disponibles (en plus de ceux disponibles de base, @see
-			 * conditions_droits_et_devoirs): DspRev, Dsp, Orientstruct, Typeorient,
-			 * Structurereferente.
-			 */
-			'organismes' => array(
-				/*
-				 * SPE
-				 */
-
-				// Pôle emploi
-				'orientes_pole_emploi' => array (74, 75, 76, 77, 78, 133, 99, 80, 83, 84, 85, 86, 87, 88, 113, 79, 89, 90, 118, 91, 94, 95, 96, 97, 81, 82),
-
-				// Mission locale
-				'spe_mission_locale' => array (),
-
-				// Maison de l'emploi (MDE), Maison de l’emploi et de la formation (MDEF), Plan local pluriannuel pour l'insertion et l'emploi (PLIE), Cap Emploi
-				'spe_mde_mdef_plie' => array(102, 110),
-
-				// Structure d'appui à la création et au développement d'entreprise
-				'spe_creation_entreprise' => array(),
-
-				// Structure d'insertion par l'activité économique (IAE)
-				'spe_iae' => array(),
-
-				// Autre organisme de placement professionnel ou de formation professionnelle
-				'spe_autre_placement_pro' => array(),
-
-				/*
-				 * Hors SPE
-				 */
-
-				// Service du Conseil départemental / territorial
-				'hors_spe_ssd' => array(108, 109, 2, 14, 23, 22, 16, 28, 132, 20, 117, 34, 18, 39, 42, 44, 50, 26, 52, 53, 55, 48, 57, 58, 59, 60, 30, 51, 3, 8, 9, 49, 54, 56, 46, 135, 127, 47, 126),
-
-				// Caisse d'allocations familiales (Caf)
-				'hors_spe_caf' => array(129),
-
-				// Mutualité sociale agricole (Msa)
-				'hors_spe_msa' => array(130),
-
-				// Centre communal/intercommunal d'action sociale (CCAS/CIAS)
-				'hors_spe_ccas_cias' => array(),
-
-				// Autre organisme
-				'hors_spe_autre_organisme' => array(136, 100, 19, 24, 114, 11, 10, 13, 17, 1, 21, 15, 67, 31, 29, 33, 32, 70, 41, 40, 45, 43, 61, 62, 63, 64, 27, 38, 65, 66, 69, 68, 7, 71, 72, 73, 104, 119, 116, 134, 122, 112, 128, 123, 105, 121, 106, 98, 107, 125, 120, 101, 111, 124),
-
-			),
-			/**
-			 *
-			 *
-			 */
-			'actions_cer' => array (
-				//… au moins une action visant à trouver des activités, stages ou formations destinés à acquérir des compétences professionnelles
-				'acquerir_competences_pro' => array (
-					'sujetcer93_id' => array (),
-					'soussujetcer93_id' => array (2, 7),
-					'valeurparsoussujetcer93_id' => array (42, 43, 44),
-				),
-				//… au moins une action visant à s'inscrire dans un parcours de recherche d'emploi
-				'parcours_recherche_emploi' => array (
-					'sujetcer93_id' => array (),
-					'soussujetcer93_id' => array (1, 4),
-					'valeurparsoussujetcer93_id' => array (32, 34, 37),
-				),
-				//… au moins une action visant à s'inscrire dans une mesure d'insertion par l'activité économique (IAE)
-				'iae' => array (
-					'sujetcer93_id' => array (),
-					'soussujetcer93_id' => array (),
-					'valeurparsoussujetcer93_id' => array (35),
-				),
-				//… au moins une action aidant à la réalisation d’un projet de création, de reprise ou de poursuite d’une activité non salariée 
-				'activite_non_salariale' => array (
-					'sujetcer93_id' => array (),
-					'soussujetcer93_id' => array (3),
-					'valeurparsoussujetcer93_id' => array (36),
-				),
-				//… au moins une action visant à trouver un emploi aidé 
-				'emploi_aide' => array (
-					'sujetcer93_id' => array (),
-					'soussujetcer93_id' => array (),
-					'valeurparsoussujetcer93_id' => array (),
-				),
-				//… au moins une action visant à trouver un emploi non aidé
-				'emploi_non_aide' => array (
-					'sujetcer93_id' => array (),
-					'soussujetcer93_id' => array (),
-					'valeurparsoussujetcer93_id' => array (),
-				),
-				//… au moins une action visant à faciliter le lien social (développement de l'autonomie sociale, activités collectives,…)
-				'lien_social' => array (
-					'sujetcer93_id' => array (),
-					'soussujetcer93_id' => array (),
-					'valeurparsoussujetcer93_id' => array (38, 39, 54, 56, 57, 58, 59, 60),
-				),
-				//… au moins une action visant la mobilité (permis de conduire, acquisition / location de véhicule, frais de transport…)
-				'mobilite' => array (
-					'sujetcer93_id' => array (),
-					'soussujetcer93_id' => array (),
-					'valeurparsoussujetcer93_id' => array (55),
-				),
-				// … au moins une action visant l'accès à un logement, au relogement ou à l'amélioration de l'habitat
-				'acces_logement' => array (
-					'sujetcer93_id' => array (5),
-					'soussujetcer93_id' => array (),
-					'valeurparsoussujetcer93_id' => array (),
-				),
-				//… au moins une action visant l'accès aux soins
-				'acces_soins' => array (
-					'sujetcer93_id' => array (4),
-					'soussujetcer93_id' => array (),
-					'valeurparsoussujetcer93_id' => array (),
-				),
-				//… au moins une action visant l'autonomie financière (constitution d'un dossier de surendettement,...)
-				'autonomie_financiere' => array (
-					'sujetcer93_id' => array (),
-					'soussujetcer93_id' => array (8),
-					'valeurparsoussujetcer93_id' => array (),
-				),
-				//… au moins une action visant la famille et la parentalité (soutien familial, garde d'enfant, …)
-				'famille_parentalite' => array (
-					'sujetcer93_id' => array (),
-					'soussujetcer93_id' => array (),
-					'valeurparsoussujetcer93_id' => array (50, 51, 52, 53),
-				),
-				// … au moins une action visant la lutte contre l'illettrisme ou l'acquisition des savoirs de base
-				'illettrisme' => array (
-					'sujetcer93_id' => array (),
-					'soussujetcer93_id' => array (),
-					'valeurparsoussujetcer93_id' => array (40, 41),
-				),
-				//… au moins une action visant l'accès aux droits ou l'aide dans les démarches administratives
-				'demarches_administratives' => array (
-					'sujetcer93_id' => array (),
-					'soussujetcer93_id' => array (),
-					'valeurparsoussujetcer93_id' => array (),
-				),
-				//… au moins une action non classée dans les items précédents 
-				'autres' => array (
-					'sujetcer93_id' => array (6),
-					'soussujetcer93_id' => array (),
-					'valeurparsoussujetcer93_id' => array (31, 33),
-				),
-			),
-			/**
 			 * Complète le querydata avec une jointure sur la table historiquesdroits
 			 * et l'ajout éventuel de conditions pour obtenir ou non des allocataires
 			 * soumis à droits et devoirs.
 			 */
 			'useHistoriquedroit' => false,
-
+			/**
+			 * Permet de prendre en compte les actions CER de deux manières différente :
+			 * - soit les actions des fiches de candidature (comme le CD 66) : true
+			 * - soit les sujets, sous-sujets et valeurs de sous-sujets des CER (comme le CD 93) : false
+			 */
 			'actionscandidats' => true,
 		)
 	);
