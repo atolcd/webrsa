@@ -109,7 +109,7 @@
 									$filtre_zone_geo,
 									$zonesgeographiques
 									),
-							'Ep.actif' => true
+							'Ep.actif' => 1
 					),
 					'order' => array(
 						'Ep.name'
