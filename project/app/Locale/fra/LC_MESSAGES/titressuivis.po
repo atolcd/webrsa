@@ -145,4 +145,59 @@ msgstr "Voulez vous réellement supprimer cette information payeur ?"
 msgid "Titressuivisinfospayeurs::index::emptyTitresuivi"
 msgstr "Ce titre de recette ne possède pas d'informations payeurs liées"
 
+################ Autres informations ################
+msgid "/Titressuivisautresinfos/add"
+msgstr "Ajouter une autre information"
+
+msgid "Titressuivisautresinfo::index:titleTitresuivi"
+msgstr "Autres informations"
+
+msgid "Typetitrecreancierautreinfo.nom"
+msgstr "Type d'information"
+
+msgid "Titresuiviautreinfo.dtautreinfo"
+msgstr "Date de l'information"
+
+msgid "Titresuiviautreinfo.commentaire"
+msgstr "Commentaire"
+
+msgid "Titressuivisautresinfo::index::emptyTitresuivi"
+msgstr "Ce titre de recette ne possède pas d'autres informations liées"
+
+msgid "Titressuivisautresinfo::index::emptyTitresuivi"
+msgstr "Ce titre de recette ne possède pas d'autres informations liées"
+
+msgid "/Titressuivisautresinfos/view"
+msgstr "Voir"
+
+msgid "/Titressuivisautresinfos/view/#Titresuiviautreinfo.id#/#Titresuiviautreinfo.titrecreancier_id#/"
+msgstr "Voir cette information"
+
+msgid "/Titressuivisautresinfos/edit"
+msgstr "Modifier"
+
+msgid "/Titressuivisautresinfos/edit/#Titresuiviautreinfo.id#/#Titresuiviautreinfo.titrecreancier_id#/"
+msgstr "Modifier l'information"
+
+msgid "/Titressuivisautresinfos/delete"
+msgstr "Supprimer"
+
+msgid "/Titressuivisautresinfos/delete/#Titresuiviautreinfo.id#/#Titresuiviautreinfo.titrecreancier_id#/"
+msgstr "Supprimer l'information"
+
+msgid "/Titressuivisautresinfos/delete/#Titresuiviautreinfo.id#/#Titresuiviautreinfo.titrecreancier_id#/ ?"
+msgstr "Voulez vous réellement supprimer cette information ?"
+
+msgid "/Titressuivisautresinfos/cancel"
+msgstr "Annuler"
+
+msgid "/Titressuivisautresinfos/cancel/#Titresuiviautreinfo.id#/#Titresuiviautreinfo.titrecreancier_id#/"
+msgstr "Annuler l'information"
+
+msgid "/Titressuivisautresinfos/cancel/#Titresuiviautreinfo.id#/#Titresuiviautreinfo.titrecreancier_id#/ ?"
+msgstr "Voulez vous réellement annuler cette information ?"
+
+msgid "/Titressuivisautresinfos/filelink"
+msgstr "Fichiers liés (#Fichiermodule.nb_fichiers_lies#)"
+
 

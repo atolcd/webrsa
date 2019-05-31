@@ -34,7 +34,9 @@
 			'Titresuivi',
 			'Titresuiviinfopayeur',
 			'Titresuiviannulationreduction',
+			'Titresuiviautreinfo',
 			'WebrsaTitressuivisannulationsreduction',
+			'WebrsaTitressuivisautresinfo',
 			'Titrecreancier',
 			'Creances',
 			'Typetitrecreancierannulationreduction',
@@ -110,8 +112,13 @@
 			//  ************ Liste des infos payeurs ************
 			$titresInfosPayeurs = $this->Titresuiviinfopayeur->getList($titrecreancier_id);
 
-			// Assignations à la vue
-			$this->set( compact('options', 'titresAnnRed', 'titresCreanciers', 'titresInfosPayeurs' ) );
+			//  ************ Liste des autres infos ************
+			$contentIndex = $this->Titresuiviautreinfo->getContext();
+			$query = $this->Titresuiviautreinfo->getQuery($titrecreancier_id);
+			$titresAutres = $this->WebrsaAccesses->getIndexRecords($foyer_id, $query, $contentIndex);
+			$titresAutres = $this->Titresuiviautreinfo->getList($titresAutres);
 
+			// Assignations à la vue
+			$this->set( compact('options', 'titresAnnRed', 'titresCreanciers', 'titresInfosPayeurs', 'titresAutres' ) );
 		}
 	}
