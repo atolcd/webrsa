@@ -1258,7 +1258,7 @@
 						'"ActioncandidatPersonne"."datesignature" >= \''.$annee.'-01-01\'',
 						'"ActioncandidatPersonne"."datesignature" <= \''.$annee.'-12-31\'',
 						'"Actioncandidat"."dreesactionscer_id" IS NOT NULL',
-						'"ActioncandidatPersonne"."actioncandidat_id" IN ('.$idPersonnes.')',
+						'"ActioncandidatPersonne"."personne_id" IN ('.$idPersonnes.')',
 					),
 					'contain' => false,
 				);
