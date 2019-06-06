@@ -527,7 +527,7 @@ msgstr "Réellement supprimer le motif de fin de d'action « #Modtransmfp93.name
 # ------------------------------------------------------------------------------
 
 msgid "/Cataloguespdisfps93/index/Motifnonactionachevefp93/:heading"
-msgstr "Le bénéficiaire a achevé l'action"
+msgstr "Le bénéficiaire n'a pas achevé l'action"
 
 msgid "Motifnonactionachevefp93.name"
 msgstr "Motif de fin d'action"
