@@ -178,9 +178,26 @@
 
 			if( $activateTitreCreancier ) {
 				$items = array (
+					'Motif d\'émission d\'une créance' => array(
+						'url' => array( 'controller' => 'motifsemissionscreances', 'action' => 'index' )
+					),
 					'Titres de recettes' => array(
 						'Type du Titre' => array(
 							'url' => array( 'controller' => 'typestitrescreanciers', 'action' => 'index' )
+						),
+						'Motif d\'émission d\'un titre de recette' => array(
+							'url' => array( 'controller' => 'motifsemissionstitrescreanciers', 'action' => 'index' )
+						)
+					),
+					'Suivi des titres de recettes' => array(
+						'Type d\'annulation/réduction' => array(
+							'url' => array( 'controller' => 'typestitrescreanciersannulationsreductions', 'action' => 'index' )
+						),
+						'Type d\'informations payeur' => array(
+							'url' => array( 'controller' => 'typestitrescreanciersinfospayeurs', 'action' => 'index' )
+						),
+						'Type d\'autres informations' => array(
+							'url' => array( 'controller' => 'typestitrescreanciersautresinfos', 'action' => 'index' )
 						)
 					)
 				);
@@ -699,4 +716,3 @@
 			$this->set( compact( 'items' ) );
 		}
 	}
-?>

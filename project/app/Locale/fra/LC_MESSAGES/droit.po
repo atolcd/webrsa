@@ -4136,7 +4136,6 @@ msgstr "Modification d'un Titre de recette"
 msgid "controllers/Titrescreanciers/filelink"
 msgstr "Ajout de Fichiers"
 
-
 ###############################################################################
 
 msgid "controllers/Typestitrescreanciers"
@@ -4150,6 +4149,91 @@ msgstr "Ajout/Modification d'un type des Titres de recettes"
 
 msgid "controllers/Typestitrescreanciers/delete"
 msgstr "Suppression d'un type des Titres de recettes"
+
+###############################################################################
+
+msgid "controllers/Motifsemissionscreances"
+msgstr "Paramétrage des motifs d'émission des créances"
+
+msgid "controllers/Motifsemissionscreances/index"
+msgstr "Liste des motifs d'émission des créances"
+
+msgid "controllers/Motifsemissionscreances/add"
+msgstr "Ajout d'un motif d'émission des créances"
+
+msgid "controllers/Motifsemissionscreances/edit"
+msgstr "Modification d'un motif d'émission des créances"
+
+msgid "controllers/Motifsemissionscreances/delete"
+msgstr "Suppression d'un motif d'émission des créances"
+
+###############################################################################
+
+msgid "controllers/Motifsemissionstitrescreanciers"
+msgstr "Paramétrage des motifs d'émission d'un titre de recette"
+
+msgid "controllers/Motifsemissionstitrescreanciers/index"
+msgstr "Liste des motifs d'émission d'un titre de recette"
+
+msgid "controllers/Motifsemissionstitrescreanciers/add"
+msgstr "Ajout d'un motif d'émission d'un titre de recette"
+
+msgid "controllers/Motifsemissionstitrescreanciers/edit"
+msgstr "Modification d'un motif d'émission d'un titre de recette"
+
+msgid "controllers/Motifsemissionstitrescreanciers/delete"
+msgstr "Suppression d'un motif d'émission d'un titre de recette"
+
+###############################################################################
+
+msgid "controllers/Typestitrescreanciersannulationsreductions"
+msgstr "Paramétrage des types d'annulation/réduction d'un titre de recette"
+
+msgid "controllers/Typestitrescreanciersannulationsreductions/index"
+msgstr "Liste des types d'annulation/réduction d'un titre de recette"
+
+msgid "controllers/Typestitrescreanciersannulationsreductions/add"
+msgstr "Ajout d'un type d'annulation/réduction d'un titre de recette"
+
+msgid "controllers/Typestitrescreanciersannulationsreductions/edit"
+msgstr "Modification d'un type d'annulation/réduction d'un titre de recette"
+
+msgid "controllers/Typestitrescreanciersannulationsreductions/delete"
+msgstr "Suppression d'un type d'annulation/réduction d'un titre de recette"
+
+###############################################################################
+
+msgid "controllers/Typestitrescreanciersinfospayeurs"
+msgstr "Paramétrage des types d'informations payeur d'un titre de recette"
+
+msgid "controllers/Typestitrescreanciersinfospayeurs/index"
+msgstr "Liste des types d'informations payeur d'un titre de recette"
+
+msgid "controllers/Typestitrescreanciersinfospayeurs/add"
+msgstr "Ajout d'un type d'informations payeur d'un titre de recette"
+
+msgid "controllers/Typestitrescreanciersinfospayeurs/edit"
+msgstr "Modification d'un type d'informations payeur d'un titre de recette"
+
+msgid "controllers/Typestitrescreanciersinfospayeurs/delete"
+msgstr "Suppression d'un type d'informations payeur d'un titre de recette"
+
+###############################################################################
+
+msgid "controllers/Typestitrescreanciersautresinfos"
+msgstr "Paramétrage des types d'autres informations d'un titre de recette"
+
+msgid "controllers/Typestitrescreanciersautresinfos/index"
+msgstr "Liste des types d'autres informations d'un titre de recette"
+
+msgid "controllers/Typestitrescreanciersautresinfos/add"
+msgstr "Ajout d'un type d'autres informations d'un titre de recette"
+
+msgid "controllers/Typestitrescreanciersautresinfos/edit"
+msgstr "Modification d'un type d'autres informations d'un titre de recette"
+
+msgid "controllers/Typestitrescreanciersautresinfos/delete"
+msgstr "Suppression d'un type d'autres informations d'un titre de recette"
 
 ###############################################################################
 ## Rapport Talends Créances
