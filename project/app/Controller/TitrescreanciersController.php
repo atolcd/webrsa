@@ -233,6 +233,7 @@
 			if( !empty( $this->request->data ) ) {
 				$this->Titrecreancier->begin();
 				$data = $this->request->data;
+				$data['Titrecreancier']['mntinit'] = $data['Titrecreancier']['mnttitr'];
 				if (  $this->action != 'valider' && $data['Titrecreancier']['mnttitr'] == '' ) {
 					$this->Titrecreancier->rollback();
 					$this->Flash->error( __( 'Save->error' ) );
@@ -469,7 +470,6 @@
 					// Sauvegarde des fichiers liés à une PDO
 					$dir = $this->Fileuploader->dirFichiersModule( $this->action, $this->request->params['pass'][0] );
 					$saved = $this->Fileuploader->saveFichiers( $dir, Set::classicExtract( $this->request->data, "Titrecreancier.haspiecejointe" ), $id ) && $saved;
-					//$saved = $this->Fileuploader->saveFichiers( $dir, false, $id ) && $saved;
 				}
 
 				if( $saved ) {

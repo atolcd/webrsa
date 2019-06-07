@@ -20,8 +20,7 @@ msgstr ""
 
 ###############################################################################
 
-
-msgid "Titrecreancier.etat
+msgid "Titrecreancier.etat"
 msgstr "Etat du titre"
 
 msgid "ENUM::ETAT::CREE"
@@ -42,8 +41,11 @@ msgstr "Transmise au payeur"
 msgid "ENUM::ETAT::PAY"
 msgstr "Payée"
 
+msgid "ENUM::ETAT::RED"
+msgstr "Réduit"
+
 msgid "ENUM::ETAT::SUP"
-msgstr "Annulée"
+msgstr "Annulée par mandat"
 
 msgid "Titrecreancier.qual"
 msgstr "Qualité de la personne"

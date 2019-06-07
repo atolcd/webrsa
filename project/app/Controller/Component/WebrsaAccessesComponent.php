@@ -187,15 +187,24 @@
 		 *
 		 * @param type $parent_id - personne_id ou foyer_id selon le cas
 		 * @param array $query - Query utilisé pour obtenir l'index
+		 * @param array $contentController - Controller utilisé si la méthode est appelée par un autre controller @see TitresSuivsController
+		 *
 		 * @return array - Liste des enregistrements pour un index avec règles d'accès métier
 		 * @throws Error404Exception
 		 */
-		public function getIndexRecords($parent_id, array $query = array()) {
+		public function getIndexRecords($parent_id, array $query = array(), $contentController = null) {
 			if (!self::_validId($parent_id)) {
 				throw new Error404Exception();
 			}
 
 			$Controller = $this->_Collection->getController();
+
+			if (!is_null($contentController)) {
+				$Controller = $contentController['controller'];
+				$Controller->{$this->settings['webrsaModelName']} = $contentController['webrsaModelName'];
+				$this->settings['webrsaAccessName'] = $contentController['webrsaAccessName'];
+				$Controller->{$this->settings['mainModelName']} = $contentController['mainModelName'];
+			}
 
 			$queryCompleted = $Controller->{$this->settings['webrsaModelName']}->completeVirtualFieldsForAccess($query);
 			$paramsActions = call_user_func(array($this->settings['webrsaAccessName'], 'getParamsList'));

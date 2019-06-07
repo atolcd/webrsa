@@ -94,6 +94,9 @@
 				'exclusive' => '',
 				'finderQuery' => '',
 				'counterQuery' => ''
+			),
+			'Titresuiviannulationreduction' => array(
+				'classname' => 'Titresuiviannulationreduction'
 			)
 		);
 
@@ -171,5 +174,91 @@
 			$options['Typetitrecreancier']['type_actif'] = ClassRegistry::init( 'Typetitrecreancier' )->find( 'list', array( 'conditions' => array( 'actif' => true ) ) );
 			return $options;
 		}
+
+		/**
+		 * Met à jour l'état du titre en fonction de l'ID passé en paramètre
+		 *
+		 * @param int id
+		 *
+		 * @return boolean
+		 */
+		public function setEtat($id) {
+			$data = array();
+			$data['id'] = $id;
+
+			// Récupération des annulations / réductions liées à l'ID
+			$titresAnnReduc = $this->Titresuiviannulationreduction->find('all',
+				array(
+					'condition' => array( 'titrescreanciers_id' => $id ),
+					'order' => 'dtaction ASC'
+				)
+			);
+
+			$data['etat'] = 'CREE';
+
+			if( isset($titresAnnReduc) && !empty($titresAnnReduc) ) {
+				foreach($titresAnnReduc as $titre) {
+					if($titre['Titresuiviannulationreduction']['etat'] !== 'ANUULER'){
+						if($titre['Typetitrecreancierannulationreduction']['nom'] === 'réduction') {
+							$data['etat'] = 'RED';
+						} elseif ($titre['Typetitrecreancierannulationreduction']['nom'] === 'annulation') {
+							$data['etat'] = 'SUP';
+						}
+						break;
+					}
+				}
+			}
+
+			// Mise à jour de l'état
+			$this->begin();
+			$success = $this->save($data);
+			if($success){
+				$this->commit();
+			}
+			return $success;
+		}
+
+		/**
+		 * Met à jour le montant du titre en fonction de l'ID passé en paramètre
+		 *
+		 * @param int id
+		 *
+		 * @return boolean
+		 */
+		 public function calculMontantTitre($id) {
+			$data = array();
+			$data['id'] = $id;
+
+			// Récupération des annulations / réductions liées à l'ID
+			$titresAnnReduc = $this->Titresuiviannulationreduction->find('all',
+				array(
+					'condition' => array( 'titrescreanciers_id' => $id ),
+					'order' => 'dtaction ASC'
+				)
+			);
+
+			$titreCreancier = $this->find('first',
+			array(
+				'conditions' => array(
+					'Titrecreancier.id ' => $id
+				),
+				'contain' => false
+			));
+
+			$data['mnttitr'] = $titreCreancier['Titrecreancier']['mntinit'];
+			foreach($titresAnnReduc as $titre){
+				if($titre['Titresuiviannulationreduction']['etat'] !== 'ANNULER') {
+					$data['mnttitr'] =  $data['mnttitr'] - $titre['Titresuiviannulationreduction']['mtreduit'];
+				}
+			}
+			// Mise à jour du montant du titre
+			$this->begin();
+			$success = $this->save($data);
+			if($success){
+				$this->commit();
+			}else{
+				$this->rollback();
+			}
+			return $success;
+		 }
 	}
-?>
