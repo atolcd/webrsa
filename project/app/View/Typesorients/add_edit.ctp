@@ -8,6 +8,7 @@
 				'Typeorient.parentid' => array( 'type' => 'select', 'empty' => true ),
 				'Typeorient.modele_notif',
 				'Typeorient.modele_notif_cohorte',
+				'Typeorient.code_type_orient',
 				'Typeorient.actif' => array( 'type' => 'radio', 'legend' => required( __d( 'typeorient', 'Typeorient.actif' ) ) )
 			),
 			'options' => $options
