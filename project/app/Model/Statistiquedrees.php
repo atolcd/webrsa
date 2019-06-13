@@ -1148,7 +1148,6 @@
 			// Query de base
 			$base = $this->_getQueryTableau ($search, $annee);
 			$base = $this->_completeQueryCer ($base, $annee, $configuration);
-			$base = $this->_completeQueryRestrictionCer($base, $annee, $configuration);
 
 			// Recherche
 			$results = $Dossier->find( 'all', $base);
@@ -1183,17 +1182,20 @@
 		 *
 		 */
 		private function _getRowInformationsTableau3 ($row, &$resultats, $categorie, $souscategorie, $configuration) {
-			// CER de moins de 6 mois
-			if ($row['duree_cer'] < 6) {
-				$resultats[$categorie]['cer_moins_6_mois'][$souscategorie]++;
-			}
-			// CER entre 6 mois et 1 an
-			else if ($row['duree_cer'] >= 6 && $row['duree_cer'] < 12) {
-				$resultats[$categorie]['cer_6_mois_un_an'][$souscategorie]++;
-			}
-			// CER de 1 an et plus
-			else if ($row['duree_cer'] >= 12) {
-				$resultats[$categorie]['cer_1_an_et_plus'][$souscategorie]++;
+			// Avec un CER ET orientés vers autre que Pôle Emploi
+			if (!in_array($row['idStructurereferente'], $configuration['organismes']['orientes_pole_emploi']) && $row['contrat_cer'] == 'cer') {
+				// CER de moins de 6 mois
+				if ($row['duree_cer'] < 6) {
+					$resultats[$categorie]['cer_moins_6_mois'][$souscategorie]++;
+				}
+				// CER entre 6 mois et 1 an
+				else if ($row['duree_cer'] >= 6 && $row['duree_cer'] < 12) {
+					$resultats[$categorie]['cer_6_mois_un_an'][$souscategorie]++;
+				}
+				// CER de 1 an et plus
+				else if ($row['duree_cer'] >= 12) {
+					$resultats[$categorie]['cer_1_an_et_plus'][$souscategorie]++;
+				}
 			}
 		}
 
