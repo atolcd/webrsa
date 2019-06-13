@@ -64,8 +64,8 @@
 				'Age inconnu'
 			),
 			'sexe' => array(
-				'Homme',
 				'Femme',
+				'Homme',
 				'Sexe inconnu'
 			),
 			'sitfam' => array(
