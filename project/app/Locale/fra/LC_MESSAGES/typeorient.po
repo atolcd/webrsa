@@ -28,6 +28,9 @@ msgstr "Parent"
 msgid "Typeorient.lib_type_orient"
 msgstr "Type d'orientation"
 
+msgid "Typeorient.code_type_orient"
+msgstr "Code"
+
 msgid "Typeorient.modele_notif"
 msgstr "Modèle de notification"
 

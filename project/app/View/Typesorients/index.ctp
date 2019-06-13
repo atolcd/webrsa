@@ -9,6 +9,7 @@
 				'Typeorient.modele_notif',
 				'Typeorient.modele_notif_cohorte',
 				'Typeorient.actif',
+				'Typeorient.code_type_orient',
 				'/Typesorients/edit/#Typeorient.id#' => array(
 					'title' => false
 				),

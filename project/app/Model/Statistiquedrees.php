@@ -1670,18 +1670,26 @@
 				$configuration['organismes']['hors_spe_autre_organisme']
 			);
 
-			// Query de base
-			$base = $this->_getQueryTableau ($search, $annee);
-			$base = $this->_adaptQueryTableau6($base, $search, $annee, $configuration);
-			$base['fields'][] = '"Orientstruct"."rgorient" AS "rgorient"';
+			// Type d'orientation emploi
+			$TypeOrient = ClassRegistry::init( 'Typeorient' );
+			$typesorients = $TypeOrient->find( 'list', array ('conditions' => array ('Parent.code_type_orient' => 'EMPLOI'), 'recursive' => 0));
+			$idTypeOrientEmploi = implode (',', array_keys ($typesorients));
 
-			// Réorientation.
-			$base['conditions'][] = '"Orientstruct"."date_valid" >= \''.$annee.'-01-01\'';
-			$base['conditions'][] = '"Orientstruct"."date_valid" <= \''.$annee.'-12-31\'';
-			$base['conditions'][] = '"Orientstruct"."rgorient" > 1';
+			$results = array ();
+			if (!empty ($idTypeOrientEmploi)) {
+				// Query de base
+				$base = $this->_getQueryTableau ($search, $annee);
+				$base = $this->_adaptQueryTableau6($base, $search, $annee, $configuration, $idTypeOrientEmploi);
+				$base['fields'][] = '"Orientstruct"."rgorient" AS "rgorient"';
 
-			// Recherche
-			$results = $Dossier->find( 'all', $base);
+				// Réorientation.
+				$base['conditions'][] = '"Orientstruct"."date_valid" >= \''.$annee.'-01-01\'';
+				$base['conditions'][] = '"Orientstruct"."date_valid" <= \''.$annee.'-12-31\'';
+				$base['conditions'][] = '"Orientstruct"."rgorient" > 1';
+
+				// Recherche
+				$results = $Dossier->find( 'all', $base);
+			}
 
 			// Initialisation tableau de résultats
 			$resultats = array ();
@@ -1701,7 +1709,7 @@
 		 * @param array $search
 		 * @return array
 		 */
-		private function _adaptQueryTableau6( $base, array $search , $annee, $configuration ) {
+		private function _adaptQueryTableau6( $base, array $search , $annee, $configuration, $idTypeOrientEmploi ) {
 			// Ajout des champs en remplacement.
 			$base['joins'][] = array (
 				'table' => 'orientsstructs',
@@ -1729,7 +1737,7 @@
 					LIMIT 1 )';
 
 			$base['conditions'][] = '
-				((((NOT ("Typeorient"."id" = (3))) AND ("Typeorientpcd"."id" = (3)))) OR ((("Typeorient"."id" = (3)) AND (NOT ("Typeorientpcd"."id" = (3))))))';
+				((((NOT ("Typeorient"."id" IN ('.$idTypeOrientEmploi.'))) AND ("Typeorientpcd"."id" IN ('.$idTypeOrientEmploi.')))) OR ((("Typeorient"."id" IN ('.$idTypeOrientEmploi.')) AND (NOT ("Typeorientpcd"."id" IN ('.$idTypeOrientEmploi.'))))))';
 
 			$base['conditions'][] = '
 				NOT EXISTS(
@@ -1743,7 +1751,7 @@
 						AND "changementsorientations"."date_valid" IS NOT NULL
 						AND "changementsorientations"."date_valid" > "Orientstruct"."date_valid"
 						AND "changementsorientations"."date_valid" BETWEEN \''.$annee.'-01-01\' AND \''.$annee.'-12-31\'
-						AND ((((NOT ("Typeorient"."id" = (3))) AND ("changementstypesorients"."id" = (3)))) OR ((("Typeorient"."id" = (3)) AND (NOT ("changementstypesorients"."id" = (3)))))) )';
+						AND ((((NOT ("Typeorient"."id" IN ('.$idTypeOrientEmploi.'))) AND ("changementstypesorients"."id" IN ('.$idTypeOrientEmploi.')))) OR ((("Typeorient"."id" IN ('.$idTypeOrientEmploi.')) AND (NOT ("changementstypesorients"."id" IN ('.$idTypeOrientEmploi.')))))) )';
 
 			return $base;
 		}
