@@ -1,0 +1,60 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+msgid "/Titressuivisinfospayeurs/add/:heading"
+msgstr "Ajout d'une information payeur"
+
+msgid "Titresuiviinfopayeur.typesinfopayeur_id"
+msgstr "Type d'information"
+
+msgid "Titresuiviinfopayeur.dtenvoipayeur"
+msgstr "Date d'envoi de l'information"
+
+msgid "Titresuiviinfopayeur.commentaire"
+msgstr "Commentaire"
+
+msgid "Titresuiviannulationreduction.mtreduit"
+msgstr "Montant à réduire"
+
+msgid "Titresuiviannulationreduction.commentaire"
+msgstr "Commentaires"
+
+msgid "Titresuiviinfopayeur.retourpayeur"
+msgstr "Retour du payeur"
+
+msgid "Typetitrecreancierinfopayeur.nom"
+msgstr "Type d'information"
+
+msgid "/Titressuivisinfospayeurs/view/:heading"
+msgstr "Voir l'information payeur"
+
+msgid "/Titressuivisinfospayeurs/answer/:heading"
+msgstr "Ajout / modification du retour du payeur"
+
+msgid "/Titressuivis/index"
+msgstr "Retour"
+
+msgid "Titresuiviinfopayeur::index::emptyTitrecreancier"
+msgstr "Cette creance ne possède pas de titre creancier lié"
+
+msgid "Titresuiviinfopayeur::index::titleTitreInfoPayeur"
+msgstr "Informations payeurs"
+
+msgid "Titresuiviinfopayeur::index::titleTitreRecette"
+msgstr "Titre de recette"
+
+msgid "Titresuiviinfopayeur::index::titleRetourPayeur"
+msgstr "Retour payeur"
+
+msgid "Titresuiviinfopayeur::index::emptyRetourPayeur"
+msgstr "Cette information payeur ne possède pas de retour payeur lié"
