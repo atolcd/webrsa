@@ -137,14 +137,20 @@
 
 				// Formatage des données de la ligne
 				$data = Hash::insert( $data, 'Thematiquefp93.type', 'pdi' );
-				$path = 'Thematiquefp93.yearthema';
-				$data = Hash::insert( $data, $path, date("Y", strtotime(Hash::get( $data, $path )) ) );
 				$path = 'Actionfp93.duree';
 				$data = Hash::insert( $data, $path, Hash::get($data,$path)." mois" );
 				$path = 'Actionfp93.numconvention';
 				$data = Hash::insert( $data, $path, strtoupper( Hash::get( $data, $path ) ) );
+
+				//Gestion des année de référence et année de l'action
+				//Get Date
 				$path = 'Actionfp93.annee';
-				$data = Hash::insert( $data, $path, date("Y", strtotime(Hash::get( $data, $path )) ) );
+				$yearVal = date("Y", strtotime(Hash::get( $data, $path )) );
+				//Set Dates
+				$path = 'Thematiquefp93.yearthema';
+				$data = Hash::insert( $data, $path, $yearVal );
+				$path = 'Actionfp93.annee';
+				$data = Hash::insert( $data, $path, $yearVal );
 
 				$arraypath = array (
 					'Actionfp93.name',
