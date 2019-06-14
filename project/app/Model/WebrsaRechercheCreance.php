@@ -145,11 +145,53 @@
 		public function searchConditions( array $query, array $search ) {
 			$query = $this->Allocataire->searchConditions( $query, $search );
 
+			// if Origine de la créances Selected then Creances.orgcre LIKE
+			$originecreance = (string)Hash::get( $search, 'Creance.orgcre' );
+			if ( !empty($originecreance) ) {
+				$query['conditions'][] = " Creance.orgcre LIKE '".$originecreance."'" ;
+			}
+
+			// if Motif indus de la créances Selected then Creances.motiindu LIKE
+			$motiinducreance = (string)Hash::get( $search, 'Creance.motiindu' );
+			if ( !empty($motiinducreance) ) {
+				$query['conditions'][] = " Creance.motiindu LIKE '".$motiinducreance."'"  ;
+			}
+
+			//
+			$arrayDtimplcre_from = Hash::get( $search, 'Creance.dtimplcre_from' );
+			$arrayDtimplcre_to = Hash::get( $search, 'Creance.dtimplcre_to' );
+			if ( !empty($arrayDtimplcre_from) && !empty($arrayDtimplcre_to)) {
+				$dtimplcre_from = date_cakephp_to_sql( $arrayDtimplcre_from );
+				$dtimplcre_to = date_cakephp_to_sql( $arrayDtimplcre_to );
+				$query['conditions'][] = " Creance.dtimplcre BETWEEN '".$dtimplcre_from ."' AND '".$dtimplcre_to."'";
+			}
+
+			//
+			$arrayMoismoucompta_from = Hash::get( $search, 'Creance.moismoucompta_from' );
+			$arrayMoismoucompta_to = Hash::get( $search, 'Creance.moismoucompta_to' );
+			if ( !empty($arrayMoismoucompta_from) && !empty($arrayMoismoucompta_to)) {
+				$moismoucompta_from = date_cakephp_to_sql( $arrayMoismoucompta_from );
+				$moismoucompta_to = date_cakephp_to_sql( $arrayMoismoucompta_to );
+				$query['conditions'][] = " Creance.moismoucompta BETWEEN '".$moismoucompta_from ."' AND '".$moismoucompta_to."'";
+			}
+
+			// if etat de la créances Selected then Creances.etat LIKE
+			$etatcreance = (string)Hash::get( $search, 'Creance.etat' );
+			if ( !empty($etatcreance) ) {
+				$query['conditions'][] = " Creance.etat LIKE '".$etatcreance."'"  ;
+			}
+
 			// if hastitrecreancier checked then Creances.hasTitreCreancier > 0 
 			$etat_hastitrecreancier = (string)Hash::get( $search, 'Creance.hastitrecreancier' );
 			if ($etat_hastitrecreancier === '1') {
-				$query['conditions'][] = " Creance.hastitrecreancier > 0 ";
+				$query['joins'][] = array (
+					'table' => '"titrescreanciers"',
+					'alias' => 'Titrecreancier',
+					'type' => 'INNER',
+					'conditions' => '"Titrecreancier"."creance_id" = "Creance"."id"'
+				);
 			}
+
 			// Début des spécificités par département
 			$departement = (int)Configure::read( 'Cg.departement' );
 
