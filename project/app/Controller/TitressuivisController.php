@@ -32,11 +32,13 @@
 		 */
 		public $uses = array(
 			'Titresuivi',
+			'Titresuiviinfopayeur',
 			'Titresuiviannulationreduction',
 			'WebrsaTitressuivisannulationsreduction',
 			'Titrecreancier',
 			'Creances',
 			'Typetitrecreancierannulationreduction',
+			'Typetitrecreancierautreinfo',
 			'WebrsaTitrecreancier',
 			'Creance',
 			'WebrsaCreance',
@@ -90,21 +92,26 @@
 					'contain' => false
 				)
 			);
+
 			$creance_id = $titresCreanciers['Titrecreancier']['creance_id'];
 			$foyer_id = $this->Titrecreancier->foyerId( $creance_id );
 
 			$this->set('dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu(array( 'foyer_id' => $foyer_id )));
 
-			// Liste des annulations / réductions
+			// ************ Liste des annulations / réductions ************
 			$contentIndex = $this->Titresuiviannulationreduction->getContext();
 			$query = $this->Titresuiviannulationreduction->getQuery($titrecreancier_id);
 			$titresAnnRed = $this->WebrsaAccesses->getIndexRecords($foyer_id, $query, $contentIndex);
 			$titresAnnRed =  $this->Titresuiviannulationreduction->getList($titresAnnRed, $titresCreanciers['Titrecreancier']['mntinit']);
 
 			// Inverse d'ajout possible
-			$options['ajoutDisabled'] = !$this->Titresuiviannulationreduction->ajoutPossible($titrecreancier_id);
+			$options['annreduc_ajoutDisabled'] = !$this->Titresuiviannulationreduction->ajoutPossible($titrecreancier_id);
+
+			//  ************ Liste des infos payeurs ************
+			$titresInfosPayeurs = $this->Titresuiviinfopayeur->getList($titrecreancier_id);
 
 			// Assignations à la vue
-			$this->set( compact('options', 'titresAnnRed', 'titresCreanciers' ) );
+			$this->set( compact('options', 'titresAnnRed', 'titresCreanciers', 'titresInfosPayeurs' ) );
+
 		}
 	}

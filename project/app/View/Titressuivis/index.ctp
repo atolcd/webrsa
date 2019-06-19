@@ -44,10 +44,10 @@ if( empty( $titresCreanciers ) ) {
 
 	// ******************* Partie Annulation / réduction ****************
 	echo "<h2>". __m('Titressuivisannulationsreductions::index::titleTitresuivit')."</h2>";
-
+	
 	// Activation du bouton Ajouter
 	echo $this->Default3->actions(array(
-		'/Titressuivisannulationsreductions/add/' . $titresCreanciers['Titrecreancier']['id'] => array( 'disabled' => $options['ajoutDisabled'] )
+		'/Titressuivisannulationsreductions/add/' . $titresCreanciers[0]['Titrecreancier']['id'] => array( 'disabled' => $options['annreduc_ajoutDisabled'] )
 	));
 
 	//Visualisation des annulations / réductions
@@ -71,6 +71,42 @@ if( empty( $titresCreanciers ) ) {
 						'/Titressuivisannulationsreductions/delete/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/' => array('confirm' => true),
 						'/Titressuivisannulationsreductions/print/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/',
 						'/Titressuivisannulationsreductions/filelink/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/',
+					)
+				)
+			),
+			array(
+				'paginate' => false,
+			)
+		);
+	}
+	echo '<br>';
+
+	// ******************* Partie Infos payeurs****************
+	echo "<h2>". __m('Titressuivisannulationsreductions::index::titleTitresuivi')."</h2>";
+
+	// Activation du bouton Ajouter
+	echo $this->Default3->actions(array(
+		'/Titressuivisinfospayeurs/add/' . $titresCreanciers[0]['Titrecreancier']['id'] => array( 'disabled' => false )
+	));
+
+	//Visualisation des informations payeurs
+	if( empty( $titresInfosPayeurs ) ) {
+		echo '<p class="notice">'. __m('Titressuivisannulationsreductions::index::emptyTitresuivit').'</p>';
+	}else{
+		echo $this->Default3->index(
+			$titresInfosPayeurs,
+			$this->Translator->normalize(
+				array(
+					'Typetitrecreancierinfopayeur.nom',
+					'Titresuiviinfopayeur.commentaire',
+					'Titresuiviinfopayeur.dtenvoipayeur' => array('type' => 'date', 'dateFormat' => 'DMY'),
+					'Titresuiviinfopayeur.retourpayeur',
+				)+ WebrsaAccess::links(
+					array(
+						'/Titressuivisinfospayeurs/view/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrescreanciers_id#/',
+						'/Titressuivisinfospayeurs/edit/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrescreanciers_id#/',
+						'/Titressuivisinfospayeurs/answer/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrescreanciers_id#/' => array('class' => 'button add'),
+						'/Titressuivisinfospayeurs/delete/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrescreanciers_id#/' => array('confirm' => true),
 					)
 				)
 			),
