@@ -40,7 +40,6 @@ if( empty( $creances ) ) {
 	if( empty( $titresCreanciers ) ) {
 		echo '<p class="notice">Cette creance ne possède pas de Titres creanciers liée</p>';
 	}else{
-		//debug($creances);
 		echo $this->Default3->index(
 			$titresCreanciers,
 			$this->Translator->normalize(

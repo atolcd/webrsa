@@ -1,0 +1,54 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+msgid "/Titressuivisannulationsreductions/add/:heading"
+msgstr " Ajout d'une annulation / réduction"
+
+msgid "Titresuiviannulationreduction.mtactuel"
+msgstr "Montant actuellement réduit"
+
+msgid "Titresuiviannulationreduction.dtaction"
+msgstr "Date de l'action"
+
+msgid "Titresuiviannulationreduction.typeannulationreduction_id"
+msgstr "Type de réduction"
+
+msgid "Titresuiviannulationreduction.mtreduit"
+msgstr "Montant à réduire"
+
+msgid "Titresuiviannulationreduction.commentaire"
+msgstr "Commentaires"
+
+msgid "Titressuivisannulationsreductions::filelink"
+msgstr "Fichiers liés à une annulation / réduction"
+
+msgid "/Titressuivisannulationsreductions/view/:heading"
+msgstr "Voir l'annulation / réduction"
+
+msgid "Titressuivisannulationsreductions::index::titleTitrecreancier"
+msgstr "Titre de recette"
+
+msgid "Titressuivisannulationsreductions::index::titleAnnulation"
+msgstr "Annulation / réduction"
+
+msgid "Titressuivisannulationsreductions::index::titleFileupload"
+msgstr "Fichiers liés"
+
+msgid "Titressuivisannulationsreductions::index::emptyTitrecreancier"
+msgstr "Cette creance ne possède pas de Titres creanciers liée"
+
+msgid "Titressuivisannulationsreductions::index::legendePJ"
+msgstr "Pièce Jointe"
+
+msgid "/Titressuivis/index"
+msgstr "Retour"

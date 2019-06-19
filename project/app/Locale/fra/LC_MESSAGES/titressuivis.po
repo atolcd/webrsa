@@ -1,0 +1,93 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+msgid "/Titressuivis/index/:heading"
+msgstr "Suivi du titre de recette"
+
+msgid "/Titressuivisannulationsreductions/add/:title"
+msgstr "Ajouter une annulation / réduction"
+
+msgid "/Titressuivisannulationsreductions/add"
+msgstr "Ajouter une annulation / réduction"
+
+msgid "/Titrescreanciers/index/:title"
+msgstr "Retour"
+
+msgid "/Titrescreanciers/index"
+msgstr "Retour"
+
+msgid "Typetitrecreancierannulationreduction.nom"
+msgstr "Type de réduction"
+
+msgid "Titresuiviannulationreduction.dtaction"
+msgstr "Date de l'action"
+
+msgid "Titresuiviannulationreduction.mtreduit"
+msgstr "Montant réduit"
+
+msgid "Titresuiviannulationreduction.mtavantacte"
+msgstr "Montant du titre AVANT acte administratif"
+
+msgid "Titresuiviannulationreduction.mtapresacte"
+msgstr "Montant du titre APRES acte administratif"
+
+msgid "/Titressuivisannulationsreductions/view"
+msgstr "Voir"
+
+msgid "/Titressuivisannulationsreductions/view/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
+msgstr "Voir cette annulation / réduction"
+
+msgid "/Titressuivisannulationsreductions/edit"
+msgstr "Modifier"
+
+msgid "/Titressuivisannulationsreductions/edit/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
+msgstr "Modifier l'annulation / réduction"
+
+msgid "/Titressuivisannulationsreductions/cancel"
+msgstr "Annuler"
+
+msgid "/Titressuivisannulationsreductions/cancel/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
+msgstr "Annuler l'annulation / réduction"
+
+msgid "/Titressuivisannulationsreductions/delete/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/ ?"
+msgstr "Voulez vous réellement annuler cette annulation / réduction"
+
+msgid "/Titressuivisannulationsreductions/delete"
+msgstr "Supprimer"
+
+msgid "/Titressuivisannulationsreductions/delete/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
+msgstr "Supprimer l'annulation / réduction"
+
+msgid "/Titressuivisannulationsreductions/delete/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/ ?"
+msgstr "Voulez vous réellement supprimer cette annulation / réduction"
+
+msgid "/Titressuivisannulationsreductions/print"
+msgstr "Imprimer le certificat administratif"
+
+msgid "/Titressuivisannulationsreductions/print/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
+msgstr "Imprimer le certificat administratif de cette annulation / réduction"
+
+msgid "/Titressuivisannulationsreductions/filelink"
+msgstr "Fichiers liés (#Fichiermodule.nb_fichiers_lies#)"
+
+msgid "/Titressuivisannulationsreductions/filelink/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
+msgstr "Fichiers liés à cette annulation / réduction"
+
+msgid "Titressuivisannulationsreductions::index::emptyTitrecreancier"
+msgstr "Cette creance ne possède pas de Titre creancier liée"
+
+msgid "Titressuivisannulationsreductions::index::titleTitresuivit"
+msgstr "Annulation / réduction"
+
+msgid "Titressuivisannulationsreductions::index::emptyTitresuivit"
+msgstr "Ce titre de recette ne possède pas d'annulation et/ou de réduction liée"

@@ -57,10 +57,12 @@ msgstr "Fichiers liés à un Titre de recette"
 msgid "Titrescreanciers.haspiecejointe"
 msgstr "Ajouter une pièce jointe"
 
+msgid "Titrecreancier.mntinit"
+msgstr "Montant initial du titre"
+
 ###############################################################################
 # Trad des recherches
 ###############################################################################
-
 
 ###############################################################################
 # Champs de recherches
