@@ -14,6 +14,9 @@ msgstr ""
 msgid "/Titressuivisinfospayeurs/add/:heading"
 msgstr "Ajout d'une information payeur"
 
+msgid "/Titressuivisinfospayeurs/edit/:heading"
+msgstr "Modification d'une information payeur"
+
 msgid "Titresuiviinfopayeur.typesinfopayeur_id"
 msgstr "Type d'information"
 

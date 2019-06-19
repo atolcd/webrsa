@@ -13,6 +13,9 @@ msgstr ""
 msgid "/Titressuivisautresinfos/add/:heading"
 msgstr " Ajout d'une autre information"
 
+msgid "/Titressuivisautresinfos/edit/:heading"
+msgstr "Modification d'une autre information"
+
 msgid "Titresuiviautreinfo.dtautreinfo"
 msgstr "Date de l'information"
 
@@ -39,6 +42,12 @@ msgstr "Fichiers liés"
 
 msgid "Titressuivisautresinfos::index::emptyTitrecreancier"
 msgstr "Cette creance ne possède pas de Titres creanciers liée"
+
+msgid "Titresuiviautreinfo::index::titleTitreAutreInfo"
+msgstr "Autre information"
+
+msgid "Titresuiviautreinfo.typesautresinfos_id"
+msgstr "Type d'autre information"
 
 msgid "Titressuivisautresinfos::index::legendePJ"
 msgstr "Pièce Jointe"

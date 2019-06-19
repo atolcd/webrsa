@@ -45,7 +45,7 @@
 		public $hasMany = array(
 			'Titresuiviannulationreduction' => array(
 				'className' => 'Titresuiviannulationreduction',
-				'foreignKey' => 'typetitrescreanciersannulationreduction_id',
+				'foreignKey' => 'typeannulationreduction_id',
 				'dependent' => false,
 				'conditions' => '',
 				'fields' => '',

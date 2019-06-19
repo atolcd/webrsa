@@ -43,8 +43,8 @@ if( empty( $titresCreanciers ) ) {
 	echo '<br>';
 
 	// ******************* Partie Annulation / réduction ****************
-	echo "<h2>". __m('Titressuivisannulationsreductions::index::titleTitresuivit')."</h2>";
-	
+	echo "<h2>". __m('Titressuivisannulationsreductions::index::titleTitresuivi')."</h2>";
+
 	// Activation du bouton Ajouter
 	echo $this->Default3->actions(array(
 		'/Titressuivisannulationsreductions/add/' . $titresCreanciers['Titrecreancier']['id'] => array( 'disabled' => $options['annreduc_ajoutDisabled'] )
@@ -69,7 +69,7 @@ if( empty( $titresCreanciers ) ) {
 						'/Titressuivisannulationsreductions/edit/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/',
 						'/Titressuivisannulationsreductions/cancel/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/' => array('confirm' => true),
 						'/Titressuivisannulationsreductions/delete/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/' => array('confirm' => true),
-						'/Titressuivisannulationsreductions/print/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/',
+						'/Titressuivisannulationsreductions/impression/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/',
 						'/Titressuivisannulationsreductions/filelink/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/',
 					)
 				)
@@ -82,7 +82,7 @@ if( empty( $titresCreanciers ) ) {
 	echo '<br>';
 
 	// ******************* Partie Infos payeurs****************
-	echo "<h2>". __m('Titressuivisannulationsreductions::index::titleTitresuivi')."</h2>";
+	echo "<h2>". __m('Titresuiviinfopayeur::index::titleTitreInfoPayeur')."</h2>";
 
 	// Activation du bouton Ajouter
 	echo $this->Default3->actions(array(
@@ -91,7 +91,7 @@ if( empty( $titresCreanciers ) ) {
 
 	//Visualisation des informations payeurs
 	if( empty( $titresInfosPayeurs ) ) {
-		echo '<p class="notice">'. __m('Titressuivisannulationsreductions::index::emptyTitresuivit').'</p>';
+		echo '<p class="notice">'. __m('Titressuivisinfospayeurs::index::emptyTitresuivi').'</p>';
 	}else{
 		echo $this->Default3->index(
 			$titresInfosPayeurs,

@@ -78,10 +78,10 @@ msgstr "Supprimer l'annulation / réduction"
 msgid "/Titressuivisannulationsreductions/delete/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/ ?"
 msgstr "Voulez vous réellement supprimer cette annulation / réduction ?"
 
-msgid "/Titressuivisannulationsreductions/print"
+msgid "/Titressuivisannulationsreductions/impression"
 msgstr "Imprimer le certificat administratif"
 
-msgid "/Titressuivisannulationsreductions/print/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
+msgid "/Titressuivisannulationsreductions/impression/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
 msgstr "Imprimer le certificat administratif de cette annulation / réduction"
 
 msgid "/Titressuivisannulationsreductions/filelink"
@@ -101,6 +101,9 @@ msgstr "Ce titre de recette ne possède pas d'annulation et/ou de réduction li�
 
 ################ Infos payeurs ################
 msgid "/Titressuivisinfospayeurs/add"
+msgstr "Ajouter une information payeur"
+
+msgid "/Titressuivisinfospayeurs/add/:title"
 msgstr "Ajouter une information payeur"
 
 msgid "Typetitrecreancierinfopayeur.nom"
@@ -145,8 +148,14 @@ msgstr "Voulez vous réellement supprimer cette information payeur ?"
 msgid "Titressuivisinfospayeurs::index::emptyTitresuivi"
 msgstr "Ce titre de recette ne possède pas d'informations payeurs liées"
 
+msgid "Titresuiviinfopayeur::index::titleTitreInfoPayeur"
+msgstr "Informations payeurs"
+
 ################ Autres informations ################
 msgid "/Titressuivisautresinfos/add"
+msgstr "Ajouter une autre information"
+
+msgid "/Titressuivisautresinfos/add/:title"
 msgstr "Ajouter une autre information"
 
 msgid "Titressuivisautresinfo::index:titleTitresuivi"

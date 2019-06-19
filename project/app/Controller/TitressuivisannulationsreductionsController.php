@@ -32,6 +32,7 @@
 		public $uses = array(
 			'Titresuiviannulationreduction',
 			'WebrsaTitressuivisannulationsreduction',
+			'Gedooo.Gedooo',
 			'Titrecreancier',
 			'Creances',
 			'Typetitrecreancierannulationreduction',
@@ -84,6 +85,27 @@
 			),
 			'Fileuploader',
 			'Cake1xLegacy.Ajax'
+		);
+
+		/**
+		 * Correspondances entre les méthodes publiques correspondant à des
+		 * actions accessibles par URL et le type d'action CRUD.
+		 *
+		 * @var array
+		 */
+		public $crudMap = array(
+			'add' => 'create',
+			'ajaxfiledelete' => 'delete',
+			'ajaxfileupload' => 'update',
+			'ajaxreffonct' => 'read',
+			'delete' => 'delete',
+			'download' => 'read',
+			'edit' => 'update',
+			'exportcsv' => 'read',
+			'filelink' => 'read',
+			'fileview' => 'read',
+			'impression' => 'read',
+			'view' => 'read',
 		);
 
 		/**
@@ -323,6 +345,38 @@
 				$this->Fileuploader->fichiers( $id, false );
 				$this->Titresuiviannulationreduction->rollback();
 				$this->Flash->error( __( 'Save->error' ) );
+			}
+		}
+
+		/**
+		 * Impression du certificat administratif.
+		 *
+		 * @param integer $id
+		 * @return void
+		 */
+		public function impression( $id, $titrecreancier_id ) {
+			// Initialisation / rappel du titre de recette en cours
+			$titresCreanciers = $this->Titrecreancier->find('first',
+				array(
+					'conditions' => array(
+						'Titrecreancier.id ' => $titrecreancier_id
+					),
+					'contain' => false
+				)
+			);
+
+			$creance_id = $titresCreanciers['Titrecreancier']['creance_id'];
+			$foyer_id = $this->Titrecreancier->foyerId( $creance_id );
+			$this->DossiersMenus->checkDossierMenu( array( 'foyer_id' => $foyer_id ) );
+
+			$pdf = $this->Titresuiviannulationreduction->WebrsaTitressuivisannulationsreduction->getDefaultPdf( $id, $this->Session->read( 'Auth.User.id' ) );
+
+			if( !empty( $pdf ) ) {
+				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'cert_admin-%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
+			}
+			else {
+				$this->Flash->error( 'Impossible de générer le certificat administratif.' );
+				$this->redirect( array( 'controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
 			}
 		}
 
