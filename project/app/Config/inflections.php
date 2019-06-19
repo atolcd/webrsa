@@ -491,19 +491,23 @@ $irregularPlural = array(
 	'dernierreferent' => 'derniersreferents',
 	'poledossierpcg66_user' => 'polesdossierspcgs66_users',
 	'actionroleresultuser' => 'actionrolesresultsusers',
+	//Gestion des Creances
+	'creance' => 'creances',
+	'motifemissioncreance' => 'motifsemissionscreances',
 	//Gestion des Titres créanciers
-    'titrecreancier' => 'titrescreanciers',
+	'titrecreancier' => 'titrescreanciers',
 	'etattitrecreancier' => 'etatstitrescreanciers',
 	'etattitrecreancier_titrecreancier' => 'etatstitrescreanciers_titrescreanciers',
 	'typetitrecreancier' => 'typestitrescreanciers',
 	'typetitrecreancier_titrecreancier' => 'typestitrescreanciers_titrescreanciers',
+	'motifemissiontitrecreancier' => 'motifsemissionstitrescreanciers',
 	//Rapport talends
-    'rapporttalendcreance' => 'rapportstalendscreances',
-    'rejettalendcreance' => 'rejetstalendscreances',
+	'rapporttalendcreance' => 'rapportstalendscreances',
+	'rejettalendcreance' => 'rejetstalendscreances',
     // F-RSA
-    'personnelangue' => 'personneslangues',
-    'personnefrsadiplomexper' => 'personnesfrsadiplomexper',
-    'infocontactpersonne' => 'infoscontactspersonne'
+	'personnelangue' => 'personneslangues',
+	'personnefrsadiplomexper' => 'personnesfrsadiplomexper',
+	'infocontactpersonne' => 'infoscontactspersonne'
 );
 
 /**

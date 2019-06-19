@@ -4089,13 +4089,22 @@ msgid "controllers/Creances"
 msgstr "Créances"
 
 msgid "controllers/Creances/index"
-msgstr "Visualisation des Créances"
+msgstr "Visualisation des créances"
+
+msgid "controllers/Creances/view"
+msgstr "Visualisation d'une créance"
 
 msgid "controllers/Creances/add"
-msgstr "Ajout d'une Créance"
+msgstr "Ajout d'une créance"
 
 msgid "controllers/Creances/edit"
-msgstr "Modification d'une Créance"
+msgstr "Modification d'une créance"
+
+msgid "controllers/Creances/nonemission"
+msgstr "Avis d'emission d'une créance"
+
+msgid "controllers/Creances/validation"
+msgstr "Validation d'une créance"
 
 msgid "controllers/Creances/dossierEntrantsCreanciers"
 msgstr "Recherche des entrants avec créances"

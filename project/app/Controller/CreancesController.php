@@ -71,8 +71,10 @@
 		 */
 		public $crudMap = array(
 			'index' => 'read',
+			'view' => 'read',
 			'add' => 'create',
 			'edit' => 'update',
+			'validation' => 'update',
 			'delete' => 'delete',
 			'fluxadd' => 'create',
 			'copycreance' => 'create',
@@ -135,7 +137,9 @@
 		 */
 		public $commeDroit = array(
 			'copycreance' => 'Creances:add',
-			'delete' => 'Creances:add'
+			'delete' => 'Creances:add',
+			'nonemission' => 'Creances:index',
+			'view' => 'Creances:index',
 		);
 
 		/**
@@ -181,6 +185,54 @@
 			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'creances', $creances );
 			$this->set( 'urlmenu', '/creances/index/'.$foyer_id );
+		}
+
+		/**
+		 * Pagination sur les <éléments> de la table. *
+		 * @param integer $creance_id L'id technique de la créance à affiché
+		 *
+		 */
+		public function view($creance_id) {
+			$this->WebrsaAccesses->check($creance_id);
+			$this->Creance->id = $creance_id;
+			$foyer_id = $this->Creance->field( 'foyer_id' );
+
+			$this->set('dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu(array( 'foyer_id' => $foyer_id )));
+
+			$this->set( 'options', $this->Creance->enums() );
+
+			$creances = $this->WebrsaAccesses->getIndexRecords(
+				$creance_id,
+				array(
+					'fields' => array_merge(
+						$this->Creance->fields(),
+						array(
+							$this->Creance->Fichiermodule->sqNbFichiersLies( $this->Creance, 'nb_fichiers_lies' )
+						)
+					),
+					'conditions' => array(
+						'Creance.id' => $creance_id
+					),
+					'contain' => false,
+					'order' => array(
+						'Creance.dtimplcre DESC',
+					)
+				)
+			);
+
+			//ListMotifs
+			$listMotifs = $this->Creance->Motifemissioncreance->find(
+				'list',
+				array(
+					'fields' => array ('id', 'nom')
+				)
+			);
+			$this->set( 'listMotifs', $listMotifs );
+
+			// Assignations à la vue
+			$this->set( 'foyer_id', $foyer_id );
+			$this->set( 'creances', $creances );
+			$this->set( 'urlmenu', '/creances/view/'.$creance_id );
 		}
 
 		/**
@@ -289,7 +341,187 @@
 
 		}
 
-	/**
+		/**
+		 * Fonction de mise en nonemission
+		 *
+		 * @param integer $id - l'id technique dans la table creances.
+		 * @return void
+		 *
+		 */
+		public function nonemission($id = null) {
+			$this->WebrsaAccesses->check($id);
+			$this->Creance->id = $id;
+			$foyer_id = $this->Creance->field( 'foyer_id' );
+			$dossier_id = $this->Creance->dossierId( $id );
+
+			$this->set(
+				'dossierMenu',
+				$this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) )
+			);
+			$this->Jetons2->get( $dossier_id );
+
+			// Retour à l'index en cas d'annulation
+			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->Jetons2->release( $dossier_id );
+				$this->redirect( array( 'action' => 'index', $foyer_id ) );
+			}
+
+			// Essai de sauvegarde
+			if( !empty( $this->request->data ) ) {
+				$this->Creance->begin();
+				$data = $this->request->data;
+				$data['Creance']['motifemissioncreance_id'] = $data['Creance']['Motifemissioncreance'];
+
+				if( $this->Creance->saveAll( $data, array( 'validate' => 'only' ) ) ) {
+					if( $this->Creance->save( $data ) ) {
+						$this->Creance->commit();
+						$this->Jetons2->release( $dossier_id );
+						$this->Flash->success( __( 'Save->success' ) );
+						$this->redirect( array( 'controller' => 'Creances', 'action' => 'index', $foyer_id ) );
+					}
+					else {
+						$this->Creance->rollback();
+						$this->Flash->error( __( 'Save->error' ) );
+					}
+				}
+			}
+			// Affichage des données
+			else {
+				$creance = $this->Creance->find(
+					'first',
+					array(
+						'fields' => array_merge(
+							$this->Creance->fields()
+						),
+						'conditions' => array(
+							'Creance.id' => $id
+						),
+						'contain' => FALSE
+					)
+				);
+				if (!empty( $creance ) ){
+					// Assignation au formulaire
+					$this->request->data = $creance;
+					$this->request->data['Creance']['Motifemissioncreance'] = $this->request->data['Creance']['motifemissioncreance_id'];
+				}
+			}
+
+			//ListMotifs
+			$listMotifs = $this->Creance->Motifemissioncreance->find(
+				'list',
+				array(
+					'fields' => array ('id', 'nom')
+				)
+			);
+			$this->set( 'listMotifs', $listMotifs );
+
+			// Assignation à la vue
+			$this->set( 'options', $this->Creance->enums() );
+			$this->set( 'urlmenu', '/creances/index/'.$foyer_id );
+			$this->set( 'foyer_id', $foyer_id );
+			$this->render( 'nonemission' );
+		}
+
+		/**
+		 * Fonction de mise en validation
+		 *
+		 * @param integer $id - l'id technique dans la table creances.
+		 * @return void
+		 *
+		 */
+		public function validation($id = null) {
+			$this->WebrsaAccesses->check($id);
+			$this->Creance->id = $id;
+			$foyer_id = $this->Creance->field( 'foyer_id' );
+			$dossier_id = $this->Creance->dossierId( $id );
+
+			$this->set(
+				'dossierMenu',
+				$this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) )
+			);
+			$this->Jetons2->get( $dossier_id );
+
+			// Retour à l'index en cas d'annulation
+			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->Jetons2->release( $dossier_id );
+				$this->redirect( array( 'action' => 'index', $foyer_id ) );
+			}
+
+			// Essai de sauvegarde
+			if( !empty( $this->request->data ) ) {
+				$this->Creance->begin();
+				$data = $this->request->data;
+				if ( $data['Creance']['validation'] == 1){
+					 //verification de l'état post validation
+					$query = array (
+						'fields' => array (
+							'emissiontitre'
+						),
+						'conditions' => array (
+							'Motifemissioncreance.id' => $data['Creance']['motifemissioncreance_id']
+						),
+						'contain' => FALSE
+					);
+					$emissionValidation = $this->Creance->Motifemissioncreance->find('first',$query);
+					if ( $emissionValidation['Motifemissioncreance']['emissiontitre'] == 1 ){
+						$data['Creance']['etat'] = 'AEMETTRE';
+					}else{
+						$data['Creance']['etat'] = 'NONEMISSION';
+					}
+				}else{
+					 $data['Creance']['etat'] = 'ATTAVIS';
+				}
+
+				if( $this->Creance->saveAll( $data, array( 'validate' => 'only' ) ) ) {
+					if( $this->Creance->save( $data ) ) {
+						$this->Creance->commit();
+						$this->Jetons2->release( $dossier_id );
+						$this->Flash->success( __( 'Save->success' ) );
+						$this->redirect( array( 'controller' => 'Creances', 'action' => 'index', $foyer_id ) );
+					} else {
+						$this->Creance->rollback();
+						$this->Flash->error( __( 'Save->error' ) );
+					}
+				}
+			}
+			// Affichage des données
+			else {
+				$creance = $this->Creance->find(
+					'first',
+					array(
+						'fields' => array_merge(
+							$this->Creance->fields()
+						),
+						'conditions' => array(
+							'Creance.id' => $id
+						),
+						'contain' => FALSE
+					)
+				);
+				if (!empty( $creance ) ){
+					// Assignation au formulaire
+					$this->request->data = $creance;
+					$this->request->data['Creance']['Motifemissioncreance'] = $this->request->data['Creance']['motifemissioncreance_id'];
+				}
+			}
+
+			//ListMotifs
+			$listMotifs = $this->Creance->Motifemissioncreance->find(
+				'list',
+				array(
+					'fields' => array ('id', 'nom')
+				)
+			);
+			$this->set( 'listMotifs', $listMotifs );
+
+			// Assignation à la vue
+			$this->set( 'options', $this->Creance->enums() );
+			$this->set( 'urlmenu', '/creances/index/'.$foyer_id );
+			$this->set( 'foyer_id', $foyer_id );
+			$this->render( 'validation' );
+		}
+
+		/**
 		 * Supprimée une creance d'un foyer en copiant une autre créance
 		 *
 		 * @param integer $id L'id technique de la créance a supprimée

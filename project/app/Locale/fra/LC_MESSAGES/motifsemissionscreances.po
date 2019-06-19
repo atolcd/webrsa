@@ -43,6 +43,9 @@ msgstr "Réellement supprimer le type d'information payeur des titres de recette
 msgid "Motifemissioncreance.nom"
 msgstr "Nom du type"
 
+msgid "Motifemissioncreance.emissiontitre"
+msgstr "Active l'émission d'un titre de recette"
+
 msgid "Motifemissioncreance.actif"
 msgstr "Actif"
 

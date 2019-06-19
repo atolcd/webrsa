@@ -13,7 +13,7 @@
 		echo $this->Xform->input(
 			'Search.Creance.orgcre',
 			array(
-				'label' => 'Origine de la créances',
+				'label' => __m('Creance::search::orgcre'),
 				'type' => 'select',
 				'empty' => true,
 				'options' => $options['Creance']['orgcre']
@@ -22,12 +22,73 @@
 		echo $this->Xform->input(
 			'Search.Creance.motiindu',
 			array(
-				'label' => 'Motif de l\'indu',
+				'label' => __m('Creance::search::motiindu'),
 				'type' => 'select',
 				'empty' => true,
 				'options' => $options['Creance']['motiindu']
 			)
 		);
+		echo "<fieldset><legend> ".__m('Creance::search::dtimplcre')."</legend>";
+		echo $this->Xform->input(
+			'Search.Creance.dtimplcre_from',
+			array(
+				'label' => ' From',
+				'type' => 'date',
+				'dateFormat'=>'DMY',
+				'maxYear'=>date('Y')+1,
+				'minYear'=> '2009',
+				'empty' => true
+			)
+		) ;
+		echo $this->Xform->input(
+			'Search.Creance.dtimplcre_to',
+			array(
+				'label' => 'To ',
+				'type' => 'date',
+				'dateFormat'=>'DMY',
+				'maxYear'=>date('Y')+2,
+				'minYear'=> '2009' ,
+				'empty' => true
+			)
+		) ;
+		echo "</fieldset>";
+		echo "<fieldset><legend> ".__m('Creance::search::moismoucompta')."</legend>";
+		echo $this->Xform->input(
+			'Search.Creance.moismoucompta_from',
+			array(
+				'label' => ' From',
+				'type' => 'date',
+				'dateFormat'=>'DMY',
+				'maxYear'=>date('Y')+1,
+				'minYear'=> '2009',
+				'empty' => true
+			)
+		) ;
+		echo $this->Xform->input(
+			'Search.Creance.moismoucompta_to',
+			array(
+				'label' => 'To ',
+				'type' => 'date',
+				'dateFormat'=>'DMY',
+				'maxYear'=>date('Y')+2,
+				'minYear'=> '2009' ,
+				'empty' => true
+			)
+		) ;
+		echo "</fieldset>";
+
+		if ( Configure::read( 'Creances.etat' ) ) {
+			echo $this->Xform->input(
+				'Search.Creance.etat',
+				array(
+					'label' => __m('Creance::search::etat'),
+					'type' => 'select',
+					'empty' => true,
+					'options' => $options['Creance']['etat']
+				)
+			);
+		}
+
 		if ( Configure::read( 'Creances.titrescreanciers' ) ) {
 			//Has Titre créancier
 			echo $this->Xform->input(
@@ -39,6 +100,7 @@
 				)
 			);
 		}
+
 	?>
 </fieldset>
 <?php $this->end();?>

@@ -13,7 +13,7 @@
 
 	//Visualisation des Créances
 if( empty( $creances ) ) {
-	echo '<p class="notice">Cette personne ne possède pas de Créances.</p>';
+	echo '<p class="notice">'.__m('Creances::index::emptyCreance').'</p>';
 }else{
 	echo $this->Default3->index(
 		$creances,
@@ -22,30 +22,26 @@ if( empty( $creances ) ) {
 				'Creance.dtimplcre',
 				'Creance.orgcre',
 				'Creance.natcre',
-				'Creance.rgcre',
-				'Creance.moismoucompta',
-				'Creance.motiindu',
-				'Creance.oriindu',
-				'Creance.respindu',
-				'Creance.ddregucre',
-				'Creance.dfregucre',
-				'Creance.dtdercredcretrans',
 				'Creance.mtsolreelcretrans',
-				'Creance.mtinicre',
-				'Creance.mention'
+				'Creance.mention',
+				'Creance.rgcre',
 			)+ WebrsaAccess::links(
 				array(
+					'/Creances/view/#Creance.id#'
+						=> array(
+							'class' => 'view',
+						),
+					'/Creances/edit/#Creance.id#',
+					'/Creances/nonemission/#Creance.id#'
+						=> array(
+							'class' => 'edit',
+						),
+					'/Creances/validation/#Creance.id#',
 					'/Titrescreanciers/index/#Creance.id#'
 						=> array(
 							'class' => 'view',
 							'condition' => $activateTitreCreancier,
 						),
-					 /*'/Titrescreanciers/add/#Creance.id#'
-						=> array(
-							'class' => 'edit',
-							'condition' => $activateTitreCreancier,
-					),*/
-					'/Creances/edit/#Creance.id#',
 					'/Creances/delete/#Creance.id#',
 					'/Creances/copycreance/#Creance.id#' => array(
 							'class' => 'edit'

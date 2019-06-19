@@ -39,7 +39,14 @@
 		 */
 		protected static function _add(array $record, array $params) {
 			$params = self::params($params);
-			return Hash::get($params, 'ajoutPossible');
+			if (
+				$record['Creance']['etat'] == 'AEMETTRE'
+				|| $record['Creance']['etat'] == 'ENEMISSION'
+				|| $record['Creance']['etat'] == 'TITREEMIS'
+			) {
+				return Hash::get($params, 'ajoutPossible');
+			}
+			return false;
 		}
 
 		/**
@@ -61,7 +68,14 @@
 		 * @return boolean
 		 */
 		protected static function _index(array $record, array $params) {
-			return true;
+			if (
+				$record['Creance']['etat'] == 'AEMETTRE'
+				|| $record['Creance']['etat'] == 'ENEMISSION'
+				|| $record['Creance']['etat'] == 'TITREEMIS'
+			) {
+				return true;
+			}
+			return false;
 		}
 
 		/**

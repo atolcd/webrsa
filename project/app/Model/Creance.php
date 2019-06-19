@@ -91,6 +91,15 @@
 					)
 				)
 			),
+			'etat' => array(
+				'inList' => array(
+					'rule' => array('inList',
+						array(
+							'', 'ATTAVIS', 'VALIDAVIS', 'AEMETTRE', 'NONEMISSION', 'ENEMISSION', 'TITREEMIS',
+						)
+					)
+				)
+			),
 		);
 
 		public $belongsTo = array(
@@ -100,7 +109,16 @@
 				'conditions' => '',
 				'fields' => '',
 				'order' => ''
-			)
+			),
+			'Motifemissioncreance' => array(
+				'className' => 'Motifemissioncreance',
+				'foreignKey' => 'motifemissioncreance_id',
+				'conditions' => null,
+				'type' => 'LEFT OUTER',
+				'fields' => null,
+				'order' => null,
+				'counterCache' => null
+			),
 		);
 
 		/**

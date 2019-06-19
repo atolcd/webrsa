@@ -64,6 +64,7 @@
 					'Creance.id',
 					'Creance.foyer_id',
 					'Creance.orgcre',
+					'Creance.etat',
 					'Titrecreancier.id',
 					'Titrecreancier.etat',
 					'Foyer.id',

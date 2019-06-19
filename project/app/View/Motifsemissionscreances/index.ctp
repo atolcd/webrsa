@@ -5,6 +5,7 @@
 			'cells' => array(
 				'Motifemissioncreance.id',
 				'Motifemissioncreance.nom',
+				'Motifemissioncreance.emissiontitre' => array( 'type' => 'boolean' ),
 				'Motifemissioncreance.actif' => array( 'type' => 'boolean' ),
 				'/Motifsemissionscreances/edit/#Motifemissioncreance.id#' => array(
 					'title' => true

@@ -22,19 +22,31 @@ msgstr ""
 ###############################################################################
 
 msgid "/Creances/index/:heading"
-msgstr "Indus Transférés"
+msgstr "Créances transférés"
+
+msgid "/Creances/view/:heading"
+msgstr "Créance transféré"
+
+msgid "/Creances/nonemission/:heading"
+msgstr "Motif Non-Emission créance transférée"
+
+msgid "/Creances/validation/:heading"
+msgstr "Validation Créance transférée"
 
 msgid "/Creances/fluxadd/:heading"
-msgstr "Ajout d'un indus transféré depuis un rejet"
+msgstr "Ajout d'une créance transférée depuis un rejet"
 
 msgid "/Creances/add/:heading"
-msgstr "Ajout d'un Indus Transféré"
+msgstr "Ajout d'une créance transférée"
 
 msgid "/Creances/edit/:heading"
-msgstr "Modification d'une Indus Transféré"
+msgstr "Ajout d'un commentaire à la créance transférée"
 
 msgid "/Creances/copycreance/:heading"
 msgstr "Copier/Réaffecter la créance"
+
+msgid "Creances::index::emptyCreance"
+msgstr "Cette personne ne possède pas de créances."
 
 ###############################################################################
 # Lien
@@ -43,23 +55,35 @@ msgstr "Copier/Réaffecter la créance"
 msgid "/Creances/index"
 msgstr "Voir"
 
+msgid "/Creances/view"
+msgstr "Voir"
+
 msgid "/Creances/index/#Creance.id#"
+msgstr "Voir #Creance.id#"
+
+msgid "/Creances/view/#Creance.id#"
 msgstr "Voir #Creance.id#"
 
 msgid "/Creances/add"
 msgstr "Ajouter"
 
 msgid "/Creances/edit"
-msgstr "Modifier"
+msgstr "Commenter"
+
+msgid "/Creances/nonemission"
+msgstr "Ne pas émettre"
+
+msgid "/Creances/validation"
+msgstr "Valider"
 
 msgid "/Creances/delete"
-msgstr "Supprimer l'indus"
+msgstr "Supprimer la créance"
 
 msgid "/Creances/delete/#Creance.id#"
-msgstr "Supprimer l'indus #Creance.id#"
+msgstr "Supprimer la créance #Creance.id#"
 
 msgid "/Creances/copycreance"
-msgstr "Copier/Réaffecter l'indus"
+msgstr "Copier/Réaffecter la créance"
 
 msgid "/Creances/copycreance/#Creance.id#"
 msgstr "Copier/Réaffecter la créance #Creance.id#"
@@ -71,7 +95,7 @@ msgid "/Titrescreanciers/index"
 msgstr "Préparer le Titre de Recettes"
 
 msgid "Creances::index::emptyLabel"
-msgstr "Cette personne ne possède pas d'Indus Transféré."
+msgstr "Cette personne ne possède pas de créance transférée."
 
 msgid "/Creances/filelink"
 msgstr "Fichiers liés (#Fichiermodule.nb_fichiers_lies#)"
@@ -80,7 +104,7 @@ msgid "/Creances/filelink/#Creance.id#"
 msgstr "Fichiers liés"
 
 msgid "Creances::filelink"
-msgstr "Fichiers liés à un Indus Transféré"
+msgstr "Fichiers liés à une créance transférée"
 
 msgid "Creances.haspiecejointe"
 msgstr "Ajouter une pièce jointe"
@@ -93,7 +117,22 @@ msgid "/Creances/search/:heading"
 msgstr "Recherche par Créances"
 
 msgid "Search.Creances"
-msgstr "Recherche par Indus Transféré de l'allocataire"
+msgstr "Recherche par créance transférée de l'allocataire"
+
+msgid "Creance::search::orgcre"
+msgstr "Origine de la créance"
+
+msgid "Creance::search::motiindu"
+msgstr "Motif de l\'indu"
+
+msgid "Creance::search::dtimplcre"
+msgstr "Plage de date d'implémentation"
+
+msgid "Creance::search::moismoucompta"
+msgstr "Plage de date de transfert"
+
+msgid "Creance::search::etat"
+msgstr "État de la créance"
 
 ###############################################################################
 # Champs de recherches
@@ -133,19 +172,31 @@ msgid "Creance.ddregucre"
 msgstr "Date début créance"
 
 msgid "Creance.dfregucre"
-msgstr "Date fin  créance"
+msgstr "Date fin créance"
 
 msgid "Creance.dtdercredcretrans"
 msgstr "Date dernier crédit positif créance transférée"
 
 msgid "Creance.mtsolreelcretrans"
-msgstr "Solde réel indu"
+msgstr "Solde réel de la créance transférée"
 
 msgid "Creance.mtinicre"
 msgstr "Montant initial créance"
 
 msgid "Creance.mention"
-msgstr "Mention de l'indus"
+msgstr "Commentaire"
+
+msgid "Creance.motifemissioncreance_id"
+msgstr "Motif"
+
+msgid "Creance.datemotifemission"
+msgstr "Date motif non emission"
+
+msgid "Creance.commentairevalidateur"
+msgstr "Commentaire du validateur"
+
+msgid "Creance.validation"
+msgstr "Valider la décision"
 
 # ==============================================================================
 # Résultats du moteur de recherche

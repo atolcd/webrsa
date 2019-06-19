@@ -63,7 +63,7 @@ msgid "ENUM::NATCRE::ITS"
 msgstr "Indu sur nature prestation RCB transféré [ITS]"
 
 msgid "Creance.orgcre"
-msgstr "Origine de l'indus"
+msgstr "Origine de la créance"
 
 msgid "ENUM::ORGCRE::"
 msgstr "vide"
@@ -486,10 +486,10 @@ msgid "Creance.dtdercredcretrans"
 msgstr "Date dernier crédit positif créance transférée"
 
 msgid "Creance.mtsolreelcretrans"
-msgstr "Montant solde réel indus transféré"
+msgstr "Montant solde réel créance transférée"
 
 msgid "Creance.mtinicre"
-msgstr "Montant initial indus transféré"
+msgstr "Montant initial créance transférée"
 
 msgid "Creances.haspiecejointe"
 msgstr "Ajouter une pièce jointe"
@@ -499,3 +499,27 @@ msgstr "Oui"
 
 msgid "ENUM::HASPIECEJOINTE::0"
 msgstr "Non"
+
+msgid "Creance.etat"
+msgstr "État de la créance"
+
+msgid "ENUM::ETAT::"
+msgstr "Vide"
+
+msgid "ENUM::ETAT::ATTAVIS"
+msgstr "Attente Avis"
+
+msgid "ENUM::ETAT::VALIDAVIS"
+msgstr "Avis émis"
+
+msgid "ENUM::ETAT::AEMETTRE"
+msgstr "À émettre"
+
+msgid "ENUM::ETAT::NONEMISSION"
+msgstr "Titre non émis"
+
+msgid "ENUM::ETAT::ENEMISSION"
+msgstr "En cours d’émission"
+
+msgid "ENUM::ETAT::TITREEMIS"
+msgstr "Titre émis"
