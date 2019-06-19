@@ -47,7 +47,7 @@ if( empty( $titresCreanciers ) ) {
 	
 	// Activation du bouton Ajouter
 	echo $this->Default3->actions(array(
-		'/Titressuivisannulationsreductions/add/' . $titresCreanciers[0]['Titrecreancier']['id'] => array( 'disabled' => $options['annreduc_ajoutDisabled'] )
+		'/Titressuivisannulationsreductions/add/' . $titresCreanciers['Titrecreancier']['id'] => array( 'disabled' => $options['annreduc_ajoutDisabled'] )
 	));
 
 	//Visualisation des annulations / réductions
@@ -86,7 +86,7 @@ if( empty( $titresCreanciers ) ) {
 
 	// Activation du bouton Ajouter
 	echo $this->Default3->actions(array(
-		'/Titressuivisinfospayeurs/add/' . $titresCreanciers[0]['Titrecreancier']['id'] => array( 'disabled' => false )
+		'/Titressuivisinfospayeurs/add/' . $titresCreanciers['Titrecreancier']['id'] => array( 'disabled' => false )
 	));
 
 	//Visualisation des informations payeurs
@@ -116,5 +116,42 @@ if( empty( $titresCreanciers ) ) {
 		);
 	}
 
+	echo '<br>';
+
+	// ******************* Partie Autres infos ****************
+	echo '<h2>' . __m('Titressuivisautresinfo::index:titleTitresuivi') . '</h2>';
+
+	// Activation du bouton Ajouter
+	echo $this->Default3->actions(array(
+		'/Titressuivisautresinfos/add/' . $titresCreanciers['Titrecreancier']['id'] => array( 'disabled' => false )
+	));
+
+	//Visualisation des autres informations
+	if( empty( $titresAutres ) ) {
+		echo '<p class="notice">' . __m('Titressuivisautresinfo::index::emptyTitresuivi') . '</p>';
+	}else{
+		echo $this->Default3->index(
+			$titresAutres,
+			$this->Translator->normalize(
+				array(
+					'Typetitrecreancierautreinfo.nom',
+					'Titresuiviautreinfo.dtautreinfo' => array('type' => 'date', 'dateFormat' => 'DMY'),
+					'Titresuiviautreinfo.commentaire',
+				)+ WebrsaAccess::links(
+					array(
+						'/Titressuivisautresinfos/view/#Titresuiviautreinfo.id#/#Titresuiviautreinfo.titrecreancier_id#/',
+						'/Titressuivisautresinfos/edit/#Titresuiviautreinfo.id#/#Titresuiviautreinfo.titrecreancier_id#/',
+						'/Titressuivisautresinfos/cancel/#Titresuiviautreinfo.id#/#Titresuiviautreinfo.titrecreancier_id#/' => array('confirm' => true),
+						'/Titressuivisautresinfos/delete/#Titresuiviautreinfo.id#/#Titresuiviautreinfo.titrecreancier_id#/' => array('confirm' => true),
+						'/Titressuivisautresinfos/filelink/#Titresuiviautreinfo.id#/#Titresuiviautreinfo.titrecreancier_id#/',
+					)
+				)
+			),
+			array(
+				'paginate' => false,
+			)
+		);
+	}
 	echo $this->Default3->actions(array( $backUrl => array( 'class' => 'back' )));
+
 }

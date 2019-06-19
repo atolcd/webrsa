@@ -31,7 +31,7 @@
 		 */
 		public $fakeInLists = array(
 			'haspiecejointe' => array('0', '1'),
-			'etat' => array('CREE', 'VALI', 'AENV','ENV1','RET', 'ENV2', 'PAY','SUP'),
+			'etat' => array('CREE', 'VALI', 'AENV','ENV1','RET', 'ENV2', 'PAY','SUP', 'REMB'),
 			'typeadr' => array('D', 'P', 'R'),
 			'etatadr' => array('CO', 'VO', 'VC', 'NC', 'AU'),
 		);
@@ -97,6 +97,9 @@
 			),
 			'Titresuiviannulationreduction' => array(
 				'classname' => 'Titresuiviannulationreduction'
+			),
+			'Titresuiviautreinfo' => array(
+				'classname' => 'Titresuiviautreinfo'
 			)
 		);
 
@@ -185,6 +188,7 @@
 		public function setEtat($id) {
 			$data = array();
 			$data['id'] = $id;
+			$data['etat'] = 'CREE';
 
 			// Récupération des annulations / réductions liées à l'ID
 			$titresAnnReduc = $this->Titresuiviannulationreduction->find('all',
@@ -193,8 +197,6 @@
 					'order' => 'dtaction ASC'
 				)
 			);
-
-			$data['etat'] = 'CREE';
 
 			if( isset($titresAnnReduc) && !empty($titresAnnReduc) ) {
 				foreach($titresAnnReduc as $titre) {
@@ -208,6 +210,26 @@
 					}
 				}
 			}
+
+			// Récupération des autres infos liées à l'ID
+			$titresAutresInfos = $this->Titresuiviautreinfo->find('all',
+				array(
+					'condition' => array( 'titrescreanciers_id' => $id ),
+					'order' => 'dtautreinfo ASC'
+				)
+			);
+
+			if( isset($titresAutresInfos) && !empty($titresAutresInfos) ) {
+				foreach($titresAutresInfos as $titre) {
+					if($titre['Titresuiviautreinfo']['etat'] !== 'ANNULER'){
+						if(strpos($titre['Typetitrecreancierautreinfo']['nom'], 'emboursement') !== false ) {
+							$data['etat'] = 'REMB';
+							break;
+						}
+					}
+				}
+			}
+
 
 			// Mise à jour de l'état
 			$this->begin();
@@ -229,14 +251,6 @@
 			$data = array();
 			$data['id'] = $id;
 
-			// Récupération des annulations / réductions liées à l'ID
-			$titresAnnReduc = $this->Titresuiviannulationreduction->find('all',
-				array(
-					'condition' => array( 'titrescreanciers_id' => $id ),
-					'order' => 'dtaction ASC'
-				)
-			);
-
 			$titreCreancier = $this->find('first',
 			array(
 				'conditions' => array(
@@ -245,12 +259,40 @@
 				'contain' => false
 			));
 
+			// Récupération des annulations / réductions liées à l'ID
+			$titresAnnReduc = $this->Titresuiviannulationreduction->find('all',
+				array(
+					'condition' => array( 'titrescreanciers_id' => $id ),
+					'order' => 'dtaction ASC'
+				)
+			);
+
 			$data['mnttitr'] = $titreCreancier['Titrecreancier']['mntinit'];
 			foreach($titresAnnReduc as $titre){
 				if($titre['Titresuiviannulationreduction']['etat'] !== 'ANNULER') {
 					$data['mnttitr'] =  $data['mnttitr'] - $titre['Titresuiviannulationreduction']['mtreduit'];
 				}
 			}
+
+			// Récupération des autres infos liées à l'ID
+			$titresAutresInfos = $this->Titresuiviautreinfo->find('all',
+				array(
+					'condition' => array( 'titrescreanciers_id' => $id ),
+					'order' => 'dtautreinfo ASC'
+				)
+			);
+
+			if( isset($titresAutresInfos) && !empty($titresAutresInfos) ) {
+				foreach($titresAutresInfos as $titre) {
+					if($titre['Titresuiviautreinfo']['etat'] !== 'ANNULER'){
+						if(strpos($titre['Typetitrecreancierautreinfo']['nom'], 'emboursement') !== false ) {
+							$data['mnttitr'] = 0;
+							break;
+						}
+					}
+				}
+			}
+
 			// Mise à jour du montant du titre
 			$this->begin();
 			$success = $this->save($data);
@@ -261,4 +303,5 @@
 			}
 			return $success;
 		 }
+
 	}

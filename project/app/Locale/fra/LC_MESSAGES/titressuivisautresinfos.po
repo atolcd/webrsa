@@ -1,0 +1,47 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+###############################################################################
+msgid "/Titressuivisautresinfos/add/:heading"
+msgstr " Ajout d'une autre information"
+
+msgid "Titresuiviautreinfo.dtautreinfo"
+msgstr "Date de l'information"
+
+msgid "Titresuiviautreinfo.typeannulationreduction_id"
+msgstr "Type d'information"
+
+msgid "Titresuiviautreinfo.commentaire"
+msgstr "Commentaires"
+
+msgid "Titressuivisautresinfos::filelink"
+msgstr "Fichiers liés à une autre information"
+
+msgid "/Titressuivisautresinfos/view/:heading"
+msgstr "Voir l'information"
+
+msgid "Titressuivisautresinfos::index::titleTitrecreancier"
+msgstr "Titre de recette"
+
+msgid "Titressuivisautresinfos::index::titleAnnulation"
+msgstr "Autre information"
+
+msgid "Titressuivisautresinfos::index::titleFileupload"
+msgstr "Fichiers liés"
+
+msgid "Titressuivisautresinfos::index::emptyTitrecreancier"
+msgstr "Cette creance ne possède pas de Titres creanciers liée"
+
+msgid "Titressuivisautresinfos::index::legendePJ"
+msgstr "Pièce Jointe"
+
+msgid "/Titressuivis/index"
+msgstr "Retour"
