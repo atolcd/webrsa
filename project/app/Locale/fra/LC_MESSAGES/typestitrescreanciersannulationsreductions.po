@@ -1,0 +1,50 @@
+# Traductions de typestitrescreanciersannulationsreductions.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Typestitrescreanciersannulationsreductions/index/:heading"
+msgstr "Paramétrage des types d'annulation/réduction des titres de recette"
+
+msgid "/Typestitrescreanciersannulationsreductions/add/:heading"
+msgstr "Ajout d'un type d'annulation/réduction des titres de recette"
+
+msgid "/Typestitrescreanciersannulationsreductions/edit/:heading"
+msgstr "Modification du type d'annulation/réduction des titres de recette « #Typetitrecreancierannulationreduction.nom# »"
+
+msgid "/Typestitrescreanciersannulationsreductions/add"
+msgstr "Ajouter"
+
+msgid "/Typestitrescreanciersannulationsreductions/add/:title"
+msgstr "Ajouter un type d'annulation/réduction des titres de recette"
+
+msgid "/Typestitrescreanciersannulationsreductions/edit"
+msgstr "Modifier"
+
+msgid "/Typestitrescreanciersannulationsreductions/edit/#Typetitrecreancierannulationreduction.id#"
+msgstr "Modifier le type d'annulation/réduction des titres de recette « #Typetitrecreancierannulationreduction.nom# »"
+
+msgid "/Typestitrescreanciersannulationsreductions/delete"
+msgstr "Supprimer"
+
+msgid "/Typestitrescreanciersannulationsreductions/delete/#Typetitrecreancierannulationreduction.id#"
+msgstr "Supprimer le type d'annulation/réduction des titres de recette « #Typetitrecreancierannulationreduction.nom# »"
+
+msgid "/Typestitrescreanciersannulationsreductions/delete/#Typetitrecreancierannulationreduction.id# ?"
+msgstr "Réellement supprimer le type d'annulation/réduction des titres de recette « #Typetitrecreancierannulationreduction.nom# » ?"
+
+msgid "Typetitrecreancierannulationreduction.nom"
+msgstr "Nom du type"
+
+msgid "Typetitrecreancierannulationreduction.actif"
+msgstr "Actif"
+
+msgid "Typetitrecreancierannulationreduction.id"
+msgstr "ID"

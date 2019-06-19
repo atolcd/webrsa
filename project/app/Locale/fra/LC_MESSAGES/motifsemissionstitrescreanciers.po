@@ -1,0 +1,50 @@
+# Traductions de Motifsemissionstitrescreanciers.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Motifsemissionstitrescreanciers/index/:heading"
+msgstr "Paramétrage des types d'informations payeurs des titres de recette"
+
+msgid "/Motifsemissionstitrescreanciers/add/:heading"
+msgstr "Ajout d'un type d'information payeur des titres de recette"
+
+msgid "/Motifsemissionstitrescreanciers/edit/:heading"
+msgstr "Modification du type d'information payeur des titres de recette « #Motifemissiontitrecreancier.nom# »"
+
+msgid "/Motifsemissionstitrescreanciers/add"
+msgstr "Ajouter"
+
+msgid "/Motifsemissionstitrescreanciers/add/:title"
+msgstr "Ajouter un type d'information payeur des titres de recette"
+
+msgid "/Motifsemissionstitrescreanciers/edit"
+msgstr "Modifier"
+
+msgid "/Motifsemissionstitrescreanciers/edit/#Motifemissiontitrecreancier.id#"
+msgstr "Modifier le type d'information payeur des titres de recette « #Motifemissiontitrecreancier.nom# »"
+
+msgid "/Motifsemissionstitrescreanciers/delete"
+msgstr "Supprimer"
+
+msgid "/Motifsemissionstitrescreanciers/delete/#Motifemissiontitrecreancier.id#"
+msgstr "Supprimer le type d'information payeur des titres de recette « #Motifemissiontitrecreancier.nom# »"
+
+msgid "/Motifsemissionstitrescreanciers/delete/#Motifemissiontitrecreancier.id# ?"
+msgstr "Réellement supprimer le type d'information payeur des titres de recette « #Motifemissiontitrecreancier.nom# » ?"
+
+msgid "Motifemissiontitrecreancier.nom"
+msgstr "Nom du type"
+
+msgid "Motifemissiontitrecreancier.actif"
+msgstr "Actif"
+
+msgid "Motifemissiontitrecreancier.id"
+msgstr "ID"

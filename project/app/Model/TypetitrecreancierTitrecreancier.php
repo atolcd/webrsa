@@ -53,4 +53,3 @@ class TypetitrecreancierTitrecreancier extends AppModel
         )
     );
 }
-?>
