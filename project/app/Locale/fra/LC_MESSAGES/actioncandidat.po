@@ -157,15 +157,12 @@ msgid "Actioncandidat.emailprestataire"
 msgstr "Email partenaire/prestataire"
 
 msgid "Actioncandidat.dreesactionscer_id"
-msgstr "Action CER DREES"
+msgstr "Nature des actions DREES"
 
 # ------------------------------------------------------------------------------
 # Natures de contrats, utilisées dans le tableau "Indicateurs de natures des actions
 # des contrats" des statistiques ministérielles
 # ------------------------------------------------------------------------------
-
-msgid "Actioncandidat.naturecer"
-msgstr "Nature des actions Dress"
 
 msgid "ENUM::ACTIF::N"
 msgstr "Non"

@@ -52,7 +52,6 @@
                         'Actioncandidat.themecode',
                         'Actioncandidat.codefamille',
                         'Actioncandidat.numcodefamille',
-                        'Actioncandidat.naturecer',
                         'Actioncandidat.dreesactionscer_id' => array( 'type' => 'select', 'empty' => true ),
                         'Actioncandidat.lieuaction',
                         'Actioncandidat.cantonaction' => array( 'options' => $cantons ),
