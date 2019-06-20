@@ -9,7 +9,6 @@
 	 */
 	App::uses( 'AppModel', 'Model' );
 	App::uses( 'WebrsaAccessTitressuivisannulationsreductions', 'Utility' );
-	App::uses( 'Titressuivisannulationsreductions', 'Controller' );
 
 	/**
 	 * La classe Titresuiviannulationreduction ...
@@ -145,7 +144,7 @@
 		 */
 		public function getContext() {
 			return array(
-				'controller' => new TitressuivisannulationsreductionsController(),
+				'controller' => ClassRegistry::init('TitressuivisannulationsreductionsController'),
 				'webrsaModelName' => $this->WebrsaTitressuivisannulationsreduction,
 				'webrsaAccessName' => 'WebrsaAccessTitressuivisannulationsreductions',
 				'mainModelName' => $this

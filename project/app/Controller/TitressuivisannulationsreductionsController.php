@@ -32,7 +32,6 @@
 		public $uses = array(
 			'Titresuiviannulationreduction',
 			'WebrsaTitressuivisannulationsreduction',
-			'Gedooo.Gedooo',
 			'Titrecreancier',
 			'Creances',
 			'Typetitrecreancierannulationreduction',
@@ -54,6 +53,7 @@
 			'DossiersMenus',
 			'Jetons2',
 			'WebrsaAccesses',
+			'Gedooo.Gedooo',
 			'Fileuploader'
 		);
 
@@ -260,12 +260,14 @@
 				$options['montant']['type'] = 'number';
 				$options['montant']['disabled'] = true;
 
+				$montantReduitTotal = 0;
 				if( !empty($titresAnnRed) ) {
-					$derniereAnnReduc = end($titresAnnRed);
-					$options['montant']['total'] = $derniereAnnReduc['Titresuiviannulationreduction']['mtapresacte'];
-				} else {
-					$options['montant']['total'] = $titresCreanciers['Titrecreancier']['mnttitr'];
+					foreach($titresAnnRed as $titres ) {
+						$montantReduitTotal += $titres['Titresuiviannulationreduction']['mtreduit'];
+					}
 				}
+				$options['montant']['total'] = $montantReduitTotal;
+
 				$titresAnnRedEnCours['Titresuiviannulationreduction']['typeannulationreduction_id']='';
 				$titresAnnRedEnCours['Titresuiviannulationreduction']['id']='';
 				$titresAnnRedEnCours['Titresuiviannulationreduction']['mtreduit']='';

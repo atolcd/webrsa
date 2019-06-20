@@ -9,7 +9,6 @@
 	 */
 	App::uses( 'AppModel', 'Model' );
 	App::uses( 'WebrsaAccessTitressuivisautresinfos', 'Utility' );
-	App::uses( 'Titressuivisautresinfos', 'Controller');
 
 	/**
 	 * La classe Titresuiviautreinfo ...
@@ -128,7 +127,7 @@
 		 */
 		public function getContext() {
 			return array(
-				'controller' => new TitressuivisautresinfosController(),
+				'controller' => ClassRegistry::init('TitressuivisautresinfosController'),
 				'webrsaModelName' => $this->WebrsaTitressuivisautresinfo,
 				'webrsaAccessName' => 'WebrsaAccessTitressuivisautresinfos',
 				'mainModelName' => $this

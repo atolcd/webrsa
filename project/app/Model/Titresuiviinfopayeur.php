@@ -8,7 +8,6 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'AppModel', 'Model' );
-	App::uses( 'Titresuiviinfopayeur', 'Controller');
 
 	/**
 	 * La classe Titresuiviinfopayeur ...
