@@ -58,3 +58,6 @@ msgstr "Pièce Jointe"
 
 msgid "/Titressuivis/index"
 msgstr "Retour"
+
+msgid "Titressuivisannulationsreductions::impession::error"
+msgstr "Impossible de générer le certificat administratif"

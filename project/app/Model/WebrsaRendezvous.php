@@ -504,8 +504,7 @@
 					'qual' => $Option->qual()
 				)
 			);
-			debug($rdv);
-			exit();
+
 			return $this->Rendezvous->ged(
 				$rdv,
 				"RDV/{$rdv[0]['Typerdv']['modelenotifrdv']}.odt",
