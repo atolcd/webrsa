@@ -190,7 +190,7 @@
 				)
 			);
 			$certificat = Set::merge( $certificat, $user );
-
+			$certificat = array($certificat);
 			$Option = ClassRegistry::init( 'Option' );
 			$options = array(
 				'Personne' => array(

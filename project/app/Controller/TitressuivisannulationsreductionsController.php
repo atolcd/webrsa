@@ -371,11 +371,11 @@
 
 			$pdf = $this->Titresuiviannulationreduction->WebrsaTitressuivisannulationsreduction->getDefaultPdf( $id, $this->Session->read( 'Auth.User.id' ) );
 
-			if( !empty( $pdf ) ) {
+			if( !empty( $pdf ) && $pdf !== false ) {
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'cert_admin-%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Flash->error( 'Impossible de générer le certificat administratif.' );
+				$this->Flash->error( __m("Titressuivisannulationsreductions::impession::error") );
 				$this->redirect( array( 'controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
 			}
 		}

@@ -60,17 +60,6 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function _print(array $record, array $params) {
-			return true;
-		}
-
-		/**
-		 * Permission d'accès
-		 *
-		 * @param array $record
-		 * @param array $params
-		 * @return boolean
-		 */
 		protected static function _view(array $record, array $params) {
 			return true;
 		}
