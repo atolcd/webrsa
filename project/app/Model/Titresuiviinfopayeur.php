@@ -46,7 +46,7 @@
 		public $belongsTo = array(
 			'Typetitrecreancierinfopayeur' => array(
 				'className' => 'Typetitrecreancierinfopayeur',
-				'foreignKey' => 'typestitrescreanciersinfopayeur_id',
+				'foreignKey' => 'typesinfopayeur_id',
 				'conditions' => array('Typetitrecreancierinfopayeur.actif' => 1),
 				'fields' => '',
 				'order' => ''

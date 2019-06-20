@@ -9,7 +9,7 @@
 	 */
 	App::uses( 'AppModel', 'Model' );
 	App::uses( 'WebrsaAccessTitressuivisannulationsreductions', 'Utility' );
-	App::uses( 'Titressuivisannulationsreductions', 'Controller');
+	App::uses( 'Titressuivisannulationsreductions', 'Controller' );
 
 	/**
 	 * La classe Titresuiviannulationreduction ...
@@ -42,6 +42,7 @@
 		public $recursive = 1;
 
 		public $actsAs = array(
+			'Gedooo.Gedooo',
 			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
 			'Validation2.Validation2RulesFieldtypes',

@@ -93,6 +93,17 @@
 		 * @param array $params
 		 * @return boolean
 		 */
+		protected static function _impression(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
 		protected static function _filelink(array $record, array $params) {
 			return true;
 		}
@@ -114,7 +125,7 @@
 					'edit',
 					'cancel',
 					'delete',
-					'print',
+					'impression',
 					'filelink'
 				)
 			);

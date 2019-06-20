@@ -14,6 +14,9 @@ msgstr ""
 msgid "/Titressuivisannulationsreductions/add/:heading"
 msgstr " Ajout d'une annulation / réduction"
 
+msgid "/Titressuivisannulationsreductions/edit/:heading"
+msgstr " Modification d'une annulation / réduction"
+
 msgid "Titresuiviannulationreduction.mtactuel"
 msgstr "Montant actuellement réduit"
 
@@ -21,6 +24,9 @@ msgid "Titresuiviannulationreduction.dtaction"
 msgstr "Date de l'action"
 
 msgid "Titresuiviannulationreduction.typeannulationreduction_id"
+msgstr "Type de réduction"
+
+msgid "Typetitrecreancierannulationreduction.nom"
 msgstr "Type de réduction"
 
 msgid "Titresuiviannulationreduction.mtreduit"
