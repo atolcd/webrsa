@@ -65,12 +65,12 @@ if( empty( $titresCreanciers ) ) {
 					'Titresuiviannulationreduction.mtapresacte'
 				)+ WebrsaAccess::links(
 					array(
-						'/Titressuivisannulationsreductions/view/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/',
-						'/Titressuivisannulationsreductions/edit/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/',
-						'/Titressuivisannulationsreductions/cancel/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/' => array('confirm' => true),
-						'/Titressuivisannulationsreductions/delete/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/' => array('confirm' => true),
-						'/Titressuivisannulationsreductions/impression/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/',
-						'/Titressuivisannulationsreductions/filelink/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/',
+						'/Titressuivisannulationsreductions/view/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrecreancier_id#/',
+						'/Titressuivisannulationsreductions/edit/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrecreancier_id#/',
+						'/Titressuivisannulationsreductions/cancel/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrecreancier_id#/' => array('confirm' => true),
+						'/Titressuivisannulationsreductions/delete/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrecreancier_id#/' => array('confirm' => true),
+						'/Titressuivisannulationsreductions/impression/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrecreancier_id#/',
+						'/Titressuivisannulationsreductions/filelink/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrecreancier_id#/',
 					)
 				)
 			),
@@ -103,10 +103,10 @@ if( empty( $titresCreanciers ) ) {
 					'Titresuiviinfopayeur.retourpayeur',
 				)+ WebrsaAccess::links(
 					array(
-						'/Titressuivisinfospayeurs/view/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrescreanciers_id#/',
-						'/Titressuivisinfospayeurs/edit/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrescreanciers_id#/',
-						'/Titressuivisinfospayeurs/answer/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrescreanciers_id#/' => array('class' => 'button add'),
-						'/Titressuivisinfospayeurs/delete/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrescreanciers_id#/' => array('confirm' => true),
+						'/Titressuivisinfospayeurs/view/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/',
+						'/Titressuivisinfospayeurs/edit/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/',
+						'/Titressuivisinfospayeurs/answer/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/' => array('class' => 'button add'),
+						'/Titressuivisinfospayeurs/delete/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/' => array('confirm' => true),
 					)
 				)
 			),

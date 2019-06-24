@@ -51,43 +51,43 @@ msgstr "Montant du titre APRES acte administratif"
 msgid "/Titressuivisannulationsreductions/view"
 msgstr "Voir"
 
-msgid "/Titressuivisannulationsreductions/view/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
+msgid "/Titressuivisannulationsreductions/view/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrecreancier_id#/"
 msgstr "Voir cette annulation / réduction"
 
 msgid "/Titressuivisannulationsreductions/edit"
 msgstr "Modifier"
 
-msgid "/Titressuivisannulationsreductions/edit/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
+msgid "/Titressuivisannulationsreductions/edit/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrecreancier_id#/"
 msgstr "Modifier l'annulation / réduction"
 
 msgid "/Titressuivisannulationsreductions/cancel"
 msgstr "Annuler"
 
-msgid "/Titressuivisannulationsreductions/cancel/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
+msgid "/Titressuivisannulationsreductions/cancel/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrecreancier_id#/"
 msgstr "Annuler l'annulation / réduction"
 
-msgid "/Titressuivisannulationsreductions/cancel/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/ ?"
+msgid "/Titressuivisannulationsreductions/cancel/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrecreancier_id#/ ?"
 msgstr "Voulez vous réellement annuler cette annulation / réduction ?"
 
 msgid "/Titressuivisannulationsreductions/delete"
 msgstr "Supprimer"
 
-msgid "/Titressuivisannulationsreductions/delete/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
+msgid "/Titressuivisannulationsreductions/delete/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrecreancier_id#/"
 msgstr "Supprimer l'annulation / réduction"
 
-msgid "/Titressuivisannulationsreductions/delete/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/ ?"
+msgid "/Titressuivisannulationsreductions/delete/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrecreancier_id#/ ?"
 msgstr "Voulez vous réellement supprimer cette annulation / réduction ?"
 
 msgid "/Titressuivisannulationsreductions/impression"
 msgstr "Imprimer le certificat administratif"
 
-msgid "/Titressuivisannulationsreductions/impression/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
+msgid "/Titressuivisannulationsreductions/impression/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrecreancier_id#/"
 msgstr "Imprimer le certificat administratif de cette annulation / réduction"
 
 msgid "/Titressuivisannulationsreductions/filelink"
 msgstr "Fichiers liés (#Fichiermodule.nb_fichiers_lies#)"
 
-msgid "/Titressuivisannulationsreductions/filelink/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
+msgid "/Titressuivisannulationsreductions/filelink/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrecreancier_id#/"
 msgstr "Fichiers liés à cette annulation / réduction"
 
 msgid "Titressuivisannulationsreductions::index::emptyTitrecreancier"
@@ -121,28 +121,28 @@ msgstr "Retour du payeur"
 msgid "/Titressuivisinfospayeurs/view"
 msgstr "Voir"
 
-msgid "/Titressuivisinfospayeurs/view/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrescreanciers_id#/"
+msgid "/Titressuivisinfospayeurs/view/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/"
 msgstr "Voir cette information payeur"
 
 msgid "/Titressuivisinfospayeurs/edit"
 msgstr "Modifier"
 
-msgid "/Titressuivisinfospayeurs/edit/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrescreanciers_id#/"
+msgid "/Titressuivisinfospayeurs/edit/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/"
 msgstr "Modifier l'information payeur"
 
 msgid "/Titressuivisinfospayeurs/answer"
 msgstr "Retour payeur"
 
-msgid "/Titressuivisinfospayeurs/answer/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrescreanciers_id#/"
+msgid "/Titressuivisinfospayeurs/answer/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/"
 msgstr "Ajouter un retour du payeur"
 
 msgid "/Titressuivisinfospayeurs/delete"
 msgstr "Supprimer"
 
-msgid "/Titressuivisinfospayeurs/delete/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/"
+msgid "/Titressuivisinfospayeurs/delete/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/"
 msgstr "Supprimer l'information payeur"
 
-msgid "/Titressuivisinfospayeurs/delete/#Titresuiviannulationreduction.id#/#Titresuiviannulationreduction.titrescreanciers_id#/ ?"
+msgid "/Titressuivisinfospayeurs/delete/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/ ?"
 msgstr "Voulez vous réellement supprimer cette information payeur ?"
 
 msgid "Titressuivisinfospayeurs::index::emptyTitresuivi"

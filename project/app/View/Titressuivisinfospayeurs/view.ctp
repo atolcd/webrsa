@@ -44,5 +44,5 @@ if($titresInfosEnCours['Titresuiviinfopayeur']['retourpayeur'] !== 'null') {
 }
 
 
-$backUrl = '/titressuivis/index/' . $titresInfosEnCours['Titresuiviinfopayeur']['titrescreanciers_id'];
+$backUrl = '/titressuivis/index/' . $titresInfosEnCours['Titresuiviinfopayeur']['titrecreancier_id'];
 echo $this->Default3->actions(array( $backUrl => array( 'class' => 'back' )));

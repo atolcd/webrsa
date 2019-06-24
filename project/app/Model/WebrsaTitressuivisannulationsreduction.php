@@ -203,7 +203,7 @@
 
 			return $this->Titresuiviannulationreduction->ged(
 				$certificat,
-				"TitreAnnulationReduction/cert_admin.odt",
+				"TitreAnnulationReduction/certificatadministratif_suiviannulationreduction.odt",
 				true,
 				$options
 			);

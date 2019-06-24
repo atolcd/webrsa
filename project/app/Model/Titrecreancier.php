@@ -193,14 +193,14 @@
 			// Récupération des annulations / réductions liées à l'ID
 			$titresAnnReduc = $this->Titresuiviannulationreduction->find('all',
 				array(
-					'condition' => array( 'titrescreanciers_id' => $id ),
+					'conditions' => array( 'titrecreancier_id' => $id ),
 					'order' => 'dtaction ASC'
 				)
 			);
 
 			if( isset($titresAnnReduc) && !empty($titresAnnReduc) ) {
 				foreach($titresAnnReduc as $titre) {
-					if($titre['Titresuiviannulationreduction']['etat'] !== 'ANUULER'){
+					if($titre['Titresuiviannulationreduction']['etat'] !== 'ANNULER'){
 						if($titre['Typetitrecreancierannulationreduction']['nom'] === 'réduction') {
 							$data['etat'] = 'RED';
 						} elseif ($titre['Typetitrecreancierannulationreduction']['nom'] === 'annulation') {
@@ -214,7 +214,7 @@
 			// Récupération des autres infos liées à l'ID
 			$titresAutresInfos = $this->Titresuiviautreinfo->find('all',
 				array(
-					'condition' => array( 'titrescreanciers_id' => $id ),
+					'conditions' => array( 'titrecreancier_id' => $id ),
 					'order' => 'dtautreinfo ASC'
 				)
 			);
@@ -262,7 +262,7 @@
 			// Récupération des annulations / réductions liées à l'ID
 			$titresAnnReduc = $this->Titresuiviannulationreduction->find('all',
 				array(
-					'condition' => array( 'titrescreanciers_id' => $id ),
+					'conditions' => array( 'Titresuiviannulationreduction.titrecreancier_id' => $id ),
 					'order' => 'dtaction ASC'
 				)
 			);
@@ -277,7 +277,7 @@
 			// Récupération des autres infos liées à l'ID
 			$titresAutresInfos = $this->Titresuiviautreinfo->find('all',
 				array(
-					'condition' => array( 'titrescreanciers_id' => $id ),
+					'conditions' => array( 'Titresuiviautreinfo.titrecreancier_id' => $id ),
 					'order' => 'dtautreinfo ASC'
 				)
 			);

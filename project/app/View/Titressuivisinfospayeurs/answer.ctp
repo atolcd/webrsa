@@ -38,7 +38,7 @@ if( empty( $titresCreanciers ) ) {
 	echo $this->Default3->form(
 		array(
 			'Titresuiviinfopayeur.id' => array( 'type' => 'hidden', 'value' => $titresInfosEnCours['Titresuiviinfopayeur']['id']),
-			'Titresuiviinfopayeur.titrescreanciers_id' => array( 'type' => 'hidden', 'value' => $titresCreanciers['Titrecreancier']['id']),
+			'Titresuiviinfopayeur.titrecreancier_id' => array( 'type' => 'hidden', 'value' => $titresCreanciers['Titrecreancier']['id']),
 			'Titresuiviinfopayeur.retourpayeur' => array('type' => 'textarea', 'value' => $titresInfosEnCours['Titresuiviinfopayeur']['retourpayeur'])
 		),
 		array(

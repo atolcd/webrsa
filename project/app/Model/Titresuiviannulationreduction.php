@@ -77,7 +77,7 @@
 			),
 			'Titrecreancier' => array(
 				'className' => 'Titrecreancier',
-				'foreignKey' => 'titrescreanciers_id',
+				'foreignKey' => 'titrecreancier_id',
 				'conditions' => null,
 				'type' => 'LEFT OUTER',
 				'fields' => null,
@@ -127,7 +127,7 @@
 						)
 					),
 					'conditions' => array(
-						'Titresuiviannulationreduction.titrescreanciers_id' => $titrecreancier_id
+						'Titresuiviannulationreduction.titrecreancier_id' => $titrecreancier_id
 					),
 					'contain' => false,
 					'order' => array(
@@ -200,7 +200,7 @@
 		 */
 		public function ajoutPossible($titrecreancier_id) {
 			$titresLies = $this->find('all', array(
-				'conditions' => array('titrescreanciers_id' => $titrecreancier_id),
+				'conditions' => array('titrecreancier_id' => $titrecreancier_id),
 				'order' => array('Titresuiviannulationreduction.dtaction ASC', 'Titresuiviannulationreduction.id ASC')
 			));
 			if( isset($titresLies) && !empty($titresLies) ) {

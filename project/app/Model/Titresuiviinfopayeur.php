@@ -52,7 +52,7 @@
 			),
 			'Titrecreancier' => array(
 				'className' => 'Titrecreancier',
-				'foreignKey' => 'titrescreanciers_id',
+				'foreignKey' => 'titrecreancier_id',
 				'conditions' => null,
 				'type' => 'LEFT OUTER',
 				'fields' => null,
@@ -71,7 +71,7 @@
 		public function getList($titrecreancier_id) {
 			$titresInfosPayeurs = $this->find('all', array(
 				'conditions' => array(
-					'Titresuiviinfopayeur.titrescreanciers_id' => $titrecreancier_id
+					'Titresuiviinfopayeur.titrecreancier_id' => $titrecreancier_id
 				)
 			));
 

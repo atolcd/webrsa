@@ -224,7 +224,7 @@
 		protected function _save_add_edit(){
 			$this->Titresuiviinfopayeur->begin();
 			$data = $this->request->data;
-			$titrecreancier_id = $data['Titresuiviinfopayeur']['titrescreanciers_id'];
+			$titrecreancier_id = $data['Titresuiviinfopayeur']['titrecreancier_id'];
 
 			$success = $this->Titresuiviinfopayeur->save( $data, array( 'validate' => 'first', 'atomic' => false ) );
 

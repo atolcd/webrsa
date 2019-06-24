@@ -298,7 +298,7 @@
 			$this->Titresuiviannulationreduction->begin();
 			$data = $this->request->data;
 			$id = $data['Titresuiviannulationreduction']['id'];
-			$titrecreancier_id = $data['Titresuiviannulationreduction']['titrescreanciers_id'];
+			$titrecreancier_id = $data['Titresuiviannulationreduction']['titrecreancier_id'];
 			$data['Titresuiviannulationreduction']['etat'] = 'ENCOURS';
 
 			// Récupération du nom du type d'annulation/réduction
@@ -334,7 +334,6 @@
 				//Sauvegarde & Mise à jour de l'état du titre
 				$this->Titresuiviannulationreduction->commit();
 				$success = $this->Titrecreancier->setEtat($titrecreancier_id);
-				$this->Titrecreancier->calculMontantTitre($titrecreancier_id);
 
 				if( $success && $this->Titrecreancier->calculMontantTitre($titrecreancier_id) ) {
 					$this->Flash->success( __( 'Save->success' ) );
@@ -374,7 +373,7 @@
 			$pdf = $this->Titresuiviannulationreduction->WebrsaTitressuivisannulationsreduction->getDefaultPdf( $id, $this->Session->read( 'Auth.User.id' ) );
 
 			if( !empty( $pdf ) && $pdf !== false ) {
-				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'cert_admin-%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
+				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'certificatadministratif_suiviannulationreduction-%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
 			}
 			else {
 				$this->Flash->error( __m("Titressuivisannulationsreductions::impession::error") );

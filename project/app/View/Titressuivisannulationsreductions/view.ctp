@@ -34,5 +34,5 @@ echo '<br>';
 echo "<h2> ". __m('Titressuivisannulationsreductions::index::titleFileupload')."</h2>";
 echo $this->Fileuploader->results(Set::classicExtract($titresAnnRedEnCours, 'Fichiermodule'));
 
-$backUrl = '/titressuivis/index/' . $titresAnnRedEnCours['Titresuiviannulationreduction']['titrescreanciers_id'];
+$backUrl = '/titressuivis/index/' . $titresAnnRedEnCours['Titresuiviannulationreduction']['titrecreancier_id'];
 echo $this->Default3->actions(array( $backUrl => array( 'class' => 'back' )));

@@ -42,7 +42,7 @@ if( empty( $titresCreanciers ) ) {
 	echo $this->Default3->subform(
 		array(
 			'Titresuiviannulationreduction.id' => array( 'type' => 'hidden', 'value' => $titresAnnRedEnCours['Titresuiviannulationreduction']['id']),
-			'Titresuiviannulationreduction.titrescreanciers_id' => array( 'type' => 'hidden', 'value' => $titresCreanciers['Titrecreancier']['id']),
+			'Titresuiviannulationreduction.titrecreancier_id' => array( 'type' => 'hidden', 'value' => $titresCreanciers['Titrecreancier']['id']),
 			'Titresuiviannulationreduction.mtactuel' => array(
 				'type' => $options['montant']['type'],
 				'disabled' => 'true',
