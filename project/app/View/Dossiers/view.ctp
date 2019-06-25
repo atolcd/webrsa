@@ -546,8 +546,8 @@
 						<tbody>
 							<tr class="odd">
 								<th>Identifiant Pôle Emploi</th>
-								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.allocataire_identifiant_pe', $details);?></td>
-								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.allocataire_identifiant_pe', $details);?></td>
+								<td><?php echo Set::extract( 'DEM.Informationpe.0.identifiantpe', $details);?></td>
+								<td><?php echo Set::extract( 'CJT.Informationpe.0.identifiantpe', $details);?></td>
 							</tr>
 							<tr class="even">
 								<th>Etat actuel Pôle Emploi</th>
