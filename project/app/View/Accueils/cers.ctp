@@ -18,7 +18,7 @@
 	<thead>
 		<tr>
 			<th><?php echo __d('accueils', 'Accueil.demandeur'); ?></th>
-			<th><?php echo __d('accueils', 'Accueil.date.debut.contrat'); ?></th>
+			<th><?php echo __d('accueils', 'Accueil.date.fin.contrat'); ?></th>
 			<th><?php echo __d('accueils', 'Accueil.actions'); ?></th>
 		</tr>
 	</thead>
@@ -29,7 +29,7 @@
 			<td><?php echo $cers[$i]['Personne']['nom'].' '.$cers[$i]['Personne']['prenom']; ?></td>
 			<td>
 				<?php
-					$date = new DateTime ($cers[$i]['Contratinsertion']['created']);
+					$date = new DateTime ($cers[$i]['Contratinsertion']['df_ci']);
 					echo $date->format('d/m/Y');
 				?>
 			</td>

@@ -223,11 +223,39 @@
 				),
 			);
 
+			// Récupération d'une requête spécifique au département si besoin
+			if (method_exists($this, '_getCersQuery'.$departement)) {
+				$query = $this->{'_getCersQuery'.$departement}($du, $au);
+			}
+
 			$cers = $this->Contratinsertion->find ('all', $query);
 			$cers['du'] = $du->format ('d/m/Y');
 			$cers['au'] = $au->format ('d/m/Y');
 
 			return $cers;
+		}
+
+		/**
+		 * Récupération des CER du bon département
+		 *
+		 * @param $departement
+		 * $param $parametres
+		 * @return array
+		 */
+		protected function _getCersQuery66 ($du, $au) {
+			$query = array (
+				'conditions' => array(
+					'Contratinsertion.df_ci IS NOT NULL',
+					'DATE( Contratinsertion.df_ci ) BETWEEN \''.$du->format ('Y-m-d').'\' AND \''.$au->format ('Y-m-d').'\'',
+					'Contratinsertion.referent_id IN ('.$this->idReferent.')',
+					'Contratinsertion.positioncer IN (\'perime\')',
+				),
+				'order' => array(
+					'Contratinsertion.df_ci ASC',
+				),
+			);
+
+			return $query;
 		}
 
 		/**
