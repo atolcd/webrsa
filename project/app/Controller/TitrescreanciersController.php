@@ -99,6 +99,7 @@
 			'Adresse',
 			'Adressefoyer',
 			'Option',
+			'Historiqueetat'
 			);
 
 		/**
@@ -178,12 +179,16 @@
 				$this->set( 'ajoutPossible', false);
 			}
 
+			// Historique du titre - si suppression
+			$histoDeleted = $this->Historiqueetat->getHisto($this->Titrecreancier->name, $creance_id, 'delete');
+
 			// Assignations à la vue
 			$this->set( 'options', array_merge(
 					$this->Titrecreancier->options(),
 					$this->Creance->enums()
 				)
 			);
+			$this->set( 'histoDeleted', $histoDeleted );
 			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'titresCreanciers', $titresCreanciers );
 			$this->set( 'urlmenu', '/creances/index/'.$foyer_id );
@@ -238,6 +243,9 @@
 				)
 			);
 
+			// Historique de la créance
+			$historique = $this->Historiqueetat->getHisto($this->Titrecreancier->name, $titrecreancier_id, null, $creance_id);
+
 			// Assignations à la vue
 			$this->set( 'options', array_merge(
 					$this->Titrecreancier->options(),
@@ -255,6 +263,8 @@
 			$this->set( 'listMotifs', $listMotifs );
 
 			$this->set( 'creance_id', $creance_id );
+			$this->set( 'historique', $historique );
+			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'creances', $creances );
 			$this->set( 'titresCreanciers', $titresCreanciers );
 			$this->set( 'urlmenu', '/creances/index/'.$foyer_id );

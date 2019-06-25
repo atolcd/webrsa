@@ -10,7 +10,6 @@
 	WebrsaAccess::init($dossierMenu);
 
 	echo $this->element('default_index');
-
 	//Visualisation des Créances
 if( empty( $creances ) ) {
 	echo '<p class="notice">'.__m('Creances::index::emptyCreance').'</p>';
@@ -57,5 +56,20 @@ if( empty( $creances ) ) {
 		)
 	);
 
+	if( isset($histoDeleted) && !empty($histoDeleted)) {
+		echo '<br><br> <h2>' . __m('Creance::index::historyDeleted') .  '</h2>';
+		echo $this->Default3->index(
+			$histoDeleted,
+			$this->Translator->normalize(
+				array(
+					'Historiqueetat.created' => array('type' => 'date', 'dateFormat' => 'DMY'),
+					'Historiqueetat.nom',
+					'Historiqueetat.prenom' ,
+					'Historiqueetat.modele'
+				)
+				),
+				array('paginate' => false)
+		);
+	}
 }
 ?>

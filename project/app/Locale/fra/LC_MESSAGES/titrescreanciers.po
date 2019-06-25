@@ -247,3 +247,30 @@ msgstr "Informations émission"
 
 msgid "Titrecreancier::view::titleInfoValidateur"
 msgstr "Informations validateur"
+###############################################################################
+# Historique
+###############################################################################
+
+msgid "Titrecreancier::index::historyDeleted"
+msgstr "Attention, des titres de recette ont été supprimés"
+
+msgid "Titrecreancier::view::history"
+msgstr "Historique de ce titre de recette"
+
+msgid "Historiqueetat.created"
+msgstr "Date"
+
+msgid "Historiqueetat.evenement"
+msgstr "Action réalisée"
+
+msgid "Historiqueetat.nom"
+msgstr "Nom de l'utilisateur"
+
+msgid "Historiqueetat.prenom"
+msgstr "Prénom de l'utilisateur"
+
+msgid "Historiqueetat.modele"
+msgstr "Page ayant modifié le statut"
+
+msgid "Historiqueetat.etat"
+msgstr "État"

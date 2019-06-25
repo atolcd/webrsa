@@ -120,6 +120,9 @@
 			),
 			'Titresuiviautreinfo' => array(
 				'classname' => 'Titresuiviautreinfo'
+			),
+			'Historiqueetat' => array(
+				'classname' => 'Historiqueetat'
 			)
 		);
 
@@ -202,10 +205,11 @@
 		 * Met à jour l'état du titre en fonction de l'ID passé en paramètre
 		 *
 		 * @param int id
+		 * @param string action
 		 *
 		 * @return boolean
 		 */
-		public function setEtat($id) {
+		public function setEtat($id, $action) {
 			$data = array();
 			$data['id'] = $id;
 			$data['etat'] = 'CREE';
@@ -250,12 +254,12 @@
 				}
 			}
 
-
 			// Mise à jour de l'état
 			$this->begin();
 			$success = $this->save($data);
 			if($success){
 				$this->commit();
+				$this->Historiqueetat->setHisto( $this->name, $id, $this->creanceId($id), $action, $data['etat'], $this->foyerId( $this->creanceId( $id ) ) ); //setHisto($modelName, $idModel, $idModelParent, $action, $etat, $idFoyer)
 			}
 			return $success;
 		}

@@ -214,3 +214,30 @@ msgstr "Allocataire"
 msgid "Dossier.locked"
 msgstr "Verrouillé"
 
+# ==============================================================================
+# Historique
+# ==============================================================================
+
+msgid "Creance::index::historyDeleted"
+msgstr "Attention, des créances ont été supprimées"
+
+msgid "Creance::view::history"
+msgstr "Historique de cette créance"
+
+msgid "Historiqueetat.created"
+msgstr "Date"
+
+msgid "Historiqueetat.evenement"
+msgstr "Action réalisée"
+
+msgid "Historiqueetat.nom"
+msgstr "Nom de l'utilisateur"
+
+msgid "Historiqueetat.prenom"
+msgstr "Prénom de l'utilisateur"
+
+msgid "Historiqueetat.modele"
+msgstr "Page ayant modifié le statut"
+
+msgid "Historiqueetat.etat"
+msgstr "État"

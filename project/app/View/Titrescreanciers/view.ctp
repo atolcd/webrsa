@@ -161,6 +161,24 @@
 	);
 	echo '</fieldset>';
 
+	if( isset($historique) && !empty($historique)) {
+		echo '<br><br> <h1>' . __m('Titrecreancier::view::history') .  '</h1>';
+		echo $this->Default3->index(
+			$historique,
+			$this->Translator->normalize(
+				array(
+					'Historiqueetat.created' => array('type' => 'date', 'dateFormat' => 'DMY'),
+					'Historiqueetat.evenement',
+					'Historiqueetat.nom',
+					'Historiqueetat.prenom',
+					'Historiqueetat.modele',
+					'Historiqueetat.etat'
+				)
+				),
+				array('paginate' => false)
+		);
+	}
+
 	echo $this->Xhtml->link(
 		'Retour',
 		array('controller' => 'titrescreanciers', 'action' => 'index', $creance_id)

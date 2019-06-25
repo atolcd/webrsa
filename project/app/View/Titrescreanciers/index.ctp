@@ -50,6 +50,23 @@
 			)
 		);
 	}
+
+	if( isset($histoDeleted) && !empty($histoDeleted)) {
+		echo '<br><br> <h2>' . __m('Titrecreancier::index::historyDeleted') .  '</h2>';
+		echo $this->Default3->index(
+			$histoDeleted,
+			$this->Translator->normalize(
+				array(
+					'Historiqueetat.created' => array('type' => 'date', 'dateFormat' => 'DMY'),
+					'Historiqueetat.nom',
+					'Historiqueetat.prenom' ,
+					'Historiqueetat.modele'
+				)
+				),
+				array('paginate' => false)
+		);
+	}
+
 	echo $this->Xhtml->link(
 		'Retour',
 		array('controller' => 'creances', 'action' => 'index', $foyer_id)

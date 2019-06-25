@@ -126,7 +126,7 @@
 		public function delete($id, $titrecreancier_id) {
 			$success = $this->Titresuiviannulationreduction->delete( $id );
 			if( $success ) {
-				if( $this->Titrecreancier->setEtat($titrecreancier_id) && $this->Titrecreancier->calculMontantTitre($titrecreancier_id) ) {
+				if( $this->Titrecreancier->setEtat($titrecreancier_id, __FUNCTION__) && $this->Titrecreancier->calculMontantTitre($titrecreancier_id) ) {
 					$this->Flash->success( __( 'Delete->success' ) );
 				} else {
 					$this->Flash->error( __( 'Delete->error' ) );
@@ -151,7 +151,7 @@
 			$data['etat'] = 'ANNULER';
 			$success = $this->Titresuiviannulationreduction->save($data);
 			if( $success ) {
-				if( $this->Titrecreancier->setEtat($titrecreancier_id) && $this->Titrecreancier->calculMontantTitre($titrecreancier_id) ) {
+				if( $this->Titrecreancier->setEtat($titrecreancier_id, __FUNCTION__) && $this->Titrecreancier->calculMontantTitre($titrecreancier_id) ) {
 					$this->Flash->success( __( 'Save->success' ) );
 				} else {
 					$this->Flash->error( __( 'Save->error' ) );
@@ -342,7 +342,7 @@
 			if( $success && $this->_saveFichiers($id) ) {
 				//Sauvegarde & Mise à jour de l'état du titre
 				$this->Titresuiviannulationreduction->commit();
-				$success = $this->Titrecreancier->setEtat($titrecreancier_id);
+				$success = $this->Titrecreancier->setEtat($titrecreancier_id, $this->action);
 
 				if( $success && $this->Titrecreancier->calculMontantTitre($titrecreancier_id) ) {
 					$this->Flash->success( __( 'Save->success' ) );

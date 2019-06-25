@@ -103,7 +103,8 @@
 			'Personne',
 			'Situationdossierrsa',
 			'Calculdroitrsa',
-			'Option'
+			'Option',
+			'Historiqueetat'
 			);
 
 		/**
@@ -181,9 +182,12 @@
 				)
 			);
 
+			$histoDeleted = $this->Historiqueetat->getHisto($this->Creance->name, $foyer_id, 'delete');
+
 			// Assignations à la vue
 			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'creances', $creances );
+			$this->set( 'histoDeleted', $histoDeleted );
 			$this->set( 'urlmenu', '/creances/index/'.$foyer_id );
 		}
 
@@ -229,7 +233,11 @@
 			);
 			$this->set( 'listMotifs', $listMotifs );
 
+			// Historique de la créance
+			$historique = $this->Historiqueetat->getHisto($this->Creance->name, $creance_id, null, $foyer_id);
+
 			// Assignations à la vue
+			$this->set( 'historique', $historique );
 			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'creances', $creances );
 			$this->set( 'urlmenu', '/creances/view/'.$creance_id );
