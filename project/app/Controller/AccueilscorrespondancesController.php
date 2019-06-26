@@ -102,26 +102,23 @@
 				}
 
 				$users = $this->User->find ('all', $query);
-				$referents = $this->Referent->find (
-					'all',
-					array (
-						'recursive' => 0,
-						'contains' => array (
-							'Structurereferente'
-						),
-						'conditions' => array (
-							'Referent.actif' => 'O',
-							'OR' => array (
-								'Referent.datecloture' => '',
-								'Referent.datecloture >= NOW()',
-							)
-						),
-						'order' => array (
-							'Referent.nom ASC',
-							'Referent.prenom ASC'
-						)
-					)
-				);
+
+				// Recherche des référents
+				$query = '
+					SELECT * FROM (
+						SELECT DISTINCT ON ("Referent"."id") "Referent"."id" AS "Referent__id",
+							"Referent"."nom" AS "Referent__nom",
+							"Referent"."prenom" AS "Referent__prenom",
+							"Structurereferente"."lib_struc" AS "Structurereferente__lib_struc"
+						FROM "public"."referents" AS "Referent"
+							LEFT JOIN "public"."structuresreferentes" AS "Structurereferente" ON ("Referent"."structurereferente_id" = "Structurereferente"."id")
+						WHERE "Referent"."actif" = \'O\'
+							AND "Referent"."datecloture" IS NULL
+						ORDER BY "Referent"."id" asc
+					) t
+					ORDER BY "Referent__nom" asc, "Referent__prenom" asc;';
+
+				$referents = $this->Referent->query ($query);
 
 				$this->set(compact('users', 'referents'));
 			}
