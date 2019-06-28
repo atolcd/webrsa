@@ -35,6 +35,8 @@
 			'maxYear_from' => date( 'Y' ) + 1,
 			'maxYear_to' => date( 'Y' ) + 1,
 		) );
+
+		echo $this->Form->input('Search.Rendezvous.arevoirle', array( 'label' => __d( 'rendezvous', 'Rendezvous.arevoirle' ), 'type' => 'date', 'dateFormat' => 'MY', 'empty' => true, 'minYear' => date( 'Y' ) - 1, 'maxYear' => date( 'Y' ) + 3 ) );
 	?>
 </fieldset>
 <?php $this->end();?>

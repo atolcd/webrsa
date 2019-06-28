@@ -136,7 +136,7 @@
 				}
 			}
 
-	if( Configure::read( 'Cg.departement') == 58 ){
+			if( Configure::read( 'Cg.departement') == 58 ){
 				echo $this->Form->input( 'Rendezvous.statutrdv_id', array( 'label' =>  ( __d( 'rendezvous', 'Rendezvous.statutrdv' ) ), 'type' => 'select', 'options' => $options['Rendezvous']['statutrdv_id'], 'empty' => true ) );
 				echo $this->Form->input( 'Rendezvous.rang', array( 'label' =>  required( __d( 'rendezvous', 'Rendezvous.rang', true ) ), 'type' => 'text' ) );
 			}
@@ -151,6 +151,8 @@
 			echo $this->Form->input( 'Rendezvous.objetrdv', array( 'label' =>  ( __d( 'rendezvous', 'Rendezvous.objetrdv' ) ), 'type' => 'textarea', 'style' => 'margin-bottom: 1.5em;' ) );
 
 			echo $this->Form->input( 'Rendezvous.commentairerdv', array( 'label' =>  ( __d( 'rendezvous', 'Rendezvous.commentairerdv' ) ), 'type' => 'textarea' ) );
+
+			echo $this->Form->input( 'Rendezvous.arevoirle', array( 'label' => 'A revoir le ', 'type' => 'date', 'dateFormat' => 'MY', 'maxYear' => date('Y')+3, 'minYear' => date('Y'), 'empty' => true ) );
 		?>
 	</fieldset>
 </div>
