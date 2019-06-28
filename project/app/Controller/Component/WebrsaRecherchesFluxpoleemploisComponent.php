@@ -39,14 +39,7 @@
 						'has_cui' => $exists,
 						'has_dsp' => $exists,
 						'has_orientstruct' => $exists,
-						// FIXME: à factoriser dans personne
-						'trancheage' => array(
-							'0_24' => '< 25',
-							'25_30' => '25 - 30',
-							'31_55' => '31 - 55',
-							'56_65' => '56 - 65',
-							'66_999' => '> 65',
-						),
+						'trancheage' => Configure::read( 'Search.Options.enums.personne.Personne.trancheage'),
 					),
 				)
 			);

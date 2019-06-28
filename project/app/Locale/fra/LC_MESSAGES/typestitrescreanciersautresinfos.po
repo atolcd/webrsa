@@ -11,7 +11,7 @@ msgstr ""
 # ==============================================================================
 
 msgid "/Typestitrescreanciersautresinfos/index/:heading"
-msgstr "Paramétrage des types d'informations payeurs des titres de recette"
+msgstr "Paramétrage des autres types d'information des titres de recette"
 
 msgid "/Typestitrescreanciersautresinfos/add/:heading"
 msgstr "Ajout d'un type d'information payeur des titres de recette"

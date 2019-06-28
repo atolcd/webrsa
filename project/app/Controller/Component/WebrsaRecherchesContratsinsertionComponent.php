@@ -84,12 +84,7 @@
 				parent::_optionsEnums( $params ),
 				array(
 					'Personne' => array(
-						'trancheage' => array(
-							'0_24' => '- 25 ans',
-							'25_34' => '25 - 34 ans',
-							'35_44' => '35 - 44 ans',
-							'45_54' => '45 - 54 ans',
-							'55_999' => '+ 55 ans'
+						'trancheage' => Configure::read( 'Search.Options.enums.personne.Personne.trancheage'),
 						),
 					)
 				)

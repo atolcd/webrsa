@@ -509,6 +509,9 @@ msgstr "Vide"
 msgid "ENUM::ETAT::ATTAVIS"
 msgstr "Attente Avis"
 
+msgid "ENUM::ETAT::INSTRUCTION"
+msgstr "Instruction en cours"
+
 msgid "ENUM::ETAT::VALIDAVIS"
 msgstr "Avis émis"
 

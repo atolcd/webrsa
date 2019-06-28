@@ -13,20 +13,12 @@
 	//echo $this->Default3->DefaultForm->create( null, array(  ));
 	echo $this->Default3->DefaultForm->create( null, array( 'novalidate' => 'novalidate' ) );
 
-	echo $this->Default3->subform(
-		array(
-			'Creance.id' => array( 'type' => 'hidden' ),
-			'Creance.orgcre' => array( 'type' => 'hidden','value' =>'MAN'),
-			'Creance.foyer_id' => array( 'type' => 'hidden','value' =>$foyer_id),
-		),
-		array(
-			'options' => $options
-		)
-	);
-
 	if ( $this->action == 'edit') {
 		echo $this->Default3->subform(
 			array(
+				'Creance.id' => array( 'type' => 'hidden' ),
+				'Creance.orgcre' => array( 'type' => 'hidden'),
+				'Creance.foyer_id' => array( 'type' => 'hidden'),
 				'Creance.dtimplcre' => array('type' => 'hidden'),
 				'Creance.natcre' => array('type' => 'hidden'),
 				'Creance.rgcre' => array('type' => 'hidden'),
@@ -39,13 +31,25 @@
 				'Creance.mtsolreelcretrans'=> array('type' => 'hidden'),
 				'Creance.mtinicre'=> array('type' => 'hidden'),
 				'Creance.moismoucompta'=> array('type' => 'hidden'),
-				'Creance.mention'=> array('type' => 'hidden')
+				'Creance.datemotifemission'=> array('type' => 'hidden'),
+				'Creance.motifemissioncreance_id' => array('type' => 'hidden'),
+				'Creance.commentairevalidateur'=> array('type' => 'hidden'),
 			),
 			array(
 				'options' => $options
 			)
 		);
 	}else{
+		echo $this->Default3->subform(
+			array(
+				'Creance.id' => array( 'type' => 'hidden' ),
+				'Creance.orgcre' => array( 'type' => 'hidden','value' =>'MAN'),
+				'Creance.foyer_id' => array( 'type' => 'hidden','value' =>$foyer_id),
+			),
+			array(
+				'options' => $options
+			)
+		);
 		echo $this->Default3->subform(
 			array(
 				'Creance.dtimplcre' => array('type' => 'date', 'dateFormat' => 'DMY'),

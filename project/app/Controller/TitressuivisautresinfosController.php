@@ -66,8 +66,17 @@
 			'ajaxfileupload',
 			'ajaxreffonct',
 			'download',
-			'fileview',
-			'delete' // FIXME
+			'fileview'
+		);
+
+		/**
+		 * Utilise les droits d'un autre Controller:action
+		 * sur une action en particulier
+		 *
+		 * @var array
+		 */
+		public $commeDroit = array(
+			'index' => 'Titressuivis:index',
 		);
 
 		/**
@@ -158,7 +167,7 @@
 		 */
 		public function add($titrecreance_id = null) {
 			$args = func_get_args();
-			call_user_func_array( array( $this, 'add_edit' ), $args );
+			call_user_func_array( array( $this, '_add_edit' ), $args );
 		}
 
 		/**
@@ -169,7 +178,7 @@
 		 */
 		public function edit() {
 			$args = func_get_args();
-			call_user_func_array( array( $this, 'add_edit' ), $args );
+			call_user_func_array( array( $this, '_add_edit' ), $args );
 		}
 
 		/**
@@ -179,7 +188,7 @@
 		 *
 		 * @return void
 		 */
-		public function add_edit( $id = null ) {
+		protected function _add_edit( $id = null ) {
 			// Récupération de l'ID du titre
 			if( $this->action == 'add' ) {
 				$titrecreancier_id = $this->request->params['pass'][0];

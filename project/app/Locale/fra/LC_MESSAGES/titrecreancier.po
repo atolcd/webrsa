@@ -23,20 +23,32 @@ msgstr ""
 msgid "Titrecreancier.etat"
 msgstr "Etat du titre"
 
+msgid "ENUM::ETAT::"
+msgstr "Vide"
+
 msgid "ENUM::ETAT::CREE"
 msgstr "Crée"
 
-msgid "ENUM::ETAT::VALI"
-msgstr "Validée"
+msgid "ENUM::ETAT::INSTRUCTION"
+msgstr "Instruction en cours"
 
-msgid "ENUM::ETAT::ENV1"
-msgstr "Transmise à la Compta"
+msgid "ENUM::ETAT::ATTAVIS"
+msgstr "Attente avis"
 
-msgid "ENUM::ETAT::RET"
-msgstr "Donnée retour ajouté"
+msgid "ENUM::ETAT::VALIDAVIS"
+msgstr "Avis émis"
 
-msgid "ENUM::ETAT::ENV2"
-msgstr "Transmise au payeur"
+msgid "ENUM::ETAT::NONVALID"
+msgstr "Titre non émis"
+
+msgid "ENUM::ETAT::ATTENVOICOMPTA"
+msgstr "Attente de génération du FICA"
+
+msgid "ENUM::ETAT::ATTRETOURCOMPTA"
+msgstr "Attente retour compta"
+
+msgid "ENUM::ETAT::TITREEMIS"
+msgstr "Titre émis"
 
 msgid "ENUM::ETAT::PAY"
 msgstr "Payée"
@@ -54,6 +66,15 @@ msgid "ENUM::QUAL::MR"
 msgstr "Monsieur"
 
 msgid "ENUM::QUAL::MME"
+msgstr "Madame"
+
+msgid "Titrecreancier.qualcjt"
+msgstr "Qualité du conjoint"
+
+msgid "ENUM::QUALCJT::MR"
+msgstr "Monsieur"
+
+msgid "ENUM::QUALCJT::MME"
 msgstr "Madame"
 
 msgid "Titrescreanciers.haspiecejointe"
@@ -94,3 +115,12 @@ msgstr "Provisoire"
 
 msgid "ENUM::TYPEADR::R"
 msgstr "Retour foyer principal"
+
+msgid "Titrecreancier.instructionencours"
+msgstr "Instruction en cours"
+
+msgid "Titrecreancier.cjtactif"
+msgstr "Titre couple"
+
+msgid "Titrecreancier.dtbordereau"
+msgstr "Date bordereau"

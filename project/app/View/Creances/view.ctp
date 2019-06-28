@@ -33,8 +33,8 @@
 					'Creance.dtdercredcretrans',
 					'Creance.mtsolreelcretrans',
 					'Creance.mtinicre',
-					'Creance.datemotifemission',
 					'Creance.mention',
+					'Creance.datemotifemission',
 					'Creance.motifemissioncreance_id' => array(
 						'options' => $listMotifs
 					),

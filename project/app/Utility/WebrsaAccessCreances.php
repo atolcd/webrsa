@@ -2,7 +2,7 @@
 	/**
 	 * Code source de la classe WebrsaAccessCreances.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Utility
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
@@ -66,7 +66,8 @@
 			}
 			if ( $record['Titrecreancier']['etat'] == null
 				|| $record['Titrecreancier']['etat'] == 'CREE'
-				|| $record['Titrecreancier']['etat'] == 'VALI' 
+				|| $record['Titrecreancier']['etat'] == 'ATTAVIS'
+				|| $record['Titrecreancier']['etat'] == 'VALIDAVIS'
 			) {
 				return true;
 			}

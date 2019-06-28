@@ -42,6 +42,15 @@
 		);
 
 		/**
+		 * Liste des articles
+		 *
+		 */
+		public function index() {
+			$query = array();
+			$this->WebrsaParametrages->index( $query );
+		}
+
+		/**
 		 * Surcharge du formulaire de modification d'un motif de refus pour que
 		 * l'enregistrement soit actif par défaut lors d'un ajout.
 		 *

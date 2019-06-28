@@ -279,7 +279,7 @@
 		/**
 		 * FIXME: traiter le bouton "Retour"
 		 */
-		public function _add_edit( $id = null ) {
+		protected function _add_edit( $id = null ) {
 			$this->assert( valid_int( $id ), 'invalidParameter' );
 
 			$fichiers = array( );

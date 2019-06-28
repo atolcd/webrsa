@@ -2,7 +2,7 @@
 	/**
 	 * Code source de la classe WebrsaTitrecreancier.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
@@ -31,7 +31,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array('Titrecreancier');
+		public $uses = array('Creance','Titrecreancier');
 
 		/**
 		 * Ajoute les virtuals fields pour permettre le controle de l'accès à une action
@@ -72,8 +72,10 @@
 			$query = array(
 				'fields' => array(
 					'Titrecreancier.id',
+					'Titrecreancier.etat',
 					'Creance.id',
 					'Creance.foyer_id',
+					'Creance.etat',
 					'Foyer.id',
 					'Personne.id',
 				),

@@ -230,9 +230,15 @@
 				'disabled' => ( $departement != 66 ),
 				'url' => array( 'controller' => 'changementsadresses', 'action' => 'search'  )
 			),
-			'Par créances' => array(
-				'class' => 'search',
-				'url' => array( 'controller' => 'creances', 'action' => 'search'  )
+			'Créances' => array(
+				'Par créances' => array(
+					'class' => 'search',
+					'url' => array( 'controller' => 'creances', 'action' => 'search'  )
+				),
+				'Par Titres créanciers' => array(
+					'class' => 'search',
+					'url' => array( 'controller' => 'titrescreanciers', 'action' => 'search'  )
+				),
 			),
 			'Par données Pôle Emploi' => array(
 				'disabled' => ( true === $user_externe ),

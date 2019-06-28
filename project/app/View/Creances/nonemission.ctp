@@ -16,16 +16,8 @@
 	echo $this->Default3->subform(
 		array(
 			'Creance.id' => array( 'type' => 'hidden' ),
-			'Creance.orgcre' => array( 'type' => 'hidden','value' =>'MAN'),
-			'Creance.foyer_id' => array( 'type' => 'hidden','value' =>$foyer_id),
-		),
-		array(
-			'options' => $options
-		)
-	);
-
-	echo $this->Default3->subform(
-		array(
+			'Creance.orgcre' => array( 'type' => 'hidden'),
+			'Creance.foyer_id' => array( 'type' => 'hidden'),
 			'Creance.dtimplcre' => array('type' => 'hidden'),
 			'Creance.natcre' => array('type' => 'hidden'),
 			'Creance.rgcre' => array('type' => 'hidden'),
@@ -44,12 +36,30 @@
 			'options' => $options
 		)
 	);
+
+	if(! empty($this->request->data['Creance']['commentairevalidateur']) ){
+		echo "<h3>". __m('Creances::view::titleInfoValidateur')."</h3>";
+			echo $this->Default3->view(
+			$this->request->data,
+			$this->Translator->normalize(
+				array(
+					'Creance.commentairevalidateur',
+				)
+			),
+			array(
+				'paginate' => false,
+				'options' => $options,
+				'empty_label' => __m('Creances::index::emptyLabel'),
+				'th' => true
+			)
+		);
+	}
+
 	echo $this->Default3->subform(
 		array(
 			'Creance.Motifemissioncreance' => array(
 				 'type' => 'select',
 				 'label' => 'Motif d\'emission des créances',
-				 'empty' => true ,
 				 'options' => $listMotifs
 			),
 			'Creance.mention' => array('type' => 'textarea'),

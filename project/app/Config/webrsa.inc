@@ -917,6 +917,23 @@
 	 */
 	Configure::write( 'Tacitereconduction.limiteAge', 55 );
 
+	/**
+	 * Options modifiable des moteurs de recherche et de cohorte
+	 */
+	Configure::write('Search.Options.enums',
+		array(
+			'Personne' => array(
+				'trancheage' => array(
+					'0_24' => '- 25 ans',
+					'25_34' => '25 - 34 ans',
+					'35_44' => '35 - 44 ans',
+					'45_54' => '45 - 54 ans',
+					'55_999' => '+ 55 ans'
+				),
+			),
+		)
+	);
+
     /**
      * Accès aux données PE
      */

@@ -496,11 +496,10 @@ $irregularPlural = array(
 	'motifemissioncreance' => 'motifsemissionscreances',
 	//Gestion des Titres créanciers
 	'titrecreancier' => 'titrescreanciers',
-	'etattitrecreancier' => 'etatstitrescreanciers',
-	'etattitrecreancier_titrecreancier' => 'etatstitrescreanciers_titrescreanciers',
 	'typetitrecreancier' => 'typestitrescreanciers',
 	'typetitrecreancier_titrecreancier' => 'typestitrescreanciers_titrescreanciers',
 	'motifemissiontitrecreancier' => 'motifsemissionstitrescreanciers',
+	'titresuiviautreinfo' => 'titressuivisautresinfos',
 	//Rapport talends
 	'rapporttalendcreance' => 'rapportstalendscreances',
 	'rejettalendcreance' => 'rejetstalendscreances',

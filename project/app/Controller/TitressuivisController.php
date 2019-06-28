@@ -9,7 +9,11 @@
 	App::uses( 'AppController', 'Controller' );
 	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
 	App::uses( 'WebrsaAccessTitressuivisannulationsreductions', 'Utility' );
+	App::uses( 'WebrsaAccessTitressuivisautresinfos', 'Utility' );
+	App::uses( 'WebrsaAccessTitressuivis', 'Utility' );
+	App::uses( 'Titressuivis', 'Controller');
 	App::uses( 'Titressuivisannulationsreductions', 'Controller');
+	App::uses( 'Titressuivisautresinfos', 'Controller');
 
 	/**
 	 * La classe TitressuivisController s'occupe du suivi des annulations et réduction des titres de recettes

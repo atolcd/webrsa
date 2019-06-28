@@ -2,7 +2,7 @@
 	/**
 	 * Code source de la classe Titrecreancier.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
@@ -31,7 +31,7 @@
 		 */
 		public $fakeInLists = array(
 			'haspiecejointe' => array('0', '1'),
-			'etat' => array('CREE', 'VALI', 'AENV','ENV1','RET', 'ENV2', 'PAY','SUP', 'REMB'),
+			'etat' => array('CREE', 'INSTRUCTION', 'ATTAVIS', 'VALIDAVIS','NONVALID','ATTENVOICOMPTA', 'ATTRETOURCOMPTA', 'TITREEMIS', 'PAY','SUP', 'RED', 'REMB'),
 			'typeadr' => array('D', 'P', 'R'),
 			'etatadr' => array('CO', 'VO', 'VC', 'NC', 'AU'),
 		);
@@ -43,6 +43,18 @@
 				),
 			),
 			'qual' => array(
+				'inList' => array(
+					'rule' => array('inList',
+						array(
+							'MR', 'MME'
+						)
+					)
+				),
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME )
+				)
+			),
+			'qualcjt' => array(
 				'inList' => array(
 					'rule' => array('inList',
 						array(
@@ -66,11 +78,19 @@
 				'className' => 'Creance',
 				'foreignKey' => 'creance_id',
 				'conditions' => null,
+				'fields' => null,
+				'order' => null,
+				'counterCache' => null
+			),
+			'Motifemissiontitrecreancier' => array(
+				'className' => 'Motifemissiontitrecreancier',
+				'foreignKey' => 'motifemissiontitrecreancier_id',
+				'conditions' => null,
 				'type' => 'LEFT OUTER',
 				'fields' => null,
 				'order' => null,
 				'counterCache' => null
-			)
+			),
 		);
 
 		/**

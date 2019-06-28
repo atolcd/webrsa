@@ -1,4 +1,5 @@
 <?php
+
 	echo $this->Default3->titleForLayout();
 
 	if( Configure::read( 'debug' ) > 0 ) {
@@ -11,14 +12,61 @@
 
 	echo $this->Default3->DefaultForm->create( null, array( 'novalidate' => 'novalidate' ) );
 
+	echo '<fieldset  id="titrecreancier" class="col6" ><h2>'. __m('Titrecreancier::view::titleTitrecreancier').'</h2>';
+	echo $this->Default3->view(
+		$this->request->data,
+		$this->Translator->normalize(
+			array(
+				'Titrecreancier.dtemissiontitre',
+				'Titrecreancier.numtitr',
+				'Titrecreancier.mnttitr',
+				'Titrecreancier.type'=> array( 'type' => 'select' ),
+				'Titrecreancier.dtvalidation',
+				'Titrecreancier.etat',
+				'Titrecreancier.mention',
+				'Titrecreancier.qual',
+				'Titrecreancier.nom',
+				'Titrecreancier.nir',
+				'Titrecreancier.numtel',
+				'Titrecreancier.titulairecompte',
+				'Titrecreancier.iban',
+				'Titrecreancier.bic',
+			)
+		),
+		array(
+			'paginate' => false,
+			'options' => $options,
+			'empty_label' => __m('Titrecreancier::view::emptyLabel'),
+		)
+	);
+	echo '</fieldset>';
+
+	echo '<fieldset  id="titrecreancier_conjoint" class="col6" ><h3>'. __m('Titrecreancier::view::creanceCouple').'</h3>';
+	if ($this->request->data['Titrecreancier']['cjtactif'] == 1 ){
+		$this->Default3->view(
+			$this->request->data,
+			$this->Translator->normalize(
+				array(
+					'Titrecreancier.qualcjt',
+					'Titrecreancier.nomcjt',
+					'Titrecreancier.nircjt',
+				)
+			),
+			array(
+				'paginate' => false,
+				'options' => $options,
+				'empty_label' => __m('Titrecreancier::view::emptyLabel'),
+			)
+		);
+	}
+	echo '</fieldset>';
+
 	echo $this->Default3->subform(
 		array(
 			'Titrecreancier.id' => array( 'type' => 'hidden' ),
 			'Titrecreancier.creance_id' => array( 'type' => 'hidden'),
-			'Titrecreancier.dtemissiontitre' => array('type' => 'hidden', ),
 			'Titrecreancier.etat'=> array('type' => 'hidden'),
 			'Titrecreancier.type' => array( 'type' => 'hidden', ),
-			'Titrecreancier.numtitr'=> array('type' => 'hidden'),
 			'Titrecreancier.mnttitr' => array('type' => 'hidden'),
 			'Titrecreancier.qual' => array('type' => 'hidden'),
 			'Titrecreancier.nom' => array('type' => 'hidden'),
@@ -31,46 +79,20 @@
 			'Titrecreancier.mention'=> array('type' => 'hidden'),
 			'Titrecreancier.motifemissiontitrecreancier_id' => array('type' => 'hidden'),
 			'Titrecreancier.datemotifemission' => array('type' => 'hidden'),
-			'Titrecreancier.dtemm' => array('type' => 'hidden'),
-			'Titrecreancier.typeadr' => array('type' => 'hidden'),
-			'Titrecreancier.etatadr' => array('type' => 'hidden'),
-			'Titrecreancier.complete' => array('type' => 'hidden'),
-			'Titrecreancier.localite' => array('type' => 'hidden'),
 		),
 		array(
 			'options' => $options
 		)
 	);
 
-	echo "<h3>". __m('Titrecreancier::view::titleMotifEmission')."</h3>";
-	echo $this->Default3->view(
-		$this->request->data,
-		$this->Translator->normalize(
-			array(
-				'Titrecreancier.mention',
-				'Titrecreancier.motifemissiontitrecreancier_id' => array(
-					'options' => $listMotifs
-				),
-				'Titrecreancier.datemotifemission',
-			)
-		),
-		array(
-			'paginate' => false,
-			'options' => $options,
-			'empty_label' => __m('Titrecreancier::index::emptyLabel'),
-			'th' => true
-		)
-	);
-
 	echo $this->Default3->subform(
 		array(
 			'Titrecreancier.id' => array( 'type' => 'hidden' ),
-			'Titrecreancier.etat'=> array('type' => 'hidden','value' => 'VALI'),
-			'Titrecreancier.dtvalidation' => array('type' => 'date', 'dateFormat' => 'DMY'),
-			'Titrecreancier.commentairevalidateur'=> array('type' => 'textarea'),
-			'Titrecreancier.validation' => array(
-				'type' => 'checkbox'
-			),
+			'Titrecreancier.etat'=> array('type' => 'hidden','value' => 'TITREEMIS'),
+			'Titrecreancier.dtbordereau' => array('type' => 'date', 'dateFormat' => 'DMY'),
+			'Titrecreancier.numtitr',
+			'Titrecreancier.numbordereau'=> array( 'type' => 'numeric' ),
+			'Titrecreancier.numtier',
 		),
 		array(
 			'options' => $options

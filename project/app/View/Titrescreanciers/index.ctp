@@ -5,37 +5,6 @@
 
 	echo $this->element('default_index');
 
-
-if( empty( $creances ) ) {
-		echo '<p class="notice">Aucun creance trouvée.</p>';
-}else{
-	echo $this->Default3->index(
-		$creances,
-		$this->Translator->normalize(
-			array(
-				'Creance.dtimplcre',
-				'Creance.orgcre',
-				'Creance.natcre',
-				'Creance.rgcre',
-				'Creance.moismoucompta',
-				'Creance.motiindu',
-				'Creance.oriindu',
-				'Creance.respindu',
-				'Creance.ddregucre',
-				'Creance.dfregucre',
-				'Creance.dtdercredcretrans',
-				'Creance.mtsolreelcretrans',
-				'Creance.mtinicre'
-			)
-		),
-		array(
-			'paginate' => false,
-			'options' => $options,
-			'empty_label' => __m('Creances::index::emptyLabel'),
-		)
-	);
-
-
 	//Visualisation des Créances
 	if( empty( $titresCreanciers ) ) {
 		echo '<p class="notice">Cette creance ne possède pas de Titres creanciers liée</p>';
@@ -44,24 +13,32 @@ if( empty( $creances ) ) {
 			$titresCreanciers,
 			$this->Translator->normalize(
 				array(
-					'Titrecreancier.dtemissiontitre',
 					'Titrecreancier.numtitr',
+					'Titrecreancier.dtemissiontitre',
 					'Titrecreancier.mnttitr',
-					'Titrecreancier.type'=> array( 'type' => 'select' ),
-					'Titrecreancier.dtvalidation',
 					'Titrecreancier.etat',
+					'Titrecreancier.dtvalidation',
 					'Titrecreancier.mention',
-					'Titrecreancier.qual',
-					'Titrecreancier.nom',
-					'Titrecreancier.nir',
-					'Titrecreancier.iban',
-					'Titrecreancier.bic',
-					'Titrecreancier.titulairecompte',
-					'Titrecreancier.numtel',
 				)+ WebrsaAccess::links(
 					array(
+						'/Titrescreanciers/view/#Titrecreancier.id#'
+						=> array(
+							'class' => 'view',
+						),
 						'/Titrescreanciers/edit/#Titrecreancier.id#',
+						'/Titressuivis/index/#Titrecreancier.id#'
+						=> array(
+							'class' => 'edit',
+						),
+						'/Titrescreanciers/avis/#Titrecreancier.id#'
+						=> array(
+							'class' => 'edit',
+						),
 						'/Titrescreanciers/valider/#Titrecreancier.id#',
+						'/Titrescreanciers/retourcompta/#Titrecreancier.id#'
+						=> array(
+							'class' => 'edit',
+						),
 						'/Titrescreanciers/filelink/#Titrecreancier.id#',
 					)
 				)
@@ -77,5 +54,4 @@ if( empty( $creances ) ) {
 		'Retour',
 		array('controller' => 'creances', 'action' => 'index', $foyer_id)
 	);
-}
 ?>

@@ -24,26 +24,50 @@ msgstr ""
 msgid "/Titrescreanciers/index/:heading"
 msgstr "Liste des Titres de recettes"
 
-msgid "/Titrescreanciers/index"
-msgstr "Voir"
+msgid "/Titrescreanciers/view/:heading"
+msgstr "Titres de recettes"
 
 msgid "/Titrescreanciers/add"
 msgstr "Ajouter un Titre de recette"
 
+msgid "/Titrescreanciers/index"
+msgstr "Voir"
+
+msgid "/Titrescreanciers/view"
+msgstr "Voir"
+
 msgid "/Titrescreanciers/edit"
 msgstr "Modifier"
+
+msgid "/Titressuivis/index"
+msgstr "Suivi du titre de recette"
+
+msgid "/Titrescreanciers/avis"
+msgstr "Avis"
 
 msgid "/Titrescreanciers/valider"
 msgstr "Valider"
 
+msgid "/Titrescreanciers/retourcompta"
+msgstr "Enregistrer le retour compta"
+
 msgid "/Titrescreanciers/add/:heading"
-msgstr "Ajout d'un Titre de recette"
+msgstr "Ajout d'un titre de recette"
 
 msgid "/Titrescreanciers/edit/:heading"
-msgstr "Modification du Titre de recette"
+msgstr "Modification du titre de recette"
+
+msgid "/Titrescreanciers/suivit/:heading"
+msgstr "Suivit du titre de recette"
+
+msgid "/Titrescreanciers/avis/:heading"
+msgstr "Avis du titre de recette"
 
 msgid "/Titrescreanciers/valider/:heading"
-msgstr "Validation du Titre de recette"
+msgstr "Validation du titre de recette"
+
+msgid "/Titrescreanciers/retourcompta/:heading"
+msgstr "Enregistrement du retour compta"
 
 msgid "/Titrescreanciers/filelink"
 msgstr "Fichiers liés (#Fichiermodule.nb_fichiers_lies#)"
@@ -64,6 +88,24 @@ msgstr "Montant initial du titre"
 # Trad des recherches
 ###############################################################################
 
+msgid "/Titrescreanciers/search/:heading"
+msgstr "Recherche par titres créanciers"
+
+msgid "Search.Titrecreancier"
+msgstr "Recherche par titre créancier transféré de l'allocataire"
+
+msgid "Titrecreancier::search::moismoucompta"
+msgstr "Plage de date de transfert de la créance"
+
+msgid "Titrecreancier::search::etat"
+msgstr "État du titre créancier"
+
+msgid "Titrecreancier::search::numtitr"
+msgstr "Numéro du titre"
+
+msgid "Titrecreancier::search::numbordereau"
+msgstr "Numéro de bordereau"
+
 ###############################################################################
 # Champs de recherches
 ###############################################################################
@@ -77,17 +119,32 @@ msgstr "Etat du titre"
 msgid "Titrecreancier.dtvalidation"
 msgstr "Date de validation du titre"
 
+msgid "Titrecreancier.commentairevalidateur"
+msgstr "Commentaire du validateur du titre"
+
+msgid "Titrecreancier.validation"
+msgstr "Valider la décision"
+
+msgid "Titrecreancier.numbordereau"
+msgstr "Numéro du bordereau"
+
 msgid "Titrecreancier.numtitr"
-msgstr "Numéro du Titre"
+msgstr "Numéro du titre"
+
+msgid "Titrecreancier.numtier"
+msgstr "Numéro du tiers"
 
 msgid "Titrecreancier.mnttitr"
-msgstr "Montant du Titre"
+msgstr "Montant du titre"
 
 msgid "Titrecreancier.type"
-msgstr "Type du Titre"
+msgstr "Type du titre"
 
 msgid "Titrecreancier.mention"
-msgstr "Mention du Titre"
+msgstr "Mention du titre"
+
+msgid "Titrecreancier.motifemissiontitrecreancier_id"
+msgstr "Motif"
 
 msgid "Titrecreancier.qual"
 msgstr "Qual. de la personne"
@@ -105,14 +162,35 @@ msgid "Titrecreancier.bic"
 msgstr "BIC"
 
 msgid "Titrecreancier.comban"
-msgstr "Commune Bancaire"
+msgstr "Commune bancaire"
 
 msgid "Titrecreancier.titulairecompte"
-msgstr "Titulaire du Compte"
+msgstr "Titulaire du compte"
 
 msgid "Titrecreancier.numtel"
 msgstr "Téléphone"
 
+msgid "Titrecreancier.qualcjt"
+msgstr "Qualité du conjoint"
+
+msgid "Titrecreancier.nomcjt"
+msgstr "Nom du conjoint"
+
+msgid "Titrecreancier.nircjt"
+msgstr "NIR du conjoint"
+
+# ==============================================================================
+# Résultats du moteur de recherche
+# ==============================================================================
+
+msgid "Personne.nom_complet_prenoms"
+msgstr "Allocataire"
+
+msgid "Dossier.locked"
+msgstr "Verrouillé"
+
+###############################################################################
+#
 ###############################################################################
 
 msgid "Titrecreancier.dtemm"
@@ -129,3 +207,43 @@ msgstr "Adresse complete"
 
 msgid "Titrecreancier.localite"
 msgstr "Commune de résidence"
+
+msgid "Titrecreancier.datemotifemission"
+msgstr "Date d'émission du motif"
+
+###############################################################################
+# titre et textes
+###############################################################################
+
+msgid "Titrecreancier::index::emptyLabel"
+msgstr "Aucune créance transférée trouvée."
+
+msgid "Titrecreancier::index::emptyLabel"
+msgstr "Cette créance ne possède pas de titre créancier."
+
+msgid "Titrecreancier::addedit::conjoint"
+msgstr "Section conjoint"
+
+msgid "Titrecreancier::view::emptyLabel"
+msgstr "Aucun titre créancier trouvé"
+
+msgid "Titrecreancier::view::titleCreance"
+msgstr "Informations sur la créance"
+
+msgid "Titrecreancier::view::titleTitrecreancier"
+msgstr "Informations sur le titre de recette"
+
+msgid "Titrecreancier::view::titleAdresse"
+msgstr "Informations sur l'adresse enregistrée"
+
+msgid "Titrecreancier::view::titleBordereau"
+msgstr "Informations sur le bordereau"
+
+msgid "Titrecreancier::view::creanceCouple"
+msgstr "Créance couple"
+
+msgid "Titrecreancier::view::titleMotifEmission"
+msgstr "Informations émission"
+
+msgid "Titrecreancier::view::titleInfoValidateur"
+msgstr "Informations validateur"

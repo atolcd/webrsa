@@ -106,16 +106,6 @@
 			'Option'
 			);
 
-        protected function _setOptions() {
-			$this->set( 'etatdosrsa', ClassRegistry::init('Dossier')->enum('etatdosrsa') );
-			$this->set( 'droitdevoirs', ClassRegistry::init('Calculdroitrsa')->enum('toppersdrodevorsa') );
-			$this->set( 'orgcre', ClassRegistry::init('Creance')->enum('orgcre') );
-			$this->set( 'motiindu', ClassRegistry::init('Creance')->enum('motiindu') );
-			$this->set( 'natcre', ClassRegistry::init('Creance')->enum('natcre') );
-			$this->set( 'oriindu', ClassRegistry::init('Creance')->enum('oriindu') );
-			$this->set( 'respindu', ClassRegistry::init('Creance')->enum('respindu') );
-		}
-
 		/**
 		 * Méthodes ne nécessitant aucun droit.
 		 *
@@ -141,6 +131,16 @@
 			'nonemission' => 'Creances:index',
 			'view' => 'Creances:index',
 		);
+
+        protected function _setOptions() {
+			$this->set( 'etatdosrsa', ClassRegistry::init('Dossier')->enum('etatdosrsa') );
+			$this->set( 'droitdevoirs', ClassRegistry::init('Calculdroitrsa')->enum('toppersdrodevorsa') );
+			$this->set( 'orgcre', ClassRegistry::init('Creance')->enum('orgcre') );
+			$this->set( 'motiindu', ClassRegistry::init('Creance')->enum('motiindu') );
+			$this->set( 'natcre', ClassRegistry::init('Creance')->enum('natcre') );
+			$this->set( 'oriindu', ClassRegistry::init('Creance')->enum('oriindu') );
+			$this->set( 'respindu', ClassRegistry::init('Creance')->enum('respindu') );
+		}
 
 		/**
 		 * Moteur de recherche par creances
@@ -452,7 +452,7 @@
 				$this->Creance->begin();
 				$data = $this->request->data;
 				if ( $data['Creance']['validation'] == 1){
-					 //verification de l'état post validation
+					//verification de l'état post validation
 					$query = array (
 						'fields' => array (
 							'emissiontitre'

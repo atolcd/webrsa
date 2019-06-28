@@ -11,7 +11,7 @@ msgstr ""
 # ==============================================================================
 
 msgid "/Motifsemissionstitrescreanciers/index/:heading"
-msgstr "Paramétrage des types d'informations payeurs des titres de recette"
+msgstr "Paramétrage des motifs d'émissions des titres de recette"
 
 msgid "/Motifsemissionstitrescreanciers/add/:heading"
 msgstr "Ajout d'un type d'information payeur des titres de recette"
@@ -48,3 +48,6 @@ msgstr "Actif"
 
 msgid "Motifemissiontitrecreancier.id"
 msgstr "ID"
+
+msgid "Motifemissiontitrecreancier.emissiontitre"
+msgstr "Valide l'émission d'un titre de recette"

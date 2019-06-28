@@ -2,13 +2,13 @@
 	/**
 	 * Code source de la classe WebrsaAccessTitrescreanciers.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Utility
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 
-	App::uses('WebrsaAbstractAccess', 'Utility');
+	App::uses('WebrsaAbstractAccess', 'Utility', 'Creance', 'Titrecreancier');
 
 	/**
 	 * La classe WebrsaAccessTitrescreanciers ...
@@ -31,33 +31,28 @@
 		}
 
 		/**
-		 * Permission d'accès
+		 * Liste les actions disponnible
+		 * Si une action pointe sur un autre controler, il faut préciser son nom
+		 * ex : Moncontroller.monaction
 		 *
-		 * @param array $record
 		 * @param array $params
-		 * @return boolean
+		 * @return array
 		 */
-		protected static function _add(array $record, array $params) {
+		public static function actions(array $params = array()) {
 			$params = self::params($params);
-			if (
-				$record['Creance']['etat'] == 'AEMETTRE'
-				|| $record['Creance']['etat'] == 'ENEMISSION'
-				|| $record['Creance']['etat'] == 'TITREEMIS'
-			) {
-				return Hash::get($params, 'ajoutPossible');
-			}
-			return false;
-		}
-
-		/**
-		 * Permission d'accès
-		 *
-		 * @param array $record
-		 * @param array $params
-		 * @return boolean
-		 */
-		protected static function _edit(array $record, array $params) {
-			return true;
+			$result = self::normalize_actions(
+				array(
+					'add' => array('ajoutPossible' => true),
+					'view',
+					'edit',
+					'avis',
+					'valider',
+					'retourcompta',
+					'filelink',
+					'Titressuivis.index'
+				)
+			);
+			return $result;
 		}
 
 		/**
@@ -85,42 +80,15 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function _valider(array $record, array $params) {
-			return true;
-		}
-
-		 /**
-         * Permission d'accès
-         *
-         * @param array $record
-         * @param array $params
-         * @return boolean
-         */
-        protected static function _filelink(array $record, array $params) {
-            return true;
-        }
-
-		/**
-		 * Liste les actions disponnible
-		 * Si une action pointe sur un autre controler, il faut préciser son nom
-		 * ex : Moncontroller.monaction
-		 *
-		 * @param array $params
-		 * @return array
-		 */
-		public static function actions(array $params = array()) {
+		protected static function _add(array $record, array $params) {
 			$params = self::params($params);
-			$result = self::normalize_actions(
-				array(
-					'add' => array('ajoutPossible' => true),
-					'view',
-					'edit',
-					'valider',
-					'filelink'
-				)
-			);
-
-			return $result;
+			if (
+				empty($record['Titrecreancier']['etat']) &&
+				$record['Creance']['etat'] == 'AEMETTRE'
+			) {
+				return Hash::get($params, 'ajoutPossible');
+			}
+			return false;
 		}
 
 		/**
@@ -131,6 +99,85 @@
 		 * @return boolean
 		 */
 		protected static function _view(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _edit(array $record, array $params) {
+			if (
+				$record['Titrecreancier']['etat'] == 'CREE'
+				|| $record['Titrecreancier']['etat'] == 'ATTAVIS'
+				|| $record['Titrecreancier']['etat'] == 'INSTRUCTION'
+				|| $record['Titrecreancier']['etat'] == ''
+			) {
+				return true;
+			}
+			return false;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _avis(array $record, array $params) {
+			if (
+				$record['Titrecreancier']['etat'] == 'CREE'
+				|| $record['Titrecreancier']['etat'] == 'ATTAVIS'
+				|| $record['Titrecreancier']['etat'] == 'INSTRUCTION'
+			) {
+				return true;
+			}
+			return false;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _valider(array $record, array $params) {
+			if ($record['Titrecreancier']['etat'] == 'VALIDAVIS' ) {
+				return true;
+			}
+			return false;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _retourcompta(array $record, array $params) {
+			if (
+				$record['Titrecreancier']['etat'] == 'ATTRETOURCOMPTA'
+				|| $record['Titrecreancier']['etat'] == 'ATTENVOICOMPTA'
+			) {
+				return true;
+			}
+			return false;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _filelink(array $record, array $params) {
 			return true;
 		}
 	}

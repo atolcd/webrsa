@@ -83,7 +83,7 @@
 		 * @return boolean
 		 */
 		protected static function _delete(array $record, array $params) {
-			return false;
+			return true;
 		}
 
 		/**

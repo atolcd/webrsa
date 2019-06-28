@@ -16,15 +16,8 @@
 	echo $this->Default3->subform(
 		array(
 			'Creance.id' => array( 'type' => 'hidden' ),
-			'Creance.orgcre' => array( 'type' => 'hidden','value' =>'MAN'),
-			'Creance.foyer_id' => array( 'type' => 'hidden','value' =>$foyer_id),
-		),
-		array(
-			'options' => $options
-		)
-	);
-	echo $this->Default3->subform(
-		array(
+			'Creance.orgcre' => array( 'type' => 'hidden'),
+			'Creance.foyer_id' => array( 'type' => 'hidden'),
 			'Creance.dtimplcre' => array('type' => 'hidden'),
 			'Creance.natcre' => array('type' => 'hidden'),
 			'Creance.rgcre' => array('type' => 'hidden'),
@@ -45,6 +38,7 @@
 		)
 	);
 
+	echo "<h3>". __m('Creances::view::titleMotifEmission')."</h3>";
 	echo $this->Default3->view(
 		$this->request->data,
 		$this->Translator->normalize(

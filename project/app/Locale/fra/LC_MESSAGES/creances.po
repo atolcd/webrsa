@@ -48,6 +48,12 @@ msgstr "Copier/Réaffecter la créance"
 msgid "Creances::index::emptyCreance"
 msgstr "Cette personne ne possède pas de créances."
 
+msgid "Creances::view::titleMotifEmission"
+msgstr "Informations émission"
+
+msgid "Creances::view::titleInfoValidateur"
+msgstr "Informations validateur"
+
 ###############################################################################
 # Lien
 ###############################################################################

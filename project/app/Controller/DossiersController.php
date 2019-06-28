@@ -122,13 +122,7 @@
 
 			$this->set(
 				'trancheage',
-				array(
-					'0_24' => '< 25',
-					'25_30' => '25 - 30',
-					'31_55' => '31 - 55',
-					'56_65' => '56 - 65',
-					'66_999' => '> 65',
-				)
+				 Configure::read( 'Search.Options.enums.personne.Personne.trancheage')
 			);
 
 			// à intégrer à la fonction view pour ne pas avoir d'énormes variables

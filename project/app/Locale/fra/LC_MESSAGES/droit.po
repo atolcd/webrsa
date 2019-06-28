@@ -394,7 +394,7 @@ msgid "controllers/Codesromemetiersdsps66/index"
 msgstr "Visualisation des codes ROME"
 
 msgid "controllers/Codesromemetiersdsps66/edit"
-msgstr "Ajout/Edition de codes ROME"
+msgstr "Ajout/Édition de codes ROME"
 
 msgid "controllers/Codesromemetiersdsps66/delete"
 msgstr "Suppression d'un code ROME"
@@ -408,7 +408,7 @@ msgid "controllers/Codesromesecteursdsps66/index"
 msgstr "Visualisation des codes ROME"
 
 msgid "controllers/Codesromesecteursdsps66/edit"
-msgstr "Ajout/Edition de codes ROME"
+msgstr "Ajout/Édition de codes ROME"
 
 msgid "controllers/Codesromesecteursdsps66/delete"
 msgstr "Suppression d'un code ROME"
@@ -4101,7 +4101,7 @@ msgid "controllers/Creances/edit"
 msgstr "Modification d'une créance"
 
 msgid "controllers/Creances/nonemission"
-msgstr "Avis d'emission d'une créance"
+msgstr "Avis d'émission d'une créance"
 
 msgid "controllers/Creances/validation"
 msgstr "Validation d'une créance"
@@ -4125,7 +4125,7 @@ msgstr "Correction des rejets"
 ## Titres Créances
 ###############################################################################
 msgid "controllers/Titrescreanciers"
-msgstr "Titres de recettes"
+msgstr "Titres créanciers"
 
 msgid "controllers/Titrescreanciers/index"
 msgstr "Visualisation des Titres de recettes"
@@ -4142,11 +4142,19 @@ msgstr "Ajout d'un Titre de recette"
 msgid "controllers/Titrescreanciers/edit"
 msgstr "Modification d'un Titre de recette"
 
+msgid "controllers/Titrescreanciers/search"
+msgstr "Recherche"
+
+msgid "controllers/Titrescreanciers/avis"
+msgstr "Avis d'emission"
+
+msgid "controllers/Titrescreanciers/retourcompta"
+msgstr "Enregistrement retour compta"
+
 msgid "controllers/Titrescreanciers/filelink"
 msgstr "Ajout de Fichiers"
 
 ###############################################################################
-
 msgid "controllers/Typestitrescreanciers"
 msgstr "Paramétrages, type des Titres de recettes"
 
@@ -4160,7 +4168,6 @@ msgid "controllers/Typestitrescreanciers/delete"
 msgstr "Suppression d'un type des Titres de recettes"
 
 ###############################################################################
-
 msgid "controllers/Motifsemissionscreances"
 msgstr "Paramétrage des motifs d'émission des créances"
 
@@ -4177,7 +4184,6 @@ msgid "controllers/Motifsemissionscreances/delete"
 msgstr "Suppression d'un motif d'émission des créances"
 
 ###############################################################################
-
 msgid "controllers/Motifsemissionstitrescreanciers"
 msgstr "Paramétrage des motifs d'émission d'un titre de recette"
 
@@ -4194,7 +4200,6 @@ msgid "controllers/Motifsemissionstitrescreanciers/delete"
 msgstr "Suppression d'un motif d'émission d'un titre de recette"
 
 ###############################################################################
-
 msgid "controllers/Typestitrescreanciersannulationsreductions"
 msgstr "Paramétrage des types d'annulation/réduction d'un titre de recette"
 
@@ -4211,7 +4216,6 @@ msgid "controllers/Typestitrescreanciersannulationsreductions/delete"
 msgstr "Suppression d'un type d'annulation/réduction d'un titre de recette"
 
 ###############################################################################
-
 msgid "controllers/Typestitrescreanciersinfospayeurs"
 msgstr "Paramétrage des types d'informations payeur d'un titre de recette"
 
@@ -4228,7 +4232,6 @@ msgid "controllers/Typestitrescreanciersinfospayeurs/delete"
 msgstr "Suppression d'un type d'informations payeur d'un titre de recette"
 
 ###############################################################################
-
 msgid "controllers/Typestitrescreanciersautresinfos"
 msgstr "Paramétrage des types d'autres informations d'un titre de recette"
 
@@ -4244,20 +4247,92 @@ msgstr "Modification d'un type d'autres informations d'un titre de recette"
 msgid "controllers/Typestitrescreanciersautresinfos/delete"
 msgstr "Suppression d'un type d'autres informations d'un titre de recette"
 
+msgid "controllers/Titressuivis"
+msgstr "Suivis des titres créanciers"
+
+msgid "controllers/Titressuivis/index"
+msgstr "Visualisation"
+
+###############################################################################
+msgid "controllers/Titressuivisannulationsreductions"
+msgstr "Titres créanciers : suivis annulations et reductions"
+
+msgid "controllers/Titressuivisannulationsreductions/add"
+msgstr "Ajout"
+
+msgid "controllers/Titressuivisannulationsreductions/cancel"
+msgstr "Annulation"
+
+msgid "controllers/Titressuivisannulationsreductions/edit"
+msgstr "Édition"
+
+msgid "controllers/Titressuivisannulationsreductions/filelink"
+msgstr "Ajout de fichier"
+
+msgid "controllers/Titressuivisannulationsreductions/impression"
+msgstr "Impression"
+
+msgid "controllers/Titressuivisannulationsreductions/view"
+msgstr "Visualisation"
+
+msgid "controllers/Titressuivisannulationsreductions/delete"
+msgstr "Supprimer"
+
+###############################################################################
+msgid "controllers/Titressuivisinfospayeurs"
+msgstr "Titres créanciers : Info Payeurs"
+
+msgid "controllers/Titressuivisinfospayeurs/add"
+msgstr "Ajout"
+
+msgid "controllers/Titressuivisinfospayeurs/answer"
+msgstr "Réponse"
+
+msgid "controllers/Titressuivisinfospayeurs/delete"
+msgstr "Suppression"
+
+msgid "controllers/Titressuivisinfospayeurs/edit"
+msgstr "Édition"
+
+msgid "controllers/Titressuivisinfospayeurs/view"
+msgstr "Visualisation"
+
+###############################################################################
+msgid "controllers/Titressuivisautresinfos"
+msgstr "Titres créanciers : info suivi autre "
+
+msgid "controllers/Titressuivisautresinfos/add"
+msgstr "Ajout"
+
+msgid "controllers/Titressuivisautresinfos/cancel"
+msgstr "Annulation"
+
+msgid "controllers/Titressuivisautresinfos/delete"
+msgstr "Suppression"
+
+msgid "controllers/Titressuivisautresinfos/edit"
+msgstr "Édition"
+
+msgid "controllers/Titressuivisautresinfos/view"
+msgstr "Visualisation"
+
+msgid "controllers/Titressuivisautresinfos/filelink"
+msgstr "Ajout de fichier"
+
 ###############################################################################
 ## Rapport Talends Créances
 ###############################################################################
 msgid "controllers/Rapportstalendscreances"
-msgstr "Rapports Talends Créances"
+msgstr "Talends : rapports des créances"
 
 msgid "controllers/Rapportstalendscreances/index"
-msgstr "Visualisation des RapportsTalendsCréances"
+msgstr "Visualisation des Rapports des Talends Créances"
 
 ###############################################################################
 ## Rapport Talends Créances
 ###############################################################################
 msgid "controllers/Rejetstalendscreances"
-msgstr "Rejet des Talends Créances"
+msgstr "Talends : rejet des créances"
 
 msgid "controllers/Rejetstalendscreances/index"
 msgstr "Visualisation des Rejet des Talends Créances"
@@ -4279,7 +4354,6 @@ msgstr "Suppression d'un accès à l'emploi"
 
 msgid "controllers/Questionnairesb7pdvs93/edit"
 msgstr "Modification d'un accès à l'emploi"
-
 
 ###############################################################################
 ## RsaQuery

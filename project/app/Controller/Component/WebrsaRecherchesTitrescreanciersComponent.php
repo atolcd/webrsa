@@ -1,8 +1,8 @@
 <?php
 	/**
-	 * Code source de la classe WebrsaRecherchesDossiersComponent.
+	 * Code source de la classe WebrsaRecherchesTitrescreanciersComponent.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
@@ -10,11 +10,11 @@
 	App::uses( 'WebrsaAbstractRecherchesComponent', 'Controller/Component' );
 
 	/**
-	 * La classe WebrsaRecherchesDossiersComponent ...
+	 * La classe WebrsaRecherchesTitrecreancierComponent ...
 	 *
 	 * @package app.Controller.Component
 	 */
-	class WebrsaRecherchesDossiersComponent extends WebrsaAbstractRecherchesComponent
+	class WebrsaRecherchesTitrescreanciersComponent extends WebrsaAbstractRecherchesComponent
 	{
 		/**
 		 * Retourne les options de type "enum", c'est à dire liées aux schémas des
@@ -48,6 +48,10 @@
 				$options['Activite']['act'] = $Controller->Dossier->Foyer->Personne->Activite->enum( 'act' );
 				$options['Personne']['etat_dossier_orientation'] = $Controller->Dossier->Foyer->Personne->enum( 'etat_dossier_orientation' );
 			}
+
+			$options['Creance']['natcre'] = $Controller->Creance->enum('natcre');
+			$options['Creance']['motiindu'] = $Controller->Creance->enum('motiindu');
+			$options['Creance']['oriindu'] = $Controller->Creance->enum('oriindu');
 
 			$Controller->loadModel( 'Tag' );
 			$options['Tag']['etat'] = $Controller->Tag->enum( 'etat' );

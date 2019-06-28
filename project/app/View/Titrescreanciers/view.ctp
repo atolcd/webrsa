@@ -17,10 +17,11 @@
 		}
 	}
 
+	echo '<fieldset  id="creance" class="col6" ><h2>'. __m('Titrecreancier::view::titleCreance').'</h2>';
 	if( empty( $creances ) ) {
-		echo '<p class="notice">Aucun creance trouvée.</p>';
+		echo '<p class="notice">'.__m('Titrecreancier::index::emptyLabel').'</p>';
 	}else{
-		echo $this->Default3->index(
+		echo $this->Default3->view(
 			$creances,
 			$this->Translator->normalize(
 				array(
@@ -28,6 +29,7 @@
 					'Creance.orgcre',
 					'Creance.natcre',
 					'Creance.rgcre',
+					'Creance.etat',
 					'Creance.moismoucompta',
 					'Creance.motiindu',
 					'Creance.oriindu',
@@ -42,51 +44,126 @@
 			array(
 				'paginate' => false,
 				'options' => $options,
-				'empty_label' => __m('Creances::index::emptyLabel'),
+				'empty_label' => __m('Titrecreancier::index::emptyLabel'),
 			)
 		);
-
-		//Visualisation des Créances
-		if( empty( $titresCreanciers ) ) {
-			echo '<p class="notice">Cet Indus Transféré ne possède pas de Titre de recettes liée</p>';
-		}else{
-			echo $this->Default3->index(
-				$titresCreanciers,
-				$this->Translator->normalize(
-					array(
-						'Titrecreancier.dtemissiontitre',
-						'Titrecreancier.numtitr',
-						'Titrecreancier.mnttitr',
-						'Titrecreancier.type'=> array( 'type' => 'select' ),
-						'Titrecreancier.dtvalidation',
-						'Titrecreancier.etat',
-						'Titrecreancier.mention',
-						'Titrecreancier.qual',
-						'Titrecreancier.nom',
-						'Titrecreancier.nir',
-						'Titrecreancier.iban',
-						'Titrecreancier.bic',
-						'Titrecreancier.titulairecompte',
-						'Titrecreancier.numtel',
-					)+ WebrsaAccess::links(
-						array(
-							'/Titrescreanciers/edit/#Titrecreancier.id#',
-							'/Titrescreanciers/valider/#Titrecreancier.id#',
-							'/Titrescreanciers/filelink/#Titrecreancier.id#',
-						)
-					)
-				),
-				array(
-					'paginate' => false,
-					'options' => $options,
-					'empty_label' => __m('Titrecreancier::index::emptyLabel'),
-				)
-			);
-		}
-		echo $this->Xhtml->link(
-			'Retour',
-			array('controller' => 'creances', 'action' => 'index', $foyer_id)
-		);
-
 	}
+	echo '</fieldset>';
+
+	echo '<fieldset  id="titrecreancier" class="col6" ><h2>'. __m('Titrecreancier::view::titleTitrecreancier').'</h2>';
+	echo $this->Default3->view(
+		$titresCreanciers[0],
+		$this->Translator->normalize(
+			array(
+				'Titrecreancier.dtemissiontitre',
+				'Titrecreancier.numtitr',
+				'Titrecreancier.mnttitr',
+				'Titrecreancier.type' => array(
+					'type' => 'select',
+					'options' => $options['Typetitrecreancier']['type_actif']
+				),
+				'Titrecreancier.etat',
+				'Titrecreancier.qual',
+				'Titrecreancier.nom',
+				'Titrecreancier.nir',
+				'Titrecreancier.numtel',
+				'Titrecreancier.titulairecompte',
+				'Titrecreancier.iban',
+				'Titrecreancier.bic',
+			)
+		),
+		array(
+			'paginate' => false,
+			'options' => $options,
+			'empty_label' => __m('Titrecreancier::view::emptyLabel'),
+		)
+	);
+	echo '</fieldset>';
+
+	echo '<fieldset  id="titrecreancier_conjoint" class="col6" ><h3>'. __m('Titrecreancier::view::creanceCouple').'</h3>';
+	if ($titresCreanciers[0]['Titrecreancier']['cjtactif'] == 1 ){
+		echo $this->Default3->view(
+			$titresCreanciers[0],
+			$this->Translator->normalize(
+				array(
+					'Titrecreancier.qualcjt',
+					'Titrecreancier.nomcjt',
+					'Titrecreancier.nircjt',
+				)
+			),
+			array(
+				'paginate' => false,
+				'options' => $options,
+				'empty_label' => __m('Titrecreancier::view::emptyLabel'),
+			)
+		);
+	}
+	echo '</fieldset>';
+
+	echo '<fieldset  id="titrecreancier_mention" class="col6" ><h3>'. __m('Titrecreancier::view::titleMotifEmission').'</h3>';
+	echo $this->Default3->view(
+		$titresCreanciers[0],
+		$this->Translator->normalize(
+			array(
+				'Titrecreancier.mention',
+				'Titrecreancier.motifemissiontitrecreancier_id' => array(
+					'options' => $listMotifs
+				),
+				'Titrecreancier.datemotifemission',
+				'Titrecreancier.dtvalidation',
+				'Titrecreancier.commentairevalidateur',
+			)
+		),
+		array(
+			'paginate' => false,
+			'options' => $options,
+			'empty_label' => __m('Titrecreancier::view::emptyLabel'),
+		)
+	);
+	echo '</fieldset>';
+
+	echo '<fieldset  id="titrecreancier_adresse" class="col6" ><h3>'. __m('Titrecreancier::view::titleAdresse').'</h3>';
+	echo $this->Default3->view(
+		$titresCreanciers[0],
+		$this->Translator->normalize(
+			array(
+				'Titrecreancier.dtemm',
+				'Titrecreancier.typeadr',
+				'Titrecreancier.etatadr',
+				'Titrecreancier.complete',
+				'Titrecreancier.localite'
+			)
+		),
+		array(
+			'paginate' => false,
+			'options' => $options,
+			'empty_label' => __m('Titrecreancier::view::emptyLabel'),
+		)
+	);
+	echo '</fieldset>';
+
+	echo '<fieldset  id="titrecreancier_bordereau" class="col6" ><h3>'. __m('Titrecreancier::view::titleBordereau').'</h3>';
+	echo $this->Default3->view(
+		$titresCreanciers[0],
+		$this->Translator->normalize(
+			array(
+				'Titrecreancier.dtbordereau',
+				'Titrecreancier.numtitr',
+				'Titrecreancier.numbordereau',
+				'Titrecreancier.numtier'
+			)
+		),
+		array(
+			'paginate' => false,
+			'options' => $options,
+			'empty_label' => __m('Titrecreancier::view::emptyLabel'),
+		)
+	);
+	echo '</fieldset>';
+
+	echo $this->Xhtml->link(
+		'Retour',
+		array('controller' => 'titrescreanciers', 'action' => 'index', $creance_id)
+	);
+
 ?>
