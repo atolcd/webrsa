@@ -29,6 +29,9 @@ msgstr "Date de signature"
 msgid "Accueil.date.debut.contrat"
 msgstr "Date de début de contrat"
 
+msgid "Accueil.date.fin.contrat"
+msgstr "Date de fin de contrat"
+
 msgid "Accueil.date.rendezvous"
 msgstr "Date de rendez-vous"
 
