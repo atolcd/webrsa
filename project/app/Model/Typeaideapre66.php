@@ -143,6 +143,9 @@
 						'Typeaideapre66.name'
 					),
 					'recursive' => -1,
+					'conditions' => array(
+						'Typeaideapre66.actif' => 1
+					),
 					'order' => 'Typeaideapre66.name ASC',
 				)
 			);

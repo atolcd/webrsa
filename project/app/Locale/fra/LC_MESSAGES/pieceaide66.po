@@ -45,3 +45,6 @@ msgstr "Confirmer la suppression ?"
 
 msgid "Pieceaide66.name"
 msgstr "Intitulé de la pièce administrative "
+
+msgid "Pieceaide66.actif"
+msgstr "Actif"

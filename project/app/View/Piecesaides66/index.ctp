@@ -4,6 +4,7 @@
 		array(
 			'cells' => array(
 				'Pieceaide66.name',
+				'Pieceaide66.actif' => array( 'type' => 'boolean' ),
 				'/Piecesaides66/edit/#Pieceaide66.id#' => array(
 					'title' => true
 				),

@@ -45,3 +45,6 @@ msgstr "Confirmer la suppression ?"
 
 msgid "Piececomptable66.name"
 msgstr "Intitulé de la pièce comptable"
+
+msgid "Piececomptable66.actif"
+msgstr "Actif"

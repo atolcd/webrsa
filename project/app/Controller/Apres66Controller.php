@@ -186,24 +186,28 @@
 			$options = Hash::merge( $options, (array)Hash::get( $this->{$this->modelClass}->Aideapre66->enums(), 'Aideapre66' ) );
 
 			$this->set( 'options', $options );
-			$pieceadmin = $this->Pieceaide66->find(
-					'list', array(
+			$pieceadmin = $this->Pieceaide66->find('list', array(
 				'fields' => array(
 					'Pieceaide66.id',
 					'Pieceaide66.name'
 				),
+				'conditions' => array(
+					'Pieceaide66.actif' => 1
+				),
 				'contain' => false
-					)
+				)
 			);
 			$this->set( 'pieceadmin', $pieceadmin );
-			$piececomptable = $this->Piececomptable66->find(
-					'list', array(
+			$piececomptable = $this->Piececomptable66->find('list', array(
 				'fields' => array(
 					'Piececomptable66.id',
 					'Piececomptable66.name'
 				),
+				'conditions' => array(
+					'Piececomptable66.actif' => 1
+				),
 				'contain' => false
-					)
+				)
 			);
 			$this->set( 'piececomptable', $piececomptable );
 		}
@@ -1244,6 +1248,9 @@
 						'Typeaideapre66.themeapre66_id',
 						'Typeaideapre66.name',
 						'Typeaideapre66.typeplafond',
+					),
+					'conditions' => array(
+						'Typeaideapre66.actif' => 1
 					),
 					'contain' => false,
 					'order' => 'Typeaideapre66.name ASC',

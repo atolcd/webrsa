@@ -6,6 +6,7 @@
 				'Themeapre66.name',
 				'Typeaideapre66.name',
 				'Typeaideapre66.isincohorte',
+				'Typeaideapre66.actif'  => array( 'type' => 'boolean' ),
 				'/Typesaidesapres66/edit/#Typeaideapre66.id#' => array(
 					'title' => true
 				),
