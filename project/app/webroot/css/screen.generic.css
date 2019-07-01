@@ -710,6 +710,11 @@ div.clearer hr {
     display: inline;
 }
 
+.treemenu li.leaf.selected a.selected {
+	text-decoration: underline;
+	font-weight: bold;
+}
+
 /* Treemenu large */
 
 #pageWrapper.treemenu_large .treemenu.treemenu_table{
