@@ -225,13 +225,16 @@
 			);
 			$result = $this->WebrsaModelesLiesCuis66->addEdit( $id, $params );
 
-			// L'avis "En attente de décision" ne devrait pas être là, donc on ne le met pas dans la liste si ce n'est pas la valeur courante
+			// ??? xxxx-xx-xx L'avis "En attente de décision" ne devrait pas être là, donc on ne le met pas dans la liste si ce n'est pas la valeur courante
+			// MMA 2019-06-25 Le CD 66 veut que l'item apparaisse tout le temps.
 			$options = Hash::get( $this->viewVars, 'options' );
 			$avis = Hash::get( $this->request->data, 'Propositioncui66.avis' );
+			/*
 			if( 'attentedecision' !== $avis ) {
 				unset( $options['Propositioncui66']['avis']['attentedecision'] );
 				$this->set( compact( 'options' ) );
 			}
+			*/
 
 			return $result;
 		}
