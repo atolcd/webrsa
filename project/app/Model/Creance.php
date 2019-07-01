@@ -390,16 +390,17 @@
 						'contain' => false
 					)
 				);
-				if ( !empty ($creances['Creance'] ) ) {
+				if ( !empty($creances['Creance'] ) ) {
 					//Selon l'état de la créance et du titre créancier )
 					//Si deux états illogiques sont donné à la fonction alors on doit echoué
+
+					// Créance est en état ATTAVIS, VALIDAVIS ou NONEMISSION Alors cette fonction ne devrait pas etre appellée par les tites de recettes
+					// Créance est en état AEMETTRE et le titre est autre que CREE, Alors on as sauté l'état de création
+					// Créance est en état ENEMISSION et le titre est CREE,
 					if (
-						// Créance est en état ATTAVIS, VALIDAVIS ou NONEMISSION Alors cette fonction ne devrait pas etre appellée par les tites de recettes
-						( in_array ($creances['Creance']['etat'], array('ATTAVIS', 'VALIDAVIS', 'NONEMISSION') ) == true )
-						|| // Créance est en état AEMETTRE et le titre est autre que CREE, Alors on as sauté l'état de création
-						( $creances['Creance']['etat'] = 'AEMETTRE' && $titrecreancierEtat != 'CREE')
-						|| // Créance est en état ENEMISSION et le titre est CREE,
-						( $creances['Creance']['etat'] = 'ENEMISSION' && $titrecreancierEtat == 'CREE')
+						in_array ($creances['Creance']['etat'], array('ATTAVIS', 'VALIDAVIS', 'NONEMISSION') )
+						||( $creances['Creance']['etat'] == 'AEMETTRE' && $titrecreancierEtat != 'CREE')
+						||( $creances['Creance']['etat'] == 'ENEMISSION' && $titrecreancierEtat == 'CREE')
 					){
 						//Message d'erreur Etat illogiques
 						$msg = 'Un changement d\état de titre créancier illogique vient d\'avoir lieu. Veuillez vérifier la cohérence des états de la Créance et du Titre de recette';
