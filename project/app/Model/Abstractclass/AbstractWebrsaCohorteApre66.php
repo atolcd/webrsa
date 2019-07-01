@@ -77,6 +77,18 @@
 
 				// 1. Ajout des champs supplémentaires
 				$query['fields'] = array_merge(
+					// Champs nécessaires au traitement de la search
+					array(
+						'DISTINCT ON ("Apre66"."id") "Apre66"."id" AS "Apre66__id"',
+						'Apre66.personne_id',
+						'Personne.id',
+						'Dossier.id',
+						'Aideapre66.id',
+						'Aideapre66.montantpropose',
+						'Aideapre66.datemontantpropose',
+						'Aideapre66.typeaideapre66_id',
+						$this->Apre66->sqVirtualField('nb_fichiers_lies', 'Apre66')
+					),
 					$query['fields'],
 					ConfigurableQueryFields::getModelsFields(
 						array(
@@ -86,18 +98,6 @@
 							$this->Apre66->Aideapre66->Themeapre66,
 							$this->Apre66->Aideapre66->Typeaideapre66,
 						)
-					),
-					// Champs nécessaires au traitement de la search
-					array(
-						'Apre66.id',
-						'Apre66.personne_id',
-						'Personne.id',
-						'Dossier.id',
-						'Aideapre66.id',
-						'Aideapre66.montantpropose',
-						'Aideapre66.datemontantpropose',
-						'Aideapre66.typeaideapre66_id',
-						$this->Apre66->sqVirtualField('nb_fichiers_lies', 'Apre66')
 					)
 				);
 
