@@ -59,7 +59,7 @@
 		foreach ($users as $user) {
 ?>
 				<tr class="odd dynamic">
-					<td class="data string "><?php echo ($user['User']['nom'].' '.$user['User']['prenom']); ?></td>
+					<td class="data string "><?php echo ($user['User']['nom'].' '.$user['User']['prenom'].' ('.$user['Serviceinstructeur']['lib_service'].')'); ?></td>
 					<td class="data date ">
 						<select name="referent_id[<?php echo ($user['User']['id']); ?>]">
 							<option value=""></option>

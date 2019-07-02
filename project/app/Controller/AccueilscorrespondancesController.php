@@ -84,6 +84,9 @@
 					'order' => array (
 						'User.nom ASC',
 						'User.prenom ASC'
+					),
+					'contain' => array (
+						'Serviceinstructeur',
 					)
 				);
 
@@ -91,10 +94,10 @@
 					$conditions = $this->request->data['Search']['Correspondance'];
 
 					if (!empty ($conditions['nom'])) {
-						$query['conditions']['User.nom LIKE'] =  trim (str_replace('*', '%', $conditions['nom']));
+						$query['conditions']['User.nom ILIKE'] =  trim (str_replace('*', '%', $conditions['nom']));
 					}
 					if (!empty ($conditions['prenom'])) {
-						$query['conditions']['User.prenom LIKE'] = trim (str_replace('*', '%', $conditions['prenom']));
+						$query['conditions']['User.prenom ILIKE'] = trim (str_replace('*', '%', $conditions['prenom']));
 					}
 					if (!empty ($conditions['groupe'])) {
 						$query['conditions']['User.group_id'] = $conditions['groupe'];
