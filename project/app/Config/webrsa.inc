@@ -934,6 +934,16 @@
 		)
 	);
 
+	/**
+	 * Options modifiable des champs de recherche numdemrsa et matricule
+	 */
+	Configure::write('search.conditions.numdemrsa_matricule',
+		array(
+			'before' => '',
+			'after' => ''
+		)
+	);
+
     /**
      * Accès aux données PE
      */
