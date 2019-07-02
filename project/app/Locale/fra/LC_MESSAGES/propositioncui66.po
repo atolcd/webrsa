@@ -32,10 +32,10 @@ msgid "ENUM::AVIS::attentedecision"
 msgstr "En attente de décision"
 
 msgid "ENUM::AVIS::accord"
-msgstr "Accordé"
+msgstr "Avis favorable"
 
 msgid "ENUM::AVIS::refus"
-msgstr "Refusé"
+msgstr "Avis défavorable"
 
 msgid "ENUM::AVIS::avisreserve"
 msgstr "Avis réservé"
