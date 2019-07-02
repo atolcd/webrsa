@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Code source de la classe WebrsaTitressuivisautresinfo.
+	 * Code source de la classe WebrsaTitresuiviautreinfo.
 	 *
 	 * PHP 5.3
 	 *
@@ -17,14 +17,14 @@
 	 *
 	 * @package app.Model
 	 */
-	class WebrsaTitressuivisautresinfo extends WebrsaAbstractLogic implements WebrsaLogicAccessInterface
+	class WebrsaTitresuiviautreinfo extends WebrsaAbstractLogic implements WebrsaLogicAccessInterface
 	{
 		/**
 		 * Nom du modèle.
 		 *
 		 * @var string
 		 */
-		public $name = 'WebrsaTitressuivisautresinfo';
+		public $name = 'WebrsaTitresuiviautreinfo';
 
 		/**
 		 * Les modèles qui seront utilisés par ce modèle.
@@ -80,7 +80,7 @@
 					$this->Titresuiviautreinfo->Titrecreancier->join('Creance'),
 					$this->Titresuiviautreinfo->Titrecreancier->Creance->join('Foyer'),
 					$this->Titresuiviautreinfo->Titrecreancier->Creance->Foyer->join('Personne')
-				),
+				),-+
 				'contain' => false,
 				'order' => array(
 					'Titresuiviautreinfo.dtautreinfo' => 'ASC'

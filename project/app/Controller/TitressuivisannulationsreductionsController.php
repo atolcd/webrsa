@@ -31,7 +31,7 @@
 		 */
 		public $uses = array(
 			'Titresuiviannulationreduction',
-			'WebrsaTitressuivisannulationsreduction',
+			'WebrsaTitresuiviannulationreduction',
 			'Titrecreancier',
 			'Creances',
 			'Typetitrecreancierannulationreduction',
@@ -218,7 +218,7 @@
 
 			if( $this->action == 'edit' ) {
 				$titrecreancier_id = $this->request->params['pass'][1];
-				$fichiersEnBase = Hash::extract( $this->WebrsaTitressuivisannulationsreduction->findFichiers($id), '{n}.Fichiermodule' );
+				$fichiersEnBase = Hash::extract( $this->WebrsaTitresuiviannulationreduction->findFichiers($id), '{n}.Fichiermodule' );
 				$this->set('fichiersEnBase', $fichiersEnBase);
 			}
 
@@ -379,7 +379,7 @@
 			$foyer_id = $this->Titrecreancier->foyerId( $creance_id );
 			$this->DossiersMenus->checkDossierMenu( array( 'foyer_id' => $foyer_id ) );
 
-			$pdf = $this->Titresuiviannulationreduction->WebrsaTitressuivisannulationsreduction->getDefaultPdf( $id, $this->Session->read( 'Auth.User.id' ) );
+			$pdf = $this->Titresuiviannulationreduction->WebrsaTitresuiviannulationreduction->getDefaultPdf( $id, $this->Session->read( 'Auth.User.id' ) );
 
 			if( !empty( $pdf ) && $pdf !== false ) {
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'certificatadministratif_suiviannulationreduction-%d-%s.pdf', $id, date( 'Y-m-d' ) ) );

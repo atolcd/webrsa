@@ -31,7 +31,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array('WebrsaAccessTitressuivisautresinfos', 'WebrsaTitressuivisautresinfo');
+		public $uses = array('WebrsaAccessTitressuivisautresinfos', 'WebrsaTitresuiviautreinfo');
 
 		/**
 		 * Récursivité par défaut du modèle.
@@ -128,7 +128,7 @@
 		public function getContext() {
 			return array(
 				'controller' => ClassRegistry::init('TitressuivisautresinfosController'),
-				'webrsaModelName' => $this->WebrsaTitressuivisautresinfo,
+				'webrsaModelName' => $this->WebrsaTitresuiviautreinfo,
 				'webrsaAccessName' => 'WebrsaAccessTitressuivisautresinfos',
 				'mainModelName' => $this
 			);
