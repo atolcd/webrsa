@@ -84,7 +84,7 @@
 				parent::_optionsEnums( $params ),
 				array(
 					'Personne' => array(
-						'trancheage' => Configure::read( 'Search.Options.enums.personne.Personne.trancheage'),
+						'trancheage' => Configure::read( 'Search.Options.enums.personne.Personne.trancheage'
 						),
 					)
 				)
