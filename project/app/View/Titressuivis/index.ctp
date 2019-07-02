@@ -18,6 +18,7 @@ echo $this->Default3->actions(array( $backUrl => array( 'class' => 'back' )));
 if( empty( $titresCreanciers ) ) {
 	echo '<p class="notice">'. __m('Titressuivisannulationsreductions::index::emptyTitrecreancier').'</p>';
 }else{
+	$titreEnCours = array();
 	$titreEnCours[0] = $titresCreanciers;
 	echo $this->Default3->index(
 		$titreEnCours,

@@ -231,6 +231,8 @@
 					'contain' => false
 				)
 			);
+			$titresCreanciers['Titrecreancier']['etat'] = (__d('titrecreancier', 'ENUM::ETAT::' . $titresCreanciers['Titrecreancier']['etat']));
+
             $creance_id = $titresCreanciers['Titrecreancier']['creance_id'];
 			$foyer_id = $this->Titrecreancier->foyerId( $creance_id );
 
