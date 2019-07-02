@@ -499,7 +499,8 @@ $irregularPlural = array(
 	'typetitrecreancier' => 'typestitrescreanciers',
 	'typetitrecreancier_titrecreancier' => 'typestitrescreanciers_titrescreanciers',
 	'motifemissiontitrecreancier' => 'motifsemissionstitrescreanciers',
-	'titresuiviautreinfo' => 'titressuivisautresinfos',
+    'titresuiviautreinfo' => 'titressuivisautresinfos',
+    'titresuiviannulationreduction' => 'titressuivisannulationsreductions',
 	//Rapport talends
 	'rapporttalendcreance' => 'rapportstalendscreances',
 	'rejettalendcreance' => 'rejetstalendscreances',

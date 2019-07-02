@@ -31,7 +31,7 @@
 		 */
 		public $uses = array(
 			'Titresuiviautreinfo',
-			'WebrsaTitressuivisautresinfo',
+			'WebrsaTitresuiviautreinfo',
 			'Titrecreancier',
 			'Creances',
 			'Typetitrecreancierautreinfo',
@@ -196,7 +196,7 @@
 
 			if( $this->action == 'edit' ) {
 				$titrecreancier_id = $this->request->params['pass'][1];
-				$fichiersEnBase = Hash::extract( $this->WebrsaTitressuivisautresinfo->findFichiers($id), '{n}.Fichiermodule' );
+				$fichiersEnBase = Hash::extract( $this->WebrsaTitresuiviautreinfo->findFichiers($id), '{n}.Fichiermodule' );
 				$this->set('fichiersEnBase', $fichiersEnBase);
 			}
 

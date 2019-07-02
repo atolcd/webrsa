@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Code source de la classe WebrsaTitressuivisannulationsreduction.
+	 * Code source de la classe WebrsaTitresuiviannulationreduction.
 	 *
 	 * PHP 5.3
 	 *
@@ -17,14 +17,14 @@
 	 *
 	 * @package app.Model
 	 */
-	class WebrsaTitressuivisannulationsreduction extends WebrsaAbstractLogic implements WebrsaLogicAccessInterface
+	class WebrsaTitresuiviannulationreduction extends WebrsaAbstractLogic implements WebrsaLogicAccessInterface
 	{
 		/**
 		 * Nom du modèle.
 		 *
 		 * @var string
 		 */
-		public $name = 'WebrsaTitressuivisannulationsreduction';
+		public $name = 'WebrsaTitresuiviannulationreduction';
 
 		/**
 		 * Les modèles qui seront utilisés par ce modèle.
