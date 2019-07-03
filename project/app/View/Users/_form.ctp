@@ -16,7 +16,7 @@
 		echo $this->Form->input( 'User.numtel', array( 'label' =>  required( __( 'numtel' ) ), 'type' => 'text', 'maxlength' => 15 ) );
 
 if ($departement === 66) {
-	echo $this->Form->input('User.email', array('label' => __('email'), 'type' => 'text', 'maxlength' => 15));
+	echo $this->Form->input('User.email', array('label' => __('email'), 'type' => 'text', 'maxlength' => 150));
 }
 
 		if( Configure::read( 'User.adresse' ) ) {
