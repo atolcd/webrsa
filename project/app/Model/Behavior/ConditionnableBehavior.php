@@ -138,7 +138,7 @@
 		public function conditionsDossier( Model $model, $conditions, $search ) {
 			foreach( array( 'numdemrsa', 'matricule' ) as $critereDossier ) {
 				if( isset( $search['Dossier'][$critereDossier] ) && !empty( $search['Dossier'][$critereDossier] ) ) {
-					$conditions[] = 'Dossier.'.$critereDossier.' ILIKE \''.$model->wildcard( "*{$search['Dossier'][$critereDossier]}*" ).'\'';
+					$conditions[] = 'Dossier.'.$critereDossier.' ILIKE \''.$model->wildcard( Configure::read ('search.conditions.numdemrsa_matricule.before')."{$search['Dossier'][$critereDossier]}".Configure::read ('search.conditions.numdemrsa_matricule.after') ).'\'';
 				}
 			}
 
