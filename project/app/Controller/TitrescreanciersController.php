@@ -175,6 +175,13 @@
 				)
 			);
 
+			$titresCreanciers[0]['Titrecreancier']['etatDepuis'] = __d('titrecreancier', 'ENUM::ETAT::' . $titresCreanciers[0]['Titrecreancier']['etat']) . ' depuis le ' . date('d/m/Y', strtotime( $titresCreanciers[0]['Titrecreancier']['modified'] ) );
+
+			$titresCreanciers[0]['Titrecreancier']['acommentaire'] = 0;
+			if( !is_null($titresCreanciers[0]['Titrecreancier']['mention']) ) {
+				$titresCreanciers[0]['Titrecreancier']['acommentaire'] = 1;
+			}
+
 			if ( !empty($titresCreanciers) ){
 				$this->set( 'ajoutPossible', false);
 			}
@@ -349,6 +356,12 @@
 							if (
 								$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'])
 							){
+								$this->Historiqueetat->setHisto(
+									$this->name,
+									$id,
+									$this->Titrecreancier->creanceId($id),
+									$this->action, $data['etat'],
+									$this->Titrecreancier->foyerId( $this->Titrecreancier->creanceId( $id ) ) );
 								$this->Titrecreancier->commit();
 								$this->Jetons2->release( $dossier_id );
 								$this->Flash->success( __( 'Save->success' ) );
@@ -580,6 +593,12 @@
 						if (
 								$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'])
 							){
+								$this->Historiqueetat->setHisto(
+									$this->name,
+									$titrecreancier_id,
+									$this->Titrecreancier->creanceId($titrecreancier_id),
+									$this->action, $data['etat'],
+									$this->Titrecreancier->foyerId( $this->Titrecreancier->creanceId( $titrecreancier_id ) ) );
 								$this->Titrecreancier->commit();
 								$this->Jetons2->release( $dossier_id );
 								$this->Flash->success( __( 'Save->success' ) );
@@ -747,17 +766,17 @@
 		}
 
 		/**
-		 * Génération des informations récuperer pour la créaction d'un titre créancier. 
+		 * Génération des informations récuperer pour la créaction d'un titre créancier.
 		 *
 		 * @param array $titrecreancier tableau d'informations de base
 		 * @param integer $creance_id id technique de la créance dont récuperer les infos
 		 * @param integer $foyer_id id technique du foyer dont récuperer les infos
-		 * 
+		 *
 		 * @return array $titrecreancier tableau d'informations remplis
-		 * 
+		 *
 		**/
 		private function _getInfoTitrecreancier($titrecreancier =array(), $creance_id = null, $foyer_id = null ){
-	
+
 			if (!is_null($creance_id)){
 				/* get value from Créance */
 				$creances = $this->Creance->find('first',
@@ -770,9 +789,9 @@
 				);
 				if ( !empty ($creances['Creance'] ) ) {
 					$titrecreancier['Titrecreancier']['mnttitr'] = $creances['Creance']['mtsolreelcretrans'];
-				}	
+				}
 			}
-	
+
 			if (!is_null($foyer_id)){
 				/* get nom, prénom, nir du bénéficiaire */
 				$personne = $this->Personne->find('first',
@@ -793,7 +812,7 @@
 					$titrecreancier['Titrecreancier']['nir'] = $personne['Personne']['nir'] ;
 					$titrecreancier['Titrecreancier']['numtel'] =( $personne['Personne']['numfixe'] == null ) ? $personne['Personne']['numport'] : $personne['Personne']['numfixe'] ;
 				}
-	
+
 				/* get nom, prénom, nir du bénéficiaire */
 				$personne = $this->Personne->find('first',
 					array(
@@ -812,7 +831,7 @@
 					$titrecreancier['Titrecreancier']['nomcjt'] = $personne['Personne']['nom']." ". $personne['Personne']['prenom']  ;
 					$titrecreancier['Titrecreancier']['nircjt'] = $personne['Personne']['nir'] ;
 				}
-	
+
 				/* get RIB from RIB foyer */
 				$infoRib = $this->Foyer->find('first',
 					array(
@@ -850,7 +869,7 @@
 					$titrecreancier['Titrecreancier']['bic'] = $infoRib['Paiementfoyer'][0]['bic'];
 					$titrecreancier['Titrecreancier']['comban'] = $infoRib['Paiementfoyer'][0]['comban'];
 				}
-	
+
 				/* get Adresse from Adresse foyer */
 				$infoAdress = $this->Adressefoyer->find('all',
 					array(

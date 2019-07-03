@@ -181,7 +181,7 @@
 					'Motif d\'émission d\'une créance' => array(
 						'url' => array( 'controller' => 'motifsemissionscreances', 'action' => 'index' )
 					),
-					'Titres de recettes' => array(
+					'Titres de recette' => array(
 						'Type du Titre' => array(
 							'url' => array( 'controller' => 'typestitrescreanciers', 'action' => 'index' )
 						),
@@ -189,7 +189,7 @@
 							'url' => array( 'controller' => 'motifsemissionstitrescreanciers', 'action' => 'index' )
 						)
 					),
-					'Suivi des titres de recettes' => array(
+					'Suivi des titres de recette' => array(
 						'Type d\'annulation/réduction' => array(
 							'url' => array( 'controller' => 'typestitrescreanciersannulationsreductions', 'action' => 'index' )
 						),
@@ -648,7 +648,7 @@
 					'disabled' => ( 93 !== $departement ),
 					'url' => array( 'controller' => 'communautessrs', 'action' => 'index' )
 				),
-				'CREANCES' => $this->_creances(),
+				'Créances' => $this->_creances(),
 				'CUI' => $this->_cuis(),
 				'DSP' => $this->_dsps(),
 				'Editeur de requêtes' => $this->_requestsmanager(),

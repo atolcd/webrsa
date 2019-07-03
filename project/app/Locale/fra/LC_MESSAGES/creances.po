@@ -68,37 +68,52 @@ msgid "/Creances/index/#Creance.id#"
 msgstr "Voir #Creance.id#"
 
 msgid "/Creances/view/#Creance.id#"
-msgstr "Voir #Creance.id#"
+msgstr "Voir cette créance"
 
 msgid "/Creances/add"
 msgstr "Ajouter"
 
+msgid "/Creances/add/:title"
+msgstr "Ajouter une créance"
+
 msgid "/Creances/edit"
 msgstr "Commenter"
+
+msgid "/Creances/edit/#Creance.id#"
+msgstr "Commenter cette créance"
 
 msgid "/Creances/nonemission"
 msgstr "Ne pas émettre"
 
+msgid "/Creances/nonemission/#Creance.id#"
+msgstr "Ne pas émettre cette créance"
+
 msgid "/Creances/validation"
 msgstr "Valider"
 
+msgid "/Creances/validation/#Creance.id#"
+msgstr "Valider cette créance"
+
 msgid "/Creances/delete"
-msgstr "Supprimer la créance"
+msgstr "Supprimer"
 
 msgid "/Creances/delete/#Creance.id#"
-msgstr "Supprimer la créance #Creance.id#"
+msgstr "Supprimer cette créance"
 
 msgid "/Creances/copycreance"
 msgstr "Copier/Réaffecter la créance"
 
 msgid "/Creances/copycreance/#Creance.id#"
-msgstr "Copier/Réaffecter la créance #Creance.id#"
+msgstr "Copier/Réaffecter cette créance"
 
 msgid "/Titrescreanciers/add"
 msgstr "Ajouter Titre de Recettes"
 
 msgid "/Titrescreanciers/index"
-msgstr "Préparer le Titre de Recettes"
+msgstr "Titre de Recette"
+
+msgid "/Titrescreanciers/index/#Creance.id#"
+msgstr "Préparer le titre de Recette"
 
 msgid "Creances::index::emptyLabel"
 msgstr "Cette personne ne possède pas de créance transférée."
@@ -151,16 +166,16 @@ msgid "Dossier.numdemrsa"
 msgstr "Numéro de demande RSA"
 
 msgid "Creance.dtimplcre"
-msgstr "Date implantation créance"
+msgstr "Date d'implantation de la créance"
 
 msgid "Creance.natcre"
-msgstr "Nature créance"
+msgstr "Nature de la créance"
 
 msgid "Creance.orgcre"
-msgstr "Type saisie"
+msgstr "Type de saisie"
 
 msgid "Creance.rgcre"
-msgstr "Rang créance"
+msgstr "Rang"
 
 msgid "Creance.moismoucompta"
 msgstr "Mois comptable"
@@ -184,7 +199,7 @@ msgid "Creance.dtdercredcretrans"
 msgstr "Date dernier crédit positif créance transférée"
 
 msgid "Creance.mtsolreelcretrans"
-msgstr "Solde réel de la créance transférée"
+msgstr "Solde réel de la créance"
 
 msgid "Creance.mtinicre"
 msgstr "Montant initial créance"

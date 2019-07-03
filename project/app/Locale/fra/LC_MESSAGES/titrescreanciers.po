@@ -22,12 +22,15 @@ msgstr ""
 ###############################################################################
 
 msgid "/Titrescreanciers/index/:heading"
-msgstr "Liste des Titres de recettes"
+msgstr "Liste des Titres de recette"
 
 msgid "/Titrescreanciers/view/:heading"
-msgstr "Titres de recettes"
+msgstr "Titres de recette"
 
 msgid "/Titrescreanciers/add"
+msgstr "Ajouter un Titre de recette"
+
+msgid "/Titrescreanciers/add/:title"
 msgstr "Ajouter un Titre de recette"
 
 msgid "/Titrescreanciers/index"
@@ -36,19 +39,37 @@ msgstr "Voir"
 msgid "/Titrescreanciers/view"
 msgstr "Voir"
 
+msgid "/Titrescreanciers/view/#Titrecreancier.id#"
+msgstr "Voir le titre de recette"
+
 msgid "/Titrescreanciers/edit"
 msgstr "Modifier"
+
+msgid "/Titrescreanciers/edit/#Titrecreancier.id#"
+msgstr "Modifier le titre de recette"
 
 msgid "/Titressuivis/index"
 msgstr "Suivi du titre de recette"
 
+msgid "/Titressuivis/index/#Titrecreancier.id#"
+msgstr "Suivre le titre de recette"
+
 msgid "/Titrescreanciers/avis"
-msgstr "Avis"
+msgstr "Émettre un avis"
+
+msgid "/Titrescreanciers/avis/#Titrecreancier.id#"
+msgstr "Émettre un avis"
 
 msgid "/Titrescreanciers/valider"
 msgstr "Valider"
 
+msgid "/Titrescreanciers/valider/#Titrecreancier.id#"
+msgstr "Valider le titre de recette"
+
 msgid "/Titrescreanciers/retourcompta"
+msgstr "Enregistrer le retour compta"
+
+msgid "/Titrescreanciers/retourcompta/#Titrecreancier.id#"
 msgstr "Enregistrer le retour compta"
 
 msgid "/Titrescreanciers/add/:heading"
@@ -114,7 +135,10 @@ msgid "Titrecreancier.dtemissiontitre"
 msgstr "Date d'emission du titre"
 
 msgid "Titrecreancier.etat"
-msgstr "Etat du titre"
+msgstr "État du titre"
+
+msgid "Titrecreancier.etatDepuis"
+msgstr "État du titre"
 
 msgid "Titrecreancier.dtvalidation"
 msgstr "Date de validation du titre"
@@ -140,8 +164,11 @@ msgstr "Montant du titre"
 msgid "Titrecreancier.type"
 msgstr "Type du titre"
 
+msgid "Titrecreancier.acommentaire"
+msgstr "Commentaire de l'avis"
+
 msgid "Titrecreancier.mention"
-msgstr "Mention du titre"
+msgstr "Commentaire du titre"
 
 msgid "Titrecreancier.motifemissiontitrecreancier_id"
 msgstr "Motif"
@@ -200,7 +227,7 @@ msgid "Titrecreancier.typeadr"
 msgstr "Code nature adresse"
 
 msgid "Titrecreancier.etatadr"
-msgstr "Etat adresse"
+msgstr "État adresse"
 
 msgid "Titrecreancier.complete"
 msgstr "Adresse complete"

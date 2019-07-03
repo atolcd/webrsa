@@ -259,7 +259,7 @@
 			$success = $this->save($data);
 			if($success){
 				$this->commit();
-				$this->Historiqueetat->setHisto( $this->name, $id, $this->creanceId($id), $action, $data['etat'], $this->foyerId( $this->creanceId( $id ) ) ); //setHisto($modelName, $idModel, $idModelParent, $action, $etat, $idFoyer)
+				$this->Historiqueetat->setHisto( $this->name, $id, $this->creanceId($id), $action, $data['etat'], $this->foyerId( $this->creanceId( $id ) ) );
 			}
 			return $success;
 		}

@@ -21,7 +21,7 @@ msgid "ENUM::HASPIECEJOINTE::1"
 msgstr "Oui"
 
 msgid "Titresuiviannulationreduction.etat"
-msgstr "Etat"
+msgstr "État"
 
 msgid "ENUM::ETAT::ANNULER"
 msgstr "Annulé"

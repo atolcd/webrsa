@@ -111,7 +111,7 @@ msgid "ENUM::MOTIINDU::32"
 msgstr "Décès enfant [32]"
 
 msgid "ENUM::MOTIINDU::33"
-msgstr "Etat civil enfant [33]"
+msgstr "État civil enfant [33]"
 
 msgid "ENUM::MOTIINDU::34"
 msgstr "Arrivée enfant [34]"

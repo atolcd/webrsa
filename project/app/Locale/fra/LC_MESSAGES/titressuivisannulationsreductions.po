@@ -12,10 +12,10 @@ msgstr ""
 
 ###############################################################################
 msgid "/Titressuivisannulationsreductions/add/:heading"
-msgstr " Ajout d'une annulation / réduction"
+msgstr "Ajout d'une annulation / réduction"
 
 msgid "/Titressuivisannulationsreductions/edit/:heading"
-msgstr " Modification d'une annulation / réduction"
+msgstr "Modification d'une annulation / réduction"
 
 msgid "Titresuiviannulationreduction.mtactuel"
 msgstr "Montant actuellement réduit"
@@ -51,7 +51,7 @@ msgid "Titressuivisannulationsreductions::index::titleFileupload"
 msgstr "Fichiers liés"
 
 msgid "Titressuivisannulationsreductions::index::emptyTitrecreancier"
-msgstr "Cette creance ne possède pas de Titres creanciers liée"
+msgstr "Cette créance ne possède pas de titres de recette lié"
 
 msgid "Titressuivisannulationsreductions::index::legendePJ"
 msgstr "Pièce Jointe"
