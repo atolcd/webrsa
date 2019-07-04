@@ -4121,6 +4121,9 @@ msgstr "Recherche"
 msgid "controllers/Creances/fluxadd"
 msgstr "Correction des rejets"
 
+msgid "controllers/Creances/cohorte_preparation"
+msgstr "Cohorte préparation des titres de recette"
+
 ###############################################################################
 ## Titres Créances
 ###############################################################################
@@ -4148,11 +4151,23 @@ msgstr "Recherche"
 msgid "controllers/Titrescreanciers/avis"
 msgstr "Avis d'emission"
 
+msgid "controllers/Titrescreanciers/exportfica"
+msgstr "Export FICA unique"
+
 msgid "controllers/Titrescreanciers/retourcompta"
 msgstr "Enregistrement retour compta"
 
 msgid "controllers/Titrescreanciers/filelink"
 msgstr "Ajout de Fichiers"
+
+msgid "controllers/Titrescreanciers/cohorte_validation"
+msgstr "Cohorte validation"
+
+msgid "controllers/Titrescreanciers/cohorte_transmissioncompta"
+msgstr "Cohorte transmission compta"
+
+msgid "controllers/Titrescreanciers/cohorte_transmissioncompta_exportfica"
+msgstr "Cohorte transmission compta export FICA"
 
 ###############################################################################
 msgid "controllers/Typestitrescreanciers"

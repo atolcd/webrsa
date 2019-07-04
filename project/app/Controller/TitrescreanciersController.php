@@ -32,6 +32,8 @@
 		 * @var array
 		 */
 		public $components = array(
+			'Cohortes',
+			'Gedooo.Gedooo',
 			'Default',
 			'DossiersMenus',
 			'Jetons2',
@@ -40,6 +42,8 @@
 			'Search.SearchPrg' => array(
 				'actions' => array(
 					'search',
+					'cohorte_validation' => array('filter' => 'Search'),
+					'cohorte_transmissioncompta' => array('filter' => 'Search'),
 				),
 			)
 		);
@@ -123,6 +127,8 @@
 		 */
 		public $commeDroit = array(
 			'view' => 'Titrescreanciers:index',
+			'exportcsv_validation' => 'Titrescreanciers:cohorte_validation',
+			'exportcsv_transmissioncompta' => 'Titrescreanciers:cohorte_transmissioncompta',
 		);
 
 		/**
@@ -361,7 +367,9 @@
 									$id,
 									$this->Titrecreancier->creanceId($id),
 									$this->action, $data['etat'],
-									$this->Titrecreancier->foyerId( $this->Titrecreancier->creanceId( $id ) ) );
+									$this->Titrecreancier->foyerId( $this->Titrecreancier->creanceId( $id ) )
+								);
+								$this->Creance->commit();
 								$this->Titrecreancier->commit();
 								$this->Jetons2->release( $dossier_id );
 								$this->Flash->success( __( 'Save->success' ) );
@@ -405,10 +413,9 @@
 				$this->request->data = $titrecreancier;
 			}elseif ( $this->action == 'add'){
 				$titrecreancier['Titrecreancier']['etat'] = 'CREE';
-				$titrecreancier = $this->_getInfoTitrecreancier($titrecreancier, $creance_id, $foyer_id );
+				$titrecreancier = $this->Titrecreancier->getInfoTitrecreancier($titrecreancier, $creance_id, $foyer_id );
 				// Assignation au formulaire
 				$this->request->data = $titrecreancier;
-
 			}
 
 			$creances = $this->Creance->find('all',
@@ -578,7 +585,6 @@
 						'contain' => FALSE
 					);
 					$emissionValidation = $this->Titrecreancier->Motifemissiontitrecreancier->find('first',$query);
-					debug ($emissionValidation);
 					if ( $emissionValidation['Motifemissiontitrecreancier']['emissiontitre'] == 1 ){
 						$data['Titrecreancier']['etat'] = 'ATTENVOICOMPTA';
 					}else{
@@ -598,7 +604,9 @@
 									$titrecreancier_id,
 									$this->Titrecreancier->creanceId($titrecreancier_id),
 									$this->action, $data['etat'],
-									$this->Titrecreancier->foyerId( $this->Titrecreancier->creanceId( $titrecreancier_id ) ) );
+									$this->Titrecreancier->foyerId( $this->Titrecreancier->creanceId( $titrecreancier_id ) ) 
+								);
+								$this->Creance->commit();
 								$this->Titrecreancier->commit();
 								$this->Jetons2->release( $dossier_id );
 								$this->Flash->success( __( 'Save->success' ) );
@@ -663,6 +671,50 @@
 
 			$this->render( 'valider' );
 		}
+		/**
+		 * Validation d'une Titrecreancier d'une Créance
+		 *
+		 * @param integer $titrecreancier_id L'id technique dans la table titrescreanciers
+		 * @return void
+		 */
+		public function exportfica( $titrecreancier_id ) {
+			$this->WebrsaAccesses->check( $titrecreancier_id );
+
+			$infosFICA = $this->Titrecreancier->buildFICA( array($titrecreancier_id) );
+			if( empty( $infosFICA ) ) {
+				throw new NotFoundException();
+			}
+
+			//Initialisation
+			$this->Titrecreancier->begin();
+			$value['Titrecreancier']['id'] = $titrecreancier_id;
+			$value['Titrecreancier']['etat'] = 'ATTRETOURCOMPTA';
+
+			//Validation de la sauvegarde
+			if( $this->Titrecreancier->saveAll( $value, array( 'validate' => 'only' ) ) ) {
+				if( $this->Titrecreancier->saveAll( $value, array( 'atomic' => false ) ) ) {
+					$success = true;
+				} else {
+					$success = false;
+				}
+			} else {
+				$success = false;
+			}
+
+			if ( !$success ) {
+				$this->Titrecreancier->rollback();
+				$this->Titrecreancier->id = $titrecreancier_id;
+				$this->redirect( array( 'action' => 'index', $creance_id ) );
+			}else{
+				$this->Titrecreancier->commit();
+			}
+
+			$csvfile = 'FICA'.Configure::read('Creances.FICA.NumAppliTiers').'.csv';
+			$options = $this->Titrecreancier->options();
+
+			$this->set( compact(  'options','infosFICA','csvfile'  ) );
+
+		}
 
 		/**
 		 * Fonction commune d'ajout/modification d'un titrecreancier
@@ -701,6 +753,7 @@
 						if (
 								$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'])
 							){
+								$this->Creance->commit();
 								$this->Titrecreancier->commit();
 								$this->Jetons2->release( $dossier_id );
 								$this->Flash->success( __( 'Save->success' ) );
@@ -845,20 +898,10 @@
 				);
 
 				if ( !empty ($infoRib['Paiementfoyer'] ) ) {
-					$valTiturib = array (
-						"MEL" => "Monsieur et mademoiselle",
-						"MEM" => "Monsieur et madame",
-						"MLE" => "Mademoiselle",
-						"MME" => "Madame",
-						"MOL" => "Monsieur ou mademoiselle",
-						"MOM" => "Monsieur ou madame",
-						"MON" => "Monsieur",
-						"RSO" => "Raison sociale"
-					);
-
 					$titrecreancier['Titrecreancier']['titulairecompte'] =
-						$valTiturib [$infoRib['Paiementfoyer'][0]['titurib']] .' '
-						.$infoRib['Paiementfoyer'][0]['nomprenomtiturib'];
+						(__d('paiementfoyer', 'ENUM::TITURIB::'.$infoRib['Paiementfoyer'][0]['titurib'] ))
+						.' '.$infoRib['Paiementfoyer'][0]['nomprenomtiturib'];
+
 					$titrecreancier['Titrecreancier']['iban'] =
 						$infoRib['Paiementfoyer'][0]['numdebiban']
 						.$infoRib['Paiementfoyer'][0]['etaban']
@@ -999,5 +1042,51 @@
 			$this->set( 'options', (array)Hash::get( $this->Titrecreancier->options(), 'Titrecreancier' ) );
 			$this->set( compact( 'dossier_id', 'personne_id', 'fichiers', 'titrescreanciers' ) );
 		}
+
+
+		/**
+		 * Cohorte
+		 */
+		public function cohorte_validation() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesTitrescreanciers' );
+			$Cohortes->cohorte( array( 'modelRechercheName' => 'WebrsaCohorteTitrecreancierValidation' ) );
+		}
+
+		/**
+		 * Export CSV
+		 */
+		public function exportcsv_validation() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesTitrescreanciers' );
+			$Cohortes->exportcsv( array( 'modelRechercheName' => 'WebrsaCohorteTitrecreancierValidation' ) );
+		}
+
+		/**
+		 * Cohorte
+		 */
+		public function cohorte_transmissioncompta() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesTitrescreanciers' );
+			$Cohortes->cohorte( array( 'modelRechercheName' => 'WebrsaCohorteTitrecreancierTransmissioncompta' ) );
+		}
+
+		/**
+		 * Cohorte
+		 */
+		public function cohorte_transmissioncompta_exportfica() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesTitrescreanciers' );
+			$Cohortes->exportFICA(
+				array(
+					'modelRechercheName' => 'WebrsaCohorteTitrecreancierTransmissioncompta',
+					'configurableQueryFieldsKey' => 'Titrescreanciers.cohorte_fica'
+				));
+		}
+
+		/**
+		 * Export CSV
+		 */
+		public function exportcsv_transmissioncompta() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesTitrescreanciers' );
+			$Cohortes->exportcsv( array( 'modelRechercheName' => 'WebrsaCohorteTitrecreancierTransmissioncompta' ) );
+		}
+
 	}
 ?>

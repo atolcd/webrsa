@@ -49,6 +49,7 @@
 				$options['Personne']['etat_dossier_orientation'] = $Controller->Dossier->Foyer->Personne->enum( 'etat_dossier_orientation' );
 			}
 
+			$options['Creance']['orgcre'] = $Controller->Creance->enum('orgcre');
 			$options['Creance']['natcre'] = $Controller->Creance->enum('natcre');
 			$options['Creance']['motiindu'] = $Controller->Creance->enum('motiindu');
 			$options['Creance']['oriindu'] = $Controller->Creance->enum('oriindu');

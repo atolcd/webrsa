@@ -2,7 +2,7 @@
 	/**
 	 * Code source de la classe WebrsaRecherchesCreancesComponent.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Controller.Component
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)

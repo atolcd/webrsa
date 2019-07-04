@@ -1,42 +1,22 @@
 <?php
 	/**
-	 * Code source de la classe WebrsaRechercheCreance.
+	 * Code source de la classe AbstractWebrsaCohorteTitrecreancier.
 	 *
 	 * PHP 7.2
 	 *
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses( 'AbstractWebrsaRecherche', 'Model/Abstractclass' );
+	App::uses( 'AbstractWebrsaCohorte', 'Model/Abstractclass' );
 	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
 
 	/**
-	 * La classe WebrsaRechercheCreance ...
+	 * La classe AbstractWebrsaCohorteTitrecreancier ...
 	 *
 	 * @package app.Model
 	 */
-	class WebrsaRechercheCreance extends AbstractWebrsaRecherche
+	class AbstractWebrsaCohorteTitrecreancier extends AbstractWebrsaCohorte
 	{
-		/**
-		 * Nom du modèle.
-		 *
-		 * @var string
-		 */
-		public $name = 'WebrsaRechercheCreance';
-
-		/**
-		 * Liste des clés de configuration utilisées par le moteur de recherche,
-		 * pour vérification du paramétrage.
-		 *
-		 * @see checkParametrage()
-		 *
-		 * @var array
-		 */
-		public $keysRecherche = array(
-			'ConfigurableQueryCreances.search.fields',
-			'ConfigurableQueryCreances.search.innerTable',
-			'ConfigurableQueryCreances.exportcsv'
-		);
 
 		/**
 		 * Modèles utilisés par ce modèle.
@@ -44,10 +24,12 @@
 		 * @var array
 		 */
 		public $uses = array(
+			'Allocataire',
 			'Creance',
+			'Titrecreancier',
+			'Canton',
 			'Dossier',
 			'Foyer',
-			'Allocataire'
 		);
 
 		/**
@@ -58,15 +40,10 @@
 		 * @return array
 		 */
 		public function searchQuery( array $types = array() ) {
-			$cacheKey = Inflector::underscore( $this->useDbConfig ).
-			'_'.Inflector::underscore( $this->alias ).
-			'_'.Inflector::underscore( __FUNCTION__ );
-			$query = Cache::read( $cacheKey );
+			$departement = (int)Configure::read( 'Cg.departement' );
 
-			if( $query === false ) {
-				$departement = (int)Configure::read( 'Cg.departement' );
-
-				$types += array(
+			$types += array(
+					'Creance' => 'INNER JOIN',
 					'Calculdroitrsa' => 'LEFT OUTER',
 					'Foyer' => 'INNER',
 					'Prestation' => $departement == 66 ? 'LEFT OUTER' : 'INNER',
@@ -76,24 +53,44 @@
 					'Adresse' => 'LEFT OUTER',
 					'Situationdossierrsa' => 'LEFT OUTER',
 					'Detaildroitrsa' => 'LEFT OUTER',
-					'Creance' => 'INNER JOIN'
-				);
+			);
+
+			$cacheKey = Inflector::underscore( $this->useDbConfig ).'_'.Inflector::underscore( $this->alias ).'_'.Inflector::underscore( __FUNCTION__ ).'_'.sha1( serialize( $types ) );
+			$query = Cache::read( $cacheKey );
+
+			if( $query === false ) {
 				$query = $this->Allocataire->searchQuery( $types, 'Creance' );
 
-				// Ajout des spécificités du moteur de recherche
 				// 1. Ajout des champs supplémentaires
 				$query['fields'] = array_merge(
 					$query['fields'],
 					ConfigurableQueryFields::getModelsFields(
 						array(
+							$this->Titrecreancier,
 							$this->Creance,
 							$this->Foyer
 						)
+					),
+					// Champs nécessaires au traitement de la search
+					array(
+						'Personne.id',
+						'Dossier.id',
+						'Creance.id',
+						'Creance.foyer_id',
+						'Titrecreancier.id',
 					)
 				);
 
 				// 2. Jointures
 				$query['joins'] = array_merge(
+					array(
+						$this->Titrecreancier->join(
+							'Creance',
+							array(
+								'type' => 'INNER ',
+							)
+						)
+					),
 					$query['joins'],
 					array(
 						$this->Dossier->Foyer->Personne->join(
@@ -128,6 +125,9 @@
 						$this->Dossier->Foyer->Personne->Orientstruct->join( 'Typeorient', array( 'type' => 'LEFT OUTER' ) ),
 					)
 				);
+
+				// 4. Tri par défaut
+				//$query['order'] = array( 'Contratinsertion.df_ci' => 'ASC' );
 
 				Cache::write( $cacheKey, $query );
 			}
@@ -177,18 +177,19 @@
 			}
 
 			// if etat de la créances Selected then Creances.etat LIKE
-			$etatcreance = (string)Hash::get( $search, 'Creance.etat' );
-			if ( !empty($etatcreance) ) {
-				$query['conditions'][] = " Creance.etat LIKE '".$etatcreance."'"  ;
+			$etatTitrecreancier = (string)Hash::get( $search, 'Titrecreancier.etat' );
+			if ( !empty($etatTitrecreancier) ) {
+				$query['conditions'][] = " Titrecreancier.etat LIKE '".$etatTitrecreancier."'"  ;
 			}
 
-			// if hastitrecreancier checked then Creances.hasTitreCreancier > 0 
-			$etat_hastitrecreancier = (string)Hash::get( $search, 'Creance.hastitrecreancier' );
-			if ($etat_hastitrecreancier === '1') {
+			// if hastitrecreancier checked then Creances.hasTitreCreancier > 0
+			$sanstitrecreancier = (string)Hash::get( $search, 'Creance.sanstitrecreancier ' );
+			if ($sanstitrecreancier === '1') {
+				$query['conditions'][] = " Titrecreancier.id IS NULL ";
 				$query['joins'][] = array (
 					'table' => '"titrescreanciers"',
 					'alias' => 'Titrecreancier',
-					'type' => 'INNER',
+					'type' => 'LEFT OUTER JOIN ',
 					'conditions' => '"Titrecreancier"."creance_id" = "Creance"."id"'
 				);
 			}
@@ -219,8 +220,7 @@
 					$query['conditions'][] = 'NOT ' . $sql;
 				}
 			}
-
 			return $query;
 		}
+
 	}
-?>

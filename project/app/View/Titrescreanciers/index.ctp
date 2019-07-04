@@ -34,6 +34,10 @@
 							'class' => 'edit',
 						),
 						'/Titrescreanciers/valider/#Titrecreancier.id#',
+						'/Titrescreanciers/exportfica/#Titrecreancier.id#'
+						=> array(
+							'class' => 'view',
+						),
 						'/Titrescreanciers/retourcompta/#Titrecreancier.id#'
 						=> array(
 							'class' => 'edit',

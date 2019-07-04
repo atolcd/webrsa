@@ -66,6 +66,9 @@ msgstr "Valider"
 msgid "/Titrescreanciers/valider/#Titrecreancier.id#"
 msgstr "Valider le titre de recette"
 
+msgid "/Titrescreanciers/exportfica"
+msgstr "Export CSV FICA"
+
 msgid "/Titrescreanciers/retourcompta"
 msgstr "Enregistrer le retour compta"
 
@@ -274,9 +277,10 @@ msgstr "Informations émission"
 
 msgid "Titrecreancier::view::titleInfoValidateur"
 msgstr "Informations validateur"
-###############################################################################
+
+#==============================================================================
 # Historique
-###############################################################################
+#==============================================================================
 
 msgid "Titrecreancier::index::historyDeleted"
 msgstr "Attention, des titres de recette ont été supprimés"
@@ -301,3 +305,63 @@ msgstr "Page ayant modifié le statut"
 
 msgid "Historiqueetat.etat"
 msgstr "État"
+
+# ==============================================================================
+# Tradcution des Cohortes
+# ==============================================================================
+
+msgid "/Titrescreanciers/cohorte_validation/:heading"
+msgstr "Cohorte de validation"
+
+msgid "Titrescreanciers.cohorte_validation"
+msgstr "Recherche par créance transférée de l'allocataire"
+
+msgid "data[Cohorte][][Titrecreancier][selection]"
+msgstr "Sélectionner"
+
+msgid "data[Cohorte][][Titrecreancier][commentairevalidateur]"
+msgstr "Commentaire de validation"
+
+msgid "data[Cohorte][][Titrecreancier][dtvalidation]"
+msgstr "Date de validation"
+
+msgid "/Titrescreanciers/cohorte_transmissioncompta/:heading"
+msgstr "Cohorte de transmission compta"
+
+msgid "Titrescreanciers.cohorte_transmissioncompta"
+msgstr "Recherche par titre de recette"
+
+msgid "/Titrescreanciers/cohorte_retourcompta/:heading"
+msgstr "Cohorte de retour compta"
+
+msgid "Titrescreanciers.cohorte_retourcompta"
+msgstr "Recherche par titre de recette"
+
+msgid "Search.Titrescreanciers"
+msgstr "Recherche par créance et titre de recette"
+
+msgid "Creance::search::orgcre"
+msgstr "Origine de la créance"
+
+msgid "Creance::search::motiindu"
+msgstr "Motif de l'indu"
+
+msgid "Creance::search::dtimplcre"
+msgstr "Plage de date d'implémentation"
+
+msgid "Creance::search::moismoucompta"
+msgstr "Plage de date de transfert"
+
+msgid "Titrecreancier::cohortetransmission::exporttitle"
+msgstr "Exporter le CSV FICA"
+
+msgid "Titrecreancier::cohortetransmission::exportpopuptext"
+msgstr "Voulez exporter en le fichier FICA ?"
+
+# ==============================================================================
+
+msgid "Titrecreancier::cohorte::coche"
+msgstr "Tout cocher"
+
+msgid "Titrecreancier::cohorte::decoche"
+msgstr "Tout décocher"

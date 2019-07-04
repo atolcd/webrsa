@@ -2,7 +2,7 @@
 	/**
 	 * Code source de la classe CreancesController.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
@@ -32,6 +32,8 @@
 		 * @var array
 		 */
 		public $components = array(
+			'Cohortes',
+			'Gedooo.Gedooo',
 			'Default',
 			'DossiersMenus',
 			'Jetons2',
@@ -40,6 +42,7 @@
 			'Search.SearchPrg' => array(
 				'actions' => array(
 					'dossierEntrantsCreanciers',
+					'cohorte_preparation' => array('filter' => 'Search'),
 					'search',
 				),
 			)
@@ -131,6 +134,7 @@
 			'delete' => 'Creances:add',
 			'nonemission' => 'Creances:index',
 			'view' => 'Creances:index',
+			'exportcsv_preparation' => 'Creances:cohorte_preparation',
 		);
 
         protected function _setOptions() {
@@ -834,6 +838,22 @@
             $this->_setOptions();
 			$this->layout = '';
 			$this->set( compact( 'headers', 'dossierEntrantsCreanciers' ) );
+		}
+
+		/**
+		 * Cohorte
+		 */
+		public function cohorte_preparation() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesCreances' );
+			$Cohortes->cohorte( array( 'modelRechercheName' => 'WebrsaCohorteCreance' ) );
+		}
+
+		/**
+		 * Export CSV
+		 */
+		public function exportcsv_preparation() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesCreances' );
+			$Cohortes->exportcsv( array( 'modelRechercheName' => 'WebrsaCohorteCreance' ) );
 		}
 
 	}

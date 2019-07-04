@@ -47,6 +47,7 @@
 					'edit',
 					'avis',
 					'valider',
+					'exportfica',
 					'retourcompta',
 					'filelink',
 					'Titressuivis.index'
@@ -149,6 +150,23 @@
 		 */
 		protected static function _valider(array $record, array $params) {
 			if ($record['Titrecreancier']['etat'] == 'VALIDAVIS' ) {
+				return true;
+			}
+			return false;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _exportfica(array $record, array $params) {
+			if (
+				$record['Titrecreancier']['etat'] == 'ATTRETOURCOMPTA'
+				|| $record['Titrecreancier']['etat'] == 'ATTENVOICOMPTA'
+			) {
 				return true;
 			}
 			return false;

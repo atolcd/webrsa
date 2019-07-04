@@ -67,6 +67,25 @@
 					'url' => array( 'controller' => 'contratsinsertion', 'action' => 'cohorte_valides' )
 				),
 			),
+			'Creances' => array(
+				'disabled' => ( !Configure::read('Module.Creances.GestionList') ),
+				'Preparation' => array(
+					'class' => 'search',
+					'url' => array( 'controller' => 'creances', 'action' => 'cohorte_preparation' )
+				),
+				'Validation' => array(
+					'class' => 'search',
+					'url' => array( 'controller' => 'titrescreanciers', 'action' => 'cohorte_validation' )
+				),
+				'Transmission compta' => array(
+					'class' => 'search',
+					'url' => array( 'controller' => 'titrescreanciers', 'action' => 'cohorte_transmissioncompta' )
+				),
+				'Retour compta' => array(
+					'class' => 'search',
+					'url' => array( 'controller' => 'titrescreanciers', 'action' => 'cohorte_retourcompta' )
+				),
+			),
 			'Fiches de candidature' => array(
 				'disabled' => ( $departement != 66 ),
 				'Fiches en attente' => array( 'class' => 'search', 'url' => array( 'controller' => 'actionscandidats_personnes', 'action' => 'cohorte_enattente' ) ),

@@ -388,7 +388,7 @@
 		 * @return type
 		 */
 		public function printCohorteLink( $title, $url, $enabled = true, $confirmMessage = 'Etes-vous sûr de vouloir imprimer la cohorte ?', $elementName = 'popup' ) {
-			$content = $this->image( 'icons/printer.png', array( 'alt' => '' ) ).' Imprimer la cohorte';
+			$content = $this->image( 'icons/printer.png', array( 'alt' => '' ) ).' '.$title;
 
 			if( $enabled ) {
 				$View = new View( null, false );

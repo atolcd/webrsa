@@ -8,6 +8,8 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'AppModel', 'Model' );
+	App::uses( 'AppModel', 'Creance' );
+	App::uses( 'AppModel', 'Paiementfoyer' );
 
 	/**
 	 * La classe TitreCreance ...
@@ -327,5 +329,226 @@
 			}
 			return $success;
 		 }
+
+		/**
+		 * Génération des informations récuperer pour la créaction d'un titre créancier.
+		 *
+		 * @param array $titrecreancier tableau d'informations de base
+		 * @param integer $creance_id id technique de la créance dont récuperer les infos
+		 * @param integer $foyer_id id technique du foyer dont récuperer les infos
+		 *
+		 * @return array $titrecreancier tableau d'informations remplis
+		 *
+		**/
+		public function getInfoTitrecreancier($titrecreancier =array(), $creance_id = null, $foyer_id = null ){
+
+			if (!is_null($creance_id)){
+				/* get value from Créance */
+				$creances = $this->Creance->find('first',
+					array(
+						'conditions' => array(
+							'Creance.id ' => $creance_id
+						),
+						'contain' => false
+					)
+				);
+				if ( !empty ($creances['Creance'] ) ) {
+					$titrecreancier['Titrecreancier']['mnttitr'] = $creances['Creance']['mtsolreelcretrans'];
+				}
+			}
+
+			if (!is_null($foyer_id)){
+				/* get nom, prénom, nir du bénéficiaire */
+				$personne = $this->Creance->Foyer->Personne->find('first',
+					array(
+						'conditions' => array(
+							'Foyer.id ' => $foyer_id,
+							'Prestation.rolepers' => 'DEM'
+						),
+						'contain' => array (
+							'Foyer',
+							'Prestation'
+						)
+					)
+				);
+				if ( !empty ($personne['Personne'] ) ) {
+					$titrecreancier['Titrecreancier']['qual'] = $personne['Personne']['qual'] ;
+					$titrecreancier['Titrecreancier']['nom'] = $personne['Personne']['nom']." ". $personne['Personne']['prenom']  ;
+					$titrecreancier['Titrecreancier']['nir'] = $personne['Personne']['nir'] ;
+					$titrecreancier['Titrecreancier']['numtel'] =( $personne['Personne']['numfixe'] == null ) ? $personne['Personne']['numport'] : $personne['Personne']['numfixe'] ;
+				}
+
+				/* get nom, prénom, nir du bénéficiaire */
+				$personne = $this->Creance->Foyer->Personne->find('first',
+					array(
+						'conditions' => array(
+							'Foyer.id ' => $foyer_id,
+							'Prestation.rolepers' => 'CJT'
+						),
+						'contain' => array (
+							'Foyer',
+							'Prestation'
+						)
+					)
+				);
+				if ( !empty ($personne['Personne'] ) ) {
+					$titrecreancier['Titrecreancier']['qualcjt'] = $personne['Personne']['qual'] ;
+					$titrecreancier['Titrecreancier']['nomcjt'] = $personne['Personne']['nom']." ". $personne['Personne']['prenom']  ;
+					$titrecreancier['Titrecreancier']['nircjt'] = $personne['Personne']['nir'] ;
+				}
+
+				/* get RIB from RIB foyer */
+				$infoRib = $this->Creance->Foyer->find('first',
+					array(
+						'conditions' => array(
+							'Foyer.id ' => $foyer_id
+						),
+						'contain' => array (
+							'Paiementfoyer'
+						)
+					)
+				);
+				if ( !empty ($infoRib['Paiementfoyer'] ) ) {
+					$titrecreancier['Titrecreancier']['titulairecompte'] =
+						(__d('paiementfoyer', 'ENUM::TITURIB::'.$infoRib['Paiementfoyer'][0]['titurib'] ))
+						.' '.$infoRib['Paiementfoyer'][0]['nomprenomtiturib'];
+
+					$titrecreancier['Titrecreancier']['iban'] =
+						$infoRib['Paiementfoyer'][0]['numdebiban']
+						.$infoRib['Paiementfoyer'][0]['etaban']
+						.$infoRib['Paiementfoyer'][0]['guiban']
+						.$infoRib['Paiementfoyer'][0]['numcomptban']
+						.$infoRib['Paiementfoyer'][0]['clerib']
+						.$infoRib['Paiementfoyer'][0]['numfiniban'] ;
+					$titrecreancier['Titrecreancier']['bic'] = $infoRib['Paiementfoyer'][0]['bic'];
+					$titrecreancier['Titrecreancier']['comban'] = $infoRib['Paiementfoyer'][0]['comban'];
+				}
+
+				/* get Adresse from Adresse foyer */
+				$infoAdress = $this->Creance->Foyer->Adressefoyer->find('all',
+					array(
+						'conditions' => array(
+							'Foyer.id ' => $foyer_id,
+							'Adressefoyer.rgadr' => '01'
+						),
+						'contain' => array (
+							'Adresse',
+							'Foyer'
+						)
+					)
+				);
+				$titrecreancier['Titrecreancier']['dtemm'] = $infoAdress[0]['Adressefoyer']['dtemm'];
+				$titrecreancier['Titrecreancier']['typeadr'] = $infoAdress[0]['Adressefoyer']['typeadr'];
+				$titrecreancier['Titrecreancier']['etatadr'] = $infoAdress[0]['Adressefoyer']['etatadr'];
+				$titrecreancier['Titrecreancier']['complete'] = $infoAdress[0]['Adresse']['complete'];
+				$titrecreancier['Titrecreancier']['localite'] = $infoAdress[0]['Adresse']['localite'];
+			}
+
+			return $titrecreancier;
+		}
+
+		/**
+		 * Génération des informations récuperer pour le fichier FICA.
+		 *
+		 * @param array $titrecreanciers_ids tableau des id techniques des titrescreanciers dont récuperer les infos
+		 *
+		 * @return array $infosFICA tableau CSV remplis
+		 *
+		**/
+		public function buildfica($titrecreanciers_ids = array() ){
+			$infosFICA[] = array ('PAIEMENT','CODTIERS','REF','SCC','MONTANT','LIBVIR','OBJET','OBS','OBS2','RIB',
+			'LIBRIB','DESTCIVILITE','DESTNOM','DESTPRENOM','DESTCODPOSTAL','DESTCOMMUNE','DESTADRESSE','DESTADRESSE2',
+			'DOSSIER','PRESTATION','DECINUM','DECIREM','DECIDAT','DECIDATEFF','DECIDATFIN','DECINATURE','DECIPERIOD','DECIMONTANT',
+			'BENECIVILITE','BENENOM','BENEPRENOM','BENECODPOSTAL','BENECOMMUNE','BENEADRESSE','BENEADRESSE2','BENEDATNAIS','$VCODE.016');
+			foreach ( $titrecreanciers_ids as $key => $titrecreancier_id  ) {
+				$infoFICA = array();
+				$infosFICA[] = $this->getInfoFICA($infoFICA, $titrecreancier_id);
+			}
+			return $infosFICA ;
+		}
+
+		/**
+		 * Génération des informations récuperer pour le fichier FICA.
+		 *
+		 * @param array $titrecreancier tableau d'informations de base
+		 * @param integer $titrecreancier_id id technique du titrecreancier dont récuperer les infos
+		 *
+		 * @return array $titrecreancier tableau d'informations remplis
+		 *
+		**/
+		public function getInfoFICA($infoFICA = array(), $titrecreancier_id = null ){
+			$creance_id = $this->creanceId( $titrecreancier_id );
+			$foyer_id = $this->foyerId( $creance_id );
+
+			if (!is_null($titrecreancier_id)){
+				/* get value from Titrecreancier */
+				$titrecreancier = $this->find('first',
+					array(
+						'conditions' => array(
+							'Titrecreancier.id ' => $titrecreancier_id
+						),
+						'contain' => false
+					)
+				);
+				//ListMotifs
+				$listMotifs = $this->Creance->Motifemissioncreance->find(
+					'list',
+					array(
+						'fields' => array ('id', 'nom')
+					)
+				);
+
+				if ( !empty ($titrecreancier['Titrecreancier'] ) ) {
+
+					$infoFICA['PAIEMENT'] = Configure::read('Creances.FICA.TypePaiement');
+					$infoFICA['CODTIERS'] = Configure::read('Creances.FICA.CodeTiers');
+					$infoFICA['REF'] = $titrecreancier_id;
+					$infoFICA['SCC'] = Configure::read('Creances.FICA.SCC');
+
+					$infoFICA['MONTANT'] = $titrecreancier['Titrecreancier']['mnttitr'] ;
+
+					$infoFICA['LIBVIR'] = $listMotifs[$titrecreancier['Titrecreancier']['motifemissiontitrecreancier_id']];
+					$infoFICA['OBJET'] = '';
+					$infoFICA['OBS'] = $titrecreancier['Titrecreancier']['mention'];
+					$infoFICA['OBS2'] = $titrecreancier['Titrecreancier']['commentairevalidateur'];
+
+					if ( !empty ($titrecreancier['Titrecreancier']['bic']) ) {
+						$infoFICA['RIB'] = $titrecreancier['Titrecreancier']['iban'];
+					}else{
+						$infoFICA['RIB'] = $titrecreancier['Titrecreancier']['bic'].$titrecreancier['Titrecreancier']['iban'];						
+					}
+
+					if ( empty($infoFICA['CODTIERS']) || $infoFICA['CODTIERS'] == 999999 ){
+						$infoFICA['LIBRIB'] = $titrecreancier['Titrecreancier']['titulairecompte'];
+
+						$infoFICA['DESTCIVILITE'] = $titrecreancier['Titrecreancier']['qual'] ;
+						if (!is_null($foyer_id)){
+							/* get nom, prénom, nir du bénéficiaire */
+							$personne = $this->Creance->Foyer->Personne->find('first',
+								array(
+									'conditions' => array(
+										'Foyer.id ' => $foyer_id,
+										'Prestation.rolepers' => 'DEM'
+									),
+									'contain' => array (
+										'Foyer',
+										'Prestation'
+									)
+								)
+							);
+							if ( !empty ($personne['Personne'] ) ) {
+								$infoFICA['DESTNOM'] = $personne['Personne']['nom'];
+								$infoFICA['DESTPRENOM'] = $personne['Personne']['prenom']  ;
+							}
+						}
+						$infoFICA['DESTCODPOSTAL'] = substr($titrecreancier['Titrecreancier']['localite'], 0, 5);
+						$infoFICA['DESTCOMMUNE'] = substr($titrecreancier['Titrecreancier']['localite'], 5);
+						$infoFICA['DESTADRESSE'] = $titrecreancier['Titrecreancier']['complete'];
+						$infoFICA['DESTADRESSE2'] = '';
+					}
+				}
+			}
+			return $infoFICA;
+		}
 
 	}

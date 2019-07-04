@@ -1,42 +1,28 @@
 <?php
 	/**
-	 * Code source de la classe WebrsaRechercheCreance.
+	 * Code source de la classe WebrsaCohorteCreance.
 	 *
 	 * PHP 7.2
 	 *
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses( 'AbstractWebrsaRecherche', 'Model/Abstractclass' );
+	App::uses( 'AbstractWebrsaCohorte', 'Model/Abstractclass' );
 	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
 
 	/**
-	 * La classe WebrsaRechercheCreance ...
+	 * La classe WebrsaCohorteCreance ...
 	 *
 	 * @package app.Model
 	 */
-	class WebrsaRechercheCreance extends AbstractWebrsaRecherche
+	class WebrsaCohorteCreance extends AbstractWebrsaCohorte
 	{
 		/**
 		 * Nom du modèle.
 		 *
 		 * @var string
 		 */
-		public $name = 'WebrsaRechercheCreance';
-
-		/**
-		 * Liste des clés de configuration utilisées par le moteur de recherche,
-		 * pour vérification du paramétrage.
-		 *
-		 * @see checkParametrage()
-		 *
-		 * @var array
-		 */
-		public $keysRecherche = array(
-			'ConfigurableQueryCreances.search.fields',
-			'ConfigurableQueryCreances.search.innerTable',
-			'ConfigurableQueryCreances.exportcsv'
-		);
+		public $name = 'WebrsaCohorteCreance';
 
 		/**
 		 * Modèles utilisés par ce modèle.
@@ -44,10 +30,26 @@
 		 * @var array
 		 */
 		public $uses = array(
+			'Allocataire',
 			'Creance',
+			'Canton',
 			'Dossier',
 			'Foyer',
-			'Allocataire'
+			'Creance',
+			'Titrecreancier'
+		);
+
+		/**
+		 * Liste des champs de formulaire à inserer dans le tableau de résultats
+		 *
+		 * @var array
+		 */
+		public $cohorteFields = array(
+			'Creance.id' => array( 'type' => 'hidden' ),
+			'Creance.foyer_id' => array( 'type' => 'hidden' ),
+			'Creance.selection' => array( 'type' => 'checkbox' ),
+			'Creance.cjtactif' => array( 'type' => 'checkbox' ),
+			'Creance.instructionencours' => array( 'type' => 'checkbox' ),
 		);
 
 		/**
@@ -58,15 +60,9 @@
 		 * @return array
 		 */
 		public function searchQuery( array $types = array() ) {
-			$cacheKey = Inflector::underscore( $this->useDbConfig ).
-			'_'.Inflector::underscore( $this->alias ).
-			'_'.Inflector::underscore( __FUNCTION__ );
-			$query = Cache::read( $cacheKey );
+			$departement = (int)Configure::read( 'Cg.departement' );
 
-			if( $query === false ) {
-				$departement = (int)Configure::read( 'Cg.departement' );
-
-				$types += array(
+			$types += array(
 					'Calculdroitrsa' => 'LEFT OUTER',
 					'Foyer' => 'INNER',
 					'Prestation' => $departement == 66 ? 'LEFT OUTER' : 'INNER',
@@ -76,11 +72,15 @@
 					'Adresse' => 'LEFT OUTER',
 					'Situationdossierrsa' => 'LEFT OUTER',
 					'Detaildroitrsa' => 'LEFT OUTER',
-					'Creance' => 'INNER JOIN'
-				);
+					'Creance' => 'INNER JOIN',
+					'Titrecreancier' => 'LEFT OUTER JOIN'
+			);
+			$cacheKey = Inflector::underscore( $this->useDbConfig ).'_'.Inflector::underscore( $this->alias ).'_'.Inflector::underscore( __FUNCTION__ ).'_'.sha1( serialize( $types ) );
+			$query = Cache::read( $cacheKey );
+
+			if( $query === false ) {
 				$query = $this->Allocataire->searchQuery( $types, 'Creance' );
 
-				// Ajout des spécificités du moteur de recherche
 				// 1. Ajout des champs supplémentaires
 				$query['fields'] = array_merge(
 					$query['fields'],
@@ -89,6 +89,13 @@
 							$this->Creance,
 							$this->Foyer
 						)
+					),
+					// Champs nécessaires au traitement de la search
+					array(
+						'Personne.id',
+						'Dossier.id',
+						'Creance.id',
+						'Creance.foyer_id'
 					)
 				);
 
@@ -128,6 +135,9 @@
 						$this->Dossier->Foyer->Personne->Orientstruct->join( 'Typeorient', array( 'type' => 'LEFT OUTER' ) ),
 					)
 				);
+
+				// 4. Tri par défaut
+				//$query['order'] = array( 'Contratinsertion.df_ci' => 'ASC' );
 
 				Cache::write( $cacheKey, $query );
 			}
@@ -182,13 +192,14 @@
 				$query['conditions'][] = " Creance.etat LIKE '".$etatcreance."'"  ;
 			}
 
-			// if hastitrecreancier checked then Creances.hasTitreCreancier > 0 
-			$etat_hastitrecreancier = (string)Hash::get( $search, 'Creance.hastitrecreancier' );
-			if ($etat_hastitrecreancier === '1') {
+			// if sanstitrecreancier checked then Titrecreancier.id IS NULL
+			$sanstitrecreancier = (string)Hash::get( $search, 'Creance.sanstitrecreancier' );
+			if ($sanstitrecreancier === '1') {
+				$query['conditions'][] = " Titrecreancier.id IS NULL ";
 				$query['joins'][] = array (
 					'table' => '"titrescreanciers"',
 					'alias' => 'Titrecreancier',
-					'type' => 'INNER',
+					'type' => 'LEFT OUTER ',
 					'conditions' => '"Titrecreancier"."creance_id" = "Creance"."id"'
 				);
 			}
@@ -219,8 +230,78 @@
 					$query['conditions'][] = 'NOT ' . $sql;
 				}
 			}
-
 			return $query;
 		}
+
+		/**
+		 * Tentative de sauvegarde de nouveaux dossiers de COV pour la thématique
+		 * à partir de la cohorte.
+		 *
+		 * @param array $data
+		 * @param array $params
+		 * @param integer $user_id
+		 * @return boolean
+		 */
+		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
+			$success = true;
+
+			//Pour chaque ligne
+			foreach ( $data as $key => $value ) {
+				// Si non selectionné, on retire tout
+				if ( $value['Creance']['selection'] === '0' ) {
+					unset($data[$key]);
+					continue;
+				}else{
+
+					//Initialisation
+					$this->Titrecreancier->begin();
+					$creance_id = $value['Creance']['id'];
+					$titrecreancier = array();
+
+					//Remplissage des données depuis la créance
+					$titrecreancier = $this->Titrecreancier->getInfoTitrecreancier($titrecreancier, $value['Creance']['id'], $value['Creance']['foyer_id'] );
+
+					//Rajout des données manquantes
+					$titrecreancier['Titrecreancier']['creance_id'] = $creance_id;
+					$titrecreancier['Titrecreancier']['etat'] = 'CREE';
+					$titrecreancier['Titrecreancier']['dtemissiontitre'] = date("Y-m-d");
+					$titrecreancier['Titrecreancier']['instructionencours'] = $value['Creance']['instructionencours'];
+					$titrecreancier['Titrecreancier']['mntinit'] = $titrecreancier['Titrecreancier']['mnttitr'];
+					$titrecreancier['Titrecreancier']['cjtactif'] = $value['Creance']['cjtactif'];
+
+					//Validation de la sauvegarde
+					if( $this->Titrecreancier->saveAll( $titrecreancier, array( 'validate' => 'only' ) ) ) {
+						if( $this->Titrecreancier->saveAll( $titrecreancier, array( 'atomic' => false ) ) ) {
+							if (
+								!$this->Creance->setEtatOnForeignChange($creance_id,$titrecreancier['Titrecreancier']['etat'])
+							){
+								$success = false;
+								break;
+							}
+						} else {
+							$success = false;
+							break;
+						}
+					} else {
+						debug($this->Titrecreancier->validationErrors);
+						$success = false;
+						break;
+					}
+				}
+			}
+
+			// Si aucun n'a échoué et qu'on as pas tout vidé
+			if($success && !empty($data) ){
+				//On commit à la BDD
+				$this->Creance->commit();
+				$this->Titrecreancier->commit();
+			}else{
+				//Sinon nétoyage total
+				$this->Creance->rollback();
+				$this->Titrecreancier->rollback();
+				$success = false;
+			}
+
+			return $success;
+		}
 	}
-?>

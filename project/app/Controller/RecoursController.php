@@ -116,7 +116,7 @@
 				)
 			);
 			$avispcg = $this->Avispcgdroitrsa->find( 'first', $qd_avispcg );
-debug($avispcg);
+
 
 			$this->set( 'dossier_id', $dossier_id );
 			$this->set( 'urlmenu', '/indus/index/'.$dossier_id );

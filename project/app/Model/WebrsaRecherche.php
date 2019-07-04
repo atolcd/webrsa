@@ -321,6 +321,42 @@
 				'component' => 'WebrsaRecherchesCreances',
 				'keys' => array( 'results.fields' )
 			),
+			'Creances.cohorte_preparation' => array(
+				'modelName' => 'Creance',
+				'modelRechercheName' => 'WebrsaCohorteCreance',
+				'component' => 'WebrsaCohortesCreances',
+				'keys' => array( 'results.fields', 'results.innerTable' )
+			),
+			'Creances.exportcsv_preparation' => array(
+				'modelName' => 'Creance',
+				'modelRechercheName' => 'WebrsaCohorteCreance',
+				'component' => 'WebrsaCohortesCreances',
+				'keys' => array( 'results.fields' )
+			),
+			'Titrescreanciers.cohorte_validation' => array(
+				'modelName' => 'Titrecreancier',
+				'modelRechercheName' => 'WebrsaCohorteTitrecreancierValidation',
+				'component' => 'WebrsaCohortesTitrescreanciers',
+				'keys' => array( 'results.fields', 'results.innerTable' )
+			),
+			'Titrescreanciers.exportcsv_validation' => array(
+				'modelName' => 'Titrecreancier',
+				'modelRechercheName' => 'WebrsaCohorteTitrecreancierValidation',
+				'component' => 'WebrsaCohortesTitrescreanciers',
+				'keys' => array( 'results.fields' )
+			),
+			'Titrescreanciers.cohorte_transmissioncompta' => array(
+				'modelName' => 'Titrecreancier',
+				'modelRechercheName' => 'WebrsaCohorteTitrecreancierTransmissioncompta',
+				'component' => 'WebrsaCohortesTitrescreanciers',
+				'keys' => array( 'results.fields', 'results.innerTable' )
+			),
+			'Titrescreanciers.exportcsv_transmissioncompta' => array(
+				'modelName' => 'Titrecreancier',
+				'modelRechercheName' => 'WebrsaCohorteTitrecreancierTransmissioncompta',
+				'component' => 'WebrsaCohortesTitrescreanciers',
+				'keys' => array( 'results.fields' )
+			),
 			'Defautsinsertionseps66.search_noninscrits' => array(
 				'departement' => 66,
 				'modelName' => 'Personne',
