@@ -320,6 +320,7 @@
 				'legend' => false,
 				'fieldset' => false,
 				'options' => array(),
+				'showParents' => true,
 				'hidden_empty' => array()
 			);
 
@@ -344,6 +345,10 @@
 
 				if( !isset( $fieldParams['options'] ) && Hash::check( $params['options'], $field ) ) {
 					$fieldParams['options'] = Hash::get( $params['options'], $field );
+				}
+
+				if(!isset( $fieldParams['showParents'] ) || ( empty( $fieldParams['showParents'] ) && ( $fieldParams['showParents'] !== false ) ) ) {
+					$fieldParams['showParents'] = $params['showParents'];
 				}
 
 				$inputs[$field] = (array)$fieldParams;
