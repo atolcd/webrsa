@@ -7,7 +7,7 @@
 
 	//Visualisation des Créances
 	if( empty( $titresCreanciers ) ) {
-		echo '<p class="notice">Cette creance ne possède pas de Titres creanciers liée</p>';
+		echo '<p class="notice">Cette creance ne possède pas de Titres de recette lié</p>';
 	}else{
 		echo $this->Default3->index(
 			$titresCreanciers,
@@ -16,9 +16,8 @@
 					'Titrecreancier.numtitr',
 					'Titrecreancier.dtemissiontitre',
 					'Titrecreancier.mnttitr',
-					'Titrecreancier.etat',
-					'Titrecreancier.dtvalidation',
-					'Titrecreancier.mention',
+					'Titrecreancier.etatDepuis',
+					'Titrecreancier.acommentaire' => array('type' => 'boolean', 'title' => $titresCreanciers[0]['Titrecreancier']['mention'] ),
 				)+ WebrsaAccess::links(
 					array(
 						'/Titrescreanciers/view/#Titrecreancier.id#'

@@ -41,7 +41,7 @@ msgid "Titressuivisautresinfos::index::titleFileupload"
 msgstr "Fichiers liés"
 
 msgid "Titressuivisautresinfos::index::emptyTitrecreancier"
-msgstr "Cette creance ne possède pas de Titres creanciers liée"
+msgstr "Cette créance ne possède pas de titres de recette lié"
 
 msgid "Titresuiviautreinfo::index::titleTitreAutreInfo"
 msgstr "Autre information"

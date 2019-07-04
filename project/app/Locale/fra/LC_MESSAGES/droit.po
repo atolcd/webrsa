@@ -4128,7 +4128,7 @@ msgid "controllers/Titrescreanciers"
 msgstr "Titres créanciers"
 
 msgid "controllers/Titrescreanciers/index"
-msgstr "Visualisation des Titres de recettes"
+msgstr "Visualisation des Titres de recette"
 
 msgid "controllers/Titrescreanciers/view"
 msgstr "Visualisation d'un Titre de recette"
@@ -4156,16 +4156,16 @@ msgstr "Ajout de Fichiers"
 
 ###############################################################################
 msgid "controllers/Typestitrescreanciers"
-msgstr "Paramétrages, type des Titres de recettes"
+msgstr "Paramétrages, type des Titres de recette"
 
 msgid "controllers/Typestitrescreanciers/index"
-msgstr "Liste des type des Titres de recettes"
+msgstr "Liste des type des Titres de recette"
 
 msgid "controllers/Typestitrescreanciers/edit"
-msgstr "Ajout/Modification d'un type des Titres de recettes"
+msgstr "Ajout/Modification d'un type des Titres de recette"
 
 msgid "controllers/Typestitrescreanciers/delete"
-msgstr "Suppression d'un type des Titres de recettes"
+msgstr "Suppression d'un type des Titres de recette"
 
 ###############################################################################
 msgid "controllers/Motifsemissionscreances"

@@ -440,6 +440,14 @@
 						if( $needsSave ) {
 							if( $this->saveAll( $creances, array( 'atomic' => false ) ) ) {
 								$return = true;
+								$this->Historiqueetat->setHisto(
+									$this->name,
+									$creance_id,
+									$creances['Creance']['foyer_id'],
+									$this->action,
+									$creances['Creance']['etat'],
+									$creances['Creance']['foyer_id']
+								);
 								$this->commit();
 							}else{
 								$this->rollback();
