@@ -98,6 +98,9 @@ msgstr "Active"
 msgid "Structurereferente.typestructure"
 msgstr "Type de structure"
 
+msgid "Dreesorganisme.lib_dreesorganisme"
+msgstr "Type d'organisme"
+
 msgid "/Structuresreferentes/edit"
 msgstr "Modifier"
 
