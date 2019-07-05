@@ -178,6 +178,20 @@
 				array( 'Rendezvous.communautesr_id' => 'Rendezvous.structurereferente_id' )
 			);
 
+			$from = (array)Hash::get( $search, 'Rendezvous.arevoirle' ) + array( 'day' => '01' );
+			if( valid_date( $from ) ) {
+				$to = strtotime( 'last day of this month', strtotime( "{$from['year']}-{$from['month']}-{$from['day']}" ) );
+				$to = date_sql_to_cakephp( strftime( "%Y-%m-%d", $to ) );
+				$rdv = array(
+					'Rendezvous' => array(
+						'arevoirle' => '1',
+						'arevoirle_from' => $from,
+						'arevoirle_to' => $to
+					)
+				);
+				$query['conditions'] = $this->conditionsDates( $query['conditions'], $rdv, 'Rendezvous.arevoirle' );
+			}
+
 			return $query;
 		}
 	}

@@ -25,6 +25,7 @@
 				'Statutrdv.libelle',
 				'Rendezvous.daterdv',
 				'Rendezvous.heurerdv' => array('format' => '%Hh%M'),
+				'Rendezvous.arevoirle' => array( 'type' => 'date', 'format' => '%B %Y'),
 			) + WebrsaAccess::links(
 				array(
 					'/Rendezvous/view/#Rendezvous.id#',

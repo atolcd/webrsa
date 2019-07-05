@@ -67,6 +67,9 @@ msgstr "Objet du RDV"
 msgid "Rendezvous.commentairerdv"
 msgstr "Commentaires suite au RDV"
 
+msgid "Rendezvous.arevoirle"
+msgstr "À revoir le"
+
 msgid "Rendezvous::filelink"
 msgstr "Liste des fichiers liés au RDV"
 

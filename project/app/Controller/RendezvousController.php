@@ -340,22 +340,18 @@
 			}
 
 			$query = array(
-				'fields' => array(
-					'Rendezvous.id',
-					'Rendezvous.personne_id',
-					$this->Rendezvous->Personne->sqVirtualField( 'nom_complet' ),
-					'Structurereferente.lib_struc',
-					$this->Rendezvous->Referent->sqVirtualField( 'nom_complet' ),
-					'Permanence.libpermanence',
-					'Typerdv.libelle',
-					'Statutrdv.libelle',
-					'Rendezvous.daterdv',
-					'Rendezvous.heurerdv',
-					'Rendezvous.objetrdv',
-					'Rendezvous.commentairerdv',
-					'StatutrdvTyperdv.motifpassageep',
-					$this->Rendezvous->Fichiermodule->sqNbFichiersLies( $this->Rendezvous, 'nb_fichiers_lies' ),
-					'Rendezvous.statutrdv_id'
+				'fields' => array_merge(
+					$this->Rendezvous->fields(),
+					array(
+						$this->Rendezvous->Personne->sqVirtualField( 'nom_complet' ),
+						'Structurereferente.lib_struc',
+						$this->Rendezvous->Referent->sqVirtualField( 'nom_complet' ),
+						'Permanence.libpermanence',
+						'Typerdv.libelle',
+						'Statutrdv.libelle',
+						'StatutrdvTyperdv.motifpassageep',
+						$this->Rendezvous->Fichiermodule->sqNbFichiersLies( $this->Rendezvous, 'nb_fichiers_lies' )
+					)
 				),
 				'joins' => array(
 					$this->Rendezvous->join( 'Personne' ),
@@ -597,6 +593,10 @@
 
 			if( !empty( $this->request->data ) ) {
 				$this->Rendezvous->begin();
+
+				if( isset( $this->request->data['Rendezvous']['arevoirle'] ) ) {
+					$this->request->data['Rendezvous']['arevoirle']['day'] = '01';
+				}
 
 				$success = $this->Rendezvous->saveAll( $this->request->data, array( 'validate' => 'first', 'atomic' => false ) );
 
