@@ -518,7 +518,7 @@
 						$infoFICA['RIB'] = $titrecreancier['Titrecreancier']['bic'].$titrecreancier['Titrecreancier']['iban'];						
 					}
 
-					if ( empty($infoFICA['CODTIERS']) || $infoFICA['CODTIERS'] == 999999 ){
+					if ( $infoFICA['CODTIERS'] == 999999 ){
 						$infoFICA['LIBRIB'] = $titrecreancier['Titrecreancier']['titulairecompte'];
 
 						$infoFICA['DESTCIVILITE'] = $titrecreancier['Titrecreancier']['qual'] ;

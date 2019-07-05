@@ -83,7 +83,7 @@
 				),
 				'Retour compta' => array(
 					'class' => 'search',
-					'url' => array( 'controller' => 'titrescreanciers', 'action' => 'cohorte_retourcompta' )
+					'url' => array( 'controller' => 'titrescreanciers', 'action' => 'csv_retourcompta' )
 				),
 			),
 			'Fiches de candidature' => array(

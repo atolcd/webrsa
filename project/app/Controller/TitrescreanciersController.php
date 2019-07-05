@@ -1043,6 +1043,179 @@
 			$this->set( compact( 'dossier_id', 'personne_id', 'fichiers', 'titrescreanciers' ) );
 		}
 
+		/**
+		 * Cohorte
+		 */
+		public function csv_retourcompta() {
+			//Initialisation des variables
+			$uploadData = '';
+			$titrescreanciers = array();
+
+			//Vérification de l'existance d'un fichier
+            if( !empty($this->request->data) ){
+
+	            if( !empty($this->request->data['Titrecreancier']['file']['name']) ){
+					//Récupération des infos du fichier
+	                $fileName = $this->request->data['Titrecreancier']['file']['name'];
+					$uploadPath = 'uploads/files/';
+	                $uploadFile = $uploadPath.$fileName;
+					$tmpFileName = $this->request->data['Titrecreancier']['file']['tmp_name'];
+					$filecontents = file_get_contents($tmpFileName);
+
+					//Si le fichier est type CSV et que le contenu est lisible
+					if(!empty($filecontents) && $this->request->data['Titrecreancier']['file']['type'] == 'text/csv' ){
+						$lines = file( $tmpFileName );
+
+						//Pour Chaque ligne du fichier
+						foreach ( $lines as $key => $line ){
+							$delimiteur = Configure::read( 'Titrescreanciers.csvfica.delimiteur' );
+							$elements = explode($delimiteur,$line);
+
+							$reftitrecreancier = Configure::read( 'Titrescreanciers.csvfica.fieldid.reftitrecreancier' );
+							$refdtbordereau = Configure::read( 'Titrescreanciers.csvfica.fieldid.dtbordereau' );
+							$refnumtier = 	Configure::read( 'Titrescreanciers.csvfica.fieldid.numtier' );
+							$refnumbordereau = Configure::read( 'Titrescreanciers.csvfica.fieldid.numbordereau' );
+							$refnumtitr = Configure::read( 'Titrescreanciers.csvfica.fieldid.numtitr' );
+
+							//Si on as une référence de Titre créancier et qu'elle est numérique
+							if( isset($elements[$reftitrecreancier]) && is_numeric($elements[$reftitrecreancier]) ){
+								$titrecreancier_id = $elements[$reftitrecreancier];
+								// On cherche le titre créancier correspondant
+								$titrecreancier = $this->Titrecreancier->find('first',
+									array(
+										'fields' => $this->Titrecreancier->fields(),
+										'conditions' => array(
+											'Titrecreancier.id' => $titrecreancier_id
+										),
+										'contain' => false
+									)
+								);
+
+								// Si le titre créancier existe
+								if ( !empty($titrecreancier) ){
+									//On récupère dans le fichier les éléments attendus 
+									if( isset($elements[$refdtbordereau]) ){
+										//A voir si on doit testé la qualité et le type YYYY-mm-dd ou dd-MM-YYYY de la date
+										$dtbordereau = trim( $elements[$refdtbordereau] );
+										$titrecreancier['Titrecreancier']['dtbordereau'] = $dtbordereau;
+									}
+
+									if( isset($elements[$refnumtier]) ){
+										$numtier = trim( $elements[$refnumtier] );
+										$titrecreancier['Titrecreancier']['numtier'] = $numtier;
+									}
+
+									if( isset($elements[$refnumbordereau]) && is_numeric($elements[$refnumbordereau]) ){
+										$numbordereau = trim( $elements[$refnumbordereau] );
+										$titrecreancier['Titrecreancier']['numbordereau'] = $numbordereau;
+									}
+
+									if( isset($elements[$refnumtitr]) ){
+										$numtitr = trim( $elements[$refnumtitr] );
+										$titrecreancier['Titrecreancier']['numtitr'] = $numtitr;
+									}
+
+									//On set l'état du titre créancier
+									$titrecreancier['Titrecreancier']['etat'] = 'TITREEMIS';
+
+									//On agrége le tout en tableau pour la vue
+									$titrescreanciers[] = $titrecreancier;
+								}else{
+									$abandonedlines[]['ligneperdu'] = $elements;
+								}
+							}else{
+								$abandonedlines[$key]['ligneperdu'] = $elements;
+							}
+						}
+
+						/*
+						// En cas de besoin de sauvegarde en BDD ou sur serveur du contenu du fichier au future. 
+						if(move_uploaded_file($this->request->data['file']['tmp_name'],$uploadFile)){
+							$uploadData = $this->Files->newEntity();
+							$uploadData->name = $fileName;
+							$uploadData->path = $uploadPath;
+							$uploadData->created = date("Y-m-d H:i:s");
+							$uploadData->modified = date("Y-m-d H:i:s");
+							if ($this->Files->save($uploadData)) {
+								$this->Flash->success(__('File has been uploaded and inserted successfully.'));
+							}else{
+								$this->Flash->error(__('Unable to upload file, please try again.'));
+							}
+						}else{
+							$this->Flash->error(__('Unable to upload file, please try again.'));
+						}
+						*/
+
+						//Set des éléments pour la vue.
+						$this->set( 'options', (array)Hash::get( $this->Titrecreancier->options(), 'Titrecreancier' ) );
+						$this->set( compact( 'titrescreanciers', 'abandonedlines' ) );
+
+					}else{
+						$this->Flash->error(__('Unable to upload file, please try again.'));
+					}
+				}elseif(  !empty($this->request->data['Save']) ){
+					if ( $this->request->data['Save'] == 'Enregistrer' ){
+						$fail = false;
+
+						foreach ($this->request->data['Titrecreancier'] as $Titrecreancier){
+
+							//Formatage de la data
+							$data['Titrecreancier']['id'] = $Titrecreancier['id'];
+							$data['Titrecreancier']['creance_id'] = $Titrecreancier['creance_id'];
+							$data['Titrecreancier']['numtitr'] = $Titrecreancier['numtitr'];
+							$data['Titrecreancier']['dtbordereau'] = $Titrecreancier['dtbordereau'];
+							$data['Titrecreancier']['numbordereau'] = $Titrecreancier['numbordereau'];
+							$data['Titrecreancier']['numtier'] = $Titrecreancier['numtier'];
+							$data['Titrecreancier']['etat'] = $Titrecreancier['etat'];
+
+							$creance_id = $Titrecreancier['creance_id'];
+							$etat = $Titrecreancier['etat'];
+
+							$dossier_id = $this->Titrecreancier->dossierId( $creance_id );
+							$this->Jetons2->get( $dossier_id );
+
+							//Essay de Sauvegarde
+							if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) ) {
+								//Sauvegarde
+								if( $this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) ) {
+									// Sauvegarde du changement d'état des créances
+									if (
+										$this->Creance->setEtatOnForeignChange($creance_id,$etat)
+									){
+										$this->Jetons2->release( $dossier_id );
+									}else {
+										$fail = true;
+										break;
+									}
+								}else {
+									$fail = true;
+									break;
+								}
+							}else {
+								$fail = true;
+								break;
+							}
+						}
+
+						if ( $fail ) {
+							$this->Creance->rollback();
+							$this->Titrecreancier->rollback();
+							$this->Flash->error( __( 'Save->error' ) );
+						} else {
+							$this->Creance->commit();
+							$this->Titrecreancier->commit();
+							$this->Flash->success( __( 'Save->success' ) );
+						}
+
+						$this->redirect( array( 'action' => 'search' ) );
+					}
+				} elseif( isset( $this->request->data['Cancel'] ) ) {
+					// Retour au chargement du fichier en cas d'annulation
+					$this->redirect( array( 'action' => 'search' ) );
+				}
+			}
+	        $this->set('uploadData', $uploadData);
+		}
 
 		/**
 		 * Cohorte

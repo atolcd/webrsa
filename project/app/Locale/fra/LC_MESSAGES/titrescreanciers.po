@@ -93,6 +93,9 @@ msgstr "Validation du titre de recette"
 msgid "/Titrescreanciers/retourcompta/:heading"
 msgstr "Enregistrement du retour compta"
 
+msgid "/Titrescreanciers/csv_retourcompta/:heading"
+msgstr "Enregistrement des CSV de retour compta"
+
 msgid "/Titrescreanciers/filelink"
 msgstr "Fichiers liés (#Fichiermodule.nb_fichiers_lies#)"
 

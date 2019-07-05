@@ -42,7 +42,7 @@ msgid "ENUM::ETAT::NONVALID"
 msgstr "Titre non émis"
 
 msgid "ENUM::ETAT::ATTENVOICOMPTA"
-msgstr "Attente de génération du FICA"
+msgstr "En cours d’émission"
 
 msgid "ENUM::ETAT::ATTRETOURCOMPTA"
 msgstr "Attente retour compta"
