@@ -4,6 +4,7 @@
 		array(
 			'cells' => array(
 				'Piececomptable66.name',
+				'Piececomptable66.actif' => array( 'type' => 'boolean' ),
 				'/Piecescomptables66/edit/#Piececomptable66.id#' => array(
 					'title' => true
 				),

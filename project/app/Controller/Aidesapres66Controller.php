@@ -107,6 +107,9 @@
 					'fields' => array(
 						'Pieceaide66.id',
 						'Pieceaide66.name'
+					),
+					'conditions' => array(
+						'Pieceaide66.actif'
 					)
 				)
 			);

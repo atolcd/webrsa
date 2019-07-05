@@ -20,7 +20,8 @@
 					'multiple' => 'checkbox',
 					'fieldset' => true,
 					'class' => 'col2'
-				)
+				),
+				'Typeaideapre66.actif' => array( 'type' => 'checkbox' )
 			)
 		)
 	);

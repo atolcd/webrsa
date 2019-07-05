@@ -55,6 +55,9 @@ msgstr "Plafond de l'aide APRE"
 msgid "Typeaideapre66.objetaide"
 msgstr "Objet de l'aide"
 
+msgid "Typeaideapre66.actif"
+msgstr "Actif"
+
 msgid "Typesaidesapres66::delete::confirm"
 msgstr "Confirmer la suppression ?"
 
