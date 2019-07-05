@@ -56,3 +56,32 @@
 			)
 		)
 	);
+?>
+<br>
+<br>
+<br>
+<h2><?php echo (__d ('contratsinsertion_cg66', 'Contratinsertion.reglegestion.texte')); ?></h2>
+<ul>
+	<li><?php echo (__d ('contratsinsertion_cg66', 'Contratinsertion.reglegestion.epmaintien')); ?></li>
+	<li><?php echo (__d ('contratsinsertion_cg66', 'Contratinsertion.reglegestion.reorientation')); ?></li>
+</ul>
+<br>
+<h2><?php echo (__d ('contratsinsertion_cg66', 'Contratinsertion.reglegestion.epmaintien')); ?></h2>
+<ul>
+<?php
+	foreach ($datesEpParcoursDecisionMaintien as $item) {
+		$date = new DateTime ($item);
+		echo ('<li>'.$date->format ('d/m/Y').'</li>');
+	}
+?>
+</ul>
+<br>
+<h2><?php echo (__d ('contratsinsertion_cg66', 'Contratinsertion.reglegestion.reorientation')); ?></h2>
+<ul>
+<?php
+	foreach ($datesReorientationAutrePoleEmploi as $item) {
+		$date = new DateTime ($item);
+		echo ('<li>'.$date->format ('d/m/Y').'</li>');
+	}
+?>
+</ul>

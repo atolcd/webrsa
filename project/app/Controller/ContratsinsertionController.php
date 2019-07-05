@@ -11,6 +11,7 @@
 	App::uses( 'AppController', 'Controller' );
 	App::uses( 'WebrsaAccessContratsinsertion', 'Utility' );
 	App::uses( 'WebrsaPermissions', 'Utility' );
+	App::uses( 'WebrsaAccessOrientsstructs', 'Utility' );
 
 	/**
 	 * La classe ContratsinsertionController permet la gestion des contrats d'insertion au niveau du dossier
@@ -79,6 +80,7 @@
 			'Option',
 			'Personne',
 			'WebrsaContratinsertion',
+			'WebrsaOrientstruct',
 		);
 
 		/**
@@ -562,6 +564,9 @@
 			$this->datesEpParcoursDecisionMaintien = $this->getDatesEpParcoursDecisionMaintien($personne_id);
 			$this->datesReorientationAutrePoleEmploi = $this->getDatesReorientationsAutrePoleEmploi($personne_id);
 
+			$this->set('datesEpParcoursDecisionMaintien', array_reverse ($this->datesEpParcoursDecisionMaintien));
+			$this->set('datesReorientationAutrePoleEmploi', array_reverse ($this->datesReorientationAutrePoleEmploi));
+
 			foreach ($contratsinsertion as $index => $value) {
 				$contratsinsertion[$index]["Contratinsertion"]["totalCumulCER"] = $this->getDureeCER ($value);
 			}
@@ -693,6 +698,10 @@
 						|| (isset ($passage['Decisionsaisinebilanparcoursep66'][1]['decision']) && $passage['Decisionsaisinebilanparcoursep66'][1]['decision'] == 'maintien')
 						|| (isset ($passage['Decisionsaisinepdoep66'][1]['decision']) && $passage['Decisionsaisinepdoep66'][1]['decision'] == 'maintien')
 						|| (isset ($passage['Decisionnonorientationproep66'][1]['decision']) && $passage['Decisionnonorientationproep66'][1]['decision'] == 'maintien')
+						|| (isset ($passage['Decisiondefautinsertionep66'][0]['decision']) && $passage['Decisiondefautinsertionep66'][0]['decision'] == 'maintien')
+						|| (isset ($passage['Decisionsaisinebilanparcoursep66'][0]['decision']) && $passage['Decisionsaisinebilanparcoursep66'][0]['decision'] == 'maintien')
+						|| (isset ($passage['Decisionsaisinepdoep66'][0]['decision']) && $passage['Decisionsaisinepdoep66'][0]['decision'] == 'maintien')
+						|| (isset ($passage['Decisionnonorientationproep66'][0]['decision']) && $passage['Decisionnonorientationproep66'][0]['decision'] == 'maintien')
 					) {
 						$results[$passage ['Commissionep']['id']] = $passage ['Commissionep']['dateseance'];
 					}
@@ -712,23 +721,31 @@
 		 */
 		private function getDatesReorientationsAutrePoleEmploi($personne_id) {
 			$results = null;
-			$datesReorientation = $this->Contratinsertion->Personne->Orientstruct->find('all', array(
-				'conditions' => array(
-					'Orientstruct.personne_id' => $personne_id,
-					'Typeorient.lib_type_orient NOT LIKE' => '%Pôle emploi%',
-					'Orientstruct.origine LIKE' => 'reorientation',
 
-			),
-				'fields' => array('Orientstruct.date_valid', 'Orientstruct.origine', 'Orientstruct.personne_id', 'Typeorient.lib_type_orient'),
-				'order' => array('Orientstruct.date_valid' => 'ASC')
-			));
+			$Orientation = ClassRegistry::init ('Orientstruct');
 
-			if(isset($datesReorientation)) {
+			$query = $this->WebrsaOrientstruct->completeVirtualFieldsForAccess(
+				$this->WebrsaOrientstruct->getIndexQuery($personne_id)
+			);
+
+			$orientsstructs = $this->WebrsaOrientstruct->rangOrientationIndexOptions(
+				WebrsaAccessOrientsstructs::accesses($Orientation->find('all', $query), array())
+			);
+
+			if (isset ($orientsstructs)) {
 				$results = array();
-				foreach($datesReorientation as $key => $reorientation) {
-					$results[$key] = $reorientation['Orientstruct']['date_valid'];
+
+				foreach ($orientsstructs as $key => $orientation) {
+					if ($orientation['Orientstruct']['origine'] == 'reorientation'
+						&& $orientation['Orientstruct']['rgorient'] == 'Réorientation'
+						&& !preg_match ('%Pôle emploi%', $orientation['Typeorient']['lib_type_orient'])) {
+						$results[$key] = $orientation['Orientstruct']['date_valid'];
+					}
 				}
 			}
+
+			$results = array_reverse ($results);
+
 			return $results;
 		}
 

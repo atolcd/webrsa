@@ -70,6 +70,15 @@ msgstr "Cumul CER"
 msgid "Contratinsertion.totalCumulCER"
 msgstr "Cumul CER"
 
+msgid "Contratinsertion.reglegestion.texte"
+msgstr "Il y a une remise à zéro du cumul des CER après :"
+
+msgid "Contratinsertion.reglegestion.epmaintien"
+msgstr "EP avec décision de maintien"
+
+msgid "Contratinsertion.reglegestion.reorientation"
+msgstr "Réorientation de Pôle Emploi vers le Conseil Départemental"
+
 msgid "Contratinsertion.type_pacea"
 msgstr "Contrat PACEA"
 
