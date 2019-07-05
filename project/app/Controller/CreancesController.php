@@ -238,10 +238,13 @@
 			$this->set( 'listMotifs', $listMotifs );
 
 			// Historique de la créance
-			$historique = $this->Historiqueetat->getHisto($this->Creance->name, $creance_id, null, $foyer_id);
+			$historiques = $this->Historiqueetat->getHisto($this->Creance->name, $creance_id, null, $foyer_id);
+			foreach($historiques as $key => $histo ) {
+				$historiques[$key]['Historiqueetat']['etat'] = (__d('creance', 'ENUM::ETAT::' . $histo['Historiqueetat']['etat']));
+			}
 
 			// Assignations à la vue
-			$this->set( 'historique', $historique );
+			$this->set( 'historiques', $historiques );
 			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'creances', $creances );
 			$this->set( 'urlmenu', '/creances/view/'.$creance_id );
@@ -385,6 +388,14 @@
 				$data['Creance']['motifemissioncreance_id'] = $data['Creance']['Motifemissioncreance'];
 
 				if( $this->Creance->saveAll( $data, array( 'validate' => 'only' ) ) ) {
+					$this->Historiqueetat->setHisto(
+						$this->name,
+						$$id,
+						$data['Creance']['foyer_id'],
+						__FUNCTION__,
+						$data['Creance']['etat'],
+						$data['Creance']['foyer_id']
+					);
 					if( $this->Creance->save( $data ) ) {
 						$this->Creance->commit();
 						$this->Jetons2->release( $dossier_id );

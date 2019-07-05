@@ -50,10 +50,10 @@
 		);
 	}
 
-	if( isset($historique) && !empty($historique)) {
+	if( isset($historiques) && !empty($historiques)) {
 		echo '<br><br> <h1>' . __m('Creance::view::history') .  '</h1>';
 		echo $this->Default3->index(
-			$historique,
+			$historiques,
 			$this->Translator->normalize(
 				array(
 					'Historiqueetat.created' => array('type' => 'date', 'dateFormat' => 'DMY'),

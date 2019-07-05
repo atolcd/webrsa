@@ -257,7 +257,10 @@
 			);
 
 			// Historique de la créance
-			$historique = $this->Historiqueetat->getHisto($this->Titrecreancier->name, $titrecreancier_id, null, $creance_id);
+			$historiques = $this->Historiqueetat->getHisto($this->Titrecreancier->name, $titrecreancier_id, null, $creance_id);
+			foreach($historiques as $key => $histo ) {
+				$historiques[$key]['Historiqueetat']['etat'] = (__d('titrecreancier', 'ENUM::ETAT::' . $histo['Historiqueetat']['etat']));
+			}
 
 			// Assignations à la vue
 			$this->set( 'options', array_merge(
@@ -276,7 +279,7 @@
 			$this->set( 'listMotifs', $listMotifs );
 
 			$this->set( 'creance_id', $creance_id );
-			$this->set( 'historique', $historique );
+			$this->set( 'historique', $historiques );
 			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'creances', $creances );
 			$this->set( 'titresCreanciers', $titresCreanciers );
@@ -611,7 +614,7 @@
 									$this->name,
 									$titrecreancier_id,
 									$this->Titrecreancier->creanceId($titrecreancier_id),
-									$this->action, $data['etat'],
+									$this->action, $data['Titrecreancier']['etat'],
 									$this->Titrecreancier->foyerId( $this->Titrecreancier->creanceId( $titrecreancier_id ) )
 								);
 								$this->Creance->commit();
