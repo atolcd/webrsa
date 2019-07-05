@@ -483,6 +483,14 @@
 
 				if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) ) {
 					if( $this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) ) {
+						$this->Historiqueetat->setHisto(
+							$this->Titrecreancier->name,
+							$titrecreancier_id,
+							$data['Titrecreancier']['creance_id'],
+							__FUNCTION__,
+							$data['Titrecreancier']['etat'],
+							$this->Titrecreancier->foyerId($data['Titrecreancier']['creance_id'])
+						);
 						$this->Titrecreancier->commit();
 						$this->Jetons2->release( $dossier_id );
 						$this->Flash->success( __( 'Save->success' ) );
@@ -604,7 +612,7 @@
 									$titrecreancier_id,
 									$this->Titrecreancier->creanceId($titrecreancier_id),
 									$this->action, $data['etat'],
-									$this->Titrecreancier->foyerId( $this->Titrecreancier->creanceId( $titrecreancier_id ) ) 
+									$this->Titrecreancier->foyerId( $this->Titrecreancier->creanceId( $titrecreancier_id ) )
 								);
 								$this->Creance->commit();
 								$this->Titrecreancier->commit();
@@ -704,7 +712,7 @@
 			if ( !$success ) {
 				$this->Titrecreancier->rollback();
 				$this->Titrecreancier->id = $titrecreancier_id;
-				$this->redirect( array( 'action' => 'index', $creance_id ) );
+				$this->redirect( array( 'action' => 'index', $this->Titrecreancier->creanceId($titrecreancier_id) ) );
 			}else{
 				$this->Titrecreancier->commit();
 			}
@@ -1093,7 +1101,7 @@
 
 								// Si le titre créancier existe
 								if ( !empty($titrecreancier) ){
-									//On récupère dans le fichier les éléments attendus 
+									//On récupère dans le fichier les éléments attendus
 									if( isset($elements[$refdtbordereau]) ){
 										//A voir si on doit testé la qualité et le type YYYY-mm-dd ou dd-MM-YYYY de la date
 										$dtbordereau = trim( $elements[$refdtbordereau] );
@@ -1129,7 +1137,7 @@
 						}
 
 						/*
-						// En cas de besoin de sauvegarde en BDD ou sur serveur du contenu du fichier au future. 
+						// En cas de besoin de sauvegarde en BDD ou sur serveur du contenu du fichier au future.
 						if(move_uploaded_file($this->request->data['file']['tmp_name'],$uploadFile)){
 							$uploadData = $this->Files->newEntity();
 							$uploadData->name = $fileName;
@@ -1178,9 +1186,17 @@
 							if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) ) {
 								//Sauvegarde
 								if( $this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) ) {
-									// Sauvegarde du changement d'état des créances
+									// Sauvegarde du changement d'état des créances & historique du changement d'état du titre
 									if (
-										$this->Creance->setEtatOnForeignChange($creance_id,$etat)
+										$this->Creance->setEtatOnForeignChange($creance_id,$etat) &&
+										$this->Historiqueetat->setHisto(
+											$this->Titrecreancier->name,
+											$data['Titrecreancier']['id'],
+											$data['Titrecreancier']['creance_id'],
+											__FUNCTION__,
+											$data['Titrecreancier']['etat'],
+											$this->Titrecreancier->foyerId($data['Titrecreancier']['creance_id'])
+											)
 									){
 										$this->Jetons2->release( $dossier_id );
 									}else {

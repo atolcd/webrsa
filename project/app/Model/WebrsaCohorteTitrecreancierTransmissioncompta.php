@@ -64,7 +64,15 @@
 					if( $this->Titrecreancier->saveAll( $value, array( 'validate' => 'only' ) ) ) {
 						if( $this->Titrecreancier->saveAll( $value, array( 'atomic' => false ) ) ) {
 							if (
-								!$this->Creance->setEtatOnForeignChange($creance_id,$value['Titrecreancier']['etat'])
+								!$this->Creance->setEtatOnForeignChange($creance_id,$value['Titrecreancier']['etat']) &&
+								!$this->Historiqueetat->setHisto(
+									$this->Titrecreancier->name,
+									$value['Titrecreancier']['id'],
+									$creance_id,
+									'TransmissionCompta',
+									$value['Titrecreancier']['etat'],
+									$this->Titrecreancier->foyerId($creance_id)
+									)
 							){
 								$success = false;
 								break;

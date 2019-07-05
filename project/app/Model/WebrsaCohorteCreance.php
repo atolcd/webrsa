@@ -273,7 +273,15 @@
 					if( $this->Titrecreancier->saveAll( $titrecreancier, array( 'validate' => 'only' ) ) ) {
 						if( $this->Titrecreancier->saveAll( $titrecreancier, array( 'atomic' => false ) ) ) {
 							if (
-								!$this->Creance->setEtatOnForeignChange($creance_id,$titrecreancier['Titrecreancier']['etat'])
+								!$this->Creance->setEtatOnForeignChange($creance_id,$titrecreancier['Titrecreancier']['etat']) &&
+								!$this->Historiqueetat->setHisto(
+									$this->Titrecreancier->name,
+									$this->Titrecreancier->id,
+									$creance_id,
+									'cohorte_preparation',
+									$titrecreancier['Titrecreancier']['etat'],
+									$this->Titrecreancier->foyerId($creance_id)
+									)
 							){
 								$success = false;
 								break;
@@ -283,7 +291,6 @@
 							break;
 						}
 					} else {
-						debug($this->Titrecreancier->validationErrors);
 						$success = false;
 						break;
 					}

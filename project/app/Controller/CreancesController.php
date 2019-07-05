@@ -486,6 +486,14 @@
 
 				if( $this->Creance->saveAll( $data, array( 'validate' => 'only' ) ) ) {
 					if( $this->Creance->save( $data ) ) {
+						$this->Historiqueetat->setHisto(
+							$this->Creance->name,
+							$id,
+							$foyer_id,
+							__FUNCTION__,
+							$data['Creance']['etat'],
+							$foyer_id
+						);
 						$this->Creance->commit();
 						$this->Jetons2->release( $dossier_id );
 						$this->Flash->success( __( 'Save->success' ) );
