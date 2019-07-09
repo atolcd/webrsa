@@ -32,7 +32,7 @@
 				parent::_optionsEnums( $params ),
 				array(
 					'Dsp' => array(
-						'natlog' => $Controller->Dossier->Foyer->Personne->Dsp->enum( 'natlog', array( 'sort' => true ) )
+						'natlog' => $Controller->Titrecreancier->Creance->Foyer->Personne->Dsp->enum( 'natlog', array( 'sort' => true ) )
 					),
 					'Personne' => array(
 						'has_contratinsertion' => $exists,
@@ -45,14 +45,14 @@
 			);
 
 			if( $departement === 58 ) {
-				$options['Activite']['act'] = $Controller->Dossier->Foyer->Personne->Activite->enum( 'act' );
-				$options['Personne']['etat_dossier_orientation'] = $Controller->Dossier->Foyer->Personne->enum( 'etat_dossier_orientation' );
+				$options['Activite']['act'] = $Controller->Titrecreancier->Creance->Foyer->Personne->Activite->enum( 'act' );
+				$options['Personne']['etat_dossier_orientation'] = $Controller->Titrecreancier->Creance->Foyer->Personne->enum( 'etat_dossier_orientation' );
 			}
 
-			$options['Creance']['orgcre'] = $Controller->Creance->enum('orgcre');
-			$options['Creance']['natcre'] = $Controller->Creance->enum('natcre');
-			$options['Creance']['motiindu'] = $Controller->Creance->enum('motiindu');
-			$options['Creance']['oriindu'] = $Controller->Creance->enum('oriindu');
+			$options['Creance']['orgcre'] = $Controller->Titrecreancier->Creance->enum('orgcre');
+			$options['Creance']['natcre'] = $Controller->Titrecreancier->Creance->enum('natcre');
+			$options['Creance']['motiindu'] = $Controller->Titrecreancier->Creance->enum('motiindu');
+			$options['Creance']['oriindu'] = $Controller->Titrecreancier->Creance->enum('oriindu');
 
 			$Controller->loadModel( 'Tag' );
 			$options['Tag']['etat'] = $Controller->Tag->enum( 'etat' );

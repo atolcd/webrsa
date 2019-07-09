@@ -79,7 +79,7 @@
 				$query['fields'] = array_merge(
 					// Champs nécessaires au traitement de la search
 					array(
-						'DISTINCT ON ("Apre66"."id") "Apre66"."id" AS "Apre66__id"',
+						'Apre66.id',
 						'Apre66.personne_id',
 						'Personne.id',
 						'Dossier.id',
