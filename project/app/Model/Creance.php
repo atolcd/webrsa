@@ -163,6 +163,9 @@
 				'exclusive' => '',
 				'finderQuery' => '',
 				'counterQuery' => ''
+			),
+			'Historiqueetat' => array(
+				'classname' => 'Historiqueetat'
 			)
 		);
 
@@ -375,7 +378,7 @@
 		 *
 		 * @return integer
 		 */
-		public function setEtatOnForeignChange( $creance_id, $titrecreancierEtat ) {
+		public function setEtatOnForeignChange( $creance_id, $titrecreancierEtat, $actionName ) {
 			$return = false;
 			$needsSave = false;
 
@@ -440,14 +443,14 @@
 						if( $needsSave ) {
 							if( $this->saveAll( $creances, array( 'atomic' => false ) ) ) {
 								$return = true;
-								$this->Historiqueetat->setHisto(
+								$bool = $this->Historiqueetat->setHisto(
 									$this->name,
 									$creance_id,
 									$creances['Creance']['foyer_id'],
-									$this->action,
+									$actionName,
 									$creances['Creance']['etat'],
 									$creances['Creance']['foyer_id']
-								);
+								) ;
 								$this->commit();
 							}else{
 								$this->rollback();

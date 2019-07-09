@@ -117,7 +117,9 @@
                 $this->commit();
             } else {
                 $this->rollback();
-            }
+			}
+
+			return $success;
         }
 
 		/**

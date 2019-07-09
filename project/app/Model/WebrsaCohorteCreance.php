@@ -273,7 +273,7 @@
 					if( $this->Titrecreancier->saveAll( $titrecreancier, array( 'validate' => 'only' ) ) ) {
 						if( $this->Titrecreancier->saveAll( $titrecreancier, array( 'atomic' => false ) ) ) {
 							if (
-								!$this->Creance->setEtatOnForeignChange($creance_id,$titrecreancier['Titrecreancier']['etat']) &&
+								!$this->Creance->setEtatOnForeignChange($creance_id,$titrecreancier['Titrecreancier']['etat'],'cohorte_preparation') &&
 								!$this->Historiqueetat->setHisto(
 									$this->Titrecreancier->name,
 									$this->Titrecreancier->id,

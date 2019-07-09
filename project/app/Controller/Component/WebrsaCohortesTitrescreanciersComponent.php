@@ -94,14 +94,14 @@
 					//Validation de la sauvegarde
 					if( $Controller->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) ) {
 						if( $Controller->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) ) {
-							if($this->Historiqueetat->setHisto(
-								$this->Titrecreancier->name,
+							if($Controller->Historiqueetat->setHisto(
+								$Controller->Titrecreancier->name,
 								$data['Titrecreancier']['id'],
-								$this->Titrecreancier->creanceId($data['Titrecreancier']['id']),
+								$Controller->Titrecreancier->creanceId($data['Titrecreancier']['id']),
 								__FUNCTION__,
 								$data['Titrecreancier']['etat'],
-								$this->Titrecreancier->foyerId($this->Titrecreancier->creanceId($data['Titrecreancier']['id']))
-							) ) {
+								$Controller->Titrecreancier->foyerId($Controller->Titrecreancier->creanceId($data['Titrecreancier']['id']))
+							)) {
 								$success = true;
 							} else {
 								$success = false;

@@ -362,14 +362,14 @@
 					if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) ) {
 						if( $this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) ) {
 							if (
-								$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'])
+								$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'],__FUNCTION__)
 							){
 								$this->Historiqueetat->setHisto(
 									$this->name,
-									$id,
-									$this->Titrecreancier->creanceId($id),
-									$this->action, $data['etat'],
-									$this->Titrecreancier->foyerId( $this->Titrecreancier->creanceId( $id ) )
+									$this->Titrecreancier->id,
+									$data['Titrecreancier']['creance_id'],
+									__FUNCTION__, $data['Titrecreancier']['etat'],
+									$this->Titrecreancier->foyerId( $data['Titrecreancier']['creance_id'])
 								);
 								$this->Creance->commit();
 								$this->Titrecreancier->commit();
@@ -583,6 +583,7 @@
 			if( !empty( $this->request->data ) ) {
 				$this->Titrecreancier->begin();
 				$data = $this->request->data;
+				$data['Titrecreancier']['creance_id'] = $this->Titrecreancier->creanceId($titrecreancier_id);
 				if ( $data['Titrecreancier']['validation'] == 1){
 					 //verification de l'état post validation
 					$query = array (
@@ -607,14 +608,15 @@
 				if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) ) {
 					if( $this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) ) {
 						if (
-								$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'])
+								$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'],__FUNCTION__)
 							){
 								$this->Historiqueetat->setHisto(
-									$this->name,
+									$this->Titrecreancier->name,
 									$titrecreancier_id,
-									$this->Titrecreancier->creanceId($titrecreancier_id),
-									$this->action, $data['Titrecreancier']['etat'],
-									$this->Titrecreancier->foyerId( $this->Titrecreancier->creanceId( $titrecreancier_id ) )
+									$data['Titrecreancier']['creance_id'],
+									__FUNCTION__,
+									$data['Titrecreancier']['etat'],
+									$this->Titrecreancier->foyerId($data['Titrecreancier']['creance_id'])
 								);
 								$this->Creance->commit();
 								$this->Titrecreancier->commit();
@@ -698,11 +700,20 @@
 			//Initialisation
 			$this->Titrecreancier->begin();
 			$value['Titrecreancier']['id'] = $titrecreancier_id;
+			$value['Titrecreancier']['creance_id'] = $this->Titrecreancier->creanceId($titrecreancier_id);
 			$value['Titrecreancier']['etat'] = 'ATTRETOURCOMPTA';
 
 			//Validation de la sauvegarde
 			if( $this->Titrecreancier->saveAll( $value, array( 'validate' => 'only' ) ) ) {
 				if( $this->Titrecreancier->saveAll( $value, array( 'atomic' => false ) ) ) {
+					$this->Historiqueetat->setHisto(
+						$this->Titrecreancier->name,
+						$titrecreancier_id,
+						$value['Titrecreancier']['creance_id'],
+						__FUNCTION__,
+						$value['Titrecreancier']['etat'],
+						$this->Titrecreancier->foyerId($value['Titrecreancier']['creance_id'])
+					);
 					$success = true;
 				} else {
 					$success = false;
@@ -761,8 +772,16 @@
 				if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) ) {
 					if( $this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) ) {
 						if (
-								$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'])
+								$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'],__FUNCTION__)
 							){
+								$this->Historiqueetat->setHisto(
+									$this->Titrecreancier->name,
+									$titrecreancier_id,
+									$data['Titrecreancier']['creance_id'],
+									__FUNCTION__,
+									$data['Titrecreancier']['etat'],
+									$this->Titrecreancier->foyerId($data['Titrecreancier']['creance_id'])
+								);
 								$this->Creance->commit();
 								$this->Titrecreancier->commit();
 								$this->Jetons2->release( $dossier_id );
@@ -1190,7 +1209,7 @@
 								if( $this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) ) {
 									// Sauvegarde du changement d'état des créances & historique du changement d'état du titre
 									if (
-										$this->Creance->setEtatOnForeignChange($creance_id,$etat) &&
+										$this->Creance->setEtatOnForeignChange($creance_id,$etat,__FUNCTION__) &&
 										$this->Historiqueetat->setHisto(
 											$this->Titrecreancier->name,
 											$data['Titrecreancier']['id'],
