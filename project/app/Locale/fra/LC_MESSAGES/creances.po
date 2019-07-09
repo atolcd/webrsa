@@ -22,16 +22,16 @@ msgstr ""
 ###############################################################################
 
 msgid "/Creances/index/:heading"
-msgstr "Créances transférés"
+msgstr "Créances transférées"
 
 msgid "/Creances/view/:heading"
-msgstr "Créance transféré"
+msgstr "Créance transférée"
 
 msgid "/Creances/nonemission/:heading"
-msgstr "Motif Non-Emission créance transférée"
+msgstr "Motif de non-émission de la créance transférée"
 
 msgid "/Creances/validation/:heading"
-msgstr "Validation Créance transférée"
+msgstr "Validation créance transférée"
 
 msgid "/Creances/fluxadd/:heading"
 msgstr "Ajout d'une créance transférée depuis un rejet"
@@ -107,13 +107,13 @@ msgid "/Creances/copycreance/#Creance.id#"
 msgstr "Copier/Réaffecter cette créance"
 
 msgid "/Titrescreanciers/add"
-msgstr "Ajouter Titre de Recettes"
+msgstr "Ajouter titre de recette"
 
 msgid "/Titrescreanciers/index"
-msgstr "Titre de Recette"
+msgstr "Titre de recette"
 
 msgid "/Titrescreanciers/index/#Creance.id#"
-msgstr "Préparer le titre de Recette"
+msgstr "Préparer le titre de recette"
 
 msgid "Creances::index::emptyLabel"
 msgstr "Cette personne ne possède pas de créance transférée."
@@ -135,7 +135,7 @@ msgstr "Ajouter une pièce jointe"
 ###############################################################################
 
 msgid "/Creances/search/:heading"
-msgstr "Recherche par Créances"
+msgstr "Recherche par créances"
 
 msgid "Search.Creances"
 msgstr "Recherche par créance transférée de l'allocataire"
@@ -144,7 +144,7 @@ msgid "Creance::search::orgcre"
 msgstr "Origine de la créance"
 
 msgid "Creance::search::motiindu"
-msgstr "Motif de l\'indu"
+msgstr "Motif de l'indu"
 
 msgid "Creance::search::dtimplcre"
 msgstr "Plage de date d'implémentation"
@@ -156,7 +156,7 @@ msgid "Creance::search::etat"
 msgstr "État de la créance"
 
 msgid "Creance::search::aucuntitre"
-msgstr "N'a pas de Titre de recette"
+msgstr "N'a pas de titre de recette"
 
 ###############################################################################
 # Champs de recherches
@@ -184,10 +184,10 @@ msgid "Creance.moismoucompta"
 msgstr "Mois comptable"
 
 msgid "Creance.motiindu"
-msgstr "Motif indu"
+msgstr "Motif de l'indu"
 
 msgid "Creance.oriindu"
-msgstr "Origine indu"
+msgstr "Origine de l'indu"
 
 msgid "Creance.respindu"
 msgstr "Responsabilité de l'indu"
@@ -205,7 +205,7 @@ msgid "Creance.mtsolreelcretrans"
 msgstr "Solde réel de la créance"
 
 msgid "Creance.mtinicre"
-msgstr "Montant initial créance"
+msgstr "Montant initial de la créance"
 
 msgid "Creance.mention"
 msgstr "Commentaire"
@@ -214,7 +214,7 @@ msgid "Creance.motifemissioncreance_id"
 msgstr "Motif"
 
 msgid "Creance.datemotifemission"
-msgstr "Date motif non emission"
+msgstr "Date motif non émission"
 
 msgid "Creance.commentairevalidateur"
 msgstr "Commentaire du validateur"
@@ -255,7 +255,7 @@ msgid "Historiqueetat.prenom"
 msgstr "Prénom de l'utilisateur"
 
 msgid "Historiqueetat.modele"
-msgstr "Page ayant modifié le statut"
+msgstr "Page ayant modifiée le statut"
 
 msgid "Historiqueetat.etat"
 msgstr "État"
@@ -287,3 +287,5 @@ msgstr "Tout cocher"
 msgid "Creance::cohorte::decoche"
 msgstr "Tout décocher"
 
+msgid "Copy folder from"
+msgstr "Créance copiée depuis le dossier : "

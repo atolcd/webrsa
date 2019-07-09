@@ -131,6 +131,7 @@
 	);
 
 	if( isset( $results ) ) {
-		echo $this->Form->button( __m('Titrecreancier::preparation::coche'), array( 'type' => 'button', 'onclick' => 'return toutCocher();' ) );
-		echo $this->Form->button( __m('Titrecreancier::preparation::decoche'), array( 'type' => 'button', 'onclick' => 'return toutDecocher();' ) );
+		echo $this->Form->button( __m('Titrecreancier::cohorte::coche'), array( 'type' => 'button', 'onclick' => 'return toutCocher();' ) );
+		echo ' ';
+		echo $this->Form->button( __m('Titrecreancier::cohorte::decoche'), array( 'type' => 'button', 'onclick' => 'return toutDecocher();' ) );
 	}
