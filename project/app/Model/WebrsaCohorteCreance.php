@@ -35,7 +35,6 @@
 			'Canton',
 			'Dossier',
 			'Foyer',
-			'Creance',
 			'Titrecreancier'
 		);
 

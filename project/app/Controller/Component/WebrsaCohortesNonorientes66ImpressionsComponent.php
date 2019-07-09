@@ -46,7 +46,7 @@
 		 */
 		protected function _optionsRecords( array $params = array() ) {
 			$User = ClassRegistry::init('User');
-			$User->forceVirtualFields(true);
+			$User->forceVirtualFields = true;
 
 			$options = parent::_optionsRecords( $params );
 			$options['Nonoriente66']['user_id'] = $User->find(

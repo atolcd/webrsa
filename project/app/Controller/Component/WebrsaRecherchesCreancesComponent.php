@@ -32,7 +32,7 @@
 				parent::_optionsEnums( $params ),
 				array(
 					'Dsp' => array(
-						'natlog' => $Controller->Dossier->Foyer->Personne->Dsp->enum( 'natlog', array( 'sort' => true ) )
+						'natlog' => $Controller->Creance->Foyer->Personne->Dsp->enum( 'natlog', array( 'sort' => true ) )
 					),
 					'Personne' => array(
 						'has_contratinsertion' => $exists,
@@ -45,8 +45,8 @@
 			);
 
 			if( $departement === 58 ) {
-				$options['Activite']['act'] = $Controller->Dossier->Foyer->Personne->Activite->enum( 'act' );
-				$options['Personne']['etat_dossier_orientation'] = $Controller->Dossier->Foyer->Personne->enum( 'etat_dossier_orientation' );
+				$options['Activite']['act'] = $Controller->Creance->Foyer->Personne->Activite->enum( 'act' );
+				$options['Personne']['etat_dossier_orientation'] = $Controller->Creance->Foyer->Personne->enum( 'etat_dossier_orientation' );
 			}
 
 			$Controller->loadModel( 'Tag' );
