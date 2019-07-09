@@ -181,15 +181,14 @@
 				)
 			);
 
-			$titresCreanciers[0]['Titrecreancier']['etatDepuis'] = __d('titrecreancier', 'ENUM::ETAT::' . $titresCreanciers[0]['Titrecreancier']['etat']) . ' depuis le ' . date('d/m/Y', strtotime( $titresCreanciers[0]['Titrecreancier']['modified'] ) );
-
-			$titresCreanciers[0]['Titrecreancier']['acommentaire'] = 0;
-			if( !is_null($titresCreanciers[0]['Titrecreancier']['mention']) ) {
-				$titresCreanciers[0]['Titrecreancier']['acommentaire'] = 1;
-			}
-
 			if ( !empty($titresCreanciers) ){
 				$this->set( 'ajoutPossible', false);
+				$titresCreanciers[0]['Titrecreancier']['etatDepuis'] = __d('titrecreancier', 'ENUM::ETAT::' . $titresCreanciers[0]['Titrecreancier']['etat']) . ' depuis le ' . date('d/m/Y', strtotime( $titresCreanciers[0]['Titrecreancier']['modified'] ) );
+
+				$titresCreanciers[0]['Titrecreancier']['acommentaire'] = 0;
+				if( !is_null($titresCreanciers[0]['Titrecreancier']['mention']) ) {
+					$titresCreanciers[0]['Titrecreancier']['acommentaire'] = 1;
+				}
 			}
 
 			// Historique du titre - si suppression
