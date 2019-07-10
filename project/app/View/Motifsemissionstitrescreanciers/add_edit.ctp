@@ -5,7 +5,7 @@
 			'fields' => array(
 				'Motifemissiontitrecreancier.id',
 				'Motifemissiontitrecreancier.nom',
-				'Motifemissiontitrecreancier.emissiontitre' => array( 'type' => 'boolean' ),
+				'Motifemissiontitrecreancier.emissiontitre' => array( 'type' => 'checkbox' ),
 				'Motifemissiontitrecreancier.actif' => array( 'type' => 'checkbox' ),
 			)
 		)
