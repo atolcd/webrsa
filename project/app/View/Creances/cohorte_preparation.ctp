@@ -139,5 +139,6 @@
 
 	if( isset( $results ) ) {
 		echo $this->Form->button( __m('Creance::cohorte::coche'), array( 'type' => 'button', 'onclick' => 'return toutCocher();' ) );
+		echo ' ';
 		echo $this->Form->button( __m('Creance::cohorte::decoche'), array( 'type' => 'button', 'onclick' => 'return toutDecocher();' ) );
 	}

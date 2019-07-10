@@ -6,7 +6,7 @@
 	}
 
 	if (empty($titrescreanciers) ){
-		echo "<h1>".__('Upload File')."</h1>"
+		echo "<br><h2>".__m('Upload File')."</h2>"
 		?>
 <div class="content">
 
@@ -14,11 +14,11 @@
 
 		<fieldset id="filecontainer-piecejointe" class="noborder invisible">
 			<div id="file-uploader-piecejointe" >
-				<?php echo $this->Form->input('file', array ('type' => 'file', 'class' => 'file-uploader-piecejointe')); ?>
-			</br>
+				<?php echo $this->Form->input(__m('File'), array ('type' => 'file', 'class' => 'file-uploader-piecejointe')); ?>
+			<br>
 			</div>
 	    </fieldset>
-            <?php echo $this->Form->button(__('Upload File'), array ('type'=>'submit', 'class' => 'form-controlbtn btn-default ')); ?>
+            <?php echo $this->Form->button(__m('Upload File'), array ('type'=>'submit', 'class' => 'form-controlbtn btn-default ')); ?>
 
         <?php echo $this->Form->end(); ?>
 </div>
@@ -54,14 +54,7 @@
 						'Titrecreancier.dtbordereau',
 						'Titrecreancier.numbordereau',
 						'Titrecreancier.numtier',
-					)/*+ WebrsaAccess::links(
-						array(
-							'/Titrescreanciers/view/#Titrecreancier.id#'
-							=> array(
-								'class' => 'view',
-							),
-						)
-					)*/
+					)
 				),
 				array(
 					'paginate' => false,

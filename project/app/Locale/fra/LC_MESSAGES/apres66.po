@@ -103,6 +103,9 @@ msgstr "Traité"
 msgid "Apre66.isapre"
 msgstr "Type"
 
+msgid "Personne.nom_complet_court"
+msgstr "Nom de l'allocataire"
+
 msgid "Search.Dernierreferent.recherche"
 msgstr "Rechercher un référent (hors structure)"
 

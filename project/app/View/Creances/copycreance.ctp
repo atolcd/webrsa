@@ -26,7 +26,7 @@
 			'Creance.moismoucompta' => array('type' => 'hidden', 'dateFormat' => 'DMY'),
 			'Creance.etat'  => array('type' => 'hidden','required' => true),
 			'Creance.mention' => array(
-				'value' => "Créance copiée depuis le dossier : ".$this->request->data['Foyer']['Dossier']['numdemrsa']." ".$this->request->data['Creance']['mention'],
+				'value' => __m('Copy folder from') . $this->request->data['Foyer']['Dossier']['numdemrsa']." ".$this->request->data['Creance']['mention'],
 				'required' => true
 			)
 		),
