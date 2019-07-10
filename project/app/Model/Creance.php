@@ -441,21 +441,22 @@
 						}
 
 						if( $needsSave ) {
-							if( $this->saveAll( $creances, array( 'atomic' => false ) ) ) {
-								$return = true;
-								$bool = $this->Historiqueetat->setHisto(
+							if( $this->saveAll( $creances, array( 'atomic' => false ) ) &&
+								$this->Historiqueetat->setHisto(
 									$this->name,
 									$creance_id,
 									$creances['Creance']['foyer_id'],
 									$actionName,
 									$creances['Creance']['etat'],
 									$creances['Creance']['foyer_id']
-								) ;
+							)
+							) {
+								$return = true;
 								$this->commit();
-							}else{
+							} else{
 								$this->rollback();
 							}
-						}else{
+						} else{
 							$return = true;
 						}
 					}

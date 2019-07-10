@@ -359,35 +359,22 @@
 					$this->Titrecreancier->rollback();
 					$this->Flash->error( __( 'Save->error' ) );
 				}else{
-					if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) ) {
-						if( $this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) ) {
-							if (
-								$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'],__FUNCTION__)
-							){
-								$this->Historiqueetat->setHisto(
-									$this->name,
-									$this->Titrecreancier->id,
-									$data['Titrecreancier']['creance_id'],
-									__FUNCTION__, $data['Titrecreancier']['etat'],
-									$this->Titrecreancier->foyerId( $data['Titrecreancier']['creance_id'])
-								);
-								$this->Creance->commit();
-								$this->Titrecreancier->commit();
-								$this->Jetons2->release( $dossier_id );
-								$this->Flash->success( __( 'Save->success' ) );
-								$this->redirect( array( 'action' => 'index', $creance_id ) );
-							}
-							else {
-								$this->Titrecreancier->rollback();
-								$this->Flash->error( __( 'Save->error' ) );
-							}
-						}
-						else {
-							$this->Titrecreancier->rollback();
-							$this->Flash->error( __( 'Save->error' ) );
-						}
-					}
-					else {
+					if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) &&
+						$this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) &&
+						$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'],__FUNCTION__) &&
+						$this->Historiqueetat->setHisto(
+							$this->Titrecreancier->name,
+							$this->Titrecreancier->id,
+							$data['Titrecreancier']['creance_id'],
+							__FUNCTION__, $data['Titrecreancier']['etat'],
+							$this->Titrecreancier->foyerId( $data['Titrecreancier']['creance_id']) )
+					) {
+						$this->Creance->commit();
+						$this->Titrecreancier->commit();
+						$this->Jetons2->release( $dossier_id );
+						$this->Flash->success( __( 'Save->success' ) );
+						$this->redirect( array( 'action' => 'index', $creance_id ) );
+					} else {
 						$this->Titrecreancier->rollback();
 						$this->Flash->error( __( 'Save->error' ) );
 					}
@@ -483,29 +470,24 @@
 
 				$data['Titrecreancier']['motifemissiontitrecreancier_id'] = $data['Titrecreancier']['Motifemissiontitrecreancier'];
 
-				if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) ) {
-					if( $this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) ) {
-						$this->Historiqueetat->setHisto(
-							$this->Titrecreancier->name,
-							$titrecreancier_id,
-							$data['Titrecreancier']['creance_id'],
-							__FUNCTION__,
-							$data['Titrecreancier']['etat'],
-							$this->Titrecreancier->foyerId($data['Titrecreancier']['creance_id'])
-						);
+				if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) &&
+					$this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) &&
+					$this->Historiqueetat->setHisto(
+						$this->Titrecreancier->name,
+						$titrecreancier_id,
+						$data['Titrecreancier']['creance_id'],
+						__FUNCTION__,
+						$data['Titrecreancier']['etat'],
+						$this->Titrecreancier->foyerId($data['Titrecreancier']['creance_id'])
+					)
+				) {
 						$this->Titrecreancier->commit();
 						$this->Jetons2->release( $dossier_id );
 						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'action' => 'index', $creance_id ) );
-					}
-					else {
+				} else {
 						$this->Titrecreancier->rollback();
 						$this->Flash->error( __( 'Save->error' ) );
-					}
-				}
-				else {
-					$this->Titrecreancier->rollback();
-					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			// Affichage des données
@@ -605,36 +587,23 @@
 					 $data['Titrecreancier']['etat'] = 'ATTAVIS';
 				}
 
-				if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) ) {
-					if( $this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) ) {
-						if (
-								$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'],__FUNCTION__)
-							){
-								$this->Historiqueetat->setHisto(
-									$this->Titrecreancier->name,
-									$titrecreancier_id,
-									$data['Titrecreancier']['creance_id'],
-									__FUNCTION__,
-									$data['Titrecreancier']['etat'],
-									$this->Titrecreancier->foyerId($data['Titrecreancier']['creance_id'])
-								);
-								$this->Creance->commit();
-								$this->Titrecreancier->commit();
-								$this->Jetons2->release( $dossier_id );
-								$this->Flash->success( __( 'Save->success' ) );
-								$this->redirect( array( 'action' => 'index', $creance_id ) );
-							}
-							else {
-								$this->Titrecreancier->rollback();
-								$this->Flash->error( __( 'Save->error' ) );
-							}
-					}
-					else {
-						$this->Titrecreancier->rollback();
-						$this->Flash->error( __( 'Save->error' ) );
-					}
-				}
-				else {
+				if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) &&
+					$this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) &&
+					$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'],__FUNCTION__) &&
+					$this->Historiqueetat->setHisto(
+						$this->Titrecreancier->name,
+						$titrecreancier_id,
+						$data['Titrecreancier']['creance_id'],
+						__FUNCTION__,
+						$data['Titrecreancier']['etat'],
+						$this->Titrecreancier->foyerId($data['Titrecreancier']['creance_id']) )
+				) {
+					$this->Creance->commit();
+					$this->Titrecreancier->commit();
+					$this->Jetons2->release( $dossier_id );
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect( array( 'action' => 'index', $creance_id ) );
+				} else {
 					$this->Titrecreancier->rollback();
 					$this->Flash->error( __( 'Save->error' ) );
 				}
@@ -704,22 +673,20 @@
 			$value['Titrecreancier']['etat'] = 'ATTRETOURCOMPTA';
 
 			//Validation de la sauvegarde
-			if( $this->Titrecreancier->saveAll( $value, array( 'validate' => 'only' ) ) ) {
-				if( $this->Titrecreancier->saveAll( $value, array( 'atomic' => false ) ) ) {
-					$this->Historiqueetat->setHisto(
-						$this->Titrecreancier->name,
-						$titrecreancier_id,
-						$value['Titrecreancier']['creance_id'],
-						__FUNCTION__,
-						$value['Titrecreancier']['etat'],
-						$this->Titrecreancier->foyerId($value['Titrecreancier']['creance_id'])
-					);
-					$success = true;
-				} else {
-					$success = false;
-				}
+			if( $this->Titrecreancier->saveAll( $value, array( 'validate' => 'only' ) ) &&
+				$this->Titrecreancier->saveAll( $value, array( 'atomic' => false ) ) &&
+				$this->Historiqueetat->setHisto(
+					$this->Titrecreancier->name,
+					$titrecreancier_id,
+					$value['Titrecreancier']['creance_id'],
+					__FUNCTION__,
+					$value['Titrecreancier']['etat'],
+					$this->Titrecreancier->foyerId($value['Titrecreancier']['creance_id'])
+				)
+			) {
+				$success = true;
 			} else {
-				$success = false;
+					$success = false;
 			}
 
 			if ( !$success ) {
@@ -769,38 +736,26 @@
 			if( !empty( $this->request->data ) ) {
 				$this->Titrecreancier->begin();
 				$data = $this->request->data;
-				if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) ) {
-					if( $this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) ) {
-						if (
-								$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'],__FUNCTION__)
-							){
-								$this->Historiqueetat->setHisto(
-									$this->Titrecreancier->name,
-									$titrecreancier_id,
-									$data['Titrecreancier']['creance_id'],
-									__FUNCTION__,
-									$data['Titrecreancier']['etat'],
-									$this->Titrecreancier->foyerId($data['Titrecreancier']['creance_id'])
-								);
-								$this->Creance->commit();
-								$this->Titrecreancier->commit();
-								$this->Jetons2->release( $dossier_id );
-								$this->Flash->success( __( 'Save->success' ) );
-								$this->redirect( array( 'action' => 'index', $creance_id ) );
-							}
-							else {
-								$this->Titrecreancier->rollback();
-								$this->Flash->error( __( 'Save->error' ) );
-							}
-					}
-					else {
+				if( $this->Titrecreancier->saveAll( $data, array( 'validate' => 'only' ) ) &&
+					$this->Titrecreancier->saveAll( $data, array( 'atomic' => false ) ) &&
+					$this->Creance->setEtatOnForeignChange($data['Titrecreancier']['creance_id'],$data['Titrecreancier']['etat'],__FUNCTION__) &&
+					$this->Historiqueetat->setHisto(
+						$this->Titrecreancier->name,
+						$titrecreancier_id,
+						$data['Titrecreancier']['creance_id'],
+						__FUNCTION__,
+						$data['Titrecreancier']['etat'],
+						$this->Titrecreancier->foyerId($data['Titrecreancier']['creance_id'])
+					)
+				) {
+						$this->Creance->commit();
+						$this->Titrecreancier->commit();
+						$this->Jetons2->release( $dossier_id );
+						$this->Flash->success( __( 'Save->success' ) );
+						$this->redirect( array( 'action' => 'index', $creance_id ) );
+				} else {
 						$this->Titrecreancier->rollback();
 						$this->Flash->error( __( 'Save->error' ) );
-					}
-				}
-				else {
-					$this->Titrecreancier->rollback();
-					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			// Affichage des données

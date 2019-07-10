@@ -259,9 +259,18 @@
 			// Mise à jour de l'état
 			$this->begin();
 			$success = $this->save($data);
-			if($success){
+			if(	$success &&
+				$this->Historiqueetat->setHisto(
+					$this->name,
+					$id,
+					$this->creanceId($id),
+					$action,
+					$data['etat'],
+					$this->foyerId( $this->creanceId( $id ) ) )
+			){
 				$this->commit();
-				$this->Historiqueetat->setHisto( $this->name, $id, $this->creanceId($id), $action, $data['etat'], $this->foyerId( $this->creanceId( $id ) ) );
+			} else {
+				$this->rollback();
 			}
 			return $success;
 		}

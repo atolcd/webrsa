@@ -114,12 +114,14 @@
             $this->begin();
             $success = $this->save( $data, array( 'validate' => 'first', 'atomic' => false ) );
             if($success) {
+				$return = true;
                 $this->commit();
             } else {
+				$return = false;
                 $this->rollback();
 			}
 
-			return $success;
+			return $return;
         }
 
 		/**

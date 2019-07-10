@@ -24,6 +24,7 @@
 			'Creance.mtsolreelcretrans' => array('type' => 'money','required' => true),
 			'Creance.mtinicre' => array('type' => 'hidden','required' => true),
 			'Creance.moismoucompta' => array('type' => 'hidden', 'dateFormat' => 'DMY'),
+			'Creance.etat'  => array('type' => 'hidden','required' => true),
 			'Creance.mention' => array(
 				'value' => "Créance copiée depuis le dossier : ".$this->request->data['Foyer']['Dossier']['numdemrsa']." ".$this->request->data['Creance']['mention'],
 				'required' => true

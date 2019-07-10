@@ -306,7 +306,7 @@
 
 				$this->Creance->begin();
 				$data = $this->request->data;
-				
+
 				if ( $data['Creance']['mtsolreelcretrans'] == '' ||  $data['Creance']['mtinicre'] =='' ) {
 					$this->Creance->rollback();
 					$this->Flash->error( __( 'Save->error' ) );
@@ -314,17 +314,23 @@
 					if($this->action == 'add' ) {
 						$data['Creance']['foyer_id'] = $foyer_id;
 					}
-					if( $this->Creance->saveAll( $data, array( 'validate' => 'only' ) ) ) {
-						if( $this->Creance->save( $data ) ) {
-							$this->Creance->commit();
-							$this->Jetons2->release( $dossier_id );
-							$this->Flash->success( __( 'Save->success' ) );
-							$this->redirect( array( 'controller' => 'Creances', 'action' => 'index', $foyer_id ) );
-						}
-						else {
-							$this->Creance->rollback();
-							$this->Flash->error( __( 'Save->error' ) );
-						}
+					if( $this->Creance->saveAll( $data, array( 'validate' => 'only' ) ) &&
+						$this->Creance->save( $data ) &&
+						$this->Historiqueetat->setHisto(
+							$this->Creance->name,
+							$this->Creance->id,
+							$data['Creance']['foyer_id'],
+							__FUNCTION__,
+							'ATTAVIS',
+							$data['Creance']['foyer_id'] )
+					) {
+						$this->Creance->commit();
+						$this->Jetons2->release( $dossier_id );
+						$this->Flash->success( __( 'Save->success' ) );
+						$this->redirect( array( 'controller' => 'Creances', 'action' => 'index', $foyer_id ) );
+					} else {
+						$this->Creance->rollback();
+						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
 			}
@@ -387,25 +393,23 @@
 				$data = $this->request->data;
 				$data['Creance']['motifemissioncreance_id'] = $data['Creance']['Motifemissioncreance'];
 
-				if( $this->Creance->saveAll( $data, array( 'validate' => 'only' ) ) ) {
+				if( $this->Creance->saveAll( $data, array( 'validate' => 'only' ) ) &&
+					$this->Creance->save( $data ) &&
 					$this->Historiqueetat->setHisto(
-						$this->name,
-						$$id,
+						$this->Creance->name,
+						$id,
 						$data['Creance']['foyer_id'],
 						__FUNCTION__,
 						$data['Creance']['etat'],
-						$data['Creance']['foyer_id']
-					);
-					if( $this->Creance->save( $data ) ) {
-						$this->Creance->commit();
-						$this->Jetons2->release( $dossier_id );
-						$this->Flash->success( __( 'Save->success' ) );
-						$this->redirect( array( 'controller' => 'Creances', 'action' => 'index', $foyer_id ) );
-					}
-					else {
-						$this->Creance->rollback();
-						$this->Flash->error( __( 'Save->error' ) );
-					}
+						$data['Creance']['foyer_id'] )
+				) {
+					$this->Creance->commit();
+					$this->Jetons2->release( $dossier_id );
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect( array( 'controller' => 'Creances', 'action' => 'index', $foyer_id ) );
+				} else {
+					$this->Creance->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
 			// Affichage des données
@@ -617,27 +621,28 @@
 
 				$foyerResult = $this->Dossier->find('first',$foyerQuery);
 				$this->request->data['Creance']['foyer_id'] = $foyerResult['Foyer']['id'];
-
 				$this->Creance->begin();
-				if( $this->Creance->saveAll( $this->request->data, array( 'validate' => 'only' ) ) ) {
-					if( $this->Creance->saveAll( $this->request->data, array( 'atomic' => false ) ) ) {
-						$this->Creance->commit();
-						$this->Flash->success( __( 'Save->success' ) );
-						$this->Creance->query(" UPDATE creances SET mention = '' WHERE mention IS NULL AND creances.id = ".$id );
-						$this->Creance->query(" UPDATE creances SET mention = ' Créance copiée vers le dossier ".$this->request->data['Dossier']['numdemrsa']." '|| creances.mention WHERE creances.id = ".$id );
-						$this->redirect( array( 'controller' => 'creances', 'action' => 'index', $this->request->data['Creance']['foyer_id'] ) );
-					}
-					else {
-						$this->Creance->rollback();
-						$this->Flash->error( __( 'Save->error' ) );
-					}
-				}
-				else {
+				if( $this->Creance->saveAll( $this->request->data, array( 'validate' => 'only' ) ) &&
+					$this->Creance->saveAll( $this->request->data, array( 'atomic' => false ) ) &&
+					$this->Historiqueetat->setHisto(
+						$this->Creance->name,
+						$this->Creance->id,
+						$foyerResult['Foyer']['id'],
+						__FUNCTION__,
+						$this->request->data['Creance']['etat'],
+						$foyerResult['Foyer']['id'] )
+				) {
+					$this->Creance->commit();
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->Creance->query(" UPDATE creances SET mention = '' WHERE mention IS NULL AND creances.id = ".$id );
+					$this->Creance->query(" UPDATE creances SET mention = ' Créance copiée vers le dossier ". $this->request->data['Dossier']['numdemrsa'] . " '|| creances.mention WHERE creances.id = ".$id );
+					$this->redirect( array( 'controller' => 'creances', 'action' => 'index', $this->request->data['Creance']['foyer_id'] ) );
+				} else {
 					$this->Creance->rollback();
 					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
-			// Afficage des données
+			// Affichage des données
 			else {
 				$creanceQuery =  array(
 						'fields' =>	$this->Creance->fields(),
