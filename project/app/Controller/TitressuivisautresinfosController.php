@@ -297,15 +297,8 @@
 			if( $success && $this->_saveFichiers($id) ) {
 				//Sauvegarde & Mise à jour de l'état du titre
 				$this->Titresuiviautreinfo->commit();
-				$success = $this->Titrecreancier->setEtat($titrecreancier_id, $this->action);
-
-				if( $success && $this->Titrecreancier->calculMontantTitre($titrecreancier_id) ) {
-					$this->Flash->success( __( 'Save->success' ) );
-					$this->redirect( array( 'controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
-				} else {
-					$this->Titresuiviautreinfo->rollback();
-					$this->Flash->error( __( 'Save->error' ) );
-				}
+				$this->Flash->success( __( 'Save->success' ) );
+				$this->redirect( array( 'controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
 			} else {
 				$this->Fileuploader->fichiers( $id, false );
 				$this->Titresuiviautreinfo->rollback();

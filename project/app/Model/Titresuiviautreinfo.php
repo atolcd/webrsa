@@ -166,22 +166,6 @@
 		 * @return boolean
 		 */
 		public function ajoutPossible($titrecreancier_id) {
-			$titresLies = $this->find('all', array(
-				'conditions' => array('titrecreancier_id' => $titrecreancier_id),
-				'order' => array('Titresuiviautreinfo.dtautreinfo ASC', 'Titresuiviautreinfo.id ASC')
-			));
-			if( isset($titresLies) && !empty($titresLies) ) {
-				foreach( $titresLies as $titre ) {
-					if( $titre['Titresuiviautreinfo']['etat'] !== 'annulé' ) {
-						if( $titre['Typetitrecreancierautreinfo']['nom'] !== 'REMB' ) {
-							return true;
-						} else {
-							return false;
-						}
-					}
-				}
-			}
-
 			return true;
 		}
 

@@ -33,7 +33,7 @@
 		 */
 		public $fakeInLists = array(
 			'haspiecejointe' => array('0', '1'),
-			'etat' => array('CREE', 'INSTRUCTION', 'ATTAVIS', 'VALIDAVIS','NONVALID','ATTENVOICOMPTA', 'ATTRETOURCOMPTA', 'TITREEMIS', 'PAY','SUP', 'RED', 'REMB'),
+			'etat' => array('CREE', 'INSTRUCTION', 'ATTAVIS', 'VALIDAVIS','NONVALID','ATTENVOICOMPTA', 'ATTRETOURCOMPTA', 'TITREEMIS', 'PAY','SUP', 'RED'),
 			'typeadr' => array('D', 'P', 'R'),
 			'etatadr' => array('CO', 'VO', 'VC', 'NC', 'AU'),
 		);
@@ -237,25 +237,6 @@
 				}
 			}
 
-			// Récupération des autres infos liées à l'ID
-			$titresAutresInfos = $this->Titresuiviautreinfo->find('all',
-				array(
-					'conditions' => array( 'titrecreancier_id' => $id ),
-					'order' => 'dtautreinfo ASC'
-				)
-			);
-
-			if( isset($titresAutresInfos) && !empty($titresAutresInfos) ) {
-				foreach($titresAutresInfos as $titre) {
-					if($titre['Titresuiviautreinfo']['etat'] !== 'ANNULER'){
-						if(strpos($titre['Typetitrecreancierautreinfo']['nom'], 'emboursement') !== false ) {
-							$data['etat'] = 'REMB';
-							break;
-						}
-					}
-				}
-			}
-
 			// Mise à jour de l'état
 			$this->begin();
 			$success = $this->save($data);
@@ -306,25 +287,6 @@
 			foreach($titresAnnReduc as $titre){
 				if($titre['Titresuiviannulationreduction']['etat'] !== 'ANNULER') {
 					$data['mnttitr'] =  $data['mnttitr'] - $titre['Titresuiviannulationreduction']['mtreduit'];
-				}
-			}
-
-			// Récupération des autres infos liées à l'ID
-			$titresAutresInfos = $this->Titresuiviautreinfo->find('all',
-				array(
-					'conditions' => array( 'Titresuiviautreinfo.titrecreancier_id' => $id ),
-					'order' => 'dtautreinfo ASC'
-				)
-			);
-
-			if( isset($titresAutresInfos) && !empty($titresAutresInfos) ) {
-				foreach($titresAutresInfos as $titre) {
-					if($titre['Titresuiviautreinfo']['etat'] !== 'ANNULER'){
-						if(strpos($titre['Typetitrecreancierautreinfo']['nom'], 'emboursement') !== false ) {
-							$data['mnttitr'] = 0;
-							break;
-						}
-					}
 				}
 			}
 

@@ -56,9 +56,6 @@ msgstr "Payée"
 msgid "ENUM::ETAT::RED"
 msgstr "Réduit"
 
-msgid "ENUM::ETAT::REMB"
-msgstr "Remboursé"
-
 msgid "ENUM::ETAT::SUP"
 msgstr "Annulée par mandat"
 
