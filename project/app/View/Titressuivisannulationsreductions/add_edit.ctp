@@ -44,7 +44,7 @@ if( empty( $titresCreanciers ) ) {
 			'Titresuiviannulationreduction.id' => array( 'type' => 'hidden', 'value' => $titresAnnRedEnCours['Titresuiviannulationreduction']['id']),
 			'Titresuiviannulationreduction.titrecreancier_id' => array( 'type' => 'hidden', 'value' => $titresCreanciers['Titrecreancier']['id']),
 			'Titresuiviannulationreduction.mtactuel' => array(
-				'type' => $options['montant']['type'],
+				'type' => 'text',
 				'disabled' => 'true',
 				'value' => $options['montant']['total'],
 				'style' => 'background-color: #F0F0F0',
@@ -60,7 +60,7 @@ if( empty( $titresCreanciers ) ) {
 				'value' => $titresAnnRedEnCours['Titresuiviannulationreduction']['typeannulationreduction_id']
 				),
 			'Titresuiviannulationreduction.mtreduit' => array(
-				'type' => 'number',
+				'type' => 'text',
 				'required' => true,
 				'id' => 'mtreduit',
 				'style' => 'background-color: #F0F0F0',

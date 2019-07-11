@@ -178,14 +178,14 @@
 				}
 
 				if( $titre['Titresuiviannulationreduction']['etat'] !== 'ANNULER' ) {
-					$titre['Titresuiviannulationreduction']['mtapresacte'] = $mtavant_tmp - $titre['Titresuiviannulationreduction']['mtreduit'];
+					$titre['Titresuiviannulationreduction']['mtapresacte'] = number_format($mtavant_tmp, 2) - number_format($titre['Titresuiviannulationreduction']['mtreduit'], 2);
 					$mtavant_tmp = $titre['Titresuiviannulationreduction']['mtapresacte'];
 				} else {
-					$titre['Titresuiviannulationreduction']['mtapresacte'] = '';
-					$mtavant_tmp = $titre['Titresuiviannulationreduction']['mtavantacte'];
+					$titre['Titresuiviannulationreduction']['mtapresacte'] = __d('titressuivisannulationsreductions', 'Titressuivisannulationsreductions::canceled');
 				}
 				$reverseTitre[$numTitre] = $titre;
 			}
+
 			$titresAnnReduc = array_reverse($reverseTitre);
 			$titresAnnReduc = $this->suppressionPossible( $titresAnnReduc );
 			$titresAnnReduc = $this->annulationPossible( $titresAnnReduc );
