@@ -76,7 +76,8 @@
 			'index' => 'read',
 			'add' => 'create',
 			'edit' => 'update',
-			'suivit' => 'update',
+			'suivi' => 'update',
+			'comment' => 'update',
 			'avis' => 'update',
 			'valider' => 'update',
 			'retourcompta' => 'update',
@@ -186,7 +187,7 @@
 				$titresCreanciers[0]['Titrecreancier']['etatDepuis'] = __d('titrecreancier', 'ENUM::ETAT::' . $titresCreanciers[0]['Titrecreancier']['etat']) . __m('since') . date('d/m/Y', strtotime( $titresCreanciers[0]['Titrecreancier']['modified'] ) );
 
 				$titresCreanciers[0]['Titrecreancier']['acommentaire'] = 0;
-				if( !is_null($titresCreanciers[0]['Titrecreancier']['mention']) ) {
+				if( !is_null($titresCreanciers[0]['Titrecreancier']['mention'])  && !empty($titresCreanciers[0]['Titrecreancier']['mention']) ) {
 					$titresCreanciers[0]['Titrecreancier']['acommentaire'] = 1;
 				}
 			}
@@ -200,6 +201,7 @@
 					$this->Creance->enums()
 				)
 			);
+
 			$this->set( 'histoDeleted', $histoDeleted );
 			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'titresCreanciers', $titresCreanciers );
@@ -286,7 +288,7 @@
 		}
 
 		/**
-		 * Ajouter une Titrecreancier à une Créance
+		 * Ajouter un Titrecreancier à une Créance
 		 *
 		 * @param integer $foyer_id L'id technique de la creance auquel ajouter le Titrecreancier
 		 * @return void
@@ -306,6 +308,37 @@
 			$args = func_get_args();
 			call_user_func_array( array( $this, '_add_edit' ), $args );
 		}
+
+		/**
+		 * Commenter un Titrecreancier
+		 *
+		 * @param integer $id L'id technique du titre
+		 * @return void
+		 */
+		public function comment($id) {
+			$titrecreancier = $this->Titrecreancier->find('first', array(
+				'conditions' => array('Titrecreancier.id' => $id),
+				'recursive' => 0
+				)
+			);
+
+			$this->set('titrecreancier', $titrecreancier);
+			// Essai de sauvegarde
+			if( !empty( $this->request->data ) ) {
+				$creance_id = $this->Titrecreancier->creanceId( $id );
+				$this->Titrecreancier->begin();
+				$data = $this->request->data;
+				if ($this->Titrecreancier->saveAll( $data, array( 'validate' => 'true') ) ) {
+					$this->Titrecreancier->commit();
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect( array( 'action' => 'index', $creance_id ) );
+				} else {
+					$this->Titrecreancier->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+			}
+		}
+
 
 		/**
 		 * Fonction commune d'ajout/modification d'un titrecreancier

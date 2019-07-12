@@ -25,6 +25,10 @@
 							'class' => 'view',
 						),
 						'/Titrescreanciers/edit/#Titrecreancier.id#',
+						'/Titrescreanciers/comment/#Titrecreancier.id#'
+						=> array(
+							'class' => 'edit',
+						),
 						'/Titressuivis/index/#Titrecreancier.id#'
 						=> array(
 							'class' => 'edit',

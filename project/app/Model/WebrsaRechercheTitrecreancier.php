@@ -187,6 +187,12 @@
 				$query['conditions'][] = " Titrecreancier.numbordereau LIKE '".$numbordereauTitrecreancier."'"  ;
 			}
 
+			// if etat du motif d'émission Selected then Titrecreancier.motifemissiontitrecreancier_id LIKE
+			$etatMotifEmissionTitrecreancier = (string)Hash::get( $search, 'Titrecreancier.motifemissiontitrecreancier_id' );
+			if ( !empty($etatMotifEmissionTitrecreancier) ) {
+				$query['conditions'][] = " Titrecreancier.motifemissiontitrecreancier_id = " . $etatMotifEmissionTitrecreancier;
+			}
+
 			// Début des spécificités par département
 			$departement = (int)Configure::read( 'Cg.departement' );
 
