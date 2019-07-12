@@ -45,6 +45,3 @@ msgstr "Nom du type"
 
 msgid "Typetitrecreancierinfopayeur.actif"
 msgstr "Actif"
-
-msgid "Typetitrecreancierinfopayeur.id"
-msgstr "ID"

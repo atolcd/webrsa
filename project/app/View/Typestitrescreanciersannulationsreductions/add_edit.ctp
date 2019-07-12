@@ -5,7 +5,7 @@
 			'fields' => array(
 				'Typetitrecreancierannulationreduction.id',
 				'Typetitrecreancierannulationreduction.nom',
-				'Typetitrecreancierannulationreduction.actif' => array( 'type' => 'checkbox' ),
+				'Typetitrecreancierannulationreduction.actif' => array( 'type' => 'checkbox', 'value' => 1 ),
 			)
 		)
 	);

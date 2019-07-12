@@ -3,7 +3,6 @@
 		'WebrsaParametrages/index',
 		array(
 			'cells' => array(
-				'Typetitrecreancierinfopayeur.id',
 				'Typetitrecreancierinfopayeur.nom',
 				'Typetitrecreancierinfopayeur.actif' => array( 'type' => 'boolean' ),
 				'/Typestitrescreanciersinfospayeurs/edit/#Typetitrecreancierinfopayeur.id#' => array(

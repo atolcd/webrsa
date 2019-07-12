@@ -11,31 +11,31 @@ msgstr ""
 # ==============================================================================
 
 msgid "/Typestitrescreanciers/index/:heading"
-msgstr "Paramétrage des Types de titres creanciers"
+msgstr "Paramétrage des types de titres de recette"
 
 msgid "/Typestitrescreanciers/add/:heading"
-msgstr "Ajout d'un Type de titre creancier"
+msgstr "Ajout d'un type de titre de recette"
 
 msgid "/Typestitrescreanciers/edit/:heading"
-msgstr "Modification du Type de titre creancier « #Typetitrecreancier.name# »"
+msgstr "Modification du type de titre de recette « #Typetitrecreancier.name# »"
 
 msgid "/Typestitrescreanciers/add"
 msgstr "Ajouter"
 
 msgid "/Typestitrescreanciers/add/:title"
-msgstr "Ajouter un Type de titre creancier"
+msgstr "Ajouter un type de titre de recette"
 
 msgid "/Typestitrescreanciers/edit"
 msgstr "Modifier"
 
 msgid "/Typestitrescreanciers/edit/#Typetitrecreancier.id#"
-msgstr "Modifier le Type de titre creancier « #Typetitrecreancier.name# »"
+msgstr "Modifier le type de titre de recette « #Typetitrecreancier.name# »"
 
 msgid "/Typestitrescreanciers/delete"
 msgstr "Supprimer"
 
 msgid "/Typestitrescreanciers/delete/#Typetitrecreancier.id#"
-msgstr "Supprimer le Type de titre creancier « #Typetitrecreancier.name# »"
+msgstr "Supprimer le type de titre de recette « #Typetitrecreancier.name# »"
 
 msgid "/Typestitrescreanciers/delete/#Typetitrecreancier.id# ?"
-msgstr "Réellement supprimer le Type de titre creancier « #Typetitrecreancier.name# » ?"
+msgstr "Réellement supprimer le type de titre de recette « #Typetitrecreancier.name# » ?"

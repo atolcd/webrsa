@@ -5,7 +5,7 @@
 			'fields' => array(
 				'Typetitrecreancierautreinfo.id',
 				'Typetitrecreancierautreinfo.nom',
-				'Typetitrecreancierautreinfo.actif' => array( 'type' => 'checkbox' ),
+				'Typetitrecreancierautreinfo.actif' => array( 'type' => 'checkbox', 'value' => 1),
 			)
 		)
 	);

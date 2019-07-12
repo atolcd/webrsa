@@ -3,7 +3,6 @@
 		'WebrsaParametrages/index',
 		array(
 			'cells' => array(
-				'Typetitrecreancierannulationreduction.id',
 				'Typetitrecreancierannulationreduction.nom',
 				'Typetitrecreancierannulationreduction.actif' => array( 'type' => 'boolean' ),
 				'/Typestitrescreanciersannulationsreductions/edit/#Typetitrecreancierannulationreduction.id#' => array(

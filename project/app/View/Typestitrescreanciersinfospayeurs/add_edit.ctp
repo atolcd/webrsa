@@ -5,7 +5,7 @@
 			'fields' => array(
 				'Typetitrecreancierinfopayeur.id',
 				'Typetitrecreancierinfopayeur.nom',
-				'Typetitrecreancierinfopayeur.actif' => array( 'type' => 'checkbox' ),
+				'Typetitrecreancierinfopayeur.actif' => array( 'type' => 'checkbox', 'value' => 1 ),
 			)
 		)
 	);

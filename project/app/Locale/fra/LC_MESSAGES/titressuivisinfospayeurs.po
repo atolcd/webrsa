@@ -48,7 +48,7 @@ msgid "/Titressuivis/index"
 msgstr "Retour"
 
 msgid "Titresuiviinfopayeur::index::emptyTitrecreancier"
-msgstr "Cette créance ne possède pas de titre creancier lié"
+msgstr "Cette créance ne possède pas de titre de recette lié"
 
 msgid "Titresuiviinfopayeur::index::titleTitreInfoPayeur"
 msgstr "Informations payeurs"
