@@ -130,6 +130,9 @@ msgstr "Fichiers liés à une créance transférée"
 msgid "Creances.haspiecejointe"
 msgstr "Ajouter une pièce jointe"
 
+msgid "since"
+msgstr " depuis le "
+
 ###############################################################################
 # Trad des recherches
 ###############################################################################
@@ -277,7 +280,7 @@ msgid "data[Cohorte][][Creance][cjtactif]"
 msgstr "Ajouter le conjoint"
 
 msgid "data[Cohorte][][Creance][instructionencours]"
-msgstr "Placer en instruction"
+msgstr "Instruction en cours"
 
 # ==============================================================================
 

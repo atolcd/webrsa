@@ -185,7 +185,9 @@
 					)
 				)
 			);
-
+			if ( !empty($creances) ){
+				$creances[0]['Creance']['etatDepuis'] = __d('creance', 'ENUM::ETAT::' . $creances[0]['Creance']['etat']) . __m('since') . date('d/m/Y', strtotime( $creances[0]['Creance']['modified'] ) );
+			}
 			$histoDeleted = $this->Historiqueetat->getHisto($this->Creance->name, $foyer_id, 'delete');
 
 			// Assignations à la vue

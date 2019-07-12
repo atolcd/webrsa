@@ -93,6 +93,15 @@
 				'order' => null,
 				'counterCache' => null
 			),
+			'Typetitrecreancier' => array(
+				'className' => 'Typetitrecreancier',
+				'foreignKey' => 'typetitrecreancier_id',
+				'conditions' => null,
+				'type' => 'LEFT OUTER',
+				'fields' => null,
+				'order' => null,
+				'counterCache' => null
+			),
 		);
 
 		/**
@@ -499,16 +508,36 @@
 						'contain' => false
 					)
 				);
-				//ListMotifs
-				$listMotifs = $this->Creance->Motifemissioncreance->find(
+				//listTypes
+				$listTypes = $this->Typetitrecreancier->find(
 					'list',
 					array(
-						'fields' => array ('id', 'nom')
+						'fields' => array ('id', 'name')
 					)
 				);
 
 				if ( !empty ($titrecreancier['Titrecreancier'] ) ) {
-
+					$creancier = $this->Creance->find('first',
+						array(
+							'conditions' => array(
+								'Creance.id ' =>$creance_id
+							),
+							'contain' => false
+						)
+					);
+					$personne = $this->Creance->Foyer->Personne->find('first',
+						array(
+							'conditions' => array(
+								'Foyer.id ' => $foyer_id,
+								'Prestation.rolepers' => 'DEM'
+							),
+							'contain' => array (
+								'Dossier',
+								'Foyer',
+								'Prestation'
+							)
+						)
+					);
 					$infoFICA['PAIEMENT'] = Configure::read('Creances.FICA.TypePaiement');
 					$infoFICA['CODTIERS'] = Configure::read('Creances.FICA.CodeTiers');
 					$infoFICA['REF'] = $titrecreancier_id;
@@ -516,15 +545,26 @@
 
 					$infoFICA['MONTANT'] = $titrecreancier['Titrecreancier']['mnttitr'] ;
 
-					$infoFICA['LIBVIR'] = $listMotifs[$titrecreancier['Titrecreancier']['motifemissiontitrecreancier_id']];
+					$infoFICA['LIBVIR'] =
+						 __d('Indu RSA from').
+						date('dmY', strtotime( $titrecreancier['Titrecreancier']['ddregucre'] ) ).
+						__d('to').
+						date('dmY', strtotime( $titrecreancier['Titrecreancier']['dfregucre'] ) ) ;
 					$infoFICA['OBJET'] = '';
-					$infoFICA['OBS'] = $titrecreancier['Titrecreancier']['mention'];
-					$infoFICA['OBS2'] = $titrecreancier['Titrecreancier']['commentairevalidateur'];
+					$infoFICA['OBS'] = '';
+					$infoFICA['OBS2'] =
+						$personne['Dossier']['0']['matricule'].' / '.
+						$titrecreancier['Titrecreancier']['nom'].' / '.
+						$listTypes[$titrecreancier['Titrecreancier']['type']].' / '.
+						date('d-m-Y', strtotime( $personne['Personne']['dtnai']) ).' / '.
+						$creancier['Creance']['motiindu'].' / '.
+						$creancier['Creance']['natcre']
+					;
 
 					if ( !empty ($titrecreancier['Titrecreancier']['bic']) ) {
 						$infoFICA['RIB'] = $titrecreancier['Titrecreancier']['iban'];
 					}else{
-						$infoFICA['RIB'] = $titrecreancier['Titrecreancier']['bic'].$titrecreancier['Titrecreancier']['iban'];						
+						$infoFICA['RIB'] = $titrecreancier['Titrecreancier']['bic'].$titrecreancier['Titrecreancier']['iban'];
 					}
 
 					if ( $infoFICA['CODTIERS'] == 999999 ){
@@ -532,19 +572,6 @@
 
 						$infoFICA['DESTCIVILITE'] = $titrecreancier['Titrecreancier']['qual'] ;
 						if (!is_null($foyer_id)){
-							/* get nom, prénom, nir du bénéficiaire */
-							$personne = $this->Creance->Foyer->Personne->find('first',
-								array(
-									'conditions' => array(
-										'Foyer.id ' => $foyer_id,
-										'Prestation.rolepers' => 'DEM'
-									),
-									'contain' => array (
-										'Foyer',
-										'Prestation'
-									)
-								)
-							);
 							if ( !empty ($personne['Personne'] ) ) {
 								$infoFICA['DESTNOM'] = $personne['Personne']['nom'];
 								$infoFICA['DESTPRENOM'] = $personne['Personne']['prenom']  ;

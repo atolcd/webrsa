@@ -24,7 +24,7 @@ if( empty( $creances ) ) {
 				'Creance.mtsolreelcretrans',
 				'Creance.mention',
 				'Creance.rgcre',
-				'Creance.etat',
+				'Creance.etatDepuis',
 			)+ WebrsaAccess::links(
 				array(
 					'/Creances/view/#Creance.id#'

@@ -134,7 +134,7 @@
 				$record['Titrecreancier']['etat'] == 'CREE'
 				|| $record['Titrecreancier']['etat'] == 'ATTAVIS'
 				|| $record['Titrecreancier']['etat'] == 'INSTRUCTION'
-				|| $record['Titrecreancier']['etat'] == 'RED'
+				|| $record['Titrecreancier']['etat'] == 'VALIDAVIS'
 			) {
 				return true;
 			}

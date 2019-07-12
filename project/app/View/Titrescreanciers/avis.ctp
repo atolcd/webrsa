@@ -40,12 +40,19 @@
 		);
 	}
 
+	if( isset($this->request->data['Titrecreancier']['motifemissiontitrecreancier_id']) && !empty($this->request->data['Titrecreancier']['motifemissiontitrecreancier_id'])) {
+		$motifvalue = $this->request->data['Titrecreancier']['motifemissiontitrecreancier_id'];
+	}else{
+		$motifvalue = null;
+	}
+
 	echo $this->Default3->subform(
 		array(
 			'Titrecreancier.Motifemissiontitrecreancier' => array(
 				 'type' => 'select',
 				 'label' => 'Motif d\'emission des titres creanciers',
-				 'options' => $listMotifs
+				 'options' => $listMotifs,
+				 'value' => $motifvalue
 			),
 			'Titrecreancier.mention' => array('type' => 'textarea'),
 			'Titrecreancier.datemotifemission' => array('type' => 'date', 'dateFormat' => 'DMY' ),

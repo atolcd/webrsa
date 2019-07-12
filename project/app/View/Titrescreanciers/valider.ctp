@@ -69,7 +69,9 @@
 			'Titrecreancier.dtvalidation' => array('type' => 'date', 'dateFormat' => 'DMY'),
 			'Titrecreancier.commentairevalidateur'=> array('type' => 'textarea'),
 			'Titrecreancier.validation' => array(
-				'type' => 'checkbox'
+				'type' => 'radio',
+				 'label' => __m('Validation'),
+				 'options' => array( '1' => __m('YES'), '2' => __m('NO'))
 			),
 		),
 		array(

@@ -281,6 +281,15 @@ msgstr "Informations émission"
 msgid "Titrecreancier::view::titleInfoValidateur"
 msgstr "Informations validateur"
 
+msgid "Validation"
+msgstr "Validation de l'avis"
+
+msgid "YES"
+msgstr "OUI"
+
+msgid "NO"
+msgstr "NON"
+
 #==============================================================================
 # Historique
 #==============================================================================
@@ -377,3 +386,10 @@ msgstr "Fichier"
 
 msgid "since"
 msgstr " depuis le "
+
+msgid "Indu RSA from"
+msgstr "Indu RSA du ".
+
+msgid "to"
+msgstr " au "
+

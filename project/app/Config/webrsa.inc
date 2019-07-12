@@ -905,7 +905,7 @@
 
 	Configure::write('Module.Creances.FICA',true );
 	Configure::write('Creances.FICA.NumAppliTiers','nn');
-	Configure::write('Creances.FICA.TypePaiement','TI');
+	Configure::write('Creances.FICA.TypePaiement','TD');
 	Configure::write('Creances.FICA.CodeTiers',null);
 	Configure::write('Creances.FICA.SCC','');
 

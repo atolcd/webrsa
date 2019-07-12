@@ -486,10 +486,10 @@ msgid "Creance.dtdercredcretrans"
 msgstr "Date dernier crédit positif créance transférée"
 
 msgid "Creance.mtsolreelcretrans"
-msgstr "Montant solde réel créance transférée"
+msgstr "Montant solde réel créance"
 
 msgid "Creance.mtinicre"
-msgstr "Montant initial créance transférée"
+msgstr "Montant initial créance"
 
 msgid "Creances.haspiecejointe"
 msgstr "Ajouter une pièce jointe"
@@ -522,7 +522,7 @@ msgid "ENUM::ETAT::NONEMISSION"
 msgstr "Titre non émis"
 
 msgid "ENUM::ETAT::ENEMISSION"
-msgstr "En cours d’émission"
+msgstr "Titre en cours d’émission"
 
 msgid "ENUM::ETAT::TITREEMIS"
 msgstr "Titre émis"
