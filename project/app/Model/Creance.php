@@ -95,7 +95,7 @@
 				'inList' => array(
 					'rule' => array('inList',
 						array(
-							'', 'ATTAVIS', 'VALIDAVIS', 'AEMETTRE', 'NONEMISSION', 'ENEMISSION', 'TITREEMIS',
+							'AEMETTRE', 'NONEMISSION', 'ENEMISSION', 'TITREEMIS',
 						)
 					)
 				)
@@ -109,16 +109,7 @@
 				'conditions' => '',
 				'fields' => '',
 				'order' => ''
-			),
-			'Motifemissioncreance' => array(
-				'className' => 'Motifemissioncreance',
-				'foreignKey' => 'motifemissioncreance_id',
-				'conditions' => null,
-				'type' => 'LEFT OUTER',
-				'fields' => null,
-				'order' => null,
-				'counterCache' => null
-			),
+			)
 		);
 
 		/**
@@ -268,6 +259,7 @@
 					'"Creance"."mtsolreelcretrans"',
 					'"Creance"."mtinicre"',
 					'"Creance"."foyer_id"',
+					'"Creance"."etat"',
 					'"Creance"."moismoucompta"',
 					'"Creance"."orgcre"',
 					'"Creance"."haspiecejointe"',
@@ -397,12 +389,10 @@
 					//Selon l'état de la créance et du titre créancier )
 					//Si deux états illogiques sont donné à la fonction alors on doit echoué
 
-					// Créance est en état ATTAVIS, VALIDAVIS ou NONEMISSION Alors cette fonction ne devrait pas etre appellée par les tites de recettes
 					// Créance est en état AEMETTRE et le titre est autre que CREE, Alors on as sauté l'état de création
 					// Créance est en état ENEMISSION et le titre est CREE,
 					if (
-						in_array ($creances['Creance']['etat'], array('ATTAVIS', 'VALIDAVIS', 'NONEMISSION') )
-						||( $creances['Creance']['etat'] == 'AEMETTRE' && $titrecreancierEtat != 'CREE')
+						( $creances['Creance']['etat'] == 'AEMETTRE' && $titrecreancierEtat != 'CREE')
 						||( $creances['Creance']['etat'] == 'ENEMISSION' && $titrecreancierEtat == 'CREE')
 					){
 						//Message d'erreur Etat illogiques

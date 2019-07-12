@@ -664,7 +664,7 @@
 			}
 
 			//ListMotifs
-			$listMotifs = $this->Creance->Motifemissioncreance->find(
+			$listMotifs = $this->Titrecreancier->Motifemissiontitrecreancier->find(
 				'list',
 				array(
 					'fields' => array ('id', 'nom')
@@ -811,15 +811,6 @@
 				// Assignation au formulaire
 				$this->request->data = $titrecreancier;
 			}
-
-			//ListMotifs
-			$listMotifs = $this->Creance->Motifemissioncreance->find(
-				'list',
-				array(
-					'fields' => array ('id', 'nom')
-				)
-			);
-			$this->set( 'listMotifs', $listMotifs );
 
 			//Assignation a la vue
 			$this->set( 'options', array_merge(

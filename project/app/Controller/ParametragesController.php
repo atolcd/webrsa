@@ -178,9 +178,6 @@
 
 			if( $activateTitreCreancier ) {
 				$items = array (
-					'Motif d\'émission d\'une créance' => array(
-						'url' => array( 'controller' => 'motifsemissionscreances', 'action' => 'index' )
-					),
 					'Titres de recette' => array(
 						'Type du Titre' => array(
 							'url' => array( 'controller' => 'typestitrescreanciers', 'action' => 'index' )

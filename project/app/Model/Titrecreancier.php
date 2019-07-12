@@ -520,9 +520,9 @@
 					$infoFICA['MONTANT'] = $titrecreancier['Titrecreancier']['mnttitr'] ;
 
 					$infoFICA['LIBVIR'] =
-						 __d('Indu RSA from').
+						 __m('Indu RSA from').
 						date('dmY', strtotime( $titrecreancier['Titrecreancier']['ddregucre'] ) ).
-						__d('to').
+						__m('to').
 						date('dmY', strtotime( $titrecreancier['Titrecreancier']['dfregucre'] ) ) ;
 					$infoFICA['OBJET'] = '';
 					$infoFICA['OBS'] = '';

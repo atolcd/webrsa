@@ -400,7 +400,7 @@ msgid "since"
 msgstr " depuis le "
 
 msgid "Indu RSA from"
-msgstr "Indu RSA du ".
+msgstr "Indu RSA du "
 
 msgid "to"
 msgstr " au "

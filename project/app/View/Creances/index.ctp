@@ -32,11 +32,6 @@ if( empty( $creances ) ) {
 							'class' => 'view',
 						),
 					'/Creances/edit/#Creance.id#',
-					'/Creances/nonemission/#Creance.id#'
-						=> array(
-							'class' => 'edit',
-						),
-					'/Creances/validation/#Creance.id#',
 					'/Titrescreanciers/index/#Creance.id#'
 						=> array(
 							'class' => 'view',

@@ -4183,22 +4183,6 @@ msgid "controllers/Typestitrescreanciers/delete"
 msgstr "Suppression d'un type des Titres de recette"
 
 ###############################################################################
-msgid "controllers/Motifsemissionscreances"
-msgstr "Paramétrage des motifs d'émission des créances"
-
-msgid "controllers/Motifsemissionscreances/index"
-msgstr "Liste des motifs d'émission des créances"
-
-msgid "controllers/Motifsemissionscreances/add"
-msgstr "Ajout d'un motif d'émission des créances"
-
-msgid "controllers/Motifsemissionscreances/edit"
-msgstr "Modification d'un motif d'émission des créances"
-
-msgid "controllers/Motifsemissionscreances/delete"
-msgstr "Suppression d'un motif d'émission des créances"
-
-###############################################################################
 msgid "controllers/Motifsemissionstitrescreanciers"
 msgstr "Paramétrage des motifs d'émission d'un titre de recette"
 
