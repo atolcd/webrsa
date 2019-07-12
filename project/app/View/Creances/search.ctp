@@ -77,8 +77,7 @@
 		) ;
 		echo "</fieldset>";
 
-		if ( Configure::read( 'Creances.etat' ) ) {
-			echo $this->Xform->input(
+		echo $this->Xform->input(
 				'Search.Creance.etat',
 				array(
 					'label' => __m('Creance::search::etat'),
@@ -86,8 +85,7 @@
 					'empty' => true,
 					'options' => $options['Creance']['etat']
 				)
-			);
-		}
+		);
 
 		if ( Configure::read( 'Creances.titrescreanciers' ) ) {
 			//Has Titre créancier
