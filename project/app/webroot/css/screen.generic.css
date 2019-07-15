@@ -309,11 +309,7 @@ div#ficheAdresse h2 {
     font-size: 1.5em;
 }
 
-table#ficheDossier tbody, table#ficheDossier td { border-width: 0; background: transparent; }
 table#ficheDossier table td { border-width: 1px; }
-table#ficheDossier table tbody tr.even td {
-    background: #e6eef2;
-}
 
 
 /* Affichage vue Dossier */
@@ -2698,6 +2694,16 @@ div.pagination{
 	text-align: center;
 }
 
+/* Impression écran */
+@media print {
+    body {
+        height: auto;
+    }
+
+    #pageWrapper {
+        display: block;
+    }
+}
 
 
 
