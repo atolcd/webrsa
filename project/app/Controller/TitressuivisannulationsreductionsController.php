@@ -384,6 +384,15 @@
 
 			if( !empty( $pdf ) && $pdf !== false ) {
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'certificatadministratif_suiviannulationreduction-%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
+				$data = array();
+				$data['id'] = $id;
+				$data['etat'] = 'CERTIMP';
+				$success = $this->Titresuiviannulationreduction->save($data);
+				if( $success ) {
+					$this->redirect( array( 'controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
+				} else {
+					$this->Flash->error( __m("Titressuivisannulationsreductions::impression::error") );
+				}
 			}
 			else {
 				$this->Flash->error( __m("Titressuivisannulationsreductions::impression::error") );
