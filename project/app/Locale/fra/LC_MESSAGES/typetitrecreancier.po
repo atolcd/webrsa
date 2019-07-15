@@ -20,37 +20,37 @@ msgstr ""
 ###############################################################################
 
 msgid "Typestitrescreanciers::index"
-msgstr "Type de transmission des titres creanciers"
+msgstr "Type de transmission des titres de recette"
 
 msgid "Typetitrecreancier::index::empty"
-msgstr "Aucun Type de titre creancier enregistré"
+msgstr "Aucun type de titre de recette enregistré"
 
 msgid "Typetitrecreancier.name"
-msgstr "Type de titre creancier"
+msgstr "Type de titre de recette"
 
 msgid "Typetitrecreancier.actif"
 msgstr "Actif"
 
 msgid "Typetitrecreancier::add"
-msgstr "Ajouter un Type de titre creancier"
+msgstr "Ajouter un type de titre de recette"
 
 msgid "Typetitrecreancier::edit"
-msgstr "Modifier le Type de titre creancier"
+msgstr "Modifier le type de titre de recette"
 
 msgid "Typestitrescreanciers::delete"
-msgstr "Supprimer le Type de titre creancier"
+msgstr "Supprimer le type de titre de recette"
 
 msgid "Typetitrecreancier::delete::confirm"
-msgstr "Êtes-vous sûr de vouloir supprimer le Type de titre creancier ?"
+msgstr "Êtes-vous sûr de vouloir supprimer le type de titre de recette ?"
 
 msgid "Typestitrescreanciers::delete::confirm"
-msgstr "Êtes-vous sûr de vouloir supprimer le Type de titre creancier ?"
+msgstr "Êtes-vous sûr de vouloir supprimer le type de titre de recette ?"
 
 msgid "Typestitrescreanciers::add"
-msgstr "Ajout d'un Type de titre creancier"
+msgstr "Ajout d'un type de titre de recette"
 
 msgid "Typestitrescreanciers::edit"
-msgstr "Modification de le Type de titre creancier"
+msgstr "Modification de le type de titre de recette"
 
 msgid "ENUM::ACTIF::0"
 msgstr "Non"

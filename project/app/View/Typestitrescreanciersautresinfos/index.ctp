@@ -3,7 +3,6 @@
 		'WebrsaParametrages/index',
 		array(
 			'cells' => array(
-				'Typetitrecreancierautreinfo.id',
 				'Typetitrecreancierautreinfo.nom',
 				'Typetitrecreancierautreinfo.actif' => array( 'type' => 'boolean' ),
 				'/Typestitrescreanciersautresinfos/edit/#Typetitrecreancierautreinfo.id#' => array(

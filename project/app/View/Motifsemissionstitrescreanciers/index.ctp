@@ -3,7 +3,6 @@
 		'WebrsaParametrages/index',
 		array(
 			'cells' => array(
-				'Motifemissiontitrecreancier.id',
 				'Motifemissiontitrecreancier.nom',
 				'Motifemissiontitrecreancier.emissiontitre' => array( 'type' => 'boolean' ),
 				'Motifemissiontitrecreancier.actif' => array( 'type' => 'boolean' ),
