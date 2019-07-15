@@ -313,6 +313,8 @@
 					$this->Creance->rollback();
 					$this->Flash->error( __( 'Save->error' ) );
 				}else{
+					$data['Creance']['mtsolreelcretrans'] = floatval($data['Creance']['mtsolreelcretrans']);
+					$data['Creance']['mtinicre'] = floatval($data['Creance']['mtinicre']);
 					if($this->action == 'add' ) {
 						$data['Creance']['foyer_id'] = $foyer_id;
 					}

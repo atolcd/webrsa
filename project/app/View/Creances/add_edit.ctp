@@ -61,8 +61,8 @@
 				'Creance.ddregucre' => array('type' => 'date', 'dateFormat' => 'DMY'),
 				'Creance.dfregucre' => array( 'type' => 'date','dateFormat' => 'DMY'),
 				'Creance.dtdercredcretrans' => array('type' => 'date', 'dateFormat' => 'DMY'),
-				'Creance.mtsolreelcretrans'=> array('type' => 'number','required' => true),
-				'Creance.mtinicre'=> array('type' => 'number','required' => true),
+				'Creance.mtsolreelcretrans'=> array('type' => 'text','required' => true),
+				'Creance.mtinicre'=> array('type' => 'text','required' => true),
 				'Creance.moismoucompta'=> array('type' => 'date', 'dateFormat' => 'DMY'),
 			),
 			array(

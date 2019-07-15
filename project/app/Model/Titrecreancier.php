@@ -223,7 +223,19 @@
 		public function setEtat($id, $action) {
 			$data = array();
 			$data['id'] = $id;
-			$data['etat'] = 'CREE';
+			$dernierEtat = $this->Historiqueetat->find('all', array(
+				'conditions' => array(
+					'Historiqueetat.modele_id' => $id,
+					'Historiqueetat.modele' => $this->name,
+					'NOT' => array(
+						'Historiqueetat.etat' => array('RED', 'SUP')
+					)
+				),
+				'order' => array(
+					'Historiqueetat.created' => 'DESC'
+				)
+			) );
+			$data['etat'] = $dernierEtat[0]['Historiqueetat']['etat'];
 
 			// Récupération des annulations / réductions liées à l'ID
 			$titresAnnReduc = $this->Titresuiviannulationreduction->find('all',

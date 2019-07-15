@@ -267,17 +267,18 @@
 			// Ajout des options
 			$options = $this->Titresuiviannulationreduction->enums();
 			$titresAnnRedEnCours = array();
-			if( $this->action == 'add' ) {
-				$options['montant']['type'] = 'number';
-				$options['montant']['disabled'] = true;
 
-				$montantReduitTotal = 0;
-				if( !empty($titresAnnRed) ) {
-					foreach($titresAnnRed as $titres ) {
-						$montantReduitTotal += $titres['Titresuiviannulationreduction']['mtreduit'];
-					}
+			$montantReduitTotal = 0;
+			if( !empty($titresAnnRed) ) {
+				foreach($titresAnnRed as $titres ) {
+					$montantReduitTotal += $titres['Titresuiviannulationreduction']['mtreduit'];
 				}
-				$options['montant']['total'] = $montantReduitTotal;
+			}
+
+			$options['montant']['total'] = $montantReduitTotal;
+
+			if( $this->action == 'add' ) {
+				$options['montant']['disabled'] = true;
 
 				$titresAnnRedEnCours['Titresuiviannulationreduction']['typeannulationreduction_id']='';
 				$titresAnnRedEnCours['Titresuiviannulationreduction']['id']='';
@@ -285,8 +286,6 @@
 				$titresAnnRedEnCours['Titresuiviannulationreduction']['commentaire']='';
 
 			} else {
-				$options['montant']['total'] = null;
-				$options['montant']['type'] = 'hidden';
 				$titresAnnRedEnCours = $this->Titresuiviannulationreduction->find('first', array(
 					'conditions' => array('Titresuiviannulationreduction.id' => $this->request->params['pass'][0])
 				));
@@ -339,7 +338,7 @@
 			} elseif ($typeAnnulationReduction === 'annulation') {
 				$data['Titresuiviannulationreduction']['mtreduit'] = $titrecreancier['Titrecreancier']['mnttitr'];
 			}
-
+			$data['Titresuiviannulationreduction']['mtreduit'] = floatval($data['Titresuiviannulationreduction']['mtreduit']);
 			$success = $this->Titresuiviannulationreduction->save( $data, array( 'validate' => 'first', 'atomic' => false ) );
 			if( $success && $this->_saveFichiers($id) ) {
 				//Sauvegarde & Mise à jour de l'état du titre
@@ -387,7 +386,7 @@
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'certificatadministratif_suiviannulationreduction-%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
 			}
 			else {
-				$this->Flash->error( __m("Titressuivisannulationsreductions::impession::error") );
+				$this->Flash->error( __m("Titressuivisannulationsreductions::impression::error") );
 				$this->redirect( array( 'controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
 			}
 		}
