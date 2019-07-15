@@ -57,7 +57,14 @@
 		 * @return boolean
 		 */
 		protected static function _index(array $record, array $params) {
-			return true;
+			if( $record['Titrecreancier']['etat'] == 'ATTRETOURCOMPTA' ||
+				$record['Titrecreancier']['etat'] == 'TITREEMIS' ||
+				$record['Titrecreancier']['etat'] == 'PAY' ||
+				$record['Titrecreancier']['etat'] == 'SUP' ||
+				$record['Titrecreancier']['etat'] == 'RED') {
+					return true;
+				}
+			return false;
 		}
 	}
 ?>

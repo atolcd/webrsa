@@ -46,6 +46,16 @@
 		);
 
 		echo $this->Xform->input(
+			'Search.Titrecreancier.motifemissiontitrecreancier_id',
+			array(
+				'label' => __m('Titrecreancier::search::motif'),
+				'type' => 'select',
+				'empty' => true,
+				'options' => $options['Motifemissiontitrecreancier']['etat']
+			)
+		);
+
+		echo $this->Xform->input(
 			'Search.Titrecreancier.numtitr',
 			array(
 				'label' => __m('Titrecreancier::search::numtitr'),

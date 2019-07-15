@@ -111,6 +111,15 @@ msgstr "Ajouter une pièce jointe"
 msgid "Titrecreancier.mntinit"
 msgstr "Montant initial du titre"
 
+msgid "/Titrescreanciers/comment"
+msgstr "Commenter"
+
+msgid "/Titrescreanciers/comment/#Titrecreancier.id#"
+msgstr "Commenter ce titre de recette"
+
+msgid "/Titrescreanciers/comment/:heading"
+msgstr "Ajouter/Modifier un commentaire"
+
 ###############################################################################
 # Trad des recherches
 ###############################################################################
@@ -132,6 +141,9 @@ msgstr "Numéro du titre"
 
 msgid "Titrecreancier::search::numbordereau"
 msgstr "Numéro de bordereau"
+
+msgid "Titrecreancier::search::motif"
+msgstr "Motifs d'émission du titre"
 
 ###############################################################################
 # Champs de recherches
@@ -319,7 +331,7 @@ msgid "Historiqueetat.etat"
 msgstr "État"
 
 # ==============================================================================
-# Tradcution des Cohortes
+# Traduction des Cohortes
 # ==============================================================================
 
 msgid "/Titrescreanciers/cohorte_validation/:heading"

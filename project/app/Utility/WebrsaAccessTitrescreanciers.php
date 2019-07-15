@@ -44,6 +44,7 @@
 				array(
 					'add' => array('ajoutPossible' => true),
 					'view',
+					'comment',
 					'edit',
 					'avis',
 					'valider',
@@ -120,6 +121,17 @@
 				return true;
 			}
 			return false;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _comment(array $record, array $params) {
+			return true;
 		}
 
 		/**

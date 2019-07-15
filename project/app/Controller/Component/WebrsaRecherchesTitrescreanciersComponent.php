@@ -54,6 +54,10 @@
 			$options['Creance']['motiindu'] = $Controller->Titrecreancier->Creance->enum('motiindu');
 			$options['Creance']['oriindu'] = $Controller->Titrecreancier->Creance->enum('oriindu');
 
+			$options['Motifemissiontitrecreancier']['etat'] = $Controller->Titrecreancier->Motifemissiontitrecreancier->find('list', array(
+				'fields' => 'Motifemissiontitrecreancier.nom')
+			);
+
 			$Controller->loadModel( 'Tag' );
 			$options['Tag']['etat'] = $Controller->Tag->enum( 'etat' );
 
