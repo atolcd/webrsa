@@ -50,6 +50,9 @@
 		 * @return boolean
 		 */
 		protected static function _edit(array $record, array $params) {
+			if($record['Titresuiviannulationreduction']['etat'] == 'CERTIMP') {
+				return false;
+			}
 			return true;
 		}
 
@@ -83,6 +86,9 @@
 		 * @return boolean
 		 */
 		protected static function _impression(array $record, array $params) {
+			if($record['Titresuiviannulationreduction']['etat'] == 'ANNULER') {
+				return false;
+			}
 			return true;
 		}
 
