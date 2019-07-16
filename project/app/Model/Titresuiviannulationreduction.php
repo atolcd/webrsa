@@ -178,7 +178,7 @@
 				}
 
 				if( $titre['Titresuiviannulationreduction']['etat'] !== 'ANNULER' ) {
-					$titre['Titresuiviannulationreduction']['mtapresacte'] = number_format($mtavant_tmp, 2) - number_format($titre['Titresuiviannulationreduction']['mtreduit'], 2);
+					$titre['Titresuiviannulationreduction']['mtapresacte'] = number_format($mtavant_tmp, 2, ".", "") - number_format($titre['Titresuiviannulationreduction']['mtreduit'], 2, ".", "");
 					$mtavant_tmp = $titre['Titresuiviannulationreduction']['mtapresacte'];
 				} else {
 					$titre['Titresuiviannulationreduction']['mtapresacte'] = __d('titressuivisannulationsreductions', 'Titressuivisannulationsreductions::canceled');

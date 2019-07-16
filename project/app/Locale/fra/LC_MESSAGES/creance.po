@@ -69,7 +69,7 @@ msgid "ENUM::ORGCRE::"
 msgstr "vide"
 
 msgid "ENUM::ORGCRE::FLU"
-msgstr "Flux Creances"
+msgstr "Flux Créances"
 
 msgid "ENUM::ORGCRE::MAN"
 msgstr "Manuelle"

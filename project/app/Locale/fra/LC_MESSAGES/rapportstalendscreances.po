@@ -21,7 +21,7 @@ msgstr ""
 ###############################################################################
 
 msgid "/Rapportstalendscreances/index/:heading"
-msgstr "Rapports Talends Creances"
+msgstr "Rapports Talends Créances"
 
 msgid "/Rejetstalendscreances/index"
 msgstr "Voir les Rejets"

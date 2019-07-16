@@ -67,9 +67,9 @@
 					'url' => array( 'controller' => 'contratsinsertion', 'action' => 'cohorte_valides' )
 				),
 			),
-			'Creances' => array(
+			'Créances' => array(
 				'disabled' => ( !Configure::read('Module.Creances.GestionList') ),
-				'Preparation' => array(
+				'Préparation' => array(
 					'class' => 'search',
 					'url' => array( 'controller' => 'creances', 'action' => 'cohorte_preparation' )
 				),
@@ -254,7 +254,7 @@
 					'class' => 'search',
 					'url' => array( 'controller' => 'creances', 'action' => 'search'  )
 				),
-				'Par Titres créanciers' => array(
+				'Par titres de recette' => array(
 					'class' => 'search',
 					'url' => array( 'controller' => 'titrescreanciers', 'action' => 'search'  )
 				),

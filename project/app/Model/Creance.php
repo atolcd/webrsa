@@ -387,68 +387,55 @@
 				);
 				if ( !empty($creances['Creance'] ) ) {
 					//Selon l'état de la créance et du titre créancier )
-					//Si deux états illogiques sont donné à la fonction alors on doit echoué
 
-					// Créance est en état AEMETTRE et le titre est autre que CREE, Alors on as sauté l'état de création
-					// Créance est en état ENEMISSION et le titre est CREE,
+					//Si la créance est en état AEMETTRE et que le Titrecreancier passe en état CREE
 					if (
-						( $creances['Creance']['etat'] == 'AEMETTRE' && $titrecreancierEtat != 'CREE')
-						||( $creances['Creance']['etat'] == 'ENEMISSION' && $titrecreancierEtat == 'CREE')
+						$creances['Creance']['etat'] == 'AEMETTRE'
+						&& $titrecreancierEtat == 'CREE'
 					){
-						//Message d'erreur Etat illogiques
-						$msg = 'Un changement d\état de titre créancier illogique vient d\'avoir lieu. Veuillez vérifier la cohérence des états de la Créance et du Titre de recette';
-						$messages[$msg] = 'info';
-						$this->set( compact( 'messages' ) );
-					} else {
-						//Si la créance est en état AEMETTRE et que le Titrecreancier passe en état CREE
-						if (
-							$creances['Creance']['etat'] == 'AEMETTRE'
-							&& $titrecreancierEtat == 'CREE'
-						){
-							//Alors Créance Etat -> ENEMISSION
-							$creances['Creance']['etat'] = 'ENEMISSION';
-							$needsSave = true;
-						}
+						//Alors Créance Etat -> ENEMISSION
+						$creances['Creance']['etat'] = 'ENEMISSION';
+						$needsSave = true;
+					}
 
-						//Si la créance est en état ENEMISSION et que le Titrecreancier passe en état EMIS
-						elseif (
-							$creances['Creance']['etat'] == 'ENEMISSION'
-							&& $titrecreancierEtat == 'TITREEMIS'
-						){
-							//SET Créance Etat -> TITREEMIS
-							$creances['Creance']['etat'] = 'TITREEMIS';
-							$needsSave = true;
-						}
+					//Si la créance est en état ENEMISSION et que le Titrecreancier passe en état EMIS
+					elseif (
+						$creances['Creance']['etat'] == 'ENEMISSION'
+						&& $titrecreancierEtat == 'TITREEMIS'
+					){
+						//SET Créance Etat -> TITREEMIS
+						$creances['Creance']['etat'] = 'TITREEMIS';
+						$needsSave = true;
+					}
 
-						//Si la créance est en état ENEMISSION AND et que le Titrecreancier passe en état NON EMIS
-						elseif (
-							$creances['Creance']['etat'] == 'ENEMISSION'
-							&& $titrecreancierEtat == 'NONVALID'
-						){
-							//SET Créance Etat -> TITREEMIS
-							$creances['Creance']['etat'] = 'NONEMISSION';
-							$needsSave = true;
-						}
+					//Si la créance est en état ENEMISSION AND et que le Titrecreancier passe en état NON EMIS
+					elseif (
+						$creances['Creance']['etat'] == 'ENEMISSION'
+						&& $titrecreancierEtat == 'NONVALID'
+					){
+						//SET Créance Etat -> TITREEMIS
+						$creances['Creance']['etat'] = 'NONEMISSION';
+						$needsSave = true;
+					}
 
-						if( $needsSave ) {
-							if( $this->saveAll( $creances, array( 'atomic' => false ) ) &&
-								$this->Historiqueetat->setHisto(
-									$this->name,
-									$creance_id,
-									$creances['Creance']['foyer_id'],
-									$actionName,
-									$creances['Creance']['etat'],
-									$creances['Creance']['foyer_id']
-							)
-							) {
-								$return = true;
-								$this->commit();
-							} else{
-								$this->rollback();
-							}
-						} else{
+					if( $needsSave ) {
+						if( $this->saveAll( $creances, array( 'atomic' => false ) ) &&
+							$this->Historiqueetat->setHisto(
+								$this->name,
+								$creance_id,
+								$creances['Creance']['foyer_id'],
+								$actionName,
+								$creances['Creance']['etat'],
+								$creances['Creance']['foyer_id']
+						)
+						) {
 							$return = true;
+							$this->commit();
+						} else{
+							$this->rollback();
 						}
+					} else{
+						$return = true;
 					}
 				}
 			}

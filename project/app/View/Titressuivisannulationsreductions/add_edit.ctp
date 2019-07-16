@@ -16,7 +16,7 @@ if( empty( $titresCreanciers ) ) {
 			array(
 				'Titrecreancier.dtemissiontitre' => array('label' => __d('titrescreanciers', 'Titrecreancier.dtemissiontitre') ),
 				'Titrecreancier.numtitr' => array('label' => __d('titrescreanciers', 'Titrecreancier.numtitr') ),
-				'Titrecreancier.mnttitr' => array('label' => __d('titrescreanciers', 'Titrecreancier.mnttitr') ),
+				'Titrecreancier.mnttitr' => array('label' => __d('titrescreanciers', 'Titrecreancier.mnttitr'), 'id' => 'mnttitr' ),
 				'Titrecreancier.type' => array('label' => __d('titrescreanciers', 'Titrecreancier.type') ),
 				'Titrecreancier.dtvalidation' => array('label' => __d('titrescreanciers', 'Titrecreancier.dtvalidation') ),
 				'Titrecreancier.etat' => array('label' => __d('titrecreancier', 'Titrecreancier.etat') ),
@@ -107,11 +107,12 @@ if( empty( $titresCreanciers ) ) {
 		var type = document.getElementById('typeAnnReduc');
 		var choix = type.options[type.selectedIndex].text;
 		var montant = document.getElementById('mtreduit');
+		var valMontant = document.getElementById('mnttitr').innerHTML;
 
 		if(choix === 'annulation'){
 			montant.disabled = true;
 			montant.style.background = "#F0F0F0";
-			montant.value = '';
+			montant.value = valMontant;
 		}else{
 			montant.disabled = false;
 			montant.style.background = 'white';

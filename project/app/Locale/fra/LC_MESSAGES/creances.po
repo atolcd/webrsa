@@ -130,6 +130,10 @@ msgstr "Fichiers liés à une créance transférée"
 msgid "Creances.haspiecejointe"
 msgstr "Ajouter une pièce jointe"
 
+msgid "Creance.etatDepuis"
+msgstr "État depuis"
+
+
 msgid "since"
 msgstr " depuis le "
 
