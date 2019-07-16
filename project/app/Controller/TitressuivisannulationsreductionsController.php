@@ -383,12 +383,13 @@
 			$pdf = $this->Titresuiviannulationreduction->WebrsaTitresuiviannulationreduction->getDefaultPdf( $id, $this->Session->read( 'Auth.User.id' ) );
 
 			if( !empty( $pdf ) && $pdf !== false ) {
-				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'certificatadministratif_suiviannulationreduction-%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
 				$data = array();
 				$data['id'] = $id;
 				$data['etat'] = 'CERTIMP';
+
 				$success = $this->Titresuiviannulationreduction->save($data);
 				if( $success ) {
+					$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'certificatadministratif_suiviannulationreduction-%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
 					$this->redirect( array( 'controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
 				} else {
 					$this->Flash->error( __m("Titressuivisannulationsreductions::impression::error") );

@@ -56,7 +56,7 @@
 				'inList' => array(
 					'rule' => array('inList',
 						array(
-							'ENCOURS', 'ANNULER',
+							'ENCOURS', 'ANNULER', 'CERTIMP',
 						)
 					)
 				)

@@ -31,27 +31,24 @@
 			'Validation2.Validation2RulesFieldtypes',
 		);
 
-        /**
-         * Associations "Has And Belongs To Many".
+		/**
+         * Associations "Has Many".
          * @var array
          */
-        public $hasAndBelongsToMany = array(
-            'Titrecreancier' => array(
-                'className' => 'Titrecreancier',
-                'joinTable' => 'typestitrescreanciers_titrescreanciers',
-                'foreignKey' => 'typetitrecreancier_id',
-                'associationForeignKey' => 'titrecreancier_id',
-                'unique' => true,
-                'conditions' => '',
-                'fields' => '',
-                'order' => '',
-                'limit' => '',
-                'offset' => '',
-                'finderQuery' => '',
-                'deleteQuery' => '',
-                'insertQuery' => '',
-                'with' => 'TypetitrecreancierTitrecreancier'
-            )
-        );
+		public $hasMany = array(
+			'Titrecreancier' => array(
+				'className' => 'Titrecreancier',
+				'foreignKey' => 'typetitrecreancier_id',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			)
+		);
 
 	}
