@@ -896,18 +896,19 @@
 	 * Activation du module TitreCréanciers
 	 * 'Creances.titrescreanciers' => true pour activée, false pour inactivée
 	 */
+
 	Configure::write('Creances.titrescreanciers',true);
 	/**
 	 * Activation du module Gestion de List des Creances et Titres Créanciers
-	 * 'Creances.titrescreanciers' => true pour activée, false pour inactivée
+	 * 'Module.Creances.GestionList' => true pour activée, false pour inactivée
 	 */
 	Configure::write('Module.Creances.GestionList',Configure::read('Creances.titrescreanciers') );
-
+	/**
+	 * Activation du module d'export et import FICA
+	 * 'Module.Creances.FICA' => true pour activée, false pour inactivée
+	 * Attention a bien configurer les autres valeurs dans le dossier de config/Titrescreanciers.php
+	 */
 	Configure::write('Module.Creances.FICA',true );
-	Configure::write('Creances.FICA.NumAppliTiers','nn');
-	Configure::write('Creances.FICA.TypePaiement','TD');
-	Configure::write('Creances.FICA.CodeTiers',null);
-	Configure::write('Creances.FICA.SCC','');
 
 	/**
 	 * Couleur des lignes de résultats en erreur

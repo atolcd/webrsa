@@ -506,35 +506,50 @@
 								'Prestation.rolepers' => 'DEM'
 							),
 							'contain' => array (
-								'Dossier',
 								'Foyer',
-								'Prestation'
+								'Prestation',
 							)
 						)
 					);
+					$dossier = $this->Creance->Foyer->Dossier->Detaildroitrsa->find('first',
+						array(
+							'conditions' => array(
+								'Detaildroitrsa.dossier_id ' => $personne['Foyer']['dossier_id'],
+							),
+							'contains' => array (
+								'Detailcalculdroitrsa'
+							)
+						)
+					);
+
 					$infoFICA['PAIEMENT'] = Configure::read('Creances.FICA.TypePaiement');
 					$infoFICA['CODTIERS'] = Configure::read('Creances.FICA.CodeTiers');
 					$infoFICA['REF'] = $titrecreancier_id;
-					$infoFICA['SCC'] = Configure::read('Creances.FICA.SCC');
+
+					$arrayValsSCC = Configure::read('Creances.FICA.SCC');
+					if ( !empty ($dossier['Detailcalculdroitrsa'][0]) ) {
+						$infoFICA['SCC'] = $arrayValsSCC[$dossier['Detailcalculdroitrsa'][0]['natpf']];
+					} else {
+						$infoFICA['SCC'] = null;
+					}
 
 					$infoFICA['MONTANT'] = $titrecreancier['Titrecreancier']['mnttitr'] ;
 
 					$infoFICA['LIBVIR'] =
 						 __m('Indu RSA from').
-						date('dmY', strtotime( $titrecreancier['Titrecreancier']['ddregucre'] ) ).
+						date('dmY', strtotime( $creancier['Creance']['ddregucre'] ) ).
 						__m('to').
-						date('dmY', strtotime( $titrecreancier['Titrecreancier']['dfregucre'] ) ) ;
+						date('dmY', strtotime( $creancier['Creance']['dfregucre'] ) ) ;
 					$infoFICA['OBJET'] = '';
 					$infoFICA['OBS'] = '';
 					$infoFICA['OBS2'] =
-						$personne['Dossier']['0']['matricule'].' / '.
+						$dossier['Dossier']['matricule'].' / '.
 						$titrecreancier['Titrecreancier']['nom'].' / '.
-						$listTypes[$titrecreancier['Titrecreancier']['type']].' / '.
+						$listTypes[$titrecreancier['Titrecreancier']['typetitrecreancier_id']].' / '.
 						date('d-m-Y', strtotime( $personne['Personne']['dtnai']) ).' / '.
 						$creancier['Creance']['motiindu'].' / '.
 						$creancier['Creance']['natcre']
 					;
-
 					if ( !empty ($titrecreancier['Titrecreancier']['bic']) ) {
 						$infoFICA['RIB'] = $titrecreancier['Titrecreancier']['iban'];
 					}else{
