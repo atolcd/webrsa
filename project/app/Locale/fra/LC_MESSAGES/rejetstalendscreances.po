@@ -21,7 +21,7 @@ msgstr ""
 ###############################################################################
 
 msgid "/Rejetstalendscreances/index/:heading"
-msgstr "Rejet Talends Creances"
+msgstr "Rejet Talends Créances"
 
 msgid "/Creances/fluxadd"
 msgstr "Choisir Foyer"

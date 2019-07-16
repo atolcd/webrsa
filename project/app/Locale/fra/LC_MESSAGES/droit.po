@@ -4128,22 +4128,22 @@ msgstr "Cohorte préparation des titres de recette"
 ## Titres Créances
 ###############################################################################
 msgid "controllers/Titrescreanciers"
-msgstr "Titres créanciers"
+msgstr "Titres de recettes"
 
 msgid "controllers/Titrescreanciers/index"
-msgstr "Visualisation des Titres de recette"
+msgstr "Visualisation des titres de recette"
 
 msgid "controllers/Titrescreanciers/view"
-msgstr "Visualisation d'un Titre de recette"
+msgstr "Visualisation d'un titre de recette"
 
 msgid "controllers/Titrescreanciers/valider"
-msgstr "Validation d'un Titre de recette"
+msgstr "Validation d'un titre de recette"
 
 msgid "controllers/Titrescreanciers/add"
-msgstr "Ajout d'un Titre de recette"
+msgstr "Ajout d'un titre de recette"
 
 msgid "controllers/Titrescreanciers/edit"
-msgstr "Modification d'un Titre de recette"
+msgstr "Modification d'un titre de recette"
 
 msgid "controllers/Titrescreanciers/search"
 msgstr "Recherche"
@@ -4254,7 +4254,7 @@ msgstr "Visualisation"
 
 ###############################################################################
 msgid "controllers/Titressuivisannulationsreductions"
-msgstr "Titres créanciers : suivis annulations et reductions"
+msgstr "Titres de recette : suivi annulations et reductions"
 
 msgid "controllers/Titressuivisannulationsreductions/add"
 msgstr "Ajout"
@@ -4279,7 +4279,7 @@ msgstr "Supprimer"
 
 ###############################################################################
 msgid "controllers/Titressuivisinfospayeurs"
-msgstr "Titres créanciers : Info Payeurs"
+msgstr "Titres de recette : Info Payeurs"
 
 msgid "controllers/Titressuivisinfospayeurs/add"
 msgstr "Ajout"
@@ -4298,7 +4298,7 @@ msgstr "Visualisation"
 
 ###############################################################################
 msgid "controllers/Titressuivisautresinfos"
-msgstr "Titres créanciers : info suivi autre "
+msgstr "Titres de recette : info suivi autre "
 
 msgid "controllers/Titressuivisautresinfos/add"
 msgstr "Ajout"

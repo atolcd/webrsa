@@ -241,7 +241,7 @@
 			$titresAnnReduc = $this->Titresuiviannulationreduction->find('all',
 				array(
 					'conditions' => array( 'titrecreancier_id' => $id ),
-					'order' => 'dtaction ASC'
+					'order' => 'Titresuiviannulationreduction.modified DESC'
 				)
 			);
 
