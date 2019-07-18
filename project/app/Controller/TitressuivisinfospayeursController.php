@@ -215,7 +215,7 @@
 			$options = $this->Typetitrecreancierinfopayeur->find('list', array(
 				'fields' => 'Typetitrecreancierinfopayeur.nom',
 				'conditions' => array( 'actif' => true ) ) );
-
+			$options = array_merge($options, $this->Titrecreancier->options() );
 			// Assignations à la vue
 			$this->set( compact( 'options', 'titresInfosEnCours', 'titresCreanciers' ) );
 		}

@@ -196,6 +196,7 @@
 				$record['Titrecreancier']['etat'] == 'ATTRETOURCOMPTA'
 				|| $record['Titrecreancier']['etat'] == 'ATTENVOICOMPTA'
 				|| $record['Titrecreancier']['etat'] == 'RED'
+				|| $record['Titrecreancier']['etat'] == 'SUP'
 			) {
 				return true;
 			}

@@ -50,7 +50,7 @@
 			'Titrecreancier.dtvalidation' => array('type' => 'hidden', 'dateFormat' => 'DMY','empty'=> true),
 			'Titrecreancier.dtbordereau' => array('type' => 'hidden', 'dateFormat' => 'DMY','empty'=> true),
 			'Titrecreancier.etat'=> array('type' => 'hidden'),
-			'Titrecreancier.type' => array( 'type' => 'select', 'options' => $options['Typetitrecreancier']['type_actif'] ),
+			'Titrecreancier.typetitrecreancier_id' => array( 'type' => 'select', 'options' => $options['Typetitrecreancier']['type_actif'] ),
 			'Titrecreancier.numtitr'=> array('type' => 'hidden'),
 			'Titrecreancier.mnttitr' => array('type' => 'number','required' => true),
 			'Titrecreancier.qual',

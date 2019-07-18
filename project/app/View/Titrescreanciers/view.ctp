@@ -58,7 +58,7 @@
 				'Titrecreancier.dtemissiontitre',
 				'Titrecreancier.numtitr',
 				'Titrecreancier.mnttitr',
-				'Titrecreancier.type' => array(
+				'Titrecreancier.typetitrecreancier_id' => array(
 					'type' => 'select',
 					'options' => $options['Typetitrecreancier']['type_actif']
 				),

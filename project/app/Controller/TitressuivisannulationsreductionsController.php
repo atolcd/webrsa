@@ -265,7 +265,7 @@
 			$titresAnnRed = $this->_getList($foyer_id, $titresCreanciers);
 
 			// Ajout des options
-			$options = $this->Titresuiviannulationreduction->enums();
+			$options = array_merge($this->Titresuiviannulationreduction->enums(), $this->Titrecreancier->options() );
 			$titresAnnRedEnCours = array();
 
 			$montantReduitTotal = 0;
@@ -340,6 +340,9 @@
 			}
 			$data['Titresuiviannulationreduction']['mtreduit'] = floatval($data['Titresuiviannulationreduction']['mtreduit']);
 			$success = $this->Titresuiviannulationreduction->save( $data, array( 'validate' => 'first', 'atomic' => false ) );
+			if(empty($id)) {
+				$id = $this->Titresuiviannulationreduction->id;
+			}
 			if( $success && $this->_saveFichiers($id) ) {
 				//Sauvegarde & Mise à jour de l'état du titre
 				$this->Titresuiviannulationreduction->commit();

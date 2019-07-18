@@ -17,7 +17,7 @@
 			'Titrecreancier.creance_id' => array( 'type' => 'hidden'),
 			'Titrecreancier.dtemissiontitre' => array('type' => 'hidden', ),
 			'Titrecreancier.etat'=> array('type' => 'hidden'),
-			'Titrecreancier.type' => array( 'type' => 'hidden', ),
+			'Titrecreancier.typetitrecreancier_id' => array( 'type' => 'hidden', ),
 			'Titrecreancier.numtitr'=> array('type' => 'hidden'),
 			'Titrecreancier.mnttitr' => array('type' => 'hidden'),
 			'Titrecreancier.qual' => array('type' => 'hidden'),

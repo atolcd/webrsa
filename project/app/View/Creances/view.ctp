@@ -35,9 +35,6 @@
 					'Creance.mtinicre',
 					'Creance.mention',
 					'Creance.datemotifemission',
-					'Creance.motifemissioncreance_id' => array(
-						'options' => $listMotifs
-					),
 					'Creance.commentairevalidateur',
 				)
 			),

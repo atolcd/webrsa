@@ -111,6 +111,7 @@
 			$titresAnnRed = $this->WebrsaAccesses->getIndexRecords($foyer_id, $query, $contentIndex);
 			$titresAnnRed =  $this->Titresuiviannulationreduction->getList($titresAnnRed, $titresCreanciers['Titrecreancier']['mntinit']);
 
+			$options = $this->Titrecreancier->options();
 			// Inverse d'ajout possible
 			$options['annreduc_ajoutDisabled'] = !$this->Titresuiviannulationreduction->ajoutPossible($titrecreancier_id);
 

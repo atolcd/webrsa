@@ -255,7 +255,7 @@
 				}
 
 			// Ajout des options
-			$options = $this->Titresuiviautreinfo->enums();
+			$options = array_merge($this->Titresuiviautreinfo->enums(), $this->Titrecreancier->options() );
 			$options['type'] = $this->Typetitrecreancierautreinfo->find('list', array(
 				'fields' => 'Typetitrecreancierautreinfo.nom',
 				'conditions' => array( 'actif' => true ) ) );
@@ -294,6 +294,9 @@
 			);
 
 			$success = $this->Titresuiviautreinfo->save( $data, array( 'validate' => 'first', 'atomic' => false ) );
+			if(empty($id)) {
+				$id = $this->Titresuiviautreinfo->id;
+			}
 			if( $success && $this->_saveFichiers($id) ) {
 				//Sauvegarde & Mise à jour de l'état du titre
 				$this->Titresuiviautreinfo->commit();
@@ -393,7 +396,7 @@
 				}
 			}
 
-			$this->set('titresAutreInfo', $this->Titresuiviautreinfo->find('first', array('conditions' => array('Titresuiviannulationreduction.id' => $id))));
+			$this->set('titresAutreInfo', $this->Titresuiviautreinfo->find('first', array('conditions' => array('Titresuiviautreinfo.id' => $id))));
 			$this->set( 'fichiers', $fichiers );
 		}
 

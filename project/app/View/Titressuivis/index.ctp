@@ -27,7 +27,11 @@ if( empty( $titresCreanciers ) ) {
 				'Titrecreancier.dtemissiontitre' => array('label' => __d('titrescreanciers', 'Titrecreancier.dtemissiontitre') ),
 				'Titrecreancier.numtitr' => array('label' => __d('titrescreanciers', 'Titrecreancier.numtitr') ),
 				'Titrecreancier.mnttitr' => array('label' => __d('titrescreanciers', 'Titrecreancier.mnttitr') ),
-				'Titrecreancier.type' => array('label' => __d('titrescreanciers', 'Titrecreancier.type') ),
+				'Titrecreancier.typetitrecreancier_id' => array(
+					'label' => __d('titrescreanciers', 'Titrecreancier.typetitrecreancier_id'),
+					'type' => 'select',
+					'options' => $options['Typetitrecreancier']['type_actif'],
+				),
 				'Titrecreancier.dtvalidation' => array('label' => __d('titrescreanciers', 'Titrecreancier.dtvalidation') ),
 				'Titrecreancier.etat' => array('label' => __d('titrecreancier', 'Titrecreancier.etat') ),
 				'Titrecreancier.mention' => array('label' => __d('titrescreanciers', 'Titrecreancier.mention') ),
