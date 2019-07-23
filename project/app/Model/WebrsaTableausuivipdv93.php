@@ -3879,6 +3879,7 @@
 				'conditions' => array(
 				),
 				'order' => array(
+					'yearthema' => 'DESC'
 				)
 			);
 			$results = $this->Thematiquefp93->find( 'all', $query );

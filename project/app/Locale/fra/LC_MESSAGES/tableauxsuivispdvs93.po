@@ -73,6 +73,12 @@ msgstr "Nbre de fois ou un bénéficiaire ne s'est pas déplacé "
 msgid "Tableau1b5.nombre_fiches_attente"
 msgstr "Nbre de fiches de positionnement en attente d'un retour"
 
+msgid "Tableau1b5.type"
+msgstr "Type"
+
+msgid "Tableau1b5.annee"
+msgstr "Année"
+
 msgid "Tableau1b5.thematique"
 msgstr "Thématique"
 
@@ -80,10 +86,10 @@ msgid "Tableau1b5.categorie"
 msgstr "Catégorie"
 
 msgid "Tableau1b5.nombre"
-msgstr "Nb de positionnements effectuées"
+msgstr "Nombre de positionnements effectués"
 
 msgid "Tableau1b5.nombre_effectives"
-msgstr "Nombre de positionnements effectives"
+msgstr "Nombre de positionnements effectifs"
 
 msgid "Tableau1b5.raison_non_participation"
 msgstr "Raisons de la non participation"
@@ -219,6 +225,12 @@ msgstr "Nb de participations à une action"
 
 msgid "Tableau1b5.prescriptions_abandon_count"
 msgstr "Abandon en cours d'action"
+
+msgid "Tous"
+msgstr "Tous"
+
+msgid "Toutes"
+msgstr "Toutes"
 
 # ------------------------------------------------------------------------------
 # Recherche

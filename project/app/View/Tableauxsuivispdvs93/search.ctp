@@ -155,9 +155,12 @@
 			);
 		}
 		else if( in_array( $tableau, array( 'tableau1b4' ) ) ) {
+			if ( !empty ( $this->request->params['named']['Search__yearthematiquefp93_id'] ) ){
+				$valAnnee = $this->request->params['named']['Search__yearthematiquefp93_id'] ;
+			}else{ $valAnnee = current($options['Search']['yearthematiquefp93_id']); }
 			echo $this->Default3->subform(
 				array(
-					'Search.yearthematiquefp93_id' => array( 'type' => 'select', 'empty' => true, 'value' => current($options['Search']['yearthematiquefp93_id']) ),
+					'Search.yearthematiquefp93_id' => array( 'type' => 'select', 'empty' => true, 'value' => $valAnnee ),
 					'Search.rdv_structurereferente' => array( 'type' => 'checkbox' )
 				),
 				array(
@@ -166,10 +169,13 @@
 			);
 		}
 		else if( in_array( $tableau, array(  'tableau1b5' ) ) ) {
+			if ( !empty ( $this->request->params['named']['Search__yearthematiquefp93_id'] ) ){
+				$valAnnee = $this->request->params['named']['Search__yearthematiquefp93_id'] ;
+			}else{ $valAnnee = current($options['Search']['yearthematiquefp93_id']); }
 			echo $this->Default3->subform(
 				array(
 					'Search.typethematiquefp93_id' => array( 'type' => 'select', 'empty' => true ),
-					'Search.yearthematiquefp93_id' => array( 'type' => 'select', 'empty' => true ),
+					'Search.yearthematiquefp93_id' => array( 'type' => 'select', 'empty' => true, 'value' => $valAnnee ),
 					'Search.rdv_structurereferente' => array( 'type' => 'checkbox' )
 				),
 				array(

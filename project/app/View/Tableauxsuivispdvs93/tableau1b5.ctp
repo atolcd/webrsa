@@ -23,7 +23,9 @@
 			'thead',
 			$this->Xhtml->tableHeaders(
 				array(
-					array( __d( $domain, 'Tableau1b5.thematique' ) => array( 'rowspan' => 2 ) ),
+					array( __d( $domain, 'Tableau1b5.type' ) => array( 'rowspan' => 2, 'class' => 'smallHeader' ) ),
+					array( __d( $domain, 'Tableau1b5.annee' ) => array( 'rowspan' => 2, 'class' => 'smallHeader' ) ),
+					array( __d( $domain, 'Tableau1b5.thematique' ) => array( 'rowspan' => 2, 'class' => 'smallHeader' ) ),
 					array( __d( $domain, 'Tableau1b5.categorie' ) => array( 'rowspan' => 2 ) ),
 					array( __d( $domain, 'Tableau1b5.nombre' ) => array( 'rowspan' => 2 ) ),
 					array( __d( $domain, 'Tableau1b5.nombre_effectives' ) => array( 'rowspan' => 2 ) ),
@@ -64,8 +66,26 @@
 					$class = null;
 				}
 
+
 				if( $categoriepcd !== $result[0][0]['categorie'] ) {
+					if (!empty ( $this->request->params['named']['Search__typethematiquefp93_id'] )){
+						$cell[] =__d(
+								'thematiquefp93', 'ENUM::TYPE::'
+								.$this->request->params['named']['Search__typethematiquefp93_id']
+							)
+						;
+					}else{
+						$cell[] = 'Tous';
+					}
+					if ( !empty ( $this->request->params['named']['Search__yearthematiquefp93_id'] ) ){
+						$cell[] = $this->request->params['named']['Search__yearthematiquefp93_id'];
+					}else{
+						$cell[] = 'Toutes';
+					}
 					$cell[] = array( $result[0][0]['categorie'], array( 'rowspan' => $rowspans[$result[0][0]['categorie']], 'class' => $class ) );
+				}else{
+					$cell[] = null ;
+					$cell[] = null ;
 				}
 
 				$cell[] = array( $result[0][0]['thematique'], array( 'class' => $class ) );
@@ -89,7 +109,7 @@
 		// Pied du tableau
 		$cells = array(
 			array(
-				array( 'Total', array( 'colspan' => 2 ) ),
+				array( 'Total', array( 'colspan' => 4 ) ),
 				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre" ) ), array( 'class' => 'integer number' ) ),
 				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_effectives" ) ), array( 'class' => 'integer number' ) ),
 				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_refus_organisme" ) ), array( 'class' => 'integer number' ) ),
