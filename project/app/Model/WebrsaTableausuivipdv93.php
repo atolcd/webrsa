@@ -274,8 +274,11 @@
 			'reports_homme',
 			'reports_femme',
 			'entrees_total',
+			'entrees_total_pourcent',
 			'entrees_homme',
+			'entrees_homme_pourcent',
 			'entrees_femme',
+			'entrees_femme_pourcent',
 			'sorties_total',
 			'sorties_homme',
 			'sorties_femme',
@@ -1190,8 +1193,11 @@
 				'reports_homme' => null,
 				'reports_femme' => null,
 				'entrees_total' => 0,
+				'entrees_total_pourcent' => 0,
 				'entrees_homme' => 0,
+				'entrees_homme_pourcent' => 0,
 				'entrees_femme' => 0,
+				'entrees_femme_pourcent' => 0,
 				'sorties_total' => null,
 				'sorties_homme' => null,
 				'sorties_femme' => null,
@@ -1283,6 +1289,22 @@
 			// Suppression des NC
 			foreach( $return as $categorie => $data ) {
 				unset( $return[$categorie]['dont']['NC'] );
+			}
+
+			// Calcul des pourcentage
+			foreach($return as $categorie => $data ) {
+				$return[$categorie]["entrees_total_pourcent"] = 100;
+				foreach( array('homme', 'femme' ) as $column ) {
+					$return[$categorie]["entrees_{$column}_pourcent"] =( (int)$return[$categorie]["entrees_{$column}"] / (int)$return[$categorie]["entrees_total"]) *100;
+				}
+
+				if( isset( $data['dont'] ) ) {
+					foreach( $data['dont'] as $categorie2 => $data2 ) {
+						foreach( array( 'total', 'homme', 'femme' ) as $column ) {
+							$return[$categorie]['dont'][$categorie2]["entrees_{$column}_pourcent"] = ( (int)$return[$categorie]['dont'][$categorie2]["entrees_{$column}"] / (int)$return[$categorie]["entrees_{$column}"]) * 100;
+						}
+					}
+				}
 			}
 
 			return $return;

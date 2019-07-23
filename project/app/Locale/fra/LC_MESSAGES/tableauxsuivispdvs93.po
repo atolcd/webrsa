@@ -318,9 +318,11 @@ msgstr "Visualisation du tableau #Tableausuivipdv93.name# pour l'année #Tableau
 # ------------------------------------------------------------------------------
 # Tableau D1
 # ------------------------------------------------------------------------------
+msgid "/Tableauxsuivispdvs93/tableaud1/:title"
+msgstr "Tableau 1 - Caractéristiques des participants"
 
 msgid "/Tableauxsuivispdvs93/tableaud1/:heading"
-msgstr "Tableau D1 - Indicateurs de réalisation : caractéristiques des participants"
+msgstr "Tableau 1 - Caractéristiques des participants au 1er entretien de l'année"
 
 msgid "/Tableauxsuivispdvs93/tableaud1/sexe"
 msgstr "Ligne 1 - Total participants"
