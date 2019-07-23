@@ -108,7 +108,7 @@ msgstr "Nb de participations à une action"
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableau1b3/:heading"
-msgstr "3 - Problématiques des bénéficiaires de l'opération"
+msgstr "Tableau 3 - Problématiques des bénéficiaires de l'opération"
 
 # ------------------------------------------------------------------------------
 
@@ -150,7 +150,7 @@ msgstr "Autres (1)"
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableau1b4/:heading"
-msgstr "4 - Positionnements vers les acteurs sociaux, culturels et de sante"
+msgstr "Tableau 4 - Positionnements vers les acteurs sociaux, culturels et de sante"
 
 msgid "Tableau1b4.libelle"
 msgstr "Thématiques"
@@ -189,7 +189,7 @@ msgstr "c. Acteurs de la culture, des loisirs et des vacances"
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableau1b5/:heading"
-msgstr "5 - Positionnement sur les actions à caractère socio-professionnel et professionnel"
+msgstr "Tableau 5 - Positionnement sur les actions à caractère socio-professionnel et professionnel"
 
 # ------------------------------------------------------------------------------
 
@@ -356,11 +356,11 @@ msgid "/Tableauxsuivispdvs93/tableaud1/diplomes_etrangers"
 msgstr "Ligne 15 - Diplômes étrangers non reconnus en France"
 
 # ------------------------------------------------------------------------------
-# Tableau D2
+# Tableau D2 - Tableau 10
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableaud2/:heading"
-msgstr "Tableau D2 - Situation des participants à l'issue de l'opération"
+msgstr "Tableau 10 - Situation des participants à l'issue de l'opération"
 
 msgid "/Tableauxsuivispdvs93/tableaud2/totaux"
 msgstr "Total des participants"
@@ -433,7 +433,7 @@ msgstr "Sortie \"Changement administratif\""
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableau1b6/:heading"
-msgstr "6 - Actions collectives"
+msgstr "Tableau 6 - Actions collectives"
 
 # ------------------------------------------------------------------------------
 
@@ -565,7 +565,7 @@ msgstr "Le bénéficiaire a achevé l'action"
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableaub7/:heading"
-msgstr "7a - Nombre de personnes accédant à l'emploi"
+msgstr "Tableau 7a - Nombre de personnes accédant à l'emploi"
 
 msgid "Tableaub7.chiffres.cles"
 msgstr "Accès à l'emploi : chiffres clés"
@@ -593,11 +593,25 @@ msgstr "Accès à l'emploi : nombre d'accès à l'emploi par familles profession
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableaub7d2typecontrat/:heading"
-msgstr "7b - Synthèse des accès à l'emploi"
+msgstr "Tableau 7b - Synthèse des accès à l'emploi"
 
 # ------------------------------------------------------------------------------
 # Tableau B7 + D2 par famille professionnelle
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableaub7d2familleprofessionnelle/:heading"
-msgstr "7c - Accès à l'emploi selon les secteurs professionnels"
+msgstr "Tableau 7c - Accès à l'emploi selon les secteurs professionnels"
+
+# ------------------------------------------------------------------------------
+# Tableau 8 par CER
+# ------------------------------------------------------------------------------
+msgid "/Tableauxsuivispdvs93/tableau8cer/:heading"
+msgstr "Tableau 8 - Contrats d'Engagement Réciproque"
+
+# ------------------------------------------------------------------------------
+# Tableau 9 par délai d'accompagnement
+# ------------------------------------------------------------------------------
+msgid "/Tableauxsuivispdvs93/tableau9delaiaccompagnement/:heading"
+msgstr "Tableau 9 - Délais d'accompagnement"
+
+
