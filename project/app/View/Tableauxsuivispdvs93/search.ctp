@@ -1,4 +1,5 @@
 <?php
+
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 		echo $this->Html->script( array( 'prototype.event.simulate.js', 'dependantselect.js' ) );
@@ -153,7 +154,18 @@
 				)
 			);
 		}
-		else if( in_array( $tableau, array( 'tableau1b4', 'tableau1b5' ) ) ) {
+		else if( in_array( $tableau, array( 'tableau1b4' ) ) ) {
+			echo $this->Default3->subform(
+				array(
+					'Search.yearthematiquefp93_id' => array( 'type' => 'select', 'empty' => true, 'value' => current($options['Search']['yearthematiquefp93_id']) ),
+					'Search.rdv_structurereferente' => array( 'type' => 'checkbox' )
+				),
+				array(
+					'options' => $options
+				)
+			);
+		}
+		else if( in_array( $tableau, array(  'tableau1b5' ) ) ) {
 			echo $this->Default3->subform(
 				array(
 					'Search.typethematiquefp93_id' => array( 'type' => 'select', 'empty' => true ),
