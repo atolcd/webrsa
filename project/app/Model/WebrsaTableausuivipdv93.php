@@ -4830,7 +4830,7 @@
 					'Contratinsertion.df_ci',
 					// Thématique dernier CER
 					'Ficheprescription93.created',
-					'(CASE WHEN "Thematiquefp93"."name" LIKE \'horspdi\' THEN \'HORS IFE\' ELSE \'IFE\' END) AS "typethematiquefp93"',
+					'(CASE WHEN "Thematiquefp93"."name" LIKE \'horspdi\' THEN \'HORS PDIE\' ELSE \'PDIE\' END) AS "typethematiquefp93"',
 					'Thematiquefp93.name', // Type
 					'Categoriefp93.name',
 					'Filierefp93.name',
