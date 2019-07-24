@@ -7,6 +7,12 @@
 				'Typerdv.libelle',
 				'Statutrdv.libelle',
 				'Thematiquerdv.linkedmodel',
+				'Thematiquerdv.actif' => array(
+					'type' => 'boolean'
+				),
+				'Thematiquerdv.acomptabiliser' => array(
+					'type' => 'boolean'
+				),
 				'/Thematiquesrdvs/edit/#Thematiquerdv.id#' => array(
 					'title' => true
 				),
