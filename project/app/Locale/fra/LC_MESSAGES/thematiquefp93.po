@@ -11,7 +11,7 @@ msgstr ""
 # ==============================================================================
 
 msgid "ENUM::TYPE::pdi"
-msgstr "Catalogue IFE"
+msgstr "Catalogue PDIE"
 
 msgid "ENUM::TYPE::horspdi"
-msgstr "Hors catalogue IFE"
+msgstr "Hors catalogue PDIE"
