@@ -152,6 +152,12 @@
 				$path = 'Actionfp93.annee';
 				$data = Hash::insert( $data, $path, $yearVal );
 
+				// Retait de l'échappement des Sauts de lignes
+				$path = 'Adresseprestatairefp93.adresse';
+				$adressePresta = str_replace('\\\n', "\n", Hash::get( $data, $path) );
+
+				$data = Hash::insert( $data, $path, $adressePresta );
+
 				$arraypath = array (
 					'Actionfp93.name',
 					'Prestatairefp93.name',
