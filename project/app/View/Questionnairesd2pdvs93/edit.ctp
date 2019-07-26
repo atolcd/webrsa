@@ -12,6 +12,14 @@
 
 	echo $this->Default3->DefaultForm->create( 'Questionnaired2pdv93', array( 'novalidate' => 'novalidate', 'url' => $url ) );
 
+	if ($allowToujoursEmploi) {
+		$typeToujoursEmploi = 'select';
+		$disableToujoursEmploi = false;
+	}else{
+		$typeToujoursEmploi = 'hidden';
+		$disableToujoursEmploi = true;
+	}
+
 	echo $this->Default3->subform(
 		array(
 			'Questionnaired2pdv93.id' => array( 'type' => 'hidden' ),
@@ -20,6 +28,8 @@
 			'Questionnaired2pdv93.isajax' => array( 'type' => 'hidden' ),
 			'Questionnaired2pdv93.date_validation' => array( 'type' => 'hidden' ),
 			'Questionnaired2pdv93.toujoursenemploi' => array(
+				'type' => $typeToujoursEmploi,
+				'disabled' => $disableToujoursEmploi,
 				'options' => array ('Non', 'Oui'),
 				'required' => true
 			),

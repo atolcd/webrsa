@@ -186,7 +186,13 @@
 					$cells = '';
 
 					if( $i1 == 0 ) {
-						$cells .= $this->Html->tag( 'th', $this->categorie1Label( $categorie ), array( 'rowspan' => count( Hash::flatten( $categories[$categorie] ) ) + count( array_keys( $results[$categorie] ) ), 'class' => 'categorie1' ) );
+						$cells .= $this->Html->tag(
+							 'th',
+							 $this->categorie1Label( $categorie ),
+							 array(
+								'rowspan' => (count( Hash::flatten( $results[$categorie] ) )/8) + count( array_keys( $results[$categorie] ) ),
+								'class' => 'categorie1' )
+						);
 					}
 
 					if( $i2 == 0 ) {

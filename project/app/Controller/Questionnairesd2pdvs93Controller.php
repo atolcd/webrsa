@@ -268,6 +268,52 @@
 				)
 			);
 
+			// Gestion de l'affichage de la question "Toujours en Emploi"
+			//On n'affiche pas le boutton "Toujours en Emploi" sauf si :
+			$allowToujoursEmploi = false;
+
+			// Si l'allocataire as un B7
+			$questionnaireB7 = $this->Questionnaired2pdv93->Personne->Questionnaireb7pdv93->find(
+				'first',
+				array(
+					'conditions' => array(
+						'Questionnaireb7pdv93.personne_id' => $personne_id,
+						'Questionnaireb7pdv93.created <=' => $this->request->data['Questionnaired2pdv93']['date_validation'],						
+					),
+					'contain' => false,
+					'order' => array(
+						'Questionnaireb7pdv93.created' => 'DESC'
+					)
+				)
+			);
+			if ( ! empty ($questionnaireB7) ) {
+				// et qu'aucun D2 ne clos l'emploi ce qui se traduit par :
+				// - soit qu'aucun D2 n'existe entre le B7 et le D2 actuel
+				// - soit le D2 précédent valide toujours en emploi
+				$ancienQuestionnaireD2 = $this->Questionnaired2pdv93->find(
+					'first',
+					array(
+						'conditions' => array(
+							'Questionnaired2pdv93.personne_id' => $personne_id,
+							'Questionnaired2pdv93.date_validation <' => $this->request->data['Questionnaired2pdv93']['date_validation'],
+							'Questionnaired2pdv93.created <=' => $questionnaireB7['Questionnaireb7pdv93']['created'],
+						),
+						'contain' => false,
+						'order' => array(
+							'Questionnaired2pdv93.created' => 'DESC'
+						)
+					)
+				);
+				if (
+					empty ($ancienQuestionnaireD2)
+					|| ( $ancienQuestionnaireD2['Questionnaired2pdv93']['toujoursenemploi'] == 1 )
+				) {
+					// Alors on active le boutton
+					$allowToujoursEmploi = true;
+				}
+			}
+
+
 			// Options
 			$options = array_merge(
 				$this->Questionnaired2pdv93->options( array( 'find' => true ) ),
@@ -276,7 +322,7 @@
 
 			$urlmenu = "/questionnairesd2pdvs93/index/{$personne_id}";
 
-			$this->set( compact( 'personne_id', 'personne', 'options', 'dossierMenu', 'isAjax', 'urlmenu' ) );
+			$this->set( compact( 'personne_id', 'personne', 'options', 'dossierMenu', 'isAjax', 'urlmenu', 'allowToujoursEmploi' ) );
 
 			if( $isAjax ) {
 				$this->layout = null;

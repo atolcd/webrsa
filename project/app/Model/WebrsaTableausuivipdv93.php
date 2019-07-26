@@ -1547,10 +1547,13 @@
 						}
 						else {
 							foreach( $data2 as $categorie3 => $data3 ) {
+								$delete = true;
 								if( isset( $data3['nombre'] ) ) {
 									foreach( array( 'nombre', 'hommes', 'femmes', 'cer' ) as $key ) {
 										$return[$categorie1][$categorie2][$categorie3]["{$key}_%"] = $data3[$key] / $nombre_total * 100;
+										if( $data3[$key] > 0 ){$delete = false;}
 									}
+									if ( $delete ) { unset ( $return[$categorie1][$categorie2][$categorie3] );}
 								}
 							}
 						}
