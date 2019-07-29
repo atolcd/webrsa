@@ -205,12 +205,10 @@
 			));
 			if( isset($titresLies) && !empty($titresLies) ) {
 				foreach( $titresLies as $titre ) {
-					if( $titre['Titresuiviannulationreduction']['etat'] !== 'ANNULER' ) {
-						if( $titre['Typetitrecreancierannulationreduction']['nom'] !== 'annulation' ) {
-							return true;
-						} else {
+					if( $titre['Titresuiviannulationreduction']['etat'] !== 'CERTIMP' || (
+							$titre['Titresuiviannulationreduction']['etat'] === 'CERTIMP' &&
+						$titre['Typetitrecreancierannulationreduction']['nom'] === 'annulation')	) {
 							return false;
-						}
 					}
 				}
 			}

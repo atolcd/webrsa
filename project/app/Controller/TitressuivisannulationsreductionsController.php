@@ -276,10 +276,9 @@
 			}
 
 			$options['montant']['total'] = $montantReduitTotal;
+			$options['montant']['disabled'] = true;
 
 			if( $this->action == 'add' ) {
-				$options['montant']['disabled'] = true;
-
 				$titresAnnRedEnCours['Titresuiviannulationreduction']['typeannulationreduction_id']='';
 				$titresAnnRedEnCours['Titresuiviannulationreduction']['id']='';
 				$titresAnnRedEnCours['Titresuiviannulationreduction']['mtreduit']='';
@@ -348,7 +347,7 @@
 				$this->Titresuiviannulationreduction->commit();
 				$success = $this->Titrecreancier->setEtat($titrecreancier_id, $this->action);
 
-				if( $success && $this->Titrecreancier->calculMontantTitre($titrecreancier_id) ) {
+				if( $success ) {
 					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
 				} else {
@@ -391,7 +390,7 @@
 				$data['etat'] = 'CERTIMP';
 
 				$success = $this->Titresuiviannulationreduction->save($data);
-				if( $success ) {
+				if( $success && $this->Titrecreancier->calculMontantTitre($titrecreancier_id) ) {
 					$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'certificatadministratif_suiviannulationreduction-%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
 					$this->redirect( array( 'controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
 				} else {
