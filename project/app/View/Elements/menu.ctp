@@ -446,8 +446,8 @@
 				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaub7/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaub7' ) ),
 				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaub7d2typecontrat/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaub7d2typecontrat' ) ),
 				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaub7d2familleprofessionnelle/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaub7d2familleprofessionnelle' ) ),
-				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableau8cer/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableau8cer' ) ),
-				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableau9delaiaccompagnement/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableau9delaiaccompagnement' ) ),
+				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaub8/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaub8' ) ),
+				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaub9/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaub9' ) ),
 				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaud2/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaud2' ) ),
 			),
 			'Rsa Query'  => array(

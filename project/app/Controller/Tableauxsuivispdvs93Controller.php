@@ -110,6 +110,8 @@
 			'tableaub7' => 'read',
 			'tableaub7d2typecontrat' => 'read',
 			'tableaub7d2familleprofessionnelle' => 'read',
+			'tableaub8' => 'read',
+			'tableaub9' => 'read',
 			'view' => 'read',
 		);
 
@@ -557,6 +559,32 @@
 		}
 
 		/**
+		 * Formulaire de filtres pour le tableau de suivi b8.
+		 */
+		public function tableaub8() {
+			$search = $this->_filters( $this->request->data );
+			$this->_setOptions();
+			$this->_prepareFormData( $search );
+
+			if( !empty( $search ) ) {
+				$this->set( 'results', $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub8( $search ) );
+			}
+		}
+
+		/**
+		 * Formulaire de filtres pour le tableau de suivi b9.
+		 */
+		public function tableaub9() {
+			$search = $this->_filters( $this->request->data );
+			$this->_setOptions();
+			$this->_prepareFormData( $search );
+
+			if( !empty( $search ) ) {
+				$this->set( 'results', $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub9( $search ) );
+			}
+		}
+
+		/**
 		 *
 		 * @param string $action
 		 * @param integer $id
@@ -628,7 +656,12 @@
 				else if( $action === 'tableau1b6' ) {
 					$query = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->qdExportcsvCorpus1b6( $id );
 				}
-
+				else if( $action === 'tableaub8' ) {
+					$query = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->qdExportcsvCorpusb8( $id );
+				}
+				else if( $action === 'tableaub9' ) {
+					$query = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->qdExportcsvCorpusb9( $id );
+				}
 				if( !in_array( $action, array( 'tableaud1', 'tableaud2' ) )  ) {
 					$query = ConfigurableQueryFields::getFieldsByKeys(
 						"{$this->name}.{$action}.{$this->request->action}",
@@ -655,6 +688,9 @@
 				break;
 				case 'tableaub7d2familleprofessionnelle' :
 					$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->resultsCorpusTableaub7d2FamilleProfessionnelle($search);
+				break;
+				case 'tableaub8' :
+					$results = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableaub8($search, false, true);
 				break;
 			}
 
@@ -760,6 +796,8 @@
 			}
 			else if( $action === 'tableau1b3' ) {
 				$categories = $this->Tableausuivipdv93->WebrsaTableausuivipdv93->problematiques();
+			} else if ($action === 'tableaub9') {
+				$this->set ('annee', $tableausuivipdv93['Tableausuivipdv93']['annee']);
 			}
 
 			$csvfile = $this->_csvFileName( $this->action, $tableausuivipdv93 );

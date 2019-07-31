@@ -127,6 +127,16 @@
 				'Search.referent_id',
 				'Search.soumis_dd_dans_annee'
 			),
+			'tableaub8' => array(
+				'Search.annee',
+				'Search.communautesr_id',
+				'Search.structurereferente_id',
+			),
+			'tableaub9' => array(
+				'Search.annee',
+				'Search.communautesr_id',
+				'Search.structurereferente_id',
+			),
 		);
 
 		/**
@@ -165,6 +175,8 @@
 		 * @var array
 		 */
 		public $tableaux = array(
+			'tableaub9' => 'B 9',
+			'tableaub8' => 'B 8',
 			'tableaub7' => 'B 7',
 			'tableaub7d2typecontrat' => 'B 7 + D 2',
 			'tableaub7d2familleprofessionnelle' => 'B 7 + D 2',
@@ -400,6 +412,8 @@
 				'Questionnaireb7pdv93',
 				'Questionnaired2pdv93',
 			),
+			'tableaub8' => 'Contratinsertion',
+			'tableaub9' => 'Orientstruct',
 		);
 
 		/**
@@ -1564,6 +1578,330 @@
 			return $return;
 		}
 
+		/**
+		 * Retourne les champs utilisés pour le tableau B8
+		 */
+		protected function _qdTableaub8Fields() {
+				return array(
+					'Personne.qual',
+					'Personne.nom',
+					'Personne.prenom',
+					'Personne.dtnai',
+					'Adresse.numvoie',
+					'Adresse.libtypevoie',
+					'Adresse.nomvoie',
+					'Adresse.complideadr',
+					'Adresse.codepos',
+					'Adresse.nomcom',
+					'Dossier.dtdemrsa',
+					'Dossier.numdemrsa',
+					'Dossier.matricule',
+					'Orientstruct.statut_orient',
+					'struc_orientation.lib_struc',
+					'Orientstruct.date_valid',
+					'struc_signataire_cer.lib_struc',
+					'Contratinsertion.dd_ci',
+					'Contratinsertion.df_ci',
+					'Contratinsertion.rg_ci',
+					'Cer93.positioncer',
+					'Cer93.datesignature',
+					'Cer93.created',
+					'Cer93.modified',
+					'Referent.qual',
+					'Referent.nom',
+					'Referent.prenom',
+					'Referent.fonction');
+		}
+
+		/**
+		 * Retourne les jointures utilisées pour le tableau B8
+		 */
+		protected function _qdTableaub8Joins() {
+			$contratInsertion = ClassRegistry::init( 'Contratinsertion' );
+			return array(
+				$contratInsertion->join( 'Cer93', array( 'type' => 'INNER' ) ),
+				$contratInsertion->join( 'Personne', array( 'type' => 'INNER' ) ),
+				$contratInsertion->join( 'Referent', array( 'type' => 'LEFT OUTER' ) ),
+				$contratInsertion->Personne->join( 'Foyer', array( 'type' => 'INNER' ) ),
+				$contratInsertion->Personne->join( 'Orientstruct', array(
+													'type' => 'LEFT OUTER',
+													'conditions' => array(
+														'Orientstruct.statut_orient = \'Orienté\'',
+													) ) ),
+				array(
+					'table' => 'structuresreferentes',
+					'alias' => 'struc_orientation',
+					'type' => 'LEFT OUTER',
+					'conditions' => array('"Orientstruct"."structurereferente_id" = "struc_orientation"."id"')
+				),
+				$contratInsertion->Personne->join( 'Prestation', array( 'type' => 'INNER' ) ),
+				$contratInsertion->Personne->Foyer->join( 'Dossier', array( 'type' => 'INNER' ) ),
+				$contratInsertion->Personne->Foyer->join( 'Adressefoyer', array( 'type' => 'LEFT OUTER' ) ),
+				$contratInsertion->Personne->Foyer->Adressefoyer->join('Adresse', array( 'type' => 'LEFT OUTER' ) ),
+				$contratInsertion->Personne->Orientstruct->join( 'Typeorient', array( 'type' => 'LEFT OUTER') ),
+				array(
+					'table' => 'structuresreferentes',
+					'alias' => 'struc_signataire_cer',
+					'type' => 'LEFT OUTER',
+					'conditions' => array('"Contratinsertion"."structurereferente_id" = "struc_signataire_cer"."id"' )
+				),
+				$contratInsertion->Personne->Foyer->Dossier->join( 'Situationdossierrsa', array( 'type' => 'INNER' ) ),
+				$contratInsertion->Personne->Foyer->Dossier->join( 'Detaildroitrsa', array( 'type' => 'LEFT OUTER' ) ),
+				$contratInsertion->Personne->join( 'PersonneReferent', array(
+														'type' => 'LEFT OUTER',
+														'conditions' => array(
+															'OR' => array(
+																'PersonneReferent.id' => NULL,
+																'PersonneReferent.id IN (SELECT personnes_referents.id
+																	FROM personnes_referents
+																	WHERE personnes_referents.personne_id = Personne.id
+																	AND personnes_referents.dfdesignation IS NULL
+																	ORDER BY personnes_referents.dddesignation DESC LIMIT 1)'
+															)
+														)
+				) ),
+				array(
+					'table' => 'referents',
+					'alias' => 'referent_parcours',
+					'type' => 'LEFT OUTER',
+					'conditions' => array('"PersonneReferent"."referent_id" = "referent_parcours"."id"')
+				),
+				array(
+					'table' => 'structuresreferentes',
+					'alias' => 'struc_referent_parcours',
+					'type' => 'LEFT OUTER',
+					'conditions' => array('"referent_parcours"."structurereferente_id" = "struc_referent_parcours"."id"' )
+				),
+			);
+		}
+
+		/**
+		 * Retourne les conditions utilisées pour le tableau B8
+		 * @param array $search
+		 */
+		protected function _qdTableaub8Conditions( $search) {
+			// Filtre sur l'année
+			$annee = Sanitize::clean( Hash::get( $search, 'Search.annee' ), array( 'encode' => false ) );
+
+			// Filtre sur la structure référente
+			$structureReferente = ClassRegistry::init( 'Structurereferente' );
+			if( isset( $search['Search']['structurereferente_id'] ) && !empty( $search['Search']['structurereferente_id'] ) ) {
+				// Si une structure référente est choisie
+				$resultStructure = $structureReferente->find('first', array('conditions' => array('Structurereferente.id' => $search['Search']['structurereferente_id'])));
+
+				$libStructureReferente = '%' . $resultStructure['Structurereferente']['lib_struc'] . '%';
+				$tabStructure = array('struc_signataire_cer.lib_struc LIKE' => $libStructureReferente);
+			} else if ( !empty( $search['Search']['communautesr_id']) ) {
+				// Si un EPT est choisi
+				$communautesr_id = Hash::get( $search, 'Search.communautesr_id' );
+				$listComunautes = $structureReferente->query($this->Tableausuivipdv93->Communautesr->sqStructuresreferentes( $communautesr_id ));
+
+				$structId = array();
+				foreach ( $listComunautes as $communautes){
+					$structId[] = $communautes['CommunautesrStructurereferente']['structurereferente_id'];
+				}
+				$listStructure = $structureReferente->find('list', array('conditions' => array('Structurereferente.id IN' => $structId ) ) );
+				$tabStructure = array(
+					'struc_signataire_cer.lib_struc IN' => $listStructure// \'%Projet de Ville%\') OR (struc_signataire_cer.lib_struc LIKE \'%Projet Insertion Emploi%\') OR (struc_signataire_cer.lib_struc LIKE \'Maison de l%\'))'
+				);
+			} else {
+				$listStructure = $this->listePdvs();
+				$tabStructure = array(
+						'struc_signataire_cer.lib_struc IN' => $listStructure// \'%Projet de Ville%\') OR (struc_signataire_cer.lib_struc LIKE \'%Projet Insertion Emploi%\') OR (struc_signataire_cer.lib_struc LIKE \'Maison de l%\'))'
+				);
+			}
+			return array(
+				array(
+					'OR' => array(
+						'"Adressefoyer".id' => NULL,
+						'"Adressefoyer".id IN (SELECT adressesfoyers.id
+												FROM adressesfoyers
+												WHERE adressesfoyers.foyer_id = "Foyer".id
+												AND adressesfoyers.rgadr = \'01\'
+												ORDER BY adressesfoyers.dtemm
+												DESC LIMIT 1)',
+					)
+				),
+				'"Prestation".rolepers IN' => array('DEM', 'CJT'),
+				$tabStructure,
+				'"Contratinsertion".decision_ci' => 'V',
+				'"Contratinsertion".dd_ci <=' => $annee . '-12-31',
+				'"Contratinsertion".df_ci >=' => $annee . '-01-01',
+				array(
+					'OR' => array(
+						'"Orientstruct".id' => NULL,
+						'"Orientstruct".id IN (SELECT orientsstructs.id
+													FROM orientsstructs
+													WHERE orientsstructs.personne_id = Personne.id
+													AND orientsstructs.statut_orient = \'Orienté\'
+													AND orientsstructs.date_valid IS NOT NULL
+													ORDER BY orientsstructs.date_valid DESC LIMIT 1)'
+					)
+				),
+		);
+		}
+
+		/**
+		 * Retourne le querydata utilisé pour la tableau B8.
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		public function qdTableaub8( array $search ) {
+			$querydata = array();
+			$querydata['fields'] = $this->_qdTableaub8Fields();
+			$querydata['recursive'] = -1;
+			$querydata['joins'] = $this->_qdTableaub8Joins();
+			$querydata['conditions'] = $this->_qdTableaub8Conditions($search);
+
+			return $querydata;
+		}
+
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		public function tableaub8( array $search, $returnQuery = false, $returnForCorpus = false ) {
+			$querydata = $this->qdTableaub8( $search );
+			$contratInsertion = ClassRegistry::init( 'Contratinsertion' );
+			$annee = Sanitize::clean( Hash::get( $search, 'Search.annee' ), array( 'encode' => false ) );
+
+			$results = $contratInsertion->find('all', $querydata);
+
+			// Formattage des données
+			foreach( $results as $key => $result) {
+				// Formattage du nom de la commune
+				if( $result['Adresse']['nomcom'] === 'BOBIGNY CEDEX' ) {
+					$results[$key]['Adresse']['nomcom'] = 'BOBIGNY';
+				}
+				if( $result['Adresse']['nomcom'] === 'DRANCY CEDEX' ) {
+					$results[$key]['Adresse']['nomcom'] = 'DRANCY';
+				}
+				if( $result['Adresse']['nomcom'] === 'LA PLAINE ST DENIS' || $result['Adresse']['nomcom'] === 'ST DENIS') {
+					$results[$key]['Adresse']['nomcom'] = 'SAINT DENIS';
+				}
+				if( $result['Adresse']['nomcom'] === 'LES PAVILLONS SOUS BOIS' ) {
+					$results[$key]['Adresse']['nomcom'] = 'BOBIGNY';
+				}
+				if( $result['Adresse']['nomcom'] === 'PIERREFITTE SUR SEINE' ) {
+					$results[$key]['Adresse']['nomcom'] = 'BOBIGNY';
+				}
+				if( $result['Adresse']['nomcom'] === 'ST OUEN' ) {
+					$results[$key]['Adresse']['nomcom'] = 'SAINT OUEN';
+				}
+
+				// Formattage du nom de la position du CER
+				if( $result['Cer93']['positioncer'] === '00enregistre' ) {
+					$results[$key]['Cer93']['positioncer'] = 'Enregistré';
+				}
+				if( $result['Cer93']['positioncer'] === '01signe' ) {
+					$results[$key]['Cer93']['positioncer'] = 'Signé';
+				}
+				if( $result['Cer93']['positioncer'] === '02attdecisioncpdv' ) {
+					$results[$key]['Cer93']['positioncer'] = 'En attente de decision CPDV';
+				}
+				if( $result['Cer93']['positioncer'] === '03attdecisioncg' ) {
+					$results[$key]['Cer93']['positioncer'] = 'En attente de decision CG';
+				}
+				if( $result['Cer93']['positioncer'] === '04premierelecture' ) {
+					$results[$key]['Cer93']['positioncer'] = 'En premiere lecture';
+				}
+				if( $result['Cer93']['positioncer'] === '05secondelecture' ) {
+					$results[$key]['Cer93']['positioncer'] = 'En seconde lecture';
+				}
+				if( $result['Cer93']['positioncer'] === '07attavisep' ) {
+					$results[$key]['Cer93']['positioncer'] = 'En attente d\'avis EP';
+				}
+				if( $result['Cer93']['positioncer'] === '99rejete' ) {
+					$results[$key]['Cer93']['positioncer'] = 'Rejet CG';
+				}
+				if( $result['Cer93']['positioncer'] === '99rejetecpdv' ) {
+					$results[$key]['Cer93']['positioncer'] = 'Rejet CPDV';
+				}
+				if( $result['Cer93']['positioncer'] === '99valide' ) {
+					$results[$key]['Cer93']['positioncer'] = 'Validé CG';
+				}
+			}
+
+			if($returnQuery) {
+				return $querydata;
+			}
+			if($returnForCorpus) {
+				return $results;
+			}
+
+			// Récupération de la liste des PIE si non spécifié
+			$structures = ClassRegistry::init('Structurereferente');
+			if( isset( $search['Search']['structurereferente_id'] ) && !empty( $search['Search']['structurereferente_id'] ) ) {
+				$resultStructure = $structures->find('first', array(
+					'recursive' => -1,
+					'conditions' => array(
+						'Structurereferente.id' => $search['Search']['structurereferente_id']
+						)
+				));
+				$listStructure = array($resultStructure['Structurereferente']['lib_struc']);
+
+			} else if ( !empty( $search['Search']['communautesr_id']) ) {
+				// Si un EPT est choisi
+				$communautesr_id = Hash::get( $search, 'Search.communautesr_id' );
+				$listComunautes = $structures->query($this->Tableausuivipdv93->Communautesr->sqStructuresreferentes( $communautesr_id ));
+
+				$structId = array();
+				foreach ( $listComunautes as $communautes){
+					$structId[] = $communautes['CommunautesrStructurereferente']['structurereferente_id'];
+				}
+				$listStructure = $structures->find('list', array('conditions' => array('Structurereferente.id IN' => $structId ) ) );
+			} else {
+				$listStructure = $this->listePdvs();
+			}
+
+			$cumul = array();
+			foreach( $listStructure as $structure ) {
+				$mois = 1;
+				$cumul[$structure][0] = 0;
+
+				for ( $mois ; $mois < 13 ; $mois ++) {
+					if ($mois < 10) {
+						$strDate = $annee . '-0' . $mois . '-01';
+					} else {
+						$strDate = $annee . '-' . $mois . '-01';
+					}
+					$dateDebutDeMois = new DateTime(date('Y-m-d', strtotime($strDate) ) );
+					$dateFinDeMois = new DateTime(date('Y-m-t', strtotime($strDate) ) );
+
+					$cumul[$structure][$mois] = $cumul[$structure][$mois-1];
+
+					foreach( $results as $result) {
+						$dateCER = new DateTime(date('Y-m-d', strtotime($result['Contratinsertion']['dd_ci'] ) ) );
+						if( ($result['struc_signataire_cer']['lib_struc'] == $structure) &&
+							($dateCER > $dateDebutDeMois && $dateCER > $dateFinDeMois) ) {
+							$cumul[$structure][$mois] = $cumul[$structure][$mois] + 1;
+						}
+					}
+				}
+			}
+			return $cumul;
+		}
+
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		public function tableaub9( array $search) {
+			$annee = Set::extract( $search, 'Search.annee' );
+			$structureReferente =   Set::extract( $search, 'Search.structuresreferentes' );
+			$communautesSrs =   Set::extract( $search, 'Search.communautesr_id' );
+			$results = array();
+
+			$indicateurMensuel = ClassRegistry::init('Indicateurmensuel');
+			if( !empty( $annee ) ) {
+				$results = $indicateurMensuel->listeRdvCer( $annee, $structureReferente, $communautesSrs);
+			}
+
+			return $results;
+		}
 		/**
 		 *
 		 * @param string $field
@@ -3179,6 +3517,12 @@
 					}
 
 					foreach( array_keys( $models ) as $model ) {
+						if($model == 'struc_orientation' || $model == 'struc_signataire_cer' || $model == 'struc_referent_parcours') {
+							$model = 'Structurereferente';
+						}
+						if($model == 'referent_parcours') {
+							$model = 'Referent';
+						}
 						$models[$model] = ClassRegistry::init( $model )->schema();
 					}
 
@@ -3680,6 +4024,75 @@
 			return $query;
 		}
 
+		protected function _queryCorpusB8( $tableau, array $search ) {
+			$query = $this->tableaub8 ($search, true);
+
+			return $query;
+		}
+
+		protected function _queryCorpusB9( $tableau, array $search ) {
+			$orientStruct = ClassRegistry::init('Orientstruct');
+
+			$annee = Set::extract( $search, 'Search.annee' );
+			$structureReferente =   Set::extract( $search, 'Search.structuresreferentes' );
+			$communautesSrs =   Set::extract( $search, 'Search.communautesr_id' );
+			$where  =   "";
+
+			if($structureReferente!='' && $structureReferente>0)
+				$where .= " Orientstruct.structurereferente_id='".$structureReferente."'";
+			if($communautesSrs!='' && $communautesSrs>0) {
+				if( $where != '' ) {
+					$where .= ' AND ';
+				}
+				$where  .=   " CommunautesrStructurereferente.communautesr_id='".$communautesSrs."'";
+			}
+
+			$query = array();
+			$query['fields'] = Configure::read('Tableauxsuivispdvs93.tableaub9.exportcsvcorpus');
+			$query['recursive'] = -1;
+			$query['joins'] = array(
+				$orientStruct->join('Personne', array( 'type' => 'INNER') ),
+				$orientStruct->join('Referent', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->join('Foyer', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->join('Rendezvous', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->Foyer->join('Dossier', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->Foyer->join('Adressefoyer', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->Foyer->Adressefoyer->join('Adresse', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->Rendezvous->join('Typerdv', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->Rendezvous->join('Statutrdv', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->join('Contratinsertion', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->Contratinsertion->join('Cer93', array( 'type' => 'INNER') ),
+				$orientStruct->join('Structurereferente', array( 'type' => 'LEFT OUTER') ),
+				$orientStruct->Structurereferente->join('CommunautesrStructurereferente', array( 'type' => 'LEFT OUTER') ),
+				$orientStruct->Structurereferente->CommunautesrStructurereferente->join('Communautesr', array( 'type' => 'LEFT OUTER') )
+			);
+
+			$query['conditions'] = array(
+				'Orientstruct.typeorient_id' => 1,
+				$where,
+				'Orientstruct.date_valid >= ' => $annee . '-01-01',
+				'Orientstruct.date_valid <= ' => $annee+1 . '-12-31',
+				'Rendezvous.statutrdv_id' => array(1, 2),
+				'Rendezvous.typerdv_id' => array(14, 15),
+				'Rendezvous.daterdv >= ' => $annee . '-01-01',
+				'Rendezvous.daterdv <= ' => $annee+1 . '-12-31',
+				'Rendezvous.id IN (
+					SELECT id FROM rendezvous
+					WHERE personne_id = Personne.id AND daterdv >= Orientstruct.date_valid
+					ORDER BY id
+					LIMIT 1
+				)',
+				'Contratinsertion.id IN (
+					SELECT id FROM contratsinsertion
+					WHERE personne_id = Personne.id AND dd_ci >= Orientstruct.date_valid
+					ORDER BY id
+					LIMIT 1
+				)'
+			);
+
+			return $query;
+		}
+
 		/**
 		 * Retourne le querydata à utiliser pour réaliser l'export du corpus d'un
 		 * tableau de suivi.
@@ -3712,6 +4125,12 @@
 			}
 			else if( $tableau === 'tableaub7d2familleprofessionnelle' ) {
 				$query = $this->_queryCorpusB7FamilleProfessionnelle( $tableau, $search );
+			}
+			else if( $tableau === 'tableaub8' ) {
+				$query = $this->_queryCorpusB8( $tableau, $search );
+			}
+			else if( $tableau === 'tableaub9' ) {
+				$query = $this->_queryCorpusB9( $tableau, $search );
 			}
 			else {
 				$msg = sprintf( 'Valeur du paramètre $tableau non valide (%s)', $tableau );
@@ -4017,6 +4436,48 @@
 				'conditions' => array(
 					'Tableausuivipdv93.id' => $id,
 					'Tableausuivipdv93.name' => 'tableaub7',
+				),
+			);
+
+			return $querydata;
+		}
+
+		/**
+		 * Retourne le querydata nécessaire à l'export CSV du corpus pris en
+		 * compte dans un historique de tableau B8.
+		 *
+		 * @param integer $id La clé primaire du tableau de suivi B8 historisé
+		 * @return array
+		 */
+		public function qdExportcsvCorpusb8( $id ) {
+			$querydata = array(
+				'fields' => array_merge(
+					$this->Tableausuivipdv93->fields()
+				),
+				'conditions' => array(
+					'Tableausuivipdv93.id' => $id,
+					'Tableausuivipdv93.name' => 'tableaub8',
+				),
+			);
+
+			return $querydata;
+		}
+
+		/**
+		 * Retourne le querydata nécessaire à l'export CSV du corpus pris en
+		 * compte dans un historique de tableau B9.
+		 *
+		 * @param integer $id La clé primaire du tableau de suivi B8 historisé
+		 * @return array
+		 */
+		public function qdExportcsvCorpusb9( $id ) {
+			$querydata = array(
+				'fields' => array_merge(
+					$this->Tableausuivipdv93->fields()
+				),
+				'conditions' => array(
+					'Tableausuivipdv93.id' => $id,
+					'Tableausuivipdv93.name' => 'tableaub9',
 				),
 			);
 

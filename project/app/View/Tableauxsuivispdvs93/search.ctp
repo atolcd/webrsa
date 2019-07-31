@@ -99,9 +99,10 @@
 	}
 
 	if( in_array( $type, array( 'cg', 'externe_cpdvcom', 'externe_cpdv' ) ) ) {
+		$type = in_array( $tableau, array(  'tableaub8', 'tableaub9' ) ) ? 'hidden' : 'select';
 		echo $this->Default3->subform(
 			array(
-				'Search.referent_id' => array( 'empty' => true, 'type' => 'select' )
+				'Search.referent_id' => array( 'empty' => true, 'type' => $type )
 			),
 			array(
 				'options' => $options

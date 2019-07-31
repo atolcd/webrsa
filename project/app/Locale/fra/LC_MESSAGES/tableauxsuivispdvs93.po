@@ -246,7 +246,7 @@ msgid "Tableausuivipdv93.type"
 msgstr "Niveau"
 
 msgid "Communautesr.name"
-msgstr "Projet insertion emploi territorial"
+msgstr "EPT"
 
 msgid "Pdv.lib_struc"
 msgstr "PIE"
@@ -630,13 +630,137 @@ msgstr "Tableau 7c - Accès à l'emploi selon les secteurs professionnels"
 # ------------------------------------------------------------------------------
 # Tableau 8 par CER
 # ------------------------------------------------------------------------------
-msgid "/Tableauxsuivispdvs93/tableau8cer/:heading"
+msgid "/Tableauxsuivispdvs93/tableaub8/:heading"
 msgstr "Tableau 8 - Contrats d'Engagement Réciproque"
+
+msgid "Tableaub8.CSVTitle"
+msgstr "Nombre de Contrat d'Engagement Réciproques validés"
+
+msgid "Tableaub8.nbCER"
+msgstr "Nombre de CERs validés pour l'année "
+
+msgid "Tableaub8.jan"
+msgstr "Janvier"
+
+msgid "Tableaub8.feb"
+msgstr "Février"
+
+msgid "Tableaub8.mar"
+msgstr "Mars"
+
+msgid "Tableaub8.apr"
+msgstr "Avril"
+
+msgid "Tableaub8.may"
+msgstr "Mai"
+
+msgid "Tableaub8.jun"
+msgstr "Juin"
+
+msgid "Tableaub8.jul"
+msgstr "Juillet"
+
+msgid "Tableaub8.aug"
+msgstr "Août"
+
+msgid "Tableaub8.sep"
+msgstr "Septembre"
+
+msgid "Tableaub8.oct"
+msgstr "Octobre"
+
+msgid "Tableaub8.nov"
+msgstr "Novembre"
+
+msgid "Tableaub8.dec"
+msgstr "Décembre"
+
+# ------------------------------------------------------------------------------
+# Export CSV du Tableau 8
+# ------------------------------------------------------------------------------
+msgid "Personne.qual"
+msgstr "Civilité"
+
+msgid "Adresse.numvoie"
+msgstr "Numéro de voie"
+
+msgid "Adresse.libtypevoie"
+msgstr "Type de voie"
+
+msgid "Adresse.nomvoie"
+msgstr "Nom de voie"
+
+msgid "Adresse.complideadr"
+msgstr "Complément d'adresse"
+
+msgid "Dossier.dtdemrsa"
+msgstr "Date de demande RSA"
+
+msgid "Dossier.numdemrsa"
+msgstr "Numero de demande RSA"
+
+msgid "Orientstruct.statut_orient"
+msgstr "Orienté ?"
+
+msgid "struc_orientation.lib_struc"
+msgstr "Structure référente"
+
+msgid "Orientstruct.date_valid"
+msgstr "Date d'orientation"
+
+msgid "struc_signataire_cer.lib_struc"
+msgstr "Structure signataire du CER"
+
+msgid "Contratinsertion.dd_ci"
+msgstr "Date de debut de CER"
+
+msgid "Contratinsertion.df_ci"
+msgstr "Date de fin de CER"
+
+msgid "Contratinsertion.rg_ci"
+msgstr "Rang de CER"
+
+msgid "Cer93.positioncer"
+msgstr "État de validation CER"
+
+msgid "Cer93.datesignature"
+msgstr "Date de signature CER"
+
+msgid "Cer93.created"
+msgstr "Date de création du CER"
+
+msgid "Cer93.modified"
+msgstr "Date de modification du CER"
+
+msgid "Referent.qual"
+msgstr "Civilité du réferent"
+
+msgid "Referent.nom"
+msgstr "Nom du réferent"
+
+msgid "Referent.prenom"
+msgstr "Prenom du réferent"
+
+msgid "Referent.fonction"
+msgstr "Fonction du réferent"
 
 # ------------------------------------------------------------------------------
 # Tableau 9 par délai d'accompagnement
 # ------------------------------------------------------------------------------
-msgid "/Tableauxsuivispdvs93/tableau9delaiaccompagnement/:heading"
+msgid "/Tableauxsuivispdvs93/tableaub9/:heading"
 msgstr "Tableau 9 - Délais d'accompagnement"
 
+# ------------------------------------------------------------------------------
+# Export CSV du Tableau 9
+# ------------------------------------------------------------------------------
+msgid "Rendezvous.commentairerdv"
+msgstr "Commentaires suite au RDV"
 
+msgid "Rendezvous.objetrdv"
+msgstr "Objectif du RDV"
+
+msgid "Typerdv.libelle"
+msgstr "Objet du RDV"
+
+msgid "Statutrdv.libelle"
+msgstr "Statut du RDV"
