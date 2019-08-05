@@ -4,7 +4,6 @@
 	$annee = Hash::get( $this->request->data, 'Search.annee' );
 ?>
 <?php if( isset( $results ) ): ?>
-	<h2><?php echo __d ('tableauxsuivispdvs93', 'Tableaub7.chiffres.cles') ?></h2>
 	<br />
 	<table class="tableaud2">
 		<tbody>
