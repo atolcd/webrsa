@@ -496,7 +496,7 @@
 							'conditions' => array(
 								'Creance.id ' =>$creance_id
 							),
-							'contain' => false
+							'contain' => false,
 						)
 					);
 					$personne = $this->Creance->Foyer->Personne->find('first',
@@ -520,6 +520,20 @@
 								'Detailcalculdroitrsa'
 							)
 						)
+					);
+					$adresse = $this->Creance->Foyer->Adressefoyer->find('all',
+					array(
+						'conditions' => array(
+							'foyer_id' =>$foyer_id
+						)
+						)
+					);
+					$adresseComplete = implode(' ', array(
+						$adresse[0]['Adresse']['numvoie'],
+						$adresse[0]['Adresse']['libtypevoie'],
+						$adresse[0]['Adresse']['nomvoie'],
+						$adresse[0]['Adresse']['codepos'],
+						$adresse[0]['Adresse']['nomcom'])
 					);
 
 					$infoFICA['PAIEMENT'] = Configure::read('Creances.FICA.TypePaiement');
@@ -547,8 +561,10 @@
 						$titrecreancier['Titrecreancier']['nom'].' / '.
 						$listTypes[$titrecreancier['Titrecreancier']['typetitrecreancier_id']].' / '.
 						date('d-m-Y', strtotime( $personne['Personne']['dtnai']) ).' / '.
-						$creancier['Creance']['motiindu'].' / '.
-						$creancier['Creance']['natcre']
+						$adresseComplete.' / '.
+						$creancier['Creance']['natcre'].' / '.
+						__d('creance', 'ENUM::MOTIINDU::'.$creancier['Creance']['motiindu']).' / '.
+						date('d-m-Y', strtotime($creancier['Creance']['dtdercredcretrans']))
 					;
 					if ( !empty ($titrecreancier['Titrecreancier']['bic']) ) {
 						$infoFICA['RIB'] = $titrecreancier['Titrecreancier']['iban'];

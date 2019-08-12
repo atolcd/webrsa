@@ -179,7 +179,7 @@ msgstr "Numéro du tiers"
 msgid "Titrecreancier.mnttitr"
 msgstr "Montant du titre"
 
-msgid "Titrecreancier.type"
+msgid "Titrecreancier.typetitrecreancier_id"
 msgstr "Type du titre"
 
 msgid "Titrecreancier.acommentaire"

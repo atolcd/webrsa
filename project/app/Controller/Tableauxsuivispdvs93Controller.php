@@ -549,6 +549,9 @@
 			$this->_prepareFormData( $search );
 
 			if( !empty( $search ) ) {
+				$this->set( 'annee', $search['Search']['annee'] );
+				$this->set( 'anneeProd', date("d/m/Y" , strtotime(Configure::read('Date.production')[0] ) ) );
+				$this->set( 'anneeProdMoinsUnJour', date("d/m/Y" , strtotime(Configure::read('Date.production')[0] . "-1 day" ) ) );
 				$this->set( 'results', $this->Tableausuivipdv93->WebrsaTableausuivipdv93->tableau1b6( $search ) );
 			}
 		}
