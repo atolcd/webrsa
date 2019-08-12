@@ -590,7 +590,7 @@ msgstr "Le bénéficiaire a achevé l'action"
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableaub7/:heading"
-msgstr "Tableau 7a - Nombre de personnes accédant à l'emploi"
+msgstr "Tableau 7a - Nombre de personnes différentes accédant à l'emploi"
 
 msgid "Tableaub7.chiffres.cles"
 msgstr "Accès à l'emploi : chiffres clés"
@@ -618,14 +618,47 @@ msgstr "Accès à l'emploi : nombre d'accès à l'emploi par familles profession
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableaub7d2typecontrat/:heading"
-msgstr "Tableau 7b - Synthèse des accès à l'emploi"
+msgstr "Tableau 7b - Accès à l'emploi par type de contrat"
+
+msgid "Tableaub7b.maintien.accompagnement"
+msgstr "Maintien dans l’accompagnement"
+
+msgid "Tableaub7b.sortie.accompagnement"
+msgstr "Sortie de l’accompagnement"
+
+msgid "Tableaub7b.tps.complet"
+msgstr "Tps complet"
+
+msgid "Tableaub7b.tps.partiel"
+msgstr "Tps partiel"
+
+msgid "Tableaub7b.non.communique"
+msgstr "Non communiqué"
+
+msgid "Tableaub7b.nb.acces"
+msgstr "Nb d'accès"
+
+msgid "Tableaub7b.secteur.plus.represente"
+msgstr "Secteur d'activité le plus représenté"
+
+msgid "Tableaub7b.indefini"
+msgstr "Indéfini"
 
 # ------------------------------------------------------------------------------
 # Tableau B7 + D2 par famille professionnelle
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableaub7d2familleprofessionnelle/:heading"
-msgstr "Tableau 7c - Accès à l'emploi selon les secteurs professionnels"
+msgstr "Tableau 7c - Accès à l'emploi par famille professionnelle"
+
+msgid "Tableaub7c.avec.maintien"
+msgstr "Nombre d'accès à l'emploi avec maintien dans l'accompagnement"
+
+msgid "Tableaub7c.avec.sortie"
+msgstr "Nombre d'accès à l'emploi avec sortie de l'accompagnement"
+
+msgid "Tableaub7c.total"
+msgstr "Total par famille professionnelle"
 
 # ------------------------------------------------------------------------------
 # Tableau 8 par CER

@@ -4556,7 +4556,11 @@
 
 			$annee = Hash::get( $search, 'Search.annee' );
 			// On ne prend que les allocataires ayant un questionnaire D1 dans l'année recherchée.
-			$query['joins'][] = array(
+			/**
+			 * Convention PIE 2018-2020
+			 * Aucune restriction sur les allocataires n'ayant pas de questionnaire D1 dans les spécifications.
+			 */
+			/*$query['joins'][] = array(
 				'alias' => 'Questionnaired1pdv93',
 				'table' => 'questionnairesd1pdvs93',
 				'type' => 'INNER',
@@ -4564,10 +4568,14 @@
 					'Questionnaired1pdv93.personne_id = Personne.id',
 					'EXTRACT( \'YEAR\' FROM Questionnaired1pdv93.date_validation )' => $annee,
 				)
-			);
+			);*/
 
 			// On ne prend que les allocataires soumis à droits et devoirs.
-			$query['joins'][] = array(
+			/**
+			 * Convention PIE 2018-2020
+			 * Aucune restriction sur les allocataires n'étant pas soumis à droits et devoirs.
+			 */
+			/*$query['joins'][] = array(
 				'alias' => 'Calculdroitrsa',
 				'table' => 'calculsdroitsrsa',
 				'type' => 'INNER',
@@ -4575,7 +4583,7 @@
 					'Calculdroitrsa.personne_id = Personne.id',
 					'Calculdroitrsa.toppersdrodevorsa' => '1',
 				),
-			);
+			);*/
 
 			return $query;
 		}
@@ -4603,7 +4611,7 @@
 			// Questionnaires b7
 			$query = array (
 				'fields' => array (
-					'DISTINCT Personne.id',
+					'DISTINCT ON ("Personne"."id") "Personne"."id" as Personne__id',
 				),
 				'joins' => array (
 					array(
@@ -4613,7 +4621,10 @@
 						'conditions' => array(
 							'Questionnaireb7pdv93.personne_id = Personne.id',
 							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $annee,
-						)
+						),
+						'order' => array (
+							'Questionnaireb7pdv93.id DESC',
+						),
 					),
 				),
 				'contain' => array (
@@ -4631,7 +4642,7 @@
 			// Questionnaires d2
 			$query = array (
 				'fields' => array (
-					'DISTINCT Personne.id',
+					'DISTINCT ON ("Personne"."id") "Personne"."id" as Personne__id',
 				),
 				'joins' => array(
 					array(
@@ -4640,9 +4651,13 @@
 						'type' => 'INNER',
 						'conditions' => array(
 							'Questionnaired2pdv93.personne_id = Personne.id',
-							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $search['Search']['annee'],
-							'Questionnaired2pdv93.emploiromev3_id IS NOT NULL',
-						)
+							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $annee,
+							'Questionnaired2pdv93.situationaccompagnement' => 'sortie_obligation',
+							'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->_sortieaccompagnementd2pdv93_ids (),
+						),
+						'order' => array (
+							'Questionnaired2pdv93.id DESC',
+						),
 					)
 				),
 				'contain' => array (
@@ -4660,9 +4675,13 @@
 			/*
 			 * Toutes les personnes ayant un questionnaire B7 ou un questionnaire D2 = 'maintien'
 			 */
+			/**
+			 * Convention PIE 2018-2020
+			 * Aucune restriction sur les allocataires ayant un questionnaire D2.
+			 */
 			$query = array (
 				'fields' => array (
-					'DISTINCT Personne.id',
+					'DISTINCT ON ("Personne"."id") "Personne"."id" as Personne__id',
 				),
 				'contain' => array (
 					'Questionnaireb7pdv93',
@@ -4675,17 +4694,20 @@
 						'type' => 'INNER',
 						'conditions' => array(
 							'Questionnaireb7pdv93.personne_id = Personne.id',
-							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $search['Search']['annee'],
-						)
+							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $annee,
+						),
+						'order' => array (
+							'Questionnaireb7pdv93.id DESC',
+						),
 					),
 					array(
 						'alias' => 'Questionnaired2pdv93',
 						'table' => 'questionnairesd2pdvs93',
-						'type' => 'INNER',
+						'type' => 'LEFT',
 						'conditions' => array(
 							'Questionnaired2pdv93.personne_id = Personne.id',
 							'Questionnaired2pdv93.situationaccompagnement' => 'maintien',
-							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $search['Search']['annee'],
+							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $annee,
 						)
 					),
 				)
@@ -4702,9 +4724,13 @@
 			 * Toutes les personnes ayant un questionnaire B7 ou un questionnaire D2 = 'sortie_obligation'
 			 * et une des 6 sorties emploi
 			 */
+			/**
+			 * Convention PIE 2018-2020
+			 * Aucune restriction sur les allocataires n'ayant pas un questionnaire B7.
+			 */
 			$query = array (
 				'fields' => array (
-					'Personne.id',
+					'DISTINCT ON ("Personne"."id") "Personne"."id" as Personne__id',
 				),
 				'contain' => array (
 					'Questionnaireb7pdv93',
@@ -4714,10 +4740,10 @@
 					array(
 						'alias' => 'Questionnaireb7pdv93',
 						'table' => 'questionnairesb7pdvs93',
-						'type' => 'INNER',
+						'type' => 'LEFT',
 						'conditions' => array(
 							'Questionnaireb7pdv93.personne_id = Personne.id',
-							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $search['Search']['annee'],
+							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $annee,
 						)
 					),
 					array(
@@ -4728,7 +4754,7 @@
 							'Questionnaired2pdv93.personne_id = Personne.id',
 							'Questionnaired2pdv93.situationaccompagnement' => 'sortie_obligation',
 							'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->_sortieaccompagnementd2pdv93_ids (),
-							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $search['Search']['annee'],
+							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $annee,
 						)
 					),
 				)
@@ -4747,10 +4773,19 @@
 				$personneb7ssorties = $personne->find ('all', $query);
 			}
 
+			// Dédoublonnage de maintenues_sorties
+			$maintenuesSorties = array ();
+			foreach ($personneb7s as $value) {
+				$maintenuesSorties[$value['Personne']['id']] = $value['Personne']['id'];
+			}
+			foreach ($personned2s as $value) {
+				$maintenuesSorties[$value['Personne']['id']] = $value['Personne']['id'];
+			}
+
 			$return = array();
-			$return['maintenues_sorties'] = count ($personneb7s) + count ($personned2s);
-			$return['maintenues'] = count ($personneb7smaintenues);
+			$return['maintenues_sorties'] = count ($maintenuesSorties);
 			$return['sorties'] = count ($personneb7ssorties);
+			$return['maintenues'] = count ($personneb7smaintenues);
 
 			return $return;
 		}
@@ -4782,11 +4817,28 @@
 				)
 			);
 
+			// Familles professionnelles
+			$familles = $familleromev3->find ('list');
+
 			// Type d'emploi pour la questionnaire D2
 			$typeEmploisD2 = $this->_sortieaccompagnementd2pdv93_ids ('all');
 
 			// Questionnaires b7
 			$query = array (
+				'fields' => array_merge (
+					array ('DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"'),
+					$questionnaireb7pdv93->fields (),
+					ClassRegistry::init( 'Dureeemploi' )->fields (),
+					array (
+						'Expproromev3.id',
+						'Expproromev3.familleromev3_id',
+						'Expproromev3.domaineromev3_id',
+						'Expproromev3.metierromev3_id',
+						'Expproromev3.appellationromev3_id',
+						'Expproromev3.created',
+						'Expproromev3.modified',
+					)
+				),
 				'contain' => array (
 					'Expproromev3',
 					'Dureeemploi',
@@ -4821,6 +4873,20 @@
 
 			// Questionnaire D2
 			$query = array (
+				'fields' => array_merge (
+					array ('DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"'),
+					$questionnaired2pdv93->fields (),
+					ClassRegistry::init( 'Dureeemploi' )->fields (),
+					array (
+						'Emploiromev3.id',
+						'Emploiromev3.familleromev3_id',
+						'Emploiromev3.domaineromev3_id',
+						'Emploiromev3.metierromev3_id',
+						'Emploiromev3.appellationromev3_id',
+						'Emploiromev3.created',
+						'Emploiromev3.modified',
+					)
+				),
 				'contain' => array (
 					'Emploiromev3',
 					'Dureeemploi',
@@ -4857,6 +4923,8 @@
 			}
 
 			// Formatage réponse
+			$tableauFamille = array ();
+			$totalFamille = array ();
 			$tableauB7 = array ();
 			$tableauD2 = array ();
 			$total = array ();
@@ -4878,6 +4946,9 @@
 				$tableauB7['partiel'][$numero] = 0;
 				$tableauB7['non_com'][$numero] = 0;
 
+				// Initialisation du tableau
+				$tableauFamille[$numero] = array ();
+
 				foreach ($questionnaireb7s as $questionnaireb7) {
 					if ($idTypeEmploi == $questionnaireb7['Questionnaireb7pdv93']['typeemploi_id']) {
 
@@ -4896,6 +4967,17 @@
 
 						$total['B7']['total']++;
 						$total['total']++;
+
+						// Comptabilisation des codes famille
+						if (!isset ($tableauFamille[$numero][$questionnaireb7['Expproromev3']['familleromev3_id']])) {
+							$tableauFamille[$numero][$questionnaireb7['Expproromev3']['familleromev3_id']] = 0;
+						}
+						$tableauFamille[$numero][$questionnaireb7['Expproromev3']['familleromev3_id']]++;
+
+						if (!isset ($totalFamille[$questionnaireb7['Expproromev3']['familleromev3_id']])) {
+							$totalFamille[$questionnaireb7['Expproromev3']['familleromev3_id']] = 0;
+						}
+						$totalFamille[$questionnaireb7['Expproromev3']['familleromev3_id']]++;
 					}
 				}
 			}
@@ -4909,35 +4991,79 @@
 				$tableauD2['non_com'][$numero] = 0;
 
 				foreach ($questionnaired2s as $questionnaired2) {
-					if ($idTypeEmploi == $questionnaired2['Questionnaired2pdv93']['sortieaccompagnementd2pdv93_id']) {
+					if ($idTypeEmploi == $questionnaired2['Questionnaired2pdv93']['sortieaccompagnementd2pdv93_id']
+						&& $questionnaired2['Questionnaired2pdv93']['situationaccompagnement'] == 'sortie_obligation') {
 
-						if ($questionnaired2['Questionnaired2pdv93']['situationaccompagnement'] == 'sortie_obligation') {
-							if ($questionnaired2['Dureeemploi']['id'] == 1) {
-								$tableauD2['complet'][$numero]++;
-								$total['D2']['complet']++;
-							}
-							else if ($questionnaired2['Dureeemploi']['id'] == 2) {
-								$tableauD2['partiel'][$numero]++;
-								$total['D2']['partiel']++;
-							}
-							else {
-								$tableauD2['non_com'][$numero]++;
-								$total['D2']['non_com']++;
-							}
-
-							$total['D2']['total']++;
-							$total['total']++;
+						if ($questionnaired2['Dureeemploi']['id'] == 1) {
+							$tableauD2['complet'][$numero]++;
+							$total['D2']['complet']++;
 						}
+						else if ($questionnaired2['Dureeemploi']['id'] == 2) {
+							$tableauD2['partiel'][$numero]++;
+							$total['D2']['partiel']++;
+						}
+						else {
+							$tableauD2['non_com'][$numero]++;
+							$total['D2']['non_com']++;
+						}
+
+						$total['D2']['total']++;
+						$total['total']++;
+
+						// Comptabilisation des codes famille
+						if (!isset ($tableauFamille[$numero][$questionnaired2['Emploiromev3']['familleromev3_id']])) {
+							$tableauFamille[$numero][$questionnaired2['Emploiromev3']['familleromev3_id']] = 0;
+						}
+						$tableauFamille[$numero][$questionnaired2['Emploiromev3']['familleromev3_id']]++;
+
+						if (!isset ($totalFamille[$questionnaireb7['Expproromev3']['familleromev3_id']])) {
+							$totalFamille[$questionnaireb7['Expproromev3']['familleromev3_id']] = 0;
+						}
+						$totalFamille[$questionnaireb7['Expproromev3']['familleromev3_id']]++;
 					}
 				}
+
+				$tableauFamille[$numero] = $this->_secteurLePlusRepresente($tableauFamille[$numero], $familles);
 			}
+
+			$totalFamille = $this->_secteurLePlusRepresente($totalFamille, $familles);
 
 			$return['tableauB7'] = $tableauB7;
 			$return['tableauD2'] = $tableauD2;
 			$return['typeemploi'] = $typeEmplois;
+			$return['famille'] = $familles;
+			$return['secteur'] = $tableauFamille;
 			$return['total'] = $total;
+			$return['totalsecteur'] = $totalFamille;
 
 			return $return;
+		}
+
+		private function _secteurLePlusRepresente ($tableauFamille, $familles) {
+			// Tri du tableau par ordre de valeurs croissantes
+			arsort ($tableauFamille);
+			// Remise au début du pointeur sur le tableau
+			reset ($tableauFamille);
+			// Récupération de la première valeur du tableau qui correspond à la valeur maximale
+			$keyMaxValue = key ($tableauFamille);
+
+			if (isset ($tableauFamille[$keyMaxValue])) {
+				$maxValue = $tableauFamille[$keyMaxValue];
+				// Récupération des secteurs d'activité correspondant à la valeur maximale.
+				$secteurs = array_keys($tableauFamille, $maxValue);
+				// Réinitialisation du tableau
+				$tableauFamille = array ();
+				// Récupération des noms de ces secteurs d'activité
+				foreach ($secteurs as $value) {
+					$tableauFamille[] = is_null ($familles[$value]) ? __d ('tableauxsuivispdvs93', 'Tableaub7b.indefini') : $familles[$value];
+				}
+			}
+			else {
+				// Réinitialisation du tableau
+				$tableauFamille = array ();
+			}
+
+			return $tableauFamille;
 		}
 
 		/**
@@ -4976,7 +5102,7 @@
 					array(
 						'alias' => 'Entreeromev3',
 						'table' => 'entreesromesv3',
-						'type' => 'INNER',
+						'type' => 'LEFT OUTER',
 						'conditions' => array(
 							'Questionnaireb7pdv93.expproromev3_id = Entreeromev3.id'
 						)
@@ -5019,7 +5145,7 @@
 					array(
 						'alias' => 'Entreeromev3',
 						'table' => 'entreesromesv3',
-						'type' => 'INNER',
+						'type' => 'LEFT OUTER',
 						'conditions' => array(
 							'Questionnaired2pdv93.emploiromev3_id = Entreeromev3.id'
 						)
@@ -5108,7 +5234,7 @@
 			array(
 				'alias' => 'Typeemploi',
 				'table' => 'typeemplois',
-				'type' => 'INNER',
+				'type' => 'LEFT OUTER',
 				'conditions' => array(
 					'Questionnaireb7pdv93.typeemploi_id = Typeemploi.id'
 				)
@@ -5116,7 +5242,7 @@
 			array(
 				'alias' => 'Dureeemploi',
 				'table' => 'dureeemplois',
-				'type' => 'INNER',
+				'type' => 'LEFT OUTER',
 				'conditions' => array(
 					'Questionnaireb7pdv93.dureeemploi_id = Dureeemploi.id'
 				)
@@ -5124,7 +5250,7 @@
 			array(
 				'alias' => 'EntreeRomeV3',
 				'table' => 'entreesromesv3',
-				'type' => 'INNER',
+				'type' => 'LEFT OUTER',
 				'conditions' => array(
 					'Questionnaireb7pdv93.expproromev3_id = EntreeRomeV3.id'
 				)
@@ -5132,7 +5258,7 @@
 			array(
 				'alias' => 'FamilleRomeV3',
 				'table' => 'famillesromesv3',
-				'type' => 'INNER',
+				'type' => 'LEFT OUTER',
 				'conditions' => array(
 					'EntreeRomeV3.familleromev3_id = FamilleRomeV3.id'
 				)
@@ -5140,7 +5266,7 @@
 			array(
 				'alias' => 'DomaineRomeV3',
 				'table' => 'domainesromesv3',
-				'type' => 'INNER',
+				'type' => 'LEFT OUTER',
 				'conditions' => array(
 					'EntreeRomeV3.domaineromev3_id = DomaineRomeV3.id'
 				)
@@ -5148,7 +5274,7 @@
 			array(
 				'alias' => 'AppellationRomeV3',
 				'table' => 'appellationsromesv3',
-				'type' => 'INNER',
+				'type' => 'LEFT OUTER',
 				'conditions' => array(
 					'EntreeRomeV3.appellationromev3_id = AppellationRomeV3.id'
 				)
@@ -5156,7 +5282,7 @@
 			array(
 				'alias' => 'MetierRomeV3',
 				'table' => 'metiersromesv3',
-				'type' => 'INNER',
+				'type' => 'LEFT OUTER',
 				'conditions' => array(
 					'EntreeRomeV3.metierromev3_id = MetierRomeV3.id'
 				)
@@ -5205,6 +5331,7 @@
 
 			// Exécution des requêtes et renvoie des résultats
 			$results = $this->_resultsCorpusB7 ($queries, $models, $complements);
+
 			$results = $this->_dedoublonnage ($results, 'Personne');
 
 			return $results;
@@ -5306,7 +5433,7 @@
 
 				// Query
 				$result = $models[$key]->find ('all', $query);
-				//$result = $this->_dedoublonnage ($result, get_class($models[$key]));
+
 				$results = array_merge ($results, $result);
 			}
 
@@ -5346,7 +5473,7 @@
 
 			$fields = array (
 				'all' => array (
-					'Personne.id',
+					'DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"',
 					'Structurereferente.lib_struc', // PIE
 					'Referent.nom', // Référent
 					'Referent.prenom',
