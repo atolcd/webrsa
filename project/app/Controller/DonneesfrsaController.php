@@ -118,8 +118,8 @@
 					'conditions' => array('Personne.id' => $personne_id)
 				);
 
-			$this->set('personnes', $personnes = $this->Personne->find(	'all', $query ));
-
+			$personnes = $this->Personne->find( 'all', $query );
+			$this->set('personnes', $personnes);
 			$this->set('options', $this->_options());
 
 			// Pour liste personnes dans les tabs
@@ -131,9 +131,94 @@
 			$this->_extractAndSet(
 				array(
 					'Personnelangue','Personnefrsadiplomexper'
-				), $personnes
+				),
+				$this->_formatageAffichage ($personnes)
 			);
 
+		}
+
+		/**
+		 * Formate l'affichage des données de F-RSA.
+		 *
+		 * @param array $personnes
+		 */
+		protected function _formatageAffichage ($personnes) {
+			// Langues
+			foreach ($personnes[0]['Personnelangue'] as $key => $value) {
+				if (!is_null($value['maternelles'])) {
+					$personnes[0]['Personnelangue'][$key]['maternelles'] = implode('<br>', json_decode ($value['maternelles']));
+				}
+			}
+
+			// Expériences
+			foreach ($personnes[0]['Personnefrsadiplomexper'] as $key => $value) {
+				if (!is_null($value['nivetu'])) {
+					$personnes[0]['Personnefrsadiplomexper'][$key]['nivetu'] = implode('<br>', json_decode ($value['nivetu']));
+				}
+				$personnes[0]['Personnefrsadiplomexper'][$key]['diplome'] = $this->_formatageDiplome ($value['diplome']);
+				$personnes[0]['Personnefrsadiplomexper'][$key]['expprof'] = $this->_formatageExperience ($value['expprof']);
+				$personnes[0]['Personnefrsadiplomexper'][$key]['formations'] = $this->_formatageExperience ($value['formations']);
+			}
+
+			return $personnes;
+		}
+
+		/**
+		 * Formate l'affichage des diplômes.
+		 *
+		 * @param array $arg
+		 */
+		protected function _formatageDiplome ($arg) {
+			if (is_null($arg)) {
+				return $arg;
+			}
+
+			$tableaux = json_decode ($arg);
+			$affichage = '';
+			$separateur = '';
+
+			foreach ($tableaux as $objet) {
+				$affichage .= $separateur.$objet->diplome;
+
+				if (!is_null($objet->annee)) {
+					$affichage .= ' ('.$objet->annee.')';
+				}
+
+				$separateur = '<br>';
+			}
+
+			return $affichage;
+		}
+
+		/**
+		 * Formate l'affichage des expériences professionnelles.
+		 *
+		 * @param array $arg
+		 */
+		protected function _formatageExperience ($arg) {
+			if (is_null($arg)) {
+				return $arg;
+			}
+
+			$tableaux = json_decode ($arg);
+			$affichage = '';
+			$separateur = '';
+
+			foreach ($tableaux as $objet) {
+				$affichage .= $separateur.$objet->nom;
+
+				if (!is_null($objet->annee)) {
+					$affichage .= ' ('.$objet->annee.')';
+				}
+
+				if (!is_null($objet->duree)) {
+					$affichage .= ' ('.$objet->duree.')';
+				}
+
+				$separateur = '<br>';
+			}
+
+			return $affichage;
 		}
 
 		/**

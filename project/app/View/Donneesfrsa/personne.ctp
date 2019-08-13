@@ -1,13 +1,13 @@
 <?php
 	$defaultParams = array('paginate' => false, 'options' => $options);
-	$noData = $this->Xhtml->tag('p', 'Pas de données.', array('class' => 'notice'));
+	$noData = $this->Xhtml->tag('p', __d ('personne', 'Personne.nodata'), array('class' => 'notice'));
 
 	echo $this->Default3->titleForLayout($this->request->data, compact('domain'));
 
 	echo $this->element('ancien_dossier');
 
 ?>
-
+<br><br>
 <ul id="" class="ui-tabs-nav">
 <?php
 foreach ($personnes_list as $personne) {
@@ -23,8 +23,8 @@ foreach ($personnes_list as $personne) {
 	<div style="" class="tab">
 
 <?php
-	echo '<br/><br/><h1>Informations Importé FRSA</h1>';
-	echo '<br/><br/><h2>Historique des Langues</h2>';
+	echo '<br><h1>'.__d ('personne', 'Personne.informations').'</h1>';
+	echo '<br><br><h2>'.__d ('personne', 'Personne.langues').'</h2>';
 	if (!empty($personneslangues)) {
 		echo $this->Default3->index(
 			$personneslangues,
@@ -39,7 +39,7 @@ foreach ($personnes_list as $personne) {
 	} else {
 		echo $noData;
 	}
-	echo '<br/><br/><h2>Historique des Expériances</h2>';
+	echo '<br><br><h2>'.__d ('personne', 'Personne.experiences').'</h2>';
 	if (!empty($personnesfrsadiplomexper)) {
 		echo $this->Default3->index(
 			$personnesfrsadiplomexper,

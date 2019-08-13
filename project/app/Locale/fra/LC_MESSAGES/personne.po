@@ -172,3 +172,17 @@ msgstr "Jour et mois connus"
 
 msgid "ENUM::TYPEDTNAI::O"
 msgstr "Jour et mois inconnus"
+
+###############################################################################
+
+msgid "Personne.nodata"
+msgstr "Pas de données"
+
+msgid "Personne.informations"
+msgstr "Informations importées de F-RSA"
+
+msgid "Personne.langues"
+msgstr "Historique des langues"
+
+msgid "Personne.experiences"
+msgstr "Historique des expériences"
