@@ -81,7 +81,7 @@
 		protected function _addPartValue( $oPart, $key, $value, $options ) {
 
 			$type = 'text';
-			if( preg_match( '/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/', $value ) ) {
+			if( preg_match( '/^[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}$/', $value ) ) {
 				$type = 'date';
 			}
 			else if( preg_match( '/^([0-9]{4})-([0-9]{2})-([0-9]{2})$/', $value, $matches ) ) {
