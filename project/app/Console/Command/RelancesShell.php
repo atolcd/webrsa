@@ -84,7 +84,7 @@ class RelancesShell extends Shell {
 			$temporaire['email'] = $rendezvous['Personne']['email'];
 			$temporaire['daterdv'] = $rendezvous['Rendezvous']['daterdv'];
 			$temporaire['heurerdv'] = $rendezvous['Rendezvous']['heurerdv'];
-			$temporaire['lieurdv'] = ($rendezvous['Structurereferente']['lib_struc_mini'] == '' ? $rendezvous['Structurereferente']['ville'] : $rendezvous['Structurereferente']['lib_struc_mini']);
+			$temporaire['lieurdv'] = $rendezvous['Permanence']['libpermanence'];
 
 			// Vérifie s'il existe des infos dans les modes de contact
 			$contacts = $this->_modesDeContact ($Model, $relance, $rendezvous['Personne']['foyer_id'], $temporaire);
