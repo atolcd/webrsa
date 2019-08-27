@@ -483,6 +483,12 @@ msgstr "Nbre d'invitations ou de positionnement"
 msgid "Tableau1b6.count_participations"
 msgstr "Nbre de participations"
 
+msgid "Thematiquerdv.name"
+msgstr "Thématique du RDV"
+
+msgid "Statutrdv.libelle"
+msgstr "Statut du RDV"
+
 # ------------------------------------------------------------------------------
 # Export CSV du tableau 1B3
 # ------------------------------------------------------------------------------

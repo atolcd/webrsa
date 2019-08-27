@@ -3226,7 +3226,7 @@
 					$sql .= "AND rendezvous.daterdv > '{$mep}'
 							AND thematiquesrdvs.actif = 1";
 				} else if ( $annee == 2019 ){
-					$sql .= "AND rendezvous.daterdv < " . "'" . Configure::read('Date.production')[0] ."'";
+					$sql .= "AND rendezvous.daterdv < " . "'" . Configure::read('Date.MEP.PIE')[0] ."'";
 				} else {
 					$sql .= "AND EXTRACT( 'YEAR' FROM rendezvous.daterdv ) = '{$annee}'";
 				}
@@ -3254,7 +3254,7 @@
 					$sql .= "AND rendezvous.daterdv > '{$mep}'
 							AND thematiquesrdvs.actif = 1";
 				} else if ( $annee == 2019 ){
-					$sql .= "AND rendezvous.daterdv < " . "'" . Configure::read('Date.production')[0] ."'";
+					$sql .= "AND rendezvous.daterdv < " . "'" . Configure::read('Date.MEP.PIE')[0] ."'";
 				} else {
 					$sql .= "AND EXTRACT( 'YEAR' FROM rendezvous.daterdv ) = '{$annee}'";
 				}
@@ -3309,11 +3309,16 @@
 			}
 			// Suppression des résultats vides
 			foreach( $results as $key => $result) {
-				if( $result['Tableau1b6']['count_personnes_prevues'] ==0 &&
+				if( (isset($result['Tableau1b6']['count_personnes_prevues']) &&
+				isset($result['Tableau1b6']['count_invitations']) &&
+				isset($result['Tableau1b6']['count_seances']) &&
+				isset($result['Tableau1b6']['count_personnes']) &&
+				isset($result['Tableau1b6']['count_participations']) ) &&
+				($result['Tableau1b6']['count_personnes_prevues'] ==0 &&
 				$result['Tableau1b6']['count_invitations'] == 0 &&
 				$result['Tableau1b6']['count_seances'] == 0 &&
 				$result['Tableau1b6']['count_personnes'] == 0 &&
-				$result['Tableau1b6']['count_participations'] == 0
+				$result['Tableau1b6']['count_participations'] == 0 )
 				) {
 					unset( $results[$key] );
 				}
@@ -3321,7 +3326,7 @@
 
 			if($annee >= 2019 && is_null($mep) ) {
 				if($annee == 2019) {
-					$mep = Configure::read('Date.production')[0];
+					$mep = Configure::read('Date.MEP.PIE')[0];
 				} else {
 					$mep = $annee . '-01-01';
 				}
