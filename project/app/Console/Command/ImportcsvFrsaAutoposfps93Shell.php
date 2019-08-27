@@ -210,14 +210,24 @@
 					//2) Section Catalogue
 					//II.2.1 Verification des valeurs
 					$data = Hash::insert( $data, 'Thematiquefp93.type', 'pdi' );
-					$path = 'Thematiquefp93.yearthema';
-					$data = Hash::insert( $data, $path, date("Y", strtotime(Hash::get( $data, $path )) ) );
 					$path = 'Actionfp93.duree';
 					$data = Hash::insert( $data, $path, Hash::get($data,$path)." mois" );
 					$path = 'Actionfp93.numconvention';
 					$data = Hash::insert( $data, $path, strtoupper( Hash::get( $data, $path ) ) );
+
+					//Gestion des année de référence, de lannée et la date de début de l'action
+					//Get Date
 					$path = 'Actionfp93.annee';
-					$data = Hash::insert( $data, $path, date("Y", strtotime(Hash::get( $data, $path )) ) );
+					$ddaction = Hash::get( $data, $path );
+					$yearVal = date("Y", strtotime($ddaction) );
+					//Set Dates
+					$path = 'Thematiquefp93.yearthema';
+					$data = Hash::insert( $data, $path, $yearVal );
+					$path = 'Actionfp93.annee';
+					$data = Hash::insert( $data, $path, $yearVal );
+					$path = 'Ficheprescription93.dd_action';
+					$data = Hash::insert( $data, $path, $ddaction );
+
 					//II.2.2 Verification de l'encodage UTF-8
 					$arraypath = array (
 						'Actionfp93.name',
@@ -253,7 +263,14 @@
 					}
 
 					//3) Section fiche prescription
-					//Rien pour l'instant
+					//Get and Set Durée
+					$path = 'Actionfp93.duree';
+					$action_duree = Hash::get($data,$path);
+					$path = 'Ficheprescription93.duree_action';
+					$data = Hash::insert( $data, $path, $action_duree);
+					//Indication d'origine
+					$path = 'Ficheprescription93.posorigine';
+					$data = Hash::insert( $data, $path, 'F-RSA');
 
 					//III Traitement des models
 					foreach( $this->uses as $modelName ) {
