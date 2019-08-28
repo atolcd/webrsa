@@ -4560,7 +4560,7 @@
 			 * Convention PIE 2018-2020
 			 * Aucune restriction sur les allocataires n'ayant pas de questionnaire D1 dans les spécifications.
 			 */
-			/*$query['joins'][] = array(
+			$query['joins'][] = array(
 				'alias' => 'Questionnaired1pdv93',
 				'table' => 'questionnairesd1pdvs93',
 				'type' => 'INNER',
@@ -4568,14 +4568,14 @@
 					'Questionnaired1pdv93.personne_id = Personne.id',
 					'EXTRACT( \'YEAR\' FROM Questionnaired1pdv93.date_validation )' => $annee,
 				)
-			);*/
+			);
 
 			// On ne prend que les allocataires soumis à droits et devoirs.
 			/**
 			 * Convention PIE 2018-2020
 			 * Aucune restriction sur les allocataires n'étant pas soumis à droits et devoirs.
 			 */
-			/*$query['joins'][] = array(
+			$query['joins'][] = array(
 				'alias' => 'Calculdroitrsa',
 				'table' => 'calculsdroitsrsa',
 				'type' => 'INNER',
@@ -4583,7 +4583,7 @@
 					'Calculdroitrsa.personne_id = Personne.id',
 					'Calculdroitrsa.toppersdrodevorsa' => '1',
 				),
-			);*/
+			);
 
 			return $query;
 		}
