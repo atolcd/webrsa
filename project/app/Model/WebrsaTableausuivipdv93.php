@@ -1592,7 +1592,48 @@
 					'Adresse.nomvoie',
 					'Adresse.complideadr',
 					'Adresse.codepos',
-					'Adresse.nomcom',
+					'CASE
+						WHEN "Adresse"."nomcom"=\'AUBERVILLIERS\' THEN \'AUBERVILLIERS\'
+						WHEN "Adresse"."nomcom"=\'AULNAY SOUS BOIS\' THEN \'AULNAY SOUS BOIS\'
+						WHEN "Adresse"."nomcom"=\'BAGNOLET\' THEN \'BAGNOLET\'
+						WHEN "Adresse"."nomcom" IN (\'BOBIGNY\', \'BOBIGNY CEDEX\') THEN \'BOBIGNY\'
+						WHEN "Adresse"."nomcom"=\'BONDY\' THEN \'BONDY\'
+						WHEN "Adresse"."nomcom"=\'CLICHY SOUS BOIS\' THEN \'CLICHY SOUS BOIS\'
+						WHEN "Adresse"."nomcom"=\'COUBRON\' THEN \'COUBRON\'
+						WHEN "Adresse"."nomcom" IN (\'DRANCY\',\'DRANCY CEDEX\') THEN \'DRANCY\'
+						WHEN "Adresse"."nomcom"=\'DUGNY\' THEN \'DUGNY\'
+						WHEN "Adresse"."nomcom"=\'EPINAY SUR SEINE\' THEN \'EPINAY SUR SEINE\'
+						WHEN "Adresse"."nomcom"=\'GAGNY\' THEN \'GAGNY\'
+						WHEN "Adresse"."nomcom"=\'GOURNAY SUR MARNE\' THEN \'GOURNAY SUR MARNE\'
+						WHEN "Adresse"."nomcom"=\'L ILE ST DENIS\' THEN \'L ILE ST DENIS\'
+						WHEN "Adresse"."nomcom"=\'LA COURNEUVE\' THEN \'LA COURNEUVE\'
+						WHEN "Adresse"."nomcom" IN (\'LA PLAINE ST DENIS\',\'SAINT DENIS\',\'ST DENIS\') THEN \'SAINT DENIS\'
+						WHEN "Adresse"."nomcom"=\'LE BLANC MESNIL\' THEN \'LE BLANC MESNIL\'
+						WHEN "Adresse"."nomcom"=\'LE BOURGET\' THEN \'LE BOURGET\'
+						WHEN "Adresse"."nomcom"=\'LE PRE ST GERVAIS\' THEN \'LE PRE ST GERVAIS\'
+						WHEN "Adresse"."nomcom"=\'LE RAINCY\' THEN \'LE RAINCY\'
+						WHEN "Adresse"."nomcom"=\'LES LILAS\' THEN \'LES LILAS\'
+						WHEN "Adresse"."nomcom" IN (\'LES PAVILLONS SOUS BOIS\',\'PAVILLONS SOUS BOIS\') THEN \'LES PAVILLONS SOUS BOIS\'
+						WHEN "Adresse"."nomcom"=\'LIVRY GARGAN\' THEN \'LIVRY GARGAN\'
+						WHEN "Adresse"."nomcom"=\'MONTFERMEIL\' THEN \'MONFERMEIL\'
+						WHEN "Adresse"."nomcom"=\'MONTREUIL\' THEN \'MONTREUIL\'
+						WHEN "Adresse"."nomcom"=\'NEUILLY PLAISANCE\' THEN \'NEUILLY PLAISANCE\'
+						WHEN "Adresse"."nomcom"=\'NEUILLY SUR MARNE\' THEN \'NEUILLY SUR MARNE\'
+						WHEN "Adresse"."nomcom"=\'NOISY LE GRAND\' THEN \'NOISY LE GRAND\'
+						WHEN "Adresse"."nomcom"=\'NOISY LE SEC\' THEN \'NOISY LE SEC\'
+						WHEN "Adresse"."nomcom"=\'PANTIN\' THEN \'PANTIN\'
+						WHEN "Adresse"."nomcom" IN (\'PIERREFITTE\',\'PIERREFITTE SUR SEINE\') THEN \'PIERREFITTE SUR SEINE\'
+						WHEN "Adresse"."nomcom"=\'ROMAINVILLE\' THEN \'ROMAINVILLE\'
+						WHEN "Adresse"."nomcom"=\'ROSNY SOUS BOIS\' THEN \'ROSNY SOUS BOIS\'
+						WHEN "Adresse"."nomcom" IN (\'SAINT OUEN\',\'ST OUEN\') THEN \'SAINT OUEN\'
+						WHEN "Adresse"."nomcom"=\'SEVRAN\' THEN \'SEVRAN\'
+						WHEN "Adresse"."nomcom"=\'STAINS\' THEN \'STAINS\'
+						WHEN "Adresse"."nomcom"=\'TREMBLAY EN FRANCE\' THEN \'TREMBLAY EN FRANCE\'
+						WHEN "Adresse"."nomcom"=\'VAUJOURS\' THEN \'VAUJOURS\'
+						WHEN "Adresse"."nomcom"=\'VILLEMOMBLE\' THEN \'VILLEMOMBLE\'
+						WHEN "Adresse"."nomcom"=\'VILLEPINTE\' THEN \'VILLEPINTE\'
+						WHEN "Adresse"."nomcom"=\'VILLETANEUSE\' THEN \'VILLETANEUSE\'
+					END AS "Adresse__nomcom"',
 					'Dossier.dtdemrsa',
 					'Dossier.numdemrsa',
 					'Dossier.matricule',
@@ -1603,7 +1644,18 @@
 					'Contratinsertion.dd_ci',
 					'Contratinsertion.df_ci',
 					'Contratinsertion.rg_ci',
-					'Cer93.positioncer',
+					'CASE
+						WHEN "Cer93"."positioncer"=\'00enregistre\' THEN \'Enregistre\'
+						WHEN "Cer93"."positioncer"=\'01signe\' THEN \'Signe\'
+						WHEN "Cer93"."positioncer"=\'02attdecisioncpdv\' THEN \'En attente de decision CPDV\'
+						WHEN "Cer93"."positioncer"=\'03attdecisioncg\' THEN \'En attente de decision CG\'
+						WHEN "Cer93"."positioncer"=\'04premierelecture\' THEN \'En premiere lecture\'
+						WHEN "Cer93"."positioncer"=\'05secondelecture\' THEN \'En seconde lecture\'
+						WHEN "Cer93"."positioncer"=\'07attavisep\' THEN \'En attente d\'\'avis EP\'
+						WHEN "Cer93"."positioncer"=\'99rejete\' THEN \'Rejet CG\'
+						WHEN "Cer93"."positioncer"=\'99rejetecpdv\' THEN \'Rejet CPDV\'
+						WHEN "Cer93"."positioncer"=\'99valide\' THEN \'Valide CG\'
+					END AS "Cer93__positioncer"',
 					'Cer93.datesignature',
 					'Cer93.created',
 					'Cer93.modified',
@@ -1769,61 +1821,6 @@
 
 			$results = $contratInsertion->find('all', $querydata);
 
-			// Formattage des données
-			foreach( $results as $key => $result) {
-				// Formattage du nom de la commune
-				if( $result['Adresse']['nomcom'] === 'BOBIGNY CEDEX' ) {
-					$results[$key]['Adresse']['nomcom'] = 'BOBIGNY';
-				}
-				if( $result['Adresse']['nomcom'] === 'DRANCY CEDEX' ) {
-					$results[$key]['Adresse']['nomcom'] = 'DRANCY';
-				}
-				if( $result['Adresse']['nomcom'] === 'LA PLAINE ST DENIS' || $result['Adresse']['nomcom'] === 'ST DENIS') {
-					$results[$key]['Adresse']['nomcom'] = 'SAINT DENIS';
-				}
-				if( $result['Adresse']['nomcom'] === 'LES PAVILLONS SOUS BOIS' ) {
-					$results[$key]['Adresse']['nomcom'] = 'BOBIGNY';
-				}
-				if( $result['Adresse']['nomcom'] === 'PIERREFITTE SUR SEINE' ) {
-					$results[$key]['Adresse']['nomcom'] = 'BOBIGNY';
-				}
-				if( $result['Adresse']['nomcom'] === 'ST OUEN' ) {
-					$results[$key]['Adresse']['nomcom'] = 'SAINT OUEN';
-				}
-
-				// Formattage du nom de la position du CER
-				if( $result['Cer93']['positioncer'] === '00enregistre' ) {
-					$results[$key]['Cer93']['positioncer'] = 'Enregistré';
-				}
-				if( $result['Cer93']['positioncer'] === '01signe' ) {
-					$results[$key]['Cer93']['positioncer'] = 'Signé';
-				}
-				if( $result['Cer93']['positioncer'] === '02attdecisioncpdv' ) {
-					$results[$key]['Cer93']['positioncer'] = 'En attente de decision CPDV';
-				}
-				if( $result['Cer93']['positioncer'] === '03attdecisioncg' ) {
-					$results[$key]['Cer93']['positioncer'] = 'En attente de decision CG';
-				}
-				if( $result['Cer93']['positioncer'] === '04premierelecture' ) {
-					$results[$key]['Cer93']['positioncer'] = 'En premiere lecture';
-				}
-				if( $result['Cer93']['positioncer'] === '05secondelecture' ) {
-					$results[$key]['Cer93']['positioncer'] = 'En seconde lecture';
-				}
-				if( $result['Cer93']['positioncer'] === '07attavisep' ) {
-					$results[$key]['Cer93']['positioncer'] = 'En attente d\'avis EP';
-				}
-				if( $result['Cer93']['positioncer'] === '99rejete' ) {
-					$results[$key]['Cer93']['positioncer'] = 'Rejet CG';
-				}
-				if( $result['Cer93']['positioncer'] === '99rejetecpdv' ) {
-					$results[$key]['Cer93']['positioncer'] = 'Rejet CPDV';
-				}
-				if( $result['Cer93']['positioncer'] === '99valide' ) {
-					$results[$key]['Cer93']['positioncer'] = 'Validé CG';
-				}
-			}
-
 			if($returnQuery) {
 				return $querydata;
 			}
@@ -1857,30 +1854,23 @@
 			}
 
 			$cumul = array();
-			foreach( $listStructure as $structure ) {
-				$mois = 1;
-				$cumul[$structure][0] = 0;
+			foreach( $results as $result) {
+				$dateCER = new DateTime(date('Y-m-d', strtotime($result['Contratinsertion']['dd_ci'] ) ) );
+				$mois = $dateCER->format('n');
+				$anneeItem = $dateCER->format('Y');
 
-				for ( $mois ; $mois < 13 ; $mois ++) {
-					if ($mois < 10) {
-						$strDate = $annee . '-0' . $mois . '-01';
-					} else {
-						$strDate = $annee . '-' . $mois . '-01';
+				if ($annee == $anneeItem && in_array ($result['struc_signataire_cer']['lib_struc'], $listStructure)) {
+
+				for ($i = $mois; $i <= 12 ; $i++) {
+					if (!isset ($cumul[$result['struc_signataire_cer']['lib_struc']][$i])) {
+						$cumul[$result['struc_signataire_cer']['lib_struc']][$i] = 0;
 					}
-					$dateDebutDeMois = new DateTime(date('Y-m-d', strtotime($strDate) ) );
-					$dateFinDeMois = new DateTime(date('Y-m-t', strtotime($strDate) ) );
 
-					$cumul[$structure][$mois] = $cumul[$structure][$mois-1];
-
-					foreach( $results as $result) {
-						$dateCER = new DateTime(date('Y-m-d', strtotime($result['Contratinsertion']['dd_ci'] ) ) );
-						if( ($result['struc_signataire_cer']['lib_struc'] == $structure) &&
-							($dateCER > $dateDebutDeMois && $dateCER > $dateFinDeMois) ) {
-							$cumul[$structure][$mois] = $cumul[$structure][$mois] + 1;
-						}
-					}
+					$cumul[$result['struc_signataire_cer']['lib_struc']][$i]++;
+				}
 				}
 			}
+
 			return $cumul;
 		}
 
