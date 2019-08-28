@@ -715,6 +715,62 @@ msgid "Tableaub8.dec"
 msgstr "Décembre"
 
 # ------------------------------------------------------------------------------
+# Export CSV des tableaux 7
+# ------------------------------------------------------------------------------
+
+msgid "Personne.id"
+msgstr "Id Personne"
+
+msgid "0.maintien"
+msgstr "Maintien"
+
+msgid "0.sortie_obligation"
+msgstr "Sortie"
+
+msgid "0.inscritpoleemploi"
+msgstr "Inscription PE"
+
+msgid "Typeemploi.name"
+msgstr "Type emploi"
+
+msgid "Dureeemploi.name"
+msgstr "Durée emploi"
+
+msgid "Questionnaireb7pdv93.dateemploi"
+msgstr "Date emploi"
+
+msgid "FamilleRomeV3.name"
+msgstr "Famille ROME"
+
+msgid "DomaineRomeV3.name"
+msgstr "Domaine ROME"
+
+msgid "MetierRomeV3.name"
+msgstr "Métier ROME"
+
+msgid "AppellationRomeV3.name"
+msgstr "Appellation ROME"
+
+msgid "Ficheprescription93.created"
+msgstr "Création fiche prescription"
+
+msgid "0.typethematiquefp93"
+msgstr "Type de thématique"
+
+msgid "Filierefp93.name"
+msgstr "Filière"
+
+msgid "0.personne_a_integre"
+msgstr "À intégrer"
+
+msgid "0.personne_acheve"
+msgstr "Achevé"
+
+msgid "Motifactionachevefp93.name"
+msgstr "Motif action achevée"
+
+
+# ------------------------------------------------------------------------------
 # Export CSV du Tableau 8
 # ------------------------------------------------------------------------------
 msgid "Personne.qual"
