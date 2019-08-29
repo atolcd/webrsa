@@ -2375,7 +2375,6 @@
 
 			$base = $this->qdTableau1b4( $search );
 			// Ajout des libellés des catégories et des thématiques
-			$Dbo = $this->Tableausuivipdv93->getDataSource();
 			$categories = $this->_tableau1b41b5Categories( 'tableau1b4', $search );
 
 			$conditionsTotal = array( 'OR' => array() );
@@ -2390,7 +2389,6 @@
 
 					$conditionsSousTotal['OR'][] = $conditions;
 					$conditionsTotal['OR'][] = $conditions;
-					$conditions = $Dbo->conditions( $conditions, true, false );
 
 					// 1 requête par ligne
 					$query = $base;
@@ -2402,7 +2400,6 @@
 						'COUNT( DISTINCT "Ficheprescription93"."personne_id" ) AS "nombre_unique"'
 					);
 					$query['conditions'][] = $conditions;
-
 					$sqls[] = $Ficheprescription93->sq( $query );
 					$counter++;
 				}
@@ -2914,7 +2911,6 @@
 
 					$conditionsSousTotal['OR'][] = $conditions;
 					$conditionsTotal['OR'][] = $conditions;
-					$conditions = $Dbo->conditions( $conditions, true, false );
 
 					// requête par ligne
 					$query = $base;
