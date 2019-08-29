@@ -110,15 +110,14 @@
 		$cells = array(
 			array(
 				array( 'Total', array( 'colspan' => 4 ) ),
-				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre" ) ), array( 'class' => 'integer number' ) ),
-				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_effectives" ) ), array( 'class' => 'integer number' ) ),
-				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_refus_organisme" ) ), array( 'class' => 'integer number' ) ),
-				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_en_attente" ) ), array( 'class' => 'integer number' ) ),
-				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_participations" ) ), array( 'class' => 'integer number' ) ),
+				array( $this->Locale->number( (int)Hash::get( $total, "0.0.nombre" ) ), array( 'class' => 'integer number' ) ),
+				array( $this->Locale->number( (int)Hash::get( $total, "0.0.nombre_effectives" ) ), array( 'class' => 'integer number' ) ),
+				array( $this->Locale->number( (int)Hash::get( $total, "0.0.nombre_refus_organisme" ) ), array( 'class' => 'integer number' ) ),
+				array( $this->Locale->number( (int)Hash::get( $total, "0.0.nombre_en_attente" ) ), array( 'class' => 'integer number' ) ),
+				array( $this->Locale->number( (int)Hash::get( $total, "0.0.nombre_participations" ) ), array( 'class' => 'integer number' ) ),
 			)
 		);
 		$tfoot = $this->Xhtml->tag( 'tfoot', $this->Xhtml->tableCells( $cells ) );
-
 		echo $this->Xhtml->tag( 'table', $thead.$tfoot.$tbody ,array( 'class' => 'wide' ) );
 
 		// Tableau du dessous
@@ -134,7 +133,7 @@
 				)
 			)
 		);
-		echo $this->Xhtml->tag( 'table', $this->Xhtml->tag( 'caption', 'Motifs pour lesquels le positionnement n\'est pas effectif' ).$this->Xhtml->tag( 'tbody', $rows ) );
+		echo "<br>" . $this->Xhtml->tag( 'table', $this->Xhtml->tag( 'caption',__d( $domain, 'Tableau1b5.NonEffectif.caption') ).$this->Xhtml->tag( 'tbody', $rows ) );
 
 		include_once  dirname( __FILE__ ).DS.'footer.ctp' ;
 	}

@@ -156,10 +156,10 @@ msgstr "Autres (1)"
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableau1b4/:heading"
-msgstr "Tableau 4 - Positionnements vers les acteurs sociaux, culturels et de sante"
+msgstr "Tableau 4 - Positionnement vers les acteurs sociaux, culturels et de santé"
 
 msgid "Tableau1b4.libelle"
-msgstr "Thématiques"
+msgstr "Thématique"
 
 msgid "Tableau1b4.structure"
 msgstr "Catégorie"
@@ -170,7 +170,7 @@ msgid "Tableau1b4.acteur"
 msgstr "Type d'acteur"
 
 msgid "Tableau1b4.nombre"
-msgstr "Nombre de positionnements"
+msgstr "Nombre de positionnement"
 
 msgid "Tableau1b4.thematique"
 msgstr "Thématique"
@@ -231,6 +231,9 @@ msgstr "Tous"
 
 msgid "Toutes"
 msgstr "Toutes"
+
+msgid "Tableau1b5.NonEffectif.caption"
+msgstr "Motifs pour lesquels le positionnement n\'est pas effectif :"
 
 # ------------------------------------------------------------------------------
 # Recherche
