@@ -170,7 +170,7 @@ msgid "Tableau1b4.acteur"
 msgstr "Type d'acteur"
 
 msgid "Tableau1b4.nombre"
-msgstr "Nombre de positionnement"
+msgstr "Nombre de positionnements"
 
 msgid "Tableau1b4.thematique"
 msgstr "Thématique"
