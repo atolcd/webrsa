@@ -1,4 +1,5 @@
 <?php
+
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 		echo $this->Html->script( array( 'prototype.event.simulate.js', 'dependantselect.js' ) );
@@ -98,9 +99,10 @@
 	}
 
 	if( in_array( $type, array( 'cg', 'externe_cpdvcom', 'externe_cpdv' ) ) ) {
+		$type = in_array( $tableau, array(  'tableaub8', 'tableaub9' ) ) ? 'hidden' : 'select';
 		echo $this->Default3->subform(
 			array(
-				'Search.referent_id' => array( 'empty' => true, 'type' => 'select' )
+				'Search.referent_id' => array( 'empty' => true, 'type' => $type )
 			),
 			array(
 				'options' => $options
@@ -153,11 +155,28 @@
 				)
 			);
 		}
-		else if( in_array( $tableau, array( 'tableau1b4', 'tableau1b5' ) ) ) {
+		else if( in_array( $tableau, array( 'tableau1b4' ) ) ) {
+			if ( !empty ( $this->request->params['named']['Search__yearthematiquefp93_id'] ) ){
+				$valAnnee = $this->request->params['named']['Search__yearthematiquefp93_id'] ;
+			}else{ $valAnnee = current($options['Search']['yearthematiquefp93_id']); }
+			echo $this->Default3->subform(
+				array(
+					'Search.yearthematiquefp93_id' => array( 'type' => 'select', 'empty' => true, 'value' => $valAnnee ),
+					'Search.rdv_structurereferente' => array( 'type' => 'checkbox' )
+				),
+				array(
+					'options' => $options
+				)
+			);
+		}
+		else if( in_array( $tableau, array(  'tableau1b5' ) ) ) {
+			if ( !empty ( $this->request->params['named']['Search__yearthematiquefp93_id'] ) ){
+				$valAnnee = $this->request->params['named']['Search__yearthematiquefp93_id'] ;
+			}else{ $valAnnee = current($options['Search']['yearthematiquefp93_id']); }
 			echo $this->Default3->subform(
 				array(
 					'Search.typethematiquefp93_id' => array( 'type' => 'select', 'empty' => true ),
-					'Search.yearthematiquefp93_id' => array( 'type' => 'select', 'empty' => true ),
+					'Search.yearthematiquefp93_id' => array( 'type' => 'select', 'empty' => true, 'value' => $valAnnee ),
 					'Search.rdv_structurereferente' => array( 'type' => 'checkbox' )
 				),
 				array(

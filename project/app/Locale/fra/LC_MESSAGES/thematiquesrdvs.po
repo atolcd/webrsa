@@ -48,6 +48,12 @@ msgstr "Statut du RDV"
 msgid "Thematiquerdv.linkedmodel"
 msgstr "Enregistrement obligatoire"
 
+msgid "Thematiquerdv.actif"
+msgstr "Actif"
+
+msgid "Thematiquerdv.acomptabiliser"
+msgstr "À comptabiliser dans l'objectif de positionnement"
+
 # ==============================================================================
 # Formulaire paramétrages
 # ==============================================================================

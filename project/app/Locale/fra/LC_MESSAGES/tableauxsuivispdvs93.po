@@ -73,6 +73,12 @@ msgstr "Nbre de fois ou un bénéficiaire ne s'est pas déplacé "
 msgid "Tableau1b5.nombre_fiches_attente"
 msgstr "Nbre de fiches de positionnement en attente d'un retour"
 
+msgid "Tableau1b5.type"
+msgstr "Type"
+
+msgid "Tableau1b5.annee"
+msgstr "Année"
+
 msgid "Tableau1b5.thematique"
 msgstr "Thématique"
 
@@ -80,10 +86,10 @@ msgid "Tableau1b5.categorie"
 msgstr "Catégorie"
 
 msgid "Tableau1b5.nombre"
-msgstr "Nb de positionnements effectuées"
+msgstr "Nombre de positionnements effectués"
 
 msgid "Tableau1b5.nombre_effectives"
-msgstr "Nombre de positionnements effectives"
+msgstr "Nombre de positionnements effectifs"
 
 msgid "Tableau1b5.raison_non_participation"
 msgstr "Raisons de la non participation"
@@ -108,7 +114,7 @@ msgstr "Nb de participations à une action"
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableau1b3/:heading"
-msgstr "3 - Problématiques des bénéficiaires de l'opération"
+msgstr "Tableau 3 - Problématiques des bénéficiaires de l'opération"
 
 # ------------------------------------------------------------------------------
 
@@ -150,10 +156,10 @@ msgstr "Autres (1)"
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableau1b4/:heading"
-msgstr "4 - Positionnements vers les acteurs sociaux, culturels et de sante"
+msgstr "Tableau 4 - Positionnement vers les acteurs sociaux, culturels et de santé"
 
 msgid "Tableau1b4.libelle"
-msgstr "Thématiques"
+msgstr "Thématique"
 
 msgid "Tableau1b4.structure"
 msgstr "Catégorie"
@@ -189,7 +195,7 @@ msgstr "c. Acteurs de la culture, des loisirs et des vacances"
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableau1b5/:heading"
-msgstr "5 - Positionnement sur les actions à caractère socio-professionnel et professionnel"
+msgstr "Tableau 5 - Positionnement sur les actions à caractère socio-professionnel et professionnel"
 
 # ------------------------------------------------------------------------------
 
@@ -220,6 +226,15 @@ msgstr "Nb de participations à une action"
 msgid "Tableau1b5.prescriptions_abandon_count"
 msgstr "Abandon en cours d'action"
 
+msgid "Tous"
+msgstr "Tous"
+
+msgid "Toutes"
+msgstr "Toutes"
+
+msgid "Tableau1b5.NonEffectif.caption"
+msgstr "Motifs pour lesquels le positionnement n\'est pas effectif :"
+
 # ------------------------------------------------------------------------------
 # Recherche
 # ------------------------------------------------------------------------------
@@ -234,7 +249,7 @@ msgid "Tableausuivipdv93.type"
 msgstr "Niveau"
 
 msgid "Communautesr.name"
-msgstr "Projet insertion emploi territorial"
+msgstr "EPT"
 
 msgid "Pdv.lib_struc"
 msgstr "PIE"
@@ -306,9 +321,11 @@ msgstr "Visualisation du tableau #Tableausuivipdv93.name# pour l'année #Tableau
 # ------------------------------------------------------------------------------
 # Tableau D1
 # ------------------------------------------------------------------------------
+msgid "/Tableauxsuivispdvs93/tableaud1/:title"
+msgstr "Tableau 1 - Caractéristiques des participants"
 
 msgid "/Tableauxsuivispdvs93/tableaud1/:heading"
-msgstr "Tableau D1 - Indicateurs de réalisation : caractéristiques des participants"
+msgstr "Tableau 1 - Caractéristiques des participants au 1er entretien de l'année"
 
 msgid "/Tableauxsuivispdvs93/tableaud1/sexe"
 msgstr "Ligne 1 - Total participants"
@@ -356,11 +373,11 @@ msgid "/Tableauxsuivispdvs93/tableaud1/diplomes_etrangers"
 msgstr "Ligne 15 - Diplômes étrangers non reconnus en France"
 
 # ------------------------------------------------------------------------------
-# Tableau D2
+# Tableau D2 - Tableau 10
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableaud2/:heading"
-msgstr "Tableau D2 - Situation des participants à l'issue de l'opération"
+msgstr "Tableau 10 - Situation des participants à l'issue de l'opération"
 
 msgid "/Tableauxsuivispdvs93/tableaud2/totaux"
 msgstr "Total des participants"
@@ -433,9 +450,17 @@ msgstr "Sortie \"Changement administratif\""
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableau1b6/:heading"
-msgstr "6 - Actions collectives"
+msgstr "Tableau 6 - Actions collectives"
 
 # ------------------------------------------------------------------------------
+msgid "Tableau1b6.actionAvantProd2019"
+msgstr "Actions collectives du 01/01/2019 au "
+
+msgid "Tableau1b6.actionApresProd2019_pre"
+msgstr "Actions collectives du "
+
+msgid "Tableau1b6.actionApresProd2019_post"
+msgstr " au 31/12/2019"
 
 msgid "Tableau1b6.name"
 msgstr "Intitulé (1)"
@@ -455,8 +480,17 @@ msgstr "Nombre de personnes différentes participant à l'action (3)"
 msgid "Tableau1b6.count_invitations"
 msgstr "Nbre d'invitations"
 
+msgid "Tableau1b6.count_invitations.apres2019"
+msgstr "Nbre d'invitations ou de positionnement"
+
 msgid "Tableau1b6.count_participations"
-msgstr "Nbre  de participations"
+msgstr "Nbre de participations"
+
+msgid "Thematiquerdv.name"
+msgstr "Thématique du RDV"
+
+msgid "Statutrdv.libelle"
+msgstr "Statut du RDV"
 
 # ------------------------------------------------------------------------------
 # Export CSV du tableau 1B3
@@ -565,7 +599,7 @@ msgstr "Le bénéficiaire a achevé l'action"
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableaub7/:heading"
-msgstr "7a - Nombre de personnes accédant à l'emploi"
+msgstr "Tableau 7a - Nombre de personnes différentes accédant à l'emploi"
 
 msgid "Tableaub7.chiffres.cles"
 msgstr "Accès à l'emploi : chiffres clés"
@@ -593,11 +627,238 @@ msgstr "Accès à l'emploi : nombre d'accès à l'emploi par familles profession
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableaub7d2typecontrat/:heading"
-msgstr "7b - Synthèse des accès à l'emploi"
+msgstr "Tableau 7b - Accès à l'emploi par type de contrat"
+
+msgid "Tableaub7b.maintien.accompagnement"
+msgstr "Maintien dans l’accompagnement"
+
+msgid "Tableaub7b.sortie.accompagnement"
+msgstr "Sortie de l’accompagnement"
+
+msgid "Tableaub7b.tps.complet"
+msgstr "Tps complet"
+
+msgid "Tableaub7b.tps.partiel"
+msgstr "Tps partiel"
+
+msgid "Tableaub7b.non.communique"
+msgstr "Non communiqué"
+
+msgid "Tableaub7b.nb.acces"
+msgstr "Nb d'accès"
+
+msgid "Tableaub7b.secteur.plus.represente"
+msgstr "Secteur d'activité le plus représenté"
+
+msgid "Tableaub7b.indefini"
+msgstr "Indéfini"
 
 # ------------------------------------------------------------------------------
 # Tableau B7 + D2 par famille professionnelle
 # ------------------------------------------------------------------------------
 
 msgid "/Tableauxsuivispdvs93/tableaub7d2familleprofessionnelle/:heading"
-msgstr "7c - Accès à l'emploi selon les secteurs professionnels"
+msgstr "Tableau 7c - Accès à l'emploi par famille professionnelle"
+
+msgid "Tableaub7c.avec.maintien"
+msgstr "Nombre d'accès à l'emploi avec maintien dans l'accompagnement"
+
+msgid "Tableaub7c.avec.sortie"
+msgstr "Nombre d'accès à l'emploi avec sortie de l'accompagnement"
+
+msgid "Tableaub7c.total"
+msgstr "Total par famille professionnelle"
+
+# ------------------------------------------------------------------------------
+# Tableau 8 par CER
+# ------------------------------------------------------------------------------
+msgid "/Tableauxsuivispdvs93/tableaub8/:heading"
+msgstr "Tableau 8 - Contrats d'Engagement Réciproque"
+
+msgid "Tableaub8.CSVTitle"
+msgstr "Nombre de Contrat d'Engagement Réciproques validés"
+
+msgid "Tableaub8.nbCER"
+msgstr "Nombre de CERs validés pour l'année "
+
+msgid "Tableaub8.jan"
+msgstr "Janvier"
+
+msgid "Tableaub8.feb"
+msgstr "Février"
+
+msgid "Tableaub8.mar"
+msgstr "Mars"
+
+msgid "Tableaub8.apr"
+msgstr "Avril"
+
+msgid "Tableaub8.may"
+msgstr "Mai"
+
+msgid "Tableaub8.jun"
+msgstr "Juin"
+
+msgid "Tableaub8.jul"
+msgstr "Juillet"
+
+msgid "Tableaub8.aug"
+msgstr "Août"
+
+msgid "Tableaub8.sep"
+msgstr "Septembre"
+
+msgid "Tableaub8.oct"
+msgstr "Octobre"
+
+msgid "Tableaub8.nov"
+msgstr "Novembre"
+
+msgid "Tableaub8.dec"
+msgstr "Décembre"
+
+# ------------------------------------------------------------------------------
+# Export CSV des tableaux 7
+# ------------------------------------------------------------------------------
+
+msgid "Personne.id"
+msgstr "Id Personne"
+
+msgid "0.maintien"
+msgstr "Maintien"
+
+msgid "0.sortie_obligation"
+msgstr "Sortie"
+
+msgid "0.inscritpoleemploi"
+msgstr "Inscription PE"
+
+msgid "Typeemploi.name"
+msgstr "Type emploi"
+
+msgid "Dureeemploi.name"
+msgstr "Durée emploi"
+
+msgid "Questionnaireb7pdv93.dateemploi"
+msgstr "Date emploi"
+
+msgid "FamilleRomeV3.name"
+msgstr "Famille ROME"
+
+msgid "DomaineRomeV3.name"
+msgstr "Domaine ROME"
+
+msgid "MetierRomeV3.name"
+msgstr "Métier ROME"
+
+msgid "AppellationRomeV3.name"
+msgstr "Appellation ROME"
+
+msgid "Ficheprescription93.created"
+msgstr "Création fiche prescription"
+
+msgid "0.typethematiquefp93"
+msgstr "Type de thématique"
+
+msgid "Filierefp93.name"
+msgstr "Filière"
+
+msgid "0.personne_a_integre"
+msgstr "À intégrer"
+
+msgid "0.personne_acheve"
+msgstr "Achevé"
+
+msgid "Motifactionachevefp93.name"
+msgstr "Motif action achevée"
+
+
+# ------------------------------------------------------------------------------
+# Export CSV du Tableau 8
+# ------------------------------------------------------------------------------
+msgid "Personne.qual"
+msgstr "Civilité"
+
+msgid "Adresse.numvoie"
+msgstr "Numéro de voie"
+
+msgid "Adresse.libtypevoie"
+msgstr "Type de voie"
+
+msgid "Adresse.nomvoie"
+msgstr "Nom de voie"
+
+msgid "Adresse.complideadr"
+msgstr "Complément d'adresse"
+
+msgid "Dossier.dtdemrsa"
+msgstr "Date de demande RSA"
+
+msgid "Dossier.numdemrsa"
+msgstr "Numero de demande RSA"
+
+msgid "Orientstruct.statut_orient"
+msgstr "Orienté ?"
+
+msgid "struc_orientation.lib_struc"
+msgstr "Structure référente"
+
+msgid "Orientstruct.date_valid"
+msgstr "Date d'orientation"
+
+msgid "struc_signataire_cer.lib_struc"
+msgstr "Structure signataire du CER"
+
+msgid "Contratinsertion.dd_ci"
+msgstr "Date de debut de CER"
+
+msgid "Contratinsertion.df_ci"
+msgstr "Date de fin de CER"
+
+msgid "Contratinsertion.rg_ci"
+msgstr "Rang de CER"
+
+msgid "Cer93.positioncer"
+msgstr "État de validation CER"
+
+msgid "Cer93.datesignature"
+msgstr "Date de signature CER"
+
+msgid "Cer93.created"
+msgstr "Date de création du CER"
+
+msgid "Cer93.modified"
+msgstr "Date de modification du CER"
+
+msgid "Referent.qual"
+msgstr "Civilité du réferent"
+
+msgid "Referent.nom"
+msgstr "Nom du réferent"
+
+msgid "Referent.prenom"
+msgstr "Prenom du réferent"
+
+msgid "Referent.fonction"
+msgstr "Fonction du réferent"
+
+# ------------------------------------------------------------------------------
+# Tableau 9 par délai d'accompagnement
+# ------------------------------------------------------------------------------
+msgid "/Tableauxsuivispdvs93/tableaub9/:heading"
+msgstr "Tableau 9 - Délais d'accompagnement"
+
+# ------------------------------------------------------------------------------
+# Export CSV du Tableau 9
+# ------------------------------------------------------------------------------
+msgid "Rendezvous.commentairerdv"
+msgstr "Commentaires suite au RDV"
+
+msgid "Rendezvous.objetrdv"
+msgstr "Objectif du RDV"
+
+msgid "Typerdv.libelle"
+msgstr "Objet du RDV"
+
+msgid "Statutrdv.libelle"
+msgstr "Statut du RDV"

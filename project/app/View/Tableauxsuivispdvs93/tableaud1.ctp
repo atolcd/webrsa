@@ -10,16 +10,19 @@
                 <th rowspan="2" colspan="2"></th>
                 <th>Nombre de participants prévisionnel</th>
                 <th colspan="3">Report des participants de l'année précédente, le cas échéant</th>
-                <th colspan="3">Entrées enregistrées, au titre de la période d'exécution considérée</th>
+                <th colspan="6" id="entrees">Entrées enregistrées, au titre de la période d'exécution considérée</th>
                 <th colspan="3">Sorties enregistrées, au titre de la période d'exécution considérée</th>
                 <th colspan="3">Nombre de participants à l'action au 31/12/<?php echo $annee;?></th>
             </tr>
             <tr class="main">
                 <th>Total</th>
                 <?php for( $i = 0 ; $i < 4 ; $i++ ):?>
-                    <th>Total</th>
-                    <th>Hommes</th>
-                    <th>Femmes</th>
+					<th>Total</th>
+					<?php if($i == 1) echo "<th>% Total</th>"; ?>
+					<th>Hommes</th>
+					<?php if($i == 1) echo "<th>% Hommes</th>"; ?>
+					<th>Femmes</th>
+					<?php if($i == 1) echo "<th>% Femmes</th>"; ?>
                 <?php endfor;?>
             </tr>
         </thead>

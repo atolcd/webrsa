@@ -438,8 +438,7 @@
 			'Tableaux de suivi d\'activité' => array(
 				'disabled' => ( $departement != 93 ),
 				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/index/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'index' ) ),
-				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaud1/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaud1' ) ),
-				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaud2/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaud2' ) ),
+				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaud1/:title' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaud1' ) ),
 				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableau1b3/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableau1b3' ) ),
 				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableau1b4/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableau1b4' ) ),
 				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableau1b5/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableau1b5' ) ),
@@ -447,6 +446,9 @@
 				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaub7/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaub7' ) ),
 				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaub7d2typecontrat/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaub7d2typecontrat' ) ),
 				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaub7d2familleprofessionnelle/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaub7d2familleprofessionnelle' ) ),
+				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaub8/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaub8' ) ),
+				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaub9/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaub9' ) ),
+				__d( 'tableauxsuivispdvs93', '/Tableauxsuivispdvs93/tableaud2/:heading' ) => array( 'url' => array( 'controller' => 'tableauxsuivispdvs93', 'action' => 'tableaud2' ) ),
 			),
 			'Rsa Query'  => array(
 				'disabled' => ( $departement != 93 ),

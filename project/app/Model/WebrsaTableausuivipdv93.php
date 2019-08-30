@@ -127,6 +127,16 @@
 				'Search.referent_id',
 				'Search.soumis_dd_dans_annee'
 			),
+			'tableaub8' => array(
+				'Search.annee',
+				'Search.communautesr_id',
+				'Search.structurereferente_id',
+			),
+			'tableaub9' => array(
+				'Search.annee',
+				'Search.communautesr_id',
+				'Search.structurereferente_id',
+			),
 		);
 
 		/**
@@ -165,6 +175,8 @@
 		 * @var array
 		 */
 		public $tableaux = array(
+			'tableaub9' => 'B 9',
+			'tableaub8' => 'B 8',
 			'tableaub7' => 'B 7',
 			'tableaub7d2typecontrat' => 'B 7 + D 2',
 			'tableaub7d2familleprofessionnelle' => 'B 7 + D 2',
@@ -274,8 +286,11 @@
 			'reports_homme',
 			'reports_femme',
 			'entrees_total',
+			'entrees_total_pourcent',
 			'entrees_homme',
+			'entrees_homme_pourcent',
 			'entrees_femme',
+			'entrees_femme_pourcent',
 			'sorties_total',
 			'sorties_homme',
 			'sorties_femme',
@@ -397,6 +412,8 @@
 				'Questionnaireb7pdv93',
 				'Questionnaired2pdv93',
 			),
+			'tableaub8' => 'Contratinsertion',
+			'tableaub9' => 'Orientstruct',
 		);
 
 		/**
@@ -1190,8 +1207,11 @@
 				'reports_homme' => null,
 				'reports_femme' => null,
 				'entrees_total' => 0,
+				'entrees_total_pourcent' => 0,
 				'entrees_homme' => 0,
+				'entrees_homme_pourcent' => 0,
 				'entrees_femme' => 0,
+				'entrees_femme_pourcent' => 0,
 				'sorties_total' => null,
 				'sorties_homme' => null,
 				'sorties_femme' => null,
@@ -1283,6 +1303,22 @@
 			// Suppression des NC
 			foreach( $return as $categorie => $data ) {
 				unset( $return[$categorie]['dont']['NC'] );
+			}
+
+			// Calcul des pourcentage
+			foreach($return as $categorie => $data ) {
+				$return[$categorie]["entrees_total_pourcent"] = 100;
+				foreach( array('homme', 'femme' ) as $column ) {
+					$return[$categorie]["entrees_{$column}_pourcent"] =( (int)$return[$categorie]["entrees_{$column}"] / (int)$return[$categorie]["entrees_total"]) *100;
+				}
+
+				if( isset( $data['dont'] ) ) {
+					foreach( $data['dont'] as $categorie2 => $data2 ) {
+						foreach( array( 'total', 'homme', 'femme' ) as $column ) {
+							$return[$categorie]['dont'][$categorie2]["entrees_{$column}_pourcent"] = ( (int)$return[$categorie]['dont'][$categorie2]["entrees_{$column}"] / (int)$return[$categorie]["entrees_{$column}"]) * 100;
+						}
+					}
+				}
 			}
 
 			return $return;
@@ -1525,10 +1561,13 @@
 						}
 						else {
 							foreach( $data2 as $categorie3 => $data3 ) {
+								$delete = true;
 								if( isset( $data3['nombre'] ) ) {
 									foreach( array( 'nombre', 'hommes', 'femmes', 'cer' ) as $key ) {
 										$return[$categorie1][$categorie2][$categorie3]["{$key}_%"] = $data3[$key] / $nombre_total * 100;
+										if( $data3[$key] > 0 ){$delete = false;}
 									}
+									if ( $delete ) { unset ( $return[$categorie1][$categorie2][$categorie3] );}
 								}
 							}
 						}
@@ -1539,6 +1578,320 @@
 			return $return;
 		}
 
+		/**
+		 * Retourne les champs utilisés pour le tableau B8
+		 */
+		protected function _qdTableaub8Fields() {
+				return array(
+					'Personne.qual',
+					'Personne.nom',
+					'Personne.prenom',
+					'Personne.dtnai',
+					'Adresse.numvoie',
+					'Adresse.libtypevoie',
+					'Adresse.nomvoie',
+					'Adresse.complideadr',
+					'Adresse.codepos',
+					'CASE
+						WHEN "Adresse"."nomcom"=\'AUBERVILLIERS\' THEN \'AUBERVILLIERS\'
+						WHEN "Adresse"."nomcom"=\'AULNAY SOUS BOIS\' THEN \'AULNAY SOUS BOIS\'
+						WHEN "Adresse"."nomcom"=\'BAGNOLET\' THEN \'BAGNOLET\'
+						WHEN "Adresse"."nomcom" IN (\'BOBIGNY\', \'BOBIGNY CEDEX\') THEN \'BOBIGNY\'
+						WHEN "Adresse"."nomcom"=\'BONDY\' THEN \'BONDY\'
+						WHEN "Adresse"."nomcom"=\'CLICHY SOUS BOIS\' THEN \'CLICHY SOUS BOIS\'
+						WHEN "Adresse"."nomcom"=\'COUBRON\' THEN \'COUBRON\'
+						WHEN "Adresse"."nomcom" IN (\'DRANCY\',\'DRANCY CEDEX\') THEN \'DRANCY\'
+						WHEN "Adresse"."nomcom"=\'DUGNY\' THEN \'DUGNY\'
+						WHEN "Adresse"."nomcom"=\'EPINAY SUR SEINE\' THEN \'EPINAY SUR SEINE\'
+						WHEN "Adresse"."nomcom"=\'GAGNY\' THEN \'GAGNY\'
+						WHEN "Adresse"."nomcom"=\'GOURNAY SUR MARNE\' THEN \'GOURNAY SUR MARNE\'
+						WHEN "Adresse"."nomcom"=\'L ILE ST DENIS\' THEN \'L ILE ST DENIS\'
+						WHEN "Adresse"."nomcom"=\'LA COURNEUVE\' THEN \'LA COURNEUVE\'
+						WHEN "Adresse"."nomcom" IN (\'LA PLAINE ST DENIS\',\'SAINT DENIS\',\'ST DENIS\') THEN \'SAINT DENIS\'
+						WHEN "Adresse"."nomcom"=\'LE BLANC MESNIL\' THEN \'LE BLANC MESNIL\'
+						WHEN "Adresse"."nomcom"=\'LE BOURGET\' THEN \'LE BOURGET\'
+						WHEN "Adresse"."nomcom"=\'LE PRE ST GERVAIS\' THEN \'LE PRE ST GERVAIS\'
+						WHEN "Adresse"."nomcom"=\'LE RAINCY\' THEN \'LE RAINCY\'
+						WHEN "Adresse"."nomcom"=\'LES LILAS\' THEN \'LES LILAS\'
+						WHEN "Adresse"."nomcom" IN (\'LES PAVILLONS SOUS BOIS\',\'PAVILLONS SOUS BOIS\') THEN \'LES PAVILLONS SOUS BOIS\'
+						WHEN "Adresse"."nomcom"=\'LIVRY GARGAN\' THEN \'LIVRY GARGAN\'
+						WHEN "Adresse"."nomcom"=\'MONTFERMEIL\' THEN \'MONFERMEIL\'
+						WHEN "Adresse"."nomcom"=\'MONTREUIL\' THEN \'MONTREUIL\'
+						WHEN "Adresse"."nomcom"=\'NEUILLY PLAISANCE\' THEN \'NEUILLY PLAISANCE\'
+						WHEN "Adresse"."nomcom"=\'NEUILLY SUR MARNE\' THEN \'NEUILLY SUR MARNE\'
+						WHEN "Adresse"."nomcom"=\'NOISY LE GRAND\' THEN \'NOISY LE GRAND\'
+						WHEN "Adresse"."nomcom"=\'NOISY LE SEC\' THEN \'NOISY LE SEC\'
+						WHEN "Adresse"."nomcom"=\'PANTIN\' THEN \'PANTIN\'
+						WHEN "Adresse"."nomcom" IN (\'PIERREFITTE\',\'PIERREFITTE SUR SEINE\') THEN \'PIERREFITTE SUR SEINE\'
+						WHEN "Adresse"."nomcom"=\'ROMAINVILLE\' THEN \'ROMAINVILLE\'
+						WHEN "Adresse"."nomcom"=\'ROSNY SOUS BOIS\' THEN \'ROSNY SOUS BOIS\'
+						WHEN "Adresse"."nomcom" IN (\'SAINT OUEN\',\'ST OUEN\') THEN \'SAINT OUEN\'
+						WHEN "Adresse"."nomcom"=\'SEVRAN\' THEN \'SEVRAN\'
+						WHEN "Adresse"."nomcom"=\'STAINS\' THEN \'STAINS\'
+						WHEN "Adresse"."nomcom"=\'TREMBLAY EN FRANCE\' THEN \'TREMBLAY EN FRANCE\'
+						WHEN "Adresse"."nomcom"=\'VAUJOURS\' THEN \'VAUJOURS\'
+						WHEN "Adresse"."nomcom"=\'VILLEMOMBLE\' THEN \'VILLEMOMBLE\'
+						WHEN "Adresse"."nomcom"=\'VILLEPINTE\' THEN \'VILLEPINTE\'
+						WHEN "Adresse"."nomcom"=\'VILLETANEUSE\' THEN \'VILLETANEUSE\'
+					END AS "Adresse__nomcom"',
+					'Dossier.dtdemrsa',
+					'Dossier.numdemrsa',
+					'Dossier.matricule',
+					'Orientstruct.statut_orient',
+					'struc_orientation.lib_struc',
+					'Orientstruct.date_valid',
+					'struc_signataire_cer.lib_struc',
+					'Contratinsertion.dd_ci',
+					'Contratinsertion.df_ci',
+					'Contratinsertion.rg_ci',
+					'CASE
+						WHEN "Cer93"."positioncer"=\'00enregistre\' THEN \'Enregistre\'
+						WHEN "Cer93"."positioncer"=\'01signe\' THEN \'Signe\'
+						WHEN "Cer93"."positioncer"=\'02attdecisioncpdv\' THEN \'En attente de decision CPDV\'
+						WHEN "Cer93"."positioncer"=\'03attdecisioncg\' THEN \'En attente de decision CG\'
+						WHEN "Cer93"."positioncer"=\'04premierelecture\' THEN \'En premiere lecture\'
+						WHEN "Cer93"."positioncer"=\'05secondelecture\' THEN \'En seconde lecture\'
+						WHEN "Cer93"."positioncer"=\'07attavisep\' THEN \'En attente d\'\'avis EP\'
+						WHEN "Cer93"."positioncer"=\'99rejete\' THEN \'Rejet CG\'
+						WHEN "Cer93"."positioncer"=\'99rejetecpdv\' THEN \'Rejet CPDV\'
+						WHEN "Cer93"."positioncer"=\'99valide\' THEN \'Valide CG\'
+					END AS "Cer93__positioncer"',
+					'Cer93.datesignature',
+					'Cer93.created',
+					'Cer93.modified',
+					'Referent.qual',
+					'Referent.nom',
+					'Referent.prenom',
+					'Referent.fonction');
+		}
+
+		/**
+		 * Retourne les jointures utilisées pour le tableau B8
+		 */
+		protected function _qdTableaub8Joins() {
+			$contratInsertion = ClassRegistry::init( 'Contratinsertion' );
+			return array(
+				$contratInsertion->join( 'Cer93', array( 'type' => 'INNER' ) ),
+				$contratInsertion->join( 'Personne', array( 'type' => 'INNER' ) ),
+				$contratInsertion->join( 'Referent', array( 'type' => 'LEFT OUTER' ) ),
+				$contratInsertion->Personne->join( 'Foyer', array( 'type' => 'INNER' ) ),
+				$contratInsertion->Personne->join( 'Orientstruct', array(
+													'type' => 'LEFT OUTER',
+													'conditions' => array(
+														'Orientstruct.statut_orient = \'Orienté\'',
+													) ) ),
+				array(
+					'table' => 'structuresreferentes',
+					'alias' => 'struc_orientation',
+					'type' => 'LEFT OUTER',
+					'conditions' => array('"Orientstruct"."structurereferente_id" = "struc_orientation"."id"')
+				),
+				$contratInsertion->Personne->join( 'Prestation', array( 'type' => 'INNER' ) ),
+				$contratInsertion->Personne->Foyer->join( 'Dossier', array( 'type' => 'INNER' ) ),
+				$contratInsertion->Personne->Foyer->join( 'Adressefoyer', array( 'type' => 'LEFT OUTER' ) ),
+				$contratInsertion->Personne->Foyer->Adressefoyer->join('Adresse', array( 'type' => 'LEFT OUTER' ) ),
+				$contratInsertion->Personne->Orientstruct->join( 'Typeorient', array( 'type' => 'LEFT OUTER') ),
+				array(
+					'table' => 'structuresreferentes',
+					'alias' => 'struc_signataire_cer',
+					'type' => 'LEFT OUTER',
+					'conditions' => array('"Contratinsertion"."structurereferente_id" = "struc_signataire_cer"."id"' )
+				),
+				$contratInsertion->Personne->Foyer->Dossier->join( 'Situationdossierrsa', array( 'type' => 'INNER' ) ),
+				$contratInsertion->Personne->Foyer->Dossier->join( 'Detaildroitrsa', array( 'type' => 'LEFT OUTER' ) ),
+				$contratInsertion->Personne->join( 'PersonneReferent', array(
+														'type' => 'LEFT OUTER',
+														'conditions' => array(
+															'OR' => array(
+																'PersonneReferent.id' => NULL,
+																'PersonneReferent.id IN (SELECT personnes_referents.id
+																	FROM personnes_referents
+																	WHERE personnes_referents.personne_id = Personne.id
+																	AND personnes_referents.dfdesignation IS NULL
+																	ORDER BY personnes_referents.dddesignation DESC LIMIT 1)'
+															)
+														)
+				) ),
+				array(
+					'table' => 'referents',
+					'alias' => 'referent_parcours',
+					'type' => 'LEFT OUTER',
+					'conditions' => array('"PersonneReferent"."referent_id" = "referent_parcours"."id"')
+				),
+				array(
+					'table' => 'structuresreferentes',
+					'alias' => 'struc_referent_parcours',
+					'type' => 'LEFT OUTER',
+					'conditions' => array('"referent_parcours"."structurereferente_id" = "struc_referent_parcours"."id"' )
+				),
+			);
+		}
+
+		/**
+		 * Retourne les conditions utilisées pour le tableau B8
+		 * @param array $search
+		 */
+		protected function _qdTableaub8Conditions( $search) {
+			// Filtre sur l'année
+			$annee = Sanitize::clean( Hash::get( $search, 'Search.annee' ), array( 'encode' => false ) );
+
+			// Filtre sur la structure référente
+			$structureReferente = ClassRegistry::init( 'Structurereferente' );
+			if( isset( $search['Search']['structurereferente_id'] ) && !empty( $search['Search']['structurereferente_id'] ) ) {
+				// Si une structure référente est choisie
+				$resultStructure = $structureReferente->find('first', array('conditions' => array('Structurereferente.id' => $search['Search']['structurereferente_id'])));
+
+				$libStructureReferente = '%' . $resultStructure['Structurereferente']['lib_struc'] . '%';
+				$tabStructure = array('struc_signataire_cer.lib_struc LIKE' => $libStructureReferente);
+			} else if ( !empty( $search['Search']['communautesr_id']) ) {
+				// Si un EPT est choisi
+				$communautesr_id = Hash::get( $search, 'Search.communautesr_id' );
+				$listComunautes = $structureReferente->query($this->Tableausuivipdv93->Communautesr->sqStructuresreferentes( $communautesr_id ));
+
+				$structId = array();
+				foreach ( $listComunautes as $communautes){
+					$structId[] = $communautes['CommunautesrStructurereferente']['structurereferente_id'];
+				}
+				$listStructure = $structureReferente->find('list', array('conditions' => array('Structurereferente.id IN' => $structId ) ) );
+				$tabStructure = array(
+					'struc_signataire_cer.lib_struc IN' => $listStructure// \'%Projet de Ville%\') OR (struc_signataire_cer.lib_struc LIKE \'%Projet Insertion Emploi%\') OR (struc_signataire_cer.lib_struc LIKE \'Maison de l%\'))'
+				);
+			} else {
+				$listStructure = $this->listePdvs();
+				$tabStructure = array(
+						'struc_signataire_cer.lib_struc IN' => $listStructure// \'%Projet de Ville%\') OR (struc_signataire_cer.lib_struc LIKE \'%Projet Insertion Emploi%\') OR (struc_signataire_cer.lib_struc LIKE \'Maison de l%\'))'
+				);
+			}
+			return array(
+				array(
+					'OR' => array(
+						'"Adressefoyer".id' => NULL,
+						'"Adressefoyer".id IN (SELECT adressesfoyers.id
+												FROM adressesfoyers
+												WHERE adressesfoyers.foyer_id = "Foyer".id
+												AND adressesfoyers.rgadr = \'01\'
+												ORDER BY adressesfoyers.dtemm
+												DESC LIMIT 1)',
+					)
+				),
+				'"Prestation".rolepers IN' => array('DEM', 'CJT'),
+				$tabStructure,
+				'"Contratinsertion".decision_ci' => 'V',
+				'"Contratinsertion".dd_ci <=' => $annee . '-12-31',
+				'"Contratinsertion".df_ci >=' => $annee . '-01-01',
+				array(
+					'OR' => array(
+						'"Orientstruct".id' => NULL,
+						'"Orientstruct".id IN (SELECT orientsstructs.id
+													FROM orientsstructs
+													WHERE orientsstructs.personne_id = Personne.id
+													AND orientsstructs.statut_orient = \'Orienté\'
+													AND orientsstructs.date_valid IS NOT NULL
+													ORDER BY orientsstructs.date_valid DESC LIMIT 1)'
+					)
+				),
+		);
+		}
+
+		/**
+		 * Retourne le querydata utilisé pour la tableau B8.
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		public function qdTableaub8( array $search ) {
+			$querydata = array();
+			$querydata['fields'] = $this->_qdTableaub8Fields();
+			$querydata['recursive'] = -1;
+			$querydata['joins'] = $this->_qdTableaub8Joins();
+			$querydata['conditions'] = $this->_qdTableaub8Conditions($search);
+
+			return $querydata;
+		}
+
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		public function tableaub8( array $search, $returnQuery = false, $returnForCorpus = false ) {
+			$querydata = $this->qdTableaub8( $search );
+			$contratInsertion = ClassRegistry::init( 'Contratinsertion' );
+			$annee = Sanitize::clean( Hash::get( $search, 'Search.annee' ), array( 'encode' => false ) );
+
+			$results = $contratInsertion->find('all', $querydata);
+
+			if($returnQuery) {
+				return $querydata;
+			}
+			if($returnForCorpus) {
+				return $results;
+			}
+
+			// Récupération de la liste des PIE si non spécifié
+			$structures = ClassRegistry::init('Structurereferente');
+			if( isset( $search['Search']['structurereferente_id'] ) && !empty( $search['Search']['structurereferente_id'] ) ) {
+				$resultStructure = $structures->find('first', array(
+					'recursive' => -1,
+					'conditions' => array(
+						'Structurereferente.id' => $search['Search']['structurereferente_id']
+						)
+				));
+				$listStructure = array($resultStructure['Structurereferente']['lib_struc']);
+
+			} else if ( !empty( $search['Search']['communautesr_id']) ) {
+				// Si un EPT est choisi
+				$communautesr_id = Hash::get( $search, 'Search.communautesr_id' );
+				$listComunautes = $structures->query($this->Tableausuivipdv93->Communautesr->sqStructuresreferentes( $communautesr_id ));
+
+				$structId = array();
+				foreach ( $listComunautes as $communautes){
+					$structId[] = $communautes['CommunautesrStructurereferente']['structurereferente_id'];
+				}
+				$listStructure = $structures->find('list', array('conditions' => array('Structurereferente.id IN' => $structId ) ) );
+			} else {
+				$listStructure = $this->listePdvs();
+			}
+
+			$cumul = array();
+			foreach( $results as $result) {
+				$dateCER = new DateTime(date('Y-m-d', strtotime($result['Contratinsertion']['dd_ci'] ) ) );
+				$mois = $dateCER->format('n');
+				$anneeItem = $dateCER->format('Y');
+
+				if ($annee == $anneeItem && in_array ($result['struc_signataire_cer']['lib_struc'], $listStructure)) {
+
+				for ($i = $mois; $i <= 12 ; $i++) {
+					if (!isset ($cumul[$result['struc_signataire_cer']['lib_struc']][$i])) {
+						$cumul[$result['struc_signataire_cer']['lib_struc']][$i] = 0;
+					}
+
+					$cumul[$result['struc_signataire_cer']['lib_struc']][$i]++;
+				}
+				}
+			}
+
+			return $cumul;
+		}
+
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		public function tableaub9( array $search) {
+			$annee = Set::extract( $search, 'Search.annee' );
+			$structureReferente =   Set::extract( $search, 'Search.structuresreferentes' );
+			$communautesSrs =   Set::extract( $search, 'Search.communautesr_id' );
+			$results = array();
+
+			$indicateurMensuel = ClassRegistry::init('Indicateurmensuel');
+			if( !empty( $annee ) ) {
+				$results = $indicateurMensuel->listeRdvCer( $annee, $structureReferente, $communautesSrs);
+			}
+
+			return $results;
+		}
 		/**
 		 *
 		 * @param string $field
@@ -2012,7 +2365,6 @@
 
 			$base = $this->qdTableau1b4( $search );
 			// Ajout des libellés des catégories et des thématiques
-			$Dbo = $this->Tableausuivipdv93->getDataSource();
 			$categories = $this->_tableau1b41b5Categories( 'tableau1b4', $search );
 
 			$conditionsTotal = array( 'OR' => array() );
@@ -2027,7 +2379,6 @@
 
 					$conditionsSousTotal['OR'][] = $conditions;
 					$conditionsTotal['OR'][] = $conditions;
-					$conditions = $Dbo->conditions( $conditions, true, false );
 
 					// 1 requête par ligne
 					$query = $base;
@@ -2039,7 +2390,6 @@
 						'COUNT( DISTINCT "Ficheprescription93"."personne_id" ) AS "nombre_unique"'
 					);
 					$query['conditions'][] = $conditions;
-
 					$sqls[] = $Ficheprescription93->sq( $query );
 					$counter++;
 				}
@@ -2551,7 +2901,6 @@
 
 					$conditionsSousTotal['OR'][] = $conditions;
 					$conditionsTotal['OR'][] = $conditions;
-					$conditions = $Dbo->conditions( $conditions, true, false );
 
 					// requête par ligne
 					$query = $base;
@@ -2797,9 +3146,10 @@
 		 * Tableau 1-B-6: Actions collectives
 		 *
 		 * @param array $search
+		 * @param string $mep
 		 * @return array
 		 */
-		public function tableau1b6( array $search ) {
+		public function tableau1b6( array $search, string $mep=null ) {
 			$Thematiquerdv = ClassRegistry::init( array( 'class' => 'Thematiquerdv', 'alias' => 'Tableau1b6' ) );
 			$Dbo = $this->Tableausuivipdv93->getDataSource();
 
@@ -2807,116 +3157,167 @@
 
 			// Filtre sur l'année
 			$annee = Sanitize::clean( Hash::get( $search, 'Search.annee' ), array( 'encode' => false ) );
+			if ($annee <= 2019 || !is_null($mep)) {
+				$conditionpdv = $this->_conditionpdv(
+					$search,
+					array(
+						'structurereferente_id' => 'rendezvous.structurereferente_id',
+						'referent_id' => 'rendezvous.referent_id'
+					),
+					true
+				);
 
-			$conditionpdv = $this->_conditionpdv(
-				$search,
-				array(
-					'structurereferente_id' => 'rendezvous.structurereferente_id',
-					'referent_id' => 'rendezvous.referent_id'
-				),
-				true
-			);
+				// S'assure-t-on qu'il existe au moins un RDV individuel ?
+				$conditionrdv = null;
+				$rdv_structurereferente = Hash::get( $search, 'Search.rdv_structurereferente' );
+				if( $rdv_structurereferente ) {
+					$conditionrdv = "AND rendezvous.personne_id IN (
+						SELECT DISTINCT rdvindividuelhonore.personne_id
+							FROM rendezvous AS rdvindividuelhonore
+						WHERE
+							-- avec un RDV honoré durant l'année N";
+						if( !is_null($mep) ) {
+							$conditionrdv .= "rdvindividuelhonore.daterdv > '{$mep}'";
+						} else {
+							$conditionrdv .= "EXTRACT('YEAR' FROM rdvindividuelhonore.daterdv) = '{$annee}'";
+						}
+						$conditionrdv .= "-- Dont le type de RDV est individuel
+							AND rdvindividuelhonore.typerdv_id IN ( ".implode( ',', (array)Configure::read( 'Tableausuivipdv93.typerdv_id' ) )." )
+							AND rdvindividuelhonore.".$this->_conditionStatutRdv()."
+							-- dont la SR du rendez-vous collectif est la même que celle du RDV individuel
+							AND rendezvous.structurereferente_id = rdvindividuelhonore.structurereferente_id
+							{$conditionpdv}
+						)";
+				}
 
-			// S'assure-ton qu'il existe au moins un RDV individuel ?
-			$conditionrdv = null;
-			$rdv_structurereferente = Hash::get( $search, 'Search.rdv_structurereferente' );
-			if( $rdv_structurereferente ) {
-				$conditionrdv = "AND rendezvous.personne_id IN (
-					SELECT DISTINCT rdvindividuelhonore.personne_id
-						FROM rendezvous AS rdvindividuelhonore
-					WHERE
-						-- avec un RDV honoré durant l'année N
-						EXTRACT('YEAR' FROM rdvindividuelhonore.daterdv) = '{$annee}'
-						-- Dont le type de RDV est individuel
-						AND rdvindividuelhonore.typerdv_id IN ( ".implode( ',', (array)Configure::read( 'Tableausuivipdv93.typerdv_id' ) )." )
-						AND rdvindividuelhonore.".$this->_conditionStatutRdv()."
-						-- dont la SR du rendez-vous collectif est la même que celle du RDV individuel
-						AND rendezvous.structurereferente_id = rdvindividuelhonore.structurereferente_id
+				// Liste des thématiques collectives
+				$thematiquesrdvs_ids = (array)Hash::extract( $results, '{n}.Tableau1b6.id' );
+				if( empty( $thematiquesrdvs_ids ) ) {
+					$thematiquesrdvs_ids = array( 0 );
+				}
+
+				// --1-- Nbre de personnes invitées ou positionnées : honoré ou prévu
+				$sql = "SELECT
+								thematiquesrdvs.name AS \"Tableau1b6__name\",
+								thematiquesrdvs.acomptabiliser,
+								COUNT(DISTINCT rendezvous.personne_id) AS \"Tableau1b6__count_personnes_prevues\",
+								COUNT(DISTINCT rendezvous.id) AS \"Tableau1b6__count_invitations\"
+							FROM rendezvous
+								INNER JOIN typesrdv ON ( typesrdv.id = rendezvous.typerdv_id )
+								INNER JOIN rendezvous_thematiquesrdvs ON ( rendezvous.id = rendezvous_thematiquesrdvs.rendezvous_id )
+								INNER JOIN thematiquesrdvs ON ( thematiquesrdvs.id = rendezvous_thematiquesrdvs.thematiquerdv_id )
+							WHERE
+								rendezvous_thematiquesrdvs.thematiquerdv_id IN ( ".implode( ',', $thematiquesrdvs_ids )." )";
+				if( !is_null($mep) ) {
+					$sql .= "AND rendezvous.daterdv > '{$mep}'
+							AND thematiquesrdvs.actif = 1";
+				} else if ( $annee == 2019 ){
+					$sql .= "AND rendezvous.daterdv < " . "'" . Configure::read('Date.MEP.PIE')[0] ."'";
+				} else {
+					$sql .= "AND EXTRACT( 'YEAR' FROM rendezvous.daterdv ) = '{$annee}'";
+				}
+				$sql .= "{$conditionpdv}
+						{$conditionrdv}
+						GROUP BY
+							thematiquesrdvs.name,
+							rendezvous_thematiquesrdvs.thematiquerdv_id,
+							thematiquesrdvs.acomptabiliser";
+				$results1 = $Thematiquerdv->query( $sql );
+
+				$sql = "SELECT
+								thematiquesrdvs.name AS \"Tableau1b6__name\",
+								thematiquesrdvs.acomptabiliser,
+								COUNT(DISTINCT rendezvous.daterdv||' '||rendezvous.heurerdv) AS \"Tableau1b6__count_seances\",
+								COUNT(DISTINCT rendezvous.personne_id) AS \"Tableau1b6__count_personnes\",
+								COUNT(DISTINCT rendezvous.id) AS \"Tableau1b6__count_participations\"
+							FROM rendezvous
+								INNER JOIN typesrdv ON ( typesrdv.id = rendezvous.typerdv_id )
+								INNER JOIN rendezvous_thematiquesrdvs ON ( rendezvous.id = rendezvous_thematiquesrdvs.rendezvous_id )
+								INNER JOIN thematiquesrdvs ON ( thematiquesrdvs.id = rendezvous_thematiquesrdvs.thematiquerdv_id )
+							WHERE
+								rendezvous_thematiquesrdvs.thematiquerdv_id IN ( ".implode( ',', $thematiquesrdvs_ids )." )";
+				if( !is_null($mep) ) {
+					$sql .= "AND rendezvous.daterdv > '{$mep}'
+							AND thematiquesrdvs.actif = 1";
+				} else if ( $annee == 2019 ){
+					$sql .= "AND rendezvous.daterdv < " . "'" . Configure::read('Date.MEP.PIE')[0] ."'";
+				} else {
+					$sql .= "AND EXTRACT( 'YEAR' FROM rendezvous.daterdv ) = '{$annee}'";
+				}
+				$sql .= "AND ".$this->_conditionStatutRdv( 'rendezvous.statutrdv_id' )."
 						{$conditionpdv}
-				)";
-			}
-			// Fin TODO factoriser
-
-			// Liste des thématiques collectives
-			$thematiquesrdvs_ids = (array)Hash::extract( $results, '{n}.Tableau1b6.id' );
-			if( empty( $thematiquesrdvs_ids ) ) {
-				$thematiquesrdvs_ids = array( 0 );
-			}
-
-			// --1-- Nbre de personnes invitées ou positionnées : honoré ou prévu
-			$sql = "SELECT
-							thematiquesrdvs.name AS \"Tableau1b6__name\",
-							COUNT(DISTINCT rendezvous.personne_id) AS \"Tableau1b6__count_personnes_prevues\",
-							COUNT(DISTINCT rendezvous.id) AS \"Tableau1b6__count_invitations\"
-						FROM rendezvous
-							INNER JOIN typesrdv ON ( typesrdv.id = rendezvous.typerdv_id )
-							INNER JOIN rendezvous_thematiquesrdvs ON ( rendezvous.id = rendezvous_thematiquesrdvs.rendezvous_id )
-							INNER JOIN thematiquesrdvs ON ( thematiquesrdvs.id = rendezvous_thematiquesrdvs.thematiquerdv_id )
-						WHERE
-							rendezvous_thematiquesrdvs.thematiquerdv_id IN ( ".implode( ',', $thematiquesrdvs_ids )." )
-							AND EXTRACT( 'YEAR' FROM rendezvous.daterdv ) = '{$annee}'
-							{$conditionpdv}
-							{$conditionrdv}
+						{$conditionrdv}
 						GROUP BY
 							thematiquesrdvs.name,
-							rendezvous_thematiquesrdvs.thematiquerdv_id";
-			$results1 = $Thematiquerdv->query( $sql );
+							rendezvous_thematiquesrdvs.thematiquerdv_id,
+							thematiquesrdvs.acomptabiliser";
+				$results2 = $Thematiquerdv->query( $sql );
 
-			$sql = "SELECT
-							thematiquesrdvs.name AS \"Tableau1b6__name\",
-							COUNT(DISTINCT rendezvous.daterdv||' '||rendezvous.heurerdv) AS \"Tableau1b6__count_seances\",
-                            COUNT(DISTINCT rendezvous.personne_id) AS \"Tableau1b6__count_personnes\",
-							COUNT(DISTINCT rendezvous.id) AS \"Tableau1b6__count_participations\"
-						FROM rendezvous
-							INNER JOIN typesrdv ON ( typesrdv.id = rendezvous.typerdv_id )
-							INNER JOIN rendezvous_thematiquesrdvs ON ( rendezvous.id = rendezvous_thematiquesrdvs.rendezvous_id )
-							INNER JOIN thematiquesrdvs ON ( thematiquesrdvs.id = rendezvous_thematiquesrdvs.thematiquerdv_id )
-						WHERE
-							rendezvous_thematiquesrdvs.thematiquerdv_id IN ( ".implode( ',', $thematiquesrdvs_ids )." )
-							AND EXTRACT('YEAR' FROM rendezvous.daterdv) = '{$annee}'
-							AND ".$this->_conditionStatutRdv( 'rendezvous.statutrdv_id' )."
-							{$conditionpdv}
-							{$conditionrdv}
-						GROUP BY
-							thematiquesrdvs.name,
-							rendezvous_thematiquesrdvs.thematiquerdv_id";
-			$results2 = $Thematiquerdv->query( $sql );
-
-			// Formattage des résultats
-			foreach( $results as $key => $result ) {
-				$name = $result['Tableau1b6']['name'];
-				foreach( $results1 as $result1 ) {
-					foreach( array( 'count_personnes_prevues', 'count_invitations' ) as $field ) {
-						if( $result1['Tableau1b6']['name'] == $name ) {
-							$value = (int) Hash::get( $result1, "Tableau1b6.{$field}" );
-							if( !isset( $results[$key]['Tableau1b6'][$field] ) ) {
-								$results[$key]['Tableau1b6'][$field] = 0;
+				// Formattage des résultats
+				foreach( $results as $key => $result ) {
+					$name = $result['Tableau1b6']['name'];
+					foreach( $results1 as $result1 ) {
+						foreach( array( 'count_personnes_prevues', 'count_invitations' ) as $field ) {
+							if( $result1['Tableau1b6']['name'] == $name ) {
+								$value = (int) Hash::get( $result1, "Tableau1b6.{$field}" );
+								if( !isset( $results[$key]['Tableau1b6'][$field] ) ) {
+									$results[$key]['Tableau1b6'][$field] = 0;
+								}
+								$results[$key]['Tableau1b6'][$field] += $value;
+								if ( !isset($results[$key]['Tableau1b6']['acomptabiliser']) ) {
+									$results[$key]['Tableau1b6']['acomptabiliser'] = $result1[0]['acomptabiliser'];
+								}
 							}
-							$results[$key]['Tableau1b6'][$field] += $value;
+							else {
+								if( !isset( $results[$key]['Tableau1b6'][$field] ) ) {
+									$results[$key]['Tableau1b6'][$field] = 0;
+								}
+							}
 						}
-						else {
-							if( !isset( $results[$key]['Tableau1b6'][$field] ) ) {
-								$results[$key]['Tableau1b6'][$field] = 0;
+					}
+					foreach( $results2 as $result2 ) {
+						foreach( array( 'count_seances', 'count_personnes', 'count_participations' ) as $field ) {
+							if( $result2['Tableau1b6']['name'] == $name ) {
+								$value = (int)Hash::get( $result2, "Tableau1b6.{$field}" );
+								if( !isset( $results[$key]['Tableau1b6'][$field] ) ) {
+									$results[$key]['Tableau1b6'][$field] = 0;
+								}
+								$results[$key]['Tableau1b6'][$field] += $value;
+							}
+							else {
+								if( !isset( $results[$key]['Tableau1b6'][$field] ) ) {
+									$results[$key]['Tableau1b6'][$field] = 0;
+								}
 							}
 						}
 					}
 				}
-				foreach( $results2 as $result2 ) {
-					foreach( array( 'count_seances', 'count_personnes', 'count_participations' ) as $field ) {
-						if( $result2['Tableau1b6']['name'] == $name ) {
-							$value = (int)Hash::get( $result2, "Tableau1b6.{$field}" );
-							if( !isset( $results[$key]['Tableau1b6'][$field] ) ) {
-								$results[$key]['Tableau1b6'][$field] = 0;
-							}
-							$results[$key]['Tableau1b6'][$field] += $value;
-						}
-						else {
-							if( !isset( $results[$key]['Tableau1b6'][$field] ) ) {
-								$results[$key]['Tableau1b6'][$field] = 0;
-							}
-						}
-					}
+			}
+			// Suppression des résultats vides
+			foreach( $results as $key => $result) {
+				if( (isset($result['Tableau1b6']['count_personnes_prevues']) &&
+				isset($result['Tableau1b6']['count_invitations']) &&
+				isset($result['Tableau1b6']['count_seances']) &&
+				isset($result['Tableau1b6']['count_personnes']) &&
+				isset($result['Tableau1b6']['count_participations']) ) &&
+				($result['Tableau1b6']['count_personnes_prevues'] ==0 &&
+				$result['Tableau1b6']['count_invitations'] == 0 &&
+				$result['Tableau1b6']['count_seances'] == 0 &&
+				$result['Tableau1b6']['count_personnes'] == 0 &&
+				$result['Tableau1b6']['count_participations'] == 0 )
+				) {
+					unset( $results[$key] );
 				}
+			}
+
+			if($annee >= 2019 && is_null($mep) ) {
+				if($annee == 2019) {
+					$mep = Configure::read('Date.MEP.PIE')[0];
+				} else {
+					$mep = $annee . '-01-01';
+				}
+				$results_tmp = $this->tableau1b6($search, $mep);
+				$results['apresmep'] = $results_tmp;
 			}
 
 			return $results;
@@ -3107,6 +3508,12 @@
 					}
 
 					foreach( array_keys( $models ) as $model ) {
+						if($model == 'struc_orientation' || $model == 'struc_signataire_cer' || $model == 'struc_referent_parcours') {
+							$model = 'Structurereferente';
+						}
+						if($model == 'referent_parcours') {
+							$model = 'Referent';
+						}
 						$models[$model] = ClassRegistry::init( $model )->schema();
 					}
 
@@ -3608,6 +4015,75 @@
 			return $query;
 		}
 
+		protected function _queryCorpusB8( $tableau, array $search ) {
+			$query = $this->tableaub8 ($search, true);
+
+			return $query;
+		}
+
+		protected function _queryCorpusB9( $tableau, array $search ) {
+			$orientStruct = ClassRegistry::init('Orientstruct');
+
+			$annee = Set::extract( $search, 'Search.annee' );
+			$structureReferente =   Set::extract( $search, 'Search.structuresreferentes' );
+			$communautesSrs =   Set::extract( $search, 'Search.communautesr_id' );
+			$where  =   "";
+
+			if($structureReferente!='' && $structureReferente>0)
+				$where .= " Orientstruct.structurereferente_id='".$structureReferente."'";
+			if($communautesSrs!='' && $communautesSrs>0) {
+				if( $where != '' ) {
+					$where .= ' AND ';
+				}
+				$where  .=   " CommunautesrStructurereferente.communautesr_id='".$communautesSrs."'";
+			}
+
+			$query = array();
+			$query['fields'] = Configure::read('Tableauxsuivispdvs93.tableaub9.exportcsvcorpus');
+			$query['recursive'] = -1;
+			$query['joins'] = array(
+				$orientStruct->join('Personne', array( 'type' => 'INNER') ),
+				$orientStruct->join('Referent', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->join('Foyer', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->join('Rendezvous', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->Foyer->join('Dossier', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->Foyer->join('Adressefoyer', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->Foyer->Adressefoyer->join('Adresse', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->Rendezvous->join('Typerdv', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->Rendezvous->join('Statutrdv', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->join('Contratinsertion', array( 'type' => 'INNER') ),
+				$orientStruct->Personne->Contratinsertion->join('Cer93', array( 'type' => 'INNER') ),
+				$orientStruct->join('Structurereferente', array( 'type' => 'LEFT OUTER') ),
+				$orientStruct->Structurereferente->join('CommunautesrStructurereferente', array( 'type' => 'LEFT OUTER') ),
+				$orientStruct->Structurereferente->CommunautesrStructurereferente->join('Communautesr', array( 'type' => 'LEFT OUTER') )
+			);
+
+			$query['conditions'] = array(
+				'Orientstruct.typeorient_id' => 1,
+				$where,
+				'Orientstruct.date_valid >= ' => $annee . '-01-01',
+				'Orientstruct.date_valid <= ' => $annee+1 . '-12-31',
+				'Rendezvous.statutrdv_id' => array(1, 2),
+				'Rendezvous.typerdv_id' => array(14, 15),
+				'Rendezvous.daterdv >= ' => $annee . '-01-01',
+				'Rendezvous.daterdv <= ' => $annee+1 . '-12-31',
+				'Rendezvous.id IN (
+					SELECT id FROM rendezvous
+					WHERE personne_id = Personne.id AND daterdv >= Orientstruct.date_valid
+					ORDER BY id
+					LIMIT 1
+				)',
+				'Contratinsertion.id IN (
+					SELECT id FROM contratsinsertion
+					WHERE personne_id = Personne.id AND dd_ci >= Orientstruct.date_valid
+					ORDER BY id
+					LIMIT 1
+				)'
+			);
+
+			return $query;
+		}
+
 		/**
 		 * Retourne le querydata à utiliser pour réaliser l'export du corpus d'un
 		 * tableau de suivi.
@@ -3640,6 +4116,12 @@
 			}
 			else if( $tableau === 'tableaub7d2familleprofessionnelle' ) {
 				$query = $this->_queryCorpusB7FamilleProfessionnelle( $tableau, $search );
+			}
+			else if( $tableau === 'tableaub8' ) {
+				$query = $this->_queryCorpusB8( $tableau, $search );
+			}
+			else if( $tableau === 'tableaub9' ) {
+				$query = $this->_queryCorpusB9( $tableau, $search );
 			}
 			else {
 				$msg = sprintf( 'Valeur du paramètre $tableau non valide (%s)', $tableau );
@@ -3879,6 +4361,7 @@
 				'conditions' => array(
 				),
 				'order' => array(
+					'yearthema' => 'DESC'
 				)
 			);
 			$results = $this->Thematiquefp93->find( 'all', $query );
@@ -3944,6 +4427,48 @@
 				'conditions' => array(
 					'Tableausuivipdv93.id' => $id,
 					'Tableausuivipdv93.name' => 'tableaub7',
+				),
+			);
+
+			return $querydata;
+		}
+
+		/**
+		 * Retourne le querydata nécessaire à l'export CSV du corpus pris en
+		 * compte dans un historique de tableau B8.
+		 *
+		 * @param integer $id La clé primaire du tableau de suivi B8 historisé
+		 * @return array
+		 */
+		public function qdExportcsvCorpusb8( $id ) {
+			$querydata = array(
+				'fields' => array_merge(
+					$this->Tableausuivipdv93->fields()
+				),
+				'conditions' => array(
+					'Tableausuivipdv93.id' => $id,
+					'Tableausuivipdv93.name' => 'tableaub8',
+				),
+			);
+
+			return $querydata;
+		}
+
+		/**
+		 * Retourne le querydata nécessaire à l'export CSV du corpus pris en
+		 * compte dans un historique de tableau B9.
+		 *
+		 * @param integer $id La clé primaire du tableau de suivi B8 historisé
+		 * @return array
+		 */
+		public function qdExportcsvCorpusb9( $id ) {
+			$querydata = array(
+				'fields' => array_merge(
+					$this->Tableausuivipdv93->fields()
+				),
+				'conditions' => array(
+					'Tableausuivipdv93.id' => $id,
+					'Tableausuivipdv93.name' => 'tableaub9',
 				),
 			);
 
@@ -4022,6 +4547,10 @@
 
 			$annee = Hash::get( $search, 'Search.annee' );
 			// On ne prend que les allocataires ayant un questionnaire D1 dans l'année recherchée.
+			/**
+			 * Convention PIE 2018-2020
+			 * Aucune restriction sur les allocataires n'ayant pas de questionnaire D1 dans les spécifications.
+			 */
 			$query['joins'][] = array(
 				'alias' => 'Questionnaired1pdv93',
 				'table' => 'questionnairesd1pdvs93',
@@ -4033,6 +4562,10 @@
 			);
 
 			// On ne prend que les allocataires soumis à droits et devoirs.
+			/**
+			 * Convention PIE 2018-2020
+			 * Aucune restriction sur les allocataires n'étant pas soumis à droits et devoirs.
+			 */
 			$query['joins'][] = array(
 				'alias' => 'Calculdroitrsa',
 				'table' => 'calculsdroitsrsa',
@@ -4069,7 +4602,7 @@
 			// Questionnaires b7
 			$query = array (
 				'fields' => array (
-					'DISTINCT Personne.id',
+					'DISTINCT ON ("Personne"."id") "Personne"."id" as Personne__id',
 				),
 				'joins' => array (
 					array(
@@ -4079,7 +4612,10 @@
 						'conditions' => array(
 							'Questionnaireb7pdv93.personne_id = Personne.id',
 							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $annee,
-						)
+						),
+						'order' => array (
+							'Questionnaireb7pdv93.id DESC',
+						),
 					),
 				),
 				'contain' => array (
@@ -4097,7 +4633,7 @@
 			// Questionnaires d2
 			$query = array (
 				'fields' => array (
-					'DISTINCT Personne.id',
+					'DISTINCT ON ("Personne"."id") "Personne"."id" as Personne__id',
 				),
 				'joins' => array(
 					array(
@@ -4106,9 +4642,13 @@
 						'type' => 'INNER',
 						'conditions' => array(
 							'Questionnaired2pdv93.personne_id = Personne.id',
-							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $search['Search']['annee'],
-							'Questionnaired2pdv93.emploiromev3_id IS NOT NULL',
-						)
+							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $annee,
+							'Questionnaired2pdv93.situationaccompagnement' => 'sortie_obligation',
+							'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->_sortieaccompagnementd2pdv93_ids (),
+						),
+						'order' => array (
+							'Questionnaired2pdv93.id DESC',
+						),
 					)
 				),
 				'contain' => array (
@@ -4126,9 +4666,13 @@
 			/*
 			 * Toutes les personnes ayant un questionnaire B7 ou un questionnaire D2 = 'maintien'
 			 */
+			/**
+			 * Convention PIE 2018-2020
+			 * Aucune restriction sur les allocataires ayant un questionnaire D2.
+			 */
 			$query = array (
 				'fields' => array (
-					'DISTINCT Personne.id',
+					'DISTINCT ON ("Personne"."id") "Personne"."id" as Personne__id',
 				),
 				'contain' => array (
 					'Questionnaireb7pdv93',
@@ -4141,17 +4685,20 @@
 						'type' => 'INNER',
 						'conditions' => array(
 							'Questionnaireb7pdv93.personne_id = Personne.id',
-							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $search['Search']['annee'],
-						)
+							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $annee,
+						),
+						'order' => array (
+							'Questionnaireb7pdv93.id DESC',
+						),
 					),
 					array(
 						'alias' => 'Questionnaired2pdv93',
 						'table' => 'questionnairesd2pdvs93',
-						'type' => 'INNER',
+						'type' => 'LEFT',
 						'conditions' => array(
 							'Questionnaired2pdv93.personne_id = Personne.id',
 							'Questionnaired2pdv93.situationaccompagnement' => 'maintien',
-							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $search['Search']['annee'],
+							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $annee,
 						)
 					),
 				)
@@ -4168,9 +4715,13 @@
 			 * Toutes les personnes ayant un questionnaire B7 ou un questionnaire D2 = 'sortie_obligation'
 			 * et une des 6 sorties emploi
 			 */
+			/**
+			 * Convention PIE 2018-2020
+			 * Aucune restriction sur les allocataires n'ayant pas un questionnaire B7.
+			 */
 			$query = array (
 				'fields' => array (
-					'Personne.id',
+					'DISTINCT ON ("Personne"."id") "Personne"."id" as Personne__id',
 				),
 				'contain' => array (
 					'Questionnaireb7pdv93',
@@ -4180,10 +4731,10 @@
 					array(
 						'alias' => 'Questionnaireb7pdv93',
 						'table' => 'questionnairesb7pdvs93',
-						'type' => 'INNER',
+						'type' => 'LEFT',
 						'conditions' => array(
 							'Questionnaireb7pdv93.personne_id = Personne.id',
-							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $search['Search']['annee'],
+							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $annee,
 						)
 					),
 					array(
@@ -4194,7 +4745,7 @@
 							'Questionnaired2pdv93.personne_id = Personne.id',
 							'Questionnaired2pdv93.situationaccompagnement' => 'sortie_obligation',
 							'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->_sortieaccompagnementd2pdv93_ids (),
-							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $search['Search']['annee'],
+							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $annee,
 						)
 					),
 				)
@@ -4213,10 +4764,19 @@
 				$personneb7ssorties = $personne->find ('all', $query);
 			}
 
+			// Dédoublonnage de maintenues_sorties
+			$maintenuesSorties = array ();
+			foreach ($personneb7s as $value) {
+				$maintenuesSorties[$value['Personne']['id']] = $value['Personne']['id'];
+			}
+			foreach ($personned2s as $value) {
+				$maintenuesSorties[$value['Personne']['id']] = $value['Personne']['id'];
+			}
+
 			$return = array();
-			$return['maintenues_sorties'] = count ($personneb7s) + count ($personned2s);
-			$return['maintenues'] = count ($personneb7smaintenues);
+			$return['maintenues_sorties'] = count ($maintenuesSorties);
 			$return['sorties'] = count ($personneb7ssorties);
+			$return['maintenues'] = count ($personneb7smaintenues);
 
 			return $return;
 		}
@@ -4248,11 +4808,28 @@
 				)
 			);
 
+			// Familles professionnelles
+			$familles = $familleromev3->find ('list');
+
 			// Type d'emploi pour la questionnaire D2
 			$typeEmploisD2 = $this->_sortieaccompagnementd2pdv93_ids ('all');
 
 			// Questionnaires b7
 			$query = array (
+				'fields' => array_merge (
+					array ('DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"'),
+					$questionnaireb7pdv93->fields (),
+					ClassRegistry::init( 'Dureeemploi' )->fields (),
+					array (
+						'Expproromev3.id',
+						'Expproromev3.familleromev3_id',
+						'Expproromev3.domaineromev3_id',
+						'Expproromev3.metierromev3_id',
+						'Expproromev3.appellationromev3_id',
+						'Expproromev3.created',
+						'Expproromev3.modified',
+					)
+				),
 				'contain' => array (
 					'Expproromev3',
 					'Dureeemploi',
@@ -4287,6 +4864,20 @@
 
 			// Questionnaire D2
 			$query = array (
+				'fields' => array_merge (
+					array ('DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"'),
+					$questionnaired2pdv93->fields (),
+					ClassRegistry::init( 'Dureeemploi' )->fields (),
+					array (
+						'Emploiromev3.id',
+						'Emploiromev3.familleromev3_id',
+						'Emploiromev3.domaineromev3_id',
+						'Emploiromev3.metierromev3_id',
+						'Emploiromev3.appellationromev3_id',
+						'Emploiromev3.created',
+						'Emploiromev3.modified',
+					)
+				),
 				'contain' => array (
 					'Emploiromev3',
 					'Dureeemploi',
@@ -4323,6 +4914,8 @@
 			}
 
 			// Formatage réponse
+			$tableauFamille = array ();
+			$totalFamille = array ();
 			$tableauB7 = array ();
 			$tableauD2 = array ();
 			$total = array ();
@@ -4344,6 +4937,9 @@
 				$tableauB7['partiel'][$numero] = 0;
 				$tableauB7['non_com'][$numero] = 0;
 
+				// Initialisation du tableau
+				$tableauFamille[$numero] = array ();
+
 				foreach ($questionnaireb7s as $questionnaireb7) {
 					if ($idTypeEmploi == $questionnaireb7['Questionnaireb7pdv93']['typeemploi_id']) {
 
@@ -4362,6 +4958,17 @@
 
 						$total['B7']['total']++;
 						$total['total']++;
+
+						// Comptabilisation des codes famille
+						if (!isset ($tableauFamille[$numero][$questionnaireb7['Expproromev3']['familleromev3_id']])) {
+							$tableauFamille[$numero][$questionnaireb7['Expproromev3']['familleromev3_id']] = 0;
+						}
+						$tableauFamille[$numero][$questionnaireb7['Expproromev3']['familleromev3_id']]++;
+
+						if (!isset ($totalFamille[$questionnaireb7['Expproromev3']['familleromev3_id']])) {
+							$totalFamille[$questionnaireb7['Expproromev3']['familleromev3_id']] = 0;
+						}
+						$totalFamille[$questionnaireb7['Expproromev3']['familleromev3_id']]++;
 					}
 				}
 			}
@@ -4375,35 +4982,79 @@
 				$tableauD2['non_com'][$numero] = 0;
 
 				foreach ($questionnaired2s as $questionnaired2) {
-					if ($idTypeEmploi == $questionnaired2['Questionnaired2pdv93']['sortieaccompagnementd2pdv93_id']) {
+					if ($idTypeEmploi == $questionnaired2['Questionnaired2pdv93']['sortieaccompagnementd2pdv93_id']
+						&& $questionnaired2['Questionnaired2pdv93']['situationaccompagnement'] == 'sortie_obligation') {
 
-						if ($questionnaired2['Questionnaired2pdv93']['situationaccompagnement'] == 'sortie_obligation') {
-							if ($questionnaired2['Dureeemploi']['id'] == 1) {
-								$tableauD2['complet'][$numero]++;
-								$total['D2']['complet']++;
-							}
-							else if ($questionnaired2['Dureeemploi']['id'] == 2) {
-								$tableauD2['partiel'][$numero]++;
-								$total['D2']['partiel']++;
-							}
-							else {
-								$tableauD2['non_com'][$numero]++;
-								$total['D2']['non_com']++;
-							}
-
-							$total['D2']['total']++;
-							$total['total']++;
+						if ($questionnaired2['Dureeemploi']['id'] == 1) {
+							$tableauD2['complet'][$numero]++;
+							$total['D2']['complet']++;
 						}
+						else if ($questionnaired2['Dureeemploi']['id'] == 2) {
+							$tableauD2['partiel'][$numero]++;
+							$total['D2']['partiel']++;
+						}
+						else {
+							$tableauD2['non_com'][$numero]++;
+							$total['D2']['non_com']++;
+						}
+
+						$total['D2']['total']++;
+						$total['total']++;
+
+						// Comptabilisation des codes famille
+						if (!isset ($tableauFamille[$numero][$questionnaired2['Emploiromev3']['familleromev3_id']])) {
+							$tableauFamille[$numero][$questionnaired2['Emploiromev3']['familleromev3_id']] = 0;
+						}
+						$tableauFamille[$numero][$questionnaired2['Emploiromev3']['familleromev3_id']]++;
+
+						if (!isset ($totalFamille[$questionnaireb7['Expproromev3']['familleromev3_id']])) {
+							$totalFamille[$questionnaireb7['Expproromev3']['familleromev3_id']] = 0;
+						}
+						$totalFamille[$questionnaireb7['Expproromev3']['familleromev3_id']]++;
 					}
 				}
+
+				$tableauFamille[$numero] = $this->_secteurLePlusRepresente($tableauFamille[$numero], $familles);
 			}
+
+			$totalFamille = $this->_secteurLePlusRepresente($totalFamille, $familles);
 
 			$return['tableauB7'] = $tableauB7;
 			$return['tableauD2'] = $tableauD2;
 			$return['typeemploi'] = $typeEmplois;
+			$return['famille'] = $familles;
+			$return['secteur'] = $tableauFamille;
 			$return['total'] = $total;
+			$return['totalsecteur'] = $totalFamille;
 
 			return $return;
+		}
+
+		private function _secteurLePlusRepresente ($tableauFamille, $familles) {
+			// Tri du tableau par ordre de valeurs croissantes
+			arsort ($tableauFamille);
+			// Remise au début du pointeur sur le tableau
+			reset ($tableauFamille);
+			// Récupération de la première valeur du tableau qui correspond à la valeur maximale
+			$keyMaxValue = key ($tableauFamille);
+
+			if (isset ($tableauFamille[$keyMaxValue])) {
+				$maxValue = $tableauFamille[$keyMaxValue];
+				// Récupération des secteurs d'activité correspondant à la valeur maximale.
+				$secteurs = array_keys($tableauFamille, $maxValue);
+				// Réinitialisation du tableau
+				$tableauFamille = array ();
+				// Récupération des noms de ces secteurs d'activité
+				foreach ($secteurs as $value) {
+					$tableauFamille[] = is_null ($familles[$value]) ? __d ('tableauxsuivispdvs93', 'Tableaub7b.indefini') : $familles[$value];
+				}
+			}
+			else {
+				// Réinitialisation du tableau
+				$tableauFamille = array ();
+			}
+
+			return $tableauFamille;
 		}
 
 		/**
@@ -4442,7 +5093,7 @@
 					array(
 						'alias' => 'Entreeromev3',
 						'table' => 'entreesromesv3',
-						'type' => 'INNER',
+						'type' => 'LEFT OUTER',
 						'conditions' => array(
 							'Questionnaireb7pdv93.expproromev3_id = Entreeromev3.id'
 						)
@@ -4485,7 +5136,7 @@
 					array(
 						'alias' => 'Entreeromev3',
 						'table' => 'entreesromesv3',
-						'type' => 'INNER',
+						'type' => 'LEFT OUTER',
 						'conditions' => array(
 							'Questionnaired2pdv93.emploiromev3_id = Entreeromev3.id'
 						)
@@ -4574,7 +5225,7 @@
 			array(
 				'alias' => 'Typeemploi',
 				'table' => 'typeemplois',
-				'type' => 'INNER',
+				'type' => 'LEFT OUTER',
 				'conditions' => array(
 					'Questionnaireb7pdv93.typeemploi_id = Typeemploi.id'
 				)
@@ -4582,7 +5233,7 @@
 			array(
 				'alias' => 'Dureeemploi',
 				'table' => 'dureeemplois',
-				'type' => 'INNER',
+				'type' => 'LEFT OUTER',
 				'conditions' => array(
 					'Questionnaireb7pdv93.dureeemploi_id = Dureeemploi.id'
 				)
@@ -4590,7 +5241,7 @@
 			array(
 				'alias' => 'EntreeRomeV3',
 				'table' => 'entreesromesv3',
-				'type' => 'INNER',
+				'type' => 'LEFT OUTER',
 				'conditions' => array(
 					'Questionnaireb7pdv93.expproromev3_id = EntreeRomeV3.id'
 				)
@@ -4598,7 +5249,7 @@
 			array(
 				'alias' => 'FamilleRomeV3',
 				'table' => 'famillesromesv3',
-				'type' => 'INNER',
+				'type' => 'LEFT OUTER',
 				'conditions' => array(
 					'EntreeRomeV3.familleromev3_id = FamilleRomeV3.id'
 				)
@@ -4606,7 +5257,7 @@
 			array(
 				'alias' => 'DomaineRomeV3',
 				'table' => 'domainesromesv3',
-				'type' => 'INNER',
+				'type' => 'LEFT OUTER',
 				'conditions' => array(
 					'EntreeRomeV3.domaineromev3_id = DomaineRomeV3.id'
 				)
@@ -4614,7 +5265,7 @@
 			array(
 				'alias' => 'AppellationRomeV3',
 				'table' => 'appellationsromesv3',
-				'type' => 'INNER',
+				'type' => 'LEFT OUTER',
 				'conditions' => array(
 					'EntreeRomeV3.appellationromev3_id = AppellationRomeV3.id'
 				)
@@ -4622,7 +5273,7 @@
 			array(
 				'alias' => 'MetierRomeV3',
 				'table' => 'metiersromesv3',
-				'type' => 'INNER',
+				'type' => 'LEFT OUTER',
 				'conditions' => array(
 					'EntreeRomeV3.metierromev3_id = MetierRomeV3.id'
 				)
@@ -4671,6 +5322,7 @@
 
 			// Exécution des requêtes et renvoie des résultats
 			$results = $this->_resultsCorpusB7 ($queries, $models, $complements);
+
 			$results = $this->_dedoublonnage ($results, 'Personne');
 
 			return $results;
@@ -4772,7 +5424,7 @@
 
 				// Query
 				$result = $models[$key]->find ('all', $query);
-				//$result = $this->_dedoublonnage ($result, get_class($models[$key]));
+
 				$results = array_merge ($results, $result);
 			}
 
@@ -4812,7 +5464,7 @@
 
 			$fields = array (
 				'all' => array (
-					'Personne.id',
+					'DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"',
 					'Structurereferente.lib_struc', // PIE
 					'Referent.nom', // Référent
 					'Referent.prenom',

@@ -53,3 +53,9 @@ msgstr "B 7b"
 
 msgid "ENUM::NAME::tableaub7d2familleprofessionnelle"
 msgstr "B 7c"
+
+msgid "ENUM::NAME::tableaub8"
+msgstr "B 8"
+
+msgid "ENUM::NAME::tableaub9"
+msgstr "B 9"

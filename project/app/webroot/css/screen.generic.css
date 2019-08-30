@@ -955,8 +955,9 @@ table.bodyHeaders tbody tr.odd th {
 
 table.wide { width: 100%; }
 table.wide th { width: 40%; }
+table.wide th.smallHeader{width:15%}
 
-table.smallHeader tbody th { width: 25%; }
+table.smallHeader tbody th{ width: 25%; }
 table.mediumHeader tbody th { width: 50%; }
 table.wideHeader tbody th { width: 75%; }
 table.widerHeader tbody th { width: 90%; }

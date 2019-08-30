@@ -119,7 +119,7 @@ msgid "ENUM::AUTRE_CARACTERISTIQUE::jeunes_total"
 msgstr "Jeunes de 16 à 25 ans révolus - total"
 
 msgid "ENUM::AUTRE_CARACTERISTIQUE::jeunes_zus"
-msgstr "Jeunes de 16 à 25 ans révolus - résidant en ZUS"
+msgstr "Jeunes de 16 à 25 ans révolus - résidant en QPV"
 
 msgid "ENUM::AUTRE_CARACTERISTIQUE::jeunes_hadicapes"
 msgstr "Jeunes de 16 à 25 ans révolus - handicapés"

@@ -23,7 +23,9 @@
 			'thead',
 			$this->Xhtml->tableHeaders(
 				array(
-					array( __d( $domain, 'Tableau1b5.thematique' ) => array( 'rowspan' => 2 ) ),
+					array( __d( $domain, 'Tableau1b5.type' ) => array( 'rowspan' => 2, 'class' => 'smallHeader' ) ),
+					array( __d( $domain, 'Tableau1b5.annee' ) => array( 'rowspan' => 2, 'class' => 'smallHeader' ) ),
+					array( __d( $domain, 'Tableau1b5.thematique' ) => array( 'rowspan' => 2, 'class' => 'smallHeader' ) ),
 					array( __d( $domain, 'Tableau1b5.categorie' ) => array( 'rowspan' => 2 ) ),
 					array( __d( $domain, 'Tableau1b5.nombre' ) => array( 'rowspan' => 2 ) ),
 					array( __d( $domain, 'Tableau1b5.nombre_effectives' ) => array( 'rowspan' => 2 ) ),
@@ -64,8 +66,26 @@
 					$class = null;
 				}
 
+
 				if( $categoriepcd !== $result[0][0]['categorie'] ) {
+					if (!empty ( $this->request->params['named']['Search__typethematiquefp93_id'] )){
+						$cell[] =__d(
+								'thematiquefp93', 'ENUM::TYPE::'
+								.$this->request->params['named']['Search__typethematiquefp93_id']
+							)
+						;
+					}else{
+						$cell[] = 'Tous';
+					}
+					if ( !empty ( $this->request->params['named']['Search__yearthematiquefp93_id'] ) ){
+						$cell[] = $this->request->params['named']['Search__yearthematiquefp93_id'];
+					}else{
+						$cell[] = 'Toutes';
+					}
 					$cell[] = array( $result[0][0]['categorie'], array( 'rowspan' => $rowspans[$result[0][0]['categorie']], 'class' => $class ) );
+				}else{
+					$cell[] = null ;
+					$cell[] = null ;
 				}
 
 				$cell[] = array( $result[0][0]['thematique'], array( 'class' => $class ) );
@@ -89,16 +109,15 @@
 		// Pied du tableau
 		$cells = array(
 			array(
-				array( 'Total', array( 'colspan' => 2 ) ),
-				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre" ) ), array( 'class' => 'integer number' ) ),
-				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_effectives" ) ), array( 'class' => 'integer number' ) ),
-				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_refus_organisme" ) ), array( 'class' => 'integer number' ) ),
-				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_en_attente" ) ), array( 'class' => 'integer number' ) ),
-				array( $this->Locale->number( (int)Hash::get( $total, "0.nombre_participations" ) ), array( 'class' => 'integer number' ) ),
+				array( 'Total', array( 'colspan' => 4 ) ),
+				array( $this->Locale->number( (int)Hash::get( $total, "0.0.nombre" ) ), array( 'class' => 'integer number' ) ),
+				array( $this->Locale->number( (int)Hash::get( $total, "0.0.nombre_effectives" ) ), array( 'class' => 'integer number' ) ),
+				array( $this->Locale->number( (int)Hash::get( $total, "0.0.nombre_refus_organisme" ) ), array( 'class' => 'integer number' ) ),
+				array( $this->Locale->number( (int)Hash::get( $total, "0.0.nombre_en_attente" ) ), array( 'class' => 'integer number' ) ),
+				array( $this->Locale->number( (int)Hash::get( $total, "0.0.nombre_participations" ) ), array( 'class' => 'integer number' ) ),
 			)
 		);
 		$tfoot = $this->Xhtml->tag( 'tfoot', $this->Xhtml->tableCells( $cells ) );
-
 		echo $this->Xhtml->tag( 'table', $thead.$tfoot.$tbody ,array( 'class' => 'wide' ) );
 
 		// Tableau du dessous
@@ -114,7 +133,7 @@
 				)
 			)
 		);
-		echo $this->Xhtml->tag( 'table', $this->Xhtml->tag( 'caption', 'Motifs pour lesquels le positionnement n\'est pas effectif' ).$this->Xhtml->tag( 'tbody', $rows ) );
+		echo "<br>" . $this->Xhtml->tag( 'table', $this->Xhtml->tag( 'caption',__d( $domain, 'Tableau1b5.NonEffectif.caption') ).$this->Xhtml->tag( 'tbody', $rows ) );
 
 		include_once  dirname( __FILE__ ).DS.'footer.ctp' ;
 	}
