@@ -270,7 +270,7 @@
 					$data = Hash::insert( $data, $path, $action_duree);
 					//Indication d'origine
 					$path = 'Ficheprescription93.posorigine';
-					$data = Hash::insert( $data, $path, 'F-RSA');
+					$data = Hash::insert( $data, $path, 'FRSA');
 
 					//III Traitement des models
 					foreach( $this->uses as $modelName ) {
