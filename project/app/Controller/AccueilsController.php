@@ -41,6 +41,13 @@
 		public $idReferent = null;
 
 		/**
+		 * Libellé du mode de référence.
+		 *
+		 * @var string
+		 */
+		public $libelleReference = '';
+
+		/**
 		 * Page d'accueil
 		 */
 		public function index() {
@@ -71,7 +78,9 @@
 				}
 			}
 
-			$this->set(compact('departement', 'articles', 'results', 'blocs'));
+			$libelleReference = $this->libelleReference;
+
+			$this->set(compact('departement', 'articles', 'results', 'blocs', 'libelleReference'));
 		}
 
 		/**
@@ -86,6 +95,9 @@
 				// Retourne le referent_id s'il est défini.
 				case 'REFER':
 					if (is_numeric ($user['accueil_referent_id'])) {
+						$this->loadModel('Referent');
+						$libelle = $this->Referent->find ('first', array ('recursive' => -1, 'conditions' => array ('id' => $user['accueil_referent_id'])));
+						$this->libelleReference = __d('accueils', 'Accueil.bloc.libelle.referent').$libelle['Referent']['nom_complet'];
 						return $user['accueil_referent_id'];
 					}
 					else {
@@ -113,6 +125,9 @@
 					}
 
 					if (!empty ($idReferent)) {
+						$this->loadModel('Group');
+						$libelle = $this->Group->find ('first', array ('recursive' => -1, 'conditions' => array ('id' => $user['group_id'])));
+						$this->libelleReference = __d('accueils', 'Accueil.bloc.libelle.group').$libelle['Group']['name'];
 						return $idReferent;
 					}
 					else {
@@ -150,6 +165,9 @@
 						}
 
 						if (!empty ($idReferent)) {
+							$this->loadModel('Structurereferente');
+							$libelle = $this->Structurereferente->find ('first', array ('recursive' => -1, 'conditions' => array ('id' => $referent['Referent']['structurereferente_id'])));
+							$this->libelleReference = __d('accueils', 'Accueil.bloc.libelle.structurereferente').$libelle['Structurereferente']['lib_struc'];
 							return $idReferent;
 						}
 						else {
@@ -199,7 +217,7 @@
 		 * Récupération des CER du bon département
 		 *
 		 * @param $departement
-		 * $param $parametres
+		 * @param $parametres
 		 * @return array
 		 */
 		protected function _getCers ($departement, $parametres = array ()) {
@@ -239,7 +257,7 @@
 		 * Récupération des CER du bon département
 		 *
 		 * @param $departement
-		 * $param $parametres
+		 * @param $parametres
 		 * @return array
 		 */
 		protected function _getCersQuery66 ($du, $au) {
@@ -373,6 +391,7 @@
 				'contain' => array(
 					'Personne',
 					'Typerdv',
+					'Referent',
 				),
 				'conditions' => array(
 					'DATE( Rendezvous.daterdv ) BETWEEN \''.date ('Y-m-d H:i:s').'\' AND \''.$limite->format ('Y-m-d').'\'',
@@ -388,6 +407,69 @@
 			$fiches['limite'] = $parametres['limite'];;
 
 			return $fiches;
+		}
+
+		/**
+		 * Récupération des derniers CER périmés des allocataires
+		 *
+		 * @param $departement
+		 * @param $parametres
+		 * @return array
+		 */
+		protected function _getDernierscersperimes ($departement, $parametres = array ()) {
+			$cers = array ();
+
+			$this->loadModel('Contratinsertion');
+			$query = '
+				with "CteCer" as (
+					select DISTINCT ON ("Contratinsertion"."personne_id") "Contratinsertion".*
+					from "public"."contratsinsertion" AS "Contratinsertion"
+					order by "Contratinsertion"."personne_id", "Contratinsertion"."df_ci" desc
+				),
+				"CteOrientation" as (
+					select DISTINCT ON ("Orientstruct"."personne_id") "Orientstruct".*, "Typeorient"."lib_type_orient"
+					from "public"."orientsstructs" AS "Orientstruct"
+						inner join "public"."typesorients" AS "Typeorient" on ("Orientstruct"."typeorient_id" = "Typeorient"."id")
+					order by "Orientstruct"."personne_id", "Orientstruct"."date_valid" desc
+				)
+				select
+					DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id",
+					"Referent"."id" as "Referent__id",
+					"Personne"."nom" AS "Personne__nom",
+					"Personne"."prenom" AS "Personne__prenom",
+					"CteCer"."id" AS "Contratinsertion__id",
+					"CteCer"."df_ci" AS "Contratinsertion__df_ci",
+					"CteCer"."positioncer" AS "Contratinsertion__positioncer",
+					"CteOrientation"."referent_id" AS "Orientstruct__referent_id",
+					"CteOrientation"."lib_type_orient" AS "Typeorient__lib_type_orient",
+					"Referent"."qual" AS "Referent__qual",
+					"Referent"."nom" AS "Referent__nom",
+					"Referent"."prenom" AS "Referent__prenom"
+				from "public"."personnes" AS "Personne"
+					join "CteCer" using ("id")
+					join "CteOrientation" using ("id")
+					INNER JOIN "public"."foyers" AS "Foyer" ON ("Foyer"."id" = "Personne"."foyer_id")
+					INNER JOIN "public"."dossiers" AS "Dossier" ON ("Foyer"."dossier_id" = "Dossier"."id")
+					INNER JOIN "public"."situationsdossiersrsa" AS "Situationdossierrsa" ON (
+						"Situationdossierrsa"."dossier_id" = "Dossier"."id"
+						AND "Situationdossierrsa"."etatdosrsa" = \'2\'
+					)
+					INNER JOIN "public"."calculsdroitsrsa" AS "Calculdroitrsa" ON (
+						"Calculdroitrsa"."personne_id" = "Personne"."id"
+						AND "Calculdroitrsa"."toppersdrodevorsa" = \'1\'
+					)
+					INNER JOIN "public"."structuresreferentes" AS "Structurereferente" ON ("Structurereferente"."id" = "CteCer"."structurereferente_id")
+					INNER JOIN "public"."referents" AS "Referent" ON ("Structurereferente"."id" = "Referent"."structurereferente_id")
+					INNER JOIN "public"."prestations" AS "Prestation" ON ("Personne"."id" = "Prestation"."personne_id")
+				where "CteCer"."positioncer" IN (\'perime\')
+					and "CteOrientation"."lib_type_orient" not ilike \'%Pôle emploi%\'
+					and "Referent"."id" IN ('.$this->idReferent.')
+					and "Prestation"."rolepers" IN (\'DEM\', \'CJT\');
+			';
+
+			$cers = $this->Contratinsertion->query ($query);
+
+			return $cers;
 		}
 	}
 ?>

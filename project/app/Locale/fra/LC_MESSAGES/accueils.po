@@ -56,6 +56,9 @@ msgstr "Actions"
 msgid "Accueil.action.voir"
 msgstr "Voir"
 
+msgid "Accueil.referent"
+msgstr "Référent"
+
 # Titres rubriques =============================================================
 
 msgid "Accueil.cer.titre"
@@ -69,6 +72,9 @@ msgstr "Vos fiches de positionnement sans information sur le résultat de l'acti
 
 msgid "Accueil.rendezvous.titre"
 msgstr "Vos rendez-vous dans les __LIMITE__ jours à venir"
+
+msgid "Accueil.dernierscersperimes.titre"
+msgstr "Vos allocataires en droit ouvert et versable ayant comme dernier CER un CER périmé"
 
 # Aucune donnée ================================================================
 
@@ -84,3 +90,16 @@ msgstr "Vous n'avez aucune fiche de prescription sur la période donnée"
 msgid "Accueil.rendezvous.aucun"
 msgstr "Vous n'avez aucun rendez-vous sur la période donnée"
 
+msgid "Accueil.dernierscersperimes.aucun"
+msgstr "Vous n'avez aucun allocataire en droit ouvert et versable ayant comme dernier CER un CER périmé"
+
+# Libellé référent / structure référente / groupe utilisateur ================================================================
+
+msgid "Accueil.bloc.libelle.referent"
+msgstr "Les blocs d'information concernent le référent : "
+
+msgid "Accueil.bloc.libelle.structurereferente"
+msgstr "Les blocs d'information concernent la structure référente : "
+
+msgid "Accueil.bloc.libelle.group"
+msgstr "Les blocs d'information concernent le groupe d'utilisateur : "

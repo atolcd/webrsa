@@ -2177,15 +2177,15 @@ div.col-2.droite{
 }
 
 div.colonne-accueil {
-	width: 100%;
+	width: 50%;
+}
+
+div.global-colonne-accueil {
 	display: flex;
-	flex-wrap: wrap;
-	align-items: stretch;
-	justify-content: space-between;
 }
 
 div.col-2-accueil{
-	width: calc(50% - 20px);
+	width: calc(100% - 20px);
 	padding: 15px;
 	box-sizing: border-box;
 	background-color: #f4f4f4;

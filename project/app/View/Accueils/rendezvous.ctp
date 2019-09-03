@@ -15,6 +15,7 @@
 		?>
 		<thead>
 			<tr>
+				<th><?php echo __d('accueils', 'Accueil.referent'); ?></th>
 				<th><?php echo __d('accueils', 'Accueil.demandeur'); ?></th>
 				<th><?php echo __d('accueils', 'Accueil.date.rendezvous'); ?></th>
 				<th><?php echo __d('accueils', 'Accueil.type'); ?></th>
@@ -25,7 +26,8 @@
 		<?php
 				for ($i = 0; $i < $count; $i++): ?>
 			<tr class="<?php echo $i%2 == 1 ? 'odd' : 'even'; ?>">
-				<td><?php echo $items[$i]['Personne']['nom_complet_prenoms']; ?></td>
+				<td><?php echo $items[$i]['Referent']['nom_complet']; ?></td>
+				<td><?php echo $items[$i]['Personne']['nom_complet_court']; ?></td>
 				<td>
 					<?php
 						$date = new DateTime ($items[$i]['Rendezvous']['daterdv']);

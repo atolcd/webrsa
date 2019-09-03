@@ -30,6 +30,11 @@ $colonneImpaire = '<div class="colonne-accueil">';
 $compteur = 0;
 
 if (count ($blocs) > 0) {
+?>
+<p class="notice-accueil">
+	<strong><?php echo $libelleReference; ?></strong>
+</p>
+<?php
 	foreach ($blocs as $key => $value) {
 		if (isset ($results[$key])) {
 			ob_start();
@@ -40,11 +45,11 @@ if (count ($blocs) > 0) {
 				require_once ($key.'.ctp');
 			}
 
-			if ($compteur++%2 == 1) {
-				$colonneImpaire .= ob_get_contents();
+			if ($compteur++%2 == 0) {
+				$colonnePaire .= ob_get_contents();
 			}
 			else {
-				$colonnePaire .= ob_get_contents();
+				$colonneImpaire .= ob_get_contents();
 			}
 			ob_end_clean();
 		}
@@ -53,8 +58,9 @@ if (count ($blocs) > 0) {
 
 $colonnePaire .= '</div>';
 $colonneImpaire .= '</div>';
-
+echo ('<div class="global-colonne-accueil">');
 echo ($colonnePaire);
 echo ($colonneImpaire);
+echo ('</div>');
 echo ('<div class="clearer"></div>');
 ?>
