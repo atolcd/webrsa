@@ -128,7 +128,7 @@ msgid "/Titrescreanciers/search/:heading"
 msgstr "Recherche par titres de recette"
 
 msgid "Search.Titrecreancier"
-msgstr "Recherche par titre de recette transféré de l'allocataire"
+msgstr "Recherche par"
 
 msgid "Titrecreancier::search::moismoucompta"
 msgstr "Plage de date de transfert de la créance"

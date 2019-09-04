@@ -154,13 +154,16 @@ msgid "Creance::search::motiindu"
 msgstr "Motif de l'indu"
 
 msgid "Creance::search::dtimplcre"
-msgstr "Plage de date d'implémentation"
+msgstr "Plage de date d'implantation"
 
 msgid "Creance::search::moismoucompta"
 msgstr "Plage de date de transfert"
 
 msgid "Creance::search::etat"
 msgstr "État de la créance"
+
+msgid "Creance::search::hastitrecreancier"
+msgstr "Possède un titre de recette ?"
 
 msgid "Creance::search::aucuntitre"
 msgstr "N'a pas de titre de recette"
