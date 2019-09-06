@@ -50,7 +50,7 @@
 		array(
 			'Titrecreancier.Motifemissiontitrecreancier' => array(
 				 'type' => 'select',
-				 'label' => 'Motif d\'emission des titres creanciers',
+				 'label' => __m('Titrecreancier::avis::motifemission'),
 				 'options' => $listMotifs,
 				 'value' => $motifvalue
 			),

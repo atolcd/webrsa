@@ -51,7 +51,7 @@ msgid "ENUM::ETAT::TITREEMIS"
 msgstr "Titre émis"
 
 msgid "ENUM::ETAT::PAY"
-msgstr "Payée"
+msgstr "Titre soldé"
 
 msgid "ENUM::ETAT::RED"
 msgstr "Réduit"
@@ -123,4 +123,4 @@ msgid "Titrecreancier.cjtactif"
 msgstr "Titre couple"
 
 msgid "Titrecreancier.dtbordereau"
-msgstr "Date bordereau"
+msgstr "Date d’émission"

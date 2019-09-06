@@ -538,11 +538,11 @@
 					)
 				);
 
+				$titrecreancier['Titrecreancier']['commentairevalidateur'] = "<b>".$titrecreancier['Titrecreancier']['commentairevalidateur'].'</b>';
 				// Mauvais paramètre
 				$this->assert( !empty( $titrecreancier ), 'invalidParameter' );
 				// Assignation au formulaire
 				$this->request->data = $titrecreancier;
-
 			}
 
 			//ListMotifs
