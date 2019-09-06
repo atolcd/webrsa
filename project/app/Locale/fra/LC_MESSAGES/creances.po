@@ -190,6 +190,9 @@ msgstr "Rang"
 msgid "Creance.moismoucompta"
 msgstr "Mois comptable"
 
+msgid "Creance.dateTransfert"
+msgstr "Date de transfert de la créance au CD"
+
 msgid "Creance.motiindu"
 msgstr "Motif de l'indu"
 
