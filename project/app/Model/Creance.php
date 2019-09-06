@@ -418,6 +418,15 @@
 						$needsSave = true;
 					}
 
+					//Si le Titrecreancier passe en état 'SUP'
+					elseif (
+						$titrecreancierEtat == 'SUP'
+					){
+						//SET Créance Etat -> TITREEMIS
+						$creances['Creance']['etat'] = 'AEMETTRE';
+						$needsSave = true;
+					}
+
 					if( $needsSave ) {
 						if( $this->saveAll( $creances, array( 'atomic' => false ) ) &&
 							$this->Historiqueetat->setHisto(

@@ -307,6 +307,7 @@
 			$this->Titresuiviannulationreduction->begin();
 			$data = $this->request->data;
 			$id = $data['Titresuiviannulationreduction']['id'];
+			$data['Titresuiviannulationreduction']['mtreduit'] = str_replace(',','.',$data['Titresuiviannulationreduction']['mtreduit']);
 			$titrecreancier_id = $data['Titresuiviannulationreduction']['titrecreancier_id'];
 			$data['Titresuiviannulationreduction']['etat'] = 'ENCOURS';
 

@@ -186,7 +186,19 @@
 				)
 			);
 			if ( !empty($creances) ){
-				$creances[0]['Creance']['etatDepuis'] = __d('creance', 'ENUM::ETAT::' . $creances[0]['Creance']['etat']) . __m('since') . date('d/m/Y', strtotime( $creances[0]['Creance']['modified'] ) );
+				foreach ($creances as $key => $creance) {
+					$creances[$key]['Creance']['etatDepuis'] =
+						__d('creance', 'ENUM::ETAT::'
+							.$creances[$key]['Creance']['etat'])
+							.__m('since')
+							.date('d/m/Y', strtotime( $creances[$key]['Creance']['modified'] )
+						);
+					setlocale (LC_TIME, 'fr_FR.utf8','fra');
+					$date = $creances[$key]['Creance']['moismoucompta'] ;
+					$format = 'Date::miniLettre';
+					$val = h( ( empty( $date ) || !is_string( $date ) ) ? null : strftime( __( $format ), strtotime( $date ) ) );	
+					$creances[$key]['Creance']['dateTransfert'] = $val;
+				}
 			}
 			$histoDeleted = $this->Historiqueetat->getHisto($this->Creance->name, $foyer_id, 'delete');
 
@@ -358,7 +370,7 @@
 		}
 
 		/**
-		 * Supprimée une creance d'un foyer en copiant une autre créance
+		 * Supprime une créance d'un foyer
 		 *
 		 * @param integer $id L'id technique de la créance a supprimée
 		 * @return void

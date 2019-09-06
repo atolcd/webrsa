@@ -448,10 +448,8 @@
 		 *
 		**/
 		public function buildfica($titrecreanciers_ids = array() ){
-			$infosFICA[] = array ('PAIEMENT','CODTIERS','REF','SCC','MONTANT','LIBVIR','OBJET','OBS','OBS2','RIB',
-			'LIBRIB','DESTCIVILITE','DESTNOM','DESTPRENOM','DESTCODPOSTAL','DESTCOMMUNE','DESTADRESSE','DESTADRESSE2',
-			'DOSSIER','PRESTATION','DECINUM','DECIREM','DECIDAT','DECIDATEFF','DECIDATFIN','DECINATURE','DECIPERIOD','DECIMONTANT',
-			'BENECIVILITE','BENENOM','BENEPRENOM','BENECODPOSTAL','BENECOMMUNE','BENEADRESSE','BENEADRESSE2','BENEDATNAIS','$VCODE.016');
+			$infosFICA[] = Configure::read('Creances.FICA.Champs');
+
 			foreach ( $titrecreanciers_ids as $key => $titrecreancier_id  ) {
 				$infoFICA = array();
 				$infosFICA[] = $this->getInfoFICA($infoFICA, $titrecreancier_id);
@@ -541,7 +539,7 @@
 					$infoFICA['REF'] = $titrecreancier_id;
 
 					$arrayValsSCC = Configure::read('Creances.FICA.SCC');
-					if ( !empty ($dossier['Detailcalculdroitrsa'][0]) ) {
+					if ( !empty ($dossier['Detailcalculdroitrsa'][0]['natpf']) ) {
 						$infoFICA['SCC'] = $arrayValsSCC[$dossier['Detailcalculdroitrsa'][0]['natpf']];
 					} else {
 						$infoFICA['SCC'] = null;
@@ -560,7 +558,7 @@
 						$dossier['Dossier']['matricule'].' / '.
 						$titrecreancier['Titrecreancier']['nom'].' / '.
 						$listTypes[$titrecreancier['Titrecreancier']['typetitrecreancier_id']].' / '.
-						date('d-m-Y', strtotime( $personne['Personne']['dtnai']) ).' / '.
+						date('d-m-Y', strtotime( $personne['Personne']['dtnai']) ).' à '. $personne['Personne']['nomcomnai'] . ' / '.
 						$adresseComplete.' / '.
 						$creancier['Creance']['natcre'].' / '.
 						__d('creance', 'ENUM::MOTIINDU::'.$creancier['Creance']['motiindu']).' / '.

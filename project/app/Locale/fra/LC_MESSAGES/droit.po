@@ -4145,6 +4145,12 @@ msgstr "Ajout d'un titre de recette"
 msgid "controllers/Titrescreanciers/edit"
 msgstr "Modification d'un titre de recette"
 
+msgid "controllers/Titrescreanciers/delete"
+msgstr "Suppression d'un titre de recette"
+
+msgid "controllers/Titrescreanciers/comment"
+msgstr "Ajout de commentaires"
+
 msgid "controllers/Titrescreanciers/search"
 msgstr "Recherche"
 
@@ -4156,6 +4162,9 @@ msgstr "Export FICA unique"
 
 msgid "controllers/Titrescreanciers/retourcompta"
 msgstr "Enregistrement retour compta"
+
+msgid "controllers/Titrescreanciers/csv_retourcompta"
+msgstr "Enregistrement du CSV retour compta"
 
 msgid "controllers/Titrescreanciers/filelink"
 msgstr "Ajout de Fichiers"

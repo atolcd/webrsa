@@ -18,6 +18,7 @@ if( empty( $creances ) ) {
 		$creances,
 		$this->Translator->normalize(
 			array(
+				'Creance.dateTransfert',
 				'Creance.dtimplcre',
 				'Creance.orgcre',
 				'Creance.natcre',

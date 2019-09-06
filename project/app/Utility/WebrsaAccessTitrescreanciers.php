@@ -50,6 +50,7 @@
 					'valider',
 					'exportfica',
 					'retourcompta',
+					'delete',
 					'filelink',
 					'Titressuivis.index'
 				)
@@ -201,6 +202,26 @@
 				return true;
 			}
 			return false;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _delete(array $record, array $params) {
+			if (
+				$record['Titrecreancier']['etat'] == 'ATTRETOURCOMPTA'
+				|| $record['Titrecreancier']['etat'] == 'SUP'
+				|| $record['Titrecreancier']['etat'] == 'TITREEMIS'
+				|| $record['Titrecreancier']['etat'] == 'PAY'
+				|| $record['Titrecreancier']['etat'] == 'RED'
+			) {
+				return false;
+			}
+			return true;
 		}
 
 		/**

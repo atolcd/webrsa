@@ -76,7 +76,6 @@
 			)
 		) ;
 		echo "</fieldset>";
-
 		echo $this->Xform->input(
 				'Search.Creance.etat',
 				array(
@@ -87,14 +86,16 @@
 				)
 		);
 
+		$options['Creance']['hastitrecreancier'] = array(1 => 'Oui', 0 => 'Non');
 		if ( Configure::read( 'Creances.titrescreanciers' ) ) {
 			//Has Titre créancier
 			echo $this->Xform->input(
 				'Search.Creance.hastitrecreancier',
 				array(
-					'label' => 'A un Titre de recettes',
-					'type' => 'checkbox',
-					'empty' => true
+					'label' => __m('Creance::search::hastitrecreancier'),
+					'type' => 'select',
+					'empty' => true,
+					'options' =>  $options['Creance']['hastitrecreancier']
 				)
 			);
 		}

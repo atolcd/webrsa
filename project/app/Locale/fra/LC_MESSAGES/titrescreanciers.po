@@ -75,6 +75,9 @@ msgstr "Enregistrer le retour compta"
 msgid "/Titrescreanciers/retourcompta/#Titrecreancier.id#"
 msgstr "Enregistrer le retour compta"
 
+msgid "/Titrescreanciers/delete"
+msgstr "Supprimer"
+
 msgid "/Titrescreanciers/add/:heading"
 msgstr "Ajout d'un titre de recette"
 
@@ -128,7 +131,7 @@ msgid "/Titrescreanciers/search/:heading"
 msgstr "Recherche par titres de recette"
 
 msgid "Search.Titrecreancier"
-msgstr "Recherche par titre de recette transféré de l'allocataire"
+msgstr "Recherche par"
 
 msgid "Titrecreancier::search::moismoucompta"
 msgstr "Plage de date de transfert de la créance"
@@ -143,14 +146,14 @@ msgid "Titrecreancier::search::numbordereau"
 msgstr "Numéro de bordereau"
 
 msgid "Titrecreancier::search::motif"
-msgstr "Motifs d'émission du titre"
+msgstr "Émission"
 
 ###############################################################################
 # Champs de recherches
 ###############################################################################
 
 msgid "Titrecreancier.dtemissiontitre"
-msgstr "Date d'emission du titre"
+msgstr "Date de validation du titre"
 
 msgid "Titrecreancier.etat"
 msgstr "État du titre"
@@ -177,7 +180,10 @@ msgid "Titrecreancier.numtier"
 msgstr "Numéro du tiers"
 
 msgid "Titrecreancier.mnttitr"
-msgstr "Montant du titre"
+msgstr "Montant initial du titre"
+
+msgid "Titrecreancier.soldetitr"
+msgstr "Solde du titre"
 
 msgid "Titrecreancier.typetitrecreancier_id"
 msgstr "Type du titre"
@@ -282,7 +288,7 @@ msgid "Titrecreancier::view::titleAdresse"
 msgstr "Informations sur l'adresse enregistrée"
 
 msgid "Titrecreancier::view::titleBordereau"
-msgstr "Informations sur le bordereau"
+msgstr "Informations sur le bordereau (retour compta)"
 
 msgid "Titrecreancier::view::creanceCouple"
 msgstr "Créance couple"
@@ -295,6 +301,9 @@ msgstr "Informations validateur"
 
 msgid "Validation"
 msgstr "Validation de l'avis"
+
+msgid "Titrecreancier::avis::motifemission"
+msgstr "Émission"
 
 msgid "YES"
 msgstr "OUI"
