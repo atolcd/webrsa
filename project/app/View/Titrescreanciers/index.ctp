@@ -13,9 +13,11 @@
 			$titresCreanciers,
 			$this->Translator->normalize(
 				array(
+					'Titrecreancier.dtbordereau',
+					'Titrecreancier.numbordereau',
 					'Titrecreancier.numtitr',
-					'Titrecreancier.dtemissiontitre',
 					'Titrecreancier.mnttitr',
+					'Titrecreancier.soldetitr',
 					'Titrecreancier.etatDepuis',
 					'Titrecreancier.acommentaire' => array('type' => 'boolean', 'title' => $titresCreanciers[0]['Titrecreancier']['mention'] ),
 				)+ WebrsaAccess::links(
@@ -46,6 +48,7 @@
 						=> array(
 							'class' => 'edit',
 						),
+						'/Titrescreanciers/delete/#Titrecreancier.id#',
 						'/Titrescreanciers/filelink/#Titrecreancier.id#',
 					)
 				)

@@ -76,6 +76,7 @@
 			'index' => 'read',
 			'add' => 'create',
 			'edit' => 'update',
+			'delete' => 'delete',
 			'suivi' => 'update',
 			'comment' => 'update',
 			'avis' => 'update',
@@ -96,6 +97,7 @@
 		public $uses = array(
 			'Titrecreancier',
 			'WebrsaTitrecreancier',
+			'Titresuiviannulationreduction',
 			'Creance',
 			'WebrsaCreance',
 			'Dossier',
@@ -184,11 +186,30 @@
 
 			if ( !empty($titresCreanciers) ){
 				$this->set( 'ajoutPossible', false);
-				$titresCreanciers[0]['Titrecreancier']['etatDepuis'] = __d('titrecreancier', 'ENUM::ETAT::' . $titresCreanciers[0]['Titrecreancier']['etat']) . __m('since') . date('d/m/Y', strtotime( $titresCreanciers[0]['Titrecreancier']['modified'] ) );
+				foreach ($titresCreanciers as $key => $titreCreancier) {
+					$titresCreanciers[$key]['Titrecreancier']['etatDepuis'] =
+						__d('titrecreancier',
+							'ENUM::ETAT::' . $titresCreanciers[$key]['Titrecreancier']['etat'])
+							. __m('since') . date('d/m/Y', strtotime( $titresCreanciers[$key]['Titrecreancier']['modified'] )
+						);
 
-				$titresCreanciers[0]['Titrecreancier']['acommentaire'] = 0;
-				if( !is_null($titresCreanciers[0]['Titrecreancier']['mention'])  && !empty($titresCreanciers[0]['Titrecreancier']['mention']) ) {
-					$titresCreanciers[0]['Titrecreancier']['acommentaire'] = 1;
+					$titrecreancier_id = $titresCreanciers[$key]['Titrecreancier']['id'];
+					$contentIndex = $this->Titresuiviannulationreduction->getContext();
+					$query = $this->Titresuiviannulationreduction->getQuery($titrecreancier_id);
+					$titresAnnRed = $this->WebrsaAccesses->getIndexRecords($foyer_id, $query, $contentIndex);
+					$montantReduitTotal = 0;
+					if( !empty($titresAnnRed) ) {
+						foreach($titresAnnRed as $titres ) {
+							if ( $titres['Titresuiviannulationreduction']['etat'] == 'CERTIMP' ) {
+								$montantReduitTotal += $titres['Titresuiviannulationreduction']['mtreduit'];
+							}
+						}
+					}
+					$titresCreanciers[$key]['Titrecreancier']['soldetitr'] = $titresCreanciers[$key]['Titrecreancier']['mntinit'] - $montantReduitTotal;
+					$titresCreanciers[$key]['Titrecreancier']['acommentaire'] = 0;
+					if( !is_null($titresCreanciers[$key]['Titrecreancier']['mention'])  && !empty($titresCreanciers[$key]['Titrecreancier']['mention']) ) {
+						$titresCreanciers[$key]['Titrecreancier']['acommentaire'] = 1;
+					}
 				}
 			}
 
@@ -210,7 +231,7 @@
 
 		 /**
 		 *
-		 * @param integer $creance_id L'id technique de la créance pour laquel on veut les Titre créanciers.
+		 * @param integer $titrecreancier_id L'id technique du Titre créanciers à afficher.
 		 *
 		 */
 		public function view($titrecreancier_id) {
@@ -307,6 +328,52 @@
 		public function edit() {
 			$args = func_get_args();
 			call_user_func_array( array( $this, '_add_edit' ), $args );
+		}
+
+		/**
+		 * Supprimée un Titrecreancier d'une créance
+		 *
+		 * @param integer $id L'id technique du Titrecreancier a supprimée
+		 * @return void
+		 */
+		public function delete($id) {
+			$this->WebrsaAccesses->check($id);
+			$titresCreanciersIDS = $this->Titrecreancier->find('first',
+				array(
+					'fields' => array (
+						'Titrecreancier.id',
+						'Titrecreancier.creance_id'
+					),
+					'conditions' => array(
+						'Titrecreancier.id' => $id
+					),
+					'contain' => false
+				)
+			);
+			$creance_id  = $titresCreanciersIDS['Titrecreancier']['creance_id'];
+
+			if(
+				$this->Titrecreancier->delete( $id ) &&
+				$this->Creance->setEtatOnForeignChange(
+					$creance_id,
+					'SUP',
+					__FUNCTION__
+				) &&
+				$this->Historiqueetat->setHisto(
+					$this->Titrecreancier->name,
+					$id,
+					$creance_id,
+					__FUNCTION__, 'SUP',
+					$this->Titrecreancier->foyerId( $creance_id) )
+			 ) {
+				$this->Creance->commit();
+				$this->Titrecreancier->commit();
+				$this->Flash->success( __( 'Delete->success' ) );
+			}
+			else {
+				$this->Flash->error( __( 'Delete->error' ) );
+			}
+			$this->redirect( array( 'controller' => 'creances', 'action' => 'index', $this->Titrecreancier->foyerId( $creance_id) ) );
 		}
 
 		/**

@@ -75,6 +75,9 @@ msgstr "Enregistrer le retour compta"
 msgid "/Titrescreanciers/retourcompta/#Titrecreancier.id#"
 msgstr "Enregistrer le retour compta"
 
+msgid "/Titrescreanciers/delete"
+msgstr "Supprimer"
+
 msgid "/Titrescreanciers/add/:heading"
 msgstr "Ajout d'un titre de recette"
 
@@ -177,7 +180,10 @@ msgid "Titrecreancier.numtier"
 msgstr "Numéro du tiers"
 
 msgid "Titrecreancier.mnttitr"
-msgstr "Montant du titre"
+msgstr "Montant initial du titre"
+
+msgid "Titrecreancier.soldetitr"
+msgstr "Solde du titre"
 
 msgid "Titrecreancier.typetitrecreancier_id"
 msgstr "Type du titre"

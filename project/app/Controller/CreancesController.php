@@ -370,7 +370,7 @@
 		}
 
 		/**
-		 * Supprimée une creance d'un foyer en copiant une autre créance
+		 * Supprime une créance d'un foyer
 		 *
 		 * @param integer $id L'id technique de la créance a supprimée
 		 * @return void
