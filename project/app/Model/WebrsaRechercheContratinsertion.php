@@ -105,6 +105,7 @@
 					array(
 						$this->Contratinsertion->join( 'Structurereferente', array( 'type' => $types['Structurereferente'] ) ),
 						$this->Contratinsertion->join( 'Referent', array( 'type' => $types['Referent'] ) ),
+						$this->Contratinsertion->Referent->join( 'Dernierreferent', array( 'type' => $types['Dernierreferent'] ) ),
 						$this->Contratinsertion->Personne->join(
 							'Orientstruct',
 							array(
