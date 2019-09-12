@@ -152,8 +152,8 @@
 							'Ficheprescription93.frsa_id' => Hash::get( $data, 'Ficheprescription93.frsa_id' )
 						),
 					);
-					$query['conditions'][] = 'Ficheprescription93.frsa_id IS NULL';
 					$found = $this->Ficheprescription93->find( 'all', $query );
+
 				}elseif (!empty(Hash::get( $data, 'Ficheprescription93.id' ) )){
 					// Recherche de l'existance du positionnement uniquement dans webrsa sans import précédents
 					$query = array(
@@ -170,16 +170,19 @@
 				}
 				if( !empty( $found ) && count($found)<2 ) {
 
+					if (empty(Hash::get( $data, 'Ficheprescription93.id' ) ) && !empty(Hash::get( $data, 'Ficheprescription93.frsa_id' )) ) {
+						$data['Ficheprescription93']['id'] = $found[0]['Ficheprescription93']['id'];
+					}
 					foreach ( $data as  $table => $contenu ) {
 						foreach ( $contenu as  $key => $value ) {
-								if ($value=='') {
-									$data[$table][$key]=NULL;
-								}elseif($value=='true'){
-									$data[$table][$key]=1;
-								}elseif($value=='false'){
-									$data[$table][$key]=0;
-								}
+							if ($value=='') {
+								$data[$table][$key]=NULL;
+							}elseif($value=='true'){
+								$data[$table][$key]=1;
+							}elseif($value=='false'){
+								$data[$table][$key]=0;
 							}
+						}
 					}
 
 					//Traitement par model
@@ -193,7 +196,16 @@
 						}
 					}
 				}else{
-					$this->rejectRow( $row, $this->Ficheprescription93, 'Id de Ficheprescription93 non trouvée / Corrompue' );
+					if (!empty(Hash::get( $data, 'Ficheprescription93.id' ) ) && !empty(Hash::get( $data, 'Ficheprescription93.frsa_id' )) ) {
+						$message = 'Couple Id Webrsa + F-RSA non trouvée';
+					}elseif ( !empty(Hash::get( $data, 'Ficheprescription93.frsa_id' )) ) {
+						$message = 'Id F-RSA non trouvée en BDD';
+					}elseif (!empty(Hash::get( $data, 'Ficheprescription93.id' ) ) ) {
+						$message = 'Id Webrsa non trouvée en BDD';
+					}else {
+						$message = 'Couple Id Webrsa + F-RSA corrompue';
+					}
+					$this->rejectRow( $row, $this->Ficheprescription93, $message );
 					$success = false;
 				}
 				if( $success ) {

@@ -177,13 +177,14 @@
 
 				//Si la personne n'existe pas ou n'est pas unique et/ou que la FP n'existe pas
 				//on refuse la ligne, SINON GO
-				if(empty($foundFP93) && !empty( $foundPers ) && count($foundPers)<2) {
+				if(empty($foundFP93) ){
+					if ( !empty( $foundPers ) && count($foundPers)<2) {
 
-					//II Formatage des données de la ligne
-					//II.1)Section Personne
-					//II.1.1 Gestions des Booleans
-					foreach ( $data as  $table => $contenu ) {
-						foreach ( $contenu as  $key => $value ) {
+						//II Formatage des données de la ligne
+						//II.1)Section Personne
+						//II.1.1 Gestions des Booleans
+						foreach ( $data as  $table => $contenu ) {
+							foreach ( $contenu as  $key => $value ) {
 								if ($value=='') {
 									$data[$table][$key]=NULL;
 								}elseif($value=='true'){
@@ -192,101 +193,105 @@
 									$data[$table][$key]=0;
 								}
 							}
-					}
-					//II.1.2 Copie des données d'informations pour historisation et des identifiants de personne
-					$path = 'Personnelangue.personne_id';
-					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.id' ) );
-					$path = 'Personnefrsadiplomexper.personne_id';
-					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.id' ) );
-					$path = 'Infocontactpersonne.personne_id';
-					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.id' ) );
-					$path = 'Infocontactpersonne.fixe';
-					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.numfixe' ) );
-					$path = 'Infocontactpersonne.mobile';
-					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.numport' ) );
-					$path = 'Infocontactpersonne.email';
-					$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.email' ) );
-
-					//2) Section Catalogue
-					//II.2.1 Verification des valeurs
-					$data = Hash::insert( $data, 'Thematiquefp93.type', 'pdi' );
-					$path = 'Actionfp93.duree';
-					$data = Hash::insert( $data, $path, Hash::get($data,$path)." mois" );
-					$path = 'Actionfp93.numconvention';
-					$data = Hash::insert( $data, $path, strtoupper( Hash::get( $data, $path ) ) );
-
-					//Gestion des année de référence, de lannée et la date de début de l'action
-					//Get Date
-					$path = 'Actionfp93.annee';
-					$ddaction = Hash::get( $data, $path );
-					$yearVal = date("Y", strtotime($ddaction) );
-					//Set Dates
-					$path = 'Thematiquefp93.yearthema';
-					$data = Hash::insert( $data, $path, $yearVal );
-					$path = 'Actionfp93.annee';
-					$data = Hash::insert( $data, $path, $yearVal );
-					$path = 'Ficheprescription93.dd_action';
-					$data = Hash::insert( $data, $path, $ddaction );
-
-					//II.2.2 Verification de l'encodage UTF-8
-					$arraypath = array (
-						'Actionfp93.name',
-						'Prestatairefp93.name',
-						'Filierefp93.name',
-						'Categoriefp93.name',
-						'Thematiquefp93.name',
-						'Adresseprestatairefp93.adresse',
-						'Adresseprestatairefp93.localite'
-					);
-					foreach ($arraypath AS $path ) {
-						$str = Hash::get( $data, $path );
-						$encoding = mb_detect_encoding($str, 'UTF-8', true);
-						if ($encoding != 'UTF-8' ) {
-							// Check string encode
-							$str = mb_convert_encoding ($str, 'UTF-8');
-							$data = Hash::insert( $data, $path, $str );
 						}
-					}
-					//II.2.3 Recherche de l'existance du numéro de convention
-					$query = array(
-						'fields' => array( 'Actionfp93.id' ),
-						'conditions' => array(
-							'Actionfp93.numconvention' => Hash::get( $data, 'Actionfp93.numconvention' )
-						),
-					);
-					$found = $this->Actionfp93->find( 'first', $query );
-					//II.2.4 Si le numéro de convetion existe déjà alors il faut editer
-					if( !empty( $found ) ) {
-						$path = 'Actionfp93.id';
-						$action_id = $found['Actionfp93']['id'];
-						$data = Hash::insert( $data, $path, $action_id );
-					}
+						//II.1.2 Copie des données d'informations pour historisation et des identifiants de personne
+						$path = 'Personnelangue.personne_id';
+						$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.id' ) );
+						$path = 'Personnefrsadiplomexper.personne_id';
+						$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.id' ) );
+						$path = 'Infocontactpersonne.personne_id';
+						$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.id' ) );
+						$path = 'Infocontactpersonne.fixe';
+						$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.numfixe' ) );
+						$path = 'Infocontactpersonne.mobile';
+						$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.numport' ) );
+						$path = 'Infocontactpersonne.email';
+						$data = Hash::insert( $data, $path,Hash::get( $data, 'Personne.email' ) );
 
-					//3) Section fiche prescription
-					//Get and Set Durée
-					$path = 'Actionfp93.duree';
-					$action_duree = Hash::get($data,$path);
-					$path = 'Ficheprescription93.duree_action';
-					$data = Hash::insert( $data, $path, $action_duree);
-					//Indication d'origine
-					$path = 'Ficheprescription93.posorigine';
-					$data = Hash::insert( $data, $path, 'FRSA');
+						//2) Section Catalogue
+						//II.2.1 Verification des valeurs
+						$data = Hash::insert( $data, 'Thematiquefp93.type', 'pdi' );
+						$path = 'Actionfp93.duree';
+						$data = Hash::insert( $data, $path, Hash::get($data,$path)." mois" );
+						$path = 'Actionfp93.numconvention';
+						$data = Hash::insert( $data, $path, strtoupper( Hash::get( $data, $path ) ) );
 
-					//III Traitement des models
-					foreach( $this->uses as $modelName ) {
-						if(  $success ) {
-							$primaryKey = $this->processModel( $this->{$modelName}, $data );
-							if( $primaryKey === null ) {
-								$this->rejectRow( $row, $this->{$modelName} );
-								$success = false;
-							}
-							else {
-								$data = Hash::insert( $data, "{$modelName}.id", $primaryKey );
+						//Gestion des année de référence, de lannée et la date de début de l'action
+						//Get Date
+						$path = 'Actionfp93.annee';
+						$ddaction = Hash::get( $data, $path );
+						$yearVal = date("Y", strtotime($ddaction) );
+						//Set Dates
+						$path = 'Thematiquefp93.yearthema';
+						$data = Hash::insert( $data, $path, $yearVal );
+						$path = 'Actionfp93.annee';
+						$data = Hash::insert( $data, $path, $yearVal );
+						$path = 'Ficheprescription93.dd_action';
+						$data = Hash::insert( $data, $path, $ddaction );
+
+						//II.2.2 Verification de l'encodage UTF-8
+						$arraypath = array (
+							'Actionfp93.name',
+							'Prestatairefp93.name',
+							'Filierefp93.name',
+							'Categoriefp93.name',
+							'Thematiquefp93.name',
+							'Adresseprestatairefp93.adresse',
+							'Adresseprestatairefp93.localite'
+						);
+						foreach ($arraypath AS $path ) {
+							$str = Hash::get( $data, $path );
+							$encoding = mb_detect_encoding($str, 'UTF-8', true);
+							if ($encoding != 'UTF-8' ) {
+								// Check string encode
+								$str = mb_convert_encoding ($str, 'UTF-8');
+								$data = Hash::insert( $data, $path, $str );
 							}
 						}
+						//II.2.3 Recherche de l'existance du numéro de convention
+						$query = array(
+							'fields' => array( 'Actionfp93.id' ),
+							'conditions' => array(
+								'Actionfp93.numconvention' => Hash::get( $data, 'Actionfp93.numconvention' )
+							),
+						);
+						$found = $this->Actionfp93->find( 'first', $query );
+						//II.2.4 Si le numéro de convetion existe déjà alors il faut editer
+						if( !empty( $found ) ) {
+							$path = 'Actionfp93.id';
+							$action_id = $found['Actionfp93']['id'];
+							$data = Hash::insert( $data, $path, $action_id );
+						}
+
+						//3) Section fiche prescription
+						//Get and Set Durée
+						$path = 'Actionfp93.duree';
+						$action_duree = Hash::get($data,$path);
+						$path = 'Ficheprescription93.duree_action';
+						$data = Hash::insert( $data, $path, $action_duree);
+						//Indication d'origine
+						$path = 'Ficheprescription93.posorigine';
+						$data = Hash::insert( $data, $path, 'FRSA');
+
+						//III Traitement des models
+						foreach( $this->uses as $modelName ) {
+							if(  $success ) {
+								$primaryKey = $this->processModel( $this->{$modelName}, $data );
+								if( $primaryKey === null ) {
+									$this->rejectRow( $row, $this->{$modelName} );
+									$success = false;
+								}
+								else {
+									$data = Hash::insert( $data, "{$modelName}.id", $primaryKey );
+								}
+							}
+						}
+					}else{
+						$this->rejectRow( $row, $this->Personne, 'Id de personne non trouvée / Corrompue' );
+						$success = false;
 					}
 				}else{
-					$this->rejectRow( $row, $this->Personne, 'Id de personne non trouvée / Corrompue' );
+					$this->rejectRow( $row, $this->Personne, 'Id F-RSA déjà en BDD' );
 					$success = false;
 				}
 

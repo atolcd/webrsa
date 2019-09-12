@@ -77,6 +77,7 @@
 			$query = array(
 				'fields' => array (
 					'Ficheprescription93.id',
+					'Ficheprescription93.posorigine',
 					'Ficheprescription93.date_retour',
 					'Ficheprescription93.date_signature',
 					'Ficheprescription93.date_transmission'
@@ -98,6 +99,7 @@
 			//Get date_signature et date_transmission
 			$data['Ficheprescription93']['date_signature'] = $record['Ficheprescription93']['date_signature'];	
 			$data['Ficheprescription93']['date_transmission'] =	$record['Ficheprescription93']['date_transmission'];
+			$data['Ficheprescription93']['posorigine'] = $record['Ficheprescription93']['posorigine'];
 
 			$data = $Model->calculStatusFP($data);
 
