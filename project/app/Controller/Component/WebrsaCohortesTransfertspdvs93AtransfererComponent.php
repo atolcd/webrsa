@@ -113,7 +113,6 @@
 								'type' => 'typeorient_id',
 								'conditions' => array (
 									'Structurereferente.actif' => 'O',
-									'Structurereferente.actif_cohorte' => 'O',
 								)
 							)
 						)

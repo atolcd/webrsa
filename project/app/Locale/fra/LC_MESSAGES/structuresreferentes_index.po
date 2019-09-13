@@ -45,6 +45,9 @@ msgstr "Type d'organisme"
 msgid "Search.Structurereferente.actif"
 msgstr "Active"
 
+msgid "Search.Structurereferente.actif_cohorte"
+msgstr "Active pour les résultats des recherches en cohorte d'orientation"
+
 msgid "Search.Structurereferente.Gestion"
 msgstr "Recherche par ce qui est géré par la structure référente"
 
