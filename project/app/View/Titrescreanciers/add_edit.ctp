@@ -55,7 +55,7 @@
 			'Titrecreancier.mnttitr' => array('type' => 'number','required' => true),
 			'Titrecreancier.qual',
 			'Titrecreancier.nom',
-			'Titrecreancier.nir' => array('type' => 'number'),
+			'Titrecreancier.nir',
 			'Titrecreancier.numtel' => array('type' => 'number'),
 			'Titrecreancier.titulairecompte',
 			'Titrecreancier.iban',
@@ -85,7 +85,7 @@
 		array(
 			'Titrecreancier.qualcjt'  => array( 'required' => true, 'type' => 'select', 'options' => $options['Titrecreancier']['qualcjt'] ),
 			'Titrecreancier.nomcjt',
-			'Titrecreancier.nircjt' => array('type' => 'number'),
+			'Titrecreancier.nircjt',
 		),
 		array(
 			'options' => $options
