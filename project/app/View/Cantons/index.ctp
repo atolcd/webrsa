@@ -53,6 +53,7 @@
 				array(
 					'Canton.canton',
 					'Zonegeographique.libelle',
+					'Canton.numvoie',
 					'Canton.libtypevoie',
 					'Canton.nomvoie',
 					'Canton.nomcom',

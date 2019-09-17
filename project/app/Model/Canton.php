@@ -303,6 +303,16 @@
 						'Adresse.nomvoie ILIKE Canton.nomvoie'
 					)
 				),
+				//
+				array(
+					'OR' => array(
+						'OR' => array(
+							'Canton.numvoie IS NULL',
+							"TRIM( BOTH ' ' FROM Canton.numvoie ) = ''",
+						),
+						'Adresse.numvoie ILIKE Canton.numvoie'
+					)
+				),
 			);
 
 			$sq = $this->sq(

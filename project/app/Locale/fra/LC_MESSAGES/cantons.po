@@ -46,6 +46,9 @@ msgstr "Canton"
 msgid "Zonegeographique.libelle"
 msgstr "Zone géographique"
 
+msgid "Canton.numvoie"
+msgstr "Numéro de voie"
+
 msgid "Canton.libtypevoie"
 msgstr "Type de voie"
 

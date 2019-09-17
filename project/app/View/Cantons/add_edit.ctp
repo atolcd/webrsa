@@ -11,6 +11,7 @@
 				'Canton.id',
 				'Canton.canton',
 				'Canton.zonegeographique_id' => array( 'empty' => true ),
+				'Canton.numvoie',
 				'Canton.libtypevoie' => array( 'empty' => true ),
 				'Canton.nomvoie',
 				'Canton.nomcom',

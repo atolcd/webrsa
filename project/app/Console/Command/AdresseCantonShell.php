@@ -9,9 +9,9 @@
 	 App::uses( 'ConnectionManager', 'Model' );
 	 App::uses( 'CsvHelper', 'View/Helper' );
 	 App::uses( 'View', 'View' );
-	 
+
 	/**
-	 * La classe AdresseCantonShell permet d'obtenir les correspondances entre les personne_id 
+	 * La classe AdresseCantonShell permet d'obtenir les correspondances entre les personne_id
 	 * de différents dossiers selon le nom/prenom/dtnai/nir
 	 *
 	 * @package app.Console.Command
@@ -48,7 +48,7 @@
 		protected function _welcome() {
 			parent::_welcome();
 		}
-		
+
 		/**
 		 * Méthode principale.
 		 */
@@ -76,10 +76,10 @@
 			);
 			$results = $Adresse->find('all', $query);
 			$this->out(sprintf('Terminé en %s secondes.', number_format(microtime(true)-$timestart, 3)));
-			
+
 			$Adresse->begin();
 			$Dbo = $Adresse->AdresseCanton->getDataSource();
-			
+
 			$this->out();
 			$this->out('Supression du contenu de la table de liaison...');
 			$timestart = microtime(true);
@@ -104,7 +104,7 @@
 					);
 				}
 			}
-			
+
 			if ( !empty($data) && $success ) {
 				$this->out();
 				$this->out('Création du contenu de la table de liaison...');
@@ -112,13 +112,13 @@
 				$success = $success && $Adresse->AdresseCanton->saveMany($data);
 				$this->out(sprintf('Terminé en %s secondes.', number_format(microtime(true)-$timestart, 3)));
 			}
-			
+
 			if ( $success ) {
 				$Adresse->commit();
-				
+
 				$dirPath = APP.'tmp'.DS.'logs'.DS;
 				$fileName = 'adresses_sans_cantons_'.date('Y-m-d_H:i:s').'.csv';
-				
+
 				$this->out();
 				$this->out('Création du fichier de rapport CSV...');
 				$timestart = microtime(true);
@@ -137,10 +137,10 @@
 				$this->out('Un erreur s\'est produite !');
 			}
 		}
-		
+
 		/**
 		 * Converti un array en document CSV
-		 * 
+		 *
 		 * @param array $data
 		 * @param string $path
 		 * @param string $fileName
@@ -158,17 +158,17 @@
 			if ( !is_dir($path) ) {
 				mkdir($path, 0777, true);
 			}
-			
+
 			$Csv = new CsvHelper( new View() );
 			$Csv->addGrid( $data, false );
 			$fileData = $Csv->render(false);
-			
+
 			$file = fopen($path.$fileName, "w");
 			chmod($path.$fileName, 0777);
 			fwrite($file, $fileData);
 			fclose($file);
 		}
-		
+
 		/**
 		 * Paramétrages et aides du shell.
 		 */
