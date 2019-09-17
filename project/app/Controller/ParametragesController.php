@@ -175,29 +175,41 @@
 		 */
 		protected function _creances() {
 			$activateTitreCreancier = Configure::read( 'Creances.titrescreanciers' );
+			$activateRecoursGracieux = Configure::read( 'Creances.recoursgracieux' );
 
-			if( $activateTitreCreancier ) {
-				$items = array (
-					'Titres de recette' => array(
-						'Type du Titre' => array(
-							'url' => array( 'controller' => 'typestitrescreanciers', 'action' => 'index' )
-						),
-						'Motif d\'émission d\'un titre de recette' => array(
-							'url' => array( 'controller' => 'motifsemissionstitrescreanciers', 'action' => 'index' )
-						)
-					),
-					'Suivi des titres de recette' => array(
-						'Type d\'annulation/réduction' => array(
-							'url' => array( 'controller' => 'typestitrescreanciersannulationsreductions', 'action' => 'index' )
-						),
-						'Type d\'informations payeur' => array(
-							'url' => array( 'controller' => 'typestitrescreanciersinfospayeurs', 'action' => 'index' )
-						),
-						'Type d\'autres informations' => array(
-							'url' => array( 'controller' => 'typestitrescreanciersautresinfos', 'action' => 'index' )
-						)
-					)
-				);
+			$items = array ();
+			if( $activateTitreCreancier || $activateRecoursGracieux ) {
+				if( $activateTitreCreancier) {
+					$items['Titres de recette'] = array(
+							'Type du Titre' => array(
+								'url' => array( 'controller' => 'typestitrescreanciers', 'action' => 'index' )
+							),
+							'Motif d\'émission d\'un titre de recette' => array(
+								'url' => array( 'controller' => 'motifsemissionstitrescreanciers', 'action' => 'index' )
+							)
+						);
+					$items['Suivi des titres de recette'] = array(
+							'Type d\'annulation/réduction' => array(
+								'url' => array( 'controller' => 'typestitrescreanciersannulationsreductions', 'action' => 'index' )
+							),
+							'Type d\'informations payeur' => array(
+								'url' => array( 'controller' => 'typestitrescreanciersinfospayeurs', 'action' => 'index' )
+							),
+							'Type d\'autres informations' => array(
+								'url' => array( 'controller' => 'typestitrescreanciersautresinfos', 'action' => 'index' )
+							)
+						);
+				}
+				if($activateRecoursGracieux ) {
+					$items['Recours Gracieux'] = array(
+							'Origines' => array(
+								'url' => array( 'controller' => 'originesrecoursgracieux', 'action' => 'index' )
+							),
+							'Types' => array(
+								'url' => array( 'controller' => 'typesrecoursgracieux', 'action' => 'index' )
+							)
+						);
+				}
 			}else{
 				$items = array( 'disabled' => true );
 			}

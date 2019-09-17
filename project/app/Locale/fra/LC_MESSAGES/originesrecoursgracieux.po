@@ -1,0 +1,47 @@
+# Traductions de originesrecoursgracieux.poo
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Originesrecoursgracieux/index/:heading"
+msgstr "Paramétrage des types d'annulation/réduction des titres de recette"
+
+msgid "/Originesrecoursgracieux/add/:heading"
+msgstr "Ajout d'une origine de recours gracieux"
+
+msgid "/Originesrecoursgracieux/edit/:heading"
+msgstr "Modification de l'origine de recours gracieux « #Originesrecoursgracieux.nom# »"
+
+msgid "/Originesrecoursgracieux/add"
+msgstr "Ajouter"
+
+msgid "/Originesrecoursgracieux/add/:title"
+msgstr "Ajouter une origine de recours gracieux"
+
+msgid "/Originesrecoursgracieux/edit"
+msgstr "Modifier"
+
+msgid "/Originesrecoursgracieux/edit/#Originesrecoursgracieux.id#"
+msgstr "Modifier l'origine de recours gracieux « #Originesrecoursgracieux.nom# »"
+
+msgid "/Originesrecoursgracieux/delete"
+msgstr "Supprimer"
+
+msgid "/Originesrecoursgracieux/delete/#Originesrecoursgracieux.id#"
+msgstr "Supprimer l'origine de recours gracieux « #Originesrecoursgracieux.nom# »"
+
+msgid "/Originesrecoursgracieux/delete/#Originesrecoursgracieux.id# ?"
+msgstr "Réellement supprimer l'origine de recours gracieux « #Originesrecoursgracieux.nom# » ?"
+
+msgid "Originesrecoursgracieux.nom"
+msgstr "Nom du type"
+
+msgid "Originesrecoursgracieux.actif"
+msgstr "Actif"

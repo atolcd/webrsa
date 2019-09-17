@@ -896,8 +896,8 @@
 	 * Activation du module TitreCréanciers
 	 * 'Creances.titrescreanciers' => true pour activée, false pour inactivée
 	 */
-
 	Configure::write('Creances.titrescreanciers',true);
+
 	/**
 	 * Activation du module Gestion de List des Creances et Titres Créanciers
 	 * 'Module.Creances.GestionList' => true pour activée, false pour inactivée
@@ -909,6 +909,12 @@
 	 * Attention a bien configurer les autres valeurs dans le dossier de config/Titrescreanciers.php
 	 */
 	Configure::write('Module.Creances.FICA',true );
+
+	/**
+	 * Activation du module RecoursGracieux
+	 * 'Creances.recoursgracieux' => true pour activée, false pour inactivée
+	 */
+	Configure::write('Creances.recoursgracieux',true);
 
 	/**
 	 * Couleur des lignes de résultats en erreur

@@ -4346,6 +4346,43 @@ msgid "controllers/Rejetstalendscreances/index"
 msgstr "Visualisation des Rejet des Talends Créances"
 
 ###############################################################################
+## Recours Gracieux
+###############################################################################
+
+
+# Origines
+msgid "controllers/Originesrecoursgracieux"
+msgstr "Origines des recours gracieux"
+
+msgid "controllers/Originesrecoursgracieux/add"
+msgstr "Ajout des origines de recours gracieux"
+
+msgid "controllers/Originesrecoursgracieux/delete"
+msgstr "Suppression des origines de recours"
+
+msgid "controllers/Originesrecoursgracieux/edit"
+msgstr "Edition des origines de recours"
+
+msgid "controllers/Originesrecoursgracieux/index"
+msgstr "Visualisation des origines de recours"
+
+# Types
+msgid "controllers/Typesrecoursgracieux"
+msgstr "Types de recours gracieux"
+
+msgid "controllers/Typesrecoursgracieux/add"
+msgstr "Ajout des types de recours gracieux"
+
+msgid "controllers/Typesrecoursgracieux/delete"
+msgstr "Suppression des types de recours gracieux"
+
+msgid "controllers/Typesrecoursgracieux/edit"
+msgstr "Edition des types de recours gracieux"
+
+msgid "controllers/Typesrecoursgracieux/index"
+msgstr "Visualisation des types de recours gracieux"
+
+###############################################################################
 ## Questionniare B7
 ###############################################################################
 msgid "controllers/Questionnairesb7pdvs93"
