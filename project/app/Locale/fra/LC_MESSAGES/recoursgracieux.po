@@ -1,0 +1,124 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+# Titres
+###############################################################################
+
+msgid "/Recoursgracieux/index/:heading"
+msgstr "Recours gracieux"
+
+msgid "/Recoursgracieux/view/:heading"
+msgstr "Recours gracieux"
+
+msgid "/Recoursgracieux/add/:heading"
+msgstr "Ajout d'un recours gracieux"
+
+msgid "/Recoursgracieux/edit/:heading"
+msgstr "Édition"
+
+msgid "Recoursgracieux::index::emptyRecours"
+msgstr "Cette personne ne possède pas de recours gracieux."
+
+###############################################################################
+# Lien
+###############################################################################
+
+msgid "/Recoursgracieux/index"
+msgstr "Voir"
+
+msgid "/Recoursgracieux/view"
+msgstr "Voir"
+
+msgid "/Recoursgracieux/index/#Recourgracieux.id#"
+msgstr "Voir #Recourgracieux.id#"
+
+msgid "/Recoursgracieux/view/#Recourgracieux.id#"
+msgstr "Voir ce recours gracieux"
+
+msgid "/Recoursgracieux/add"
+msgstr "Enregistrer un recours gracieux"
+
+msgid "/Recoursgracieux/add/:title"
+msgstr "Ajouter un recours gracieux"
+
+msgid "/Recoursgracieux/edit"
+msgstr "Éditer"
+
+msgid "/Recoursgracieux/edit/#Recourgracieux.id#"
+msgstr "Éditer ce recours gracieux"
+
+msgid "/Recoursgracieux/email"
+msgstr "Envoyer un courriel"
+
+msgid "/Recoursgracieux/affecter"
+msgstr "Affecter un réferent"
+
+msgid "/Recoursgracieux/proposer"
+msgstr "Proposition"
+
+msgid "/Recoursgracieux/decider"
+msgstr "Décision"
+
+msgid "/Recoursgracieux/envoyer"
+msgstr "Envoi"
+
+msgid "/Recoursgracieux/traiter"
+msgstr "Traité "
+
+msgid "/Recoursgracieux/delete"
+msgstr "Supprimé"
+
+msgid "/Recoursgracieux/delete/#Creance.id#"
+msgstr "Supprimer ce recours gracieux"
+
+msgid "Recoursgracieux::index::emptyLabel"
+msgstr "Cette personne ne possède pas de recours gracieux."
+
+msgid "/Recoursgracieux/filelink"
+msgstr "Fichiers liés (#Fichiermodule.nb_fichiers_lies#)"
+
+msgid "/Recoursgracieux/filelink/#Recourgracieux.id#"
+msgstr "Fichiers liés"
+
+msgid "Recoursgracieux::filelink"
+msgstr "Fichiers liés au recours gracieux"
+
+msgid "Recoursgracieux.haspiecejointe"
+msgstr "Ajouter une pièce jointe"
+
+msgid "Recoursgracieux.etatDepuis"
+msgstr "État depuis"
+
+msgid "since"
+msgstr " depuis le "
+
+###############################################################################
+# Trad des recherches
+###############################################################################
+
+msgid "/Recoursgracieux/search/:heading"
+msgstr "Recherche par recours gracieux"
+
+msgid "Search.Recoursgracieux"
+msgstr "Recherche par recours gracieux de l'allocataire"
+
+###############################################################################
+# Champs de recherches
+###############################################################################

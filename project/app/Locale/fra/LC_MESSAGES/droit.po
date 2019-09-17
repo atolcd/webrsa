@@ -4349,6 +4349,26 @@ msgstr "Visualisation des Rejet des Talends Créances"
 ## Recours Gracieux
 ###############################################################################
 
+msgid "controllers/Recoursgracieux"
+msgstr "Recours gracieux"
+
+msgid "controllers/Recoursgracieux/add"
+msgstr "Ajout Recours gracieux"
+
+msgid "controllers/Recoursgracieux/edit"
+msgstr "Edition Recours gracieux"
+
+msgid "controllers/Recoursgracieux/exportcsv"
+msgstr "Export CSV Recours gracieux"
+
+msgid "controllers/Recoursgracieux/filelink"
+msgstr "Ajout d'un fichier Recours gracieux"
+
+msgid "controllers/Recoursgracieux/index"
+msgstr "Visualisation Recours gracieux"
+
+msgid "controllers/Recoursgracieux/search"
+msgstr "Recherche Recours gracieux"
 
 # Origines
 msgid "controllers/Originesrecoursgracieux"

@@ -1,0 +1,87 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+# Etats
+###############################################################################
+
+msgid "ENUM::ETAT::ATTAFECT"
+msgstr "En attente d’affectation"
+
+msgid "ENUM::ETAT::ATTINSTRUCTION"
+msgstr "En attente d’instruction"
+
+msgid "ENUM::ETAT::ATTVALIDATION"
+msgstr "En attente de validation"
+
+msgid "ENUM::ETAT::ATTIMPRESSION"
+msgstr "En attente d’impression"
+
+msgid "ENUM::ETAT::ATTSIGNATURE"
+msgstr "En attente de signature"
+
+msgid "ENUM::ETAT::ATTENVOIE"
+msgstr "En attente d'envoi"
+
+msgid "ENUM::ETAT::TRAITER"
+msgstr "Dossier traité et notifié"
+
+msgid "ENUM::ETAT::ANNULER"
+msgstr "Dossier Annulé"
+
+
+###############################################################################
+# Champs Add et Edit
+###############################################################################
+msgid "Recourgracieux.haspiecejointe"
+msgstr "Ajouter une pièce jointe"
+
+msgid "Recourgracieux.dtarrivee"
+msgstr "Date d’arrivée du dossier au CD"
+
+msgid "Recourgracieux.dtbutoire"
+msgstr "Date butoir de réponse"
+
+msgid "Recourgracieux.dtreception"
+msgstr "Date de réception du dossier dans le service"
+
+msgid "Recourgracieux.originerecoursgracieux_id"
+msgstr "Origine du dossier"
+
+msgid "Recourgracieux.typerecoursgracieux_id"
+msgstr "Type du dossier"
+
+msgid "Recourgracieux.dtaffectation"
+msgstr "Date d'affectation du dossier"
+
+msgid "Recourgracieux.user_id"
+msgstr "Gestionnaire du dossier"
+
+msgid "Recourgracieux.etatDepuis"
+msgstr "État"
+
+# ==============================================================================
+# Résultats du moteur de recherche
+# ==============================================================================
+
+msgid "Personne.nom_complet_prenoms"
+msgstr "Allocataire"
+
+msgid "Dossier.locked"
+msgstr "Verrouillé"
