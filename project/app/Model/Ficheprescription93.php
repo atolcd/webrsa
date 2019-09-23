@@ -465,6 +465,7 @@
 					$return[$this->alias]['structurereferente_id'] = $referentparcours['Referent']['structurereferente_id'];
 					$return[$this->alias]['referent_id'] = "{$referentparcours['Referent']['structurereferente_id']}_{$referentparcours['Referent']['id']}";
 				}
+				$return['Ficheprescription93']['frsa_datetransmi'] = NULL;
 			}
 			else {
 				$query = array(
@@ -557,7 +558,6 @@
 				.' '.$return['Instantanedonneesfp93']['benef_nomvoie']
 				.( !empty( $return['Instantanedonneesfp93']['benef_complideadr'] ) ? "\n".$return['Instantanedonneesfp93']['benef_complideadr'] : '' )
 				.( !empty( $return['Instantanedonneesfp93']['benef_compladr'] ) ? "\n".$return['Instantanedonneesfp93']['benef_compladr'] : '' );
-			$return['Ficheprescription93']['frsa_datetransmi'] = NULL;
 
 			return $return;
 		}
