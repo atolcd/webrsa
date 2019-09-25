@@ -1345,6 +1345,7 @@
 					'Sortieaccompagnementd2pdv93.parent_id IS NOT NULL'
 				),
 				'order' => array(
+					'Sortieaccompagnementd2pdv93.ordre_affichage ASC',
 					'Parent.id ASC',
 					'Sortieaccompagnementd2pdv93.id ASC',
 				)
