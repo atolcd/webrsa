@@ -10,8 +10,32 @@ msgstr ""
 
 # ==============================================================================
 
+msgid "ENUM::TYPE::all_old"
+msgstr "IFE/Hors IFE"
+
+msgid "ENUM::TYPE::pdi_old"
+msgstr "Catalogue IFE"
+
+msgid "ENUM::TYPE::horspdi_old"
+msgstr "Hors catalogue IFE"
+
+msgid "ENUM::TYPE::all"
+msgstr "PDIE/Hors PDIE"
+
 msgid "ENUM::TYPE::pdi"
 msgstr "Catalogue PDIE"
 
 msgid "ENUM::TYPE::horspdi"
 msgstr "Hors catalogue PDIE"
+
+msgid "ENUM::TYPE::all_and"
+msgstr "Catalogue PDIE/IFE et Hors PDIE/IFE"
+
+msgid "ENUM::TYPE::all_pdi"
+msgstr "Catalogue PDIE/IFE"
+
+msgid "ENUM::TYPE::all_horspdi"
+msgstr "Hors PDIE/IFE"
+
+msgid "ENUM::YEAR::all"
+msgstr "Toutes"

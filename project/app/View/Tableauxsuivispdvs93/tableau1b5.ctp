@@ -66,21 +66,52 @@
 					$class = null;
 				}
 
-
 				if( $categoriepcd !== $result[0][0]['categorie'] ) {
-					if (!empty ( $this->request->params['named']['Search__typethematiquefp93_id'] )){
-						$cell[] =__d(
-								'thematiquefp93', 'ENUM::TYPE::'
-								.$this->request->params['named']['Search__typethematiquefp93_id']
-							)
-						;
-					}else{
-						$cell[] = 'Tous';
-					}
+					//Si nous avons une année nous pouvons déduire le type
 					if ( !empty ( $this->request->params['named']['Search__yearthematiquefp93_id'] ) ){
+						$annee = $this->request->params['named']['Search__yearthematiquefp93_id'];
+						//Si nous avons un type
+						if (!empty ( $this->request->params['named']['Search__typethematiquefp93_id'] )){
+							$type = $this->request->params['named']['Search__typethematiquefp93_id'];
+							//et que l'année est inférieur ou égal a 2018
+							if ( $annee <= 2018 ) {
+								$cell[] =__d(
+									'thematiquefp93',
+									'ENUM::TYPE::'.$type.'_old'
+								);
+							// ou que l'année est au-dessu de 2019
+							}else{
+								$cell[] =__d(
+									'thematiquefp93',
+									'ENUM::TYPE::'.$type
+								);
+							}
+						// Si nous n'avons de de type
+						}else{
+							//et que l'année est inférieur ou égal a 2018
+							if ( $annee <= 2018 ) {
+								$cell[] = __d('thematiquefp93', 'ENUM::TYPE::all_old');
+							// ou que l'année est au-dessu de 2019
+							}else{
+								$cell[] = __d('thematiquefp93', 'ENUM::TYPE::all');
+							}
+						}
+						//On ajoute ensuite la colonne année
 						$cell[] = $this->request->params['named']['Search__yearthematiquefp93_id'];
+					//Si on n'a pas d'année
 					}else{
-						$cell[] = 'Toutes';
+						//Si nous avons un type
+						if (!empty ( $this->request->params['named']['Search__typethematiquefp93_id'] )){
+							$cell[] =__d(
+								'thematiquefp93',
+								'ENUM::TYPE::all_'.$type
+							);
+						// Si nous n'avons de de type
+						}else{
+							$cell[] = __d('thematiquefp93', 'ENUM::TYPE::all_and');
+						}
+						//On ajoute ensuite la colonne année
+						$cell[] = __d('thematiquefp93', 'ENUM::YEAR::all');
 					}
 					$cell[] = array( $result[0][0]['categorie'], array( 'rowspan' => $rowspans[$result[0][0]['categorie']], 'class' => $class ) );
 				}else{
