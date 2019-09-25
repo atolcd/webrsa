@@ -4804,7 +4804,7 @@
 			$typeEmplois = $typeEmploi->find (
 				'all',
 				array (
-					'order' => array ('name' => 'ASC'),
+					'order' => array ('ordre_affichage' => 'ASC'),
 				)
 			);
 
