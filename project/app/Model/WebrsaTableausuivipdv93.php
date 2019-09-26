@@ -3116,7 +3116,7 @@
 		 *
 		 * @return array
 		 */
-		protected function _tableau1b6Thematiquesrdvs() {
+		protected function _tableau1b6Thematiquesrdvs ($actif = null) {
 			$Thematiquerdv = ClassRegistry::init( array( 'class' => 'Thematiquerdv', 'alias' => 'Tableau1b6' ) );
 
 			$cases = array();
@@ -3124,21 +3124,25 @@
 				$cases[] = "WHEN id = {$thematique_id} THEN '{$theme}'";
 			}
 
-			$results = $Thematiquerdv->find(
-				'all',
-				array(
-					'fields' => array(
-						'Tableau1b6.id',
-						'Tableau1b6.name',
-						'( CASE WHEN false THEN NULL '.implode( '', $cases ).' ELSE NULL END ) AS "Tableau1b6__theme"'
-					),
-					'contain' => false,
-					'conditions' => array(
-						'Tableau1b6.typerdv_id' => (array)Configure::read( 'Tableausuivipdv93.Tableau1b6.typerdv_id' )
-					),
-					'order' => array( 'Tableau1b6.name ASC' )
-				)
+			$query = array(
+				'fields' => array(
+					'Tableau1b6.id',
+					'Tableau1b6.name',
+					'( CASE WHEN false THEN NULL '.implode( '', $cases ).' ELSE NULL END ) AS "Tableau1b6__theme"',
+					'Tableau1b6.acomptabiliser',
+				),
+				'contain' => false,
+				'conditions' => array(
+					'Tableau1b6.typerdv_id' => (array)Configure::read( 'Tableausuivipdv93.Tableau1b6.typerdv_id' )
+				),
+				'order' => array( 'Tableau1b6.name ASC' )
 			);
+
+			if (!is_null ($actif)) {
+				$query['conditions'][]['Tableau1b6.actif'] = $actif;
+			}
+
+			$results = $Thematiquerdv->find ('all', $query);
 
 			return $results;
 		}
@@ -3154,10 +3158,17 @@
 			$Thematiquerdv = ClassRegistry::init( array( 'class' => 'Thematiquerdv', 'alias' => 'Tableau1b6' ) );
 			$Dbo = $this->Tableausuivipdv93->getDataSource();
 
-			$results = $this->_tableau1b6Thematiquesrdvs();
-
 			// Filtre sur l'année
 			$annee = Sanitize::clean( Hash::get( $search, 'Search.annee' ), array( 'encode' => false ) );
+
+			// Actif si >= 2019
+			$actif = null;
+			if ($annee >= 2019 && !is_null ($mep)) {
+				$actif = 1;
+			}
+
+			$results = $this->_tableau1b6Thematiquesrdvs($actif);
+
 			if ($annee <= 2019 || !is_null($mep)) {
 				$conditionpdv = $this->_conditionpdv(
 					$search,
@@ -3200,7 +3211,7 @@
 				// --1-- Nbre de personnes invitées ou positionnées : honoré ou prévu
 				$sql = "SELECT
 								thematiquesrdvs.name AS \"Tableau1b6__name\",
-								thematiquesrdvs.acomptabiliser,
+								thematiquesrdvs.acomptabiliser AS \"Tableau1b6__acomptabiliser\",
 								COUNT(DISTINCT rendezvous.personne_id) AS \"Tableau1b6__count_personnes_prevues\",
 								COUNT(DISTINCT rendezvous.id) AS \"Tableau1b6__count_invitations\"
 							FROM rendezvous
@@ -3211,7 +3222,7 @@
 								rendezvous_thematiquesrdvs.thematiquerdv_id IN ( ".implode( ',', $thematiquesrdvs_ids )." )";
 				if( !is_null($mep) ) {
 					$sql .= "AND rendezvous.daterdv > '{$mep}'
-							AND thematiquesrdvs.actif = 1";
+							AND thematiquesrdvs.actif = 1 ";
 				} else if ( $annee == 2019 ){
 					$sql .= "AND rendezvous.daterdv < " . "'" . Configure::read('Date.MEP.PIE')[0] ."'";
 				} else {
@@ -3227,7 +3238,7 @@
 
 				$sql = "SELECT
 								thematiquesrdvs.name AS \"Tableau1b6__name\",
-								thematiquesrdvs.acomptabiliser,
+								thematiquesrdvs.acomptabiliser AS \"Tableau1b6__acomptabiliser\",
 								COUNT(DISTINCT rendezvous.daterdv||' '||rendezvous.heurerdv) AS \"Tableau1b6__count_seances\",
 								COUNT(DISTINCT rendezvous.personne_id) AS \"Tableau1b6__count_personnes\",
 								COUNT(DISTINCT rendezvous.id) AS \"Tableau1b6__count_participations\"
@@ -3266,7 +3277,7 @@
 								}
 								$results[$key]['Tableau1b6'][$field] += $value;
 								if ( !isset($results[$key]['Tableau1b6']['acomptabiliser']) ) {
-									$results[$key]['Tableau1b6']['acomptabiliser'] = $result1[0]['acomptabiliser'];
+									$results[$key]['Tableau1b6']['acomptabiliser'] = $result1['Tableau1b6']['acomptabiliser'];
 								}
 							}
 							else {
@@ -3276,6 +3287,7 @@
 							}
 						}
 					}
+
 					foreach( $results2 as $result2 ) {
 						foreach( array( 'count_seances', 'count_personnes', 'count_participations' ) as $field ) {
 							if( $result2['Tableau1b6']['name'] == $name ) {
@@ -3293,7 +3305,8 @@
 						}
 					}
 				}
-			}
+			} // if
+
 			// Suppression des résultats vides
 			foreach( $results as $key => $result) {
 				if( (isset($result['Tableau1b6']['count_personnes_prevues']) &&
@@ -3311,7 +3324,8 @@
 				}
 			}
 
-			if($annee >= 2019 && is_null($mep) ) {
+			// Année 2019 et $mep est null
+			if ($annee >= 2019 && is_null ($mep) ) {
 				if($annee == 2019) {
 					$mep = Configure::read('Date.MEP.PIE')[0];
 				} else {

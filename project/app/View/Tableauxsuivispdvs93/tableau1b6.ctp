@@ -47,10 +47,14 @@
 
 			echo $this->Xhtml->tag( 'table', $thead.$tfoot.$tbody ,array( 'class' => 'wide tableau1b6' ) );
 		}
+
+
 		if( (int) $annee >= 2019) {
 			if ( (int) $annee == 2019) {
 				echo '<h2> ' . __d( $domain, 'Tableau1b6.actionApresProd2019_pre' ) . $anneeProd . __d( $domain, 'Tableau1b6.actionApresProd2019_post' ) . '</h2>';
 			}
+
+			// En-tête du tableau
 			$thead = $this->Xhtml->tag(
 				'thead',
 				$this->Xhtml->tableHeaders(
@@ -65,8 +69,10 @@
 				)
 			);
 
+			// Contenu du tableau
 			$cells = array();
 			$acomptabiliser = 1;
+
 			for($i = 0; $i < 2; $i++) {
 				$sousTotalPersonnePrevues = 0;
 				$sousTotalInvitations = 0;
@@ -96,23 +102,25 @@
 						$sousTotalParticipations += $cntParticipations;
 					}
 				}
-					if($acomptabiliser == 1) {
-						$sousTotalLabel = '<span style="margin-left: 5em"> SOUS TOTAL (à comptabiliser dans l\'objectif de positionnement) </span>';
-					} else {
-						$sousTotalLabel = '<span style="margin-left: 5em"> SOUS TOTAL (non comptabilisé dans l\'objectif de positionnement) </span>';
-					}
-					$cells[] = array(
-						$sousTotalLabel,
-						array( $this->Locale->number( $sousTotalPersonnePrevues ), array( 'class' => 'integer number' ) ),
-						array( $this->Locale->number( $sousTotalInvitations ), array( 'class' => 'integer number' ) ),
-						array( $this->Locale->number( $sousTotalSeances ), array( 'class' => 'integer number' ) ),
-						array( $this->Locale->number( $sousTotalPersonnes ), array( 'class' => 'integer number' ) ),
-						array( $this->Locale->number( $sousTotalParticipations ), array( 'class' => 'integer number' ) )
-					);
-					$acomptabiliser = 0;
-			}
 
+				if($acomptabiliser == 1) {
+					$sousTotalLabel = '<span style="margin-left: 5em"> SOUS TOTAL (à comptabiliser dans l\'objectif de positionnement) </span>';
+				} else {
+					$sousTotalLabel = '<span style="margin-left: 5em"> SOUS TOTAL (non comptabilisé dans l\'objectif de positionnement) </span>';
+				}
+				$cells[] = array(
+					$sousTotalLabel,
+					array( $this->Locale->number( $sousTotalPersonnePrevues ), array( 'class' => 'integer number' ) ),
+					array( $this->Locale->number( $sousTotalInvitations ), array( 'class' => 'integer number' ) ),
+					array( $this->Locale->number( $sousTotalSeances ), array( 'class' => 'integer number' ) ),
+					array( $this->Locale->number( $sousTotalPersonnes ), array( 'class' => 'integer number' ) ),
+					array( $this->Locale->number( $sousTotalParticipations ), array( 'class' => 'integer number' ) )
+				);
+
+				$acomptabiliser = 0;
+			}
 			$tbody = $this->Xhtml->tag( 'tbody', $this->Xhtml->tableCells( $cells ) );
+
 			// Pied du tableau
 			$cells = array(
 				array(
@@ -126,8 +134,10 @@
 			);
 			$tfoot = $this->Xhtml->tag( 'tfoot', $this->Xhtml->tableCells( $cells ) );
 
+			// Affichage du tableau
 			echo $this->Xhtml->tag( 'table', $thead.$tfoot.$tbody ,array( 'class' => 'wide tableau1b6' ) );
 		}
+
 		echo $this->Xhtml->tag( 'p', '(1) Indiquer le nom de l\'action. Il y a autant de lignes que d\'actions pilotées ou co-pilotées par et avec le Projet Insertion Emploi.' );
 		echo $this->Xhtml->tag( 'p', '(2) Indiquer uniquement les sigles suivants (cest l\'objectif qui définit la thématique de l\'action) :<br>E: Emploi  (TRE, découverte des métiers, .recherche demploi par internet,...)<br>F : Formation   (présentations d\'actions organisées par des organismes, sensibilisation aux outils informatiques, ...)<br>VS : Vie Sociale  (soutien administratif, logement, famille, mobilité, ...)<br>LCV : Loisirs, Culture, et Vacances  (relais cultures du coeur, séjours vacances, ....)<br>IRSA :  Information dispositif RSA  (dispositif RSA uniquement)<br>2AD :  Accès aux Droits (retraite, CMU, transport, ...)<br>S : Santé  (prévention, ...)<br>3R : Resocialisation, redynamisation, revalorisation  (image de soi, ...)' );
 		echo $this->Xhtml->tag( 'p', '(3) Additionner le total des participants de toutes les séances' );

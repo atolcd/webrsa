@@ -730,9 +730,21 @@
 				)
 			);
 
-            if( Configure::read( 'Rendezvous.useThematique' ) ) {
-                $options['Thematiquerdv']['Thematiquerdv'] = $this->Rendezvous->Thematiquerdv->find( 'list', array( 'fields' => array( 'Thematiquerdv.id', 'Thematiquerdv.name', 'Thematiquerdv.typerdv_id' ) ) );
-            }
+			if( Configure::read( 'Rendezvous.useThematique' ) ) {
+				$options['Thematiquerdv']['Thematiquerdv'] = $this->Rendezvous->Thematiquerdv->find (
+					'list',
+					array(
+						'fields' => array (
+							'Thematiquerdv.id',
+							'Thematiquerdv.name',
+							'Thematiquerdv.typerdv_id'
+						),
+						'conditions' => array (
+							'actif' => 1
+						)
+					)
+				);
+			}
 
 			// On complète les options avec les éléments désactivés le cas échéant
 			if( false === empty( $this->request->data ) ) {
