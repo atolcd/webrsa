@@ -601,6 +601,9 @@ msgstr "Le bénéficiaire a achevé l'action"
 msgid "/Tableauxsuivispdvs93/tableaub7/:heading"
 msgstr "Tableau 7a - Nombre de personnes différentes accédant à l'emploi"
 
+msgid "/Tableauxsuivispdvs93/tableaub7/:menu"
+msgstr "Tableau 7a - Nombre de personnes accédant à l'emploi"
+
 msgid "Tableaub7.chiffres.cles"
 msgstr "Accès à l'emploi : chiffres clés"
 
@@ -628,6 +631,9 @@ msgstr "Accès à l'emploi : nombre d'accès à l'emploi par familles profession
 
 msgid "/Tableauxsuivispdvs93/tableaub7d2typecontrat/:heading"
 msgstr "Tableau 7b - Accès à l'emploi par type de contrat"
+
+msgid "/Tableauxsuivispdvs93/tableaub7d2typecontrat/:menu"
+msgstr "Tableau 7b - Synthèse des accès à l'emploi"
 
 msgid "Tableaub7b.maintien.accompagnement"
 msgstr "Maintien dans l’accompagnement"
@@ -659,6 +665,9 @@ msgstr "Indéfini"
 
 msgid "/Tableauxsuivispdvs93/tableaub7d2familleprofessionnelle/:heading"
 msgstr "Tableau 7c - Accès à l'emploi par famille professionnelle"
+
+msgid "/Tableauxsuivispdvs93/tableaub7d2familleprofessionnelle/:menu"
+msgstr "Tableau 7c - Accès à l'emploi selon les secteurs professionnels"
 
 msgid "Tableaub7c.avec.maintien"
 msgstr "Nombre d'accès à l'emploi avec maintien dans l'accompagnement"
