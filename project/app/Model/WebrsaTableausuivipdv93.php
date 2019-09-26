@@ -1315,7 +1315,7 @@
 				if( isset( $data['dont'] ) ) {
 					foreach( $data['dont'] as $categorie2 => $data2 ) {
 						foreach( array( 'total', 'homme', 'femme' ) as $column ) {
-							$return[$categorie]['dont'][$categorie2]["entrees_{$column}_pourcent"] = ( (int)$return[$categorie]['dont'][$categorie2]["entrees_{$column}"] / (int)$return[$categorie]["entrees_{$column}"]) * 100;
+							$return[$categorie]['dont'][$categorie2]["entrees_{$column}_pourcent"] = ( (int)$return[$categorie]['dont'][$categorie2]["entrees_{$column}"] / (int)$return[$categorie]["entrees_total"]) * 100;
 						}
 					}
 				}
