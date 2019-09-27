@@ -331,4 +331,67 @@
 		disableTableauxsuivisFormElmtsOnChange();
 	} );
 	//]]>
+
+	document.getElementById('SearchAnnee').onchange = function () {setAnneeReferentiel();}
+	document.getElementById('SearchYearthematiquefp93Id').onchange = function () {changeTypeWording();}
+
+	function setAnneeReferentiel(){
+		//Get de la vue
+		var valSearchAnnee = $('SearchAnnee').value;
+
+		var optSearchAnnees = document.getElementById("SearchYearthematiquefp93Id");
+	    var i;
+	    var txt;
+	    var found = false;
+	    for (i = 0; i < optSearchAnnees.length; i++) {
+			txt = optSearchAnnees.options[i].value;
+			if( txt == valSearchAnnee ){
+				found = true;
+			}
+		}
+	    if (found == false ) {
+			valSearchAnnee = 2017;
+	    }
+
+		//Set à la vue
+		$('SearchYearthematiquefp93Id').value = valSearchAnnee;
+
+		//Triger
+		changeTypeWording();
+	}
+
+	function changeTypeWording(){
+		//Get de la vue
+		var valAnnee = $('SearchYearthematiquefp93Id').value;
+		var opttypeThematique = document.getElementById("SearchTypethematiquefp93Id");
+
+		var pdi_old = '<?php echo __d( 'thematiquefp93','ENUM::TYPE::pdi_old'); ?>';
+		var horspdi_old = '<?php echo __d( 'thematiquefp93','ENUM::TYPE::horspdi_old'); ?>';
+		var pdi = '<?php echo __d( 'thematiquefp93','ENUM::TYPE::pdi'); ?>';
+		var horspdi = '<?php echo __d( 'thematiquefp93','ENUM::TYPE::horspdi'); ?>';
+
+		for (i = 0; i < opttypeThematique.length; i++) {
+			txt = opttypeThematique.options[i].value;
+			if ( valAnnee <= "2018" ) {
+				if( txt == 'pdi' ){
+					opttypeThematique.options[i].text = pdi_old;
+				}
+				if( txt == 'horspdi' ){
+					opttypeThematique.options[i].text = horspdi_old;
+				}
+			}else{
+				if( txt == 'pdi' ){
+					opttypeThematique.options[i].text = pdi;
+				}
+				if( txt == 'horspdi' ){
+					opttypeThematique.options[i].text = horspdi;
+				}
+			}
+		}
+	}
+
+	document.observe( "dom:loaded", function() {
+		changeTypeWording();
+	} );
+
 </script>
