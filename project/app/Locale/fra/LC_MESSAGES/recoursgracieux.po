@@ -33,8 +33,26 @@ msgstr "Ajout d'un recours gracieux"
 msgid "/Recoursgracieux/edit/:heading"
 msgstr "Édition"
 
+msgid "/Recoursgracieux/affecter/:heading"
+msgstr "Affectation"
+
+msgid "/Recoursgracieux/proposer/:heading"
+msgstr "Proposition"
+
+msgid "/Recoursgracieux/proposer_contestation/:heading"
+msgstr "Proposition contestation"
+
+msgid "/Recoursgracieux/proposer_remise/:heading"
+msgstr "Proposition remise"
+
+msgid "/Recoursgracieux/decider/:heading"
+msgstr "Décision"
+
 msgid "Recoursgracieux::index::emptyRecours"
 msgstr "Cette personne ne possède pas de recours gracieux."
+
+msgid "Recoursgracieux::view::propositions"
+msgstr "Propositions liées à ce recours gracieux"
 
 ###############################################################################
 # Lien
@@ -70,20 +88,47 @@ msgstr "Envoyer un courriel"
 msgid "/Recoursgracieux/affecter"
 msgstr "Affecter un réferent"
 
+msgid "/Recoursgracieux/edit/#Recourgracieux.id#"
+msgstr "Éditer #Recourgracieux.id#"
+
 msgid "/Recoursgracieux/proposer"
 msgstr "Proposition"
+
+msgid "/Recoursgracieux/proposer/#Recourgracieux.id#"
+msgstr "Proposition #Recourgracieux.id#"
+
+msgid "/Recoursgracieux/proposer_contestation"
+msgstr "Ajouter créance"
+
+msgid "/Recoursgracieux/proposer_contestation/#Recourgracieux.id#"
+msgstr "Ajouter créance #Recourgracieux.id#"
+
+msgid "/Recoursgracieux/proposer_remise"
+msgstr "Ajouter créance"
+
+msgid "/Recoursgracieux/proposer_remise/#Recourgracieux.id#"
+msgstr "Ajouter créance #Recourgracieux.id#"
 
 msgid "/Recoursgracieux/decider"
 msgstr "Décision"
 
+msgid "/Recoursgracieux/decider/#Recourgracieux.id#"
+msgstr "Décision #Recourgracieux.id#"
+
 msgid "/Recoursgracieux/envoyer"
 msgstr "Envoi"
 
+msgid "/Recoursgracieux/envoyer/#Recourgracieux.id#"
+msgstr "Envoi #Recourgracieux.id#"
+
 msgid "/Recoursgracieux/traiter"
-msgstr "Traité "
+msgstr "Traiter"
+
+msgid "/Recoursgracieux/deleteproposition"
+msgstr "Supprimer"
 
 msgid "/Recoursgracieux/delete"
-msgstr "Supprimé"
+msgstr "Supprimer"
 
 msgid "/Recoursgracieux/delete/#Creance.id#"
 msgstr "Supprimer ce recours gracieux"
@@ -110,6 +155,28 @@ msgid "since"
 msgstr " depuis le "
 
 ###############################################################################
+# Textes
+###############################################################################
+
+msgid "Recourgracieux::proposer::titleCreance"
+msgstr "Liste des indus du foyer"
+
+msgid "Recourgracieux::proposer::emptyCreances"
+msgstr "Aucun indu pour le foyer"
+
+msgid "Recourgracieux::proposer::Periode"
+msgstr "Periode du "
+
+msgid "Recourgracieux::proposer::to"
+msgstr " au "
+
+msgid "Recourgracieux::proposer::titleCreancerecoursgracieux"
+msgstr "Indus associées"
+
+msgid "Recourgracieux::proposer::emptyCreancesrecoursgracieux"
+msgstr "Aucune Indus associées à la proposition"
+
+###############################################################################
 # Trad des recherches
 ###############################################################################
 
@@ -122,3 +189,61 @@ msgstr "Recherche par recours gracieux de l'allocataire"
 ###############################################################################
 # Champs de recherches
 ###############################################################################
+
+
+
+###############################################################################
+# Champs Proposer
+###############################################################################
+
+msgid "Creancerecoursgracieux.mntindus"
+msgstr "Montant Indus"
+
+msgid "Creancerecoursgracieux.refuscontestation"
+msgstr "Refus de la contestation"
+
+msgid "Creancerecoursgracieux.motifproposrecoursgracieux_id"
+msgstr "Motif de la proposition"
+
+msgid "Creancerecoursgracieux.encours"
+msgstr "En cours"
+
+msgid "Creancerecoursgracieux.mention"
+msgstr "Mention"
+
+msgid "Creancerecoursgracieux.dossierpcg_id"
+msgstr "Dossier PCG"
+
+msgid "YES"
+msgstr "Oui"
+
+msgid "NO"
+msgstr "Non"
+
+msgid "Creancerecoursgracieux.natcre"
+msgstr "Nature"
+
+msgid "Creancerecoursgracieux.rgcre"
+msgstr "Rang"
+
+msgid "Creancerecoursgracieux.mtinicre"
+msgstr "Montant initial"
+
+msgid "Creancerecoursgracieux.dtimplcre"
+msgstr "Date d'implémentation"
+
+msgid "Creancerecoursgracieux.prcentremise"
+msgstr "Pourcentage de remise"
+
+msgid "Creancerecoursgracieux.mntremise"
+msgstr "Montant de la remise"
+
+msgid "Creancerecoursgracieux.mntremiseaffiche"
+msgstr "Montant de la remise"
+
+msgid "Creancerecoursgracieux.perioderegucre"
+msgstr "Période"
+
+msgid "Creancerecoursgracieux.etattitre"
+msgstr "État du titre"
+

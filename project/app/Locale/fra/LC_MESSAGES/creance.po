@@ -523,3 +523,6 @@ msgstr "Titre en cours d’émission"
 
 msgid "ENUM::ETAT::TITREEMIS"
 msgstr "Titre émis"
+
+msgid "Creance.perioderegucre"
+msgstr "Période"

@@ -26,7 +26,8 @@
 				'Recourgracieux.id' => array('type' => 'hidden')
 				),
 			array('options' => $options)
-		);}
+		);
+	}
 	echo $this->Default3->subform(
 		array(
 			'Recourgracieux.foyer_id' => array( 'type' => 'hidden', 'value' => $foyer_id),
@@ -79,7 +80,7 @@
 	document.getElementById('RecourgracieuxDtarriveeMonth').onchange = function () {setDatebutoire();}
 	document.getElementById('RecourgracieuxDtarriveeYear').onchange = function () {	setDatebutoire();}
 
-	function setDatebutoire(statut){
+	function setDatebutoire(){
 		var DtDay = $('RecourgracieuxDtarriveeDay').value;
 		var DtMonth =$('RecourgracieuxDtarriveeMonth').value;
 		var DtYear =$('RecourgracieuxDtarriveeYear').value;

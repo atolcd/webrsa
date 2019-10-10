@@ -3,7 +3,8 @@
 		'WebrsaParametrages/index',
 		array(
 			'cells' => array(
-				'Typerecoursgracieux.nom',
+				'Typerecoursgracieux.name',
+				'Typerecoursgracieux.usage',
 				'Typerecoursgracieux.actif' => array( 'type' => 'boolean' ),
 				'/Typesrecoursgracieux/edit/#Typerecoursgracieux.id#' => array(
 					'title' => true

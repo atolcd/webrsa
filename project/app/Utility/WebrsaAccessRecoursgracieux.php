@@ -31,6 +31,37 @@
 		}
 
 		/**
+		 * Liste les actions disponnible
+		 * Si une action pointe sur un autre controler, il faut préciser son nom
+		 * ex : Moncontroller.monaction
+		 *
+		 * @param array $params
+		 * @return array
+		 */
+		public static function actions(array $params = array()) {
+			$params = self::params($params);
+			$result = self::normalize_actions(
+				array(
+					'add' => array('ajoutPossible' => true),
+					'view',
+					'edit',
+					'filelink',
+					'email',
+					'affecter',
+					'proposer',
+					'proposer_contestation',
+					'proposer_remise',
+					'deleteproposition',
+					'decider',
+					'envoyer',
+					'traiter',
+					'delete'
+				)
+			);
+			return $result;
+		}
+
+		/**
 		 * Permission d'accès
 		 *
 		 * @param array $record
@@ -49,42 +80,8 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function _edit(array $record, array $params) {
+		protected static function _view(array $record, array $params) {
 			return true;
-		}
-
-		/**
-		 * Permission d'accès
-		 *
-		 * @param array $record
-		 * @param array $params
-		 * @return boolean
-		 */
-		protected static function _delete(array $record, array $params) {
-			return true;
-		}
-
-		/**
-		 * Liste les actions disponnible
-		 * Si une action pointe sur un autre controler, il faut préciser son nom
-		 * ex : Moncontroller.monaction
-		 *
-		 * @param array $params
-		 * @return array
-		 */
-		public static function actions(array $params = array()) {
-			$params = self::params($params);
-			$result = self::normalize_actions(
-				array(
-					'add' => array('ajoutPossible' => true),
-					'view',
-					'edit',
-					'delete',
-					'filelink'
-				)
-			);
-
-			return $result;
 		}
 
 		/**
@@ -105,9 +102,174 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function _view(array $record, array $params) {
+		protected static function _email(array $record, array $params) {
+			if (
+				$record['Recourgracieux']['etat'] == 'ATTSIGNATURE'
+				|| $record['Recourgracieux']['etat'] == 'ATTINSTRUCTION'
+			){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _edit(array $record, array $params) {
+			if (
+				$record['Recourgracieux']['etat'] == 'ATTAFECT'
+			){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _affecter(array $record, array $params) {
+			if (
+				$record['Recourgracieux']['etat'] == 'ATTAFECT'
+			){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _proposer(array $record, array $params) {
+			if (
+				$record['Recourgracieux']['etat'] == 'ATTINSTRUCTION'
+			){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _proposer_contestation(array $record, array $params) {
+			if (
+				$record['Recourgracieux']['etat'] == 'ATTINSTRUCTION'
+			){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _proposer_remise(array $record, array $params) {
+			if (
+				$record['Recourgracieux']['etat'] == 'ATTINSTRUCTION'
+			){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _deleteproposition(array $record, array $params) {
 			return true;
 		}
 
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _decider(array $record, array $params) {
+			if (
+				$record['Recourgracieux']['etat'] == 'ATTVALIDATION'
+			){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _envoyer(array $record, array $params) {
+			if (
+				$record['Recourgracieux']['etat'] == 'ATTSIGNATURE'
+			){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _traiter(array $record, array $params) {
+			if (
+				$record['Recourgracieux']['etat'] == 'ATTSIGNATURE'
+				|| $record['Recourgracieux']['etat'] == 'ATTENVOIE'
+			){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _delete(array $record, array $params) {
+			return true;
+		}
 	}
 ?>

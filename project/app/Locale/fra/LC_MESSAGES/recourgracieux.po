@@ -45,6 +45,11 @@ msgstr "Dossier traité et notifié"
 msgid "ENUM::ETAT::ANNULER"
 msgstr "Dossier Annulé"
 
+msgid "ENUM::HASPIECEJOINTE::0"
+msgstr "Non"
+
+msgid "ENUM::HASPIECEJOINTE::1"
+msgstr "Oui"
 
 ###############################################################################
 # Champs Add et Edit
@@ -70,10 +75,16 @@ msgstr "Type du dossier"
 msgid "Recourgracieux.dtaffectation"
 msgstr "Date d'affectation du dossier"
 
+msgid "Recourgracieux.poledossierpcg66_id"
+msgstr "Pôle du Gestionnaire"
+
 msgid "Recourgracieux.user_id"
 msgstr "Gestionnaire du dossier"
 
 msgid "Recourgracieux.etatDepuis"
+msgstr "État"
+
+msgid "Recourgracieux.etat"
 msgstr "État"
 
 # ==============================================================================

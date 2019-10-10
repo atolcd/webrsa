@@ -3,7 +3,7 @@
 		'WebrsaParametrages/index',
 		array(
 			'cells' => array(
-				'Originerecoursgracieux.nom',
+				'Originerecoursgracieux.name',
 				'Originerecoursgracieux.actif' => array( 'type' => 'boolean' ),
 				'/Originesrecoursgracieux/edit/#Originerecoursgracieux.id#' => array(
 					'title' => true

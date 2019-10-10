@@ -70,6 +70,15 @@
 			'view' => 'read',
 			'add' => 'create',
 			'edit' => 'update',
+			'affecter' => 'create',
+			'email' => 'update',
+			'proposer' => 'update',
+			'proposer_contestation' => 'update',
+			'proposer_remise' => 'update',
+			'deleteproposition' => 'delete',
+			'decider' => 'update',
+			'envoyer' => 'update',
+			'traiter' => 'update',
 			'delete' => 'delete',
 			'search' => 'read',
 			'filelink' => 'read',
@@ -90,9 +99,12 @@
 			'WebrsaRecourgracieux',
 			'Originerecoursgracieux',
 			'Typerecoursgracieux',
+			'Creancerecoursgracieux',
+			'Motifproposrecoursgracieux',
 			'Dossier',
 			'Foyer',
 			'Personne',
+			'User',
 			'Option',
 			'Historiqueetat'
 			);
@@ -158,8 +170,22 @@
 					)
 				)
 			);
-
+			if ( !empty($recoursgracieux) ){
+				foreach ($recoursgracieux as $key => $recourgracieux) {
+					$recoursgracieux[$key]['Recourgracieux']['etatDepuis'] =
+						__d('recourgracieux', 'ENUM::ETAT::'
+							.$recoursgracieux[$key]['Recourgracieux']['etat'])
+							.__m('since')
+							.date('d/m/Y', strtotime( $recoursgracieux[$key]['Recourgracieux']['modified'] )
+						);
+				}
+			}
 			// Assignations à la vue
+			$this->set( 'options', array_merge(
+					$this->Recourgracieux->options(),
+					$this->Recourgracieux->enums()
+				)
+			);
 			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'recoursgracieux', $recoursgracieux );
 			$this->set( 'urlmenu', '/recoursgracieux/index/'.$foyer_id );
@@ -195,15 +221,61 @@
 					)
 				)
 			);
+			if ( !empty($recoursgracieux) ){
+				$typerecoursgracieux = $this->Recourgracieux->Typerecoursgracieux->find(
+					'first',
+					array(
+						'fields' => array_merge(
+							$this->Typerecoursgracieux->fields()
+						),
+						'conditions' => array(
+							'Typerecoursgracieux.id' => $recoursgracieux[0]['Recourgracieux']['typerecoursgracieux_id']
+						),
+						'contain' => FALSE
+					)
+				);
+				foreach ($recoursgracieux as $key => $recourgracieux) {
+					$recoursgracieux[$key]['Recourgracieux']['etatDepuis'] =
+						__d('recourgracieux', 'ENUM::ETAT::'
+							.$recoursgracieux[$key]['Recourgracieux']['etat'])
+							.__m('since')
+							.date('d/m/Y', strtotime( $recoursgracieux[$key]['Recourgracieux']['modified'] )
+						);
+				}
+				$propositions = $this->Creancerecoursgracieux->find(
+						'all',
+						array(
+							'fields' => array_merge(
+								$this->Creancerecoursgracieux->fields()
+							),
+							'conditions' => array(
+								'Creancerecoursgracieux.recours_id' => $recourgracieux_id
+							),
+						)
+					);
+			}
+
+			//ListMotifs
+			$listMotifs = $this->Motifproposrecoursgracieux->find(
+				'list',
+				array(
+					'fields' => array ('id', 'nom')
+				)
+			);
+			$this->set( 'listMotifs', $listMotifs );
 
 			// Assignation à la vue
 			$this->set( 'options', array_merge(
 					$this->Recourgracieux->options(),
-					$this->Recourgracieux->enums()
+					$this->Recourgracieux->enums(),
+					$this->Recourgracieux->Foyer->Creance->enums(),
+					$this->Recourgracieux->Foyer->Creance->Titrecreancier->enums()
 				)
 			);
 			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'recoursgracieux', $recoursgracieux );
+			$this->set( 'typerecoursgracieux', $typerecoursgracieux );
+			$this->set( 'propositions', $propositions );
 			$this->set( 'urlmenu', '/recoursgracieux /view/'.$recourgracieux_id );
 		}
 
@@ -311,6 +383,492 @@
 			$this->set( 'foyer_id', $foyer_id );
 			$this->render( 'add_edit' );
 
+		}
+
+		/**
+		 * Fonction de gestion des email
+		 *
+		 * @param integer $id L'id technique dans la table recoursgracieux.
+		 * @return void
+		 *
+		 */
+		public function email($id = null) {
+
+			$this->WebrsaAccesses->check($id);
+			$this->Recourgracieux->id = $id;
+			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+
+			$this->set( 'urlmenu', '/recoursgracieux/index/'.$foyer_id );
+			$this->set( 'foyer_id', $foyer_id );
+		}
+
+		/**
+		 * Fonction de gestion des affectations
+		 *
+		 * @param integer $id L'id technique dans la table recoursgracieux.
+		 * @return void
+		 *
+		 */
+		public function affecter($id = null) {
+
+			$this->WebrsaAccesses->check($id);
+			$this->Recourgracieux->id = $id;
+			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$dossier_id = $this->Recourgracieux->dossierId( $id );
+
+			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
+			$this->Jetons2->get( $dossier_id );
+
+			// Retour à l'index en cas d'annulation
+			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->Jetons2->release( $dossier_id );
+				$this->redirect( array( 'action' => 'index', $foyer_id ) );
+			}
+
+			// Essai de sauvegarde
+			if( !empty( $this->request->data ) ) {
+				$this->Recourgracieux->begin();
+				$data = $this->request->data;
+
+				if( $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) ) &&
+					$this->Recourgracieux->save( $data ) ) {
+					$this->Recourgracieux->commit();
+					$this->Jetons2->release( $dossier_id );
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect( array( 'controller' => 'Recoursgracieux', 'action' => 'index', $foyer_id ) );
+				} else {
+					$this->Recourgracieux->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+			}
+
+			// Affichage des données
+			$recoursgracieux = $this->Recourgracieux->find(
+				'first',
+				array(
+					'fields' => array_merge(
+						$this->Recourgracieux->fields()
+					),
+					'conditions' => array(
+						'Recourgracieux.id' => $id
+					),
+					'contain' => FALSE
+				)
+			);
+			if (!empty( $recoursgracieux ) ){
+				// Assignation au formulaire
+				$this->request->data = $recoursgracieux;
+			}
+
+			// Assignation à la vue
+			$options = array_merge(
+				$this->Recourgracieux->options(),
+				$this->Recourgracieux->enums()
+			);
+			$options = $this->User->Poledossierpcg66->WebrsaPoledossierpcg66->completeOptions(
+				$options,
+				array($recoursgracieux),
+				array('prefix' => true )
+			);
+			$this->set( 'options',$options );
+			$this->set( 'urlmenu', '/recoursgracieux/index/'.$foyer_id );
+			$this->set( 'foyer_id', $foyer_id );
+		}
+
+		/**
+		 * Fonction de gestion des propositions
+		 *
+		 * @param integer $id L'id technique dans la table recoursgracieux.
+		 * @return void
+		 *
+		 */
+		public function proposer($id = null) {
+			$this->WebrsaAccesses->check($id);
+			$this->Recourgracieux->id = $id;
+			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$dossier_id = $this->Recourgracieux->dossierId( $id );
+
+			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
+			$this->Jetons2->get( $dossier_id );
+
+			// Retour à l'index en cas d'annulation
+			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->Jetons2->release( $dossier_id );
+				$this->redirect( array( 'action' => 'index', $foyer_id ) );
+			}
+
+			// Essai de sauvegarde
+			if( !empty( $this->request->data ) ) {
+				$this->Recourgracieux->begin();
+				$data = $this->request->data;
+				if( $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) ) &&
+					$this->Recourgracieux->save( $data ) ) {
+					$this->Recourgracieux->commit();
+					$this->Jetons2->release( $dossier_id );
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect( array( 'controller' => 'Recoursgracieux', 'action' => 'index', $foyer_id ) );
+				} else {
+					$this->Recourgracieux->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+			}else {
+				// Affichage des données
+				$recoursgracieux = $this->Recourgracieux->find(
+					'first',
+					array(
+						'fields' => array_merge(
+							$this->Recourgracieux->fields()
+						),
+						'conditions' => array(
+							'Recourgracieux.id' => $id
+						),
+						'contain' => FALSE
+					)
+				);
+
+				if (!empty( $recoursgracieux ) ){
+					// Affichage des données
+					$typerecoursgracieux = $this->Recourgracieux->Typerecoursgracieux->find(
+						'first',
+						array(
+							'fields' => array_merge(
+								$this->Typerecoursgracieux->fields()
+							),
+							'conditions' => array(
+								'Typerecoursgracieux.id' => $recoursgracieux['Recourgracieux']['typerecoursgracieux_id']
+							),
+							'contain' => FALSE
+						)
+					);
+					// Assignation au formulaire
+					$this->request->data = array_merge( $recoursgracieux, $typerecoursgracieux);
+
+					$propositions = $this->Creancerecoursgracieux->find(
+						'all',
+						array(
+							'fields' => array_merge(
+								$this->Creancerecoursgracieux->fields()
+							),
+							'conditions' => array(
+								'Creancerecoursgracieux.recours_id' => $id
+							),
+						)
+					);
+					if ( ! empty ($propositions) ) {
+						foreach ($propositions as $key => $proposition ) {
+							$propositions[$key]['Creancerecoursgracieux']['perioderegucre'] =
+								__m('Recourgracieux::proposer::Periode').
+								$proposition['Creancerecoursgracieux']['ddregucre'].
+								__m('Recourgracieux::proposer::to').
+								$proposition['Creancerecoursgracieux']['dfregucre'];
+						}
+					}
+					//Assignation au formulaire
+					$this->set( 'creancesrecoursgracieux',$propositions );
+
+					$creances = $this->Recourgracieux->Foyer->Creance->find(
+						'all',
+						array(
+							'recursive' => 0,
+							'fields' => array_merge(
+								$this->Recourgracieux->Foyer->Creance->fields(),
+								$this->Recourgracieux->Foyer->Creance->Titrecreancier->fields()
+							),
+							'conditions' => array(
+								'Recourgracieux.id' => $id
+							),
+							'joins' => array(
+								$this->Recourgracieux->Foyer->join('Recourgracieux', array('type'=>'INNER'))
+							)
+						)
+					);
+					foreach ($creances as $key => $creance) {
+						$creances[$key]['Creance']['perioderegucre'] =
+							__m('Recourgracieux::proposer::Periode').
+							$creance['Creance']['ddregucre'].
+							__m('Recourgracieux::proposer::to').
+							$creance['Creance']['dfregucre'];
+					}
+					//Assignation au formulaire
+					$this->set( 'creances',$creances );
+				}
+			}
+
+			//ListMotifs
+			$listMotifs = $this->Motifproposrecoursgracieux->find(
+				'list',
+				array(
+					'fields' => array ('id', 'nom')
+				)
+			);
+			$this->set( 'listMotifs', $listMotifs );
+			// Assignation à la vue
+			$this->set( 'options', array_merge(
+					$this->Recourgracieux->options(),
+					$this->Recourgracieux->enums(),
+					$this->Recourgracieux->Foyer->Creance->enums(),
+					$this->Recourgracieux->Foyer->Creance->Titrecreancier->enums()
+				)
+			);
+			$this->set( 'urlmenu', '/recoursgracieux/index/'.$foyer_id );
+			$this->set( 'foyer_id', $foyer_id );
+		}
+
+		/**
+		 * Fonction de gestion des propositions_contestation
+		 *
+		 * @param integer $id L'id technique dans la table recoursgracieux.
+		 * @return void
+		 *
+		 */
+		public function proposer_contestation($creance_id = null,$recourgracieux_id = null,$typerecoursgracieux_id = null) {
+			$this->WebrsaAccesses->check($recourgracieux_id);
+			$this->Recourgracieux->id = $recourgracieux_id;
+			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$dossier_id = $this->Recourgracieux->dossierId( $recourgracieux_id );
+
+			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
+			$this->Jetons2->get( $dossier_id );
+
+			// Retour à l'index en cas d'annulation
+			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->Jetons2->release( $dossier_id );
+				$this->redirect( array( 'action' => 'index', $foyer_id ) );
+			}
+
+			// Essai de sauvegarde
+			if( !empty( $this->request->data ) ) {
+				$this->Creancerecoursgracieux->begin();
+				$data = $this->request->data;
+				if( $this->Creancerecoursgracieux->saveAll( $data, array( 'validate' => 'only' ) ) &&
+					$this->Creancerecoursgracieux->save( $data ) ) {
+					$this->Creancerecoursgracieux->commit();
+					$this->Jetons2->release( $dossier_id );
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect( array( 'controller' => 'Recoursgracieux', 'action' => 'proposer', $recourgracieux_id ) );
+				} else {
+					$this->Recourgracieux->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+			}else {
+				// Affichage des données
+				$recoursgracieux = $this->Recourgracieux->find(
+					'first',
+					array(
+						'fields' => array_merge(
+							$this->Recourgracieux->fields()
+						),
+						'conditions' => array(
+							'Recourgracieux.id' => $recourgracieux_id
+						),
+						'contain' => FALSE
+					)
+				);
+
+				if (!empty( $recoursgracieux ) ){
+					// Affichage des données
+					$typerecoursgracieux = $this->Recourgracieux->Typerecoursgracieux->find(
+						'first',
+						array(
+							'fields' => array_merge(
+								$this->Typerecoursgracieux->fields()
+							),
+							'conditions' => array(
+								'Typerecoursgracieux.id' => $recoursgracieux['Recourgracieux']['typerecoursgracieux_id']
+							),
+							'contain' => FALSE
+						)
+					);
+					// Assignation au formulaire
+					$this->request->data = array_merge( $recoursgracieux, $typerecoursgracieux);
+
+					$creances = $this->Recourgracieux->Foyer->Creance->find(
+						'first',
+						array(
+							'recursive' => 0,
+							'fields' => array_merge(
+								$this->Recourgracieux->Foyer->Creance->fields(),
+								$this->Recourgracieux->Foyer->Creance->Titrecreancier->fields()
+							),
+							'conditions' => array(
+								'Creance.id' => $creance_id
+							),
+							'joins' => array(
+								$this->Recourgracieux->Foyer->join('Recourgracieux', array('type'=>'INNER'))
+							)
+						)
+					);
+					$creances['Creance']['perioderegucre'] =
+						__m('Recourgracieux::proposer::Periode').
+						$creances['Creance']['ddregucre'].
+						__m('Recourgracieux::proposer::to').
+						$creances['Creance']['dfregucre'];
+					//Assignation au formulaire
+					$this->set( 'creances',$creances );
+				}
+			}
+
+			// Assignation à la vue
+			//ListMotifs
+			$listMotifs = $this->Motifproposrecoursgracieux->find(
+				'list',
+				array(
+					'fields' => array ('id', 'nom')
+				)
+			);
+			$this->set( 'listMotifs', $listMotifs );
+			$this->set( 'options', array_merge(
+					$this->Recourgracieux->options(),
+					$this->Recourgracieux->enums(),
+					$this->Recourgracieux->Foyer->Creance->enums(),
+					$this->Recourgracieux->Foyer->Creance->Titrecreancier->enums()
+				)
+			);
+			$this->set( 'urlmenu', '/recoursgracieux/index/'.$foyer_id );
+			$this->set( 'foyer_id', $foyer_id );
+		}
+
+		/**
+		 * Fonction de gestion des proposer_remise
+		 *
+		 * @param integer $id L'id technique dans la table recoursgracieux.
+		 * @return void
+		 *
+		 */
+		public function proposer_remise($creance_id = null,$recourgracieux_id = null,$typerecoursgracieux_id = null) {
+			$this->WebrsaAccesses->check($recourgracieux_id);
+			$this->Recourgracieux->id = $recourgracieux_id;
+			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$dossier_id = $this->Recourgracieux->dossierId( $recourgracieux_id );
+
+			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
+			$this->Jetons2->get( $dossier_id );
+
+			// Retour à l'index en cas d'annulation
+			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->Jetons2->release( $dossier_id );
+				$this->redirect( array( 'action' => 'index', $foyer_id ) );
+			}
+
+			// Essai de sauvegarde
+			if( !empty( $this->request->data ) ) {
+				$this->Creancerecoursgracieux->begin();
+				$data = $this->request->data;
+				if( $this->Creancerecoursgracieux->saveAll( $data, array( 'validate' => 'only' ) ) &&
+					$this->Creancerecoursgracieux->save( $data ) ) {
+					$this->Creancerecoursgracieux->commit();
+					$this->Jetons2->release( $dossier_id );
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect( array( 'controller' => 'Recoursgracieux', 'action' => 'proposer', $recourgracieux_id ) );
+				} else {
+					$this->Recourgracieux->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+			}else {
+				// Affichage des données
+				$recoursgracieux = $this->Recourgracieux->find(
+					'first',
+					array(
+						'fields' => array_merge(
+							$this->Recourgracieux->fields()
+						),
+						'conditions' => array(
+							'Recourgracieux.id' => $recourgracieux_id
+						),
+						'contain' => FALSE
+					)
+				);
+
+				if (!empty( $recoursgracieux ) ){
+					// Affichage des données
+					$typerecoursgracieux = $this->Recourgracieux->Typerecoursgracieux->find(
+						'first',
+						array(
+							'fields' => array_merge(
+								$this->Typerecoursgracieux->fields()
+							),
+							'conditions' => array(
+								'Typerecoursgracieux.id' => $recoursgracieux['Recourgracieux']['typerecoursgracieux_id']
+							),
+							'contain' => FALSE
+						)
+					);
+					// Assignation au formulaire
+					$this->request->data = array_merge( $recoursgracieux, $typerecoursgracieux);
+
+					$creances = $this->Recourgracieux->Foyer->Creance->find(
+						'first',
+						array(
+							'recursive' => 0,
+							'fields' => array_merge(
+								$this->Recourgracieux->Foyer->Creance->fields(),
+								$this->Recourgracieux->Foyer->Creance->Titrecreancier->fields()
+							),
+							'conditions' => array(
+								'Creance.id' => $creance_id
+							),
+							'joins' => array(
+								$this->Recourgracieux->Foyer->join('Recourgracieux', array('type'=>'INNER'))
+							)
+						)
+					);
+					$creances['Creance']['perioderegucre'] =
+						__m('Recourgracieux::proposer::Periode').
+						$creances['Creance']['ddregucre'].
+						__m('Recourgracieux::proposer::to').
+						$creances['Creance']['dfregucre'];
+					//Assignation au formulaire
+					$this->set( 'creances',$creances );
+				}
+			}
+
+			// Assignation à la vue
+			//ListMotifs
+			$listMotifs = $this->Motifproposrecoursgracieux->find(
+				'list',
+				array(
+					'fields' => array ('id', 'nom')
+				)
+			);
+			$this->set( 'listMotifs', $listMotifs );
+			$this->set( 'options', array_merge(
+					$this->Recourgracieux->options(),
+					$this->Recourgracieux->enums(),
+					$this->Recourgracieux->Foyer->Creance->enums(),
+					$this->Recourgracieux->Foyer->Creance->Titrecreancier->enums()
+				)
+			);
+			$this->set( 'urlmenu', '/recoursgracieux/index/'.$foyer_id );
+			$this->set( 'foyer_id', $foyer_id );
+		}
+
+		/**
+		 * Supprime une proposition d'un recours
+		 *
+		 * @param integer $id L'id technique du recours gracieux a supprimé
+		 * @return void
+		 */
+		public function deleteproposition($id) {
+				$this->WebrsaAccesses->check($id);
+				$proposition = $this->Creancerecoursgracieux->find(
+					'first',
+					array(
+						'fields' => array_merge(
+							$this->Creancerecoursgracieux->fields()
+						),
+						'conditions' => array(
+							'Creancerecoursgracieux.id' => $id
+						),
+					)
+				);
+				$success = $this->Creancerecoursgracieux->delete( $id );
+				if( $success ) {
+					$this->Flash->success( __( 'Delete->success' ) );
+				}
+				else {
+					$this->Flash->error( __( 'Delete->error' ) );
+				}
+				$this->redirect( array( 'controller' => 'recoursgracieux', 'action' => 'proposer', $proposition['Creancerecoursgracieux']['recours_id'] ) );
 		}
 
 		/**

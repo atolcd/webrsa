@@ -11,7 +11,7 @@ msgstr ""
 # ==============================================================================
 
 msgid "/Originesrecoursgracieux/index/:heading"
-msgstr "Paramétrage des types d'annulation/réduction des titres de recette"
+msgstr "Paramétrage des origines des recours gracieux"
 
 msgid "/Originesrecoursgracieux/add/:heading"
 msgstr "Ajout d'une origine de recours gracieux"
@@ -40,8 +40,8 @@ msgstr "Supprimer l'origine de recours gracieux « #Originesrecoursgracieux.nom#
 msgid "/Originesrecoursgracieux/delete/#Originesrecoursgracieux.id# ?"
 msgstr "Réellement supprimer l'origine de recours gracieux « #Originesrecoursgracieux.nom# » ?"
 
-msgid "Originesrecoursgracieux.nom"
-msgstr "Nom du type"
+msgid "Originerecoursgracieux.name"
+msgstr "Nom de l'origine"
 
-msgid "Originesrecoursgracieux.actif"
+msgid "Originerecoursgracieux.actif"
 msgstr "Actif"

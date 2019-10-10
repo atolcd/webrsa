@@ -68,6 +68,7 @@
 			$query = array(
 				'fields' => array(
 					'Recourgracieux.id',
+					'Recourgracieux.etat',
 					'Foyer.id',
 					'Personne.id',
 				),

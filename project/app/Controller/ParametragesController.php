@@ -207,6 +207,9 @@
 							),
 							'Types' => array(
 								'url' => array( 'controller' => 'typesrecoursgracieux', 'action' => 'index' )
+							),
+							'Motifs Propositions' => array(
+								'url' => array( 'controller' => 'motifsproposrecoursgracieux', 'action' => 'index' )
 							)
 						);
 				}

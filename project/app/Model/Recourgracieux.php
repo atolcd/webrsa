@@ -74,7 +74,48 @@
 				'conditions' => '',
 				'fields' => '',
 				'order' => ''
-			)
+			),
+	        'User' => array(
+	            'className' => 'User',
+	            'foreignKey' => 'user_id',
+	            'conditions' => '',
+	            'fields' => '',
+	            'order' => ''
+	        )
+		);
+
+		/**
+		 * Associations "Has one".
+		 *
+		 * @var array
+		 */
+		public $hasOne = array(
+			'Typerecoursgracieux' => array(
+				'className' => 'Typerecoursgracieux',
+				'foreignKey' => 'typerecoursgracieux_id',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
+			'Originerecoursgracieux' => array(
+				'className' => 'Originerecoursgracieux',
+				'foreignKey' => 'originerecoursgracieux_id',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
 		);
 
 		/**
@@ -83,23 +124,13 @@
 		 * @var array
 		 */
 		public $hasMany = array(
-			'Typerecoursgracieux' => array(
-				'className' => 'Typerecoursgracieux',
-				'foreignKey' => 'typerecoursgracieux_id',
+			'Creancerecoursgracieux' => array(
+				'className' => 'Creancerecoursgracieux',
+				'foreignKey' => 'recours_id',
 				'conditions' => null,
-				'type' => 'LEFT OUTER',
 				'fields' => null,
 				'order' => null,
-				'counterCache' => null
-			),
-			'Originerecoursgracieux' => array(
-				'className' => 'Originerecoursgracieux',
-				'foreignKey' => 'originerecoursgracieux_id',
-				'conditions' => null,
-				'type' => 'LEFT OUTER',
-				'fields' => null,
-				'order' => null,
-				'counterCache' => null
+				'dependent' => true
 			),
 			'Fichiermodule' => array(
 				'className' => 'Fichiermodule',
@@ -179,6 +210,10 @@
 			$options['Originerecoursgracieux']['origine_actif'] = ClassRegistry::init( 'Originerecoursgracieux' )->find( 'list', array( 'conditions' => array( 'actif' => true ) ) );
 			$options['Typerecoursgracieux']['type'] = ClassRegistry::init( 'Typerecoursgracieux' )->find( 'list' );
 			$options['Typerecoursgracieux']['type_actif'] = ClassRegistry::init( 'Typerecoursgracieux' )->find( 'list', array( 'conditions' => array( 'actif' => true ) ) );
+			$options['Poledossierpcg66']['name_actif'] = ClassRegistry::init( 'Poledossierpcg66' )->find( 'list', array( 'conditions' => array( 'isactif' => true ) ) );
+			$options['Poledossierpcg66']['name'] = ClassRegistry::init( 'Poledossierpcg66' )->find( 'list' );
+			$options['Dossierpcg66']['prefix_user_id'] = $this->User->WebrsaUser->gestionnaires( true, true );
+			$options['Dossierpcg66']['user_id'] = $this->User->WebrsaUser->gestionnaires( true, false );
 			return $options;
 		}
 

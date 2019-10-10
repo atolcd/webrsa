@@ -40,8 +40,11 @@ msgstr "Supprimer le type de recours gracieux « #Typesrecoursgracieux.nom# »"
 msgid "/Typesrecoursgracieux/delete/#Typesrecoursgracieux.id# ?"
 msgstr "Réellement supprimer le type de recours gracieux « #Typesrecoursgracieux.nom# » ?"
 
-msgid "Typesrecoursgracieux.nom"
+msgid "Typerecoursgracieux.name"
 msgstr "Nom du type"
 
-msgid "Typesrecoursgracieux.actif"
+msgid "Typerecoursgracieux.usage"
+msgstr "Usage"
+
+msgid "Typerecoursgracieux.actif"
 msgstr "Actif"

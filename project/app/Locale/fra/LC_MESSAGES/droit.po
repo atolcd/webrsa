@@ -4353,22 +4353,52 @@ msgid "controllers/Recoursgracieux"
 msgstr "Recours gracieux"
 
 msgid "controllers/Recoursgracieux/add"
-msgstr "Ajout Recours gracieux"
+msgstr "Ajout des recours gracieux"
 
 msgid "controllers/Recoursgracieux/edit"
-msgstr "Edition Recours gracieux"
+msgstr "Edition des recours gracieux"
 
 msgid "controllers/Recoursgracieux/exportcsv"
 msgstr "Export CSV Recours gracieux"
 
 msgid "controllers/Recoursgracieux/filelink"
-msgstr "Ajout d'un fichier Recours gracieux"
+msgstr "Ajout d'un fichier aux recours gracieux"
 
 msgid "controllers/Recoursgracieux/index"
-msgstr "Visualisation Recours gracieux"
+msgstr "Visualisation des recours gracieux"
+
+msgid "controllers/Recoursgracieux/affecter"
+msgstr "Affectation du réferent des recours gracieux"
+
+msgid "controllers/Recoursgracieux/email"
+msgstr "Envoit d'email des recours gracieux"
+
+msgid "controllers/Recoursgracieux/proposer"
+msgstr "Proposition de décision générale des recours gracieux"
+
+msgid "controllers/Recoursgracieux/proposer_contestation"
+msgstr "Proposition de décision de contestation des recours gracieux"
+
+msgid "controllers/Recoursgracieux/proposer_remise"
+msgstr "Proposition de décision de remise des recours gracieux"
+
+msgid "controllers/Recoursgracieux/deleteproposition"
+msgstr "Supprimer une proposition de décision de remise des recours gracieux"
+
+msgid "controllers/Recoursgracieux/decider"
+msgstr "Décision des recours gracieux"
+
+msgid "controllers/Recoursgracieux/proposer"
+msgstr "Proposition de décision des recours gracieux"
+
+msgid "controllers/Recoursgracieux/envoyer"
+msgstr "Décision des recours gracieux"
+
+msgid "controllers/Recoursgracieux/traiter"
+msgstr "Traitement des recours gracieux"
 
 msgid "controllers/Recoursgracieux/search"
-msgstr "Recherche Recours gracieux"
+msgstr "Recherche sur les recours gracieux"
 
 # Origines
 msgid "controllers/Originesrecoursgracieux"
@@ -4401,6 +4431,22 @@ msgstr "Edition des types de recours gracieux"
 
 msgid "controllers/Typesrecoursgracieux/index"
 msgstr "Visualisation des types de recours gracieux"
+
+# Motifs proposition
+msgid "controllers/Motifsproposrecoursgracieux"
+msgstr "Motifs de proposition des recours gracieux"
+
+msgid "controllers/Motifsproposrecoursgracieux/add"
+msgstr "Ajout des motifs de proposition des recours gracieux"
+
+msgid "controllers/Motifsproposrecoursgracieux/delete"
+msgstr "Suppression des motifs de proposition des recours gracieux"
+
+msgid "controllers/Motifsproposrecoursgracieux/edit"
+msgstr "Édition des motifs de proposition des recours gracieux"
+
+msgid "controllers/Motifsproposrecoursgracieux/index"
+msgstr "Visualisation des motifs de proposition des recours gracieux"
 
 ###############################################################################
 ## Questionniare B7

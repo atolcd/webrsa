@@ -15,9 +15,13 @@ if( empty( $recoursgracieux ) ) {
 				'Recourgracieux.dtarrivee',
 				'Recourgracieux.dtbutoire',
 				'Recourgracieux.dtreception',
-				'Recourgracieux.originerecoursgracieux_id',
+				'Recourgracieux.originerecoursgracieux_id' => array(
+					'options' => $options['Originerecoursgracieux']['origine']
+				),
 				'Recourgracieux.dtaffectation',
-				'Recourgracieux.user_id',
+				'Recourgracieux.user_id' => array(
+					'options' =>  $options['Dossierpcg66']['user_id']
+				),
 				'Recourgracieux.etatDepuis',
 			)+ WebrsaAccess::links(
 				array(

@@ -503,6 +503,7 @@ $irregularPlural = array(
     'titresuiviannulationreduction' => 'titressuivisannulationsreductions',
 	//Recours gracieux
 	'recourgracieux' => 'recoursgracieux',
+	'creancerecoursgracieux' => 'creancesrecoursgracieux',
 	//Rapport talends
 	'rapporttalendcreance' => 'rapportstalendscreances',
 	'rejettalendcreance' => 'rejetstalendscreances',
