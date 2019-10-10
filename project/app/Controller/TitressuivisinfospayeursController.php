@@ -212,7 +212,7 @@
 					'conditions' => array('Titresuiviinfopayeur.id' => $this->request->params['pass'][0])
 				));
 			}
-			$options = $this->Typetitrecreancierinfopayeur->find('list', array(
+			$options['Typetitrecreancierinfopayeur'] = $this->Typetitrecreancierinfopayeur->find('list', array(
 				'fields' => 'Typetitrecreancierinfopayeur.nom',
 				'conditions' => array( 'actif' => true ) ) );
 			$options = array_merge($options, $this->Titrecreancier->options() );

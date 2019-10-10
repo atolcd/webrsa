@@ -24,7 +24,7 @@ if( empty( $titresCreanciers ) ) {
 		$titreEnCours,
 		$this->Translator->normalize(
 			array(
-				'Titrecreancier.dtemissiontitre' => array('label' => __d('titrescreanciers', 'Titrecreancier.dtemissiontitre') ),
+				'Titrecreancier.dtbordereau' => array('label' => __d('titrescreanciers', 'Titrecreancier.dtbordereau') ),
 				'Titrecreancier.numtitr' => array('label' => __d('titrescreanciers', 'Titrecreancier.numtitr') ),
 				'Titrecreancier.mnttitr' => array('label' => __d('titrescreanciers', 'Titrecreancier.mnttitr') ),
 				'Titrecreancier.typetitrecreancier_id' => array(

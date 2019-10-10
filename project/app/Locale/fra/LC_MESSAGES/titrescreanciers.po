@@ -146,14 +146,14 @@ msgid "Titrecreancier::search::numbordereau"
 msgstr "Numéro de bordereau"
 
 msgid "Titrecreancier::search::motif"
-msgstr "Émission"
+msgstr "Émission :"
 
 ###############################################################################
 # Champs de recherches
 ###############################################################################
 
 msgid "Titrecreancier.dtemissiontitre"
-msgstr "Date d'émission du titre"
+msgstr "Date de création du titre"
 
 msgid "Titrecreancier.etat"
 msgstr "État du titre"
@@ -260,7 +260,7 @@ msgid "Titrecreancier.localite"
 msgstr "Commune de résidence"
 
 msgid "Titrecreancier.datemotifemission"
-msgstr "Date d'émission du motif"
+msgstr "Date du motif d'émission"
 
 ###############################################################################
 # titre et textes
@@ -303,7 +303,7 @@ msgid "Validation"
 msgstr "Validation de l'avis"
 
 msgid "Titrecreancier::avis::motifemission"
-msgstr "Émission"
+msgstr "Émission :"
 
 msgid "YES"
 msgstr "OUI"

@@ -48,7 +48,7 @@ if( empty( $titresCreanciers ) ) {
 				'type' => 'select',
 				'required' => true,
 				'empty' => false,
-				'options' => $options,
+				'options' => $options['Typetitrecreancierinfopayeur' ],
 				'value' => $titresInfosEnCours['Titresuiviinfopayeur']['typesinfopayeur_id']
 				),
 			'Titresuiviinfopayeur.dtenvoipayeur' => array('type' => 'date', 'dateFormat' => 'DMY'),

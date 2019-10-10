@@ -218,12 +218,12 @@
 				'disabled' => ( $departement != 66 ),
 				'url' => array( 'controller' => 'bilansparcours66', 'action' => 'search'  ),
 			),
-			'Pôle Emploi' => array(
+			'Par Pôle Emploi' => array(
 				'disabled' => ( $departement != 66 ),
 				'Non inscrits au Pôle Emploi' => array( 'class' => 'search', 'url' => array( 'controller' => 'defautsinsertionseps66', 'action' => 'search_noninscrits'  ) ),
 				'Radiés de Pôle Emploi' => array( 'class' => 'search', 'url' => array( 'controller' => 'defautsinsertionseps66', 'action' => 'search_radies'  ) ),
 			),
-			'Demande de maintien dans le social' => array(
+			'Par demande de maintien dans le social' => array(
 				'class' => 'search',
 				'disabled' => ( $departement != 66 ),
 				'url' => array( 'controller' => 'nonorientationsproseps', 'action' => 'search'  )
@@ -249,7 +249,7 @@
 				'disabled' => ( $departement != 66 ),
 				'url' => array( 'controller' => 'changementsadresses', 'action' => 'search'  )
 			),
-			'Créances' => array(
+			'Par créances' => array(
 				'Par créances' => array(
 					'class' => 'search',
 					'url' => array( 'controller' => 'creances', 'action' => 'search'  )

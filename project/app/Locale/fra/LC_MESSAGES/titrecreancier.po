@@ -123,5 +123,5 @@ msgid "Titrecreancier.cjtactif"
 msgstr "Titre couple"
 
 msgid "Titrecreancier.dtbordereau"
-msgstr "Date d'émission du bordereau"
+msgstr "Date d'émission du titre"
 
