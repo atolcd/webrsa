@@ -15,12 +15,12 @@
 					'Recourgracieux.etatDepuis',
 					'Recourgracieux.dtarrivee',
 					'Recourgracieux.dtbutoire',
-					'Recourgracieux.dtreception',
-					'Recourgracieux.dtaffectation',
 					'Recourgracieux.originerecoursgracieux_id'=> array(
 						'type' => 'select',
 						'options' => $options['Originerecoursgracieux']['origine']
 					),
+					'Recourgracieux.dtreception',
+					'Recourgracieux.dtaffectation',
 					'Recourgracieux.typerecoursgracieux_id'=> array(
 						'type' => 'select',
 						'options' => $options['Typerecoursgracieux']['type']
@@ -33,6 +33,8 @@
 						'type' => 'select',
 						'options' => $options['Dossierpcg66']['user_id']
 					),
+					'Recourgracieux.mention',
+					'Recourgracieux.dtdecision',
 				)
 			),
 			array(
@@ -63,12 +65,15 @@
 							),
 							'Creancerecoursgracieux.mntindus',
 							'Creancerecoursgracieux.refuscontestation'=> array(
-								 'options' => array( '1' => __m('YES'), '2' => __m('NO'))
+								'options' => array( '1' => __m('YES'), '0' => __m('NO'))
 							),
 							'Creancerecoursgracieux.motifproposrecoursgracieux_id' => array(
 								'options' => $listMotifs
 							),
 							'Creancerecoursgracieux.mention',
+							'Creancerecoursgracieux.regularisation'=> array(
+								'options' => array( '1' => __m('YES'), '0' => __m('NO'))
+							),
 							'Creancerecoursgracieux.dossierpcg_id',
 							'/Recoursgracieux/deleteproposition/#Creancerecoursgracieux.id#'
 						)

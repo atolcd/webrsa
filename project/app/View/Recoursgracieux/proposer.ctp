@@ -62,14 +62,19 @@
 							),
 							'Creancerecoursgracieux.mntindus',
 							'Creancerecoursgracieux.refuscontestation'=> array(
-								 'options' => array( '1' => __m('YES'), '2' => __m('NO'))
+								'options' => array( '1' => __m('YES'), '0' => __m('NO'))
 							),
 							'Creancerecoursgracieux.motifproposrecoursgracieux_id' => array(
 								'options' => $listMotifs
 							),
 							'Creancerecoursgracieux.mention',
+							'Creancerecoursgracieux.regularisation'=> array(
+								'options' => array( '1' => __m('YES'), '0' => __m('NO'))
+							),
 							'Creancerecoursgracieux.dossierpcg_id',
-							'/Recoursgracieux/deleteproposition/#Creancerecoursgracieux.id#'
+							'/Recoursgracieux/deleteproposition/#Creancerecoursgracieux.id#' => array(
+								'class' => 'delete',
+							),
 						)
 					),
 					array(
@@ -106,7 +111,9 @@
 								'options' => $listMotifs
 							),
 							'Creancerecoursgracieux.mention',
-							'/Recoursgracieux/deleteproposition/#Creancerecoursgracieux.id#'
+							'/Recoursgracieux/deleteproposition/#Creancerecoursgracieux.id#' => array(
+								'class' => 'delete',
+							),
 						)
 					),
 					array(
@@ -121,6 +128,7 @@
 
 	echo $this->Default3->subform(
 		array(
+			'Recourgracieux.mention'  => array('type' => 'textarea'),
 			'Recourgracieux.etat' => array('type' => 'hidden', 'value' => 'ATTVALIDATION'),
 			'Recourgracieux.id' => array('type' => 'hidden', 'value' => $this->request->data['Recourgracieux']['id']),
 			'Recourgracieux.foyer_id' => array( 'type' => 'hidden', 'value' => $foyer_id),

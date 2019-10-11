@@ -159,10 +159,10 @@ msgstr " depuis le "
 ###############################################################################
 
 msgid "Recourgracieux::proposer::titleCreance"
-msgstr "Liste des indus du foyer"
+msgstr "Liste des créances du foyer"
 
 msgid "Recourgracieux::proposer::emptyCreances"
-msgstr "Aucun indu pour le foyer"
+msgstr "Aucune créance pour le foyer"
 
 msgid "Recourgracieux::proposer::Periode"
 msgstr "Periode du "
@@ -171,10 +171,16 @@ msgid "Recourgracieux::proposer::to"
 msgstr " au "
 
 msgid "Recourgracieux::proposer::titleCreancerecoursgracieux"
-msgstr "Indus associées"
+msgstr "Créances associées"
 
 msgid "Recourgracieux::proposer::emptyCreancesrecoursgracieux"
-msgstr "Aucune Indus associées à la proposition"
+msgstr "Aucune créance associée à la proposition"
+
+msgid "Recourgracieux::decider::emptyCreancesrecoursgracieux"
+msgstr "Aucune créance associée au dossier"
+
+msgid "Recourgracieux::decider::titleRecours"
+msgstr "Information du dossier de recours"
 
 ###############################################################################
 # Trad des recherches
@@ -247,3 +253,5 @@ msgstr "Période"
 msgid "Creancerecoursgracieux.etattitre"
 msgstr "État du titre"
 
+msgid "Creancerecoursgracieux.regularisation"
+msgstr "Régularisation"

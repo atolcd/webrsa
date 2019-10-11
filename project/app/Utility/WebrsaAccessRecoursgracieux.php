@@ -219,6 +219,7 @@
 		protected static function _decider(array $record, array $params) {
 			if (
 				$record['Recourgracieux']['etat'] == 'ATTVALIDATION'
+				|| $record['Recourgracieux']['etat'] == 'VALIDTRAITEMENT'
 			){
 				return true;
 			}else{

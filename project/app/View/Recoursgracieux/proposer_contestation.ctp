@@ -43,7 +43,7 @@
 			'Creancerecoursgracieux.mntindus' => array( 'value' => $creances['Creance']['mtinicre']),
 			'Creancerecoursgracieux.refuscontestation' => array(
 				'type' => 'radio',
-				 'options' => array( '1' => __m('YES'), '2' => __m('NO'))
+				'options' => array( '1' => __m('YES'), '0' => __m('NO'))
 			),
 			'Creancerecoursgracieux.motifproposrecoursgracieux_id' => array(
 				'options' => $listMotifs
@@ -52,7 +52,12 @@
 				'type' => 'checkbox'
 			),
 			'Creancerecoursgracieux.mention' => array('type' => 'textarea'),
-			'Creancerecoursgracieux.dossierpcg_id' ,
+			'Creancerecoursgracieux.regularisation' => array(
+				'type' => 'radio',
+				'label' => __m('Regularisation'),
+				'options' => array( '1' => __m('YES'), '0' => __m('NO'))
+			),
+			//'Creancerecoursgracieux.dossierpcg_id' ,
 		),
 		array('options' => $options)
 	);

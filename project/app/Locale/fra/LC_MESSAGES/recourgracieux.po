@@ -30,11 +30,17 @@ msgstr "En attente d’instruction"
 msgid "ENUM::ETAT::ATTVALIDATION"
 msgstr "En attente de validation"
 
-msgid "ENUM::ETAT::ATTIMPRESSION"
-msgstr "En attente d’impression"
+msgid "ENUM::ETAT::VALIDREGUL"
+msgstr "Validé - en attente de régularisation"
+
+msgid "ENUM::ETAT::VALIDTRAITEMENT"
+msgstr "Régularisé - en attente de traitement"
 
 msgid "ENUM::ETAT::ATTSIGNATURE"
 msgstr "En attente de signature"
+
+msgid "ENUM::ETAT::ATTIMPRESSION"
+msgstr "En attente d’impression"
 
 msgid "ENUM::ETAT::ATTENVOIE"
 msgstr "En attente d'envoi"
@@ -74,6 +80,15 @@ msgstr "Type du dossier"
 
 msgid "Recourgracieux.dtaffectation"
 msgstr "Date d'affectation du dossier"
+
+msgid "Recourgracieux.mention"
+msgstr "Mention du dossier"
+
+msgid "Recourgracieux.dtdecision"
+msgstr "Date décision du validateur"
+
+msgid "Recourgracieux.validation"
+msgstr "Valider la décision"
 
 msgid "Recourgracieux.poledossierpcg66_id"
 msgstr "Pôle du Gestionnaire"
