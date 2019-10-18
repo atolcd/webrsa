@@ -14,7 +14,7 @@
 				array(
 					'Recourgracieux.etatDepuis',
 					'Recourgracieux.dtarrivee',
-					'Recourgracieux.dtbutoire',
+					'Recourgracieux.dtbutoir',
 					'Recourgracieux.originerecoursgracieux_id'=> array(
 						'type' => 'select',
 						'options' => $options['Originerecoursgracieux']['origine']
@@ -126,5 +126,3 @@
 		'Retour',
 		array('action' => 'index', $recoursgracieux[0]['Recourgracieux']['foyer_id'])
 	);
-
-?>

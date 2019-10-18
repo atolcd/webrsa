@@ -259,6 +259,12 @@
 					'url' => array( 'controller' => 'titrescreanciers', 'action' => 'search'  )
 				),
 			),
+			'Par Recours' => array(
+				'Par Recours Gracieux' => array(
+					'class' => 'search',
+					'url' => array( 'controller' => 'recoursgracieux', 'action' => 'search'  )
+				),
+			),
 			'Par données Pôle Emploi' => array(
 				'disabled' => ( true === $user_externe ),
 				'class' => 'search',

@@ -66,7 +66,7 @@ msgstr "Ajouter une pièce jointe"
 msgid "Recourgracieux.dtarrivee"
 msgstr "Date d’arrivée du dossier au CD"
 
-msgid "Recourgracieux.dtbutoire"
+msgid "Recourgracieux.dtbutoir"
 msgstr "Date butoir de réponse"
 
 msgid "Recourgracieux.dtreception"

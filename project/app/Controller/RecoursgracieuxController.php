@@ -369,7 +369,7 @@
 				}
 			}elseif( $this->action == 'add' ){
 					// Assignation au formulaire
-					$recoursgracieux['Recourgracieux']['dtbutoire'] = date('Y-m-d', strtotime( '+1 Month' )) ;
+					$recoursgracieux['Recourgracieux']['dtbutoir'] = date('Y-m-d', strtotime( '+1 Month' )) ;
 					$this->request->data = $recoursgracieux;
 			}
 
