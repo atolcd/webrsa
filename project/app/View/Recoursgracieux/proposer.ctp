@@ -139,4 +139,3 @@
 	echo $this->Default3->DefaultForm->end();
 
 	echo $this->Observer->disableFormOnSubmit( Inflector::camelize( "recourgracieux_{$this->request->params['action']}_form" ) );
-?>

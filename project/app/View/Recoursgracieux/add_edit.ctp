@@ -32,7 +32,7 @@
 		array(
 			'Recourgracieux.foyer_id' => array( 'type' => 'hidden', 'value' => $foyer_id),
 			'Recourgracieux.dtarrivee' => array('type' => 'date', 'dateFormat' => 'DMY'),
-			'Recourgracieux.dtbutoire' => array('type' => 'date', 'dateFormat' => 'DMY', 'disabled' => true ),
+			'Recourgracieux.dtbutoir' => array('type' => 'date', 'dateFormat' => 'DMY', 'disabled' => true ),
 			'Recourgracieux.dtreception' => array('type' => 'date', 'dateFormat' => 'DMY'),
 			'Recourgracieux.originerecoursgracieux_id' => array( 'type' => 'select', 'options' => $options['Originerecoursgracieux']['origine_actif'] ),			
 		),
@@ -42,7 +42,7 @@
 	);
 	echo $this->Default3->subform(
 		array(
-			'Recourgracieux.dtbutoire' => array('type' => 'hidden', 'dateFormat' => 'DMY')
+			'Recourgracieux.dtbutoir' => array('type' => 'hidden', 'dateFormat' => 'DMY')
 			),
 		array('options' => $options)
 	);
@@ -76,11 +76,11 @@
 	?>
 
 <script type="text/javascript">
-	document.getElementById('RecourgracieuxDtarriveeDay').onchange = function () {setDatebutoire();}
-	document.getElementById('RecourgracieuxDtarriveeMonth').onchange = function () {setDatebutoire();}
-	document.getElementById('RecourgracieuxDtarriveeYear').onchange = function () {	setDatebutoire();}
+	document.getElementById('RecourgracieuxDtarriveeDay').onchange = function () {setDatebutoir();}
+	document.getElementById('RecourgracieuxDtarriveeMonth').onchange = function () {setDatebutoir();}
+	document.getElementById('RecourgracieuxDtarriveeYear').onchange = function () {	setDatebutoir();}
 
-	function setDatebutoire(){
+	function setDatebutoir(){
 		var DtDay = $('RecourgracieuxDtarriveeDay').value;
 		var DtMonth =$('RecourgracieuxDtarriveeMonth').value;
 		var DtYear =$('RecourgracieuxDtarriveeYear').value;
@@ -117,9 +117,9 @@
 		}
 
 		//Set à la vue
-		$('RecourgracieuxDtbutoireDay').value = DtDay;
-		$('RecourgracieuxDtbutoireMonth').value = DtMonth;
-		$('RecourgracieuxDtbutoireYear').value = DtYear;
-		$('RecourgracieuxDtbutoire').value = DtYear+"-"+DtMonth+"-"+DtDay;
+		$('RecourgracieuxDtbutoirDay').value = DtDay;
+		$('RecourgracieuxDtbutoirMonth').value = DtMonth;
+		$('RecourgracieuxDtbutoirYear').value = DtYear;
+		$('RecourgracieuxDtbutoir').value = DtYear+"-"+DtMonth+"-"+DtDay;
 	}
 </script>

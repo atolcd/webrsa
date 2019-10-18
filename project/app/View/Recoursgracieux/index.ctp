@@ -13,7 +13,7 @@ if( empty( $recoursgracieux ) ) {
 		$this->Translator->normalize(
 			array(
 				'Recourgracieux.dtarrivee',
-				'Recourgracieux.dtbutoire',
+				'Recourgracieux.dtbutoir',
 				'Recourgracieux.dtreception',
 				'Recourgracieux.originerecoursgracieux_id' => array(
 					'options' => $options['Originerecoursgracieux']['origine']
@@ -51,4 +51,3 @@ if( empty( $recoursgracieux ) ) {
 		)
 	);
 }
-?>
