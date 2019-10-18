@@ -82,7 +82,6 @@
 								'Creancerecoursgracieux.regularisation'=> array(
 									'options' => array( '1' => __m('YES'), '0' => __m('NO'))
 								),
-								'Creancerecoursgracieux.dossierpcg_id',
 							)
 						),
 						array(

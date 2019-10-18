@@ -115,6 +115,12 @@ msgstr "Décision"
 msgid "/Recoursgracieux/decider/#Recourgracieux.id#"
 msgstr "Décision #Recourgracieux.id#"
 
+msgid "/Dossierspcgs66/view"
+msgstr "Voir le dossier PCG lié"
+
+msgid "/Dossierspcgs66/view/#Creancerecoursgracieux.dossierpcg_id#"
+msgstr "Voir le dossier #Creancerecoursgracieux.dossierpcg_id# lié"
+
 msgid "/Recoursgracieux/envoyer"
 msgstr "Envoi"
 

@@ -55,7 +55,8 @@
 					'decider',
 					'envoyer',
 					'traiter',
-					'delete'
+					'delete',
+					'Dossierspcgs66.view'
 				)
 			);
 			return $result;

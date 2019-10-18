@@ -912,9 +912,30 @@
 
 	/**
 	 * Activation du module RecoursGracieux
-	 * 'Creances.recoursgracieux' => true pour activée, false pour inactivée
+	 * 'Recoursgracieux.Activer' => true pour activer le module recours gracieux, false pour inactiver
 	 */
-	Configure::write('Creances.recoursgracieux',true);
+	Configure::write('Recoursgracieux.Activer',true);
+	/**
+	 * Activation du module RecoursGracieux
+	 * 'Recoursgracieux.PCG.Actifs' => true pour activer la création de PCG lors de la régularisation d'un recours gracieux, false pour inactiver
+	 */
+	Configure::write('Recoursgracieux.PCG.Actifs', true);
+	/**
+	 * État du PCG à la création de celui-ci
+	 */
+	Configure::write('Recoursgracieux.PCG.Etat', 'attinstr');
+	/**
+	 * Identifiant du type du PCG à sa création
+	 */
+	Configure::write('Recoursgracieux.PCG.Dossierpcg66TypepdoId', 34);
+	/**
+	 * Identifiant de l'origine du PCG à sa création
+	 */
+	Configure::write('Recoursgracieux.PCG.Dossierpcg66OriginepdoId', 36);
+	/**
+	 * Organisme payeur lié au PCG normalement (CAF ou MSA)
+	 */
+	Configure::write('Recoursgracieux.PCG.Dossierpcg66Orgpayeur', 'CAF');
 
 	/**
 	 * Couleur des lignes de résultats en erreur

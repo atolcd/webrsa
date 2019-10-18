@@ -57,7 +57,6 @@
 				'label' => __m('Regularisation'),
 				'options' => array( '1' => __m('YES'), '0' => __m('NO'))
 			),
-			//'Creancerecoursgracieux.dossierpcg_id' ,
 		),
 		array('options' => $options)
 	);

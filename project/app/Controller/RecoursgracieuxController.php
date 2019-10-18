@@ -106,7 +106,8 @@
 			'Personne',
 			'User',
 			'Option',
-			'Historiqueetat'
+			'Historiqueetat',
+			'Dossierpcg66'
 			);
 
 		/**
@@ -898,12 +899,73 @@
 				$this->Recourgracieux->begin();
 				$data = $this->request->data;
 				if ( $data['Recourgracieux']['validation'] == 1){
-
+					//Si le dossier est en regularisation
+					if ($data['Recourgracieux']['regularisation'] == 1){
+						//Si la création de PCGs est active
+						if (  Configure::read('Recoursgracieux.PCG.Actifs') ) {
+							//On prépare les informations du PCG
+							$PCG['Dossierpcg66']['foyer_id'] = $data['Recourgracieux']['foyer_id'];
+							$PCG['Dossierpcg66']['etatdossierpcg'] = Configure::read('Recoursgracieux.PCG.Etat');
+							$PCG['Dossierpcg66']['typepdo_id'] = Configure::read('Recoursgracieux.PCG.Dossierpcg66TypepdoId');
+							$PCG['Dossierpcg66']['originepdo_id'] = Configure::read('Recoursgracieux.PCG.Dossierpcg66OriginepdoId');
+							$PCG['Dossierpcg66']['orgpayeur'] = Configure::read('Recoursgracieux.PCG.Dossierpcg66Orgpayeur');
+							$PCG['Dossierpcg66']['datereceptionpdo'] = array(
+								'day' => date ('d'),
+								'month' => date ('m'),
+								'year' => date ('Y')
+							);
+							//On crée le dossier de PCGs
+							$this->Dossierpcg66->begin();
+							$savePCG = $this->Dossierpcg66->saveAll( $PCG, array( 'validate' => 'first', 'atomic' => false ) );
+							if( $savePCG ) {
+								//Si le dossier est crée on reporte l'identifiant dans les créances du recours
+								$creancesrecoursgracieux = $this->Creancerecoursgracieux->find(
+									'all',
+									array(
+										'fields' => array_merge(
+											$this->Creancerecoursgracieux->fields()
+										),
+										'conditions' => array(
+											'Creancerecoursgracieux.recours_id' => $data['Recourgracieux']['id']
+										),
+									)
+								);
+								//On insert l'id dans chaque créance liée en régularisation du recours
+								foreach ($creancesrecoursgracieux as $key => $creancerecoursgracieux ) {
+									if ($creancerecoursgracieux['Creancerecoursgracieux']['regularisation'] == 1 ) {
+										$this->Creancerecoursgracieux->begin();
+										$creancerecoursgracieux['Creancerecoursgracieux']['dossierpcg_id'] = $this->Dossierpcg66->id ;
+										if(
+											$this->Creancerecoursgracieux->save( $creancerecoursgracieux ) 
+											&&
+											$savePCG
+										) {
+											$this->Creancerecoursgracieux->commit();
+										}else{
+											$savePCG = false ;
+										}
+									}
+								}
+								//On change l'état du Dossier de Recours
+								$data['Recourgracieux']['etat'] = 'VALIDREGUL';
+							}else{
+								$this->Dossierpcg66->rollback();
+							}
+						}else{
+							$savePCG = true;
+						}
+					}
 				}else{
 					 $data['Recourgracieux']['etat'] = 'ATTINSTRUCTION';
 				}
-				if( $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) ) &&
-					$this->Recourgracieux->save( $data ) ) {
+				//Sauvegarde du recours gracieux
+				$saveRecoursgracieux = $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) );
+				if( $saveRecoursgracieux && $savePCG
+					&& $this->Recourgracieux->save( $data )
+				) {
+					if (  Configure::read('Recoursgracieux.PCG.Actifs') ) {
+						$this->Dossierpcg66->commit();
+					}
 					$this->Recourgracieux->commit();
 					$this->Jetons2->release( $dossier_id );
 					$this->Flash->success( __( 'Save->success' ) );
@@ -996,6 +1058,53 @@
 			);
 			$this->set( 'urlmenu', '/recoursgracieux/index/'.$foyer_id );
 			$this->set( 'foyer_id', $foyer_id );
+		}
+
+		/**
+		 * Modifie l'état d'un recours gracieux d'un foyer
+		 *
+		 * @param integer $id L'id technique du PCG dont l'état as changer
+		 * @return void
+		 */
+		public function updateEtatPCGTraiter($id) {
+
+			$creancrecoursgracieux = $this->Creancerecoursgracieux->find(
+				'all',
+				array(
+					'fields' => array_merge(
+						$this->Creancerecoursgracieux->fields()
+					),
+					'conditions' => array(
+						'Creancerecoursgracieux.dossierpcg_id' => $id
+					),
+				)
+			);
+
+			// Affichage des données
+			$recoursgracieux = $this->Recourgracieux->find(
+				'first',
+				array(
+					'fields' => array_merge(
+						$this->Recourgracieux->fields()
+					),
+					'conditions' => array(
+						'Recourgracieux.id' => $creancrecoursgracieux[0]['Creancerecoursgracieux']['recours_id']
+					),
+					'contain' => FALSE
+				)
+			);
+
+			if ($recoursgracieux['Recourgracieux']['etat'] == 'VALIDREGUL' ) {
+				$recoursgracieux['Recourgracieux']['etat'] = 'VALIDTRAITEMENT';
+				$this->Recourgracieux->begin();
+				//Sauvegarde du recours gracieux
+				$saveRecoursgracieux = $this->Recourgracieux->saveAll( $recoursgracieux, array( 'validate' => 'only' ) );
+				if( $saveRecoursgracieux
+					&& $this->Recourgracieux->save( $recoursgracieux )
+				) {
+					$this->Recourgracieux->commit();
+				}
+			}
 		}
 
 		/**

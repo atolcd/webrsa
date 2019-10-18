@@ -2,7 +2,10 @@
 	App::uses('WebrsaAccess', 'Utility');
 	WebrsaAccess::init($dossierMenu);
 
-	echo $this->element('default_index');
+	$paramsElement = array(
+		'addLink' => false,
+	);
+	echo $this->element('default_index',$paramsElement);
 
 	//Visualisation d'un Recours gracieux
 	if( empty( $recoursgracieux ) ) {
@@ -74,8 +77,9 @@
 							'Creancerecoursgracieux.regularisation'=> array(
 								'options' => array( '1' => __m('YES'), '0' => __m('NO'))
 							),
-							'Creancerecoursgracieux.dossierpcg_id',
-							'/Recoursgracieux/deleteproposition/#Creancerecoursgracieux.id#'
+							'/Dossierspcgs66/view/#Creancerecoursgracieux.dossierpcg_id#' => array(
+								'disabled' => 'empty ("#Creancerecoursgracieux.dossierpcg_id#")'
+							),
 						)
 					),
 					array(
@@ -109,7 +113,6 @@
 								'options' => $listMotifs
 							),
 							'Creancerecoursgracieux.mention',
-							'/Recoursgracieux/deleteproposition/#Creancerecoursgracieux.id#'
 						)
 					),
 					array(

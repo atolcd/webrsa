@@ -347,7 +347,7 @@ $fonorg = $dossier['Dossier']['fonorg'];
 							'url' => array('controller' => 'infosfinancieres', 'action' => 'index', $dossier['Dossier']['id'] )
 						),
 						'Recours gracieux' => array(
-							'disabled' => !Configure::read('Creances.recoursgracieux'),
+							'disabled' => !Configure::read('Recoursgracieux.Activer'),
 							'url' => array( 'controller' => 'recoursgracieux', 'action' => 'index', $dossier['Foyer']['id'] )
 						),
 				),
