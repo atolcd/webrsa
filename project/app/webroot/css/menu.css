@@ -125,12 +125,12 @@ div#menu1Wrapper div.menu1 ul ul .branch:after {
 	color: #777;
 	width: 15px;
 	height: 10px;
-	background-image: url('../img/icon-arrow-right-grey.svg');
+	/*background-image: url('../img/icon-arrow-right-grey.svg');*/
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
 }
 
 div#menu1Wrapper div.menu1 ul ul .branch:hover:after {
-	background-image: url('../img/icon-arrow-right-white.svg');
+	/*background-image: url('../img/icon-arrow-right-white.svg');*/
 }
