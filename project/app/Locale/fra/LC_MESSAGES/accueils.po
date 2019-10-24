@@ -112,7 +112,7 @@ msgstr "Les blocs d'information concernent le groupe d'utilisateur : "
 
 # Libellé des cantons ===============================================================
 msgid "Accueil.canton.nonvide.debut"
-msgstr "Il y a "
+msgstr "Adresses liées à un canton sans nom"
 
 msgid "Accueil.canton.nonvide.fin"
-msgstr " adresses liées à un canton vide"
+msgstr " adresses"

@@ -967,10 +967,10 @@
 	Configure::write ('Canton.InsertionAuto.enabled', true);
 
 	/**
-	 * Code postal des communes multi cantons
+	 * Numéro des communes multi cantons (code INSEE)
 	 */
 	Configure::write ('Canton.multi', array(
-		'58000'
+		'58194'
 	));
 
 	/**

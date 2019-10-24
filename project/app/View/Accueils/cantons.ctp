@@ -12,20 +12,25 @@
 	?>
 	<thead>
 		<tr>
-            <th><?php echo __d('accueils', 'Accueil.canton.nonvide.debut') . ' ' . $nbCantons . ' ' . __d('accueils', 'Accueil.canton.nonvide.fin'); ?> </th>
-            <th>
-            <?php
-            echo $this->Html->link(
-                __d('accueils', 'Accueil.action.voir'),
-                    array(
-                        'controller' => 'cantons',
-                        'action' => 'index/Search__Canton__cantonvide:1'
-                    )
-                );
-            ?>
-            </th>
+            <th><?php echo __d('accueils', 'Accueil.canton.nonvide.debut')?> </th>
 		</tr>
 	</thead>
+	<tbody>
+		<tr>
+			<td style="color: red;">
+				<?php
+					echo '<b>' . $nbCantons . '</b> ' . __d('accueils', 'Accueil.canton.nonvide.fin'). '<br><br>';
+					echo '<b>' . $this->Html->link(
+							__d('accueils', 'Accueil.action.voir'),
+								array(
+									'controller' => 'cantons',
+									'action' => 'index/Search__Canton__cantonvide:1'
+								)
+					) . '</b>';
+				?>
+			</td>
+		</tr>
+	</tbody>
 	<?php
 		}
 		else {

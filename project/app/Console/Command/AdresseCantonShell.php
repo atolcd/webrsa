@@ -14,6 +14,8 @@
 	 * La classe AdresseCantonShell permet d'obtenir les correspondances entre les personne_id
 	 * de différents dossiers selon le nom/prenom/dtnai/nir
 	 *
+	 * sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake AdresseCanton -app app
+	 *
 	 * @package app.Console.Command
 	 */
 	class AdresseCantonShell extends XShell
@@ -64,6 +66,12 @@
 				'fields' => array(
 					'DISTINCT Adresse.id',
 					'Adresse.complete',
+					'Adresse.nomvoie',
+					'Adresse.codepos',
+					'Adresse.libtypevoie',
+					'Adresse.nomcom',
+					'Adresse.numcom',
+					'Adresse.numvoie',
 					'Canton.id',
 				),
 				'joins' => array(
@@ -98,15 +106,16 @@
 			$valAdresse = '';
 			foreach ( $results as $key => $value ) {
 				if ( !Hash::get($value, 'Canton.id') ) {
-					$codepostal = array();
-					preg_match('/[0-9]{5}/',Hash::get($value, 'Adresse.complete'),$codepostal ,PREG_OFFSET_CAPTURE,3);
-					$codepostal = $codepostal[0][0];
-					if(strcmp(Hash::get($value, 'Adresse.complete'),$valAdresse) != 0 && (empty(Configure::read('Canton.multi')) || !empty(Configure::read('Canton.multi')) && in_array($codepostal, Configure::read('Canton.multi')) ) )
+					$numcom = Hash::get($value, 'Adresse.numcom');
+					$cantonMulti = Configure::read('Canton.multi');
+					if( strcmp(Hash::get($value, 'Adresse.complete'),$valAdresse) != 0 && (empty($cantonMulti) ||
+					 !empty($cantonMulti) && in_array($numcom, $cantonMulti) ) ) {
 						$noCanton[] = array(
 							'adresse_id' => Hash::get($value, 'Adresse.id'),
 							'complete' => trim( preg_replace('/[\s]+/', ' ', Hash::get($value, 'Adresse.complete')) ),
 						);
 						$valAdresse = Hash::get($value, 'Adresse.complete');
+					}
 				}
 				else {
 					$data[] = array(
@@ -146,7 +155,7 @@
 			if( $success && Configure::read('Canton.InsertionAuto.enabled')) {
 				$this->out('Ajout des adresses sans canton dans la table adresse...');
 				$timestart = microtime(true);
-				$nbCanton = $this->_insertionCanton($Canton, $Adresse, $departement);
+				$nbCanton = $this->_insertionCanton($Canton, $Adresse, $departement, $results);
 				$this->out(sprintf('Terminé en %s secondes, %s canton(s) ont été ajoutés.', number_format(microtime(true)-$timestart, 3),$nbCanton));
 				$this->out();
 			}
@@ -188,40 +197,11 @@
 			fclose($file);
 		}
 
-		protected function _insertionCanton($canton, $adresse, $departement) {
+		protected function _insertionCanton($canton, $adresse, $departement, $datas) {
 			$noCantonData = array();
 
-			$query = array(
-				'fields' => array(
-					'DISTINCT Adresse.id',
-					'Adresse.complete',
-					'Adresse.nomvoie',
-					'Adresse.codepos',
-					'Adresse.libtypevoie',
-					'Adresse.nomcom',
-					'Adresse.numcom',
-					'Adresse.numvoie',
-					'Canton.id'
-				),
-				//'recursive' => 2,
-				'joins' => array(
-					$canton->joinAdresse(),
-					$adresse->join('Adressefoyer', array('type' => 'LEFT OUTER'))
-				),
-				'conditions' => array(
-					"Adresse.codepos LIKE '{$departement}%'",
-					"Adresse.nomcom IS NOT NULL",
-					"Adresse.nomcom <> ''",
-					"Adressefoyer.rgadr = '01'"
-				),
-				'contain' => false,
-				'order' => array('Adresse.complete ASC')
-			);
-
-			$results = $adresse->find('all', $query);
-
 			$valAdresse = '';
-			foreach($results as $value) {
+			foreach($datas as $value) {
 				if ( !Hash::get($value, 'Canton.id') ) {
 					$zoneID = $canton->Zonegeographique->find('first', array(
 						'fields' => array('id'),
@@ -236,8 +216,9 @@
 					);
 					if(!empty($zoneID)) {
 						$zoneID = $zoneID['Zonegeographique']['id'];
+						$cantonMulti = Configure::read('Canton.multi');
 						if(strcmp(Hash::get($value, 'Adresse.complete'),$valAdresse) != 0 &&
-						 !empty(Configure::read('Canton.multi')) && in_array(Hash::get($value, "Adresse.codepos"), Configure::read('Canton.multi')) ) {
+						 !empty($cantonMulti) && in_array(Hash::get($value, "Adresse.numcom"), $cantonMulti) ) {
 							$noCantonData[] = array(
 								'nomvoie' => Hash::get($value, "Adresse.nomvoie"),
 								'codepos' => Hash::get($value, "Adresse.codepos"),
@@ -248,7 +229,7 @@
 								'numcom' => Hash::get($value, "Adresse.numcom"),
 								'numvoie' => Hash::get($value, "Adresse.numvoie")
 							);
-						} elseif(strcmp(Hash::get($value, 'Adresse.complete'),$valAdresse) != 0 && empty(Configure::read('Canton.multi')) ) {
+						} elseif(strcmp(Hash::get($value, 'Adresse.complete'),$valAdresse) != 0 && empty($cantonMulti) ) {
 							$noCantonData[] = array(
 								'nomvoie' => Hash::get($value, "Adresse.nomvoie"),
 								'codepos' => Hash::get($value, "Adresse.codepos"),
