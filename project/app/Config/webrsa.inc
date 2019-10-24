@@ -183,7 +183,7 @@
 	 * du contrôleur Relancesnonrespectssanctionseps93.
 	 */
 	Configure::write( 'Optimisations.Relancesnonrespectssanctionseps93_cohorte.progressivePaginate', false );
-	
+
 	/**
 	 * Variables apparaissant dans la fiche de calcul du journal de traitement d'une PDO
 	 */
@@ -959,7 +959,19 @@
     /**
      * Accès aux données PE
      */
-    Configure::write ('Module.fluxpoleemploi.enabled', true);
+	Configure::write ('Module.fluxpoleemploi.enabled', true);
+
+	/**
+	 * Insertions automatiques des cantons sans adresses
+	 */
+	Configure::write ('Canton.InsertionAuto.enabled', true);
+
+	/**
+	 * Code postal des communes multi cantons
+	 */
+	Configure::write ('Canton.multi', array(
+		'58000'
+	));
 
 	/**
 	 * Récupération du fichier de config propre au département

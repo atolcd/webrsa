@@ -107,7 +107,6 @@
 		/**
 		*	FIXME: docs
 		*/
-
 		public function selectList( $filtre_zone_geo = false, $zonesgeographiques = array() ) {
 			$conditions = array( 'Canton.canton IS NOT NULL', 'Canton.canton <> \'\'' );
 
@@ -378,7 +377,13 @@
 				$conditions[] = array( 'Canton.zonegeographique_id' => $criteres['Canton']['zonegeographique_id'] );
 			}
 
-
+			// Critère sur les noms de cantons à vide
+			if( $criteres['Canton']['cantonvide'] == 1) {
+				$conditions[] = array('OR' => array(
+					'Canton.canton' => '',
+					'Canton.canton IS NULL'
+				));
+			}
 			$query = array(
 				'fields' => array_merge(
 					$this->fields(),

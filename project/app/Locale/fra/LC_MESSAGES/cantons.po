@@ -28,6 +28,9 @@ msgstr "Ajouter un canton"
 msgid "Search.Canton.canton"
 msgstr "Nom du canton"
 
+msgid "Search.Canton.cantonvide"
+msgstr "Uniquement les cantons n'ayant pas de noms associés"
+
 msgid "Search.Canton.nomcom"
 msgstr "Localité"
 
