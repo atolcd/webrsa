@@ -43,7 +43,7 @@
 		 * @var array
 		 */
 		public $hasMany = array(
-			'Recoursgracieux' => array(
+			'Recourgracieux' => array(
 				'className' => 'Recourgracieux',
 				'foreignKey' => 'originerecoursgracieux_id',
 				'dependent' => false,

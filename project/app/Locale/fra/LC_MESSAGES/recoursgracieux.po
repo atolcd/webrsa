@@ -65,7 +65,7 @@ msgid "/Recoursgracieux/view"
 msgstr "Voir"
 
 msgid "/Recoursgracieux/index/#Recourgracieux.id#"
-msgstr "Voir #Recourgracieux.id#"
+msgstr "Voir ce recours gracieux"
 
 msgid "/Recoursgracieux/view/#Recourgracieux.id#"
 msgstr "Voir ce recours gracieux"
@@ -225,6 +225,9 @@ msgstr "Gestionnaire du dossier"
 
 msgid "Recourgracieux::search::etat"
 msgstr "État du dossier"
+
+msgid "Personne.nom_complet_prenoms"
+msgstr "Allocataire"
 
 ###############################################################################
 # Champs Proposer

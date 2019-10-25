@@ -59,6 +59,27 @@ msgstr "Voir"
 msgid "Accueil.referent"
 msgstr "Référent"
 
+msgid "Accueil.recoursgracieux.dtarrivee"
+msgstr "Date d’arrivée du dossier au CD"
+
+msgid "Accueil.recoursgracieux.dtbutoir"
+msgstr "Date butoir de réponse"
+
+msgid "Accueil.recoursgracieux.dtreception"
+msgstr "Date de réception du dossier dans le service"
+
+msgid "Accueil.recoursgracieux.origine"
+msgstr "Origine du dossier"
+
+msgid "Accueil.recoursgracieux.dtaffectation"
+msgstr "Date d'affectation du dossier"
+
+msgid "Accueil.recoursgracieux.etatDepuis"
+msgstr "État"
+
+msgid "since"
+msgstr " depuis le "
+
 # Titres rubriques =============================================================
 
 msgid "Accueil.cer.titre"
@@ -75,6 +96,9 @@ msgstr "Vos rendez-vous dans les __LIMITE__ jours à venir"
 
 msgid "Accueil.dernierscersperimes.titre"
 msgstr "Vos allocataires en droit ouvert et versable ayant comme dernier CER un CER périmé"
+
+msgid "Accueil.recourgracieux.titre"
+msgstr "Vos recours gracieux avec une Date butoir dans moins de __LIMITE__ jours"
 
 # Aucune donnée ================================================================
 

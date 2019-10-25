@@ -81,15 +81,7 @@
 	            'conditions' => '',
 	            'fields' => '',
 	            'order' => ''
-	        )
-		);
-
-		/**
-		 * Associations "Has one".
-		 *
-		 * @var array
-		 */
-		public $hasOne = array(
+	        ),
 			'Typerecoursgracieux' => array(
 				'className' => 'Typerecoursgracieux',
 				'foreignKey' => 'typerecoursgracieux_id',
