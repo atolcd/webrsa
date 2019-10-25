@@ -911,6 +911,12 @@
 	Configure::write('Module.Creances.FICA',true );
 
 	/**
+	 * Activation du module de gestion de pièce jointe des allocataires
+	 * 'Module.Piecejointe' => true pour activée, false pour inactivée
+	 */
+	Configure::write('Module.Piecejointe',true );
+
+	/**
 	 * Couleur des lignes de résultats en erreur
 	 */
 	Configure::write('Resultats.ligne.erreur', 'red');

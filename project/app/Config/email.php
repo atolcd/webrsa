@@ -306,6 +306,42 @@ class EmailConfig {
 
 	);
 
+	/**
+	 * Configuration de l'envoi de mails en cas d'ajout de certaines catégories
+	 * de pièces jointes à un dossier
+	 *
+	 * Les clés 'port', 'timeout', 'host', 'username', 'password', 'client'
+	 * remplacent les valeurs qui étaient contenues dans 'Email.smtpOptions'
+	 * du fichier webrsa.inc.
+	 *
+	 *
+	 * Lorsque l'application est en debug > 0, alors le mail est envoyé à
+	 * l'adresse spécifiée pour la clé 'to', ou à l'expéditeur (clé 'from').
+	 *
+	 * De même, si une clé 'subject' est spécifiée, elle sera utilisée comme
+	 * sujet du mail.
+	 *
+	 * @var array
+	 */
+	public $cat_piecejointe = array(
+		'transport' => 'Smtp',
+		'from' => '',
+		'replyTo' => '',
+		'to' => '',
+		'subject' => '',
+		'host' => '',
+		'username' => '',
+		'password' => '',
+		'client' => '',
+
+		'port' => 25,
+		'timeout' => 30,
+		'log' => false,
+		'charset' => 'utf-8',
+		'headerCharset' => 'utf-8',
+
+	);
+
 	public function __construct () {
 		$this->user_generation_mdp['transport'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_TRANSPORT');
 		$this->user_generation_mdp['from'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_FROM');
@@ -386,5 +422,15 @@ class EmailConfig {
 		$this->import_frsa['username'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_USERNAME');
 		$this->import_frsa['password'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_PASSWORD');
 		$this->import_frsa['client'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_CLIENT');
+
+		$this->cat_piecejointe['transport'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_TRANSPORT');
+		$this->cat_piecejointe['from'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_FROM');
+		$this->cat_piecejointe['replyTo'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_REPLYTO');
+		$this->cat_piecejointe['to'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_TO');
+		$this->cat_piecejointe['subject'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_SUBJECT');
+		$this->cat_piecejointe['host'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_HOST');
+		$this->cat_piecejointe['username'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_USERNAME');
+		$this->cat_piecejointe['password'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_PASSWORD');
+		$this->cat_piecejointe['client'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_CLIENT');
 	}
 }

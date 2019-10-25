@@ -4550,3 +4550,22 @@ msgstr "Modification des actions CER DREES"
 
 msgid "controllers/Dreesactionscers/delete"
 msgstr "Suppression des actions CER DREES"
+
+###############################################################################
+## Catégories des pièces jointes
+###############################################################################
+
+msgid "controllers/Categoriespiecesjointes"
+msgstr "Paramétrage des catégories de pièce jointe"
+
+msgid "controllers/Categoriespiecesjointes/index"
+msgstr "Liste des catégories"
+
+msgid "controllers/Categoriespiecesjointes/add"
+msgstr "Ajout"
+
+msgid "controllers/Categoriespiecesjointes/edit"
+msgstr "Modification"
+
+msgid "controllers/Categoriespiecesjointes/delete"
+msgstr "Suppression"
