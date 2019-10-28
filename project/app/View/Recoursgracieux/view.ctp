@@ -123,6 +123,23 @@
 				);
 			}
 		}
+		if( isset($historiques) && !empty($historiques)) {
+			echo '<br><br> <h1>' . __m('Recoursgracieux::view::history') .  '</h1>';
+			echo $this->Default3->index(
+				$historiques,
+				$this->Translator->normalize(
+					array(
+						'Historiqueetat.created' => array('type' => 'date', 'dateFormat' => 'DMY'),
+						'Historiqueetat.evenement',
+						'Historiqueetat.nom',
+						'Historiqueetat.prenom',
+						'Historiqueetat.modele',
+						'Historiqueetat.etat'
+					)
+					),
+					array('paginate' => false)
+			);
+		}
 	}
 
 	echo $this->Xhtml->link(
