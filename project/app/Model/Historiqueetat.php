@@ -134,11 +134,18 @@
 		 * @return array
 		 */
 		public function getHisto($modelName, $idModel, $action = null,  $idModelParent = null) {
-			$conditions = array(
-				'modele' => $modelName,
-				'modele_id' => $idModel,
-				'modeleparent_id' => $idModelParent
-			);
+			if($idModel === '*'){
+				$conditions = array(
+					'modele' => $modelName,
+					'modeleparent_id' => $idModelParent
+				);
+			} else {
+				$conditions = array(
+					'modele' => $modelName,
+					'modele_id' => $idModel,
+					'modeleparent_id' => $idModelParent
+				);
+			}
 
 			if($action) {
 				$conditions = $conditions + array('evenement' => $action);

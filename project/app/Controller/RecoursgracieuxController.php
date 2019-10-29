@@ -181,12 +181,17 @@
 						);
 				}
 			}
+
+			// Historique du titre - si suppression
+			$histoDeleted = $this->Historiqueetat->getHisto($this->Recourgracieux->name, '*', 'delete', $foyer_id);
+
 			// Assignations à la vue
 			$this->set( 'options', array_merge(
 					$this->Recourgracieux->options(),
 					$this->Recourgracieux->enums()
 				)
 			);
+			$this->set( 'histoDeleted', $histoDeleted );
 			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'recoursgracieux', $recoursgracieux );
 			$this->set( 'urlmenu', '/recoursgracieux/index/'.$foyer_id );
@@ -265,6 +270,13 @@
 			);
 			$this->set( 'listMotifs', $listMotifs );
 
+			// Historique de la créance
+			$historiques = $this->Historiqueetat->getHisto($this->Recourgracieux->name, $recourgracieux_id, null, $foyer_id);
+
+			foreach($historiques as $key => $histo ) {
+				$historiques[$key]['Historiqueetat']['etat'] = (__d('recourgracieux', 'ENUM::ETAT::' . $histo['Historiqueetat']['etat']));
+			}
+
 			// Assignation à la vue
 			$this->set( 'options', array_merge(
 					$this->Recourgracieux->options(),
@@ -273,6 +285,7 @@
 					$this->Recourgracieux->Foyer->Creance->Titrecreancier->enums()
 				)
 			);
+			$this->set( 'historiques', $historiques );
 			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'recoursgracieux', $recoursgracieux );
 			$this->set( 'typerecoursgracieux', $typerecoursgracieux );
@@ -335,20 +348,27 @@
 			if( !empty( $this->request->data ) ) {
 				$this->Recourgracieux->begin();
 				$data = $this->request->data;
-
-					if($this->action == 'add' ) {
-						$data['Recourgracieux']['foyer_id'] = $foyer_id;
-					}
-					if( $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) ) &&
-						$this->Recourgracieux->save( $data ) ) {
-						$this->Recourgracieux->commit();
-						$this->Jetons2->release( $dossier_id );
-						$this->Flash->success( __( 'Save->success' ) );
-						$this->redirect( array( 'controller' => 'Recoursgracieux', 'action' => 'index', $foyer_id ) );
-					} else {
-						$this->Recourgracieux->rollback();
-						$this->Flash->error( __( 'Save->error' ) );
-					}
+				if($this->action == 'add' ) {
+					$data['Recourgracieux']['foyer_id'] = $foyer_id;
+				}
+				if( $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) ) &&
+					$this->Recourgracieux->save( $data ) &&
+					$this->Historiqueetat->setHisto(
+						$this->Recourgracieux->name,
+						$this->Recourgracieux->id,
+						$foyer_id,
+						__FUNCTION__,
+						$data['Recourgracieux']['etat'],
+						$foyer_id
+					) ){
+					$this->Recourgracieux->commit();
+					$this->Jetons2->release( $dossier_id );
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect( array( 'controller' => 'Recoursgracieux', 'action' => 'index', $foyer_id ) );
+				} else {
+					$this->Recourgracieux->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
+				}
 			}
 			// Affichage des données
 			elseif( $this->action == 'edit' ) {
@@ -432,7 +452,15 @@
 				$data = $this->request->data;
 
 				if( $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) ) &&
-					$this->Recourgracieux->save( $data ) ) {
+					$this->Recourgracieux->save( $data ) &&
+					$this->Historiqueetat->setHisto(
+						$this->Recourgracieux->name,
+						$this->Recourgracieux->id,
+						$foyer_id,
+						__FUNCTION__,
+						$data['Recourgracieux']['etat'],
+						$foyer_id
+					) ) {
 					$this->Recourgracieux->commit();
 					$this->Jetons2->release( $dossier_id );
 					$this->Flash->success( __( 'Save->success' ) );
@@ -503,7 +531,15 @@
 				$this->Recourgracieux->begin();
 				$data = $this->request->data;
 				if( $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) ) &&
-					$this->Recourgracieux->save( $data ) ) {
+					$this->Recourgracieux->save( $data ) &&
+					$this->Historiqueetat->setHisto(
+						$this->Recourgracieux->name,
+						$this->Recourgracieux->id,
+						$foyer_id,
+						__FUNCTION__,
+						$data['Recourgracieux']['etat'],
+						$foyer_id
+					)) {
 					$this->Recourgracieux->commit();
 					$this->Jetons2->release( $dossier_id );
 					$this->Flash->success( __( 'Save->success' ) );
@@ -936,7 +972,7 @@
 										$this->Creancerecoursgracieux->begin();
 										$creancerecoursgracieux['Creancerecoursgracieux']['dossierpcg_id'] = $this->Dossierpcg66->id ;
 										if(
-											$this->Creancerecoursgracieux->save( $creancerecoursgracieux ) 
+											$this->Creancerecoursgracieux->save( $creancerecoursgracieux )
 											&&
 											$savePCG
 										) {
@@ -960,8 +996,16 @@
 				}
 				//Sauvegarde du recours gracieux
 				$saveRecoursgracieux = $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) );
-				if( $saveRecoursgracieux && $savePCG
-					&& $this->Recourgracieux->save( $data )
+				if( $saveRecoursgracieux && $savePCG &&
+					$this->Recourgracieux->save( $data ) &&
+					$this->Historiqueetat->setHisto(
+						$this->Recourgracieux->name,
+						$this->Recourgracieux->id,
+						$foyer_id,
+						__FUNCTION__,
+						$data['Recourgracieux']['etat'],
+						$foyer_id
+					)
 				) {
 					if (  Configure::read('Recoursgracieux.PCG.Actifs') ) {
 						$this->Dossierpcg66->commit();
@@ -1099,8 +1143,16 @@
 				$this->Recourgracieux->begin();
 				//Sauvegarde du recours gracieux
 				$saveRecoursgracieux = $this->Recourgracieux->saveAll( $recoursgracieux, array( 'validate' => 'only' ) );
-				if( $saveRecoursgracieux
-					&& $this->Recourgracieux->save( $recoursgracieux )
+				if( $saveRecoursgracieux &&
+					$this->Recourgracieux->save( $recoursgracieux ) &&
+					$this->Historiqueetat->setHisto(
+						$this->Recourgracieux->name,
+						$this->Recourgracieux->id,
+						$recoursgracieux['Recourgracieux']['foyer_id'],
+						__FUNCTION__,
+						$recoursgracieux['Recourgracieux']['etat'],
+						$recoursgracieux['Recourgracieux']['foyer_id']
+					)
 				) {
 					$this->Recourgracieux->commit();
 				}
@@ -1117,7 +1169,14 @@
 				$this->WebrsaAccesses->check($id);
 				$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
 				$success = $this->Recourgracieux->delete( $id );
-				if( $success ) {
+				if( $success &&
+				$this->Historiqueetat->setHisto(
+					$this->Recourgracieux->name,
+					$id,
+					$foyer_id,
+					__FUNCTION__,
+					'SUP',
+					$foyer_id )) {
 					$this->Flash->success( __( 'Delete->success' ) );
 				}
 				else {

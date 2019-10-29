@@ -50,4 +50,19 @@ if( empty( $recoursgracieux ) ) {
 			'empty_label' => __m('Recoursgracieux::index::emptyLabel'),
 		)
 	);
+	if( isset($histoDeleted) && !empty($histoDeleted)) {
+		echo '<br><br> <h2>' . __m('Recoursgracieux::index::historyDeleted') . '</h2>';
+		echo $this->Default3->index(
+			$histoDeleted,
+			$this->Translator->normalize(
+				array(
+					'Historiqueetat.created' => array('type' => 'date', 'dateFormat' => 'DMY'),
+					'Historiqueetat.nom',
+					'Historiqueetat.prenom' ,
+					'Historiqueetat.modele'
+				)
+				),
+				array('paginate' => false)
+		);
+	}
 }

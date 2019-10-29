@@ -286,3 +286,30 @@ msgstr "État du titre"
 
 msgid "Creancerecoursgracieux.regularisation"
 msgstr "Régularisation"
+
+###############################################################################
+# Historique
+###############################################################################
+msgid "Recoursgracieux::index::historyDeleted"
+msgstr "Attention, un ou plusieurs recours gracieux ont été supprimés"
+
+msgid "Recoursgracieux::view::history"
+msgstr "Historique du recours gracieux"
+
+msgid "Historiqueetat.created"
+msgstr "Date"
+
+msgid "Historiqueetat.evenement"
+msgstr "Action réalisée"
+
+msgid "Historiqueetat.nom"
+msgstr "Nom de l'utilisateur"
+
+msgid "Historiqueetat.prenom"
+msgstr "Prénom de l'utilisateur"
+
+msgid "Historiqueetat.modele"
+msgstr "Page ayant modifiée le statut"
+
+msgid "Historiqueetat.etat"
+msgstr "État"
