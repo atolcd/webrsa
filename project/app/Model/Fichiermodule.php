@@ -325,6 +325,19 @@
                 ),
                 'fields' => '',
                 'order' => ''
+			)
+		);
+
+		public $hasOne = array(
+			'Foyerpiecejointe' => array(
+                'className' => 'Foyerpiecejointe',
+                'foreignKey' => 'fichiermodule_id',
+                'conditions' => array(
+                    'Fichiermodule.modele = \'Foyerpiecejointe\'',
+                    'Fichiermodule.fk_value = {$__cakeID__$}'
+                ),
+                'fields' => '',
+                'order' => ''
             )
 		);
 

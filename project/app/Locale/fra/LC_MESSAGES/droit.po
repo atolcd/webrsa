@@ -4569,3 +4569,45 @@ msgstr "Modification"
 
 msgid "controllers/Categoriespiecesjointes/delete"
 msgstr "Suppression"
+
+###############################################################################
+## Pièces jointes foyer
+###############################################################################
+msgid "controllers/Foyerspiecesjointes"
+msgstr "Pièces jointes des foyers"
+
+msgid "controllers/Foyerspiecesjointes/add"
+msgstr "Ajouter une pièce jointe et sa catégorie"
+
+msgid "controllers/Foyerspiecesjointes/ajaxfiledelete"
+msgstr "Supprimer en cours d'ajout"
+
+msgid "controllers/Foyerspiecesjointes/ajaxfileupload"
+msgstr "Ajouter une pièce jointe"
+
+msgid "controllers/Foyerspiecesjointes/archive"
+msgstr "Archiver"
+
+msgid "controllers/Foyerspiecesjointes/delete"
+msgstr "Supprimer"
+
+msgid "controllers/Foyerspiecesjointes/download"
+msgstr "Télécharger"
+
+msgid "controllers/Foyerspiecesjointes/fileview"
+msgstr "Voir un fichier"
+
+msgid "controllers/Foyerspiecesjointes/index"
+msgstr "Accès"
+
+msgid "controllers/Foyerspiecesjointes/view"
+msgstr "Voir un fichier"
+
+msgid "controllers/Foyerspiecesjointes/archivage"
+msgstr "Archiver un fichier"
+
+msgid "controllers/Foyerspiecesjointes/dearchive"
+msgstr "Désarchiver un fichier"
+
+msgid "controllers/Foyerspiecesjointes/edit"
+msgstr "Modifier la catégorie d'une pièce jointe"

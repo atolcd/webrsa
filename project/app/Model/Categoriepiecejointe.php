@@ -36,6 +36,22 @@
 			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
 			'Validation2.Validation2RulesFieldtypes'
-        );
+		);
+
+		public $hasMany = array(
+			'Foyerpiecejointe' => array(
+				'className' => 'Foyerpiecejointe',
+				'foreignKey' => 'categorie_id',
+				'dependent' => false,
+				'conditions' => array('actif' => 1),
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
+		);
 
     }

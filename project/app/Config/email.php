@@ -303,7 +303,40 @@ class EmailConfig {
 		'log' => false,
 		'charset' => 'utf-8',
 		'headerCharset' => 'utf-8',
+	);
 
+	/**
+	 * Configuration de l'envoi de mails aux personnes dédiées pour l'ajout de
+	 * pièce jointe avec une certaine catégorie (case à cocher dans la catégorie de la pièce jointe)
+	 *
+	 * Les clés 'port', 'timeout', 'host', 'username', 'password', 'client'
+	 * remplacent les valeurs qui étaient contenues dans 'Email.smtpOptions'
+	 * du fichier webrsa.inc.
+	 *
+	 * Lorsque l'application est en debug > 0, alors le mail est envoyé à
+	 * l'adresse spécifiée pour la clé 'to', ou à l'expéditeur (clé 'from').
+	 *
+	 * De même, si une clé 'subject' est spécifiée, elle sera utilisée comme
+	 * sujet du mail.
+	 *
+	 * @var array
+	 */
+	public $piece_jointe = array(
+		'transport' => 'Smtp',
+		'from' => '',
+		'replyTo' => '',
+		'to' => '',
+		'subject' => '',
+		'host' => '',
+		'username' => '',
+		'password' => '',
+		'client' => '',
+
+		'port' => 25,
+		'timeout' => 30,
+		'log' => false,
+		'charset' => 'utf-8',
+		'headerCharset' => 'utf-8',
 	);
 
 	/**
@@ -423,14 +456,14 @@ class EmailConfig {
 		$this->import_frsa['password'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_PASSWORD');
 		$this->import_frsa['client'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_CLIENT');
 
-		$this->cat_piecejointe['transport'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_TRANSPORT');
-		$this->cat_piecejointe['from'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_FROM');
-		$this->cat_piecejointe['replyTo'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_REPLYTO');
-		$this->cat_piecejointe['to'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_TO');
-		$this->cat_piecejointe['subject'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_SUBJECT');
-		$this->cat_piecejointe['host'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_HOST');
-		$this->cat_piecejointe['username'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_USERNAME');
-		$this->cat_piecejointe['password'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_PASSWORD');
-		$this->cat_piecejointe['client'] = env('EMAIL_CONFIG_MAIL_CATPIECEJOINTE_CLIENT');
+		$this->piece_jointe['transport'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_TRANSPORT');
+		$this->piece_jointe['from'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_FROM');
+		$this->piece_jointe['replyTo'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_REPLYTO');
+		$this->piece_jointe['to'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_TO');
+		$this->piece_jointe['subject'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_SUBJECT');
+		$this->piece_jointe['host'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_HOST');
+		$this->piece_jointe['username'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_USERNAME');
+		$this->piece_jointe['password'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_PASSWORD');
+		$this->piece_jointe['client'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_CLIENT');
 	}
 }

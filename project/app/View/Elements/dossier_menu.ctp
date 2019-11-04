@@ -399,6 +399,9 @@ $fonorg = $dossier['Dossier']['fonorg'];
 			);
 		}
 
+		// Pièces jointe
+		$items['Pièces jointes'] = array( 'url' => array( 'controller' => 'foyerspiecesjointes', 'action' => 'index', $dossier['Foyer']['id'] ) );
+
 		$items['Informations complémentaires'] = array( 'url' => array( 'controller' => 'infoscomplementaires', 'action' => 'view', $dossier['Dossier']['id'] ) );
 
 		$items['Synthèse du parcours d\'insertion'] = array( 'url' => array( 'controller' => 'suivisinsertion', 'action' => 'index', $dossier['Dossier']['id'] ) );

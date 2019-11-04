@@ -323,6 +323,19 @@
 				'finderQuery' => '',
 				'counterQuery' => ''
 			),
+			'Foyerpiecejointe' => array(
+				'className' => 'Foyerpiecejointe',
+				'foreignKey' => 'foyer_id',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
 		);
 
 		/**

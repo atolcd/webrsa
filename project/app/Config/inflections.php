@@ -151,6 +151,7 @@ $irregularPlural = array(
     'dossiercaf' => 'dossierscaf',
     'dossiersimplifie' => 'dossierssimplifies',
     'etatliquidatif' => 'etatsliquidatifs',
+    'foyerpiecejointe' => 'foyerspiecesjointes',
     'formpermfimo' => 'formspermsfimo',
     'formpermfimo_pieceformpermfimo' => 'formspermsfimo_piecesformspermsfimo',
     'formqualif' => 'formsqualifs',
