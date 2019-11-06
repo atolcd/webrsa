@@ -4392,10 +4392,10 @@ msgid "controllers/Recoursgracieux/proposer"
 msgstr "Proposition de décision des recours gracieux"
 
 msgid "controllers/Recoursgracieux/envoyer"
-msgstr "Décision des recours gracieux"
+msgstr "Validation de signature des recours gracieux"
 
 msgid "controllers/Recoursgracieux/traiter"
-msgstr "Traitement des recours gracieux"
+msgstr "Traitement et notification des recours gracieux"
 
 msgid "controllers/Recoursgracieux/search"
 msgstr "Recherche sur les recours gracieux"

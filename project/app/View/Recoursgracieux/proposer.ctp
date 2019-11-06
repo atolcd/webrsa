@@ -127,6 +127,9 @@
 
 	echo $this->Default3->subform(
 		array(
+			'Recourgracieux.encours' => array(
+				'type' => 'checkbox'
+			),
 			'Recourgracieux.mention'  => array('type' => 'textarea'),
 			'Recourgracieux.etat' => array('type' => 'hidden', 'value' => 'ATTVALIDATION'),
 			'Recourgracieux.id' => array('type' => 'hidden', 'value' => $this->request->data['Recourgracieux']['id']),

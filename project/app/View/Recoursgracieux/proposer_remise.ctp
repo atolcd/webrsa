@@ -49,9 +49,6 @@
 			'Creancerecoursgracieux.motifproposrecoursgracieux_id' => array(
 				'options' => $listMotifs
 			),
-			'Creancerecoursgracieux.encours' => array(
-				'type' => 'checkbox'
-			),
 			'Creancerecoursgracieux.mention' => array('type' => 'textarea')
 		),
 		array('options' => $options)

@@ -116,6 +116,7 @@
 		 * @var array
 		*/
 		public $aucunDroit = array(
+			'updateEtatPCGTraiter',
 			'ajaxfiledelete',
 			'ajaxfileupload',
 			'ajaxreffonct',
@@ -530,6 +531,17 @@
 			if( !empty( $this->request->data ) ) {
 				$this->Recourgracieux->begin();
 				$data = $this->request->data;
+
+				//A traité -> instructionencours
+				if ( $data['Recourgracieux']['encours'] ){
+					$data['Recourgracieux']['etat'] = 'INSTRUCTION' ;
+				}elseif (
+					$data['Recourgracieux']['etat'] == 'INSTRUCTION'
+					&& !$data['Recourgracieux']['encours']
+				) {
+					$data['Recourgracieux']['etat'] = 'ATTVALIDATION';
+				}
+
 				if( $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) ) &&
 					$this->Recourgracieux->save( $data ) &&
 					$this->Historiqueetat->setHisto(
@@ -934,9 +946,13 @@
 			if( !empty( $this->request->data ) ) {
 				$this->Recourgracieux->begin();
 				$data = $this->request->data;
+				$save = true;
 				if ( $data['Recourgracieux']['validation'] == 1){
 					//Si le dossier est en regularisation
-					if ($data['Recourgracieux']['regularisation'] == 1){
+					if (
+						$data['Recourgracieux']['regularisation'] == 1
+						&& $data['Recourgracieux']['etat'] != 'VALIDTRAITEMENT'
+					){
 						//Si la création de PCGs est active
 						if (  Configure::read('Recoursgracieux.PCG.Actifs') ) {
 							//On prépare les informations du PCG
@@ -973,12 +989,8 @@
 										$creancerecoursgracieux['Creancerecoursgracieux']['dossierpcg_id'] = $this->Dossierpcg66->id ;
 										if(
 											$this->Creancerecoursgracieux->save( $creancerecoursgracieux )
-											&&
-											$savePCG
 										) {
 											$this->Creancerecoursgracieux->commit();
-										}else{
-											$savePCG = false ;
 										}
 									}
 								}
@@ -987,16 +999,19 @@
 							}else{
 								$this->Dossierpcg66->rollback();
 							}
+							$save = $savePCG ;
 						}else{
-							$savePCG = true;
+							$data['Recourgracieux']['etat'] = 'ATTSIGNATURE';
 						}
+					}else{
+						$data['Recourgracieux']['etat'] = 'ATTSIGNATURE';
 					}
 				}else{
-					 $data['Recourgracieux']['etat'] = 'ATTINSTRUCTION';
+					$data['Recourgracieux']['etat'] = 'ATTINSTRUCTION';
 				}
 				//Sauvegarde du recours gracieux
 				$saveRecoursgracieux = $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) );
-				if( $saveRecoursgracieux && $savePCG &&
+				if( $saveRecoursgracieux && $save &&
 					$this->Recourgracieux->save( $data ) &&
 					$this->Historiqueetat->setHisto(
 						$this->Recourgracieux->name,
@@ -1151,12 +1166,149 @@
 						$recoursgracieux['Recourgracieux']['foyer_id'],
 						__FUNCTION__,
 						$recoursgracieux['Recourgracieux']['etat'],
-						$recoursgracieux['Recourgracieux']['foyer_id']
+						$foyer_id
 					)
 				) {
 					$this->Recourgracieux->commit();
 				}
 			}
+		}
+
+		/**
+		 * Défini l'état d'un recours gracieux d'un foyer a ATTENVOIE
+		 *
+		 * @param integer $id L'id technique du recours gracieux a affecter
+		 * @return void
+		 */
+		public function envoyer($id) {
+				$this->WebrsaAccesses->check($id);
+				$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+				// Affichage des données
+				$recoursgracieux = $this->Recourgracieux->find(
+					'first',
+					array(
+						'fields' => array_merge(
+							$this->Recourgracieux->fields()
+						),
+						'conditions' => array(
+							'Recourgracieux.id' => $id
+						),
+						'contain' => FALSE
+					)
+				);
+
+				$recoursgracieux['Recourgracieux']['etat'] = 'ATTENVOIE' ;
+
+				//Sauvegarde du recours gracieux
+				$this->Recourgracieux->begin();
+				$saveRecoursgracieux = $this->Recourgracieux->saveAll( $recoursgracieux, array( 'validate' => 'only' ) );
+				if( $saveRecoursgracieux
+					&&	$this->Recourgracieux->save( $recoursgracieux )
+					&& $this->Historiqueetat->setHisto(
+						$this->Recourgracieux->name,
+						$id,
+						$foyer_id,
+						__FUNCTION__,
+						$recoursgracieux['Recourgracieux']['etat'],
+						$foyer_id
+					)
+				) {
+					$this->Recourgracieux->commit();
+					$this->Flash->success( __( 'Save->success' ) );
+				}
+				else {
+					$this->Recourgracieux->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+				$this->redirect( array( 'controller' => 'recoursgracieux', 'action' => 'index', $foyer_id ) );
+		}
+
+		/**
+		 * Permet le traitement final d'ui recours gracieux
+		 *
+		 * @param integer $id L'id technique du recours gracieux a traiter
+		 * @return void
+		 */
+		public function traiter($id) {
+			$this->WebrsaAccesses->check($id);
+			$this->Recourgracieux->id = $id;
+			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$dossier_id = $this->Recourgracieux->dossierId( $id );
+
+			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
+			$this->Jetons2->get( $dossier_id );
+
+			// Retour à l'index en cas d'annulation
+			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->Jetons2->release( $dossier_id );
+				$this->redirect( array( 'action' => 'index', $foyer_id ) );
+			}
+
+			// Essai de sauvegarde
+			if( !empty( $this->request->data ) ) {
+				$this->Recourgracieux->begin();
+				$data = $this->request->data;
+
+				if ( $data['Recourgracieux']['traiter'] == 1){
+					$data['Recourgracieux']['etat'] = 'TRAITER' ;
+				}
+				if( $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) ) &&
+					$this->Recourgracieux->save( $data ) &&
+					$this->Historiqueetat->setHisto(
+						$this->Recourgracieux->name,
+						$this->Recourgracieux->id,
+						$foyer_id,
+						__FUNCTION__,
+						$data['Recourgracieux']['etat'],
+						$foyer_id
+					) ){
+					$this->Recourgracieux->commit();
+					$this->Jetons2->release( $dossier_id );
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect( array( 'controller' => 'Recoursgracieux', 'action' => 'index', $foyer_id ) );
+				} else {
+					$this->Recourgracieux->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+			}
+			// Affichage des données
+			else {
+				$recoursgracieux = $this->Recourgracieux->find(
+					'first',
+					array(
+						'fields' => array_merge(
+							$this->Recourgracieux->fields()
+						),
+						'conditions' => array(
+							'Recourgracieux.id' => $id
+						),
+						'contain' => FALSE
+					)
+				);
+				if (!empty( $recoursgracieux ) ){
+					// Assignation au formulaire
+					$this->request->data = $recoursgracieux;
+				}
+			}
+
+			//ListMotifs
+			$listMotifs = $this->Motifproposrecoursgracieux->find(
+				'list',
+				array(
+					'fields' => array ('id', 'nom')
+				)
+			);
+			$this->set( 'listMotifs', $listMotifs );
+			// Assignation à la vue
+			$this->set( 'options', array_merge(
+					$this->Recourgracieux->options(),
+					$this->Recourgracieux->enums(),
+					$this->Recourgracieux->Foyer->Creance->enums(),
+					$this->Recourgracieux->Foyer->Creance->Titrecreancier->enums()
+				)
+			);
+			$this->set( 'urlmenu', '/recoursgracieux/index/'.$foyer_id );
+			$this->set( 'foyer_id', $foyer_id );
 		}
 
 		/**

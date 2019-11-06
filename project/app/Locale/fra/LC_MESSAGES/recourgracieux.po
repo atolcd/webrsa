@@ -27,6 +27,9 @@ msgstr "En attente d’affectation"
 msgid "ENUM::ETAT::ATTINSTRUCTION"
 msgstr "En attente d’instruction"
 
+msgid "ENUM::ETAT::INSTRUCTION"
+msgstr "Instruction en cours"
+
 msgid "ENUM::ETAT::ATTVALIDATION"
 msgstr "En attente de validation"
 
@@ -90,6 +93,9 @@ msgstr "Date décision du validateur"
 msgid "Recourgracieux.validation"
 msgstr "Valider la décision"
 
+msgid "Recourgracieux.traiter"
+msgstr "Valider définitivement le recours gracieux"
+
 msgid "Recourgracieux.poledossierpcg66_id"
 msgstr "Pôle du Gestionnaire"
 
@@ -101,6 +107,9 @@ msgstr "État"
 
 msgid "Recourgracieux.etat"
 msgstr "État"
+
+msgid "Recourgracieux.encours"
+msgstr "En cours"
 
 # ==============================================================================
 # Résultats du moteur de recherche

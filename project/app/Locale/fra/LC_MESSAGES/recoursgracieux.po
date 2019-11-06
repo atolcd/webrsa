@@ -48,6 +48,9 @@ msgstr "Proposition remise"
 msgid "/Recoursgracieux/decider/:heading"
 msgstr "Décision"
 
+msgid "/Recoursgracieux/traiter/:heading"
+msgstr "Traitement"
+
 msgid "Recoursgracieux::index::emptyRecours"
 msgstr "Cette personne ne possède pas de recours gracieux."
 
@@ -61,11 +64,11 @@ msgstr "Propositions liées à ce recours gracieux"
 msgid "/Recoursgracieux/index"
 msgstr "Voir"
 
-msgid "/Recoursgracieux/view"
-msgstr "Voir"
-
 msgid "/Recoursgracieux/index/#Recourgracieux.id#"
 msgstr "Voir ce recours gracieux"
+
+msgid "/Recoursgracieux/view"
+msgstr "Voir"
 
 msgid "/Recoursgracieux/view/#Recourgracieux.id#"
 msgstr "Voir ce recours gracieux"
@@ -85,17 +88,20 @@ msgstr "Éditer ce recours gracieux"
 msgid "/Recoursgracieux/email"
 msgstr "Envoyer un courriel"
 
+msgid "/Recoursgracieux/email/#Recourgracieux.id#"
+msgstr "Envoyer un courriel"
+
 msgid "/Recoursgracieux/affecter"
 msgstr "Affecter un réferent"
 
-msgid "/Recoursgracieux/edit/#Recourgracieux.id#"
-msgstr "Éditer #Recourgracieux.id#"
+msgid "/Recoursgracieux/affecter/#Recourgracieux.id#"
+msgstr "Affecter un réferent"
 
 msgid "/Recoursgracieux/proposer"
 msgstr "Proposition"
 
 msgid "/Recoursgracieux/proposer/#Recourgracieux.id#"
-msgstr "Proposition #Recourgracieux.id#"
+msgstr "Proposition"
 
 msgid "/Recoursgracieux/proposer_contestation"
 msgstr "Ajouter créance"
@@ -113,7 +119,7 @@ msgid "/Recoursgracieux/decider"
 msgstr "Décision"
 
 msgid "/Recoursgracieux/decider/#Recourgracieux.id#"
-msgstr "Décision #Recourgracieux.id#"
+msgstr "Décision"
 
 msgid "/Dossierspcgs66/view"
 msgstr "Voir le dossier PCG lié"
@@ -125,9 +131,12 @@ msgid "/Recoursgracieux/envoyer"
 msgstr "Envoi"
 
 msgid "/Recoursgracieux/envoyer/#Recourgracieux.id#"
-msgstr "Envoi #Recourgracieux.id#"
+msgstr "Envoi"
 
 msgid "/Recoursgracieux/traiter"
+msgstr "Traiter"
+
+msgid "/Recoursgracieux/traiter/#Recourgracieux.id#"
 msgstr "Traiter"
 
 msgid "/Recoursgracieux/deleteproposition"
@@ -136,7 +145,7 @@ msgstr "Supprimer"
 msgid "/Recoursgracieux/delete"
 msgstr "Supprimer"
 
-msgid "/Recoursgracieux/delete/#Creance.id#"
+msgid "/Recoursgracieux/delete/#Recourgracieux.id#"
 msgstr "Supprimer ce recours gracieux"
 
 msgid "Recoursgracieux::index::emptyLabel"
@@ -242,9 +251,6 @@ msgstr "Refus de la contestation"
 msgid "Creancerecoursgracieux.motifproposrecoursgracieux_id"
 msgstr "Motif de la proposition"
 
-msgid "Creancerecoursgracieux.encours"
-msgstr "En cours"
-
 msgid "Creancerecoursgracieux.mention"
 msgstr "Mention"
 
@@ -286,6 +292,9 @@ msgstr "État du titre"
 
 msgid "Creancerecoursgracieux.regularisation"
 msgstr "Régularisation"
+
+msgid "Pièce jointe"
+msgstr "Pièce jointe"
 
 ###############################################################################
 # Historique

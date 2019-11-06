@@ -130,17 +130,20 @@
 		}
 	}
 	echo '</fieldset>';
+	if ($this->request->data['Recourgracieux']['etat'] == 'VALIDTRAITEMENT') {
+		$this->request->data['Recourgracieux']['validation'] = 1;
+	}
 	echo $this->Default3->subform(
 		array(
 			'Recourgracieux.mention'  => array('type' => 'textarea'),
 			'Recourgracieux.dtdecision' => array('type' => 'date', 'dateFormat' => 'DMY'),
 			'Recourgracieux.validation' => array(
 				'type' => 'radio',
-				 'label' => __m('Validation'),
-				 'options' => array( '1' => __m('YES'), '2' => __m('NO'))
+				'label' => __m('Validation'),
+				'options' => array( '1' => __m('YES'), '2' => __m('NO'))
 			),
 			'Recourgracieux.regularisation' => array('type' => 'hidden'),
-			'Recourgracieux.etat' => array('type' => 'hidden', 'value' => 'ATTSIGNATURE'),
+			'Recourgracieux.etat' => array('type' => 'hidden'),
 			'Recourgracieux.id' => array('type' => 'hidden', 'value' => $this->request->data['Recourgracieux']['id']),
 			'Recourgracieux.foyer_id' => array( 'type' => 'hidden', 'value' => $foyer_id),
 			),

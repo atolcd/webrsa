@@ -158,6 +158,7 @@
 		protected static function _proposer(array $record, array $params) {
 			if (
 				$record['Recourgracieux']['etat'] == 'ATTINSTRUCTION'
+				|| $record['Recourgracieux']['etat'] == 'INSTRUCTION'
 			){
 				return true;
 			}else{
