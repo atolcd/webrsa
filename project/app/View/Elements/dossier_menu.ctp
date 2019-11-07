@@ -214,7 +214,7 @@ $fonorg = $dossier['Dossier']['fonorg'];
 				}
 
 				$subAllocataire['Accompagnement du parcours']['Informations Pôle Emploi'] = array(
-					'disabled' => !Configure::read('Module.Fluxpoleemplois.enabled'),
+					'disabled' => !Configure::read('Module.fluxpoleemploi.enabled'),
 					'url' => array(
 						'controller' => 'fluxpoleemplois',
 						'action' => 'personne',
@@ -223,7 +223,7 @@ $fonorg = $dossier['Dossier']['fonorg'];
 					)
 				);
 				$subAllocataire['Accompagnement du parcours']['Historique Pôle Emploi'] = array(
-					'disabled' => !Configure::read('Module.Fluxpoleemplois.enabled'),
+					'disabled' => !Configure::read('Module.fluxpoleemploi.enabled'),
 					'url' => array(
 						'controller' => 'fluxpoleemplois',
 						'action' => 'historique',
