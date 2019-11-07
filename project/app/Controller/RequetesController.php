@@ -20,10 +20,11 @@ class RequetesController extends AppController {
         $this->DataTable->fields     = $this->Requete->getListeChamps('Requete');
         $this->DataTable->conditions = $this->Requete->getConditions('Requete');
         $user_filtre_zone_geo = $this->Session->read("Auth.User.filtre_zone_geo");
-        // vÃ©rification qu'un compte avec un filtre sur zone gÃ©ograhique a une structure rÃ©fÃ©rente
-        $user_structurereferente_id = end($this->Workflowscers93->getUserStructurereferenteId( $user_filtre_zone_geo ));
+        // vérification qu'un compte avec un filtre sur zone géograhique a une structure référente
+        $user_structurereferente_id = $this->Workflowscers93->getUserStructurereferenteId( $user_filtre_zone_geo );
 
         if (!empty($user_structurereferente_id)) {
+            $user_structurereferente_id = end($user_structurereferente_id);
             $user_groupement = end(end(end($this->Requete->query('SELECT groupement as "groupement" FROM referentiel.fse_pdv WHERE structurereferente_id = '.$user_structurereferente_id.' LIMIT 1' , FALSE)))) ;
 			$this->Session->write("Rsaquery.User.groupement",$user_groupement);
         }
@@ -33,7 +34,7 @@ class RequetesController extends AppController {
 			echo(json_encode($this->DataTable->getDataTable()));
         }
         $this->layout = 'cg93';
-    } 
+    }
     /**
      * view method
      *
