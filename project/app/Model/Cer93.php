@@ -45,7 +45,8 @@
 					'Contratinsertion/decision_valide.odt',
 					'Contratinsertion/decision_rejete.odt'
 				)
-			)
+			),
+			'StorablePdf'
 		);
 
 		/**
@@ -737,23 +738,40 @@
 		 * @return string
 		 */
 		public function getDefaultPdf( $contratinsertion_id, $user_id ) {
-			$data = $this->getDataForPdf( $contratinsertion_id, $user_id );
-			$modeleodt = $this->modeleOdt( $data );
+			$pdf = false;
+			//Recherche du PDF en Base de donnée ou CMIS
+			if ( Configure::read( 'cer.pdf.save' ) ) {
+				$pdf = $this->getStoredPdf($contratinsertion_id);
+				if( !empty( $pdf ) ) {
+					$pdf = $pdf['Pdf']['document'];
+				}
+			}
+			//Si le PDF n'existe pas on le crée
+			if( empty( $pdf ) ) {
+				$data = $this->getDataForPdf( $contratinsertion_id, $user_id );
+				$modeleodt = $this->modeleOdt( $data );
 
-			$Option = ClassRegistry::init( 'Option' );
-			$options =  Set::merge(
-				array(
-					'Personne' => array(
-						'qual' => $Option->qual()
+				$Option = ClassRegistry::init( 'Option' );
+				$options =  Set::merge(
+					array(
+						'Personne' => array(
+							'qual' => $Option->qual()
+						),
+						'Cer93' => array(
+							'dureecdd' => ClassRegistry::init('Contratinsertion')->enum('duree_cdd')
+						)
 					),
-					'Cer93' => array(
-						'dureecdd' => ClassRegistry::init('Contratinsertion')->enum('duree_cdd')
-					)
-				),
-				$this->enums()
-			);
-
-			return $this->ged( $data, $modeleodt, true, $options );
+					$this->enums()
+				);
+				$pdf = $this->ged( $data, $modeleodt, true, $options );
+				//On stocke le PDF crée
+				if ( Configure::read( 'cer.pdf.save' ) ) {
+					if( !empty( $pdf ) ) {
+						$this->storePdf( $contratinsertion_id, $modeleodt, $pdf );
+					}
+				}
+			}
+			return $pdf;
 		}
 
 		/**
@@ -765,44 +783,58 @@
 		 */
 
 		public function getDecisionPdf( $contratinsertion_id, $user_id ) {
-			$options = $this->WebrsaCer93->optionsView();
-			$data = $this->getDataForPdf( $contratinsertion_id, $user_id );
-			$data = $data[0];
-
-			$dateimpressiondecision = date( 'Y-m-d' );
-
-			if( !empty( $dateimpressiondecision ) ) {
-				$this->updateAllUnBound(
-					array( 'Cer93.dateimpressiondecision' => '\''.$dateimpressiondecision.'\'' ),
-					array(
-						'"Cer93"."id"' => $data['Cer93']['id']
-					)
-				);
-			}
-
-			// Choix du modèle de document
-			$decision = $data['Contratinsertion']['decision_ci'];
-			// Forme du CER
-			$formeci = $data['Contratinsertion']['forme_ci'];
-
-			if( $formeci == 'S' ) {
-				if( $decision == 'V' ) {
-					$modeleodt  = "Contratinsertion/cer_valide.odt";
-				}
-				else if( in_array( $decision, array( 'R', 'N' ) ) ){
-					$modeleodt  = "Contratinsertion/cer_rejete.odt";
+			$pdf = false;
+			//Recherche du PDF en Base de donnée ou CMIS
+			if ( Configure::read( 'cer.pdf.save' ) ) {
+				$pdf = $this->getStoredPdf($contratinsertion_id);
+				if( !empty( $pdf ) ) {
+					$pdf = $pdf['Pdf']['document'];
 				}
 			}
-			else {
-				if( $decision == 'V' ) {
-					$modeleodt  = "Contratinsertion/decision_valide.odt";
+			//Si le PDF n'existe pas on le crée
+			if( empty( $pdf ) ) {
+				$options = $this->WebrsaCer93->optionsView();
+				$data = $this->getDataForPdf( $contratinsertion_id, $user_id );
+				$data = $data[0];
+				$dateimpressiondecision = date( 'Y-m-d' );
+				if( !empty( $dateimpressiondecision ) ) {
+					$this->updateAllUnBound(
+						array( 'Cer93.dateimpressiondecision' => '\''.$dateimpressiondecision.'\'' ),
+						array(
+							'"Cer93"."id"' => $data['Cer93']['id']
+						)
+					);
 				}
-				else if( in_array( $decision, array( 'R', 'N' ) ) ){
-					$modeleodt  = "Contratinsertion/decision_rejete.odt";
+				// Choix du modèle de document
+				$decision = $data['Contratinsertion']['decision_ci'];
+				// Forme du CER
+				$formeci = $data['Contratinsertion']['forme_ci'];
+				if( $formeci == 'S' ) {
+					if( $decision == 'V' ) {
+						$modeleodt  = "Contratinsertion/cer_valide.odt";
+					}
+					else if( in_array( $decision, array( 'R', 'N' ) ) ){
+						$modeleodt  = "Contratinsertion/cer_rejete.odt";
+					}
+				}
+				else {
+					if( $decision == 'V' ) {
+						$modeleodt  = "Contratinsertion/decision_valide.odt";
+					}
+					else if( in_array( $decision, array( 'R', 'N' ) ) ){
+						$modeleodt  = "Contratinsertion/decision_rejete.odt";
+					}
+				}
+				$pdf = $this->ged( $data, $modeleodt, false, $options );
+
+				//On stocke le PDF crée
+				if ( Configure::read( 'cer.pdf.save' ) ) {
+					if( !empty( $pdf ) ) {
+						$this->storePdf( $contratinsertion_id, $modeleodt, $pdf );
+					}
 				}
 			}
-
-			return $this->ged( $data, $modeleodt, false, $options );
+			return $pdf;
 		}
 
 		/**

@@ -893,6 +893,11 @@
 	Configure::write( 'cer.duree.tranche', 24 );
 
 	/**
+	 * Activation de la sauvegarde des CER
+	 */
+	Configure::write( 'cer.pdf.save', false );
+
+	/**
 	 * Activation du module TitreCréanciers
 	 * 'Creances.titrescreanciers' => true pour activée, false pour inactivée
 	 */
