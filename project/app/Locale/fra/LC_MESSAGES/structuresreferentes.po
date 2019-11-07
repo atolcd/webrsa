@@ -53,7 +53,7 @@ msgid "Structurereferente.actif"
 msgstr "Structure active"
 
 msgid "Structurereferente.actif_cohorte"
-msgstr "Structure active pour les résultats des recherches en cohorte"
+msgstr "Structure active pour les résultats des recherches en cohorte d'orientation"
 
 msgid "Structurereferente.dreesorganisme_id"
 msgstr "Type d'organisme DREES"

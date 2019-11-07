@@ -38,7 +38,8 @@
 				array(
 					'Search.Structurereferente.typestructure' => array( 'empty' => true, 'required' => false ),
 					'Search.Structurereferente.dreesorganisme_id' => array( 'empty' => true, 'required' => false ),
-					'Search.Structurereferente.actif' => array( 'empty' => true, 'required' => false )
+					'Search.Structurereferente.actif' => array( 'empty' => true, 'required' => false ),
+					'Search.Structurereferente.actif_cohorte' => array( 'empty' => true, 'required' => false )
 				)
 			)
 		),
