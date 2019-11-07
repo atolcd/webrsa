@@ -218,6 +218,9 @@
 				$fields = array_keys( $this->Questionnaired2pdv93->schema(false) );
 				$empty = array_combine( $fields, array_pad( array(), count( $fields ), null ) );
 				$data = Hash::merge( array( 'Questionnaired2pdv93' => $empty ), $this->request->data );
+				if ( empty ($data['Questionnaired2pdv93']['toujoursenemploi'] ) ) {
+					$data['Questionnaired2pdv93']['toujoursenemploi'] = 0;
+				}
 
 				// Rome V3
 				$data['Questionnaired2pdv93']['emploiromev3_id'] = $this->Questionnaired2pdv93->getEmploiromev3Id( $data );
