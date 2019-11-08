@@ -5,7 +5,7 @@
 			'fields' => array(
 				'Categoriepiecejointe.id',
 				'Categoriepiecejointe.nom',
-				'Categoriepiecejointe.mailauto' => array( 'type' => 'checkbox', 'value' => 0 ),
+				'Categoriepiecejointe.mailauto' => array( 'type' => 'checkbox'),
 				'Categoriepiecejointe.actif' => array( 'type' => 'checkbox', 'value' => 1 ),
 			)
 		)

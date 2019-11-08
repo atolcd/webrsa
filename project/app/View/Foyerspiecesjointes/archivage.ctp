@@ -30,13 +30,14 @@
             $pjArchives,
             $this->Translator->normalize(
                 array(
-                    'Fichiermodule.name',
+                    'Foyerpiecejointe.nom',
                     'Foyerpiecejointe.created',
                     'User.username',
                     'Categoriepiecejointe.nom',
                 ) + WebrsaAccess::links(
                     array(
                         '/Foyerspiecesjointes/view/#Foyerpiecejointe.id#',
+                        '/Foyerspiecesjointes/edit/#Foyerpiecejointe.id#',
                         '/Foyerspiecesjointes/dearchive/#Foyerpiecejointe.id#' => array(
                             'class' => 'edit'
                         ),

@@ -45,7 +45,7 @@
             $pjNonArchives,
             $this->Translator->normalize(
                 array(
-                    'Fichiermodule.name',
+                    'Foyerpiecejointe.nom',
                     'Foyerpiecejointe.created',
                     'User.username',
                     'Categoriepiecejointe.nom'
@@ -65,4 +65,3 @@
             )
         );
     }
-?>

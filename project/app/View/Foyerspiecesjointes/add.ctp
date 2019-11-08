@@ -30,5 +30,5 @@
 echo $this->Default3->DefaultForm->buttons( array( 'Save', 'Cancel' ) );
 echo $this->Default3->DefaultForm->end();
 
-echo '<h2>Pièces non archivées déjà présentes</h2>';
+echo '<h2>' . __m('Foyerspiecesjointe/pjpresentes') . '</h2>';
 echo $this->Fileuploader->results($piecesjointes);

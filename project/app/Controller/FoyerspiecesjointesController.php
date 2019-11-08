@@ -23,23 +23,23 @@
 		 *
 		 * @var string
 		 */
-        public $name = 'Foyerspiecesjointes';
+		public $name = 'Foyerspiecesjointes';
 
-        /**
+		/**
 		 * Components utilisés.
 		 *
 		 * @var array
 		 */
 		public $components = array(
-            'Fileuploader',
-            'Gedooo.Gedooo',
+			'Fileuploader',
+			'Gedooo.Gedooo',
 			'Default',
-            'DossiersMenus',
+			'DossiersMenus',
 			'Jetons2',
 			'WebrsaAccesses'
-        );
+		);
 
-        /**
+		/**
 		 * Helpers utilisés.
 		 *
 		 * @var array
@@ -53,17 +53,18 @@
 			),
 			'Fileuploader',
 			'Cake1xLegacy.Ajax'
-        );
+		);
 
-        /**
+		/**
 		 * Modèles utilisés.
 		 *
 		 * @var array
 		 */
 		public $uses = array(
-            'Foyerpiecejointe',
-            'Fichiermodule',
-            'Foyer'
+			'Foyerpiecejointe',
+			'Fichiermodule',
+			'Foyer',
+			'Dossier'
 		);
 
 		/**
@@ -75,6 +76,25 @@
 		);
 
 		/**
+		 * Remplace les espaces par des _ et les accents par son équivalent
+		 * Renomme le fichier
+		 *
+		 * @param string
+		 * @return string
+		 */
+		protected function _encodeNomFichier($filename, $dir) {
+			$nom = $filename;
+			$nameNewFile = $filename;
+			$nameNewFile = iconv( 'UTF-8', 'ASCII//TRANSLIT//IGNORE', $nameNewFile );
+			if(strpos($nameNewFile, " ") !== false) {
+				$nameNewFile = str_replace(' ', '_', $nameNewFile);
+			}
+			$oldFile = $dir . DS . $filename;
+			$newFile = $dir . DS . $nameNewFile;
+			rename($oldFile, $newFile);
+			return $nom;
+		}
+		/**
 		 * Sauvegarde d'une nouvelle pièce jointe
 		 *
 		 * @param int $foyer id
@@ -84,8 +104,16 @@
 			$this->Foyerpiecejointe->begin();
 			$dataToSave = array();
 			$dir = $this->Fileuploader->dirFichiersModule($this->action, $foyer_id);
+			// Changement du nom de fichier en remplaçant les caractères spéciaux pour suppression dans Alfresco
+			$files = scandir($dir);
+			foreach($files as $file) {
+				if($file != '.' && $file != '..') {
+					$nom = $this->_encodeNomFichier($file, $dir);
+				}
+			}
 			$success = $this->Fileuploader->saveFichiers($dir, false, $foyer_id);
 			if( $success ) {
+				$dataToSave['nom'] = $nom;
 				$dataToSave['categorie_id'] = $data['Foyerspiecesjointes']['categorie_id'];
 				$dataToSave['foyer_id'] = $foyer_id;
 				$dataToSave['archive'] = 0;
@@ -131,10 +159,10 @@
 				array(
 					'fields' => array(
 						'Foyerpiecejointe.id',
+						'Foyerpiecejointe.nom',
 						'Foyerpiecejointe.foyer_id',
 						'Foyerpiecejointe.created',
 						'User.username',
-						'Fichiermodule.name',
 						'Categoriepiecejointe.nom',
 						'Foyerpiecejointe.id',
 						'Foyerpiecejointe.id',
@@ -177,10 +205,10 @@
 				array(
 					'fields' => array(
 						'Foyerpiecejointe.id',
+						'Foyerpiecejointe.nom',
 						'Foyerpiecejointe.foyer_id',
 						'Foyerpiecejointe.created',
 						'User.username',
-						'Fichiermodule.name',
 						'Categoriepiecejointe.nom',
 						'Foyerpiecejointe.id',
 					),
@@ -256,7 +284,6 @@
 		 * @param integer $foyer_id L'id technique du foyer pour lequel on veut ajouter un ou plusieurs fichiers liés.
 		 */
 		public function add($foyer_id) {
-
 			// Intégration des pièces jointes
 			$piecesjointes = array();
 
@@ -341,8 +368,10 @@
 				)
 			) );
 
-			if(	$this->Foyerpiecejointe->Fichiermodule->delete($file['Foyerpiecejointe']['fichiermodule_id'], false) &&
-				$this->Foyerpiecejointe->delete($file['Foyerpiecejointe']['id'], false)) {
+			$success = $this->Foyerpiecejointe->delete($file['Foyerpiecejointe']['id'], false);
+			$success = $this->Foyerpiecejointe->Fichiermodule->delete($file['Foyerpiecejointe']['fichiermodule_id'], false) && $success;
+
+			if(	$success) {
 				$this->Flash->success( __( 'Delete->success' ) );
 			} else {
 				$this->Foyerpiecejointe->Fichiermodule->rollback();
@@ -376,7 +405,6 @@
 				'fields' => array(
 					'Categoriepiecejointe.id',
 					'Categoriepiecejointe.nom',
-					'Categoriepiecejointe.mailauto'
 				),
 				'conditions' => array('Categoriepiecejointe.actif' => 1)
 			) );
@@ -410,11 +438,55 @@
 		 * avec le champs mailauto à 1
 		 */
 		protected function _mailTo($foyer_id, $id) {
-			/* $fichier = $this->Fichierpiecejointe->find('first', array(
-				'recursive' => 0,
-				'conditions' => array('Fichierpiecejointe.id' => $id)
+			$fichier = $this->Foyerpiecejointe->find('first', array(
+				'fields' => array(
+					'Categoriepiecejointe.nom',
+					'Categoriepiecejointe.mailauto'
+				),
+				'conditions' => array('Foyerpiecejointe.id' => $id)
 			));
-			debug($fichier); */
+			$dossier = $this->Foyerpiecejointe->Foyer->find('first', array(
+				'fields' => 'Dossier.numdemrsa',
+				'conditions' => array(
+					'Foyer.id' => $foyer_id
+				)
+			));
+
+			if( $fichier['Categoriepiecejointe']['mailauto'] == 1 ) {
+				// Envoi du mail
+				$success = true;
+				try {
+					$url = Router::url(
+						array(
+							'controller' => 'Foyerspiecesjointes',
+							'action' => 'index',
+							$foyer_id
+						),
+						true
+					);
+					$configName = WebrsaEmailConfig::getName( 'piece_jointe' );
+					$Email = new CakeEmail( $configName );
+
+					$Email->to( WebrsaEmailConfig::getValue( 'piece_jointe', 'to', $Email->from() ) );
+
+					$Email->subject( WebrsaEmailConfig::getValue( 'piece_jointe', 'subject', __m('Piecejointe.Email.Subject') ) );
+					$mailBody = __m('Foyerpiecejointe::mail::debut') . $fichier['Categoriepiecejointe']['nom'] . __m('Foyerpiecejointe::mail::milieu') . $dossier['Dossier']['numdemrsa'];
+					$mailBody .= __m('Foyerpiecejointe::mail::lien') . $url;
+
+					$result = $Email->send( $mailBody );
+					$success = !empty( $result ) && $success;
+				} catch( Exception $e ) {
+					$this->log( $e->getMessage(), LOG_ERROR );
+					$success = false;
+				}
+
+				if( $success ) {
+					$this->Flash->success( __m('Foyerpiecejointe::mail::envoye') );
+				}
+				else {
+					$this->Flash->error( __m('Foyerpiecejointe::mail::nonenvoye') );
+				}
+			}
 		}
 
     }

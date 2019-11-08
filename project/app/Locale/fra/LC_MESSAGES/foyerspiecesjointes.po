@@ -32,10 +32,10 @@ msgid "/Foyerpiecejointe/archivage"
 msgstr "Archivage"
 
 msgid "/Foyerpiecejointe/archivage:title"
-msgstr "Voir les pièces jointes archivés"
+msgstr "Voir les pièces jointes archivées"
 
 msgid "Foyerpiecejointe::index::nopjnonarchive"
-msgstr "Il n'y a pas de pièces jointes non archivé lié à ce foyer"
+msgstr "Il n'y a pas de pièce jointe non archivée liée à ce foyer"
 
 msgid "Foyerspiecesjointes/add::heading"
 msgstr "Ajouter un pièce jointe"
@@ -83,7 +83,7 @@ msgid "/Foyerspiecesjointes/delete/#Foyerpiecejointe.id#"
 msgstr "Supprimer cette pièce jointe"
 
 msgid "/Foyerspiecesjointes/delete/#Foyerpiecejointe.id# ?"
-msgstr "Voulez-vous vraiment supprimer cete pièce jointe ?"
+msgstr "Voulez-vous vraiment supprimer cette pièce jointe ?"
 
 msgid "Foyerspiecesjointes/edit::heading"
 msgstr "Modification de la catégorie de la pièce jointe"
@@ -91,17 +91,38 @@ msgstr "Modification de la catégorie de la pièce jointe"
 msgid "Foyerspiecesjointes.nomFichier"
 msgstr "Nom du fichier : "
 
+msgid "Foyerspiecesjointe/pjpresentes"
+msgstr "Pièces non archivées déjà présentes"
+
 ############################################
 ## Archivage
 ############################################
 msgid "/Foyerspiecesjointes/archivage/:heading"
-msgstr "Listes des pièces jointes archivées"
+msgstr "Liste des pièces jointes archivées"
 
 msgid "/Foyerpiecejointe/index"
 msgstr "Retour à la liste des pièces jointes"
 
 msgid "Foyerpiecejointe::archivage::nopjarchive"
-msgstr "Il n'y a pas de pièces jointes archivées pour ce foyer"
+msgstr "Il n'y a pas de pièce jointe archivée pour ce foyer"
 
 msgid "/Foyerspiecesjointes/dearchive"
 msgstr "Désarchiver"
+
+############################################
+## Mail
+############################################
+msgid "Foyerpiecejointe::mail::debut"
+msgstr "Bonjour,\n\nUne pièce jointe de type "
+
+msgid "Foyerpiecejointe::mail::milieu"
+msgstr " a été ajoutée au dossier numéro "
+
+msgid "Foyerpiecejointe::mail::lien"
+msgstr "\nLien : "
+
+msgid "Foyerpiecejointe::mail::envoye"
+msgstr "Mail envoyé"
+
+msgid "Foyerpiecejointe::mail::nonenvoye"
+msgstr "Mail non envoyé"
