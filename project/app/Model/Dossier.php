@@ -156,6 +156,19 @@
 				'finderQuery' => '',
 				'counterQuery' => ''
 			),
+			'Dossiermodifie' => array(
+				'className' => 'Dossiermodifie',
+				'foreignKey' => 'dossier_id',
+				'dependent' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			)
 		);
 
 		public $hasMany = array(

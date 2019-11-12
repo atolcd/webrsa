@@ -545,6 +545,32 @@
 				'finderQuery' => '',
 				'counterQuery' => ''
 			),
+			'Historiqueetat' => array(
+				'className' => 'Historiqueetat',
+				'foreignKey' => 'user_id',
+				'dependent' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
+			'Dossiermodifie' => array(
+				'className' => 'Dossiermodifie',
+				'foreignKey' => 'user_id',
+				'dependent' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
 		);
 
 		public $hasAndBelongsToMany = array(

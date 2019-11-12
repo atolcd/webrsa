@@ -364,7 +364,11 @@
 
 			$this->_lock();
 
-			return $this->Jeton->deleteAll(
+			//Call Recours Gracieux update pour mettre l'état à jour
+			$Dossiermodifie= ClassRegistry::init('Dossiermodifie');
+			$modified = $Dossiermodifie->setModified( array('dossier_id'=>array($dossier_id )) );
+
+			return $modified && $this->Jeton->deleteAll(
 				array(
 					'Jeton.dossier_id'    => $dossier_id,
 					'Jeton.php_sid'   => $this->Session->id(),

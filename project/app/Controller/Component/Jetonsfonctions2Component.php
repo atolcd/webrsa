@@ -157,6 +157,7 @@
 		 * @return boolean
 		 */
 		public function release( $params = array() ) {
+
 			if( Configure::read( 'Jetonsfonctions2.disabled' ) ) {
 				return true;
 			}
@@ -202,7 +203,11 @@
 				return false;
 			}
 
-			if( $this->Jetonfonction->deleteAll( $conditions, false, false ) == false ) {
+			//Call Recours Gracieux update pour mettre l'état à jour
+			$Dossiermodifie = ClassRegistry::init('Dossiermodifie');
+			$modified = $Dossiermodifie->setModified( $conditions );
+
+			if( $this->Jetonfonction->deleteAll( $conditions, false, false ) == false  || $modified == false) {
 				$this->Jetonfonction->rollback();
 				die( 'Erreur étrange' );
 				return false;

@@ -105,12 +105,12 @@ WHERE
 prestations.rolepers IN ('DEM','CJT')
 AND (
 	dossiers.id IN (
-		SELECT jetons.dossier_id FROM jetons
-		WHERE jetons.modified >= (now() - interval '1' DAY)
+		SELECT dossiersmodifies.dossier_id FROM dossiersmodifies
+		WHERE dossiersmodifies.modified >= (now() - interval '1' DAY)
 	)
 	OR  foyers.id IN (
 		SELECT evenements.foyer_id FROM evenements
-		WHERE evenements.dtliq >= (now() - interval '1' DAY)
+		WHERE evenements.dtliq >= (now() - interval '3' DAY)
 	)
 )
 ) to '/etl/rsa/out/FRSA/beneficiaire/BENEF_W_yyyy_MM_dd__hh_mm.csv' WITH DELIMITER AS ';' CSV HEADER;

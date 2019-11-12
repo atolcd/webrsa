@@ -215,7 +215,11 @@
 				return false;
 			}
 
-			if( $this->Jeton->deleteAll( $conditions, false, false ) == false ) {
+			//Call Recours Gracieux update pour mettre l'état à jour
+			$Dossiermodifie = ClassRegistry::init('Dossiermodifie');
+			$modified = $Dossiermodifie->setModified( $conditions );
+
+			if( $this->Jeton->deleteAll( $conditions, false, false ) == false || $modified == false) {
 				$this->Jeton->rollback();
 				die( 'Erreur étrange' );
 				return false;
