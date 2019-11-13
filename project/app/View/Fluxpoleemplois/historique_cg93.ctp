@@ -26,12 +26,19 @@
 	}
 ?>
 </ul>
-<div class="tab" style="overflow: hidden; display: flex;">
+<div class="tab" style="overflow: hidden;">
 <?php
+	$etatActuel = true;
 	if (!is_null($historiques)) {
 		foreach ($historiques as $historique) {
 			$date = new DateTime ($historique['Historiqueetatpe']['date']);
 			$dateAffichage = $date->format ('d/m/Y');
+
+			$intituleEtat = __d( 'fluxpoleemplois', 'Fluxpoleemplois.historique.etat' );
+			if ($etatActuel) {
+				$intituleEtat = __d( 'fluxpoleemplois', 'Fluxpoleemplois.historique.etat_actuel' );
+			}
+			$etatActuel = false;
 ?>
 		<h2><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.historique' ).$dateAffichage); ?></h2>
 		<table class="index details" style="width: 95%;">
@@ -41,28 +48,12 @@
 					<td class="data string " style="width: 70%;"><?php echo ($dateAffichage); ?></td>
 				</tr>
 				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.historique.etat' )); ?></th>
+					<th><?php echo ($intituleEtat); ?></th>
 					<td class="data string "><?php echo ($historique['Historiqueetatpe']['etat']); ?></td>
-				</tr>
-				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.historique.code' )); ?></th>
-					<td class="data string "><?php echo ($historique['Historiqueetatpe']['code']); ?></td>
 				</tr>
 				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
 					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.historique.motif' )); ?></th>
 					<td class="data string "><?php echo ($historique['Historiqueetatpe']['motif']); ?></td>
-				</tr>
-				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.individu_commune_residence' )); ?></th>
-					<td class="data string "><?php echo ($historique['Historiqueetatpe']['codeinsee']); ?></td>
-				</tr>
-				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.historique.adresse' )); ?></th>
-					<td class="data string "><?php echo ($historique['Historiqueetatpe']['adresse']); ?></td>
-				</tr>
-				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.historique.ale' )); ?></th>
-					<td class="data string "><?php echo ($historique['Historiqueetatpe']['ale']); ?></td>
 				</tr>
 			</tbody>
 		</table>

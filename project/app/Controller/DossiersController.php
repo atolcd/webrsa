@@ -939,6 +939,9 @@
 				$this->set( 'montantApres', $montantApres );
 				$this->render('view66');
 			}
+
+			// Chargement de la vue, si elle existe, avec le numéro de département en suffixe.
+			$this->render (__FUNCTION__, null, true);
 		}
 
 		/**

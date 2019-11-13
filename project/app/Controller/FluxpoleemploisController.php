@@ -149,6 +149,9 @@
 
 			// Vue
 			$this->set (compact ('personnes', 'donnees', 'foyer_id', 'personne_id'));
+
+			// Chargement de la vue, si elle existe, avec le numéro de département en suffixe.
+			$this->render (__FUNCTION__, null, true);
 		}
 
 		/**
@@ -217,6 +220,9 @@
 
 			// Vue
 			$this->set (compact ('personnes', 'historiques', 'foyer_id', 'personne_id'));
+
+			// Chargement de la vue, si elle existe, avec le numéro de département en suffixe.
+			$this->render (__FUNCTION__, null, true);
 		}
 
 		/**
@@ -241,6 +247,9 @@
 		public function search() {
 			$Recherches = $this->Components->load( 'WebrsaRecherchesFluxpoleemplois' );
 			$Recherches->search();
+
+			// Chargement de la vue, si elle existe, avec le numéro de département en suffixe.
+			$this->render (__FUNCTION__, null, true);
 		}
 
 	}

@@ -550,5 +550,25 @@
 			$this->_logTrace();
 			return parent::afterFilter();
 		}
+
+		/**
+		 * Appel la méthode du parent et change la vue si demandé.
+		 *
+		 * @param bool|string $view View to use for rendering
+		 * @param string $layout Layout to use
+		 * @param bool $specific vérifie si une vue spécifique existe
+		 * @return CakeResponse A response object containing the rendered view.
+		 * @triggers Controller.beforeRender $this
+		 * @link https://book.cakephp.org/2.0/en/controllers.html#Controller::render
+		 */
+		public function render ($view = null, $layout = null, $specific = false) {
+			if ($specific) {
+				$path_view = '..' . DS . 'View' . DS . substr (get_class ($this), 0, -10) . DS;
+				$file_view = $view . '_' . Configure::read('nom_form_ci_cg');
+				$view = file_exists ($path_view . $file_view . '.ctp') ? $file_view : $view;
+			}
+
+			return parent::render ($view, $layout);
+		}
 	}
 ?>
