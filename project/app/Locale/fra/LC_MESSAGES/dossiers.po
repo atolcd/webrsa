@@ -49,8 +49,38 @@ msgstr "Numéro de dossier"
 msgid "Dossier.dtdemrsa"
 msgstr "Date de demande"
 
+msgid "Dossier.etatdemrsa"
+msgstr "État du dossier"
+
+msgid "Dossier.statudemrsa"
+msgstr "Statut du demandeur"
+
+msgid "Dossier.aucune.orientstruct.active"
+msgstr "Aucune structure référente active"
+
+msgid "Dossier.orientstruct.orientation"
+msgstr "Structure référente de l'orientation"
+
+msgid "Dossier.aucun.referent.active"
+msgstr "Aucun référent actif"
+
+msgid "Dossier.orientation"
+msgstr "Orientation"
+
+msgid "Personne.personnes"
+msgstr "Personnes"
+
+msgid "Personne.depart.foyer"
+msgstr "Départ du foyer"
+
 msgid "Personne.nir"
 msgstr "NIR"
+
+msgid "Personne.dsp"
+msgstr "DSP"
+
+msgid "Personne.coordonnees"
+msgstr "Coordonnées"
 
 msgid "Situationdossierrsa.etatdosrsa"
 msgstr "Etat du droit"
@@ -93,3 +123,178 @@ msgstr "Conditions de logement"
 
 msgid "Search.Tag.created"
 msgstr "Date d'affectation du tag (attention, ce n'est pas la date butoir)"
+
+# ==============================================================================
+# Page de synthèse
+# ==============================================================================
+
+msgid "Dossier.dossier.rsa"
+msgstr "Dossier RSA"
+
+msgid "Dossier.demandeur"
+msgstr "Demandeur"
+
+msgid "Dossier.conjoint"
+msgstr "Conjoint"
+
+msgid "Dossier.action"
+msgstr "Action"
+
+msgid "Dossier.dossier.pcg"
+msgstr "Dossier PCG"
+
+msgid "Dossier.imprimer.ecran"
+msgstr "Imprimer l'écran"
+
+msgid "Dossier.oui"
+msgstr "Oui"
+
+msgid "Dossier.non"
+msgstr "Non"
+
+msgid "Dossier.non.defini"
+msgstr "Non défini"
+
+msgid "Cer.cer"
+msgstr "Contrat d'Engagement Réciproque"
+
+msgid "Cer.rang"
+msgstr "Rang du contrat"
+
+msgid "Cer.date.debut"
+msgstr "Date de début"
+
+msgid "Cer.date.fin"
+msgstr "Date de fin"
+
+msgid "Cer.decision"
+msgstr "Décision"
+
+msgid "Cer.date.decision"
+msgstr "Date de décision"
+
+msgid "Dossier.info.caf"
+msgstr "Date de décision"
+
+msgid "Dossier.info.caf.date.obtention"
+msgstr "Date d'obtention du numéro de RSA"
+
+msgid "Dossier.info.caf.date.entree"
+msgstr "Date d'entrée au RSA/RMI/API"
+
+msgid "Dossier.info.caf.date.fin"
+msgstr "Date de fin de droits"
+
+msgid "Dossier.info.caf.motif.fin"
+msgstr "Motif de fin de droits"
+
+msgid "Dossier.info.caf.numdemrsa"
+msgstr "Numéro de demande RSA"
+
+msgid "Dossier.info.caf.dtdermontant"
+msgstr "Date dernier(s) montant(s)"
+
+msgid "Dossier.info.caf.motif.montant"
+msgstr "Motif montant"
+
+msgid "Dossier.info.caf.montant.rsa"
+msgstr "Montant RSA"
+
+msgid "Dossier.info.caf.indu.montant"
+msgstr "Montant INDUS"
+
+msgid "Dossier.info.caf.indu.motif"
+msgstr "Motif INDUS"
+
+msgid "Dossier.info.caf.debut.traitement"
+msgstr "Début du traitement CAF / MSA"
+
+msgid "Dossier.info.caf.fin.traitement"
+msgstr "Fin du traitement CAF / MSA"
+
+msgid "Dossier.pe"
+msgstr "Informations Pôle Emploi"
+
+msgid "Dossier.pe.id"
+msgstr "Identifiant Pôle Emploi"
+
+msgid "Dossier.pe.etat"
+msgstr "État actuel Pôle Emploi"
+
+msgid "Dossier.pe.date.derniere"
+msgstr "Dernière date"
+
+msgid "Dossier.pe.motif"
+msgstr "Motif"
+
+msgid "Dossier.pe.date.maj.flux"
+msgstr "Date de mise à jour du flux PE"
+
+msgid "Dossier.pe.agence"
+msgstr "Agence de rattachement"
+
+msgid "Dossier.pe.modalite.acc"
+msgstr "Modalité d'accompagnement"
+
+msgid "Dossier.pe.date.debut.ide"
+msgstr "Date de début IDE"
+
+msgid "Dossier.pe.niveau.formation"
+msgstr "Niveau de formation"
+
+msgid "Dossier.pe.date.signature.ppae"
+msgstr "Date de signature PPAE"
+
+msgid "Dossier.pe.date.notification.ppae"
+msgstr "Date de notification PPAE"
+
+
+msgid "Dossier.autres"
+msgstr "Autres demandes RSA"
+
+msgid "Dossier.autres.numero"
+msgstr "Autre N° de demande RSA"
+
+msgid "Dossier.autres.aucun.dossier.demandeur"
+msgstr "Aucun dossier passé pour le demandeur"
+
+msgid "Dossier.autres.aucun.dossier.conjoint"
+msgstr "Aucun dossier passé pour le conjoint"
+
+msgid "Dossier.autres.voir"
+msgstr "Voir"
+
+msgid "Dossier.autres.sans.presta"
+msgstr "Autres demandes RSA sans prestation"
+
+
+msgid "Dossier.relance"
+msgstr "Dernière relance"
+
+msgid "Dossier.relance.type"
+msgstr "Type de relance"
+
+msgid "Dossier.relance.date"
+msgstr "Date de relance"
+
+msgid "Dossier.relance.premiere"
+msgstr "1ère relance"
+
+msgid "Dossier.relance.enieme"
+msgstr "ème relance"
+
+
+msgid "Dossier.derniere.ep"
+msgstr "Dernier passage en EP"
+
+msgid "Dossier.derniere.ep.date"
+msgstr "Date de la commission d'EP"
+
+msgid "Dossier.derniere.ep.motif"
+msgstr "Motif de passage en EP"
+
+msgid "Dossier.derniere.ep.etat"
+msgstr "État dossier EP"
+
+msgid "Dossier.derniere.ep.avis"
+msgstr "de la commission d'EP"

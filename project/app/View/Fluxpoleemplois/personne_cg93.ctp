@@ -50,14 +50,6 @@
 					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.individu_date_naissance' )); ?></th>
 					<td class="data string "><?php echo (isset ($donnees['Informationpe']['dtnai']) ? $donnees['Informationpe']['dtnai'] : ''); ?></td>
 				</tr>
-				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.individu_certification_identite' )); ?></th>
-					<td class="data string "><?php echo (isset ($donnees['Informationpe']['individu_certification_identite']) ? $donnees['Informationpe']['individu_certification_identite'] : ''); ?></td>
-				</tr>
-				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.individu_commune_residence' )); ?></th>
-					<td class="data string "><?php echo (isset ($donnees['Informationpe']['individu_commune_residence']) ? $donnees['Informationpe']['individu_commune_residence'] : ''); ?></td>
-				</tr>
 			</tbody>
 		</table>
 		<br />
@@ -74,16 +66,8 @@
 					<td class="data string " style="width: 70%"><?php echo (isset ($donnees['Informationpe']['inscription_date_debut_ide']) ? $donnees['Informationpe']['inscription_date_debut_ide'] : ''); ?></td>
 				</tr>
 				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.inscription_code_categorie' )); ?></th>
-					<td class="data string "><?php echo (isset ($donnees['Informationpe']['inscription_code_categorie']) ? $donnees['Informationpe']['inscription_code_categorie'] : ''); ?></td>
-				</tr>
-				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
 					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.inscription_lib_categorie' )); ?></th>
 					<td class="data string "><?php echo (isset ($donnees['Informationpe']['inscription_lib_categorie']) ? $donnees['Informationpe']['inscription_lib_categorie'] : ''); ?></td>
-				</tr>
-				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.inscription_code_situation' )); ?></th>
-					<td class="data string "><?php echo (isset ($donnees['Informationpe']['inscription_code_situation']) ? $donnees['Informationpe']['inscription_code_situation'] : ''); ?></td>
 				</tr>
 				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
 					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.inscription_lib_situation' )); ?></th>
@@ -106,10 +90,6 @@
 					<td class="data string "><?php echo (isset ($donnees['Informationpe']['inscription_date_radiation_ide']) ? $donnees['Informationpe']['inscription_date_radiation_ide'] : ''); ?></td>
 				</tr>
 				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.inscription_motif_radiation_ide' )); ?></th>
-					<td class="data string "><?php echo (isset ($donnees['Informationpe']['inscription_motif_radiation_ide']) ? $donnees['Informationpe']['inscription_motif_radiation_ide'] : ''); ?></td>
-				</tr>
-				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
 					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.inscription_lib_radiation_ide' )); ?></th>
 					<td class="data string "><?php echo (isset ($donnees['Informationpe']['inscription_lib_radiation_ide']) ? $donnees['Informationpe']['inscription_lib_radiation_ide'] : ''); ?></td>
 				</tr>
@@ -124,17 +104,9 @@
 		<h2><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.formation' )); ?></h2>
 		<table class="index details" style="width: 95%;">
 			<tbody>
-				<tr class="odd">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.formation_code_niveau' )); ?></th>
-					<td class="data string " style="width: 70%"><?php echo (isset ($donnees['Informationpe']['formation_code_niveau']) ? $donnees['Informationpe']['formation_code_niveau'] : ''); ?></td>
-				</tr>
 				<tr class="even">
 					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.formation_lib_niveau' )); ?></th>
 					<td class="data string "><?php echo (isset ($donnees['Informationpe']['formation_lib_niveau']) ? $donnees['Informationpe']['formation_lib_niveau'] : ''); ?></td>
-				</tr>
-				<tr class="even">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.formation_code_secteur' )); ?></th>
-					<td class="data string "><?php echo (isset ($donnees['Informationpe']['formation_code_secteur']) ? $donnees['Informationpe']['formation_code_secteur'] : ''); ?></td>
 				</tr>
 				<tr class="even">
 					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.formation_lib_secteur' )); ?></th>
@@ -172,18 +144,6 @@
 		<h2><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.allocataire' )); ?></h2>
 		<table class="index details" style="width: 95%;">
 			<tbody>
-				<tr class="odd">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.allocataire_identifiant_caf' )); ?></th>
-					<td class="data string " style="width: 70%"><?php echo (isset ($donnees['Informationpe']['allocataire_identifiant_caf']) ? $donnees['Informationpe']['allocataire_identifiant_caf'] : ''); ?></td>
-				</tr>
-				<tr class="even">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.allocataire_identifiant_msa' )); ?></th>
-					<td class="data string "><?php echo (isset ($donnees['Informationpe']['allocataire_identifiant_msa']) ? $donnees['Informationpe']['allocataire_identifiant_msa'] : ''); ?></td>
-				</tr>
-				<tr class="odd">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.allocataire_code_pe' )); ?></th>
-					<td class="data string "><?php echo (isset ($donnees['Informationpe']['allocataire_code_pe']) ? $donnees['Informationpe']['allocataire_code_pe'] : ''); ?></td>
-				</tr>
 				<tr class="even">
 					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.allocataire_identifiant_pe' )); ?></th>
 					<td class="data string "><?php echo (isset ($donnees['Informationpe']['allocataire_identifiant_pe']) ? $donnees['Informationpe']['allocataire_identifiant_pe'] : ''); ?></td>
@@ -282,23 +242,15 @@
 					<td class="data string "><?php echo (isset ($donnees['Informationpe']['ppae_date_notification']) ? $donnees['Informationpe']['ppae_date_notification'] : ''); ?></td>
 				</tr>
 				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.ppae_axe_code' )); ?></th>
-					<td class="data string "><?php echo (isset ($donnees['Informationpe']['ppae_axe_code']) ? $donnees['Informationpe']['ppae_axe_code'] : ''); ?></td>
-				</tr>
-				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
 					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.ppae_axe_libelle' )); ?></th>
 					<td class="data string "><?php echo (isset ($donnees['Informationpe']['ppae_axe_libelle']) ? $donnees['Informationpe']['ppae_axe_libelle'] : ''); ?></td>
-				</tr>
-				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.ppae_modalite_code' )); ?></th>
-					<td class="data string "><?php echo (isset ($donnees['Informationpe']['ppae_modalite_code']) ? $donnees['Informationpe']['ppae_modalite_code'] : ''); ?></td>
 				</tr>
 				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
 					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.ppae_modalite_libelle' )); ?></th>
 					<td class="data string "><?php echo (isset ($donnees['Informationpe']['ppae_modalite_libelle']) ? $donnees['Informationpe']['ppae_modalite_libelle'] : ''); ?></td>
 				</tr>
 				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.ppae_date_dernier_ent' )); ?></th>
+					<th><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.ppae_date_dernier_contact' )); ?></th>
 					<td class="data string "><?php echo (isset ($donnees['Informationpe']['ppae_date_dernier_ent']) ? $donnees['Informationpe']['ppae_date_dernier_ent'] : ''); ?></td>
 				</tr>
 			</tbody>

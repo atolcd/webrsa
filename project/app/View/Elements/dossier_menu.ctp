@@ -182,6 +182,7 @@ $fonorg = $dossier['Dossier']['fonorg'];
 
 				if( $departement == '93' ) {
 					$subAllocataire['Accompagnement du parcours']['Synthèse du suivi'] = array(
+						'disabled' => !Configure::read('Module.synthesedusuivi.enabled'),
 						'class' => 'accompagnementsbeneficiaires index',
 						'url' => array( 'controller' => 'accompagnementsbeneficiaires', 'action' => 'index', $personne['id'] )
 					);

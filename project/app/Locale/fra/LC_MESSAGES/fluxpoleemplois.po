@@ -80,6 +80,9 @@ msgstr "Modalités d'accompagnement en cours"
 msgid "/Fluxpoleemplois/personne/:heading"
 msgstr "Données du flux Pôle Emploi"
 
+msgid "Fluxpoleemplois.titre"
+msgstr "Données du flux Pôle Emploi"
+
 # ------------------------------------------------------------------------------
 # Individu
 # ------------------------------------------------------------------------------
@@ -272,9 +275,16 @@ msgstr "Modalité libellé"
 msgid "Fluxpoleemplois.ppae_date_dernier_ent"
 msgstr "Date du dernier entretien"
 
+msgid "Fluxpoleemplois.ppae_date_dernier_contact"
+msgstr "Date du dernier contact"
+
 # ------------------------------------------------------------------------------
 # Historique
 # ------------------------------------------------------------------------------
+
+msgid "Fluxpoleemplois.historique.titre"
+msgstr "Données du flux Pôle Emploi"
+
 msgid "Fluxpoleemplois.historique"
 msgstr "Historique du "
 
@@ -283,6 +293,9 @@ msgstr "Date"
 
 msgid "Fluxpoleemplois.historique.etat"
 msgstr "État"
+
+msgid "Fluxpoleemplois.historique.etat_actuel"
+msgstr "État actuel"
 
 msgid "Fluxpoleemplois.historique.code"
 msgstr "Code"

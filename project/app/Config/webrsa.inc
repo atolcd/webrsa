@@ -961,10 +961,15 @@
 		)
 	);
 
-    /**
-     * Accès aux données PE
-     */
-    Configure::write ('Module.fluxpoleemploi.enabled', true);
+	/**
+	 * Accès aux données PE
+	 */
+	Configure::write ('Module.fluxpoleemploi.enabled', true);
+
+	/**
+	 * Accès aux données Synthèse du suivi
+	 */
+	Configure::write ('Module.synthesedusuivi.enabled', false);
 
 	/**
 	 * Récupération du fichier de config propre au département
