@@ -1675,6 +1675,9 @@
 			// Type d'orientation emploi
 			$TypeOrient = ClassRegistry::init( 'Typeorient' );
 			$typesorients = $TypeOrient->find( 'list', array ('conditions' => array ('Parent.code_type_orient' => 'EMPLOI'), 'recursive' => 0));
+			if (empty ($typesorients)) {
+				$typesorients = $TypeOrient->find( 'list', array ('conditions' => array ('Typeorient.code_type_orient' => 'EMPLOI'), 'recursive' => 0));
+			}
 			$idTypeOrientEmploi = implode (',', array_keys ($typesorients));
 
 			$results = array ();
