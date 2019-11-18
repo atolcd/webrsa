@@ -98,7 +98,7 @@
 			$Controller = $this->_Collection->getController();
 
 			if( !is_array( $results ) ) {
-				$msgstr = "Erreur lors de l'impression en cohorte: %d documents n'ont pas pu être imprimés. Abandon de l'impression de la cohorte. Demandez à votre administrateur d'exécuter la commande bash suivante: sudo -u www-data lib/Cake/Console/cake generationpdfs orientsstructs -username <username> (où <username> est l'identifiant de l'utilisateur qui sera utilisé pour la récupération d'informations lors de l'impression)";
+				$msgstr = __d ('shells', 'Shells:GenerationPDF:relancenonrespectsanctionep93:needslauch');
 				$this->Flash->error( sprintf( $msgstr, $results ) );
 				$Controller->redirect( $Controller->referer() );
 			}

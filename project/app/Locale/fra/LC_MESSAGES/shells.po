@@ -1,0 +1,94 @@
+# translation of shells.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+#GenerationPDF
+###############################################################################
+
+msgid "Shells:GenerationPDF:Infos"
+msgstr "Ce script se charge de générer et d'enregistrer les .pdf en base de données pour les orientations ainsi que pour les relances des personnes n'ayant pas de contractualisation ou pour non renouvellement de contrat."
+
+msgid "Shells:GenerationPDF:limit:help"
+msgstr "Limite sur le nombre d'enregistrements à traiter"
+
+msgid "Shells:GenerationPDF:username:help"
+msgstr "L'identifiant de l'utilisateur qui sera utilisé pour la récupération d'informations lors de l'impression (pour les orientations seulement)"
+
+msgid "Shells:GenerationPDF:username:error"
+msgstr "Veuillez spécifier l'identifiant d'un utilisateur qui sera utilisé pour la récupération d'informations lors de l'impression pour les impressions d'orientations (exemple: --username webrsa)."
+
+msgid "Shells:GenerationPDF:username:notexists"
+msgstr "L'identifiant d'utilisateur spécifié n'existe pas."
+
+msgid "Shells:GenerationPDF:finish:success"
+msgstr "Script terminé avec succès"
+
+msgid "Shells:GenerationPDF:finish:errors"
+msgstr "Script terminé avec erreur(s)"
+
+msgid "Shells:GenerationPDF:relancenonrespectsanctionep93:help"
+msgstr "Génère les impressions des relances pour pour non respect et sanctions (CG 93)."
+
+msgid "Shells:GenerationPDF:relancenonrespectsanctionep93:needslauch"
+msgstr "Erreur lors de l'impression en cohorte : {$nErrors} documents n'ont pas pu être imprimés. Abandon de l'impression de la cohorte. Demandez à votre administrateur d'exécuter la commande bash suivante: sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake generationpdfs relancenonrespectsanctionep93  -app app "
+
+msgid "Shells:GenerationPDF:orientsstructs:help"
+msgstr "Génère les impressions des orientation (le paramètre --username (-u) est obligatoire)."
+
+msgid "Shells:GenerationPDF:relancenonrespectsanctionep93:needslauch"
+msgstr "Erreur lors de l'impression en cohorte : %d documents n'ont pas pu être imprimés. Abandon de l'impression de la cohorte. Demandez à votre administrateur d'exécuter la commande bash suivante: sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake generationpdfs orientsstructs -app app --username <username> (où <username> est l'identifiant de l'utilisateur qui sera utilisé pour la récupération d'informations lors de l'impression)"
+
+msgid "Shells:GenerationPDF:cers93:help"
+msgstr "Génère les impressions des Cers du CG93 (le paramètre --username (-u) est obligatoire)."
+
+msgid "Shells:GenerationPDF:limit:info"
+msgstr "Limite sur le nombre d'enregistrements à traiter :"
+
+msgid "Shells:GenerationPDF:username:info"
+msgstr "Identifiant de l'utilisateur :"
+
+msgid "Shells:GenerationPDF:impression:info"
+msgstr "%s impressions à générer"
+
+msgid "Shells:GenerationPDF:relancenonrespectsanctionep93:progressbar"
+msgstr "Impression de la relance %s (id %s)"
+
+msgid "Shells:GenerationPDF:relancenonrespectsanctionep93:error"
+msgstr "Erreur lors de l'impression de la relance %s (id %s)"
+
+msgid "Shells:GenerationPDF:relancenonrespectsanctionep93:errorstockage"
+msgstr "Erreur lors de l'impression ou du stockage des relances d'id %s"
+
+msgid "Shells:GenerationPDF:cers93:progressbar"
+msgstr "Impression du CER %s (id %s)"
+
+msgid "Shells:GenerationPDF:cers93:error"
+msgstr "Erreur lors de l'impression du CER %s (id %s)"
+
+msgid "Shells:GenerationPDF:cers93:errorstockage"
+msgstr "Erreur lors de l'impression ou du stockage du Cer93 d'id %s"
+
+msgid "Shells:GenerationPDF:orientsstructs:progressbar"
+msgstr "Impression de l'orientation %s (id %s)"
+
+msgid "Shells:GenerationPDF:orientsstructs:error"
+msgstr "Erreur lors de l'impression de l'orientation %s (id %s)"
+
+msgid "Shells:GenerationPDF:orientsstructs:errorstockage"
+msgstr "Erreur lors de l'impression ou du stockage des orientations d'id %s"
+
+###############################################################################
+
