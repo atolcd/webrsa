@@ -45,7 +45,7 @@
 
 		protected function _showParams() {
 			parent::_showParams();
-			$this->out( '<info>Afficher le détails des valeurs retournées : </info><important>'.($this->params['solve'] ? 'true' : 'false').'</important>' );
+			$this->out( '<info>'._d('gestionanomaliebdd', 'Shells::Detailsvaleurs').'</info><important>'.($this->params['solve'] ? 'true' : 'false').'</important>' );
 		}
 
 		/**

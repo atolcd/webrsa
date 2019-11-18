@@ -106,7 +106,8 @@
 			$oldRecord['Pdf']['document'] = $pdf;
 
 			$Pdf->create( $oldRecord );
-			return $Pdf->save( null, array( 'atomic' => false ) );
+			$result = $Pdf->save( null, array( 'atomic' => false ) );
+			return $result;
 		}
 
 		/**

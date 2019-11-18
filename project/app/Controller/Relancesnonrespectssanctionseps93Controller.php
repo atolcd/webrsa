@@ -569,7 +569,7 @@
 			}
 
 			if( $nErrors > 0 ) {
-				$this->Flash->error( "Erreur lors de l'impression en cohorte: {$nErrors} documents n'ont pas pu être imprimés. Abandon de l'impression de la cohorte. Demandez à votre administrateur d'exécuter la commande bash suivante: sudo -u www-data lib/Cake/Console/cake generationpdfs relancenonrespectsanctionep93" );
+				$this->Flash->error( __d ('shells', 'Shells:GenerationPDF:relancenonrespectsanctionep93:needslauch') );
 				$this->redirect( $this->referer() );
 			}
 

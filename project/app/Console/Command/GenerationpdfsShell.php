@@ -2,10 +2,19 @@
 	/**
 	 * Fichier source de la classe GenerationpdfsShell.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Console.Command
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+	 *
+	 * Se lance avec : sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake generationpdfs <fonction> -app app -u <username>
+	 *
+	 * avec fonction :
+	 * - orientsstructs
+	 * - relancenonrespectsanctionep93
+	 * - cers93
+	 *
+	 * Et avec limit optionnel sous la forme : -L 20
 	 */
 	App::uses( 'XShell', 'Console/Command' );
 
@@ -21,30 +30,33 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Orientstruct', 'Pdf', 'Relancenonrespectsanctionep93', 'User' );
+		public $uses = array( 'Orientstruct', 'Pdf', 'Relancenonrespectsanctionep93', 'User', 'Cer93' );
 
 		public function getOptionParser() {
 			$parser = parent::getOptionParser();
-			$parser->description( 'Ce script se charge de générer et d\'enregistrer les .pdf en base de données pour les orientations ainsi que pour les relances des personnes n\'ayant pas de contractualisation ou pour non renouvellement de contrat.' );
+			$parser->description( __d ('shells', 'Shells:GenerationPDF:Infos') );
 			$options = array(
 				'limit' => array(
 					'short' => 'L',
-					'help' => 'Limite sur le nombre d\'enregistrements à traiter',
+					'help' =>  __d ('shells', 'Shells:GenerationPDF:limit:help') ,
 					'default' => 10
 				),
 				'username' => array(
 					'short' => 'u',
-					'help' => 'L\'identifiant de l\'utilisateur qui sera utilisé pour la récupération d\'informations lors de l\'impression (pour les orientations seulement)',
+					'help' =>  __d ('shells', 'Shells:GenerationPDF:username:help') ,
 					'default' => ''
 				)
 			);
 			$parser->addOptions( $options );
 			$subcomands = array(
 				'relancenonrespectsanctionep93' => array(
-					'help' => 'Génère les impressions des relances pour pour non respect et sanctions (CG 93).'
+					'help' =>   __d ('shells', 'Shells:GenerationPDF:relancenonrespectsanctionep93:help')
 				),
 				'orientsstructs' => array(
-					'help' => 'Génère les impressions des orientations (le paramètre --username (-u) est obligatoire).'
+					'help' =>   __d ('shells', 'Shells:GenerationPDF:orientsstructs:help')
+				),
+				'cers93' => array(
+					'help' =>   __d ('shells', 'Shells:GenerationPDF:cers93:help')
 				)
 			);
 			$parser->addSubcommands( $subcomands );
@@ -53,8 +65,8 @@
 
 		protected function _showParams() {
 			parent::_showParams();
-			$this->out( '<info>Limite sur le nombre d\'enregistrements à traiter : </info><important>'.$this->params['limit'].'</important>' );
-			$this->out( '<info>Identifiant de l\'utilisateur : </info><important>'.$this->params['username'].'</important>' );
+			$this->out( '<info> '. __d ('shells', 'Shells:GenerationPDF:limit:info').' </info><important>'.$this->params['limit'].'</important>' );
+			$this->out( '<info> '. __d ('shells', 'Shells:GenerationPDF:username:info').' </info><important>'.$this->params['username'].'</important>' );
 		}
 
 		/**
@@ -85,7 +97,7 @@
 
 			$relances = $this->Relancenonrespectsanctionep93->find( 'all', $queryData );
 
-			$this->_wait( sprintf( "%s impressions à générer", count( $relances ) ) );
+			$this->_wait( sprintf( __d ('shells', 'Shells:GenerationPDF:impression:info'), count( $relances ) ) );
 
 			$this->XProgressBar->start( count( $relances ) );
 
@@ -94,17 +106,17 @@
 
 			$success = true;
 			foreach( $relances as $i => $relance ) {
-				$this->XProgressBar->next( 1, sprintf( "<info>Impression de la relance %s (id %s)</info>", $i + 1, $relance['Relancenonrespectsanctionep93']['id'] ) );
+				$this->XProgressBar->next( 1, sprintf( "<info>".__d ('shells', 'Shells:GenerationPDF:relancenonrespectsanctionep93:progressbar')."</info>", $i + 1, $relance['Relancenonrespectsanctionep93']['id'] ) );
 				$success = $this->Relancenonrespectsanctionep93->generatePdf( $relance['Relancenonrespectsanctionep93']['id'] ) && $success;
 				if( empty( $success ) ) { // FIXME: pour les autres aussi
-					$out[] = '<error>'.sprintf( "Erreur lors de l'impression de la relance %s (id %s)", $i + 1, $relance['Relancenonrespectsanctionep93']['id'] ).'</error>';
+					$out[] = '<error>'.sprintf(__d ('shells', 'Shells:GenerationPDF:relancenonrespectsanctionep93:error'), $i + 1, $relance['Relancenonrespectsanctionep93']['id'] ).'</error>';
 					$error = true;
 				}
 			}
 
 			$missing = $this->_verify( 'Relancenonrespectsanctionep93', $todo );
 			if( false === empty( $missing ) ) {
-				$out[] = '<error>'.sprintf( "Erreur lors de l'impression ou du stockage des relances d\'id %s", implode( ', ', $missing ) ).'</error>';
+				$out[] = '<error>'.sprintf( __d ('shells', 'Shells:GenerationPDF:relancenonrespectsanctionep93:errorstockage'), implode( ', ', $missing ) ).'</error>';
 				$error = true;
 			}
 
@@ -146,7 +158,7 @@
 
 			// A-t-on spécifié l'identifiant d'un utilisateur (obligatoire dans ce cas-ci) ?
 			if( empty( $this->params['username'] ) ) {
-				$out[] = "<error>Veuillez spécifier l'identifiant d'un utilisateur qui sera utilisé pour la récupération d'informations lors de l'impression pour les impressions d'orientations (exemple: -username webrsa).</error>";
+				$out[] = "<error>".__d ('shells', 'Shells:username:error')."</error>";
 				$error = true;
 			}
 			else {
@@ -162,7 +174,7 @@
 				);
 
 				if( empty( $user ) ) {
-					$out[] = "<error>L'identifiant d'utilisateur spécifié n'existe pas.</error>";
+					$out[] = "<error>".__d ('shells', 'Shells:username:notexists')."</error>";
 					$error = true;
 				}
 			}
@@ -190,7 +202,7 @@
 
 				$orientsstructs = $this->Orientstruct->find( 'all', $queryData );
 
-				$this->_wait( sprintf( "%s impressions à générer", count( $orientsstructs ) ) );
+				$this->_wait( sprintf(__d ('shells', 'Shells:GenerationPDF:impression:info'), count( $orientsstructs ) ) );
 
 				$this->XProgressBar->start( count( $orientsstructs ) );
 
@@ -199,17 +211,17 @@
 
 				$success = true;
 				foreach( $orientsstructs as $i => $orientstruct ) {
-					$this->XProgressBar->next( 1, sprintf( "<info>Impression de l'orientation %s (id %s)</info>", $i + 1, $orientstruct['Orientstruct']['id'] ) );
+					$this->XProgressBar->next( 1, sprintf( "<info>".__d ('shells', 'Shells:GenerationPDF:orientsstructs:progressbar')."</info>", $i + 1, $orientstruct['Orientstruct']['id'] ) );
 					$success = $this->Orientstruct->generatePdf( $orientstruct['Orientstruct']['id'], $user['User']['id'] ) && $success;
 					if( empty( $success ) ) { // FIXME: pour les autres aussi
-						$out[] = '<error>'.sprintf( "Erreur lors de l'impression de l'orientation %s (id %s)", $i + 1, $orientstruct['Orientstruct']['id'] ).'</error>';
+						$out[] = '<error>'.sprintf(__d ('shells', 'Shells:GenerationPDF:orientsstructs:error'), $i + 1, $orientstruct['Orientstruct']['id'] ).'</error>';
 						$error = true;
 					}
 				}
 
 				$missing = $this->_verify( 'Orientstruct', $todo );
 				if( false === empty( $missing ) ) {
-					$out[] = '<error>'.sprintf( "Erreur lors de l'impression ou du stockage des orientations d\'id %s", implode( ', ', $missing ) ).'</error>';
+					$out[] = '<error>'.sprintf(__d ('shells', 'Shells:GenerationPDF:orientsstructs:errorstockage'), implode( ', ', $missing ) ).'</error>';
 					$error = true;
 				}
 			}
@@ -217,6 +229,96 @@
 			$this->_fin( false === $error, $out );
 		}
 
+		/**
+		 *
+		 */
+		public function cers93() {
+			$error = false;
+			$out = array( );
+
+			// A-t-on spécifié l'identifiant d'un utilisateur (obligatoire dans ce cas-ci) ?
+			if( empty( $this->params['username'] ) ) {
+				$out[] = "<error>".__d ('shells', 'Shells:username:error')."</error>";
+				$error = true;
+			}
+			else {
+
+				// L'utilisateur existe-t'il
+				$user = $this->User->find(
+						'first', array(
+					'conditions' => array(
+						'User.username' => $this->params['username']
+					),
+					'recursive' => -1
+						)
+				);
+
+				if( empty( $user ) ) {
+					$out[] = "<error>".__d ('shells', 'Shells:username:notexists')."</error>";
+					$error = true;
+				}
+			}
+
+			if( !$error ) {
+				//Get list of CERs
+				/*
+				 * Les options de validation dans le formulaire de recherche sont :
+				 * \'99decisioncg\', =>
+				 * \'99valide\', =>
+				 * \'99rejete\' =>
+				*/
+				$queryData = array(
+					'fields' => array( 'Cer93.id' ),
+					'conditions' => array(
+						'Cer93.positioncer IN (\'99decisioncg\', \'99valide\', \'99rejete\')',
+						'Cer93.id NOT IN (
+							SELECT pdfs.fk_value
+								FROM pdfs
+								WHERE
+									pdfs.modele = \'Cer93\'
+									AND pdfs.fk_value = Cer93.id
+						)'
+					),
+					'order' => array( 'Cer93.modified ASC' ),
+					'recursive' => -1
+				);
+
+				if( !empty( $this->params['limit'] ) && is_numeric( $this->params['limit'] ) ) {
+					$queryData['limit'] = $this->params['limit'];
+				}
+
+				$cer93s = $this->Cer93->find( 'all', $queryData );
+
+				$this->_wait( sprintf(__d ('shells', 'Shells:GenerationPDF:impression:info'), count( $cer93s ) ) );
+
+				$this->XProgressBar->start( count( $cer93s ) );
+
+				// Pour la vérification...
+				$todo = Hash::extract( $cer93s, '{n}.Cer93.id' );
+
+				$success = true;
+				foreach( $cer93s as $i => $cer93s ) {
+					$this->XProgressBar->next( 1, sprintf( "<info>".__d ('shells', 'Shells:GenerationPDF:cers93:progressbar')."</info>", $i + 1, $cer93s['Cer93']['id'] ) );
+					$success = $this->Cer93->generatePdf( $cer93s['Cer93']['id'], $user['User']['id'] ) && $success;
+					if( empty( $success ) ) { // FIXME: pour les autres aussi
+						$out[] = '<error>'.sprintf(__d ('shells', 'Shells:GenerationPDF:cers93:error') , $i + 1, $cer93s['Cer93']['id'] ).'</error>';
+						$error = true;
+					}
+				}
+
+				$missing = $this->_verify( 'Cer93', $todo );
+				if( false === empty( $missing ) ) {
+					$out[] = '<error>'.sprintf(__d ('shells', 'Shells:GenerationPDF:cers93:errorstockage') , implode( ', ', $missing ) ).'</error>';
+					$error = true;
+				}
+			}
+
+			$this->_fin( false === $error, $out );
+		}
+
+		/*
+		 *
+		 */
 		protected function _fin( $success, array $out = array() ) {
 			$this->_scritpEnd();
 
@@ -226,8 +328,8 @@
 			}
 
 			$message = ( true === $success )
-				? '<success>Script terminé avec succès</success>'
-				: '<error>Script terminé avec erreur(s)</error>';
+				? '<success>'.__d ('shells', 'Shells:GenerationPDF:finish:success').'</success>'
+				: '<error>'.__d ('shells', 'Shells:GenerationPDF:finish:errors').'</error>';
 			$this->out( $message );
 
 			$this->_stop( false === $success ? self::ERROR : self::SUCCESS );

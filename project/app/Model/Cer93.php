@@ -418,6 +418,73 @@
 		}
 
 		/**
+		 * Génère et stocke un PDF pour un enregistrement donné.
+		 * Fait appel aux méthodes getDataForPdf et modeleOdt du modèle.
+		 *
+		 * @param Model $model
+		 * @param integer $id
+		 * @return boolean
+		 */
+		public function generatePdf( $id, $user_id ) {
+			$success = true;
+			$data = $this->getDataForPdf( $id, $user_id );
+
+			if( !empty( $data ) ) {
+
+				$modeledoc = $this->modeleOdt( $data );
+
+				// Choix du modèle de document
+				$decision = $data[0]['Contratinsertion']['decision_ci'];
+				// Forme du CER
+				$formeci = $data[0]['Contratinsertion']['forme_ci'];
+				if( $formeci == 'S' ) {
+					if( $decision == 'V' ) {
+						$modeledoc  = "Contratinsertion/cer_valide.odt";
+					}
+					else if( in_array( $decision, array( 'R', 'N' ) ) ){
+						$modeledoc  = "Contratinsertion/cer_rejete.odt";
+					}
+				}
+				else {
+					if( $decision == 'V' ) {
+						$modeledoc  = "Contratinsertion/decision_valide.odt";
+					}
+					else if( in_array( $decision, array( 'R', 'N' ) ) ){
+						$modeledoc  = "Contratinsertion/decision_rejete.odt";
+					}
+				}
+
+				$Option = ClassRegistry::init( 'Option' );
+				$options =  Set::merge(
+					array(
+						'Personne' => array(
+							'qual' => $Option->qual()
+						),
+						'Cer93' => array(
+							'dureecdd' => ClassRegistry::init('Contratinsertion')->enum('duree_cdd')
+						)
+					),
+					$this->enums()
+				);
+
+				$pdf = $this->ged( $data, $modeledoc, true, $options );
+
+				if( $pdf ) {
+					$success = $this->storePdf( $id, $modeledoc, $pdf ) && $success;
+				}
+				else {
+					$success = false;
+				}
+			}
+			else {
+				$pdfModel = ClassRegistry::init( 'Pdf' );
+				$success = $pdfModel->deleteAll( array( 'modele' => $this->alias, 'fk_value' => $id ) ) && $success;
+			}
+
+			return $success;
+		}
+
+		/**
 		 * Récupère les données pour le PDF.
 		 *
 		 * @param integer $contratinsertion_id

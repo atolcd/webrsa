@@ -101,6 +101,9 @@ msgstr "Adresses de même rang pour un foyer donné"
 msgid "Component::personnesSansPrestationSansEntreeMetier"
 msgstr "Personnes sans prestation et sans entrée dans les tables métiers (ni dans CAF présentes uniquement dans le flux instruction)"
 
+msgid "Shells::Detailsvaleurs"
+msgstr "Afficher le détail des valeurs retournées :"
+
 ###############################################################################
 # Partie "Fusion des enregistrements liés à une personne en doublon"
 ###############################################################################
