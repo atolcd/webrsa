@@ -41,7 +41,8 @@ copy (
 	)
 	select
 		"Orientstruct__id",
-		right("MATRICULE", 7) as "MATRICULE",
+		ltrim("MATRICULE", '0') as "MATRICULE",
+--		right("MATRICULE", 7) as "MATRICULE",
 		"CIVILITE",
 		"NOM",
 		"NOMNAI",
