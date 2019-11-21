@@ -125,3 +125,9 @@ msgstr "Titre couple"
 msgid "Titrecreancier.dtbordereau"
 msgstr "Date d'émission du titre"
 
+msgid "Titrecreancier.commentaire_complet"
+msgstr "Commentaire"
+
+msgid "Motifemissiontitrecreancier.nom"
+msgstr "Motif de l'émission"
+

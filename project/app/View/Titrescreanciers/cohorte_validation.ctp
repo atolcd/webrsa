@@ -134,4 +134,26 @@
 		echo $this->Form->button( __m('Titrecreancier::cohorte::coche'), array( 'type' => 'button', 'onclick' => 'return toutCocher();' ) );
 		echo ' ';
 		echo $this->Form->button( __m('Titrecreancier::cohorte::decoche'), array( 'type' => 'button', 'onclick' => 'return toutDecocher();' ) );
+	}else{
+		array();
+	}
+	foreach ($results as $i => $result) {
+	?>
+		<script type="text/javascript">
+			observeDisableElementsOnValues(
+				[
+				'Cohorte<?php echo $i;?>TitrecreancierValidation',
+				'Cohorte<?php echo $i;?>TitrecreancierCommentairevalidateur',
+				'Cohorte<?php echo $i;?>TitrecreancierDtvalidationDay',
+				'Cohorte<?php echo $i;?>TitrecreancierDtvalidationMonth',
+				'Cohorte<?php echo $i;?>TitrecreancierDtvalidationYear'
+				],
+				[
+				{element: 'Cohorte<?php echo $i;?>TitrecreancierSelection', value: null}
+				],
+				false,
+				true
+			);
+		</script>
+	<?php
 	}

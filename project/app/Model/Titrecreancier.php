@@ -138,6 +138,16 @@
 		);
 
 		/**
+		 * Liste des champs virtuels
+		 */
+		public $virtualFields = array(
+			'commentaire_complet' => array(
+				'type' => 'string',
+				'postgres' => '( COALESCE( "%s"."mention", \'\' ) || \' \' || COALESCE( "%s"."commentairevalidateur", \'\' ) || \' \' )'
+			),
+		);
+
+		/**
 		 * Retourne l'id d'une creance à partir de l'id d'un TitreCreance.
 		 *
 		 * @param integer $titrecreancier_id

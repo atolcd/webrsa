@@ -286,12 +286,6 @@ msgstr "Recherche par créance transférée de l'allocataire"
 msgid "data[Cohorte][][Creance][selection]"
 msgstr "Sélectionner"
 
-msgid "data[Cohorte][][Creance][cjtactif]"
-msgstr "Ajouter le conjoint"
-
-msgid "data[Cohorte][][Creance][instructionencours]"
-msgstr "Instruction en cours"
-
 # ==============================================================================
 
 msgid "Creance::cohorte::coche"

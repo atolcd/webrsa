@@ -262,6 +262,9 @@ msgstr "Commune de résidence"
 msgid "Titrecreancier.datemotifemission"
 msgstr "Date du motif d'émission"
 
+msgid "Motifemissiontitrecreancier.nom"
+msgstr "Motif de l'émission"
+
 ###############################################################################
 # titre et textes
 ###############################################################################
@@ -354,6 +357,9 @@ msgstr "Sélectionner"
 
 msgid "data[Cohorte][][Titrecreancier][commentairevalidateur]"
 msgstr "Commentaire de validation"
+
+msgid "data[Cohorte][][Titrecreancier][validation]"
+msgstr "Validation"
 
 msgid "data[Cohorte][][Titrecreancier][dtvalidation]"
 msgstr "Date de validation"
