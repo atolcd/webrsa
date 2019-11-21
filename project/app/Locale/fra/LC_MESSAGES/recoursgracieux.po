@@ -106,8 +106,8 @@ msgstr "Proposition"
 msgid "/Recoursgracieux/proposer_contestation"
 msgstr "Ajouter créance"
 
-msgid "/Recoursgracieux/proposer_contestation/#Recourgracieux.id#"
-msgstr "Ajouter créance #Recourgracieux.id#"
+msgid "Recourgracieux::proposer::Ajoutercreance"
+msgstr "Ajouter créance"
 
 msgid "/Recoursgracieux/proposer_remise"
 msgstr "Ajouter créance"
@@ -128,10 +128,10 @@ msgid "/Dossierspcgs66/view/#Creancerecoursgracieux.dossierpcg_id#"
 msgstr "Voir le dossier #Creancerecoursgracieux.dossierpcg_id# lié"
 
 msgid "/Recoursgracieux/envoyer"
-msgstr "Envoi"
+msgstr "Signature"
 
 msgid "/Recoursgracieux/envoyer/#Recourgracieux.id#"
-msgstr "Envoi"
+msgstr "Signature"
 
 msgid "/Recoursgracieux/traiter"
 msgstr "Traiter"
@@ -141,6 +141,9 @@ msgstr "Traiter"
 
 msgid "/Recoursgracieux/deleteproposition"
 msgstr "Supprimer"
+
+msgid "Recourgracieux::proposer::Supprimercreance"
+msgstr "Supprimer créance"
 
 msgid "/Recoursgracieux/delete"
 msgstr "Supprimer"
@@ -194,8 +197,14 @@ msgstr "Aucune créance associée à la proposition"
 msgid "Recourgracieux::decider::emptyCreancesrecoursgracieux"
 msgstr "Aucune créance associée au dossier"
 
-msgid "Recourgracieux::decider::titleRecours"
+vmsgid "Recourgracieux::decider::titleRecours"
 msgstr "Information du dossier de recours"
+
+msgid "Recourgracieux::fileuploader::titleFileExist"
+msgstr "Pièces déjà présente"
+
+msgid "Recourgracieux::fileuploader::titleFileView"
+msgstr "Pièce jointes"
 
 ###############################################################################
 # Trad des recherches
@@ -243,7 +252,7 @@ msgstr "Allocataire"
 ###############################################################################
 
 msgid "Creancerecoursgracieux.mntindus"
-msgstr "Montant Indus"
+msgstr "Montant créance"
 
 msgid "Creancerecoursgracieux.refuscontestation"
 msgstr "Refus de la contestation"

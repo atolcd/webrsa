@@ -46,7 +46,7 @@ msgid "ENUM::ETAT::ATTIMPRESSION"
 msgstr "En attente d’impression"
 
 msgid "ENUM::ETAT::ATTENVOIE"
-msgstr "En attente d'envoi"
+msgstr "À traiter"
 
 msgid "ENUM::ETAT::TRAITER"
 msgstr "Dossier traité et notifié"

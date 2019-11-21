@@ -27,7 +27,10 @@
 						'Creance.perioderegucre',
 						'Titrecreancier.etat',
 						'/Recoursgracieux/'.$action.'/#Creance.id#/'.$this->request->data['Recourgracieux']['id'].'/'.$this->request->data['Recourgracieux']['typerecoursgracieux_id']
-							=> array('class' => 'edit',),
+							=> array(
+							'class' => 'edit',
+							'title' => __m('Recourgracieux::proposer::Ajoutercreance')
+							),
 					)
 				),
 				array(
@@ -73,6 +76,7 @@
 							),
 							'/Recoursgracieux/deleteproposition/#Creancerecoursgracieux.id#' => array(
 								'class' => 'delete',
+								'title' => __m('Recourgracieux::proposer::Supprimercreance')
 							),
 						)
 					),

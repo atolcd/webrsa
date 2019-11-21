@@ -67,7 +67,8 @@
 	echo "</fieldset>".
 	$this->Fileuploader->validation( Inflector::camelize( "recourgracieux_{$this->request->params['action']}_form" ), 'Recourgracieux', 'Pièce jointe' ).
 	"</fieldset>";
-
+	echo "<h2>".__m('Recourgracieux::fileuploader::titleFileExist')."</h2>" ;
+	echo $this->Fileuploader->results($piecesjointes);
 	echo $this->Default3->DefaultForm->buttons( array( 'Save', 'Cancel' ) );
 	echo $this->Default3->DefaultForm->end();
 

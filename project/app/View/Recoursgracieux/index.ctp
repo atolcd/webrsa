@@ -18,6 +18,9 @@ if( empty( $recoursgracieux ) ) {
 				'Recourgracieux.originerecoursgracieux_id' => array(
 					'options' => $options['Originerecoursgracieux']['origine']
 				),
+				'Recourgracieux.typerecoursgracieux_id' => array(
+					'options' => $options['Typerecoursgracieux']['type']
+				),
 				'Recourgracieux.dtaffectation',
 				'Recourgracieux.user_id' => array(
 					'options' =>  $options['Dossierpcg66']['user_id']

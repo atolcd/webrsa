@@ -187,11 +187,7 @@
 			$histoDeleted = $this->Historiqueetat->getHisto($this->Recourgracieux->name, '*', 'delete', $foyer_id);
 
 			// Assignations à la vue
-			$this->set( 'options', array_merge(
-					$this->Recourgracieux->options(),
-					$this->Recourgracieux->enums()
-				)
-			);
+			$this->set( 'options', $this->Recourgracieux->options()	);
 			$this->set( 'histoDeleted', $histoDeleted );
 			$this->set( 'foyer_id', $foyer_id );
 			$this->set( 'recoursgracieux', $recoursgracieux );
@@ -279,9 +275,13 @@
 			}
 
 			// Assignation à la vue
+
+			//Liste des Pièces jointes
+			$piecesjointes = $this->getPiecejointes( $recourgracieux_id );
+			$this->set( 'piecesjointes', $piecesjointes );
+
 			$this->set( 'options', array_merge(
 					$this->Recourgracieux->options(),
-					$this->Recourgracieux->enums(),
 					$this->Recourgracieux->Foyer->Creance->enums(),
 					$this->Recourgracieux->Foyer->Creance->Titrecreancier->enums()
 				)
@@ -352,6 +352,7 @@
 				if($this->action == 'add' ) {
 					$data['Recourgracieux']['foyer_id'] = $foyer_id;
 				}
+				$dir = $this->Fileuploader->dirFichiersModule( $this->action, $this->request->params['pass'][0] );
 				if( $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) ) &&
 					$this->Recourgracieux->save( $data ) &&
 					$this->Historiqueetat->setHisto(
@@ -361,7 +362,9 @@
 						__FUNCTION__,
 						$data['Recourgracieux']['etat'],
 						$foyer_id
-					) ){
+					) &&
+					$this->Fileuploader->saveFichiers( $dir,FALSE, $this->Recourgracieux->id )
+				){
 					$this->Recourgracieux->commit();
 					$this->Jetons2->release( $dossier_id );
 					$this->Flash->success( __( 'Save->success' ) );
@@ -389,18 +392,21 @@
 					// Assignation au formulaire
 					$this->request->data = $recoursgracieux;
 				}
+				//Liste des Pièces jointes
+				$piecesjointes = $this->getPiecejointes( $id );
+				$this->set( 'piecesjointes', $piecesjointes );
 			}elseif( $this->action == 'add' ){
-					// Assignation au formulaire
-					$recoursgracieux['Recourgracieux']['dtbutoir'] = date('Y-m-d', strtotime( '+1 Month' )) ;
-					$this->request->data = $recoursgracieux;
+				// Assignation au formulaire
+				$recoursgracieux['Recourgracieux']['dtbutoir'] = date('Y-m-d', strtotime( '+1 Month' )) ;
+				$this->request->data = $recoursgracieux;
+
+				//Liste des Pièces jointes
+				$piecesjointes = array();
+				$this->set( 'piecesjointes', $piecesjointes );
 			}
 
 			// Assignation à la vue
-			$this->set( 'options', array_merge(
-					$this->Recourgracieux->options(),
-					$this->Recourgracieux->enums()
-				)
-			);
+			$this->set( 'options',$this->Recourgracieux->options() );
 			$this->set( 'urlmenu', '/recoursgracieux/index/'.$foyer_id );
 			$this->set( 'foyer_id', $foyer_id );
 			$this->render( 'add_edit' );
@@ -491,10 +497,7 @@
 			}
 
 			// Assignation à la vue
-			$options = array_merge(
-				$this->Recourgracieux->options(),
-				$this->Recourgracieux->enums()
-			);
+			$options = $this->Recourgracieux->options();
 			$options = $this->User->Poledossierpcg66->WebrsaPoledossierpcg66->completeOptions(
 				$options,
 				array($recoursgracieux),
@@ -654,7 +657,6 @@
 			// Assignation à la vue
 			$this->set( 'options', array_merge(
 					$this->Recourgracieux->options(),
-					$this->Recourgracieux->enums(),
 					$this->Recourgracieux->Foyer->Creance->enums(),
 					$this->Recourgracieux->Foyer->Creance->Titrecreancier->enums()
 				)
@@ -768,7 +770,6 @@
 			$this->set( 'listMotifs', $listMotifs );
 			$this->set( 'options', array_merge(
 					$this->Recourgracieux->options(),
-					$this->Recourgracieux->enums(),
 					$this->Recourgracieux->Foyer->Creance->enums(),
 					$this->Recourgracieux->Foyer->Creance->Titrecreancier->enums()
 				)
@@ -882,7 +883,6 @@
 			$this->set( 'listMotifs', $listMotifs );
 			$this->set( 'options', array_merge(
 					$this->Recourgracieux->options(),
-					$this->Recourgracieux->enums(),
 					$this->Recourgracieux->Foyer->Creance->enums(),
 					$this->Recourgracieux->Foyer->Creance->Titrecreancier->enums()
 				)
@@ -1110,7 +1110,6 @@
 			// Assignation à la vue
 			$this->set( 'options', array_merge(
 					$this->Recourgracieux->options(),
-					$this->Recourgracieux->enums(),
 					$this->Recourgracieux->Foyer->Creance->enums(),
 					$this->Recourgracieux->Foyer->Creance->Titrecreancier->enums()
 				)
@@ -1166,7 +1165,7 @@
 						$recoursgracieux['Recourgracieux']['foyer_id'],
 						__FUNCTION__,
 						$recoursgracieux['Recourgracieux']['etat'],
-						$foyer_id
+						$recoursgracieux['Recourgracieux']['foyer_id']
 					)
 				) {
 					$this->Recourgracieux->commit();
@@ -1182,6 +1181,7 @@
 		 */
 		public function envoyer($id) {
 				$this->WebrsaAccesses->check($id);
+				$this->Recourgracieux->id = $id;
 				$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
 				// Affichage des données
 				$recoursgracieux = $this->Recourgracieux->find(
@@ -1243,7 +1243,6 @@
 				$this->Jetons2->release( $dossier_id );
 				$this->redirect( array( 'action' => 'index', $foyer_id ) );
 			}
-
 			// Essai de sauvegarde
 			if( !empty( $this->request->data ) ) {
 				$this->Recourgracieux->begin();
@@ -1252,6 +1251,7 @@
 				if ( $data['Recourgracieux']['traiter'] == 1){
 					$data['Recourgracieux']['etat'] = 'TRAITER' ;
 				}
+				$dir = $this->Fileuploader->dirFichiersModule( $this->action, $this->request->params['pass'][0] );
 				if( $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) ) &&
 					$this->Recourgracieux->save( $data ) &&
 					$this->Historiqueetat->setHisto(
@@ -1261,7 +1261,9 @@
 						__FUNCTION__,
 						$data['Recourgracieux']['etat'],
 						$foyer_id
-					) ){
+					) &&
+					$this->Fileuploader->saveFichiers( $dir,FALSE, $this->Recourgracieux->id )
+				 ){
 					$this->Recourgracieux->commit();
 					$this->Jetons2->release( $dossier_id );
 					$this->Flash->success( __( 'Save->success' ) );
@@ -1299,10 +1301,14 @@
 				)
 			);
 			$this->set( 'listMotifs', $listMotifs );
+
+			//Liste des Pièces jointes
+			$piecesjointes = $this->getPiecejointes( $id );
+			$this->set( 'piecesjointes', $piecesjointes );
+
 			// Assignation à la vue
 			$this->set( 'options', array_merge(
 					$this->Recourgracieux->options(),
-					$this->Recourgracieux->enums(),
 					$this->Recourgracieux->Foyer->Creance->enums(),
 					$this->Recourgracieux->Foyer->Creance->Titrecreancier->enums()
 				)
@@ -1411,18 +1417,16 @@
 
 			if( !empty( $this->request->data ) ) {
 				$this->Recourgracieux->begin();
-
 				$saved = $this->Recourgracieux->updateAllUnBound(
 					array( 'Recourgracieux.haspiecejointe' => '\''.$this->request->data['Recourgracieux']['haspiecejointe'].'\'' ),
 					array( '"Recourgracieux"."id"' => $id)
 				);
 
 				if( $saved ) {
-					// Sauvegarde des fichiers liés à une PDO
+					// Sauvegarde des fichiers liés
 					$dir = $this->Fileuploader->dirFichiersModule( $this->action, $this->request->params['pass'][0] );
-					$saved = $this->Fileuploader->saveFichiers( $dir, Set::classicExtract( $this->request->data, "Recourgracieux.haspiecejointe" ), $id ) && $saved;
+					$saved = $this->Fileuploader->saveFichiers( $dir, FALSE, $id ) && $saved;
 				}
-
 				if( $saved ) {
 					$this->Recourgracieux->commit();
 					$this->Jetons2->release( $dossier_id );
@@ -1436,12 +1440,23 @@
 				}
 			}
 
-			$this->set( 'options', array_merge(
-					$this->Recourgracieux->options(),
-					$this->Recourgracieux->enums()
-				)
-			);
+			$this->set( 'options', $this->Recourgracieux->options() );
 			$this->set( compact( 'dossier_id', 'personne_id', 'fichiers', 'recoursgracieux' ) );
+		}
+
+		/**
+		 * Retourne un tableau des pieces jointes liées au recours
+		 *
+		 * @param integer $recourgracieux_id
+		 * @return array des pieces jointes
+		 */
+		public function getPiecejointes( $id ) {
+			$piecejointeFpj = $this->Fileuploader->fichiersEnBase( $id );
+			$piecesjointes = array();
+			foreach($piecejointeFpj as $key => $piecejointe) {
+				$piecesjointes[] = $piecejointe['Fichiermodule'];
+			}
+			return $piecesjointes;
 		}
 
 	}

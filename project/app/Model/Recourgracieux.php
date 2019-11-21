@@ -199,6 +199,7 @@
 		 * @return array
 		 */
 		public function options() {
+			$options = $this->enums();
 			$options['Originerecoursgracieux']['origine'] = ClassRegistry::init( 'Originerecoursgracieux' )->find( 'list' );
 			$options['Originerecoursgracieux']['origine_actif'] = ClassRegistry::init( 'Originerecoursgracieux' )->find( 'list', array( 'conditions' => array( 'actif' => true ) ) );
 			$options['Typerecoursgracieux']['type'] = ClassRegistry::init( 'Typerecoursgracieux' )->find( 'list' );

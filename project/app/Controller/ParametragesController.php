@@ -175,7 +175,7 @@
 		 */
 		protected function _creances() {
 			$activateTitreCreancier = Configure::read( 'Creances.titrescreanciers' );
-			$activateRecoursGracieux = Configure::read( 'Creances.recoursgracieux' );
+			$activateRecoursGracieux = Configure::read( 'Recoursgracieux.Activer' );
 
 			$items = array ();
 			if( $activateTitreCreancier || $activateRecoursGracieux ) {
