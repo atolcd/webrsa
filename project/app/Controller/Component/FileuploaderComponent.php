@@ -65,7 +65,7 @@
         }
 
 		/**
-		 * Retourne le nom du répertoire teporaire où sont stockés les fichiers
+		 * Retourne le nom du répertoire temporaire où sont stockés les fichiers
 		 * en attente d'enregistrement.
 		 *
 		 * @param string $action
@@ -174,7 +174,7 @@
         }
 
 		/**
-		 * Permet d'obtenir la liste complète des fichiers liés à un enregistremennt,
+		 * Permet d'obtenir la liste complète des fichiers liés à un enregistrement,
 		 * qu'ils soient sur disque ou en base.
 		 *
 		 * @param integer $id

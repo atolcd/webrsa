@@ -639,6 +639,10 @@
 					'disabled' => false == Configure::read( 'CG.cantons' ),
 					'url' => array( 'controller' => 'cantons', 'action' => 'index' )
 				),
+				'Catégorie des pièces jointes' => array(
+					'disabled' => !Configure::read( 'Module.Piecejointe' ),
+					'url' => array( 'controller' => 'categoriespiecesjointes', 'action' => 'index' )
+				),
 				'CER' => $this->_contratsinsertion(),
 				__d( 'parametrages', '/Parametrages/cataloguesromesv3/:heading' ) => $this->_cataloguesromesv3(),
 				__d( 'communautessrs', '/Communautessrs/index/:heading' ) => array(
