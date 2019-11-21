@@ -28,6 +28,9 @@ msgstr "Ajouter un canton"
 msgid "Search.Canton.canton"
 msgstr "Nom du canton"
 
+msgid "Search.Canton.cantonvide"
+msgstr "Uniquement les cantons n'ayant pas de nom associé"
+
 msgid "Search.Canton.nomcom"
 msgstr "Localité"
 
@@ -45,6 +48,9 @@ msgstr "Canton"
 
 msgid "Zonegeographique.libelle"
 msgstr "Zone géographique"
+
+msgid "Canton.numvoie"
+msgstr "Numéro de voie"
 
 msgid "Canton.libtypevoie"
 msgstr "Type de voie"

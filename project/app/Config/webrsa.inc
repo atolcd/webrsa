@@ -183,7 +183,7 @@
 	 * du contrôleur Relancesnonrespectssanctionseps93.
 	 */
 	Configure::write( 'Optimisations.Relancesnonrespectssanctionseps93_cohorte.progressivePaginate', false );
-	
+
 	/**
 	 * Variables apparaissant dans la fiche de calcul du journal de traitement d'une PDO
 	 */
@@ -976,6 +976,18 @@
 	 * Accès aux données Synthèse du suivi
 	 */
 	Configure::write ('Module.synthesedusuivi.enabled', false);
+
+	/**
+	 * Insertions automatiques des cantons sans adresses
+	 */
+	Configure::write ('Canton.InsertionAuto.enabled', true);
+
+	/**
+	 * Numéro des communes multi cantons (code INSEE)
+	 */
+	Configure::write ('Canton.multi', array(
+		'58194'
+	));
 
 	/**
 	 * Récupération du fichier de config propre au département

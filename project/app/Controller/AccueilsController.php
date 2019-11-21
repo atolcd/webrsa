@@ -68,7 +68,6 @@
 
 			// Articles
 			$articles = $this->_getArticles();
-
 			// Blocs
 			if ($this->idReferent !== false && count ($blocs) > 0) {
 				foreach ($blocs as $key => $value) {
@@ -90,7 +89,6 @@
 		 */
 		protected function _idReferent() {
 			$user = $this->Session->read( 'Auth.User' );
-
 			switch ($user['accueil_reference_affichage']) {
 				// Retourne le referent_id s'il est défini.
 				case 'REFER':
@@ -470,6 +468,27 @@
 			$cers = $this->Contratinsertion->query ($query);
 
 			return $cers;
+		}
+
+		/**
+		 * Récupération de nombre de cantons n'ayant pas été nommés
+		 * @param string
+		 * @param mixed
+		 *
+		 * @return int
+		 */
+		public function _getCantons($departement, $value){
+			$this->loadModel('Canton');
+			$query = array(
+				'conditions' => array(
+					'OR' => array(
+						'canton' => '',
+						'canton IS NULL'
+					)
+				)
+			);
+
+			return $this->Canton->find('count', $query);
 		}
 	}
 ?>
