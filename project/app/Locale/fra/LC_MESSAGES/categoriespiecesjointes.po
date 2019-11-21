@@ -1,0 +1,50 @@
+# Traductions de typestitrescreanciersannulationsreductions.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Categoriespiecesjointes/index/:heading"
+msgstr "Paramétrage des catégories de pièce jointe"
+
+msgid "/Categoriespiecesjointes/add/:heading"
+msgstr "Ajout d'une catégorie"
+
+msgid "/Categoriespiecesjointes/edit/:heading"
+msgstr "Modification de la catégorie « #Categoriepiecejointe.nom# »"
+
+msgid "/Categoriespiecesjointes/add"
+msgstr "Ajouter"
+
+msgid "/Categoriespiecesjointes/add/:title"
+msgstr "Ajouter une catégorie"
+
+msgid "/Categoriespiecesjointes/edit"
+msgstr "Modifier"
+
+msgid "/Categoriespiecesjointes/edit/#Categoriepiecejointe.id#"
+msgstr "Modifier la catégorie « #Categoriepiecejointe.nom# »"
+
+msgid "/Categoriespiecesjointes/delete"
+msgstr "Supprimer"
+
+msgid "/Categoriespiecesjointes/delete/#Categoriepiecejointe.id#"
+msgstr "Supprimer la catégorie « #Categoriepiecejointe.nom# »"
+
+msgid "/Categoriespiecesjointes/delete/#Categoriepiecejointe.id# ?"
+msgstr "Réellement supprimer la catégorie « #Categoriepiecejointe.nom# » ?"
+
+msgid "Categoriepiecejointe.nom"
+msgstr "Nom de la catégorie"
+
+msgid "Categoriepiecejointe.actif"
+msgstr "Actif"
+
+msgid "Categoriepiecejointe.mailauto"
+msgstr "Mail automatique à l'ajout"

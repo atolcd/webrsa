@@ -303,6 +303,75 @@ class EmailConfig {
 		'log' => false,
 		'charset' => 'utf-8',
 		'headerCharset' => 'utf-8',
+	);
+
+	/**
+	 * Configuration de l'envoi de mails aux personnes dédiées pour l'ajout de
+	 * pièce jointe avec une certaine catégorie (case à cocher dans la catégorie de la pièce jointe)
+	 *
+	 * Les clés 'port', 'timeout', 'host', 'username', 'password', 'client'
+	 * remplacent les valeurs qui étaient contenues dans 'Email.smtpOptions'
+	 * du fichier webrsa.inc.
+	 *
+	 * Lorsque l'application est en debug > 0, alors le mail est envoyé à
+	 * l'adresse spécifiée pour la clé 'to', ou à l'expéditeur (clé 'from').
+	 *
+	 * De même, si une clé 'subject' est spécifiée, elle sera utilisée comme
+	 * sujet du mail.
+	 *
+	 * @var array
+	 */
+	public $piece_jointe = array(
+		'transport' => 'Smtp',
+		'from' => '',
+		'replyTo' => '',
+		'to' => '',
+		'subject' => '',
+		'host' => '',
+		'username' => '',
+		'password' => '',
+		'client' => '',
+
+		'port' => 25,
+		'timeout' => 30,
+		'log' => false,
+		'charset' => 'utf-8',
+		'headerCharset' => 'utf-8',
+	);
+
+	/**
+	 * Configuration de l'envoi de mails en cas d'ajout de certaines catégories
+	 * de pièces jointes à un dossier
+	 *
+	 * Les clés 'port', 'timeout', 'host', 'username', 'password', 'client'
+	 * remplacent les valeurs qui étaient contenues dans 'Email.smtpOptions'
+	 * du fichier webrsa.inc.
+	 *
+	 *
+	 * Lorsque l'application est en debug > 0, alors le mail est envoyé à
+	 * l'adresse spécifiée pour la clé 'to', ou à l'expéditeur (clé 'from').
+	 *
+	 * De même, si une clé 'subject' est spécifiée, elle sera utilisée comme
+	 * sujet du mail.
+	 *
+	 * @var array
+	 */
+	public $cat_piecejointe = array(
+		'transport' => 'Smtp',
+		'from' => '',
+		'replyTo' => '',
+		'to' => '',
+		'subject' => '',
+		'host' => '',
+		'username' => '',
+		'password' => '',
+		'client' => '',
+
+		'port' => 25,
+		'timeout' => 30,
+		'log' => false,
+		'charset' => 'utf-8',
+		'headerCharset' => 'utf-8',
 
 	);
 
@@ -386,5 +455,15 @@ class EmailConfig {
 		$this->import_frsa['username'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_USERNAME');
 		$this->import_frsa['password'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_PASSWORD');
 		$this->import_frsa['client'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_CLIENT');
+
+		$this->piece_jointe['transport'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_TRANSPORT');
+		$this->piece_jointe['from'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_FROM');
+		$this->piece_jointe['replyTo'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_REPLYTO');
+		$this->piece_jointe['to'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_TO');
+		$this->piece_jointe['subject'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_SUBJECT');
+		$this->piece_jointe['host'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_HOST');
+		$this->piece_jointe['username'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_USERNAME');
+		$this->piece_jointe['password'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_PASSWORD');
+		$this->piece_jointe['client'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_CLIENT');
 	}
 }
