@@ -70,6 +70,22 @@
 				'insertQuery' => '',
 				'with' => 'AdresseCanton'
 			),
+			'Sitecov58' => array(
+				'className' => 'Sitecov58',
+				'joinTable' => 'cantons_sitescovs58',
+				'foreignKey' => 'canton_id',
+				'associationForeignKey' => 'sitecov58_id',
+				'unique' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'finderQuery' => '',
+				'deleteQuery' => '',
+				'insertQuery' => '',
+				'with' => 'CantonSitecov58'
+			),
 		);
 
 		public $validate = array(
@@ -378,7 +394,7 @@
 			}
 
 			// Critère sur les noms de cantons à vide
-			if( $criteres['Canton']['cantonvide'] == 1) {
+			if( isset ($criteres['Canton']['cantonvide']) && $criteres['Canton']['cantonvide'] == 1) {
 				$conditions[] = array('OR' => array(
 					'Canton.canton' => '',
 					'Canton.canton IS NULL'

@@ -4,6 +4,7 @@
 		array(
 			'cells' => array(
 				'Sitecov58.name',
+				'Sitecov58.actif',
 				'/Sitescovs58/edit/#Sitecov58.id#' => array(
 					'title' => true
 				),

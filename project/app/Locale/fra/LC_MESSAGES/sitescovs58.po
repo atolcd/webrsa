@@ -13,10 +13,16 @@ msgstr ""
 msgid "/Sitescovs58/index/:heading"
 msgstr "Paramétrage des sites COV"
 
+msgid "/Sitescovs58/adresse/:heading"
+msgstr "Paramétrage des adresses des sites COV"
+
 msgid "/Sitescovs58/add/:heading"
 msgstr "Ajout d'un site COV"
 
 msgid "/Sitescovs58/edit/:heading"
+msgstr "Modification du site COV « #Sitecov58.name# »"
+
+msgid "/Sitescovs58/adresse/:heading"
 msgstr "Modification du site COV « #Sitecov58.name# »"
 
 msgid "/Sitescovs58/add"

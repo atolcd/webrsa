@@ -39,6 +39,15 @@ msgstr "Modification d'un site"
 msgid "Sitecov58.name"
 msgstr "Intitulé du site d'action médico-sociale COV"
 
+msgid "Sitecov58.actif"
+msgstr "Actif"
+
+msgid "Sitecov58.oui"
+msgstr "Oui"
+
+msgid "Sitecov58.non"
+msgstr "Non"
+
 msgid "Sitescovs58::delete::confirm"
 msgstr "Etes-vous sûr de vouloir supprimer ce site ?"
 

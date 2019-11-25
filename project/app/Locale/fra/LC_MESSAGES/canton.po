@@ -36,3 +36,57 @@ msgstr "Code postal"
 
 msgid "Canton.numcom"
 msgstr "Code INSEE"
+
+msgid "Zonegeographique.libelle"
+msgstr "Zone géographique"
+
+msgid "Canton.numvoie"
+msgstr "Numéro de voie"
+
+msgid "Canton.libtypevoie"
+msgstr "Type de voie"
+
+msgid "Canton.nomvoie"
+msgstr "Voie"
+
+msgid "Canton.onglet.general"
+msgstr "Général"
+
+msgid "Canton.onglet.adresse"
+msgstr "Adresse"
+
+msgid "Canton.titre.adresses.associees"
+msgstr "Adresses associées à ce site d'actions médico-sociales"
+
+msgid "Canton.titre.adresses.a.associer"
+msgstr "Adresses non associées à un site d'actions médico-sociales résultant de la recherche"
+
+msgid "Canton.actions"
+msgstr "Actions"
+
+msgid "Canton.desassocier"
+msgstr "Désassocier"
+
+msgid "Canton.associer"
+msgstr "Associer"
+
+msgid "Search.Canton.canton"
+msgstr "Nom du canton"
+
+msgid "Search.Canton.cantonvide"
+msgstr "Uniquement les cantons n'ayant pas de nom associé"
+
+msgid "Search.Canton.nomcom"
+msgstr "Localité"
+
+msgid "Search.Canton.zonegeographique_id"
+msgstr "Zone géographique"
+
+msgid "Search.Canton.codepos"
+msgstr "Code postal"
+
+msgid "Search.Canton.numcom"
+msgstr "Code INSEE"
+
+msgid "Canton.formulaire"
+msgstr "Formulaire"

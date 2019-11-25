@@ -226,13 +226,27 @@
 			$query['conditions'] = $this->conditionsAdresse( $query['conditions'], $search );
 			$query['conditions'] = $this->conditionsPersonneFoyerDossier( $query['conditions'], $search );
 			$query['conditions'] = $this->conditionsDernierDossierAllocataire( $query['conditions'], $search );
-
 			$query = $this->Personne->PersonneReferent->completeSearchConditionsReferentParcours( $query, $search );
 
 			// Ajout de conditions spécifiques au département connecté
 			$departement = (int)Configure::read( 'Cg.departement' );
 			if( $departement === 58 ) {
 				$query = $this->Personne->WebrsaPersonne->completeQueryVfEtapeDossierOrientation58( $query, $search );
+
+				// Canton - Sitecov58
+				$sitecov58_id = Hash::get( $search, 'CantonSitecov58.id' );
+				if (is_numeric($sitecov58_id)) {
+					$query['joins'][] = array (
+						'table' => '"cantons_sitescovs58"',
+						'alias' => 'CantonSitecov58',
+						'type' => 'INNER',
+						'conditions' => array (
+							'"CantonSitecov58"."canton_id" = "Canton"."id"',
+							'"CantonSitecov58"."sitecov58_id" = '.$sitecov58_id,
+						)
+					);
+				}
+
 			} elseif ($departement === 66) {
 				if (hash::get($search, 'Personne.dtnai_month')) {
 					$query['conditions'][] = array('Personne.dtnai_month' => hash::get($search, 'Personne.dtnai_month'));
