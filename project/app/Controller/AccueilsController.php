@@ -487,8 +487,48 @@
 					)
 				)
 			);
-
+			
 			return $this->Canton->find('count', $query);
 		}
+
+		/**
+		 * Récupération des dossier de recours gracieux
+		 * si le User connecter est résponsable d'un dossier
+		 * et que ce dossier est a X jours de la date butoir
+		 * @param string
+		 * @param mixed
+		 *
+		 * @return array
+		 */
+		public function _getRecoursgracieux($departement, $value){
+			$recoursgracieux = array ();
+			$limit = null;
+
+			$limite = new DateTime ();
+			$limite->add (new DateInterval('P'. $value['limite'] .'D'));
+			$this->loadModel('Recourgracieux');
+			$query = array(
+				'conditions' => array(
+					'OR' => array(
+						'DATE (Recourgracieux.dtbutoir) BETWEEN \''
+							.date ('Y-m-d H:i:s').'\' AND \''
+							.$limite->format ('Y-m-d').'\'',
+					)
+				)
+			);
+			$recoursgracieux = $this->Recourgracieux->find ('all', $query);
+			foreach ($recoursgracieux as $key => $recourgracieux) {
+				$recoursgracieux[$key]['Recourgracieux']['etatDepuis'] =
+					__d('recourgracieux', 'ENUM::ETAT::'
+						.$recoursgracieux[$key]['Recourgracieux']['etat'])
+						.__m('since')
+						.date('d/m/Y', strtotime( $recoursgracieux[$key]['Recourgracieux']['modified'] )
+					);
+			}
+			$recoursgracieux['limite'] = $value['limite'];
+
+			return $recoursgracieux;
+		}
+
 	}
 ?>

@@ -347,6 +347,10 @@ $fonorg = $dossier['Dossier']['fonorg'];
 						'Informations financières' => array(
 							'url' => array('controller' => 'infosfinancieres', 'action' => 'index', $dossier['Dossier']['id'] )
 						),
+						'Recours gracieux' => array(
+							'disabled' => !Configure::read('Recoursgracieux.Activer'),
+							'url' => array( 'controller' => 'recoursgracieux', 'action' => 'index', $dossier['Foyer']['id'] )
+						),
 				),
 				'Historique du droit' => array( 'url' => array( 'controller' => 'situationsdossiersrsa', 'action' => 'index', $dossier['Dossier']['id'] ) ),
 				'Détails du droit RSA' => array( 'url' => array( 'controller' => 'detailsdroitsrsa', 'action' => 'index', $dossier['Dossier']['id'] ) ),

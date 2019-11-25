@@ -1,0 +1,47 @@
+# Traductions de originesrecoursgracieux.poo
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Motifsproposrecoursgracieux/index/:heading"
+msgstr "Paramétrage des motifs des propositions de décision"
+
+msgid "/Motifsproposrecoursgracieux/add/:heading"
+msgstr "Ajout d'un motif de proposition de décision"
+
+msgid "/Motifsproposrecoursgracieux/edit/:heading"
+msgstr "Modification d'un motif de proposition de décision « #Motifsproposrecoursgracieux.nom# »"
+
+msgid "/Motifsproposrecoursgracieux/add"
+msgstr "Ajouter"
+
+msgid "/Motifsproposrecoursgracieux/add/:title"
+msgstr "Ajouter un motif de proposition de décision"
+
+msgid "/Motifsproposrecoursgracieux/edit"
+msgstr "Modifier"
+
+msgid "/Motifsproposrecoursgracieux/edit/#Motifsproposrecoursgracieux.id#"
+msgstr "Modifier le motif de proposition de décision « #Originesrecoursgracieux.nom# »"
+
+msgid "/Motifsproposrecoursgracieux/delete"
+msgstr "Supprimer"
+
+msgid "/Motifsproposrecoursgracieux/delete/#Motifsproposrecoursgracieux.id#"
+msgstr "Supprimer le motif de proposition de décision « #Motifsproposrecoursgracieux.nom# »"
+
+msgid "/Motifsproposrecoursgracieux/delete/#Motifsproposrecoursgracieux.id# ?"
+msgstr "Réellement supprimer le motif de proposition de décision « #Motifsproposrecoursgracieux.nom# » ?"
+
+msgid "Motifproposrecoursgracieux.name"
+msgstr "Nom du motif"
+
+msgid "Motifproposrecoursgracieux.actif"
+msgstr "Actif"

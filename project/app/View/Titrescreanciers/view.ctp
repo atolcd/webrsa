@@ -60,7 +60,7 @@
 				'Titrecreancier.mnttitr',
 				'Titrecreancier.typetitrecreancier_id' => array(
 					'type' => 'select',
-					'options' => $options['Typetitrecreancier']['type_actif']
+					'options' => $options['Typetitrecreancier']['type']
 				),
 				'Titrecreancier.etat',
 				'Titrecreancier.qual',

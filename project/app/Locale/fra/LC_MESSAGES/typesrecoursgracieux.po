@@ -1,0 +1,50 @@
+# Traductions de typesrecoursgracieux.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Typesrecoursgracieux/index/:heading"
+msgstr "Paramétrage des types de recours gracieux"
+
+msgid "/Typesrecoursgracieux/add/:heading"
+msgstr "Ajout d'un type de recours gracieux"
+
+msgid "/Typesrecoursgracieux/edit/:heading"
+msgstr "Modification du type de recours gracieux « #Typesrecoursgracieux.nom# »"
+
+msgid "/Typesrecoursgracieux/add"
+msgstr "Ajouter"
+
+msgid "/Typesrecoursgracieux/add/:title"
+msgstr "Ajouter un type de recours gracieux"
+
+msgid "/Typesrecoursgracieux/edit"
+msgstr "Modifier"
+
+msgid "/Typesrecoursgracieux/edit/#Typesrecoursgracieux.id#"
+msgstr "Modifier le type de recours gracieux « #Typesrecoursgracieux.nom# »"
+
+msgid "/Typesrecoursgracieux/delete"
+msgstr "Supprimer"
+
+msgid "/Typesrecoursgracieux/delete/#Typesrecoursgracieux.id#"
+msgstr "Supprimer le type de recours gracieux « #Typesrecoursgracieux.nom# »"
+
+msgid "/Typesrecoursgracieux/delete/#Typesrecoursgracieux.id# ?"
+msgstr "Réellement supprimer le type de recours gracieux « #Typesrecoursgracieux.nom# » ?"
+
+msgid "Typerecoursgracieux.name"
+msgstr "Nom du type"
+
+msgid "Typerecoursgracieux.usage"
+msgstr "Usage"
+
+msgid "Typerecoursgracieux.actif"
+msgstr "Actif"

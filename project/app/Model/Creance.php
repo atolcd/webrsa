@@ -139,6 +139,14 @@
 		 * @var array
 		 */
 		public $hasMany = array(
+			'Creancerecoursgracieux' => array(
+				'className' => 'Creancerecoursgracieux',
+				'foreignKey' => 'creances_id',
+				'conditions' => null,
+				'fields' => null,
+				'order' => null,
+				'dependent' => true
+			),
 			'Fichiermodule' => array(
 				'className' => 'Fichiermodule',
 				'foreignKey' => false,
