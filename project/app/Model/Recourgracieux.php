@@ -125,6 +125,14 @@
 				'order' => null,
 				'dependent' => true
 			),
+			'Indurecoursgracieux' => array(
+				'className' => 'Indurecoursgracieux',
+				'foreignKey' => 'recours_id',
+				'conditions' => null,
+				'fields' => null,
+				'order' => null,
+				'dependent' => true
+			),
 			'Fichiermodule' => array(
 				'className' => 'Fichiermodule',
 				'foreignKey' => false,
@@ -211,4 +219,135 @@
 			return $options;
 		}
 
+		/**
+		 * Retourne les options nécessaires au formulaire de recherche, au formulaire,
+		 * aux impressions, ...
+		 *
+		 * @return array
+		 */
+		public function getIndus($scope,$condition,$id) {
+
+			$conditions = array(
+				$condition => $id,
+			);
+			if ( Configure::read( 'Recoursgracieux.Indurecoursgracieux.search_type_allocation' ) ){
+				$conditions['Infofinanciere.type_allocation'] = Configure::read( 'Recoursgracieux.Indurecoursgracieux.type_allocation' );
+			}
+			if ( Configure::read( 'Recoursgracieux.Indurecoursgracieux.search_typeopecompta' ) ){
+				$conditions['Infofinanciere.typeopecompta'] = Configure::read( 'Recoursgracieux.Indurecoursgracieux.typeopecompta' );
+			}
+			$indus = $this->Foyer->Dossier->Infofinanciere->find(
+				$scope,
+				array(
+					'recursive' => 0,
+					'fields' => array_merge(
+						$this->Foyer->Dossier->Infofinanciere->fields()
+					),
+					'conditions' => $conditions,
+					'joins' => array(
+						$this->Foyer->Dossier->join('Foyer', array('type'=>'INNER')),
+						$this->Foyer->join('Recourgracieux', array('type'=>'INNER'))
+					)
+				)
+			);
+			return $indus;
+		}
+
+		/**
+		 * Retourne les options nécessaires au formulaire de recherche, au formulaire,
+		 * aux impressions, ...
+		 *
+		 * @return array
+		 */
+		public function getCreances($scope,$condition,$id) {
+			$creances = $this->Foyer->Creance->find(
+				$scope,
+				array(
+					'recursive' => 0,
+					'fields' => array_merge(
+						$this->Foyer->Creance->fields(),
+						$this->Foyer->Creance->Titrecreancier->fields()
+					),
+					'conditions' => array(
+						$condition => $id,
+					),
+					'joins' => array(
+						$this->Foyer->join('Recourgracieux', array('type'=>'INNER'))
+					)
+				)
+			);
+			if($scope == 'first' ) {
+				$creances['Creance']['perioderegucre'] =
+					__m('Recourgracieux::proposer::Periode').
+					$creances['Creance']['ddregucre'].
+					__m('Recourgracieux::proposer::to').
+					$creances['Creance']['dfregucre'];
+			}else{
+				foreach ($creances as $key => $creance) {
+					$creances[$key]['Creance']['perioderegucre'] =
+						__m('Recourgracieux::proposer::Periode').
+						$creance['Creance']['ddregucre'].
+						__m('Recourgracieux::proposer::to').
+						$creance['Creance']['dfregucre'];
+				}
+			}
+			return $creances;
+		}
+
+		/**
+		 * Retourne les options nécessaires au formulaire de recherche, au formulaire,
+		 * aux impressions, ...
+		 *
+		 * @return array
+		 */
+		public function getIndurecoursgracieux($scope,$condition,$id) {
+			$propositionsindus = $this->Indurecoursgracieux->find(
+				$scope,
+				array(
+					'fields' => array_merge(
+						$this->Indurecoursgracieux->fields()
+					),
+					'conditions' => array(
+						$condition => $id
+					),
+				)
+			);
+			return $propositionsindus;
+		}
+
+		/**
+		 * Retourne les options nécessaires au formulaire de recherche, au formulaire,
+		 * aux impressions, ...
+		 *
+		 * @return array
+		 */
+		public function getCreancerecoursgracieux($scope,$condition,$id) {
+			$propositionscreances = $this->Creancerecoursgracieux->find(
+				$scope,
+				array(
+					'fields' => array_merge(
+						$this->Creancerecoursgracieux->fields()
+					),
+					'conditions' => array(
+						 $condition => $id
+					),
+				)
+			);
+			if($scope == 'first' ) {
+					$propositionscreances['Creancerecoursgracieux']['perioderegucre'] =
+					__m('Recourgracieux::proposer::Periode').
+					$propositionscreances['Creancerecoursgracieux']['ddregucre'].
+					__m('Recourgracieux::proposer::to').
+					$propositionscreances['Creancerecoursgracieux']['dfregucre'];
+			}else{
+				foreach ($propositionscreances as $key => $propositioncreance ) {
+					$propositionscreances[$key]['Creancerecoursgracieux']['perioderegucre'] =
+						__m('Recourgracieux::proposer::Periode').
+						$propositioncreance['Creancerecoursgracieux']['ddregucre'].
+						__m('Recourgracieux::proposer::to').
+						$propositioncreance['Creancerecoursgracieux']['dfregucre'];
+				}
+			}
+			return $propositionscreances;
+		}
 	}

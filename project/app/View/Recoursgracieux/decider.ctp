@@ -50,10 +50,11 @@
 				'th' => true
 			)
 		);
-		echo '<h2>'. __m('Recourgracieux::proposer::titleCreancerecoursgracieux').'</h2>';
-		if( empty( $creancesrecoursgracieux) ) {
-			echo '<p class="notice">'.__m('Recourgracieux::decider::emptyCreancesrecoursgracieux').'</p>';
-		}else{
+		if ( Configure::read( 'Recoursgracieux.Creancerecoursgracieux.Activer' ) ) {
+			echo '<h2>'. __m('Recourgracieux::proposer::titleCreancerecoursgracieux').'</h2>';
+			if( empty( $creancesrecoursgracieux) ) {
+				echo '<p class="notice">'.__m('Recourgracieux::decider::emptyCreancesrecoursgracieux').'</p>';
+			}else{
 				if ( $this->request->data['Typerecoursgracieux']['usage'] == 'contestation' ) {
 					echo $this->Default3->index(
 						$creancesrecoursgracieux,
@@ -100,10 +101,7 @@
 									'type' => 'select',
 									'options' => $options['Creance']['natcre']
 								),
-								'Creancerecoursgracieux.rgcre' => array(
-									'type' => 'select',
-									'options' => $options['Creance']['natcre']
-								),
+								'Creancerecoursgracieux.rgcre',
 								'Creancerecoursgracieux.mtinicre',
 								'Creancerecoursgracieux.dtimplcre',
 								'Creancerecoursgracieux.perioderegucre',
@@ -127,6 +125,74 @@
 						)
 					);
 				}
+			}
+		}
+		if ( Configure::read( 'Recoursgracieux.Indurecoursgracieux.Activer' ) ) {
+			echo '<h2>'. __m('Recourgracieux::proposer::titleIndurecoursgracieux').'</h2>';
+			if( empty( $indusrecoursgracieux) ) {
+				echo '<p class="notice">'.__m('Recourgracieux::decider::emptyIndusrecoursgracieux').'</p>';
+			}else{
+				if ( $this->request->data['Typerecoursgracieux']['usage'] == 'contestation' ) {
+					echo $this->Default3->index(
+						$indusrecoursgracieux,
+						$this->Translator->normalize(
+							array(
+								'Indurecoursgracieux.natpfcre' => array(
+									'type' => 'select',
+									'options' => $options['Infofinanciere']['natpfcre']
+								),
+								'Indurecoursgracieux.rgcre',
+								'Indurecoursgracieux.mtmoucompta',
+								'Indurecoursgracieux.dttraimoucompta',
+								'Indurecoursgracieux.mntindus',
+								'Indurecoursgracieux.refuscontestation'=> array(
+									'options' => array( '1' => __m('YES'), '0' => __m('NO'))
+								),
+								'Indurecoursgracieux.motifproposrecoursgracieux_id' => array(
+									'options' => $listMotifs
+								),
+								'Indurecoursgracieux.mention',
+								'Indurecoursgracieux.regularisation'=> array(
+									'options' => array( '1' => __m('YES'), '0' => __m('NO'))
+								),
+							)
+						),
+						array(
+							'paginate' => false,
+							'options' => $options,
+							'empty_label' => __m('Recourgracieux::decider::emptyIndusrecoursgracieux'),
+						)
+					);
+				}
+				if ( $this->request->data['Typerecoursgracieux']['usage'] == 'remise' ){
+					echo $this->Default3->index(
+						$indusrecoursgracieux,
+						$this->Translator->normalize(
+							array(
+								'Indurecoursgracieux.natpfcre' => array(
+									'type' => 'select',
+									'options' => $options['Infofinanciere']['natpfcre']
+								),
+								'Indurecoursgracieux.rgcre',
+								'Indurecoursgracieux.mtmoucompta',
+								'Indurecoursgracieux.dttraimoucompta',
+								'Indurecoursgracieux.mntindus',
+								'Indurecoursgracieux.prcentremise',
+								'Indurecoursgracieux.mntremise',
+								'Indurecoursgracieux.motifproposrecoursgracieux_id' => array(
+									'options' => $listMotifs
+								),
+								'Indurecoursgracieux.mention'
+							)
+						),
+						array(
+							'paginate' => false,
+							'options' => $options,
+							'empty_label' => __m('Recourgracieux::proposer::emptyIndusrecoursgracieux'),
+						)
+					);
+				}
+			}
 		}
 	}
 	echo '</fieldset>';

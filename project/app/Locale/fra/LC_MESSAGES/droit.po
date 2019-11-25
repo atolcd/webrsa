@@ -4376,20 +4376,23 @@ msgstr "Envoit d'email des recours gracieux"
 msgid "controllers/Recoursgracieux/proposer"
 msgstr "Proposition de décision générale des recours gracieux"
 
-msgid "controllers/Recoursgracieux/proposer_contestation"
-msgstr "Proposition de décision de contestation des recours gracieux"
+msgid "controllers/Recoursgracieux/proposercontestationcreances"
+msgstr "Proposition de contestation sur créances"
 
-msgid "controllers/Recoursgracieux/proposer_remise"
-msgstr "Proposition de décision de remise des recours gracieux"
+msgid "controllers/Recoursgracieux/proposerremisecreances"
+msgstr "Proposition de remise sur créances"
+
+msgid "controllers/Recoursgracieux/proposercontestationindus"
+msgstr "Proposition de contestation sur indus"
+
+msgid "controllers/Recoursgracieux/proposerremiseindus"
+msgstr "Proposition de remise sur indus"
 
 msgid "controllers/Recoursgracieux/deleteproposition"
 msgstr "Supprimer une proposition de décision de remise des recours gracieux"
 
 msgid "controllers/Recoursgracieux/decider"
 msgstr "Décision des recours gracieux"
-
-msgid "controllers/Recoursgracieux/proposer"
-msgstr "Proposition de décision des recours gracieux"
 
 msgid "controllers/Recoursgracieux/envoyer"
 msgstr "Validation de signature des recours gracieux"
@@ -4399,6 +4402,12 @@ msgstr "Traitement et notification des recours gracieux"
 
 msgid "controllers/Recoursgracieux/search"
 msgstr "Recherche sur les recours gracieux"
+
+msgid "controllers/Recoursgracieux/delete"
+msgstr "Supprimer un recours gracieux"
+
+msgid "controllers/Recoursgracieux/view"
+msgstr "Voir un recours gracieux"
 
 # Origines
 msgid "controllers/Originesrecoursgracieux"

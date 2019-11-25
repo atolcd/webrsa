@@ -121,9 +121,24 @@
 		);
 
 		/**
+		 * Associations "Has many".
+		 *
+		 * @var array
+		 */
+		public $hasMany = array(
+			'Indurecoursgracieux' => array(
+				'className' => 'Indurecoursgracieux',
+				'foreignKey' => 'indus_id',
+				'conditions' => null,
+				'fields' => null,
+				'order' => null,
+				'dependent' => true
+			)
+		);
+
+		/**
 		*
 		*/
-
 		public function search( $mesCodesInsee, $filtre_zone_geo, $criteres ) {
 			/// Conditions de base
 			$conditions = array();

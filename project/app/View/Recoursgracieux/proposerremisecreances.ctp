@@ -78,7 +78,7 @@
 		//Get de la vue
 		var pourcentageRemise = $('CreancerecoursgracieuxPrcentremise').value;
 		var montantIndus = $('CreancerecoursgracieuxMntindus').value;
-		var valRemise = 0; 
+		var valRemise = 0;
 
 		//Calcul
 		if ( pourcentageRemise != '0') {

@@ -504,6 +504,7 @@ $irregularPlural = array(
 	//Recours gracieux
 	'recourgracieux' => 'recoursgracieux',
 	'creancerecoursgracieux' => 'creancesrecoursgracieux',
+	'indurecoursgracieux' => 'indusrecoursgracieux',
 	//Rapport talends
 	'rapporttalendcreance' => 'rapportstalendscreances',
 	'rejettalendcreance' => 'rejetstalendscreances',

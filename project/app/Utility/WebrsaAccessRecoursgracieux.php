@@ -49,12 +49,14 @@
 					'email',
 					'affecter',
 					'proposer',
-					'proposer_contestation',
-					'proposer_remise',
 					'deleteproposition',
 					'decider',
 					'envoyer',
 					'traiter',
+					'proposercontestationcreances',
+					'proposerremisecreances',
+					'proposercontestationindus',
+					'proposerremiseindus',
 					'delete',
 					'Dossierspcgs66.view'
 				)
@@ -173,9 +175,27 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function _proposer_contestation(array $record, array $params) {
+		protected static function _proposercontestationcreances(array $record, array $params) {
 			if (
 				$record['Recourgracieux']['etat'] == 'ATTINSTRUCTION'
+				|| $record['Recourgracieux']['etat'] == 'INSTRUCTION'
+			){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _proposerremisecreances(array $record, array $params) {
+			if (
+				$record['Recourgracieux']['etat'] == 'ATTINSTRUCTION'
+				|| $record['Recourgracieux']['etat'] == 'INSTRUCTION'
 			){
 				return true;
 			}else{
@@ -190,9 +210,27 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function _proposer_remise(array $record, array $params) {
+		protected static function _proposercontestationindus(array $record, array $params) {
 			if (
 				$record['Recourgracieux']['etat'] == 'ATTINSTRUCTION'
+				|| $record['Recourgracieux']['etat'] == 'INSTRUCTION'
+			){
+				return true;
+			}else{
+				return false;
+			}
+		}
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _proposerremiseindus(array $record, array $params) {
+			if (
+				$record['Recourgracieux']['etat'] == 'ATTINSTRUCTION'
+				|| $record['Recourgracieux']['etat'] == 'INSTRUCTION'
 			){
 				return true;
 			}else{

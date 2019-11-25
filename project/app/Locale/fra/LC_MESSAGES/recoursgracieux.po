@@ -39,10 +39,16 @@ msgstr "Affectation"
 msgid "/Recoursgracieux/proposer/:heading"
 msgstr "Proposition"
 
-msgid "/Recoursgracieux/proposer_contestation/:heading"
+msgid "/Recoursgracieux/proposercontestationcreances/:heading"
 msgstr "Proposition contestation"
 
-msgid "/Recoursgracieux/proposer_remise/:heading"
+msgid "/Recoursgracieux/proposerremisecreances/:heading"
+msgstr "Proposition remise"
+
+msgid "/Recoursgracieux/proposercontestationindus/:heading"
+msgstr "Proposition contestation"
+
+msgid "/Recoursgracieux/proposerremiseindus/:heading"
 msgstr "Proposition remise"
 
 msgid "/Recoursgracieux/decider/:heading"
@@ -103,17 +109,23 @@ msgstr "Proposition"
 msgid "/Recoursgracieux/proposer/#Recourgracieux.id#"
 msgstr "Proposition"
 
-msgid "/Recoursgracieux/proposer_contestation"
+msgid "/Recoursgracieux/proposercontestationcreances"
 msgstr "Ajouter créance"
 
 msgid "Recourgracieux::proposer::Ajoutercreance"
 msgstr "Ajouter créance"
 
-msgid "/Recoursgracieux/proposer_remise"
+msgid "/Recoursgracieux/proposerremisecreances"
 msgstr "Ajouter créance"
 
-msgid "/Recoursgracieux/proposer_remise/#Recourgracieux.id#"
-msgstr "Ajouter créance #Recourgracieux.id#"
+msgid "/Recoursgracieux/proposercontestationindus"
+msgstr "Ajouter indu"
+
+msgid "Recourgracieux::proposer::Ajouterindu"
+msgstr "Ajouter indu"
+
+msgid "/Recoursgracieux/proposerremiseindus"
+msgstr "Ajouter indu"
 
 msgid "/Recoursgracieux/decider"
 msgstr "Décision"
@@ -126,6 +138,9 @@ msgstr "Voir le dossier PCG lié"
 
 msgid "/Dossierspcgs66/view/#Creancerecoursgracieux.dossierpcg_id#"
 msgstr "Voir le dossier #Creancerecoursgracieux.dossierpcg_id# lié"
+
+msgid "/Dossierspcgs66/view/#Indurecoursgracieux.dossierpcg_id#"
+msgstr "Voir le dossier #Indurecoursgracieux.dossierpcg_id# lié"
 
 msgid "/Recoursgracieux/envoyer"
 msgstr "Signature"
@@ -197,6 +212,21 @@ msgstr "Aucune créance associée à la proposition"
 msgid "Recourgracieux::decider::emptyCreancesrecoursgracieux"
 msgstr "Aucune créance associée au dossier"
 
+msgid "Recourgracieux::proposer::titleIndu"
+msgstr "Liste des indus du foyer"
+
+msgid "Recourgracieux::proposer::emptyIndus"
+msgstr "Aucun indu pour le foyer"
+
+msgid "Recourgracieux::proposer::titleIndurecoursgracieux"
+msgstr "Indus associés"
+
+msgid "Recourgracieux::proposer::emptyIndusrecoursgracieux"
+msgstr "Aucun indu associé à la proposition"
+
+msgid "Recourgracieux::decider::emptyIndusrecoursgracieux"
+msgstr "Aucun indu associé au dossier"
+
 vmsgid "Recourgracieux::decider::titleRecours"
 msgstr "Information du dossier de recours"
 
@@ -266,12 +296,6 @@ msgstr "Mention"
 msgid "Creancerecoursgracieux.dossierpcg_id"
 msgstr "Dossier PCG"
 
-msgid "YES"
-msgstr "Oui"
-
-msgid "NO"
-msgstr "Non"
-
 msgid "Creancerecoursgracieux.natcre"
 msgstr "Nature"
 
@@ -301,6 +325,57 @@ msgstr "État du titre"
 
 msgid "Creancerecoursgracieux.regularisation"
 msgstr "Régularisation"
+
+msgid "Indurecoursgracieux.mntindus"
+msgstr "Montant indu"
+
+msgid "Indurecoursgracieux.refuscontestation"
+msgstr "Refus de la contestation"
+
+msgid "Indurecoursgracieux.motifproposrecoursgracieux_id"
+msgstr "Motif de la proposition"
+
+msgid "Indurecoursgracieux.mention"
+msgstr "Mention"
+
+msgid "Indurecoursgracieux.dossierpcg_id"
+msgstr "Dossier PCG"
+
+msgid "Indurecoursgracieux.natpfcre"
+msgstr "Nature"
+
+msgid "Indurecoursgracieux.rgcre"
+msgstr "Rang"
+
+msgid "Indurecoursgracieux.mtmoucompta"
+msgstr "Montant initial"
+
+msgid "Indurecoursgracieux.mntindus"
+msgstr "Montant indu"
+
+msgid "Indurecoursgracieux.dttraimoucompta"
+msgstr "Date traitement du mouvement comptable"
+
+msgid "Indurecoursgracieux.prcentremise"
+msgstr "Pourcentage de remise"
+
+msgid "Indurecoursgracieux.mntremise"
+msgstr "Montant de la remise"
+
+msgid "Indurecoursgracieux.mntremiseaffiche"
+msgstr "Montant de la remise"
+
+msgid "Indurecoursgracieux.etattitre"
+msgstr "État du titre"
+
+msgid "Indurecoursgracieux.regularisation"
+msgstr "Régularisation"
+
+msgid "YES"
+msgstr "Oui"
+
+msgid "NO"
+msgstr "Non"
 
 msgid "Pièce jointe"
 msgstr "Pièce jointe"

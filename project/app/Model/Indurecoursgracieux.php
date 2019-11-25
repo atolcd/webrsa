@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Code source de la classe Creancerecoursgracieux.
+	 * Code source de la classe Indurecoursgracieux.
 	 *
 	 * PHP 7.2
 	 *
@@ -14,16 +14,16 @@
 	 *
 	 * @package app.Model
 	 */
-	class Creancerecoursgracieux extends AppModel
+	class Indurecoursgracieux extends AppModel
 	{
-		public $name = 'Creancerecoursgracieux';
+		public $name = 'Indurecoursgracieux';
 
 		/**
 		 * Ce model utilise cette table de la base de données
 		 *
 		 * @var string
 		 */
-		public $useTable = 'creancesrecoursgracieux';
+		public $useTable = 'indusrecoursgracieux';
 
 		/**
 		 * Récursivité par défaut du modèle.
@@ -50,9 +50,9 @@
 				'fields' => '',
 				'order' => ''
 			),
-			'Creance' => array(
-				'className' => 'Creance',
-				'foreignKey' => 'creances_id',
+			'Infofinanciere' => array(
+				'className' => 'Infofinanciere',
+				'foreignKey' => 'indus_id',
 				'conditions' => '',
 				'fields' => '',
 				'order' => ''
