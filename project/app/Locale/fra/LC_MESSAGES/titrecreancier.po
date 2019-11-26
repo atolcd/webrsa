@@ -130,4 +130,3 @@ msgstr "Commentaire"
 
 msgid "Motifemissiontitrecreancier.nom"
 msgstr "Motif de l'émission"
-

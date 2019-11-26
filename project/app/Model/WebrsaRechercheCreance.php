@@ -191,6 +191,7 @@
 					'type' => 'INNER',
 					'conditions' => '"Titrecreancier"."creance_id" = "Creance"."id"'
 				);
+				$query['conditions'][] = 'Titrecreancier.id IS NOT NULL';
 			}
 
 			// Début des spécificités par département

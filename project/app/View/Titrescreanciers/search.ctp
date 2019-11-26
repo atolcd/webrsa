@@ -10,31 +10,30 @@
 <fieldset>
 	<legend><?php echo __m( 'Search.Titrecreancier' ); ?></legend>
 	<?php
-		echo "<fieldset><legend> ".__m('Titrecreancier::search::moismoucompta')."</legend>";
+		echo "<fieldset><legend> ".__d('creances','Creance::search::moismoucompta')."</legend>";
 		echo $this->Xform->input(
-			'Search.Titrecreancier.moismoucompta_from',
+			'Search.Creance.moismoucompta_from',
 			array(
-				'label' => ' From',
+				'label' => __d('creances','Search.Creance.moismoucompta_from'),
 				'type' => 'date',
 				'dateFormat'=>'DMY',
 				'maxYear'=>date('Y')+1,
 				'minYear'=> '2009',
 				'empty' => true
 			)
-		);
+		) ;
 		echo $this->Xform->input(
-			'Search.Titrecreancier.moismoucompta_to',
+			'Search.Creance.moismoucompta_to',
 			array(
-				'label' => 'To ',
+				'label' => __d('creances','Search.Creance.moismoucompta_to'),
 				'type' => 'date',
 				'dateFormat'=>'DMY',
 				'maxYear'=>date('Y')+2,
 				'minYear'=> '2009' ,
 				'empty' => true
 			)
-		);
+		) ;
 		echo "</fieldset>";
-
 		echo $this->Xform->input(
 			'Search.Titrecreancier.etat',
 			array(
