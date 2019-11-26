@@ -161,15 +161,15 @@
 			$query = $this->Allocataire->searchConditions( $query, $search );
 
 			//
-			$arrayMoismoucompta_from = Hash::get( $search, 'Titrecreancier.moismoucompta_from' );
-			$arrayMoismoucompta_to = Hash::get( $search, 'Titrecreancier.moismoucompta_to' );
+			$arrayMoismoucompta_from = Hash::get( $search, 'Creance.moismoucompta_from' );
+			$arrayMoismoucompta_to = Hash::get( $search, 'Creance.moismoucompta_to' );
 			if ( !empty($arrayMoismoucompta_from) && !empty($arrayMoismoucompta_to)) {
 				$moismoucompta_from = date_cakephp_to_sql( $arrayMoismoucompta_from );
 				$moismoucompta_to = date_cakephp_to_sql( $arrayMoismoucompta_to );
 				$query['conditions'][] = " Creance.moismoucompta BETWEEN '".$moismoucompta_from ."' AND '".$moismoucompta_to."'";
 			}
 
-			// if etat de la créances Selected then Titrecreancier.etat LIKE
+			// if etat du titre créancier Selected then Titrecreancier.etat LIKE
 			$etatTitrecreancier = (string)Hash::get( $search, 'Titrecreancier.etat' );
 			if ( !empty($etatTitrecreancier) ) {
 				$query['conditions'][] = " Titrecreancier.etat LIKE '".$etatTitrecreancier."'"  ;

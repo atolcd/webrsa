@@ -141,6 +141,10 @@ msgstr " depuis le "
 # Trad des recherches
 ###############################################################################
 
+###############################################################################
+# Formulaires de recherches
+###############################################################################
+
 msgid "/Creances/search/:heading"
 msgstr "Recherche par créances"
 
@@ -156,8 +160,20 @@ msgstr "Motif de l'indu"
 msgid "Creance::search::dtimplcre"
 msgstr "Plage de date d'implantation"
 
+msgid "Search.Creance.dtimplcre_from"
+msgstr "Du (inclus)"
+
+msgid "Search.Creance.dtimplcre_to"
+msgstr "Au (inclus)"
+
 msgid "Creance::search::moismoucompta"
 msgstr "Plage de date de transfert"
+
+msgid "Search.Creance.moismoucompta_from"
+msgstr "Du (inclus)"
+
+msgid "Search.Creance.moismoucompta_to"
+msgstr "Au (inclus)"
 
 msgid "Creance::search::etat"
 msgstr "État de la créance"
@@ -167,6 +183,7 @@ msgstr "Possède un titre de recette ?"
 
 msgid "Creance::search::aucuntitre"
 msgstr "N'a pas de titre de recette"
+
 
 ###############################################################################
 # Champs de recherches
