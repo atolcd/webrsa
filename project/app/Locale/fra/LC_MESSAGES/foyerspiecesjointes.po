@@ -94,6 +94,8 @@ msgstr "Nom du fichier : "
 msgid "Foyerspiecesjointe/pjpresentes"
 msgstr "Pièces non archivées déjà présentes"
 
+msgid "Foyerpiecejointe.nom"
+msgstr "Nom du fichier"
 ############################################
 ## Archivage
 ############################################
