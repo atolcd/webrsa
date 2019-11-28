@@ -3187,7 +3187,8 @@
 						SELECT DISTINCT rdvindividuelhonore.personne_id
 							FROM rendezvous AS rdvindividuelhonore
 						WHERE
-							-- avec un RDV honoré durant l'année N";
+							-- avec un RDV honoré durant l'année N
+							";
 						if( !is_null($mep) ) {
 							$conditionrdv .= "rdvindividuelhonore.daterdv > '{$mep}'";
 						} else {
