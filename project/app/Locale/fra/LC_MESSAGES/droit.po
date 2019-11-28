@@ -1161,6 +1161,57 @@ msgstr "Export CSV"
 
 ###############################################################################
 
+msgid "controllers/Emailsdestinataires"
+msgstr "Emails destinataires"
+
+msgid "controllers/Emailsdestinataires/add"
+msgstr "Ajouts des emails destinataires"
+
+msgid "controllers/Emailsdestinataires/delete"
+msgstr "Suppression des emails destinataires"
+
+msgid "controllers/Emailsdestinataires/edit"
+msgstr "Edition des emails destinataires"
+
+msgid "controllers/Emailsdestinataires/index"
+msgstr "Visionnage des emails destinataires"
+
+###############################################################################
+
+msgid "controllers/Textsemails"
+msgstr "Modèle d'emails"
+
+msgid "controllers/Textsemails/add"
+msgstr "Ajouts des modèles d'emails"
+
+msgid "controllers/Textsemails/delete"
+msgstr "Suppression des modèles d'emails"
+
+msgid "controllers/Textsemails/edit"
+msgstr "Edition des modèles d'emails"
+
+msgid "controllers/Textsemails/index"
+msgstr "Visionnage des modèles d'emails"
+
+###############################################################################
+
+msgid "controllers/Piecesemails"
+msgstr "Pièces jointes liées aux emails"
+
+msgid "controllers/Piecesemails/index"
+msgstr "Visualisation des pièces jointes liées aux emails"
+
+msgid "controllers/Piecesemails/add"
+msgstr "Ajout d'une pièces jointes liées aux emails"
+
+msgid "controllers/Piecesemails/edit"
+msgstr "Édition d'une pièces jointes liées aux emails"
+
+msgid "controllers/Piecesemails/delete"
+msgstr "Suppression d'une pièces jointes liées aux emails"
+
+###############################################################################
+
 msgid "controllers/Entretiens"
 msgstr "Entretiens"
 

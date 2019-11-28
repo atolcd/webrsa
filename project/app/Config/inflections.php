@@ -506,6 +506,10 @@ $irregularPlural = array(
 	'recourgracieux' => 'recoursgracieux',
 	'creancerecoursgracieux' => 'creancesrecoursgracieux',
 	'indurecoursgracieux' => 'indusrecoursgracieux',
+	//email
+	'emaildestinataire' => 'emailsdestinataires',
+	'textemail' => 'textsemails',
+	'piecemail' => 'piecesemails',
 	//Rapport talends
 	'rapporttalendcreance' => 'rapportstalendscreances',
 	'rejettalendcreance' => 'rejetstalendscreances',

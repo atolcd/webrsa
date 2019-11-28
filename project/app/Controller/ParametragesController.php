@@ -221,6 +221,34 @@
 		}
 
 		/**
+		 * Paramétrages des EMAILS.
+		 *
+		 * @return array
+		 */
+		protected function _emails() {
+			$activateEmails = Configure::read( 'Emails.Activer' );
+
+			$items = array ();
+			if( $activateEmails ) {
+				$items = array(
+					'Destinataires' => array(
+							'url' => array( 'controller' => 'emailsdestinataires', 'action' => 'index' )
+					),
+					'Modèles de mails' => array(
+						'url' => array( 'controller' => 'textsemails', 'action' => 'index' )
+					),
+					'Pièces liées aux mails' => array(
+						'url' => array( 'controller' => 'piecesemails', 'action' => 'index' )
+					),
+				);
+			}else{
+				$items = array( 'disabled' => true );
+			}
+
+			return $items;
+		}
+
+		/**
 		 * Paramétrages des CUI.
 		 *
 		 * @return array
@@ -669,6 +697,7 @@
 				'DSP' => $this->_dsps(),
 				'Editeur de requêtes' => $this->_requestsmanager(),
 				'Équipes pluridisciplinaires' => $this->_eps(),
+				'Emails' => $this->_emails(),
 				'Entretiens' => $this->_entretiens(),
 				'Fiches de candidature' => $this->_actionscandidats_personnes(),
 				'Fiches de liaisons' => $this->_fichedeliaisons(),
