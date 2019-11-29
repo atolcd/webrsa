@@ -1,0 +1,83 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Email"
+msgstr "Generateur d'e-mail"
+
+
+####################################### Traductions champs #######################################
+
+msgid "Envoyer Email"
+msgstr "Envoyer Email"
+
+msgid "Email.titre_email"
+msgstr "Envoyer Email"
+
+msgid "Email.titre_aucunemail"
+msgstr "Aucun Email trouvé"
+
+msgid "Email.titre_view_email"
+msgstr "Email"
+
+msgid "Email.entete_email"
+msgstr "Informations Email"
+
+msgid "Email.emailredacteur"
+msgstr "Adresse e-mail du redacteur (Expéditeur)"
+
+msgid "Email.emaildestinataire"
+msgstr "Adresse e-mail de l'employeur (Pour)"
+
+msgid "Email.insertiondate"
+msgstr "Date de création"
+
+msgid "Email.etat"
+msgstr "Etat de l'email"
+
+msgid "Email.modele_action"
+msgstr "Action d'origine de l'email"
+
+msgid "Email.commentaire"
+msgstr "Insérer commentaire"
+
+msgid "Email.chargermodel"
+msgstr "Charger un modèle"
+
+msgid "Email.textemail_id"
+msgstr "Modèle de document"
+
+msgid "Email.email"
+msgstr "Contenu de l'e-mail"
+
+msgid "Email.titre"
+msgstr "Sujet"
+
+msgid "Email.message"
+msgstr "Message"
+
+msgid "Email.created"
+msgstr "Créé le"
+
+msgid "Email.dateenvoi"
+msgstr "Envoyé le"
+
+msgid "Email.pj"
+msgstr "Pièces à joindre à l'e-mail"

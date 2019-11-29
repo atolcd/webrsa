@@ -133,7 +133,8 @@
 				'classname' => 'Titresuiviautreinfo'
 			),
 			'Historiqueetat' => array(
-				'classname' => 'Historiqueetat'
+				'classname' => 'Historiqueetat',
+				'foreignKey' => 'modele_id',
 			)
 		);
 

@@ -63,4 +63,11 @@
 			),
 		);
 
+		public $virtualFields = array(
+			'info_complet' => array(
+				'type' => 'string',
+				'postgres' => '( COALESCE( "%s"."nom", \'\' ) || \' \' || "%s"."prenom" || \' : \' || "%s"."email" )'
+			),
+		);
+
 	}

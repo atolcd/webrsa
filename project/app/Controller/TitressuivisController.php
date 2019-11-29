@@ -14,6 +14,7 @@
 	App::uses( 'Titressuivis', 'Controller');
 	App::uses( 'Titressuivisannulationsreductions', 'Controller');
 	App::uses( 'Titressuivisautresinfos', 'Controller');
+	App::uses( 'Emails', 'Controller');
 
 	/**
 	 * La classe TitressuivisController s'occupe du suivi des annulations et réduction des titres de recettes
@@ -104,6 +105,7 @@
 			$foyer_id = $this->Titrecreancier->foyerId( $creance_id );
 
 			$this->set('dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu(array( 'foyer_id' => $foyer_id )));
+			$this->set('urlmenu', $this->set( 'urlmenu', '/creances/index/'.$foyer_id ));
 
 			// ************ Liste des annulations / réductions ************
 			$contentIndex = $this->Titresuiviannulationreduction->getContext();

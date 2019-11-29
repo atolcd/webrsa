@@ -110,7 +110,8 @@
 			'User',
 			'Option',
 			'Historiqueetat',
-			'Dossierpcg66'
+			'Dossierpcg66',
+			'Email'
 			);
 
 		/**
@@ -279,6 +280,10 @@
 				//Proposition indus
 				$indusrecoursgracieux = $this->Recourgracieux->getIndurecoursgracieux('all','Indurecoursgracieux.recours_id',$recourgracieux_id);
 				$this->set( 'indusrecoursgracieux', $indusrecoursgracieux );
+
+				$Emails = $this->Email->viewAll($recourgracieux_id, 'Recourgracieux');
+				$optionsEmail = $this->Email->options();
+				$this->set( compact( 'optionsEmail', 'Emails') );
 			}
 
 			//ListMotifs
@@ -475,8 +480,16 @@
 				$this->Recourgracieux->begin();
 				$data = $this->request->data;
 
-				if( $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) ) &&
-					$this->Recourgracieux->save( $data ) &&
+				$success = $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) );
+				if( $success ){
+					$data['Email']['modele_id'] = $data['Recourgracieux']['id'];
+					$success = $this->Email->saveAddEdit($data);
+				}
+				if( $success ){
+					$success = $this->Recourgracieux->save( $data );
+				}
+				if( $success ){
+					$success =
 					$this->Historiqueetat->setHisto(
 						$this->Recourgracieux->name,
 						$this->Recourgracieux->id,
@@ -484,7 +497,9 @@
 						__FUNCTION__,
 						$data['Recourgracieux']['etat'],
 						$foyer_id
-					) ) {
+					);
+				}
+				if ($success){
 					$this->Recourgracieux->commit();
 					$this->Jetons2->release( $dossier_id );
 					$this->Flash->success( __( 'Save->success' ) );
@@ -493,24 +508,41 @@
 					$this->Recourgracieux->rollback();
 					$this->Flash->error( __( 'Save->error' ) );
 				}
-			}
-
-			// Affichage des données
-			$recoursgracieux = $this->Recourgracieux->find(
-				'first',
-				array(
-					'fields' => array_merge(
-						$this->Recourgracieux->fields()
-					),
-					'conditions' => array(
-						'Recourgracieux.id' => $id
-					),
-					'contain' => FALSE
-				)
-			);
-			if (!empty( $recoursgracieux ) ){
+			}else{
+				// Affichage des données
+				$recoursgracieux = $this->Recourgracieux->find(
+					'first',
+					array(
+						'fields' => array_merge(
+							$this->Recourgracieux->fields()
+						),
+						'conditions' => array(
+							'Recourgracieux.id' => $id
+						),
+						'contain' => FALSE
+					)
+				);
 				// Assignation au formulaire
 				$this->request->data = $recoursgracieux;
+
+				$tmpFormDataAddEdit = $this->Email->edit($id, 'Recourgracieux', 'affecter');
+				if ( empty($tmpFormDataAddEdit) ){
+					$tmpFormDataAddEdit = array (
+						'Email' =>  array (
+							'foyer_id' => $foyer_id,
+							'etat' => 'CREE',
+							'user_id' => $this->Session->read('Auth.User.id'),
+							'modele' => 'Recourgracieux',
+							'modele_id' => $id,
+							'modeleparent' => 'Recourgracieux',
+							'modeleparent_id' => $id,
+							'modele_action' => 'affecter'
+						)
+					);
+				}
+				$this->request->data['Email'] = $tmpFormDataAddEdit['Email'];
+				$optionsEmail = $this->Email->options();
+				$this->set( compact( 'optionsEmail') );
 			}
 
 			// Assignation à la vue
@@ -1176,9 +1208,12 @@
 				}else{
 					$data['Recourgracieux']['etat'] = 'ATTINSTRUCTION';
 				}
+				$data['Email']['modele_id'] = $data['Recourgracieux']['id'];
+
 				//Sauvegarde du recours gracieux
 				$saveRecoursgracieux = $this->Recourgracieux->saveAll( $data, array( 'validate' => 'only' ) );
 				if( $saveRecoursgracieux && $save &&
+					$this->Email->saveAddEdit($data)&&
 					$this->Recourgracieux->save( $data ) &&
 					$this->Historiqueetat->setHisto(
 						$this->Recourgracieux->name,
@@ -1235,8 +1270,29 @@
 							'contain' => FALSE
 						)
 					);
+
 					// Assignation au formulaire
 					$this->request->data = array_merge( $recoursgracieux, $typerecoursgracieux);
+
+					//Section Email
+					$tmpFormDataAddEdit = $this->Email->edit($id, 'Recourgracieux', 'decider');
+					if ( empty($tmpFormDataAddEdit) ){
+						$tmpFormDataAddEdit = array (
+							'Email' =>  array (
+								'foyer_id' => $foyer_id,
+								'etat' => 'CREE',
+								'user_id' => $this->Session->read('Auth.User.id'),
+								'modele' => 'Recourgracieux',
+								'modele_id' => $id,
+								'modeleparent' => 'Recourgracieux',
+								'modeleparent_id' => $id,
+								'modele_action' => 'decider'
+							)
+						);
+					}
+					$this->request->data['Email'] = $tmpFormDataAddEdit['Email'];
+					$optionsEmail = $this->Email->options();
+					$this->set( compact( 'optionsEmail') );
 
 					//Get proposition
 					$creancesrecoursgracieux = $this->Recourgracieux->getCreancerecoursgracieux('all','Creancerecoursgracieux.recours_id',$id);

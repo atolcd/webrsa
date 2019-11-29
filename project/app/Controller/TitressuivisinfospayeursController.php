@@ -39,6 +39,7 @@
 			'Dossier',
 			'Foyer',
 			'Option',
+			'Email'
 		);
 
 		/**
@@ -94,6 +95,10 @@
 			if( isset($this->request->data['Cancel']) ){
 				$this->redirect( array('controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
 			}
+
+			$Email = $this->Email->view($id, 'Titresuiviinfopayeur', 'add_edit');
+			$optionsEmail = $this->Email->options();
+			$this->set( compact( 'optionsEmail', 'Email') );
 
 			$this->_setOptions($titrecreancier_id);
 
@@ -172,7 +177,40 @@
 			// Essai de sauvegarde
 			if( !empty( $this->request->data ) ) {
 				$this->_save_add_edit();
+			}else{
+				if( $this->action != 'add' ) {
+					$tmpFormDataAddEdit = $this->Email->edit($id, 'Titresuiviinfopayeur', 'add_edit');
+				}
+				if( $this->action == 'add' || empty($tmpFormDataAddEdit) ) {
+					// Initialisation / rappel du titre de recette en cours
+					$titresCreanciers = $this->Titrecreancier->find('first',
+						array(
+							'conditions' => array(
+								'Titrecreancier.id ' => $titrecreancier_id
+							),
+							'contain' => false
+						)
+					);
+					$titresCreanciers['Titrecreancier']['etat'] = (__d('titrecreancier', 'ENUM::ETAT::' . $titresCreanciers['Titrecreancier']['etat']));
+					$creance_id = $titresCreanciers['Titrecreancier']['creance_id'];
+					$foyer_id = $this->Titrecreancier->foyerId( $creance_id );
+					$tmpFormDataAddEdit = array (
+						'Email' =>  array (
+							'foyer_id' => $foyer_id,
+							'etat' => 'CREE',
+							'user_id' => $this->Session->read('Auth.User.id'),
+							'modele' => 'Titresuiviinfopayeur',
+							'modele_id' => null,
+							'modele_action' => 'add_edit',
+							'modeleparent' => 'Titrecreancier',
+							'modeleparent_id' => $titrecreancier_id,
+						)
+					);
+				}
+				$this->request->data = $tmpFormDataAddEdit;
 			}
+			$optionsEmail = $this->Email->options();
+			$this->set( compact( 'optionsEmail') );
 
 			$this->render( 'add_edit' );
 		}
@@ -227,13 +265,19 @@
 			$this->Titresuiviinfopayeur->begin();
 			$data = $this->request->data;
 			$titrecreancier_id = $data['Titresuiviinfopayeur']['titrecreancier_id'];
-
 			$success = $this->Titresuiviinfopayeur->save( $data, array( 'validate' => 'first', 'atomic' => false ) );
-
 			if( $success ) {
-				$this->Titresuiviinfopayeur->commit();
-				$this->Flash->success( __( 'Save->success' ) );
-				$this->redirect( array( 'controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
+				$data['Email']['modele_id'] = $this->Titresuiviinfopayeur->id;
+				$success = $this->Email->saveAddEdit($data);
+				if( $success ) {
+					$this->Email->commit();
+					$this->Titresuiviinfopayeur->commit();
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect( array( 'controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
+				} else {
+					$this->Titresuiviinfopayeur->rollback();
+					$this->Flash->error( __( 'Save->error' ) );
+				}
 			} else {
 				$this->Titresuiviinfopayeur->rollback();
 				$this->Flash->error( __( 'Save->error' ) );
