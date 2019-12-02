@@ -56,7 +56,10 @@
                         '/Foyerspiecesjointes/archive/#Foyerpiecejointe.id#' => array(
                             'class' => 'edit'
                         ),
-                        '/Foyerspiecesjointes/delete/#Foyerpiecejointe.id#'
+                        '/Foyerspiecesjointes/delete/#Foyerpiecejointe.id#' => array(
+							'title' => true,
+							'confirm' => true,
+						)
                     )
                 )
             ),
