@@ -76,5 +76,9 @@
 		);
 	}
 
-	echo $this->Default3->actions( array( '/Parametrages/index' => array( 'class' => 'back' ) ) );
-?>
+	echo $this->Default3->actions (
+		array (
+			'/Parametrages/index' => array( 'class' => 'back' ),
+			'/Cantons/adressesnonassociees' => array( 'class' => 'exportcsv' )
+		)
+	);

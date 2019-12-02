@@ -84,3 +84,12 @@ msgstr "Réellement supprimer le canton « #Canton.canton# » ?"
 
 msgid "/Parametrages/index"
 msgstr "Retour"
+
+msgid "/Cantons/adressesnonassociees"
+msgstr "Export des adresses non associées"
+
+msgid "/Cantons/adressesnonassociees/:title"
+msgstr "Export des adresses non associées"
+
+msgid "Canton.liste"
+msgstr "Liste des cantons"

@@ -26,3 +26,14 @@
 
 	echo $this->Observer->disableFormOnSubmit();
 ?>
+<div class="notice-accueil" style="padding-left: 40%">
+	<h2><?php echo __d ('cantons', 'Canton.liste'); ?></h2>
+	<br>
+<?php
+	foreach ($cantons as $canton) {
+?>
+	<div><?php echo $canton['Canton']['canton']; ?></div>
+<?php
+	}
+?>
+</div>

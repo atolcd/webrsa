@@ -22,10 +22,13 @@
 					echo '<b>' . $nbCantons . '</b> ' . __d('accueils', 'Accueil.canton.nonvide.fin'). '<br><br>';
 					echo '<b>' . $this->Html->link(
 							__d('accueils', 'Accueil.action.voir'),
-								array(
-									'controller' => 'cantons',
-									'action' => 'index/Search__Canton__cantonvide:1'
-								)
+							array(
+								'controller' => 'cantons',
+								'action' => 'index/Search__Canton__cantonvide:1'
+							),
+						    array (
+								'target' => '_blank',
+							)
 					) . '</b>';
 				?>
 			</td>
