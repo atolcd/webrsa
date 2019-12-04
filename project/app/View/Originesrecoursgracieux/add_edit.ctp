@@ -4,7 +4,7 @@
 		array(
 			'fields' => array(
 				'Originerecoursgracieux.id',
-				'Originerecoursgracieux.nom',
+				'Originerecoursgracieux.name',
 				'Originerecoursgracieux.actif' => array( 'type' => 'checkbox', 'value' => 1 ),
 			)
 		)

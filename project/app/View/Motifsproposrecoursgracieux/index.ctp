@@ -3,7 +3,7 @@
 		'WebrsaParametrages/index',
 		array(
 			'cells' => array(
-				'Motifproposrecoursgracieux.name',
+				'Motifproposrecoursgracieux.nom',
 				'Motifproposrecoursgracieux.actif' => array( 'type' => 'boolean' ),
 				'/Motifsproposrecoursgracieux/edit/#Motifproposrecoursgracieux.id#' => array(
 					'title' => true

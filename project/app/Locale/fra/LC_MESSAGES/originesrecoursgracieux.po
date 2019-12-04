@@ -14,31 +14,31 @@ msgid "/Originesrecoursgracieux/index/:heading"
 msgstr "Paramétrage des origines des recours gracieux"
 
 msgid "/Originesrecoursgracieux/add/:heading"
-msgstr "Ajout d'une origine de recours gracieux"
+msgstr "Ajout d'une origine du recours gracieux"
 
 msgid "/Originesrecoursgracieux/edit/:heading"
-msgstr "Modification de l'origine de recours gracieux « #Originesrecoursgracieux.nom# »"
+msgstr "Modification de l'origine du recours gracieux « #Originerecoursgracieux.name# »"
 
 msgid "/Originesrecoursgracieux/add"
 msgstr "Ajouter"
 
 msgid "/Originesrecoursgracieux/add/:title"
-msgstr "Ajouter une origine de recours gracieux"
+msgstr "Ajouter une origine du recours gracieux"
 
 msgid "/Originesrecoursgracieux/edit"
 msgstr "Modifier"
 
-msgid "/Originesrecoursgracieux/edit/#Originesrecoursgracieux.id#"
-msgstr "Modifier l'origine de recours gracieux « #Originesrecoursgracieux.nom# »"
+msgid "/Originesrecoursgracieux/edit/#Originerecoursgracieux.id#"
+msgstr "Modifier l'origine du recours gracieux « #Originerecoursgracieux.name# »"
 
 msgid "/Originesrecoursgracieux/delete"
 msgstr "Supprimer"
 
-msgid "/Originesrecoursgracieux/delete/#Originesrecoursgracieux.id#"
-msgstr "Supprimer l'origine de recours gracieux « #Originesrecoursgracieux.nom# »"
+msgid "/Originesrecoursgracieux/delete/#Originerecoursgracieux.id#"
+msgstr "Supprimer l'origine du recours gracieux « #Originerecoursgracieux.name# »"
 
-msgid "/Originesrecoursgracieux/delete/#Originesrecoursgracieux.id# ?"
-msgstr "Réellement supprimer l'origine de recours gracieux « #Originesrecoursgracieux.nom# » ?"
+msgid "/Originesrecoursgracieux/delete/#Originerecoursgracieux.id# ?"
+msgstr "Réellement supprimer l'origine du recours gracieux « #Originerecoursgracieux.name# » ?"
 
 msgid "Originerecoursgracieux.name"
 msgstr "Nom de l'origine"

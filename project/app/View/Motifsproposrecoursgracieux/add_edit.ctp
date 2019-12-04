@@ -4,7 +4,7 @@
 		array(
 			'fields' => array(
 				'Motifproposrecoursgracieux.id',
-				'Motifproposrecoursgracieux.name',
+				'Motifproposrecoursgracieux.nom',
 				'Motifproposrecoursgracieux.actif' => array( 'type' => 'checkbox', 'value' => 1 ),
 			)
 		)

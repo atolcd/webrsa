@@ -4,7 +4,7 @@
 		array(
 			'fields' => array(
 				'Typerecoursgracieux.id',
-				'Typerecoursgracieux.nom',
+				'Typerecoursgracieux.name',
 				'Typerecoursgracieux.usage',
 				'Typerecoursgracieux.actif' => array( 'type' => 'checkbox', 'value' => 1 ),
 			)
