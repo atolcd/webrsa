@@ -17,7 +17,7 @@ msgid "/Typesrecoursgracieux/add/:heading"
 msgstr "Ajout d'un type de recours gracieux"
 
 msgid "/Typesrecoursgracieux/edit/:heading"
-msgstr "Modification du type de recours gracieux « #Typesrecoursgracieux.nom# »"
+msgstr "Modification du type de recours gracieux « #Typerecoursgracieux.name# »"
 
 msgid "/Typesrecoursgracieux/add"
 msgstr "Ajouter"
@@ -28,23 +28,23 @@ msgstr "Ajouter un type de recours gracieux"
 msgid "/Typesrecoursgracieux/edit"
 msgstr "Modifier"
 
-msgid "/Typesrecoursgracieux/edit/#Typesrecoursgracieux.id#"
-msgstr "Modifier le type de recours gracieux « #Typesrecoursgracieux.nom# »"
+msgid "/Typesrecoursgracieux/edit/#Typerecoursgracieux.id#"
+msgstr "Modifier le type de recours gracieux « #Typerecoursgracieux.name# »"
 
 msgid "/Typesrecoursgracieux/delete"
 msgstr "Supprimer"
 
-msgid "/Typesrecoursgracieux/delete/#Typesrecoursgracieux.id#"
-msgstr "Supprimer le type de recours gracieux « #Typesrecoursgracieux.nom# »"
+msgid "/Typesrecoursgracieux/delete/#Typerecoursgracieux.id#"
+msgstr "Supprimer le type de recours gracieux « #Typerecoursgracieux.name# »"
 
-msgid "/Typesrecoursgracieux/delete/#Typesrecoursgracieux.id# ?"
-msgstr "Réellement supprimer le type de recours gracieux « #Typesrecoursgracieux.nom# » ?"
+msgid "/Typesrecoursgracieux/delete/#Typerecoursgracieux.id# ?"
+msgstr "Réellement supprimer le type de recours gracieux « #Typerecoursgracieux.name# » ?"
 
 msgid "Typerecoursgracieux.name"
 msgstr "Nom du type"
 
 msgid "Typerecoursgracieux.usage"
-msgstr "Usage"
+msgstr "Usage (contestation ou remise)"
 
 msgid "Typerecoursgracieux.actif"
 msgstr "Actif"
