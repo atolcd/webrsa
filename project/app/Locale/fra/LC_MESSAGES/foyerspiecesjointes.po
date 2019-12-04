@@ -22,6 +22,10 @@ msgstr ""
 msgid "/Foyerspiecesjointes/index/:heading"
 msgstr "Accueil des pièces jointes"
 
+msgid "/Foyerspiecesjointes/index/:title"
+msgstr "Accueil des pièces jointes"
+
+
 msgid "/Foyerspiecesjointes/add"
 msgstr "Ajouter"
 
