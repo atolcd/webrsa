@@ -1,5 +1,5 @@
 <?php
-	$activateTitreCreancier = Configure::read( 'Creances.titrescreanciers' );
+	$activateTitreCreancier = Configure::read( 'Creances.Titrescreanciers.enabled' );
 	if ( !empty($activateTitreCreancier)	&& $activateTitreCreancier == true ){
 		$activateTitreCreancier = true;
 	}else{

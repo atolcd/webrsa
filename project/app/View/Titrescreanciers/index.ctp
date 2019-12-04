@@ -1,4 +1,5 @@
 <?php
+	$activateFica = (boolean)Configure::read('Module.Creances.FICA.enabled');
 
 	App::uses('WebrsaAccess', 'Utility');
 	WebrsaAccess::init($dossierMenu);
@@ -42,6 +43,7 @@
 						'/Titrescreanciers/valider/#Titrecreancier.id#',
 						'/Titrescreanciers/exportfica/#Titrecreancier.id#'
 						=> array(
+							'condition' => $activateFica,
 							'class' => 'view',
 						),
 						'/Titrescreanciers/retourcompta/#Titrecreancier.id#'

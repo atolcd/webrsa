@@ -348,7 +348,7 @@ $fonorg = $dossier['Dossier']['fonorg'];
 							'url' => array('controller' => 'infosfinancieres', 'action' => 'index', $dossier['Dossier']['id'] )
 						),
 						'Recours gracieux' => array(
-							'disabled' => !Configure::read('Recoursgracieux.Activer'),
+							'disabled' => !Configure::read('Module.Recoursgracieux.enabled'),
 							'url' => array( 'controller' => 'recoursgracieux', 'action' => 'index', $dossier['Foyer']['id'] )
 						),
 				),
@@ -405,7 +405,10 @@ $fonorg = $dossier['Dossier']['fonorg'];
 		}
 
 		// Pièces jointe
-		$items['Pièces jointes'] = array( 'url' => array( 'controller' => 'foyerspiecesjointes', 'action' => 'index', $dossier['Foyer']['id'] ) );
+		$items['Pièces jointes'] = array(
+			'disabled' => !Configure::read('Module.Piecejointe'),
+			'url' => array(	'controller' => 'foyerspiecesjointes', 'action' => 'index',	$dossier['Foyer']['id'] )
+		);
 
 		$items['Informations complémentaires'] = array( 'url' => array( 'controller' => 'infoscomplementaires', 'action' => 'view', $dossier['Dossier']['id'] ) );
 

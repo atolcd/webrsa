@@ -72,7 +72,7 @@
 				'type' => 'checkbox',
 				)
 			);
-			if ( Configure::read( 'Creances.titrescreanciers' ) ) {
+			if ( Configure::read( 'Creances.Titrescreanciers.enabled' ) ) {
 				echo "</fieldset><fieldset><legend>Titres de recettes</legend>";
 				echo $this->Form->input( 'Filtre.has_titre_creancier',
 					array(

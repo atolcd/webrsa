@@ -87,7 +87,7 @@
 		);
 
 		$options['Creance']['hastitrecreancier'] = array(1 => 'Oui', 0 => 'Non');
-		if ( Configure::read( 'Creances.titrescreanciers' ) ) {
+		if ( Configure::read( 'Creances.Titrescreanciers.enabled' ) ) {
 			//Has Titre créancier
 			echo $this->Xform->input(
 				'Search.Creance.hastitrecreancier',

@@ -50,7 +50,7 @@
 		if ( ! empty ($recoursgracieux) ) {
 			echo '<br><br> <h1>' . __m('Recoursgracieux::view::propositions') .  '</h1>';
 			if ( $typerecoursgracieux['Typerecoursgracieux']['usage'] == 'contestation' ) {
-				if ( Configure::read( 'Recoursgracieux.Creancerecoursgracieux.Activer' ) ) {
+				if ( Configure::read( 'Recoursgracieux.Creancerecoursgracieux.enabled' ) ) {
 					echo $this->Default3->index(
 						$creancesrecoursgracieux,
 						$this->Translator->normalize(
@@ -90,7 +90,7 @@
 						)
 					);
 				}
-				if ( Configure::read( 'Recoursgracieux.Indurecoursgracieux.Activer' ) ) {
+				if ( Configure::read( 'Recoursgracieux.Indurecoursgracieux.enabled' ) ) {
 					echo $this->Default3->index(
 						$indusrecoursgracieux,
 						$this->Translator->normalize(
@@ -127,7 +127,7 @@
 				}
 			}
 			if ( $typerecoursgracieux['Typerecoursgracieux']['usage'] == 'remise' ){
-				if ( Configure::read( 'Recoursgracieux.Creancerecoursgracieux.Activer' ) ) {
+				if ( Configure::read( 'Recoursgracieux.Creancerecoursgracieux.enabled' ) ) {
 					echo $this->Default3->index(
 						$creancesrecoursgracieux,
 						$this->Translator->normalize(
@@ -160,7 +160,7 @@
 						)
 					);
 				}
-				if ( Configure::read( 'Recoursgracieux.Indurecoursgracieux.Activer' ) ) {
+				if ( Configure::read( 'Recoursgracieux.Indurecoursgracieux.enabled' ) ) {
 					echo $this->Default3->index(
 						$indusrecoursgracieux,
 						$this->Translator->normalize(

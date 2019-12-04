@@ -68,7 +68,7 @@
 				),
 			),
 			'Créances' => array(
-				'disabled' => ( !Configure::read('Module.Creances.GestionList') ),
+				'disabled' => ( !Configure::read('Module.Creances.GestionList.enabled') ),
 				'Préparation' => array(
 					'class' => 'search',
 					'url' => array( 'controller' => 'creances', 'action' => 'cohorte_preparation' )
@@ -255,12 +255,14 @@
 					'url' => array( 'controller' => 'creances', 'action' => 'search'  )
 				),
 				'Par titres de recette' => array(
+					'disabled' => !Configure::read('Creances.Titrescreanciers.enabled'),
 					'class' => 'search',
 					'url' => array( 'controller' => 'titrescreanciers', 'action' => 'search'  )
 				),
 			),
 			'Par Recours' => array(
 				'Par Recours Gracieux' => array(
+					'disabled' => !Configure::read('Module.Recoursgracieux.enabled'),
 					'class' => 'search',
 					'url' => array( 'controller' => 'recoursgracieux', 'action' => 'search'  )
 				),

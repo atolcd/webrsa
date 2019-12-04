@@ -10,7 +10,7 @@
 
 	echo $this->Default3->DefaultForm->create( null, array( 'novalidate' => 'novalidate' ) );
 
-	if ( Configure::read( 'Recoursgracieux.Creancerecoursgracieux.Activer' ) ) {
+	if ( Configure::read( 'Recoursgracieux.Creancerecoursgracieux.enabled' ) ) {
 		echo '<fieldset  id="creance" class="col6" ><h2>'. __m('Recourgracieux::proposer::titleCreance').'</h2>';
 		$action = "proposer".$this->request->data['Typerecoursgracieux']['usage']."creances";
 		if( empty( $creances ) ) {
@@ -126,7 +126,7 @@
 		echo '</fieldset>';
 	}
 
-	if ( Configure::read( 'Recoursgracieux.Indurecoursgracieux.Activer' ) ) {
+	if ( Configure::read( 'Recoursgracieux.Indurecoursgracieux.enabled' ) ) {
 		echo '<fieldset  id="indu" class="col6" ><h2>'. __m('Recourgracieux::proposer::titleIndu').'</h2>';
 		$action = "proposer".$this->request->data['Typerecoursgracieux']['usage']."indus";
 		if( empty( $indus ) ) {

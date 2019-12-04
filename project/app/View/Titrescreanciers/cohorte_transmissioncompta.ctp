@@ -1,4 +1,6 @@
 <?php
+	$activateFica = (boolean)Configure::read('Module.Creances.FICA.enabled');
+
 	$departement = Configure::read( 'Cg.departement' );
 	$controller = $this->params->controller;
 	$action = $this->action;
@@ -137,7 +139,9 @@
 				array( 'controller' => $controller, 'action' => $exportcsvActionName ) + Hash::flatten( $searchData + array( 'prevAction' => $this->action ), '__' ),
 				( $this->Permissions->check( $controller, $exportcsvActionName )  )
 			)
-			.'</li><li>'.$this->Xhtml->printCohorteLink(
+			.'</li>';
+		if ( $activateFica ){
+			$buttons .= '<li>'.$this->Xhtml->printCohorteLink(
 				__m('Titrecreancier::cohortetransmission::exporttitle'),
 				Hash::merge(
 					array(
@@ -146,13 +150,14 @@
 					),
 					Hash::flatten( $this->request->data, '__' )
 				),
-				( $this->Permissions->check( $controller, $action.'_exportfica' )),
+				($activateFica && $this->Permissions->check( $controller, $action.'_exportfica' )),
 				__m('Titrecreancier::cohortetransmission::exportpopuptext')
 				, 'popup_impression_cohorte'
 			).'</li><li>
 				<a href="javascript:location.reload();" class="refresh_page" >Recharger la page</a>
-			</li>
-		</ul>'
+			</li>';
+		}
+	$buttons .= '</ul>'
 	;
 
 	/*

@@ -905,40 +905,40 @@
 
 	/**
 	 * Activation du module TitreCréanciers
-	 * 'Creances.titrescreanciers' => true pour activée, false pour inactivée
+	 * 'Creances.Titrescreanciers.enabled' => true pour activée, false pour inactivée
 	 */
-	Configure::write('Creances.titrescreanciers',true);
+	Configure::write('Creances.Titrescreanciers.enabled',true);
 
 	/**
 	 * Activation du module Gestion de List des Creances et Titres Créanciers
-	 * 'Module.Creances.GestionList' => true pour activée, false pour inactivée
+	 * 'Module.Creances.GestionList.enabled' => true pour activée, false pour inactivée
 	 */
-	Configure::write('Module.Creances.GestionList',Configure::read('Creances.titrescreanciers') );
+	Configure::write('Module.Creances.GestionList.enabled',Configure::read('Creances.Titrescreanciers.enabled') );
 	/**
 	 * Activation du module d'export et import FICA
-	 * 'Module.Creances.FICA' => true pour activée, false pour inactivée
+	 * 'Module.Creances.FICA.enabled' => true pour activée, false pour inactivée
 	 * Attention a bien configurer les autres valeurs dans le dossier de config/Titrescreanciers.php
 	 */
-	Configure::write('Module.Creances.FICA',true );
+	Configure::write('Module.Creances.FICA.enabled',true );
 
 	/**
 	 * Activation du module de gestion des RecoursGracieux
-	 * 'Recoursgracieux.Activer' => true pour activer le module recours gracieux, false pour inactiver
+	 * 'Module.Recoursgracieux.enabled' => true pour activer le module recours gracieux, false pour inactiver
 	 */
-	Configure::write('Recoursgracieux.Activer',false);
+	Configure::write('Module.Recoursgracieux.enabled',false);
 	/**
 	 * Permet de baser le fonctionnement des recoursgracieux sur les créances
-	 * Compatible avec Recoursgracieux.Indurecoursgracieux.Activer' : true
+	 * Compatible avec Recoursgracieux.Indurecoursgracieux.enabled' : true
 	*/
-	Configure::write('Recoursgracieux.Creancerecoursgracieux.Activer',true);
+	Configure::write('Recoursgracieux.Creancerecoursgracieux.enabled',true);
 	/**
 	 * Permet de baser le fonctionnement des recours gracieux sur les indus du flux financier
-	 * Compatible avec Recoursgracieux.Indurecoursgracieux.Activer' : true
+	 * Compatible avec Recoursgracieux.Indurecoursgracieux.enabled' : true
 	 * Necessite le paramétrage de la limitation des recherches sur les InfosFinancières
 	 * Recoursgracieux.Indurecoursgracieux.search_type_allocation ou
 	 * Recoursgracieux.Indurecoursgracieux.search_typeopecompta
 	*/
-	Configure::write('Recoursgracieux.Indurecoursgracieux.Activer',true);
+	Configure::write('Recoursgracieux.Indurecoursgracieux.enabled',true);
 	/**
 	 * Limitation de l'affichage aux indus recherche par type allocation
 	*/

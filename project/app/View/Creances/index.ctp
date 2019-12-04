@@ -1,10 +1,5 @@
 <?php
-	$activateTitreCreancier = Configure::read( 'Creances.titrescreanciers' );
-	if ( !empty($activateTitreCreancier)	&& $activateTitreCreancier == true ){
-		$activateTitreCreancier = true;
-	}else{
-		$activateTitreCreancier = false;
-	}
+	$activateTitreCreancier = (boolean)Configure::read( 'Creances.Titrescreanciers.enabled' );
 
 	App::uses('WebrsaAccess', 'Utility');
 	WebrsaAccess::init($dossierMenu);

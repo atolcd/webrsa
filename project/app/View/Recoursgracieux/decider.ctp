@@ -50,7 +50,7 @@
 				'th' => true
 			)
 		);
-		if ( Configure::read( 'Recoursgracieux.Creancerecoursgracieux.Activer' ) ) {
+		if ( Configure::read( 'Recoursgracieux.Creancerecoursgracieux.enabled' ) ) {
 			echo '<h2>'. __m('Recourgracieux::proposer::titleCreancerecoursgracieux').'</h2>';
 			if( empty( $creancesrecoursgracieux) ) {
 				echo '<p class="notice">'.__m('Recourgracieux::decider::emptyCreancesrecoursgracieux').'</p>';
@@ -127,7 +127,7 @@
 				}
 			}
 		}
-		if ( Configure::read( 'Recoursgracieux.Indurecoursgracieux.Activer' ) ) {
+		if ( Configure::read( 'Recoursgracieux.Indurecoursgracieux.enabled' ) ) {
 			echo '<h2>'. __m('Recourgracieux::proposer::titleIndurecoursgracieux').'</h2>';
 			if( empty( $indusrecoursgracieux) ) {
 				echo '<p class="notice">'.__m('Recourgracieux::decider::emptyIndusrecoursgracieux').'</p>';

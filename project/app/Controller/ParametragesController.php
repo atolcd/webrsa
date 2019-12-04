@@ -174,8 +174,8 @@
 		 * @return array
 		 */
 		protected function _creances() {
-			$activateTitreCreancier = Configure::read( 'Creances.titrescreanciers' );
-			$activateRecoursGracieux = Configure::read( 'Recoursgracieux.Activer' );
+			$activateTitreCreancier = Configure::read( 'Creances.Titrescreanciers.enabled' );
+			$activateRecoursGracieux = Configure::read( 'Module.Recoursgracieux.enabled' );
 
 			$items = array ();
 			if( $activateTitreCreancier || $activateRecoursGracieux ) {
