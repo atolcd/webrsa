@@ -32,7 +32,13 @@
 		public $cohorteFields = array(
 			'Creance.id' => array( 'type' => 'hidden' ),
 			'Titrecreancier.id' => array( 'type' => 'hidden' ),
+			'Titrecreancier.motifemissiontitrecreancier_id' => array( 'type' => 'hidden' ),
+			'Motifemissiontitrecreancier.emissiontitre' => array( 'type' => 'hidden' ),
 			'Titrecreancier.selection' => array( 'type' => 'checkbox'),
+			'Titrecreancier.validation' => array(
+				'type' => 'select',
+				'options' => array( '1' => 'OUI', '2' => 'NON')
+			),
 			'Titrecreancier.commentairevalidateur' => array( 'type' => 'text'),
 			'Titrecreancier.dtvalidation' => array( 'type' => 'date'),
 		);
@@ -58,10 +64,19 @@
 					//Initialisation
 					$this->Titrecreancier->begin();
 					$creance_id = $value['Creance']['id'];
-					$value['Titrecreancier']['etat'] = 'ATTENVOICOMPTA';
+					if ( $value['Titrecreancier']['validation'] == 1 ){
+						if ( $value['Motifemissiontitrecreancier']['emissiontitre'] == 1 ){
+							$value['Titrecreancier']['etat'] = 'ATTENVOICOMPTA';
+						}else{
+							$value['Titrecreancier']['etat'] = 'NONVALID';
+						}
+					}else{
+						$value['Titrecreancier']['etat'] = 'ATTAVIS';
+					}
+					unset( $value['Motifemissiontitrecreancier']);
 
 					//Validation de la sauvegarde
-					if( $this->Titrecreancier->saveAll( $value, array( 'validate' => 'only' ) ) ) {
+					if( $success && $this->Titrecreancier->saveAll( $value, array( 'validate' => 'only' ) ) ) {
 						if( $this->Titrecreancier->saveAll( $value, array( 'atomic' => false ) ) ) {
 							if (
 								!$this->Creance->setEtatOnForeignChange($creance_id,$value['Titrecreancier']['etat'],'cohorte_validation') &&

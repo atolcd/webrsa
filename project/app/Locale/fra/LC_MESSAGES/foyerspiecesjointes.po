@@ -1,0 +1,134 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "/Foyerspiecesjointes/index/:heading"
+msgstr "Accueil des pièces jointes"
+
+msgid "/Foyerspiecesjointes/index/:title"
+msgstr "Accueil des pièces jointes"
+
+
+msgid "/Foyerspiecesjointes/add"
+msgstr "Ajouter"
+
+msgid "/Foyerspiecesjointes/add:title"
+msgstr "Ajouter une pièce jointe"
+
+msgid "/Foyerpiecejointe/archivage"
+msgstr "Archivage"
+
+msgid "/Foyerpiecejointe/archivage:title"
+msgstr "Voir les pièces jointes archivées"
+
+msgid "Foyerpiecejointe::index::nopjnonarchive"
+msgstr "Il n'y a pas de pièce jointe non archivée liée à ce foyer"
+
+msgid "Foyerspiecesjointes/add::heading"
+msgstr "Ajouter un pièce jointe"
+
+msgid "Foyerspiecesjointes/add::legend"
+msgstr "Ajouter une pièce supplémentaire"
+
+msgid "Foyerspiecesjointes.categorie_id"
+msgstr "Catégorie"
+
+msgid "Fichiermodule.name"
+msgstr "Fichiers"
+
+msgid "Foyerpiecejointe.created"
+msgstr "Date d'ajout"
+
+msgid "User.username"
+msgstr "Utilisateurs"
+
+msgid "Categoriepiecejointe.nom"
+msgstr "Catégories"
+
+msgid "/Foyerspiecesjointes/view"
+msgstr "Voir"
+
+msgid "/Foyerspiecesjointes/view/#Foyerpiecejointe.id#"
+msgstr "Télécharger et voir cette pièce jointe"
+
+msgid "/Foyerspiecesjointes/edit"
+msgstr "Modifier"
+
+msgid "/Foyerspiecesjointes/edit/#Foyerpiecejointe.id#"
+msgstr "Modifier la catégorie de cette pièce jointe"
+
+msgid "/Foyerspiecesjointes/archive"
+msgstr "Archiver"
+
+msgid "/Foyerspiecesjointes/archive/#Foyerpiecejointe.id#"
+msgstr "Archiver cette pièce jointe"
+
+msgid "/Foyerspiecesjointes/delete"
+msgstr "Supprimer"
+
+msgid "/Foyerspiecesjointes/delete/#Foyerpiecejointe.id#"
+msgstr "Supprimer cette pièce jointe"
+
+msgid "/Foyerspiecesjointes/delete/#Foyerpiecejointe.id# ?"
+msgstr "Voulez-vous vraiment supprimer cette pièce jointe ?"
+
+msgid "Foyerspiecesjointes/edit::heading"
+msgstr "Modification de la catégorie de la pièce jointe"
+
+msgid "Foyerspiecesjointes.nomFichier"
+msgstr "Nom du fichier : "
+
+msgid "Foyerspiecesjointe/pjpresentes"
+msgstr "Pièces non archivées déjà présentes"
+
+msgid "Foyerpiecejointe.nom"
+msgstr "Nom du fichier"
+############################################
+## Archivage
+############################################
+msgid "/Foyerspiecesjointes/archivage/:heading"
+msgstr "Liste des pièces jointes archivées"
+
+msgid "/Foyerpiecejointe/index"
+msgstr "Retour à la liste des pièces jointes"
+
+msgid "Foyerpiecejointe::archivage::nopjarchive"
+msgstr "Il n'y a pas de pièce jointe archivée pour ce foyer"
+
+msgid "/Foyerspiecesjointes/dearchive"
+msgstr "Désarchiver"
+
+############################################
+## Mail
+############################################
+msgid "Foyerpiecejointe::mail::debut"
+msgstr "Bonjour,\n\nUne pièce jointe de type "
+
+msgid "Foyerpiecejointe::mail::milieu"
+msgstr " a été ajoutée au dossier numéro "
+
+msgid "Foyerpiecejointe::mail::lien"
+msgstr "\nLien : "
+
+msgid "Foyerpiecejointe::mail::envoye"
+msgstr "Mail envoyé"
+
+msgid "Foyerpiecejointe::mail::nonenvoye"
+msgstr "Mail non envoyé"

@@ -214,6 +214,19 @@
 				'finderQuery' => '',
 				'counterQuery' => ''
 			),
+			'Recourgracieux' => array(
+				'className' => 'Recourgracieux',
+				'foreignKey' => 'foyer_id',
+				'dependent' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
 			'Evenement' => array(
 				'className' => 'Evenement',
 				'foreignKey' => 'foyer_id',
@@ -327,6 +340,19 @@
 				'className' => 'Historiqueetat',
 				'foreignKey' => 'foyer_id',
 				'dependent' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
+			'Foyerpiecejointe' => array(
+				'className' => 'Foyerpiecejointe',
+				'foreignKey' => 'foyer_id',
+				'dependent' => false,
 				'conditions' => '',
 				'fields' => '',
 				'order' => '',

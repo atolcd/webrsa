@@ -151,6 +151,7 @@ $irregularPlural = array(
     'dossiercaf' => 'dossierscaf',
     'dossiersimplifie' => 'dossierssimplifies',
     'etatliquidatif' => 'etatsliquidatifs',
+    'foyerpiecejointe' => 'foyerspiecesjointes',
     'formpermfimo' => 'formspermsfimo',
     'formpermfimo_pieceformpermfimo' => 'formspermsfimo_piecesformspermsfimo',
     'formqualif' => 'formsqualifs',
@@ -501,6 +502,10 @@ $irregularPlural = array(
 	'motifemissiontitrecreancier' => 'motifsemissionstitrescreanciers',
     'titresuiviautreinfo' => 'titressuivisautresinfos',
     'titresuiviannulationreduction' => 'titressuivisannulationsreductions',
+	//Recours gracieux
+	'recourgracieux' => 'recoursgracieux',
+	'creancerecoursgracieux' => 'creancesrecoursgracieux',
+	'indurecoursgracieux' => 'indusrecoursgracieux',
 	//Rapport talends
 	'rapporttalendcreance' => 'rapportstalendscreances',
 	'rejettalendcreance' => 'rejetstalendscreances',

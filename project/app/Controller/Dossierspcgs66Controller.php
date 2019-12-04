@@ -86,6 +86,7 @@
 			'Typenotifpdo',
 			'WebrsaDossierpcg66',
 			'WebrsaDecisiondossierpcg66',
+			'Recourgracieux',
 		);
 
 		/**
@@ -486,6 +487,13 @@
 			 */
 			if ( $saved && $etatFinal && $decisiondefautinsertionep66_id ) {
 				$saved = $this->Dossierpcg66->WebrsaDossierpcg66->updateEtatPassagecommissionep( $decisiondefautinsertionep66_id );
+			}
+
+			if ( $saved && in_array($etatdossierpcg, array ('traite', 'transmisop') ) ) {
+				//Call Recours Gracieux update pour mettre l'état à jour
+				App::import('Controller', 'Recoursgracieux');
+				$RecoursgracieuxController = new RecoursgracieuxController;
+				$RecoursgracieuxController->updateEtatPCGTraiter($id);
 			}
 
 			if( $saved && $this->_saveFichiers($id) ) {

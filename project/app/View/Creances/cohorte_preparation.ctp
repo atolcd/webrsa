@@ -38,7 +38,7 @@
 		echo $this->Xform->input(
 			'Search.Creance.orgcre',
 			array(
-				'label' => __m('Creance::search::orgcre'),
+				'label' => __d('creances','Creance::search::orgcre'),
 				'type' => 'select',
 				'empty' => true,
 				'options' => $options['Creance']['orgcre']
@@ -47,17 +47,17 @@
 		echo $this->Xform->input(
 			'Search.Creance.motiindu',
 			array(
-				'label' => __m('Creance::search::motiindu'),
+				'label' => __d('creances','Creance::search::motiindu'),
 				'type' => 'select',
 				'empty' => true,
 				'options' => $options['Creance']['motiindu']
 			)
 		);
-		echo "<fieldset><legend> ".__m('Creance::search::dtimplcre')."</legend>";
+		echo "<fieldset><legend> ".__d('creances','Creance::search::dtimplcre')."</legend>";
 		echo $this->Xform->input(
 			'Search.Creance.dtimplcre_from',
 			array(
-				'label' => ' From',
+				'label' => __d('creances','Search.Creance.dtimplcre_from'),
 				'type' => 'date',
 				'dateFormat'=>'DMY',
 				'maxYear'=>date('Y')+1,
@@ -68,7 +68,7 @@
 		echo $this->Xform->input(
 			'Search.Creance.dtimplcre_to',
 			array(
-				'label' => 'To ',
+				'label' => __d('creances','Search.Creance.dtimplcre_to'),
 				'type' => 'date',
 				'dateFormat'=>'DMY',
 				'maxYear'=>date('Y')+2,
@@ -77,11 +77,11 @@
 			)
 		) ;
 		echo "</fieldset>";
-		echo "<fieldset><legend> ".__m('Creance::search::moismoucompta')."</legend>";
+		echo "<fieldset><legend> ".__d('creances','Creance::search::moismoucompta')."</legend>";
 		echo $this->Xform->input(
 			'Search.Creance.moismoucompta_from',
 			array(
-				'label' => ' From',
+				'label' => __d('creances','Search.Creance.moismoucompta_from'),
 				'type' => 'date',
 				'dateFormat'=>'DMY',
 				'maxYear'=>date('Y')+1,
@@ -92,20 +92,19 @@
 		echo $this->Xform->input(
 			'Search.Creance.moismoucompta_to',
 			array(
-				'label' => 'To ',
+				'label' => __d('creances','Search.Creance.moismoucompta_to'),
 				'type' => 'date',
 				'dateFormat'=>'DMY',
 				'maxYear'=>date('Y')+2,
-				'minYear'=> '2009' ,
+				'minYear'=> '2009',
 				'empty' => true
 			)
 		) ;
 		echo "</fieldset>";
-
 		echo $this->Xform->input(
 			'Search.Creance.etat',
 			array(
-				'label' => __m('Creance::search::etat'),
+				'label' => __d('creances','Creance::search::etat'),
 				'type' => 'hidden',
 				'value' => 'AEMETTRE',
 				'options' => $options['Creance']['etat']

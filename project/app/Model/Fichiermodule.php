@@ -317,15 +317,28 @@
                 'fields' => '',
                 'order' => ''
             ),
-            'Fichedeliaison' => array(
-                'className' => 'Fichedeliaison',
-                'foreignKey' => 'fk_value',
-                'conditions' => array(
-                    'Fichiermodule.modele' => 'Fichedeliaison'
-                ),
-                'fields' => '',
-                'order' => ''
-            )
+			'Fichedeliaison' => array(
+				'className' => 'Fichedeliaison',
+				'foreignKey' => 'fk_value',
+				'conditions' => array(
+					'Fichiermodule.modele' => 'Fichedeliaison'
+				),
+				'fields' => '',
+				'order' => ''
+			)
+		);
+
+		public $hasOne = array(
+			'Foyerpiecejointe' => array(
+				'className' => 'Foyerpiecejointe',
+				'foreignKey' => 'fichiermodule_id',
+				'conditions' => array(
+					'Fichiermodule.modele = \'Foyerpiecejointe\'',
+					'Fichiermodule.fk_value = {$__cakeID__$}'
+				),
+				'fields' => '',
+				'order' => ''
+			)
 		);
 
 		/**

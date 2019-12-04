@@ -183,7 +183,7 @@
 	 * du contrôleur Relancesnonrespectssanctionseps93.
 	 */
 	Configure::write( 'Optimisations.Relancesnonrespectssanctionseps93_cohorte.progressivePaginate', false );
-	
+
 	/**
 	 * Variables apparaissant dans la fiche de calcul du journal de traitement d'une PDO
 	 */
@@ -898,11 +898,17 @@
 	Configure::write( 'cer.pdf.save', false );
 
 	/**
+	 * Activation du module de gestion de pièce jointe des allocataires
+	 * 'Module.Piecejointe' => true pour activée, false pour inactivée
+	 */
+	Configure::write('Module.Piecejointe',true );
+
+	/**
 	 * Activation du module TitreCréanciers
 	 * 'Creances.titrescreanciers' => true pour activée, false pour inactivée
 	 */
-
 	Configure::write('Creances.titrescreanciers',true);
+
 	/**
 	 * Activation du module Gestion de List des Creances et Titres Créanciers
 	 * 'Module.Creances.GestionList' => true pour activée, false pour inactivée
@@ -914,6 +920,98 @@
 	 * Attention a bien configurer les autres valeurs dans le dossier de config/Titrescreanciers.php
 	 */
 	Configure::write('Module.Creances.FICA',true );
+
+	/**
+	 * Activation du module de gestion des RecoursGracieux
+	 * 'Recoursgracieux.Activer' => true pour activer le module recours gracieux, false pour inactiver
+	 */
+	Configure::write('Recoursgracieux.Activer',false);
+	/**
+	 * Permet de baser le fonctionnement des recoursgracieux sur les créances
+	 * Compatible avec Recoursgracieux.Indurecoursgracieux.Activer' : true
+	*/
+	Configure::write('Recoursgracieux.Creancerecoursgracieux.Activer',true);
+	/**
+	 * Permet de baser le fonctionnement des recours gracieux sur les indus du flux financier
+	 * Compatible avec Recoursgracieux.Indurecoursgracieux.Activer' : true
+	 * Necessite le paramétrage de la limitation des recherches sur les InfosFinancières
+	 * Recoursgracieux.Indurecoursgracieux.search_type_allocation ou
+	 * Recoursgracieux.Indurecoursgracieux.search_typeopecompta
+	*/
+	Configure::write('Recoursgracieux.Indurecoursgracieux.Activer',true);
+	/**
+	 * Limitation de l'affichage aux indus recherche par type allocation
+	*/
+	Configure::write( 'Recoursgracieux.Indurecoursgracieux.search_type_allocation', true);
+	/**
+	 * Valeur acceptées lors de la recherche sur type_allocation
+	 * Default : '\'IndusConstates\',\'IndusTransferesCG\''
+	 * Valeur possible en BDD au 20/11/2019 :
+	'IndusConstates' => 'Indu constaté',
+	'IndusTransferesCG' => 'Indu transféré au CD',
+	'AllocationsComptabilisees' => 'Allocations comptabilisées',
+	'RemisesIndus' => 'Remise d\'indu',
+	'AnnulationsFaibleMontant' => 'Annulation pour faible montant',
+	'AutresAnnulations' => 'Autre annulation'
+	*/
+	Configure::write( 'Recoursgracieux.Indurecoursgracieux.type_allocation',array ('IndusConstates','IndusTransferesCG' ) );
+
+	/**
+	 * Limitation de l'affichage aux indus recherche par type d'opération comptable
+	*/
+	Configure::write( 'Recoursgracieux.Indurecoursgracieux.search_typeopecompta', true);
+	/**
+	 * Valeur acceptées lors de la recherche sur typeopecompta
+	 * Default : '\'CAI\',\'CDC\',\'CIC\',\'CCP\''
+	 * Valeur possible en BDD au 20/11/2019 :
+	//AllocCompta
+	'PME' => 'Pour le paiement mensuel',
+	'PRA' => 'Pour le paiement de rappel sur mois antérieur',
+	'RAI' => 'Pour réajustement  suite à annulation d\'indus',
+	'RMU' => 'Pour réajustement suite à mutation du dossier',
+	'RTR' => 'Pour réajustement suite à transformation d\'avances ou d\'acomptes en indus',
+	//Indus constatés
+	'CIC' => 'Implantation de créance',
+	'CAI' => 'Implantation de créance suite à une opération comptable de réajustement. Une opération de type RAI a été effectuée sur un autre dossier allocataire.',
+	'CDC' => 'Implantation d\'un  débit complémentaire (augmentation de la créance)',
+	/*Indus transférés
+	'CCP' => 'Transfert  de la créance au Conseil départemental',
+	//Remises indus
+	'CRC' => 'Remise de la créance par le Conseil départemental',
+	'CRG' => 'Remise de la créance par la Caf',
+	//Annulation faible
+	'CAF' => 'Annulation de faible montant  inférieur au seuil réglementaire',
+	'CFC' => 'Annulation de faible montant selon seuil fixé par le Conseil départemental (supérieur au seuil réglementaire)',
+	//Autre annulations
+	'CEX' => 'Annulation exceptionelle',
+	'CES' => 'Annulation suite à surendettement',
+	'CRN' => 'Annulation suite à renouvellement ou revalorisation (publication tardive des baremes, seuils, …)'
+	*/ 
+	Configure::write( 'Recoursgracieux.Indurecoursgracieux.typeopecompta',array ('CAI', 'CDC', 'CIC', 'CCP' ) );
+
+	/**
+	 * Activation du module RecoursGracieux
+	 * 'Recoursgracieux.PCG.Actifs' => true pour activer la création de PCG lors de la régularisation d'un recours gracieux, false pour inactiver
+	 * Au CG 66 : true
+	 * Default : False
+	 */
+	Configure::write('Recoursgracieux.PCG.Actifs', false);
+	/**
+	 * État du PCG à la création de celui-ci
+	 */
+	Configure::write('Recoursgracieux.PCG.Etat', 'attinstr');
+	/**
+	 * Identifiant du type du PCG à sa création
+	 */
+	Configure::write('Recoursgracieux.PCG.Dossierpcg66TypepdoId', 34);
+	/**
+	 * Identifiant de l'origine du PCG à sa création
+	 */
+	Configure::write('Recoursgracieux.PCG.Dossierpcg66OriginepdoId', 36);
+	/**
+	 * Organisme payeur lié au PCG normalement (CAF ou MSA)
+	 */
+	Configure::write('Recoursgracieux.PCG.Dossierpcg66Orgpayeur', 'CAF');
 
 	/**
 	 * Couleur des lignes de résultats en erreur
@@ -970,6 +1068,18 @@
 	 * Accès aux données Synthèse du suivi
 	 */
 	Configure::write ('Module.synthesedusuivi.enabled', false);
+
+	/**
+	 * Insertions automatiques des cantons sans adresses
+	 */
+	Configure::write ('Canton.InsertionAuto.enabled', true);
+
+	/**
+	 * Numéro des communes multi cantons (code INSEE)
+	 */
+	Configure::write ('Canton.multi', array(
+		'58194'
+	));
 
 	/**
 	 * Récupération du fichier de config propre au département

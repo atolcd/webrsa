@@ -59,6 +59,27 @@ msgstr "Voir"
 msgid "Accueil.referent"
 msgstr "Référent"
 
+msgid "Accueil.recoursgracieux.dtarrivee"
+msgstr "Date d’arrivée du dossier au CD"
+
+msgid "Accueil.recoursgracieux.dtbutoir"
+msgstr "Date butoir de réponse"
+
+msgid "Accueil.recoursgracieux.dtreception"
+msgstr "Date de réception du dossier dans le service"
+
+msgid "Accueil.recoursgracieux.origine"
+msgstr "Origine du dossier"
+
+msgid "Accueil.recoursgracieux.dtaffectation"
+msgstr "Date d'affectation du dossier"
+
+msgid "Accueil.recoursgracieux.etatDepuis"
+msgstr "État"
+
+msgid "since"
+msgstr " depuis le "
+
 # Titres rubriques =============================================================
 
 msgid "Accueil.cer.titre"
@@ -75,6 +96,12 @@ msgstr "Vos rendez-vous dans les __LIMITE__ jours à venir"
 
 msgid "Accueil.dernierscersperimes.titre"
 msgstr "Vos allocataires en droit ouvert et versable ayant comme dernier CER un CER périmé"
+
+msgid "Accueil.canton.titre"
+msgstr "Nombre de canton n'ayant de pas de nom"
+
+msgid "Accueil.recourgracieux.titre"
+msgstr "Vos recours gracieux avec une Date butoir dans moins de __LIMITE__ jours"
 
 # Aucune donnée ================================================================
 
@@ -93,6 +120,9 @@ msgstr "Vous n'avez aucun rendez-vous sur la période donnée"
 msgid "Accueil.dernierscersperimes.aucun"
 msgstr "Vous n'avez aucun allocataire en droit ouvert et versable ayant comme dernier CER un CER périmé"
 
+msgid "Accueil.canton.aucun"
+msgstr "Vous n'avez aucun canton avec un nom de canton vide"
+
 # Libellé référent / structure référente / groupe utilisateur ================================================================
 
 msgid "Accueil.bloc.libelle.referent"
@@ -103,3 +133,10 @@ msgstr "Les blocs d'information concernent la structure référente : "
 
 msgid "Accueil.bloc.libelle.group"
 msgstr "Les blocs d'information concernent le groupe d'utilisateur : "
+
+# Libellé des cantons ===============================================================
+msgid "Accueil.canton.nonvide.debut"
+msgstr "Adresses liées à un canton sans nom"
+
+msgid "Accueil.canton.nonvide.fin"
+msgstr " adresses"

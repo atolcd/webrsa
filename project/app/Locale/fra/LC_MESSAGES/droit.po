@@ -4346,6 +4346,118 @@ msgid "controllers/Rejetstalendscreances/index"
 msgstr "Visualisation des Rejet des Talends Créances"
 
 ###############################################################################
+## Recours Gracieux
+###############################################################################
+
+msgid "controllers/Recoursgracieux"
+msgstr "Recours gracieux"
+
+msgid "controllers/Recoursgracieux/add"
+msgstr "Ajout des recours gracieux"
+
+msgid "controllers/Recoursgracieux/edit"
+msgstr "Edition des recours gracieux"
+
+msgid "controllers/Recoursgracieux/exportcsv"
+msgstr "Export CSV Recours gracieux"
+
+msgid "controllers/Recoursgracieux/filelink"
+msgstr "Ajout d'un fichier aux recours gracieux"
+
+msgid "controllers/Recoursgracieux/index"
+msgstr "Visualisation des recours gracieux"
+
+msgid "controllers/Recoursgracieux/affecter"
+msgstr "Affectation du réferent des recours gracieux"
+
+msgid "controllers/Recoursgracieux/email"
+msgstr "Envoit d'email des recours gracieux"
+
+msgid "controllers/Recoursgracieux/proposer"
+msgstr "Proposition de décision générale des recours gracieux"
+
+msgid "controllers/Recoursgracieux/proposercontestationcreances"
+msgstr "Proposition de contestation sur créances"
+
+msgid "controllers/Recoursgracieux/proposerremisecreances"
+msgstr "Proposition de remise sur créances"
+
+msgid "controllers/Recoursgracieux/proposercontestationindus"
+msgstr "Proposition de contestation sur indus"
+
+msgid "controllers/Recoursgracieux/proposerremiseindus"
+msgstr "Proposition de remise sur indus"
+
+msgid "controllers/Recoursgracieux/deleteproposition"
+msgstr "Supprimer une proposition de décision de remise des recours gracieux"
+
+msgid "controllers/Recoursgracieux/decider"
+msgstr "Décision des recours gracieux"
+
+msgid "controllers/Recoursgracieux/envoyer"
+msgstr "Validation de signature des recours gracieux"
+
+msgid "controllers/Recoursgracieux/traiter"
+msgstr "Traitement et notification des recours gracieux"
+
+msgid "controllers/Recoursgracieux/search"
+msgstr "Recherche sur les recours gracieux"
+
+msgid "controllers/Recoursgracieux/delete"
+msgstr "Supprimer un recours gracieux"
+
+msgid "controllers/Recoursgracieux/view"
+msgstr "Voir un recours gracieux"
+
+# Origines
+msgid "controllers/Originesrecoursgracieux"
+msgstr "Origines des recours gracieux"
+
+msgid "controllers/Originesrecoursgracieux/add"
+msgstr "Ajout des origines de recours gracieux"
+
+msgid "controllers/Originesrecoursgracieux/delete"
+msgstr "Suppression des origines de recours"
+
+msgid "controllers/Originesrecoursgracieux/edit"
+msgstr "Edition des origines de recours"
+
+msgid "controllers/Originesrecoursgracieux/index"
+msgstr "Visualisation des origines de recours"
+
+# Types
+msgid "controllers/Typesrecoursgracieux"
+msgstr "Types de recours gracieux"
+
+msgid "controllers/Typesrecoursgracieux/add"
+msgstr "Ajout des types de recours gracieux"
+
+msgid "controllers/Typesrecoursgracieux/delete"
+msgstr "Suppression des types de recours gracieux"
+
+msgid "controllers/Typesrecoursgracieux/edit"
+msgstr "Edition des types de recours gracieux"
+
+msgid "controllers/Typesrecoursgracieux/index"
+msgstr "Visualisation des types de recours gracieux"
+
+# Motifs proposition
+msgid "controllers/Motifsproposrecoursgracieux"
+msgstr "Motifs de proposition des recours gracieux"
+
+msgid "controllers/Motifsproposrecoursgracieux/add"
+msgstr "Ajout des motifs de proposition des recours gracieux"
+
+msgid "controllers/Motifsproposrecoursgracieux/delete"
+msgstr "Suppression des motifs de proposition des recours gracieux"
+
+msgid "controllers/Motifsproposrecoursgracieux/edit"
+msgstr "Édition des motifs de proposition des recours gracieux"
+
+msgid "controllers/Motifsproposrecoursgracieux/index"
+msgstr "Visualisation des motifs de proposition des recours gracieux"
+
+###############################################################################
 ## Questionniare B7
 ###############################################################################
 msgid "controllers/Questionnairesb7pdvs93"
@@ -4550,3 +4662,64 @@ msgstr "Modification des actions CER DREES"
 
 msgid "controllers/Dreesactionscers/delete"
 msgstr "Suppression des actions CER DREES"
+
+###############################################################################
+## Catégories des pièces jointes
+###############################################################################
+
+msgid "controllers/Categoriespiecesjointes"
+msgstr "Paramétrage des catégories de pièce jointe"
+
+msgid "controllers/Categoriespiecesjointes/index"
+msgstr "Liste des catégories"
+
+msgid "controllers/Categoriespiecesjointes/add"
+msgstr "Ajout"
+
+msgid "controllers/Categoriespiecesjointes/edit"
+msgstr "Modification"
+
+msgid "controllers/Categoriespiecesjointes/delete"
+msgstr "Suppression"
+
+###############################################################################
+## Pièces jointes foyer
+###############################################################################
+msgid "controllers/Foyerspiecesjointes"
+msgstr "Pièces jointes des foyers"
+
+msgid "controllers/Foyerspiecesjointes/add"
+msgstr "Ajouter une pièce jointe et sa catégorie"
+
+msgid "controllers/Foyerspiecesjointes/ajaxfiledelete"
+msgstr "Supprimer en cours d'ajout"
+
+msgid "controllers/Foyerspiecesjointes/ajaxfileupload"
+msgstr "Ajouter une pièce jointe"
+
+msgid "controllers/Foyerspiecesjointes/archive"
+msgstr "Archiver"
+
+msgid "controllers/Foyerspiecesjointes/delete"
+msgstr "Supprimer"
+
+msgid "controllers/Foyerspiecesjointes/download"
+msgstr "Télécharger"
+
+msgid "controllers/Foyerspiecesjointes/fileview"
+msgstr "Voir un fichier"
+
+msgid "controllers/Foyerspiecesjointes/index"
+msgstr "Accès"
+
+msgid "controllers/Foyerspiecesjointes/view"
+msgstr "Voir un fichier"
+
+msgid "controllers/Foyerspiecesjointes/archivage"
+msgstr "Archiver un fichier"
+
+msgid "controllers/Foyerspiecesjointes/dearchive"
+msgstr "Désarchiver un fichier"
+
+msgid "controllers/Foyerspiecesjointes/edit"
+msgstr "Modifier la catégorie d'une pièce jointe"

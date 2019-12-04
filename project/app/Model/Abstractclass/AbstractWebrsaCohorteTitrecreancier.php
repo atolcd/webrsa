@@ -68,6 +68,7 @@
 						array(
 							$this->Titrecreancier,
 							$this->Creance,
+							$this->Titrecreancier->Motifemissiontitrecreancier,
 							$this->Foyer
 						)
 					),
@@ -78,6 +79,8 @@
 						'Creance.id',
 						'Creance.foyer_id',
 						'Titrecreancier.id',
+						'Titrecreancier.motifemissiontitrecreancier_id',
+						'Motifemissiontitrecreancier.emissiontitre',
 					)
 				);
 
@@ -86,6 +89,14 @@
 					array(
 						$this->Titrecreancier->join(
 							'Creance',
+							array(
+								'type' => 'INNER ',
+							)
+						)
+					),
+					array(
+						$this->Titrecreancier->join(
+							'Motifemissiontitrecreancier',
 							array(
 								'type' => 'INNER ',
 							)

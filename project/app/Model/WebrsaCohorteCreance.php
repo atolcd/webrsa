@@ -47,8 +47,6 @@
 			'Creance.id' => array( 'type' => 'hidden' ),
 			'Creance.foyer_id' => array( 'type' => 'hidden' ),
 			'Creance.selection' => array( 'type' => 'checkbox' ),
-			'Creance.cjtactif' => array( 'type' => 'checkbox' ),
-			'Creance.instructionencours' => array( 'type' => 'checkbox' ),
 		);
 
 		/**
@@ -251,6 +249,12 @@
 					unset($data[$key]);
 					continue;
 				}else{
+					// On vérifie si un titre de recette n'a pas été crée entre temps
+					$titrecreancierExists = $this->Titrecreancier->find('first',array ('recursive' => -1, 'conditions' => array ('creance_id' => $value['Creance']['id'])));
+					if ( empty ( $titrecreancierExists) ) {
+						unset($data[$key]);
+						continue;
+					}
 
 					//Initialisation
 					$this->Titrecreancier->begin();
@@ -264,9 +268,9 @@
 					$titrecreancier['Titrecreancier']['creance_id'] = $creance_id;
 					$titrecreancier['Titrecreancier']['etat'] = 'CREE';
 					$titrecreancier['Titrecreancier']['dtemissiontitre'] = date("Y-m-d");
-					$titrecreancier['Titrecreancier']['instructionencours'] = $value['Creance']['instructionencours'];
 					$titrecreancier['Titrecreancier']['mntinit'] = $titrecreancier['Titrecreancier']['mnttitr'];
-					$titrecreancier['Titrecreancier']['cjtactif'] = $value['Creance']['cjtactif'];
+					$titrecreancier['Titrecreancier']['instructionencours'] = 0;
+					$titrecreancier['Titrecreancier']['cjtactif'] = 0;
 
 					//Validation de la sauvegarde
 					if( $this->Titrecreancier->saveAll( $titrecreancier, array( 'validate' => 'only' ) ) ) {

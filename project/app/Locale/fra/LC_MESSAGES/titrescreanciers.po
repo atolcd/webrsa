@@ -130,11 +130,12 @@ msgstr "Ajouter/Modifier un commentaire"
 msgid "/Titrescreanciers/search/:heading"
 msgstr "Recherche par titres de recette"
 
+###############################################################################
+# Formulaires de recherches
+###############################################################################
+
 msgid "Search.Titrecreancier"
 msgstr "Recherche par"
-
-msgid "Titrecreancier::search::moismoucompta"
-msgstr "Plage de date de transfert de la créance"
 
 msgid "Titrecreancier::search::etat"
 msgstr "État du titre de recette"
@@ -262,6 +263,9 @@ msgstr "Commune de résidence"
 msgid "Titrecreancier.datemotifemission"
 msgstr "Date du motif d'émission"
 
+msgid "Motifemissiontitrecreancier.nom"
+msgstr "Motif de l'émission"
+
 ###############################################################################
 # titre et textes
 ###############################################################################
@@ -355,6 +359,9 @@ msgstr "Sélectionner"
 msgid "data[Cohorte][][Titrecreancier][commentairevalidateur]"
 msgstr "Commentaire de validation"
 
+msgid "data[Cohorte][][Titrecreancier][validation]"
+msgstr "Validation"
+
 msgid "data[Cohorte][][Titrecreancier][dtvalidation]"
 msgstr "Date de validation"
 
@@ -372,18 +379,6 @@ msgstr "Recherche par titre de recette"
 
 msgid "Search.Titrescreanciers"
 msgstr "Recherche par créance et titre de recette"
-
-msgid "Creance::search::orgcre"
-msgstr "Origine de la créance"
-
-msgid "Creance::search::motiindu"
-msgstr "Motif de l'indu"
-
-msgid "Creance::search::dtimplcre"
-msgstr "Plage de date d'implémentation"
-
-msgid "Creance::search::moismoucompta"
-msgstr "Plage de date de transfert"
 
 msgid "Titrecreancier::cohortetransmission::exporttitle"
 msgstr "Exporter le CSV FICA"

@@ -29,7 +29,8 @@
 				'Search.Canton.nomcom' => array( 'required' => false ),
 				'Search.Canton.zonegeographique_id' => array( 'empty' => true, 'required' => false ),
 				'Search.Canton.codepos' => array( 'required' => false ),
-				'Search.Canton.numcom' => array( 'required' => false )
+				'Search.Canton.numcom' => array( 'required' => false ),
+				'Search.Canton.cantonvide' => array('type' => 'checkbox', 'required' => false )
 			)
 		),
 		array(
@@ -53,6 +54,7 @@
 				array(
 					'Canton.canton',
 					'Zonegeographique.libelle',
+					'Canton.numvoie',
 					'Canton.libtypevoie',
 					'Canton.nomvoie',
 					'Canton.nomcom',
@@ -74,5 +76,9 @@
 		);
 	}
 
-	echo $this->Default3->actions( array( '/Parametrages/index' => array( 'class' => 'back' ) ) );
-?>
+	echo $this->Default3->actions (
+		array (
+			'/Parametrages/index' => array( 'class' => 'back' ),
+			'/Cantons/adressesnonassociees' => array( 'class' => 'exportcsv' )
+		)
+	);

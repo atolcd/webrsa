@@ -12,6 +12,9 @@ copy (
 			"Dossier"."matricule" as "MATRICULE",
 			"Personne"."qual" AS "CIVILITE",
 			"Personne"."nom" AS "NOM",
+			"Personne"."email" AS "EMAIL",
+			"Personne"."numfixe" AS "TELEPHONE_FIXE",
+			"Personne"."numport" AS "TELEPHONE_PORTABLE",
 			"Personne"."nomnai" AS "NOMNAI",
 			"Personne"."prenom" AS "PRENOM",
 			"Personne"."dtnai" AS "DTNAI",
@@ -55,6 +58,9 @@ copy (
 		"PRENOM_REFERENT",
 		"DATE_DEBUT_ORIENTATION",
 		"CIBLE",
+		"EMAIL",
+		"TELEPHONE_FIXE",
+		"TELEPHONE_PORTABLE",
 		"ID_CD"
 	from "selections"
 ) to '/etl/rsa/out/Orientation.csv' WITH DELIMITER AS ';' CSV HEADER;

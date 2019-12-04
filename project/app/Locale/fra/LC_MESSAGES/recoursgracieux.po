@@ -1,0 +1,408 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+# Titres
+###############################################################################
+
+msgid "/Recoursgracieux/index/:heading"
+msgstr "Recours gracieux"
+
+msgid "/Recoursgracieux/view/:heading"
+msgstr "Recours gracieux"
+
+msgid "/Recoursgracieux/add/:heading"
+msgstr "Ajout d'un recours gracieux"
+
+msgid "/Recoursgracieux/edit/:heading"
+msgstr "Édition"
+
+msgid "/Recoursgracieux/affecter/:heading"
+msgstr "Affectation"
+
+msgid "/Recoursgracieux/proposer/:heading"
+msgstr "Proposition"
+
+msgid "/Recoursgracieux/proposercontestationcreances/:heading"
+msgstr "Proposition contestation"
+
+msgid "/Recoursgracieux/proposerremisecreances/:heading"
+msgstr "Proposition remise"
+
+msgid "/Recoursgracieux/proposercontestationindus/:heading"
+msgstr "Proposition contestation"
+
+msgid "/Recoursgracieux/proposerremiseindus/:heading"
+msgstr "Proposition remise"
+
+msgid "/Recoursgracieux/decider/:heading"
+msgstr "Décision"
+
+msgid "/Recoursgracieux/traiter/:heading"
+msgstr "Traitement"
+
+msgid "Recoursgracieux::index::emptyRecours"
+msgstr "Cette personne ne possède pas de recours gracieux."
+
+msgid "Recoursgracieux::view::propositions"
+msgstr "Propositions liées à ce recours gracieux"
+
+###############################################################################
+# Lien
+###############################################################################
+
+msgid "/Recoursgracieux/index"
+msgstr "Voir"
+
+msgid "/Recoursgracieux/index/#Recourgracieux.id#"
+msgstr "Voir ce recours gracieux"
+
+msgid "/Recoursgracieux/view"
+msgstr "Voir"
+
+msgid "/Recoursgracieux/view/#Recourgracieux.id#"
+msgstr "Voir ce recours gracieux"
+
+msgid "/Recoursgracieux/add"
+msgstr "Enregistrer un recours gracieux"
+
+msgid "/Recoursgracieux/add/:title"
+msgstr "Ajouter un recours gracieux"
+
+msgid "/Recoursgracieux/edit"
+msgstr "Éditer"
+
+msgid "/Recoursgracieux/edit/#Recourgracieux.id#"
+msgstr "Éditer ce recours gracieux"
+
+msgid "/Recoursgracieux/email"
+msgstr "Envoyer un courriel"
+
+msgid "/Recoursgracieux/email/#Recourgracieux.id#"
+msgstr "Envoyer un courriel"
+
+msgid "/Recoursgracieux/affecter"
+msgstr "Affecter un réferent"
+
+msgid "/Recoursgracieux/affecter/#Recourgracieux.id#"
+msgstr "Affecter un réferent"
+
+msgid "/Recoursgracieux/proposer"
+msgstr "Proposition"
+
+msgid "/Recoursgracieux/proposer/#Recourgracieux.id#"
+msgstr "Proposition"
+
+msgid "/Recoursgracieux/proposercontestationcreances"
+msgstr "Ajouter créance"
+
+msgid "Recourgracieux::proposer::Ajoutercreance"
+msgstr "Ajouter créance"
+
+msgid "/Recoursgracieux/proposerremisecreances"
+msgstr "Ajouter créance"
+
+msgid "/Recoursgracieux/proposercontestationindus"
+msgstr "Ajouter indu"
+
+msgid "Recourgracieux::proposer::Ajouterindu"
+msgstr "Ajouter indu"
+
+msgid "/Recoursgracieux/proposerremiseindus"
+msgstr "Ajouter indu"
+
+msgid "/Recoursgracieux/decider"
+msgstr "Décision"
+
+msgid "/Recoursgracieux/decider/#Recourgracieux.id#"
+msgstr "Décision"
+
+msgid "/Dossierspcgs66/view"
+msgstr "Voir le dossier PCG lié"
+
+msgid "/Dossierspcgs66/view/#Creancerecoursgracieux.dossierpcg_id#"
+msgstr "Voir le dossier #Creancerecoursgracieux.dossierpcg_id# lié"
+
+msgid "/Dossierspcgs66/view/#Indurecoursgracieux.dossierpcg_id#"
+msgstr "Voir le dossier #Indurecoursgracieux.dossierpcg_id# lié"
+
+msgid "/Recoursgracieux/envoyer"
+msgstr "Signature"
+
+msgid "/Recoursgracieux/envoyer/#Recourgracieux.id#"
+msgstr "Signature"
+
+msgid "/Recoursgracieux/traiter"
+msgstr "Traiter"
+
+msgid "/Recoursgracieux/traiter/#Recourgracieux.id#"
+msgstr "Traiter"
+
+msgid "/Recoursgracieux/deleteproposition"
+msgstr "Supprimer"
+
+msgid "Recourgracieux::proposer::Supprimercreance"
+msgstr "Supprimer créance"
+
+msgid "/Recoursgracieux/delete"
+msgstr "Supprimer"
+
+msgid "/Recoursgracieux/delete/#Recourgracieux.id#"
+msgstr "Supprimer ce recours gracieux"
+
+msgid "Recoursgracieux::index::emptyLabel"
+msgstr "Cette personne ne possède pas de recours gracieux."
+
+msgid "/Recoursgracieux/filelink"
+msgstr "Fichiers liés (#Fichiermodule.nb_fichiers_lies#)"
+
+msgid "/Recoursgracieux/filelink/#Recourgracieux.id#"
+msgstr "Fichiers liés"
+
+msgid "Recoursgracieux::filelink"
+msgstr "Fichiers liés au recours gracieux"
+
+msgid "Recoursgracieux.haspiecejointe"
+msgstr "Ajouter une pièce jointe"
+
+msgid "Recoursgracieux.etatDepuis"
+msgstr "État depuis"
+
+msgid "since"
+msgstr " depuis le "
+
+###############################################################################
+# Textes
+###############################################################################
+
+msgid "Recourgracieux::proposer::titleCreance"
+msgstr "Liste des créances du foyer"
+
+msgid "Recourgracieux::proposer::emptyCreances"
+msgstr "Aucune créance pour le foyer"
+
+msgid "Recourgracieux::proposer::Periode"
+msgstr "Periode du "
+
+msgid "Recourgracieux::proposer::to"
+msgstr " au "
+
+msgid "Recourgracieux::proposer::titleCreancerecoursgracieux"
+msgstr "Créances associées"
+
+msgid "Recourgracieux::proposer::emptyCreancesrecoursgracieux"
+msgstr "Aucune créance associée à la proposition"
+
+msgid "Recourgracieux::decider::emptyCreancesrecoursgracieux"
+msgstr "Aucune créance associée au dossier"
+
+msgid "Recourgracieux::proposer::titleIndu"
+msgstr "Liste des indus du foyer"
+
+msgid "Recourgracieux::proposer::emptyIndus"
+msgstr "Aucun indu pour le foyer"
+
+msgid "Recourgracieux::proposer::titleIndurecoursgracieux"
+msgstr "Indus associés"
+
+msgid "Recourgracieux::proposer::emptyIndusrecoursgracieux"
+msgstr "Aucun indu associé à la proposition"
+
+msgid "Recourgracieux::decider::emptyIndusrecoursgracieux"
+msgstr "Aucun indu associé au dossier"
+
+vmsgid "Recourgracieux::decider::titleRecours"
+msgstr "Information du dossier de recours"
+
+msgid "Recourgracieux::fileuploader::titleFileExist"
+msgstr "Pièces déjà présente"
+
+msgid "Recourgracieux::fileuploader::titleFileView"
+msgstr "Pièce jointes"
+
+###############################################################################
+# Trad des recherches
+###############################################################################
+
+msgid "/Recoursgracieux/search/:heading"
+msgstr "Recherche par recours gracieux"
+
+msgid "Search.Recoursgracieux"
+msgstr "Recherche par recours gracieux de l'allocataire"
+
+###############################################################################
+# Champs de recherches
+###############################################################################
+
+msgid "Recourgracieux::search::dtarrivee"
+msgstr "Date d’arrivée du dossier au CD"
+
+msgid "Recourgracieux::search::dtbutoir"
+msgstr "Date butoir de réponse"
+
+msgid "Recourgracieux::search::dtreception"
+msgstr "Date de réception du dossier dans le service"
+
+msgid "Recourgracieux::search::originerecoursgracieux_id"
+msgstr "Origine du dossier"
+
+msgid "Recourgracieux::search::dtaffectation"
+msgstr "Date d'affectation"
+
+msgid "Recourgracieux::search::poledossierpcg66_id"
+msgstr "Pôle du gestionnaire du dossier"
+
+msgid "Recourgracieux::search::user_id"
+msgstr "Gestionnaire du dossier"
+
+msgid "Recourgracieux::search::etat"
+msgstr "État du dossier"
+
+msgid "Personne.nom_complet_prenoms"
+msgstr "Allocataire"
+
+###############################################################################
+# Champs Proposer
+###############################################################################
+
+msgid "Creancerecoursgracieux.mntindus"
+msgstr "Montant créance"
+
+msgid "Creancerecoursgracieux.refuscontestation"
+msgstr "Refus de la contestation"
+
+msgid "Creancerecoursgracieux.motifproposrecoursgracieux_id"
+msgstr "Motif de la proposition"
+
+msgid "Creancerecoursgracieux.mention"
+msgstr "Mention"
+
+msgid "Creancerecoursgracieux.dossierpcg_id"
+msgstr "Dossier PCG"
+
+msgid "Creancerecoursgracieux.natcre"
+msgstr "Nature"
+
+msgid "Creancerecoursgracieux.rgcre"
+msgstr "Rang"
+
+msgid "Creancerecoursgracieux.mtinicre"
+msgstr "Montant initial"
+
+msgid "Creancerecoursgracieux.dtimplcre"
+msgstr "Date d'implémentation"
+
+msgid "Creancerecoursgracieux.prcentremise"
+msgstr "Pourcentage de remise"
+
+msgid "Creancerecoursgracieux.mntremise"
+msgstr "Montant de la remise"
+
+msgid "Creancerecoursgracieux.mntremiseaffiche"
+msgstr "Montant de la remise"
+
+msgid "Creancerecoursgracieux.perioderegucre"
+msgstr "Période"
+
+msgid "Creancerecoursgracieux.etattitre"
+msgstr "État du titre"
+
+msgid "Creancerecoursgracieux.regularisation"
+msgstr "Régularisation"
+
+msgid "Indurecoursgracieux.mntindus"
+msgstr "Montant indu"
+
+msgid "Indurecoursgracieux.refuscontestation"
+msgstr "Refus de la contestation"
+
+msgid "Indurecoursgracieux.motifproposrecoursgracieux_id"
+msgstr "Motif de la proposition"
+
+msgid "Indurecoursgracieux.mention"
+msgstr "Mention"
+
+msgid "Indurecoursgracieux.dossierpcg_id"
+msgstr "Dossier PCG"
+
+msgid "Indurecoursgracieux.natpfcre"
+msgstr "Nature"
+
+msgid "Indurecoursgracieux.rgcre"
+msgstr "Rang"
+
+msgid "Indurecoursgracieux.mtmoucompta"
+msgstr "Montant initial"
+
+msgid "Indurecoursgracieux.mntindus"
+msgstr "Montant indu"
+
+msgid "Indurecoursgracieux.dttraimoucompta"
+msgstr "Date traitement du mouvement comptable"
+
+msgid "Indurecoursgracieux.prcentremise"
+msgstr "Pourcentage de remise"
+
+msgid "Indurecoursgracieux.mntremise"
+msgstr "Montant de la remise"
+
+msgid "Indurecoursgracieux.mntremiseaffiche"
+msgstr "Montant de la remise"
+
+msgid "Indurecoursgracieux.etattitre"
+msgstr "État du titre"
+
+msgid "Indurecoursgracieux.regularisation"
+msgstr "Régularisation"
+
+msgid "YES"
+msgstr "Oui"
+
+msgid "NO"
+msgstr "Non"
+
+msgid "Pièce jointe"
+msgstr "Pièce jointe"
+
+###############################################################################
+# Historique
+###############################################################################
+msgid "Recoursgracieux::index::historyDeleted"
+msgstr "Attention, un ou plusieurs recours gracieux ont été supprimés"
+
+msgid "Recoursgracieux::view::history"
+msgstr "Historique du recours gracieux"
+
+msgid "Historiqueetat.created"
+msgstr "Date"
+
+msgid "Historiqueetat.evenement"
+msgstr "Action réalisée"
+
+msgid "Historiqueetat.nom"
+msgstr "Nom de l'utilisateur"
+
+msgid "Historiqueetat.prenom"
+msgstr "Prénom de l'utilisateur"
+
+msgid "Historiqueetat.modele"
+msgstr "Page ayant modifiée le statut"
+
+msgid "Historiqueetat.etat"
+msgstr "État"

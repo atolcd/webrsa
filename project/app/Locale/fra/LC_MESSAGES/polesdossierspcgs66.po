@@ -11,34 +11,34 @@ msgstr ""
 # ==============================================================================
 
 msgid "/Polesdossierspcgs66/index/:heading"
-msgstr "Paramétrage des pôles chargés des dossiers PCG"
+msgstr "Paramétrage des pôles chargés des dossiers PCG / Recours Gracieux"
 
 msgid "/Polesdossierspcgs66/add/:heading"
-msgstr "Ajout d'un pôle chargé des dossiers PCG"
+msgstr "Ajout d'un pôle chargé des dossiers PCG / Recours Gracieux"
 
 msgid "/Polesdossierspcgs66/edit/:heading"
-msgstr "Modification du pôle chargé des dossiers PCG « #Poledossierpcg66.name# »"
+msgstr "Modification du pôle chargé des dossiers PCG / Recours Gracieux « #Poledossierpcg66.name# »"
 
 msgid "/Polesdossierspcgs66/add"
 msgstr "Ajouter"
 
 msgid "/Polesdossierspcgs66/add/:title"
-msgstr "Ajouter un pôle chargé des dossiers PCG"
+msgstr "Ajouter un pôle chargé des dossiers PCG / Recours Gracieux"
 
 msgid "/Polesdossierspcgs66/edit"
 msgstr "Modifier"
 
 msgid "/Polesdossierspcgs66/edit/#Poledossierpcg66.id#"
-msgstr "Modifier le pôle chargé des dossiers PCG « #Poledossierpcg66.name# »"
+msgstr "Modifier le pôle chargé des dossiers PCG / Recours Gracieux « #Poledossierpcg66.name# »"
 
 msgid "/Polesdossierspcgs66/delete"
 msgstr "Supprimer"
 
 msgid "/Polesdossierspcgs66/delete/#Poledossierpcg66.id#"
-msgstr "Supprimer le pôle chargé des dossiers PCG « #Poledossierpcg66.name# »"
+msgstr "Supprimer le pôle chargé des dossiers PCG / Recours Gracieux « #Poledossierpcg66.name# »"
 
 msgid "/Polesdossierspcgs66/delete/#Poledossierpcg66.id# ?"
-msgstr "Réellement supprimer le pôle chargé des dossiers PCG « #Poledossierpcg66.name# » ?"
+msgstr "Réellement supprimer le pôle chargé des dossiers PCG / Recours Gracieux « #Poledossierpcg66.name# » ?"
 
 msgid "/Parametrages/pdos"
 msgstr "Retour"
