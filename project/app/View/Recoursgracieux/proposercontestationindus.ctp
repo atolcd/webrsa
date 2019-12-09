@@ -33,6 +33,7 @@
 		),
 		array('options' => $options)
 	);
+	echo '<br>';
 	echo $this->Default3->subform(
 		array(
 			'Indurecoursgracieux.mntindus' => array( 'value' => $indus['Infofinanciere']['mtmoucompta']),

@@ -49,7 +49,7 @@
 		);
 		if ( ! empty ($recoursgracieux) ) {
 			echo '<br><br> <h1>' . __m('Recoursgracieux::view::propositions') .  '</h1>';
-			if ( $typerecoursgracieux['Typerecoursgracieux']['usage'] == 'contestation' ) {
+			if ( isset($typerecoursgracieux['Typerecoursgracieux']['usage']) && $typerecoursgracieux['Typerecoursgracieux']['usage'] == 'contestation' ) {
 				if ( Configure::read( 'Recoursgracieux.Creancerecoursgracieux.enabled' ) ) {
 					echo $this->Default3->index(
 						$creancesrecoursgracieux,
@@ -126,7 +126,7 @@
 					);
 				}
 			}
-			if ( $typerecoursgracieux['Typerecoursgracieux']['usage'] == 'remise' ){
+			if ( isset($typerecoursgracieux['Typerecoursgracieux']['usage']) && $typerecoursgracieux['Typerecoursgracieux']['usage'] == 'remise' ){
 				if ( Configure::read( 'Recoursgracieux.Creancerecoursgracieux.enabled' ) ) {
 					echo $this->Default3->index(
 						$creancesrecoursgracieux,

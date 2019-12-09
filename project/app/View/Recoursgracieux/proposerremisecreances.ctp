@@ -38,6 +38,7 @@
 		),
 		array('options' => $options)
 	);
+	echo '<br>';
 	echo $this->Default3->subform(
 		array(
 			//C’est un champ de saisie prérempli au montant de l’indu mais modifiable.
