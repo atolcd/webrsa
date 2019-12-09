@@ -311,6 +311,24 @@
 								<th><?php echo __d( 'adresse', 'Adresse.nomcom' );?></th>
 								<td colspan="2"><?php echo  isset( $details['Adresse']['nomcom'] ) ? $details['Adresse']['nomcom'] : null ;?></td>
 							</tr>
+<?php
+							if (Configure::read( 'CG.cantons' )) {
+?>
+							<tr class="odd">
+								<th><?php echo __d( 'sitecov58', 'Sitecov58.name' );?></th>
+								<td colspan="2"><?php echo  isset( $details['Sitecov58']['name'] ) ? $details['Sitecov58']['name'] : null ;?></td>
+							</tr>
+<?php
+								if (Configure::read( 'Cg.departement' ) == 58) {
+?>
+							<tr class="even">
+								<th><?php echo __d( 'canton', 'Canton.canton' );?></th>
+								<td colspan="2"><?php echo  isset( $details['Canton']['canton'] ) ? $details['Canton']['canton'] : null ;?></td>
+							</tr>
+<?php
+								}
+							}
+?>
 							<tr class="odd">
 								<th>Soumis à droits et devoirs</th>
 								<td><?php echo textToppersdrodevorsa( Set::extract( 'DEM.Calculdroitrsa', $details ) );?></td>

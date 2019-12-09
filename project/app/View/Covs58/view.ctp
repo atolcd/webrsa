@@ -90,6 +90,7 @@
 				}
 			?>
 		</ul>
+		<br>
 		<div id="dossierscovs">
 			<?php
 				$covTraitee = ( $cov58['Cov58']['etatcov'] == 'finalise' );

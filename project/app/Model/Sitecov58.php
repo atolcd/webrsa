@@ -65,6 +65,22 @@
 				'deleteQuery' => '',
 				'insertQuery' => '',
 				'with' => 'Sitecov58Zonegeographique'
+			),
+			'Canton' => array(
+				'className' => 'Canton',
+				'joinTable' => 'cantons_sitescovs58',
+				'foreignKey' => 'sitecov58_id',
+				'associationForeignKey' => 'canton_id',
+				'unique' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'finderQuery' => '',
+				'deleteQuery' => '',
+				'insertQuery' => '',
+				'with' => 'CantonSitecov58'
 			)
 		);
 	}

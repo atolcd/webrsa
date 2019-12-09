@@ -346,6 +346,51 @@
 			);
 			$details = Set::merge( $details, array( 'Adresse' => Hash::get($adresseFoyer, 'Adresse') ) );
 
+			// Canton
+			if (Configure::read( 'CG.cantons' )) {
+				$this->loadModel('Canton');
+				$canton = $this->Canton->find (
+					'first',
+					array (
+						'joins' => array (
+							array (
+								'table' => 'adresses_cantons',
+								'alias' => 'AdresseCanton',
+								'type' => 'LEFT OUTER',
+								'conditions' => array (
+									'"Canton"."id" = "AdresseCanton"."canton_id"',
+									'"AdresseCanton"."adresse_id" = '.$details['Adresse']['id']
+								)
+							)
+						)
+					)
+				);
+				$details = Set::merge( $details, $canton);
+
+				// Site AMS COV 58
+				if (Configure::read( 'CG.cantons.sitecov58' )) {
+					$this->loadModel('Sitecov58');
+					$sitecov58 = $this->Sitecov58->find (
+						'first',
+						array (
+							'joins' => array (
+								array (
+									'table' => 'cantons_sitescovs58',
+									'alias' => 'CantonSitecov58',
+									'type' => 'LEFT OUTER',
+									'conditions' => array (
+										'"Sitecov58"."id" = "CantonSitecov58"."sitecov58_id"',
+										'"CantonSitecov58"."canton_id" = '.$details['Canton']['id']
+									)
+								)
+							),
+							'recursive' => -1
+						)
+					);
+					$details = Set::merge( $details, $sitecov58);
+				}
+			}
+
 			if ( Configure::read('Alerte.changement_adresse.enabled') ) {
 				if ( empty($adresseFoyer) ) {
 					$this->Flash->error( 'Ce foyer ne possède actuellement aucune adresse.' );
