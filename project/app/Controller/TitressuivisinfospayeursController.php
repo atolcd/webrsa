@@ -129,6 +129,22 @@
 		}
 
 		/**
+		 * Envoit de l'email liée à une info payeur d'un Titrecreancier.
+		 *
+		 * @param integer $id L'id technique dans la table titrescreanciers.
+		 * @return void
+		 */
+		public function emailsend($id, $titrecreancier_id) {
+			$success = $this->Email->send($id, 'Titresuiviinfopayeur', 'add_edit',  'mail_titresuivit');
+			if ( $success !== false ) {
+				$this->Flash->success( __d('Email', 'Email.Envoyer' ) );
+			}else{
+				$this->Flash->error( __d('Email', 'Email.EnvoiEchec' ) );
+			}
+			$this->redirect( array('controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
+		}
+
+		/**
 		 * Ajout d'un retour payeur sur une infos payeur d'un Titrecreancier.
 		 *
 		 * @param integer $id L'id technique dans la table titrescreanciers.

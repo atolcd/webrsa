@@ -87,9 +87,6 @@
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			'email',
-			'view',
-			'send',
 			'ajax_generate_email',
 			'delete'
 		);
@@ -101,125 +98,13 @@
 		 * @var array
 		 */
 		public $crudMap = array(
-			'email' => 'read',
-			'view' => 'read',
-			'send' => 'create',
 			'ajax_generate_email' => 'read',
 		);
-
-		/**
-		 * Liste des Emails de l'élément.
-		 *
-		 * @param integer $personne_id
-		 */
-		/*public function email(Model $model, $user_id = null, $modele_id = null, $personne_id, $urlmenu ) {
-			$this->WebrsaAccesses->setMainModel($model)->check($modele_id, $user_id);
-			if ( empty($user_id) || empty($modele_id) || !is_numeric($user_id) || !is_numeric($modele_id) ){
-				throw new NotFoundException();
-			}
-			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) );
-
-			$params = WebrsaAccessEmail::getParamsList(array('isModuleEmail' => true));
-			$paramsAccess = $this->WebrsaEmail->getParamsForAccess($modele_id, $params);
-			$query = $this->WebrsaEmail->completeVirtualFieldsForAccess(
-				array(
-					'fields' => array(
-						'Email.id',
-						'Email.modele_id',
-						'Email.user_id',
-						'Email.titre',
-						'Email.created',
-						'Email.dateenvoi',
-					),
-					'conditions' => array(
-						'Email.modele_id' => $modele_id
-					),
-					'order' => array( 'Email.created DESC' )
-				)
-			);
-			$results = WebrsaAccessEmail::accesses($this->Email->find('all', $query), $paramsAccess);
-			$ajoutPossible = Hash::get($paramsAccess, 'ajoutPossible') !== false;
-			$messages = $this->Email->messages( $personne_id );
-
-			// Options
-			$options = $this->Email->WebrsaEmail->options();
-
-			$this->set( compact( 'results', 'dossierMenu', 'messages', 'ajoutPossible', 'personne_id', 'options', 'cui_id', 'urlmenu' ) );
-		}*/
-
-		/**
-		 * Envoi d'un E-mail
-		 *
-		 * @param type $personne_id
-		 * @param type $cui_id
-		 * @param type $email_id
-		 * @throws Exception
-		 */
-		public function send( $email_id ){
-			$this->WebrsaAccesses->setWebrsaModel('WebrsaEmail')->setMainModel('Email')
-					->check($email_id);
-			$datas = $this->Email->find('first', array( 'conditions' => array( 'Email.id' => $email_id ) ) );
-			$data = $datas['Email'];
-
-			$Piecemail = ClassRegistry::init( 'Piecemail' );
-
-			$filesIds = explode( '_', $data['pj'] );
-
-			$filesNames = array();
-			foreach( $filesIds as $fileId ){
-				$filesNames = array_merge( $filesNames, $Piecemail->getFichiersLiesById( $fileId ) );
-			}
-
-			$filesNames = $this->_transformOdtIntoPdf($filesNames, $cui_id);
-
-			$Email = new CakeEmail( $this->configEmail );
-			if ( !empty($data['emailredacteur']) ){
-				$Email->replyTo( $data['emailredacteur'] );
-				$Email->cc( $data['emailredacteur'] );
-			}
-
-			$Email	->subject( $data['titre'] )
-					->attachments( $filesNames );
-
-			// Si le mode debug est activé, on envoi l'e-mail à l'éméteur ( @see app/Config/email.php )
-			if ( WebrsaEmailConfig::isTestEnvironment() ){
-				$Email->to ( WebrsaEmailConfig::getValue( $this->configEmail, 'to', $Email->to() ) );
-			}
-			else{
-				$Email->to( $data['emailemployeur'] );
-			}
-
-			$this->Email->id = $email_id;
-			$this->Email->begin();
-			try {
-				if ( $Email->send( $data['message'] ) ){
-					$this->Flash->success( 'E-mail envoyé avec succès' );
-					if ( !$this->Email->saveField( 'dateenvoi', date('Y-m-d G:i:s') ) ){
-						$this->Email->rollback();
-						$this->Flash->error( 'Sauvegarde en base impossible!' );
-					}
-					$this->Email->commit();
-				}
-				else{
-					$this->Email->rollback();
-					throw new Exception( 'Envoi E-mail échoué!' );
-				}
-			}
-			catch (Exception $e) {
-				$this->Email->rollback();
-				$this->Flash->error( 'Erreur lors de l\'envoi de l\'E-mail.' );
-			}
-
-			$this->Cui->Cui66->WebrsaCui66->updatePositionsCuisById( $cui_id );
-
-			$this->redirect( array( 'action' => 'email', $personne_id, $cui_id ) );
-		}
 
 		/**
 		 * Permet de récupérer en base les informations nécéssaire afin de générer le texte d'un e-mail
 		 */
 		public function ajax_generate_email(){
-
 			$query = array(
 				'conditions' => array(
 					'id' => $this->request->data['Email_textemail_id']
@@ -234,6 +119,7 @@
 			foreach( $this->request->data as $input => $data ){
 				if ( $input === 'Email_insertiondate' ){
 					$formatedDate = strftime("%A %d %B %Y", strtotime($data));
+					$formatedDate = utf8_encode ( $formatedDate );
 					$text = str_replace( '#Email.insersiondate#', $formatedDate, $text );
 				}
 				elseif ( preg_match( '/^Email_[\w]+$/', $input ) ){
@@ -247,7 +133,7 @@
 
 			App::import('Model', $parentmodele);
 			$model = new $parentmodele;
-			$modleinfos = $model->find('first', array ( 'conditions' => array ( $parentmodele.".id" => $parentmodele_id ) ));
+			$modleinfos = $model->find('first', array ('recursive' => 0, 'conditions' => array ( $parentmodele.".id" => $parentmodele_id ) ));
 
 			$options = $model->options();
 
@@ -262,6 +148,7 @@
 
 					if ( $isDate ){
 						$tradFieldValue = strftime("%A %d %B %Y", strtotime($fieldValue));
+						$tradFieldValue = utf8_encode ( $tradFieldValue );
 					}
 					else{
 						$tradFieldValue = isset( $options[$modelName][$fieldName][$fieldValue] ) ?
@@ -278,9 +165,6 @@
 					}
 				}
 			}
-
-			// On retire les retours à la ligne en trop
-			$text = preg_replace('/[\n\r]{3,}/', "\n\n", $text);
 
 			if ( !empty($erreurs) ){
 				$text = "[[[----------ERREURS----------]]]\n" . implode("\n", $erreurs) . "\n\nMerci de compléter les champs requis pour envoyer cet e-mail.";

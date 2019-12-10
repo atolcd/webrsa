@@ -375,6 +375,53 @@ class EmailConfig {
 
 	);
 
+	/**
+	 * Configuration pour l'envoi de mails Dans le Module Email	 *
+	 * Les clés 'port', 'timeout', 'host', 'username', 'password', 'client'
+	 * remplacent les valeurs qui étaient contenues dans 'Email.smtpOptions'
+	 * du fichier webrsa.inc.
+	 *
+	 * Lorsque l'application est en debug > 0, alors le mail est envoyé à
+	 * l'adresse spécifiée pour la clé 'to', ou à l'expéditeur (clé 'from').
+	 *
+	 * De même, si une clé 'subject' est spécifiée, elle sera utilisée comme
+	 * sujet du mail.
+	 *
+	 * @var array
+	 */
+	public $mail_recours_gracieux = array(
+		'transport' => 'Smtp',
+		'from' => '',
+		'replyTo' => '',
+		'to' => '',
+		'subject' => '',
+		'host' => '',
+		'username' => '',
+		'password' => '',
+		'client' => '',
+		'port' => 25,
+		'timeout' => 30,
+		'log' => false,
+		'charset' => 'utf-8',
+		'headerCharset' => 'utf-8',
+	);
+	public $mail_titresuivit = array(
+		'transport' => 'Smtp',
+		'from' => '',
+		'replyTo' => '',
+		'to' => '',
+		'subject' => '',
+		'host' => '',
+		'username' => '',
+		'password' => '',
+		'client' => '',
+		'port' => 25,
+		'timeout' => 30,
+		'log' => false,
+		'charset' => 'utf-8',
+		'headerCharset' => 'utf-8',
+	);
+
 	public function __construct () {
 		$this->user_generation_mdp['transport'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_TRANSPORT');
 		$this->user_generation_mdp['from'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_FROM');
@@ -465,5 +512,26 @@ class EmailConfig {
 		$this->piece_jointe['username'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_USERNAME');
 		$this->piece_jointe['password'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_PASSWORD');
 		$this->piece_jointe['client'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_CLIENT');
+
+		$this->mail_recours_gracieux['transport'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_TRANSPORT');
+		$this->mail_recours_gracieux['from'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_FROM');
+		$this->mail_recours_gracieux['replyTo'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_REPLYTO');
+		$this->mail_recours_gracieux['to'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_TO');
+		$this->mail_recours_gracieux['subject'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_SUBJECT');
+		$this->mail_recours_gracieux['host'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_HOST');
+		$this->mail_recours_gracieux['username'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_USERNAME');
+		$this->mail_recours_gracieux['password'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_PASSWORD');
+		$this->mail_recours_gracieux['client'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_CLIENT');
+
+		$this->mail_titresuivit['transport'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_TRANSPORT');
+		$this->mail_titresuivit['from'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_FROM');
+		$this->mail_titresuivit['replyTo'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_REPLYTO');
+		$this->mail_titresuivit['to'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_TO');
+		$this->mail_titresuivit['subject'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_SUBJECT');
+		$this->mail_titresuivit['host'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_HOST');
+		$this->mail_titresuivit['username'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_USERNAME');
+		$this->mail_titresuivit['password'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_PASSWORD');
+		$this->mail_titresuivit['client'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_CLIENT');
+
 	}
 }

@@ -41,9 +41,30 @@
 							'Email.pj'
 						)
 					)
-				)
-				. '</fieldset>'
-			;
+				);
+				if  ( !empty ($Email['Email']['sendButton']) ){
+					$enabled = $Email['Email']['sendButton']['activate'];
+					$controler = $Email['Email']['sendButton']['controller'];
+					$action = $Email['Email']['sendButton']['action'];
+					$params = $Email['Email']['sendButton']['params'];
+					if ( $Email['Email']['etat'] == 'CREE' ) {
+						$label =__d('Email', 'Send');
+					}else{
+						$label =__d('Email', 'Resend');
+					}
+					echo '</br>'. $this->Xhtml->link(
+						$label,
+						array_merge(
+							array('controller' => $controler, 'action' => $action),
+							$params
+						),
+						array(
+							'class' => 'button email',
+							'enabled' => $enabled
+						)
+					);
+				}
+				echo  '</fieldset>';
 		}
 	}
 ?>

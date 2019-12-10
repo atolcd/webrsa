@@ -81,3 +81,15 @@ msgstr "Envoyé le"
 
 msgid "Email.pj"
 msgstr "Pièces à joindre à l'e-mail"
+
+msgid "Email.Envoyer"
+msgstr "L'e-mail as été envoyer"
+
+msgid "Email.EnvoiEchec"
+msgstr "L'envoi d'e-mail as échoué"
+
+msgid "Resend"
+msgstr "Renvoyer"
+
+msgid "Send"
+msgstr "Envoyer"

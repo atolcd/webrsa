@@ -212,5 +212,126 @@
 
 			return $results;
 		}
+		
+		/**
+		 * Envoi d'un E-mail
+		 *
+		 * @param type $id
+		 * @param type $modele
+		 * @param type $action
+		 * @param type $configEmail
+		 * @throws Exception
+		 */
+		public function send( $id, $modele, $action = null, $configEmail ){
+			$success = false;
+			$result = $this->_getDataEmail($id, $modele, $action );
+			if ( isset ($result['Email']['id']) ) {
+				$email_id = $result['Email']['id'];
+
+				$data = $result['Email'];
+
+				$Piecemail = ClassRegistry::init( 'Piecemail' );
+				$filesIds = $data['pj'] ;
+
+				$filesNames = array();
+				if( !empty ($filesIds) ) {
+					foreach( $filesIds as $fileId ){
+						$filesNames = array_merge( $filesNames, $Piecemail->getFichiersLiesById( $fileId ) );
+					}
+					//$filesNames = $this->_transformOdtIntoPdf($filesNames, $cui_id);
+				}
+
+				$Email = new CakeEmail( $configEmail );
+				if ( !empty($data['emailredacteur']) ){
+					$Email->replyTo( $data['emailredacteur'] );
+					$Email->cc( $data['emailredacteur'] );
+				}
+
+				$Email	->subject( $data['titre'] )
+						->attachments( $filesNames );
+
+				// Si le mode debug est activé, on envoi l'e-mail à l'éméteur ( @see app/Config/email.php )
+				if ( WebrsaEmailConfig::isTestEnvironment() ){
+					$Email->to ( WebrsaEmailConfig::getValue( $configEmail, 'to', $Email->to() ) );
+				}
+				else{
+					$Email->to( $data['emailemployeur'] );
+				}
+
+				$this->id = $email_id;
+				$this->begin();
+				if ( $Email->send( $data['message'] ) ){
+					$data['Email'] = array (
+						'id' => $email_id,
+						'dateenvoi' => date('Y-m-d G:i:s'),
+						'etat' => 'SENT'
+					);
+					$success = $this->save( $data, array( 'atomic' => false ) );
+					if ( !$success ) {
+						$this->rollback();
+					}else{
+						$this->commit();
+						return $email_id;
+					}
+				}
+				else{
+					$this->rollback();
+				}
+			}
+			return $success;
+		}
+
+		/**
+		 * Transforme les fichiers ODT en document PDF (avec remplissage des champs)
+		 *
+		 * @param array $paths Liste des chemins vers les fichiers
+		 * @param integer $cui_id
+		 * @return array retourne la liste de fichiers avec retrait des ODT et ajout des PDF
+		 */
+		/*protected function _transformOdtIntoPdf( $paths, $cui_id ) {
+			$newPaths = array();
+			foreach ($paths as $path) {
+				// Si l'extension du fichier n'est pas odt on l'ajoute à la nouvelle liste et on passe au prochain
+				if ( strpos($path, '.odt') !== strlen($path)-4 ) {
+					$newPaths[] = $path;
+					continue;
+				}
+
+				// On sépare le chemin du nom de fichier
+				$dirPath = explode(DS, $path);
+				$odtName = $dirPath[count($dirPath)-1];
+				unset($dirPath[count($dirPath)-1]); // Retrait du nom de fichier
+				$dirPath = implode(DS, $dirPath);
+				$fileName = substr($odtName, 0, strlen($odtName) -4); // Nom du fichier sans extension
+				$pdfPath = $dirPath.DS.$fileName.'.pdf';
+
+				// On récupère les données pour le remplissage du ODT
+				$query = $this->Cui->Cui66->WebrsaCui66->queryImpression( $cui_id );
+				$this->Cui->Cui66->forceVirtualFields = true;
+				$data = $this->Cui->Cui66->find( 'first', $query );
+				$options = $this->Cui->WebrsaCui->options();
+				$data = $this->Cui->Cui66->WebrsaCui66->completeDataImpression( $data );
+				$pdf = $this->Cui->ged(
+					$data,
+					$path,
+					true,
+					$options
+				);
+
+				// On créer un nouveau fichier à coté du fichier ODT
+				if (is_file($pdfPath) ) {
+					unlink($pdfPath); // Supprime le fichier pdf du même nom si il existe
+				}
+				$File = fopen($pdfPath, 'w');
+				fwrite($File, $pdf);
+				fclose($File);
+
+				// On ajoute finalement le fichier à la liste
+				$newPaths[] = $pdfPath;
+			}
+
+			return $pdfPath;
+		}*/
+
 	}
 ?>

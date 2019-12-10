@@ -4356,6 +4356,9 @@ msgstr "Édition"
 msgid "controllers/Titressuivisinfospayeurs/view"
 msgstr "Visualisation"
 
+msgid "controllers/Titressuivisinfospayeurs/emailsend"
+msgstr "Envoi d'email"
+
 ###############################################################################
 msgid "controllers/Titressuivisautresinfos"
 msgstr "Titres de recette : info suivi autre "
@@ -4459,6 +4462,9 @@ msgstr "Supprimer un recours gracieux"
 
 msgid "controllers/Recoursgracieux/view"
 msgstr "Voir un recours gracieux"
+
+msgid "controllers/Recoursgracieux/emailsend"
+msgstr "Envoi d'email"
 
 # Origines
 msgid "controllers/Originesrecoursgracieux"

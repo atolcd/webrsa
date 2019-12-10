@@ -442,11 +442,53 @@
 		 * @return void
 		 *
 		 */
-		public function email($id = null) {
+		public function email($id) {
 
 			$this->WebrsaAccesses->check($id);
 			$this->Recourgracieux->id = $id;
 			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$dossier_id = $this->Recourgracieux->dossierId( $id );
+
+			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
+
+			$recoursgracieux = $this->Recourgracieux->find(
+				'first',
+				array(
+					'fields' => array_merge(
+						$this->Recourgracieux->fields()
+					),
+					'conditions' => array(
+						'Recourgracieux.id' => $id
+					),
+					'contain' => FALSE
+				)
+			);
+			if (!empty( $recoursgracieux ) ){
+				// Assignation au formulaire
+				$this->request->data = $recoursgracieux;
+				$this->set( 'recoursgracieux', $recoursgracieux );
+
+				//Liste des Pièces jointes
+				$piecesjointes = $this->getPiecejointes( $id );
+				$this->set( 'piecesjointes', $piecesjointes );
+
+				$Emails = $this->Email->viewAll($id, 'Recourgracieux');
+				$optionsEmail = $this->Email->options();
+				foreach ($Emails AS $key => $Email){
+					$params = array (
+						$Email['Email']['modele_id'],
+						$Email['Email']['modele_action']
+					);
+					$Emails[$key]['Email']['sendButton'] = array ( 
+						'activate' => true,
+						'controller' => 'recoursgracieux',
+						'action' => 'email'.$Email['Email']['modele_action'].'send',
+						'params' => $params
+					);
+				}
+
+				$this->set( compact( 'optionsEmail', 'Emails') );
+			}
 
 			$this->set( 'urlmenu', '/recoursgracieux/index/'.$foyer_id );
 			$this->set( 'foyer_id', $foyer_id );
@@ -1580,6 +1622,45 @@
 					$this->Flash->error( __( 'Delete->error' ) );
 				}
 				$this->redirect( array( 'controller' => 'recoursgracieux', 'action' => 'index', $foyer_id ) );
+		}
+
+		/**
+		 * Envoit de l'email liée à une info payeur d'un Titrecreancier.
+		 *
+		 * @param integer $id L'id technique dans la table titrescreanciers.
+		 * @return void
+		 */
+		public function emailaffectersend() {
+			$args = func_get_args();
+			call_user_func_array( array( $this, '_emailsend' ), $args );
+		}
+
+		/**
+		 * Envoit de l'email liée à une info payeur d'un Titrecreancier.
+		 *
+		 * @param integer $id L'id technique dans la table titrescreanciers.
+		 * @return void
+		 */
+		public function emaildecidersend() {
+			$args = func_get_args();
+			call_user_func_array( array( $this, '_emailsend' ), $args );
+		}
+
+		/**
+		 * Envoit de l'email liée à une info payeur d'un Titrecreancier.
+		 *
+		 * @param integer $id L'id technique dans la table titrescreanciers.
+		 * @return void
+		 */
+		protected function _emailsend($id, $action) {
+			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$success = $this->Email->send($id, 'Recourgracieux', $action,  'mail_recours_gracieux');
+			if ( $success !== false ) {
+				$this->Flash->success( __d('Email', 'Email.Envoyer' ) );
+			}else{
+					$this->Flash->error( __d('Email', 'Email.EnvoiEchec' ) );
+			}
+			$this->redirect( array('controller' => 'recoursgracieux', 'action' => 'index', $foyer_id ) );
 		}
 
 		/**
