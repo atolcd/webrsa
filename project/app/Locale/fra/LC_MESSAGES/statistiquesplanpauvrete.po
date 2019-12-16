@@ -1,0 +1,31 @@
+# Traductions de statistiquesministerielles.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+# Menu
+# ==============================================================================
+
+msgid "Statistiquesplanpauvrete.menu"
+msgstr "Statistiques Plan Pauvreté"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a1"
+msgstr "Tableau de bord - Instruction RSA"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2"
+msgstr "Tableau de bord - Parcours des Brsa"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b1"
+msgstr "Tableau de suivi de la 1ère orientation"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b4"
+msgstr "Tableau de suivi de l'accompagnement"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b5"
+msgstr "Tableau de suivi des CER"

@@ -761,6 +761,42 @@
 	);
 
 	/**
+	 * Paramétrage du module "Statistiques Plan Pauvreté"
+	 *
+	 * @param array
+	 */
+	Configure::write(
+		'Statistiqueplanpauvrete',
+		array(
+			/**
+			 * Conditions permettant de définit les allocataires dans le champ
+			 * des droits et devoirs.
+			 *
+			 * Ces conditions seront utilisées dans les différents tableaux.
+			 *
+			 * Modèles disponibles: Dossier, Detaildroitrsa, Foyer, Situationdossierrsa,
+			 * Adressefoyer, Personne, Adresse, Prestation, Calculdroitrsa.
+			 */
+			'conditions_droits_et_devoirs' => array(
+				'Situationdossierrsa.etatdosrsa' => array( '2', '3', '4' ),
+				'Calculdroitrsa.toppersdrodevorsa' => '1'
+			),
+			/**
+			 * Complète le querydata avec une jointure sur la table historiquesdroits
+			 * et l'ajout éventuel de conditions pour obtenir ou non des allocataires
+			 * soumis à droits et devoirs.
+			 */
+			'useHistoriquedroit' => false,
+			/**
+			 * Permet de prendre en compte les actions CER de deux manières différente :
+			 * - soit les actions des fiches de candidature (comme le CD 66) : true
+			 * - soit les sujets, sous-sujets et valeurs de sous-sujets des CER (comme le CD 93) : false
+			 */
+			'actionscandidats' => true,
+		)
+	);
+
+	/**
 	 * Permet de spécifier les noms de serveurs servant d'environnement de
 	 * production afin que les mails ne soient pas envoyés à leurs destinataires
 	 * "normaux", mais à l'expéditeur du mail.
