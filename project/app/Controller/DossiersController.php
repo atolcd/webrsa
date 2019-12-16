@@ -615,7 +615,7 @@
 						'conditions' => array(
 							'Orientstruct.personne_id' => $personnesFoyer[$index]['Personne']['id']
 						),
-						'order' => "Orientstruct.date_valid DESC",
+						'order' => "Orientstruct.date_valid DESC NULLS LAST",
 						'contain' => false
 					)
 				);
