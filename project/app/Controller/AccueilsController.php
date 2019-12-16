@@ -370,6 +370,33 @@
             );
         }
 
+        /**
+         * Fiches de prescription modifier par F-RSA
+         *
+         * @return array
+         */
+        protected function _getFichesprescriptionfrsa() {
+            $this->loadModel('Ficheprescription93');
+            $query = array (
+                'conditions' => array(
+                    'Ficheprescription93.frsa_datetransmi::date >= Ficheprescription93.modified::date',
+                    'Ficheprescription93.frsa_datetransmi::date IS NOT NULL',
+                    'Ficheprescription93.referent_id IN ('.$this->idReferent.')',
+                ),
+                'contain' => array(
+                    'Personne',
+                ),
+                'order' => array(
+                    'Ficheprescription93.created ASC',
+                ),
+            );
+
+            return $this->Ficheprescription93->find (
+                'all',
+                $query
+            );
+        }
+
 		/**
 		 * Récupération des rendez-vous du bon département
 		 *

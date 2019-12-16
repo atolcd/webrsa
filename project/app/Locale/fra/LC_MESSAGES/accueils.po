@@ -91,6 +91,9 @@ msgstr "Vos fiches de positionnement de plus de __LIMITE__ mois sans information
 msgid "Accueil.fiche.titreBis"
 msgstr "Vos fiches de positionnement sans information sur le résultat de l'action depuis __LIMITE__ mois"
 
+msgid "Accueil.fiche.titrefrsa"
+msgstr "Vos fiches de positionnement modifiées par F-RSA"
+
 msgid "Accueil.rendezvous.titre"
 msgstr "Vos rendez-vous dans les __LIMITE__ jours à venir"
 
