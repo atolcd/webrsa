@@ -1,0 +1,41 @@
+# Traductions de textsemails.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Textsemails/index/:heading"
+msgstr "Paramétrage des modèles de mails"
+
+msgid "/Textsemails/add/:heading"
+msgstr "Ajout d'un modèle de mail"
+
+msgid "/Textsemails/edit/:heading"
+msgstr "Modification du modèle de mail « #Textemail.name# »"
+
+msgid "/Textsemails/add"
+msgstr "Ajouter"
+
+msgid "/Textsemails/add/:title"
+msgstr "Ajouter un modèle de mail"
+
+msgid "/Textsemails/edit"
+msgstr "Modifier"
+
+msgid "/Textsemails/edit/#Textemail.id#"
+msgstr "Modifier le modèle de mail « #Textemail.name# »"
+
+msgid "/Textsemails/delete"
+msgstr "Supprimer"
+
+msgid "/Textsemails/delete/#Textemail.id#"
+msgstr "Supprimer le modèle de mail« #Textemail.name# »"
+
+msgid "/Textsemails/delete/#Textemail.id# ?"
+msgstr "Réellement supprimer le modèle de mail « #Textemail.name# » ?"

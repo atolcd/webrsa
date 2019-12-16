@@ -48,9 +48,11 @@
 					'filelink',
 					'email',
 					'affecter',
+					'emailaffectersend',
 					'proposer',
 					'deleteproposition',
 					'decider',
+					'emaildecidersend',
 					'envoyer',
 					'traiter',
 					'proposercontestationcreances',
@@ -148,6 +150,37 @@
 			}else{
 				return false;
 			}
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _emailaffectersend(array $record, array $params) {
+			$Email = ClassRegistry::init( 'Email' );
+			$queryEmail = array(
+				'conditions' => array(
+					'Email.modele_id' => $record['Recourgracieux']['id'],
+					'Email.modele' => 'Recourgracieux',
+					'Email.modele_action' => 'affecter'
+				),
+			);
+			$emailInfos = $Email->find('first',$queryEmail );
+			if ( !empty ($emailInfos) ){
+				if (
+					(
+						$record['Recourgracieux']['etat'] == 'ATTINSTRUCTION'
+						|| $record['Recourgracieux']['etat'] == 'INSTRUCTION'
+					)
+					&& $emailInfos['Email']['etat'] == 'CREE'
+				){
+					return true;
+				}
+			}
+			return false;
 		}
 
 		/**
@@ -265,6 +298,35 @@
 			}else{
 				return false;
 			}
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _emaildecidersend(array $record, array $params) {
+			$Email = ClassRegistry::init( 'Email' );
+			$queryEmail = array(
+				'conditions' => array(
+					'Email.modele_id' => $record['Recourgracieux']['id'],
+					'Email.modele' => 'Recourgracieux',
+					'Email.modele_action' => 'decider'
+				),
+			);
+			$emailInfos = $Email->find('first',$queryEmail );
+
+			if ( !empty ($emailInfos) ){
+				if (
+					$record['Recourgracieux']['etat'] == 'ATTSIGNATURE'
+					&& $emailInfos['Email']['etat'] == 'CREE'
+				){
+					return true;
+				}
+			}
+			return false;
 		}
 
 		/**

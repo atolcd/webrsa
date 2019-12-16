@@ -43,9 +43,11 @@
 			$departement = (integer)Configure::read('Cg.departement');
 			$modelDepartement = 'Recourgracieux'.$departement;
 			$fields = array(
-
+				'Foyer.id'
 			);
-
+			$query['contain'] = array (
+				'Foyer'
+			);
 			if (isset($this->Recourgracieux->{$modelDepartement})) {
 				if (!isset($query['joins'])) {
 					$query['joins'] = array();
@@ -74,7 +76,6 @@
 				),
 				'conditions' => $conditions,
 				'joins' => array(
-					$this->Recourgracieux->join('Foyer'),
 					$this->Recourgracieux->Foyer->join('Personne')
 				),
 				'contain' => false,

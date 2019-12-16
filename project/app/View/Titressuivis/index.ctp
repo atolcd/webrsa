@@ -110,6 +110,8 @@ if( empty( $titresCreanciers ) ) {
 					array(
 						'/Titressuivisinfospayeurs/view/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/',
 						'/Titressuivisinfospayeurs/edit/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/',
+						'/Titressuivisinfospayeurs/emailsend/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/'
+						=> array('class' => 'email',),
 						'/Titressuivisinfospayeurs/answer/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/' => array('class' => 'button add'),
 						'/Titressuivisinfospayeurs/delete/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/' => array('confirm' => true),
 					)

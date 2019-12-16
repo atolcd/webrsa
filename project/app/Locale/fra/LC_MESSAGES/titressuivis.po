@@ -136,6 +136,12 @@ msgstr "Retour payeur"
 msgid "/Titressuivisinfospayeurs/answer/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/"
 msgstr "Ajouter un retour du payeur"
 
+msgid "/Titressuivisinfospayeurs/emailsend"
+msgstr "Envoyer l'email"
+
+msgid "/Titressuivisinfospayeurs/emailsend/#Titresuiviinfopayeur.id#/#Titresuiviinfopayeur.titrecreancier_id#/"
+msgstr "Envoyer l'email"
+
 msgid "/Titressuivisinfospayeurs/delete"
 msgstr "Supprimer"
 

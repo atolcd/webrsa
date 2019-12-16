@@ -1019,6 +1019,14 @@
 	Configure::write('Resultats.ligne.erreur', 'red');
 
 	/**
+	 * Activation du module de gestion des Emails pour
+	 * - les recours gracieux,
+	 * - les créances,
+	 * 'Emails.Activer' => true pour activer le module recours gracieux, false pour inactiver
+	 */
+	Configure::write('Emails.Activer',true);
+
+	/**
 	 * Activation du module Vagues D'Orientations
 	 * Spécifique CD 93
 	 * 'Indicateursmensuels.vaguesdorientations' => true pour activée, false pour inactivée
