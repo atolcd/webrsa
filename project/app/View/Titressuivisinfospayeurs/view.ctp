@@ -30,6 +30,9 @@ echo $this->Default3->view(
 );
 
 echo '<br>';
+echo $this->element( 'Email/view' );
+
+echo '<br>';
 echo "<h2>". __m('Titresuiviinfopayeur::index::titleRetourPayeur')."</h2>";
 
 if($titresInfosEnCours['Titresuiviinfopayeur']['retourpayeur'] !== 'null') {

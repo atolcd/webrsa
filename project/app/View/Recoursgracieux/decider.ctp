@@ -218,6 +218,9 @@
 		array('options' => $options)
 	);
 
+	// ******************* Partie Email ****************
+	echo $this->element( 'Email/edit' );
+
 	echo $this->Default3->DefaultForm->buttons( array( 'Save', 'Cancel' ) );
 	echo $this->Default3->DefaultForm->end();
 

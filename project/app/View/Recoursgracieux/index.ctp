@@ -34,10 +34,14 @@ if( empty( $recoursgracieux ) ) {
 					'/Recoursgracieux/email/#Recourgracieux.id#',
 					'/Recoursgracieux/edit/#Recourgracieux.id#',
 					'/Recoursgracieux/affecter/#Recourgracieux.id#',
+					'/Recoursgracieux/emailaffectersend/#Recourgracieux.id#/affecter/'
+						=> array('class' => 'email',),
 					'/Recoursgracieux/proposer/#Recourgracieux.id#'
 						=> array('class' => 'edit',),
 					'/Recoursgracieux/decider/#Recourgracieux.id#'
 						=> array('class' => 'edit',),
+					'/Recoursgracieux/emaildecidersend/#Recourgracieux.id#/decider/'
+						=> array('class' => 'email',),
 					'/Recoursgracieux/envoyer/#Recourgracieux.id#'
 						=> array('class' => 'affecter',),
 					'/Recoursgracieux/traiter/#Recourgracieux.id#'

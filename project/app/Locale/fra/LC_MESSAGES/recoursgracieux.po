@@ -33,6 +33,9 @@ msgstr "Ajout d'un recours gracieux"
 msgid "/Recoursgracieux/edit/:heading"
 msgstr "Édition"
 
+msgid "/Recoursgracieux/email/:heading"
+msgstr "Emails"
+
 msgid "/Recoursgracieux/affecter/:heading"
 msgstr "Affectation"
 
@@ -186,6 +189,18 @@ msgstr "État depuis"
 
 msgid "since"
 msgstr " depuis le "
+
+msgid "/Recoursgracieux/emailaffectersend"
+msgstr "Envoyer l'email"
+
+msgid "/Recoursgracieux/emailaffectersend/#Recourgracieux.id#/affecter/"
+msgstr "Envoyer l'email d'affectation"
+
+msgid "/Recoursgracieux/emaildecidersend"
+msgstr "Envoyer l'email"
+
+msgid "/Recoursgracieux/emaildecidersend/#Recourgracieux.id#/decider/"
+msgstr "Envoyer l'email de décision"
 
 ###############################################################################
 # Textes
@@ -379,6 +394,9 @@ msgstr "Non"
 
 msgid "Pièce jointe"
 msgstr "Pièce jointe"
+
+msgid "Retour"
+msgstr "Retour"
 
 ###############################################################################
 # Historique

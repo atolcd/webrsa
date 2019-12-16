@@ -59,35 +59,35 @@
 
 			if( 66 === $departement ) {
 				$items = array(
-					'Liste des aides de l\'APRE/ADRE' => array(
+					__m('typesaidesapres66/index') => array(
 						'url' => array( 'controller' => 'typesaidesapres66', 'action' => 'index' )
 					),
-					'Liste des pièces administratives' => array(
+					__m('piecesaides66/index') => array(
 						'url' => array( 'controller' => 'piecesaides66', 'action' => 'index' )
 					),
-					'Liste des pièces comptables' => array(
+					__m('piecescomptables66/index') => array(
 						'url' => array( 'controller' => 'piecescomptables66', 'action' => 'index' )
 					),
-					'Thèmes de la demande d\'aide APRE/ADRE' => array(
+					__m('themesapres66/index') => array(
 						'url' => array( 'controller' => 'themesapres66', 'action' => 'index' )
 					)
 				);
 			}
 			else if( 93 === $departement ) {
 				$items = array(
-					'Paramètres financiers pour la gestion de l\'APRE' => array(
+					__m('parametresfinanciers/index') => array(
 						'url' => array( 'controller' => 'parametresfinanciers', 'action' => 'index' )
 					),
-					'Participants comités APRE' => array(
+					__m('participantscomites/index') => array(
 						'url' => array( 'controller' => 'participantscomites', 'action' => 'index' )
 					),
-					'Personnes chargées du suivi des aides APRE' => array(
+					__m('suivisaidesapres/index') => array(
 						'url' => array( 'controller' => 'suivisaidesapres', 'action' => 'index' )
 					),
-					'Tiers prestataires de l\'APRE' => array(
+					__m('tiersprestatairesapres/index') => array(
 						'url' => array( 'controller' => 'tiersprestatairesapres', 'action' => 'index' )
 					),
-					'Types d\'aides liées aux personnes chargées du suivi de l\'APRE' => array(
+					__m('suivisaidesaprestypesaides/index') => array(
 						'url' => array( 'controller' => 'suivisaidesaprestypesaides', 'action' => 'index' )
 					)
 				);
@@ -109,32 +109,32 @@
 
 			if( 66 === $departement ) {
 				$items = array(
-					'Motifs de non validation de CER' => array(
+					__m('motifscersnonvalids66/index') => array(
 						'url' => array( 'controller' => 'motifscersnonvalids66', 'action' => 'index' )
 					)
 				);
 			}
 			else if( 93 === $departement ) {
 				$items = array(
-					'Commentaires normés' => array(
+					__m('commentairesnormescers93/index') => array(
 						'url' => array( 'controller' => 'commentairesnormescers93', 'action' => 'index' )
 					),
-					'Métiers exercés' => array(
+					__m('metiersexerces/index') => array(
 						'url' => array( 'controller' => 'metiersexerces', 'action' => 'index' )
 					),
-					'Natures de contrat' => array(
+					__m('naturescontrats/index') => array(
 						'url' => array( 'controller' => 'naturescontrats', 'action' => 'index' )
 					),
-					'Secteurs d\'activité' => array(
+					__m('secteursactis/index') => array(
 						'url' => array( 'controller' => 'secteursactis', 'action' => 'index' )
 					),
-					'Sujets du CER' => array(
+					__m('sujetscers93/index') => array(
 						'url' => array( 'controller' => 'sujetscers93', 'action' => 'index' )
 					),
-					'Sous-sujets du CER' => array(
+					__m('soussujetscers93/index') => array(
 						'url' => array( 'controller' => 'soussujetscers93', 'action' => 'index' )
 					),
-					'Valeurs par sous-sujets du CER' => array(
+					__m('valeursparsoussujetscers93/index') => array(
 						'url' => array( 'controller' => 'valeursparsoussujetscers93', 'action' => 'index' )
 					)
 				);
@@ -180,39 +180,67 @@
 			$items = array ();
 			if( $activateTitreCreancier || $activateRecoursGracieux ) {
 				if( $activateTitreCreancier) {
-					$items['Titres de recette'] = array(
-							'Type du Titre' => array(
+					$items[__m('titrescreanciers')] = array(
+							__m('typestitrescreanciers/index') => array(
 								'url' => array( 'controller' => 'typestitrescreanciers', 'action' => 'index' )
 							),
-							'Motif d\'émission d\'un titre de recette' => array(
+							__m('motifsemissionstitrescreanciers/index') => array(
 								'url' => array( 'controller' => 'motifsemissionstitrescreanciers', 'action' => 'index' )
 							)
 						);
-					$items['Suivi des titres de recette'] = array(
-							'Type d\'annulation/réduction' => array(
+					$items[__m('titressuivi')] = array(
+							__m('typestitrescreanciersannulationsreductions/index') => array(
 								'url' => array( 'controller' => 'typestitrescreanciersannulationsreductions', 'action' => 'index' )
 							),
-							'Type d\'informations payeur' => array(
+							__m('typestitrescreanciersinfospayeurs/index') => array(
 								'url' => array( 'controller' => 'typestitrescreanciersinfospayeurs', 'action' => 'index' )
 							),
-							'Type d\'autres informations' => array(
+							__m('typestitrescreanciersautresinfos/index') => array(
 								'url' => array( 'controller' => 'typestitrescreanciersautresinfos', 'action' => 'index' )
 							)
 						);
 				}
 				if($activateRecoursGracieux ) {
-					$items['Recours Gracieux'] = array(
-							'Origines' => array(
+					$items[__m('titressuivi')] = array(
+							__m('originesrecoursgracieux/index') => array(
 								'url' => array( 'controller' => 'originesrecoursgracieux', 'action' => 'index' )
 							),
-							'Types' => array(
+							__m('typesrecoursgracieux/index') => array(
 								'url' => array( 'controller' => 'typesrecoursgracieux', 'action' => 'index' )
 							),
-							'Motifs Propositions' => array(
+							__m('motifsproposrecoursgracieux/index') => array(
 								'url' => array( 'controller' => 'motifsproposrecoursgracieux', 'action' => 'index' )
 							)
 						);
 				}
+			}else{
+				$items = array( 'disabled' => true );
+			}
+
+			return $items;
+		}
+
+		/**
+		 * Paramétrages des EMAILS.
+		 *
+		 * @return array
+		 */
+		protected function _emails() {
+			$activateEmails = Configure::read( 'Emails.Activer' );
+
+			$items = array ();
+			if( $activateEmails ) {
+				$items = array(
+					__m('emailsdestinataires/index') => array(
+							'url' => array( 'controller' => 'emailsdestinataires', 'action' => 'index' )
+					),
+					__m('textsemails/index') => array(
+						'url' => array( 'controller' => 'textsemails', 'action' => 'index' )
+					),
+					__m('piecesemails/index') => array(
+						'url' => array( 'controller' => 'piecesemails', 'action' => 'index' )
+					),
+				);
 			}else{
 				$items = array( 'disabled' => true );
 			}
@@ -230,28 +258,28 @@
 
 			if( 66 === $departement && true == Configure::read( 'Module.Cui.enabled' ) ) {
 				$items = array(
-					'Motifs de rupture' => array(
+					__m('motifsrupturescuis66/index') => array(
 						'url' => array( 'controller' => 'motifsrupturescuis66', 'action' => 'index' )
 					),
-					'Motifs de suspension' => array(
+					__m('motifssuspensioncuis66/index') => array(
 						'url' => array( 'controller' => 'motifssuspensioncuis66', 'action' => 'index' )
 					),
-					'Motifs de décision de refus' => array(
+					__m('motifsrefuscuis66/index') => array(
 						'url' => array( 'controller' => 'motifsrefuscuis66', 'action' => 'index' )
 					),
-					'Pièces liées aux mails employeur' => array(
+					__m('piecesmailscuis66/index') => array(
 						'url' => array( 'controller' => 'piecesmailscuis66', 'action' => 'index' )
 					),
 					__d( 'piecemanquantecui66', 'Pièces manquantes mails employeur' ) => array(
 						'url' => array( 'controller' => 'piecesmanquantescuis66', 'action' => 'index' )
 					),
-					'Lien entre les secteurs et les taux' => array(
+					__m('tauxcgscuis66/index') => array(
 						'url' => array( 'controller' => 'tauxcgscuis66', 'action' => 'index' )
 					),
-					'Modèles de mails pour les employeurs' => array(
+					__m('textsmailscuis66/index') => array(
 						'url' => array( 'controller' => 'textsmailscuis66', 'action' => 'index' )
 					),
-					'Types de contrats liés aux secteurs du CUI (marchand/non marchand)' => array(
+					__m('typescontratscuis66/index') => array(
 						'url' => array( 'controller' => 'typescontratscuis66', 'action' => 'index' )
 					),
 				);
@@ -270,10 +298,10 @@
 		 */
 		protected function _dsps() {
 			$items = array(
-				'Codes ROME pour les secteurs' => array(
+				__m('codesromesecteursdsps66/index') => array(
 					'url' => array( 'controller' => 'codesromesecteursdsps66', 'action' => 'index' )
 				),
-				'Codes ROME pour les métiers' => array(
+				__m('codesromemetiersdsps66/index') => array(
 					'url' => array( 'controller' => 'codesromemetiersdsps66', 'action' => 'index' )
 				)
 			);
@@ -289,10 +317,10 @@
 		protected function _requestsmanager() {
 			if( true == Configure::read( 'Requestmanager.enabled' ) ) {
 				$items = array(
-					'Catégories' => array(
+					__m('codesromemetiersdsps66/index') => array(
 						'url' => array( 'controller' => 'requestgroups', 'action' => 'index' )
 					),
-					'Requêtes' => array(
+					__m('requestsmanager/savedindex') => array(
 						'url' => array( 'controller' => 'requestsmanager', 'action' => 'savedindex' )
 					)
 				);
@@ -314,21 +342,21 @@
 
 			if( true == in_array( $departement, array( 58, 66, 93 ), true ) ) {
 				$items = array(
-					'Fonctions des membres des EP' => array(
+					__m('fonctionsmembreseps/index') => array(
 						'url' => array( 'controller' => 'fonctionsmembreseps', 'action' => 'index' )
 					),
-					'Regroupements des EP' => array(
+					__m('regroupementseps/index') => array(
 						'url' => array( 'controller' => 'regroupementseps', 'action' => 'index' )
 					),
-					'Motifs de demandes de réorientation' => array(
+					__m('motifsreorientseps93/index') => array(
 						'disabled' => 93 !== $departement,
 						'url' => array( 'controller' => 'motifsreorientseps93', 'action' => 'index' )
 					),
-					'Compositions des regroupements des EP' => array(
+					__m('compositionsregroupementseps/index') => array(
 						'disabled' => 66 !== $departement,
 						'url' => array( 'controller' => 'compositionsregroupementseps', 'action' => 'index' )
 					),
-					'Sanctions pour les EP' => array(
+					__m('listesanctionseps58/index') => array(
 						'disabled' => 58 !== $departement,
 						'url' => array( 'controller' => 'listesanctionseps58', 'action' => 'index' )
 					)
@@ -348,10 +376,10 @@
 		 */
 		protected function _entretiens() {
 			$items = array(
-				'Objets de l\'entretien' => array(
+				__m('objetsentretien/index') => array(
 					'url' => array( 'controller' => 'objetsentretien', 'action' => 'index' )
 				),
-				'Permanences' => array(
+				__m('permanences/index') => array(
 					'url' => array( 'controller' => 'permanences', 'action' => 'index' )
 				)
 			);
@@ -369,25 +397,25 @@
 
 			if( 66 === $departement ) {
 				$items = array(
-					'Création des partenaires / prestataires' => array(
+					__m('partenaires/index') => array(
 						'url' => array( 'controller' => 'partenaires', 'action' => 'index' )
 					),
-					'Création des contacts' => array(
+					__m('contactspartenaires/index')  => array(
 						'url' => array( 'controller' => 'contactspartenaires', 'action' => 'index' )
 					),
-					'Création des actions' => array(
+					__m('actionscandidats/index')  => array(
 						'url' => array( 'controller' => 'actionscandidats', 'action' => 'index' )
 					),
-					'Création des programmes région' => array(
+					__m('progsfichescandidatures66/index')  => array(
 						'url' => array( 'controller' => 'progsfichescandidatures66', 'action' => 'index' )
 					),
-					'Création des valeurs programmes région' => array(
+					__m('valsprogsfichescandidatures66/index')  => array(
 						'url' => array( 'controller' => 'valsprogsfichescandidatures66', 'action' => 'index' )
 					),
-					'Motifs de sortie' => array(
+					__m('motifssortie/index')  => array(
 						'url' => array( 'controller' => 'motifssortie', 'action' => 'index' )
 					),
-					'Raisons sociales des partenaires' => array(
+					__m('raisonssocialespartenairescuis66/index')  => array(
 						'url' => array( 'controller' => 'raisonssocialespartenairescuis66', 'action' => 'index' )
 					)
 				);
@@ -409,13 +437,13 @@
 
 			if( 66 === $departement ) {
 				$items = array(
-					'Motifs de fiche de liaison' => array(
+					__m('motiffichedeliaisons/index') => array(
 						'url' => array( 'controller' => 'motiffichedeliaisons', 'action' => 'index' )
 					),
-					'Logiciels ou sites consultés' => array(
+					__m('logicielprimos/index') => array(
 						'url' => array( 'controller' => 'logicielprimos', 'action' => 'index' )
 					),
-					'Proposition de primoanalyse' => array(
+					__m('propositionprimos/index') => array(
 						'url' => array( 'controller' => 'propositionprimos', 'action' => 'index' )
 					)
 				);
@@ -485,71 +513,71 @@
 			$departement = (integer)Configure::read( 'Cg.departement' );
 
 			$items = array(
-				'Décisions PDO' => array(
+				__m('decisionspdos/index')=> array(
 					'url' => array( 'controller' => 'decisionspdos', 'action' => 'index' )
 				),
-				'Descriptions des traitements PDO' => array(
+				__m('descriptionspdos/index') => array(
 					'url' => array( 'controller' => 'descriptionspdos', 'action' => 'index' )
 				),
-				'Origines de PDO' => array(
+				__m('originespdos/index') => array(
 					'url' => array( 'controller' => 'originespdos', 'action' => 'index' )
 				),
-				'Module de courriers PCG' => array(
+				__m('courrierPCG') => array(
 					'disabled' => ( 66 !== $departement ),
-					'Type de courriers PCG' => array(
+					__m('typescourrierspcgs66/index') => array(
 						'url' => array( 'controller' => 'typescourrierspcgs66', 'action' => 'index' )
 					),
-					'Modèles liés aux types de courriers' => array(
+					__m('modelestypescourrierspcgs66/index') => array(
 						'url' => array( 'controller' => 'modelestypescourrierspcgs66', 'action' => 'index' )
 					),
-					'Pièces liées aux modèles de courriers' => array(
+					__m('piecesmodelestypescourrierspcgs66/index') => array(
 						'url' => array( 'controller' => 'piecesmodelestypescourrierspcgs66', 'action' => 'index' )
 					)
 				),
-				'Organismes auxquels seront transmis les dossiers PCG' => array(
+				__m('orgstransmisdossierspcgs66/index') => array(
 					'disabled' => ( 66 !== $departement ),
 					'url' => array( 'controller' => 'orgstransmisdossierspcgs66', 'action' => 'index' )
 				),
-				'Décisions de dossiers PCG' => array(
+				__m('decisionPCG') => array(
 					'disabled' => ( 66 !== $departement ),
-					'Compositions des foyers PCG' => array(
+					__m('composfoyerspcgs66/index') => array(
 						'url' => array( 'controller' => 'composfoyerspcgs66', 'action' => 'index' )
 					),
-					'Décisions PCG' => array(
+					__m('decisionspcgs66/index') => array(
 						'url' => array( 'controller' => 'decisionspcgs66', 'action' => 'index' )
 					),
-					'Questions PCG' => array(
+					__m('questionspcgs66/index') => array(
 						'url' => array( 'controller' => 'questionspcgs66', 'action' => 'index' )
 					)
 				),
-				'Pôles chargés des dossiers PCG' => array(
+				__m('polesdossierspcgs66/index') => array(
 					'disabled' => ( 66 !== $departement ),
 					'url' => array( 'controller' => 'polesdossierspcgs66', 'action' => 'index' )
 				),
-				'Situations PDO' => array(
+				__m('situationspdos/index') => array(
  					'url' => array( 'controller' => 'situationspdos', 'action' => 'index' )
 				),
-				'Statuts PDO' => array(
+				 __m('statutspdos/index')=> array(
 					'url' => array( 'controller' => 'statutspdos', 'action' => 'index' )
 				),
-				'Types de notifications PDO' => array(
+				__m('typesnotifspdos/index') => array(
 					'url' => array( 'controller' => 'typesnotifspdos', 'action' => 'index' )
 				),
-				'Types de traitements PDO' => array(
+				__m('traitementstypespdos/index') => array(
 					'disabled' => ( 66 === $departement ),
 					'url' => array( 'controller' => 'traitementstypespdos', 'action' => 'index' )
 				),
-				'Types de PDO' => array(
+				__m('typespdos/index') => array(
 					'url' => array( 'controller' => 'typespdos', 'action' => 'index' )
 				),
-				'Types de RSA' => array(
+				__m('typesrsapcgs66/index') => array(
 					'disabled' => ( 66 !== $departement ),
 					'url' => array( 'controller' => 'typesrsapcgs66', 'action' => 'index' )
 				),
-				'Courriers pour les traitements PDO' => array(
+				__m('courrierspdos/index') => array(
 					'url' => array( 'controller' => 'courrierspdos', 'action' => 'index' )
 				),
-				'Zones supplémentaires pour les courriers de traitements PDO' => array(
+				__m('textareascourrierspdos/index') => array(
 					'url' => array( 'controller' => 'textareascourrierspdos', 'action' => 'index' )
 				)
 			);
@@ -566,17 +594,17 @@
 			$departement = (integer)Configure::read( 'Cg.departement' );
 
 			$items = array(
-				'Objets de rendez-vous' => array(
+				__m('typesrdv/index') => array(
 					'url' => array( 'controller' => 'typesrdv', 'action' => 'index' )
 				),
-				'Statuts de rendez-vous' => array(
+				__m('statutsrdvs/index') => array(
 					'url' => array( 'controller' => 'statutsrdvs', 'action' => 'index' )
 				),
-				'Thématiques des rendez-vous' => array(
+				__m('thematiquesrdvs/index') => array(
 					'disabled' => false == Configure::read( 'Rendezvous.useThematique' ),
 					'url' => array( 'controller' => 'thematiquesrdvs', 'action' => 'index' )
 				),
-				'Passages en commissions des rendez-vous' => array(
+				__m('statutsrdvs_typesrdv/index') => array(
 					'disabled' => ( 58 !== $departement ),
 					'url' => array( 'controller' => 'statutsrdvs_typesrdv', 'action' => 'index' )
 				)
@@ -593,13 +621,13 @@
 		protected function _dashboards() {
 			if( true == Configure::read( 'Module.Dashboards.enabled' ) ) {
 				$items = array(
-					'Définir les rôles' => array(
+					__m('roles/index') => array(
 						'url' => array('controller' => 'roles', 'action' => 'index')
 					),
-					'Catégories de rôles (onglets)' => array(
+					__m('categoriesactionroles/index') => array(
 						'url' => array('controller' => 'categoriesactionroles', 'action' => 'index')
 					),
-					'Action des rôles' => array(
+					__m('actionroles/index') => array(
 						'url' => array('controller' => 'actionroles', 'action' => 'index')
 					)
 				);
@@ -618,10 +646,10 @@
 		 */
 		protected function _tags() {
 			$items = array(
-				'Catégories de tags' => array(
+				__m('categorietags/index') => array(
 					'url' => array( 'controller' => 'categorietags', 'action' => 'index' )
 				),
-				'Valeurs de tags' => array(
+				__m('valeurstags/index') => array(
 					'url' => array( 'controller' => 'valeurstags', 'action' => 'index' )
 				)
 			);
@@ -637,94 +665,95 @@
 			$departement = (integer)Configure::read( 'Cg.departement' );
 
 			$items = array(
-				'Page d\'accueil' => array(
-					'Article en page d\'accueil' => array(
+				__m('acceuil') => array(
+					__m('accueilsarticles/index') => array(
 						'url' => array( 'controller' => 'accueilsarticles', 'action' => 'index' )
 					),
-					'Correspondance Utilisateurs / Référents' => array(
+					__m('accueilscorrespondances/index') => array(
 						'url' => array( 'controller' => 'accueilscorrespondances', 'action' => 'index' )
 					),
 				),
-				'Actions d\'insertion' => array(
+				__m('actions/index') => array(
 					'disabled' => 66 === $departement,
 					'url' => array( 'controller' => 'actions', 'action' => 'index' )
 				),
-				66 === $departement ? 'APRE/ADRE' : 'APRE' => $this->_apres(),
-				'Cantons' => array(
+				66 === $departement ? __m('APRE/ADRE') : __m('APRE') => $this->_apres(),
+				__m('cantons/index') => array(
 					'disabled' => false == Configure::read( 'CG.cantons' ),
 					'url' => array( 'controller' => 'cantons', 'action' => 'index' )
 				),
-				'Catégorie des pièces jointes' => array(
+				__m('categoriespiecesjointes/index') => array(
 					'disabled' => !Configure::read( 'Module.Piecejointe' ),
 					'url' => array( 'controller' => 'categoriespiecesjointes', 'action' => 'index' )
 				),
-				'CER' => $this->_contratsinsertion(),
+				__m('CER') => $this->_contratsinsertion(),
 				__d( 'parametrages', '/Parametrages/cataloguesromesv3/:heading' ) => $this->_cataloguesromesv3(),
 				__d( 'communautessrs', '/Communautessrs/index/:heading' ) => array(
 					'disabled' => ( 93 !== $departement ),
 					'url' => array( 'controller' => 'communautessrs', 'action' => 'index' )
 				),
-				'Créances' => $this->_creances(),
-				'CUI' => $this->_cuis(),
-				'DSP' => $this->_dsps(),
-				'Editeur de requêtes' => $this->_requestsmanager(),
-				'Équipes pluridisciplinaires' => $this->_eps(),
-				'Entretiens' => $this->_entretiens(),
-				'Fiches de candidature' => $this->_actionscandidats_personnes(),
-				'Fiches de liaisons' => $this->_fichedeliaisons(),
-				'Fiches de positionnement' => $this->_fichesprescriptions93(),
-				'Module FSE' => $this->_modulefse93(),
-				'PDO' => $this->_pdos(),
-				'Référents pour les structures' => array(
+				__m('Créances') => $this->_creances(),
+				__m('CUI') => $this->_cuis(),
+				__m('DSP') => $this->_dsps(),
+				__m('requestsmanager') => $this->_requestsmanager(),
+				__m('eps') => $this->_eps(),
+				__m('emails') => $this->_emails(),
+				__m('entretiens') => $this->_entretiens(),
+				__m('actionscandidats_personnes') => $this->_actionscandidats_personnes(),
+				__m('fichedeliaisons') => $this->_fichedeliaisons(),
+				__m('fichesprescriptions93') => $this->_fichesprescriptions93(),
+				__m('modulefse93') => $this->_modulefse93(),
+				__m('pdos') => $this->_pdos(),
+				__m('referents/index') => array(
 					'url' => array( 'controller' => 'referents', 'action' => 'index' )
 				),
-				'Relances SMS' => array(
+				__m('relances') => array(
 					'disabled' => 66 !== $departement,
-					'Paramétrage des relances' => array(
+					__m('relances/index') => array(
 						'url' => array( 'controller' => 'relances', 'action' => 'index' )
 					),
-					'Logs des relances' => array(
+					__m('relanceslogs/index') => array(
 						'url' => array( 'controller' => 'relanceslogs', 'action' => 'index' )
 					),
 				),
-				'Rendez-vous' => $this->_rendezvous(),
-				'Services' => array(
+				__m('rendezvous') => $this->_rendezvous(),
+				__m('services66/index') => array(
 					'disabled' => 66 !== $departement,
 					'url' => array( 'controller' => 'services66', 'action' => 'index' )
 				),
-				'Services instructeurs' => array(
+				__m('servicesinstructeurs/index') => array(
 					'url' => array( 'controller' => 'servicesinstructeurs', 'action' => 'index' )
 				),
-				'Sites d\'actions médico-sociale COVs' => array(
+				__m('sitescovs58/index') => array(
 					'disabled' => ( 58 !== $departement ),
 					'url' => array( 'controller' => 'sitescovs58', 'action' => 'index' )
 				),
-				'Statistiques DREES' => array(
-					'Paramétrage des organismes DREES' => array(
+				__m('drees') => array(
+					__m('dreesorganismes/index') => array(
 						'url' => array('controller' => 'dreesorganismes', 'action' => 'index' )
 					),
-					'Paramétrage des actions CER DREES' => array(
+					__m('dreesactionscers/index') => array(
 						'url' => array('controller' => 'dreesactionscers', 'action' => 'index' )
 					),
 				),
-				'Structures référentes' => array(
+				__m('structuresreferentes/index') => array(
 					'url' => array( 'controller' => 'structuresreferentes', 'action' => 'index' )
 				),
-				'Tableau de bord' => $this->_dashboards(),
-				'Tags' => $this->_tags(),
-				'Types d\'actions' => array(
+				__m('dashboards') => $this->_dashboards(),
+				__m('tags') => $this->_tags(),
+				__m('typesactions/index') => array(
 					'disabled' => 66 === $departement,
 					'url' => array( 'controller' => 'typesactions', 'action' => 'index' )
 				),
-				'Types d\'orientations' => array(
+				__m('typesorients/index') => array(
 					'url' => array( 'controller' => 'typesorients', 'action' => 'index' )
 				),
-				'Vagues d\'orientation' => array(
+				__m('vaguesdorientations/index') => array(
 					'Paramétrage des dates des vagues' => array(
 						'url' => array( 'controller' => 'vaguesdorientations', 'action' => 'index' )
 					),
 				),
-				'Zones géographiques' => array(
+				__m('zonesgeographiques/index') => array(
 					'url' => array( 'controller' => 'zonesgeographiques', 'action' => 'index' )
 				)
 			);

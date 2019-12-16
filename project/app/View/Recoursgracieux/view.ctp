@@ -194,6 +194,9 @@
 		echo "<h2>".__m('Recourgracieux::fileuploader::titleFileView')."</h2>" ;
 		echo $this->Fileuploader->results($piecesjointes);
 
+		echo '<br>';
+		echo $this->element( 'Email/view' );
+
 		if( isset($historiques) && !empty($historiques)) {
 			echo '<br><br> <h1>' . __m('Recoursgracieux::view::history') .  '</h1>';
 			echo $this->Default3->index(
