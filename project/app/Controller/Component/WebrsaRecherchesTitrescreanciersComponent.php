@@ -77,7 +77,7 @@
 			$options = parent::_optionsRecords( $params );
 
 			if( $departement === 58 ) {
-				$options['Propoorientationcov58']['referentorientant_id'] = $Controller->Dossier->Foyer->Personne->PersonneReferent->Referent->find( 'list', array( 'order' => array( 'Referent.nom' ) ) );
+				$options['Propoorientationcov58']['referentorientant_id'] = $Controller->Titrecreancier->Creance->Foyer->Personne->PersonneReferent->Referent->find( 'list', array( 'order' => array( 'Referent.nom' ) ) );
 			}
 
 			$options = ClassRegistry::init('WebrsaOptionTag')->optionsRecords($options);

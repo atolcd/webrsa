@@ -465,6 +465,7 @@ $irregularPlural = array(
 	'requestmanager' => 'requestsmanager',
 	'requestgroup' => 'requestgroups',
 	'adresse_canton' => 'adresses_cantons',
+	'canton_sitecov58' => 'cantons_sitescovs58',
 	// Tags
 	'categorietag' => 'categorietags',
 	'valeurtag' => 'valeurstags',
