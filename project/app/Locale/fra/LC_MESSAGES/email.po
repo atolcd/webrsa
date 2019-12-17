@@ -41,10 +41,10 @@ msgid "Email.entete_email"
 msgstr "Informations email"
 
 msgid "Email.emailredacteur"
-msgstr "Adresse email du redacteur (expéditeur)"
+msgstr "Adresse email de l'expéditeur"
 
 msgid "Email.emaildestinataire"
-msgstr "Adresse email de l'employeur (destinataire)"
+msgstr "Adresse email du destinataire"
 
 msgid "Email.insertiondate"
 msgstr "Date de création"
