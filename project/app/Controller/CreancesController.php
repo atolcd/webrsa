@@ -667,14 +667,8 @@
 		 *
 		 */
 		public function exportcsv() {
-			$options = $this->Creance->search( Hash::expand( $this->request->params['named'], '__' ) );
-
-			unset( $options['limit'] );
-			$dossierEntrantsCreanciers = $this->Creance->find( 'all', $options );
-
-            $this->_setOptions();
-			$this->layout = '';
-			$this->set( compact( 'headers', 'dossierEntrantsCreanciers' ) );
+			$Recherches = $this->Components->load( 'WebrsaRecherchesCreances' );
+			$Recherches->exportcsv();
 		}
 
 		/**

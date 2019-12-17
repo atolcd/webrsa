@@ -1309,11 +1309,19 @@
 		}
 
 		/**
-		 * Export CSV
+		 * Export CSV Validation Cohorte
 		 */
 		public function exportcsv_validation() {
 			$Cohortes = $this->Components->load( 'WebrsaCohortesTitrescreanciers' );
 			$Cohortes->exportcsv( array( 'modelRechercheName' => 'WebrsaCohorteTitrecreancierValidation' ) );
+		}
+
+		/**
+		 * Export CSV des recherches
+		 */
+		public function exportcsv() {
+			$Recherches = $this->Components->load( 'WebrsaRecherchesTitrescreanciers' );
+			$Recherches->exportcsv();
 		}
 
 		/**
