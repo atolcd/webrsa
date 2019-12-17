@@ -295,7 +295,7 @@
                     )
                 )
 			);
-			//debug($piecejointeFpj);
+
 			foreach($piecejointeFpj as $key => $piecejointe) {
 				$piecesjointes[] = $piecejointe['Fichiermodule'];
 			}
@@ -441,40 +441,65 @@
 			$fichier = $this->Foyerpiecejointe->find('first', array(
 				'fields' => array(
 					'Categoriepiecejointe.nom',
-					'Categoriepiecejointe.mailauto'
+					'Categoriepiecejointe.mailauto',
+					'Foyerpiecejointe.created',
+					'Foyerpiecejointe.foyer_id'
 				),
 				'conditions' => array('Foyerpiecejointe.id' => $id)
 			));
-			$dossier = $this->Foyerpiecejointe->Foyer->find('first', array(
-				'fields' => 'Dossier.numdemrsa',
-				'conditions' => array(
-					'Foyer.id' => $foyer_id
-				)
-			));
-
+			debug($fichier);
 			if( $fichier['Categoriepiecejointe']['mailauto'] == 1 ) {
+				$personnes = $this->Foyerpiecejointe->Foyer->Personne->find('all', array(
+					'conditions' => array(
+						'Personne.foyer_id' => $foyer_id,
+						'Prestation.rolepers' => 'DEM'
+					),
+				));
 				// Envoi du mail
-				$success = true;
+				$success = false;
 				try {
-					$url = Router::url(
+					// Initialisation du user à enregistrer
+					$User = ClassRegistry::init( 'User' );
+					$user = $User->find(
+						'first',
 						array(
-							'controller' => 'Foyerspiecesjointes',
-							'action' => 'index',
-							$foyer_id
-						),
-						true
+							'conditions' => array(
+								'User.id' => AuthComponent::user('id')
+							)
+						)
 					);
+
+					// Configuration du mail
 					$configName = WebrsaEmailConfig::getName( 'piece_jointe' );
 					$Email = new CakeEmail( $configName );
 
 					$Email->to( WebrsaEmailConfig::getValue( 'piece_jointe', 'to', $Email->from() ) );
 
 					$Email->subject( WebrsaEmailConfig::getValue( 'piece_jointe', 'subject', __m('Piecejointe.Email.Subject') ) );
-					$mailBody = __m('Foyerpiecejointe::mail::debut') . $fichier['Categoriepiecejointe']['nom'] . __m('Foyerpiecejointe::mail::milieu') . $dossier['Dossier']['numdemrsa'];
-					$mailBody .= __m('Foyerpiecejointe::mail::lien') . $url;
+
+					// Corps du mail
+					$mailBody = Configure::read('Piecejointe.modelemail');
+					preg_match_all('/#[^#]*+#/', $mailBody, $matches);
+					$allParams = $fichier + $user;
+
+					$mailBody = $this->_mailTraitement($mailBody, $matches, $allParams);
+
+					preg_match('/##([^#]*+#)++/', $mailBody, $matches);
+					$strAllocataire = $matches[0];
+					$strMatch = substr($strAllocataire, 1, strlen($strAllocataire)-2 );
+
+					preg_match_all('/#[^#]*+#/', $strMatch, $matches);
+
+					$lesPersonnes = '';
+					foreach($personnes as $personne) {
+						$lesPersonnes .= $this->_mailTraitement($strMatch, $matches, $personne) .', ';
+					}
+					$lesPersonnes = substr($lesPersonnes, 0, strlen($lesPersonnes)-2);
+
+					$mailBody = str_replace($strAllocataire, $lesPersonnes, $mailBody);
 
 					$result = $Email->send( $mailBody );
-					$success = !empty( $result ) && $success;
+					$success = !empty( $result );
 				} catch( Exception $e ) {
 					$this->log( $e->getMessage(), LOG_ERROR );
 					$success = false;
@@ -487,6 +512,37 @@
 					$this->Flash->error( __m('Foyerpiecejointe::mail::nonenvoye') );
 				}
 			}
+		}
+
+		/**
+		 * Traitement et remplacement des variables du corps de mail
+		 * avec le champs mailauto à 1
+		 */
+		protected function _mailTraitement($chaine, $matches, $params) {
+			foreach($matches[0] as $value) {
+				if( strpos($value, '.') !== false ) {
+					$modelChamps = explode('.' ,trim($value, '#') );
+					if( $modelChamps[1] == 'created' ) {
+						// Formattage de la date
+						App::uses('CakeTime', 'Utility');
+						$created = CakeTime::format($params['Foyerpiecejointe']['created'], '%d/%m/%Y');
+						$chaine = str_replace($value, $created, $chaine);
+					} else if ($modelChamps[1] == 'url') {
+						$url = Router::url(
+							array(
+								'controller' => 'Foyerspiecesjointes',
+								'action' => 'index',
+								$params['Foyerpiecejointe']['foyer_id']
+							),
+							true
+						);
+						$chaine = str_replace($value, $url, $chaine);
+					} else {
+						$chaine = ($modelChamps[0] == 'Dossier') ? str_replace($value, $params[$modelChamps[0]][0][$modelChamps[1]], $chaine) : str_replace($value, $params[$modelChamps[0]][$modelChamps[1]], $chaine);
+					}
+				}
+			}
+			return $chaine;
 		}
 
     }
