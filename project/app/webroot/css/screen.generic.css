@@ -2108,9 +2108,10 @@ body.index.orientsstructs td.action a.impression_changement_referent {
 	background-image: url("../img/icons/printer.png");
 }
 
-input.loading {
+input.loading, .input.loading {
 	background: url("../img/loading.gif") right center no-repeat;
 }
+
 /* CER 93 */
 body.cers93 fieldset#FormationEtExperience div.input.select select,
 body.cers93 fieldset#FormationEtExperience div.input.text input {

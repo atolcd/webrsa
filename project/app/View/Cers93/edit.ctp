@@ -457,7 +457,15 @@
 					true
 				);
 			<?php endif;?>
+			$("Emptrouvromev3Appellationromev3Id").observe( 'click', function() {
+				var elementparent = document.getElementById("Emptrouvromev3Appellationromev3Id").parentNode;
+				elementparent.classList.add("loading");
+				setTimeout(function(){
+					elementparent.classList.remove("loading");
+				}, 2000);
+			} );
 		});
+
 	</script>
 	<!-- Fin bloc 4 -->
 </fieldset>
