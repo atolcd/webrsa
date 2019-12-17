@@ -94,5 +94,11 @@ msgstr "Renvoyer"
 msgid "Send"
 msgstr "Envoyer"
 
+msgid "ENUM::ETAT::CREE"
+msgstr "Créé"
+
+msgid "ENUM::ETAT::SENT"
+msgstr "Envoyé"
+
 msgid "Email.completerchamps"
 msgstr "\n\nMerci de compléter les champs requis pour envoyer cet email."

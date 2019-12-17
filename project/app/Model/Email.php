@@ -54,6 +54,15 @@
 					'rule' => array(NOT_BLANK_RULE_NAME),
 				),
 			),
+			'etat' => array(
+				'inList' => array(
+					'rule' => array('inList',
+						array(
+							'CREE', 'SENT'
+						)
+					)
+				)
+			),
 		);
 
 		/**
@@ -332,7 +341,7 @@
 				$newPaths[] = $pdfPath;
 			}
 
-			return $pdfPath;
+			return $newPaths;
 		}
 
 	}

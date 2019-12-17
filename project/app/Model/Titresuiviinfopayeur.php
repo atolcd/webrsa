@@ -91,16 +91,29 @@
 					)
 				);
 				// Si l'email existe
-				if (! empty ($emailInfos['Email']['etat'])) {
-					//On ne modifie plus et on n'envoie plus
-					$info['/Titressuivisinfospayeurs/edit'] = false;
-					$info['/Titressuivisinfospayeurs/emailsend'] = false;
-					//Mais on peut renseigner une réponse
+				if (! empty ($emailInfos['Email']['etat']) ) {
+					if ( $emailInfos['Email']['etat'] == 'CREE' ) {
+						//Si l'email n'est pas envoyé on peut modifier et envoyer
+						$info['/Titressuivisinfospayeurs/edit'] = true;
+						$info['/Titressuivisinfospayeurs/emailsend'] = true;
+						//Si on a un retour payeur on ne peut pas supprimé
+						if (!empty ($info['Titresuiviinfopayeur']['retourpayeur'])) {
+							$info['/Titressuivisinfospayeurs/delete'] = false;
+						}else{
+							$info['/Titressuivisinfospayeurs/delete'] = true;
+						}
+					}else{
+						//Si l'email est envoyé on ne modifie plus, on n'envoie plus et on ne supprime plus
+						$info['/Titressuivisinfospayeurs/edit'] = false;
+						$info['/Titressuivisinfospayeurs/emailsend'] = false;
+						$info['/Titressuivisinfospayeurs/delete'] = false;
+					}
+					//Mais on peut toujours renseigner une réponse
 					$info['/Titressuivisinfospayeurs/answer'] = true;
 				}else{
 					//Sans email
 					$info['/Titressuivisinfospayeurs/edit'] = true;
-					$info['/Titressuivisinfospayeurs/emailsend'] = true;
+					$info['/Titressuivisinfospayeurs/emailsend'] = false;
 					$info['/Titressuivisinfospayeurs/answer'] = true;
 					//Si on a un retour payeur
 					if (!empty ($info['Titresuiviinfopayeur']['retourpayeur'])) {
