@@ -102,3 +102,15 @@ msgstr "Envoyé"
 
 msgid "Email.completerchamps"
 msgstr "\n\nMerci de compléter les champs requis pour envoyer cet email."
+
+msgid "Email::Edit::InfoDestinatairesVides"
+msgstr "\n !! Attention : Aucun destinataire n'est parametré pour les emails. "
+
+msgid "Email::Edit::LienDestinatairesVides"
+msgstr "Parametrer ici!"
+
+msgid "Email::Edit::InfoModelesVides"
+msgstr "\n !! Attention : Aucun modele d'email n'est parametré pour les emails. "
+
+msgid "Email::Edit::LienModelesVides"
+msgstr "Parametrer ici!"

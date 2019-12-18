@@ -282,19 +282,31 @@
 			$data = $this->request->data;
 			$titrecreancier_id = $data['Titresuiviinfopayeur']['titrecreancier_id'];
 			$success = $this->Titresuiviinfopayeur->save( $data, array( 'validate' => 'first', 'atomic' => false ) );
-			if( $success ) {
-				$data['Email']['modele_id'] = $this->Titresuiviinfopayeur->id;
-				$success = $this->Email->saveAddEdit($data);
-				if( $success ) {
-					$this->Email->commit();
+			if( $success ) {//Si l'enregistrement est un succés
+				if( !empty($data['Email']) ) {//et qu'il y à un email à sauvegarder
+					// Alors on sauvegarde l'email
+					$data['Email']['modele_id'] = $this->Titresuiviinfopayeur->id;
+					$success = $this->Email->saveAddEdit($data);
+					if( $success ) { //Si la sauvegarde de l'email est un succé
+						// On valide le tout et on revoit succé
+						$this->Email->commit();
+						$this->Titresuiviinfopayeur->commit();
+						$this->Flash->success( __( 'Save->success' ) );
+						$this->redirect( array( 'controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
+					} else { // Si la sauvegarde de l'email est un échec
+						//Alors on annule tout
+						$this->Email->rollback();
+						$this->Titresuiviinfopayeur->rollback();
+						$this->Flash->error( __( 'Save->error' ) );
+					}
+				} else {//et qu'il n'y à pas d'email à sauvegarder
+					//Alors on valide et on renvoit succé
 					$this->Titresuiviinfopayeur->commit();
 					$this->Flash->success( __( 'Save->success' ) );
 					$this->redirect( array( 'controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
-				} else {
-					$this->Titresuiviinfopayeur->rollback();
-					$this->Flash->error( __( 'Save->error' ) );
 				}
 			} else {
+				//Si l'enregistrement est un échec on annule tout
 				$this->Titresuiviinfopayeur->rollback();
 				$this->Flash->error( __( 'Save->error' ) );
 			}

@@ -26,8 +26,27 @@
 	if ( $id_textemail_id !== null && !isset( $options['Email']['textemail_id_actif'][$id_textemail_id] ) ){
 		$optionsEmail['Email']['textemail_id_actif'][$id_textemail_id] = $optionsEmail['Email']['textemail_id'][$id_textemail_id];
 	}
-
+	if( empty ($optionsEmail['Email']['emaildestinataire_id_actif']) ) {
+		$lienDestinatairesVides =
+			__d('email','Email::Edit::InfoDestinatairesVides').
+			$this->Xhtml->link(
+				__d('email','Email::Edit::LienDestinatairesVides'),
+				array('controller' => 'emailsdestinataires', 'action' => 'index'),
+				array('class' => 'button',)
+			);
+		$optionsEmail['Email']['emaildestinataire_id_actif'] = array();
+	}
+	if( empty ($optionsEmail['Email']['textemail_id_actif']) ) {
+		$lienModelesVides =
+			__d('email','Email::Edit::InfoModelesVides').
+			$this->Xhtml->link(
+				__d('email','Email::Edit::LienModelesVides'),
+				array('controller' => 'textsemails', 'action' => 'index'),
+				array('class' => 'button',)
+			);
+	}else{ $lienModelesVides =""; }
 	echo '<fieldset><legend id="Choixformulaire">' . __d('email', 'Email.entete_email') . '</legend>'
+		. $lienDestinatairesVides
 		. $this->Default3->subform(
 			$this->Translator->normalize(
 				array(
@@ -56,6 +75,7 @@
 			array( 'options' => $optionsEmail )
 		)
 		. '<fieldset><legend>' . __d( 'email', 'Email.chargermodel' ) . '</legend>'
+		. $lienModelesVides
 		. $this->Default3->subform(
 			$this->Translator->normalize(
 				array(

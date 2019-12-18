@@ -264,7 +264,7 @@
 					$Email->to ( WebrsaEmailConfig::getValue( $configEmail, 'to', $Email->to() ) );
 				}
 				else{
-					$Email->to( $data['emailemployeur'] );
+					$Email->to( $data['emaildestinataire'] );
 				}
 
 				$this->id = $email_id;
