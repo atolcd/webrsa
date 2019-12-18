@@ -253,6 +253,7 @@
 
 				$Email = new CakeEmail( $configEmail );
 				if ( !empty($data['emailredacteur']) ){
+					$Email->from( $data['emailredacteur'] );
 					$Email->replyTo( $data['emailredacteur'] );
 					$Email->cc( $data['emailredacteur'] );
 				}
