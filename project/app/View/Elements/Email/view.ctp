@@ -48,9 +48,9 @@
 					$action = $Email['Email']['sendButton']['action'];
 					$params = $Email['Email']['sendButton']['params'];
 					if ( $Email['Email']['etat'] == 'CREE' ) {
-						$label =__d('Email', 'Send');
+						$label =__d('email', 'Send');
 					}else{
-						$label =__d('Email', 'Resend');
+						$label =__d('email', 'Resend');
 					}
 					echo '<br>'. $this->Xhtml->link(
 						$label,

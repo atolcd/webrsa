@@ -137,9 +137,9 @@
 		public function emailsend($id, $titrecreancier_id) {
 			$success = $this->Email->send($id, 'Titresuiviinfopayeur', 'add_edit',  'mail_titresuivi');
 			if ( $success !== false ) {
-				$this->Flash->success( __d('Email', 'Email.Envoyer' ) );
+				$this->Flash->success( __d('email', 'Email.Envoyer' ) );
 			}else{
-				$this->Flash->error( __d('Email', 'Email.EnvoiEchec' ) );
+				$this->Flash->error( __d('email', 'Email.EnvoiEchec' ) );
 			}
 			$this->redirect( array('controller' => 'titressuivis', 'action' => 'index', $titrecreancier_id ) );
 		}

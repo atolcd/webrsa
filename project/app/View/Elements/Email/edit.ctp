@@ -1,4 +1,5 @@
 <?php
+
 	echo $this->FormValidator->generateJavascript();
 
 	echo '<h2 id="formulaireEmail">' . __d('email', 'Email.titre_email') . '</h2>' ;
@@ -8,7 +9,7 @@
 	}
 
 /***********************************************************************************
- * Formulaire E-mail
+ * Initialisation du Formulaire E-mail
 /***********************************************************************************/
 
 	// Ajoute une checkbox si le fichier lié stocké en base n'est plus actif
@@ -26,25 +27,39 @@
 	if ( $id_textemail_id !== null && !isset( $options['Email']['textemail_id_actif'][$id_textemail_id] ) ){
 		$optionsEmail['Email']['textemail_id_actif'][$id_textemail_id] = $optionsEmail['Email']['textemail_id'][$id_textemail_id];
 	}
-	if( empty ($optionsEmail['Email']['emaildestinataire_id_actif']) ) {
-		$lienDestinatairesVides =
-			__d('email','Email::Edit::InfoDestinatairesVides').
-			$this->Xhtml->link(
-				__d('email','Email::Edit::LienDestinatairesVides'),
-				array('controller' => 'emailsdestinataires', 'action' => 'index'),
-				array('class' => 'button',)
-			);
-		$optionsEmail['Email']['emaildestinataire_id_actif'] = array();
-	}
+	//Vérifie si il y a des textemail_id_actif sinon affiche un message et initialise le tableau
 	if( empty ($optionsEmail['Email']['textemail_id_actif']) ) {
 		$lienModelesVides =
 			__d('email','Email::Edit::InfoModelesVides').
 			$this->Xhtml->link(
 				__d('email','Email::Edit::LienModelesVides'),
 				array('controller' => 'textsemails', 'action' => 'index'),
-				array('class' => 'button',)
+				array('class' => 'button')
 			);
+		$optionsEmail['Email']['textemail_id_actif'] = array();
 	}else{ $lienModelesVides =""; }
+
+	// Ajoute un emaildestinataire_id au select si le emaildestinataire_id stocké en base n'est plus actif
+	$id_emaildestinataire_id = !empty( $this->request->data['Email']['emaildestinataire_id'] ) ? $this->request->data['Email']['emaildestinataire_id'] : null;
+	if ( $id_emaildestinataire_id !== null && !isset( $options['Email']['emaildestinataire_id_actif'][$id_emaildestinataire_id] ) ){
+		$optionsEmail['Email']['emaildestinataire_id_actif'][$id_emaildestinataire_id] = $optionsEmail['Email']['emaildestinataire_id'][$id_emaildestinataire_id];
+	}
+	//Vérifie si il y a des emaildestinataire_id_actif sinon affiche un message et initialise le tableau
+	if( empty ($optionsEmail['Email']['emaildestinataire_id_actif']) ) {
+		$lienDestinatairesVides =
+			__d('email','Email::Edit::InfoDestinatairesVides').
+			$this->Xhtml->link(
+				__d('email','Email::Edit::LienDestinatairesVides'),
+				array('controller' => 'emailsdestinataires', 'action' => 'index'),
+				array('class' => 'button')
+			);
+		$optionsEmail['Email']['emaildestinataire_id_actif'] = array();
+	}else{ $lienDestinatairesVides =""; }
+
+/***********************************************************************************
+ * Formulaire E-mail
+/***********************************************************************************/
+
 	echo '<fieldset><legend id="Choixformulaire">' . __d('email', 'Email.entete_email') . '</legend>'
 		. $lienDestinatairesVides
 		. $this->Default3->subform(
@@ -60,7 +75,7 @@
 					'Email.modeleparent' => array( 'type' => 'hidden' ),
 					'Email.modeleparent_id' => array( 'type' => 'hidden' ),
 					'Email.emailredacteur',
-					'Email.emaildestinataire' => array(
+					'Email.emaildestinataire_id' => array(
 						'type' => 'select',
 						'options' => $optionsEmail['Email']['emaildestinataire_id_actif']
 					),

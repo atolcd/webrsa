@@ -73,17 +73,16 @@
 		 * @return boolean
 		 */
 		public function saveAddEdit( array $data ) {
-			if ( is_numeric($data['Email']['emaildestinataire']) ) {
-				$Emaildestinataire = ClassRegistry::init( 'Emaildestinataire' );
-				$emaildestinatairesInfos = $Emaildestinataire->find( 'first', 
-				array(
-					'fields'=> 'Emaildestinataire.email', 
-					'conditions' => array (
-						'Emaildestinataire.id' => $data['Email']['emaildestinataire']
-					)
-				));
-				$data['Email']['emaildestinataire'] = $emaildestinatairesInfos['Emaildestinataire']['email'];
-			}
+			$Emaildestinataire = ClassRegistry::init( 'Emaildestinataire' );
+			$emaildestinatairesInfos = $Emaildestinataire->find( 'first',
+			array(
+				'fields'=> 'Emaildestinataire.email',
+				'conditions' => array (
+					'Emaildestinataire.id' => $data['Email']['emaildestinataire_id']
+				)
+			));
+			$data['Email']['emaildestinataire'] = $emaildestinatairesInfos['Emaildestinataire']['email'];
+
 			$data['Email']['pj'] = is_array($data['Email']['pj']) ? implode( '_', $data['Email']['pj'] ) : '';
 
 			$this->create($data);
@@ -107,12 +106,12 @@
 			$options['Email']['pj'] = $Piecemail->find( 'list' );
 			$options['Email']['pj_actif'] = $Piecemail->find( 'list', array( 'conditions' => array( 'actif' => true ), 'order' => 'name' ) );
 
-			// Modeles d'e-mail parametrable
+			// Modeles d'email parametrable
 			$Textemail = ClassRegistry::init( 'Textemail' );
 			$options['Email']['textemail_id'] = $Textemail->find( 'list', array( 'order' => 'name' ) );
 			$options['Email']['textemail_id_actif'] = $Textemail->find( 'list', array( 'conditions' => array( 'actif' => true ), 'order' => 'name' ) );
 
-			// Destinataires d'e-mail parametrable
+			// Destinataires d'email parametrable
 			$Emaildestinataire = ClassRegistry::init( 'Emaildestinataire' );
 			$emaildestinatairesInfos = $Emaildestinataire->find( 'all', array( 'order' => 'id' ) );
 			foreach ( $emaildestinatairesInfos AS $emaildestinatairesInfo) {

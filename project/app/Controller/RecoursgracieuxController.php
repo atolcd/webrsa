@@ -1656,9 +1656,9 @@
 			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
 			$success = $this->Email->send($id, 'Recourgracieux', $action,  'mail_recours_gracieux');
 			if ( $success !== false ) {
-				$this->Flash->success( __d('Email', 'Email.Envoyer' ) );
+				$this->Flash->success( __d('email', 'Email.Envoyer' ) );
 			}else{
-					$this->Flash->error( __d('Email', 'Email.EnvoiEchec' ) );
+					$this->Flash->error( __d('email', 'Email.EnvoiEchec' ) );
 			}
 			$this->redirect( array('controller' => 'recoursgracieux', 'action' => 'index', $foyer_id ) );
 		}

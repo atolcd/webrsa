@@ -167,7 +167,7 @@
 			}
 
 			if ( !empty($erreurs) ){
-				$text = "[[[----------ERREURS----------]]]\n" . implode("\n", $erreurs) . __d('Email','Email.completerchamps');
+				$text = "[[[----------ERREURS----------]]]\n" . implode("\n", $erreurs) . __d('email','Email.completerchamps');
 			}
 
 			$json = array(
