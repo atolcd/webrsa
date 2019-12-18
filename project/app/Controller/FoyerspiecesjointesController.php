@@ -447,7 +447,7 @@
 				),
 				'conditions' => array('Foyerpiecejointe.id' => $id)
 			));
-			debug($fichier);
+
 			if( $fichier['Categoriepiecejointe']['mailauto'] == 1 ) {
 				$personnes = $this->Foyerpiecejointe->Foyer->Personne->find('all', array(
 					'conditions' => array(
