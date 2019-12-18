@@ -20,7 +20,10 @@
 				'Titrecreancier.dtemissiontitre',
 				'Titrecreancier.numtitr',
 				'Titrecreancier.mnttitr',
-				'Titrecreancier.typetitrecreancier_id'=> array( 'type' => 'select' ),
+				'Titrecreancier.typetitrecreancier_id' => array(
+					'type' => 'select',
+					'options' => $options['Typetitrecreancier']['type']
+				),
 				'Titrecreancier.dtvalidation',
 				'Titrecreancier.etat',
 				'Titrecreancier.mention',
