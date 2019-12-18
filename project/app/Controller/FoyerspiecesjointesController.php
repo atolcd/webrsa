@@ -398,6 +398,7 @@
 					'Fichiermodule.name',
 					'Categoriepiecejointe.nom',
 					'Foyerpiecejointe.id',
+					'Categoriepiecejointe.id',
 				),
 				'conditions' => array('Foyerpiecejointe.id' => $id)
 				)
