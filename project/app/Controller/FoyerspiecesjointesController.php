@@ -9,7 +9,9 @@
 	 */
 	App::uses( 'LocaleHelper', 'View/Helper' );
 	App::uses( 'AppController', 'Controller' );
-    App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
+	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
+	App::uses( 'WebrsaEmailConfig', 'Utility' );
+	App::uses( 'CakeEmail', 'Network/Email' );
 
     /**
 	 * La classe FoyerspiecesjointesController ...
