@@ -829,7 +829,7 @@
 			if( isset( $this->request->data['Cancel'] ) ) {
 				$this->Titrecreancier->id = $titrecreancier_id;
 				$this->Jetons2->release( $dossier_id );
-				$this->redirect( array( 'action' => 'index', $titrecreancier_id ) );
+				$this->redirect( array( 'action' => 'index', $creance_id ) );
 			}
 
 			// Essai de sauvegarde
