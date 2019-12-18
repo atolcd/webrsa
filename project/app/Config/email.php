@@ -523,15 +523,15 @@ class EmailConfig {
 		$this->mail_recours_gracieux['password'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_PASSWORD');
 		$this->mail_recours_gracieux['client'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_CLIENT');
 
-		$this->mail_titresuivi['transport'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_TRANSPORT');
-		$this->mail_titresuivi['from'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_FROM');
-		$this->mail_titresuivi['replyTo'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_REPLYTO');
-		$this->mail_titresuivi['to'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_TO');
-		$this->mail_titresuivi['subject'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_SUBJECT');
-		$this->mail_titresuivi['host'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_HOST');
-		$this->mail_titresuivi['username'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_USERNAME');
-		$this->mail_titresuivi['password'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_PASSWORD');
-		$this->mail_titresuivi['client'] = env('EMAIL_CONFIG_MAIL_TITRESUIVIT_CLIENT');
+		$this->mail_titresuivi['transport'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_TRANSPORT');
+		$this->mail_titresuivi['from'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_FROM');
+		$this->mail_titresuivi['replyTo'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_REPLYTO');
+		$this->mail_titresuivi['to'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_TO');
+		$this->mail_titresuivi['subject'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_SUBJECT');
+		$this->mail_titresuivi['host'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_HOST');
+		$this->mail_titresuivi['username'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_USERNAME');
+		$this->mail_titresuivi['password'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_PASSWORD');
+		$this->mail_titresuivi['client'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_CLIENT');
 
 	}
 }
