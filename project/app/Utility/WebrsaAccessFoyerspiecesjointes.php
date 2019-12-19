@@ -61,28 +61,6 @@
 		 * @return boolean
 		 */
 		protected static function _delete(array $record, array $params) {
-            return true;
-		}
-
-		/**
-		 * Permission d'accès
-		 *
-		 * @param array $record
-		 * @param array $params
-		 * @return boolean
-		 */
-		protected static function _fluxadd(array $record, array $params) {
-			return true;
-		}
-
-		/**
-		 * Permission d'accès
-		 *
-		 * @param array $record
-		 * @param array $params
-		 * @return boolean
-		 */
-		protected static function _copycreance(array $record, array $params) {
 			return true;
 		}
 
@@ -104,11 +82,8 @@
 					'archivage',
 					'edit',
 					'delete',
-					'ajaxfiledelete',
-					'ajaxfileupload',
-					'fileview',
-					'download',
 					'dearchive',
+					'filelink',
 				)
 			);
 
@@ -116,48 +91,48 @@
 		}
 
 		/**
-         * Permission d'accès
-         *
-         * @param array $record
-         * @param array $params
-         * @return boolean
-         */
-        protected static function _filelink(array $record, array $params) {
-            return true;
-        }
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _filelink(array $record, array $params) {
+			return true;
+		}
 
-        /**
-         * Permission d'accès
-         *
-         * @param array $record
-         * @param array $params
-         * @return boolean
-         */
-        protected static function _archive(array $record, array $params) {
-            return true;
-        }
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _archive(array $record, array $params) {
+			return true;
+		}
 
-        /**
-         * Permission d'accès
-         *
-         * @param array $record
-         * @param array $params
-         * @return boolean
-         */
-        protected static function _archivage(array $record, array $params) {
-            return true;
-        }
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _archivage(array $record, array $params) {
+			return true;
+		}
 
-        /**
-         * Permission d'accès
-         *
-         * @param array $record
-         * @param array $params
-         * @return boolean
-         */
-        protected static function _dearchive(array $record, array $params) {
-            return true;
-        }
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _dearchive(array $record, array $params) {
+			return true;
+		}
 
 		/**
 		 * Permission d'accès

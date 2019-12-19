@@ -80,7 +80,7 @@
 					'Statutrdv.code_statut' => $condition
 				)
 			) );
-			return $statutRdv['Statutrdv']['id'];
+			return isset($statutRdv['Statutrdv']) ? $statutRdv['Statutrdv']['id'] : null;
 		}
 
 
@@ -137,8 +137,7 @@
 						'Typerdv.code_type' => $condition
 					)
 			) );
-
-			return $typeRdv['Typerdv']['id'];
+			return isset($typeRdv['Typerdv']) ? $typeRdv['Typerdv']['id'] : null;
 		}
 
 		/**

@@ -74,7 +74,7 @@
 		}
 
 		/**
-		 * Liste les actions disponnible
+		 * Liste les actions disponibles
 		 *
 		 * @param array $params
 		 * @return array

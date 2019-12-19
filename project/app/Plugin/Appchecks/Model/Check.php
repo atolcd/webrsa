@@ -136,7 +136,7 @@
 		public function binaries( array $binaries, $message = "Le binaire %s n'est pas accessible sur la système." ) {
 			$checks = array();
 			foreach( $binaries as $binary ) {
-				$which = exec( "which {$binary}" );
+				$which = exec( $binary );
 				$success = !empty( $which );
 
 				$checks[$binary] = array(

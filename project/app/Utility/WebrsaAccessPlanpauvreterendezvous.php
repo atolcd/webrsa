@@ -80,7 +80,7 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function cohorte_infocol_venu_nonvenu_nouveaux(array $record, array $params) {
+		protected static function _cohorte_infocol_venu_nonvenu_nouveaux(array $record, array $params) {
 			return true;
 		}
 
@@ -91,7 +91,7 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function cohorte_infocol_venu_nonvenu_stock(array $record, array $params) {
+		protected static function _cohorte_infocol_venu_nonvenu_stock(array $record, array $params) {
 			return true;
 		}
 
@@ -102,7 +102,7 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function cohorte_infocol_second_rdv_nouveaux(array $record, array $params) {
+		protected static function _cohorte_infocol_second_rdv_nouveaux(array $record, array $params) {
 			return true;
 		}
 
@@ -113,7 +113,7 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function cohorte_infocol_second_rdv_stock(array $record, array $params) {
+		protected static function _cohorte_infocol_second_rdv_stock(array $record, array $params) {
 			return true;
 		}
 

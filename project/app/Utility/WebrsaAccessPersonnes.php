@@ -19,7 +19,7 @@
 	{
 		/**
 		 * Paramètres par défaut
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
@@ -32,7 +32,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -44,7 +44,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -55,7 +55,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -114,9 +114,10 @@
 					'edit',
 					'filelink',
 					'coordonnees',
+					'histoinfocontactpersonne'
 				)
 			);
-			
+
 			return $result;
 		}
 	}

@@ -738,6 +738,7 @@
 			$available = query_fields( $searchQuery );
 
 			$requested = array();
+
 			foreach( $params['keys'] as $path ) {
 				$configureKey = $this->_configureKey( $path, $params );
 				$requested = array_merge(
@@ -753,6 +754,19 @@
 			sort( $requested );
 
 			$missing = array_diff( $requested, $available );
+
+			// Exceptions pour les champs virtuels
+			$exceptions = array(
+				'Cui.positioncui66', // 66
+				'Personne.etat_dossier_orientation', // 58
+				'Activite.act' // 58
+			);
+			foreach($missing as $key => $miss) {
+				if( in_array($miss, $exceptions) ) {
+					unset($missing[$key]);
+				}
+			}
+
 			$msg = 'Les champs suivants sont demandés mais ne sont pas disponibles: %s';
 			$check = array(
 				'success' => empty( $missing ),

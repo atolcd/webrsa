@@ -1569,7 +1569,7 @@
 			WebrsaSessionAclUtility::initialize();
 			$check = WebrsaSessionAclUtility::checkControllersActionsAcos();
 
-			$cmd = 'sudo -u www-data lib/Cake/Console/cake WebrsaSessionAcl update Aco';
+			$cmd = 'sudo -u apache vendor/cakephp/cakephp/lib/Cake/Console/cake WebrsaSessionAcl update Aco';
 			$errormsg = "Les permissions de la base de données et de l'application ne sont pas syncronisées (%s)<br/>Merci de lancer la commande shell suivante:<br/><code>%s</code>";
 
 			return array(

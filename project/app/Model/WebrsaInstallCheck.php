@@ -88,7 +88,8 @@
 							'dom',
 							'mbstring',
 							'soap',
-							'xml'
+							'xml',
+							'xmlrpc'
 						)
 					),
 					'inis' => $this->Check->phpInis(
@@ -103,13 +104,8 @@
 								),
 							),
 						)
-					),
-					'pear_extensions' => $this->Check->pearExtensions(
-						array(
-							'xml_rpc'
-						)
 					)
-				)
+ 				)
 			);
 		}
 
@@ -340,9 +336,7 @@
 		 */
 		public function all() {
 			$shell = defined( 'CAKEPHP_SHELL' ) && CAKEPHP_SHELL;
-
 			return Hash::merge(
-				$shell ? array() : $this->apache(), // FIXME
 				$this->php(),
 				$this->environment(),
 				$this->modeles(),

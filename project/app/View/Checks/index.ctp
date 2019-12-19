@@ -5,12 +5,6 @@
 	<div id="software">
 		<h2 class="title">Environnement logiciel</h2>
 		<div id="tabbedWrapperSoftware" class="tabs">
-			<div id="apache">
-				<h3 class="title">Apache</h3>
-				<?php echo $this->Checks->table( $results['Apache']['informations'] );?>
-				<h4>Modules</h4>
-				<?php echo $this->Checks->table( $results['Apache']['modules'] );?>
-			</div>
 			<div id="binaries">
 				<h3 class="title">Binaires</h3>
 				<?php echo $this->Checks->table( $results['Environment']['binaries'] );?>
@@ -42,8 +36,6 @@
 				<?php echo $this->Checks->table( $results['Php']['inis'] );?>
 				<h4>Extensions</h4>
 				<?php echo $this->Checks->table( $results['Php']['extensions'] );?>
-				<h4>Extensions PEAR</h4>
-				<?php echo $this->Checks->table( $results['Php']['pear_extensions'] );?>
 			</div>
 			<div id="postgresql">
 				<h3 class="title">PostgreSQL</h3>

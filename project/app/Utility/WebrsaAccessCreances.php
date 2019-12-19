@@ -60,6 +60,28 @@
 		 * @param array $params
 		 * @return boolean
 		 */
+		protected static function _nonemission(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _validation(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
 		protected static function _delete(array $record, array $params) {
 			if ($record['Creance']['orgcre'] == 'FLU'){
 				return false;

@@ -13,7 +13,7 @@
 	App::uses( 'WebrsaEmailConfig', 'Utility' );
 	App::uses( 'CakeEmail', 'Network/Email' );
 
-    /**
+	/**
 	 * La classe FoyerspiecesjointesController ...
 	 *
 	 * @package app.Controller
@@ -75,6 +75,10 @@
 		 * @var array
 		 */
 		public $aucunDroit = array(
+			'ajaxfileupload',
+			'ajaxfiledelete',
+			'fileview',
+			'download'
 		);
 
 		/**
@@ -148,7 +152,7 @@
 			}
 		}
 
-        /**
+		/**
 		 * Index des pièces jointes
 		 * @param integer $foyer_id L'id technique du foyer pour lequel on veut les fichiers liés.
 		 *
@@ -182,11 +186,11 @@
 
 			$pjArchives = $this->Foyerpiecejointe->find('all', array(
 				'recursive' => -1,
-                'conditions' => array(
-                    'Foyerpiecejointe.foyer_id' => $foyer_id,
-                    'Foyerpiecejointe.archive' => 1
-                    )
-                )
+				'conditions' => array(
+					'Foyerpiecejointe.foyer_id' => $foyer_id,
+					'Foyerpiecejointe.archive' => 1
+					)
+				)
 			);
 			$nbPieceArchives = count($pjArchives);
 			$pjArchivesActif = !empty($pjArchives) ? true : false;
@@ -292,10 +296,10 @@
 			// Suppression des fichiers archivés dans le tableau
 			$piecejointeFpj = $this->Foyerpiecejointe->find('all', array(
 				'conditions' => array(
-                    'Foyerpiecejointe.foyer_id' => $foyer_id,
-                    'Foyerpiecejointe.archive' => 0
-                    )
-                )
+					'Foyerpiecejointe.foyer_id' => $foyer_id,
+					'Foyerpiecejointe.archive' => 0
+					)
+				)
 			);
 
 			foreach($piecejointeFpj as $key => $piecejointe) {
@@ -548,4 +552,4 @@
 			return $chaine;
 		}
 
-    }
+	}

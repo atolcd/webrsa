@@ -223,6 +223,9 @@
 		 * @return array
 		 */
 		public function searchConditions( array $query, array $search ) {
+			if(!isset($query['conditions'])) {
+				$query['conditions'] = array();
+			}
 			$query['conditions'] = $this->conditionsAdresse( $query['conditions'], $search );
 			$query['conditions'] = $this->conditionsPersonneFoyerDossier( $query['conditions'], $search );
 			$query['conditions'] = $this->conditionsDernierDossierAllocataire( $query['conditions'], $search );

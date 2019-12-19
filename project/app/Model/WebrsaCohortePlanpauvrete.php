@@ -19,6 +19,15 @@
 	{
 
 		/**
+		 * Modèles utilisés par ce modèle.
+		 *
+		 * @var array
+		 */
+		public $uses = array(
+			'Allocataire',
+		);
+
+		/**
 		 * Ajoute la condition dans la query pour ne pas avoir de CER
 		 *
 		 * @param array $query
