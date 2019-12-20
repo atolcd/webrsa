@@ -230,7 +230,7 @@
 		public function view($recourgracieux_id) {
 			$this->WebrsaAccesses->check($recourgracieux_id);
 			$this->Recourgracieux->id = $recourgracieux_id;
-			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$foyer_id = $this->Recourgracieux->foyerId( $recourgracieux_id );
 
 			$this->set('dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu(array( 'foyer_id' => $foyer_id )));
 
@@ -354,7 +354,7 @@
 			}elseif($this->action == 'edit' ){
 				$this->WebrsaAccesses->check($id);
 				$this->Recourgracieux->id = $id;
-				$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+				$foyer_id = $this->Recourgracieux->foyerId( $id );
 				$dossier_id = $this->Recourgracieux->dossierId( $id );
 			}
 
@@ -446,7 +446,7 @@
 
 			$this->WebrsaAccesses->check($id);
 			$this->Recourgracieux->id = $id;
-			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$foyer_id = $this->Recourgracieux->foyerId( $id );
 			$dossier_id = $this->Recourgracieux->dossierId( $id );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
@@ -505,7 +505,7 @@
 
 			$this->WebrsaAccesses->check($id);
 			$this->Recourgracieux->id = $id;
-			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$foyer_id = $this->Recourgracieux->foyerId( $id );
 			$dossier_id = $this->Recourgracieux->dossierId( $id );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
@@ -609,7 +609,7 @@
 		public function proposer($id = null) {
 			$this->WebrsaAccesses->check($id);
 			$this->Recourgracieux->id = $id;
-			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$foyer_id = $this->Recourgracieux->foyerId( $id );
 			$dossier_id = $this->Recourgracieux->dossierId( $id );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
@@ -761,7 +761,7 @@
 		public function proposercontestationcreances($creance_id = null,$recourgracieux_id = null,$typerecoursgracieux_id = null) {
 			$this->WebrsaAccesses->check($recourgracieux_id);
 			$this->Recourgracieux->id = $recourgracieux_id;
-			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$foyer_id = $this->Recourgracieux->foyerId( $recourgracieux_id );
 			$dossier_id = $this->Recourgracieux->dossierId( $recourgracieux_id );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
@@ -850,7 +850,7 @@
 		public function proposerremisecreances($creance_id = null,$recourgracieux_id = null,$typerecoursgracieux_id = null) {
 			$this->WebrsaAccesses->check($recourgracieux_id);
 			$this->Recourgracieux->id = $recourgracieux_id;
-			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$foyer_id = $this->Recourgracieux->foyerId( $recourgracieux_id );
 			$dossier_id = $this->Recourgracieux->dossierId( $recourgracieux_id );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
@@ -939,7 +939,7 @@
 		public function proposercontestationindus($indus_id = null,$recourgracieux_id = null,$typerecoursgracieux_id = null) {
 			$this->WebrsaAccesses->check($recourgracieux_id);
 			$this->Recourgracieux->id = $recourgracieux_id;
-			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$foyer_id = $this->Recourgracieux->foyerId( $recourgracieux_id );
 			$dossier_id = $this->Recourgracieux->dossierId( $recourgracieux_id );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
@@ -1028,7 +1028,7 @@
 		public function proposerremiseindus($indu_id = null,$recourgracieux_id = null,$typerecoursgracieux_id = null) {
 			$this->WebrsaAccesses->check($recourgracieux_id);
 			$this->Recourgracieux->id = $recourgracieux_id;
-			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$foyer_id = $this->Recourgracieux->foyerId( $recourgracieux_id );
 			$dossier_id = $this->Recourgracieux->dossierId( $recourgracieux_id );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
@@ -1167,7 +1167,7 @@
 		public function decider($id = null) {
 			$this->WebrsaAccesses->check($id);
 			$this->Recourgracieux->id = $id;
-			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$foyer_id = $this->Recourgracieux->foyerId( $id );
 			$dossier_id = $this->Recourgracieux->dossierId( $id );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
@@ -1463,7 +1463,7 @@
 		public function envoyer($id) {
 				$this->WebrsaAccesses->check($id);
 				$this->Recourgracieux->id = $id;
-				$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+				$foyer_id = $this->Recourgracieux->foyerId( $id );
 				// Affichage des données
 				$recoursgracieux = $this->Recourgracieux->find(
 					'first',
@@ -1513,7 +1513,7 @@
 		public function traiter($id) {
 			$this->WebrsaAccesses->check($id);
 			$this->Recourgracieux->id = $id;
-			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$foyer_id = $this->Recourgracieux->foyerId( $id );
 			$dossier_id = $this->Recourgracieux->dossierId( $id );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
@@ -1606,7 +1606,7 @@
 		 */
 		public function delete($id) {
 				$this->WebrsaAccesses->check($id);
-				$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+				$foyer_id = $this->Recourgracieux->foyerId( $id );
 				$success = $this->Recourgracieux->delete( $id );
 				if( $success &&
 				$this->Historiqueetat->setHisto(
@@ -1653,7 +1653,7 @@
 		 * @return void
 		 */
 		protected function _emailsend($id, $action) {
-			$foyer_id = $this->Recourgracieux->field( 'foyer_id' );
+			$foyer_id = $this->Recourgracieux->foyerId( $id );
 			$success = $this->Email->send($id, 'Recourgracieux', $action,  'mail_recours_gracieux');
 			if ( $success !== false ) {
 				$this->Flash->success( __d('email', 'Email.Envoyer' ) );
@@ -1732,7 +1732,7 @@
 			if( isset( $this->request->data['Cancel'] ) ) {
 				$this->Recourgracieux->id = $id;
 				$this->Jetons2->release( $dossier_id );
-				$this->redirect( array( 'action' => 'index', $this->Recourgracieux->field( 'foyer_id' )) );
+				$this->redirect( array( 'action' => 'index', $foyer_id = $this->Recourgracieux->foyerId( $id )) );
 			}
 
 			if( !empty( $this->request->data ) ) {
