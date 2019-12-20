@@ -351,16 +351,12 @@
 		public function foyerId( $creance_id ) {
 			$qd_creance = array(
 				'fields' => array( 'Creance.foyer_id' ),
-				'joins' => array(
-					$this->join( 'Creance', array( 'type' => 'INNER' ) )
-				),
 				'conditions' => array(
 					'Creance.id' => $creance_id
 				),
 				'recursive' => -1
 			);
-			$creance= $this->find('first', $qd_creance);
-
+			$creance = $this->find('first', $qd_creance);
 			if( !empty( $creance ) ) {
 				return $creance['Creance']['foyer_id'];
 			}

@@ -17,9 +17,6 @@
         $piecesemails,
         array(
             'Piecemail.name',
-            'Piecemail.haspiecejointe' => array(
-				'type' => 'boolean'
-			),
             'Piecemail.actif' => array(
 				'type' => 'boolean'
 			),

@@ -217,7 +217,7 @@
 		public function view($creance_id) {
 			$this->WebrsaAccesses->check($creance_id);
 			$this->Creance->id = $creance_id;
-			$foyer_id = $this->Creance->field( 'foyer_id' );
+			$foyer_id = $this->Creance->foyerId ( $creance_id );
 
 			$this->set('dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu(array( 'foyer_id' => $foyer_id )));
 
@@ -293,7 +293,7 @@
 			}elseif($this->action == 'edit' ){
 				$this->WebrsaAccesses->check($id);
 				$this->Creance->id = $id;
-				$foyer_id = $this->Creance->field( 'foyer_id' );
+				$foyer_id = $this->Creance->foyerId ( $id );
 				$dossier_id = $this->Creance->dossierId( $id );
 			}
 
@@ -312,7 +312,9 @@
 				$this->Creance->begin();
 				$data = $this->request->data;
 
-				if ( $data['Creance']['mtsolreelcretrans'] == '' ||  $data['Creance']['mtinicre'] =='' ) {
+				if ( $data['Creance']['mtsolreelcretrans'] == '' ||  $data['Creance']['mtinicre'] ==''
+					|| floatval($data['Creance']['mtinicre']) >= '10000000' || floatval($data['Creance']['mtinicre'] ) >= '10000000'
+				) {
 					$this->Creance->rollback();
 					$this->Flash->error( __( 'Save->error' ) );
 				}else{
@@ -377,9 +379,8 @@
 		 */
 		public function delete($id) {
 				$this->WebrsaAccesses->check($id);
-				$foyer_id = $this->Creance->field( 'foyer_id' );
+				$foyer_id = $this->Creance->foyerId( $id );
 				$dossier_id = $this->Creance->dossierId( $id );
-
 				$creanceQuery =  array(
 						'fields' =>	$this->Creance->fields(),
 						'conditions' => array(
@@ -415,7 +416,7 @@
 		 */
 		public function copycreance($id) {
 				$this->WebrsaAccesses->check($id);
-				$foyer_id = $this->Creance->field( 'foyer_id' );
+				$foyer_id = $this->Creance->foyerId ( $id ) ;
 				$dossier_id = $this->Creance->dossierId( $id );
 
 			// Retour à l'index en cas d'annulation
@@ -608,7 +609,7 @@
 			if( isset( $this->request->data['Cancel'] ) ) {
 				$this->Creance->id = $id;
 				$this->Jetons2->release( $dossier_id );
-				$this->redirect( array( 'action' => 'index', $this->Creance->field( 'foyer_id' )) );
+				$this->redirect( array( 'action' => 'index', $this->Creance->$id ( $this->Creance->id )) );
 			}
 
 			if( !empty( $this->request->data ) ) {
