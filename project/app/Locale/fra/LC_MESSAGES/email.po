@@ -46,6 +46,9 @@ msgstr "Adresse email de l'expéditeur"
 msgid "Email.emaildestinataire"
 msgstr "Adresse email du destinataire"
 
+msgid "Email.emaildestinataire_id"
+msgstr "Adresse email du destinataire"
+
 msgid "Email.insertiondate"
 msgstr "Date de création"
 

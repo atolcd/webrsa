@@ -95,10 +95,10 @@ msgid "/Recoursgracieux/edit/#Recourgracieux.id#"
 msgstr "Éditer ce recours gracieux"
 
 msgid "/Recoursgracieux/email"
-msgstr "Envoyer un courriel"
+msgstr "Voir les courriels"
 
 msgid "/Recoursgracieux/email/#Recourgracieux.id#"
-msgstr "Envoyer un courriel"
+msgstr "Voir les courriels"
 
 msgid "/Recoursgracieux/affecter"
 msgstr "Affecter un réferent"
@@ -191,13 +191,13 @@ msgid "since"
 msgstr " depuis le "
 
 msgid "/Recoursgracieux/emailaffectersend"
-msgstr "Envoyer l'email"
+msgstr "Envoyer l'email d'affectation"
 
 msgid "/Recoursgracieux/emailaffectersend/#Recourgracieux.id#/affecter/"
 msgstr "Envoyer l'email d'affectation"
 
 msgid "/Recoursgracieux/emaildecidersend"
-msgstr "Envoyer l'email"
+msgstr "Envoyer l'email de décision"
 
 msgid "/Recoursgracieux/emaildecidersend/#Recourgracieux.id#/decider/"
 msgstr "Envoyer l'email de décision"
