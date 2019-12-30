@@ -1732,7 +1732,7 @@
 			if( isset( $this->request->data['Cancel'] ) ) {
 				$this->Recourgracieux->id = $id;
 				$this->Jetons2->release( $dossier_id );
-				$this->redirect( array( 'action' => 'index', $foyer_id = $this->Recourgracieux->foyerId( $id )) );
+				$this->redirect( array( 'action' => 'index', $this->Recourgracieux->foyerId( $id ) ) );
 			}
 
 			if( !empty( $this->request->data ) ) {
