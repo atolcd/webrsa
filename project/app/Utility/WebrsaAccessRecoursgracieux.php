@@ -372,7 +372,18 @@
 		 * @return boolean
 		 */
 		protected static function _delete(array $record, array $params) {
-			return true;
+			if (
+				$record['Recourgracieux']['etat'] == 'ATTSIGNATURE'
+				|| $record['Recourgracieux']['etat'] == 'ATTENVOIE'
+				|| $record['Recourgracieux']['etat'] == 'TRAITER'
+				|| $record['Recourgracieux']['etat'] == 'ANNULER'
+				|| $record['Recourgracieux']['etat'] == 'VALIDREGUL'
+				|| $record['Recourgracieux']['etat'] == 'VALIDTRAITEMENT'
+			){
+				return false;
+			}else{
+				return true;
+			}
 		}
 	}
 ?>
