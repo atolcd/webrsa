@@ -275,13 +275,11 @@
 		 */
 		public function indicateurs_tableau_b4() {
 			if( !empty( $this->request->data ) ) {
-				$results = $this->Statistiqueplanpauvrete->getIndicateursTableau4( $this->request->data );
-				$tranches = $this->Statistiqueplanpauvrete->tranches;
-
-				$this->set( compact( 'results', 'tranches' ) );
+				$results = $this->Statistiqueplanpauvrete->getIndicateursTableauB4( $this->request->data );
+				$this->set( compact( 'results' ) );
 			}
 
-			$this->set( 'title_for_layout', 'Tableau 4 - Actions inscrites dans les CER en cours de validité au 31/12 de l\'année des personnes soumises aux droits et devoirs et orientées à cette même date vers un organisme autre que Pôle emploi' );
+			$this->set( 'title_for_layout', __d('statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_b4', '') );
 		}
 
 		/**

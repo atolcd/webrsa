@@ -793,6 +793,15 @@
 			 * - soit les sujets, sous-sujets et valeurs de sous-sujets des CER (comme le CD 93) : false
 			 */
 			'actionscandidats' => true,
+			/**
+			 * Tranche de délai - en jours
+			 */
+			'delais' => array(
+				'0_29' => '< 30',
+				'30_59' => '30 - 60',
+				'60_89' => '60 - 89',
+				'90_999' => '>= 90'
+			)
 		)
 	);
 

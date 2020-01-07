@@ -446,7 +446,7 @@
 				__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a1' ) => array( 'url' => array( 'controller' => 'statistiquesplanpauvrete', 'action' => 'indicateurs_tableau_a1'  ) ),
 				__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a2' ) => array( 'url' => array( 'controller' => 'statistiquesplanpauvrete', 'action' => 'indicateurs_tableau_A2'  ) ),
 				__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_b1' ) => array( 'url' => array( 'controller' => 'statistiquesplanpauvrete', 'action' => 'indicateurs_tableau_B1'  ) ),
-				__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_b4' ) => array( 'url' => array( 'controller' => 'statistiquesplanpauvrete', 'action' => 'indicateurs_tableau_B4'  ) ),
+				__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_b4' ) => array( 'url' => array( 'controller' => 'statistiquesplanpauvrete', 'action' => 'indicateurs_tableau_b4'  ) ),
 				__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_b5' ) => array( 'url' => array( 'controller' => 'statistiquesplanpauvrete', 'action' => 'indicateurs_tableau_B5'  ) ),
 			),
 			'Indicateurs de suivi' => array( 'url' => array( 'controller' => 'indicateurssuivis', 'action' => 'search' ) ),

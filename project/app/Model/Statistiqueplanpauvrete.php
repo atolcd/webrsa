@@ -47,50 +47,6 @@
 		 */
 		public $uses = array( 'Foyer' );
 
-		/**
-		 * Les différentes tranches qui sont utilisées dans les tableaux
-		 * "Indicateurs d'orientations" et "Indicateurs de réorientations".
-		 *
-		 * @var array
-		 */
-		public $tranches = array(
-			'age' => array(
-				'0 - 24',
-				'25 - 29',
-				'30 - 39',
-				'40 - 49',
-				'50 - 59',
-				'>= 60',
-				'Age inconnu'
-			),
-			'sexe' => array(
-				'Femme',
-				'Homme',
-				'Sexe inconnu'
-			),
-			'sitfam' => array(
-				'Personne seule sans enfant',
-				'Personne seule avec enfant(s)',
-				'Personne en couple sans enfant',
-				'Personne en couple avec enfant(s)',
-				'Situation familiale non connue'
-			),
-			'anciennete' => array(
-				'moins de 6 mois',
-				'6 mois et moins 1 an',
-				'1 an et moins de 2 ans',
-				'2 ans et moins de 5 ans',
-				'5 ans et plus',
-				'Ancienneté non connue',
-			),
-			'nivetu' => array(
-				'Vbis et VI',
-				'V',
-				'IV',
-				'III, II, I',
-				'Niveau de formation non connu'
-			),
-		);
 
 
 		/**
@@ -462,7 +418,7 @@
 					$query['joins'][] = $Dossier->join( 'Situationdossierrsa', array( 'type' => $type ) );
 				}
 				$addJoin = true ;
-				foreach ($query['joins'] as $join) {
+				/*foreach ($query['joins'] as $join) {
 					if ($join['table'] == '"calculsdroitsrsa"') {
 						$addJoin = false;
 						break;
@@ -470,7 +426,7 @@
 				}
 				if ($addJoin) {
 					$query['joins'][] = $Dossier->Foyer->Personne->join( 'Calculdroitrsa', array( 'type' => $type ) );
-				}
+				} */
 				// FIN Correction erreur
 
 				if( null !== $soumisDd ) {
@@ -614,6 +570,185 @@
 		protected function _getConditionsDroitsEtDevoirs() {
 			return (array)Configure::read( 'Statistiqueplanpauvrete.conditions_droits_et_devoirs' );
 		}
+
+		/**
+		 * Récupère et initialise les jointures suivant la recherche initiale
+		 * @param array $search
+		 * @return array
+		 */
+		protected function _getJoinsTableau(array $search) {
+			$joinSearch = array();
+			if( isset($search['Adresse']) &&
+				( $search['Adresse']['nomvoie'] != ''  ||
+				$search['Adresse']['nomcom'] != '' ||
+				$search['Adresse']['numcom']  != '' ) ) {
+				$joinSearch = array(
+					array(
+						'table' => 'adresses',
+						'alias' => 'Adresse',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Adresse.foyerid = Foyer.id'
+						)
+					),
+					array(
+						'table' => 'adresses_cantons',
+						'alias' => 'AdresseCanton',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'AdresseCanton.adresse_id = Adresse.id'
+						)
+					),
+					array(
+						'table' => 'cantons',
+						'alias' => 'Canton',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Canton.id = AdresseCanton.adresse_id'
+						)
+					),
+				);
+			}
+
+			if( isset($search['Search']['serviceinstructeur']) && $search['Search']['serviceinstructeur'] != '' ) {
+				$joinSearch = array_merge($joinSearch, array(
+					array(
+						'table' => 'orientsstructs_servicesinstructeurs',
+						'alias' => 'OrientstructServiceinstructeur',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'OrientstructServiceinstructeur.orientstruct_id = Orientstruct.id'
+						)
+					))
+				);
+			}
+			return $joinSearch;
+		}
+
+		/**
+		 * Récupère les conditions suivant la recherche initiale
+		 * @param array $search
+		 * @return array
+		 */
+		protected function _getConditionsTableau(array $search) {
+			$conditionsSearch = array();
+			// Adresse
+			if( isset($search['Adresse']) ) {
+				if( $search['Adresse']['nomvoie'] != '' ) {
+					$conditionsSearch = array_merge($conditionsSearch, array(
+						'Adresse.nomvoie' => $search['Adresse']['nomvoie']
+					));
+				}
+				if( $search['Adresse']['nomcom'] != '' ) {
+					$conditionsSearch = array_merge($conditionsSearch, array(
+						'Adresse.nomcom' => $search['Adresse']['nomcom']
+					));
+				}
+				if( $search['Adresse']['numcom']  != '') {
+					$conditionsSearch = array_merge($conditionsSearch, array(
+						'Adresse.numcom' => $search['Adresse']['numcom']
+					));
+				}
+			}
+
+			// Canton
+			if( isset($search['Canton']) && $search['Canton']['canton'] != '') {
+				$conditionsSearch = $conditionsSearch = array_merge($conditionsSearch, array(
+					'Canton.canton' => $search['Canton']['canton']
+				));
+			}
+
+			// Service instructeur
+			if( isset($search['Search']['serviceinstructeur']) && $search['Search']['serviceinstructeur'] != '' ) {
+				$conditionsSearch = array_merge($conditionsSearch, array(
+					'OrientstructServiceinstructeur.serviceinstructeur_id' => $search['Search']['serviceinstructeur']
+				));
+			}
+
+			// Droits et devoirs
+
+			return $conditionsSearch;
+		}
+
+
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		protected function _getQueryTableau_b4(array $search , $annee) {
+			$conditionsSearch = $this->_getConditionsTableau($search);
+			$joinSearch = $this->_getJoinsTableau($search);
+
+			// Query finale
+			$query = array(
+				'fields' => array(
+					'DISTINCT ON ("Personne"."id") "Personne"."id" AS "idPersonne"',
+					'Orientstruct.date_valid',
+					'Orientstruct.statut_orient',
+					'Typeorient.lib_type_orient',
+					'Rendezvous.daterdv',
+					'Rendezvous.typerdv_id',
+					'Statutrdv.libelle'
+				),
+				'recursive' => 0,
+				'joins' => array_merge( array(
+					array(
+						'table' => 'orientsstructs',
+						'alias' => 'Orientstruct',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Orientstruct.personne_id = Personne.id'
+						)
+					),
+					array(
+						'table' => 'typesorients',
+						'alias' => 'Typeorient',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Typeorient.id = Orientstruct.typeorient_id'
+						)
+					),
+					array(
+						'table' => 'rendezvous',
+						'alias' => 'Rendezvous',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Rendezvous.personne_id = Personne.id'
+						)
+					),
+					array(
+						'table' => 'statutsrdvs',
+						'alias' => 'Statutrdv',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Statutrdv.id = Rendezvous.statutrdv_id'
+						)
+					),
+					array(
+						'table' => 'dossiers',
+						'alias' => 'Dossier',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Dossier.id = Foyer.dossier_id'
+						)
+					),),
+					$joinSearch
+				),
+				'conditions' => array_merge( array(
+					'Orientstruct.date_valid >= ' => $annee .'-01-01',
+					'Orientstruct.date_valid <= ' => $annee .'-12-31',
+					'Rendezvous.daterdv !=' =>  NULL,
+					'Rendezvous.daterdv >= Orientstruct.date_valid'
+					),
+					$conditionsSearch
+				)
+			);
+
+			$query = $this->_completeQuerySoumisDd($query, $annee, true);
+			return $query;
+		}
+
 
 		/**
 		 *
@@ -1210,88 +1345,113 @@
 		 * @param array $search
 		 * @return array
 		 */
-		public function getIndicateursTableau4( array $search ) {
-			$Dossier = ClassRegistry::init( 'Dossier' );
+		public function getIndicateursTableauB4( array $search ) {
+			$Personne = ClassRegistry::init( 'Personne' );
 			$annee = Hash::get( $search, 'Search.annee' );
 			$results = array();
 
 			// Récupération des variables de configuration
-			$configuration = $this->_getConfigStatistiqueplanpauvrete();
+			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
 
 			// Query de base
-			$base = $this->_getQueryTableau ($search, $annee);
-			$base = $this->_completeQueryCer ($base, $annee, $configuration);
-			$base = $this->_completeQueryRestrictionCer($base, $annee, $configuration);
+			$query = $this->_getQueryTableau_b4 ($search, $annee);
+			$results = $Personne->find('all', $query);
 
 			// Initialisation tableau de résultats
-			$resultats = array ();
+			$resultats = array (
+				'total' => array(),
+				'Social' => array(
+					'total' => array(),
+					'venu' => array(),
+					'excuse_recevable' => array(),
+					'sans_excuse' => array(),
+					'delai_moyen' => array(),
+					'delai' => $configurationDelais,
+					'taux_presence' => array()
+				),
+				'Prepro' => array(
+					'total' => array(),
+					'venu' => array(),
+					'excuse_recevable' => array(),
+					'sans_excuse' => array(),
+					'delai_moyen' => array(),
+					'delai' => $configurationDelais,
+					'taux_presence' => array()
+				)
+			);
 
-			if ($configuration['actionscandidats']) {
-				// Recherche des personnes
-				$results = $Dossier->find( 'all', $base);
-
-				// Extraction des id personnes
-				$idPersonnes = '';
-				$separateur = '';
-				$personnes = array ();
-				foreach ($results as $result) {
-					$idPersonnes .= $separateur.$result[0]['idPersonne'];
-					$separateur = ', ';
-					$personnes[$result[0]['idPersonne']] = $result[0];
+			for($i=0; $i<12; $i++) {
+				$resultats['total'][$i] = 0;
+				$resultats['Social']['total'][$i] = 0;
+				$resultats['Social']['venu'][$i] = 0;
+				$resultats['Social']['excuse_recevable'][$i] = 0;
+				$resultats['Social']['sans_excuse'][$i] = 0;
+				$resultats['Social']['delai_moyen'][$i] = 0;
+				$resultats['Social']['taux_presence'][$i] = 0;
+				$resultats['Prepro']['total'][$i] = 0;
+				$resultats['Prepro']['venu'][$i] = 0;
+				$resultats['Prepro']['excuse_recevable'][$i] = 0;
+				$resultats['Prepro']['sans_excuse'][$i] = 0;
+				$resultats['Prepro']['delai_moyen'][$i] = 0;
+				$resultats['Prepro']['taux_presence'][$i] = 0;
+				foreach( $configurationDelais as $key => $config) {
+					if( is_array($resultats['Social']['delai'][$key]) == false ) {
+						$resultats['Social']['delai'][$key] = array();
+					}
+					if( is_array($resultats['Prepro']['delai'][$key]) == false ) {
+						$resultats['Prepro']['delai'][$key] = array();
+					}
+					$resultats['Social']['delai'][$key][$i] = 0;
+					$resultats['Prepro']['delai'][$key][$i] = 0;
 				}
+			}
 
-				// Recherche des actions des fiches de candidature
-				$query = array (
-					'fields' => array (
-						'DISTINCT ON ("ActioncandidatPersonne"."id") "ActioncandidatPersonne"."id" AS "idActioncandidatpersonne"',
-						'"Actioncandidat"."dreesactionscer_id" AS "idDreesactioncer"',
-						'"Actioncandidat"."id" AS "idActioncandidat"',
-						'"ActioncandidatPersonne"."personne_id" AS "idPersonne"',
-					),
-					'joins' => array (
-						array (
-							'table' => 'actionscandidats',
-							'alias' => 'Actioncandidat',
-							'type' => 'INNER',
-							'conditions' => '"ActioncandidatPersonne"."actioncandidat_id" = "Actioncandidat"."id"'
-						),
-					),
-					'conditions' => array (
-						'"ActioncandidatPersonne"."datesignature" >= \''.$annee.'-01-01\'',
-						'"ActioncandidatPersonne"."datesignature" <= \''.$annee.'-12-31\'',
-						'"Actioncandidat"."dreesactionscer_id" IS NOT NULL',
-						'"ActioncandidatPersonne"."personne_id" IN ('.$idPersonnes.')',
-					),
-					'contain' => false,
-				);
+			foreach($results as $result) {
+				$month = intval( date('n', strtotime($result['Orientstruct']['date_valid']) ) ) -1;
+				$resultats['total'][$month]++;
+				if( strpos($result['Typeorient']['lib_type_orient'], 'Social' ) !== false  ||
+					strpos($result['Typeorient']['lib_type_orient'], 'PrePro' ) !== false) {
+					$orientation = (strpos($result['Typeorient']['lib_type_orient'], 'Social' ) !== false ) ? 'Social' : 'Prepro';
+					if( strpos($result['Statutrdv']['libelle'], 'Prévu' ) === false ) {
+						$resultats[$orientation]['total'][$month]++;
+						if( strpos($result['Statutrdv']['libelle'], 'Venu(e)' ) !== false ) {
+							$resultats[$orientation]['venu'][$month]++;
+						}
 
-				$Actioncandidatpersonne = ClassRegistry::init( 'ActioncandidatPersonne' );
-				$results = $Actioncandidatpersonne->find( 'all', $query);
+						if( strpos($result['Statutrdv']['libelle'], 'Excuse recevable' ) !== false ) {
+							$resultats[$orientation]['excuse_recevable'][$month]++;
+						}
 
-				// Merge des résultats
-				foreach ($results as $key => $result) {
-					if (isset ($personnes[$result[0]['idPersonne']])) {
-						$results[$key][0] = array_merge ($result[0], $personnes[$result[0]['idPersonne']]);
-					} else {
-						unset ($results[$key]);
+						if( strpos($result['Statutrdv']['libelle'], 'Excuse non recevable' ) !== false ) {
+							$resultats[$orientation]['sans_excuse'][$month]++;
+						}
+					}
+
+					$dateOrient = new DateTime($result['Orientstruct']['date_valid']);
+					$dateRdv = new DateTime($result['Rendezvous']['daterdv']);
+					$delai = $dateOrient->diff($dateRdv)->days;
+
+					$resultats[$orientation]['delai_moyen'][$month] += $delai;
+					foreach($resultats[$orientation]['delai']as $key => $osef) {
+						$joursDelais = explode('_', $key);
+						if( $delai >= intval($joursDelais[0]) && $delai < intval($joursDelais[1]) ) {
+							$resultats[$orientation]['delai'][$key][$month] ++;
+						}
 					}
 				}
 			}
-			else {
-				$Dossier = ClassRegistry::init( 'Cer93Sujetcer93' );
 
-				// Query
-				$base = $this->_adaptQueryTableau4 ($base, $search, $annee, $configuration);
-
-				// Recherche
-				$results = $Dossier->find( 'all', $base);
+			// Calcul des moyennes
+			for( $i=0; $i<12; $i++){
+				if($resultats['Social']['total'][$i] != 0) {
+					$resultats['Social']['delai_moyen'][$i] = intval($resultats['Social']['delai_moyen'][$i] / $resultats['Social']['total'][$i]);
+					$resultats['Social']['taux_presence'][$i] = round( (100 * $resultats['Social']['venu'][$i] ) / $resultats['Social']['total'][$i], 2)  . '%';
+				}
+				if($resultats['Prepro']['total'][$i] != 0) {
+					$resultats['Prepro']['delai_moyen'][$i] = intval($resultats['Prepro']['delai_moyen'][$i] / $resultats['Prepro']['total'][$i]);
+					$resultats['Prepro']['taux_presence'][$i] = round( (100 * $resultats['Prepro']['venu'][$i] ) / $resultats['Prepro']['total'][$i], 2) . '%';
+				}
 			}
-
-			// Remplissage tableau de résultats
-			$this->_initialiseResults($resultats, 'Tableau4');
-
-			// Génération du tableau de résultats
-			$this->_generateResults($results, $resultats, $configuration, 'Tableau4');
 
 			return $resultats;
 		}

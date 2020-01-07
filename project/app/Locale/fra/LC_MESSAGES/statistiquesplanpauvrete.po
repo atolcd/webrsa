@@ -25,7 +25,109 @@ msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b1"
 msgstr "Tableau de suivi de la 1ère orientation"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b4"
-msgstr "Tableau de suivi de l'accompagnement"
+msgstr "Tableau B4 : Suivi de l'accompagnement"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b5"
-msgstr "Tableau de suivi des CER"
+msgstr "Tableau B5 : Suivi des CER"
+
+# ==============================================================================
+# Mois
+# ==============================================================================
+msgid "Tableau.jan"
+msgstr "Janvier"
+
+msgid "Tableau.feb"
+msgstr "Février"
+
+msgid "Tableau.mar"
+msgstr "Mars"
+
+msgid "Tableau.apr"
+msgstr "Avril"
+
+msgid "Tableau.may"
+msgstr "Mai"
+
+msgid "Tableau.jun"
+msgstr "Juin"
+
+msgid "Tableau.jul"
+msgstr "Juillet"
+
+msgid "Tableau.aug"
+msgstr "Août"
+
+msgid "Tableau.sep"
+msgstr "Septembre"
+
+msgid "Tableau.oct"
+msgstr "Octobre"
+
+msgid "Tableau.nov"
+msgstr "Novembre"
+
+msgid "Tableau.dec"
+msgstr "Décembre"
+
+# ==============================================================================
+# Tableau B4
+# ==============================================================================
+msgid "Tableau.nbOrientation"
+msgstr "Nombre de 1er rendez-vous après orientation en "
+
+msgid "tableaub4.total"
+msgstr "Nombre de 1er rendez-vous fixé suite à une orientation"
+
+msgid "tableaub4.Social"
+msgstr "Orientation sociale"
+
+msgid "tableaub4.Socialtotal"
+msgstr "Nombre de 1er rendez-vous fixé suite à une orientation \"Sociale\""
+
+msgid "tableaub4.Socialvenu"
+msgstr "Dont nombre de venu à ce 1er rendez-vous"
+
+msgid "tableaub4.Socialexcuse_recevable"
+msgstr "Dont nombre de non venu avec excuse recevable"
+
+msgid "tableaub4.Socialsans_excuse"
+msgstr "Dont nombre de non venu sans excuse recevable"
+
+msgid "tableaub4.Socialdelai_moyen"
+msgstr "Délai d'attente moyen pour un 1er rendez-vous"
+
+msgid "tableaub4.delai"
+msgstr "Délai de rendez vous"
+
+msgid "tableaub4.0_XX"
+msgstr "Avant XX jours"
+
+msgid "tableaub4.XX_YY"
+msgstr "Entre XX jours et YY jours"
+
+msgid "tableaub4.XX_999"
+msgstr "Après XX jours"
+
+msgid "tableaub4.Socialtaux_presence"
+msgstr "Taux de présence au 1er rendez-vous"
+
+msgid "tableaub4.Prepro"
+msgstr "Orientation Pré Pro"
+
+msgid "tableaub4.Preprototal"
+msgstr "Nombre de 1er rendez-vous fixé suite à une orientation \"Pré Pro\""
+
+msgid "tableaub4.Preprovenu"
+msgstr "Dont nombre de venu à ce 1er rendez-vous"
+
+msgid "tableaub4.Preproexcuse_recevable"
+msgstr "Dont nombre de non venu avec excuse recevable"
+
+msgid "tableaub4.Preprosans_excuse"
+msgstr "Dont nombre de non venu sans excuse recevable"
+
+msgid "tableaub4.Preprodelai_moyen"
+msgstr "Délai d'attente moyen pour un 1er rendez-vous"
+
+msgid "tableaub4.Preprotaux_presence"
+msgstr "Taux de présence au 1er rendez-vous"
