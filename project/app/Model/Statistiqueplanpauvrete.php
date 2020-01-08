@@ -738,6 +738,7 @@
 				'conditions' => array_merge( array(
 					'Orientstruct.date_valid >= ' => $annee .'-01-01',
 					'Orientstruct.date_valid <= ' => $annee .'-12-31',
+					'Orientstruct.rgorient' => 1,
 					'Rendezvous.daterdv !=' =>  NULL,
 					'Rendezvous.daterdv >= Orientstruct.date_valid'
 					),

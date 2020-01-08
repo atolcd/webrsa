@@ -7,24 +7,24 @@
 			'thead',
 			$this->Xhtml->tableHeaders(
 				array(
-                    __d( 'statistiquesplanpauvrete', 'Tableau.nbOrientation' ) . $annee,
-                    __d( 'statistiquesplanpauvrete', 'Tableau.jan' ),
-                    __d( 'statistiquesplanpauvrete', 'Tableau.feb' ),
-                    __d( 'statistiquesplanpauvrete', 'Tableau.mar' ),
-                    __d( 'statistiquesplanpauvrete', 'Tableau.apr' ),
-                    __d( 'statistiquesplanpauvrete', 'Tableau.may' ),
-                    __d( 'statistiquesplanpauvrete', 'Tableau.jun' ),
-                    __d( 'statistiquesplanpauvrete', 'Tableau.jul' ),
-                    __d( 'statistiquesplanpauvrete', 'Tableau.aug' ),
-                    __d( 'statistiquesplanpauvrete', 'Tableau.sep' ),
-                    __d( 'statistiquesplanpauvrete', 'Tableau.oct' ),
-                    __d( 'statistiquesplanpauvrete', 'Tableau.nov' ),
-                    __d( 'statistiquesplanpauvrete', 'Tableau.dec' )
+					__d( 'statistiquesplanpauvrete', 'Tableau.nbOrientation' ) . $annee,
+					__d( 'statistiquesplanpauvrete', 'Tableau.jan' ),
+					__d( 'statistiquesplanpauvrete', 'Tableau.feb' ),
+					__d( 'statistiquesplanpauvrete', 'Tableau.mar' ),
+					__d( 'statistiquesplanpauvrete', 'Tableau.apr' ),
+					__d( 'statistiquesplanpauvrete', 'Tableau.may' ),
+					__d( 'statistiquesplanpauvrete', 'Tableau.jun' ),
+					__d( 'statistiquesplanpauvrete', 'Tableau.jul' ),
+					__d( 'statistiquesplanpauvrete', 'Tableau.aug' ),
+					__d( 'statistiquesplanpauvrete', 'Tableau.sep' ),
+					__d( 'statistiquesplanpauvrete', 'Tableau.oct' ),
+					__d( 'statistiquesplanpauvrete', 'Tableau.nov' ),
+					__d( 'statistiquesplanpauvrete', 'Tableau.dec' )
 				)
 			)
 		);
 
-        $cells = array();
+		$cells = array();
 		$row = 0;
 		foreach( $results as $key => $result) {
 			if( $key == 'Social' || $key == 'Prepro') {
@@ -65,5 +65,5 @@
 		}
 		$tbody = $this->Xhtml->tag( 'tbody', $this->Xhtml->tableCells( $cells ) );
 
-        echo $this->Xhtml->tag( 'table', $thead.$tbody ,array( 'class' => 'wide' ) );
-    }
+		echo $this->Xhtml->tag( 'table', $thead.$tbody ,array( 'class' => 'wide' ) );
+	}
