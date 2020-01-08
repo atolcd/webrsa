@@ -665,8 +665,6 @@
 				));
 			}
 
-			// Droits et devoirs
-
 			return $conditionsSearch;
 		}
 
@@ -749,6 +747,76 @@
 			return $query;
 		}
 
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		protected function _getQueryTableau_b5(array $search , $annee) {
+			$conditionsSearch = $this->_getConditionsTableau($search);
+			$joinSearch = $this->_getJoinsTableau($search);
+
+			// Query finale
+			$query = array(
+				'fields' => array(
+					'DISTINCT ON ("Personne"."id") "Personne"."id" AS "idPersonne"',
+					'Orientstruct.date_valid',
+					'Orientstruct.statut_orient',
+					'Typeorient.lib_type_orient',
+					'Contratinsertion.datevalidation_ci',
+					'Contratinsertion.rg_ci',
+				),
+				'recursive' => 0,
+				'joins' => array_merge( array(
+					array(
+						'table' => 'orientsstructs',
+						'alias' => 'Orientstruct',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Orientstruct.personne_id = Personne.id'
+						)
+					),
+					array(
+						'table' => 'typesorients',
+						'alias' => 'Typeorient',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Typeorient.id = Orientstruct.typeorient_id'
+						)
+					),
+					array(
+						'table' => 'dossiers',
+						'alias' => 'Dossier',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Dossier.id = Foyer.dossier_id'
+						)
+						),
+					array(
+						'table' => 'contratsinsertion',
+						'alias' => 'Contratinsertion',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Contratinsertion.personne_id = Personne.id'
+						)
+					),
+				),
+				$joinSearch
+				),
+				'conditions' => array_merge( array(
+					'Orientstruct.date_valid >= ' => $annee .'-01-01',
+					'Orientstruct.date_valid <= ' => $annee .'-12-31',
+					'Contratinsertion.datevalidation_ci >= Orientstruct.date_valid',
+					'Orientstruct.rgorient' => 1,
+					'Contratinsertion.rg_ci' => 1
+					),
+					$conditionsSearch
+				)
+			);
+
+			$query = $this->_completeQuerySoumisDd($query, $annee, true);
+			return $query;
+		}
 
 		/**
 		 *
@@ -1456,6 +1524,92 @@
 			return $resultats;
 		}
 
+		/**
+		 * Retourne le résultat pour le tableau B5 : Suivi des CER
+		 * @param array $search
+		 * @return array
+		 */
+		public function getIndicateursTableauB5( array $search ) {
+			$Personne = ClassRegistry::init( 'Personne' );
+			$annee = Hash::get( $search, 'Search.annee' );
+			$results = array();
+
+			// Récupération des variables de configuration
+			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
+
+			// Query de base
+			$query = $this->_getQueryTableau_b5 ($search, $annee);
+			$results = $Personne->find('all', $query);
+
+			// Initialisation tableau de résultats
+			$resultats = array (
+				'cer_social' => array(),
+				'cer_prepro' => array(),
+				'delai_moyen' => array(),
+				'delai_social' => array(),
+				'delai_prepro' => array(),
+				'signe15jrs' => array(),
+				'delai' => $configurationDelais,
+				'taux_contrat' => array()
+			);
+			$orientValide = array();
+			for($i=0; $i<12; $i++) {
+				$orientValide[$i] = 0;
+				$resultats['cer_social'][$i] = 0;
+				$resultats['cer_prepro'][$i] = 0;
+				$resultats['delai_moyen'][$i] = 0;
+				$resultats['delai_social'][$i] = 0;
+				$resultats['delai_prepro'][$i] = 0;
+				$resultats['signe15jrs'][$i] = 0;
+				$resultats['taux_contrat'][$i] = 0;
+				foreach( $configurationDelais as $key => $config) {
+					if( is_array($resultats['delai'][$key]) == false ) {
+						$resultats['delai'][$key] = array();
+					}
+					$resultats['delai'][$key][$i] = 0;
+				}
+			}
+
+			foreach($results as $result) {
+				$monthCer = intval( date('n', strtotime($result['Contratinsertion']['datevalidation_ci']) ) ) -1;
+				$monthOrient = intval( date('n', strtotime($result['Orientstruct']['date_valid']) ) ) -1;
+				$orientValide[$monthOrient]++;
+
+				$dateOrient = new DateTime($result['Orientstruct']['date_valid']);
+				$dateCer = new DateTime($result['Contratinsertion']['datevalidation_ci']);
+				$delai = $dateOrient->diff($dateCer)->days;
+				$resultats['delai_moyen'][$monthOrient] += $delai;
+
+				if( $delai < 15 ) {
+					$resultats['signe15jrs'][$monthOrient]++;
+				}
+
+				if( strpos($result['Typeorient']['lib_type_orient'], 'Social') !== false ) {
+					$resultats['cer_social'][$monthCer] ++;
+					$resultats['delai_social'][$monthOrient] += $delai;
+				} else {
+					$resultats['cer_prepro'][$monthCer] ++;
+					$resultats['delai_prepro'][$monthOrient] += $delai;
+				}
+
+				foreach($resultats['delai']as $key => $osef) {
+					$joursDelais = explode('_', $key);
+					if( $delai >= intval($joursDelais[0]) && $delai < intval($joursDelais[1]) ) {
+						$resultats['delai'][$key][$monthOrient] ++;
+					}
+				}
+			}
+
+			// Calcul des moyennes
+			for( $i=0; $i<12; $i++){
+				$resultats['delai_moyen'][$i] = intval($resultats['delai_moyen'][$i] / ( $resultats['cer_social'][$i] + $resultats['cer_prepro'][$i]) );
+				$resultats['delai_social'][$i] = intval($resultats['delai_social'][$i] / $resultats['cer_social'][$i] );
+				$resultats['delai_prepro'][$i] = intval($resultats['delai_prepro'][$i] / $resultats['cer_prepro'][$i] );
+				$resultats['taux_contrat'][$i] = round( (100 * $orientValide[$i] ) / ( $resultats['cer_social'][$i] + $resultats['cer_prepro'][$i]), 2) . '%';
+			}
+
+			return $resultats;
+		}
 		/**
 		 * ...
 		 *

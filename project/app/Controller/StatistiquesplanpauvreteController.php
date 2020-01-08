@@ -327,13 +327,12 @@
 		 */
 		public function indicateurs_tableau_b5() {
 			if( !empty( $this->request->data ) ) {
-				$results = $this->Statistiqueplanpauvrete->getIndicateursTableau5( $this->request->data );
-				$tranches = $this->Statistiqueplanpauvrete->tranches;
+				$results = $this->Statistiqueplanpauvrete->getIndicateursTableauB5( $this->request->data );
 
-				$this->set( compact( 'results', 'tranches' ) );
+				$this->set( compact( 'results') );
 			}
 
-			$this->set( 'title_for_layout', 'Tableau 5 - Délais pour l\'orientation et la contractualisation pour les personnes entrées dans le RSA au cours de l\'année et soumises aux droits et devoirs au 31/12 de l\'année' );
+			$this->set( 'title_for_layout', __d('statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_b5', '') );
 		}
 
 		/**
