@@ -19,4 +19,3 @@
 			'backUrl' => '/Parametrages/index/#cuis'
 		)
 	);
-?>

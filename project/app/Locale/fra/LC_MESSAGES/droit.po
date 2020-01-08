@@ -1161,6 +1161,57 @@ msgstr "Export CSV"
 
 ###############################################################################
 
+msgid "controllers/Emailsdestinataires"
+msgstr "Adresses mails destinataires"
+
+msgid "controllers/Emailsdestinataires/add"
+msgstr "Ajout des adresses mails destinataires"
+
+msgid "controllers/Emailsdestinataires/delete"
+msgstr "Suppression des adresses mails destinataires"
+
+msgid "controllers/Emailsdestinataires/edit"
+msgstr "Édition des adresses mails destinataires"
+
+msgid "controllers/Emailsdestinataires/index"
+msgstr "Visionnage des adresses mails destinataires"
+
+###############################################################################
+
+msgid "controllers/Textsemails"
+msgstr "Modèle d'email"
+
+msgid "controllers/Textsemails/add"
+msgstr "Ajouts des modèles d'email"
+
+msgid "controllers/Textsemails/delete"
+msgstr "Suppression des modèles d'email"
+
+msgid "controllers/Textsemails/edit"
+msgstr "Edition des modèles d'email"
+
+msgid "controllers/Textsemails/index"
+msgstr "Visionnage des modèles d'email"
+
+###############################################################################
+
+msgid "controllers/Piecesemails"
+msgstr "Pièces jointes liées aux emails"
+
+msgid "controllers/Piecesemails/index"
+msgstr "Visualisation des pièces jointes liées aux emails"
+
+msgid "controllers/Piecesemails/add"
+msgstr "Ajout d'une pièce jointe liée à l'email"
+
+msgid "controllers/Piecesemails/edit"
+msgstr "Édition d'une pièce jointe liée à l'email"
+
+msgid "controllers/Piecesemails/delete"
+msgstr "Suppression d'une pièce jointe liée à l'email"
+
+###############################################################################
+
 msgid "controllers/Entretiens"
 msgstr "Entretiens"
 
@@ -4305,6 +4356,9 @@ msgstr "Édition"
 msgid "controllers/Titressuivisinfospayeurs/view"
 msgstr "Visualisation"
 
+msgid "controllers/Titressuivisinfospayeurs/emailsend"
+msgstr "Envoi d'email"
+
 ###############################################################################
 msgid "controllers/Titressuivisautresinfos"
 msgstr "Titres de recette : info suivi autre "
@@ -4408,6 +4462,9 @@ msgstr "Supprimer un recours gracieux"
 
 msgid "controllers/Recoursgracieux/view"
 msgstr "Voir un recours gracieux"
+
+msgid "controllers/Recoursgracieux/emailsend"
+msgstr "Envoi d'email"
 
 # Origines
 msgid "controllers/Originesrecoursgracieux"

@@ -15,6 +15,7 @@
                 'empty' => false,
                 'required' => true,
                 'options' => $listeCategorie,
+                'selected' => $fichier['Categoriepiecejointe']['id']
             )
         ) );
     ?>

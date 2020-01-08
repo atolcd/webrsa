@@ -49,7 +49,7 @@
 		);
 		if ( ! empty ($recoursgracieux) ) {
 			echo '<br><br> <h1>' . __m('Recoursgracieux::view::propositions') .  '</h1>';
-			if ( $typerecoursgracieux['Typerecoursgracieux']['usage'] == 'contestation' ) {
+			if ( isset($typerecoursgracieux['Typerecoursgracieux']['usage']) && $typerecoursgracieux['Typerecoursgracieux']['usage'] == 'contestation' ) {
 				if ( Configure::read( 'Recoursgracieux.Creancerecoursgracieux.enabled' ) ) {
 					echo $this->Default3->index(
 						$creancesrecoursgracieux,
@@ -126,7 +126,7 @@
 					);
 				}
 			}
-			if ( $typerecoursgracieux['Typerecoursgracieux']['usage'] == 'remise' ){
+			if ( isset($typerecoursgracieux['Typerecoursgracieux']['usage']) && $typerecoursgracieux['Typerecoursgracieux']['usage'] == 'remise' ){
 				if ( Configure::read( 'Recoursgracieux.Creancerecoursgracieux.enabled' ) ) {
 					echo $this->Default3->index(
 						$creancesrecoursgracieux,
@@ -193,6 +193,9 @@
 
 		echo "<h2>".__m('Recourgracieux::fileuploader::titleFileView')."</h2>" ;
 		echo $this->Fileuploader->results($piecesjointes);
+
+		echo '<br>';
+		echo $this->element( 'Email/view' );
 
 		if( isset($historiques) && !empty($historiques)) {
 			echo '<br><br> <h1>' . __m('Recoursgracieux::view::history') .  '</h1>';

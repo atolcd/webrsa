@@ -76,16 +76,92 @@
 			));
 
 			foreach($titresInfosPayeurs as $nbInfo => $info) {
+				/*Toujours actifs*/
 				$info['/Titressuivisinfospayeurs/add'] = true;
 				$info['/Titressuivisinfospayeurs/view'] = true;
-				$info['/Titressuivisinfospayeurs/edit'] = true;
-				$info['/Titressuivisinfospayeurs/answer'] = true;
-				$info['/Titressuivisinfospayeurs/delete'] = true;
-
+				//Récupération de l'email
+				$Email = ClassRegistry::init('Email');
+				$emailInfos = $Email->find( 'first',
+					array(
+						'fields'=> 'Email.etat',
+						'conditions' => array (
+							'Email.modele' => 'Titresuiviinfopayeur',
+							'Email.modele_id' => $info['Titresuiviinfopayeur']['id'],
+						)
+					)
+				);
+				// Si l'email existe
+				if (! empty ($emailInfos['Email']['etat']) ) {
+					if ( $emailInfos['Email']['etat'] == 'CREE' ) {
+						//Si l'email n'est pas envoyé on peut modifier et envoyer
+						$info['/Titressuivisinfospayeurs/edit'] = true;
+						$info['/Titressuivisinfospayeurs/emailsend'] = true;
+						//Si on a un retour payeur on ne peut pas supprimé
+						if (!empty ($info['Titresuiviinfopayeur']['retourpayeur'])) {
+							$info['/Titressuivisinfospayeurs/delete'] = false;
+						}else{
+							$info['/Titressuivisinfospayeurs/delete'] = true;
+						}
+					}else{
+						//Si l'email est envoyé on ne modifie plus, on n'envoie plus et on ne supprime plus
+						$info['/Titressuivisinfospayeurs/edit'] = false;
+						$info['/Titressuivisinfospayeurs/emailsend'] = false;
+						$info['/Titressuivisinfospayeurs/delete'] = false;
+					}
+					//Mais on peut toujours renseigner une réponse
+					$info['/Titressuivisinfospayeurs/answer'] = true;
+				}else{
+					//Sans email
+					$info['/Titressuivisinfospayeurs/edit'] = true;
+					$info['/Titressuivisinfospayeurs/emailsend'] = false;
+					$info['/Titressuivisinfospayeurs/answer'] = true;
+					//Si on a un retour payeur
+					if (!empty ($info['Titresuiviinfopayeur']['retourpayeur'])) {
+						$info['/Titressuivisinfospayeurs/delete'] = false;
+					}else{
+						$info['/Titressuivisinfospayeurs/delete'] = true;
+					}
+				}
 				$titresInfosPayeurs[$nbInfo] = $info;
 			}
 
 			return $titresInfosPayeurs;
+		}
+
+		/**
+		 * Requète d'impression
+		 *
+		 * @param type $id
+		 * @return type
+		 */
+		public function queryImpression( $id = null ){
+			$query = Configure::read('QueryImpression.Titresuiviinfopayeur');
+
+			if( $id !== null ) {
+				$query['conditions']['Titresuiviinfopayeur.id'] = $id;
+			}
+
+			return $query;
+		}
+
+		/**
+		 * Ajoute les données des modules liés pour l'impression
+		 *
+		 * @param array $data
+		 * @return type
+		 */
+		public function completeDataImpression( array $data ) {
+			$id = Hash::get( $data, 'Email.modele_id' );
+			$data = array( $data );
+
+			$modeles = Configure::read('CompleteDataImpression.Titresuiviinfopayeur.modeles');
+
+			foreach( $modeles as $modele ) {
+				$query = $this->{$modele}->getCompleteDataImpressionQuery( $id );
+				$data[$modele] = $this->{$modele}->find( 'all', $query );
+			}
+
+			return $data;
 		}
 
 	}

@@ -118,15 +118,6 @@ msgstr "Désarchiver"
 ############################################
 ## Mail
 ############################################
-msgid "Foyerpiecejointe::mail::debut"
-msgstr "Bonjour,\n\nUne pièce jointe de type "
-
-msgid "Foyerpiecejointe::mail::milieu"
-msgstr " a été ajoutée au dossier numéro "
-
-msgid "Foyerpiecejointe::mail::lien"
-msgstr "\nLien : "
-
 msgid "Foyerpiecejointe::mail::envoye"
 msgstr "Mail envoyé"
 

@@ -1,0 +1,56 @@
+# Traductions de destinatairesemails.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Emailsdestinataires/index/:heading"
+msgstr "Paramétrage des destinataires des emails"
+
+msgid "/Emailsdestinataires/add/:heading"
+msgstr "Ajout d'un destinataire"
+
+msgid "/Emailsdestinataires/edit/:heading"
+msgstr "Modification d'un destinataire « #Emaildestinataire.nom# »"
+
+msgid "/Emailsdestinataires/add"
+msgstr "Ajouter"
+
+msgid "/Emailsdestinataires/add/:title"
+msgstr "Ajouter un destinataire"
+
+msgid "/Emailsdestinataires/edit"
+msgstr "Modifier"
+
+msgid "/Emailsdestinataires/edit/#Emaildestinataire.id#"
+msgstr "Éditer le destinataire « #Emaildestinataire.nom# »"
+
+msgid "/Emailsdestinataires/delete"
+msgstr "Supprimer"
+
+msgid "/Emailsdestinataires/delete/#Emaildestinataire.id#"
+msgstr "Supprimer le destinataire « #Emaildestinataire.nom# »"
+
+msgid "/Emailsdestinataires/delete/#Emaildestinataire.id# ?"
+msgstr "Réellement supprimer le destinataire « #Emaildestinataire.nom# » ?"
+
+msgid "Emaildestinataire.nom"
+msgstr "Nom du destinataire"
+
+msgid "Emaildestinataire.prenom"
+msgstr "Prénom du destinataire"
+
+msgid "Emaildestinataire.email"
+msgstr "Email du destinataire"
+
+msgid "Emaildestinataire.structure"
+msgstr "Structure du destinataire"
+
+msgid "Emaildestinataire.actif"
+msgstr "Actif"

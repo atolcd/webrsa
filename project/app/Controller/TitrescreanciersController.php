@@ -829,7 +829,7 @@
 			if( isset( $this->request->data['Cancel'] ) ) {
 				$this->Titrecreancier->id = $titrecreancier_id;
 				$this->Jetons2->release( $dossier_id );
-				$this->redirect( array( 'action' => 'index', $titrecreancier_id ) );
+				$this->redirect( array( 'action' => 'index', $creance_id ) );
 			}
 
 			// Essai de sauvegarde
@@ -1309,11 +1309,19 @@
 		}
 
 		/**
-		 * Export CSV
+		 * Export CSV Validation Cohorte
 		 */
 		public function exportcsv_validation() {
 			$Cohortes = $this->Components->load( 'WebrsaCohortesTitrescreanciers' );
 			$Cohortes->exportcsv( array( 'modelRechercheName' => 'WebrsaCohorteTitrecreancierValidation' ) );
+		}
+
+		/**
+		 * Export CSV des recherches
+		 */
+		public function exportcsv() {
+			$Recherches = $this->Components->load( 'WebrsaRecherchesTitrescreanciers' );
+			$Recherches->exportcsv();
 		}
 
 		/**

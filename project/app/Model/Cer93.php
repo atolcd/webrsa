@@ -491,7 +491,7 @@
 		 * @param integer $user_id
 		 * @return array
 		 */
-		public function getDataForPdf( $contratinsertion_id, $user_id ) {
+		public function getDataForPdf( $contratinsertion_id, $user_id = null ) {
 			$this->Contratinsertion->Personne->forceVirtualFields = true;
 			$Informationpe = ClassRegistry::init( 'Informationpe' );
 
