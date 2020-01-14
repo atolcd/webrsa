@@ -480,7 +480,7 @@
 				array_merge(
 					array(
 						"Historiquedroit.created::DATE <= '{$annee}-12-31'",
-						"Historiquedroit.modified::DATE >= '{$annee}-12-31'"
+						"Historiquedroit.modified::DATE >= '{$annee}-01-01'"
 					),
 					$conditions
 				),
