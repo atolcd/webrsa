@@ -418,7 +418,7 @@
 					$query['joins'][] = $Dossier->join( 'Situationdossierrsa', array( 'type' => $type ) );
 				}
 				$addJoin = true ;
-				/*foreach ($query['joins'] as $join) {
+				foreach ($query['joins'] as $join) {
 					if ($join['table'] == '"calculsdroitsrsa"') {
 						$addJoin = false;
 						break;
@@ -426,7 +426,7 @@
 				}
 				if ($addJoin) {
 					$query['joins'][] = $Dossier->Foyer->Personne->join( 'Calculdroitrsa', array( 'type' => $type ) );
-				} */
+				}
 				// FIN Correction erreur
 
 				if( null !== $soumisDd ) {
@@ -689,10 +689,18 @@
 					'Typeorient.lib_type_orient',
 					'Rendezvous.daterdv',
 					'Rendezvous.typerdv_id',
-					'Statutrdv.libelle'
+					'Statutrdv.id'
 				),
-				'recursive' => 0,
+				'recursive' => -1,
 				'joins' => array_merge( array(
+					array(
+						'table' => 'foyers',
+						'alias' => 'Foyer',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Foyer.id = Personne.foyer_id'
+						)
+					),
 					array(
 						'table' => 'orientsstructs',
 						'alias' => 'Orientstruct',
@@ -1353,6 +1361,7 @@
 
 			// Récupération des variables de configuration
 			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
+			$statutRdv = Configure::read('Statistiqueplanpauvrete.orientationRdv');
 
 			// Query de base
 			$query = $this->_getQueryTableau_b4 ($search, $annee);
@@ -1413,17 +1422,17 @@
 				if( strpos($result['Typeorient']['lib_type_orient'], 'Social' ) !== false  ||
 					strpos($result['Typeorient']['lib_type_orient'], 'PrePro' ) !== false) {
 					$orientation = (strpos($result['Typeorient']['lib_type_orient'], 'Social' ) !== false ) ? 'Social' : 'Prepro';
-					if( strpos($result['Statutrdv']['libelle'], 'Prévu' ) === false ) {
+					if( in_array($result['Statutrdv']['id'], $statutRdv['prevu'] ) === false ) {
 						$resultats[$orientation]['total'][$month]++;
-						if( strpos($result['Statutrdv']['libelle'], 'Venu(e)' ) !== false ) {
+						if( in_array($result['Statutrdv']['id'], $statutRdv['venu'] ) !== false ) {
 							$resultats[$orientation]['venu'][$month]++;
 						}
 
-						if( strpos($result['Statutrdv']['libelle'], 'Excuse recevable' ) !== false ) {
+						if( in_array($result['Statutrdv']['id'], $statutRdv['excuses_recevables'] ) !== false ) {
 							$resultats[$orientation]['excuse_recevable'][$month]++;
 						}
 
-						if( strpos($result['Statutrdv']['libelle'], 'Excuse non recevable' ) !== false ) {
+						if( in_array($result['Statutrdv']['id'], $statutRdv['excuses_non_recevables'] ) !== false ) {
 							$resultats[$orientation]['sans_excuse'][$month]++;
 						}
 					}
