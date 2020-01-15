@@ -70,64 +70,97 @@ msgid "Tableau.dec"
 msgstr "Décembre"
 
 # ==============================================================================
-# Tableau B4
+# Délais
 # ==============================================================================
-msgid "Tableau.nbOrientation"
-msgstr "Nombre de 1er rendez-vous après orientation en "
-
-msgid "tableaub4.total"
-msgstr "Nombre de 1er rendez-vous fixé suite à une orientation"
-
-msgid "tableaub4.Social"
-msgstr "Orientation sociale"
-
-msgid "tableaub4.Socialtotal"
-msgstr "Nombre de 1er rendez-vous fixé suite à une orientation \"Sociale\""
-
-msgid "tableaub4.Socialvenu"
-msgstr "Dont nombre de venu à ce 1er rendez-vous"
-
-msgid "tableaub4.Socialexcuse_recevable"
-msgstr "Dont nombre de non venu avec excuse recevable"
-
-msgid "tableaub4.Socialsans_excuse"
-msgstr "Dont nombre de non venu sans excuse recevable"
-
-msgid "tableaub4.Socialdelai_moyen"
-msgstr "Délai d'attente moyen pour un 1er rendez-vous"
-
-msgid "tableaub4.delai"
-msgstr "Délai de rendez vous"
-
-msgid "tableaub4.0_XX"
+msgid "Tableau_delai.0_XX"
 msgstr "Avant XX jours"
 
-msgid "tableaub4.XX_YY"
+msgid "Tableau_delai.XX_YY"
 msgstr "Entre XX jours et YY jours"
 
-msgid "tableaub4.XX_999"
+msgid "Tableau_delai.XX_999"
 msgstr "Après XX jours"
 
-msgid "tableaub4.Socialtaux_presence"
-msgstr "Taux de présence au 1er rendez-vous"
+# ==============================================================================
+# Tableau B4
+# ==============================================================================
+msgid "Tableaub4.nbOrientation"
+msgstr "Nombre de 1er rendez-vous après orientation en "
 
-msgid "tableaub4.Prepro"
-msgstr "Orientation Pré Pro"
+msgid "Tableaub4.total"
+msgstr "Nombre de 1er rendez-vous fixé suite à une orientation"
 
-msgid "tableaub4.Preprototal"
-msgstr "Nombre de 1er rendez-vous fixé suite à une orientation \"Pré Pro\""
+msgid "Tableaub4.Social"
+msgstr "Orientation sociale"
 
-msgid "tableaub4.Preprovenu"
+msgid "Tableaub4.Socialtotal"
+msgstr "Nombre de 1er rendez-vous fixé suite à une orientation \"Sociale\""
+
+msgid "Tableaub4.Socialvenu"
 msgstr "Dont nombre de venu à ce 1er rendez-vous"
 
-msgid "tableaub4.Preproexcuse_recevable"
+msgid "Tableaub4.Socialexcuse_recevable"
 msgstr "Dont nombre de non venu avec excuse recevable"
 
-msgid "tableaub4.Preprosans_excuse"
+msgid "Tableaub4.Socialsans_excuse"
 msgstr "Dont nombre de non venu sans excuse recevable"
 
-msgid "tableaub4.Preprodelai_moyen"
+msgid "Tableaub4.Socialdelai_moyen"
 msgstr "Délai d'attente moyen pour un 1er rendez-vous"
 
-msgid "tableaub4.Preprotaux_presence"
+msgid "Tableaub4.delai"
+msgstr "Délai de rendez vous"
+
+msgid "Tableaub4.Socialtaux_presence"
 msgstr "Taux de présence au 1er rendez-vous"
+
+msgid "Tableaub4.Prepro"
+msgstr "Orientation Pré Pro"
+
+msgid "Tableaub4.Preprototal"
+msgstr "Nombre de 1er rendez-vous fixé suite à une orientation \"Pré Pro\""
+
+msgid "Tableaub4.Preprovenu"
+msgstr "Dont nombre de venu à ce 1er rendez-vous"
+
+msgid "Tableaub4.Preproexcuse_recevable"
+msgstr "Dont nombre de non venu avec excuse recevable"
+
+msgid "Tableaub4.Preprosans_excuse"
+msgstr "Dont nombre de non venu sans excuse recevable"
+
+msgid "Tableaub4.Preprodelai_moyen"
+msgstr "Délai d'attente moyen pour un 1er rendez-vous"
+
+msgid "Tableaub4.Preprotaux_presence"
+msgstr "Taux de présence au 1er rendez-vous"
+
+# ==============================================================================
+# Tableau B5
+# ==============================================================================
+msgid "Tableau.nbCer"
+msgstr "Nombre de contractualisation des orientations des CD en "
+
+msgid "Tableaub5.cer_social"
+msgstr "Nombre de CER \"Social\" validé par mois"
+
+msgid "Tableaub5.cer_prepro"
+msgstr "Nombre de CER \"Pré pro\" validé par mois"
+
+msgid "Tableaub5.delai_moyen"
+msgstr "Délais moyen de contractualisation en jours"
+
+msgid "Tableaub5.delai_social"
+msgstr "Délais moyen de contractualisation \"Social\" en jours"
+
+msgid "Tableaub5.delai_prepro"
+msgstr "Délais moyen de contractualisation \"Pré pro\" en jours"
+
+msgid "Tableaub5.signe15jrs"
+msgstr "Nombre de CER signés en moins de 15 jours"
+
+msgid "Tableaub5.delai"
+msgstr "Délais de contractualisation"
+
+msgid "Tableaub5.taux_contrat"
+msgstr "Taux de contractualisation"

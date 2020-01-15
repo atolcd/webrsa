@@ -28,22 +28,22 @@
 		$row = 0;
 		foreach( $results as $key => $result) {
 			if( $key == 'Social' || $key == 'Prepro') {
-				$cells[$row] = array('<b>' . __d('statistiquesplanpauvrete', 'tableaub4.' . $key ) . '</b>');
+				$cells[$row] = array('<b>' . __d('statistiquesplanpauvrete', 'Tableaub4.' . $key ) . '</b>');
 				$row++;
 				foreach( $results[$key] as $keySpec => $resultSpec) {
 					if($keySpec == 'delai') {
-						$cells[$row] = array(__d('statistiquesplanpauvrete', 'tableaub4.' . $keySpec ));
+						$cells[$row] = array(__d('statistiquesplanpauvrete', 'Tableaub4.' . $keySpec ));
 						$row++;
 						foreach( $results[$key][$keySpec] as $keyDelai => $delai) {
 							$cells[$row] = $delai;
 							$joursDelais = explode('_', $keyDelai);
 							$strDelai = '';
 							if($joursDelais[0] === '0') {
-								$strDelai = str_replace('XX', $joursDelais[1], __d('statistiquesplanpauvrete', 'tableaub4.0_XX'));
+								$strDelai = str_replace('XX', $joursDelais[1], __d('statistiquesplanpauvrete', 'Tableau_delai.0_XX'));
 							}else if($joursDelais[1] === '999') {
-								$strDelai = str_replace('XX', $joursDelais[0], __d('statistiquesplanpauvrete', 'tableaub4.XX_999'));
+								$strDelai = str_replace('XX', $joursDelais[0], __d('statistiquesplanpauvrete', 'Tableau_delai.XX_999'));
 							} else {
-								$strDelai = str_replace('XX', $joursDelais[0], __d('statistiquesplanpauvrete', 'tableaub4.XX_YY'));
+								$strDelai = str_replace('XX', $joursDelais[0], __d('statistiquesplanpauvrete', 'Tableau_delai.XX_YY'));
 								$strDelai = str_replace('YY', $joursDelais[1], $strDelai);
 							}
 							array_unshift($cells[$row], $strDelai);
@@ -53,13 +53,13 @@
 						$cells[$row] = $resultSpec;
 					}
 					if( isset($cells[$row]) && is_array($cells[$row]) )
-						array_unshift($cells[$row], __d('statistiquesplanpauvrete', 'tableaub4.' . $key . $keySpec ));
+						array_unshift($cells[$row], __d('statistiquesplanpauvrete', 'Tableaub4.' . $key . $keySpec ));
 					$row++;
 				}
 			} else {
 				$cells[$row] = $result;
 				if( is_array($cells[$row]) )
-					array_unshift($cells[$row], __d('statistiquesplanpauvrete', 'tableaub4.' . $key ));
+					array_unshift($cells[$row], __d('statistiquesplanpauvrete', 'Tableaub4.' . $key ));
 				$row++;
 			}
 		}

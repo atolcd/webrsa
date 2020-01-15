@@ -778,7 +778,7 @@
 			 * Adressefoyer, Personne, Adresse, Prestation, Calculdroitrsa.
 			 */
 			'conditions_droits_et_devoirs' => array(
-				'Situationdossierrsa.etatdosrsa' => array( '2', '3', '4' ),
+				'Situationdossierrsa.etatdosrsa' => array( '2' ),
 				'Calculdroitrsa.toppersdrodevorsa' => '1'
 			),
 			/**
