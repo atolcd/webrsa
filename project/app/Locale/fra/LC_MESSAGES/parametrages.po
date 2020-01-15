@@ -22,9 +22,6 @@ msgstr "Retour aux paramétrages"
 msgid "/Parametrages/fichesprescriptions93/:heading"
 msgstr "Paramétrages du module fiche de positionnement"
 
-msgid "/Parametrages/cataloguesromesv3/:heading"
-msgstr "Codes ROME V3"
-
 msgid "/Parametrages/eps/:heading"
 msgstr "Paramétrages des équipes pluridisciplinaires"
 
@@ -63,3 +60,450 @@ msgstr "Paramétrages des CUI"
 
 msgid "/Parametrages/actionscandidats_personnes/:heading"
 msgstr "Paramétrages des fiches de candidature"
+
+# ==============================================================================
+
+msgid "acceuil"
+msgstr "Page d'accueil"
+
+msgid "accueilsarticles/index"
+msgstr "Article en page d'accueil"
+
+msgid "accueilscorrespondances/index"
+msgstr "Correspondance Utilisateurs / Référents"
+
+# ==============================================================================
+
+msgid "actions/index"
+msgstr "Actions d'insertion"
+
+# ==============================================================================
+
+msgid "APRE/ADRE"
+msgstr "APRE/ADRE"
+
+msgid "APRE"
+msgstr "APRE"
+
+msgid "typesaidesapres66/index"
+msgstr "Liste des aides de l'APRE/ADRE"
+
+msgid "piecesaides66/index"
+msgstr "Liste des pièces administratives"
+
+msgid "piecescomptables66/index"
+msgstr "Liste des pièces comptables"
+
+msgid "themesapres66/index"
+msgstr "Thèmes de la demande d'aide APRE/ADRE"
+
+msgid "parametresfinanciers/index"
+msgstr "Paramètres financiers pour la gestion de l'APRE"
+
+msgid "participantscomites/index"
+msgstr "Participants comités APRE"
+
+msgid "suivisaidesapres/index"
+msgstr "Personnes chargées du suivi des aides APRE"
+
+msgid "tiersprestatairesapres/index"
+msgstr "Tiers prestataires de l'APRE"
+
+msgid "suivisaidesaprestypesaides/index"
+msgstr "Types d'aides liées aux personnes chargées du suivi de l'APRE"
+
+# ==============================================================================
+
+msgid "cantons/index"
+msgstr "Cantons"
+
+msgid "categoriespiecesjointes/index"
+msgstr "Catégorie des pièces jointes"
+
+# ==============================================================================
+
+msgid "CER"
+msgstr "CER"
+
+msgid "motifscersnonvalids66/index"
+msgstr "Motifs de non validation de CER"
+
+msgid "metiersexerces/index"
+msgstr "Métiers exercés"
+
+msgid "naturescontrats/index"
+msgstr "Natures de contrat"
+
+msgid "secteursactis/index"
+msgstr "Secteurs d'activité"
+
+msgid "sujetscers93/index"
+msgstr "Sujets du CER"
+
+msgid "soussujetscers93/index"
+msgstr "Sous-sujets du CER"
+
+msgid "valeursparsoussujetscers93/index"
+msgstr "Valeurs par sous-sujets du CER"
+
+# ==============================================================================
+
+msgid "/Parametrages/cataloguesromesv3/:heading"
+msgstr "Codes ROME V3"
+
+# ==============================================================================
+
+msgid "Créances"
+msgstr "Créances"
+
+msgid "titrescreanciers"
+msgstr "Titres de recette"
+
+msgid "typestitrescreanciers/index"
+msgstr "Type du Titre"
+
+msgid "motifsemissionstitrescreanciers/index"
+msgstr "Motif d'émission d'un titre de recette"
+
+msgid "titressuivi"
+msgid "Suivi des titres de recette"
+
+msgid "typestitrescreanciersannulationsreductions/index"
+msgstr "Type d'annulation/réduction"
+
+msgid "typestitrescreanciersinfospayeurs/index"
+msgstr "Type d'informations payeur"
+
+msgid "typestitrescreanciersautresinfos/index"
+msgstr "Type d'autres informations"
+
+msgid "titressuivi"
+msgstr "Recours Gracieux"
+
+msgid "originesrecoursgracieux/index"
+msgstr "Origines"
+
+msgid "typesrecoursgracieux/index"
+msgstr "Types"
+
+msgid "motifsproposrecoursgracieux/index"
+msgstr "Motifs Propositions"
+
+# ==============================================================================
+
+msgid "CUI"
+msgstr "CUI"
+
+msgid "motifsrupturescuis66/index"
+msgstr "Motifs de rupture"
+
+msgid "motifssuspensioncuis66/index"
+msgstr "Motifs de suspension"
+
+msgid "motifsrefuscuis66/index"
+msgstr "Motifs de décision de refus"
+
+msgid "piecesmailscuis66/index"
+msgstr "Pièces liées aux mails employeur"
+
+msgid "tauxcgscuis66/index"
+msgstr "Lien entre les secteurs et les taux"
+
+msgid "textsmailscuis66/index"
+msgstr "Modèles de mails pour les employeurs"
+
+msgid "typescontratscuis66/index"
+msgstr "Types de contrats liés aux secteurs du CUI (marchand/non marchand)"
+
+# ==============================================================================
+
+msgid "DSP"
+msgstr "DSP"
+
+msgid "codesromesecteursdsps66/index"
+msgstr "Codes ROME pour les secteurs"
+
+msgid "codesromemetiersdsps66/index"
+msgstr "Codes ROME pour les métiers"
+
+# ==============================================================================
+
+msgid "requestsmanager"
+msgstr "Editeur de requêtes"
+
+msgid "requestgroups/index"
+msgstr "Catégories"
+
+msgid "requestsmanager/savedindex"
+msgstr "Requêtes"
+
+# ==============================================================================
+
+msgid "eps"
+msgstr "Équipes pluridisciplinaires"
+
+msgid "fonctionsmembreseps/index"
+msgstr "Fonctions des membres des EP"
+
+msgid "regroupementseps/index"
+msgstr "Regroupements des EP"
+
+msgid "motifsreorientseps93/index"
+msgstr "Motifs de demandes de réorientation"
+
+msgid "compositionsregroupementseps/index"
+msgstr "Compositions des regroupements des EP"
+
+msgid "listesanctionseps58/index"
+msgstr "Sanctions pour les EP"
+
+# ==============================================================================
+
+msgid "emails"
+msgstr "Emails"
+
+msgid "emailsdestinataires/index"
+msgstr "Destinataires"
+
+msgid "textsemails/index"
+msgstr "Modèles de mails"
+
+msgid "piecesemails/index"
+msgstr "Pièces liées aux mails"
+
+# ==============================================================================
+
+msgid "entretiens"
+msgstr "Entretiens"
+
+msgid "objetsentretien/index"
+msgstr "Objets de l'entretien"
+
+msgid "permanences/index"
+msgstr "Permanences"
+
+# ==============================================================================
+
+msgid "actionscandidats_personnes"
+msgstr "Fiches de candidature"
+
+msgid "partenaires/index"
+msgstr "Création des partenaires / prestataires"
+
+msgid "contactspartenaires/index"
+msgstr "Création des contacts"
+
+msgid "actionscandidats/index"
+msgstr "Création des actions"
+
+msgid "progsfichescandidatures66/index"
+msgstr "Création des programmes région"
+
+msgid "valsprogsfichescandidatures66/index"
+msgstr "Création des valeurs programmes région"
+
+msgid "motifssortie/index"
+msgstr "Motifs de sortie"
+
+msgid "raisonssocialespartenairescuis66/index"
+msgstr "Raisons sociales des partenaires"
+
+# ==============================================================================
+
+msgid "fichedeliaisons"
+msgstr "Fiches de liaisons"
+
+msgid "motiffichedeliaisons/index"
+msgstr "Motifs de fiche de liaison"
+
+msgid "logicielprimos/index"
+msgstr "Logiciels ou sites consultés"
+
+msgid "propositionprimos/index"
+msgstr "Proposition de primoanalyse"
+
+# ==============================================================================
+
+msgid "fichesprescriptions93"
+msgstr "Fiches de positionnement"
+
+# ==============================================================================
+
+msgid "modulefse93"
+msgstr "Module FSE"
+
+# ==============================================================================
+
+msgid "pdos"
+msgstr "PDO"
+
+msgid "decisionspdos/index"
+msgstr "Décisions PDO" 
+
+msgid "descriptionspdos/index"
+msgstr "Descriptions des traitements PDO"
+
+msgid "originespdos/index"
+msgstr "Origines de PDO"
+
+msgid "courrierPCG"
+msgstr "Module de courriers PCG"
+
+msgid "typescourrierspcgs66/index"
+msgstr "Type de courriers PCG"
+
+msgid "modelestypescourrierspcgs66/index"
+msgstr "Modèles liés aux types de courriers"
+
+msgid "piecesmodelestypescourrierspcgs66/index"
+msgstr "Pièces liées aux modèles de courriers"
+
+msgid "orgstransmisdossierspcgs66/index"
+msgstr "Organismes auxquels seront transmis les dossiers PCG"
+
+msgid "decisionPCG"
+msgstr "Décisions de dossiers PCG"
+
+msgid "composfoyerspcgs66/index"
+msgstr "Compositions des foyers PCG"
+
+msgid "decisionspcgs66/index"
+msgstr "Décisions PCG"
+
+msgid "questionspcgs66/index"
+msgstr "Questions PCG"
+
+msgid "polesdossierspcgs66/index"
+msgstr "Pôles chargés des dossiers PCG"
+
+msgid "situationspdos/index"
+msgstr "Situations PDO"
+
+msgid "statutspdos/index"
+msgstr "Statuts PDO"
+
+msgid "typesnotifspdos/index"
+msgstr "Types de notifications PDO"
+
+msgid "traitementstypespdos/index"
+msgstr "Types de traitements PDO"
+
+msgid "typespdos/index"
+msgstr "Types de PDO"
+
+msgid "typesrsapcgs66/index"
+msgstr "Types de RSA"
+
+msgid "courrierspdos/index"
+msgstr "Courriers pour les traitements PDO"
+
+msgid "textareascourrierspdos/index"
+msgstr "Zones supplémentaires pour les courriers de traitements PDO"
+
+# ==============================================================================
+
+msgid "referents/index"
+msgstr "Référents pour les structures"
+
+# ==============================================================================
+
+msgid "relances"
+msgstr "Relances SMS"
+
+msgid "relances/index"
+msgstr "Paramétrage des relances"
+
+msgid "relanceslogs/index"
+msgstr "Logs des relances"
+
+# ==============================================================================
+
+msgid "rendezvous"
+msgstr "Rendez-vous"
+
+msgid "typesrdv/index"
+msgstr "Objets de rendez-vous"
+
+msgid "statutsrdvs/index"
+msgstr "Statuts de rendez-vous"
+
+msgid "thematiquesrdvs/index"
+msgstr "Thématiques des rendez-vous"
+
+msgid "statutsrdvs_typesrdv/index"
+msgstr "Passages en commissions des rendez-vous"
+
+# ==============================================================================
+
+msgid "services66/index"
+msgstr "Services"
+
+# ==============================================================================
+
+msgid "servicesinstructeurs/index"
+msgstr "Services instructeurs"
+
+# ==============================================================================
+
+msgid "sitescovs58/index"
+msgstr "Sites d'actions médico-sociale COVs"
+
+# ==============================================================================
+
+msgid "drees"
+msgstr "Statistiques DREES"
+
+msgid "dreesorganismes/index"
+msgstr "Paramétrage des organismes DREES"
+
+msgid "dreesactionscers/index"
+msgstr "Paramétrage des actions CER DREES"
+
+# ==============================================================================
+
+msgid "structuresreferentes/index"
+msgstr "Structures référentes"
+
+# ==============================================================================
+
+msgid "dashboards"
+msgstr "Tableau de bord"
+
+msgid "roles/index"
+msgstr "Définir les rôles"
+
+msgid "categoriesactionroles/index"
+msgstr "Catégories de rôles (onglets)"
+
+msgid "actionroles/index"
+msgstr "Action des rôles"
+
+# ==============================================================================
+
+msgid "tags"
+msgstr "Tags"
+
+msgid "categorietags/index"
+msgstr "Catégories de tags"
+
+msgid "valeurstags/index"
+msgstr "Valeurs de tags"
+# ==============================================================================
+
+msgid "typesactions/index"
+msgstr "Types d'actions"
+
+# ==============================================================================
+
+msgid "typesorients/index"
+msgstr "Types d'orientations"
+
+# ==============================================================================
+
+msgid "vaguesdorientations/index"
+msgstr "Vagues d'orientation"
+
+# ==============================================================================
+
+msgid "zonesgeographiques/index"
+msgstr "Zones géographiques"

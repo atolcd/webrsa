@@ -1001,12 +1001,12 @@
 	 * Valeur acceptées lors de la recherche sur type_allocation
 	 * Default : '\'IndusConstates\',\'IndusTransferesCG\''
 	 * Valeur possible en BDD au 20/11/2019 :
-	'IndusConstates' => 'Indu constaté',
-	'IndusTransferesCG' => 'Indu transféré au CD',
-	'AllocationsComptabilisees' => 'Allocations comptabilisées',
-	'RemisesIndus' => 'Remise d\'indu',
-	'AnnulationsFaibleMontant' => 'Annulation pour faible montant',
-	'AutresAnnulations' => 'Autre annulation'
+	 * 'IndusConstates' => 'Indu constaté',
+	 * 'IndusTransferesCG' => 'Indu transféré au CD',
+	 * 'AllocationsComptabilisees' => 'Allocations comptabilisées',
+	 * 'RemisesIndus' => 'Remise d\'indu',
+	 * 'AnnulationsFaibleMontant' => 'Annulation pour faible montant',
+	 * 'AutresAnnulations' => 'Autre annulation'
 	*/
 	Configure::write( 'Recoursgracieux.Indurecoursgracieux.type_allocation',array ('IndusConstates','IndusTransferesCG' ) );
 
@@ -1018,29 +1018,29 @@
 	 * Valeur acceptées lors de la recherche sur typeopecompta
 	 * Default : '\'CAI\',\'CDC\',\'CIC\',\'CCP\''
 	 * Valeur possible en BDD au 20/11/2019 :
-	//AllocCompta
-	'PME' => 'Pour le paiement mensuel',
-	'PRA' => 'Pour le paiement de rappel sur mois antérieur',
-	'RAI' => 'Pour réajustement  suite à annulation d\'indus',
-	'RMU' => 'Pour réajustement suite à mutation du dossier',
-	'RTR' => 'Pour réajustement suite à transformation d\'avances ou d\'acomptes en indus',
-	//Indus constatés
-	'CIC' => 'Implantation de créance',
-	'CAI' => 'Implantation de créance suite à une opération comptable de réajustement. Une opération de type RAI a été effectuée sur un autre dossier allocataire.',
-	'CDC' => 'Implantation d\'un  débit complémentaire (augmentation de la créance)',
-	/*Indus transférés
-	'CCP' => 'Transfert  de la créance au Conseil départemental',
-	//Remises indus
-	'CRC' => 'Remise de la créance par le Conseil départemental',
-	'CRG' => 'Remise de la créance par la Caf',
-	//Annulation faible
-	'CAF' => 'Annulation de faible montant  inférieur au seuil réglementaire',
-	'CFC' => 'Annulation de faible montant selon seuil fixé par le Conseil départemental (supérieur au seuil réglementaire)',
-	//Autre annulations
-	'CEX' => 'Annulation exceptionelle',
-	'CES' => 'Annulation suite à surendettement',
-	'CRN' => 'Annulation suite à renouvellement ou revalorisation (publication tardive des baremes, seuils, …)'
-	*/ 
+	 * //AllocCompta
+	 * 'PME' => 'Pour le paiement mensuel',
+	 * 'PRA' => 'Pour le paiement de rappel sur mois antérieur',
+	 * 'RAI' => 'Pour réajustement  suite à annulation d\'indus',
+	 * 'RMU' => 'Pour réajustement suite à mutation du dossier',
+	 * 'RTR' => 'Pour réajustement suite à transformation d\'avances ou d\'acomptes en indus',
+	 * //Indus constatés
+	 * 'CIC' => 'Implantation de créance',
+	 * 'CAI' => 'Implantation de créance suite à une opération comptable de réajustement. Une opération de type RAI a été effectuée sur un autre dossier allocataire.',
+	 * 'CDC' => 'Implantation d\'un  débit complémentaire (augmentation de la créance)',
+	 * /*Indus transférés
+	 * 'CCP' => 'Transfert  de la créance au Conseil départemental',
+	 * //Remises indus
+	 * 'CRC' => 'Remise de la créance par le Conseil départemental',
+	 * 'CRG' => 'Remise de la créance par la Caf',
+	 * //Annulation faible
+	 * 'CAF' => 'Annulation de faible montant  inférieur au seuil réglementaire',
+	 * 'CFC' => 'Annulation de faible montant selon seuil fixé par le Conseil départemental (supérieur au seuil réglementaire)',
+	 * //Autre annulations
+	 * 'CEX' => 'Annulation exceptionelle',
+	 * 'CES' => 'Annulation suite à surendettement',
+	 * 'CRN' => 'Annulation suite à renouvellement ou revalorisation (publication tardive des baremes, seuils, …)'
+	*/
 	Configure::write( 'Recoursgracieux.Indurecoursgracieux.typeopecompta',array ('CAI', 'CDC', 'CIC', 'CCP' ) );
 
 	/**
@@ -1071,6 +1071,14 @@
 	 * Couleur des lignes de résultats en erreur
 	 */
 	Configure::write('Resultats.ligne.erreur', 'red');
+
+	/**
+	 * Activation du module de gestion des Emails pour
+	 * - les recours gracieux,
+	 * - les créances,
+	 * 'Emails.Activer' => true pour activer le module recours gracieux, false pour inactiver
+	 */
+	Configure::write('Emails.Activer',true);
 
 	/**
 	 * Activation du module Vagues D'Orientations

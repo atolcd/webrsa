@@ -705,6 +705,7 @@
 			foreach( $this->request->data as $input => $data ){
 				if ( $input === 'Emailcui_insertiondate' ){
 					$formatedDate = strftime("%A %d %B %Y", strtotime($data));
+					$formatedDate = utf8_encode ( $formatedDate );
 					$text = str_replace( '#Emailcui.insersiondate#', $formatedDate, $text );
 				}
 				elseif ( $input === 'Emailcui_piecesmanquantes' ){

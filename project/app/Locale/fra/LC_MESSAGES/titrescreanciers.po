@@ -69,6 +69,9 @@ msgstr "Valider le titre de recette"
 msgid "/Titrescreanciers/exportfica"
 msgstr "Export CSV FICA"
 
+msgid "/Titrescreanciers/exportfica/#Titrecreancier.id#"
+msgstr "Export CSV FICA"
+
 msgid "/Titrescreanciers/retourcompta"
 msgstr "Enregistrer le retour compta"
 
@@ -76,6 +79,9 @@ msgid "/Titrescreanciers/retourcompta/#Titrecreancier.id#"
 msgstr "Enregistrer le retour compta"
 
 msgid "/Titrescreanciers/delete"
+msgstr "Supprimer"
+
+msgid "/Titrescreanciers/delete/#Titrecreancier.id#"
 msgstr "Supprimer"
 
 msgid "/Titrescreanciers/add/:heading"
@@ -173,6 +179,9 @@ msgstr "Valider la décision"
 
 msgid "Titrecreancier.numbordereau"
 msgstr "Numéro du bordereau"
+
+msgid "Titrecreancier.dtbordereau"
+msgstr "Date d'émission du titre"
 
 msgid "Titrecreancier.numtitr"
 msgstr "Numéro du titre"

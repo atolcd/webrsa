@@ -85,15 +85,22 @@
 		}
 
 		/**
-		 * Complète une requête de recherche avec les condtions, le champ
+		 * Complète une requête de recherche avec les conditions, le champ
 		 * Dossier.locked et une limite éventuelle.
 		 *
 		 * @param array $query
-		 * @param integer $limit
+		 * @param array $params
 		 * @return array
 		 */
 		public function completeSearchQuery( array $query, array $params = array() ) {
-			$params += array( 'limit' => true, 'structurereferente_id' => false );
+			$limit = true;
+
+			if( isset($params['limit']) && $params['limit'] == false) {
+				unset($query['limit']);
+				$limit = false;
+			}
+
+			$params += array(  'limit' => $limit, 'structurereferente_id' => false );
 			$query = $this->addAllConditions( $query, $params );
 
 			// Champ supplémentaire pour un moteur de recherche simple
@@ -248,27 +255,27 @@
 				$this->optionsSession()
 			);
 		}
-		
+
 		/**
 		 * Permet l'ajout des conditions des filtres de recherche configurable
-		 * 
+		 *
 		 * @see WebrsaAbstractMoteursComponent::_queryConditions()
-		 * 
+		 *
 		 * @param array $search
 		 * @param array $params
 		 */
 		public function configurableConditions($search, $params) {
 			$conditions = array();
-			
+
 			$hasPrestation = (array)Configure::read($params['searchKeyPrefix'].'.common.filters.has_prestation');
 			if (empty($hasPrestation)) {
 				$hasPrestation = (array)Configure::read(
 					"{$params['searchKeyPrefix']}.{$params['configurableQueryFieldsKey']}.filters.has_prestation"
 				);
 			}
-			
+
 			$filterRolepers = Hash::get($search, 'Prestation.rolepers');
-			
+
 			if (!empty($hasPrestation) && $filterRolepers !== null && in_array($filterRolepers, $hasPrestation)) {
 				if ((string)$filterRolepers === '0') {
 					$conditions[] = 'Prestation.id IS NULL';
@@ -278,7 +285,7 @@
 					$conditions['Prestation.rolepers'] = $filterRolepers;
 				}
 			}
-			
+
 			return $conditions;
 		}
 	}

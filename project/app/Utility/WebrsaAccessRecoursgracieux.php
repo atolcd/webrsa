@@ -48,9 +48,11 @@
 					'filelink',
 					'email',
 					'affecter',
+					'emailaffectersend',
 					'proposer',
 					'deleteproposition',
 					'decider',
+					'emaildecidersend',
 					'envoyer',
 					'traiter',
 					'proposercontestationcreances',
@@ -148,6 +150,37 @@
 			}else{
 				return false;
 			}
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _emailaffectersend(array $record, array $params) {
+			$Email = ClassRegistry::init( 'Email' );
+			$queryEmail = array(
+				'conditions' => array(
+					'Email.modele_id' => $record['Recourgracieux']['id'],
+					'Email.modele' => 'Recourgracieux',
+					'Email.modele_action' => 'affecter'
+				),
+			);
+			$emailInfos = $Email->find('first',$queryEmail );
+			if ( !empty ($emailInfos) ){
+				if (
+					(
+						$record['Recourgracieux']['etat'] == 'ATTINSTRUCTION'
+						|| $record['Recourgracieux']['etat'] == 'INSTRUCTION'
+					)
+					&& $emailInfos['Email']['etat'] == 'CREE'
+				){
+					return true;
+				}
+			}
+			return false;
 		}
 
 		/**
@@ -274,6 +307,35 @@
 		 * @param array $params
 		 * @return boolean
 		 */
+		protected static function _emaildecidersend(array $record, array $params) {
+			$Email = ClassRegistry::init( 'Email' );
+			$queryEmail = array(
+				'conditions' => array(
+					'Email.modele_id' => $record['Recourgracieux']['id'],
+					'Email.modele' => 'Recourgracieux',
+					'Email.modele_action' => 'decider'
+				),
+			);
+			$emailInfos = $Email->find('first',$queryEmail );
+
+			if ( !empty ($emailInfos) ){
+				if (
+					$record['Recourgracieux']['etat'] == 'ATTSIGNATURE'
+					&& $emailInfos['Email']['etat'] == 'CREE'
+				){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
 		protected static function _envoyer(array $record, array $params) {
 			if (
 				$record['Recourgracieux']['etat'] == 'ATTSIGNATURE'
@@ -310,7 +372,18 @@
 		 * @return boolean
 		 */
 		protected static function _delete(array $record, array $params) {
-			return true;
+			if (
+				$record['Recourgracieux']['etat'] == 'ATTSIGNATURE'
+				|| $record['Recourgracieux']['etat'] == 'ATTENVOIE'
+				|| $record['Recourgracieux']['etat'] == 'TRAITER'
+				|| $record['Recourgracieux']['etat'] == 'ANNULER'
+				|| $record['Recourgracieux']['etat'] == 'VALIDREGUL'
+				|| $record['Recourgracieux']['etat'] == 'VALIDTRAITEMENT'
+			){
+				return false;
+			}else{
+				return true;
+			}
 		}
 	}
 ?>

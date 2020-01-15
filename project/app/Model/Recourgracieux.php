@@ -350,4 +350,41 @@
 			}
 			return $propositionscreances;
 		}
+
+		/**
+		 * Requète d'impression
+		 *
+		 * @param type $id
+		 * @return type
+		 */
+		public function queryImpression( $id = null ){
+			$query = Configure::read('QueryImpression.Recoursgracieux');
+
+			if( $id !== null ) {
+				$query['conditions']['Recoursgracieux.id'] = $id;
+			}
+
+			return $query;
+		}
+
+		/**
+		 * Ajoute les données des modules liés pour l'impression
+		 *
+		 * @param array $data
+		 * @return type
+		 */
+		public function completeDataImpression( array $data ) {
+			$id = Hash::get( $data, 'Email.modele_id' );
+			$data = array( $data );
+
+			$modeles = Configure::read('CompleteDataImpression.Recoursgracieux.modeles');
+
+			foreach( $modeles as $modele ) {
+				$query = $this->{$modele}->getCompleteDataImpressionQuery( $id );
+				$data[$modele] = $this->{$modele}->find( 'all', $query );
+			}
+
+			return $data;
+		}
+
 	}

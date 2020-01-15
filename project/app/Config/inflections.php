@@ -465,6 +465,7 @@ $irregularPlural = array(
 	'requestmanager' => 'requestsmanager',
 	'requestgroup' => 'requestgroups',
 	'adresse_canton' => 'adresses_cantons',
+	'canton_sitecov58' => 'cantons_sitescovs58',
 	// Tags
 	'categorietag' => 'categorietags',
 	'valeurtag' => 'valeurstags',
@@ -506,6 +507,10 @@ $irregularPlural = array(
 	'recourgracieux' => 'recoursgracieux',
 	'creancerecoursgracieux' => 'creancesrecoursgracieux',
 	'indurecoursgracieux' => 'indusrecoursgracieux',
+	//email
+	'emaildestinataire' => 'emailsdestinataires',
+	'textemail' => 'textsemails',
+	'piecemail' => 'piecesemails',
 	//Rapport talends
 	'rapporttalendcreance' => 'rapportstalendscreances',
 	'rejettalendcreance' => 'rejetstalendscreances',

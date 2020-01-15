@@ -5,6 +5,8 @@ WebrsaAccess::init($dossierMenu);
 
 echo $this->element('default_index', array('addLink' => false));
 
+echo $this->Default3->DefaultForm->create( null, array( 'novalidate' => 'novalidate', 'id' => 'AddEditForm' ) );
+
 //Visualisation du titre lié
 if( empty( $titresCreanciers ) ) {
 	echo '<p class="notice">'. __m('Titresuiviinfopayeur::index::emptyTitrecreancier').'</p>';
@@ -40,7 +42,7 @@ if( empty( $titresCreanciers ) ) {
 	// ******************* Partie Informations payeurs ****************
 	echo "<h2>". __m('Titresuiviinfopayeur::index::titleTitreInfoPayeur')."</h2>";
 
-	echo $this->Default3->form(
+	echo $this->Default3->subform(
 		array(
 			'Titresuiviinfopayeur.id' => array( 'type' => 'hidden', 'value' => $titresInfosEnCours['Titresuiviinfopayeur']['id']),
 			'Titresuiviinfopayeur.titrecreancier_id' => array( 'type' => 'hidden', 'value' => $titresCreanciers['Titrecreancier']['id']),
@@ -58,4 +60,12 @@ if( empty( $titresCreanciers ) ) {
 			'options' => $options
 		)
 	);
+
+	// ******************* Partie Email ****************
+	echo $this->element( 'Email/edit' );
+
+	echo $this->Default3->DefaultForm->buttons( array( 'Save', 'Cancel' ) );
+	echo $this->Default3->DefaultForm->end();
+	echo $this->Observer->disableFormOnSubmit( 'AddEditForm' );
+
 }

@@ -51,6 +51,7 @@
 			)
 		);
 		if ( Configure::read( 'Recoursgracieux.Creancerecoursgracieux.enabled' ) ) {
+			echo '<br>';
 			echo '<h2>'. __m('Recourgracieux::proposer::titleCreancerecoursgracieux').'</h2>';
 			if( empty( $creancesrecoursgracieux) ) {
 				echo '<p class="notice">'.__m('Recourgracieux::decider::emptyCreancesrecoursgracieux').'</p>';
@@ -128,6 +129,7 @@
 			}
 		}
 		if ( Configure::read( 'Recoursgracieux.Indurecoursgracieux.enabled' ) ) {
+			echo '<br>';
 			echo '<h2>'. __m('Recourgracieux::proposer::titleIndurecoursgracieux').'</h2>';
 			if( empty( $indusrecoursgracieux) ) {
 				echo '<p class="notice">'.__m('Recourgracieux::decider::emptyIndusrecoursgracieux').'</p>';
@@ -215,6 +217,9 @@
 			),
 		array('options' => $options)
 	);
+
+	// ******************* Partie Email ****************
+	echo $this->element( 'Email/edit' );
 
 	echo $this->Default3->DefaultForm->buttons( array( 'Save', 'Cancel' ) );
 	echo $this->Default3->DefaultForm->end();

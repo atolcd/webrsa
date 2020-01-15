@@ -203,7 +203,10 @@
 						'type' => 'INNER',
 						'conditions' => array (
 							'Canton.id = AdresseCanton.canton_id',
-							'Canton.canton LIKE \'\''
+							'OR' => array(
+								'Canton.canton LIKE \'\'',
+								'Canton.canton is NULL'
+							),
 						)
 					),
 				),
@@ -214,38 +217,39 @@
 			);
 
 			$resultats = $this->Personne->find ('all', $query);
+
 			$export = array ();
 
 			$line = array ();
-			$line[] = 'Personne.qual';
-			$line[] = 'Personne.nom';
-			$line[] = 'Personne.nomnai';
-			$line[] = 'Personne.prenom';
-			$line[] = 'Personne.prenom2';
-			$line[] = 'Personne.prenom3';
-			$line[] = 'Personne.dtnai';
+			$line[] = __m('Personne.qual');
+			$line[] = __m('Personne.nom');
+			$line[] = __m('Personne.nomnai');
+			$line[] = __m('Personne.prenom');
+			$line[] = __m('Personne.prenom2');
+			$line[] = __m('Personne.prenom3');
+			$line[] = __m('Personne.dtnai');
 
-			$line[] = 'Adresse.numvoie';
-			$line[] = 'Adresse.libtypevoie';
-			$line[] = 'Adresse.nomvoie';
-			$line[] = 'Adresse.lieudist';
-			$line[] = 'Adresse.complideadr';
-			$line[] = 'Adresse.compladr';
-			$line[] = 'Adresse.codepos';
-			$line[] = 'Adresse.nomcom';
-			$line[] = 'Adresse.numcom';
-			$line[] = 'Adresse.pays';
+			$line[] = __m('Adresse.numvoie');
+			$line[] = __m('Adresse.libtypevoie');
+			$line[] = __m('Adresse.nomvoie');
+			$line[] = __m('Adresse.lieudist');
+			$line[] = __m('Adresse.complideadr');
+			$line[] = __m('Adresse.compladr');
+			$line[] = __m('Adresse.codepos');
+			$line[] = __m('Adresse.nomcom');
+			$line[] = __m('Adresse.numcom');
+			$line[] = __m('Adresse.pays');
 
-			$line[] = 'NouvelleAdresse.numvoie';
-			$line[] = 'NouvelleAdresse.libtypevoie';
-			$line[] = 'NouvelleAdresse.nomvoie';
-			$line[] = 'NouvelleAdresse.lieudist';
-			$line[] = 'NouvelleAdresse.complideadr';
-			$line[] = 'NouvelleAdresse.compladr';
-			$line[] = 'NouvelleAdresse.codepos';
-			$line[] = 'NouvelleAdresse.nomcom';
-			$line[] = 'NouvelleAdresse.numcom';
-			$line[] = 'NouvelleAdresse.pays';
+			$line[] = __m('NouvelleAdresse.numvoie');
+			$line[] = __m('NouvelleAdresse.libtypevoie');
+			$line[] = __m('NouvelleAdresse.nomvoie');
+			$line[] = __m('NouvelleAdresse.lieudist');
+			$line[] = __m('NouvelleAdresse.complideadr');
+			$line[] = __m('NouvelleAdresse.compladr');
+			$line[] = __m('NouvelleAdresse.codepos');
+			$line[] = __m('NouvelleAdresse.nomcom');
+			$line[] = __m('NouvelleAdresse.numcom');
+			$line[] = __m('NouvelleAdresse.pays');
 
 			$export[] = $line;
 

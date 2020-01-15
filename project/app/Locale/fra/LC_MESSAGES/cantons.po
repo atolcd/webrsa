@@ -93,3 +93,84 @@ msgstr "Export des adresses non associées"
 
 msgid "Canton.liste"
 msgstr "Liste des cantons"
+
+msgid "Personne.qual"
+msgstr "Civilité"
+
+msgid "Personne.nom"
+msgstr "Nom"
+
+msgid "Personne.nomnai"
+msgstr "Nom de naissance"
+
+msgid "Personne.prenom"
+msgstr "Prénom"
+
+msgid "Personne.prenom2"
+msgstr "Prénom 2"
+
+msgid "Personne.prenom3"
+msgstr "Prénom 3"
+
+msgid "Personne.dtnai"
+msgstr "Date de naissance"
+
+msgid "Adresse.numvoie"
+msgstr "Numéro de voie"
+
+msgid "Adresse.libtypevoie"
+msgstr "Type de voie"
+
+msgid "Adresse.nomvoie"
+msgstr "Nom de voie"
+
+msgid "Adresse.lieudist"
+msgstr "Lieu de distribution"
+
+msgid "Adresse.complideadr"
+msgstr "Complément identification adresse"
+
+msgid "Adresse.compladr"
+msgstr "Complément d'adresse"
+
+msgid "Adresse.codepos"
+msgstr "Code postal"
+
+msgid "Adresse.nomcom"
+msgstr "Nom de commune"
+
+msgid "Adresse.numcom"
+msgstr "Numéro de commune sens INSEE"
+
+msgid "Adresse.pays"
+msgstr "Pays"
+
+msgid "NouvelleAdresse.numvoie"
+msgstr "Nouvelle adresse : Numéro de voie"
+
+msgid "NouvelleAdresse.libtypevoie"
+msgstr "Nouvelle adresse : Type de voie"
+
+msgid "NouvelleAdresse.nomvoie"
+msgstr "Nouvelle adresse : Nom de voie"
+
+msgid "NouvelleAdresse.lieudist"
+msgstr "Nouvelle adresse : Lieu de distribution"
+
+msgid "NouvelleAdresse.complideadr"
+msgstr "Nouvelle adresse : Complément identification adresse"
+
+msgid "NouvelleAdresse.compladr"
+msgstr "Nouvelle adresse : Complément d'adresse"
+
+msgid "NouvelleAdresse.codepos"
+msgstr "Nouvelle adresse : Code postal"
+
+msgid "NouvelleAdresse.nomcom"
+msgstr "Nouvelle adresse : Nom de commune"
+
+msgid "NouvelleAdresse.numcom"
+msgstr "Nouvelle adresse : Numéro de commune sens INSEE"
+
+msgid "NouvelleAdresse.pays"
+msgstr "Nouvelle adresse : Pays"
