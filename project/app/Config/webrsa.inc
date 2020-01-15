@@ -801,6 +801,15 @@
 				'30_59' => '30 - 60',
 				'60_89' => '60 - 89',
 				'90_999' => '>= 90'
+			),
+			/**
+			 * Orientation avec rdv => ID en base de donnée
+			 */
+			'orientationRdv' => array(
+				'venu' => array(1),
+				'prevu' => array(17),
+				'excuses_recevables' => array(8, 9, 10, 11, 12, 13, 14, 15, 16),
+				'excuses_non_recevables' => array(3, 2)
 			)
 		)
 	);
