@@ -693,6 +693,114 @@
 			return $conditionsSearch;
 		}
 
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		*/
+		protected function _getQueryTableau_b1(array $search , $annee) {
+			$conditionsSearch = $this->_getConditionsTableau($search);
+			$joinSearch = $this->_getJoinsTableau($search);
+			$conditionsSDD = Configure::read('Statistiqueplanpauvrete.conditions_droits_et_devoirs');
+
+			// Query finale
+			$query = array(
+				'fields' => array(
+					'DISTINCT ON ("Historiquedroit"."id") "Historiquedroit"."id" AS "idHistoriquedroit"',
+					'Historiquedroit.created',
+					'Orientstruct.date_valid',
+					'Orientstruct.rgorient',
+					'Structurereferente.typestructure',
+					'Typeorient.id',
+					'Typeorient.modele_notif',
+					'Rendezvous.daterdv',
+					'Statutrdv.id',
+					'Bilanparcours66.modified',
+					'Bilanparcours66.proposition',
+				),
+				'recursive' => -1,
+				'joins' => array_merge( array(
+					array(
+						'table' => 'personnes',
+						'alias' => 'Personne',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Personne.id = Historiquedroit.personne_id'
+						)
+					),
+					array(
+						'table' => 'orientsstructs',
+						'alias' => 'Orientstruct',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Orientstruct.personne_id = Personne.id'
+						)
+					),
+					array(
+						'table' => 'typesorients',
+						'alias' => 'Typeorient',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Typeorient.id = Orientstruct.typeorient_id'
+						)
+					),
+					array(
+						'table' => 'rendezvous',
+						'alias' => 'Rendezvous',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Rendezvous.personne_id = Personne.id'
+						)
+					),
+					array(
+						'table' => 'statutsrdvs',
+						'alias' => 'Statutrdv',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Statutrdv.id = Rendezvous.statutrdv_id'
+						)
+					),
+					array(
+						'table' => 'structuresreferentes',
+						'alias' => 'Structurereferente',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Structurereferente.typeorient_id = Typeorient.id'
+						)
+					),
+					array(
+						'table' => 'bilansparcours66',
+						'alias' => 'Bilanparcours66',
+						'type' => 'LEFT',
+						'conditions' => array(
+							'Bilanparcours66.personne_id = Personne.id'
+						)
+					) ),
+					$joinSearch
+				),
+				'conditions' => array_merge( array(
+					'Historiquedroit.created >= ' => $annee .'-01-01',
+					'Historiquedroit.created <= ' => $annee .'-12-31',
+					'Historiquedroit.etatdosrsa IN' => $conditionsSDD['Situationdossierrsa.etatdosrsa'],
+					'AND' => array(
+						'OR' => array(
+							array('Rendezvous.daterdv' => NULL),
+							array('Rendezvous.daterdv >= Historiquedroit.created')
+						),
+						array(
+							'OR' => array(
+								array('Orientstruct.date_valid' => NULL),
+								array('Orientstruct.date_valid >= Historiquedroit.created')
+							)
+						)
+					)
+					),
+					$conditionsSearch
+				)
+			);
+
+			return $query;
+		}
 
 		/**
 		 *
@@ -1444,6 +1552,140 @@
 
 		########################################################################################################################
 		########################################################################################################################
+
+		/**
+		 * Tableau B1 : Tableau de suivi de la première orientation
+		 * @param array $search
+		 * @return array
+		*/
+		public function getIndicateursTableauB1( array $search ) {
+			$Historiquedroit = ClassRegistry::init( 'Historiquedroit' );
+			$annee = Hash::get( $search, 'Search.annee' );
+			$results = array();
+
+			$testOrient = $this->_getTypeOrientation();
+
+			// Récupération des variables de configuration
+			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
+			$statutRdv = Configure::read('Statistiqueplanpauvrete.orientationRdv');
+			// Query de base
+			$query = $this->_getQueryTableau_b1 ($search, $annee);
+			$results = $Historiquedroit->find('all', $query);
+			$resultats = array();
+
+			// Initialisation tableau de résultats
+			$resultats = array (
+				'total' => array(),
+				'Orientes' => array(
+					'total' => array(),
+					'emploi' => array(),
+					'prepro' => array(),
+					'social' => array(),
+					'pe' => array(),
+					'cd' => array(),
+					'oa' => array()
+				),
+				'NonOrientes' => array(
+					'total' => array(),
+					'prevu' => array(),
+					'bilan' => array(),
+					'autres' => array(),
+				),
+				'delai_moyen' => array(),
+				'orient_31jours' => array(),
+				'delai' => $configurationDelais,
+				'taux_orient' => array()
+			);
+
+			for($i=0; $i<12; $i++) {
+				$resultats['total'][$i] = 0;
+				$resultats['Orientes']['total'][$i] = 0;
+				$resultats['Orientes']['emploi'][$i] = 0;
+				$resultats['Orientes']['prepro'][$i] = 0;
+				$resultats['Orientes']['social'][$i] = 0;
+				$resultats['Orientes']['pe'][$i] = 0;
+				$resultats['Orientes']['cd'][$i] = 0;
+				$resultats['Orientes']['oa'][$i] = 0;
+				$resultats['NonOrientes']['total'][$i] = 0;
+				$resultats['NonOrientes']['prevu'][$i] = 0;
+				$resultats['NonOrientes']['bilan'][$i] = 0;
+				$resultats['NonOrientes']['autres'][$i] = 0;
+				$resultats['delai_moyen'][$i] = 0;
+				$resultats['orient_31jours'][$i] = 0;
+				$resultats['taux_orient'][$i] = 0;
+				foreach( $configurationDelais as $key => $config) {
+					if( is_array($resultats['delai'][$key]) == false ) {
+						$resultats['delai'][$key] = array();
+					}
+					$resultats['delai'][$key][$i] = 0;
+				}
+			}
+
+			// Traitement des résultats
+			foreach($results as $result) {
+				$month = intval( date('n', strtotime($result['Historiquedroit']['created']) ) ) -1;
+				$resultats['total'][$month]++;
+				// Orientés
+				if( !is_null($result['Orientstruct']['date_valid']) && $result['Orientstruct']['rgorient'] == 1 ) {
+					$resultats['Orientes']['total'][$month]++;
+					// Type d'orientations
+					if( $result['Structurereferente']['typestructure'] == 'oa' ) {
+						$resultats['Orientes']['oa'][$month]++;
+					}
+
+					if( $result['Typeorient']['modele_notif'] == 'PE' ) {
+						$resultats['Orientes']['pe'][$month]++;
+					} elseif( $result['Typeorient']['modele_notif'] == 'CG' ) {
+						$resultats['Orientes']['cd'][$month]++;
+					}
+
+					if( in_array($result['Typeorient']['id'], $testOrient['SOCIAL'] ) ) {
+						$resultats['Orientes']['social'][$month]++;
+					} elseif( in_array( $result['Typeorient']['id'], $testOrient['EMPLOI'] ) ) {
+						$resultats['Orientes']['emploi'][$month]++;
+					} else {
+						$resultats['Orientes']['prepro'][$month]++;
+					}
+
+					// Délais
+					$dateCreaHisto = new DateTime($result['Historiquedroit']['created']);
+					$dateOrient = new DateTime($result['Orientstruct']['date_valid']);
+					$delai = $dateCreaHisto->diff($dateOrient)->days;
+
+					if($delai <= 31) {
+						$resultats['orient_31jours'][$month]++;
+					}
+					$resultats['delai_moyen'][$month] += $delai;
+					foreach($resultats['delai']as $key => $osef) {
+						$joursDelais = explode('_', $key);
+						if( $delai >= intval($joursDelais[0]) && $delai < intval($joursDelais[1]) ) {
+							$resultats['delai'][$key][$month] ++;
+						}
+					}
+				}
+				// Non orientés
+				 else {
+					$resultats['NonOrientes']['total'][$month]++;
+					if( !is_null($result['Statutrdv']['id']) && in_array($result['Statutrdv']['id'], $statutRdv['prevu']) ) {
+						$resultats['NonOrientes']['prevu'][$month]++;
+					} elseif( !is_null($result['Bilanparcours66']['proposition']) && $result['Bilanparcours66']['proposition'] ==  'audition' ) {
+						$resultats['NonOrientes']['bilan'][$month]++;
+					} else {
+						$resultats['NonOrientes']['autres'][$month]++;
+					}
+				}
+			}
+
+			// Calcul des moyennes
+			for( $i=0; $i<12; $i++){
+				if($resultats['total'][$i] != 0) {
+					$resultats['delai_moyen'][$i] = intval($resultats['delai_moyen'][$i] / $resultats['Orientes']['total'][$i]);
+					$resultats['taux_orient'][$i] = round( (100 * $resultats['Orientes']['total'][$i] ) / $resultats['total'][$i], 2)  . '%';
+				}
+			}
+
+			return $resultats;
+		}
 
 		/**
 		 * ...
