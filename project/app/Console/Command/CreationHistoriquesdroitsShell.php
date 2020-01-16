@@ -11,7 +11,8 @@
 
 	/**
 	 * La classe CreationHistoriquesdroitsShell permet de créer l'historique des droits des personnes
-     * à partir d'ancien Flux Bénificiaires mensuels
+     * à partir d'ancien Flux Bénificiaires mensuels.
+     * La commande se fait par fichier
 	 *
 	 * sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake CreationHistoriquesdroits -app app FICHIER
 	 *
@@ -45,7 +46,6 @@
           }
 
         function main() {
-            //echo $this->args[0];
             // Récupération de la date du flux
             $xmlDate = $this->lit_xml($this->args[0], 'IdentificationFlux', array('DTCREAFLUX', 'HEUCREAFLUX'));
             $dateToInsert = $xmlDate[0][0] . ' ' . substr($xmlDate[0][1],0, 8);
@@ -55,13 +55,14 @@
                 'NIR',
                 'ETATDOSRSA',
                 'ROLEPERS',
-                'TOPPERSDRODEVORSA'
+                'TOPPERSDRODEVORSA',
+                'MOTICLORSA'
             );
 
             $xmlInfos = $this->lit_xml($this->args[0], 'InfosFoyerRSA', $infos);
 
             $datas = array();
-
+            $countPersonnesNonAjoutees = 0;
             // Préparation des données à sauvegarder
             foreach($xmlInfos as $info) {
                 if($info[4] == 'DEM' || $info[4] == 'CJT') {
@@ -75,29 +76,41 @@
                             'Personne.nir LIKE \''. substr($info[2], 0, 13) . '%\'' // NIR sur 13 caractères
                         )
                     ));
-                    $idPersonne = $idPersonne['Personne']['id'];
-                    $histoPersonne = $this->Historiquedroit->find('first', array('conditions' => array('Historiquedroit.personne_id' => $idPersonne) ) );
-                    if( isset($histoPersonne) && $histoPersonne['etatdosrsa'] == $info[3] ) {
-                        $date = array('modified' => $dateToInsert);
-                        $idHisto = $this->Historiquedroit->find('first', array('conditions' => array('Historiquedroit.personne_id' => $idPersonne)));
-                        $idHisto = array( 'id' => $idHisto['Historiquedroit']['id']);
-                    } else {
-                        $date = array('created' => $dateToInsert, 'modified' => $dateToInsert);
+                    if( !empty($idPersonne) ) {
+                        $idPersonne = $idPersonne['Personne']['id'];
+                        $histoPersonne = $this->Historiquedroit->find('first', array('conditions' => array('Historiquedroit.personne_id' => $idPersonne) ) );
+                        if( !empty($histoPersonne) && $histoPersonne['Historiquedroit']['etatdosrsa'] == $info[3] ) {
+                            $date = array('modified' => $dateToInsert);
+                            $idHisto = $this->Historiquedroit->find('first', array('conditions' => array('Historiquedroit.personne_id' => $idPersonne)));
+                            $idHisto = array( 'id' => $idHisto['Historiquedroit']['id']);
+                        } else {
+                            $date = array('created' => $dateToInsert, 'modified' => $dateToInsert);
+                            $idHisto = array();
+                        }
+                        $datas[] = array_merge(
+                            array(
+                                'personne_id' => $idPersonne,
+                                'toppersdrodevorsa' => $info[5],
+                                'etatdosrsa' => $info[3],
+                                'moticlorsa' => $info[6]
+                            ),
+                            $date,
+                            $idHisto
+                        );
                         $idHisto = array();
+
+                    } else {
+                        $this->out( 'La personne ' . $info[0] . ' ' . $info[1] . ' ayant le NIR ' . $info[2] . ' n\'a pas été trouvée en base.' ).
+                        $this->out( 'Les informations de cette personnes était : ');
+                        $this->out( 'toppersdrodevorsa : ' . $info[5] . ', etatdosrsa : ' . $info[3] . ', moticlorsa : ' . $info[6] );
+                        $this->out();
+                        $this->out();
+                        $countPersonnesNonAjoutees++;
                     }
-                    $datas[] = array_merge(
-                        array(
-                            'personne_id' => $idPersonne,
-                            'toppersdrodevorsa' => $info[5],
-                            'etatdosrsa' => $info[3]
-                        ),
-                        $date,
-                        $idHisto
-                    );
-                    $idHisto = array();
                 }
             }
-            $this->out(count($datas) . ' personnes seront ajoutées à la table historiquesdroits' );
+            $this->out(count($datas) . ' personnes seront ajoutées à la table historiquesdroits.' );
+            $this->out($countPersonnesNonAjoutees . ' personnes ne seront pas ajoutées à la table historiquesdroits dû à un problème de personne non trouvé en base.' );
             $success = $this->Historiquedroit->saveAll($datas);
             if($success) {
                 $this->out( 'Insertion terminée' );
