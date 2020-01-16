@@ -131,12 +131,11 @@
 		public function indicateurs_tableau_a1() {
 			if( !empty( $this->request->data ) ) {
 				$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA1( $this->request->data );
-				$tranches = $this->Statistiqueplanpauvrete->tranches;
 
-				$this->set( compact( 'results', 'tranches' ) );
+				$this->set( compact( 'results') );
 			}
 
-			$this->set( 'title_for_layout', 'Tableau 1 - Nombre de personnes soumises aux droits et devoirs au 31/12 de l\'année, selon l\'orientation à cette même date' );
+			$this->set( 'title_for_layout',  __d('statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a1', '' ) );
 		}
 
 		/**

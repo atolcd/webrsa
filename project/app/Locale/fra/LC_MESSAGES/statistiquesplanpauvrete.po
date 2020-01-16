@@ -16,7 +16,7 @@ msgid "Statistiquesplanpauvrete.menu"
 msgstr "Statistiques Plan Pauvreté"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a1"
-msgstr "Tableau de bord - Instruction RSA"
+msgstr "Tableau A1 - Instruction RSA"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2"
 msgstr "Tableau de bord - Parcours des Brsa"
@@ -33,6 +33,7 @@ msgstr "Tableau B5 : Suivi des CER"
 # ==============================================================================
 # Mois
 # ==============================================================================
+
 msgid "Tableau.jan"
 msgstr "Janvier"
 
@@ -72,6 +73,7 @@ msgstr "Décembre"
 # ==============================================================================
 # Délais
 # ==============================================================================
+
 msgid "Tableau_delai.0_XX"
 msgstr "Avant XX jours"
 
@@ -140,10 +142,26 @@ msgstr "Délai de 1ère orientation"
 
 msgid "tableaub1.taux_orient"
 msgstr "Taux d'orientation"
+# ==============================================================================
+# Tableau A1
+# ==============================================================================
+
+msgid "Tableaua1.title"
+msgstr "Nombre de foyers avec un droit ouvert "
+
+msgid "tableaua1.total"
+msgstr "Nombre de foyers avec un droit ouvert par mois"
+
+msgid "tableaua1.nbFoyerConnu"
+msgstr "Dont le nbre de foyers connus le mois précédent avec un droit radié (les nouveaux entrants)"
+
+msgid "tableaua1.nbFoyerInconnu"
+msgstr "Dont le nbre de foyers inconnus dans la base (les primo-arrivants)"
 
 # ==============================================================================
 # Tableau B4
 # ==============================================================================
+
 msgid "Tableaub4.nbOrientation"
 msgstr "Nombre de 1er rendez-vous après orientation en "
 

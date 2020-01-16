@@ -603,10 +603,14 @@
 		 */
 		protected function _getJoinsTableau(array $search) {
 			$joinSearch = array();
-			if( isset($search['Adresse']) &&
+			if(
+				(isset($search['Adresse']) &&
 				( $search['Adresse']['nomvoie'] != ''  ||
 				$search['Adresse']['nomcom'] != '' ||
-				$search['Adresse']['numcom']  != '' ) ) {
+				$search['Adresse']['numcom']  != '' )
+				)
+				|| ( isset($search['Canton']) && $search['Canton']['canton'] != '')
+			) {
 				$joinSearch = array(
 					array(
 						'table' => 'adresses',
@@ -798,7 +802,102 @@
 					$conditionsSearch
 				)
 			);
+			return $query;
+		}
 
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		protected function _getQueryTableau_a1(array $search , $annee) {
+			$Dossier = ClassRegistry::init( 'Dossier' );
+			$Foyer = ClassRegistry::init( 'Foyer' );
+			$conditionsSearch = $this->_getConditionsTableau($search);
+			$joinSearch = $this->_getJoinsTableau($search);
+			// Query finale
+			$query = array(
+				'fields' => array(
+					'DISTINCT ON ("Foyer"."id") "Foyer"."id" AS "idFoyer"',
+					'Personne.id',
+				),
+				'recursive' => 0,
+				'joins' => array_merge(
+					array(
+						$Dossier->join( 'Detaildroitrsa', array( 'type' => 'INNER' ) ),
+						$Dossier->Detaildroitrsa->join( 'Detailcalculdroitrsa', array( 'type' => 'INNER' ) ),
+						$Foyer->join( 'Personne', array( 'type' => 'INNER' ) )
+					),
+					$joinSearch
+				),
+				'conditions' => $conditionsSearch
+			);
+			$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
+			if ( $useHistoriquedroit ){
+				$query['fields'] = array_merge(
+					$query['fields'],
+					array(
+						'Historiquedroit12.etatdosrsa'
+					)
+				);
+				for($month=0; $month<12; $month++) {
+					$query['fields'] = array_merge(
+						$query['fields'],
+						array(
+							'Historiquedroit'.$month.'.etatdosrsa'
+						)
+					);
+				}
+				$query['joins'] = array_merge(
+					$query['joins'],
+					array(
+						array(
+							'table' => 'historiquesdroits',
+							'alias' => 'Historiquedroit12',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Personne.id = Historiquedroit12.personne_id',
+								'(\''.($annee-1).'-12-01\' BETWEEN date_trunc(\'month\', Historiquedroit12.created )
+								AND  date_trunc(\'month\', Historiquedroit12.modified ))'
+							),
+							'ORDER BY' => 'Historiquedroit12.created DESC',
+							'LIMIT' => 1
+						)
+					)
+				);
+				for($month=0; $month<12; $month++) {
+					if (($month+1) <10){$tmpMonth = '0'.($month+1);}else{$tmpMonth = ($month+1);}
+					$query['joins'] = array_merge(
+						$query['joins'],
+						array(
+							array(
+								'table' => 'historiquesdroits',
+								'alias' => 'Historiquedroit'.$month,
+								'type' => 'LEFT',
+								'conditions' => array(
+									'Personne.id = Historiquedroit'.$month.'.personne_id',
+									'(date_trunc(\'month\',to_date(\''.$annee.'-'.$tmpMonth.'-01\',\'YYYY-MM-DD\'))
+									BETWEEN date_trunc(\'month\', Historiquedroit'.$month.'.created )
+									AND  date_trunc(\'month\', Historiquedroit'.$month.'.modified ) )'
+								),
+								'ORDER BY' => 'Historiquedroit'.$month.'.created DESC',
+								'LIMIT' => 1
+							)
+						)
+					);
+				}
+			}
+			$query['conditions'] = array_merge(
+				array(
+					/*'Orientstruct.date_valid >= ' => $annee .'-01-01',
+					'Orientstruct.date_valid <= ' => $annee .'-12-31',
+					'Rendezvous.daterdv !=' =>  NULL,
+					'Rendezvous.daterdv >= Orientstruct.date_valid'*/
+				),
+				$query['conditions']
+			);
+
+			$query = $this->_completeQuerySoumisDd($query, $annee, true);
 			return $query;
 		}
 
@@ -1207,142 +1306,60 @@
 		########################################################################################################################
 
 		/**
-		 * Retourne les résultats de la partie "Questionnaire orientation", "1 -
-		 * Orientation des personnes dans le champ des Droits et Devoirs au 31
-		 * décembre de l'année, au sens du type de parcours".
+		 * Retourn les résultats de la partie Tableau de bord – Instructon RSA (de l’instructon de la demande à un droit Rsa)
 		 *
 		 * @param array $search
 		 * @return array
 		 */
 		public function getIndicateursTableauA1( array $search ) {
-			$Dossier = ClassRegistry::init( 'Dossier' );
+			$Foyer = ClassRegistry::init( 'Foyer' );
+			$Historiquedroit = ClassRegistry::init( 'Historiquedroit' );
 			$annee = Hash::get( $search, 'Search.annee' );
 			$results = array();
 
-			// Récupération des variables de configuration
-			$configuration = $this->_getConfigStatistiqueplanpauvrete();
-
 			// Query de base
-			$base = $this->_getQueryTableau ($search, $annee);
+			$query = $this->_getQueryTableau_a1 ($search, $annee);
 
-			// Recherche
-			$results = $Dossier->find( 'all', $base);
+			$results = $Foyer->find('all', $query);
 
 			// Initialisation tableau de résultats
-			$resultats = array ();
-			$this->_initialiseResults($resultats, 'TableauA1');
+			$resultats = array (
+				'total' => array(),
+				'nbFoyerConnu' => array(),
+				'nbFoyerInconnu' => array()
+			);
+			for($i=0; $i<12; $i++) {
+				$resultats['total'][$i]=0;
+				$resultats['nbFoyerConnu'][$i]=0;
+				$resultats['nbFoyerInconnu'][$i]=0;
+			}
+			$tmp = 0;
+			foreach($results as $result) {
+				$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
+				if ( $useHistoriquedroit ){
+					$historiquesPreviousMonth = $result['Historiquedroit12']['etatdosrsa'];
+					for( $month=0; $month<12; $month++ ) {
+						if ( $result['Historiquedroit'.$month]['etatdosrsa'] == 2 ) {
+							// Nombre de foyers avec un droit ouvert par mois
+							$resultats['total'][$month] ++;
 
-			// Génération du tableau de résultats
-			$this->_generateResults($results, $resultats, $configuration, 'TableauA1');
+							//- Dont le nbre de foyers connus le mois précédent avec un droit radié (les nouveaux entrants)
+							if (
+								$historiquesPreviousMonth == 5
+								|| $historiquesPreviousMonth == 6
+							){
+								$resultats['nbFoyerConnu'][$month]++;
+							}
+							//- Dont le nbre de foyers inconnus dans la base (les primio-arrivants)
+							if ( $historiquesPreviousMonth == null ){
+								$resultats['nbFoyerInconnu'][$month]++;
+							}
+						}
+					}
+				}
+			}
 
 			return $resultats;
-		}
-
-		/**
-		 *
-		 */
-		private function _initialiseRowInformationsTableauA1 (&$resultats, $categorie, $souscategorie) {
-			if (!isset ($resultats[$categorie])) {
-				$resultats[$categorie] = array ();
-			}
-
-			// Droits et devoirs
-			$resultats[$categorie]['droits_et_devoirs'][$souscategorie] = 0;
-			// Orientés
-			$resultats[$categorie]['orientes'][$souscategorie] = 0;
-			// Orientés vers Pôle Emploi
-			$resultats[$categorie]['orientes_pole_emploi'][$souscategorie] = 0;
-			// Orientés vers autre que Pôle Emploi
-			$resultats[$categorie]['orientes_autre_que_pole_emploi'][$souscategorie] = 0;
-			// Mission Locale
-			$resultats[$categorie]['spe_mission_locale'][$souscategorie] = 0;
-			// MDE / MDEF / PLIE / Cap Emploi
-			$resultats[$categorie]['spe_mde_mdef_plie'][$souscategorie] = 0;
-			// Création développement d'entreprise
-			$resultats[$categorie]['spe_creation_entreprise'][$souscategorie] = 0;
-			// IAE
-			$resultats[$categorie]['spe_iae'][$souscategorie] = 0;
-			// Autre organisme de placement / formation professionnelle
-			$resultats[$categorie]['spe_autre_placement_pro'][$souscategorie] = 0;
-			// SSD
-			$resultats[$categorie]['hors_spe_ssd'][$souscategorie] = 0;
-			// CAF
-			$resultats[$categorie]['hors_spe_caf'][$souscategorie] = 0;
-			// MSA
-			$resultats[$categorie]['hors_spe_msa'][$souscategorie] = 0;
-			// CCAS / CIAS
-			$resultats[$categorie]['hors_spe_ccas_cias'][$souscategorie] = 0;
-			// Autres organismes
-			$resultats[$categorie]['hors_spe_autre_organisme'][$souscategorie] = 0;
-			// Non orientés
-			$resultats[$categorie]['non_orientes'][$souscategorie] = 0;
-		}
-
-		/**
-		 *
-		 */
-		private function _getRowInformationsTableauA1 ($row, &$resultats, $categorie, $souscategorie, $configuration) {
-			// Droits et devoirs
-			$resultats[$categorie]['droits_et_devoirs'][$souscategorie]++;
-
-			// Orientés
-			if (is_numeric ($row['idOrientstruct'])) {
-				$resultats[$categorie]['orientes'][$souscategorie]++;
-
-				// Orientés vers Pôle Emploi
-				if (is_numeric ($row['idOrientstruct']) && in_array($row['idStructurereferente'], $configuration['organismes']['orientes_pole_emploi'])) {
-					$resultats[$categorie]['orientes_pole_emploi'][$souscategorie]++;
-				}
-				// Orientés vers autre que Pôle Emploi
-				else {
-					$resultats[$categorie]['orientes_autre_que_pole_emploi'][$souscategorie]++;
-				}
-
-				// Mission Locale
-				if (in_array($row['idStructurereferente'], $configuration['organismes']['spe_mission_locale'])) {
-					$resultats[$categorie]['spe_mission_locale'][$souscategorie]++;
-				}
-				// MDE / MDEF / PLIE / Cap Emploi
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['spe_mde_mdef_plie'])) {
-					$resultats[$categorie]['spe_mde_mdef_plie'][$souscategorie]++;
-				}
-				// Création développement d'entreprise
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['spe_creation_entreprise'])) {
-					$resultats[$categorie]['spe_creation_entreprise'][$souscategorie]++;
-				}
-				// IAE
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['spe_iae'])) {
-					$resultats[$categorie]['spe_iae'][$souscategorie]++;
-				}
-				// Autre organisme de placement / formation professionnelle
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['spe_autre_placement_pro'])) {
-					$resultats[$categorie]['spe_autre_placement_pro'][$souscategorie]++;
-				}
-				// SSD
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['hors_spe_ssd'])) {
-					$resultats[$categorie]['hors_spe_ssd'][$souscategorie]++;
-				}
-				// CAF
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['hors_spe_caf'])) {
-					$resultats[$categorie]['hors_spe_caf'][$souscategorie]++;
-				}
-				// MSA
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['hors_spe_msa'])) {
-					$resultats[$categorie]['hors_spe_msa'][$souscategorie]++;
-				}
-				// CCAS / CIAS
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['hors_spe_ccas_cias'])) {
-					$resultats[$categorie]['hors_spe_ccas_cias'][$souscategorie]++;
-				}
-				// Autres organismes
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['hors_spe_autre_organisme'])) {
-					$resultats[$categorie]['hors_spe_autre_organisme'][$souscategorie]++;
-				}
-			}
-			// Non orientés
-			else {
-				$resultats[$categorie]['non_orientes'][$souscategorie]++;
-			}
 		}
 
 		########################################################################################################################
