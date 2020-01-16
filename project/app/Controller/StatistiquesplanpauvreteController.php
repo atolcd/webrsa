@@ -183,13 +183,10 @@
 		 */
 		public function indicateurs_tableau_a2() {
 			if( !empty( $this->request->data ) ) {
-				$results = $this->Statistiqueplanpauvrete->getIndicateursTableau2( $this->request->data );
-				$tranches = $this->Statistiqueplanpauvrete->tranches;
-
-				$this->set( compact( 'results', 'tranches' ) );
+				$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA2( $this->request->data );
+				$this->set( compact( 'results' ) );
 			}
-
-			$this->set( 'title_for_layout', 'Tableau 2 - Nombre de personnes soumises aux droits et devoirs et orientées au 31/12 de l\'année inscrites à Pôle emploi ou ayant un CER en cours de validité à cette même date, selon l\'orientation' );
+			$this->set( 'title_for_layout', __d('statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a2', '') );
 		}
 
 		/**

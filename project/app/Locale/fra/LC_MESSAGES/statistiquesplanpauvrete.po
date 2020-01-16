@@ -19,7 +19,7 @@ msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a1"
 msgstr "Tableau A1 - Instruction RSA"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2"
-msgstr "Tableau de bord - Parcours des Brsa"
+msgstr "Tableau de bord A2 - Parcours des Brsa"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b1"
 msgstr "Tableau B1 : Suivi de la 1ère orientation"
@@ -157,6 +157,102 @@ msgstr "Dont le nbre de foyers connus le mois précédent avec un droit radié (
 
 msgid "tableaua1.nbFoyerInconnu"
 msgstr "Dont le nbre de foyers inconnus dans la base (les primo-arrivants)"
+
+# ==============================================================================
+# Tableau A2
+# ==============================================================================
+
+msgid "Tableau.SSD"
+msgstr "Tableau de bord A2 - Parcours des Brsa"
+
+msgid "tableaua2.SSD"
+msgstr "Nombre de personnes Soumises à droits et devoirs (Pers. SDD) avec un droit ouvert par mois"
+
+msgid "tableaua2.Orientes"
+msgstr "Nombre de Pers. SDD orientées avec un droit ouvert par mois"
+
+msgid "tableaua2.Orientestotal"
+msgstr "Nombre Total"
+msgid "tableaua2.Orientespercent"
+msgstr "équivalent en %"
+
+msgid "tableaua2.OrientesEmploi"
+msgstr "Dont nbre de pers. SDD orientées Emploi"
+msgid "tableaua2.OrientespercentEmploi"
+msgstr " équivalent en %"
+
+msgid "tableaua2.OrientesPrepro"
+msgstr "Dont nbre de pers. SDD orientées Pré pro"
+msgid "tableaua2.OrientespercentPrepro"
+msgstr " équivalent en %"
+
+msgid "tableaua2.OrientesSocial"
+msgstr "- Dont nbre de pers. SDD orientées Social"
+msgid "tableaua2.OrientespercentSocial"
+msgstr " équivalent en %"
+
+msgid "tableaua2.OrientesPE"
+msgstr "- Dont nbre de pers. SDD orientées PE"
+msgid "tableaua2.OrientespercentPE"
+msgstr " équivalent en %"
+
+msgid "tableaua2.OrientesCD"
+msgstr "- Dont nbre de pers. SDD orientées CD"
+msgid "tableaua2.OrientespercentCD"
+msgstr " équivalent en %"
+
+msgid "tableaua2.OrientesOA"
+msgstr "- Dont nbre de pers. SDD orientées OA "
+msgid "tableaua2.OrientespercentOA"
+msgstr " équivalent en %"
+
+msgid "tableaua2.Contrat"
+msgstr "Nombre de Pers. SDD ayant un contrat 'actif' "
+
+msgid "tableaua2.Contrattotal"
+msgstr "Nombre Total"
+msgid "tableaua2.Contratpercent"
+msgstr "équivalent en %"
+
+msgid "tableaua2.ContratPEPPAE"
+msgstr "- Dont de Pers. SDD orientées PE ayant un PPAE"
+msgid "tableaua2.ContratpercentPEPPAE"
+msgstr " équivalent en %"
+
+msgid "tableaua2.ContratCDCER"
+msgstr "- Dont de Pers. SDD orientées CD ayant un CER"
+msgid "tableaua2.ContratpercentCDCER"
+msgstr " équivalent en %"
+
+msgid "tableaua2.ContratPEAider"
+msgstr "- Dont de Pers. SDD orientées PE ayant un contrat aidé "
+msgid "tableaua2.ContratpercentPEAider"
+msgstr " équivalent en %"
+
+msgid "tableaua2.ContratPEAccomp"
+msgstr "- Dont de Pers. SDD orientées PE ayant un contrat d’accompagnement (Chrs, MLI, ADRH)"
+msgid "tableaua2.ContratpercentPEAccomp"
+msgstr " équivalent en %"
+
+msgid "tableaua2.CDCER"
+msgstr "Nombre de pers. SDD orientés CD ayant un CER “actif» par mois"
+msgid "tableaua2.CDCERtotal"
+msgstr "Nombre Total"
+
+msgid "tableaua2.CDCERSocial"
+msgstr "- Dont nbre de pers. SDD orientées “Social” avec un CER “actif”"
+
+msgid "tableaua2.CDCERpercentSocial"
+msgstr "- Dont taux de contractualisation pour les pers. SDD orientées “Social”"
+
+msgid "tableaua2.CDCERPrepro"
+msgstr "- Dont nbre de pers. SDD orientées “Pré pro” avec un CER “actif”"
+
+msgid "tableaua2.CDCERpercentPrepro"
+msgstr "- Dont taux de contractualisation pour les pers. SDD orientées “Pré pro”"
+
+msgid "tableaua2.RDVCER"
+msgstr "Nombre de rendez-vous réalisés dans le cadre de l’accompagnement par mois (Rdv pour CER et suivi)"
 
 # ==============================================================================
 # Tableau B4

@@ -778,7 +778,7 @@
 			 * Adressefoyer, Personne, Adresse, Prestation, Calculdroitrsa.
 			 */
 			'conditions_droits_et_devoirs' => array(
-				'Situationdossierrsa.etatdosrsa' => array( '2' ),
+				'Situationdossierrsa.etatdosrsa' => array( '2'),
 				'Calculdroitrsa.toppersdrodevorsa' => '1'
 			),
 			/**
@@ -786,7 +786,7 @@
 			 * et l'ajout éventuel de conditions pour obtenir ou non des allocataires
 			 * soumis à droits et devoirs.
 			 */
-			'useHistoriquedroit' => false,
+			'useHistoriquedroit' => true,
 			/**
 			 * Permet de prendre en compte les actions CER de deux manières différente :
 			 * - soit les actions des fiches de candidature (comme le CD 66) : true
@@ -810,7 +810,13 @@
 				'prevu' => array(17),
 				'excuses_recevables' => array(8, 9, 10, 11, 12, 13, 14, 15, 16),
 				'excuses_non_recevables' => array(3, 2)
-			)
+			),
+			/**
+			 * Identifiants de types de rendez-vous
+			 */
+			'type_rendezvous' => array(
+				'1', '8'
+			),
 		)
 	);
 

@@ -431,7 +431,6 @@
 			else {
 				$type = true === $soumisDd ? 'INNER' : 'LEFT OUTER';
 
-				// Correction erreur :  Duplicate alias: 7 ERREUR: le nom de la table est spécifié plus d'une fois
 				$addJoin = true ;
 				foreach ($query['joins'] as $join) {
 					if ($join['table'] == '"situationsdossiersrsa"') {
@@ -452,7 +451,6 @@
 				if ($addJoin) {
 					$query['joins'][] = $Dossier->Foyer->Personne->join( 'Calculdroitrsa', array( 'type' => $type ) );
 				}
-				// FIN Correction erreur
 
 				if( null !== $soumisDd ) {
 					if( true === $soumisDd ) {
@@ -898,6 +896,178 @@
 			);
 
 			$query = $this->_completeQuerySoumisDd($query, $annee, true);
+			return $query;
+		}
+
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		protected function _getQueryTableau_a2(array $search , $annee) {
+			$Dossier = ClassRegistry::init( 'Dossier' );
+
+			$conditionsSearch = $this->_getConditionsTableau($search);
+			$joinSearch = $this->_getJoinsTableau($search);
+			$conditionsSDD = $this->_getConditionsDroitsEtDevoirs();
+			$query = array(
+				'fields' => array(
+					'DISTINCT ON ("Historiquedroit"."id") "Historiquedroit"."id" AS "idHistoriquedroit"',
+					'Personne.id',
+					'Historiquedroit.etatdosrsa',
+					'Historiquedroit.created',
+					'Historiquedroit.modified',
+					'Orientstruct.date_valid',
+					'Orientstruct.statut_orient',
+					'Typeorient.lib_type_orient',
+					'Typeorient.modele_notif',
+					'Typeorient.parentid',
+					'Structurereferente.typestructure',
+					'Contratinsertion.datevalidation_ci',
+					'Contratinsertion.rg_ci',
+					'Cui.faitle',
+					'Cui.decision_cui'
+					/*'Rendezvous.daterdv',
+					'Rendezvous.typerdv_id'*/
+				),
+				'recursive' => -1,
+				'joins' => array_merge(
+					$joinSearch,
+					array(
+						array(
+							'table' => 'personnes',
+							'alias' => 'Personne',
+							'type' => 'INNER',
+							'conditions' => array(
+								'Personne.id = Historiquedroit.personne_id'
+							)
+						),
+						array(
+							'table' => 'orientsstructs',
+							'alias' => 'Orientstruct',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'AND' => array(
+									'Orientstruct.personne_id = Personne.id',
+									array(
+										'OR' => array(
+											array('Orientstruct.date_valid' => NULL),
+											array('Orientstruct.date_valid >= Historiquedroit.created')
+										)
+									)
+								)
+							)
+						),
+						array(
+							'table' => 'typesorients',
+							'alias' => 'Typeorient',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Typeorient.id = Orientstruct.typeorient_id'
+							)
+						),
+						array(
+							'table' => 'structuresreferentes',
+							'alias' => 'Structurereferente',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Structurereferente.id = Orientstruct.structurereferente_id'
+							)
+						),
+						array(
+							'table' => 'contratsinsertion',
+							'alias' => 'Contratinsertion',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'AND' => array(
+									'Personne.id = Contratinsertion.personne_id',
+									array(
+										'OR' => array(
+											array('Contratinsertion.datevalidation_ci' => NULL),
+											array('Contratinsertion.datevalidation_ci >= Historiquedroit.created')
+										)
+									)
+								)
+							)
+						),
+						array(
+							'table' => 'cuis',
+							'alias' => 'Cui',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'AND' => array(
+									'Personne.id = Cui.personne_id',
+									'Cui.decision_cui = \'V\'',
+									array(
+										'OR' => array(
+											array('Cui.faitle' => NULL),
+											array('Cui.faitle >= Historiquedroit.created')
+										)
+									)
+								)
+							)
+						),
+						/*array(
+							'table' => 'rendezvous',
+							'alias' => 'Rendezvous',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'AND' => array(
+									'Rendezvous.personne_id = Personne.id',
+									 array(
+										'OR' => array(
+											array('Rendezvous.daterdv' => NULL),
+											array('Rendezvous.daterdv >= Historiquedroit.created')
+										),
+									)
+								)
+							)
+						),
+						array(
+							'table' => 'statutsrdvs',
+							'alias' => 'Statutrdv',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Statutrdv.id = Rendezvous.statutrdv_id'
+							)
+						),*/
+					)
+				),
+				'conditions' => array_merge(
+					array(
+						'Historiquedroit.modified >= ' => $annee .'-01-01',
+						'Historiquedroit.created <= ' => $annee .'-12-31',
+						'Historiquedroit.etatdosrsa IN' => $conditionsSDD['Situationdossierrsa.etatdosrsa'],
+						/*'AND' => array(
+							array(
+								'OR' => array(
+									array('Rendezvous.daterdv' => NULL),
+									array('Rendezvous.daterdv >= Historiquedroit.created')
+								),
+							),
+							array(
+								'OR' => array(
+									array('Orientstruct.date_valid' => NULL),
+									array('Orientstruct.date_valid >= Historiquedroit.created')
+								)
+							),
+							array(
+								'OR' => array(
+									array('Contratinsertion.datevalidation_ci' => NULL),
+									array('Contratinsertion.datevalidation_ci >= Historiquedroit.created')
+								)
+							),
+							array(
+								'OR' => array(
+									array('Cui.signaturele' => NULL),
+									array('Cui.signaturele >= Historiquedroit.created')
+								)
+							)
+						)*/
+					),
+					$conditionsSearch
+				),
+			);
 			return $query;
 		}
 
@@ -1373,125 +1543,245 @@
 		 * @param array $search
 		 * @return array
 		 */
-		public function getIndicateursTableau2( array $search ) {
-			$Dossier = ClassRegistry::init( 'Dossier' );
+		public function getIndicateursTableauA2( array $search ) {
+			$Historiquedroit = ClassRegistry::init( 'Historiquedroit' );
 			$annee = Hash::get( $search, 'Search.annee' );
 			$results = array();
 
 			// Récupération des variables de configuration
-			$configuration = $this->_getConfigStatistiqueplanpauvrete();
+			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
+
+			$Typeorient = ClassRegistry::init( 'Typeorient' );
+			$codeTypeOrient = $Typeorient->find('list',
+				array(
+					'fields' => array(
+						'Typeorient.id',
+						'Typeorient.code_type_orient'
+					),
+					'recursive' => -1,
+					'conditions' => array(
+						'Typeorient.parentid IS NULL'
+					)
+				)
+			);
 
 			// Query de base
-			$base = $this->_getQueryTableau ($search, $annee);
-			$base = $this->_completeQueryCer($base, $annee, $configuration);
-
-			// Recherche
-			$results = $Dossier->find( 'all', $base);
+			$query = $this->_getQueryTableau_a2 ($search, $annee);
+			$results = $Historiquedroit->find('all', $query);
 
 			// Initialisation tableau de résultats
-			$resultats = array ();
-			$this->_initialiseResults($resultats, 'Tableau2');
+			$resultats = array (
+				//Soumis Droit et Devoir
+				'SSD' => array(),
+				//Orientée dont
+				'Orientes' => array(
+					'total' => array(),
+					'percent' => array(),
+					'Emploi' => array(),
+					'percentEmploi' => array(),
+					'Prepro' => array(),
+					'percentPrepro' => array(),
+					'Social' => array(),
+					'percentSocial' => array(),
+					'PE' => array(),
+					'percentPE' => array(),
+					'CD' => array(),
+					'percentCD' => array(),
+					'OA' => array(),
+					'percentOA' => array(),
+				),
+				//Avec contrats dont
+				'Contrat' => array(
+					'total' => array(),
+					'percent' => array(),
+					'PEPPAE' => array(),
+					'percentPEPPAE' => array(),
+					'CDCER' => array(),
+					'percentCDCER' => array(),
+					'PEAider' => array(),
+					'percentPEAider' => array(),
+					'PEAccomp' => array(),
+					'percentPEAccomp' => array(),
+				),
+				//Avec CER et Orientation CD dont
+				'CDCER' => array(
+					'total' => array(),
+					'Social' => array(),
+					'percentSocial' => array(),
+					'Prepro' => array(),
+					'percentPrepro' => array(),
+				),
+				//RDVCER
+				'RDVCER' => array()
+			);
+			for($i=0; $i<12; $i++) {
+				//Soumis Droit et Devoir
+				$resultats['SSD'][$i] = 0;
+				//Soumis Droit et Devoir
+				//Orientée dont
+				$resultats['Orientes']['total'][$i] =
+				$resultats['Orientes']['percent'][$i] =
+				$resultats['Orientes']['Emploi'][$i] =
+				$resultats['Orientes']['percentEmploi'][$i] =
+				$resultats['Orientes']['Prepro'][$i] =
+				$resultats['Orientes']['percentPrepro'][$i] =
+				$resultats['Orientes']['Social'][$i] =
+				$resultats['Orientes']['percentSocial'][$i] =
+				$resultats['Orientes']['PE'][$i] =
+				$resultats['Orientes']['percentPE'][$i] =
+				$resultats['Orientes']['CD'][$i] =
+				$resultats['Orientes']['percentCD'][$i] =
+				$resultats['Orientes']['OA'][$i] =
+				$resultats['Orientes']['percentOA'][$i] =
+					0;
+				//Avec contrats dont
+				$resultats['Contrat']['total'][$i] =
+				$resultats['Contrat']['CDCER'][$i] =
+				$resultats['Contrat']['PEPPAE'][$i] =
+				$resultats['Contrat']['PEAider'][$i] =
+				$resultats['Contrat']['PEAccomp'][$i] =
+				$resultats['Contrat']['percent'][$i] =
+				$resultats['Contrat']['percentPEPPAE'][$i] =
+				$resultats['Contrat']['percentCDCER'][$i] =
+				$resultats['Contrat']['percentPEAider'][$i] =
+				$resultats['Contrat']['percentPEAccomp'][$i] =
+				0;
+				//Avec contrats dont
+				$resultats['CDCER']['total'][$i] = 0;
+				$resultats['CDCER']['Social'][$i] = 0;
+				$resultats['CDCER']['percentSocial'][$i] = 0;
+				$resultats['CDCER']['Prepro'][$i] = 0;
+				$resultats['CDCER']['percentPrepro'][$i] = 0;
+				//RDVCER
+				$resultats['RDVCER'][$i] = 0;
+			}
+			$arrayPersonneID = array();
+			foreach($results as $result) {
+				$arrayPersonneID[]=$result['Personne']['id'];
+				$yearStartHistorique = intval( date('Y', strtotime($result['Historiquedroit']['created']) ) );
+				$yearEndHistorique = intval( date('Y', strtotime($result['Historiquedroit']['modified']) ) );
+				if ($yearStartHistorique < $annee ){$monthStartHistorique = 0;
+				}else{ $monthStartHistorique = intval( date('n', strtotime($result['Historiquedroit']['created']) ) ) -1;}
+				if ($yearEndHistorique > $annee ){$monthEndHistorique = 11;
+				}else{$monthEndHistorique = intval( date('n', strtotime($result['Historiquedroit']['modified']) ) ) -1;}
+				for ($month = $monthStartHistorique; $month <= $monthEndHistorique; $month ++ ) {
+					$flagOrienteCD = $flagOrientePE = $flagOrienteSocial = $flagOrientePrepro = $flagOrienteCDCER = FALSE;
+					//Nombre de personnes Soumises à droits et devoirs (Pers. SDD) avec un droit ouvert par mois
+					$resultats['SSD'][$month] ++;
+					if ( $result['Orientstruct']['date_valid'] == null){
+						$yearOrient = intval( date('Y', strtotime($result['Orientstruct']['date_valid']) ) );
+						if ($yearOrient < $annee ){$monthOrient = 0;
+						$monthOrient = intval( date('n', strtotime($result['Orientstruct']['date_valid']) ) ) -1;}
+						if ($monthOrient <= $month ){
+							//Nombre de Pers. SDD orientées avec un droit ouvert par mois
+							$resultats['Orientes']['total'][$month] ++;
+							if ($result['Typeorient']['parentid'] != null){
+								$typeOrient = $codeTypeOrient[$result['Typeorient']['parentid']];
+								if( $typeOrient ==  'SOCIAL' ) {
+									$resultats['Orientes']['Social'][$month]++;
+									$flagOrienteSocial = true;
+								}
+								if( $typeOrient == 'EMPLOI' ) {
+									$resultats['Orientes']['Emploi'][$month]++;
+								}
+								if ($typeOrient == 'PREPRO' ) {
+									$resultats['Orientes']['Prepro'][$month]++;
+									$flagOrientePrepro = true;
+								}
+							}
+							if( $result['Structurereferente']['typestructure'] == 'oa' ) {
+								$resultats['Orientes']['OA'][$month]++;
+							}
+							if( $result['Typeorient']['modele_notif'] == 'PE' ) {
+								$resultats['Orientes']['PE'][$month]++;
+								$flagOrientePE = true;
+							}
+							if( $result['Typeorient']['modele_notif'] == 'CG' ) {
+								$resultats['Orientes']['CD'][$month]++;
+								$flagOrienteCD = true;
+							}
+						}
+					}
+					if ( $result['Contratinsertion']['datevalidation_ci'] == null) {
+						$yearCER = intval( date('Y', strtotime($result['Contratinsertion']['datevalidation_ci']) ) );
+						if ($yearCER < $annee ){$monthCER = 0;
+						$monthCER = intval( date('n', strtotime($result['Contratinsertion']['datevalidation_ci']) ) ) -1;}
+						if ($monthCER <= $month ){
+							//Avec contrats dont
+							$resultats['Contrat']['total'][$month] ++;
+							if ( $flagOrienteCD ) {
+								$resultats['Contrat']['CDCER'][$month] ++;
+								$flagOrienteCDCER = true;
+							}
+						}
+						if ( $flagOrientePE ) {
+							/*
+							$resultats['Contrat']['PEPPAE'][$month] ++;
+							$resultats['Contrat']['PEAider'][$month] ++;
+							$resultats['Contrat']['PEAccomp'][$month] ++;
+							*/
+						}
+					}
+					if ( $flagOrienteCDCER ){
+						$resultats['CDCER']['total'][$month]++;
+						if( $flagOrienteSocial ) {
+							$resultats['CDCER']['Social'][$i] ++;
+						}
+						if( $flagOrientePrepro ) {
+							$resultats['CDCER']['Prepro'][$i] ++;
+						}
+					}
+					/*if (
+						in_array (
+							$result['Rendezvous']['typerdv_id'],
+							Configure::read( 'Statistiqueplanpauvrete.type_rendezvous' )
+						)
+					){
+						$resultats['RDVCER'][$i] = 0;
+					}*/
+	            }
+			}
+			for($i=0; $i<12; $i++) {
+				$Rendezvous = ClassRegistry::init( 'Rendezvous' );
+				$rdv = $Rendezvous->find('all',
+					array(
+						'fields' => array(
+							'DISTINCT ON ("Rendezvous"."id") "Rendezvous"."id" AS "idRendezvous"'
+						),
+						'recursive' => -1,
+						'conditions' => array(
+							'Rendezvous.typerdv_id' => Configure::read( 'Statistiqueplanpauvrete.type_rendezvous' ),
+							'date_trunc(\'month\',Rendezvous.daterdv)' => "{$annee}-".($i+1)."-01",
+							'Rendezvous.personne_id' => $arrayPersonneID
+						)
+					)
+				);
+				$resultats['RDVCER'][$i] = count($rdv);
 
-			// Génération du tableau de résultats
-			$this->_generateResults($results, $resultats, $configuration, 'Tableau2');
-
+				if($resultats['SSD'][$i] != 0) {
+					$resultats['Orientes']['percent'][$i] = round( (100 * $resultats['Orientes']['total'][$i] ) / $resultats['SSD'][$i], 2)  . '%';
+					if ( $resultats['Orientes']['total'][$i] != 0) {
+						$resultats['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Orientes']['Emploi'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Orientes']['Prepro'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Orientes']['Social'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentPE'][$i] = round( (100 * $resultats['Orientes']['PE'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentCD'][$i] = round( (100 * $resultats['Orientes']['CD'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentOA'][$i] = round( (100 * $resultats['Orientes']['OA'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+					}
+					$resultats['Contrat']['percent'][$i] = round( (100 * $resultats['Contrat']['total'][$i] ) / $resultats['SSD'][$i], 2)  . '%';
+					if ( $resultats['Contrat']['total'][$i] != 0) {
+						$resultats['Contrat']['percentCDCER'][$i] = round( (100 * $resultats['Contrat']['CDCER'][$i] ) / $resultats['Contrat']['total'][$i], 2)  . '%';
+						$resultats['Contrat']['percentPEPPAE'][$i] = round( (100 * $resultats['Contrat']['PEPPAE'][$i] ) / $resultats['Contrat']['total'][$i], 2)  . '%';
+						$resultats['Contrat']['percentPEAider'][$i] = round( (100 * $resultats['Contrat']['PEAider'][$i] ) / $resultats['Contrat']['total'][$i], 2)  . '%';
+						$resultats['Contrat']['percentPEAccomp'][$i] = round( (100 * $resultats['Contrat']['PEAccomp'][$i] ) / $resultats['Contrat']['total'][$i], 2)  . '%';
+					}
+					if ( $resultats['CDCER']['total'][$i] != 0) {
+						$resultats['CDCER']['percentSocial'][$i] = round( (100 * $resultats['CDCER']['Social'][$i] ) / $resultats['CDCER']['total'][$i], 2)  . '%';
+						$resultats['CDCER']['percentPrepro'][$i] = round( (100 * $resultats['CDCER']['Prepro'][$i] ) / $resultats['CDCER']['total'][$i], 2)  . '%';
+					}
+				}
+			}
 			return $resultats;
-		}
-
-		/**
-		 *
-		 */
-		private function _initialiseRowInformationsTableau2 (&$resultats, $categorie, $souscategorie) {
-			if (!isset ($resultats[$categorie])) {
-				$resultats[$categorie] = array ();
-			}
-
-			// Droits et devoirs
-			//$resultats[$categorie]['droits_et_devoirs'][$souscategorie] = 0;
-			// Orientés
-			//$resultats[$categorie]['orientes'][$souscategorie] = 0;
-			// Orientés vers Pôle Emploi
-			$resultats[$categorie]['orientes_pole_emploi'][$souscategorie] = 0;
-			// Orientés vers autre que Pôle Emploi
-			$resultats[$categorie]['orientes_autre_que_pole_emploi'][$souscategorie] = 0;
-			// Mission Locale
-			$resultats[$categorie]['spe_mission_locale'][$souscategorie] = 0;
-			// MDE / MDEF / PLIE / Cap Emploi
-			$resultats[$categorie]['spe_mde_mdef_plie'][$souscategorie] = 0;
-			// Création développement d'entreprise
-			$resultats[$categorie]['spe_creation_entreprise'][$souscategorie] = 0;
-			// IAE
-			$resultats[$categorie]['spe_iae'][$souscategorie] = 0;
-			// Autre organisme de placement / formation professionnelle
-			$resultats[$categorie]['spe_autre_placement_pro'][$souscategorie] = 0;
-			// SSD
-			$resultats[$categorie]['hors_spe_ssd'][$souscategorie] = 0;
-			// CAF
-			$resultats[$categorie]['hors_spe_caf'][$souscategorie] = 0;
-			// MSA
-			$resultats[$categorie]['hors_spe_msa'][$souscategorie] = 0;
-			// CCAS / CIAS
-			$resultats[$categorie]['hors_spe_ccas_cias'][$souscategorie] = 0;
-			// Autres organismes
-			$resultats[$categorie]['hors_spe_autre_organisme'][$souscategorie] = 0;
-			// Non orientés
-			//$resultats[$categorie]['non_orientes'][$souscategorie] = 0;
-		}
-
-		/**
-		 *
-		 */
-		private function _getRowInformationsTableau2 ($row, &$resultats, $categorie, $souscategorie, $configuration) {
-			// Inscrits ET orientés vers Pôle Emploi
-			if (in_array($row['idStructurereferente'], $configuration['organismes']['orientes_pole_emploi']) && !empty($row['nir'])) {
-				$resultats[$categorie]['orientes_pole_emploi'][$souscategorie]++;
-			}
-
-			// Avec un CER ET orientés vers autre que Pôle Emploi
-			if (!in_array($row['idStructurereferente'], $configuration['organismes']['orientes_pole_emploi']) && $row['contrat_cer'] == 'cer') {
-				$resultats[$categorie]['orientes_autre_que_pole_emploi'][$souscategorie]++;
-
-				// Mission Locale
-				if (in_array($row['idStructurereferente'], $configuration['organismes']['spe_mission_locale'])) {
-					$resultats[$categorie]['spe_mission_locale'][$souscategorie]++;
-				}
-				// MDE / MDEF / PLIE / Cap Emploi
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['spe_mde_mdef_plie'])) {
-					$resultats[$categorie]['spe_mde_mdef_plie'][$souscategorie]++;
-				}
-				// Création développement d'entreprise
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['spe_creation_entreprise'])) {
-					$resultats[$categorie]['spe_creation_entreprise'][$souscategorie]++;
-				}
-				// IAE
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['spe_iae'])) {
-					$resultats[$categorie]['spe_iae'][$souscategorie]++;
-				}
-				// Autre organisme de placement / formation professionnelle
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['spe_autre_placement_pro'])) {
-					$resultats[$categorie]['spe_autre_placement_pro'][$souscategorie]++;
-				}
-				// SSD
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['hors_spe_ssd'])) {
-					$resultats[$categorie]['hors_spe_ssd'][$souscategorie]++;
-				}
-				// CAF
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['hors_spe_caf'])) {
-					$resultats[$categorie]['hors_spe_caf'][$souscategorie]++;
-				}
-				// MSA
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['hors_spe_msa'])) {
-					$resultats[$categorie]['hors_spe_msa'][$souscategorie]++;
-				}
-				// CCAS / CIAS
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['hors_spe_ccas_cias'])) {
-					$resultats[$categorie]['hors_spe_ccas_cias'][$souscategorie]++;
-				}
-				// Autres organismes
-				else if (in_array($row['idStructurereferente'], $configuration['organismes']['hors_spe_autre_organisme'])) {
-					$resultats[$categorie]['hors_spe_autre_organisme'][$souscategorie]++;
-				}
-			}
 		}
 
 		########################################################################################################################
