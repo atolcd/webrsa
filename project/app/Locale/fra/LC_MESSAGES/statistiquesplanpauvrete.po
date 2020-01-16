@@ -22,7 +22,7 @@ msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2"
 msgstr "Tableau de bord - Parcours des Brsa"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b1"
-msgstr "Tableau de suivi de la 1ère orientation"
+msgstr "Tableau B1 : Suivi de la 1ère orientation"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b4"
 msgstr "Tableau B4 : Suivi de l'accompagnement"
@@ -80,6 +80,66 @@ msgstr "Entre XX jours et YY jours"
 
 msgid "Tableau_delai.XX_999"
 msgstr "Après XX jours"
+
+# ==============================================================================
+# Tableau B1
+# ==============================================================================
+msgid "Tableau.nbPremOrientation"
+msgstr "Suivi de la 1ère orientation en "
+
+msgid "tableaub1.total"
+msgstr "Nombres des nouvelles personnes soumises à droits et devoirs (SSD)"
+
+msgid "tableaub1.Orientes"
+msgstr "Nombres de personnes SSD orientés (1ère orientation)"
+
+msgid "tableaub1.Orientestotal"
+msgstr "Total"
+
+msgid "tableaub1.Orientesemploi"
+msgstr "Dont orientées Emploi"
+
+msgid "tableaub1.Orientesprepro"
+msgstr "Dont orientées Pré Pro"
+
+msgid "tableaub1.Orientessocial"
+msgstr "Dont orientées Social"
+
+msgid "tableaub1.Orientespe"
+msgstr "Dont orientées Pôle Emploi"
+
+msgid "tableaub1.Orientescd"
+msgstr "Dont orientées CD"
+
+msgid "tableaub1.Orientesoa"
+msgstr "Dont orientées OA"
+
+msgid "tableaub1.NonOrientes"
+msgstr "Nombres de personnes SSD non orientés"
+
+msgid "tableaub1.NonOrientestotal"
+msgstr "Total"
+
+msgid "tableaub1.NonOrientesprevu"
+msgstr "Dont convocation prévue"
+
+msgid "tableaub1.NonOrientesbilan"
+msgstr "Dont bilan pour passage EPL audition"
+
+msgid "tableaub1.NonOrientesautres"
+msgstr "Autres"
+
+msgid "tableaub1.delai_moyen"
+msgstr "Délais moyen d'orientation (en jours)"
+
+msgid "tableaub1.orient_31jours"
+msgstr "Nombre de personnes SSD orientés en moins de 31 jours"
+
+msgid "tableaub1.delai"
+msgstr "Délai de 1ère orientation"
+
+msgid "tableaub1.taux_orient"
+msgstr "Taux d'orientation"
 
 # ==============================================================================
 # Tableau B4
