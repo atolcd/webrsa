@@ -141,11 +141,14 @@ msgstr "Taux de présence au 1er rendez-vous"
 msgid "Tableau.nbCer"
 msgstr "Nombre de contractualisation des orientations des CD en "
 
+msgid "Tableaub5.orient_valid"
+msgstr "Nombre de 1ère orientation"
+
 msgid "Tableaub5.cer_social"
-msgstr "Nombre de CER \"Social\" validé par mois"
+msgstr "Nombre de CER \"Social\" validé"
 
 msgid "Tableaub5.cer_prepro"
-msgstr "Nombre de CER \"Pré pro\" validé par mois"
+msgstr "Nombre de CER \"Pré pro\" validé"
 
 msgid "Tableaub5.delai_moyen"
 msgstr "Délais moyen de contractualisation en jours"

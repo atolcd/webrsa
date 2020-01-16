@@ -1285,3 +1285,11 @@ body.accompagnementsbeneficiaires table.details tbody th {
 	width: 20em;
 	max-width: 20em;
 }
+
+/*******************************************************************************
+ * Tableaux de Statistique Plan Pauvreté
+ ******************************************************************************/
+
+body.statistiquesplanpauvrete #pageContent tbody td:first-child {
+	text-align: left;
+}

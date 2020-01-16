@@ -7,7 +7,7 @@
 			'thead',
 			$this->Xhtml->tableHeaders(
 				array(
-					__d( 'statistiquesplanpauvrete', 'Tableau.nbOrientation' ) . $annee,
+					__d( 'statistiquesplanpauvrete', 'Tableaub4.nbOrientation' ) . $annee,
 					__d( 'statistiquesplanpauvrete', 'Tableau.jan' ),
 					__d( 'statistiquesplanpauvrete', 'Tableau.feb' ),
 					__d( 'statistiquesplanpauvrete', 'Tableau.mar' ),
@@ -65,5 +65,5 @@
 		}
 		$tbody = $this->Xhtml->tag( 'tbody', $this->Xhtml->tableCells( $cells ) );
 
-		echo $this->Xhtml->tag( 'table', $thead.$tbody ,array( 'class' => 'wide' ) );
+		echo $this->Xhtml->tag( 'table', $thead.$tbody ,array( 'class' => 'first' ) );
 	}
