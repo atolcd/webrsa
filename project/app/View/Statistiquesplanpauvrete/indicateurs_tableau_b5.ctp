@@ -27,7 +27,6 @@
 		$cells = array();
 		$row = 0;
 		foreach( $results as $key => $result) {
-			$cells[$row] = array('' . __d('statistiquesplanpauvrete', 'Tableaub5.' . $key ) );
 			if($key == 'delai') {
 				$cells[$row] = array(__d('statistiquesplanpauvrete', 'Tableaub5.' . $key ));
 				$row++;
@@ -50,10 +49,10 @@
 				$cells[$row] = $result;
 			}
 			if( isset($cells[$row]) && is_array($cells[$row]) )
-				array_unshift($cells[$row], __d('statistiquesplanpauvrete', 'Tableaub5.' . $key ));
+				array_unshift($cells[$row], array(__d('statistiquesplanpauvrete', 'Tableaub5.' . $key ), array('class' => 'text-left')));
 			$row++;
 		}
 		$tbody = $this->Xhtml->tag( 'tbody', $this->Xhtml->tableCells( $cells ) );
 
-		echo $this->Xhtml->tag( 'table', $thead.$tbody ,array( 'class' => 'wide' ) );
+		echo $this->Xhtml->tag( 'table', $thead.$tbody ,array( 'class' => 'first' ) );
 	}
