@@ -467,7 +467,7 @@
 			$Dossier = ClassRegistry::init( 'Dossier' );
 			$Foyer = ClassRegistry::init( 'Foyer' );
 			$conditionsSearch = $this->_getConditionsTableau($search);
-			$joinSearch = $this->_getJoinsTableau($search, true, true);
+			$joinSearch = $this->_getJoinsTableau($search, false, true);
 			// Query finale
 			$query = array(
 				'fields' => array(

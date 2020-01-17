@@ -75,13 +75,13 @@ msgstr "Décembre"
 # ==============================================================================
 
 msgid "Tableau_delai.0_XX"
-msgstr "Avant XX jours"
+msgstr " - Avant XX jours"
 
 msgid "Tableau_delai.XX_YY"
-msgstr "Entre XX jours et YY jours"
+msgstr " - Entre XX jours et YY jours"
 
 msgid "Tableau_delai.XX_999"
-msgstr "Après XX jours"
+msgstr " - Après XX jours"
 
 # ==============================================================================
 # Tableau B1
@@ -99,22 +99,22 @@ msgid "tableaub1.Orientestotal"
 msgstr "Total"
 
 msgid "tableaub1.Orientesemploi"
-msgstr "Dont orientées Emploi"
+msgstr " - Dont orientées Emploi"
 
 msgid "tableaub1.Orientesprepro"
-msgstr "Dont orientées Pré Pro"
+msgstr " - Dont orientées Pré Pro"
 
 msgid "tableaub1.Orientessocial"
-msgstr "Dont orientées Social"
+msgstr " - Dont orientées Social"
 
 msgid "tableaub1.Orientespe"
-msgstr "Dont orientées Pôle Emploi"
+msgstr " - Dont orientées Pôle Emploi"
 
 msgid "tableaub1.Orientescd"
-msgstr "Dont orientées CD"
+msgstr " - Dont orientées CD"
 
 msgid "tableaub1.Orientesoa"
-msgstr "Dont orientées OA"
+msgstr " - Dont orientées OA"
 
 msgid "tableaub1.NonOrientes"
 msgstr "Nombres de personnes SSD non orientés"
@@ -123,13 +123,13 @@ msgid "tableaub1.NonOrientestotal"
 msgstr "Total"
 
 msgid "tableaub1.NonOrientesprevu"
-msgstr "Dont convocation prévue"
+msgstr " - Dont convocation prévue"
 
 msgid "tableaub1.NonOrientesbilan"
-msgstr "Dont bilan pour passage EPL audition"
+msgstr " - Dont bilan pour passage EPL audition"
 
 msgid "tableaub1.NonOrientesautres"
-msgstr "Autres"
+msgstr " - Autres"
 
 msgid "tableaub1.delai_moyen"
 msgstr "Délais moyen d'orientation (en jours)"
@@ -153,10 +153,10 @@ msgid "tableaua1.total"
 msgstr "Nombre de foyers avec un droit ouvert par mois"
 
 msgid "tableaua1.nbFoyerConnu"
-msgstr "Dont le nbre de foyers connus le mois précédent avec un droit radié (les nouveaux entrants)"
+msgstr " - Dont le nbre de foyers connus le mois précédent avec un droit radié (les nouveaux entrants)"
 
 msgid "tableaua1.nbFoyerInconnu"
-msgstr "Dont le nbre de foyers inconnus dans la base (les primo-arrivants)"
+msgstr " - Dont le nbre de foyers inconnus dans la base (les primo-arrivants)"
 
 # ==============================================================================
 # Tableau A2
@@ -271,13 +271,13 @@ msgid "Tableaub4.Socialtotal"
 msgstr "Nombre de 1er rendez-vous fixé suite à une orientation \"Sociale\""
 
 msgid "Tableaub4.Socialvenu"
-msgstr "Dont nombre de venu à ce 1er rendez-vous"
+msgstr " - Dont nombre de venu à ce 1er rendez-vous"
 
 msgid "Tableaub4.Socialexcuse_recevable"
-msgstr "Dont nombre de non venu avec excuse recevable"
+msgstr " - Dont nombre de non venu avec excuse recevable"
 
 msgid "Tableaub4.Socialsans_excuse"
-msgstr "Dont nombre de non venu sans excuse recevable"
+msgstr " - Dont nombre de non venu sans excuse recevable"
 
 msgid "Tableaub4.Socialdelai_moyen"
 msgstr "Délai d'attente moyen pour un 1er rendez-vous"
@@ -295,13 +295,13 @@ msgid "Tableaub4.Preprototal"
 msgstr "Nombre de 1er rendez-vous fixé suite à une orientation \"Pré Pro\""
 
 msgid "Tableaub4.Preprovenu"
-msgstr "Dont nombre de venu à ce 1er rendez-vous"
+msgstr " - Dont nombre de venu à ce 1er rendez-vous"
 
 msgid "Tableaub4.Preproexcuse_recevable"
-msgstr "Dont nombre de non venu avec excuse recevable"
+msgstr " - Dont nombre de non venu avec excuse recevable"
 
 msgid "Tableaub4.Preprosans_excuse"
-msgstr "Dont nombre de non venu sans excuse recevable"
+msgstr " - Dont nombre de non venu sans excuse recevable"
 
 msgid "Tableaub4.Preprodelai_moyen"
 msgstr "Délai d'attente moyen pour un 1er rendez-vous"
