@@ -222,9 +222,11 @@
 		/**
 		 * Récupère et initialise les jointures suivant la recherche initiale
 		 * @param array $search
+		 * @param boolean $addFoyer : permet de savoir si on doit ajouter la table foyer dans le tableau
+		 * @param boolean $addFoyer : permet de savoir si on doit ajouter la table orientstruct dans le tableau
 		 * @return array
 		 */
-		protected function _getJoinsTableau(array $search) {
+		protected function _getJoinsTableau(array $search, $addFoyer = false, $addOrient = false) {
 			$joinSearch = array();
 			if(
 				(isset($search['Adresse']) &&
@@ -234,7 +236,21 @@
 				)
 				|| ( isset($search['Canton']) && $search['Canton']['canton'] != '')
 			) {
-				$joinSearch = array(
+				$joinFoyer = array();
+				if($addFoyer == true) {
+					$joinFoyer = array(
+						array(
+							'table' => 'foyers',
+							'alias' => 'Foyer',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Foyer.id = Personne.foyer_id'
+							)
+						),
+					);
+				}
+
+				$joinSearch = array_merge($joinFoyer, array(
 					array(
 						'table' => 'adresses',
 						'alias' => 'Adresse',
@@ -259,11 +275,25 @@
 							'Canton.id = AdresseCanton.adresse_id'
 						)
 					),
-				);
+				));
 			}
 
 			if( isset($search['Search']['serviceinstructeur']) && $search['Search']['serviceinstructeur'] != '' ) {
-				$joinSearch = array_merge($joinSearch, array(
+				$joinOrient = array();
+				if($addOrient == true) {
+					$joinOrient = array(
+						array(
+							'table' => 'orientsstructs',
+							'alias' => 'Orientstruct',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Orientstruct.personne_id = Personne.id'
+							)
+						)
+					);
+				}
+
+				$joinSearch = array_merge($joinSearch, $joinOrient, array(
 					array(
 						'table' => 'orientsstructs_servicesinstructeurs',
 						'alias' => 'OrientstructServiceinstructeur',
@@ -327,7 +357,7 @@
 		*/
 		protected function _getQueryTableau_b1(array $search , $annee) {
 			$conditionsSearch = $this->_getConditionsTableau($search);
-			$joinSearch = $this->_getJoinsTableau($search);
+			$joinSearch = $this->_getJoinsTableau($search, true);
 			$conditionsSDD = Configure::read('Statistiqueplanpauvrete.conditions_droits_et_devoirs');
 
 			// Query finale
@@ -437,7 +467,7 @@
 			$Dossier = ClassRegistry::init( 'Dossier' );
 			$Foyer = ClassRegistry::init( 'Foyer' );
 			$conditionsSearch = $this->_getConditionsTableau($search);
-			$joinSearch = $this->_getJoinsTableau($search);
+			$joinSearch = $this->_getJoinsTableau($search, true, true);
 			// Query finale
 			$query = array(
 				'fields' => array(
@@ -533,7 +563,7 @@
 			$Dossier = ClassRegistry::init( 'Dossier' );
 
 			$conditionsSearch = $this->_getConditionsTableau($search);
-			$joinSearch = $this->_getJoinsTableau($search);
+			$joinSearch = $this->_getJoinsTableau($search, true);
 			$conditionsSDD = $this->_getConditionsDroitsEtDevoirs();
 			$query = array(
 				'fields' => array(
@@ -557,7 +587,6 @@
 				),
 				'recursive' => -1,
 				'joins' => array_merge(
-					$joinSearch,
 					array(
 						array(
 							'table' => 'personnes',
@@ -656,7 +685,8 @@
 								'Statutrdv.id = Rendezvous.statutrdv_id'
 							)
 						),*/
-					)
+					),
+					$joinSearch
 				),
 				'conditions' => array_merge(
 					array(

@@ -788,12 +788,6 @@
 			 */
 			'useHistoriquedroit' => true,
 			/**
-			 * Permet de prendre en compte les actions CER de deux manières différente :
-			 * - soit les actions des fiches de candidature (comme le CD 66) : true
-			 * - soit les sujets, sous-sujets et valeurs de sous-sujets des CER (comme le CD 93) : false
-			 */
-			'actionscandidats' => true,
-			/**
 			 * Tranche de délai - en jours
 			 */
 			'delais' => array(
