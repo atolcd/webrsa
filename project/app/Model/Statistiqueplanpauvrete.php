@@ -574,6 +574,7 @@
 					'Historiquedroit.modified',
 					'Orientstruct.date_valid',
 					'Orientstruct.statut_orient',
+					'Typeorient.id',
 					'Typeorient.lib_type_orient',
 					'Typeorient.modele_notif',
 					'Typeorient.parentid',
@@ -969,19 +970,7 @@
 			// Récupération des variables de configuration
 			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
 
-			$Typeorient = ClassRegistry::init( 'Typeorient' );
-			$codeTypeOrient = $Typeorient->find('list',
-				array(
-					'fields' => array(
-						'Typeorient.id',
-						'Typeorient.code_type_orient'
-					),
-					'recursive' => -1,
-					'conditions' => array(
-						'Typeorient.parentid IS NULL'
-					)
-				)
-			);
+			$testOrient = $this->_getTypeOrientation();
 
 			// Query de base
 			$query = $this->_getQueryTableau_a2 ($search, $annee);
@@ -1086,29 +1075,28 @@
 					$flagOrienteCD = $flagOrientePE = $flagOrienteSocial = $flagOrientePrepro = $flagOrienteCDCER = FALSE;
 					//Nombre de personnes Soumises à droits et devoirs (Pers. SDD) avec un droit ouvert par mois
 					$resultats['SSD'][$month] ++;
-					if ( $result['Orientstruct']['date_valid'] == null){
+					//Si on as une date d'orientation valide
+					if ( $result['Orientstruct']['date_valid'] != null){
+						//Récupération de l'année d'orientation
 						$yearOrient = intval( date('Y', strtotime($result['Orientstruct']['date_valid']) ) );
-						if ($yearOrient < $annee ){$monthOrient = 0;
-						$monthOrient = intval( date('n', strtotime($result['Orientstruct']['date_valid']) ) ) -1;}
+						//si l'année n'est pas celle de la recherche alors on change le mois
+						if ($yearOrient < $annee ){$monthOrient = 0;}else{
+							$monthOrient = intval( date('n', strtotime($result['Orientstruct']['date_valid']) ) ) -1;}
+						//Si le mois d'orientation correspond au mois étudié dans la boucle
 						if ($monthOrient <= $month ){
 							//Nombre de Pers. SDD orientées avec un droit ouvert par mois
 							$resultats['Orientes']['total'][$month] ++;
-							if ($result['Typeorient']['parentid'] != null){
-								if ( !empty($codeTypeOrient[$result['Typeorient']['parentid']] )){
-									$typeOrient = $codeTypeOrient[$result['Typeorient']['parentid']];
-								}else{ $typeOrient = null; }
-								if( $typeOrient ==  'SOCIAL' ) {
-									$resultats['Orientes']['Social'][$month]++;
+
+							if(!empty($testOrient['SOCIAL']) && in_array($result['Typeorient']['id'], $testOrient['SOCIAL'] ) ) {
+								$resultats['Orientes']['Social'][$month]++;
 									$flagOrienteSocial = true;
-								}
-								if( $typeOrient == 'EMPLOI' ) {
-									$resultats['Orientes']['Emploi'][$month]++;
-								}
-								if ($typeOrient == 'PREPRO' ) {
-									$resultats['Orientes']['Prepro'][$month]++;
+							} elseif(!empty($testOrient['EMPLOI']) &&  in_array( $result['Typeorient']['id'], $testOrient['EMPLOI'] ) ) {
+								$resultats['Orientes']['Emploi'][$month]++;
+							} else {
+								$resultats['Orientes']['Prepro'][$month]++;
 									$flagOrientePrepro = true;
-								}
 							}
+
 							if( $result['Structurereferente']['typestructure'] == 'oa' ) {
 								$resultats['Orientes']['OA'][$month]++;
 							}
@@ -1122,9 +1110,10 @@
 							}
 						}
 					}
-					if ( $result['Contratinsertion']['datevalidation_ci'] == null) {
+					// Si la personne as un contrat d'insertion
+					if ( $result['Contratinsertion']['datevalidation_ci'] != null) {
 						$yearCER = intval( date('Y', strtotime($result['Contratinsertion']['datevalidation_ci']) ) );
-						if ($yearCER < $annee ){$monthCER = 0;
+						if ($yearCER < $annee ){$monthCER = 0; }else{
 						$monthCER = intval( date('n', strtotime($result['Contratinsertion']['datevalidation_ci']) ) ) -1;}
 						if ($monthCER <= $month ){
 							//Avec contrats dont
@@ -1136,6 +1125,7 @@
 						}
 						if ( $flagOrientePE ) {
 							/*
+							//Comment detecter les contrats PPAE, Aider et Acompagner ?
 							$resultats['Contrat']['PEPPAE'][$month] ++;
 							$resultats['Contrat']['PEAider'][$month] ++;
 							$resultats['Contrat']['PEAccomp'][$month] ++;
@@ -1145,20 +1135,12 @@
 					if ( $flagOrienteCDCER ){
 						$resultats['CDCER']['total'][$month]++;
 						if( $flagOrienteSocial ) {
-							$resultats['CDCER']['Social'][$i] ++;
+							$resultats['CDCER']['Social'][$month] ++;
 						}
 						if( $flagOrientePrepro ) {
-							$resultats['CDCER']['Prepro'][$i] ++;
+							$resultats['CDCER']['Prepro'][$month] ++;
 						}
 					}
-					/*if (
-						in_array (
-							$result['Rendezvous']['typerdv_id'],
-							Configure::read( 'Statistiqueplanpauvrete.type_rendezvous' )
-						)
-					){
-						$resultats['RDVCER'][$i] = 0;
-					}*/
 	            }
 			}
 			for($i=0; $i<12; $i++) {
