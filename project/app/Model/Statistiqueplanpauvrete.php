@@ -741,7 +741,7 @@
 					'DISTINCT ON ("Personne"."id") "Personne"."id" AS "idPersonne"',
 					'Orientstruct.date_valid',
 					'Orientstruct.statut_orient',
-					'Typeorient.lib_type_orient',
+					'Typeorient.id',
 					'Rendezvous.daterdv',
 					'Rendezvous.typerdv_id',
 					'Statutrdv.id'

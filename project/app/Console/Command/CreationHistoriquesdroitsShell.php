@@ -47,8 +47,8 @@
 
         function main() {
             // Récupération de la date du flux
-            $xmlDate = $this->lit_xml($this->args[0], 'IdentificationFlux', array('DTCREAFLUX', 'HEUCREAFLUX'));
-            $dateToInsert = $xmlDate[0][0] . ' ' . substr($xmlDate[0][1],0, 8);
+            $xmlDate = $this->lit_xml($this->args[0], 'IdentificationFlux', array('DTREF'));
+            $dateToInsert = $xmlDate[0][0] . ' 00:00:00';
             $infos = array(
                 'NOM',
                 'PRENOM',
