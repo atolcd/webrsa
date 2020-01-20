@@ -171,10 +171,10 @@
 						$noacc_upp_value = noaccents_upper( $value );
 						$encoding = mb_detect_encoding($noacc_upp_value, 'UTF-8', true);
 						if ( $encoding != 'UTF-8' ) {
-							// Check string encode
-							$noacc_upp_value = $value;
+							$query['conditions']["\"{$m}\".\"{$f}\" LIKE"] = $value;
+						}else{
+							$query['conditions']["NOACCENTS_UPPER( \"{$m}\".\"{$f}\" ) LIKE"] = $noacc_upp_value;
 						}
-						$query['conditions']["NOACCENTS_UPPER( \"{$m}\".\"{$f}\" ) LIKE"] = $noacc_upp_value;
 					}
 				}
 				else {

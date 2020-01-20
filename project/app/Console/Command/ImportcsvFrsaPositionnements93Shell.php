@@ -7,7 +7,7 @@
 	 * @package app.Console.Command
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 *
-	 * Se lance avec :  sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake ImportcsvFrsaPositionnements93Shell -v -s ';' -app app app/tmp/BENEF_F_2019_03_12__13_39.csv 
+	 * Se lance avec :  sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake ImportcsvFrsaPositionnements93 -v -s ';' -app app app/tmp/POS_F_2019_03_12__13_39.csv 
 	 *
 	 */
 	App::uses( 'CsvAbstractImporterShell', 'Csv.Console/Command/Abstract' );

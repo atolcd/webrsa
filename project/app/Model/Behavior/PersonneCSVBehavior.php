@@ -49,7 +49,13 @@
 					) {
 						unset( $query['conditions'][$path] );
 						list( $m, $f ) = model_field( $path );
-						$query['conditions']["NOACCENTS_UPPER( \"{$m}\".\"{$f}\" ) LIKE"] = noaccents_upper( $value );
+						$noacc_upp_value = noaccents_upper( $value );
+						$encoding = mb_detect_encoding($noacc_upp_value, 'UTF-8', true);
+						if ( $encoding != 'UTF-8' ) {
+							$query['conditions']["\"{$m}\".\"{$f}\" LIKE"] = $value;
+						}else{
+							$query['conditions']["NOACCENTS_UPPER( \"{$m}\".\"{$f}\" ) LIKE"] = $noacc_upp_value;
+						}
 					}
 				}
 				else {

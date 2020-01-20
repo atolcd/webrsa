@@ -697,10 +697,11 @@
 	 * @see replace_accents
 	 *
 	 * @param string $string
+	 * @param string $encodage
 	 * @return string
 	 */
-	function noaccents_upper( $string ) {
-		return strtoupper( replace_accents( $string ) );
+	function noaccents_upper( $string, $encodage = 'UTF-8' ) {
+		return mb_strtoupper( replace_accents( $string ), $encodage );
 	}
 
 	/**

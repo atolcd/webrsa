@@ -799,8 +799,8 @@
 		 * Test de la fonction noaccents_upper().
 		 */
 		 public function testNoaccentsUpper() {
-			$result = noaccents_upper( 'Âéï' );
-			$expected = 'AEI';
+			$result = noaccents_upper( "Â'éï" );
+			$expected = "A'EI";
 			$this->assertEquals( $expected, $result, var_export( $result, true ) );
 		 }
 
