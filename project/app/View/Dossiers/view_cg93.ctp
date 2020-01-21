@@ -340,6 +340,10 @@
 					<h2><?php echo (__d ('dossiers', 'Dossier.info.caf')); ?></h2>
 					<table >
 						<tbody>
+							<tr class="even">
+								<th><?php echo __d( 'dossier', 'Dossier.matricule.large' ); ?></th>
+								<td><?php echo Set::extract( 'Dossier.matricule', $details );;?></td>
+							</tr>
 							<tr class="odd">
 								<th><?php echo (__d ('dossiers', 'Dossier.info.caf.date.obtention')); ?></th>
 								<td><?php echo h( date_short( Set::extract( 'Dossier.dtdemrsa', $details ) ) );?></td>
@@ -441,7 +445,7 @@
 							</tr>
 
 							<tr class="odd">
-								<th><?php echo (__d ('dossiers', 'Dossier.pe.dat.maj.flux')); ?></th>
+								<th><?php echo (__d ('dossiers', 'Dossier.pe.date.maj.flux')); ?></th>
 								<td><?php echo h (date_short(Set::extract( 'DEM.Fluxpoleemploi.Historiqueetatpe.date_creation', $details)));?></td>
 								<td><?php echo h (date_short(Set::extract( 'CJT.Fluxpoleemploi.Historiqueetatpe.date_creation', $details)));?></td>
 							</tr>

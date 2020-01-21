@@ -174,7 +174,7 @@ msgid "Cer.date.decision"
 msgstr "Date de décision"
 
 msgid "Dossier.info.caf"
-msgstr "Date de décision"
+msgstr "Informations CAF / MSA"
 
 msgid "Dossier.info.caf.date.obtention"
 msgstr "Date d'obtention du numéro de RSA"
@@ -250,7 +250,7 @@ msgstr "Date de notification PPAE"
 
 
 msgid "Dossier.autres"
-msgstr "Autres demandes RSA"
+msgstr "Historique des dossiers RSA"
 
 msgid "Dossier.autres.numero"
 msgstr "Autre N° de demande RSA"
@@ -265,7 +265,7 @@ msgid "Dossier.autres.voir"
 msgstr "Voir"
 
 msgid "Dossier.autres.sans.presta"
-msgstr "Autres demandes RSA sans prestation"
+msgstr "Demandes RSA sans prestation"
 
 
 msgid "Dossier.relance"
