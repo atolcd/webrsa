@@ -61,6 +61,9 @@ msgstr "Type d'organisme DREES"
 msgid "Structurereferente.typestructure"
 msgstr "Type de structure"
 
+msgid "Structurereferente.type_struct_stats"
+msgstr "Type de structure pour les stats"
+
 msgid "Structurereferente.orientation"
 msgstr "Gestion des orientations"
 

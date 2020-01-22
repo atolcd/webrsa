@@ -368,6 +368,8 @@
 					'Orientstruct.date_valid',
 					'Orientstruct.rgorient',
 					'Structurereferente.typestructure',
+					'Structurereferente.type_struct_stats',
+					'Structurereferente.code_stats',
 					'Typeorient.id',
 					'Typeorient.modele_notif',
 					'Rendezvous.daterdv',
@@ -579,6 +581,8 @@
 					'Typeorient.modele_notif',
 					'Typeorient.parentid',
 					'Structurereferente.typestructure',
+					'Structurereferente.type_struct_stats',
+					'Structurereferente.code_stats',
 					'Contratinsertion.datevalidation_ci',
 					'Contratinsertion.rg_ci',
 					'Cui.faitle',
@@ -931,7 +935,6 @@
 						if ( $result['Historiquedroit'.$month]['etatdosrsa'] == 2 ) {
 							// Nombre de foyers avec un droit ouvert par mois
 							$resultats['total'][$month] ++;
-
 							//- Dont le nbre de foyers connus le mois précédent avec un droit radié (les nouveaux entrants)
 							if (
 								$historiquesPreviousMonth == 5
@@ -944,6 +947,7 @@
 								$resultats['nbFoyerInconnu'][$month]++;
 							}
 						}
+						$historiquesPreviousMonth = $result['Historiquedroit'.$month]['etatdosrsa'];
 					}
 				}
 			}
@@ -1092,19 +1096,19 @@
 									$flagOrienteSocial = true;
 							} elseif(!empty($testOrient['EMPLOI']) &&  in_array( $result['Typeorient']['id'], $testOrient['EMPLOI'] ) ) {
 								$resultats['Orientes']['Emploi'][$month]++;
-							} else {
+							} elseif (!empty($testOrient['PREPRO']) && in_array( $result['Typeorient']['id'], $testOrient['PREPRO'] ) ) {
 								$resultats['Orientes']['Prepro'][$month]++;
 									$flagOrientePrepro = true;
 							}
 
-							if( $result['Structurereferente']['typestructure'] == 'oa' ) {
+							if( $result['Structurereferente']['type_struct_stats'] == 'oa' ) {
 								$resultats['Orientes']['OA'][$month]++;
 							}
-							if( $result['Typeorient']['modele_notif'] == 'PE' ) {
+							if( $result['Structurereferente']['type_struct_stats'] == 'pe' ) {
 								$resultats['Orientes']['PE'][$month]++;
 								$flagOrientePE = true;
 							}
-							if( $result['Typeorient']['modele_notif'] == 'CG' ) {
+							if( $result['Structurereferente']['type_struct_stats'] == 'cd' ) {
 								$resultats['Orientes']['CD'][$month]++;
 								$flagOrienteCD = true;
 							}
@@ -1122,16 +1126,35 @@
 								$resultats['Contrat']['CDCER'][$month] ++;
 								$flagOrienteCDCER = true;
 							}
+							if ( $flagOrientePE ) {
+								//Detection d'un contrat aider
+								if ( in_array( $result['Structurereferente']['code_stats'], Configure::read( 'Statistiqueplanpauvrete.code_stats') ) ){
+									$resultats['Contrat']['PEAccomp'][$month] ++;
+								}
+							}
 						}
-						if ( $flagOrientePE ) {
-							/*
-							//Comment detecter les contrats PPAE, Aider et Acompagner ?
-							$resultats['Contrat']['PEPPAE'][$month] ++;
-							$resultats['Contrat']['PEAider'][$month] ++;
-							$resultats['Contrat']['PEAccomp'][$month] ++;
-							*/
+					}elseif ($result['Cui']['faitle']  != null) {
+						$yearCUI= intval( date('Y', strtotime($result['Cui']['faitle']) ) );
+						if ($yearCUI < $annee ){$monthCUI = 0; }else{
+						$monthCUI = intval( date('n', strtotime($result['Cui']['faitle']) ) ) -1;}
+						if ($monthCER <= $month ){
+							//Avec contrats dont
+							$resultats['Contrat']['total'][$month] ++;
+							if ( $flagOrientePE ) {
+								//Detection d'un CUI
+								$resultats['Contrat']['PEAider'][$month] ++;
+							}
 						}
 					}
+					/*
+					if ( $flagOrientePE && $result['InformationPE']['ppae_date_signature'] != null ) {
+						$yearPPAE = intval( date('Y', strtotime($result['InformationPE']['ppae_date_signature']) ) );
+						if ($yearPPAE < $annee ){$monthPPAE = 0; }else{
+						$monthPPAE = intval( date('n', strtotime($result['InformationPE']['ppae_date_signature']) ) ) -1;}
+						//En attente de Flux Pole emploi PPAE,
+						$resultats['Contrat']['PEPPAE'][$month] ++;
+					}
+					*/
 					if ( $flagOrienteCDCER ){
 						$resultats['CDCER']['total'][$month]++;
 						if( $flagOrienteSocial ) {
@@ -1265,13 +1288,13 @@
 				if( !is_null($result['Orientstruct']['date_valid']) && $result['Orientstruct']['rgorient'] == 1 ) {
 					$resultats['Orientes']['total'][$month]++;
 					// Type d'orientations
-					if( $result['Structurereferente']['typestructure'] == 'oa' ) {
+					if( $result['Structurereferente']['type_struct_stats'] == 'oa' ) {
 						$resultats['Orientes']['oa'][$month]++;
 					}
-
-					if( $result['Typeorient']['modele_notif'] == 'PE' ) {
+					if( $result['Structurereferente']['type_struct_stats'] == 'pe' ) {
 						$resultats['Orientes']['pe'][$month]++;
-					} elseif( $result['Typeorient']['modele_notif'] == 'CG' ) {
+					}
+					if( $result['Structurereferente']['type_struct_stats'] == 'cd' ) {
 						$resultats['Orientes']['cd'][$month]++;
 					}
 
@@ -1279,7 +1302,7 @@
 						$resultats['Orientes']['social'][$month]++;
 					} elseif(!empty($testOrient['EMPLOI']) &&  in_array( $result['Typeorient']['id'], $testOrient['EMPLOI'] ) ) {
 						$resultats['Orientes']['emploi'][$month]++;
-					} else {
+					} elseif (!empty($testOrient['PREPRO']) && in_array( $result['Typeorient']['id'], $testOrient['PREPRO'] ) ) {
 						$resultats['Orientes']['prepro'][$month]++;
 					}
 

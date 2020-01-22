@@ -147,7 +147,7 @@ msgstr "Taux d'orientation"
 # ==============================================================================
 
 msgid "Tableaua1.title"
-msgstr "Nombre de foyers avec un droit ouvert "
+msgstr "Nombre de foyers avec un droit ouvert en"
 
 msgid "tableaua1.total"
 msgstr "Nombre de foyers avec un droit ouvert par mois"
@@ -164,6 +164,9 @@ msgstr " - Dont le nbre de foyers inconnus dans la base (les primo-arrivants)"
 
 msgid "Tableau.SSD"
 msgstr "Tableau de bord A2 - Parcours des Brsa"
+
+msgid "Tableaua2.title"
+msgstr "Tableau de bord A2 - Parcours des Brsa en"
 
 msgid "tableaua2.SSD"
 msgstr "Nombre de personnes Soumises à droits et devoirs (Pers. SDD) avec un droit ouvert par mois"

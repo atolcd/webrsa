@@ -805,11 +805,12 @@
 				'excuses_recevables' => array(8, 9, 10, 11, 12, 13, 14, 15, 16),
 				'excuses_non_recevables' => array(3, 2)
 			),
+			'code_stats' => array ('CHRS','MLJ','ADRH'),
 			/**
 			 * Identifiants de types de rendez-vous
 			 */
 			'type_rendezvous' => array(
-				'1', '8'
+				'1'
 			),
 		)
 	);

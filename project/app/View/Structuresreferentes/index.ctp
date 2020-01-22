@@ -117,6 +117,8 @@
 					'Typeorient.lib_type_orient',
 					'Structurereferente.actif',
 					'Structurereferente.typestructure',
+					'Structurereferente.type_struct_stats',
+					'Structurereferente.code_stats',
 					'Dreesorganisme.lib_dreesorganisme',
 					'/Structuresreferentes/edit/#Structurereferente.id#' => array(
 						'title' => false

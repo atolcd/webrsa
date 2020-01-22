@@ -7,7 +7,7 @@
 			'thead',
 			$this->Xhtml->tableHeaders(
 				array(
-					__d( 'statistiquesplanpauvrete', 'Tableau.SSD' ) . $annee,
+					__d( 'statistiquesplanpauvrete', 'Tableaua2.title' ). $annee,
 					__d( 'statistiquesplanpauvrete', 'Tableau.jan' ),
 					__d( 'statistiquesplanpauvrete', 'Tableau.feb' ),
 					__d( 'statistiquesplanpauvrete', 'Tableau.mar' ),

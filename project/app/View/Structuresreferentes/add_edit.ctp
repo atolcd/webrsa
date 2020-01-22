@@ -55,6 +55,8 @@
 			array(
 				'Structurereferente.typeorient_id' => array( 'empty' => true ),
 				'Structurereferente.typestructure' => array( 'empty' => true ),
+				'Structurereferente.type_struct_stats' => array( 'empty' => true ),
+				'Structurereferente.code_stats' => array( 'empty' => true ),
 				'Structurereferente.actif' => array( 'empty' => true ),
 				'Structurereferente.actif_cohorte' => array( 'empty' => false ),
 				'Structurereferente.dreesorganisme_id' => array( 'empty' => true ),
