@@ -3,6 +3,18 @@
 ?>
 <br>
 <ul class="actions">
+	<li class="action">
+		<?php
+			echo $this->Xhtml->link (
+				__d ('sitescovs58', '/Parametrages/index'),
+				array ('controller' => 'sitescovs58', 'action' => 'index'),
+				array (
+					'class' => 'back link',
+					'enabled' => true
+				)
+			);
+		?>
+    </li>
     <li class="action">
 		<?php
 			echo $this->Xhtml->link (
