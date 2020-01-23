@@ -511,7 +511,13 @@
 			$query = $this->WebrsaDsp->completeVirtualFieldsForAccess($this->WebrsaDsp->getViewQuery());
 			$query['conditions'] = array( 'DspRev.id' => $id );
 
-			$paramAccess = $this->WebrsaDsp->getParamsForAccess($this->Dsp->personneId($id), WebrsaAccessDsps::getParamsList());
+			/**
+			 * ATOLCD : methode personneId non trouvée depuis PHP 5.6
+			 * On enlève donc l'appel à la méthode : $this->Dsp->personneId($id)
+			 *
+			 * Le premier argument de getParamsForAccess est $personne_id qui est ici $id.
+			 */
+			$paramAccess = $this->WebrsaDsp->getParamsForAccess($id, WebrsaAccessDsps::getParamsList());
 			$dsprevs = WebrsaAccessDsps::access($this->DspRev->find('first', $query), $paramAccess);
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $dsprevs['DspRev']['personne_id'] ) ) );

@@ -76,5 +76,17 @@
 
 			return $result;
 		}
+
+		public function afterSearch( array $params, array $results ) {
+			$Controller = $this->_Collection->getController();
+			$options = $Controller->Dsp->WebrsaDsp->options( array( 'find' => false, 'allocataire' => false, 'alias' => 'Donnees', 'enums' => true ) );
+
+			foreach ($results as $i => $result) {
+				$difdisp = str_replace ('\n\r-', '', $results[$i]['Donnees']['difdisp']);
+				$results[$i]['Donnees']['difdisp'] = $options['Detaildifdisp']['difdisp'][$difdisp];
+			}
+
+			return $results;
+		}
 	}
 ?>
