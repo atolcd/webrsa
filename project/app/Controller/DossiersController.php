@@ -356,19 +356,20 @@
 							array (
 								'table' => 'adresses_cantons',
 								'alias' => 'AdresseCanton',
-								'type' => 'LEFT OUTER',
+								'type' => 'INNER',
 								'conditions' => array (
 									'"Canton"."id" = "AdresseCanton"."canton_id"',
 									'"AdresseCanton"."adresse_id" = '.$details['Adresse']['id']
 								)
 							)
-						)
+						),
+						'recursive' => -1
 					)
 				);
 				$details = Set::merge( $details, $canton);
 
 				// Site AMS COV 58
-				if (Configure::read( 'CG.cantons.sitecov58' )) {
+				if (Configure::read( 'CG.cantons.sitecov58' ) && isset ($details['Canton']) && is_numeric ($details['Canton']['id'])) {
 					$this->loadModel('Sitecov58');
 					$sitecov58 = $this->Sitecov58->find (
 						'first',
