@@ -1684,10 +1684,29 @@ elseif ( $this->action == 'edit' && !empty( $dossierpcg66['Decisiondossierpcg66'
 		// ----------------------------------------------------------------------------------------------------------
 		//On désactive les boutons radio de la commission parcours et audition si un dossier EP
 		// existe déjà (ou est déjà en cours de passage en EP) pour la thématique en question
-		<?php if( $dossiersepsencours['saisinesbilansparcourseps66'] ) { ?>
+		//Sauf si on est dans le cas d'une modification avec l'élément déja selectionnée
+		<?php if(
+				$dossiersepsencours['saisinesbilansparcourseps66']
+				&& (
+					!isset($this->request->data['Bilanparcours66']['choixparcours'])
+					|| (
+						isset($this->request->data['Bilanparcours66']['choixparcours'])
+						&& empty($this->request->data['Bilanparcours66']['choixparcours'])
+					)
+				)
+			) { ?>
 			$( 'radioparcours' ).writeAttribute( 'disabled', 'disabled');
 		<?php }?>
-		<?php if( $dossiersepsencours['defautsinsertionseps66'] ) { ?>
+		<?php if(
+				$dossiersepsencours['defautsinsertionseps66']
+				&& (
+					!isset($this->request->data['Bilanparcours66']['examenaudition'])
+					|| (
+						isset($this->request->data['Bilanparcours66']['examenaudition'])
+						&& empty($this->request->data['Bilanparcours66']['examenaudition'])
+					)
+				)
+			) { ?>
 			$( 'radioaudition' ).writeAttribute( 'disabled', 'disabled');
 		<?php }?>
 
