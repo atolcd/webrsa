@@ -74,7 +74,13 @@ msgid "Contratinsertion.reglegestion.texte"
 msgstr "Il y a une remise à zéro du cumul des CER après :"
 
 msgid "Contratinsertion.reglegestion.epmaintien"
-msgstr "EP avec décision de maintien"
+msgstr "EP Parcours avec décision de maintien"
+
+msgid "Contratinsertion.reglegestion.epauditionmaintien"
+msgstr "EP Audition avec décision de maintien"
+
+msgid "Contratinsertion.reglegestion.epdates"
+msgstr "Les dates d'EP sont retenus pour une remise à 0 du cumul dans le cadre où elles sont inférieures ou égales à la date de signature du CER"
 
 msgid "Contratinsertion.reglegestion.reorientation"
 msgstr "Réorientation de Pôle Emploi vers le Conseil Départemental"
