@@ -495,8 +495,8 @@
 				$personnesFoyer[$index]['Referent'] = ( !empty( $tPersReferent ) ? $tPersReferent['Referent'] : array() );
 				$personnesFoyer[$index]['Structurereferente'] = ( !empty( $tPersReferent ) ? $tPersReferent['Structurereferente'] : array() );
 
-				$tContratinsertion = $this->Dossier->Foyer->Personne->Contratinsertion->find(
-					'first',
+				//Conditions de recupération de base.
+				$tmpQueryContratInsertion = $queryContratInsertion =
 					array(
 						'fields' => array(
 							'Contratinsertion.dd_ci',
@@ -507,11 +507,26 @@
 							'Contratinsertion.positioncer',
 							'Contratinsertion.datevalidation_ci'
 						),
-						'conditions' => array( 'Contratinsertion.personne_id' => $personnesFoyer[$index]['Personne']['id'] ),
+						'conditions' => array(
+							'Contratinsertion.personne_id' => $personnesFoyer[$index]['Personne']['id']
+						),
 						'contain' => false,
-						'order' => array( 'Contratinsertion.dd_ci DESC', 'Contratinsertion.rg_ci DESC', 'Contratinsertion.id DESC' )
-					)
+						'order' => array( 'Contratinsertion.dd_ci DESC', 'Contratinsertion.rg_ci DESC' )
+					) ;
+				//Recherche des CER non Annulé
+				$tmpQueryContratInsertion['conditions'][] = 'Contratinsertion.positioncer NOT LIKE \'annule\' ';
+				$tContratinsertion = $this->Dossier->Foyer->Personne->Contratinsertion->find(
+					'first', $tmpQueryContratInsertion
 				);
+				//Si aucun CER n'à été trouvé on verifie quand même les annulés
+				if ( empty ( $tContratinsertion )) {
+					$tmpQueryContratInsertion = $queryContratInsertion;
+					$tmpQueryContratInsertion['conditions'][] = 'Contratinsertion.positioncer LIKE \'annule\' ';
+					$tContratinsertion = $this->Dossier->Foyer->Personne->Contratinsertion->find(
+						'first', $tmpQueryContratInsertion
+					);
+				}
+				//Ajout à l'affichage
 				$personnesFoyer[$index]['Contratinsertion'] = ( !empty( $tContratinsertion ) ? $tContratinsertion['Contratinsertion'] : array() );
 
 				if( Configure::read( 'Cg.departement' ) == 66 ) {
