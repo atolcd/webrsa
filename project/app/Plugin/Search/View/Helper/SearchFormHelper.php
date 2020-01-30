@@ -210,5 +210,64 @@
 
 			return $script.$input;
 		}
+
+		/**
+		 * Méthode générique permettant de filtrer sur une plage d'heures.
+		 *
+		 * @param string $path
+		 * @param array $params
+		 * @return string
+		 */
+		public function timeRange( $path, array $params = array() ) {
+			$default = array(
+				'domain' => 'search_plugin',
+				'options' => array(),
+				'legend' => null,
+				'hide' => false,
+				'minHour_from' => 8,
+				'minHour_to' => 19,
+				'maxHour_from' => 8,
+				'maxHour_to' => 19,
+				'jumpMinit'	=> 5
+			);
+			$params = $params + $default;
+
+			$fieldsetId = $this->domId( $path ).'_from_to';
+			$script = $this->PrototypeObserver->disableFieldsetOnCheckbox( $path, $fieldsetId, false, $params['hide'] );
+			$legend = Hash::get( $params, 'legend' );
+			if( $legend === null ) {
+				if( $params['domain'] !== null ) {
+					$legend = __d( $params['domain'], $path );
+				}
+				else {
+					$legend = __m( $path );
+				}
+			}
+			$input = $this->Form->input( $path, array( 'label' => __d('search_plugin', 'Filtre.base').lcfirst( $legend ), 'type' => 'checkbox' ) );
+
+			$input .= $this->Html->tag(
+				'fieldset',
+				$this->Html->tag( 'legend', $legend )
+				.$this->Form->input( $path.'_from',
+					array(
+						'label' => __d('search_plugin', 'Filtre.depuis'),
+						'type' => 'time','timeFormat' => '24',
+						'minuteInterval'=> $params['jumpMinit'],
+						'hourRange' => array( $params['minHour_from'], $params['minHour_to'] )
+					)
+				)
+				.$this->Form->input( $path.'_to',
+					array(
+						'label' => __d('search_plugin', 'Filtre.au'),
+						'type' => 'time','timeFormat' => '24',
+						'minuteInterval'=> $params['jumpMinit'],
+						'hourRange' => array( $params['maxHour_from'], $params['maxHour_to'] )
+					)
+				),
+				array( 'id' => $fieldsetId )
+			);
+
+			return $script.$input;
+		}
 	}
 ?>

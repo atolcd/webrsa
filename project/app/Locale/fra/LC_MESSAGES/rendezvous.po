@@ -120,6 +120,9 @@ msgstr "Objet du rendez-vous"
 msgid "Search.Rendezvous.daterdv"
 msgstr "Date de rendez-vous"
 
+msgid "Search.Rendezvous.heurerdv"
+msgstr "Horaire du rendez-vous"
+
 msgid "/Rendezvous/index"
 msgstr "Voir"
 

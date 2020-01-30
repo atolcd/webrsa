@@ -250,3 +250,12 @@ msgstr "NIR"
 
 msgid "Filtre.Personne.sexe"
 msgstr "Sexe"
+
+msgid "Filtre.base"
+msgstr "Filtrer par "
+
+msgid "Filtre.depuis"
+msgstr "Depuis (inclus)"
+
+msgid "Filtre.au"
+msgstr "Jusqu'à (inclus)"
