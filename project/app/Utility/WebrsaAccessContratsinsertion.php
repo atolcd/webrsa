@@ -224,21 +224,21 @@
 		 */
 		protected static function _reconduction_cer_plus_55_ans(array $record, array $params) {
 			$params = self::params($params);
-			$tabAllow = array('encours', 'fincontrat');
+			$tabAllow = Configure::read( 'Contratinsertion.Reconduction.Allow' );
+			$intDuree = Configure::read( 'Contratinsertion.Reconduction.Duree' );
 
 			# L'affichage du lien se fait dans 2 cas :
 			# --> Soit le CER n'est pas annulé et l'âge est d'au moins 55 ans
 			# --> Soit il y a une fiche de candidature en cours, inférieure à 24 mois, éligible FSE, et que le CER soit "en cours" ou "fin de contrat"
-
 			return ((
 						Hash::get($record, $params['alias'].'.positioncer') !== 'annule' &&
 						Hash::get($record, 'Personne.age') >= 55
 					)
 					||
 					(
-						$params['idFicheCandidature']>0 &&
-						$params['dureeFicheCandidature']<24 &&
-						$params['eligibleFSE']==1 &&
+						$params['idFicheCandidature'] > 0 &&
+						$params['dureeFicheCandidature'] <= $intDuree &&
+						$params['eligibleFSE'] == 1 &&
 						in_array(Hash::get($record, $params['alias'].'.positioncer'), $tabAllow)
 					));
 		}
