@@ -161,6 +161,7 @@
 		private $debutPlacePrecedente = '';
 		private $finPlacePrecedente = '';
 		private $datesEpParcoursDecisionMaintien = null;
+		private $datesEpAuditionsDecisionMaintien = null;
 		private $datesReorientationAutrePoleEmploi = null;
 
 		/**
@@ -561,10 +562,16 @@
 			$this->set('options', $options);
 
 			// Calcul du cumul des CER
-			$this->datesEpParcoursDecisionMaintien = $this->getDatesEpParcoursDecisionMaintien($personne_id);
+			$this->datesEpParcoursDecisionMaintien = $this->getDatesEpDecisionMaintienParGroupement($personne_id,'1');
+			$this->datesEpAuditionsDecisionMaintien = $this->getDatesEpDecisionMaintienParGroupement($personne_id,'2');
 			$this->datesReorientationAutrePoleEmploi = $this->getDatesReorientationsAutrePoleEmploi($personne_id);
 
-			$this->set('datesEpParcoursDecisionMaintien', array_reverse ($this->datesEpParcoursDecisionMaintien));
+			if (! empty($this->datesEpParcoursDecisionMaintien)){
+				$this->set('datesEpParcoursDecisionMaintien', array_reverse ($this->datesEpParcoursDecisionMaintien));
+			}else{ $this->set('datesEpParcoursDecisionMaintien', NULL); }
+			if (! empty($this->datesEpAuditionsDecisionMaintien)){
+				$this->set('datesEpAuditionsDecisionMaintien', array_reverse ($this->datesEpAuditionsDecisionMaintien));
+			}else{ $this->set('datesEpParcoursDecisionMaintien', NULL); }
 			$this->set('datesReorientationAutrePoleEmploi', array_reverse ($this->datesReorientationAutrePoleEmploi));
 
 			foreach ($contratsinsertion as $index => $value) {
@@ -627,13 +634,19 @@
 		 * Récupération des dates des parcours EPs avec décision de maintien
 		 *
 		 * @param int $personne_id
+		 * @param int $regroupementep_id :
+		 *  1 : EP Parcours (Val par défault)
+		 *  2 : EP Audition
 		 *
 		 * @return array
 		 */
-		private function getDatesEpParcoursDecisionMaintien ($personne_id) {
+		private function getDatesEpDecisionMaintienParGroupement ($personne_id, $regroupementep_id = 1) {
+
+			$decisionGroupement = Configure::read( 'Contratinsertion.DateEP.DecisionParGroupement' );
+
 			// Récupération des EP Parcours
 			$Ep = ClassRegistry::init ('Ep');
-			$epParcours = array_keys ($Ep->find ('list', array ('conditions' => '"regroupementep_id" = 1')));
+			$epParcours = array_keys ($Ep->find ('list', array ('conditions' => '"regroupementep_id" = '.$regroupementep_id)));
 
 			// Récupération des passages en EP
 			$Passagecommissionep = ClassRegistry::init ('Passagecommissionep');
@@ -688,27 +701,26 @@
 					),
 				)
 			);
-
 			if (count ($passages) > 0) {
 				$results = array ();
 
 				foreach ($passages as $passage) {
+					$tmpVal = $decisionGroupement[$regroupementep_id];
 					if (
-						(isset ($passage['Decisiondefautinsertionep66'][1]['decision']) && $passage['Decisiondefautinsertionep66'][1]['decision'] == 'maintien')
-						|| (isset ($passage['Decisionsaisinebilanparcoursep66'][1]['decision']) && $passage['Decisionsaisinebilanparcoursep66'][1]['decision'] == 'maintien')
-						|| (isset ($passage['Decisionsaisinepdoep66'][1]['decision']) && $passage['Decisionsaisinepdoep66'][1]['decision'] == 'maintien')
-						|| (isset ($passage['Decisionnonorientationproep66'][1]['decision']) && $passage['Decisionnonorientationproep66'][1]['decision'] == 'maintien')
-						|| (isset ($passage['Decisiondefautinsertionep66'][0]['decision']) && $passage['Decisiondefautinsertionep66'][0]['decision'] == 'maintien')
-						|| (isset ($passage['Decisionsaisinebilanparcoursep66'][0]['decision']) && $passage['Decisionsaisinebilanparcoursep66'][0]['decision'] == 'maintien')
-						|| (isset ($passage['Decisionsaisinepdoep66'][0]['decision']) && $passage['Decisionsaisinepdoep66'][0]['decision'] == 'maintien')
-						|| (isset ($passage['Decisionnonorientationproep66'][0]['decision']) && $passage['Decisionnonorientationproep66'][0]['decision'] == 'maintien')
+						(isset ($passage['Decisiondefautinsertionep66'][1]['decision']) && $passage['Decisiondefautinsertionep66'][1]['decision'] == $tmpVal)
+						|| (isset ($passage['Decisionsaisinebilanparcoursep66'][1]['decision']) && $passage['Decisionsaisinebilanparcoursep66'][1]['decision'] == $tmpVal)
+						|| (isset ($passage['Decisionsaisinepdoep66'][1]['decision']) && $passage['Decisionsaisinepdoep66'][1]['decision'] == $tmpVal)
+						|| (isset ($passage['Decisionnonorientationproep66'][1]['decision']) && $passage['Decisionnonorientationproep66'][1]['decision'] == $tmpVal)
+						|| (isset ($passage['Decisiondefautinsertionep66'][0]['decision']) && $passage['Decisiondefautinsertionep66'][0]['decision'] == $tmpVal)
+						|| (isset ($passage['Decisionsaisinebilanparcoursep66'][0]['decision']) && $passage['Decisionsaisinebilanparcoursep66'][0]['decision'] == $tmpVal)
+						|| (isset ($passage['Decisionsaisinepdoep66'][0]['decision']) && $passage['Decisionsaisinepdoep66'][0]['decision'] == $tmpVal)
+						|| (isset ($passage['Decisionnonorientationproep66'][0]['decision']) && $passage['Decisionnonorientationproep66'][0]['decision'] == $tmpVal)
 					) {
 						$results[$passage ['Commissionep']['id']] = $passage ['Commissionep']['dateseance'];
 					}
 				}
 				return array_values($results);
 			}
-
 			return null;
 		}
 
@@ -769,17 +781,40 @@
 				if (!empty($this->datesEpParcoursDecisionMaintien) && !is_null($this->datesEpParcoursDecisionMaintien)) {
 					$dateDecision = new DateTime ($contratInsertion['Contratinsertion']['datedecision']);
 					$dateEpParcours = new DateTime ($this->datesEpParcoursDecisionMaintien[0]);
-					if ($dateDecision->diff ($dateEpParcours)->format ('%R') == '-') {
+					if (
+						$dateDecision->diff ($dateEpParcours)->format ('%R') == '-'
+						|| (
+							$dateDecision->diff($dateEpParcours)->format ('%R') == '+'
+							&& $dateDecision->diff($dateEpParcours)->format ('%a') == '0'
+						)
+					) {
 						$this->cumulDuree = 0;
 						unset ($this->datesEpParcoursDecisionMaintien[0]);
 						$this->datesEpParcoursDecisionMaintien = array_values($this->datesEpParcoursDecisionMaintien);
 					}
 				}
 
-				// Remise à zéro du cumul si une réorientations a été faite autre que par Pôle Emploi avant le CER validé.
-				if (isset ($this->datesReorientationAutrePoleEmploi)) {
+				// Remise à zéro du cumul si un eEP Parcours avec décision de maintien est avant le CER validé.
+				if (!empty($this->datesEpAuditionsDecisionMaintien) && !is_null($this->datesEpAuditionsDecisionMaintien)) {
 					$dateDecision = new DateTime ($contratInsertion['Contratinsertion']['datedecision']);
-					$dateReorientation = new DateTime ($this->datesReorientationAutrePoleEmploi[0]);
+					$dateEpAuditions = new DateTime ($this->datesEpAuditionsDecisionMaintien[0]);
+					if (
+						$dateDecision->diff ($dateEpAuditions)->format ('%R') == '-'
+						|| (
+							$dateDecision->diff($dateEpAuditions)->format ('%R') == '+'
+							&& $dateDecision->diff($dateEpAuditions)->format ('%a') == '0'
+						)
+					) {
+						$this->cumulDuree = 0;
+						unset ($this->datesEpAuditionsDecisionMaintien[0]);
+						$this->datesEpAuditionsDecisionMaintien = array_values($this->datesEpAuditionsDecisionMaintien);
+					}
+				}
+
+				// Remise à zéro du cumul si une réorientation a été faite autre que par Pôle Emploi avant le CER validé.
+				if (isset ($this->datesReorientationAutrePoleEmploi) && !empty ($this->datesReorientationAutrePoleEmploi)) {
+					$dateDecision = new DateTime ($contratInsertion['Contratinsertion']['datedecision']);
+					$dateReorientation = new DateTime($this->datesReorientationAutrePoleEmploi[0]);
 					if ($dateDecision->diff ($dateReorientation)->format ('%R') == '-') {
 						$this->cumulDuree = 0;
 						unset ($this->datesReorientationAutrePoleEmploi[0]);
@@ -1459,7 +1494,8 @@
 			$contratsinsertion = $this->WebrsaAccesses->getIndexRecords($personne_id, $querydata);
 
 			if (count ($contratsinsertion)) {
-				$this->datesEpParcoursDecisionMaintien = $this->getDatesEpParcoursDecisionMaintien($personne_id);
+				$this->datesEpParcoursDecisionMaintien = $this->getDatesEpDecisionMaintienParGroupement($personne_id,'1');
+				$this->datesEpAuditionsDecisionMaintien = $this->getDatesEpDecisionMaintienParGroupement($personne_id,'2');
 				foreach ($contratsinsertion as $index => $value) {
 					$contratsinsertion[$index]["Contratinsertion"]["totalCumulCER"] = $this->getDureeCER ($value);
 				}
