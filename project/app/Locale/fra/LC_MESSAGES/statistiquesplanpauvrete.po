@@ -1,0 +1,346 @@
+# Traductions de statistiquesministerielles.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+# Menu
+# ==============================================================================
+
+msgid "Statistiquesplanpauvrete.menu"
+msgstr "Statistiques Plan Pauvreté"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a1"
+msgstr "Tableau A1 - Instruction RSA"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2"
+msgstr "Tableau de bord A2 - Parcours des Brsa"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b1"
+msgstr "Tableau B1 : Suivi de la 1ère orientation"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b4"
+msgstr "Tableau B4 : Suivi de l'accompagnement"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b5"
+msgstr "Tableau B5 : Suivi des CER"
+
+# ==============================================================================
+# Mois
+# ==============================================================================
+
+msgid "Tableau.jan"
+msgstr "Janvier"
+
+msgid "Tableau.feb"
+msgstr "Février"
+
+msgid "Tableau.mar"
+msgstr "Mars"
+
+msgid "Tableau.apr"
+msgstr "Avril"
+
+msgid "Tableau.may"
+msgstr "Mai"
+
+msgid "Tableau.jun"
+msgstr "Juin"
+
+msgid "Tableau.jul"
+msgstr "Juillet"
+
+msgid "Tableau.aug"
+msgstr "Août"
+
+msgid "Tableau.sep"
+msgstr "Septembre"
+
+msgid "Tableau.oct"
+msgstr "Octobre"
+
+msgid "Tableau.nov"
+msgstr "Novembre"
+
+msgid "Tableau.dec"
+msgstr "Décembre"
+
+# ==============================================================================
+# Délais
+# ==============================================================================
+
+msgid "Tableau_delai.0_XX"
+msgstr " - Avant XX jours"
+
+msgid "Tableau_delai.XX_YY"
+msgstr " - Entre XX jours et YY jours"
+
+msgid "Tableau_delai.XX_999"
+msgstr " - Après XX jours"
+
+# ==============================================================================
+# Tableau B1
+# ==============================================================================
+msgid "Tableau.nbPremOrientation"
+msgstr "Suivi de la 1ère orientation en "
+
+msgid "tableaub1.total"
+msgstr "Nombres des nouvelles personnes soumises à droits et devoirs (SSD)"
+
+msgid "tableaub1.Orientes"
+msgstr "Nombres de personnes SSD orientés (1ère orientation)"
+
+msgid "tableaub1.Orientestotal"
+msgstr "Total"
+
+msgid "tableaub1.Orientesemploi"
+msgstr " - Dont orientées Emploi"
+
+msgid "tableaub1.Orientesprepro"
+msgstr " - Dont orientées Pré Pro"
+
+msgid "tableaub1.Orientessocial"
+msgstr " - Dont orientées Social"
+
+msgid "tableaub1.Orientespe"
+msgstr " - Dont orientées Pôle Emploi"
+
+msgid "tableaub1.Orientescd"
+msgstr " - Dont orientées CD"
+
+msgid "tableaub1.Orientesoa"
+msgstr " - Dont orientées OA"
+
+msgid "tableaub1.NonOrientes"
+msgstr "Nombres de personnes SSD non orientés"
+
+msgid "tableaub1.NonOrientestotal"
+msgstr "Total"
+
+msgid "tableaub1.NonOrientesprevu"
+msgstr " - Dont convocation prévue"
+
+msgid "tableaub1.NonOrientesbilan"
+msgstr " - Dont bilan pour passage EPL audition"
+
+msgid "tableaub1.NonOrientesautres"
+msgstr " - Autres"
+
+msgid "tableaub1.delai_moyen"
+msgstr "Délais moyen d'orientation (en jours)"
+
+msgid "tableaub1.orient_31jours"
+msgstr "Nombre de personnes SSD orientés en moins de 31 jours"
+
+msgid "tableaub1.delai"
+msgstr "Délai de 1ère orientation"
+
+msgid "tableaub1.taux_orient"
+msgstr "Taux d'orientation"
+# ==============================================================================
+# Tableau A1
+# ==============================================================================
+
+msgid "Tableaua1.title"
+msgstr "Nombre de foyers avec un droit ouvert en"
+
+msgid "tableaua1.total"
+msgstr "Nombre de foyers avec un droit ouvert par mois"
+
+msgid "tableaua1.nbFoyerConnu"
+msgstr " - Dont le nbre de foyers connus le mois précédent avec un droit radié (les nouveaux entrants)"
+
+msgid "tableaua1.nbFoyerInconnu"
+msgstr " - Dont le nbre de foyers inconnus dans la base (les primo-arrivants)"
+
+# ==============================================================================
+# Tableau A2
+# ==============================================================================
+
+msgid "Tableau.SSD"
+msgstr "Tableau de bord A2 - Parcours des Brsa"
+
+msgid "Tableaua2.title"
+msgstr "Tableau de bord A2 - Parcours des Brsa en"
+
+msgid "tableaua2.SSD"
+msgstr "Nombre de personnes Soumises à droits et devoirs (Pers. SDD) avec un droit ouvert par mois"
+
+msgid "tableaua2.Orientes"
+msgstr "Nombre de Pers. SDD orientées avec un droit ouvert par mois"
+
+msgid "tableaua2.Orientestotal"
+msgstr "Nombre Total"
+msgid "tableaua2.Orientespercent"
+msgstr "équivalent en %"
+
+msgid "tableaua2.OrientesEmploi"
+msgstr "Dont nbre de pers. SDD orientées Emploi"
+msgid "tableaua2.OrientespercentEmploi"
+msgstr " équivalent en %"
+
+msgid "tableaua2.OrientesPrepro"
+msgstr "Dont nbre de pers. SDD orientées Pré pro"
+msgid "tableaua2.OrientespercentPrepro"
+msgstr " équivalent en %"
+
+msgid "tableaua2.OrientesSocial"
+msgstr "- Dont nbre de pers. SDD orientées Social"
+msgid "tableaua2.OrientespercentSocial"
+msgstr " équivalent en %"
+
+msgid "tableaua2.OrientesPE"
+msgstr "- Dont nbre de pers. SDD orientées PE"
+msgid "tableaua2.OrientespercentPE"
+msgstr " équivalent en %"
+
+msgid "tableaua2.OrientesCD"
+msgstr "- Dont nbre de pers. SDD orientées CD"
+msgid "tableaua2.OrientespercentCD"
+msgstr " équivalent en %"
+
+msgid "tableaua2.OrientesOA"
+msgstr "- Dont nbre de pers. SDD orientées OA "
+msgid "tableaua2.OrientespercentOA"
+msgstr " équivalent en %"
+
+msgid "tableaua2.Contrat"
+msgstr "Nombre de Pers. SDD ayant un contrat 'actif' "
+
+msgid "tableaua2.Contrattotal"
+msgstr "Nombre Total"
+msgid "tableaua2.Contratpercent"
+msgstr "équivalent en %"
+
+msgid "tableaua2.ContratPEPPAE"
+msgstr "- Dont de Pers. SDD orientées PE ayant un PPAE"
+msgid "tableaua2.ContratpercentPEPPAE"
+msgstr " équivalent en %"
+
+msgid "tableaua2.ContratCDCER"
+msgstr "- Dont de Pers. SDD orientées CD ayant un CER"
+msgid "tableaua2.ContratpercentCDCER"
+msgstr " équivalent en %"
+
+msgid "tableaua2.ContratPEAider"
+msgstr "- Dont de Pers. SDD orientées PE ayant un contrat aidé "
+msgid "tableaua2.ContratpercentPEAider"
+msgstr " équivalent en %"
+
+msgid "tableaua2.ContratPEAccomp"
+msgstr "- Dont de Pers. SDD orientées PE ayant un contrat d’accompagnement (Chrs, MLI, ADRH)"
+msgid "tableaua2.ContratpercentPEAccomp"
+msgstr " équivalent en %"
+
+msgid "tableaua2.CDCER"
+msgstr "Nombre de pers. SDD orientés CD ayant un CER “actif» par mois"
+msgid "tableaua2.CDCERtotal"
+msgstr "Nombre Total"
+
+msgid "tableaua2.CDCERSocial"
+msgstr "- Dont nbre de pers. SDD orientées “Social” avec un CER “actif”"
+
+msgid "tableaua2.CDCERpercentSocial"
+msgstr "- Dont taux de contractualisation pour les pers. SDD orientées “Social”"
+
+msgid "tableaua2.CDCERPrepro"
+msgstr "- Dont nbre de pers. SDD orientées “Pré pro” avec un CER “actif”"
+
+msgid "tableaua2.CDCERpercentPrepro"
+msgstr "- Dont taux de contractualisation pour les pers. SDD orientées “Pré pro”"
+
+msgid "tableaua2.RDVCER"
+msgstr "Nombre de rendez-vous réalisés dans le cadre de l’accompagnement par mois (Rdv pour CER et suivi)"
+
+# ==============================================================================
+# Tableau B4
+# ==============================================================================
+
+msgid "Tableaub4.nbOrientation"
+msgstr "Nombre de 1er rendez-vous après orientation en "
+
+msgid "Tableaub4.total"
+msgstr "Nombre de 1er rendez-vous fixé suite à une orientation"
+
+msgid "Tableaub4.Social"
+msgstr "Orientation sociale"
+
+msgid "Tableaub4.Socialtotal"
+msgstr "Nombre de 1er rendez-vous fixé suite à une orientation \"Sociale\""
+
+msgid "Tableaub4.Socialvenu"
+msgstr " - Dont nombre de venu à ce 1er rendez-vous"
+
+msgid "Tableaub4.Socialexcuse_recevable"
+msgstr " - Dont nombre de non venu avec excuse recevable"
+
+msgid "Tableaub4.Socialsans_excuse"
+msgstr " - Dont nombre de non venu sans excuse recevable"
+
+msgid "Tableaub4.Socialdelai_moyen"
+msgstr "Délai d'attente moyen pour un 1er rendez-vous"
+
+msgid "Tableaub4.delai"
+msgstr "Délai de rendez vous"
+
+msgid "Tableaub4.Socialtaux_presence"
+msgstr "Taux de présence au 1er rendez-vous"
+
+msgid "Tableaub4.Prepro"
+msgstr "Orientation Pré Pro"
+
+msgid "Tableaub4.Preprototal"
+msgstr "Nombre de 1er rendez-vous fixé suite à une orientation \"Pré Pro\""
+
+msgid "Tableaub4.Preprovenu"
+msgstr " - Dont nombre de venu à ce 1er rendez-vous"
+
+msgid "Tableaub4.Preproexcuse_recevable"
+msgstr " - Dont nombre de non venu avec excuse recevable"
+
+msgid "Tableaub4.Preprosans_excuse"
+msgstr " - Dont nombre de non venu sans excuse recevable"
+
+msgid "Tableaub4.Preprodelai_moyen"
+msgstr "Délai d'attente moyen pour un 1er rendez-vous"
+
+msgid "Tableaub4.Preprotaux_presence"
+msgstr "Taux de présence au 1er rendez-vous"
+
+# ==============================================================================
+# Tableau B5
+# ==============================================================================
+msgid "Tableau.nbCer"
+msgstr "Nombre de contractualisation des orientations des CD en "
+
+msgid "Tableaub5.orient_valid"
+msgstr "Nombre de 1ère orientation"
+
+msgid "Tableaub5.cer_social"
+msgstr "Nombre de CER \"Social\" validé"
+
+msgid "Tableaub5.cer_prepro"
+msgstr "Nombre de CER \"Pré pro\" validé"
+
+msgid "Tableaub5.delai_moyen"
+msgstr "Délais moyen de contractualisation en jours"
+
+msgid "Tableaub5.delai_social"
+msgstr "Délais moyen de contractualisation \"Social\" en jours"
+
+msgid "Tableaub5.delai_prepro"
+msgstr "Délais moyen de contractualisation \"Pré pro\" en jours"
+
+msgid "Tableaub5.signe15jrs"
+msgstr "Nombre de CER signés en moins de 15 jours"
+
+msgid "Tableaub5.delai"
+msgstr "Délais de contractualisation"
+
+msgid "Tableaub5.taux_contrat"
+msgstr "Taux de contractualisation"

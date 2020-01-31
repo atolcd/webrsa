@@ -1052,6 +1052,128 @@ body.statistiquesdrees ul.actions li.action a {
 }
 
 
+/**
+ * Indicateurs Plan Pauvreté (2019-12)
+ */
+body.statistiquesplanpauvrete #pageContent h2 {
+	font-weight: bold;
+	font-size: 1em;
+	margin-bottom: 0.5em;
+}
+body.statistiquesplanpauvrete #pageContent caption {
+	caption-side: top;
+	text-align: center;
+	background: #235f7d;
+	border: 1px solid #235f7d;
+	color: white;
+	padding: 0.125em 0.25em;
+}
+body.statistiquesplanpauvrete #pageContent table {
+	border-collapse: collapse;
+	width: 100%;
+	margin: 0;
+}
+body.statistiquesplanpauvrete #pageContent th,
+body.statistiquesplanpauvrete #pageContent td {
+	border: 1px solid black;
+	padding: 0.125em 0.25em;
+	background: white;
+	color: black;
+}
+body.statistiquesplanpauvrete #pageContent th {
+	font-weight: normal;
+}
+body.statistiquesplanpauvrete #pageContent thead tr.main th {
+	border: 0;
+}
+body.statistiquesplanpauvrete #pageContent tbody th,
+body.statistiquesplanpauvrete #pageContent tfoot th {
+	text-align: left;
+}
+body.statistiquesplanpauvrete #pageContent tbody td,
+body.statistiquesplanpauvrete #pageContent tfoot td {
+	text-align: right;
+}
+body.statistiquesplanpauvrete #pageContent table.middle caption,
+body.statistiquesplanpauvrete #pageContent table.middle thead tr.main,
+body.statistiquesplanpauvrete #pageContent table.last caption,
+body.statistiquesplanpauvrete #pageContent table.last thead tr.main { /*TODO: au milieu aussi -> position-first/... ?*/
+	display: none;
+}
+body.statistiquesplanpauvrete #pageContent thead tr th,
+body.statistiquesplanpauvrete #pageContent tbody tr.total th {
+	background: #235F7D;
+	color: white;
+}
+body.statistiquesplanpauvrete #pageContent thead tr.category th {
+	text-align: left;
+}
+body.statistiquesplanpauvrete #pageContent tfoot th,
+body.statistiquesplanpauvrete #pageContent tfoot td,
+body.statistiquesplanpauvrete #pageContent tbody th.total,
+body.statistiquesplanpauvrete #pageContent tbody td.total {
+	background: #E6EEF2;
+}
+
+/* Largeur des colonnes: orientations */
+body.statistiquesplanpauvrete.indicateurs_orientations #pageContent tbody th,
+body.statistiquesplanpauvrete.indicateurs_orientations #pageContent tfoot th {
+	width: 33.33%;
+	min-width: 33.33%;
+}
+body.statistiquesplanpauvrete.indicateurs_orientations #pageContent tbody td,
+body.statistiquesplanpauvrete.indicateurs_orientations #pageContent tfoot td {
+	width: 13.13%;
+	min-width: 13.33%;
+}
+
+/* Décalage des intitulés des sous-points des indicateurs d'organismes */
+body.statistiquesplanpauvrete.indicateurs_organismes #pageContent tr.dont_orientation_professionnelle_ou_socioprofessionnelle th,
+body.statistiquesplanpauvrete.indicateurs_organismes #pageContent tr.dont_orientation_sociale th{
+	padding-left: 2em;
+}
+
+/* Largeur des colonnes: réorientations */
+body.statistiquesplanpauvrete.indicateurs_reorientations #pageContent tbody th,
+body.statistiquesplanpauvrete.indicateurs_reorientations #pageContent tfoot th,
+body.statistiquesplanpauvrete.indicateurs_reorientations2 #pageContent tbody th,
+body.statistiquesplanpauvrete.indicateurs_reorientations2 #pageContent tfoot th {
+	width: 40%;
+	min-width: 40%;
+}
+body.statistiquesplanpauvrete.indicateurs_reorientations #pageContent tbody td,
+body.statistiquesplanpauvrete.indicateurs_reorientations #pageContent tfoot td,
+body.statistiquesplanpauvrete.indicateurs_reorientations2 #pageContent tbody td,
+body.statistiquesplanpauvrete.indicateurs_reorientations2 #pageContent tfoot td {
+	width: 20%;
+	min-width: 20%;
+}
+
+body.statistiquesplanpauvrete.indicateurs_motifs_reorientation #pageContent tbody tr.total th {
+	width: 80%;
+	min-width: 80%;
+}
+
+body.statistiquesplanpauvrete.indicateurs_caracteristiques_contrats #pageContent table,
+body.statistiquesplanpauvrete.indicateurs_caracteristiques_contrats2 #pageContent table {
+	width: 100%;
+	margin-bottom: 1em;
+}
+
+body.statistiquesplanpauvrete.indicateurs_caracteristiques_contrats #pageContent table tbody th,
+body.statistiquesplanpauvrete.indicateurs_caracteristiques_contrats2 #pageContent table tbody th {
+	width: 40%;
+}
+
+body.statistiquesplanpauvrete.indicateurs_caracteristiques_contrats #pageContent table tbody td,
+body.statistiquesplanpauvrete.indicateurs_caracteristiques_contrats2 #pageContent table tbody td {
+	width: 20%;
+}
+
+body.statistiquesplanpauvrete ul.actions li.action a {
+	background-image: url( ../img/icons/application_form_magnify.png );
+}
+
 
 
 /* Codes ROME V3 */
@@ -1162,4 +1284,12 @@ body.accompagnementsbeneficiaires table.index, body.accompagnementsbeneficiaires
 body.accompagnementsbeneficiaires table.details tbody th {
 	width: 20em;
 	max-width: 20em;
+}
+
+/*******************************************************************************
+ * Tableaux de Statistique Plan Pauvreté
+ ******************************************************************************/
+
+body.statistiquesplanpauvrete #pageContent tbody td:first-child {
+	text-align: left;
 }

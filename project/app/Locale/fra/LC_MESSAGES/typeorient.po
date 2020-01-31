@@ -37,6 +37,9 @@ msgstr "Modèle de notification"
 msgid "Typeorient.modele_notif_cohorte"
 msgstr "Modèle de notification pour les cohortes"
 
+msgid "Typeorient.code_stats"
+msgstr "Code pour les statistiques"
+
 msgid "Typeorient.actif"
 msgstr "Actif"
 

@@ -761,6 +761,61 @@
 	);
 
 	/**
+	 * Paramétrage du module "Statistiques Plan Pauvreté"
+	 *
+	 * @param array
+	 */
+	Configure::write(
+		'Statistiqueplanpauvrete',
+		array(
+			/**
+			 * Conditions permettant de définit les allocataires dans le champ
+			 * des droits et devoirs.
+			 *
+			 * Ces conditions seront utilisées dans les différents tableaux.
+			 *
+			 * Modèles disponibles: Dossier, Detaildroitrsa, Foyer, Situationdossierrsa,
+			 * Adressefoyer, Personne, Adresse, Prestation, Calculdroitrsa.
+			 */
+			'conditions_droits_et_devoirs' => array(
+				'Situationdossierrsa.etatdosrsa' => array( '2'),
+				'Calculdroitrsa.toppersdrodevorsa' => '1'
+			),
+			/**
+			 * Complète le querydata avec une jointure sur la table historiquesdroits
+			 * et l'ajout éventuel de conditions pour obtenir ou non des allocataires
+			 * soumis à droits et devoirs.
+			 */
+			'useHistoriquedroit' => true,
+			/**
+			 * Tranche de délai - en jours
+			 */
+			'delais' => array(
+				'0_29' => '< 30',
+				'30_59' => '30 - 60',
+				'60_89' => '60 - 89',
+				'90_999' => '>= 90'
+			),
+			/**
+			 * Orientation avec rdv => ID en base de donnée
+			 */
+			'orientationRdv' => array(
+				'venu' => array(1),
+				'prevu' => array(17),
+				'excuses_recevables' => array(8, 9, 10, 11, 12, 13, 14, 15, 16),
+				'excuses_non_recevables' => array(3, 2)
+			),
+			'code_stats' => array ('CHRS','MLJ','ADRH'),
+			/**
+			 * Identifiants de types de rendez-vous
+			 */
+			'type_rendezvous' => array(
+				'1'
+			),
+		)
+	);
+
+	/**
 	 * Permet de spécifier les noms de serveurs servant d'environnement de
 	 * production afin que les mails ne soient pas envoyés à leurs destinataires
 	 * "normaux", mais à l'expéditeur du mail.
