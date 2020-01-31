@@ -209,6 +209,20 @@
 			&& isset( $value['month'] ) && !empty( $value['month'] ) && valid_int( $value['month'] )
 			&& isset( $value['day'] ) && !empty( $value['day'] ) && valid_int( $value['day'] );
 	}
+	/**
+	 * Vérifie que la valeur passée en paramètre corresponde bien à un array de
+	 * time au format CakePHP (clés hour, min, sec uniquement, non vides).
+	 *
+	 * @param array $value
+	 * @return boolean
+	 */
+	function valid_time( $value ) {
+		return is_array( $value )
+			&& count( $value ) === 3
+			&& isset( $value['hour'] ) && !empty( $value['hour'] ) && valid_int( $value['hour'] )
+			&& isset( $value['min'] ) && !empty( $value['min'] ) && valid_int( $value['min'] )
+			&& isset( $value['sec'] ) && !empty( $value['sec'] ) && valid_int( $value['sec'] );
+	}
 
 	/**
 	 * Retourne une date au format jj/mm/aaaa à partir d'une date au format SQL
@@ -1013,6 +1027,25 @@
 		else {
 			return false;
 		}
+	}
+
+	/**
+	 * Retourne un time au format CakePHP (un array avec les clés hour, min
+	 * et sec) à partir d'une date au format SQL (yyyy-mm-dd)
+	 *
+	 * @param string $date
+	 * @return array
+	 */
+	function time_sql_to_cakephp( $time ) {
+		$result = array( 'hour' => null, 'min' => null, 'sec' => null );
+
+		$tokens = explode( ':', $date );
+		if( count( $tokens ) === 3 ) {
+			$result['hour'] = $tokens[0];
+			$result['min'] = $tokens[1];
+			$result['sec'] = $tokens[2];
+		}
+		return $result;
 	}
 
 	/**

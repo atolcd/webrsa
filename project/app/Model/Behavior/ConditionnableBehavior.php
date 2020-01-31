@@ -700,6 +700,74 @@
 		}
 
 		/**
+		 * Ajoute des conditions sur des plages d'heure. Pour chacun des $paths, on extrait le nom du
+		 * modèle et le nom du champ; si un checkbox existe avec ce chemin-là, on cherchera une date
+		 * située entre <chemin>_from (inclus) et <chemin>_to (inclus).
+		 *
+		 * Exemple:
+		 * <pre>$this->conditionsDates(
+		 *	$model,
+		 *	array(),
+		 *	array(
+		 *		'Rendezvous' => array(
+		 * 			'daterdv' => '0',
+		 *			'heurerdv' => '1',
+		 *			'heurerdv_from' => array(
+		 *				'hour' => '12',
+		 *				'min' => '25'
+		 *			),
+		 *			'heurerdv_to' => array(
+		 *				'hour' => '18',
+		 *				'min' => '25'
+		 *			)
+		 *		),
+		 *	),
+		 * );</pre>
+		 * retournera
+		 * <pre>array( '"Rendezvous"."heurerdv" BETWEEN \'12:25:00\' AND \'18:25:00\'' )</pre>
+		 *
+		 * @see app/views/rendezvous/search.ctp
+		 *
+		 * @param Model $model Le modèle auquel ce behavior est attaché
+		 * @param array $conditions Les conditions déjà existantes
+		 * @param array $search Les critères renvoyés par le formulaire de recherche
+		 * @param mixed $paths Le chemin (ou les chemins) sur lesquels on cherche à appliquer ces filtres.
+		 * @return array
+		 */
+		public function conditionsHeures( Model $model, $conditions, $search, $paths ) {
+			$paths = (array)$paths;
+			if( !empty( $paths ) ) {
+				foreach( $paths as $path ) {
+					list( $modelName, $fieldName ) = model_field( $path );
+					if( isset( $search[$modelName][$fieldName] ) && $search[$modelName][$fieldName] ) {
+						$from = Hash::get( $search, "{$modelName}.{$fieldName}_from" );
+						$to = Hash::get( $search, "{$modelName}.{$fieldName}_to" );
+						if( is_string( $from ) && !empty( $from ) ) {
+							$from = time_sql_to_cakephp( $from );
+						}elseif ( count($from) == 2 && isset( $from['hour'] ) && isset( $from['min'] ) ){
+							$from['sec'] = '00';
+						}
+
+						if( is_string( $to ) && !empty( $to ) ) {
+							$to = time_sql_to_cakephp( $to );
+						}elseif ( count($to) == 2 && isset( $to['hour'] ) && isset( $to['min'] ) ){
+							$to['sec'] = '00';
+						}
+
+						if( valid_time( $from ) && valid_time( $to ) ) {
+							$from = time_cakephp_to_sql($from);
+							$to = time_cakephp_to_sql($to);
+
+							$conditions[] = "{$modelName}.{$fieldName} BETWEEN '{$from}' AND '{$to}'";
+						}
+					}
+				}
+			}
+
+			return $conditions;
+		}
+
+		/**
 		 * Ajoute des conditions sur la communauté de structures référentes s'il
 		 * y a lieu (pour le CG 93 uniquement).
 		 *

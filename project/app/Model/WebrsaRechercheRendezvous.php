@@ -167,6 +167,7 @@
 			}
 
 			$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, 'Rendezvous.daterdv' );
+			$query['conditions'] = $this->conditionsHeures( $query['conditions'], $search, 'Rendezvous.heurerdv' );
 
 			// Recherche par thématique de rendez-vous si nécessaire
 			$query['conditions'] = $this->Rendezvous->WebrsaRendezvous->conditionsThematique( $query['conditions'], $search, 'Rendezvous.thematiquerdv_id' );

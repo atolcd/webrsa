@@ -36,6 +36,10 @@
 			'maxYear_to' => date( 'Y' ) + 1,
 		) );
 
+		echo $this->SearchForm->timeRange( 'Search.Rendezvous.heurerdv', array(
+			'domain' => 'rendezvous',
+		) );
+
 		echo $this->Form->input('Search.Rendezvous.arevoirle', array( 'label' => __d( 'rendezvous', 'Rendezvous.arevoirle' ), 'type' => 'date', 'dateFormat' => 'MY', 'empty' => true, 'minYear' => date( 'Y' ) - 1, 'maxYear' => date( 'Y' ) + 3 ) );
 	?>
 </fieldset>
