@@ -6,7 +6,8 @@
 				array(
 					'Typerdv.id',
 					'Typerdv.libelle',
-					'Typerdv.modelenotifrdv'
+					'Typerdv.modelenotifrdv',
+					'Typerdv.code_type'
 				),
 				66 === (int)Configure::read( 'Cg.departement' )
 					? array( 'Typerdv.nbabsaveplaudition' )

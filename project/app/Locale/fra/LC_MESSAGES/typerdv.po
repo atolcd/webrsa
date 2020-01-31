@@ -33,3 +33,12 @@ msgstr "Description du motif de passage en EP"
 
 msgid "Typerdv.passageeplaudition"
 msgstr "Nombre d'absences avant possible passage en EPL Audition"
+
+msgid "Typerdv.code_type"
+msgstr "Code du type de rendez-vous"
+
+msgid "Validate::code_type::ERR"
+msgstr "Le code type doit être unique"
+
+msgid "Validate::motifpassageep::ERR"
+msgstr "Champ obligatoire"

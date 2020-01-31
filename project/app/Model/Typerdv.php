@@ -41,15 +41,6 @@
 			'Postgres.PostgresAutovalidate'
 		);
 
-		public $validate = array(
-			'motifpassageep' => array(
-				'notEmptyIf' => array(
-					'rule' => array( 'notEmptyIf', 'nbabsencesavpassageep', false, array( 0 ) ),
-					'message' => 'Champ obligatoire',
-				)
-			)
-		);
-
 		public $hasMany = array(
 			'Entretien' => array(
 				'className' => 'Entretien',
@@ -92,7 +83,7 @@
 			),
 		);
 
-
+		public $validate = array();
 
 		public $hasAndBelongsToMany = array(
 			'Statutrdv' => array(
@@ -112,6 +103,24 @@
 				'with' => 'StatutrdvTyperdv'
 			)
 		);
+
+		public function __construct () {
+			parent::__construct();
+			$this->validate = array(
+				'motifpassageep' => array(
+					'notEmptyIf' => array(
+						'rule' => array( 'notEmptyIf', 'nbabsencesavpassageep', false, array( 0 ) ),
+						'message' => __d( 'typerdv', 'Validate::motifpassageep::ERR'),
+					)
+				),
+				'code_type' => array(
+					'checkUniqueCodeType' => array(
+						'rule' => array( 'checkUnique', array( 'code_type' ) ),
+						'message' => __d( 'typerdv', 'Validate::code_type::ERR')
+					)
+				)
+			);
+		}
 
 		/**
 		 * Retourne la liste des modèles odt paramétrés pour le impressions de
