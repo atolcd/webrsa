@@ -41,7 +41,7 @@
     </li>
 </ul>
 
-<h2><?php echo __d ('canton', 'Canton.titre.adresses.associees') ?></h2>
+<h2><?php echo __d ('canton', 'Canton.titre.adresses.associees').' ('.count ($cantonSitecov58s).')' ?></h2>
 <table id="TableSitescovs58Adresse" class="sitescovs58 adresse" style="width: 100%;">
 	<thead>
 		<tr>
@@ -74,7 +74,7 @@
 			<td class="data string "><?php echo $canton['Canton']['codepos']; ?></td>
 			<td class="data string "><?php echo $canton['Canton']['numcom']; ?></td>
 			<td class="action">
-				<a href="/Sitescovs58/adresse/1/<?php echo $canton['Canton']['id']; ?>/desassocier/" title="<?php echo __d ('canton', 'Canton.desassocier') ?>" class="cantons delete" onclick="if (confirm(&quot;Désassocier ?&quot;)) { return true; } return false;"><?php echo __d ('canton', 'Canton.desassocier') ?></a>
+				<a href="/Sitescovs58/adresse/<?php echo $id; ?>/<?php echo $canton['Canton']['id']; ?>/desassocier/" title="<?php echo __d ('canton', 'Canton.desassocier') ?>" class="cantons delete" onclick="if (confirm(&quot;Désassocier ?&quot;)) { return true; } return false;"><?php echo __d ('canton', 'Canton.desassocier') ?></a>
 			</td>
 		</tr>
 	<?php
@@ -151,7 +151,7 @@
 			<td class="data string "><?php echo $canton['Canton']['codepos']; ?></td>
 			<td class="data string "><?php echo $canton['Canton']['numcom']; ?></td>
 			<td class="action">
-				<a href="/Sitescovs58/adresse/1/<?php echo $canton['Canton']['id']; ?>/associer/" title="<?php echo __d ('canton', 'Canton.associer') ?>" class="cantons add"><?php echo __d ('canton', 'Canton.associer') ?></a>
+				<a href="/Sitescovs58/adresse/<?php echo $id; ?>/<?php echo $canton['Canton']['id']; ?>/associer/" title="<?php echo __d ('canton', 'Canton.associer') ?>" class="cantons add"><?php echo __d ('canton', 'Canton.associer') ?></a>
 			</td>
 		</tr>
 	<?php
