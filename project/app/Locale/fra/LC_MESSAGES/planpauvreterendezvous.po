@@ -1,0 +1,87 @@
+# Traductions de planpauvreteorientations.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+# ==============================================================================
+msgid "/Planpauvreterendezvous/cohorte_infocol/:heading"
+msgstr "Nouveaux entrants à envoyer en information collective"
+
+msgid "Personne.nom_complet_prenoms"
+msgstr "Identité"
+
+msgid "Adresse.complete"
+msgstr "Adresse"
+
+msgid "Modecontact.numtel"
+msgstr "N° de téléphone (CAF)"
+
+msgid "Personne.numport"
+msgstr "N° de téléphone portable (CD)"
+
+msgid "data[Cohorte][][Rendezvous][selection]"
+msgstr "Sélectionner"
+
+msgid "data[Cohorte][][Rendezvous][structurereferente_id]"
+msgstr "Structure référente"
+
+msgid "data[Cohorte][][Rendezvous][permanence_id]"
+msgstr "Permanence"
+
+msgid "data[Cohorte][][Rendezvous][daterdv]"
+msgstr "Date du rendez-vous"
+
+msgid "data[Cohorte][][Rendezvous][heurerdv]"
+msgstr "Heure du rendez-vous"
+
+msgid "data[Cohorte][][Rendezvous][objetrdv]"
+msgstr "Objet du rendez-vous"
+
+msgid "data[Cohorte][][Rendezvous][commentairerdv]"
+msgstr "Commentaire du rendez-vous"
+
+msgid "Planpauvreterendezvous.preremplissage_fieldset"
+msgstr "Préremplissage de la cohorte"
+
+msgid "Cohorte.Rendezvous.selection"
+msgstr "Sélectionner"
+
+msgid "Cohorte.Rendezvous.structurereferente_id"
+msgstr "Structure référente"
+
+msgid "Cohorte.Rendezvous.permanence_id"
+msgstr "Permanence"
+
+msgid "Cohorte.Rendezvous.typerdv_id"
+msgstr "Type du rendez-vous"
+
+msgid "Cohorte.Rendezvous.statutrdv_id"
+msgstr "Statut du rendez-vous"
+
+msgid "Cohorte.Rendezvous.daterdv"
+msgstr "Date du rendez-vous"
+
+msgid "Cohorte.Rendezvous.heurerdv"
+msgstr "Heure du rendez-vous"
+
+msgid "Cohorte.Rendezvous.objetrdv"
+msgstr "Objet du rendez-vous"
+
+msgid "Cohorte.Rendezvous.commentairerdv"
+msgstr "Commentaire du rendez-vous"
+
+msgid "/Dossiers/view"
+msgstr "Voir"
+
+msgid "/Dossiers/view/#Dossier.id#"
+msgstr "Voir"
+
+msgid "/Personnes/coordonnees"
+msgstr "Téléphone"
+
+msgid "/Personnes/coordonnees/#Personne.id#"
+msgstr "Modifier le numéro de téléphone"

@@ -4823,4 +4823,3 @@ msgstr "Cohorteplanpauvrete -> 3 en 1 Stock"
 
 msgid "controllers/Planpauvreterendezvous/cohorte_imprimer3en1_stock"
 msgstr "Cohorteplanpauvrete -> Impressions 3 en 1 Stock"
-
