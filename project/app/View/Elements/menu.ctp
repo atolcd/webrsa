@@ -166,6 +166,24 @@
 			'Tags' => array(
 				'url' => array( 'controller' => 'tags', 'action' => 'cohorte' )
 			),
+			__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Menu' ) => array(
+				'disabled' => ( $departement != 66 ),
+				__d( 'planpauvrete', 'Planpauvrete.Nouveaux.InscritPE' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreteorientations', 'action' => 'cohorte_isemploi' ) ),
+				__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol' ) ),
+				__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Impression_Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_imprimerinfocol' ) ),
+				__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Convoq_Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_venuinfocol' ) ),
+				__d( 'planpauvrete', 'Planpauvrete.Nouveaux.3en1' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_convoc3en1' ) ),
+				__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Impression_3en1' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_imprimer3en1' ) )
+			),
+			__d( 'planpauvrete', 'Planpauvrete.Stock.Menu' ) => array(
+				'disabled' => ( $departement != 66 ),
+				__d( 'planpauvrete', 'Planpauvrete.Stock.InscritPE' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreteorientations', 'action' => 'cohorte_isemploi_stock' ) ),
+				__d( 'planpauvrete', 'Planpauvrete.Stock.Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_stock' ) ),
+				__d( 'planpauvrete', 'Planpauvrete.Stock.Impression_Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_imprimerinfocol_stock' ) ),
+				__d( 'planpauvrete', 'Planpauvrete.Stock.Convoq_Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_venuinfocol_stock' ) ),
+				__d( 'planpauvrete', 'Planpauvrete.Stock.3en1' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_convoc3en1_stock' ) ),
+				__d( 'planpauvrete', 'Planpauvrete.Stock.Impression_3en1' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_imprimer3en1_stock' ) )
+			)
 		),
 		'Recherches' => array(
 			'Par dossier / allocataire' => array( 'class' => 'search', 'url' => array( 'controller' => 'dossiers', 'action' => 'search' ) ),
