@@ -4780,3 +4780,47 @@ msgstr "Désarchiver un fichier"
 
 msgid "controllers/Foyerspiecesjointes/edit"
 msgstr "Modifier la catégorie d'une pièce jointe"
+
+###############################################################################
+## Cohortes Nouveaux entrants
+###############################################################################
+
+msgid "controllers/Planpauvreteorientations"
+msgstr "Cohortes Planpauvrete"
+
+msgid "controllers/Planpauvreteorientations/cohorte_isemploi"
+msgstr "Cohorteplanpauvrete -> Inscrits PE Nouveaux"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol"
+msgstr "Cohorteplanpauvrete -> Informations collectives Nouveaux"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_imprimerinfocol"
+msgstr "Cohorteplanpauvrete -> Impressions Informations collectives Nouveaux"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_venuinfocol"
+msgstr "Cohorteplanpauvrete -> Convoqués Informations collectives Nouveaux"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_convoc3en1"
+msgstr "Cohorteplanpauvrete -> 3 en 1 Nouveaux"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_imprimer3en1"
+msgstr "Cohorteplanpauvrete -> Impressions 3 en 1 Nouveaux"
+
+msgid "controllers/Planpauvreteorientations/cohorte_isemploi_stock"
+msgstr "Cohorteplanpauvrete -> Inscrits PE Stock"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_stock"
+msgstr "Cohorteplanpauvrete -> Informations collectives Stock"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_imprimerinfocol_stock"
+msgstr "Cohorteplanpauvrete -> Impressions Informations collectives Stock"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_venuinfocol_stock"
+msgstr "Cohorteplanpauvrete -> Convoqués Informations collectives Stock"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_convoc3en1_stock"
+msgstr "Cohorteplanpauvrete -> 3 en 1 Stock"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_imprimer3en1_stock"
+msgstr "Cohorteplanpauvrete -> Impressions 3 en 1 Stock"
+

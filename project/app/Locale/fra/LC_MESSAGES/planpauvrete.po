@@ -1,0 +1,53 @@
+# Traductions de planpauvreteorientations.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Planpauvrete.Nouveaux.Menu"
+msgstr "Nouveaux entrants"
+
+msgid "Planpauvrete.Nouveaux.InscritPE"
+msgstr "Inscrits PE"
+
+msgid "Planpauvrete.Nouveaux.Info_Col"
+msgstr "Informations collectives"
+
+msgid "Planpauvrete.Nouveaux.Impression_Info_Col"
+msgstr "Impressions Informations collectives"
+
+msgid "Planpauvrete.Nouveaux.Convoq_Info_Col"
+msgstr "Convoqués Informations collectives"
+
+msgid "Planpauvrete.Nouveaux.3en1"
+msgstr "3 en 1"
+
+msgid "Planpauvrete.Nouveaux.Impression_3en1"
+msgstr "Impressions 3 en 1"
+
+msgid "Planpauvrete.Stock.Menu"
+msgstr "Stock"
+
+msgid "Planpauvrete.Stock.InscritPE"
+msgstr "Inscrits PE"
+
+msgid "Planpauvrete.Stock.Info_Col"
+msgstr "Informations collectives"
+
+msgid "Planpauvrete.Stock.Impression_Info_Col"
+msgstr "Impressions Informations collectives"
+
+msgid "Planpauvrete.Stock.Convoq_Info_Col"
+msgstr "Convoqués Informations collectives"
+
+msgid "Planpauvrete.Stock.3en1"
+msgstr "3 en 1"
+
+msgid "Planpauvrete.Stock.Impression_3en1"
+msgstr "Impressions 3 en 1"
