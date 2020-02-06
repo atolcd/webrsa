@@ -5,7 +5,8 @@
 			'fields' => array_merge(
 				array(
 					'Statutrdv.id',
-					'Statutrdv.libelle'
+					'Statutrdv.libelle',
+					'Statutrdv.code_statut'
 				),
 				( 58 === Configure::read( 'Cg.departement' ) )
 					? array( 'Statutrdv.provoquepassagecommission' => array( 'type' => 'radio' ) )

@@ -8,14 +8,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n>1);\n"
 # ==============================================================================
-msgid "/Planpauvreterendezvous/cohorte_infocol/:heading"
-msgstr "Nouveaux entrants à envoyer en information collective"
+
 
 msgid "Personne.nom_complet_prenoms"
 msgstr "Identité"
 
 msgid "Adresse.complete"
 msgstr "Adresse"
+
+###############################################################################
+########################    Information collectives    ########################
+###############################################################################
+
+msgid "/Planpauvreterendezvous/cohorte_infocol/:heading"
+msgstr "Nouveaux entrants à envoyer en information collective"
+
+msgid "/Personnes/coordonnees"
+msgstr "Téléphone"
+
+msgid "/Personnes/coordonnees/#Personne.id#"
+msgstr "Modifier le numéro de téléphone"
 
 msgid "Modecontact.numtel"
 msgstr "N° de téléphone (CAF)"
@@ -83,9 +95,20 @@ msgstr "Voir"
 msgid "/Dossiers/view/#Dossier.id#"
 msgstr "Voir"
 
-msgid "/Personnes/coordonnees"
-msgstr "Téléphone"
-
 msgid "/Personnes/coordonnees/#Personne.id#"
 msgstr "Modifier le numéro de téléphone"
 
+###############################################################################
+##################    Impression Information collectives    ###################
+###############################################################################
+msgid "/Planpauvreterendezvous/cohorte_infocol_imprime/:heading"
+msgstr "Impression des courriers d'information collective à envoyer aux nouveaux entrants"
+
+msgid "/Planpauvreterendezvous/imprime_infocol"
+msgstr "Imprimer"
+
+msgid "/Planpauvreterendezvous/imprime_infocol/#Rendezvous.id#"
+msgstr "Imprimer"
+
+msgid "Search.Rendezvous"
+msgstr "Recherche par rendez-vous"

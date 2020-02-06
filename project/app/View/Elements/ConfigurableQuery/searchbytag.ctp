@@ -1,4 +1,5 @@
 <?php
+if( !in_array( 'ByTag.tag_choice', Configure::read('ConfigurableQuery.' . ucfirst($this->params->controller) . '.' . $this->action . '.filters.skip') ) ) {
 	// Conditions d'accès aux tags
 	$departement = (int)Configure::read( 'Cg.departement' );
 	$user_type = $this->Session->read( 'Auth.User.type' );
@@ -29,7 +30,7 @@
 	}
 
 	if ($viewTag) {
-?>
+	?>
 	<fieldset>
 		<legend><?php echo __d('tag', 'Search.Tag.search_title') ?></legend>
 		<div class="input checkbox">
@@ -65,6 +66,8 @@
 	} } );
 	//]]>
 	</script>
-<?php
+	<?php
+	}
+
 	}
 ?>

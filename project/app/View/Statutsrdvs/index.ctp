@@ -4,7 +4,8 @@
 		array(
 			'cells' => array_merge(
 				array(
-					'Statutrdv.libelle'
+					'Statutrdv.libelle',
+					'Statutrdv.code_statut',
 				),
 				( 58 === Configure::read( 'Cg.departement' ) )
 					? array( 'Statutrdv.provoquepassagecommission' )

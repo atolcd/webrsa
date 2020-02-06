@@ -37,8 +37,10 @@
 			'Search.SearchPrg' => array(
 				'actions' => array(
 					'cohorte_infocol' => array('filter' => 'Search'),
+					'cohorte_infocol_imprime' => array('filter' => 'Search'),
 				),
 			),
+			'WebrsaAccesses',
 		);
 
 		/**
@@ -57,6 +59,7 @@
 			'Locale',
 			'Xform',
 			'Xhtml',
+			'Search.SearchForm',
 		);
 
 		/**
@@ -70,7 +73,8 @@
             'Historiquedroit',
 			'WebrsaCohortePlanpauvreterendezvous',
             'Orientstruct',
-            'Rendezvous',
+			'Rendezvous',
+			'DossiersMenus',
 			'Option',
 		);
 
@@ -98,6 +102,9 @@
 		 */
 		public $crudMap = array(
 			'cohorte_infocol' => 'update',
+			'cohorte_infocol_stock' => 'update',
+			'cohorte_infocol_imprime' => 'select',
+			'cohorte_infocol_imprime_stock' => 'select'
 		);
 
 		public function _setOptions() {
@@ -105,7 +112,7 @@
 		}
 
 		/**
-		 * Cohorte
+		 * Cohorte Information Collective - nouveaux entrants
 		 */
 		public function cohorte_infocol() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
@@ -113,11 +120,49 @@
 		}
 
 		/**
-		 * Cohorte
+		 * Cohorte Information Collective - Stock
 		 */
 		public function cohorte_infocol_stock() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
 			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvous' ) );
+		}
+
+		/**
+		 * Cohorte Impression Information Collective - nouveaux entrants
+		 */
+		public function cohorte_infocol_imprime() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprime' ) );
+		}
+
+		public function imprime_infocol($rdv_id = null) {
+			$this->WebrsaAccesses->check($rdv_id);
+			$personne_id = $this->Rendezvous->personneId( $rdv_id );
+			$this->DossiersMenus->checkDossierMenu( array( 'personne_id' => $personne_id ) );
+
+			$pdf = $this->Rendezvous->WebrsaRendezvous->getDefaultPdf( $rdv_id, $this->Session->read( 'Auth.User.id' ) );
+
+			if( !empty( $pdf ) ) {
+				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'rendezvous-%d-%s.pdf', $rdv_id, date( 'Y-m-d' ) ) );
+			}
+			else {
+				$this->Flash->error( 'Impossible de générer le courrier de rendez-vous.' );
+				$this->redirect(array('action' => 'index', $personne_id));
+			}
+		}
+
+		/**
+		 * Cohorte Impression Information Collective - nouveaux entrants
+		 */
+		public function cohorte_infocol_imprime_impressions() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->impressions(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprime',
+					'configurableQueryFieldsKey' => 'Planpauvreterendezvous.cohorte_infocol_imprime'
+				)
+			);
 		}
 	}
 ?>

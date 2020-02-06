@@ -7,23 +7,23 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-App::uses( 'AbstractWebrsaCohorte', 'Model/Abstractclass' );
-App::uses( 'WebrsaCohortePlanpauvreterendezvous', 'Model' );
-App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
+	App::uses( 'AbstractWebrsaCohorte', 'Model/Abstractclass' );
+	App::uses( 'WebrsaCohortePlanpauvreterendezvous', 'Model' );
+	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
 
 	/**
 	 * La classe WebrsaCohortePlanpauvreterendezvous ...
 	 *
 	 * @package app.Model
 	 */
-	class WebrsaCohortePlanpauvreterendezvousInfocol extends WebrsaCohortePlanpauvreterendezvous
+	class WebrsaCohortePlanpauvreterendezvousInfocolImprime extends WebrsaCohortePlanpauvreterendezvous
 	{
 		/**
 		 * Nom du modèle.
 		 *
 		 * @var string
 		 */
-		public $name = 'WebrsaCohortePlanpauvreterendezvousInfocol';
+		public $name = 'WebrsaCohortePlanpauvreterendezvousInfocolImprime';
 
 		/**
 		 * Retourne le querydata de base, en fonction du département, à utiliser
@@ -34,12 +34,35 @@ App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
 		 */
 		public function searchQuery( array $types = array() ) {
 			$query = parent::searchQuery($types);
+			// Champs supplémentaire
+			$query['fields'] = array_merge(
+				$query['fields'],
+				array(
+					'Rendezvous.id',
+					'Rendezvous.daterdv',
+					'Rendezvous.heurerdv'
+				)
+			);
+
 			// Conditions
-			// Sans RDV
-			$query['conditions'][] = 'NOT EXISTS(
-				SELECT "rendezvous"."id" AS "rendezvous__id"
-				FROM rendezvous AS rendezvous
-				WHERE "rendezvous"."personne_id" = "Personne"."id" )';
+			// Gestion du type de RDV
+			$this->loadModel('Rendezvous');
+			$config = Configure::read('ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_imprime');
+			$typeRdv = $this->Rendezvous->Typerdv->find('first', array(
+				'recursive' => -1,
+				'conditions' => array(
+					'Typerdv.code_type' => $config['cohorte']['config']['Typerdv.code_type']
+				)
+			) );
+			$query['conditions'][] = "Rendezvous.typerdv_id = " .$typeRdv['Typerdv']['id'];
+
+			$statutRdv = $this->Rendezvous->Statutrdv->find('first', array(
+				'recursive' => -1,
+				'conditions' => array(
+					'Statutrdv.code_statut' => $config['cohorte']['config']['Statutrdv.code_statut']
+				)
+			) );
+			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $statutRdv['Statutrdv']['id'];
 
 			// Sans Orientation
 			$query['conditions'][] = 'NOT EXISTS(
@@ -64,20 +87,6 @@ App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
 		}
 
 		/**
-		 * Logique de sauvegarde de la cohorte
-		 *
-		 * @param type $data
-		 * @param type $params
-		 * @return boolean
-		 */
-		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
-			$params['nom_cohorte'] = 'cohorte_infocol';
-			$success = parent::saveCohorte($data, $params, $user_id);
-
-			return $success;
-		}
-
-		/**
 		 * Complète les conditions du querydata avec le contenu des filtres de
 		 * recherche.
 		 *
@@ -87,6 +96,9 @@ App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
 		 */
 		public function searchConditions( array $query, array $search ) {
 			$query = parent::searchConditions($query, $search);
+			$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, 'Rendezvous.daterdv' );
+			$query['conditions'] = $this->conditionsHeures( $query['conditions'], $search, 'Rendezvous.heurerdv' );
+
 			return $query;
 		}
 	}

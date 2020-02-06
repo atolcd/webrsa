@@ -23,6 +23,9 @@ msgstr ""
 msgid "Statutrdv.libelle"
 msgstr "Statut du RDV"
 
+msgid "Statutrdv.code_statut"
+msgstr "Code du statut du RDV"
+
 msgid "Statutrdv.provoquepassagecommission"
 msgstr "Provoque un passage en commission ?"
 
