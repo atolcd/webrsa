@@ -19,7 +19,7 @@ msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a1"
 msgstr "Tableau A1 - Instruction RSA"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2"
-msgstr "Tableau de bord A2 - Parcours des Brsa"
+msgstr "Tableau A2 - Parcours des Brsa"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b1"
 msgstr "Tableau B1 : Suivi de la 1ère orientation"
@@ -29,6 +29,21 @@ msgstr "Tableau B4 : Suivi de l'accompagnement"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b5"
 msgstr "Tableau B5 : Suivi des CER"
+
+msgid "Statistiquesplanpauvrete.menu.V2"
+msgstr "Statistiques Plan Pauvreté V2"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a1.V2"
+msgstr "Tableau A1 - L’orientation des nouveaux entrants"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2.V2"
+msgstr "Tableau A2 - Les parcours d’accompagnement"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2a.V2"
+msgstr "a) - le 1er rdv d’accompagnement"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2b.V2"
+msgstr "b) - le 1er rdv CER"
 
 # ==============================================================================
 # Mois
@@ -344,3 +359,75 @@ msgstr "Délais de contractualisation"
 
 msgid "Tableaub5.taux_contrat"
 msgstr "Taux de contractualisation"
+
+
+# ==============================================================================
+# Tableau A1 V2
+# ==============================================================================
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a1v2"
+msgstr "Tableau A1 - L’orientation des nouveaux entrants"
+
+msgid "Tableaua12.title"
+msgstr "Nombre de foyers nouveaux entrants en"
+msgid "tableaua12.total"
+msgstr "Nouveaux entrants par mois"
+
+msgid "tableaua12.nbFoyerInconnu"
+msgstr " - dont PSDD ayant effectué une demande pour la 1ʳᵉ fois (primo arrivants)"
+msgid "tableaua12.nbFoyerRadiSusp"
+msgstr " - dont PSDD ayant déjà eu des droits ouverts par le passé (suspendus et non orientés ou radiés)"
+
+msgid "tableaua12.nbToppers"
+msgstr " - dont BRSA non-soumis aux droits et devoirs qui le sont désormais"
+msgid "tableaua12.nbFoyerJoin"
+msgstr " - dont BRSA rejoignant un foyer RSA"
+msgid "tableaua12.nbEMM"
+msgstr " - dont BRSA venant de s’installer sur le Dpt (mutation)"
+
+msgid "tableaua12.Orientes"
+msgstr "Nombre de nouveaux entrants orientés en moins d’un mois"
+msgid "tableaua12.Orientestotal"
+msgstr "Nombre Total"
+
+msgid "tableaua12.OrientesEmploi"
+msgstr "Dont nbre de pers. SDD orientées Emploi"
+msgid "tableaua12.OrientespercentEmploi"
+msgstr " équivalent en %"
+
+msgid "tableaua12.OrientesPrepro"
+msgstr "Dont nbre de pers. SDD orientées Pré pro"
+msgid "tableaua12.OrientespercentPrepro"
+msgstr " équivalent en %"
+
+msgid "tableaua12.OrientesSocial"
+msgstr "- Dont nbre de pers. SDD orientées Social"
+msgid "tableaua12.OrientespercentSocial"
+msgstr " équivalent en %"
+
+msgid "tableaua12.OrientesPE"
+msgstr "- Dont nbre de pers. SDD orientées PE"
+msgid "tableaua12.OrientespercentPE"
+msgstr " équivalent en %"
+
+msgid "tableaua12.OrientesCD"
+msgstr "- Dont nbre de pers. SDD orientées CD"
+msgid "tableaua12.OrientespercentCD"
+msgstr " équivalent en %"
+
+msgid "tableaua12.OrientesOA"
+msgstr "- Dont nbre de pers. SDD orientées OA "
+msgid "tableaua12.OrientespercentOA"
+msgstr " équivalent en %"
+
+msgid "tableaua12.percentOrientes"
+msgstr "Taux d’orientation"
+
+# ==============================================================================
+# Tableau A2 A V2
+# ==============================================================================
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2av2"
+msgstr "Tableau A2 - Les parcours d’accompagnement - le 1er rdv d’accompagnement"
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2bv2"
+msgstr "Tableau A2 - Les parcours d’accompagnement - le 1er rdv CER"
