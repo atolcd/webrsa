@@ -1,2 +1,2 @@
-
-<?php require  'cohorte_isemploi.ctp' ;?>
+<?php
+require 'cohorte_isemploi.ctp';
