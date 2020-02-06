@@ -39,13 +39,16 @@ msgid "data[Cohorte][][Rendezvous][heurerdv]"
 msgstr "Heure du rendez-vous"
 
 msgid "data[Cohorte][][Rendezvous][objetrdv]"
-msgstr "Objet du rendez-vous"
+msgstr "Objetif du rendez-vous"
 
 msgid "data[Cohorte][][Rendezvous][commentairerdv]"
 msgstr "Commentaire du rendez-vous"
 
 msgid "Planpauvreterendezvous.preremplissage_fieldset"
 msgstr "Préremplissage de la cohorte"
+
+msgid "Planpauvreterendezvous.preremplir"
+msgstr "Préremplir"
 
 msgid "Cohorte.Rendezvous.selection"
 msgstr "Sélectionner"
@@ -69,7 +72,7 @@ msgid "Cohorte.Rendezvous.heurerdv"
 msgstr "Heure du rendez-vous"
 
 msgid "Cohorte.Rendezvous.objetrdv"
-msgstr "Objet du rendez-vous"
+msgstr "Objetif du rendez-vous"
 
 msgid "Cohorte.Rendezvous.commentairerdv"
 msgstr "Commentaire du rendez-vous"
@@ -85,3 +88,4 @@ msgstr "Téléphone"
 
 msgid "/Personnes/coordonnees/#Personne.id#"
 msgstr "Modifier le numéro de téléphone"
+

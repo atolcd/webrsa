@@ -4786,40 +4786,42 @@ msgstr "Modifier la catégorie d'une pièce jointe"
 ###############################################################################
 
 msgid "controllers/Planpauvreteorientations"
-msgstr "Cohortes Planpauvrete"
+msgstr "Cohortes Plan pauvréte"
 
 msgid "controllers/Planpauvreteorientations/cohorte_isemploi"
-msgstr "Cohorteplanpauvrete -> Inscrits PE Nouveaux"
+msgstr "Nouveaux entrants inscrits à Pôle Emploi"
 
 msgid "controllers/Planpauvreterendezvous/cohorte_infocol"
-msgstr "Cohorteplanpauvrete -> Informations collectives Nouveaux"
+msgstr "Nouveaux entrants information collective"
 
 msgid "controllers/Planpauvreterendezvous/cohorte_imprimerinfocol"
-msgstr "Cohorteplanpauvrete -> Impressions Informations collectives Nouveaux"
+msgstr "Nouveaux entrants impression convocations information collective"
 
 msgid "controllers/Planpauvreterendezvous/cohorte_venuinfocol"
-msgstr "Cohorteplanpauvrete -> Convoqués Informations collectives Nouveaux"
+msgstr "Nouveaux entrants convoqués à l’information collective"
 
 msgid "controllers/Planpauvreterendezvous/cohorte_convoc3en1"
-msgstr "Cohorteplanpauvrete -> 3 en 1 Nouveaux"
+msgstr "Nouveaux entrants non venus à l’information collective à convoquer au 3 en 1"
 
 msgid "controllers/Planpauvreterendezvous/cohorte_imprimer3en1"
-msgstr "Cohorteplanpauvrete -> Impressions 3 en 1 Nouveaux"
+msgstr "Nouveaux entrants impression convocations 3 en 1"
+
 
 msgid "controllers/Planpauvreteorientations/cohorte_isemploi_stock"
-msgstr "Cohorteplanpauvrete -> Inscrits PE Stock"
+msgstr "Stock inscrits à Pôle Emploi"
 
 msgid "controllers/Planpauvreterendezvous/cohorte_infocol_stock"
-msgstr "Cohorteplanpauvrete -> Informations collectives Stock"
+msgstr "Stock information collective"
 
 msgid "controllers/Planpauvreterendezvous/cohorte_imprimerinfocol_stock"
-msgstr "Cohorteplanpauvrete -> Impressions Informations collectives Stock"
+msgstr "Stock impression convocations information collective"
 
 msgid "controllers/Planpauvreterendezvous/cohorte_venuinfocol_stock"
-msgstr "Cohorteplanpauvrete -> Convoqués Informations collectives Stock"
+msgstr "Stock convoqué à l’information collective"
 
 msgid "controllers/Planpauvreterendezvous/cohorte_convoc3en1_stock"
-msgstr "Cohorteplanpauvrete -> 3 en 1 Stock"
+msgstr "Stock non venu à l’information collective à convoquer au 3 en 1"
 
 msgid "controllers/Planpauvreterendezvous/cohorte_imprimer3en1_stock"
-msgstr "Cohorteplanpauvrete -> Impressions 3 en 1 Stock"
+msgstr "Stock impression convocations 3 en 1"
+
