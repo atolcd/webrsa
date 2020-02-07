@@ -41,6 +41,12 @@
 					'cohorte_infocol_imprime' => array('filter' => 'Search'),
 					'cohorte_infocol_venu_nonvenu_nouveau' => array('filter' => 'Search'),
 					'cohorte_infocol_venu_nonvenu_stock' => array('filter' => 'Search'),
+					'cohorte_infocol_second_rdv_nouveaux' => array('filter' => 'Search'),
+					'cohorte_infocol_second_rdv_stock' => array('filter' => 'Search'),
+					'cohorte_infocol_imprime_second_rdv_nouveaux' => array('filter' => 'Search'),
+					'cohorte_infocol_imprime_second_rdv_stock' => array('filter' => 'Search'),
+					'cohorte_infocol_imprime_second_rdv_nouveaux' => array('filter' => 'Search'),
+					'cohorte_infocol_imprime_second_rdv_stock' => array('filter' => 'Search'),
 				),
 			),
 			'WebrsaAccesses',
@@ -110,7 +116,9 @@
 			'cohorte_infocol_imprime_second_rdv_nouveaux' => 'select',
 			'cohorte_infocol_imprime_second_rdv_stock' => 'select',
 			'cohorte_infocol_venu_nonvenu_nouveau' => 'update',
-			'cohorte_infocol_venu_nonvenu_stock' => 'update'
+			'cohorte_infocol_venu_nonvenu_stock' => 'update',
+			'cohorte_infocol_second_rdv_nouveaux' => 'update',
+			'cohorte_infocol_second_rdv_stock' => 'update'
 		);
 
 		public function _setOptions() {
@@ -179,6 +187,40 @@
 					'modelName' => 'Personne',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprimeStock',
 					'nom_cohorte' => 'cohorte_infocol_imprime_stock'
+				)
+			);
+		}
+
+		/**
+		 * Cohorte Information Collective Second Rendez-vous - Nouveaux entrants
+		 *
+		 * Créé un second rendez vous d'information collective
+		 */
+		public function cohorte_infocol_second_rdv_nouveaux() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->cohorte (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolSecondRdvNouveaux',
+					'nom_cohorte' => 'cohorte_infocol_second_rdv_nouveaux'
+				)
+			);
+		}
+
+		/**
+		 * Cohorte Information Collective Second Rendez-vous - Stock
+		 *
+		 * Créé un second rendez vous d'information collective
+		 */
+		public function cohorte_infocol_second_rdv_stock() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->cohorte (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolSecondRdvStock',
+					'nom_cohorte' => 'cohorte_infocol_second_rdv_stock'
 				)
 			);
 		}
@@ -271,7 +313,7 @@
 		}
 
 		/**
-		 * Imprime en cohorte les informations collectives nouveaux entrantes
+		 * Imprime en cohorte les informations collectives nouveaux entrants
 		 */
 		public function cohorte_infocol_imprime_impressions () {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
@@ -299,7 +341,7 @@
 		}
 
 		/**
-		 * Imprime en cohorte les SECONDES RENDEZ-VOUS des informations collectives nouveaux entrants
+		 * Imprime en cohorte les SECONDS RENDEZ-VOUS des informations collectives nouveaux entrants
 		 */
 		public function cohorte_infocol_imprime_second_rdv_nouveaux_impressions () {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
@@ -313,7 +355,7 @@
 		}
 
 		/**
-		 * Imprime en cohorte les SECONDES RENDEZ-VOUS des informations collectives stock
+		 * Imprime en cohorte les SECONDS RENDEZ-VOUS des informations collectives stock
 		 */
 		public function cohorte_infocol_imprime_second_rdv_stock_impressions () {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );

@@ -136,3 +136,9 @@ msgstr "Liste des nouveaux entrant convoqués en information collective"
 
 msgid "data[Cohorte][][Rendezvous][statutrdv_id]"
 msgstr "Statut du rendez-vous"
+
+###############################################################################
+##############    Information collectives Second Rendez vous  #################
+###############################################################################
+msgid "/Planpauvreterendezvous/cohorte_infocol_second_rdv_nouveaux/:heading"
+msgstr "Convocation du SECOND RENDEZ VOUS"
