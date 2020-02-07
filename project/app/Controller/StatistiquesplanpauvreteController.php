@@ -379,7 +379,7 @@
 		 */
 		public function indicateurs_tableau_a2av2() {
 			if( !empty( $this->request->data ) ) {
-				$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA1V2( $this->request->data );
+				$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA2AV2( $this->request->data );
 
 				$this->set( compact( 'results') );
 			}
@@ -394,7 +394,7 @@
 		 */
 		public function indicateurs_tableau_a2bv2() {
 			if( !empty( $this->request->data ) ) {
-				$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA1V2( $this->request->data );
+				$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA2BV2( $this->request->data );
 
 				$this->set( compact( 'results') );
 			}

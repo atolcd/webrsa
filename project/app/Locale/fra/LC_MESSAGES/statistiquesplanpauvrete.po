@@ -369,7 +369,7 @@ msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a1v2"
 msgstr "Tableau A1 - L’orientation des nouveaux entrants"
 
 msgid "Tableaua12.title"
-msgstr "Nombre de foyers nouveaux entrants en"
+msgstr "Nombre de foyers nouveaux entrants en "
 msgid "tableaua12.total"
 msgstr "Nouveaux entrants par mois"
 
@@ -429,5 +429,46 @@ msgstr "Taux d’orientation"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2av2"
 msgstr "Tableau A2 - Les parcours d’accompagnement - le 1er rdv d’accompagnement"
+
+msgid "Tableaua2a2.title"
+msgstr "Nombre de nouveaux entrants orientés CD en "
+
+msgid "tableaua2a2.Orientes_CD"
+msgstr "Nombre de nouveaux entrants orientés CD"
+
+msgid "tableaua2a2.Orientes"
+msgstr "Nombre de nouveaux entrants orientés CD avec un 1er rendez-vous fixé suite à une orientation CD"
+
+msgid "tableaua2a2.OrientesRDV"
+msgstr "- total"
+
+msgid "tableaua2a2.OrientesRDV_Prepro"
+msgstr "- dont nbre de 1er rdv fixés suite à une orientation Pré pro"
+
+msgid "tableaua2a2.OrientesRDV_Social"
+msgstr "- dont nbre de 1er rdv fixés suite à une orientation Sociale"
+
+msgid "tableaua2a2.Orientes1m"
+msgstr "- Nombre de nouveaux entrants orientés CD en moins de 1 mois"
+
+msgid "tableaua2a2.Orientes15j"
+msgstr "Nombre de 1er rendez-vous fixé suite à une orientation CD dans un délai de 15 jours"
+
+msgid "tableaua2a2.Orientes15jRDV"
+msgstr "- total"
+
+msgid "tableaua2a2.Orientes15jRDV_Prepro"
+msgstr "- dont nbre de 1er rdv fixés suite à une orientation Pré pro"
+
+msgid "tableaua2a2.Orientes15jRDV_Social"
+msgstr "- dont nbre de 1er rdv fixés suite à une orientation Sociale"
+
+msgid "tableaua2a2.Taux"
+msgstr "Taux de 1er rdv fixés dans les délais du plan pauvreté"
+
+# ==============================================================================
+# Tableau A2 B V2
+# ==============================================================================
+
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2bv2"
 msgstr "Tableau A2 - Les parcours d’accompagnement - le 1er rdv CER"
