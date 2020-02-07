@@ -66,7 +66,6 @@
 		 * @var array
 		 */
 		public $uses = array(
-			'Nonoriente66',
 			'Personne',
 			'WebrsaCohortePlanpauvreteorientationsIsemploi',
 			'Orientstruct',
@@ -105,7 +104,7 @@
 		}
 
 		/**
-		 * Cohorte
+		 * Cohorte d'orientation des personne inscrites à Pole emploi le mois dernier
 		 */
 		public function cohorte_isemploi() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
@@ -113,7 +112,7 @@
 		}
 
 		/**
-		 * Cohorte
+		 * Cohorte d'orientation des personne inscrites à Pole emploi en stock (avant le mois dernier)
 		 */
 		public function cohorte_isemploi_stock() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );

@@ -46,42 +46,17 @@
 
 			// Conditions
 			// Gestion du type de RDV
-			$this->loadModel('Rendezvous');
-			$config = Configure::read('ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_imprime');
-			$typeRdv = $this->Rendezvous->Typerdv->find('first', array(
-				'recursive' => -1,
-				'conditions' => array(
-					'Typerdv.code_type' => $config['cohorte']['config']['Typerdv.code_type']
-				)
-			) );
-			$query['conditions'][] = "Rendezvous.typerdv_id = " .$typeRdv['Typerdv']['id'];
-
-			$statutRdv = $this->Rendezvous->Statutrdv->find('first', array(
-				'recursive' => -1,
-				'conditions' => array(
-					'Statutrdv.code_statut' => $config['cohorte']['config']['Statutrdv.code_statut']
-				)
-			) );
-			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $statutRdv['Statutrdv']['id'];
+			$query['conditions'][] = "Rendezvous.typerdv_id = " . $this->getTypeRdvId('cohorte_infocol_imprime');
+			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $this->getStatutId('cohorte_infocol_imprime');
 
 			// Sans Orientation
-			$query['conditions'][] = 'NOT EXISTS(
-				SELECT "orientsstructs"."id" AS "orientsstructs__id"
-				FROM orientsstructs AS orientsstructs
-				WHERE "orientsstructs"."statut_orient" = \'Orienté\'
-				AND "orientsstructs"."personne_id" = "Personne"."id" )';
+			$query = $this->sansOrientation($query);
 
 			// Sans CER
-			$query['conditions'][] = 'NOT EXISTS(
-				SELECT "contratsinsertion"."id" AS "contratsinsertion__id"
-				FROM contratsinsertion AS contratsinsertion
-				WHERE "contratsinsertion"."decision_ci" = \'V\'
-				AND "contratsinsertion"."personne_id" = "Personne"."id" )';
+			$query = $this->sansCER($query);
 
 			//Dans le mois précédent :
-			$dateDebRecherche = date('Y-m-',strtotime("-2 month")).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' );
-			$dateFinRecherche = date('Y-m-',strtotime("-1 month")).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.fin' );
-			$query['conditions'][] = 'Historiquedroit.created BETWEEN \''.$dateDebRecherche.'\' AND \''.$dateFinRecherche.'\'';
+			$query = $this->nouveauxEntrants($query);
 
 			return $query;
 		}

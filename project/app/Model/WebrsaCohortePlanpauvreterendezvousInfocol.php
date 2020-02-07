@@ -36,29 +36,16 @@ App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
 			$query = parent::searchQuery($types);
 			// Conditions
 			// Sans RDV
-			$query['conditions'][] = 'NOT EXISTS(
-				SELECT "rendezvous"."id" AS "rendezvous__id"
-				FROM rendezvous AS rendezvous
-				WHERE "rendezvous"."personne_id" = "Personne"."id" )';
+			$query = $this->sansRendezvous($query);
 
 			// Sans Orientation
-			$query['conditions'][] = 'NOT EXISTS(
-				SELECT "orientsstructs"."id" AS "orientsstructs__id"
-				FROM orientsstructs AS orientsstructs
-				WHERE "orientsstructs"."statut_orient" = \'Orienté\'
-				AND "orientsstructs"."personne_id" = "Personne"."id" )';
+			$query = $this->sansOrientation($query);
 
 			// Sans CER
-			$query['conditions'][] = 'NOT EXISTS(
-				SELECT "contratsinsertion"."id" AS "contratsinsertion__id"
-				FROM contratsinsertion AS contratsinsertion
-				WHERE "contratsinsertion"."decision_ci" = \'V\'
-				AND "contratsinsertion"."personne_id" = "Personne"."id" )';
+			$query = $this->sansCER($query);
 
 			//Dans le mois précédent :
-			$dateDebRecherche = date('Y-m-',strtotime("-2 month")).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' );
-			$dateFinRecherche = date('Y-m-',strtotime("-1 month")).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.fin' );
-			$query['conditions'][] = 'Historiquedroit.created BETWEEN \''.$dateDebRecherche.'\' AND \''.$dateFinRecherche.'\'';
+			$query = $this->nouveauxEntrants($query);
 
 			return $query;
 		}

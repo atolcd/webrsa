@@ -68,11 +68,10 @@
 		 * @var array
 		 */
 		public $uses = array(
-            'Nonoriente66',
-            'Personne',
-            'Historiquedroit',
+			'Personne',
+			'Historiquedroit',
 			'WebrsaCohortePlanpauvreterendezvous',
-            'Orientstruct',
+			'Orientstruct',
 			'Rendezvous',
 			'DossiersMenus',
 			'Option',
@@ -113,6 +112,7 @@
 
 		/**
 		 * Cohorte Information Collective - nouveaux entrants
+		 * Créé un rendez vous d'information collective pour les nouveaux entrants
 		 */
 		public function cohorte_infocol() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
@@ -121,6 +121,7 @@
 
 		/**
 		 * Cohorte Information Collective - Stock
+		 * Créé un rendez vous d'information collective pour le stock
 		 */
 		public function cohorte_infocol_stock() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
@@ -129,12 +130,18 @@
 
 		/**
 		 * Cohorte Impression Information Collective - nouveaux entrants
+		 * Permet l'impression de la convocation d'information collective
 		 */
 		public function cohorte_infocol_imprime() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
 			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprime' ) );
 		}
 
+		/**
+		 * Imprime un par un la convocation d'information collective
+		 *
+		 * @param int rdv_id
+		 */
 		public function imprime_infocol($rdv_id = null) {
 			$this->WebrsaAccesses->check($rdv_id);
 			$personne_id = $this->Rendezvous->personneId( $rdv_id );
@@ -152,7 +159,7 @@
 		}
 
 		/**
-		 * Cohorte Impression Information Collective - nouveaux entrants
+		 * Imprime en cohorte les information collectives
 		 */
 		public function cohorte_infocol_imprime_impressions() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
