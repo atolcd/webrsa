@@ -134,6 +134,9 @@ msgstr "Impossible de générer le courrier de rendez-vous."
 msgid "/Planpauvreterendezvous/cohorte_infocol_venu_nonvenu_nouveau/:heading"
 msgstr "Liste des nouveaux entrant convoqués en information collective"
 
+msgid "/Planpauvreterendezvous/cohorte_infocol_venu_nonvenu_stock/:heading"
+msgstr "Liste des stocks convoqués en information collective"
+
 msgid "data[Cohorte][][Rendezvous][statutrdv_id]"
 msgstr "Statut du rendez-vous"
 
@@ -141,4 +144,7 @@ msgstr "Statut du rendez-vous"
 ##############    Information collectives Second Rendez vous  #################
 ###############################################################################
 msgid "/Planpauvreterendezvous/cohorte_infocol_second_rdv_nouveaux/:heading"
-msgstr "Convocation du SECOND RENDEZ VOUS"
+msgstr "Convocation du SECOND RENDEZ VOUS des nouveaux entrants"
+
+msgid "/Planpauvreterendezvous/cohorte_infocol_second_rdv_stock/:heading"
+msgstr "Convocation du SECOND RENDEZ VOUS des stocks"

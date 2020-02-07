@@ -40,13 +40,6 @@
 			$query['conditions'][] = "Rendezvous.typerdv_id = " . $this->getTypeRdvId ('cohorte_infocol_imprime_second_rdv_stock');
 			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $this->getStatutId('cohorte_infocol_imprime_second_rdv_stock');
 
-			// Sans Orientation
-			$query = $this->sansOrientation($query);
-			// Sans CER
-			$query = $this->sansCER($query);
-			//Dans le mois précédent :
-			$query = $this->nouveauxEntrants($query);
-
 			return $query;
 		}
 
