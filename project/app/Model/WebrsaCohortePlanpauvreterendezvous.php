@@ -7,15 +7,14 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses( 'AbstractWebrsaCohorte', 'Model/Abstractclass' );
-	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
+	App::uses( 'WebrsaCohortePlanpauvrete', 'Model' );
 
 	/**
 	 * La classe WebrsaCohortePlanpauvreterendezvous ...
 	 *
 	 * @package app.Model
 	 */
-	class WebrsaCohortePlanpauvreterendezvous extends AbstractWebrsaCohorte
+	class WebrsaCohortePlanpauvreterendezvous extends WebrsaCohortePlanpauvrete
 	{
 		/**
 		 * Nom du modèle.
@@ -24,7 +23,7 @@
 		 */
 		public $name = 'WebrsaCohortePlanpauvreterendezvous';
 
-        /**
+		/**
 		 * Autres modèles utilisés par ce modèle.
 		 *
 		 * @var array
@@ -62,6 +61,43 @@
 		);
 
 		/**
+		 * Retourne l'id du statut de rdv selon le nom de la cohorte
+		 * @param string nomCohorte
+		 *
+		 * @return int id
+		 */
+		public function getStatutId($nomCohorte) {
+			$this->loadModel('Rendezvous');
+			$config = Configure::read('ConfigurableQuery.Planpauvreterendezvous.' . $nomCohorte);
+			$statutRdv = $this->Rendezvous->Statutrdv->find('first', array(
+				'recursive' => -1,
+				'conditions' => array(
+					'Statutrdv.code_statut' => $config['cohorte']['config']['Statutrdv.code_statut']
+				)
+			) );
+			return $statutRdv['Statutrdv']['id'];
+		}
+
+		/**
+		 * Retourne l'id du type de rdv selon le nom de la cohorte
+		 * @param string nomCohorte
+		 *
+		 * @return int id
+		 */
+		public function getTypeRdvId($nomCohorte) {
+			$this->loadModel('Rendezvous');
+			$config = Configure::read('ConfigurableQuery.Planpauvreterendezvous.' . $nomCohorte);
+			$typeRdv = $this->Rendezvous->Typerdv->find('first', array(
+				'recursive' => -1,
+				'conditions' => array(
+						'Typerdv.code_type' => $config['cohorte']['config']['Typerdv.code_type']
+					)
+			) );
+
+			return $typeRdv['Typerdv']['id'];
+		}
+
+		/**
 		 * Retourne le querydata de base, en fonction du département, à utiliser
 		 * dans le moteur de recherche.
 		 *
@@ -79,17 +115,17 @@
 				'Situationdossierrsa' => 'INNER',
 				'Adresse' => 'INNER',
 				// LEFT OUTER JOIN
-                'Orientstruct' => 'LEFT OUTER',
-                'Rendezvous' => 'LEFT OUTER',
-                'Typerdv' => 'LEFT OUTER',
+				'Orientstruct' => 'LEFT OUTER',
+				'Rendezvous' => 'LEFT OUTER',
+				'Typerdv' => 'LEFT OUTER',
 			);
 			$cacheKey = Inflector::underscore( $this->useDbConfig ).'_'.Inflector::underscore( $this->alias ).'_'.Inflector::underscore( __FUNCTION__ ).'_'.sha1( serialize( $types ) );
 			$query = Cache::read( $cacheKey );
-
 			if( $query === false ) {
-                App::uses('WebrsaModelUtility', 'Utility');
+				App::uses('WebrsaModelUtility', 'Utility');
 
 				$query = $this->Allocataire->searchQuery( $types, 'Personne' );
+
 				$query['fields']['Personne.id'] = 'DISTINCT ON ("Personne"."id") "Personne"."id" as "ID_PERSONNE"';
 				// 1. Ajout des champs supplémentaires
 				$query['fields'] = array_merge(
@@ -111,17 +147,14 @@
 					)
 				);
 				// 4. Conditions
-				//Soumis à droit et devoir
-				$query['conditions']['Calculdroitrsa.toppersdrodevorsa'] = '1';
-
-				//Droit ouvert et versable :
-				$query['conditions']['Historiquedroit.etatdosrsa'] = '2';
+				// SDD & DOV
+				$query = $this->sdddov($query);
 
 				Cache::write( $cacheKey, $query );
 			}
 
 			return $query;
-        }
+		}
 
 		/**
 		 * Logique de sauvegarde de la cohorte
@@ -132,22 +165,9 @@
 		 */
 		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
 			$this->loadModel('Rendezvous');
-			$config = Configure::read('ConfigurableQuery.Planpauvreterendezvous.' . $params['nom_cohorte']);
-			$typeRdv = $this->Rendezvous->Typerdv->find('first', array(
-                'recursive' => -1,
-                'conditions' => array(
-                        'Typerdv.code_type' => $config['cohorte']['config']['Typerdv.code_type']
-                    )
-			) );
-			$typeRdv = $typeRdv['Typerdv']['id'];
+			$typeRdv = $this->getTypeRdvId($params['nom_cohorte']);
 
-			$statutRdv = $this->Rendezvous->Statutrdv->find('first', array(
-				'recursive' => -1,
-                'conditions' => array(
-                    'Statutrdv.code_statut' => $config['cohorte']['config']['Statutrdv.code_statut']
-                )
-			) );
-			$statutRdv = $statutRdv['Statutrdv']['id'];
+			$statutRdv = $this->getStatutId($params['nom_cohorte']);
 			foreach ( $data as $key => $value ) {
 				// Si non selectionné, on retire tout
 				if ( $value['Rendezvous']['selection'] === '0' ) {
@@ -176,17 +196,5 @@
 			return $success;
 		}
 
-		/**
-		 * Complète les conditions du querydata avec le contenu des filtres de
-		 * recherche.
-		 *
-		 * @param array $query
-		 * @param array $search
-		 * @return array
-		 */
-		public function searchConditions( array $query, array $search ) {
-			$query = $this->Allocataire->searchConditions( $query, $search );
-			return $query;
-		}
 	}
 ?>

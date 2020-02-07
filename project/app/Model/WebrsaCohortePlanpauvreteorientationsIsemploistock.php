@@ -33,42 +33,10 @@
 		 * @return array
 		 */
 		public function searchQuery( array $types = array() ) {
-
 			$query = parent::searchQuery($types);
 
-			//Dans le mois précédent : Nouvelle demande ou Réouverture de droit
-			$dateDebRecherche = date('Y-m-',strtotime("-1 month")).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' );
-			$dateFinRecherche = date('Y-m-').Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.fin' );
-			//Recherche selon Stock
-			$query['conditions'][] = 'date_trunc(\'day\', Historiquedroit.created) < \''.$dateDebRecherche.'\'';
-			$query['conditions'][] = 'date_trunc(\'day\', Historiquedroit.modified) > \''.$dateFinRecherche.'\'';
-
-			return $query;
-		}
-
-		/**
-		 * Logique de sauvegarde de la cohorte
-		 *
-		 * @param type $data
-		 * @param type $params
-		 * @return boolean
-		 */
-		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
-			$success = parent::saveCohorte($data, $params, $user_id);
-
-			return $success;
-		}
-
-		/**
-		 * Complète les conditions du querydata avec le contenu des filtres de
-		 * recherche.
-		 *
-		 * @param array $query
-		 * @param array $search
-		 * @return array
-		 */
-		public function searchConditions( array $query, array $search ) {
-			$query = parent::searchConditions($query, $search);
+			// Stock
+			$query = $this->stock($query);
 
 			return $query;
 		}

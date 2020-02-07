@@ -7,15 +7,14 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses( 'AbstractWebrsaCohorte', 'Model/Abstractclass' );
-	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
+	App::uses( 'WebrsaCohortePlanpauvrete', 'Model' );
 
 	/**
 	 * La classe WebrsaCohortePlanpauvreteorientations ...
 	 *
 	 * @package app.Model
 	 */
-	class WebrsaCohortePlanpauvreteorientations extends AbstractWebrsaCohorte
+	class WebrsaCohortePlanpauvreteorientations extends WebrsaCohortePlanpauvrete
 	{
 		/**
 		 * Nom du modèle.
@@ -169,34 +168,16 @@
 				);
 
 				// 4. Conditions
-				//Soumis à droit et devoir
-				$query['conditions']['Calculdroitrsa.toppersdrodevorsa'] = '1';
-				//Droit ouvert et versable :
-				$query['conditions']['Historiquedroit.etatdosrsa'] = '2';
-				//Ancienne facon de faire qui prend etatdos 2,3 et 4
-					//$query['conditions']['Situationdossierrsa.etatdosrsa'] = $this->Nonoriente66->Personne->Foyer->Dossier->Situationdossierrsa->etatOuvert();
+				// SDD & DOV
+				$query = $this->sdddov($query);
 				//Sans orientation
-				$query['conditions'][] = 'Orientstruct.id IS NULL';
+				$query = $this->sansOrientation($query);
 				//Sans RDV
-				$query['conditions'][] = 'Rendezvous.id IS NULL' ;
+				$query = $this->sansRendezvous($query);
 				//Sans CER
-				$query['conditions'][] = 'Contratinsertion.id IS NULL' ;
+				$query = $this->sansCER($query);
 				//Inscrits à Pôle Emploi
-				$query['conditions'][] = array(
-					'OR' => array(
-						'Informationpe.id IS NULL',
-						'Informationpe.id IN ( '
-							.$this->Nonoriente66->Historiqueetatpe->Informationpe->sqDerniere('Personne')
-						.' )'
-					)
-				);
-				$query['conditions'][] =  array(
-					'OR' => array(
-						'Historiqueetatpe.id IS NULL',
-						'Historiqueetatpe.id IN ( '.$this->Nonoriente66->Historiqueetatpe->sqDernier( 'Informationpe' ).' )'
-					)
-				);
-				$query['conditions']['Historiqueetatpe.etat'] = 'inscription';
+				$query = $this->inscritPE($query);
 
 				Cache::write($cacheKey, $query);
 			}
