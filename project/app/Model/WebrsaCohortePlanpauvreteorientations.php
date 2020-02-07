@@ -224,7 +224,7 @@
 					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.structurereferente_id');
 				$data[$key]['Orientstruct']['referent_id'] =
 					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.referent_id');
-				$data[$key]['Orientstruct']['date_propo'] = new DateTime ();
+				$data[$key]['Orientstruct']['date_propo'] = date ('Y-m-d');
 				$data[$key]['Orientstruct']['typenotification'] =
 					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.typenotification');
 			}
