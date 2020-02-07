@@ -36,7 +36,7 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function cohorte_infocol(array $record, array $params) {
+		protected static function _cohorte_infocol(array $record, array $params) {
 			return true;
 		}
 
@@ -47,7 +47,7 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function cohorte_infocol_stock(array $record, array $params) {
+		protected static function _cohorte_infocol_stock(array $record, array $params) {
 			return true;
 		}
 
@@ -58,9 +58,10 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function cohorte_infocol_imprime(array $record, array $params) {
+		protected static function _cohorte_infocol_imprime(array $record, array $params) {
 			return true;
 		}
+
 		/**
 		 * Permission d'accès
 		 *
@@ -68,7 +69,40 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function imprime_infocol(array $record, array $params) {
+		protected static function _imprime(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _cohorte_infocol_imprime_stock(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _cohorte_infocol_imprime_second_rdv_nouveaux(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _cohorte_infocol_imprime_second_rdv_stock(array $record, array $params) {
 			return true;
 		}
 
@@ -95,7 +129,10 @@
 					'cohorte_infocol',
 					'cohorte_infocol_stock',
 					'cohorte_infocol_imprime',
-					'imprime_infocol',
+					'cohorte_infocol_imprime_stock',
+					'cohorte_infocol_imprime_second_rdv_nouveaux',
+					'cohorte_infocol_imprime_second_rdv_stock',
+					'imprime',
 					'cohorte_infocol_imprime_impression',
 				)
 			);

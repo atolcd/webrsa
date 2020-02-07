@@ -816,6 +816,11 @@
 	);
 
 	/**
+	 * Activation du module des cohortes du plan pauvreté spécifié par le CD 66
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete', true);
+
+	/**
 	 * Permet de spécifier les noms de serveurs servant d'environnement de
 	 * production afin que les mails ne soient pas envoyés à leurs destinataires
 	 * "normaux", mais à l'expéditeur du mail.

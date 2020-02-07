@@ -14,7 +14,7 @@
 	 *
 	 * @package app.Model
 	 */
-	class WebrsaCohortePlanpauvreterendezvousInfocolImprime extends WebrsaCohortePlanpauvreterendezvous
+	class WebrsaCohortePlanpauvreterendezvousInfocolImprimeSecondRdvNouveaux extends WebrsaCohortePlanpauvreterendezvous
 	{
 		/**
 		 * Retourne le querydata de base, en fonction du département, à utiliser
@@ -37,8 +37,8 @@
 
 			// Conditions
 			// Gestion du type de RDV
-			$query['conditions'][] = "Rendezvous.typerdv_id = " . $this->getTypeRdvId ('cohorte_infocol_imprime');
-			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $this->getStatutId('cohorte_infocol_imprime');
+			$query['conditions'][] = "Rendezvous.typerdv_id = " . $this->getTypeRdvId ('cohorte_infocol_imprime_second_rdv_nouveaux');
+			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $this->getStatutId('cohorte_infocol_imprime_second_rdv_nouveaux');
 
 			// Sans Orientation
 			$query = $this->sansOrientation($query);

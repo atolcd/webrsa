@@ -167,7 +167,7 @@
 				'url' => array( 'controller' => 'tags', 'action' => 'cohorte' )
 			),
 			__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Menu' ) => array(
-				'disabled' => ( $departement != 66 ),
+				'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete'),
 				__d( 'planpauvrete', 'Planpauvrete.Nouveaux.InscritPE' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreteorientations', 'action' => 'cohorte_isemploi' ) ),
 				__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol' ) ),
 				__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Impression_Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_imprime' ) ),
@@ -176,7 +176,7 @@
 				__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Impression_3en1' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_imprimer3en1' ) )
 			),
 			__d( 'planpauvrete', 'Planpauvrete.Stock.Menu' ) => array(
-				'disabled' => ( $departement != 66 ),
+				'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete'),
 				__d( 'planpauvrete', 'Planpauvrete.Stock.InscritPE' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreteorientations', 'action' => 'cohorte_isemploi_stock' ) ),
 				__d( 'planpauvrete', 'Planpauvrete.Stock.Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_stock' ) ),
 				__d( 'planpauvrete', 'Planpauvrete.Stock.Impression_Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_imprimerinfocol_stock' ) ),
