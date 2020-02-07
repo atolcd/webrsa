@@ -176,7 +176,7 @@
 
 				// On ajoute les données nécessaire à l'enregistrement
 				$data[$key]['Rendezvous']['typerdv_id'] = $typeRdv;
-				if($data[$key]['Rendezvous']['statutrdv_id'] === '')
+				if(!isset($data[$key]['Rendezvous']['statutrdv_id']) || $data[$key]['Rendezvous']['statutrdv_id'] === '')
 				{
 					$data[$key]['Rendezvous']['statutrdv_id'] = $statutRdv;
 				}
