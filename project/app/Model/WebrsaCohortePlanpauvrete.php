@@ -87,7 +87,7 @@
 			$dateFinRecherche = date('Y-m-').Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.fin' );
 			//Recherche selon Stock
 			$query['conditions'][] = 'date_trunc(\'day\', Historiquedroit.created) < \''.$dateDebRecherche.'\'';
-			$query['conditions'][] = 'date_trunc(\'day\', Historiquedroit.modified) > \''.$dateFinRecherche.'\'';
+			//$query['conditions'][] = 'date_trunc(\'day\', Historiquedroit.modified) > \''.$dateFinRecherche.'\'';
 			return $query;
 		}
 
