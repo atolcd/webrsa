@@ -39,6 +39,8 @@
 					'cohorte_infocol' => array('filter' => 'Search'),
 					'cohorte_infocol_stock' => array('filter' => 'Search'),
 					'cohorte_infocol_imprime' => array('filter' => 'Search'),
+					'cohorte_infocol_venu_nonvenu_nouveau' => array('filter' => 'Search'),
+					'cohorte_infocol_venu_nonvenu_stock' => array('filter' => 'Search'),
 				),
 			),
 			'WebrsaAccesses',
@@ -106,7 +108,9 @@
 			'cohorte_infocol_imprime' => 'select',
 			'cohorte_infocol_imprime_stock' => 'select',
 			'cohorte_infocol_imprime_second_rdv_nouveaux' => 'select',
-			'cohorte_infocol_imprime_second_rdv_stock' => 'select'
+			'cohorte_infocol_imprime_second_rdv_stock' => 'select',
+			'cohorte_infocol_venu_nonvenu_nouveau' => 'update',
+			'cohorte_infocol_venu_nonvenu_stock' => 'update'
 		);
 
 		public function _setOptions() {
@@ -214,6 +218,38 @@
 		}
 
 		/**
+		 * Cohorte Information Collective - nouveaux entrants - Venu / Non venu
+		 * Modifie le statut du rendez vous en venu / non venu
+		 * pour les personnes ayant eu un rdv info coll nouveaux entrant
+		 */
+		public function cohorte_infocol_venu_nonvenu_nouveau() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->cohorte(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolVenuNonvenuNouveaux',
+					'nom_cohorte' => 'cohorte_infocol_venu_nonvenu_nouveau'
+				)
+			);
+		}
+
+		/**
+		 * Cohorte Information Collective - Stock - Venu / Non venu
+		 * Modifie le statut du rendez vous en venu / non venu
+		 * pour les personnes ayant eu un rdv info coll stock
+		 */
+		public function cohorte_infocol_venu_nonvenu_stock() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->cohorte(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolVenuNonvenuStock',
+					'nom_cohorte' => 'cohorte_infocol_venu_nonvenu_stock'
+				)
+			);
+		}
+
+		/**
 		 * Imprime un par un la convocation d'information collective
 		 *
 		 * @param int rdv_id
@@ -238,12 +274,12 @@
 		 * Imprime en cohorte les informations collectives nouveaux entrantes
 		 */
 		public function cohorte_infocol_imprime_impressions () {
-			$this->cohorte_impression_convocation ('cohorte_infocol_imprime');
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
 			$Cohorte->impressions(
 				array(
 					'modelName' => 'Personne',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprime',
-					'configurableQueryFieldsKey' => 'Planpauvreterendezvous.WebrsaCohortesPlanpauvreterendezvous'
+					'configurableQueryFieldsKey' => 'Planpauvreterendezvous.cohorte_infocol_imprime'
 				)
 			);
 		}
@@ -280,7 +316,6 @@
 		 * Imprime en cohorte les SECONDES RENDEZ-VOUS des informations collectives stock
 		 */
 		public function cohorte_infocol_imprime_second_rdv_stock_impressions () {
-			$this->cohorte_impression_convocation ('cohorte_infocol_imprime_second_rdv_stock');
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
 			$Cohorte->impressions(
 				array(

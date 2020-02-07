@@ -128,3 +128,11 @@ msgstr "Recherche par rendez-vous"
 msgid "Erreur.Impression"
 msgstr "Impossible de générer le courrier de rendez-vous."
 
+###############################################################################
+#################    Information collectives Venu/Non venu  ###################
+###############################################################################
+msgid "/Planpauvreterendezvous/cohorte_infocol_venu_nonvenu_nouveau/:heading"
+msgstr "Liste des nouveaux entrant convoqués en information collective"
+
+msgid "data[Cohorte][][Rendezvous][statutrdv_id]"
+msgstr "Statut du rendez-vous"

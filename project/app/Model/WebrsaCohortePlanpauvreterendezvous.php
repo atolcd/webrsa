@@ -166,7 +166,6 @@
 		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
 			$this->loadModel('Rendezvous');
 			$typeRdv = $this->getTypeRdvId($params['nom_cohorte']);
-
 			$statutRdv = $this->getStatutId($params['nom_cohorte']);
 			foreach ( $data as $key => $value ) {
 				// Si non selectionné, on retire tout
@@ -177,14 +176,16 @@
 
 				// On ajoute les données nécessaire à l'enregistrement
 				$data[$key]['Rendezvous']['typerdv_id'] = $typeRdv;
-				$data[$key]['Rendezvous']['statutrdv_id'] = $statutRdv;
+				if($data[$key]['Rendezvous']['statutrdv_id'] === '')
+				{
+					$data[$key]['Rendezvous']['statutrdv_id'] = $statutRdv;
+				}
 				$data[$key]['Rendezvous']['personne_id'] = $value['Personne']['id'];
 				$data[$key] = $data[$key]['Rendezvous'];
 
 				// on supprime la selection car inutile pour l'enregistrement
 				unset($data[$key]['selection']);
 			}
-
 			$this->Rendezvous->begin();
 			$success = !empty($data) && $this->Rendezvous->saveAll($data, array('atomic' => false));
 
