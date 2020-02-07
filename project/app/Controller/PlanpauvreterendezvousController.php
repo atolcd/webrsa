@@ -37,6 +37,7 @@
 			'Search.SearchPrg' => array(
 				'actions' => array(
 					'cohorte_infocol' => array('filter' => 'Search'),
+					'cohorte_infocol_stock' => array('filter' => 'Search'),
 					'cohorte_infocol_imprime' => array('filter' => 'Search'),
 				),
 			),
@@ -116,7 +117,13 @@
 		 */
 		public function cohorte_infocol() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
-			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocol' ) );
+			$Cohorte->cohorte( array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocol',
+					'nom_cohorte' => 'cohorte_infocol'
+				)
+			);
 		}
 
 		/**
@@ -125,7 +132,13 @@
 		 */
 		public function cohorte_infocol_stock() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
-			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvous' ) );
+			$Cohorte->cohorte( array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolStock',
+					'nom_cohorte' => 'cohorte_infocol_stock'
+				)
+			);
 		}
 
 		/**

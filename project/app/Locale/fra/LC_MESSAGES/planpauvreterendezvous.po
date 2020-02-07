@@ -23,6 +23,9 @@ msgstr "Adresse"
 msgid "/Planpauvreterendezvous/cohorte_infocol/:heading"
 msgstr "Nouveaux entrants à envoyer en information collective"
 
+msgid "/Planpauvreterendezvous/cohorte_infocol_stock/:heading"
+msgstr "Stock à envoyer en information collective"
+
 msgid "/Personnes/coordonnees"
 msgstr "Téléphone"
 

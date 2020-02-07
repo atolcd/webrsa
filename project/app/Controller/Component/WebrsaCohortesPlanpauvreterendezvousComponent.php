@@ -67,10 +67,10 @@
 				$Controller->loadModel( 'Planpauvreterendezvous' );
 			}
 
-			$config = Configure::read('ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol');
-            $options['Rendezvous']['structurereferente_id'] = $Controller->Orientstruct->Structurereferente->find('list');
-            $options['Rendezvous']['permanence_id'] = $Controller->Orientstruct->Structurereferente->Permanence->find('list');
-            $options['Rendezvous']['typerdv_id'] = $Controller->Rendezvous->Typerdv->find('first', array(
+			$config = Configure::read('ConfigurableQuery.Planpauvreterendezvous.'.$params['nom_cohorte']);
+			$options['Rendezvous']['structurereferente_id'] = $Controller->Orientstruct->Structurereferente->find('list');
+			$options['Rendezvous']['permanence_id'] = $Controller->Orientstruct->Structurereferente->Permanence->find('list');
+			$options['Rendezvous']['typerdv_id'] = $Controller->Rendezvous->Typerdv->find('first', array(
                 'recursive' => -1,
                 'conditions' => array(
                         'Typerdv.code_type' => $config['cohorte']['config']['Typerdv.code_type']

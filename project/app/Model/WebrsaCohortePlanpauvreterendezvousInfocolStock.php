@@ -14,7 +14,7 @@
 	 *
 	 * @package app.Model
 	 */
-	class WebrsaCohortePlanpauvreterendezvousInfocol extends WebrsaCohortePlanpauvreterendezvous
+	class WebrsaCohortePlanpauvreterendezvousInfocolStock extends WebrsaCohortePlanpauvreterendezvous
 	{
 		/**
 		 * Retourne le querydata de base, en fonction du département, à utiliser
@@ -25,18 +25,16 @@
 		 */
 		public function searchQuery( array $types = array() ) {
 			$query = parent::searchQuery($types);
+
 			// Conditions
 			// Sans RDV
 			$query = $this->sansRendezvous($query);
-
 			// Sans Orientation
 			$query = $this->sansOrientation($query);
-
 			// Sans CER
 			$query = $this->sansCER($query);
-
 			//Dans le mois précédent :
-			$query = $this->nouveauxEntrants($query);
+			$query = $this->stock($query);
 
 			return $query;
 		}
@@ -49,10 +47,11 @@
 		 * @return boolean
 		 */
 		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
-			$params['nom_cohorte'] = 'cohorte_infocol';
+			$params['nom_cohorte'] = 'cohorte_infocol_stock';
 			$success = parent::saveCohorte($data, $params, $user_id);
 
 			return $success;
 		}
+
 	}
 ?>
