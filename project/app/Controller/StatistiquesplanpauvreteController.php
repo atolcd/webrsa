@@ -358,6 +358,51 @@
 		}
 
 		/**
+		 * Moteur de recherche pour les indicateurs d'orientation.
+		 *
+		 * @return void
+		 */
+		public function indicateurs_tableau_a1v2() {
+			if( !empty( $this->request->data ) ) {
+				$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA1V2( $this->request->data );
+
+				$this->set( compact( 'results') );
+			}
+
+			$this->set( 'title_for_layout',  __d('statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a1v2', '' ) );
+		}
+
+		/**
+		 * Moteur de recherche pour les indicateurs d'orientation.
+		 *
+		 * @return void
+		 */
+		public function indicateurs_tableau_a2av2() {
+			if( !empty( $this->request->data ) ) {
+				$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA1V2( $this->request->data );
+
+				$this->set( compact( 'results') );
+			}
+
+			$this->set( 'title_for_layout',  __d('statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a2av2', '' ) );
+		}
+
+		/**
+		 * Moteur de recherche pour les indicateurs d'orientation.
+		 *
+		 * @return void
+		 */
+		public function indicateurs_tableau_a2bv2() {
+			if( !empty( $this->request->data ) ) {
+				$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA1V2( $this->request->data );
+
+				$this->set( compact( 'results') );
+			}
+
+			$this->set( 'title_for_layout',  __d('statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a2bv2', '' ) );
+		}
+
+		/**
 		 * Génération de certains csv
 		 *
 		 * @return void
