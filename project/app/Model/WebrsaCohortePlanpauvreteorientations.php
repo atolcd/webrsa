@@ -217,18 +217,16 @@
 				$data[$key]['Orientstruct']['structureorientante_id'] =
 					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.structureorientante_id');
 				$data[$key]['Orientstruct']['referentorientant_id'] =
-					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.referentorientant_id') ;
+					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.referentorientant_id');
 				$data[$key]['Orientstruct']['typeorient_id'] =
-					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.typeorient_id') ;
+					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.typeorient_id');
 				$data[$key]['Orientstruct']['structurereferente_id'] =
-					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.structurereferente_id') ;
+					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.structurereferente_id');
 				$data[$key]['Orientstruct']['referent_id'] =
-					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.referent_id') ;
-				$data[$key]['Orientstruct']['date_propo'] = $data[$key]['Orientstruct']['date_valid'];
-				if( $departement == 66 ) {
-					$data[$key]['Orientstruct']['typenotification'] =
-					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.typenotification') ;
-				}
+					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.referent_id');
+				$data[$key]['Orientstruct']['date_propo'] = new DateTime ();
+				$data[$key]['Orientstruct']['typenotification'] =
+					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.typenotification');
 			}
 
 			$this->Nonoriente66->begin();

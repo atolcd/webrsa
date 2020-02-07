@@ -7,9 +7,7 @@
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses( 'AbstractWebrsaCohorte', 'Model/Abstractclass' );
 	App::uses( 'WebrsaCohortePlanpauvreteorientations', 'Model' );
-	App::uses( 'ConfigurableQueryFields', 'ConfigurableQuery.Utility' );
 
 	/**
 	 * La classe WebrsaCohortePlanpauvreteorientationsIsemploi ...
@@ -18,13 +16,6 @@
 	 */
 	class WebrsaCohortePlanpauvreteorientationsIsemploi extends WebrsaCohortePlanpauvreteorientations
 	{
-		/**
-		 * Nom du modèle.
-		 *
-		 * @var string
-		 */
-		public $name = 'WebrsaCohortePlanpauvreteorientationsIsemploi';
-
 		/**
 		 * Retourne le querydata de base, en fonction du département, à utiliser
 		 * dans le moteur de recherche.
@@ -41,4 +32,3 @@
 			return $query;
 		}
 	}
-?>
