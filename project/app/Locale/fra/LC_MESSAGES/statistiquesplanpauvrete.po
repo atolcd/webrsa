@@ -428,7 +428,7 @@ msgstr "Taux d’orientation"
 # ==============================================================================
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2av2"
-msgstr "Tableau A2 - Les parcours d’accompagnement - le 1er rdv d’accompagnement"
+msgstr "Tableau A2 - Les parcours d’accompagnement, A - le 1er rdv d’accompagnement"
 
 msgid "Tableaua2a2.title"
 msgstr "Nombre de nouveaux entrants orientés CD en "
@@ -471,4 +471,40 @@ msgstr "Taux de 1er rdv fixés dans les délais du plan pauvreté"
 # ==============================================================================
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2bv2"
-msgstr "Tableau A2 - Les parcours d’accompagnement - le 1er rdv CER"
+msgstr "Tableau A2 - Les parcours d’accompagnement, B - le 1er rdv CER"
+
+msgid "Tableaua2b2.title"
+msgstr "Nombre de nouveaux entrants orientés CD en "
+
+msgid "tableaua2b2.Orientes_CD"
+msgstr "Nombre de nouveaux entrants orientés CD"
+
+msgid "tableaua2b2.Orientes"
+msgstr "Nombre de nouveaux entrants orientés CD ayant signé un CER"
+
+msgid "tableaua2b2.OrientesCER"
+msgstr "- total"
+
+msgid "tableaua2b2.OrientesCER_Prepro"
+msgstr "- dont nbre de 1er CER signé suite à une orientation Pré pro"
+
+msgid "tableaua2b2.OrientesCER_Social"
+msgstr "- dont nbre de 1er CER signé suite à une orientation Sociale"
+
+msgid "tableaua2b2.Orientes1m"
+msgstr "Nombre de nouveaux entrants orientés CD dans un délai d’1 mois"
+
+msgid "tableaua2b2.Orientes2m"
+msgstr "Nombre de nouveaux entrants orientés CD ayant signé un CER dans un delais de 2 mois"
+
+msgid "tableaua2b2.Orientes2mCER"
+msgstr "- total"
+
+msgid "tableaua2b2.Orientes2mCER_Prepro"
+msgstr "- dont nbre de 1er CER signé suite à une orientation Pré pro"
+
+msgid "tableaua2b2.Orientes2mCER_Social"
+msgstr "- dont nbre de 1er CER signé suite à une orientation Sociale"
+
+msgid "tableaua2b2.Taux"
+msgstr "Taux de CER signés dans les délais du plan pauvreté"

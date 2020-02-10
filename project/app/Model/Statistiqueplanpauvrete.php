@@ -914,8 +914,6 @@
 					'Orientstruct.id',
 					'Orientstruct.date_valid',
 					'Orientstruct.statut_orient',
-					'Orientstruct.date_valid',
-					'Orientstruct.statut_orient',
 					'Typeorient.id',
 					'Typeorient.lib_type_orient',
 					'Typeorient.modele_notif',
@@ -937,6 +935,7 @@
 							'type' => 'LEFT',
 							'conditions' => array(
 								'Orientstruct.personne_id = Personne.id',
+								'Orientstruct.rgorient' => 1,
 							),
 							'ORDER BY' => 'Orientstruct.date_valid DESC',
 							'LIMIT' => 1
@@ -1101,8 +1100,6 @@
 					'Orientstruct.id',
 					'Orientstruct.date_valid',
 					'Orientstruct.statut_orient',
-					'Orientstruct.date_valid',
-					'Orientstruct.statut_orient',
 					'Typeorient.id',
 					'Typeorient.lib_type_orient',
 					'Typeorient.modele_notif',
@@ -1125,7 +1122,7 @@
 							'type' => 'LEFT',
 							'conditions' => array(
 								'Orientstruct.personne_id = Personne.id',
-								//'Orientstruct.rgorient' => 1,
+								'Orientstruct.rgorient' => 1,
 							),
 							'ORDER BY' => 'Orientstruct.date_valid DESC',
 							'LIMIT' => 1
@@ -1155,6 +1152,161 @@
 								'Rendezvous.typerdv_id' => Configure::read( 'Statistiqueplanpauvrete.type_rendezvous' ),
 							),
 							'ORDER BY' => 'Rendezvous.daterdv DESC',
+							'LIMIT' => 1
+						),*/
+					),
+					$joinSearch
+				),
+				'conditions' => $conditionsSearch
+			);
+			$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
+			if ( $useHistoriquedroit ){
+				//Fields
+				$query['fields'] = array_merge(
+					$query['fields'],
+					array(
+						'Historiquedroit12.etatdosrsa',
+						'Historiquedroit12.toppersdrodevorsa',
+					)
+				);
+				//Fields By Months
+				for($month=0; $month<12; $month++) {
+					$query['fields'] = array_merge(
+						$query['fields'],
+						array(
+							'Historiquedroit'.$month.'.etatdosrsa',
+							'Historiquedroit'.$month.'.toppersdrodevorsa',
+						)
+					);
+				}
+
+				$tmpDateRecherchePrevious = $annee.'-01-'.$jourFinMois;
+				//Joins by month
+				$query['joins'] = array_merge(
+					$query['joins'],
+					array(
+						array(
+							'table' => 'historiquesdroits',
+							'alias' => 'Historiquedroit12',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Personne.id = Historiquedroit12.personne_id',
+								'(\''.$tmpDateRecherchePrevious.'\' BETWEEN date_trunc(\'day\', Historiquedroit12.created )
+								AND  date_trunc(\'day\', Historiquedroit12.modified ))'
+							),
+							'ORDER BY' => 'Historiquedroit12.created DESC',
+							'LIMIT' => 1
+						),
+					)
+				);
+				for($month=0; $month<12; $month++) {
+					$tmpDateRecherche = $this->_getDateString( $annee, $month, $jourFinMois, 2 );
+					$query['joins'] = array_merge(
+						$query['joins'],
+						array(
+							array(
+								'table' => 'historiquesdroits',
+								'alias' => 'Historiquedroit'.$month,
+								'type' => 'LEFT',
+								'conditions' => array(
+									'Personne.id = Historiquedroit'.$month.'.personne_id',
+									'(date_trunc(\'day\',to_date(\''.$tmpDateRecherche.'\',\'YYYY-MM-DD\'))
+									BETWEEN date_trunc(\'day\', Historiquedroit'.$month.'.created )
+									AND  date_trunc(\'day\', Historiquedroit'.$month.'.modified ) )'
+								),
+								'ORDER BY' => 'Historiquedroit'.$month.'.created DESC',
+								'LIMIT' => 1
+							),
+						)
+					);
+					$tmpDateRecherchePrevious = $tmpDateRecherche;
+				}
+			}
+			$query['conditions'] = array_merge(
+				array(
+					/*'Orientstruct.date_valid >= ' => $annee .'-01-01',
+					'Orientstruct.date_valid <= ' => $annee .'-12-31',
+					'Rendezvous.daterdv !=' =>  NULL,
+					'Rendezvous.daterdv >= Orientstruct.date_valid'*/
+				),
+				$query['conditions']
+			);
+
+			$query = $this->_completeQuerySoumisDd($query, $annee, true);
+			return $query;
+		}
+
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		protected function _getQueryTableau_a2bv2(array $search , $annee) {
+			$Dossier = ClassRegistry::init( 'Dossier' );
+			$Foyer = ClassRegistry::init( 'Foyer' );
+			$jourFinMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.fin');
+			$conditionsSearch = $this->_getConditionsTableau($search);
+			$joinSearch = $this->_getJoinsTableau($search, false, true);
+			// Query First
+			$query = array(
+				'fields' => array(
+					'DISTINCT ON ("Foyer"."id") "Foyer"."id" AS "idFoyer"',
+					'Personne.id',
+					'Orientstruct.id',
+					'Orientstruct.date_valid',
+					'Orientstruct.statut_orient',
+					'Typeorient.id',
+					'Typeorient.lib_type_orient',
+					'Typeorient.modele_notif',
+					'Typeorient.parentid',
+					'Structurereferente.typestructure',
+					'Structurereferente.type_struct_stats',
+					'Structurereferente.code_stats',
+					//'Contratinsertion.datevalidation_ci'
+				),
+				'recursive' => -1,
+				'joins' => array_merge(
+					array(
+						$Foyer->join( 'Dossier', array( 'type' => 'INNER' ) ),
+						$Dossier->join( 'Detaildroitrsa', array( 'type' => 'INNER' ) ),
+						$Dossier->Detaildroitrsa->join( 'Detailcalculdroitrsa', array( 'type' => 'INNER' ) ),
+						$Foyer->join( 'Personne', array( 'type' => 'INNER' ) ),
+						array(
+							'table' => 'orientsstructs',
+							'alias' => 'Orientstruct',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Orientstruct.personne_id = Personne.id',
+								'Orientstruct.rgorient' => 1,
+							),
+							'ORDER BY' => 'Orientstruct.date_valid DESC',
+							'LIMIT' => 1
+						),
+						array(
+							'table' => 'typesorients',
+							'alias' => 'Typeorient',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Typeorient.id = Orientstruct.typeorient_id'
+							)
+						),
+						array(
+							'table' => 'structuresreferentes',
+							'alias' => 'Structurereferente',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Structurereferente.id = Orientstruct.structurereferente_id'
+							)
+						),
+						/*array(
+							'table' => 'contratsinsertion',
+							'alias' => 'Contratinsertion',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Contratinsertion.personne_id = Personne.id',
+								'Contratinsertion.structurereferente_id = Structurereferente.id'
+							),
+							'ORDER BY' => 'Contratinsertion.datevalidation_ci DESC',
 							'LIMIT' => 1
 						),*/
 					),
@@ -2220,7 +2372,6 @@
 							//Qu'on as une date d'orientation valide
 							if ( $result['Orientstruct']['date_valid'] != null){
 								$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
-
 								if (//Si l'orientation n'est pas inférieur au changement de droits
 									strtotime($result['Orientstruct']['date_valid']) >= strtotime($tmpDate) 
 									//Nombre de nouveaux entrants orientés orientées CD
@@ -2232,6 +2383,7 @@
 									/*if ( $result['Rendezvous']['daterdv'] != null
 										&& strtotime($result['Rendezvous']['daterdv']) >= strtotime($tmpDate)
 									){
+										$resultats['Orientes']['RDV'][$month] ++;
 										if ( $flagOrientePrepro ) {
 											//	- dont nbre de 1er rdv fixés suite à une orientation Pré pro
 											$resultats['Orientes']['RDV_Prepro'][$month] ++;
@@ -2274,7 +2426,7 @@
 			}
 			for($i=0; $i<12; $i++) {
 				if($resultats['Orientes_CD'][$i] != 0) {
-					$resultats['Taux'][$i] = round( (100 * $resultats['Orientes1m'][$i] ) / $resultats['Orientes_CD'][$i], 2)  . '%';
+					$resultats['Taux'][$i] = round( (100 * $resultats['Orientes15j']['RDV'][$i] ) / $resultats['Orientes_CD'][$i], 2)  . '%';
 				}
 			}
 			return $resultats;
@@ -2282,6 +2434,158 @@
 
 		########################################################################################################################
 		########################################################################################################################
+
+		/**
+		 * ...
+		 *
+		 *
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		public function getIndicateursTableauA2BV2( array $search ) {
+			$Foyer = ClassRegistry::init( 'Foyer' );
+			$Historiquedroit = ClassRegistry::init( 'Historiquedroit' );
+			$annee = Hash::get( $search, 'Search.annee' );
+			$testOrient = $this->_getTypeOrientation();
+			$results = array();
+
+			// Query de base
+			$query = $this->_getQueryTableau_a2bv2 ($search, $annee);
+			$results = $Foyer->find('all', $query);
+
+			// Initialisation tableau de résultats
+			$resultats = array (
+				'Orientes_CD' => array(),
+				//Orientée dont
+				'Orientes' => array(
+					'CER' => array(),
+					'CER_Prepro' => array(),
+					'CER_Social' => array(),
+				),
+				'Orientes1m' => array(),
+				'Orientes2m' => array(
+					'CER' => array(),
+					'CER_Prepro' => array(),
+					'CER_Social' => array(),
+				),
+				'Taux' => array(),
+			);
+			for($i=0; $i<12; $i++) {
+				$resultats['Orientes_CD'][$i]=0;
+				//Orientée dont
+				$resultats['Taux'][$i] =0;
+				$resultats['Orientes']['CER'][$i] =
+				$resultats['Orientes']['CER_Prepro'][$i] =
+				$resultats['Orientes']['CER_Social'][$i] =
+					0;
+				$resultats['Orientes1m'][$i] =0;
+				$resultats['Orientes2m']['CER'][$i] =
+				$resultats['Orientes2m']['CER_Prepro'][$i] =
+				$resultats['Orientes2m']['CER_Social'][$i] =
+					0;
+			}
+
+			//Initialisation des valeurs fixes :
+			$jourDebMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.deb');
+			$joursMois = Configure::read('PlanPauvrete.Stats.Orientation.Jours');
+
+			//Pour chaque résultat
+			foreach($results as $result) {
+				$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
+				if ( $useHistoriquedroit ){
+					$historiquesPreviousMonth = $result['Historiquedroit12']['etatdosrsa'];
+					$historiquesToppersPreviousMonth = $result['Historiquedroit12']['toppersdrodevorsa'];
+
+					$flagOrienteCD = false;
+					$flagOrientePrepro = false;
+					$flagOrienteSocial = false;
+					//Initialisation des valeurs :
+					if( $result['Structurereferente']['type_struct_stats'] == 'cd' ) {
+						$flagOrienteCD = true;
+						//Pers. orientées Social
+						if(!empty($testOrient['SOCIAL']) && in_array($result['Typeorient']['id'], $testOrient['SOCIAL'] ) ) {
+								$flagOrienteSocial = true;
+						}
+						//Pers. orientées Pré pro
+						elseif (!empty($testOrient['PREPRO']) && in_array( $result['Typeorient']['id'], $testOrient['PREPRO'] ) ) {
+								$flagOrientePrepro = true;
+						}
+					}
+
+					for( $month=0; $month<12; $month++ ) {
+						//Si La personne est un nouvel entrant et
+						$flagOrienteSocial = true;
+						if (
+							($result['Historiquedroit'.$month]['etatdosrsa'] == 2
+							&& $result['Historiquedroit'.$month]['toppersdrodevorsa'] == 1)
+							&& ( $historiquesPreviousMonth != 2
+							|| $historiquesToppersPreviousMonth != 1 )
+						) {
+							//Qu'on as une date d'orientation valide
+							if ( $result['Orientstruct']['date_valid'] != null){
+								$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
+
+								if (//Si l'orientation n'est pas inférieur au changement de droits
+									strtotime($result['Orientstruct']['date_valid']) >= strtotime($tmpDate) 
+									//Nombre de nouveaux entrants orientés orientées CD
+									&& $flagOrienteCD
+								){
+									$resultats['Orientes_CD'][$month]++;
+/*
+									//- Nombre de nouveaux entrants orientés CD avec un CER suite à une orientation CD
+									if ( $result['Contratinsertion']['datevalidation_ci'] != null
+										&& strtotime($result['Contratinsertion']['datevalidation_ci']) >= strtotime($tmpDate)
+									){
+										$resultats['Orientes']['CER'][$month] ++;
+										if ( $flagOrientePrepro ) {
+											//	- dont nbre de 1er CER suite à une orientation Pré pro
+											$resultats['Orientes']['CER_Prepro'][$month] ++;
+										}
+										if ($flagOrienteSocial) {
+											//	- dont nbre de 1er CER suite à une orientation Sociale
+											$resultats['Orientes']['CER_Prepro'][$month] ++;
+										}
+									}
+*/
+									//On calcul la différence entre la date de reception et la date d'orientation
+									$diff = abs(strtotime($tmpDate) - strtotime($result['Orientstruct']['date_valid']));
+									//Si la différence est de moins de 30 jours
+									if ( (60*60*24*$joursMois) > $diff  ) {
+										$resultats['Orientes1m'][$month]++;
+									}
+/*
+									if ( $result['Orientstruct']['date_valid'] < $result['Contratinsertion']['datevalidation_ci'] ){
+										$diff = abs(strtotime($result['Contratinsertion']['Contratinsertion']) - strtotime($result['Orientstruct']['date_valid']));
+										if ( (60*60*24*60) > $diff  ) {
+											//- Nombre de CER suite à une orientation CD dans un délai de 60 jours
+											$resultats['Orientes2m']['CER'][$month] ++;
+											if ( $flagOrientePrepro ) {
+												//	- dont nbre de CER suite à une orientation Pré pro
+												$resultats['Orientes2m']['CER_Prepro'][$month] ++;
+											}
+											if ($flagOrienteSocial) {
+												//	- dont nbre de CER suite à une orientation Sociale
+												$resultats['Orientes2m']['CER_Prepro'][$month] ++;
+											}
+										}
+									}
+ */
+								}
+							}
+							$historiquesPreviousMonth = $result['Historiquedroit'.$month]['etatdosrsa'];
+							$historiquesToppersPreviousMonth = $result['Historiquedroit'.$month]['toppersdrodevorsa'];
+						}
+					}
+				}
+			}
+			for($i=0; $i<12; $i++) {
+				if($resultats['Orientes_CD'][$i] != 0) {
+					$resultats['Taux'][$i] = round( (100 * $resultats['Orientes2m']['CER'][$i] ) / $resultats['Orientes_CD'][$i], 2)  . '%';
+				}
+			}
+			return $resultats;
+		}
 		
 
 	}
