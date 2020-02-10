@@ -31,14 +31,13 @@
 	 * FILTRES CUSTOM
 	 */
 
-	 // Permet d'ajouter les blocs Zone Géographique, Rôle personne et Composition du foyer
-	/* if( Configure::read( 'CG.cantons' ) ) {
+	 /*
+	// Permet d'ajouter le blocs Zone Géographique (pour futur)
+	if( Configure::read( 'CG.cantons' ) ) {
 		echo $this->Xform->multipleCheckbox( 'Search.Zonegeographique.id', $options, 'divideInto2Columns' );
 	}
+	*/
 
-	echo $this->Xform->multipleCheckbox( 'Search.Prestation.rolepers', $options, 'divideInto2Columns' );
-	echo $this->Xform->multipleCheckbox( 'Search.Foyer.composition', $options, 'divideInto2Columns' );
- */
 	$this->end();
 
     $this->start( 'custom_after_results' );

@@ -75,7 +75,7 @@ msgid "Cohorte.Rendezvous.permanence_id"
 msgstr "Permanence"
 
 msgid "Cohorte.Rendezvous.typerdv_id"
-msgstr "Type du rendez-vous"
+msgstr "Objet du rendez-vous"
 
 msgid "Cohorte.Rendezvous.statutrdv_id"
 msgstr "Statut du rendez-vous"

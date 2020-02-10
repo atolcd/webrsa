@@ -84,10 +84,8 @@
 		public function stock($query) {
 			//Dans le mois précédent : Nouvelle demande ou Réouverture de droit
 			$dateDebRecherche = date('Y-m-',strtotime("-1 month")).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' );
-			$dateFinRecherche = date('Y-m-').Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.fin' );
 			//Recherche selon Stock
 			$query['conditions'][] = 'date_trunc(\'day\', Historiquedroit.created) < \''.$dateDebRecherche.'\'';
-			//$query['conditions'][] = 'date_trunc(\'day\', Historiquedroit.modified) > \''.$dateFinRecherche.'\'';
 			return $query;
 		}
 

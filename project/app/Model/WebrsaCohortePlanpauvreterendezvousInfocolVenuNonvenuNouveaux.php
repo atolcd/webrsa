@@ -81,8 +81,8 @@
 			);
 			// Conditions
 			// Gestion du type de RDV
-			$query['conditions'][] = "Rendezvous.typerdv_id = " . $this->getTypeRdvId('cohorte_infocol_venu_nonvenu_nouveau');
-			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $this->getStatutId('cohorte_infocol_venu_nonvenu_nouveau');
+			$query['conditions'][] = "Rendezvous.typerdv_id = " . $this->getTypeRdvId('cohorte_infocol_venu_nonvenu_nouveaux');
+			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $this->getStatutId('cohorte_infocol_venu_nonvenu_nouveaux');
 
 			return $query;
 		}
@@ -95,7 +95,7 @@
 		 * @return boolean
 		 */
 		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
-			$params['nom_cohorte'] = 'cohorte_infocol_venu_nonvenu_nouveau';
+			$params['nom_cohorte'] = 'cohorte_infocol_venu_nonvenu_nouveaux';
 			$success = parent::saveCohorte($data, $params, $user_id);
 
 			return $success;

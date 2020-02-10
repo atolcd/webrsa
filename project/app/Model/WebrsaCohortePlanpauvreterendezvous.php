@@ -63,16 +63,19 @@
 		/**
 		 * Retourne l'id du statut de rdv selon le nom de la cohorte
 		 * @param string nomCohorte
-		 *
+		 * @param bool isSave
 		 * @return int id
 		 */
-		public function getStatutId($nomCohorte) {
+		public function getStatutId($nomCohorte, $isSave = false) {
 			$this->loadModel('Rendezvous');
 			$config = Configure::read('ConfigurableQuery.Planpauvreterendezvous.' . $nomCohorte);
+
+			$condition = $isSave === true ? $config['cohorte']['config']['save']['Statutrdv.code_statut'] : $config['cohorte']['config']['recherche']['Statutrdv.code_statut'];
+
 			$statutRdv = $this->Rendezvous->Statutrdv->find('first', array(
 				'recursive' => -1,
 				'conditions' => array(
-					'Statutrdv.code_statut' => $config['cohorte']['config']['Statutrdv.code_statut']
+					'Statutrdv.code_statut' => $condition
 				)
 			) );
 			return $statutRdv['Statutrdv']['id'];
@@ -81,16 +84,19 @@
 		/**
 		 * Retourne l'id du type de rdv selon le nom de la cohorte
 		 * @param string nomCohorte
-		 *
+		 * @param bool isSave
 		 * @return int id
 		 */
-		public function getTypeRdvId($nomCohorte) {
+		public function getTypeRdvId($nomCohorte, $isSave = false) {
 			$this->loadModel('Rendezvous');
 			$config = Configure::read('ConfigurableQuery.Planpauvreterendezvous.' . $nomCohorte);
+
+			$condition = $isSave === true ? $config['cohorte']['config']['save']['Typerdv.code_type'] : $config['cohorte']['config']['recherche']['Typerdv.code_type'];
+
 			$typeRdv = $this->Rendezvous->Typerdv->find('first', array(
 				'recursive' => -1,
 				'conditions' => array(
-						'Typerdv.code_type' => $config['cohorte']['config']['Typerdv.code_type']
+						'Typerdv.code_type' => $condition
 					)
 			) );
 
@@ -165,8 +171,8 @@
 		 */
 		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
 			$this->loadModel('Rendezvous');
-			$typeRdv = $this->getTypeRdvId($params['nom_cohorte']);
-			$statutRdv = $this->getStatutId($params['nom_cohorte']);
+			$typeRdv = $this->getTypeRdvId($params['nom_cohorte'], true);
+			$statutRdv = $this->getStatutId($params['nom_cohorte'], true);
 			foreach ( $data as $key => $value ) {
 				// Si non selectionné, on retire tout
 				if ( $value['Rendezvous']['selection'] === '0' ) {

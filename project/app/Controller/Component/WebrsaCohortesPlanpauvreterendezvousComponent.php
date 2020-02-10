@@ -26,7 +26,6 @@
            'Personne',
            'Historiqueetatpe',
            'Allocataire',
-           'Nonoriente66',
            'Canton',
        );
 
@@ -68,20 +67,26 @@
 			}
 
 			$config = Configure::read('ConfigurableQuery.Planpauvreterendezvous.'.$params['nom_cohorte']);
-			$options['Rendezvous']['structurereferente_id'] = $Controller->Orientstruct->Structurereferente->find('list');
+			$options['Rendezvous']['structurereferente_id'] = $Controller->Orientstruct->Structurereferente->listOptions();
 			$options['Rendezvous']['permanence_id'] = $Controller->Orientstruct->Structurereferente->Permanence->find('list');
-			$options['Rendezvous']['typerdv_id'] = $Controller->Rendezvous->Typerdv->find('first', array(
-                'recursive' => -1,
-                'conditions' => array(
-                        'Typerdv.code_type' => $config['cohorte']['config']['Typerdv.code_type']
-                    )
-            ) );
-            $options['Rendezvous']['statutrdv_id'] = $Controller->Rendezvous->Statutrdv->find('first', array(
-				'recursive' => -1,
-                'conditions' => array(
-                    'Statutrdv.code_statut' => $config['cohorte']['config']['Statutrdv.code_statut']
-                )
-            ) );
+
+			if( isset($config['cohorte']['config']['save']['Typerdv.code_type']) ) {
+				$options['Rendezvous']['typerdv_id'] = $Controller->Rendezvous->Typerdv->find('first', array(
+					'recursive' => -1,
+					'conditions' => array(
+							'Typerdv.code_type' => $config['cohorte']['config']['save']['Typerdv.code_type']
+						)
+				) );
+			}
+
+			if( isset($config['cohorte']['config']['save']['Statutrdv.code_statut']) ) {
+				$options['Rendezvous']['statutrdv_id'] = $Controller->Rendezvous->Statutrdv->find('first', array(
+					'recursive' => -1,
+					'conditions' => array(
+						'Statutrdv.code_statut' => $config['cohorte']['config']['save']['Statutrdv.code_statut']
+					)
+				) );
+			}
 
 			return $options;
 		}

@@ -38,14 +38,7 @@
 			// Conditions
 			// Gestion du type de RDV
 			$query['conditions'][] = "Rendezvous.typerdv_id = " . $this->getTypeRdvId ('cohorte_infocol_second_rdv_stock');
-			$statutRdv = $this->Rendezvous->Statutrdv->find('first', array(
-				'recursive' => -1,
-				'conditions' => array(
-					'Statutrdv.code_statut' => 'NONVENU'
-				)
-            ) );
-            $query['conditions'][] = "Rendezvous.statutrdv_id = " . $statutRdv['Statutrdv']['id'];  
-
+			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $this->getStatutId('cohorte_infocol_second_rdv_stock');
 
 			return $query;
 		}
