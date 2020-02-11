@@ -25,6 +25,8 @@
 		 */
 		public function searchQuery( array $types = array() ) {
 			$query = parent::searchQuery($types);
+			$query = $this->onlyDernierRDV($query);
+
 			// Champs supplémentaire
 			$query['fields'] = array_merge(
 				$query['fields'],
