@@ -132,6 +132,7 @@
 					),
 					// Champs nécessaires au traitement de la search
 					array(
+						'Historiqueetatpe.identifiantpe',
 						'Historiqueetatpe.id',
 						'Nonoriente66.id',
 						'Nonoriente66.personne_id',
