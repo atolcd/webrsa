@@ -365,6 +365,15 @@ msgstr "Taux de contractualisation"
 # Tableau A1 V2
 # ==============================================================================
 
+msgid "Statistiquesplanpauvrete.menu.tableaua1.Tous"
+msgstr "Tous"
+
+msgid "Statistiquesplanpauvrete.menu.tableaua1.Horssuspendus"
+msgstr "Hors suspendus"
+
+msgid "Statistiquesplanpauvrete.menu.tableaua1.Suspendus"
+msgstr "Suspendus uniquement"
+
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a1v2"
 msgstr "Tableau A1 - L’orientation des nouveaux entrants"
 
@@ -422,6 +431,19 @@ msgstr " équivalent en %"
 
 msgid "tableaua12.percentOrientes"
 msgstr "Taux d’orientation"
+
+# ==============================================================================
+# Tableau A2 V2
+# ==============================================================================
+
+msgid "Statistiquesplanpauvrete.menu.tableaua2.Tous"
+msgstr "Tous"
+
+msgid "Statistiquesplanpauvrete.menu.tableaua2.Horssuspendus"
+msgstr "Hors suspendus"
+
+msgid "Statistiquesplanpauvrete.menu.tableaua2.Suspendus"
+msgstr "Suspendus uniquement"
 
 # ==============================================================================
 # Tableau A2 A V2

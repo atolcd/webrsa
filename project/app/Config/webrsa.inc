@@ -781,6 +781,8 @@
 				'Situationdossierrsa.etatdosrsa' => array( '2'),
 				'Calculdroitrsa.toppersdrodevorsa' => '1'
 			),
+			/* Tableau des etats de dosssiers contenants les personnes suspendus. */
+			'etatSuspendus' => array(2,3,4),
 			/**
 			 * Complète le querydata avec une jointure sur la table historiquesdroits
 			 * et l'ajout éventuel de conditions pour obtenir ou non des allocataires
