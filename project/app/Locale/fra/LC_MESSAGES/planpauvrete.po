@@ -10,6 +10,9 @@ msgstr ""
 
 # ==============================================================================
 
+msgid "Planpauvrete.Planpauvrete.Menu"
+msgstr "Plan pauvreté"
+
 msgid "Planpauvrete.Nouveaux.Menu"
 msgstr "Nouveaux entrants"
 
