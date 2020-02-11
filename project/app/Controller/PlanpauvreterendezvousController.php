@@ -265,7 +265,7 @@
 		 * Modifie le statut du rendez vous en venu / non venu
 		 * pour les personnes ayant eu un rdv info coll nouveaux entrant
 		 */
-		public function cohorte_infocol_venu_nonvenu_nouveau() {
+		public function cohorte_infocol_venu_nonvenu_nouveaux() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
 			$Cohorte->cohorte(
 				array(

@@ -72,6 +72,8 @@
 
 			$condition = $isSave === true ? $config['cohorte']['config']['save']['Statutrdv.code_statut'] : $config['cohorte']['config']['recherche']['Statutrdv.code_statut'];
 
+			if($condition === '') return '';
+
 			$statutRdv = $this->Rendezvous->Statutrdv->find('first', array(
 				'recursive' => -1,
 				'conditions' => array(
@@ -132,7 +134,7 @@
 
 				$query = $this->Allocataire->searchQuery( $types, 'Personne' );
 
-				$query['fields']['Personne.id'] = 'DISTINCT ON ("Personne"."id") "Personne"."id" as "ID_PERSONNE"';
+				$query['fields']['Personne.id'] = 'DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"';
 				// 1. Ajout des champs supplémentaires
 				$query['fields'] = array_merge(
 					$query['fields'],
@@ -173,6 +175,7 @@
 			$this->loadModel('Rendezvous');
 			$typeRdv = $this->getTypeRdvId($params['nom_cohorte'], true);
 			$statutRdv = $this->getStatutId($params['nom_cohorte'], true);
+
 			foreach ( $data as $key => $value ) {
 				// Si non selectionné, on retire tout
 				if ( $value['Rendezvous']['selection'] === '0' ) {

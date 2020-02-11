@@ -91,7 +91,7 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function cohorte_infocol_venu_nonvenu_nouveau(array $record, array $params) {
+		protected static function cohorte_infocol_venu_nonvenu_nouveaux(array $record, array $params) {
 			return true;
 		}
 
@@ -178,7 +178,7 @@
 					'cohorte_infocol_imprime_second_rdv_stock',
 					'imprime',
 					'cohorte_infocol_imprime_impression',
-					'cohorte_infocol_venu_nonvenu_nouveau',
+					'cohorte_infocol_venu_nonvenu_nouveaux',
 					'cohorte_infocol_venu_nonvenu_stock',
 					'cohorte_infocol_second_rdv_nouveaux',
 					'cohorte_infocol_second_rdv_stock'

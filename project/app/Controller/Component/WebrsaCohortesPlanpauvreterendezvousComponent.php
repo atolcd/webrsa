@@ -126,10 +126,6 @@
 			$Controller->loadModel('Modecontact');
 
 			foreach ($results as $key => $result) {
-				// Remise en forme de Personne.id
-				$results[$key]['Personne']['id'] = $result[0]['ID_PERSONNE'];
-				unset($results[$key][0]['ID_PERSONNE']);
-
 				// AJout des numéros de téléphone de la CAF
 				$modecontacts = $Controller->Modecontact->find (
 					'all',

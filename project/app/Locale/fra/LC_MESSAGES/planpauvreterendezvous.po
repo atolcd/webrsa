@@ -131,7 +131,7 @@ msgstr "Impossible de générer le courrier de rendez-vous."
 ###############################################################################
 #################    Information collectives Venu/Non venu  ###################
 ###############################################################################
-msgid "/Planpauvreterendezvous/cohorte_infocol_venu_nonvenu_nouveau/:heading"
+msgid "/Planpauvreterendezvous/cohorte_infocol_venu_nonvenu_nouveaux/:heading"
 msgstr "Liste des nouveaux entrant convoqués en information collective"
 
 msgid "/Planpauvreterendezvous/cohorte_infocol_venu_nonvenu_stock/:heading"
