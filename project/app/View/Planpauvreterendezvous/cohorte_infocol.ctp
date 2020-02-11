@@ -43,6 +43,8 @@
     $this->start( 'custom_after_results' );
 	echo $this->Form->button( 'Tout cocher', array( 'type' => 'button', 'onclick' => "return toutCocherAction( 'input.input[type=checkbox]' );" ) ) . ' ';
 	echo $this->Form->button( 'Tout décocher', array( 'type' => 'button', 'onclick' => "return toutDecocherAction( 'input.input[type=checkbox]' );" ) );
+	echo '<br><br />';
+	echo $this->Form->button( 'Imprimer le tableau', array( 'type' => 'button', 'onclick' => 'printit(); return false;', 'class' => 'noprint'  ) );
 	$this->end();
 
 	$explAction = explode('_', $action);
