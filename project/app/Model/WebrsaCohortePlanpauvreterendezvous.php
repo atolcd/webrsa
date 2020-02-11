@@ -83,6 +83,23 @@
 			return $statutRdv['Statutrdv']['id'];
 		}
 
+
+
+		/**
+		 * Ajoute dans la requête une condition pour n'avoir que le dernier rendez vous
+		 * @param array query
+		 * @return array query
+		 */
+		public function onlyDernierRDV($query) {
+			$this->loadModel('Rendezvous');
+			foreach( $query['joins'] as $key => $join) {
+				if( $join['alias'] == 'Rendezvous') {
+					$query['joins'][$key]['conditions'] .= ' " AND Rendezvous.id IN (' . $this->Rendezvous->sqDernier('Personne.id') . ')';
+					return $query;
+				}
+			}
+		}
+
 		/**
 		 * Retourne l'id du type de rdv selon le nom de la cohorte
 		 * @param string nomCohorte
