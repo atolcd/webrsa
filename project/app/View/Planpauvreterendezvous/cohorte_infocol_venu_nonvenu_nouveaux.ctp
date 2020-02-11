@@ -126,4 +126,8 @@
         ?>
 		return false;
 	}
+
+	document.observe("dom:loaded", function() {
+		dependantSelect( 'SearchRendezvousPermanenceId', 'SearchRendezvousStructurereferenteId' );
+	});
 </script>

@@ -116,4 +116,7 @@
 			div.addClassName( 'visited' );
 		});
 	});
+	document.observe("dom:loaded", function() {
+		dependantSelect( 'SearchRendezvousPermanenceId', 'SearchRendezvousStructurereferenteId' );
+	});
 </script>

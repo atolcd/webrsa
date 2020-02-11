@@ -68,7 +68,7 @@
 
 			$config = Configure::read('ConfigurableQuery.Planpauvreterendezvous.'.$params['nom_cohorte']);
 			$options['Rendezvous']['structurereferente_id'] = $Controller->Orientstruct->Structurereferente->listOptions();
-			$options['Rendezvous']['permanence_id'] = $Controller->Orientstruct->Structurereferente->Permanence->find('list');
+			$options['Rendezvous']['permanence_id'] = $Controller->Orientstruct->Structurereferente->Permanence->listOptions();
 
 			if( isset($config['cohorte']['config']['save']['Typerdv.code_type']) ) {
 				$options['Rendezvous']['typerdv_id'] = $Controller->Rendezvous->Typerdv->find('first', array(

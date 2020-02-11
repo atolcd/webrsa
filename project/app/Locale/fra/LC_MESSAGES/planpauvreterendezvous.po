@@ -45,7 +45,7 @@ msgid "data[Cohorte][][Rendezvous][structurereferente_id]"
 msgstr "Structure référente"
 
 msgid "data[Cohorte][][Rendezvous][permanence_id]"
-msgstr "Permanence"
+msgstr "Permanence liée à la structure"
 
 msgid "data[Cohorte][][Rendezvous][daterdv]"
 msgstr "Date du rendez-vous"
@@ -72,7 +72,7 @@ msgid "Cohorte.Rendezvous.structurereferente_id"
 msgstr "Structure référente"
 
 msgid "Cohorte.Rendezvous.permanence_id"
-msgstr "Permanence"
+msgstr "Permanence liée à la structure"
 
 msgid "Cohorte.Rendezvous.typerdv_id"
 msgstr "Objet du rendez-vous"
