@@ -923,7 +923,6 @@
 				'recursive' => -1,
 				'joins' => array_merge(
 					array(
-						$Foyer->join( 'Dossier', array( 'type' => 'INNER' ) ),
 						$Foyer->join( 'Personne', array( 'type' => 'INNER' ) ),
 						array(
 							'table' => 'orientsstructs',
@@ -2255,12 +2254,13 @@
 
 							//On vérifie les Hors suspendus
 							$Suspendu = True;
-							if (
-								($result['Historiquedroit'.$month]['etatdosrsa'] == 2
-								&& $result['Historiquedroit'.$month]['toppersdrodevorsa'] == 1)
-								&& ( $historiquesPreviousMonth != 2
-								|| $historiquesToppersPreviousMonth != 1 )
-							) {
+							if ((
+								$result['Historiquedroit'.$month]['etatdosrsa'] == 2
+								&& $result['Historiquedroit'.$month]['toppersdrodevorsa'] == 1
+							)&& (
+								 $historiquesPreviousMonth != 2
+								|| $historiquesToppersPreviousMonth != 1
+							)) {
 								$Suspendu = False;
 								$resultats['Horssuspendus']['total'][$month]++;
 							} else {
@@ -2294,7 +2294,10 @@
 								}
 							}
 							//- dont BRSA non-soumis aux droits et devoirs qui le sont désormais
-							if ( $historiquesToppersPreviousMonth == 0) {
+							if (
+								$historiquesToppersPreviousMonth == 0 &&
+								in_array ( $historiquesPreviousMonth, $etatSuspendus)
+							) {
 								$resultats['Tous']['nbToppers'][$month]++;
 								if ( !$Suspendu ){
 									$resultats['Horssuspendus']['nbToppers'][$month]++;
@@ -2328,7 +2331,7 @@
 
 							//Si La personne est un nouvel entrant et
 							//Qu'on as une date d'orientation valide
-							if ( $result['Orientstruct']['date_valid'] != null){
+							if ( $result['Orientstruct']['date_valid'] != null ){
 								$jourDebMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.deb');
 								$jours = Configure::read('PlanPauvrete.Stats.Orientation.Jours');
 								$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
@@ -2422,7 +2425,7 @@
 			for($i=0; $i<12; $i++) {
 				if($resultats['Tous']['total'][$i] != 0) {
 					$resultats['Tous']['percentOrientes'][$i] = round( (100 * $resultats['Tous']['Orientes']['total'][$i] ) / $resultats['Tous']['total'][$i], 2)  . '%';
-					if ( $resultats['Tous']['percentOrientes'][$i] != 0) {
+					if ( $resultats['Tous']['Orientes']['total'][$i] != 0) {
 						$resultats['Tous']['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Tous']['Orientes']['Emploi'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
 						$resultats['Tous']['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Tous']['Orientes']['Prepro'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
 						$resultats['Tous']['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Tous']['Orientes']['Social'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
@@ -2433,7 +2436,7 @@
 				}
 				if($resultats['Suspendus']['total'][$i] != 0) {
 					$resultats['Suspendus']['percentOrientes'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['total'][$i] ) / $resultats['Suspendus']['total'][$i], 2)  . '%';
-					if ( $resultats['Suspendus']['percentOrientes'][$i] != 0) {
+					if ( $resultats['Suspendus']['total'][$i] != 0) {
 						$resultats['Suspendus']['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['Emploi'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
 						$resultats['Suspendus']['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['Prepro'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
 						$resultats['Suspendus']['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['Social'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
@@ -2444,7 +2447,7 @@
 				}
 				if($resultats['Horssuspendus']['total'][$i] != 0) {
 					$resultats['Horssuspendus']['percentOrientes'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['total'][$i] ) / $resultats['Horssuspendus']['total'][$i], 2)  . '%';
-					if ( $resultats['Horssuspendus']['percentOrientes'][$i] != 0) {
+					if ( $resultats['Horssuspendus']['total'][$i] != 0) {
 						$resultats['Horssuspendus']['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['Emploi'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
 						$resultats['Horssuspendus']['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['Prepro'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
 						$resultats['Horssuspendus']['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['Social'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
@@ -2958,9 +2961,9 @@
 												//	- dont nbre de CER suite à une orientation Pré pro
 												$resultats['Tous']['Orientes2m']['CER_Prepro'][$month] ++;
 												if ( !$Suspendu ){
-													$resultats['Horssuspendus']['Orientes2m']['CER_Social'][$month]++;
+													$resultats['Horssuspendus']['Orientes2m']['CER_Prepro'][$month]++;
 												} else {
-													$resultats['Suspendus']['Orientes2m']['CER_Social'][$month]++;
+													$resultats['Suspendus']['Orientes2m']['CER_Prepro'][$month]++;
 												}
 											}
 											if ($flagOrienteSocial) {
