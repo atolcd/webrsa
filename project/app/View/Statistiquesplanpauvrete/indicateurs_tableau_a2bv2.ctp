@@ -7,7 +7,7 @@
 			'thead',
 			$this->Xhtml->tableHeaders(
 				array(
-					__d( 'statistiquesplanpauvrete', 'Tableaua2.title' ). $annee,
+					__d( 'statistiquesplanpauvrete', 'Tableaua2b2.title' ). $annee,
 					__d( 'statistiquesplanpauvrete', 'Tableau.jan' ),
 					__d( 'statistiquesplanpauvrete', 'Tableau.feb' ),
 					__d( 'statistiquesplanpauvrete', 'Tableau.mar' ),
@@ -27,19 +27,19 @@
 		$cells = array();
 		$row = 0;
 		foreach( $results as $key => $result) {
-			if( $key == 'Orientes' || $key == 'Contrat' || $key == 'CDCER') {
-				$cells[$row] = array('<b>' . __d('statistiquesplanpauvrete', 'tableaua2.' . $key ) . '</b>');
+			if( $key == 'Orientes' || $key == 'Orientes2m' ) {
+				$cells[$row] = array('<b>' . __d('statistiquesplanpauvrete', 'tableaua2b2.' . $key ) . '</b>');
 				$row++;
 				foreach( $results[$key] as $keySpec => $resultSpec) {
 						$cells[$row] = $resultSpec;
 					if( isset($cells[$row]) && is_array($cells[$row]) )
-						array_unshift($cells[$row], __d('statistiquesplanpauvrete', 'tableaua2.' . $key . $keySpec ));
+						array_unshift($cells[$row], __d('statistiquesplanpauvrete', 'tableaua2b2.' . $key . $keySpec ));
 					$row++;
 				}
 			} else {
 				$cells[$row] = $result;
 				if( is_array($cells[$row]) )
-					array_unshift($cells[$row], __d('statistiquesplanpauvrete', 'tableaua2.' . $key ));
+					array_unshift($cells[$row], __d('statistiquesplanpauvrete', 'tableaua2b2.' . $key ));
 				$row++;
 			}
 		}
