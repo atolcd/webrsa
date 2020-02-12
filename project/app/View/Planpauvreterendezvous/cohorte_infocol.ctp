@@ -47,8 +47,6 @@
 	echo $this->Form->button( 'Imprimer le tableau', array( 'type' => 'button', 'onclick' => 'printit(); return false;', 'class' => 'noprint'  ) );
 	$this->end();
 
-	$explAction = explode('_', $action);
-	$exportcsvActionName = isset($explAction[1]) ? 'exportcsv_'.$explAction[1] : 'exportcsv';
 	echo '<fieldset id="CohorteRendezvousPreremplissage" style="display: '.(isset( $results ) ? 'block' : 'none').';"><legend>' . __m( 'Planpauvreterendezvous.preremplissage_fieldset' ) . '</legend>'
 	. $this->Default3->subform(
 		array(
@@ -71,12 +69,14 @@
 ;
 
 
+	$explAction = substr($action, (strpos($action, '_')+1));
+	$exportcsvActionName = isset($explAction) ? 'exportcsv_'.$explAction : 'exportcsv';
 	echo $this->element(
 		'ConfigurableQuery/cohorte',
 		array(
 			'customSearch' => $this->fetch( 'custom_search_filters' ),
 			'afterResults' => $this->fetch( 'custom_after_results' ),
-			'exportcsv' => false,// array( 'action' => $exportcsvActionName ),
+			'exportcsv' => array( 'action' => $exportcsvActionName ),
 			'modelName' => 'Personne'
 		)
 	);

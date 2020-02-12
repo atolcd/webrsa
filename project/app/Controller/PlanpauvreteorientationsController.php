@@ -86,6 +86,8 @@
 		 * @var array
 		 */
 		public $aucunDroit = array(
+			'exportcsv_isemploi',
+			'exportcsv_isemploi_stock',
 		);
 
 		/**
@@ -96,7 +98,9 @@
 		 */
 		public $crudMap = array(
 			'cohorte_isemploi' => 'update',
-			'cohorte_isemploi_stock' => 'update'
+			'cohorte_isemploi_stock' => 'update',
+			'exportcsv_isemploi' => 'read',
+			'exportcsv_isemploi_stock' => 'read'
 		);
 
 		public function _setOptions() {
@@ -112,11 +116,39 @@
 		}
 
 		/**
+		 * Export CSV de la
+		 * Cohorte d'orientation des personne inscrites à Pole emploi le mois dernier
+		 */
+		public function exportcsv_isemploi() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
+			$Cohortes->exportcsv(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploi'
+				)
+			);
+		}
+
+		/**
 		 * Cohorte d'orientation des personne inscrites à Pole emploi en stock (avant le mois dernier)
 		 */
 		public function cohorte_isemploi_stock() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
 			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistock' ) );
+		}
+
+		/**
+		 * Export CSV de la
+		 * Cohorte d'orientation des personne inscrites à Pole emploi en stock (avant le mois dernier)
+		 */
+		public function exportcsv_isemploi_stock() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
+			$Cohortes->exportcsv(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistock'
+				)
+			);
 		}
 
 	}

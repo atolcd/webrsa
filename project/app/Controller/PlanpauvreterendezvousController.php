@@ -101,6 +101,8 @@
 		 * @var array
 		 */
 		public $aucunDroit = array(
+			'exportcsv_infocol',
+			'exportcsv_infocol_stock',
 		);
 
 		/**
@@ -119,7 +121,9 @@
 			'cohorte_infocol_venu_nonvenu_nouveau' => 'update',
 			'cohorte_infocol_venu_nonvenu_stock' => 'update',
 			'cohorte_infocol_second_rdv_nouveaux' => 'update',
-			'cohorte_infocol_second_rdv_stock' => 'update'
+			'cohorte_infocol_second_rdv_stock' => 'update',
+			'exportcsv_infocol' => 'read',
+			'exportcsv_infocol_stock' => 'read'
 		);
 
 		public function _setOptions() {
@@ -143,6 +147,21 @@
 		}
 
 		/**
+		 * Export CSV de la
+		 * Cohorte Information Collective - nouveaux entrants
+		 */
+		public function exportcsv_infocol() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohortes->exportcsv(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocol',
+					'nom_cohorte' => 'cohorte_infocol'
+				)
+			);
+		}
+
+		/**
 		 * Cohorte Information Collective - Stock
 		 * Créé un rendez vous d'information collective pour le stock
 		 */
@@ -153,6 +172,21 @@
 				(
 					'modelName' => 'Personne',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolStock',
+					'nom_cohorte' => 'cohorte_infocol_stock'
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la
+		 * Cohorte Information Collective - Stock
+		 */
+		public function exportcsv_infocol_stock() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohortes->exportcsv(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocol',
 					'nom_cohorte' => 'cohorte_infocol_stock'
 				)
 			);

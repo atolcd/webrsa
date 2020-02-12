@@ -45,9 +45,8 @@
 	echo $this->Form->button( 'Tout décocher', array( 'type' => 'button', 'onclick' => "return toutDecocherAction( 'input.input[type=checkbox]' );" ) );
 	$this->end();
 
-	$explAction = explode('_', $action);
-	$exportcsvActionName = isset($explAction[1]) ? 'exportcsv_'.$explAction[1] : 'exportcsv';
-
+	$explAction = substr($action, (strpos($action, '_')+1));
+	$exportcsvActionName = isset($explAction) ? 'exportcsv_'.$explAction : 'exportcsv';
 	echo $this->element(
 		'ConfigurableQuery/cohorte',
 		array(
