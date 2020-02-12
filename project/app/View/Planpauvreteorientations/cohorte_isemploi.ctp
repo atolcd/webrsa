@@ -71,7 +71,7 @@
 				'Cohorte<?php echo $i;?>OrientstructDateValidMonth',
 				'Cohorte<?php echo $i;?>OrientstructDateValidYear'
 			],
-			{element: 'Cohorte<?php echo $i;?>Nonoriente66Selection', value: '1', operator: '!='}
+			{element: 'Cohorte<?php echo $i;?>OrientstructSelection', value: '1', operator: '!='}
 		);
 <?php
 	}
@@ -88,7 +88,7 @@
 				'Cohorte<?php echo $i;?>OrientstructDateValidMonth',
 				'Cohorte<?php echo $i;?>OrientstructDateValidYear'
 			],
-			{element: 'Cohorte<?php echo $i;?>Nonoriente66Selection', value: '1', operator: '!='}
+			{element: 'Cohorte<?php echo $i;?>OrientstructSelection', value: '1', operator: '!='}
 		);
 <?php
 	}
@@ -107,7 +107,7 @@
 				'Cohorte<?php echo $i;?>OrientstructDateValidMonth',
 				'Cohorte<?php echo $i;?>OrientstructDateValidYear'
 			],
-			{element: 'Cohorte<?php echo $i;?>Nonoriente66Selection', value: '1', operator: '!='}
+			{element: 'Cohorte<?php echo $i;?>OrientstructSelection', value: '1', operator: '!='}
 		);
 <?php
 	}

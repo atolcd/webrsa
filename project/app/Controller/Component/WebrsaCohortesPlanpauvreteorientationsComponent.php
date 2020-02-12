@@ -28,15 +28,13 @@
 			$Controller->loadModel('WebrsaOptionTag');
 			$options = $Controller->WebrsaOptionTag->optionsEnums( parent::_optionsEnums( $params ) );
 
-			if( !isset( $Controller->Nonoriente66 ) ) {
-				$Controller->loadModel( 'Nonoriente66' );
+			if( !isset( $Controller->Orientstruct ) ) {
+				$Controller->loadModel( 'Orientstruct' );
 			}
 			$options = array_merge(
 				$options,
-				$Controller->Nonoriente66->enums()
+				$Controller->Orientstruct->enums()
 			);
-
-			//$Controller->loadModel('Zonegeographique');
 
 			return $options;
 		}
@@ -51,8 +49,8 @@
 			$options = parent::_optionsRecords($params);
 
 			$Controller = $this->_Collection->getController();
-			if( !isset( $Controller->Nonoriente66 ) ) {
-				$Controller->loadModel( 'Nonoriente66' );
+			 if( !isset( $Controller->Orientstruct ) ) {
+				$Controller->loadModel( 'Orientstruct' );
 			}
 
 			return $options;
@@ -78,36 +76,6 @@
 			);
 
 			return $result;
-		}
-
-		/**
-		 * Surcharge de la méthode afterSearch pour du code spécifique
-		 *
-		 * @param type $params
-		 * @param type $results
-		 * @return array
-		 */
-		public function afterSearch( array $params, array $results ) {
-			$results = parent::afterSearch( $params, $results );
-			$Nonoriente66 = ClassRegistry::init( 'Nonoriente66' );
-
-			foreach ($results as $key => $result) {
-				$historique = $Nonoriente66->find (
-					'first',
-					array (
-						'recurssive' => -1,
-						'conditions' => array (
-							'historiqueetatpe_id' => $result['Historiqueetatpe']['id']
-						)
-					)
-				);
-
-				if (isset ($historique['Nonoriente66'])) {
-					$results[$key]['Historiqueetatpe']['alert_exists'] = 'ALERTE';
-				}
-			}
-
-			return $results;
 		}
 	}
 ?>
