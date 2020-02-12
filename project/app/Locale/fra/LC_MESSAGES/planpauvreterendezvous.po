@@ -116,10 +116,10 @@ msgstr "Impression des courriers DU SECOND RENDEZ-VOUS d'information collective 
 msgid "/Planpauvreterendezvous/cohorte_infocol_imprime_second_rdv_stock/:heading"
 msgstr "Impression des courriers DU SECOND RENDEZ-VOUS d'information collective à envoyer au stock"
 
-msgid "/Planpauvreterendezvous/imprime"
+msgid "/Rendezvous/impression"
 msgstr "Imprimer"
 
-msgid "/Planpauvreterendezvous/imprime/#Rendezvous.id#"
+msgid "/Rendezvous/impression/#Rendezvous.id#"
 msgstr "Imprimer"
 
 msgid "Search.Rendezvous"
