@@ -10,7 +10,7 @@
 	App::uses( 'AppController', 'Controller' );
 
 	/**
-	 * La classe PlanpauvreteorientationsController ... (CG 66).
+	 * La classe PlanpauvreteorientationsController ....
 	 *
 	 * @package app.Controller
 	 */

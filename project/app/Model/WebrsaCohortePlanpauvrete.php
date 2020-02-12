@@ -134,7 +134,7 @@
 			//Soumis à droit et devoir
 			$query['conditions']['Calculdroitrsa.toppersdrodevorsa'] = '1';
 			//Droit ouvert et versable :
-			$query['conditions']['Historiquedroit.etatdosrsa'] = '2';
+			$query['conditions']['Situationdossierrsa.etatdosrsa'] = '2';
 			return $query;
 		}
 

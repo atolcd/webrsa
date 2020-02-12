@@ -32,7 +32,6 @@
 			'Personne',
 			'Historiqueetatpe',
 			'Allocataire',
-			'Nonoriente66',
 			'Canton',
 		);
 
@@ -44,15 +43,10 @@
 		public $cohorteFields = array(
 			'Personne.id' => array( 'type' => 'hidden' ),
 			'Historiqueetatpe.id' => array( 'type' => 'hidden' ),
-			'Nonoriente66.id' => array( 'type' => 'hidden' ),
-			'Nonoriente66.personne_id' => array( 'type' => 'hidden' ),
-			'Nonoriente66.origine' => array( 'type' => 'hidden' ),
-			'Nonoriente66.historiqueetatpe_id' => array( 'type' => 'hidden' ),
-			'Nonoriente66.user_id' => array( 'type' => 'hidden' ),
 			'Orientstruct.origine' => array( 'type' => 'hidden' ),
 			'Orientstruct.personne_id' => array( 'type' => 'hidden' ),
 			'Orientstruct.statut_orient' => array( 'type' => 'hidden' ),
-			'Nonoriente66.selection' => array( 'type' => 'checkbox' ),
+			'Orientstruct.selection' => array( 'type' => 'checkbox' ),
 			'Orientstruct.date_valid' => array( 'type' => 'date' )
 		);
 
@@ -95,7 +89,6 @@
 				'Orientstruct' => 'LEFT OUTER',
 				'Structurereferente' => 'LEFT OUTER',
 				'Typeorient' => 'LEFT OUTER',
-				'Nonoriente66' => 'LEFT OUTER',
 				'Informationpe' => 'LEFT OUTER',
 				'Canton' => 'LEFT OUTER',
 				'PersonneReferent' => 'LEFT OUTER',
@@ -104,7 +97,6 @@
 				'Historiqueetatpe' => 'LEFT OUTER',
 				'Rendezvous' => 'LEFT OUTER',
 				'Contratinsertion' => 'LEFT OUTER',
-
 			);
 
 			$cacheKey = Inflector::underscore( $this->useDbConfig ).'_'.Inflector::underscore( $this->alias ).'_'.Inflector::underscore( __FUNCTION__ ).'_'.sha1( serialize( $types ) );
@@ -114,31 +106,14 @@
 				App::uses('WebrsaModelUtility', 'Utility');
 				$query = $this->Allocataire->searchQuery( $types, 'Personne' );
 
+				$query['fields']['Personne.id'] = 'DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"';
 				// 1. Ajout des champs supplémentaires
 				$query['fields'] = array_merge(
 					$query['fields'],
-					ConfigurableQueryFields::getModelsFields(
-						array(
-							$this->Nonoriente66->Personne->Orientstruct,
-							$this->Nonoriente66->Personne->Orientstruct->Structurereferente,
-							$this->Nonoriente66->Personne->Orientstruct->Typeorient,
-							$this->Nonoriente66,
-							$this->Nonoriente66->Historiqueetatpe->Informationpe,
-							$this->Nonoriente66->Historiqueetatpe,
-							$this->Nonoriente66->Personne->PersonneReferent,
-							$this->Nonoriente66->Personne->Rendezvous,
-							$this->Nonoriente66->Personne->Contratinsertion,
-						)
-					),
 					// Champs nécessaires au traitement de la search
 					array(
 						'Historiqueetatpe.identifiantpe',
 						'Historiqueetatpe.id',
-						'Nonoriente66.id',
-						'Nonoriente66.personne_id',
-						'Nonoriente66.origine',
-						'Nonoriente66.historiqueetatpe_id',
-						'Nonoriente66.user_id',
 						'Orientstruct.origine',
 						'Orientstruct.personne_id',
 						'Orientstruct.statut_orient',
@@ -148,23 +123,20 @@
 						'Rendezvous.personne_id',
 						'Personne.id',
 						'Dossier.id',
-						'Foyer.enerreur' => $this->Nonoriente66->Personne->Foyer->sqVirtualField( 'enerreur', true ),
-						'Foyer.nbenfants' => '( '.$this->Nonoriente66->Personne->Foyer->vfNbEnfants().' ) AS "Foyer__nbenfants"',
 					)
 				);
 				// 2. Jointure
 				$query['joins'] = array_merge(
 					$query['joins'],
 					array(
-						$this->Nonoriente66->Personne->join( 'Orientstruct', array( $types['Orientstruct'] ) ),
-						$this->Nonoriente66->Personne->Orientstruct->join( 'Structurereferente', array( $types['Structurereferente'] ) ),
-						$this->Nonoriente66->Personne->Orientstruct->join( 'Typeorient', array( $types['Typeorient'] ) ),
-						$this->Nonoriente66->Personne->join( 'Nonoriente66', array( $types['Nonoriente66'] ) ),
-						$this->Nonoriente66->Personne->join( 'Rendezvous', array( $types['Rendezvous'] ) ),
-						$this->Nonoriente66->Personne->join( 'Contratinsertion', array( $types['Contratinsertion'] ) ),
-						$this->Nonoriente66->Personne->join( 'Historiquedroit', array( $types['Historiquedroit'] ) ),
-						$this->Nonoriente66->Historiqueetatpe->Informationpe->joinPersonneInformationpe( 'Personne', 'Informationpe', $types['Informationpe'] ),
-						$this->Nonoriente66->Historiqueetatpe->Informationpe->join( 'Historiqueetatpe', array( $types['Historiqueetatpe'] ) ),
+						$this->Personne->join( 'Orientstruct', array( $types['Orientstruct'] ) ),
+						$this->Personne->Orientstruct->join( 'Structurereferente', array( $types['Structurereferente'] ) ),
+						$this->Personne->Orientstruct->join( 'Typeorient', array( $types['Typeorient'] ) ),
+						$this->Personne->join( 'Rendezvous', array( $types['Rendezvous'] ) ),
+						$this->Personne->join( 'Contratinsertion', array( $types['Contratinsertion'] ) ),
+						$this->Personne->join( 'Historiquedroit', array( $types['Historiquedroit'] ) ),
+						$this->Historiqueetatpe->Informationpe->joinPersonneInformationpe( 'Personne', 'Informationpe', $types['Informationpe'] ),
+						$this->Historiqueetatpe->Informationpe->join( 'Historiqueetatpe', array( $types['Historiqueetatpe'] ) ),
 					)
 				);
 
@@ -182,7 +154,6 @@
 
 				Cache::write($cacheKey, $query);
 			}
-
 			return $query;
 		}
 
@@ -195,21 +166,12 @@
 		 */
 		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
 			$departement = Configure::read('Cg.departement');
+
 			foreach ( $data as $key => $value ) {
 				// Si non selectionné, on retire tout
-				if ( $value['Nonoriente66']['selection'] === '0' ) {
+				if ( $value['Orientstruct']['selection'] === '0' ) {
 					unset($data[$key]);
 					continue;
-				}
-
-				if ( empty($value['Nonoriente66']['id']) ) {
-					$data[$key]['Nonoriente66'] = array(
-						'personne_id' => Hash::get($value, 'Personne.id'),
-						'origine' => 'isemploi',
-						'dateimpression' => null,
-						'historiqueetatpe_id' => Hash::get($value, 'Historiqueetatpe.id'),
-						'user_id' => $user_id
-					);
 				}
 
 				$data[$key]['Orientstruct']['personne_id'] = Hash::get($value, 'Personne.id');
@@ -229,18 +191,15 @@
 				$data[$key]['Orientstruct']['typenotification'] =
 					Configure::read('PlanPauvrete.Cohorte.ValeursOrientations.typenotification');
 			}
+			$this->Personne->Orientstruct->begin();
 
-			$this->Nonoriente66->begin();
-
-			$success = !empty($data) && $this->Nonoriente66->saveAll($data, array('atomic' => false));
 			$success = !empty($data)
-				&& $this->Nonoriente66->Personne->Orientstruct->saveAll($data, array('atomic' => false))
-				&& $success;
+				&& $this->Personne->Orientstruct->saveAll($data, array('atomic' => false));
 
 			if ($success) {
-				$this->Nonoriente66->commit();
+				$this->Personne->Orientstruct->commit();
 			} else {
-				$this->Nonoriente66->rollback();
+				$this->Personne->Orientstruct->rollback();
 			}
 
 			return $success;
@@ -256,39 +215,6 @@
 		 */
 		public function searchConditions( array $query, array $search ) {
 			$query = $this->Allocataire->searchConditions( $query, $search );
-
-			/**
-			 * Generateur de conditions
-			 */
-			$paths = array(
-				'Nonoriente66.user_id'
-			);
-
-			// Fils de dependantSelect
-			$pathsToExplode = array(
-			);
-
-			$pathsDate = array(
-				'Nonoriente66.dateimpression',
-				'Nonoriente66.datenotification',
-			);
-
-			foreach( $paths as $path ) {
-				$value = Hash::get( $search, $path );
-				if( $value !== null && $value !== '' ) {
-					$query['conditions'][$path] = $value;
-				}
-			}
-
-			foreach( $pathsToExplode as $path ) {
-				$value = Hash::get( $search, $path );
-				if( $value !== null && $value !== '' && strpos($value, '_') > 0 ) {
-					list(,$value) = explode('_', $value);
-					$query['conditions'][$path] = $value;
-				}
-			}
-
-			$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, $pathsDate );
 
 			return $query;
 		}

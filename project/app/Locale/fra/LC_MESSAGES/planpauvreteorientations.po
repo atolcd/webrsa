@@ -16,7 +16,7 @@ msgstr "Nouveaux entrants inscrits à Pôle Emploi"
 msgid "/Planpauvreteorientations/cohorte_isemploi_stock/:heading"
 msgstr "Allocataires du stock inscrits à Pôle Emploi"
 
-msgid "data[Cohorte][][Nonoriente66][selection]"
+msgid "data[Cohorte][][Orientstruct][selection]"
 msgstr "Sélectionner"
 
 msgid "data[Cohorte][][Orientstruct][date_valid]"
