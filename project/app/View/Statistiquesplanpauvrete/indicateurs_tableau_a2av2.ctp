@@ -49,4 +49,14 @@
 			$tbody = $this->Xhtml->tag( 'tbody', $this->Xhtml->tableCells( $cells ) );
 			echo $this->Xhtml->tag( 'table', $thead.$tbody ,array( 'class' => 'first' ) );
 		}
+		?>
+		<ul class="actionMenu">
+		<li><?php
+			echo $this->Xhtml->exportLink(
+				__d('statistiquesplanpauvrete','Statistiquesplanpauvrete.telecharger.csv'),
+				array( 'action' => 'exportcsv_tableau_a2a2', 'visualisation' ) + Hash::flatten( $this->request->data, '__' ),
+				true
+			);
+		?></li>
+	<?php
 	}

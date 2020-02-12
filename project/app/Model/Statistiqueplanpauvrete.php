@@ -2436,7 +2436,7 @@
 				}
 				if($resultats['Suspendus']['total'][$i] != 0) {
 					$resultats['Suspendus']['percentOrientes'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['total'][$i] ) / $resultats['Suspendus']['total'][$i], 2)  . '%';
-					if ( $resultats['Suspendus']['total'][$i] != 0) {
+					if ( $resultats['Suspendus']['Orientes']['total'][$i] != 0) {
 						$resultats['Suspendus']['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['Emploi'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
 						$resultats['Suspendus']['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['Prepro'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
 						$resultats['Suspendus']['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['Social'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
@@ -2447,7 +2447,7 @@
 				}
 				if($resultats['Horssuspendus']['total'][$i] != 0) {
 					$resultats['Horssuspendus']['percentOrientes'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['total'][$i] ) / $resultats['Horssuspendus']['total'][$i], 2)  . '%';
-					if ( $resultats['Horssuspendus']['total'][$i] != 0) {
+					if ( $resultats['Horssuspendus']['Orientes']['total'][$i] != 0) {
 						$resultats['Horssuspendus']['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['Emploi'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
 						$resultats['Horssuspendus']['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['Prepro'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
 						$resultats['Horssuspendus']['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['Social'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
