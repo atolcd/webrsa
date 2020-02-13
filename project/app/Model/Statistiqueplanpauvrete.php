@@ -930,7 +930,6 @@
 							'type' => 'LEFT',
 							'conditions' => array(
 								'Orientstruct.personne_id = Personne.id',
-								'Orientstruct.rgorient' => 1,
 							),
 							'ORDER BY' => 'Orientstruct.date_valid DESC',
 							'LIMIT' => 1
@@ -1113,7 +1112,6 @@
 							'type' => 'LEFT',
 							'conditions' => array(
 								'Orientstruct.personne_id = Personne.id',
-								'Orientstruct.rgorient' => 1,
 							),
 							'ORDER BY' => 'Orientstruct.date_valid DESC',
 							'LIMIT' => 1
@@ -1260,7 +1258,6 @@
 							'type' => 'LEFT',
 							'conditions' => array(
 								'Orientstruct.personne_id = Personne.id',
-								'Orientstruct.rgorient' => 1,
 							),
 							'ORDER BY' => 'Orientstruct.date_valid DESC',
 							'LIMIT' => 1
@@ -2333,16 +2330,15 @@
 							//Qu'on as une date d'orientation valide
 							if ( $result['Orientstruct']['date_valid'] != null ){
 								$jourDebMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.deb');
-								$jours = Configure::read('PlanPauvrete.Stats.Orientation.Jours');
 								$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
 
 								//Si l'orientation n'est pas inférieur au changement de droits
 								if (strtotime($result['Orientstruct']['date_valid']) >= strtotime($tmpDate) ){
-									//On calcul la différence entre la date de reception et la date d'orientation
-									$diff = abs(strtotime($tmpDate) - strtotime($result['Orientstruct']['date_valid']));
+									//On calcul la date du changement de droits +1 mois
+									$date1mois = strtotime($tmpDate.' + 1 month');
 
-									//Si la différence est de moins de 30 jours
-									if ( (60*60*24*$jours) > $diff  ) {
+									//Nombre d'orientées en moins d'un mois
+									if ( $date1mois  >  strtotime($result['Orientstruct']['date_valid']) ) {
 										//- Nombre de nouveaux entrants orientés en moins d’un mois
 										$resultats['Tous']['Orientes']['total'][$month] ++;
 										if ( !$Suspendu ){
@@ -2575,7 +2571,6 @@
 			
 			//Initialisation des valeurs fixes :
 			$jourDebMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.deb');
-			$joursMois = Configure::read('PlanPauvrete.Stats.Orientation.Jours');
 
 			//Pour chaque résultat
 			foreach($results as $result) {
@@ -2663,10 +2658,10 @@
 										}
 									}
 
-									//On calcul la différence entre la date de reception et la date d'orientation
-									$diff = abs(strtotime($tmpDate) - strtotime($result['Orientstruct']['date_valid']));
-									//Si la différence est de moins de 30 jours
-									if ( (60*60*24*$joursMois) > $diff  ) {
+									//On calcul la date du changement de droits +1 mois
+									$date1mois = strtotime($tmpDate.' + 1 month');
+									//Nombre d'orientées en moins d'un mois
+									if ( $date1mois  >  strtotime($result['Orientstruct']['date_valid']) ) {
 										$resultats['Tous']['Orientes1m'][$month]++;
 										if ( !$Suspendu ){
 											$resultats['Horssuspendus']['Orientes1m'][$month]++;
@@ -2674,6 +2669,7 @@
 											$resultats['Suspendus']['Orientes1m'][$month]++;
 										}
 									}
+
 									if ( $result['Orientstruct']['date_valid'] < $result['Rendezvous']['daterdv'] ){
 										$diff = abs(strtotime($result['Rendezvous']['daterdv']) - strtotime($result['Orientstruct']['date_valid']));
 										if ( (60*60*24*15) > $diff  ) {
@@ -2847,7 +2843,6 @@
 
 			//Initialisation des valeurs fixes :
 			$jourDebMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.deb');
-			$joursMois = Configure::read('PlanPauvrete.Stats.Orientation.Jours');
 
 			//Pour chaque résultat
 			foreach($results as $result) {
@@ -2935,21 +2930,21 @@
 										}
 									}
 
-									//On calcul la différence entre la date de reception et la date d'orientation
-									$diff = abs(strtotime($tmpDate) - strtotime($result['Orientstruct']['date_valid']));
-									//Si la différence est de moins de 30 jours
-									if ( (60*60*24*$joursMois) > $diff  ) {
+									//On calcul la date +1 mois
+									$date1mois = strtotime($tmpDate.' + 1 month');
+									//Nombre d'orientées en moins d'un mois
+									if ( $date1mois  >  strtotime($result['Orientstruct']['date_valid']) ) {
 										$resultats['Tous']['Orientes1m'][$month]++;
-											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes1m'][$month]++;
-											} else {
-												$resultats['Suspendus']['Orientes1m'][$month]++;
-											}
+										if ( !$Suspendu ){
+											$resultats['Horssuspendus']['Orientes1m'][$month]++;
+										} else {
+											$resultats['Suspendus']['Orientes1m'][$month]++;
+										}
 									}
 
 									if ( $result['Orientstruct']['date_valid'] < $result['Contratinsertion']['datevalidation_ci'] ){
-										$diff = abs(strtotime($result['Contratinsertion']['datevalidation_ci']) - strtotime($result['Orientstruct']['date_valid']));
-										if ( (60*60*24*60) > $diff  ) {
+										$date2mois = strtotime($result['Orientstruct']['date_valid'].' + 2 month');
+										if ( $date1mois  >  strtotime($result['Contratinsertion']['datevalidation_ci']) ) {
 											//- Nombre de CER suite à une orientation CD dans un délai de 60 jours
 											$resultats['Tous']['Orientes2m']['CER'][$month] ++;
 											if ( !$Suspendu ){
