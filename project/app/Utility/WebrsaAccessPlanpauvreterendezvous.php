@@ -69,17 +69,6 @@
 		 * @param array $params
 		 * @return boolean
 		 */
-		protected static function _imprime(array $record, array $params) {
-			return true;
-		}
-
-		/**
-		 * Permission d'accès
-		 *
-		 * @param array $record
-		 * @param array $params
-		 * @return boolean
-		 */
 		protected static function _cohorte_infocol_imprime_stock(array $record, array $params) {
 			return true;
 		}
@@ -176,7 +165,6 @@
 					'cohorte_infocol_imprime_stock',
 					'cohorte_infocol_imprime_second_rdv_nouveaux',
 					'cohorte_infocol_imprime_second_rdv_stock',
-					'imprime',
 					'cohorte_infocol_imprime_impression',
 					'cohorte_infocol_venu_nonvenu_nouveaux',
 					'cohorte_infocol_venu_nonvenu_stock',

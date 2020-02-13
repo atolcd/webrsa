@@ -850,7 +850,11 @@
 			}
 			else {
 				$this->Flash->error( 'Impossible de générer le courrier de rendez-vous.' );
-				$this->redirect(array('action' => 'index', $personne_id));
+				$this->redirect(array(
+					'action' => 'index',
+					 $personne_id
+					)
+				);
 			}
 		}
 

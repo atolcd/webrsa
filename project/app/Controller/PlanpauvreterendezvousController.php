@@ -346,10 +346,10 @@
 		 * Imprime en cohorte les informations collectives stock
 		 */
 		public function cohorte_infocol_imprime_stock_impressions () {
-			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvousImpressions' );
 			$Cohorte->impressions(
 				array(
-					'modelName' => 'Personne',
+					'modelName' => 'Rendezvous',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprimeStock',
 					'configurableQueryFieldsKey' => 'Planpauvreterendezvous.cohorte_infocol_imprime_stock'
 				)
@@ -360,10 +360,10 @@
 		 * Imprime en cohorte les SECONDS RENDEZ-VOUS des informations collectives nouveaux entrants
 		 */
 		public function cohorte_infocol_imprime_second_rdv_nouveaux_impressions () {
-			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvousImpressions' );
 			$Cohorte->impressions(
 				array(
-					'modelName' => 'Personne',
+					'modelName' => 'Rendezvous',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprimeSecondRdvNouveaux',
 					'configurableQueryFieldsKey' => 'Planpauvreterendezvous.cohorte_infocol_imprime_second_rdv_nouveaux'
 				)
@@ -374,10 +374,10 @@
 		 * Imprime en cohorte les SECONDS RENDEZ-VOUS des informations collectives stock
 		 */
 		public function cohorte_infocol_imprime_second_rdv_stock_impressions () {
-			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvousImpressions' );
 			$Cohorte->impressions(
 				array(
-					'modelName' => 'Personne',
+					'modelName' => 'Rendezvous',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprimeSecondRdvStock',
 					'configurableQueryFieldsKey' => 'Planpauvreterendezvous.cohorte_infocol_imprime_second_rdv_stock'
 				)
