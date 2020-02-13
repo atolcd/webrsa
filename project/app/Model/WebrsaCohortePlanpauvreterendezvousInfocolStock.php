@@ -29,10 +29,16 @@
 			// Conditions
 			// Sans RDV
 			$query = $this->sansRendezvous($query);
+
 			// Sans Orientation
 			$query = $this->sansOrientation($query);
+
 			// Sans CER
 			$query = $this->sansCER($query);
+
+			// Non inscrit PE
+			$query = $this->nonInscritPE($query);
+
 			//Dans le mois précédent :
 			$query = $this->stock($query);
 

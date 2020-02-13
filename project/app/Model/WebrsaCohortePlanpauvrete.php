@@ -28,8 +28,10 @@
 			$query['conditions'][] = 'NOT EXISTS(
 				SELECT "contratsinsertion"."id" AS "contratsinsertion__id"
 				FROM contratsinsertion AS contratsinsertion
+				INNER JOIN historiquesdroits ON (historiquesdroits.personne_id = contratsinsertion.personne_id AND historiquesdroits.created <= contratsinsertion.datevalidation_ci )
 				WHERE "contratsinsertion"."decision_ci" = \'V\'
-				AND "contratsinsertion"."personne_id" = "Personne"."id" )';
+				AND "contratsinsertion"."personne_id" = "Personne"."id"
+				)';
 			return $query;
 		}
 
@@ -91,7 +93,9 @@
 			$query['conditions'][] = 'NOT EXISTS(
 				SELECT "rendezvous"."id" AS "rendezvous__id"
 				FROM rendezvous AS rendezvous
-				WHERE "rendezvous"."personne_id" = "Personne"."id" )';
+				INNER JOIN historiquesdroits ON (historiquesdroits.personne_id = Rendezvous.personne_id AND historiquesdroits.created <= Rendezvous.daterdv)
+				WHERE "rendezvous"."personne_id" = "Personne"."id"
+				 )';
 			return $query;
 		}
 
@@ -167,6 +171,10 @@
 		 * @return array $query
 		 */
 		public function nonInscritPE($query) {
+			$this->loadModel('Historiqueetatpe');
+			$qdNonInscrits = $this->Historiqueetatpe->Informationpe->qdNonInscrits();
+			$query['conditions'] = array_merge($query['conditions'], $qdNonInscrits['conditions']);
+
 			return $query;
 		}
 

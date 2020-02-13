@@ -35,6 +35,9 @@
 			// Sans CER
 			$query = $this->sansCER($query);
 
+			// Non inscrit PE
+			$query = $this->nonInscritPE($query);
+
 			//Dans le mois précédent :
 			$query = $this->nouveauxEntrants($query);
 
