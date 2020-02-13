@@ -86,7 +86,7 @@
 						'controller' => $controller,
 						'action'     => $action.'_impressions',
 					),
-					Hash::flatten( $this->request->data, '__' )
+					Hash::flatten( $searchData + array( 'prevAction' => $this->action ), '__' )
 				)
 				, ( $this->Permissions->check( $controller, $action.'_impressions' ) && $countResults > 0 )
 				, 'Voulez vous imprimer les '.$countResults.' courrier de rendez-vous ?'

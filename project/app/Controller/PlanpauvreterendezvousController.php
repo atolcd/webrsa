@@ -114,10 +114,11 @@
 		public $crudMap = array(
 			'cohorte_infocol' => 'update',
 			'cohorte_infocol_stock' => 'update',
-			'cohorte_infocol_imprime' => 'select',
-			'cohorte_infocol_imprime_stock' => 'select',
-			'cohorte_infocol_imprime_second_rdv_nouveaux' => 'select',
-			'cohorte_infocol_imprime_second_rdv_stock' => 'select',
+			'cohorte_infocol_imprime' => 'read',
+			'cohorte_infocol_imprime_impressions' => 'read',
+			'cohorte_infocol_imprime_stock' => 'read',
+			'cohorte_infocol_imprime_second_rdv_nouveaux' => 'read',
+			'cohorte_infocol_imprime_second_rdv_stock' => 'read',
 			'cohorte_infocol_venu_nonvenu_nouveau' => 'update',
 			'cohorte_infocol_venu_nonvenu_stock' => 'update',
 			'cohorte_infocol_second_rdv_nouveaux' => 'update',
@@ -327,34 +328,14 @@
 		}
 
 		/**
-		 * Imprime un par un la convocation d'information collective
-		 *
-		 * @param int rdv_id
-		 */
-		public function imprime ($rdv_id = null) {
-			$this->WebrsaAccesses->check($rdv_id);
-			$personne_id = $this->Rendezvous->personneId( $rdv_id );
-			$this->DossiersMenus->checkDossierMenu( array( 'personne_id' => $personne_id ) );
-
-			$pdf = $this->Rendezvous->WebrsaRendezvous->getDefaultPdf( $rdv_id, $this->Session->read( 'Auth.User.id' ) );
-
-			if( !empty( $pdf ) ) {
-				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'rendezvous-%d-%s.pdf', $rdv_id, date( 'Y-m-d' ) ) );
-			}
-			else {
-				$this->Flash->error( __d ('planpauvreterendezvous', 'Erreur.Impression') );
-				$this->redirect(array('action' => 'index', $personne_id));
-			}
-		}
-
-		/**
 		 * Imprime en cohorte les informations collectives nouveaux entrants
 		 */
 		public function cohorte_infocol_imprime_impressions () {
-			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvousImpressions' );
+
 			$Cohorte->impressions(
 				array(
-					'modelName' => 'Personne',
+					'modelName' => 'Rendezvous',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprime',
 					'configurableQueryFieldsKey' => 'Planpauvreterendezvous.cohorte_infocol_imprime'
 				)
