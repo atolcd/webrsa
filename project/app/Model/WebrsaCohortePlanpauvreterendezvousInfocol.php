@@ -24,7 +24,7 @@
 		 * @return array
 		 */
 		public function searchQuery( array $types = array() ) {
-			$query = parent::searchQuery($types);
+		 	$query = parent::searchQuery($types);
 			// Conditions
 			// Sans RDV
 			$query = $this->sansRendezvous($query);

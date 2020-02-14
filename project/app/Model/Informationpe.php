@@ -208,16 +208,18 @@
 
 		/**
 		 * TODO: et qui ne sont pas passés dans une EP pour ce motif depuis au moins 1 mois (?)
-		 *
+		 * @param boolean useOrientdatevalid
 		 * @return array
 		 */
-		public function qdNonInscrits() {
+		public function qdNonInscrits($useOrientdatevalid = true) {
 			$queryData['fields'][] = 'Orientstruct.id';
 			$queryData['fields'][] = 'Orientstruct.date_valid';
 			$queryData['fields'][] = 'Typeorient.lib_type_orient';
 			$queryData['fields'][] = 'Structurereferente.lib_struc';
+			if ($useOrientdatevalid == true) {
+				$queryData['conditions'][] = 'Orientstruct.date_valid + INTERVAL \''.Configure::read( 'Selectionnoninscritspe.intervalleDetection' ).'\' < DATE_TRUNC( \'day\', NOW() )';
+			}
 
-			$queryData['conditions'][] = 'Orientstruct.date_valid + INTERVAL \''.Configure::read( 'Selectionnoninscritspe.intervalleDetection' ).'\' < DATE_TRUNC( \'day\', NOW() )';
 			$queryData['conditions'][] = 'Personne.id NOT IN (
 				SELECT
 						personnes.id

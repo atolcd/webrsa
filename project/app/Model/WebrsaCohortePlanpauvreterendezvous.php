@@ -165,7 +165,12 @@
  				$query['joins'] = array_merge(
 					$query['joins'],
 					array(
-						$this->Personne->join('Historiquedroit'),
+						$this->Personne->join('Historiquedroit', array(
+							'type' => 'INNER',
+							'conditions' => array(
+								'Personne.id IN(SELECT "Historiquedroit"."personne_id" from historiquesdroits as Historiquedroit WHERE "Historiquedroit"."personne_id" = "Personne"."id" ORDER BY "Historiquedroit"."created" DESC LIMIT 1)'
+							)
+						)),
 						$this->Personne->join('Orientstruct'),
 						$this->Personne->join('Rendezvous'),
 						$this->Personne->join('Contratinsertion')

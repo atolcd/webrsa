@@ -128,14 +128,7 @@
 			$dateDebRecherche = date('Y-m-',strtotime("-1 month")).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' );
 			//Recherche selon Stock
 			$query['conditions'][] = 'date_trunc(\'day\', Historiquedroit.created) < \''.$dateDebRecherche.'\'';
-
-			foreach( $query['joins'] as $key => $join) {
-				if( $join['alias'] == 'Historiquedroit') {
-					$query['joins'][$key]['ORDER BY'] = 'Historiquedroit.created DESC';
-					$query['joins'][$key]['LIMIT'] = 1;
-					return $query;
-				}
-			}
+			return $query;
 		}
 
 		/**
@@ -172,9 +165,8 @@
 		 */
 		public function nonInscritPE($query) {
 			$this->loadModel('Historiqueetatpe');
-			$qdNonInscrits = $this->Historiqueetatpe->Informationpe->qdNonInscrits();
+			$qdNonInscrits = $this->Historiqueetatpe->Informationpe->qdNonInscrits(false);
 			$query['conditions'] = array_merge($query['conditions'], $qdNonInscrits['conditions']);
-
 			return $query;
 		}
 
