@@ -13,8 +13,14 @@ msgstr ""
 msgid "/Planpauvreteorientations/cohorte_isemploi/:heading"
 msgstr "Nouveaux entrants inscrits à Pôle Emploi"
 
+msgid "/Planpauvreteorientations/cohorte_isemploi_imprime/:heading"
+msgstr "Impression des orientations des nouveaux entrants inscrits à Pôle Emploi"
+
 msgid "/Planpauvreteorientations/cohorte_isemploi_stock/:heading"
 msgstr "Allocataires du stock inscrits à Pôle Emploi"
+
+msgid "/Planpauvreteorientations/cohorte_isemploi_stock_imprime/:heading"
+msgstr "Impression des orientations des allocataires du stock inscrits à Pôle Emploi"
 
 msgid "data[Cohorte][][Orientstruct][selection]"
 msgstr "Sélectionner"
@@ -27,6 +33,12 @@ msgstr "Voir"
 
 msgid "/Dossiers/view/#Dossier.id#"
 msgstr "Voir"
+
+msgid "/Orientsstructs/impression"
+msgstr "Imprimer"
+
+msgid "/Orientsstructs/impression/#Orientstruct.id#"
+msgstr "Imprimer"
 
 msgid "Search.Prestation.rolepers"
 msgstr "Rôle de la personne"

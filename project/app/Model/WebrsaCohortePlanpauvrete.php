@@ -34,17 +34,50 @@
 		}
 
 		/**
+		 * Base de la requete des orientations
+		 */
+		public function requeteOrientation() {
+			$conditions = 'SELECT "orientsstructs"."id" AS "orientsstructs__id"
+				FROM orientsstructs AS orientsstructs
+				WHERE "orientsstructs"."statut_orient" = \'Orienté\'
+				AND "orientsstructs"."personne_id" = "Personne"."id"';
+			return $conditions;
+		}
+
+		/**
 		 * Ajoute la condition dans la query pour ne pas avoir d'orientation
 		 *
 		 * @param array $query
 		 * @return array $query
 		 */
 		public function sansOrientation($query) {
-			$query['conditions'][] = 'NOT EXISTS(
-				SELECT "orientsstructs"."id" AS "orientsstructs__id"
-				FROM orientsstructs AS orientsstructs
-				WHERE "orientsstructs"."statut_orient" = \'Orienté\'
-				AND "orientsstructs"."personne_id" = "Personne"."id" )';
+			$conditions = $this->requeteOrientation();
+			$query['conditions'][] = ' NOT EXISTS('.$conditions.')';
+			return $query;
+		}
+
+		/**
+		 * Ajoute la condition dans la query pour avoir une d'orientation
+		 *
+		 * @param array $query
+		 * @return array $query
+		 */
+		public function avecOrientation($query) {
+			$conditions = $this->requeteOrientation();
+
+			//Recupération des type d'orientation voulues
+			$limitation = Configure::read ('PlanPauvrete.Cohorte.Orientations.Limite');
+			if ( isset( $limitation['structureorientante_id'] ) ){
+				$conditions .= ' AND "orientsstructs"."structureorientante_id" = '. $limitation['structureorientante_id'];
+			}
+			if ( isset( $limitation['typeorient_id'] ) ){
+				$conditions .= ' AND "orientsstructs"."typeorient_id" = '. $limitation['typeorient_id'];
+			}
+			if ( isset( $limitation['typenotification'] ) ){
+				$conditions .= ' AND "orientsstructs"."typenotification" = '. $limitation['typenotification'];
+			}
+
+			$query['conditions'][] = ' EXISTS('.$conditions.')';
 			return $query;
 		}
 
@@ -82,11 +115,19 @@
 		 * @return array $query
 		 */
 		public function stock($query) {
+
 			//Dans le mois précédent : Nouvelle demande ou Réouverture de droit
 			$dateDebRecherche = date('Y-m-',strtotime("-1 month")).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' );
 			//Recherche selon Stock
 			$query['conditions'][] = 'date_trunc(\'day\', Historiquedroit.created) < \''.$dateDebRecherche.'\'';
-			return $query;
+
+			foreach( $query['joins'] as $key => $join) {
+				if( $join['alias'] == 'Historiquedroit') {
+					$query['joins'][$key]['ORDER BY'] = 'Historiquedroit.created DESC';
+					$query['joins'][$key]['LIMIT'] = 1;
+					return $query;
+				}
+			}
 		}
 
 		/**

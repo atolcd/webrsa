@@ -4791,6 +4791,9 @@ msgstr "Cohortes Plan pauvréte"
 msgid "controllers/Planpauvreteorientations/cohorte_isemploi"
 msgstr "Nouveaux entrants inscrits à Pôle Emploi"
 
+msgid "controllers/Planpauvreteorientations/cohorte_isemploi_impressions"
+msgstr "Nouveaux entrants inscrits à Pôle Emploi impression"
+
 msgid "controllers/Planpauvreterendezvous/cohorte_infocol"
 msgstr "Nouveaux entrants information collective"
 
@@ -4809,6 +4812,9 @@ msgstr "Nouveaux entrants impression convocations 3 en 1"
 
 msgid "controllers/Planpauvreteorientations/cohorte_isemploi_stock"
 msgstr "Stock inscrits à Pôle Emploi"
+
+msgid "controllers/Planpauvreteorientations/cohorte_isemploi_stock_impressions"
+msgstr "Stock inscrits à Pôle Emploi impression"
 
 msgid "controllers/Planpauvreterendezvous/cohorte_infocol_stock"
 msgstr "Stock information collective"

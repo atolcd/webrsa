@@ -8,6 +8,7 @@
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
 	App::uses( 'AppController', 'Controller' );
+	App::uses( 'WebrsaAccessOrientsstructs', 'Utility' );
 
 	/**
 	 * La classe PlanpauvreteorientationsController ....
@@ -38,8 +39,11 @@
 				'actions' => array(
 					'cohorte_isemploi' => array('filter' => 'Search'),
 					'cohorte_isemploi_stock' => array('filter' => 'Search'),
+					'cohorte_isemploi_imprime' => array('filter' => 'Search'),
+					'cohorte_isemploi_stock_imprime' => array('filter' => 'Search'),
 				),
 			),
+			'WebrsaAccesses',
 		);
 
 		/**
@@ -58,6 +62,7 @@
 			'Locale',
 			'Xform',
 			'Xhtml',
+			'Search.SearchForm',
 		);
 
 		/**
@@ -67,8 +72,9 @@
 		 */
 		public $uses = array(
 			'Personne',
-			'WebrsaCohortePlanpauvreteorientationsIsemploi',
+			'WebrsaCohortePlanpauvreteorientations',
 			'Orientstruct',
+			'WebrsaOrientstruct',
 			'Option',
 		);
 
@@ -88,6 +94,8 @@
 		public $aucunDroit = array(
 			'exportcsv_isemploi',
 			'exportcsv_isemploi_stock',
+			'exportcsv_isemploi_imprime',
+			'exportcsv_isemploi_stock_imprime',
 		);
 
 		/**
@@ -98,7 +106,11 @@
 		 */
 		public $crudMap = array(
 			'cohorte_isemploi' => 'update',
+			'cohorte_isemploi_imprime' => 'read',
+			'cohorte_isemploi_imprime_impressions' => 'read',
 			'cohorte_isemploi_stock' => 'update',
+			'cohorte_isemploi_stock_imprime' => 'read',
+			'cohorte_isemploi_stock_imprime_impressions' => 'read',
 			'exportcsv_isemploi' => 'read',
 			'exportcsv_isemploi_stock' => 'read'
 		);
@@ -113,6 +125,22 @@
 		public function cohorte_isemploi() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
 			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploi' ) );
+		}
+
+		/**
+		 * Cohorte d'orientation des personne inscrites à Pole emploi le mois dernier
+		 */
+		public function cohorte_isemploi_imprime() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
+			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploiImprime' ) );
+		}
+
+		/**
+		 * Cohorte d'orientation des personne inscrites à Pole emploi le mois dernier
+		 */
+		public function cohorte_isemploi_imprime_impressions() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientationsImpressions' );
+			$Cohorte->impressions( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploiImprime' ) );
 		}
 
 		/**
@@ -135,6 +163,22 @@
 		public function cohorte_isemploi_stock() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
 			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistock' ) );
+		}
+
+		/**
+		 * Cohorte d'orientation des personne inscrites à Pole emploi le mois dernier
+		 */
+		public function cohorte_isemploi_stock_imprime() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
+			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistockImprime' ) );
+		}
+
+		/**
+		 * Cohorte d'orientation des personne inscrites à Pole emploi le mois dernier
+		 */
+		public function cohorte_isemploi_stock_imprime_impressions() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientationsImpressions' );
+			$Cohorte->impressions( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistockImprime' ) );
 		}
 
 		/**

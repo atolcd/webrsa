@@ -114,6 +114,7 @@
 					array(
 						'Historiqueetatpe.identifiantpe',
 						'Historiqueetatpe.id',
+						'Orientstruct.id',
 						'Orientstruct.origine',
 						'Orientstruct.personne_id',
 						'Orientstruct.statut_orient',
@@ -121,7 +122,6 @@
 						'Orientstruct.structurereferente_id',
 						'Orientstruct.date_valid',
 						'Rendezvous.personne_id',
-						'Personne.id',
 						'Dossier.id',
 					)
 				);
@@ -143,12 +143,7 @@
 				// 4. Conditions
 				// SDD & DOV
 				$query = $this->sdddov($query);
-				//Sans orientation
-				$query = $this->sansOrientation($query);
-				//Sans RDV
-				$query = $this->sansRendezvous($query);
-				//Sans CER
-				$query = $this->sansCER($query);
+
 				//Inscrits à Pôle Emploi
 				$query = $this->inscritPE($query);
 
