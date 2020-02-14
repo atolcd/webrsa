@@ -60,8 +60,8 @@
 	/*
 	 * Modifications du search_footer :
 	 */
-	$explAction = explode('_', $action);
-	$exportcsvActionName = isset($explAction[1]) ? 'exportcsv_'.$explAction[1] : 'exportcsv';
+	$explAction = substr($action, (strpos($action, '_')+1));
+	$exportcsvActionName = isset($explAction) ? 'exportcsv_'.$explAction : 'exportcsv';
 	$searchData['Search'] = (array)Hash::get( $this->request->data, 'Search' );
 	$buttons = '';
 
@@ -74,11 +74,11 @@
 					array( 'onclick' => 'printit(); return false;', 'class' => 'noprint' )
 				)
 			.'</li><li>'
-			/* . $this->Xhtml->exportLink(
+			. $this->Xhtml->exportLink(
 				'Télécharger le tableau',
 				array( 'controller' => $controller, 'action' => $exportcsvActionName ) + Hash::flatten( $searchData + array( 'prevAction' => $this->action ), '__' ),
-				( $this->Permissions->check( $controller, $exportcsvActionName ) && $count > 0 )
-			) */
+				( $this->Permissions->check( $controller, $exportcsvActionName ) && $countResults > 0 )
+			)
 			.'</li><li>'.$this->Xhtml->printCohorteLink(
 				'Imprimer la cohorte',
 				Hash::merge(

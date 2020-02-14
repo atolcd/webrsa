@@ -101,10 +101,14 @@
 		public $aucunDroit = array(
 			'exportcsv_infocol',
 			'exportcsv_infocol_stock',
+			'exportcsv_infocol_imprime',
+			'exportcsv_infocol_imprime_stock',
 			'exportcsv_infocol_venu_nonvenu_nouveau',
 			'exportcsv_infocol_venu_nonvenu_stock',
 			'exportcsv_infocol_second_rdv_nouveaux',
 			'exportcsv_infocol_second_rdv_stock',
+			'exportcsv_infocol_imprime_second_rdv_nouveaux',
+			'exportcsv_infocol_imprime_second_rdv_stock',
 		);
 
 		/**
@@ -130,7 +134,11 @@
 			'exportcsv_infocol_venu_nonvenu_nouveau' => 'read',
 			'exportcsv_infocol_venu_nonvenu_stock' => 'read',
 			'exportcsv_infocol_second_rdv_nouveaux' => 'read',
-			'exportcsv_infocol_second_rdv_stock' => 'read'
+			'exportcsv_infocol_second_rdv_stock' => 'read',
+			'exportcsv_infocol_imprime' => 'read',
+			'exportcsv_infocol_imprime_stock' => 'read',
+			'exportcsv_infocol_imprime_second_rdv_nouveaux' => 'read',
+			'exportcsv_infocol_imprime_second_rdv_stock' => 'read',
 		);
 
 		public function _setOptions() {
@@ -217,6 +225,21 @@
 		}
 
 		/**
+		 * Export CSV de la
+		 * Cohorte Impression Information Collective - Nouveaux entrants
+		 */
+		public function exportcsv_infocol_imprime() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohortes->exportcsv(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprime',
+					'nom_cohorte' => 'cohorte_infocol_imprime'
+				)
+			);
+		}
+
+		/**
 		 * Cohorte Impression Information Collective - Stock
 		 *
 		 * Permet l'impression de la convocation d'information collective du stock
@@ -229,6 +252,21 @@
 					'modelName' => 'Personne',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprimeStock',
 					'nom_cohorte' => 'cohorte_infocol_imprime_stock'
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la
+		 * Cohorte Impression Information Collective - Stock
+		 */
+		public function exportcsv_infocol_imprime_stock() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohortes->exportcsv(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprimeStock',
+					'nom_cohorte' => 'cohorte_infocol_imprime'
 				)
 			);
 		}
@@ -298,7 +336,7 @@
 		}
 
 		/**
-		 * Cohorte Impression Information Collective - Nouveaux entrants
+		 * Cohorte Impression Information Collective Second Rendez-vous - Nouveaux entrants
 		 *
 		 * Permet l'impression de la convocation d'information collective
 		 */
@@ -315,7 +353,22 @@
 		}
 
 		/**
-		 * Cohorte Impression Information Collective - Stock
+		 * Export CSV de la
+		 * Cohorte Impression Information Collective Second Rendez-vous - Nouveaux entrants
+		 */
+		public function exportcsv_infocol_imprime_second_rdv_nouveaux() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohortes->exportcsv(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprimeSecondRdvNouveaux',
+					'nom_cohorte' => 'cohorte_infocol_imprime_second_rdv_nouveaux'
+				)
+			);
+		}
+
+		/**
+		 * Cohorte Impression Information Collective Second Rendez-vous - Stock
 		 *
 		 * Permet l'impression de la convocation d'information collective du stock
 		 */
@@ -327,6 +380,21 @@
 					'modelName' => 'Personne',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprimeSecondRdvStock',
 					'nom_cohorte' => 'cohorte_infocol_imprime_second_rdv_stock'
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la
+		 * Cohorte Impression Information Collective Second Rendez-vous - Stock
+		 */
+		public function exportcsv_infocol_imprime_second_rdv_stock() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohortes->exportcsv(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprimeSecondRdvStock',
+					'nom_cohorte' => 'cohorte_infocol_imprime_second_rdv_nouveaux'
 				)
 			);
 		}
