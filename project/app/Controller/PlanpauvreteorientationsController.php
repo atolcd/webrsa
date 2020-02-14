@@ -161,7 +161,7 @@
 		 * Export CSV de la
 		 * Cohorte d'impression des personne inscrites et orientés à Pole emploi le mois dernier
 		 */
-		public function exportcsv_isemploi_imprimee() {
+		public function exportcsv_isemploi_imprime() {
 			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
 			$Cohortes->exportcsv(
 				array(
