@@ -9,10 +9,10 @@
 	 */
 
 	App::uses('WebrsaAbstractLogic', 'Model');
-    App::uses('WebrsaLogicAccessInterface', 'Model/Interface');
-    App::uses('WebrsaRendezvous', 'Model');
+	App::uses('WebrsaLogicAccessInterface', 'Model/Interface');
+	App::uses('WebrsaRendezvous', 'Model');
 
-    /**
+	/**
 	 * La classe WebrsaRendezvous possède la logique métier web-rsa
 	 *
 	 * @package app.Model
@@ -24,17 +24,17 @@
 		 *
 		 * @var string
 		 */
-        public $name = 'WebrsaPlanpauvreterendezvous';
+		public $name = 'WebrsaPlanpauvreterendezvous';
 
-        /**
+		/**
 		 * Permet d'obtenir le nécéssaire pour calculer les droits d'accès métier à une action
 		 *
 		 * @param array $conditions
 		 * @return array
 		 */
 		public function getDataForAccess(array $conditions, array $params = array()) {
-            $conditions['Rendezvous.id'] = $conditions['Planpauvreterendezvous.id'];
-            unset($conditions['Planpauvreterendezvous.id']);
-            parent::getDataForAccess($conditions, $params);
-        }
-    }
+			$conditions['Rendezvous.id'] = $conditions['Planpauvreterendezvous.id'];
+			unset($conditions['Planpauvreterendezvous.id']);
+			parent::getDataForAccess($conditions, $params);
+		}
+	}
