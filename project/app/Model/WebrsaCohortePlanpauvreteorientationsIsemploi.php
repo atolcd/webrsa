@@ -26,6 +26,13 @@
 		public function searchQuery( array $types = array() ) {
 			$query = parent::searchQuery($types);
 
+			//Sans orientation
+			$query = $this->sansOrientation($query);
+			//Sans RDV
+			$query = $this->sansRendezvous($query);
+			//Sans CER
+			$query = $this->sansCER($query);
+
 			//Dans le mois précédent :
 			$query = $this->nouveauxEntrants($query);
 

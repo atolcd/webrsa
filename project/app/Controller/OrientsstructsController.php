@@ -645,7 +645,10 @@
 			}
 			else {
 				$this->Flash->error( 'Impossible de générer l\'impression de l\'orientation.' );
-				$this->redirect(array('action' => 'index', $personne_id));
+				//Selon l'origin redirect
+				$controller = $this->params->controller;
+				$action = $this->action;
+				$this->redirect(array( 'controller'=> $controller, 'action' => $action, $personne_id));
 			}
 		}
 

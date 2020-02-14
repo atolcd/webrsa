@@ -19,6 +19,9 @@ msgstr "Nouveaux entrants"
 msgid "Planpauvrete.Nouveaux.InscritPE"
 msgstr "Inscrits PE"
 
+msgid "Planpauvrete.Nouveaux.InscritPEImprime"
+msgstr "Impression inscrits PE"
+
 msgid "Planpauvrete.Nouveaux.Info_Col"
 msgstr "Information collective"
 
@@ -39,6 +42,9 @@ msgstr "Stock"
 
 msgid "Planpauvrete.Stock.InscritPE"
 msgstr "Inscrits PE"
+
+msgid "Planpauvrete.Stock.InscritPEImprime"
+msgstr "Impression inscrits PE"
 
 msgid "Planpauvrete.Stock.Info_Col"
 msgstr "Information collective"
