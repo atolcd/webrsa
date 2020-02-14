@@ -69,8 +69,12 @@
 		 * @return array $query
 		 */
 		public function nouveauxEntrants($query) {
-			$dateDebRecherche = date('Y-m-',strtotime("-2 month")).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' );
-			$dateFinRecherche = date('Y-m-',strtotime("-1 month")).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.fin' );
+			$moisDeb = date('j') >= Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' ) ? "-1 month" : "-2 month";
+			$moisFin = $moisDeb === "-2 month" ? "-1 month" : "now";
+
+			$dateDebRecherche = date('Y-m-',strtotime($moisDeb)).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' );
+			$dateFinRecherche = date('Y-m-',strtotime($moisFin)).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.fin' );
+
 			$query['conditions'][] = 'Historiquedroit.created BETWEEN \''.$dateDebRecherche.'\' AND \''.$dateFinRecherche.'\'';
 			return $query;
 		}
