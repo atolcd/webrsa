@@ -46,8 +46,6 @@
 					'cohorte_infocol_second_rdv_stock' => array('filter' => 'Search'),
 					'cohorte_infocol_imprime_second_rdv_nouveaux' => array('filter' => 'Search'),
 					'cohorte_infocol_imprime_second_rdv_stock' => array('filter' => 'Search'),
-					'cohorte_infocol_imprime_second_rdv_nouveaux' => array('filter' => 'Search'),
-					'cohorte_infocol_imprime_second_rdv_stock' => array('filter' => 'Search'),
 				),
 			),
 			'WebrsaAccesses',
@@ -103,6 +101,10 @@
 		public $aucunDroit = array(
 			'exportcsv_infocol',
 			'exportcsv_infocol_stock',
+			'exportcsv_infocol_venu_nonvenu_nouveau',
+			'exportcsv_infocol_venu_nonvenu_stock',
+			'exportcsv_infocol_second_rdv_nouveaux',
+			'exportcsv_infocol_second_rdv_stock',
 		);
 
 		/**
@@ -124,7 +126,11 @@
 			'cohorte_infocol_second_rdv_nouveaux' => 'update',
 			'cohorte_infocol_second_rdv_stock' => 'update',
 			'exportcsv_infocol' => 'read',
-			'exportcsv_infocol_stock' => 'read'
+			'exportcsv_infocol_stock' => 'read',
+			'exportcsv_infocol_venu_nonvenu_nouveau' => 'read',
+			'exportcsv_infocol_venu_nonvenu_stock' => 'read',
+			'exportcsv_infocol_second_rdv_nouveaux' => 'read',
+			'exportcsv_infocol_second_rdv_stock' => 'read'
 		);
 
 		public function _setOptions() {
@@ -245,6 +251,21 @@
 		}
 
 		/**
+		 * Export CSV de la
+		 * Cohorte Information Collective Second Rendez-vous - Nouveaux entrants
+		 */
+		public function exportcsv_infocol_second_rdv_nouveaux() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohortes->exportcsv(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolSecondRdvNouveaux',
+					'nom_cohorte' => 'cohorte_infocol_second_rdv_nouveaux'
+				)
+			);
+		}
+
+		/**
 		 * Cohorte Information Collective Second Rendez-vous - Stock
 		 *
 		 * Créé un second rendez vous d'information collective
@@ -254,6 +275,21 @@
 			$Cohorte->cohorte (
 				array
 				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolSecondRdvStock',
+					'nom_cohorte' => 'cohorte_infocol_second_rdv_stock'
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la
+		 * Cohorte Information Collective Second Rendez-vous - Stock
+		 */
+		public function exportcsv_infocol_second_rdv_stock() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohortes->exportcsv(
+				array(
 					'modelName' => 'Personne',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolSecondRdvStock',
 					'nom_cohorte' => 'cohorte_infocol_second_rdv_stock'
@@ -312,6 +348,21 @@
 		}
 
 		/**
+		 * Export CSV de la
+		 * Cohorte Information Collective - nouveaux entrants - Venu / Non venu
+		 */
+		public function exportcsv_infocol_venu_nonvenu_nouveaux() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohortes->exportcsv(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolVenuNonvenuNouveaux',
+					'nom_cohorte' => 'cohorte_infocol_venu_nonvenu_nouveau'
+				)
+			);
+		}
+
+		/**
 		 * Cohorte Information Collective - Stock - Venu / Non venu
 		 * Modifie le statut du rendez vous en venu / non venu
 		 * pour les personnes ayant eu un rdv info coll stock
@@ -319,6 +370,21 @@
 		public function cohorte_infocol_venu_nonvenu_stock() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
 			$Cohorte->cohorte(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolVenuNonvenuStock',
+					'nom_cohorte' => 'cohorte_infocol_venu_nonvenu_stock'
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la
+		 * Cohorte Information Collective - Stock - Venu / Non venu
+		 */
+		public function exportcsv_infocol_venu_nonvenu_stock() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohortes->exportcsv(
 				array(
 					'modelName' => 'Personne',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolVenuNonvenuStock',

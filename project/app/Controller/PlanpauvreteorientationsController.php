@@ -128,7 +128,7 @@
 		}
 
 		/**
-		 * Cohorte d'orientation des personne inscrites à Pole emploi le mois dernier
+		 * Cohorte d'impression des personne inscrites et orientés à Pole emploi le mois dernier
 		 */
 		public function cohorte_isemploi_imprime() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
@@ -145,7 +145,7 @@
 
 		/**
 		 * Export CSV de la
-		 * Cohorte d'orientation des personne inscrites à Pole emploi le mois dernier
+		 * Fonction d'impression de la cohorte d'impression des personne inscrites et orientés à Pole emploi le mois dernier
 		 */
 		public function exportcsv_isemploi() {
 			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
@@ -153,6 +153,20 @@
 				array(
 					'modelName' => 'Personne',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploi'
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la
+		 * Cohorte d'impression des personne inscrites et orientés à Pole emploi le mois dernier
+		 */
+		public function exportcsv_isemploi_imprimee() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
+			$Cohortes->exportcsv(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploiImprime'
 				)
 			);
 		}
@@ -166,7 +180,7 @@
 		}
 
 		/**
-		 * Cohorte d'orientation des personne inscrites à Pole emploi le mois dernier
+		 * Cohorte d'impression des personne inscrites et orientés à Pole emploi (avant le mois dernier)
 		 */
 		public function cohorte_isemploi_stock_imprime() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
@@ -174,7 +188,7 @@
 		}
 
 		/**
-		 * Cohorte d'orientation des personne inscrites à Pole emploi le mois dernier
+		 * Fonction d'impression de la cohorte d'impresson des personne inscrites à Pole emploi (avant le mois dernier)
 		 */
 		public function cohorte_isemploi_stock_imprime_impressions() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientationsImpressions' );
@@ -191,6 +205,20 @@
 				array(
 					'modelName' => 'Personne',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistock'
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la
+		 * Cohorte d'impression des personne inscrites et orientés à Pole emploi (avant le mois dernier)
+		 */
+		public function exportcsv_isemploi_stock_imprime() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
+			$Cohortes->exportcsv(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistockImprime'
 				)
 			);
 		}
