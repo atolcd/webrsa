@@ -40,11 +40,10 @@
 
 	$this->end();
 
-    $this->start( 'custom_after_results' );
+	$this->start( 'custom_after_results' );
 	echo $this->Form->button( 'Tout cocher', array( 'type' => 'button', 'onclick' => "return toutCocherAction( 'input.input[type=checkbox]' );" ) ) . ' ';
 	echo $this->Form->button( 'Tout décocher', array( 'type' => 'button', 'onclick' => "return toutDecocherAction( 'input.input[type=checkbox]' );" ) );
-	echo '<br><br />';
-	echo $this->Form->button( 'Imprimer le tableau', array( 'type' => 'button', 'onclick' => 'printit(); return false;', 'class' => 'noprint'  ) );
+
 	$this->end();
 
 	echo '<fieldset id="CohorteRendezvousPreremplissage" style="display: '.(isset( $results ) ? 'block' : 'none').';"><legend>' . __m( 'Planpauvreterendezvous.preremplissage_fieldset' ) . '</legend>'
@@ -103,14 +102,14 @@
 			{element: 'Cohorte<?php echo $i;?>RendezvousSelection', value: '1', operator: '!='}
 		);
 <?php
-    }
+	}
 ?>
 
 	function toutCocherAction( selecteur, simulate ) {
 		toutCocher( selecteur, simulate );
-        <?php
-            foreach ($results as $i => $value) {
-        ?>
+		<?php
+			foreach ($results as $i => $value) {
+		?>
 		disableElementsOnValues(
 			[
 /* 				'Cohorte<?php //echo $i;?>RendezvousDaterdvDay',
@@ -119,17 +118,17 @@
 			],
 			{element: 'Cohorte<?php echo $i;?>RendezvousSelection', value: '1', operator: '!='}
 		);
-        <?php
-        }
-        ?>
+		<?php
+		}
+		?>
 		return false;
 	}
 
 	function toutDecocherAction( selecteur, simulate ) {
 		toutDecocher( selecteur, simulate );
-        <?php
-            foreach ($results as $i => $value) {
-        ?>
+		<?php
+			foreach ($results as $i => $value) {
+		?>
 		disableElementsOnValues(
 			[
 /* 				'Cohorte<?php //echo $i;?>RendezvousDaterdvDay',
@@ -138,9 +137,9 @@
 			],
 			{element: 'Cohorte<?php echo $i;?>RendezvousSelection', value: '1', operator: '!='}
 		);
-        <?php
-            }
-        ?>
+		<?php
+			}
+		?>
 		return false;
 	}
 

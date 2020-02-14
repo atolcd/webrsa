@@ -86,7 +86,7 @@
 	 */
 
 	echo $this->element(
-		'ConfigurableQuery/cohorte',
+		'ConfigurableQuery/search',
 		array(
 			'customSearch' => $this->fetch( 'custom_search_filters' ),
 			'exportcsv' => false,
