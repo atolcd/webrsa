@@ -58,11 +58,11 @@
 					array( 'onclick' => 'printit(); return false;', 'class' => 'noprint' )
 				)
 			.'</li><li>'
-			/*. $this->Xhtml->exportLink(
+			. $this->Xhtml->exportLink(
 				'Télécharger le tableau',
 				array( 'controller' => $controller, 'action' => $exportcsvActionName ) + Hash::flatten( $searchData + array( 'prevAction' => $this->action ), '__' ),
-				( $this->Permissions->check( $controller, $exportcsvActionName ) && $count > 0 )
-			)*/
+				( $this->Permissions->check( $controller, $exportcsvActionName ) && $countResults > 0 )
+			)
 			.'</li><li>'.$this->Xhtml->printCohorteLink(
 				'Imprimer la cohorte',
 				Hash::merge(
