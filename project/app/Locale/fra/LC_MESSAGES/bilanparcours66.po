@@ -392,6 +392,9 @@ msgstr "isolé avec enfant(s)"
 msgid "Bilanparcours66.observbenefrealisationbilan"
 msgstr "Lors de la réalisation du bilan :"
 
+msgid "Bilanparcours66.mention"
+msgstr "Commentaire pour la synthèse :"
+
 msgid "Bilanparcours66.observbenefcompterendu"
 msgstr "Compte rendu de l'audition (le cas échéant)"
 

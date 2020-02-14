@@ -1207,23 +1207,34 @@ Debugger::log($bilansparcours66_ids);
 			}
 
 			$querydata['conditions']['Bilanparcours66.id'] = $id;
-
-			$data = $this->Bilanparcours66->find( 'first', $querydata );
-
-			return $data;
+			return $querydata;
 		}
 
 		/**
+		 * Récupère les données des options pour le PDF du bilan de parcours.
 		 *
-		 * @param integer $id
-		 * @return string
+		 * @return array
 		 */
-		public function getDefaultPdf( $id ) {
-			$data = $this->getDataForPdf( $id );
-			$modeleodt = $this->modeleOdt( $data );
+		public function getOptionsForPdf( ) {
+			$Option = ClassRegistry::init( 'Option' );
+			$options =  Set::merge(
+				$this->Bilanparcours66->enums(),
+				$this->Bilanparcours66->Personne->enums(),
+				$this->Bilanparcours66->Personne->Prestation->enums(),
+				$this->Bilanparcours66->Defautinsertionep66->enums(),
+				$this->Bilanparcours66->Defautinsertionep66->Dossierep->Passagecommissionep->Decisiondefautinsertionep66->enums(),
+				$this->Bilanparcours66->Saisinebilanparcoursep66->enums(),
+				$this->Bilanparcours66->Saisinebilanparcoursep66->Dossierep->Passagecommissionep->Decisionsaisinebilanparcoursep66->enums()
+			);
+			return $options;
+		}
 
-            $proposition = Set::classicExtract( $data, 'Bilanparcours66.proposition' );
-
+		/**
+		 * Transfomer les données pour le PDF du bilan de parcours.
+		 *
+		 * @return array
+		 */
+		protected function _transformPDFData($data, $proposition ) {
 			if( !empty( $data['Bilanparcours66']['examenaudition'] ) ){
 				$data['Bilanparcours66']['examenaudition_value'] = $data['Bilanparcours66']['examenaudition'];
 			}
@@ -1234,7 +1245,6 @@ Debugger::log($bilansparcours66_ids);
 			if( !empty( $data['Bilanparcours66']['examenauditionpe'] ) ){
 				$data['Bilanparcours66']['examenauditionpe_value'] = $data['Bilanparcours66']['examenauditionpe'];
 			}
-
             // FIXME: MAJ du champ changement de référent pour l'impression du bilan
             if( $proposition == 'aucun' ) {
                 $data['Bilanparcours66']['changementref'] = $data['Bilanparcours66']['changementrefsansep'];
@@ -1245,22 +1255,45 @@ Debugger::log($bilansparcours66_ids);
             else if( !empty( $data['Bilanparcours66']['changementrefsansep'] ) && empty( $data['Bilanparcours66']['changementref'] ) ) {
                 $data['Bilanparcours66']['changementref'] = $data['Bilanparcours66']['changementrefsansep'];
             }
+			return $data;
+		}
 
-			$Option = ClassRegistry::init( 'Option' );
-			$options =  Set::merge(
-				array(
-					'Personne' => array(
-						'qual' => $Option->qual()
-					)
-				),
-				$this->Bilanparcours66->enums(),
-				$this->Bilanparcours66->Defautinsertionep66->enums(),
-				$this->Bilanparcours66->Defautinsertionep66->Dossierep->Passagecommissionep->Decisiondefautinsertionep66->enums(),
-				$this->Bilanparcours66->Saisinebilanparcoursep66->enums(),
-				$this->Bilanparcours66->Saisinebilanparcoursep66->Dossierep->Passagecommissionep->Decisionsaisinebilanparcoursep66->enums()
-
+		/**
+		 * Transfomer les données pour le PDF du bilan de parcours.
+		 *
+		 * @return array
+		 */
+		protected function _getManifestationsData($data ) {
+			$query = array (
+				'conditions' => array (
+					'Manifestationbilanparcours66.bilanparcours66_id' => $data['Bilanparcours66']['id'],
+				)
 			);
+			$tmpDATA = $this->Bilanparcours66->Manifestationbilanparcours66-> find ( 'all', $query);
 
+			$tmpDATA['Manifestationbilanparcours66'] = $tmpDATA;
+			return $tmpDATA;
+		}
+
+		/**
+		 * Récupere le PDF par défault pour l'impression du bilan de parcours
+		 *
+		 * @param integer $id
+		 * @return string
+		 */
+		public function getDefaultPdf( $id ) {
+			//Get data
+			$querydata = $this->getDataForPdf( $id );
+			$data = $this->Bilanparcours66->find( 'first', $querydata );
+			//Get Model
+			$modeleodt = $this->modeleOdt( $data );
+			//Get Options
+			$options = $this->getOptionsForPdf();
+			//Get Status Propositions
+			$proposition = Hash::get( $data, 'Bilanparcours66.proposition' );
+			//Transform Data
+			$data = $this->_transformPDFData($data, $proposition );
+			//Choix Model par default
 			$typeformulaire = Set::classicExtract( $data, 'Bilanparcours66.typeformulaire' );
 			if( $typeformulaire == 'pe' ) {
 				if( $proposition == 'parcourspe' ) {
@@ -1270,8 +1303,71 @@ Debugger::log($bilansparcours66_ids);
 					$modeleodt = 'Bilanparcours/bilanparcourspe_audition.odt';
 				}
 			}
-
 			return $this->Bilanparcours66->ged( $data, $modeleodt, false, $options );
+		}
+
+		/**
+		 * Récupere le PDF d'un modèle odt donné pour l'impression du bilan de parcours
+		 *
+		 * @param integer $id
+		 * @return string
+		 */
+		public function getPdfModelODT( $id, $modeleOdt ) {
+			//Get data
+			$querydata = $this->getDataForPdf( $id );
+			$querydata['fields'] =
+			array_merge(
+				$querydata['fields'],
+				$this->Bilanparcours66->Personne->Foyer->Dossier->Detaildroitrsa->fields(),
+				$this->Bilanparcours66->Personne->Prestation->fields()
+			);
+			$querydata['joins'][] =
+				$this->Bilanparcours66->Personne->join( 'Prestation', array( 'type' => 'INNER' ) );
+			$querydata['joins'][] =
+				$this->Bilanparcours66->Personne->Foyer->Dossier->join( 'Detaildroitrsa', array( 'type' => 'LEFT OUTER' ) );
+
+			$data = $this->Bilanparcours66->find( 'first', $querydata );
+
+			//Get Options
+			$options = $this->getOptionsForPdf();
+			//Get Status Propositions
+			$proposition = Hash::get( $data, 'Bilanparcours66.proposition' );
+			//Transform Data
+			$data = $this->_transformPDFData($data, $proposition );
+			//Get Manifestations
+			$Manifestations = $this->_getManifestationsData($data);
+
+			$query = array (
+				'recursive' => 0,
+				'conditions' => array (
+					'ActioncandidatPersonne.personne_id' => $data['Personne']['id'],
+					'ActioncandidatPersonne.positionfiche NOT LIKE \'annule\' '
+				)
+			);
+			$tmpDATA = $this->Bilanparcours66->Personne->ActioncandidatPersonne->find ( 'all', $query);
+			$ActioncandidatPersonne = $tmpDATA;
+
+			$query = array (
+				'recursive' => -1,
+				'conditions' => array (
+					'Entretien.personne_id' => $data['Personne']['id'],
+				)
+			);
+			$Entretien = $this->Bilanparcours66->Personne->Entretien->find ( 'all', $query);
+
+			$tmp = array_merge (
+				$Manifestations,
+				array (
+					'ActioncandidatPersonne' => $ActioncandidatPersonne,
+					'Entretien' => $Entretien
+				)
+			);
+			$data = array_merge (
+				array( $data ),
+				$tmp
+			);
+
+			return $this->Bilanparcours66->ged( $data, $modeleOdt, true, $options );
 		}
 
 		/**

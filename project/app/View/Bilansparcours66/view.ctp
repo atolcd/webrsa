@@ -24,18 +24,18 @@
 			<tr>
 				<td class="mediumSize noborder">
 					<strong>Statut de la personne : </strong><?php echo Set::enum( Set::extract( $bilanparcours66, 'Prestation.rolepers' ), $options['Prestation']['rolepers'] ); ?>
-					<br />
+					<br>
 					<strong>Nom : </strong><?php echo Set::enum( Set::classicExtract( $bilanparcours66, 'Personne.qual') , $options['Personne']['qual'] ).' '.Set::classicExtract( $bilanparcours66, 'Personne.nom' );?>
-					<br />
+					<br>
 					<strong>Prénom : </strong><?php echo Set::classicExtract( $bilanparcours66, 'Personne.prenom' );?>
-					<br />
+					<br>
 					<strong>Date de naissance : </strong><?php echo date_short( Set::classicExtract( $bilanparcours66, 'Personne.dtnai' ) );?>
 				</td>
 				<td class="mediumSize noborder">
 					<strong>N° demandeur : </strong><?php echo Set::classicExtract( $bilanparcours66, 'Dossier.numdemrsa' );?>
-					<br />
+					<br>
 					<strong>N° CAF/MSA : </strong><?php echo Set::classicExtract( $bilanparcours66, 'Dossier.matricule' );?>
-					<br />
+					<br>
 					<strong>Inscrit au Pôle emploi</strong>
 					<?php
 						$isPoleemploi = Set::classicExtract( $bilanparcours66, 'Historiqueetatpe.etat' );
@@ -44,13 +44,13 @@
 						else
 							echo 'Non';
 					?>
-					<br />
+					<br>
 					<strong>N° identifiant : </strong><?php echo Set::classicExtract( $bilanparcours66, 'Historiqueetatpe.identifiantpe' );?>
 				</td>
 			</tr>
 			<tr>
 				<td class="mediumSize noborder">
-					<strong>Adresse : </strong><br /><?php echo Set::classicExtract( $bilanparcours66, 'Adresse.numvoie' ).' '.Set::classicExtract( $bilanparcours66, 'Adresse.libtypevoie' ).' '.Set::classicExtract( $bilanparcours66, 'Adresse.nomvoie' ).'<br /> '.Set::classicExtract( $bilanparcours66, 'Adresse.codepos' ).' '.Set::classicExtract( $bilanparcours66, 'Adresse.nomcom' );?>
+					<strong>Adresse : </strong><br><?php echo Set::classicExtract( $bilanparcours66, 'Adresse.numvoie' ).' '.Set::classicExtract( $bilanparcours66, 'Adresse.libtypevoie' ).' '.Set::classicExtract( $bilanparcours66, 'Adresse.nomvoie' ).'<br> '.Set::classicExtract( $bilanparcours66, 'Adresse.codepos' ).' '.Set::classicExtract( $bilanparcours66, 'Adresse.nomcom' );?>
 				</td>
 			</tr>
 		</table>
@@ -71,12 +71,12 @@
 			<?php
 			echo '<div class="input value textarea"><span class="label">'
 				.__d('bilanparcours66','Bilanparcours66.textbilanparcours')
-				.'</span><br /><span class="input">'
+				.'</span><br><span class="input">'
 				.nl2br(hash::get($bilanparcours66, 'Bilanparcours66.textbilanparcours'))
 				.'</span></div>';
 			echo '<div class="input value textarea"><span class="label">'
 				.__d('bilanparcours66','Bilanparcours66.observbenef')
-				.'</span><br /><span class="input">'
+				.'</span><br><span class="input">'
 				.nl2br(hash::get($bilanparcours66, 'Bilanparcours66.observbenef'))
 				.'</span></div>';
 			?>
@@ -86,7 +86,7 @@
 	if( $bilanparcours66['Bilanparcours66']['bilanparcoursinsertion'] != '0' && $bilanparcours66['Bilanparcours66']['bilanparcoursinsertion'] !== null ) :?>
 		<fieldset><legend>Bilan du parcours d'insertion</legend>
 			<?php
-				echo '<div class="input value textarea"><span class="label">' . __d('bilanparcours66','Bilanparcours66.situationperso') . '</span><br /><span class="input">' . nl2br(Set::classicExtract( $bilanparcours66, 'Bilanparcours66.situationperso' )) . '</span></div>';
+				echo '<div class="input value textarea"><span class="label">' . __d('bilanparcours66','Bilanparcours66.situationperso') . '</span><br><span class="input">' . nl2br(Set::classicExtract( $bilanparcours66, 'Bilanparcours66.situationperso' )) . '</span></div>';
 			?>
 		</fieldset>
 	<?php endif;?>
@@ -168,6 +168,7 @@
 	<fieldset>
 		<?php
 			echo $this->Xform->fieldValue( 'Bilanparcours66.infoscomplementaires', Set::classicExtract( $bilanparcours66, 'Bilanparcours66.infoscomplementaires' ) );
+			echo $this->Xform->fieldValue( 'Bilanparcours66.mention', Set::classicExtract( $bilanparcours66, 'Bilanparcours66.mention' ) );
 			echo $this->Xform->fieldValue( 'Bilanparcours66.observbenefrealisationbilan', Set::classicExtract( $bilanparcours66, 'Bilanparcours66.observbenefrealisationbilan' ) );
 
 			echo $this->Xform->fieldValue( 'Bilanparcours66.datebilan', date_short( Set::classicExtract( $bilanparcours66, 'Bilanparcours66.datebilan' ) ) );
@@ -554,6 +555,4 @@
 			'id' => 'Back'
 		)
 	);
-//    debug($bilanparcours66);
-//    debug($options);
-?>
+

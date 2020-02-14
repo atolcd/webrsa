@@ -189,6 +189,12 @@ msgstr "Manifestations (#Bilanparcours66.nb_manifestations#)"
 msgid "/Manifestationsbilansparcours66/index/#Bilanparcours66.id#"
 msgstr "Manifestations"
 
+msgid "/Bilansparcours66/impression_fichedeliaison"
+msgstr "Fiche de synthèse"
+
+msgid "/Bilansparcours66/impression_fichedeliaison/#Bilanparcours66.id#"
+msgstr "Fiche de synthèse"
+
 msgid "/Bilansparcours66/cancel"
 msgstr "Annuler"
 
@@ -215,3 +221,6 @@ msgstr "Aucun bilan de parcours présent pour cette personne."
 
 msgid "AucuneOrientationAvantSaisineEPL"
 msgstr "Attention, ce bénéficiaire doit être orienté avant toute saisie d'un bilan de parcours avec saisine EPL Audition"
+
+msgid "Bilansparcours66::GenerationPDFImpossible"
+msgstr "Impossible de générer le PDF."

@@ -678,6 +678,7 @@
 			);
 			echo $this->Default2->subform(
 				array(
+					'Bilanparcours66.mention',
 					'Bilanparcours66.observbenefrealisationbilan',
 					'Bilanparcours66.observbenefcompterendu',
 					'Bilanparcours66.datebilan' => array( 'dateFormat' => 'DMY', 'maxYear' => date('Y') +1, 'minYear' => 2009, 'empty' => true, 'required' => true ),

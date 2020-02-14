@@ -995,18 +995,54 @@
 		}
 
 		/**
+		 * Impression de la Fiche de laison (ou fiche de synthèse) du bilan parcours
+		 *
+		 * @param integer $id La clé primaire du Bilan
+		 */
+		public function impression_fichedeliaison( $id ) {
+			$this->_impression($id, Configure::read('Bilanparcours66.ficheLiaisonodt'));
+		}
+
+		/**
+		 * Impression par default
 		 *
 		 * @param integer $id
 		 */
 		public function impression( $id ) {
+			$this->_impression($id);
+		}
+
+		/**
+		 * Fonction d'impression
+		 *
+		 * @param integer $id
+		 * @param string $modeleOdt
+		 *
+		 */
+		protected function _impression( $id, $modeleOdt = null ) {
 			$this->WebrsaAccesses->check($id);
 			$this->assert( !empty( $id ), 'error404' );
 
 			$this->DossiersMenus->checkDossierMenu( array( 'personne_id' => $this->Bilanparcours66->personneId( $id ) ) );
+			if ( empty ($modeleOdt) ){
+				$pdf = $this->Bilanparcours66->WebrsaBilanparcours66->getDefaultPdf( $id );
+			}else{
+				$pdf = $this->Bilanparcours66->WebrsaBilanparcours66->getPdfModelODT( $id, 'Bilanparcours/'.$modeleOdt.'.odt');
 
-			$pdf = $this->Bilanparcours66->WebrsaBilanparcours66->getDefaultPdf( $id );
-
-			$this->Gedooo->sendPdfContentToClient( $pdf, "Bilanparcours-{$id}.pdf" );
+			}
+			if( !empty( $pdf ) ) {
+				//Selection du nom de fichier
+				if ( empty ($modeleOdt) ){
+					$tmp = "Bilanparcours-{$id}.pdf";
+				}else{
+					$tmp = "Bilanparcours-{$id}-{$modeleOdt}.pdf";
+				}
+				$this->Gedooo->sendPdfContentToClient( $pdf, $tmp );
+			}
+			else {
+				$this->Flash->error( __d('Bilansparcours66', 'Bilansparcours66::GenerationPDFImpossible') );
+				$this->redirect( $this->referer() );
+			}
 		}
 
 		/**

@@ -341,6 +341,9 @@ msgstr "Export CSV"
 msgid "controllers/Bilansparcours66/search"
 msgstr "Moteur de recherche"
 
+msgid "controllers/Bilansparcours66/impression_fichedeliaison"
+msgstr "Impression fiche de liaison"
+
 ###############################################################################
 
 msgid "controllers/Budgetsapres"

@@ -26,6 +26,7 @@
 				66 => array(
 					'Bilanparcours/bilanparcours.odt',
 					'Bilanparcours/courrierinformationavantep.odt',
+					'Bilanparcours/bilanparcours_ficheliaison.odt',
 				)
 			),
 			'Validation2.Validation2Formattable',

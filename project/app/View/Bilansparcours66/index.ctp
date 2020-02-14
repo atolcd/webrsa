@@ -101,6 +101,10 @@
 					'/Bilansparcours66/edit/#Bilanparcours66.id#',
 					'/Bilansparcours66/impression/#Bilanparcours66.id#',
 					'/Manifestationsbilansparcours66/index/#Bilanparcours66.id#',
+					'/Bilansparcours66/impression_fichedeliaison/#Bilanparcours66.id#' => array (
+						'hidden' => !Configure::read('Bilanparcours66.Fichesynthese.Impression'),
+						'class' => 'impression'
+					),
 					'/Bilansparcours66/cancel/#Bilanparcours66.id#',
 					'/Bilansparcours66/filelink/#Bilanparcours66.id#',
 				)
