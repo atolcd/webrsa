@@ -147,7 +147,7 @@ msgid "Search.Sitecov58.id"
 msgstr "Site COV"
 
 msgid "Search.CantonSitecov58.id"
-msgstr "Site d'actions médico-sociales"
+msgstr "Site d'Action Médico-Sociale"
 
 # ------------------------------------------------------------------------------
 

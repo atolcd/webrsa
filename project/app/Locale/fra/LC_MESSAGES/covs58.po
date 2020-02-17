@@ -25,7 +25,7 @@ msgstr "Date de commission"
 
 # Résultats de la recherche
 msgid "Sitecov58.name"
-msgstr "Intitulé du site d'action médico-sociale COV"
+msgstr "Site d'Action Médico-Sociale"
 
 msgid "Cov58.datecommission"
 msgstr "Date de la commission"
