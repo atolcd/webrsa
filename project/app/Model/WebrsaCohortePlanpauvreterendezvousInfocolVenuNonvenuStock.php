@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Code source de la classe WebrsaCohortePlanpauvreterendezvous.
+	 * Code source de la classe WebrsaCohortePlanpauvreterendezvousInfocolVenuNonvenuStock.
 	 *
 	 * PHP 7.2
 	 *
@@ -111,6 +111,8 @@
 		 */
 		public function searchConditions( array $query, array $search ) {
 			$query = parent::searchConditions($query, $search);
+			$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, 'Historiquedroit.created' );
+
 			return $query;
 		}
 	}

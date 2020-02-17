@@ -48,3 +48,6 @@ msgstr "Composition familiale"
 
 msgid "Search.Zonegeographique.id"
 msgstr "Zones géographiques"
+
+msgid "Search.Historiquedroit"
+msgstr "Recherche par date de création de l'allocataire"

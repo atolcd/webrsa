@@ -1,2 +1,2 @@
 <?php
-require 'cohorte_infocol_imprime.ctp';
+require 'cohorte_infocol_imprime_stock.ctp';
