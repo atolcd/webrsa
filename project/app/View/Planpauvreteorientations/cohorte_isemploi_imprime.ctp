@@ -38,6 +38,15 @@
 	/**
 	 * FILTRES CUSTOM
 	 */
+	echo "<fieldset><legend>" . __m( 'Search.Orientstruct' ) . "</legend>";
+	echo $this->SearchForm->dateRange( 'Search.Orientstruct.date_valid', array(
+		'domain' => 'planpauvreteorientations',
+		'minYear_from' => 2009,
+		'minYear_to' => 2009,
+		'maxYear_from' => date( 'Y' ) + 1,
+		'maxYear_to' => date( 'Y' ) + 1,
+	) );
+	echo '</fieldset>';
 	$this->end();
 
 

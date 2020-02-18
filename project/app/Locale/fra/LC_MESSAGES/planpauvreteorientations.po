@@ -51,3 +51,12 @@ msgstr "Zones géographiques"
 
 msgid "Search.Historiquedroit"
 msgstr "Recherche par date de création de l'allocataire"
+
+msgid "Search.Orientstruct"
+msgstr "Recherche par date de validation de l'orientation"
+
+msgid "search.Orientstruct.date_valid"
+msgstr "date de validation de l'orientation"
+
+msgid "Search.Orientstruct.date_valid"
+msgstr "Date"
