@@ -38,6 +38,16 @@
 	/**
 	 * FILTRES CUSTOM
 	 */
+	echo "<fieldset><legend>" . __m( 'Search.Orientstruct' ) . "</legend>";
+	echo $this->SearchForm->dateRange( 'Search.Orientstruct.date_valid', array(
+		'domain' => 'planpauvreteorientations',
+		'minYear_from' => 2009,
+		'minYear_to' => 2009,
+		'maxYear_from' => date( 'Y' ) + 1,
+		'maxYear_to' => date( 'Y' ) + 1,
+	) );
+	echo '</fieldset>';
+
 	echo "<fieldset><legend>" . __m( 'Search.Historiquedroit' ) . "</legend>";
 	echo $this->SearchForm->dateRange( 'Search.Historiquedroit.created', array(
 		'domain' => 'planpauvreterendezvous',
@@ -46,7 +56,6 @@
 		'maxYear_from' => date( 'Y' ) + 1,
 		'maxYear_to' => date( 'Y' ) + 1,
 	) );
-
 	echo '</fieldset>';
 	$this->end();
 
@@ -87,8 +96,8 @@
 				, 'popup_impression_cohorte'
 			).'</li><li>
 				<a href="javascript:location.reload();" class="refresh_page" >Recharger la page</a>
-            </li>'
-            . (Configure::read('Module.Savesearch.enabled') && WebrsaPermissions::check('savesearchs', 'save') 
+			</li>'
+			. (Configure::read('Module.Savesearch.enabled') && WebrsaPermissions::check('savesearchs', 'save') 
 			? '<li><a href="#" onclick="$(\'savesearch_popup\').show(); return false;">'
 				.$this->Xhtml->image('icons/disk.png').' Sauvegarder recherche</a></li>'
 			: '')

@@ -53,4 +53,19 @@
 
 			return $query;
 		}
+
+		/**
+		 * Complète les conditions du querydata avec le contenu des filtres de
+		 * recherche.
+		 *
+		 * @param array $query
+		 * @param array $search
+		 * @return array
+		 */
+		public function searchConditions( array $query, array $search ) {
+			$query = parent::searchConditions($query, $search);
+			$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, 'Orientstruct.date_valid' );
+
+			return $query;
+		}
 	}
