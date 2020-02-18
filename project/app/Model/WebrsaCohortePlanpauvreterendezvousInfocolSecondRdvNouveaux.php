@@ -31,9 +31,18 @@
 			$query['fields'] = array_merge(
 				$query['fields'],
 				array(
+					'Permanence.libpermanence',
 					'Rendezvous.id',
 					'Rendezvous.daterdv',
 					'Rendezvous.heurerdv'
+				)
+			);
+
+			// Jointure supplémentaire
+			$query['joins'] = array_merge(
+				$query['joins'],
+				array(
+					$this->Personne->Rendezvous->Structurereferente->join('Permanence'),
 				)
 			);
 
