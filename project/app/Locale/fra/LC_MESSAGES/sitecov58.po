@@ -37,7 +37,7 @@ msgid "Sitescovs58::edit"
 msgstr "Modification d'un site"
 
 msgid "Sitecov58.name"
-msgstr "Intitulé du site d'action médico-sociale COV"
+msgstr "Site d'Action Médico-Sociale"
 
 msgid "Sitecov58.actif"
 msgstr "Actif"
