@@ -4785,33 +4785,29 @@ msgid "controllers/Foyerspiecesjointes/edit"
 msgstr "Modifier la catégorie d'une pièce jointe"
 
 ###############################################################################
-## Cohortes Nouveaux entrants
+## Cohortes Plan pauvreté orientation
 ###############################################################################
 
 msgid "controllers/Planpauvreteorientations"
-msgstr "Cohortes Plan pauvréte"
+msgstr "Cohortes Plan pauvreté orientation"
 
 msgid "controllers/Planpauvreteorientations/cohorte_isemploi"
 msgstr "Nouveaux entrants inscrits à Pôle Emploi"
 
-msgid "controllers/Planpauvreteorientations/cohorte_isemploi_impressions"
-msgstr "Nouveaux entrants inscrits à Pôle Emploi impression"
+msgid "controllers/Planpauvreteorientations/cohorte_isemploi_imprime"
+msgstr "Impression des nouveaux entrants inscrits à Pôle Emploi"
 
-msgid "controllers/Planpauvreterendezvous/cohorte_infocol"
-msgstr "Nouveaux entrants information collective"
+msgid "controllers/Planpauvreteorientations/cohorte_isemploi_imprime_impressions"
+msgstr "Impression en cohorte des nouveaux entrants inscrits à Pôle Emploi"
 
-msgid "controllers/Planpauvreterendezvous/cohorte_imprimerinfocol"
-msgstr "Nouveaux entrants impression convocations information collective"
+msgid "controllers/Planpauvreteorientations/cohorte_isemploi_stock_imprime"
+msgstr "Impression stock inscrits à Pôle Emploi"
 
-msgid "controllers/Planpauvreterendezvous/cohorte_venuinfocol"
-msgstr "Nouveaux entrants convoqués à l’information collective"
+msgid "controllers/Planpauvreteorientations/cohorte_isemploi_stock_imprime_impressions"
+msgstr "Impression en cohorte stock inscrits à Pôle Emploi"
 
-msgid "controllers/Planpauvreterendezvous/cohorte_convoc3en1"
-msgstr "Nouveaux entrants non venus à l’information collective à convoquer au 3 en 1"
-
-msgid "controllers/Planpauvreterendezvous/cohorte_imprimer3en1"
-msgstr "Nouveaux entrants impression convocations 3 en 1"
-
+msgid "controllers/Planpauvreteorientations/exportcsv_isemploi_imprimee"
+msgstr "Export CSV des nouveaux entrants inscrits à Pôle Emploi orientés"
 
 msgid "controllers/Planpauvreteorientations/cohorte_isemploi_stock"
 msgstr "Stock inscrits à Pôle Emploi"
@@ -4819,18 +4815,71 @@ msgstr "Stock inscrits à Pôle Emploi"
 msgid "controllers/Planpauvreteorientations/cohorte_isemploi_stock_impressions"
 msgstr "Stock inscrits à Pôle Emploi impression"
 
+msgid "controllers/Planpauvreteorientations/cohorte_isemploi_impressions"
+msgstr "Nouveaux entrants inscrits à Pôle Emploi impression"
+
+###############################################################################
+## Cohortes Plan pauvreté rendez vous
+###############################################################################
+msgid "controllers/Planpauvreterendezvous"
+msgstr "Cohortes Plan pauvreté rendez vous"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol"
+msgstr "Nouveaux entrants information collective"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_imprime"
+msgstr "Impression des convocations des nouveaux entrants en information collective"
+
 msgid "controllers/Planpauvreterendezvous/cohorte_infocol_stock"
 msgstr "Stock information collective"
 
-msgid "controllers/Planpauvreterendezvous/cohorte_imprimerinfocol_stock"
-msgstr "Stock impression convocations information collective"
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_imprime_impressions"
+msgstr "Impression en cohorte des convocations des nouveaux entrants en information collective"
 
-msgid "controllers/Planpauvreterendezvous/cohorte_venuinfocol_stock"
-msgstr "Stock convoqué à l’information collective"
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_imprime_second_rdv_nouveaux"
+msgstr "Impression des convocations des nouveaux entrants en convocation 3en1"
 
-msgid "controllers/Planpauvreterendezvous/cohorte_convoc3en1_stock"
-msgstr "Stock non venu à l’information collective à convoquer au 3 en 1"
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_imprime_second_rdv_nouveaux_impressions"
+msgstr "Impression en cohorte des convocations des nouveaux entrants en convocation 3en1"
 
-msgid "controllers/Planpauvreterendezvous/cohorte_imprimer3en1_stock"
-msgstr "Stock impression convocations 3 en 1"
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_imprime_second_rdv_stock"
+msgstr "Impression stock en convocation 3en1"
 
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_imprime_second_rdv_stock_impressions"
+msgstr "Impression en cohorte stock en convocation 3en1"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_imprime_stock"
+msgstr "Impression des convocations stock en information collective"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_imprime_stock_impressions"
+msgstr "Impression en cohorte des convocations stock en information collective"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_second_rdv_nouveaux"
+msgstr "Nouveaux entrant non venus en information collective"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_second_rdv_stock"
+msgstr "Stock non venus en information collective"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_venu_nonvenu_nouveaux"
+msgstr "Nouveaux entrant venu / non venu en information collective"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_venu_nonvenu_stock"
+msgstr "Stock venu / non venu en information collective"
+
+msgid "controllers/Planpauvreterendezvous/exportcsv_infocol_venu_nonvenu_nouveaux"
+msgstr "Export CSV des nouveaux entrant venu / non venu en information collective"
+
+###############################################################################
+## Statistiques Plan pauvreté rendez vous
+###############################################################################
+msgid "controllers/Statistiquesplanpauvrete"
+msgstr "Statistique du plan pauvreté"
+
+msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a1v2"
+msgstr "Tableau A1 v2"
+
+msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a2av2"
+msgstr "Tableau A2 v2"
+
+msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a2bv2"
+msgstr "Tableau A2b v2"
