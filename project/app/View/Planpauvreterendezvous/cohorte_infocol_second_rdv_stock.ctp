@@ -1,2 +1,2 @@
 <?php
-require 'cohorte_infocol_second_rdv_nouveaux.ctp';
+require 'cohorte_infocol_stock.ctp';

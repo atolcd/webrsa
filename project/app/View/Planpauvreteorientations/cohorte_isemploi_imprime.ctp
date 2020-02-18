@@ -77,8 +77,12 @@
 				, 'popup_impression_cohorte'
 			).'</li><li>
 				<a href="javascript:location.reload();" class="refresh_page" >Recharger la page</a>
-			</li>
-		</ul>'
+			</li>'
+			. (Configure::read('Module.Savesearch.enabled') && WebrsaPermissions::check('savesearchs', 'save') 
+			? '<li><a href="#" onclick="$(\'savesearch_popup\').show(); return false;">'
+				.$this->Xhtml->image('icons/disk.png').' Sauvegarder recherche</a></li>'
+			: '')
+		. '</ul>'
 	;
 
 	/*

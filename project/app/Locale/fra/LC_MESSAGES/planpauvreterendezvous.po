@@ -16,6 +16,16 @@ msgstr "Identité"
 msgid "Adresse.complete"
 msgstr "Adresse"
 
+msgid "Search.Historiquedroit"
+msgstr "Recherche par date de création de l'allocataire"
+
+msgid "search.Historiquedroit.created"
+msgstr "date de création de l'allocataire"
+
+msgid "Search.Historiquedroit.created"
+msgstr "Date de création"
+
+
 ###############################################################################
 ########################    Information collectives    ########################
 ###############################################################################

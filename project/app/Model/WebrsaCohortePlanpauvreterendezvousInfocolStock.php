@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Code source de la classe.
+	 * Code source de la classe WebrsaCohortePlanpauvreterendezvousInfocolStock.
 	 *
 	 * PHP 7.2
 	 *
@@ -57,6 +57,21 @@
 			$success = parent::saveCohorte($data, $params, $user_id);
 
 			return $success;
+		}
+
+		/**
+		 * Complète les conditions du querydata avec le contenu des filtres de
+		 * recherche.
+		 *
+		 * @param array $query
+		 * @param array $search
+		 * @return array
+		 */
+		public function searchConditions( array $query, array $search ) {
+			$query = parent::searchConditions($query, $search);
+			$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, 'Historiquedroit.created' );
+
+			return $query;
 		}
 
 	}
