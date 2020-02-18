@@ -906,51 +906,16 @@
 			$jourFinMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.fin');
 			$conditionsSearch = $this->_getConditionsTableau($search);
 			$joinSearch = $this->_getJoinsTableau($search, false, true);
+
+			$fields = $this->_queryFields();
+			$joins = $this->_queryJoins();
+
 			// Query First
 			$query = array(
-				'fields' => array(
-					'DISTINCT ON ("Foyer"."id") "Foyer"."id" AS "idFoyer"',
-					'Personne.id',
-					'Orientstruct.id',
-					'Orientstruct.date_valid',
-					'Orientstruct.statut_orient',
-					'Typeorient.id',
-					'Typeorient.modele_notif',
-					'Typeorient.parentid',
-					'Structurereferente.type_struct_stats',
-					'Structurereferente.code_stats',
-				),
+				'fields' => $fields,
 				'recursive' => -1,
 				'joins' => array_merge(
-					array(
-						$Foyer->join( 'Personne', array( 'type' => 'INNER' ) ),
-						array(
-							'table' => 'orientsstructs',
-							'alias' => 'Orientstruct',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Orientstruct.personne_id = Personne.id',
-							),
-							'ORDER BY' => 'Orientstruct.date_valid DESC',
-							'LIMIT' => 1
-						),
-						array(
-							'table' => 'typesorients',
-							'alias' => 'Typeorient',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Typeorient.id = Orientstruct.typeorient_id'
-							)
-						),
-						array(
-							'table' => 'structuresreferentes',
-							'alias' => 'Structurereferente',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Structurereferente.id = Orientstruct.structurereferente_id'
-							)
-						),
-					),
+					$joins,
 					$joinSearch
 				),
 				'conditions' => $conditionsSearch
@@ -960,106 +925,14 @@
 				//Fields
 				$query['fields'] = array_merge(
 					$query['fields'],
-					array(
-						'Historiquedroit12.etatdosrsa',
-						'Historiquedroit12.toppersdrodevorsa',
-						/*'Adressefoyer12.rgadr',
-						'Adressefoyer12.dtemm',
-						'Adresse12.codepos'*/
-					)
+					$this->_queryHistoriqueDroitFields()
 				);
-				//Fields By Months
-				for($month=0; $month<12; $month++) {
-					$query['fields'] = array_merge(
-						$query['fields'],
-						array(
-							'Historiquedroit'.$month.'.etatdosrsa',
-							'Historiquedroit'.$month.'.toppersdrodevorsa',
-							/*'Adressefoyer'.$month.'.rgadr',
-							'Adressefoyer'.$month.'.dtemm',
-							'Adresse'.$month.'.codepos'*/
-						)
-					);
-				}
 
-				$tmpDateRecherchePrevious = $annee.'-01-'.$jourFinMois;
 				//Joins by month
 				$query['joins'] = array_merge(
 					$query['joins'],
-					array(
-						array(
-							'table' => 'historiquesdroits',
-							'alias' => 'Historiquedroit12',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Personne.id = Historiquedroit12.personne_id',
-								'(\''.$tmpDateRecherchePrevious.'\' BETWEEN date_trunc(\'day\', Historiquedroit12.created )
-								AND  date_trunc(\'day\', Historiquedroit12.modified ))'
-							),
-							'ORDER BY' => 'Historiquedroit12.created DESC',
-							'LIMIT' => 1
-						),
-						/*array(
-							'table' => 'adressesfoyers',
-							'alias' => 'Adressefoyer12',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Foyer.id = Adressefoyer12.foyer_id',
-								'Adressefoyer12.rgadr' => '01',
-								'(\''.$tmpDateRecherchePrevious.'\' > date_trunc(\'day\', Adressefoyer12.dtemm ))'
-							),
-							'ORDER BY' => 'Adressefoyer12.dtemm DESC',
-							'LIMIT' => 1
-						),
-						array(
-							'table' => 'adresses',
-							'alias' => 'Adresse12',
-							'type' => 'LEFT',
-							'conditions' => array('Adresse12.id = Adressefoyer12.adresse_id'),
-						)*/
-					)
+					$this->_queryHistoriqueDroitJoins($annee, $jourFinMois)
 				);
-				for($month=0; $month<12; $month++) {
-					$tmpDateRecherche = $this->_getDateString( $annee, $month, $jourFinMois, 2 );
-					$query['joins'] = array_merge(
-						$query['joins'],
-						array(
-							array(
-								'table' => 'historiquesdroits',
-								'alias' => 'Historiquedroit'.$month,
-								'type' => 'LEFT',
-								'conditions' => array(
-									'Personne.id = Historiquedroit'.$month.'.personne_id',
-									'(date_trunc(\'day\',to_date(\''.$tmpDateRecherche.'\',\'YYYY-MM-DD\'))
-									BETWEEN date_trunc(\'day\', Historiquedroit'.$month.'.created )
-									AND  date_trunc(\'day\', Historiquedroit'.$month.'.modified ) )'
-								),
-								'ORDER BY' => 'Historiquedroit'.$month.'.created DESC',
-								'LIMIT' => 1
-							),
-							/*array(
-								'table' => 'adressesfoyers',
-								'alias' => 'Adressefoyer'.$month,
-								'type' => 'LEFT',
-								'conditions' => array(
-									'Foyer.id = Adressefoyer'.$month.'.foyer_id',
-									'Adressefoyer'.$month.'.rgadr' => '01',
-									'(\''.$tmpDateRecherche.'\' >= date_trunc(\'day\', Adressefoyer'.$month.'.dtemm ))',
-									'(\''.$tmpDateRecherchePrevious.'\' < date_trunc(\'day\', Adressefoyer'.$month.'.dtemm ))'
-								),
-								'ORDER BY' => 'Adressefoyer'.$month.'.dtemm DESC',
-								'LIMIT' => 1
-							),
-							array(
-								'table' => 'adresses',
-								'alias' => 'Adresse'.$month,
-								'type' => 'LEFT',
-								'conditions' => array('Adresse'.$month.'.id = Adressefoyer'.$month.'.adresse_id'),
-							)*/
-						)
-					);
-					$tmpDateRecherchePrevious = $tmpDateRecherche;
-				}
 			}
 			$query['conditions'] = array_merge(
 				array(
@@ -1067,8 +940,6 @@
 						'Orientstruct.date_valid >= ' => $annee .'-01-01',
 						'Orientstruct.date_valid IS NULL'
 					)
-					/*'Orientstruct.date_valid >= ' => $annee .'-01-01',
-					'Orientstruct.date_valid <= ' => ($annee+1) .'-02-15',*/
 				),
 				$query['conditions']
 			);
@@ -1087,62 +958,33 @@
 			$jourFinMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.fin');
 			$conditionsSearch = $this->_getConditionsTableau($search);
 			$joinSearch = $this->_getJoinsTableau($search, false, true);
+
+			$fields = $this->_queryFields();
+			$fields[] = 'Rendezvous.daterdv';
+
+			$joins = $this->_queryJoins();
+
 			// Query First
 			$query = array(
-				'fields' => array(
-					'DISTINCT ON ("Foyer"."id") "Foyer"."id" AS "idFoyer"',
-					'Personne.id',
-					'Orientstruct.id',
-					'Orientstruct.date_valid',
-					'Orientstruct.statut_orient',
-					'Typeorient.id',
-					'Typeorient.parentid',
-					'Structurereferente.type_struct_stats',
-					'Structurereferente.code_stats',
-					'Rendezvous.daterdv'
-				),
+				'fields' => $fields,
 				'recursive' => -1,
 				'joins' => array_merge(
-					array(
-						$Foyer->join( 'Dossier', array( 'type' => 'INNER' ) ),
-						$Foyer->join( 'Personne', array( 'type' => 'INNER' ) ),
+					array_merge(
+						$joins,
 						array(
-							'table' => 'orientsstructs',
-							'alias' => 'Orientstruct',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Orientstruct.personne_id = Personne.id',
-							),
-							'ORDER BY' => 'Orientstruct.date_valid DESC',
-							'LIMIT' => 1
-						),
-						array(
-							'table' => 'typesorients',
-							'alias' => 'Typeorient',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Typeorient.id = Orientstruct.typeorient_id'
+							$Foyer->join( 'Dossier', array( 'type' => 'INNER' ) ),
+							array(
+								'table' => 'rendezvous',
+								'alias' => 'Rendezvous',
+								'type' => 'LEFT',
+								'conditions' => array(
+									'Rendezvous.personne_id = Personne.id',
+									'Rendezvous.typerdv_id' => Configure::read( 'Statistiqueplanpauvrete.type_rendezvous' ),
+								),
+								'ORDER BY' => 'Rendezvous.daterdv DESC',
+								'LIMIT' => 1
 							)
-						),
-						array(
-							'table' => 'structuresreferentes',
-							'alias' => 'Structurereferente',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Structurereferente.id = Orientstruct.structurereferente_id'
-							)
-						),
-						array(
-							'table' => 'rendezvous',
-							'alias' => 'Rendezvous',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Rendezvous.personne_id = Personne.id',
-								'Rendezvous.typerdv_id' => Configure::read( 'Statistiqueplanpauvrete.type_rendezvous' ),
-							),
-							'ORDER BY' => 'Rendezvous.daterdv DESC',
-							'LIMIT' => 1
-						),
+						)
 					),
 					$joinSearch
 				),
@@ -1153,63 +995,12 @@
 				//Fields
 				$query['fields'] = array_merge(
 					$query['fields'],
-					array(
-						'Historiquedroit12.etatdosrsa',
-						'Historiquedroit12.toppersdrodevorsa',
-					)
+					$this->_queryHistoriqueDroitFields()
 				);
-				//Fields By Months
-				for($month=0; $month<12; $month++) {
-					$query['fields'] = array_merge(
-						$query['fields'],
-						array(
-							'Historiquedroit'.$month.'.etatdosrsa',
-							'Historiquedroit'.$month.'.toppersdrodevorsa',
-						)
-					);
-				}
-
-				$tmpDateRecherchePrevious = $annee.'-01-'.$jourFinMois;
-				//Joins by month
 				$query['joins'] = array_merge(
 					$query['joins'],
-					array(
-						array(
-							'table' => 'historiquesdroits',
-							'alias' => 'Historiquedroit12',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Personne.id = Historiquedroit12.personne_id',
-								'(\''.$tmpDateRecherchePrevious.'\' BETWEEN date_trunc(\'day\', Historiquedroit12.created )
-								AND  date_trunc(\'day\', Historiquedroit12.modified ))'
-							),
-							'ORDER BY' => 'Historiquedroit12.created DESC',
-							'LIMIT' => 1
-						),
-					)
+					$this->_queryHistoriqueDroitJoins($annee, $jourFinMois)
 				);
-				for($month=0; $month<12; $month++) {
-					$tmpDateRecherche = $this->_getDateString( $annee, $month, $jourFinMois, 2 );
-					$query['joins'] = array_merge(
-						$query['joins'],
-						array(
-							array(
-								'table' => 'historiquesdroits',
-								'alias' => 'Historiquedroit'.$month,
-								'type' => 'LEFT',
-								'conditions' => array(
-									'Personne.id = Historiquedroit'.$month.'.personne_id',
-									'(date_trunc(\'day\',to_date(\''.$tmpDateRecherche.'\',\'YYYY-MM-DD\'))
-									BETWEEN date_trunc(\'day\', Historiquedroit'.$month.'.created )
-									AND  date_trunc(\'day\', Historiquedroit'.$month.'.modified ) )'
-								),
-								'ORDER BY' => 'Historiquedroit'.$month.'.created DESC',
-								'LIMIT' => 1
-							),
-						)
-					);
-					$tmpDateRecherchePrevious = $tmpDateRecherche;
-				}
 			}
 			$query['conditions'] = array_merge(
 				array(
@@ -1233,62 +1024,33 @@
 			$jourFinMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.fin');
 			$conditionsSearch = $this->_getConditionsTableau($search);
 			$joinSearch = $this->_getJoinsTableau($search, false, true);
+
+			$fields = $this->_queryFields();
+			$fields[] = 'Contratinsertion.datevalidation_ci';
+
+			$joins = $this->_queryJoins();
+
 			// Query First
 			$query = array(
-				'fields' => array(
-					'DISTINCT ON ("Foyer"."id") "Foyer"."id" AS "idFoyer"',
-					'Personne.id',
-					'Orientstruct.id',
-					'Orientstruct.date_valid',
-					'Orientstruct.statut_orient',
-					'Typeorient.id',
-					'Typeorient.parentid',
-					'Structurereferente.type_struct_stats',
-					'Structurereferente.code_stats',
-					'Contratinsertion.datevalidation_ci'
-				),
+				'fields' => $fields,
 				'recursive' => -1,
 				'joins' => array_merge(
-					array(
-						$Foyer->join( 'Dossier', array( 'type' => 'INNER' ) ),
-						$Foyer->join( 'Personne', array( 'type' => 'INNER' ) ),
+					array_merge(
+						$joins,
 						array(
-							'table' => 'orientsstructs',
-							'alias' => 'Orientstruct',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Orientstruct.personne_id = Personne.id',
-							),
-							'ORDER BY' => 'Orientstruct.date_valid DESC',
-							'LIMIT' => 1
-						),
-						array(
-							'table' => 'typesorients',
-							'alias' => 'Typeorient',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Typeorient.id = Orientstruct.typeorient_id'
+							$Foyer->join( 'Dossier', array( 'type' => 'INNER' ) ),
+							array(
+								'table' => 'contratsinsertion',
+								'alias' => 'Contratinsertion',
+								'type' => 'LEFT',
+								'conditions' => array(
+									'Contratinsertion.personne_id = Personne.id',
+									'Contratinsertion.structurereferente_id = Structurereferente.id'
+								),
+								'ORDER BY' => 'Contratinsertion.datevalidation_ci DESC',
+								'LIMIT' => 1
 							)
-						),
-						array(
-							'table' => 'structuresreferentes',
-							'alias' => 'Structurereferente',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Structurereferente.id = Orientstruct.structurereferente_id'
-							)
-						),
-						array(
-							'table' => 'contratsinsertion',
-							'alias' => 'Contratinsertion',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Contratinsertion.personne_id = Personne.id',
-								'Contratinsertion.structurereferente_id = Structurereferente.id'
-							),
-							'ORDER BY' => 'Contratinsertion.datevalidation_ci DESC',
-							'LIMIT' => 1
-						),
+						)
 					),
 					$joinSearch
 				),
@@ -1299,63 +1061,13 @@
 				//Fields
 				$query['fields'] = array_merge(
 					$query['fields'],
-					array(
-						'Historiquedroit12.etatdosrsa',
-						'Historiquedroit12.toppersdrodevorsa',
-					)
+					$this->_queryHistoriqueDroitFields()
 				);
-				//Fields By Months
-				for($month=0; $month<12; $month++) {
-					$query['fields'] = array_merge(
-						$query['fields'],
-						array(
-							'Historiquedroit'.$month.'.etatdosrsa',
-							'Historiquedroit'.$month.'.toppersdrodevorsa',
-						)
-					);
-				}
-
-				$tmpDateRecherchePrevious = $annee.'-01-'.$jourFinMois;
 				//Joins by month
 				$query['joins'] = array_merge(
 					$query['joins'],
-					array(
-						array(
-							'table' => 'historiquesdroits',
-							'alias' => 'Historiquedroit12',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Personne.id = Historiquedroit12.personne_id',
-								'(\''.$tmpDateRecherchePrevious.'\' BETWEEN date_trunc(\'day\', Historiquedroit12.created )
-								AND  date_trunc(\'day\', Historiquedroit12.modified ))'
-							),
-							'ORDER BY' => 'Historiquedroit12.created DESC',
-							'LIMIT' => 1
-						),
-					)
+					$this->_queryHistoriqueDroitJoins($annee, $jourFinMois)
 				);
-				for($month=0; $month<12; $month++) {
-					$tmpDateRecherche = $this->_getDateString( $annee, $month, $jourFinMois, 2 );
-					$query['joins'] = array_merge(
-						$query['joins'],
-						array(
-							array(
-								'table' => 'historiquesdroits',
-								'alias' => 'Historiquedroit'.$month,
-								'type' => 'LEFT',
-								'conditions' => array(
-									'Personne.id = Historiquedroit'.$month.'.personne_id',
-									'(date_trunc(\'day\',to_date(\''.$tmpDateRecherche.'\',\'YYYY-MM-DD\'))
-									BETWEEN date_trunc(\'day\', Historiquedroit'.$month.'.created )
-									AND  date_trunc(\'day\', Historiquedroit'.$month.'.modified ) )'
-								),
-								'ORDER BY' => 'Historiquedroit'.$month.'.created DESC',
-								'LIMIT' => 1
-							),
-						)
-					);
-					$tmpDateRecherchePrevious = $tmpDateRecherche;
-				}
 			}
 			$query['conditions'] = array_merge(
 				array(
@@ -1367,6 +1079,9 @@
 
 			return $query;
 		}
+
+		########################################################################################################################
+		########################################################################################################################
 
 		/**
 		 *
@@ -1383,6 +1098,116 @@
 			}else{$tmpMonth = ($month+$step);}
 			$tmpDateRecherche = $tmpAnnee.'-'.$tmpMonth.'-'.$jour;
 			return $tmpDateRecherche;
+		}
+
+		private function _queryFields () {
+
+			$fields = array (
+				'DISTINCT ON ("Personne"."id") "Personne"."id" AS "idPersonne"',
+				'Personne.id',
+				'Orientstruct.id',
+				'Orientstruct.date_valid',
+				'Orientstruct.statut_orient',
+				'Typeorient.id',
+				'Typeorient.parentid',
+				'Structurereferente.type_struct_stats',
+				'Structurereferente.code_stats',
+			);
+			return $fields;
+		}
+
+		private function _queryJoins () {
+			$Foyer = ClassRegistry::init( 'Foyer' );
+
+			$joins = array(
+				$Foyer->join( 'Personne', array( 'type' => 'INNER' ) ),
+				array(
+					'table' => 'orientsstructs',
+					'alias' => 'Orientstruct',
+					'type' => 'LEFT',
+					'conditions' => array(
+						'Orientstruct.personne_id = Personne.id',
+					),
+					'ORDER BY' => 'Orientstruct.date_valid DESC',
+					'LIMIT' => 1
+				),
+				array(
+					'table' => 'typesorients',
+					'alias' => 'Typeorient',
+					'type' => 'LEFT',
+					'conditions' => array(
+						'Typeorient.id = Orientstruct.typeorient_id'
+					)
+				),
+				array(
+					'table' => 'structuresreferentes',
+					'alias' => 'Structurereferente',
+					'type' => 'LEFT',
+					'conditions' => array(
+						'Structurereferente.id = Orientstruct.structurereferente_id'
+					)
+				),
+			);
+			return $joins;
+		}
+
+		private function _queryHistoriqueDroitFields () {
+
+			$fields = array (
+				'Historiquedroit12.etatdosrsa',
+				'Historiquedroit12.toppersdrodevorsa',
+			);
+			//Fields By Months
+			for($month=0; $month<12; $month++) {
+				$fields = array_merge(
+					$fields,
+					array(
+						'Historiquedroit'.$month.'.etatdosrsa',
+						'Historiquedroit'.$month.'.toppersdrodevorsa',
+					)
+				);
+			}
+			return $fields;
+		}
+
+		private function _queryHistoriqueDroitJoins ($annee, $jourFinMois) {
+			$tmpDateRecherchePrevious = $annee.'-01-'.$jourFinMois;
+			$joins = array(
+				array(
+					'table' => 'historiquesdroits',
+					'alias' => 'Historiquedroit12',
+					'type' => 'LEFT',
+					'conditions' => array(
+						'Personne.id = Historiquedroit12.personne_id',
+						'(\''.$tmpDateRecherchePrevious.'\' BETWEEN date_trunc(\'day\', Historiquedroit12.created )
+						AND  date_trunc(\'day\', Historiquedroit12.modified ))'
+					),
+					'ORDER BY' => 'Historiquedroit12.created DESC',
+					'LIMIT' => 1
+				)
+			);
+			for($month=0; $month<12; $month++) {
+				$tmpDateRecherche = $this->_getDateString( $annee, $month, $jourFinMois, 2 );
+				$joins = array_merge(
+					$joins,
+					array(
+						array(
+							'table' => 'historiquesdroits',
+							'alias' => 'Historiquedroit'.$month,
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Personne.id = Historiquedroit'.$month.'.personne_id',
+								'(date_trunc(\'day\',to_date(\''.$tmpDateRecherche.'\',\'YYYY-MM-DD\'))
+								BETWEEN date_trunc(\'day\', Historiquedroit'.$month.'.created )
+								AND  date_trunc(\'day\', Historiquedroit'.$month.'.modified ) )'
+							),
+							'ORDER BY' => 'Historiquedroit'.$month.'.created DESC',
+							'LIMIT' => 1
+						),
+					)
+				);
+			}
+			return $joins;
 		}
 
 		########################################################################################################################
