@@ -13,6 +13,9 @@ msgstr ""
 msgid "Personne.nom_complet_prenoms"
 msgstr "Identité"
 
+msgid "Personne.nom_complet_court"
+msgstr "Identité"
+
 msgid "Adresse.complete"
 msgstr "Adresse"
 

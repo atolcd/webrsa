@@ -159,6 +159,10 @@
 					array(
 						'Foyer.id',
 						'Dossier.id',
+						'Structurereferente.lib_struc',
+						'Referent.nom_complet',
+						'Typerdv.libelle',
+						'Statutrdv.libelle',
 					)
 				);
 				// 2. Jointure
@@ -173,7 +177,11 @@
 						)),
 						$this->Personne->join('Orientstruct'),
 						$this->Personne->join('Rendezvous'),
-						$this->Personne->join('Contratinsertion')
+						$this->Personne->join('Contratinsertion'),
+						$this->Personne->Rendezvous->join('Structurereferente'),
+						$this->Personne->Rendezvous->join('Referent'),
+						$this->Personne->Rendezvous->join('Typerdv'),
+						$this->Personne->Rendezvous->join('Statutrdv')
 					)
 				);
 				// 4. Conditions
