@@ -32,6 +32,7 @@
 			'Cohortes',
 			'Default',
 			'DossiersMenus',
+			'InsertionsBeneficiaires',
 			'Gedooo.Gedooo',
 			'Jetons2',
 			'Search.SearchPrg' => array(
