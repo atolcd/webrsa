@@ -236,5 +236,27 @@
 			return $success;
 		}
 
+		/**
+		 * Requête de base pour les rendez-vous
+		 */
+		public function requeteParRendezvous ($query, $codeRendezvous) {
+			// Champs supplémentaire
+			$query['fields'] = array_merge(
+				$query['fields'],
+				array(
+					'Rendezvous.id',
+					'Rendezvous.daterdv',
+					'Rendezvous.heurerdv'
+				)
+			);
+
+			// Conditions
+			// Gestion du type de RDV
+			$query['conditions'][] = "Rendezvous.typerdv_id = " . $this->getTypeRdvId ($codeRendezvous);
+			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $this->getStatutId($codeRendezvous);
+
+			return $query;
+		}
+
 	}
 ?>

@@ -24,28 +24,10 @@
 		 * @return array
 		 */
 		public function searchQuery( array $types = array() ) {
-			$query = parent::searchQuery($types);
-			// Champs supplémentaire
-			$query['fields'] = array_merge(
-				$query['fields'],
-				array(
-					'Rendezvous.id',
-					'Rendezvous.daterdv',
-					'Rendezvous.heurerdv'
-				)
-			);
+			$query = parent::searchQuery ($types);
 
-			// Conditions
-			// Gestion du type de RDV
-			$query['conditions'][] = "Rendezvous.typerdv_id = " . $this->getTypeRdvId ('cohorte_infocol_imprime');
-			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $this->getStatutId('cohorte_infocol_imprime');
-
-			// Sans Orientation
-			$query = $this->sansOrientation($query);
-			// Sans CER
-			$query = $this->sansCER($query);
-			//Dans le mois précédent :
-			$query = $this->nouveauxEntrants($query);
+			// Conditions pour les rendez-vous
+			$query = $this->requeteParRendezvous ($query, 'cohorte_infocol_venu_nonvenu_nouveaux');
 
 			return $query;
 		}
