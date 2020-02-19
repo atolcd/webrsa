@@ -71,18 +71,12 @@
 		 */
 		public function searchQuery( array $types = array() ) {
 			$query = parent::searchQuery($types);
-			$query['fields'] = array_merge(
-				$query['fields'],
-				array(
-					'Rendezvous.id',
-					'Rendezvous.daterdv',
-					'Rendezvous.heurerdv'
-				)
-			);
-			// Conditions
-			// Gestion du type de RDV
-			$query['conditions'][] = "Rendezvous.typerdv_id = " . $this->getTypeRdvId('cohorte_infocol_venu_nonvenu_stock');
-			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $this->getStatutId('cohorte_infocol_venu_nonvenu_stock');
+
+			// Conditions pour les rendez-vous
+			$query = $this->requeteParRendezvous ($query, 'cohorte_infocol_venu_nonvenu_stock');
+
+			// Que les rendez-vous pas encore passés
+			$query['conditions'][] = "Rendezvous.daterdv <= '" . date ('Y-m-d')."'";
 
 			return $query;
 		}
