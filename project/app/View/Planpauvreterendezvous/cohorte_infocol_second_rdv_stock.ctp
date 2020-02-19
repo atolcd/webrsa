@@ -68,6 +68,7 @@
 		array(
 			'Cohorte.Rendezvous.selection' => array( 'type' => 'checkbox' ),
 			'Cohorte.Rendezvous.structurereferente_id' => array( 'type' => 'select', 'options' => $options['Rendezvous']['structurereferente_id'], 'empty' => true ),
+			'Cohorte.Rendezvous.referent_id' => array( 'type' => 'select', 'options' => $options['Rendezvous']['referent_id'], 'empty' => true ),
 			'Cohorte.Rendezvous.permanence_id' => array( 'type' => 'select', 'options' => $options['Rendezvous']['permanence_id'], 'empty' => true ),
 			'Cohorte.Rendezvous.typerdv_id' => array( 'type' => 'text', 'value' => $options['Rendezvous']['typerdv_id']['Typerdv']['libelle'], 'readonly' => 'readonly'),
 			'Cohorte.Rendezvous.statutrdv_id' => array( 'type' => 'text', 'value' => $options['Rendezvous']['statutrdv_id']['Statutrdv']['libelle'], 'readonly' => 'readonly' ),
@@ -103,8 +104,10 @@
 <script type="text/javascript">
 		document.observe("dom:loaded", function() {
 			dependantSelect( 'CohorteRendezvousPermanenceId', 'CohorteRendezvousStructurereferenteId' );
+			dependantSelect( 'CohorteRendezvousReferentId', 'CohorteRendezvousStructurereferenteId' );
 			document.querySelectorAll('table.planpauvreterendezvous > tbody > tr').forEach( function(el, ind) {
 				dependantSelect( 'Cohorte'+ind+'RendezvousPermanenceId', 'Cohorte'+ind+'RendezvousStructurereferenteId' );
+				dependantSelect( 'Cohorte'+ind+'RendezvousReferentId', 'Cohorte'+ind+'RendezvousStructurereferenteId' );
 			});
 		});
 <?php

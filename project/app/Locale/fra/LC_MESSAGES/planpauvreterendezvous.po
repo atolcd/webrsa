@@ -161,3 +161,9 @@ msgstr "Convocation du SECOND RENDEZ VOUS des nouveaux entrants"
 
 msgid "/Planpauvreterendezvous/cohorte_infocol_second_rdv_stock/:heading"
 msgstr "Convocation du SECOND RENDEZ VOUS des stocks"
+
+msgid "Cohorte.Rendezvous.referent_id"
+msgstr "Nom de l'agent / du référent"
+
+msgid "data[Cohorte][][Rendezvous][referent_id]"
+msgstr "Nom du référent"

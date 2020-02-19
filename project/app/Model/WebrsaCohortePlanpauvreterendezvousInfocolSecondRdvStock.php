@@ -24,6 +24,7 @@
 		 * @return array
 		 */
 		public function searchQuery( array $types = array() ) {
+			$this->addReferentCohorteFields();
 			$query = parent::searchQuery($types);
 			$query = $this->onlyDernierRDV($query);
 

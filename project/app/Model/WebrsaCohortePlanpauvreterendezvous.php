@@ -35,7 +35,7 @@
 
 		/**
 		 * Liste des champs de formulaire à inserer dans le tableau de résultats
-		 *
+		 * /!\ Si modification de ce tableau, modifier aussi la fonction addReferentCohorteFields
 		 * @var array
 		 */
 		public $cohorteFields = array(
@@ -101,6 +101,25 @@
 		}
 
 		/**
+		 * Ajoute referent_id dans $cohorteFields
+		 */
+		public function addReferentCohorteFields() {
+			$this->cohorteFields = array(
+				'Personne.id' => array( 'type' => 'hidden' ),
+				'Dossier.id' => array( 'type' => 'hidden'),
+				'Rendezvous.personne_id' => array( 'type' => 'hidden' ),
+				'Rendezvous.selection' => array( 'type' => 'checkbox' ),
+				'Rendezvous.structurereferente_id' => array( 'type' => 'select' ),
+				'Rendezvous.referent_id' => array( 'type' => 'select' ),
+				'Rendezvous.permanence_id' => array( 'type' => 'select' ),
+				'Rendezvous.daterdv' => array( 'type' => 'date' ),
+				'Rendezvous.heurerdv' => array('type' => 'time', 'timeFormat' => '24','minuteInterval'=> 5,  'empty' => true, 'hourRange' => array( 8, 19 )),
+				'Rendezvous.objetrdv' => array( 'type' => 'textarea' ),
+				'Rendezvous.commentairerdv' => array( 'type' => 'textarea' ),
+			);
+		}
+
+		/**
 		 * Retourne l'id du type de rdv selon le nom de la cohorte
 		 * @param string nomCohorte
 		 * @param bool isSave
@@ -146,6 +165,7 @@
 			);
 			$cacheKey = Inflector::underscore( $this->useDbConfig ).'_'.Inflector::underscore( $this->alias ).'_'.Inflector::underscore( __FUNCTION__ ).'_'.sha1( serialize( $types ) );
 			$query = Cache::read( $cacheKey );
+
 			if( $query === false ) {
 				App::uses('WebrsaModelUtility', 'Utility');
 
