@@ -20,13 +20,13 @@ msgid "Adresse.complete"
 msgstr "Adresse"
 
 msgid "Search.Historiquedroit"
-msgstr "Recherche par date de création de l'allocataire"
+msgstr "Recherche par date d'intégration du dossier"
 
 msgid "search.Historiquedroit.created"
-msgstr "date de création de l'allocataire"
+msgstr "date de mois de traitement"
 
 msgid "Search.Historiquedroit.created"
-msgstr "Date de création"
+msgstr "Date d'intégration'"
 
 
 ###############################################################################

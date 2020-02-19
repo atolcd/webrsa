@@ -50,7 +50,7 @@ msgid "Search.Zonegeographique.id"
 msgstr "Zones géographiques"
 
 msgid "Search.Historiquedroit"
-msgstr "Recherche par date de création de l'allocataire"
+msgstr "Recherche par date d'intégration du dossier"
 
 msgid "Search.Orientstruct"
 msgstr "Recherche par date de validation de l'orientation"

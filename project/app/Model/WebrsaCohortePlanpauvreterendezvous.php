@@ -192,7 +192,7 @@
 						$this->Personne->join('Historiquedroit', array(
 							'type' => 'INNER',
 							'conditions' => array(
-								'Personne.id IN(SELECT "Historiquedroit"."personne_id" from historiquesdroits as Historiquedroit WHERE "Historiquedroit"."personne_id" = "Personne"."id" ORDER BY "Historiquedroit"."created" DESC LIMIT 1)'
+								'Historiquedroit.personne_id = Personne.id AND Personne.id IN(SELECT "Historiquedroit"."personne_id" from historiquesdroits as Historiquedroit WHERE "Historiquedroit"."personne_id" = "Personne"."id" ORDER BY "Historiquedroit"."created" DESC LIMIT 1)'
 							)
 						)),
 						$this->Personne->join('Orientstruct'),
