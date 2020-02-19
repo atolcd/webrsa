@@ -27,6 +27,9 @@
 		 */
 		protected function _pdfs( array $query, array $params ) {
 			$Controller = $this->_Collection->getController();
+			if( !isset($query['fields']['Personne.id']) ) {
+				array_unshift($query['fields'], 'DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"');
+			}
 
 			$datas = $Controller->Personne->find( 'all', $query );
 			$pdfList = array();

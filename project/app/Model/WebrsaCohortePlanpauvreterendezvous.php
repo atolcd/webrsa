@@ -160,7 +160,7 @@
 						'Foyer.id',
 						'Dossier.id',
 						'Structurereferente.lib_struc',
-						'Referent.nom_complet',
+						$this->Personne->Rendezvous->Referent->sqVirtualField( 'nom_complet' ),
 						'Typerdv.libelle',
 						'Statutrdv.libelle',
 					)

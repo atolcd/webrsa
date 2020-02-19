@@ -27,6 +27,9 @@
 		 */
 		protected function _pdfs( array $query, array $params ) {
 			$Controller = $this->_Collection->getController();
+			if( !isset($query['fields']['Personne.id']) ) {
+				array_unshift($query['fields'], 'DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"');
+			}
 
 			$datas = $Controller->Personne->find( 'all', $query );
 			$pdfList = array();
@@ -37,8 +40,8 @@
 				$pdfs[] = $Controller->Orientstruct->WebrsaOrientstruct->getDefaultPdf( $value['Orientstruct']['id'], $Controller->Session->read( 'Auth.User.id' ) );
 				$pdfList[] = count($pdfs) > 1 ? $Controller->Gedooo->concatPdfs($pdfs, 'Orientstruct') : $pdfs[0];
 				$results[]['Pdf']['document'] = $pdfList;
-            }
+			}
 
 			return $results;
 		}
-    }
+	}
