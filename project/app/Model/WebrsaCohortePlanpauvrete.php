@@ -206,4 +206,41 @@
 
 			return $dates;
 		}
+
+		/**
+		 * Texte pour flux des nouveaux entrants
+		 *
+		 * @return string
+		 */
+		public function texteFluxNouveauxEntrants () {
+			return $this->generationTexte('Planpauvrete.phrase.mois.flux.nouveaux');
+		}
+
+		/**
+		 * Texte pour flux du stock
+		 *
+		 * @return string
+		 */
+		public function texteFluxStock () {
+			return $this->generationTexte('Planpauvrete.phrase.mois.flux.stock', 'P1M');
+		}
+
+		/**
+		 * Génération du texte
+		 *
+		 * @return string
+		 */
+		public function generationTexte ($locale, $interval = null ) {
+			$dateNouveauxEntrants = $this->dateNouveauxEntrants ();
+			$date = new DateTime ($dateNouveauxEntrants['fin']);
+
+			if (!is_null($interval)) {
+				$date->sub (new DateInterval ($interval));
+			}
+
+			$mois = __d ('cake', $date->format ('F'));
+			$texte = preg_replace ('#MOIS#', $mois, __d ('planpauvrete', $locale));
+
+			return $texte;
+		}
 	}

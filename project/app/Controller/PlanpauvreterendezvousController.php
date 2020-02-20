@@ -151,6 +151,11 @@
 		 * Créé un rendez vous d'information collective pour les nouveaux entrants
 		 */
 		public function cohorte_infocol() {
+			// Texte pour flux des nouveaux entrants.
+			$this->loadModel('WebrsaCohortePlanpauvrete');
+			$texteFlux = $this->WebrsaCohortePlanpauvrete->texteFluxNouveauxEntrants ();
+			$this->set ('texteFlux', $texteFlux);
+
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
 			$Cohorte->cohorte (
 				array
@@ -182,6 +187,11 @@
 		 * Créé un rendez vous d'information collective pour le stock
 		 */
 		public function cohorte_infocol_stock() {
+			// Texte pour flux du stock.
+			$this->loadModel('WebrsaCohortePlanpauvrete');
+			$texteFlux = $this->WebrsaCohortePlanpauvrete->texteFluxStock ();
+			$this->set ('texteFlux', $texteFlux);
+
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
 			$Cohorte->cohorte (
 				array
