@@ -164,6 +164,7 @@
 				'minYear_to' => date( 'Y' ) - 120,
 				'maxYear_from' => date( 'Y' ),
 				'maxYear_to' => date( 'Y' ) + 5,
+				'dateFormat' => 'DMY'
 			);
 			$params = $params + $default;
 
@@ -190,7 +191,7 @@
 					array(
 						'label' => 'Du (inclus)',
 						'type' => 'date',
-						'dateFormat' => 'DMY',
+						'dateFormat' => $params['dateFormat'],
 						'maxYear' => $params['maxYear_from'],
 						'minYear' => $params['minYear_from'],
 						'default' => strtotime( '-1 week' )
@@ -200,7 +201,7 @@
 					array(
 						'label' => 'Au (inclus)',
 						'type' => 'date',
-						'dateFormat' => 'DMY',
+						'dateFormat' => $params['dateFormat'],
 						'maxYear' => $params['maxYear_to'],
 						'minYear' => $params['minYear_to']
 					)

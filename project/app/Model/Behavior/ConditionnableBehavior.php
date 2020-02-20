@@ -625,6 +625,16 @@
 						$from = Hash::get( $search, "{$modelName}.{$fieldName}_from" );
 						$to = Hash::get( $search, "{$modelName}.{$fieldName}_to" );
 
+						// Ajout des jours pour une recherche par MM/YYYY
+						if (!isset ($from['day'])) {
+							// Le premier jour du mois
+							$from['day'] = '1';
+						}
+						if (!isset ($to['day'])) {
+							// Le dernier jour du mois
+							$to['day'] = date ('t', mktime (0, 0, 0, $to['month'], 1, $to['year']));
+						}
+
 						if( is_string( $from ) && !empty( $from ) ) {
 							$from = date_sql_to_cakephp( $from );
 						}

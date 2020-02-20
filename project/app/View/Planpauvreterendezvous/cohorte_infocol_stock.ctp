@@ -38,6 +38,7 @@
 		'minYear_to' => 2009,
 		'maxYear_from' => date( 'Y' ) + 1,
 		'maxYear_to' => date( 'Y' ) + 1,
+		'dateFormat' => 'MY'
 	) );
 
 	echo '</fieldset>';
