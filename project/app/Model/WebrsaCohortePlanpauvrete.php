@@ -188,6 +188,9 @@
 		 */
 		public function searchConditions( array $query, array $search ) {
 			$query = $this->Allocataire->searchConditions( $query, $search );
+
+			$query['conditions'] = $this->conditionsRendezvous ( $query['conditions'], $search);
+
 			return $query;
 		}
 

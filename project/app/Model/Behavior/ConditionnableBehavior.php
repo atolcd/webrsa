@@ -818,5 +818,37 @@
 
 			return $conditions;
 		}
+
+		/**
+		 * Filtres sur le Calculdroitrsa: toppersdrodevorsa
+		 *
+		 * @param Model $model
+		 * @param array $conditions
+		 * @param array $search
+		 * @return array
+		 */
+		public function conditionsRendezvous ( Model $model, $conditions, $search ) {
+			// Dates et heures
+			$conditions = $this->conditionsDates ( $model, $conditions, $search, 'Rendezvous.daterdv' );
+			$conditions = $this->conditionsHeures ( $model, $conditions, $search, 'Rendezvous.heurerdv' );
+
+			// Structure référente
+			if( isset( $search['Rendezvous']['structurereferente_id'] ) ) {
+				if( is_numeric( $search['Rendezvous']['structurereferente_id'] ) ) {
+					$conditions[] = array( 'Rendezvous.structurereferente_id' => $search['Rendezvous']['structurereferente_id'] );
+				}
+			}
+
+			// Permanence
+			if( isset( $search['Rendezvous']['permanence_id'] ) ) {
+				$permanence_id = explode ('_', $search['Rendezvous']['permanence_id']);
+				$permanence_id = end ($permanence_id);
+				if( is_numeric( $permanence_id ) ) {
+					$conditions[] = array( 'Rendezvous.permanence_id' => $permanence_id );
+				}
+			}
+
+			return $conditions;
+		}
 	}
 ?>

@@ -42,11 +42,9 @@
 		 */
 		public function searchConditions( array $query, array $search ) {
 			$query = parent::searchConditions($query, $search);
+
 			$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, 'Historiquedroit.created' );
-			$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, 'Rendezvous.daterdv' );
-			$query['conditions'] = $this->conditionsHeures( $query['conditions'], $search, 'Rendezvous.heurerdv' );
 
 			return $query;
 		}
 	}
-?>
