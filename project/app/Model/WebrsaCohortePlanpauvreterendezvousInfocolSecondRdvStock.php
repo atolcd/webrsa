@@ -51,6 +51,8 @@
 			// Gestion du type de RDV
 			$query['conditions'][] = "Rendezvous.typerdv_id = " . $this->getTypeRdvId ('cohorte_infocol_second_rdv_stock');
 			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $this->getStatutId('cohorte_infocol_second_rdv_stock');
+			// Et les personnes n'ont pas de second rendez-vous
+			$query['conditions'][] = 'Personne.id NOT IN (SELECT personne_id FROM rendezvous WHERE typerdv_id = '.$this->getTypeRdvId ('cohorte_infocol_second_rdv_stock', true).')';
 
 			return $query;
 		}
