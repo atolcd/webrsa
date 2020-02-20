@@ -45,7 +45,10 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Foyer' );
+		public $uses = array(
+			'Foyer',
+			'WebrsaCohortePlanpauvrete'
+		);
 
 		/**
 		 * Retourne les types d'orientations par code_type_orient
@@ -903,7 +906,7 @@
 		protected function _getQueryTableau_a1v2(array $search , $annee) {
 			$Dossier = ClassRegistry::init( 'Dossier' );
 			$Foyer = ClassRegistry::init( 'Foyer' );
-			$jourFinMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.fin');
+			$jourFinMois = $this->jourDeFin ();
 			$conditionsSearch = $this->_getConditionsTableau($search);
 			$joinSearch = $this->_getJoinsTableau($search, false, true);
 
@@ -955,7 +958,7 @@
 		protected function _getQueryTableau_a2av2(array $search , $annee) {
 			$Dossier = ClassRegistry::init( 'Dossier' );
 			$Foyer = ClassRegistry::init( 'Foyer' );
-			$jourFinMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.fin');
+			$jourFinMois = $this->jourDeFin ();
 			$conditionsSearch = $this->_getConditionsTableau($search);
 			$joinSearch = $this->_getJoinsTableau($search, false, true);
 
@@ -1021,7 +1024,7 @@
 		protected function _getQueryTableau_a2bv2(array $search , $annee) {
 			$Dossier = ClassRegistry::init( 'Dossier' );
 			$Foyer = ClassRegistry::init( 'Foyer' );
-			$jourFinMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.fin');
+			$jourFinMois = $this->jourDeFin ();
 			$conditionsSearch = $this->_getConditionsTableau($search);
 			$joinSearch = $this->_getJoinsTableau($search, false, true);
 
@@ -2154,7 +2157,7 @@
 							//Si La personne est un nouvel entrant et
 							//Qu'on as une date d'orientation valide
 							if ( $result['Orientstruct']['date_valid'] != null ){
-								$jourDebMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.deb');
+								$jourDebMois = $this->jourDeDebut ();
 								$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
 
 								//Si l'orientation n'est pas inférieur au changement de droits
@@ -2393,9 +2396,9 @@
 				$resultats['Suspendus']['Orientes15j']['RDV_Social'][$i] =
 					0;
 			}
-			
+
 			//Initialisation des valeurs fixes :
-			$jourDebMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.deb');
+			$jourDebMois = $this->jourDeDebut ();
 
 			//Pour chaque résultat
 			foreach($results as $result) {
@@ -2667,7 +2670,7 @@
 			}
 
 			//Initialisation des valeurs fixes :
-			$jourDebMois = Configure::read('PlanPauvrete.Stats.Moisprecedent.deb');
+			$jourDebMois = $this->jourDeDebut ();
 
 			//Pour chaque résultat
 			foreach($results as $result) {
@@ -2825,7 +2828,29 @@
 			}
 			return $resultats;
 		}
-		
 
+		/**
+		 * Jour du début de la période
+		 */
+		public function jourDeDebut () {
+			return $this->periodeStatistique ();
+		}
+
+		/**
+		 * Jour du fin de la période
+		 */
+		public function jourDeFin () {
+			return $this->periodeStatistique ('fin');
+		}
+
+		/**
+		 * Récupération de la période
+		 */
+		public function periodeStatistique ($extremite = 'deb') {
+			$periode = $this->WebrsaCohortePlanpauvrete->datePeriodeStatistique ();
+			$date = new DateTime ($periode[$extremite]);
+
+			return $date->format ('d');
+		}
 	}
 ?>

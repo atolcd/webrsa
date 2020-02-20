@@ -106,7 +106,7 @@
 		 * @return array $query
 		 */
 		public function nouveauxEntrants($query) {
-			$dates = $this->dateNouveauxEntrants ();
+			$dates = $this->datePeriodeCohorte ();
 
 			$query['conditions'][] = 'Historiquedroit.created BETWEEN \''.$dates['deb'].'\' AND \''.$dates['fin'].'\'';
 			return $query;
@@ -119,7 +119,7 @@
 		 * @return array $query
 		 */
 		public function stock($query) {
-			$dates = $this->dateNouveauxEntrants ();
+			$dates = $this->datePeriodeCohorte ();
 
 			//Recherche selon Stock
 			$query['conditions'][] = 'date_trunc(\'day\', Historiquedroit.created) < \''.$dates['deb'].'\'';
@@ -196,13 +196,44 @@
 		 *
 		 * @return array
 		 */
-		public function dateNouveauxEntrants () {
-			$moisDeb = date('j') >= Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' ) ? "-1 month" : "-2 month";
-			$moisFin = $moisDeb === "-2 month" ? "-1 month" : "now";
+		public function datePeriodeCohorte () {
+			$debutPeriode = Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' );
 
+			return $this->generationPeriodeMois ($debutPeriode);
+		}
+
+		/**
+		 * Calcul de la période des nouveaux entrants par rapport à la date du jour pour les statistiques.
+		 *
+		 * @return array
+		 */
+		public function datePeriodeStatistique () {
+			$debutPeriode = Configure::read( 'PlanPauvrete.Stats.Moisprecedent.deb' );
+
+			return $this->generationPeriodeMois ($debutPeriode);
+		}
+
+		/**
+		 * Calcul de la période d'un mois enfonction d'un jour de début par rapport à la date du jour.
+		 *
+		 * @return array
+		 */
+		public function generationPeriodeMois ($debutPeriode) {
 			$dates = array ();
-			$dates['deb'] = date('Y-m-',strtotime($moisDeb)).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' );
-			$dates['fin'] = date('Y-m-',strtotime($moisFin)).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.fin' );
+			$dateDeb = new DateTime (date ('Y-m-').$debutPeriode);
+			$dateFin = new DateTime (date ('Y-m-').$debutPeriode);
+
+			if (date('j') >= $debutPeriode) {
+				$dateDeb->sub (new DateInterval ('P1M'));
+				$dateFin->sub (new DateInterval ('P1D'));
+			} else {
+				$dateDeb->sub (new DateInterval ('P2M'));
+				$dateFin->sub (new DateInterval ('P1M'));
+				$dateFin->sub (new DateInterval ('P1D'));
+			}
+
+			$dates['deb'] = $dateDeb->format ('Y-m-d');
+			$dates['fin'] = $dateFin->format ('Y-m-d');
 
 			return $dates;
 		}
@@ -231,7 +262,7 @@
 		 * @return string
 		 */
 		public function generationTexte ($locale, $interval = null ) {
-			$dateNouveauxEntrants = $this->dateNouveauxEntrants ();
+			$dateNouveauxEntrants = $this->datePeriodeCohorte ();
 			$date = new DateTime ($dateNouveauxEntrants['fin']);
 
 			if (!is_null($interval)) {
