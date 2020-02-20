@@ -123,6 +123,11 @@
 		 * Cohorte d'orientation des personne inscrites à Pole emploi le mois dernier
 		 */
 		public function cohorte_isemploi() {
+			// Texte pour flux des nouveaux entrants.
+			$this->loadModel('WebrsaCohortePlanpauvrete');
+			$texteFlux = $this->WebrsaCohortePlanpauvrete->texteFluxNouveauxEntrants ();
+			$this->set ('texteFlux', $texteFlux);
+
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
 			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploi' ) );
 		}
@@ -175,6 +180,11 @@
 		 * Cohorte d'orientation des personne inscrites à Pole emploi en stock (avant le mois dernier)
 		 */
 		public function cohorte_isemploi_stock() {
+			// Texte pour flux du stock.
+			$this->loadModel('WebrsaCohortePlanpauvrete');
+			$texteFlux = $this->WebrsaCohortePlanpauvrete->texteFluxStock ();
+			$this->set ('texteFlux', $texteFlux);
+
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
 			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistock' ) );
 		}

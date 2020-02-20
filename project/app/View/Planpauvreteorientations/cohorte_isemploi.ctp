@@ -50,6 +50,7 @@
 	echo $this->element(
 		'ConfigurableQuery/cohorte',
 		array(
+			'beforeSearch' => $texteFlux,
 			'customSearch' => $this->fetch( 'custom_search_filters' ),
 			'afterResults' => $this->fetch( 'custom_after_results' ),
 			'exportcsv' => array( 'action' => $exportcsvActionName),

@@ -61,3 +61,9 @@ msgstr "3 en 1"
 msgid "Planpauvrete.Stock.Impression_3en1"
 msgstr "Impressions 3 en 1"
 
+msgid "Planpauvrete.phrase.mois.flux.nouveaux"
+msgstr "Cette cohorte effectue des recherches dans le flux du mois de MOIS."
+
+msgid "Planpauvrete.phrase.mois.flux.stock"
+msgstr "Cette cohorte effectue des recherches dans les flux du mois de MOIS et des mois précédents."
+
