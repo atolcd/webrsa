@@ -202,7 +202,7 @@
 			$Cohortes->exportcsv(
 				array(
 					'modelName' => 'Personne',
-					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocol',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolStock',
 					'nom_cohorte' => 'cohorte_infocol_stock'
 				)
 			);
