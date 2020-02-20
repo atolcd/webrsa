@@ -41,7 +41,7 @@
 					'cohorte_infocol_stock' => array('filter' => 'Search'),
 					'cohorte_infocol_imprime' => array('filter' => 'Search'),
 					'cohorte_infocol_imprime_stock' => array('filter' => 'Search'),
-					'cohorte_infocol_venu_nonvenu_nouveau' => array('filter' => 'Search'),
+					'cohorte_infocol_venu_nonvenu_nouveaux' => array('filter' => 'Search'),
 					'cohorte_infocol_venu_nonvenu_stock' => array('filter' => 'Search'),
 					'cohorte_infocol_second_rdv_nouveaux' => array('filter' => 'Search'),
 					'cohorte_infocol_second_rdv_stock' => array('filter' => 'Search'),
