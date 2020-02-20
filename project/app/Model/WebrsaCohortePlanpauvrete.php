@@ -106,13 +106,9 @@
 		 * @return array $query
 		 */
 		public function nouveauxEntrants($query) {
-			$moisDeb = date('j') >= Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' ) ? "-1 month" : "-2 month";
-			$moisFin = $moisDeb === "-2 month" ? "-1 month" : "now";
+			$dates = $this->dateNouveauxEntrants ();
 
-			$dateDebRecherche = date('Y-m-',strtotime($moisDeb)).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' );
-			$dateFinRecherche = date('Y-m-',strtotime($moisFin)).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.fin' );
-
-			$query['conditions'][] = 'Historiquedroit.created BETWEEN \''.$dateDebRecherche.'\' AND \''.$dateFinRecherche.'\'';
+			$query['conditions'][] = 'Historiquedroit.created BETWEEN \''.$dates['deb'].'\' AND \''.$dates['fin'].'\'';
 			return $query;
 		}
 
@@ -123,11 +119,10 @@
 		 * @return array $query
 		 */
 		public function stock($query) {
+			$dates = $this->dateNouveauxEntrants ();
 
-			//Dans le mois précédent : Nouvelle demande ou Réouverture de droit
-			$dateDebRecherche = date('Y-m-',strtotime("-1 month")).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' );
 			//Recherche selon Stock
-			$query['conditions'][] = 'date_trunc(\'day\', Historiquedroit.created) < \''.$dateDebRecherche.'\'';
+			$query['conditions'][] = 'date_trunc(\'day\', Historiquedroit.created) < \''.$dates['deb'].'\'';
 			return $query;
 		}
 
@@ -194,5 +189,21 @@
 		public function searchConditions( array $query, array $search ) {
 			$query = $this->Allocataire->searchConditions( $query, $search );
 			return $query;
+		}
+
+		/**
+		 * Calcul de la période des nouveaux entrants par rapport à la date du jour.
+		 *
+		 * @return array
+		 */
+		public function dateNouveauxEntrants () {
+			$moisDeb = date('j') >= Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' ) ? "-1 month" : "-2 month";
+			$moisFin = $moisDeb === "-2 month" ? "-1 month" : "now";
+
+			$dates = array ();
+			$dates['deb'] = date('Y-m-',strtotime($moisDeb)).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.deb' );
+			$dates['fin'] = date('Y-m-',strtotime($moisFin)).Configure::read( 'PlanPauvrete.Cohorte.Moisprecedent.fin' );
+
+			return $dates;
 		}
 	}
