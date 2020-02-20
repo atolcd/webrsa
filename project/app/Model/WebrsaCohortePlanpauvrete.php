@@ -93,7 +93,7 @@
 			$query['conditions'][] = 'NOT EXISTS(
 				SELECT "rendezvous"."id" AS "rendezvous__id"
 				FROM rendezvous AS rendezvous
-				INNER JOIN historiquesdroits ON (historiquesdroits.personne_id = Rendezvous.personne_id AND historiquesdroits.created <= Rendezvous.daterdv)
+				INNER JOIN historiquesdroits ON (historiquesdroits.personne_id = rendezvous.personne_id AND historiquesdroits.created <= rendezvous.daterdv)
 				WHERE "rendezvous"."personne_id" = "Personne"."id"
 				 )';
 			return $query;
