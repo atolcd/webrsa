@@ -818,9 +818,90 @@
 	);
 
 	/**
-	 * Activation du module des cohortes du plan pauvreté spécifié par le CD 66
+	 * Activation du module des cohortes du plan pauvreté.
 	 */
-	Configure::write ('Module.Cohorte.Plan.Pauvrete', true);
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Menu', true);
+
+	/**
+	 * Activation de la cohorte : Nouveaux entrants
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Nouveaux.Menu', true);
+
+	/**
+	 * Activation de la cohorte : Nouveaux entrants inscrits à Pôle Emploi
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_isemploi', true);
+
+	/**
+	 * Activation de la cohorte : Impression des orientations des nouveaux entrants inscrits à Pôle Emploi
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_isemploi_imprime', true);
+
+	/**
+	 * Activation de la cohorte : Nouveaux entrants à envoyer en information collective
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol', true);
+
+	/**
+	 * Activation de la cohorte : Impression des courriers d'information collective à envoyer aux nouveaux entrants
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol_imprime', true);
+
+	/**
+	 * Activation de la cohorte : Liste des nouveaux entrant convoqués en information collective
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol_venu_nonvenu_nouveaux', true);
+
+	/**
+	 * Activation de la cohorte : Convocation du SECOND RENDEZ VOUS des nouveaux entrants
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol_second_rdv_nouveaux', true);
+
+	/**
+	 * Activation de la cohorte : Impression des courriers DU SECOND RENDEZ-VOUS d'information collective à envoyer aux nouveaux entrants
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol_imprime_second_rdv_nouveaux', true);
+
+	/**
+	 * Activation de la cohorte : Allocataires du stock
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Stock.Menu', true);
+
+	/**
+	 * Activation de la cohorte : Allocataires du stock inscrits à Pôle Emploi
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_isemploi_stock', true);
+
+	/**
+	 * Activation de la cohorte : Impression des orientations des allocataires du stock inscrits à Pôle Emploi
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_isemploi_stock_imprime', true);
+
+	/**
+	 * Activation de la cohorte : Stock à envoyer en information collective
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_infocol_stock', true);
+
+	/**
+	 * Activation de la cohorte : Impression des courriers d'information collective à envoyer au stock
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_infocol_imprime_stock', true);
+
+	/**
+	 * Activation de la cohorte : Liste des stocks convoqués en information collective
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_infocol_venu_nonvenu_stock', true);
+
+	/**
+	 * Activation de la cohorte : Convocation du SECOND RENDEZ VOUS des stocks
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_infocol_second_rdv_stock', true);
+
+	/**
+	 * Activation de la cohorte : Impression des courriers DU SECOND RENDEZ-VOUS d'information collective à envoyer au stock
+	 */
+	Configure::write ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_infocol_imprime_second_rdv_stock', true);
+
 
 	/**
 	 * Permet de spécifier les noms de serveurs servant d'environnement de

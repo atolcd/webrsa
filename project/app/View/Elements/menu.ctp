@@ -167,24 +167,54 @@
 				'url' => array( 'controller' => 'tags', 'action' => 'cohorte' )
 			),
 			__d( 'planpauvrete', 'Planpauvrete.Planpauvrete.Menu' ) => array(
-				'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete'),
+				'disabled' => (!Configure::read ('Module.Cohorte.Plan.Pauvrete.Menu')),
 				__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Menu' ) => array(
-					__d( 'planpauvrete', 'Planpauvrete.Nouveaux.InscritPE' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreteorientations', 'action' => 'cohorte_isemploi' ) ),
-					__d( 'planpauvrete', 'Planpauvrete.Nouveaux.InscritPEImprime' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreteorientations', 'action' => 'cohorte_isemploi_imprime' ) ),
-					__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol' ) ),
-					__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Impression_Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_imprime' ) ),
-					__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Convoq_Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_venu_nonvenu_nouveaux' ) ),
-					__d( 'planpauvrete', 'Planpauvrete.Nouveaux.3en1' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_second_rdv_nouveaux' ) ),
-					__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Impression_3en1' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_imprime_second_rdv_nouveaux' ) )
+					'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Nouveaux.Menu'),
+					__d( 'planpauvrete', 'Planpauvrete.Nouveaux.InscritPE' ) => array(
+						'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_isemploi'),
+						'class' => 'search', 'url' => array( 'controller' => 'planpauvreteorientations', 'action' => 'cohorte_isemploi' ) ),
+					__d( 'planpauvrete', 'Planpauvrete.Nouveaux.InscritPEImprime' ) => array(
+						'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_isemploi_imprime'),
+						'class' => 'search', 'url' => array( 'controller' => 'planpauvreteorientations', 'action' => 'cohorte_isemploi_imprime' ) ),
+					__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Info_Col' ) => array(
+						'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol'),
+						'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol' ) ),
+					__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Impression_Info_Col' ) => array(
+						'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol_imprime'),
+						'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_imprime' ) ),
+					__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Convoq_Info_Col' ) => array(
+						'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol_venu_nonvenu_nouveaux'),
+						'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_venu_nonvenu_nouveaux' ) ),
+					__d( 'planpauvrete', 'Planpauvrete.Nouveaux.3en1' ) => array(
+						'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol_second_rdv_nouveaux'),
+						'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_second_rdv_nouveaux' ) ),
+					__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Impression_3en1' ) => array(
+						'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol_imprime_second_rdv_nouveaux'),
+						'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_imprime_second_rdv_nouveaux' ) )
 				),
 				__d( 'planpauvrete', 'Planpauvrete.Stock.Menu' ) => array(
-					__d( 'planpauvrete', 'Planpauvrete.Stock.InscritPE' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreteorientations', 'action' => 'cohorte_isemploi_stock' ) ),
-					__d( 'planpauvrete', 'Planpauvrete.Stock.InscritPEImprime' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreteorientations', 'action' => 'cohorte_isemploi_stock_imprime' ) ),
-					__d( 'planpauvrete', 'Planpauvrete.Stock.Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_stock' ) ),
-					__d( 'planpauvrete', 'Planpauvrete.Stock.Impression_Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_imprime_stock' ) ),
-					__d( 'planpauvrete', 'Planpauvrete.Stock.Convoq_Info_Col' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_venu_nonvenu_stock' ) ),
-					__d( 'planpauvrete', 'Planpauvrete.Stock.3en1' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_second_rdv_stock' ) ),
-					__d( 'planpauvrete', 'Planpauvrete.Stock.Impression_3en1' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_imprime_second_rdv_stock' ) )
+					'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Stock.Menu'),
+					__d( 'planpauvrete', 'Planpauvrete.Stock.InscritPE' ) => array(
+						'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_isemploi_stock'),
+						'class' => 'search', 'url' => array( 'controller' => 'planpauvreteorientations', 'action' => 'cohorte_isemploi_stock' ) ),
+					__d( 'planpauvrete', 'Planpauvrete.Stock.InscritPEImprime' ) => array(
+						'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_isemploi_stock_imprime'),
+						'class' => 'search', 'url' => array( 'controller' => 'planpauvreteorientations', 'action' => 'cohorte_isemploi_stock_imprime' ) ),
+					__d( 'planpauvrete', 'Planpauvrete.Stock.Info_Col' ) => array(
+						'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_infocol_stock'),
+						'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_stock' ) ),
+					__d( 'planpauvrete', 'Planpauvrete.Stock.Impression_Info_Col' ) => array(
+						'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_infocol_imprime_stock'),
+						'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_imprime_stock' ) ),
+					__d( 'planpauvrete', 'Planpauvrete.Stock.Convoq_Info_Col' ) => array(
+						'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_infocol_venu_nonvenu_stock'),
+						'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_venu_nonvenu_stock' ) ),
+					__d( 'planpauvrete', 'Planpauvrete.Stock.3en1' ) => array(
+						'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_infocol_second_rdv_stock'),
+						'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_second_rdv_stock' ) ),
+					__d( 'planpauvrete', 'Planpauvrete.Stock.Impression_3en1' ) => array(
+						'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_infocol_imprime_second_rdv_stock'),
+						'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_imprime_second_rdv_stock' ) )
 				)
 			)
 		),
