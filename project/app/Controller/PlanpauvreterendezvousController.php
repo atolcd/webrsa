@@ -224,8 +224,8 @@
 		 * Permet l'impression de la convocation d'information collective
 		 */
 		public function cohorte_infocol_imprime() {
-			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
-			$Cohorte->cohorte (
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvousImpressions' );
+			$Cohorte->search (
 				array
 				(
 					'modelName' => 'Personne',
@@ -256,8 +256,8 @@
 		 * Permet l'impression de la convocation d'information collective du stock
 		 */
 		public function cohorte_infocol_imprime_stock () {
-			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
-			$Cohorte->cohorte (
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvousImpressions' );
+			$Cohorte->search (
 				array
 				(
 					'modelName' => 'Personne',
@@ -352,8 +352,8 @@
 		 * Permet l'impression de la convocation d'information collective
 		 */
 		public function cohorte_infocol_imprime_second_rdv_nouveaux () {
-			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
-			$Cohorte->cohorte (
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvousImpressions' );
+			$Cohorte->search (
 				array
 				(
 					'modelName' => 'Personne',
@@ -384,8 +384,8 @@
 		 * Permet l'impression de la convocation d'information collective du stock
 		 */
 		public function cohorte_infocol_imprime_second_rdv_stock () {
-			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
-			$Cohorte->cohorte (
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvousImpressions' );
+			$Cohorte->search (
 				array
 				(
 					'modelName' => 'Personne',
