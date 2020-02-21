@@ -136,8 +136,8 @@
 		 * Cohorte d'impression des personne inscrites et orientés à Pole emploi le mois dernier
 		 */
 		public function cohorte_isemploi_imprime() {
-			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
-			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploiImprime' ) );
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientationsImpressions' );
+			$Cohorte->search( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploiImprime' ) );
 		}
 
 		/**
@@ -193,8 +193,8 @@
 		 * Cohorte d'impression des personne inscrites et orientés à Pole emploi (avant le mois dernier)
 		 */
 		public function cohorte_isemploi_stock_imprime() {
-			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
-			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistockImprime' ) );
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientationsImpressions' );
+			$Cohorte->search( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistockImprime' ) );
 		}
 
 		/**
