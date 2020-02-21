@@ -65,7 +65,10 @@
 	 */
 	$explAction = substr($action, (strpos($action, '_')+1));
 	$exportcsvActionName = isset($explAction) ? 'exportcsv_'.$explAction : 'exportcsv';
-	$searchData['Search'] = (array)Hash::get( $this->request->data, 'Search' );
+	$searchData['Search'] = array_merge (
+		(array)Hash::get( $this->request->data, 'Search' ),
+		array ('limit' => Hash::get( $this->request->data, 'limit' ))
+	);
 	$buttons = '';
 
 	$countResults = isset($results) ? count($results) : 0;

@@ -31,6 +31,10 @@
 				array_unshift($query['fields'], 'DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"');
 			}
 
+			if (is_numeric ($Controller->params->named['Search__limit'])) {
+				$query['limit'] = $Controller->params->named['Search__limit'];
+			}
+
 			$datas = $Controller->Personne->find( 'all', $query );
 			$pdfList = array();
 
