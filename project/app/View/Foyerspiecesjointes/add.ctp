@@ -32,3 +32,18 @@ echo $this->Default3->DefaultForm->end();
 
 echo '<h2>' . __m('Foyerspiecesjointe/pjpresentes') . '</h2>';
 echo $this->Fileuploader->results($piecesjointes);
+?>
+<script type="text/javascript">
+	//<![CDATA[
+	document.querySelector('input[name="Save"]').addEventListener('click', function(e) {
+		let nbFiles = document.querySelectorAll('.qq-upload-success').length;
+		if(nbFiles == 0) {
+			e.preventDefault();
+			alert("<?php echo (__m('Foyerpiecejointe.msg.alerte.zero.fichier')); ?>");
+		} else if(nbFiles > 1) {
+			e.preventDefault();
+			alert("<?php echo (__m('Foyerpiecejointe.msg.alerte.plusieurs.fichiers')); ?>");
+		}
+	});
+	//]]>
+</script>

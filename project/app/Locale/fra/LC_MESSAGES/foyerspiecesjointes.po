@@ -100,6 +100,13 @@ msgstr "Pièces non archivées déjà présentes"
 
 msgid "Foyerpiecejointe.nom"
 msgstr "Nom du fichier"
+
+msgid "Foyerpiecejointe.msg.alerte.zero.fichier"
+msgstr "Merci d'ajouter un fichier"
+
+msgid "Foyerpiecejointe.msg.alerte.plusieurs.fichiers"
+msgstr "Merci de ne mettre qu'un seul fichier"
+
 ############################################
 ## Archivage
 ############################################
