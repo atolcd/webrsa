@@ -49,4 +49,51 @@
 
 			return $results;
 		}
+
+		/**
+		 * Retourne les options stockées liées à des enregistrements en base de
+		 * données, ne dépendant pas de l'utilisateur connecté.
+		 *
+		 * @return array
+		 */
+		protected function _optionsRecords( array $params = array() ) {
+			$Controller = $this->_Collection->getController();
+			$Controller->loadModel('WebrsaOptionTag');
+
+			$options = $Controller->WebrsaOptionTag->optionsRecords( parent::_optionsRecords( $params ) );
+			if( !isset( $Controller->Planpauvreterendezvous ) ) {
+				$Controller->loadModel( 'Planpauvreterendezvous' );
+			}
+
+			$config = Configure::read('ConfigurableQuery.Planpauvreterendezvous.'.$params['nom_cohorte']);
+			$options['Rendezvous']['structurereferente_id'] = $Controller->Orientstruct->Structurereferente->listOptions();
+			$options['Rendezvous']['permanence_id'] = $Controller->Orientstruct->Structurereferente->Permanence->listOptions();
+			$options['Rendezvous']['referent_id'] = $Controller->InsertionsBeneficiaires->referents();
+
+			if( isset($config['cohorte']['config']['save']['Typerdv.code_type']) ) {
+				$options['Rendezvous']['typerdv_id'] = $Controller->Rendezvous->Typerdv->find(
+					'first',
+					array(
+						'recursive' => -1,
+						'conditions' => array(
+							'Typerdv.code_type' => $config['cohorte']['config']['save']['Typerdv.code_type']
+						)
+					)
+				);
+			}
+
+			if( isset($config['cohorte']['config']['save']['Statutrdv.code_statut']) ) {
+				$options['Rendezvous']['statutrdv_id'] = $Controller->Rendezvous->Statutrdv->find(
+					'first',
+					array(
+						'recursive' => -1,
+						'conditions' => array(
+							'Statutrdv.code_statut' => $config['cohorte']['config']['save']['Statutrdv.code_statut']
+						)
+					)
+				);
+			}
+
+			return $options;
+		}
 	}
