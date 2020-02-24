@@ -902,6 +902,16 @@
 	 */
 	Configure::write ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_infocol_imprime_second_rdv_stock', true);
 
+	/**
+	 * Activation du module des cohortes du plan pauvreté.
+	 */
+	Configure::write ('Module.Statistiques.Plan.Pauvrete.version1', true);
+
+	/**
+	 * Activation du module des cohortes du plan pauvreté.
+	 */
+	Configure::write ('Module.Statistiques.Plan.Pauvrete.version2', true);
+
 
 	/**
 	 * Permet de spécifier les noms de serveurs servant d'environnement de

@@ -494,6 +494,7 @@
 				'Tableau 6' => array( 'url' => array( 'controller' => 'statistiquesdrees', 'action' => 'indicateurs_tableau6'  ) ),
 			),
 			__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu' ) => array (
+				'disabled' => !Configure::read ('Module.Statistiques.Plan.Pauvrete.version1'),
 				__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a1' ) =>
 					array( 'url' => array( 'controller' => 'statistiquesplanpauvrete', 'action' => 'indicateurs_tableau_a1' ) ),
 				__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a2' ) =>
@@ -506,6 +507,7 @@
 					array( 'url' => array( 'controller' => 'statistiquesplanpauvrete', 'action' => 'indicateurs_tableau_b5' ) ),
 			),
 			__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.V2' ) => array (
+				'disabled' => !Configure::read ('Module.Statistiques.Plan.Pauvrete.version2'),
 				__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a1.V2' ) =>
 					array( 'url' => array( 'controller' => 'statistiquesplanpauvrete', 'action' => 'indicateurs_tableau_a1v2' ) ),
 				__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a2.V2' ) => array (
