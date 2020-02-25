@@ -323,6 +323,11 @@
 				'class' => 'search',
 				'url' => array( 'controller' => 'fluxpoleemplois', 'action' => 'search' )
 			),
+			__d('planpauvrete','Planpauvrete.primoaccedant.menu.search') => array(
+				'disabled' => !Configure::read('Module.Planpauvrete.primoaccedant.enabled'),
+				'class' => 'search',
+				'url' => array( 'controller' => 'planpauvrete', 'action' => 'searchprimoaccedant' )
+			),
 		),
 		'APRE' => array(
 			'disabled' => ( $departement != 93 || true === $user_externe ),
