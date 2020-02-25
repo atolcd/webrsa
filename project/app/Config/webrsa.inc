@@ -1237,6 +1237,11 @@
 	Configure::write ('Canton.InsertionAuto.enabled', true);
 
 	/**
+	 * Activation de la page de recherche des primo-accédants
+	 */
+	Configure::write ('Module.Planpauvrete.primoaccedant.enabled', false);
+
+	/**
 	 * Numéro des communes multi cantons (code INSEE)
 	 */
 	Configure::write ('Canton.multi', array(
