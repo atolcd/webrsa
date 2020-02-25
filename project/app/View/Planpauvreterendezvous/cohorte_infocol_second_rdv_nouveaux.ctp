@@ -106,7 +106,9 @@
 			dependantSelect( 'CohorteRendezvousReferentId', 'CohorteRendezvousStructurereferenteId' );
 
 			document.querySelectorAll('table.planpauvreterendezvous > tbody > tr').forEach( function(el, ind) {
+				dependantSelect( 'Cohorte'+ind+'RendezvousPermanenceId', 'CohorteRendezvousStructurereferenteId' );
 				dependantSelect( 'Cohorte'+ind+'RendezvousPermanenceId', 'Cohorte'+ind+'RendezvousStructurereferenteId' );
+				dependantSelect( 'Cohorte'+ind+'RendezvousReferentId', 'CohorteRendezvousStructurereferenteId' );
 				dependantSelect( 'Cohorte'+ind+'RendezvousReferentId', 'Cohorte'+ind+'RendezvousStructurereferenteId' );
 			});
 		});
