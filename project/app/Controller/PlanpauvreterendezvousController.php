@@ -7,14 +7,14 @@
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 */
-	App::uses( 'AppController', 'Controller' );
+	App::uses( 'PlanpauvretecohorteController', 'Controller' );
 
 	/**
 	 * La classe PlanpauvreterendezvousController ...
 	 *
 	 * @package app.Controller
 	 */
-	class PlanpauvreterendezvousController extends AppController
+	class PlanpauvreterendezvousController extends PlanpauvretecohorteController
 	{
 		/**
 		 * Nom du contrôleur.
