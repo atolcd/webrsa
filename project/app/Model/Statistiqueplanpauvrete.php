@@ -909,6 +909,7 @@
 			$jourFinMois = $this->jourDeFin ();
 			$conditionsSearch = $this->_getConditionsTableau($search);
 			$joinSearch = $this->_getJoinsTableau($search, false, true);
+			$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
 
 			$fields = $this->_queryFields();
 			$joins = $this->_queryJoins();
@@ -937,13 +938,18 @@
 					$this->_queryHistoriqueDroitJoins($annee, $jourFinMois)
 				);
 			}
+
 			$query['conditions'] = array_merge(
-				array(
+				$this->_queryConditionEtatdos($etatSuspendus,$annee, $jourFinMois),
+				$query['conditions']
+			);
+			$query['conditions'] = array_merge(
+				/*array(
 					'OR' => array(
-						'Orientstruct.date_valid >= ' => $annee .'-01-01',
+						'Orientstruct.date_valid >= ' => $annee .'-01-'.$jourFinMois,
 						'Orientstruct.date_valid IS NULL'
 					)
-				),
+				),*/
 				$query['conditions']
 			);
 
@@ -975,7 +981,6 @@
 					array_merge(
 						$joins,
 						array(
-							$Foyer->join( 'Dossier', array( 'type' => 'INNER' ) ),
 							array(
 								'table' => 'rendezvous',
 								'alias' => 'Rendezvous',
@@ -1041,7 +1046,6 @@
 					array_merge(
 						$joins,
 						array(
-							$Foyer->join( 'Dossier', array( 'type' => 'INNER' ) ),
 							array(
 								'table' => 'contratsinsertion',
 								'alias' => 'Contratinsertion',
@@ -1106,8 +1110,7 @@
 		private function _queryFields () {
 
 			$fields = array (
-				'DISTINCT ON ("Personne"."id") "Personne"."id" AS "idPersonne"',
-				'Personne.id',
+				'DISTINCT ON ("Personne"."id") "Personne"."id" AS "Personne__id"',
 				'Orientstruct.id',
 				'Orientstruct.date_valid',
 				'Orientstruct.statut_orient',
@@ -1211,6 +1214,25 @@
 				);
 			}
 			return $joins;
+		}
+
+		private function _queryConditionEtatdos($etatSuspendus,$annee, $jourFinMois){
+			$tmpDateRecherchePrevious = $annee.'-01-'.$jourFinMois;
+			$tmpDateRechercheNext = ($annee+1).'-01-'.$jourFinMois;
+
+			if ( is_array ( $etatSuspendus )){
+				$etats = "'";
+				$etats .= implode( "','",$etatSuspendus);
+				$etats .= "'";
+			}
+			$conditions = array (
+				'Personne.id IN ( SELECT personne_id FROM historiquesdroits
+				WHERE historiquesdroits.etatdosrsa IN ( '.$etats.' )
+				AND date_trunc(\'day\', historiquesdroits.created ) < \''.$tmpDateRechercheNext.'\'
+				AND date_trunc(\'day\', historiquesdroits.modified ) > \''.$tmpDateRecherchePrevious.'\'
+				)'
+			);
+			return $conditions;
 		}
 
 		########################################################################################################################
@@ -2142,7 +2164,7 @@
 
 							//- dont BRSA venant de s’installer sur le Dpt (mutation)
 							/*
-							if ($dtemmPreviousMonth != $result['Adressefoyer'.$month]['dtemm']
+							if ($dtemmPreviousMonth != $result['Adressefoyer']['dtemm']
 								&& strpos($codeposPreviousMonth, '66') == 0
 							) {
 								$resultats['Tous']['nbEMM'][$month]++;
@@ -2165,72 +2187,75 @@
 									//On calcul la date du changement de droits +1 mois
 									$date1mois = strtotime($tmpDate.' + 1 month');
 
+									//Calcul du moi de l'orientation
+									$tmpmonth = date('m', strtotime($result['Orientstruct']['date_valid'])) -1 ;
+
 									//Nombre d'orientées en moins d'un mois
-									if ( $date1mois  >  strtotime($result['Orientstruct']['date_valid']) ) {
+									if ( $date1mois > strtotime($result['Orientstruct']['date_valid']) ) {
 										//- Nombre de nouveaux entrants orientés en moins d’un mois
-										$resultats['Tous']['Orientes']['total'][$month] ++;
+										$resultats['Tous']['Orientes']['total'][$tmpmonth] ++;
 										if ( !$Suspendu ){
-											$resultats['Horssuspendus']['Orientes']['total'][$month]++;
+											$resultats['Horssuspendus']['Orientes']['total'][$tmpmonth]++;
 										} else {
-											$resultats['Suspendus']['Orientes']['total'][$month]++;
+											$resultats['Suspendus']['Orientes']['total'][$tmpmonth]++;
 										}
 
 										//	- dont nbre de pers. SDD orientées Social + équivalent en %
 										if(!empty($testOrient['SOCIAL']) && in_array($result['Typeorient']['id'], $testOrient['SOCIAL'] ) ) {
-											$resultats['Tous']['Orientes']['Social'][$month]++;
+											$resultats['Tous']['Orientes']['Social'][$tmpmonth]++;
 											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['Social'][$month]++;
+												$resultats['Horssuspendus']['Orientes']['Social'][$tmpmonth]++;
 											} else {
-												$resultats['Suspendus']['Orientes']['Social'][$month]++;
+												$resultats['Suspendus']['Orientes']['Social'][$tmpmonth]++;
 											}
 											$flagOrienteSocial = true;
 										}
 										//	- dont nbre de pers. SDD orientées Emploi + équivalent en %
 										elseif(!empty($testOrient['EMPLOI']) &&  in_array( $result['Typeorient']['id'], $testOrient['EMPLOI'] ) ) {
-											$resultats['Tous']['Orientes']['Emploi'][$month]++;
+											$resultats['Tous']['Orientes']['Emploi'][$tmpmonth]++;
 											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['Emploi'][$month]++;
+												$resultats['Horssuspendus']['Orientes']['Emploi'][$tmpmonth]++;
 											} else {
-												$resultats['Suspendus']['Orientes']['Emploi'][$month]++;
+												$resultats['Suspendus']['Orientes']['Emploi'][$tmpmonth]++;
 											}
 										}
 										//	- dont nbre de pers. SDD orientées Pré pro + équivalent en %
 										elseif (!empty($testOrient['PREPRO']) && in_array( $result['Typeorient']['id'], $testOrient['PREPRO'] ) ) {
-											$resultats['Tous']['Orientes']['Prepro'][$month]++;
+											$resultats['Tous']['Orientes']['Prepro'][$tmpmonth]++;
 											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['Prepro'][$month]++;
+												$resultats['Horssuspendus']['Orientes']['Prepro'][$tmpmonth]++;
 											} else {
-												$resultats['Suspendus']['Orientes']['Prepro'][$month]++;
+												$resultats['Suspendus']['Orientes']['Prepro'][$tmpmonth]++;
 											}
 											$flagOrientePrepro = true;
 										}
 
 										//	- dont nbre de pers. SDD orientées OA + équivalent en %
 										if( $result['Structurereferente']['type_struct_stats'] == 'oa' ) {
-											$resultats['Tous']['Orientes']['OA'][$month]++;
+											$resultats['Tous']['Orientes']['OA'][$tmpmonth]++;
 											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['OA'][$month]++;
+												$resultats['Horssuspendus']['Orientes']['OA'][$tmpmonth]++;
 											} else {
-												$resultats['Suspendus']['Orientes']['OA'][$month]++;
+												$resultats['Suspendus']['Orientes']['OA'][$tmpmonth]++;
 											}
 										}
 										//	- dont nbre de pers. SDD orientées PE + équivalent en %
 										if( $result['Structurereferente']['type_struct_stats'] == 'pe' ) {
-											$resultats['Tous']['Orientes']['PE'][$month]++;
+											$resultats['Tous']['Orientes']['PE'][$tmpmonth]++;
 											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['PE'][$month]++;
+												$resultats['Horssuspendus']['Orientes']['PE'][$tmpmonth]++;
 											} else {
-												$resultats['Suspendus']['Orientes']['PE'][$month]++;
+												$resultats['Suspendus']['Orientes']['PE'][$tmpmonth]++;
 											}
 											$flagOrientePE = true;
 										}
 										//	- dont nbre de pers. SDD orientées CD + équivalent en %
 										if( $result['Structurereferente']['type_struct_stats'] == 'cd' ) {
-											$resultats['Tous']['Orientes']['CD'][$month]++;
+											$resultats['Tous']['Orientes']['CD'][$tmpmonth]++;
 											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['PE'][$month]++;
+												$resultats['Horssuspendus']['Orientes']['PE'][$tmpmonth]++;
 											} else {
-												$resultats['Suspendus']['Orientes']['PE'][$month]++;
+												$resultats['Suspendus']['Orientes']['PE'][$tmpmonth]++;
 											}
 											$flagOrienteCD = true;
 										}
@@ -2441,7 +2466,11 @@
 									//Nombre de nouveaux entrants orientés orientées CD
 									&& $flagOrienteCD
 								){
-									$resultats['Tous']['Orientes_CD'][$month]++;
+
+									//Calcul du moi de l'orientation
+									$tmpmonth = date('m', strtotime($result['Orientstruct']['date_valid'])) -1 ;
+
+									$resultats['Tous']['Orientes_CD'][$tmpmonth]++;
 									$Suspendu = True;
 									//On vérifie les Hors suspendus
 									if (
@@ -2451,37 +2480,38 @@
 										|| $historiquesToppersPreviousMonth != 1 )
 									) {
 										$Suspendu = False;
-										$resultats['Horssuspendus']['Orientes_CD'][$month]++;
+										$resultats['Horssuspendus']['Orientes_CD'][$tmpmonth]++;
 									} else {
-										$resultats['Suspendus']['Orientes_CD'][$month]++;
+										$resultats['Suspendus']['Orientes_CD'][$tmpmonth]++;
 									}
 
 									//- Nombre de nouveaux entrants orientés CD avec un 1er rendez-vous fixé suite à une orientation CD
 									if ( $result['Rendezvous']['daterdv'] != null
 										&& strtotime($result['Rendezvous']['daterdv']) >= strtotime($tmpDate)
 									){
-										$resultats['Tous']['Orientes']['RDV'][$month] ++;
+										$tmpmonthrdv = date('m', strtotime($result['Rendezvous']['daterdv'])) -1 ;
+										$resultats['Tous']['Orientes']['RDV'][$tmpmonthrdv] ++;
 										if ( !$Suspendu ){
-											$resultats['Horssuspendus']['Orientes']['RDV'][$month]++;
+											$resultats['Horssuspendus']['Orientes']['RDV'][$tmpmonthrdv]++;
 										} else {
-											$resultats['Suspendus']['Orientes']['RDV'][$month]++;
+											$resultats['Suspendus']['Orientes']['RDV'][$tmpmonthrdv]++;
 										}
 										if ( $flagOrientePrepro ) {
 											//	- dont nbre de 1er rdv fixés suite à une orientation Pré pro
-											$resultats['Tous']['Orientes']['RDV_Prepro'][$month] ++;
+											$resultats['Tous']['Orientes']['RDV_Prepro'][$tmpmonthrdv] ++;
 											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['RDV_Prepro'][$month]++;
+												$resultats['Horssuspendus']['Orientes']['RDV_Prepro'][$tmpmonthrdv]++;
 											} else {
-												$resultats['Suspendus']['Orientes']['RDV_Prepro'][$month]++;
+												$resultats['Suspendus']['Orientes']['RDV_Prepro'][$tmpmonthrdv]++;
 											}
 										}
 										if ($flagOrienteSocial) {
 											//	- dont nbre de 1er rdv fixés suite à une orientation Sociale
-											$resultats['Tous']['Orientes']['RDV_Social'][$month] ++;
+											$resultats['Tous']['Orientes']['RDV_Social'][$tmpmonthrdv] ++;
 											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['RDV_Social'][$month]++;
+												$resultats['Horssuspendus']['Orientes']['RDV_Social'][$tmpmonthrdv]++;
 											} else {
-												$resultats['Suspendus']['Orientes']['RDV_Social'][$month]++;
+												$resultats['Suspendus']['Orientes']['RDV_Social'][$tmpmonthrdv]++;
 											}
 										}
 									}
@@ -2490,40 +2520,40 @@
 									$date1mois = strtotime($tmpDate.' + 1 month');
 									//Nombre d'orientées en moins d'un mois
 									if ( $date1mois  >  strtotime($result['Orientstruct']['date_valid']) ) {
-										$resultats['Tous']['Orientes1m'][$month]++;
+										$resultats['Tous']['Orientes1m'][$tmpmonth]++;
 										if ( !$Suspendu ){
-											$resultats['Horssuspendus']['Orientes1m'][$month]++;
+											$resultats['Horssuspendus']['Orientes1m'][$tmpmonth]++;
 										} else {
-											$resultats['Suspendus']['Orientes1m'][$month]++;
+											$resultats['Suspendus']['Orientes1m'][$tmpmonth]++;
 										}
 									}
 
 									if ( $result['Orientstruct']['date_valid'] < $result['Rendezvous']['daterdv'] ){
 										$diff = abs(strtotime($result['Rendezvous']['daterdv']) - strtotime($result['Orientstruct']['date_valid']));
-										if ( (60*60*24*15) > $diff  ) {
+										if ( (60*60*24*15) > $diff ) {
 											//- Nombre de 1er rendez-vous fixé suite à une orientation CD dans un délai de 15 jours
-											$resultats['Tous']['Orientes15j']['RDV'][$month] ++;
+											$resultats['Tous']['Orientes15j']['RDV'][$tmpmonthrdv] ++;
 											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes15j']['RDV'][$month]++;
+												$resultats['Horssuspendus']['Orientes15j']['RDV'][$tmpmonthrdv]++;
 											} else {
-												$resultats['Suspendus']['Orientes15j']['RDV'][$month]++;
+												$resultats['Suspendus']['Orientes15j']['RDV'][$tmpmonthrdv]++;
 											}
 											if ( $flagOrientePrepro ) {
 												//	- dont nbre de 1er rdv fixés suite à une orientation Pré pro
-												$resultats['Tous']['Orientes15j']['RDV_Prepro'][$month] ++;
+												$resultats['Tous']['Orientes15j']['RDV_Prepro'][$tmpmonthrdv] ++;
 												if ( !$Suspendu ){
-													$resultats['Horssuspendus']['Orientes15j']['RDV_Prepro'][$month]++;
+													$resultats['Horssuspendus']['Orientes15j']['RDV_Prepro'][$tmpmonthrdv]++;
 												} else {
-													$resultats['Suspendus']['Orientes15j']['RDV_Prepro'][$month]++;
+													$resultats['Suspendus']['Orientes15j']['RDV_Prepro'][$tmpmonthrdv]++;
 												}
 											}
 											if ($flagOrienteSocial) {
 												//	- dont nbre de 1er rdv fixés suite à une orientation Sociale
-												$resultats['Tous']['Orientes15j']['RDV_Social'][$month] ++;
+												$resultats['Tous']['Orientes15j']['RDV_Social'][$tmpmonthrdv] ++;
 												if ( !$Suspendu ){
-													$resultats['Horssuspendus']['Orientes15j']['RDV_Social'][$month]++;
+													$resultats['Horssuspendus']['Orientes15j']['RDV_Social'][$tmpmonthrdv]++;
 												} else {
-													$resultats['Suspendus']['Orientes15j']['RDV_Social'][$month]++;
+													$resultats['Suspendus']['Orientes15j']['RDV_Social'][$tmpmonthrdv]++;
 												}
 											}
 										}
@@ -2709,11 +2739,15 @@
 							if ( $result['Orientstruct']['date_valid'] != null){
 								$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
 								if (//Si l'orientation n'est pas inférieur au changement de droits
-									strtotime($result['Orientstruct']['date_valid']) >= strtotime($tmpDate) 
+									strtotime($result['Orientstruct']['date_valid']) >= strtotime($tmpDate)
 									//Nombre de nouveaux entrants orientés orientées CD
 									&& $flagOrienteCD
 								){
-									$resultats['Tous']['Orientes_CD'][$month]++;
+
+									//Calcul du moi de l'orientation
+									$tmpmonth = date('m', strtotime($result['Orientstruct']['date_valid'])) -1 ;
+
+									$resultats['Tous']['Orientes_CD'][$tmpmonth]++;
 									$Suspendu = True;
 									//On vérifie les Hors suspendus
 									if (
@@ -2723,37 +2757,41 @@
 										|| $historiquesToppersPreviousMonth != 1 )
 									) {
 										$Suspendu = False;
-										$resultats['Horssuspendus']['Orientes_CD'][$month]++;
+										$resultats['Horssuspendus']['Orientes_CD'][$tmpmonth]++;
 									} else {
-										$resultats['Suspendus']['Orientes_CD'][$month]++;
+										$resultats['Suspendus']['Orientes_CD'][$tmpmonth]++;
 									}
 
 									//- Nombre de nouveaux entrants orientés CD avec un CER suite à une orientation CD
 									if ( $result['Contratinsertion']['datevalidation_ci'] != null
 										&& strtotime($result['Contratinsertion']['datevalidation_ci']) >= strtotime($tmpDate)
 									){
-										$resultats['Tous']['Orientes']['CER'][$month] ++;
+
+										//Calcul du moi de l'orientation
+										$tmpcermonth = date('m', strtotime($result['Orientstruct']['date_valid'])) -1 ;
+
+										$resultats['Tous']['Orientes']['CER'][$tmpcermonth] ++;
 										if ( !$Suspendu ){
-											$resultats['Horssuspendus']['Orientes']['CER'][$month]++;
+											$resultats['Horssuspendus']['Orientes']['CER'][$tmpcermonth]++;
 										} else {
-											$resultats['Suspendus']['Orientes']['CER'][$month]++;
+											$resultats['Suspendus']['Orientes']['CER'][$tmpcermonth]++;
 										}
 										if ( $flagOrientePrepro ) {
 											//	- dont nbre de 1er CER suite à une orientation Pré pro
-											$resultats['Tous']['Orientes']['CER_Prepro'][$month] ++;
+											$resultats['Tous']['Orientes']['CER_Prepro'][$tmpcermonth] ++;
 											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['CER_Prepro'][$month]++;
+												$resultats['Horssuspendus']['Orientes']['CER_Prepro'][$tmpcermonth]++;
 											} else {
-												$resultats['Suspendus']['Orientes']['CER_Prepro'][$month]++;
+												$resultats['Suspendus']['Orientes']['CER_Prepro'][$tmpcermonth]++;
 											}
 										}
 										if ($flagOrienteSocial) {
 											//	- dont nbre de 1er CER suite à une orientation Sociale
-											$resultats['Tous']['Orientes']['CER_Social'][$month] ++;
+											$resultats['Tous']['Orientes']['CER_Social'][$tmpcermonth] ++;
 											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['CER_Social'][$month]++;
+												$resultats['Horssuspendus']['Orientes']['CER_Social'][$tmpcermonth]++;
 											} else {
-												$resultats['Suspendus']['Orientes']['CER_Social'][$month]++;
+												$resultats['Suspendus']['Orientes']['CER_Social'][$tmpcermonth]++;
 											}
 										}
 									}
@@ -2762,11 +2800,11 @@
 									$date1mois = strtotime($tmpDate.' + 1 month');
 									//Nombre d'orientées en moins d'un mois
 									if ( $date1mois  >  strtotime($result['Orientstruct']['date_valid']) ) {
-										$resultats['Tous']['Orientes1m'][$month]++;
+										$resultats['Tous']['Orientes1m'][$tmpmonth]++;
 										if ( !$Suspendu ){
-											$resultats['Horssuspendus']['Orientes1m'][$month]++;
+											$resultats['Horssuspendus']['Orientes1m'][$tmpmonth]++;
 										} else {
-											$resultats['Suspendus']['Orientes1m'][$month]++;
+											$resultats['Suspendus']['Orientes1m'][$tmpmonth]++;
 										}
 									}
 
@@ -2774,28 +2812,28 @@
 										$date2mois = strtotime($result['Orientstruct']['date_valid'].' + 2 month');
 										if ( $date1mois  >  strtotime($result['Contratinsertion']['datevalidation_ci']) ) {
 											//- Nombre de CER suite à une orientation CD dans un délai de 60 jours
-											$resultats['Tous']['Orientes2m']['CER'][$month] ++;
+											$resultats['Tous']['Orientes2m']['CER'][$tmpcermonth] ++;
 											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes2m']['CER'][$month]++;
+												$resultats['Horssuspendus']['Orientes2m']['CER'][$tmpcermonth]++;
 											} else {
-												$resultats['Suspendus']['Orientes2m']['CER'][$month]++;
+												$resultats['Suspendus']['Orientes2m']['CER'][$tmpcermonth]++;
 											}
 											if ( $flagOrientePrepro ) {
 												//	- dont nbre de CER suite à une orientation Pré pro
-												$resultats['Tous']['Orientes2m']['CER_Prepro'][$month] ++;
+												$resultats['Tous']['Orientes2m']['CER_Prepro'][$tmpcermonth] ++;
 												if ( !$Suspendu ){
-													$resultats['Horssuspendus']['Orientes2m']['CER_Prepro'][$month]++;
+													$resultats['Horssuspendus']['Orientes2m']['CER_Prepro'][$tmpcermonth]++;
 												} else {
-													$resultats['Suspendus']['Orientes2m']['CER_Prepro'][$month]++;
+													$resultats['Suspendus']['Orientes2m']['CER_Prepro'][$tmpcermonth]++;
 												}
 											}
 											if ($flagOrienteSocial) {
 												//	- dont nbre de CER suite à une orientation Sociale
-												$resultats['Tous']['Orientes2m']['CER_Social'][$month] ++;
+												$resultats['Tous']['Orientes2m']['CER_Social'][$tmpcermonth] ++;
 												if ( !$Suspendu ){
-													$resultats['Horssuspendus']['Orientes2m']['CER_Social'][$month]++;
+													$resultats['Horssuspendus']['Orientes2m']['CER_Social'][$tmpcermonth]++;
 												} else {
-													$resultats['Suspendus']['Orientes2m']['CER_Social'][$month]++;
+													$resultats['Suspendus']['Orientes2m']['CER_Social'][$tmpcermonth]++;
 												}
 											}
 										}
