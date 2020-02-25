@@ -149,9 +149,6 @@
 				// SDD & DOV
 				$query = $this->sdddov($query);
 
-				//Inscrits à Pôle Emploi
-				$query = $this->inscritPE($query);
-
 				Cache::write($cacheKey, $query);
 			}
 			return $query;
