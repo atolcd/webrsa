@@ -32,6 +32,8 @@
 			$query = $this->sansRendezvous($query);
 			//Sans CER
 			$query = $this->sansCER($query);
+			// Inscrit PE
+			$query = $this->inscritPE($query);
 
 			// Stock
 			$query = $this->stock($query);
