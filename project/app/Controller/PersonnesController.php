@@ -590,6 +590,9 @@
 				$this->Personne->begin();
 				$data = Hash::merge( $personne, $this->request->data );
 
+				// Ajout de la clé au NIR si celle-ci manque.
+				( strlen ( trim ( $data['Personne']['nir'] )) == 13 ) ? $data['Personne']['nir'] = trim ( $data['Personne']['nir'] ).( 97 - trim ( $data['Personne']['nir'] ) % 97 ) : '' ;
+
 				$this->Personne->create( $data );
 				if ( $this->Personne->save( null, array( 'atomic' => false ) ) ) {
 					$this->Personne->commit();
