@@ -160,8 +160,22 @@
 		 */
 		public function nonInscritPE($query) {
 			$this->loadModel('Historiqueetatpe');
-			$qdNonInscrits = $this->Historiqueetatpe->Informationpe->qdNonInscrits(false);
-			$query['conditions'] = array_merge($query['conditions'], $qdNonInscrits['conditions']);
+			$query['joins'] = array_merge(
+				$query['joins'],
+				array (
+					$this->Historiqueetatpe->Informationpe->joinPersonneInformationpe (),
+					$this->Historiqueetatpe->Informationpe->join( 'Historiqueetatpe' ),
+				)
+			);
+
+			$query['conditions'][] =  array(
+				'OR' => array(
+					'Historiqueetatpe.id IS NULL',
+					'Historiqueetatpe.id IN ( '.$this->Historiqueetatpe->sqDernier( 'Informationpe' ).' )'
+				)
+			);
+			$query['conditions'][] = '("Historiqueetatpe"."etat" not like \'inscription\' or "Historiqueetatpe"."etat" is null)';
+
 			return $query;
 		}
 

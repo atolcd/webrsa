@@ -54,8 +54,8 @@
 					'Dossier' => 'INNER',
 					'Situationdossierrsa' => 'INNER',
 					'Adresse' => 'INNER',
+					'Prestation' => 'INNER',
 					// LEFT OUTER JOIN
-					'Prestation' => 'LEFT OUTER',
 					'Detaildroitrsa' => 'LEFT OUTER',
 					'Orientstruct' => 'LEFT OUTER',
 					'Rendezvous' => 'LEFT OUTER',
