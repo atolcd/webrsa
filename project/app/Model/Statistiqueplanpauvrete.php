@@ -545,15 +545,6 @@
 					);
 				}
 			}
-			$query['conditions'] = array_merge(
-				array(
-					/*'Orientstruct.date_valid >= ' => $annee .'-01-01',
-					'Orientstruct.date_valid <= ' => $annee .'-12-31',
-					'Rendezvous.daterdv !=' =>  NULL,
-					'Rendezvous.daterdv >= Orientstruct.date_valid'*/
-				),
-				$query['conditions']
-			);
 
 			$query = $this->_completeQuerySoumisDd($query, $annee, true);
 			return $query;
@@ -669,30 +660,6 @@
 								)
 							)
 						),
-						/*array(
-							'table' => 'rendezvous',
-							'alias' => 'Rendezvous',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'AND' => array(
-									'Rendezvous.personne_id = Personne.id',
-									 array(
-										'OR' => array(
-											array('Rendezvous.daterdv' => NULL),
-											array('Rendezvous.daterdv >= Historiquedroit.created')
-										),
-									)
-								)
-							)
-						),
-						array(
-							'table' => 'statutsrdvs',
-							'alias' => 'Statutrdv',
-							'type' => 'LEFT',
-							'conditions' => array(
-								'Statutrdv.id = Rendezvous.statutrdv_id'
-							)
-						),*/
 					),
 					$joinSearch
 				),
@@ -701,32 +668,6 @@
 						'Historiquedroit.modified >= ' => $annee .'-01-01',
 						'Historiquedroit.created <= ' => $annee .'-12-31',
 						'Historiquedroit.etatdosrsa IN' => $conditionsSDD['Situationdossierrsa.etatdosrsa'],
-						/*'AND' => array(
-							array(
-								'OR' => array(
-									array('Rendezvous.daterdv' => NULL),
-									array('Rendezvous.daterdv >= Historiquedroit.created')
-								),
-							),
-							array(
-								'OR' => array(
-									array('Orientstruct.date_valid' => NULL),
-									array('Orientstruct.date_valid >= Historiquedroit.created')
-								)
-							),
-							array(
-								'OR' => array(
-									array('Contratinsertion.datevalidation_ci' => NULL),
-									array('Contratinsertion.datevalidation_ci >= Historiquedroit.created')
-								)
-							),
-							array(
-								'OR' => array(
-									array('Cui.signaturele' => NULL),
-									array('Cui.signaturele >= Historiquedroit.created')
-								)
-							)
-						)*/
 					),
 					$conditionsSearch
 				),
@@ -904,14 +845,21 @@
 		 * @return array
 		 */
 		protected function _getQueryTableau_a1v2(array $search , $annee) {
-			$Dossier = ClassRegistry::init( 'Dossier' );
-			$Foyer = ClassRegistry::init( 'Foyer' );
 			$jourFinMois = $this->jourDeFin ();
 			$conditionsSearch = $this->_getConditionsTableau($search);
-			$joinSearch = $this->_getJoinsTableau($search, false, true);
+			$joinSearch = $this->_getJoinsTableau($search, false, false);
 			$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
 
 			$fields = $this->_queryFields();
+			$fields = array_merge(
+				$fields,
+				array(
+					'Foyer.id',
+					'Adressefoyer.rgadr',
+					'Adressefoyer.dtemm',
+					'Adresse.codepos',
+				)
+			);
 			$joins = $this->_queryJoins();
 
 			// Query First
@@ -919,40 +867,48 @@
 				'fields' => $fields,
 				'recursive' => -1,
 				'joins' => array_merge(
-					$joins,
+					array_merge(
+						$joins,
+						array(
+							array(
+								'table' => 'foyers',
+								'alias' => 'Foyer',
+								'type' => 'INNER',
+								'conditions' => array(
+									'Personne.foyer_id = Foyer.id'
+								),
+							),
+							array(
+								'table' => 'adressesfoyers',
+								'alias' => 'Adressefoyer',
+								'type' => 'LEFT',
+								'conditions' => array(
+									'Adressefoyer.foyer_id = Foyer.id',
+									'Adressefoyer.id = (SELECT id FROM adressesfoyers
+										WHERE foyer_id = "Foyer"."id" AND rgadr = \'02\' ORDER BY dtemm DESC LIMIT 1)'
+								),
+							),
+							array(
+								'table' => 'adresses',
+								'alias' => 'Adresse',
+								'type' => 'LEFT',
+								'conditions' => array(
+									'Adressefoyer.adresse_id = Adresse.id',
+								),
+							)
+						)
+					),
 					$joinSearch
 				),
 				'conditions' => $conditionsSearch
 			);
-			$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
-			if ( $useHistoriquedroit ){
-				//Fields
-				$query['fields'] = array_merge(
-					$query['fields'],
-					$this->_queryHistoriqueDroitFields()
-				);
-
-				//Joins by month
-				$query['joins'] = array_merge(
-					$query['joins'],
-					$this->_queryHistoriqueDroitJoins($annee, $jourFinMois)
-				);
-			}
 
 			$query['conditions'] = array_merge(
 				$this->_queryConditionEtatdos($etatSuspendus,$annee, $jourFinMois),
 				$query['conditions']
 			);
-			$query['conditions'] = array_merge(
-				/*array(
-					'OR' => array(
-						'Orientstruct.date_valid >= ' => $annee .'-01-'.$jourFinMois,
-						'Orientstruct.date_valid IS NULL'
-					)
-				),*/
-				$query['conditions']
-			);
 
+			$query['ORDER'] = array( 'Personne.id DESC' ) ;
 			return $query;
 		}
 
@@ -962,11 +918,9 @@
 		 * @return array
 		 */
 		protected function _getQueryTableau_a2av2(array $search , $annee) {
-			$Dossier = ClassRegistry::init( 'Dossier' );
-			$Foyer = ClassRegistry::init( 'Foyer' );
 			$jourFinMois = $this->jourDeFin ();
 			$conditionsSearch = $this->_getConditionsTableau($search);
-			$joinSearch = $this->_getJoinsTableau($search, false, true);
+			$joinSearch = $this->_getJoinsTableau($search, true, false);
 
 			$fields = $this->_queryFields();
 			$fields[] = 'Rendezvous.daterdv';
@@ -988,9 +942,9 @@
 								'conditions' => array(
 									'Rendezvous.personne_id = Personne.id',
 									'Rendezvous.typerdv_id' => Configure::read( 'Statistiqueplanpauvrete.type_rendezvous' ),
+									'Personne.id = (SELECT personne_id FROM rendezvous
+										WHERE personne_id = "Personne"."id" ORDER BY daterdv DESC LIMIT 1)'
 								),
-								'ORDER BY' => 'Rendezvous.daterdv DESC',
-								'LIMIT' => 1
 							)
 						)
 					),
@@ -998,18 +952,7 @@
 				),
 				'conditions' => $conditionsSearch
 			);
-			$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
-			if ( $useHistoriquedroit ){
-				//Fields
-				$query['fields'] = array_merge(
-					$query['fields'],
-					$this->_queryHistoriqueDroitFields()
-				);
-				$query['joins'] = array_merge(
-					$query['joins'],
-					$this->_queryHistoriqueDroitJoins($annee, $jourFinMois)
-				);
-			}
+
 			$query['conditions'] = array_merge(
 				array(
 					'Orientstruct.date_valid >= ' => $annee .'-01-01',
@@ -1027,11 +970,9 @@
 		 * @return array
 		 */
 		protected function _getQueryTableau_a2bv2(array $search , $annee) {
-			$Dossier = ClassRegistry::init( 'Dossier' );
-			$Foyer = ClassRegistry::init( 'Foyer' );
 			$jourFinMois = $this->jourDeFin ();
 			$conditionsSearch = $this->_getConditionsTableau($search);
-			$joinSearch = $this->_getJoinsTableau($search, false, true);
+			$joinSearch = $this->_getJoinsTableau($search, true, false);
 
 			$fields = $this->_queryFields();
 			$fields[] = 'Contratinsertion.datevalidation_ci';
@@ -1052,10 +993,10 @@
 								'type' => 'LEFT',
 								'conditions' => array(
 									'Contratinsertion.personne_id = Personne.id',
-									'Contratinsertion.structurereferente_id = Structurereferente.id'
+									'Contratinsertion.structurereferente_id = Structurereferente.id',
+									'Personne.id = (SELECT personne_id FROM contratsinsertion
+										WHERE personne_id = "Personne"."id" ORDER BY datevalidation_ci DESC LIMIT 1)'
 								),
-								'ORDER BY' => 'Contratinsertion.datevalidation_ci DESC',
-								'LIMIT' => 1
 							)
 						)
 					),
@@ -1063,19 +1004,7 @@
 				),
 				'conditions' => $conditionsSearch
 			);
-			$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
-			if ( $useHistoriquedroit ){
-				//Fields
-				$query['fields'] = array_merge(
-					$query['fields'],
-					$this->_queryHistoriqueDroitFields()
-				);
-				//Joins by month
-				$query['joins'] = array_merge(
-					$query['joins'],
-					$this->_queryHistoriqueDroitJoins($annee, $jourFinMois)
-				);
-			}
+
 			$query['conditions'] = array_merge(
 				array(
 					'Orientstruct.date_valid >= ' => $annee .'-01-01',
@@ -1085,6 +1014,54 @@
 			);
 
 			return $query;
+		}
+
+		########################################################################################################################
+		########################################################################################################################
+
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		protected function _getQueryHistoriques($annee, $arrayIds) {
+			$jourFinMois = $this->jourDeFin ();
+			$tmpDateRecherchePrevious = $annee.'-01-'.$jourFinMois;
+
+			if ( is_array ( $arrayIds )){
+				$ids = "'";
+				$ids .= implode( "','",$arrayIds);
+				$ids .= "'";
+			}else{
+				$ids = $arrayIds;
+			}
+
+			//Fields
+			$sqlHistoriquedroit = " SELECT Historiquedroit.personne_id,";
+			$sqlHistoriquedroit .= 'max(etatdosrsa) FILTER ( WHERE (\''.$tmpDateRecherchePrevious.'\'
+				BETWEEN date_trunc(\'day\', created )
+				AND  date_trunc(\'day\', modified )) ) AS etatdosrsa12, ';
+			$sqlHistoriquedroit .= 'max (toppersdrodevorsa) FILTER ( WHERE (\''.$tmpDateRecherchePrevious.'\'
+				BETWEEN date_trunc(\'day\', created )
+				AND  date_trunc(\'day\', modified )) ) AS toppersdrodevorsa12 ';
+
+			//Fields By Months
+			for($month=0; $month<12; $month++) {
+				$tmpDateRecherche = $this->_getDateString( $annee, $month, $jourFinMois, 2 );
+				$sqlHistoriquedroit .= ', max(etatdosrsa) FILTER ( WHERE (\''.$tmpDateRecherche.'\'
+					BETWEEN date_trunc(\'day\', created )
+					AND  date_trunc(\'day\', modified )) ) AS etatdosrsa'.$month;
+				$sqlHistoriquedroit .= ', max (toppersdrodevorsa) FILTER ( WHERE (\''.$tmpDateRecherche.'\'
+					BETWEEN date_trunc(\'day\', created )
+					AND  date_trunc(\'day\', modified )) ) AS toppersdrodevorsa'.$month;
+			}
+
+			$sqlHistoriquedroit .= ' FROM historiquesdroits AS Historiquedroit ';
+			$sqlHistoriquedroit .= ' WHERE Historiquedroit.personne_id IN ( '. $ids .')';
+			$sqlHistoriquedroit .= ' GROUP BY personne_id ORDER BY personne_id ';
+
+
+			return $sqlHistoriquedroit;
 		}
 
 		########################################################################################################################
@@ -1126,16 +1103,16 @@
 			$Foyer = ClassRegistry::init( 'Foyer' );
 
 			$joins = array(
-				$Foyer->join( 'Personne', array( 'type' => 'INNER' ) ),
 				array(
 					'table' => 'orientsstructs',
 					'alias' => 'Orientstruct',
 					'type' => 'LEFT',
 					'conditions' => array(
-						'Orientstruct.personne_id = Personne.id',
+						'Personne.id = Orientstruct.personne_id',
+						'Personne.id = (SELECT personne_id FROM orientsstructs
+						WHERE personne_id = "Personne"."id"
+						ORDER BY date_valid DESC LIMIT 1)'
 					),
-					'ORDER BY' => 'Orientstruct.date_valid DESC',
-					'LIMIT' => 1
 				),
 				array(
 					'table' => 'typesorients',
@@ -1178,6 +1155,7 @@
 
 		private function _queryHistoriqueDroitJoins ($annee, $jourFinMois) {
 			$tmpDateRecherchePrevious = $annee.'-01-'.$jourFinMois;
+
 			$joins = array(
 				array(
 					'table' => 'historiquesdroits',
@@ -1185,11 +1163,13 @@
 					'type' => 'LEFT',
 					'conditions' => array(
 						'Personne.id = Historiquedroit12.personne_id',
-						'(\''.$tmpDateRecherchePrevious.'\' BETWEEN date_trunc(\'day\', Historiquedroit12.created )
-						AND  date_trunc(\'day\', Historiquedroit12.modified ))'
+						'Personne.id = (SELECT personne_id FROM historiquesdroits
+							WHERE personne_id = "Personne"."id"
+							AND	(\''.$tmpDateRecherchePrevious.'\' BETWEEN date_trunc(\'day\', created )
+							AND  date_trunc(\'day\', modified ))
+							ORDER BY created DESC LIMIT 1
+						)'
 					),
-					'ORDER BY' => 'Historiquedroit12.created DESC',
-					'LIMIT' => 1
 				)
 			);
 			for($month=0; $month<12; $month++) {
@@ -1203,13 +1183,14 @@
 							'type' => 'LEFT',
 							'conditions' => array(
 								'Personne.id = Historiquedroit'.$month.'.personne_id',
-								'(date_trunc(\'day\',to_date(\''.$tmpDateRecherche.'\',\'YYYY-MM-DD\'))
-								BETWEEN date_trunc(\'day\', Historiquedroit'.$month.'.created )
-								AND  date_trunc(\'day\', Historiquedroit'.$month.'.modified ) )'
+								'Personne.id = (SELECT personne_id FROM historiquesdroits
+									WHERE personne_id = "Personne"."id"
+									AND (\''.$tmpDateRecherche.'\' BETWEEN date_trunc(\'day\', created )
+									AND  date_trunc(\'day\', modified ))
+									ORDER BY created DESC LIMIT 1
+								)'
 							),
-							'ORDER BY' => 'Historiquedroit'.$month.'.created DESC',
-							'LIMIT' => 1
-						),
+						)
 					)
 				);
 			}
@@ -1486,15 +1467,7 @@
 							}
 						}
 					}
-					/*
-					if ( $flagOrientePE && $result['InformationPE']['ppae_date_signature'] != null ) {
-						$yearPPAE = intval( date('Y', strtotime($result['InformationPE']['ppae_date_signature']) ) );
-						if ($yearPPAE < $annee ){$monthPPAE = 0; }else{
-						$monthPPAE = intval( date('n', strtotime($result['InformationPE']['ppae_date_signature']) ) ) -1;}
-						//En attente de Flux Pole emploi PPAE,
-						$resultats['Contrat']['PEPPAE'][$month] ++;
-					}
-					*/
+
 					if ( $flagOrienteCDCER ){
 						$resultats['CDCER']['total'][$month]++;
 						if( $flagOrienteSocial ) {
@@ -1919,15 +1892,32 @@
 		 * @return array
 		 */
 		public function getIndicateursTableauA1V2( array $search ) {
-			$Foyer = ClassRegistry::init( 'Foyer' );
+			$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
+
+			$Personne = ClassRegistry::init( 'Personne' );
 			$Historiquedroit = ClassRegistry::init( 'Historiquedroit' );
+
 			$annee = Hash::get( $search, 'Search.annee' );
 			$testOrient = $this->_getTypeOrientation();
 			$results = array();
 
 			// Query de base
 			$query = $this->_getQueryTableau_a1v2 ($search, $annee);
-			$results = $Foyer->find('all', $query);
+			$results = $Personne->find('all', $query);
+
+
+			if( $useHistoriquedroit ) {
+				$arrayIds = array( );
+				foreach($results as $result) {
+					$arrayIds[] = $result["Personne"]["id"];
+				}
+				if ( ! empty ($arrayIds) ){
+					$query = $this->_getQueryHistoriques ($annee, $arrayIds);
+					$resultsHistoriques = $Historiquedroit->query($query);
+				}else{
+					$resultsHistoriques = null;
+				}
+			}
 
 			// Initialisation tableau de résultats
 			$resultats = array (
@@ -2076,34 +2066,46 @@
 					0;
 			}
 
-			foreach($results as $result) {
-				$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
+			foreach($results as $key => $result) {
+				$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
+
 				if ( $useHistoriquedroit ){
-					$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
-					$historiquesPreviousMonth = $result['Historiquedroit12']['etatdosrsa'];
-					$historiquesToppersPreviousMonth = $result['Historiquedroit12']['toppersdrodevorsa'];
-					/*
-					$rgadrPreviousMonth = $result['Adressefoyer12']['rgadr'];
-					$dtemmPreviousMonth = $result['Adressefoyer12']['dtemm'];
-					$codeposPreviousMonth = $result['Adresse12']['codepos'];
-					*/
+					$historiqueKey = null;
+					foreach ($resultsHistoriques as $historiqueKey => $resultHistorique) {
+						if ( $resultHistorique[0]['personne_id'] == $result['Personne']['id'] ){
+							$historiquesPreviousMonth = $resultsHistoriques[$historiqueKey][0]['etatdosrsa12'];
+							$historiquesToppersPreviousMonth = $resultsHistoriques[$historiqueKey][0]['toppersdrodevorsa12'];
+							break;
+						}
+					}
+
 					for( $month=0; $month<12; $month++ ) {
+						if ( ! is_null($historiqueKey) ){
+							$historiquesMonth = $resultsHistoriques[$historiqueKey][0]['etatdosrsa'.$month];
+							$historiquesToppersMonth = $resultsHistoriques[$historiqueKey][0]['toppersdrodevorsa'.$month];
+						}else{
+							$historiquesMonth = $historiquesToppersMonth = null;
+						}
+
 						//Si La personne est un nouvel entrant suspendu ou pas alors
 						if ( (
-							 in_array ( $result['Historiquedroit'.$month]['etatdosrsa'], $etatSuspendus)
-							&& $result['Historiquedroit'.$month]['toppersdrodevorsa'] == 1
+							 in_array ( $historiquesMonth, $etatSuspendus)
+							&&  $historiquesToppersMonth == 1
 						) && (
 							 in_array ($historiquesPreviousMonth, $etatSuspendus)
 							|| $historiquesToppersPreviousMonth != 1
 						)) {
+							$jourDebMois = $this->jourDeDebut();
+							$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
+
 							//- Nombre de personnes entrentes en SDD ce mois ci
 							$resultats['Tous']['total'][$month] ++;
 
 							//On vérifie les Hors suspendus
 							$Suspendu = True;
 							if ((
-								$result['Historiquedroit'.$month]['etatdosrsa'] == 2
-								&& $result['Historiquedroit'.$month]['toppersdrodevorsa'] == 1
+								$historiquesMonth == 2
+								&& $historiquesToppersMonth == 1
 							)&& (
 								 $historiquesPreviousMonth != 2
 								|| $historiquesToppersPreviousMonth != 1
@@ -2163,10 +2165,8 @@
 							*/
 
 							//- dont BRSA venant de s’installer sur le Dpt (mutation)
-							/*
-							if ($dtemmPreviousMonth != $result['Adressefoyer']['dtemm']
-								&& strpos($codeposPreviousMonth, '66') == 0
-							) {
+							$departement = Configure::read('Cg.departement');
+							if ( strpos($result['Adresse']['codepos'], $departement) == 0	) {
 								$resultats['Tous']['nbEMM'][$month]++;
 								if ( !$Suspendu ){
 									$resultats['Horssuspendus']['nbEMM'][$month]++;
@@ -2174,13 +2174,10 @@
 									$resultats['Suspendus']['nbEMM'][$month]++;
 								}
 							}
-							*/
 
 							//Si La personne est un nouvel entrant et
 							//Qu'on as une date d'orientation valide
 							if ( $result['Orientstruct']['date_valid'] != null ){
-								$jourDebMois = $this->jourDeDebut ();
-								$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
 
 								//Si l'orientation n'est pas inférieur au changement de droits
 								if (strtotime($result['Orientstruct']['date_valid']) >= strtotime($tmpDate) ){
@@ -2263,13 +2260,12 @@
 								}
 							}
 						}
-						$historiquesPreviousMonth = $result['Historiquedroit'.$month]['etatdosrsa'];
-						$historiquesToppersPreviousMonth = $result['Historiquedroit'.$month]['toppersdrodevorsa'];
-						/*$rgadrPreviousMonth = $result['Adressefoyer'.$month]['rgadr'];
-						$dtemmPreviousMonth = $result['Adressefoyer'.$month]['dtemm'];
-						$codeposPreviousMonth = $result['Adresse'.$month]['codepos'];*/
+						$historiquesPreviousMonth = $historiquesMonth;
+						$historiquesToppersPreviousMonth = $historiquesToppersMonth;
 					}
 				}
+				unset($resultsHistoriques[$historiqueKey]);
+				unset($results[$key]);
 			}
 			for($i=0; $i<12; $i++) {
 				if($resultats['Tous']['total'][$i] != 0) {
@@ -2321,15 +2317,31 @@
 		 * @return array
 		 */
 		public function getIndicateursTableauA2AV2( array $search ) {
-			$Foyer = ClassRegistry::init( 'Foyer' );
+			$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
+
+			$Personne = ClassRegistry::init( 'Personne' );
 			$Historiquedroit = ClassRegistry::init( 'Historiquedroit' );
+
 			$annee = Hash::get( $search, 'Search.annee' );
 			$testOrient = $this->_getTypeOrientation();
 			$results = array();
 
 			// Query de base
 			$query = $this->_getQueryTableau_a2av2 ($search, $annee);
-			$results = $Foyer->find('all', $query);
+			$results = $Personne->find('all', $query);
+
+			if( $useHistoriquedroit ) {
+				$arrayIds = array( );
+				foreach($results as $result) {
+					$arrayIds[] = $result["Personne"]["id"];
+				}
+				if ( ! empty ($arrayIds) ){
+					$query = $this->_getQueryHistoriques ($annee, $arrayIds);
+					$resultsHistoriques = $Historiquedroit->query($query);
+				}else{
+					$resultsHistoriques = null;
+				}
+			}
 
 			// Initialisation tableau de résultats
 			$resultats = array (
@@ -2383,7 +2395,7 @@
 				)
 			);
 			for($i=0; $i<12; $i++) {
-				
+
 				$resultats['Tous']['Orientes_CD'][$i]=0;
 				//Orientée dont
 				$resultats['Tous']['Taux'][$i] =0;
@@ -2426,12 +2438,18 @@
 			$jourDebMois = $this->jourDeDebut ();
 
 			//Pour chaque résultat
-			foreach($results as $result) {
-				$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
+			foreach($results as $key => $result) {
+				$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
+
 				if ( $useHistoriquedroit ){
-					$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
-					$historiquesPreviousMonth = $result['Historiquedroit12']['etatdosrsa'];
-					$historiquesToppersPreviousMonth = $result['Historiquedroit12']['toppersdrodevorsa'];
+					$historiqueKey = null;
+					foreach ($resultsHistoriques as $historiqueKey => $resultHistorique) {
+						if ( $resultHistorique[0]['personne_id'] == $result['Personne']['id'] ){
+							$historiquesPreviousMonth = $resultsHistoriques[$historiqueKey][0]['etatdosrsa12'];
+							$historiquesToppersPreviousMonth = $resultsHistoriques[$historiqueKey][0]['toppersdrodevorsa12'];
+							break;
+						}
+					}
 
 					$flagOrienteCD = false;
 					$flagOrientePrepro = false;
@@ -2450,10 +2468,17 @@
 					}
 
 					for( $month=0; $month<12; $month++ ) {
+						if ( ! is_null($historiqueKey) ){
+							$historiquesMonth = $resultsHistoriques[$historiqueKey][0]['etatdosrsa'.$month];
+							$historiquesToppersMonth = $resultsHistoriques[$historiqueKey][0]['toppersdrodevorsa'.$month];
+						}else{
+							$historiquesMonth = $historiquesToppersMonth = null;
+						}
+
 						//Si La personne est un nouvel entrant suspendu ou pas et
 						if ( (
-							 in_array ( $result['Historiquedroit'.$month]['etatdosrsa'], $etatSuspendus)
-							&& $result['Historiquedroit'.$month]['toppersdrodevorsa'] == 1
+							 in_array ( $historiquesMonth, $etatSuspendus)
+							&& $historiquesToppersMonth == 1
 						) && (
 							 in_array ($historiquesPreviousMonth, $etatSuspendus)
 							|| $historiquesToppersPreviousMonth != 1
@@ -2462,7 +2487,7 @@
 							if ( $result['Orientstruct']['date_valid'] != null){
 								$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
 								if (//Si l'orientation n'est pas inférieur au changement de droits
-									strtotime($result['Orientstruct']['date_valid']) >= strtotime($tmpDate) 
+									strtotime($result['Orientstruct']['date_valid']) >= strtotime($tmpDate)
 									//Nombre de nouveaux entrants orientés orientées CD
 									&& $flagOrienteCD
 								){
@@ -2474,8 +2499,8 @@
 									$Suspendu = True;
 									//On vérifie les Hors suspendus
 									if (
-										($result['Historiquedroit'.$month]['etatdosrsa'] == 2
-										&& $result['Historiquedroit'.$month]['toppersdrodevorsa'] == 1)
+										($historiquesMonth == 2
+										&& $historiquesToppersMonth == 1)
 										&& ( $historiquesPreviousMonth != 2
 										|| $historiquesToppersPreviousMonth != 1 )
 									) {
@@ -2561,11 +2586,13 @@
 
 								}
 							}
-							$historiquesPreviousMonth = $result['Historiquedroit'.$month]['etatdosrsa'];
-							$historiquesToppersPreviousMonth = $result['Historiquedroit'.$month]['toppersdrodevorsa'];
+							$historiquesPreviousMonth = $historiquesMonth;
+							$historiquesToppersPreviousMonth = $historiquesToppersMonth;
 						}
 					}
 				}
+				unset($resultsHistoriques[$historiqueKey]);
+				unset($results[$key]);
 			}
 			for($i=0; $i<12; $i++) {
 				if($resultats['Tous']['Orientes_CD'][$i] != 0) {
@@ -2599,15 +2626,31 @@
 		 * @return array
 		 */
 		public function getIndicateursTableauA2BV2( array $search ) {
-			$Foyer = ClassRegistry::init( 'Foyer' );
+			$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
+
+			$Personne = ClassRegistry::init( 'Personne' );
 			$Historiquedroit = ClassRegistry::init( 'Historiquedroit' );
+
 			$annee = Hash::get( $search, 'Search.annee' );
 			$testOrient = $this->_getTypeOrientation();
 			$results = array();
 
 			// Query de base
 			$query = $this->_getQueryTableau_a2bv2 ($search, $annee);
-			$results = $Foyer->find('all', $query);
+			$results = $Personne->find('all', $query);
+
+			if( $useHistoriquedroit ) {
+				$arrayIds = array( );
+				foreach($results as $result) {
+					$arrayIds[] = $result["Personne"]["id"];
+				}
+				if ( ! empty ($arrayIds) ){
+					$query = $this->_getQueryHistoriques ($annee, $arrayIds);
+					$resultsHistoriques = $Historiquedroit->query($query);
+				}else{
+					$resultsHistoriques = null;
+				}
+			}
 
 			// Initialisation tableau de résultats
 			$resultats = array (
@@ -2703,12 +2746,18 @@
 			$jourDebMois = $this->jourDeDebut ();
 
 			//Pour chaque résultat
-			foreach($results as $result) {
-				$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
+			foreach($results as $key => $result) {
+				$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
+
 				if ( $useHistoriquedroit ){
-					$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
-					$historiquesPreviousMonth = $result['Historiquedroit12']['etatdosrsa'];
-					$historiquesToppersPreviousMonth = $result['Historiquedroit12']['toppersdrodevorsa'];
+					$historiqueKey = null;
+					foreach ($resultsHistoriques as $historiqueKey => $resultHistorique) {
+						if ( $resultHistorique[0]['personne_id'] == $result['Personne']['id'] ){
+							$historiquesPreviousMonth = $resultsHistoriques[$historiqueKey][0]['etatdosrsa12'];
+							$historiquesToppersPreviousMonth = $resultsHistoriques[$historiqueKey][0]['toppersdrodevorsa12'];
+							break;
+						}
+					}
 
 					$flagOrienteCD = false;
 					$flagOrientePrepro = false;
@@ -2727,10 +2776,17 @@
 					}
 
 					for( $month=0; $month<12; $month++ ) {
+						if ( ! is_null($historiqueKey) ){
+							$historiquesMonth = $resultsHistoriques[$historiqueKey][0]['etatdosrsa'.$month];
+							$historiquesToppersMonth = $resultsHistoriques[$historiqueKey][0]['toppersdrodevorsa'.$month];
+						}else{
+							$historiquesMonth = $historiquesToppersMonth = null;
+						}
+
 						//Si La personne est un nouvel entrant suspendu ou pas et
 						if ( (
-							 in_array ( $result['Historiquedroit'.$month]['etatdosrsa'], $etatSuspendus)
-							&& $result['Historiquedroit'.$month]['toppersdrodevorsa'] == 1
+							 in_array ( $historiquesMonth, $etatSuspendus)
+							&& $historiquesToppersMonth == 1
 						) && (
 							 in_array ($historiquesPreviousMonth, $etatSuspendus)
 							|| $historiquesToppersPreviousMonth != 1
@@ -2751,8 +2807,7 @@
 									$Suspendu = True;
 									//On vérifie les Hors suspendus
 									if (
-										($result['Historiquedroit'.$month]['etatdosrsa'] == 2
-										&& $result['Historiquedroit'.$month]['toppersdrodevorsa'] == 1)
+										($historiquesMonth == 2 && $historiquesToppersMonth == 1)
 										&& ( $historiquesPreviousMonth != 2
 										|| $historiquesToppersPreviousMonth != 1 )
 									) {
@@ -2841,11 +2896,13 @@
 
 								}
 							}
-							$historiquesPreviousMonth = $result['Historiquedroit'.$month]['etatdosrsa'];
-							$historiquesToppersPreviousMonth = $result['Historiquedroit'.$month]['toppersdrodevorsa'];
+							$historiquesPreviousMonth = $historiquesMonth;
+							$historiquesToppersPreviousMonth = $historiquesToppersMonth;
 						}
 					}
 				}
+				unset($resultsHistoriques[$historiqueKey]);
+				unset($results[$key]);
 			}
 			for($i=0; $i<12; $i++) {
 				if($resultats['Tous']['Orientes_CD'][$i] != 0) {
@@ -2891,4 +2948,3 @@
 			return $date->format ('d');
 		}
 	}
-?>
