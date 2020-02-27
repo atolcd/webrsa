@@ -101,7 +101,7 @@ msgid "Accueil.dernierscersperimes.titre"
 msgstr "Vos allocataires en droit ouvert et versable ayant comme dernier CER un CER périmé"
 
 msgid "Accueil.canton.titre"
-msgstr "Nombre de canton n'ayant de pas de nom"
+msgstr "Nombre d'adresses sans canton"
 
 msgid "Accueil.recourgracieux.titre"
 msgstr "Vos recours gracieux avec une Date butoir dans moins de __LIMITE__ jours"
