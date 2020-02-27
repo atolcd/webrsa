@@ -104,7 +104,7 @@
 		 * Ajoute referent_id dans $cohorteFields
 		 */
 		public function addReferentCohorteFields() {
-			$this->cohorteFields = array(
+			return array(
 				'Personne.id' => array( 'type' => 'hidden' ),
 				'Dossier.id' => array( 'type' => 'hidden'),
 				'Rendezvous.personne_id' => array( 'type' => 'hidden' ),

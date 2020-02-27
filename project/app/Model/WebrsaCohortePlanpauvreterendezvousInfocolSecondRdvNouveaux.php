@@ -16,6 +16,13 @@
 	 */
 	class WebrsaCohortePlanpauvreterendezvousInfocolSecondRdvNouveaux extends WebrsaCohortePlanpauvreterendezvous
 	{
+
+		public function __construct($id = false, $table = null, $ds = null)
+		{
+			parent::__construct($id, $table, $ds);
+			$this->cohorteFields = $this->addReferentCohorteFields();
+		}
+
 		/**
 		 * Retourne le querydata de base, en fonction du département, à utiliser
 		 * dans le moteur de recherche.
@@ -24,7 +31,6 @@
 		 * @return array
 		 */
 		public function searchQuery( array $types = array() ) {
-			$this->addReferentCohorteFields();
 			$query = parent::searchQuery($types);
 			$query = $this->onlyDernierRDV($query);
 
