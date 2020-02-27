@@ -44,7 +44,7 @@
 		 */
 		public $uses = array (
 			'Canton',
-			'Personne'
+			'Adresse'
 		);
 
 		/**
@@ -141,9 +141,31 @@
 		public function adressesnonassociees () {
 			$filename = 'adresses_erronees';
 
+			$resultats = $this->_generationAdressesnonassociees();
+			$export = $this->_generationAdressesnonassocieesCsv($resultats);
+
+			$this->layout = '';
+			$this->set( compact( 'filename', 'export' ) );
+			$this->render('exportcsv');
+		}
+
+		/**
+		 * Génération des adresses non associées
+		 *
+		 * @retrun array
+		 */
+		protected function _generationAdressesnonassociees () {
+			$restrictionCantonMulti = array ();
+			$cantonMultis = Configure::read('Canton.multi');
+			if (is_array ($cantonMultis) && !empty ($cantonMultis)) {
+				foreach ($cantonMultis as $cantonMulti) {
+					$restrictionCantonMulti[] = 'Adresse.numcom LIKE \''.$cantonMulti.'\'';
+				}
+			}
+
 			$query = array (
 				'fields' => array (
-					'Personne.id',
+					'DISTINCT ON ("Personne"."id") "Personne"."id"',
 					'Personne.qual',
 					'Personne.nom',
 					'Personne.nomnai',
@@ -165,59 +187,84 @@
 				),
 				'joins' => array (
 					array (
-						'table' => 'dossiers',
-						'alias' => 'Dossier',
-						'type' => 'INNER',
-						'conditions' => array ('Dossier.id = Foyer.dossier_id')
-					),
-					array (
-						'table' => 'situationsdossiersrsa',
-						'alias' => 'Situationdossierrsa',
-						'type' => 'INNER',
-						'conditions' => array ('Dossier.id = Situationdossierrsa.dossier_id')
-					),
-					array (
 						'table' => 'adressesfoyers',
-						'alias' => 'AdresseFoyer',
-						'type' => 'INNER',
-						'conditions' => array (
-							'Foyer.id = AdresseFoyer.foyer_id',
-							'rgadr LIKE \'01\''
-						)
-					),
-					array (
-						'table' => 'adresses',
-						'alias' => 'Adresse',
-						'type' => 'INNER',
-						'conditions' => array ('Adresse.id = AdresseFoyer.adresse_id')
+						'alias' => 'Adressefoyer',
+						'type' => 'LEFT OUTER',
+						'conditions' => array ('Adresse.id = Adressefoyer.adresse_id')
 					),
 					array (
 						'table' => 'adresses_cantons',
 						'alias' => 'AdresseCanton',
-						'type' => 'INNER',
+						'type' => 'LEFT OUTER',
 						'conditions' => array ('Adresse.id = AdresseCanton.adresse_id')
 					),
 					array (
 						'table' => 'cantons',
 						'alias' => 'Canton',
-						'type' => 'INNER',
-						'conditions' => array (
-							'Canton.id = AdresseCanton.canton_id',
-							'OR' => array(
-								'Canton.canton LIKE \'\'',
-								'Canton.canton is NULL'
-							),
-						)
+						'type' => 'LEFT OUTER',
+						'conditions' => array ('Canton.id = AdresseCanton.canton_id')
+					),
+					array (
+						'table' => 'foyers',
+						'alias' => 'Foyer',
+						'type' => 'LEFT OUTER',
+						'conditions' => array ('Foyer.id = Adressefoyer.foyer_id')
+					),
+					array (
+						'table' => 'personnes',
+						'alias' => 'Personne',
+						'type' => 'LEFT OUTER',
+						'conditions' => array ('Personne.foyer_id = Foyer.id')
+					),
+					array (
+						'table' => 'calculsdroitsrsa',
+						'alias' => 'Calculdroitrsa',
+						'type' => 'LEFT OUTER',
+						'conditions' => array ('Personne.id = Calculdroitrsa.personne_id')
+					),
+					array (
+						'table' => 'prestations',
+						'alias' => 'Prestation',
+						'type' => 'LEFT OUTER',
+						'conditions' => array ('Personne.id = Prestation.personne_id')
+					),
+					array (
+						'table' => 'dossiers',
+						'alias' => 'Dossier',
+						'type' => 'LEFT OUTER',
+						'conditions' => array ('Dossier.id = Foyer.dossier_id')
+					),
+					array (
+						'table' => 'situationsdossiersrsa',
+						'alias' => 'Situationdossierrsa',
+						'type' => 'LEFT OUTER',
+						'conditions' => array ('Dossier.id = Situationdossierrsa.dossier_id')
 					),
 				),
 				'conditions' => array (
+					"Adresse.codepos LIKE '".Configure::read('Cg.departement')."%'",
+					!empty ($restrictionCantonMulti) ? '('.implode(' OR ', $restrictionCantonMulti).")" : '',
+					"Adresse.nomcom IS NOT NULL",
+					"Adresse.nomcom <> ''",
+					"Adressefoyer.rgadr LIKE '01'",
 					'Situationdossierrsa.etatdosrsa' => array( '2', '3', '4' ),
-					'Calculdroitrsa.toppersdrodevorsa' => '1'
-				)
+					'Calculdroitrsa.toppersdrodevorsa' => '1',
+					'Adresse.id not in (select "adresse_id" from "adresses_cantons")',
+					"Prestation.rolepers like 'DEM'"
+				),
+				'recursive' => -1
 			);
 
-			$resultats = $this->Personne->find ('all', $query);
+			return $this->Adresse->find ('all', $query);
+		}
 
+		/**
+		 * Génération de l'esport des adresses non associées
+		 *
+		 * @param array $resultats
+		 * @return array
+		 */
+		protected function _generationAdressesnonassocieesCsv ($resultats) {
 			$export = array ();
 
 			$line = array ();
@@ -288,9 +335,6 @@
 				$export[] = $line;
 			}
 
-			$this->layout = '';
-			$this->set( compact( 'filename', 'export' ) );
-			$this->render('exportcsv');
+			return $export;
 		}
 	}
-?>

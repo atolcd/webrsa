@@ -82,3 +82,5 @@
 			'/Cantons/adressesnonassociees' => array( 'class' => 'exportcsv' )
 		)
 	);
+
+	echo (__m('Canton.adressesnonassociees.message'));

@@ -91,6 +91,9 @@ msgstr "Export des adresses non associées"
 msgid "/Cantons/adressesnonassociees/:title"
 msgstr "Export des adresses non associées"
 
+msgid "Canton.adressesnonassociees.message"
+msgstr "L'<b>export des adresses non associées</b> concerne <ul><li>les adresses des bénéficiaires non associées à une adresse des cantons</li><li>les adresses des bénéficiaires du département</li><li>les adresses des bénéficiaires dont les communes sont paramétrées pour prendre en compte les noms de voies</li><li>les adresses des bénéficiaires dont le nom de commune est définie</li><li>les dernières adresses des bénéficiaires (adresses de rang 1)</li><li>les adresses des bénéficiaires ayant un droit ouvert</li><li>les adresses des bénéficiaires soumis à droits et devoirs</li></ul>"
+
 msgid "Canton.liste"
 msgstr "Liste des cantons"
 
