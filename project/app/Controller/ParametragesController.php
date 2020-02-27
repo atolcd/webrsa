@@ -188,7 +188,7 @@
 								'url' => array( 'controller' => 'motifsemissionstitrescreanciers', 'action' => 'index' )
 							)
 						);
-					$items[__m('titressuivi')] = array(
+					$items[__m('titresuivis')] = array(
 							__m('typestitrescreanciersannulationsreductions/index') => array(
 								'url' => array( 'controller' => 'typestitrescreanciersannulationsreductions', 'action' => 'index' )
 							),
@@ -201,7 +201,7 @@
 						);
 				}
 				if($activateRecoursGracieux ) {
-					$items[__m('titressuivi')] = array(
+					$items[__m('recoursgracieux')] = array(
 							__m('originesrecoursgracieux/index') => array(
 								'url' => array( 'controller' => 'originesrecoursgracieux', 'action' => 'index' )
 							),

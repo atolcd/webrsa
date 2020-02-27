@@ -29,6 +29,16 @@
 		public $uses = array( 'Typetitrecreancierinfopayeur' );
 
 		/**
+		 * Utilise les droits d'un autre Controller:action
+		 * sur une action en particulier
+		 *
+		 * @var array
+		 */
+		public $commeDroit = array(
+			'add' => 'Typestitrescreanciersinfospayeurs:edit'
+		);
+
+		/**
 		 * Liste des articles
 		 *
 		 */

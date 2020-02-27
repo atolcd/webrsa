@@ -1128,17 +1128,26 @@
 
 			//Vérification de l'existance d'un fichier
             if( !empty($this->request->data) ){
-
 	            if( !empty($this->request->data['Titrecreancier']['file']['name']) ){
 					//Récupération des infos du fichier
-	                $fileName = $this->request->data['Titrecreancier']['file']['name'];
+					$fileName = $this->request->data['Titrecreancier']['file']['name'];
 					$uploadPath = 'uploads/files/';
-	                $uploadFile = $uploadPath.$fileName;
+					$uploadFile = $uploadPath.$fileName;
 					$tmpFileName = $this->request->data['Titrecreancier']['file']['tmp_name'];
 					$filecontents = file_get_contents($tmpFileName);
-
+					$filetype = $this->request->data['Titrecreancier']['file']['type'];
+				}elseif ( !empty($this->request->data['Titrecreancier']['Fichier']['name'])  ) {
+					//Récupération des infos du fichier
+					$fileName = $this->request->data['Titrecreancier']['Fichier']['name'];
+					$uploadPath = 'uploads/files/';
+					$uploadFile = $uploadPath.$fileName;
+					$tmpFileName = $this->request->data['Titrecreancier']['Fichier']['tmp_name'];
+					$filecontents = file_get_contents($tmpFileName);
+					$filetype = $this->request->data['Titrecreancier']['Fichier']['type'];
+				}
+				if ( !empty ($fileName) ){
 					//Si le fichier est type CSV et que le contenu est lisible
-					if(!empty($filecontents) && $this->request->data['Titrecreancier']['file']['type'] == 'text/csv' ){
+					if(!empty($filecontents) && $filetype == 'text/csv' ){
 						$lines = file( $tmpFileName );
 
 						//Pour Chaque ligne du fichier

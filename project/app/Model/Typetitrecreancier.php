@@ -2,7 +2,7 @@
 	/**
 	 * Code source de la classe Typetitrecreancier.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
@@ -17,6 +17,13 @@
 	class Typetitrecreancier extends AppModel
 	{
 		public $name = 'Typetitrecreancier';
+
+		/**
+		 * Ce model utilise cette table de la base de données
+		 *
+		 * @var string
+		 */
+		public $useTable = 'typestitrescreanciers';
 
 		/**
 		 * Récursivité par défaut du modèle.

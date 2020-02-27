@@ -165,8 +165,8 @@ msgstr "Type du Titre"
 msgid "motifsemissionstitrescreanciers/index"
 msgstr "Motif d'émission d'un titre de recette"
 
-msgid "titressuivi"
-msgid "Suivi des titres de recette"
+msgid "titresuivis"
+msgstr "Suivi des titres de recette"
 
 msgid "typestitrescreanciersannulationsreductions/index"
 msgstr "Type d'annulation/réduction"
@@ -177,7 +177,7 @@ msgstr "Type d'informations payeur"
 msgid "typestitrescreanciersautresinfos/index"
 msgstr "Type d'autres informations"
 
-msgid "titressuivi"
+msgid "recoursgracieux"
 msgstr "Recours Gracieux"
 
 msgid "originesrecoursgracieux/index"
