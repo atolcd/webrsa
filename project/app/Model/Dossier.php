@@ -87,7 +87,7 @@
 		public $fakeInLists = array(
 			'typeinsrmi' => array('A', 'C', 'F', 'S'),
 			'typeparte' => array('CG', 'CT', 'CCAS', 'CIAS', 'PE', 'MDPH'),
-			'etatdosrsa' => array('Z', '0', '1', '2', '3', '4', '5', '6')
+			'etatdosrsa' => array('NULL', 'Z', '0', '1', '2', '3', '4', '5', '6')
 		);
 
 		public $hasOne = array(

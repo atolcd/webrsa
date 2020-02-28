@@ -76,6 +76,9 @@ msgstr "Radiation"
 
 # ------------------------------------------------------------------------------
 
+msgid "ENUM::ETATDOSRSA::NULL"
+msgstr "État dossier vide"
+
 msgid "ENUM::ETATDOSRSA::Z"
 msgstr "Non défini"
 

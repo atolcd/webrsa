@@ -549,6 +549,9 @@ msgstr "Pole Emploi"
 msgid "ENUM::TYPEPARTE::MDPH"
 msgstr "Maison Départementale Pour le Handicap"
 
+msgid "ENUM::ETATDOSRSA::NULL"
+msgstr "État dossier vide"
+
 msgid "ENUM::ETATDOSRSA::Z"
 msgstr "Non défini"
 

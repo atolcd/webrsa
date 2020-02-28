@@ -74,3 +74,12 @@ msgstr "Commune"
 
 msgid "Dossier2.locked"
 msgstr "Verrouillé ?"
+
+msgid "Memefoyer"
+msgstr "Dossiers venant du même foyer ?"
+
+msgid "YES"
+msgstr "Oui"
+
+msgid "NO"
+msgstr "Non"

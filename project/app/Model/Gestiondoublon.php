@@ -110,6 +110,12 @@
 			if (!$query) {
 				$Foyer = ClassRegistry::init('Foyer');
 
+				if (Hash::get($search, 'Memefoyer.val') &&  Hash::get($search, 'Memefoyer.val') == '1') {
+					$memeFoyer = true;
+				}else{
+					$memeFoyer = false;
+				}
+
 				// Refonte :
 				$query = array(
 					'fields' => array(
@@ -177,7 +183,7 @@
 							'type'       => 'INNER',
 							'foreignKey' => false,
 							'conditions' => $Foyer->Personne->WebrsaPersonne
-								->conditionsRapprochementPersonne1Personne2('Personne', 'p2', false),
+								->conditionsRapprochementPersonne1Personne2('Personne', 'p2', $memeFoyer),
 						),
 						array(
 							'table'      => 'foyers',
@@ -307,7 +313,16 @@
 			$query['conditions'] = array_words_replace( $query['conditions'], array( 'Personne' => 'Demandeur' ) );
 
 			if (Hash::get($search, 'Situationdossierrsa2.etatdosrsa_choice')) {
-				$query['conditions']['Situationdossierrsa2.etatdosrsa'] = Hash::get($search, 'Situationdossierrsa2.etatdosrsa');
+				if (in_array('NULL', Hash::get($search, 'Situationdossierrsa2.etatdosrsa'))){
+					$tmpArray = Hash::get($search, 'Situationdossierrsa2.etatdosrsa');
+					unset($tmpArray[0]);
+					$tmpString = '\''. implode('\',\'',$tmpArray).'\'';
+					$query['conditions'][] =
+					"( Situationdossierrsa2.etatdosrsa IS NULL OR  ( Situationdossierrsa2.etatdosrsa IN (". $tmpString						
+					.") ))";
+				}else{
+					$query['conditions']['Situationdossierrsa2.etatdosrsa'] = Hash::get($search, 'Situationdossierrsa2.etatdosrsa');
+				}
 			}
 
 			return $query;

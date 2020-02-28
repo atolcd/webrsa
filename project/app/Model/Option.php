@@ -917,6 +917,7 @@
 			trigger_error("Utilisation d'une méthode dépréciée : ".__CLASS__.'::'.__FUNCTION__, E_USER_DEPRECATED);
 
 			$etats = array(
+				'NULL' => 'Etat dossier vide',
 				'Z' => 'Non défini',
 				'0'  => 'Nouvelle demande en attente de décision CD pour ouverture du droit',
 				'1'  => 'Droit refusé',

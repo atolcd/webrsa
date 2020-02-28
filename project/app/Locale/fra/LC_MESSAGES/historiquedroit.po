@@ -35,6 +35,9 @@ msgstr "Non"
 msgid "ENUM::TOPPERSDRODEVORSA::1"
 msgstr "Oui"
 
+msgid "ENUM::ETATDOSRSA::NULL"
+msgstr "État dossier vide"
+
 msgid "ENUM::ETATDOSRSA::Z"
 msgstr "Non défini"
 

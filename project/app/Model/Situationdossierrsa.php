@@ -66,7 +66,7 @@
 		 * @var array
 		 */
 		public $fakeInLists = array(
-			'etatdosrsa' => array('Z', '0', '1', '2', '3', '4', '5', '6','NULL'),
+			'etatdosrsa' => array('Z', '0', '1', '2', '3', '4', '5', '6', 'NULL'),
 			'motirefursa' => array('F02', 'F04', 'F09', 'F85', 'F97', 'FDD', 'DSD', 'FDB', 'PCG'),
 			'moticlorsa' => array('PCG', 'ECH', 'EFF', 'MUT', 'RGD', 'RFD', 'RAU', 'RST', 'RSO'),
 		);
@@ -141,6 +141,7 @@
 		public function etatdosrsa($etatsDemandes=array()) {
 
 			$etats = array(
+				'NULL' => 'Etat dossier vide',
 				'Z' => 'Non défini',
 				'0'  => 'Nouvelle demande en attente de décision CD pour ouverture du droit',
 				'1'  => 'Droit refusé',

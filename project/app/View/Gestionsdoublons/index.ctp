@@ -30,6 +30,10 @@
 	// Filtres concernant le dossier
 	echo $this->Search->blocDossier( null, 'Search' );
 
+	echo '<fieldset><legend>Foyer</legend>';
+	echo $this->Xform->input( "Search.Memefoyer.val", array( 'label' => __m('Memefoyer'), 'options' => array ('0' => __m('NO'), '1'=> __m('YES') )) );
+	echo '</fieldset>';
+
 	echo '<fieldset><legend>Volet de gauche</legend>';
 	echo $this->Search->etatdosrsa($options['Situationdossierrsa']['etatdosrsa'],  "Search.Situationdossierrsa.etatdosrsa");
 	echo '</fieldset>';
