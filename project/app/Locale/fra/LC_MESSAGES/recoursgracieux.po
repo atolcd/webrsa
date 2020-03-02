@@ -292,6 +292,9 @@ msgstr "État du dossier"
 msgid "Personne.nom_complet_prenoms"
 msgstr "Allocataire"
 
+msgid "Personne.nom_complet_court"
+msgstr "Nom de l'allocataire"
+
 ###############################################################################
 # Champs Proposer
 ###############################################################################
