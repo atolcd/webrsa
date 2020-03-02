@@ -132,4 +132,17 @@
 	document.observe("dom:loaded", function() {
 		dependantSelect( 'SearchRendezvousPermanenceId', 'SearchRendezvousStructurereferenteId' );
 	});
+
+	document.addEventListener('DOMContentLoaded', (e) => {
+		let numtelCD = document.querySelectorAll('.numtelCD');
+		let numtelCAF = document.querySelectorAll('.numtelCAF');
+		for(let i=1; i<numtelCD.length; i++)
+		{
+			if ( ( numtelCAF[i].innerText === "" && numtelCD[i].innerText === "") ||
+				( numtelCAF[i].innerText != numtelCD[i].innerText && numtelCAF[i].innerText !== "" && numtelCD[i].innerText !== "" )
+			) {
+				numtelCAF[i].style.backgroundColor = "red";
+			}
+		}
+	});
 </script>
