@@ -61,6 +61,7 @@
 		 */
 		protected static function _edit(array $record, array $params) {
 			return Hash::get($record, "Decisiondossierpcg66.dernier")
+				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'decisionvalid'
 				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'transmisop'
 				&& Hash::get($record, "Decisiondossierpcg66.etatdossierpcg") !== 'annule'
 			;
@@ -76,6 +77,7 @@
 		protected static function _avistechnique(array $record, array $params) {
 			return Hash::get($record, "Decisiondossierpcg66.dernier")
 				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'transmisop'
+				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'decisionvalid'
 				&& Hash::get($record, "Decisiondossierpcg66.etatdossierpcg") !== 'annule'
 				&& Hash::get($record, "Decisiondossierpcg66.instrencours") !== '1'
 				&& Hash::get($record, "Decisiondossierpcg66.decisionpdo_id") !== null
@@ -92,6 +94,7 @@
 		protected static function _validation(array $record, array $params) {
 			return Hash::get($record, "Decisiondossierpcg66.dernier")
 				&& Hash::get($record, "Decisiondossierpcg66.avistechnique")
+				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'decisionvalid'
 				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'transmisop'
 				&& Hash::get($record, "Decisiondossierpcg66.etatdossierpcg") !== 'annule'
 			;
