@@ -19,6 +19,7 @@
 			array(
 				'Titrecreancier.dtemissiontitre',
 				'Titrecreancier.numtitr',
+				'Titrecreancier.mntinit',
 				'Titrecreancier.mnttitr',
 				'Titrecreancier.typetitrecreancier_id' => array(
 					'type' => 'select',
