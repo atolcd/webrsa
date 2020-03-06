@@ -1,0 +1,32 @@
+# Traductions de configuration.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Configuration.lib_variable"
+msgstr "Nom de la variable"
+
+msgid "Search.Configuration.Categorie"
+msgstr "Recherche de configuration"
+
+msgid "Configuration.comments_variable"
+msgstr "Commentaire lié à la variable"
+
+msgid "Configuration.value_variable_a_modifier"
+msgstr "Valeur de la variable"
+
+msgid "Search.ConfigurationCategorie.lib_categorie"
+msgstr "Nom de la catégorie"
+
+msgid "ConfigurationCategorie.lib_categorie"
+msgstr "Catégorie de la configuration"
+
+msgid "Configuration.erreurJSON"
+msgstr "Erreur dans le JSON, Valeur de la variable réinitialisée"

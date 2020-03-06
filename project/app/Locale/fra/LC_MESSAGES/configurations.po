@@ -1,0 +1,25 @@
+# Traductions de configurations.po
+# @license: Expression license is undefined on line 3, column 15 in Templates/CakePHP/CakePHP locale.po.
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+msgid "/Configurations/index/:heading"
+msgstr "Paramétrage des configurations de l'application"
+
+msgid "/Configurations/edit/:heading"
+msgstr "Modification de la configuration « #Configuration.lib_variable# »"
+
+msgid "/Configurations/edit"
+msgstr "Modifier"
+
+msgid "Search.ConfigurationCategorie.lib_categorie"
+msgstr "Nom de la catégorie"
+
+msgid "ConfigurationCategorie.lib_categorie"
+msgstr "Catégorie de la configuration"

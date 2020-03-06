@@ -152,6 +152,8 @@ msgid "/Parametrages/cataloguesromesv3/:heading"
 msgstr "Codes ROME V3"
 
 # ==============================================================================
+msgid "Configuration"
+msgstr "Configuration"
 
 msgid "Créances"
 msgstr "Créances"

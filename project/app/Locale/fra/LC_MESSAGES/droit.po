@@ -4869,3 +4869,29 @@ msgstr "Stock venu / non venu en information collective"
 msgid "controllers/Planpauvreterendezvous/exportcsv_infocol_venu_nonvenu_nouveaux"
 msgstr "Export CSV des nouveaux entrant venu / non venu en information collective"
 
+###############################################################################
+## Statistiques Plan pauvreté rendez vous
+###############################################################################
+msgid "controllers/Statistiquesplanpauvrete"
+msgstr "Statistique du plan pauvreté"
+
+msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a1v2"
+msgstr "Tableau A1 v2"
+
+msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a2av2"
+msgstr "Tableau A2 v2"
+
+msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a2bv2"
+msgstr "Tableau A2b v2"
+
+###############################################################################
+## Configurations
+###############################################################################
+msgid "controllers/Configurations"
+msgstr "Paramétrage de la configuration"
+
+msgid "controllers/Configurations/index"
+msgstr "Liste des configurations"
+
+msgid "controllers/Configurations/edit"
+msgstr "Modification des configurations"

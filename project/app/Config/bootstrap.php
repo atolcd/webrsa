@@ -98,33 +98,7 @@ CakePlugin::loadAll(
 	)
 );
 
-/**
- * To prefer app translation over plugin translation, you can set
- *
- * Configure::write('I18n.preferApp', true);
- */
 
-/**
- * You can attach event listeners to the request lifecycle as Dispatcher Filter. By default CakePHP bundles two filters:
- *
- * - AssetDispatcher filter will serve your asset files (css, images, js, etc) from your themes and plugins
- * - CacheDispatcher filter will read the Cache.check configure variable and try to serve cached content generated from controllers
- *
- * Feel free to remove or add filters as you see fit for your application. A few examples:
- *
- * Configure::write('Dispatcher.filters', array(
- *		'MyCacheFilter', //  will use MyCacheFilter class from the Routing/Filter package in your app.
- *		'MyCacheFilter' => array('prefix' => 'my_cache_'), //  will use MyCacheFilter class from the Routing/Filter package in your app with settings array.
- *		'MyPlugin.MyFilter', // will use MyFilter class from the Routing/Filter package in MyPlugin plugin.
- *		array('callable' => $aFunction, 'on' => 'before', 'priority' => 9), // A valid PHP callback type to be called on beforeDispatch
- *		array('callable' => $anotherMethod, 'on' => 'after'), // A valid PHP callback type to be called on afterDispatch
- *
- * ));
- */
-Configure::write('Dispatcher.filters', array(
-	'AssetDispatcher',
-	'CacheDispatcher'
-));
 
 /**
  * Configures default file logging options
@@ -157,14 +131,15 @@ if( false === defined( 'LOG_ERROR' ) ) {
 	define( 'LOG_ERROR', LOG_ERR );
 }
 
-// Valeurs par défaut pour certaines clés de configuration
-Configure::write(
-	array(
-		'Criterecer.delaiavanteecheance' => '1 month'
-	)
-);
-
 require_once CONFIGS.'webrsa.inc';
+// Lecture de la configuration générale si elle n'a pas été encore lue
+App::uses('Configuration', 'Model');
+$configuration = new Configuration();
+$configFiles = Configure::read('Categorie.General');
+foreach ($configFiles as $configFile) {
+	$configuration->setAllConfigurations($configFile);
+}
+
 require_once APPLIBS.'basics.php';
 require_once APP.DS.'Vendor'.DS.'money_format.php';
 require_once APP.'Lib'.DS.'Error'.DS.'rsa_exceptions.php';

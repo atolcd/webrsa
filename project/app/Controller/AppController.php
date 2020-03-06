@@ -67,7 +67,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'User', 'Connection' );
+		public $uses = array( 'User', 'Connection', 'Configuration' );
 
 		/**
 		 * Utilise les droits d'un autre Controller:action
@@ -383,10 +383,16 @@
 				}
 			}
 
-			// Chargement du fichier de configuration lié au contrôleur, s'il existe
-			$path = APP.'Config'.DS.'Cg'.Configure::read( 'Cg.departement' ).DS.$this->name.'.php';
-			if( file_exists( $path ) ) {
-				include_once $path;
+			// Lecture de la configuration en base lié au contrôleur, s'il existe
+			$conf = $this->Configuration->find('all', array(
+				'conditions' => array(
+					'ConfigurationCategorie.lib_categorie' => $this->name,
+					'Configuration.departement' => Configure::read( 'Cg.departement' )
+					)
+				)
+			);
+			if(!empty($conf)){
+				$this->Configuration->setAllConfigurations($this->name);
 			}
 
 			$this->_iniSet();
