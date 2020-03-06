@@ -13,10 +13,7 @@
 					'title' => true,
 					'confirm' => true,
 					'disabled' => 'true == "#Group.has_linkedrecords#"'
-				),
-				'/Groups/resetDroitGroupUsers/#Group.id#' => array(
-					'title' => true
-				),
+				)
 			)
 		)
 	);

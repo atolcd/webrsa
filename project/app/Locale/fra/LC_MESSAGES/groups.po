@@ -37,9 +37,6 @@ msgstr "Code"
 msgid "/Groups/edit"
 msgstr "Modifier"
 
-msgid "/Groups/resetDroitGroupUsers"
-msgstr "Réinitialiser droits utilisateurs"
-
 msgid "/Groups/edit/#Group.id#"
 msgstr "Modifier le groupe « #Group.name# »"
 
@@ -60,3 +57,12 @@ msgstr "Retour"
 
 msgid "/Parametrages/index/:title"
 msgstr "Retour aux paramétrages"
+
+msgid "SHELL:GROUPS:Succes"
+msgstr "Mise à hérité des droits des utilisateurs du groupe %d"
+
+msgid "SHELL:GROUPS:ErreurMAJ"
+msgstr "Erreur lors de la mise à jour des droits"
+
+msgid "SHELL:GROUPS:ErreurVAR"
+msgstr "<error>Argument manquant</error> : veuillez indiquer l'identifiant d'un group d'utilisateur"

@@ -237,36 +237,5 @@
 			$this->ajax_get_permissions($group_id, true);
 		}
 
-		/**
-		 * Réinitialise tous les droits de tous les utilisateurs de ce groupe à 'hérité'.
-		 *
-		 * @param integer $group_id
-		 */
-		public function resetDroitGroupUsers($group_id) {
-			$permissions['Permission'] = $this->WebrsaPermissions->getPermissionsHeritage($this->Group, $group_id);
-			$permissions['Permission'] = array_fill_keys(array_keys ($permissions['Permission']), 0);
-			$users = $this->User->find( 'all', array ('contain' => false, 'conditions' => array ('group_id' => $group_id)) );
-
-			foreach ($users as $user) {
-				$this->User->id = $user['User']['id'];
-				$this->User->begin();
-				$success = $this->WebrsaPermissions->updatePermissions($this->User, $user['User']['id'], $permissions);
-
-				if ($success) {
-					$this->User->commit();
-				} else {
-					$this->User->rollback();
-					break;
-				}
-			}
-
-			if ($success) {
-				$this->Flash->success( __( 'Save->success' ) );
-			} else {
-				$this->Flash->error( __( 'Save->error' ) );
-			}
-
-			$this->redirect(array('controller' => 'groups', 'action' => 'index'));
-		}
 	}
 ?>
