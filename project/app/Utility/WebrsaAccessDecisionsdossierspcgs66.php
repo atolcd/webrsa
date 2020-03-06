@@ -2,7 +2,7 @@
 	/**
 	 * Code source de la classe WebrsaAccessDecisionsdossierspcgs66.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Utility
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
@@ -19,7 +19,7 @@
 	{
 		/**
 		 * Paramètres par défaut
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
@@ -29,10 +29,10 @@
 				'departement' => (int)Configure::read( 'Cg.departement' ),
 			);
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -43,7 +43,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -54,7 +54,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -62,6 +62,7 @@
 		protected static function _edit(array $record, array $params) {
 			return Hash::get($record, "Decisiondossierpcg66.dernier")
 				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'decisionvalid'
+				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'decisionnonvalid'
 				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'transmisop'
 				&& Hash::get($record, "Decisiondossierpcg66.etatdossierpcg") !== 'annule'
 			;
@@ -69,7 +70,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -78,6 +79,7 @@
 			return Hash::get($record, "Decisiondossierpcg66.dernier")
 				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'transmisop'
 				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'decisionvalid'
+				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'decisionnonvalid'
 				&& Hash::get($record, "Decisiondossierpcg66.etatdossierpcg") !== 'annule'
 				&& Hash::get($record, "Decisiondossierpcg66.instrencours") !== '1'
 				&& Hash::get($record, "Decisiondossierpcg66.decisionpdo_id") !== null
@@ -86,7 +88,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -95,6 +97,7 @@
 			return Hash::get($record, "Decisiondossierpcg66.dernier")
 				&& Hash::get($record, "Decisiondossierpcg66.avistechnique")
 				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'decisionvalid'
+				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'decisionnonvalid'
 				&& Hash::get($record, "Dossierpcg66.etatdossierpcg") !== 'transmisop'
 				&& Hash::get($record, "Decisiondossierpcg66.etatdossierpcg") !== 'annule'
 			;
@@ -102,7 +105,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -116,7 +119,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -127,7 +130,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -138,7 +141,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -146,12 +149,12 @@
 		protected static function _filelink(array $record, array $params) {
 			return true;
 		}
-		
+
 		/**
 		 * Liste les actions disponnible
 		 * Si une action pointe sur un autre controler, il faut préciser son nom
 		 * ex : Moncontroller.monaction
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
@@ -170,7 +173,7 @@
 					'filelink',
 				)
 			);
-			
 			return $result;
 		}
+
 	}
