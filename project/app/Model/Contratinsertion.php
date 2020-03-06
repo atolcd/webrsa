@@ -923,5 +923,43 @@
 			return $this->sq( $query );
 		}
 
+		/**
+		 * Mise a jour de la date de fin du contrat précédent si chevauchement il y as avec le dernier contrat
+		 *
+		 * @param int $personne_id : Personne sur laquelle verifier les chevauchements
+		 *
+		 * @return boolean (Toujours vrai)
+		 */
+		public function updateEndPreviousContract( $personne_id ) {
+			$return = true;
+
+			// Recherche des contrats de la personne
+			$result = $this->find('all', array(
+				'fields' => array(
+					'id',
+					'dd_ci',
+					'df_ci'
+				),
+				'resursive' => -1,
+				'contain' => false,
+				'conditions' => array(
+					'personne_id = '.$personne_id,
+				),
+				'order' => 'dd_ci DESC'
+			) );
+
+			//Récupération de la date de début du contrat actuel et retrait de 1 jour
+			$tmpDate = date ( 'Y-m-d', strtotime( $result[0]['Contratinsertion']['dd_ci']. " -1 day") );
+
+			// Comparaison de la date de fin du contrat précédent [1] avec la veille du début du contrat actuel
+			if ( $result[1]['Contratinsertion']['df_ci'] > $tmpDate ) {
+				// Mise à jour de la date de fin du contrat précédent si nécéssaire
+				$sqUpdate =  "UPDATE contratsinsertion SET df_ci = '{$tmpDate}' WHERE contratsinsertion.id = '{$result[1]['Contratinsertion']['id']}'";
+				$this->query($sqUpdate);
+			}
+
+			return $return;
+		}
+
 	}
 ?>
