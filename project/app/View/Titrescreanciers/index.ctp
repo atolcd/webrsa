@@ -17,7 +17,7 @@
 					'Titrecreancier.dtbordereau',
 					'Titrecreancier.numbordereau',
 					'Titrecreancier.numtitr',
-					'Titrecreancier.mnttitr',
+					'Titrecreancier.mntinit',
 					'Titrecreancier.soldetitr',
 					'Titrecreancier.etatDepuis',
 					'Titrecreancier.acommentaire' => array('type' => 'boolean', 'title' => $titresCreanciers[0]['Titrecreancier']['mention'] ),

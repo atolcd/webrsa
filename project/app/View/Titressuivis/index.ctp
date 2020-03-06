@@ -26,7 +26,8 @@ if( empty( $titresCreanciers ) ) {
 			array(
 				'Titrecreancier.dtbordereau' => array('label' => __d('titrescreanciers', 'Titrecreancier.dtbordereau') ),
 				'Titrecreancier.numtitr' => array('label' => __d('titrescreanciers', 'Titrecreancier.numtitr') ),
-				'Titrecreancier.mnttitr' => array('label' => __d('titrescreanciers', 'Titrecreancier.mnttitr') ),
+				'Titrecreancier.mntinit' => array('label' => __d('titrescreanciers', 'Titrecreancier.mntinit') ),
+				'Titrecreancier.soldetitr'=> array('label' => __d('titrescreanciers', 'Titrecreancier.soldetitr') ),
 				'Titrecreancier.typetitrecreancier_id' => array(
 					'label' => __d('titrescreanciers', 'Titrecreancier.typetitrecreancier_id'),
 					'type' => 'select',

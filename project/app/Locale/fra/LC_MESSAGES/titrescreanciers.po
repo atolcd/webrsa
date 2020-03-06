@@ -189,8 +189,11 @@ msgstr "Numéro du titre"
 msgid "Titrecreancier.numtier"
 msgstr "Numéro du tiers"
 
-msgid "Titrecreancier.mnttitr"
+msgid "Titrecreancier.mntinit"
 msgstr "Montant initial du titre"
+
+msgid "Titrecreancier.mnttitr"
+msgstr "Solde du titre"
 
 msgid "Titrecreancier.soldetitr"
 msgstr "Solde du titre"

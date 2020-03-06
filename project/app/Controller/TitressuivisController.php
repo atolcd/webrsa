@@ -99,10 +99,24 @@
 					'contain' => false
 				)
 			);
-			$titresCreanciers['Titrecreancier']['etat'] = (__d('titrecreancier', 'ENUM::ETAT::' . $titresCreanciers['Titrecreancier']['etat']));
-
+			// Get foyer Id
 			$creance_id = $titresCreanciers['Titrecreancier']['creance_id'];
 			$foyer_id = $this->Titrecreancier->foyerId( $creance_id );
+			// Calcul montant réduit
+			$contentIndex = $this->Titresuiviannulationreduction->getContext();
+			$query = $this->Titresuiviannulationreduction->getQuery($titrecreancier_id);
+			$titresAnnRed = $this->WebrsaAccesses->getIndexRecords($foyer_id, $query, $contentIndex);
+			$montantReduitTotal = 0;
+			if( !empty($titresAnnRed) ) {
+				foreach($titresAnnRed as $titres ) {
+					if ( $titres['Titresuiviannulationreduction']['etat'] == 'CERTIMP' ) {
+						$montantReduitTotal += $titres['Titresuiviannulationreduction']['mtreduit'];
+					}
+				}
+			}
+			$titresCreanciers['Titrecreancier']['soldetitr'] = $titresCreanciers['Titrecreancier']['mntinit'] - $montantReduitTotal;
+			// Traduction de l'état
+			$titresCreanciers['Titrecreancier']['etat'] = (__d('titrecreancier', 'ENUM::ETAT::' . $titresCreanciers['Titrecreancier']['etat']));
 
 			$this->set('dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu(array( 'foyer_id' => $foyer_id )));
 			$this->set('urlmenu', $this->set( 'urlmenu', '/creances/index/'.$foyer_id ));
