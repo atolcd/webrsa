@@ -247,6 +247,9 @@ msgstr "NIR du conjoint"
 # Résultats du moteur de recherche
 # ==============================================================================
 
+msgid "Personne.nom_complet_court"
+msgstr "Nom de l'allocataire"
+
 msgid "Personne.nom_complet_prenoms"
 msgstr "Allocataire"
 
