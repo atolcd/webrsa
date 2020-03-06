@@ -29,7 +29,7 @@
 			$cells = array();
 			$row = 0;
 			foreach( $results as $key => $result) {
-				if( $key == 'Orientes') {
+				if( $key == 'Orientes' || $key == 'Nonvenu' ) {
 					$cells[$row] = array('<b>' . __d('statistiquesplanpauvrete', 'tableaua12.' . $key ) . '</b>');
 					$row++;
 					foreach( $results[$key] as $keySpec => $resultSpec) {

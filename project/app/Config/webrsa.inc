@@ -809,11 +809,15 @@
 			),
 			'code_stats' => array ('CHRS','MLJ','ADRH'),
 			/**
-			 * Identifiants de types de rendez-vous
+			 * Identifiants de types de 1er rendez-vous pour le tableau A2a
 			 */
 			'type_rendezvous' => array(
 				'1'
 			),
+			/**
+			 * Code Statuts du rendez-vous NonVenu pour le tableau A1
+			 */
+			'statut_rendezvous' => 'NONVENU'
 		)
 	);
 

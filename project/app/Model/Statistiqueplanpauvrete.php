@@ -858,6 +858,7 @@
 					'Adressefoyer.rgadr',
 					'Adressefoyer.dtemm',
 					'Adresse.codepos',
+					'Rendezvous.daterdv'
 				)
 			);
 			$joins = $this->_queryJoins();
@@ -894,6 +895,27 @@
 								'type' => 'LEFT',
 								'conditions' => array(
 									'Adressefoyer.adresse_id = Adresse.id',
+								),
+							),
+							array(
+								'table' => 'rendezvous',
+								'alias' => 'Rendezvous',
+								'type' => 'LEFT',
+								'conditions' => array(
+									'Rendezvous.personne_id = Personne.id',
+									'Personne.id = (SELECT personne_id FROM rendezvous
+										INNER JOIN statutsrdvs ON rendezvous.statutrdv_id = statutsrdvs.id
+										WHERE personne_id = "Personne"."id"
+										AND  statutsrdvs.code_statut LIKE \''.Configure::read( 'Statistiqueplanpauvrete.statut_rendezvous' ).'\''
+										.'ORDER BY daterdv DESC LIMIT 1)'
+								),
+							),
+							array(
+								'table' => 'statutsrdvs',
+								'alias' => 'Statutrdv',
+								'type' => 'LEFT',
+								'conditions' => array(
+									'Rendezvous.statutrdv_id = Statutrdv.id'
 								),
 							)
 						)
@@ -1905,7 +1927,6 @@
 			$query = $this->_getQueryTableau_a1v2 ($search, $annee);
 			$results = $Personne->find('all', $query);
 
-
 			if( $useHistoriquedroit ) {
 				$arrayIds = array( );
 				foreach($results as $result) {
@@ -1945,6 +1966,10 @@
 						'percentOA' => array(),
 					),
 					'percentOrientes' => array(),
+					'Nonvenu' => array (
+						'RDV' => array(),
+						'percentRDV' => array()
+					)
 				),
 				'Horssuspendus' => array (
 					'total' => array(),
@@ -1970,6 +1995,10 @@
 						'percentOA' => array(),
 					),
 					'percentOrientes' => array(),
+					'Nonvenu' => array (
+						'RDV' => array(),
+						'percentRDV' => array()
+					)
 				),
 				'Suspendus' => array (
 					'total' => array(),
@@ -1995,6 +2024,10 @@
 						'percentOA' => array(),
 					),
 					'percentOrientes' => array(),
+					'Nonvenu' => array (
+						'RDV' => array(),
+						'percentRDV' => array()
+					)
 				)
 			);
 			for($i=0; $i<12; $i++) {
@@ -2020,6 +2053,8 @@
 				$resultats['Tous']['Orientes']['OA'][$i] =
 				$resultats['Tous']['Orientes']['percentOA'][$i] =
 					0;
+				$resultats['Tous']['Nonvenu']['RDV'][$i] =
+				$resultats['Tous']['Nonvenu']['percentRDV'][$i] = 0;
 				$resultats['Suspendus']['total'][$i]=0;
 				$resultats['Suspendus']['nbFoyerInconnu'][$i]=0;
 				$resultats['Suspendus']['nbFoyerRadiSusp'][$i]=0;
@@ -2042,6 +2077,8 @@
 				$resultats['Suspendus']['Orientes']['OA'][$i] =
 				$resultats['Suspendus']['Orientes']['percentOA'][$i] =
 					0;
+				$resultats['Suspendus']['Nonvenu']['RDV'][$i] =
+				$resultats['Suspendus']['Nonvenu']['percentRDV'][$i] = 0;
 				$resultats['Horssuspendus']['total'][$i]=0;
 				$resultats['Horssuspendus']['nbFoyerInconnu'][$i]=0;
 				$resultats['Horssuspendus']['nbFoyerRadiSusp'][$i]=0;
@@ -2064,6 +2101,8 @@
 				$resultats['Horssuspendus']['Orientes']['OA'][$i] =
 				$resultats['Horssuspendus']['Orientes']['percentOA'][$i] =
 					0;
+				$resultats['Horssuspendus']['Nonvenu']['RDV'][$i] =
+				$resultats['Horssuspendus']['Nonvenu']['percentRDV'][$i] = 0;
 			}
 
 			foreach($results as $key => $result) {
@@ -2259,6 +2298,18 @@
 									}
 								}
 							}
+							//Si le dernier rendez-vous de la personne est un rendezvous non venu.
+							if ( $result['Rendezvous']['daterdv'] != null ){
+								//Si le rendez-vous n'est pas inférieur au changement de droits
+								if (strtotime($result['Rendezvous']['daterdv']) >= strtotime($tmpDate) ){
+									$resultats['Tous']['Nonvenu']['RDV'][$month] ++;
+									if ( !$Suspendu ){
+										$resultats['Horssuspendus']['Nonvenu']['RDV'][$month]++;
+									} else {
+										$resultats['Suspendus']['Nonvenu']['RDV'][$month]++;
+									}
+								}
+							}
 						}
 						$historiquesPreviousMonth = $historiquesMonth;
 						$historiquesToppersPreviousMonth = $historiquesToppersMonth;
@@ -2278,6 +2329,7 @@
 						$resultats['Tous']['Orientes']['percentCD'][$i] = round( (100 * $resultats['Tous']['Orientes']['CD'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
 						$resultats['Tous']['Orientes']['percentOA'][$i] = round( (100 * $resultats['Tous']['Orientes']['OA'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
 					}
+					$resultats['Tous']['Nonvenu']['percentRDV'][$i]= round( (100 * $resultats['Tous']['Nonvenu']['RDV'][$i] ) / $resultats['Tous']['total'][$i], 2)  . '%';
 				}
 				if($resultats['Suspendus']['total'][$i] != 0) {
 					$resultats['Suspendus']['percentOrientes'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['total'][$i] ) / $resultats['Suspendus']['total'][$i], 2)  . '%';
@@ -2289,6 +2341,7 @@
 						$resultats['Suspendus']['Orientes']['percentCD'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['CD'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
 						$resultats['Suspendus']['Orientes']['percentOA'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['OA'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
 					}
+					$resultats['Suspendus']['Nonvenu']['percentRDV'][$i]= round( (100 * $resultats['Suspendus']['Nonvenu']['RDV'][$i] ) / $resultats['Suspendus']['total'][$i], 2)  . '%';
 				}
 				if($resultats['Horssuspendus']['total'][$i] != 0) {
 					$resultats['Horssuspendus']['percentOrientes'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['total'][$i] ) / $resultats['Horssuspendus']['total'][$i], 2)  . '%';
@@ -2300,6 +2353,7 @@
 						$resultats['Horssuspendus']['Orientes']['percentCD'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['CD'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
 						$resultats['Horssuspendus']['Orientes']['percentOA'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['OA'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
 					}
+					$resultats['Horssuspendus']['Nonvenu']['percentRDV'][$i]= round( (100 * $resultats['Horssuspendus']['Nonvenu']['RDV'][$i] ) / $resultats['Horssuspendus']['total'][$i], 2)  . '%';
 				}
 			}
 			return $resultats;

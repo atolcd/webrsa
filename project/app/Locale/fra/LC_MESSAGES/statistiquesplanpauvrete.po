@@ -439,6 +439,15 @@ msgstr " équivalent en %"
 msgid "tableaua12.percentOrientes"
 msgstr "Taux d’orientation"
 
+msgid "tableaua12.Nonvenu"
+msgstr "Personne non venu à la réunion d'information collective"
+
+msgid "tableaua12.NonvenuRDV"
+msgstr "Nombre Total"
+
+msgid "tableaua12.NonvenupercentRDV"
+msgstr " équivalent en %"
+
 # ==============================================================================
 # Tableau A2 V2
 # ==============================================================================
