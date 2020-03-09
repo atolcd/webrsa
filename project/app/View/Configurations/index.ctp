@@ -44,8 +44,6 @@
 		)
 	);
 
-	echo $this->Allocataires->blocPagination( array( 'prefix' => 'Search', 'options' => $options ) );
-	echo $this->Allocataires->blocScript( array( 'prefix' => 'Search', 'options' => $options, 'id' => $searchFormId ) );
 ?>
 	<div class="submit noprint">
 		<?php echo $this->Form->button( 'Rechercher', array( 'type' => 'submit' ) );?>
@@ -55,15 +53,14 @@
 	echo $this->Form->end();
 
 	if( isset( $results ) ) {
-		$this->Default3->DefaultPaginator->options(
-			array( 'url' => Hash::flatten( (array)$this->request->data, '__' ) )
-		);
 		echo $this->Default3->index(
 			$results,
 			$this->Translator->normalize(
 				array(
 					'ConfigurationCategorie.lib_categorie',
 					'Configuration.lib_variable',
+					'Configuration.value_variable' => array('style' => 'max-width: 25vw; overflow: hidden; text-overflow: ellipsis; '),
+					'Configuration.modified' => array('type' => 'date'),
 					'/configurations/edit/#Configuration.id#' => array(
 						'title' => false
 					),
@@ -71,7 +68,7 @@
 			),
 			array(
 				'options' => $options,
-				'format' => $this->element( 'pagination_format', array( 'modelName' => 'Configuration' ) )
+				'paginate' => false
 			)
 		);
 	}

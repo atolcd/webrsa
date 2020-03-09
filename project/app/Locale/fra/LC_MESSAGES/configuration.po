@@ -10,6 +10,9 @@ msgstr ""
 
 # ==============================================================================
 
+msgid "Configuration"
+msgstr "Configuration"
+
 msgid "Configuration.lib_variable"
 msgstr "Nom de la variable"
 
@@ -30,3 +33,6 @@ msgstr "Catégorie de la configuration"
 
 msgid "Configuration.erreurJSON"
 msgstr "Erreur dans le JSON, Valeur de la variable réinitialisée"
+
+msgid "Configuration.historique"
+msgstr "Historique des modifications d'utilisateur"

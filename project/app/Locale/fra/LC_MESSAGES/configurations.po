@@ -18,8 +18,27 @@ msgstr "Modification de la configuration « #Configuration.lib_variable# »"
 msgid "/Configurations/edit"
 msgstr "Modifier"
 
+msgid "/Configurations/index"
+msgstr "Retour"
+
+msgid "/Configurations/index/:title"
+msgstr "Retour à la recherche"
+
 msgid "Search.ConfigurationCategorie.lib_categorie"
 msgstr "Nom de la catégorie"
 
 msgid "ConfigurationCategorie.lib_categorie"
 msgstr "Catégorie de la configuration"
+
+msgid "Configuration.value_variable"
+msgstr "Valeur de la variable"
+
+msgid "Configuration.modified"
+msgstr "Dernière modification"
+
+msgid "Configuration.created"
+msgstr "Date de création de la variable de configuration"
+
+msgid "Configurationhistorique.created"
+msgstr "Date de dernière modification"
+

@@ -563,6 +563,9 @@
 			'Administration Créances' => array(
 				'Listes Entrants Créanciers' => array( 'url' => array( 'controller' => 'creances', 'action' => 'dossierEntrantsCreanciers' ) ),
 			),
+			__d('configuration', 'Configuration') => array(
+				'url' => array( 'controller' => 'configurations', 'action' => 'index' )
+			),
 			'Gestion des anomalies' => array(
 				'Doublons simples' => array(
 					'class' => 'search',

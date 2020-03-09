@@ -1,8 +1,8 @@
 <?php
 	/**
-	 * Code source de la classe Configuration.
+	 * Code source de la classe Configurationcatégorie.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
@@ -30,7 +30,7 @@
 		 *
 		 * @var string
 		 */
-		public $useTable = 'categoriesconfigurations';
+		public $useTable = 'configurationscategories';
 
 		/**
 		 * Behaviors utilisés par le modèle.
@@ -79,4 +79,3 @@
 			return $id;
 		}
 	}
-?>

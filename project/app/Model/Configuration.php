@@ -2,7 +2,7 @@
 	/**
 	 * Code source de la classe Configuration.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
@@ -40,7 +40,7 @@
 		public $belongsTo = array(
 			'ConfigurationCategorie' => array(
 				'className' => 'ConfigurationCategorie',
-				'foreignKey' => 'categoriesconfiguration_id',
+				'foreignKey' => 'configurationscategorie_id',
 				'conditions' => '',
 				'fields' => '',
 				'order' => ''
@@ -68,7 +68,8 @@
 				'conditions' => array('Configuration.departement' => Configure::read( 'Cg.departement' )),
 				'recursive' => 1,
 				'order' => array(
-					'ConfigurationCategorie.lib_categorie ASC'
+					'ConfigurationCategorie.lib_categorie ASC',
+					'Configuration.lib_variable ASC'
 				)
 			);
 
@@ -94,7 +95,7 @@
 			if($nomCategorie !== 'all') {
 				$idCat = $this->ConfigurationCategorie->getCategorie($nomCategorie);
 				$param['conditions'] = array(
-					'Configuration.categoriesconfiguration_id' => $idCat
+					'Configuration.configurationscategorie_id' => $idCat
 				);
 			}
 			$param['fields'] = array(
@@ -218,4 +219,3 @@
 			return $chaineDecode;
 		}
 	}
-?>

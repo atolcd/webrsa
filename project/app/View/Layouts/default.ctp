@@ -32,7 +32,14 @@
 		</title>
 		<?php
 			echo $this->Html->css( array( 'webrsa' ), 'stylesheet' );
-			echo $this->Html->script( 'webrsa' );
+			$pagesNotAllowedJs = array(
+				'Configurations::edit',
+			);
+
+			if (!in_array($this->name.'::'.$this->action, $pagesNotAllowedJs))
+			{
+				echo $this->Html->script( 'webrsa' );
+			}
 
 			echo $this->fetch( 'meta' );
 			echo $this->fetch( 'css' );

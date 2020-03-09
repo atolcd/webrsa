@@ -130,7 +130,7 @@ class ConfigurationInsertionShell extends XShell {
 			$query['departement'] = $this->departement;
 			$query['lib_variable'] = $var;
 			$query['value_variable'] = $valeurs[$key];
-			$query['categoriesconfiguration_id'] = $categorie;
+			$query['configurationscategorie_id'] = $categorie;
 			if(isset($comments[$key]))
 				$query['comments_variable'] = $comments[$key];
 
@@ -182,7 +182,7 @@ class ConfigurationInsertionShell extends XShell {
 	private function listVar($fileContent) {
 		$matches = array ();
 
-		$varPattern = '#[^\/|\*]Configure::write\([a-zA-Z0-9 ".\(\)\'=<>:/\-_\r\n\t@\*$€\+]{0,}\,#';
+		$varPattern = '#[^\/|\*]Configure::write[ ]{0,1}\([a-zA-Z0-9 ".\(\)\'=<>:/\-_\r\n\t@\*$€\+]{0,}\,#';
 		$subject = $fileContent;
 
 		preg_match_all ($varPattern, $subject, $matches);
@@ -191,7 +191,7 @@ class ConfigurationInsertionShell extends XShell {
 		// On ne garde que le nom de la variable
 		$variables = $matches[0];
 		foreach ($variables as $key => $value) {
-			$pattern = array ('#Configure::write\(#', '# #', '#,#', '#\r\n#', '#\'#', '#,#', '#\n#', '#\r#', '#\t#');
+			$pattern = array ('#Configure::write[ ]{0,1}\(#', '# #', '#,#', '#\r\n#', '#\'#', '#,#', '#\n#', '#\r#', '#\t#');
 			$variables[$key] = preg_replace ($pattern, '', substr ($value, 0, -2));
 		}
 

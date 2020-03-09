@@ -2,7 +2,7 @@
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 	}
-
+	echo $this->Default3->actions( array( '/Configurations/index' => array( 'class' => 'back' ) ) );
 	echo $this->Default3->titleForLayout( $this->request->data );
 	echo $this->Default3->DefaultForm->create();
 ?>
@@ -80,7 +80,24 @@
 
 	echo $this->Default3->DefaultForm->buttons( array( 'Save', 'Cancel' ) );
 	echo $this->Default3->DefaultForm->end();
+	echo $this->Default3->actions( array( '/Configurations/index' => array( 'class' => 'back' ) ) );
 	echo $this->Observer->disableFormOnSubmit();
+
+	// Partie historique
+	if( isset($histo) && !empty($histo) ) {
+		echo '<br><br> <h1>' . __m('Configuration.historique') .  '</h1>';
+		echo $this->Default3->index(
+			$histo,
+			$this->Translator->normalize(
+				array(
+					'Configuration.created' => array('type' => 'date', 'dateFormat' => 'DMY'),
+					'Configurationhistorique.created' => array('type' => 'date', 'dateFormat' => 'DMY'),
+					'Configurationhistorique.username',
+				)
+				),
+				array('paginate' => false)
+		);
+	}
 ?>
 <script src="<?php echo ((isset($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST']); ?>/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
 <script>

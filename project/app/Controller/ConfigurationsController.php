@@ -26,7 +26,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Configuration', 'ConfigurationCategorie');
+		public $uses = array( 'Configuration', 'ConfigurationCategorie', 'Configurationhistorique');
 
 		/**
 		 * Méthodes ne nécessitant aucun droit.
@@ -52,14 +52,23 @@
 		 */
  		public function index() {
 			$this->departement = (int)Configure::read( 'Cg.departement' );
+
+			$recherche = $this->Session->read('Search.Configuration');
+			if (empty( $this->request->data ) && !empty ($recherche)) {
+				$this->request->data = $recherche;
+			}
+
 			$search = (array)Hash::get( $this->request->data, 'Search' );
+
 			if( !empty( $search ) ) {
 				if($this->request->data['Configuration']['lib_variable'] !== '')
 					$search['Configuration']['lib_variable'] = $this->request->data['Configuration']['lib_variable'];
 				$query = $this->Configuration->_query($search);
-				$query['limit'] = 20;
-				$this->paginate = $query;
-				$results = $this->paginate( 'Configuration', array(), array(), !Hash::get($search, 'Pagination.nombre_total') );
+				$query['limit'] = false;
+				$results = $this->Configuration->find('all', $query);
+
+				$this->Session->write('Search.Configuration', $this->request->data);
+
 				$this->set( compact( 'results' ) );
 			}
 
@@ -76,7 +85,7 @@
 				$JSONdecode = json_decode($this->request->data['Configuration']['value_variable'], true);
 				$JSONresult = json_encode($JSONdecode, JSON_UNESCAPED_UNICODE);
 				$this->request->data['Configuration']['value_variable'] = $JSONresult;
-
+				$this->Configurationhistorique->saveHisto($this->request->data['Configuration']);
 				// Il y a une erreur dans le JSON
 				if(is_null($JSONdecode))
 				{
@@ -85,8 +94,9 @@
 				}
 			}
 			$this->WebrsaParametrages->edit( $id, array( 'view' => 'edit' ) );
+			$histo = $this->Configurationhistorique->getHisto($id);
 			$options = $this->viewVars['options'];
-			$this->set( compact( 'options' ) );
+			$this->set( compact( 'options', 'histo' ) );
 		}
 	}
 ?>

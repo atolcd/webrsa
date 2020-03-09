@@ -692,9 +692,6 @@
 					'disabled' => ( 93 !== $departement ),
 					'url' => array( 'controller' => 'communautessrs', 'action' => 'index' )
 				),
-				__m('Configuration') => array(
-					'url' => array( 'controller' => 'configurations', 'action' => 'index' )
-				),
 				__m('Créances') => $this->_creances(),
 				__m('CUI') => $this->_cuis(),
 				__m('DSP') => $this->_dsps(),
