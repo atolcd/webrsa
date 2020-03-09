@@ -85,13 +85,13 @@
 				$JSONdecode = json_decode($this->request->data['Configuration']['value_variable'], true);
 				$JSONresult = json_encode($JSONdecode, JSON_UNESCAPED_UNICODE);
 				$this->request->data['Configuration']['value_variable'] = $JSONresult;
-				$this->Configurationhistorique->saveHisto($this->request->data['Configuration']);
 				// Il y a une erreur dans le JSON
 				if(is_null($JSONdecode))
 				{
 					$this->Flash->error( __d('configuration','Configuration.erreurJSON'));
 					$this->redirect(array('controller' => 'configurations', 'action' => 'edit', $id));
 				}
+				$this->Configurationhistorique->saveHisto($this->request->data['Configuration']);
 			}
 			$this->WebrsaParametrages->edit( $id, array( 'view' => 'edit' ) );
 			$histo = $this->Configurationhistorique->getHisto($id);
