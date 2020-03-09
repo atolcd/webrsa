@@ -246,6 +246,9 @@
 		 */
 		public function generationPeriodeMois ($debutPeriode) {
 			$dates = array ();
+			if ( is_null($debutPeriode) || empty($debutPeriode) ){
+				$debutPeriode = "01";
+			}
 			$dateDeb = new DateTime (date ('Y-m-').$debutPeriode);
 			$dateFin = new DateTime (date ('Y-m-').$debutPeriode);
 

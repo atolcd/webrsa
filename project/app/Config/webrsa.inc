@@ -1253,6 +1253,19 @@
 	));
 
 	/**
+	 * Paramétrage du module "Cohorte Plan Pauvreté"
+	 *
+	 * Vous devez définir le jour de début et de jour de fin de la période
+	 * des nouveaux entrants.
+	 * Cette période est fonction de l'intégratio ndes flux CNAF et PE.
+	 *
+	 * @param array
+	 */
+	Configure::write(
+		'PlanPauvrete.Cohorte.Moisprecedent', array ( 'deb'=> '05' )
+	);
+
+	/**
 	 * Récupération du fichier de config propre au département
 	 */
 	require_once ('webrsa.cg'.Configure::read( 'Cg.departement' ).'.inc');
