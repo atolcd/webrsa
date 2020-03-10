@@ -517,7 +517,7 @@ class RelancesShell extends Shell {
 				$this->out ('Email pour '.$value["email"].' - '.$message);
 
 				if(Configure::read('relances.prestataire.mail.envoi.allocataire')) {
-					$from = array(Configure::read('relances.prestataire.mail.expéditeur'));
+					$from = array(Configure::read('relances.prestataire.mail.expediteur'));
 					$to = $value["email"];
 					if (Configure::read('relances.prestataire.mail.phase.test')) {
 						$to = Configure::read('relances.prestataire.mail.destinataire');
@@ -603,7 +603,7 @@ class RelancesShell extends Shell {
 				Configure::read('relances.prestataire.mail.sujet.sujet').' '.$relanceType,
 				Configure::read('relances.prestataire.mail.message'),
 				Configure::read('relances.prestataire.mail.domaine'),
-				Configure::read('relances.prestataire.mail.expéditeur'),
+				Configure::read('relances.prestataire.mail.expediteur'),
 				"html",
 				"utf-8",
 				"",
