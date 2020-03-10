@@ -273,7 +273,7 @@
 		 * @return string
 		 */
 		public function texteFluxNouveauxEntrants () {
-			return $this->generationTexte('Planpauvrete.phrase.mois.flux.nouveaux');
+			return $this->generationTexte('Planpauvrete.Nouveaux.Phrasesmois');
 		}
 
 		/**
@@ -282,7 +282,7 @@
 		 * @return string
 		 */
 		public function texteFluxStock () {
-			return $this->generationTexte('Planpauvrete.phrase.mois.flux.stock', 'P1M');
+			return $this->generationTexte('Planpauvrete.Stock.Phrasesmois', 'P1M');
 		}
 
 		/**

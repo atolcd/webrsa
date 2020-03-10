@@ -13,6 +13,10 @@ msgstr ""
 msgid "Planpauvrete.Planpauvrete.Menu"
 msgstr "Plan pauvreté"
 
+# ==============================================================================
+# Traduction Nouveaux
+# ==============================================================================
+
 msgid "Planpauvrete.Nouveaux.Menu"
 msgstr "Nouveaux entrants"
 
@@ -36,6 +40,13 @@ msgstr "3 en 1"
 
 msgid "Planpauvrete.Nouveaux.Impression_3en1"
 msgstr "Impression 3 en 1"
+
+msgid "Planpauvrete.Nouveaux.Phrasesmois"
+msgstr "Cette cohorte effectue des recherches dans le flux du mois de MOIS."
+
+# ==============================================================================
+# Traduction Stock
+# ==============================================================================
 
 msgid "Planpauvrete.Stock.Menu"
 msgstr "Stock"
@@ -61,14 +72,11 @@ msgstr "3 en 1"
 msgid "Planpauvrete.Stock.Impression_3en1"
 msgstr "Impressions 3 en 1"
 
-msgid "Planpauvrete.phrase.mois.flux.nouveaux"
-msgstr "Cette cohorte effectue des recherches dans le flux du mois de MOIS."
-
-msgid "Planpauvrete.phrase.mois.flux.stock"
+msgid "Planpauvrete.Stock.Phrasesmois"
 msgstr "Cette cohorte effectue des recherches dans les flux du mois de MOIS et des mois précédents."
 
 # ==============================================================================
-Recherche par Primo accédant
+# Recherche par Primo accédant
 # ==============================================================================
 
 msgid "Planpauvrete.primoaccedant.menu.search"
