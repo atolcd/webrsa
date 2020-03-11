@@ -34,6 +34,7 @@ pipeline {
           sh 'ls final > /dev/null 2>&1 && rm -fr final || true'
           sh 'mkdir final && cp -RLp app vendor final/ || true'
           sh 'find final/ -type d -exec chmod 750 {} \\; && find final/ -type f -exec chmod 640 {} \\;'
+          sh 'chmod 755 final/app/webrsa.sh'
         }
       }
     }

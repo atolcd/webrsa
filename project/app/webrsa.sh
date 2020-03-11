@@ -80,10 +80,21 @@ function __deploy() {
 	chmod 755 -R vendor/
 	chmod 777 -R app/tmp/
 
+	echo "     Aco / Aro"
+	echo ""
+
+	sudo -u apache vendor/cakephp/cakephp/lib/Cake/Console/cake WebrsaSessionAcl update Aco -app app >> /tmp/log_Update_Aco.txt
+	sudo -u apache vendor/cakephp/cakephp/lib/Cake/Console/cake WebrsaSessionAcl update Aro -app app >> /tmp/log_Update_Aro.txt
+
 	echo "     Cache"
 	echo ""
 
 	bash $dir/webrsa.sh clearcache
+
+	echo "     Préchargement"
+	echo ""
+
+	sudo -u apache vendor/cakephp/cakephp/lib/Cake/Console/cake Prechargements -app app >> /tmp/log_prechargement.txt
 }
 
 
