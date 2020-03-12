@@ -1316,8 +1316,6 @@
 					}
 
 					if ($saved) {
-						//Mise à jour de la date de fin du CER précédent ci dépassement il y as
-						$this->Contratinsertion->updateEndPreviousContract($this->request->data['Contratinsertion']['personne_id']);
 
 						$this->Contratinsertion->commit();
 						$this->Jetons2->release($dossier_id);
