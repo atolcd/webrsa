@@ -84,12 +84,12 @@
 				'Situationdossierrsa' => 'INNER',
 				'Adresse' => 'INNER',
 				'Historiquedroit' => 'INNER',
+				'Informationpe' => 'INNER',
 
 				// LEFT OUTER JOIN
 				'Orientstruct' => 'LEFT OUTER',
 				'Structurereferente' => 'LEFT OUTER',
 				'Typeorient' => 'LEFT OUTER',
-				'Informationpe' => 'LEFT OUTER',
 				'Canton' => 'LEFT OUTER',
 				'PersonneReferent' => 'LEFT OUTER',
 				'Referentparcours' => 'LEFT OUTER',

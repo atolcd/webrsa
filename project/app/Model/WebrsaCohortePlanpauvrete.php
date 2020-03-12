@@ -122,6 +122,25 @@
 		}
 
 		/**
+		 * Ajoute la condition dans la query pour n'avoir que les personnes dont le droit passe a SDD-DOV pour la première fois.
+		 * SDD-DOV = etatdosrsa 2 et toppersdrodevorsa 1
+		 *
+		 * @param array $query
+		 * @return array $query
+		 */
+		public function uniqueHistoriqueSdddov($query) {
+			$query['conditions'][] = ' (
+				SELECT count ("histo1"."id") AS "histo1__count"
+				FROM "historiquesdroits" AS "histo1"
+				WHERE "histo1"."personne_id" = "Personne"."id"
+				AND  "histo1"."toppersdrodevorsa" = \'1\'
+				AND  "histo1"."etatdosrsa" = \'2\'
+				GROUP BY "histo1"."personne_id"
+				) = 1';
+			return $query;
+		}
+
+		/**
 		 * Ajoute la condition pour n'avoir que les nouveaux entrants
 		 *
 		 * @param array $query
@@ -189,6 +208,19 @@
 		}
 
 		/**
+		 * Ajoute la condition pour avoir les personne dont l'état PE as été mis à jour depuis la date de recherche.
+		 *
+		 * @param array $query
+		 * @return array $query
+		 */
+		public function dateInscritPESupPeriode($query) {
+			$dates = $this->datePeriodeCohorte ();
+			$query['conditions'][] = '("Historiqueetatpe"."date" > \''.$dates['deb'].'\' )';
+
+			return $query;
+		}
+
+		/**
 		 * Ajoute la condition pour n'avoir que les Soumis à droit et devoir & Droit ouvert et versable
 		 * @param array $query
 		 * @return array $query
@@ -198,6 +230,20 @@
 			$query['conditions']['Calculdroitrsa.toppersdrodevorsa'] = '1';
 			//Droit ouvert et versable :
 			$query['conditions']['Situationdossierrsa.etatdosrsa'] = '2';
+			return $query;
+		}
+
+		/**
+		 * Ajoute la condition pour n'avoir que les Soumis à droit et devoir & Droit ouvert et versable de l'historique
+		 *
+		 * @param array $query
+		 * @return array $query
+		 */
+		public function sdddovHistorique($query) {
+			//Soumis à droit et devoir
+			$query['conditions']['Historiquedroit.toppersdrodevorsa'] = '1';
+			//Droit ouvert et versable :
+			$query['conditions']['Historiquedroit.etatdosrsa'] = '2';
 			return $query;
 		}
 

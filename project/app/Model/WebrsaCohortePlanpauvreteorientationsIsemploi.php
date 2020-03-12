@@ -26,14 +26,22 @@
 		public function searchQuery( array $types = array() ) {
 			$query = parent::searchQuery($types);
 
+			// SDD & DOV
+			$query = $this->sdddovHistorique($query);
+
 			//Sans orientation
 			$query = $this->sansOrientation($query);
 			//Sans RDV
 			$query = $this->sansRendezvous($query);
 			//Sans CER
 			$query = $this->sansCER($query);
-			// Inscrit PE
+			//Inscrit PE
 			$query = $this->inscritPE($query);
+
+			//Uniquement les personne qui sont SDDOV pour la première fois.
+			$query = $this->uniqueHistoriqueSdddov($query);
+			//Uniquement les personnes dont l'état PE est mis a jour ce mois ci
+			$query = $this->dateInscritPESupPeriode($query);
 
 			//Dans le mois précédent :
 			$query = $this->nouveauxEntrants($query);
