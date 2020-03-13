@@ -412,9 +412,26 @@
 					)
 				);
 				if ( !empty ($infoRib['Paiementfoyer'] ) ) {
-					$titrecreancier['Titrecreancier']['titulairecompte'] =
-						(__d('paiementfoyer', 'ENUM::TITURIB::'.$infoRib['Paiementfoyer'][0]['titurib'] ))
-						.' '.$infoRib['Paiementfoyer'][0]['nomprenomtiturib'];
+					//Génération du Nom pour le RIB
+					//Qualificatif
+					if ( ! empty ($infoRib['Paiementfoyer'][0]['titurib']) ) {
+						$titrecreancier['Titrecreancier']['titulairecompte'] =
+						(__d('paiementfoyer', 'ENUM::TITURIB::'.$infoRib['Paiementfoyer'][0]['titurib'] ));
+					} else {
+						$titrecreancier['Titrecreancier']['titulairecompte'] = $titrecreancier['Titrecreancier']['qual'];
+					}
+					// Nom
+					if (
+						! empty($infoRib['Paiementfoyer'][0]['nomprenomtiturib'])
+						&& !(
+							$infoRib['Paiementfoyer'][0]['nomprenomtiturib'] != 'USAGER'
+							|| $infoRib['Paiementfoyer'][0]['nomprenomtiturib'] != 'COMMUN'
+						)
+					){
+						$titrecreancier['Titrecreancier']['titulairecompte'].= ' '.$infoRib['Paiementfoyer'][0]['nomprenomtiturib'];
+					} else {
+						$titrecreancier['Titrecreancier']['titulairecompte'].= ' '.$titrecreancier['Titrecreancier']['nom']  ;
+					}
 
 					$titrecreancier['Titrecreancier']['iban'] =
 						$infoRib['Paiementfoyer'][0]['numdebiban']
