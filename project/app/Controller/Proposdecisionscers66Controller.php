@@ -204,6 +204,10 @@
 										'Contratinsertion.id' => $contratinsertion_id
 									)
 								) && $saved;
+								if ( ! empty ($personne_id) && $saved ) {
+									//Mise à jour de la date de fin du CER précédent ci dépassement il y as
+									$this->Contratinsertion->updateEndPreviousContract($personne_id);
+								}
 							} else if ($this->request->data['Propodecisioncer66']['isvalidcer'] == 'N') {
 								$saved = $this->Propodecisioncer66->Contratinsertion->updateAllUnBound(
 									array(
@@ -227,11 +231,13 @@
 
 					if ($saved) {
 						$this->Propodecisioncer66->commit();
+						$this->Contratinsertion->commit();
 						$this->Jetons2->release($dossier_id);
 						$this->Flash->success( __( 'Save->success' ) );
 						$this->redirect( array( 'controller' => 'contratsinsertion', 'action' => 'index', $personne_id ) );
 					} else {
 						$this->Propodecisioncer66->rollback();
+						$this->Contratinsertion->rollback();
 						$this->Flash->error( __( 'Save->error' ) );
 					}
 				}
