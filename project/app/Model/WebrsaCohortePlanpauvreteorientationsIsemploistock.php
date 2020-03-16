@@ -55,31 +55,8 @@
 
 			if ( $search ['Historiquedroit']['created'] ){
 				//Modification du lien à Historiquedroit
-				foreach ($query['joins'] as $key => $value) {
-					debug( $value ) ;
-					if ( $value['alias'] == 'Historiquedroit' ){
-						$created_from =
-							$search ['Historiquedroit']['created_from']['year'].'-'.
-							$search ['Historiquedroit']['created_from']['month'].'-'.
-							$search ['Historiquedroit']['created_from']['day'];
-						$created_to =
-							$search ['Historiquedroit']['created_to']['year'].'-'.
-							$search ['Historiquedroit']['created_to']['month'].'-'.
-							$search ['Historiquedroit']['created_to']['day'];
-						$query['joins'][$key] =
-						$this->Personne->join('Historiquedroit', array(
-							'type' => 'INNER',
-							'conditions' => array(
-								'Historiquedroit.personne_id = Personne.id AND Personne.id IN(
-									SELECT "Historiquedroit"."personne_id" from historiquesdroits as Historiquedroit 
-									WHERE "Historiquedroit"."personne_id" = "Personne"."id"'
-									.' AND date_trunc(\'day\', "Historiquedroit"."created") BETWEEN \''.$created_from.'\' AND \''.$created_to.'\' '
-									.' ORDER BY "Historiquedroit"."created" DESC LIMIT 1)'
-							)
-						));
-						break;
-					}
-				}
+				$query = $this->joinHistoriqueInDates($query, $search);
+
 				// SDD & DOV sur historique
 				$query = $this->sdddovHistorique($query);
 

@@ -248,6 +248,50 @@
 		}
 
 		/**
+		 * Change les conditions de join d'historiquedroit pour prendre l'état de l'historique au moment de la recherche et non le dernier historique
+		 *
+		 * @param array $query
+		 * @param array $search
+		 * @return array $query
+		 */
+		public function joinHistoriqueInDates($query, $search) {
+				//Modification du lien à Historiquedroit
+				foreach ($query['joins'] as $key => $value) {
+					if ( $value['alias'] == 'Historiquedroit' ){
+						$created_from =
+							$search ['Historiquedroit']['created_from']['year'].'-'.
+							$search ['Historiquedroit']['created_from']['month'].'-';
+						if (isset($search ['Historiquedroit']['created_from']['day'])){
+							$created_from .= $search ['Historiquedroit']['created_from']['day'];
+						}else{
+							$created_from .= '01';
+						}
+						$created_to =
+							$search ['Historiquedroit']['created_to']['year'].'-'.
+							$search ['Historiquedroit']['created_to']['month'].'-';
+						if (isset($search ['Historiquedroit']['created_to']['day'])){
+							$created_to .= $search ['Historiquedroit']['created_to']['day'];
+						}else{
+							$created_to .= '01';
+						}
+						$query['joins'][$key] =
+						$this->Personne->join('Historiquedroit', array(
+							'type' => 'INNER',
+							'conditions' => array(
+							'Historiquedroit.personne_id = Personne.id AND Personne.id IN(
+								SELECT "Historiquedroit"."personne_id" from historiquesdroits as Historiquedroit
+								WHERE "Historiquedroit"."personne_id" = "Personne"."id"'
+								.' AND date_trunc(\'day\', "Historiquedroit"."created") BETWEEN \''.$created_from.'\' AND \''.$created_to.'\' '
+								.' ORDER BY "Historiquedroit"."created" DESC LIMIT 1)'
+							)
+						));
+						break;
+					}
+				}
+			return $query;
+		}
+
+		/**
 		 * Complète les conditions du querydata avec le contenu des filtres de
 		 * recherche.
 		 *

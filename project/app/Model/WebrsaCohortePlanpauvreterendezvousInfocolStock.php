@@ -72,6 +72,14 @@
 
 			$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, 'Historiquedroit.created' );
 
+			if ( $search ['Historiquedroit']['created'] ){
+				//Modification du lien à Historiquedroit
+				$query = $this->joinHistoriqueInDates($query, $search);
+
+				// SDD & DOV sur historique
+				$query = $this->sdddovHistorique($query);
+
+			}
 			return $query;
 		}
 	}

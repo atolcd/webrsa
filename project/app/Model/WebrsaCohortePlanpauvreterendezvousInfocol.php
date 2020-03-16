@@ -26,6 +26,9 @@
 		public function searchQuery( array $types = array() ) {
 		 	$query = parent::searchQuery($types);
 			// Conditions
+			// SDD & DOV Historique
+			$query = $this->sdddovHistorique($query);
+
 			// Sans RDV
 			$query = $this->sansRendezvous($query);
 
@@ -40,6 +43,9 @@
 
 			//Dans le mois précédent :
 			$query = $this->nouveauxEntrants($query);
+
+			//Uniquement les personne qui sont SDDOV pour la première fois.
+			$query = $this->uniqueHistoriqueSdddov($query);
 
 			return $query;
 		}
