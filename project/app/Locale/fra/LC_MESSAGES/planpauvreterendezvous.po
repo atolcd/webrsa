@@ -26,7 +26,7 @@ msgid "search.Historiquedroit.created"
 msgstr "date de mois de traitement"
 
 msgid "Search.Historiquedroit.created"
-msgstr "Date d'intégration'"
+msgstr "Date d'intégration"
 
 
 ###############################################################################
