@@ -857,8 +857,11 @@
 					'Foyer.id',
 					'Adressefoyer.rgadr',
 					'Adressefoyer.dtemm',
+					'AdressefoyerAct.dtemm',
 					'Adresse.codepos',
-					'Rendezvous.daterdv'
+					'Rendezvous.daterdv',
+					'Dossier.dtdemrsa',
+					'Dossiercaf.ddratdos'
 				)
 			);
 			$joins = $this->_queryJoins();
@@ -880,6 +883,14 @@
 								),
 							),
 							array(
+								'table' => 'dossiers',
+								'alias' => 'Dossier',
+								'type' => 'INNER',
+								'conditions' => array(
+									'Dossier.id = Foyer.dossier_id'
+								),
+							),
+							array(
 								'table' => 'adressesfoyers',
 								'alias' => 'Adressefoyer',
 								'type' => 'LEFT',
@@ -898,6 +909,16 @@
 								),
 							),
 							array(
+								'table' => 'adressesfoyers',
+								'alias' => 'AdressefoyerAct',
+								'type' => 'LEFT',
+								'conditions' => array(
+									'AdressefoyerAct.foyer_id = Foyer.id',
+									'AdressefoyerAct.id = (SELECT id FROM adressesfoyers
+										WHERE foyer_id = "Foyer"."id" AND rgadr = \'01\' ORDER BY dtemm DESC LIMIT 1)'
+								),
+							),
+							array(
 								'table' => 'rendezvous',
 								'alias' => 'Rendezvous',
 								'type' => 'LEFT',
@@ -908,6 +929,17 @@
 										WHERE personne_id = "Personne"."id"
 										AND  statutsrdvs.code_statut LIKE \''.Configure::read( 'Statistiqueplanpauvrete.statut_rendezvous' ).'\''
 										.'ORDER BY daterdv DESC LIMIT 1)'
+								),
+							),
+							array(
+								'table' => 'dossierscaf',
+								'alias' => 'Dossiercaf',
+								'type' => 'LEFT',
+								'conditions' => array(
+									'Dossiercaf.personne_id = Personne.id',
+									'Personne.id = (SELECT personne_id FROM dossierscaf
+										WHERE personne_id = "Personne"."id"
+										ORDER BY ddratdos DESC LIMIT 1)'
 								),
 							),
 							array(
@@ -2134,6 +2166,7 @@
 							 in_array ($historiquesPreviousMonth, $etatSuspendus)
 							|| $historiquesToppersPreviousMonth != 1
 						)) {
+							$departement = Configure::read('Cg.departement');
 							$jourDebMois = $this->jourDeDebut();
 							$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
 
@@ -2155,8 +2188,40 @@
 								$resultats['Suspendus']['total'][$month]++;
 							}
 
-							//- dont PSDD ayant effectué une demande pour la 1ʳᵉ fois (primo arrivants)
-							if ( $historiquesPreviousMonth == null ){
+							//- dont BRSA rejoignant un foyer RSA
+							if (
+								!is_null($result['Dossiercaf']['ddratdos'])
+								&& $result['Dossiercaf']['ddratdos'] >=  $result['Dossier']['dtdemrsa']
+								&& (date('m',strtotime($result['Dossiercaf']['ddratdos']))-1) == $month
+							){
+								$resultats['Tous']['nbFoyerJoin'][$month]++;
+								if ( !$Suspendu ){
+									$resultats['Horssuspendus']['nbFoyerJoin'][$month]++;
+								} else {
+									$resultats['Suspendus']['nbFoyerJoin'][$month]++;
+								}
+							}elseif (
+								!is_null($result['Adresse']['codepos'])
+								&& strpos($result['Adresse']['codepos'], $departement) === false
+								&&  (
+									(date('m',strtotime($result['AdressefoyerAct']['dtemm'])-1) == $month)
+									|| (date('m',strtotime($result['AdressefoyerAct']['dtemm'])-1) == ($month-1))
+								)
+							) {
+								//- dont BRSA venant de s’installer sur le Dpt (mutation)
+									$resultats['Tous']['nbEMM'][$month]++;
+									if ( !$Suspendu ){
+										$resultats['Horssuspendus']['nbEMM'][$month]++;
+									} else {
+										$resultats['Suspendus']['nbEMM'][$month]++;
+									}
+							} elseif ( $historiquesPreviousMonth == null ){
+							/*
+							 * - dont Personne SDD ayant effectué une demande pour la 1ʳᵉ fois (primo arrivants)
+							 *sont considère primo arrivants les personnes sans historique droit à l'exclusion des personnes
+							 *  - se rattachant à un foyer dont la demande est déjà ouverte
+							 *  - venant de s’installer sur le Dpt
+							*/
 								$resultats['Tous']['nbFoyerInconnu'][$month]++;
 								if ( !$Suspendu ){
 									$resultats['Horssuspendus']['nbFoyerInconnu'][$month]++;
@@ -2191,26 +2256,6 @@
 									$resultats['Horssuspendus']['nbToppers'][$month]++;
 								} else {
 									$resultats['Suspendus']['nbToppers'][$month]++;
-								}
-							}
-							//- dont BRSA rejoignant un foyer RSA
-							/* TODO : Ici nous ne savons pas comment dectecté cest publics.
-								$resultats['Tous']['nbFoyerJoin'][$month]++;
-								if ( !$Suspendu ){
-									$resultats['Horssuspendus']['nbFoyerJoin'][$month]++;
-								} else {
-									$resultats['Suspendus']['nbFoyerJoin'][$month]++;
-								}
-							*/
-
-							//- dont BRSA venant de s’installer sur le Dpt (mutation)
-							$departement = Configure::read('Cg.departement');
-							if ( strpos($result['Adresse']['codepos'], $departement) == 0	) {
-								$resultats['Tous']['nbEMM'][$month]++;
-								if ( !$Suspendu ){
-									$resultats['Horssuspendus']['nbEMM'][$month]++;
-								} else {
-									$resultats['Suspendus']['nbEMM'][$month]++;
 								}
 							}
 
