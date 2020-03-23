@@ -62,7 +62,7 @@
             $xmlInfos = $this->lit_xml($this->args[0], 'InfosFoyerRSA', $infos);
 
             $datas = array();
-            $countPersonnesNonAjoutees = 0;
+            $countPersonnesNonAjoutees = $countPersonnesMAJ = $countPersonnesMAJOld = $countPersonnesAjoutees = 0;
             // Préparation des données à sauvegarder
             foreach($xmlInfos as $info) {
                 if($info[4] == 'DEM' || $info[4] == 'CJT') {
@@ -77,27 +77,52 @@
                         )
                     ));
                     if( !empty($idPersonne) ) {
-                        $idPersonne = $idPersonne['Personne']['id'];
-                        $histoPersonne = $this->Historiquedroit->find('first', array('conditions' => array('Historiquedroit.personne_id' => $idPersonne) ) );
-                        if( !empty($histoPersonne) && $histoPersonne['Historiquedroit']['etatdosrsa'] == $info[3] ) {
-                            $date = array('modified' => $dateToInsert);
-                            $idHisto = $this->Historiquedroit->find('first', array('conditions' => array('Historiquedroit.personne_id' => $idPersonne)));
-                            $idHisto = array( 'id' => $idHisto['Historiquedroit']['id']);
-                        } else {
-                            $date = array('created' => $dateToInsert, 'modified' => $dateToInsert);
-                            $idHisto = array();
-                        }
-                        $datas[] = array_merge(
-                            array(
-                                'personne_id' => $idPersonne,
-                                'toppersdrodevorsa' => $info[5],
-                                'etatdosrsa' => $info[3],
-                                'moticlorsa' => $info[6]
-                            ),
-                            $date,
-                            $idHisto
-                        );
-                        $idHisto = array();
+						//Identifiant de la personne à mettre à jour
+						$idPersonne = $idPersonne['Personne']['id'];
+						//Recherche de l'historique précédent
+						$histoPersonne = $this->Historiquedroit->find('first', array('conditions' => array('Historiquedroit.personne_id' => $idPersonne) ) );
+						//Si on a un historique précédent
+						if( !empty($histoPersonne) ){
+							//Si l'historique est toujours le même
+							if ( $histoPersonne['Historiquedroit']['etatdosrsa'] == $info[3] ) {
+								//On déplace la date de fin
+								$date = array('modified' => $dateToInsert);
+								$idHisto = array( 'id' => $histoPersonne['Historiquedroit']['id']);
+								$countPersonnesMAJ++;
+							}else{ //Sinon
+								//Il faut déplacer la date de fin de l'historique précédent
+	                            $idOldHisto = array( 'id' => $histoPersonne['Historiquedroit']['id']);
+	                            $dateOld = array('modified' =>  date('Y-m-d', strtotime($dateToInsert.' - 1 DAY')) . ' 00:00:00' );
+		                        $datas[] = array_merge(
+		                            array(
+		                                'personne_id' => $idPersonne,
+									),
+									$dateOld,
+									$idOldHisto
+								);
+								$countPersonnesMAJOld++;
+								//Et crée une nouvelle ligne avec le nouvel historique
+								$date = array('created' => $dateToInsert, 'modified' => $dateToInsert);
+								$idHisto = array();
+								$countPersonnesAjoutees++;
+							}
+						} else { //Sinon on crée une nouvelle ligne pour la personne
+							$date = array('created' => $dateToInsert, 'modified' => $dateToInsert);
+							$idHisto = array();
+							$countPersonnesAjoutees++;
+						}
+
+						$datas[] = array_merge(
+							array(
+								'personne_id' => $idPersonne,
+								'toppersdrodevorsa' => $info[5],
+								'etatdosrsa' => $info[3],
+								'moticlorsa' => $info[6]
+							),
+							$date,
+							$idHisto
+						);
+						$idHisto = array();
 
                     } else {
                         $this->out( 'La personne ' . $info[0] . ' ' . $info[1] . ' ayant le NIR ' . $info[2] . ' n\'a pas été trouvée en base.' ).
@@ -109,7 +134,10 @@
                     }
                 }
             }
-            $this->out(count($datas) . ' personnes seront ajoutées à la table historiquesdroits.' );
+
+            $this->out($countPersonnesAjoutees . ' personnes seront ajoutées à la table historiquesdroits.' );
+            $this->out('- dont ' . $countPersonnesMAJOld . ' personnes ont changer d\'état.' );
+            $this->out($countPersonnesMAJ . ' personnes seront mise à jour dans la table historiquesdroits.' );
             $this->out($countPersonnesNonAjoutees . ' personnes ne seront pas ajoutées à la table historiquesdroits dû à un problème de personne non trouvé en base.' );
             $success = $this->Historiquedroit->saveAll($datas);
             if($success) {
