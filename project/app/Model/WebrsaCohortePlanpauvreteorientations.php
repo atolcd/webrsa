@@ -113,6 +113,7 @@
 					// Champs nécessaires au traitement de la search
 					array(
 						'Historiqueetatpe.identifiantpe',
+						'Historiqueetatpe.date',
 						'Historiqueetatpe.id',
 						'Orientstruct.id',
 						'Orientstruct.origine',
@@ -123,6 +124,7 @@
 						'Orientstruct.date_valid',
 						'Rendezvous.personne_id',
 						'Dossier.id',
+						'Dossier.ddarrmut',
 					)
 				);
 				// 2. Jointure

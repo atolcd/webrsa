@@ -215,7 +215,11 @@
 		 */
 		public function dateInscritPESupPeriode($query) {
 			$dates = $this->datePeriodeCohorte ();
-			$query['conditions'][] = '("Historiqueetatpe"."date" > \''.$dates['deb'].'\' )';
+			$query['conditions'][] = '(
+				"Historiqueetatpe"."date_modification" IS NULL
+				OR
+				"Historiqueetatpe"."date_modification" > \''.$dates['deb'].'\'
+			)';
 
 			return $query;
 		}

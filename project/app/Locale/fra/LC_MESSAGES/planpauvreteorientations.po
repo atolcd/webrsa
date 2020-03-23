@@ -22,6 +22,9 @@ msgstr "Allocataires du stock inscrits à Pôle Emploi"
 msgid "/Planpauvreteorientations/cohorte_isemploi_stock_imprime/:heading"
 msgstr "Impression des orientations des allocataires du stock inscrits à Pôle Emploi"
 
+msgid "Historiqueetatpe.date"
+msgstr "Date d'inscription au Pôle Emploi"
+
 msgid "data[Cohorte][][Orientstruct][selection]"
 msgstr "Sélectionner"
 

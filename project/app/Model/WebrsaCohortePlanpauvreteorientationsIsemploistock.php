@@ -61,8 +61,9 @@
 				$query = $this->sdddovHistorique($query);
 
 				//Gestion de l'inscription Pole emploi
-				$query['conditions'][] = '(date_trunc(\'day\', "Historiqueetatpe"."date") > date_trunc(\'day\', "Historiquedroit"."created"))';
-
+				$query['conditions'][] = '(
+				"Historiqueetatpe"."date_modification" IS NULL
+				OR date_trunc(\'day\', "Historiqueetatpe"."date_modification") > date_trunc(\'day\', "Historiquedroit"."created"))';
 			}
 
 			return $query;
