@@ -26,7 +26,7 @@
 	}
 ?>
 </ul>
-<div class="tab" style="overflow: hidden; display: flex;">
+<div class="tab" style="overflow: hidden;">
 <?php
 	if (!is_null($historiques)) {
 		foreach ($historiques as $historique) {

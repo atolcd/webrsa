@@ -124,6 +124,7 @@
 						'Orientstruct.date_valid',
 						'Rendezvous.personne_id',
 						'Dossier.id',
+						'Dossier.dtdemrsa',
 						'Dossier.ddarrmut',
 					)
 				);
