@@ -845,7 +845,7 @@
 		 * @return array
 		 */
 		protected function _getQueryTableau_a1v2(array $search , $annee) {
-			$jourFinMois = $this->jourDeFin ();
+			$jourFinMois = $this->jourDeFin ($annee);
 			$conditionsSearch = $this->_getConditionsTableau($search);
 			$joinSearch = $this->_getJoinsTableau($search, false, false);
 			$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
@@ -972,7 +972,7 @@
 		 * @return array
 		 */
 		protected function _getQueryTableau_a2av2(array $search , $annee) {
-			$jourFinMois = $this->jourDeFin ();
+			$jourFinMois = $this->jourDeFin ($annee);
 			$conditionsSearch = $this->_getConditionsTableau($search);
 			$joinSearch = $this->_getJoinsTableau($search, true, false);
 
@@ -1024,7 +1024,7 @@
 		 * @return array
 		 */
 		protected function _getQueryTableau_a2bv2(array $search , $annee) {
-			$jourFinMois = $this->jourDeFin ();
+			$jourFinMois = $this->jourDeFin ($annee);
 			$conditionsSearch = $this->_getConditionsTableau($search);
 			$joinSearch = $this->_getJoinsTableau($search, true, false);
 
@@ -1079,7 +1079,7 @@
 		 * @return array
 		 */
 		protected function _getQueryHistoriques($annee, $arrayIds) {
-			$jourFinMois = $this->jourDeFin ();
+			$jourFinMois = $this->jourDeFin ($annee);
 			$tmpDateRecherchePrevious = $annee.'-01-'.$jourFinMois;
 
 			if ( is_array ( $arrayIds )){
@@ -2167,7 +2167,7 @@
 							|| $historiquesToppersPreviousMonth != 1
 						)) {
 							$departement = Configure::read('Cg.departement');
-							$jourDebMois = $this->jourDeDebut();
+							$jourDebMois = $this->jourDeDebut($annee);
 							$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
 
 							//- Nombre de personnes entrentes en SDD ce mois ci
@@ -2534,7 +2534,7 @@
 			}
 
 			//Initialisation des valeurs fixes :
-			$jourDebMois = $this->jourDeDebut ();
+			$jourDebMois = $this->jourDeDebut ($annee);
 
 			//Pour chaque résultat
 			foreach($results as $key => $result) {
@@ -2842,7 +2842,7 @@
 			}
 
 			//Initialisation des valeurs fixes :
-			$jourDebMois = $this->jourDeDebut ();
+			$jourDebMois = $this->jourDeDebut ($annee);
 
 			//Pour chaque résultat
 			foreach($results as $key => $result) {
@@ -3033,15 +3033,15 @@
 		/**
 		 * Jour du fin de la période
 		 */
-		public function jourDeFin () {
-			return $this->periodeStatistique ('fin');
+		public function jourDeFin ($annee = null) {
+			return $this->periodeStatistique ('fin',$annee);
 		}
 
 		/**
 		 * Récupération de la période
 		 */
-		public function periodeStatistique ($extremite = 'deb') {
-			$periode = $this->WebrsaCohortePlanpauvrete->datePeriodeStatistique ();
+		public function periodeStatistique ($extremite = 'deb',$annee = null) {
+			$periode = $this->WebrsaCohortePlanpauvrete->datePeriodeStatistique($annee);
 			$date = new DateTime ($periode[$extremite]);
 
 			return $date->format ('d');

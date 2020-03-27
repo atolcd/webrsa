@@ -327,10 +327,10 @@
 		 *
 		 * @return array
 		 */
-		public function datePeriodeStatistique () {
+		public function datePeriodeStatistique ($annee) {
 			$debutPeriode = Configure::read( 'PlanPauvrete.Stats.Moisprecedent.deb' );
 
-			return $this->generationPeriodeMois ($debutPeriode);
+			return $this->generationPeriodeMois($debutPeriode, $annee);
 		}
 
 		/**
@@ -338,13 +338,16 @@
 		 *
 		 * @return array
 		 */
-		public function generationPeriodeMois ($debutPeriode) {
+		public function generationPeriodeMois ($debutPeriode, $annee = null) {
+			if ( is_null($annee) || empty($annee)  ){
+				$annee = date ('Y');
+			}
 			$dates = array ();
 			if ( is_null($debutPeriode) || empty($debutPeriode) ){
 				$debutPeriode = "01";
 			}
-			$dateDeb = new DateTime (date ('Y-m-').$debutPeriode);
-			$dateFin = new DateTime (date ('Y-m-').$debutPeriode);
+			$dateDeb = new DateTime ($annee.date('-m-').$debutPeriode);
+			$dateFin = new DateTime ($annee.date('-m-').$debutPeriode);
 
 			if (date('j') >= $debutPeriode) {
 				$dateDeb->sub (new DateInterval ('P1M'));
