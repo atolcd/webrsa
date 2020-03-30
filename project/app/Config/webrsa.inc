@@ -915,6 +915,7 @@
 	 * Activation du module des cohortes du plan pauvreté.
 	 */
 	Configure::write ('Module.Statistiques.Plan.Pauvrete.version2', true);
+	Configure::write ('Module.Statistiques.Plan.Pauvrete.version3', true);
 
 
 	/**
