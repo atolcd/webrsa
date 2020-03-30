@@ -99,12 +99,21 @@
 		 * @return array $query
 		 */
 		public function sansRendezvous($query) {
+
+			$tmpSQL = '';
+			$arrayStatutRdvExcusesRecevables = Configure::read('Statistiqueplanpauvrete.orientationRdv.excuses_recevables');
+			if (is_array ($arrayStatutRdvExcusesRecevables) && !is_null ($arrayStatutRdvExcusesRecevables) ) {
+				$listStatutRdvExcusesRecevables = implode(',', $arrayStatutRdvExcusesRecevables);
+				$tmpSQL = ' AND statutsrdvs.id NOT IN ('.$listStatutRdvExcusesRecevables.') ';
+			}
+
 			$query['conditions'][] = 'NOT EXISTS(
 				SELECT "rendezvous"."id" AS "rendezvous__id"
 				FROM rendezvous AS rendezvous
+				INNER JOIN statutsrdvs ON (statutsrdvs.id = rendezvous.statutrdv_id )
 				INNER JOIN historiquesdroits ON (historiquesdroits.personne_id = rendezvous.personne_id AND historiquesdroits.created <= rendezvous.daterdv)
 				WHERE "rendezvous"."personne_id" = "Personne"."id"
-				 )';
+				'.$tmpSQL.' )';
 			return $query;
 		}
 
