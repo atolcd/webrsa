@@ -45,6 +45,21 @@ msgstr "a) - le 1er rdv d’accompagnement"
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2b.V2"
 msgstr "b) - le 1er rdv CER"
 
+msgid "Statistiquesplanpauvrete.menu.V3"
+msgstr "Statistiques Plan Pauvreté V3"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a1.V3"
+msgstr "Tableau A1 - L’orientation des nouveaux entrants"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2.V3"
+msgstr "Tableau A2 - Les parcours d’accompagnement"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2a.V3"
+msgstr "a) - le 1er rdv d’accompagnement"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2b.V3"
+msgstr "b) - le 1er rdv CER"
+
 # ==============================================================================
 # Mois
 # ==============================================================================
@@ -546,3 +561,16 @@ msgstr "- dont nbre de 1er CER signé suite à une orientation Sociale"
 
 msgid "tableaua2b2.Taux"
 msgstr "Taux de CER signés dans les délais du plan pauvreté"
+
+
+# ==============================================================================
+# Tableaux V3
+# ==============================================================================
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a1v3"
+msgstr "Tableau A1 - L’orientation des nouveaux entrants"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2av3"
+msgstr "Tableau A2 - Les parcours d’accompagnement, A - le 1er rdv d’accompagnement"
+
+msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2bv3"
+msgstr "Tableau A2 - Les parcours d’accompagnement, B - le 1er rdv CER"

@@ -79,9 +79,12 @@
 			'indicateurs_tableau_b1',
 			'indicateurs_tableau_b4',
 			'indicateurs_tableau_b5',
-			'indicateurs_tableau_a12',
-			'indicateurs_tableau_a2a2',
-			'indicateurs_tableau_a2b2',
+			'indicateurs_tableau_a1v2',
+			'indicateurs_tableau_a2av2',
+			'indicateurs_tableau_a2bv2',
+			'indicateurs_tableau_a1v3',
+			'indicateurs_tableau_a2av3',
+			'indicateurs_tableau_a2bv3',
 			'exportcsv_tableau_a1',
 			'exportcsv_tableau_a2',
 			'exportcsv_tableau_b1',
@@ -89,7 +92,10 @@
 			'exportcsv_tableau_b5',
 			'exportcsv_tableau_a12',
 			'exportcsv_tableau_a2a2',
-			'exportcsv_tableau_a2b2'
+			'exportcsv_tableau_a2b2',
+			'exportcsv_tableau_a13',
+			'exportcsv_tableau_a2a3',
+			'exportcsv_tableau_a2b3',
 		);
 
 		/**
@@ -104,9 +110,12 @@
 			'indicateurs_tableau_b1' => 'read',
 			'indicateurs_tableau_b4' => 'read',
 			'indicateurs_tableau_b5' => 'read',
-			'indicateurs_tableau_a12' => 'read',
-			'indicateurs_tableau_a2a2' => 'read',
-			'indicateurs_tableau_a2b2' => 'read',
+			'indicateurs_tableau_a1v2' => 'read',
+			'indicateurs_tableau_a2av2' => 'read',
+			'indicateurs_tableau_a2bv2' => 'read',
+			'indicateurs_tableau_a1v3' => 'read',
+			'indicateurs_tableau_a2av3' => 'read',
+			'indicateurs_tableau_a2bv3' => 'read',
 			'exportcsv_tableau_a1' => 'read',
 			'exportcsv_tableau_a2' => 'read',
 			'exportcsv_tableau_b1' => 'read',
@@ -114,7 +123,10 @@
 			'exportcsv_tableau_b5' => 'read',
 			'exportcsv_tableau_a12' => 'read',
 			'exportcsv_tableau_a2a2' => 'read',
-			'exportcsv_tableau_a2b2' => 'read'
+			'exportcsv_tableau_a2b2' => 'read',
+			'exportcsv_tableau_a13' => 'read',
+			'exportcsv_tableau_a2a3' => 'read',
+			'exportcsv_tableau_a2b3' => 'read',
 		);
 
 		/**
@@ -358,6 +370,100 @@
 			$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA2BV2( $named );
 
 			$export = $this->generationexportcsv($results, 'tableaua2b2' );
+
+			$this->layout = '';
+			$this->set( compact( 'export', 'filename' ) );
+			$this->render('exportcsv');
+		}
+
+		/**
+		 * Moteur de recherche pour les indicateurs d'orientation.
+		 *
+		 * @return void
+		 */
+		public function indicateurs_tableau_a1v3() {
+			if( !empty( $this->request->data ) ) {
+				$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA1V3( $this->request->data );
+				$this->set( compact( 'results') );
+			}
+
+			$this->set( 'title_for_layout',  __d('statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a1v3', '' ) );
+		}
+
+		/**
+		 * Export csv pour les indicateurs d'orientation.
+		 *
+		 * @return void
+		 */
+		public function exportcsv_tableau_a13() {
+
+			$named = Hash::expand( $this->request->named, '__');
+
+			$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA1V3( $named );
+			$filename = 'indicateurs_tableau_A1';
+
+			$export = $this->generationexportcsv($results, 'tableaua13');
+
+			$this->layout = '';
+			$this->set( compact( 'export', 'filename' ) );
+			$this->render('exportcsv');
+		}
+
+		/**
+		 * Moteur de recherche pour les indicateurs d'orientation.
+		 *
+		 * @return void
+		 */
+		public function indicateurs_tableau_a2av3() {
+			if( !empty( $this->request->data ) ) {
+				$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA2AV3( $this->request->data );
+
+				$this->set( compact( 'results') );
+			}
+
+			$this->set( 'title_for_layout',  __d('statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a2av3', '' ) );
+		}
+
+		/**
+		 * Export csv pour les indicateurs d'orientation.
+		 *
+		 * @return void
+		 */
+		public function exportcsv_tableau_a2a3() {
+			$named = Hash::expand( $this->request->named, '__');
+			$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA2AV3( $named );
+
+			$export = $this->generationexportcsv($results, 'tableaua2a3' );
+
+			$this->layout = '';
+			$this->set( compact( 'export', 'filename' ) );
+			$this->render('exportcsv');
+		}
+
+		/**
+		 * Moteur de recherche pour les indicateurs d'orientation.
+		 *
+		 * @return void
+		 */
+		public function indicateurs_tableau_a2bv3() {
+			if( !empty( $this->request->data ) ) {
+				$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA2BV3( $this->request->data );
+
+				$this->set( compact( 'results') );
+			}
+
+			$this->set( 'title_for_layout',  __d('statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a2bv3', '' ) );
+		}
+		/**
+		 * Export csv pour les indicateurs d'orientation.
+		 *
+		 * @return void
+		 */
+		public function exportcsv_tableau_a2b3() {
+			$named = Hash::expand( $this->request->named, '__');
+			$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA2BV3( $named );
+
+			$export = $this->generationexportcsv($results, 'tableaua2b3' );
 
 			$this->layout = '';
 			$this->set( compact( 'export', 'filename' ) );

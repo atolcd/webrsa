@@ -522,6 +522,17 @@
 						array( 'url' => array( 'controller' => 'statistiquesplanpauvrete', 'action' => 'indicateurs_tableau_a2bv2' ) ),
 				)
 			),
+			__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.V3' ) => array (
+				'disabled' => !Configure::read ('Module.Statistiques.Plan.Pauvrete.version3'),
+				__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a1.V2' ) =>
+					array( 'url' => array( 'controller' => 'statistiquesplanpauvrete', 'action' => 'indicateurs_tableau_a1v3' ) ),
+				__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a2.V2' ) => array (
+					__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a2a.V2' ) =>
+						array( 'url' => array( 'controller' => 'statistiquesplanpauvrete', 'action' => 'indicateurs_tableau_a2av3' ) ),
+					__d( 'statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a2b.V2' ) =>
+						array( 'url' => array( 'controller' => 'statistiquesplanpauvrete', 'action' => 'indicateurs_tableau_a2bv3' ) ),
+				)
+			),
 			'Indicateurs de suivi' => array( 'url' => array( 'controller' => 'indicateurssuivis', 'action' => 'search' ) ),
 			'Tableaux de suivi d\'activité' => array(
 				'disabled' => ( $departement != 93 ),
