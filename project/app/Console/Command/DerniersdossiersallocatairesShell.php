@@ -47,6 +47,40 @@
 				$success = ( $this->Dernierdossierallocataire->query( $sql ) !== false ) && $success;
 			}
 
+			$sqlHasOtherDossier = "
+				,EXISTS( select dossiers.id
+					FROM personnes AS p2
+						INNER JOIN prestations AS pr2 ON (
+							p2.id = pr2.personne_id
+							AND pr2.natprest = 'RSA'
+						)
+						INNER JOIN foyers ON (
+							p2.foyer_id = foyers.id
+						)
+						INNER JOIN dossiers ON (
+							dossiers.id = foyers.dossier_id
+						)
+					WHERE
+						dossiers.dtdemrsa IS NOT NULL
+						AND p2.id != personnes.id
+						AND pr2.rolepers IN ( 'DEM', 'CJT' )
+						AND (
+							(
+								nir_correct13( personnes.nir )
+								AND nir_correct13( p2.nir )
+								AND SUBSTRING( TRIM( BOTH ' ' FROM personnes.nir ) FROM 1 FOR 13 ) = SUBSTRING( TRIM( BOTH ' ' FROM p2.nir ) FROM 1 FOR 13 )
+								AND personnes.dtnai = p2.dtnai
+							)
+							OR
+							(
+								UPPER(personnes.nom) = UPPER(p2.nom)
+								AND UPPER(personnes.prenom) = UPPER(p2.prenom)
+								AND personnes.dtnai = p2.dtnai
+							)
+						)
+				) AS hasotherdossier "
+			;
+
 			$sqlSelect = "SELECT personnes.id AS personne_id,
 			(
 				SELECT
@@ -81,7 +115,8 @@
 						)
 					ORDER BY dossiers.dtdemrsa DESC, dossiers.id DESC
 					LIMIT 1
-			) AS dossier_id
+			) AS dossier_id"
+			.$sqlHasOtherDossier."
 		FROM personnes
 		INNER JOIN prestations ON (
 			personnes.id = prestations.personne_id
@@ -105,16 +140,17 @@
 			$this->out( 'Population de la table derniersdossiersallocataires : Des personnes avec DTDEMRS' );
 
 			// Insertion des allocataires se trouvant dans un dossier avec une dtdemrsa NOT NULL
-			$sql = "INSERT INTO derniersdossiersallocataires (personne_id, dossier_id) {$sqlSelectInsert} ;";
+			$sql = "INSERT INTO derniersdossiersallocataires (personne_id, dossier_id, hasotherdossier) {$sqlSelectInsert} ;";
 			$success = ( $this->Dernierdossierallocataire->query( $sql ) !== false ) && $success;
 
 			$this->out( 'Population de la table derniersdossiersallocataires : Ajout des Sans DTDEMRSA' );
 
 			// Insertion des allocataires se trouvant dans un dossier avec une dtdemrsa NULL
 			if( !empty( $personnesSansDtdemrsa ) ) {
-				$sql = "INSERT INTO derniersdossiersallocataires (personne_id, dossier_id)
-					SELECT personnes.id AS personne_id, dossiers.id AS dossier_id
-						FROM personnes
+				$sql = "INSERT INTO derniersdossiersallocataires (personne_id, dossier_id, hasotherdossier)
+					SELECT personnes.id AS personne_id, dossiers.id AS dossier_id"
+					.$sqlHasOtherDossier.
+						"FROM personnes
 							INNER JOIN foyers ON ( personnes.foyer_id = foyers.id )
 							INNER JOIN dossiers ON ( foyers.dossier_id = dossiers.id )
 						WHERE personnes.id IN ( ".implode( ', ', $personnesSansDtdemrsa )." );";
@@ -138,7 +174,8 @@
 		 *
 		 */
 		public function help() {
-			$this->out( "Usage: sudo -u www-data lib/Cake/Console/cake derniersdossiersallocataires" );
+			$this->out( "Usage pour CentOS: sudo -u apache vendor/cakephp/cakephp/lib/Cake/Console/cake derniersdossiersallocataires -app app" );
+			$this->out( "Usage: sudo -u www-data vendor/cakephp/cakephp/lib/Cake/Console/cake derniersdossiersallocataires -app app" );
 
 			$this->_stop( 0 );
 		}
