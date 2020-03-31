@@ -138,14 +138,19 @@
 		 * @return array $query
 		 */
 		public function uniqueHistoriqueSdddov($query) {
-			$query['conditions'][] = ' (
-				SELECT count ("histo1"."id") AS "histo1__count"
-				FROM "historiquesdroits" AS "histo1"
-				WHERE "histo1"."personne_id" = "Personne"."id"
-				AND  "histo1"."toppersdrodevorsa" = \'1\'
-				AND  "histo1"."etatdosrsa" = \'2\'
-				GROUP BY "histo1"."personne_id"
-				) = 1';
+			$query['joins'][] = "JOIN LATERAL (
+			    SELECT
+			      COUNT(historiquesdroits.id) AS cnt,
+			      historiquesdroits.personne_id
+			    FROM
+			      historiquesdroits
+			    WHERE
+			      historiquesdroits.toppersdrodevorsa = '1'
+			      AND historiquesdroits.etatdosrsa = '2'
+			      AND historiquesdroits.personne_id = \"Personne\".\"id\"
+			    GROUP BY historiquesdroits.personne_id ) AS \"HistoCount\" ON (\"HistoCount\".\"personne_id\" = \"Personne\".\"id\" )  ";
+			$query['conditions']['HistoCount.cnt'] = '1';
+
 			return $query;
 		}
 
