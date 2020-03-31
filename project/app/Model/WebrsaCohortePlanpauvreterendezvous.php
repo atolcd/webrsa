@@ -157,6 +157,7 @@
 				'Dossier' => 'INNER',
 				'Situationdossierrsa' => 'INNER',
 				'Adresse' => 'INNER',
+				'Historiquedroit' => 'INNER',
 				// LEFT OUTER JOIN
 				'Orientstruct' => 'LEFT OUTER',
 				'Rendezvous' => 'LEFT OUTER',
@@ -188,12 +189,7 @@
  				$query['joins'] = array_merge(
 					$query['joins'],
 					array(
-						$this->Personne->join('Historiquedroit', array(
-							'type' => 'INNER',
-							'conditions' => array(
-								'Historiquedroit.personne_id = Personne.id AND Personne.id IN(SELECT "Historiquedroit"."personne_id" from historiquesdroits as Historiquedroit WHERE "Historiquedroit"."personne_id" = "Personne"."id" ORDER BY "Historiquedroit"."created" DESC LIMIT 1)'
-							)
-						)),
+						$this->Personne->join('Historiquedroit', array( $types['Historiquedroit'] )),
 						$this->Personne->join('Orientstruct'),
 						$this->Personne->join('Rendezvous'),
 						$this->Personne->join('Contratinsertion'),

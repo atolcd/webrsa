@@ -137,12 +137,7 @@
 						$this->Personne->Orientstruct->join( 'Typeorient', array( $types['Typeorient'] ) ),
 						$this->Personne->join( 'Rendezvous', array( $types['Rendezvous'] ) ),
 						$this->Personne->join( 'Contratinsertion', array( $types['Contratinsertion'] ) ),
-						$this->Personne->join('Historiquedroit', array(
-							'type' => 'INNER',
-							'conditions' => array(
-								'Historiquedroit.personne_id = Personne.id AND Personne.id IN(SELECT "Historiquedroit"."personne_id" from historiquesdroits as Historiquedroit WHERE "Historiquedroit"."personne_id" = "Personne"."id" ORDER BY "Historiquedroit"."created" DESC LIMIT 1)'
-							)
-						)),
+						$this->Personne->join('Historiquedroit', array( $types['Historiquedroit'] )),
 						$this->Historiqueetatpe->Informationpe->joinPersonneInformationpe( 'Personne', 'Informationpe', $types['Informationpe'] ),
 						$this->Historiqueetatpe->Informationpe->join( 'Historiqueetatpe', array( $types['Historiqueetatpe'] ) ),
 					)
