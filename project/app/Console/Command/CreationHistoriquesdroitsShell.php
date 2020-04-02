@@ -56,26 +56,31 @@
                 'ETATDOSRSA',
                 'ROLEPERS',
                 'TOPPERSDRODEVORSA',
-                'MOTICLORSA'
+                'MOTICLORSA',
+                'NUMDEMRSA'
             );
 
             $xmlInfos = $this->lit_xml($this->args[0], 'InfosFoyerRSA', $infos);
 
             $datas = array();
             $countPersonnesNonAjoutees = $countPersonnesMAJ = $countPersonnesMAJOld = $countPersonnesAjoutees = 0;
-            // Préparation des données à sauvegarder
-            foreach($xmlInfos as $info) {
-                if($info[4] == 'DEM' || $info[4] == 'CJT') {
-                    // Recherche de l'id de la personne récupérée
-                    $idPersonne = $this->Personne->find('first', array(
-                        'fields' => array('Personne.id'),
-                        'recursive' => 0,
-                        'conditions' => array(
-                            'Personne.nom' => $info[0],
-                            'Personne.prenom' => $info[1],
-                            'Personne.nir LIKE \''. substr($info[2], 0, 13) . '%\'' // NIR sur 13 caractères
-                        )
-                    ));
+		// Préparation des données à sauvegarder
+		foreach($xmlInfos as $info) {
+			if($info[4] == 'DEM' || $info[4] == 'CJT') {
+				// Recherche de l'id de la personne récupérée
+				$idPersonne = $this->Personne->find('first', array(
+					'fields' => array('Personne.id'),
+					'joins' => array(
+						$this->Personne->Foyer->join('Dossier')
+					),
+					'recursive' => 0,
+					'conditions' => array(
+						'Personne.nom' => $info[0],
+						'Personne.prenom' => $info[1],
+						'Personne.nir LIKE \''. substr($info[2], 0, 13) . '%\'', // NIR sur 13 caractères
+						'Dossier.numdemrsa' => $info[7]
+					)
+				));
                     if( !empty($idPersonne) ) {
 						//Identifiant de la personne à mettre à jour
 						$idPersonne = $idPersonne['Personne']['id'];
@@ -125,7 +130,7 @@
 						$idHisto = array();
 
                     } else {
-                        $this->out( 'La personne ' . $info[0] . ' ' . $info[1] . ' ayant le NIR ' . $info[2] . ' n\'a pas été trouvée en base.' ).
+                        $this->out( 'La personne ' . $info[0] . ' ' . $info[1] . ' ayant le NIR ' . $info[2] . ' avec le numéro de demande ' . $info[7] . ' n\'a pas été trouvée en base.' ).
                         $this->out( 'Les informations de cette personnes était : ');
                         $this->out( 'toppersdrodevorsa : ' . $info[5] . ', etatdosrsa : ' . $info[3] . ', moticlorsa : ' . $info[6] );
                         $this->out();
