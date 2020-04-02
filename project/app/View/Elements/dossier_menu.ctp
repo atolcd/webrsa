@@ -324,6 +324,14 @@ $fonorg = $dossier['Dossier']['fonorg'];
 					$personne['id'],
 				)
 			);
+			$subAllocataire['Informations personne'][__d('historiquesdroits', 'Historiquesdroits::Personne::Link')] = array(
+				'disabled' => !Configure::read('Module.Donneescaf.enabled'),
+				'url' => array(
+					'controller' => 'historiquesdroits',
+					'action' => 'personne',
+					$personne['id'],
+				)
+			);
 
 			// INFO: on ajoute des espaces à la clé pour éviter d'écraser avec les doublons
 			$key = implode( ' ', array( '(', $personne['Prestation']['rolepers'], ')', $personne['qual'], $personne['nom'], $personne['prenom'] ) );

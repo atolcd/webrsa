@@ -1,0 +1,45 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "Historiquesdroits::Personne::Link"
+msgstr "Historique des États"
+
+msgid "Historiquesdroits::Personne::Subtitle"
+msgstr "Historique des états de dossier de la personne"
+
+msgid "/Historiquesdroits/personne/:heading"
+msgstr "Historique du droit de la personne"
+
+msgid "Historiquedroit.etatdosrsa"
+msgstr "Etat du dossier"
+
+msgid "Historiquedroit.toppersdrodevorsa"
+msgstr "Soumis à droit et devoir"
+
+msgid "Historiquedroit.moticlosrsa"
+msgstr "Motif de cloture du dossier RSA"
+
+msgid "Historiquedroit.created"
+msgstr "Création de l'état"
+
+msgid "Historiquedroit.modified"
+msgstr "Fin de l'état"
