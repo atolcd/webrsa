@@ -210,6 +210,8 @@
 					if( !is_null($titresCreanciers[$key]['Titrecreancier']['mention'])  && !empty($titresCreanciers[$key]['Titrecreancier']['mention']) ) {
 						$titresCreanciers[$key]['Titrecreancier']['acommentaire'] = 1;
 					}
+
+					$titresCreanciers[$key]['Titresuivit']['count'] = $this->Titrecreancier->getCount($titrecreancier_id);
 				}
 			}
 
@@ -621,6 +623,21 @@
 			);
 			$this->set( 'listMotifs', $listMotifs );
 
+			//Creance
+			$creance = $this->Creance->find(
+					'first',
+					array(
+						'fields' => array_merge(
+							$this->Creance->fields()
+						),
+						'conditions' => array(
+							'Creance.id' => $titrecreancier['Titrecreancier']['creance_id']
+						),
+						'contain' => FALSE
+					)
+				);
+			$this->set( 'creance', $creance );
+
 			//Assignation a la vue
 			$this->set( 'options', array_merge(
 					$this->Titrecreancier->options(),
@@ -738,6 +755,21 @@
 				)
 			);
 			$this->set( 'listMotifs', $listMotifs );
+
+			//Creance
+			$creance = $this->Creance->find(
+					'first',
+					array(
+						'fields' => array_merge(
+							$this->Creance->fields()
+						),
+						'conditions' => array(
+							'Creance.id' => $titrecreancier['Titrecreancier']['creance_id']
+						),
+						'contain' => FALSE
+					)
+				);
+			$this->set( 'creance', $creance );
 
 			//Assignation a la vue
 			$this->set( 'options', array_merge(

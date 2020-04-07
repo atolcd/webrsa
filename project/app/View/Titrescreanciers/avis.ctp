@@ -1,11 +1,13 @@
 <?php
 
-	echo $this->Default3->titleForLayout();
-
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 	}
 
+	include ('infosTitreRecette.ctp');
+
+	echo $this->Default3->titleForLayout();
+	echo '<br>';
 	echo $this->Default3->DefaultForm->create( null, array( 'novalidate' => 'novalidate' ) );
 
 	echo $this->Default3->subform(
@@ -19,8 +21,7 @@
 		)
 	);
 
-	if(! empty($this->request->data['Titrecreancier']['commentairevalidateur'])
-		|| ! empty($this->request->data['Titrecreancier']['dtvalidation'])
+	if( !is_null($this->request->data['Titrecreancier']['dtvalidation'])
 	){
 		echo "<h3>". __m('Titrecreancier::view::titleInfoValidateur')."</h3>";
 		echo $this->Default3->view(

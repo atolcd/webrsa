@@ -1,13 +1,13 @@
 <?php
+
+	include ('infosTitreRecette.ctp');
+
 	echo $this->Default3->titleForLayout();
 
 	if( Configure::read( 'debug' ) > 0 ) {
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 	}
 
-	if( $this->action == 'edit' ) {
-		$foyer_id = $this->request->data['Creance']['foyer_id'];
-	}
 
 	echo $this->Default3->DefaultForm->create( null, array( 'novalidate' => 'novalidate' ) );
 

@@ -132,6 +132,9 @@
 			'Titresuiviautreinfo' => array(
 				'classname' => 'Titresuiviautreinfo'
 			),
+			'Titresuiviinfopayeur' => array(
+				'classname' => 'Titresuiviinfopayeur'
+			),
 			'Historiqueetat' => array(
 				'classname' => 'Historiqueetat',
 				'foreignKey' => 'modele_id',
@@ -616,6 +619,29 @@
 				}
 			}
 			return $infoFICA;
+		}
+
+		/**
+		 * Fonction de comptage des suivis du titre
+		 *
+		 * @param $titrecreancier_id => identifiant du titre
+		 *
+		 * @return $count => nombre de suivits liée au titre
+		 *
+		**/
+		public function getCount($titrecreancier_id){
+			$count = null;
+
+			$Titresuiviannulationreduction = $this->Titresuiviannulationreduction->find('all', array('conditions' => array('Titresuiviannulationreduction.titrecreancier_id' => $titrecreancier_id)) );
+			$count = count($Titresuiviannulationreduction);
+
+			$Titresuiviautreinfo = $this->Titresuiviautreinfo->find('all', array('conditions' => array('Titresuiviautreinfo.titrecreancier_id' => $titrecreancier_id)) );
+			$count = $count + count($Titresuiviautreinfo);
+
+			$Titresuiviinfopayeur = $this->Titresuiviinfopayeur->find('all', array('conditions' => array('Titresuiviinfopayeur.titrecreancier_id' => $titrecreancier_id)) );
+			$count = $count + count($Titresuiviinfopayeur);
+
+			return $count;
 		}
 
 	}

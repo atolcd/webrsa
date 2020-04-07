@@ -49,7 +49,7 @@ msgid "/Titrescreanciers/edit/#Titrecreancier.id#"
 msgstr "Modifier le titre de recette"
 
 msgid "/Titressuivis/index"
-msgstr "Suivi du titre de recette"
+msgstr "Suivi du titre de recette (#Titresuivit.count#)"
 
 msgid "/Titressuivis/index/#Titrecreancier.id#"
 msgstr "Suivre le titre de recette"

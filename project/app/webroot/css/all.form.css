@@ -254,6 +254,10 @@ table#Expprocer93 div.input input {
 	max-width: 8em;
 }
 
+table.titrecreancier td {
+	background-color: #f5f5f5;
+}
+
 /* -------------------------------------------------------------------------- */
 
 ul.liste_sujets, ul.liste_sujets ul {
