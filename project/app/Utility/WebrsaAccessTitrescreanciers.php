@@ -49,6 +49,7 @@
 					'avis',
 					'valider',
 					'exportfica',
+					'exportzip',
 					'retourcompta',
 					'delete',
 					'filelink',
@@ -176,6 +177,23 @@
 		 * @return boolean
 		 */
 		protected static function _exportfica(array $record, array $params) {
+			if (
+				$record['Titrecreancier']['etat'] == 'ATTRETOURCOMPTA'
+				|| $record['Titrecreancier']['etat'] == 'ATTENVOICOMPTA'
+			) {
+				return true;
+			}
+			return false;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _exportzip(array $record, array $params) {
 			if (
 				$record['Titrecreancier']['etat'] == 'ATTRETOURCOMPTA'
 				|| $record['Titrecreancier']['etat'] == 'ATTENVOICOMPTA'

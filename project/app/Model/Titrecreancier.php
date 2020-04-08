@@ -486,6 +486,40 @@
 		}
 
 		/**
+		 * Liste des fihciers a récuperer pour le ZIP FICA.
+		 *
+		 * @param array $titrecreanciers_ids tableau des id techniques des titrescreanciers dont récuperer les infos
+		 *
+		 * @return array $infosFICA liste des file names et ID en table fichier module
+		 *
+		**/
+		public function findfilesfica($titrecreanciers_ids = array() ){
+			$infosFICA = array();
+
+			foreach ( $titrecreanciers_ids as $key => $titrecreancier_id  ) {
+				//Récupération des fichier lié au Titre créancier
+				$files = $this->Fichiermodule->sqListeFichiersLies('Titrecreancier' ,$titrecreancier_id);
+				$infosFICA =array_merge( $infosFICA, $files);
+
+				//Récupétation des fichier lié aux créances
+				$creances = $this->find('first',
+					array (
+						'fields' => array('creance_id'),
+						'recursive' => -1,
+						'conditions' => array('id' => $titrecreancier_id)
+					)
+				);
+				$creance_id = $creances['Titrecreancier']['creance_id'];
+
+				//Récupération des fichier lié à la Creances lié au Titre créancier
+				$files = $this->Fichiermodule->sqListeFichiersLies('Creances' ,$creance_id);
+				$infosFICA = array_merge( $infosFICA, $files);
+			}
+
+			return $infosFICA ;
+		}
+
+		/**
 		 * Génération des informations récuperer pour le fichier FICA.
 		 *
 		 * @param array $titrecreancier tableau d'informations de base
