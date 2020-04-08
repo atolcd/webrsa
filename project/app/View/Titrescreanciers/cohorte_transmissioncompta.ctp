@@ -130,19 +130,19 @@
 	$buttons .= '<ul class="actionMenu">'
 			.'<li>'
 				.$this->Xhtml->printLinkJs(
-					'Imprimer le tableau',
+					__m('Titrecreancier::cohortetransmission::impression:title'),
 					array( 'onclick' => 'printit(); return false;', 'class' => 'noprint' )
 				)
 			.'</li><li>'
 			. $this->Xhtml->exportLink(
-				'Télécharger le tableau',
+				__m('Titrecreancier::cohortetransmission::exportcsv:title'),
 				array( 'controller' => $controller, 'action' => $exportcsvActionName ) + Hash::flatten( $searchData + array( 'prevAction' => $this->action ), '__' ),
 				( $this->Permissions->check( $controller, $exportcsvActionName )  )
 			)
 			.'</li>';
 		if ( $activateFica ){
 			$buttons .= '<li>'.$this->Xhtml->printCohorteLink(
-				__m('Titrecreancier::cohortetransmission::exporttitle'),
+				__m('Titrecreancier::cohortetransmission::exportfica:title'),
 				Hash::merge(
 					array(
 						'controller' => $controller,
@@ -151,13 +151,27 @@
 					Hash::flatten( $this->request->data, '__' )
 				),
 				($activateFica && $this->Permissions->check( $controller, $action.'_exportfica' )),
-				__m('Titrecreancier::cohortetransmission::exportpopuptext')
+				__m('Titrecreancier::cohortetransmission::exportfica:popuptext')
 				, 'popup_impression_cohorte'
-			).'</li><li>
-				<a href="javascript:location.reload();" class="refresh_page" >Recharger la page</a>
-			</li>';
+			).'</li>';
+			$buttons .= '<li>'.$this->Xhtml->printCohorteLink(
+				__m('Titrecreancier::cohortetransmission::exportzip:title'),
+				Hash::merge(
+					array(
+						'controller' => $controller,
+						'action'     => $action.'_exportzip',
+					),
+					Hash::flatten( $this->request->data, '__' )
+				),
+				($activateFica && $this->Permissions->check( $controller, $action.'_exportzip' )),
+				__m('Titrecreancier::cohortetransmission::exportzip:popuptext')
+				, 'popup_impression_cohorte'
+			).'</li>';
 		}
-	$buttons .= '</ul>'
+	$buttons .= '</ul>
+			<li>
+				<a href="javascript:location.reload();" class="refresh_page" >Recharger la page</a>
+			</li>'
 	;
 
 	/*

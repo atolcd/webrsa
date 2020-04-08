@@ -395,11 +395,23 @@ msgstr "Recherche par titre de recette"
 msgid "Search.Titrescreanciers"
 msgstr "Recherche par créance et titre de recette"
 
-msgid "Titrecreancier::cohortetransmission::exporttitle"
+msgid "Titrecreancier::cohortetransmission::impression:title"
+msgstr "Imprimer le tableau"
+
+msgid "Titrecreancier::cohortetransmission::exportcsv:title"
+msgstr "Télécharger le tableau"
+
+msgid "Titrecreancier::cohortetransmission::exportfica:title"
 msgstr "Exporter le CSV FICA"
 
-msgid "Titrecreancier::cohortetransmission::exportpopuptext"
-msgstr "Voulez exporter en le fichier FICA ?"
+msgid "Titrecreancier::cohortetransmission::exportfica:popuptext"
+msgstr "Voulez exporter le fichier FICA ?"
+
+msgid "Titrecreancier::cohortetransmission::exportzip:title"
+msgstr "Exporter l'archive FICA et les fichiers liés"
+
+msgid "Titrecreancier::cohortetransmission::exportzip:popuptext"
+msgstr "Voulez-vous exporter l'archive FICA et les fichiers liés ?"
 
 # ==============================================================================
 

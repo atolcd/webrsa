@@ -450,5 +450,35 @@
 
 			return $sq;
 		}
+
+		/**
+		 * Fonction de recuperer la liste des entrées dans la table fichiersmodules pour une entrée d'une
+		 * table d'un autre modèle.
+		 *
+		 * @param Model $Model
+		 * @param string $fieldName Si null, renvoit uniquement la sous-reqête,
+		 * 	sinon renvoit la sous-requête aliasée pour un champ (avec l'alias du
+		 * 	modèle).
+		 * @return array
+		 */
+		public function sqListeFichiersLies( $Model, $model_id ) {
+
+			$query = array(
+				'fields' => array(
+					'id',
+					'name',
+					'cmspath'
+				),
+				'conditions' => array(
+					'modele' => $Model,
+					'fk_value' => $model_id
+				)
+			);
+
+			$return = $this->find('all', $query);
+
+			return $return;
+		}
+
 	}
 ?>

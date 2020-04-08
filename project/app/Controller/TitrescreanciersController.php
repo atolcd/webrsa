@@ -132,6 +132,7 @@
 			'view' => 'Titrescreanciers:index',
 			'exportcsv_validation' => 'Titrescreanciers:cohorte_validation',
 			'exportcsv_transmissioncompta' => 'Titrescreanciers:cohorte_transmissioncompta',
+			'cohorte_transmissioncompta_exportzip' => 'Titrescreanciers:cohorte_transmissioncompta_exportfica',
 		);
 
 		/**
@@ -1382,6 +1383,18 @@
 				array(
 					'modelRechercheName' => 'WebrsaCohorteTitrecreancierTransmissioncompta',
 					'configurableQueryFieldsKey' => 'Titrescreanciers.cohorte_fica'
+				));
+		}
+
+		/**
+		 * Cohorte
+		 */
+		public function cohorte_transmissioncompta_exportzip() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesTitrescreanciers' );
+			$Cohortes->exportZIP(
+				array(
+					'modelRechercheName' => 'WebrsaCohorteTitrecreancierTransmissioncompta',
+					'configurableQueryFieldsKey' => 'Titrescreanciers.cohorte_zip'
 				));
 		}
 
