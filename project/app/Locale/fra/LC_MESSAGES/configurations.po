@@ -42,3 +42,6 @@ msgstr "Date de création de la variable de configuration"
 msgid "Configurationhistorique.created"
 msgstr "Date de dernière modification"
 
+msgid "Configurationhistorique.username"
+msgstr "Utilisateur ayant fait la modification"
+
