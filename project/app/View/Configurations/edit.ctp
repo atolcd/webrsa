@@ -98,8 +98,10 @@
 				array('paginate' => false)
 		);
 	}
+
+echo $this->Html->script( 'ace/ace' );
 ?>
-<script src="<?php echo ((isset($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST']); ?>/js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+
 <script>
 	var nbLignes = <?php echo $nb_lignes ?>;
     var editor = ace.edit("editor", {
