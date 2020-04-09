@@ -171,6 +171,11 @@
 							$estTableau = true;
 							break;
 
+						case 'TAB::-3MONTHS' :
+							$chaineToDecode = date_sql_to_cakephp( date( 'Y-m-d', strtotime( '-3 months' ) ) );
+							$estTableau = true;
+							break;
+
 						case 'TAB::+1DAY' :
 							$chaineToDecode = date_sql_to_cakephp( date( 'Y-m-d', strtotime( '+1 day' ) ) );
 							$estTableau = true;
@@ -198,6 +203,16 @@
 
 						case 'TEXT::ONLYYEAR' :
 							$chaineToDecode = date( 'Y' );
+							$estTableau = false;
+							break;
+
+						case 'STRTOTIME::-1WEEK' :
+							$chaineToDecode = strtotime( '-1 week' );
+							$estTableau = false;
+							break;
+
+						case 'STRTOTIME::NOW' :
+							$chaineToDecode = strtotime( 'now' );
 							$estTableau = false;
 							break;
 
