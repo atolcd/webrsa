@@ -155,7 +155,6 @@
 					$this->Titresuiviannulationreduction->Titrecreancier->Creance->Foyer->Personne->fields(),
 					$this->Titresuiviannulationreduction->Titrecreancier->Creance->Foyer->Dossier->fields(),
 					$this->Titresuiviannulationreduction->Titrecreancier->Creance->Foyer->Adressefoyer->Adresse->fields()
-
 				),
 				'conditions' => array('Titresuiviannulationreduction.id' => $id),
  				'joins' => array(
@@ -200,6 +199,32 @@
 					'qual' => $Option->qual()
 				)
 			);
+
+			//Si c'est la première impression alors on calcul le montant après.
+			if ($certificat[0]['Titresuiviannulationreduction']['etat'] == 'ENCOURS'){
+				$certificat[0]['Titresuiviannulationreduction']['mtavant'] = $certificat[0]['Titrecreancier']['mnttitr'];
+				$certificat[0]['Titresuiviannulationreduction']['mtapres'] = $certificat[0]['Titrecreancier']['mnttitr'] - $certificat[0]['Titresuiviannulationreduction']['mtreduit'];
+			}else{
+				//Si ce n'est pas la première impression alors on doit calculer le montant avant et après en fonction des autres Titresuiviannulationreduction
+				//On récupere toutes les Titresuiviannulationreduction a l'état CERTIMP
+				$query = array(
+					'fields' =>	$this->Titresuiviannulationreduction->fields(),
+					'conditions' => array(
+						'Titresuiviannulationreduction.titrecreancier_id' => $certificat[0]['Titrecreancier']['id'],
+						'Titresuiviannulationreduction.created <= \''.$certificat[0]['Titresuiviannulationreduction']['created'].'\'',
+						'Titresuiviannulationreduction.etat' => 'CERTIMP',
+						'Titresuiviannulationreduction.id NOT' => $certificat[0]['Titresuiviannulationreduction']['id'],
+					),
+					'contain' => false,
+				);
+				$listTitresuiviannulationreduction = $this->Titresuiviannulationreduction->find('all', $query);
+				//on déduis leurs montants du montant initial du Titre créancier
+				$certificat[0]['Titresuiviannulationreduction']['mtavant'] = $certificat[0]['Titrecreancier']['mntinit'];
+				foreach ($listTitresuiviannulationreduction as $key => $value) {
+					$certificat[0]['Titresuiviannulationreduction']['mtavant'] = $certificat[0]['Titresuiviannulationreduction']['mtavant']-$value['Titresuiviannulationreduction']['mtreduit'];
+				}
+				$certificat[0]['Titresuiviannulationreduction']['mtapres'] = $certificat[0]['Titresuiviannulationreduction']['mtavant'] - $certificat[0]['Titresuiviannulationreduction']['mtreduit'];
+			}
 
 			return $this->Titresuiviannulationreduction->ged(
 				$certificat,
