@@ -1259,7 +1259,7 @@ Debugger::log($bilansparcours66_ids);
 		}
 
 		/**
-		 * Transfomer les données pour le PDF du bilan de parcours.
+		 * Récupérer et Transfomer les données Manifestationbilanparcours66 pour le PDF du bilan de parcours.
 		 *
 		 * @return array
 		 */
@@ -1271,7 +1271,71 @@ Debugger::log($bilansparcours66_ids);
 			);
 			$tmpDATA = $this->Bilanparcours66->Manifestationbilanparcours66-> find ( 'all', $query);
 
+			if (!$tmpDATA) {
+				foreach($this->Bilanparcours66->Manifestationbilanparcours66->fields() AS $field ){
+					$field = substr($field, strlen('Manifestationbilanparcours66')+1);
+					$tmpDATA[0]['Manifestationbilanparcours66'][$field] = NULL;
+				}
+			}
+
 			$tmpDATA['Manifestationbilanparcours66'] = $tmpDATA;
+			return $tmpDATA;
+		}
+
+		/**
+		 * Récupérer et Transfomer les données ActioncandidatPersonne et ActioncandidatPersonne pour le PDF de la synthèse du bilan de parcours.
+		 *
+		 * @return array
+		 */
+		protected function _getActioncandidatPersonneData($data ) {
+			$query = array (
+				'recursive' => 0,
+				'conditions' => array (
+					'ActioncandidatPersonne.personne_id' => $data['Personne']['id'],
+					'ActioncandidatPersonne.positionfiche NOT LIKE \'annule\' '
+				)
+			);
+			$tmpDATA = $this->Bilanparcours66->Personne->ActioncandidatPersonne->find ( 'all', $query);
+			if (!$tmpDATA) {
+				foreach($this->Bilanparcours66->Personne->ActioncandidatPersonne->fields() AS $field ){
+					$field = substr($field, strlen('ActioncandidatPersonne')+1);
+					$tmpDATA[0]['ActioncandidatPersonne'][$field] = NULL;
+				}
+				foreach($this->Bilanparcours66->Personne->Actioncandidat->fields() AS $field ){
+					$field = substr($field, strlen('Actioncandidat')+1);
+					$tmpDATA[0]['Actioncandidat'][$field] = NULL;
+				}
+			}
+
+			foreach ($tmpDATA as $key => $arrayVals) {
+				$tmpDATA[$key]['Actioncandidatpersonne'] = $arrayVals['ActioncandidatPersonne'];
+				unset($tmpDATA[$key]['ActioncandidatPersonne']);
+			}
+
+			return $tmpDATA;
+		}
+
+		/**
+		 * Récupérer et Transfomer les données Entretien pour le PDF de la synthèse du bilan de parcours.
+		 *
+		 * @return array
+		 */
+		protected function _getEntretiensData($data ) {
+			$query = array (
+				'recursive' => -1,
+				'conditions' => array (
+					'Entretien.personne_id' => $data['Personne']['id'],
+				)
+			);
+			$tmpDATA = $this->Bilanparcours66->Personne->Entretien->find ( 'all', $query);
+
+			if (!$tmpDATA) {
+				foreach($this->Bilanparcours66->Personne->Entretien->fields() AS $field ){
+					$field = substr($field, strlen('Entretien')+1);
+					$tmpDATA[0]['Entretien'][$field] = NULL;
+				}
+			}
+
 			return $tmpDATA;
 		}
 
@@ -1334,34 +1398,26 @@ Debugger::log($bilansparcours66_ids);
 			$proposition = Hash::get( $data, 'Bilanparcours66.proposition' );
 			//Transform Data
 			$data = $this->_transformPDFData($data, $proposition );
+
 			//Get Manifestations
 			$Manifestations = $this->_getManifestationsData($data);
 
-			$query = array (
-				'recursive' => 0,
-				'conditions' => array (
-					'ActioncandidatPersonne.personne_id' => $data['Personne']['id'],
-					'ActioncandidatPersonne.positionfiche NOT LIKE \'annule\' '
-				)
-			);
-			$tmpDATA = $this->Bilanparcours66->Personne->ActioncandidatPersonne->find ( 'all', $query);
-			$ActioncandidatPersonne = $tmpDATA;
+			//Get ActioncandidatPersonnes
+			$ActioncandidatPersonne = $this->_getActioncandidatPersonneData($data);
 
-			$query = array (
-				'recursive' => -1,
-				'conditions' => array (
-					'Entretien.personne_id' => $data['Personne']['id'],
-				)
-			);
-			$Entretien = $this->Bilanparcours66->Personne->Entretien->find ( 'all', $query);
+			//Get Entretiens
+			$Entretien = $this->_getEntretiensData($data);
 
+			//Merge arrays
 			$tmp = array_merge (
 				$Manifestations,
 				array (
-					'ActioncandidatPersonne' => $ActioncandidatPersonne,
+					'Actioncandidatpersonne' => $ActioncandidatPersonne,
 					'Entretien' => $Entretien
 				)
 			);
+
+			//Merge array to data
 			$data = array_merge (
 				array( $data ),
 				$tmp
