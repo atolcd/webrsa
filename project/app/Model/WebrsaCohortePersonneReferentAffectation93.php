@@ -386,6 +386,14 @@
 				);
 			}
 
+			// Filtrer par date de validation de l'orientation
+			$date_valid_Orientstruct = Hash::get( $search, 'Orientstruct.date_valid' );
+			if( '1' === $date_valid_Orientstruct ) {
+				$from = Hash::get( $search, 'Orientstruct.date_valid_from' );
+				$to = Hash::get( $search, 'Orientstruct.date_valid_to' );
+				$query['conditions'][] = "Orientstruct.date_valid BETWEEN '".date_cakephp_to_sql( $from )."' AND '".date_cakephp_to_sql( $to )."'";
+			}
+
 			return $query;
 		}
 
