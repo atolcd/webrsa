@@ -12,9 +12,10 @@
 			)
 		)
 	);
+
+	echo $this->Html->script( 'tinymce/tinymce.min' );
 ?>
 
-<script src="<?php echo ((isset($_SERVER['HTTPS']) ? 'https://' : 'http://').$_SERVER['HTTP_HOST']); ?>/js/tinymce/tinymce.min.js"></script>
 <script>
 	tinymce.init({
 		selector:'textarea',
