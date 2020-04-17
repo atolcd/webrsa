@@ -535,7 +535,7 @@
 					'nom_form_pdo_cg' => array(
 						array(
 							'rule' => 'inList',
-							array( 'cg66', 'cg93' ),
+							array( 'cg58', 'cg66', 'cg93', 'cg976' ),
 							'allowEmpty' => false === in_array( $departement, array( 66, 93 ), true )
 						),
 					),
