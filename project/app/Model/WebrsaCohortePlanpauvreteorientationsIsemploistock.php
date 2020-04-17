@@ -51,19 +51,22 @@
 		 */
 		public function searchConditions( array $query, array $search ) {
 			$query = parent::searchConditions($query, $search);
-			$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, 'Historiquedroit.created' );
 
-			if ( $search ['Historiquedroit']['created'] ){
-				//Modification du lien à Historiquedroit
-				$query = $this->joinHistoriqueInDates($query, $search);
+			if ( isset($search['Historiquedroit']['created']) ){
+				$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, 'Historiquedroit.created' );
 
-				// SDD & DOV sur historique
-				$query = $this->sdddovHistorique($query);
+				if ( $search['Historiquedroit']['created'] ){
+					//Modification du lien à Historiquedroit
+					$query = $this->joinHistoriqueInDates($query, $search);
 
-				//Gestion de l'inscription Pole emploi
-				$query['conditions'][] = '(
-				"Historiqueetatpe"."date_modification" IS NULL
-				OR date_trunc(\'day\', "Historiqueetatpe"."date_modification") > date_trunc(\'day\', "Historiquedroit"."created"))';
+					// SDD & DOV sur historique
+					$query = $this->sdddovHistorique($query);
+
+					//Gestion de l'inscription Pole emploi
+					$query['conditions'][] = '(
+					"Historiqueetatpe"."date_modification" IS NULL
+					OR date_trunc(\'day\', "Historiqueetatpe"."date_modification") > date_trunc(\'day\', "Historiquedroit"."created"))';
+				}
 			}
 
 			return $query;

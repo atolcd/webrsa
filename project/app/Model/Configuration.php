@@ -140,7 +140,7 @@
 		 *  @param string $chaineCode
 		 *  @param string $subCode
 		 *
-		 *  @return void
+		 *  @return $chaineCode
 		*/
 		protected function getDate($chaineCode, $subCode) {
 			$searchCode = 1;
@@ -149,83 +149,13 @@
 				if($posChaine !== false){
 					$posFin = strpos($chaineCode, '"', $posChaine);
 					$chaineToDecode = substr($chaineCode, $posChaine, $posFin-$posChaine);
-					switch ($chaineToDecode) {
-					// Cas des tableaux
-						case 'TAB::-1WEEK' :
-							$chaineToDecode = date_sql_to_cakephp( date( 'Y-m-d', strtotime( '-1 week' ) ) );
-							$estTableau = true;
-							break;
 
-						case 'TAB::NOW' :
-							$chaineToDecode = date_sql_to_cakephp( date( 'Y-m-d', strtotime( 'now' ) ) );
-							$estTableau = true;
-							break;
+					$chaineToDecode = $this->convertCodetoDate($chaineToDecode);
 
-						case 'TAB::FDOTM' :
-							$chaineToDecode = date_sql_to_cakephp( date( 'Y-m-d', strtotime( 'first day of this month' ) ) );
-							$estTableau = true;
-							break;
-
-						case 'TAB::-1MONTH' :
-							$chaineToDecode = date_sql_to_cakephp( date( 'Y-m-d', strtotime( '-1 month' ) ) );
-							$estTableau = true;
-							break;
-
-						case 'TAB::-3MONTHS' :
-							$chaineToDecode = date_sql_to_cakephp( date( 'Y-m-d', strtotime( '-3 months' ) ) );
-							$estTableau = true;
-							break;
-
-						case 'TAB::+1DAY' :
-							$chaineToDecode = date_sql_to_cakephp( date( 'Y-m-d', strtotime( '+1 day' ) ) );
-							$estTableau = true;
-							break;
-
-					// Cas des chaines de caracteres
-						case 'TEXT::+3MONTHS' :
-							$chaineToDecode = date_format(date_add(new DateTime(), date_interval_create_from_date_string('+3 months')), 'Y-m-d');
-							$estTableau = false;
-							break;
-						case 'TEXT::-1MONTH' :
-							$chaineToDecode =  date( 'Y-m-d', strtotime( '-1 month' ) );
-							$estTableau = false;
-							break;
-
-						case 'TEXT::+1DAY' :
-							$chaineToDecode = date( 'Y-m-d', strtotime( '+1 day' ) );
-							$estTableau = false;
-							break;
-
-						case 'TEXT::NOW' :
-							$chaineToDecode = date('Y-m-d');
-							$estTableau = false;
-							break;
-
-						case 'TEXT::ONLYYEAR' :
-							$chaineToDecode = date( 'Y' );
-							$estTableau = false;
-							break;
-
-						case 'STRTOTIME::-1WEEK' :
-							$chaineToDecode = strtotime( '-1 week' );
-							$estTableau = false;
-							break;
-
-						case 'STRTOTIME::NOW' :
-							$chaineToDecode = strtotime( 'now' );
-							$estTableau = false;
-							break;
-
-						default:
-							break;
-					}
-					if($estTableau === true)
-						$chaineDecode = substr_replace($chaineCode, json_encode($chaineToDecode, JSON_UNESCAPED_UNICODE), $posChaine-1, $posFin-$posChaine+2);
-					else
-						$chaineDecode = substr_replace($chaineCode, json_encode($chaineToDecode, JSON_UNESCAPED_UNICODE), $posChaine-1, $posFin-$posChaine);
-
+					$chaineDecode = substr_replace($chaineCode, json_encode($chaineToDecode, JSON_UNESCAPED_UNICODE), $posChaine-1, $posFin-$posChaine+2);
 					$chaineCode = $chaineDecode;
 					$searchCode = $posFin;
+
 				} else {
 					$searchCode = false;
 				}
@@ -233,4 +163,85 @@
 			}
 			return $chaineDecode;
 		}
+
+		/*
+		 *  Change un code BDD en date dans une chaine passée en parametre
+		 *  @param string $chaineCode
+		 *  @param string $subCode
+		 *
+		 *  @return $chaineCode
+		*/
+		public function convertDate($chaineCode, $subCode = NULL){
+			return $this->convertCodetoDate($chaineCode) ;
+		}
+
+		/*
+		 *  Change un code BDD en date dans une chaine passée en parametre
+		 *  @param string $chaineCode
+		 *  @param string $subCode
+		 *
+		 *  @return $chaineCode
+		*/
+		private function convertCodetoDate($chaineToDecode){
+			switch ($chaineToDecode) {
+				// Cas des tableaux
+					case 'TAB::-1WEEK' :
+						$chaineToDecode = date_sql_to_cakephp( date( 'Y-m-d', strtotime( '-1 week' ) ) );
+						break;
+
+					case 'TAB::NOW' :
+						$chaineToDecode = date_sql_to_cakephp( date( 'Y-m-d', strtotime( 'now' ) ) );
+						break;
+
+					case 'TAB::FDOTM' :
+						$chaineToDecode = date_sql_to_cakephp( date( 'Y-m-d', strtotime( 'first day of this month' ) ) );
+						break;
+
+					case 'TAB::-1MONTH' :
+						$chaineToDecode = date_sql_to_cakephp( date( 'Y-m-d', strtotime( '-1 month' ) ) );
+						break;
+
+					case 'TAB::-3MONTHS' :
+						$chaineToDecode = date_sql_to_cakephp( date( 'Y-m-d', strtotime( '-3 months' ) ) );
+						break;
+
+					case 'TAB::+1DAY' :
+						$chaineToDecode = date_sql_to_cakephp( date( 'Y-m-d', strtotime( '+1 day' ) ) );
+						break;
+
+				// Cas des chaines de caracteres
+					case 'TEXT::+3MONTHS' :
+						$chaineToDecode = date_format(date_add(new DateTime(), date_interval_create_from_date_string('+3 months')), 'Y-m-d');
+						break;
+					case 'TEXT::-1MONTH' :
+						$chaineToDecode =  date( 'Y-m-d', strtotime( '-1 month' ) );
+						break;
+
+					case 'TEXT::+1DAY' :
+						$chaineToDecode = date( 'Y-m-d', strtotime( '+1 day' ) );
+						break;
+
+					case 'TEXT::NOW' :
+						$chaineToDecode = date('Y-m-d');
+						break;
+
+					case 'TEXT::ONLYYEAR' :
+						$chaineToDecode = date( 'Y' );
+						break;
+
+					case 'STRTOTIME::-1WEEK' :
+						$chaineToDecode = strtotime( '-1 week' );
+						break;
+
+					case 'STRTOTIME::NOW' :
+						$chaineToDecode = strtotime( 'now' );
+						break;
+
+					default:
+						break;
+				}
+			 return $chaineToDecode;
+		}
+
+
 	}

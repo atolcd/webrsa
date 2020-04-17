@@ -70,16 +70,19 @@
 		public function searchConditions( array $query, array $search ) {
 			$query = parent::searchConditions($query, $search);
 
-			$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, 'Historiquedroit.created' );
+			if ( isset($search['Historiquedroit']['created']) ){
+				$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, 'Historiquedroit.created' );
 
-			if ( $search ['Historiquedroit']['created'] ){
-				//Modification du lien à Historiquedroit
-				$query = $this->joinHistoriqueInDates($query, $search);
+				if ( $search ['Historiquedroit']['created'] ){
+					//Modification du lien à Historiquedroit
+					$query = $this->joinHistoriqueInDates($query, $search);
 
-				// SDD & DOV sur historique
-				$query = $this->sdddovHistorique($query);
+					// SDD & DOV sur historique
+					$query = $this->sdddovHistorique($query);
 
+				}
 			}
+
 			return $query;
 		}
 	}

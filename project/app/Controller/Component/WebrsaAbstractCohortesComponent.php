@@ -394,7 +394,11 @@
 			$success = true;
 			$messages = array();
 
+			$Controller->loadModel('Configuration');
 			foreach ((array)Configure::read($this->_configureKey('cohorte.values', $params)) as $path => $value) {
+				if( strpos($value, 'TEXT:') !== false  || strpos($value, 'TAB:') !== false ) {
+					$value = $Controller->Configuration->convertDate($value);
+				}
 				$message = $this->_checkHiddenCohorteValueByPath($path, $value, $success, $params);
 
 				if (!empty($message)) {
