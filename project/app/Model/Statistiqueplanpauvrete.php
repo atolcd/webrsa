@@ -227,15 +227,18 @@
 		 * @param array $search
 		 * @param boolean $addFoyer : permet de savoir si on doit ajouter la table foyer dans le tableau
 		 * @param boolean $addFoyer : permet de savoir si on doit ajouter la table orientstruct dans le tableau
+		 * @param boolean $addAdresse : permet de savoir si on doit ajouter la table orientstruct dans le tableau
 		 * @return array
 		 */
-		protected function _getJoinsTableau(array $search, $addFoyer = false, $addOrient = false) {
+		protected function _getJoinsTableau(array $search, $addFoyer = false, $addOrient = false, $addAdresse = true) {
 			$joinSearch = array();
+
 			if(
 				(isset($search['Adresse']) &&
-				( $search['Adresse']['nomvoie'] != ''  ||
-				$search['Adresse']['nomcom'] != '' ||
-				$search['Adresse']['numcom']  != '' )
+				(
+					$search['Adresse']['nomvoie'] != ''  ||
+					$search['Adresse']['nomcom'] != '' ||
+					$search['Adresse']['numcom'] != '' )
 				)
 				|| ( isset($search['Canton']) && $search['Canton']['canton'] != '')
 			) {
@@ -253,32 +256,54 @@
 					);
 				}
 
-				$joinSearch = array_merge($joinFoyer, array(
-					array(
-						'table' => 'adresses',
-						'alias' => 'Adresse',
-						'type' => 'LEFT',
-						'conditions' => array(
-							'Adresse.foyerid = Foyer.id'
-						)
-					),
-					array(
-						'table' => 'adresses_cantons',
-						'alias' => 'AdresseCanton',
-						'type' => 'LEFT',
-						'conditions' => array(
-							'AdresseCanton.adresse_id = Adresse.id'
-						)
-					),
-					array(
-						'table' => 'cantons',
-						'alias' => 'Canton',
-						'type' => 'LEFT',
-						'conditions' => array(
-							'Canton.id = AdresseCanton.adresse_id'
-						)
-					),
-				));
+				if($addAdresse == true) {
+					$joinAdresse = array(
+						array(
+							'table' => 'adresses',
+							'alias' => 'Adresse',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Adresse.foyerid = Foyer.id'
+							)
+						),
+						array(
+							'table' => 'adresses_cantons',
+							'alias' => 'AdresseCanton',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'AdresseCanton.adresse_id = Adresse.id'
+							)
+						),
+						array(
+							'table' => 'cantons',
+							'alias' => 'Canton',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Canton.id = AdresseCanton.adresse_id'
+							)
+						),
+					);
+				} else {
+					$joinAdresse = array(
+						array(
+							'table' => 'adresses_cantons',
+							'alias' => 'AdresseCanton',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'AdresseCanton.adresse_id = Adresse.id'
+							)
+						),
+						array(
+							'table' => 'cantons',
+							'alias' => 'Canton',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Canton.id = AdresseCanton.adresse_id'
+							)
+						),
+					);
+				}
+				$joinSearch = array_merge($joinFoyer, $joinAdresse);
 			}
 
 			if( isset($search['Search']['serviceinstructeur']) && $search['Search']['serviceinstructeur'] != '' ) {
@@ -847,7 +872,8 @@
 		protected function _getQueryTableau_a1v2(array $search , $annee) {
 			$jourFinMois = $this->jourDeFin ($annee);
 			$conditionsSearch = $this->_getConditionsTableau($search);
-			$joinSearch = $this->_getJoinsTableau($search, false, false);
+			$joinSearch = $this->_getJoinsTableau($search, false, false, false);
+
 			$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
 
 			$fields = $this->_queryFields();
