@@ -1,5 +1,4 @@
 <?php
- 
    /**
     * Paramétrage de la génération de documents PDF au moyen de Gedooo.
     *
@@ -53,14 +52,14 @@
            'debug_export_data' => (boolean)env('GEDOOO_EXPORT_DATA'),
        )
    );
- 
+
    /**
     * Le chemin complet vers la base de l'application (utilisé par certains shells)
     *
     * @default: null
     */
    Configure::write( 'Cg.departement', env('CD_DEPARTEMENT') );
- 
+
    /**
     * Configuration pour le dialogue avec un CMS (système de gestion de contenu)
     * comme Alfresco, servant à stocker les PDF
@@ -74,6 +73,6 @@
            'prefix' => env('CMIS_PREFIX'),
        )
    );
- 
+
    Configure::write('Categorie.General', array('webrsa'));
 
