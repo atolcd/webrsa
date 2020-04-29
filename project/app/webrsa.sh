@@ -90,11 +90,24 @@ function __deploy() {
 	echo ""
 
 	bash $dir/webrsa.sh clearcache
+}
 
+
+# ------------------------------------------------------------------------------
+function __prechargement() {
 	echo "     Préchargement"
 	echo ""
 
 	sudo -u apache vendor/cakephp/cakephp/lib/Cake/Console/cake Prechargements -app app >> /tmp/log_prechargement.txt
+}
+
+
+# ------------------------------------------------------------------------------
+function __check() {
+	echo "     Check de l'application"
+	echo ""
+
+	sudo -u apache vendor/cakephp/cakephp/lib/Cake/Console/cake Checks -app app
 }
 
 
@@ -126,6 +139,14 @@ case $1 in
 	;;
 	deploy)
 		__deploy "$APP_DIR" "$2"
+		exit 0
+	;;
+	prechargement)
+		__prechargement "$APP_DIR" "$2"
+		exit 0
+	;;
+	check)
+		__check "$APP_DIR" "$2"
 		exit 0
 	;;
 	*)
