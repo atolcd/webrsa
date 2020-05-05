@@ -1025,7 +1025,14 @@
 			$this->_initialiseResults($resultats, 'Tableau2');
 
 			// Génération du tableau de résultats
-			$this->_generateResults($results, $resultats, $configuration, 'Tableau2');
+			$this->_generateResults($results, $resultats, $configuration, 'Tableau2PE');
+
+			// Recalcule des données des CER
+			$base = $this->_completeQueryRestrictionCer($base, $annee, $configuration);
+			$results = $Dossier->find( 'all', $base);
+			//$this->_initialiseResultsTableau2($resultats);
+
+			$this->_generateResults($results, $resultats, $configuration, 'Tableau2CER');
 
 			return $resultats;
 		}
@@ -1073,12 +1080,17 @@
 		/**
 		 *
 		 */
-		private function _getRowInformationsTableau2 ($row, &$resultats, $categorie, $souscategorie, $configuration) {
+		private function _getRowInformationsTableau2PE ($row, &$resultats, $categorie, $souscategorie, $configuration) {
 			// Inscrits ET orientés vers Pôle Emploi
 			if (in_array($row['idStructurereferente'], $configuration['organismes']['orientes_pole_emploi']) && !empty($row['nir'])) {
 				$resultats[$categorie]['orientes_pole_emploi'][$souscategorie]++;
 			}
+		}
 
+		/**
+		 *
+		 */
+		private function _getRowInformationsTableau2CER ($row, &$resultats, $categorie, $souscategorie, $configuration) {
 			// Avec un CER ET orientés vers autre que Pôle Emploi
 			if (!in_array($row['idStructurereferente'], $configuration['organismes']['orientes_pole_emploi']) && $row['contrat_cer'] == 'cer') {
 				$resultats[$categorie]['orientes_autre_que_pole_emploi'][$souscategorie]++;
