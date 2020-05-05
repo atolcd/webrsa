@@ -581,7 +581,10 @@
 
 			$query['fields'][] = $this->_getFieldsIndicateurCer($annee);
 			$query['fields'][] = '"Contratinsertion"."duree_engag" AS "duree_engag"';
-			$query['fields'][] = '"Contratinsertion"."duree_engag" AS "duree_cer"';
+			$query['fields'][] = '(
+									( DATE_PART(\'year\', "Contratinsertion".df_ci::date) - DATE_PART(\'year\', "Contratinsertion".dd_ci::date)) * 12 +
+								 	(DATE_PART(\'month\', "Contratinsertion".df_ci::date) - DATE_PART(\'month\', "Contratinsertion".dd_ci::date))
+								 ) AS "duree_cer"';
 
 			return $query;
 		}
@@ -1160,6 +1163,7 @@
 			// Query de base
 			$base = $this->_getQueryTableau ($search, $annee);
 			$base = $this->_completeQueryCer ($base, $annee, $configuration);
+			$base = $this->_completeQueryRestrictionCer($base, $annee, $configuration);
 
 			// Recherche
 			$results = $Dossier->find( 'all', $base);
