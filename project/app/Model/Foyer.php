@@ -362,6 +362,19 @@
 				'finderQuery' => '',
 				'counterQuery' => ''
 			),
+			'Email' => array(
+				'className' => 'Email',
+				'foreignKey' => 'foyer_id',
+				'dependent' => false,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
 		);
 
 		/**

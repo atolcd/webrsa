@@ -25,7 +25,29 @@
 				'className' => 'Textemail',
 				'foreignKey' => 'textemail_id',
 				'dependent' => false
-			)
+			),
+			'Foyer' => array(
+				'className' => 'Foyer',
+				'foreignKey' => 'foyer_id',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
+			'User' => array(
+				'className' => 'User',
+				'foreignKey' => 'foyer_id',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => ''
+			),
 		);
 
 		/**
