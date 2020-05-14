@@ -78,6 +78,8 @@ function __deploy() {
 
 	chmod 755 -R app/
 	chmod 755 -R vendor/
+	touch app/tmp/logs/error.log
+	touch app/tmp/logs/debug.log
 	chmod 777 -R app/tmp/
 
 	echo "     Aco / Aro"
