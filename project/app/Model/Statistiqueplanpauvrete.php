@@ -57,18 +57,25 @@
 		 */
 		protected function _getTypeOrientation() {
 			$Orientation = ClassRegistry::init( 'Orientstruct' );
-			$emploi = $Orientation->query('SELECT t.id FROM typesorients t INNER JOIN typesorients AS t2 ON (t2.id = t.parentid AND t2.code_type_orient = \'EMPLOI\')' );
-			$social = $Orientation->query('SELECT t.id FROM typesorients t INNER JOIN typesorients AS t2 ON (t2.id = t.parentid AND t2.code_type_orient = \'SOCIAL\')' );
-			$prepro = $Orientation->query('SELECT t.id FROM typesorients t INNER JOIN typesorients AS t2 ON (t2.id = t.parentid AND t2.code_type_orient = \'PREPRO\')' );
 			$result = array();
-			foreach($emploi as $emp) {
-				$result['EMPLOI'][] = $emp[0]['id'];
-			}
-			foreach($social as $soc) {
-				$result['SOCIAL'][] = $soc[0]['id'];
-			}
-			foreach($prepro as $pre) {
-				$result['PREPRO'][] = $pre[0]['id'];
+			if( Configure::read('Cg.departement') == 66) {
+				$emploi = $Orientation->query('SELECT t.id FROM typesorients t INNER JOIN typesorients AS t2 ON (t2.id = t.parentid AND t2.code_type_orient = \'EMPLOI\')' );
+				$social = $Orientation->query('SELECT t.id FROM typesorients t INNER JOIN typesorients AS t2 ON (t2.id = t.parentid AND t2.code_type_orient = \'SOCIAL\')' );
+				$prepro = $Orientation->query('SELECT t.id FROM typesorients t INNER JOIN typesorients AS t2 ON (t2.id = t.parentid AND t2.code_type_orient = \'PREPRO\')' );
+				foreach($emploi as $emp) {
+					$result['EMPLOI'][] = $emp[0]['id'];
+				}
+				foreach($social as $soc) {
+					$result['SOCIAL'][] = $soc[0]['id'];
+				}
+				foreach($prepro as $pre) {
+					$result['PREPRO'][] = $pre[0]['id'];
+				}
+			} else {
+				$emploi = $Orientation->query('SELECT t.id FROM typesorients t WHERE t.code_type_orient = \'EMPLOI\'' );
+				$social = $Orientation->query('SELECT t.id FROM typesorients t WHERE t.code_type_orient = \'SOCIAL\'' );
+				$result['EMPLOI'][] = $emploi[0][0]['id'];
+				$result['SOCIAL'][] = $social[0][0]['id'];
 			}
 			return $result;
 		}
@@ -241,7 +248,9 @@
 					$search['Adresse']['numcom'] != '' )
 				)
 				|| ( isset($search['Canton']) && $search['Canton']['canton'] != '')
+				|| ( isset($search['Sitecov58']) && $search['Sitecov58']['id'] != '' )
 			) {
+				// Foyer
 				$joinFoyer = array();
 				if($addFoyer == true) {
 					$joinFoyer = array(
@@ -255,15 +264,23 @@
 						),
 					);
 				}
-
+				// Adresse
 				if($addAdresse == true) {
 					$joinAdresse = array(
+						array(
+							'table' => 'adressesfoyers',
+							'alias' => 'Adressefoyer',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'Adressefoyer.foyer_id = Foyer.id'
+							)
+						),
 						array(
 							'table' => 'adresses',
 							'alias' => 'Adresse',
 							'type' => 'LEFT',
 							'conditions' => array(
-								'Adresse.foyerid = Foyer.id'
+								'Adresse.id = Adressefoyer.adresse_id'
 							)
 						),
 						array(
@@ -304,8 +321,23 @@
 					);
 				}
 				$joinSearch = array_merge($joinFoyer, $joinAdresse);
+
+				// SiteCov58
+				if( isset($search['Sitecov58']) && $search['Sitecov58']['id'] != '' ) {
+					$joinSearch = array_merge($joinSearch, array(
+						array(
+							'table' => 'cantons_sitescovs58',
+							'alias' => 'CantonSitecov58',
+							'type' => 'LEFT',
+							'conditions' => array(
+								'CantonSitecov58.canton_id = Canton.id'
+							)
+						)
+					));
+				}
 			}
 
+			// Service instructeur
 			if( isset($search['Search']['serviceinstructeur']) && $search['Search']['serviceinstructeur'] != '' ) {
 				$joinOrient = array();
 				if($addOrient == true) {
@@ -332,6 +364,7 @@
 					))
 				);
 			}
+
 			return $joinSearch;
 		}
 
@@ -346,12 +379,12 @@
 			if( isset($search['Adresse']) ) {
 				if( $search['Adresse']['nomvoie'] != '' ) {
 					$conditionsSearch = array_merge($conditionsSearch, array(
-						'Adresse.nomvoie' => $search['Adresse']['nomvoie']
+						'Adresse.nomvoie ILIKE' => $search['Adresse']['nomvoie']
 					));
 				}
 				if( $search['Adresse']['nomcom'] != '' ) {
 					$conditionsSearch = array_merge($conditionsSearch, array(
-						'Adresse.nomcom' => $search['Adresse']['nomcom']
+						'Adresse.nomcom ILIKE' => $search['Adresse']['nomcom']
 					));
 				}
 				if( $search['Adresse']['numcom']  != '') {
@@ -364,7 +397,7 @@
 			// Canton
 			if( isset($search['Canton']) && $search['Canton']['canton'] != '') {
 				$conditionsSearch = $conditionsSearch = array_merge($conditionsSearch, array(
-					'Canton.canton' => $search['Canton']['canton']
+					'Canton.canton ILIKE' => $search['Canton']['canton']
 				));
 			}
 
@@ -372,6 +405,13 @@
 			if( isset($search['Search']['serviceinstructeur']) && $search['Search']['serviceinstructeur'] != '' ) {
 				$conditionsSearch = array_merge($conditionsSearch, array(
 					'OrientstructServiceinstructeur.serviceinstructeur_id' => $search['Search']['serviceinstructeur']
+				));
+			}
+
+			// Sites COV
+			if( isset($search['Sitecov58']) && $search['Sitecov58']['id'] != '' ) {
+				$conditionsSearch = array_merge($conditionsSearch, array(
+					'CantonSitecov58.sitecov58_id' => $search['Sitecov58']['id']
 				));
 			}
 
@@ -517,6 +557,7 @@
 			);
 			$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
 			if ( $useHistoriquedroit ){
+				$queyConditions = '';
 				$query['fields'] = array_merge(
 					$query['fields'],
 					array(
@@ -548,6 +589,8 @@
 						)
 					)
 				);
+				$queyConditions = "Historiquedroit12.etatdosrsa IN ('2', '5', '6')";
+
 				for($month=0; $month<12; $month++) {
 					if (($month+1) <10){$tmpMonth = '0'.($month+1);}else{$tmpMonth = ($month+1);}
 					$query['joins'] = array_merge(
@@ -568,10 +611,10 @@
 							)
 						)
 					);
+					$queyConditions .=  ' OR ( Historiquedroit'.$month.'.etatdosrsa IN (\'2\', \'5\', \'6\') )';
 				}
 			}
-
-			$query = $this->_completeQuerySoumisDd($query, $annee, true);
+			$query['conditions'][] = $queyConditions;
 			return $query;
 		}
 
@@ -588,8 +631,8 @@
 			$conditionsSDD = $this->_getConditionsDroitsEtDevoirs();
 			$query = array(
 				'fields' => array(
-					'DISTINCT ON ("Historiquedroit"."id") "Historiquedroit"."id" AS "idHistoriquedroit"',
-					'Personne.id',
+					'DISTINCT ON ("Personne"."id") "Personne"."id" AS "idPersonne"',
+					'Historiquedroit.id',
 					'Historiquedroit.etatdosrsa',
 					'Historiquedroit.created',
 					'Historiquedroit.modified',
@@ -700,6 +743,32 @@
 			return $query;
 		}
 
+		/**
+		 * Enlève les données inutiles selon la configuration
+		 * @param array $results
+		 * @param string $nomTableau
+		 * @return array
+		 */
+		protected function _adaptLignesTableaux($results, $nomTableau) {
+			$lignesnonaffiches = Configure::read('StatistiquePP.' . $nomTableau . '.lignes_non_affichees');
+			foreach ($lignesnonaffiches as $lignesnonaffiche) {
+				if( is_array($lignesnonaffiche) ) {
+					foreach ($lignesnonaffiche as $titre => $ligneTitres) {
+						if( is_array($ligneTitres) ) {
+							foreach( $ligneTitres as $ligne) {
+								unset( $results[$titre][$ligne] );
+							}
+						} else {
+							unset( $results[$titre] );
+						}
+					}
+				} else{
+					unset($results[$lignesnonaffiche] );
+				}
+			}
+
+			return $results;
+		}
 		/**
 		 *
 		 * @param array $search
@@ -1659,7 +1728,6 @@
 			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
 
 			$testOrient = $this->_getTypeOrientation();
-
 			// Query de base
 			$query = $this->_getQueryTableau_a2 ($search, $annee);
 			$results = $Historiquedroit->find('all', $query);
@@ -1752,7 +1820,7 @@
 			}
 			$arrayPersonneID = array();
 			foreach($results as $result) {
-				$arrayPersonneID[]=$result['Personne']['id'];
+				$arrayPersonneID[]=$result[0]['idPersonne'];
 				$yearStartHistorique = intval( date('Y', strtotime($result['Historiquedroit']['created']) ) );
 				$yearEndHistorique = intval( date('Y', strtotime($result['Historiquedroit']['modified']) ) );
 				if ($yearStartHistorique < $annee ){$monthStartHistorique = 0;
@@ -1777,12 +1845,12 @@
 
 							if(!empty($testOrient['SOCIAL']) && in_array($result['Typeorient']['id'], $testOrient['SOCIAL'] ) ) {
 								$resultats['Orientes']['Social'][$month]++;
-									$flagOrienteSocial = true;
+								$flagOrienteSocial = true;
 							} elseif(!empty($testOrient['EMPLOI']) &&  in_array( $result['Typeorient']['id'], $testOrient['EMPLOI'] ) ) {
 								$resultats['Orientes']['Emploi'][$month]++;
 							} elseif (!empty($testOrient['PREPRO']) && in_array( $result['Typeorient']['id'], $testOrient['PREPRO'] ) ) {
 								$resultats['Orientes']['Prepro'][$month]++;
-									$flagOrientePrepro = true;
+								$flagOrientePrepro = true;
 							}
 
 							if( $result['Structurereferente']['type_struct_stats'] == 'oa' ) {
@@ -1798,20 +1866,20 @@
 							}
 						}
 					}
-					// Si la personne as un contrat d'insertion
+					// Si la personne a un contrat d'insertion
 					if ( $result['Contratinsertion']['datevalidation_ci'] != null) {
 						$yearCER = intval( date('Y', strtotime($result['Contratinsertion']['datevalidation_ci']) ) );
 						if ($yearCER < $annee ){$monthCER = 0; }else{
 						$monthCER = intval( date('n', strtotime($result['Contratinsertion']['datevalidation_ci']) ) ) -1;}
 						if ($monthCER <= $month ){
-							//Avec contrats dont
+							// Avec contrats dont
 							$resultats['Contrat']['total'][$month] ++;
 							if ( $flagOrienteCD ) {
 								$resultats['Contrat']['CDCER'][$month] ++;
 								$flagOrienteCDCER = true;
 							}
 							if ( $flagOrientePE ) {
-								//Detection d'un contrat aider
+								// Detection d'un contrat aider
 								if ( in_array( $result['Structurereferente']['code_stats'], Configure::read( 'Statistiqueplanpauvrete.code_stats') ) ){
 									$resultats['Contrat']['PEAccomp'][$month] ++;
 								}
@@ -1882,6 +1950,8 @@
 					}
 				}
 			}
+
+			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauA2');
 			return $resultats;
 		}
 
@@ -2018,7 +2088,7 @@
 				if($resultats['total'][$i] != 0) {
 					$resultats['taux_orient'][$i] = round( (100 * $resultats['Orientes']['total'][$i] ) / $resultats['total'][$i], 2) . '%';}
 			}
-
+			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauB1');
 			return $resultats;
 		}
 
@@ -2146,7 +2216,7 @@
 					$resultats['Prepro']['taux_presence'][$i] = round( (100 * $resultats['Prepro']['venu'][$i] ) / $resultats['Prepro']['total'][$i], 2) . '%';
 				}
 			}
-
+			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauB4');
 			return $resultats;
 		}
 
@@ -2216,7 +2286,7 @@
 					if( !empty($testOrient['SOCIAL']) && in_array($result['Typeorient']['id'], $testOrient['SOCIAL'] ) ) {
 						$resultats['cer_social'][$monthOrient] ++;
 						$resultats['delai_social'][$monthOrient] += $delai;
-					} else {
+					} else if( !empty($testOrient['PREPRO']) && in_array($result['Typeorient']['id'], $testOrient['PREPRO'] )  ) {
 						$resultats['cer_prepro'][$monthOrient] ++;
 						$resultats['delai_prepro'][$monthOrient] += $delai;
 					}
@@ -2241,7 +2311,7 @@
 				if ($resultats['orient_valid'][$i] != 0 ) {
 					$resultats['taux_contrat'][$i] = round( (100 * ( $resultats['cer_social'][$i] + $resultats['cer_prepro'][$i] )  / $resultats['orient_valid'][$i]) , 2) . '%';}
 			}
-
+			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauB5');
 			return $resultats;
 		}
 

@@ -13,7 +13,7 @@ msgstr ""
 # ==============================================================================
 
 msgid "Statistiquesplanpauvrete.menu"
-msgstr "Statistiques Plan Pauvreté"
+msgstr "Statistiques Plan Pauvreté générales"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a1"
 msgstr "Tableau A1 - Instruction RSA"
@@ -31,7 +31,7 @@ msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_b5"
 msgstr "Tableau B5 : Suivi des CER"
 
 msgid "Statistiquesplanpauvrete.menu.V2"
-msgstr "Statistiques Plan Pauvreté V2"
+msgstr "Statistiques Plan Pauvreté avec notion de suspendu"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a1.V2"
 msgstr "Tableau A1 - L’orientation des nouveaux entrants"
@@ -46,7 +46,7 @@ msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a2b.V2"
 msgstr "b) - le 1er rdv CER"
 
 msgid "Statistiquesplanpauvrete.menu.V3"
-msgstr "Statistiques Plan Pauvreté V3"
+msgstr "Statistiques Plan Pauvreté sans notion de suspendu"
 
 msgid "Statistiquesplanpauvrete.menu.indicateurs_tableau_a1.V3"
 msgstr "Tableau A1 - L’orientation des nouveaux entrants"
@@ -127,7 +127,7 @@ msgid "Tableau.nbPremOrientation"
 msgstr "Suivi de la 1ère orientation en "
 
 msgid "tableaub1.total"
-msgstr "Nombres des nouvelles personnes soumises à droits et devoirs (SSD)"
+msgstr "<b>Nombres des nouvelles personnes soumises à droits et devoirs (SSD)</b>"
 
 msgid "tableaub1.Orientes"
 msgstr "Nombres de personnes SSD orientés (1ère orientation)"
@@ -136,7 +136,7 @@ msgid "tableaub1.Orientestotal"
 msgstr "Total"
 
 msgid "tableaub1.Orientesemploi"
-msgstr " - Dont orientées Emploi"
+msgstr " - Dont orientées Emploi / Professionnelle"
 
 msgid "tableaub1.Orientesprepro"
 msgstr " - Dont orientées Pré Pro"
@@ -148,7 +148,7 @@ msgid "tableaub1.Orientespe"
 msgstr " - Dont orientées Pôle Emploi"
 
 msgid "tableaub1.Orientescd"
-msgstr " - Dont orientées CD"
+msgstr " - Dont orientées CD / Socio"
 
 msgid "tableaub1.Orientesoa"
 msgstr " - Dont orientées OA"
@@ -169,22 +169,22 @@ msgid "tableaub1.NonOrientesautres"
 msgstr " - Autres"
 
 msgid "tableaub1.delai_moyen"
-msgstr "Délais moyen d'orientation (en jours)"
+msgstr "<b>Délais moyen d'orientation (en jours)</b>"
 
 msgid "tableaub1.orient_31jours"
-msgstr "Nombre de personnes SSD orientés en moins de 31 jours"
+msgstr "<b>Nombre de personnes SSD orientés en moins de 31 jours</b>"
 
 msgid "tableaub1.delai"
-msgstr "Délai de 1ère orientation"
+msgstr "<b>Délai de 1ère orientation</b>"
 
 msgid "tableaub1.taux_orient"
-msgstr "Taux d'orientation"
+msgstr "<b>Taux d'orientation</b>"
 # ==============================================================================
 # Tableau A1
 # ==============================================================================
 
 msgid "Tableaua1.title"
-msgstr "Nombre de foyers avec un droit ouvert en"
+msgstr "Nombre de foyers avec un droit ouvert en "
 
 msgid "tableaua1.total"
 msgstr "Nombre de foyers avec un droit ouvert par mois"
@@ -206,7 +206,7 @@ msgid "Tableaua2.title"
 msgstr "Tableau de bord A2 - Parcours des Brsa en"
 
 msgid "tableaua2.SSD"
-msgstr "Nombre de personnes Soumises à droits et devoirs (Pers. SDD) avec un droit ouvert par mois"
+msgstr "<b>Nombre de personnes Soumises à droits et devoirs (Pers. SDD) avec un droit ouvert par mois</b>"
 
 msgid "tableaua2.Orientes"
 msgstr "Nombre de Pers. SDD orientées avec un droit ouvert par mois"
@@ -217,7 +217,7 @@ msgid "tableaua2.Orientespercent"
 msgstr "équivalent en %"
 
 msgid "tableaua2.OrientesEmploi"
-msgstr "Dont nbre de pers. SDD orientées Emploi"
+msgstr "Dont nbre de pers. SDD orientées Emploi / Professionnelle"
 msgid "tableaua2.OrientespercentEmploi"
 msgstr " équivalent en %"
 
@@ -237,7 +237,7 @@ msgid "tableaua2.OrientespercentPE"
 msgstr " équivalent en %"
 
 msgid "tableaua2.OrientesCD"
-msgstr "- Dont nbre de pers. SDD orientées CD"
+msgstr "- Dont nbre de pers. SDD orientées CD / Socio"
 msgid "tableaua2.OrientespercentCD"
 msgstr " équivalent en %"
 
@@ -292,7 +292,7 @@ msgid "tableaua2.CDCERpercentPrepro"
 msgstr "- Dont taux de contractualisation pour les pers. SDD orientées “Pré pro”"
 
 msgid "tableaua2.RDVCER"
-msgstr "Nombre de rendez-vous réalisés dans le cadre de l’accompagnement par mois (Rdv pour CER et suivi)"
+msgstr "<b>Nombre de rendez-vous réalisés dans le cadre de l’accompagnement par mois (Rdv pour CER et suivi)</b>"
 
 # ==============================================================================
 # Tableau B4
