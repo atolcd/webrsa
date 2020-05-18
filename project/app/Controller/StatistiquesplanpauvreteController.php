@@ -189,6 +189,7 @@
 				$this->set( compact( 'results' ) );
 			}
 			$this->set( 'title_for_layout', __d('statistiquesplanpauvrete', 'Statistiquesplanpauvrete.menu.indicateurs_tableau_a2', '') );
+			$this->render(__FUNCTION__, null, true);
 		}
 
 		/**
