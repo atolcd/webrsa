@@ -487,7 +487,8 @@
 								array(
 									'Fichiermodule.modele' => $modelName,
 									'Fichiermodule.fk_value' => $idsASupprimer
-								)
+								),
+								Configure::read ('Gestionsdoublons.index.deleteAllUnBound.cascade')
 							) && $success;
 						}
 					}
