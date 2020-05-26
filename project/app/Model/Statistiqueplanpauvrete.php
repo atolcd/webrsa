@@ -1505,12 +1505,22 @@
 		protected function _getDateString($annee, $month, $jour, $step = 1) {
 			$tmpMonth = '01';
 			$tmpAnnee = $annee;
-			if (($month+$step) <10){$tmpMonth = '0'.($month+2);}
-			elseif (($month+$step) >12){
-				$tmpAnnee = $annee+1;
-				$tmpMonth = '0'.($month-12+$step);
-			}else{$tmpMonth = ($month+$step);}
+			if (($month + $step) < 10) {
+				$tmpMonth = '0'.($month + 2);
+			}
+			elseif (($month + $step) > 12){
+				$tmpAnnee = $annee + 1;
+				$tmpMonth = '0'.($month - 12 + $step);
+			}
+			else {
+				$tmpMonth = ($month + $step);
+			}
+
+			// Calcul du jour de fin du mois
+			$jour = date ("t", mktime (0, 0, 0, $tmpMonth, 1, $tmpAnnee));
+
 			$tmpDateRecherche = $tmpAnnee.'-'.$tmpMonth.'-'.$jour;
+
 			return $tmpDateRecherche;
 		}
 
