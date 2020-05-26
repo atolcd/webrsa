@@ -173,9 +173,10 @@
 		 * On relache un (ensemble de) jeton(s).
 		 *
 		 * @param mixed $dossiers Un id de dossier ou un array d'ids de dossiers.
+		 * @param boolean $mettreLEtatAJour pour mettre l'état du dossier à jour ou non.
 		 * @return boolean
 		 */
-		public function release( $dossiers ) {
+		public function release( $dossiers, $mettreLEtatAJour = true ) {
 			if( Configure::read( 'Jetons2.disabled' ) ) {
 				return true;
 			}
@@ -215,9 +216,12 @@
 				return false;
 			}
 
-			//Call Recours Gracieux update pour mettre l'état à jour
-			$Dossiermodifie = ClassRegistry::init('Dossiermodifie');
-			$modified = $Dossiermodifie->setModified( $conditions );
+			// Call Recours Gracieux update pour mettre l'état à jour
+			$modified = true;
+			if ($mettreLEtatAJour) {
+				$Dossiermodifie = ClassRegistry::init('Dossiermodifie');
+				$modified = $Dossiermodifie->setModified( $conditions );
+			}
 
 			if( $this->Jeton->deleteAll( $conditions, false, false ) == false || $modified == false) {
 				$this->Jeton->rollback();

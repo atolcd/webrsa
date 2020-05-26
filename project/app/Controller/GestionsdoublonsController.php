@@ -232,8 +232,8 @@
 					if( $success ) {
 						$this->Foyer->commit();
 						$this->Flash->success( __( 'Save->success' ) );
-						$this->Jetons2->release( $dossier1_id );
-						$this->Jetons2->release( $dossier2_id );
+						$this->Jetons2->release( $dossier1_id, false );
+						$this->Jetons2->release( $dossier2_id, false );
 
 						$this->redirect( array( 'controller' => 'gestionsanomaliesbdds', 'action' => 'foyer', Hash::get( $this->request->data, 'Foyer.id' ) ) );
 					}
