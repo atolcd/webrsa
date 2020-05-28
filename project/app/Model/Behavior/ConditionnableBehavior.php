@@ -27,7 +27,7 @@
 		 * @param array $mesCodesInsee
 		 * @return array
 		 */
-		public function conditionsAdresse( Model $model, $conditions, $search, $filtre_zone_geo = false, $mesCodesInsee = array() ) {
+		public function conditionsAdresse( Model $model, $conditions, $search, $filtre_zone_geo = false, $mesCodesInsee = array(), $filtre_site_cov_zone_geo = true ) {
 			$CantonModel = ClassRegistry::init( 'Canton' );
 
 			/// Critères sur l'adresse - nom de commune
@@ -60,7 +60,7 @@
 				}
 			}
 
-			/// Critères sur l'adresse - canton
+			// Critères sur l'adresse - canton
 			if( Configure::read( 'CG.cantons' ) ) {
 				if( isset( $search['Canton']['canton'] ) && !empty( $search['Canton']['canton'] ) ) {
 					$conditions[] = $CantonModel->queryConditions( $search['Canton']['canton'] );
@@ -74,27 +74,12 @@
 				if( !empty( $sitecov58_id ) ) {
 					$Sitecov58 = ClassRegistry::init( 'Sitecov58' );
 
-					$sq = $Sitecov58->Sitecov58Zonegeographique->sq(
-						array(
-							'alias' => 'sitescovs58_zonesgeographiques',
-							'fields' => 'zonesgeographiques.codeinsee',
-							'contain' => false,
-							'joins' => array(
-								array_words_replace(
-									$Sitecov58->Sitecov58Zonegeographique->join( 'Zonegeographique', array( 'type' => 'INNER' ) ),
-									array(
-										'Sitecov58Zonegeographique' => 'sitescovs58_zonesgeographiques',
-										'Zonegeographique' => 'zonesgeographiques'
-									)
-								)
-							),
-							'conditions' => array(
-								'sitescovs58_zonesgeographiques.sitecov58_id' => $sitecov58_id
-							)
-						)
-					);
-
-					$conditions[] = "Adresse.numcom IN ( {$sq} )";
+					if ($filtre_site_cov_zone_geo) {
+						$conditions[] = $Sitecov58->queryConditionsByZonesgeographiques ( $sitecov58_id );
+					}
+					else {
+						$conditions[] = $Sitecov58->queryConditions ( $sitecov58_id );
+					}
 				}
 			}
 

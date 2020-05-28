@@ -83,5 +83,51 @@
 				'with' => 'CantonSitecov58'
 			)
 		);
+
+		/**
+		*	FIXME: docs
+		*/
+		public function queryConditions( $sitecov58_id ) {
+			$cantons = $this->Canton->find(
+				'all',
+				array(
+					'conditions' => array(
+						'Canton.id IN (SELECT canton_id FROM cantons_sitescovs58 WHERE sitecov58_id = '.$sitecov58_id.')'
+					)
+				)
+			);
+
+			$_conditions = $this->Canton->constructionConditionAdresses ($cantons);
+
+			return array( 'or' => $_conditions );
+		}
+
+		/**
+		*	FIXME: docs
+		*/
+		public function queryConditionsByZonesgeographiques ( $sitecov58_id ) {
+			$sq = $this->Sitecov58Zonegeographique->sq (
+				array (
+					'alias' => 'sitescovs58_zonesgeographiques',
+					'fields' => 'zonesgeographiques.codeinsee',
+					'contain' => false,
+					'joins' => array (
+						array_words_replace (
+							$this->Sitecov58Zonegeographique->join( 'Zonegeographique', array( 'type' => 'INNER' ) ),
+							array (
+								'Sitecov58Zonegeographique' => 'sitescovs58_zonesgeographiques',
+								'Zonegeographique' => 'zonesgeographiques'
+							)
+						)
+					),
+					'conditions' => array (
+						'sitescovs58_zonesgeographiques.sitecov58_id' => $sitecov58_id
+					)
+				)
+			);
+
+			return "Adresse.numcom IN ( {$sq} )";
+		}
+
 	}
 ?>

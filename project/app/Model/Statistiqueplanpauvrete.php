@@ -373,49 +373,17 @@
 		 * @param array $search
 		 * @return array
 		 */
-		protected function _getConditionsTableau(array $search) {
-			$conditionsSearch = array();
-			// Adresse
-			if( isset($search['Adresse']) ) {
-				if( $search['Adresse']['nomvoie'] != '' ) {
-					$conditionsSearch = array_merge($conditionsSearch, array(
-						'Adresse.nomvoie ILIKE' => $search['Adresse']['nomvoie']
-					));
-				}
-				if( $search['Adresse']['nomcom'] != '' ) {
-					$conditionsSearch = array_merge($conditionsSearch, array(
-						'Adresse.nomcom ILIKE' => $search['Adresse']['nomcom']
-					));
-				}
-				if( $search['Adresse']['numcom']  != '') {
-					$conditionsSearch = array_merge($conditionsSearch, array(
-						'Adresse.numcom' => $search['Adresse']['numcom']
-					));
-				}
-			}
+		protected function _getConditionsTableau (array $search) {
+			$conditions = array();
 
-			// Canton
-			if( isset($search['Canton']) && $search['Canton']['canton'] != '') {
-				$conditionsSearch = $conditionsSearch = array_merge($conditionsSearch, array(
-					'Canton.canton ILIKE' => $search['Canton']['canton']
-				));
-			}
+			// Conditions sur l'adresse de l'allocataire
+			$conditions = $this->conditionsAdresse ( $conditions, $search, false, array(), false );
 
-			// Service instructeur
-			if( isset($search['Search']['serviceinstructeur']) && $search['Search']['serviceinstructeur'] != '' ) {
-				$conditionsSearch = array_merge($conditionsSearch, array(
-					'OrientstructServiceinstructeur.serviceinstructeur_id' => $search['Search']['serviceinstructeur']
-				));
-			}
+			// Condition sur le service instructeur
+			$Statistiqueministerielle = ClassRegistry::init( 'Statistiqueministerielle' );
+			$conditions[] = $Statistiqueministerielle->getConditionsServiceInstructeur ( $search );
 
-			// Sites COV
-			if( isset($search['Sitecov58']) && $search['Sitecov58']['id'] != '' ) {
-				$conditionsSearch = array_merge($conditionsSearch, array(
-					'CantonSitecov58.sitecov58_id' => $search['Sitecov58']['id']
-				));
-			}
-
-			return $conditionsSearch;
+			return $conditions;
 		}
 
 		/**
@@ -614,7 +582,7 @@
 					$queyConditions .=  ' OR ( Historiquedroit'.$month.'.etatdosrsa IN (\'2\', \'5\', \'6\') )';
 				}
 			}
-			$query['conditions'][] = $queyConditions;
+			$query['conditions'][] = '('.$queyConditions.')';
 			return $query;
 		}
 

@@ -151,7 +151,6 @@
 		/**
 		*	FIXME: docs
 		*/
-
 		public function queryConditions( $canton ) {
 			$cantons = $this->find(
 				'all',
@@ -161,11 +160,24 @@
 					)
 				)
 			);
+
+			$_conditions = $this->constructionConditionAdresses ($cantons);
+
+			return array( 'or' => $_conditions );
+		}
+
+		/**
+		*	FIXME: docs
+		*/
+		public function constructionConditionAdresses ( $cantons ) {
 			$_conditions = array();
+
 			foreach( $cantons as $canton ) {
 				$_condition = array();
+
 				// INFO: les couples numcom / codepos de la table adresses ne correspondent
 				// pas toujours aux couples de la table cantons.
+
 				if( !empty( $canton['Canton']['numcom'] ) && !empty( $canton['Canton']['codepos'] ) ) {
 					$_condition['OR'] = array(
 						 'Adresse.numcom' => $canton['Canton']['numcom'],
@@ -190,15 +202,16 @@
                     $_condition['Adresse.nomvoie ILIKE'] = '%'.$canton['Canton']['nomvoie'].'%';
 //					$_condition['Adresse.nomvoie ILIKE'] = $canton['Canton']['nomvoie'];
 				}
+
 				$_conditions[] = $_condition;
 			}
-			return array( 'or' => $_conditions );
+
+			return $_conditions;
 		}
 
 		/**
 		*	FIXME: docs
 		*/
-
 		public function queryConditionsByZonesgeographiques( $zonesgeographiques ) {
 			$cantons = array();
 			if( !empty( $zonesgeographiques ) ) {

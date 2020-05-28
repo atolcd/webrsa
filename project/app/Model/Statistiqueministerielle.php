@@ -201,6 +201,16 @@
 		 * @param array $search
 		 * @return array
 		 */
+		public function getConditionsServiceInstructeur ( $search ) {
+			return $this->_getConditionsServiceInstructeur ( $search );
+		}
+
+		/**
+		 * Filtre par service instructeur.
+		 *
+		 * @param array $search
+		 * @return array
+		 */
 		protected function _getConditionsServiceInstructeur( $search ) {
 			$Dossier = ClassRegistry::init( 'Dossier' );
 
