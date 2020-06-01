@@ -719,19 +719,19 @@
 		 */
 		protected function _adaptLignesTableaux($results, $nomTableau) {
 			$lignesnonaffiches = Configure::read('StatistiquePP.' . $nomTableau . '.lignes_non_affichees');
-			foreach ($lignesnonaffiches as $lignesnonaffiche) {
-				if( is_array($lignesnonaffiche) ) {
-					foreach ($lignesnonaffiche as $titre => $ligneTitres) {
-						if( is_array($ligneTitres) ) {
-							foreach( $ligneTitres as $ligne) {
-								unset( $results[$titre][$ligne] );
+			foreach ($lignesnonaffiches as $key1 => $ligneKey1) {
+				if( is_array($ligneKey1) ) {
+					foreach ($ligneKey1 as $key2 => $ligneKey2) {
+						if( is_array($ligneKey2) ) {
+							foreach( $ligneKey2 as $ligneKey3) {
+								unset( $results[$key1][$key2][$ligneKey3] );
 							}
 						} else {
-							unset( $results[$titre] );
+							unset( $results[$key1][$ligneKey2] );
 						}
 					}
 				} else{
-					unset($results[$lignesnonaffiche] );
+					unset($results[$ligneKey1] );
 				}
 			}
 
@@ -2758,6 +2758,7 @@
 					$resultats['Horssuspendus']['Nonvenu']['percentRDV'][$i]= round( (100 * $resultats['Horssuspendus']['Nonvenu']['RDV'][$i] ) / $resultats['Horssuspendus']['total'][$i], 2)  . '%';
 				}
 			}
+			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauA1v2');
 			return $resultats;
 		}
 
@@ -3067,6 +3068,7 @@
 						/ $resultats['Suspendus']['Orientes_CD'][$i], 2)  . '%';
 				}
 			}
+			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauA2av2');
 			return $resultats;
 		}
 
@@ -3377,6 +3379,7 @@
 							/ $resultats['Suspendus']['Orientes_CD'][$i], 2)  . '%';
 				}
 			}
+			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauA2bv2');
 			return $resultats;
 		}
 
@@ -3648,6 +3651,7 @@
 					$resultats['Nonvenu']['percentRDV'][$i]= round( (100 * $resultats['Nonvenu']['RDV'][$i] ) / $resultats['total'][$i], 2)  . '%';
 				}
 			}
+			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauA1v3');
 			return $resultats;
 		}
 
@@ -3843,6 +3847,7 @@
 								/ $resultats['Orientes_CD'][$i], 2)  . '%';
 				}
 			}
+			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauA2av3');
 			return $resultats;
 		}
 
@@ -4039,6 +4044,7 @@
 						/ $resultats['Orientes_CD'][$i], 2)  . '%';
 				}
 			}
+			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauA2bv3');
 			return $resultats;
 		}
 
