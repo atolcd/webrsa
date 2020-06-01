@@ -148,7 +148,7 @@
 						'controller' => $controller,
 						'action'     => $action.'_exportfica',
 					),
-					Hash::flatten( $this->request->data, '__' )
+					Hash::flatten( $searchData, '__' )
 				),
 				($activateFica && $this->Permissions->check( $controller, $action.'_exportfica' )),
 				__m('Titrecreancier::cohortetransmission::exportfica:popuptext')
@@ -161,7 +161,7 @@
 						'controller' => $controller,
 						'action'     => $action.'_exportzip',
 					),
-					Hash::flatten( $this->request->data, '__' )
+					Hash::flatten( $searchData, '__' )
 				),
 				($activateFica && $this->Permissions->check( $controller, $action.'_exportzip' )),
 				__m('Titrecreancier::cohortetransmission::exportzip:popuptext')
