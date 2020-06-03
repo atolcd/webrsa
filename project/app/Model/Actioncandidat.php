@@ -96,6 +96,14 @@
 					'message' => 'Veuillez entrer une adresse mail valide',
                     'allowEmpty' => true
 				)
+			),
+			'dreesactionscer_id' => array(
+				'actiondrees' => array(
+					'rule' => 'alphaNumeric',
+					'allowEmpty' => false,
+					'required' => true,
+					'message' => 'Champ obligatoire',
+				)
 			)
 		);
 
