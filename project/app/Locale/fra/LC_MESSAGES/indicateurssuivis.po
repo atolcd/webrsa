@@ -67,7 +67,11 @@ msgstr "Nom / Prénom du conjoint"
 msgid "Dossier.dtdemrsa"
 msgstr "Date ouverture de droits"
 
-# // TODO //'Ref. charge de l'evaluation"
+msgid "Referentorientant.nom_complet"
+msgstr "Ref. charge de l'evaluation"
+
+msgid "Structurereferenteparcours.lib_struc"
+msgstr "Type de tructure"
 
 msgid "Orientstruct.date_valid"
 msgstr "Date orientation (COV)"
@@ -78,6 +82,9 @@ msgstr "Rang orientation (COV)"
 msgid "Referentparcours.nom_complet"
 msgstr "Referent unique"
 
+msgid "Typocontrat.lib_typo"
+msgstr "Type de contrat"
+
 msgid "Contratinsertion.dd_ci"
 msgstr "Date debut (CER)"
 
@@ -86,6 +93,9 @@ msgstr "Date fin (CER)"
 
 msgid "Contratinsertion.rg_ci"
 msgstr "Rang (CER)"
+
+msgid "Contratinsertion.positioncer"
+msgstr "Position du CER"
 
 msgid "Historiqueetatpe.etat"
 msgstr "Dernier état Pole Emploi"

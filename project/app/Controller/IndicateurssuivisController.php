@@ -140,6 +140,21 @@
 
 			$query = $this->Allocataires->completeSearchQuery( $query, array( 'limit' => false ) );
 			$query = $this->Components->load( 'Search.SearchPaginator' )->setPaginationOrder( $query );
+			// Ajout de champs suite demande CD66
+			$query['fields'] = array_merge(
+				$query['fields'],
+				array(
+					"Typocontrat.lib_typo",
+					"Contratinsertion.positioncer",
+					"Structurereferenteparcours.lib_struc"
+				)
+			);
+			$query['joins'][] = array(
+					'table' => 'typoscontrats',
+					'alias' => 'Typocontrat',
+					'type' => 'LEFT OUTER',
+					'conditions' => '"Typocontrat"."id" = "Contratinsertion".typocontrat_id'
+			);
 
 			$this->Personne->forceVirtualFields = true;
 			$results = $this->Personne->find( 'all', $query );
