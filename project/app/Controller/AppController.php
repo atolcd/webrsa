@@ -387,7 +387,6 @@
 			$conf = $this->Configuration->find('all', array(
 				'conditions' => array(
 					'ConfigurationCategorie.lib_categorie' => $this->name,
-					'Configuration.departement' => Configure::read( 'Cg.departement' )
 					)
 				)
 			);

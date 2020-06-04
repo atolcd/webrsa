@@ -65,7 +65,6 @@
 		 */
  		public function _query($search) {
 			$query = array(
-				'conditions' => array('Configuration.departement' => Configure::read( 'Cg.departement' )),
 				'recursive' => 1,
 				'order' => array(
 					'ConfigurationCategorie.lib_categorie ASC',
@@ -90,7 +89,6 @@
 		 *  @return array
 		*/
 		protected function getConfiguration($nomCategorie) {
-			$departement = Configure::read('Cg.departement');
 			$param = array();
 			if($nomCategorie !== 'all') {
 				$idCat = $this->ConfigurationCategorie->getCategorie($nomCategorie);

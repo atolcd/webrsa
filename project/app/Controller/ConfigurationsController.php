@@ -51,8 +51,6 @@
 		 * Moteur de recherche par catégorie (fichiers) de configurations
 		 */
  		public function index() {
-			$this->departement = (int)Configure::read( 'Cg.departement' );
-
 			$recherche = $this->Session->read('Search.Configuration');
 			if (empty( $this->request->data ) && !empty ($recherche)) {
 				$this->request->data = $recherche;
@@ -85,7 +83,7 @@
 				$JSONdecode = json_decode($this->request->data['Configuration']['value_variable'], true);
 				$JSONresult = json_encode($JSONdecode, JSON_UNESCAPED_UNICODE);
 				$this->request->data['Configuration']['value_variable'] = $JSONresult;
-				// Il y a une erreur dans le JSON
+				// S'il y a une erreur dans le JSON
 				if(is_null($JSONdecode))
 				{
 					$this->Flash->error( __d('configuration','Configuration.erreurJSON'));

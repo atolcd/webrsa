@@ -27,8 +27,6 @@
 			)
 		);
 
-	$departement = (int)Configure::read( 'Cg.departement' );
-
 	echo $this->Default3->subform(
 		$this->Translator->normalize(
 				array(

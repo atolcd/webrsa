@@ -119,15 +119,14 @@ class ConfigurationInsertionShell extends XShell {
 		// Récupération de l'id de la variable, ou création si besoin
 		foreach ($variables as $key => $var) {
 			$idVar = $this->Configuration->field('id', array(
-								'Configuration.lib_variable LIKE' => $var,
-								'Configuration.departement LIKE' => $this->departement )
-								);
+				'Configuration.lib_variable LIKE' => $var,
+				)
+			);
 			$this->Configuration->clear();
 			$query = array();
 			if($idVar !== false) {
 				$query['id'] = $idVar;
 			}
-			$query['departement'] = $this->departement;
 			$query['lib_variable'] = $var;
 			$query['value_variable'] = $valeurs[$key];
 			$query['configurationscategorie_id'] = $categorie;
@@ -231,7 +230,8 @@ class ConfigurationInsertionShell extends XShell {
 		$contents = preg_split($varPattern, $fileContent);
 		$varComments = array();
 		$finalComments = array();
-
+		$comment = '';
+		$index = 0;
 		foreach ($contents as $key => $reste) {
 			if($folder == true) {
 				// Cas des fichiers webrsa*.inc
