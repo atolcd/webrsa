@@ -84,15 +84,16 @@
 	echo $this->Observer->disableFormOnSubmit();
 
 	// Partie historique
-	if( isset($histo) && !empty($histo) ) {
+	if( isset($histos) && !empty($histos) ) {
 		echo '<br><br> <h1>' . __m('Configuration.historique') .  '</h1>';
 		echo $this->Default3->index(
-			$histo,
+			$histos,
 			$this->Translator->normalize(
 				array(
 					'Configuration.created' => array('type' => 'date', 'dateFormat' => 'DMY'),
 					'Configurationhistorique.created' => array('type' => 'date', 'dateFormat' => 'DMY'),
 					'Configurationhistorique.username',
+					'Configurationhistorique.value_variable_old' => array( 'class' => 'oldValue', 'style' => 'max-width: 40vw; overflow-wrap: break-word;')
 				)
 				),
 				array('paginate' => false)
@@ -103,6 +104,7 @@ echo $this->Html->script( 'ace/ace' );
 ?>
 
 <script>
+	// Gestion de l'éditeur
 	var nbLignes = <?php echo $nb_lignes ?>;
     var editor = ace.edit("editor", {
 		theme: "ace/theme/tomorrow",
@@ -127,4 +129,26 @@ echo $this->Html->script( 'ace/ace' );
 		document.getElementById('valueChanged').setAttribute('value', editor.getValue());
 	});
 
+	// Gestion de l'historique
+	function voirsuite()
+	{
+		document.getElementById('voirsuite').style.display='none';
+		document.getElementById('suite').style.display='block';
+	}
+	function replier()
+	{
+		document.getElementById('voirsuite').style.display='block';
+		document.getElementById('suite').style.display='none';
+	}
+	<?php if( isset($histos) && !empty($histos) ) { ?>
+		document.querySelectorAll('.oldValue.data').forEach( el => {
+			console.log(el);
+			if( el.innerHTML.length > 100 ) {
+				let contenu = el.innerHTML;
+				el.innerHTML = el.innerHTML.substr(0, 100) + ' <a href="javascript:void(0);" onclick="voirsuite();" id="voirsuite"><b>Voir la suite...</b></a><div id="suite">'
+								+ el.innerHTML.substr(100) + '<a href="javascript:void(0);" onclick="replier();" id="replier"><br><b>Voir moins...</b></a></div>';
+				document.querySelector('#suite').style.display = 'none';
+			}
+		} );
+	<?php } ?>
 </script>

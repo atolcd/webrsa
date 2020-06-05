@@ -72,12 +72,20 @@
 				)
 			);
 
+			// Recherche sur le nom de la variable
 			if(isset($search['Configuration']['lib_variable'])) {
 				$query['conditions'][] = array('Configuration.lib_variable ILIKE' => '%'.$search['Configuration']['lib_variable'].'%');
 			}
 
-			if($search['ConfigurationCategorie']['lib_categorie'] !== '')
+			// Recherche sur la valeur de la variable
+			if(isset($search['Configuration']['value_variable'])) {
+				$query['conditions'][] = array('Configuration.value_variable ILIKE' => '%'.$search['Configuration']['value_variable'].'%');
+			}
+
+			// Recherche sur la catégorie
+			if($search['ConfigurationCategorie']['lib_categorie'] !== '') {
 				$query['conditions'][] = array('ConfigurationCategorie.id' => $search['ConfigurationCategorie']['lib_categorie']);
+			}
 
 			return $query;
 		}

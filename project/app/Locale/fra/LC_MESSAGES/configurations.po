@@ -45,3 +45,6 @@ msgstr "Date de dernière modification"
 msgid "Configurationhistorique.username"
 msgstr "Utilisateur ayant fait la modification"
 
+msgid "Configurationhistorique.value_variable_old"
+msgstr "Ancienne valeur de la variable"
+

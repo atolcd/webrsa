@@ -59,14 +59,24 @@
 			$search = (array)Hash::get( $this->request->data, 'Search' );
 
 			if( !empty( $search ) ) {
-				if($this->request->data['Configuration']['lib_variable'] !== '')
+				if($this->request->data['Configuration']['lib_variable'] !== '') {
 					$search['Configuration']['lib_variable'] = $this->request->data['Configuration']['lib_variable'];
+				}
+
+				if($this->request->data['Configuration']['value_variable'] !== '') {
+					$search['Configuration']['value_variable'] = $this->request->data['Configuration']['value_variable'];
+				}
+
 				$query = $this->Configuration->_query($search);
 				$query['limit'] = false;
 				$results = $this->Configuration->find('all', $query);
 
+				// Suppression des sauts de ligne et formattage de 300 caractères pour les valeurs & commentaires
+				foreach($results as $key => $result){
+					$results[$key]['Configuration']['value_variable'] = substr($result['Configuration']['value_variable'], 0, 300);
+					$results[$key]['Configuration']['comments_variable'] = substr( str_replace('\n', ' ', $result['Configuration']['comments_variable']), 0, 300);
+				}
 				$this->Session->write('Search.Configuration', $this->request->data);
-
 				$this->set( compact( 'results' ) );
 			}
 
@@ -92,9 +102,12 @@
 				$this->Configurationhistorique->saveHisto($this->request->data['Configuration']);
 			}
 			$this->WebrsaParametrages->edit( $id, array( 'view' => 'edit' ) );
-			$histo = $this->Configurationhistorique->getHisto($id);
+			$histos = $this->Configurationhistorique->getHisto($id);
+			foreach($histos as $key => $histo) {
+				$histos[$key]['Configurationhistorique']['value_variable_old'] = $histo['Configurationhistorique']['value_variable_old'];
+			}
 			$options = $this->viewVars['options'];
-			$this->set( compact( 'options', 'histo' ) );
+			$this->set( compact( 'options', 'histos' ) );
 		}
 	}
 ?>

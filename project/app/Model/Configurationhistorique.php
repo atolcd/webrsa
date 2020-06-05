@@ -71,7 +71,8 @@
 					'fields' => array(
 						'Configuration.created',
 						'Configurationhistorique.created',
-						'Configurationhistorique.username'
+						'Configurationhistorique.username',
+						'Configurationhistorique.value_variable_old'
 					),
 					'conditions' => array(
 						'Configurationhistorique.configurations_id' => $id

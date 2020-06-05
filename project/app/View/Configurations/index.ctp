@@ -32,6 +32,7 @@
 				array(
 					'Search.Configuration.search' => array( 'type' => 'hidden', 'value' => true ),
 					'Configuration.lib_variable' => array( 'type' => 'text', 'required' => false ),
+					'Configuration.value_variable' => array( 'type' => 'text', 'required' => false ),
 					'Search.ConfigurationCategorie.lib_categorie' => array( 'empty' => true, 'required' => false )
 				)
 		),
@@ -58,6 +59,7 @@
 					'ConfigurationCategorie.lib_categorie',
 					'Configuration.lib_variable',
 					'Configuration.value_variable' => array('style' => 'max-width: 25vw; overflow: hidden; text-overflow: ellipsis; '),
+					'Configuration.comments_variable' => array( 'style' => 'max-width: 25vw; overflow: hidden; text-overflow: ellipsis; '),
 					'Configuration.modified' => array('type' => 'date'),
 					'/configurations/edit/#Configuration.id#' => array(
 						'title' => false
