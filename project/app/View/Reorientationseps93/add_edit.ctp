@@ -57,7 +57,16 @@
 
 		echo '<div class="input select"><span class="label">Personne soumise à droits et devoirs ?</span><span class="input">'.( $toppersdrodevorsa ? 'Oui' : 'Non' ).'</span></div>';
 
-		echo $this->Default->subform( array( 'Reorientationep93.datedemande' => array( 'dateFormat' => 'DMY', 'maxYear' => date( 'Y' ) + 1, 'minYear' => date( 'Y' ) - 1 ) ) );
+		echo $this->Default->subform (
+			array (
+				'Reorientationep93.datedemande' => array (
+					'dateFormat' => 'DMY',
+					'maxYear' => date( 'Y' ) + 1,
+					'minYear' => date( 'Y' ) - 1,
+					'value' => date( 'Y-m-d' )
+				)
+			)
+		);
 
 		echo '<div class="input select"><span class="label">Rang d\'orientation</span><span class="input">'.( $nb_orientations + 1 ).'</span></div>';
 
