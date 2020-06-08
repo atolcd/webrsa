@@ -56,7 +56,7 @@
 				$sqDernierContratinsertion = $Personne->sqLatest( 'Contratinsertion', 'dd_ci' );
 			}
 
-			$sqDernierReferent = $Personne->PersonneReferent->sqDerniere( 'Personne.id', false );
+			$sqDernierReferent = $Personne->PersonneReferent->sqDerniere( 'Personne.id', Configure::read('Filtresdefaut.Cohortescers93_avalidercpdv.dfdesignation') );
 			$sqDernierRdv = $Personne->Rendezvous->sqDernier( 'Personne.id' );
 
 			$sqDspId = 'SELECT dsps.id FROM dsps WHERE dsps.personne_id = "Personne"."id" LIMIT 1';
