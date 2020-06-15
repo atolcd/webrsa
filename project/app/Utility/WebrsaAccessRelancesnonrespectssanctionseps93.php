@@ -25,7 +25,7 @@
 		public static function params(array $params = array()) {
 			return $params + array(
 				'alias' => 'Relancenonrespectsanctionep93',
-				'departement' => (int)Configure::read( 'Cg.departement' ),
+				'departement' => Configure::read( 'Cg.departement' ),
 			);
 		}
 

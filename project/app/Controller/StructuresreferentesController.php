@@ -72,11 +72,11 @@
 				$this->set( compact( 'results' ) );
 			}
 
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$options = $this->Structurereferente->enums();
 			$options['Structurereferente']['typeorient_id'] = $this->InsertionsBeneficiaires->typesorients( array( 'conditions' => array() ) );
 			$options['Structurereferente']['dreesorganisme_id'] = $this->InsertionsBeneficiaires->dreesorganismes( array( 'conditions' => array() ) );
-			if( 93 === $departement ) {
+			if( 93 == $departement ) {
 				$options['Structurereferente']['communautesr_id'] = $this->Structurereferente->Communautesr->find( 'list' );
 			}
 			$this->set( compact( 'options' ) );

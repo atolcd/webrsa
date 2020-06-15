@@ -57,7 +57,7 @@
 			$query = Cache::read( $cacheKey );
 
 			if( $query === false ) {
-				$departement = (int)Configure::read( 'Cg.departement' );
+				$departement = Configure::read( 'Cg.departement' );
 
 				$types += array(
 					'Calculdroitrsa' => 'LEFT OUTER',
@@ -207,11 +207,11 @@
 			}
 
 			// Début des spécificités par département
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			// CD 58: travailleur social chargé de l'évaluation: "Nom du chargé de
 			// l'évaluation" lorsque l'on crée une orientation
-			if( $departement === 58 ) {
+			if( $departement == 58 ) {
 				$referentorientant_id = (string)Hash::get( $search, 'Propoorientationcov58.referentorientant_id' );
 				if( $referentorientant_id !== '' ) {
 					$query['conditions']['Propoorientationcov58.referentorientant_id'] = $referentorientant_id;
@@ -228,7 +228,7 @@
 			}
 
 			// CD 66: Personne ne possédant pas d'orientation et sans entrée Nonoriente66
-			if( $departement === 66 ) {
+			if( $departement == 66 ) {
 				$exists = (string)Hash::get( $search, 'Personne.has_orientstruct' );
 				if ( $exists === '1' ) {
 					$this->Dossier->Foyer->Personne->Behaviors->load('LinkedRecords');

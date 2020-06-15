@@ -596,8 +596,8 @@
 			}
 
 			// Pour le CG 93, on doit vérifier si certains dossiers d'EP doivent être désactivés suite à inscription PE
-			$departement = (int)Configure::read( 'Cg.departement' );
-			if( $departement === 93 ) {
+			$departement = Configure::read( 'Cg.departement' );
+			if( $departement == 93 ) {
 				$success = $this->Nonrespectsanctionep93->calculSortieProcedureRelanceParInscriptionPe() && $success;
 			}
 

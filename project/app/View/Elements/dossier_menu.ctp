@@ -1,5 +1,5 @@
 <?php
-	$departement = (integer)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 
 	/*
 	* INFO: Parfois la variable a le nom personne_id, parfois personneId

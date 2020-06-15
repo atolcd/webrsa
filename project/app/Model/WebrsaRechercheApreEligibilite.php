@@ -43,9 +43,9 @@
 		 * @return array
 		 */
 		public function searchQuery( array $types = array() ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$types += array(
-				'Calculdroitrsa' => ( $departement === 93 ? 'LEFT OUTER' : 'INNER' ),
+				'Calculdroitrsa' => ( $departement == 93 ? 'LEFT OUTER' : 'INNER' ),
 				'Foyer' => 'INNER',
 				'Prestation' => 'LEFT OUTER',
 				'Adressefoyer' => 'LEFT OUTER',
@@ -72,7 +72,7 @@
 			if( $query === false ) {
 				$query = parent::searchQuery( $types );
 
-				if( $departement === 93 ) {
+				if( $departement == 93 ) {
 					$this->Apre->Relanceapre->deepAfterFind = false;
 
 					$query['fields'] = array_merge(

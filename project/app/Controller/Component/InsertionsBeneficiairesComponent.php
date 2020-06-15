@@ -201,10 +201,10 @@
 			$Controller = $this->_Collection->getController();
 			$Controller->loadModel( 'Structurereferente' );
 
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$options = $this->options( __FUNCTION__, $options );
 
-            if( $departement === 66 && $this->Session->read( 'Auth.User.type' ) === 'externe_ci' ) {
+            if( $departement == 66 && $this->Session->read( 'Auth.User.type' ) === 'externe_ci' ) {
 				$parent_sq = $Controller->Structurereferente->Typeorient->sq(
 					array(
 						'alias' => 't',
@@ -389,13 +389,13 @@
 		 * @return array
 		 */
 		public function structuresreferentes( $options = array( ) ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$options = $this->options( __FUNCTION__, $options );
 
-			if( $departement === 93 && $this->Session->read( 'Auth.User.filtre_zone_geo' ) !== false ) {
+			if( $departement == 93 && $this->Session->read( 'Auth.User.filtre_zone_geo' ) !== false ) {
 				$options['conditions'][] = $this->_sqStructurereferenteZonesgeographiques93();
 			}
-			else if( $departement === 66 && $this->Session->read( 'Auth.User.type' ) === 'externe_ci' ) {
+			else if( $departement == 66 && $this->Session->read( 'Auth.User.type' ) === 'externe_ci' ) {
 				$structurereferente_id = $this->WebrsaUsers->structuresreferentes();
 				$options['conditions']['Structurereferente.id'] = $structurereferente_id;
 			}
@@ -560,10 +560,10 @@
 		 * @return array
 		 */
 		public function referents( $options = array() ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$options = $this->options( __FUNCTION__, $options );
 
-			if( $departement === 93 && $this->Session->read( 'Auth.User.filtre_zone_geo' ) !== false ) {
+			if( $departement == 93 && $this->Session->read( 'Auth.User.filtre_zone_geo' ) !== false ) {
 				$options['conditions'][] = $this->_sqStructurereferenteZonesgeographiques93();
 			}
 
@@ -820,7 +820,7 @@
 			$Controller = $this->_Collection->getController();
 			$Controller->loadModel( 'Communautesr' );
 
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$options = $this->options( __FUNCTION__, $options );
 
 			$sessionKey = $this->sessionKey( __FUNCTION__, $options['conditions'] );
@@ -833,7 +833,7 @@
 				);
 
 				$user_type = $Controller->Session->read( 'Auth.User.type' );
-				if( 93 === $departement && in_array( $user_type, array( 'cg', 'externe_cpdvcom' ) ) ) {
+				if( 93 == $departement && in_array( $user_type, array( 'cg', 'externe_cpdvcom' ) ) ) {
 					// Liste des projets de villes communautaires
 					$query = array(
 						'fields' => array(

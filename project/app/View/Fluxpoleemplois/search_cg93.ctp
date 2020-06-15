@@ -1,5 +1,5 @@
 <?php
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 	$user_type = $this->Session->read( 'Auth.User.type' );
 
 	$controller = $this->params->controller;

@@ -123,12 +123,11 @@
 		 * @return array
 		 */
 		protected function _optionsSession( array $params ) {
-			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$options = parent::_optionsSession( $params );
 
-			if( $departement === 93 ) {
+			if( $departement == 93 ) {
 				$options = Hash::merge(
 					$options,
 					$this->Allocataires->optionsSessionCommunautesr( 'Rendezvous' )
@@ -154,9 +153,9 @@
 		 */
 		protected function _queryConditions( array $query, array $filters, array $params ) {
 			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
-			if( 93 === $departement ) {
+			if( 93 == $departement ) {
 				$type = $Controller->Session->read( 'Auth.User.type' );
 
 				if( 0 === strpos( $type, 'externe_' ) ) {

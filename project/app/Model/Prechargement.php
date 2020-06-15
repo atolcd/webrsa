@@ -205,7 +205,7 @@
 		 * @return array
 		 */
 		public function preloadCache( $clear = true ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			if( $clear ) {
 				$this->clearCache();
 			}

@@ -76,7 +76,7 @@
 				$query = $this->Allocataire->searchQuery( $types, 'Rendezvous' );
 
 				// Ajout des spécificités du moteur de recherche
-				$departement = (int)Configure::read( 'Cg.departement' );
+				$departement = Configure::read( 'Cg.departement' );
 
 				$query['fields'] = array_merge(
 					array(
@@ -110,7 +110,7 @@
 					$query['fields']['Rendezvous.thematiques'] = '( '.$this->Rendezvous->WebrsaRendezvous->vfListeThematiques( null ).' ) AS "Rendezvous__thematiques"';
 				}
 
-				if( 93 === $departement ) {
+				if( 93 == $departement ) {
 					foreach( array( '02', '03' ) as $rgadr ) {
 						$replacements = array(
 							'01' => $rgadr,

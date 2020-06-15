@@ -26,7 +26,7 @@
 		public static function params(array $params = array()) {
 			return $params + array(
 				'alias' => 'Rendezvous',
-				'departement' => (int)Configure::read( 'Cg.departement' ),
+				'departement' => Configure::read( 'Cg.departement' ),
 			);
 		}
 
@@ -64,7 +64,7 @@
 			$params = self::params($params);
 			return (
 					Hash::get($record, 'Rendezvous.dernier')
-					|| 93 === $params['departement']
+					|| 93 == $params['departement']
 				)
 				&& !Hash::get($params, 'dossiercommissionLie');
 		}
@@ -91,7 +91,7 @@
 			$params = self::params($params);
 			return (
 					Hash::get($record, 'Rendezvous.dernier')
-					|| 93 === $params['departement']
+					|| 93 == $params['departement']
 				)
 				&& !Hash::get($params, 'dossiercommissionLie');
 		}

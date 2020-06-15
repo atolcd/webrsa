@@ -5,9 +5,9 @@
 
 	echo $this->Default3->titleForLayout( $this->request->data );
 
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 
-	if( 93 === $departement ){
+	if( 93 == $departement ){
 		$fields = array(
 			'Ep.id',
 			'Ep.name',

@@ -67,7 +67,7 @@
 				$query = $Allocataire->searchQuery( $types, 'Personne' );
 
 				// Ajout des spécificités du moteur de recherche
-				$departement = (int)Configure::read( 'Cg.departement' );
+				$departement = Configure::read( 'Cg.departement' );
 
 				// INNER sur l'adressefoyer ?
 				// LEFT OUTER ci-dessous
@@ -195,7 +195,7 @@
 				);
 
 				// 4. Champs et jointures ROME V2 (CG 66)
-				if( Configure::read( 'Cg.departement' ) == 66 ) {
+				if( $departement == 66 ) {
 					foreach( $Dsp->WebrsaDsp->modelesRomeV2 as $alias ) {
 						foreach( array_keys( $Dsp->{$alias}->schema() ) as $fieldName ) {
 							$unwanted = ( $fieldName === 'id' || strpos( $fieldName, '_id' ) === strlen( $fieldName ) - 3 );

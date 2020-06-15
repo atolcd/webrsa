@@ -1,5 +1,5 @@
 <?php
-	$departement = (integer)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 	$controller = $this->params->controller;
 	$action = $this->action;
 	$availableDomains = WebrsaTranslator::domains();
@@ -15,7 +15,7 @@
 	$this->start( 'custom_search_filters' );
 
 	// Spécifique CG 66
-	if ( $departement === 66 ){
+	if ( $departement == 66 ){
 		foreach( $options['Cui66']['etatdossiercui66'] as $key => $value ){
 			$options['Cui66']['etatdossiercui66'][$key] = sprintf( $value, '(Date)' );
 		}

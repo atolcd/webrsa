@@ -681,7 +681,7 @@
 		 * @return array
 		 */
 		public function enums() {
-			$departement = (integer)Configure::read('Cg.departement');
+			$departement = Configure::read('Cg.departement');
 			$options = Hash::merge(
 				parent::enums(),
 				array(
@@ -691,7 +691,7 @@
 				)
 			);
 
-			if ($departement === 93) {
+			if ($departement == 93) {
 				$options[$this->alias]['decision_ci'] = array(
 					'E' => 'En attente de décision',
 					'V' => 'Validation à compter du',
@@ -700,7 +700,7 @@
 				);
 			}
 
-			if ($departement === 66) {
+			if ($departement == 66) {
 				$options[$this->alias]['num_contrat_66'] = $options[$this->alias]['num_contrat'];
 
 				$options[$this->alias]['num_contrat_66']['REN_TACITE'] = __d(
@@ -715,7 +715,7 @@
 
 			// Ticket #2007701: suppression des positions "En cours, Bilan à réaliser",
 			// "En attente de renouvellement", "Périmé: bilan à réaliser"
-			if( 66 === $departement ) {
+			if( 66 == $departement ) {
 				$keep = array(
 					'encours'=> null,
 					'attvalid'=> null,

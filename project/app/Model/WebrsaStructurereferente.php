@@ -88,7 +88,7 @@
 		 * @return array
 		 */
 		public function searchConditions( array $query, array $search ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			// 1. Valeurs approchantes
 			foreach( array( 'lib_struc', 'ville' ) as $field ) {
@@ -107,7 +107,7 @@
 			}
 
 			// 3. Filtre par Projet Insertion Emploi communautaire
-			if( 93 === $departement ) {
+			if( 93 == $departement ) {
 				$communautesr_id = (string)Hash::get( $search, 'Structurereferente.communautesr_id' );
 				if( '' !== $communautesr_id ) {
 					$subQuery = array(

@@ -176,14 +176,14 @@
 		 */
 		public function optionsSessionCommunautesr( $modelName ) {
 			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$options = array();
 
 			if( !isset( $this->InsertionsBeneficiaires ) ) {
 				$this->InsertionsBeneficiaires = $Controller->Components->load( 'InsertionsBeneficiaires' );
 			}
 
-			if( 93 === $departement ) {
+			if( 93 == $departement ) {
 				$communautessrs = $this->InsertionsBeneficiaires->communautessrs( array( 'type' => 'list' ) );
 				$links = $this->InsertionsBeneficiaires->communautessrs( array( 'type' => 'links' ) );
 				if( !empty( $communautessrs ) && !empty( $links ) ) {
@@ -201,9 +201,6 @@
 		 * @return array
 		 */
 		public function optionsSession() {
-			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
-
 			$options = array(
 				'Adresse' => array(
 					'numcom' => $this->Gestionzonesgeos->listeCodesInsee()

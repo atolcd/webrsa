@@ -20,7 +20,7 @@
 
 	echo $this->Form->create( null, array( 'type' => 'post', 'url' => array( 'controller' => $this->request->params['controller'], 'action' => $this->request->action ), 'id' => $searchFormId, 'novalidate' => true ) );
 
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 	echo $this->Default3->subform(
 		$this->Translator->normalize(
 			array_merge(
@@ -31,7 +31,7 @@
 					'Search.Structurereferente.typeorient_id' => array( 'empty' => true, 'required' => false ),
 				),
 				(
-					( 93 === $departement )
+					( 93 == $departement )
 					? array( 'Search.Structurereferente.communautesr_id' => array( 'empty' => true, 'required' => false ) )
 					: array()
 				),
@@ -81,7 +81,7 @@
 <?php
 	echo $this->Form->end();
 
-	if ($departement === 93) {
+	if ($departement == 93) {
 		echo $this->Observer->disableFieldsOnValue(
 			'Search.Structurereferente.communautesr_id',
 			'Search.Structurereferente.typeorient_id',

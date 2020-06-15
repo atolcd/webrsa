@@ -332,7 +332,7 @@
 		 * @return array
 		 */
 		public function completeSearchConditionsReferentParcours( array $query, array $search = array() ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			// Condition sur le référent du parcours
 			$referent_id = suffix( Hash::get( $search, 'PersonneReferent.referent_id' ) );
@@ -348,7 +348,7 @@
 
 			// Condition sur le projet insertion emploi territorial du référent du parcours
 			$communautesr_id = suffix( Hash::get( $search, 'PersonneReferent.communautesr_id' ) );
-			if( 93 === $departement && !empty( $communautesr_id ) ) {
+			if( 93 == $departement && !empty( $communautesr_id ) ) {
 				$sql = $this->Referent->Structurereferente->Communautesr->sqStructuresreferentes( $communautesr_id );
 				$query['conditions'][] = array( "Referentparcours.structurereferente_id IN ({$sql})" );
 			}

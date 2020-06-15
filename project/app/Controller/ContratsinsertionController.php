@@ -410,7 +410,7 @@
 		 * @param integer $personne_id L'id technique de la personne.
 		 */
 		public function index($personne_id = null) {
-			$departement = (int)Configure::read('Cg.departement');
+			$departement = Configure::read('Cg.departement');
 			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu(array('personne_id' => $personne_id));
 			$this->_setEntriesAncienDossier($personne_id, 'Contratinsertion');
 

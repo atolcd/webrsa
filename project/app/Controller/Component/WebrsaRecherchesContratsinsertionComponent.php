@@ -50,8 +50,8 @@
 		 * @return array
 		 */
 		public function checkConfiguredFields( array $params = array(), array $search = array() ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
-			if( $departement === 93 ) {
+			$departement = Configure::read( 'Cg.departement' );
+			if( $departement == 93 ) {
 				$search = array(
 					'Expprocer93' => array(
 						'cer93_id' => 1
@@ -76,7 +76,7 @@
 		 */
 		protected function _optionsEnums( array $params = array() ) {
 			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$exists = array( '1' => 'Oui', '0' => 'Non' );
 
@@ -90,10 +90,10 @@
 				)
 			);
 
-			if( $departement === 58 ) {
+			if( $departement == 58 ) {
 				$options['Personne']['etat_dossier_orientation'] = $Controller->Contratinsertion->Personne->enum( 'etat_dossier_orientation' );
 			}
-			else if( $departement === 93 ) {
+			else if( $departement == 93 ) {
 				$options = Hash::merge(
 					$options,
 					$Controller->Contratinsertion->Cer93->enums()
@@ -111,11 +111,11 @@
 		 */
 		protected function _optionsRecords( array $params = array() ) {
 			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$options = parent::_optionsRecords( $params );
 
-			if( $departement === 93 ) {
+			if( $departement == 93 ) {
 				$Controller->loadModel( 'Catalogueromev3' );
 
 				$options = Hash::merge(
@@ -157,7 +157,7 @@
 		 */
 		protected function _optionsSession( array $params ) {
 			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$options = Hash::merge(
 				parent::_optionsSession( $params ),
@@ -168,7 +168,7 @@
 				)
 			);
 
-			if( $departement === 66 ) {
+			if( $departement == 66 ) {
 				$options['Orientstruct']['not_typeorient_id'] = $Controller->InsertionsBeneficiaires->typesorients(
 					array(
 						'conditions' => $Controller->InsertionsBeneficiaires->conditions['typesorients'] + array( 'Typeorient.parentid IS NULL' ),
@@ -217,10 +217,10 @@
 		 * @return array
 		 */
 		protected function _optionsRecordsModels( array $params ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$result = parent::_optionsRecordsModels( $params );
 
-			if( $departement !== 93 ) {
+			if( $departement != 93 ) {
 				$result = array_merge(
 					$result,
 					array( 'Typeorient', 'Structurereferente', 'Referent' )

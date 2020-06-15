@@ -106,6 +106,18 @@
 		}
 
 		/*
+		 *  Écrit toutes les configurations liées à toutes les catégories passées en paramètre dans la configuration de l'application
+		 *  @param string $nomCategorie
+		 *
+		*/
+		public function setAllConfigurationsAllCategories() {
+			$categories = $this->ConfigurationCategorie->find('list', array('fields' => 'lib_categorie' ));
+			foreach ($categories as $categorie) {
+				$this->setAllConfigurations($categorie);
+			}
+		}
+
+		/*
 		 *  Appelle à écrire les configurations liées à la catégorie passée en paramètre dans la configuration de l'application
 		 *  @param string $nomCategorie
 		 *

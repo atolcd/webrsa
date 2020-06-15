@@ -372,13 +372,13 @@
 		 * @return array
 		 */
 		public function qdListeDossierChoose( $commissionep_id = null ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$query = $this->qdListeDossier( $commissionep_id );
 			$query += $this->queryDefaults;
 
 			$query['conditions']['Dossierep.actif'] = '1';
 
-			if( $departement === 66 ) {
+			if( $departement == 66 ) {
 				$query['conditions'][] = 'Dossierep.id NOT IN ('.
 					$this->Dossierep->Defautinsertionep66->sq(
 						array(

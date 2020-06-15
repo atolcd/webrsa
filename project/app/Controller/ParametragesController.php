@@ -55,9 +55,9 @@
 		 * @return array
 		 */
 		protected function _apres() {
-			$departement = (integer)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
-			if( 66 === $departement ) {
+			if( 66 == $departement ) {
 				$items = array(
 					__m('typesaidesapres66/index') => array(
 						'url' => array( 'controller' => 'typesaidesapres66', 'action' => 'index' )
@@ -73,7 +73,7 @@
 					)
 				);
 			}
-			else if( 93 === $departement ) {
+			else if( 93 == $departement ) {
 				$items = array(
 					__m('parametresfinanciers/index') => array(
 						'url' => array( 'controller' => 'parametresfinanciers', 'action' => 'index' )
@@ -105,16 +105,16 @@
 		 * @return array
 		 */
 		protected function _contratsinsertion() {
-			$departement = (integer)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
-			if( 66 === $departement ) {
+			if( 66 == $departement ) {
 				$items = array(
 					__m('motifscersnonvalids66/index') => array(
 						'url' => array( 'controller' => 'motifscersnonvalids66', 'action' => 'index' )
 					)
 				);
 			}
-			else if( 93 === $departement ) {
+			else if( 93 == $departement ) {
 				$items = array(
 					__m('commentairesnormescers93/index') => array(
 						'url' => array( 'controller' => 'commentairesnormescers93', 'action' => 'index' )
@@ -254,9 +254,9 @@
 		 * @return array
 		 */
 		protected function _cuis() {
-			$departement = (integer)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
-			if( 66 === $departement && true == Configure::read( 'Module.Cui.enabled' ) ) {
+			if( 66 == $departement && true == Configure::read( 'Module.Cui.enabled' ) ) {
 				$items = array(
 					__m('motifsrupturescuis66/index') => array(
 						'url' => array( 'controller' => 'motifsrupturescuis66', 'action' => 'index' )
@@ -338,7 +338,7 @@
 		 * @return array
 		 */
 		protected function _eps() {
-			$departement = (integer)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			if( true == in_array( $departement, array( 58, 66, 93 ), true ) ) {
 				$items = array(
@@ -349,15 +349,15 @@
 						'url' => array( 'controller' => 'regroupementseps', 'action' => 'index' )
 					),
 					__m('motifsreorientseps93/index') => array(
-						'disabled' => 93 !== $departement,
+						'disabled' => 93 != $departement,
 						'url' => array( 'controller' => 'motifsreorientseps93', 'action' => 'index' )
 					),
 					__m('compositionsregroupementseps/index') => array(
-						'disabled' => 66 !== $departement,
+						'disabled' => 66 != $departement,
 						'url' => array( 'controller' => 'compositionsregroupementseps', 'action' => 'index' )
 					),
 					__m('listesanctionseps58/index') => array(
-						'disabled' => 58 !== $departement,
+						'disabled' => 58 != $departement,
 						'url' => array( 'controller' => 'listesanctionseps58', 'action' => 'index' )
 					)
 				);
@@ -393,9 +393,9 @@
 		 * @return array
 		 */
 		protected function _actionscandidats_personnes() {
-			$departement = (integer)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
-			if( 66 === $departement ) {
+			if( 66 == $departement ) {
 				$items = array(
 					__m('partenaires/index') => array(
 						'url' => array( 'controller' => 'partenaires', 'action' => 'index' )
@@ -433,9 +433,9 @@
 		 * @return array
 		 */
 		protected function _fichedeliaisons() {
-			$departement = (integer)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
-			if( 66 === $departement ) {
+			if( 66 == $departement ) {
 				$items = array(
 					__m('motiffichedeliaisons/index') => array(
 						'url' => array( 'controller' => 'motiffichedeliaisons', 'action' => 'index' )
@@ -461,9 +461,9 @@
 		 * @return array
 		 */
 		protected function _fichesprescriptions93() {
-			$departement = (integer)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
-			if( 93 === $departement ) {
+			if( 93 == $departement ) {
 				$items = array(
 					__d( 'cataloguespdisfps93', '/Cataloguespdisfps93/search/:heading' ) => array(
 						'url' => array( 'controller' => 'cataloguespdisfps93', 'action' => 'search' )
@@ -488,9 +488,9 @@
 		 * @return array
 		 */
 		protected function _modulefse93() {
-			$departement = (integer)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
-			if( 93 === $departement ) {
+			if( 93 == $departement ) {
 				$items = array(
 					__d( 'sortiesaccompagnementsd2pdvs93', '/Sortiesaccompagnementsd2pdvs93/index/:heading' ) => array(
 						'url' => array( 'controller' => 'sortiesaccompagnementsd2pdvs93', 'action' => 'index' )
@@ -510,7 +510,7 @@
 		 * @return array
 		 */
 		protected function _pdos() {
-			$departement = (integer)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$items = array(
 				__m('decisionspdos/index')=> array(
@@ -523,7 +523,7 @@
 					'url' => array( 'controller' => 'originespdos', 'action' => 'index' )
 				),
 				__m('courrierPCG') => array(
-					'disabled' => ( 66 !== $departement ),
+					'disabled' => ( 66 != $departement ),
 					__m('typescourrierspcgs66/index') => array(
 						'url' => array( 'controller' => 'typescourrierspcgs66', 'action' => 'index' )
 					),
@@ -535,11 +535,11 @@
 					)
 				),
 				__m('orgstransmisdossierspcgs66/index') => array(
-					'disabled' => ( 66 !== $departement ),
+					'disabled' => ( 66 != $departement ),
 					'url' => array( 'controller' => 'orgstransmisdossierspcgs66', 'action' => 'index' )
 				),
 				__m('decisionPCG') => array(
-					'disabled' => ( 66 !== $departement ),
+					'disabled' => ( 66 != $departement ),
 					__m('composfoyerspcgs66/index') => array(
 						'url' => array( 'controller' => 'composfoyerspcgs66', 'action' => 'index' )
 					),
@@ -551,7 +551,7 @@
 					)
 				),
 				__m('polesdossierspcgs66/index') => array(
-					'disabled' => ( 66 !== $departement ),
+					'disabled' => ( 66 != $departement ),
 					'url' => array( 'controller' => 'polesdossierspcgs66', 'action' => 'index' )
 				),
 				__m('situationspdos/index') => array(
@@ -564,14 +564,14 @@
 					'url' => array( 'controller' => 'typesnotifspdos', 'action' => 'index' )
 				),
 				__m('traitementstypespdos/index') => array(
-					'disabled' => ( 66 === $departement ),
+					'disabled' => ( 66 == $departement ),
 					'url' => array( 'controller' => 'traitementstypespdos', 'action' => 'index' )
 				),
 				__m('typespdos/index') => array(
 					'url' => array( 'controller' => 'typespdos', 'action' => 'index' )
 				),
 				__m('typesrsapcgs66/index') => array(
-					'disabled' => ( 66 !== $departement ),
+					'disabled' => ( 66 != $departement ),
 					'url' => array( 'controller' => 'typesrsapcgs66', 'action' => 'index' )
 				),
 				__m('courrierspdos/index') => array(
@@ -591,7 +591,7 @@
 		 * @return array
 		 */
 		protected function _rendezvous() {
-			$departement = (integer)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$items = array(
 				__m('typesrdv/index') => array(
@@ -605,7 +605,7 @@
 					'url' => array( 'controller' => 'thematiquesrdvs', 'action' => 'index' )
 				),
 				__m('statutsrdvs_typesrdv/index') => array(
-					'disabled' => ( 58 !== $departement ),
+					'disabled' => ( 58 != $departement ),
 					'url' => array( 'controller' => 'statutsrdvs_typesrdv', 'action' => 'index' )
 				)
 			);
@@ -662,7 +662,7 @@
 		 * habilitations.
 		 */
 		public function index() {
-			$departement = (integer)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$items = array(
 				__m('acceuil') => array(
@@ -674,10 +674,10 @@
 					),
 				),
 				__m('actions/index') => array(
-					'disabled' => 66 === $departement,
+					'disabled' => 66 == $departement,
 					'url' => array( 'controller' => 'actions', 'action' => 'index' )
 				),
-				66 === $departement ? __m('APRE/ADRE') : __m('APRE') => $this->_apres(),
+				66 == $departement ? __m('APRE/ADRE') : __m('APRE') => $this->_apres(),
 				__m('cantons/index') => array(
 					'disabled' => false == Configure::read( 'CG.cantons' ),
 					'url' => array( 'controller' => 'cantons', 'action' => 'index' )
@@ -689,7 +689,7 @@
 				__m('CER') => $this->_contratsinsertion(),
 				__d( 'parametrages', '/Parametrages/cataloguesromesv3/:heading' ) => $this->_cataloguesromesv3(),
 				__d( 'communautessrs', '/Communautessrs/index/:heading' ) => array(
-					'disabled' => ( 93 !== $departement ),
+					'disabled' => ( 93 != $departement ),
 					'url' => array( 'controller' => 'communautessrs', 'action' => 'index' )
 				),
 				__m('Créances') => $this->_creances(),
@@ -708,7 +708,7 @@
 					'url' => array( 'controller' => 'referents', 'action' => 'index' )
 				),
 				__m('relances') => array(
-					'disabled' => 66 !== $departement,
+					'disabled' => 66 != $departement,
 					__m('relances/index') => array(
 						'url' => array( 'controller' => 'relances', 'action' => 'index' )
 					),
@@ -718,14 +718,14 @@
 				),
 				__m('rendezvous') => $this->_rendezvous(),
 				__m('services66/index') => array(
-					'disabled' => 66 !== $departement,
+					'disabled' => 66 != $departement,
 					'url' => array( 'controller' => 'services66', 'action' => 'index' )
 				),
 				__m('servicesinstructeurs/index') => array(
 					'url' => array( 'controller' => 'servicesinstructeurs', 'action' => 'index' )
 				),
 				__m('sitescovs58/index') => array(
-					'disabled' => ( 58 !== $departement ),
+					'disabled' => ( 58 != $departement ),
 					'url' => array( 'controller' => 'sitescovs58', 'action' => 'index' )
 				),
 				__m('drees') => array(
@@ -742,7 +742,7 @@
 				__m('dashboards') => $this->_dashboards(),
 				__m('tags') => $this->_tags(),
 				__m('typesactions/index') => array(
-					'disabled' => 66 === $departement,
+					'disabled' => 66 == $departement,
 					'url' => array( 'controller' => 'typesactions', 'action' => 'index' )
 				),
 				__m('typesorients/index') => array(

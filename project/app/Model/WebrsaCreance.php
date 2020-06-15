@@ -40,7 +40,7 @@
 		 * @return type
 		 */
 		public function completeVirtualFieldsForAccess(array $query = array(), array $params = array()) {
-			$departement = (integer)Configure::read('Cg.departement');
+			$departement = Configure::read('Cg.departement');
 			$modelDepartement = 'Creance'.$departement;
 			$fields = array();
 			$query['fields'] = array_merge(

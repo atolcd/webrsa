@@ -1,6 +1,6 @@
 <?php
 	// Conditions d'accès aux tags
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 	$user_type = $this->Session->read( 'Auth.User.type' );
 	$utilisateursAutorises = (array)Configure::read( 'acces.recherche.tag' );
 	$viewTag = false;

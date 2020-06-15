@@ -26,7 +26,7 @@
 		 */
 		protected function _optionsEnums( array $params ) {
 			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			if( isset( $Controller->Personne ) === false ) {
 				$Controller->loadModel( 'Personne' );
@@ -34,7 +34,7 @@
 
 			// Pré-orientation
 			$propo_algo = $Controller->Orientstruct->Typeorient->listOptionsPreorientationCohortes93();
-			if( $departement === 93 ) {
+			if( $departement == 93 ) {
 				$propo_algo['NOTNULL'] = 'Renseigné';
 				$propo_algo['NULL'] = 'Non renseigné';
 			}
@@ -68,7 +68,6 @@
 		 */
 		protected function _optionsRecords( array $params ) {
 			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
 
 			if( isset( $Controller->Personne ) === false ) {
 				$Controller->loadModel( 'Personne' );

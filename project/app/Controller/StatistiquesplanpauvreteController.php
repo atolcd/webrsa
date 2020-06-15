@@ -134,7 +134,7 @@
 		 */
 		public function beforeFilter() {
 			parent::beforeFilter();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$this->set( 'communautesr', $this->Communautesr->find( 'list' ) );
 
@@ -142,7 +142,7 @@
 			$this->Gestionzonesgeos->setCantonsIfConfigured();
 			$this->set( 'mesCodesInsee', $this->Gestionzonesgeos->listeCodesInsee() );
 
-			if( $departement === 58 ) {
+			if( $departement == 58 ) {
 				$this->set( 'sitescovs', $this->Gestionzonesgeos->listeSitescovs58() );
 			}
 		}

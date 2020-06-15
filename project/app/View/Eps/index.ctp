@@ -1,7 +1,7 @@
 <?php
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 
-	if( 93 === $departement ){
+	if( 93 == $departement ){
 		$cells = array(
 			'Ep.identifiant',
 			'Ep.adressemail',

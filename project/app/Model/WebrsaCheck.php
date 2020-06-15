@@ -89,7 +89,17 @@
 				'WebrsaRechercheNonorientationproep',
 				'WebrsaRechercheSelectionradie',
 				'WebrsaRechercheTraitementpcg66',
-			)
+			),
+			'99X' => array(
+				'WebrsaRechercheActioncandidatPersonne',
+				'WebrsaRechercheBilanparcours66',
+				'WebrsaRechercheCui',
+				'WebrsaRechercheDossierpcg66',
+				'WebrsaRechercheNoninscrit',
+				'WebrsaRechercheNonorientationproep', // INFO: au 93, c'est dans une cohorte
+				'WebrsaRechercheSelectionradie',
+				'WebrsaRechercheTraitementpcg66',
+			),
 		);
 
 		/**
@@ -326,6 +336,7 @@
 				'Orientation/proposition_orientation_vers_pole_emploi_prestadiagno.odt',
 			),
 			976 => array(),
+			'99X' => array(),
 		);
 
 		/**
@@ -375,8 +386,6 @@
 		 */
 		public function __construct( $id = false, $table = null, $ds = null ) {
 			parent::__construct( $id, $table, $ds );
-			$departement = (int)Configure::read( 'Cg.departement' );
-
 			$this->_includeConfigFiles( Configure::read( 'Cg.departement' ) );
 		}
 
@@ -454,7 +463,7 @@
 		 * @return array
 		 */
 		protected function _allConfigureKeysCommon() {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$result = array_merge(
 				array(
@@ -475,7 +484,7 @@
 					'AncienAllocataire.enabled' => 'boolean',
 					'CG.cantons' => 'boolean',
 					'Cg.departement' => array(
-						array( 'rule' => 'inList', array( 58, 66, 93, 976 ) ),
+						array( 'rule' => 'inList', array( 58, 66, 93, 976, '99X' ) ),
 					),
 					'Cohorte.dossierTmpPdfs' => 'string',
 					'Criterecer.delaiavanteecheance' => 'string',
@@ -530,12 +539,12 @@
 				),
 				array(
 					'nom_form_ci_cg' => array(
-						array( 'rule' => 'inList', array( 'cg58', 'cg66', 'cg93', 'cg976' ) ),
+						array( 'rule' => 'inList', array( 'cg58', 'cg66', 'cg93', 'cg976', 'cg99X' ) ),
 					),
 					'nom_form_pdo_cg' => array(
 						array(
 							'rule' => 'inList',
-							array( 'cg58', 'cg66', 'cg93', 'cg976' ),
+							array( 'cg58', 'cg66', 'cg93', 'cg976', 'cg99X' ),
 							'allowEmpty' => false === in_array( $departement, array( 66, 93 ), true )
 						),
 					),
@@ -605,7 +614,7 @@
 						array( 'rule' => 'boolean', 'allowEmpty' => true )
 					),
 					'MultiDomainsTranslator.prefix' => array(
-						array( 'rule' => 'inList', array( 'cg58', 'cg66', 'cg93', 'cg976' ) ),
+						array( 'rule' => 'inList', array( 'cg58', 'cg66', 'cg93', 'cg976', 'cg99x' ) ),
 					),
 					'Module.Synthesedroits.enabled' => array(
 						array( 'rule' => 'boolean', 'allowEmpty' => true )
@@ -676,7 +685,7 @@
 			}
 
 			// Pour tous les départements sauf le 976
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			if( $departement !== 976 ) {
 				// Pour les thématiques traitées, on cherche à savoir à quel niveau maximum
 				$Commissionep = ClassRegistry::init( 'Commissionep' );
@@ -722,7 +731,7 @@
 			}
 
 			// L'APRE n'est utilisée que par deux départements
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			if( in_array( $departement, array( 66, 93 ) ) ) {
 				$result = array_merge(
 					$result,
@@ -740,7 +749,7 @@
 				);
 			}
 
-			if ($departement === 66) {
+			if ($departement == 66) {
 				$result = array_merge(
 					$result,
 					array(
@@ -1510,13 +1519,13 @@
 		 * ...
 		 */
 		public function allCheckParametrage() {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$errors = array();
 
 			// @deprecated 3.0.00 (faire le tric moteurs de recherche / autres)
 			$ignore = Configure::read( 'ConfigurableQueryFields.ignore' );
 			$ignore[] = 'Dossier.locked';
-			if( (int)Configure::read( 'Cg.departement' ) === 93 ) {
+			if( Configure::read( 'Cg.departement' ) === 93 ) {
 				$ignore[] = 'Referent.horszone';
 			}
 			// TODO
@@ -1737,7 +1746,7 @@
 		 * @return array
 		 */
 		public function allConfigureTableauxConditions() {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$results = array();
 
 			foreach( App::objects( 'model' ) as $modelName ) {

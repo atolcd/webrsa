@@ -40,7 +40,7 @@
 		 * @return array
 		 */
 		public function searchQuery( array $types = array() ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$types += array(
 					'Creance' => 'INNER JOIN',
@@ -206,7 +206,7 @@
 			}
 
 			// Début des spécificités par département
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			// Recherche dossier PCG
 			$etat_dossierpcg66 = (string)Hash::get( $search, 'Dossierpcg66.has_dossierpcg66' );
@@ -218,7 +218,7 @@
 			}
 
 			// CD 66: Personne ne possédant pas d'orientation et sans entrée Nonoriente66
-			if( $departement === 66 ) {
+			if( $departement == 66 ) {
 				$exists = (string)Hash::get( $search, 'Personne.has_orientstruct' );
 				if( $exists === '0' ) {
 					$this->Dossier->Foyer->Personne->Behaviors->load('LinkedRecords');

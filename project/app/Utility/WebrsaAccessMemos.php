@@ -19,20 +19,20 @@
 	{
 		/**
 		 * Paramètres par défaut
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
 		public static function params(array $params = array()) {
 			return $params + array(
 				'alias' => 'Memo',
-				'departement' => (int)Configure::read('Cg.departement')
+				'departement' => Configure::read('Cg.departement')
 			);
 		}
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -44,7 +44,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -55,7 +55,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -63,10 +63,10 @@
 		protected static function _edit(array $record, array $params) {
 			return true;
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -74,10 +74,10 @@
 		protected static function _filelink(array $record, array $params) {
 			return true;
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -85,12 +85,12 @@
 		protected static function _delete(array $record, array $params) {
 			return true;
 		}
-		
+
 		/**
 		 * Liste les actions disponnible
 		 * Si une action pointe sur un autre controler, il faut préciser son nom
 		 * ex : Moncontroller.monaction
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
@@ -105,7 +105,7 @@
 					'delete',
 				)
 			);
-			
+
 			return $result;
 		}
 	}

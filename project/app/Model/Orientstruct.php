@@ -567,9 +567,9 @@
 
 			parent::__construct( $id, $table, $ds );
 
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
-			if( $departement === 66 ) {
+			if( $departement == 66 ) {
 				$this->validate['structureorientante_id']['notEmptyIf'] = array(
 					'rule' => array( 'notEmptyIf', 'statut_orient', true, array( 'Orienté' ) ),
 					'message' => 'Veuillez choisir une structure orientante'
@@ -585,7 +585,7 @@
 					'message' => 'Le référent n\'appartient pas à la structure référente'
 				);
 			}
-			else if( $departement === 976 ) {
+			else if( $departement == 976 ) {
 				$this->validate['typeorient_id']['notEmptyIf'] = array(
 					'rule' => array( 'notEmptyIf', 'statut_orient', true, array( 'Orienté', 'En attente', '' ) ),
 					'message' => 'Champ obligatoire',

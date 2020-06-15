@@ -182,7 +182,7 @@
 
 			// CD 66: Pôle PCG actuel et anciens pôles PCG liés à l'utilisateur
 			$departement = Configure::read( 'Cg.departement' );
-			if( 66 === $departement ) {
+			if( 66 == $departement ) {
 				// Pôle actuel lié au gestionnaire
 				$poledossierpcg66_id = (string) Hash::get( $search, 'User.poledossierpcg66_id' );
 				if( '' !== $poledossierpcg66_id ) {
@@ -328,7 +328,7 @@
 		 * @return array
 		 */
 		public function storedDataErrors() {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$conditionsErrors = array(
 				'identification' => array(
@@ -363,7 +363,7 @@
 			);
 
 
-			if( 66 === $departement ) {
+			if( 66 == $departement ) {
 				$conditionsErrors['poledossierpcg66'] = array(
 					'User.isgestionnaire' => 'N',
 					'User.poledossierpcg66_id IS NOT NULL'

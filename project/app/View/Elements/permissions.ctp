@@ -365,9 +365,11 @@
 		$('<?php echo $parentId;?>').observe( 'change', function(event) {
 			var elmt = event.findElement(),
 				url = '<?php echo Router::url(array('controller' => $this->request->params['controller'], 'action' => 'ajax_get_permissions_light') );?>/'+$F(elmt);
-
+				console.log(url);
 			$('loading-wait').show();
+			console.log('apres show');
 			setTimeout(function(){
+				console.log('dans setTimeout');
 				new Ajax.Request(
 					url,
 					{

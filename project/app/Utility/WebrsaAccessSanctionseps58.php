@@ -19,28 +19,28 @@
 	{
 		/**
 		 * Paramètres par défaut
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
 		public static function params(array $params = array()) {
 			return $params + array(
 				'alias' => 'Sanctionep58',
-				'departement' => (int)Configure::read( 'Cg.departement' ),
+				'departement' => Configure::read( 'Cg.departement' ),
 				'ajoutPossible' => true
 			);
 		}
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
 		 */
 		protected static function _nonrespectcer(array $record, array $params) {
 			$params = self::params($params);
-			
+
 			$dureeTolerance = Configure::read('Sanctionep58.nonrespectcer.dureeTolerance');
 			$enCours = strtotime(Hash::get($record, 'Contratinsertion.dd_ci')) <= time()
 				&& strtotime(Hash::get($record, 'Contratinsertion.df_ci')) + ($dureeTolerance * 24 * 60 * 60) >= time()
@@ -51,10 +51,10 @@
 				&& !Hash::get($params, 'erreursCandidatePassage')
 			;
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -62,12 +62,12 @@
 		protected static function _deleteNonrespectcer(array $record, array $params) {
 			return !Hash::get($record, 'Passagecommissionep.etatdossierep');
 		}
-		
+
 		/**
 		 * Liste les actions disponnible
 		 * Si une action pointe sur un autre controler, il faut préciser son nom
 		 * ex : Moncontroller.monaction
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
@@ -76,11 +76,11 @@
 				'nonrespectcer' => array('haveSanctionep' => true, 'erreursCandidatePassage' => true),
 				'deleteNonrespectcer'
 			));
-			
-			if ($params['departement'] !== 58) {
+
+			if ($params['departement'] != 58) {
 				$result = array();
 			}
-			
+
 			return $result;
 		}
 	}

@@ -139,7 +139,7 @@
 		 * @param integer $id
 		 */
 		public function edit( $id = null ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			if ( !empty( $this->request->data ) ) {
 				// Retour à la liste en cas d'annulation
@@ -152,7 +152,7 @@
 				$this->Ep->create( $this->request->data );
 				$success = $this->Ep->save( null, array( 'atomic' => false ) );
 
-				if ( 66 === $departement && false === empty( $this->request->data['Ep']['regroupementep_id'] ) ) {
+				if ( 66 == $departement && false === empty( $this->request->data['Ep']['regroupementep_id'] ) ) {
 					$compositionValide = $this->Ep->Regroupementep->Compositionregroupementep->compositionValide( $this->request->data['Ep']['regroupementep_id'], $this->request->data['Membreep']['Membreep'] );
 					$success = $compositionValide['check'] && $success;
 					if ( false === $compositionValide['check'] && isset( $compositionValide['error'] ) && !empty( $compositionValide['error'] ) ) {

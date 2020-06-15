@@ -1,12 +1,12 @@
 <?php
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 
 	$fields = array(
 		'Typepdo.id',
 		'Typepdo.libelle'
 	);
 
-	if( 66 === $departement ) {
+	if( 66 == $departement ) {
 		$fields = array_merge(
 			$fields,
 			array(

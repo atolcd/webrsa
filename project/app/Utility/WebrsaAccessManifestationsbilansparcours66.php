@@ -19,21 +19,21 @@
 	{
 		/**
 		 * Paramètres par défaut
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
 		public static function params(array $params = array()) {
 			return $params + array(
 				'alias' => 'Manifestationbilanparcours66',
-				'departement' => (int)Configure::read( 'Cg.departement' ),
+				'departement' => Configure::read( 'Cg.departement' ),
 				'ajoutPossible' => true
 			);
 		}
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -45,12 +45,12 @@
 				&& !empty($record['Defautinsertionep66']['dateimpressionconvoc'])
 			;
 		}
-		
+
 		/**
 		 * Liste les actions disponnible
 		 * Si une action pointe sur un autre controler, il faut préciser son nom
 		 * ex : Moncontroller.monaction
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
@@ -58,11 +58,11 @@
 			$result = self::normalize_actions(array(
 				'index' => array(),
 			));
-			
-			if ($params['departement'] !== 66) {
+
+			if ($params['departement'] != 66) {
 				$result = array();
 			}
-			
+
 			return $result;
 		}
 	}

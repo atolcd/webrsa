@@ -1,5 +1,5 @@
 <?php
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 	$user_type = $this->Session->read( 'Auth.User.type' );
 
 	// "Pagination" un peu spéciale: on veut simplement le nombre de résultats, pas passer de page en page

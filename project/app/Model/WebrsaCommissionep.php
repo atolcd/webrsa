@@ -2048,8 +2048,8 @@
 				}
 			}
 
-			$departement = (int)Configure::read( 'Cg.departement' );
-			if( $departement === 66 ) {
+			$departement = Configure::read( 'Cg.departement' );
+			if( $departement == 66 ) {
 				$key = 'Commissionseps.printOrdresDuJour.order';
 				$sql = $this->Commissionep->Passagecommissionep->Dossierep->sq( $this->queryPdfOrdredujour(array('Commissionep' => array('id' => 0))) );
 				$check = $this->Commissionep->getDataSource()->checkPostgresSqlSyntax( $sql );

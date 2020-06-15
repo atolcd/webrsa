@@ -1,9 +1,9 @@
 <?php
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 	$user_type = $this->Session->read( 'Auth.User.type' );
 
 	$actions = array();
-	if( $departement == 66 ) {
+	if( $departement == 66 || $departement == '99X'  ) {
 		if( $this->Permissions->check( 'ajoutdossierscomplets', 'add' ) ) {
 			$actions['/Ajoutdossierscomplets/add'] = array( 'class' => 'add', 'domain' => 'dossiers' );
 		}

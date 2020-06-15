@@ -1,5 +1,5 @@
 <?php
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 	$paramDate = array(
 		'minYear_from' => '2009',
 		'maxYear_from' => date( 'Y' ) + 1,
@@ -31,7 +31,7 @@
 <?php
 	echo '<fieldset><legend>' . __m( 'Apre.search' ) . '</legend>'
 		. (
-			$departement === 93 && $this->request->action === 'search'
+			$departement == 93 && $this->request->action === 'search'
 			? $this->Default3->subform(
 				array(
 					'Search.Apre.statutapre',
@@ -42,15 +42,15 @@
 			: ''
 		)
 	;
-	
+
 	$datedemandeParams = array('legend' => __m('Search.Apre.datedemandeapre'));
-	if ($departement === 66) {
+	if ($departement == 66) {
 		echo $this->SearchForm->dateRange('Search.Aideapre66.datedemande', $paramDate + $datedemandeParams);
 	} else {
 		echo $this->SearchForm->dateRange('Search.Apre.datedemandeapre', $paramDate + $datedemandeParams);
 	}
 
-	if ( $departement === 66 ) {
+	if ( $departement == 66 ) {
 			echo $this->Default3->subform(
 				array(
 					'Search.Apre.isapre' => array('empty' => true),
@@ -76,7 +76,7 @@
 			)
 		;
 	}
-	else if ( $departement === 93 ) { // FIXME: en fait, tout le monde (?), mais pas dans la même vue
+	else if ( $departement == 93 ) { // FIXME: en fait, tout le monde (?), mais pas dans la même vue
 		echo $this->Default3->subform(
 			array_merge(
 				(
@@ -94,7 +94,7 @@
 			),
 			array( 'options' => array( 'Search' => $options ) )
 		);
-		
+
 		echo '</fieldset>';
 
 		echo '<fieldset><legend>' . __m( 'Search.Relanceapre' ) . '</legend>'
@@ -107,7 +107,7 @@
 			)
 		;
 	}
-	
+
 	echo '</fieldset>';
 ?>
 <?php $this->end();?>
@@ -130,7 +130,7 @@
 	);
 
 	$dependantSelects = array( 'Search.Apre.structurereferente_id' => 'Search.Apre.referent_id' );
-	if( $departement === 66 ) {
+	if( $departement == 66 ) {
 		$dependantSelects['Search.Aideapre66.themeapre66_id'] = 'Search.Aideapre66.typeaideapre66_id';
 	}
 	echo $this->Observer->dependantSelect( $dependantSelects );

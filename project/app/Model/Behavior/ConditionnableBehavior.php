@@ -787,10 +787,10 @@
 		 * @return array
 		 */
 		public function conditionCommunautesr( Model $model, array $conditions, array $search, array $paths ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$Communautesr = ClassRegistry::init( 'Communautesr' );
 
-			if( 93 === $departement && !empty( $paths ) ) {
+			if( 93 == $departement && !empty( $paths ) ) {
 				foreach( $paths as $filterPath => $conditionPath ) {
 					$communautesr_id = suffix( Hash::get( $search, $filterPath ) );
 

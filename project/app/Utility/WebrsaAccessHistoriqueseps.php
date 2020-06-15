@@ -19,20 +19,20 @@
 	{
 		/**
 		 * Paramètres par défaut
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
 		public static function params(array $params = array()) {
 			return $params + array(
 				'alias' => 'Passagecommissionep',
-				'departement' => (int)Configure::read('Cg.departement'),
+				'departement' => Configure::read('Cg.departement'),
 			);
 		}
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -40,12 +40,12 @@
 		protected static function _view_passage(array $record, array $params) {
 			return true;
 		}
-		
+
 		/**
 		 * Liste les actions disponnible
 		 * Si une action pointe sur un autre controler, il faut préciser son nom
 		 * ex : Moncontroller.monaction
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
@@ -56,9 +56,9 @@
 					'view_passage',
 				)
 			);
-			
+
 			switch ($params['departement']) {
-				case 58: 
+				case 58:
 					$result = self::merge_actions(
 						$result, array(
 							'Commissionseps.decisionep',
@@ -72,7 +72,7 @@
 						)
 					);
 			}
-			
+
 			return $result;
 		}
 	}

@@ -40,7 +40,7 @@
 		 * @return type
 		 */
 		public function completeVirtualFieldsForAccess(array $query = array(), array $params = array()) {
-			$departement = (integer)Configure::read('Cg.departement');
+			$departement = Configure::read('Cg.departement');
 			$modelDepartement = 'Cui'.$departement;
 			$fields = array(
 
@@ -56,7 +56,7 @@
 
 				$fields[] = $modelDepartement.'.cui_id';
 
-				if ($departement === 66) {
+				if ($departement == 66) {
 					$fields[] = 'Cui66.etatdossiercui66';
 				}
 			}
@@ -268,7 +268,7 @@
 		 * @return array
 		 */
 		public function queryIndex($personne_id){
-			switch ((int)Configure::read('Cg.departement')) {
+			switch (Configure::read('Cg.departement')) {
 				case 66: $query = $this->Cui->Cui66->WebrsaCui66->queryIndex($personne_id); break;
 				default: $query = array(
 					'fields' => array_merge(
@@ -327,7 +327,7 @@
 		 * @return array
 		 */
 		public function options($user_id = null) {
-			switch ((int)Configure::read('Cg.departement')) {
+			switch (Configure::read('Cg.departement')) {
 				case 66: $options = $this->Cui->Cui66->WebrsaCui66->options(); break;
 				default:
 					$options = Hash::merge(
@@ -390,7 +390,7 @@
 		 * @return boolean
 		 */
 		public function saveAddEdit( array $data, $user_id = null ) {
-			switch ((int)Configure::read('Cg.departement')) {
+			switch (Configure::read('Cg.departement')) {
 				case 66: $success = $this->Cui->Cui66->WebrsaCui66->saveAddEdit($data, $user_id); break;
 				default:
 					$success = true;
@@ -448,7 +448,7 @@
 		 * @return boolean
 		 */
 		public function updatePositionsCuisByConditions( array $conditions ) {
-			switch ((int)Configure::read('Cg.departement')) {
+			switch (Configure::read('Cg.departement')) {
 				case 66: $success = $this->Cui->Cui66->WebrsaCui66->updatePositionsCuisByConditions($conditions); break;
 				default: $success = true;
 			}
@@ -464,7 +464,7 @@
 		 * @return boolean
 		 */
 		public function updatePositionsCuisByPosition( $position ) {
-			switch ((int)Configure::read('Cg.departement')) {
+			switch (Configure::read('Cg.departement')) {
 				case 66: $success = $this->Cui->Cui66->WebrsaCui66->updatePositionsCuisByPosition($position); break;
 				default: $success = true;
 			}
@@ -496,7 +496,7 @@
 		 * @return array
 		 */
 		public function prepareFormDataAddEdit( $personne_id, $id = null ) {
-			switch ((int)Configure::read('Cg.departement')) {
+			switch (Configure::read('Cg.departement')) {
 				case 66: $result = $this->Cui->Cui66->WebrsaCui66->prepareFormDataAddEdit($personne_id, $id); break;
 				default:
 					// Ajout
@@ -600,7 +600,7 @@
 		 * @return array
 		 */
 		public function queryView( $id = null ){
-			switch ((int)Configure::read('Cg.departement')) {
+			switch (Configure::read('Cg.departement')) {
 				case 66: $query = $this->Cui->Cui66->WebrsaCui66->queryView($id); break;
 				default:
 					$query = array(

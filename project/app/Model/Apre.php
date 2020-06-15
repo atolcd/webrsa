@@ -338,7 +338,7 @@
 			$departement = Configure::read( 'Cg.departement' );
 			// Seulement pour le CG 93, lorsque l'on n'est pas en train d'importer des fixtures
 			// TODO: mise en cache ?
-			if( !( unittesting() && $this->useDbConfig === 'default' ) && $departement === 93 ) {
+			if( !( unittesting() && $this->useDbConfig === 'default' ) && $departement == 93 ) {
 				$this->virtualFields['natureaide'] = $this->WebrsaApre->vfListeAidesLiees93( null );
 			}
 		}
@@ -425,9 +425,9 @@
 
 		public function enums() {
 			$options = parent::enums();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
-			if( $departement === 93 ) {
+			if( $departement == 93 ) {
 				$options[$this->alias]['natureaide'] = $this->Option->natureAidesApres();
 			}
 

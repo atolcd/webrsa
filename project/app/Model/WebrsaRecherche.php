@@ -874,7 +874,7 @@
 				$this->_cache = array();
 				$this->_includeConfigFiles();
 
-				$currentDepartement = (int)Configure::read( 'Cg.departement' );
+				$currentDepartement = Configure::read( 'Cg.departement' );
 
 					foreach( $this->searches as $key => $config ) {
 					$departement = Hash::get( $config, 'departement' );
@@ -992,7 +992,7 @@
 		 * 	null pour les fonctions vides.
 		 */
 		public function prechargement() {
-			$currentDepartement = (int)Configure::read( 'Cg.departement' );
+			$currentDepartement = Configure::read( 'Cg.departement' );
 			$this->_includeConfigFiles();
 
 			foreach( $this->searches as $key => $config ) {
@@ -1049,7 +1049,7 @@
 		 */
 		public function modelsDepartement() {
 			if( $this->_modelsDepartementCache === array() ) {
-				$departement = (int)Configure::read( 'Cg.departement' );
+				$departement = Configure::read( 'Cg.departement' );
 				$result = array();
 
 				foreach( $this->searches as $path => $config ) {

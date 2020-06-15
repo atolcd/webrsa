@@ -1,6 +1,6 @@
 <?php $this->start( 'custom_search_filters' );?>
 <?php
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 	$controller = $this->params->controller;
 	$action = $this->action;
 	$formId = ucfirst($controller) . ucfirst($action) . 'Form';
@@ -72,7 +72,7 @@
 					'Search.Contratinsertion.referent_id' => array( 'empty' => true ),
 				),
 				(
-					$departement === 66
+					$departement == 66
 					? array(
 						'Search.Dernierreferent.recherche' => array('name' => false, 'before' => '<hr>'),
 						'Search.Dernierreferent.dernierreferent_id' => array('empty' => true, 'after' => '<hr>'),
@@ -80,7 +80,7 @@
 					: array()
 				),
 				(
-					$departement === 93
+					$departement == 93
 					? array(
 						'Search.Cer93.positioncer' => array( 'empty' => true, 'required' => false ),
 					)
@@ -89,7 +89,7 @@
 					)
 				),
 				(
-					$departement === 66
+					$departement == 66
 					? array(
 						'Search.Contratinsertion.positioncer' => array( 'empty' => true ),
 						'Search.Contratinsertion.num_contrat_66' => array( 'empty' => true ),
@@ -103,7 +103,7 @@
 			array( 'options' => array( 'Search' => $options ), 'domain' => $domain )
 		);
 
-		if( $departement === 93 ) {
+		if( $departement == 93 ) {
 			// 1. Partie "Expériences professionnelles significatives"
 			echo $this->Html->tag(
 				'fieldset',
@@ -188,7 +188,7 @@
 					),
 				),
 				(
-					$departement === 66
+					$departement == 66
 					? array(
 						'Search.Contratinsertion.istacitereconductionNotNull' => array( 'type' => 'checkbox' ),
 						'Search.Contratinsertion.istacitereconduction' => array( 'type' => 'checkbox' )
@@ -205,7 +205,7 @@
 		. $this->Default3->subform(
 			array_merge(
 				(
-					$departement === 58
+					$departement == 58
 					? array(
 						'Search.Personne.etat_dossier_orientation' => array( 'type' => 'select', 'empty' => true ),
 					)
@@ -215,7 +215,7 @@
 					'Search.Orientstruct.typeorient_id' => array( 'type' => 'select', 'empty' => true ),
 				),
 				(
-					$departement === 66
+					$departement == 66
 					? array(
 						'Search.Orientstruct.not_typeorient_id' => array( 'type' => 'select', 'multiple' => 'checkbox' ),
 					)
@@ -239,7 +239,7 @@
 	);
 ?>
 <?php
-	if( $departement === 93 ) {
+	if( $departement == 93 ) {
 		echo $this->Observer->dependantSelect(
 			array(
 				'Search.Cer93Sujetcer93.sujetcer93_id' => 'Search.Cer93Sujetcer93.soussujetcer93_id',

@@ -308,19 +308,19 @@
 		 * @return array
 		 */
 		protected function _getIndexActionsList(array $records, array $params = array()) {
-			$departement = (int)Configure::read('Cg.departement');
+			$departement = Configure::read('Cg.departement');
 
 			$msgid = null;
-			if ($departement === 93 && $params['rgorient_max'] >= 1) {
+			if ($departement == 93 && $params['rgorient_max'] >= 1) {
 				$url = "/Reorientationseps93/add/{$records[0]['Orientstruct']['id']}";
 				$controller = 'reorientationseps93';
-			} elseif ($departement === 58) {
+			} elseif ($departement == 58) {
 				$url = "/Proposorientationscovs58/add/{$params['personne_id']}";
 				$controller = 'proposorientationscovs58';
 			} else {
 				$url = "/Orientsstructs/add/{$params['personne_id']}";
 				$controller = 'orientsstructs';
-				$msgid = $departement === 93 ? 'Demander une réorientation' : 'Ajouter';
+				$msgid = $departement == 93 ? 'Demander une réorientation' : 'Ajouter';
 			}
 
 			$actions[$url] = array(
@@ -344,7 +344,7 @@
 
 			$this->_setEntriesAncienDossier( $personne_id, 'Orientstruct' );
 			//------------------------------------------------------------------
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$rgorient_max = $this->Orientstruct->WebrsaOrientstruct->rgorientMax( $personne_id );
 
@@ -370,7 +370,7 @@
 			);
 			$this->set( compact( 'dossierseps' ) );
 
-			if( $departement !== 58 ) {
+			if( $departement != 58 ) {
 				$reorientationscovs = array();
 			}
 			else {
@@ -481,7 +481,7 @@
 			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) );
 			$this->set( compact( 'dossierMenu' ) );
 
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$this->Jetons2->get( Hash::get( $dossierMenu, 'Dossier.id' ) );
 

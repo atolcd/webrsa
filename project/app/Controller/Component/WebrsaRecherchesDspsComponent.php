@@ -66,8 +66,8 @@
 				 array( 'Familleromev3', 'Domaineromev3', 'Metierromev3', 'Appellationromev3' )
 			);
 
-			$departement = (int)Configure::read( 'Cg.departement' );
-			if( $departement === 66 ) {
+			$departement = Configure::read( 'Cg.departement' );
+			if( $departement == 66 ) {
 				$result = array_merge(
 					$result,
 					array( 'Libderact66Metier', 'Libsecactderact66Secteur' )

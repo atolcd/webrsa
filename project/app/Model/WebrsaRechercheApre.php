@@ -56,8 +56,8 @@
 		public function __construct( $id = false, $table = null, $ds = null ) {
 			parent::__construct( $id, $table, $ds );
 
-			$departement = (int)Configure::read( 'Cg.departement' );
-			if( $departement === 66 ) {
+			$departement = Configure::read( 'Cg.departement' );
+			if( $departement == 66 ) {
 				$this->Apre = ClassRegistry::init( 'Apre66' );
 				$this->Apre->alias = 'Apre';
 			}
@@ -74,20 +74,20 @@
 		 * @return array
 		 */
 		public function searchQuery( array $types = array() ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$types += array(
 				'Calculdroitrsa' => ( in_array($departement, array(93, 66)) ? 'LEFT OUTER' : 'INNER' ),
 				'Foyer' => 'INNER',
-				'Prestation' => ( $departement === 66 ? 'INNER' : 'LEFT OUTER' ),
-				'Adressefoyer' => ( $departement === 66 ? 'INNER' : 'LEFT OUTER' ),
+				'Prestation' => ( $departement == 66 ? 'INNER' : 'LEFT OUTER' ),
+				'Adressefoyer' => ( $departement == 66 ? 'INNER' : 'LEFT OUTER' ),
 				'Dossier' => 'INNER',
-				'Adresse' => ( $departement === 66 ? 'INNER' : 'LEFT OUTER' ),
+				'Adresse' => ( $departement == 66 ? 'INNER' : 'LEFT OUTER' ),
 				'Situationdossierrsa' => 'LEFT OUTER',
 				'Detaildroitrsa' => 'LEFT OUTER',
 				'PersonneReferent' => 'LEFT OUTER',
 				'Personne' => 'INNER',
-				'Structurereferente' => ( $departement === 66 ? 'INNER' : 'LEFT OUTER' ),
-				'Referent' => ( $departement === 66 ? 'INNER' : 'LEFT OUTER' ),
+				'Structurereferente' => ( $departement == 66 ? 'INNER' : 'LEFT OUTER' ),
+				'Referent' => ( $departement == 66 ? 'INNER' : 'LEFT OUTER' ),
 				'Referentparcours' => 'LEFT OUTER',
 				'Structurereferenteparcours' => 'LEFT OUTER',
 				$this->Apre->name => 'LEFT OUTER',
@@ -131,7 +131,7 @@
 				);
 
 				// 3. Ajout de champs et de jointures spécifiques au CG 66
-				if( $departement === 66 ) {
+				if( $departement == 66 ) {
 					$query['fields'] = array_merge(
 						$query['fields'],
 						ConfigurableQueryFields::getModelsFields(

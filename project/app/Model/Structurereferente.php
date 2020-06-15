@@ -702,12 +702,12 @@
 		 * @return array
 		 */
 		public function enums() {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$results = parent::enums();
 
 			$results[$this->alias]['type_voie'] = $this->Option->libtypevoie();
 
-			if( 58 === $departement ) {
+			if( 58 == $departement ) {
 				$results[$this->alias]['typestructure'] = array_merge(
 					$results[$this->alias]['typestructure'],
 					array(

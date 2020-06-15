@@ -130,7 +130,7 @@
 		 *
 		 */
 		protected function _setOptions() {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$options = array(
 				'Groups' => $this->User->Group->find( 'list' ),
@@ -212,7 +212,7 @@
 					)
 				);
 
-				if( 66 === $departement ) {
+				if( 66 == $departement ) {
 					$options['polesdossierspcgs66'] = $this->User->Poledossierpcg66->WebrsaPoledossierpcg66->polesdossierspcgs66( false );
 				}
 			}

@@ -44,8 +44,6 @@
 			$query = Cache::read( $cacheKey );
 
 			if( $query === false ) {
-				$departement = (int)Configure::read( 'Cg.departement' );
-
 				$types += array(
 					// INNER JOIN
 					'Foyer' => 'INNER',

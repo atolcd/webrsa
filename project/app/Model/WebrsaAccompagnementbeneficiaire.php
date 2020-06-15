@@ -1163,9 +1163,9 @@
 		 * 	null pour les fonctions vides.
 		 */
 		public function prechargement() {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
-			if( 93 === $departement ) {
+			if( 93 == $departement ) {
 				$success = true;
 
 				foreach( $this->prechargementMethods as $method ) {

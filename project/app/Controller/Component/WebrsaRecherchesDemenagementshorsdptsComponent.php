@@ -18,7 +18,7 @@
 	{
 		protected function _queryConditions( array $query, array $filters, array $params ) {
 			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			// On veut que les conditions sur les zones géographiques soit faites sur les rangs 02 et 03
 			$query = parent::_queryConditions(
@@ -45,7 +45,7 @@
 			}
 
 			// Conditions sur les dates d'emménagement pour les externes
-			if( $departement === 93 && ( strpos( $Controller->Session->read( 'Auth.User.type' ), 'externe_' ) === 0 ) ) {
+			if( $departement == 93 && ( strpos( $Controller->Session->read( 'Auth.User.type' ), 'externe_' ) === 0 ) ) {
 				$query['conditions'][] = array(
 					'OR' => array(
 						// L'allocataire a quitté le CG en rang 01 et l'adresse de rang 2 ...

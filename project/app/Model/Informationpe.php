@@ -452,7 +452,7 @@
 		 * @return array
 		 */
 		public function checkPostgresqlIntervals() {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			if( in_array( $departement, array( 58, 66 ) ) ) {
 				return $this->_checkPostgresqlIntervals(
 					array( 'Selectionnoninscritspe.intervalleDetection' )

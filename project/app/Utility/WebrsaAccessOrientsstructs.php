@@ -26,7 +26,7 @@
 		public static function params(array $params = array()) {
 			return $params + array(
 				'alias' => 'Orientstruct',
-				'departement' => (int)Configure::read('Cg.departement'),
+				'departement' => Configure::read('Cg.departement'),
 				'ajout_possible' => null,
 				'reorientationseps' => null
 			);
@@ -64,7 +64,7 @@
 				)
 				&& Hash::get($params, 'ajout_possible') == true;
 
-			if ($params['departement'] === 66) {
+			if ($params['departement'] == 66) {
 				// Délai de modification orientation (10 jours par défaut)
 				$date_valid = Hash::get($record, "{$params['alias']}.date_valid");
 				$nbheure = Configure::read('Periode.modifiableorientation.nbheure');
@@ -160,7 +160,7 @@
 				)
 			);
 
-			if ($params['departement'] === 66) {
+			if ($params['departement'] == 66) {
 				$result = self::merge_actions($result, array('impression_changement_referent'));
 			}
 

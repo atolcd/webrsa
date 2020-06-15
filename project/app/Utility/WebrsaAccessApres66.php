@@ -19,20 +19,20 @@
 	{
 		/**
 		 * Paramètres par défaut
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
 		public static function params(array $params = array()) {
 			return $params + array(
 				'alias' => 'Apre66',
-				'departement' => (int)Configure::read('Cg.departement')
+				'departement' => Configure::read('Cg.departement')
 			);
 		}
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -44,7 +44,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -55,7 +55,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -63,10 +63,10 @@
 		protected static function _edit(array $record, array $params) { //		ANNulé TRAité ou VALidé
 			return !in_array(Hash::get($record, 'Apre66.etatdossierapre'), array('ANN', 'TRA', 'VAL'));
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -74,10 +74,10 @@
 		protected static function _maillink(array $record, array $params) {
 			return Hash::get($record, 'Apre66.etatdossierapre') !== 'ANN';
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -85,10 +85,10 @@
 		protected static function _filelink(array $record, array $params) {
 			return true;
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -96,10 +96,10 @@
 		protected static function _cancel(array $record, array $params) {
 			return Hash::get($record, 'Apre66.etatdossierapre') !== 'ANN';
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -107,12 +107,12 @@
 		protected static function _impression(array $record, array $params) { // ANNulé ou INComplet
 			return !in_array(Hash::get($record, 'Apre66.etatdossierapre'), array('ANN', 'INC'));
 		}
-		
+
 		/**
 		 * Liste les actions disponnible
 		 * Si une action pointe sur un autre controler, il faut préciser son nom
 		 * ex : Moncontroller.monaction
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
@@ -129,11 +129,11 @@
 					'cancel',
 				)
 			);
-			
-			if ($params['departement'] !== 66) {
+
+			if ($params['departement'] != 66) {
 				$result = array();
 			}
-			
+
 			return $result;
 		}
 	}

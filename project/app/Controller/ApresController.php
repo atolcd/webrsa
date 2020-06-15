@@ -914,7 +914,7 @@
 
 			$this->helpers[] = 'Search.SearchForm';
 			$Recherches = $this->Components->load( 'WebrsaRecherchesApres' );
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$config = ClassRegistry::init( 'WebrsaRecherche' )->searches["{$this->name}.{$this->request->params['action']}"];
 			$Recherches->search( $config );
 
@@ -922,8 +922,7 @@
 			ClassRegistry::init('Aideapre66')->validate = array();
 
 			// Pour le CG 93, on veut aussi le nombre (total) d'APRE et leur statut "en attente de ..."
-			$departement = (int)Configure::read( 'Cg.departement' );
-			if( $departement === 93 && !empty( $this->request->params['named'] ) ) {
+			if( $departement == 93 && !empty( $this->request->params['named'] ) ) {
 				$this->loadModel( 'WebrsaRechercheApre' );
 
 				$query = $this->WebrsaRechercheApre->search( (array)Hash::get( $this->request->data, 'Search' ) );

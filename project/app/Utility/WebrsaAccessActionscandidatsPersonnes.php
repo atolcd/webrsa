@@ -19,20 +19,20 @@
 	{
 		/**
 		 * Paramètres par défaut
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
 		public static function params(array $params = array()) {
 			return $params + array(
 				'alias' => 'ActioncandidatPersonne',
-				'departement' => (int)Configure::read( 'Cg.departement' ),
+				'departement' => Configure::read( 'Cg.departement' ),
 			);
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -44,7 +44,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -55,7 +55,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -63,10 +63,10 @@
 		protected static function _edit(array $record, array $params) {
 			return Hash::get($record, 'ActioncandidatPersonne.positionfiche') !== 'annule';
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -74,10 +74,10 @@
 		protected static function _filelink(array $record, array $params) {
 			return true;
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -85,10 +85,10 @@
 		protected static function _cancel(array $record, array $params) {
 			return Hash::get($record, 'ActioncandidatPersonne.positionfiche') !== 'annule';
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -96,10 +96,10 @@
 		protected static function _printFiche(array $record, array $params) {
 			return Hash::get($record, 'ActioncandidatPersonne.positionfiche') !== 'annule';
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -107,12 +107,12 @@
 		protected static function _maillink(array $record, array $params) {
 			return Hash::get($record, 'ActioncandidatPersonne.positionfiche') !== 'annule';
 		}
-		
+
 		/**
 		 * Liste les actions disponnible
 		 * Si une action pointe sur un autre controler, il faut préciser son nom
 		 * ex : Moncontroller.monaction
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
@@ -128,9 +128,9 @@
 					'filelink',
 				)
 			);
-			
+
 			switch ($params['departement']) {
-				case 66: 
+				case 66:
 					$result = self::merge_actions(
 						$result, array(
 							'maillink',
@@ -138,7 +138,7 @@
 					);
 					break;
 			}
-			
+
 			return $result;
 		}
 	}

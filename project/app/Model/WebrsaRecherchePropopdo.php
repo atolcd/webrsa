@@ -75,8 +75,6 @@
 				$query = $this->Allocataire->searchQuery( $types, 'Propopdo' );
 
 				// Ajout des spécificités du moteur de recherche
-				$departement = (int)Configure::read( 'Cg.departement' );
-
 				$query['fields'] = array_merge(
 					array(
 						'Dossier.id',

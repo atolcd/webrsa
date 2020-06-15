@@ -72,7 +72,7 @@
 				$query = $Allocataire->searchQuery( $types, 'Entretien' );
 
 				// Ajout des spécificités du moteur de recherche
-				$departement = (int)Configure::read( 'Cg.departement' );
+				$departement = Configure::read( 'Cg.departement' );
 
 				$query['fields'] = array_merge(
 					array(
@@ -103,7 +103,7 @@
 					)
 				);
 
-				if( $departement === 66 ) {
+				if( $departement == 66 ) {
 					$query['fields'] = array_merge(
 						$query['fields'],
 						ConfigurableQueryFields::getModelsFields(

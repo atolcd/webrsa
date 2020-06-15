@@ -27,7 +27,7 @@
 		public static function params(array $params = array()) {
 			return $params + array(
 				'alias' => 'Email',
-				'departement' => (int)Configure::read( 'Cg.departement' ),
+				'departement' => Configure::read( 'Cg.departement' ),
 			);
 		}
 

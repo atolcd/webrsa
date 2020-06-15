@@ -32,7 +32,7 @@
 		 */
 		protected function _optionsEnums( array $params = array() ) {
 			$Controller = $this->_Collection->getController();
-			$cgDepartement = (int)Configure::read( 'Cg.departement' );
+			$cgDepartement = Configure::read( 'Cg.departement' );
 			$modelCuiDpt = 'Cui' . $cgDepartement;
 			$options = array();
 
@@ -57,7 +57,7 @@
 				}
 			}
 
-			if( 66 === $cgDepartement ) {
+			if( 66 == $cgDepartement ) {
 				$options['Propositioncui66']['avis'] = $Controller->Cui->Cui66->Propositioncui66->enum( 'avis' );
 			}
 

@@ -6,7 +6,7 @@
 
 	echo $this->Default3->titleForLayout( array(), array( 'msgid' => __m( '/Users/index/:heading' ) ) );
 
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 	$searchFormId = 'UserIndexForm';
 	$actions =  array(
 		'/Users/add' => array(
@@ -39,7 +39,7 @@
 					'Search.User.type' => array( 'options' => $options['User']['type'], 'empty' => true, 'required' => false )
 				),
 				(
-					( 93 === $departement )
+					( 93 == $departement )
 					? array(
 						'Search.User.communautesr_id' => array( 'options' => $options['communautessrs'], 'empty' => true, 'required' => false ),
 						'Search.User.structurereferente_id' => array( 'empty' => true, 'required' => false ),
@@ -47,7 +47,7 @@
 					: array()
 				),
 				(
-					( 66 === $departement )
+					( 66 == $departement )
 					? array(
 						'Search.User.poledossierpcg66_id' => array( 'options' => $options['polesdossierspcgs66'], 'empty' => true, 'required' => false ),
 						'Search.User.ancienpoledossierpcg66_id' => array( 'options' => $options['polesdossierspcgs66'], 'empty' => true, 'required' => false )
@@ -102,7 +102,7 @@
 		);
 	}
 
-	if( 93 === $departement ) {
+	if( 93 == $departement ) {
 		echo $this->Observer->disableFieldsOnValue(
 			'Search.User.communautesr_id',
 			array( 'Search.User.structurereferente_id', 'Search.User.referent_id' ),

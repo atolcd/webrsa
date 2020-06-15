@@ -1,17 +1,17 @@
 <?php
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 
 	$fields = array(
 		'Regroupementep.name'
 	);
 
-	if ( 93 !== $departement ) {
+	if ( 93 != $departement ) {
 		foreach( $options['Regroupementep']['themes'] as $theme ) {
 			$fields[] = "Regroupementep.{$theme}";
 		}
 	}
 
-	if ( 66 === $departement ) {
+	if ( 66 == $departement ) {
 		$fields[] = "Regroupementep.nbminmembre";
 		$fields[] = "Regroupementep.nbmaxmembre";
 	}

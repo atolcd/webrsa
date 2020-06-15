@@ -1,5 +1,5 @@
 <?php
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 
 	echo $this->Form->input( 'User.filtre_zone_geo', array( 'type' => 'hidden', 'value' => '', 'id' => false ) );
 	echo $this->Form->input( 'User.communautesr_id', array( 'type' => 'hidden', 'value' => '', 'id' => false ) );
@@ -15,7 +15,7 @@
 	<?php
 		echo $this->Form->input( 'User.numtel', array( 'label' =>  required( __( 'numtel' ) ), 'type' => 'text', 'maxlength' => 15 ) );
 
-if ($departement === 66) {
+if ($departement == 66) {
 	echo $this->Form->input('User.email', array('label' => __('email'), 'type' => 'text', 'maxlength' => 150));
 }
 
@@ -54,7 +54,7 @@ if ($departement === 66) {
 		echo $this->Form->input( 'User.serviceinstructeur_id', array( 'label' => required( 'Service instructeur' ), 'type' => 'select' , 'options' => $si, 'empty' => true ) );
 	?>
 </fieldset>
-<?php if( $departement === 93 ):?>
+<?php if( $departement == 93 ):?>
 <fieldset class="col2">
 	<legend>Type d'utilisateur</legend>
 	<?php
@@ -64,7 +64,7 @@ if ($departement === 66) {
 		echo $this->Form->input( 'User.referent_id', array( 'label' => 'Référent lié au chargé d\'insertion PIE', 'type' => 'select' , 'options' => $referents, 'empty' => true ) );
 	?>
 </fieldset>
-<?php elseif( $departement === 66 ):?>
+<?php elseif( $departement == 66 ):?>
 <fieldset class="col2">
 	<legend>Service de l'utilisateur</legend>
 	<?php echo $this->Form->input('User.service66_id',
@@ -91,7 +91,7 @@ if ($departement === 66) {
         echo $this->Xform->input( 'User.isgestionnaire', array( 'legend' => false, 'type' => 'radio', 'options' => $options['User']['isgestionnaire'] ) );
 		echo '</fieldset>';
 		echo $this->Xform->input( 'User.poledossierpcg66_id', array( 'type' => 'hidden', 'value' => '', 'id' => false ) );
-        if( 66 === $departement ) {
+        if( 66 == $departement ) {
 			echo $this->Xform->input( 'User.poledossierpcg66_id', array( 'label' => 'Pôle lié au gestionnaire', 'type' => 'select', 'options' => $polesdossierspcgs66, 'empty' => true ) );
         }
     ?>
@@ -104,7 +104,7 @@ if ($departement === 66) {
 	?>
 </fieldset>
 <?php
-	if( 66 === $departement ) {
+	if( 66 == $departement ) {
 		echo $this->Form->input('Ancienpoledossierpcg66.Ancienpoledossierpcg66', array( 'type' => 'hidden', 'value' => '', 'id' => false ) );
 		echo $this->Html->tag(
 			'fieldset',
@@ -133,7 +133,7 @@ if ($departement === 66) {
 		false
 	);
 
-	if( $departement === 93 ) {
+	if( $departement == 93 ) {
 		echo $this->Observer->disableFieldsetOnValue(
 			'User.type',
 			'filtres_zone_geo',
@@ -165,7 +165,7 @@ if ($departement === 66) {
 		array( 'externe_cpdvcom' ),
 		false
 	);
-	if( $departement === 66 ) {
+	if( $departement == 66 ) {
 		echo $this->Observer->disableFieldsOnRadioValue(
 			$formId,
 			'User.isgestionnaire',

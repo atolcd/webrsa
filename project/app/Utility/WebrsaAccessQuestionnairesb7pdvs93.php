@@ -26,7 +26,7 @@
 		public static function params(array $params = array()) {
 			return $params + array(
 				'alias' => 'Questionnaireb7pdv93',
-				'departement' => (int)Configure::read('Cg.departement')
+				'departement' => Configure::read('Cg.departement')
 			);
 		}
 

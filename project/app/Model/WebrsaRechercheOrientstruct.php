@@ -58,7 +58,7 @@
 		 * @return array
 		 */
 		public function searchQuery( array $types = array() ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$types += array(
 				'Calculdroitrsa' => 'INNER',
 				'Foyer' => 'INNER',
@@ -143,7 +143,7 @@
 				);
 
 				// 5. Pour le CG 58, ajout des champs et jointure sur Activite
-				if( $departement === 58 ) {
+				if( $departement == 58 ) {
 					// Dernière activité
 					$query['fields'] = array_merge(
 						$query['fields'],

@@ -750,7 +750,7 @@
 				'premier_oriente' => $this->Orientstruct->sqVirtualField('premier_oriente'),
 			);
 
-			if ((int)Configure::read('Cg.departement') === 66) {
+			if (Configure::read('Cg.departement') == 66) {
 				$sql = $this->Orientstruct->getDataSource()->conditions(
 					array('Typeorient.parentid' => (array)Configure::read('Orientstruct.typeorientprincipale.SOCIAL')), true, false
 				);
@@ -773,7 +773,7 @@
 				'contain' => false
 			);
 
-			if ((int)Configure::read('Cg.departement') === 66) {
+			if (Configure::read('Cg.departement') == 66) {
 				$query['joins'][] = $this->Orientstruct->join('Typeorient');
 			}
 
@@ -788,7 +788,7 @@
 		 * @return array
 		 */
 		public function rangOrientationIndexOptions(array $records) {
-			$departement = (int)Configure::read('Cg.departement');
+			$departement = Configure::read('Cg.departement');
 
 			foreach (array_keys($records) as $key) {
 				$rgorient =& $records[$key]['Orientstruct']['rgorient'];
@@ -844,9 +844,9 @@
 		 * @return string
 		 */
 		public function modeleOdt( $data ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
-			if( $departement === 66 ) {
+			if( $departement == 66 ) {
 				$typenotification = $data['Orientstruct']['typenotification'];
 
 				if( !empty( $typenotification ) && $typenotification == 'systematique' ) {
@@ -861,12 +861,12 @@
 			}
 			// Au CG 93, lorsqu'une orientation fait suite à un déménagement, il
 			// faut imprimer le courrier de transfert PDV
-			else if( $departement === 93 && Hash::get( $data, 'NvOrientstruct.origine' ) === 'demenagement' ) {
+			else if( $departement == 93 && Hash::get( $data, 'NvOrientstruct.origine' ) === 'demenagement' ) {
 				return $this->Orientstruct->Transfertpdv93->modeleOdt( $data );
 			}
 			// Au CD 93, si l'orientation est une orientation externe faite par un prestataire,
 			// if faut tenir compte de l'origine de l'orientation pour définir le fichier odt.
-			else if( $departement === 93 && preg_match('|^presta|', $data['Orientstruct']['origine'])) {
+			else if( $departement == 93 && preg_match('|^presta|', $data['Orientstruct']['origine'])) {
 				return "Orientation/{$data['Typeorient']['modele_notif']}_{$data['Orientstruct']['origine']}.odt";
 			}
 
@@ -880,13 +880,13 @@
 		 * @return array
 		 */
 		public function getDataForPdf( $id, $user_id = null ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			// Au CG 93, lorsqu'une orientation fait suite à un déménagement, il
 			// faut imprimer le courrier de transfert PDV
 			$isDemenagement = false;
 
-			if( $departement === 93 ) {
+			if( $departement == 93 ) {
 				$demenagement = $this->Orientstruct->find(
 					'first',
 					array(

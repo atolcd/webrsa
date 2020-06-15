@@ -53,7 +53,7 @@
 		 * @return array
 		 */
 		public function searchQuery( array $types = array() ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$types += array(
 				'Calculdroitrsa' => 'LEFT OUTER',
 				'Foyer' => 'INNER',
@@ -120,7 +120,7 @@
 				);
 
 				// 5. Ajout de champs et de jointures spécifiques au département connecté
-				if( $departement === 93 ) {
+				if( $departement == 93 ) {
 					$query['fields'] = array_merge(
 						$query['fields'],
 						ConfigurableQueryFields::getModelsFields(
@@ -148,7 +148,7 @@
 		 * @return array
 		 */
 		public function searchConditions( array $query, array $search ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$query = $this->Allocataire->searchConditions( $query, $search );
 
 			/**
@@ -252,7 +252,7 @@
 			// Filtre par durée du contrat, avec des subtilités pour les CG 58 et 93
 			$duree_engag = preg_replace( '/^[^0-9]*([0-9]+)[^0-9]*$/', '\1', Hash::get( $search, 'Contratinsertion.duree_engag' ) );
 			if( !empty( $duree_engag ) ) {
-				if( $departement !== 93 ) {
+				if( $departement != 93 ) {
 					$query['conditions']['Contratinsertion.duree_engag'] = $duree_engag;
 				}
 				else {
@@ -300,7 +300,7 @@
 			}
 
 			// Statut du contrat
-			if( $departement === 93 ) {
+			if( $departement == 93 ) {
 				$positioncer = Hash::get( $search, 'Cer93.positioncer' );
 				if( !empty( $positioncer ) ) {
 					$query['conditions']['Cer93.positioncer'] = $positioncer;
@@ -318,7 +318,7 @@
 				}
 			}
 
-			if( $departement === 93 ) {
+			if( $departement == 93 ) {
 				// 1. Filtre par expérience professionnelle significative: on veut les valeurs SSI elles ont été sélectionnées par le filtre
 				$expprocer93 = Hash::filter( (array)Hash::get( $search, 'Expprocer93' ) );
 				if( !empty( $expprocer93 ) ) {
@@ -473,7 +473,7 @@
 			}
 
 			// Recherche par type de contrat CER (CG66)
-			if($departement === 66) {
+			if($departement == 66) {
 				$typeContrat = Hash::get( $search, 'Contratinsertion.num_contrat_66');
 
 				if( isset($typeContrat) ) {
@@ -513,8 +513,8 @@
 		 * @return array
 		 */
 		public function checkParametrage( array $params = array() ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
-			if( $departement === 93 ) {
+			$departement = Configure::read( 'Cg.departement' );
+			if( $departement == 93 ) {
 				$search = array(
 					'Expprocer93' => array(
 						'cer93_id' => 1

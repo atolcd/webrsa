@@ -1032,7 +1032,7 @@
 			$departement = Configure::read( 'Cg.departement' );
 
 			// Vérification du département
-			if( !in_array( $departement, array( 58, 66, 93, 976 ) ) ) {
+			if( !in_array( $departement, array( 58, 66, 93, 976, '99X' ) ) ) {
 				$msgstr = sprintf( 'La configuration de Cg.departement n\'est pas correcte dans le webrsa.inc: %s', $departement );
 				throw new RuntimeException( $msgstr );
 			}
@@ -1343,6 +1343,9 @@
 					return 'Nonorientationproep93';
 					break;
 				case 976:
+					return 'Nonorientationproep58'; // Tant qu'il n'ont pas de thématique à eux
+					break;
+				case '99X':
 					return 'Nonorientationproep58'; // Tant qu'il n'ont pas de thématique à eux
 					break;
 				default:
@@ -1820,9 +1823,9 @@
 
 		protected function _conditionsNatures() {
 			$results = array();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
-			if( $departement === 66 ) {
+			if( $departement == 66 ) {
 				$Actioncandidat = ClassRegistry::init( 'Actioncandidat' );
 				$query = array(
 					'fields' => array(
@@ -1911,12 +1914,12 @@
 				true
 			);
 
-			$departement = (int)Configure::read( 'Cg.departement' );
-			if( $departement === 93 ) {
+			$departement = Configure::read( 'Cg.departement' );
+			if( $departement == 93 ) {
 				$base['joins'][] = $Dossier->Foyer->Personne->Contratinsertion->join( 'Cer93', array( 'type' => 'INNER' ) );
 				$base['joins'][] = $Dossier->Foyer->Personne->Contratinsertion->Cer93->join( 'Cer93Sujetcer93', array( 'type' => 'LEFT OUTER' ) );
 			}
-			else if( $departement === 66 ) {
+			else if( $departement == 66 ) {
 				$base['joins'][] = $Dossier->Foyer->Personne->Contratinsertion->join( 'Actioncandidat', array( 'type' => 'LEFT OUTER' ) );
 			}
 
@@ -2042,13 +2045,13 @@
 		 * @return array
 		 */
 		public function getTableauNaturesContrats() {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$results = array();
 
 			$base = array();
 			$replacements = array();
 
-			if( $departement === 93 ) {
+			if( $departement == 93 ) {
 				$Sujetcer93 = ClassRegistry::init( 'Sujetcer93' );
 				$base = array(
 					'fields' => array(
@@ -2076,7 +2079,7 @@
 
 				$Model = $Sujetcer93;
 			}
-			else if( $departement === 66 ) {
+			else if( $departement == 66 ) {
 				$base = array(
 					'fields' => array(
 						'Actioncandidat.name'
@@ -2119,7 +2122,7 @@
 		 * @return array
 		 */
 		public function getTableauxConditions() {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$result = array();
 			if( in_array( $departement, array( 66, 93 ), true ) ) {
@@ -2127,7 +2130,7 @@
 					$this->alias => array(
 						'conditions_natures_contrats' => array(
 							'fields' => (
-								$departement === 66
+								$departement == 66
 									? array(
 										'Actioncandidat.name'
 									)

@@ -164,8 +164,8 @@
 				$query = $this->Personne->PersonneReferent->completeSearchQueryReferentParcours( $query );
 
 				// Ajout de champs virtuels spécifiques pour les départements
-				$departement = (int)Configure::read( 'Cg.departement' );
-				if( $departement === 58 ) {
+				$departement = Configure::read( 'Cg.departement' );
+				if( $departement == 58 ) {
 					$sql = $this->Personne->WebrsaPersonne->vfEtapeDossierOrientation58();
 					$query['fields']['Personne.etat_dossier_orientation'] = "{$sql} AS \"Personne__etat_dossier_orientation\"";
 				}
@@ -232,8 +232,8 @@
 			$query = $this->Personne->PersonneReferent->completeSearchConditionsReferentParcours( $query, $search );
 
 			// Ajout de conditions spécifiques au département connecté
-			$departement = (int)Configure::read( 'Cg.departement' );
-			if( $departement === 58 ) {
+			$departement = Configure::read( 'Cg.departement' );
+			if( $departement == 58 ) {
 				$query = $this->Personne->WebrsaPersonne->completeQueryVfEtapeDossierOrientation58( $query, $search );
 
 				// Canton - Sitecov58
@@ -250,7 +250,7 @@
 					);
 				}
 
-			} elseif ($departement === 66) {
+			} elseif ($departement == 66) {
 				if (hash::get($search, 'Personne.dtnai_month')) {
 					$query['conditions'][] = array('Personne.dtnai_month' => hash::get($search, 'Personne.dtnai_month'));
 				}

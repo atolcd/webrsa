@@ -1011,7 +1011,7 @@
 				'Correspondancepersonne', // Contient personne1_id et personne2_id
 			);
 
-			if ((int)Configure::read('Cg.departement') === 66) {
+			if (Configure::read('Cg.departement') == 66) {
 				$ignoreList[] = 'Apre'; // Apre66 remplace Apre
 			}
 
@@ -1066,7 +1066,7 @@
 		 * @return array $this->found
 		 */
 		public function findLinkedDepedent( $personne_id, $modelName, $prevNames = array() ) {
-			if (preg_match('/([0-9]{2,3})$/', $modelName, $matches) && (int)$matches[1] !== (int)Configure::read('Cg.departement')) {
+			if (preg_match('/([0-9]{2,3})$/', $modelName, $matches) && $matches[1] !== Configure::read('Cg.departement')) {
 				return $this->found;
 			}
 
@@ -1120,7 +1120,7 @@
 				$isLinked = false;
 
 				// Ne traite pas les modèles des autres départements
-				if (preg_match('/([0-9]{2,3})$/', $usableName, $matches) && (int)$matches[1] !== (int)Configure::read('Cg.departement')) {
+				if (preg_match('/([0-9]{2,3})$/', $usableName, $matches) && $matches[1] !== Configure::read('Cg.departement')) {
 					continue;
 				}
 

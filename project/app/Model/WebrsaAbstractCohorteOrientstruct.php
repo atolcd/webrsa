@@ -254,15 +254,15 @@
 			if( $results === false ) {
 				// FIXME: valeurs magiques
 				$intitule = null;
-				$departement = (int)Configure::read( 'Cg.departement' );
+				$departement = Configure::read( 'Cg.departement' );
 
-				if( $departement === 66 ) {
+				if( $departement == 66 ) {
 					$intitule = array( 'Emploi', 'Social', 'Préprofessionnelle' );
 				}
-				else if( $departement === 93 ) {
+				else if( $departement == 93 ) {
 					$intitule = array( 'Emploi', 'Social', 'Socioprofessionnelle' );
 				}
-				else if( $departement === 58 ) {
+				else if( $departement == 58 ) {
 					$intitule = array( 'Professionnelle', 'Sociale' );
 				}
 

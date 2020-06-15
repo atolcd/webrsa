@@ -24,7 +24,7 @@
 		 */
 		protected function _optionsEnums( array $params = array() ) {
 			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$exists = array( '1' => 'Oui', '0' => 'Non' );
 
@@ -44,7 +44,7 @@
 				)
 			);
 
-			if( $departement === 58 ) {
+			if( $departement == 58 ) {
 				$options['Activite']['act'] = $Controller->Titrecreancier->Creance->Foyer->Personne->Activite->enum( 'act' );
 				$options['Personne']['etat_dossier_orientation'] = $Controller->Titrecreancier->Creance->Foyer->Personne->enum( 'etat_dossier_orientation' );
 			}
@@ -72,11 +72,11 @@
 		 */
 		protected function _optionsRecords( array $params = array() ) {
 			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$options = parent::_optionsRecords( $params );
 
-			if( $departement === 58 ) {
+			if( $departement == 58 ) {
 				$options['Propoorientationcov58']['referentorientant_id'] = $Controller->Titrecreancier->Creance->Foyer->Personne->PersonneReferent->Referent->find( 'list', array( 'order' => array( 'Referent.nom' ) ) );
 			}
 
@@ -96,12 +96,11 @@
 		 * @return array
 		 */
 		protected function _optionsRecordsModels( array $params ) {
-			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$result = parent::_optionsRecordsModels( $params );
 
-			if( $departement === 58 ) {
+			if( $departement == 58 ) {
 				$result = array_merge( $result, array( 'Typeorient', 'Structurereferente', 'Referent' ) );
 			}
 

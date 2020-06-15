@@ -25,10 +25,10 @@
 		}
 
 		protected function _optionsEnums( array $params ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$options = parent::_optionsEnums( $params );
-			if( $departement === 66 ) {
+			if( $departement == 66 ) {
 				$options = Hash::merge(
 					$options,
 					$this->Apre->Aideapre66->enums()
@@ -41,12 +41,12 @@
 		protected function _optionsRecords( array $params ) {
 			$Controller = $this->_Collection->getController();
 			$options = parent::_optionsRecords( $params );
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$options['Apre']['structurereferente_id'] = $this->Apre->Structurereferente->listOptions( array( 'orientation' => 'O' ) );
 			$options['Apre']['referent_id'] = $this->Apre->Structurereferente->Referent->WebrsaReferent->listOptions();
 
-			if( $departement === 66 ) {
+			if( $departement == 66 ) {
 				$options = Hash::merge(
 					$options,
 					array(
@@ -57,7 +57,7 @@
 					)
 				);
 			}
-			else if( $departement === 93 ) {
+			else if( $departement == 93 ) {
 				if( !isset( $Controller->Tiersprestataireapre ) ) {
 					$Controller->loadModel( 'Tiersprestataireapre' );
 				}
@@ -69,7 +69,7 @@
 		}
 
 		protected function _optionsRecordsModels( array $params ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$result = parent::_optionsRecordsModels( $params );
 
@@ -78,13 +78,13 @@
 				array( 'Typeorient', 'Structurereferente', 'Referent' )
 			);
 
-			if( $departement === 66 ) {
+			if( $departement == 66 ) {
 			$result = array_merge(
 				$result,
 				array( 'Themeapre66', 'Typeaideapre66' )
 			);
 			}
-			else if( $departement === 93 ) {
+			else if( $departement == 93 ) {
 				$result[] = 'Tiersprestataireapre';
 			}
 

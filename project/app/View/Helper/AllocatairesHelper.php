@@ -325,7 +325,7 @@
 			);
 			$content = $this->_input( "{$params['prefix']}Personne.dtnai", $params, $dateParams + array('dateFormat' => 'DMY') );
 
-			if ((integer)Configure::read('Cg.departement') === 66) {
+			if (Configure::read('Cg.departement') == 66) {
 				$content .= $this->_input("{$params['prefix']}Personne.dtnai_month", $params, $dateParams + array('dateFormat' => 'M'));
 				$content .= $this->_input("{$params['prefix']}Personne.dtnai_year", $params, $dateParams + array('dateFormat' => 'Y'));
 			}
@@ -440,13 +440,13 @@
 		 * @return string
 		 */
 		public function communautesrSelect( $modelName, array $params = array() ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$params = $params + $this->default;
 			$params['prefix'] = ( !empty( $params['prefix'] ) ? rtrim($params['prefix'], '.')."." : null );
 			$communautesrPrefix = array_key_exists( 'communautesr_prefix', $params ) ? $params['communautesr_prefix'] : $params['prefix'];
 			$result = null;
 
-			if( 93 === $departement && Hash::check( $params, "options.{$communautesrPrefix}{$modelName}.communautesr_id" ) ) {
+			if( 93 == $departement && Hash::check( $params, "options.{$communautesrPrefix}{$modelName}.communautesr_id" ) ) {
 				$label = Hash::get( $params, 'label' );
 				$result = $this->_input(
 				   "{$params['prefix']}{$modelName}.communautesr_id",
@@ -473,14 +473,14 @@
 		 * @return string
 		 */
 		public function communautesrScript( $modelName, array $params = array() ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$params = $params + $this->default;
 			$params['prefix'] = ( !empty( $params['prefix'] ) ? rtrim($params['prefix'], '.')."." : null );
 			$communautesrPrefix = array_key_exists( 'communautesr_prefix', $params ) ? $params['communautesr_prefix'] : $params['prefix'];
 			$params['hide'] = isset( $params['hide'] ) ? $params['hide'] : true;
 			$result = null;
 
-			if( 93 === $departement && Hash::check( $params, "options.{$communautesrPrefix}{$modelName}.communautesr_id" ) ) {
+			if( 93 == $departement && Hash::check( $params, "options.{$communautesrPrefix}{$modelName}.communautesr_id" ) ) {
 			   $result = "document.observe( 'dom:loaded', function() {
 							try {
 								dependantSelectsCommunautesr(
@@ -507,14 +507,14 @@
 		 * @return string
 		 */
 		public function communautesrScriptReferent( $modelName, array $params = array() ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$params = $params + $this->default;
 			$params['prefix'] = ( !empty( $params['prefix'] ) ? rtrim($params['prefix'], '.')."." : null );
 			$communautesrPrefix = array_key_exists( 'communautesr_prefix', $params ) ? $params['communautesr_prefix'] : $params['prefix'];
 			$params['hide'] = isset( $params['hide'] ) ? $params['hide'] : true;
 			$result = null;
 
-			if( 93 === $departement && Hash::check( $params, "options.{$communautesrPrefix}{$modelName}.communautesr_id" ) ) {
+			if( 93 == $departement && Hash::check( $params, "options.{$communautesrPrefix}{$modelName}.communautesr_id" ) ) {
 			   $result = "document.observe( 'dom:loaded', function() {
 							try {
 								dependantSelectsCommunautesrReferent(
@@ -544,14 +544,14 @@
 		 * @return string
 		 */
 		public function communautesr( $modelName, array $params = array() ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$params = $params + $this->default;
 			$params['prefix'] = ( !empty( $params['prefix'] ) ? "{$params['prefix']}." : null );
 			$params['communautesr_prefix'] = $params['prefix'];
 			$params['hide'] = isset( $params['hide'] ) ? $params['hide'] : true;
 			$result = null;
 
-			if( 93 === $departement ) {
+			if( 93 == $departement ) {
 				$result = $this->communautesrSelect( $modelName, $params )
 					.$this->communautesrScript( $modelName, $params );
 			}
@@ -569,7 +569,7 @@
 		 * @return string
 		 */
 		public function blocReferentparcours( array $params = array() ) {
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 			$params = $params + $this->default;
 			$params['prefix'] = ( !empty( $params['prefix'] ) ? "{$params['prefix']}." : null );
 
@@ -582,7 +582,7 @@
 			} );";
 			$script = $this->Xhtml->scriptBlock( $script, array( 'inline' => true, 'safe' => true ) );
 
-			$domain_search_plugin = ( Configure::read( 'Cg.departement' ) == 93 ) ? 'search_plugin_93' : 'search_plugin';
+			$domain_search_plugin = ( $departement == 93 ) ? 'search_plugin_93' : 'search_plugin';
 
 			$content = $this->_input(
 				"{$params['prefix']}PersonneReferent.structurereferente_id",
@@ -607,7 +607,7 @@
 
 			if( !empty( $content ) ) {
 				// Si on a les options (pour les CG et CPDVCOM au CG 93)
-				if( 93 === $departement && Hash::check( $params, 'options.PersonneReferent.communautesr_id' ) ) {
+				if( 93 == $departement && Hash::check( $params, 'options.PersonneReferent.communautesr_id' ) ) {
 					$label = __d( 'search_plugin_93', 'Communautesrparcours.lib_struc' );
 					$content = $this->communautesrSelect( 'PersonneReferent', array( 'label' => $label ) + $params + array( 'communautesr_prefix' => null ) ) . $content;
 					$script .= $this->communautesrScript( 'PersonneReferent', array( 'hide' => false ) + $params + array( 'communautesr_prefix' => null ) ) . $script;

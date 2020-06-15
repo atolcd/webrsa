@@ -1,5 +1,5 @@
 <?php
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 	$controller = $this->params->controller;
 	$availableDomains = WebrsaTranslator::domains();
 	$domain = isset( $availableDomains[0] ) ? $availableDomains[0] : $controller;
@@ -49,7 +49,7 @@
 		. '</fieldset>'
 	;
 
-	if ($departement === 66) {
+	if ($departement == 66) {
 ?>
 	<fieldset>
 		<legend><?php echo __d( 'dossierspcgs66', 'Dossierpcg66.search' ); ?></legend>

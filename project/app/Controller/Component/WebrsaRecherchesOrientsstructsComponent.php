@@ -39,7 +39,7 @@
 		 */
 		protected function _optionsEnums( array $params = array() ) {
 			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$exists = array( '1' => 'Oui', '0' => 'Non' );
 
@@ -57,7 +57,7 @@
 				)
 			);
 
-			if( $departement === 58 ) {
+			if( $departement == 58 ) {
 				$options['Activite']['act'] = $Controller->Orientstruct->Personne->Activite->enum( 'act' );
 			}
 
@@ -71,7 +71,7 @@
 		 */
 		protected function _optionsSession( array $params ) {
 			$Controller = $this->_Collection->getController();
-			$departement = (int)Configure::read( 'Cg.departement' );
+			$departement = Configure::read( 'Cg.departement' );
 
 			$options = Hash::merge(
 				parent::_optionsSession( $params ),
@@ -83,7 +83,7 @@
 				)
 			);
 
-			if( $departement === 93 ) {
+			if( $departement == 93 ) {
 				$options['Orientstruct']['propo_algo'] = $options['Orientstruct']['typeorient_id'];
 				$options = Hash::merge(
 					$options,

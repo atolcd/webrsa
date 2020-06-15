@@ -58,7 +58,7 @@
 		 * @return type
 		 */
 		public function completeVirtualFieldsForAccess(array $query = array(), array $params = array()) {
-			$departement = (int)Configure::read('Cg.departement');
+			$departement = Configure::read('Cg.departement');
 			$fields = array(
 				'positioncer' => 'Contratinsertion.positioncer',
 				'datenotification' => 'Contratinsertion.datenotification',
@@ -77,12 +77,12 @@
 				$query['joins'][] = $this->Contratinsertion->join('Personne');
 			}
 
-			if ($departement === 66) {
+			if ($departement == 66) {
 				$fields['Propodecisioncer66.isvalidcer'] = 'Propodecisioncer66.isvalidcer';
 				if (!in_array('Propodecisioncer66', $joinsAvailables)) {
 					$query['joins'][] = $this->Contratinsertion->join('Propodecisioncer66');
 				}
-			} elseif ($departement === 58) {
+			} elseif ($departement == 58) {
 				$fields['Passagecommissionep.etatdossierep'] = 'Passagecommissionep.etatdossierep';
 
 				if (!in_array('Sanctionep58', $joinsAvailables)) {
@@ -202,7 +202,7 @@
 		public function haveNeededDatas($personne_id) {
 			$memKey = $this->_getKeyMem(__FUNCTION__, func_get_args());
 			if (!isset($this->_mem[$memKey])) {
-				$departement = (int)Configure::read('Cg.departement');
+				$departement = Configure::read('Cg.departement');
 				$typeOrientPrincipaleEmploiId = Hash::get((array)Configure::read('Orientstruct.typeorientprincipale.Emploi'), 0);
 
 				if ($typeOrientPrincipaleEmploiId === null) {
@@ -256,7 +256,7 @@
 					)
 				);
 
-				if ($departement === 66) {
+				if ($departement == 66) {
 					$query['fields'][] = '("Cui66"."id" IS NOT NULL) AS "Personne__havecui"';
 					$query['joins'][] = $Personne->join('Cui');
 					$query['joins'][] = $Personne->Cui->join(
@@ -272,7 +272,7 @@
 					);
 				}
 
-				if ($departement === 58) {
+				if ($departement == 58) {
 					$dossiercov = $this->Contratinsertion->Personne->Dossiercov58->qdDossiersNonFinalises(
 						$personne_id, 'proposcontratsinsertioncovs58'
 					);

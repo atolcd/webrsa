@@ -190,7 +190,7 @@
 						<h4 class="title">Conditions pour les tableaux</h4>
 						<div id="tabbedWrapperWebrsaConfigureTableauxConditions" class="tabs">
 							<?php
-								$departement = (int)Configure::read( 'Cg.departement' );
+								$departement = Configure::read( 'Cg.departement' );
 
 								foreach( $results['Webrsa']['tableaux_conditions'] as $modelName => $modelResults ) {
 									$id = 'webrsa_configure_tableaux_conditions_'.Inflector::underscore( $modelName );

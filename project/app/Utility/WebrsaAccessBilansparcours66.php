@@ -26,7 +26,7 @@
 		public static function params(array $params = array()) {
 			return $params + array(
 				'alias' => 'Bilanparcours66',
-				'departement' => (int)Configure::read('Cg.departement')
+				'departement' => Configure::read('Cg.departement')
 			);
 		}
 
@@ -131,7 +131,7 @@
 				)
 			);
 
-			if ($params['departement'] !== 66) {
+			if ($params['departement'] != 66) {
 				$result = array();
 			}
 			return $result;

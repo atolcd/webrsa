@@ -1,6 +1,6 @@
 <?php $this->start( 'custom_search_filters' );?>
 <?php
-	$departement = (int)Configure::read( 'Cg.departement' );
+	$departement = Configure::read( 'Cg.departement' );
 	$user_type = $this->Session->read( 'Auth.User.type' );
 
 	// Conditions d'accès aux origines d'orientation prestataires
@@ -63,7 +63,7 @@
 			array( 'options' => array( 'Search' => $options ) )
 		)
 		.(
-			( $departement !== 58 )
+			( $departement != 58 )
 			? ''
 			: $this->Default3->subform(
 				array(
@@ -86,7 +86,7 @@
 		. $this->SearchForm->dateRange( 'Search.Orientstruct.date_valid', $paramDate )
 	;
 
-	if ($departement === 66) {
+	if ($departement == 66) {
 		echo '<fieldset><legend>' . __m( 'Orientstruct.orientepar' ) . '</legend>'
 			. $this->Default3->subform(
 				array(
@@ -99,7 +99,7 @@
 		;
 	}
 
-	if ($departement === 93) {
+	if ($departement == 93) {
 		echo $this->Default3->subform(
 			array(
 				'Search.Orientstruct.origine' => array('empty' => true),
@@ -156,14 +156,14 @@
 		);
 	}
 
-	if( 66 === $departement ) {
+	if( 66 == $departement ) {
 		echo $this->Observer->dependantSelect(
 			array(
 				'Search.Orientstruct.structureorientante_id' => 'Search.Orientstruct.referentorientant_id'
 			)
 		);
 	}
-	else if( 93 === $departement ) {
+	else if( 93 == $departement ) {
 		echo $this->Allocataires->communautesrScript(
 			'Orientstruct',
 			array(

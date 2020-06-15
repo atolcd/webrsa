@@ -393,7 +393,8 @@
 				'allowEmpty' => false,
 //				'required' => true,
 			);
-
+			$Configuration= ClassRegistry::init( 'Configuration' );
+			$Configuration->setAllConfigurationsAllCategories();
 			foreach( Set::normalize( $paths ) as $path => $rules ) {
 				if( !is_array( $rules ) ) {
 					$rules = array( array( 'rule' => $rules ) );

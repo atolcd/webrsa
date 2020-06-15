@@ -142,7 +142,6 @@
 		 * à l'utilisateur connecté dans la session.
 		 */
 		public function loadStructurereferente() {
-			$departement = (int)Configure::read( 'Cg.departement' );
 			$Controller = $this->_Collection->getController();
 			$Controller->loadModel( 'User' );
 

@@ -19,20 +19,20 @@
 	{
 		/**
 		 * Paramètres par défaut
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
 		public static function params(array $params = array()) {
 			return $params + array(
 				'alias' => 'Traitementpcg66',
-				'departement' => (int)Configure::read( 'Cg.departement' ),
+				'departement' => Configure::read( 'Cg.departement' ),
 			);
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -44,7 +44,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -55,7 +55,7 @@
 
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -63,10 +63,10 @@
 		protected static function _edit(array $record, array $params) {
 			return Hash::get($record, 'Traitementpcg66.annule') !== 'O';
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -74,10 +74,10 @@
 		protected static function _cancel(array $record, array $params) {
 			return Hash::get($record, 'Traitementpcg66.annule') !== 'O';
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -85,10 +85,10 @@
 		protected static function _delete(array $record, array $params) {
 			return Hash::get($record, 'Traitementpcg66.annule') !== 'O';
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -97,10 +97,10 @@
 			return Hash::get($record, 'Traitementpcg66.annule') !== 'O'
 				&& Hash::get($record, 'Traitementpcg66.typetraitement') === 'revenu';
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -111,10 +111,10 @@
 				&& Hash::get($record, 'Traitementpcg66.typetraitement') === 'courrier'
 			;
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -124,10 +124,10 @@
 				&& Hash::get($record, 'Traitementpcg66.typetraitement') === 'courrier'
 			;
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -138,10 +138,10 @@
 				&& Hash::get($record, 'Traitementpcg66.typetraitement') === 'courrier'
 			;
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -152,10 +152,10 @@
 				&& Hash::get($record, 'Traitementpcg66.reversedo') === '1'
 			;
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -166,10 +166,10 @@
 				&& Hash::get($record, 'Traitementpcg66.reversedo') !== '1'
 			;
 		}
-		
+
 		/**
 		 * Permission d'accès
-		 * 
+		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
@@ -179,12 +179,12 @@
 				&& Hash::get($record, 'Traitementpcg66.clos') !== 'O'
 			;
 		}
-		
+
 		/**
 		 * Liste les actions disponnible
 		 * Si une action pointe sur un autre controler, il faut préciser son nom
 		 * ex : Moncontroller.monaction
-		 * 
+		 *
 		 * @param array $params
 		 * @return array
 		 */
@@ -206,11 +206,11 @@
 					'clore',
 				)
 			);
-			
-			if ($params['departement'] !== 66) {
+
+			if ($params['departement'] != 66) {
 				$result = array();
 			}
-			
+
 			return $result;
 		}
 	}

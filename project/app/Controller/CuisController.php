@@ -208,7 +208,7 @@
 				compact('results', 'dossierMenu', 'messages', 'addEnabled', 'personne_id', 'options', 'isRsaSocle')
 			);
 
-			switch ((int)Configure::read('Cg.departement')) {
+			switch (Configure::read('Cg.departement')) {
 				case 66: $this->view = __FUNCTION__.'_cg66'; break;
 			}
 		}
@@ -282,7 +282,7 @@
 
 			$this->set( compact( 'options', 'personne_id', 'dossierMenu', 'urlmenu', 'personne' ) );
 
-			switch ((int)Configure::read('Cg.departement')) {
+			switch (Configure::read('Cg.departement')) {
 				case 66:
 					$this->view = __FUNCTION__.'_cg66';
 					$this->set('mailEmployeur', $this->action !== 'add');
@@ -363,7 +363,7 @@
 
 			$this->set( compact( 'options', 'personne_id', 'dossierMenu', 'urlmenu', 'personne' ) );
 
-			switch ((int)Configure::read('Cg.departement')) {
+			switch (Configure::read('Cg.departement')) {
 				case 66:
 					$this->view = __FUNCTION__.'_cg66';
 					break;
