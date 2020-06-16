@@ -13,6 +13,9 @@ echo ""
 
 # ------------------------------------------------------------------------------
 function __clearDir() {
+	echo "     Cache"
+	echo ""
+
 	local dir="$1"
 
 	if [ -d "$dir" ]
@@ -82,16 +85,19 @@ function __deploy() {
 	touch app/tmp/logs/debug.log
 	chmod 777 -R app/tmp/
 
+	bash $dir/webrsa.sh acoaro
+
+	bash $dir/webrsa.sh clearcache
+}
+
+
+# ------------------------------------------------------------------------------
+function __acoaro() {
 	echo "     Aco / Aro"
 	echo ""
 
 	sudo -u apache vendor/cakephp/cakephp/lib/Cake/Console/cake WebrsaSessionAcl update Aco -app app >> /tmp/log_Update_Aco.txt
 	sudo -u apache vendor/cakephp/cakephp/lib/Cake/Console/cake WebrsaSessionAcl update Aro -app app >> /tmp/log_Update_Aro.txt
-
-	echo "     Cache"
-	echo ""
-
-	bash $dir/webrsa.sh clearcache
 }
 
 
@@ -149,6 +155,10 @@ case $1 in
 	;;
 	check)
 		__check "$APP_DIR" "$2"
+		exit 0
+	;;
+	acoaro)
+		__acoaro "$APP_DIR" "$2"
 		exit 0
 	;;
 	*)
