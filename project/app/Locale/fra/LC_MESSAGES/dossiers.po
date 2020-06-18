@@ -298,3 +298,39 @@ msgstr "État dossier EP"
 
 msgid "Dossier.derniere.ep.avis"
 msgstr "de la commission d'EP"
+
+# ==============================================================================
+# Changement d'état du dossier
+# ==============================================================================
+msgid "Dossier.motifchgmtetat"
+msgstr "Modification de l'état du dossier"
+
+msgid "Dossier.etatdosrsa"
+msgstr "Nouvel état du dossier"
+
+msgid "Dossier.lib_motif"
+msgstr "Libellé du motif"
+
+msgid "Dossier.histomodif"
+msgstr "Historique de modification de l'état du dossier"
+
+msgid "Dossier.date"
+msgstr "Date"
+
+msgid "Dossier.prenomuser"
+msgstr "Prénom de l'utilisateur"
+
+msgid "Dossier.nomuser"
+msgstr "Nom de l'utilisateur"
+
+msgid "Dossier.ancienetat"
+msgstr "Ancien état"
+
+msgid "Dossier.nouveletat"
+msgstr "Nouvel état"
+
+msgid "Dossier.motif"
+msgstr "Motif"
+
+msgid "Dossier.nomcohorte"
+msgstr "Modification d'état de dossiers"

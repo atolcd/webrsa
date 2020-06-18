@@ -785,6 +785,7 @@
 				<td colspan="2"><?php echo @$details['DEM']['Dossierpcg66']['dernier']['Decisiondossierpcg66'][0]['Decisionpdo']['libelle'];?></td>
 				<!-- <td><?php /*echo @$details['CJT']['Dossierpcg66']['dernier']['Decisiondossierpcg66'][0]['Decisionpdo']['libelle']; */?></td> -->
 			</tr>
+			<?php include('histomodifetatdos.ctp'); ?>
 		</tbody>
 	</table>
 </div>

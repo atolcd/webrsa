@@ -68,6 +68,8 @@
 			'Informationpe',
 			'Option',
 			'Tableausuivipdv93',
+			'Motifetatdossier',
+			'Historiquedroit'
 		);
 
 		/**
@@ -88,6 +90,7 @@
 		 */
 		public $crudMap = array(
 			'edit' => 'update',
+			'editetat' => 'update',
 			'exportcsv' => 'read',
 			'menu' => 'read',
 			'search' => 'read',
@@ -474,6 +477,11 @@
 			$optionsep = $this->Dossier->Foyer->Personne->Dossierep->Passagecommissionep->enums();
 			$roles = Set::extract( '{n}.Prestation.rolepers', $personnesFoyer );
 			foreach( $roles as $index => $role ) {
+				// Récupération de l'id du demandeur
+				if($role == 'DEM') {
+					$idDemandeur = $personnesFoyer[$index]['Personne']['id'];
+				}
+
 				$tPersReferent = $this->Dossier->Foyer->Personne->PersonneReferent->find(
 					'first',
 					array(
@@ -983,6 +991,34 @@
 					}
 				}
 			}
+
+			// Historique des modifications de l'état des dossiers
+			$histos = $this->Historiquedroit->find('all', array(
+				'recursive' => -1,
+				'conditions' => array('Historiquedroit.personne_id' => $idDemandeur),
+				'order' => array('Historiquedroit.created DESC')
+			));
+
+			$details['Histomodifetatdossier'] = array();
+			foreach($histos as $key => $histo) {
+				$details['Histomodifetatdossier'][$key]['created'] = $histo['Historiquedroit']['created'];
+				$details['Histomodifetatdossier'][$key]['etatdosrsa'] = $histo['Historiquedroit']['etatdosrsa'];
+				$details['Histomodifetatdossier'][$key]['nouvetatdosrsa'] = ($key == 0) ? $details['Situationdossierrsa']['etatdosrsa'] : $histos[$key-1]['Historiquedroit']['etatdosrsa'];
+				if( is_null($histo['Historiquedroit']['nom']) && is_null($histo['Historiquedroit']['prenom'])) {
+					$details['Histomodifetatdossier'][$key]['prenom'] = 'CAF';
+					$details['Histomodifetatdossier'][$key]['nom'] = '';
+				} else {
+					$details['Histomodifetatdossier'][$key]['prenom'] = $histo['Historiquedroit']['prenom'];
+					$details['Histomodifetatdossier'][$key]['nom'] = $histo['Historiquedroit']['nom'];
+				}
+
+				if(is_null($histo['Historiquedroit']['motif'])) {
+					$details['Histomodifetatdossier'][$key]['motif'] = $histo['Historiquedroit']['moticlorsa'];
+				} else {
+					$details['Histomodifetatdossier'][$key]['motif'] = $histo['Historiquedroit']['motif'];
+				}
+			}
+
 			$this->set( 'details', $details );
 
 			$this->_setOptions();
@@ -1088,6 +1124,36 @@
 			} else {
 				parent::beforeFilter();
 			}
+		}
+
+		/**
+		 * Permet la modification de l'état d'un dossier
+		 */
+		public function editEtat($id) {
+			$options['etatdosrsa'] = Configure::read('Module.ModifEtatDossier.etatdos');
+			$options['motifs'] = $this->Motifetatdossier->find('list', array(
+				'fields' => array( 'Motifetatdossier.id', 'Motifetatdossier.lib_motif'),
+				'conditions' => array('actif' => 1)
+			));
+			// Retour à l'index en cas d'annulation
+			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->Jetons2->release( $id );
+				$this->redirect( array( 'action' => 'view', $id ) );
+			}
+
+			// Préparation de l'enregistrement
+			if( !empty( $this->request->data ) ) {
+				if( $this->Dossier->saveModifEtat($id, $this->request->data, $options['motifs'][$this->request->data['Motifetatdossier']['lib_motif']]) ) {
+					$this->Jetons2->release( $id );
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect( array( 'controller' => 'dossiers', 'action' => 'view', $id ) );
+				}
+				else{
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+			}
+			$this->set('Dossier.id', $id);
+			$this->set('options', $options);
 		}
 	}
 ?>

@@ -502,6 +502,11 @@ msgstr "Types d'orientations"
 
 # ==============================================================================
 
+msgid "motifsetatsdossiers/index"
+msgstr "Types de motif pour modification de l'état des dossiers"
+
+# ==============================================================================
+
 msgid "vaguesdorientations/index"
 msgstr "Vagues d'orientation"
 

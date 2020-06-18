@@ -981,7 +981,7 @@
 					?>
 				</td>
 			</tr>
-
+			<?php include('histomodifetatdos.ctp'); ?>
 		</tbody>
 	</table>
 </div>

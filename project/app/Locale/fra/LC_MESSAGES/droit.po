@@ -4913,3 +4913,17 @@ msgstr "Historique des droits"
 
 msgid "controllers/Historiquesdroits/personne"
 msgstr "Voir l'historique des droit de la personne"
+
+## Type de motifs pour modifier l'état des dossiers
+###############################################################################
+msgid "controllers/Motifsetatsdossiers"
+msgstr "Paramétrage des motifs pour modification de l'état des dossiers"
+
+msgid "controllers/Motifsetatsdossiers/index"
+msgstr "Liste des motifs"
+
+msgid "controllers/Motifsetatsdossiers/edit"
+msgstr "Modification des motifs"
+
+msgid "controllers/Motifsetatsdossiers/edit"
+msgstr "Suppression des motifs"

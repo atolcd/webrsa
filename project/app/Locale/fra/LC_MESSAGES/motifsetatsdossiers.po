@@ -1,0 +1,47 @@
+# Traductions de Motifsetatsdossiers.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Motifsetatsdossiers/index/:heading"
+msgstr "Paramétrage des motifs de modification de l'état des dossiers"
+
+msgid "/Motifsetatsdossiers/add"
+msgstr "Ajouter"
+
+msgid "/Motifsetatsdossiers/add/:title"
+msgstr "Ajouter un motif"
+
+msgid "/Motifsetatsdossiers/edit"
+msgstr "Modifier"
+
+msgid "/Motifsetatsdossiers/delete"
+msgstr "Supprimer"
+
+msgid "/Motifsetatsdossiers/delete/#Motifetatdossier.id# ?"
+msgstr "Réellement supprimer le motif « #Motifetatdossier.lib_motif# » ?"
+
+msgid "/Motifsetatsdossiers/add/:heading"
+msgstr "Ajout d'un motif"
+
+msgid "/Motifsetatsdossiers/edit/:heading"
+msgstr "Modification d'un motif"
+
+msgid "Motifetatdossier.lib_motif"
+msgstr "Libellé du motif"
+
+msgid "Motifetatdossier.actif"
+msgstr "Actif"
+
+msgid "/Parametrages/index"
+msgstr "Retour"
+
+msgid "/Parametrages/index/:title"
+msgstr "Retour aux paramétrages"

@@ -475,5 +475,91 @@
 				}
 			}
 		}
+
+		/**
+		 * Enregistrement de la modification de l'état d'un dossier
+		 * @param int $dossier_id
+		 * @param array $dataToSave
+		 * @param string $motif
+		 * @return bool
+		 */
+		public function saveModifEtat($dossier_id, $dataToSave, $motif) {
+			$data = array();
+			// Préparation à l'enregistrement sur Situationdossierrsa
+			$data['Situationdossierrsa'] = $dataToSave['Situationdossierrsa'];
+			$data['Situationdossierrsa']['dossier_id'] = $dossier_id;
+
+			// Récupération de l'état actuel du dossier & de l'id
+			$etatActuel = $this->Situationdossierrsa->find('first', array(
+				'fields' => array('id', 'etatdosrsa'),
+				'recursive' => -1,
+				'conditions' => array('dossier_id' => $dossier_id)
+			));
+			$data['Situationdossierrsa']['id'] = $etatActuel['Situationdossierrsa']['id'];
+
+			// Préparation à l'enregistrement sur Historiquedroit
+			$dataHisto = array();
+
+			// Initialisation du user à enregistrer
+			$User = ClassRegistry::init( 'User' );
+			$user = $User->find(
+				'first',
+				array(
+					'conditions' => array(
+						'User.id' => AuthComponent::user('id')
+					),
+					'contain' => false
+				)
+			);
+
+			// Récupération des personnes
+			$foyer = $this->Foyer->find('first', array(
+				'fields' => 'id',
+				'recursive' => -1,
+				'conditions' => array('dossier_id' => $dossier_id)
+			));
+			$personnes = $this->Foyer->Personne->find('all', array(
+				'fields' => 'Personne.id',
+				'recursive' => -1,
+				'conditions' => array(
+					'Personne.foyer_id' => $foyer['Foyer']['id'],
+					'Prestation.natprest' => 'RSA',
+					'Prestation.rolepers' => array( 'DEM', 'CJT' ),
+				),
+				'joins' => array(
+					$this->Foyer->Personne->join( 'Prestation' )
+				)
+			));
+
+			foreach($personnes as $key => $personne) {
+				$dataHisto[$key] = array(
+					'personne_id' => $personne['Personne']['id'],
+					'etatdosrsa' => $etatActuel['Situationdossierrsa']['etatdosrsa'],
+					'nom' => $user['User']['nom'],
+					'prenom' => $user['User']['prenom'],
+					'motif' => $motif
+				);
+				// Récupération du toppersdrodevorsa
+				$droitrsa = $this->Foyer->Personne->Calculdroitrsa->find('first', array(
+					'fields' => 'toppersdrodevorsa',
+					'recursive' => -1,
+					'conditions' => array('personne_id' => $personne['Personne']['id'])
+				));
+				$dataHisto[$key]['toppersdrodevorsa'] = $droitrsa['Calculdroitrsa']['toppersdrodevorsa'];
+			}
+
+			// Enregistrement dans Situationdossierrsa & dans Historiquedroit
+			$Historiquedroit = ClassRegistry::init('Historiquedroit');
+			$this->begin();
+			if( $this->Situationdossierrsa->save( $data, array( 'validate' => 'first', 'atomic' => true ) ) &&
+				$Historiquedroit->saveMany($dataHisto, array( 'validate' => 'first', 'atomic' => true ))
+			) {
+				$this->commit();
+				return true;
+			} else {
+				$this->rollback();
+				return false;
+			}
+		}
 	}
 ?>

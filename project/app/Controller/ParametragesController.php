@@ -748,6 +748,9 @@
 				__m('typesorients/index') => array(
 					'url' => array( 'controller' => 'typesorients', 'action' => 'index' )
 				),
+				__m('motifsetatsdossiers/index') => array(
+					'url' => array( 'controller' => 'motifsetatsdossiers', 'action' => 'index' )
+				),
 				__m('vaguesdorientations/index') => array(
 					'Paramétrage des dates des vagues' => array(
 						'url' => array( 'controller' => 'vaguesdorientations', 'action' => 'index' )
