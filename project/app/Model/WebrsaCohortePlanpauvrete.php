@@ -176,6 +176,14 @@
 		 */
 		public function inscritPE($query) {
 			$this->loadModel('Historiqueetatpe');
+			$query['fields'] = array_merge(
+				$query['fields'],
+				array(
+					'Historiqueetatpe.identifiantpe',
+					'Historiqueetatpe.date',
+				)
+			);
+
 			$query['conditions'][] = array(
 				'OR' => array(
 					'Informationpe.id IS NULL',
@@ -202,6 +210,15 @@
 		 */
 		public function nonInscritPE($query) {
 			$this->loadModel('Historiqueetatpe');
+
+			$query['fields'] = array_merge(
+				$query['fields'],
+				array(
+					'Historiqueetatpe.identifiantpe',
+					'Historiqueetatpe.date',
+				)
+			);
+
 			$query['joins'] = array_merge(
 				$query['joins'],
 				array (

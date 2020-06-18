@@ -26,7 +26,6 @@ msgstr "Type d'orientation"
 
 msgid "Structurereferente.lib_struc"
 msgstr "Type de structure"
-# msgstr "Structure référente"
 
 msgid "Structurereferente.nom_referent"
 msgstr "Nom du référent"
@@ -42,6 +41,9 @@ msgstr "Structure référente"
 
 msgid "Structurereferente.contratengagement"
 msgstr "Gestion des CERs"
+
+msgid "Structurereferente.code_stats"
+msgstr "Code de la structure pour les stats"
 
 msgid "ENUM::CONTRATENGAGEMENT::N"
 msgstr "Non"
