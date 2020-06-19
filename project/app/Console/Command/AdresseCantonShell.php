@@ -90,20 +90,20 @@
 			$results = $Adresse->find('all', $query);
 			$this->out(sprintf('Terminé en %s secondes.', number_format(microtime(true)-$timestart, 3)));
 
-			$Adresse->begin();
 			$Dbo = $Adresse->AdresseCanton->getDataSource();
 
 			$this->out();
-			$this->out('Supression du contenu de la table de liaison...');
+			$this->out('Suppression du contenu de la table de liaison...');
 			$timestart = microtime(true);
 
-			$success = $Adresse->AdresseCanton->query( sprintf( "DELETE FROM %s", $Dbo->fullTableName( $Adresse->AdresseCanton ) ) ) !== false;
+			$success = $Adresse->AdresseCanton->query( "TRUNCATE TABLE " . $Dbo->fullTableName( $Adresse->AdresseCanton ) );
 			$this->out(sprintf('Terminé en %s secondes.', number_format(microtime(true)-$timestart, 3)));
 
 			// On extrait les Adresse.id lorsque le canton n'a pas été trouvé et on prépare la sauvegarde
 			$noCanton = array( array( 'Adresse.id', 'Adresse.complete' ) );
 			$data = array();
 			$valAdresse = '';
+			$Adresse->begin();
 			foreach ( $results as $key => $value ) {
 				if ( !Hash::get($value, 'Canton.id') ) {
 					$numcom = Hash::get($value, 'Adresse.numcom');
@@ -214,6 +214,7 @@
 							)
 						)
 					);
+
 					if(!empty($zoneID)) {
 						$zoneID = $zoneID['Zonegeographique']['id'];
 						$cantonMulti = Configure::read('Canton.multi');
