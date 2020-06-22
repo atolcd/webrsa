@@ -95,8 +95,8 @@
 			$this->out();
 			$this->out('Suppression du contenu de la table de liaison...');
 			$timestart = microtime(true);
-
-			$success = $Adresse->AdresseCanton->query( "TRUNCATE TABLE " . $Dbo->fullTableName( $Adresse->AdresseCanton ) );
+			$success = $Canton->query( "DELETE FROM public.cantons WHERE canton IS NULL;");
+			$success = $Adresse->AdresseCanton->query( "TRUNCATE TABLE " . $Dbo->fullTableName( $Adresse->AdresseCanton ) ) && $success;
 			$this->out(sprintf('Terminé en %s secondes.', number_format(microtime(true)-$timestart, 3)));
 
 			// On extrait les Adresse.id lorsque le canton n'a pas été trouvé et on prépare la sauvegarde
