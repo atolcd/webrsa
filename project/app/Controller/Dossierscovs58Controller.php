@@ -133,7 +133,7 @@
 			// Fin conditions zones géographiques
 
 			if( in_array( $cov58['Cov58']['etatcov'], array( 'traite', 'finalise' ) ) ) {
-				$this->Jetonsfonctions2->release( $cov58_id );
+				$this->Jetonsfonctions2->release( $cov58_id, false );
 				$this->Flash->error( 'Impossible d\'attribuer des dossiers à une COV lorsque celle-ci comporte déjà des avis ou des décisions.' );
 				$this->redirect( $this->referer() );
 			}
@@ -173,7 +173,7 @@
 				if( $success ) {
 					$this->Dossiercov58->commit();
 					$this->Flash->success( __( 'Save->success' ) );
-					$this->Jetonsfonctions2->release( $cov58_id );
+					$this->Jetonsfonctions2->release( $cov58_id, false );
 					$dossiersIds = Set::extract( $this->request->data, '/Foyer/dossier_id' );
 					$this->Jetons2->release( $dossiersIds );
 					$themeClass = Inflector::classify($this->request->data['Choose']['theme']);
