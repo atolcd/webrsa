@@ -1,213 +1,33 @@
-Installation
-==================================================
+# WebRSA
 
-Pour Ubuntu 18.04
+[WebRSA](https://github.com/atolcd/webrsa) - Solution complète de gestion du Revenu de Solidarité Active (RSA).
 
-pla - 2019-02-12
+<img  alt="Présentation" src="https://www.atolcd.com/fileadmin/_processed_/c/9/csm_logo-webrsa_0c9678b2be.jpg" width="200">
 
-Mise à jour
---------------------------------------------------
+*Depuis 2017, Atol Conseils et Développements apporte les évolutions nécessaires pour le maintien de la solution WebRSA développée initialement par Libriciel Scop (ex- Adullact Projet). L'application interagit avec la Caisse Nationale d'Allocation Familiale, Pôle Emploi et les Conseils Départementaux afin de garantir un suivi du bénéficiaire et lui garantir un projet de vie.*
 
-`sudo apt update`
-`sudo apt upgrade`
+## Fonctionnalités
 
+* **Orientation** des allocataires
+* Consultation des dossiers des bénéficiaires du RSA
+* Affectation d’un référent
+* **Suivi des parcours**
+* Gestion des rendez vous (prévu, excusé, honoré ou non )
+* Saisie et validation dématérialisées des **Contrats d’Engagement Réciproque** (CER)
+* Transfert des dossiers en cas de déménagement
+* Relances et gestion du dispositif des **équipes pluridisciplinaires**
+* Élaboration des tableaux de bord
+* Gestion des créances, titres de recette et recours gracieux
+* Fonctionnalité de gestion des primo accédants dans le cadre du **Plan Pauvreté**
 
-Prérequis
---------------------------------------------------
+## Documentation
 
-# Installation de Composer
+Se référer à la page de documentations dédiée :
 
-* Source :
-[Source](https://websiteforstudents.com/how-to-install-php-composer-on-ububuntu-16-04-17-10-18-04/)
+[Documentations WebRSA](docs/index.adoc)
 
-* Commandes :
-`sudo apt install php`
+## Licence
 
-`sudo apt-get install python-software-properties`
-`sudo add-apt-repository ppa:ondrej/php`
-`sudo apt update`
+L'approche Open Source correspondant à nos valeurs et à nos engagements vis à vis de nos clients, WebRSA est une solution libre avec un contrat de licence [CeCILL v2](https://github.com/atolcd/webrsa/LICENCE.txt). Elle permet aux organismes désireux d’acquérir la solution de s’affranchir des coûts de licence.
 
-`sudo apt install php7.2`
-`sudo apt install curl`
-
-`curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer`
-
-* Vérification :
-`composer`
-
-# Installation de Vagrant
-
-* Source :
-[Source](https://linuxize.com/post/how-to-install-vagrant-on-ubuntu-18-04/)
-
-* Commandes :
-`sudo apt install virtualbox`
-`sudo apt install vagrant`
-
-* Vérification :
-`vagrant --version`
-
-# Installation de Docker
-
-* Source :
-[Source](https://linuxize.com/post/how-to-install-vagrant-on-ubuntu-18-04/)
-
-* Commandes :
-`sudo apt install apt-transport-https ca-certificates curl software-properties-common`
-`curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
-`sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"`
-`sudo apt update`
-`sudo apt install docker-ce`
-
-* Vérification :
-`sudo systemctl status docker`
-`docker -v`
-
-
-Récupérer le projet infrastructure
---------------------------------------------------
-
-# Clone du dépôt atolcd/infrastructure
-
-* Créer un dossier pour le dépôt git :
-`mkdir {dossier_infrastructure}`
-`cd {dossier_infrastructure}`
-
-* Clone du dépôt :
-`git clone "ssh://pla@gerrit.priv.atolcd.com:29418/atolcd/infrastructure"`
-
-* S'assurer que la variable d'environnement `PUPPET_PATH` pointe vers le dossier où a été cloné le dépôt atolcd/infrastructure
-Mettre cette ligne dans le fichier /home/{trigramme}/.bashrc :
-`export PUPPET_PATH="{dossier_infrastructure}"`
-
-* Donner les droit d'accès
-`sudo chmod 666 /var/run/docker.sock`
-
-* Se connecter à docker-registry.priv.atolcd.com avec son trigramme / mot de passe (une seule fois)
-`docker login docker-registry.priv.atolcd.com`
-
-* Commandes :
-`make dependency`
-
-* Ajouter cette variable d'environnement dans le .bashrc :
-`nano ~/.bashrc`
-`export PUPPET_PATH="{dossier_infrastructure}"`
-
-
-Récupérer le projet webrsa
---------------------------------------------------
-
-# Clone du dépôt atolcd/webrsa
-
-* Créer un dossier pour le dépôt git :
-`mkdir {dossier_webrsa}`
-`cd {dossier_webrsa}`
-
-* Clone du dépôt :
-`git clone "ssh://pla@gerrit.priv.atolcd.com:29418/atolcd/webrsa"`
-
-* Récupérer cakephp et faire que tout s'installe
-`composer install`
-
-
-Adapter le fichier /etc/hosts
---------------------------------------------------
-
-# Ajouter les noms de domaines complet vers 127.0.0.1 :
-127.0.0.1       http://58test.atolcd-webrsa-demo.hosting.priv.atolcd.com
-127.0.0.1       http://66test.atolcd-webrsa-demo.hosting.priv.atolcd.com
-127.0.0.1       http://93test.atolcd-webrsa-demo.hosting.priv.atolcd.com
-127.0.0.1       http://976test.atolcd-webrsa-demo.hosting.priv.atolcd.com
-
-
-Démarrer la VM virtualbox avec Vagrant et la provisionner
---------------------------------------------------
-
-# vagrant-disksize
-* Source :
-[Source](https://github.com/dotless-de/vagrant-vbguest/issues/292)
-
-* Commandes :
-`wget -c https://releases.hashicorp.com/vagrant/2.0.3/vagrant_2.0.3_x86_64.deb`
-`sudo dpkg -i vagrant_2.0.3_x86_64.deb`
-`vagrant plugin install vagrant-disksize`
-
-# vagrant
-
-Depuis le répertoire {dossier_webrsa}.
-
-* Premier démarrage la vm :
-`vagrant up`
-`vagrant provision`
-
-* Pour démarrer la vm :
-`vagrant up`
-
-* Pour se connecter à la vm :
-`vagrant ssh`
-
-* Pour arrêter la vm :
-`vagrant halt`
-
-* Pour supprimer la vm :
-`vagrant destroy`
-
-
-Installation de Node.js
---------------------------------------------------
-
-`sudo apt-get update`
-`sudo apt-get install nodejs npm`
-
-`sudo ln -s /usr/bin/nodejs /usr/local/bin/node`
-`sudo ln -s /usr/bin/npm /usr/local/bin/npm`
-
-`npm install`
-
-Mise en place bdd
---------------------------------------------------
-
-* Récupération des backup de la BDD
-[Wiki] <https://redmine.atolcd.com/projects/webrsa--support/wiki>
-# A placer dans {dossier_webrsa}/webrsa/vendor
-`tar zxvf dump_base_webrsa-p03_20190115_2104.sql.tar.gz`
-
-* Se connecter à la VM
-`vagrant ssh`
-
-* CD 66
-
-# Copie du fichier de variable d'environnement par défaut
-'cp /var/www/66test/public_html/project/app/Config /var/www/66test/.env`
-`sudo vi /var/www/66test/.env`
-
-# Modification du fichier, le mot de passe et la configuration selon l'environnement se trouve dans 
-[Wiki] <https://redmine.atolcd.com/projects/webrsa--support/wiki>
-
-# Création de la BDD & restauration
-`cd /var/www/66test/public_html/vendor`
-`sudo su postgres`
-`psql`
-`CREATE ROLE webrsa WITH LOGIN PASSWORD 'webrsa';`
-`CREATE DATABASE "66test-2" OWNER "66test";`
-`CTRL + D`
-`pg_restore -d 66test-2 -U 66test -h 127.0.0.1 -v ./remus.BACKUP`
-`CTRL + D`
-
-* CD 93
-
-# Copie du fichier de variable d'environnement par défaut
-'cp /var/www/93test/public_html/project/app/Config /var/www/93test/.env`
-`sudo vi /var/www/93test/.env`
-
-# Modification du fichier, le mot de passe et la configuration selon l'environnement se trouve dans 
-[Wiki] <https://redmine.atolcd.com/projects/webrsa--support/wiki>
-
-`cd /var/www/93test/public_html/vendor`
-
-`sudo su postgres`
-`psql`
-
-`CREATE DATABASE "93test-2" OWNER "webrsa";`
-`CTRL + D`
-`psql -U postgres 93test-2 < dump_base_webrsa-p03_20190115_2104.sql`
+[Atol Conseils et Développements](http://www.atolcd.com), suivez-nous sur twitter [@atolcd](https://twitter.com/atolcd)
