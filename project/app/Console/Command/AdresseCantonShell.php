@@ -60,6 +60,18 @@
 			$departement = Configure::read('Cg.departement');
 
 			$this->out();
+			$this->out('Suppression des cantons qui n\'ont pas de noms...');
+			$timestart = microtime(true);
+			$Canton->deleteAll(array("Canton.canton IS NULL"), false);
+			$nbCantonNull = $Canton->find('count', array('conditions' => 'Canton.canton IS NULL'));
+			if($nbCantonNull != 0) {
+				$success = false;
+			} else {
+				$success = true;
+			}
+			$this->out(sprintf('Terminé en %s secondes.', number_format(microtime(true)-$timestart, 3)));
+
+			$this->out();
 			$this->out('Recherche des correspondances entre adresses et cantons...');
 			$timestart = microtime(true);
 			$query = array(
@@ -95,8 +107,12 @@
 			$this->out();
 			$this->out('Suppression du contenu de la table de liaison...');
 			$timestart = microtime(true);
-			$success = $Canton->query( "DELETE FROM public.cantons WHERE canton IS NULL;");
-			$success = $Adresse->AdresseCanton->query( "TRUNCATE TABLE " . $Dbo->fullTableName( $Adresse->AdresseCanton ) ) && $success;
+			$Adresse->AdresseCanton->query( "TRUNCATE TABLE " . $Dbo->fullTableName( $Adresse->AdresseCanton ) );
+			$nbAdresseCanton = $Adresse->AdresseCanton->find('count');
+			if($nbAdresseCanton != 0) {
+				$success = false;
+			}
+
 			$this->out(sprintf('Terminé en %s secondes.', number_format(microtime(true)-$timestart, 3)));
 
 			// On extrait les Adresse.id lorsque le canton n'a pas été trouvé et on prépare la sauvegarde
@@ -126,6 +142,7 @@
 			}
 
 			if ( !empty($data) && $success ) {
+				$this->out();
 				$this->out('Création du contenu de la table de liaison...');
 				$timestart = microtime(true);
 				$success = $success && $Adresse->AdresseCanton->saveMany($data);
