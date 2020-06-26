@@ -4885,6 +4885,15 @@ msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a2bv2"
 msgstr "Tableau A2b v2"
 
 ###############################################################################
+## Recherche Plan pauvreté
+###############################################################################
+msgid "controllers/Planpauvrete"
+msgstr "Recherche liée au plan pauvreté"
+
+msgid "controllers/Planpauvrete/searchprimoaccedant"
+msgstr "Recherche des primo accédant"
+
+###############################################################################
 ## Configurations
 ###############################################################################
 msgid "controllers/Configurations"
@@ -4895,3 +4904,12 @@ msgstr "Liste des configurations"
 
 msgid "controllers/Configurations/edit"
 msgstr "Modification des configurations"
+
+###############################################################################
+## Historique droit
+###############################################################################
+msgid "controllers/Historiquesdroits"
+msgstr "Historique des droits"
+
+msgid "controllers/Historiquesdroits/personne"
+msgstr "Voir l'historique des droit de la personne"

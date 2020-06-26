@@ -3,8 +3,8 @@
 	App::uses('WebrsaAccess', 'Utility');
 	WebrsaAccess::init($dossierMenu);
 
-    //echo $this->element('default_index');
-    echo '<h1>' . __m('/Foyerspiecesjointes/index/:heading') . '</h1>';
+    $this->pageTitle =  __m('/Foyerspiecesjointes/index/:heading');
+    echo $this->Xhtml->tag( 'h1', $this->pageTitle );
 ?>
 
 <!-- Bouton pour ajouter & accéder aux fichiers archivés -->
