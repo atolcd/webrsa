@@ -91,6 +91,12 @@
 				dependantSelect( 'Cohorte'+ind+'RendezvousPermanenceId', 'CohorteRendezvousStructurereferenteId' );
 				dependantSelect( 'Cohorte'+ind+'RendezvousPermanenceId', 'Cohorte'+ind+'RendezvousStructurereferenteId' );
 			});
+
+			// Désactive le bouton enregistrer par défaut
+			document.querySelector('input[value="Enregistrer"]').disabled = true;
+			document.querySelectorAll('input[type="checkbox"]').forEach( (el) => {
+				el.addEventListener('change', checkSaveButton);
+			});
 		});
 <?php
 	foreach ($results as $i => $value) {
@@ -123,6 +129,7 @@
 		<?php
 		}
 		?>
+		document.querySelector('input[value="Enregistrer"]').disabled = false;
 		return false;
 	}
 
@@ -142,6 +149,7 @@
 		<?php
 			}
 		?>
+		document.querySelector('input[value="Enregistrer"]').disabled = true;
 		return false;
 	}
 
@@ -178,4 +186,20 @@
 			}
 		}
 	});
+
+	// Test si le bouton Enregistrer doit être activé ou non
+	function checkSaveButton() {
+		let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		let nbChecked = 0;
+		checkboxes.forEach( (el) => {
+			if( el.name.indexOf("data[Cohorte]") != -1 && el.checked) {
+				nbChecked ++;
+			}
+			if(nbChecked > 0) {
+				document.querySelector('input[value="Enregistrer"]').disabled = false;
+			} else {
+				document.querySelector('input[value="Enregistrer"]').disabled = true;
+			}
+		});
+	}
 </script>
