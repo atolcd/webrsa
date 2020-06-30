@@ -95,7 +95,17 @@
 				dependantSelect( 'Cohorte'+ind+'RendezvousPermanenceId', 'CohorteRendezvousStructurereferenteId' );
 				dependantSelect( 'Cohorte'+ind+'RendezvousPermanenceId', 'Cohorte'+ind+'RendezvousStructurereferenteId' );
 			});
-
+			// Ajoute la couleur rouge si il n'y a pas de numéro de téléphone
+			let numtelCD = document.querySelectorAll('.numtelCD');
+			let numtelCAF = document.querySelectorAll('.numtelCAF');
+			for(let i=1; i<numtelCD.length; i++)
+			{
+				if ( ( numtelCAF[i].innerText === "" && numtelCD[i].innerText === "") || 
+					( numtelCAF[i].innerText != numtelCD[i].innerText && numtelCAF[i].innerText !== "" && numtelCD[i].innerText !== "" )
+				) {
+					numtelCAF[i].style.backgroundColor = "red";
+				}
+			}
 			// Désactive le bouton enregistrer par défaut
 			document.querySelector('input[value="Enregistrer"]').disabled = true;
 			document.querySelectorAll('input[type="checkbox"]').forEach( (el) => {
@@ -176,19 +186,6 @@
 				}
 			});
 		});
-	});
-
-	document.addEventListener('DOMContentLoaded', (e) => {
-		let numtelCD = document.querySelectorAll('.numtelCD');
-		let numtelCAF = document.querySelectorAll('.numtelCAF');
-		for(let i=1; i<numtelCD.length; i++)
-		{
-			if ( ( numtelCAF[i].innerText === "" && numtelCD[i].innerText === "") || 
-				( numtelCAF[i].innerText != numtelCD[i].innerText && numtelCAF[i].innerText !== "" && numtelCD[i].innerText !== "" )
-			 ) {
-				numtelCAF[i].style.backgroundColor = "red";
-			}
-		}
 	});
 
 	// Test si le bouton Enregistrer doit être activé ou non
