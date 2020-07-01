@@ -696,3 +696,10 @@ msgstr "Retour"
 
 msgid "/Parametrages/index/:title"
 msgstr "Retour aux paramétrages"
+
+################################################################################
+msgid "Toutcocher"
+msgstr "Tout cocher"
+
+msgid "Toutdecocher"
+msgstr "Tout décocher"

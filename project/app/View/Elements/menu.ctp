@@ -108,6 +108,11 @@
 					)
 				),
 			),
+			__d('dossiers', 'Dossier.nomcohorte') => array(
+				'disabled' => !Configure::read('Module.ModifEtatDossier.enabled'),
+				'class' => 'search',
+				'url' => array( 'controller' => 'modifsetatsdossiers', 'action' => 'cohorte_modifetatdos' ),
+			),
 			'Non orientation' => array(
 				'disabled' => ( $departement != 66 ),
 				'Inscrits PE' => array( 'class' => 'search', 'url' => array( 'controller' => 'nonorientes66', 'action' => 'cohorte_isemploi' ) ),

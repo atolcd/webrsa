@@ -333,4 +333,4 @@ msgid "Dossier.motif"
 msgstr "Motif"
 
 msgid "Dossier.nomcohorte"
-msgstr "Modification d'état de dossiers"
+msgstr "Modification d'état des dossiers"
