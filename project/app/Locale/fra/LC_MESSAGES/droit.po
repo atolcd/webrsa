@@ -4927,3 +4927,11 @@ msgstr "Modification des motifs"
 
 msgid "controllers/Motifsetatsdossiers/edit"
 msgstr "Suppression des motifs"
+
+## Cohorte de modification de l'état des dossiers
+###############################################################################
+msgid "controllers/Modifsetatsdossiers"
+msgstr "Cohorte de modification d'état des dossiers"
+
+msgid "controllers/Modifsetatsdossiers/cohorte_modifetatdos"
+msgstr "Accès et sauvegarde"
