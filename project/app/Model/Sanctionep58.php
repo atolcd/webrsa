@@ -688,6 +688,42 @@
 		}
 
 		/**
+		 * Ajoute une sanction pour non respect du PPAE
+		 * @param int $orient_id
+		 * @param int $personne_id
+		 * @return bool $success
+		 */
+		public function saveNonrespectppae($orient_id, $personne_id) {
+			$success = true;
+			$this->begin();
+
+			$dossierep = array(
+				'Dossierep' => array(
+					'themeep' => 'sanctionseps58',
+					'personne_id' => $personne_id
+				)
+			);
+			$this->Dossierep->create( $dossierep );
+			$success = $this->Dossierep->save( null, array( 'atomic' => false ) ) && $success;
+			$sanctionep58 = array(
+				'Sanctionep58' => array(
+					'dossierep_id' => $this->Dossierep->id,
+					'origine' => 'nonrespectppae',
+					'orientstruct_id' => $orient_id
+				)
+			);
+			$this->create( $sanctionep58 );
+			$success = $this->save( null, array( 'atomic' => false ) ) && $success;
+
+			if($success) {
+				$this->commit();
+			} else {
+				$this->rollback();
+			}
+			return $success;
+		}
+
+		/**
 		* TODO: docs
 		*/
 

@@ -32,6 +32,27 @@
 
 	echo $this->Default3->actions( $actions );
 
+	if( !empty( $nonrespectppae ) ) {
+		echo $this->Html->tag( 'h2', __m('Orientation.nonrespectppae') );
+		echo $this->Default3->index(
+			$nonrespectppae,
+			array(
+				'Orientstruct.date_valid' => array( 'type' => 'date' ),
+				'Sanctionep58.created',
+				'Passagecommissionep.etatdossierep',
+				'/Sanctionseps58/deleteNonrespectppae/#Sanctionep58.id#' => array(
+					'class' => 'delete',
+					'confirm' => __m('/Sanctionseps58/deleteNonrespectppae/#Sanctionep58.id# ?')
+				),
+			),
+			array(
+				'paginate' => false,
+				'options' => $options,
+			)
+		);
+		echo '<br>';
+	}
+
 	if( !empty( $reorientationseps ) ) {
 		echo $this->Html->tag( 'h2', 'Orientations en cours de passage en EP' );
 		echo $this->Default3->index(
@@ -96,6 +117,7 @@
 				'id' => 'TableDossiersepsIndex'
 			)
 		);
+		echo '<br>';
 	}
 
 	if( !empty( $reorientationscovs ) ) {
@@ -221,6 +243,9 @@
 					'/Orientsstructs/impression/#Orientstruct.id#',
 					'/Orientsstructs/delete/#Orientstruct.id#' => array(
 						'confirm' => true,
+					),
+					'/Orientsstructs/nonrespectppae/#Orientstruct.id#' => array(
+						'confirm' => __m('/Orientsstructs/nonrespectppae/#Orientstruct.id# ?'),
 					),
 					'/Orientsstructs/filelink/#Orientstruct.id#'
 				)

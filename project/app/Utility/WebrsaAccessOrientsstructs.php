@@ -28,7 +28,9 @@
 				'alias' => 'Orientstruct',
 				'departement' => Configure::read('Cg.departement'),
 				'ajout_possible' => null,
-				'reorientationseps' => null
+				'reorientationseps' => null,
+				'isbenefinscritpe' => null,
+				'listeOrientPro' => array()
 			);
 		}
 
@@ -119,6 +121,25 @@
 		}
 
 		/**
+		 *
+		 * Champs virtuels: dernier, dernier_oriente, linked_records
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _nonrespectppae(array $record, array $params) {
+			$isbenefinscritpe = Hash::get($params, 'isbenefinscritpe');
+			$listeOrientPro = Hash::get($params, 'listeOrientPro');
+			return (
+					Hash::get($record, "{$params['alias']}.dernier") == true
+					&& Hash::get($record, "{$params['alias']}.dernier_oriente") == true
+					&& $isbenefinscritpe == true
+					&& in_array($record['Typeorient']['id'], $listeOrientPro)
+				);
+		}
+
+		/**
 		 * Peut-on imprimer la notif de changement de référent ou non ?
 		 * Si 1ère orientation non sinon ok.
 		 *
@@ -143,6 +164,17 @@
 		}
 
 		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _deleteNonrespectppae(array $record, array $params) {
+			return true;
+		}
+
+		/**
 		 * Liste les actions disponnible
 		 *
 		 * @param array $params
@@ -162,6 +194,11 @@
 
 			if ($params['departement'] == 66) {
 				$result = self::merge_actions($result, array('impression_changement_referent'));
+			}
+
+			if( Configure::read('Commissionseps.sanctionep.nonrespectppae') == true ) {
+				$result = self::merge_actions($result, array('nonrespectppae'));
+				$result = self::merge_actions($result, array('deleteNonrespectppae'));
 			}
 
 			return $result;

@@ -70,6 +70,7 @@
 		public $uses = array(
 			'Orientstruct',
 			'WebrsaOrientstruct',
+			'Sanctionep58',
 		);
 
 		/**
@@ -118,6 +119,7 @@
 			'impression_changement_referent' => 'read',
 			'index' => 'read',
 			'search' => 'read',
+			'nonrespectppae' => 'update'
 		);
 
 		/**
@@ -370,8 +372,10 @@
 			);
 			$this->set( compact( 'dossierseps' ) );
 
+			$isdossnonrespectppae = false;
 			if( $departement != 58 ) {
 				$reorientationscovs = array();
+				$nonrespectppae = array();
 			}
 			else {
 				// Dossiers de COV en cours de passage et pouvant déboucher sur une réorientation
@@ -383,6 +387,43 @@
 						'rgorient_max' => $rgorient_max
 					)
 				);
+
+				if( !empty($dossierseps)) {
+					// Récupération des dossierseps_id pour non respect du ppae
+					$idDossierseps = array();
+					foreach($dossierseps as $dossiersep) {
+						if($dossiersep['Dossierep']['themeep'] == 'sanctionseps58') {
+							$idDossierseps[] = $dossiersep['Dossierep']['id'];
+						}
+					}
+					// Dossiers en cours de passage pour non respect du ppae
+					$nonrespectppae = $this->Sanctionep58->find('all', array(
+						'fields' => array(
+							'Sanctionep58.id',
+							'Sanctionep58.created',
+							'Sanctionep58.orientstruct_id',
+							'Orientstruct.date_valid',
+							'Dossierep.id',
+							'Dossierep.created',
+							'Dossierep.themeep',
+							'Passagecommissionep.id',
+							'Passagecommissionep.etatdossierep',
+							'Commissionep.id',
+							'Commissionep.dateseance',
+							'Commissionep.etatcommissionep',
+						),
+						'recursive' => 1,
+						'joins' => array(
+							$this->Sanctionep58->Dossierep->join( 'Passagecommissionep', array( 'type' => 'LEFT OUTER' ) ),
+							$this->Sanctionep58->Dossierep->Passagecommissionep->join( 'Commissionep', array( 'type' => 'LEFT OUTER' ) )
+						),
+						'conditions' => array(
+							'Sanctionep58.dossierep_id IN' => $idDossierseps,
+							'Sanctionep58.origine ' => 'nonrespectppae'
+						)
+					));
+					$isdossnonrespectppae = true;
+				}
 			}
 
 			// Droits sur les actions
@@ -392,18 +433,45 @@
 
 			$en_procedure_relance = $this->WebrsaOrientstruct->enProcedureRelance( $personne_id );
 
+			$query = $this->WebrsaOrientstruct->completeVirtualFieldsForAccess(
+				$this->WebrsaOrientstruct->getIndexQuery($personne_id)
+			);
+
+			$records = $this->Orientstruct->find('all', $query);
+
+			// Est ce un bénéficiaire inscrit PE ?
+			$isbenefinscritpe = false;
+
+			$toppersdrodevorsa = $this->Orientstruct->Personne->Calculdroitrsa->isSoumisAdroitEtDevoir($personne_id);
+
+			$this->loadModel('Informationpe');
+			$infoPE = $this->Informationpe->derniereInformation($records[0]);
+
+			// Si la personne est SDD & Etatdos 2 & Inscrit à pôle emploie &
+			// n'a pas de dossier pour non respect PPAE
+			if( $toppersdrodevorsa == true
+				&& $dossierMenu['Situationdossierrsa']['etatdosrsa'] == 2
+				&& $infoPE['Historiqueetatpe'][0]['etat'] == 'inscription'
+			) {
+				// Alors on peut ajouter une sanction
+				$isbenefinscritpe = true && !$isdossnonrespectppae;
+			}
+
+			// Liste des orientations professionnelles
+			$typeorientEmploi = $this->Orientstruct->Typeorient->listIdTypeOrient('EMPLOI');
+
 			/**
 			 * Contrôle d'accès
 			 */
 			$params = array(
 				'ajout_possible' => $ajoutPossible,
-				'reorientationseps' => $reorientationseps
+				'reorientationseps' => $reorientationseps,
+				'isbenefinscritpe' => $isbenefinscritpe,
+				'listeOrientPro' => $typeorientEmploi
 			);
-			$query = $this->WebrsaOrientstruct->completeVirtualFieldsForAccess(
-				$this->WebrsaOrientstruct->getIndexQuery($personne_id)
-			);
+
 			$orientsstructs = $this->WebrsaOrientstruct->rangOrientationIndexOptions(
-				WebrsaAccessOrientsstructs::accesses($this->Orientstruct->find('all', $query), $params)
+				WebrsaAccessOrientsstructs::accesses( $records, $params)
 			);
 
 			// Options
@@ -448,7 +516,7 @@
 				)
 			);
 
-			$this->set( compact( 'orientsstructs', 'reorientationseps', 'dossierseps', 'reorientationscovs', 'ajoutPossible', 'options', 'actions', 'en_procedure_relance' ) );
+			$this->set( compact( 'orientsstructs', 'reorientationseps', 'dossierseps', 'reorientationscovs', 'nonrespectppae', 'ajoutPossible', 'options', 'actions', 'en_procedure_relance' ) );
 			$this->set( 'urlmenu', "/orientsstructs/index/{$personne_id}" );
 		}
 
@@ -693,6 +761,24 @@
 		public function exportcsv() {
 			$Recherches = $this->Components->load( 'WebrsaRecherchesOrientsstructs' );
 			$Recherches->exportcsv();
+		}
+
+		/**
+		 * Ajoute la sanction nonrespectppae
+		 * @param int $orient_id
+		 */
+		public function nonrespectppae($orient_id) {
+			$personne_id = $this->Orientstruct->personneId( $orient_id );
+			$this->DossiersMenus->checkDossierMenu( array( 'personne_id' => $personne_id ) );
+
+			if( $this->Sanctionep58->saveNonrespectppae($orient_id, $personne_id) ) {
+				$this->Flash->success( __( 'Save->success' ) );
+			}
+			else {
+				$this->Flash->error( __( 'Save->error' ) );
+			}
+
+			$this->redirect( array( 'controller' => 'orientsstructs', 'action' => 'index', $personne_id ) );
 		}
 
 		/**

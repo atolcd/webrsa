@@ -1830,11 +1830,13 @@ table#Cers93Index a.button.aviscadre { background-image: url( ../img/icons/tick.
 table#Cers93Index span.button.aviscadre.disabled { background-image: url( ../img/icons/tick_disabled.png ); }
 
 table#Cers93Index a.button.add,
-table#TableContratsinsertionIndex a.nonrespectcer {
+table#TableContratsinsertionIndex a.nonrespectcer,
+table#TableOrientsstructsIndex a.nonrespectppae {
 	background-image: url( ../img/icons/folder_table.png );
 }
 table#Cers93Index span.button.add.disabled,
-table#TableContratsinsertionIndex span.nonrespectcer.disabled {
+table#TableContratsinsertionIndex span.nonrespectcer.disabled,
+table#TableOrientsstructsIndex span.nonrespectppae.disabled {
 	background-image: url( ../img/icons/folder_table_disabled.png );
 }
 

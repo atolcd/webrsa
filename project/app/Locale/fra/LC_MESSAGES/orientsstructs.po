@@ -102,6 +102,35 @@ msgstr " "
 msgid "/Proposorientationscovs58/add/:title"
 msgstr "Préconiser une orientation"
 
+
+# PPAE
+msgid "/Orientsstructs/nonrespectppae"
+msgstr "Sanction"
+
+msgid "/Orientsstructs/nonrespectppae/#Orientstruct.id#"
+msgstr "Ajouter une sanction pour non respect du PPAE sur l'orientation #Structurereferente.lib_struc# du #Orientstruct.date_valid# de #Personne.qual# #Personne.nom# #Personne.prenom#"
+
+msgid "/Orientsstructs/nonrespectppae/#Orientstruct.id# ?"
+msgstr "Réellement ajouter une sanction pour non respect du PPAE sur l'orientation #Structurereferente.lib_struc# du #Orientstruct.date_valid# de #Personne.qual# #Personne.nom# #Personne.prenom# ?"
+
+msgid "Orientation.nonrespectppae"
+msgstr "Signalements pour non respect du PPAE"
+
+msgid "Sanctionep58.created"
+msgstr "Date signalement"
+
+msgid "/Sanctionseps58/deleteNonrespectppae"
+msgstr "Supprimer"
+
+msgid "/Sanctionseps58/deleteNonrespectppae/#Sanctionep58.id#"
+msgstr "Supprimer cette sanction"
+
+msgid "/Sanctionseps58/deleteNonrespectppae/#Sanctionep58.id# ?"
+msgstr "Voulez vous vraiment supprimer cette sanction ?"
+
+
+
+
 # ------------------------------------------------------------------------------
 
 msgid "Dossierep.created"

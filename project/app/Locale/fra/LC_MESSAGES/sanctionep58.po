@@ -43,6 +43,9 @@ msgstr "Radiation de Pôle Emploi"
 msgid "ENUM::ORIGINE::noninscritpe"
 msgstr "Non inscrit à Pôle Emploi"
 
+msgid "ENUM::ORIGINE::nonrespectppae"
+msgstr "Non respect du PPAE"
+
 msgid "ENUM::ORIGINE::nonrespectcer"
 msgstr "Non respect du contrat"
 

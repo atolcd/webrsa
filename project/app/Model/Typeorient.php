@@ -260,6 +260,28 @@
 		}
 
 		/**
+		 * Récupère la liste des ID des type d'orientation selon le code passé en paramètre
+		 * @param string $code
+		 * @return array
+		 */
+		public function listIdTypeOrient($code) {
+			return $this->find('list', array(
+				'fields' => array('Typeorient.id'),
+				'recursive' => -1,
+				'joins' => array(
+					$this->join( 'Parent', array( 'type' => 'LEFT OUTER' ) )
+				),
+				'conditions' => array(
+					'OR' => array(
+						'Parent.code_type_orient' => $code,
+						'Typeorient.code_type_orient' => $code
+					),
+					'Typeorient.actif' => 'O'
+				)
+			));
+		}
+
+		/**
 		*
 		*/
 		public function list1Options() {

@@ -89,7 +89,8 @@
 			'deleteNonrespectcer' => 'delete',
 			'exportcsv_noninscritspe' => 'read',
 			'exportcsv_radiespe' => 'read',
-			'nonrespectcer' => 'create'
+			'nonrespectcer' => 'create',
+			'deleteNonrespectppae' => 'delete',
 		);
 
 		/**
@@ -155,6 +156,23 @@
 		 * @param integer $sanctionep58_id
 		 */
 		public function deleteNonrespectcer( $sanctionep58_id ) {
+			$this->_deleteSanctionNonrespect($sanctionep58_id);
+		}
+
+		/**
+		 *
+		 * @param integer $sanctionep58_id
+		 */
+		public function deleteNonrespectppae( $sanctionep58_id ) {
+			$this->_deleteSanctionNonrespect($sanctionep58_id, 'orientsstructs');
+		}
+
+		/**
+		 * Supprime une sanction (CER ou PPAE)
+		 * @param int $sanctionep58_id
+		 * @param string $controller
+		 */
+		protected function _deleteSanctionNonrespect($sanctionep58_id, $controller = 'contratsinsertion') {
 			$dossierep = $this->Sanctionep58->find(
 				'first',
 				array(
@@ -167,7 +185,10 @@
 				)
 			);
 
-			$this->_checkAccess(Hash::get($dossierep, 'Sanctionep58.contratinsertion_id'));
+			if ($controller == 'contratsinsertion') {
+				$this->_checkAccess(Hash::get($dossierep, 'Sanctionep58.contratinsertion_id'));
+			}
+
 			$this->DossiersMenus->checkDossierMenu( array( 'personne_id' => $this->Sanctionep58->Dossierep->personneId( $dossierep['Sanctionep58']['dossierep_id'] ) ) );
 
 			$success = true;
@@ -185,7 +206,7 @@
 				$this->Flash->error( __( 'Save->error' ) );
 			}
 
-			$this->redirect( array( 'controller' => 'contratsinsertion', 'action' => 'index', $dossierep['Dossierep']['personne_id'] ) );
+			$this->redirect( array( 'controller' => $controller, 'action' => 'index', $dossierep['Dossierep']['personne_id'] ) );
 		}
 
 		/**
