@@ -126,6 +126,7 @@
 						'Dossier.id',
 						'Dossier.dtdemrsa',
 						'Dossier.ddarrmut',
+						'Historiquedroit.created'
 					)
 				);
 				// 2. Jointure

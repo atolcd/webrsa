@@ -28,6 +28,8 @@ msgstr "date de mois de traitement"
 msgid "Search.Historiquedroit.created"
 msgstr "Date d'intégration"
 
+msgid "Historiquedroit.created"
+msgstr "Date de dernière ouverture de droit"
 
 ###############################################################################
 ########################    Information collectives    ########################

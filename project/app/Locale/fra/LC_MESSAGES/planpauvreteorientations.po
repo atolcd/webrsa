@@ -66,3 +66,6 @@ msgstr "Date"
 
 msgid "Adresse.complete"
 msgstr "Adresse"
+
+msgid "Historiquedroit.created"
+msgstr "Date de dernière ouverture de droit"
