@@ -45,7 +45,9 @@
 			$query = $this->nouveauxEntrants($query);
 
 			//Uniquement les personne qui sont SDDOV pour la première fois.
-			$query = $this->uniqueHistoriqueSdddov($query);
+			if( Configure::read('PlanPauvrete.Cohorte.Primoaccedant') ) {
+				$query = $this->uniqueHistoriqueSdddov($query);
+			}
 
 			return $query;
 		}
