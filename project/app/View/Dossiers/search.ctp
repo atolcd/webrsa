@@ -35,7 +35,7 @@
 </fieldset>
 
 <?php
-	if ($departement === 66) {
+	if ($departement == 66) {
 ?>
 <fieldset>
 	<legend><?php echo __d( 'dossierspcgs66', 'Dossierpcg66.search' ); ?></legend>

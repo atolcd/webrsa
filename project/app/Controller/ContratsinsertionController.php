@@ -472,13 +472,13 @@
 					. "Une réorientation sociale doit être sollicitée pour pouvoir enregistrer un CER.";
 				$messages[$message] = 'error';
 			}
-			if ($departement === 58 && !$controle['isSoumisdroitetdevoir']) {
+			if ($departement == 58 && !$controle['isSoumisdroitetdevoir']) {
 				$message = "Cette personne n'est pas soumise à droit et devoir. Impossible de créer un CER.";
 				$messages[$message] = 'error';
 			}
 
 			// Contrôles supplémentaire utile pour un CG en particulier
-			if ($departement === 58) {
+			if ($departement == 58) {
 				$querydata = $this->WebrsaContratinsertion->qdThematiqueEp('Sanctionep58', $personne_id);
 				$querydata['fields'] = Set::merge($querydata['fields'],
 					array(
@@ -518,7 +518,7 @@
 
 			// Pas de blocage pour le 976, donc il faut retirer la mention
 			// "Impossible de créer un CER." et mettre le message sous la class "notice"
-			if ($departement === 976) {
+			if ($departement == 976) {
 				$newMessages = array();
 				foreach ($messages as $message => $class) {
 					if ($class === 'error' && strpos($message, "Impossible de créer un CER.")) {
@@ -551,7 +551,7 @@
 				$this->Contratinsertion->Personne->Dossierep->Passagecommissionep->enums()
 			);
 
-			if ($departement === 58) {
+			if ($departement == 58) {
 				$options = array_merge(
 					$options,
 					$this->Contratinsertion->Personne->Orientstruct->Personne->Dossiercov58->Passagecov58->enums(),
@@ -581,7 +581,7 @@
 			/**
 			 * Spécifique aux Départements
 			 */
-			if ($departement === 66) {
+			if ($departement == 66) {
 				if (!Hash::get($personne, 'PersonneReferent.id')) {
 					$message = "Aucun référent n'est lié au parcours de cette personne.";
 					$messages[$message] = 'error';

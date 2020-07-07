@@ -878,7 +878,7 @@
 
 					foreach( $this->searches as $key => $config ) {
 					$departement = Hash::get( $config, 'departement' );
-					if( $departement === null || in_array( $currentDepartement, (array)$departement ) ) {
+					if( $departement == null || in_array( $currentDepartement, (array)$departement ) ) {
 						ClassRegistry::flush();
 						$Recherches = $this->_component( $key, $config );
 
@@ -999,7 +999,7 @@
 				$departement = Hash::get( $config, 'departement' );
 				$type = Hash::get( $config, 'type' );
 
-				if( $departement === null || in_array( $currentDepartement, (array)$departement ) ) {
+				if( $departement == null || in_array( $currentDepartement, (array)$departement ) ) {
 					// INFO: ajout d'une condition supplémentaire afin de ne pas avoir de résultats
 					Configure::write( "ConfigurableQuery.{$key}.query.conditions", '0 = 1' );
 					Configure::write( "ConfigurableQuery.{$key}.auto", false );

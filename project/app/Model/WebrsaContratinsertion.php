@@ -185,7 +185,7 @@
 
 			// Spécial CG
 			$cgCond = true;
-			if ($departement === 58) {
+			if ($departement == 58) {
 				$cgCond = $isSoumisdroitetdevoir;
 			}
 
@@ -301,7 +301,7 @@
 					$this->Contratinsertion->Personne->Calculdroitrsa->isSoumisAdroitEtDevoir($personne_id)
 				;
 
-				if ($departement === 58) {
+				if ($departement == 58) {
 					if ($this->limiteCumulDureeCER($personne_id) >= 12) {
 						$demandedemaintien = $this->Contratinsertion->Personne->Dossiercov58->qdDossiersNonFinalises(
 							$personne_id, 'proposnonorientationsproscovs58'
