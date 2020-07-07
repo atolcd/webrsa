@@ -970,7 +970,7 @@
 
 
 				// Calcul des Apre par années
-				if( (integer)Configure::read( 'Cg.departement' ) === 66 ) {
+				if( Configure::read( 'Cg.departement' ) == 66 ) {
 					$Apre66 = ClassRegistry::init('Apre66');
 					$montantApres = array();
 					$begin = false;

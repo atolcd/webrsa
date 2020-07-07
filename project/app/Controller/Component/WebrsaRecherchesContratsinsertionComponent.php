@@ -142,7 +142,7 @@
 				);
 			}
 
-			if ($departement === 66) {
+			if ($departement == 66) {
 				$options['Dernierreferent']['dernierreferent_id'] =
 					$Controller->Contratinsertion->Structurereferente->Referent->Dernierreferent->listOptions();
 			}
@@ -163,7 +163,7 @@
 				parent::_optionsSession( $params ),
 				array(
 					'Orientstruct' => array(
-						'typeorient_id' => $Controller->InsertionsBeneficiaires->typesorients( array( 'empty' => ( $departement !== 58 ) ) )
+						'typeorient_id' => $Controller->InsertionsBeneficiaires->typesorients( array( 'empty' => ( $departement != 58 ) ) )
 					)
 				)
 			);

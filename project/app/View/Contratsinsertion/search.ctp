@@ -97,7 +97,7 @@
 					: array()
 				),
 				array(
-					'Search.Contratinsertion.duree_engag' => array( 'empty' => true, 'type' => ( $departement === 58 ? 'text' : 'select' ) ),
+					'Search.Contratinsertion.duree_engag' => array( 'empty' => true, 'type' => ( $departement == 58 ? 'text' : 'select' ) ),
 				)
 			),
 			array( 'options' => array( 'Search' => $options ), 'domain' => $domain )

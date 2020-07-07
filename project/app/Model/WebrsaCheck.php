@@ -686,7 +686,7 @@
 
 			// Pour tous les départements sauf le 976
 			$departement = Configure::read( 'Cg.departement' );
-			if( $departement !== 976 ) {
+			if( $departement != 976 ) {
 				// Pour les thématiques traitées, on cherche à savoir à quel niveau maximum
 				$Commissionep = ClassRegistry::init( 'Commissionep' );
 				$themes = $Commissionep->Ep->themes();
@@ -1525,7 +1525,7 @@
 			// @deprecated 3.0.00 (faire le tric moteurs de recherche / autres)
 			$ignore = Configure::read( 'ConfigurableQueryFields.ignore' );
 			$ignore[] = 'Dossier.locked';
-			if( Configure::read( 'Cg.departement' ) === 93 ) {
+			if( Configure::read( 'Cg.departement' ) == 93 ) {
 				$ignore[] = 'Referent.horszone';
 			}
 			// TODO

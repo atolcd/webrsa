@@ -373,7 +373,7 @@
 				)
 			);
 
-			if( (string)Configure::read( 'Cg.departement' ) === '93' ) {
+			if( Configure::read( 'Cg.departement' ) == '93' ) {
 				if( false === $this->Rendezvous->Behaviors->attached( 'LinkedRecords' ) ) {
 					$this->Rendezvous->Behaviors->attach( 'LinkedRecords' );
 				}
