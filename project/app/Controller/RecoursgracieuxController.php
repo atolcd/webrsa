@@ -38,7 +38,12 @@
 			'DossiersMenus',
 			'Jetons2',
 			'WebrsaAccesses',
-			'Fileuploader'
+			'Fileuploader',
+			'Search.SearchPrg' => array(
+				'actions' => array(
+					'search'
+				)
+			)
 		);
 
 		/**
