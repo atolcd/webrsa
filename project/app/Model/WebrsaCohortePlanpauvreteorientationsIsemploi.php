@@ -39,7 +39,10 @@
 			$query = $this->inscritPE($query);
 
 			//Uniquement les personne qui sont SDDOV pour la première fois.
-			$query = $this->uniqueHistoriqueSdddov($query);
+			if( Configure::read('PlanPauvrete.Cohorte.Primoaccedant') ) {
+				$query = $this->uniqueHistoriqueSdddov($query);
+			}
+
 			//Uniquement les personnes dont l'état PE est mis a jour ce mois ci
 			$query = $this->dateInscritPESupPeriode($query);
 
