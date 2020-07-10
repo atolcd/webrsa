@@ -62,6 +62,7 @@
 			'Fileuploader',
 			'Cake1xLegacy.Ajax',
 			'Search',
+			'Search.SearchForm'
 		);
 
 		/**

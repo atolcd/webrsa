@@ -16,6 +16,21 @@
 	 */
 	class WebrsaRecherchesRecoursgracieuxComponent extends WebrsaAbstractRecherchesComponent
 	{
+
+		/**
+		 * Surcharge de la méthode _filters de WebrsaAbstractMoteursComponent
+		 * pour prendre en compte les custom search
+		 * @param array
+		 * @return array
+		 */
+		protected function _filters( array $params ) {
+			$Controller = $this->_Collection->getController();
+			if(!empty($Controller->request->data['search']) ) {
+				$Controller->request->data['Search'] = $Controller->request->data['Search'] + $Controller->request->data['search'];
+			}
+			return parent::_filters($params);
+		}
+
 		/**
 		 * Retourne les options de type "enum", c'est à dire liées aux schémas des
 		 * tables de la base de données.

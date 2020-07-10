@@ -242,7 +242,7 @@ msgstr "Aucun indu associé à la proposition"
 msgid "Recourgracieux::decider::emptyIndusrecoursgracieux"
 msgstr "Aucun indu associé au dossier"
 
-vmsgid "Recourgracieux::decider::titleRecours"
+msgid "Recourgracieux::decider::titleRecours"
 msgstr "Information du dossier de recours"
 
 msgid "Recourgracieux::fileuploader::titleFileExist"
@@ -265,19 +265,19 @@ msgstr "Recherche par recours gracieux de l'allocataire"
 # Champs de recherches
 ###############################################################################
 
-msgid "Recourgracieux::search::dtarrivee"
+msgid "search.Recourgracieux.dtarrivee"
 msgstr "Date d’arrivée du dossier au CD"
 
-msgid "Recourgracieux::search::dtbutoir"
+msgid "search.Recourgracieux.dtbutoir"
 msgstr "Date butoir de réponse"
 
-msgid "Recourgracieux::search::dtreception"
+msgid "search.Recourgracieux.dtreception"
 msgstr "Date de réception du dossier dans le service"
 
 msgid "Recourgracieux::search::originerecoursgracieux_id"
 msgstr "Origine du dossier"
 
-msgid "Recourgracieux::search::dtaffectation"
+msgid "search.Recourgracieux.dtaffectation"
 msgstr "Date d'affectation"
 
 msgid "Recourgracieux::search::poledossierpcg66_id"
