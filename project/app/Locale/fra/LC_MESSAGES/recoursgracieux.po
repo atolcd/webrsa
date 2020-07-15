@@ -265,19 +265,19 @@ msgstr "Recherche par recours gracieux de l'allocataire"
 # Champs de recherches
 ###############################################################################
 
-msgid "search.Recourgracieux.dtarrivee"
+msgid "Search.Recourgracieux.dtarrivee"
 msgstr "Date d’arrivée du dossier au CD"
 
-msgid "search.Recourgracieux.dtbutoir"
+msgid "Search.Recourgracieux.dtbutoir"
 msgstr "Date butoir de réponse"
 
-msgid "search.Recourgracieux.dtreception"
+msgid "Search.Recourgracieux.dtreception"
 msgstr "Date de réception du dossier dans le service"
 
 msgid "Recourgracieux::search::originerecoursgracieux_id"
 msgstr "Origine du dossier"
 
-msgid "search.Recourgracieux.dtaffectation"
+msgid "Search.Recourgracieux.dtaffectation"
 msgstr "Date d'affectation"
 
 msgid "Recourgracieux::search::poledossierpcg66_id"

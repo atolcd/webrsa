@@ -170,7 +170,7 @@
 			// if Origine du dossier Selected then Recourgracieux.originerecoursgracieux_id LIKE
 			$originerecoursgracieux = (string)Hash::get( $search, 'Recourgracieux.originerecoursgracieux_id' );
 			if ( !empty($originerecoursgracieux) ) {
-				$query['conditions'][] = " Recourgracieux.originerecoursgracieux_id LIKE '".$originerecoursgracieux."'" ;
+				$query['conditions'][] = " Recourgracieux.originerecoursgracieux_id = ".$originerecoursgracieux;
 			}
 
 			// if Date d’affectation du dossier entre debut et fin
@@ -183,7 +183,7 @@
 			// if Gestionnaire du dossier Selected then Recourgracieux.user_id LIKE
 			$user_id = (string)Hash::get( $search, 'Recourgracieux.user_id' );
 			if ( !empty($user_id) ) {
-				$query['conditions'][] = " Recourgracieux.user_id LIKE '".$user_id."'"  ;
+				$query['conditions'][] = " Recourgracieux.user_id = ".explode('_', $user_id)[1];
 			}
 
 			// if État du dossier Selected then Recourgracieux.etat LIKE

@@ -13,17 +13,17 @@
 	/**
 	 * Date d’arrivée du dossier au CD
 	*/
-	echo $this->SearchForm->dateRange('search.Recourgracieux.dtarrivee', array('domain' => 'recoursgracieux'));
+	echo $this->SearchForm->dateRange('Search.Recourgracieux.dtarrivee', array('domain' => 'recoursgracieux'));
 
 	/**
 	 * Date butoir de réponse
 	*/
-	echo $this->SearchForm->dateRange('search.Recourgracieux.dtbutoir', array('domain' => 'recoursgracieux'));
+	echo $this->SearchForm->dateRange('Search.Recourgracieux.dtbutoir', array('domain' => 'recoursgracieux'));
 
 	/**
 	 * Date de réception du dossier dans le service
 	*/
-	echo $this->SearchForm->dateRange('search.Recourgracieux.dtreception', array('domain' => 'recoursgracieux'));
+	echo $this->SearchForm->dateRange('Search.Recourgracieux.dtreception', array('domain' => 'recoursgracieux'));
 
 	/**
 	 * Origine du dossier
@@ -41,7 +41,7 @@
 	/**
 	 * Date d’affectation du dossier
 	*/
-	echo $this->SearchForm->dateRange('search.Recourgracieux.dtaffectation', array('domain' => 'recoursgracieux'));
+	echo $this->SearchForm->dateRange('Search.Recourgracieux.dtaffectation', array('domain' => 'recoursgracieux'));
 
 	/**
 	 * Gestionnaire du dossier
