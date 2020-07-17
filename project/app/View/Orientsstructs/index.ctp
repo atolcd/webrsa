@@ -229,6 +229,9 @@
 					'/Orientsstructs/edit/#Orientstruct.id#',
 					'/Orientsstructs/impression/#Orientstruct.id#',
 					'/Orientsstructs/impression_changement_referent/#Orientstruct.id#',
+					'/Orientsstructs/nonrespectppae/#Orientstruct.id#' => array(
+						'confirm' => __m('/Orientsstructs/nonrespectppae/#Orientstruct.id# ?'),
+					),
 					'/Orientsstructs/delete/#Orientstruct.id#' => array(
 						'confirm' => true
 					),

@@ -544,6 +544,9 @@
 		public function qdDossiersepsOuverts( $personne_id ) {
 			$themes = array_keys( $this->themesCg() );
 
+			if( Configure::read('Commissionseps.sanctionep.nonrespectppae') == true && in_array('sanctionseps58', $themes) == false) {
+				$themes[] = 'sanctionseps58';
+			}
 			return array(
 				'conditions' => array(
 					'Dossierep.actif' => '1',
