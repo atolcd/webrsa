@@ -8,11 +8,11 @@
 					'Statutrdv.libelle',
 					'Statutrdv.code_statut'
 				),
-				( 58 === Configure::read( 'Cg.departement' ) )
+				( 58 == Configure::read( 'Cg.departement' ) )
 					? array( 'Statutrdv.provoquepassagecommission' => array( 'type' => 'radio' ) )
 					: array()
 				,
-				( 66 === Configure::read( 'Cg.departement' ) )
+				( 66 == Configure::read( 'Cg.departement' ) )
 					? array( 'Statutrdv.permetpassageepl' => array( 'type' => 'radio' ) )
 					: array()
 			)
