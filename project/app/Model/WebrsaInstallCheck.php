@@ -125,7 +125,7 @@
 					'directories' => $this->Check->directories(
 						array(
 							TMP => 'w',
-							Configure::read( 'Cohorte.dossierTmpPdfs' ) => 'w'
+							APP . Configure::read( 'Cohorte.dossierTmpPdfs' ) => 'w'
 						),
 						ROOT.DS
 					),
@@ -144,7 +144,7 @@
 							// 1. Répertoire temporaire de CakePHP
 							TMP,
 							// 2. Répertoire temporaire pour les PDF.
-							Configure::read( 'Cohorte.dossierTmpPdfs' ),
+							APP . Configure::read( 'Cohorte.dossierTmpPdfs' ),
 							// 3. Répertoire de cache des wsdl
 							ini_get( 'soap.wsdl_cache_dir' ),
 						)

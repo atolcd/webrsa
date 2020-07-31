@@ -74,7 +74,7 @@
 		 * @return mixed
 		 */
 		public function concatPdfs( $pdfs, $modelName ) {
-			$pdfTmpDir = rtrim( Configure::read( 'Cohorte.dossierTmpPdfs' ), '/' ).'/'.session_id().'/'.$modelName;
+			$pdfTmpDir = rtrim( APP . Configure::read( 'Cohorte.dossierTmpPdfs' ), '/' ).'/'.session_id().'/'.$modelName;
 			/* $old = umask(0);
 			  @mkdir( $pdfTmpDir, 0777, true ); /// FIXME: vérification
 			  umask($old); */
