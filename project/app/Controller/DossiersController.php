@@ -347,7 +347,7 @@
 			$details = Set::merge( $details, array( 'Adresse' => Hash::get($adresseFoyer, 'Adresse') ) );
 
 			// Canton
-			if (Configure::read( 'CG.cantons' )) {
+			if (Configure::read( 'CG.cantons' ) && !empty($adresseFoyer) ) {
 				$this->loadModel('Canton');
 				$canton = $this->Canton->find (
 					'first',
