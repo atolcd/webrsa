@@ -15,7 +15,7 @@
 			$this->Translator->normalize(
 				array(
 					'Titrecreancier.dtbordereau',
-					'Titrecreancier.numbordereau',
+					'Titrecreancier.numbordereau' => array('type' => 'text'),
 					'Titrecreancier.numtitr',
 					'Titrecreancier.mntinit',
 					'Titrecreancier.soldetitr',
