@@ -85,7 +85,7 @@
 				$conditions .= ' AND "orientsstructs"."typeorient_id" = '. $limitation['typeorient_id'];
 			}
 			if ( isset( $limitation['typenotification'] ) ){
-				$conditions .= ' AND "orientsstructs"."typenotification" = '. $limitation['typenotification'];
+				$conditions .= ' AND "orientsstructs"."typenotification" = \''. $limitation['typenotification'] . '\'';
 			}
 
 			$query['conditions'][] = ' EXISTS('.$conditions.')';
