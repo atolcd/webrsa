@@ -118,8 +118,8 @@
 
 
 			$conditionsAdresses = array( 'OR' => array() );
-			// Début conditions zones géographiques CG 58 et CG 93
-			if( Configure::read( 'CG.cantons' ) == false ) {
+			// Début conditions zones géographiques
+			if( Configure::read( 'CG.covs58.zone.geographique' ) == true ) {
 				$zonesgeographiques = Set::extract(
 					$cov58,
 					'Sitecov58.Zonegeographique.{n}.codeinsee'
