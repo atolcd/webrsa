@@ -198,9 +198,19 @@
 				if( !empty( $canton['Canton']['libtypevoie'] ) ) {
 					$_condition['Adresse.libtypevoie ILIKE'] = $canton['Canton']['libtypevoie'];
 				}
+				/*
+				 * PLA - 18/08/2020 - Ticket 95139
+				 *
+				 * La condition $canton['Canton']['nomvoie'] était comentée.
+				 *
+				 * C'est la condition '%'.$canton['Canton']['nomvoie'].'%' qui était active.
+				 * Cette condition pose problème dans le cas '%GUSTAVE FLAUBERT%' pour un canton
+				 * et '%AUBERT%' pour un autre canton.
+				 *
+				 * On remet donc la précédente condition pour corriger ce problème.
+				 */
 				if( !empty( $canton['Canton']['nomvoie'] ) ) {
-                    $_condition['Adresse.nomvoie ILIKE'] = '%'.$canton['Canton']['nomvoie'].'%';
-//					$_condition['Adresse.nomvoie ILIKE'] = $canton['Canton']['nomvoie'];
+					$_condition['Adresse.nomvoie ILIKE'] = $canton['Canton']['nomvoie'];
 				}
 
 				$_conditions[] = $_condition;
