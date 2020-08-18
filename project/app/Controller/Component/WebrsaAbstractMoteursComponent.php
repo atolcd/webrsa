@@ -316,6 +316,7 @@
 			if( $Controller->request->is( 'get' )
 				|| false !== strpos( PHP_SAPI, 'cli' )
 				|| ( $Controller->request->is( 'post' ) && !empty($Controller->request->params['named']) )
+				|| ( $Controller->request->is( 'put' ) && !empty($Controller->request->params['named']) )
 			) {
 				if( empty( $params['searchKey'] ) === false ) {
 					if( isset( $Controller->request->data[$params['searchKey']] ) ) {
