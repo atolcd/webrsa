@@ -1009,5 +1009,32 @@
 
             return $result;
 		}
+
+		/**
+		 * Méthode permettant de compter le nombre de résultats
+		 * Le système classique ne permettant pas de déblonner les résultats
+		 */
+		public function paginateCount ($conditions, $recursive, $extra)
+		{
+				$count = 0;
+				$results = array ();
+
+				$query = array(
+					'fields' => array(
+						'DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"'
+					),
+					'conditions' => $conditions,
+					'joins' => $extra['joins']
+				);
+
+				$sql = $this->sq ($query);
+				$results = $this->query ($sql);
+
+				if (is_array ($results)) {
+					$count = count ($results);
+				}
+
+				return $count;
+		}
+
 	}
-?>

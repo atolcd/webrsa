@@ -18,6 +18,19 @@
 	class WebrsaRecherchesPlanpauvreteComponent extends WebrsaAbstractRecherchesComponent
 	{
 		/**
+		 * Modification de la requête avant son exécution.
+		 */
+		public function beforeSearch( array $params, array $query ) {
+			$query['fields'] = array_merge(
+				array ('DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"'),
+				$query['fields']
+			);
+
+			return $query;
+
+		}
+
+		/**
 		 * Retourne les options de type "enum", c'est à dire liées aux schémas des
 		 * tables de la base de données.
 		 *
