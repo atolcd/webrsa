@@ -632,6 +632,7 @@
 						$xml->writeElement('typeRdv', $rdv['typeRdv']);
 						$xml->writeElement('dateRdv', $rdv['dateRdv']);
 						$xml->writeElement('heureRdv', $rdv['heureRdv']);
+						$xml->writeElement('etatRdv', $rdv['etatRdv']);
 						$xml->writeElement('lieuRdv', $rdv['lieuRdv']);
 
 						// Noeud Référent
