@@ -427,9 +427,9 @@
 					$dernierHisto = $this->_getHisto($listeIDPersonne);
 
 					if(new DateTime($dernierHisto['created']) > $passe24mois && !in_array($dernierHisto['etatdosrsa'], array('5', '6') ) ) {
-						$actif = 'O';
+						$actif = 1;
 					} else {
-						$actif = 'N';
+						$actif = 0;
 					}
 
 					// Balise nom naissance
