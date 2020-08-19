@@ -74,7 +74,7 @@
 		 * @var array
 		 */
 		public $aucunDroit = array(
-
+			'deleteNonrespectppae'
 		);
 
 		/**

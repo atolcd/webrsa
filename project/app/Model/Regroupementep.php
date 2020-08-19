@@ -123,7 +123,8 @@
 			$blocageThemes = Configure::read( 'Blocage.thematique.ep' );
 
 			foreach( array_keys( $enums[$this->alias] ) as $key ) {
-				if( substr( $key, -2 ) != Configure::read( 'Cg.departement' ) ) {
+				if( substr( $key, -2 ) != Configure::read( 'Cg.departement' ) &&
+					!( Configure::read( 'Commissionseps.sanctionep.nonrespectppae' ) == true && $key == 'sanctionep58') ){
 					unset( $enums[$this->alias][$key] );
 				}
 
