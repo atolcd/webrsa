@@ -92,3 +92,38 @@ msgstr "Erreur lors de l'impression ou du stockage des orientations d'id %s"
 
 ###############################################################################
 
+###############################################################################
+# Vue Globale
+###############################################################################
+msgid "Shells:Vueglobale:error::path"
+msgstr "<error>Il n'y a pas de chemin de dossier passé en argument</error>"
+
+msgid "Shells:Vueglobale:error::rightPath"
+msgstr "<error>Il n'est pas possible d'écrire un fichier dans le dossier spécifié</error>"
+
+msgid "Shells:Vueglobale:error::errorXML"
+msgstr "<error>Erreur lors de la création du fichier</error>"
+
+msgid "Shells:Vueglobale:comment::debutSQLPersonne"
+msgstr "<comment>Traitement SQL pour rechercher les personnes...</comment>"
+
+msgid "Shells:Vueglobale:comment::finTraitement"
+msgstr "<comment>Traitement effectué en %s secondes.</comment>"
+
+msgid "Shells:Vueglobale:comment::suppressionXML"
+msgstr "<comment>Suppression du fichier XML existant si besoin...</comment>"
+
+msgid "Shells:Vueglobale:comment::debutXML"
+msgstr "<comment>Écriture du XML...</comment>"
+
+msgid "Shells:Vueglobale:comment::finXML"
+msgstr "<comment>Fichier écrit en %s secondes pour %d personnes.</comment>"
+
+msgid "Shells:Vueglobale:comment::debutFormatXML"
+msgstr "<comment>Formatage du XML...</comment>"
+
+msgid "Shells:Vueglobale:comment::finFormatXMLPremPartie"
+msgstr "<comment>Formatage du XML terminé en %s seconde. La taille du fichier est de %.2f "
+
+msgid "Shells:Vueglobale:comment::finFormatXMLDeuxPartie"
+msgstr "o.</comment>"
