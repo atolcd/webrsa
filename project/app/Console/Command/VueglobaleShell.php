@@ -105,7 +105,8 @@
 					Adresse.compladr,
 					Adresse.codepos,
 					Adresse.nomcom,
-					Personne.email
+					Personne.email,
+					Structurereferente.lib_struc
 				FROM
 					personnes AS Personne
 					INNER JOIN foyers AS Foyer ON (Personne.foyer_id = Foyer.id)
@@ -128,6 +129,8 @@
 						LIMIT 1
 					))
 					INNER JOIN adresses AS Adresse ON (Adressefoyer.adresse_id = Adresse.id)
+					INNER JOIN orientsstructs AS Orientstruct ON (Personne.id = Orientstruct.personne_id)
+					INNER JOIN structuresreferentes AS Structurereferente ON (Orientstruct.structurereferente_id = Structurereferente.id)
 					ORDER BY Personne.id
 				),
 				rendezvousTotal AS (
@@ -503,6 +506,7 @@
 						'adresseComplete' => $adressecomplete,
 						'codePostal' => $result[0]['codepos'],
 						'ville' => $result[0]['nomcom'],
+						'mspRattachement' => $result[0]['lib_struc'],
 						'telephone' => $tel,
 						'mail' => $email
 					);
@@ -572,6 +576,9 @@
 				$xml->endElement();
 				$xml->endElement();
 				// Fin Adresse
+
+				// Structure référente (msp)
+				$xml->writeElement('mspRattachement',$personne['Beneficiaire']['mspRattachement']);
 
 				// Téléphones
 				if(isset($personne['Beneficiaire']['telephone']) && !empty($personne['Beneficiaire']['telephone'])) {
