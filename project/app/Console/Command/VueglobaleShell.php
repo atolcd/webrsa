@@ -156,6 +156,20 @@
 		}
 
 		/**
+		 * Traite les résultats de la première requête pour avoir en clé l'ID de la personne
+		 * @return array
+		 */
+		private function _getResultSQL() {
+			$query = $this->_query();
+			$personnes = $this->Personne->query($query);
+			$results = array();
+			foreach($personnes as $personne) {
+				$results[$personne[0]['id']] = $personne[0];
+			}
+			return $results;
+		}
+
+		/**
 		 * Récupère le dernier historique d'une personne
 		 * @param array
 		 * @return array
@@ -178,17 +192,48 @@
 
 		/**
 		 * Récupère tous les id lié à une personne selon son nom / prénom / date de naissance
+		 * puis sur le NIR
 		 * @param array
 		 * @return array
 		 */
 		private function _getDoublon($data) {
-			$personnes = $this->Personne->find('list', array(
-				'conditions' => array(
+			$conditions = array();
+			if(isset($data['nir']) && !empty($data['nir'])) {
+				if( strlen( trim($data['nir']) ) == 13 ) {
+					$cle = $this->_calcul_cle_nir(trim($data['nir']));
+					if ($cle != null) {
+						$nir = trim($data['nir']) . $cle;
+					}
+				} else {
+					$nir = $data['nir'];
+				}
+				$conditions = array(
+					'OR' => array(
+						array(
+							'Personne.nom' => $data['nom'],
+							'Personne.prenom' => $data['prenom'],
+							'Personne.dtnai' => $data['dtnai']
+						),
+						array(
+							'Personne.nir' => substr($nir, 0, 13)
+						),
+						array(
+							'Personne.nir' => $nir
+						)
+					)
+				);
+			} else {
+				$conditions = array(
 					'Personne.nom' => $data['nom'],
 					'Personne.prenom' => $data['prenom'],
 					'Personne.dtnai' => $data['dtnai']
-				)
+				);
+			}
+
+			$personnes = $this->Personne->find('list', array(
+				'conditions' => $conditions
 			));
+
 			$liste = array();
 			foreach($personnes as $id => $pers) {
 				$liste[] = $id;
@@ -413,122 +458,125 @@
 		 * @return array
 		 */
 		private function _traitementSql() {
-			$query = $this->_query();
-			$results = $this->Personne->query($query);
+			$results = $this->_getResultSQL();
 			$arrayXml = array();
 			$passe24mois = new DateTime('today -24 months');
-			$listeIdDoublon = array();
+
 			foreach($results as $result) {
-				if( !isset($arrayXml[$result[0]['id']]) && !in_array($result[0]['id'], $listeIdDoublon) ) {
-					/* -- Partie Bénificiaire -- */
+				/* -- Partie Bénificiaire -- */
 
-					// Gestion des doublons sur Nom / Prenom / Date de naissance
-					$listeIDPersonne = $this->_getDoublon($result[0]);
-					$listeIdDoublon += $listeIDPersonne;
+				// Gestion des doublons sur Nom / Prenom / Date de naissance
+				$listeIDPersonne = $this->_getDoublon($result);
+				sort($listeIDPersonne);
+				$lastId = end($listeIDPersonne);
 
-					// Balise actif
-					$dernierHisto = $this->_getHisto($listeIDPersonne);
+				// Balise actif
+				$dernierHisto = $this->_getHisto($listeIDPersonne);
 
-					if(new DateTime($dernierHisto['created']) > $passe24mois && !in_array($dernierHisto['etatdosrsa'], array('5', '6') ) ) {
-						$actif = 1;
-					} else {
-						$actif = 0;
-					}
+				if(new DateTime($dernierHisto['created']) > $passe24mois && !in_array($dernierHisto['etatdosrsa'], array('5', '6') ) ) {
+					$actif = 1;
+				} else {
+					$actif = 0;
+				}
 
-					// Balise nom naissance
-					if(!isset($result[0]['nomnai'])) {
-						$result[0]['nomnai'] = $result[0]['nom'];
-					}
+				// Modification du nom avec dernier nom connu si différent (cas mariage)
+				if( isset($results[$lastId]['nom']) && !empty($results[$lastId]['nom']) && ($result['nom'] != $results[$lastId]['nom'])) {
+					$result['nom'] = $results[$lastId]['nom'];
+				}
 
-					// Balise adresse
-					$adressecomplete = '';
-					if( isset($result[0]['numvoie']) && !empty($result[0]['numvoie']) ){
-						$adressecomplete .= $result[0]['numvoie'];
-					}
+				// Balise nom naissance
+				if(!isset($result['nomnai'])) {
+					$result['nomnai'] = $result['nom'];
+				}
 
-					if( isset($result[0]['libtypevoie']) && !empty($result[0]['libtypevoie']) ){
-						$adressecomplete .= ' ' . $result[0]['libtypevoie'];
-					}
+				// Balise adresse
+				$adressecomplete = '';
+				if( isset($results[$lastId]['numvoie']) && !empty($results[$lastId]['numvoie']) ){
+					$adressecomplete .= $results[$lastId]['numvoie'];
+				}
 
-					if( isset($result[0]['nomvoie']) && !empty($result[0]['nomvoie']) ){
-						$adressecomplete .= ' ' . $result[0]['nomvoie'];
-					}
+				if( isset($results[$lastId]['libtypevoie']) && !empty($results[$lastId]['libtypevoie']) ){
+					$adressecomplete .= ' ' . $results[$lastId]['libtypevoie'];
+				}
 
-					if( isset($result[0]['compladr']) && !empty($result[0]['compladr']) ){
-						$adressecomplete .= ' ' . $result[0]['compladr'];
-					}
+				if( isset($results[$lastId]['nomvoie']) && !empty($results[$lastId]['nomvoie']) ){
+					$adressecomplete .= ' ' . $results[$lastId]['nomvoie'];
+				}
 
-					// Balise téléphone
-					$tel = array();
-					if( isset($result[0]['numfixe']) && !empty($result[0]['numfixe']) ) {
-						$tel[] = preg_replace('/[^\d](?=\d)/', '', $result[0]['numfixe']);
-					}
-					if( isset($result[0]['numport']) && !empty($result[0]['numport']) ) {
-						$tel[] = preg_replace('/[^\d](?=\d)/', '', $result[0]['numport']);
-					}
+				if( isset($results[$lastId]['compladr']) && !empty($results[$lastId]['compladr']) ){
+					$adressecomplete .= ' ' . $results[$lastId]['compladr'];
+				}
 
-					// NIR
-					if( strlen( trim($result[0]['nir']) ) == 13 ) {
-						$cle = $this->_calcul_cle_nir(trim($result[0]['nir']));
-						if ($cle != null) {
-							$nir = trim($result[0]['nir']) . $cle;
-						} else {
-							$nir = '';
-						}
-					} else if( strlen( trim($result[0]['nir']) ) == 15 ) {
-						$nir = trim($result[0]['nir']);
+				// Balise téléphone
+				$tel = array();
+				if( isset($result['numfixe']) && !empty($result['numfixe']) ) {
+					$tel[] = preg_replace('/[^\d](?=\d)/', '', $result['numfixe']);
+				}
+				if( isset($result['numport']) && !empty($result['numport']) ) {
+					$tel[] = preg_replace('/[^\d](?=\d)/', '', $result['numport']);
+				}
+
+				// NIR
+				if( strlen( trim($result['nir']) ) == 13 ) {
+					$cle = $this->_calcul_cle_nir(trim($result['nir']));
+					if ($cle != null) {
+						$nir = trim($result['nir']) . $cle;
 					} else {
 						$nir = '';
 					}
-
-					// Matricule
-					if(isset($result[0]['matricule'])) {
-						$result[0]['matricule'] = trim($result[0]['matricule']);
-					}
-
-					// Email
-					if(isset($result[0]['email']) && !empty($result[0]['email'])) {
-						$email = $result[0]['email'];
-					} else {
-						$email = '';
-					}
-
-					$arrayXml[$result[0]['id']]['Beneficiaire'] = array(
-						'actif' => $actif,
-						'flagSortie' => 'N',
-						'genre' => $result[0]['qual'],
-						'nomNaissance' => $result[0]['nomnai'],
-						'nomUsage' => $result[0]['nom'],
-						'prenom' => $result[0]['prenom'],
-						'dateNaissance' => $result[0]['dtnai'],
-						'codeNir' => $nir,
-						'codeCaf' => $result[0]['matricule'],
-						'adresseComplete' => $adressecomplete,
-						'codePostal' => $result[0]['codepos'],
-						'ville' => $result[0]['nomcom'],
-						'mspRattachement' => $result[0]['lib_struc'],
-						'telephone' => $tel,
-						'mail' => $email
-					);
-
-					/* -- Fin partie Bénificiaire -- */
-
-					// Aides
-					$arrayXml[$result[0]['id']]['Aides'] = $this->_traitementAides($result[0], $listeIDPersonne);
+				} else if( strlen( trim($result['nir']) ) == 15 ) {
+					$nir = trim($result['nir']);
+				} else {
+					$nir = '';
 				}
+
+				// Matricule
+				if(isset($result['matricule'])) {
+					$result['matricule'] = trim($result['matricule']);
+				}
+
+				// Email
+				if(isset($result['email']) && !empty($result['email'])) {
+					$email = $result['email'];
+				} else {
+					$email = '';
+				}
+
+				$arrayXml[$lastId]['Beneficiaire'] = array(
+					'actif' => $actif,
+					'flagSortie' => 'N',
+					'genre' => $result['qual'],
+					'nomNaissance' => $result['nomnai'],
+					'nomUsage' => $result['nom'],
+					'prenom' => $result['prenom'],
+					'dateNaissance' => $result['dtnai'],
+					'codeNir' => $nir,
+					'codeCaf' => $result['matricule'],
+					'adresseComplete' => $adressecomplete,
+					'codePostal' => $result['codepos'],
+					'ville' => $result['nomcom'],
+					'mspRattachement' => $result['lib_struc'],
+					'telephone' => $tel,
+					'mail' => $email
+				);
+				/* -- Fin partie Bénificiaire -- */
+
+				// Aides
+				$arrayXml[$lastId]['Aides'] = $this->_traitementAides($result, $listeIDPersonne);
+
 				// RDV
-				if( isset($arrayXml[$result[0]['personne_id']])
-					&& !empty($arrayXml[$result[0]['personne_id']]) )
+				if( isset($arrayXml[$result['personne_id']])
+					&& !empty($arrayXml[$result['personne_id']]) )
 				{
-					$arrayXml[$result[0]['id']]['RDVs'][] = array(
-						'typeRdv' => $result[0]['typerdv_lib'],
-						'dateRdv' => $result[0]['daterdv'],
-						'heureRdv' => $result[0]['heurerdv'],
-						'etatRdv' => $result[0]['statutrdv_lib'],
-						'lieuRdv' => $result[0]['libpermanence'],
-						'nomIntervenant' => $result[0]['referentrdvnom'],
-						'prenomIntervenant' => $result[0]['referentrdvprenom'],
-						'fonctionIntervenant' => $result[0]['referentrdvfonction']
+					$arrayXml[$lastId]['RDVs'][] = array(
+						'typeRdv' => $result['typerdv_lib'],
+						'dateRdv' => $result['daterdv'],
+						'heureRdv' => $result['heurerdv'],
+						'etatRdv' => $result['statutrdv_lib'],
+						'lieuRdv' => $result['libpermanence'],
+						'nomIntervenant' => $result['referentrdvnom'],
+						'prenomIntervenant' => $result['referentrdvprenom'],
+						'fonctionIntervenant' => $result['referentrdvfonction']
 					);
 				}
 			}
@@ -737,5 +785,27 @@
 				number_format(microtime(true)-$timestart, 3),
 				$bytes / pow(1024, $factor)
 			));
+
+			// Test et récupération du XML
+			if(isset($this->args[1]) && $this->args[1] == 'log'){
+				$this->out();
+				$this->out("Ecriture du log commencé");
+				$this->logXML($file);
+				$this->out("Ecriture du log terminé");
+			}
+		}
+
+		/**
+		 * Pour récupérer en log les personnes si besoin
+		 * @param string
+		 */
+		public function logXML($xml) {
+			$all = simplexml_load_file($xml);
+			$file = fopen('/tmp/persVueglobale', 'a');
+			foreach($all->Dossier as $dossier) {
+				$strFile = $dossier->Beneficiaire->genre . ' ' . $dossier->Beneficiaire->nomUsage . ' ' . $dossier->Beneficiaire->prenom . ' ' . $dossier->Beneficiaire->codeNir . PHP_EOL;
+				fwrite($file, $strFile);
+			}
+			fclose($file);
 		}
   }
