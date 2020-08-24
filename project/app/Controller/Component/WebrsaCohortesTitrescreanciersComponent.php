@@ -203,7 +203,7 @@
 					$infosFICA = $Controller->Titrecreancier->buildfica($titrecreanciers_ids);
 					if( !empty($infosFICA[1]) ) {
 						$csvfile = 'FICA'.Configure::read('Creances.FICA.NumAppliTiers').'.csv';
-						$csvpath = Configure::read('Cohorte.dossierTmpPdfs');
+						$csvpath = APP . Configure::read('Cohorte.dossierTmpPdfs');
 
 						//Build CSV fica sans .ctp :
 						//Ouverture du fichier

@@ -387,6 +387,62 @@
 		}
 
 		/**
+		 * Initislisation du tableau de résultat B1
+		 */
+		protected function _initializeTableauB1() {
+			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
+			$resultats = array (
+				'total' => array(),
+				'Orientes' => array(
+					'total' => array(),
+					'emploi' => array(),
+					'prepro' => array(),
+					'social' => array(),
+					'pe' => array(),
+					'cd' => array(),
+					'oa' => array()
+				),
+				'NonOrientes' => array(
+					'total' => array(),
+					'prevu' => array(),
+					'bilan' => array(),
+					'autres' => array(),
+				),
+				'delai_moyen' => array(),
+				'orient_31jours' => array(),
+				'delai' => $configurationDelais,
+				'taux_orient' => array()
+			);
+
+			for($i=0; $i<12; $i++) {
+				$resultats['total'][$i] = 0;
+				$resultats['Orientes']['total'][$i] = 0;
+				$resultats['Orientes']['emploi'][$i] = 0;
+				$resultats['Orientes']['prepro'][$i] = 0;
+				$resultats['Orientes']['social'][$i] = 0;
+				$resultats['Orientes']['pe'][$i] = 0;
+				$resultats['Orientes']['cd'][$i] = 0;
+				$resultats['Orientes']['oa'][$i] = 0;
+				$resultats['NonOrientes']['total'][$i] = 0;
+				$resultats['NonOrientes']['prevu'][$i] = 0;
+				$resultats['NonOrientes']['bilan'][$i] = 0;
+				$resultats['NonOrientes']['autres'][$i] = 0;
+				$resultats['delai_moyen'][$i] = 0;
+				$resultats['orient_31jours'][$i] = 0;
+				$resultats['taux_orient'][$i] = 0;
+				foreach( $configurationDelais as $key => $config) {
+					if( is_array($resultats['delai'][$key]) == false ) {
+						$resultats['delai'][$key] = array();
+					}
+					$resultats['delai'][$key][$i] = 0;
+				}
+			}
+			return $resultats;
+		}
+
+
+
+		/**
 		 *
 		 * @param array $search
 		 * @return array
@@ -497,6 +553,24 @@
 		}
 
 		/**
+		 * Initialise le tableau de résultat A1
+		 * @return array
+		 */
+		protected function _initializeTableauA1() {
+			$resultats = array (
+				'total' => array(),
+				'nbFoyerConnu' => array(),
+				'nbFoyerInconnu' => array()
+			);
+			for($i=0; $i<12; $i++) {
+				$resultats['total'][$i]=0;
+				$resultats['nbFoyerConnu'][$i]=0;
+				$resultats['nbFoyerInconnu'][$i]=0;
+			}
+			return $resultats;
+		}
+
+		/**
 		 *
 		 * @param array $search
 		 * @return array
@@ -584,6 +658,99 @@
 			}
 			$query['conditions'][] = '('.$queyConditions.')';
 			return $query;
+		}
+
+		/**
+		 * Initialise le tableau de résultat A2
+		 * @return array
+		 */
+		protected function _initializeTableauA2() {
+			$resultats = array (
+				//Soumis Droit et Devoir
+				'SSD' => array(),
+				//Orientée dont
+				'Orientes' => array(
+					'total' => array(),
+					'percent' => array(),
+					'Emploi' => array(),
+					'percentEmploi' => array(),
+					'Prepro' => array(),
+					'percentPrepro' => array(),
+					'Social' => array(),
+					'percentSocial' => array(),
+					'PE' => array(),
+					'percentPE' => array(),
+					'CD' => array(),
+					'percentCD' => array(),
+					'OA' => array(),
+					'percentOA' => array(),
+				),
+				//Avec contrats dont
+				'Contrat' => array(
+					'total' => array(),
+					'percent' => array(),
+					'PEPPAE' => array(),
+					'percentPEPPAE' => array(),
+					'CDCER' => array(),
+					'percentCDCER' => array(),
+					'PEAider' => array(),
+					'percentPEAider' => array(),
+					'PEAccomp' => array(),
+					'percentPEAccomp' => array(),
+				),
+				//Avec CER et Orientation CD dont
+				'CDCER' => array(
+					'total' => array(),
+					'Social' => array(),
+					'percentSocial' => array(),
+					'Prepro' => array(),
+					'percentPrepro' => array(),
+				),
+				//RDVCER
+				'RDVCER' => array()
+			);
+			for($i=0; $i<12; $i++) {
+				//Soumis Droit et Devoir
+				$resultats['SSD'][$i] = 0;
+				//Soumis Droit et Devoir
+				//Orientée dont
+				$resultats['Orientes']['total'][$i] =
+				$resultats['Orientes']['percent'][$i] =
+				$resultats['Orientes']['Emploi'][$i] =
+				$resultats['Orientes']['percentEmploi'][$i] =
+				$resultats['Orientes']['Prepro'][$i] =
+				$resultats['Orientes']['percentPrepro'][$i] =
+				$resultats['Orientes']['Social'][$i] =
+				$resultats['Orientes']['percentSocial'][$i] =
+				$resultats['Orientes']['PE'][$i] =
+				$resultats['Orientes']['percentPE'][$i] =
+				$resultats['Orientes']['CD'][$i] =
+				$resultats['Orientes']['percentCD'][$i] =
+				$resultats['Orientes']['OA'][$i] =
+				$resultats['Orientes']['percentOA'][$i] =
+					0;
+				//Avec contrats dont
+				$resultats['Contrat']['total'][$i] =
+				$resultats['Contrat']['CDCER'][$i] =
+				$resultats['Contrat']['PEPPAE'][$i] =
+				$resultats['Contrat']['PEAider'][$i] =
+				$resultats['Contrat']['PEAccomp'][$i] =
+				$resultats['Contrat']['percent'][$i] =
+				$resultats['Contrat']['percentPEPPAE'][$i] =
+				$resultats['Contrat']['percentCDCER'][$i] =
+				$resultats['Contrat']['percentPEAider'][$i] =
+				$resultats['Contrat']['percentPEAccomp'][$i] =
+				0;
+				//Avec contrats dont
+				$resultats['CDCER']['total'][$i] = 0;
+				$resultats['CDCER']['Social'][$i] = 0;
+				$resultats['CDCER']['percentSocial'][$i] = 0;
+				$resultats['CDCER']['Prepro'][$i] = 0;
+				$resultats['CDCER']['percentPrepro'][$i] = 0;
+				//RDVCER
+				$resultats['RDVCER'][$i] = 0;
+			}
+			return $resultats;
 		}
 
 		/**
@@ -712,6 +879,55 @@
 		}
 
 		/**
+		 * Calcul le pourcentage des résultats du tableau A2
+		 * @param array
+		 * @return array
+		 */
+		protected function _calculPercentTableauA2($resultats, $listPersonnes, $annee) {
+			for($i=0; $i<12; $i++) {
+				$Rendezvous = ClassRegistry::init( 'Rendezvous' );
+				$rdv = $Rendezvous->find('all',
+					array(
+						'fields' => array(
+							'DISTINCT ON ("Rendezvous"."id") "Rendezvous"."id" AS "idRendezvous"'
+						),
+						'recursive' => -1,
+						'conditions' => array(
+							'Rendezvous.typerdv_id' => Configure::read( 'Statistiqueplanpauvrete.type_rendezvous' ),
+							'date_trunc(\'month\',Rendezvous.daterdv)' => "{$annee}-".($i+1)."-01",
+							'Rendezvous.personne_id' => $listPersonnes
+						)
+					)
+				);
+				$resultats['RDVCER'][$i] = count($rdv);
+
+				if($resultats['SSD'][$i] != 0) {
+					$resultats['Orientes']['percent'][$i] = round( (100 * $resultats['Orientes']['total'][$i] ) / $resultats['SSD'][$i], 2)  . '%';
+					if ( $resultats['Orientes']['total'][$i] != 0) {
+						$resultats['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Orientes']['Emploi'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Orientes']['Prepro'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Orientes']['Social'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentPE'][$i] = round( (100 * $resultats['Orientes']['PE'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentCD'][$i] = round( (100 * $resultats['Orientes']['CD'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentOA'][$i] = round( (100 * $resultats['Orientes']['OA'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+					}
+					$resultats['Contrat']['percent'][$i] = round( (100 * $resultats['Contrat']['total'][$i] ) / $resultats['SSD'][$i], 2)  . '%';
+					if ( $resultats['Contrat']['total'][$i] != 0) {
+						$resultats['Contrat']['percentCDCER'][$i] = round( (100 * $resultats['Contrat']['CDCER'][$i] ) / $resultats['Contrat']['total'][$i], 2)  . '%';
+						$resultats['Contrat']['percentPEPPAE'][$i] = round( (100 * $resultats['Contrat']['PEPPAE'][$i] ) / $resultats['Contrat']['total'][$i], 2)  . '%';
+						$resultats['Contrat']['percentPEAider'][$i] = round( (100 * $resultats['Contrat']['PEAider'][$i] ) / $resultats['Contrat']['total'][$i], 2)  . '%';
+						$resultats['Contrat']['percentPEAccomp'][$i] = round( (100 * $resultats['Contrat']['PEAccomp'][$i] ) / $resultats['Contrat']['total'][$i], 2)  . '%';
+					}
+					if ( $resultats['CDCER']['total'][$i] != 0) {
+						$resultats['CDCER']['percentSocial'][$i] = round( (100 * $resultats['CDCER']['Social'][$i] ) / $resultats['CDCER']['total'][$i], 2)  . '%';
+						$resultats['CDCER']['percentPrepro'][$i] = round( (100 * $resultats['CDCER']['Prepro'][$i] ) / $resultats['CDCER']['total'][$i], 2)  . '%';
+					}
+				}
+			}
+			return $resultats;
+		}
+
+		/**
 		 * Enlève les données inutiles selon la configuration
 		 * @param array $results
 		 * @param string $nomTableau
@@ -737,6 +953,63 @@
 
 			return $results;
 		}
+
+		/**
+		 * Initialisation du tableau de résultat B4
+		 * @return array
+		 */
+		protected function _initializeTableauB4(){
+			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
+			$resultats = array (
+				'total' => array(),
+				'Social' => array(
+					'total' => array(),
+					'venu' => array(),
+					'excuse_recevable' => array(),
+					'sans_excuse' => array(),
+					'delai_moyen' => array(),
+					'delai' => $configurationDelais,
+					'taux_presence' => array()
+				),
+				'Prepro' => array(
+					'total' => array(),
+					'venu' => array(),
+					'excuse_recevable' => array(),
+					'sans_excuse' => array(),
+					'delai_moyen' => array(),
+					'delai' => $configurationDelais,
+					'taux_presence' => array()
+				)
+			);
+
+			for($i=0; $i<12; $i++) {
+				$resultats['total'][$i] = 0;
+				$resultats['Social']['total'][$i] = 0;
+				$resultats['Social']['venu'][$i] = 0;
+				$resultats['Social']['excuse_recevable'][$i] = 0;
+				$resultats['Social']['sans_excuse'][$i] = 0;
+				$resultats['Social']['delai_moyen'][$i] = 0;
+				$resultats['Social']['taux_presence'][$i] = 0;
+				$resultats['Prepro']['total'][$i] = 0;
+				$resultats['Prepro']['venu'][$i] = 0;
+				$resultats['Prepro']['excuse_recevable'][$i] = 0;
+				$resultats['Prepro']['sans_excuse'][$i] = 0;
+				$resultats['Prepro']['delai_moyen'][$i] = 0;
+				$resultats['Prepro']['taux_presence'][$i] = 0;
+				foreach( $configurationDelais as $key => $config) {
+					if( is_array($resultats['Social']['delai'][$key]) == false ) {
+						$resultats['Social']['delai'][$key] = array();
+					}
+					if( is_array($resultats['Prepro']['delai'][$key]) == false ) {
+						$resultats['Prepro']['delai'][$key] = array();
+					}
+					$resultats['Social']['delai'][$key][$i] = 0;
+					$resultats['Prepro']['delai'][$key][$i] = 0;
+				}
+			}
+			return $resultats;
+		}
+
 		/**
 		 *
 		 * @param array $search
@@ -825,6 +1098,43 @@
 		}
 
 		/**
+		 * Initialisation du tableau de résultat B5
+		 * @return array
+		 */
+		protected function _initializeTableauB5() {
+			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
+			$resultats = array (
+				'orient_valid' => array(),
+				'cer_social' => array(),
+				'cer_prepro' => array(),
+				'delai_moyen' => array(),
+				'delai_social' => array(),
+				'delai_prepro' => array(),
+				'signe15jrs' => array(),
+				'delai' => $configurationDelais,
+				'taux_contrat' => array()
+			);
+
+			for($i=0; $i<12; $i++) {
+				$resultats['orient_valid'][$i] = 0;
+				$resultats['cer_social'][$i] = 0;
+				$resultats['cer_prepro'][$i] = 0;
+				$resultats['delai_moyen'][$i] = 0;
+				$resultats['delai_social'][$i] = 0;
+				$resultats['delai_prepro'][$i] = 0;
+				$resultats['signe15jrs'][$i] = 0;
+				$resultats['taux_contrat'][$i] = 0;
+				foreach( $configurationDelais as $key => $config) {
+					if( is_array($resultats['delai'][$key]) == false ) {
+						$resultats['delai'][$key] = array();
+					}
+					$resultats['delai'][$key][$i] = 0;
+				}
+			}
+			return $resultats;
+		}
+
+		/**
 		 *
 		 * @param array $search
 		 * @return array
@@ -899,6 +1209,177 @@
 
 			$query = $this->_completeQuerySoumisDd($query, $annee, true);
 			return $query;
+		}
+
+		/**
+		 * Initalisation du tableau de résultat A1v2
+		 * @return array
+		 */
+		protected function _initializeTableauA1v2() {
+			$resultats = array (
+				'Tous' => array (
+					'total' => array(),
+					'nbFoyerInconnu' => array(),
+					'nbFoyerRadiSusp' => array(),
+					'nbToppers' => array(),
+					'nbFoyerJoin' => array(),
+					'nbEMM' => array(),
+					//Orientée dont
+					'Orientes' => array(
+						'total' => array(),
+						'Emploi' => array(),
+						'percentEmploi' => array(),
+						'Prepro' => array(),
+						'percentPrepro' => array(),
+						'Social' => array(),
+						'percentSocial' => array(),
+						'PE' => array(),
+						'percentPE' => array(),
+						'CD' => array(),
+						'percentCD' => array(),
+						'OA' => array(),
+						'percentOA' => array(),
+					),
+					'percentOrientes' => array(),
+					'Nonvenu' => array (
+						'RDV' => array(),
+						'percentRDV' => array()
+					)
+				),
+				'Horssuspendus' => array (
+					'total' => array(),
+					'nbFoyerInconnu' => array(),
+					'nbFoyerRadiSusp' => array(),
+					'nbToppers' => array(),
+					'nbFoyerJoin' => array(),
+					'nbEMM' => array(),
+					//Orientée dont
+					'Orientes' => array(
+						'total' => array(),
+						'Emploi' => array(),
+						'percentEmploi' => array(),
+						'Prepro' => array(),
+						'percentPrepro' => array(),
+						'Social' => array(),
+						'percentSocial' => array(),
+						'PE' => array(),
+						'percentPE' => array(),
+						'CD' => array(),
+						'percentCD' => array(),
+						'OA' => array(),
+						'percentOA' => array(),
+					),
+					'percentOrientes' => array(),
+					'Nonvenu' => array (
+						'RDV' => array(),
+						'percentRDV' => array()
+					)
+				),
+				'Suspendus' => array (
+					'total' => array(),
+					'nbFoyerInconnu' => array(),
+					'nbFoyerRadiSusp' => array(),
+					'nbToppers' => array(),
+					'nbFoyerJoin' => array(),
+					'nbEMM' => array(),
+					//Orientée dont
+					'Orientes' => array(
+						'total' => array(),
+						'Emploi' => array(),
+						'percentEmploi' => array(),
+						'Prepro' => array(),
+						'percentPrepro' => array(),
+						'Social' => array(),
+						'percentSocial' => array(),
+						'PE' => array(),
+						'percentPE' => array(),
+						'CD' => array(),
+						'percentCD' => array(),
+						'OA' => array(),
+						'percentOA' => array(),
+					),
+					'percentOrientes' => array(),
+					'Nonvenu' => array (
+						'RDV' => array(),
+						'percentRDV' => array()
+					)
+				)
+			);
+			for($i=0; $i<12; $i++) {
+				$resultats['Tous']['total'][$i]=0;
+				$resultats['Tous']['nbFoyerInconnu'][$i]=0;
+				$resultats['Tous']['nbFoyerRadiSusp'][$i]=0;
+				$resultats['Tous']['nbToppers'][$i]=0;
+				$resultats['Tous']['nbFoyerJoin'][$i]=0;
+				$resultats['Tous']['nbEMM'][$i]=0;
+				//Orientée dont
+				$resultats['Tous']['Orientes']['total'][$i] =
+				$resultats['Tous']['percentOrientes'][$i] =
+				$resultats['Tous']['Orientes']['Emploi'][$i] =
+				$resultats['Tous']['Orientes']['percentEmploi'][$i] =
+				$resultats['Tous']['Orientes']['Prepro'][$i] =
+				$resultats['Tous']['Orientes']['percentPrepro'][$i] =
+				$resultats['Tous']['Orientes']['Social'][$i] =
+				$resultats['Tous']['Orientes']['percentSocial'][$i] =
+				$resultats['Tous']['Orientes']['PE'][$i] =
+				$resultats['Tous']['Orientes']['percentPE'][$i] =
+				$resultats['Tous']['Orientes']['CD'][$i] =
+				$resultats['Tous']['Orientes']['percentCD'][$i] =
+				$resultats['Tous']['Orientes']['OA'][$i] =
+				$resultats['Tous']['Orientes']['percentOA'][$i] =
+					0;
+				$resultats['Tous']['Nonvenu']['RDV'][$i] =
+				$resultats['Tous']['Nonvenu']['percentRDV'][$i] = 0;
+				$resultats['Suspendus']['total'][$i]=0;
+				$resultats['Suspendus']['nbFoyerInconnu'][$i]=0;
+				$resultats['Suspendus']['nbFoyerRadiSusp'][$i]=0;
+				$resultats['Suspendus']['nbToppers'][$i]=0;
+				$resultats['Suspendus']['nbFoyerJoin'][$i]=0;
+				$resultats['Suspendus']['nbEMM'][$i]=0;
+				//Orientée dont
+				$resultats['Suspendus']['Orientes']['total'][$i] =
+				$resultats['Suspendus']['percentOrientes'][$i] =
+				$resultats['Suspendus']['Orientes']['Emploi'][$i] =
+				$resultats['Suspendus']['Orientes']['percentEmploi'][$i] =
+				$resultats['Suspendus']['Orientes']['Prepro'][$i] =
+				$resultats['Suspendus']['Orientes']['percentPrepro'][$i] =
+				$resultats['Suspendus']['Orientes']['Social'][$i] =
+				$resultats['Suspendus']['Orientes']['percentSocial'][$i] =
+				$resultats['Suspendus']['Orientes']['PE'][$i] =
+				$resultats['Suspendus']['Orientes']['percentPE'][$i] =
+				$resultats['Suspendus']['Orientes']['CD'][$i] =
+				$resultats['Suspendus']['Orientes']['percentCD'][$i] =
+				$resultats['Suspendus']['Orientes']['OA'][$i] =
+				$resultats['Suspendus']['Orientes']['percentOA'][$i] =
+					0;
+				$resultats['Suspendus']['Nonvenu']['RDV'][$i] =
+				$resultats['Suspendus']['Nonvenu']['percentRDV'][$i] = 0;
+				$resultats['Horssuspendus']['total'][$i]=0;
+				$resultats['Horssuspendus']['nbFoyerInconnu'][$i]=0;
+				$resultats['Horssuspendus']['nbFoyerRadiSusp'][$i]=0;
+				$resultats['Horssuspendus']['nbToppers'][$i]=0;
+				$resultats['Horssuspendus']['nbFoyerJoin'][$i]=0;
+				$resultats['Horssuspendus']['nbEMM'][$i]=0;
+				//Orientée dont
+				$resultats['Horssuspendus']['Orientes']['total'][$i] =
+				$resultats['Horssuspendus']['percentOrientes'][$i] =
+				$resultats['Horssuspendus']['Orientes']['Emploi'][$i] =
+				$resultats['Horssuspendus']['Orientes']['percentEmploi'][$i] =
+				$resultats['Horssuspendus']['Orientes']['Prepro'][$i] =
+				$resultats['Horssuspendus']['Orientes']['percentPrepro'][$i] =
+				$resultats['Horssuspendus']['Orientes']['Social'][$i] =
+				$resultats['Horssuspendus']['Orientes']['percentSocial'][$i] =
+				$resultats['Horssuspendus']['Orientes']['PE'][$i] =
+				$resultats['Horssuspendus']['Orientes']['percentPE'][$i] =
+				$resultats['Horssuspendus']['Orientes']['CD'][$i] =
+				$resultats['Horssuspendus']['Orientes']['percentCD'][$i] =
+				$resultats['Horssuspendus']['Orientes']['OA'][$i] =
+				$resultats['Horssuspendus']['Orientes']['percentOA'][$i] =
+					0;
+				$resultats['Horssuspendus']['Nonvenu']['RDV'][$i] =
+				$resultats['Horssuspendus']['Nonvenu']['percentRDV'][$i] = 0;
+			}
+			return $resultats;
 		}
 
 		/**
@@ -1030,6 +1511,150 @@
 		}
 
 		/**
+		 * Calule le pourcentage des résultats du tableau A1v2
+		 * @param array resultats
+		 * @return array resultats
+		 */
+		protected function _calculPercentTableauA1v2($resultats) {
+			for($i=0; $i<12; $i++) {
+				if($resultats['Tous']['total'][$i] != 0) {
+					$resultats['Tous']['percentOrientes'][$i] = round( (100 * $resultats['Tous']['Orientes']['total'][$i] ) / $resultats['Tous']['total'][$i], 2)  . '%';
+					if ( $resultats['Tous']['Orientes']['total'][$i] != 0) {
+						$resultats['Tous']['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Tous']['Orientes']['Emploi'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Tous']['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Tous']['Orientes']['Prepro'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Tous']['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Tous']['Orientes']['Social'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Tous']['Orientes']['percentPE'][$i] = round( (100 * $resultats['Tous']['Orientes']['PE'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Tous']['Orientes']['percentCD'][$i] = round( (100 * $resultats['Tous']['Orientes']['CD'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Tous']['Orientes']['percentOA'][$i] = round( (100 * $resultats['Tous']['Orientes']['OA'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
+					}
+					$resultats['Tous']['Nonvenu']['percentRDV'][$i]= round( (100 * $resultats['Tous']['Nonvenu']['RDV'][$i] ) / $resultats['Tous']['total'][$i], 2)  . '%';
+				}
+				if($resultats['Suspendus']['total'][$i] != 0) {
+					$resultats['Suspendus']['percentOrientes'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['total'][$i] ) / $resultats['Suspendus']['total'][$i], 2)  . '%';
+					if ( $resultats['Suspendus']['Orientes']['total'][$i] != 0) {
+						$resultats['Suspendus']['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['Emploi'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Suspendus']['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['Prepro'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Suspendus']['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['Social'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Suspendus']['Orientes']['percentPE'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['PE'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Suspendus']['Orientes']['percentCD'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['CD'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Suspendus']['Orientes']['percentOA'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['OA'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
+					}
+					$resultats['Suspendus']['Nonvenu']['percentRDV'][$i]= round( (100 * $resultats['Suspendus']['Nonvenu']['RDV'][$i] ) / $resultats['Suspendus']['total'][$i], 2)  . '%';
+				}
+				if($resultats['Horssuspendus']['total'][$i] != 0) {
+					$resultats['Horssuspendus']['percentOrientes'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['total'][$i] ) / $resultats['Horssuspendus']['total'][$i], 2)  . '%';
+					if ( $resultats['Horssuspendus']['Orientes']['total'][$i] != 0) {
+						$resultats['Horssuspendus']['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['Emploi'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Horssuspendus']['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['Prepro'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Horssuspendus']['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['Social'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Horssuspendus']['Orientes']['percentPE'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['PE'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Horssuspendus']['Orientes']['percentCD'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['CD'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Horssuspendus']['Orientes']['percentOA'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['OA'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
+					}
+					$resultats['Horssuspendus']['Nonvenu']['percentRDV'][$i]= round( (100 * $resultats['Horssuspendus']['Nonvenu']['RDV'][$i] ) / $resultats['Horssuspendus']['total'][$i], 2)  . '%';
+				}
+			}
+			return $resultats;
+		}
+
+		/**
+		 * Initialise le tableaux de résultat du tableau A2av2
+		 * @return array
+		 */
+		protected function _initializeTableauA2av2(){
+			$resultats = array (
+				'Tous' => array (
+					'Orientes_CD' => array(),
+					//Orientée dont
+					'Orientes' => array(
+						'RDV' => array(),
+						'RDV_Prepro' => array(),
+						'RDV_Social' => array(),
+					),
+					'Orientes1m' => array(),
+					'Orientes15j' => array(
+						'RDV' => array(),
+						'RDV_Prepro' => array(),
+						'RDV_Social' => array(),
+					),
+					'Taux' => array(),
+				),
+				'Horssuspendus' => array (
+					'Orientes_CD' => array(),
+					//Orientée dont
+					'Orientes' => array(
+						'RDV' => array(),
+						'RDV_Prepro' => array(),
+						'RDV_Social' => array(),
+					),
+					'Orientes1m' => array(),
+					'Orientes15j' => array(
+						'RDV' => array(),
+						'RDV_Prepro' => array(),
+						'RDV_Social' => array(),
+					),
+					'Taux' => array(),
+				),
+				'Suspendus' => array (
+					'Orientes_CD' => array(),
+					//Orientée dont
+					'Orientes' => array(
+						'RDV' => array(),
+						'RDV_Prepro' => array(),
+						'RDV_Social' => array(),
+					),
+					'Orientes1m' => array(),
+					'Orientes15j' => array(
+						'RDV' => array(),
+						'RDV_Prepro' => array(),
+						'RDV_Social' => array(),
+					),
+					'Taux' => array(),
+				)
+			);
+			for($i=0; $i<12; $i++) {
+
+				$resultats['Tous']['Orientes_CD'][$i]=0;
+				//Orientée dont
+				$resultats['Tous']['Taux'][$i] =0;
+				$resultats['Tous']['Orientes']['RDV'][$i] =
+				$resultats['Tous']['Orientes']['RDV_Prepro'][$i] =
+				$resultats['Tous']['Orientes']['RDV_Social'][$i] =
+					0;
+				$resultats['Tous']['Orientes1m'][$i] =0;
+				$resultats['Tous']['Orientes15j']['RDV'][$i] =
+				$resultats['Tous']['Orientes15j']['RDV_Prepro'][$i] =
+				$resultats['Tous']['Orientes15j']['RDV_Social'][$i] =
+					0;
+				$resultats['Horssuspendus']['Orientes_CD'][$i]=0;
+				//Orientée dont
+				$resultats['Horssuspendus']['Taux'][$i] =0;
+				$resultats['Horssuspendus']['Orientes']['RDV'][$i] =
+				$resultats['Horssuspendus']['Orientes']['RDV_Prepro'][$i] =
+				$resultats['Horssuspendus']['Orientes']['RDV_Social'][$i] =
+					0;
+				$resultats['Horssuspendus']['Orientes1m'][$i] =0;
+				$resultats['Horssuspendus']['Orientes15j']['RDV'][$i] =
+				$resultats['Horssuspendus']['Orientes15j']['RDV_Prepro'][$i] =
+				$resultats['Horssuspendus']['Orientes15j']['RDV_Social'][$i] =
+					0;
+				$resultats['Suspendus']['Orientes_CD'][$i]=0;
+				//Orientée dont
+				$resultats['Suspendus']['Taux'][$i] =0;
+				$resultats['Suspendus']['Orientes']['RDV'][$i] =
+				$resultats['Suspendus']['Orientes']['RDV_Prepro'][$i] =
+				$resultats['Suspendus']['Orientes']['RDV_Social'][$i] =
+					0;
+				$resultats['Suspendus']['Orientes1m'][$i] =0;
+				$resultats['Suspendus']['Orientes15j']['RDV'][$i] =
+				$resultats['Suspendus']['Orientes15j']['RDV_Prepro'][$i] =
+				$resultats['Suspendus']['Orientes15j']['RDV_Social'][$i] =
+					0;
+			}
+			return $resultats;
+		}
+
+		/**
 		 *
 		 * @param array $search
 		 * @return array
@@ -1079,6 +1704,128 @@
 			);
 
 			return $query;
+		}
+
+		/**
+		 * Calcul le pourcentage des résultats du tableau A2av2
+		 * @param array
+		 * @return array
+		 */
+		protected function _calculPercentTableauA2av2($resultats) {
+			for($i=0; $i<12; $i++) {
+				if($resultats['Tous']['Orientes_CD'][$i] != 0) {
+					$resultats['Tous']['Taux'][$i] =
+							round( (100 * $resultats['Tous']['Orientes15j']['RDV'][$i] )
+								/ $resultats['Tous']['Orientes_CD'][$i], 2)  . '%';
+				}
+				if($resultats['Horssuspendus']['Orientes_CD'][$i] != 0) {
+					$resultats['Horssuspendus']['Taux'][$i] =
+							round( (100 * $resultats['Horssuspendus']['Orientes15j']['RDV'][$i] )
+								/ $resultats['Horssuspendus']['Orientes_CD'][$i], 2)  . '%';
+				}
+				if($resultats['Suspendus']['Orientes_CD'][$i] != 0) {
+					$resultats['Suspendus']['Taux'][$i] =
+						round( (100 * $resultats['Suspendus']['Orientes15j']['RDV'][$i] )
+						/ $resultats['Suspendus']['Orientes_CD'][$i], 2)  . '%';
+				}
+			}
+			return $resultats;
+		}
+
+		/**
+		 * Initialisation du tableau de résultat A2bv2
+		 * @return array
+		 */
+		protected function _initializeTableauA2bv2() {
+			$resultats = array (
+				'Tous' => array (
+					'Orientes_CD' => array(),
+					//Orientée dont
+					'Orientes' => array(
+						'CER' => array(),
+						'CER_Prepro' => array(),
+						'CER_Social' => array(),
+					),
+					'Orientes1m' => array(),
+					'Orientes2m' => array(
+						'CER' => array(),
+						'CER_Prepro' => array(),
+						'CER_Social' => array(),
+					),
+					'Taux' => array(),
+				),
+				'Suspendus' => array (
+					'Orientes_CD' => array(),
+					//Orientée dont
+					'Orientes' => array(
+						'CER' => array(),
+						'CER_Prepro' => array(),
+						'CER_Social' => array(),
+					),
+					'Orientes1m' => array(),
+					'Orientes2m' => array(
+						'CER' => array(),
+						'CER_Prepro' => array(),
+						'CER_Social' => array(),
+					),
+					'Taux' => array(),
+				),
+				'Horssuspendus'=> array (
+					'Orientes_CD' => array(),
+					//Orientée dont
+					'Orientes' => array(
+						'CER' => array(),
+						'CER_Prepro' => array(),
+						'CER_Social' => array(),
+					),
+					'Orientes1m' => array(),
+					'Orientes2m' => array(
+						'CER' => array(),
+						'CER_Prepro' => array(),
+						'CER_Social' => array(),
+					),
+					'Taux' => array(),
+				)
+			);
+			for($i=0; $i<12; $i++) {
+				$resultats['Tous']['Orientes_CD'][$i]=0;
+				//Orientée dont
+				$resultats['Tous']['Taux'][$i] =0;
+				$resultats['Tous']['Orientes']['CER'][$i] =
+				$resultats['Tous']['Orientes']['CER_Prepro'][$i] =
+				$resultats['Tous']['Orientes']['CER_Social'][$i] =
+					0;
+				$resultats['Tous']['Orientes1m'][$i] =0;
+				$resultats['Tous']['Orientes2m']['CER'][$i] =
+				$resultats['Tous']['Orientes2m']['CER_Prepro'][$i] =
+				$resultats['Tous']['Orientes2m']['CER_Social'][$i] =
+					0;
+				$resultats['Suspendus']['Orientes_CD'][$i]=0;
+				//Orientée dont
+				$resultats['Suspendus']['Taux'][$i] =0;
+				$resultats['Suspendus']['Orientes']['CER'][$i] =
+				$resultats['Suspendus']['Orientes']['CER_Prepro'][$i] =
+				$resultats['Suspendus']['Orientes']['CER_Social'][$i] =
+					0;
+				$resultats['Suspendus']['Orientes1m'][$i] =0;
+				$resultats['Suspendus']['Orientes2m']['CER'][$i] =
+				$resultats['Suspendus']['Orientes2m']['CER_Prepro'][$i] =
+				$resultats['Suspendus']['Orientes2m']['CER_Social'][$i] =
+					0;
+				$resultats['Horssuspendus']['Orientes_CD'][$i]=0;
+				//Orientée dont
+				$resultats['Horssuspendus']['Taux'][$i] =0;
+				$resultats['Horssuspendus']['Orientes']['CER'][$i] =
+				$resultats['Horssuspendus']['Orientes']['CER_Prepro'][$i] =
+				$resultats['Horssuspendus']['Orientes']['CER_Social'][$i] =
+					0;
+				$resultats['Horssuspendus']['Orientes1m'][$i] =0;
+				$resultats['Horssuspendus']['Orientes2m']['CER'][$i] =
+				$resultats['Horssuspendus']['Orientes2m']['CER_Prepro'][$i] =
+				$resultats['Horssuspendus']['Orientes2m']['CER_Social'][$i] =
+					0;
+			}
+			return $resultats;
 		}
 
 		/**
@@ -1133,9 +1880,98 @@
 			return $query;
 		}
 
+		/**
+		 * Calule le pourcentage des résultats du tabkleau A2bv2
+		 * @param array resultats
+		 * @return array resultats
+		 */
+		protected function _calculPercentTableauA2bv2($resultats) {
+			for($i=0; $i<12; $i++) {
+				if($resultats['Tous']['Orientes_CD'][$i] != 0) {
+					$resultats['Tous']['Taux'][$i] =
+						round( (100 * $resultats['Tous']['Orientes2m']['CER'][$i] )
+						/ $resultats['Tous']['Orientes_CD'][$i], 2)  . '%';
+				}
+				if($resultats['Horssuspendus']['Orientes_CD'][$i] != 0) {
+					$resultats['Horssuspendus']['Taux'][$i] =
+						round( (100 * $resultats['Horssuspendus']['Orientes2m']['CER'][$i] )
+						/ $resultats['Horssuspendus']['Orientes_CD'][$i], 2)  . '%';
+				}
+				if($resultats['Suspendus']['Orientes_CD'][$i] != 0) {
+					$resultats['Suspendus']['Taux'][$i] =
+						round( (100 * $resultats['Suspendus']['Orientes2m']['CER'][$i] )
+							/ $resultats['Suspendus']['Orientes_CD'][$i], 2)  . '%';
+				}
+			}
+			return $resultats;
+		}
+
 		########################################################################################################################
 		#V3
 		########################################################################################################################
+
+		/**
+		 * Initialisation du tableau de résultat A1v3
+		 * @return array
+		 */
+		protected function _initializeTableauA1v3() {
+			$resultats = array (
+				'total' => array(),
+				'nbFoyerInconnu' => array(),
+				'nbFoyerRadiSusp' => array(),
+				'nbToppers' => array(),
+				'nbFoyerJoin' => array(),
+				'nbEMM' => array(),
+				//Orientée dont
+				'Orientes' => array(
+					'total' => array(),
+					'Emploi' => array(),
+					'percentEmploi' => array(),
+					'Prepro' => array(),
+					'percentPrepro' => array(),
+					'Social' => array(),
+					'percentSocial' => array(),
+					'PE' => array(),
+					'percentPE' => array(),
+					'CD' => array(),
+					'percentCD' => array(),
+					'OA' => array(),
+					'percentOA' => array(),
+				),
+				'percentOrientes' => array(),
+				'Nonvenu' => array (
+					'RDV' => array(),
+					'percentRDV' => array()
+				)
+			);
+			for($i=0; $i<12; $i++) {
+				$resultats['total'][$i]=0;
+				$resultats['nbFoyerInconnu'][$i]=0;
+				$resultats['nbFoyerRadiSusp'][$i]=0;
+				$resultats['nbToppers'][$i]=0;
+				$resultats['nbFoyerJoin'][$i]=0;
+				$resultats['nbEMM'][$i]=0;
+				//Orientée dont
+				$resultats['Orientes']['total'][$i] =
+				$resultats['percentOrientes'][$i] =
+				$resultats['Orientes']['Emploi'][$i] =
+				$resultats['Orientes']['percentEmploi'][$i] =
+				$resultats['Orientes']['Prepro'][$i] =
+				$resultats['Orientes']['percentPrepro'][$i] =
+				$resultats['Orientes']['Social'][$i] =
+				$resultats['Orientes']['percentSocial'][$i] =
+				$resultats['Orientes']['PE'][$i] =
+				$resultats['Orientes']['percentPE'][$i] =
+				$resultats['Orientes']['CD'][$i] =
+				$resultats['Orientes']['percentCD'][$i] =
+				$resultats['Orientes']['OA'][$i] =
+				$resultats['Orientes']['percentOA'][$i] =
+					0;
+				$resultats['Nonvenu']['RDV'][$i] =
+				$resultats['Nonvenu']['percentRDV'][$i] = 0;
+			}
+			return $resultats;
+		}
 
 		/**
 		 *
@@ -1237,6 +2073,68 @@
 		}
 
 		/**
+		 * Calcul le pourcentage des résultats du tableau A1v3
+		 * @param array
+		 * @return array
+		 */
+		protected function _calculPercentTableauA1v3($resultats) {
+			for($i=0; $i<12; $i++) {
+				if($resultats['total'][$i] != 0) {
+					$resultats['percentOrientes'][$i] = round( (100 * $resultats['Orientes']['total'][$i] ) / $resultats['total'][$i], 2)  . '%';
+					if ( $resultats['Orientes']['total'][$i] != 0) {
+						$resultats['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Orientes']['Emploi'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Orientes']['Prepro'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Orientes']['Social'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentPE'][$i] = round( (100 * $resultats['Orientes']['PE'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentCD'][$i] = round( (100 * $resultats['Orientes']['CD'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+						$resultats['Orientes']['percentOA'][$i] = round( (100 * $resultats['Orientes']['OA'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
+					}
+					$resultats['Nonvenu']['percentRDV'][$i]= round( (100 * $resultats['Nonvenu']['RDV'][$i] ) / $resultats['total'][$i], 2)  . '%';
+				}
+			}
+			return $resultats;
+		}
+
+		/**
+		 * Initialisation du tableau de résultat A2av3
+		 * @return array
+		 */
+		protected function _initializeTableauA2av3() {
+			$resultats = array (
+				'Orientes_CD' => array(),
+				//Orientée dont
+				'Orientes' => array(
+					'RDV' => array(),
+					'RDV_Prepro' => array(),
+					'RDV_Social' => array(),
+				),
+				'Orientes1m' => array(),
+				'Orientes15j' => array(
+					'RDV' => array(),
+					'RDV_Prepro' => array(),
+					'RDV_Social' => array(),
+				),
+				'Taux' => array(),
+			);
+			for($i=0; $i<12; $i++) {
+
+				$resultats['Orientes_CD'][$i]=0;
+				//Orientée dont
+				$resultats['Taux'][$i] =0;
+				$resultats['Orientes']['RDV'][$i] =
+				$resultats['Orientes']['RDV_Prepro'][$i] =
+				$resultats['Orientes']['RDV_Social'][$i] =
+					0;
+				$resultats['Orientes1m'][$i] =0;
+				$resultats['Orientes15j']['RDV'][$i] =
+				$resultats['Orientes15j']['RDV_Prepro'][$i] =
+				$resultats['Orientes15j']['RDV_Social'][$i] =
+					0;
+			}
+			return $resultats;
+		}
+
+		/**
 		 *
 		 * @param array $search
 		 * @return array
@@ -1289,6 +2187,44 @@
 			);
 
 			return $query;
+		}
+
+		/**
+		 * Initialise le tableaux de résultat du tableau A2bv3
+		 * @return array
+		 */
+		protected function _initializeTableauA2bv3(){
+			$resultats = array (
+				'Orientes_CD' => array(),
+				//Orientée dont
+				'Orientes' => array(
+					'CER' => array(),
+					'CER_Prepro' => array(),
+					'CER_Social' => array(),
+				),
+				'Orientes1m' => array(),
+				'Orientes2m' => array(
+					'CER' => array(),
+					'CER_Prepro' => array(),
+					'CER_Social' => array(),
+				),
+				'Taux' => array(),
+			);
+			for($i=0; $i<12; $i++) {
+				$resultats['Orientes_CD'][$i]=0;
+				//Orientée dont
+				$resultats['Taux'][$i] =0;
+				$resultats['Orientes']['CER'][$i] =
+				$resultats['Orientes']['CER_Prepro'][$i] =
+				$resultats['Orientes']['CER_Social'][$i] =
+					0;
+				$resultats['Orientes1m'][$i] =0;
+				$resultats['Orientes2m']['CER'][$i] =
+				$resultats['Orientes2m']['CER_Prepro'][$i] =
+				$resultats['Orientes2m']['CER_Social'][$i] =
+					0;
+			}
+			return $resultats;
 		}
 
 		/**
@@ -1637,7 +2573,6 @@
 		 */
 		public function getIndicateursTableauA1( array $search ) {
 			$Foyer = ClassRegistry::init( 'Foyer' );
-			$Historiquedroit = ClassRegistry::init( 'Historiquedroit' );
 			$annee = Hash::get( $search, 'Search.annee' );
 			$results = array();
 
@@ -1647,17 +2582,9 @@
 			$results = $Foyer->find('all', $query);
 
 			// Initialisation tableau de résultats
-			$resultats = array (
-				'total' => array(),
-				'nbFoyerConnu' => array(),
-				'nbFoyerInconnu' => array()
-			);
-			for($i=0; $i<12; $i++) {
-				$resultats['total'][$i]=0;
-				$resultats['nbFoyerConnu'][$i]=0;
-				$resultats['nbFoyerInconnu'][$i]=0;
-			}
-			$tmp = 0;
+			$resultats = $this->_initializeTableauA1();
+
+			// Traitement des résultats
 			foreach($results as $result) {
 				$useHistoriquedroit = (boolean)Configure::read( 'Statistiqueplanpauvrete.useHistoriquedroit' );
 				if ( $useHistoriquedroit ){
@@ -1701,124 +2628,47 @@
 			$Historiquedroit = ClassRegistry::init( 'Historiquedroit' );
 			$annee = Hash::get( $search, 'Search.annee' );
 			$results = array();
-
-			// Récupération des variables de configuration
-			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
-
+			$arrayPersonneID = array();
 			$testOrient = $this->_getTypeOrientation();
 			// Query de base
 			$query = $this->_getQueryTableau_a2 ($search, $annee);
 			$results = $Historiquedroit->find('all', $query);
 
 			// Initialisation tableau de résultats
-			$resultats = array (
-				//Soumis Droit et Devoir
-				'SSD' => array(),
-				//Orientée dont
-				'Orientes' => array(
-					'total' => array(),
-					'percent' => array(),
-					'Emploi' => array(),
-					'percentEmploi' => array(),
-					'Prepro' => array(),
-					'percentPrepro' => array(),
-					'Social' => array(),
-					'percentSocial' => array(),
-					'PE' => array(),
-					'percentPE' => array(),
-					'CD' => array(),
-					'percentCD' => array(),
-					'OA' => array(),
-					'percentOA' => array(),
-				),
-				//Avec contrats dont
-				'Contrat' => array(
-					'total' => array(),
-					'percent' => array(),
-					'PEPPAE' => array(),
-					'percentPEPPAE' => array(),
-					'CDCER' => array(),
-					'percentCDCER' => array(),
-					'PEAider' => array(),
-					'percentPEAider' => array(),
-					'PEAccomp' => array(),
-					'percentPEAccomp' => array(),
-				),
-				//Avec CER et Orientation CD dont
-				'CDCER' => array(
-					'total' => array(),
-					'Social' => array(),
-					'percentSocial' => array(),
-					'Prepro' => array(),
-					'percentPrepro' => array(),
-				),
-				//RDVCER
-				'RDVCER' => array()
-			);
-			for($i=0; $i<12; $i++) {
-				//Soumis Droit et Devoir
-				$resultats['SSD'][$i] = 0;
-				//Soumis Droit et Devoir
-				//Orientée dont
-				$resultats['Orientes']['total'][$i] =
-				$resultats['Orientes']['percent'][$i] =
-				$resultats['Orientes']['Emploi'][$i] =
-				$resultats['Orientes']['percentEmploi'][$i] =
-				$resultats['Orientes']['Prepro'][$i] =
-				$resultats['Orientes']['percentPrepro'][$i] =
-				$resultats['Orientes']['Social'][$i] =
-				$resultats['Orientes']['percentSocial'][$i] =
-				$resultats['Orientes']['PE'][$i] =
-				$resultats['Orientes']['percentPE'][$i] =
-				$resultats['Orientes']['CD'][$i] =
-				$resultats['Orientes']['percentCD'][$i] =
-				$resultats['Orientes']['OA'][$i] =
-				$resultats['Orientes']['percentOA'][$i] =
-					0;
-				//Avec contrats dont
-				$resultats['Contrat']['total'][$i] =
-				$resultats['Contrat']['CDCER'][$i] =
-				$resultats['Contrat']['PEPPAE'][$i] =
-				$resultats['Contrat']['PEAider'][$i] =
-				$resultats['Contrat']['PEAccomp'][$i] =
-				$resultats['Contrat']['percent'][$i] =
-				$resultats['Contrat']['percentPEPPAE'][$i] =
-				$resultats['Contrat']['percentCDCER'][$i] =
-				$resultats['Contrat']['percentPEAider'][$i] =
-				$resultats['Contrat']['percentPEAccomp'][$i] =
-				0;
-				//Avec contrats dont
-				$resultats['CDCER']['total'][$i] = 0;
-				$resultats['CDCER']['Social'][$i] = 0;
-				$resultats['CDCER']['percentSocial'][$i] = 0;
-				$resultats['CDCER']['Prepro'][$i] = 0;
-				$resultats['CDCER']['percentPrepro'][$i] = 0;
-				//RDVCER
-				$resultats['RDVCER'][$i] = 0;
-			}
-			$arrayPersonneID = array();
+			$resultats = $this->_initializeTableauA2();
+
+			// Traitement des résultats
 			foreach($results as $result) {
 				$arrayPersonneID[]=$result[0]['idPersonne'];
 				$yearStartHistorique = intval( date('Y', strtotime($result['Historiquedroit']['created']) ) );
 				$yearEndHistorique = intval( date('Y', strtotime($result['Historiquedroit']['modified']) ) );
-				if ($yearStartHistorique < $annee ){$monthStartHistorique = 0;
-				}else{ $monthStartHistorique = intval( date('n', strtotime($result['Historiquedroit']['created']) ) ) -1;}
-				if ($yearEndHistorique > $annee ){$monthEndHistorique = 11;
-				}else{$monthEndHistorique = intval( date('n', strtotime($result['Historiquedroit']['modified']) ) ) -1;}
+				if ($yearStartHistorique < $annee ){
+					$monthStartHistorique = 0;
+				}else{
+					$monthStartHistorique = intval( date('n', strtotime($result['Historiquedroit']['created']) ) ) -1;
+				}
+				if ($yearEndHistorique > $annee ){
+					$monthEndHistorique = 11;
+				}else{
+					$monthEndHistorique = intval( date('n', strtotime($result['Historiquedroit']['modified']) ) ) -1;
+				}
 				for ($month = $monthStartHistorique; $month <= $monthEndHistorique; $month ++ ) {
 					$flagOrienteCD = $flagOrientePE = $flagOrienteSocial = $flagOrientePrepro = $flagOrienteCDCER = FALSE;
-					//Nombre de personnes Soumises à droits et devoirs (Pers. SDD) avec un droit ouvert par mois
+					// Nombre de personnes Soumises à droits et devoirs (Pers. SDD) avec un droit ouvert par mois
 					$resultats['SSD'][$month] ++;
-					//Si on as une date d'orientation valide
+					// Si on a une date d'orientation valide
 					if ( $result['Orientstruct']['date_valid'] != null){
-						//Récupération de l'année d'orientation
+						// Récupération de l'année d'orientation
 						$yearOrient = intval( date('Y', strtotime($result['Orientstruct']['date_valid']) ) );
-						//si l'année n'est pas celle de la recherche alors on change le mois
-						if ($yearOrient < $annee ){$monthOrient = 0;}else{
-							$monthOrient = intval( date('n', strtotime($result['Orientstruct']['date_valid']) ) ) -1;}
-						//Si le mois d'orientation correspond au mois étudié dans la boucle
+						// Si l'année n'est pas celle de la recherche alors on change le mois
+						if ($yearOrient < $annee ){
+							$monthOrient = 0;
+						}else{
+							$monthOrient = intval( date('n', strtotime($result['Orientstruct']['date_valid']) ) ) -1;
+						}
+						// Si le mois d'orientation correspond au mois étudié dans la boucle
 						if ($monthOrient <= $month ){
-							//Nombre de Pers. SDD orientées avec un droit ouvert par mois
+							// Nombre de Pers. SDD orientées avec un droit ouvert par mois
 							$resultats['Orientes']['total'][$month] ++;
 
 							if(!empty($testOrient['SOCIAL']) && in_array($result['Typeorient']['id'], $testOrient['SOCIAL'] ) ) {
@@ -1847,8 +2697,11 @@
 					// Si la personne a un contrat d'insertion
 					if ( $result['Contratinsertion']['datevalidation_ci'] != null) {
 						$yearCER = intval( date('Y', strtotime($result['Contratinsertion']['datevalidation_ci']) ) );
-						if ($yearCER < $annee ){$monthCER = 0; }else{
-						$monthCER = intval( date('n', strtotime($result['Contratinsertion']['datevalidation_ci']) ) ) -1;}
+						if ($yearCER < $annee ){
+							$monthCER = 0;
+						}else{
+							$monthCER = intval( date('n', strtotime($result['Contratinsertion']['datevalidation_ci']) ) ) -1;
+						}
 						if ($monthCER <= $month ){
 							// Avec contrats dont
 							$resultats['Contrat']['total'][$month] ++;
@@ -1857,7 +2710,7 @@
 								$flagOrienteCDCER = true;
 							}
 							if ( $flagOrientePE ) {
-								// Detection d'un contrat aider
+								// Detection d'un contrat aidé
 								if ( in_array( $result['Structurereferente']['code_stats'], Configure::read( 'Statistiqueplanpauvrete.code_stats') ) ){
 									$resultats['Contrat']['PEAccomp'][$month] ++;
 								}
@@ -1865,13 +2718,16 @@
 						}
 					}elseif ($result['Cui']['faitle']  != null) {
 						$yearCUI= intval( date('Y', strtotime($result['Cui']['faitle']) ) );
-						if ($yearCUI < $annee ){$monthCUI = 0; }else{
-						$monthCUI = intval( date('n', strtotime($result['Cui']['faitle']) ) ) -1;}
-						if ($monthCER <= $month ){
-							//Avec contrats dont
+						if ($yearCUI < $annee ){
+							$monthCUI = 0;
+						}else{
+							$monthCUI = intval( date('n', strtotime($result['Cui']['faitle']) ) ) -1;
+						}
+						if ($monthCUI <= $month ){
+							// Avec contrats dont
 							$resultats['Contrat']['total'][$month] ++;
 							if ( $flagOrientePE ) {
-								//Detection d'un CUI
+								// Detection d'un CUI
 								$resultats['Contrat']['PEAider'][$month] ++;
 							}
 						}
@@ -1886,48 +2742,9 @@
 							$resultats['CDCER']['Prepro'][$month] ++;
 						}
 					}
-	            }
-			}
-			for($i=0; $i<12; $i++) {
-				$Rendezvous = ClassRegistry::init( 'Rendezvous' );
-				$rdv = $Rendezvous->find('all',
-					array(
-						'fields' => array(
-							'DISTINCT ON ("Rendezvous"."id") "Rendezvous"."id" AS "idRendezvous"'
-						),
-						'recursive' => -1,
-						'conditions' => array(
-							'Rendezvous.typerdv_id' => Configure::read( 'Statistiqueplanpauvrete.type_rendezvous' ),
-							'date_trunc(\'month\',Rendezvous.daterdv)' => "{$annee}-".($i+1)."-01",
-							'Rendezvous.personne_id' => $arrayPersonneID
-						)
-					)
-				);
-				$resultats['RDVCER'][$i] = count($rdv);
-
-				if($resultats['SSD'][$i] != 0) {
-					$resultats['Orientes']['percent'][$i] = round( (100 * $resultats['Orientes']['total'][$i] ) / $resultats['SSD'][$i], 2)  . '%';
-					if ( $resultats['Orientes']['total'][$i] != 0) {
-						$resultats['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Orientes']['Emploi'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Orientes']['Prepro'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Orientes']['Social'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Orientes']['percentPE'][$i] = round( (100 * $resultats['Orientes']['PE'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Orientes']['percentCD'][$i] = round( (100 * $resultats['Orientes']['CD'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Orientes']['percentOA'][$i] = round( (100 * $resultats['Orientes']['OA'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
-					}
-					$resultats['Contrat']['percent'][$i] = round( (100 * $resultats['Contrat']['total'][$i] ) / $resultats['SSD'][$i], 2)  . '%';
-					if ( $resultats['Contrat']['total'][$i] != 0) {
-						$resultats['Contrat']['percentCDCER'][$i] = round( (100 * $resultats['Contrat']['CDCER'][$i] ) / $resultats['Contrat']['total'][$i], 2)  . '%';
-						$resultats['Contrat']['percentPEPPAE'][$i] = round( (100 * $resultats['Contrat']['PEPPAE'][$i] ) / $resultats['Contrat']['total'][$i], 2)  . '%';
-						$resultats['Contrat']['percentPEAider'][$i] = round( (100 * $resultats['Contrat']['PEAider'][$i] ) / $resultats['Contrat']['total'][$i], 2)  . '%';
-						$resultats['Contrat']['percentPEAccomp'][$i] = round( (100 * $resultats['Contrat']['PEAccomp'][$i] ) / $resultats['Contrat']['total'][$i], 2)  . '%';
-					}
-					if ( $resultats['CDCER']['total'][$i] != 0) {
-						$resultats['CDCER']['percentSocial'][$i] = round( (100 * $resultats['CDCER']['Social'][$i] ) / $resultats['CDCER']['total'][$i], 2)  . '%';
-						$resultats['CDCER']['percentPrepro'][$i] = round( (100 * $resultats['CDCER']['Prepro'][$i] ) / $resultats['CDCER']['total'][$i], 2)  . '%';
-					}
 				}
 			}
+			$resultats = $this->_calculPercentTableauA2($resultats, $arrayPersonneID, $annee);
 
 			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauA2');
 			return $resultats;
@@ -1949,7 +2766,6 @@
 			$testOrient = $this->_getTypeOrientation();
 
 			// Récupération des variables de configuration
-			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
 			$statutRdv = Configure::read('Statistiqueplanpauvrete.orientationRdv');
 			// Query de base
 			$query = $this->_getQueryTableau_b1 ($search, $annee);
@@ -1957,52 +2773,7 @@
 			$resultats = array();
 
 			// Initialisation tableau de résultats
-			$resultats = array (
-				'total' => array(),
-				'Orientes' => array(
-					'total' => array(),
-					'emploi' => array(),
-					'prepro' => array(),
-					'social' => array(),
-					'pe' => array(),
-					'cd' => array(),
-					'oa' => array()
-				),
-				'NonOrientes' => array(
-					'total' => array(),
-					'prevu' => array(),
-					'bilan' => array(),
-					'autres' => array(),
-				),
-				'delai_moyen' => array(),
-				'orient_31jours' => array(),
-				'delai' => $configurationDelais,
-				'taux_orient' => array()
-			);
-
-			for($i=0; $i<12; $i++) {
-				$resultats['total'][$i] = 0;
-				$resultats['Orientes']['total'][$i] = 0;
-				$resultats['Orientes']['emploi'][$i] = 0;
-				$resultats['Orientes']['prepro'][$i] = 0;
-				$resultats['Orientes']['social'][$i] = 0;
-				$resultats['Orientes']['pe'][$i] = 0;
-				$resultats['Orientes']['cd'][$i] = 0;
-				$resultats['Orientes']['oa'][$i] = 0;
-				$resultats['NonOrientes']['total'][$i] = 0;
-				$resultats['NonOrientes']['prevu'][$i] = 0;
-				$resultats['NonOrientes']['bilan'][$i] = 0;
-				$resultats['NonOrientes']['autres'][$i] = 0;
-				$resultats['delai_moyen'][$i] = 0;
-				$resultats['orient_31jours'][$i] = 0;
-				$resultats['taux_orient'][$i] = 0;
-				foreach( $configurationDelais as $key => $config) {
-					if( is_array($resultats['delai'][$key]) == false ) {
-						$resultats['delai'][$key] = array();
-					}
-					$resultats['delai'][$key][$i] = 0;
-				}
-			}
+			$resultats = $this->_initializeTableauB1();
 
 			// Traitement des résultats
 			foreach($results as $result) {
@@ -2089,7 +2860,6 @@
 			$testOrient = $this->_getTypeOrientation();
 
 			// Récupération des variables de configuration
-			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
 			$statutRdv = Configure::read('Statistiqueplanpauvrete.orientationRdv');
 
 			// Query de base
@@ -2097,54 +2867,9 @@
 			$results = $Personne->find('all', $query);
 
 			// Initialisation tableau de résultats
-			$resultats = array (
-				'total' => array(),
-				'Social' => array(
-					'total' => array(),
-					'venu' => array(),
-					'excuse_recevable' => array(),
-					'sans_excuse' => array(),
-					'delai_moyen' => array(),
-					'delai' => $configurationDelais,
-					'taux_presence' => array()
-				),
-				'Prepro' => array(
-					'total' => array(),
-					'venu' => array(),
-					'excuse_recevable' => array(),
-					'sans_excuse' => array(),
-					'delai_moyen' => array(),
-					'delai' => $configurationDelais,
-					'taux_presence' => array()
-				)
-			);
+			$resultats = $this->_initializeTableauB4();
 
-			for($i=0; $i<12; $i++) {
-				$resultats['total'][$i] = 0;
-				$resultats['Social']['total'][$i] = 0;
-				$resultats['Social']['venu'][$i] = 0;
-				$resultats['Social']['excuse_recevable'][$i] = 0;
-				$resultats['Social']['sans_excuse'][$i] = 0;
-				$resultats['Social']['delai_moyen'][$i] = 0;
-				$resultats['Social']['taux_presence'][$i] = 0;
-				$resultats['Prepro']['total'][$i] = 0;
-				$resultats['Prepro']['venu'][$i] = 0;
-				$resultats['Prepro']['excuse_recevable'][$i] = 0;
-				$resultats['Prepro']['sans_excuse'][$i] = 0;
-				$resultats['Prepro']['delai_moyen'][$i] = 0;
-				$resultats['Prepro']['taux_presence'][$i] = 0;
-				foreach( $configurationDelais as $key => $config) {
-					if( is_array($resultats['Social']['delai'][$key]) == false ) {
-						$resultats['Social']['delai'][$key] = array();
-					}
-					if( is_array($resultats['Prepro']['delai'][$key]) == false ) {
-						$resultats['Prepro']['delai'][$key] = array();
-					}
-					$resultats['Social']['delai'][$key][$i] = 0;
-					$resultats['Prepro']['delai'][$key][$i] = 0;
-				}
-			}
-
+			// Traitement des résultats
 			foreach($results as $result) {
 				$month = intval( date('n', strtotime($result['Orientstruct']['date_valid']) ) ) -1;
 				$resultats['total'][$month]++;
@@ -2210,43 +2935,14 @@
 
 			$testOrient = $this->_getTypeOrientation();
 
-			// Récupération des variables de configuration
-			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
-
 			// Query de base
 			$query = $this->_getQueryTableau_b5 ($search, $annee);
 			$results = $Personne->find('all', $query);
 
-			// Initialisation tableau de résultats
-			$resultats = array (
-				'orient_valid' => array(),
-				'cer_social' => array(),
-				'cer_prepro' => array(),
-				'delai_moyen' => array(),
-				'delai_social' => array(),
-				'delai_prepro' => array(),
-				'signe15jrs' => array(),
-				'delai' => $configurationDelais,
-				'taux_contrat' => array()
-			);
-			$orientValide = array();
-			for($i=0; $i<12; $i++) {
-				$resultats['orient_valid'][$i] = 0;
-				$resultats['cer_social'][$i] = 0;
-				$resultats['cer_prepro'][$i] = 0;
-				$resultats['delai_moyen'][$i] = 0;
-				$resultats['delai_social'][$i] = 0;
-				$resultats['delai_prepro'][$i] = 0;
-				$resultats['signe15jrs'][$i] = 0;
-				$resultats['taux_contrat'][$i] = 0;
-				foreach( $configurationDelais as $key => $config) {
-					if( is_array($resultats['delai'][$key]) == false ) {
-						$resultats['delai'][$key] = array();
-					}
-					$resultats['delai'][$key][$i] = 0;
-				}
-			}
+			// Initialisation du tableau de résultats
+			$resultats = $this->_initializeTableauB5();
 
+			// Traitement des résultats
 			foreach($results as $result) {
 				$monthOrient = intval( date('n', strtotime($result['Orientstruct']['date_valid']) ) ) -1;
 				$resultats['orient_valid'][$monthOrient]++;
@@ -2297,7 +2993,7 @@
 		########################################################################################################################
 
 		/**
-		 * Retourn les résultats de la partie Tableau de bord – Instructon RSA (de l’instructon de la demande à un droit Rsa)
+		 * Retourne les résultats de la partie Tableau de bord – Instructon RSA (de l’instructon de la demande à un droit Rsa)
 		 *
 		 * @param array $search
 		 * @return array
@@ -2310,12 +3006,12 @@
 
 			$annee = Hash::get( $search, 'Search.annee' );
 			$testOrient = $this->_getTypeOrientation();
-			$results = array();
 
 			// Query de base
 			$query = $this->_getQueryTableau_a1v2 ($search, $annee);
 			$results = $Personne->find('all', $query);
 
+			// Récupère les résultats suivant l'historique des personnes passées en paramètre
 			if( $useHistoriquedroit ) {
 				$arrayIds = array( );
 				foreach($results as $result) {
@@ -2330,174 +3026,13 @@
 			}
 
 			// Initialisation tableau de résultats
-			$resultats = array (
-				'Tous' => array (
-					'total' => array(),
-					'nbFoyerInconnu' => array(),
-					'nbFoyerRadiSusp' => array(),
-					'nbToppers' => array(),
-					'nbFoyerJoin' => array(),
-					'nbEMM' => array(),
-					//Orientée dont
-					'Orientes' => array(
-						'total' => array(),
-						'Emploi' => array(),
-						'percentEmploi' => array(),
-						'Prepro' => array(),
-						'percentPrepro' => array(),
-						'Social' => array(),
-						'percentSocial' => array(),
-						'PE' => array(),
-						'percentPE' => array(),
-						'CD' => array(),
-						'percentCD' => array(),
-						'OA' => array(),
-						'percentOA' => array(),
-					),
-					'percentOrientes' => array(),
-					'Nonvenu' => array (
-						'RDV' => array(),
-						'percentRDV' => array()
-					)
-				),
-				'Horssuspendus' => array (
-					'total' => array(),
-					'nbFoyerInconnu' => array(),
-					'nbFoyerRadiSusp' => array(),
-					'nbToppers' => array(),
-					'nbFoyerJoin' => array(),
-					'nbEMM' => array(),
-					//Orientée dont
-					'Orientes' => array(
-						'total' => array(),
-						'Emploi' => array(),
-						'percentEmploi' => array(),
-						'Prepro' => array(),
-						'percentPrepro' => array(),
-						'Social' => array(),
-						'percentSocial' => array(),
-						'PE' => array(),
-						'percentPE' => array(),
-						'CD' => array(),
-						'percentCD' => array(),
-						'OA' => array(),
-						'percentOA' => array(),
-					),
-					'percentOrientes' => array(),
-					'Nonvenu' => array (
-						'RDV' => array(),
-						'percentRDV' => array()
-					)
-				),
-				'Suspendus' => array (
-					'total' => array(),
-					'nbFoyerInconnu' => array(),
-					'nbFoyerRadiSusp' => array(),
-					'nbToppers' => array(),
-					'nbFoyerJoin' => array(),
-					'nbEMM' => array(),
-					//Orientée dont
-					'Orientes' => array(
-						'total' => array(),
-						'Emploi' => array(),
-						'percentEmploi' => array(),
-						'Prepro' => array(),
-						'percentPrepro' => array(),
-						'Social' => array(),
-						'percentSocial' => array(),
-						'PE' => array(),
-						'percentPE' => array(),
-						'CD' => array(),
-						'percentCD' => array(),
-						'OA' => array(),
-						'percentOA' => array(),
-					),
-					'percentOrientes' => array(),
-					'Nonvenu' => array (
-						'RDV' => array(),
-						'percentRDV' => array()
-					)
-				)
-			);
-			for($i=0; $i<12; $i++) {
-				$resultats['Tous']['total'][$i]=0;
-				$resultats['Tous']['nbFoyerInconnu'][$i]=0;
-				$resultats['Tous']['nbFoyerRadiSusp'][$i]=0;
-				$resultats['Tous']['nbToppers'][$i]=0;
-				$resultats['Tous']['nbFoyerJoin'][$i]=0;
-				$resultats['Tous']['nbEMM'][$i]=0;
-				//Orientée dont
-				$resultats['Tous']['Orientes']['total'][$i] =
-				$resultats['Tous']['percentOrientes'][$i] =
-				$resultats['Tous']['Orientes']['Emploi'][$i] =
-				$resultats['Tous']['Orientes']['percentEmploi'][$i] =
-				$resultats['Tous']['Orientes']['Prepro'][$i] =
-				$resultats['Tous']['Orientes']['percentPrepro'][$i] =
-				$resultats['Tous']['Orientes']['Social'][$i] =
-				$resultats['Tous']['Orientes']['percentSocial'][$i] =
-				$resultats['Tous']['Orientes']['PE'][$i] =
-				$resultats['Tous']['Orientes']['percentPE'][$i] =
-				$resultats['Tous']['Orientes']['CD'][$i] =
-				$resultats['Tous']['Orientes']['percentCD'][$i] =
-				$resultats['Tous']['Orientes']['OA'][$i] =
-				$resultats['Tous']['Orientes']['percentOA'][$i] =
-					0;
-				$resultats['Tous']['Nonvenu']['RDV'][$i] =
-				$resultats['Tous']['Nonvenu']['percentRDV'][$i] = 0;
-				$resultats['Suspendus']['total'][$i]=0;
-				$resultats['Suspendus']['nbFoyerInconnu'][$i]=0;
-				$resultats['Suspendus']['nbFoyerRadiSusp'][$i]=0;
-				$resultats['Suspendus']['nbToppers'][$i]=0;
-				$resultats['Suspendus']['nbFoyerJoin'][$i]=0;
-				$resultats['Suspendus']['nbEMM'][$i]=0;
-				//Orientée dont
-				$resultats['Suspendus']['Orientes']['total'][$i] =
-				$resultats['Suspendus']['percentOrientes'][$i] =
-				$resultats['Suspendus']['Orientes']['Emploi'][$i] =
-				$resultats['Suspendus']['Orientes']['percentEmploi'][$i] =
-				$resultats['Suspendus']['Orientes']['Prepro'][$i] =
-				$resultats['Suspendus']['Orientes']['percentPrepro'][$i] =
-				$resultats['Suspendus']['Orientes']['Social'][$i] =
-				$resultats['Suspendus']['Orientes']['percentSocial'][$i] =
-				$resultats['Suspendus']['Orientes']['PE'][$i] =
-				$resultats['Suspendus']['Orientes']['percentPE'][$i] =
-				$resultats['Suspendus']['Orientes']['CD'][$i] =
-				$resultats['Suspendus']['Orientes']['percentCD'][$i] =
-				$resultats['Suspendus']['Orientes']['OA'][$i] =
-				$resultats['Suspendus']['Orientes']['percentOA'][$i] =
-					0;
-				$resultats['Suspendus']['Nonvenu']['RDV'][$i] =
-				$resultats['Suspendus']['Nonvenu']['percentRDV'][$i] = 0;
-				$resultats['Horssuspendus']['total'][$i]=0;
-				$resultats['Horssuspendus']['nbFoyerInconnu'][$i]=0;
-				$resultats['Horssuspendus']['nbFoyerRadiSusp'][$i]=0;
-				$resultats['Horssuspendus']['nbToppers'][$i]=0;
-				$resultats['Horssuspendus']['nbFoyerJoin'][$i]=0;
-				$resultats['Horssuspendus']['nbEMM'][$i]=0;
-				//Orientée dont
-				$resultats['Horssuspendus']['Orientes']['total'][$i] =
-				$resultats['Horssuspendus']['percentOrientes'][$i] =
-				$resultats['Horssuspendus']['Orientes']['Emploi'][$i] =
-				$resultats['Horssuspendus']['Orientes']['percentEmploi'][$i] =
-				$resultats['Horssuspendus']['Orientes']['Prepro'][$i] =
-				$resultats['Horssuspendus']['Orientes']['percentPrepro'][$i] =
-				$resultats['Horssuspendus']['Orientes']['Social'][$i] =
-				$resultats['Horssuspendus']['Orientes']['percentSocial'][$i] =
-				$resultats['Horssuspendus']['Orientes']['PE'][$i] =
-				$resultats['Horssuspendus']['Orientes']['percentPE'][$i] =
-				$resultats['Horssuspendus']['Orientes']['CD'][$i] =
-				$resultats['Horssuspendus']['Orientes']['percentCD'][$i] =
-				$resultats['Horssuspendus']['Orientes']['OA'][$i] =
-				$resultats['Horssuspendus']['Orientes']['percentOA'][$i] =
-					0;
-				$resultats['Horssuspendus']['Nonvenu']['RDV'][$i] =
-				$resultats['Horssuspendus']['Nonvenu']['percentRDV'][$i] = 0;
-			}
+			$resultats = $this->_initializeTableauA1v2();
+			$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
 
+			// Traitement des résultats
 			foreach($results as $key => $result) {
-				$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
-
 				if ( $useHistoriquedroit ){
+					// Récupère l'historique du mois précédent selon la personne
 					$historiqueKey = null;
 					foreach ($resultsHistoriques as $historiqueKey => $resultHistorique) {
 						if ( $resultHistorique[0]['personne_id'] == $result['Personne']['id'] ){
@@ -2515,23 +3050,22 @@
 							$historiquesMonth = $historiquesToppersMonth = null;
 						}
 
-						//Si La personne est un nouvel entrant suspendu ou pas alors
+						// Si la personne est un nouvel entrant suspendu ou pas alors
 						if ( (
 							 in_array ( $historiquesMonth, $etatSuspendus)
 							&&  $historiquesToppersMonth == 1
 						) && (
-							 in_array ($historiquesPreviousMonth, $etatSuspendus)
+							in_array ($historiquesPreviousMonth, $etatSuspendus)
 							|| $historiquesToppersPreviousMonth != 1
 						)) {
 							$departement = Configure::read('Cg.departement');
 							$jourDebMois = $this->jourDeDebut($annee);
 							$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
 
-							//- Nombre de personnes entrentes en SDD ce mois ci
+							// Nombre de personnes entrantes en SDD ce mois ci
 							$resultats['Tous']['total'][$month] ++;
 
-							//On vérifie les Hors suspendus
-							$Suspendu = True;
+							// On vérifie les Hors suspendus
 							if ((
 								$historiquesMonth == 2
 								&& $historiquesToppersMonth == 1
@@ -2539,24 +3073,20 @@
 								 $historiquesPreviousMonth != 2
 								|| $historiquesToppersPreviousMonth != 1
 							)) {
-								$Suspendu = False;
-								$resultats['Horssuspendus']['total'][$month]++;
+								$keySuspendu = 'Horssuspendus';
 							} else {
-								$resultats['Suspendus']['total'][$month]++;
+								$keySuspendu = 'Suspendus';
 							}
+							$resultats[$keySuspendu]['total'][$month]++;
 
-							//- dont BRSA rejoignant un foyer RSA
+							// dont BRSA rejoignant un foyer RSA
 							if (
 								!is_null($result['Dossiercaf']['ddratdos'])
 								&& $result['Dossiercaf']['ddratdos'] >=  $result['Dossier']['dtdemrsa']
 								&& (date('m',strtotime($result['Dossiercaf']['ddratdos']))-1) == $month
 							){
 								$resultats['Tous']['nbFoyerJoin'][$month]++;
-								if ( !$Suspendu ){
-									$resultats['Horssuspendus']['nbFoyerJoin'][$month]++;
-								} else {
-									$resultats['Suspendus']['nbFoyerJoin'][$month]++;
-								}
+								$resultats[$keySuspendu]['nbFoyerJoin'][$month]++;
 							}elseif (
 								!is_null($result['Adresse']['codepos'])
 								&& strpos($result['Adresse']['codepos'], $departement) === false
@@ -2567,24 +3097,16 @@
 							) {
 								//- dont BRSA venant de s’installer sur le Dpt (mutation)
 									$resultats['Tous']['nbEMM'][$month]++;
-									if ( !$Suspendu ){
-										$resultats['Horssuspendus']['nbEMM'][$month]++;
-									} else {
-										$resultats['Suspendus']['nbEMM'][$month]++;
-									}
+									$resultats[$keySuspendu]['nbEMM'][$month]++;
 							} elseif ( $historiquesPreviousMonth == null ){
 							/*
 							 * - dont Personne SDD ayant effectué une demande pour la 1ʳᵉ fois (primo arrivants)
-							 *sont considère primo arrivants les personnes sans historique droit à l'exclusion des personnes
+							 * sont considère primo arrivants les personnes sans historique droit à l'exclusion des personnes
 							 *  - se rattachant à un foyer dont la demande est déjà ouverte
 							 *  - venant de s’installer sur le Dpt
 							*/
 								$resultats['Tous']['nbFoyerInconnu'][$month]++;
-								if ( !$Suspendu ){
-									$resultats['Horssuspendus']['nbFoyerInconnu'][$month]++;
-								} else {
-									$resultats['Suspendus']['nbFoyerInconnu'][$month]++;
-								}
+								$resultats[$keySuspendu]['nbFoyerInconnu'][$month]++;
 							}
 							//- dont PSDD ayant déjà eu des droits ouverts par le passé (suspendus et non orientés ou radiés)
 							if (
@@ -2597,11 +3119,7 @@
 								)
 							){
 								$resultats['Tous']['nbFoyerRadiSusp'][$month]++;
-								if ( !$Suspendu ){
-									$resultats['Horssuspendus']['nbFoyerRadiSusp'][$month]++;
-								} else {
-									$resultats['Suspendus']['nbFoyerRadiSusp'][$month]++;
-								}
+								$resultats[$keySuspendu]['nbFoyerRadiSusp'][$month]++;
 							}
 							//- dont BRSA non-soumis aux droits et devoirs qui le sont désormais
 							if (
@@ -2609,107 +3127,58 @@
 								in_array ( $historiquesPreviousMonth, $etatSuspendus)
 							) {
 								$resultats['Tous']['nbToppers'][$month]++;
-								if ( !$Suspendu ){
-									$resultats['Horssuspendus']['nbToppers'][$month]++;
-								} else {
-									$resultats['Suspendus']['nbToppers'][$month]++;
-								}
+								$resultats[$keySuspendu]['nbToppers'][$month]++;
 							}
 
-							//Si La personne est un nouvel entrant et
-							//Qu'on as une date d'orientation valide
+							// Si la personne est un nouvel entrant et qu'on a une date d'orientation valide
 							if ( $result['Orientstruct']['date_valid'] != null ){
 
-								//Si l'orientation n'est pas inférieur au changement de droits
+								// Si l'orientation n'est pas inférieur au changement de droits
 								if (strtotime($result['Orientstruct']['date_valid']) >= strtotime($tmpDate) ){
-									//On calcul la date du changement de droits +1 mois
+									// On calcule la date du changement de droits +1 mois
 									$date1mois = strtotime($tmpDate.' + 1 month');
 
-									//Calcul du moi de l'orientation
+									// Calcul du mois de l'orientation
 									$tmpmonth = date('m', strtotime($result['Orientstruct']['date_valid'])) -1 ;
 
-									//Nombre d'orientées en moins d'un mois
+									// Nombre d'orientées en moins d'un mois
 									if ( $date1mois > strtotime($result['Orientstruct']['date_valid']) ) {
 										//- Nombre de nouveaux entrants orientés en moins d’un mois
 										$resultats['Tous']['Orientes']['total'][$tmpmonth] ++;
-										if ( !$Suspendu ){
-											$resultats['Horssuspendus']['Orientes']['total'][$tmpmonth]++;
-										} else {
-											$resultats['Suspendus']['Orientes']['total'][$tmpmonth]++;
-										}
+										$resultats[$keySuspendu]['Orientes']['total'][$tmpmonth]++;
 
-										//	- dont nbre de pers. SDD orientées Social + équivalent en %
+										//	- dont nbre de pers. SDD orientées Social / Emploi / Prépro
 										if(!empty($testOrient['SOCIAL']) && in_array($result['Typeorient']['id'], $testOrient['SOCIAL'] ) ) {
 											$resultats['Tous']['Orientes']['Social'][$tmpmonth]++;
-											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['Social'][$tmpmonth]++;
-											} else {
-												$resultats['Suspendus']['Orientes']['Social'][$tmpmonth]++;
-											}
-											$flagOrienteSocial = true;
-										}
-										//	- dont nbre de pers. SDD orientées Emploi + équivalent en %
-										elseif(!empty($testOrient['EMPLOI']) &&  in_array( $result['Typeorient']['id'], $testOrient['EMPLOI'] ) ) {
+											$resultats[$keySuspendu]['Orientes']['Social'][$tmpmonth]++;
+										}elseif(!empty($testOrient['EMPLOI']) &&  in_array( $result['Typeorient']['id'], $testOrient['EMPLOI'] ) ) {
 											$resultats['Tous']['Orientes']['Emploi'][$tmpmonth]++;
-											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['Emploi'][$tmpmonth]++;
-											} else {
-												$resultats['Suspendus']['Orientes']['Emploi'][$tmpmonth]++;
-											}
-										}
-										//	- dont nbre de pers. SDD orientées Pré pro + équivalent en %
-										elseif (!empty($testOrient['PREPRO']) && in_array( $result['Typeorient']['id'], $testOrient['PREPRO'] ) ) {
+											$resultats[$keySuspendu]['Orientes']['Emploi'][$tmpmonth]++;
+										}elseif (!empty($testOrient['PREPRO']) && in_array( $result['Typeorient']['id'], $testOrient['PREPRO'] ) ) {
 											$resultats['Tous']['Orientes']['Prepro'][$tmpmonth]++;
-											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['Prepro'][$tmpmonth]++;
-											} else {
-												$resultats['Suspendus']['Orientes']['Prepro'][$tmpmonth]++;
-											}
-											$flagOrientePrepro = true;
+											$resultats[$keySuspendu]['Orientes']['Prepro'][$tmpmonth]++;
 										}
 
-										//	- dont nbre de pers. SDD orientées OA + équivalent en %
+										//	- dont nbre de pers. SDD orientées OA / PE / CD
 										if( $result['Structurereferente']['type_struct_stats'] == 'oa' ) {
 											$resultats['Tous']['Orientes']['OA'][$tmpmonth]++;
-											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['OA'][$tmpmonth]++;
-											} else {
-												$resultats['Suspendus']['Orientes']['OA'][$tmpmonth]++;
-											}
-										}
-										//	- dont nbre de pers. SDD orientées PE + équivalent en %
-										if( $result['Structurereferente']['type_struct_stats'] == 'pe' ) {
+											$resultats[$keySuspendu]['Orientes']['OA'][$tmpmonth]++;
+										}elseif( $result['Structurereferente']['type_struct_stats'] == 'pe' ) {
 											$resultats['Tous']['Orientes']['PE'][$tmpmonth]++;
-											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['PE'][$tmpmonth]++;
-											} else {
-												$resultats['Suspendus']['Orientes']['PE'][$tmpmonth]++;
-											}
-											$flagOrientePE = true;
-										}
-										//	- dont nbre de pers. SDD orientées CD + équivalent en %
-										if( $result['Structurereferente']['type_struct_stats'] == 'cd' ) {
+											$resultats[$keySuspendu]['Orientes']['PE'][$tmpmonth]++;
+										}elseif( $result['Structurereferente']['type_struct_stats'] == 'cd' ) {
 											$resultats['Tous']['Orientes']['CD'][$tmpmonth]++;
-											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['PE'][$tmpmonth]++;
-											} else {
-												$resultats['Suspendus']['Orientes']['PE'][$tmpmonth]++;
-											}
-											$flagOrienteCD = true;
+											$resultats[$keySuspendu]['Orientes']['PE'][$tmpmonth]++;
 										}
 									}
 								}
 							}
-							//Si le dernier rendez-vous de la personne est un rendezvous non venu.
+							// Si le dernier rendez-vous de la personne est un rendez-vous non venu.
 							if ( $result['Rendezvous']['daterdv'] != null ){
-								//Si le rendez-vous n'est pas inférieur au changement de droits
+								// Si le rendez-vous n'est pas inférieur au changement de droits
 								if (strtotime($result['Rendezvous']['daterdv']) >= strtotime($tmpDate) ){
 									$resultats['Tous']['Nonvenu']['RDV'][$month] ++;
-									if ( !$Suspendu ){
-										$resultats['Horssuspendus']['Nonvenu']['RDV'][$month]++;
-									} else {
-										$resultats['Suspendus']['Nonvenu']['RDV'][$month]++;
-									}
+									$resultats[$keySuspendu]['Nonvenu']['RDV'][$month]++;
 								}
 							}
 						}
@@ -2720,44 +3189,8 @@
 				unset($resultsHistoriques[$historiqueKey]);
 				unset($results[$key]);
 			}
-			for($i=0; $i<12; $i++) {
-				if($resultats['Tous']['total'][$i] != 0) {
-					$resultats['Tous']['percentOrientes'][$i] = round( (100 * $resultats['Tous']['Orientes']['total'][$i] ) / $resultats['Tous']['total'][$i], 2)  . '%';
-					if ( $resultats['Tous']['Orientes']['total'][$i] != 0) {
-						$resultats['Tous']['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Tous']['Orientes']['Emploi'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Tous']['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Tous']['Orientes']['Prepro'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Tous']['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Tous']['Orientes']['Social'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Tous']['Orientes']['percentPE'][$i] = round( (100 * $resultats['Tous']['Orientes']['PE'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Tous']['Orientes']['percentCD'][$i] = round( (100 * $resultats['Tous']['Orientes']['CD'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Tous']['Orientes']['percentOA'][$i] = round( (100 * $resultats['Tous']['Orientes']['OA'][$i] ) / $resultats['Tous']['Orientes']['total'][$i], 2)  . '%';
-					}
-					$resultats['Tous']['Nonvenu']['percentRDV'][$i]= round( (100 * $resultats['Tous']['Nonvenu']['RDV'][$i] ) / $resultats['Tous']['total'][$i], 2)  . '%';
-				}
-				if($resultats['Suspendus']['total'][$i] != 0) {
-					$resultats['Suspendus']['percentOrientes'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['total'][$i] ) / $resultats['Suspendus']['total'][$i], 2)  . '%';
-					if ( $resultats['Suspendus']['Orientes']['total'][$i] != 0) {
-						$resultats['Suspendus']['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['Emploi'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Suspendus']['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['Prepro'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Suspendus']['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['Social'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Suspendus']['Orientes']['percentPE'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['PE'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Suspendus']['Orientes']['percentCD'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['CD'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Suspendus']['Orientes']['percentOA'][$i] = round( (100 * $resultats['Suspendus']['Orientes']['OA'][$i] ) / $resultats['Suspendus']['Orientes']['total'][$i], 2)  . '%';
-					}
-					$resultats['Suspendus']['Nonvenu']['percentRDV'][$i]= round( (100 * $resultats['Suspendus']['Nonvenu']['RDV'][$i] ) / $resultats['Suspendus']['total'][$i], 2)  . '%';
-				}
-				if($resultats['Horssuspendus']['total'][$i] != 0) {
-					$resultats['Horssuspendus']['percentOrientes'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['total'][$i] ) / $resultats['Horssuspendus']['total'][$i], 2)  . '%';
-					if ( $resultats['Horssuspendus']['Orientes']['total'][$i] != 0) {
-						$resultats['Horssuspendus']['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['Emploi'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Horssuspendus']['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['Prepro'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Horssuspendus']['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['Social'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Horssuspendus']['Orientes']['percentPE'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['PE'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Horssuspendus']['Orientes']['percentCD'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['CD'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Horssuspendus']['Orientes']['percentOA'][$i] = round( (100 * $resultats['Horssuspendus']['Orientes']['OA'][$i] ) / $resultats['Horssuspendus']['Orientes']['total'][$i], 2)  . '%';
-					}
-					$resultats['Horssuspendus']['Nonvenu']['percentRDV'][$i]= round( (100 * $resultats['Horssuspendus']['Nonvenu']['RDV'][$i] ) / $resultats['Horssuspendus']['total'][$i], 2)  . '%';
-				}
-			}
+
+			$resultats = $this->_calculPercentTableauA1v2($resultats);
 			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauA1v2');
 			return $resultats;
 		}
@@ -2801,100 +3234,12 @@
 			}
 
 			// Initialisation tableau de résultats
-			$resultats = array (
-				'Tous' => array (
-					'Orientes_CD' => array(),
-					//Orientée dont
-					'Orientes' => array(
-						'RDV' => array(),
-						'RDV_Prepro' => array(),
-						'RDV_Social' => array(),
-					),
-					'Orientes1m' => array(),
-					'Orientes15j' => array(
-						'RDV' => array(),
-						'RDV_Prepro' => array(),
-						'RDV_Social' => array(),
-					),
-					'Taux' => array(),
-				),
-				'Horssuspendus' => array (
-					'Orientes_CD' => array(),
-					//Orientée dont
-					'Orientes' => array(
-						'RDV' => array(),
-						'RDV_Prepro' => array(),
-						'RDV_Social' => array(),
-					),
-					'Orientes1m' => array(),
-					'Orientes15j' => array(
-						'RDV' => array(),
-						'RDV_Prepro' => array(),
-						'RDV_Social' => array(),
-					),
-					'Taux' => array(),
-				),
-				'Suspendus' => array (
-					'Orientes_CD' => array(),
-					//Orientée dont
-					'Orientes' => array(
-						'RDV' => array(),
-						'RDV_Prepro' => array(),
-						'RDV_Social' => array(),
-					),
-					'Orientes1m' => array(),
-					'Orientes15j' => array(
-						'RDV' => array(),
-						'RDV_Prepro' => array(),
-						'RDV_Social' => array(),
-					),
-					'Taux' => array(),
-				)
-			);
-			for($i=0; $i<12; $i++) {
+			$resultats = $this->_initializeTableauA2av2();
 
-				$resultats['Tous']['Orientes_CD'][$i]=0;
-				//Orientée dont
-				$resultats['Tous']['Taux'][$i] =0;
-				$resultats['Tous']['Orientes']['RDV'][$i] =
-				$resultats['Tous']['Orientes']['RDV_Prepro'][$i] =
-				$resultats['Tous']['Orientes']['RDV_Social'][$i] =
-					0;
-				$resultats['Tous']['Orientes1m'][$i] =0;
-				$resultats['Tous']['Orientes15j']['RDV'][$i] =
-				$resultats['Tous']['Orientes15j']['RDV_Prepro'][$i] =
-				$resultats['Tous']['Orientes15j']['RDV_Social'][$i] =
-					0;
-				$resultats['Horssuspendus']['Orientes_CD'][$i]=0;
-				//Orientée dont
-				$resultats['Horssuspendus']['Taux'][$i] =0;
-				$resultats['Horssuspendus']['Orientes']['RDV'][$i] =
-				$resultats['Horssuspendus']['Orientes']['RDV_Prepro'][$i] =
-				$resultats['Horssuspendus']['Orientes']['RDV_Social'][$i] =
-					0;
-				$resultats['Horssuspendus']['Orientes1m'][$i] =0;
-				$resultats['Horssuspendus']['Orientes15j']['RDV'][$i] =
-				$resultats['Horssuspendus']['Orientes15j']['RDV_Prepro'][$i] =
-				$resultats['Horssuspendus']['Orientes15j']['RDV_Social'][$i] =
-					0;
-				$resultats['Suspendus']['Orientes_CD'][$i]=0;
-				//Orientée dont
-				$resultats['Suspendus']['Taux'][$i] =0;
-				$resultats['Suspendus']['Orientes']['RDV'][$i] =
-				$resultats['Suspendus']['Orientes']['RDV_Prepro'][$i] =
-				$resultats['Suspendus']['Orientes']['RDV_Social'][$i] =
-					0;
-				$resultats['Suspendus']['Orientes1m'][$i] =0;
-				$resultats['Suspendus']['Orientes15j']['RDV'][$i] =
-				$resultats['Suspendus']['Orientes15j']['RDV_Prepro'][$i] =
-				$resultats['Suspendus']['Orientes15j']['RDV_Social'][$i] =
-					0;
-			}
-
-			//Initialisation des valeurs fixes :
+			// Initialisation des valeurs fixes
 			$jourDebMois = $this->jourDeDebut ($annee);
 
-			//Pour chaque résultat
+			// Traitement des résultats
 			foreach($results as $key => $result) {
 				$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
 
@@ -2911,14 +3256,14 @@
 					$flagOrienteCD = false;
 					$flagOrientePrepro = false;
 					$flagOrienteSocial = false;
-					//Initialisation des valeurs :
+					// Initialisation des valeurs
 					if( $result['Structurereferente']['type_struct_stats'] == 'cd' ) {
 						$flagOrienteCD = true;
-						//Pers. orientées Social
+						// Pers. orientées Social
 						if(!empty($testOrient['SOCIAL']) && in_array($result['Typeorient']['id'], $testOrient['SOCIAL'] ) ) {
 								$flagOrienteSocial = true;
 						}
-						//Pers. orientées Pré pro
+						// Pers. orientées Pré pro
 						elseif (!empty($testOrient['PREPRO']) && in_array( $result['Typeorient']['id'], $testOrient['PREPRO'] ) ) {
 								$flagOrientePrepro = true;
 						}
@@ -2931,8 +3276,7 @@
 						}else{
 							$historiquesMonth = $historiquesToppersMonth = null;
 						}
-
-						//Si La personne est un nouvel entrant suspendu ou pas et
+						// Si la personne est un nouvel entrant suspendu ou pas
 						if ( (
 							 in_array ( $historiquesMonth, $etatSuspendus)
 							&& $historiquesToppersMonth == 1
@@ -2940,32 +3284,30 @@
 							 in_array ($historiquesPreviousMonth, $etatSuspendus)
 							|| $historiquesToppersPreviousMonth != 1
 						)) {
-							//Qu'on as une date d'orientation valide
+							// On a une date d'orientation valide
 							if ( $result['Orientstruct']['date_valid'] != null){
 								$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
-								if (//Si l'orientation n'est pas inférieur au changement de droits
+								if (// Si l'orientation n'est pas inférieur au changement de droits
 									strtotime($result['Orientstruct']['date_valid']) >= strtotime($tmpDate)
-									//Nombre de nouveaux entrants orientés orientées CD
+									// Nombre de nouveaux entrants orientés orientées CD
 									&& $flagOrienteCD
 								){
-
-									//Calcul du moi de l'orientation
+									// Calcul du mois de l'orientation
 									$tmpmonth = date('m', strtotime($result['Orientstruct']['date_valid'])) -1 ;
 
 									$resultats['Tous']['Orientes_CD'][$tmpmonth]++;
-									$Suspendu = True;
-									//On vérifie les Hors suspendus
+									// On vérifie les Hors suspendus
 									if (
 										($historiquesMonth == 2
 										&& $historiquesToppersMonth == 1)
 										&& ( $historiquesPreviousMonth != 2
 										|| $historiquesToppersPreviousMonth != 1 )
 									) {
-										$Suspendu = False;
-										$resultats['Horssuspendus']['Orientes_CD'][$tmpmonth]++;
+										$keySuspendu = 'Horssuspendus';
 									} else {
-										$resultats['Suspendus']['Orientes_CD'][$tmpmonth]++;
+										$keySuspendu = 'Suspendus';
 									}
+									$resultats[$keySuspendu]['Orientes_CD'][$tmpmonth]++;
 
 									//- Nombre de nouveaux entrants orientés CD avec un 1er rendez-vous fixé suite à une orientation CD
 									if ( $result['Rendezvous']['daterdv'] != null
@@ -2973,70 +3315,43 @@
 									){
 										$tmpmonthrdv = date('m', strtotime($result['Rendezvous']['daterdv'])) -1 ;
 										$resultats['Tous']['Orientes']['RDV'][$tmpmonthrdv] ++;
-										if ( !$Suspendu ){
-											$resultats['Horssuspendus']['Orientes']['RDV'][$tmpmonthrdv]++;
-										} else {
-											$resultats['Suspendus']['Orientes']['RDV'][$tmpmonthrdv]++;
-										}
+										$resultats[$keySuspendu]['Orientes']['RDV'][$tmpmonthrdv]++;
 										if ( $flagOrientePrepro ) {
 											//	- dont nbre de 1er rdv fixés suite à une orientation Pré pro
 											$resultats['Tous']['Orientes']['RDV_Prepro'][$tmpmonthrdv] ++;
-											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['RDV_Prepro'][$tmpmonthrdv]++;
-											} else {
-												$resultats['Suspendus']['Orientes']['RDV_Prepro'][$tmpmonthrdv]++;
-											}
+											$resultats[$keySuspendu]['Orientes']['RDV_Prepro'][$tmpmonthrdv]++;
 										}
 										if ($flagOrienteSocial) {
 											//	- dont nbre de 1er rdv fixés suite à une orientation Sociale
 											$resultats['Tous']['Orientes']['RDV_Social'][$tmpmonthrdv] ++;
-											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['RDV_Social'][$tmpmonthrdv]++;
-											} else {
-												$resultats['Suspendus']['Orientes']['RDV_Social'][$tmpmonthrdv]++;
-											}
+											$resultats[$keySuspendu]['Orientes']['RDV_Social'][$tmpmonthrdv]++;
 										}
 									}
 
-									//On calcul la date du changement de droits +1 mois
+									// On calcule la date du changement de droits +1 mois
 									$date1mois = strtotime($tmpDate.' + 1 month');
-									//Nombre d'orientées en moins d'un mois
+									// Nombre d'orientées en moins d'un mois
 									if ( $date1mois  >  strtotime($result['Orientstruct']['date_valid']) ) {
 										$resultats['Tous']['Orientes1m'][$tmpmonth]++;
-										if ( !$Suspendu ){
-											$resultats['Horssuspendus']['Orientes1m'][$tmpmonth]++;
-										} else {
-											$resultats['Suspendus']['Orientes1m'][$tmpmonth]++;
-										}
+										$resultats[$keySuspendu]['Orientes1m'][$tmpmonth]++;
 									}
 
 									if ( $result['Orientstruct']['date_valid'] < $result['Rendezvous']['daterdv'] ){
 										$diff = abs(strtotime($result['Rendezvous']['daterdv']) - strtotime($result['Orientstruct']['date_valid']));
+										// 60*60*24*15 = 15 jours
 										if ( (60*60*24*15) > $diff ) {
 											//- Nombre de 1er rendez-vous fixé suite à une orientation CD dans un délai de 15 jours
 											$resultats['Tous']['Orientes15j']['RDV'][$tmpmonthrdv] ++;
-											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes15j']['RDV'][$tmpmonthrdv]++;
-											} else {
-												$resultats['Suspendus']['Orientes15j']['RDV'][$tmpmonthrdv]++;
-											}
+											$resultats[$keySuspendu]['Orientes15j']['RDV'][$tmpmonthrdv]++;
 											if ( $flagOrientePrepro ) {
 												//	- dont nbre de 1er rdv fixés suite à une orientation Pré pro
 												$resultats['Tous']['Orientes15j']['RDV_Prepro'][$tmpmonthrdv] ++;
-												if ( !$Suspendu ){
-													$resultats['Horssuspendus']['Orientes15j']['RDV_Prepro'][$tmpmonthrdv]++;
-												} else {
-													$resultats['Suspendus']['Orientes15j']['RDV_Prepro'][$tmpmonthrdv]++;
-												}
+												$resultats[$keySuspendu]['Orientes15j']['RDV_Prepro'][$tmpmonthrdv]++;
 											}
 											if ($flagOrienteSocial) {
 												//	- dont nbre de 1er rdv fixés suite à une orientation Sociale
 												$resultats['Tous']['Orientes15j']['RDV_Social'][$tmpmonthrdv] ++;
-												if ( !$Suspendu ){
-													$resultats['Horssuspendus']['Orientes15j']['RDV_Social'][$tmpmonthrdv]++;
-												} else {
-													$resultats['Suspendus']['Orientes15j']['RDV_Social'][$tmpmonthrdv]++;
-												}
+												$resultats[$keySuspendu]['Orientes15j']['RDV_Social'][$tmpmonthrdv]++;
 											}
 										}
 									}
@@ -3051,23 +3366,7 @@
 				unset($resultsHistoriques[$historiqueKey]);
 				unset($results[$key]);
 			}
-			for($i=0; $i<12; $i++) {
-				if($resultats['Tous']['Orientes_CD'][$i] != 0) {
-					$resultats['Tous']['Taux'][$i] =
-							round( (100 * $resultats['Tous']['Orientes15j']['RDV'][$i] )
-								/ $resultats['Tous']['Orientes_CD'][$i], 2)  . '%';
-				}
-				if($resultats['Horssuspendus']['Orientes_CD'][$i] != 0) {
-					$resultats['Horssuspendus']['Taux'][$i] =
-							round( (100 * $resultats['Horssuspendus']['Orientes15j']['RDV'][$i] )
-								/ $resultats['Horssuspendus']['Orientes_CD'][$i], 2)  . '%';
-				}
-				if($resultats['Suspendus']['Orientes_CD'][$i] != 0) {
-					$resultats['Suspendus']['Taux'][$i] =
-						round( (100 * $resultats['Suspendus']['Orientes15j']['RDV'][$i] )
-						/ $resultats['Suspendus']['Orientes_CD'][$i], 2)  . '%';
-				}
-			}
+			$resultats = $this->_calculPercentTableauA2av2($resultats);
 			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauA2av2');
 			return $resultats;
 		}
@@ -3111,99 +3410,12 @@
 			}
 
 			// Initialisation tableau de résultats
-			$resultats = array (
-				'Tous' => array (
-					'Orientes_CD' => array(),
-					//Orientée dont
-					'Orientes' => array(
-						'CER' => array(),
-						'CER_Prepro' => array(),
-						'CER_Social' => array(),
-					),
-					'Orientes1m' => array(),
-					'Orientes2m' => array(
-						'CER' => array(),
-						'CER_Prepro' => array(),
-						'CER_Social' => array(),
-					),
-					'Taux' => array(),
-				),
-				'Suspendus' => array (
-					'Orientes_CD' => array(),
-					//Orientée dont
-					'Orientes' => array(
-						'CER' => array(),
-						'CER_Prepro' => array(),
-						'CER_Social' => array(),
-					),
-					'Orientes1m' => array(),
-					'Orientes2m' => array(
-						'CER' => array(),
-						'CER_Prepro' => array(),
-						'CER_Social' => array(),
-					),
-					'Taux' => array(),
-				),
-				'Horssuspendus'=> array (
-					'Orientes_CD' => array(),
-					//Orientée dont
-					'Orientes' => array(
-						'CER' => array(),
-						'CER_Prepro' => array(),
-						'CER_Social' => array(),
-					),
-					'Orientes1m' => array(),
-					'Orientes2m' => array(
-						'CER' => array(),
-						'CER_Prepro' => array(),
-						'CER_Social' => array(),
-					),
-					'Taux' => array(),
-				)
-			);
-			for($i=0; $i<12; $i++) {
-				$resultats['Tous']['Orientes_CD'][$i]=0;
-				//Orientée dont
-				$resultats['Tous']['Taux'][$i] =0;
-				$resultats['Tous']['Orientes']['CER'][$i] =
-				$resultats['Tous']['Orientes']['CER_Prepro'][$i] =
-				$resultats['Tous']['Orientes']['CER_Social'][$i] =
-					0;
-				$resultats['Tous']['Orientes1m'][$i] =0;
-				$resultats['Tous']['Orientes2m']['CER'][$i] =
-				$resultats['Tous']['Orientes2m']['CER_Prepro'][$i] =
-				$resultats['Tous']['Orientes2m']['CER_Social'][$i] =
-					0;
-				$resultats['Suspendus']['Orientes_CD'][$i]=0;
-				//Orientée dont
-				$resultats['Suspendus']['Taux'][$i] =0;
-				$resultats['Suspendus']['Orientes']['CER'][$i] =
-				$resultats['Suspendus']['Orientes']['CER_Prepro'][$i] =
-				$resultats['Suspendus']['Orientes']['CER_Social'][$i] =
-					0;
-				$resultats['Suspendus']['Orientes1m'][$i] =0;
-				$resultats['Suspendus']['Orientes2m']['CER'][$i] =
-				$resultats['Suspendus']['Orientes2m']['CER_Prepro'][$i] =
-				$resultats['Suspendus']['Orientes2m']['CER_Social'][$i] =
-					0;
-				$resultats['Horssuspendus']['Orientes_CD'][$i]=0;
-				//Orientée dont
-				$resultats['Horssuspendus']['Taux'][$i] =0;
-				$resultats['Horssuspendus']['Orientes']['CER'][$i] =
-				$resultats['Horssuspendus']['Orientes']['CER_Prepro'][$i] =
-				$resultats['Horssuspendus']['Orientes']['CER_Social'][$i] =
-					0;
-				$resultats['Horssuspendus']['Orientes1m'][$i] =0;
-				$resultats['Horssuspendus']['Orientes2m']['CER'][$i] =
-				$resultats['Horssuspendus']['Orientes2m']['CER_Prepro'][$i] =
-				$resultats['Horssuspendus']['Orientes2m']['CER_Social'][$i] =
-					0;
-			}
+			$resultats = $this->_initializeTableauA2bv2();
 
-			//Initialisation des valeurs fixes :
+			// Initialisation des valeurs fixes
 			$jourDebMois = $this->jourDeDebut ($annee);
 
-			//Pour chaque résultat
+			// Traitement des résultats
 			foreach($results as $key => $result) {
 				$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
 
@@ -3220,14 +3432,14 @@
 					$flagOrienteCD = false;
 					$flagOrientePrepro = false;
 					$flagOrienteSocial = false;
-					//Initialisation des valeurs :
+					// Initialisation des valeurs
 					if( $result['Structurereferente']['type_struct_stats'] == 'cd' ) {
 						$flagOrienteCD = true;
-						//Pers. orientées Social
+						// Pers. orientées Social
 						if(!empty($testOrient['SOCIAL']) && in_array($result['Typeorient']['id'], $testOrient['SOCIAL'] ) ) {
 								$flagOrienteSocial = true;
 						}
-						//Pers. orientées Pré pro
+						// Pers. orientées Pré pro
 						elseif (!empty($testOrient['PREPRO']) && in_array( $result['Typeorient']['id'], $testOrient['PREPRO'] ) ) {
 								$flagOrientePrepro = true;
 						}
@@ -3241,7 +3453,7 @@
 							$historiquesMonth = $historiquesToppersMonth = null;
 						}
 
-						//Si La personne est un nouvel entrant suspendu ou pas et
+						// Si la personne est un nouvel entrant suspendu ou pas
 						if ( (
 							 in_array ( $historiquesMonth, $etatSuspendus)
 							&& $historiquesToppersMonth == 1
@@ -3249,105 +3461,74 @@
 							 in_array ($historiquesPreviousMonth, $etatSuspendus)
 							|| $historiquesToppersPreviousMonth != 1
 						)) {
-							//Qu'on as une date d'orientation valide
+							// On a une date d'orientation valide
 							if ( $result['Orientstruct']['date_valid'] != null){
 								$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
-								if (//Si l'orientation n'est pas inférieur au changement de droits
+								if (// Si l'orientation n'est pas inférieur au changement de droits
 									strtotime($result['Orientstruct']['date_valid']) >= strtotime($tmpDate)
-									//Nombre de nouveaux entrants orientés orientées CD
+									// Nombre de nouveaux entrants orientés orientées CD
 									&& $flagOrienteCD
 								){
-
-									//Calcul du moi de l'orientation
+									// Calcul du moi de l'orientation
 									$tmpmonth = date('m', strtotime($result['Orientstruct']['date_valid'])) -1 ;
-
 									$resultats['Tous']['Orientes_CD'][$tmpmonth]++;
-									$Suspendu = True;
-									//On vérifie les Hors suspendus
+									// On vérifie les Hors suspendus
 									if (
 										($historiquesMonth == 2 && $historiquesToppersMonth == 1)
 										&& ( $historiquesPreviousMonth != 2
 										|| $historiquesToppersPreviousMonth != 1 )
 									) {
-										$Suspendu = False;
-										$resultats['Horssuspendus']['Orientes_CD'][$tmpmonth]++;
+										$keySuspendu = 'Horssuspendus';
 									} else {
-										$resultats['Suspendus']['Orientes_CD'][$tmpmonth]++;
+										$keySuspendu = 'Suspendus';
 									}
+									$resultats[$keySuspendu]['Orientes_CD'][$tmpmonth]++;
 
 									//- Nombre de nouveaux entrants orientés CD avec un CER suite à une orientation CD
 									if ( $result['Contratinsertion']['datevalidation_ci'] != null
 										&& strtotime($result['Contratinsertion']['datevalidation_ci']) >= strtotime($tmpDate)
 									){
 
-										//Calcul du moi de l'orientation
+										// Calcul du mois de l'orientation
 										$tmpcermonth = date('m', strtotime($result['Orientstruct']['date_valid'])) -1 ;
 
 										$resultats['Tous']['Orientes']['CER'][$tmpcermonth] ++;
-										if ( !$Suspendu ){
-											$resultats['Horssuspendus']['Orientes']['CER'][$tmpcermonth]++;
-										} else {
-											$resultats['Suspendus']['Orientes']['CER'][$tmpcermonth]++;
-										}
+										$resultats[$keySuspendu]['Orientes']['CER'][$tmpcermonth]++;
+
 										if ( $flagOrientePrepro ) {
 											//	- dont nbre de 1er CER suite à une orientation Pré pro
 											$resultats['Tous']['Orientes']['CER_Prepro'][$tmpcermonth] ++;
-											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['CER_Prepro'][$tmpcermonth]++;
-											} else {
-												$resultats['Suspendus']['Orientes']['CER_Prepro'][$tmpcermonth]++;
-											}
+											$resultats[$keySuspendu]['Orientes']['CER_Prepro'][$tmpcermonth]++;
 										}
 										if ($flagOrienteSocial) {
 											//	- dont nbre de 1er CER suite à une orientation Sociale
 											$resultats['Tous']['Orientes']['CER_Social'][$tmpcermonth] ++;
-											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes']['CER_Social'][$tmpcermonth]++;
-											} else {
-												$resultats['Suspendus']['Orientes']['CER_Social'][$tmpcermonth]++;
-											}
+											$resultats[$keySuspendu]['Orientes']['CER_Social'][$tmpcermonth]++;
 										}
 									}
 
-									//On calcul la date +1 mois
+									// On calcule la date +1 mois
 									$date1mois = strtotime($tmpDate.' + 1 month');
-									//Nombre d'orientées en moins d'un mois
+									// Nombre d'orientées en moins d'un mois
 									if ( $date1mois  >  strtotime($result['Orientstruct']['date_valid']) ) {
 										$resultats['Tous']['Orientes1m'][$tmpmonth]++;
-										if ( !$Suspendu ){
-											$resultats['Horssuspendus']['Orientes1m'][$tmpmonth]++;
-										} else {
-											$resultats['Suspendus']['Orientes1m'][$tmpmonth]++;
-										}
+										$resultats[$keySuspendu]['Orientes1m'][$tmpmonth]++;
 									}
 
 									if ( $result['Orientstruct']['date_valid'] < $result['Contratinsertion']['datevalidation_ci'] ){
-										$date2mois = strtotime($result['Orientstruct']['date_valid'].' + 2 month');
 										if ( $date1mois  >  strtotime($result['Contratinsertion']['datevalidation_ci']) ) {
 											//- Nombre de CER suite à une orientation CD dans un délai de 60 jours
 											$resultats['Tous']['Orientes2m']['CER'][$tmpcermonth] ++;
-											if ( !$Suspendu ){
-												$resultats['Horssuspendus']['Orientes2m']['CER'][$tmpcermonth]++;
-											} else {
-												$resultats['Suspendus']['Orientes2m']['CER'][$tmpcermonth]++;
-											}
+											$resultats[$keySuspendu]['Orientes2m']['CER'][$tmpcermonth]++;
 											if ( $flagOrientePrepro ) {
 												//	- dont nbre de CER suite à une orientation Pré pro
 												$resultats['Tous']['Orientes2m']['CER_Prepro'][$tmpcermonth] ++;
-												if ( !$Suspendu ){
-													$resultats['Horssuspendus']['Orientes2m']['CER_Prepro'][$tmpcermonth]++;
-												} else {
-													$resultats['Suspendus']['Orientes2m']['CER_Prepro'][$tmpcermonth]++;
-												}
+												$resultats[$keySuspendu]['Orientes2m']['CER_Prepro'][$tmpcermonth]++;
 											}
 											if ($flagOrienteSocial) {
 												//	- dont nbre de CER suite à une orientation Sociale
 												$resultats['Tous']['Orientes2m']['CER_Social'][$tmpcermonth] ++;
-												if ( !$Suspendu ){
-													$resultats['Horssuspendus']['Orientes2m']['CER_Social'][$tmpcermonth]++;
-												} else {
-													$resultats['Suspendus']['Orientes2m']['CER_Social'][$tmpcermonth]++;
-												}
+												$resultats[$keySuspendu]['Orientes2m']['CER_Social'][$tmpcermonth]++;
 											}
 										}
 									}
@@ -3362,23 +3543,7 @@
 				unset($resultsHistoriques[$historiqueKey]);
 				unset($results[$key]);
 			}
-			for($i=0; $i<12; $i++) {
-				if($resultats['Tous']['Orientes_CD'][$i] != 0) {
-					$resultats['Tous']['Taux'][$i] =
-						round( (100 * $resultats['Tous']['Orientes2m']['CER'][$i] )
-						/ $resultats['Tous']['Orientes_CD'][$i], 2)  . '%';
-				}
-				if($resultats['Horssuspendus']['Orientes_CD'][$i] != 0) {
-					$resultats['Horssuspendus']['Taux'][$i] =
-						round( (100 * $resultats['Horssuspendus']['Orientes2m']['CER'][$i] )
-						/ $resultats['Horssuspendus']['Orientes_CD'][$i], 2)  . '%';
-				}
-				if($resultats['Suspendus']['Orientes_CD'][$i] != 0) {
-					$resultats['Suspendus']['Taux'][$i] =
-						round( (100 * $resultats['Suspendus']['Orientes2m']['CER'][$i] )
-							/ $resultats['Suspendus']['Orientes_CD'][$i], 2)  . '%';
-				}
-			}
+			$resultats = $this->_calculPercentTableauA2bv2($resultats);
 			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauA2bv2');
 			return $resultats;
 		}
@@ -3387,7 +3552,7 @@
 		########################################################################################################################
 
 		/**
-		 * Retourn les résultats de la partie Tableau de bord – Instructon RSA (de l’instructon de la demande à un droit Rsa)
+		 * Retourne les résultats de la partie Tableau de bord – Instructon RSA (de l’instructon de la demande à un droit Rsa)
 		 *
 		 * @param array $search
 		 * @return array
@@ -3406,7 +3571,6 @@
 			$etat = '2';
 			$query = $this->_getQueryTableau_a1v3($search, $etat, $annee);
 			$results = $Personne->find('all', $query);
-			//$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
 
 			if( $useHistoriquedroit ) {
 				$arrayIds = array( );
@@ -3425,64 +3589,9 @@
 			}
 
 			// Initialisation tableau de résultats
-			$resultats = array (
-				'total' => array(),
-				'nbFoyerInconnu' => array(),
-				'nbFoyerRadiSusp' => array(),
-				'nbToppers' => array(),
-				'nbFoyerJoin' => array(),
-				'nbEMM' => array(),
-				//Orientée dont
-				'Orientes' => array(
-					'total' => array(),
-					'Emploi' => array(),
-					'percentEmploi' => array(),
-					'Prepro' => array(),
-					'percentPrepro' => array(),
-					'Social' => array(),
-					'percentSocial' => array(),
-					'PE' => array(),
-					'percentPE' => array(),
-					'CD' => array(),
-					'percentCD' => array(),
-					'OA' => array(),
-					'percentOA' => array(),
-				),
-				'percentOrientes' => array(),
-				'Nonvenu' => array (
-					'RDV' => array(),
-					'percentRDV' => array()
-				)
-			);
-			for($i=0; $i<12; $i++) {
-				$resultats['total'][$i]=0;
-				$resultats['nbFoyerInconnu'][$i]=0;
-				$resultats['nbFoyerRadiSusp'][$i]=0;
-				$resultats['nbToppers'][$i]=0;
-				$resultats['nbFoyerJoin'][$i]=0;
-				$resultats['nbEMM'][$i]=0;
-				//Orientée dont
-				$resultats['Orientes']['total'][$i] =
-				$resultats['percentOrientes'][$i] =
-				$resultats['Orientes']['Emploi'][$i] =
-				$resultats['Orientes']['percentEmploi'][$i] =
-				$resultats['Orientes']['Prepro'][$i] =
-				$resultats['Orientes']['percentPrepro'][$i] =
-				$resultats['Orientes']['Social'][$i] =
-				$resultats['Orientes']['percentSocial'][$i] =
-				$resultats['Orientes']['PE'][$i] =
-				$resultats['Orientes']['percentPE'][$i] =
-				$resultats['Orientes']['CD'][$i] =
-				$resultats['Orientes']['percentCD'][$i] =
-				$resultats['Orientes']['OA'][$i] =
-				$resultats['Orientes']['percentOA'][$i] =
-					0;
-				$resultats['Nonvenu']['RDV'][$i] =
-				$resultats['Nonvenu']['percentRDV'][$i] = 0;
-			}
+			$resultats = $this->_initializeTableauA1v3();
 
 			foreach($results as $key => $result) {
-				$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
 
 				if ( $useHistoriquedroit ){
 					$historiqueKey = null;
@@ -3519,8 +3628,6 @@
 							 $historiquesPreviousMonth == '2'
 							&& $historiquesToppersPreviousMonth == 1
 						)) {
-
-							$departement = Configure::read('Cg.departement');
 							$jourDebMois = $this->jourDeDebut($annee);
 							$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
 
@@ -3568,19 +3675,17 @@
 								$resultats['nbToppers'][$month]++;
 							}
 
-							//Si La personne est un nouvel entrant et
-							//Qu'on as une date d'orientation valide
+							// Si La personne est un nouvel entrant et qu'on a une date d'orientation valide
 							if ( $result['Orientstruct']['date_valid'] != null ){
-
-								//Si l'orientation n'est pas inférieur au changement de droits
+								// Si l'orientation n'est pas inférieur au changement de droits
 								if (strtotime($result['Orientstruct']['date_valid']) >= strtotime($tmpDate) ){
-									//On calcul la date du changement de droits +1 mois
+									// On calcule la date du changement de droits +1 mois
 									$date1mois = strtotime($tmpDate.' + 1 month');
 
-									//Calcul du moi de l'orientation
+									// Calcul du mois de l'orientation
 									$tmpmonth = date('m', strtotime($result['Orientstruct']['date_valid'])) -1 ;
 
-									//Nombre d'orientées en moins d'un mois
+									// Nombre d'orientées en moins d'un mois
 									if ( $date1mois > strtotime($result['Orientstruct']['date_valid']) ) {
 										//- Nombre de nouveaux entrants orientés en moins d’un mois
 										$resultats['Orientes']['total'][$tmpmonth] ++;
@@ -3588,7 +3693,6 @@
 										//	- dont nbre de pers. SDD orientées Social + équivalent en %
 										if(!empty($testOrient['SOCIAL']) && in_array($result['Typeorient']['id'], $testOrient['SOCIAL'] ) ) {
 											$resultats['Orientes']['Social'][$tmpmonth]++;
-											$flagOrienteSocial = true;
 										}
 										//	- dont nbre de pers. SDD orientées Emploi + équivalent en %
 										elseif(!empty($testOrient['EMPLOI']) &&  in_array( $result['Typeorient']['id'], $testOrient['EMPLOI'] ) ) {
@@ -3597,7 +3701,6 @@
 										//	- dont nbre de pers. SDD orientées Pré pro + équivalent en %
 										elseif (!empty($testOrient['PREPRO']) && in_array( $result['Typeorient']['id'], $testOrient['PREPRO'] ) ) {
 											$resultats['Orientes']['Prepro'][$tmpmonth]++;
-											$flagOrientePrepro = true;
 										}
 
 										//	- dont nbre de pers. SDD orientées OA + équivalent en %
@@ -3607,19 +3710,17 @@
 										//	- dont nbre de pers. SDD orientées PE + équivalent en %
 										if( $result['Structurereferente']['type_struct_stats'] == 'pe' ) {
 											$resultats['Orientes']['PE'][$tmpmonth]++;
-											$flagOrientePE = true;
 										}
 										//	- dont nbre de pers. SDD orientées CD + équivalent en %
 										if( $result['Structurereferente']['type_struct_stats'] == 'cd' ) {
 											$resultats['Orientes']['CD'][$tmpmonth]++;
-											$flagOrienteCD = true;
 										}
 									}
 								}
 							}
-							//Si le dernier rendez-vous de la personne est un rendezvous non venu.
+							// Si le dernier rendez-vous de la personne est un rendez-vous non venu.
 							if ( $result['Rendezvous']['daterdv'] != null ){
-								//Si le rendez-vous n'est pas inférieur au changement de droits
+								// Si le rendez-vous n'est pas inférieur au changement de droits
 								if (strtotime($result['Rendezvous']['daterdv']) >= strtotime($tmpDate) ){
 									$resultats['Nonvenu']['RDV'][$month] ++;
 								}
@@ -3637,20 +3738,7 @@
 				unset($resultsDossiersOld[$dossierOldKey]);
 				unset($results[$key]);
 			}
-			for($i=0; $i<12; $i++) {
-				if($resultats['total'][$i] != 0) {
-					$resultats['percentOrientes'][$i] = round( (100 * $resultats['Orientes']['total'][$i] ) / $resultats['total'][$i], 2)  . '%';
-					if ( $resultats['Orientes']['total'][$i] != 0) {
-						$resultats['Orientes']['percentEmploi'][$i] = round( (100 * $resultats['Orientes']['Emploi'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Orientes']['percentPrepro'][$i] = round( (100 * $resultats['Orientes']['Prepro'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Orientes']['percentSocial'][$i] = round( (100 * $resultats['Orientes']['Social'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Orientes']['percentPE'][$i] = round( (100 * $resultats['Orientes']['PE'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Orientes']['percentCD'][$i] = round( (100 * $resultats['Orientes']['CD'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
-						$resultats['Orientes']['percentOA'][$i] = round( (100 * $resultats['Orientes']['OA'][$i] ) / $resultats['Orientes']['total'][$i], 2)  . '%';
-					}
-					$resultats['Nonvenu']['percentRDV'][$i]= round( (100 * $resultats['Nonvenu']['RDV'][$i] ) / $resultats['total'][$i], 2)  . '%';
-				}
-			}
+			$resultats = $this->_calculPercentTableauA1v3($resultats);
 			$resultats = $this->_adaptLignesTableaux($resultats, 'tableauA1v3');
 			return $resultats;
 		}
@@ -3676,7 +3764,6 @@
 			$etat = '2';
 			$query = $this->_getQueryTableau_a2av3 ( $search, $etat, $annee);
 			$results = $Personne->find('all', $query);
-			//$etatSuspendus = Configure::read( 'Statistiqueplanpauvrete.etatSuspendus' );
 
 			if( $useHistoriquedroit ) {
 				$arrayIds = array( );
@@ -3692,42 +3779,12 @@
 			}
 
 			// Initialisation tableau de résultats
-			$resultats = array (
-				'Orientes_CD' => array(),
-				//Orientée dont
-				'Orientes' => array(
-					'RDV' => array(),
-					'RDV_Prepro' => array(),
-					'RDV_Social' => array(),
-				),
-				'Orientes1m' => array(),
-				'Orientes15j' => array(
-					'RDV' => array(),
-					'RDV_Prepro' => array(),
-					'RDV_Social' => array(),
-				),
-				'Taux' => array(),
-			);
-			for($i=0; $i<12; $i++) {
+			$resultats = $this->_initializeTableauA2av3();
 
-				$resultats['Orientes_CD'][$i]=0;
-				//Orientée dont
-				$resultats['Taux'][$i] =0;
-				$resultats['Orientes']['RDV'][$i] =
-				$resultats['Orientes']['RDV_Prepro'][$i] =
-				$resultats['Orientes']['RDV_Social'][$i] =
-					0;
-				$resultats['Orientes1m'][$i] =0;
-				$resultats['Orientes15j']['RDV'][$i] =
-				$resultats['Orientes15j']['RDV_Prepro'][$i] =
-				$resultats['Orientes15j']['RDV_Social'][$i] =
-					0;
-			}
-
-			//Initialisation des valeurs fixes :
+			// Initialisation des valeurs fixes
 			$jourDebMois = $this->jourDeDebut ($annee);
 
-			//Pour chaque résultat
+			// Traitement du résultat
 			foreach($results as $key => $result) {
 
 				if ( $useHistoriquedroit ){
@@ -3743,14 +3800,14 @@
 					$flagOrienteCD = false;
 					$flagOrientePrepro = false;
 					$flagOrienteSocial = false;
-					//Initialisation des valeurs :
+					// Initialisation des valeurs
 					if( $result['Structurereferente']['type_struct_stats'] == 'cd' ) {
 						$flagOrienteCD = true;
-						//Pers. orientées Social
+						// Pers. orientées Social
 						if(!empty($testOrient['SOCIAL']) && in_array($result['Typeorient']['id'], $testOrient['SOCIAL'] ) ) {
 								$flagOrienteSocial = true;
 						}
-						//Pers. orientées Pré pro
+						// Pers. orientées Pré pro
 						elseif (!empty($testOrient['PREPRO']) && in_array( $result['Typeorient']['id'], $testOrient['PREPRO'] ) ) {
 								$flagOrientePrepro = true;
 						}
@@ -3764,9 +3821,9 @@
 							$historiquesMonth = $historiquesToppersMonth = null;
 						}
 
-						//Si La personne est un nouvel entrant Droit ouvert et Versable (DOV) = etatdosrsa 2
-						//et Soumis à Droit et Devoirs (SDD) toppersdrodevorsa 1
-						//et ne l'était le mois précédent
+						// Si La personne est un nouvel entrant Droit ouvert et Versable (DOV) = etatdosrsa 2
+						// et Soumis à Droit et Devoirs (SDD) toppersdrodevorsa 1
+						// et ne l'était le mois précédent
 						if ( (
 							 $historiquesMonth == '2'
 							&& $historiquesToppersMonth == 1
@@ -3774,16 +3831,16 @@
 							 $historiquesPreviousMonth == '2'
 							&& $historiquesToppersPreviousMonth == 1
 						) ) {
-							//Qu'on as une date d'orientation valide
+							// On a une date d'orientation valide
 							if ( $result['Orientstruct']['date_valid'] != null){
 								$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
-								if (//Si l'orientation n'est pas inférieur au changement de droits
+								if (// Si l'orientation n'est pas inférieur au changement de droits
 									strtotime($result['Orientstruct']['date_valid']) >= strtotime($tmpDate)
-									//Nombre de nouveaux entrants orientés orientées CD
+									// Nombre de nouveaux entrants orientés orientées CD
 									&& $flagOrienteCD
 								){
 
-									//Calcul du moi de l'orientation
+									// Calcul du mois de l'orientation
 									$tmpmonth = date('m', strtotime($result['Orientstruct']['date_valid'])) -1 ;
 									$resultats['Orientes_CD'][$tmpmonth]++;
 
@@ -3803,9 +3860,9 @@
 										}
 									}
 
-									//On calcul la date du changement de droits +1 mois
+									// On calcul la date du changement de droits +1 mois
 									$date1mois = strtotime($tmpDate.' + 1 month');
-									//Nombre d'orientées en moins d'un mois
+									// Nombre d'orientées en moins d'un mois
 									if ( $date1mois  >  strtotime($result['Orientstruct']['date_valid']) ) {
 										$resultats['Orientes1m'][$tmpmonth]++;
 									}
@@ -3888,41 +3945,12 @@
 			}
 
 			// Initialisation tableau de résultats
-			$resultats = array (
-					'Orientes_CD' => array(),
-					//Orientée dont
-					'Orientes' => array(
-						'CER' => array(),
-						'CER_Prepro' => array(),
-						'CER_Social' => array(),
-					),
-					'Orientes1m' => array(),
-					'Orientes2m' => array(
-						'CER' => array(),
-						'CER_Prepro' => array(),
-						'CER_Social' => array(),
-					),
-					'Taux' => array(),
-			);
-			for($i=0; $i<12; $i++) {
-				$resultats['Orientes_CD'][$i]=0;
-				//Orientée dont
-				$resultats['Taux'][$i] =0;
-				$resultats['Orientes']['CER'][$i] =
-				$resultats['Orientes']['CER_Prepro'][$i] =
-				$resultats['Orientes']['CER_Social'][$i] =
-					0;
-				$resultats['Orientes1m'][$i] =0;
-				$resultats['Orientes2m']['CER'][$i] =
-				$resultats['Orientes2m']['CER_Prepro'][$i] =
-				$resultats['Orientes2m']['CER_Social'][$i] =
-					0;
-			}
+			$resultats = $this->_initializeTableauA2bv3();
 
-			//Initialisation des valeurs fixes :
+			// Initialisation des valeurs fixes
 			$jourDebMois = $this->jourDeDebut ($annee);
 
-			//Pour chaque résultat
+			// Traitement du résultat
 			foreach($results as $key => $result) {
 
 				if ( $useHistoriquedroit ){
@@ -3938,14 +3966,14 @@
 					$flagOrienteCD = false;
 					$flagOrientePrepro = false;
 					$flagOrienteSocial = false;
-					//Initialisation des valeurs :
+					// Initialisation des valeurs
 					if( $result['Structurereferente']['type_struct_stats'] == 'cd' ) {
 						$flagOrienteCD = true;
-						//Pers. orientées Social
+						// Pers. orientées Social
 						if(!empty($testOrient['SOCIAL']) && in_array($result['Typeorient']['id'], $testOrient['SOCIAL'] ) ) {
 								$flagOrienteSocial = true;
 						}
-						//Pers. orientées Pré pro
+						// Pers. orientées Pré pro
 						elseif (!empty($testOrient['PREPRO']) && in_array( $result['Typeorient']['id'], $testOrient['PREPRO'] ) ) {
 								$flagOrientePrepro = true;
 						}
@@ -3959,9 +3987,9 @@
 							$historiquesMonth = $historiquesToppersMonth = null;
 						}
 
-						//Si La personne est un nouvel entrant Droit ouvert et Versable (DOV) = etatdosrsa 2
-						//et Soumis à Droit et Devoirs (SDD) toppersdrodevorsa 1
-						//et ne l'était le mois précédent
+						// Si La personne est un nouvel entrant Droit ouvert et Versable (DOV) = etatdosrsa 2
+						// et Soumis à Droit et Devoirs (SDD) toppersdrodevorsa 1
+						// et ne l'était le mois précédent
 						if ( (
 							 $historiquesMonth == '2'
 							&& $historiquesToppersMonth == 1
@@ -3969,15 +3997,15 @@
 							$historiquesPreviousMonth == '2'
 							&& $historiquesToppersPreviousMonth == 1
 						)) {
-							//Qu'on as une date d'orientation valide
+							// On a une date d'orientation valide
 							if ( $result['Orientstruct']['date_valid'] != null){
 								$tmpDate = $this->_getDateString( $annee, $month, $jourDebMois, 2 );
-								if (//Si l'orientation n'est pas inférieur au changement de droits
+								if (// Si l'orientation n'est pas inférieur au changement de droits
 									strtotime($result['Orientstruct']['date_valid']) >= strtotime($tmpDate)
-									//Nombre de nouveaux entrants orientés orientées CD
+									// Nombre de nouveaux entrants orientés orientées CD
 									&& $flagOrienteCD
 								){
-									//Calcul du moi de l'orientation
+									// Calcul du mois de l'orientation
 									$tmpmonth = date('m', strtotime($result['Orientstruct']['date_valid'])) -1 ;
 									$resultats['Orientes_CD'][$tmpmonth]++;
 
@@ -3985,8 +4013,7 @@
 									if ( $result['Contratinsertion']['datevalidation_ci'] != null
 										&& strtotime($result['Contratinsertion']['datevalidation_ci']) >= strtotime($tmpDate)
 									){
-
-										//Calcul du moi de l'orientation
+										//Calcul du mois du CER
 										$tmpcermonth = date('m', strtotime($result['Orientstruct']['date_valid'])) -1 ;
 										$resultats['Orientes']['CER'][$tmpcermonth] ++;
 
@@ -4000,15 +4027,14 @@
 										}
 									}
 
-									//On calcul la date +1 mois
+									// On calcule la date +1 mois
 									$date1mois = strtotime($tmpDate.' + 1 month');
-									//Nombre d'orientées en moins d'un mois
+									// Nombre d'orientées en moins d'un mois
 									if ( $date1mois  >  strtotime($result['Orientstruct']['date_valid']) ) {
 										$resultats['Orientes1m'][$tmpmonth]++;
 									}
 
 									if ( $result['Orientstruct']['date_valid'] < $result['Contratinsertion']['datevalidation_ci'] ){
-										$date2mois = strtotime($result['Orientstruct']['date_valid'].' + 2 month');
 										if ( $date1mois  >  strtotime($result['Contratinsertion']['datevalidation_ci']) ) {
 											//- Nombre de CER suite à une orientation CD dans un délai de 60 jours
 											$resultats['Orientes2m']['CER'][$tmpcermonth] ++;
@@ -4023,7 +4049,6 @@
 											}
 										}
 									}
-
 								}
 							}
 							unset($resultsHistoriques[$historiqueKey]);

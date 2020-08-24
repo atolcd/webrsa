@@ -313,7 +313,11 @@
 			$Controller = $this->_Collection->getController();
 
 			$search = array();
-			if( $Controller->request->is( 'get' ) || false !== strpos( PHP_SAPI, 'cli' ) ) {
+			if( $Controller->request->is( 'get' )
+				|| false !== strpos( PHP_SAPI, 'cli' )
+				|| ( $Controller->request->is( 'post' ) && !empty($Controller->request->params['named']) )
+				|| ( $Controller->request->is( 'put' ) && !empty($Controller->request->params['named']) )
+			) {
 				if( empty( $params['searchKey'] ) === false ) {
 					if( isset( $Controller->request->data[$params['searchKey']] ) ) {
 						$search = $Controller->request->data[$params['searchKey']];

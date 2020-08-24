@@ -29,13 +29,14 @@
 			$Controller = $this->_Collection->getController();
 			if( !isset($query['fields']['Personne.id']) ) {
 				array_unshift($query['fields'], 'DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"');
+				$query['order'] = array('Personne.id');
 			}
 
-			if (is_numeric ($Controller->params->named['Search__limit'])) {
+			if (isset($Controller->params->named['Search__limit']) && is_numeric ($Controller->params->named['Search__limit'])) {
 				$query['limit'] = $Controller->params->named['Search__limit'];
 			}
 
-			$datas = $Controller->Personne->find( 'all', $query );
+			$datas = $Controller->{$params['modelName']}->find( 'all', $query );
 			$pdfList = array();
 
 			foreach ( $datas as $value ) {

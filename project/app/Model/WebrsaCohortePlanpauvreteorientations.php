@@ -80,7 +80,7 @@
 				'Prestation' => 'INNER',
 				'Adressefoyer' => 'INNER',
 				'Calculdroitrsa' => 'INNER',
-				'Dossier' => 'INNER',
+				'Personne' => 'INNER',
 				'Situationdossierrsa' => 'INNER',
 				'Adresse' => 'INNER',
 				'Historiquedroit' => 'INNER',
@@ -104,7 +104,7 @@
 
 			if( $query === false ) {
 				App::uses('WebrsaModelUtility', 'Utility');
-				$query = $this->Allocataire->searchQuery( $types, 'Personne' );
+				$query = $this->Allocataire->searchQuery( $types, 'Dossier' );
 
 				$query['fields']['Personne.id'] = 'DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"';
 				// 1. Ajout des champs supplémentaires
@@ -126,6 +126,7 @@
 						'Dossier.id',
 						'Dossier.dtdemrsa',
 						'Dossier.ddarrmut',
+						'Historiquedroit.created'
 					)
 				);
 				// 2. Jointure

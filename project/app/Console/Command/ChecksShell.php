@@ -178,7 +178,7 @@
 
 			// Création éventuelle du répertoire temporaire pour les PDF
 			$Gedooo = new GedoooComponent( $componentCollection );
-			$Gedooo->makeTmpDir( Configure::read( 'Cohorte.dossierTmpPdfs' ) );
+			$Gedooo->makeTmpDir( APP . Configure::read( 'Cohorte.dossierTmpPdfs' ) );
 
 			// Initialisation de la classe SessionAcl pour pouvoir utiliser la classe SessionAclUtility
 			$sessionAclComponent = new SessionAclComponent( $componentCollection );

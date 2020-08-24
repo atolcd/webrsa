@@ -350,7 +350,7 @@
 			$details = Set::merge( $details, array( 'Adresse' => Hash::get($adresseFoyer, 'Adresse') ) );
 
 			// Canton
-			if (Configure::read( 'CG.cantons' )) {
+			if (Configure::read( 'CG.cantons' ) && !empty($adresseFoyer) ) {
 				$this->loadModel('Canton');
 				$canton = $this->Canton->find (
 					'first',
@@ -370,9 +370,8 @@
 					)
 				);
 				$details = Set::merge( $details, $canton);
-
 				// Site AMS COV 58
-				if (Configure::read( 'CG.cantons.sitecov58' ) && isset ($details['Canton']) && is_numeric ($details['Canton']['id'])) {
+				if (Configure::read( 'CG.sitecov58.cantons' ) && isset ($details['Canton']) && is_numeric ($details['Canton']['id'])) {
 					$this->loadModel('Sitecov58');
 					$sitecov58 = $this->Sitecov58->find (
 						'first',
@@ -383,10 +382,13 @@
 									'alias' => 'CantonSitecov58',
 									'type' => 'LEFT OUTER',
 									'conditions' => array (
-										'"Sitecov58"."id" = "CantonSitecov58"."sitecov58_id"',
-										'"CantonSitecov58"."canton_id" = '.$details['Canton']['id']
+										'"Sitecov58"."id" = "CantonSitecov58"."sitecov58_id"'
 									)
 								)
+							),
+							'conditions' => array(
+								'"CantonSitecov58"."canton_id" = '.$details['Canton']['id'],
+								'Sitecov58.actif' => 1
 							),
 							'recursive' => -1
 						)

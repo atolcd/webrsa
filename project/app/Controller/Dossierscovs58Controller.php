@@ -97,7 +97,7 @@
 			// Retour à l'index en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
 				$this->Jetons2->release( Set::extract( '/Foyer/dossier_id', $this->request->data ) );
-				$this->Jetonsfonctions2->release( $cov58_id );
+				$this->Jetonsfonctions2->release( $cov58_id, false );
 				$themeClass = Inflector::classify( $this->request->data['Choose']['theme'] );
 				$this->redirect( array( 'controller' => 'covs58', 'action' => 'view', $cov58_id, '#' => "tabbedWrapper,{$themeClass}" ) );
 			}
@@ -118,8 +118,8 @@
 
 
 			$conditionsAdresses = array( 'OR' => array() );
-			// Début conditions zones géographiques CG 58 et CG 93
-			if( Configure::read( 'CG.cantons' ) == false ) {
+			// Début conditions zones géographiques
+			if( Configure::read( 'CG.covs58.zone.geographique' ) == true ) {
 				$zonesgeographiques = Set::extract(
 					$cov58,
 					'Sitecov58.Zonegeographique.{n}.codeinsee'
@@ -133,7 +133,7 @@
 			// Fin conditions zones géographiques
 
 			if( in_array( $cov58['Cov58']['etatcov'], array( 'traite', 'finalise' ) ) ) {
-				$this->Jetonsfonctions2->release( $cov58_id );
+				$this->Jetonsfonctions2->release( $cov58_id, false );
 				$this->Flash->error( 'Impossible d\'attribuer des dossiers à une COV lorsque celle-ci comporte déjà des avis ou des décisions.' );
 				$this->redirect( $this->referer() );
 			}
@@ -173,7 +173,7 @@
 				if( $success ) {
 					$this->Dossiercov58->commit();
 					$this->Flash->success( __( 'Save->success' ) );
-					$this->Jetonsfonctions2->release( $cov58_id );
+					$this->Jetonsfonctions2->release( $cov58_id, false );
 					$dossiersIds = Set::extract( $this->request->data, '/Foyer/dossier_id' );
 					$this->Jetons2->release( $dossiersIds );
 					$themeClass = Inflector::classify($this->request->data['Choose']['theme']);

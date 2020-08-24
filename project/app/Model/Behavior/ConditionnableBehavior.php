@@ -67,19 +67,27 @@
 				}
 			}
 
-			// Critère sur le site COV (CG 58)
+			// Critère pour le CG 58
 			if( Configure::read( 'Cg.departement' ) == 58 ) {
+				$Sitecov58 = ClassRegistry::init( 'Sitecov58' );
+
+				// Critère sur le site COV
 				$sitecov58_id = Hash::get( $search, 'Sitecov58.id' );
 
 				if( !empty( $sitecov58_id ) ) {
-					$Sitecov58 = ClassRegistry::init( 'Sitecov58' );
-
 					if ($filtre_site_cov_zone_geo) {
 						$conditions[] = $Sitecov58->queryConditionsByZonesgeographiques ( $sitecov58_id );
 					}
 					else {
 						$conditions[] = $Sitecov58->queryConditions ( $sitecov58_id );
 					}
+				}
+
+				// Critère sur le Site d'Action Médico-Sociale
+				$sitecov58_id = Hash::get( $search, 'CantonSitecov58.id' );
+
+				if( !empty( $sitecov58_id ) ) {
+					$conditions[] = $Sitecov58->queryConditions ( $sitecov58_id );
 				}
 			}
 

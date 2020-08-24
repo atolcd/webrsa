@@ -195,13 +195,16 @@
 				$validate = array();
 				$indexes = $this->uniqueColumnIndexes( $Model );
 
-				foreach( $Model->schema() as $field => $params ) {
-					$validate[$field] = $this->deduceFieldValidationRules(
-						$Model,
-						$field,
-						$params,
-						$indexes
-					);
+				if (is_array ($Model->schema()))
+				{
+					foreach( $Model->schema() as $field => $params ) {
+						$validate[$field] = $this->deduceFieldValidationRules(
+							$Model,
+							$field,
+							$params,
+							$indexes
+						);
+					}
 				}
 
 				if( $cache ) {

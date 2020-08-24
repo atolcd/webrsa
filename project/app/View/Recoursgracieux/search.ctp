@@ -12,92 +12,21 @@
 	<?php
 	/**
 	 * Date d’arrivée du dossier au CD
-		C’est un champ de date.
 	*/
-	echo "<fieldset><legend> ".__m('Recourgracieux::search::dtarrivee')."</legend>";
-		echo $this->Xform->input(
-			'Search.Recourgracieux.dtarrivee_from',
-			array(
-				'label' => ' From',
-				'type' => 'date',
-				'dateFormat'=>'DMY',
-				'maxYear'=>date('Y')+1,
-				'minYear'=> '2009',
-				'empty' => true
-			)
-		) ;
-		echo $this->Xform->input(
-			'Search.Recourgracieux.dtarrivee_to',
-			array(
-				'label' => 'To ',
-				'type' => 'date',
-				'dateFormat'=>'DMY',
-				'maxYear'=>date('Y')+2,
-				'minYear'=> '2009' ,
-				'empty' => true
-			)
-		) ;
-	echo "</fieldset>";
+	echo $this->SearchForm->dateRange('Search.Recourgracieux.dtarrivee', array('domain' => 'recoursgracieux'));
+
 	/**
 	 * Date butoir de réponse
-		C’est un champ de date.
 	*/
-	echo "<fieldset><legend> ".__m('Recourgracieux::search::dtbutoir')."</legend>";
-		echo $this->Xform->input(
-			'Search.Recourgracieux.dtbutoir_from',
-			array(
-				'label' => ' From',
-				'type' => 'date',
-				'dateFormat'=>'DMY',
-				'maxYear'=>date('Y')+1,
-				'minYear'=> '2009',
-				'empty' => true
-			)
-		) ;
-		echo $this->Xform->input(
-			'Search.Recourgracieux.dtbutoir_to',
-			array(
-				'label' => 'To ',
-				'type' => 'date',
-				'dateFormat'=>'DMY',
-				'maxYear'=>date('Y')+2,
-				'minYear'=> '2009' ,
-				'empty' => true
-			)
-		) ;
-	echo "</fieldset>";
+	echo $this->SearchForm->dateRange('Search.Recourgracieux.dtbutoir', array('domain' => 'recoursgracieux'));
+
 	/**
 	 * Date de réception du dossier dans le service
-		C’est un champ de date.
 	*/
-	echo "<fieldset><legend> ".__m('Recourgracieux::search::dtreception')."</legend>";
-		echo $this->Xform->input(
-			'Search.Recourgracieux.dtreception_from',
-			array(
-				'label' => ' From',
-				'type' => 'date',
-				'dateFormat'=>'DMY',
-				'maxYear'=>date('Y')+1,
-				'minYear'=> '2009',
-				'empty' => true
-			)
-		) ;
-		echo $this->Xform->input(
-			'Search.Recourgracieux.dtreception_to',
-			array(
-				'label' => 'To ',
-				'type' => 'date',
-				'dateFormat'=>'DMY',
-				'maxYear'=>date('Y')+2,
-				'minYear'=> '2009' ,
-				'empty' => true
-			)
-		) ;
-	echo "</fieldset>";
+	echo $this->SearchForm->dateRange('Search.Recourgracieux.dtreception', array('domain' => 'recoursgracieux'));
 
 	/**
 	 * Origine du dossier
-		C’est une liste déroulante.
 	*/
 	echo $this->Xform->input(
 		'Search.Recourgracieux.originerecoursgracieux_id',
@@ -111,35 +40,11 @@
 
 	/**
 	 * Date d’affectation du dossier
-		C’est un champ de date.
 	*/
-	echo "<fieldset><legend> ".__m('Recourgracieux::search::dtaffectation')."</legend>";
-		echo $this->Xform->input(
-			'Search.Recourgracieux.dtaffectation_from',
-			array(
-				'label' => ' From',
-				'type' => 'date',
-				'dateFormat'=>'DMY',
-				'maxYear'=>date('Y')+1,
-				'minYear'=> '2009',
-				'empty' => true
-			)
-		) ;
-		echo $this->Xform->input(
-			'Search.Recourgracieux.dtaffectation_to',
-			array(
-				'label' => 'To ',
-				'type' => 'date',
-				'dateFormat'=>'DMY',
-				'maxYear'=>date('Y')+2,
-				'minYear'=> '2009' ,
-				'empty' => true
-			)
-		) ;
-	echo "</fieldset>";
+	echo $this->SearchForm->dateRange('Search.Recourgracieux.dtaffectation', array('domain' => 'recoursgracieux'));
+
 	/**
 	 * Gestionnaire du dossier
-		C’est une liste déroulante.
 	*/
 	echo $this->Xform->input(
 		'Search.Recourgracieux.poledossierpcg66_id',
@@ -162,7 +67,6 @@
 
 	/**
 	 * État du dossier
-		C’est une liste déroulante.
 	 */
 	echo $this->Xform->input(
 		'Search.Recourgracieux.etat',

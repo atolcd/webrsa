@@ -16,6 +16,7 @@
 	 */
 	class WebrsaRecherchesRecoursgracieuxComponent extends WebrsaAbstractRecherchesComponent
 	{
+
 		/**
 		 * Retourne les options de type "enum", c'est à dire liées aux schémas des
 		 * tables de la base de données.

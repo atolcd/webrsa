@@ -1881,9 +1881,9 @@
 		 * @return array
 		 */
 		public function tableaub9( array $search) {
-			$annee = Set::extract( $search, 'Search.annee' );
-			$structureReferente =   Set::extract( $search, 'Search.structuresreferentes' );
-			$communautesSrs =   Set::extract( $search, 'Search.communautesr_id' );
+			$annee = Hash::get( $search, 'Search.annee' );
+			$structureReferente = Hash::get( $search, 'Search.structurereferente_id' );
+			$communautesSrs = Hash::get( $search, 'Search.communautesr_id' );
 			$results = array();
 
 			$indicateurMensuel = ClassRegistry::init('Indicateurmensuel');

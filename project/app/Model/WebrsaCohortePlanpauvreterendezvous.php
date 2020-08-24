@@ -183,8 +183,7 @@
 						$this->Personne->Rendezvous->Referent->sqVirtualField( 'nom_complet' ),
 						'Typerdv.libelle',
 						'Statutrdv.libelle',
-						'Historiqueetatpe.identifiantpe',
-						'Historiqueetatpe.date',
+						'Historiquedroit.created'
 					)
 				);
 				// 2. Jointure

@@ -89,7 +89,7 @@
 		 * @access public
 		 */
 		public function index() {
-			$this->Gedooo->makeTmpDir( Configure::read( 'Cohorte.dossierTmpPdfs' ) );
+			$this->Gedooo->makeTmpDir( APP . Configure::read( 'Cohorte.dossierTmpPdfs' ) );
 
 			$this->set( 'results', $this->WebrsaInstallCheck->all() );
 

@@ -147,51 +147,43 @@
 			$query = $this->Allocataire->searchConditions( $query, $search );
 
 			// if Date d’arrivée du dossier au CD entre debut et fin
-			$arrayDtarrivee_from = Hash::get( $search, 'Recourgracieux.dtarrivee_from' );
-			$arrayDtarrivee_to = Hash::get( $search, 'Recourgracieux.dtarrivee_to' );
-			if ( !empty($arrayDtarrivee_from) && !empty($arrayDtarrivee_to)) {
-				$dtarrivee_from = date_cakephp_to_sql( $arrayDtarrivee_from );
-				$dtarrivee_to = date_cakephp_to_sql( $arrayDtarrivee_to );
+			if( Hash::get( $search, 'Recourgracieux.dtarrivee' ) == 1 ) {
+				$dtarrivee_from = date_cakephp_to_sql( Hash::get( $search, 'Recourgracieux.dtarrivee_from' ) );
+				$dtarrivee_to = date_cakephp_to_sql( Hash::get( $search, 'Recourgracieux.dtarrivee_to') );
 				$query['conditions'][] = " Recourgracieux.dtarrivee BETWEEN '".$dtarrivee_from ."' AND '".$dtarrivee_to."'";
 			}
 
 			// if Date butoir de réponse entre debut et fin
-			$arrayDtbutoir_from = Hash::get( $search, 'Recourgracieux.dtbutoir_from' );
-			$arrayDtbutoir_to = Hash::get( $search, 'Recourgracieux.dtbutoir_to' );
-			if ( !empty($arrayDtbutoir_from) && !empty($arrayDtbutoir_to)) {
-				$dtbutoir_from = date_cakephp_to_sql( $arrayDtbutoir_from );
-				$dtbutoir_to = date_cakephp_to_sql( $arrayDtbutoir_to );
+			if( Hash::get( $search, 'Recourgracieux.dtbutoir' ) == 1 ) {
+				$dtbutoir_from = date_cakephp_to_sql( Hash::get( $search, 'Recourgracieux.dtbutoir_from' ) );
+				$dtbutoir_to = date_cakephp_to_sql( Hash::get( $search, 'Recourgracieux.dtbutoir_to' ) );
 				$query['conditions'][] = " Recourgracieux.dtbutoir BETWEEN '".$dtbutoir_from ."' AND '".$dtbutoir_to."'";
 			}
 
 			// if Date réception du dossier dans le service entre debut et fin
-			$arrayDtreception_from = Hash::get( $search, 'Recourgracieux.dtreception_from' );
-			$arrayDtreception_to = Hash::get( $search, 'Recourgracieux.dtreception_to' );
-			if ( !empty($arrayDtreception_from) && !empty($arrayDtreception_to)) {
-				$dtreception_from = date_cakephp_to_sql( $arrayDtreception_from );
-				$dtreception_to = date_cakephp_to_sql( $arrayDtreception_to );
+			if( Hash::get( $search, 'Recourgracieux.dtreception' ) == 1 ) {
+				$dtreception_from = date_cakephp_to_sql( Hash::get( $search, 'Recourgracieux.dtreception_from' ) );
+				$dtreception_to = date_cakephp_to_sql( Hash::get( $search, 'Recourgracieux.dtreception_to' ) );
 				$query['conditions'][] = " Recourgracieux.dtreception BETWEEN '".$dtreception_from ."' AND '".$dtreception_to."'";
 			}
 
 			// if Origine du dossier Selected then Recourgracieux.originerecoursgracieux_id LIKE
 			$originerecoursgracieux = (string)Hash::get( $search, 'Recourgracieux.originerecoursgracieux_id' );
 			if ( !empty($originerecoursgracieux) ) {
-				$query['conditions'][] = " Recourgracieux.originerecoursgracieux_id LIKE '".$originerecoursgracieux."'" ;
+				$query['conditions'][] = " Recourgracieux.originerecoursgracieux_id = ".$originerecoursgracieux;
 			}
 
 			// if Date d’affectation du dossier entre debut et fin
-			$arrayDtaffectation_from = Hash::get( $search, 'Recourgracieux.dtaffectation_from' );
-			$arrayDtaffectation_to = Hash::get( $search, 'Recourgracieux.dtaffectation_to' );
-			if ( !empty($arrayDtaffectation_from) && !empty($arrayDtaffectation_to)) {
-				$dtaffectation_from = date_cakephp_to_sql( $arrayDtaffectation_from );
-				$dtaffectation_to = date_cakephp_to_sql( $arrayDtaffectation_to );
+			if ( Hash::get( $search, 'Recourgracieux.dtaffectation' ) == 1 ) {
+				$dtaffectation_from = date_cakephp_to_sql( Hash::get( $search, 'Recourgracieux.dtaffectation_from' ) );
+				$dtaffectation_to = date_cakephp_to_sql( Hash::get( $search, 'Recourgracieux.dtaffectation_to' ) );
 				$query['conditions'][] = " Recourgracieux.dtaffectation BETWEEN '".$dtaffectation_from ."' AND '".$dtaffectation_to."'";
 			}
 
 			// if Gestionnaire du dossier Selected then Recourgracieux.user_id LIKE
 			$user_id = (string)Hash::get( $search, 'Recourgracieux.user_id' );
 			if ( !empty($user_id) ) {
-				$query['conditions'][] = " Recourgracieux.user_id LIKE '".$user_id."'"  ;
+				$query['conditions'][] = " Recourgracieux.user_id = ".explode('_', $user_id)[1];
 			}
 
 			// if État du dossier Selected then Recourgracieux.etat LIKE

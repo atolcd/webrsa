@@ -270,7 +270,7 @@ msgid "tableaua2.ContratpercentPEAider"
 msgstr " équivalent en %"
 
 msgid "tableaua2.ContratPEAccomp"
-msgstr "- Dont de Pers. SDD orientées PE ayant un contrat d’accompagnement (Chrs, MLI, ADRH)"
+msgstr "- Dont de Pers. SDD orientées PE ayant un contrat d’accompagnement"
 msgid "tableaua2.ContratpercentPEAccomp"
 msgstr " équivalent en %"
 

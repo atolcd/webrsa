@@ -38,7 +38,12 @@
 			'DossiersMenus',
 			'Jetons2',
 			'WebrsaAccesses',
-			'Fileuploader'
+			'Fileuploader',
+			'Search.SearchPrg' => array(
+				'actions' => array(
+					'search'
+				)
+			)
 		);
 
 		/**
@@ -57,6 +62,7 @@
 			'Fileuploader',
 			'Cake1xLegacy.Ajax',
 			'Search',
+			'Search.SearchForm'
 		);
 
 		/**

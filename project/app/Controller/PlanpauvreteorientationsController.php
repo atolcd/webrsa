@@ -71,6 +71,7 @@
 		 * @var array
 		 */
 		public $uses = array(
+			'Dossier',
 			'Personne',
 			'WebrsaCohortePlanpauvreteorientations',
 			'Orientstruct',
@@ -129,7 +130,7 @@
 			$this->set ('texteFlux', $texteFlux);
 
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
-			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploi' ) );
+			$Cohorte->cohorte( array( 'modelName' => 'Dossier', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploi' ) );
 		}
 
 		/**
@@ -137,7 +138,7 @@
 		 */
 		public function cohorte_isemploi_imprime() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientationsImpressions' );
-			$Cohorte->search( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploiImprime' ) );
+			$Cohorte->search( array( 'modelName' => 'Dossier', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploiImprime' ) );
 		}
 
 		/**
@@ -145,7 +146,7 @@
 		 */
 		public function cohorte_isemploi_imprime_impressions() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientationsImpressions' );
-			$Cohorte->impressions( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploiImprime' ) );
+			$Cohorte->impressions( array( 'modelName' => 'Dossier', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploiImprime' ) );
 		}
 
 		/**
@@ -156,7 +157,7 @@
 			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
 			$Cohortes->exportcsv(
 				array(
-					'modelName' => 'Personne',
+					'modelName' => 'Dossier',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploi'
 				)
 			);
@@ -170,7 +171,7 @@
 			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
 			$Cohortes->exportcsv(
 				array(
-					'modelName' => 'Personne',
+					'modelName' => 'Dossier',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploiImprime'
 				)
 			);
@@ -186,7 +187,7 @@
 			$this->set ('texteFlux', $texteFlux);
 
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
-			$Cohorte->cohorte( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistock' ) );
+			$Cohorte->cohorte( array( 'modelName' => 'Dossier', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistock' ) );
 		}
 
 		/**
@@ -194,7 +195,7 @@
 		 */
 		public function cohorte_isemploi_stock_imprime() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientationsImpressions' );
-			$Cohorte->search( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistockImprime' ) );
+			$Cohorte->search( array( 'modelName' => 'Dossier', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistockImprime' ) );
 		}
 
 		/**
@@ -202,7 +203,7 @@
 		 */
 		public function cohorte_isemploi_stock_imprime_impressions() {
 			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientationsImpressions' );
-			$Cohorte->impressions( array( 'modelName' => 'Personne', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistockImprime' ) );
+			$Cohorte->impressions( array( 'modelName' => 'Dossier', 'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistockImprime' ) );
 		}
 
 		/**
@@ -213,7 +214,7 @@
 			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
 			$Cohortes->exportcsv(
 				array(
-					'modelName' => 'Personne',
+					'modelName' => 'Dossier',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistock'
 				)
 			);
@@ -227,7 +228,7 @@
 			$Cohortes = $this->Components->load( 'WebrsaCohortesPlanpauvreteorientations' );
 			$Cohortes->exportcsv(
 				array(
-					'modelName' => 'Personne',
+					'modelName' => 'Dossier',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreteorientationsIsemploistockImprime'
 				)
 			);

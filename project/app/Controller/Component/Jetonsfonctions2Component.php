@@ -154,9 +154,10 @@
 		 * On relache un (ensemble de) jeton(s).
 		 *
 		 * @param mixed $dossiers Un id de dossier ou un array d'ids de dossiers.
+		 * @param bool $mettreLEtatAJour
 		 * @return boolean
 		 */
-		public function release( $params = array() ) {
+		public function release( $params = array(), $mettreLEtatAJour = true ) {
 
 			if( Configure::read( 'Jetonsfonctions2.disabled' ) ) {
 				return true;
@@ -204,9 +205,11 @@
 			}
 
 			//Call Recours Gracieux update pour mettre l'état à jour
-			$Dossiermodifie = ClassRegistry::init('Dossiermodifie');
-			$modified = $Dossiermodifie->setModified( $conditions );
-
+			$modified = true;
+			if ($mettreLEtatAJour) {
+				$Dossiermodifie = ClassRegistry::init('Dossiermodifie');
+				$modified = $Dossiermodifie->setModified( $conditions );
+			}
 			if( $this->Jetonfonction->deleteAll( $conditions, false, false ) == false  || $modified == false) {
 				$this->Jetonfonction->rollback();
 				die( 'Erreur étrange' );

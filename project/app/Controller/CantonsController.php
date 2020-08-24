@@ -117,6 +117,9 @@
 		public function edit( $id = null ) {
 			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit' ) );
 
+			$options = $this->Canton->enums();
+			$options['Canton']['zonegeographique_id'] = $this->Canton->Zonegeographique->find( 'list' );
+
 			$cantons = $this->Canton->find (
 				'all',
 				array (
@@ -126,10 +129,11 @@
 					'order' => array ('"Canton"."canton" ASC'),
 				)
 			);
-			$this->set( compact( 'cantons' ) );
+			foreach($cantons as $canton) {
+				$options['Canton']['canton'][$canton['Canton']['canton']] = $canton['Canton']['canton'];
+			}
 
-			$options = $this->viewVars['options'];
-			$options['Canton']['zonegeographique_id'] = $this->Canton->Zonegeographique->find( 'list' );
+			$this->set( compact( 'cantons' ) );
 			$this->set( compact( 'options' ) );
 		}
 
@@ -254,7 +258,6 @@
 				),
 				'recursive' => -1
 			);
-
 			return $this->Adresse->find ('all', $query);
 		}
 

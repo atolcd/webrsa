@@ -63,3 +63,9 @@ msgstr "date de validation de l'orientation"
 
 msgid "Search.Orientstruct.date_valid"
 msgstr "Date"
+
+msgid "Adresse.complete"
+msgstr "Adresse"
+
+msgid "Historiquedroit.created"
+msgstr "Date de dernière ouverture de droit"

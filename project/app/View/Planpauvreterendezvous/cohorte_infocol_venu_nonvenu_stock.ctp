@@ -117,6 +117,7 @@
 		<?php
 		}
 		?>
+		document.querySelector('input[value="Enregistrer"]').disabled = false;
 		return false;
 	}
 
@@ -136,10 +137,43 @@
 		<?php
 			}
 		?>
+		document.querySelector('input[value="Enregistrer"]').disabled = true;
 		return false;
 	}
 
 	document.observe("dom:loaded", function() {
 		dependantSelect( 'SearchRendezvousPermanenceId', 'SearchRendezvousStructurereferenteId' );
+		// Ajoute la couleur rouge si il n'y a pas de numéro de téléphone
+		let numtelCD = document.querySelectorAll('.numtelCD');
+		let numtelCAF = document.querySelectorAll('.numtelCAF');
+		for(let i=1; i<numtelCD.length; i++)
+		{
+			if ( ( numtelCAF[i].innerText === "" && numtelCD[i].innerText === "") || 
+				( numtelCAF[i].innerText != numtelCD[i].innerText && numtelCAF[i].innerText !== "" && numtelCD[i].innerText !== "" )
+			) {
+				numtelCAF[i].style.backgroundColor = "red";
+			}
+		}
+		// Désactive le bouton enregistrer par défaut
+		document.querySelector('input[value="Enregistrer"]').disabled = true;
+		document.querySelectorAll('input[type="checkbox"]').forEach( (el) => {
+			el.addEventListener('change', checkSaveButton);
+		});
 	});
+
+	// Test si le bouton Enregistrer doit être activé ou non
+	function checkSaveButton() {
+		let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		let nbChecked = 0;
+		checkboxes.forEach( (el) => {
+			if( el.name.indexOf("data[Cohorte]") != -1 && el.checked) {
+				nbChecked ++;
+			}
+			if(nbChecked > 0) {
+				document.querySelector('input[value="Enregistrer"]').disabled = false;
+			} else {
+				document.querySelector('input[value="Enregistrer"]').disabled = true;
+			}
+		});
+	}
 </script>
