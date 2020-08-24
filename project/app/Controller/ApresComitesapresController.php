@@ -117,7 +117,7 @@
 
 			// Retour à l'index en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
-				$this->Jetonsfonctions2->release( array( 'action' => '_add_edit' ) );
+				$this->Jetonsfonctions2->release( array( 'action' => '_add_edit' ), false );
 				$this->redirect( array( 'controller' => 'comitesapres', 'action'     => 'view', $id ) );
 			}
 
@@ -211,7 +211,7 @@
 
 					if( $success ) {
 						$this->Comiteapre->commit();
-						$this->Jetonsfonctions2->release( array( 'action' => '_add_edit' ) );
+						$this->Jetonsfonctions2->release( array( 'action' => '_add_edit' ), false );
 						if( !$isRapport ){
 							$this->redirect( array( 'controller' => 'comitesapres', 'action' => 'view', $id ) );
 						}

@@ -97,7 +97,7 @@
 			// Retour à l'index en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
 				$this->Jetons2->release( Set::extract( '/Foyer/dossier_id', $this->request->data ) );
-				$this->Jetonsfonctions2->release( $cov58_id );
+				$this->Jetonsfonctions2->release( $cov58_id, false );
 				$themeClass = Inflector::classify( $this->request->data['Choose']['theme'] );
 				$this->redirect( array( 'controller' => 'covs58', 'action' => 'view', $cov58_id, '#' => "tabbedWrapper,{$themeClass}" ) );
 			}
