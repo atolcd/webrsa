@@ -548,7 +548,12 @@
 		<?php echo theadPastDossierDEM( 50, 8 );?>
 			<tbody>
 				<?php
-					$nbdem = count( Set::extract( 'DEM.Dossiermultiple', $details ) );
+					$dossiersMultiplesDem = Set::extract( 'DEM.Dossiermultiple', $details );
+					if(!empty($dossiersMultiplesDem) ) {
+						$nbdem = count( $dossiersMultiplesDem );
+					} else {
+						$nbdem = 0;
+					}
 					$colspan = "3";
 					if( $nbdem == 0 ):
 				?>
@@ -589,7 +594,12 @@
 			<?php echo theadPastDossierCJT( 50, 8 );?>
 			<tbody>
 				<?php
-					$nbcjt = count( Set::extract( 'CJT.Dossiermultiple', $details ) );
+					$dossiersMultiplesCjt = Set::extract( 'CJT.Dossiermultiple', $details );
+					if(!empty($dossiersMultiplesCjt) ) {
+						$nbcjt = count( $dossiersMultiplesCjt );
+					} else {
+						$nbcjt = 0;
+					}
 					if( $nbcjt == 0 ):
 				?>
 				<tr class="odd">
@@ -633,7 +643,13 @@
 		<?php echo theadPastDossierDEM( 50, 8 );?>
 			<tbody>
 				<?php
-					$nbdem = count( Set::extract( 'DEM.AncienDossier', $details ) );
+					$ancienDossiersDem = Set::extract( 'DEM.AncienDossier', $details );
+					if(!empty($ancienDossiersDem) ) {
+						$nbdem = count( $ancienDossiersDem );
+					} else {
+						$nbdem = 0;
+					}
+
 					$colspan = "3";
 					if( $nbdem == 0 ):
 				?>
@@ -674,7 +690,12 @@
 			<?php echo theadPastDossierCJT( 50, 8 );?>
 			<tbody>
 				<?php
-					$nbcjt = count( Set::extract( 'CJT.AncienDossier', $details ) );
+					$ancienDossiersCjt = Set::extract( 'CJT.AncienDossier', $details );
+					if(!empty($ancienDossiersCjt) ) {
+						$nbcjt = count( $ancienDossiersCjt );
+					} else {
+						$nbcjt = 0;
+					}
 					if( $nbcjt == 0 ):
 				?>
 				<tr class="odd">

@@ -1006,7 +1006,7 @@
 				$details['Histomodifetatdossier'][$key]['created'] = $histo['Historiquedroit']['created'];
 				$details['Histomodifetatdossier'][$key]['etatdosrsa'] = $histo['Historiquedroit']['etatdosrsa'];
 				$details['Histomodifetatdossier'][$key]['nouvetatdosrsa'] = ($key == 0) ? $details['Situationdossierrsa']['etatdosrsa'] : $histos[$key-1]['Historiquedroit']['etatdosrsa'];
-				if( is_null($histo['Historiquedroit']['nom']) && is_null($histo['Historiquedroit']['prenom'])) {
+				if( !isset($histo['Historiquedroit']['nom']) && !isset($histo['Historiquedroit']['prenom'])) {
 					$details['Histomodifetatdossier'][$key]['prenom'] = 'CAF';
 					$details['Histomodifetatdossier'][$key]['nom'] = '';
 				} else {
@@ -1014,7 +1014,7 @@
 					$details['Histomodifetatdossier'][$key]['nom'] = $histo['Historiquedroit']['nom'];
 				}
 
-				if(is_null($histo['Historiquedroit']['motif'])) {
+				if(!isset($histo['Historiquedroit']['motif'])) {
 					$details['Histomodifetatdossier'][$key]['motif'] = $histo['Historiquedroit']['moticlorsa'];
 				} else {
 					$details['Histomodifetatdossier'][$key]['motif'] = $histo['Historiquedroit']['motif'];
