@@ -96,8 +96,16 @@
 			let numtelCAF = document.querySelectorAll('.numtelCAF');
 			for(let i=1; i<numtelCD.length; i++)
 			{
-				if ( ( numtelCAF[i].innerText === "" && numtelCD[i].innerText === "") || 
-					( numtelCAF[i].innerText != numtelCD[i].innerText && numtelCAF[i].innerText !== "" && numtelCD[i].innerText !== "" )
+				let numCAF = numtelCAF[i].innerText;
+				let numCD = numtelCD[i].innerText;
+
+				if ( ( numCAF === "" && numCD === "") ||
+					(
+						numCAF != numCD && numCD.indexOf(numCAF) === false &&
+						numCAF.indexOf(numCD) === false &&
+						numCAF !== ""
+						&& numCD !== ""
+					)
 				) {
 					numtelCAF[i].style.backgroundColor = "red";
 				}
@@ -183,10 +191,6 @@
 				}
 			});
 		});
-	});
-
-	document.addEventListener('DOMContentLoaded', (e) => {
-		
 	});
 
 	// Test si le bouton Enregistrer doit être activé ou non
