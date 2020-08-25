@@ -21,6 +21,9 @@
 	 */
 	class VueglobaleShell extends XShell
 	{
+		// Attributs
+		private $passe24mois;
+
 		/**
 		 * Modèles utilisés par ce shell
 		 *
@@ -48,6 +51,7 @@
 		 */
 		public function startup() {
 			parent::startup();
+			$this->passe24mois = new DateTime('today -24 months');
 			try {
 				$this->connection = ConnectionManager::getDataSource( $this->params['connection'] );
 			}
@@ -174,7 +178,7 @@
 		 * @param array
 		 * @return array
 		 */
-		private function _getHisto($idPersonnes) {
+		private function _getHisto($idPersonne) {
 			$query = array(
 				'fields' => array(
 					'Historiquedroit.etatdosrsa',
@@ -182,12 +186,57 @@
 					'Historiquedroit.modified'
 				),
 				'recursive' => -1,
-				'conditions' => array('Historiquedroit.personne_id IN' => $idPersonnes),
+				'conditions' => array(
+					'Historiquedroit.personne_id' => $idPersonne,
+				),
 				'order' => array('Historiquedroit.created DESC'),
-				'limit' => 1
 			);
-			$histo = $this->Historiquedroit->find('first', $query);
-			return $histo['Historiquedroit'];
+			return $this->Historiquedroit->find('all', $query);
+		}
+
+		/**
+		 * Regarde si la personne a été active lors des derniers 24 mois
+		 * @param array
+		 * @param int
+		 * @return int
+		 */
+		private function _isActif($data, $idPersonne) {
+			// Test sur les rendez vous
+			if( isset($data['RDVs']) && !empty($data['RDVs']) ) {
+				foreach($data['RDVs'] as $rdv) {
+					if(new DateTime($rdv['dateRdv']) > $this->passe24mois) {
+						return 1;
+					}
+				}
+			}
+
+			// Test sur les aides
+			if( isset($data['Aides']) && !empty($data['Aides']) ) {
+				foreach($data['Aides'] as $aide) {
+					if(new DateTime($aide['datePremiereAttribution']) > $this->passe24mois ||
+						new DateTime($aide['dateFinDroits']) > $this->passe24mois) {
+						return 1;
+					}
+				}
+			}
+
+			// Test sur l'historique
+			$histos = $this->_getHisto($idPersonne);
+			if(isset($histos) && !empty($histos) ) {
+				foreach($histos as $histo) {
+					if(
+						(
+							new DateTime($histo['Historiquedroit']['created']) > $this->passe24mois ||
+							new DateTime($histo['Historiquedroit']['modified']) > $this->passe24mois
+						)
+						&&
+						in_array($histo['Historiquedroit']['etatdosrsa'], array('2', '3', '4'))
+					) {
+						return 1;
+					}
+				}
+			}
+			return 0;
 		}
 
 		/**
@@ -460,7 +509,6 @@
 		private function _traitementSql() {
 			$results = $this->_getResultSQL();
 			$arrayXml = array();
-			$passe24mois = new DateTime('today -24 months');
 
 			foreach($results as $result) {
 				/* -- Partie Bénificiaire -- */
@@ -469,15 +517,6 @@
 				$listeIDPersonne = $this->_getDoublon($result);
 				sort($listeIDPersonne);
 				$lastId = end($listeIDPersonne);
-
-				// Balise actif
-				$dernierHisto = $this->_getHisto($listeIDPersonne);
-
-				if(new DateTime($dernierHisto['created']) > $passe24mois && !in_array($dernierHisto['etatdosrsa'], array('5', '6') ) ) {
-					$actif = 1;
-				} else {
-					$actif = 0;
-				}
 
 				// Modification du nom avec dernier nom connu si différent (cas mariage)
 				if( isset($results[$lastId]['nom']) && !empty($results[$lastId]['nom']) && ($result['nom'] != $results[$lastId]['nom'])) {
@@ -543,7 +582,6 @@
 				}
 
 				$arrayXml[$lastId]['Beneficiaire'] = array(
-					'actif' => $actif,
 					'flagSortie' => 'N',
 					'genre' => $result['qual'],
 					'nomNaissance' => $result['nomnai'],
@@ -579,6 +617,7 @@
 						'fonctionIntervenant' => $result['referentrdvfonction']
 					);
 				}
+				$arrayXml[$lastId]['Beneficiaire']['actif'] = $this->_isActif($arrayXml[$lastId], $lastId);
 			}
 			return $arrayXml;
 		}
