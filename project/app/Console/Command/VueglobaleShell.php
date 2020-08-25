@@ -163,9 +163,26 @@
 			$query = $this->_query();
 			$personnes = $this->Personne->query($query);
 			$results = array();
+
 			foreach($personnes as $personne) {
-				$results[$personne[0]['id']] = $personne[0];
+				if(!isset($results[$personne[0]['id']])) {
+					$results[$personne[0]['id']] = $personne[0];
+				}
+
+				if(isset($personne[0]['personne_id'])) {
+					$results[$personne[0]['id']]['RDVs'][] = array(
+						'typeRdv' => $personne[0]['typerdv_lib'],
+						'dateRdv' => $personne[0]['daterdv'],
+						'heureRdv' => $personne[0]['heurerdv'],
+						'etatRdv' => $personne[0]['statutrdv_lib'],
+						'lieuRdv' => $personne[0]['libpermanence'],
+						'nomIntervenant' => $personne[0]['referentrdvnom'],
+						'prenomIntervenant' => $personne[0]['referentrdvprenom'],
+						'fonctionIntervenant' => $personne[0]['referentrdvfonction']
+					);
+				}
 			}
+
 			return $results;
 		}
 
@@ -563,21 +580,14 @@
 
 				// Aides
 				$arrayXml[$lastId]['Aides'] = $this->_traitementAides($result, $listeIDPersonne);
-
 				// RDV
 				if( isset($arrayXml[$result['personne_id']])
 					&& !empty($arrayXml[$result['personne_id']]) )
 				{
-					$arrayXml[$lastId]['RDVs'][] = array(
-						'typeRdv' => $result['typerdv_lib'],
-						'dateRdv' => $result['daterdv'],
-						'heureRdv' => $result['heurerdv'],
-						'etatRdv' => $result['statutrdv_lib'],
-						'lieuRdv' => $result['libpermanence'],
-						'nomIntervenant' => $result['referentrdvnom'],
-						'prenomIntervenant' => $result['referentrdvprenom'],
-						'fonctionIntervenant' => $result['referentrdvfonction']
-					);
+					if(!isset($arrayXml[$lastId]['RDVs'])) {
+						$arrayXml[$lastId]['RDVs'] = array();
+					}
+					$arrayXml[$lastId]['RDVs'] += $result['RDVs'];
 				}
 			}
 			return $arrayXml;
