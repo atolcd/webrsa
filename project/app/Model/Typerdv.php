@@ -116,6 +116,8 @@
 				'code_type' => array(
 					'checkUniqueCodeType' => array(
 						'rule' => array( 'checkUnique', array( 'code_type' ) ),
+						'required' => false,
+						'allowEmpty' => true,
 						'message' => __d( 'typerdv', 'Validate::code_type::ERR')
 					)
 				)

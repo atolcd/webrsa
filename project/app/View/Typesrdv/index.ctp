@@ -13,6 +13,9 @@
 					: array()
 				,
 				array(
+					'Typerdv.actif_dossier',
+				),
+				array(
 					'/Typesrdv/edit/#Typerdv.id#' => array(
 						'title' => true
 					),

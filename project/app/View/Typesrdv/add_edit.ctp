@@ -11,7 +11,10 @@
 				),
 				66 == Configure::read( 'Cg.departement' )
 					? array( 'Typerdv.nbabsaveplaudition' )
-					: array()
+					: array(),
+				array(
+						'Typerdv.actif_dossier',
+				)
 			)
 		)
 	);

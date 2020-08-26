@@ -50,15 +50,19 @@
 					'conditions' => array(
 						'OR' => array(
 							array('Statutrdv.code_statut' => 'VENU'),
-							array('Statutrdv.code_statut' => 'NONVENU')
-						   )
+							array('Statutrdv.code_statut LIKE' => 'NONVENU%')
+						)
+					),
+					'order' => array(
+						'Statutrdv.libelle DESC'
 					)
 				)
 			);
+
 			$this->cohorteFields = array_merge(
 				$this->cohorteFields,
 				array(
-					'Rendezvous.statutrdv_id' => array('type' => 'radio', 'options' => $optionStatut, 'legend' => false, 'value' => 1)
+					'Rendezvous.statutrdv_id' => array('options' => $optionStatut, 'empty' => false)
 				)
 			);
 		}

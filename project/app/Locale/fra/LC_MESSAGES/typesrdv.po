@@ -51,3 +51,6 @@ msgstr "Retour"
 
 msgid "/Parametrages/rendezvous/:title"
 msgstr "Retour aux paramétrages des rendez-vous"
+
+msgid "Typerdv.actif_dossier"
+msgstr "Actif depuis le dossier allocataire"

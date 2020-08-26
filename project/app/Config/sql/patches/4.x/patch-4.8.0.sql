@@ -189,6 +189,10 @@ VALUES('Commissionseps.sanctionep.nonrespectppae', 'true', 'Permet les sanctions
 
 UPDATE public.configurations SET configurationscategorie_id = configurationscategories.id FROM configurationscategories WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Commissionseps.sanctionep.nonrespectppae';
 
+-- Ajout de la colonne actif pour les dossiers allocataire pour les types de rdv.
+ALTER TABLE public.typesrdv ADD actif_dossier boolean NOT NULL DEFAULT true;
+
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

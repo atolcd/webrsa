@@ -723,7 +723,7 @@
 						'structurereferente_id' => $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'optgroup', 'prefix' => false ) ),
 						'referent_id' => $this->InsertionsBeneficiaires->referents(),
 						'permanence_id' => $this->Rendezvous->Permanence->listOptions(),
-						'typerdv_id' => $this->Rendezvous->Typerdv->find( 'list' ),
+						'typerdv_id' => $this->Rendezvous->Typerdv->find( 'list', array( 'conditions' => array('Typerdv.actif_dossier' => true) ) ),
 						'statutrdv_id' => $this->Rendezvous->Statutrdv->find( 'list' ),
 						'permanence_id' => $this->Rendezvous->Permanence->listOptions()
 					)
