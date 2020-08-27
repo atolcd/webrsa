@@ -361,24 +361,17 @@
 		protected $_validationAllowEmptyKeys = array();
 
 		/**
-		 * Fonction utilitaire permettant de charger l'ensemble des fichiers de
-		 * configuration se trouvant dans le répertoire du département connecté:
-		 * app/Config/CgXXX (où XXX représente le n° du département)
-		 *
-		 * @param integer $departement
+		 * Fonction utilitaire permettant de charger l'ensemble des configurations
+		 * se trouvant dans la table configurations
 		 */
-		protected function _includeConfigFiles( $departement ) {
-			$path = APP.'Config'.DS.'Cg'.Configure::read( 'Cg.departement' );
-
-			$Dir = new Folder( $path );
-			foreach( $Dir->find( '.*\.php' ) as $file ) {
-				include_once $path.DS.$file;
-			}
+		protected function _includeConfig() {
+			$Configuration= ClassRegistry::init( 'Configuration' );
+			$Configuration->setAllConfigurationsAllCategories();
 		}
 
 		/**
-		 * Surcharge du constructeur afin d'inclure les fichiers de configuration
-		 * se trouvant dans app/Config/CgXXX (où XXX représente le n° du département).
+		 * Surcharge du constructeur afin d'inclure les configurations
+		 * se trouvant dans la table configurations
 		 *
 		 * @param integer|string|array $id Set this ID for this model on startup, can also be an array of options, see above.
 		 * @param string $table Name of database table to use.
@@ -386,7 +379,7 @@
 		 */
 		public function __construct( $id = false, $table = null, $ds = null ) {
 			parent::__construct( $id, $table, $ds );
-			$this->_includeConfigFiles( Configure::read( 'Cg.departement' ) );
+			$this->_includeConfig();
 		}
 
 		/**

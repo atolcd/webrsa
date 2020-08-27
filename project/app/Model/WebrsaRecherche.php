@@ -872,7 +872,7 @@
 		protected function _loadCache() {
 			if( $this->_cache === array() ) {
 				$this->_cache = array();
-				$this->_includeConfigFiles();
+				$this->_includeConfig();
 
 				$currentDepartement = Configure::read( 'Cg.departement' );
 
@@ -922,19 +922,12 @@
 		}
 
 		/**
-		 * Fonction utilitaire permettant de charger l'ensemble des fichiers de
-		 * configuration se trouvant dans le répertoire du département connecté:
-		 * app/Config/CgXXX (où XXX représente le n° du département)
-		 *
-		 * @param integer $departement
+		 * Fonction utilitaire permettant de charger l'ensemble des configurations
+		 * se trouvant dans la table configurations
 		 */
-		protected function _includeConfigFiles() {
-			$path = APP.'Config'.DS.'Cg'.Configure::read( 'Cg.departement' );
-
-			$Dir = new Folder( $path );
-			foreach( $Dir->find( '.*\.php' ) as $file ) {
-				include_once $path.DS.$file;
-			}
+		protected function _includeConfig() {
+			$Configuration= ClassRegistry::init( 'Configuration' );
+			$Configuration->setAllConfigurationsAllCategories();
 		}
 
 		/**
@@ -993,7 +986,7 @@
 		 */
 		public function prechargement() {
 			$currentDepartement = Configure::read( 'Cg.departement' );
-			$this->_includeConfigFiles();
+			$this->_includeConfig();
 
 			foreach( $this->searches as $key => $config ) {
 				$departement = Hash::get( $config, 'departement' );
