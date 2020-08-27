@@ -275,6 +275,38 @@
 		}
 
 		/**
+		 * Récupération des CER du bon département
+		 *
+		 * @param $departement
+		 * @param $parametres
+		 * @return array
+		 */
+		protected function _getCersQuery58 ($du, $au) {
+			$query = array (
+				'recursive' => -1,
+				'joins' => array(
+					$this->Contratinsertion->join('Personne'),
+					$this->Contratinsertion->Personne->join('Calculdroitrsa'),
+					$this->Contratinsertion->Personne->join('Foyer'),
+					$this->Contratinsertion->Personne->Foyer->join('Dossier'),
+					$this->Contratinsertion->Personne->Foyer->Dossier->join('Situationdossierrsa')
+				),
+				'conditions' => array(
+					'Contratinsertion.df_ci IS NOT NULL',
+					'DATE( Contratinsertion.df_ci ) BETWEEN \''.$du->format ('Y-m-d').'\' AND \''.$au->format ('Y-m-d').'\'',
+					'Contratinsertion.referent_id IN ('.$this->idReferent.')',
+					'Calculdroitrsa.toppersdrodevorsa' => '1',
+					'Situationdossierrsa.etatdosrsa' => '2'
+				),
+				'order' => array(
+					'Contratinsertion.df_ci ASC',
+				),
+			);
+
+			return $query;
+		}
+
+		/**
 		 * Récupération des fiches de prescription du bon département
 		 *
 		 * @param $departement
