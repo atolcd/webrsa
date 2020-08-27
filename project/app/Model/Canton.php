@@ -428,7 +428,7 @@
 					$this->fields(),
 					$this->Zonegeographique->fields()
 				),
-				'order' => array( 'Canton.canton ASC' ),
+				'order' => array( 'Canton.canton ASC', 'Zonegeographique.libelle ASC' ),
 				'joins' => array(
 					$this->join( 'Zonegeographique', array( 'type' => 'LEFT OUTER' ) )
 				),
