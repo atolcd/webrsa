@@ -3,7 +3,12 @@
 		echo $this->Html->css( array( 'all.form' ), 'stylesheet', array( 'media' => 'all', 'inline' => false ) );
 	}
 
-	echo $this->Default3->titleForLayout();
+	if(isset($title) && !empty($title)) {
+		echo "<h1>" . $title . "</h1>";
+		echo "<p>" . $subtitle . "</p>";
+	} else {
+		echo $this->Default3->titleForLayout();
+	}
 
 	echo $this->Default3->form(
 		$this->Translator->normalize(

@@ -92,6 +92,8 @@
 			'logout',
 			'ajax_get_permissions',
 			'ajax_get_permissions_light',
+			'errorpass',
+			'expiredpass'
 		);
 
 		/**
@@ -243,10 +245,10 @@
 				$this->set('services66', array('DASAD' => $internes, 'Hors DASAD' => $externes));
 			}
 
-            $this->set(
-                'polesdossierspcgs66',
-                $this->User->Poledossierpcg66->WebrsaPoledossierpcg66->polesdossierspcgs66(false)
-            );
+			$this->set(
+				'polesdossierspcgs66',
+				$this->User->Poledossierpcg66->WebrsaPoledossierpcg66->polesdossierspcgs66(false)
+			);
 			// Obtention de la liste des référents auxquels lier l'utilisateur
 			$conditions = array(
 				'Structurereferente.actif' => 'O',
@@ -341,6 +343,21 @@
 		}
 
 		/**
+		 * Si l'utilisateur a réussi à se connecter ou si il a renouvelé son mot de passe
+		 *
+		 * @param int id
+		 * @return boolean
+		 */
+		protected function _cleanPreviousErrors( $user_id ) {
+			$this->User->save( array(
+				'User' => array(
+					'id' => $user_id,
+					'nb_error_password' => 0
+				)
+			) );
+		}
+
+		/**
 		 *
 		 */
 		public function login() {
@@ -348,6 +365,19 @@
 				// Lecture de l'utilisateur authentifié
 				// Si CakePHP est en version >= 2.0 on interroge la base de données plutôt que le composant Auth
 				$authUser = $this->User->find( 'first', array( 'conditions' => array( 'User.id' => $this->Session->read( 'Auth.User.id' ) ), 'recursive' => -1 ) );
+
+				// Si le mot de passe est expiré on redirige vers mot de passe oublié
+				$expirationMonth = Configure::read('Password.expiration_months');
+				if($expirationMonth) {
+					$dateExpiration = new DateTime($authUser['User']['date_password'] . ' + ' . $expirationMonth . 'months');
+					$now = new DateTime();
+					if($now > $dateExpiration) {
+						$this->redirect( array(	'action' => 'expiredpass') );
+					}
+				}
+
+				// Suppression des anciennes erreurs de mot de passe
+				$this->_cleanPreviousErrors($authUser['User']['id']);
 
 				// Utilisateurs concurrents
 				if( Configure::read( 'Utilisateurs.multilogin' ) == false ) {
@@ -407,6 +437,32 @@
 				$this->redirect( $this->Auth->redirect() );
 			}
 			else if( !empty( $this->request->data ) ) {
+				// Vérification de la quantité des erreurs de login faites
+				$username = $this->request->data['User']['username'];
+				$userExist = $this->User->find('count', array('conditions' => array('username' => $username) ) );
+				if( !empty($username) && $userExist && Configure::read("Password.failed_allowed") ) {
+					$passwordFailedAllowed = Configure::read("Password.failed_allowed");
+					$user = $this->User->find('first', array(
+						'fields' => array(
+							'id',
+							'username',
+							'nb_error_password'
+						),
+						'recursive' => -1,
+						'conditions' => array(
+							'username' => $username
+						)
+					));
+
+					$passwordFailed = $user['User']['nb_error_password'] +1;
+					// Calcul du nombre d'erreur
+					if( $passwordFailed > $passwordFailedAllowed ) {
+						$this->redirect( array(	'action' => 'errorpass' ) );
+					} else {
+						$user['User']['nb_error_password'] = $passwordFailed;
+						$this->User->save($user);
+					}
+				}
 				$this->Flash->error( __( 'Login failed. Invalid username or password.' ), array( 'key' => 'auth' ) );
 			}
 		}
@@ -527,6 +583,29 @@
 			$this->edit($user_id);
 		}
 
+		/**
+		 * Gestion du renouvellement du mot de passe après trop d'erreur
+		 */
+		public function errorpass() {
+			$args = func_get_args();
+			call_user_func_array( array( $this, 'sendpass' ), $args );
+		}
+
+		/**
+		 * Gestion du renouvellement du mot de passe après expiration de celui-ci
+		 */
+		public function expiredpass() {
+			$args = func_get_args();
+			call_user_func_array( array( $this, 'sendpass' ), $args );
+		}
+
+		/**
+		 * Gestion du renouvellement du mot de passe en cas d'oublie de celui-ci
+		 */
+		public function forgottenpass() {
+			$args = func_get_args();
+			call_user_func_array( array( $this, 'sendpass' ), $args );
+		}
 
 		/**
 		 * Formulaire de modification d'un utilisateur.
@@ -544,10 +623,20 @@
 				unset( $this->User->validate['passwd'] );
 			}
 
+			// Suppression du nombre d'erreur du mot de passe
+			if( isset( $this->request->data['InitError'] ) ) {
+				$this->_cleanPreviousErrors($user_id);
+				$this->request->data = array();
+				$this->Flash->success( __m('User::Success::InitError') );
+			}
+
 			if (!empty($this->request->data)) {
 				if(false === empty($user_id)) {
 					$this->User->id = $user_id;
 				}
+				// Ajout de la date de création du mot de passe
+				$this->request->data['User']['date_password'] = date("Y-m-d H:i:s");
+
 				$this->request->data = $this->WebrsaPermissions->getCompletedPermissions( $this->request->data );
 
 				$this->User->begin();
@@ -660,6 +749,44 @@
 
 			$acos = $this->WebrsaPermissions->getAcosTreeByDepartement();
 
+			// Ajout des champs concernant l'expiration du mot de passe
+			$str_dateExpiration = '';
+			if(Configure::read('Password.expiration_months')) {
+				$expirationMonth = Configure::read('Password.expiration_months');
+				if(!empty($user_id)) {
+					$user = $this->User->find('first', array(
+						'fields' => array('User.date_password', 'User.nb_error_password'),
+						'recursive' => -1,
+						'conditions' => array('User.id' => $user_id )
+					));
+					$dateExpiration = new DateTime($user['User']['date_password'] . ' + ' . $expirationMonth . ' months');
+					$str_dateExpiration = $dateExpiration->format('d/m/Y');
+				} else {
+					$dateExpiration = new DateTime('today + ' . $expirationMonth . ' months');
+					$str_dateExpiration = $dateExpiration->format('d/m/Y');
+				}
+			}
+
+			$this->set( 'dateExpiration', $str_dateExpiration );
+
+			// Ajout des champs concernant le nombre d'erreur du mot de passe
+			$nbPasswordFailed = '';
+			if( Configure::read("Password.failed_allowed") ) {
+				if(isset($user) && !empty($user)) {
+					$nbPasswordFailed = $user['User']['nb_error_password'];
+				} else if ( !empty($user_id) ) {
+					$user = $this->User->find('first', array(
+						'fields' => array('User.nb_error_password'),
+						'recursive' => -1,
+						'conditions' => array('User.id' => $user_id )
+					));
+					$nbPasswordFailed = $user['User']['nb_error_password'];
+				} else {
+					$nbPasswordFailed = 0;
+				}
+			}
+			$this->set( 'nbPasswordFailed', $nbPasswordFailed );
+
 			$this->set( compact( 'parentPermissions', 'acos' ) );
 			$this->_setOptionsAddEdit();
 
@@ -676,6 +803,8 @@
 				$data = $this->request->data;
 				$data['User']['id'] = $this->Session->read( 'Auth.User.id' );
 
+				// Ajout de la date de création du mot de passe
+				$data['User']['date_password'] = date("Y-m-d H:i:s");
 				if( empty( $data['User']['id'] ) ) {
 					throw new error500Exception( 'Auth.User.id vide' );
 				}
@@ -694,12 +823,34 @@
 		}
 
 		/**
+		 * Permet l'envoi de mail avec un nouveau mot de passe
 		 *
 		 * @throws NotFoundException
 		 */
-		public function forgottenpass() {
+		public function sendpass() {
 			if( !Configure::read( 'Password.mail_forgotten' ) ) {
 				throw new NotFoundException();
+			}
+
+			if( $this->action !=  'forgottenpass') {
+				if($this->action == 'errorpass') {
+					$reason_name = "Failed";
+					$reason_nb = array( Configure::read('Password.failed_allowed') );
+				} else if($this->action == 'expiredpass') {
+					$this->Auth->logout();
+					$reason_name = "Expired";
+					$reason_nb = array( Configure::read('Password.expiration_months') );
+				} else {
+					throw new NotFoundException();
+				}
+				$title = __m("User::Title::" . $reason_name);
+				$subtitle = __m("User::Text::" . $reason_name, $reason_nb);
+				if( Configure::read( 'Password.administrator_mail' ) ) {
+					$mailAdmin = array( Configure::read( 'Password.administrator_mail' ) );
+					$subtitle .= __m("User::Mail::Administratormail", $mailAdmin);
+				}
+
+				$this->set( compact('title', 'subtitle') );
 			}
 
 			// Retour à l'index en cas d'annulation
@@ -721,20 +872,35 @@
 
 				if( !empty( $user ) ) {
 					$password = PasswordFactory::generator()->generate();
+					$isDurationRewenal = false;
 
 					$this->User->begin();
 
-					$success = $this->User->updateAllUnBound(
-						array( 'User.password' => '\''.Security::hash( $password, null, true ).'\'' ),
+					$fieldsToUpdate = array(
+						'User.password' => '\''.Security::hash( $password, null, true ).'\'',
+						'User.date_password' => '\'' . date("Y-m-d H:i:s") . '\'',
+						'User.nb_error_password' => 0
+					);
+
+					// Gestion de la validité du nouveau mot de passe
+					if(Configure::read('Password.validated_duration_renewal') && Configure::read('Password.expiration_months')) {
+						$isDurationRewenal = true;
+						$expirationDays = Configure::read('Password.validated_duration_renewal');
+						$expirationMonth = Configure::read('Password.expiration_months');
+						$dateFakeExpiration = new DateTime('today - ' . $expirationMonth . ' months + ' . $expirationDays . ' days');
+						$fieldsToUpdate['User.date_password'] = '\'' . $dateFakeExpiration->format("Y-m-d H:i:s") . '\'';
+					}
+
+					$success = $this->User->updateAllUnBound($fieldsToUpdate,
 						array( 'User.id' => $user['User']['id'] )
 					);
 
 					$errorMessage = null;
 
 					if( $success ) {
-                        try {
+						try {
 							$configName = WebrsaEmailConfig::getName( 'user_generation_mdp' );
-                            $Email = new CakeEmail( $configName );
+							$Email = new CakeEmail( $configName );
 
 							// Choix du destinataire suivant l'environnement
 							if( !WebrsaEmailConfig::isTestEnvironment() ) {
@@ -744,21 +910,36 @@
 								$Email->to( WebrsaEmailConfig::getValue( 'user_generation_mdp', 'to', $Email->from() ) );
 							}
 
-							$Email->subject( WebrsaEmailConfig::getValue( 'user_generation_mdp', 'subject', 'WebRSA: changement de mot de passe' ) );
-                            $mailBody = "Bonjour,\n\nsuite à votre demande, veuillez trouver ci-dessous un rappel de votre identifiant ainsi qu'un mot de passe temporaire que nous vous invitons à modifier après vous être connecté(e).\n\nRappel de votre identifiant : {$user['User']['username']}\nMot de passe : {$password}\n\nCordialement.";
+							$Email->subject( __m("User::Mail::Subject::" . $this->action ) );
+							$mailBody = __m("User::Mail::Body", array( $user['User']['username'], $password ));
 
-                            $result = $Email->send( $mailBody );
-                            $success = !empty( $result ) && $success;
-                        } catch( Exception $e ) {
-                            $this->log( $e->getMessage(), LOG_ERROR );
-                            $success = false;
-                            $errorMessage = 'Impossible d\'envoyer le courriel contenant votre nouveau mot de passe, veuillez contacter votre administrateur.';
-                        }
-                    }
+							// Message supplémentaire si le mot de passe a une durée de vie
+							if($isDurationRewenal) {
+								$mailBody = str_replace('Cordialement.', __m("User::Mail::Body::Validduration", $expirationDays), $mailBody);
+							}
+
+							if( Configure::read( 'Password.administrator_mail' ) ) {
+								$mailAdmin = array( Configure::read( 'Password.administrator_mail' ) );
+								$strAdmin = __m("User::Mail::Administratormail", $mailAdmin) . "\n\n" . 'Cordialement.';
+								$mailBody = str_replace('Cordialement.', $strAdmin, $mailBody);
+							}
+
+							$result = $Email->send( $mailBody );
+							$success = !empty( $result ) && $success;
+						} catch( Exception $e ) {
+							$this->log( $e->getMessage(), LOG_ERROR );
+							$success = false;
+							$errorMessage = __m("User::Mail::Errormail");
+							if( Configure::read( 'Password.administrator_mail' ) ) {
+								$mailAdmin = array( Configure::read( 'Password.administrator_mail' ) );
+								$errorMessage .= ' ' . __m("User::Mail::Administratormail", $mailAdmin);
+							}
+						}
+					}
 
 					if( $success ) {
 						$this->User->commit();
-						$this->Flash->success( 'Un courriel contenant votre nouveau mot de passe vient de vous être envoyé.' );
+						$this->Flash->success( __m("User::Mail::Success") );
 					}
 					else {
 						$this->User->rollback();
@@ -766,9 +947,15 @@
 					}
 				}
 				else {
-					$this->Flash->error( 'Impossible de trouver ce couple identifiant/adresse de courriel, veuillez contacter votre administrateur.' );
+					$errorMessage = __m("User::Mail::ErrorID");
+					if( Configure::read( 'Password.administrator_mail' ) ) {
+						$mailAdmin = array( Configure::read( 'Password.administrator_mail' ) );
+						$errorMessage .= ' ' . __m("User::Mail::Administratormail", $mailAdmin);
+					}
+					$this->Flash->error( $errorMessage );
 				}
 			}
+			$this->render( 'forgottenpass' );
 		}
 
 		/**

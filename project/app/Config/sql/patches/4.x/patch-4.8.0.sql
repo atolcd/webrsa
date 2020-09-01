@@ -190,6 +190,52 @@ UPDATE public.configurations SET configurationscategorie_id = configurationscate
 -- Ajout de la colonne actif pour les dossiers allocataire pour les types de rdv.
 ALTER TABLE public.typesrdv ADD actif_dossier boolean NOT NULL DEFAULT true;
 
+-- Ajout de colonnes dans la table public.user pour gestion des mots de passe
+ALTER TABLE public.users ADD date_password timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE public.users ADD nb_error_password int NOT NULL DEFAULT 0;
+
+-- Update de la configuration du mot de passe
+UPDATE public.configurations SET comments_variable = 'Configuration de la gestion des mots de passe aléatoires.
+
+	  Configuration par-défaut:
+	  <pre>
+	  array(
+	 	 Permet-on l''utilisation de la fonctionnalité "Mot de passe oublié" sur la page de login ?
+	  	"mail_forgotten": false,
+	 	 Quelles sont les possibilités lors de la création d''un mot de passe aléatoire ?
+	  	"possible": array(
+	 		 Nombres -> de 0 à 9
+	  		"number": true,
+	 		 Minuscules -> de a à z
+	  		"lower": true,
+	 		 Majuscules -> de a à z
+	  		"upper": true,
+	 		 Caractères spéciaux -> ,;.!?+-
+	  		"symbol": true,
+	 		 Supprime-t''on les caractères équivoques (1, i, l, I et 0, o, O) ?
+	  		"typesafe": true,
+	  	),
+	 	 Quels sont les caractères obligatoires ?
+	  	"required": array(
+	 		 Au moins un nombre ?
+	  		"number": true,
+	 		 Au moins une lettre en minuscule ?
+	  		"lower": false,
+	 		 Au moins une lettre en majuscule ?
+	  		"upper": false,
+	 		 Au moins un caractère spécial ?
+	  		"symbol": true,
+	  	),
+		Nombre d''erreur avant réinitialisation des mots de passe. Nombres de 1 à n
+		"failed_allowed" : 3,
+		Nombre de mois avant expiration du mot de passe. Nombres de 1 à n
+		"expiration_months": 12,
+		Nombre de jours avant expiration du mot de passe venant d’être renouvelé. Nombres de 1 à n
+		"validated_duration_renewal" : 1,
+		Adresse mail de l''administrateur webrsa
+		"administrator_mail" : "webrsa@webrsa.fr"
+	  )
+	  <pre>' WHERE lib_variable = 'Password';
 
 -- *****************************************************************************
 COMMIT;

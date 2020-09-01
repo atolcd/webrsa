@@ -13,11 +13,18 @@
 	<?php echo $this->Form->input( 'User.username', array( 'label' =>  required( __( 'username' ) ), 'type' => 'text' ) );?>
 	<?php echo $this->Form->input( 'User.passwd', array( 'label' =>  required( __( 'password' ) ), 'type' => 'password', 'value' => '' ) );?>
 	<?php
-		echo $this->Form->input( 'User.numtel', array( 'label' =>  required( __( 'numtel' ) ), 'type' => 'text', 'maxlength' => 15 ) );
 
-if ($departement == 66) {
-	echo $this->Form->input('User.email', array('label' => __('email'), 'type' => 'text', 'maxlength' => 150));
-}
+		echo $this->Form->input( __m('User.date_password'), array( 'type' => 'text', 'disabled' => 'disabled', 'value' => $dateExpiration ) );
+		echo $this->Form->input( __m('User.nb_error_password'), array( 'type' => 'text', 'disabled' => 'disabled', 'value' => $nbPasswordFailed ) );
+
+		$disabledButtonResetpass = '';
+		if($nbPasswordFailed == 0 || $nbPasswordFailed == '') {
+			$disabledButtonResetpass = 'disabled';
+		}
+		echo $this->Form->submit( __m('User::Password::InitError'), array( 'name' => 'InitError', 'disabled' => $disabledButtonResetpass) );
+
+		echo $this->Form->input( 'User.numtel', array( 'label' =>  required( __( 'numtel' ) ), 'type' => 'text', 'maxlength' => 15 ) );
+		echo $this->Form->input('User.email', array('label' => __('email'), 'type' => 'text', 'maxlength' => 150));
 
 		if( Configure::read( 'User.adresse' ) ) {
 			echo $this->Form->input( 'User.numvoie', array( 'label' =>  __d( 'adresse', 'Adresse.numvoie' ), 'type' => 'text' ) );

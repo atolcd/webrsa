@@ -306,6 +306,8 @@
 				'login' => ( substr( $_SERVER['REQUEST_URI'], strlen( $this->request->base ) ) == '/users/login' ),
 				'logout' => ( substr( $_SERVER['REQUEST_URI'], strlen( $this->request->base ) ) == '/users/logout' ),
 				'forgottenPass' => ( substr( $_SERVER['REQUEST_URI'], strlen( $this->request->base ) ) == '/users/forgottenpass' ),
+				'errorPass' => ( substr( $_SERVER['REQUEST_URI'], strlen( $this->request->base ) ) == '/users/errorpass' ),
+				'expiredPass' => ( substr( $_SERVER['REQUEST_URI'], strlen( $this->request->base ) ) == '/users/expiredpass' ),
 				'allo' => ( strpos( substr( $_SERVER['REQUEST_URI'], strlen( $this->request->base ) ), '/api/rest/allo/' ) === 0 ),
 				'requested' => isset( $this->request->params['requested'] ),
 				'ajax' => isset( $this->request->params['isAjax'] )
@@ -369,7 +371,7 @@
 			);
 			$this->set( 'useAlerteFinSession', $useAlerteFinSession );
 
-			if( !$is['login'] && !$is['logout'] && !$is['forgottenPass'] && !$is['allo'] ) {
+			if( !$is['login'] && !$is['logout'] && !$is['forgottenPass'] && !$is['allo'] && !$is['errorPass'] && !$is['expiredPass'] ) {
 				if( !$this->Session->check( 'Auth' ) || !$this->Session->check( 'Auth.User' ) ) {
 					//le forcer a se connecter
 					$this->redirect( array( 'controller' => 'users', 'action' => 'login' ) );

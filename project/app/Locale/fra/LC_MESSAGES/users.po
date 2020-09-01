@@ -40,12 +40,65 @@ msgstr "Adresse de courriel"
 msgid "User.communautesr_id"
 msgstr "Projet insertion emploi territorial"
 
-msgid "/Users/forgottenpass/:heading"
-msgstr "Mot de passe oublié"
-
 msgid "ReferentAccueil.nom"
 msgstr "Nom du référent liée à l'accueil"
 
 msgid "ReferentAccueil.prenom"
 msgstr "Prénom du référent liée à l'accueil"
 
+msgid "User.date_password"
+msgstr "Date de péremption du mot de passe"
+
+msgid "User.nb_error_password"
+msgstr "Nombre de tentatives de connexion"
+
+###############################################################################
+# Mot de passe oublié
+###############################################################################
+msgid "/Users/forgottenpass/:heading"
+msgstr "Mot de passe oublié"
+
+msgid "User::Title::Expired"
+msgstr "Mot de passe expiré"
+
+msgid "User::Text::Expired"
+msgstr "Le mot de passe a expiré après %s mois d'utilisation, merci de le renouveler ou de contacter votre administrateur."
+
+msgid "User::Title::Failed"
+msgstr "Mot de passe erroné"
+
+msgid "User::Text::Failed"
+msgstr "Le mot de passe a été désactivé après %s erreurs, merci de le renouveler ou de contacter votre administrateur."
+
+msgid "User::Mail::Subject::forgottenpass"
+msgstr "WebRSA: changement de mot de passe - Mot de passe oublié"
+
+msgid "User::Mail::Subject::expiredpass"
+msgstr "WebRSA: changement de mot de passe - Mot de passe expiré"
+
+msgid "User::Mail::Subject::errorpass"
+msgstr "WebRSA: changement de mot de passe - Nombre de tentatives de connexion échouées trop important"
+
+msgid "User::Mail::Body"
+msgstr "Bonjour,\n\nSuite à votre demande, veuillez trouver ci-dessous un rappel de votre identifiant ainsi qu'un mot de passe temporaire que nous vous invitons à modifier après vous être connecté(e).\n\nRappel de votre identifiant : %s\nMot de passe : %s\n\nCordialement."
+
+msgid "User::Mail::Body::Validduration"
+msgstr "Ce nouveau mot de passe a une durée de validité de %s jour(s), merci de le renouveler avant cette échéance en contactant votre administrateur.\n\nCordialement."
+
+msgid "User::Mail::Errormail"
+msgstr "Impossible d'envoyer le courriel contenant votre nouveau mot de passe, veuillez contacter votre administrateur."
+
+msgid "User::Mail::Success"
+msgstr "Un courriel contenant votre nouveau mot de passe vient de vous être envoyé."
+
+msgid "User::Mail::ErrorID"
+msgstr "Impossible de trouver ce couple identifiant/adresse de courriel, veuillez contacter votre administrateur."
+
+msgid "User::Password::InitError"
+msgstr "Réinitialiser le nombre des tentatives de connexion"
+
+msgid "User::Success::InitError"
+msgstr "Mot de passe réinitialisé"
+
+msgid "User::Mail::Administratormail"
+msgstr "Vous pouvez contacter votre administrateur à l'adresse suivante : %s"
