@@ -177,6 +177,8 @@ INSERT INTO public.configurations(lib_variable, value_variable, comments_variabl
 		)', current_timestamp, current_timestamp);
 
 UPDATE public.configurations SET configurationscategorie_id = configurationscategories.id FROM configurationscategories WHERE configurationscategories.lib_categorie = 'Modifsetatsdossiers' AND configurations.lib_variable LIKE 'ConfigurableQuery.Modifsetatsdossiers.cohorte_modifetatdos';
+UPDATE public.configurations SET configurationscategorie_id = configurationscategories.id FROM configurationscategories WHERE configurationscategories.lib_categorie = 'Modifsetatsdossiers' AND configurations.lib_variable LIKE 'ConfigurableQuery.Modifsetatsdossiers.exportcsv_modifetatdos';
+
 -- PPAE
 ALTER TABLE public.sanctionseps58 DROP CONSTRAINT sanctionseps58_origine_in_list_chk;
 ALTER TABLE public.sanctionseps58 ADD CONSTRAINT sanctionseps58_origine_in_list_chk CHECK (cakephp_validate_in_list((origine)::text, ARRAY['radiepe'::text, 'noninscritpe'::text, 'nonrespectcer'::text, 'nonrespectppae'::text]));
