@@ -251,7 +251,7 @@
 				}else{
 					// On vérifie si un titre de recette n'a pas été crée entre temps
 					$titrecreancierExists = $this->Titrecreancier->find('first',array ('recursive' => -1, 'conditions' => array ('creance_id' => $value['Creance']['id'])));
-					if ( empty ( $titrecreancierExists) ) {
+					if ( !empty ( $titrecreancierExists) ) {
 						unset($data[$key]);
 						continue;
 					}
