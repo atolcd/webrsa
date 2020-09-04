@@ -54,7 +54,8 @@
 		 * @var array
 		 */
 		public $uses = array(
-			'WebrsaInstallCheck'
+			'WebrsaInstallCheck',
+			'Configuration'
 		);
 
 		/**
@@ -93,10 +94,17 @@
 
 			$this->set( 'results', $this->WebrsaInstallCheck->all() );
 
+			// Ajout de la configuration
+			$conf = $this->Configuration->getConfiguration('webrsa');
+			$resultConf = array();
+			foreach($conf as $value) {
+				$resultConf[$value['Configuration']['lib_variable']]['comment'] = $value['Configuration']['comments_variable'];
+				$resultConf[$value['Configuration']['lib_variable']]['value'] = json_decode($value['Configuration']['value_variable']);
+			}
+
 			$this->set(
 				'configurations',
-				CakephpConfigurationParser::parseFile(
-					APP.'Config'.DS.'webrsa.cg'.Configure::read('Cg.departement').'.inc')
+				$resultConf
 			);
 		}
 	}

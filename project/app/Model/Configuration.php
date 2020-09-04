@@ -96,7 +96,7 @@
 		 *
 		 *  @return array
 		*/
-		protected function getConfiguration($nomCategorie) {
+		public function getConfiguration($nomCategorie) {
 			$param = array();
 			if($nomCategorie !== 'all') {
 				$idCat = $this->ConfigurationCategorie->getCategorie($nomCategorie);
