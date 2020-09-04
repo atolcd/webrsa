@@ -36,6 +36,19 @@
 				$query['limit'] = $Controller->params->named['Search__limit'];
 			}
 
+			// Ajout des champs virtuels pour le CD58
+			if( Configure::read('Cg.departement') == 58 ) {
+				// Suppression de l'ancien champs
+				$key = array_search('Personne.etat_dossier_orientation', $query['fields']);
+				unset($query['fields'][$key]);
+
+				// Ajout du nouveau champs
+				$Personne = ClassRegistry::init( 'Personne' );
+				$sql = $Personne->WebrsaPersonne->vfEtapeDossierOrientation58();
+				$query['fields']['Personne.etat_dossier_orientation'] = "{$sql} AS \"Personne__etat_dossier_orientation\"";
+			}
+
+
 			$datas = $Controller->{$params['modelName']}->find( 'all', $query );
 			$pdfList = array();
 
