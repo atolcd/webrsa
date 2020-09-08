@@ -139,10 +139,10 @@
 			return
 				'(
 					CASE
-						WHEN "Dossier"."dtdemrsa" BETWEEN ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'6\' MONTH - INTERVAL \'1\' DAY ) AND ( TIMESTAMP \''.$annee.'-12-31\' ) THEN \'moins de 6 mois\'
-						WHEN "Dossier"."dtdemrsa" BETWEEN ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'1\' YEAR - INTERVAL \'1\' DAY ) AND ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'6\' MONTH ) THEN \'6 mois et moins 1 an\'
-						WHEN "Dossier"."dtdemrsa" BETWEEN ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'2\' YEAR - INTERVAL \'1\' DAY ) AND ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'1\' YEAR ) THEN \'1 an et moins de 2 ans\'
-						WHEN "Dossier"."dtdemrsa" BETWEEN ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'5\' YEAR - INTERVAL \'1\' DAY ) AND ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'2\' YEAR ) THEN \'2 ans et moins de 5 ans\'
+						WHEN "Dossier"."dtdemrsa" BETWEEN ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'6\' MONTH + INTERVAL \'1\' DAY ) AND ( TIMESTAMP \''.$annee.'-12-31\' ) THEN \'moins de 6 mois\'
+						WHEN "Dossier"."dtdemrsa" BETWEEN ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'1\' YEAR + INTERVAL \'1\' DAY ) AND ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'6\' MONTH ) THEN \'6 mois et moins 1 an\'
+						WHEN "Dossier"."dtdemrsa" BETWEEN ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'2\' YEAR + INTERVAL \'1\' DAY ) AND ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'1\' YEAR ) THEN \'1 an et moins de 2 ans\'
+						WHEN "Dossier"."dtdemrsa" BETWEEN ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'5\' YEAR + INTERVAL \'1\' DAY ) AND ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'2\' YEAR ) THEN \'2 ans et moins de 5 ans\'
 						WHEN "Dossier"."dtdemrsa" < ( TIMESTAMP \''.$annee.'-12-31\' - INTERVAL \'5\' YEAR ) THEN \'5 ans et plus\'
 						ELSE \'Ancienneté non connue\'
 					END
@@ -1085,7 +1085,7 @@
 		 */
 		private function _getRowInformationsTableau2PE ($row, &$resultats, $categorie, $souscategorie, $configuration) {
 			// Inscrits ET orientés vers Pôle Emploi
-			if (in_array($row['idStructurereferente'], $configuration['organismes']['orientes_pole_emploi']) && !empty($row['nir'])) {
+			if (in_array($row['idStructurereferente'], $configuration['organismes']['orientes_pole_emploi'])) {
 				$resultats[$categorie]['orientes_pole_emploi'][$souscategorie]++;
 			}
 		}
