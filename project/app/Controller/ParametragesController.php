@@ -340,7 +340,7 @@
 		protected function _eps() {
 			$departement = Configure::read( 'Cg.departement' );
 
-			if( true == in_array( $departement, array( 58, 66, 93 ), true ) ) {
+			if( true == in_array( $departement, array( 58, 66, 93 )) ) {
 				$items = array(
 					__m('fonctionsmembreseps/index') => array(
 						'url' => array( 'controller' => 'fonctionsmembreseps', 'action' => 'index' )
