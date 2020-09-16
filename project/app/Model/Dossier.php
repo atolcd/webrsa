@@ -417,6 +417,43 @@
 				)
 			);
 
+			// Récupération de la mise à jour des flux
+			$majFlux = ClassRegistry::init( 'Majdossier' )->find(
+				'first',
+				array (
+					'conditions' => array(
+						'Majdossier.dossier_id' => $dossier['Dossier']['id'],
+					),
+				)
+			);
+
+			if(!empty($majFlux)) {
+				if(isset($majFlux['Majdossier']['dtmajfluxbenef']) && !empty($majFlux['Majdossier']['dtmajfluxbenef'])) {
+					$strFluxBenef = date('d/m/Y', strtotime( $majFlux['Majdossier']['dtmajfluxbenef'] ) );
+				} else {
+					$strFluxBenef = __d('dossiers', 'Dossier::Flux::NoUpdate');
+				}
+
+				if(isset($majFlux['Majdossier']['dtmajfluxinst']) && !empty($majFlux['Majdossier']['dtmajfluxinst'])) {
+					$strFluxIns = date('d/m/Y', strtotime( $majFlux['Majdossier']['dtmajfluxinst'] ) );
+				} else {
+					$strFluxIns = __d('dossiers', 'Dossier::Flux::NoUpdate');
+				}
+
+				if(isset($majFlux['Majdossier']['dtmajfluxfinanc']) && !empty($majFlux['Majdossier']['dtmajfluxfinanc'])) {
+					$strFluxFinanc = date('d/m/Y', strtotime( $majFlux['Majdossier']['dtmajfluxfinanc'] ) );
+				} else {
+					$strFluxFinanc = __d('dossiers', 'Dossier::Flux::NoUpdate');
+				}
+			} else {
+				$strFluxBenef = __d('dossiers', 'Dossier::Flux::NoUpdate');
+				$strFluxIns = __d('dossiers', 'Dossier::Flux::NoUpdate');
+				$strFluxFinanc = __d('dossiers', 'Dossier::Flux::NoUpdate');
+			}
+			$dossier['MAJFlux']['Benef'] = __d('dossiers', 'Dossier::Flux::MAJBenef') . $strFluxBenef . '<br><br>';
+			$dossier['MAJFlux']['Inst'] = __d('dossiers', 'Dossier::Flux::MAJInst') . $strFluxIns . '<br><br>';
+			$dossier['MAJFlux']['Financ'] = __d('dossiers', 'Dossier::Flux::MAJFinanc') . $strFluxFinanc . '<br><br>';
+
 			return $dossier;
 		}
 

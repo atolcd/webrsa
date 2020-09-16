@@ -338,3 +338,15 @@ msgstr "Modification d'état des dossiers"
 
 msgid "Dossier.etatActuel"
 msgstr "État du dossier actuel : "
+
+msgid "Dossier::Flux::NoUpdate"
+msgstr "N/A"
+
+msgid "Dossier::Flux::MAJBenef"
+msgstr "Date MAJ Bénéficiaire : "
+
+msgid "Dossier::Flux::MAJInst"
+msgstr "Date MAJ Instruction : "
+
+msgid "Dossier::Flux::MAJFinanc"
+msgstr "Date MAJ Financier : "

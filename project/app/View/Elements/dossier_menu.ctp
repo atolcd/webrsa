@@ -109,12 +109,16 @@
 				$dtliqText = date('d/m/Y',strtotime($dtliqValue));
 				$motitransfluxValue = Set::classicExtract( $dossier, 'Evenement.fg' );
 				$motitransflux = ClassRegistry::init('Evenement')->enum('fg');
-			    if ( isset( $dtliqValue ) ){
+				if ( isset( $dtliqValue ) ){
 					echo "Date MAJ Flux : $dtliqText  <br>" ;
 					echo isset( $motitransfluxValue) ? $motitransflux[$motitransfluxValue] : 'Aucun Motif Transmis' ;
-			    } else{
+				} else{
 					echo "Aucune transmission répertoriée";
-			    }
+				}
+				echo '<br><br>';
+				echo $dossier['MAJFlux']['Benef'];
+				echo $dossier['MAJFlux']['Inst'];
+				echo $dossier['MAJFlux']['Financ'];
 	?>
 </p>
 
