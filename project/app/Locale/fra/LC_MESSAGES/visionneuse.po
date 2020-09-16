@@ -22,12 +22,11 @@ msgstr ""
 msgid "Visionneuse::index"
 msgstr "Liste des fichiers"
 
-msgid "Visionneuse::index::empty"
-msgstr "Aucune fichier intégré"
-
 msgid "Search.Visionneuse.flux"
 msgstr "Flux"
 
 msgid "Search.Visionneuse.dtdeb"
 msgstr "Date d'intégration"
+
+
 

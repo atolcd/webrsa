@@ -3,7 +3,7 @@
      * Code source de la classe VisionneusesController.
 	 * Fait par le CG93
      *
-     * PHP 5.3
+     * PHP 7.2
      *
 	 * @author Harry ZARKA <hzarka@cg93.fr>, 2010.
      * @package app.Controller
@@ -40,7 +40,16 @@
 		 * @var array
 		 */
 		public $helpers = array(
-
+			'Cake1xLegacy.Ajax',
+			'Csv',
+			'Default2',
+			'Default3' => array(
+				'className' => 'ConfigurableQuery.ConfigurableQueryDefault'
+			),
+			'Fileuploader',
+			'Locale',
+			'Xform',
+			'Search.SearchForm',
 		);
 
 		/**
@@ -51,6 +60,7 @@
 		public $uses = array(
 			'Visionneuse',
 			'RejetHistorique',
+			'Talendsynt'
 		);
 
 		/**
@@ -70,6 +80,7 @@
 		 */
 		public $aucunDroit = array(
 			'calculrejetes',
+			'view'
 		);
 
 		/**
@@ -81,6 +92,7 @@
 		public $crudMap = array(
 			'index' => 'read',
 			'calculrejetes' => 'read',
+			'view' => 'read',
 		);
 
 		public $paginate = array(
@@ -89,40 +101,89 @@
 		);
 
 		public function index() {
-			$this->Visionneuse->recursive = 0;
-			if( empty( $this->request->data ) ) {
-				$this->set('visionneuses', $this->paginate());
+			$options = array();
+			$options['Visionneuse']['flux'] = array(
+				'INSTRUCTION' => 'INSTRUCTION',
+				'BENEFICIAIRE' => 'BENEFICIAIRE',
+				'FINANCIER' => 'FINANCIER',
+			);
+
+			if(!empty($this->request->data)) {
+				$search = $this->request->data['Search'];
+				$query = array();
+				if($search['Visionneuse']['flux'] != '') {
+					$query['conditions'][] = array('Visionneuse.flux' => $search['Visionneuse']['flux']);
+				}
+
+				if($search['Visionneuse']['dtdeb'] == 1) {
+					$query['conditions'] = $this->Visionneuse->conditionsDates($query['conditions'], $search, 'Visionneuse.dtdeb');
+				}
+				$visionneuses = $this->paginate('Visionneuse', $query['conditions']);
+			} else {
+				$visionneuses = $this->paginate('Visionneuse');
 			}
-			else {
-				$this->Default->search(
-					array(
-						'Visionneuse.dtint',
-						'Visionneuse.flux'
-					)
-				);
+			// Calcul de la durée et du nombre de dossier présent
+			foreach($visionneuses as $key => $visionneuse) {
+				$duree = date("H:i:s", strtotime( $visionneuse['Visionneuse']['dtfin'] ) - strtotime( $visionneuse['Visionneuse']['dtdeb'] ));
+				$visionneuses[$key]['Visionneuse']['duree'] = $duree;
+
+				$dossier = $visionneuse['Visionneuse']['nbrejete'] + $visionneuse['Visionneuse']['nbinser'] + $visionneuse['Visionneuse']['nbmaj'];
+				$visionneuses[$key]['Visionneuse']['dossier'] = $dossier;
 			}
+
+			$this->set(compact('visionneuses', 'options'));
 		}
 
-		public function calculrejetes () {
-			$this->loadModel ('Visionneuse');
-			$visionneuses = $this->Visionneuse->query ('SELECT * FROM administration.visionneuses;');
+		/**
+		 * Permet de voir le détail des bénéficiaires insérés, modifiés ou
+		 * rejetés selon l'identification du flux
+		 * @param int $identificationflux_id
+		 */
+		public function view($identificationflux_id) {
+			$query = array();
+			$conditions = array(
+					'Talendsynt.identificationflux_id' => $identificationflux_id
+			);
 
-			foreach ($visionneuses as $visionneuse) {
-				$query = '
-					SELECT COUNT(*) AS nombre
-					FROM administration.rejet_historique
-					WHERE administration.rejet_historique.fic = \''.$visionneuse['0']['nomfic'].'\';';
-				$nbRejete = $this->Visionneuse->query ($query);
+			if(	isset($this->request->data['Search']) &&
+				$this->request->data['Search']['Talensynt_choice'] == 1 &&
+				$this->request->data['Search']['Talensynt'] != ''
+			) {
+				$statutSearched = $this->request->data['Search']['Talensynt'];
+				if(in_array('RIEN', $statutSearched)) {
+					$conditions[] = array(
+						'Talendsynt.cree' => false,
+						'Talendsynt.maj' => false,
+						'Talendsynt.rejet' => false
+					);
+				} else {
+					$conditions['AND'] = array('OR' => array());
+					if(in_array('INS', $statutSearched)) {
+						$conditions['AND']['OR']['Talendsynt.cree'] = true;
+					}
 
-				$update = '
-					UPDATE administration.visionneuses
-					SET nbrejete = '.$nbRejete[0][0]['nombre'].'
-					WHERE id = '.$visionneuse['0']['id'];
+					if(in_array('MAJ', $statutSearched)) {
+						$conditions['AND']['OR']['Talendsynt.maj'] = true;
+					}
 
-				$this->Visionneuse->query ($update);
+					if(in_array('REJ', $statutSearched)) {
+						$conditions['AND']['OR']['Talendsynt.rejet'] = true;
+					}
+				}
 			}
+			$query['conditions'] = $conditions;
 
-			$this->redirect( array( 'controller' => 'visionneuses', 'action' => 'index' ) );
+			$results = $this->Talendsynt->find('all', $query);
+			$options = array(
+				'statut' => array(
+					'INS' => 'Insérés',
+					'MAJ' => 'Modifiés',
+					'REJ' =>'Rejetés',
+					'RIEN' => 'Ni inséré, ni modifié ni rejeté'
+				)
+			);
+
+			$this->set( compact('results', 'options', 'identificationflux_id') );
 		}
 	}
 ?>

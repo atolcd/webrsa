@@ -1,99 +1,94 @@
 <?php
+	echo $this->Default3->titleForLayout();
 
-// Fait par le CG93
-// Auteur : Harry ZARKA <hzarka@cg93.fr>, 2010.
+	// Création du formulaire de recherche
+	$searchFormId = 'VisionneuseIndexForm';
+	$actions =  array(
+		'/Visionneuses/index/#toggleform' => array(
+			'title' => __m('Visionneuse::form::info'),
+			'text' => 'Formulaire',
+			'class' => 'search',
+			'onclick' => "$( '{$searchFormId}' ).toggle(); return false;"
+		)
+	);
+	echo $this->Default3->actions( $actions );
 
-	$this->pageTitle = 'Visionneuse';
+	echo $this->Form->create( null, array(
+		'type' => 'post',
+		'url' => array(
+			'controller' => $this->request->params['controller'],
+			'action' => $this->request->action ),
+			'id' => $searchFormId,
+			'novalidate' => true
+			)
+		);
 
-	echo $this->Xhtml->tag( 'h1', $this->pageTitle );
-
-	echo $this->Xhtml->link(
-		'Recalculer les rejets',
+	echo $this->Default3->subform(
+		$this->Translator->normalize(
+				array(
+					'Search.Visionneuse.search' => array( 'type' => 'hidden', 'value' => true ),
+					'Search.Visionneuse.flux' => array( 'empty' => true, 'required' => false ),
+				)
+		),
 		array(
-			'controller'=>'visionneuses',
-			'action'=>'calculrejetes',
+					'options' => array( 'Search' => $options ),
+					'fieldset' => true,
+					'legend' => __m( 'Search.Visionneuse' )
 		)
 	);
 
+	echo $this->SearchForm->dateRange( 'Search.Visionneuse.dtdeb', array(
+		'domain' => 'visionneuse',
+		'minYear_from' => 2009,
+		'minYear_to' => 2009,
+		'maxYear_from' => date( 'Y' ) + 1,
+		'maxYear_to' => date( 'Y' ) + 1,
+	) );
+
+	?>
+	<div class="submit noprint">
+		<?php echo $this->Form->button( __d('default', 'Search'), array( 'type' => 'submit' ) );?>
+		<?php echo $this->Form->button( __d('default', 'Reset'), array( 'type' => 'reset' ) );?>
+	</div>
+	<?php
+	echo $this->Form->end();
+	// Fin de la recherche
+
 	if( empty( $visionneuses ) ) {
-		echo $this->Xhtml->tag( 'p', 'Aucun fichier intégré pour l\'instant.', array( 'class' => 'notice' ) );
+		echo $this->Xhtml->tag( 'p', __m('Visionneuse::index::empty'), array( 'class' => 'notice' ) );
 	}
 	else {
-        $pagination = $this->Xpaginator->paginationBlock( 'Visionneuse', $this->passedArgs );
-
-		//----------------------------------------------------------------------
-
-		$headers = array(
-			'Flux',
-			'Nom',
-			'Date début',
-			'Date fin',
-			'Durée',
-			'Dossiers',
-			'Rejetés',
-			'Nouveaux',
-			'MAJ',
-			'Pers Créé',
-			'Pers MAJ',
-			'DSP Créé',
-			'DSP MAJ',
-		);
-
-		$thead = $this->Xhtml->tag( 'thead', $this->Xhtml->tableHeaders( $headers ) );
-
-		/// Corps du tableau
-		$rows = array();
-
-		foreach ($visionneuses as $visionneuse){
-			$duree = strtotime(Set::classicExtract( $visionneuse, 'Visionneuse.dtfin' ))-
-			strtotime(Set::classicExtract( $visionneuse, 'Visionneuse.dtdeb' ));
-
-			$dossier = Set::classicExtract( $visionneuse, 'Visionneuse.nbrejete' )+
-			Set::classicExtract( $visionneuse, 'Visionneuse.nbinser' )+
-			Set::classicExtract( $visionneuse, 'Visionneuse.nbmaj' );
-
-			$rejet = Set::classicExtract( $visionneuse, 'Visionneuse.nbrejete' );
-
-			$rows[] = array(
-				Set::classicExtract( $visionneuse, 'Visionneuse.flux' ),
-				Set::classicExtract( $visionneuse, 'Visionneuse.nomfic' ),
-				strftime( '%d/%m/%Y %H:%M:%S' , strtotime( Set::classicExtract( $visionneuse, 'Visionneuse.dtdeb') ) ),
-				strftime( '%d/%m/%Y %H:%M:%S' , strtotime( Set::classicExtract( $visionneuse, 'Visionneuse.dtfin') ) ),
-				strftime('%H:%M:%S', $duree),
-				$dossier,
-				(0<$rejet)?$this->Xhtml->Link(
-					$rejet,
-					array( 'controller' => 'rejet_historique', 'action' => 'affrej',$visionneuse['Visionneuse']['nomfic'] ),
-					array( 'enabled' => true )
-				):'0',
-				Set::classicExtract( $visionneuse, 'Visionneuse.nbinser' ),
-				Set::classicExtract( $visionneuse, 'Visionneuse.nbmaj' ),
-				Set::classicExtract( $visionneuse, 'Visionneuse.perscree' ),
-				Set::classicExtract( $visionneuse, 'Visionneuse.persmaj' ),
-				Set::classicExtract( $visionneuse, 'Visionneuse.dspcree' ),
-				Set::classicExtract( $visionneuse, 'Visionneuse.dspmaj' ),
-			);
-		}
-
-		$tbody = $this->Xhtml->tag( 'tbody', $this->Xhtml->tableCells( $rows, array( 'class' => 'odd' ), array( 'class' => 'even' ) ) );
-
-		echo $pagination;
-		echo $this->Xhtml->tag( 'table', $thead.$tbody );
-		echo $pagination;
-
-		$options = array(
-			'INSTRUCTION' => 'INSTRUCTION',
-			'BENEFICIAIRE' => 'BENEFICIAIRE',
-			'FINANCIER' => 'FINANCIER',
-		);
-
-		echo '<fieldset><legend>Recherche par fichier</legend>';
-
-		echo $this->Default->search(
-		array(
-			'Visionneuse.flux' => array( 'type' => 'select','options' => $options,'empty' => 'Choissisez votre flux'),
+		echo $this->Default3->index(
+			$visionneuses,
+			$this->Translator->normalize(
+				array(
+					'Visionneuse.flux',
+					'Visionneuse.nomfic',
+					'Visionneuse.dtdeb',
+					'Visionneuse.dtfin',
+					'Visionneuse.duree' => array('sort' => false),
+					'Visionneuse.dossier' => array('sort' => false),
+					'Visionneuse.nbrejete' => array('type' => 'string'),
+					'Visionneuse.nbinser' => array('type' => 'string'),
+					'Visionneuse.nbmaj' => array('type' => 'string'),
+					'Visionneuse.perscree' => array('type' => 'string'),
+					'Visionneuse.persmaj' => array('type' => 'string'),
+					'Visionneuse.dspcree' => array('type' => 'string'),
+					'Visionneuse.dspmaj' => array('type' => 'string'),
+					'/Visionneuses/view/#Visionneuse.identificationflux_id#' => array(
+						'disabled' => '( \'#Visionneuse.identificationflux_id#\' == 0 )'
+					),
+				)
+			),
+			array(
+				'paginate' => true,
 			)
 		);
 	}
+
 ?>
-</fieldset>
+<script type="text/javascript">
+	document.observe("dom:loaded", function() {
+		document.querySelector("#<?php echo $searchFormId ?>").style.display = 'none';
+	});
+</script>

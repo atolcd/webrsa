@@ -1,8 +1,8 @@
 <?php
 	/**
-	 * Code source de la classe Visionneuse.
+	 * Code source de la classe Talendsynt.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
@@ -10,13 +10,21 @@
 	App::uses( 'AppModel', 'Model' );
 
 	/**
-	 * La classe Visionneuse ...
+	 * La classe Talendsynt ...
 	 *
 	 * @package app.Model
 	 */
-	class Visionneuse extends AppModel
+	class Talendsynt extends AppModel
 	{
-		public $name = 'Visionneuse';
+		public $name = 'Talendsynt';
+
+		/**
+		 * Table utilisée par le modèle
+		 *
+		 * @var string
+		 *
+		 */
+		public $useTable = 'talendsynt';
 
 		/**
 		 * Récursivité par défaut du modèle.

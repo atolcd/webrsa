@@ -1,0 +1,121 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+###############################################################################
+msgid "/Visionneuses/index/:heading"
+msgstr "Visionneuse"
+
+msgid "Visionneuse::index::empty"
+msgstr "Aucun fichier intégré pour l'instant."
+
+msgid "Search.Visionneuse"
+msgstr "Recherche par type de flux"
+
+msgid "Visionneuse.flux"
+msgstr "Flux"
+
+msgid "Visionneuse.nomfic"
+msgstr "Nom fichier"
+
+msgid "Visionneuse.dtdeb"
+msgstr "Date de début"
+
+msgid "Visionneuse.dtfin"
+msgstr "Date de fin"
+
+msgid "Visionneuse.duree"
+msgstr "Durée"
+
+msgid "Visionneuse.dossier"
+msgstr "Dossiers"
+
+msgid "Visionneuse.nbrejete"
+msgstr "Dossiers rejetés"
+
+msgid "Visionneuse.nbinser"
+msgstr "Nouveaux dossiers"
+
+msgid "Visionneuse.nbmaj"
+msgstr "Dossiers mis à jour "
+
+msgid "Visionneuse.dspcree"
+msgstr "DSP créées"
+
+msgid "Visionneuse.dspmaj"
+msgstr "DSP mises à jour"
+
+msgid "Visionneuse.persmaj"
+msgstr "Personnes mises à jour"
+
+msgid "Visionneuse.perscree"
+msgstr "Personnes créées"
+
+msgid "/Visionneuses/view"
+msgstr "Détail personnes"
+
+msgid "/Visionneuses/view/#Visionneuse.identificationflux_id#"
+msgstr "Voir le détail des personnes pour ce flux"
+
+###############################################################################
+msgid "/Visionneuses/view/:heading"
+msgstr "Détail des personnes présentes dans le flux"
+
+msgid "Visionneuse::form::info"
+msgstr "Visibilité formulaire"
+
+msgid "Talendsynt::index::empty"
+msgstr "Pas de résultat pour ce filtre"
+
+msgid "Talendsynt.qual"
+msgstr "Qualification"
+
+msgid "Talendsynt.nomnai"
+msgstr "Nom de naissance"
+
+msgid "Talendsynt.nom"
+msgstr "Nom d'usage"
+
+msgid "Talendsynt.prenom"
+msgstr "Prénom"
+
+msgid "Talendsynt.dtnai"
+msgstr "Date de naissance"
+
+msgid "Talendsynt.nir"
+msgstr "NIR"
+
+msgid "Talendsynt.sexe"
+msgstr "Sexe"
+
+msgid "Talendsynt.cree"
+msgstr "Créée"
+
+msgid "Talendsynt.maj"
+msgstr "Mise à jour"
+
+msgid "Talendsynt.rejet"
+msgstr "Rejetée"
+
+msgid "Search.Talensynt_choice"
+msgstr "Recherche par statut"
+
+msgid "Search.Talensynt"
+msgstr "Filtrer par statut"
