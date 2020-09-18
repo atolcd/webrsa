@@ -51,3 +51,6 @@ msgstr "Montant transféré CD"
 
 msgid "RemisesIndus.mtmoucompta"
 msgstr "Remise CD"
+
+msgid "Personne.nom_complet_court"
+msgstr "Nom prenom"

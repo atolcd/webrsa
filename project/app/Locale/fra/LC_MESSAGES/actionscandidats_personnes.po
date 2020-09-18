@@ -15,3 +15,6 @@ msgstr "Voir"
 
 msgid "/ActionscandidatsPersonnes/index/#ActioncandidatPersonne.personne_id#"
 msgstr "Voir la fiche de candidature de #Personne.nom_complet#"
+
+msgid "Personne.nom_complet_court"
+msgstr "Nom prenom"

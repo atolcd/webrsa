@@ -835,3 +835,6 @@ msgstr "Cette action supprimera définitivement cet enregistrement. Voulez-vous 
 
 msgid "Cui.positioncui66"
 msgstr "Position du CUI"
+
+msgid "Personne.nom_complet_court"
+msgstr "Nom prenom"
