@@ -97,7 +97,8 @@
 			$this->set('historiques', $historiques = $this->Historiquedroit->find(
 				'all', array(
 					'fields' => $this->Historiquedroit->fields(),
-					'conditions' => array('Historiquedroit.personne_id' => $personne_id)
+					'conditions' => array('Historiquedroit.personne_id' => $personne_id),
+					'order' => array('Historiquedroit.created DESC')
 				)
 			));
 

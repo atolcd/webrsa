@@ -42,4 +42,4 @@ msgid "Historiquedroit.created"
 msgstr "Création de l'état"
 
 msgid "Historiquedroit.modified"
-msgstr "Fin de l'état"
+msgstr "Date de dernière modification"
