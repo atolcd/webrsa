@@ -366,10 +366,6 @@ $fonorg = $dossier['Dossier']['fonorg'];
 				'Evénements' => array( 'url' => array( 'controller' => 'evenements', 'action' => 'index', $dossier['Foyer']['id'] ) ),
 				'Modes de contact' => array( 'url' => array( 'controller' => 'modescontact', 'action' => 'index', $dossier['Foyer']['id'] ) ),
 				'Liste des Indus' => array( 'url' => array( 'controller' => 'indus', 'action' => 'index', $dossier['Dossier']['id'] ) ),
-				'Modification de l\'état du dossier' => array(
-					'disabled' => !Configure::read('Module.ModifEtatDossier.enabled'),
-					'url' => array( 'controller' => 'dossiers', 'action' => 'editEtat', $dossier['Dossier']['id'] )
-				),
 				'Suivi instruction du dossier' => array( 'url' => array( 'controller' => 'suivisinstruction', 'action' => 'index', $dossier['Dossier']['id'] ) ),
 			)
 		);
@@ -428,6 +424,10 @@ $fonorg = $dossier['Dossier']['fonorg'];
 		$items['Modification Dossier RSA'] = array(
 			'disabled' => !$this->Permissions->checkDossier( 'dossiers', 'edit', Hash::get( $this->viewVars, 'dossierMenu' ) ),
 			'url' => array( 'controller' => 'dossiers', 'action' => 'edit', $dossier['Dossier']['id'] )
+		);
+		$items['Modification de l\'état du dossier'] = array(
+			'disabled' => !Configure::read('Module.ModifEtatDossier.enabled'),
+			'url' => array( 'controller' => 'dossiers', 'action' => 'editEtat', $dossier['Dossier']['id'] )
 		);
 
 		// Préconisation d'orientation
