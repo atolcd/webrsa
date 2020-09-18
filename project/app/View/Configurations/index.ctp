@@ -7,7 +7,6 @@
 
 	$searchFormId = 'ConfigurationIndexForm';
  	$actions =  array(
-		'/Parametrages/index' => array( 'class' => 'back' ),
 		'/Configurations/index/#toggleform' => array(
 			'title' => 'Visibilité formulaire',
 			'text' => 'Formulaire',
@@ -73,5 +72,4 @@
 		);
 	}
 
-	echo $this->Default3->actions( array( '/Parametrages/index' => array( 'class' => 'back' ) ) );
 ?>
