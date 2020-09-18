@@ -6,6 +6,8 @@
 ?>
 <h1><?php echo $this->pageTitle;?></h1>
 <?php
+	echo '<p>' . __m('Dossier.etatActuel') . __d('dossier', 'ENUM::ETATDOSRSA::' . $dossier['Situationdossierrsa']['etatdosrsa']) . '<p>';
+
 	echo $this->Form->create( 'Motifsetatdossier', array( 'type' => 'post', 'novalidate' => true ) );
 	echo $this->Form->input( 'Situationdossierrsa.etatdosrsa', array( 'label' =>  __m('Dossier.etatdosrsa'), 'type' => 'select', 'options' => $options['etatdosrsa'], 'empty' => true, 'required' => true  ) );
 	echo $this->Form->input( 'Motifetatdossier.lib_motif', array( 'label' =>  __m('Dossier.lib_motif'), 'type' => 'select', 'options' => $options['motifs'], 'empty' => true, 'required' => true  ) );

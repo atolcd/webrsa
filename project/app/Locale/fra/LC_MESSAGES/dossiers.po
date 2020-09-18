@@ -334,3 +334,7 @@ msgstr "Motif"
 
 msgid "Dossier.nomcohorte"
 msgstr "Modification d'état des dossiers"
+
+
+msgid "Dossier.etatActuel"
+msgstr "État du dossier actuel : "

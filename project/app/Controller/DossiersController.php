@@ -1137,6 +1137,10 @@
 				'fields' => array( 'Motifetatdossier.id', 'Motifetatdossier.lib_motif'),
 				'conditions' => array('actif' => 1)
 			));
+
+			// Affichage du menu du dossier
+			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'id' => $id ) ) );
+
 			// Retour à l'index en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
 				$this->Jetons2->release( $id );
@@ -1154,8 +1158,15 @@
 					$this->Flash->error( __( 'Save->error' ) );
 				}
 			}
-			$this->set('Dossier.id', $id);
-			$this->set('options', $options);
+
+			// Récupération du dossier
+			$dossier = $this->Dossier->find('first', array(
+				'conditions' => array(
+					'Dossier.id' => $id
+				)
+			));
+
+			$this->set( compact( 'dossier', 'options' ) );
 		}
 	}
 ?>
