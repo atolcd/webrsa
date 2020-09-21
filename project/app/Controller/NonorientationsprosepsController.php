@@ -74,7 +74,7 @@
 		 * @var array
 		 */
 		public $commeDroit = array(
-			'exportcsvNew' => 'Nonorientationsproseps:exportcsv',
+			'exportcsv' => 'Nonorientationsproseps:exportcsvNew',
 			'search' => 'Nonorientationsproseps:index',
 		);
 
@@ -191,10 +191,6 @@
 		 * @deprecated since version 3.0
 		 */
 		public function exportcsv() {
-			if ((int)Configure::read('Cg.departement') === 66) {
-				return $this->exportcsvNew();
-			}
-
 			$mesZonesGeographiques = $this->Session->read( 'Auth.Zonegeographique' );
 			$mesCodesInsee = ( !empty( $mesZonesGeographiques ) ? $mesZonesGeographiques : array() );
 
@@ -230,6 +226,9 @@
 		 * Exportcsv
 		 */
 		public function exportcsvNew() {
+			if (Configure::read('Cg.departement') != 66) {
+				return $this->exportcsv();
+			}
 			$Recherches = $this->Components->load( 'WebrsaRecherchesNonorientationsproseps' );
 			$Recherches->exportcsv( array('modelRechercheName' => 'WebrsaRechercheNonorientationproep', 'modelName' => 'Orientstruct') );
 		}

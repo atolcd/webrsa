@@ -185,7 +185,7 @@
 
 				// Filtre par département suivant le nom de l'aco
 				$matches = array();
-				if( preg_match( '/([0-9]{2,3}\/|[0-9]{2,3}$)/', $aco, $matches ) && trim($matches[1], '/') !== $departement ) {
+				if( preg_match( '/([0-9ABX]{2,3}\/|[0-9ABX]{2,3}$)/' , $aco, $matches ) && trim($matches[1], '/') != $departement ) {
 					unset( $acos[$index] );
 				}
 
