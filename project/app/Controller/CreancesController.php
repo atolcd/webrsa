@@ -415,9 +415,9 @@
 		 * @return void
 		 */
 		public function copycreance($id) {
-				$this->WebrsaAccesses->check($id);
-				$foyer_id = $this->Creance->foyerId ( $id ) ;
-				$dossier_id = $this->Creance->dossierId( $id );
+			$this->WebrsaAccesses->check($id);
+			$foyer_id = $this->Creance->foyerId ( $id ) ;
+			$dossier_id = $this->Creance->dossierId( $id );
 
 			// Retour à l'index en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
@@ -476,6 +476,14 @@
 				// Assignation au formulaire
 				$this->request->data = $creances;
 			}
+
+			// Assignation du commentaire
+			if($creances['Creance']['mention'] != '') {
+				$mentionValue = $creances['Creance']['mention'];
+			} else {
+				$mentionValue = __m('Copy folder from') . $creances['Foyer']['Dossier']['numdemrsa']." ".$creances['Creance']['mention'];
+			}
+			$this->set( 'mentionValue', $mentionValue );
 
 			$this->set( 'options', $this->Creance->enums() );
 			$this->render( 'copycreance' );
@@ -608,8 +616,9 @@
 			// Retour à l'index en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
 				$this->Creance->id = $id;
+				$foyer_id = $this->Creance->foyerId ( $this->Creance->id);
 				$this->Jetons2->release( $dossier_id );
-				$this->redirect( array( 'action' => 'index', $this->Creance->$id ( $this->Creance->id )) );
+				$this->redirect( array( 'action' => 'index', $foyer_id ) );
 			}
 
 			if( !empty( $this->request->data ) ) {

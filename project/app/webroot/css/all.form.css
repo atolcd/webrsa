@@ -31,7 +31,7 @@ div.aere {
   margin-top: 0.5em;
 }
 
-div.text, div.password, div.select, div.radio, div.date, div.input.time, div.input.datetime, div.textarea, div.input.text, div.input.number {
+div.text, div.password, div.select, div.radio, div.date, div.input.time, div.input.datetime, div.textarea, div.input.text, div.input.number, div.input.money {
     margin-bottom: 0.5em;
     width: auto;
 }
