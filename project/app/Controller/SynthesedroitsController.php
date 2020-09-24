@@ -99,12 +99,9 @@
 			$actions = $this->WebrsaPermissions->getAcosTreeByDepartement();
 
 			$droits = array();
-			foreach ($groups as $group) {
-				foreach ($actions as $action) {
-					$droits[$group][$action] = $this->Acl->check($group, $action);
-				}
+			foreach ($groups as $groupId => $group) {
+				$droits[$group] = $this->WebrsaPermissions->getPermissions($this->Group, $groupId);
 			}
-
 			$this->set(compact('groups', 'actions', 'droits'));
 			$this->layout = null;
 			$this->view = 'exportcsv';
