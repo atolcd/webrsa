@@ -48,6 +48,7 @@
 		 * @var array
 		 */
 		public $helpers = array(
+			'Csv',
 			'Cake1xLegacy.Ajax',
 			'Default',
 			'Default2',
@@ -85,9 +86,7 @@
 		 *
 		 * @var array
 		 */
-		public $aucunDroit = array(
-			'exportcsv'
-		);
+		public $aucunDroit = array();
 
 		/**
 		 * Correspondances entre les méthodes publiques correspondant à des
@@ -96,7 +95,8 @@
 		 * @var array
 		 */
 		public $crudMap = array(
-			'searchprimoaccedant' => 'read'
+			'searchprimoaccedant' => 'read',
+			'exportcsv' => 'read'
 		);
 
 		/**
@@ -113,4 +113,19 @@
 			);
 		}
 
+		/**
+		 * Export CSV de la recherche par primo-accédant
+		 *
+		 * @return void
+		 */
+		public function exportcsv() {
+			$Recherches = $this->Components->load( 'WebrsaRecherchesPlanpauvrete' );
+			$Recherches->exportcsv(
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaRecherchePlanpauvrete'
+				)
+			);
+		}
 	}

@@ -90,6 +90,7 @@
 			'historique' => 'read',
 			'rejets' => 'read',
 			'search' => 'read',
+			'exportcsv' => 'read'
 		);
 
 		/**
@@ -250,6 +251,16 @@
 
 			// Chargement de la vue, si elle existe, avec le numéro de département en suffixe.
 			$this->render (__FUNCTION__, null, true);
+		}
+
+		/**
+		 * Export CSV de la recherche par dossier / allocataire
+		 *
+		 * @return void
+		 */
+		public function exportcsv() {
+			$Recherches = $this->Components->load( 'WebrsaRecherchesFluxpoleemplois' );
+			$Recherches->exportcsv();
 		}
 
 	}

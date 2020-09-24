@@ -239,6 +239,84 @@ UPDATE public.configurations SET comments_variable = 'Configuration de la gestio
 	  )
 	  <pre>' WHERE lib_variable = 'Password';
 
+-- Export CSV des primo accédant
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+	VALUES
+	('ConfigurableQuery.Planpauvrete.exportcsv',
+	'{"filters":{"defaults":{"Dossier":{"dernier":"1"}},"accepted":[],"skip":["Calculdroitrsa.toppersdrodevorsa","Dossier.dtdemrsa","Detaildroitrsa.oridemrsa","Foyer.sitfam","Personne.trancheage","Situationdossierrsa.etatdosrsa","Serviceinstructeur.id","Suiviinstruction.typeserins","PersonneReferent.structurereferente_id","PersonneReferent.referent_id","Prestation.rolepers","ByTag.tag_choice"],"has":[]},"query":{"restrict":[],"conditions":[],"order":["Personne.id"]},"limit":10,"auto":false,"results":{"header":[],"fields":["Dossier.numdemrsa","Dossier.matricule","Dossier.dtdemrsa","Personne.nom_complet","Personne.nomnai","Personne.dtnati","Situationdossierrsa.etatdosrsa","Canton.canton"],"innerTable":[]},"ini_set":[]}',
+	'Menu "Recherches" > Par Primo accédants
+
+
+		array(
+			 1. Filtres de recherche
+			''filters'' => array(
+				 1.1 Valeurs par défaut des filtres de recherche
+				''defaults'' => array(
+					''Dossier'' => array(
+						 Case à cocher "Uniquement la dernière demande RSA pour un même allocataire"
+						''dernier'' => ''1''
+					)
+				),
+				 1.2 Restriction des valeurs qui apparaissent dans les filtres de recherche
+				''accepted'' => array(),
+				 1.3 Ne pas afficher ni traiter certains filtres de recherche
+				''skip'' => array(
+					''Calculdroitrsa.toppersdrodevorsa'',
+					''Dossier.dtdemrsa'',
+					''Detaildroitrsa.oridemrsa'',
+					''Foyer.sitfam'',
+					''Personne.trancheage'',
+					''Situationdossierrsa.etatdosrsa'',
+					''Serviceinstructeur.id'',
+					''Suiviinstruction.typeserins'',
+					''PersonneReferent.structurereferente_id'',
+					''PersonneReferent.referent_id'',
+					''Prestation.rolepers'',
+					 Filtre par tag
+					''ByTag.tag_choice''
+				),
+				 1.4 Filtres additionnels : La personne possède un(e)...
+				''has'' => array()
+			),
+			 2. Recherche
+			''query'' => array(
+				 2.1 Restreindre ou forcer les valeurs renvoyées par le filtre de recherche
+				''restrict'' => array(),
+				 2.2 Conditions supplémentaires optionnelles
+				''conditions'' => array(),
+				 2.3 Tri par défaut
+				''order'' => array(''Personne.id'')
+			),
+			 3. Nombre d''enregistrements par page
+			''limit'' => 10,
+			 4. Lancer la recherche au premier accès à la page ?
+			''auto'' => false,
+			 5. Résultats de la recherche
+			''results'' => array(
+				 5.1 Ligne optionnelle supplémentaire d''en-tête du tableau de résultats
+				''header'' => array(),
+				 5.2 Colonnes du tableau de résultats
+				''fields'' => array (
+					''Dossier.numdemrsa'',
+					''Dossier.matricule'',
+					''Dossier.dtdemrsa'',
+					''Personne.nom_complet'',
+					''Personne.nomnai'',
+					''Personne.dtnati'',
+					''Situationdossierrsa.etatdosrsa'',
+					''Canton.canton''
+				),
+				 5.3 Infobulle optionnelle du tableau de résultats
+				''innerTable'' => array(
+				)
+			),
+			 6. Temps d''exécution, mémoire maximum, ...
+			''ini_set'' => array()
+		)', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+	);
+
+UPDATE public.configurations SET configurationscategorie_id = configurationscategories.id FROM configurationscategories WHERE configurationscategories.lib_categorie = 'Planpauvrete' AND configurations.lib_variable LIKE 'ConfigurableQuery.Planpauvrete.exportcsv';
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

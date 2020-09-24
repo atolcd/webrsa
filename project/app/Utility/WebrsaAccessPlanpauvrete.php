@@ -41,6 +41,17 @@
 		}
 
 		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _exportcsv(array $record, array $params) {
+			return true;
+		}
+
+		/**
 		 * Liste les actions disponnible
 		 *
 		 * @param array $params
@@ -50,6 +61,7 @@
 			$result = self::normalize_actions(
 				array(
 					'searchprimoaccedant',
+					'exportcsv',
 				)
 			);
 			return $result;
