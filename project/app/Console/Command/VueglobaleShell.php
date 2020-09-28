@@ -145,8 +145,8 @@ class VueglobaleShell extends XShell
 						LIMIT 1
 					))
 					INNER JOIN adresses AS Adresse ON (Adressefoyer.adresse_id = Adresse.id)
-					INNER JOIN orientsstructs AS Orientstruct ON (Personne.id = Orientstruct.personne_id)
-					INNER JOIN structuresreferentes AS Structurereferente ON (Orientstruct.structurereferente_id = Structurereferente.id)
+					LEFT JOIN orientsstructs AS Orientstruct ON (Personne.id = Orientstruct.personne_id)
+					LEFT JOIN structuresreferentes AS Structurereferente ON (Orientstruct.structurereferente_id = Structurereferente.id)
 					ORDER BY Personne.id
 				),
 				rendezvousTotal AS (
