@@ -43,6 +43,9 @@ msgstr "Code postal"
 msgid "Search.Canton.numcom"
 msgstr "Code INSEE"
 
+msgid "Canton.id"
+msgstr "Id"
+
 msgid "Canton.canton"
 msgstr "Canton"
 
@@ -87,6 +90,9 @@ msgstr "Retour"
 
 msgid "/Cantons/adressesnonassociees"
 msgstr "Export des adresses non associées"
+
+msgid "/Cantons/adressessanscanton"
+msgstr "Export des adresses sans canton"
 
 msgid "/Cantons/adressesnonassociees/:title"
 msgstr "Export des adresses non associées"

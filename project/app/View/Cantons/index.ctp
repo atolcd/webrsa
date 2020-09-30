@@ -79,7 +79,8 @@
 	echo $this->Default3->actions (
 		array (
 			'/Parametrages/index' => array( 'class' => 'back' ),
-			'/Cantons/adressesnonassociees' => array( 'class' => 'exportcsv' )
+			'/Cantons/adressesnonassociees' => array( 'class' => 'exportcsv' ),
+			'/Cantons/adressessanscanton' => array( 'class' => 'exportcsv' )
 		)
 	);
 

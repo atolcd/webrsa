@@ -369,6 +369,12 @@ msgstr "Ajout/Édition d'un canton"
 msgid "controllers/Cantons/delete"
 msgstr "Suppression d'un canton"
 
+msgid "controllers/Cantons/adressesnonassociees"
+msgstr "Export des adresses non associées"
+
+msgid "controllers/Cantons/adressessanscanton"
+msgstr "Export des adresses sans canton"
+
 ###############################################################################
 
 msgid "controllers/Changementsadresses"

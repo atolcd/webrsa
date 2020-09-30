@@ -52,9 +52,7 @@
 		 *
 		 * @var array
 		 */
-		public $aucunDroit = array(
-			'adressesnonassociees'
-		);
+		public $aucunDroit = array();
 
 		/**
 		 * Utilise les droits d'un autre Controller:action
@@ -334,6 +332,99 @@
 				$line[] = '';
 				$line[] = '';
 				$line[] = '';
+
+				$export[] = $line;
+			}
+
+			return $export;
+		}
+
+		/**
+		 * Export des adresses sans canton
+		 *
+		 * @param integer $id
+		 */
+		public function adressessanscanton () {
+			$filename = 'adresses_erronees';
+
+			$resultats = $this->_generationAdressessanscanton();
+			$export = $this->_generationAdressessanscantonCsv($resultats);
+
+			$this->layout = '';
+			$this->set( compact( 'filename', 'export' ) );
+			$this->render('exportcsv');
+		}
+
+		/**
+		 * Génération des adresses sans canton
+		 *
+		 * @retrun array
+		 */
+		protected function _generationAdressessanscanton () {
+			$query = array (
+				'fields' => array (
+					'Canton.id',
+					'Canton.canton',
+					'Zonegeographique.libelle',
+					'Canton.numvoie',
+					'Canton.libtypevoie',
+					'Canton.nomvoie',
+					'Canton.nomcom',
+					'Canton.codepos',
+					'Canton.numcom'
+				),
+				'joins' => array (
+					array (
+						'table' => 'zonesgeographiques',
+						'alias' => 'Zonegeographique',
+						'type' => 'LEFT OUTER',
+						'conditions' => array ('Zonegeographique.id = Canton.zonegeographique_id')
+					)
+				),
+				'conditions' => array(
+					'OR' => array(
+						'canton' => '',
+						'canton IS NULL'
+					)
+				),
+				'recursive' => -1
+			);
+			return $this->Canton->find ('all', $query);
+		}
+
+		/**
+		 * Génération de l'export des adresses sans canton
+		 *
+		 * @param array $resultats
+		 * @return array
+		 */
+		protected function _generationAdressessanscantonCsv ($resultats) {
+			$export = array ();
+
+			$line = array ();
+			$line[] = __m('Canton.id');
+			$line[] = __m('Canton.canton');
+			$line[] = __m('Zonegeographique.libelle');
+			$line[] = __m('Canton.numvoie');
+			$line[] = __m('Canton.libtypevoie');
+			$line[] = __m('Canton.nomvoie');
+			$line[] = __m('Canton.nomcom');
+			$line[] = __m('Canton.codepos');
+			$line[] = __m('Canton.numcom');
+
+			$export[] = $line;
+
+			foreach ($resultats as $resultat) {
+				$line = array ();
+				$line[] = $resultat['Canton']['id'];
+				$line[] = $resultat['Canton']['canton'];
+				$line[] = $resultat['Zonegeographique']['libelle'];
+				$line[] = $resultat['Canton']['numvoie'];
+				$line[] = $resultat['Canton']['libtypevoie'];
+				$line[] = $resultat['Canton']['nomvoie'];
+				$line[] = $resultat['Canton']['nomcom'];
+				$line[] = $resultat['Canton']['codepos'];
+				$line[] = $resultat['Canton']['numcom'];
 
 				$export[] = $line;
 			}
