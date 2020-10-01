@@ -272,7 +272,11 @@
 				$lineNr++;
 
 				$return .= '<tr class="'.( ( $lineNr % 2 ) ?  'odd' : 'even' ).'">';
-				$return .= '<th>'.$this->label( $column, $options ).'</th>';
+				if( !empty( $options['label'] ) ) {
+					$return .= '<th>'.$options['label'].'</th>';
+				} else {
+					$return .= '<th>'.$this->label( $column, $options ).'</th>';
+				}
 
 				foreach( array( 'DEM', 'CJT' ) as $rolepers ) {
 					$params = array( 'tag' => 'td' );

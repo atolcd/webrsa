@@ -65,7 +65,20 @@
 				'RL', 'RP', 'SN', 'TG'
 			),
 			'act' => array(
-				'O', 'N', 'P'
+				'ABS', 'ANI', 'CAT', 'AAP', 'SIN', 'AFA', 'APP',
+				'AMA', 'SUR', 'CBS', 'CLD', 'CSA', 'CEA', 'CEN',
+				'CAC', 'CHA', 'CHR', 'ABA', 'AFD', 'AFC', 'AIN',
+				'ASS', 'ASP', 'CDA', 'CDN', 'ADN', 'ADA', 'CAP',
+				'CNI', 'CPL', 'CHO', 'CCV', 'MAT', 'CGP', 'SAB',
+				'CSS', 'CJT', 'CES', 'CIS', 'CIA', 'DSF', 'DEG',
+				'CAR', 'MMA', 'ETU', 'EBO', 'ETS', 'EXS', 'FDA',
+				'FDN', 'GSA', 'INP', 'NAS', 'HAN', 'ANP', 'IAD',
+				'JNF', 'MMC', 'MMI', 'MAL', 'INF', 'SCI', 'MLD',
+				'MAR', 'MOA', 'MOC', 'AMT', 'MNE', 'NOB', 'INV',
+				'NCH', 'PRE', 'RAT', 'RET', 'RSA', 'RAC', 'EXP',
+				'ETI', 'DNL', 'SAL', 'SSA', 'SAV', 'SAC', 'SCO',
+				'SNA', 'SFP', 'SNR', 'PIL', 'RMA', 'INT', 'TSA',
+				'VRP'
 			),
 			'natcontrtra' => array(
 				'CA', 'CDD', 'CDI', 'CUI', 'CU1', 'CU2', 'CU3', 'CU4',

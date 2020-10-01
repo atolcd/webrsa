@@ -38,7 +38,7 @@
 							$details,
 							array(
 								'Activite.reg' => array( 'options' => $reg ),
-								'Activite.act' => array( 'options' => $act ),
+								'Activite.act' => array( 'options' => $act, 'label' => __d( 'activite', 'Activite.categoriepro' ) ),
 								'Activite.paysact' => array( 'options' => $paysact ),
 								'Activite.ddact',
 								'Activite.dfact',

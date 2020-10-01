@@ -26,6 +26,9 @@ msgstr "Régime de protection sociale"
 msgid "Activite.act"
 msgstr "Code activité"
 
+msgid "Activite.categoriepro"
+msgstr "Catégorie professionnelle"
+
 msgid "Activite.paysact"
 msgstr "Pays de l'activité"
 
