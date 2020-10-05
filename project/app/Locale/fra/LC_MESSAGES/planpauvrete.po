@@ -76,14 +76,14 @@ msgid "Planpauvrete.Stock.Phrasesmois"
 msgstr "Cette cohorte effectue des recherches dans les flux du mois de MOIS et des mois précédents."
 
 # ==============================================================================
-# Recherche par Primo accédant
+# Recherche Par primo accédant
 # ==============================================================================
 
 msgid "Planpauvrete.primoaccedant.menu.search"
-msgstr "Par primo accédant"
+msgstr "Par nouveaux entrants"
 
 msgid "/Planpauvrete/searchprimoaccedant/:heading"
-msgstr "Par primo accédant"
+msgstr "Par nouveaux entrants"
 
 msgid "/Dossiers/view"
 msgstr "Voir"

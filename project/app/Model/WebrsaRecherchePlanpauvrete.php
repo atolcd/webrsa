@@ -94,6 +94,7 @@
 				// 4. Conditions
 				// SDD & DOV
 				$query = $this->WebrsaCohortePlanpauvrete->sdddov($query);
+				$query = $this->WebrsaCohortePlanpauvrete->sdddovHistorique($query);
 
 				// Sans RDV
 				$query = $this->WebrsaCohortePlanpauvrete->sansRendezvous($query);
