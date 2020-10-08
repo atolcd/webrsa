@@ -99,7 +99,14 @@
 					$this->Flash->error( __d('configuration','Configuration.erreurJSON'));
 					$this->redirect(array('controller' => 'configurations', 'action' => 'edit', $id));
 				}
+				$query = "UPDATE public.configurations SET value_variable = '"
+				. str_replace("'", "''", $this->request->data['Configuration']['value_variable'])
+				. "', comments_variable = '" . str_replace("'", "''", $this->request->data['Configuration']['comments_variable'])
+				. "', modified = current_timestamp WHERE configurations.id = " . $id . ";";
+				$this->Configuration->query($query);
 				$this->Configurationhistorique->saveHisto($this->request->data['Configuration']);
+				$this->Flash->success( __( 'Save->success' ) );
+				$this->redirect( array( 'action' => 'index' ) );
 			}
 			$this->WebrsaParametrages->edit( $id, array( 'view' => 'edit' ) );
 			$histos = $this->Configurationhistorique->getHisto($id);
