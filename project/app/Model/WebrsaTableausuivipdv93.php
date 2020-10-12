@@ -5204,7 +5204,10 @@
 				}
 
 				foreach ($questionnaired2s as $questionnaired2) {
-					if ($idFamille == $questionnaired2['Emploiromev3']['familleromev3_id']) {
+					if ($idFamille == $questionnaired2['Emploiromev3']['familleromev3_id'] ||
+						(is_null($questionnaired2['Emploiromev3']['familleromev3_id'])
+						&& $famille['Familleromev3']['name'] == 'NON COMMUNIQUÉ')
+					) {
 						$tableauRomev3['D2'][$idFamille]++;
 						$tableauRomev3['TOTAL'][$idFamille]++;
 						$totalFamilleD2++;
@@ -5339,6 +5342,8 @@
 			// Exécution des requêtes et renvoie des résultats
 			$results = $this->_resultsCorpusB7 ($queries, $models, $complements);
 
+			// Inversion du tableau pour garder les l'information maintiens / sortie
+			$results = array_reverse($results);
 			$results = $this->_dedoublonnage ($results, 'Personne');
 
 			return $results;
@@ -5372,6 +5377,8 @@
 
 			// Exécution des requêtes et renvoie des résultats
 			$results = $this->_resultsCorpusB7 ($queries[0], $queries[1], $complements);
+			// Inversion du tableau pour garder les l'information maintiens / sortie
+			$results = array_reverse($results);
 			$results = $this->_dedoublonnage ($results, 'Personne');
 
 			return $results;
@@ -5413,6 +5420,8 @@
 
 			// Exécution des requêtes et renvoie des résultats
 			$results = $this->_resultsCorpusB7 ($queries[0], $queries[1], $complements);
+			// Inversion du tableau pour garder les l'information maintiens / sortie
+			$results = array_reverse($results);
 			$results = $this->_dedoublonnage ($results, 'Personne');
 
 			return $results;
