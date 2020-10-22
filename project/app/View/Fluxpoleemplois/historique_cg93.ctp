@@ -34,13 +34,13 @@
 			$date = new DateTime ($historique['Historiqueetatpe']['date']);
 			$dateAffichage = $date->format ('d/m/Y');
 
-			$intituleEtat = __d( 'fluxpoleemplois', 'Fluxpoleemplois.historique.etat' );
+			$intituleTitre = __d( 'fluxpoleemplois', 'Fluxpoleemplois.historique' ).$dateAffichage;
 			if ($etatActuel) {
-				$intituleEtat = __d( 'fluxpoleemplois', 'Fluxpoleemplois.historique.etat_actuel' );
+				$intituleTitre = __d( 'fluxpoleemplois', 'Fluxpoleemplois.historique.etat_actuel' );
 			}
 			$etatActuel = false;
 ?>
-		<h2><?php echo (__d( 'fluxpoleemplois', 'Fluxpoleemplois.historique' ).$dateAffichage); ?></h2>
+		<h2><?php echo $intituleTitre; ?></h2>
 		<table class="index details" style="width: 95%;">
 			<tbody>
 				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
@@ -48,7 +48,7 @@
 					<td class="data string " style="width: 70%;"><?php echo ($dateAffichage); ?></td>
 				</tr>
 				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">
-					<th><?php echo ($intituleEtat); ?></th>
+					<th><?php echo __d( 'fluxpoleemplois', 'Fluxpoleemplois.historique.etat' ); ?></th>
 					<td class="data string "><?php echo ($historique['Historiqueetatpe']['etat']); ?></td>
 				</tr>
 				<tr class="<?php echo ( ( $rowCnt++ ) % 2 ? 'even' : 'odd' )?>">

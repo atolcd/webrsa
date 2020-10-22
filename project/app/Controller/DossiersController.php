@@ -885,7 +885,16 @@
 				// Utilisation des nouvelles tables de stockage des infos Pôle Emploi
 				$tInfope = $this->Informationpe->derniereInformation($personnesFoyer[$index]);
 				$personnesFoyer[$index]['Informationpe'] = ( !empty( $tInfope ) ? $tInfope['Historiqueetatpe'] : array() );
+				// Customisation des informations PE
+				$regIdPe = '/\d++\w/';
+				$matches = array();
+				if(preg_match($regIdPe, $personnesFoyer[$index]['Informationpe'][0]['identifiantpe'], $matches) == 1) {
+					$personnesFoyer[$index]['Informationpe'][0]['identifiantpe'] = $matches[0];
+				}
 
+				if(preg_match($regIdPe, $personnesFoyer[$index]['Fluxpoleemploi']['Historiqueetatpe'][0]['identifiantpe'], $matches) == 1) {
+					$personnesFoyer[$index]['Fluxpoleemploi']['Historiqueetatpe'][0]['identifiantpe'] = $matches[0];
+				}
 				//  Liste des anciens dossiers par demandeurs et conjoints
 				$nir13 = trim( $personnesFoyer[$index]['Personne']['nir'] );
 				$nir13 = ( empty( $nir13 ) ? null : substr( $nir13, 0, 13 ) );

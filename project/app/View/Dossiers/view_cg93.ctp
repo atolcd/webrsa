@@ -413,32 +413,32 @@
 						<tbody>
 							<tr class="odd">
 								<th><?php echo (__d ('dossiers', 'Dossier.pe.id')); ?></th>
-								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Historiqueetatpe.0.identifiantpe', $details);?></td>
-								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Historiqueetatpe.0.identifiantpe', $details);?></td>
+								<td><?php echo Set::extract( 'DEM.Informationpe.0.identifiantpe', $details);?></td>
+								<td><?php echo Set::extract( 'CJT.Informationpe.0.identifiantpe', $details);?></td>
 							</tr>
 							<tr class="even">
 								<th><?php echo (__d ('dossiers', 'Dossier.pe.etat')); ?></th>
-								<td><?php echo Set::enum( Set::extract( 'DEM.Fluxpoleemploi.Historiqueetatpe.0.etat', $details ), $etatpe['etat'] );?></td>
-								<td><?php echo Set::enum( Set::extract( 'CJT.Fluxpoleemploi.Historiqueetatpe.0.etat', $details ), $etatpe['etat'] );?></td>
+								<td><?php echo Set::enum( Set::extract( 'DEM.Informationpe.0.etat', $details ), $etatpe['etat'] );?></td>
+								<td><?php echo Set::enum( Set::extract( 'CJT.Informationpe.0.etat', $details ), $etatpe['etat'] );?></td>
 							</tr>
 							<tr class="odd">
 								<th><?php echo (__d ('dossiers', 'Dossier.pe.date.derniere')); ?></th>
-								<td><?php echo date_short( Set::extract( 'DEM.Fluxpoleemploi.Historiqueetatpe.0.date', $details) );?></td>
-								<td><?php echo date_short( Set::extract( 'CJT.Fluxpoleemploi.Historiqueetatpe.0.date', $details) );?></td>
+								<td><?php echo date_short( Set::extract( 'DEM.Informationpe.0.date', $details) );?></td>
+								<td><?php echo date_short( Set::extract( 'CJT.Informationpe.0.date', $details) );?></td>
 							</tr>
 							<tr class="even">
 								<th><?php echo (__d ('dossiers', 'Dossier.pe.motif')); ?></th>
 								<td>
 									<?php
-									if (in_array(Set::extract( 'DEM.Fluxpoleemploi.Historiqueetatpe.0.etat', $details), array ('cessation', 'radiation'))) {
-										echo Set::extract( 'DEM.Fluxpoleemploi.Historiqueetatpe.0.motif', $details);
+									if (in_array(Set::extract( 'DEM.Informationpe.0.etat', $details), array ('cessation', 'radiation'))) {
+										echo Set::extract( 'DEM.Informationpe.0.motif', $details);
 									}
 									?>
 								</td>
 								<td>
 									<?php
-									if (in_array(Set::extract( 'CJT.Fluxpoleemploi.Historiqueetatpe.0.etat', $details), array ('cessation', 'radiation'))) {
-										echo Set::extract( 'CJT.Fluxpoleemploi.Historiqueetatpe.0.motif', $details);
+									if (in_array(Set::extract( 'CJT.Informationpe.0.etat', $details), array ('cessation', 'radiation'))) {
+										echo Set::extract( 'CJT.Informationpe.0.motif', $details);
 									}
 									?>
 								</td>
@@ -446,52 +446,66 @@
 
 							<tr class="odd">
 								<th><?php echo (__d ('dossiers', 'Dossier.pe.date.maj.flux')); ?></th>
-								<td><?php echo h (date_short(Set::extract( 'DEM.Fluxpoleemploi.Historiqueetatpe.date_creation', $details)));?></td>
-								<td><?php echo h (date_short(Set::extract( 'CJT.Fluxpoleemploi.Historiqueetatpe.date_creation', $details)));?></td>
+								<td><?php echo h (date_short(Set::extract( 'DEM.Informationpe.0.date_creation', $details)));?></td>
+								<td><?php echo h (date_short(Set::extract( 'CJT.Informationpe.0.date_creation', $details)));?></td>
 							</tr>
 							<tr class="even">
 								<th><?php echo (__d ('dossiers', 'Dossier.pe.agence')); ?></th>
-								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Historiqueetatpe.suivi_structure_principale_nom', $details);?></td>
-								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Historiqueetatpe.suivi_structure_principale_nom', $details);?></td>
+								<td><?php echo Set::extract( 'DEM.Informationpe.0.suivi_structure_principale_nom', $details);?></td>
+								<td><?php echo Set::extract( 'CJT.Informationpe.0.suivi_structure_principale_nom', $details);?></td>
 							</tr>
 							<tr class="odd">
 								<th><?php echo (__d ('dossiers', 'Dossier.pe.modalite.acc')); ?></th>
 								<td>
 									<?php
-										$accompagnement = Set::extract( 'DEM.Fluxpoleemploi.Informationpe.ppae_modalite_code', $details);
-										if (!empty ($accompagnement)) {
-											echo $modaliteaccompagnements[$accompagnement];
+										$accompagnementCode = Set::extract( 'DEM.Informationpe.0.ppae_modalite_code', $details);
+										$accompagnementLib = Set::extract( 'DEM.Informationpe.0.ppae_modalite_libelle', $details);
+										if (!empty ($accompagnementCode)) {
+											if(isset($modaliteaccompagnements[$accompagnementCode])) {
+												echo $modaliteaccompagnements[$accompagnementCode];
+											} else if(!empty($accompagnementLib)) {
+												echo $accompagnementLib;
+											} else {
+												echo __d('dossiers', 'Dossier.pe.accompagnement.code') . $accompagnementCode;
+											}
 										}
 									?>
 								</td>
 								<td>
 									<?php
-										$accompagnement = Set::extract( 'CJT.Fluxpoleemploi.Informationpe.ppae_modalite_code', $details);
-										if (!empty ($accompagnement)) {
-											echo $modaliteaccompagnements[$accompagnement];
+										$accompagnementCode = Set::extract( 'CJT.Informationpe.0.ppae_modalite_code', $details);
+										$accompagnementLib = Set::extract( 'CJT.Informationpe.0.ppae_modalite_libelle', $details);
+										if (!empty ($accompagnementCode)) {
+											if(isset($modaliteaccompagnements[$accompagnementCode])) {
+												echo $modaliteaccompagnements[$accompagnementCode];
+											} else if(!empty($accompagnementLib)) {
+												echo $accompagnementLib;
+											} else {
+												echo __d('dossiers', 'Dossier.pe.accompagnement.code') . $accompagnementCode;
+											}
 										}
 									?>
 								</td>
 							</tr>
 							<tr class="even">
 								<th><?php echo (__d ('dossiers', 'Dossier.pe.date.debut.ide')); ?></th>
-								<td><?php echo h (date_short(Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_date_debut_ide', $details)));?></td>
-								<td><?php echo h (date_short(Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_date_debut_ide', $details)));?></td>
+								<td><?php echo h (date_short(Set::extract( 'DEM.Informationpe.0.inscription_date_debut_ide', $details)));?></td>
+								<td><?php echo h (date_short(Set::extract( 'CJT.Informationpe.0.inscription_date_debut_ide', $details)));?></td>
 							</tr>
 							<tr class="odd">
 								<th><?php echo (__d ('dossiers', 'Dossier.pe.niveau.formation')); ?></th>
-								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.formation_lib_niveau', $details );?></td>
-								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.formation_lib_niveau', $details );?></td>
+								<td><?php echo Set::extract( 'DEM.Informationpe.0.formation_lib_niveau', $details );?></td>
+								<td><?php echo Set::extract( 'CJT.Informationpe.0.formation_lib_niveau', $details );?></td>
 							</tr>
 							<tr class="even">
 								<th><?php echo (__d ('dossiers', 'Dossier.pe.date.signature.ppae')); ?></th>
-								<td><?php echo date_short( Set::extract( 'DEM.Fluxpoleemploi.Informationpe.ppae_date_signature', $details) );?></td>
-								<td><?php echo date_short( Set::extract( 'CJT.Fluxpoleemploi.Informationpe.ppae_date_signature', $details) );?></td>
+								<td><?php echo date_short( Set::extract( 'DEM.Informationpe.0.ppae_date_signature', $details) );?></td>
+								<td><?php echo date_short( Set::extract( 'CJT.Informationpe.0.ppae_date_signature', $details) );?></td>
 							</tr>
 							<tr class="odd">
 								<th><?php echo (__d ('dossiers', 'Dossier.pe.date.notification.ppae')); ?></th>
-								<td><?php echo date_short( Set::extract( 'DEM.Fluxpoleemploi.Informationpe.ppae_date_notification', $details) );?></td>
-								<td><?php echo date_short( Set::extract( 'CJT.Fluxpoleemploi.Informationpe.ppae_date_notification', $details) );?></td>
+								<td><?php echo date_short( Set::extract( 'DEM.Informationpe.0.ppae_date_notification', $details) );?></td>
+								<td><?php echo date_short( Set::extract( 'CJT.Informationpe.0.ppae_date_notification', $details) );?></td>
 							</tr>
 
 						</tbody>

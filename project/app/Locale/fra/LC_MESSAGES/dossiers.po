@@ -248,6 +248,8 @@ msgstr "Date de signature PPAE"
 msgid "Dossier.pe.date.notification.ppae"
 msgstr "Date de notification PPAE"
 
+msgid "Dossier.pe.accompagnement.code"
+msgstr "Code : "
 
 msgid "Dossier.autres"
 msgstr "Historique des dossiers RSA"
