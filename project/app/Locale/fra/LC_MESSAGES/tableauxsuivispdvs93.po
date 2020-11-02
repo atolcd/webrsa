@@ -772,6 +772,12 @@ msgstr "Type de thématique"
 msgid "Filierefp93.name"
 msgstr "Filière"
 
+msgid "Actionfp93.name"
+msgstr "Action"
+
+msgid "Prestatairefp93.name"
+msgstr "Prestataire"
+
 msgid "0.personne_a_integre"
 msgstr "À intégrer"
 
