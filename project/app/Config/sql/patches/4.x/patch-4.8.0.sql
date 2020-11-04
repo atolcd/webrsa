@@ -3,6 +3,10 @@ SET client_encoding = 'UTF8';
 -- *****************************************************************************
 BEGIN;
 -- *****************************************************************************
+-- Recalcule du id_seq de configurations et de configurationscategories
+SELECT setval('configurations_id_seq', (SELECT MAX(id) FROM public.configurations));
+SELECT setval('configurationscategories_id_seq', (SELECT MAX(id) FROM public.configurationscategories));
+
 -- Ajout du module de modification de l'état de dossier
 INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
 	VALUES
