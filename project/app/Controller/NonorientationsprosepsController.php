@@ -226,6 +226,7 @@
 		 * Exportcsv
 		 */
 		public function exportcsvNew() {
+			$this->action = 'exportcsv';
 			if (Configure::read('Cg.departement') != 66) {
 				return $this->exportcsv();
 			}

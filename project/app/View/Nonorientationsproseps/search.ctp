@@ -29,12 +29,12 @@
 	$this->start( 'custom_search_filters' );
 
 	// FILTRE CUSTOM
-	
+
 	$this->end();
 
 	$explAction = explode('_', $action);
-	$exportcsvActionName = isset($explAction[1]) ? 'exportcsv_'.$explAction[1] : 'exportcsv';
-	
+	$exportcsvActionName = isset($explAction[1]) ? 'exportcsv_'.$explAction[1] : 'exportcsvNew';
+
 	echo $this->element(
 		'ConfigurableQuery/search',
 		array(
