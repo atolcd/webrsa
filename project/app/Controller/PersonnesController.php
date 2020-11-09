@@ -332,6 +332,14 @@
 
 			$personne = WebrsaAccessPersonnes::access($personne, $paramsAccess);
 
+			// Vérification de l'historique des coordonnées
+			$histoCoordonnees = $this->Personne->getHistoinfocontactpersonne($id);
+			if(!empty($histoCoordonnees)) {
+				$hasHisto = true;
+			} else {
+				$hasHisto = false;
+			}
+
 			// Mauvais paramètre ?
 			$this->assert( !empty( $personne ), 'invalidParameter' );
 
@@ -339,6 +347,7 @@
 
 			// Assignation à la vue
 			$this->_setOptions();
+			$this->set( 'hasHisto', $hasHisto );
 			$this->set( 'personne', $personne );
 		}
 
@@ -520,31 +529,13 @@
 			//$this->WebrsaAccesses->check($id);
 
 			/*Historique donnée contact*/
-			$queryData =
-				array(
-					'fields' => array(
-						'Infocontactpersonne.fixe',
-						'Infocontactpersonne.mobile',	
-						'Infocontactpersonne.email',
-						'Infocontactpersonne.modified',
-						'Personne.qual',
-						'Personne.nom',
-						'Personne.prenom'
-					),
-					'conditions' => array( 'Infocontactpersonne.personne_id' => $id ),
-					'contain' => array( 'Personne'),
-					'order' => array('Infocontactpersonne.modified DESC')
-				);
-			$infocontactpersonne = $this->Infocontactpersonne->find('all', $queryData);
+			$infocontactpersonne = $this->Personne->getHistoinfocontactpersonne($id);
 
-			if (empty($infocontactpersonne)) {
-				throw new NotFoundException();
-			}
 			$actionsParams = WebrsaAccessPersonnes::getActionParamsList($this->action);
 			$paramsAccess = $this->WebrsaPersonne->getParamsForAccess($id, $actionsParams);
 
 			foreach ($infocontactpersonne as $key => $value) {
-				$infocontactpersonne[$key] = WebrsaAccessPersonnes::access($infocontactpersonne[$key], $paramsAccess);	
+				$infocontactpersonne[$key] = WebrsaAccessPersonnes::access($infocontactpersonne[$key], $paramsAccess);
 			}
 
 			// Mauvais paramètre ?

@@ -16,7 +16,11 @@
 	);
 
 	$this->pageTitle = 'Visualisation d\'une personne « '.$title.' »';
-	
+
+	$classHisto = '';
+	if(!$hasHisto) {
+		$classHisto = 'disabled';
+	}
 	App::uses('WebrsaAccess', 'Utility');
 	WebrsaAccess::init($dossierMenu);
 
@@ -39,7 +43,7 @@
 		array(
 			'title' => 'Éditer la personne « '.$title.' »',
 			'enabled' => WebrsaAccess::isEnabled($personne, '/Personnes/edit'),
-			'class' => 'personnes edit'
+			'class' => 'personnes edit link'
 		)
 	).' </li>';
 	echo '<li class="action">'.$this->Xhtml->link(
@@ -47,8 +51,8 @@
 		array( 'controller' => 'personnes', 'action' => 'histoinfocontactpersonne', $personne['Personne']['id'] ),
 		array(
 			'title' => 'Voir l\'historique des coordonnées de « '.$title.' »',
-			'enabled' => WebrsaAccess::isEnabled($personne, '/Personnes/coordonnees'),
-			'class' => 'personnes coordonnees infocontact'
+			'enabled' => WebrsaAccess::isEnabled($personne, '/Personnes/coordonnees') && $hasHisto,
+			'class' => 'personnes coordonnees infocontact link',
 		)
 	).' </li>';
 	echo '<li class="action">'.$this->Xhtml->link(
@@ -57,7 +61,7 @@
 		array(
 			'title' => 'Modifier les coordonnées de « '.$title.' »',
 			'enabled' => WebrsaAccess::isEnabled($personne, '/Personnes/coordonnees'),
-			'class' => 'personnes coordonnees'
+			'class' => 'personnes coordonnees link'
 		)
 	).' </li>';
 ?>
@@ -122,7 +126,7 @@
 				<th><?php echo __d( 'personne', 'Personne.sexe' );?></th>
 				<td><?php echo @$sexe[$personne['Personne']['sexe']];?></td>
 			</tr>
-			<?php if( Configure::read( 'nom_form_ci_cg' ) == 'cg58' 
+			<?php if( Configure::read( 'nom_form_ci_cg' ) == 'cg58'
 						&& ($personne['Prestation']['rolepers'] === null || $rolepers[$personne['Prestation']['rolepers']] != 'Enfant') ):?>
 				<tr class="even">
 					<th><?php echo __d( 'foyer', 'Foyer.sitfam' );?></th>

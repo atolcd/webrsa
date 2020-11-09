@@ -932,6 +932,31 @@
 			}
 		}
 
+		/**
+		 * Retourne l'historique des informations de contact d'une personnes
+		 *
+		 * @param int $id
+		 * @return array
+		 */
+		public function getHistoinfocontactpersonne($id) {
+			$queryData =
+				array(
+					'fields' => array(
+						'Infocontactpersonne.fixe',
+						'Infocontactpersonne.mobile',
+						'Infocontactpersonne.email',
+						'Infocontactpersonne.modified',
+						'Personne.qual',
+						'Personne.nom',
+						'Personne.prenom'
+					),
+					'conditions' => array( 'Infocontactpersonne.personne_id' => $id ),
+					'contain' => array( 'Personne'),
+					'order' => array('Infocontactpersonne.modified DESC')
+				);
+			return $this->Infocontactpersonne->find('all', $queryData);
+		}
+
 		public function enums() {
 			$cacheKey = implode( '_', array( $this->useDbConfig, $this->alias, __FUNCTION__ ) );
 			$enums = Cache::read( $cacheKey );

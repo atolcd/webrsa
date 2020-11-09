@@ -12,3 +12,9 @@ msgstr ""
 
 msgid "/Tags/add/:heading"
 msgstr "Ajout d'un tag allocataire"
+
+msgid "Histocoordonnees::back"
+msgstr "Retour à la visualisation"
+
+msgid "Histocoordonnees::back::title"
+msgstr "Retour à la personne « %s »"

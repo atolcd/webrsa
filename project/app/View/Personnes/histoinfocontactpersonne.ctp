@@ -14,10 +14,10 @@
 <ul class="actions">
 <?php
 	echo '<li class="action">'.$this->Xhtml->link(
-		'View',
+		__m('Histocoordonnees::back'),
 		array( 'controller' => 'personnes', 'action' => 'view', $infocontactpersonne[0]['Personne']['id'] ),
 		array(
-			'title' => 'Retour à la personne « '.$title.' »',
+			'title' => __m('Histocoordonnees::back::title', $title),
 			'enabled' => WebrsaAccess::isEnabled($infocontactpersonne[0], '/Personnes/view'),
 			'class' => 'personnes coordonnees infocontact'
 		)
