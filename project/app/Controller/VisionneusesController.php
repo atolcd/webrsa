@@ -140,6 +140,11 @@
 		 * @param int $identificationflux_id
 		 */
 		public function view($identificationflux_id) {
+			$nomFlux = $this->Visionneuse->find('first', array(
+				'fields' => array('nomfic'),
+				'conditions' => array('identificationflux_id' => $identificationflux_id)
+			));
+			$nomFlux = $nomFlux['Visionneuse']['nomfic'];
 			$query = array();
 			$conditions = array(
 					'Talendsynt.identificationflux_id' => $identificationflux_id
@@ -183,7 +188,7 @@
 				)
 			);
 
-			$this->set( compact('results', 'options', 'identificationflux_id') );
+			$this->set( compact('results', 'options', 'identificationflux_id', 'nomFlux') );
 		}
 	}
 ?>

@@ -75,8 +75,14 @@ msgid "/Visionneuses/view/#Visionneuse.identificationflux_id#"
 msgstr "Voir le détail des personnes pour ce flux"
 
 ###############################################################################
-msgid "/Visionneuses/view/:heading"
-msgstr "Détail des personnes présentes dans le flux"
+msgid "Visionneuses::view::title"
+msgstr "Détail des personnes présentes dans le flux %s"
+
+msgid "/Visionneuses/index"
+msgstr "Retour"
+
+msgid "/Visionneuses/index/:title"
+msgstr "Retour"
 
 msgid "Visionneuse::form::info"
 msgstr "Visibilité formulaire"

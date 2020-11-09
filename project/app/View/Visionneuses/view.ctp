@@ -1,6 +1,8 @@
 <?php
-	echo $this->Default3->titleForLayout();
+	echo $this->Default3->actions( array( '/Visionneuses/index' => array( 'class' => 'back' ) ) );
 
+	$this->title = __m('Visionneuses::view::title', $nomFlux);
+	echo '<h1>' . $this->title . '</h1>';
 	// Création du formulaire de recherche
 	$searchFormId = 'TalensyntIndexForm';
 	$actions =  array(
@@ -66,12 +68,10 @@
             ),
             array(
                 'paginate' => false,
-                /* 'format' => $this->element( 'pagination_format' ),
-                'id' => $this->passedArgs[0] */
             )
         );
 	}
-
+	echo $this->Default3->actions( array( '/Visionneuses/index' => array( 'class' => 'back' ) ) );
 ?>
 <script type="text/javascript">
 	document.observe("dom:loaded", function() {
