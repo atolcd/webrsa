@@ -21,7 +21,7 @@ msgstr ""
 
 ###############################################################################
 msgid "/Visionneuses/index/:heading"
-msgstr "Visionneuse"
+msgstr "Rapports d'intégration des flux"
 
 msgid "Visionneuse::index::empty"
 msgstr "Aucun fichier intégré pour l'instant."
@@ -77,6 +77,18 @@ msgstr "Voir le détail des personnes pour ce flux"
 ###############################################################################
 msgid "Visionneuses::view::title"
 msgstr "Détail des personnes présentes dans le flux %s"
+
+msgid "Visionneuse::index::title"
+msgstr "Rapport des flux CNAF"
+
+msgid "Visionneuse::index::link"
+msgstr "Rapport des flux CNAF"
+
+msgid "Rapportstalendscreances::index::title"
+msgstr "Rapport des flux créances"
+
+msgid "Rapportstalendscreances::index::link"
+msgstr "Rapport des flux créances"
 
 msgid "/Visionneuses/index"
 msgstr "Retour"

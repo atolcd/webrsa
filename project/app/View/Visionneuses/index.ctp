@@ -3,7 +3,27 @@
 
 	// Création du formulaire de recherche
 	$searchFormId = 'VisionneuseIndexForm';
+
+	$visionneusesLinkEnabled = false;
+
 	$actions =  array(
+		'/Visionneuses/index' => array(
+			'title' => __m('Visionneuse::index::title'),
+			'text' => __m('Visionneuse::index::link'),
+			'class' => 'link',
+			'enabled' => $visionneusesLinkEnabled
+		),
+		'/Rapportstalendscreances/index' => array(
+			'title' => __m('Rapportstalendscreances::index::title'),
+			'text' => __m('Rapportstalendscreances::index::link'),
+			'class' => 'link',
+			'enabled' => !$visionneusesLinkEnabled
+		),
+	);
+
+	echo $this->Default3->actions( $actions );
+
+	$actions = array(
 		'/Visionneuses/index/#toggleform' => array(
 			'title' => __m('Visionneuse::form::info'),
 			'text' => 'Formulaire',
@@ -11,6 +31,7 @@
 			'onclick' => "$( '{$searchFormId}' ).toggle(); return false;"
 		)
 	);
+
 	echo $this->Default3->actions( $actions );
 
 	echo $this->Form->create( null, array(

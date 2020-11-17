@@ -4,6 +4,25 @@
 	echo $this->Default3->titleForLayout();
 	//Visualisation des Rapportstalendscreances
 
+	$visionneusesLinkEnabled = true;
+
+	$actions =  array(
+		'/Visionneuses/index' => array(
+			'title' => __d('visionneuses', 'Visionneuse::index::title'),
+			'text' => __d('visionneuses', 'Visionneuse::index::link'),
+			'class' => 'link',
+			'enabled' => $visionneusesLinkEnabled
+		),
+		'/Rapportstalendscreances/index' => array(
+			'title' => __d('visionneuses', 'Rapportstalendscreances::index::title'),
+			'text' => __d('visionneuses', 'Rapportstalendscreances::index::link'),
+			'class' => 'link',
+			'enabled' => !$visionneusesLinkEnabled
+		),
+	);
+
+	echo $this->Default3->actions( $actions );
+
 if( empty( $Rapportstalendscreances ) ) {
 	echo '<p class="notice">Cette personne ne possède pas de Rapportstalendscreances.</p>';
 }else{
