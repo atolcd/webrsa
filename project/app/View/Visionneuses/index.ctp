@@ -2,10 +2,11 @@
 	echo $this->Default3->titleForLayout();
 
 	// Création du formulaire de recherche
-	$searchFormId = 'VisionneuseIndexForm';
+	$searchFormFluxId = 'VisionneuseIndexFluxForm';
+	$searchFormPersonneId = 'VisionneuseIndexPersonneForm';
 
+	// Gestion des boutons pour voir les flux créances / CNAF
 	$visionneusesLinkEnabled = false;
-
 	$actions =  array(
 		'/Visionneuses/index' => array(
 			'title' => __m('Visionneuse::index::title'),
@@ -23,12 +24,20 @@
 
 	echo $this->Default3->actions( $actions );
 
+	// Gestion des formulaires de recherche
+	// Recherche par flux
 	$actions = array(
-		'/Visionneuses/index/#toggleform' => array(
+		'/Visionneuses/index/#toggleformflux' => array(
 			'title' => __m('Visionneuse::form::info'),
-			'text' => 'Formulaire',
+			'text' => __m('Visionneuse::form::infoFlux'),
 			'class' => 'search',
-			'onclick' => "$( '{$searchFormId}' ).toggle(); return false;"
+			'onclick' => "$( '{$searchFormFluxId}' ).toggle(); return false;"
+		),
+		'/Visionneuses/index/#toggleformpersonne' => array(
+			'title' => __m('Visionneuse::form::info'),
+			'text' => __m('Visionneuse::form::infoPersonne'),
+			'class' => 'search',
+			'onclick' => "$( '{$searchFormPersonneId}' ).toggle(); return false;"
 		)
 	);
 
@@ -39,7 +48,7 @@
 		'url' => array(
 			'controller' => $this->request->params['controller'],
 			'action' => $this->request->action ),
-			'id' => $searchFormId,
+			'id' => $searchFormFluxId,
 			'novalidate' => true
 			)
 		);
@@ -47,14 +56,14 @@
 	echo $this->Default3->subform(
 		$this->Translator->normalize(
 				array(
-					'Search.Visionneuse.search' => array( 'type' => 'hidden', 'value' => true ),
+					'Search.Visionneuse.searchFlux' => array( 'type' => 'hidden', 'value' => true ),
 					'Search.Visionneuse.flux' => array( 'empty' => true, 'required' => false ),
 				)
 		),
 		array(
 					'options' => array( 'Search' => $options ),
 					'fieldset' => true,
-					'legend' => __m( 'Search.Visionneuse' )
+					'legend' => __m( 'Search.VisionneuseFlux' )
 		)
 	);
 
@@ -75,10 +84,53 @@
 	echo $this->Form->end();
 	// Fin de la recherche
 
+	// Recherche par personne
+	echo $this->Form->create( null, array(
+		'type' => 'post',
+		'url' => array(
+			'controller' => $this->request->params['controller'],
+			'action' => $this->request->action ),
+			'id' => $searchFormPersonneId,
+			'novalidate' => true
+			)
+		);
+
+	echo $this->Default3->subform(
+		$this->Translator->normalize(
+				array(
+					'Search.Visionneuse.searchPersonne' => array( 'type' => 'hidden', 'value' => true ),
+					'Search.Visionneuse.nom' => array( 'empty' => true, 'required' => false ),
+					'Search.Visionneuse.prenom' => array( 'empty' => true, 'required' => false ),
+					'Search.Visionneuse.dtnai' => array(
+						'empty' => true,
+						'required' => false,
+						'type' => 'date',
+						'dateFormat' => 'DMY',
+						'minYear' => date('Y')-100,
+						'maxYear' => date('Y')
+					),
+					'Search.Visionneuse.nir' => array( 'empty' => true, 'required' => false ),
+				)
+		),
+		array(
+					'options' => array( 'Search' => $options ),
+					'fieldset' => true,
+					'legend' => __m( 'Search.Visionneuse.Personne' )
+		)
+	);
+
+	?>
+	<div class="submit noprint">
+		<?php echo $this->Form->button( __d('default', 'Search'), array( 'type' => 'submit' ) );?>
+		<?php echo $this->Form->button( __d('default', 'Reset'), array( 'type' => 'reset' ) );?>
+	</div>
+	<?php
+	echo $this->Form->end();
 	if( empty( $visionneuses ) ) {
 		echo $this->Xhtml->tag( 'p', __m('Visionneuse::index::empty'), array( 'class' => 'notice' ) );
 	}
-	else {
+	else if($isFlux) {
+		// Ce sont des informations relatives aux flux
 		echo $this->Default3->index(
 			$visionneuses,
 			$this->Translator->normalize(
@@ -106,10 +158,40 @@
 			)
 		);
 	}
+	else {
+		// Ce sont des informations relatives aux personnes
+		echo $this->Default3->index(
+			$visionneuses,
+			$this->Translator->normalize(
+				array(
+					'Talendsynt.qual',
+					'Talendsynt.nomnai',
+					'Talendsynt.nom',
+					'Talendsynt.prenom',
+					'Talendsynt.dtnai',
+					'Talendsynt.nir',
+					'Talendsynt.sexe',
+					'Talendsynt.cree',
+					'Talendsynt.maj',
+					'Talendsynt.rejet',
+					'Visionneuse.flux',
+					'Visionneuse.nomfic',
+					'/Visionneuses/view/#Talendsynt.identificationflux_id#' => array(
+						'disabled' => '( \'#Talendsynt.identificationflux_id#\' == 0 )'
+					),
+				)
+			),
+			array(
+				'paginate' => false,
+			)
+		);
+	}
 
 ?>
 <script type="text/javascript">
 	document.observe("dom:loaded", function() {
-		document.querySelector("#<?php echo $searchFormId ?>").style.display = 'none';
+		document.querySelector("#<?php echo $searchFormFluxId ?>").style.display = 'none';
+		document.querySelector("#<?php echo $searchFormPersonneId ?>").style.display = 'none';
 	});
+
 </script>

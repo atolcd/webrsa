@@ -26,8 +26,11 @@ msgstr "Rapports d'intégration des flux"
 msgid "Visionneuse::index::empty"
 msgstr "Aucun fichier intégré pour l'instant."
 
-msgid "Search.Visionneuse"
+msgid "Search.VisionneuseFlux"
 msgstr "Recherche par type de flux"
+
+msgid "Search.Visionneuse.Personne"
+msgstr "Recherche par personne"
 
 msgid "Visionneuse.flux"
 msgstr "Flux"
@@ -40,6 +43,19 @@ msgstr "Date de début"
 
 msgid "Visionneuse.dtfin"
 msgstr "Date de fin"
+
+msgid "Search.Visionneuse.nom"
+msgstr "Nom"
+
+msgid "Search.Visionneuse.prenom"
+msgstr "Prénom"
+
+msgid "Search.Visionneuse.dtnai"
+msgstr "Date de naissance"
+
+msgid "Search.Visionneuse.nir"
+msgstr "NIR"
+
 
 msgid "Visionneuse.duree"
 msgstr "Durée"
@@ -73,6 +89,15 @@ msgstr "Détail personnes"
 
 msgid "/Visionneuses/view/#Visionneuse.identificationflux_id#"
 msgstr "Voir le détail des personnes pour ce flux"
+
+msgid "/Visionneuses/view/#Talendsynt.identificationflux_id#"
+msgstr "Voir le détail des personnes pour ce flux"
+
+msgid "Visionneuse::form::infoFlux"
+msgstr "Formulaire de recherche de flux"
+
+msgid "Visionneuse::form::infoPersonne"
+msgstr "Formulaire de recherche par personne"
 
 ###############################################################################
 msgid "Visionneuses::view::title"

@@ -108,30 +108,84 @@
 				'FINANCIER' => 'FINANCIER',
 			);
 
+			$isFlux = true;
 			if(!empty($this->request->data)) {
 				$search = $this->request->data['Search'];
 				$query = array();
-				if($search['Visionneuse']['flux'] != '') {
-					$query['conditions'][] = array('Visionneuse.flux' => $search['Visionneuse']['flux']);
-				}
+				// Recherche par flux
+				if(isset($search['Visionneuse']['searchFlux']) && $search['Visionneuse']['searchFlux'] == 1) {
+					if($search['Visionneuse']['flux'] != '') {
+						$query['conditions'][] = array('Visionneuse.flux' => $search['Visionneuse']['flux']);
+					}
 
-				if($search['Visionneuse']['dtdeb'] == 1) {
-					$query['conditions'] = $this->Visionneuse->conditionsDates($query['conditions'], $search, 'Visionneuse.dtdeb');
+					if($search['Visionneuse']['dtdeb'] == 1) {
+						$query['conditions'][] = $this->Visionneuse->conditionsDates($query['conditions'], $search, 'Visionneuse.dtdeb');
+					}
+					if( isset($query['conditions']) ) {
+						$visionneuses = $this->paginate('Visionneuse', $query['conditions']);
+					} else {
+						$visionneuses = $this->paginate('Visionneuse');
+					}
 				}
-				$visionneuses = $this->paginate('Visionneuse', $query['conditions']);
+				// Recherche par personne
+				else if( isset($search['Visionneuse']['searchPersonne']) && $search['Visionneuse']['searchPersonne'] == 1 ) {
+					$isFlux = false;
+					$query = array(
+						'fields' => array_merge(
+							$this->Talendsynt->fields(),
+							array(
+								'Visionneuse.id',
+								'Visionneuse.flux',
+								'Visionneuse.nomfic'
+							)
+						),
+						'conditions' => array(),
+						'joins' => array(
+							array(
+								'table' => 'visionneuses',
+								'alias' => 'Visionneuse',
+								'type' => 'INNER',
+								'conditions' => array(
+									'Visionneuse.identificationflux_id = Talendsynt.identificationflux_id',
+								)
+							)
+						)
+					);
+
+					if($search['Visionneuse']['nom'] != '') {
+						$query['conditions'][] = array('Talendsynt.nom' => $search['Visionneuse']['nom']);
+					}
+
+					if($search['Visionneuse']['prenom'] != '') {
+						$query['conditions'][] = array('Talendsynt.prenom' => $search['Visionneuse']['prenom']);
+					}
+
+					if(!empty($search['Visionneuse']['dtnai'])) {
+						$search['Talendsynt']['dtnai'] = $search['Visionneuse']['dtnai'];
+						$query['conditions'] = $this->Talendsynt->conditionsDate($query['conditions'], $search, 'Talendsynt.dtnai');
+					}
+
+					if($search['Visionneuse']['nir'] != '') {
+						$query['conditions'][] = array('Talendsynt.nir' => $search['Visionneuse']['nir']);
+					}
+
+					$visionneuses = $this->Talendsynt->find('all', $query);
+				}
 			} else {
 				$visionneuses = $this->paginate('Visionneuse');
 			}
 			// Calcul de la durée et du nombre de dossier présent
-			foreach($visionneuses as $key => $visionneuse) {
-				$duree = date("H:i:s", strtotime( $visionneuse['Visionneuse']['dtfin'] ) - strtotime( $visionneuse['Visionneuse']['dtdeb'] ));
-				$visionneuses[$key]['Visionneuse']['duree'] = $duree;
+			if($isFlux) {
+				foreach($visionneuses as $key => $visionneuse) {
+					$duree = date("H:i:s", strtotime( $visionneuse['Visionneuse']['dtfin'] ) - strtotime( $visionneuse['Visionneuse']['dtdeb'] ));
+					$visionneuses[$key]['Visionneuse']['duree'] = $duree;
 
-				$dossier = $visionneuse['Visionneuse']['nbrejete'] + $visionneuse['Visionneuse']['nbinser'] + $visionneuse['Visionneuse']['nbmaj'];
-				$visionneuses[$key]['Visionneuse']['dossier'] = $dossier;
+					$dossier = $visionneuse['Visionneuse']['nbrejete'] + $visionneuse['Visionneuse']['nbinser'] + $visionneuse['Visionneuse']['nbmaj'];
+					$visionneuses[$key]['Visionneuse']['dossier'] = $dossier;
+				}
 			}
 
-			$this->set(compact('visionneuses', 'options'));
+			$this->set(compact('visionneuses', 'options', 'isFlux'));
 		}
 
 		/**
