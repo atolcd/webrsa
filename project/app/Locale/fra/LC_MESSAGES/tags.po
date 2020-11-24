@@ -177,3 +177,6 @@ msgstr "Origine de l'orientation"
 
 msgid "Search.Orientstruct.typeorient_id"
 msgstr "Type d'orientation"
+
+msgid "Tags::Cohorte::notags"
+msgstr "Vous avez été redirigé vers l'accueil car il n'y a pas de tag de configuré. Vous devez aller dans le menu de paramétrage pour pouvoir les configurer et accéder à cette cohorte."

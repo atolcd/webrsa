@@ -287,17 +287,26 @@
 		 * Cohorte
 		 */
 		public function cohorte() {
-			$this->WebrsaCohorteTag->cohorteFields = array(
-				'Personne.id' => array('type' => 'hidden', 'label' => '', 'hidden' => true),
-				'Foyer.id' => array('type' => 'hidden', 'label' => '', 'hidden' => true),
-				'Tag.selection' => array('type' => 'checkbox', 'label' => '&nbsp;'),
-				'EntiteTag.modele' => array('type' => 'select', 'label' => ''),
-				'Tag.valeurtag_id' => array('type' => 'select', 'label' => ''),
-				'Tag.limite' => array('type' => 'date', 'label' => '', 'dateFormat' => 'DMY', 'minYear' => date('Y'), 'maxYear' => date('Y')+4, 'empty' => true),
-				'Tag.commentaire' => array('type' => 'textarea', 'label' => ''),
-			);
-			$Recherches = $this->Components->load('WebrsaCohortesTags');
-			$Recherches->cohorte(array('modelName' => 'Dossier'));
+			$tags = $this->Tag->Valeurtag->find('all', array());
+			if(isset($tags) && !empty($tags)) {
+				$this->WebrsaCohorteTag->cohorteFields = array(
+					'Personne.id' => array('type' => 'hidden', 'label' => '', 'hidden' => true),
+					'Foyer.id' => array('type' => 'hidden', 'label' => '', 'hidden' => true),
+					'Tag.selection' => array('type' => 'checkbox', 'label' => '&nbsp;'),
+					'EntiteTag.modele' => array('type' => 'select', 'label' => ''),
+					'Tag.valeurtag_id' => array('type' => 'select', 'label' => ''),
+					'Tag.limite' => array('type' => 'date', 'label' => '', 'dateFormat' => 'DMY', 'minYear' => date('Y'), 'maxYear' => date('Y')+4, 'empty' => true),
+					'Tag.commentaire' => array('type' => 'textarea', 'label' => ''),
+				);
+				$Recherches = $this->Components->load('WebrsaCohortesTags');
+				$Recherches->cohorte(array('modelName' => 'Dossier'));
+			} else {
+				$this->Flash->error( __m('Tags::Cohorte::notags') );
+				$this->redirect(array(
+					'controller' => 'accueils',
+					'action' => 'index'
+				));
+			}
 		}
 
 		/**
