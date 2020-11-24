@@ -91,6 +91,34 @@
 					)
 				);
 
+				// Vérification de la présence des SAMS dans la configuration et ajout si besoin
+				$configuration = Configure::read('ConfigurableQuery.Planpauvrete.searchprimoaccedant');
+				if(in_array('Sitecov58.name', $configuration['results']['fields']) == true) {
+					$query['fields'] = array_merge(
+						$query['fields'],
+						array(
+							'Sitecov58.name'
+						)
+					);
+
+					$query['joins'] = array_merge(
+						$query['joins'],
+						array(
+							array(
+								'table' => 'cantons_sitescovs58',
+								'alias' => 'CantonSitecov58',
+								'type' => 'LEFT OUTER',
+								'conditions' => '"Canton"."id" = "CantonSitecov58"."canton_id"'
+							),
+							array(
+								'table' => 'sitescovs58',
+								'alias' => 'Sitecov58',
+								'type' => 'LEFT OUTER',
+								'conditions' => '"Sitecov58"."id" = "CantonSitecov58"."sitecov58_id"'
+							)
+						)
+					);
+				}
 				// 4. Conditions
 				// SDD & DOV
 				$query = $this->WebrsaCohortePlanpauvrete->sdddov($query);
