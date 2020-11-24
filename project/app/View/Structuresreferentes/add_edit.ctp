@@ -25,7 +25,8 @@
 					'Structurereferente.ville',
 					'Structurereferente.code_insee',
 					'Structurereferente.numtel',
-					'Structurereferente.numfax'
+					'Structurereferente.numfax',
+					'Structurereferente.email'
 				)
 			),
 			array(

@@ -69,3 +69,6 @@ msgstr "Gestion des orientations"
 
 msgid "Structurereferente.pdo"
 msgstr "Gestion des PDOs"
+
+msgid "Structurereferente.email"
+msgstr "Email"

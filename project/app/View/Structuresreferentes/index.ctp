@@ -114,6 +114,7 @@
 					'Structurereferente.ville',
 					'Structurereferente.code_insee',
 					'Structurereferente.numtel',
+					'Structurereferente.email',
 					'Typeorient.lib_type_orient',
 					'Structurereferente.actif',
 					'Structurereferente.typestructure',
