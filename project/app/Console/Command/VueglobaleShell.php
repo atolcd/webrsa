@@ -695,7 +695,7 @@ class VueglobaleShell extends XShell
 			}
 
 			$arrayXml[$lastId]['Beneficiaire'] = array(
-				'flagSortie' => 'N',
+				'flagSortie' => '0',
 				'genre' => $result['qual'],
 				'nomNaissance' => $result['nomnai'],
 				'nomUsage' => $result['nom'],
