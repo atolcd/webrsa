@@ -45,7 +45,8 @@ class VueglobaleShell extends XShell
 	public $uses = array(
 		'Allocataire',
 		'Personne',
-		'Historiquedroit'
+		'Historiquedroit',
+		'Structurereferente'
 	);
 
 	/**
@@ -121,8 +122,7 @@ class VueglobaleShell extends XShell
 					Adresse.compladr,
 					Adresse.codepos,
 					Adresse.nomcom,
-					Personne.email,
-					Structurereferente.lib_struc
+					Personne.email
 				FROM
 					personnes AS Personne
 					INNER JOIN foyers AS Foyer ON (Personne.foyer_id = Foyer.id)
@@ -145,8 +145,6 @@ class VueglobaleShell extends XShell
 						LIMIT 1
 					))
 					INNER JOIN adresses AS Adresse ON (Adressefoyer.adresse_id = Adresse.id)
-					LEFT JOIN orientsstructs AS Orientstruct ON (Personne.id = Orientstruct.personne_id)
-					LEFT JOIN structuresreferentes AS Structurereferente ON (Orientstruct.structurereferente_id = Structurereferente.id)
 					ORDER BY Personne.id
 				),
 				rendezvousTotal AS (
@@ -203,8 +201,28 @@ class VueglobaleShell extends XShell
 	}
 
 	/**
+	 * Récupère la dernière structure d'orientation d'une personne
+	 * @param int
+	 * @return string
+	 */
+	private function _getLastMSP($idPersonne) {
+		$query = array(
+			'recursive' => -1,
+			'conditions' => array(
+				'Orientstruct.personne_id' => $idPersonne,
+			),
+			'joins' => array(
+				$this->Structurereferente->join('Orientstruct')
+			),
+			'order' => array('Orientstruct.date_valid DESC'),
+		);
+		$results = $this->Structurereferente->find('first', $query);
+		return $results['Structurereferente']['lib_struc'];
+	}
+
+	/**
 	 * Récupère le dernier historique d'une personne
-	 * @param array
+	 * @param int
 	 * @return array
 	 */
 	private function _getHisto($idPersonne) {
@@ -694,6 +712,9 @@ class VueglobaleShell extends XShell
 				$email = '';
 			}
 
+			// MSP
+			$msp = $this->_getLastMSP($lastId);
+
 			$arrayXml[$lastId]['Beneficiaire'] = array(
 				'flagSortie' => '0',
 				'genre' => $result['qual'],
@@ -706,7 +727,7 @@ class VueglobaleShell extends XShell
 				'adresseComplete' => $adressecomplete,
 				'codePostal' => $result['codepos'],
 				'ville' => $result['nomcom'],
-				'mspRattachement' => $result['lib_struc'],
+				'mspRattachement' => $msp,
 				'telephone' => $tel,
 				'mail' => $email
 			);
