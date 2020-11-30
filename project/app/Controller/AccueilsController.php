@@ -283,6 +283,13 @@
 		 */
 		protected function _getCersQuery58 ($du, $au) {
 			$query = array (
+				'fields' => array_merge(
+					$this->Contratinsertion->fields(),
+					array(
+						"Personne.nom",
+						"Personne.prenom"
+					)
+				),
 				'recursive' => -1,
 				'joins' => array(
 					$this->Contratinsertion->join('Personne'),

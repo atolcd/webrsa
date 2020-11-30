@@ -2,9 +2,7 @@
 <h2>
 	<?php
 		$cers = $results['cers'];
-		$titre = __d('accueils', 'Accueil.cer.titre');
-		$titre = str_replace('__DU__', $cers['du'], $titre);
-		$titre = str_replace('__AU__', $cers['au'], $titre);
+		$titre = __d('accueils', 'Accueil.cer.titre', array($cers['du'], $cers['au']));
 		unset ($cers['du']);
 		unset ($cers['au']);
 		echo $titre;

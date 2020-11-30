@@ -83,7 +83,7 @@ msgstr " depuis le "
 # Titres rubriques =============================================================
 
 msgid "Accueil.cer.titre"
-msgstr "Vos CER du __DU__ au __AU__"
+msgstr "Vos CERS arrivant à échéance entre le %s et le %s"
 
 msgid "Accueil.fiche.titre"
 msgstr "Vos fiches de positionnement de plus de __LIMITE__ mois sans information sur l'effectivité du positionnement"
