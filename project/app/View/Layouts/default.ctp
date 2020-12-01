@@ -206,7 +206,7 @@
 			}
 
 			if (Configure::read('Module.Datepicker.enabled')) {
-				echo $this->element('Cake2Datepicker.datepicker_auto', array('lang' => 'fr'));
+				echo $this->element('Cake2Datepicker/Cake2Datepicker.datepicker_auto', array('lang' => 'fr'));
 			}
 		?>
 		<?php if( Configure::read( 'debug' ) > 0 ): ?>
