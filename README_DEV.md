@@ -7,6 +7,7 @@
 
 ## Configurer l'instance de développement
 
+<<<<<<< HEAD
 Créer un fichier `.env.local` à partir de `.env.local.sample` et remplir les champs
 * "CD_DEPARTEMENT"
 
@@ -18,6 +19,9 @@ Créer un fichier `.env.local` à partir de `.env.local.sample` et remplir les c
 * "GEDOOO_CLOUDOOO_HOST"
 
 Créer un fichier `docker-compose.yml`  à partir de `docker-compose.yml.sample` et ajouter les configurations BDD manquantes (voir fichier pour plus d'explications, section ## Utiliser plusieurs bases de données)
+=======
+`.env.local`
+>>>>>>> Environnement de dev Docker
 
 ## Packager l'application
 
