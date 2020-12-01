@@ -2,7 +2,7 @@
 
 *Configuration serveur WebRSA*
 
-* link:centos/centos/Configuration_serveur_Webrsa_4.pdf[Configuration serveur Webrsa 4]
+* link:centos/Configuration_serveur_Webrsa_4.pdf[Configuration serveur Webrsa 4]
 
 *Configuration serveur Alfresco*
 
@@ -10,4 +10,4 @@
 
 *Installation WebRSA*
 
-* link:installation/installation/Installation_Webrsa_4.pdf[Configuration WebRSA 4]
+* link:installation/Installation_Webrsa_4.pdf[Configuration WebRSA 4]
