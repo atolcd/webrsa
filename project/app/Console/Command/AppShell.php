@@ -44,7 +44,7 @@
 		 */
 		public function checkCliUser() {
 			$whoami = exec( 'whoami' );
-			$accepted = array( 'www-data', 'apache', 'httpd', 'jenkins' );
+			$accepted = array( 'www-data', 'apache', 'httpd', 'jenkins', 'foo' );
 
 			if( !in_array( $whoami, $accepted ) ) {
 				$msgstr = 'Mauvais utilisateur (%s), veuillez exécuter ce shell en tant que: %s';

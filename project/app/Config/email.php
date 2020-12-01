@@ -429,6 +429,7 @@ class EmailConfig {
 		$this->user_generation_mdp['to'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_TO');
 		$this->user_generation_mdp['subject'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_SUBJECT');
 		$this->user_generation_mdp['host'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_HOST');
+		$this->user_generation_mdp['port'] = intval(env('EMAIL_CONFIG_USER_GENERATION_MDP_PORT'));
 		$this->user_generation_mdp['username'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_USERNAME');
 		$this->user_generation_mdp['password'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_PASSWORD');
 		$this->user_generation_mdp['client'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_CLIENT');
@@ -439,6 +440,7 @@ class EmailConfig {
 		$this->apre66_piecesmanquantes['to'] = env('EMAIL_CONFIG_APRE66_PIECES_MANQUANTES_TO');
 		$this->apre66_piecesmanquantes['subject'] = env('EMAIL_CONFIG_APRE66_PIECES_MANQUANTES_SUBJECT');
 		$this->apre66_piecesmanquantes['host'] = env('EMAIL_CONFIG_APRE66_PIECES_MANQUANTES_HOST');
+		$this->apre66_piecesmanquantes['port'] = intval(env('EMAIL_CONFIG_APRE66_PIECES_MANQUANTES_PORT'));
 		$this->apre66_piecesmanquantes['username'] = env('EMAIL_CONFIG_APRE66_PIECES_MANQUANTES_USERNAME');
 		$this->apre66_piecesmanquantes['password'] = env('EMAIL_CONFIG_APRE66_PIECES_MANQUANTES_PASSWORD');
 		$this->apre66_piecesmanquantes['client'] = env('EMAIL_CONFIG_APRE66_PIECES_MANQUANTES_CLIENT');
@@ -449,6 +451,7 @@ class EmailConfig {
 		$this->fiche_candidature['to'] = env('EMAIL_CONFIG_FICHE_CANDIDATURE_TO');
 		$this->fiche_candidature['subject'] = env('EMAIL_CONFIG_FICHE_CANDIDATURE_SUBJECT');
 		$this->fiche_candidature['host'] = env('EMAIL_CONFIG_FICHE_CANDIDATURE_HOST');
+		$this->fiche_candidature['port'] = intval(env('EMAIL_CONFIG_FICHE_CANDIDATURE_PORT'));
 		$this->fiche_candidature['username'] = env('EMAIL_CONFIG_FICHE_CANDIDATURE_USERNAME');
 		$this->fiche_candidature['password'] = env('EMAIL_CONFIG_FICHE_CANDIDATURE_PASSWORD');
 		$this->fiche_candidature['client'] = env('EMAIL_CONFIG_FICHE_CANDIDATURE_CLIENT');
@@ -459,6 +462,7 @@ class EmailConfig {
 		$this->avis_technique_cui['to'] = env('EMAIL_CONFIG_AVIS_TECHNIQUE_CUI_TO');
 		$this->avis_technique_cui['subject'] = env('EMAIL_CONFIG_AVIS_TECHNIQUE_CUI_SUBJECT');
 		$this->avis_technique_cui['host'] = env('EMAIL_CONFIG_AVIS_TECHNIQUE_CUI_HOST');
+		$this->avis_technique_cui['port'] = intval(env('EMAIL_CONFIG_AVIS_TECHNIQUE_CUI_PORT'));
 		$this->avis_technique_cui['username'] = env('EMAIL_CONFIG_AVIS_TECHNIQUE_CUI_USERNAME');
 		$this->avis_technique_cui['password'] = env('EMAIL_CONFIG_AVIS_TECHNIQUE_CUI_PASSWORD');
 		$this->avis_technique_cui['client'] = env('EMAIL_CONFIG_AVIS_TECHNIQUE_CUI_CLIENT');
@@ -469,6 +473,7 @@ class EmailConfig {
 		$this->mail_employeur_cui['to'] = env('EMAIL_CONFIG_MAIL_EMPLOYEUR_CUI_TO');
 		$this->mail_employeur_cui['subject'] = env('EMAIL_CONFIG_MAIL_EMPLOYEUR_CUI_SUBJECT');
 		$this->mail_employeur_cui['host'] = env('EMAIL_CONFIG_MAIL_EMPLOYEUR_CUI_HOST');
+		$this->mail_employeur_cui['port'] = intval(env('EMAIL_CONFIG_MAIL_EMPLOYEUR_CUI_PORT'));
 		$this->mail_employeur_cui['username'] = env('EMAIL_CONFIG_MAIL_EMPLOYEUR_CUI_USERNAME');
 		$this->mail_employeur_cui['password'] = env('EMAIL_CONFIG_MAIL_EMPLOYEUR_CUI_PASSWORD');
 		$this->mail_employeur_cui['client'] = env('EMAIL_CONFIG_MAIL_EMPLOYEUR_CUI_CLIENT');
@@ -479,6 +484,7 @@ class EmailConfig {
 		$this->mail_decision_employeur_cui['to'] = env('EMAIL_CONFIG_MAIL_DECISION_EMPLOYEUR_CUI_TO');
 		$this->mail_decision_employeur_cui['subject'] = env('EMAIL_CONFIG_MAIL_DECISION_EMPLOYEUR_CUI_SUBJECT');
 		$this->mail_decision_employeur_cui['host'] = env('EMAIL_CONFIG_MAIL_DECISION_EMPLOYEUR_CUI_HOST');
+		$this->mail_decision_employeur_cui['port'] = intval(env('EMAIL_CONFIG_MAIL_DECISION_EMPLOYEUR_CUI_PORT'));
 		$this->mail_decision_employeur_cui['username'] = env('EMAIL_CONFIG_MAIL_DECISION_EMPLOYEUR_CUI_USERNAME');
 		$this->mail_decision_employeur_cui['password'] = env('EMAIL_CONFIG_MAIL_DECISION_EMPLOYEUR_CUI_PASSWORD');
 		$this->mail_decision_employeur_cui['client'] = env('EMAIL_CONFIG_MAIL_DECISION_EMPLOYEUR_CUI_CLIENT');
@@ -489,6 +495,7 @@ class EmailConfig {
 		$this->fiche_de_liaison['to'] = env('EMAIL_CONFIG_MAIL_FICHE_DE_LIAISON_TO');
 		$this->fiche_de_liaison['subject'] = env('EMAIL_CONFIG_MAIL_FICHE_DE_LIAISON_SUBJECT');
 		$this->fiche_de_liaison['host'] = env('EMAIL_CONFIG_MAIL_FICHE_DE_LIAISON_HOST');
+		$this->fiche_de_liaison['port'] = intval(env('EMAIL_CONFIG_MAIL_FICHE_DE_LIAISON_PORT'));
 		$this->fiche_de_liaison['username'] = env('EMAIL_CONFIG_MAIL_FICHE_DE_LIAISON_USERNAME');
 		$this->fiche_de_liaison['password'] = env('EMAIL_CONFIG_MAIL_FICHE_DE_LIAISON_PASSWORD');
 		$this->fiche_de_liaison['client'] = env('EMAIL_CONFIG_MAIL_FICHE_DE_LIAISON_CLIENT');
@@ -499,6 +506,7 @@ class EmailConfig {
 		$this->import_frsa['to'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_TO');
 		$this->import_frsa['subject'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_SUBJECT');
 		$this->import_frsa['host'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_HOST');
+		$this->import_frsa['port'] = intval(env('EMAIL_CONFIG_MAIL_IMPORTFRSA_PORT'));
 		$this->import_frsa['username'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_USERNAME');
 		$this->import_frsa['password'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_PASSWORD');
 		$this->import_frsa['client'] = env('EMAIL_CONFIG_MAIL_IMPORTFRSA_CLIENT');
@@ -509,6 +517,7 @@ class EmailConfig {
 		$this->piece_jointe['to'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_TO');
 		$this->piece_jointe['subject'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_SUBJECT');
 		$this->piece_jointe['host'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_HOST');
+		$this->piece_jointe['port'] = intval(env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_PORT'));
 		$this->piece_jointe['username'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_USERNAME');
 		$this->piece_jointe['password'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_PASSWORD');
 		$this->piece_jointe['client'] = env('EMAIL_CONFIG_MAIL_PIECE_JOINTE_CLIENT');
@@ -519,6 +528,7 @@ class EmailConfig {
 		$this->mail_recours_gracieux['to'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_TO');
 		$this->mail_recours_gracieux['subject'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_SUBJECT');
 		$this->mail_recours_gracieux['host'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_HOST');
+		$this->mail_recours_gracieux['port'] = intval(env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_PORT'));
 		$this->mail_recours_gracieux['username'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_USERNAME');
 		$this->mail_recours_gracieux['password'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_PASSWORD');
 		$this->mail_recours_gracieux['client'] = env('EMAIL_CONFIG_MAIL_RECOURS_GRACIEUX_CLIENT');
@@ -529,6 +539,7 @@ class EmailConfig {
 		$this->mail_titresuivi['to'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_TO');
 		$this->mail_titresuivi['subject'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_SUBJECT');
 		$this->mail_titresuivi['host'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_HOST');
+		$this->mail_titresuivi['port'] = intval(env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_PORT'));
 		$this->mail_titresuivi['username'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_USERNAME');
 		$this->mail_titresuivi['password'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_PASSWORD');
 		$this->mail_titresuivi['client'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_CLIENT');
