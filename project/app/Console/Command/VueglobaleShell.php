@@ -122,15 +122,15 @@ class VueglobaleShell extends XShell
 					Adresse.compladr,
 					Adresse.codepos,
 					Adresse.nomcom,
-					Personne.email
+					Personne.email,
+					Prestation.rolepers
 				FROM
 					personnes AS Personne
 					INNER JOIN foyers AS Foyer ON (Personne.foyer_id = Foyer.id)
 					INNER JOIN dossiers AS Dossier ON (Foyer.dossier_id = Dossier.id)
 					INNER JOIN calculsdroitsrsa AS Calculdroitrsa ON (Calculdroitrsa.personne_id = Personne.id)
 					INNER JOIN situationsdossiersrsa Situationdossierrsa ON (Situationdossierrsa.dossier_id = Dossier.id)
-					INNER JOIN prestations AS Prestation ON (Prestation.personne_id = Personne.id AND
-				 Prestation.natprest = 'RSA' AND Prestation.rolepers IN ('DEM'))
+					INNER JOIN prestations AS Prestation ON (Prestation.personne_id = Personne.id AND Prestation.natprest = 'RSA')
 					INNER JOIN adressesfoyers AS Adressefoyer ON (Adressefoyer.foyer_id = Foyer.id AND
 				 Adressefoyer.id IN(
 						SELECT
@@ -169,6 +169,30 @@ class VueglobaleShell extends XShell
 			SELECT * FROM personnesTotal LEFT OUTER JOIN rendezvousTotal ON (personnesTotal.id = rendezvousTotal.personne_id);";
 	}
 
+
+	/**
+	 * Supprime les doublons dans tableaux multidimensionnels
+	 * Voir https://www.php.net/manual/fr/function.array-unique.php pour plus d'informations
+	 * @param array
+	 * @param string
+	 *
+	 * @return array
+	 */
+	function unique_multidim_array($array, $key) {
+		$temp_array = array();
+		$i = 0;
+		$key_array = array();
+
+		foreach($array as $val) {
+			if (!in_array($val[$key], $key_array)) {
+				$key_array[$i] = $val[$key];
+				$temp_array[$i] = $val;
+			}
+			$i++;
+		}
+		return $temp_array;
+	}
+
 	/**
 	 * Traite les résultats de la première requête pour avoir en clé l'ID de la personne
 	 * @return array
@@ -198,6 +222,68 @@ class VueglobaleShell extends XShell
 		}
 
 		return $results;
+	}
+
+	/**
+	 * Récupère toutes les personnes en lien avec l'ID passé en paramètre
+	 * @param int
+	 * @param array
+	 * @return array
+	 */
+	function _getPersonneLien($idPersonne, $infoPersonne) {
+		// Récupération du foyer
+		$foyer = $this->Personne->find('first', array(
+			'fields' => array(
+				'Personne.foyer_id'
+			),
+			'recursive' => -1,
+			'conditions' => array('Personne.id' => $idPersonne)
+			)
+		);
+		$foyer_id = $foyer['Personne']['foyer_id'];
+
+		// Récupération des personnes vivant sous le même foyer
+		$query = array(
+			'fields' => array(
+				'Personne.id',
+				'Personne.nom',
+				'Personne.prenom',
+				'Personne.dtnai',
+				'Prestation.rolepers'
+			),
+			'recursive' => -1,
+			'joins' => array(
+				$this->Personne->join('Prestation')
+			),
+			'conditions' => array(
+				'Personne.foyer_id' => $foyer_id,
+				'Personne.id !=' => $idPersonne
+			)
+		);
+		$personnesLiens = $this->Personne->find('all', $query);
+		if(!empty($personnesLiens)) {
+			$results = array();
+			foreach($personnesLiens as $personne) {
+				if(	$personne['Personne']['prenom'] != $infoPersonne['prenom'] &&
+					$personne['Personne']['dtnai'] != $infoPersonne['dateNaissance']
+				) {
+					$typeLien = '';
+					if($personne['Prestation']['rolepers'] != '') {
+						$typeLien = __d('prestation', 'ENUM::ROLEPERS::' . $personne['Prestation']['rolepers']);
+					}
+					$results[] = array(
+						'nom' => $personne['Personne']['nom'],
+						'prenom' => $personne['Personne']['prenom'],
+						'dtnai' => $personne['Personne']['dtnai'],
+						'typeLien' => $typeLien
+					);
+				}
+			}
+			// Suppression des doublons
+			$results = $this->unique_multidim_array($results, 'dtnai');
+			return $results;
+		}
+		return array();
 	}
 
 	/**
@@ -741,26 +827,33 @@ class VueglobaleShell extends XShell
 			);
 			/* -- Fin partie Bénificiaire -- */
 
-			// Aides
-			if (in_array('ind', $this->args)) {
-				$arrayXml[$lastId]['Aides'] = $this->_traitementAidesIndemnite($result, $listeIDPersonne);
-			} else {
-				$arrayXml[$lastId]['Aides'] = $this->_traitementAides($result, $listeIDPersonne);
-			}
-
-			// RDV
-			if (
-				isset($arrayXml[$result['personne_id']])
-				&& !empty($arrayXml[$result['personne_id']])
-			) {
-				if (!isset($arrayXml[$lastId]['RDVs'])) {
-					$arrayXml[$lastId]['RDVs'] = array();
+			if($result['rolepers'] == 'DEM') {
+				// Aides
+				if (in_array('ind', $this->args)) {
+					$arrayXml[$lastId]['Aides'] = $this->_traitementAidesIndemnite($result, $listeIDPersonne);
+				} else {
+					$arrayXml[$lastId]['Aides'] = $this->_traitementAides($result, $listeIDPersonne);
 				}
-				$arrayXml[$lastId]['RDVs'] += $result['RDVs'];
+
+				// RDV
+				if (
+					isset($arrayXml[$result['personne_id']])
+					&& !empty($arrayXml[$result['personne_id']])
+				) {
+					if (!isset($arrayXml[$lastId]['RDVs'])) {
+						$arrayXml[$lastId]['RDVs'] = array();
+					}
+					$arrayXml[$lastId]['RDVs'] += $result['RDVs'];
+				}
+
+				// Balise actif
+				$arrayXml[$lastId]['Beneficiaire']['actif'] = $this->_isActif($arrayXml[$lastId], $lastId);
+			} else {
+				$arrayXml[$lastId]['Beneficiaire']['actif'] = 0;
 			}
 
-			// Balise actif
-			$arrayXml[$lastId]['Beneficiaire']['actif'] = $this->_isActif($arrayXml[$lastId], $lastId);
+			// Personne en lien
+			$arrayXml[$lastId]['lien'] = $this->_getPersonneLien($lastId, $arrayXml[$lastId]['Beneficiaire']);
 		}
 		return $arrayXml;
 	}
@@ -883,6 +976,19 @@ class VueglobaleShell extends XShell
 					$xml->writeElement('fonctionIntervenant', $rdv['fonctionIntervenant']);
 					$xml->endElement();
 					$xml->endElement();
+					$xml->endElement();
+				}
+				$xml->endElement();
+			}
+			// Personnes en lien
+			if(isset($personne['lien']) && !empty($personne['lien'])) {
+				$xml->startElement('personnesLien');
+				foreach($personne['lien'] as $lien) {
+					$xml->startElement('personneLien');
+					$xml->writeElement('nom', $lien['nom']);
+					$xml->writeElement('prenom', $lien['prenom']);
+					$xml->writeElement('dateNaissance', $lien['dtnai']);
+					$xml->writeElement('typeLien', $lien['typeLien']);
 					$xml->endElement();
 				}
 				$xml->endElement();
