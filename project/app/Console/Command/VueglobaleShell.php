@@ -469,6 +469,14 @@ class VueglobaleShell extends XShell
 				$nbAides++;
 			}
 		}
+
+		// Récupération de la traduction de l'état actuel du droit
+		if( isset($aides) && !empty($aides) ) {
+			$nbDerAide = count($aides)-1;
+			if($aides[$nbDerAide]['dateFinDroits'] == '') {
+				$aides[$nbDerAide]['etatDroitActuel'] = __d('historiquedroit', "ENUM::ETATDOSRSA::" . $histo['etatdosrsa']);
+			}
+		}
 		return $aides;
 	}
 
@@ -836,6 +844,9 @@ class VueglobaleShell extends XShell
 					$xml->writeElement('datePremiereAttribution', $aide['datePremiereAttribution']);
 					if ($aide['dateFinDroits'] != '') {
 						$xml->writeElement('dateFinDroits', $aide['dateFinDroits']);
+					} else {
+						// S'il n'y a pas de date de fin de droit, il a un état actuel
+						$xml->writeElement('commentEtatDroit', $aide['etatDroitActuel']);
 					}
 					// Noeud Référent
 					if (isset($aide['nomReferent']) && !empty($aide['nomReferent'])) {
