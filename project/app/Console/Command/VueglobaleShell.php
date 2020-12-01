@@ -302,7 +302,11 @@ class VueglobaleShell extends XShell
 			'order' => array('Orientstruct.date_valid DESC'),
 		);
 		$results = $this->Structurereferente->find('first', $query);
-		return $results['Structurereferente']['lib_struc'];
+		if(isset($results) && !empty($results)) {
+			return $results['Structurereferente']['lib_struc'];
+		} else {
+			return '';
+		}
 	}
 
 	/**
