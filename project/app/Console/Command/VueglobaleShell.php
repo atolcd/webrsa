@@ -122,7 +122,8 @@ class VueglobaleShell extends XShell
 					Adresse.compladr,
 					Adresse.codepos,
 					Adresse.nomcom,
-					Personne.email
+					Personne.email,
+					Prestation.rolepers
 				FROM
 					personnes AS Personne
 					INNER JOIN foyers AS Foyer ON (Personne.foyer_id = Foyer.id)
