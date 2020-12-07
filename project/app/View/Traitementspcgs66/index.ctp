@@ -15,7 +15,7 @@
 		'h1',
 		$this->pageTitle = __d( 'traitementpcg66', "Traitementspcgs66::{$this->action}" ).' '.$nompersonne
 	);
-// debug( $searchOptions );
+
 	echo $this->Default2->search(
 		array(
 			'Personnepcg66.dossierpcg66_id' => array( 'domain' => 'traitementpcg66', 'value' => $dossierpcgId )
@@ -114,7 +114,7 @@
 				'innerTable' => $this->Translator->normalize(
 					array(
 						'Traitementpcg66.motifannulation' => array(
-							'condition' => "'#Traitementpcg66.motifannulation#' !== ''"
+							'condition' => '"#Traitementpcg66.motifannulation#" !== ""'
 						)
 					)
 				)
