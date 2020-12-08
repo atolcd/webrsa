@@ -295,7 +295,6 @@
 			}
 
 			if( Configure::read( 'Cg.departement' ) == 58 ) {
-				$content .= $this->_input( "{$params['prefix']}Sitecov58.id", $params, array( 'type' => 'select', 'options' => (array)Hash::get( $params, 'options.Sitecov58.id' ), 'empty' => true ) );
 				$content .= $this->_input( "{$params['prefix']}CantonSitecov58.id", $params, array( 'type' => 'select', 'options' => (array)Hash::get( $params, 'options.Sitecov58.id' ), 'empty' => true ) );
 			}
 
