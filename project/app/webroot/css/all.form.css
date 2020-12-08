@@ -463,6 +463,14 @@ div.divideInto2Columns label, div.divideInto3Columns label, div.input.divideInto
 	width: auto;
 }
 
+div.divideInto2Columns {
+	columns: 2 auto;
+}
+
+div.divideInto3Columns {
+	columns: 3 auto;
+}
+
 #FormRequestmaster div.input.checkbox {
 	padding-top: 2px;
 	padding-bottom: 2px;

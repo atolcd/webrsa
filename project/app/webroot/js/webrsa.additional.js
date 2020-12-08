@@ -782,11 +782,17 @@ document.observe("dom:loaded", function () {
 
 	// Divise les elements portant la class divideInto2Columns en deux colonnes
 	$$('.divideInto2Columns').each(function (dom) {
-		divideIntoColumns(dom, 2);
+		if(!dom.parentElement.classList.contains("divideInto2Columns")) {
+			dom.parentElement.classList.add("divideInto2Columns");
+		}
+		dom.classList.remove("divideInto2Columns");
 	});
 
 	// Divise les elements portant la class divideInto3Columns en trois colonnes
 	$$('.divideInto3Columns').each(function (dom) {
-		divideIntoColumns(dom, 3);
+		if(!dom.parentElement.classList.contains("divideInto3Columns")) {
+			dom.parentElement.classList.add("divideInto3Columns");
+		}
+		dom.classList.remove("divideInto3Columns");
 	});
 });
