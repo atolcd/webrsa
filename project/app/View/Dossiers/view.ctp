@@ -639,8 +639,28 @@
 							</tr>
 							<tr class="odd">
 								<th>Date de notification PPAE</th>
-								<td><?php echo date_short( Set::extract( 'DEM.Fluxpoleemploi.Informationpe.ppae_date_notification', $details) );?></td>
-								<td><?php echo date_short( Set::extract( 'CJT.Fluxpoleemploi.Informationpe.ppae_date_notification', $details) );?></td>
+								<td><?php echo date_short( Set::extract( 'DEM.Fluxpoleemploi.Informationpe.ppae_date_signature', $details) );?></td>
+								<td><?php echo date_short( Set::extract( 'CJT.Fluxpoleemploi.Informationpe.ppae_date_signature', $details) );?></td>
+							</tr>
+							<tr class="even">
+								<th>Situation</th>
+								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_lib_situation', $details );?></td>
+								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_lib_situation', $details );?></td>
+							</tr>
+							<tr class="odd">
+								<th>Date de cessation</th>
+								<td><?php echo date_short( Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_date_cessation_ide', $details) );?></td>
+								<td><?php echo date_short( Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_date_cessation_ide', $details) );?></td>
+							</tr>
+							<tr class="even">
+								<th>Motif d'accompagnment</th>
+								<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.ppae_modalite_libelle', $details );?></td>
+								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.ppae_modalite_libelle', $details );?></td>
+							</tr>
+							<tr class="odd">
+								<th>Date du dernier entretien</th>
+								<td><?php echo date_short( Set::extract( 'DEM.Fluxpoleemploi.Informationpe.ppae_date_dernier_ent', $details) );?></td>
+								<td><?php echo date_short( Set::extract( 'CJT.Fluxpoleemploi.Informationpe.ppae_date_dernier_ent', $details) );?></td>
 							</tr>
 
 						</tbody>
