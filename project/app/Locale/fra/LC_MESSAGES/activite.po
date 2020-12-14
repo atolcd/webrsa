@@ -150,7 +150,7 @@ msgid "ENUM::NATCONTRTRA::CDI"
 msgstr "Contrat à durée indéterminé"
 
 msgid "ENUM::NATCONTRTRA::CUI"
-msgstr "Contrat unique d'insertion"
+msgstr "En contrat Unique Insertion PEC-CDDI"
 
 msgid "ENUM::NATCONTRTRA::CU1"
 msgstr "CUI non marchand (CAE) Etat"
@@ -168,10 +168,10 @@ msgid "ENUM::NATCONTRTRA::INT"
 msgstr "Intérim"
 
 msgid "ENUM::NATCONTRTRA::AUT"
-msgstr "Autre (CAE, CIE, CEC, …)"
+msgstr "Sous autre contrat"
 
 msgid "ENUM::NATCONTRTRA::AEN"
-msgstr "Autoentrepreneur"
+msgstr "Auto-entrepreneur"
 
 msgid "ENUM::NATCONTRTRA::VDI"
 msgstr "Vendeur à domicile"
@@ -180,13 +180,16 @@ msgid "ENUM::ACT::ABS"
 msgstr "Absent foyer"
 
 msgid "ENUM::ACT::ANI"
-msgstr "Activité + chômeur non indemnisé"
+msgstr "Activité partielle + chômeur non indemnisé"
 
 msgid "ENUM::ACT::CAT"
 msgstr "Activité centre aide travail"
 
 msgid "ENUM::ACT::AAP"
-msgstr "Activité en atelier protégé"
+msgstr "Activité en entreprise adaptée"
+
+msgid "ENUM::ACT::AUT"
+msgstr "Sous autre contrat"
 
 msgid "ENUM::ACT::SIN"
 msgstr "Activité inconnue"
@@ -198,16 +201,31 @@ msgid "ENUM::ACT::APP"
 msgstr "Apprenti"
 
 msgid "ENUM::ACT::AMA"
-msgstr "Assistante maternelle agréé"
+msgstr "Assistante maternelle agréée"
+
+msgid "ENUM::ACT::AEN"
+msgstr "Auto-entrepreneur"
 
 msgid "ENUM::ACT::SUR"
 msgstr "Bénéf. rente de survivant A.T."
 
 msgid "ENUM::ACT::CBS"
-msgstr "C.A.T. : absent du foyer"
+msgstr "ESAT : absent du foyer"
 
 msgid "ENUM::ACT::CLD"
-msgstr "C.A.T. : longue maladie"
+msgstr "ESAT : maladie longue durée"
+
+msgid "ENUM::ACT::CDD"
+msgstr "Contrat à durée déterminé"
+
+msgid "ENUM::ACT::CDI"
+msgstr "Contrat à durée indéterminé"
+
+msgid "ENUM::ACT::CUI"
+msgstr "En contrat Unique Insertion PEC-CDDI"
+
+msgid "ENUM::ACT::DET"
+msgstr "Travailleur étranger détaché en France"
 
 msgid "ENUM::ACT::CSA"
 msgstr "C.E.S. et salarié(e)"
@@ -246,16 +264,16 @@ msgid "ENUM::ACT::ASP"
 msgstr "Chômeur-alloc speciale"
 
 msgid "ENUM::ACT::CDA"
-msgstr "Chômeur aud abat. + activite"
+msgstr "Chômeur abattement + activité"
 
 msgid "ENUM::ACT::CDN"
-msgstr "Chômeur aud neut. + activite"
+msgstr "Chômeur neutralisation + activité"
 
 msgid "ENUM::ACT::ADN"
-msgstr "Chômeur aud neutralisation"
+msgstr "Chômeur allocation de fin de droit"
 
 msgid "ENUM::ACT::ADA"
-msgstr "Chômeur aud ou pare abattement"
+msgstr "Chômeur AUD ou pare abattement"
 
 msgid "ENUM::ACT::CAP"
 msgstr "Chômeur et activité > 55% du smic"
@@ -291,7 +309,7 @@ msgid "ENUM::ACT::CES"
 msgstr "Contrat emploi solidarité"
 
 msgid "ENUM::ACT::CIS"
-msgstr "Contrat insertion + salarié dom"
+msgstr "CIA et activité salariée / DOM"
 
 msgid "ENUM::ACT::CIA"
 msgstr "Contrat insertion/activité /dom"
@@ -303,7 +321,7 @@ msgid "ENUM::ACT::DEG"
 msgstr "Dégagé obligation scolaire"
 
 msgid "ENUM::ACT::CAR"
-msgstr "Délai de carence ASSEDIC"
+msgstr "Délai de carence P.Emploi"
 
 msgid "ENUM::ACT::MMA"
 msgstr "Enfant maintenu maternelle"
@@ -312,7 +330,7 @@ msgid "ENUM::ACT::ETU"
 msgstr "Etudiant"
 
 msgid "ENUM::ACT::EBO"
-msgstr "Etudiant boursier R.M.I."
+msgstr "Etudiant boursier"
 
 msgid "ENUM::ACT::ETS"
 msgstr "Etudiant salarié"
@@ -321,10 +339,10 @@ msgid "ENUM::ACT::EXS"
 msgstr "Expl. agricole en ces/dom"
 
 msgid "ENUM::ACT::FDA"
-msgstr "Fonct. publique chôm. aud abat."
+msgstr "Chômeur F.Publique abattement"
 
 msgid "ENUM::ACT::FDN"
-msgstr "Fonct. publique chôm. aud neut."
+msgstr "Chômeur F.Publique neutralisation"
 
 msgid "ENUM::ACT::GSA"
 msgstr "Gérant salarié"
@@ -339,7 +357,7 @@ msgid "ENUM::ACT::HAN"
 msgstr "Infirme / handicapé"
 
 msgid "ENUM::ACT::ANP"
-msgstr "Inscrit à l'ANPE"
+msgstr "Inscrit à P.Emploi"
 
 msgid "ENUM::ACT::IAD"
 msgstr "Instruction à domicile"
@@ -366,13 +384,13 @@ msgid "ENUM::ACT::MLD"
 msgstr "Maladie longue durée"
 
 msgid "ENUM::ACT::MAR"
-msgstr "Marin pêcheur"
+msgstr "Marin pêcheur travailleur non salarié"
 
 msgid "ENUM::ACT::MOA"
-msgstr "Membre org. comm. en activité"
+msgstr "Membre organisation, communauté, en activité"
 
 msgid "ENUM::ACT::MOC"
-msgstr "Membre org. comm. sans activité"
+msgstr "Membre organisation, communauté, sans activité"
 
 msgid "ENUM::ACT::AMT"
 msgstr "Mi-temps suite plein temps"
@@ -384,25 +402,25 @@ msgid "ENUM::ACT::NOB"
 msgstr "Non soumis obligation scolaire"
 
 msgid "ENUM::ACT::INV"
-msgstr "Pension invalidité"
+msgstr "Invalide"
 
 msgid "ENUM::ACT::NCH"
 msgstr "Plus de droit / Non à charge"
 
 msgid "ENUM::ACT::PRE"
-msgstr "Pré retraite"
+msgstr "Préretraité"
 
 msgid "ENUM::ACT::RAT"
 msgstr "Rente AT"
 
 msgid "ENUM::ACT::RET"
-msgstr "Retraite"
+msgstr "Retraité"
 
 msgid "ENUM::ACT::RSA"
-msgstr "Retraite(e) militaire < 60ans"
+msgstr "Retraite(e) militaire < 62 ans"
 
 msgid "ENUM::ACT::RAC"
-msgstr "Réduction activité (C.A.T.)"
+msgstr "Réduction activité (ESAT)"
 
 msgid "ENUM::ACT::EXP"
 msgstr "Régime Agricole travailleur non salarié"
@@ -411,19 +429,19 @@ msgid "ENUM::ACT::ETI"
 msgstr "Régime Général travailleur non salarié"
 
 msgid "ENUM::ACT::DNL"
-msgstr "Sal. non rem. durée légale"
+msgstr "Salarié non rémunéré durée légale"
 
 msgid "ENUM::ACT::SAL"
 msgstr "Salarié(e)"
 
 msgid "ENUM::ACT::SSA"
-msgstr "Sans activité"
+msgstr "Service civique - Garanties Jeunes - Sans activité"
 
 msgid "ENUM::ACT::SAV"
-msgstr "Sans activité motif COTOREP"
+msgstr "Sans activité motif CDAPH"
 
 msgid "ENUM::ACT::SAC"
-msgstr "Sans activité refus ANPE"
+msgstr "Sans activité"
 
 msgid "ENUM::ACT::SCO"
 msgstr "Scolaire"
@@ -435,7 +453,7 @@ msgid "ENUM::ACT::SFP"
 msgstr "Stage formation professionnelle"
 
 msgid "ENUM::ACT::SNR"
-msgstr "Stage non remunéré et R.M.I."
+msgstr "Stage non remunéré"
 
 msgid "ENUM::ACT::PIL"
 msgstr "Stagiaire prog insert locale"
@@ -444,10 +462,13 @@ msgid "ENUM::ACT::RMA"
 msgstr "Titulaire contrat CIMA/CAV"
 
 msgid "ENUM::ACT::INT"
-msgstr "Travailleur intermittent"
+msgstr "Intérim - Travailleur intermittent"
 
 msgid "ENUM::ACT::TSA"
 msgstr "Travailleur saisonnier"
+
+msgid "ENUM::ACT::VDI"
+msgstr "Vendeur à domicile"
 
 msgid "ENUM::ACT::VRP"
 msgstr "Voyageur représentant placier"
