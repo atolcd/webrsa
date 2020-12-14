@@ -16,6 +16,15 @@
 	 */
 	class PlanpauvretecohorteController extends AppController
 	{
+
+		/**
+		 * Suppression du cache avant chaque action
+		 */
+		public function beforeFilter() {
+			parent::beforeFilter();
+			$this->deleteCache();
+		}
+
 		/**
 		 * Corrige le nombre total de la pagination classique dû au distinct dans la requête
 		 *

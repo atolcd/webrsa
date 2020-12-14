@@ -547,6 +547,13 @@
 			}
 		}
 
+		/**
+		 * Suppression du cache
+		 */
+		public function deleteCache() {
+			shell_exec (APP . 'webrsa.sh clearcache');
+		}
+
 		public function beforeRedirect($url, $status = null, $exit = true) {
 			$this->_logTrace();
 			$this->_clearAuthError();
