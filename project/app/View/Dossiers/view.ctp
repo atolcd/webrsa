@@ -638,7 +638,7 @@
 								<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.formation_lib_niveau', $details );?></td>
 							</tr>
 							<tr class="odd">
-								<th>Date de notification PPAE</th>
+								<th>Date de signature PPAE</th>
 								<td><?php echo date_short( Set::extract( 'DEM.Fluxpoleemploi.Informationpe.ppae_date_signature', $details) );?></td>
 								<td><?php echo date_short( Set::extract( 'CJT.Fluxpoleemploi.Informationpe.ppae_date_signature', $details) );?></td>
 							</tr>
