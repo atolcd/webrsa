@@ -94,6 +94,9 @@ msgstr "Export des adresses non associées"
 msgid "/Cantons/adressessanscanton"
 msgstr "Export des adresses sans canton"
 
+msgid "/Cantons/adressessanscanton/:title"
+msgstr "Export des adresses sans canton"
+
 msgid "/Cantons/adressesnonassociees/:title"
 msgstr "Export des adresses non associées"
 
