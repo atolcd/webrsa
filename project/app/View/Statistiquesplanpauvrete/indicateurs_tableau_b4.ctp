@@ -19,7 +19,8 @@
 					__d( 'statistiquesplanpauvrete', 'Tableau.sep' ),
 					__d( 'statistiquesplanpauvrete', 'Tableau.oct' ),
 					__d( 'statistiquesplanpauvrete', 'Tableau.nov' ),
-					__d( 'statistiquesplanpauvrete', 'Tableau.dec' )
+					__d( 'statistiquesplanpauvrete', 'Tableau.dec' ),
+					__d( 'statistiquesplanpauvrete', 'Tableau.Total' )
 				)
 			)
 		);
@@ -27,7 +28,7 @@
 		$cells = array();
 		$row = 0;
 		foreach( $results as $key => $result) {
-			if( $key == 'Social' || $key == 'Prepro') {
+			if( in_array($key, array('Social', 'Prepro', 'Pro') ) ) {
 				$cells[$row] = array('<b>' . __d('statistiquesplanpauvrete', 'Tableaub4.' . $key ) . '</b>');
 				$row++;
 				foreach( $results[$key] as $keySpec => $resultSpec) {
@@ -66,4 +67,15 @@
 		$tbody = $this->Xhtml->tag( 'tbody', $this->Xhtml->tableCells( $cells ) );
 
 		echo $this->Xhtml->tag( 'table', $thead.$tbody ,array( 'class' => 'first' ) );
+		?>
+		<ul class="actionMenu">
+		<li><?php
+			echo $this->Xhtml->exportLink(
+				__d('statistiquesplanpauvrete','Statistiquesplanpauvrete.telecharger.csv'),
+				array( 'action' => 'exportcsv_tableau_b4', 'visualisation' ) + Hash::flatten( $this->request->data, '__' ),
+				true
+			);
+		?></li>
+		</ul>
+		<?php
 	}

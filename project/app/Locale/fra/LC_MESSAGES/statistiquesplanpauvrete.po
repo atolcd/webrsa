@@ -100,18 +100,21 @@ msgstr "Novembre"
 msgid "Tableau.dec"
 msgstr "Décembre"
 
+msgid "Tableau.Total"
+msgstr "Cumul"
+
 # ==============================================================================
 # Délais
 # ==============================================================================
 
 msgid "Tableau_delai.0_XX"
-msgstr " - Avant XX jours"
+msgstr " - Avant XX mois"
 
 msgid "Tableau_delai.XX_YY"
-msgstr " - Entre XX jours et YY jours"
+msgstr " - Entre XX mois et YY mois"
 
 msgid "Tableau_delai.XX_999"
-msgstr " - Après XX jours"
+msgstr " - Après XX mois"
 
 # ==============================================================================
 # Textes généraux
@@ -127,10 +130,10 @@ msgid "Tableau.nbPremOrientation"
 msgstr "Suivi de la 1ère orientation en "
 
 msgid "tableaub1.total"
-msgstr "<b>Nombres des nouvelles personnes soumises à droits et devoirs (SSD)</b>"
+msgstr "<b>Nombres des nouveaux entrant SDD et DOV</b>"
 
 msgid "tableaub1.Orientes"
-msgstr "Nombres de personnes SSD orientés (1ère orientation)"
+msgstr "Nombres de personnes orientées SDD et DOV (1ère orientation)"
 
 msgid "tableaub1.Orientestotal"
 msgstr "Total"
@@ -154,7 +157,7 @@ msgid "tableaub1.Orientesoa"
 msgstr " - Dont orientées OA"
 
 msgid "tableaub1.NonOrientes"
-msgstr "Nombres de personnes SSD non orientés"
+msgstr "Nombres de nouveaux entrants SDD et DOV non orientés"
 
 msgid "tableaub1.NonOrientestotal"
 msgstr "Total"
@@ -172,7 +175,7 @@ msgid "tableaub1.delai_moyen"
 msgstr "<b>Délais moyen d'orientation (en jours)</b>"
 
 msgid "tableaub1.orient_31jours"
-msgstr "<b>Nombre de personnes SSD orientés en moins de 31 jours</b>"
+msgstr "<b>Nombre de nouveaux entrants SDD et DOV orientés en moins de 1 mois</b>"
 
 msgid "tableaub1.delai"
 msgstr "<b>Délai de 1ère orientation</b>"
@@ -184,16 +187,22 @@ msgstr "<b>Taux d'orientation</b>"
 # ==============================================================================
 
 msgid "Tableaua1.title"
-msgstr "Nombre de foyers avec un droit ouvert en "
+msgstr "Nombre de personnes DOV en "
 
-msgid "tableaua1.total"
-msgstr "Nombre de foyers avec un droit ouvert par mois"
+msgid "tableaua1.totalDOV"
+msgstr "Nombre de personnes DOV par mois"
 
-msgid "tableaua1.nbFoyerConnu"
-msgstr " - Dont le nbre de foyers connus le mois précédent avec un droit radié (les nouveaux entrants)"
+msgid "tableaua1.totalSDDDOV"
+msgstr "Nombre de personnes DOV et SDD"
 
-msgid "tableaua1.nbFoyerInconnu"
-msgstr " - Dont le nbre de foyers inconnus dans la base (les primo-arrivants)"
+msgid "tableaua1.nbPersonnesConnues"
+msgstr " - Dont le nombre de nouveaux entrants"
+
+msgid "tableaua1.nbPersonnesInconnues"
+msgstr " - Dont le nombre de primo-arrivants"
+
+msgid "tableaua1.nbPersonnes"
+msgstr " - Nouveaux entrants + primo-arrivants"
 
 # ==============================================================================
 # Tableau A2
@@ -299,16 +308,16 @@ msgstr "<b>Nombre de rendez-vous réalisés dans le cadre de l’accompagnement 
 # ==============================================================================
 
 msgid "Tableaub4.nbOrientation"
-msgstr "Nombre de 1er rendez-vous après orientation en "
+msgstr "Nombre de 1ers rendez-vous après orientation en "
 
 msgid "Tableaub4.total"
-msgstr "Nombre de 1er rendez-vous fixé suite à une orientation"
+msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation"
 
 msgid "Tableaub4.Social"
 msgstr "Orientation sociale"
 
 msgid "Tableaub4.Socialtotal"
-msgstr "Nombre de 1er rendez-vous fixé suite à une orientation \"Sociale\""
+msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation \"Sociale\""
 
 msgid "Tableaub4.Socialvenu"
 msgstr " - Dont nombre de venu à ce 1er rendez-vous"
@@ -318,6 +327,9 @@ msgstr " - Dont nombre de non venu avec excuse recevable"
 
 msgid "Tableaub4.Socialsans_excuse"
 msgstr " - Dont nombre de non venu sans excuse recevable"
+
+msgid "Tableaub4.Socialdelai15jrs"
+msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
 
 msgid "Tableaub4.Socialdelai_moyen"
 msgstr "Délai d'attente moyen pour un 1er rendez-vous"
@@ -332,7 +344,7 @@ msgid "Tableaub4.Prepro"
 msgstr "Orientation Pré Pro"
 
 msgid "Tableaub4.Preprototal"
-msgstr "Nombre de 1er rendez-vous fixé suite à une orientation \"Pré Pro\""
+msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation \"Pré Pro\""
 
 msgid "Tableaub4.Preprovenu"
 msgstr " - Dont nombre de venu à ce 1er rendez-vous"
@@ -343,10 +355,37 @@ msgstr " - Dont nombre de non venu avec excuse recevable"
 msgid "Tableaub4.Preprosans_excuse"
 msgstr " - Dont nombre de non venu sans excuse recevable"
 
+msgid "Tableaub4.Preprodelai15jrs"
+msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
+
 msgid "Tableaub4.Preprodelai_moyen"
 msgstr "Délai d'attente moyen pour un 1er rendez-vous"
 
 msgid "Tableaub4.Preprotaux_presence"
+msgstr "Taux de présence au 1er rendez-vous"
+
+msgid "Tableaub4.Pro"
+msgstr "Orientation Professionnelle"
+
+msgid "Tableaub4.Prototal"
+msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation \"Professionnelle\""
+
+msgid "Tableaub4.Provenu"
+msgstr " - Dont nombre de venu à ce 1er rendez-vous"
+
+msgid "Tableaub4.Proexcuse_recevable"
+msgstr " - Dont nombre de non venu avec excuse recevable"
+
+msgid "Tableaub4.Prosans_excuse"
+msgstr " - Dont nombre de non venu sans excuse recevable"
+
+msgid "Tableaub4.Prodelai15jrs"
+msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
+
+msgid "Tableaub4.Prodelai_moyen"
+msgstr "Délai d'attente moyen pour un 1er rendez-vous"
+
+msgid "Tableaub4.Protaux_presence"
 msgstr "Taux de présence au 1er rendez-vous"
 
 # ==============================================================================
@@ -375,6 +414,9 @@ msgstr "Délais moyen de contractualisation \"Pré pro\" en jours"
 
 msgid "Tableaub5.signe15jrs"
 msgstr "Nombre de CER signés en moins de 15 jours"
+
+msgid "Tableaub5.signe2mois"
+msgstr "Nombre de CER signés en moins de 2 mois"
 
 msgid "Tableaub5.delai"
 msgstr "Délais de contractualisation"

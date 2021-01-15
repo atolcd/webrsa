@@ -19,7 +19,8 @@
 					__d( 'statistiquesplanpauvrete', 'Tableau.sep' ),
 					__d( 'statistiquesplanpauvrete', 'Tableau.oct' ),
 					__d( 'statistiquesplanpauvrete', 'Tableau.nov' ),
-					__d( 'statistiquesplanpauvrete', 'Tableau.dec' )
+					__d( 'statistiquesplanpauvrete', 'Tableau.dec' ),
+					__d( 'statistiquesplanpauvrete', 'Tableau.Total' )
 				)
 			)
 		);
@@ -35,4 +36,15 @@
 		$tbody = $this->Xhtml->tag( 'tbody', $this->Xhtml->tableCells( $cells ) );
 
 		echo $this->Xhtml->tag( 'table', $thead.$tbody ,array( 'class' => 'first' ) );
+		?>
+		<ul class="actionMenu">
+		<li><?php
+			echo $this->Xhtml->exportLink(
+				__d('statistiquesplanpauvrete','Statistiquesplanpauvrete.telecharger.csv'),
+				array( 'action' => 'exportcsv_tableau_a1', 'visualisation' ) + Hash::flatten( $this->request->data, '__' ),
+				true
+			);
+		?></li>
+		</ul>
+		<?php
 	}

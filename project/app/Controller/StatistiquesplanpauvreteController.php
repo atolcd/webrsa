@@ -171,7 +171,16 @@
 			$named = Hash::expand( $this->request->named, '__');
 			$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA1( $named );
 
-			$export = $this->generationexportcsv( $results, 'Tableaua2');
+			$options = array(
+				'annee' => $named['Search']['annee'],
+				'titleprefix' => 'Tableaua1.title',
+				'prefixTab' => 'tableaua1',
+				'multiArray' => array(
+					'delai'
+				)
+			);
+			$export = $this->_generationexportcsvV1( $results, $options);
+			$filename = 'indicateurs_tableau_A1';
 
 			$this->layout = '';
 			$this->set( compact( 'export', 'filename' ) );
@@ -201,7 +210,18 @@
 			$named = Hash::expand( $this->request->named, '__');
 			$results = $this->Statistiqueplanpauvrete->getIndicateursTableauA2( $named );
 
-			$export = $this->generationexportcsv( $results, 'Tableaua2');
+			$options = array(
+				'annee' => $named['Search']['annee'],
+				'titleprefix' => 'Tableaua2.title',
+				'prefixTab' => 'tableaua2',
+				'multiArray' => array(
+					'Orientes',
+					'Contrat',
+					'CDCER'
+				)
+			);
+			$export = $this->_generationexportcsvV1( $results, $options);
+			$filename = 'indicateurs_tableau_A2';
 
 			$this->layout = '';
 			$this->set( compact( 'export', 'filename' ) );
@@ -231,7 +251,18 @@
 			$named = Hash::expand( $this->request->named, '__');
 			$results = $this->Statistiqueplanpauvrete->getIndicateursTableauB1( $named );
 
-			$export = $this->generationexportcsv( $results, 'Tableaub1');
+			$options = array(
+				'annee' => $named['Search']['annee'],
+				'titleprefix' => 'Tableau.nbPremOrientation',
+				'prefixTab' => 'tableaub1',
+				'multiArray' => array(
+					'delai',
+					'Orientes',
+					'NonOrientes'
+				)
+			);
+			$export = $this->_generationexportcsvV1( $results, $options);
+			$filename = 'indicateurs_tableau_B1';
 
 			$this->layout = '';
 			$this->set( compact( 'export', 'filename' ) );
@@ -259,9 +290,45 @@
 		 */
 		public function exportcsv_tableau_b4() {
 			$named = Hash::expand( $this->request->named, '__');
-			$results = $this->Statistiqueplanpauvrete->getIndicateursTableau4( $named );
+			$results = $this->Statistiqueplanpauvrete->getIndicateursTableauB4( $named );
 
-			$export = $this->generationexportcsv( $results, 'Tableaub4');
+			$options = array(
+				'annee' => $named['Search']['annee'],
+				'titleprefix' => 'Tableaub4.nbOrientation',
+				'prefixTab' => 'Tableaub4',
+				'multiArray' => array(
+					'Pro',
+					'Prepro',
+					'Social'
+				)
+			);
+			$export = $this->_generationexportcsvV1( $results, $options);
+			$filename = 'indicateurs_tableau_B4';
+
+			$this->layout = '';
+			$this->set( compact( 'export', 'filename' ) );
+			$this->render('exportcsv');
+		}
+
+		/**
+		 * Export csv pour les indicateurs d'orientation.
+		 *
+		 * @return void
+		 */
+		public function exportcsv_tableau_b5() {
+			$named = Hash::expand( $this->request->named, '__');
+			$results = $this->Statistiqueplanpauvrete->getIndicateursTableauB5( $named );
+
+			$options = array(
+				'annee' => $named['Search']['annee'],
+				'titleprefix' => 'Tableau.nbCer',
+				'prefixTab' => 'Tableaub5',
+				'multiArray' => array(
+					'delai'
+				)
+			);
+			$export = $this->_generationexportcsvV1( $results, $options);
+			$filename = 'indicateurs_tableau_B5';
 
 			$this->layout = '';
 			$this->set( compact( 'export', 'filename' ) );
@@ -499,29 +566,31 @@
 				$i++;
 				foreach ( $table AS $tkey => $subtable ) {
 					$j=0;
-					foreach ($subtable as $skey => $element) {
-						if ( is_array($element) ){
-							$j=0;
-							foreach ($element as $ekey => $subElement) {
+					if(is_array($subtable) ) {
+						foreach ($subtable as $skey => $element) {
+							if ( is_array($element) ){
+								$j=0;
+								foreach ($element as $ekey => $subElement) {
+									if ( $j==0 ) {
+										//Titre
+										$export[$i][$j] = __d('statistiquesplanpauvrete', $intitules_prefix.'.'.$tkey.$skey );
+										$j++;
+									}
+									//Case
+									$export[$i][$j] = $subElement;
+									$j++;
+								}
+								$i++;
+							} else {
 								if ( $j==0 ) {
 									//Titre
-									$export[$i][$j] = __d('statistiquesplanpauvrete', $intitules_prefix.'.'.$tkey.$skey );
+									$export[$i][$j] = __d('statistiquesplanpauvrete', $intitules_prefix.'.'.$tkey );
 									$j++;
 								}
 								//Case
-								$export[$i][$j] = $subElement;
+								$export[$i][$j] = $element;
 								$j++;
 							}
-							$i++;
-						} else {
-							if ( $j==0 ) {
-								//Titre
-								$export[$i][$j] = __d('statistiquesplanpauvrete', $intitules_prefix.'.'.$tkey );
-								$j++;
-							}
-							//Case
-							$export[$i][$j] = $element;
-							$j++;
 						}
 					}
 					$i++;
@@ -529,6 +598,93 @@
 				}
 				//Saut de ligne
 				$export[$i] = array ('', '', '', '', '', '', '', '', '', '', '', '', '' );
+				$i++;
+			}
+			return $export;
+		}
+
+		/**
+		 * Génération CSV des tableaux de la première version
+		 *
+		 * @param array $result : Contient les résultats de la requête du tableau
+		 * @param array $options : Tableau contenant le préfixe du tableau, l'année de recherche ainsi que le préfixe du titre du tableau
+		 * @return array
+		 */
+		private function _generationexportcsvV1 ($results, $options) {
+			$export = array ();
+			$i = 0;
+			// Titre
+			$export[$i] = array(
+				__d( 'statistiquesplanpauvrete', $options['titleprefix'] ) . $options['annee'],
+				__d('statistiquesplanpauvrete','Tableau.jan'),
+				__d('statistiquesplanpauvrete','Tableau.feb'),
+				__d('statistiquesplanpauvrete','Tableau.mar'),
+				__d('statistiquesplanpauvrete','Tableau.apr'),
+				__d('statistiquesplanpauvrete','Tableau.may'),
+				__d('statistiquesplanpauvrete','Tableau.jun'),
+				__d('statistiquesplanpauvrete','Tableau.jul'),
+				__d('statistiquesplanpauvrete','Tableau.aug'),
+				__d('statistiquesplanpauvrete','Tableau.sep'),
+				__d('statistiquesplanpauvrete','Tableau.oct'),
+				__d('statistiquesplanpauvrete','Tableau.nov'),
+				__d('statistiquesplanpauvrete','Tableau.dec'),
+				__d( 'statistiquesplanpauvrete', 'Tableau.Total')
+			);
+			$i++;
+			foreach ( $results AS $key => $table ) {
+				if(in_array($key, $options['multiArray']) ) {
+					$export[$i] = array(__d('statistiquesplanpauvrete', $options['prefixTab'] . '.' . $key ));
+					$i++;
+					if($key == 'delai') {
+						foreach( $results[$key] as $keyDelai => $delai) {
+							$export[$i] = $delai;
+							$joursDelais = explode('_', $keyDelai);
+							$strDelai = '';
+							if($joursDelais[0] === '0') {
+								$strDelai = str_replace('XX', $joursDelais[1], __d('statistiquesplanpauvrete', 'Tableau_delai.0_XX'));
+							}else if($joursDelais[1] === '999') {
+								$strDelai = str_replace('XX', $joursDelais[0], __d('statistiquesplanpauvrete', 'Tableau_delai.XX_999'));
+							} else {
+								$strDelai = str_replace('XX', $joursDelais[0], __d('statistiquesplanpauvrete', 'Tableau_delai.XX_YY'));
+								$strDelai = str_replace('YY', $joursDelais[1], $strDelai);
+							}
+							array_unshift($export[$i], $strDelai);
+							$i++;
+						}
+					} else {
+						foreach( $results[$key] as $key2 => $value) {
+							if($key2 == 'delai') {
+								foreach( $results[$key][$key2] as $keyDelai => $delai) {
+									$export[$i] = $delai;
+									$joursDelais = explode('_', $keyDelai);
+									$strDelai = '';
+									if($joursDelais[0] === '0') {
+										$strDelai = str_replace('XX', $joursDelais[1], __d('statistiquesplanpauvrete', 'Tableau_delai.0_XX'));
+									}else if($joursDelais[1] === '999') {
+										$strDelai = str_replace('XX', $joursDelais[0], __d('statistiquesplanpauvrete', 'Tableau_delai.XX_999'));
+									} else {
+										$strDelai = str_replace('XX', $joursDelais[0], __d('statistiquesplanpauvrete', 'Tableau_delai.XX_YY'));
+										$strDelai = str_replace('YY', $joursDelais[1], $strDelai);
+									}
+									array_unshift($export[$i], $strDelai);
+									$i++;
+								}
+							} else {
+								$export[$i] = array_merge(
+									array(__d('statistiquesplanpauvrete', $options['prefixTab'] . '.' . $key . $key2 )),
+									$value
+								);
+								$i++;
+							}
+						}
+					}
+				} else {
+					$export[$i] = $table;
+				}
+				if( isset($export[$i]) && is_array($export[$i]) )
+				{
+					array_unshift($export[$i], __d('statistiquesplanpauvrete', $options['prefixTab'] . '.' . $key ));
+				}
 				$i++;
 			}
 			return $export;
