@@ -944,8 +944,11 @@
 				'contain' => false,
 				'conditions' => array(
 					'personne_id = '.$personne_id,
+					'NOT' => array(
+						'decision_ci = \'A\''
+					)
 				),
-				'order' => 'dd_ci DESC'
+				'order' => 'rg_ci DESC'
 			) );
 
 			//Récupération de la date de début du contrat actuel et retrait de 1 jour
