@@ -2586,13 +2586,19 @@
 
 			// Initialisation tableau de résultats
 			$resultats = $this->_initializeTableauB1();
+			$arrayIdPersonne = array();
+			for($i = 0; $i <12; $i++) {
+				$arrayIdPersonne[$i] = array();
+			}
 
 			// Traitement des résultats
 			foreach($results as $result) {
 				$isThisYear = false;
 				if($result[0]['annee'] == $annee) {
 					$month = $result[0]['mois'] -1;
-					if( $result[0]['primo'] == true || $result[0]['nouvel_entrant'] == true ) {
+					if( ($result[0]['primo'] == true || $result[0]['nouvel_entrant'] == true) &&
+						in_array($result[0]['idpersonne'], $arrayIdPersonne[$month]) == false ) {
+						$arrayIdPersonne[$month][] = $result[0]['idpersonne'];
 						$resultats['total'][$month]++;
 					}
 					$isThisYear = true;
