@@ -284,7 +284,7 @@ $fonorg = $dossier['Dossier']['fonorg'];
 							'url' => array( 'controller' => 'Creancesalimentaires', 'action' => 'index', $personne['id'] )
 						)
 					);
-				if( true === in_array( $departement, array( 66, 93 ), true ) ) {
+				if( true === in_array( $departement, array( 66, 93 ) ) ) {
 						$subAllocataire['Accompagnement du parcours']['Aides financières']['Aides / APRE'] = array(
 							'url' => array( 'controller' => 'apres'.Configure::read( 'Apre.suffixe' ), 'action' => 'index', $personne['id'] )
 						);
