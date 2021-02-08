@@ -9,24 +9,26 @@ SELECT setval('configurationscategories_id_seq', (SELECT MAX(id) FROM public.con
 
 -- Ajout du module de modification de l'état de dossier
 INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
-	VALUES
-	('Module.ModifEtatDossier.enabled', 'true', 'Activation de la modification de l''état du dossier', current_timestamp, current_timestamp),
-	('Module.ModifEtatDossier.etatdos', '{"5":"Droit clos","6":"Droit clos sur mois antérieur ayant eu des créances transferées ou une régularisation dans le mois de référence pour une période antérieure."}', 'Liste des états possibles pour la modification de l''état des dossiers.
-"Z" : "Non défini"
-"0" : "Nouvelle demande en attente de décision CD pour ouverture du droit"
-"1" : "Droit refusé"
-"2" : "Droit ouvert et versable"
-"3" : "Droit ouvert et suspendu (le montant du droit est calculable, mais l''existence du droit est remis en cause)"
-"4" : "Droit ouvert mais versement suspendu (le montant du droit n''est pas calculable)"
-"5" : "Droit clos"
-"6" : "Droit clos sur mois antérieur ayant eu des créances transferées ou une régularisation dans le mois de référence pour une période antérieure."', current_timestamp, current_timestamp);
+	SELECT 'Module.ModifEtatDossier.enabled', 'true', 'Activation de la modification de l''état du dossier', current_timestamp, current_timestamp
+	WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.ModifEtatDossier.enabled');
 
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+	SELECT 'Module.ModifEtatDossier.etatdos', '{"5":"Droit clos","6":"Droit clos sur mois antérieur ayant eu des créances transferées ou une régularisation dans le mois de référence pour une période antérieure."}', 'Liste des états possibles pour la modification de l''état des dossiers.
+	"Z" : "Non défini"
+	"0" : "Nouvelle demande en attente de décision CD pour ouverture du droit"
+	"1" : "Droit refusé"
+	"2" : "Droit ouvert et versable"
+	"3" : "Droit ouvert et suspendu (le montant du droit est calculable, mais l''existence du droit est remis en cause)"
+	"4" : "Droit ouvert mais versement suspendu (le montant du droit n''est pas calculable)"
+	"5" : "Droit clos"
+	"6" : "Droit clos sur mois antérieur ayant eu des créances transferées ou une régularisation dans le mois de référence pour une période antérieure."', current_timestamp, current_timestamp
+	WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.ModifEtatDossier.etatdos');
 
 UPDATE public.configurations SET configurationscategorie_id = configurationscategories.id FROM configurationscategories WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Module.ModifEtatDossier.enabled';
 UPDATE public.configurations SET configurationscategorie_id = configurationscategories.id FROM configurationscategories WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Module.ModifEtatDossier.etatdos';
 
 -- Ajout du paramétrage pour la modification de l'état de dossier
-CREATE TABLE motifsetatsdossiers (
+CREATE TABLE IF NOT EXISTS motifsetatsdossiers (
 	id serial NOT NULL,
 	lib_motif varchar(250) NOT NULL,
 	actif int2 NOT NULL DEFAULT 0,
@@ -37,16 +39,17 @@ CREATE TABLE motifsetatsdossiers (
 );
 
 -- Modification de la table historiquesdroits
-ALTER TABLE public.historiquesdroits ADD nom varchar(50);
-ALTER TABLE public.historiquesdroits ADD prenom varchar(50);
-ALTER TABLE public.historiquesdroits ADD motif varchar(255);
+ALTER TABLE public.historiquesdroits ADD COLUMN IF NOT EXISTS nom varchar(50);
+ALTER TABLE public.historiquesdroits ADD COLUMN IF NOT EXISTS prenom varchar(50);
+ALTER TABLE public.historiquesdroits ADD COLUMN IF NOT EXISTS motif varchar(255);
 
 -- Cohorte modification de l'état de dossier
-INSERT INTO public.configurationscategories (lib_categorie) VALUES('Modifsetatsdossiers');
+INSERT INTO public.configurationscategories (lib_categorie)
+	SELECT 'Modifsetatsdossiers'
+	WHERE NOT EXISTS (SELECT id FROM configurationscategories WHERE lib_categorie LIKE 'Modifsetatsdossiers');
 
 INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
-	VALUES
-	('ConfigurableQuery.Modifsetatsdossiers.cohorte_modifetatdos', '{"filters":{"defaults":{"Calculdroitrsa":{"toppersdrodevorsa":""},"Dossier":{"dernier":"0","dtdemrsa":"0","dtdemrsa_from":"TAB::-1WEEK","dtdemrsa_to":"TAB::NOW"}},"accepted":[],"skip":[],"has":{"0":"Dsp","Contratinsertion":{"Contratinsertion.decision_ci":"V"},"Orientstruct":{"Orientstruct.statut_orient":"Orienté"}}},"query":{"restrict":[],"conditions":[],"order":["Personne.nom"]},"limit":10,"auto":false,"results":{"header":[],"fields":{"0":"Dossier.numdemrsa","1":"Dossier.dtdemrsa","2":"Personne.nir","3":"Situationdossierrsa.etatdosrsa","4":"Personne.nom_complet_prenoms","5":"Adresse.nomcom","Dossier.locked":{"type":"boolean","class":"dossier_locked"},"\/Dossiers\/view\/#Dossier.id#":{"class":"view external"}},"innerTable":{"0":"Dossier.matricule","1":"Personne.dtnai","2":"Prestation.rolepers","3":"Structurereferenteparcours.lib_struc","4":"Referentparcours.nom_complet","5":"Activite.act","6":"Personne.etat_dossier_orientation","Adresse.numcom":{"options":[]}}},"cohorte":{"options":[],"values":[],"config":{"recherche":[],"save":[]}},"ini_set":{"max_execution_time":0,"memory_limit":"512M"}}', 'Menu "Gestion de liste / Cohorte" > "Modification d''état des dossiers"
+	SELECT 'ConfigurableQuery.Modifsetatsdossiers.cohorte_modifetatdos', '{"filters":{"defaults":{"Calculdroitrsa":{"toppersdrodevorsa":""},"Dossier":{"dernier":"0","dtdemrsa":"0","dtdemrsa_from":"TAB::-1WEEK","dtdemrsa_to":"TAB::NOW"}},"accepted":[],"skip":[],"has":{"0":"Dsp","Contratinsertion":{"Contratinsertion.decision_ci":"V"},"Orientstruct":{"Orientstruct.statut_orient":"Orienté"}}},"query":{"restrict":[],"conditions":[],"order":["Personne.nom"]},"limit":10,"auto":false,"results":{"header":[],"fields":{"0":"Dossier.numdemrsa","1":"Dossier.dtdemrsa","2":"Personne.nir","3":"Situationdossierrsa.etatdosrsa","4":"Personne.nom_complet_prenoms","5":"Adresse.nomcom","Dossier.locked":{"type":"boolean","class":"dossier_locked"},"\/Dossiers\/view\/#Dossier.id#":{"class":"view external"}},"innerTable":{"0":"Dossier.matricule","1":"Personne.dtnai","2":"Prestation.rolepers","3":"Structurereferenteparcours.lib_struc","4":"Referentparcours.nom_complet","5":"Activite.act","6":"Personne.etat_dossier_orientation","Adresse.numcom":{"options":[]}}},"cohorte":{"options":[],"values":[],"config":{"recherche":[],"save":[]}},"ini_set":{"max_execution_time":0,"memory_limit":"512M"}}', 'Menu "Gestion de liste / Cohorte" > "Modification d''état des dossiers"
 
 		array(
 			 1. Filtres de recherche
@@ -141,8 +144,11 @@ INSERT INTO public.configurations(lib_variable, value_variable, comments_variabl
 				''max_execution_time'' => 0,
 				''memory_limit'' => ''512M''
 			)
-		)', current_timestamp, current_timestamp),
-	('ConfigurableQuery.Modifsetatsdossiers.exportcsv_modifetatdos', '{"filters":{"defaults":{"Calculdroitrsa":{"toppersdrodevorsa":""},"Dossier":{"dernier":"0","dtdemrsa":"0","dtdemrsa_from":"TAB::-1WEEK","dtdemrsa_to":"TAB::NOW"}},"accepted":[],"skip":[],"has":{"0":"Dsp","Contratinsertion":{"Contratinsertion.decision_ci":"V"},"Orientstruct":{"Orientstruct.statut_orient":"Orienté"}}},"query":{"restrict":[],"conditions":[],"order":["Personne.nom"]},"results":{"fields":["Dossier.numdemrsa","Dossier.dtdemrsa","Personne.nir","Situationdossierrsa.etatdosrsa","Personne.nom_complet_prenoms","Personne.dtnai","Adresse.numvoie","Adresse.libtypevoie","Adresse.nomvoie","Adresse.complideadr","Adresse.compladr","Adresse.codepos","Adresse.nomcom","Typeorient.lib_type_orient","Personne.idassedic","Dossier.matricule","Structurereferenteparcours.lib_struc","Referentparcours.nom_complet","Personne.sexe","Dsp.natlog","Activite.act","Personne.etat_dossier_orientation"]},"ini_set":{"max_execution_time":0,"memory_limit":"512M"}}', 'Export CSV, menu "Gestion de liste / Cohorte" > "Modification d''état des dossiers"
+		)', current_timestamp, current_timestamp
+	WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'ConfigurableQuery.Modifsetatsdossiers.cohorte_modifetatdos');
+
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+	SELECT 'ConfigurableQuery.Modifsetatsdossiers.exportcsv_modifetatdos', '{"filters":{"defaults":{"Calculdroitrsa":{"toppersdrodevorsa":""},"Dossier":{"dernier":"0","dtdemrsa":"0","dtdemrsa_from":"TAB::-1WEEK","dtdemrsa_to":"TAB::NOW"}},"accepted":[],"skip":[],"has":{"0":"Dsp","Contratinsertion":{"Contratinsertion.decision_ci":"V"},"Orientstruct":{"Orientstruct.statut_orient":"Orienté"}}},"query":{"restrict":[],"conditions":[],"order":["Personne.nom"]},"results":{"fields":["Dossier.numdemrsa","Dossier.dtdemrsa","Personne.nir","Situationdossierrsa.etatdosrsa","Personne.nom_complet_prenoms","Personne.dtnai","Adresse.numvoie","Adresse.libtypevoie","Adresse.nomvoie","Adresse.complideadr","Adresse.compladr","Adresse.codepos","Adresse.nomcom","Typeorient.lib_type_orient","Personne.idassedic","Dossier.matricule","Structurereferenteparcours.lib_struc","Referentparcours.nom_complet","Personne.sexe","Dsp.natlog","Activite.act","Personne.etat_dossier_orientation"]},"ini_set":{"max_execution_time":0,"memory_limit":"512M"}}', 'Export CSV, menu "Gestion de liste / Cohorte" > "Modification d''état des dossiers"
 
 		array(
 			 1. Filtres de recherche, on reprend la configuration de la recherche
@@ -178,7 +184,8 @@ INSERT INTO public.configurations(lib_variable, value_variable, comments_variabl
 			),
 			 4. Temps d''exécution, mémoire maximum, ...
 			''ini_set'' => Configure::read( ''ConfigurableQuery.Dossiers.search.ini_set'' ),
-		)', current_timestamp, current_timestamp);
+		)', current_timestamp, current_timestamp
+	WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'ConfigurableQuery.Modifsetatsdossiers.exportcsv_modifetatdos');
 
 UPDATE public.configurations SET configurationscategorie_id = configurationscategories.id FROM configurationscategories WHERE configurationscategories.lib_categorie = 'Modifsetatsdossiers' AND configurations.lib_variable LIKE 'ConfigurableQuery.Modifsetatsdossiers.cohorte_modifetatdos';
 UPDATE public.configurations SET configurationscategorie_id = configurationscategories.id FROM configurationscategories WHERE configurationscategories.lib_categorie = 'Modifsetatsdossiers' AND configurations.lib_variable LIKE 'ConfigurableQuery.Modifsetatsdossiers.exportcsv_modifetatdos';
@@ -189,16 +196,17 @@ ALTER TABLE public.sanctionseps58 ADD CONSTRAINT sanctionseps58_origine_in_list_
 ALTER TABLE public.sanctionseps58 ALTER COLUMN origine TYPE varchar(15) USING origine::varchar;
 
 INSERT INTO public.configurations (lib_variable, value_variable, comments_variable, created, modified)
-VALUES('Commissionseps.sanctionep.nonrespectppae', 'true', 'Permet les sanctions pour non respect du PPAE', current_timestamp, current_timestamp );
+	SELECT 'Commissionseps.sanctionep.nonrespectppae', 'true', 'Permet les sanctions pour non respect du PPAE', current_timestamp, current_timestamp
+	WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Commissionseps.sanctionep.nonrespectppae');
 
 UPDATE public.configurations SET configurationscategorie_id = configurationscategories.id FROM configurationscategories WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Commissionseps.sanctionep.nonrespectppae';
 
 -- Ajout de la colonne actif pour les dossiers allocataire pour les types de rdv.
-ALTER TABLE public.typesrdv ADD actif_dossier boolean NOT NULL DEFAULT true;
+ALTER TABLE public.typesrdv ADD COLUMN IF NOT EXISTS actif_dossier boolean NOT NULL DEFAULT true;
 
 -- Ajout de colonnes dans la table public.user pour gestion des mots de passe
-ALTER TABLE public.users ADD date_password timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
-ALTER TABLE public.users ADD nb_error_password int NOT NULL DEFAULT 0;
+ALTER TABLE public.users ADD COLUMN IF NOT EXISTS date_password timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP;
+ALTER TABLE public.users ADD COLUMN IF NOT EXISTS nb_error_password int NOT NULL DEFAULT 0;
 
 -- Update de la configuration du mot de passe
 UPDATE public.configurations SET comments_variable = 'Configuration de la gestion des mots de passe aléatoires.
@@ -245,8 +253,7 @@ UPDATE public.configurations SET comments_variable = 'Configuration de la gestio
 
 -- Export CSV des primo accédant
 INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
-	VALUES
-	('ConfigurableQuery.Planpauvrete.exportcsv',
+	SELECT 'ConfigurableQuery.Planpauvrete.exportcsv',
 	'{"filters":{"defaults":{"Dossier":{"dernier":"1"}},"accepted":[],"skip":["Calculdroitrsa.toppersdrodevorsa","Dossier.dtdemrsa","Detaildroitrsa.oridemrsa","Foyer.sitfam","Personne.trancheage","Situationdossierrsa.etatdosrsa","Serviceinstructeur.id","Suiviinstruction.typeserins","PersonneReferent.structurereferente_id","PersonneReferent.referent_id","Prestation.rolepers","ByTag.tag_choice"],"has":[]},"query":{"restrict":[],"conditions":[],"order":["Personne.id"]},"limit":10,"auto":false,"results":{"header":[],"fields":["Dossier.numdemrsa","Dossier.matricule","Dossier.dtdemrsa","Personne.nom_complet","Personne.nomnai","Personne.dtnati","Situationdossierrsa.etatdosrsa","Canton.canton"],"innerTable":[]},"ini_set":[]}',
 	'Menu "Recherches" > Par Primo accédants
 
@@ -317,7 +324,7 @@ INSERT INTO public.configurations(lib_variable, value_variable, comments_variabl
 			 6. Temps d''exécution, mémoire maximum, ...
 			''ini_set'' => array()
 		)', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
-	);
+	WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'ConfigurableQuery.Planpauvrete.exportcsv');
 
 UPDATE public.configurations SET configurationscategorie_id = configurationscategories.id FROM configurationscategories WHERE configurationscategories.lib_categorie = 'Planpauvrete' AND configurations.lib_variable LIKE 'ConfigurableQuery.Planpauvrete.exportcsv';
 
