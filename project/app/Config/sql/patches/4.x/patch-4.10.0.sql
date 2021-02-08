@@ -4,6 +4,7 @@ SET client_encoding = 'UTF8';
 BEGIN;
 -- *****************************************************************************
 -- Ajout de la vue permettant de calculer les statistiques plan pauvreté
+DROP MATERIALIZED VIEW IF EXISTS public.statppview;
 CREATE MATERIALIZED VIEW public.statppview
 TABLESPACE pg_default
 AS WITH liste_mois AS (
@@ -98,7 +99,7 @@ AS WITH liste_mois AS (
     lh.historiquedroit__toppersdrodevorsa,
     lh.historiquedroit__created,
     lh.first_apparition AND lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois) IS NULL AS primo,
-    NOT lh.first_apparition AND lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois) IS NULL OR (lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois)::text = ANY (ARRAY['4'::character varying, '5'::character varying, '6'::character varying]::text[])) AND lh.historiquedroit__etatdosrsa::text = '2'::text AS nouvel_entrant,
+    NOT lh.first_apparition AND lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois) IS NULL OR (lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois)::text = ANY (ARRAY['5'::character varying, '6'::character varying]::text[])) AND lh.historiquedroit__etatdosrsa::text = '2'::text AS nouvel_entrant,
     lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois) AS previous_etat,
     lo.statut_orient AS orientstruct__statut_orient,
     lo.date_valid AS orientstruct__date_valid,
