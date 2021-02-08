@@ -3,6 +3,7 @@ SET client_encoding = 'UTF8';
 -- *****************************************************************************
 BEGIN;
 -- *****************************************************************************
+
 -- Ajout de la vue permettant de calculer les statistiques plan pauvreté
 DROP MATERIALIZED VIEW IF EXISTS public.statppview;
 CREATE MATERIALIZED VIEW public.statppview
@@ -123,6 +124,16 @@ AS WITH liste_mois AS (
      LEFT JOIN contratsinsertion lci ON date_trunc('month'::text, lh.date) = date_trunc('month'::text, lci.datevalidation_ci::timestamp with time zone) AND lci.personne_id = lh.idpersonne AND lci.decision_ci = 'V'::bpchar
      LEFT JOIN cuis lcui ON lcui.decision_cui::text = 'V'::text AND date_trunc('month'::text, lh.date) >= date_trunc('month'::text, lcui.dateembauche::timestamp with time zone) AND date_trunc('month'::text, lh.date) <= date_trunc('month'::text, lcui.findecontrat::timestamp with time zone) AND lcui.personne_id = lh.idpersonne
 WITH DATA;
+
+-- Relances SMS
+INSERT INTO public.configurations (lib_variable, value_variable, comments_variable, created, modified)
+select 'relances.chemin.export', '"app/Vendor/relances/"', 'Chemin d''export des fichiers de relance SMS.', current_timestamp, current_timestamp
+where not exists (select id from configurations where lib_variable LIKE 'relances.chemin.export');
+
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'Relances' AND configurations.lib_variable LIKE 'relances.chemin.export';
 
 -- *****************************************************************************
 COMMIT;

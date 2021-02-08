@@ -25,10 +25,12 @@ class RelancesShell extends Shell {
 	 * @return void
 	 */
 	public function main() {
-		require_once ('app/Config/webrsa.inc');
+		$configuration = new Configuration();
+		$configuration->setAllConfigurations('Relances');
+
 		$departement = Configure::read('Cg.departement');
-		require_once ('app/Config/Cg'.$departement.'/Relances.php');
 		$variables = Configure::read('relances.variables');
+
 		foreach ($variables as $key => $value) {
 			$this->variables[] = $key;
 		}
@@ -454,8 +456,10 @@ class RelancesShell extends Shell {
 	 * @return void
 	 */
 	private function _sms ($relance, $informations) {
+		$cheminExport = Configure::read('relances.chemin.export');
+
 		// Initialisation du CSV
-		$chemin = 'app/Vendor/relances/'.date ('Y-m-d_H:i:s').'_SMS_'.$relance['relancetype'].'.csv';
+		$chemin = $cheminExport.date ('Y-m-d_H:i:s').'_SMS_'.$relance['relancetype'].'.csv';
 		$fichier_csv = fopen($chemin, 'w+');
 		fprintf($fichier_csv, chr(0xEF).chr(0xBB).chr(0xBF));
 		$separateur = ';';
