@@ -625,7 +625,7 @@
 			);
 
 			// Structrure orientante, référent orientant
-			if( in_array( $departement, array( 58, 66 ), true ) ) {
+			if( in_array( $departement, array( 58, 66 ) ) ) {
 				$options['Orientstruct']['structureorientante_id'] = $this->InsertionsBeneficiaires->structuresreferentes(
 					array(
 						'type' => 'optgroup',

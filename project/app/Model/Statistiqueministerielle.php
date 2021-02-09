@@ -2125,7 +2125,7 @@
 			$departement = Configure::read( 'Cg.departement' );
 
 			$result = array();
-			if( in_array( $departement, array( 66, 93 ), true ) ) {
+			if( in_array( $departement, array( 66, 93 ) ) ) {
 				$result = array(
 					$this->alias => array(
 						'conditions_natures_contrats' => array(

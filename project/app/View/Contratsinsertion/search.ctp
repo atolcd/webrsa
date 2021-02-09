@@ -54,7 +54,7 @@
 					'Search.Contratinsertion.dernier' => array( 'type' => 'checkbox' ),
 				),
 				(
-					( !in_array( $departement, array( 58, 976 ), true ) )
+					( !in_array( $departement, array( 58, 976 ) ) )
 					? array(
 						'Search.Contratinsertion.forme_ci' => array( 'type' => 'radio', 'class' => 'uncheckable', 'legend' => __m('Search.Contratinsertion.forme_ci') )
 					)

@@ -33,7 +33,7 @@
 			'Search.User.serviceinstructeur_id' => array( 'options' => $options['Serviceinstructeur'], 'empty' => true, 'required' => false ),
 		),
 		(
-			( true === in_array( $departement, array( 66, 93 ), true ) )
+			( true === in_array( $departement, array( 66, 93) ) )
 			? array_merge(
 				array(
 					'Search.User.type' => array( 'options' => $options['User']['type'], 'empty' => true, 'required' => false )
@@ -94,7 +94,7 @@
 	);
 	echo $this->Observer->disableFormOnSubmit( $searchFormId );
 
-	if( in_array( $departement, array( 66, 93 ), true ) ) {
+	if( in_array( $departement, array( 66, 93 ) ) ) {
 		echo $this->Observer->dependantSelect(
 			array(
 				'Search.User.structurereferente_id' => 'Search.User.referent_id'
@@ -139,7 +139,7 @@
 						'User.date_fin_hab'
 					),
 					(
-						( in_array( $departement, array( 66, 93 ), true ) )
+						( in_array( $departement, array( 66, 93 ) ) )
 						? array( 'User.type' )
 						: array()
 					),

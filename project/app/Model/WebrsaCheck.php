@@ -498,7 +498,7 @@
 					'Recherche.qdFilters.Serviceinstructeur' => 'boolean',
 				),
 				(
-					true === in_array( $departement, array( 58, 66 ), true )
+					true === in_array( $departement, array( 58, 66 ) )
 						? array(
 							'Selectionnoninscritspe.intervalleDetection' => array(
 								array(
@@ -522,7 +522,7 @@
 					'nb_limit_print' => 'integer',
 				),
 				(
-					true === in_array( $departement, array( 66, 93 ), true )
+					true === in_array( $departement, array( 66, 93 ) )
 						? array(
 							'nom_form_apre_cg' => array(
 								array( 'rule' => 'inList', array( 'cg66', 'cg93' ) ),
@@ -538,7 +538,7 @@
 						array(
 							'rule' => 'inList',
 							array( 'cg58', 'cg66', 'cg93', 'cg976', 'cg99X' ),
-							'allowEmpty' => false === in_array( $departement, array( 66, 93 ), true )
+							'allowEmpty' => false === in_array( $departement, array( 66, 93 ) )
 						),
 					),
 					'with_parentid' => 'boolean',
