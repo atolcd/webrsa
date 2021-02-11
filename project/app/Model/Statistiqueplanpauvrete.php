@@ -2669,6 +2669,15 @@
 					foreach($resultat as $key2 => $osef) {
 						$resultats[$key][$key2][] = array_sum($resultats[$key][$key2]);
 					}
+				} elseif( $key == 'delai_moyen' ) {
+					// Calcul d'une moyenne pondérée
+					$dividende = 0;
+					$diviseur = 0;
+					for($i=0; $i<12; $i++) {
+						$diviseur += $resultats['Orientes']['total'][$i];
+						$dividende += $resultat[$i] * $resultats['Orientes']['total'][$i];
+					}
+					$resultats[$key][] = round($dividende / $diviseur);
 				} elseif($key != 'taux_orient' && strpos($key, 'delai') === false) {
 					$resultats[$key][] = array_sum($resultats[$key]);
 				}
@@ -2781,6 +2790,14 @@
 							foreach($result as $key3 => $delai) {
 								$resultats[$key][$key2][$key3][] = array_sum($resultats[$key][$key2][$key3]);
 							}
+						}elseif($key2 == 'delai_moyen'){
+							// Calcul d'une moyenne pondérée
+							$dividende = 0;
+							$diviseur = array_sum($resultat['total']);
+							for($i=0; $i<12; $i++) {
+								$dividende += $result[$i] * $resultat['total'][$i];
+							}
+							$resultats[$key][$key2][] = round($dividende / $diviseur);
 						}elseif($key2 != 'taux_presence') {
 							$resultats[$key][$key2][] = array_sum($resultats[$key][$key2]);
 						}
@@ -2863,6 +2880,25 @@
 					foreach($resultat as $key2 => $delai) {
 						$resultats[$key][$key2][] = array_sum($resultats[$key][$key2]);
 					}
+				}elseif($key == 'delai_moyen') {
+					// Calcul d'une moyenne pondérée
+					$dividende = 0;
+					$diviseur = 0;
+					for($i=0; $i<12; $i++) {
+						$diviseur += $resultats['cer_social'][$i] + $resultats['cer_prepro'][$i];
+						$dividende += $resultat[$i] * ($resultats['cer_social'][$i] + $resultats['cer_prepro'][$i]);
+					}
+					$resultats[$key][] = round($dividende / $diviseur);
+				}elseif(strpos($key, 'delai') !== false) {
+					$keyCER = str_replace('delai', 'cer', $key);
+					// Calcul d'une moyenne pondérée
+					$dividende = 0;
+					$diviseur = 0;
+					for($i=0; $i<12; $i++) {
+						$diviseur += $resultats[$keyCER][$i];
+						$dividende += $resultat[$i] * $resultats[$keyCER][$i];
+					}
+					$resultats[$key][] = round($dividende / $diviseur);
 				}elseif($key != 'taux_contrat' && strpos($key, 'delai') === false) {
 					$resultats[$key][] = array_sum($resultats[$key]);
 				}
