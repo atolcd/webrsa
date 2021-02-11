@@ -388,44 +388,60 @@
 				);
 			}
 
-
-			if( empty($dossierseps)) {
-				$nonrespectppae = array();
-			} else {
-				// Récupération des dossierseps_id pour non respect du ppae
-				$idDossierseps = array();
-				foreach($dossierseps as $dossiersep) {
-					if($dossiersep['Dossierep']['themeep'] == 'sanctionseps58') {
-						$idDossierseps[] = $dossiersep['Dossierep']['id'];
+			$nonrespectppae = array();
+			if( Configure::read ('Commissionseps.sanctionep.nonrespectppae') ) {
+				if( empty($dossierseps)) {
+					$nonrespectppae = array();
+				} else {
+					// Récupération des dossierseps_id pour non respect du ppae
+					$idDossierseps = array();
+					foreach($dossierseps as $dossiersep) {
+						if($dossiersep['Dossierep']['themeep'] == 'sanctionseps58') {
+							$idDossierseps[] = $dossiersep['Dossierep']['id'];
+						}
 					}
+
+					// Test si il y a des dossiers EP
+					$conditions = array ();
+					if (count ($idDossierseps) > 0) {
+						$conditions = array(
+							'conditions' => array(
+								'Sanctionep58.dossierep_id IN' => $idDossierseps
+							)
+						);
+					}
+
+					// Requête
+					$query = array(
+						'fields' => array(
+							'Sanctionep58.id',
+							'Sanctionep58.created',
+							'Sanctionep58.orientstruct_id',
+							'Orientstruct.date_valid',
+							'Dossierep.id',
+							'Dossierep.created',
+							'Dossierep.themeep',
+							'Passagecommissionep.id',
+							'Passagecommissionep.etatdossierep',
+							'Commissionep.id',
+							'Commissionep.dateseance',
+							'Commissionep.etatcommissionep',
+						),
+						'recursive' => 1,
+						'joins' => array(
+							$this->Sanctionep58->Dossierep->join( 'Passagecommissionep', array( 'type' => 'LEFT OUTER' ) ),
+							$this->Sanctionep58->Dossierep->Passagecommissionep->join( 'Commissionep', array( 'type' => 'LEFT OUTER' ) )
+						),
+						'conditions' => array(
+							'Sanctionep58.origine ' => 'nonrespectppae'
+						)
+					);
+					$query = array_merge ($query, $conditions);
+
+					// Dossiers en cours de passage pour non respect du ppae
+					$nonrespectppae = $this->Sanctionep58->find('all', $query);
+					$isdossnonrespectppae = true;
 				}
-				// Dossiers en cours de passage pour non respect du ppae
-				$nonrespectppae = $this->Sanctionep58->find('all', array(
-					'fields' => array(
-						'Sanctionep58.id',
-						'Sanctionep58.created',
-						'Sanctionep58.orientstruct_id',
-						'Orientstruct.date_valid',
-						'Dossierep.id',
-						'Dossierep.created',
-						'Dossierep.themeep',
-						'Passagecommissionep.id',
-						'Passagecommissionep.etatdossierep',
-						'Commissionep.id',
-						'Commissionep.dateseance',
-						'Commissionep.etatcommissionep',
-					),
-					'recursive' => 1,
-					'joins' => array(
-						$this->Sanctionep58->Dossierep->join( 'Passagecommissionep', array( 'type' => 'LEFT OUTER' ) ),
-						$this->Sanctionep58->Dossierep->Passagecommissionep->join( 'Commissionep', array( 'type' => 'LEFT OUTER' ) )
-					),
-					'conditions' => array(
-						'Sanctionep58.dossierep_id IN' => $idDossierseps,
-						'Sanctionep58.origine ' => 'nonrespectppae'
-					)
-				));
-				$isdossnonrespectppae = true;
 			}
 
 			// Droits sur les actions
