@@ -413,10 +413,10 @@ msgid "Tableaub5.delai_prepro"
 msgstr "Délais moyen de contractualisation \"Pré pro\" en jours"
 
 msgid "Tableaub5.signe15jrs"
-msgstr "Nombre de CER signés en moins de 15 jours"
+msgstr "Nombre de CER signés en moins de 15 jours à compter de la date d'orientation"
 
 msgid "Tableaub5.signe2mois"
-msgstr "Nombre de CER signés en moins de 2 mois"
+msgstr "Nombre de CER signés en moins de 2 mois à compter de la date d'orientation"
 
 msgid "Tableaub5.delai"
 msgstr "Délais de contractualisation"
