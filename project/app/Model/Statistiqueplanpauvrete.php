@@ -2579,7 +2579,6 @@
 			$statutRdv = Configure::read('Statistiqueplanpauvrete.orientationRdv');
 			// Query de base
 			$query = $this->_getQueryTableau_b1($search, $statutRdv['prevu']);
-
 			$results = $this->Historiquedroit->query($query);
 
 			$resultats = array();
@@ -2632,11 +2631,11 @@
 					$dateOrient = new DateTime($result['orientstruct']['date_valid']);
 					$delai = $dateCreaHisto->diff($dateOrient)->days;
 
-					if($delai <= 31) {
-						$resultats['orient_31jours'][$month]++;
-					}
 					$resultats['delai_moyen'][$month] += $delai;
 					$delaiMois = $dateCreaHisto->diff($dateOrient)->m;
+					if($delaiMois < 1) {
+						$resultats['orient_31jours'][$month]++;
+					}
 					foreach($resultats['delai']as $key => $osef) {
 						$moisDelais = explode('_', $key);
 						if( $delaiMois >= intval($moisDelais[0]) && $delaiMois < intval($moisDelais[1]) ) {
@@ -2656,7 +2655,6 @@
 					}
 				}
 			}
-
 			// Calcul des moyennes
 			for( $i=0; $i<12; $i++){
 				if($resultats['Orientes']['total'][$i] != 0) {

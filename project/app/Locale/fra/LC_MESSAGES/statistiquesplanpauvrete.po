@@ -181,7 +181,7 @@ msgid "tableaub1.delai"
 msgstr "<b>Délai de 1ère orientation</b>"
 
 msgid "tableaub1.taux_orient"
-msgstr "<b>Taux d'orientation</b>"
+msgstr "<b>Taux d'orientation sur les nouveaux entrants</b>"
 # ==============================================================================
 # Tableau A1
 # ==============================================================================
