@@ -246,14 +246,32 @@ class VueglobaleShell extends XShell
 		$query = array(
 			'fields' => array(
 				'Personne.id',
+				'Personne.qual',
+				'Personne.nomnai',
 				'Personne.nom',
 				'Personne.prenom',
 				'Personne.dtnai',
+				'Personne.nir',
+				'Personne.numfixe',
+				'Personne.numport',
+				'Dossier.matricule',
+				'Dossier.id',
+				'Adresse.numvoie',
+				'Adresse.libtypevoie',
+				'Adresse.nomvoie',
+				'Adresse.compladr',
+				'Adresse.codepos',
+				'Adresse.nomcom',
+				'Personne.email',
 				'Prestation.rolepers'
 			),
 			'recursive' => -1,
 			'joins' => array(
-				$this->Personne->join('Prestation')
+				$this->Personne->join('Prestation'),
+				$this->Personne->join('Foyer'),
+				$this->Personne->Foyer->join('Dossier'),
+				$this->Personne->Foyer->join('Adressefoyer'),
+				$this->Personne->Foyer->Adressefoyer->join('Adresse'),
 			),
 			'conditions' => array(
 				'Personne.foyer_id' => $foyer_id,
@@ -272,9 +290,22 @@ class VueglobaleShell extends XShell
 						$typeLien = __d('prestation', 'ENUM::ROLEPERS::' . $personne['Prestation']['rolepers']);
 					}
 					$results[] = array(
+						'id' => $personne['Personne']['id'],
+						'qual' => $personne['Personne']['qual'],
+						'nomnai' => $personne['Personne']['nomnai'],
 						'nom' => $personne['Personne']['nom'],
 						'prenom' => $personne['Personne']['prenom'],
 						'dtnai' => $personne['Personne']['dtnai'],
+						'nir' => $personne['Personne']['nir'],
+						'numfixe' => $personne['Personne']['numfixe'],
+						'numport' => $personne['Personne']['numport'],
+						'email' => $personne['Personne']['email'],
+						'matricule' => $personne['Dossier']['matricule'],
+						'numvoie' => $personne['Adresse']['numvoie'],
+						'libtypevoie' => $personne['Adresse']['libtypevoie'],
+						'compladr' => $personne['Adresse']['compladr'],
+						'codepos' => $personne['Adresse']['codepos'],
+						'nomcom' => $personne['Adresse']['nomcom'],
 						'typeLien' => $typeLien
 					);
 				}
@@ -731,6 +762,91 @@ class VueglobaleShell extends XShell
 		return $aides;
 	}
 
+	private function _traitementBeneficiaire($resultLastId, $lastId, $currentResult) {
+		// Modification du nom avec dernier nom connu si différent (cas mariage)
+		if (isset($resultLastId['nom']) && !empty($resultLastId['nom']) && ($currentResult['nom'] != $resultLastId['nom'])) {
+			$currentResult['nom'] = $resultLastId['nom'];
+		}
+
+		// Balise nom naissance
+		if (!isset($currentResult['nomnai'])) {
+			$currentResult['nomnai'] = $currentResult['nom'];
+		}
+
+		// Balise adresse
+		$adressecomplete = '';
+		if (isset($resultLastId['numvoie']) && !empty($resultLastId['numvoie'])) {
+			$adressecomplete .= $resultLastId['numvoie'];
+		}
+
+		if (isset($resultLastId['libtypevoie']) && !empty($resultLastId['libtypevoie'])) {
+			$adressecomplete .= ' ' . $resultLastId['libtypevoie'];
+		}
+
+		if (isset($resultLastId['nomvoie']) && !empty($resultLastId['nomvoie'])) {
+			$adressecomplete .= ' ' . $resultLastId['nomvoie'];
+		}
+
+		if (isset($resultLastId['compladr']) && !empty($resultLastId['compladr'])) {
+			$adressecomplete .= ' ' . $resultLastId['compladr'];
+		}
+
+		// Balise téléphone
+		$tel = array();
+		if (isset($currentResult['numfixe']) && !empty($currentResult['numfixe'])) {
+			$tel[] = preg_replace('/[^\d](?=\d)/', '', $currentResult['numfixe']);
+		}
+		if (isset($currentResult['numport']) && !empty($currentResult['numport'])) {
+			$tel[] = preg_replace('/[^\d](?=\d)/', '', $currentResult['numport']);
+		}
+
+		// NIR
+		if (strlen(trim($currentResult['nir'])) == 13) {
+			$cle = $this->_calcul_cle_nir(trim($currentResult['nir']));
+			if ($cle != null) {
+				$nir = trim($currentResult['nir']) . $cle;
+			} else {
+				$nir = '';
+			}
+		} else if (strlen(trim($currentResult['nir'])) == 15) {
+			$nir = trim($currentResult['nir']);
+		} else {
+			$nir = '';
+		}
+
+		// Matricule
+		if (isset($currentResult['matricule'])) {
+			$currentResult['matricule'] = trim($currentResult['matricule']);
+		}
+
+		// Email
+		if (isset($currentResult['email']) && !empty($currentResult['email'])) {
+			$email = $currentResult['email'];
+		} else {
+			$email = '';
+		}
+
+		// MSP
+		$msp = $this->_getLastMSP($lastId);
+
+		return array(
+			'flagSortie' => '0',
+			'genre' => $currentResult['qual'],
+			'nomNaissance' => $currentResult['nomnai'],
+			'nomUsage' => $currentResult['nom'],
+			'prenom' => $currentResult['prenom'],
+			'dateNaissance' => $currentResult['dtnai'],
+			'codeNir' => $nir,
+			'codeCaf' => $currentResult['matricule'],
+			'adresseComplete' => $adressecomplete,
+			'codePostal' => $currentResult['codepos'],
+			'ville' => $currentResult['nomcom'],
+			'mspRattachement' => $msp,
+			'telephone' => $tel,
+			'mail' => $email
+		);
+	}
+
 	/**
 	 * Récupère et prépare le tableau pour la création du XML
 	 * @return array
@@ -746,89 +862,13 @@ class VueglobaleShell extends XShell
 			$listeIDPersonne = $this->_getDoublon($result);
 			sort($listeIDPersonne);
 			$lastId = end($listeIDPersonne);
-
-			// Modification du nom avec dernier nom connu si différent (cas mariage)
-			if (isset($results[$lastId]['nom']) && !empty($results[$lastId]['nom']) && ($result['nom'] != $results[$lastId]['nom'])) {
-				$result['nom'] = $results[$lastId]['nom'];
-			}
-
-			// Balise nom naissance
-			if (!isset($result['nomnai'])) {
-				$result['nomnai'] = $result['nom'];
-			}
-
-			// Balise adresse
-			$adressecomplete = '';
-			if (isset($results[$lastId]['numvoie']) && !empty($results[$lastId]['numvoie'])) {
-				$adressecomplete .= $results[$lastId]['numvoie'];
-			}
-
-			if (isset($results[$lastId]['libtypevoie']) && !empty($results[$lastId]['libtypevoie'])) {
-				$adressecomplete .= ' ' . $results[$lastId]['libtypevoie'];
-			}
-
-			if (isset($results[$lastId]['nomvoie']) && !empty($results[$lastId]['nomvoie'])) {
-				$adressecomplete .= ' ' . $results[$lastId]['nomvoie'];
-			}
-
-			if (isset($results[$lastId]['compladr']) && !empty($results[$lastId]['compladr'])) {
-				$adressecomplete .= ' ' . $results[$lastId]['compladr'];
-			}
-
-			// Balise téléphone
-			$tel = array();
-			if (isset($result['numfixe']) && !empty($result['numfixe'])) {
-				$tel[] = preg_replace('/[^\d](?=\d)/', '', $result['numfixe']);
-			}
-			if (isset($result['numport']) && !empty($result['numport'])) {
-				$tel[] = preg_replace('/[^\d](?=\d)/', '', $result['numport']);
-			}
-
-			// NIR
-			if (strlen(trim($result['nir'])) == 13) {
-				$cle = $this->_calcul_cle_nir(trim($result['nir']));
-				if ($cle != null) {
-					$nir = trim($result['nir']) . $cle;
-				} else {
-					$nir = '';
-				}
-			} else if (strlen(trim($result['nir'])) == 15) {
-				$nir = trim($result['nir']);
+			if(isset($results[$lastId])) {
+				$tmpResult = $results[$lastId];
 			} else {
-				$nir = '';
+				$tmpResult = $result;
 			}
+			$arrayXml[$lastId]['Beneficiaire'] = $this->_traitementBeneficiaire($tmpResult, $lastId, $result);
 
-			// Matricule
-			if (isset($result['matricule'])) {
-				$result['matricule'] = trim($result['matricule']);
-			}
-
-			// Email
-			if (isset($result['email']) && !empty($result['email'])) {
-				$email = $result['email'];
-			} else {
-				$email = '';
-			}
-
-			// MSP
-			$msp = $this->_getLastMSP($lastId);
-
-			$arrayXml[$lastId]['Beneficiaire'] = array(
-				'flagSortie' => '0',
-				'genre' => $result['qual'],
-				'nomNaissance' => $result['nomnai'],
-				'nomUsage' => $result['nom'],
-				'prenom' => $result['prenom'],
-				'dateNaissance' => $result['dtnai'],
-				'codeNir' => $nir,
-				'codeCaf' => $result['matricule'],
-				'adresseComplete' => $adressecomplete,
-				'codePostal' => $result['codepos'],
-				'ville' => $result['nomcom'],
-				'mspRattachement' => $msp,
-				'telephone' => $tel,
-				'mail' => $email
-			);
 			/* -- Fin partie Bénificiaire -- */
 
 			if($result['rolepers'] == 'DEM') {
@@ -858,7 +898,15 @@ class VueglobaleShell extends XShell
 
 			// Personne en lien
 			$arrayXml[$lastId]['lien'] = $this->_getPersonneLien($lastId, $arrayXml[$lastId]['Beneficiaire']);
+			foreach($arrayXml[$lastId]['lien'] as $lien) {
+				if($lien['typeLien'] == '' || $lien['typeLien'] == 'Enfant') {
+					$arrayXml[$lien['id']]['Beneficiaire'] = $this->_traitementBeneficiaire($lien, $lien['id'], $lien);
+					$arrayXml[$lien['id']]['Beneficiaire']['actif'] = 0;
+					$arrayXml[$lien['id']]['lien'] = $this->_getPersonneLien($lien['id'], $arrayXml[$lien['id']]['Beneficiaire']);
+				}
+			}
 		}
+		debug($arrayXml);
 		return $arrayXml;
 	}
 
