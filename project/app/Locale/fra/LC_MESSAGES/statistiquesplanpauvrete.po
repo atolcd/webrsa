@@ -388,6 +388,30 @@ msgstr "Délai d'attente moyen pour un 1er rendez-vous"
 msgid "Tableaub4.Protaux_presence"
 msgstr "Taux de présence au 1er rendez-vous"
 
+msgid "Tableaub4.General"
+msgstr "Orientation Général"
+
+msgid "Tableaub4.Generaltotal"
+msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation \"Général\""
+
+msgid "Tableaub4.Generalvenu"
+msgstr " - Dont nombre de venu à ce 1er rendez-vous"
+
+msgid "Tableaub4.Generalexcuse_recevable"
+msgstr " - Dont nombre de non venu avec excuse recevable"
+
+msgid "Tableaub4.Generalsans_excuse"
+msgstr " - Dont nombre de non venu sans excuse recevable"
+
+msgid "Tableaub4.Generaldelai15jrs"
+msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
+
+msgid "Tableaub4.Generaldelai_moyen"
+msgstr "Délai d'attente moyen pour un 1er rendez-vous"
+
+msgid "Tableaub4.Generaltaux_presence"
+msgstr "Taux de présence au 1er rendez-vous"
+
 # ==============================================================================
 # Tableau B5
 # ==============================================================================

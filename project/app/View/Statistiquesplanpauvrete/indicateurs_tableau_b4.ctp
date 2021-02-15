@@ -28,7 +28,7 @@
 		$cells = array();
 		$row = 0;
 		foreach( $results as $key => $result) {
-			if( in_array($key, array('Social', 'Prepro', 'Pro') ) ) {
+			if( in_array($key, array('Social', 'Prepro', 'Pro', 'General') ) ) {
 				$cells[$row] = array('<b>' . __d('statistiquesplanpauvrete', 'Tableaub4.' . $key ) . '</b>');
 				$row++;
 				foreach( $results[$key] as $keySpec => $resultSpec) {

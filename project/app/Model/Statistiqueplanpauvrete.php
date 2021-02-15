@@ -900,6 +900,16 @@
 					'delai' => $configurationDelais,
 					'taux_presence' => array()
 				),
+				'General' => array(
+					'total' => array(),
+					'venu' => array(),
+					'excuse_recevable' => array(),
+					'sans_excuse' => array(),
+					'delai15jrs' => array(),
+					'delai_moyen' => array(),
+					'delai' => $configurationDelais,
+					'taux_presence' => array()
+				),
 			);
 
 			for($i=0; $i<12; $i++) {
@@ -925,6 +935,13 @@
 				$resultats['Pro']['delai15jrs'][$i] = 0;
 				$resultats['Pro']['delai_moyen'][$i] = 0;
 				$resultats['Pro']['taux_presence'][$i] = 0;
+				$resultats['General']['total'][$i] = 0;
+				$resultats['General']['venu'][$i] = 0;
+				$resultats['General']['excuse_recevable'][$i] = 0;
+				$resultats['General']['sans_excuse'][$i] = 0;
+				$resultats['General']['delai15jrs'][$i] = 0;
+				$resultats['General']['delai_moyen'][$i] = 0;
+				$resultats['General']['taux_presence'][$i] = 0;
 				foreach( $configurationDelais as $key => $config) {
 					if( is_array($resultats['Social']['delai'][$key]) == false ) {
 						$resultats['Social']['delai'][$key] = array();
@@ -935,9 +952,13 @@
 					if( is_array($resultats['Pro']['delai'][$key]) == false ) {
 						$resultats['Pro']['delai'][$key] = array();
 					}
+					if( is_array($resultats['General']['delai'][$key]) == false ) {
+						$resultats['General']['delai'][$key] = array();
+					}
 					$resultats['Social']['delai'][$key][$i] = 0;
 					$resultats['Prepro']['delai'][$key][$i] = 0;
 					$resultats['Pro']['delai'][$key][$i] = 0;
+					$resultats['General']['delai'][$key][$i] = 0;
 				}
 			}
 			return $resultats;
@@ -2764,8 +2785,19 @@
 				}
 			}
 
-			// Calcul des moyennes
 			for( $i=0; $i<12; $i++){
+				// Calcul des orientations générales
+				$resultats['General']['total'][$i] = $resultats['Social']['total'][$i] + $resultats['Prepro']['total'][$i] + $resultats['Pro']['total'][$i];
+				$resultats['General']['venu'][$i] = $resultats['Social']['venu'][$i] + $resultats['Prepro']['venu'][$i] + $resultats['Pro']['venu'][$i];
+				$resultats['General']['excuse_recevable'][$i] = $resultats['Social']['excuse_recevable'][$i] + $resultats['Prepro']['excuse_recevable'][$i] + $resultats['Pro']['excuse_recevable'][$i];
+				$resultats['General']['sans_excuse'][$i] = $resultats['Social']['sans_excuse'][$i] + $resultats['Prepro']['sans_excuse'][$i] + $resultats['Pro']['sans_excuse'][$i];
+				$resultats['General']['delai15jrs'][$i] = $resultats['Social']['delai15jrs'][$i] + $resultats['Prepro']['delai15jrs'][$i] + $resultats['Pro']['delai15jrs'][$i];
+				$resultats['General']['delai_moyen'][$i] = $resultats['Social']['delai_moyen'][$i] + $resultats['Prepro']['delai_moyen'][$i] + $resultats['Pro']['delai_moyen'][$i];
+				foreach($resultats['General']['delai'] as $key => $osef) {
+					$resultats['General']['delai'][$key][$i] = $resultats['Social']['delai'][$key][$i] + $resultats['Prepro']['delai'][$key][$i] + $resultats['Pro']['delai'][$key][$i];
+				}
+
+				// Calcul des moyennes
 				if($resultats['Social']['total'][$i] != 0) {
 					$resultats['Social']['delai_moyen'][$i] = intval($resultats['Social']['delai_moyen'][$i] / $resultats['Social']['total'][$i]);
 					$resultats['Social']['taux_presence'][$i] = round( (100 * $resultats['Social']['venu'][$i] ) / $resultats['Social']['total'][$i], 2)  . '%';
@@ -2777,6 +2809,10 @@
 				if($resultats['Pro']['total'][$i] != 0) {
 					$resultats['Pro']['delai_moyen'][$i] = intval($resultats['Pro']['delai_moyen'][$i] / $resultats['Pro']['total'][$i]);
 					$resultats['Pro']['taux_presence'][$i] = round( (100 * $resultats['Pro']['venu'][$i] ) / $resultats['Pro']['total'][$i], 2) . '%';
+				}
+				if($resultats['General']['total'][$i] != 0) {
+					$resultats['General']['delai_moyen'][$i] = intval($resultats['General']['delai_moyen'][$i] / $resultats['General']['total'][$i]);
+					$resultats['General']['taux_presence'][$i] = round( (100 * $resultats['General']['venu'][$i] ) / $resultats['General']['total'][$i], 2) . '%';
 				}
 			}
 
