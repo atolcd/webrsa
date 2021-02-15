@@ -7,7 +7,6 @@
 
 ## Configurer l'instance de développement
 
-<<<<<<< HEAD
 Créer un fichier `.env.local` à partir de `.env.local.sample` et remplir les champs
 * "CD_DEPARTEMENT"
 
@@ -19,9 +18,6 @@ Créer un fichier `.env.local` à partir de `.env.local.sample` et remplir les c
 * "GEDOOO_CLOUDOOO_HOST"
 
 Créer un fichier `docker-compose.yml`  à partir de `docker-compose.yml.sample` et ajouter les configurations BDD manquantes (voir fichier pour plus d'explications, section ## Utiliser plusieurs bases de données)
-=======
-`.env.local`
->>>>>>> Environnement de dev Docker
 
 ## Packager l'application
 
@@ -33,7 +29,7 @@ Créer un fichier `docker-compose.yml`  à partir de `docker-compose.yml.sample`
 ## Démarrer les services
 
 * Postgresql : `docker-compose up [-d] postgresql`
-* Php : `docker-compose up [-d] php`
+* Php : `docker-compose up --build [-d] php`
 * Apache : `docker-compose up --build [-d] apache`
 * Mailhog : `docker-compose up [-d] mailhog`
 
@@ -71,7 +67,7 @@ Il est possible de définir d'autres service postgresql dans le fichier `docker-
 Il suffit de repartir de l'exemple en commentaire en modifiant :
 * le nom du service,
 * la variable d'environnement `PGDATA` pour que les données soient un répertoire spécifique (pas celui du service `postgresql` de base),
-* l'association du port : le port accessible despuis la machine hôte (votre PC).
+* l'association du port : le port accessible depuis la machine hôte (votre PC).
 
 ```yml
 postgresql_XXXXXX:
@@ -91,7 +87,6 @@ Les commandes de "Initialisation des données" sont utilisables en modifiant `po
 # TODO, remarques et améliorations
 
 * cloudoo
-* doc multi base
 * `webrsa.sh` : utilisateur système en dur
 * revoir la gestion `app` avec symlink ?
 * erreurs avec webrsa.SCHEMA.public.sql

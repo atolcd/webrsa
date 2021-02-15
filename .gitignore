@@ -3,7 +3,6 @@ node_modules
 vendor
 
 .pydevproject
-.vagrant
 .project
 .env.local
 docker-compose.yml
