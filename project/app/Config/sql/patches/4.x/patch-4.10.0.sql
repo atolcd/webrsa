@@ -102,6 +102,7 @@ AS WITH liste_mois AS (
     lh.first_apparition AND lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois) IS NULL AS primo,
     NOT lh.first_apparition AND lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois) IS NULL OR (lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois)::text = ANY (ARRAY['5'::character varying, '6'::character varying]::text[])) AND lh.historiquedroit__etatdosrsa::text = '2'::text AS nouvel_entrant,
     lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois) AS previous_etat,
+    lo.id AS orientstruct__id,
     lo.statut_orient AS orientstruct__statut_orient,
     lo.date_valid AS orientstruct__date_valid,
     lo.rgorient AS orientstruct__rgorient,
