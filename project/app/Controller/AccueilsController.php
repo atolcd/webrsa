@@ -34,6 +34,17 @@
 		);
 
 		/**
+		 * Helpers utilisés.
+		 *
+		 * @var array
+		 */
+		public $helpers = array(
+			'Default3' => array(
+				'className' => 'Default.DefaultDefault'
+			)
+		);
+
+		/**
 		 * Identifiant de l'utilisateur.
 		 *
 		 * @var array
