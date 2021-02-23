@@ -122,7 +122,7 @@ AS WITH liste_mois AS (
      LEFT JOIN orientsstructs lo ON date_trunc('month'::text, lh.date) = date_trunc('month'::text, lo.date_valid::timestamp with time zone) AND lo.personne_id = lh.idpersonne
      LEFT JOIN typesorients typeorient ON typeorient.id = lo.typeorient_id
      LEFT JOIN structuresreferentes structurereferente ON structurereferente.id = lo.structurereferente_id
-     LEFT JOIN contratsinsertion lci ON date_trunc('month'::text, lh.date) = date_trunc('month'::text, lci.datevalidation_ci::timestamp with time zone) AND lci.personne_id = lh.idpersonne AND lci.decision_ci = 'V'::bpchar
+     LEFT JOIN contratsinsertion lci ON lci.rg_ci = 1 AND lci.datevalidation_ci > lo.date_valid AND lci.personne_id = lh.idpersonne AND lci.decision_ci = 'V'::bpchar
      LEFT JOIN cuis lcui ON lcui.decision_cui::text = 'V'::text AND date_trunc('month'::text, lh.date) >= date_trunc('month'::text, lcui.dateembauche::timestamp with time zone) AND date_trunc('month'::text, lh.date) <= date_trunc('month'::text, lcui.findecontrat::timestamp with time zone) AND lcui.personne_id = lh.idpersonne
 WITH DATA;
 
