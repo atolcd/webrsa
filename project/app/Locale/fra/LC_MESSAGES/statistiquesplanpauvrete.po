@@ -130,10 +130,10 @@ msgid "Tableau.nbPremOrientation"
 msgstr "Suivi de la 1ère orientation en "
 
 msgid "tableaub1.total"
-msgstr "<b>Nombres des nouveaux entrant SDD et DOV</b>"
+msgstr "<b>Nombres des nouveaux entrant SDD et DOV (1)</b>"
 
 msgid "tableaub1.Orientes"
-msgstr "Nombres de personnes orientées SDD et DOV (1ère orientation)"
+msgstr "Nombres de personnes orientées SDD et DOV (1ère orientation) (2)"
 
 msgid "tableaub1.Orientestotal"
 msgstr "Total"
@@ -157,7 +157,7 @@ msgid "tableaub1.Orientesoa"
 msgstr " - Dont orientées OA"
 
 msgid "tableaub1.NonOrientes"
-msgstr "Nombres de nouveaux entrants SDD et DOV non orientés"
+msgstr "Nombres de nouveaux entrants SDD et DOV non orientés (3)"
 
 msgid "tableaub1.NonOrientestotal"
 msgstr "Total"
@@ -172,16 +172,38 @@ msgid "tableaub1.NonOrientesautres"
 msgstr " - Autres"
 
 msgid "tableaub1.delai_moyen"
-msgstr "<b>Délais moyen d'orientation (en jours)</b>"
+msgstr "<b>Délais moyen d'orientation (en jours) (4)</b>"
 
 msgid "tableaub1.orient_31jours"
-msgstr "<b>Nombre de nouveaux entrants SDD et DOV orientés en moins de 1 mois</b>"
+msgstr "<b>Nombre de nouveaux entrants SDD et DOV orientés en moins de 1 mois (5)</b>"
 
 msgid "tableaub1.delai"
-msgstr "<b>Délai de 1ère orientation</b>"
+msgstr "<b>Délai de 1ère orientation (6)</b>"
 
 msgid "tableaub1.taux_orient"
-msgstr "<b>Taux d'orientation sur les nouveaux entrants</b>"
+msgstr "<b>Taux d'orientation sur les nouveaux entrants (7)</b>"
+
+msgid "tableaub1.note1"
+msgstr "(1) Nombre de nouveaux entrant SDD et DOV par mois."
+
+msgid "tableaub1.note2"
+msgstr "(2) Nombre de personnes SDD et DOV qui ont eu une 1ère orientation le mois en cours (sans lien avec la 1ère ligne du tableau)"
+
+msgid "tableaub1.note3"
+msgstr "(3) Comptabilise le nombre de non orientés par mois parmi les nouveaux entrant SDD et DOV de la 1ère ligne"
+
+msgid "tableaub1.note4"
+msgstr "(4) Délai moyen entre la date de création de l'historique provenant des flux journaliers et mensuels et la date de validation de la 1ère orientation"
+
+msgid "tableaub1.note5"
+msgstr "(5) Nombre de nouveaux entrants SDD et DOV ayant eu leur 1ère orientation en moins d'un mois"
+
+msgid "tableaub1.note6"
+msgstr "(6) Délai entre la date de création de l'historique provenant des flux journaliers et mensuels et la date de validation de la 1ère orientation"
+
+msgid "tableaub1.note7"
+msgstr "(7) Pourcentage de personnes ayant eu leur 1ère orientation par rapport au nombre de nouveaux entrant SDD et DOV"
+
 # ==============================================================================
 # Tableau A1
 # ==============================================================================
@@ -419,13 +441,13 @@ msgid "Tableau.nbCer"
 msgstr "Nombre de contractualisation des orientations des CD en "
 
 msgid "Tableaub5.orient_valid"
-msgstr "Nombre de 1ère orientation"
+msgstr "<b>Nombre de 1ère orientation (1)</b> "
 
 msgid "Tableaub5.cer_social"
-msgstr "Nombre de CER \"Social\" validé"
+msgstr "<b>Nombre de CER \"Social\" validé (2)</b>"
 
 msgid "Tableaub5.cer_prepro"
-msgstr "Nombre de CER \"Pré pro\" validé"
+msgstr "<b>Nombre de CER \"Pré pro\" validé (3)</b>"
 
 msgid "Tableaub5.delai_moyen"
 msgstr "Délais moyen de contractualisation en jours"
@@ -443,11 +465,25 @@ msgid "Tableaub5.signe2mois"
 msgstr "Nombre de CER signés en moins de 2 mois à compter de la date d'orientation"
 
 msgid "Tableaub5.delai"
-msgstr "Délais de contractualisation"
+msgstr "<b>Délais de contractualisation  (4)</b>"
 
 msgid "Tableaub5.taux_contrat"
-msgstr "Taux de contractualisation"
+msgstr "<b>Taux de contractualisation (5)</b>"
 
+msgid "Tableaub5.note1"
+msgstr "(1) Nombre de personnes SDD et DOV ayant validées leur 1ère orientation par mois"
+
+msgid "Tableaub5.note2"
+msgstr "(2) Nombre de 1ers CER de type social validés parmis les 1ères orientations.<br><u>Note</u> : Si une personne est orientée au mois de janvier et a validé un CER de type social en mars, il sera comptabilisé au mois de janvier"
+
+msgid "Tableaub5.note3"
+msgstr "(3) Nombre de 1ers CER de type pré-professionnel validés parmis les 1ères orientations.<br><u>Note</u> : Si une personne est orientée au mois de janvier et a validé un CER de type pré-professionnel en mars, il sera comptabilisé au mois de janvier"
+
+msgid "Tableaub5.note4"
+msgstr "(4) Délai entre la date de validation de la 1ère orientation et la date de validation du 1er CER"
+
+msgid "Tableaub5.note5"
+msgstr "(5) Pourcentage de personnes ayant eu la validation du 1er CER par rapport au nombre de personnes ayant eu la validation de leur 1ère orientation"
 
 # ==============================================================================
 # Tableau A1 V2
