@@ -456,7 +456,7 @@
 		protected function _getQueryTableau_b1(array $search, $rdvPrevu) {
 			$annee = (int)Hash::get( $search, 'Search.annee' );
 
-			$query = "SELECT * FROM public.statppview ";
+			$query = $this->_getSelectViewSearchGeneral();
 			$query .= "LEFT JOIN rendezvous rdv ON ( rdv.personne_id = idpersonne AND rdv.daterdv > historiquedroit__created AND rdv.statutrdv_id IN (";
 			$query .= implode(",", $rdvPrevu);
 			$query .= ") AND date_part('year', rdv.daterdv) = " . $annee . ")";
@@ -465,15 +465,28 @@
 			$query .= "OR (date_part('year',Orientstruct__date_valid) = " . $annee . " AND Orientstruct__rgorient = 1 ) ) ";
 			$query .= " AND Historiquedroit__toppersdrodevorsa = '1'";
 
-			$query = $this->getConditionsViewSearch($search, $query);
+			$query = $this->_getConditionsViewSearch($search, $query);
 
+			$query .= ' ORDER BY idpersonne, annee, mois, dtemm desc';
 			return $query;
 		}
 
 		/**
-		 * Ajoute les conditions lié à la recherche
+		 * Créé la requête général sur la view statppview sans doublon
+		 *
+		 * @return string
 		 */
-		protected function getConditionsViewSearch($search, $query) {
+		protected function _getSelectViewSearchGeneral() {
+			return "SELECT distinct on (idpersonne, annee, mois) (idpersonne, annee, mois), * FROM public.statppview ";
+		}
+
+		/**
+		 * Ajoute les conditions lié à la recherche
+		 * @param array
+		 * @param string
+		 * @return string
+		 */
+		protected function _getConditionsViewSearch($search, $query) {
 			$conditions = " AND historiquedroit__etatdosrsa = '2'";
 
 			// Adresse
@@ -563,7 +576,7 @@
 			$query .= "annee = " . $annee;
 
 			// Conditions
-			$query = $this->getConditionsViewSearch($search, $query);
+			$query = $this->_getConditionsViewSearch($search, $query);
 
 			return $query;
 		}
@@ -972,14 +985,14 @@
 		protected function _getQueryTableau_b4(array $search) {
 			$annee = (int)Hash::get( $search, 'Search.annee' );
 
-			$query = "SELECT * FROM public.statppview ";
+			$query = $this->_getSelectViewSearchGeneral();
 			$query .= "INNER JOIN rendezvous rdv ON ( rdv.personne_id = idpersonne AND rdv.daterdv > Orientstruct__date_valid ";
 			$query .= " AND date_part('year', rdv.daterdv) = " . $annee . ")";
 			$query .= " WHERE date_part('year',Orientstruct__date_valid) = " . $annee . " AND Orientstruct__rgorient = 1 ";
 			$query .= " AND Historiquedroit__toppersdrodevorsa = '1'";
 
-			$query = $this->getConditionsViewSearch($search, $query);
-
+			$query = $this->_getConditionsViewSearch($search, $query);
+			$query .= ' ORDER BY idpersonne, annee, mois, dtemm desc';
 			return $query;
 		}
 
@@ -1030,12 +1043,12 @@
 		protected function _getQueryTableau_b5(array $search) {
 			$annee = (int)Hash::get( $search, 'Search.annee' );
 
-			$query = "SELECT * FROM public.statppview ";
+			$query = $this->_getSelectViewSearchGeneral();
 			$query .= " WHERE date_part('year',Orientstruct__date_valid) = " . $annee . " AND Orientstruct__rgorient = 1 ";
 			$query .= " AND Historiquedroit__toppersdrodevorsa = '1'";
 
-			$query = $this->getConditionsViewSearch($search, $query);
-
+			$query = $this->_getConditionsViewSearch($search, $query);
+			$query .= ' ORDER BY idpersonne, annee, mois, dtemm desc';
 			return $query;
 		}
 
