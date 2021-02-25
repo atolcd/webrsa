@@ -78,8 +78,8 @@
 		$noteExiste = true;
 		$nbNote = 1;
 		while ($noteExiste) {
-			$note = __d('statistiquesplanpauvrete', 'Tableaub5.note' . $nbNote);
-			if($note != 'Tableaub5.note' . $nbNote) {
+			$note = __d('statistiquesplanpauvrete', 'tableaub1.note' . $nbNote);
+			if($note != 'tableaub1.note' . $nbNote) {
 				echo '<br>' . $note;
 			} else {
 				$noteExiste = false;
