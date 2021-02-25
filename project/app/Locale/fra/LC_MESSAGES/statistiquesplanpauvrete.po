@@ -133,7 +133,7 @@ msgid "tableaub1.total"
 msgstr "<b>Nombres des nouveaux entrant SDD et DOV (1)</b>"
 
 msgid "tableaub1.Orientes"
-msgstr "Nombres de personnes orientées SDD et DOV (1ère orientation) (2)"
+msgstr "Nombres de personnes orientées SDD et DOV (1ère orientation) (3)"
 
 msgid "tableaub1.Orientestotal"
 msgstr "Total"
@@ -157,7 +157,7 @@ msgid "tableaub1.Orientesoa"
 msgstr " - Dont orientées OA"
 
 msgid "tableaub1.NonOrientes"
-msgstr "Nombres de nouveaux entrants SDD et DOV non orientés (3)"
+msgstr "Nombres de nouveaux entrants SDD et DOV non orientés (2)"
 
 msgid "tableaub1.NonOrientestotal"
 msgstr "Total"
@@ -187,10 +187,10 @@ msgid "tableaub1.note1"
 msgstr "(1) Nombre de nouveaux entrant SDD et DOV par mois."
 
 msgid "tableaub1.note2"
-msgstr "(2) Nombre de personnes SDD et DOV qui ont eu une 1ère orientation le mois en cours (sans lien avec la 1ère ligne du tableau)"
+msgstr "(2) Comptabilise le nombre de non orientés par mois parmi les nouveaux entrant SDD et DOV de la 1ère ligne"
 
 msgid "tableaub1.note3"
-msgstr "(3) Comptabilise le nombre de non orientés par mois parmi les nouveaux entrant SDD et DOV de la 1ère ligne"
+msgstr "(3) Nombre de personnes SDD et DOV qui ont eu une 1ère orientation le mois en cours (sans lien avec la 1ère ligne du tableau)"
 
 msgid "tableaub1.note4"
 msgstr "(4) Délai moyen entre la date de création de l'historique provenant des flux journaliers et mensuels et la date de validation de la 1ère orientation"

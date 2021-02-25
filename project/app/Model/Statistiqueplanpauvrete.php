@@ -399,6 +399,12 @@
 			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
 			$resultats = array (
 				'total' => array(),
+				'NonOrientes' => array(
+					'total' => array(),
+					'prevu' => array(),
+					'bilan' => array(),
+					'autres' => array(),
+				),
 				'Orientes' => array(
 					'total' => array(),
 					'emploi' => array(),
@@ -407,12 +413,6 @@
 					'pe' => array(),
 					'cd' => array(),
 					'oa' => array()
-				),
-				'NonOrientes' => array(
-					'total' => array(),
-					'prevu' => array(),
-					'bilan' => array(),
-					'autres' => array(),
 				),
 				'delai_moyen' => array(),
 				'orient_31jours' => array(),
