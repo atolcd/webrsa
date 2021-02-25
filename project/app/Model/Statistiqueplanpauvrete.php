@@ -2899,7 +2899,7 @@
 						$resultats['delai_prepro'][$monthOrient] += $delai;
 					}
 					$delaiMonth = $dateOrient->diff($dateCer)->m;
-					if($delaiMonth <= 2) {
+					if($delaiMonth < 2) {
 						$resultats['signe2mois'][$monthOrient]++;
 					}
 					foreach($resultats['delai']as $key => $osef) {
