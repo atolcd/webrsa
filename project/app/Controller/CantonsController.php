@@ -175,6 +175,7 @@
 					'Personne.prenom2',
 					'Personne.prenom3',
 					'Personne.dtnai',
+					'Dossier.matricule',
 					'Adresse.id',
 					'Adresse.numvoie',
 					'Adresse.nomvoie',
@@ -276,6 +277,8 @@
 			$line[] = __m('Personne.prenom2');
 			$line[] = __m('Personne.prenom3');
 			$line[] = __m('Personne.dtnai');
+
+			$line[] = __m('Dossier.matricule');
 
 			$line[] = __m('Adresse.numvoie');
 			$line[] = __m('Adresse.libtypevoie');
