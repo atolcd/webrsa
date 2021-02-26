@@ -133,7 +133,7 @@ msgid "tableaub1.total"
 msgstr "<b>Nombres des nouveaux entrant SDD et DOV (1)</b>"
 
 msgid "tableaub1.Orientes"
-msgstr "Nombres de personnes orientées SDD et DOV (1ère orientation) (3)"
+msgstr "Nombres de personnes orientées SDD et DOV (1ère orientation) (5)"
 
 msgid "tableaub1.Orientestotal"
 msgstr "Total"
@@ -172,16 +172,16 @@ msgid "tableaub1.NonOrientesautres"
 msgstr " - Autres"
 
 msgid "tableaub1.delai_moyen"
-msgstr "<b>Délais moyen d'orientation (en jours) (4)</b>"
+msgstr "<b>Délais moyen d'orientation (en jours) (6)</b>"
 
 msgid "tableaub1.orient_31jours"
-msgstr "<b>Nombre de nouveaux entrants SDD et DOV orientés en moins de 1 mois (5)</b>"
+msgstr "<b>Nombre de nouveaux entrants SDD et DOV orientés en moins de 1 mois (3)</b>"
 
 msgid "tableaub1.delai"
-msgstr "<b>Délai de 1ère orientation (6)</b>"
+msgstr "<b>Délai de 1ère orientation (7)</b>"
 
 msgid "tableaub1.taux_orient"
-msgstr "<b>Taux d'orientation sur les nouveaux entrants (7)</b>"
+msgstr "<b>Taux d'orientation sur les nouveaux entrants (4)</b>"
 
 msgid "tableaub1.note1"
 msgstr "(1) Nombre de nouveaux entrant SDD et DOV par mois."
@@ -189,20 +189,20 @@ msgstr "(1) Nombre de nouveaux entrant SDD et DOV par mois."
 msgid "tableaub1.note2"
 msgstr "(2) Comptabilise le nombre de non orientés par mois parmi les nouveaux entrant SDD et DOV de la 1ère ligne"
 
-msgid "tableaub1.note3"
-msgstr "(3) Nombre de personnes SDD et DOV qui ont eu une 1ère orientation le mois en cours (sans lien avec la 1ère ligne du tableau)"
-
-msgid "tableaub1.note4"
-msgstr "(4) Délai moyen entre la date de création de l'historique provenant des flux journaliers et mensuels et la date de validation de la 1ère orientation"
-
 msgid "tableaub1.note5"
-msgstr "(5) Nombre de nouveaux entrants SDD et DOV ayant eu leur 1ère orientation en moins d'un mois"
+msgstr "(5) Nombre de personnes SDD et DOV qui ont eu une 1ère orientation le mois en cours (sans lien avec la 1ère ligne du tableau)"
 
 msgid "tableaub1.note6"
-msgstr "(6) Délai entre la date de création de l'historique provenant des flux journaliers et mensuels et la date de validation de la 1ère orientation"
+msgstr "(6) Délai moyen entre la date de création de l'historique provenant des flux journaliers et mensuels et la date de validation de la 1ère orientation"
+
+msgid "tableaub1.note3"
+msgstr "(3) Nombre de nouveaux entrants SDD et DOV ayant eu leur 1ère orientation en moins d'un mois"
 
 msgid "tableaub1.note7"
-msgstr "(7) Pourcentage de personnes ayant eu leur 1ère orientation par rapport au nombre de nouveaux entrant SDD et DOV"
+msgstr "(7) Délai entre la date de création de l'historique provenant des flux journaliers et mensuels et la date de validation de la 1ère orientation"
+
+msgid "tableaub1.note4"
+msgstr "(4) Pourcentage de nouveaux entrant ayant eu leur 1ère orientation par rapport au nombre de nouveaux entrant SDD et DOV"
 
 # ==============================================================================
 # Tableau A1

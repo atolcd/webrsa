@@ -405,6 +405,8 @@
 					'bilan' => array(),
 					'autres' => array(),
 				),
+				'orient_31jours' => array(),
+				'taux_orient' => array(),
 				'Orientes' => array(
 					'total' => array(),
 					'emploi' => array(),
@@ -415,9 +417,7 @@
 					'oa' => array()
 				),
 				'delai_moyen' => array(),
-				'orient_31jours' => array(),
-				'delai' => $configurationDelais,
-				'taux_orient' => array()
+				'delai' => $configurationDelais
 			);
 
 			for($i=0; $i<12; $i++) {
@@ -577,7 +577,6 @@
 
 			// Conditions
 			$query = $this->_getConditionsViewSearch($search, $query);
-
 			return $query;
 		}
 
@@ -2679,26 +2678,28 @@
 				}
 
 				// Orientés
-				if( !is_null($result['orientstruct']['date_valid']) && $result['orientstruct']['rgorient'] == 1 ) {
+				if( !is_null($result['orientstruct']['date_valid'])) {
 					$moisOrient = (int)date('n', strtotime($result['orientstruct']['date_valid'])) -1;
-					$resultats['Orientes']['total'][$moisOrient]++;
-					// Type d'orientations
-					if( $result['structurereferente']['type_struct_stats'] == 'oa' ) {
-						$resultats['Orientes']['oa'][$moisOrient]++;
-					}
-					if( $result['structurereferente']['type_struct_stats'] == 'pe' ) {
-						$resultats['Orientes']['pe'][$moisOrient]++;
-					}
-					if( $result['structurereferente']['type_struct_stats'] == 'cd' ) {
-						$resultats['Orientes']['cd'][$moisOrient]++;
-					}
+					if ($result['orientstruct']['rgorient'] == 1 ) {
+						$resultats['Orientes']['total'][$moisOrient]++;
+						// Type d'orientations
+						if( $result['structurereferente']['type_struct_stats'] == 'oa' ) {
+							$resultats['Orientes']['oa'][$moisOrient]++;
+						}
+						if( $result['structurereferente']['type_struct_stats'] == 'pe' ) {
+							$resultats['Orientes']['pe'][$moisOrient]++;
+						}
+						if( $result['structurereferente']['type_struct_stats'] == 'cd' ) {
+							$resultats['Orientes']['cd'][$moisOrient]++;
+						}
 
-					if(!empty($testOrient['SOCIAL']) && in_array($result['typeorient']['id'], $testOrient['SOCIAL'] ) ) {
-						$resultats['Orientes']['social'][$moisOrient]++;
-					} elseif(!empty($testOrient['EMPLOI']) &&  in_array( $result['typeorient']['id'], $testOrient['EMPLOI'] ) ) {
-						$resultats['Orientes']['emploi'][$moisOrient]++;
-					} elseif (!empty($testOrient['PREPRO']) && in_array( $result['typeorient']['id'], $testOrient['PREPRO'] ) ) {
-						$resultats['Orientes']['prepro'][$moisOrient]++;
+						if(!empty($testOrient['SOCIAL']) && in_array($result['typeorient']['id'], $testOrient['SOCIAL'] ) ) {
+							$resultats['Orientes']['social'][$moisOrient]++;
+						} elseif(!empty($testOrient['EMPLOI']) &&  in_array( $result['typeorient']['id'], $testOrient['EMPLOI'] ) ) {
+							$resultats['Orientes']['emploi'][$moisOrient]++;
+						} elseif (!empty($testOrient['PREPRO']) && in_array( $result['typeorient']['id'], $testOrient['PREPRO'] ) ) {
+							$resultats['Orientes']['prepro'][$moisOrient]++;
+						}
 					}
 
 					// Délais
@@ -2706,10 +2707,12 @@
 					$dateOrient = new DateTime($result['orientstruct']['date_valid']);
 					$delai = $dateCreaHisto->diff($dateOrient)->days;
 
-					$resultats['delai_moyen'][$month] += $delai;
+					$resultats['delai_moyen'][$moisOrient] += $delai;
 					$delaiMois = $dateCreaHisto->diff($dateOrient)->m;
-					if($delaiMois < 1) {
-						$resultats['orient_31jours'][$month]++;
+
+					$delai1mois = $delaiMois < 1 || ($delaiMois == 1 && $dateCreaHisto->diff($dateOrient)->d == 0);
+					if( $delai1mois && ($result[0]['primo'] == true || $result[0]['nouvel_entrant'] == true)) {
+						$resultats['orient_31jours'][$moisOrient]++;
 					}
 					foreach($resultats['delai']as $key => $osef) {
 						$moisDelais = explode('_', $key);
@@ -2721,6 +2724,7 @@
 				 // Non orientés
 				elseif($isThisYear && is_null($result['orientstruct']['date_valid'])) {
 					$resultats['NonOrientes']['total'][$month]++;
+
 					if( !is_null($result[0]['statutrdv_id']) && in_array($result[0]['statutrdv_id'], $statutRdv['prevu']) ) {
 						$resultats['NonOrientes']['prevu'][$month]++;
 					} elseif( !is_null($result[0]['proposition']) && $result[0]['proposition'] ==  'audition' ) {
@@ -2735,7 +2739,7 @@
 				if($resultats['Orientes']['total'][$i] != 0) {
 					$resultats['delai_moyen'][$i] = intval($resultats['delai_moyen'][$i] / $resultats['Orientes']['total'][$i]);}
 				if($resultats['total'][$i] != 0) {
-					$resultats['taux_orient'][$i] = round( (100 * $resultats['Orientes']['total'][$i] ) / $resultats['total'][$i], 2) . '%';}
+					$resultats['taux_orient'][$i] = round( (100 * $resultats['orient_31jours'][$i] ) / $resultats['total'][$i], 2) . '%';}
 			}
 
 			// Calcul des cumuls
