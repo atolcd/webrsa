@@ -15,13 +15,14 @@ AS WITH liste_mois AS (
          SELECT DISTINCT historiquedroit.personne_id AS idpersonne
            FROM historiquesdroits historiquedroit
           WHERE historiquedroit.etatdosrsa::text = '2'::text
-        ), personne_adresse AS (
+        ), personne_adresse_raw AS (
          SELECT lp.idpersonne,
             a.nomvoie,
             a.nomcom,
             a.numcom,
             c.canton,
             af.dtemm,
+            rank() OVER (PARTITION BY lp.idpersonne ORDER BY af.dtemm) AS ranking,
             COALESCE(lead(af.dtemm, 1) OVER (PARTITION BY lp.idpersonne ORDER BY af.dtemm), '3000-01-01'::date) AS dtdem
            FROM liste_personne lp
              JOIN personnes p ON p.id = lp.idpersonne
@@ -30,6 +31,18 @@ AS WITH liste_mois AS (
              LEFT JOIN adresses a ON a.id = af.adresse_id
              LEFT JOIN adresses_cantons ac ON ac.adresse_id = a.id
              LEFT JOIN cantons c ON c.id = ac.canton_id
+        ), personne_adresse AS (
+         SELECT personne_adresse_raw.idpersonne,
+            personne_adresse_raw.nomvoie,
+            personne_adresse_raw.nomcom,
+            personne_adresse_raw.numcom,
+            personne_adresse_raw.canton,
+                CASE personne_adresse_raw.ranking
+                    WHEN 1 THEN '1900-01-01'::date
+                    ELSE personne_adresse_raw.dtemm
+                END AS dtemm,
+            personne_adresse_raw.dtdem
+           FROM personne_adresse_raw
         ), nir_conflict AS (
          SELECT p.id,
             p.id < p2.id AS first_apparition
@@ -100,7 +113,7 @@ AS WITH liste_mois AS (
     lh.historiquedroit__toppersdrodevorsa,
     lh.historiquedroit__created,
     lh.first_apparition AND lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois) IS NULL AS primo,
-    NOT lh.first_apparition AND lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois) IS NULL OR (lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois)::text = ANY (ARRAY['5'::character varying, '6'::character varying]::text[])) AND lh.historiquedroit__etatdosrsa::text = '2'::text AS nouvel_entrant,
+    NOT lh.first_apparition AND lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois) IS NULL OR (lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois)::text = ANY (ARRAY['5'::character varying::text, '6'::character varying::text])) AND lh.historiquedroit__etatdosrsa::text = '2'::text AS nouvel_entrant,
     lag(lh.historiquedroit__etatdosrsa, 1) OVER (PARTITION BY lh.idpersonne ORDER BY lh.annee, lh.mois) AS previous_etat,
     lo.id AS orientstruct__id,
     lo.statut_orient AS orientstruct__statut_orient,

@@ -1003,33 +1003,73 @@
 		protected function _initializeTableauB5() {
 			$configurationDelais = Configure::read('Statistiqueplanpauvrete.delais');
 			$resultats = array (
-				'orient_valid' => array(),
-				'cer_social' => array(),
-				'cer_prepro' => array(),
-				'delai_moyen' => array(),
-				'delai_social' => array(),
-				'delai_prepro' => array(),
-				'signe15jrs' => array(),
-				'signe2mois' => array(),
-				'delai' => $configurationDelais,
-				'taux_contrat' => array()
+				// Tout le monde
+				'Pers' => array(
+					'orient_valid' => array(),
+					'cer_social' => array(),
+					'cer_prepro' => array(),
+					'delai_moyen' => array(),
+					'delai_social' => array(),
+					'delai_prepro' => array(),
+					'signe15jrs_orient' => array(),
+					'signe2mois_orient' => array(),
+					'signe15jrs_crea' => array(),
+					'signe2mois_crea' => array(),
+					'delai' => $configurationDelais,
+					'taux_contrat' => array()
+				),
+				// Nouveaux entrants
+				'NvxEnt' => array(
+					'orient_valid' => array(),
+					'cer_social' => array(),
+					'cer_prepro' => array(),
+					'delai_moyen' => array(),
+					'delai_social' => array(),
+					'delai_prepro' => array(),
+					'signe15jrs_orient' => array(),
+					'signe2mois_orient' => array(),
+					'signe15jrs_crea' => array(),
+					'signe2mois_crea' => array(),
+					'delai' => $configurationDelais,
+					'taux_contrat' => array()
+				),
 			);
 
 			for($i=0; $i<12; $i++) {
-				$resultats['orient_valid'][$i] = 0;
-				$resultats['cer_social'][$i] = 0;
-				$resultats['cer_prepro'][$i] = 0;
-				$resultats['delai_moyen'][$i] = 0;
-				$resultats['delai_social'][$i] = 0;
-				$resultats['delai_prepro'][$i] = 0;
-				$resultats['signe15jrs'][$i] = 0;
-				$resultats['signe2mois'][$i] = 0;
-				$resultats['taux_contrat'][$i] = 0;
+				$resultats['Pers']['orient_valid'][$i] = 0;
+				$resultats['Pers']['cer_social'][$i] = 0;
+				$resultats['Pers']['cer_prepro'][$i] = 0;
+				$resultats['Pers']['delai_moyen'][$i] = 0;
+				$resultats['Pers']['delai_social'][$i] = 0;
+				$resultats['Pers']['delai_prepro'][$i] = 0;
+				$resultats['Pers']['signe15jrs_orient'][$i] = 0;
+				$resultats['Pers']['signe2mois_orient'][$i] = 0;
+				$resultats['Pers']['signe15jrs_crea'][$i] = 0;
+				$resultats['Pers']['signe2mois_crea'][$i] = 0;
+				$resultats['Pers']['taux_contrat'][$i] = 0;
 				foreach( $configurationDelais as $key => $config) {
-					if( is_array($resultats['delai'][$key]) == false ) {
-						$resultats['delai'][$key] = array();
+					if( is_array($resultats['Pers']['delai'][$key]) == false ) {
+						$resultats['Pers']['delai'][$key] = array();
 					}
-					$resultats['delai'][$key][$i] = 0;
+					$resultats['Pers']['delai'][$key][$i] = 0;
+				}
+
+				$resultats['NvxEnt']['orient_valid'][$i] = 0;
+				$resultats['NvxEnt']['cer_social'][$i] = 0;
+				$resultats['NvxEnt']['cer_prepro'][$i] = 0;
+				$resultats['NvxEnt']['delai_moyen'][$i] = 0;
+				$resultats['NvxEnt']['delai_social'][$i] = 0;
+				$resultats['NvxEnt']['delai_prepro'][$i] = 0;
+				$resultats['NvxEnt']['signe15jrs_orient'][$i] = 0;
+				$resultats['NvxEnt']['signe2mois_orient'][$i] = 0;
+				$resultats['NvxEnt']['signe15jrs_crea'][$i] = 0;
+				$resultats['NvxEnt']['signe2mois_crea'][$i] = 0;
+				$resultats['NvxEnt']['taux_contrat'][$i] = 0;
+				foreach( $configurationDelais as $key => $config) {
+					if( is_array($resultats['NvxEnt']['delai'][$key]) == false ) {
+						$resultats['NvxEnt']['delai'][$key] = array();
+					}
+					$resultats['NvxEnt']['delai'][$key][$i] = 0;
 				}
 			}
 			return $resultats;
@@ -1044,7 +1084,8 @@
 			$annee = (int)Hash::get( $search, 'Search.annee' );
 
 			$query = $this->_getSelectViewSearchGeneral();
-			$query .= " WHERE date_part('year',Orientstruct__date_valid) = " . $annee . " AND Orientstruct__rgorient = 1 ";
+			$query .= " WHERE ( (annee = " . $annee . " AND (primo = TRUE OR nouvel_entrant = TRUE)) ";
+			$query .= "OR (date_part('year',Orientstruct__date_valid) = " . $annee . " AND Orientstruct__rgorient = 1 ) ) ";
 			$query .= " AND Historiquedroit__toppersdrodevorsa = '1'";
 
 			$query = $this->_getConditionsViewSearch($search, $query);
@@ -2878,34 +2919,97 @@
 
 			// Traitement des résultats
 			foreach($results as $result) {
-				$monthOrient = intval( date('n', strtotime($result['orientstruct']['date_valid']) ) ) -1;
-				$resultats['orient_valid'][$monthOrient]++;
+				$estNouveauEntrant = false;
+				$month = $result[0]['mois'] -1;
+				// Orientés
+				if( !is_null($result['orientstruct']['date_valid']) /* &&  */ ) {
+					$monthOrient = intval( date('n', strtotime($result['orientstruct']['date_valid']) ) ) -1;
+					if($result['orientstruct']['rgorient'] == 1) {
+						$resultats['Pers']['orient_valid'][$monthOrient]++;
+					}
+					$dateCrea = new DateTime($result['historiquedroit']['created']);
+					$dateOrient = new DateTime($result['orientstruct']['date_valid']);
 
-				$dateOrient = new DateTime($result['orientstruct']['date_valid']);
-				$dateCer = new DateTime($result['contratinsertion']['datevalidation_ci']);
-				$delai = $dateOrient->diff($dateCer)->days;
-				if( $delai > 0 && $result['contratinsertion']['rg_ci'] == 1) {
-					$resultats['delai_moyen'][$monthOrient] += $delai;
-
-					if( $delai < 15 ) {
-						$resultats['signe15jrs'][$monthOrient]++;
+					// Récupération des nouveaux entrants orientés
+					$delaiMois = $dateCrea->diff($dateOrient)->m;
+					$delai1mois = $delaiMois < 1 || ($delaiMois == 1 && $dateCrea->diff($dateOrient)->d == 0);
+					if( $delai1mois && ($result[0]['primo'] == true || $result[0]['nouvel_entrant'] == true)) {
+						$delaiMois = $dateCrea->diff($dateOrient)->m;
+						if($delaiMois < 1) {
+							$resultats['NvxEnt']['orient_valid'][$month]++;
+							$estNouveauEntrant = true;
+						}
 					}
 
-					if( !empty($testOrient['SOCIAL']) && in_array($result['typeorient']['id'], $testOrient['SOCIAL'] ) ) {
-						$resultats['cer_social'][$monthOrient] ++;
-						$resultats['delai_social'][$monthOrient] += $delai;
-					} else if( !empty($testOrient['PREPRO']) && in_array($result['typeorient']['id'], $testOrient['PREPRO'] )  ) {
-						$resultats['cer_prepro'][$monthOrient] ++;
-						$resultats['delai_prepro'][$monthOrient] += $delai;
-					}
-					$delaiMonth = $dateOrient->diff($dateCer)->m;
-					if($delaiMonth < 2) {
-						$resultats['signe2mois'][$monthOrient]++;
-					}
-					foreach($resultats['delai']as $key => $osef) {
-						$joursDelais = explode('_', $key);
-						if( $delaiMonth >= intval($joursDelais[0]) && $delaiMonth < intval($joursDelais[1]) ) {
-							$resultats['delai'][$key][$monthOrient] ++;
+					if( !is_null($result['contratinsertion']['datevalidation_ci']) ) {
+						$dateCer = new DateTime($result['contratinsertion']['datevalidation_ci']);
+						$delaiOrientCER = $dateOrient->diff($dateCer)->days;
+
+						$anneeCrea = intval( date('Y', strtotime($result['historiquedroit']['created']) ) );
+						if($annee == $anneeCrea) {
+							$monthCrea = intval( date('n', strtotime($result['historiquedroit']['created']) ) ) -1;
+
+							$delaiCreaCER = $dateCrea->diff($dateCer)->days;
+
+							if( $delaiCreaCER < 15) {
+								$resultats['Pers']['signe15jrs_crea'][$monthCrea]++;
+								if($estNouveauEntrant) {
+									$resultats['NvxEnt']['signe15jrs_crea'][$monthCrea]++;
+								}
+							}
+
+							$delaiMonth = $dateCrea->diff($dateCer)->m;
+							if($delaiMonth < 2) {
+								$resultats['Pers']['signe2mois_crea'][$monthCrea]++;
+								if($estNouveauEntrant) {
+									$resultats['NvxEnt']['signe2mois_crea'][$monthCrea]++;
+								}
+							}
+						}
+
+						if( $delaiOrientCER > 0 && $result['contratinsertion']['rg_ci'] == 1) {
+							$resultats['Pers']['delai_moyen'][$monthOrient] += $delaiOrientCER;
+							if($estNouveauEntrant) {
+								$resultats['NvxEnt']['delai_moyen'][$monthOrient] += $delaiOrientCER;
+							}
+							if( $delaiOrientCER < 15 ) {
+								$resultats['Pers']['signe15jrs_orient'][$monthOrient]++;
+								if($estNouveauEntrant) {
+									$resultats['NvxEnt']['signe15jrs_orient'][$monthOrient]++;
+								}
+							}
+
+							if( !empty($testOrient['SOCIAL']) && in_array($result['typeorient']['id'], $testOrient['SOCIAL'] ) ) {
+								$resultats['Pers']['cer_social'][$monthOrient] ++;
+								$resultats['Pers']['delai_social'][$monthOrient] += $delaiOrientCER;
+								if($estNouveauEntrant) {
+									$resultats['NvxEnt']['cer_social'][$monthOrient] ++;
+									$resultats['NvxEnt']['delai_social'][$monthOrient] += $delaiOrientCER;
+								}
+							} else if( !empty($testOrient['PREPRO']) && in_array($result['typeorient']['id'], $testOrient['PREPRO'] )  ) {
+								$resultats['Pers']['cer_prepro'][$monthOrient] ++;
+								$resultats['Pers']['delai_prepro'][$monthOrient] += $delaiOrientCER;
+								if($estNouveauEntrant) {
+									$resultats['NvxEnt']['cer_prepro'][$monthOrient] ++;
+									$resultats['NvxEnt']['delai_prepro'][$monthOrient] += $delaiOrientCER;
+								}
+							}
+							$delaiMonth = $dateOrient->diff($dateCer)->m;
+							if($delaiMonth < 2) {
+								$resultats['Pers']['signe2mois_orient'][$monthOrient]++;
+								if($estNouveauEntrant) {
+									$resultats['NvxEnt']['signe2mois_orient'][$monthOrient]++;
+								}
+							}
+							foreach($resultats['Pers']['delai']as $key => $osef) {
+								$joursDelais = explode('_', $key);
+								if( $delaiMonth >= intval($joursDelais[0]) && $delaiMonth < intval($joursDelais[1]) ) {
+									$resultats['Pers']['delai'][$key][$monthOrient] ++;
+									if($estNouveauEntrant) {
+										$resultats['NvxEnt']['delai'][$key][$monthOrient] ++;
+									}
+								}
+							}
 						}
 					}
 				}
@@ -2913,43 +3017,84 @@
 
 			// Calcul des moyennes
 			for( $i=0; $i<12; $i++){
-				if ( ( $resultats['cer_social'][$i] + $resultats['cer_prepro'][$i]) != 0){
-					$resultats['delai_moyen'][$i] = intval($resultats['delai_moyen'][$i] / ( $resultats['cer_social'][$i] + $resultats['cer_prepro'][$i]) );}
-				if ($resultats['cer_social'][$i] != 0 ) {
-					$resultats['delai_social'][$i] = intval($resultats['delai_social'][$i] / $resultats['cer_social'][$i] );}
-				if ($resultats['cer_prepro'][$i] != 0 ) {
-					$resultats['delai_prepro'][$i] = intval($resultats['delai_prepro'][$i] / $resultats['cer_prepro'][$i] );}
-				if ($resultats['orient_valid'][$i] != 0 ) {
-					$resultats['taux_contrat'][$i] = round( (100 * ( $resultats['cer_social'][$i] + $resultats['cer_prepro'][$i] )  / $resultats['orient_valid'][$i]) , 2) . '%';}
+				// Toutes personnes
+				if ( ( $resultats['Pers']['cer_social'][$i] + $resultats['Pers']['cer_prepro'][$i]) != 0){
+					$resultats['Pers']['delai_moyen'][$i] = intval($resultats['Pers']['delai_moyen'][$i] / ( $resultats['Pers']['cer_social'][$i] + $resultats['Pers']['cer_prepro'][$i]) );}
+				if ($resultats['Pers']['cer_social'][$i] != 0 ) {
+					$resultats['Pers']['delai_social'][$i] = intval($resultats['Pers']['delai_social'][$i] / $resultats['Pers']['cer_social'][$i] );}
+				if ($resultats['Pers']['cer_prepro'][$i] != 0 ) {
+					$resultats['Pers']['delai_prepro'][$i] = intval($resultats['Pers']['delai_prepro'][$i] / $resultats['Pers']['cer_prepro'][$i] );}
+				if ($resultats['Pers']['orient_valid'][$i] != 0 ) {
+					$resultats['Pers']['taux_contrat'][$i] = round( (100 * ( $resultats['Pers']['cer_social'][$i] + $resultats['Pers']['cer_prepro'][$i] )  / $resultats['Pers']['orient_valid'][$i]) , 2) . '%';}
+				// Nouveaux entrants
+				if ( ( $resultats['NvxEnt']['cer_social'][$i] + $resultats['NvxEnt']['cer_prepro'][$i]) != 0){
+					$resultats['NvxEnt']['delai_moyen'][$i] = intval($resultats['NvxEnt']['delai_moyen'][$i] / ( $resultats['NvxEnt']['cer_social'][$i] + $resultats['NvxEnt']['cer_prepro'][$i]) );}
+				if ($resultats['NvxEnt']['cer_social'][$i] != 0 ) {
+					$resultats['NvxEnt']['delai_social'][$i] = intval($resultats['NvxEnt']['delai_social'][$i] / $resultats['NvxEnt']['cer_social'][$i] );}
+				if ($resultats['NvxEnt']['cer_prepro'][$i] != 0 ) {
+					$resultats['NvxEnt']['delai_prepro'][$i] = intval($resultats['NvxEnt']['delai_prepro'][$i] / $resultats['NvxEnt']['cer_prepro'][$i] );}
+				if ($resultats['NvxEnt']['orient_valid'][$i] != 0 ) {
+					$resultats['NvxEnt']['taux_contrat'][$i] = round( (100 * ( $resultats['NvxEnt']['cer_social'][$i] + $resultats['NvxEnt']['cer_prepro'][$i] )  / $resultats['NvxEnt']['orient_valid'][$i]) , 2) . '%';}
 			}
 
 			// Calcul des cumuls
-			foreach($resultats as $key => $resultat) {
+			// Toutes personnes
+			foreach($resultats['Pers'] as $key => $resultat) {
 				if($key == 'delai') {
 					foreach($resultat as $key2 => $delai) {
-						$resultats[$key][$key2][] = array_sum($resultats[$key][$key2]);
+						$resultats['Pers'][$key][$key2][] = array_sum($resultats['Pers'][$key][$key2]);
 					}
 				}elseif($key == 'delai_moyen') {
 					// Calcul d'une moyenne pondérée
 					$dividende = 0;
 					$diviseur = 0;
 					for($i=0; $i<12; $i++) {
-						$diviseur += $resultats['cer_social'][$i] + $resultats['cer_prepro'][$i];
-						$dividende += $resultat[$i] * ($resultats['cer_social'][$i] + $resultats['cer_prepro'][$i]);
+						$diviseur += $resultats['Pers']['cer_social'][$i] + $resultats['Pers']['cer_prepro'][$i];
+						$dividende += $resultat[$i] * ($resultats['Pers']['cer_social'][$i] + $resultats['Pers']['cer_prepro'][$i]);
 					}
-					$resultats[$key][] = round($dividende / $diviseur);
+					$resultats['Pers'][$key][] = round($dividende / $diviseur);
 				}elseif(strpos($key, 'delai') !== false) {
 					$keyCER = str_replace('delai', 'cer', $key);
 					// Calcul d'une moyenne pondérée
 					$dividende = 0;
 					$diviseur = 0;
 					for($i=0; $i<12; $i++) {
-						$diviseur += $resultats[$keyCER][$i];
-						$dividende += $resultat[$i] * $resultats[$keyCER][$i];
+						$diviseur += $resultats['Pers'][$keyCER][$i];
+						$dividende += $resultat[$i] * $resultats['Pers'][$keyCER][$i];
 					}
-					$resultats[$key][] = round($dividende / $diviseur);
+					$resultats['Pers'][$key][] = round($dividende / $diviseur);
 				}elseif($key != 'taux_contrat' && strpos($key, 'delai') === false) {
-					$resultats[$key][] = array_sum($resultats[$key]);
+					$resultats['Pers'][$key][] = array_sum($resultats['Pers'][$key]);
+				}
+			}
+
+			// Nouveaux entrants
+			foreach($resultats['NvxEnt'] as $key => $resultat) {
+				if($key == 'delai') {
+					foreach($resultat as $key2 => $delai) {
+						$resultats['NvxEnt'][$key][$key2][] = array_sum($resultats['NvxEnt'][$key][$key2]);
+					}
+				}elseif($key == 'delai_moyen') {
+					// Calcul d'une moyenne pondérée
+					$dividende = 0;
+					$diviseur = 0;
+					for($i=0; $i<12; $i++) {
+						$diviseur += $resultats['NvxEnt']['cer_social'][$i] + $resultats['NvxEnt']['cer_prepro'][$i];
+						$dividende += $resultat[$i] * ($resultats['NvxEnt']['cer_social'][$i] + $resultats['NvxEnt']['cer_prepro'][$i]);
+					}
+					$resultats['NvxEnt'][$key][] = round($dividende / $diviseur);
+				}elseif(strpos($key, 'delai') !== false) {
+					$keyCER = str_replace('delai', 'cer', $key);
+					// Calcul d'une moyenne pondérée
+					$dividende = 0;
+					$diviseur = 0;
+					for($i=0; $i<12; $i++) {
+						$diviseur += $resultats['NvxEnt'][$keyCER][$i];
+						$dividende += $resultat[$i] * $resultats['NvxEnt'][$keyCER][$i];
+					}
+					$resultats['NvxEnt'][$key][] = round($dividende / $diviseur);
+				}elseif($key != 'taux_contrat' && strpos($key, 'delai') === false) {
+					$resultats['NvxEnt'][$key][] = array_sum($resultats['NvxEnt'][$key]);
 				}
 			}
 

@@ -438,7 +438,10 @@ msgstr "Taux de présence au 1er rendez-vous"
 # Tableau B5
 # ==============================================================================
 msgid "Tableau.nbCer"
-msgstr "Nombre de contractualisation des orientations des CD en "
+msgstr "Nombre de contractualisation des orientations faites par le Conseil Départemental en "
+
+msgid "Tableau.nbCerNvxEntrant"
+msgstr "Nombre de contractualisation des orientations des nouveaux entrant en "
 
 msgid "Tableaub5.orient_valid"
 msgstr "<b>Nombre de 1ère orientation (1)</b> "
@@ -458,17 +461,59 @@ msgstr "Délais moyen de contractualisation \"Social\" en jours"
 msgid "Tableaub5.delai_prepro"
 msgstr "Délais moyen de contractualisation \"Pré pro\" en jours"
 
-msgid "Tableaub5.signe15jrs"
+msgid "Tableaub5.signe15jrs_orient"
 msgstr "Nombre de CER signés en moins de 15 jours à compter de la date d'orientation"
 
-msgid "Tableaub5.signe2mois"
+msgid "Tableaub5.signe2mois_orient"
 msgstr "Nombre de CER signés en moins de 2 mois à compter de la date d'orientation"
 
+msgid "Tableaub5.signe15jrs_crea"
+msgstr "Nombre de CER signés en moins de 15 jours à compter de la date de notification de la demande au CD par la CAF"
+
+msgid "Tableaub5.signe2mois_crea"
+msgstr "Nombre de CER signés en moins de 2 mois à compter de la date de notification de la demande au CD par la CAF"
+
 msgid "Tableaub5.delai"
-msgstr "<b>Délais de contractualisation  (4)</b>"
+msgstr "<b>Délais de contractualisation (4)</b>"
 
 msgid "Tableaub5.taux_contrat"
 msgstr "<b>Taux de contractualisation (5)</b>"
+
+msgid "Tableaub5.NvxEnt.orient_valid"
+msgstr "<b>Nombre de 1ère orientation (6)</b> "
+
+msgid "Tableaub5.NvxEnt.cer_social"
+msgstr "<b>Nombre de CER \"Social\" validé (7)</b>"
+
+msgid "Tableaub5.NvxEnt.cer_prepro"
+msgstr "<b>Nombre de CER \"Pré pro\" validé (8)</b>"
+
+msgid "Tableaub5.NvxEnt.delai_moyen"
+msgstr "Délais moyen de contractualisation en jours"
+
+msgid "Tableaub5.NvxEnt.delai_social"
+msgstr "Délais moyen de contractualisation \"Social\" en jours"
+
+msgid "Tableaub5.NvxEnt.delai_prepro"
+msgstr "Délais moyen de contractualisation \"Pré pro\" en jours"
+
+msgid "Tableaub5.NvxEnt.signe15jrs_orient"
+msgstr "Nombre de CER signés en moins de 15 jours à compter de la date d'orientation"
+
+msgid "Tableaub5.NvxEnt.signe2mois_orient"
+msgstr "Nombre de CER signés en moins de 2 mois à compter de la date d'orientation"
+
+msgid "Tableaub5.NvxEnt.signe15jrs_crea"
+msgstr "Nombre de CER signés en moins de 15 jours à compter de la date de notification de la demande au CD par la CAF"
+
+msgid "Tableaub5.NvxEnt.signe2mois_crea"
+msgstr "Nombre de CER signés en moins de 2 mois à compter de la date de notification de la demande au CD par la CAF"
+
+msgid "Tableaub5.NvxEnt.delai"
+msgstr "<b>Délais de contractualisation (9)</b>"
+
+msgid "Tableaub5.NvxEnt.taux_contrat"
+msgstr "<b>Taux de contractualisation (10)</b>"
 
 msgid "Tableaub5.note1"
 msgstr "(1) Nombre de personnes SDD et DOV ayant validées leur 1ère orientation par mois"
@@ -484,6 +529,21 @@ msgstr "(4) Délai entre la date de validation de la 1ère orientation et la dat
 
 msgid "Tableaub5.note5"
 msgstr "(5) Pourcentage de personnes ayant eu la validation du 1er CER par rapport au nombre de personnes ayant eu la validation de leur 1ère orientation"
+
+msgid "Tableaub5.note6"
+msgstr "(6) Nombre de nouveaux entrant SDD et DOV ayant validées leur 1ère orientation par mois"
+
+msgid "Tableaub5.note7"
+msgstr "(7) Nombre de 1ers CER de type social validés parmis les 1ères orientations des nouveaux entrants.<br><u>Note</u> : Si un nouvel entrant est orienté au mois de janvier et a validé un CER de type social en mars, il sera comptabilisé au mois de janvier"
+
+msgid "Tableaub5.note8"
+msgstr "(8) Nombre de 1ers CER de type pré-professionnel validés parmis les 1ères orientations des nouveaux entrants.<br><u>Note</u> : Si un nouvel entrant est orienté au mois de janvier et a validé un CER de type pré-professionnel en mars, il sera comptabilisé au mois de janvier"
+
+msgid "Tableaub5.note9"
+msgstr "(9) Délai entre la date de validation de la 1ère orientation et la date de validation du 1er CER"
+
+msgid "Tableaub5.note10"
+msgstr "(10) Pourcentage de nouveaux entrant ayant eu la validation du 1er CER par rapport au nombre de nouveaux entrant ayant eu la validation de leur 1ère orientation"
 
 # ==============================================================================
 # Tableau A1 V2
