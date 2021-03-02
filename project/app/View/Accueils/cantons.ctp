@@ -30,6 +30,21 @@
 								'target' => '_blank',
 							)
 					) . '</b>';
+					echo '<br>';
+					echo $this->Default3->actions (
+						array (
+							'/Cantons/adressesnonassociees' => array(
+								'class' => 'exportcsv',
+								'title' => __d('cantons', '/Cantons/adressesnonassociees/:title'),
+								'text' => __d('cantons', '/Cantons/adressesnonassociees')
+							),
+							'/Cantons/adressessanscanton' => array(
+								'class' => 'exportcsv',
+								'title' => __d('cantons', '/Cantons/adressessanscanton/:title'),
+								'text' => __d('cantons', '/Cantons/adressessanscanton')
+							)
+						)
+					);
 				?>
 			</td>
 		</tr>

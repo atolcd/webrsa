@@ -386,8 +386,8 @@
 				),
 				'conditions' => array(
 					'OR' => array(
-						'canton' => '',
-						'canton IS NULL'
+						array('Canton.canton IS NULL'),
+						array("Canton.canton = ''")
 					)
 				),
 				'recursive' => -1
