@@ -350,6 +350,9 @@ msgstr " - Dont nombre de non venu avec excuse recevable"
 msgid "Tableaub4.Socialsans_excuse"
 msgstr " - Dont nombre de non venu sans excuse recevable"
 
+msgid "Tableaub4.Socialnvxent_rdv"
+msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux entrants orientés"
+
 msgid "Tableaub4.Socialdelai15jrs"
 msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
 
@@ -377,6 +380,9 @@ msgstr " - Dont nombre de non venu avec excuse recevable"
 msgid "Tableaub4.Preprosans_excuse"
 msgstr " - Dont nombre de non venu sans excuse recevable"
 
+msgid "Tableaub4.Prepronvxent_rdv"
+msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux entrants orientés"
+
 msgid "Tableaub4.Preprodelai15jrs"
 msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
 
@@ -401,6 +407,9 @@ msgstr " - Dont nombre de non venu avec excuse recevable"
 msgid "Tableaub4.Prosans_excuse"
 msgstr " - Dont nombre de non venu sans excuse recevable"
 
+msgid "Tableaub4.Pronvxent_rdv"
+msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux entrants orientés"
+
 msgid "Tableaub4.Prodelai15jrs"
 msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
 
@@ -424,6 +433,9 @@ msgstr " - Dont nombre de non venu avec excuse recevable"
 
 msgid "Tableaub4.Generalsans_excuse"
 msgstr " - Dont nombre de non venu sans excuse recevable"
+
+msgid "Tableaub4.Generalnvxent_rdv"
+msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux entrants orientés"
 
 msgid "Tableaub4.Generaldelai15jrs"
 msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"

@@ -887,6 +887,7 @@
 					'venu' => array(),
 					'excuse_recevable' => array(),
 					'sans_excuse' => array(),
+					'nvxent_rdv' => array(),
 					'delai15jrs' => array(),
 					'delai_moyen' => array(),
 					'delai' => $configurationDelais,
@@ -897,6 +898,7 @@
 					'venu' => array(),
 					'excuse_recevable' => array(),
 					'sans_excuse' => array(),
+					'nvxent_rdv' => array(),
 					'delai15jrs' => array(),
 					'delai_moyen' => array(),
 					'delai' => $configurationDelais,
@@ -907,6 +909,7 @@
 					'venu' => array(),
 					'excuse_recevable' => array(),
 					'sans_excuse' => array(),
+					'nvxent_rdv' => array(),
 					'delai15jrs' => array(),
 					'delai_moyen' => array(),
 					'delai' => $configurationDelais,
@@ -917,6 +920,7 @@
 					'venu' => array(),
 					'excuse_recevable' => array(),
 					'sans_excuse' => array(),
+					'nvxent_rdv' => array(),
 					'delai15jrs' => array(),
 					'delai_moyen' => array(),
 					'delai' => $configurationDelais,
@@ -930,6 +934,7 @@
 				$resultats['Social']['venu'][$i] = 0;
 				$resultats['Social']['excuse_recevable'][$i] = 0;
 				$resultats['Social']['sans_excuse'][$i] = 0;
+				$resultats['Social']['nvxent_rdv'][$i] = 0;
 				$resultats['Social']['delai15jrs'][$i] = 0;
 				$resultats['Social']['delai_moyen'][$i] = 0;
 				$resultats['Social']['taux_presence'][$i] = 0;
@@ -937,6 +942,7 @@
 				$resultats['Prepro']['venu'][$i] = 0;
 				$resultats['Prepro']['excuse_recevable'][$i] = 0;
 				$resultats['Prepro']['sans_excuse'][$i] = 0;
+				$resultats['Prepro']['nvxent_rdv'][$i] = 0;
 				$resultats['Prepro']['delai15jrs'][$i] = 0;
 				$resultats['Prepro']['delai_moyen'][$i] = 0;
 				$resultats['Prepro']['taux_presence'][$i] = 0;
@@ -944,6 +950,7 @@
 				$resultats['Pro']['venu'][$i] = 0;
 				$resultats['Pro']['excuse_recevable'][$i] = 0;
 				$resultats['Pro']['sans_excuse'][$i] = 0;
+				$resultats['Pro']['nvxent_rdv'][$i] = 0;
 				$resultats['Pro']['delai15jrs'][$i] = 0;
 				$resultats['Pro']['delai_moyen'][$i] = 0;
 				$resultats['Pro']['taux_presence'][$i] = 0;
@@ -951,6 +958,7 @@
 				$resultats['General']['venu'][$i] = 0;
 				$resultats['General']['excuse_recevable'][$i] = 0;
 				$resultats['General']['sans_excuse'][$i] = 0;
+				$resultats['General']['nvxent_rdv'][$i] = 0;
 				$resultats['General']['delai15jrs'][$i] = 0;
 				$resultats['General']['delai_moyen'][$i] = 0;
 				$resultats['General']['taux_presence'][$i] = 0;
@@ -2808,6 +2816,9 @@
 
 				if( in_array($result[0]['statutrdv_id'], $statutRdv['prevu'] ) === false ) {
 					$resultats[$orientation]['total'][$month]++;
+					if($result[0]['primo'] == true || $result[0]['nouvel_entrant'] == true) {
+						$resultats[$orientation]['nvxent_rdv'][$month]++;
+					}
 					if( in_array($result[0]['statutrdv_id'], $statutRdv['venu'] ) !== false ) {
 						$resultats[$orientation]['venu'][$month]++;
 					}
@@ -2849,6 +2860,7 @@
 				$resultats['General']['venu'][$i] = $resultats['Social']['venu'][$i] + $resultats['Prepro']['venu'][$i] + $resultats['Pro']['venu'][$i];
 				$resultats['General']['excuse_recevable'][$i] = $resultats['Social']['excuse_recevable'][$i] + $resultats['Prepro']['excuse_recevable'][$i] + $resultats['Pro']['excuse_recevable'][$i];
 				$resultats['General']['sans_excuse'][$i] = $resultats['Social']['sans_excuse'][$i] + $resultats['Prepro']['sans_excuse'][$i] + $resultats['Pro']['sans_excuse'][$i];
+				$resultats['General']['nvxent_rdv'][$i] = $resultats['Social']['nvxent_rdv'][$i] + $resultats['Prepro']['nvxent_rdv'][$i] + $resultats['Pro']['nvxent_rdv'][$i];
 				$resultats['General']['delai15jrs'][$i] = $resultats['Social']['delai15jrs'][$i] + $resultats['Prepro']['delai15jrs'][$i] + $resultats['Pro']['delai15jrs'][$i];
 				$resultats['General']['delai_moyen'][$i] = $resultats['Social']['delai_moyen'][$i] + $resultats['Prepro']['delai_moyen'][$i] + $resultats['Pro']['delai_moyen'][$i];
 				foreach($resultats['General']['delai'] as $key => $osef) {
