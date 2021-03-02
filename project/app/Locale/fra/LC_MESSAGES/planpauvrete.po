@@ -88,4 +88,7 @@ msgstr "Par nouveaux entrants"
 msgid "/Dossiers/view"
 msgstr "Voir"
 
+msgid "PlanPauvrete.parcours"
+msgstr "Recherche par parcours de l'allocataire"
+
 

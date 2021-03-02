@@ -39,7 +39,6 @@
 		 * @return array
 		 */
 		public function searchQuery( array $types = array() ) {
-
 			$cacheKey = Inflector::underscore( $this->useDbConfig ).'_'.Inflector::underscore( $this->alias ).'_'.Inflector::underscore( __FUNCTION__ );
 			$query = Cache::read( $cacheKey );
 
@@ -87,7 +86,8 @@
 						)),
 						$this->Personne->join('Orientstruct'),
 						$this->Personne->join('Rendezvous'),
-						$this->Personne->join('Contratinsertion')
+						$this->Personne->join('Contratinsertion'),
+						$this->Personne->join('Activite')
 					)
 				);
 
