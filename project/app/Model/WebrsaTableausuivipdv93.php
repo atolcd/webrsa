@@ -1584,6 +1584,7 @@
 		 */
 		protected function _qdTableaub8Fields() {
 				return array(
+					'Personne.id',
 					'Personne.qual',
 					'Personne.nom',
 					'Personne.prenom',
@@ -1806,7 +1807,7 @@
 			$querydata['recursive'] = -1;
 			$querydata['joins'] = $this->_qdTableaub8Joins();
 			$querydata['conditions'] = $this->_qdTableaub8Conditions($search);
-
+			$querydata['order'] = array('Personne.id', 'Contratinsertion.dd_ci');
 			return $querydata;
 		}
 
@@ -1821,6 +1822,17 @@
 			$annee = Sanitize::clean( Hash::get( $search, 'Search.annee' ), array( 'encode' => false ) );
 
 			$results = $contratInsertion->find('all', $querydata);
+
+			// Suppression des doublons pour ne garder qu'un CER par personne
+			$tmpResult = array();
+			$keyToDelete = null;
+			foreach( $results as $key => $result) {
+				if(!empty($tmpResult) && $tmpResult['Personne']['id'] == $result['Personne']['id'] ) {
+					unset($results[$keyToDelete]);
+				}
+				$tmpResult = $result;
+				$keyToDelete = $key;
+			}
 
 			if($returnQuery) {
 				return $querydata;
@@ -1860,15 +1872,18 @@
 				$mois = $dateCER->format('n');
 				$anneeItem = $dateCER->format('Y');
 
-				if ($annee == $anneeItem && in_array ($result['struc_signataire_cer']['lib_struc'], $listStructure)) {
-
-				for ($i = $mois; $i <= 12 ; $i++) {
-					if (!isset ($cumul[$result['struc_signataire_cer']['lib_struc']][$i])) {
-						$cumul[$result['struc_signataire_cer']['lib_struc']][$i] = 0;
-					}
-
-					$cumul[$result['struc_signataire_cer']['lib_struc']][$i]++;
+				if( $anneeItem < $annee ) {
+					$mois = 1;
 				}
+
+				if( in_array ($result['struc_signataire_cer']['lib_struc'], $listStructure) ) {
+					for ($i = $mois; $i <= 12 ; $i++) {
+						if (!isset ($cumul[$result['struc_signataire_cer']['lib_struc']][$i])) {
+							$cumul[$result['struc_signataire_cer']['lib_struc']][$i] = 0;
+						}
+
+						$cumul[$result['struc_signataire_cer']['lib_struc']][$i]++;
+					}
 				}
 			}
 
