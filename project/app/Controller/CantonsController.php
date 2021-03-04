@@ -314,6 +314,8 @@
 				$line[] = $resultat['Personne']['prenom3'];
 				$line[] = $resultat['Personne']['dtnai'];
 
+				$line[] = $resultat['Dossier']['matricule'];
+
 				$line[] = $resultat['Adresse']['numvoie'];
 				$line[] = $resultat['Adresse']['libtypevoie'];
 				$line[] = $resultat['Adresse']['nomvoie'];
