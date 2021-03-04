@@ -262,6 +262,21 @@
 				)
 			);
 			$export = $this->_generationexportcsvV1( $results, $options);
+
+			// Ajout des notes de règle de gestion
+			$export[] = array('');
+			$noteExiste = true;
+			$nbNote = 1;
+			while ($noteExiste) {
+				$note = __d('statistiquesplanpauvrete', 'tableaub1.note' . $nbNote);
+				if($note != 'tableaub1.note' . $nbNote) {
+					$export[] = array($note);
+				} else {
+					$noteExiste = false;
+				}
+				$nbNote++;
+			}
+
 			$filename = 'indicateurs_tableau_B1';
 
 			$this->layout = '';
@@ -299,7 +314,8 @@
 				'multiArray' => array(
 					'Pro',
 					'Prepro',
-					'Social'
+					'Social',
+					'General'
 				)
 			);
 			$export = $this->_generationexportcsvV1( $results, $options);
@@ -324,10 +340,41 @@
 				'titleprefix' => 'Tableau.nbCer',
 				'prefixTab' => 'Tableaub5',
 				'multiArray' => array(
-					'delai'
+					'Pers',
+					'NvxEnt'
 				)
 			);
 			$export = $this->_generationexportcsvV1( $results, $options);
+
+			// Gestion des libellés spécifique à ce tableau
+			foreach($export as $key1 => $ligne) {
+				foreach($ligne as $key2 => $l) {
+					if( $l === 'Tableaub5.Pers' || $l === 'Tableaub5.NvxEnt' ) {
+						$export[$key1][$key2] = '';
+					} elseif( strpos($l, 'Tableaub5.Pers') !== false ) {
+						$replacement = str_replace('Tableaub5.Pers', 'Tableaub5.' , $l);
+						$export[$key1][$key2] = __d('statistiquesplanpauvrete', $replacement);
+					} elseif( strpos($l, 'Tableaub5.NvxEnt') !== false ) {
+						$replacement = str_replace('Tableaub5.NvxEnt', 'Tableaub5.NvxEnt.' , $l);
+						$export[$key1][$key2] = __d('statistiquesplanpauvrete', $replacement);
+					}
+				}
+			}
+
+			// Ajout des notes de règle de gestion
+			$export[] = array('');
+			$noteExiste = true;
+			$nbNote = 1;
+			while ($noteExiste) {
+				$note = __d('statistiquesplanpauvrete', 'Tableaub5.note' . $nbNote);
+				if($note != 'Tableaub5.note' . $nbNote) {
+					$export[] = array($note);
+				} else {
+					$noteExiste = false;
+				}
+				$nbNote++;
+			}
+
 			$filename = 'indicateurs_tableau_B5';
 
 			$this->layout = '';
