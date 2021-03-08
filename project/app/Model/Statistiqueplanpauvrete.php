@@ -2764,7 +2764,11 @@
 						$diviseur += $resultats['Orientes']['total'][$i];
 						$dividende += $resultat[$i] * $resultats['Orientes']['total'][$i];
 					}
-					$resultats[$key][] = round($dividende / $diviseur);
+					if($diviseur != 0) {
+						$resultats[$key][] = round($dividende / $diviseur);
+					} else {
+						$resultats[$key][] = 0;
+					}
 				} elseif($key != 'taux_orient' && strpos($key, 'delai') === false) {
 					$resultats[$key][] = array_sum($resultats[$key]);
 				}
@@ -2903,7 +2907,11 @@
 							for($i=0; $i<12; $i++) {
 								$dividende += $result[$i] * $resultat['total'][$i];
 							}
-							$resultats[$key][$key2][] = round($dividende / $diviseur);
+							if($diviseur != 0) {
+								$resultats[$key][$key2][] = round($dividende / $diviseur);
+							} else {
+								$resultats[$key][$key2][] = 0;
+							}
 						}elseif($key2 != 'taux_presence') {
 							$resultats[$key][$key2][] = array_sum($resultats[$key][$key2]);
 						}
@@ -3068,7 +3076,11 @@
 						$diviseur += $resultats['Pers']['cer_social'][$i] + $resultats['Pers']['cer_prepro'][$i];
 						$dividende += $resultat[$i] * ($resultats['Pers']['cer_social'][$i] + $resultats['Pers']['cer_prepro'][$i]);
 					}
-					$resultats['Pers'][$key][] = round($dividende / $diviseur);
+					if($diviseur != 0) {
+						$resultats['Pers'][$key][] = round($dividende / $diviseur);
+					}else {
+						$resultats['Pers'][$key][] = 0;
+					}
 				}elseif(strpos($key, 'delai') !== false) {
 					$keyCER = str_replace('delai', 'cer', $key);
 					// Calcul d'une moyenne pondérée
@@ -3078,7 +3090,11 @@
 						$diviseur += $resultats['Pers'][$keyCER][$i];
 						$dividende += $resultat[$i] * $resultats['Pers'][$keyCER][$i];
 					}
-					$resultats['Pers'][$key][] = round($dividende / $diviseur);
+					if($diviseur != 0) {
+						$resultats['Pers'][$key][] = round($dividende / $diviseur);
+					}else {
+						$resultats['Pers'][$key][] = 0;
+					}
 				}elseif($key != 'taux_contrat' && strpos($key, 'delai') === false) {
 					$resultats['Pers'][$key][] = array_sum($resultats['Pers'][$key]);
 				}
@@ -3098,7 +3114,11 @@
 						$diviseur += $resultats['NvxEnt']['cer_social'][$i] + $resultats['NvxEnt']['cer_prepro'][$i];
 						$dividende += $resultat[$i] * ($resultats['NvxEnt']['cer_social'][$i] + $resultats['NvxEnt']['cer_prepro'][$i]);
 					}
-					$resultats['NvxEnt'][$key][] = round($dividende / $diviseur);
+					if($diviseur != 0) {
+						$resultats['NvxEnt'][$key][] = round($dividende / $diviseur);
+					}else {
+						$resultats['NvxEnt'][$key][] = 0;
+					}
 				}elseif(strpos($key, 'delai') !== false) {
 					$keyCER = str_replace('delai', 'cer', $key);
 					// Calcul d'une moyenne pondérée
@@ -3108,7 +3128,11 @@
 						$diviseur += $resultats['NvxEnt'][$keyCER][$i];
 						$dividende += $resultat[$i] * $resultats['NvxEnt'][$keyCER][$i];
 					}
-					$resultats['NvxEnt'][$key][] = round($dividende / $diviseur);
+					if($diviseur != 0) {
+						$resultats['NvxEnt'][$key][] = round($dividende / $diviseur);
+					}else {
+						$resultats['NvxEnt'][$key][] = 0;
+					}
 				}elseif($key != 'taux_contrat' && strpos($key, 'delai') === false) {
 					$resultats['NvxEnt'][$key][] = array_sum($resultats['NvxEnt'][$key]);
 				}
