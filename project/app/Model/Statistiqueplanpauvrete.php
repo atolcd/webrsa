@@ -999,7 +999,7 @@
 			$query .= " AND Historiquedroit__toppersdrodevorsa = '1'";
 
 			$query = $this->_getConditionsViewSearch($search, $query);
-			$query .= ' ORDER BY idpersonne, annee, mois, dtemm desc';
+			$query .= ' ORDER BY annee, mois, idpersonne, dtemm desc, rdv.daterdv asc';
 			return $query;
 		}
 
@@ -2799,7 +2799,6 @@
 
 			// Query de base
 			$query = $this->_getQueryTableau_b4 ($search);
-
 			$results = $this->Personne->query($query);
 
 			// Initialisation tableau de résultats
@@ -2809,7 +2808,6 @@
 			foreach($results as $result) {
 				$month = intval( date('n', strtotime($result['orientstruct']['date_valid']) ) ) -1;
 				$resultats['total'][$month]++;
-
 				if(in_array($result['typeorient']['id'], $testOrient['SOCIAL'])) {
 					$orientation = 'Social';
 				} elseif(in_array($result['typeorient']['id'], $testOrient['EMPLOI'])) {
@@ -2834,26 +2832,26 @@
 					if( in_array($result[0]['statutrdv_id'], $statutRdv['excuses_non_recevables'] ) !== false ) {
 						$resultats[$orientation]['sans_excuse'][$month]++;
 					}
-				}
 
-				$dateOrient = new DateTime($result['orientstruct']['date_valid']);
-				$dateRdv = new DateTime($result[0]['daterdv']);
-				$delai = $dateOrient->diff($dateRdv)->days;
+					$dateOrient = new DateTime($result['orientstruct']['date_valid']);
+					$dateRdv = new DateTime($result[0]['daterdv']);
+					$delai = $dateOrient->diff($dateRdv)->days;
 
-				$dateRdvCreated = new DateTime($result[0]['created']);
-				$delaiRdvCreated = $dateOrient->diff($dateRdvCreated)->days;
+					$dateRdvCreated = new DateTime($result[0]['created']);
+					$delaiRdvCreated = $dateOrient->diff($dateRdvCreated)->days;
 
-				if($delaiRdvCreated <= 15) {
-					$resultats[$orientation]['delai15jrs'][$month]++;
-				}
+					if($delaiRdvCreated <= 15) {
+						$resultats[$orientation]['delai15jrs'][$month]++;
+					}
 
-				$resultats[$orientation]['delai_moyen'][$month] += $delai;
-				$delaiMonth = $dateOrient->diff($dateRdv)->m;
+					$resultats[$orientation]['delai_moyen'][$month] += $delai;
+					$delaiMonth = $dateOrient->diff($dateRdv)->m;
 
-				foreach($resultats[$orientation]['delai']as $key => $osef) {
-					$joursDelais = explode('_', $key);
-					if( $delaiMonth >= intval($joursDelais[0]) && $delaiMonth < intval($joursDelais[1]) ) {
-						$resultats[$orientation]['delai'][$key][$month] ++;
+					foreach($resultats[$orientation]['delai']as $key => $osef) {
+						$joursDelais = explode('_', $key);
+						if( $delaiMonth >= intval($joursDelais[0]) && $delaiMonth < intval($joursDelais[1]) ) {
+							$resultats[$orientation]['delai'][$key][$month] ++;
+						}
 					}
 				}
 			}
