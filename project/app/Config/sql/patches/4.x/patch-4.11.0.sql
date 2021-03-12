@@ -126,6 +126,7 @@ AS WITH liste_mois AS (
     structurereferente.typestructure AS structurereferente__typestructure,
     structurereferente.type_struct_stats AS structurereferente__type_struct_stats,
     structurereferente.code_stats AS structurereferente__code_stats,
+    lci.date_saisi_ci AS contratinsertion__date_saisi_ci,
     lci.datevalidation_ci AS contratinsertion__datevalidation_ci,
     lci.rg_ci AS contratinsertion__rg_ci,
     lcui.faitle AS cui__faitle,
@@ -135,7 +136,7 @@ AS WITH liste_mois AS (
      LEFT JOIN orientsstructs lo ON date_trunc('month'::text, lh.date) = date_trunc('month'::text, lo.date_valid::timestamp with time zone) AND lo.personne_id = lh.idpersonne
      LEFT JOIN typesorients typeorient ON typeorient.id = lo.typeorient_id
      LEFT JOIN structuresreferentes structurereferente ON structurereferente.id = lo.structurereferente_id
-     LEFT JOIN contratsinsertion lci ON lci.rg_ci = 1 AND lci.datevalidation_ci > lo.date_valid AND lci.personne_id = lh.idpersonne AND lci.decision_ci = 'V'::bpchar
+     LEFT JOIN contratsinsertion lci ON lci.rg_ci = 1 AND lci.date_saisi_ci > lo.date_valid AND lci.personne_id = lh.idpersonne AND lci.decision_ci = 'V'::bpchar
      LEFT JOIN cuis lcui ON lcui.decision_cui::text = 'V'::text AND date_trunc('month'::text, lh.date) >= date_trunc('month'::text, lcui.dateembauche::timestamp with time zone) AND date_trunc('month'::text, lh.date) <= date_trunc('month'::text, lcui.findecontrat::timestamp with time zone) AND lcui.personne_id = lh.idpersonne
 WITH DATA;
 

@@ -537,10 +537,10 @@ msgid "Tableaub5.note3"
 msgstr "(3) Nombre de 1ers CER de type pré-professionnel validés parmis les 1ères orientations.<br><u>Note</u> : Si une personne est orientée au mois de janvier et a validé un CER de type pré-professionnel en mars, il sera comptabilisé au mois de janvier"
 
 msgid "Tableaub5.note4"
-msgstr "(4) Délai entre la date de validation de la 1ère orientation et la date de validation du 1er CER"
+msgstr "(4) Délai entre la date de validation de la 1ère orientation et la date de signature du 1er CER"
 
 msgid "Tableaub5.note5"
-msgstr "(5) Pourcentage de personnes ayant eu la validation du 1er CER par rapport au nombre de personnes ayant eu la validation de leur 1ère orientation"
+msgstr "(5) Pourcentage de personnes ayant eu la signature du 1er CER par rapport au nombre de personnes ayant eu la validation de leur 1ère orientation"
 
 msgid "Tableaub5.note6"
 msgstr "(6) Nombre de nouveaux entrant SDD et DOV ayant validées leur 1ère orientation par mois"
@@ -552,10 +552,10 @@ msgid "Tableaub5.note8"
 msgstr "(8) Nombre de 1ers CER de type pré-professionnel validés parmis les 1ères orientations des nouveaux entrants.<br><u>Note</u> : Si un nouvel entrant est orienté au mois de janvier et a validé un CER de type pré-professionnel en mars, il sera comptabilisé au mois de janvier"
 
 msgid "Tableaub5.note9"
-msgstr "(9) Délai entre la date de validation de la 1ère orientation et la date de validation du 1er CER"
+msgstr "(9) Délai entre la date de validation de la 1ère orientation et la date de signature du 1er CER"
 
 msgid "Tableaub5.note10"
-msgstr "(10) Pourcentage de nouveaux entrant ayant eu la validation du 1er CER par rapport au nombre de nouveaux entrant ayant eu la validation de leur 1ère orientation"
+msgstr "(10) Pourcentage de nouveaux entrant ayant eu la signature du 1er CER par rapport au nombre de nouveaux entrant ayant eu la validation de leur 1ère orientation"
 
 # ==============================================================================
 # Tableau A1 V2

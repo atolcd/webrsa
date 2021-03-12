@@ -2953,18 +2953,36 @@
 					$dateOrient = new DateTime($result['orientstruct']['date_valid']);
 
 					// Récupération des nouveaux entrants orientés
+					if($result[0]['primo'] == true || $result[0]['nouvel_entrant'] == true) {
+						$estNouveauEntrant = true;
+					}
 					$delaiMois = $dateCrea->diff($dateOrient)->m;
 					$delai1mois = $delaiMois < 1 || ($delaiMois == 1 && $dateCrea->diff($dateOrient)->d == 0);
-					if( $delai1mois && ($result[0]['primo'] == true || $result[0]['nouvel_entrant'] == true)) {
+					if( $delai1mois && $estNouveauEntrant) {
 						$delaiMois = $dateCrea->diff($dateOrient)->m;
 						if($delaiMois < 1) {
 							$resultats['NvxEnt']['orient_valid'][$month]++;
-							$estNouveauEntrant = true;
 						}
 					}
 
+					// CER Validé
 					if( !is_null($result['contratinsertion']['datevalidation_ci']) ) {
-						$dateCer = new DateTime($result['contratinsertion']['datevalidation_ci']);
+						if( !empty($testOrient['SOCIAL']) && in_array($result['typeorient']['id'], $testOrient['SOCIAL'] ) ) {
+							$resultats['Pers']['cer_social'][$monthOrient] ++;
+							if($estNouveauEntrant) {
+								$resultats['NvxEnt']['cer_social'][$monthOrient] ++;
+							}
+						} else if( !empty($testOrient['PREPRO']) && in_array($result['typeorient']['id'], $testOrient['PREPRO'] )  ) {
+							$resultats['Pers']['cer_prepro'][$monthOrient] ++;
+							if($estNouveauEntrant) {
+								$resultats['NvxEnt']['cer_prepro'][$monthOrient] ++;
+							}
+						}
+					}
+
+					// CER Signés
+					if( !is_null($result['contratinsertion']['date_saisi_ci']) ) {
+						$dateCer = new DateTime($result['contratinsertion']['date_saisi_ci']);
 						$delaiOrientCER = $dateOrient->diff($dateCer)->days;
 
 						$anneeCrea = intval( date('Y', strtotime($result['historiquedroit']['created']) ) );
@@ -3002,17 +3020,13 @@
 							}
 
 							if( !empty($testOrient['SOCIAL']) && in_array($result['typeorient']['id'], $testOrient['SOCIAL'] ) ) {
-								$resultats['Pers']['cer_social'][$monthOrient] ++;
 								$resultats['Pers']['delai_social'][$monthOrient] += $delaiOrientCER;
 								if($estNouveauEntrant) {
-									$resultats['NvxEnt']['cer_social'][$monthOrient] ++;
 									$resultats['NvxEnt']['delai_social'][$monthOrient] += $delaiOrientCER;
 								}
 							} else if( !empty($testOrient['PREPRO']) && in_array($result['typeorient']['id'], $testOrient['PREPRO'] )  ) {
-								$resultats['Pers']['cer_prepro'][$monthOrient] ++;
 								$resultats['Pers']['delai_prepro'][$monthOrient] += $delaiOrientCER;
 								if($estNouveauEntrant) {
-									$resultats['NvxEnt']['cer_prepro'][$monthOrient] ++;
 									$resultats['NvxEnt']['delai_prepro'][$monthOrient] += $delaiOrientCER;
 								}
 							}
