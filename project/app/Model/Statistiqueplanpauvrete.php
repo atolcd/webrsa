@@ -453,7 +453,7 @@
 		 * @param array $search
 		 * @return array
 		*/
-		protected function _getQueryTableau_b1(array $search, $rdvPrevu) {
+		protected function _getQueryTableau_b1_NouveauxEntrant(array $search, $rdvPrevu) {
 			$annee = (int)Hash::get( $search, 'Search.annee' );
 
 			$query = $this->_getSelectViewSearchGeneral();
@@ -461,8 +461,25 @@
 			$query .= implode(",", $rdvPrevu);
 			$query .= ") AND date_part('year', rdv.daterdv) = " . $annee . ")";
 			$query .= " LEFT JOIN bilansparcours66 bilans ON ( bilans.personne_id = idpersonne AND bilans.datebilan > historiquedroit__created AND bilans.proposition LIKE 'audition')";
-			$query .= " WHERE ( (annee = " . $annee . " AND (primo = TRUE OR nouvel_entrant = TRUE)) ";
-			$query .= "OR (date_part('year',Orientstruct__date_valid) = " . $annee . " AND Orientstruct__rgorient = 1 ) ) ";
+			$query .= " WHERE annee = " . $annee . " AND (primo = TRUE OR nouvel_entrant = TRUE)";
+			$query .= " AND Historiquedroit__toppersdrodevorsa = '1'";
+
+			$query = $this->_getConditionsViewSearch($search, $query);
+
+			$query .= ' ORDER BY idpersonne, annee, mois, dtemm desc, rdv.daterdv asc';
+			return $query;
+		}
+
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		*/
+		protected function _getQueryTableau_b1_Orientation(array $search) {
+			$annee = (int)Hash::get( $search, 'Search.annee' );
+
+			$query = $this->_getSelectViewSearchGeneral();
+			$query .= " WHERE date_part('year',Orientstruct__date_valid) = " . $annee . " AND Orientstruct__rgorient = 1";
 			$query .= " AND Historiquedroit__toppersdrodevorsa = '1'";
 
 			$query = $this->_getConditionsViewSearch($search, $query);
@@ -1097,17 +1114,104 @@
 		 * @param array $search
 		 * @return array
 		 */
-		protected function _getQueryTableau_b5(array $search) {
+		protected function _getQueryTableau_b5_orientation(array $search) {
 			$annee = (int)Hash::get( $search, 'Search.annee' );
 
 			$query = $this->_getSelectViewSearchGeneral();
-			$query .= " WHERE ( (annee = " . $annee . " AND (primo = TRUE OR nouvel_entrant = TRUE)) ";
-			$query .= "OR (date_part('year',Orientstruct__date_valid) = " . $annee . " AND Orientstruct__rgorient = 1 ) ) ";
+			$query .= " WHERE date_part('year',Orientstruct__date_valid) = " . $annee . " AND Orientstruct__rgorient = 1";
 			$query .= " AND Historiquedroit__toppersdrodevorsa = '1'";
 
 			$query = $this->_getConditionsViewSearch($search, $query);
 			$query .= ' ORDER BY idpersonne, annee, mois, dtemm desc';
 			return $query;
+		}
+
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		protected function _getQueryTableau_b5_nouveaux_entrant(array $search) {
+			$annee = (int)Hash::get( $search, 'Search.annee' );
+
+			$query = $this->_getSelectViewSearchGeneral();
+			$query .= " WHERE annee = " . $annee . " AND (primo = TRUE OR nouvel_entrant = TRUE)";
+			$query .= " AND Historiquedroit__toppersdrodevorsa = '1'";
+
+			$query = $this->_getConditionsViewSearch($search, $query);
+			$query .= ' ORDER BY idpersonne, annee, mois, dtemm desc';
+			return $query;
+		}
+
+		/**
+		 * Traitement des résultats du tableau B5
+		 * @param array $resultQuery : résultat de la requêtes
+		 * @param array $$resultFina : tableau du résultat final initialisé
+		 * @param string $target : cible des personnes concernées (Personnes ou Nouveaux entrants)
+		 */
+		protected function _processResultB5($resultQuery, $resultFinal, $target, $annee) {
+			$testOrient = $this->_getTypeOrientation();
+			foreach($resultQuery as $result) {
+				$moisOrient = (int)date('n', strtotime($result['orientstruct']['date_valid'])) -1;
+				$resultFinal[$target]['orient_valid'][$moisOrient]++;
+
+				$dateCrea = new DateTime($result['historiquedroit']['created']);
+				$dateOrient = new DateTime($result['orientstruct']['date_valid']);
+
+				// CER Validé
+				if( !is_null($result['contratinsertion']['datevalidation_ci']) ) {
+					if( !empty($testOrient['SOCIAL']) && in_array($result['typeorient']['id'], $testOrient['SOCIAL'] ) ) {
+						$resultFinal[$target]['cer_social'][$moisOrient] ++;
+					} else if( !empty($testOrient['PREPRO']) && in_array($result['typeorient']['id'], $testOrient['PREPRO'] )  ) {
+						$resultFinal[$target]['cer_prepro'][$moisOrient] ++;
+					}
+				}
+
+				// CER Signés
+				if( !is_null($result['contratinsertion']['date_saisi_ci']) ) {
+					$dateCer = new DateTime($result['contratinsertion']['date_saisi_ci']);
+					$delaiOrientCER = $dateOrient->diff($dateCer)->days;
+
+					$anneeCrea = intval( date('Y', strtotime($result['historiquedroit']['created']) ) );
+					if($annee == $anneeCrea) {
+						$monthCrea = intval( date('n', strtotime($result['historiquedroit']['created']) ) ) -1;
+						$delaiCreaCER = $dateCrea->diff($dateCer)->days;
+
+						if( $delaiCreaCER < 15) {
+							$resultFinal[$target]['signe15jrs_crea'][$monthCrea]++;
+						}
+
+						$delaiMonth = $dateCrea->diff($dateCer)->m;
+						if($delaiMonth < 2) {
+							$resultFinal[$target]['signe2mois_crea'][$monthCrea]++;
+						}
+					}
+
+					if( $delaiOrientCER >= 0 && $result['contratinsertion']['rg_ci'] == 1 ) {
+						$resultFinal[$target]['delai_moyen'][$moisOrient] += $delaiOrientCER;
+						if( $delaiOrientCER < 15 ) {
+							$resultFinal[$target]['signe15jrs_orient'][$moisOrient]++;
+						}
+
+						if( !empty($testOrient['SOCIAL']) && in_array($result['typeorient']['id'], $testOrient['SOCIAL'] ) ) {
+							$resultFinal[$target]['delai_social'][$moisOrient] += $delaiOrientCER;
+						} else if( !empty($testOrient['PREPRO']) && in_array($result['typeorient']['id'], $testOrient['PREPRO'] )  ) {
+							$resultFinal[$target]['delai_prepro'][$moisOrient] += $delaiOrientCER;
+						}
+						$delaiMonth = $dateOrient->diff($dateCer)->m;
+						if($delaiMonth < 2) {
+							$resultFinal[$target]['signe2mois_orient'][$moisOrient]++;
+						}
+						foreach($resultFinal[$target]['delai']as $key => $osef) {
+							$joursDelais = explode('_', $key);
+							if( $delaiMonth >= intval($joursDelais[0]) && $delaiMonth < intval($joursDelais[1]) ) {
+								$resultFinal[$target]['delai'][$key][$moisOrient] ++;
+							}
+						}
+					}
+				}
+			}
+			return $resultFinal;
 		}
 
 		/**
@@ -2663,86 +2767,24 @@
 		 * @return array
 		*/
 		public function getIndicateursTableauB1( array $search ) {
-			$results = array();
-			$annee = (int)Hash::get( $search, 'Search.annee' );
 			$testOrient = $this->_getTypeOrientation();
 
 			// Récupération des variables de configuration
 			$statutRdv = Configure::read('Statistiqueplanpauvrete.orientationRdv');
 			// Query de base
-			$query = $this->_getQueryTableau_b1($search, $statutRdv['prevu']);
-			$results = $this->Historiquedroit->query($query);
-
+			$query = $this->_getQueryTableau_b1_NouveauxEntrant($search, $statutRdv['prevu']);
+			$resultsNvxEnt = $this->Historiquedroit->query($query);
 			$resultats = array();
 
 			// Initialisation tableau de résultats
 			$resultats = $this->_initializeTableauB1();
-			$arrayIdPersonne = array();
-			for($i = 0; $i <12; $i++) {
-				$arrayIdPersonne[$i] = array();
-			}
 
-			// Traitement des résultats
-			foreach($results as $result) {
-				$isThisYear = false;
-				if($result[0]['annee'] == $annee) {
-					$month = $result[0]['mois'] -1;
-					if( ($result[0]['primo'] == true || $result[0]['nouvel_entrant'] == true) &&
-						in_array($result[0]['idpersonne'], $arrayIdPersonne[$month]) == false ) {
-						$arrayIdPersonne[$month][] = $result[0]['idpersonne'];
-						$resultats['total'][$month]++;
-					}
-					$isThisYear = true;
-				}
-
-				// Orientés
-				if( !is_null($result['orientstruct']['date_valid'])) {
-					$moisOrient = (int)date('n', strtotime($result['orientstruct']['date_valid'])) -1;
-					if ($result['orientstruct']['rgorient'] == 1 ) {
-						$resultats['Orientes']['total'][$moisOrient]++;
-						// Type d'orientations
-						if( $result['structurereferente']['type_struct_stats'] == 'oa' ) {
-							$resultats['Orientes']['oa'][$moisOrient]++;
-						}
-						if( $result['structurereferente']['type_struct_stats'] == 'pe' ) {
-							$resultats['Orientes']['pe'][$moisOrient]++;
-						}
-						if( $result['structurereferente']['type_struct_stats'] == 'cd' ) {
-							$resultats['Orientes']['cd'][$moisOrient]++;
-						}
-
-						if(!empty($testOrient['SOCIAL']) && in_array($result['typeorient']['id'], $testOrient['SOCIAL'] ) ) {
-							$resultats['Orientes']['social'][$moisOrient]++;
-						} elseif(!empty($testOrient['EMPLOI']) &&  in_array( $result['typeorient']['id'], $testOrient['EMPLOI'] ) ) {
-							$resultats['Orientes']['emploi'][$moisOrient]++;
-						} elseif (!empty($testOrient['PREPRO']) && in_array( $result['typeorient']['id'], $testOrient['PREPRO'] ) ) {
-							$resultats['Orientes']['prepro'][$moisOrient]++;
-						}
-					}
-
-					// Délais
-					$dateCreaHisto = new DateTime($result['historiquedroit']['created']);
-					$dateOrient = new DateTime($result['orientstruct']['date_valid']);
-					$delai = $dateCreaHisto->diff($dateOrient)->days;
-
-					$resultats['delai_moyen'][$moisOrient] += $delai;
-					$delaiMois = $dateCreaHisto->diff($dateOrient)->m;
-
-					$delai1mois = $delaiMois < 1 || ($delaiMois == 1 && $dateCreaHisto->diff($dateOrient)->d == 0);
-					if( $delai1mois && ($result[0]['primo'] == true || $result[0]['nouvel_entrant'] == true)) {
-						$resultats['orient_31jours'][$moisOrient]++;
-					}
-					foreach($resultats['delai']as $key => $osef) {
-						$moisDelais = explode('_', $key);
-						if( $delaiMois >= intval($moisDelais[0]) && $delaiMois < intval($moisDelais[1]) ) {
-							$resultats['delai'][$key][$month] ++;
-						}
-					}
-				}
-				 // Non orientés
-				elseif($isThisYear && is_null($result['orientstruct']['date_valid'])) {
+			// Traitement des résultats des nouveaux entrants
+			foreach($resultsNvxEnt as $result) {
+				$month = $result[0]['mois'] -1;
+				$resultats['total'][$month]++;
+				if(is_null($result['orientstruct']['date_valid'])) {
 					$resultats['NonOrientes']['total'][$month]++;
-
 					if( !is_null($result[0]['statutrdv_id']) && in_array($result[0]['statutrdv_id'], $statutRdv['prevu']) ) {
 						$resultats['NonOrientes']['prevu'][$month]++;
 					} elseif( !is_null($result[0]['proposition']) && $result[0]['proposition'] ==  'audition' ) {
@@ -2750,8 +2792,60 @@
 					} else {
 						$resultats['NonOrientes']['autres'][$month]++;
 					}
+				} else {
+					$dateCreaHisto = new DateTime($result['historiquedroit']['created']);
+					$dateOrient = new DateTime($result['orientstruct']['date_valid']);
+					$delaiMois = $dateCreaHisto->diff($dateOrient)->m;
+
+					$delai1mois = $delaiMois < 1 || ($delaiMois == 1 && $dateCreaHisto->diff($dateOrient)->d == 0);
+					if( $delai1mois) {
+						$resultats['orient_31jours'][$month]++;
+					}
 				}
 			}
+
+			$query = $this->_getQueryTableau_b1_Orientation($search);
+			$resultsOrientes = $this->Historiquedroit->query($query);
+
+			// Traitement des personnes avec une 1ère orientation sur l'année recherchée
+			foreach($resultsOrientes as $result) {
+				$month = $result[0]['mois'] -1;
+				$moisOrient = (int)date('n', strtotime($result['orientstruct']['date_valid'])) -1;
+				$resultats['Orientes']['total'][$moisOrient]++;
+				// Type d'orientations
+				if( $result['structurereferente']['type_struct_stats'] == 'oa' ) {
+					$resultats['Orientes']['oa'][$moisOrient]++;
+				}
+				if( $result['structurereferente']['type_struct_stats'] == 'pe' ) {
+					$resultats['Orientes']['pe'][$moisOrient]++;
+				}
+				if( $result['structurereferente']['type_struct_stats'] == 'cd' ) {
+					$resultats['Orientes']['cd'][$moisOrient]++;
+				}
+
+				if(!empty($testOrient['SOCIAL']) && in_array($result['typeorient']['id'], $testOrient['SOCIAL'] ) ) {
+					$resultats['Orientes']['social'][$moisOrient]++;
+				} elseif(!empty($testOrient['EMPLOI']) &&  in_array( $result['typeorient']['id'], $testOrient['EMPLOI'] ) ) {
+					$resultats['Orientes']['emploi'][$moisOrient]++;
+				} elseif (!empty($testOrient['PREPRO']) && in_array( $result['typeorient']['id'], $testOrient['PREPRO'] ) ) {
+					$resultats['Orientes']['prepro'][$moisOrient]++;
+				}
+
+				// Délais
+				$dateCreaHisto = new DateTime($result['historiquedroit']['created']);
+				$dateOrient = new DateTime($result['orientstruct']['date_valid']);
+				$delai = $dateCreaHisto->diff($dateOrient)->days;
+
+				$resultats['delai_moyen'][$moisOrient] += $delai;
+				$delaiMois = $dateCreaHisto->diff($dateOrient)->m;
+				foreach($resultats['delai']as $key => $osef) {
+					$moisDelais = explode('_', $key);
+					if( $delaiMois >= intval($moisDelais[0]) && $delaiMois < intval($moisDelais[1]) ) {
+						$resultats['delai'][$key][$month] ++;
+					}
+				}
+			}
+
 			// Calcul des moyennes
 			for( $i=0; $i<12; $i++){
 				if($resultats['Orientes']['total'][$i] != 0) {
@@ -2953,128 +3047,38 @@
 		 */
 		public function getIndicateursTableauB5( array $search ) {
 			$annee = Hash::get( $search, 'Search.annee' );
-			$results = array();
-
-			$testOrient = $this->_getTypeOrientation();
-
-			// Query de base
-			$query = $this->_getQueryTableau_b5 ($search);
-			$results = $this->Personne->query($query);
 
 			// Initialisation du tableau de résultats
 			$resultats = $this->_initializeTableauB5();
 
-			// Traitement des résultats
-			foreach($results as $result) {
-				$estNouveauEntrant = false;
-				$month = $result[0]['mois'] -1;
-				// Orientés
-				if( !is_null($result['orientstruct']['date_valid']) /* &&  */ ) {
-					$monthOrient = intval( date('n', strtotime($result['orientstruct']['date_valid']) ) ) -1;
-					if($result['orientstruct']['rgorient'] == 1) {
-						$resultats['Pers']['orient_valid'][$monthOrient]++;
-					}
-					$dateCrea = new DateTime($result['historiquedroit']['created']);
+			// Query de des personnes orientés
+			$query = $this->_getQueryTableau_b5_orientation ($search);
+			$resultsOrientes = $this->Personne->query($query);
+
+			// Traitement des résultats des 1ère orientations
+			$resultats = $this->_processResultB5($resultsOrientes, $resultats, 'Pers', $annee);
+
+			// Query des nouveaux entrants
+			$query = $this->_getQueryTableau_b5_nouveaux_entrant ($search);
+			$resultsNvxEnt = $this->Personne->query($query);
+
+			// Formattage pour ne garder que les orientation réalisé en moins d'un mois
+			$resultsNvxEntFormat = array();
+			foreach($resultsNvxEnt as $result) {
+				if( !is_null($result['orientstruct']['date_valid'])) {
+					$dateCreaHisto = new DateTime($result['historiquedroit']['created']);
 					$dateOrient = new DateTime($result['orientstruct']['date_valid']);
+					$delaiMois = $dateCreaHisto->diff($dateOrient)->m;
 
-					// Récupération des nouveaux entrants orientés
-					if($result[0]['primo'] == true || $result[0]['nouvel_entrant'] == true) {
-						$estNouveauEntrant = true;
-					}
-					$delaiMois = $dateCrea->diff($dateOrient)->m;
-					$delai1mois = $delaiMois < 1 || ($delaiMois == 1 && $dateCrea->diff($dateOrient)->d == 0);
-					if( $delai1mois && $estNouveauEntrant) {
-						$delaiMois = $dateCrea->diff($dateOrient)->m;
-						if($delaiMois < 1) {
-							$resultats['NvxEnt']['orient_valid'][$month]++;
-						}
-					}
-
-					// CER Validé
-					if( !is_null($result['contratinsertion']['datevalidation_ci']) ) {
-						if( !empty($testOrient['SOCIAL']) && in_array($result['typeorient']['id'], $testOrient['SOCIAL'] ) ) {
-							$resultats['Pers']['cer_social'][$monthOrient] ++;
-							if($estNouveauEntrant) {
-								$resultats['NvxEnt']['cer_social'][$monthOrient] ++;
-							}
-						} else if( !empty($testOrient['PREPRO']) && in_array($result['typeorient']['id'], $testOrient['PREPRO'] )  ) {
-							$resultats['Pers']['cer_prepro'][$monthOrient] ++;
-							if($estNouveauEntrant) {
-								$resultats['NvxEnt']['cer_prepro'][$monthOrient] ++;
-							}
-						}
-					}
-
-					// CER Signés
-					if( !is_null($result['contratinsertion']['date_saisi_ci']) ) {
-						$dateCer = new DateTime($result['contratinsertion']['date_saisi_ci']);
-						$delaiOrientCER = $dateOrient->diff($dateCer)->days;
-
-						$anneeCrea = intval( date('Y', strtotime($result['historiquedroit']['created']) ) );
-						if($annee == $anneeCrea) {
-							$monthCrea = intval( date('n', strtotime($result['historiquedroit']['created']) ) ) -1;
-
-							$delaiCreaCER = $dateCrea->diff($dateCer)->days;
-
-							if( $delaiCreaCER < 15) {
-								$resultats['Pers']['signe15jrs_crea'][$monthCrea]++;
-								if($estNouveauEntrant) {
-									$resultats['NvxEnt']['signe15jrs_crea'][$monthCrea]++;
-								}
-							}
-
-							$delaiMonth = $dateCrea->diff($dateCer)->m;
-							if($delaiMonth < 2) {
-								$resultats['Pers']['signe2mois_crea'][$monthCrea]++;
-								if($estNouveauEntrant) {
-									$resultats['NvxEnt']['signe2mois_crea'][$monthCrea]++;
-								}
-							}
-						}
-
-						if( $delaiOrientCER > 0 && $result['contratinsertion']['rg_ci'] == 1) {
-							$resultats['Pers']['delai_moyen'][$monthOrient] += $delaiOrientCER;
-							if($estNouveauEntrant) {
-								$resultats['NvxEnt']['delai_moyen'][$monthOrient] += $delaiOrientCER;
-							}
-							if( $delaiOrientCER < 15 ) {
-								$resultats['Pers']['signe15jrs_orient'][$monthOrient]++;
-								if($estNouveauEntrant) {
-									$resultats['NvxEnt']['signe15jrs_orient'][$monthOrient]++;
-								}
-							}
-
-							if( !empty($testOrient['SOCIAL']) && in_array($result['typeorient']['id'], $testOrient['SOCIAL'] ) ) {
-								$resultats['Pers']['delai_social'][$monthOrient] += $delaiOrientCER;
-								if($estNouveauEntrant) {
-									$resultats['NvxEnt']['delai_social'][$monthOrient] += $delaiOrientCER;
-								}
-							} else if( !empty($testOrient['PREPRO']) && in_array($result['typeorient']['id'], $testOrient['PREPRO'] )  ) {
-								$resultats['Pers']['delai_prepro'][$monthOrient] += $delaiOrientCER;
-								if($estNouveauEntrant) {
-									$resultats['NvxEnt']['delai_prepro'][$monthOrient] += $delaiOrientCER;
-								}
-							}
-							$delaiMonth = $dateOrient->diff($dateCer)->m;
-							if($delaiMonth < 2) {
-								$resultats['Pers']['signe2mois_orient'][$monthOrient]++;
-								if($estNouveauEntrant) {
-									$resultats['NvxEnt']['signe2mois_orient'][$monthOrient]++;
-								}
-							}
-							foreach($resultats['Pers']['delai']as $key => $osef) {
-								$joursDelais = explode('_', $key);
-								if( $delaiMonth >= intval($joursDelais[0]) && $delaiMonth < intval($joursDelais[1]) ) {
-									$resultats['Pers']['delai'][$key][$monthOrient] ++;
-									if($estNouveauEntrant) {
-										$resultats['NvxEnt']['delai'][$key][$monthOrient] ++;
-									}
-								}
-							}
-						}
+					$delai1mois = $delaiMois < 1 || ($delaiMois == 1 && $dateCreaHisto->diff($dateOrient)->d == 0);
+					if( $delai1mois) {
+						$resultsNvxEntFormat[] = $result;
 					}
 				}
 			}
+
+			// Traitement des résultats des 1ère orientations réalisé par les nouveaux entrant
+			$resultats = $this->_processResultB5($resultsNvxEntFormat, $resultats, 'NvxEnt', $annee);
 
 			// Calcul des moyennes
 			for( $i=0; $i<12; $i++){
