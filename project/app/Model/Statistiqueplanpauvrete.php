@@ -500,24 +500,26 @@
 			}
 			// Adresse numcom
 			if(isset($search['Adresse']['numcom']) && !empty($search['Adresse']['numcom'])) {
-				$conditions .= " AND numcom ILIKE '%" . $search['Adresse']['numcom'] . "%' ";
+				$conditions .= " AND numcom ILIKE '%" . trim ($search['Adresse']['numcom']) . "%' ";
 			}
 
 			// Canton
 			if( isset($search['Canton']['canton']) && !empty($search['Canton']['canton']) ) {
 				// Trim nécessaire car il y a des espaces
-				$conditions .= " AND Canton.canton ILIKE '%" . trim($search['Canton']['canton']) . "%'";
+				$conditions .= " AND statppview.canton ILIKE '%" . trim($search['Canton']['canton']) . "%'";
 			}
 
 			// Service instructeur
 			if( isset($search['Search']['serviceinstructeur']) && !empty($search['Search']['serviceinstructeur']) ) {
-				// Ajout du join
-				$queryArray = explode('WHERE', $query);
-				$joinService = "LEFT JOIN orientsstructs_servicesinstructeurs os ON os.orientstruct_id = orientstruct__id ";
-				$query = $queryArray[0] . $joinService . ' WHERE ' . $queryArray[1];
-
-				// Conditions
-				$conditions .= " AND os.serviceinstructeur_id = " . $search['Search']['serviceinstructeur'];
+				$conditions .= " AND statppview.dossier_id IN (
+					SELECT suivisinstruction.dossier_id AS suivisinstruction__dossier_id
+					FROM suivisinstruction AS suivisinstruction
+						INNER JOIN servicesinstructeurs AS servicesinstructeurs ON (
+							suivisinstruction.numdepins = servicesinstructeurs.numdepins
+							AND suivisinstruction.typeserins = servicesinstructeurs.typeserins
+							AND suivisinstruction.numcomins = servicesinstructeurs.numcomins
+							AND suivisinstruction.numagrins = servicesinstructeurs.numagrins)
+					WHERE servicesinstructeurs.id = ".$search['Search']['serviceinstructeur'].' ) ';
 			}
 
 			$query .= $conditions;
