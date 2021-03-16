@@ -356,6 +356,9 @@ msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux en
 msgid "Tableaub4.Socialdelai15jrs"
 msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
 
+msgid "Tableaub4.Socialdelai15jrs_nvxent"
+msgstr "Nombre de 1ers rdv fixés sous 2 semaines et moins à compter de la date d'orientation parmi les nouveaux entrants orientés en moins d'1 mois"
+
 msgid "Tableaub4.Socialdelai_moyen"
 msgstr "Délai d'attente moyen pour un 1er rendez-vous"
 
@@ -386,6 +389,9 @@ msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux en
 msgid "Tableaub4.Preprodelai15jrs"
 msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
 
+msgid "Tableaub4.Preprodelai15jrs_nvxent"
+msgstr "Nombre de 1ers rdv fixés sous 2 semaines et moins à compter de la date d'orientation parmi les nouveaux entrants orientés en moins d'1 mois"
+
 msgid "Tableaub4.Preprodelai_moyen"
 msgstr "Délai d'attente moyen pour un 1er rendez-vous"
 
@@ -413,6 +419,9 @@ msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux en
 msgid "Tableaub4.Prodelai15jrs"
 msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
 
+msgid "Tableaub4.Prodelai15jrs_nvxent"
+msgstr "Nombre de 1ers rdv fixés sous 2 semaines et moins à compter de la date d'orientation parmi les nouveaux entrants orientés en moins d'1 mois"
+
 msgid "Tableaub4.Prodelai_moyen"
 msgstr "Délai d'attente moyen pour un 1er rendez-vous"
 
@@ -439,6 +448,9 @@ msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux en
 
 msgid "Tableaub4.Generaldelai15jrs"
 msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
+
+msgid "Tableaub4.Generaldelai15jrs_nvxent"
+msgstr "Nombre de 1ers rdv fixés sous 2 semaines et moins à compter de la date d'orientation parmi les nouveaux entrants orientés en moins d'1 mois"
 
 msgid "Tableaub4.Generaldelai_moyen"
 msgstr "Délai d'attente moyen pour un 1er rendez-vous"

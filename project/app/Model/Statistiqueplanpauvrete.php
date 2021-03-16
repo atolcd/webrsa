@@ -891,6 +891,7 @@
 					'sans_excuse' => array(),
 					'nvxent_rdv' => array(),
 					'delai15jrs' => array(),
+					'delai15jrs_nvxent' => array(),
 					'delai_moyen' => array(),
 					'delai' => $configurationDelais,
 					'taux_presence' => array()
@@ -902,6 +903,7 @@
 					'sans_excuse' => array(),
 					'nvxent_rdv' => array(),
 					'delai15jrs' => array(),
+					'delai15jrs_nvxent' => array(),
 					'delai_moyen' => array(),
 					'delai' => $configurationDelais,
 					'taux_presence' => array()
@@ -913,6 +915,7 @@
 					'sans_excuse' => array(),
 					'nvxent_rdv' => array(),
 					'delai15jrs' => array(),
+					'delai15jrs_nvxent' => array(),
 					'delai_moyen' => array(),
 					'delai' => $configurationDelais,
 					'taux_presence' => array()
@@ -924,6 +927,7 @@
 					'sans_excuse' => array(),
 					'nvxent_rdv' => array(),
 					'delai15jrs' => array(),
+					'delai15jrs_nvxent' => array(),
 					'delai_moyen' => array(),
 					'delai' => $configurationDelais,
 					'taux_presence' => array()
@@ -938,6 +942,7 @@
 				$resultats['Social']['sans_excuse'][$i] = 0;
 				$resultats['Social']['nvxent_rdv'][$i] = 0;
 				$resultats['Social']['delai15jrs'][$i] = 0;
+				$resultats['Social']['delai15jrs_nvxent'][$i] = 0;
 				$resultats['Social']['delai_moyen'][$i] = 0;
 				$resultats['Social']['taux_presence'][$i] = 0;
 				$resultats['Prepro']['total'][$i] = 0;
@@ -946,6 +951,7 @@
 				$resultats['Prepro']['sans_excuse'][$i] = 0;
 				$resultats['Prepro']['nvxent_rdv'][$i] = 0;
 				$resultats['Prepro']['delai15jrs'][$i] = 0;
+				$resultats['Prepro']['delai15jrs_nvxent'][$i] = 0;
 				$resultats['Prepro']['delai_moyen'][$i] = 0;
 				$resultats['Prepro']['taux_presence'][$i] = 0;
 				$resultats['Pro']['total'][$i] = 0;
@@ -954,6 +960,7 @@
 				$resultats['Pro']['sans_excuse'][$i] = 0;
 				$resultats['Pro']['nvxent_rdv'][$i] = 0;
 				$resultats['Pro']['delai15jrs'][$i] = 0;
+				$resultats['Pro']['delai15jrs_nvxent'][$i] = 0;
 				$resultats['Pro']['delai_moyen'][$i] = 0;
 				$resultats['Pro']['taux_presence'][$i] = 0;
 				$resultats['General']['total'][$i] = 0;
@@ -962,6 +969,7 @@
 				$resultats['General']['sans_excuse'][$i] = 0;
 				$resultats['General']['nvxent_rdv'][$i] = 0;
 				$resultats['General']['delai15jrs'][$i] = 0;
+				$resultats['General']['delai15jrs_nvxent'][$i] = 0;
 				$resultats['General']['delai_moyen'][$i] = 0;
 				$resultats['General']['taux_presence'][$i] = 0;
 				foreach( $configurationDelais as $key => $config) {
@@ -2808,8 +2816,15 @@
 
 			// Traitement des résultats
 			foreach($results as $result) {
+				$estNouvelEntrant = false;
 				$month = intval( date('n', strtotime($result['orientstruct']['date_valid']) ) ) -1;
 				$resultats['total'][$month]++;
+
+				// Check si nouvel entrant
+				if($result[0]['primo'] == true || $result[0]['nouvel_entrant'] == true) {
+					$estNouvelEntrant = true;
+				}
+
 				if(in_array($result['typeorient']['id'], $testOrient['SOCIAL'])) {
 					$orientation = 'Social';
 				} elseif(in_array($result['typeorient']['id'], $testOrient['EMPLOI'])) {
@@ -2820,7 +2835,7 @@
 
 				if( in_array($result[0]['statutrdv_id'], $statutRdv['prevu'] ) === false ) {
 					$resultats[$orientation]['total'][$month]++;
-					if($result[0]['primo'] == true || $result[0]['nouvel_entrant'] == true) {
+					if($estNouvelEntrant) {
 						$resultats[$orientation]['nvxent_rdv'][$month]++;
 					}
 					if( in_array($result[0]['statutrdv_id'], $statutRdv['venu'] ) !== false ) {
@@ -2844,6 +2859,13 @@
 
 					if($delaiRdvCreated <= 15) {
 						$resultats[$orientation]['delai15jrs'][$month]++;
+						// Nouvel entrant
+						$dateCreaHisto = new DateTime($result['historiquedroit']['created']);
+						$delaiMois = $dateCreaHisto->diff($dateOrient)->m;
+						$delai1mois = $delaiMois < 1 || ($delaiMois == 1 && $dateCreaHisto->diff($dateOrient)->d == 0);
+						if($delai1mois && $estNouvelEntrant) {
+							$resultats[$orientation]['delai15jrs_nvxent'][$month]++;
+						}
 					}
 
 					$resultats[$orientation]['delai_moyen'][$month] += $delai;
@@ -2866,6 +2888,7 @@
 				$resultats['General']['sans_excuse'][$i] = $resultats['Social']['sans_excuse'][$i] + $resultats['Prepro']['sans_excuse'][$i] + $resultats['Pro']['sans_excuse'][$i];
 				$resultats['General']['nvxent_rdv'][$i] = $resultats['Social']['nvxent_rdv'][$i] + $resultats['Prepro']['nvxent_rdv'][$i] + $resultats['Pro']['nvxent_rdv'][$i];
 				$resultats['General']['delai15jrs'][$i] = $resultats['Social']['delai15jrs'][$i] + $resultats['Prepro']['delai15jrs'][$i] + $resultats['Pro']['delai15jrs'][$i];
+				$resultats['General']['delai15jrs_nvxent'][$i] = $resultats['Social']['delai15jrs_nvxent'][$i] + $resultats['Prepro']['delai15jrs_nvxent'][$i] + $resultats['Pro']['delai15jrs_nvxent'][$i];
 				$resultats['General']['delai_moyen'][$i] = $resultats['Social']['delai_moyen'][$i] + $resultats['Prepro']['delai_moyen'][$i] + $resultats['Pro']['delai_moyen'][$i];
 				foreach($resultats['General']['delai'] as $key => $osef) {
 					$resultats['General']['delai'][$key][$i] = $resultats['Social']['delai'][$key][$i] + $resultats['Prepro']['delai'][$key][$i] + $resultats['Pro']['delai'][$key][$i];
