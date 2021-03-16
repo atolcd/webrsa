@@ -333,130 +333,163 @@ msgid "Tableaub4.nbOrientation"
 msgstr "Nombre de 1ers rendez-vous après orientation en "
 
 msgid "Tableaub4.total"
-msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation"
+msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation (1)"
 
 msgid "Tableaub4.Social"
 msgstr "Orientation sociale"
 
 msgid "Tableaub4.Socialtotal"
-msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation \"Sociale\""
+msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation \"Sociale\" (2)"
 
 msgid "Tableaub4.Socialvenu"
-msgstr " - Dont nombre de venu à ce 1er rendez-vous"
+msgstr " - Dont nombre de venu à ce 1er rendez-vous (3)"
 
 msgid "Tableaub4.Socialexcuse_recevable"
-msgstr " - Dont nombre de non venu avec excuse recevable"
+msgstr " - Dont nombre de non venu avec excuse recevable (4)"
 
 msgid "Tableaub4.Socialsans_excuse"
-msgstr " - Dont nombre de non venu sans excuse recevable"
+msgstr " - Dont nombre de non venu sans excuse recevable (5)"
 
 msgid "Tableaub4.Socialnvxent_rdv"
-msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux entrants orientés"
+msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux entrants orientés (6)"
 
 msgid "Tableaub4.Socialdelai15jrs"
-msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
+msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation (7)"
 
 msgid "Tableaub4.Socialdelai15jrs_nvxent"
-msgstr "Nombre de 1ers rdv fixés sous 2 semaines et moins à compter de la date d'orientation parmi les nouveaux entrants orientés en moins d'1 mois"
+msgstr "Nombre de 1ers rdv fixés sous 2 semaines et moins à compter de la date d'orientation parmi les nouveaux entrants orientés en moins d'1 mois (8)"
 
 msgid "Tableaub4.Socialdelai_moyen"
-msgstr "Délai d'attente moyen pour un 1er rendez-vous"
+msgstr "Délai d'attente moyen pour un 1er rendez-vous (9)"
 
 msgid "Tableaub4.delai"
-msgstr "Délai de rendez vous"
+msgstr "Délai de rendez-vous (10)"
 
 msgid "Tableaub4.Socialtaux_presence"
-msgstr "Taux de présence au 1er rendez-vous"
+msgstr "Taux de présence au 1er rendez-vous (11)"
 
 msgid "Tableaub4.Prepro"
 msgstr "Orientation Pré Pro"
 
 msgid "Tableaub4.Preprototal"
-msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation \"Pré Pro\""
+msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation \"Pré Pro\" (2)"
 
 msgid "Tableaub4.Preprovenu"
-msgstr " - Dont nombre de venu à ce 1er rendez-vous"
+msgstr " - Dont nombre de venu à ce 1er rendez-vous (3)"
 
 msgid "Tableaub4.Preproexcuse_recevable"
-msgstr " - Dont nombre de non venu avec excuse recevable"
+msgstr " - Dont nombre de non venu avec excuse recevable (4)"
 
 msgid "Tableaub4.Preprosans_excuse"
-msgstr " - Dont nombre de non venu sans excuse recevable"
+msgstr " - Dont nombre de non venu sans excuse recevable (5)"
 
 msgid "Tableaub4.Prepronvxent_rdv"
-msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux entrants orientés"
+msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux entrants orientés (6)"
 
 msgid "Tableaub4.Preprodelai15jrs"
-msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
+msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation (7)"
 
 msgid "Tableaub4.Preprodelai15jrs_nvxent"
-msgstr "Nombre de 1ers rdv fixés sous 2 semaines et moins à compter de la date d'orientation parmi les nouveaux entrants orientés en moins d'1 mois"
+msgstr "Nombre de 1ers rdv fixés sous 2 semaines et moins à compter de la date d'orientation parmi les nouveaux entrants orientés en moins d'1 mois (8)"
 
 msgid "Tableaub4.Preprodelai_moyen"
-msgstr "Délai d'attente moyen pour un 1er rendez-vous"
+msgstr "Délai d'attente moyen pour un 1er rendez-vous (9)"
 
 msgid "Tableaub4.Preprotaux_presence"
-msgstr "Taux de présence au 1er rendez-vous"
+msgstr "Taux de présence au 1er rendez-vous (11)"
 
 msgid "Tableaub4.Pro"
 msgstr "Orientation Professionnelle"
 
 msgid "Tableaub4.Prototal"
-msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation \"Professionnelle\""
+msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation \"Professionnelle\" (2)"
 
 msgid "Tableaub4.Provenu"
-msgstr " - Dont nombre de venu à ce 1er rendez-vous"
+msgstr " - Dont nombre de venu à ce 1er rendez-vous (3)"
 
 msgid "Tableaub4.Proexcuse_recevable"
-msgstr " - Dont nombre de non venu avec excuse recevable"
+msgstr " - Dont nombre de non venu avec excuse recevable (4)"
 
 msgid "Tableaub4.Prosans_excuse"
-msgstr " - Dont nombre de non venu sans excuse recevable"
+msgstr " - Dont nombre de non venu sans excuse recevable (5)"
 
 msgid "Tableaub4.Pronvxent_rdv"
-msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux entrants orientés"
+msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux entrants orientés (6)"
 
 msgid "Tableaub4.Prodelai15jrs"
-msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
+msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation (7)"
 
 msgid "Tableaub4.Prodelai15jrs_nvxent"
-msgstr "Nombre de 1ers rdv fixés sous 2 semaines et moins à compter de la date d'orientation parmi les nouveaux entrants orientés en moins d'1 mois"
+msgstr "Nombre de 1ers rdv fixés sous 2 semaines et moins à compter de la date d'orientation parmi les nouveaux entrants orientés en moins d'1 mois (8)"
 
 msgid "Tableaub4.Prodelai_moyen"
-msgstr "Délai d'attente moyen pour un 1er rendez-vous"
+msgstr "Délai d'attente moyen pour un 1er rendez-vous (9)"
 
 msgid "Tableaub4.Protaux_presence"
-msgstr "Taux de présence au 1er rendez-vous"
+msgstr "Taux de présence au 1er rendez-vous (11)"
 
 msgid "Tableaub4.General"
 msgstr "Orientation Général"
 
 msgid "Tableaub4.Generaltotal"
-msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation \"Général\""
+msgstr "Nombre de 1ers rendez-vous fixés suite à une orientation \"Général\" (2)"
 
 msgid "Tableaub4.Generalvenu"
-msgstr " - Dont nombre de venu à ce 1er rendez-vous"
+msgstr " - Dont nombre de venu à ce 1er rendez-vous (3)"
 
 msgid "Tableaub4.Generalexcuse_recevable"
-msgstr " - Dont nombre de non venu avec excuse recevable"
+msgstr " - Dont nombre de non venu avec excuse recevable (4)"
 
 msgid "Tableaub4.Generalsans_excuse"
-msgstr " - Dont nombre de non venu sans excuse recevable"
+msgstr " - Dont nombre de non venu sans excuse recevable (5)"
 
 msgid "Tableaub4.Generalnvxent_rdv"
-msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux entrants orientés"
+msgstr "Nombre de 1ers rendez-vous d'accompagnement fixés parmi les nouveaux entrants orientés (6)"
 
 msgid "Tableaub4.Generaldelai15jrs"
-msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation"
+msgstr "Nombre de rendez-vous fixés en moins de 15 jours après la date d’orientation (7)"
 
 msgid "Tableaub4.Generaldelai15jrs_nvxent"
-msgstr "Nombre de 1ers rdv fixés sous 2 semaines et moins à compter de la date d'orientation parmi les nouveaux entrants orientés en moins d'1 mois"
+msgstr "Nombre de 1ers rdv fixés sous 2 semaines et moins à compter de la date d'orientation parmi les nouveaux entrants orientés en moins d'1 mois (8)"
 
 msgid "Tableaub4.Generaldelai_moyen"
-msgstr "Délai d'attente moyen pour un 1er rendez-vous"
+msgstr "Délai d'attente moyen pour un 1er rendez-vous (9)"
 
 msgid "Tableaub4.Generaltaux_presence"
-msgstr "Taux de présence au 1er rendez-vous"
+msgstr "Taux de présence au 1er rendez-vous (11)"
+
+msgid "Tableaub4.note1"
+msgstr "(1) Nombre de rendez-vous créés suite à une orientation.<br>L'allocataire est compté le mois de la validation de l'orientation"
+
+msgid "Tableaub4.note2"
+msgstr "(2) Nombre de rendez-vous créés suite à une orientation sans prendre en compte les rendez-vous non venu, configuré dans la variable de configuration Statistiqueplanpauvrete.orientationRdv.prevu.<br>L'allocataire est compté le mois de la validation de l'orientation"
+
+msgid "Tableaub4.note3"
+msgstr "(3) Nombre de personnes venues aux rendez-vous configurés dans la variable de configuration Statistiqueplanpauvrete.orientationRdv.venu, permettant d'identifier les statuts de rendez-vous pour lesquels le bénéficiaire est venu"
+
+msgid "Tableaub4.note4"
+msgstr "(4) Nombre de personnes non venues avec une excuse recevable aux rendez-vous configurés dans la variable de configuration Statistiqueplanpauvrete.orientationRdv.excuses_recevables, permettant d'identifier les statuts de rendez-vous pour lesquels le bénéficiaire n'est pas venu mais avec une excuse recevable"
+
+msgid "Tableaub4.note5"
+msgstr "(5) Nombre de personnes non venues sans excuse recevable aux rendez-vous configurés dans la variable de configuration Statistiqueplanpauvrete.orientationRdv.excuses_non_recevables, permettant d'identifier des statuts de rendez-vous pour lesquels le bénéficiaire n'est pas venu et qui n'a pas d'excuse recevable"
+
+msgid "Tableaub4.note6"
+msgstr "(6) Nombre de rendez-vous créés pour les nouveaux entrants du mois"
+
+msgid "Tableaub4.note7"
+msgstr "(7) Nombre de rendez-vous créés en moins de 15 jours entre la date de validation de l'orientation et la date de création du rendez-vous"
+
+msgid "Tableaub4.note8"
+msgstr "(8) Nombre de rendez-vous créés en moins de 15 jours entre la date de validation de l'orientation et la date de création du rendez-vous pour les personnes nouvelles entrantes orientées en moins d'un mois"
+
+msgid "Tableaub4.note9"
+msgstr "(9) Délai moyen de rendez-vous en jours entre la validation de l'orientation et la date de rendez-vous"
+
+msgid "Tableaub4.note10"
+msgstr "(10) Nombre de jours entre la date de validation de l'orientation et la date de rendez-vous"
+
+msgid "Tableaub4.note11"
+msgstr "(11) Pourcentage de personnes venues au 1er rendez vous par rapport au nombre de rendez-vous total"
 
 # ==============================================================================
 # Tableau B5

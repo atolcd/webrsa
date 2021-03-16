@@ -78,4 +78,15 @@
 		?></li>
 		</ul>
 		<?php
+		$noteExiste = true;
+		$nbNote = 1;
+		while ($noteExiste) {
+			$note = __d('statistiquesplanpauvrete', 'Tableaub4.note' . $nbNote);
+			if($note != 'Tableaub4.note' . $nbNote) {
+				echo '<br>' . $note;
+			} else {
+				$noteExiste = false;
+			}
+			$nbNote++;
+		}
 	}
