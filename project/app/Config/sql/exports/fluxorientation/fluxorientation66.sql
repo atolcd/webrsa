@@ -36,12 +36,12 @@ copy (
 			INNER JOIN "public"."situationsdossiersrsa" AS "Situationdossierrsa" ON ("Situationdossierrsa"."dossier_id" = "Dossier"."id")
 			INNER JOIN "public"."typesorients" AS "Typeorient" ON ("Orientstruct"."typeorient_id" = "Typeorient"."id")
 			INNER JOIN "public"."structuresreferentes" AS "Structurereferente" ON ("Structurereferente"."id" = "Orientstruct"."structurereferente_id")
-			INNER JOIN "public"."personnes_referents" AS "PersonneReferent" ON ("PersonneReferent"."personne_id" = "Personne"."id")
+			INNER JOIN "public"."personnes_referents" AS "PersonneReferent" ON ("PersonneReferent"."personne_id" = "Personne"."id" AND "PersonneReferent"."dfdesignation" IS NULL)
 			INNER JOIN "public"."referents" AS "Referent" ON ("PersonneReferent"."referent_id" = "Referent"."id")
 			INNER JOIN "public"."prestations" AS "Prestation" ON ("Personne"."id" = "Prestation"."personne_id")
 		where "Prestation"."rolepers" IN ('DEM', 'CJT')
 			and "Dossier"."matricule" not like ''
-		order by "Dossier"."matricule", "Personne"."id", "Orientstruct"."date_valid"
+		order by "Dossier"."matricule", "Personne"."id" desc, "Orientstruct"."date_valid" desc
 	)
 	select
 		"Orientstruct__id",
