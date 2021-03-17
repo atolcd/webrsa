@@ -264,18 +264,7 @@
 			$export = $this->_generationexportcsvV1( $results, $options);
 
 			// Ajout des notes de règle de gestion
-			$export[] = array('');
-			$noteExiste = true;
-			$nbNote = 1;
-			while ($noteExiste) {
-				$note = __d('statistiquesplanpauvrete', 'tableaub1.note' . $nbNote);
-				if($note != 'tableaub1.note' . $nbNote) {
-					$export[] = array($note);
-				} else {
-					$noteExiste = false;
-				}
-				$nbNote++;
-			}
+			$export = $this->_ajout_regle_gestion($export, 'tableaub1');
 
 			$filename = 'indicateurs_tableau_B1';
 
@@ -319,6 +308,10 @@
 				)
 			);
 			$export = $this->_generationexportcsvV1( $results, $options);
+
+			// Ajout des notes de règle de gestion
+			$export = $this->_ajout_regle_gestion($export, 'Tableaub4');
+
 			$filename = 'indicateurs_tableau_B4';
 
 			$this->layout = '';
@@ -362,18 +355,7 @@
 			}
 
 			// Ajout des notes de règle de gestion
-			$export[] = array('');
-			$noteExiste = true;
-			$nbNote = 1;
-			while ($noteExiste) {
-				$note = __d('statistiquesplanpauvrete', 'Tableaub5.note' . $nbNote);
-				if($note != 'Tableaub5.note' . $nbNote) {
-					$export[] = array($note);
-				} else {
-					$noteExiste = false;
-				}
-				$nbNote++;
-			}
+			$export = $this->_ajout_regle_gestion($export, 'Tableaub5');
 
 			$filename = 'indicateurs_tableau_B5';
 
@@ -583,6 +565,27 @@
 			$this->layout = '';
 			$this->set( compact( 'export', 'filename' ) );
 			$this->render('exportcsv');
+		}
+
+		/**
+		 * Ajout des notes de gestion du tableau selon la clé donnée
+		 * @param array $tabExport
+		 * @param string $key
+		 */
+		private function _ajout_regle_gestion($tabExport, $key) {
+			$tabExport[] = array('');
+			$noteExiste = true;
+			$nbNote = 1;
+			while ($noteExiste) {
+				$note = __d('statistiquesplanpauvrete', $key.'.note' . $nbNote);
+				if($note != $key.'.note' . $nbNote) {
+					$tabExport[] = array($note);
+				} else {
+					$noteExiste = false;
+				}
+				$nbNote++;
+			}
+			return $tabExport;
 		}
 
 		/**

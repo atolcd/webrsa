@@ -462,7 +462,7 @@ msgid "Tableaub4.note1"
 msgstr "(1) Nombre de rendez-vous créés suite à une orientation.<br>L'allocataire est compté le mois de la validation de l'orientation"
 
 msgid "Tableaub4.note2"
-msgstr "(2) Nombre de rendez-vous créés suite à une orientation sans prendre en compte les rendez-vous non venu, configuré dans la variable de configuration Statistiqueplanpauvrete.orientationRdv.prevu.<br>L'allocataire est compté le mois de la validation de l'orientation"
+msgstr "(2) Nombre de rendez-vous créés suite à une orientation sans prendre en compte les rendez-vous prévus, configuré dans la variable de configuration Statistiqueplanpauvrete.orientationRdv.prevu.<br>L'allocataire est compté le mois de la validation de l'orientation"
 
 msgid "Tableaub4.note3"
 msgstr "(3) Nombre de personnes venues aux rendez-vous configurés dans la variable de configuration Statistiqueplanpauvrete.orientationRdv.venu, permettant d'identifier les statuts de rendez-vous pour lesquels le bénéficiaire est venu"
