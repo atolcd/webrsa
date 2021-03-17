@@ -17,6 +17,7 @@ AS WITH liste_mois AS (
           WHERE historiquedroit.etatdosrsa::text = '2'::text
         ), personne_adresse_raw AS (
          SELECT lp.idpersonne,
+            f.dossier_id,
             a.nomvoie,
             a.nomcom,
             a.numcom,
@@ -33,6 +34,7 @@ AS WITH liste_mois AS (
              LEFT JOIN cantons c ON c.id = ac.canton_id
         ), personne_adresse AS (
          SELECT personne_adresse_raw.idpersonne,
+            personne_adresse_raw.dossier_id,
             personne_adresse_raw.nomvoie,
             personne_adresse_raw.nomcom,
             personne_adresse_raw.numcom,
@@ -102,6 +104,7 @@ AS WITH liste_mois AS (
  SELECT lh.annee,
     lh.mois,
     lh.idpersonne,
+    pa.dossier_id,
     pa.nomvoie,
     pa.nomcom,
     pa.numcom,
