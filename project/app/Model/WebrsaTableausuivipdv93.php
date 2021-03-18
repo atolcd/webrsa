@@ -1584,7 +1584,7 @@
 		 */
 		protected function _qdTableaub8Fields() {
 				return array(
-					'Personne.id',
+					'CONCAT("Personne".nom, "Personne".prenom, "Dossier".matricule) AS "NomPrenomMat"',
 					'Personne.qual',
 					'Personne.nom',
 					'Personne.prenom',
@@ -1807,7 +1807,7 @@
 			$querydata['recursive'] = -1;
 			$querydata['joins'] = $this->_qdTableaub8Joins();
 			$querydata['conditions'] = $this->_qdTableaub8Conditions($search);
-			$querydata['order'] = array('Personne.id', 'Contratinsertion.dd_ci');
+			$querydata['order'] = array('"NomPrenomMat"', 'Contratinsertion.dd_ci');
 			return $querydata;
 		}
 
@@ -1827,7 +1827,7 @@
 			$tmpResult = array();
 			$keyToDelete = null;
 			foreach( $results as $key => $result) {
-				if(!empty($tmpResult) && $tmpResult['Personne']['id'] == $result['Personne']['id'] ) {
+				if(!empty($tmpResult) && $tmpResult[0]['NomPrenomMat'] == $result[0]['NomPrenomMat'] ) {
 					unset($results[$keyToDelete]);
 				}
 				$tmpResult = $result;
