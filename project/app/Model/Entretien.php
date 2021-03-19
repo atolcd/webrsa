@@ -146,6 +146,26 @@
 			$query['joins'] = array_merge( $queryView['joins'], array( $this->join( 'Personne' ) ), $queryPersonne['joins'] );
 			$query['conditions'] = $queryView['conditions'];
 
+			// Customisation de la query pour récupérer le bon référent et la bonne structure liés à l'entretien et non pas à la personne
+			// fields
+			foreach($query['fields'] as $key => $field) {
+				if($key == 'PersonneReferent.referent_id') {
+					unset($query['fields'][$key]);
+					$query['fields']['"Referentparcours"."id"'] = '"Referentparcours"."id"';
+				}
+			}
+			// joins
+			foreach($query['joins'] as $key => $join) {
+				//debug($join['table']);
+				if($join['table'] == '"personnes_referents"') {
+					unset($query['joins'][$key]);
+				} elseif($join['table'] == '"referents"') {
+					$query['joins'][$key]['conditions'] = '"Entretien"."referent_id" = "Referentparcours"."id"';
+				} elseif($join['table'] == '"structuresreferentes"') {
+					$query['joins'][$key]['conditions'] = '"Entretien"."structurereferente_id" = "Structurereferenteparcours"."id"';
+				}
+			}
+
 			return $query;
 		}
 
