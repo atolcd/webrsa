@@ -175,9 +175,10 @@
 				$nbCanton = $this->_insertionCanton($Canton, $Adresse, $departement, $results);
 				$this->out(sprintf('Terminé en %s secondes, %s canton(s) ont été ajoutés.', number_format(microtime(true)-$timestart, 3),$nbCanton));
 				$this->out();
-			}
-
-			else {
+			} elseif( $success) {
+				$this->out(sprintf('Terminé en %s secondes', number_format(microtime(true)-$timestart, 3)));
+				$this->out();
+			} else {
 				$Adresse->rollback();
 				$this->out('Un erreur s\'est produite !');
 			}
