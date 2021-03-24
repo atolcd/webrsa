@@ -1853,9 +1853,10 @@
 		 * @return integer
 		 */
 		public function rgCiMax( $personne_id ) {
-			return $this->Contratinsertion->find(
-				'count',
+			$rg =  $this->Contratinsertion->find(
+				'first',
 				array(
+					'fields' => array("MAX({$this->Contratinsertion->alias}.rg_ci) AS rg_ci"),
 					'conditions' => array(
 						"{$this->Contratinsertion->alias}.decision_ci" => 'V',
 						"{$this->Contratinsertion->alias}.personne_id" => $personne_id
@@ -1863,6 +1864,12 @@
 					'contain' => false
 				)
 			);
+
+			if(!is_null($rg[0]['rg_ci'])) {
+				return $rg[0]['rg_ci'];
+			}
+
+			return 0;
 		}
 
 		public function options() {
