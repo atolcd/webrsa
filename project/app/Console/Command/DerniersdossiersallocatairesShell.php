@@ -80,7 +80,7 @@
 						)
 				) AS hasotherdossier "
 			;
-
+			// Ordre par prestation pour avoir réellement le dernier dossier de l'allocataire lié à sa dernière action plutôt qu'à son ID le plus haut
 			$sqlSelect = "SELECT personnes.id AS personne_id,
 			(
 				SELECT
@@ -113,7 +113,7 @@
 								AND personnes.dtnai = p2.dtnai
 							)
 						)
-					ORDER BY dossiers.dtdemrsa DESC, dossiers.id DESC
+					ORDER BY dossiers.dtdemrsa DESC, pr2.id DESC, dossiers.id DESC
 					LIMIT 1
 			) AS dossier_id"
 			.$sqlHasOtherDossier."

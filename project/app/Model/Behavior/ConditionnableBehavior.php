@@ -31,11 +31,11 @@
 			$CantonModel = ClassRegistry::init( 'Canton' );
 
 			/// Critères sur l'adresse - nom de commune
-            foreach( array( 'nomcom', 'nomvoie' ) as $filtre ) {
-                if( isset( $search['Adresse'][$filtre] ) && !empty( $search['Adresse'][$filtre] ) ) {
-                    $conditions[] = "Adresse.$filtre ILIKE '".$model->wildcard( Sanitize::clean( $search['Adresse'][$filtre], array( 'encode' => false ) ) )."'";
-                }
-            }
+			foreach( array( 'nomcom', 'nomvoie' ) as $filtre ) {
+				if( isset( $search['Adresse'][$filtre] ) && !empty( $search['Adresse'][$filtre] ) ) {
+					$conditions[] = "Adresse.$filtre ILIKE '".$model->wildcard( Sanitize::clean( $search['Adresse'][$filtre], array( 'encode' => false ) ) )."'";
+				}
+			}
 
 			// Critères sur l'adresse - code insee
 			$numscoms = Hash::get( $search, 'Adresse.numcom' );
@@ -530,6 +530,7 @@
 					)';
 				}
 				else {
+					// Ordre par prestation pour avoir réellement le dernier dossier de l'allocataire lié à sa dernière action plutôt qu'à son ID le plus haut
 					$conditions[] = 'Dossier.id IN (
 						SELECT
 								dossiers.id
@@ -560,7 +561,7 @@
 										AND personnes.dtnai = Personne.dtnai
 									)
 								)
-							ORDER BY dossiers.dtdemrsa DESC, dossiers.id DESC
+							ORDER BY dossiers.dtdemrsa DESC, prestations.id DESC, dossiers.id DESC
 							LIMIT 1
 					)';
 				}
