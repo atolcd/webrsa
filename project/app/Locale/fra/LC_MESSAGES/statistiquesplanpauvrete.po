@@ -196,7 +196,7 @@ msgid "tableaub1.note6"
 msgstr "(6) Délai moyen entre la date de création de l'historique provenant des flux journaliers et mensuels et la date de validation de la 1ère orientation"
 
 msgid "tableaub1.note3"
-msgstr "(3) Nombre de nouveaux entrants SDD et DOV ayant eu leur 1ère orientation en moins d'un mois"
+msgstr "(3) Nombre de nouveaux entrants SDD et DOV ayant eu leur 1ère orientation en moins d'un mois selon la date d'entrée au Conseil Départemental"
 
 msgid "tableaub1.note7"
 msgstr "(7) Délai entre la date de création de l'historique provenant des flux journaliers et mensuels et la date de validation de la 1ère orientation"
@@ -573,7 +573,7 @@ msgid "Tableaub5.NvxEnt.taux_contrat"
 msgstr "<b>Taux de contractualisation (10)</b>"
 
 msgid "Tableaub5.note1"
-msgstr "(1) Nombre de personnes SDD et DOV ayant validées leur 1ère orientation par mois"
+msgstr "(1) Nombre de personnes SDD et DOV ayant validées leur 1ère orientation par mois selon la date de validation de l'orientation"
 
 msgid "Tableaub5.note2"
 msgstr "(2) Nombre de 1ers CER de type social validés parmis les 1ères orientations.<br><u>Note</u> : Si une personne est orientée au mois de janvier et a validé un CER de type social en mars, il sera comptabilisé au mois de janvier"
@@ -588,7 +588,7 @@ msgid "Tableaub5.note5"
 msgstr "(5) Pourcentage de personnes ayant eu la signature du 1er CER par rapport au nombre de personnes ayant eu la validation de leur 1ère orientation"
 
 msgid "Tableaub5.note6"
-msgstr "(6) Nombre de nouveaux entrant SDD et DOV ayant validées leur 1ère orientation par mois"
+msgstr "(6) Nombre de nouveaux entrant SDD et DOV ayant validées leur 1ère orientation par mois selon la date de validation de l'orientation"
 
 msgid "Tableaub5.note7"
 msgstr "(7) Nombre de 1ers CER de type social validés parmis les 1ères orientations des nouveaux entrants.<br><u>Note</u> : Si un nouvel entrant est orienté au mois de janvier et a validé un CER de type social en mars, il sera comptabilisé au mois de janvier"

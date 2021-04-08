@@ -461,7 +461,7 @@
 			$query .= implode(",", $rdvPrevu);
 			$query .= ") AND date_part('year', rdv.daterdv) = " . $annee . ")";
 			$query .= " LEFT JOIN bilansparcours66 bilans ON ( bilans.personne_id = idpersonne AND bilans.datebilan > historiquedroit__created AND bilans.proposition LIKE 'audition')";
-			$query .= " WHERE annee = " . $annee . " AND (primo = TRUE OR nouvel_entrant = TRUE)";
+			$query .= " WHERE annee = " . $annee . " AND (primo = TRUE OR vrai_nouvel_entrant = TRUE)";
 			$query .= " AND Historiquedroit__toppersdrodevorsa = '1'";
 
 			$query = $this->_getConditionsViewSearch($search, $query);
@@ -570,16 +570,17 @@
 		 * @param array $search
 		 * @return array
 		 */
-		protected function _getQueryTableau_a1(array $search) {
+		protected function _getQueryTableau_a1_DOV(array $search) {
 			$annee = (int)Hash::get( $search, 'Search.annee' );
 			$fields = array(
+				'distinct on (idpersonne, annee, mois) (idpersonne, annee, mois)',
 				'annee',
 				'mois',
 				'idpersonne',
 				'historiquedroit__etatdosrsa',
 				'historiquedroit__toppersdrodevorsa',
 				'primo',
-				'nouvel_entrant'
+				'vrai_nouvel_entrant'
 			);
 
 			$query = "SELECT ";
@@ -596,6 +597,43 @@
 
 			// Conditions
 			$query = $this->_getConditionsViewSearch($search, $query);
+			$query .= ' ORDER BY annee, mois, idpersonne, dtemm DESC';
+			return $query;
+		}
+
+		/**
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		protected function _getQueryTableau_a1_Nvx(array $search) {
+			$annee = (int)Hash::get( $search, 'Search.annee' );
+			$fields = array(
+				'distinct on (idpersonne, annee, mois) (idpersonne, annee, mois)',
+				'annee',
+				'mois',
+				'idpersonne',
+				'historiquedroit__etatdosrsa',
+				'historiquedroit__toppersdrodevorsa',
+				'primo',
+				'vrai_nouvel_entrant'
+			);
+
+			$query = "SELECT ";
+
+			// Ajout des champs
+			foreach($fields as $field) {
+				$query .= $field . ', ';
+			}
+			$query = substr($query, 0, -2);
+
+			// FROM
+			$query .= " FROM public.statppview WHERE ";
+			$query .= "annee = " . $annee . " AND (primo = TRUE OR vrai_nouvel_entrant = TRUE) AND historiquedroit__toppersdrodevorsa = '1'";
+
+			// Conditions
+			$query = $this->_getConditionsViewSearch($search, $query);
+			$query .= ' ORDER BY annee, mois, idpersonne, dtemm DESC';
 			return $query;
 		}
 
@@ -1135,8 +1173,8 @@
 			$annee = (int)Hash::get( $search, 'Search.annee' );
 
 			$query = $this->_getSelectViewSearchGeneral();
-			$query .= " WHERE annee = " . $annee . " AND (primo = TRUE OR nouvel_entrant = TRUE)";
-			$query .= " AND Historiquedroit__toppersdrodevorsa = '1'";
+			$query .= " WHERE annee = " . $annee . " AND (primo = TRUE OR vrai_nouvel_entrant = TRUE)";
+			$query .= " AND Historiquedroit__toppersdrodevorsa = '1' AND (orientation_un_mois = TRUE OR orientstruct__date_valid IS NOT NULL)";
 
 			$query = $this->_getConditionsViewSearch($search, $query);
 			$query .= ' ORDER BY idpersonne, annee, mois, dtemm desc';
@@ -2577,8 +2615,8 @@
 		public function getIndicateursTableauA1( array $search ) {
 			$results = array();
 
-			// Query de base
-			$query = $this->_getQueryTableau_a1 ($search);
+			// Query de base pour les personnes DOV
+			$query = $this->_getQueryTableau_a1_DOV($search);
 			$results = $this->Personne->query($query);
 
 			// Initialisation tableau de résultats
@@ -2590,13 +2628,21 @@
 				$resultats['totalDOV'][$mois]++;
 				if( $result['historiquedroit']['toppersdrodevorsa'] == 1 ) {
 					$resultats['totalSDDDOV'][$mois]++;
-					if($result[0]['primo'] == true) {
-						$resultats['nbPersonnesInconnues'][$mois]++;
-						$resultats['nbPersonnes'][$mois]++;
-					} else if( $result[0]['nouvel_entrant'] == true ) {
-						$resultats['nbPersonnesConnues'][$mois]++;
-						$resultats['nbPersonnes'][$mois]++;
-					}
+				}
+			}
+
+			// Query de base pour les nouveaux entrants et primo arrivant
+			$query = $this->_getQueryTableau_a1_Nvx($search);
+			$results = $this->Personne->query($query);
+
+			foreach($results as $result) {
+				$mois = $result[0]['mois']-1;
+				if($result[0]['primo'] == true) {
+					$resultats['nbPersonnesInconnues'][$mois]++;
+					$resultats['nbPersonnes'][$mois]++;
+				} else if( $result[0]['vrai_nouvel_entrant'] == true ) {
+					$resultats['nbPersonnesConnues'][$mois]++;
+					$resultats['nbPersonnes'][$mois]++;
 				}
 			}
 
@@ -2771,7 +2817,8 @@
 
 			// Récupération des variables de configuration
 			$statutRdv = Configure::read('Statistiqueplanpauvrete.orientationRdv');
-			// Query de base
+
+			// Query de base pour les nouveaux entrants
 			$query = $this->_getQueryTableau_b1_NouveauxEntrant($search, $statutRdv['prevu']);
 			$resultsNvxEnt = $this->Historiquedroit->query($query);
 			$resultats = array();
@@ -2783,7 +2830,10 @@
 			foreach($resultsNvxEnt as $result) {
 				$month = $result[0]['mois'] -1;
 				$resultats['total'][$month]++;
-				if(is_null($result['orientstruct']['date_valid'])) {
+				if(!is_null($result['orientstruct']['date_valid']) || $result[0]['orientation_un_mois'] == true) {
+					$resultats['orient_31jours'][$month]++;
+				}
+				else {
 					$resultats['NonOrientes']['total'][$month]++;
 					if( !is_null($result[0]['statutrdv_id']) && in_array($result[0]['statutrdv_id'], $statutRdv['prevu']) ) {
 						$resultats['NonOrientes']['prevu'][$month]++;
@@ -2792,18 +2842,10 @@
 					} else {
 						$resultats['NonOrientes']['autres'][$month]++;
 					}
-				} else {
-					$dateCreaHisto = new DateTime($result['historiquedroit']['created']);
-					$dateOrient = new DateTime($result['orientstruct']['date_valid']);
-					$delaiMois = $dateCreaHisto->diff($dateOrient)->m;
-
-					$delai1mois = $delaiMois < 1 || ($delaiMois == 1 && $dateCreaHisto->diff($dateOrient)->d == 0);
-					if( $delai1mois) {
-						$resultats['orient_31jours'][$month]++;
-					}
 				}
 			}
 
+			// Query de base pour orientés
 			$query = $this->_getQueryTableau_b1_Orientation($search);
 			$resultsOrientes = $this->Historiquedroit->query($query);
 
@@ -3062,21 +3104,14 @@
 			$query = $this->_getQueryTableau_b5_nouveaux_entrant ($search);
 			$resultsNvxEnt = $this->Personne->query($query);
 
-			// Formattage pour ne garder que les orientation réalisé en moins d'un mois
+			// Formattage pour modifier les dates de validation d'orientation si besoin
 			$resultsNvxEntFormat = array();
 			foreach($resultsNvxEnt as $result) {
-				if( !is_null($result['orientstruct']['date_valid'])) {
-					$dateCreaHisto = new DateTime($result['historiquedroit']['created']);
-					$dateOrient = new DateTime($result['orientstruct']['date_valid']);
-					$delaiMois = $dateCreaHisto->diff($dateOrient)->m;
-
-					$delai1mois = $delaiMois < 1 || ($delaiMois == 1 && $dateCreaHisto->diff($dateOrient)->d == 0);
-					if( $delai1mois) {
-						$resultsNvxEntFormat[] = $result;
-					}
+				if($result[0]['orientation_un_mois'] == true) {
+					$result['orientstruct']['date_valid'] = $result[0]['orient_un_mois_date'];
 				}
+				$resultsNvxEntFormat[] = $result;
 			}
-
 			// Traitement des résultats des 1ère orientations réalisé par les nouveaux entrant
 			$resultats = $this->_processResultB5($resultsNvxEntFormat, $resultats, 'NvxEnt', $annee);
 
