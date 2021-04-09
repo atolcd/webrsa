@@ -125,10 +125,10 @@
 				$query = $this->WebrsaCohortePlanpauvrete->sdddovHistorique($query);
 
 				// Sans RDV
-				$query = $this->WebrsaCohortePlanpauvrete->sansRendezvous($query);
+				$query = $this->WebrsaCohortePlanpauvrete->sansRendezvous($query, true);
 
 				// Sans Orientation
-				$query = $this->WebrsaCohortePlanpauvrete->sansOrientation($query);
+				$query = $this->WebrsaCohortePlanpauvrete->sansOrientation($query, true);
 
 				// Sans CER
 				$query = $this->WebrsaCohortePlanpauvrete->sansCER($query);

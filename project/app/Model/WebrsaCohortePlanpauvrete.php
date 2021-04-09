@@ -47,11 +47,16 @@
 		/**
 		 * Base de la requete des orientations
 		 */
-		public function requeteOrientation() {
+		public function requeteOrientation($isNouveauxEntrant = false) {
 			$conditions = 'SELECT "orientsstructs"."id" AS "orientsstructs__id"
 				FROM orientsstructs AS orientsstructs
 				WHERE "orientsstructs"."statut_orient" = \'Orienté\'
 				AND "orientsstructs"."personne_id" = "Personne"."id"';
+
+			if($isNouveauxEntrant) {
+				$dates = $this->datePeriodeCohorte ();
+				$conditions .= " AND Historiquedroit.created BETWEEN '".$dates['deb']."' AND '".$dates['fin']."'";
+			}
 			return $conditions;
 		}
 
@@ -61,8 +66,8 @@
 		 * @param array $query
 		 * @return array $query
 		 */
-		public function sansOrientation($query) {
-			$conditions = $this->requeteOrientation();
+		public function sansOrientation($query, $isNouveauxEntrant = false) {
+			$conditions = $this->requeteOrientation($isNouveauxEntrant);
 			$query['conditions'][] = ' NOT EXISTS('.$conditions.')';
 			return $query;
 		}
@@ -98,13 +103,18 @@
 		 * @param array $query
 		 * @return array $query
 		 */
-		public function sansRendezvous($query) {
-
+		public function sansRendezvous($query, $isNouveauxEntrant = false) {
 			$tmpSQL = '';
 			$arrayStatutRdvExcusesRecevables = Configure::read('Statistiqueplanpauvrete.orientationRdv.excuses_recevables');
 			if (is_array ($arrayStatutRdvExcusesRecevables) && !is_null ($arrayStatutRdvExcusesRecevables) ) {
 				$listStatutRdvExcusesRecevables = implode(',', $arrayStatutRdvExcusesRecevables);
 				$tmpSQL = ' AND statutsrdvs.id NOT IN ('.$listStatutRdvExcusesRecevables.') ';
+			}
+
+			$conditionsDates = '';
+			if($isNouveauxEntrant) {
+				$dates = $this->datePeriodeCohorte ();
+				$conditionsDates = " AND Historiquedroit.created BETWEEN '".$dates['deb']."' AND '".$dates['fin']."'";
 			}
 
 			$query['conditions'][] = 'NOT EXISTS(
@@ -113,7 +123,29 @@
 				INNER JOIN statutsrdvs ON (statutsrdvs.id = rendezvous.statutrdv_id )
 				INNER JOIN historiquesdroits ON (historiquesdroits.personne_id = rendezvous.personne_id AND historiquesdroits.created <= rendezvous.daterdv)
 				WHERE "rendezvous"."personne_id" = "Personne"."id"
-				'.$tmpSQL.' )';
+				' . $tmpSQL . $conditionsDates . ' )';
+
+			return $query;
+		}
+
+		/** Ajoute le join et la condition pour gérer l'état précédent dans l'historique de la personne */
+		protected function _etat_precedent($query) {
+			$dates = $this->datePeriodeCohorte ();
+			$query['joins'][] = 'LEFT JOIN (
+				SELECT personne_id, etatdosrsa
+				FROM (
+					SELECT
+						h.personne_id
+						, h.etatdosrsa
+						, rank() OVER (PARTITION BY h.personne_id ORDER BY h.modified desc) AS ranking
+						from historiquesdroits h
+						WHERE h."created" < \'' . $dates['deb'] . '\'
+						ORDER BY h."created" DESC
+					) epr
+				WHERE epr.ranking = 1
+			) etat_precedent ON etat_precedent.personne_id = "Personne"."id"';
+
+			$query['conditions'][] = "(etat_precedent.etatdosrsa is null OR etat_precedent.etatdosrsa in ('5','6'))";
 			return $query;
 		}
 
@@ -125,7 +157,7 @@
 		 */
 		public function nouveauxEntrants($query) {
 			$dates = $this->datePeriodeCohorte ();
-
+			$query = $this->_etat_precedent($query);
 			$query['conditions'][] = 'Historiquedroit.created BETWEEN \''.$dates['deb'].'\' AND \''.$dates['fin'].'\'';
 			return $query;
 		}
