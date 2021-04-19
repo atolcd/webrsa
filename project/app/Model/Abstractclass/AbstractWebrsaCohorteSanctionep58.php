@@ -202,9 +202,6 @@
 					$query['conditions'][] = $conditionsSelection;
 				}
 
-				// Dont le dossier d'EP, s'il existe, n'est pas encore attaché à une commission
-				$query['conditions'][] = $this->Personne->Dossierep->conditionsNonAttacheCommissionep();
-
 				// Et qui ne possèdent pas d'autre dossier d'EP non traité
 				$query['conditions'][] = $this->Personne->Dossierep->conditionsPersonneSansDossierEpEnCours();
 
@@ -283,16 +280,22 @@
 				}
 
 				// 4. Tri par défaut
+				$query['order'] = array( 'Dossierep.id DESC' );
 				if( $origine === 'radiepe' ) {
-					$query['order'] = array(
-						'Historiqueetatpe.date ASC',
-						'Historiqueetatpe.id ASC'
+					$query['order'] = array_merge(
+						$query['order'],
+						array(
+							'Historiqueetatpe.date ASC',
+							'Historiqueetatpe.id ASC'
+						)
 					);
 				}
 				else {
-					$query['order'] = array( 'Orientstruct.date_valid ASC' );
+					$query['order'] = array_merge(
+						$query['order'],
+						array( 'Orientstruct.date_valid ASC' )
+					);
 				}
-
 				Cache::write( $cacheKey, $query );
 			}
 
@@ -311,7 +314,7 @@
 		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
 			$success = true;
 			$origine = $this->_origine();
-			
+
 			$this->Sanctionep58->begin();
 
 			foreach( $data as $line ) {
@@ -320,7 +323,20 @@
 				$chosen = Hash::get( $line, 'Dossierep.chosen' );
 
 				// Personnes non cochées que l'on sélectionne
-				if( empty( $dossierep_id ) && !empty( $chosen ) ) {
+				if( !empty( $chosen ) ) {
+					// On vérifie si la personne a un dossier EP en cours et s'il est déjà enregistré dans une commision EP
+					if(!is_null($dossierep_id)) {
+						$passageCommision = $this->Sanctionep58->Dossierep->Passagecommissionep->find('first', array(
+							'conditions' => array(
+								'Passagecommissionep.dossierep_id' => $dossierep_id,
+							)
+						));
+						// Si le dossier n'est pas rattaché à une commission EP ou qu'il est attaché en état "associé", on passe à la ligne suivante
+						if ( empty($passageCommision) || (!empty($passageCommision) && $passageCommision['Passagecommissionep']['etatdossierep'] == 'associe' ) ) {
+							continue;
+						}
+					}
+
 					$dossierep = array(
 						'Dossierep' => array(
 							'themeep' => 'sanctionseps58',
@@ -353,14 +369,8 @@
 					$this->Sanctionep58->create( $sanctionep58 );
 					$success = $this->Sanctionep58->save( null, array( 'atomic' => false ) ) && $success;
 				}
-				// Personnes précédemment sélectionnées, que l'on désélectionne
-				else if( !empty( $dossierep_id ) && empty( $chosen ) ) {
-					// FIXME: on supprime des décisions dans les déjà cochés!!
-					$success = $this->Sanctionep58->Dossierep->delete( $dossierep_id, true ) && $success;
-				}
-				// Personnes précédemment sélectionnées, que l'on garde sélectionnées -> rien à faire
 			}
-			
+
 			if ($success) {
 				$this->Sanctionep58->commit();
 			} else {
