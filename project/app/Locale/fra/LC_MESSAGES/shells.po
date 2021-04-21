@@ -127,3 +127,30 @@ msgstr "<comment>Formatage du XML terminé en %s seconde. La taille du fichier e
 
 msgid "Shells:Vueglobale:comment::finFormatXMLDeuxPartie"
 msgstr "o.</comment>"
+
+###############################################################################
+# CreaHistoSansFlux
+###############################################################################
+msgid "Shells:CreaHistoSansFlux:comment::debutRecup"
+msgstr "Récupération des personnes"
+
+msgid "Shells:CreaHistoSansFlux:comment::nbPersonne"
+msgstr "Il y a %d personnes à insérer"
+
+msgid "Shells:CreaHistoSansFlux:comment::finRecup"
+msgstr "La récupération des personnes s'est faite en %s secondes"
+
+msgid "Shells:CreaHistoSansFlux:comment::debutTraitement"
+msgstr "Traitement des personnes"
+
+msgid "Shells:CreaHistoSansFlux:comment::FinTraitement"
+msgstr "Le traitement des personnes s'est fait en %s secondes"
+
+msgid "Shells:CreaHistoSansFlux:comment::debutInsert"
+msgstr "Enregistrement des personnes"
+
+msgid "Shells:CreaHistoSansFlux:comment::insertOK"
+msgstr "Insertion réussi en %s secondes"
+
+msgid "Shells:CreaHistoSansFlux:comment::insertNOK"
+msgstr "Erreur lors de l'insertion des personnes"
