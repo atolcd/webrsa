@@ -105,7 +105,27 @@
 					array(
 						$this->Contratinsertion->join( 'Structurereferente', array( 'type' => $types['Structurereferente'] ) ),
 						$this->Contratinsertion->join( 'Referent', array( 'type' => $types['Referent'] ) ),
-						$this->Contratinsertion->Referent->join( 'Dernierreferent', array( 'type' => $types['Dernierreferent'] ) ),
+						$this->Contratinsertion->Referent->join(
+							'Dernierreferent',
+							array(
+								'type' => $types['Dernierreferent'],
+								'conditions' => array(
+									'OR' => array(
+										'Dernierreferent.id IS NULL',
+										'Dernierreferent.id IN (
+											SELECT
+												"referents"."id"
+											FROM
+												referents
+											WHERE
+												"referents"."id" = "Dernierreferent"."referent_id"
+											ORDER BY
+												"Dernierreferent"."id" DESC
+											LIMIT 1 )',
+									)
+								)
+							)
+						),
 						$this->Contratinsertion->Personne->join(
 							'Orientstruct',
 							array(
