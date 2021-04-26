@@ -3,8 +3,8 @@
 	$user_type = $this->Session->read( 'Auth.User.type' );
 	$actions = array();
 	$modelName = 'Personne';
-
 	$this->start( 'custom_search_filters' );
+	if(isset($options['Activite']) && !empty($options['Activite'])) {
 ?>
 <fieldset>
 	<legend><?php echo __m('PlanPauvrete.parcours') ?></legend>
@@ -14,6 +14,7 @@
 </fieldset>
 
 <?php
+	}
 	$this->end();
 	echo $this->element(
 		'ConfigurableQuery/search',
