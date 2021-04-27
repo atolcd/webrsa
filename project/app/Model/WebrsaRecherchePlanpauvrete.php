@@ -151,7 +151,26 @@
 		 * @return array
 		 */
 		public function searchConditions( array $query, array $search ) {
+			$isCantonsSiteCov = false;
+			if(isset($search['CantonSitecov58']) && !empty($search['CantonSitecov58'])) {
+				$isCantonsSiteCov = true;
+				// Suppression du join déjà réalisé car il est créé par la suite avec les bons paramètres
+				foreach($query['joins'] as $key => $join) {
+					if($join['alias'] == 'CantonSitecov58') {
+						unset($query['joins'][$key]);
+					}
+				}
+			}
 			$query = $this->Allocataire->searchConditions( $query, $search );
+			if($isCantonsSiteCov) {
+				// Remise à la bonne place du join
+				foreach($query['joins'] as $key => $join) {
+					if($join['alias'] == 'Sitecov58') {
+						$query['joins'][] = $join;
+						unset($query['joins'][$key]);
+					}
+				}
+			}
 			return $query;
 		}
 
