@@ -156,7 +156,7 @@
 				$isCantonsSiteCov = true;
 				// Suppression du join déjà réalisé car il est créé par la suite avec les bons paramètres
 				foreach($query['joins'] as $key => $join) {
-					if($join['alias'] == 'CantonSitecov58') {
+					if(isset($join['alias']) && $join['alias'] == 'CantonSitecov58') {
 						unset($query['joins'][$key]);
 					}
 				}
@@ -165,7 +165,7 @@
 			if($isCantonsSiteCov) {
 				// Remise à la bonne place du join
 				foreach($query['joins'] as $key => $join) {
-					if($join['alias'] == 'Sitecov58') {
+					if(isset($join['alias']) && $join['alias'] == 'Sitecov58') {
 						$query['joins'][] = $join;
 						unset($query['joins'][$key]);
 					}
