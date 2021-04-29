@@ -361,6 +361,28 @@
 			}
 
 			$datas['querydata']['conditions']['Passagecommissionep.id'] = $passagecommissionep_id;
+			// Ajout du motif
+			$datas['querydata']['fields'] = array_merge(
+				$datas['querydata']['fields'],
+				array(
+					'StatutrdvTyperdv.motifpassageep'
+				)
+			);
+			$datas['querydata']['joins'][] = array(
+				'table'      => 'rendezvous',
+				'alias'      => 'Rendezvous',
+				'type'       => 'LEFT',
+				'conditions' => array( 'Sanctionrendezvousep58.rendezvous_id = Rendezvous.id' ),
+			);
+			$datas['querydata']['joins'][] = array(
+				'table'      => 'statutsrdvs_typesrdv',
+				'alias'      => 'StatutrdvTyperdv',
+				'type'       => 'LEFT',
+				'conditions' => array(
+						'StatutrdvTyperdv.statutrdv_id = Rendezvous.statutrdv_id',
+						'StatutrdvTyperdv.typerdv_id = Rendezvous.typerdv_id'
+				),
+			);
 			$gedooo_data = $this->Dossierep->Passagecommissionep->find( 'first', $datas['querydata'] );
 			$modeleOdt = 'Commissionep/convocationep_beneficiaire.odt';
 
