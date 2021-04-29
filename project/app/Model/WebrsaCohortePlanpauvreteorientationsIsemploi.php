@@ -30,9 +30,9 @@
 			$query = $this->sdddovHistorique($query);
 
 			//Sans orientation
-			$query = $this->sansOrientation($query);
+			$query = $this->sansOrientation($query, true);
 			//Sans RDV
-			$query = $this->sansRendezvous($query);
+			$query = $this->sansRendezvous($query, true);
 			//Sans CER
 			$query = $this->sansCER($query);
 			//Inscrit PE

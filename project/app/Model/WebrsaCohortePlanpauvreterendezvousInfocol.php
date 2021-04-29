@@ -30,10 +30,10 @@
 			$query = $this->sdddovHistorique($query);
 
 			// Sans RDV
-			$query = $this->sansRendezvous($query);
+			$query = $this->sansRendezvous($query, true);
 
 			// Sans Orientation
-			$query = $this->sansOrientation($query);
+			$query = $this->sansOrientation($query, true);
 
 			// Sans CER
 			$query = $this->sansCER($query);
