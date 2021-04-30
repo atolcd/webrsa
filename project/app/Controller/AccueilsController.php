@@ -534,7 +534,8 @@
 						AND "Calculdroitrsa"."toppersdrodevorsa" = \'1\'
 					)
 					INNER JOIN "public"."structuresreferentes" AS "Structurereferente" ON ("Structurereferente"."id" = "CteCer"."structurereferente_id")
-					INNER JOIN "public"."referents" AS "Referent" ON ("Structurereferente"."id" = "Referent"."structurereferente_id")
+					INNER JOIN "public"."personnes_referents" AS "PersonneReferent" ON "PersonneReferent"."personne_id" = "Personne"."id"
+					INNER JOIN "public"."referents" AS "Referent" ON ("PersonneReferent"."referent_id" = "Referent"."id")
 					INNER JOIN "public"."prestations" AS "Prestation" ON ("Personne"."id" = "Prestation"."personne_id")
 				where "CteCer"."positioncer" IN (\'perime\')
 					and "CteOrientation"."lib_type_orient" not ilike \'%Pôle emploi%\'
