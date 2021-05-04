@@ -945,7 +945,8 @@
 				'conditions' => array(
 					'personne_id = '.$personne_id,
 					'NOT' => array(
-						'decision_ci = \'A\''
+						'decision_ci = \'A\'',
+						'rg_ci IS NULL'
 					)
 				),
 				'order' => 'rg_ci DESC'
