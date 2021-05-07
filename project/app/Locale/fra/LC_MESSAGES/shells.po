@@ -154,3 +154,21 @@ msgstr "Insertion réussi en %s secondes"
 
 msgid "Shells:CreaHistoSansFlux:comment::insertNOK"
 msgstr "Erreur lors de l'insertion des personnes"
+
+###############################################################################
+# OrientationNonOrienteEnattente
+###############################################################################
+msgid "Shells:OrientationNonOrienteEnattente:intro"
+msgstr "Recherche des orientations non orientées à mettre en attente"
+
+msgid "Shells:OrientationNonOrienteEnattente:nbOrientOK"
+msgstr "Il y a %d orientations à mettre en attente"
+
+msgid "Shells:OrientationNonOrienteEnattente:nbOrientNOK"
+msgstr "Il n'y a pas d'orientation à mettre en attente"
+
+msgid "Shells:OrientationNonOrienteEnattente:modifOK"
+msgstr "Modifications terminée"
+
+msgid "Shells:OrientationNonOrienteEnattente:modifNOK"
+msgstr "Les modifications n'ont pas été effectuées"
