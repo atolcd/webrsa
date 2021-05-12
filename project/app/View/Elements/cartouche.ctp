@@ -70,6 +70,22 @@
 					?>
 					</td>
 				<?php } ?>
+					<td class="reset_cache">
+						<?php
+							echo $this->Xhtml->link(
+								'',
+								array(
+									'controller'=>'caches',
+									'action'=>'reinitializeCache',
+								),
+								array(
+									'title' => __d('cache', 'Cache.title'),
+									'enabled' => $this->Permissions->check( 'caches', 'reinitializeCache' ),
+								),
+								__d('cache', 'Cache.confirm')
+							);
+						?>
+					</td>
                 </tr>
             </tbody>
         </table>

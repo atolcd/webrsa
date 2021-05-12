@@ -2282,6 +2282,18 @@ td.dossier_locked a:hover {
 	background-image: url("../img/icons/lock_open.png");
 }
 
+td.reset_cache a {
+	background-repeat: no-repeat;
+	padding-left: 25px;
+	text-decoration: none;
+	background-position: 5px center;
+	background-image: url("../img/icons/folder_page.png");
+	display: initial;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	padding-right: 2px;
+}
+
 td.data.integer, td.data.biginteger, td.data.float, td.data.decimal, td.data.numeric {
 	text-align: right;
 }

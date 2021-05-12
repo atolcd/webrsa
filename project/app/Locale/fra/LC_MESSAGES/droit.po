@@ -4953,3 +4953,11 @@ msgstr "Cohorte de modification d'état des dossiers"
 
 msgid "controllers/Modifsetatsdossiers/cohorte_modifetatdos"
 msgstr "Accès et sauvegarde"
+
+## Gestion du cache
+###############################################################################
+msgid "controllers/Caches"
+msgstr "Gestion du cache"
+
+msgid "controllers/Caches/reinitializeCache"
+msgstr "Suppression du cache"
