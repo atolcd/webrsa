@@ -22,12 +22,19 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-// Setup a 'default' cache configuration for use in the application.
+/**
+ * Setup a 'default' cache configuration for use in the application.
+ *
+ * La gestion du cache est déplacée plus bas dans ce fichier, après la lecture de la
+ * configuration générale, pour permettre la configuration du cache depuis WebRSA.
+ */
+/*
 Cache::config( 'default', array(
 	'engine' => 'File',
 	'mask' => 0777,
 	'duration' => ( Configure::read( 'debug' ) > 0 ? '+10 seconds' : '+999 days' )
 ) );
+*/
 
 /**
  * The settings below can be used to set additional paths to models, views and controllers.
@@ -139,6 +146,13 @@ $configFiles = Configure::read('Categorie.General');
 foreach ($configFiles as $configFile) {
 	$configuration->setAllConfigurations($configFile);
 }
+
+// Setup a 'default' cache configuration for use in the application.
+Cache::config( 'default', array(
+	'engine' => 'File',
+	'mask' => 0777,
+	'duration' => ( Configure::read( 'debug' ) > 0 ? Configure::read( 'Configuration.cache.debug' ) : Configure::read( 'Configuration.cache.production' ) )
+) );
 
 require_once APPLIBS.'basics.php';
 require_once APP.DS.'Vendor'.DS.'money_format.php';
