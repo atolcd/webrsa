@@ -20,6 +20,12 @@ msgstr "Plan pauvreté"
 msgid "Planpauvrete.Nouveaux.Menu"
 msgstr "Nouveaux entrants"
 
+msgid "Planpauvrete.Nouveaux.Menu.InscritPE"
+msgstr "Inscrits PE"
+
+msgid "Planpauvrete.Nouveaux.Menu.NonInscritPE"
+msgstr "Non inscrits PE"
+
 msgid "Planpauvrete.Nouveaux.InscritPE"
 msgstr "Inscrits PE"
 
@@ -50,6 +56,12 @@ msgstr "Cette cohorte effectue des recherches dans le flux du mois de MOIS."
 
 msgid "Planpauvrete.Stock.Menu"
 msgstr "Stock"
+
+msgid "Planpauvrete.Stock.Menu.InscritPE"
+msgstr "Inscrits PE"
+
+msgid "Planpauvrete.Stock.Menu.NonInscritPE"
+msgstr "Non inscrits PE"
 
 msgid "Planpauvrete.Stock.InscritPE"
 msgstr "Inscrits PE"
