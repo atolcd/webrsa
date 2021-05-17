@@ -4903,10 +4903,10 @@ msgstr "Tableau A2b v2"
 ## Recherche Plan pauvreté
 ###############################################################################
 msgid "controllers/Planpauvrete"
-msgstr "Recherche liée au plan pauvreté"
+msgstr "Recherche par nouveaux entrants"
 
 msgid "controllers/Planpauvrete/searchprimoaccedant"
-msgstr "Recherche des primo accédant"
+msgstr "Recherche des nouveaux entrants"
 
 msgid "controllers/Planpauvrete/exportcsv"
 msgstr "Export CSV"
