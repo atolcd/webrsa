@@ -26,11 +26,11 @@
 		 */
 		public function reinitializeCache()
 		{
-			$nbFichiers = exec ('ls '. APP . 'tmp/cache/ -1 | wc -l');
+			$nbFichiersAvant = exec ('ls '. APP . 'tmp/cache/ -1 | wc -l');
 			$this->deleteCache();
-
+			$nbFichiersApres = exec ('ls '. APP . 'tmp/cache/ -1 | wc -l');
 			$this->view = null;
-			$this->Flash->success( sprintf(__d('cache', 'Cache.success'), $nbFichiers ) );
+			$this->Flash->success( sprintf(__d('cache', 'Cache.success'), $nbFichiersAvant - $nbFichiersApres) );
 			$this->redirect( array( 'controller' => 'accueils', 'action' => 'index' ) );
 		}
 

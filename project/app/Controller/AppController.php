@@ -551,7 +551,11 @@
 		 * Suppression du cache
 		 */
 		public function deleteCache() {
-			shell_exec (APP . 'webrsa.sh clearcache');
+			// Supprime tout le cache non lié aux vues
+			Cache::clear();
+
+			// Supprime le cache lié à toutes les vues
+			clearCache();
 		}
 
 		public function beforeRedirect($url, $status = null, $exit = true) {
