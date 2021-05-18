@@ -99,12 +99,17 @@
 					$this->Flash->error( __d('configuration','Configuration.erreurJSON'));
 					$this->redirect(array('controller' => 'configurations', 'action' => 'edit', $id));
 				}
+
+				// Historisation de l'ancienne valeur
+				$this->Configurationhistorique->saveHisto($this->request->data['Configuration']);
+
+				// Sauvegarde de la nouvelle valeur
 				$query = "UPDATE public.configurations SET value_variable = '"
 				. str_replace("'", "''", $this->request->data['Configuration']['value_variable'])
 				. "', comments_variable = '" . str_replace("'", "''", $this->request->data['Configuration']['comments_variable'])
 				. "', modified = current_timestamp WHERE configurations.id = " . $id . ";";
 				$this->Configuration->query($query);
-				$this->Configurationhistorique->saveHisto($this->request->data['Configuration']);
+
 				$this->Flash->success( __( 'Save->success' ) );
 				$this->redirect( array( 'action' => 'index' ) );
 			}
