@@ -18,3 +18,6 @@ msgstr "Vous allez vider le cache du serveur, voulez-vous continuer ?"
 
 msgid "Cache.success"
 msgstr "%d fichier(s) de cache ont été supprimés sur le serveur."
+
+msgid "Cache.noFile"
+msgstr "Aucun fichier n'a été supprimé."
