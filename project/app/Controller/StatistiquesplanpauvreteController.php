@@ -74,17 +74,6 @@
 		 * @var array
 		 */
 		public $aucunDroit = array(
-			'indicateurs_tableau_a1',
-			'indicateurs_tableau_a2',
-			'indicateurs_tableau_b1',
-			'indicateurs_tableau_b4',
-			'indicateurs_tableau_b5',
-			'indicateurs_tableau_a1v2',
-			'indicateurs_tableau_a2av2',
-			'indicateurs_tableau_a2bv2',
-			'indicateurs_tableau_a1v3',
-			'indicateurs_tableau_a2av3',
-			'indicateurs_tableau_a2bv3',
 			'exportcsv_tableau_a1',
 			'exportcsv_tableau_a2',
 			'exportcsv_tableau_b1',

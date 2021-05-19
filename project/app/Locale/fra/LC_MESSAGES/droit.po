@@ -4890,14 +4890,38 @@ msgstr "Export CSV des nouveaux entrant venu / non venu en information collectiv
 msgid "controllers/Statistiquesplanpauvrete"
 msgstr "Statistique du plan pauvreté"
 
+msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a1"
+msgstr "Stats PP générales - Tableau A1"
+
+msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a2"
+msgstr "Stats PP générales - Tableau A2"
+
+msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_b1"
+msgstr "Stats PP générales - Tableau B1"
+
+msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_b4"
+msgstr "Stats PP générales - Tableau B4"
+
+msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_b5"
+msgstr "Stats PP générales - Tableau B5"
+
 msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a1v2"
-msgstr "Tableau A1 v2"
+msgstr "Stats PP avec suspendus - Tableau A1"
 
 msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a2av2"
-msgstr "Tableau A2 v2"
+msgstr "Stats PP avec suspendus - Tableau A2 a)"
 
 msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a2bv2"
-msgstr "Tableau A2b v2"
+msgstr "Stats PP avec suspendus - Tableau A2 b)"
+
+msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a1v3"
+msgstr "Stats PP sans suspendus - Tableau A1"
+
+msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a2av3"
+msgstr "Stats PP sans suspendus - Tableau A2 a)"
+
+msgid "controllers/Statistiquesplanpauvrete/indicateurs_tableau_a2bv3"
+msgstr "Stats PP sans suspendus - Tableau A2 b)"
 
 ###############################################################################
 ## Recherche Plan pauvreté
