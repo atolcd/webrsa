@@ -77,16 +77,47 @@
 			return $result;
 		}
 
+		/**
+		 * Fait la traduction des données socio-professionnelles
+		 * @param string $code : code DSP
+		 * @param array $data : résultat de la query
+		 * @param array $option : liste des traductions
+		 */
+		private function _tradDsps($code, $data, $option) {
+			$glue = '\n\r-';
+			$return = '';
+			if(isset($data['Donnees'][$code]) && !empty($data['Donnees'][$code])) {
+				// Récupère les différents codes
+				$difs = explode($glue, $data['Donnees'][$code]);
+				$prefix = '';
+				$suffix = '</li>';
+
+				// Création des libellés sous forme de liste
+				foreach($difs as $dif) {
+					if($dif != '') {
+						$return .= $prefix . $option[$dif] . $suffix;
+						$prefix = '<li>';
+					}
+				}
+			}
+			return $return;
+		}
+
 		public function afterSearch( array $params, array $results ) {
 			$Controller = $this->_Collection->getController();
 			$options = $Controller->Dsp->WebrsaDsp->options( array( 'find' => false, 'allocataire' => false, 'alias' => 'Donnees', 'enums' => true ) );
 
+			// Suppression de \n\r- dans les résultats
 			foreach ($results as $i => $result) {
-				$difdisp = str_replace ('\n\r-', '', $results[$i]['Donnees']['difdisp']);
-				$results[$i]['Donnees']['difdisp'] = $options['Detaildifdisp']['difdisp'][$difdisp];
-			}
+				// Difficultés sociales
+				$results[$i]['Donnees']['difsoc'] = $this->_tradDsps('difsoc', $result, $options['Donnees']['difsoc']);
 
+				// Domaine d'accompagnement individuel
+				$results[$i]['Donnees']['nataccosocindi'] = $this->_tradDsps('nataccosocindi', $result, $options['Donnees']['nataccosocindi']);
+
+				// Obstacles à la recherche d'emploi
+				$results[$i]['Donnees']['difdisp'] = $this->_tradDsps('difdisp', $result, $options['Donnees']['difdisp']);
+			}
 			return $results;
 		}
 	}
-?>
