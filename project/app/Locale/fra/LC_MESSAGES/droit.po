@@ -4947,6 +4947,9 @@ msgstr "Liste des configurations"
 msgid "controllers/Configurations/edit"
 msgstr "Modification des configurations"
 
+msgid "controllers/Configurations/delete"
+msgstr "Suppression des configurations (n'est jamais accessible)"
+
 ###############################################################################
 ## Historique droit
 ###############################################################################

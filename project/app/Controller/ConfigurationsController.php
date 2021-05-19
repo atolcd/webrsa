@@ -33,9 +33,7 @@
 		 *
 		 * @var array
 		 */
-		public $aucunDroit = array(
-			'index',
-		);
+		public $aucunDroit = array();
 
 		/**
 		 * Utilise les droits d'un autre Controller:action
