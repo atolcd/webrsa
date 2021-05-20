@@ -41,9 +41,7 @@
 		 *
 		 * @var array
 		 */
-		public $aucunDroit = array(
-			'search',
-		);
+		public $aucunDroit = array();
 
 		/**
 		 * Helpers utilisés.

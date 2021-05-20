@@ -324,7 +324,7 @@
 				),
 			),
 			'Par données Pôle Emploi' => array(
-				'disabled' => ( true === $user_externe ),
+				'disabled' => !Configure::read('Module.RecherchePoleEmploi.enabled'),
 				'class' => 'search',
 				'url' => array( 'controller' => 'fluxpoleemplois', 'action' => 'search' )
 			),
