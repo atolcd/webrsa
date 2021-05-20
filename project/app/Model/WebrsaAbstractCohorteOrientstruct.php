@@ -252,25 +252,11 @@
 			$results = Cache::read( $cacheKey );
 
 			if( $results === false ) {
-				// FIXME: valeurs magiques
-				$intitule = null;
-				$departement = Configure::read( 'Cg.departement' );
-
-				if( $departement == 66 ) {
-					$intitule = array( 'Emploi', 'Social', 'Préprofessionnelle' );
-				}
-				else if( $departement == 93 ) {
-					$intitule = array( 'Emploi', 'Social', 'Socioprofessionnelle' );
-				}
-				else if( $departement == 58 ) {
-					$intitule = array( 'Professionnelle', 'Sociale' );
-				}
-
 				$typesPermis = $this->Personne->Orientstruct->Typeorient->find(
 					'list',
 					array(
 						'conditions' => array(
-							'Typeorient.lib_type_orient' => $intitule
+							'Typeorient.lib_type_orient' => $this->Personne->Orientstruct->Typeorient->listTypeParent()
 						),
 						'recursive' => -1
 					)
@@ -281,7 +267,9 @@
 					'all',
 					array(
 						'conditions' => array(
-							'Structurereferente.typeorient_id' => $typesPermis
+							'Structurereferente.typeorient_id' => $typesPermis,
+							'Structurereferente.orientation' => 'O',
+							'Structurereferente.actif' => 'O'
 						),
 						'contain' => array(
 							'Zonegeographique'
@@ -302,7 +290,6 @@
 				Cache::write( $cacheKey, $results );
 				ModelCache::write( $cacheKey, array( 'Structurereferente', 'Typeorient', 'Zonegeographique' ) );
 			}
-
 			return $results;
 		}
 

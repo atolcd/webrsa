@@ -523,6 +523,22 @@
 		}
 
 		/**
+		 * Retourne la liste des types d'orientation sans parent
+		 */
+		public function listTypeParent() {
+			$query = array(
+				'fields' => array(
+					'Typeorient.lib_type_orient'
+				),
+				'conditions' => array(
+					'Typeorient.parentid IS NULL',
+					'Typeorient.actif' => 'O'
+				)
+				);
+			return $this->find('list', $query);
+		}
+
+		/**
 		 * Exécute les différentes méthods du modèle permettant la mise en cache.
 		 * Utilisé au préchargement de l'application (/prechargements/index).
 		 *
