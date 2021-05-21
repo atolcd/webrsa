@@ -480,7 +480,6 @@
 		private function generationexportcsvAvecDelais ($tranches, $results, $colonnes, $intitules) {
 			$categories = array ('Age', 'Sexe', 'Situation familliale', 'Ancienneté dans le dispositif, y compris anciens minima (RMI, API)', 'Niveau de formation');
 
-			$total = array ();
 			$export = array ();
 			$i = 0;
 			$k = 0;
@@ -496,10 +495,6 @@
 				$export[$i++] = array ('', $categories[$k++], '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
 				$soustotal = array ();
 
-				// Spécifique pour les calculs des délais.
-				$diviseurDelai6 = 0;
-				$diviseurDelai7 = 0;
-
 				foreach ($groupes as $value) {
 					$j = 0;
 					$export[$i][$j++] = '';
@@ -508,7 +503,6 @@
 					$soustotal[$j++] = 'Total';
 
 					foreach ($colonnes as $colonne) {
-
 						// Ligne (écriture)
 						$valeur = 0;
 						if (isset ($results[$categorie][$colonne][$value])) {
@@ -518,13 +512,10 @@
 						// Spécifique pour les calculs des délais.
 						if ($colonne == 'delai_moyen_primo_orientes' && $valeur > 0) {
 							$valeur = round ($valeur / $results[$categorie]['primo_orientes'][$value], 0);
-							$diviseurDelai6++;
 						}
 						if ($colonne == 'delai_moyen_hors_pe_primo_orientes_primo_cer' && $valeur > 0) {
 							$valeur = round ($valeur / $results[$categorie]['primo_orientes_hors_pe_primo_cer'][$value], 0);
-							$diviseurDelai7++;
 						}
-
 						$export[$i][$j] = $valeur;
 
 						// Total (calcul)
@@ -540,17 +531,16 @@
 
 				// Spécifique pour les calculs des délais.
 				if ($soustotal[8] > 0) {
-					$soustotal[8] = round ($soustotal[8] / $diviseurDelai6, 0);
+					$soustotal[8] = round( array_sum($results[$categorie]['delai_moyen_primo_orientes']) / array_sum($results[$categorie]['primo_orientes']) , 0);
 				}
 				if ($soustotal[9] > 0) {
-					$soustotal[9] = round ($soustotal[9] / $diviseurDelai7, 0);
+					$soustotal[9] = round( array_sum($results[$categorie]['delai_moyen_hors_pe_primo_orientes_primo_cer']) / array_sum($results[$categorie]['primo_orientes_hors_pe_primo_cer']) , 0);
 				}
 
 				// Total (écriture)
 				$export[$i] = $soustotal;
 				$i++;
 			}
-
 			return $export;
 		}
 
