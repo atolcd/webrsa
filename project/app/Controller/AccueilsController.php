@@ -314,7 +314,12 @@
 					'DATE( Contratinsertion.df_ci ) BETWEEN \''.$du->format ('Y-m-d').'\' AND \''.$au->format ('Y-m-d').'\'',
 					'Contratinsertion.referent_id IN ('.$this->idReferent.')',
 					'Calculdroitrsa.toppersdrodevorsa' => '1',
-					'Situationdossierrsa.etatdosrsa' => '2'
+					'Situationdossierrsa.etatdosrsa' => '2',
+					'"Contratinsertion"."id" in (
+						select "id" from "contratsinsertion"
+						where "personne_id" = "Contratinsertion"."personne_id"
+						order by "contratsinsertion"."rg_ci" desc
+						limit 1 )'
 				),
 				'order' => array(
 					'Contratinsertion.df_ci ASC',
