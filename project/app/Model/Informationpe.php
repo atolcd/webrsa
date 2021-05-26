@@ -309,20 +309,32 @@
 				foreach( array( 'nom', 'prenom', 'dtnai', 'nir' ) as $field ) {
 					$sqDerniereInformationpe = str_replace( "\"Personne\".\"{$field}\"", "'".Sanitize::escape( $personne['Personne'][$field] )."'", $sqDerniereInformationpe );
 				}
-				$conditions[] = "Informationpe.id IN ( {$sqDerniereInformationpe} )";
-
 				$infope = $this->find(
 					'first',
 					array(
-						'contain' => array(
-							'Historiqueetatpe' => array(
-								'order' => array( "Historiqueetatpe.date DESC", "Historiqueetatpe.id DESC" ),
-								'limit' => 1
+						'fields' => array(
+							'Informationpe.*',
+							'Historiqueetatpe.*'
+						),
+						'joins' => array(
+							array(
+								'table' => 'historiqueetatspe',
+								'alias' => 'Historiqueetatpe',
+								'type' => 'LEFT',
+								'conditions' => array(
+									'Historiqueetatpe.informationpe_id = Informationpe.id',
+									"Informationpe.id IN ( {$sqDerniereInformationpe} )"
+								),
 							)
 						),
-						'conditions' => $conditions
+						'conditions' => $conditions,
+						'order' => array( "Historiqueetatpe.date DESC", "Historiqueetatpe.id DESC" ),
 					)
 				);
+				// Astuce pour être compatible avec les appels de toutes les classes
+				if(isset($infope['Historiqueetatpe']) && !empty($infope['Historiqueetatpe']) ) {
+					$infope['Historiqueetatpe'][0] = $infope['Historiqueetatpe'];
+				}
 
 				return $infope;
 			}
