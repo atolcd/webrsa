@@ -603,13 +603,14 @@
 		public function getPrintableSq( $fieldName = 'printable' ) {
 			$departement = Configure::read( 'Cg.departement' );
 
-			if( $departement == 976 ) {
+			if( in_array( $departement, array( 976, 58) ) ) {
 				$sqPrintable = "\"{$this->Orientstruct->alias}\".\"statut_orient\" IN ( 'En attente', 'Orienté' )";
 			}
 			else if( $departement == 66 ) {
 				$sqPrintable = "\"{$this->Orientstruct->alias}\".\"statut_orient\" = 'Orienté'";
 			}
 			else {
+				// Implique que le document a été imprimé en PDF en amont
 				$Pdf = ClassRegistry::init( 'Pdf' );
 				$sqPrintable = $Pdf->sqImprime( $this->Orientstruct, null );
 			}

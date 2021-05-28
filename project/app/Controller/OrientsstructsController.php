@@ -718,7 +718,7 @@
 			$personne_id = $this->Orientstruct->personneId( $id );
 			$this->DossiersMenus->checkDossierMenu( array( 'personne_id' => $personne_id ) );
 
-			if( in_array( Configure::read( 'Cg.departement' ), array( 66, 976 ) ) ) {
+			if( in_array( Configure::read( 'Cg.departement' ), array( 66, 976, 58) ) ) {
 				$pdf = $this->Orientstruct->WebrsaOrientstruct->getDefaultPdf( $id, $this->Session->read( 'Auth.User.id' ) );
 			}
 			else {
