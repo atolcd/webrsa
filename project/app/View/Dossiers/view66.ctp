@@ -776,6 +776,8 @@
 				$detailsEp[$roleEp]['themeEp'] = Set::enum( Set::classicExtract( $details, "{$roleEp}.Dossierep.derniere.Dossierep.themeep" ), $dossierep['themeep'] );
 				$detailsEp[$roleEp]['decisionEp'] = Set::enum( Set::classicExtract( $details, "{$roleEp}.Dossierep.derniere.{$modeleDecision}.decision" ), $optionsep[$modeleDecision]['decision'] );
 				$detailsEp[$roleEp]['etatDossierep'] = Set::enum( Set::classicExtract( $details, "{$roleEp}.Dossierep.derniere.Passagecommissionep.etatdossierep" ), $optionsep['Passagecommissionep']['etatdossierep'] );
+				$detailsEp[$roleEp]['miseEP'] = h( date_short( Set::extract( "{$roleEp}.Dossierep.derniere.Dossierep.created", $details ) ) );
+				$detailsEp[$roleEp]['editInfo'] = h( date_short( Set::extract( "{$roleEp}.Dossierep.derniere.Passagecommissionep.impressionconvocation", $details ) ) );
 			}
 		}
 	}
@@ -810,6 +812,16 @@
 				<th>Décision CGA</th>
 				<td colspan="2"><?php echo @$details['DEM']['Dossierpcg66']['dernier']['Decisiondossierpcg66'][0]['Decisionpdo']['libelle'];?></td>
 				<!-- <td><?php /*echo @$details['CJT']['Dossierpcg66']['dernier']['Decisiondossierpcg66'][0]['Decisionpdo']['libelle']; */?></td> -->
+			</tr>
+			<tr class="odd">
+				<th><?php echo __d('dossiers', 'Dossier::Date::miseEP')?></th>
+				<td><?php echo @$detailsEp['DEM']['miseEP'];?></td>
+				<td><?php echo @$detailsEp['CJT']['miseEP'];?></td>
+			</tr>
+			<tr class="even">
+				<th><?php echo __d('dossiers', 'Dossier::Date::editionEP')?></th>
+				<td><?php echo @$detailsEp['DEM']['editInfo'];?></td>
+				<td><?php echo @$detailsEp['CJT']['editInfo'];?></td>
 			</tr>
 			<?php include('histomodifetatdos.ctp'); ?>
 		</tbody>

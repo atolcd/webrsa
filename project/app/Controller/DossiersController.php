@@ -736,10 +736,12 @@
 					'first',
 					array(
 						'fields' => array(
+							'Dossierep.created',
 							'Dossierep.themeep',
 							'Commissionep.dateseance',
 							'Passagecommissionep.id',
 							'Passagecommissionep.etatdossierep',
+							'Passagecommissionep.impressiondecision',
 						),
 						'joins' => array(
 							array(

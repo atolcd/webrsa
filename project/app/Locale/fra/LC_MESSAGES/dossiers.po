@@ -352,3 +352,9 @@ msgstr "Date MAJ Instruction : "
 
 msgid "Dossier::Flux::MAJFinanc"
 msgstr "Date MAJ Financier : "
+
+msgid "Dossier::Date::miseEP"
+msgstr "Date de mise en EP"
+
+msgid "Dossier::Date::editionEP"
+msgstr "Date édition du courrier information EP Audition"
