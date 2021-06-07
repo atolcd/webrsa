@@ -1741,6 +1741,9 @@ msgstr "Ajout d'une orientation"
 msgid "controllers/Orientsstructs/edit"
 msgstr "Édition d'une orientation"
 
+msgid "controllers/Orientsstructs/addDirect"
+msgstr "Ajout d'une orientation directe"
+
 msgid "controllers/Orientsstructs/impression"
 msgstr "Impression d'une orientation"
 

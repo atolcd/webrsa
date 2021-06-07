@@ -87,6 +87,9 @@ msgstr "Fichiers liés à l'orientation #Structurereferente.lib_struc# du #Orien
 msgid "/Orientsstructs/add"
 msgstr "Ajouter"
 
+msgid "/Orientsstructs/addDirect"
+msgstr "Ajouter une orientation directe"
+
 msgid "/Orientsstructs/add/:title"
 msgstr "Ajouter une orientation"
 

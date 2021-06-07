@@ -311,7 +311,7 @@
 		 */
 		protected function _getIndexActionsList(array $records, array $params = array()) {
 			$departement = Configure::read('Cg.departement');
-
+			$action = 'add';
 			$msgid = null;
 			if ($departement == 93 && $params['rgorient_max'] >= 1) {
 				$url = "/Reorientationseps93/add/{$records[0]['Orientstruct']['id']}";
@@ -319,6 +319,18 @@
 			} elseif ($departement == 58) {
 				$url = "/Proposorientationscovs58/add/{$params['personne_id']}";
 				$controller = 'proposorientationscovs58';
+
+				// Deuxième bouton permettant une orientation directe si activé
+				$actions[$url] = array(
+					'domain' => $this->request->params['controller'],
+					'msgid' => $msgid,
+					'enabled' => WebrsaAccessOrientsstructs::check($this->name, $action, $records, $params)
+						&& WebrsaPermissions::checkDossier($controller, $action, $params['dossier_menu'])
+				);
+				$url = "/Orientsstructs/add/{$params['personne_id']}";
+				$controller = 'orientsstructs';
+				$msgid = __('/Orientsstructs/addDirect');
+				$action = 'addDirect';
 			} else {
 				$url = "/Orientsstructs/add/{$params['personne_id']}";
 				$controller = 'orientsstructs';
@@ -328,8 +340,8 @@
 			$actions[$url] = array(
 				'domain' => $this->request->params['controller'],
 				'msgid' => $msgid,
-				'enabled' => WebrsaAccessOrientsstructs::check($this->name, 'add', $records, $params)
-					&& WebrsaPermissions::checkDossier($controller, 'add', $params['dossier_menu'])
+				'enabled' => WebrsaAccessOrientsstructs::check($this->name, $action, $records, $params)
+					&& WebrsaPermissions::checkDossier($controller, $action, $params['dossier_menu'])
 			);
 
 			return $actions;
@@ -541,21 +553,41 @@
 		/**
 		 * Formulaire d'ajout d'une orientation.
 		 *
-		 * @see OrientsstructsController::edit()
+		 * @see OrientsstructsController::_add_edit()
 		 */
 		public function add() {
 			$args = func_get_args();
-			call_user_func_array( array( $this, 'edit' ), $args );
+			call_user_func_array( array( $this, '_add_edit' ), $args );
+		}
+
+		/**
+		 * Formulaire d'ajout d'une orientation directe.
+		 *
+		 * @see OrientsstructsController::_add_edit()
+		 */
+		public function addDirect() {
+			$args = func_get_args();
+			call_user_func_array( array( $this, '_add_edit' ), $args );
 		}
 
 		/**
 		 * Formulaire de modification d'une orientation.
 		 *
+		 * @see OrientsstructsController::_add_edit()
+		 */
+		public function edit() {
+			$args = func_get_args();
+			call_user_func_array( array( $this, '_add_edit' ), $args );
+		}
+
+		/**
+		 * Gestion du formulaire d'ajout/modification d'une orientation.
+		 *
 		 * @todo: permissions, voir dans la vue pour tous les CG
 		 *
 		 * @throws NotFoundException
 		 */
-		public function edit( $id = null ) {
+		public function _add_edit( $id = null ) {
 			if ($this->action === 'edit') {
 				$this->WebrsaAccesses->check($id);
 				$personne_id = $this->Orientstruct->personneId($id);
