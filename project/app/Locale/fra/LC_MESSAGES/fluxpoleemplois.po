@@ -309,3 +309,30 @@ msgstr "Adresse"
 msgid "Fluxpoleemplois.historique.ale"
 msgstr "ALE"
 
+# ------------------------------------------------------------------------------
+# Modification de l'état PE
+# ------------------------------------------------------------------------------
+
+msgid "Fluxpoleemplois.updateEtat.titre"
+msgstr "Modification de l'état Pôle Emploi"
+
+msgid "Fluxpoleemplois.updateEtat.etatActuel"
+msgstr "État actuel Pôle Emploi : "
+
+msgid "Fluxpoleemplois.lib_motif"
+msgstr "Motif de modification"
+
+msgid "Fluxpoleemplois.lib_etatpe"
+msgstr "Nouvel état"
+
+msgid "Fluxpoleemplois.erreurEtat"
+msgstr "Il est impossible de modifier l'état Pôle Emploi d'une personne en état "
+
+msgid "Fluxpoleemplois.erreurEtatVide"
+msgstr "Il est impossible de modifier l'état Pôle Emploi d'une personne non inscrite."
+
+msgid "Fluxpoleemplois.erreurMotifVide"
+msgstr "Le motif de modification doit être rempli."
+
+msgid "Fluxpoleemplois.erreurEtatPEVide"
+msgstr "Le nouvel état Pôle Emploi doit être rempli."

@@ -74,6 +74,7 @@
 			'Informationpe',
 			'Historiqueetatpe',
 			'Dossier',
+			'Motifetatpe',
 			'Option',
 		);
 
@@ -236,6 +237,104 @@
 
 			// Vue
 			$this->set (compact ('donnees'));
+		}
+
+		/**
+		 * Change l'état Pôle Emploi de la personne
+		 * @param int dossier_id
+		 * @param int personne_id
+		 */
+		public function updateEtat($dossier_id, $personne_id) {
+			$options = array();
+			$redirect = array( 'controller' => 'dossiers', 'action' => 'view', $dossier_id );
+
+			// Affichage du menu du dossier
+			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'id' => $dossier_id ) ) );
+
+			// Récupération des informations de la personne
+			$personne = $this->Personne->getPersonne($personne_id);
+			$infosPE = $this->Informationpe->derniereInformation($personne);
+
+			// Redirection à l'index si l'état PE est vide ou déjà en état cessation ou radiation
+			if ( empty($infosPE) ) {
+				$this->Flash->error( __m( 'Fluxpoleemplois.erreurEtatVide' ) );
+				$this->redirect( $redirect );
+			} else if(in_array($infosPE['Historiqueetatpe']['etat'], array('cessation', 'radiation'))) {
+				$this->Flash->error( __m( 'Fluxpoleemplois.erreurEtat' ) . $infosPE['Historiqueetatpe']['etat'] );
+				$this->redirect( $redirect );
+			}
+			$etatActuel = $infosPE['Historiqueetatpe']['etat'];
+
+			// Retour à l'index en cas d'annulation
+			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->redirect( $redirect );
+			}
+
+			// Récupération de la liste des motifs activés
+			$options['motifs'] = $this->Motifetatpe->listOptions();
+
+			// Liste des nouveaux états disponibles
+			$options['etatpe'] = array(
+				'radiation',
+				'cessation'
+			);
+
+			// Tentative de sauvegarde
+			if( !empty( $this->request->data ) ) {
+				if($this->request->data['Modifetatpe']['lib_motif'] == '') {
+					$this->Flash->error( __m( 'Fluxpoleemplois.erreurMotifVide' ) );
+					$this->redirect( array( 'controller' => 'fluxpoleemplois', 'action' => 'updateEtat', $dossier_id, $personne_id ) );
+				} else if( $this->request->data['Modifetatpe']['lib_etatpe'] == '') {
+					$this->Flash->error( __m( 'Fluxpoleemplois.erreurEtatPEVide' ) );
+					$this->redirect( array( 'controller' => 'fluxpoleemplois', 'action' => 'updateEtat', $dossier_id, $personne_id ) );
+				}
+
+				$motif = $options['motifs'][$this->request->data['Modifetatpe']['lib_motif']];
+				$etat = $options['etatpe'][$this->request->data['Modifetatpe']['lib_etatpe']];
+
+				// Récupération des anciennes données historiquePE
+				$histoPEToSave = $infosPE['Historiqueetatpe'][0];
+
+				// Modification et ajout de l'historique avec les nouvelles informations
+				$histoPEToSave['id'] = null;
+				$histoPEToSave['date'] = date('Y/m/d');
+				$histoPEToSave['etat'] = $etat;
+				$histoPEToSave['code'] = null;
+				$histoPEToSave['motif'] = $motif;
+				$histoPEToSave['date_creation'] = date('Y/m/d h:i:s');
+				$histoPEToSave['date_modification'] = date('Y/m/d h:i:s');
+
+				// Récupération des anciennes données Informationpe
+				$infoPEToSave = $infosPE['Informationpe'];
+
+				// Modification de l'information PE actuel avec les nouvelles informations
+				$infoPEToSave['date_creation'] = date('Y/m/d h:i:s');
+				$infoPEToSave['date_modification'] = date('Y/m/d h:i:s');
+
+				// Modification selon le nouvel état choisi
+				if ($etat == 'radiation') {
+					$histoPEToSave['inscription_date_radiation_ide'] = date('Y/m/d');
+					$histoPEToSave['inscription_lib_radiation_ide'] = $motif;
+					$infoPEToSave['inscription_date_radiation_ide'] = date('Y/m/d');
+					$infoPEToSave['inscription_lib_radiation_ide'] = $motif;
+				} else {
+					$histoPEToSave['inscription_date_cessation_ide'] = date('Y/m/d');
+					$histoPEToSave['inscription_lib_cessation_ide'] = $motif;
+					$infoPEToSave['inscription_date_cessation_ide'] = date('Y/m/d');
+					$infoPEToSave['inscription_lib_cessation_ide'] = $motif;
+				}
+
+				// Sauvegarde
+				if($this->Informationpe->save($infoPEToSave) && $this->Historiqueetatpe->save($histoPEToSave) ) {
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect( $redirect );
+				}
+				else{
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+			}
+
+			$this->set(compact('etatActuel', 'options'));
 		}
 
 		/**

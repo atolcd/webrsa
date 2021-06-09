@@ -237,6 +237,16 @@ $fonorg = $dossier['Dossier']['fonorg'];
 					)
 				);
 
+				$subAllocataire['Accompagnement du parcours'][__d('fluxpoleemplois', 'Fluxpoleemplois.updateEtat.titre' )] = array(
+					'disabled' => !Configure::read('Module.ModifEtatPE.enabled'),
+					'url' => array(
+						'controller' => 'fluxpoleemplois',
+						'action' => 'updateEtat',
+						$dossier['Dossier']['id'],
+						$personne['id'],
+					)
+				);
+
 				$contratcontroller = 'contratsinsertion';
 				if( $departement == 93 ) {
 					$contratcontroller = 'cers93';

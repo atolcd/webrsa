@@ -507,6 +507,11 @@ msgstr "Types de motif pour modification de l'état des dossiers"
 
 # ==============================================================================
 
+msgid "motifsetatspes/index"
+msgstr "Types de motif pour modification de l'état Pôle Emploi"
+
+# ==============================================================================
+
 msgid "vaguesdorientations/index"
 msgstr "Vagues d'orientation"
 

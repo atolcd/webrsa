@@ -751,6 +751,10 @@
 				__m('motifsetatsdossiers/index') => array(
 					'url' => array( 'controller' => 'motifsetatsdossiers', 'action' => 'index' )
 				),
+				__m('motifsetatspes/index') => array(
+					'disabled' => !Configure::read('Module.ModifEtatPE.enabled'),
+					'url' => array( 'controller' => 'motifsetatspes', 'action' => 'index' )
+				),
 				__m('vaguesdorientations/index') => array(
 					'Paramétrage des dates des vagues' => array(
 						'url' => array( 'controller' => 'vaguesdorientations', 'action' => 'index' )

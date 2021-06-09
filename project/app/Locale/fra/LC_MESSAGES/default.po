@@ -386,6 +386,9 @@ msgstr "Libellé de la région"
 msgid "Form::Save"
 msgstr "Enregistrer"
 
+msgid "Form::Cancel"
+msgstr "Annuler"
+
 ###############################################################################
 # Enums généraux
 ###############################################################################

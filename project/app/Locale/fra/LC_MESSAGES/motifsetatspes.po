@@ -1,0 +1,47 @@
+# Traductions de Motifsetatspes.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Motifsetatspes/index/:heading"
+msgstr "Paramétrage des motifs de modification de l'état Pôle Emploi"
+
+msgid "/Motifsetatspes/add"
+msgstr "Ajouter"
+
+msgid "/Motifsetatspes/add/:title"
+msgstr "Ajouter un motif"
+
+msgid "/Motifsetatspes/edit"
+msgstr "Modifier"
+
+msgid "/Motifsetatspes/delete"
+msgstr "Supprimer"
+
+msgid "/Motifsetatspes/delete/#Motifetatpe.id# ?"
+msgstr "Réellement supprimer le motif « #Motifetatpe.lib_motif# » ?"
+
+msgid "/Motifsetatspes/add/:heading"
+msgstr "Ajout d'un motif"
+
+msgid "/Motifsetatspes/edit/:heading"
+msgstr "Modification d'un motif"
+
+msgid "Motifetatpe.lib_motif"
+msgstr "Libellé du motif"
+
+msgid "Motifetatpe.actif"
+msgstr "Actif"
+
+msgid "/Parametrages/index"
+msgstr "Retour"
+
+msgid "/Parametrages/index/:title"
+msgstr "Retour aux paramétrages"

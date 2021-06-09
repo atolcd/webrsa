@@ -933,6 +933,21 @@
 		}
 
 		/**
+		 * Retourne les informations liées à une personne
+		 *
+		 * @param int
+		 * @return array
+		 */
+		public function getPersonne($id) {
+			return $this->find('first', array(
+				'recursive' => -1,
+				'conditions' => array(
+					'Personne.id' => $id
+				)
+			));
+		}
+
+		/**
 		 * Retourne l'historique des informations de contact d'une personnes
 		 *
 		 * @param int $id

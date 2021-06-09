@@ -4688,6 +4688,8 @@ msgstr "Export CSV"
 msgid "controllers/Fluxpoleemplois/search"
 msgstr "Recherche"
 
+msgid "controllers/Fluxpoleemplois/updateEtat"
+msgstr "Modifier l'état"
 
 ###############################################################################
 ## Vagues d'orientation
@@ -4961,6 +4963,21 @@ msgstr "Historique des droits"
 
 msgid "controllers/Historiquesdroits/personne"
 msgstr "Voir l'historique des droit de la personne"
+
+## Type de motifs pour modifier l'état PE
+###############################################################################
+msgid "controllers/Motifsetatspes"
+msgstr "Paramétrage des motifs pour modification de l'état Pôle Emploi"
+
+msgid "controllers/Motifsetatspes/index"
+msgstr "Liste des motifs"
+
+msgid "controllers/Motifsetatspes/edit"
+msgstr "Modification des motifs"
+
+msgid "controllers/Motifsetatspes/delete"
+msgstr "Suppression des motifs"
+
 
 ## Type de motifs pour modifier l'état des dossiers
 ###############################################################################
