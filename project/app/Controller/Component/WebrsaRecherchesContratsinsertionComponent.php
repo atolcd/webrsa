@@ -176,7 +176,7 @@
 					)
 				);
 			}
-			else if( 93 === $departement ) {
+			else if( 93 == $departement ) {
 				$options = Hash::merge(
 					$options,
 					array(
