@@ -323,9 +323,9 @@
 				$chosen = Hash::get( $line, 'Dossierep.chosen' );
 
 				// Personnes non cochées que l'on sélectionne
-				if( !empty( $chosen ) ) {
+				if( $chosen == 1 ) {
 					// On vérifie si la personne a un dossier EP en cours et s'il est déjà enregistré dans une commision EP
-					if(!is_null($dossierep_id)) {
+					if(!empty($dossierep_id) ) {
 						$passageCommision = $this->Sanctionep58->Dossierep->Passagecommissionep->find('first', array(
 							'conditions' => array(
 								'Passagecommissionep.dossierep_id' => $dossierep_id,
