@@ -88,6 +88,11 @@
 		 */
  		public function edit( $id = null ) {
 			if(!empty($this->request->data)) {
+				// Gestion de l'annulation
+				if( isset( $this->request->data['Cancel'] ) ) {
+					$this->redirect( array('controller' => 'configurations', 'action' => 'index'));
+				}
+
 				$JSONdecode = json_decode($this->request->data['Configuration']['value_variable'], true);
 				$JSONresult = json_encode($JSONdecode, JSON_UNESCAPED_UNICODE);
 				$this->request->data['Configuration']['value_variable'] = $JSONresult;
