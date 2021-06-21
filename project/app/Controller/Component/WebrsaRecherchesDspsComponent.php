@@ -84,18 +84,27 @@
 		 * @param array $option : liste des traductions
 		 */
 		private function _tradDsps($code, $data, $option) {
-			$glue = '\n\r-';
 			$return = '';
+
 			if(isset($data['Donnees'][$code]) && !empty($data['Donnees'][$code])) {
+				// Condition utilisée dans le cas où l'option de compatibilité "standard_conforming_strings"
+				// au niveau postgres soit à off (cf CD93)
+				if(strpos( $data['Donnees'][$code], '\n\r' ) !== false ){
+					$glue = '\n\r-';
+					$dsps = $data['Donnees'][$code];
+				} else {
+					$glue = '-';
+					$dsps = preg_replace('/\s+/', ' ', $data['Donnees'][$code]);
+				}
 				// Récupère les différents codes
-				$difs = explode($glue, $data['Donnees'][$code]);
+				$difs = explode($glue, $dsps);
 				$prefix = '';
 				$suffix = '</li>';
 
 				// Création des libellés sous forme de liste
 				foreach($difs as $dif) {
 					if($dif != '') {
-						$return .= $prefix . $option[$dif] . $suffix;
+						$return .= $prefix . $option[trim($dif)] . $suffix;
 						$prefix = '<li>';
 					}
 				}
