@@ -10,6 +10,7 @@
 	width: 100%;
 	margin: 0 auto;
     background: #333645;
+    z-index: 1000;
 }
 
 #pageCartouche * { 
@@ -903,6 +904,10 @@ p.actions a {
     width: 1px;
     z-index: 100;
     border: 0;
+}
+
+[id*="innerTableTable"]{
+    display: none;
 }
 
 .dynamic.innerTableHeader { left: -2000px; }

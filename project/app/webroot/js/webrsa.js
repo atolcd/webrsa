@@ -5272,20 +5272,20 @@ Object.Event.extend(Control.Tabs);
  */
 
 
-/* tooltip-0.2.js - Small tooltip library on top of Prototype 
- * by Jonathan Weiss <jw@innerewut.de> distributed under the BSD license. 
+/* tooltip-0.2.js - Small tooltip library on top of Prototype
+ * by Jonathan Weiss <jw@innerewut.de> distributed under the BSD license.
  *
- * This tooltip library works in two modes. If it gets a valid DOM element 
- * or DOM id as an argument it uses this element as the tooltip. This 
+ * This tooltip library works in two modes. If it gets a valid DOM element
+ * or DOM id as an argument it uses this element as the tooltip. This
  * element will be placed (and shown) near the mouse pointer when a trigger-
  * element is moused-over.
  * If it gets only a text as an argument instead of a DOM id or DOM element
  * it will create a div with the classname 'tooltip' that holds the given text.
- * This newly created div will be used as the tooltip. This is usefull if you 
+ * This newly created div will be used as the tooltip. This is usefull if you
  * want to use tooltip.js to create popups out of title attributes.
- * 
  *
- * Usage: 
+ *
+ * Usage:
  *   <script src="/javascripts/prototype.js" type="text/javascript"></script>
  *   <script src="/javascripts/tooltip.js" type="text/javascript"></script>
  *   <script type="text/javascript">
@@ -5304,14 +5304,14 @@ Object.Event.extend(Control.Tabs);
  *        node.removeAttribute("title");
  *      });
  *    });
- *    
+ *
  *   </script>
- * 
+ *
  * Now whenever you trigger a mouseOver on the `trigger` element, the tooltip element will
- * be shown. On o mouseOut the tooltip disappears. 
- * 
+ * be shown. On o mouseOut the tooltip disappears.
+ *
  * Example:
- * 
+ *
  *   <script src="/javascripts/prototype.js" type="text/javascript"></script>
  *   <script src="/javascripts/scriptaculous.js" type="text/javascript"></script>
  *   <script src="/javascripts/tooltip.js" type="text/javascript"></script>
@@ -5349,12 +5349,12 @@ Tooltip.prototype = {
     this.element      = $(element);
 
     this.options      = options;
-    
+
     // use the supplied tooltip element or create our own div
     if($(tool_tip)) {
       this.tool_tip = $(tool_tip);
     } else {
-      this.tool_tip = $(document.createElement("div")); 
+      this.tool_tip = $(document.createElement("div"));
       document.body.appendChild(this.tool_tip);
       this.tool_tip.addClassName("tooltip");
       this.tool_tip.appendChild(document.createTextNode(tool_tip));
@@ -5387,12 +5387,12 @@ Tooltip.prototype = {
 	  // get Mouse position
     var mouse_x = Event.pointerX(event);
 	  var mouse_y = Event.pointerY(event);
-	
+
 	  // decide if wee need to switch sides for the tooltip
 	  var dimensions = Element.getDimensions( this.tool_tip );
 	  var element_width = dimensions.width;
 	  var element_height = dimensions.height;
-	
+
 	  if ( (element_width + mouse_x) >= ( this.getWindowWidth() - this.options.min_distance_x) ){ // too big for X
 		  mouse_x = mouse_x - element_width;
 		  // apply min_distance to make sure that the mouse is not on the tool-tip
@@ -5400,26 +5400,27 @@ Tooltip.prototype = {
 	  } else {
 		  mouse_x = mouse_x + this.options.min_distance_x;
 	  }
-	
+
 	  if ( (element_height + mouse_y) >= ( this.getWindowHeight() - this.options.min_distance_y) ){ // too big for Y
 		  mouse_y = mouse_y - element_height;
 	    // apply min_distance to make sure that the mouse is not on the tool-tip
 		  mouse_y = mouse_y - this.options.min_distance_y;
 	  } else {
 		  mouse_y = mouse_y + this.options.min_distance_y;
-	  } 
-	
+	  }
+
 	  // now set the right styles
 	  this.setStyles(mouse_x, mouse_y);
   },
-	
-		
+
+
   showTooltip: function(event) {
     Event.stop(event);
     this.moveTooltip(event);
 	  new Element.show(this.tool_tip);
+    this.tool_tip.style.display ='block';
   },
-  
+
   setStyles: function(x, y){
     // set the right styles to position the tool tip
 	  Element.setStyle(this.tool_tip, { position:'absolute',
@@ -5427,15 +5428,15 @@ Tooltip.prototype = {
 	 								    left:x + this.options.delta_x + "px",
 									    zindex:this.options.zindex
 	 								  });
-	
+
 	  // apply default theme if wanted
 	  if (this.options.default_css){
 	  	  Element.setStyle(this.tool_tip, { margin:this.options.margin,
 		 		  						                    padding:this.options.padding,
 		                                      backgroundColor:this.options.backgroundColor,
 										                      zindex:this.options.zindex
-		 								    });	
-	  }	
+		 								    });
+	  }
   },
 
   hideTooltip: function(event){
@@ -5449,9 +5450,9 @@ Tooltip.prototype = {
     } else {
 		  innerHeight = window.innerHeight;
     }
-    return innerHeight;	
+    return innerHeight;
   },
- 
+
   getWindowWidth: function(){
     var innerWidth;
 	  if (navigator.appVersion.indexOf('MSIE')>0) {
@@ -5459,7 +5460,7 @@ Tooltip.prototype = {
     } else {
 		  innerWidth = window.innerWidth;
     }
-    return innerWidth;	
+    return innerWidth;
   }
 
 }
@@ -8548,7 +8549,7 @@ var regExpQuote = function(str) {
 };
 /**
  * Event.simulate(@element, eventName[, options]) -> Element
- * 
+ *
  * - @element: element to fire event on
  * - eventName: name of event to fire (only MouseEvents and HTMLEvents interfaces are supported)
  * - options: optional object to fine-tune event properties - pointerX, pointerY, ctrlKey, etc.
@@ -8557,7 +8558,7 @@ var regExpQuote = function(str) {
  *
  **/
 (function(){
-  
+
   var eventMatchers = {
     'HTMLEvents': /^(?:load|unload|abort|error|select|change|submit|reset|focus|blur|resize|scroll)$/,
     'MouseEvents': /^(?:click|mouse(?:down|up|over|move|out))$/
@@ -8573,13 +8574,13 @@ var regExpQuote = function(str) {
     bubbles: true,
     cancelable: true
   }
-  
+
   Event.simulate = function(element, eventName) {
     var options = Object.extend(defaultOptions, arguments[2] || { });
     var oEvent, eventType = null;
-    
+
     element = $(element);
-    
+
     for (var name in eventMatchers) {
       if (eventMatchers[name].test(eventName)) { eventType = name; break; }
     }
@@ -8593,7 +8594,7 @@ var regExpQuote = function(str) {
         oEvent.initEvent(eventName, options.bubbles, options.cancelable);
       }
       else {
-        oEvent.initMouseEvent(eventName, options.bubbles, options.cancelable, document.defaultView, 
+        oEvent.initMouseEvent(eventName, options.bubbles, options.cancelable, document.defaultView,
           options.button, options.pointerX, options.pointerY, options.pointerX, options.pointerY,
           options.ctrlKey, options.altKey, options.shiftKey, options.metaKey, options.button, element);
       }
@@ -8607,7 +8608,7 @@ var regExpQuote = function(str) {
     }
     return element;
   }
-  
+
   Element.addMethods({ simulate: Event.simulate });
 })()
 //
@@ -8700,29 +8701,29 @@ console.log('vieux');
 }
 
 /*
-    Masked Input plugin for prototype ported from jQuery 
+    Masked Input plugin for prototype ported from jQuery
     Bjarte K. Vebjørnsen <bjartekv at gmail dot com>
-        
+
     Note that the onchange event isn't fired for masked inputs. It won't fire unless event.simulate.js is available.
 
     Requires: Prototype >= 1.6.1
     Optional: event.simulate.js from http://github.com/kangax/protolicious to trigger native change event.
 
     Tested on windows IE6, IE7, IE8, Opera 9.6, Chrome 3, FireFox 3, Safari 3
-    
+
     Masked Input plugin for jQuery
     Copyright (c) 2007-2009 Josh Bush (digitalbush.com)
-    Licensed under the MIT license (http://digitalbush.com/projects/masked-input-plugin/#license) 
+    Licensed under the MIT license (http://digitalbush.com/projects/masked-input-plugin/#license)
     Version: 1.2.2 (03/09/2009 22:39:06)
 */
 
 (function() {
     var pasteEventName = (Prototype.Browser.IE ? 'paste' : 'input'),
-        iPhone = (window.orientation != undefined);    
-            
+        iPhone = (window.orientation != undefined);
+
     if(typeof(Prototype) == "undefined")
         throw "MaskedInput requires Prototype to be loaded.";
-                        
+
     Element.addMethods({
         caret: function(element, begin, end) {
             if (element.length == 0) return;
@@ -8753,17 +8754,17 @@ console.log('vieux');
     });
 
     MaskedInput = Class.create({
-        initialize: function(selector, mask, settings) {  
+        initialize: function(selector, mask, settings) {
             this.elements = $$(selector);
-            this.mask(mask, settings);	 
+            this.mask(mask, settings);
         },
-        unmask: function() { 
-            this.elements.each(function(el) { 
-                el.fire("mask:unmask"); 
-            }); 
-            return this; 
+        unmask: function() {
+            this.elements.each(function(el) {
+                el.fire("mask:unmask");
+            });
+            return this;
         },
-        mask: function (mask, settings) {   
+        mask: function (mask, settings) {
             if (!mask && this.elements.length > 0) {
                 var input = $(this.elements[0]);
                 var tests = input.retrieve("tests");
@@ -8774,8 +8775,8 @@ console.log('vieux');
             settings = Object.extend({
                 placeholder: "_",
                 completed: null
-            }, settings || {});	
-            
+            }, settings || {});
+
             var defs = MaskedInput.definitions;
             var tests = [];
             var partialPosition = mask.length;
@@ -8794,16 +8795,16 @@ console.log('vieux');
                     tests.push(null);
                 }
             });
-            
+
             this.elements.each(function(el) {
-            
+
                 var input = $(el);
-                
+
                 var buffer = $A(mask.replace(/\?/,'').split("")).map( function(c, i) { return defs[c] ? settings.placeholder : c });
 
                 var ignore = false;  			//Variable for ignoring control keys
                 var focusText = input.getValue();
-                
+
                 input.store("buffer", buffer).store("tests", tests);
 
                 function seekNext(pos) {
@@ -8888,7 +8889,7 @@ console.log('vieux');
                     }
                     e.stop();
                 };
-            
+
                 function blurEvent(e) {
                     checkVal();
                     if (input.getValue() != focusText) {
@@ -8899,12 +8900,12 @@ console.log('vieux');
                         }
                     }
                 };
-            
+
                 function focusEvent(e) {
                     focusText = input.getValue();
                     var pos = checkVal();
                     writeBuffer();
-                        
+
                     setTimeout(function() {
                         if (pos == mask.length)
                             input.caret(0, pos);
@@ -8912,17 +8913,17 @@ console.log('vieux');
                             input.caret(pos);
                     }, 0);
                 };
-            
+
                 function pasteEvent(e) {
                     setTimeout(function() { input.caret(checkVal(true)); }, 0);
-                }; 
+                };
 
                 function clearBuffer(start, end) {
                     for (var i = start; i < end && i < len; i++) {
                         if (tests[i])
                             buffer[i] = settings.placeholder;
                     }
-                    
+
                 };
 
                 function writeBuffer() { return input.setValue(buffer.join('')).getValue(); };
@@ -8947,9 +8948,9 @@ console.log('vieux');
                         } else if (buffer[i] == test[pos] && i!=partialPosition) {
                             pos++;
                             lastMatch = i;
-                        } 
+                        }
                     }
-                    
+
                     if (!allow && lastMatch + 1 < partialPosition) {
                         input.setValue("");
                         clearBuffer(0, len);
@@ -8957,10 +8958,10 @@ console.log('vieux');
                         writeBuffer();
                         if (!allow) input.setValue(input.getValue().substring(0, lastMatch + 1));
                     }
-                    
+
                     return (partialPosition ? i : firstNonMaskPos);
                 };
-		
+
                 if (!input.readAttribute("readonly"))
                     input
                     .observe("mask:unmask", function() {
@@ -8986,7 +8987,7 @@ console.log('vieux');
         }
     });
 
-    Object.extend(MaskedInput,{    
+    Object.extend(MaskedInput,{
         definitions: {
             '9': "[0-9]",
             'a': "[A-Za-z]",
@@ -10515,7 +10516,7 @@ document.observe( "dom:loaded", FormValidator.init );
 
 /**
  * Polyfill
- * 
+ *
  * @source https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Objets_globaux/Object/create#Polyfill
  */
 if (typeof Object.create !== 'function') {
@@ -10546,7 +10547,7 @@ if (typeof Object.create !== 'function') {
 
 /**
  * Décoche un bouton radio renseigné dans radio
- * 
+ *
  * @param {HTML} radio
  * @returns {void}
  */
@@ -10557,7 +10558,7 @@ function uncheckable(radio) {
 			if (radio.checked && radio.state) {
 				radio.state = false;
 				radio.checked = false;
-				
+
 				if (typeof radio.simulate === 'function') {
 					radio.simulate('change');
 				}
@@ -10579,27 +10580,27 @@ function uncheckable(radio) {
 
 /**
  * Cache les optgroup vide dans un select
- * 
+ *
  * @param {HTML} select
  * @returns {boolean}
  */
 function removeEmptyOptgroup(select) {
 	'use strict';
 	var i, j, optgroups = select.select('optgroup'), options, empty;
-	
+
 	if (optgroups === null || optgroups.length === 0) {
 		return false;
 	}
-	
+
 	for (i=0; i<optgroups.length; i++) {
 		options = optgroups[i].select('option');
-		
+
 		// Si il n'y a pas d'option on cache
 		if (options === null || options.length === 0) {
 			optgroups[i].hide();
 			continue;
 		}
-		
+
 		// Si il y a des options mais qu'elles sont toutes cachés, on cache
 		empty = true;
 		for (j=0; j<options.length; j++) {
@@ -10608,14 +10609,14 @@ function removeEmptyOptgroup(select) {
 				break;
 			}
 		}
-		
+
 		if (empty) {
 			optgroups[i].hide();
 		} else {
 			optgroups[i].show();
 		}
 	}
-	
+
 	return true;
 }
 
@@ -10625,7 +10626,7 @@ function removeEmptyOptgroup(select) {
 
 /**
  * Ajoute un id au parent de l'élément ciblé
- * 
+ *
  * @param {DOM} dom
  * @param {integer|string} id
  * @returns {Boolean}
@@ -10645,7 +10646,7 @@ function addParentId(dom, id) {
  *************************************************************************/
 
 /**
- * Organise, dans le cas d'un multiple checkbox, en X parties rangés par alpha 
+ * Organise, dans le cas d'un multiple checkbox, en X parties rangés par alpha
  * de haut en bas et de gauche à droite.
  * Fonctionne également sur tout autre élément avec la même structure :
  * <parent>
@@ -10666,7 +10667,7 @@ function divideIntoColumns(dom, nbColumns) {
 		childsNames = [], // Utilisé pour trier par alpha
 		i = 0,
 		divList = [];
-	
+
 	// Si deja traité, on retire l'element
 	if (parent.divided !== undefined) {
 		dom.remove();
@@ -10685,7 +10686,7 @@ function divideIntoColumns(dom, nbColumns) {
 	// Stock les labels et copie les elements
 	parent.select('div').each(function (div) {
 		var name;
-		
+
 		if (div.select('label').length) {
 			name = div.select('label').first().innerHTML.replace(/[^A-Za-z]+/g, '');
 			childs[name.toUpperCase()] = Element.clone(div, true);
@@ -10756,7 +10757,7 @@ function textareaResizeEvents(container) {
 function makeTextareaAutoExpandable(textarea) {
 	'use strict';
 	var div, pre, span, newTextarea, visible;
-	
+
 	// Poupée russe
 	div = new Element('div', {'class': 'autoExpandTextareaContainer'});
 	pre = new Element('pre');
@@ -10766,27 +10767,27 @@ function makeTextareaAutoExpandable(textarea) {
 	pre.insert('<br/><br/><br/>');
 	div.insert(pre);
 	div.insert(newTextarea);
-	
+
 	// Le div récupère la taille du textarea si définie à 100%
 	visible = textarea.visible();
 	if (!visible) {
 		textarea.show(); // Permet d'obtenir la vrai valeur css width
 	}
-	
+
 	if (textarea.getStyle('width') === '100%' || getWidthInPercent(textarea) > 99) {
 		div.setStyle({width: '100%'});
 	}
-	
+
 	// Evite les problèmes liés à des height fixé
 	newTextarea.setStyle({height: '100%'});
-	
+
 	if (!visible) {
 		textarea.hide();
 	}
-	
+
 	textarea.up().insertBefore(div, textarea);
 	textarea.remove();
-	
+
 	textareaResizeEvents(div);
 }
 
@@ -10803,12 +10804,12 @@ function makeTextareaAutoExpandable(textarea) {
 function getWidthInPercent(element) {
 	var clone = element.clone(),
 		percent = 0;
-	
+
 	clone.setStyle({width: '100%'});
 	element.up().insertBefore(clone, element);
-	
+
 	percent = parseFloat(element.getWidth(), 10) / parseFloat(clone.getWidth(), 10) * 100;
-	
+
 	clone.remove();
 	return percent;
 }
@@ -10828,7 +10829,7 @@ function giveDefaultValue(valeur, defaultValue) {
  * Ajoute les 0 manquant si besoin (ex: 1-2-2015 => 01-02-2015)
  * @param {String} dateString
  * @returns {String}
- */ 
+ */
 function zeroFillDate(dateString) {
 	'use strict';
 	return dateString.replace( /^(\d)\-/, '0$1-' ).replace( /\-(\d)\-/, '-0$1-' ).replace( /\-(\d)$/, '-0$1' );
@@ -10882,7 +10883,7 @@ function fieldId(modelField) {
 /**
  * Equivalent javascript de la fonction php sprintf
  * Fonctionne uniquement pour %s et %d
- * 
+ *
  * @param {String} Phrase contenant des %s ou %d
  * @param {String} replace - ajoutez autant d'arguments que nécéssaire
  * @returns {String}
@@ -10920,7 +10921,7 @@ function sprintf() {
 
 /**
  * Rempli un element de type date Cakephp en fonction de la valeur en mois d'un autre élément.
- * 
+ *
  * @param {string} id id de l'element qui défini la durée
  * @param {string} target nom de la cible à la façon Cakephp
  * @throws {error} La cible n'a pas été trouvée
@@ -10945,32 +10946,32 @@ function setDateCloture(id, target) {
 	if (isNaN(duree*2) || exploded.length < 2) {
 		return false;
 	}
-	
+
 	for (; i<exploded.length; i++) {
 		baseTargetName += '['+exploded[i]+']';
 	}
-	
+
 	targetDay = $$('select[name="'+baseTargetName+'[day]"]').first();
 	targetMonth = $$('select[name="'+baseTargetName+'[month]"]').first();
 	targetYear = $$('select[name="'+baseTargetName+'[year]"]').first();
-	
+
 	if (targetDay === undefined || targetMonth === undefined || targetYear === undefined) {
 		throw 'select[name="'+baseTargetName+'"] + ([day] | [month] | [year]) Not Found!';
 	}
-	
+
 	// Si duree est à virgule, on ajoute 0.x fois 30 jours
 	dateButoir = new Date(annee, mois + Math.floor(duree) - 1, ((duree % 1)*30 + jour - 1).toFixed(1));
 
 	targetDay.setValue( dateButoir.getDate() );
 	targetMonth.setValue( dateButoir.getMonth() +1 );
 	targetYear.setValue( dateButoir.getFullYear() );
-	
+
 	targetYear.simulate('change');
 }
 
 /**
  * Permet de récupérer un élément sans tenir compte du standard utilisé
- * 
+ *
  * @param {string|object} string 'MonElement' ou 'Mon.element' ou $('MonElement)
  * @return {DOM}
  */
@@ -10979,7 +10980,7 @@ function getElementByString(string) {
 	if (string === null) {
 		throw "La valeur de l'element est NULL, vous avez probablement tenté de selectionner un element qui n'existe pas";
 	}
-	
+
 	if (typeof(string) === 'object') {
 		// Est déja un élement Prototype
 		if (string.tagName !== undefined) {
@@ -10989,19 +10990,19 @@ function getElementByString(string) {
 			throw "getElementByString() do not accept object";
 		}
 	}
-	
+
 	// Format cakephp
 	if (string.match(/[\w]+\.[\w]+(\.[\w]+)*/)) {
 		return $(fieldId(string));
 	}
-	
+
 	// Sinon ce doit être déja un id
 	return $(string);
 }
 
 /**
  * Désactive un element avec ou sans fonction element.disable()
- * 
+ *
  * @param {DOM} element à désactiver
  */
 function disable(element) {
@@ -11014,7 +11015,7 @@ function disable(element) {
 
 /**
  * Active un element avec ou sans fonction element.enable()
- * 
+ *
  * @param {DOM} element à désactiver
  */
 function enable(element) {
@@ -11027,7 +11028,7 @@ function enable(element) {
 
 /**
  * Permet sans utiliser eval de comparer la valeur de deux champs en fonction d'un operateur
- * 
+ *
  * @param {DOM} value1
  * @param {DOM} value2
  * @param {string} operator accepte : true, =, ==, ===, false, !, !=, !==, <, >, <=, >=
@@ -11035,7 +11036,7 @@ function enable(element) {
  */
 function evalCompare(value1, operator, value2) {
 	var result, value1, value2;
-	
+
 	switch (operator === undefined ? '=' : operator) {
 		case true:
 		case '=':
@@ -11064,22 +11065,22 @@ function evalCompare(value1, operator, value2) {
 		default:
 			throw "operator must be in (true, =, ==, ===, false, !, !=, !==, <, >, <=, >=)";
 	}
-	
+
 	return result;
 }
 
 /**
  * Cache un ou plusieurs élements en fonction d'une ou plusieurs valeurs d'autres elements
- * 
- * Dans values les clefs obligatoire sont : 
+ *
+ * Dans values les clefs obligatoire sont :
  *		- element: 'MonElement' ou 'Mon.element' ou $('MonElement)
  *		- value: Valeur de l'element pour activer/desactiver le disabled
  *		- operateur || operator: Par defaut defini à "=", accepte : true, =, ==, ===, false, !, !=, !==, <, >, <=, >=
- *		
+ *
  *	Note :
  *		- Un input checkbox à une valeur soit de null, soit de '1'
  *		- Un input radio à une valeur soit de null, soit du value de l'element
- *		
+ *
  * @param {array|string} elements Liste des elements (DOM ou string) sur lesquels appliquer le disable ex: [ $(monElementId), $(monElementId2) ]
  * @param {array|object} values Liste des valeurs à avoir pour appliquer le disable ex: [ {element: $(monElement), value: '1', operator: '!='}, ... ]
  * @param {boolean} hide Si mis à TRUE, cache l'element plutôt que de le griser
@@ -11089,20 +11090,20 @@ function evalCompare(value1, operator, value2) {
 function observeDisableElementsOnValues(elements, values, hide, oneValueIsValid, debug) {
 	'use strict';
 	var i;
-	
+
 	elements = elements.constructor !== Array ? [elements] : elements;
 	values = values.constructor !== Array ? [values] : values;
 	hide = hide === undefined ? false : hide;
 	oneValueIsValid = oneValueIsValid === undefined ? true : oneValueIsValid;
-	
+
 	disableElementsOnValues(elements, values, hide, oneValueIsValid, debug);
-	
+
 	for (i=0; i<values.length; i++) {
 		// On s'assure que les clefs sont présente
 		if (values[i].element === undefined || values[i].value === undefined) {
 			throw "Values must have element and value keys";
 		}
-		
+
 		getElementByString(values[i].element).observe('change', function() {
 			disableElementsOnValues(elements, values, hide, oneValueIsValid, debug);
 		});
@@ -11111,16 +11112,16 @@ function observeDisableElementsOnValues(elements, values, hide, oneValueIsValid,
 
 /**
  * Cache un ou plusieurs élements en fonction d'une ou plusieurs valeurs d'autres elements
- * 
- * Dans values les clefs obligatoire sont : 
+ *
+ * Dans values les clefs obligatoire sont :
  *		- element: 'MonElement' ou 'Mon.element' ou $('MonElement)
  *		- value: Valeur de l'element pour activer/desactiver le disabled
  *		- operateur || operator: Par defaut defini à "=", accepte : true, =, ==, ===, false, !, !=, !==, <, >, <=, >=
- *		
+ *
  * Note :
  *		- Un input checkbox à une valeur soit de null, soit de '1'
  *		- Un input radio à une valeur soit de null, soit du value de l'element
- * 
+ *
  * @param {array|string} elements Liste des elements (DOM ou string) sur lesquels appliquer le disable ex: [ $(monElementId), $(monElementId2) ]
  * @param {array|object} values Liste des valeurs à avoir pour appliquer le disable ex: [ {element: $(monElement), value: '1', operator: '!='}, ... ]
  * @param {boolean} hide Si mis à TRUE, cache l'element plutôt que de le griser
@@ -11139,57 +11140,57 @@ function disableElementsOnValues(elements, values, hide, oneValueIsValid, debug)
 		validParents = ['div.input', 'div.checkbox', 'td.action'],
 		haveAValidParent
 	;
-	
+
 	// On commence par formater les variable de façon pour qu'on puisse les traiter pour une seul type (array et boolean)
 	elements = elements.constructor !== Array ? [elements] : elements;
 	values = values.constructor !== Array ? [values] : values;
 	hide = hide === undefined ? false : hide;
-	
+
 	oneValueIsValid = oneValueIsValid === undefined ? true : oneValueIsValid;
-	
+
 	// On vérifi les valeurs
 	for (i=0; i<values.length; i++) {
 		// On s'assure que les clefs sont présente
 		if (values[i].element === undefined || values[i].value === undefined) {
 			throw "Values must have element and value keys";
 		}
-		
+
 		valueElement = getElementByString(values[i].element);
-		valueName = valueElement.id !== null 
-			? valueElement.id 
+		valueName = valueElement.id !== null
+			? valueElement.id
 			: (typeof values[i].element === 'string' ? values[i].element : '<object id=null>')
 		;
-		
+
 		// On s'assure que l'element existe
 		if (valueElement === null) {
 			throw "Element "+valueName+" is not found!";
 		}
-		
+
 		// Alias pour operator
 		if (values[i].operateur !== undefined) {
 			values[i].operator = values[i].operateur;
 		}
-		
+
 		values[i].operator = values[i].operator === undefined ? '=' : values[i].operator;
 		newCondition = evalCompare(valueElement.getValue(), values[i].operator, values[i].value);
 		condition = oneValueIsValid && i > 0 ? condition || newCondition : condition && newCondition;
-		
+
 		// Pratique pour comprendre pourquoi un element s'active ou se désactive
 		if (debug) {
 			console.log("----------DEBUG: disableElementsOnValues()----------");
 			console.log("Element: '"+valueName+"' targetValue: '"+values[i].operator+" "+values[i].value+"' value: '"+valueElement.getValue()+"' condition: "+(condition ? 'true' : 'false'));
 		}
 	}
-	
+
 	// On applique le disable sur les elements
 	for (i=0; i<elements.length; i++) {
 		element = getElementByString(elements[i]);
-		
+
 		// On s'assure que l'element existe
 		if (element === null) {
 			throw "Element "+elements[i]+" is not found!";
 		}
-		
+
 		// Si condition === true alors on desactive/cache l'element
 		for (j=0; j<validParents.length; j++) {
 			// Les conditions sont rempli, donc on desactive/cache l'element
@@ -11201,7 +11202,7 @@ function disableElementsOnValues(elements, values, hide, oneValueIsValid, debug)
 					element.up( validParents[j] ).hide();
 				}
 				break;
-				
+
 			// Les conditions ne sont pas rempli, on active/montre l'element
 			} else if (element.up(validParents[j])) {
 				haveAValidParent = true;
@@ -11213,7 +11214,7 @@ function disableElementsOnValues(elements, values, hide, oneValueIsValid, debug)
 				break;
 			}
 		}
-		
+
 		// Si aucuns parents valide n'a été trouvé, on applique directement sur l'element
 		if (!haveAValidParent) {
 			if (condition) {
@@ -11242,7 +11243,7 @@ if (config === undefined) {
 /**
  * Même principe que le debug php de cakephp
  * Peut être désactivé par disable.debug = true;
- * 
+ *
  * @param {mixed} thing
  */
 function debug(thing) {
@@ -12907,7 +12908,7 @@ Fabtabs.prototype = {
 * Copyright (c) 2007 Andrew Tetlaw & Millstream Web Software
 * http://www.millstream.com.au/view/code/tablekit/
 * Version: 1.3b 2008-03-23
-* 
+*
 * Permission is hereby granted, free of charge, to any person
 * obtaining a copy of this software and associated documentation
 * files (the "Software"), to deal in the Software without
@@ -12915,10 +12916,10 @@ Fabtabs.prototype = {
 * modify, merge, publish, distribute, sublicense, and/or sell copies
 * of the Software, and to permit persons to whom the Software is
 * furnished to do so, subject to the following conditions:
-* 
+*
 * The above copyright notice and this permission notice shall be
 * included in all copies or substantial portions of the Software.
-* 
+*
 * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -12927,7 +12928,7 @@ Fabtabs.prototype = {
 * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 * SOFTWARE.
-* * 
+* *
 */
 
 // Use the TableKit class constructure if you'd prefer to init your tables as JS objects
@@ -12944,7 +12945,7 @@ TableKit.prototype = {
 		var op = TableKit.option('sortable resizable editable', this.id);
 		if(op.sortable) {
 			TableKit.Sortable.init(table);
-		} 
+		}
 		if(op.resizable) {
 			TableKit.Resizable.init(table);
 		}
@@ -13012,8 +13013,8 @@ Object.extend(TableKit, {
 			table.id = "tablekit-table-" + TableKit._getc();
 		}
 		var id = table.id;
-		TableKit.tables[id] = TableKit.tables[id] ? 
-		                        Object.extend(TableKit.tables[id], options || {}) : 
+		TableKit.tables[id] = TableKit.tables[id] ?
+		                        Object.extend(TableKit.tables[id], options || {}) :
 		                        Object.extend(
 		                          {dom : {head:null,rows:null,cells:{}},sortable:false,resizable:false,editable:false},
 		                          options || {}
@@ -13114,7 +13115,7 @@ Object.extend(TableKit, {
   				} else if (c.hasClassName(op.descendingClass)) {
   				  c.removeClassName(op.descendingClass);
   				  c.addClassName(op.sortFirstDecendingClass)
-  				}  				
+  				}
   			}
 		  }
 		  if(op.resizable) {
@@ -13269,8 +13270,8 @@ TableKit.Sortable = {
 			index = TableKit.getCellIndex(cell);
 		}
 		var op = TableKit.option('noSortClass descendingClass ascendingClass defaultSortDirection', table.id);
-		
-		if(cell.hasClassName(op.noSortClass)) {return;}	
+
+		if(cell.hasClassName(op.noSortClass)) {return;}
 		//TableKit.notify('onSortStart', table);
 		order = order ? order : op.defaultSortDirection;
 		var rows = TableKit.getBodyRows(table);
@@ -13315,10 +13316,10 @@ TableKit.Sortable = {
 	getDataType : function(cell,index,table) {
 		cell = $(cell);
 		index = (index || index === 0) ? index : TableKit.getCellIndex(cell);
-		
+
 		var colcache = TableKit.Sortable._coltypecache;
 		var cache = colcache[table.id] ? colcache[table.id] : (colcache[table.id] = {});
-		
+
 		if(!cache[index]) {
 			var t = false;
 			// first look for a data type id on the heading row cell
@@ -13402,7 +13403,7 @@ TableKit.Sortable.addSortType(
 				case  'k':
 					result = b * 1024;
 					break;
-				case  'm':				
+				case  'm':
 					result = b * 1024 * 1024;
 					break;
 				case  'g':
@@ -13430,7 +13431,7 @@ TableKit.Sortable.addSortType(
 				} else if(r[7].toLowerCase().indexOf('a') !== -1) {
 					hr_num = chr < 12 ? chr : 0;
 				}
-			} 
+			}
 			var min_num = r[5] ? r[5] : 0;
 			var sec_num = r[6] ? r[6] : 0;
 			return new Date(yr_num, mo_num, day_num, hr_num, min_num, sec_num, 0).valueOf();
@@ -13451,7 +13452,7 @@ TableKit.Sortable.addSortType(
 				} else if(r[7].toLowerCase().indexOf('a') !== -1) {
 					hr_num = chr < 12 ? chr : 0;
 				}
-			} 
+			}
 			var min_num = r[5] ? r[5] : 0;
 			var sec_num = r[6] ? r[6] : 0;
 			return new Date(yr_num, mo_num, day_num, hr_num, min_num, sec_num, 0).valueOf();
@@ -13470,7 +13471,7 @@ TableKit.Sortable.addSortType(
 		pattern : /[\d]{4}-[\d]{2}-[\d]{2}(?:T[\d]{2}\:[\d]{2}(?:\:[\d]{2}(?:\.[\d]+)?)?(Z|([-+][\d]{2}:[\d]{2})?)?)?/, // 2005-03-26T19:51:34Z
 		normal : function(v) {
 			if(!this.pattern.test(v)) {return 0;}
-		    var d = v.match(/([\d]{4})(-([\d]{2})(-([\d]{2})(T([\d]{2}):([\d]{2})(:([\d]{2})(\.([\d]+))?)?(Z|(([-+])([\d]{2}):([\d]{2})))?)?)?)?/);		
+		    var d = v.match(/([\d]{4})(-([\d]{2})(-([\d]{2})(T([\d]{2}):([\d]{2})(:([\d]{2})(\.([\d]+))?)?(Z|(([-+])([\d]{2}):([\d]{2})))?)?)?)?/);
 		    var offset = 0;
 		    var date = new Date(d[1], 0, 1);
 		    if (d[3]) { date.setMonth(d[3] - 1) ;}
@@ -13517,7 +13518,7 @@ TableKit.Resizable = {
 	init : function(elm, options){
 		var table = $(elm);
 		if(table.tagName !== "TABLE") {return;}
-		TableKit.register(table,Object.extend(options || {},{resizable:true}));		 
+		TableKit.register(table,Object.extend(options || {},{resizable:true}));
 		var cells = TableKit.getHeaderCells(table);
 		cells.each(function(c){
 			c = $(c);
@@ -13541,7 +13542,7 @@ TableKit.Resizable = {
 		}
 		var pad = parseInt(cell.getStyle('paddingLeft'),10) + parseInt(cell.getStyle('paddingRight'),10);
 		w = Math.max(w-pad, TableKit.option('minWidth', table.id)[0]);
-		
+
 		cell.setStyle({'width' : w + 'px'});
 	},
 	initDetect : function(e) {
@@ -13667,10 +13668,10 @@ TableKit.Editable = {
 		}
 		var op = TableKit.option('noEditClass', table.id);
 		if(cell.hasClassName(op.noEditClass)) {return;}
-		
+
 		var head = $(TableKit.getHeaderCells(table, cell)[TableKit.getCellIndex(cell)]);
 		if(head.hasClassName(op.noEditClass)) {return;}
-		
+
 		var data = TableKit.getCellData(cell);
 		if(data.active) {return;}
 		data.htmlContent = cell.innerHTML;
@@ -13717,12 +13718,12 @@ TableKit.Editable.CellEditor.prototype = {
 		cell = $(cell);
 		var op = this.options;
 		var table = cell.up('table');
-		
+
 		var form = $(document.createElement("form"));
 		form.id = cell.id + '-form';
 		form.addClassName(TableKit.option('formClassName', table.id)[0]);
 		form.onsubmit = this._submit.bindAsEventListener(this);
-		
+
 		var field = document.createElement(op.element);
 			$H(op.attributes).each(function(v){
 				field[v.key] = v.value;
@@ -13732,7 +13733,7 @@ TableKit.Editable.CellEditor.prototype = {
 				case 'textarea':
 				field.value = TableKit.getCellText(cell);
 				break;
-				
+
 				case 'select':
 				var txt = TableKit.getCellText(cell);
 				$A(op.selectOptions).each(function(v){
@@ -13759,7 +13760,7 @@ TableKit.Editable.CellEditor.prototype = {
 				cancelLink.href = "#";
 				cancelLink.appendChild(document.createTextNode(op.cancelText));
 				cancelLink.onclick = this._cancel.bindAsEventListener(this);
-				cancelLink.className = 'editor_cancel';      
+				cancelLink.className = 'editor_cancel';
 				form.appendChild(cancelLink);
 			}
 			cell.innerHTML = '';
@@ -13814,8 +13815,8 @@ TableKit.Editable.multiLineInput = function(n,attributes) {
 	TableKit.Editable.addCellEditor(new TableKit.Editable.CellEditor(n, {
 		element : 'textarea',
 		attributes : Object.extend({name : 'value', rows : '5', cols : '20'}, attributes||{})
-	}));	
-};	
+	}));
+};
 TableKit.Editable.multiLineInput('multi-line-input');
 
 TableKit.Editable.selectInput = function(n,attributes,selectOptions) {
@@ -13823,7 +13824,7 @@ TableKit.Editable.selectInput = function(n,attributes,selectOptions) {
 		element : 'select',
 		attributes : Object.extend({name : 'value'}, attributes||{}),
 		'selectOptions' : selectOptions
-	}));	
+	}));
 };
 
 /*
@@ -13844,32 +13845,32 @@ document.observe("dom:loaded", TableKit.load);
 	if (ConfigurationParser === undefined) {
 		var ConfigurationParser = {};
 	}
-	
+
 	ConfigurationParser.defaultVars = {
 		buttonClass: 'configuration-parser-btn',
 		infoBlockClass: 'configuration-parser-info-block',
 		containerClass: 'configuration-parser-container'
 	};
-	
+
 	if (ConfigurationParser.vars === undefined) {
 		ConfigurationParser.vars = {};
 	}
-	
+
 	for (var key in ConfigurationParser.defaultVars) {
 		if (!ConfigurationParser.defaultVars.hasOwnProperty(key)) {
 			continue;
 		}
-		
+
 		if (ConfigurationParser.vars[key] === undefined) {
 			ConfigurationParser.vars[key] = ConfigurationParser.defaultVars[key];
 		}
 	}
-	
+
 	ConfigurationParser._uniqid = function(base, index) {
 		if (index === undefined) {
 			index = 0;
 		}
-		
+
 		if ($(base)) {
 			if ($(base+'_'+(index +1))) {
 				return ConfigurationParser._uniqid(base, index +1);
@@ -13880,7 +13881,7 @@ document.observe("dom:loaded", TableKit.load);
 			return base;
 		}
 	};
-	
+
 	ConfigurationParser.incrustationInfo = function(selector, json) {
 		$$(selector).each(function(element) {
 			var key = element.innerHTML.trim(),
@@ -13907,7 +13908,7 @@ document.observe("dom:loaded", TableKit.load);
 			if (comment) {
 				id = ConfigurationParser._uniqid('info-'+key.replace(/\./g, '-'));
 				element.addClassName(ConfigurationParser.vars.containerClass);
-				
+
 				infoButton = new Element('div', {'class': ConfigurationParser.vars.buttonClass, 'for': id});
 				infoButton.observe('click', function(event){
 					var target = $(event.target.getAttribute('for'));
