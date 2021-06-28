@@ -741,7 +741,7 @@
 							'Commissionep.dateseance',
 							'Passagecommissionep.id',
 							'Passagecommissionep.etatdossierep',
-							'Passagecommissionep.impressiondecision',
+							'Passagecommissionep.impressionconvocation',
 						),
 						'joins' => array(
 							array(
