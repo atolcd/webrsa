@@ -119,6 +119,7 @@
 				'Calculdroitrsa' => 'INNER',
 				'Detaildroitrsa' => 'LEFT OUTER',
 				'Dossierep' => 'LEFT OUTER',
+				'Passagecommissionep' => 'LEFT OUTER',
 				'Historiqueetatpe' => $origine === 'radiepe' ? 'INNER' : 'LEFT OUTER',
 				'Informationpe' => $origine === 'radiepe' ? 'INNER' : 'LEFT OUTER',
 				'Orientstruct' => 'LEFT OUTER',
@@ -159,7 +160,7 @@
 						'Historiqueetatpe.id',
 						'Orientstruct.id',
 						'Dossierep.id',
-						'( "Dossierep"."id" IS NOT NULL ) AS "Dossierep__chosen"',
+						'( "Dossierep"."id" IS NOT NULL AND "Passagecommissionep"."etatdossierep" IS NULL ) AS "Dossierep__chosen"',
 					)
 				);
 
@@ -188,6 +189,7 @@
 						$this->Personne->Orientstruct->join( 'Structureorientante', array( 'type' => $types['Structureorientante'] ) ),
 						$this->Personne->Orientstruct->join( 'Structurereferente', array( 'type' => $types['Structurereferente'] ) ),
 						$this->Personne->Orientstruct->Sanctionep58->join( 'Dossierep', array( 'type' => $types['Dossierep'] ) ),
+						$this->Personne->Orientstruct->Sanctionep58->Dossierep->join( 'Passagecommissionep', array( 'type' => $types['Passagecommissionep'] ) ),
 						$this->Informationpe->joinPersonneInformationpe( 'Personne', 'Informationpe', $types['Informationpe'] ),
 						$this->Informationpe->Historiqueetatpe->joinInformationpeHistoriqueetatpe( true, 'Informationpe', 'Historiqueetatpe', $types['Historiqueetatpe'] ),
 						$this->Personne->Foyer->Dossier->join( 'Suiviinstruction', array( 'type' => $types['Suiviinstruction'] ) ),
@@ -204,6 +206,14 @@
 
 				// Et qui ne possèdent pas d'autre dossier d'EP non traité
 				$query['conditions'][] = $this->Personne->Dossierep->conditionsPersonneSansDossierEpEnCours();
+
+				// Et qui ne possède pas de dossier EP associé
+				$query['conditions'][] = array(
+					'OR' => array(
+						'Passagecommissionep.id IS NULL',
+						"Passagecommissionep.etatdossierep NOT IN ('associe')"
+					)
+				);
 
 				// Qui sont orientés au Pôle Emploi
 				$query['conditions'][] = array(
@@ -320,21 +330,24 @@
 			foreach( $data as $line ) {
 				// La personne était-elle sélectionnée précédemment ?
 				$dossierep_id = Hash::get( $line, 'Dossierep.id' );
+
+				// On vérifie si la personne a un dossier EP en cours et si oui on récupère son dernier passage en EP
+				if(!empty($dossierep_id) ) {
+					$passageCommision = $this->Sanctionep58->Dossierep->Passagecommissionep->find('first', array(
+						'conditions' => array(
+							'Passagecommissionep.dossierep_id' => $dossierep_id,
+							'Passagecommissionep.etatdossierep NOT IN' => array( 'associe'),
+						)
+					));
+				}
+
 				$chosen = Hash::get( $line, 'Dossierep.chosen' );
 
 				// Personnes non cochées que l'on sélectionne
 				if( $chosen == 1 ) {
-					// On vérifie si la personne a un dossier EP en cours et s'il est déjà enregistré dans une commision EP
-					if(!empty($dossierep_id) ) {
-						$passageCommision = $this->Sanctionep58->Dossierep->Passagecommissionep->find('first', array(
-							'conditions' => array(
-								'Passagecommissionep.dossierep_id' => $dossierep_id,
-							)
-						));
-						// Si le dossier n'est pas rattaché à une commission EP ou qu'il est attaché en état "associé", on passe à la ligne suivante
-						if ( empty($passageCommision) || (!empty($passageCommision) && $passageCommision['Passagecommissionep']['etatdossierep'] == 'associe' ) ) {
-							continue;
-						}
+					// Si la personne a un dossier EP en cours et qu'il n'est pas rattaché à une commission EP on passe à la ligne suivante
+					if(!empty($dossierep_id) && empty($passageCommision) ) {
+						continue;
 					}
 
 					$dossierep = array(
@@ -368,6 +381,19 @@
 
 					$this->Sanctionep58->create( $sanctionep58 );
 					$success = $this->Sanctionep58->save( null, array( 'atomic' => false ) ) && $success;
+				}
+				// Si la personne n'est pas sélectionnée, a un dossier EP et pas de passage en commission, le dossier EP
+				// doit être supprimé ainsi que la sanctionep correspondante
+				elseif( $chosen == 0 && !empty($dossierep_id) && empty($passageCommision)) {
+					// Suppression de la sanction EP
+					$success = $this->Sanctionep58->deleteAll(
+						array(
+							'dossierep_id' => $dossierep_id
+						),
+						false
+					) && $success;
+					// Suppression du dossier EP
+					$success = $this->Sanctionep58->Dossierep->delete($dossierep_id, false) && $success;
 				}
 			}
 
