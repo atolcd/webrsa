@@ -977,7 +977,7 @@
 					foreach( $this->Cer93->Sujetromev3->romev3Fields as $fieldName ) {
 						if( empty( $data['Sujetromev3'][$fieldName] ) ) {
 							$success = false;
-							$this->Cer93->Sujetromev3->invalidate( $fieldName, 'Champ obligatoire' );
+							$this->Cer93->Sujetromev3->invalidate( $fieldName, __d('cer93', 'Cer93.Error.Champobligatoire') );
 						}
 					}
 
@@ -992,7 +992,7 @@
 					foreach( $this->Cer93->Expprocer93->Entreeromev3->romev3Fields as $fieldName ) {
 						if( empty( $expprocer93['Entreeromev3'][$fieldName] ) ) {
 							$success = false;
-							$this->Cer93->Expprocer93->validationErrors[$key]['Entreeromev3'][$fieldName][] = 'Champ obligatoire';
+							$this->Cer93->Expprocer93->validationErrors[$key]['Entreeromev3'][$fieldName][] = __d('cer93', 'Cer93.Error.Champobligatoire');
 						}
 					}
 
@@ -1008,11 +1008,26 @@
 				foreach( $this->Cer93->Emptrouvromev3->romev3Fields as $fieldName ) {
 					if( empty( $data['Emptrouvromev3'][$fieldName] ) ) {
 						$success = false;
-						$this->Cer93->Emptrouvromev3->invalidate( $fieldName, 'Champ obligatoire' );
+						$this->Cer93->Emptrouvromev3->invalidate( $fieldName, __d('cer93', 'Cer93.Error.Champobligatoire') );
 					}
 				}
 
 				$this->Cer93->Emptrouvromev3->validationErrors = dedupe_validation_errors( $this->Cer93->Emptrouvromev3->validationErrors );
+			}
+
+			// Validation de la date de début de contrat : non vide et compris entre les dates configurés dans la variable de configuration Cer93.dateCER
+			$dtDebutContrat = date_cakephp_to_sql($data['Contratinsertion']['dd_ci']);
+			$dtDebutMax = $this->Cer93->getDebutContratMax();
+			if($dtDebutContrat == false) {
+				$success = false;
+				$this->Cer93->Contratinsertion->invalidate('dd_ci', __d('cer93', 'Cer93.Error.Champobligatoire'));
+			} else if( $dtDebutContrat < Configure::read('Cer93.dateCER.dtdebutMin') || $dtDebutContrat > $dtDebutMax ) {
+				$success = false;
+				$this->Cer93->Contratinsertion->invalidate('dd_ci', sprintf(
+					__d('cer93', 'Cer93.Error.Datedebutcontrat'),
+					date('d/m/Y', strtotime(Configure::read('Cer93.dateCER.dtdebutMin'))),
+					date('d/m/Y', strtotime($dtDebutMax) ) )
+				);
 			}
 
 			if( $success ) {

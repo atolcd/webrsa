@@ -578,12 +578,30 @@
 			}
 
 			if( !empty( $this->request->data ) ) {
+				$success = true;
+				$errorMsg = __( 'Save->error' );
 				$this->Cer93->Contratinsertion->begin();
 
-				$success = $this->Cer93->Contratinsertion->saveAll( $this->request->data, array( 'atomic' => false, 'validate' => 'only' ) )
+				// Validation de la date de début de contrat : non vide et compris entre les dates configurés dans la variable de configuration Cer93.dateCER
+				$dtDebutContrat = date_cakephp_to_sql(Hash::get( $this->request->data, 'Contratinsertion.dd_ci' ));
+				$dtDebutMax = $this->Cer93->getDebutContratMax();
+				if($dtDebutContrat == false) {
+					$success = false;
+					$errorMsg = __d('cer93', 'Cer93.Error.Champobligatoire');
+				} else if( $dtDebutContrat < Configure::read('Cer93.dateCER.dtdebutMin') || $dtDebutContrat > $dtDebutMax ) {
+					$success = false;
+					$errorMsg =  sprintf(
+						__d('cer93', 'Cer93.Error.Datedebutcontrat'),
+						date('d/m/Y', strtotime(Configure::read('Cer93.dateCER.dtdebutMin'))),
+						date('d/m/Y', strtotime($dtDebutMax) )
+					);
+				}
+
+				$success = $success &&
+					$this->Cer93->Contratinsertion->saveAll( $this->request->data, array( 'atomic' => false, 'validate' => 'only' ) )
 					&& $this->Cer93->Contratinsertion->updateAllUnbound(
 						array(
-							'Contratinsertion.dd_ci' => "'".date_cakephp_to_sql( Hash::get( $this->request->data, 'Contratinsertion.dd_ci' ) )."'",
+							'Contratinsertion.dd_ci' => "'". $dtDebutContrat ."'",
 							'Contratinsertion.df_ci' => "'".date_cakephp_to_sql( Hash::get( $this->request->data, 'Contratinsertion.df_ci' ) )."'"
 						),
 						array( 'Contratinsertion.id' => Hash::get( $contratinsertion, 'Contratinsertion.id' ) )
@@ -602,7 +620,7 @@
 				}
 				else {
 					$this->Cer93->Contratinsertion->rollback();
-					$this->Flash->error( __( 'Save->error' ) );
+					$this->Flash->error( $errorMsg );
 				}
 			}
 			else {

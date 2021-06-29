@@ -257,3 +257,9 @@ msgstr "Date d'annulation du CER"
 
 msgid "Contratinsertion.datedecision"
 msgstr "Date de décision du CER"
+
+msgid "Cer93.Error.Champobligatoire"
+msgstr "Champ Obligatoire"
+
+msgid "Cer93.Error.Datedebutcontrat"
+msgstr "La date de début de contrat doit être comprise entre le %s et le %s"

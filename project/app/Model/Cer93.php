@@ -975,5 +975,13 @@
 
 			return $options;
 		}
+
+		/**
+		 * Revoie la date maximum de début de contrat
+		 * @return string
+		 */
+		public function getDebutContratMax() {
+			return date('Y-m-d', strtotime( date('Y-m-d') . Configure::read('Cer93.dateCER.dtdebutMax')));
+		}
 	}
 ?>

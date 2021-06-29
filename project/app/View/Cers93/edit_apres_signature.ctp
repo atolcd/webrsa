@@ -27,7 +27,15 @@
 					'Contratinsertion.id',
 					'Cer93.id',
 					'Cer93.duree' => array( 'legend' => required( 'Ce contrat est proposé pour une durée de ' ), 'domain' => 'cer93', 'type' => 'radio', 'options' => $options['Cer93']['duree'] ),
-					'Contratinsertion.dd_ci' => array( 'domain' => 'contratinsertion', 'type' => 'date', 'empty' => true, 'dateFormat' => 'DMY', 'required' => true ),
+					'Contratinsertion.dd_ci' => array(
+						'domain' => 'contratinsertion',
+						'type' => 'date',
+						'empty' => true,
+						'minYear' => date( 'Y' , strtotime(Configure::read('Cer93.dateCER.dtdebutMin'))),
+						'maxYear' => date( 'Y' ) +1,
+						'dateFormat' => 'DMY',
+						'required' => true
+					),
 					'Contratinsertion.df_ci' => array( 'domain' => 'contratinsertion','type' => 'date', 'empty' => true, 'dateFormat' => 'DMY', 'required' => true )
 				)
 			);
@@ -75,4 +83,5 @@
 		makeTabbed( 'tabbedWrapper', 2 );
 	} );
 </script>
-<?php echo $this->Observer->disableFormOnSubmit( 'contratinsertion' );?>
+<?php
+	echo $this->Observer->disableFormOnSubmit( 'contratinsertion' );
