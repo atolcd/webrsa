@@ -114,6 +114,7 @@ class VueglobaleShell extends XShell
 					Personne.nir,
 					Personne.numfixe,
 					Personne.numport,
+					Dossier.numdemrsa,
 					Dossier.matricule,
 					Dossier.id AS DossierID,
 					Adresse.numvoie,
@@ -829,6 +830,13 @@ class VueglobaleShell extends XShell
 		// MSP
 		$msp = $this->_getLastMSP($lastId);
 
+		// Référérence du dossier : numéro de demande RSA
+		if (isset($currentResult['numdemrsa']) && !empty($currentResult['numdemrsa'])) {
+			$numdemrsa = $currentResult['numdemrsa'];
+		} else {
+			$numdemrsa = '';
+		}
+
 		return array(
 			'flagSortie' => '0',
 			'genre' => $currentResult['qual'],
@@ -842,6 +850,7 @@ class VueglobaleShell extends XShell
 			'codePostal' => $currentResult['codepos'],
 			'ville' => $currentResult['nomcom'],
 			'mspRattachement' => $msp,
+			'refDossier' => $numdemrsa,
 			'telephone' => $tel,
 			'mail' => $email
 		);
@@ -954,6 +963,9 @@ class VueglobaleShell extends XShell
 
 			// Structure référente (msp)
 			$xml->writeElement('mspRattachement', $personne['Beneficiaire']['mspRattachement']);
+
+			// Reférence de dossier (numdemrsa)
+			$xml->writeElement('refDossier', $personne['Beneficiaire']['refDossier']);
 
 			// Téléphones
 			if (isset($personne['Beneficiaire']['telephone']) && !empty($personne['Beneficiaire']['telephone'])) {
