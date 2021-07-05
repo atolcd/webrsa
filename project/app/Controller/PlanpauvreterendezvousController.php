@@ -47,6 +47,8 @@
 					'cohorte_infocol_second_rdv_stock' => array('filter' => 'Search'),
 					'cohorte_infocol_imprime_second_rdv_nouveaux' => array('filter' => 'Search'),
 					'cohorte_infocol_imprime_second_rdv_stock' => array('filter' => 'Search'),
+					'cohorte_infocol_venu_nonvenu_second_rdv_nouveaux' => array('filter' => 'Search'),
+					'cohorte_infocol_venu_nonvenu_second_rdv_stock' => array('filter' => 'Search'),
 				),
 			),
 			'WebrsaAccesses',
@@ -110,6 +112,8 @@
 			'exportcsv_infocol_second_rdv_stock',
 			'exportcsv_infocol_imprime_second_rdv_nouveaux',
 			'exportcsv_infocol_imprime_second_rdv_stock',
+			'exportcsv_infocol_venu_nonvenu_second_rdv_nouveaux',
+			'exportcsv_infocol_venu_nonvenu_second_rdv_stock'
 		);
 
 		/**
@@ -130,6 +134,8 @@
 			'cohorte_infocol_venu_nonvenu_stock' => 'update',
 			'cohorte_infocol_second_rdv_nouveaux' => 'update',
 			'cohorte_infocol_second_rdv_stock' => 'update',
+			'cohorte_infocol_venu_nonvenu_second_rdv_nouveaux' => 'update',
+			'cohorte_infocol_venu_nonvenu_second_rdv_stock' => 'update',
 			'exportcsv_infocol' => 'read',
 			'exportcsv_infocol_stock' => 'read',
 			'exportcsv_infocol_venu_nonvenu_nouveau' => 'read',
@@ -140,6 +146,8 @@
 			'exportcsv_infocol_imprime_stock' => 'read',
 			'exportcsv_infocol_imprime_second_rdv_nouveaux' => 'read',
 			'exportcsv_infocol_imprime_second_rdv_stock' => 'read',
+			'exportcsv_infocol_venu_nonvenu_second_rdv_nouveaux' => 'read',
+			'exportcsv_infocol_venu_nonvenu_second_rdv_stock' => 'read',
 		);
 
 		public function _setOptions() {
@@ -525,6 +533,72 @@
 					'modelName' => 'Rendezvous',
 					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolImprimeSecondRdvStock',
 					'configurableQueryFieldsKey' => 'Planpauvreterendezvous.cohorte_infocol_imprime_second_rdv_stock'
+				)
+			);
+		}
+
+		/**
+		 * Cohorte Convoqués Second Rendez-vous - Nouveaux entrants
+		 * Modifie le statut du rendez vous en venu / non venu pour un rendez vous 3 en 1
+		 * Si la personne est venue, créé une orientation
+		 */
+		public function cohorte_infocol_venu_nonvenu_second_rdv_nouveaux() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->cohorte (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolVenuNonvenuSecondRdvNouveaux',
+					'nom_cohorte' => 'cohorte_infocol_venu_nonvenu_second_rdv_nouveaux'
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la
+		 * Cohorte Convoqués Second Rendez-vous - Nouveaux entrants
+		 */
+		public function exportcsv_infocol_venu_nonvenu_second_rdv_nouveaux() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->exportcsv (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolVenuNonvenuSecondRdvNouveaux',
+					'nom_cohorte' => 'cohorte_infocol_venu_nonvenu_second_rdv_nouveaux'
+				)
+			);
+		}
+
+		/**
+		 * Cohorte Convoqués Second Rendez-vous - Stock
+		 * Modifie le statut du rendez vous en venu / non venu pour un rendez vous 3 en 1
+		 * Si la personne est venue, créé une orientation
+		 */
+		public function cohorte_infocol_venu_nonvenu_second_rdv_stock() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->cohorte (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolVenuNonvenuSecondRdvStock',
+					'nom_cohorte' => 'cohorte_infocol_venu_nonvenu_second_rdv_stock'
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la
+		 * Cohorte Convoqués Second Rendez-vous - Stock
+		 */
+		public function exportcsv_infocol_venu_nonvenu_second_rdv_stock() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->exportcsv (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolVenuNonvenuSecondRdvStock',
+					'nom_cohorte' => 'cohorte_infocol_venu_nonvenu_second_rdv_stock'
 				)
 			);
 		}

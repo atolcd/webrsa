@@ -4892,6 +4892,12 @@ msgstr "Stock venu / non venu en information collective"
 msgid "controllers/Planpauvreterendezvous/exportcsv_infocol_venu_nonvenu_nouveaux"
 msgstr "Export CSV des nouveaux entrant venu / non venu en information collective"
 
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_venu_nonvenu_second_rdv_nouveaux"
+msgstr "Nouveaux Entrant venu / non venu en rendez-vous 3 en 1"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_venu_nonvenu_second_rdv_stock"
+msgstr "Stock venu / non venu en rendez-vous 3 en 1"
+
 ###############################################################################
 ## Statistiques Plan pauvreté rendez vous
 ###############################################################################

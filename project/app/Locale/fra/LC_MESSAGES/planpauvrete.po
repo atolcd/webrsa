@@ -50,6 +50,9 @@ msgstr "Impression 3 en 1"
 msgid "Planpauvrete.Nouveaux.Phrasesmois"
 msgstr "Cette cohorte effectue des recherches dans le flux du mois de MOIS."
 
+msgid "Planpauvrete.Nouveaux.Convoq_3en1"
+msgstr "Convoqués rendez-vous 3 en 1"
+
 # ==============================================================================
 # Traduction Stock
 # ==============================================================================
@@ -86,6 +89,9 @@ msgstr "Impressions 3 en 1"
 
 msgid "Planpauvrete.Stock.Phrasesmois"
 msgstr "Cette cohorte effectue des recherches dans les flux du mois de MOIS et des mois précédents."
+
+msgid "Planpauvrete.Stock.Convoq_3en1"
+msgstr "Convoqués rendez-vous 3 en 1"
 
 # ==============================================================================
 # Recherche Par primo accédant

@@ -202,7 +202,10 @@
 							'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_second_rdv_nouveaux' ) ),
 						__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Impression_3en1' ) => array(
 							'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol_imprime_second_rdv_nouveaux'),
-							'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_imprime_second_rdv_nouveaux' ) )
+							'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_imprime_second_rdv_nouveaux' ) ),
+						__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Convoq_3en1' ) => array(
+							'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol_venu_nonvenu_second_rdv_nouveaux'),
+							'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_venu_nonvenu_second_rdv_nouveaux' ) )
 					)
 				),
 				__d( 'planpauvrete', 'Planpauvrete.Stock.Menu' ) => array(
@@ -234,7 +237,10 @@
 							'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_second_rdv_stock' ) ),
 						__d( 'planpauvrete', 'Planpauvrete.Stock.Impression_3en1' ) => array(
 							'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_infocol_imprime_second_rdv_stock'),
-							'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_imprime_second_rdv_stock' ) )
+							'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_imprime_second_rdv_stock' ) ),
+						__d( 'planpauvrete', 'Planpauvrete.Stock.Convoq_3en1' ) => array(
+							'disabled' => !Configure::read ('Module.Cohorte.Plan.Pauvrete.Stock.cohorte_infocol_venu_nonvenu_second_rdv_stock'),
+							'class' => 'search', 'url' => array( 'controller' => 'planpauvreterendezvous', 'action' => 'cohorte_infocol_venu_nonvenu_second_rdv_stock' ) )
 					)
 				)
 			)
