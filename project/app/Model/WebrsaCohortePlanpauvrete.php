@@ -132,17 +132,15 @@
 		protected function _etat_precedent($query) {
 			$dates = $this->datePeriodeCohorte ();
 			$query['joins'][] = 'LEFT JOIN (
-				SELECT personne_id, etatdosrsa
-				FROM (
-					SELECT
-						h.personne_id
-						, h.etatdosrsa
-						, rank() OVER (PARTITION BY h.personne_id ORDER BY h.modified desc) AS ranking
-						from historiquesdroits h
-						WHERE h."created" < \'' . $dates['deb'] . '\'
-						ORDER BY h."created" DESC
-					) epr
-				WHERE epr.ranking = 1
+				SELECT
+					DISTINCT ON (personne_id) personne_id,
+					etatdosrsa
+				FROM
+					historiquesdroits h
+				WHERE created < \'' . $dates['deb'] . '\'
+				ORDER BY
+					personne_id,
+					created DESC
 			) etat_precedent ON etat_precedent.personne_id = "Personne"."id"';
 
 			$query['conditions'][] = "(etat_precedent.etatdosrsa is null OR etat_precedent.etatdosrsa in ('5','6'))";
