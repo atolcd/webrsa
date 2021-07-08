@@ -94,7 +94,7 @@ Inflector::rules(
 CakePlugin::loadAll(
 	array(
 		'Translator' => array( 'bootstrap' => true ),
-		'AnalyseSql/AnalyseSql' => array( 'bootstrap' => true ),
+		'AnalyseSql' => array( 'bootstrap' => true ),
 		'SaveSearch' => array( 'bootstrap' => true ),
 		'SuperFixture' => array( 'bootstrap' => true ),
 		'Cake2Datepicker' => array( 'bootstrap' => true ),
