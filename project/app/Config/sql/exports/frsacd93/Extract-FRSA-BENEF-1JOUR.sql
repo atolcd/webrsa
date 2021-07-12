@@ -76,10 +76,10 @@ INNER JOIN derniersdossiersallocataires ON
 	(derniersdossiersallocataires.dossier_id = dossiers.id
 	AND derniersdossiersallocataires.personne_id = personnes.id)
 INNER JOIN prestations ON (prestations.personne_id = personnes.id AND prestations.natprest = 'RSA')
-INNER JOIN situationsdossiersrsa ON (situationsdossiersrsa.dossier_id = dossiers.id) 
+INNER JOIN situationsdossiersrsa ON (situationsdossiersrsa.dossier_id = dossiers.id)
 INNER JOIN adressesfoyers ON ( adressesfoyers.foyer_id = foyers.id AND rgadr = '01' )
 INNER JOIN adresses ON ( adressesfoyers.adresse_id = adresses.id )
-LEFT OUTER JOIN calculsdroitsrsa ON (calculsdroitsrsa.personne_id = personnes.id) 
+LEFT OUTER JOIN calculsdroitsrsa ON (calculsdroitsrsa.personne_id = personnes.id)
 LEFT OUTER JOIN personnes_referents ON (
 	personnes_referents.personne_id = personnes.id
 	AND ((personnes_referents.id IS NULL) OR (personnes_referents.id IN
@@ -106,11 +106,11 @@ prestations.rolepers IN ('DEM','CJT')
 AND (
 	dossiers.id IN (
 		SELECT dossiersmodifies.dossier_id FROM dossiersmodifies
-		WHERE dossiersmodifies.modified >= (now() - interval '1' DAY)
+		WHERE dossiersmodifies.modified >= (now() - interval '7' DAY)
 	)
 	OR  foyers.id IN (
 		SELECT evenements.foyer_id FROM evenements
-		WHERE evenements.dtliq >= (now() - interval '3' DAY)
+		WHERE evenements.dtliq >= (now() - interval '7' DAY)
 	)
 )
 ) to '/etl/rsa/out/FRSA/beneficiaire/BENEF_W_yyyy_MM_dd__hh_mm.csv' WITH DELIMITER AS ';' CSV HEADER;
