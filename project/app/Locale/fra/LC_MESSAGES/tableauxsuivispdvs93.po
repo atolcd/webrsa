@@ -614,16 +614,19 @@ msgid "Tableaub7.avec.ou.sans"
 msgstr "avec ou sans sortie de l'accompagnement"
 
 msgid "Tableaub7.avec"
-msgstr "et maintenues dans l'accompagnement"
+msgstr "avec maintien dans l'accompagnement (B7)"
 
 msgid "Tableaub7.sans"
-msgstr "et sorties de l'accompagnement (D2)"
+msgstr "avec sortie de l'accompagnement (D2)"
 
 msgid "Tableaub7.par.type.contrat"
 msgstr "Accès à l'emploi : nombre d'accès à l'emploi par type de contrat"
 
 msgid "Tableaub7.par.famille.romev3"
 msgstr "Accès à l'emploi : nombre d'accès à l'emploi par familles professionnelles"
+
+msgid "Tableaub7.note.7a"
+msgstr "Note : Ce tableau valorise l'accès à l'emploi en comptabilisant toute personne ayant eu un B7 et/ou un D2 sur l'année (Lignes 2 et 3). Pour la ligne 1, n'est comptabilisé qu'un seul formulaire pour la période (Exemple d'un participant avec un B7 puis un D2 sortie avec \"accès à l'emploi\" : seul le D2 est compté dans cette ligne 1)."
 
 # ------------------------------------------------------------------------------
 # Tableau B7 + D2 par type de contrat

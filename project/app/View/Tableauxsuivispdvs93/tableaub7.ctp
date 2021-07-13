@@ -28,4 +28,7 @@
 	<br />
 	<br />
 	<?php include_once  dirname( __FILE__ ).DS.'footer.ctp' ;?>
+
+	<br>
+	<?php echo __d('tableauxsuivispdvs93', 'Tableaub7.note.7a'); ?>
 <?php endif;?>

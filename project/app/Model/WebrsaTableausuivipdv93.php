@@ -403,7 +403,10 @@
 			'tableau1b4' => 'Ficheprescription93',
 			'tableau1b5' => 'Ficheprescription93',
 			'tableau1b6' => 'Rendezvous',
-			'tableaub7' => 'Personne',
+			'tableaub7' => array (
+				'Questionnaireb7pdv93',
+				'Questionnaired2pdv93',
+			),
 			'tableaub7d2typecontrat' => array (
 				'Questionnaireb7pdv93',
 				'Questionnaired2pdv93',
@@ -4025,7 +4028,8 @@
 		}
 
 		protected function _queryCorpusB7( $tableau, array $search ) {
-			$query = $this->tableaub7 ($search, true);
+			$query[] = $this->tableaub7 ($search, true, false);
+			$query[] = $this->tableaub7 ($search, false, true);
 
 			return $query;
 		}
@@ -4513,7 +4517,7 @@
 		 * @param array $search
 		 * @return array
 		 */
-		protected function _conditionsb7b7( array $search, array $query ) {
+		protected function _conditionsb7b7( array $search, array $query) {
 			// Référent
 			if (!is_null (Hash::get( $search, 'Search.structurereferente_id' )) && Hash::get( $search, 'Search.structurereferente_id' ) != ''
 				&& Hash::get( $search, 'Search.structurereferente_id_choice' ) != '1') {
@@ -4576,36 +4580,6 @@
 				);
 			}
 
-			$annee = Hash::get( $search, 'Search.annee' );
-			// On ne prend que les allocataires ayant un questionnaire D1 dans l'année recherchée.
-			/**
-			 * Convention PIE 2018-2020
-			 * Aucune restriction sur les allocataires n'ayant pas de questionnaire D1 dans les spécifications.
-			 */
-			$query['joins'][] = array(
-				'alias' => 'Questionnaired1pdv93',
-				'table' => 'questionnairesd1pdvs93',
-				'type' => 'INNER',
-				'conditions' => array(
-					'Questionnaired1pdv93.personne_id = Personne.id',
-					'EXTRACT( \'YEAR\' FROM Questionnaired1pdv93.date_validation )' => $annee,
-				)
-			);
-
-			// On ne prend que les allocataires soumis à droits et devoirs.
-			/**
-			 * Convention PIE 2018-2020
-			 * Aucune restriction sur les allocataires n'étant pas soumis à droits et devoirs.
-			 */
-			$query['joins'][] = array(
-				'alias' => 'Calculdroitrsa',
-				'table' => 'calculsdroitsrsa',
-				'type' => 'INNER',
-				'conditions' => array (
-					'Calculdroitrsa.personne_id = Personne.id',
-					'Calculdroitrsa.toppersdrodevorsa' => '1',
-				),
-			);
 
 			return $query;
 		}
@@ -4615,7 +4589,7 @@
 		 * @param array $search
 		 * @return array
 		 */
-		public function tableaub7( array $search, $returnQuery = false, $returnForCorpus = false ) {
+		public function tableaub7( array $search, $returnQueryB7 = false, $returnQueryD2 = false, $returnForCorpus = false ) {
 			$questionnaireb7pdv93 = ClassRegistry::init( 'Questionnaireb7pdv93' );
 			$questionnaired2pdv93 = ClassRegistry::init( 'Questionnaired2pdv93' );
 			$personne = ClassRegistry::init( 'Personne' );
@@ -4628,162 +4602,126 @@
 			}
 
 			/*
-			 * Toutes les personnes ayant un questionnaire B7 ou un questionnaire D2
-			 */
-			// Questionnaires b7
-			$query = array (
-				'fields' => array (
-					'DISTINCT ON ("Personne"."id") "Personne"."id" as Personne__id',
-				),
-				'joins' => array (
-					array(
-						'alias' => 'Questionnaireb7pdv93',
-						'table' => 'questionnairesb7pdvs93',
-						'type' => 'INNER',
-						'conditions' => array(
-							'Questionnaireb7pdv93.personne_id = Personne.id',
-							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $annee,
-						),
-						'order' => array (
-							'Questionnaireb7pdv93.id DESC',
-						),
-					),
-				),
-				'contain' => array (
-					'Questionnaireb7pdv93',
-				)
-			);
-			$query = $this->_conditionsb7b7($search, $query);
-			if($returnForCorpus) {
-				$tabCorpus[] = $query;
-			}
-			else {
-				$personneb7s = $personne->find ('all', $query);
-			}
-
-			// Questionnaires d2
-			$query = array (
-				'fields' => array (
-					'DISTINCT ON ("Personne"."id") "Personne"."id" as Personne__id',
-				),
-				'joins' => array(
-					array(
-						'alias' => 'Questionnaired2pdv93',
-						'table' => 'questionnairesd2pdvs93',
-						'type' => 'INNER',
-						'conditions' => array(
-							'Questionnaired2pdv93.personne_id = Personne.id',
-							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $annee,
-							'Questionnaired2pdv93.situationaccompagnement' => 'sortie_obligation',
-							'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->_sortieaccompagnementd2pdv93_ids (),
-						),
-						'order' => array (
-							'Questionnaired2pdv93.id DESC',
-						),
-					)
-				),
-				'contain' => array (
-					'Questionnaired2pdv93',
-				)
-			);
-			$query = $this->_conditionsb7b7($search, $query);
-			if($returnForCorpus) {
-				$tabCorpus[] = $query;
-			}
-			else {
-				$personned2s = $personne->find ('all', $query);
-			}
-
-			/*
-			 * Toutes les personnes ayant un questionnaire B7 ou un questionnaire D2 = 'maintien'
+			 * Tout questionnaire D2 en "sortie_obligation"
 			 */
 			/**
 			 * Convention PIE 2018-2020
 			 * Aucune restriction sur les allocataires ayant un questionnaire D2.
 			 */
 			$query = array (
-				'fields' => array (
-					'DISTINCT ON ("Personne"."id") "Personne"."id" as Personne__id',
-				),
-				'contain' => array (
-					'Questionnaireb7pdv93',
-					'Questionnaired2pdv93',
-				),
 				'joins' => array(
 					array(
-						'alias' => 'Questionnaireb7pdv93',
-						'table' => 'questionnairesb7pdvs93',
+						'table' => 'personnes',
+						'alias' => 'Personne',
 						'type' => 'INNER',
-						'conditions' => array(
-							'Questionnaireb7pdv93.personne_id = Personne.id',
-							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $annee,
-						),
-						'order' => array (
-							'Questionnaireb7pdv93.id DESC',
-						),
+						'conditions' => 'Questionnaired2pdv93.personne_id = Personne.id'
 					),
 					array(
-						'alias' => 'Questionnaired2pdv93',
-						'table' => 'questionnairesd2pdvs93',
-						'type' => 'LEFT',
+						'table' => 'questionnairesd1pdvs93',
+						'alias' => 'Questionnaired1pdv93',
+						'type' => 'INNER',
+						'conditions' => 'Questionnaired2pdv93.questionnaired1pdv93_id = Questionnaired1pdv93.id'
+					),
+					array(
+						'alias' => 'Situationallocataire',
+						'table' => 'situationsallocataires',
+						'type' => 'INNER',
 						'conditions' => array(
-							'Questionnaired2pdv93.personne_id = Personne.id',
-							'Questionnaired2pdv93.situationaccompagnement' => 'maintien',
-							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $annee,
+							'Situationallocataire.id = Questionnaired1pdv93.situationallocataire_id',
 						)
 					),
-				)
+					array(
+						'table' => 'sortiesaccompagnementsd2pdvs93',
+						'alias' => 'Sortieaccompagnementd2pdv93',
+						'type' => 'LEFT OUTER',
+						'conditions' => 'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id = "Sortieaccompagnementd2pdv93"."id"'
+					),
+				),
+				'recursive' => -1,
+				'conditions' => array(
+					"EXTRACT( 'YEAR' FROM Questionnaired2pdv93.date_validation )" => $annee,
+					array(
+						'Questionnaired2pdv93.situationaccompagnement' => 'sortie_obligation',
+						'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->_sortieaccompagnementd2pdv93_ids (),
+					),
+					'OR' => array(
+						"Situationallocataire.toppersdrodevorsa = '1'",
+						"Questionnaired2pdv93.personne_id IN (
+							SELECT
+								historiquesdroits.personne_id AS historiquesdroits__personne_id
+							FROM
+								historiquesdroits AS historiquesdroits
+							WHERE
+								historiquesdroits.personne_id = Questionnaired2pdv93.personne_id
+								AND historiquesdroits.toppersdrodevorsa = '1'
+								AND ( historiquesdroits.created, historiquesdroits.modified ) OVERLAPS ( DATE '" . $annee . "-01-01', DATE '" . $annee . "-12-31' ) )"
+					)
+				),
+				'contain' => false,
 			);
+
 			$query = $this->_conditionsb7b7($search, $query);
+
+			if ($returnQueryD2) {
+				return $query;
+			}
+
 			if($returnForCorpus) {
 				$tabCorpus[] = $query;
 			}
 			else {
-				$personneb7smaintenues = $personne->find ('all', $query);
+				$personnes = $questionnaired2pdv93->find ('all', $query);
 			}
 
-			/*
-			 * Toutes les personnes ayant un questionnaire B7 ou un questionnaire D2 = 'sortie_obligation'
-			 * et une des 6 sorties emploi
-			 */
-			/**
-			 * Convention PIE 2018-2020
-			 * Aucune restriction sur les allocataires n'ayant pas un questionnaire B7.
-			 */
-			$query = array (
-				'fields' => array (
-					'DISTINCT ON ("Personne"."id") "Personne"."id" as Personne__id',
-				),
-				'contain' => array (
-					'Questionnaireb7pdv93',
-					'Questionnaired2pdv93',
+			// Variables utilisées pour le calcul final
+			$maintenuesSorties = array ();
+			$personneb7ssorties = array();
+			$personneb7smaintenues = array();
+
+			// Tout questionnaire B7
+			$query = array(
+				'fields' => array(
+					'DISTINCT ON ("Questionnaireb7pdv93"."id") "Questionnaireb7pdv93"."id"',
+					'Personne.id'
 				),
 				'joins' => array(
 					array(
-						'alias' => 'Questionnaireb7pdv93',
-						'table' => 'questionnairesb7pdvs93',
-						'type' => 'LEFT',
-						'conditions' => array(
-							'Questionnaireb7pdv93.personne_id = Personne.id',
-							'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $annee,
-						)
+						'table' => 'personnes',
+						'alias' => 'Personne',
+						'type' => 'INNER',
+						'conditions' => 'Questionnaireb7pdv93.personne_id = Personne.id'
 					),
 					array(
-						'alias' => 'Questionnaired2pdv93',
-						'table' => 'questionnairesd2pdvs93',
+						'alias' => 'Situationallocataire',
+						'table' => 'situationsallocataires',
 						'type' => 'INNER',
 						'conditions' => array(
-							'Questionnaired2pdv93.personne_id = Personne.id',
-							'Questionnaired2pdv93.situationaccompagnement' => 'sortie_obligation',
-							'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->_sortieaccompagnementd2pdv93_ids (),
-							'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $annee,
+							'Situationallocataire.personne_id = Questionnaireb7pdv93.personne_id'
 						)
-					),
+					)
+				),
+				'conditions' => array(
+					"EXTRACT( 'YEAR' FROM Questionnaireb7pdv93.created )" => $annee,
+					'OR' => array(
+						"Situationallocataire.toppersdrodevorsa = '1'",
+						"Questionnaireb7pdv93.personne_id IN (
+							SELECT
+								historiquesdroits.personne_id AS historiquesdroits__personne_id
+							FROM
+								historiquesdroits AS historiquesdroits
+							WHERE
+								historiquesdroits.personne_id = Questionnaireb7pdv93.personne_id
+								AND historiquesdroits.toppersdrodevorsa = '1'
+								AND ( historiquesdroits.created, historiquesdroits.modified ) OVERLAPS ( DATE '" . $annee . "-01-01', DATE '" . $annee . "-12-31' ) )"
+					)
+				),
+				'order' => array(
+					'Questionnaireb7pdv93.id'
 				)
 			);
 			$query = $this->_conditionsb7b7($search, $query);
 
-			if ($returnQuery) {
+			if ($returnQueryB7) {
 				return $query;
 			}
 
@@ -4791,17 +4729,20 @@
 				$tabCorpus[] = $query;
 				return $tabCorpus;
 			}
-			else {
-				$personneb7ssorties = $personne->find ('all', $query);
-			}
+			$personneb7smaintenues = $questionnaireb7pdv93->find ('all', $query);
 
 			// Dédoublonnage de maintenues_sorties
-			$maintenuesSorties = array ();
-			foreach ($personneb7s as $value) {
+			foreach ($personneb7smaintenues as $value) {
 				$maintenuesSorties[$value['Personne']['id']] = $value['Personne']['id'];
 			}
-			foreach ($personned2s as $value) {
-				$maintenuesSorties[$value['Personne']['id']] = $value['Personne']['id'];
+			foreach($personnes as $personne) {
+				// avec ou sans sortie de l'accompagnement
+				$maintenuesSorties[$personne['Questionnaired2pdv93']['personne_id']] = $personne['Questionnaired2pdv93']['personne_id'];
+
+				if($personne['Questionnaired2pdv93']['situationaccompagnement'] == 'sortie_obligation') {
+					// avec sortie de l'accompagnement (D2)
+					$personneb7ssorties[$personne['Questionnaired2pdv93']['id']] = $personne['Questionnaired2pdv93']['id'];
+				}
 			}
 
 			$return = array();
@@ -4848,7 +4789,10 @@
 			// Questionnaires b7
 			$query = array (
 				'fields' => array_merge (
-					array ('DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"'),
+					array(
+						'DISTINCT ON ("Questionnaireb7pdv93"."id") "Questionnaireb7pdv93"."id"',
+						'Personne.id'
+					),
 					$questionnaireb7pdv93->fields (),
 					ClassRegistry::init( 'Dureeemploi' )->fields (),
 					array (
@@ -4866,7 +4810,19 @@
 					'Dureeemploi',
 				),
 				'conditions' => array(
-					'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $annee,
+					'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.created )' => $annee,
+					'OR' => array(
+						"Situationallocataire.toppersdrodevorsa = '1'",
+						"Questionnaireb7pdv93.personne_id IN (
+							SELECT
+								historiquesdroits.personne_id AS historiquesdroits__personne_id
+							FROM
+								historiquesdroits AS historiquesdroits
+							WHERE
+								historiquesdroits.personne_id = Questionnaireb7pdv93.personne_id
+								AND historiquesdroits.toppersdrodevorsa = '1'
+								AND ( historiquesdroits.created, historiquesdroits.modified ) OVERLAPS ( DATE '" . $annee . "-01-01', DATE '" . $annee . "-12-31' ) )"
+					)
 				),
 				'joins' => array (
 					array(
@@ -4877,6 +4833,14 @@
 							'Questionnaireb7pdv93.personne_id = Personne.id',
 						)
 					),
+					array(
+						'alias' => 'Situationallocataire',
+						'table' => 'situationsallocataires',
+						'type' => 'INNER',
+						'conditions' => array(
+							'Situationallocataire.personne_id = Questionnaireb7pdv93.personne_id'
+						)
+					)
 				),
 			);
 			$query = $this->_conditionsb7b7($search, $query);
@@ -4896,7 +4860,6 @@
 			// Questionnaire D2
 			$query = array (
 				'fields' => array_merge (
-					array ('DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"'),
 					$questionnaired2pdv93->fields (),
 					ClassRegistry::init( 'Dureeemploi' )->fields (),
 					array (
@@ -4917,6 +4880,18 @@
 					'Questionnaired2pdv93.situationaccompagnement' => 'sortie_obligation',
 					'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->_sortieaccompagnementd2pdv93_ids (),
 					'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $annee,
+					'OR' => array(
+						"Situationallocataire.toppersdrodevorsa = '1'",
+						"Questionnaired2pdv93.personne_id IN (
+							SELECT
+								historiquesdroits.personne_id AS historiquesdroits__personne_id
+							FROM
+								historiquesdroits AS historiquesdroits
+							WHERE
+								historiquesdroits.personne_id = Questionnaired2pdv93.personne_id
+								AND historiquesdroits.toppersdrodevorsa = '1'
+								AND ( historiquesdroits.created, historiquesdroits.modified ) OVERLAPS ( DATE '" . $annee . "-01-01', DATE '" . $annee . "-12-31' ) )"
+					)
 				),
 				'joins' => array (
 					array(
@@ -4925,6 +4900,20 @@
 						'type' => 'INNER',
 						'conditions' => array(
 							'Questionnaired2pdv93.personne_id = Personne.id',
+						)
+					),
+					array(
+						'table' => 'questionnairesd1pdvs93',
+						'alias' => 'Questionnaired1pdv93',
+						'type' => 'INNER',
+						'conditions' => 'Questionnaired2pdv93.questionnaired1pdv93_id = Questionnaired1pdv93.id'
+					),
+					array(
+						'alias' => 'Situationallocataire',
+						'table' => 'situationsallocataires',
+						'type' => 'INNER',
+						'conditions' => array(
+							'Situationallocataire.id = Questionnaired1pdv93.situationallocataire_id',
 						)
 					),
 				),
@@ -5114,11 +5103,39 @@
 
 			// Questionnaires b7
 			$query = array (
+				'fields' => array_merge (
+					array(
+						'DISTINCT ON ("Questionnaireb7pdv93"."id") "Questionnaireb7pdv93"."id"',
+						'Personne.id'
+					),
+					$questionnaireb7pdv93->fields (),
+					array (
+						'Expproromev3.id',
+						'Expproromev3.familleromev3_id',
+						'Expproromev3.domaineromev3_id',
+						'Expproromev3.metierromev3_id',
+						'Expproromev3.appellationromev3_id',
+						'Expproromev3.created',
+						'Expproromev3.modified',
+					)
+				),
 				'contain' => array (
 					'Expproromev3',
 				),
 				'conditions' => array (
-					'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.dateemploi )' => $annee,
+					'EXTRACT( \'YEAR\' FROM Questionnaireb7pdv93.created )' => $annee,
+					'OR' => array(
+						"Situationallocataire.toppersdrodevorsa = '1'",
+						"Questionnaireb7pdv93.personne_id IN (
+							SELECT
+								historiquesdroits.personne_id AS historiquesdroits__personne_id
+							FROM
+								historiquesdroits AS historiquesdroits
+							WHERE
+								historiquesdroits.personne_id = Questionnaireb7pdv93.personne_id
+								AND historiquesdroits.toppersdrodevorsa = '1'
+								AND ( historiquesdroits.created, historiquesdroits.modified ) OVERLAPS ( DATE '" . $annee . "-01-01', DATE '" . $annee . "-12-31' ) )"
+					)
 				),
 				'joins' => array(
 					array(
@@ -5137,6 +5154,14 @@
 							'Questionnaireb7pdv93.personne_id = Personne.id'
 						)
 					),
+					array(
+						'alias' => 'Situationallocataire',
+						'table' => 'situationsallocataires',
+						'type' => 'INNER',
+						'conditions' => array(
+							'Situationallocataire.personne_id = Questionnaireb7pdv93.personne_id'
+						)
+					)
 				),
 			);
 			$query = $this->_conditionsb7b7($search, $query);
@@ -5159,6 +5184,18 @@
 					'Questionnaired2pdv93.situationaccompagnement' => 'sortie_obligation',
 					'Questionnaired2pdv93.sortieaccompagnementd2pdv93_id' => $this->_sortieaccompagnementd2pdv93_ids (),
 					'EXTRACT( \'YEAR\' FROM Questionnaired2pdv93.date_validation )' => $annee,
+					'OR' => array(
+						"Situationallocataire.toppersdrodevorsa = '1'",
+						"Questionnaired2pdv93.personne_id IN (
+							SELECT
+								historiquesdroits.personne_id AS historiquesdroits__personne_id
+							FROM
+								historiquesdroits AS historiquesdroits
+							WHERE
+								historiquesdroits.personne_id = Questionnaired2pdv93.personne_id
+								AND historiquesdroits.toppersdrodevorsa = '1'
+								AND ( historiquesdroits.created, historiquesdroits.modified ) OVERLAPS ( DATE '" . $annee . "-01-01', DATE '" . $annee . "-12-31' ) )"
+					)
 				),
 				'contain' => array (
 					'Emploiromev3',
@@ -5178,6 +5215,20 @@
 						'type' => 'INNER',
 						'conditions' => array(
 							'Questionnaired2pdv93.personne_id = Personne.id'
+						)
+					),
+					array(
+						'table' => 'questionnairesd1pdvs93',
+						'alias' => 'Questionnaired1pdv93',
+						'type' => 'INNER',
+						'conditions' => 'Questionnaired2pdv93.questionnaired1pdv93_id = Questionnaired1pdv93.id'
+					),
+					array(
+						'alias' => 'Situationallocataire',
+						'table' => 'situationsallocataires',
+						'type' => 'INNER',
+						'conditions' => array(
+							'Situationallocataire.id = Questionnaired1pdv93.situationallocataire_id',
 						)
 					),
 				),
@@ -5209,8 +5260,11 @@
 				$tableauRomev3['D2'][$idFamille] = 0;
 				$tableauRomev3['TOTAL'][$idFamille] = 0;
 
-				foreach ($questionnaireb7s as $questionnaireb7) {
-					if ($idFamille == $questionnaireb7['Expproromev3']['familleromev3_id']) {
+				foreach ($questionnaireb7s as $key => $questionnaireb7) {
+					if ($idFamille == $questionnaireb7['Expproromev3']['familleromev3_id'] ||
+						(is_null($questionnaireb7['Expproromev3']['familleromev3_id'])
+						&& $famille['Familleromev3']['name'] == 'NON COMMUNIQUÉ')
+					) {
 						$tableauRomev3['B7'][$idFamille]++;
 						$tableauRomev3['TOTAL'][$idFamille]++;
 						$totalFamilleB7++;
@@ -5318,42 +5372,47 @@
 		 * Récupère les bénéficiaires du tableau b7
 		 */
 		public function resultsCorpusTableaub7($search) {
-			$Personne = ClassRegistry::init( 'Personne' );
+			$questionnaired2pdv93 = ClassRegistry::init( 'Questionnaired2pdv93' );
+			$questionnaireb7pdv93 = ClassRegistry::init( 'Questionnaireb7pdv93' );
 
 			// Récupération des requêtes initiales
-			$queries = $this->tableaub7 ($search, false, true);
+			$queries = $this->tableaub7 ($search, false, false, true);
 			$models = array (
-				$Personne,
-				$Personne,
-				$Personne,
-				$Personne,
+				$questionnaired2pdv93,
+				$questionnaireb7pdv93,
 			);
 
 			// Génération des compléments de requête pour récupérer les inofrmations à mettre dans le CSV
 			$complements = $this->_complementQuery();
-			$complements['fields'][0] = $this->fieldsB7;
-			$complements['fields'][1] = array (
-				'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'maintien\' THEN \'OUI\' ELSE \'NON\' END) AS "maintien"',
-				'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'sortie_obligation\' THEN \'OUI\' ELSE \'NON\' END) AS "sortie_obligation"',
+			$complements['fields'][0] = array (
+				'\'NON\' AS "maintien"',
+				'\'OUI\' AS "sortie_obligation"',
 			);
-			$complements['fields'][2] = array_merge (
+			$complements['fields'][1] = array_merge (
 				$this->fieldsB7,
-				array (
-					'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'maintien\' THEN \'OUI\' ELSE \'NON\' END) AS "maintien"',
-					'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'sortie_obligation\' THEN \'OUI\' ELSE \'NON\' END) AS "sortie_obligation"',
-				)
-			);
-			$complements['fields'][3] = array_merge (
-				$this->fieldsB7,
-				array (
-					'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'maintien\' THEN \'OUI\' ELSE \'NON\' END) AS "maintien"',
-					'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'sortie_obligation\' THEN \'OUI\' ELSE \'NON\' END) AS "sortie_obligation"',
-				)
-			);
-			$complements['joins'][0] = $this->joinsB7;
-			$complements['joins'][2] = $this->joinsB7;
-			$complements['joins'][3] = $this->joinsB7;
+				array(
+					'\'OUI\' AS "maintien"',
+					'\'NON\' AS "sortie_obligation"',
+				));
 
+			// Ajout des joins pour les questionnaires D2
+			foreach($this->joinsB7 as $join) {
+				if($join['alias'] != 'Typeemploi') {
+					if(strpos($join['conditions'][0], 'Questionnaireb7pdv93') !== false) {
+						$join['conditions'][0] = str_replace('Questionnaireb7pdv93', 'Questionnaired2pdv93', $join['conditions'][0]);
+						if(strpos($join['conditions'][0], 'expproromev3_id') !== false) {
+							$join['conditions'][0] = str_replace('expproromev3_id', 'emploiromev3_id', $join['conditions'][0]);
+						}
+						$complements['joins'][0][] = $join;
+					}
+				};
+			}
+			$complements['joins'][1] = $this->joinsB7;
+
+			// Ajout du order du au DISTINCT (Personne.id)
+			$complements['order'][1] = array(
+				"Personne.id"
+			);
 			// Exécution des requêtes et renvoie des résultats
 			$results = $this->_resultsCorpusB7 ($queries, $models, $complements);
 
@@ -5381,6 +5440,8 @@
 				$this->fieldsB7,
 				array (
 					'Questionnaireb7pdv93.id',
+					'\'OUI\' AS "maintien"',
+					'\'NON\' AS "sortie_obligation"',
 				)
 			);
 			$complements['fields'][1] = array (
@@ -5389,6 +5450,19 @@
 				'(CASE WHEN "Questionnaired2pdv93"."situationaccompagnement" LIKE \'sortie_obligation\' THEN \'OUI\' ELSE \'NON\' END) AS "sortie_obligation"',
 			);
 			$complements['joins'][0] = $joinsB7;
+
+			// Ajout des joins pour les questionnaires D2
+			foreach($joinsB7 as $join) {
+				if($join['alias'] != 'Typeemploi') {
+					if(strpos($join['conditions'][0], 'Questionnaireb7pdv93') !== false) {
+						$join['conditions'][0] = str_replace('Questionnaireb7pdv93', 'Questionnaired2pdv93', $join['conditions'][0]);
+						if(strpos($join['conditions'][0], 'expproromev3_id') !== false) {
+							$join['conditions'][0] = str_replace('expproromev3_id', 'emploiromev3_id', $join['conditions'][0]);
+						}
+						$complements['joins'][1][] = $join;
+					}
+				};
+			}
 
 			// Exécution des requêtes et renvoie des résultats
 			$results = $this->_resultsCorpusB7 ($queries[0], $queries[1], $complements);
@@ -5409,7 +5483,14 @@
 			// Génération des compléments de requête pour récupérer les inofrmations à mettre dans le CSV
 			$complements = $this->_complementQuery();
 
-			$complements['fields'][0] = $this->fieldsB7;
+			$complements['fields'][0] = array_merge (
+				$this->fieldsB7,
+				array (
+					'Questionnaireb7pdv93.id',
+					'\'OUI\' AS "maintien"',
+					'\'NON\' AS "sortie_obligation"',
+				)
+			);
 			$complements['fields'][1] = array_merge (
 				array (
 					'Questionnaired2pdv93.id',
@@ -5418,6 +5499,7 @@
 				),
 				$this->fieldsB7
 			);
+
 			$complements['joins'][0] = $this->joinsB7;
 			$complements['joins'][1] = array_merge (
 				array (
@@ -5462,12 +5544,15 @@
 					$query['joins'] = array_merge ($query['joins'], $complements['joins'][$key]);
 				}
 
+				// Order
+				if (isset ($complements['order'][$key])) {
+					$query['order'] = array_merge ($complements['order'][$key], $query['order']);
+				}
+
 				// Query
 				$result = $models[$key]->find ('all', $query);
-
 				$results = array_merge ($results, $result);
 			}
-
 			return $results;
 		}
 
@@ -5476,6 +5561,7 @@
 		 */
 		protected function _complementQuery () {
 			$Personne = ClassRegistry::init( 'Personne' );
+			$Informationpe = ClassRegistry::init( 'Informationpe' );
 
 			$joins = array (
 				'all' => array (
@@ -5499,6 +5585,8 @@
 					$Personne->Ficheprescription93->join ( 'Referent', array( 'type' => 'LEFT OUTER' ) ),
 					$Personne->Ficheprescription93->Referent->join ( 'Structurereferente', array( 'type' => 'LEFT OUTER' ) ),
 					$Personne->Ficheprescription93->join ( 'Motifactionachevefp93', array( 'type' => 'LEFT OUTER' ) ),
+					$Informationpe->joinPersonneInformationpe(),
+					$Informationpe->join( 'Historiqueetatpe', array( 'LEFT OUTER' ) ),
 				)
 			);
 
@@ -5512,12 +5600,13 @@
 					'Personne.prenom',
 					'Personne.dtnai',
 					'Personne.sexe',
+					'Personne.nir',
 					'Prestation.rolepers',
 					'Adresse.codepos',
 					'Adresse.nomcom',
 					'Foyer.sitfam',
 					'Dossier.matricule',
-					'(CASE WHEN "Personne"."nir" IS NOT NULL THEN \'OUI\' ELSE \'NON\' END) AS "inscritpoleemploi"',// Inscrit à Pôle Emploi
+					'(CASE WHEN "Historiqueetatpe"."etat" LIKE \'inscription\' THEN \'OUI\' ELSE \'NON\' END) AS "inscritpoleemploi"',// Inscrit à Pôle Emploi
 					'Contratinsertion.dd_ci',
 					'Contratinsertion.df_ci',
 					// Thématique dernier CER
