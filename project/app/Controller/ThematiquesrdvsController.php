@@ -59,7 +59,7 @@
 			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit' ) );
 
 			$options = $this->viewVars['options'];
-			$options['Thematiquerdv']['statutrdv_id'] = $this->Thematiquerdv->Statutrdv->find( 'list', array( 'contain' => false, 'order' => array( 'libelle' ) ) );
+			$options['Thematiquerdv']['statutrdv_id'] = $this->Thematiquerdv->Statutrdv->find( 'list', array( 'contain' => false, 'conditions' => array('actif' => 1), 'order' => array( 'libelle' ) ) );
 			$options['Thematiquerdv']['typerdv_id'] = $this->Thematiquerdv->Typerdv->find( 'list', array( 'contain' => false, 'order' => array( 'libelle' ) ) );
 			$options['Thematiquerdv']['linkedmodel'] = $this->Thematiquerdv->linkedModels();
 			$this->set( compact( 'options' ) );

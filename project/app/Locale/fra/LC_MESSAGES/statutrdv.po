@@ -43,3 +43,6 @@ msgstr "Non"
 
 msgid "ENUM::PROVOQUEPASSAGECOMMISSION::1"
 msgstr "Oui"
+
+msgid "Statutrdv.actif"
+msgstr "Actif"

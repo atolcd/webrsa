@@ -145,7 +145,7 @@
 		protected function _setOptions() {
 			$this->set( 'struct', $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'optgroup', 'prefix' => false ) ) );
 			$this->set( 'permanences', $this->Rendezvous->Permanence->listOptions() );
-			$this->set( 'statutrdv', $this->Rendezvous->Statutrdv->find( 'list' ) );
+			$this->set( 'statutrdv', $this->Rendezvous->Statutrdv->find( 'list', array('conditions' => array('actif' => 1)) ) );
 			$this->set( 'options', (array)Hash::get( $this->Rendezvous->enums(), 'Rendezvous' ) );
 		}
 
@@ -724,7 +724,7 @@
 						'referent_id' => $this->InsertionsBeneficiaires->referents(),
 						'permanence_id' => $this->Rendezvous->Permanence->listOptions(),
 						'typerdv_id' => $this->Rendezvous->Typerdv->find( 'list', array( 'conditions' => array('Typerdv.actif_dossier' => true) ) ),
-						'statutrdv_id' => $this->Rendezvous->Statutrdv->find( 'list' ),
+						'statutrdv_id' => $this->Rendezvous->Statutrdv->find( 'list', array('conditions' => array('actif' => 1)) ),
 						'permanence_id' => $this->Rendezvous->Permanence->listOptions()
 					)
 				)

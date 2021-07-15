@@ -6,7 +6,8 @@
 				array(
 					'Statutrdv.id',
 					'Statutrdv.libelle',
-					'Statutrdv.code_statut'
+					'Statutrdv.code_statut',
+					'Statutrdv.actif' => array( 'type' => 'checkbox', 'value' => 1 )
 				),
 				( 58 == Configure::read( 'Cg.departement' ) )
 					? array( 'Statutrdv.provoquepassagecommission' => array( 'type' => 'radio' ) )

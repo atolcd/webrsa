@@ -6,6 +6,7 @@
 				array(
 					'Statutrdv.libelle',
 					'Statutrdv.code_statut',
+					'Statutrdv.actif' => array( 'type' => 'boolean' ),
 				),
 				( 58 == Configure::read( 'Cg.departement' ) )
 					? array( 'Statutrdv.provoquepassagecommission' )

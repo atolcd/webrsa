@@ -147,7 +147,7 @@
 					$result,
 					array(
 						'Rendezvous' => array(
-							'statutrdv_id' => $this->Rendezvous->Statutrdv->find( 'list' ),
+							'statutrdv_id' => $this->Rendezvous->Statutrdv->find( 'list', array('conditions' => array('actif' => 1)) ),
 							'typerdv_id' => $this->Rendezvous->Typerdv->find( 'list' ),
 							'permanence_id' => $this->Rendezvous->Permanence->find( 'list' )
 						)
