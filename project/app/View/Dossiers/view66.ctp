@@ -147,6 +147,56 @@
 		</tbody>
 	</table>
 
+	<?php
+		if ($hasDoublon == true) {
+	?>
+	<h2><?php echo __d('dossiers', 'Dossier.doublon.titre') ?></h2>
+	<table style="width:100%;">
+		<thead>
+					<tr>
+						<th><?php echo __d('dossiers', 'Dossier.doublon.role') ?></th>
+						<th><?php echo __d('dossiers', 'Dossier.doublon.nomdoublon') ?></th>
+						<th><?php echo __d('dossiers', 'Dossier.doublon.prenomdoublon') ?></th>
+						<th><?php echo __d('dossiers', 'Dossier.doublon.numrsadoublon') ?></th>
+						<th><?php echo __d('dossiers', 'Dossier.doublon.etatdosrsadoublon') ?></th>
+						<th><?php echo __d('dossiers', 'Dossier.doublon.sdddoublon') ?></th>
+						<th><?php echo __d('dossiers', 'Dossier.doublon.voirdossierdoublon') ?></th>
+					</tr>
+		</thead>
+		<tbody>
+			<?php
+				$isEven = true;
+				foreach( array( 'DEM', 'CJT' ) as $roleEp ) {
+					if(!empty($details[$roleEp]['DoublonPersonne'])) {
+						foreach($details[$roleEp]['DoublonPersonne'] as $doublon) {
+							$class = $isEven == true ? 'even' : 'odd';
+							?>
+							<tr class="<?php echo $class ?>">
+								<td><?php echo __d('prestation', 'ENUM::ROLEPERS::' . $roleEp);?></td>
+								<td><?php echo $doublon['Personne']['nom']?></td>
+								<td><?php echo $doublon['Personne']['prenom']?></td>
+								<td><?php echo $doublon['Dossier']['numdemrsa']?></td>
+								<td><?php echo __d('dossier', 'ENUM::ETATDOSRSA::' . $doublon['Situationdossierrsa']['etatdosrsa'] )?></td>
+								<td><?php echo __d('calculdroitrsa', 'ENUM::TOPPERSDRODEVORSA::' . $doublon['Calculdroitrsa']['toppersdrodevorsa'] )?></td>
+								<td>
+								<?php
+									echo $this->Xhtml->viewLink(
+										__d('dossiers', 'Dossier.autres.voir'),
+										array( 'controller' => 'dossiers', 'action' => 'view', $doublon['Dossier']['id'] )
+									);
+								?>
+								</td>
+							</tr>
+							<?php
+							$isEven = !$isEven;
+						}
+					}
+				}
+		?>
+		</tbody>
+	</table>
+	<?php } ?>
+
 	<div class="col-2 gauche">
 		<h2>Suivi du parcours</h2>
 		<table>
@@ -743,7 +793,7 @@
 				<tr>
 					<th></th>
 					<th>Demandeur</th>
-					<th>Conjoin</th>
+					<th>Conjoint</th>
 				</tr>
 			</thead>
 		<?php

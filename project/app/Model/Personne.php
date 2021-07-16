@@ -948,6 +948,43 @@
 		}
 
 		/**
+		 * Récupère les personnes qui ont le même nom / prénom / date de naissance
+		 * et qui ne sont pas dans le(s) dossier(s) passé(s) par la variable $dossierIds
+		 * @param array $personne
+		 * @param array $dossierIds
+		 *
+		 * @return array
+		 */
+		public function getDoublonPersonne($personne, $dossierIds) {
+			return $this->find(
+				'all',
+				array(
+					'fields' => array(
+						'Personne.nom',
+						'Personne.prenom',
+						'Dossier.numdemrsa',
+						'Situationdossierrsa.etatdosrsa',
+						'Calculdroitrsa.toppersdrodevorsa',
+						'Dossier.id'
+					),
+					'recursive' => -1,
+					'joins' => array(
+						$this->join('Foyer'),
+						$this->Foyer->join('Dossier'),
+						$this->join('Calculdroitrsa'),
+						$this->Foyer->Dossier->join('Situationdossierrsa'),
+					),
+					'conditions' => array(
+						'Personne.nom ILIKE' => $personne['Personne']['nom'],
+						'Personne.prenom ILIKE' => $personne['Personne']['prenom'],
+						'Personne.dtnai' => $personne['Personne']['dtnai'],
+						'Dossier.id NOT IN' => $dossierIds
+					)
+				)
+			);
+		}
+
+		/**
 		 * Retourne l'historique des informations de contact d'une personnes
 		 *
 		 * @param int $id

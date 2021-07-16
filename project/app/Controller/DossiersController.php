@@ -478,6 +478,9 @@
 
 			$optionsep = $this->Dossier->Foyer->Personne->Dossierep->Passagecommissionep->enums();
 			$roles = Set::extract( '{n}.Prestation.rolepers', $personnesFoyer );
+
+			// Récupération des informations par rôle
+			$hasDoublon = false;
 			foreach( $roles as $index => $role ) {
 				// Récupération de l'id du demandeur
 				if($role == 'DEM') {
@@ -979,8 +982,22 @@
 					$personnesFoyer[$index]['AncienDossier'] = $this->Dossier->Foyer->Personne->WebrsaPersonne->getAnciensDossiers( $personnesFoyer[$index]['Personne']['id'] );
 				}
 
-				$details[$role] = $personnesFoyer[$index];
+				// Doublons présents en base
+				// Récupération des autres demandes RSA de la personne pour ne pas les prendre en compte
+				$dossierIdsDejaVu = array($details['Dossier']['id']);
+				if(!empty($autreNumdemrsaParAllocataire)) {
+					foreach( $autreNumdemrsaParAllocataire as $autreNumRSA) {
+						$dossierIdsDejaVu[] = $autreNumRSA['Dossier']['id'];
+					}
+				}
 
+				$personnesFoyer[$index]['DoublonPersonne'] = $this->Dossier->Foyer->Personne->getDoublonPersonne($personnesFoyer[$index], $dossierIdsDejaVu);
+
+				if(!empty($personnesFoyer[$index]['DoublonPersonne'])) {
+					$hasDoublon = true;
+				}
+
+				$details[$role] = $personnesFoyer[$index];
 
 				// Calcul des Apre par années
 				if( Configure::read( 'Cg.departement' ) == 66 ) {
@@ -1004,6 +1021,7 @@
 					}
 				}
 			}
+			$this->set( 'hasDoublon', $hasDoublon );
 
 			// Historique des modifications de l'état des dossiers
 			$histos = $this->Historiquedroit->find('all', array(

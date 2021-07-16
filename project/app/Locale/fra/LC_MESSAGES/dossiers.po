@@ -301,6 +301,34 @@ msgstr "État dossier EP"
 msgid "Dossier.derniere.ep.avis"
 msgstr "de la commission d'EP"
 
+#################### Bloc Doublons des personnes du foyer ######################
+msgid "Dossier.doublon.titre"
+msgstr "Doublons des personnes du foyer"
+
+msgid "Dossier.doublon.aucun"
+msgstr "Il n'y a pas de doublon des personnes du foyer dans WebRSA"
+
+msgid "Dossier.doublon.role"
+msgstr "Doublon du"
+
+msgid "Dossier.doublon.nomdoublon"
+msgstr "Nom du doublon"
+
+msgid "Dossier.doublon.prenomdoublon"
+msgstr "Prénom du doublon"
+
+msgid "Dossier.doublon.numrsadoublon"
+msgstr "Numéro du dossier du doublon"
+
+msgid "Dossier.doublon.etatdosrsadoublon"
+msgstr "État du dossier du doublon"
+
+msgid "Dossier.doublon.sdddoublon"
+msgstr "Soumis à droit et devoir du doublon"
+
+msgid "Dossier.doublon.voirdossierdoublon"
+msgstr "Voir le dossier du doublon"
+
 # ==============================================================================
 # Changement d'état du dossier
 # ==============================================================================
