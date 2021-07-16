@@ -109,4 +109,5 @@ msgstr "Voir"
 msgid "PlanPauvrete.parcours"
 msgstr "Recherche par parcours de l'allocataire"
 
-
+msgid "Search.Personne.is_inscritpe"
+msgstr "Inscrit au Pôle Emploi ?"

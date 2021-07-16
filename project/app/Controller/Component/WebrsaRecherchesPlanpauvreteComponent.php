@@ -54,6 +54,7 @@
 						'has_dsp' => $exists,
 						'has_orientstruct' => $exists,
 						'trancheage' => Configure::read( 'Search.Options.enums.personne.Personne.trancheage'),
+						'is_inscritpe' => $exists,
 					),
 				)
 			);

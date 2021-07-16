@@ -29,7 +29,13 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array('Personne', 'Allocataire', 'Dossier', 'WebrsaCohortePlanpauvrete' );
+		public $uses = array(
+			'Personne',
+			'Allocataire',
+			'Dossier',
+			'WebrsaCohortePlanpauvrete',
+			'Informationpe'
+		);
 
 		/**
 		 * Retourne le querydata de base, en fonction du département, à utiliser
@@ -57,6 +63,8 @@
 					'Orientstruct' => 'LEFT OUTER',
 					'Rendezvous' => 'LEFT OUTER',
 					'Typerdv' => 'LEFT OUTER',
+					'Informationpe' => 'LEFT OUTER',
+					'Historiqueetatpe' => 'LEFT OUTER',
 				);
 				$query = $this->Allocataire->searchQuery( $types, 'Personne' );
 
@@ -87,7 +95,9 @@
 						$this->Personne->join('Orientstruct'),
 						$this->Personne->join('Rendezvous'),
 						$this->Personne->join('Contratinsertion'),
-						$this->Personne->join('Activite')
+						$this->Personne->join('Activite'),
+						$this->Informationpe->joinPersonneInformationpe( 'Personne', 'Informationpe', $types['Informationpe'] ),
+						$this->Informationpe->Historiqueetatpe->joinInformationpeHistoriqueetatpe( true, 'Informationpe', 'Historiqueetatpe', $types['Historiqueetatpe'] ),
 					)
 				);
 
@@ -120,6 +130,15 @@
 					);
 				}
 				// 4. Conditions
+				// Permet d'obtenir la dernière entrée de la table informationspe
+				$sqDerniereInformationpe = $this->Informationpe->sqDerniere( 'Personne' );
+				$query['conditions'][] = array(
+					'OR' => array(
+						"Informationpe.id IS NULL",
+						"Informationpe.id IN ( {$sqDerniereInformationpe} )"
+					)
+				);
+
 				// SDD & DOV
 				$query = $this->WebrsaCohortePlanpauvrete->sdddov($query);
 				$query = $this->WebrsaCohortePlanpauvrete->sdddovHistorique($query);
@@ -171,6 +190,23 @@
 					}
 				}
 			}
+
+			// Inscrit à PE ?
+			$is_inscritpe = Hash::get( $search, 'Personne.is_inscritpe' );
+			if( !in_array( $is_inscritpe, array( '', null ), true ) ) {
+				if( $is_inscritpe ) {
+					$query['conditions']['Historiqueetatpe.etat'] = 'inscription';
+				}
+				else {
+					$query['conditions'][] = array(
+						'OR' => array(
+							"Historiqueetatpe.etat <> 'inscription'",
+							'Historiqueetatpe.etat IS NULL'
+						)
+					);
+				}
+			}
+
 			return $query;
 		}
 
