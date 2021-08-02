@@ -611,15 +611,15 @@
 		 *	- sur les NIR (13) et la date de naissance
 		 *  - sur nom, prénom et date de naissance
 		 *	- sur de faibles différences de nom et prénom, plus la date de naissance,
-		 *		si la librairie fuzzystrmatch de PostgreSQL est installée.
+		 *		si la librairie pg_trgm de PostgreSQL est installée.
 		 *
 		 * @param string $personne1Alias
 		 * @param string $personne2Alias
 		 * @param boolean $memeFoyer
-		 * @param integer $differenceThreshold
+		 * @param integer $similarityThreshold
 		 * @return array
 		 */
-		public function conditionsRapprochementPersonne1Personne2( $personne1Alias = 'Personne1', $personne2Alias = 'Personne2', $memeFoyer = false, $differenceThreshold = 4 ) {
+		public function conditionsRapprochementPersonne1Personne2( $personne1Alias = 'Personne1', $personne2Alias = 'Personne2', $memeFoyer = false, $similarityThreshold = 0.3 ) {
 			$memeFoyer = ( $memeFoyer ? '=' : '<>' );
 
 			$conditions = array(
@@ -641,10 +641,10 @@
 			);
 
 			$WebrsaCheck = ClassRegistry::init( "WebrsaCheck" );
-			if( Hash::get( $WebrsaCheck->checkPostgresFuzzystrmatchFunctions(), "success" ) ) {
+			if( Hash::get( $WebrsaCheck->checkPostgresPgtrgmFunctions(), "success" ) ) {
 				$conditions['OR'][] = array(
-					"difference({$personne1Alias}.nom, {$personne2Alias}.nom) >=" => $differenceThreshold,
-					"difference({$personne1Alias}.prenom, {$personne2Alias}.prenom) >=" => $differenceThreshold,
+					"similarity({$personne1Alias}.nom, {$personne2Alias}.nom) >=" => $similarityThreshold,
+					"similarity({$personne1Alias}.prenom, {$personne2Alias}.prenom) >=" => $similarityThreshold,
 					"{$personne1Alias}.dtnai = {$personne2Alias}.dtnai"
 				);
 			}

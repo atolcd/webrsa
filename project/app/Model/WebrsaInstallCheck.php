@@ -179,7 +179,7 @@
 		/**
 		 * Vérifications concernant PostgreSQL:
 		 *	- la version utilisée
-		 *	- la présence des fonctions fuzzystrmatch
+		 *	- la présence des fonctions pg_trgm
 		 *	- la différence de date entre le serveur Web et le serveur PostgreSQL
 		 *
 		 * @return array
@@ -191,7 +191,7 @@
 			return array(
 				'Postgresql' => array(
 					'Version' => $this->Check->version( 'PostgreSQL', $Dbo->getPostgresVersion(), '8.3' ),
-					'Fuzzystrmatch' => $this->WebrsaCheck->checkPostgresFuzzystrmatchFunctions(),
+					'Pg_trgm' => $this->WebrsaCheck->checkPostgresPgtrgmFunctions(),
 					'Date' => $this->WebrsaCheck->checkPostgresTimeDifference()
 				)
 			);

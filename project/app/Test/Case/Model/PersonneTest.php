@@ -195,10 +195,10 @@
 			);
 
 			$WebrsaCheck = ClassRegistry::init( 'WebrsaCheck' );
-			if( Hash::get( $WebrsaCheck->checkPostgresFuzzystrmatchFunctions(), "success" ) ) {
+			if( Hash::get( $WebrsaCheck->checkPostgresPgtrgmFunctions(), "success" ) ) {
 				$expected['OR'][] = array(
-					'difference(Allocataire1.nom, Allocataire2.nom) >= 4',
-					'difference(Allocataire1.prenom, Allocataire2.prenom) >= 4',
+					'similarity(Allocataire1.nom, Allocataire2.nom) >= 0.3',
+					'similarity(Allocataire1.prenom, Allocataire2.prenom) >= 0.3',
 					'Allocataire1.dtnai = Allocataire2.dtnai'
 				);
 			}

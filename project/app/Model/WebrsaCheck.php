@@ -1386,24 +1386,19 @@
 
 		/**
 		 * Vérifie la présence de l'ensemble des fonctions de la librairie
-		 * PostgreSQL fuzzystrmatch.
+		 * PostgreSQL pg_trgm.
 		 *
 		 * @return array
 		 */
-		public function checkPostgresFuzzystrmatchFunctions() {
+		public function checkPostgresPgtrgmFunctions() {
 			$Dbo = ClassRegistry::init( 'User' )->getDataSource();
 
-			$version = $Dbo->getPostgresVersion();
-			$shortversion = preg_replace( '/^([0-9]+\.[0-9]+).*/', '\1', $version );
-
 			$functions = array(
-				'levenshtein',
-				'metaphone',
-				'soundex',
-				'text_soundex',
-				'difference',
-				'dmetaphone',
-				'dmetaphone_alt',
+				'similarity',
+				'show_trgm',
+				'word_similarity',
+				'show_limit',
+				'set_limit',
 				'cakephp_validate_in_list'
 			);
 			$conditions = array(
@@ -1423,15 +1418,9 @@
 				$check = array(
 					'success' => false,
 					'message' => sprintf(
-							"Problème avec les fonctions fuzzystrmatch (les fonctions suivantes sont manquantes: %s)<br/>Sous Ubuntu, il vous faut vérifier que le paquet postgresql-contrib-%s est bien installé. <br />Une fois fait, dans une console postgresql, en tant qu'administrateur, tapez: ",
-							implode( ', ', $missing ),
-							$shortversion
-						) . '<code>' . (
-							(float)$shortversion < 9
-							? sprintf('\i /usr/share/postgresql/%s/contrib/fuzzystrmatch.sql', $shortversion)
-							: 'CREATE EXTENSION fuzzystrmatch;'
-						)
-						. '</code>'
+							"Problème avec les fonctions pg_trgm (les fonctions suivantes sont manquantes: %s)<br>Dans une console postgresql, en tant qu'administrateur, tapez: ",
+							implode( ', ', $missing )
+						) . '<code> CREATE EXTENSION IF NOT EXISTS pg_trgm; </code>'
 				);
 			}
 

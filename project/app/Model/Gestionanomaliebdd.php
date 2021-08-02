@@ -29,9 +29,9 @@
 		/**
 		* FIXME
 		*/
-		public function qdPersonnesEnDoublons( $methode, $sansprestation = null, $foyerId = 'personnes.foyer_id', $differenceThreshold = 4 ) {
+		public function qdPersonnesEnDoublons( $methode, $sansprestation = null, $foyerId = 'personnes.foyer_id', $similarityThreshold = 0.3 ) {
 			$conditionsCmpAllocataire = array();
-			
+
 			// 2°) Comparaison moins stricte -> 4852@cg66_20111110_v21
 			// Ex.@cg66_20111110_v21: /personnes/index/35633
 			if( !empty( $methode ) && $methode == 'normale' ) {
@@ -57,7 +57,7 @@
 				);
 			}
 
-			// 3°) \i /usr/share/postgresql/8.4/contrib/fuzzystrmatch.sql (postgres)
+			// 3°) Voir https://www.postgresql.org/docs/11/pgtrgm.html
 			// Ex.@cg66_20111110_v21: /personnes/index/35665 (4) -> 5098@cg66_20111110_v21
 			// Ex.@cg66_20111110_v21: /personnes/index/31773 (3) -> 5206@cg66_20111110_v21
 			if( !empty( $methode ) && $methode == 'approchante' ) {
@@ -69,11 +69,11 @@
 							'SUBSTRING( TRIM( BOTH \' \' FROM p1.nir ) FROM 1 FOR 13 ) = SUBSTRING( TRIM( BOTH \' \' FROM p2.nir ) FROM 1 FOR 13 )',
 						),
 						array(
-							'difference(UPPER(p1.nom), UPPER(p2.nom)) >=' => $differenceThreshold,
+							'similarity(p1.nom, p2.nom) > ' . $similarityThreshold,
 							'OR' => array(
-								'difference(UPPER(p1.prenom), UPPER(p2.prenom) ) >=' => $differenceThreshold,
-								"UPPER(p1.prenom) LIKE UPPER(p2.prenom || ' ' || p2.prenom2 || '%')",
-								"UPPER(p2.prenom) LIKE UPPER(p1.prenom || ' ' || p1.prenom2 || '%')"
+								'similarity(p1.prenom, p2.prenom) > ' . $similarityThreshold,
+								"p1.prenom ILIKE p2.prenom || ' ' || p2.prenom2 || '%'",
+								"p2.prenom ILIKE p1.prenom || ' ' || p1.prenom2 || '%'"
 							),
 						)
 					),
@@ -141,7 +141,7 @@
 		/**
 		* FIXME
 		*/
-		public function qdPersonnesEnDoublonsBak( $methode, $prestationObligatoire = true, $foyerId = 'personnes.foyer_id', $differenceThreshold = 4 ) {
+		public function qdPersonnesEnDoublonsBak( $methode, $prestationObligatoire = true, $foyerId = 'personnes.foyer_id', $similarityThreshold = 0.3 ) {
 			$conditionsCmpAllocataire = array();
 
 			// TODO: méthode pour comparer les nirs, méthode pour comparer les noms/prénoms
@@ -196,7 +196,7 @@
 				);
 			}
 
-			// 3°) \i /usr/share/postgresql/8.4/contrib/fuzzystrmatch.sql (postgres)
+			// 3°) Voir https://www.postgresql.org/docs/11/pgtrgm.html
 			// Ex.@cg66_20111110_v21: /personnes/index/35665 (4) -> 5098@cg66_20111110_v21
 			// Ex.@cg66_20111110_v21: /personnes/index/31773 (3) -> 5206@cg66_20111110_v21
 			if( !empty( $methode ) && $methode == 'approchante' ) {
@@ -209,8 +209,8 @@
 							'p1.dtnai = p2.dtnai'
 						),
 						array(
-							'difference(p1.nom, p2.nom) >=' => $differenceThreshold,
-							'difference(p1.prenom, p2.prenom ) >=' => $differenceThreshold,
+							'similarity(p1.nom, p2.nom) >=' => $similarityThreshold,
+							'similarity(p1.prenom, p2.prenom ) >=' => $similarityThreshold,
 							'p1.dtnai = p2.dtnai'
 						)
 					)
