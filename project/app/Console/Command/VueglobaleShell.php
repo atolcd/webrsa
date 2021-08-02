@@ -304,6 +304,7 @@ class VueglobaleShell extends XShell
 						'matricule' => $personne['Dossier']['matricule'],
 						'numvoie' => $personne['Adresse']['numvoie'],
 						'libtypevoie' => $personne['Adresse']['libtypevoie'],
+						'nomvoie' => $personne['Adresse']['nomvoie'],
 						'compladr' => $personne['Adresse']['compladr'],
 						'codepos' => $personne['Adresse']['codepos'],
 						'nomcom' => $personne['Adresse']['nomcom'],
@@ -915,7 +916,6 @@ class VueglobaleShell extends XShell
 				}
 			}
 		}
-		debug($arrayXml);
 		return $arrayXml;
 	}
 
