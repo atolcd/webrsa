@@ -417,9 +417,7 @@
 					$conditions = array ();
 					if (count ($idDossierseps) > 0) {
 						$conditions = array(
-							'conditions' => array(
-								'Sanctionep58.dossierep_id IN' => $idDossierseps
-							)
+							'Sanctionep58.dossierep_id IN' => $idDossierseps
 						);
 					}
 
@@ -444,11 +442,13 @@
 							$this->Sanctionep58->Dossierep->join( 'Passagecommissionep', array( 'type' => 'LEFT OUTER' ) ),
 							$this->Sanctionep58->Dossierep->Passagecommissionep->join( 'Commissionep', array( 'type' => 'LEFT OUTER' ) )
 						),
-						'conditions' => array(
-							'Sanctionep58.origine ' => 'nonrespectppae'
+						'conditions' => array_merge(
+							$conditions,
+							array(
+								'Sanctionep58.origine' => 'nonrespectppae'
+							)
 						)
 					);
-					$query = array_merge ($query, $conditions);
 
 					// Dossiers en cours de passage pour non respect du ppae
 					$nonrespectppae = $this->Sanctionep58->find('all', $query);
