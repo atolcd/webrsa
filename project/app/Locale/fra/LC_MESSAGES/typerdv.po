@@ -38,7 +38,16 @@ msgid "Typerdv.code_type"
 msgstr "Code du type de rendez-vous"
 
 msgid "Validate::code_type::ERR"
-msgstr "Le code type doit être unique"
+msgstr "Le code du type doit être unique"
+
+msgid "Validate::libelle::ERRNotBlank"
+msgstr "Champ obligatoire"
+
+msgid "Validate::libelle::ERRUnique"
+msgstr "Ce libellé existe déjà, il doit être unique"
+
+msgid "Validate::nbabsaveplaudition::ERR"
+msgstr "Ce champ doit être numérique"
 
 msgid "Validate::motifpassageep::ERR"
 msgstr "Champ obligatoire"

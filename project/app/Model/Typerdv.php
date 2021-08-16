@@ -120,8 +120,34 @@
 						'allowEmpty' => true,
 						'message' => __d( 'typerdv', 'Validate::code_type::ERR')
 					)
+				),
+				'libelle' => array(
+					'notBlank' => array(
+						'rule' => 'notBlank',
+						'allowEmpty' => false,
+						'message' => __d( 'typerdv', 'Validate::libelle::ERRNotBlank')
+					),
+					'checkUniqueLibelle' => array(
+						'rule' => array( 'checkUnique', array( 'libelle' ) ),
+						'message' => __d( 'typerdv', 'Validate::libelle::ERRUnique')
+					),
 				)
 			);
+
+			if( Configure::read( 'Cg.departement' ) == 66 ) {
+				$this->validate = array_merge(
+					$this->validate,
+					array(
+						'nbabsaveplaudition' => array(
+							'checkNumericNbAbSavePlAudition' => array(
+								'rule' => 'numeric',
+								'allowEmpty' => true,
+								'message' => __d( 'typerdv', 'Validate::nbabsaveplaudition::ERR')
+							)
+						)
+					)
+				);
+			}
 		}
 
 		/**
