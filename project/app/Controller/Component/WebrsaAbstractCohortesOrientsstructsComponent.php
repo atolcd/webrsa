@@ -58,6 +58,7 @@
 			);
 
 			unset( $result['Orientstruct']['statut_orient']['Non orienté'] ); // FIXME: dans la conf ?
+			unset( $result['Orientstruct']['statut_orient']['Refusé'] );
 
 			return $result;
 		}
@@ -88,7 +89,7 @@
 				array(
 					'Orientstruct' => array(
 						'typeorient_id' => $departement == 93
-							? $Controller->Personne->Orientstruct->Typeorient->listOptionsCohortes93()
+							? $Controller->InsertionsBeneficiaires->typesorients()
 							: $Controller->Personne->Orientstruct->Typeorient->listOptions(),
 						'structurereferente_id' => $Controller->Personne->Orientstruct->Structurereferente->list1Options('O'),
 					),

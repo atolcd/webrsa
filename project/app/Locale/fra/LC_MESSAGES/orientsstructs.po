@@ -54,6 +54,12 @@ msgstr "Fichiers liés"
 msgid "/Orientsstructs/edit"
 msgstr "Modifier"
 
+msgid "/Orientsstructs/valider"
+msgstr "Valider"
+
+msgid "/Orientsstructs/valider/#Orientstruct.id#"
+msgstr "Valider l'orientation #Structurereferente.lib_struc# du #Orientstruct.date_valid# de #Personne.qual# #Personne.nom# #Personne.prenom#"
+
 msgid "/Orientsstructs/edit/#Orientstruct.id#"
 msgstr "Modifier l'orientation #Structurereferente.lib_struc# du #Orientstruct.date_valid# de #Personne.qual# #Personne.nom# #Personne.prenom#"
 
@@ -104,6 +110,43 @@ msgstr " "
 
 msgid "/Proposorientationscovs58/add/:title"
 msgstr "Préconiser une orientation"
+
+msgid "Orientsstructs::lib::CD93"
+msgstr "Ajouter une orientation"
+
+msgid "Orientation.validation"
+msgstr "Validation d'orientation"
+
+msgid "Orientation.propvalidation"
+msgstr "Proposition de validation"
+
+msgid "Orientstruct.dtdecisionvalidation"
+msgstr "Date de décision"
+
+msgid "Orientstruct.decisionvalidation.vide"
+msgstr "La proposition de validation est obligatoire."
+
+msgid "Orientstruct.erreur.referent"
+msgstr "Impossible d'ajouter un nouveau référent du parcours. Il est peut-être nécessaire de clôturer l'actuel."
+
+# Notices
+msgid "Orientation.notice.noorientation"
+msgstr "Cette personne ne possède pas encore d'orientation."
+
+msgid "Orientation.notice.reorientationseps"
+msgstr "Impossible d'ajouter une nouvelle orientation à ce dossier (passage en EP)."
+
+msgid "Orientation.notice.reorientationscovs"
+msgstr "Impossible d'ajouter une nouvelle orientation à ce dossier (passage en COV)."
+
+msgid "Orientation.notice.pasajoutPossible"
+msgstr "Impossible d'ajouter une nouvelle orientation à ce dossier (dossier ne pouvant être orienté)."
+
+msgid "Orientation.notice.en_procedure_relance"
+msgstr "Cette personne est en cours de procédure de relance."
+
+msgid "Orientation.notice.workfloworientenattente"
+msgstr "Ce dossier a une orientation en attente de validation par le CD93, il n'est pas possible de faire une demande de réorientation ou de nouvelle orientation pour le moment."
 
 
 # PPAE
@@ -199,6 +242,16 @@ msgstr "Nom du professionnel"
 msgid "Orientstruct.typenotification"
 msgstr "Type de notification"
 
+msgid "Structureorientante.lib_struc"
+msgstr "Structure orientante"
+
+msgid "Referentorientant.nom_complet"
+msgstr "Référent de la structure orientante"
+
+msgid "Referent.nom_complet"
+msgstr "Référent de la structure référente"
+
+
 # ------------------------------------------------------------------------------
 
 msgid "/Orientsstructs/search/:heading"
@@ -240,8 +293,14 @@ msgstr "Filtrer par impression"
 msgid "Orientstruct.orientepar"
 msgstr "Orienté par"
 
+msgid "Search.Orientstruct.CustomTitle"
+msgstr "Orientation"
+
+msgid "Search.Orientstruct.Impression"
+msgstr "Orientation"
+
 msgid "Search.Orientstruct.structureorientante_id"
-msgstr "Structure"
+msgstr "Structure orientante"
 
 msgid "Search.Orientstruct.referentorientant_id"
 msgstr "Nom du professionnel"
@@ -281,13 +340,40 @@ msgstr "Code activité"
 # ==============================================================================
 
 msgid "/Orientsstructs/cohorte_nouvelles/:heading"
-msgstr "Demandes non orientées"
+msgstr "Bénéficiaires non orientés"
 
 msgid "/Orientsstructs/cohorte_enattente/:heading"
-msgstr "Demandes en attente de validation d'orientation"
+msgstr "Orientations en attente de validation"
 
 msgid "/Orientsstructs/cohorte_orientees/:heading"
-msgstr "Demandes orientées"
+msgstr "Impression des orientations validées"
+
+msgid "/Orientsstructs/cohorte_validation/:heading"
+msgstr "Orientations en attente de validation"
+
+msgid "/Orientsstructs/cohorte_orientees_validees/:heading"
+msgstr "Impression des orientations validées"
+
+msgid "Orientsstructs.nom_menu_haut.algo"
+msgstr "Algorithme et transferts"
+
+msgid "Orientsstructs.nom_menu.cohorte_nouvelles"
+msgstr "Bénéficiaires non orientés"
+
+msgid "Orientsstructs.nom_menu.cohorte_enattente"
+msgstr "Orientations en attente de validation"
+
+msgid "Orientsstructs.nom_menu.cohorte_orientees"
+msgstr "Impression des orientations validées"
+
+msgid "Orientsstructs.nom_menu_haut.struct"
+msgstr "Structures référentes"
+
+msgid "Orientsstructs.nom_menu.cohorte_validation"
+msgstr "Orientations en attente de validation"
+
+msgid "Orientsstructs.nom_menu.cohorte_orientees_validees"
+msgstr "Impression des orientations validées"
 
 # ------------------------------------------------------------------------------
 
@@ -302,6 +388,9 @@ msgstr "Type de préOrientation"
 
 msgid "Search.Personne.has_dsp"
 msgstr "Possède une DSP ?"
+
+msgid "Search.Orientstruct.date_propo"
+msgstr "Date de proposition d'orientation"
 
 # ------------------------------------------------------------------------------
 
@@ -325,6 +414,9 @@ msgstr "Structure"
 
 msgid "data[Cohorte][][Orientstruct][statut_orient]"
 msgstr "Décision"
+
+msgid "data[Cohorte][][Orientstruct][selection]"
+msgstr "Sélection"
 
 msgid "/Dossiers/view/#Dossier.id#"
 msgstr "Accéder aux informations de #Personne.nom_complet_court#"

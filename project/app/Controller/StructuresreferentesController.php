@@ -60,6 +60,39 @@
 		);
 
 		/**
+		 * Ajout des options proposées à la vue selon l'action mise en paramètre
+		 *
+		 * @param string
+		 * @return array
+		*/
+		protected function _getViewOptions($action) {
+			$departement = Configure::read( 'Cg.departement' );
+			$options = array();
+
+			if($action == 'index') {
+				$options = $this->Structurereferente->enums();
+				if($departement == 93) {
+					$options['Structurereferente']['communautesr_id'] = $this->Structurereferente->Communautesr->find( 'list' );
+				}
+			}elseif( in_array($action, array('edit', 'add') ) ) {
+				$options = $this->viewVars['options'];
+				$options['Zonegeographique']['Zonegeographique'] = $this->Structurereferente->Zonegeographique->find( 'list' );
+			}
+
+			if( Configure::read('Orientation.validation.enabled') == true ) {
+				$options['Structurereferente']['workflow_valid'] = array(
+					'Non',
+					'Oui'
+				);
+			}
+
+			$options['Structurereferente']['typeorient_id'] = $this->InsertionsBeneficiaires->typesorients( array( 'conditions' => array() ) );
+			$options['Structurereferente']['dreesorganisme_id'] = $this->InsertionsBeneficiaires->dreesorganismes( array( 'conditions' => array() ) );
+
+			return $options;
+		}
+
+		/**
 		 * Moteur de recherche par structures référentes
 		 */
 		public function index() {
@@ -72,13 +105,8 @@
 				$this->set( compact( 'results' ) );
 			}
 
-			$departement = Configure::read( 'Cg.departement' );
-			$options = $this->Structurereferente->enums();
-			$options['Structurereferente']['typeorient_id'] = $this->InsertionsBeneficiaires->typesorients( array( 'conditions' => array() ) );
-			$options['Structurereferente']['dreesorganisme_id'] = $this->InsertionsBeneficiaires->dreesorganismes( array( 'conditions' => array() ) );
-			if( 93 == $departement ) {
-				$options['Structurereferente']['communautesr_id'] = $this->Structurereferente->Communautesr->find( 'list' );
-			}
+			$options = $this->_getViewOptions($this->action);
+
 			$this->set( compact( 'options' ) );
 		}
 
@@ -96,10 +124,8 @@
 			);
 			$this->WebrsaParametrages->edit( $id, $params );
 
-			$options = $this->viewVars['options'];
-			$options['Structurereferente']['typeorient_id'] = $this->InsertionsBeneficiaires->typesorients( array( 'conditions' => array() ) );
-			$options['Structurereferente']['dreesorganisme_id'] = $this->InsertionsBeneficiaires->dreesorganismes( array( 'conditions' => array() ) );
-			$options['Zonegeographique']['Zonegeographique'] = $this->Structurereferente->Zonegeographique->find( 'list' );
+			$options = $this->_getViewOptions($this->action);
+
 			$this->set( compact( 'options' ) );
 		}
 	}

@@ -517,16 +517,6 @@
 				'postgres'  => 'DATE_PART( \'day\', NOW() - "%s"."date_impression" )'
 			),
 			// ---------------------
-			'dernier' => array(
-				'type'      => 'boolean',
-				'postgres'  => '"%s"."id" IN (
-					SELECT a.id FROM orientsstructs AS a
-					WHERE a.personne_id = "%s"."personne_id"
-					ORDER BY COALESCE( a.rgorient, \'0\') DESC,
-						a.date_valid DESC,
-						a.id DESC
-					LIMIT 1)'
-			),
 			'dernier_oriente' => array(
 				'type'      => 'boolean',
 				'postgres'  => 'NOT EXISTS(
@@ -564,10 +554,34 @@
 		public function __construct( $id = false, $table = null, $ds = null ) {
 			$active = !in_array( Configure::read( 'Cg.departement' ), array( 66, 976 ) );
 			$this->actsAs = Hash::insert( $this->actsAs, 'StorablePdf.active', $active );
-
 			$departement = Configure::read( 'Cg.departement' );
 
-			if( $departement == 66 ) {
+			// Si le workflow de validation est activé, nous devons prendre en compte les orientations en attente
+			$isWorkflowActivated = Configure::read('Orientation.validation.enabled');
+
+			if( $isWorkflowActivated == true) {
+				$virtualFieldsDernierQuery= '"%s"."id" IN (
+					SELECT a.id FROM orientsstructs AS a
+					WHERE a.personne_id = "%s"."personne_id" AND a.statut_orient != \'Refusé\'
+					ORDER BY COALESCE( a.date_propo, a.date_valid ) DESC,
+						a.rgorient DESC,
+						a.id DESC
+					LIMIT 1)';
+			} else {
+				$virtualFieldsDernierQuery= '"%s"."id" IN (
+					SELECT a.id FROM orientsstructs AS a
+					WHERE a.personne_id = "%s"."personne_id"
+					ORDER BY COALESCE( a.rgorient, \'0\') DESC,
+						a.date_valid DESC,
+						a.id DESC
+					LIMIT 1)';
+			}
+			$this->virtualFields['dernier'] = array(
+				'type'      => 'boolean',
+				'postgres'  => $virtualFieldsDernierQuery
+			);
+
+			if( $departement == 66 || $isWorkflowActivated ) {
 				$this->validate['structureorientante_id']['notEmptyIf'] = array(
 					'rule' => array( 'notEmptyIf', 'statut_orient', true, array( 'Orienté' ) ),
 					'message' => 'Veuillez choisir une structure orientante'
@@ -610,9 +624,17 @@
 
 			$id = Hash::get( $this->data, "{$this->alias}.{$this->primaryKey}" );
 			$statut_orient = Hash::get( $this->data, "{$this->alias}.statut_orient" );
+			$origine = Hash::get( $this->data, "{$this->alias}.origine" );
+
+			// Vérification si nous sommes dans le cadre du workflow d'activation
+			$isWorkflowActive = false;
+			if (Configure::read('Orientation.validation.enabled') && !empty($this->data[$this->alias]['structureorientante_id']) && !empty($origine) ) {
+				$strucIsWorkflowActive = $this->Structurereferente->isWorkflowActive($this->data[$this->alias]['structureorientante_id']);
+				$isWorkflowActive = $strucIsWorkflowActive && in_array($origine, Configure::read('Orientation.validation.listeorigine'));
+			}
 
 			// Si on change le statut_orient de <> 'Orienté' en 'Orienté', alors, il faut changer le rang
-			if( $statut_orient === 'Orienté' ) {
+			if( $statut_orient === 'Orienté') {
 				$personne_id = Hash::get( $this->data, "{$this->alias}.personne_id" );
 
 				// Change-t'on le statut ?
@@ -624,7 +646,7 @@
 						'contain' => false
 					);
 					$tuple_pcd = $this->find( 'first', $query );
-					if( $tuple_pcd[$this->alias]['statut_orient'] !== 'Orienté' ) {
+					if( $tuple_pcd[$this->alias]['statut_orient'] !== 'Orienté') {
 						$this->data[$this->alias]['rgorient'] = ( $this->WebrsaOrientstruct->rgorientMax( $personne_id ) + 1 );
 					}
 					else {
@@ -637,13 +659,15 @@
 				}
 
 				$origine = Hash::get( $this->data, "{$this->alias}.origine" );
-				if( ( $this->data[$this->alias]['rgorient'] > 1 ) && !in_array( $origine, array( null, 'demenagement' ), true ) ) {
-					$this->data[$this->alias]['origine'] = 'reorientation';
+				// Nous ne modifions pas l'origine dans le cas du workflow d'activation
+				if( $isWorkflowActive == false && $this->data[$this->alias]['rgorient'] > 1  && !in_array( $origine, array( null, 'initinap', 'manuelle', 'demenagement' ), true ) ) {
+						$this->data[$this->alias]['origine'] = 'reorientation';
 				}
 			}
 			// Il ne s'agit pas d'une orientation effective
 			else {
-				if( empty( $id ) ) {
+				// Nous ne modifions pas l'origine dans le cas du workflow d'activation
+				if( empty( $id ) && $isWorkflowActive == false) {
 					$this->data[$this->alias]['origine'] = null;
 				}
 				$this->data[$this->alias]['rgorient'] = null;
@@ -695,5 +719,37 @@
 		public function modeleOdt( $data ) {
 			return $this->WebrsaOrientstruct->modeleOdt( $data );
 		}
+
+		/**
+		 * Liste les origines enums possibles pour le workflow de validation dans la liste déroulante des cohortes
+		 *
+		 * @param array
+		 * @return array
+		 */
+		public function enumOrigine($origines) {
+			foreach ($origines as $key => $value) {
+				if (!in_array($key, Configure::read('Orientation.validation.listeorigine'))) {
+					unset ($origines[$key]);
+				}
+			}
+			return $origines;
+		}
+
+		/**
+		 * Liste les origines possibles pour l'ajout d'une orientation au 93
+		 *
+		 * @param array
+		 * @param string
+		 *
+		 * @return array
+		 */
+		public function listOrigine($origines, $user_type) {
+			foreach ($origines as $key => $value) {
+				if (!in_array($key, array('manuelle', 'prestaorient', 'entdiag', 'initinap'))
+					|| ($user_type != 'cg' && in_array($key, array('manuelle', 'initinap')))) {
+					unset ($origines[$key]);
+				}
+			}
+			return $origines;
+		}
 	}
-?>

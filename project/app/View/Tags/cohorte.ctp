@@ -73,18 +73,24 @@
 	// Bloc tagCohorteSearch
 	$this->start( 'tag_cohorte_search_filters' );
 	echo '<fieldset><legend>' . __m( 'Orientstruct.search' ) . '</legend>';
+	if ($departement == 93) {
+		echo $this->Default3->subform(
+			array(
+				'Search.Orientstruct.origine' => array('empty' => true),
+			),
+			array( 'options' => array( 'Search' => $options ) )
+		);
+	}
+
 	echo $this->Default3->subform(
-		array(
-			'Search.Orientstruct.origine' => array('empty' => true),
-		),
-		array( 'options' => array( 'Search' => $options ) )
-	);
-	echo $this->Default3->subform(
-		array(
-			'Search.Orientstruct.typeorient_id' => array('empty' => true, 'required' => false),
-		),
-		array( 'options' => array( 'Search' => $options ) )
-	);
+			array(
+				'Search.Orientstruct.typeorient_id' => array('empty' => true, 'required' => false),
+				'Search.Orientstruct.structurereferente_id' => array('empty' => true, 'label' => __d('orientsstructs', 'Search.Orientstruct.structurereferente_id'), 'required' => false),
+				'Search.Orientstruct.statut_orient' => array('empty' => true, 'label' => __d('orientsstructs', 'Search.Orientstruct.statut_orient'), 'required' => false)
+			),
+			array( 'options' => array( 'Search' => $options ) )
+		);
+
 	echo '</fieldset>';
 	$this->end();
 

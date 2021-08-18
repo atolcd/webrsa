@@ -1738,6 +1738,9 @@ msgstr "Visualisation des orientations"
 msgid "controllers/Orientsstructs/add"
 msgstr "Ajout d'une orientation"
 
+msgid "controllers/Orientsstructs/valider"
+msgstr "Validation d'une orientation"
+
 msgid "controllers/Orientsstructs/edit"
 msgstr "Édition d'une orientation"
 
@@ -1754,16 +1757,25 @@ msgid "controllers/Orientsstructs/impression_changement_referent"
 msgstr "Notification de changement de référent (CD66)"
 
 msgid "controllers/Orientsstructs/cohorte_nouvelles"
-msgstr "Demandes non orientées"
+msgstr "Cohorte Algorithme et transferts : Bénéficiaires non orientés"
 
 msgid "controllers/Orientsstructs/cohorte_enattente"
-msgstr "Demandes en attente de validation d'orientation"
-
-msgid "controllers/Orientsstructs/cohorte_impressions"
-msgstr "Impression des personnes orientées"
+msgstr "Cohorte Algorithme et transferts : Orientations en attente de validation"
 
 msgid "controllers/Orientsstructs/cohorte_orientees"
-msgstr "Demandes orientées"
+msgstr "Cohorte Algorithme et transferts : Impression des orientations validées (recherche uniquement)"
+
+msgid "controllers/Orientsstructs/cohorte_impressions"
+msgstr "Cohorte Algorithme et transferts : Impression des orientations validées"
+
+msgid "controllers/Orientsstructs/cohorte_validation"
+msgstr "Cohorte Structures référentes : Orientations en attente de validation"
+
+msgid "controllers/Orientsstructs/cohorte_orientees_validees"
+msgstr "Cohorte Structures référentes : Impression des orientations validées (recherche uniquement)"
+
+msgid "controllers/Orientsstructs/cohorte_orientees_validees_impressions"
+msgstr "Cohorte Structures référentes : Impression des orientations validées"
 
 msgid "controllers/Orientsstructs/search"
 msgstr "Moteur de recherche"

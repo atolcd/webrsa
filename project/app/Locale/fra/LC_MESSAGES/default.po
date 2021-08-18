@@ -706,3 +706,10 @@ msgstr "Tout cocher"
 
 msgid "Toutdecocher"
 msgstr "Tout décocher"
+
+################################################################################
+msgid "Toutvalider"
+msgstr "Tout valider"
+
+msgid "Toutrefuser"
+msgstr "Tout refuser"

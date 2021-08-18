@@ -121,7 +121,7 @@
 				$sql = "UPDATE orientsstructs
 							SET propo_algo = NULL,
 								date_propo = NULL
-							WHERE statut_orient <> 'Orienté'";
+							WHERE statut_orient <> 'Orienté' AND origine IS NULL";
 				$t = $this->Orientstruct->query( $sql );
 			}
 
@@ -142,6 +142,7 @@
 						INNER JOIN calculsdroitsrsa ON ( orientsstructs.personne_id = calculsdroitsrsa.personne_id )
 					WHERE orientsstructs.propo_algo IS NULL
 						AND orientsstructs.date_propo IS NULL
+						AND orientsstructs.origine IS NULL
 						AND calculsdroitsrsa.toppersdrodevorsa = '1'
 						AND orientsstructs.statut_orient <> 'Orienté'
 						".(!empty( $this->params['limit'] ) ? "LIMIT {$this->params['limit']}" : "" );

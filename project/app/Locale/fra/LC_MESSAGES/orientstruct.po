@@ -59,6 +59,9 @@ msgstr "Statut de l'orientation"
 msgid "Orientstruct.rgorient"
 msgstr "Rang de l'orientation"
 
+msgid "Search.Orientstruct.date_propo"
+msgstr "Date de proposition d'orientation"
+
 ###############################################################################
 # Enums
 ###############################################################################
@@ -90,14 +93,23 @@ msgstr "Réorientation"
 msgid "ENUM::ORIGINE::demenagement"
 msgstr "Transfert de PIE"
 
-msgid "ENUM::ORIGINE::prestadiagno"
-msgstr "Orientation prestataire diagnostic"
-
-msgid "ENUM::ORIGINE::prestadefaut"
-msgstr "Orientation autre prestataire"
+#msgid "ENUM::ORIGINE::prestadiagno"
+#msgstr "Orientation prestataire diagnostic"
+#
+#msgid "ENUM::ORIGINE::prestadefaut"
+#msgstr "Orientation autre prestataire"
 
 msgid "Orientstruct.origine.externe"
 msgstr "Orientation externe"
+
+msgid "ENUM::ORIGINE::prestaorient"
+msgstr "Orientation prestataire"
+
+msgid "ENUM::ORIGINE::entdiag"
+msgstr "Entretien diagnostic"
+
+msgid "ENUM::ORIGINE::initinap"
+msgstr "Orientation initiale inappropriée"
 
 # statut_orient
 msgid "ENUM::STATUT_ORIENT::Orienté"
@@ -108,6 +120,9 @@ msgstr "En attente"
 
 msgid "ENUM::STATUT_ORIENT::Non orienté"
 msgstr "Non orienté"
+
+msgid "ENUM::STATUT_ORIENT::Refusé"
+msgstr "Refusé"
 
 # statutrelance
 msgid "ENUM::STATUTRELANCE::R"

@@ -1092,6 +1092,17 @@ fieldset.loici58 {
     font-size:14px;
     background-color: #FDF5E7;
 }
+
+fieldset div.structOrientante {
+    border-bottom: solid #D2D2D2;
+    margin-bottom: 1em;
+}
+
+fieldset div.input.value {
+    padding-bottom: 1em;
+}
+
+
 /*td.signature{
     padding-bottom: 5em;
 }*/

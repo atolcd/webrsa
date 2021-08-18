@@ -48,6 +48,9 @@ msgstr "Active"
 msgid "Search.Structurereferente.actif_cohorte"
 msgstr "Active pour les résultats des recherches en cohorte d'orientation"
 
+msgid "Search.Structurereferente.workflow_valid"
+msgstr "Active pour le workflow de validation"
+
 msgid "Search.Structurereferente.Gestion"
 msgstr "Recherche par ce qui est géré par la structure référente"
 

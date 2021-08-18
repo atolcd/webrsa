@@ -339,6 +339,22 @@
 				}
 			}
 
+			if( isset( $search['Personne']['trancheagesup'] ) ) {
+				$trancheagesup = Hash::get( $search, 'Personne.trancheagesup' );
+
+				if( !empty( $trancheagesup )  ) {
+					$conditions[] = '( EXTRACT ( YEAR FROM AGE( Personne.dtnai ) ) ) >= '.$trancheagesup;
+				}
+			}
+
+			if( isset( $search['Personne']['trancheageprec'] ) ) {
+				$trancheagesup = Hash::get( $search, 'Personne.trancheageprec' );
+
+				if( !empty( $trancheagesup )  ) {
+					$conditions[] = '( EXTRACT ( YEAR FROM AGE( Personne.dtnai ) ) ) >= '.$trancheagesup;
+				}
+			}
+
 			// Filtre par code activité
 			$value = Hash::get( $search, 'Activite.act' );
 			if( !empty( $value ) ) {

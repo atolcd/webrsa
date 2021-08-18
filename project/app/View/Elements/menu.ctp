@@ -122,9 +122,15 @@
 				'Orientés et notifiés' => array( 'class' => 'search', 'url' =>  array( 'controller' => 'nonorientes66', 'action' => 'recherche_notifie' ) ),
 			),
 			'Orientation' => array(
-				'Demandes non orientées' => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_nouvelles' ) ),
-				'Demandes en attente de validation d\'orientation' => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_enattente' ) ),
-				'Demandes orientées' => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_orientees' ) ),
+				__d( 'orientsstructs', 'Orientsstructs.nom_menu_haut.algo') => array(
+					__d( 'orientsstructs', 'Orientsstructs.nom_menu.cohorte_nouvelles' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_nouvelles' ) ),
+					__d( 'orientsstructs', 'Orientsstructs.nom_menu.cohorte_enattente' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_enattente' ) ),
+					__d( 'orientsstructs', 'Orientsstructs.nom_menu.cohorte_orientees' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_orientees' ) ),
+				),
+				__d( 'orientsstructs', 'Orientsstructs.nom_menu_haut.struct') => array(
+					__d( 'orientsstructs', 'Orientsstructs.nom_menu.cohorte_validation' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_validation' ) ),
+					__d( 'orientsstructs', 'Orientsstructs.nom_menu.cohorte_orientees_validees' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_orientees_validees' ) ),
+				)
 			),
 			'PDOs' => array(
 				'disabled' => ( $departement != 93 ),

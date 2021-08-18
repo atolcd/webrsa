@@ -6,12 +6,11 @@
 	echo $this->Default3->titleForLayout( $this->request->data );
 
 	echo $this->Default3->DefaultForm->create();
-?>
 
-<fieldset>
-	<legend>Identification</legend>
-	<?php
-		echo $this->Default3->subform(
+	echo $this->Html->tag(
+		'fieldset',
+		$this->Html->tag( 'legend', __m('Structurereferente.identification' ) )
+		. $this->Default3->subform(
 			$this->Translator->normalize(
 				array(
 					'Structurereferente.id',
@@ -32,12 +31,12 @@
 			array(
 				'options' => $options
 			)
-		);
-	?>
-</fieldset>
-<div><?php echo $this->Form->input( 'Structurereferente.filtre_zone_geo', array( 'label' => 'Restreindre les zones géographiques', 'type' => 'checkbox' ) );?></div>
+		)
+	);
+?>
+<div><?php echo $this->Form->input( 'Structurereferente.filtre_zone_geo', array( 'label' => __m('Structurereferente.Zonegeo.restriction'), 'type' => 'checkbox' ) );?></div>
 <fieldset class="col2" id="filtres_zone_geo">
-	<legend>Zones géographiques</legend>
+	<legend><?php echo __m('Structurereferente.Zonegeo') ?></legend>
 	<script type="text/javascript">
 		document.observe( "dom:loaded", function() {
 			observeDisableFieldsetOnCheckbox( 'StructurereferenteFiltreZoneGeo', 'filtres_zone_geo', false );
@@ -48,47 +47,64 @@
 
 	<?php echo $this->Form->input( 'Zonegeographique.Zonegeographique', array( 'label' => false, 'multiple' => 'checkbox' , 'options' => $options['Zonegeographique']['Zonegeographique'] ) );?>
 </fieldset>
-<fieldset>
-	<legend>Type de structure référente</legend>
+
 <?php
-	echo $this->Default3->subform(
-		$this->Translator->normalize(
+	echo $this->Html->tag(
+		'fieldset',
+		$this->Html->tag( 'legend', __m('Structurereferente.typestructure' ) )
+		. $this->Default3->subform(
+			$this->Translator->normalize(
+				array(
+					'Structurereferente.typeorient_id' => array( 'empty' => true ),
+					'Structurereferente.typestructure' => array( 'empty' => true ),
+					'Structurereferente.type_struct_stats' => array( 'empty' => true ),
+					'Structurereferente.code_stats' => array( 'empty' => true ),
+					'Structurereferente.actif' => array( 'empty' => true ),
+					'Structurereferente.actif_cohorte' => array( 'empty' => false ),
+					'Structurereferente.dreesorganisme_id' => array( 'empty' => true ),
+				)
+			),
 			array(
-				'Structurereferente.typeorient_id' => array( 'empty' => true ),
-				'Structurereferente.typestructure' => array( 'empty' => true ),
-				'Structurereferente.type_struct_stats' => array( 'empty' => true ),
-				'Structurereferente.code_stats' => array( 'empty' => true ),
-				'Structurereferente.actif' => array( 'empty' => true ),
-				'Structurereferente.actif_cohorte' => array( 'empty' => false ),
-				'Structurereferente.dreesorganisme_id' => array( 'empty' => true ),
+				'options' => $options
 			)
-		),
-		array(
-			'options' => $options
 		)
 	);
-?>
-</fieldset>
-<fieldset>
-	<legend>Géré par la structure référente</legend>
-<?php
-	echo $this->Default3->subform(
-		$this->Translator->normalize(
+
+	echo $this->Html->tag(
+		'fieldset',
+		$this->Html->tag( 'legend', __m('Structurereferente.gestion' ) )
+		.$this->Default3->subform(
+			$this->Translator->normalize(
+				array(
+					'Structurereferente.contratengagement' => array( 'empty' => true ),
+					'Structurereferente.apre' => array( 'empty' => true ),
+					'Structurereferente.orientation' => array( 'empty' => true ),
+					'Structurereferente.pdo' => array( 'empty' => true ),
+					'Structurereferente.cui' => array( 'empty' => true )
+				)
+			),
 			array(
-				'Structurereferente.contratengagement' => array( 'empty' => true ),
-				'Structurereferente.apre' => array( 'empty' => true ),
-				'Structurereferente.orientation' => array( 'empty' => true ),
-				'Structurereferente.pdo' => array( 'empty' => true ),
-				'Structurereferente.cui' => array( 'empty' => true )
+				'options' => $options
 			)
-		),
-		array(
-			'options' => $options
 		)
 	);
-?>
-</fieldset>
-<?php
+	if(Configure::read('Orientation.validation.enabled')) {
+		echo $this->Html->tag(
+			'fieldset',
+			$this->Html->tag( 'legend', __m('Structurereferente.workflow' ) )
+			.$this->Default3->subform(
+				$this->Translator->normalize(
+					array(
+						'Structurereferente.workflow_valid' => array( 'type' => 'radio', 'legend' => false )
+					)
+				),
+				array(
+					'options' => $options
+				)
+			)
+		);
+	}
+
 	echo $this->Default3->DefaultForm->buttons( array( 'Save', 'Cancel' ) );
 	echo $this->Default3->DefaultForm->end();
 

@@ -84,7 +84,7 @@
 			);
 
 			if( $departement == 93 ) {
-				$options['Orientstruct']['propo_algo'] = $options['Orientstruct']['typeorient_id'];
+				$options['Orientstruct']['propo_algo'] = $Controller->Orientstruct->Typeorient->listTypeParent();
 				$options = Hash::merge(
 					$options,
 					$this->Allocataires->optionsSessionCommunautesr( 'Orientstruct' )

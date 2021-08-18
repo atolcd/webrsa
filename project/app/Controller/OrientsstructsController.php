@@ -119,7 +119,11 @@
 			'impression_changement_referent' => 'read',
 			'index' => 'read',
 			'search' => 'read',
-			'nonrespectppae' => 'update'
+			'nonrespectppae' => 'update',
+			'valider' => 'update',
+			'cohorte_validation' => 'update',
+			'cohorte_orientees_validees' => 'read',
+			'cohorte_orientees_validees_impressions' => 'read',
 		);
 
 		/**
@@ -313,9 +317,22 @@
 			$departement = Configure::read('Cg.departement');
 			$action = 'add';
 			$msgid = null;
-			if ($departement == 93 && $params['rgorient_max'] >= 1) {
+			if ($departement == 93) {
+				// Action d'ajouter une orientation
+				$url = "/Orientsstructs/add/{$params['personne_id']}";
+				$controller = 'orientsstructs';
+				$msgid = __('Orientsstructs::lib::CD93');
+				$actions[$url] = array(
+					'domain' => $this->request->params['controller'],
+					'msgid' => $msgid,
+					'enabled' => WebrsaAccessOrientsstructs::check($this->name, $action, $records, $params)
+						&& WebrsaPermissions::checkDossier($controller, $action, $params['dossier_menu'])
+				);
+
+				// Action de demander un réorientation
 				$url = "/Reorientationseps93/add/{$records[0]['Orientstruct']['id']}";
 				$controller = 'reorientationseps93';
+				$msgid = null;
 			} elseif ($departement == 58) {
 				$url = "/Proposorientationscovs58/add/{$params['personne_id']}";
 				$controller = 'proposorientationscovs58';
@@ -334,7 +351,7 @@
 			} else {
 				$url = "/Orientsstructs/add/{$params['personne_id']}";
 				$controller = 'orientsstructs';
-				$msgid = $departement == 93 ? 'Demander une réorientation' : 'Ajouter';
+				$msgid = null;
 			}
 
 			$actions[$url] = array(
@@ -504,6 +521,20 @@
 				WebrsaAccessOrientsstructs::accesses( $records, $params)
 			);
 
+			// On met les orientations en attente en 1er et les refusés en dernier
+			foreach( $orientsstructs as $key => $orient) {
+				if($orient['Orientstruct']['statut_orient'] == 'En attente') {
+					$tmpOrient = $orient;
+					unset($orientsstructs[$key]);
+					array_unshift($orientsstructs, $tmpOrient);
+				} else if ($orient['Orientstruct']['statut_orient'] == 'Refusé') {
+					$tmpOrient = $orient;
+					unset($orientsstructs[$key]);
+					$orientsstructs = array_values($orientsstructs);
+					$orientsstructs[] = $tmpOrient;
+				}
+			}
+
 			// Options
 			$options = Hash::merge(
 				array(
@@ -532,7 +563,7 @@
 			);
 
 			if( Configure::read( 'Cg.departement' ) == 93 ) {
-				$options['Orientstruct']['propo_algo'] = $this->InsertionsBeneficiaires->typesorients( array( 'conditions' => array() ) );
+				$options['Orientstruct']['propo_algo'] = $this->Orientstruct->Typeorient->listTypeParent();
 			}
 
 			// Liste des actions accessibles
@@ -606,8 +637,20 @@
 			// -----------------------------------------------------------------
 			$redirectUrl = array( 'action' => 'index', $personne_id );
 			$user_id = $this->Session->read( 'Auth.User.id' );
+			$user_type = $this->Session->read( 'Auth.User.type' );
 
 			$originalAddEditFormData = $this->WebrsaOrientstruct->getAddEditFormData( $personne_id, $id, $user_id );
+
+			// Suppression de l'obligation de mettre une structure orientante si nous ne sommes pas dans un workflow de validation
+			if( $this->action === 'edit' ) {
+				if ( Configure::read('Orientation.validation.enabled') == true	&& (
+					( $originalAddEditFormData['Orientstruct']['statut_orient'] == 'En attente' && $originalAddEditFormData['Orientstruct']['origine'] == null)
+					|| $originalAddEditFormData['Orientstruct']['statut_orient'] != 'En attente'
+				) ) {
+					unset($this->Orientstruct->validate['structureorientante_id']);
+					unset($this->Orientstruct->validate['referentorientant_id']);
+				}
+			}
 
 			// Retour à l'index si on essaie de modifier une autre orientation que la dernière
 			if( $this->action === 'edit' && !empty( $originalAddEditFormData['Orientstruct']['date_valid'] ) && $originalAddEditFormData['Orientstruct']['statut_orient'] == 'Orienté' && $originalAddEditFormData['Orientstruct']['rgorient'] != $this->Orientstruct->WebrsaOrientstruct->rgorientMax( $originalAddEditFormData['Orientstruct']['personne_id'] ) ) {
@@ -677,7 +720,7 @@
 			);
 
 			// Structrure orientante, référent orientant
-			if( in_array( $departement, array( 58, 66 ) ) ) {
+			if( in_array( $departement, array( 58, 66 ) ) || Configure::read('Orientation.validation.enabled') ) {
 				$options['Orientstruct']['structureorientante_id'] = $this->InsertionsBeneficiaires->structuresreferentes(
 					array(
 						'type' => 'optgroup',
@@ -704,13 +747,100 @@
 						)
 					)
 				);
+
+				if (Configure::read('Orientation.validation.enabled')) {
+					// On récupère les structures orientantes qui activent le workflow de validation pour désactiver la date d'orientation si besoin
+					$options['StructOrientanteWorkflow'] = $this->Orientstruct->Structurereferente->listeStructWorkflow();
+				}
 			}
+
+			/**
+			 * Orientation externe par prestataire pour le CD 93 uniquement
+			 * On ne veut proposer que les origines des prestataires
+			 */
+			$options['Orientstruct']['origine'] = $this->Orientstruct->listOrigine($options['Orientstruct']['origine'], $user_type);
 
 			$this->set( compact( 'options' ) );
 
 			// Rendu
 			$this->set( 'urlmenu', "/orientsstructs/index/{$personne_id}" );
 			$this->render( 'edit' );
+		}
+
+		/**
+		 * Validation d'une orientation (si le workflow de validation est activé)
+		 *
+		 * @param int
+		 *
+		 */
+		public function valider ( $id ) {
+			$orientsstructs = $this->Orientstruct->find('first', array(
+				'conditions' => array(
+					'Orientstruct.id' => $id
+				)
+			));
+
+			$personne_id = $orientsstructs['Orientstruct']['personne_id'];
+			$orientsstructs['Calculdroitrsa']['toppersdrodevorsa'] = $this->Orientstruct->Personne->Calculdroitrsa->isSoumisAdroitEtDevoir($personne_id);
+
+			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) );
+			$this->set( compact( 'dossierMenu' ) );
+			$this->Jetons2->get( Hash::get( $dossierMenu, 'Dossier.id' ) );
+
+			// -----------------------------------------------------------------
+			$redirectUrl = array( 'action' => 'index', $personne_id );
+			$user_id = $this->Session->read( 'Auth.User.id' );
+
+			// Retour à l'index en cas d'annulation
+			if( isset( $this->request->data['Cancel'] ) ) {
+				$this->Jetons2->release( Hash::get( $dossierMenu, 'Dossier.id' ) );
+				$this->redirect( $redirectUrl );
+			}
+
+			// Tentative de sauvegarde
+			if( !empty( $this->request->data ) ) {
+				if( $this->request->data['Orientstruct']['decisionvalidation'] == '' ) {
+					$this->Flash->error( __m( 'Orientstruct.decisionvalidation.vide' ) );
+				} else {
+					$this->Orientstruct->begin();
+					if( $this->WebrsaOrientstruct->saveValidationData( $this->request->data, $user_id ) ) {
+						$this->Orientstruct->commit();
+						$this->Jetons2->release( Hash::get( $dossierMenu, 'Dossier.id' ) );
+						$this->Flash->success( __( 'Save->success' ) );
+						$this->redirect( $redirectUrl );
+					}
+					else {
+						$this->Orientstruct->rollback();
+						$this->Flash->error( __( 'Save->error' ) );
+					}
+				}
+			}
+
+			// Ajout des options de validation
+			$options = array(
+				'Orientstruct' => array(
+					'decisionvalidation' => array(
+						0 => 'Non validé',
+						1 => 'Validation le'
+					)
+				),
+				'Calculdroitrsa' => array(
+					'toppersdrodevorsa' => array(
+						0 => 'Non',
+						1 => 'Oui'
+					)
+				)
+			);
+			$options = Hash::merge( $options, $this->Orientstruct->enums() );
+
+			// On force par défaut la date de décision à la date du jour
+			$orientsstructs['Orientstruct']['dtdecisionvalidation'] = date( 'Y-m-d' );
+
+			$this->request->data = $orientsstructs;
+			$this->set('options', $options);
+
+			// Rendu
+			$this->render( 'valider' );
 		}
 
 		/**
@@ -899,6 +1029,48 @@
 				array(
 					'modelName' => 'Personne',
 					'modelRechercheName' => 'WebrsaCohorteOrientstructOrientees'
+				)
+			);
+		}
+
+		/**
+		 * Cohorte de validation des personnes en attente d'orientation
+		 */
+		public function cohorte_validation() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesOrientsstructsValidations' );
+
+			$Cohortes->cohorte(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohorteOrientstructValidation'
+				)
+			);
+		}
+
+		/**
+		 * Cohorte des personnes orientées
+		 */
+		public function cohorte_orientees_validees() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesOrientsstructsValidationsImpressions' );
+
+			$Cohortes->search(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohorteOrientstructValidationImpression'
+				)
+			);
+		}
+
+		/**
+		 * Cohorte des personnes orientées
+		 */
+		public function cohorte_orientees_validees_impressions() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesOrientsstructsValidationsImpressions' );
+
+			$Cohortes->impressions(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohorteOrientstructValidationImpression'
 				)
 			);
 		}

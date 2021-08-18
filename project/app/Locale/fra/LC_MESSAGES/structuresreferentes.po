@@ -72,3 +72,21 @@ msgstr "Gestion des PDOs"
 
 msgid "Structurereferente.email"
 msgstr "Email"
+
+msgid "Structurereferente.identification"
+msgstr "Identification"
+
+msgid "Structurereferente.Zonegeo.restriction"
+msgstr "Restreindre les zones géographiques"
+
+msgid "Structurereferente.Zonegeo"
+msgstr "Zones géographiques"
+
+msgid "Structurereferente.typestructure"
+msgstr "Type de structure référente"
+
+msgid "Structurereferente.gestion"
+msgstr "Géré par la structure référente"
+
+msgid "Structurereferente.workflow"
+msgstr "Activation du workflow de validation ?"

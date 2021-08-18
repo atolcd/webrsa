@@ -68,7 +68,8 @@
 				),
 				(array)Configure::read('Tag.Options.enums'),
 				$this->Tag->EntiteTag->Personne->Prestation->enums(),
-				$this->Tag->EntiteTag->Personne->Dsp->enums()
+				$this->Tag->EntiteTag->Personne->Dsp->enums(),
+				$this->Tag->EntiteTag->Personne->Orientstruct->enums()
 			);
 
 			$options['DspRev'] = $options['Dsp'];

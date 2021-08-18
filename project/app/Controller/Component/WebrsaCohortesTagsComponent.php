@@ -51,7 +51,15 @@
 			$Controller = $this->_Collection->getController();
 			$Controller->loadModel('WebrsaOptionTag');
 
-			$options = $Controller->WebrsaOptionTag->optionsRecords( parent::_optionsRecords( $params ) );
+			// Merge des options du parent avec la liste des structures référentes faisant de l'orientation (pour bloc "Recherche par orientation")
+			$options = Hash::merge(
+				$Controller->WebrsaOptionTag->optionsRecords( parent::_optionsRecords( $params ) ),
+				array(
+					'Orientstruct' => array(
+						'structurereferente_id' => $Controller->Personne->Orientstruct->Structurereferente->listOptions( array( 'orientation' => 'O' ) ),
+					)
+				)
+			);
 
 			// Dossier PCG
 			if ( (integer)Configure::read('Cg.departement') === 66 ) {

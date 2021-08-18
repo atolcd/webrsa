@@ -48,6 +48,104 @@
 		}
 
 		/**
+		 * Renvoie la condition de récupération des types d'orientation selon le paramètre donné
+		 * @param string
+		 *
+		 * @return string
+		 */
+		protected function _getTypeOrient($type) {
+			return "orientsstructs.typeorient_id IN (
+				SELECT
+					t2.id
+				FROM typesorients t2
+				LEFT JOIN typesorients Parent ON Parent.id = t2.parentid
+				WHERE t2.lib_type_orient LIKE '" . $type . "' OR Parent.lib_type_orient LIKE '" . $type . "'
+			)";
+		}
+
+		/**
+		 * Création de la requête commune utilisée dans les fonctions
+		 * _nbMoyJrsRdvIndivHonorePIEVagues
+		 * _nbMoyJrsRdvCollectifNonHonorePIEVagues
+		 * _nbMoyJrsRdvCollectifHonorePIEVagues
+		 * _nbMoyJrsRdvIndivNonHonorePIEVagues
+		 *
+		 * @param string conditions : conditions de recherches
+		 * @param array statutrdvs
+		 * @param string typerdv
+		 * @param string datedebut
+		 * @param string datefin
+		 *
+		 * @return string
+		 */
+		protected function _getSqlRdvPIEVague($conditions, $statutrdvs, $typerdv, $datedebut, $datefin) {
+			return "SELECT
+						AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur,
+						COUNT(DISTINCT(personnes.id)) as nbPersonnes
+					FROM orientsstructs
+						INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
+						INNER JOIN foyers ON personnes.foyer_id = foyers.id
+						INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
+						LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
+						LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
+					WHERE
+						" . $this->_getTypeOrient('Socioprofessionnelle')
+						. $conditions . "
+						AND orientsstructs.date_valid BETWEEN '" . $datedebut . "' AND '" . $datefin ."'
+						AND rdv.daterdv>=orientsstructs.date_propo
+						AND rdv.statutrdv_id IN (" . implode(',', $statutrdvs) . ")
+						AND rdv.typerdv_id= " . $typerdv . "
+						AND rdv.id IN (
+							SELECT id FROM rendezvous
+							WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
+							ORDER BY id
+							LIMIT 1
+					)";
+		}
+
+		/**
+		 * Création de la requête commune utilisée dans les fonctions
+		 * _nbMoyJrsRdvIndivPrevuPIE
+		 * _nbMoyJrsRdvIndivHonorePIE
+		 * _nbMoyJrsRdvCollPrevuPIE
+		 * _nbMoyJrsRdvCollHonorePIE
+		 *
+		 * @param string conditions : conditions de recherches
+		 * @param string statutrdv
+		 * @param string typerdv
+		 * @param string annee
+		 *
+		 * @return string
+		 */
+		protected function _getSqlRdvPIE($conditions, $statutrdv, $typerdv, $annee) {
+			return "SELECT
+						EXTRACT(MONTH FROM orientsstructs.date_valid) AS mois,
+						EXTRACT(YEAR FROM orientsstructs.date_valid) AS annee,
+						AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur
+					FROM orientsstructs
+						INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
+						INNER JOIN foyers ON personnes.foyer_id = foyers.id
+						INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
+						LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
+						LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
+					WHERE
+						" . $this->_getTypeOrient('Socioprofessionnelle')
+						. $conditions ."
+						AND orientsstructs.date_valid BETWEEN '" . $annee . "-01-01' AND '". ($annee+1) . "-12-31'
+						AND rdv.daterdv>=orientsstructs.date_propo
+						AND rdv.statutrdv_id=" . $statutrdv . "
+						AND rdv.typerdv_id=" . $typerdv . "
+						AND rdv.id IN (
+							SELECT id FROM rendezvous
+							WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
+							ORDER BY id
+							LIMIT 1
+						)
+					GROUP BY annee, mois
+					ORDER BY annee, mois;";
+		}
+
+		/**
 		 *
 		 * @param integer $annee
 		 * @return array
@@ -258,31 +356,7 @@
 				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
 			if($commune!='' && $commune>0)
 				$where  .=  $this->_addSearchCommune($commune);
-			$sql =	  'SELECT
-							EXTRACT(MONTH FROM orientsstructs.date_valid) AS mois,
-							EXTRACT(YEAR FROM orientsstructs.date_valid) AS annee,
-							AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur
-						FROM orientsstructs
-							INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
-							INNER JOIN foyers ON personnes.foyer_id = foyers.id
-							INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
-							LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
-							LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
-						WHERE
-							orientsstructs.typeorient_id=1
-							'.$where.'
-							AND orientsstructs.date_valid BETWEEN \''.$annee.'-01-01\' AND \''.($annee+1).'-12-31\'
-							AND rdv.daterdv>=orientsstructs.date_propo
-							AND rdv.statutrdv_id=2
-							AND rdv.typerdv_id=15
-							AND rdv.id IN (
-								SELECT id FROM rendezvous
-								WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
-								ORDER BY id
-								LIMIT 1
-							)
-						GROUP BY annee, mois
-						ORDER BY annee, mois;';
+			$sql = $this->_getSqlRdvPIE($where, '2', '15', $annee);
 			return $this->_query( $sql );
 		}
 
@@ -300,31 +374,7 @@
 				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
 			if($commune!='' && $commune>0)
 				$where  .=  $this->_addSearchCommune($commune);
-			$sql =	  'SELECT
-							EXTRACT(MONTH FROM orientsstructs.date_valid) AS mois,
-							EXTRACT(YEAR FROM orientsstructs.date_valid) AS annee,
-							AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur
-						FROM orientsstructs
-							INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
-							INNER JOIN foyers ON personnes.foyer_id = foyers.id
-							INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
-							LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
-							LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
-						WHERE
-							orientsstructs.typeorient_id=1
-							'.$where.'
-							AND orientsstructs.date_valid BETWEEN \''.$annee.'-01-01\' AND \''.($annee+1).'-12-31\'
-							AND rdv.daterdv>=orientsstructs.date_propo
-							AND rdv.statutrdv_id=1
-							AND rdv.typerdv_id=15
-							AND rdv.id IN (
-								SELECT id FROM rendezvous
-								WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
-								ORDER BY id
-								LIMIT 1
-							)
-						GROUP BY annee, mois
-						ORDER BY annee, mois;';
+			$sql = $this->_getSqlRdvPIE($where, '1', '15', $annee);
 			return $this->_query( $sql );
 		}
 
@@ -342,31 +392,7 @@
 				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
 			if($commune!='' && $commune>0)
 				$where  .=  $this->_addSearchCommune($commune);
-			$sql =	  'SELECT
-							EXTRACT(MONTH FROM orientsstructs.date_valid) AS mois,
-							EXTRACT(YEAR FROM orientsstructs.date_valid) AS annee,
-							AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur
-						FROM orientsstructs
-							INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
-							INNER JOIN foyers ON personnes.foyer_id = foyers.id
-							INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
-							LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
-							LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
-						WHERE
-							orientsstructs.typeorient_id=1
-							'.$where.'
-							AND orientsstructs.date_valid BETWEEN \''.$annee.'-01-01\' AND \''.($annee+1).'-12-31\'
-							AND rdv.daterdv>=orientsstructs.date_propo
-							AND rdv.statutrdv_id=2
-							AND rdv.typerdv_id=14
-							AND rdv.id IN (
-								SELECT id FROM rendezvous
-								WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
-								ORDER BY id
-								LIMIT 1
-							)
-						GROUP BY annee, mois
-						ORDER BY annee, mois;';
+			$sql = $this->_getSqlRdvPIE($where, '2', '14', $annee);
 			return $this->_query( $sql );
 		}
 
@@ -384,31 +410,7 @@
 				$where  .=   " AND communautessrs_structuresreferentes.communautesr_id='".$communautesSrs."'";
 			if($commune!='' && $commune>0)
 				$where  .=  $this->_addSearchCommune($commune);
-			$sql =	  'SELECT
-							EXTRACT(MONTH FROM orientsstructs.date_valid) AS mois,
-							EXTRACT(YEAR FROM orientsstructs.date_valid) AS annee,
-							AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur
-						FROM orientsstructs
-							INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
-							INNER JOIN foyers ON personnes.foyer_id = foyers.id
-							INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
-							LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
-							LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
-						WHERE
-							orientsstructs.typeorient_id=1
-							'.$where.'
-							AND orientsstructs.date_valid BETWEEN \''.$annee.'-01-01\' AND \''.($annee+1).'-12-31\'
-							AND rdv.daterdv>=orientsstructs.date_propo
-							AND rdv.statutrdv_id=1
-							AND rdv.typerdv_id=14
-							AND rdv.id IN (
-								SELECT id FROM rendezvous
-								WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
-								ORDER BY id
-								LIMIT 1
-							)
-						GROUP BY annee, mois
-						ORDER BY annee, mois;';
+			$sql = $this->_getSqlRdvPIE($where, '1', '14', $annee);
 			return $this->_query( $sql );
 		}
 
@@ -437,8 +439,8 @@
 							LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
 							LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
 						WHERE
-							orientsstructs.typeorient_id=1
-							'.$where.'
+							' . $this->_getTypeOrient('Socioprofessionnelle')
+							 . $where.'
 							AND orientsstructs.date_valid BETWEEN \''.$annee.'-01-01\' AND \''.($annee+1).'-12-31\'
 							AND cer.dd_ci>=orientsstructs.date_propo
 							AND cer.id IN (
@@ -2149,28 +2151,7 @@
 
 				$reqDateDebutFin	.=	(($reqDateDebutFin!='')? 'OR' : '').' orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\' ';
 
-				$sql =	  'SELECT
-								AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur,
-								COUNT(DISTINCT(personnes.id)) as nbPersonnes
-							FROM orientsstructs
-								INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
-								INNER JOIN foyers ON personnes.foyer_id = foyers.id
-								INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
-								LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
-								LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
-							WHERE
-								orientsstructs.typeorient_id=1
-								'.$where.'
-								AND orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\'
-								AND rdv.daterdv>=orientsstructs.date_propo
-								AND rdv.statutrdv_id IN (2, 3, 4)
-								AND rdv.typerdv_id=15
-								AND rdv.id IN (
-									SELECT id FROM rendezvous
-									WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
-									ORDER BY id
-									LIMIT 1
-								)';
+				$sql = $this->_getSqlRdvPIEVague($where, array('2', '3', '4'), '15', $value['dateDebut'], $value['dateFin']);
 				$result	=	$this->query($sql);
 				$tabInfos[$index]	=	$result;
 				$moyenne	+=	$result[0][0]["indicateur"];
@@ -2223,28 +2204,7 @@
 
 				$reqDateDebutFin	.=	(($reqDateDebutFin!='')? 'OR' : '').' orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\' ';
 
-				$sql =	  'SELECT
-								AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur,
-								COUNT(DISTINCT(personnes.id)) as nbPersonnes
-							FROM orientsstructs
-								INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
-								INNER JOIN foyers ON personnes.foyer_id = foyers.id
-								INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
-								LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
-								LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
-							WHERE
-								orientsstructs.typeorient_id=1
-								'.$where.'
-								AND orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\'
-								AND rdv.daterdv>=orientsstructs.date_propo
-								AND rdv.statutrdv_id=1
-								AND rdv.typerdv_id=15
-								AND rdv.id IN (
-									SELECT id FROM rendezvous
-									WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
-									ORDER BY id
-									LIMIT 1
-								)';
+				$sql = $this->_getSqlRdvPIEVague($where, array('1'), '15', $value['dateDebut'], $value['dateFin']);
 				$result	=	$this->query($sql);
 				$tabInfos[$index]	=	$result;
 				$moyenne	+=	$result[0][0]["indicateur"];
@@ -2300,29 +2260,10 @@
 
 				$reqDateDebutFin	.=	(($reqDateDebutFin!='')? 'OR' : '').' orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\' ';
 
-				$sql =	  'SELECT
-								AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur,
-								COUNT(DISTINCT(personnes.id)) as nbPersonnes
-							FROM orientsstructs
-								INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
-								INNER JOIN foyers ON personnes.foyer_id = foyers.id
-								INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
-								LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
-								LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
-							WHERE
-								orientsstructs.typeorient_id=1
-								'.$where.'
-								AND orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\'
-								AND rdv.daterdv>=orientsstructs.date_propo
-								AND rdv.statutrdv_id IN (2, 3, 4)
-								AND rdv.typerdv_id=14
-								AND rdv.id IN (
-									SELECT id FROM rendezvous
-									WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
-									ORDER BY id
-									LIMIT 1
-								)';
+				$sql = $this->_getSqlRdvPIEVague($where, array('2', '3', '4'), '14', $value['dateDebut'], $value['dateFin']);
+				debug($sql);
 				$result	=	$this->query($sql);
+				debug($result);
 				$tabInfos[$index]	=	$result;
 				$moyenne	+=	$result[0][0]["indicateur"];
 				$nbPersonnes	+=	$result[0][0]["nbpersonnes"];
@@ -2377,28 +2318,7 @@
 
 				$reqDateDebutFin	.=	(($reqDateDebutFin!='')? 'OR' : '').' orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\' ';
 
-				$sql =	  'SELECT
-								AVG( ABS(rdv.daterdv - orientsstructs.date_valid ) ) AS indicateur,
-								COUNT(DISTINCT(personnes.id)) as nbPersonnes
-							FROM orientsstructs
-								INNER JOIN personnes ON orientsstructs.personne_id = personnes.id
-								INNER JOIN foyers ON personnes.foyer_id = foyers.id
-								INNER JOIN rendezvous rdv ON rdv.personne_id=personnes.id
-								LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
-								LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
-							WHERE
-								orientsstructs.typeorient_id=1
-								'.$where.'
-								AND orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\'
-								AND rdv.daterdv>=orientsstructs.date_propo
-								AND rdv.statutrdv_id=1
-								AND rdv.typerdv_id=14
-								AND rdv.id IN (
-									SELECT id FROM rendezvous
-									WHERE personne_id=personnes.id AND daterdv>=orientsstructs.date_valid
-									ORDER BY id
-									LIMIT 1
-								)';
+				$sql = $this->_getSqlRdvPIEVague($where, array('1'), '14', $value['dateDebut'], $value['dateFin']);
 				$result	=	$this->query($sql);
 				$tabInfos[$index]	=	$result;
 				$moyenne	+=	$result[0][0]["indicateur"];
@@ -2461,8 +2381,8 @@
 								LEFT OUTER JOIN structuresreferentes ON structuresreferentes.id=orientsstructs.structurereferente_id
 								LEFT OUTER JOIN communautessrs_structuresreferentes ON communautessrs_structuresreferentes.structurereferente_id=structuresreferentes.id
 							WHERE
-								orientsstructs.typeorient_id=1
-								'.$where.'
+								' . $this->_getTypeOrient('Socioprofessionnelle')
+								. $where . '
 								AND orientsstructs.date_valid BETWEEN \''.$value['dateDebut'].'\' AND \''.$value['dateFin'].'\'
 								AND cer.dd_ci>=orientsstructs.date_propo
                                 AND cer.dd_ci BETWEEN orientsstructs.date_propo AND \''.$annee.'-12-31\'

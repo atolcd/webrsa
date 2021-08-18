@@ -502,6 +502,45 @@
 		}
 
 		/**
+		 * Renvoie si la structure référente a le workflow de validation d'activer
+		 *
+		 * @param integer id
+		 * @return boolean
+		 */
+		public function isWorkflowActive( $id ) {
+			// Récupération des informations de la structure orientante
+			$infoStructureOrientante = $this->find('first', array(
+				'fields' => array(
+					'Structurereferente.workflow_valid'
+				),
+				'recursive' => -1,
+				'conditions' => array(
+					'Structurereferente.id' => $id
+				)
+			));
+
+			if( $infoStructureOrientante['Structurereferente']['workflow_valid'] == 1 ) {
+				return true;
+			}
+			return false;
+		}
+
+		/**
+		 * Renvoie la liste des structures référentes ayant le workflow de validation d'activer
+		 *
+		 * @return array
+		 */
+		public function listeStructWorkflow() {
+			return $this->find('list', array(
+				'fields' => array('Structurereferente.id'),
+				'conditions' => array(
+					'Structurereferente.orientation' => 'O',
+					'Structurereferente.workflow_valid' => 1,
+				)
+			));
+		}
+
+		/**
 		*
 		*/
 

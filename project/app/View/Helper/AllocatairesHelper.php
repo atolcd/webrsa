@@ -335,6 +335,7 @@
 			$content .= $this->_input( "{$params['prefix']}Personne.nir", $params, array( 'maxlength' => 15 ) );
 			$content .= $this->_input( "{$params['prefix']}Personne.sexe", $params, array( 'options' => (array)Hash::get( $params, 'options.Personne.sexe' ), 'empty' => true ) );
 
+			// Tranche d'âge
 			if ($trancheage = Configure::read('Search.Options.enums.Personne.trancheage')) {
 				$params['options']['Personne']['trancheage'] = $trancheage;
 			}
@@ -342,6 +343,25 @@
 			if( Hash::check( $params, 'options.Personne.trancheage' ) ) {
 				$content .= $this->_input( "{$params['prefix']}Personne.trancheage", $params, array( 'options' => (array)Hash::get( $params, 'options.Personne.trancheage' ), 'empty' => true ) );
 			}
+
+			// Tranche d'âge supérieur à
+			if ($trancheage = Configure::read('Search.Options.enums.Personne.trancheagesup')) {
+				$params['options']['Personne']['trancheagesup'] = $trancheage;
+			}
+
+			if( Hash::check( $params, 'options.Personne.trancheagesup' ) ) {
+				$content .= $this->_input( "{$params['prefix']}Personne.trancheagesup", $params, array( 'options' => (array)Hash::get( $params, 'options.Personne.trancheagesup' ), 'empty' => true ) );
+			}
+
+			// Tranche d'âge inférieur à
+			if ($trancheage = Configure::read('Search.Options.enums.Personne.trancheageprec')) {
+				$params['options']['Personne']['trancheageprec'] = $trancheage;
+			}
+
+			if( Hash::check( $params, 'options.Personne.trancheageprec' ) ) {
+				$content .= $this->_input( "{$params['prefix']}Personne.trancheageprec", $params, array( 'options' => (array)Hash::get( $params, 'options.Personne.trancheageprec' ), 'empty' => true ) );
+			}
+
 			$content .= $this->_input( "{$params['prefix']}Calculdroitrsa.toppersdrodevorsa", $params, array( 'options' => (array)Hash::get( $params, 'options.Calculdroitrsa.toppersdrodevorsa' ), 'empty' => true ) );
 
 			if( true === Hash::check($params, 'configurableQueryParams.searchKeyPrefix') ) {

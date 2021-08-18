@@ -112,7 +112,14 @@
 						'contain' => false
 					)
 				);
-				$data['Orientstruct']['date_propo'] = $dossier['Dossier']['dtdemrsa'];
+
+				// Si le workflow de validation est activé, nous mettons aussi la date de proposition à la date du jour
+				if (Configure::read('Orientation.validation.enabled') ) {
+					$data['Orientstruct']['date_propo'] = date( 'Y-m-d' );
+				} else {
+					$data['Orientstruct']['date_propo'] = $dossier['Dossier']['dtdemrsa'];
+				}
+
 				$data['Orientstruct']['date_valid'] = date( 'Y-m-d' );
 			}
 
@@ -202,6 +209,12 @@
 						$orientstruct[$this->Orientstruct->alias]['date_valid'] = null;
 					}
 				}
+				else if (Configure::read('Orientation.validation.enabled') && !empty($orientstruct[$this->Orientstruct->alias]['structureorientante_id']
+					&& $this->Orientstruct->Structurereferente->isWorkflowActive($orientstruct[$this->Orientstruct->alias]['structureorientante_id']) == true
+					&& in_array($orientstruct[$this->Orientstruct->alias]['origine'], Configure::read('Orientation.validation.listeorigine') ) )
+				) {
+					$orientstruct[$this->Orientstruct->alias]['statut_orient'] = 'En attente';
+				}
 				else if( empty( $primaryKey ) ) {
 					$orientstruct[$this->Orientstruct->alias]['statut_orient'] = 'Orienté';
 				}
@@ -223,7 +236,7 @@
 						'date_valid'
 					);
 					if( empty( $success ) ) {
-						$msgstr = 'Impossible d\'ajouter un nouveau référent du parcours. Il est peut-être nécessaire de clôturer l\'actuel.';
+						$msgstr = __d('orienstructs', 'Orientstruct.erreur.referent');
 						$this->Orientstruct->validationErrors['typeorient_id'][] = $msgstr;
 					}
 				}
@@ -231,6 +244,64 @@
 
 			return $success;
 		}
+
+		/**
+		 * Sauvegarde du formulaire de validation de l'orientation
+		 * d'un bénéficiaire.
+		 *
+		 * @param array $data
+		 * @return boolean
+		 */
+		public function saveValidationData( array $data, $user_id = null ) {
+			$success = true;
+
+			$primaryKey = Hash::get( $data, "{$this->Orientstruct->alias}.id" );
+			$personne_id = Hash::get( $data, "{$this->Orientstruct->alias}.personne_id" );
+
+			$decision = (int)$data['Orientstruct']['decisionvalidation'];
+			$date_valid = '';
+			$statut_orient = '';
+
+			if( $decision == 1 ) {
+				$statut_orient = 'Orienté';
+				$date_valid = Hash::get( $data, "{$this->Orientstruct->alias}.dtdecisionvalidation" );
+			} elseif( $decision == 0 ) {
+				$statut_orient = 'Refusé';
+				$date_valid = null;
+			}
+
+			$orientstruct = array(
+				$this->Orientstruct->alias => array(
+					'id' => $primaryKey,
+					'personne_id' => $personne_id,
+					'statut_orient' => $statut_orient,
+					'date_valid' => $date_valid
+				)
+			);
+
+			if( !empty( $user_id ) ) {
+				$orientstruct[$this->Orientstruct->alias]['user_id'] = $user_id;
+			}
+
+			$this->Orientstruct->create( $orientstruct );
+			$success = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
+
+			// Tentative d'ajout d'un référent de parcours
+			if( $success && !empty( $referent_id ) && ( $statut_orient == 'Orienté' ) ) {
+				$success = $this->Orientstruct->Referent->PersonneReferent->referentParModele(
+					$data,
+					$this->Orientstruct->alias,
+					'date_valid'
+				);
+				if( empty( $success ) ) {
+					$msgstr = __d('orienstructs', 'Orientstruct.erreur.referent');
+					$this->Orientstruct->validationErrors['typeorient_id'][] = $msgstr;
+				}
+			}
+
+			return $success;
+		}
+
 
 		/**
 		 * Retourne un querydata permettant de connaître la liste des orientations
@@ -808,9 +879,6 @@
 					}
 					elseif ($departement == 66) {
 						$rgorient = DepartementUtility::getTypeorientName($records, $key);
-					}
-					else {
-						$rgorient = $rgorient == 1 ? 'Première orientation' : 'Réorientation';
 					}
 				}
 			}

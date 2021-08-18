@@ -189,12 +189,17 @@
 		 */
 		public function prepareFormDataCohorte( array $results, array $params = array(), array &$options = array() ) {
 			$data = array();
+			$typesorients = $this->Personne->Orientstruct->Typeorient->listOptionsUnderParent();
 
 			foreach( $results as $key => $result ) {
-				$data[$key]['Orientstruct']['typeorient_id'] = $result['Orientstruct']['propo_algo'];
+				if (is_null($result['Orientstruct']['propo_algo'])) {
+					$data[$key]['Orientstruct']['typeorient_id'] = $result['Orientstruct']['propo_algo'];
+				} else {
+					$tmpTypeorient = $typesorients[$result['Orientstruct']['propo_algo']];
+					$data[$key]['Orientstruct']['typeorient_id'] = key($tmpTypeorient);
+				}
 				$data[$key]['Orientstruct']['statut_orient'] = 'Orienté';
 			}
-
 			return $data;
 		}
 
@@ -256,7 +261,7 @@
 					'list',
 					array(
 						'conditions' => array(
-							'Typeorient.lib_type_orient' => $this->Personne->Orientstruct->Typeorient->listTypeParent()
+							'Typeorient.lib_type_orient' => $this->Personne->Orientstruct->Typeorient->listTypeEnfant()
 						),
 						'recursive' => -1
 					)
@@ -276,7 +281,6 @@
 						)
 					)
 				);
-
 
 				$results = array();
 				foreach( $structures as $structure ) {

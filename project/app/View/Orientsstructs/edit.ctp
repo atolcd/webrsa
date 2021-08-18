@@ -32,30 +32,24 @@
 		)
 	);
 
-	if( $departement == 66 ) {
+	if( $departement == 66 || Configure::read('Orientation.validation.enabled') ) {
+		$isMandatory = false;
+		if(Configure::read('Orientation.validation.enabled') == true) {
+			$isMandatory = true;
+		}
 		echo $this->Html->tag(
 			'fieldset',
 			$this->Html->tag( 'legend', 'Orienté par' )
 			.$this->Default3->subform(
 				array(
-					'Orientstruct.structureorientante_id' => array( 'empty' => true ),
-					'Orientstruct.referentorientant_id' => array( 'empty' => true ),
+					'Orientstruct.structureorientante_id' => array( 'empty' => true, 'required' => $isMandatory ),
+					'Orientstruct.referentorientant_id' => array( 'empty' => true, 'required' => $isMandatory ),
 				),
 				array(
 					'options' => $options
 				)
 			)
 		);
-	}
-
-	/**
-	 * Orientation externe par prestataire pour le CD 93 uniquement
-	 * On ne veut proposer que les origines des prestataires
-	 */
-	foreach ($options['Orientstruct']['origine'] as $key => $value) {
-		if (!(preg_match('|^presta|', $key) || preg_match('|manuelle|', $key))) {
-			unset ($options['Orientstruct']['origine'][$key]);
-		}
 	}
 
 	$fields = array(
@@ -78,7 +72,7 @@
 	echo $this->Default3->DefaultForm->buttons( array( 'Save', 'Cancel' ) );
 	echo $this->Default3->DefaultForm->end();
 
-	if( $departement == 66 ) {
+	if( $departement == 66 || Configure::read('Orientation.validation.enabled') ) {
 		echo $this->Observer->dependantSelect(
 			array(
 				'Orientstruct.structureorientante_id' => 'Orientstruct.referentorientant_id',
@@ -103,6 +97,19 @@
 			),
 			array( 'Orienté' ),
 			false
+		);
+	}
+
+	if (Configure::read('Orientation.validation.enabled')) {
+		echo $this->Observer->disableFieldsOnValue(
+			'Orientstruct.structureorientante_id',
+			array(
+				'Orientstruct.date_valid.year',
+				'Orientstruct.date_valid.month',
+				'Orientstruct.date_valid.day'
+			),
+			$options['StructOrientanteWorkflow'],
+			true
 		);
 	}
 

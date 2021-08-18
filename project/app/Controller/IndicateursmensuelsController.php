@@ -129,13 +129,28 @@
 			}
 
 			//liste des PDV
+			$Typeorient = ClassRegistry::init( 'Typeorient' );
+
+			$typeOrientSociopro = $Typeorient->find('list', array(
+				'fields' => array('Typeorient.id'),
+				'conditions' => array(
+					'OR' => array(
+						'Typeorient.id' => 1,
+						'Typeorient.parentid' => 1
+
+					)
+				)
+			));
+
 			$StructRef = ClassRegistry::init( 'Structuresreferentes' );
 			$options	=   $StructRef->find('list', array(
-					'fields'=>array(
+				'fields'=>array(
 					'Structuresreferentes.id',
 					'Structuresreferentes.lib_struc',
 				),
-				'conditions' => array( 'Structuresreferentes.typeorient_id' => '1' ),
+				'conditions' => array(
+					'Structuresreferentes.typeorient_id IN' => $typeOrientSociopro
+				),
 				'order' => array( 'Structuresreferentes.lib_struc ASC' )
 			));
 			$this->set( compact( 'options' ) );
@@ -181,13 +196,28 @@
 			}
 
 			//liste des PDV
+			$Typeorient = ClassRegistry::init( 'Typeorient' );
+
+			$typeOrientSociopro = $Typeorient->find('list', array(
+				'fields' => array('Typeorient.id'),
+				'conditions' => array(
+					'OR' => array(
+						'Typeorient.id' => 1,
+						'Typeorient.parentid' => 1
+
+					)
+				)
+			));
+
 			$StructRef = ClassRegistry::init( 'Structuresreferentes' );
 			$options	=   $StructRef->find('list', array(
-					'fields'=>array(
+				'fields'=>array(
 					'Structuresreferentes.id',
 					'Structuresreferentes.lib_struc',
 				),
-				'conditions' => array( 'Structuresreferentes.typeorient_id' => '1' ),
+				'conditions' => array(
+					'Structuresreferentes.typeorient_id IN' => $typeOrientSociopro
+				),
 				'order' => array( 'Structuresreferentes.lib_struc ASC' )
 			));
 			$this->set( compact( 'options' ) );

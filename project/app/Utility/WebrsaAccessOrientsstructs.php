@@ -35,6 +35,21 @@
 		}
 
 		/**
+		 * Action valider()
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _valider(array $record, array $params) {
+			$Structureorientante = ClassRegistry::init('Structurereferente');
+			return $record['Orientstruct']['statut_orient'] == 'En attente'
+				&& in_array($record['Orientstruct']['origine'], Configure::read('Orientation.validation.listeorigine') )
+				&& !empty($record['Orientstruct']['structureorientante_id'])
+				&& $Structureorientante->isWorkflowActive($record['Orientstruct']['structureorientante_id']);
+		}
+
+		/**
 		 * Action add()
 		 *
 		 * @param array $record
@@ -42,6 +57,12 @@
 		 * @return boolean
 		 */
 		protected static function _add(array $record, array $params) {
+			// Inaccessible pour le 93 s'il y a une réorientation en cours ou une orientation en attente de validation
+			if ($params['departement'] == 93 && ( !empty($params['reorientationseps'])
+				|| (!empty($record[0]['Orientstruct']['statut_orient']) && $record[0]['Orientstruct']['statut_orient'] == 'En attente' ) )
+			) {
+				return false;
+			}
 			return Hash::get($params, 'ajout_possible') == true;
 		}
 
@@ -88,6 +109,13 @@
 				$result = $result
 					&& $periodeblock == false
 					&& Hash::get($record, "{$params['alias']}.dernier_oriente") == true;
+			} elseif( Configure::read('Orientation.validation.enabled') == true ) {
+				$result = $result
+					&& (
+						( Hash::get($record, "{$params['alias']}.statut_orient") == 'En attente'
+						&& Hash::get($record, "{$params['alias']}.origine") == null)
+						|| Hash::get($record, "{$params['alias']}.statut_orient") != 'En attente'
+					);
 			}
 
 			return $result;
@@ -204,6 +232,10 @@
 					'filelink'
 				)
 			);
+
+			if( Configure::read('Orientation.validation.enabled') == true ) {
+				$result = self::merge_actions($result, array('valider'));
+			}
 
 			if ($params['departement'] == 66) {
 				$result = self::merge_actions($result, array('impression_changement_referent'));

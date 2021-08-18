@@ -190,6 +190,12 @@ msgstr "Sexe"
 msgid "Search.Personne.trancheage"
 msgstr "Tranche d'âge"
 
+msgid "Search.Personne.trancheagesup"
+msgstr "Âge supérieur ou égal à"
+
+msgid "Search.Personne.trancheageprec"
+msgstr "Âge inférieur ou égal à"
+
 msgid "Search.Calculdroitrsa.toppersdrodevorsa"
 msgstr "Personne soumise à droits et devoirs ?"
 

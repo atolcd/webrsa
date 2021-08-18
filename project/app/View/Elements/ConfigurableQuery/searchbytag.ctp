@@ -1,5 +1,6 @@
 <?php
-if( !in_array( 'ByTag.tag_choice', Configure::read('ConfigurableQuery.' . ucfirst($this->params->controller) . '.' . $this->action . '.filters.skip') ) ) {
+if( !is_array(Configure::read('ConfigurableQuery.' . ucfirst($this->params->controller) . '.' . $this->action . '.filters.skip'))
+	|| !in_array( 'ByTag.tag_choice', Configure::read('ConfigurableQuery.' . ucfirst($this->params->controller) . '.' . $this->action . '.filters.skip') ) ) {
 	// Conditions d'accès aux tags
 	$departement = Configure::read( 'Cg.departement' );
 	$user_type = $this->Session->read( 'Auth.User.type' );

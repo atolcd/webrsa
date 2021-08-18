@@ -1,7 +1,7 @@
 <?php
 	$personne_id = Hash::get( $dossierMenu, 'personne_id' );
 	$personne = Hash::get( (array)Hash::extract( $dossierMenu, "Foyer.Personne.{n}[id={$personne_id}]" ), 0 );
-	
+
 	App::uses('WebrsaAccess', 'Utility');
 	WebrsaAccess::init($dossierMenu);
 
@@ -13,21 +13,29 @@
 
 	// Messages explicatifs
 	if ( empty( $orientsstructs ) ) {
-		echo '<p class="notice">Cette personne ne possède pas encore d\'orientation.</p>';
+		echo '<p class="notice">' . __m('Orientation.notice.noorientation') . '</p>';
 	}
 
 	if( !empty( $reorientationseps ) ) {
-		echo '<p class="notice">Impossible d\'ajouter une nouvelle orientation à ce dossier (passage en EP).</p>';
+		echo '<p class="notice">' . __m('Orientation.notice.reorientationseps') . '</p>';
 	}
 	else if( !empty( $reorientationscovs ) ) {
-		echo '<p class="notice">Impossible d\'ajouter une nouvelle orientation à ce dossier (passage en COV).</p>';
+		echo '<p class="notice">' . __m('Orientation.notice.reorientationscovs') . '</p>';
 	}
 	else if( !$ajoutPossible ) {
-		echo '<p class="notice">Impossible d\'ajouter une nouvelle orientation à ce dossier (dossier ne pouvant être orienté).</p>';
+		echo '<p class="notice">' . __m('Orientation.notice.pasajoutPossible') . '</p>';
 	}
 
 	if( !empty( $en_procedure_relance ) ) {
-		echo '<p class="notice">Cette personne est en cours de procédure de relance.</p>';
+		echo '<p class="notice">' . __m('Orientation.notice.en_procedure_relance') . '</p>';
+	}
+
+	if( Configure::read('Orientation.validation.enabled') == true
+		&& !empty($orientsstructs[0])
+		&& $orientsstructs[0]['Orientstruct']['statut_orient'] == 'En attente'
+		&& $orientsstructs[0]['Orientstruct']['origine'] != null
+	) {
+		echo '<p class="notice">' . __m('Orientation.notice.workfloworientenattente') . '</p>';
 	}
 
 	echo $this->Default3->actions( $actions );
@@ -169,17 +177,19 @@
 				$fields = array(
 					'Orientstruct.date_propo' => array( 'label' => 'Date de préOrientation' ),
 					'Orientstruct.date_valid',
+					'Orientstruct.statut_orient',
 					'Orientstruct.propo_algo' => array( 'type' => 'text' ),
 					'Orientstruct.origine',
 					'Typeorient.lib_type_orient' => array( 'label' => 'Orientation' ),
 					'Structurereferente.lib_struc',
-					'Orientstruct.rgorient' => array( 'type' => 'text' ),
+					'Orientstruct.rgorient' => array( 'type' => 'integer', 'class' => 'number' ),
 					'Fichiermodule.nombre' => array( 'type' => 'integer', 'class' => 'number' ),
 				);
 			}
 			else  {
 				$fields = array(
 					'Orientstruct.date_valid',
+					'Orientstruct.statut_orient',
 					'Orientstruct.origine',
 					'Typeorient.lib_type_orient' => array( 'label' => 'Orientation' ),
 					'Structurereferente.lib_struc',
@@ -234,6 +244,22 @@
 					),
 					'/Orientsstructs/delete/#Orientstruct.id#' => array(
 						'confirm' => true
+					),
+					'/Orientsstructs/filelink/#Orientstruct.id#'
+				)
+			);
+		}
+		else if (Configure::read('Orientation.validation.enabled')) {
+			$links = WebrsaAccess::links(
+				array(
+					'/Orientsstructs/edit/#Orientstruct.id#',
+					'/Orientsstructs/valider/#Orientstruct.id#',
+					'/Orientsstructs/impression/#Orientstruct.id#',
+					'/Orientsstructs/delete/#Orientstruct.id#' => array(
+						'confirm' => true,
+					),
+					'/Orientsstructs/nonrespectppae/#Orientstruct.id#' => array(
+						'confirm' => __m('/Orientsstructs/nonrespectppae/#Orientstruct.id# ?'),
 					),
 					'/Orientsstructs/filelink/#Orientstruct.id#'
 				)

@@ -99,7 +99,19 @@
 			}
 
 			// 2. Valeurs exactes
-			foreach( array( 'typeorient_id', 'actif', 'actif_cohorte', 'typestructure', 'contratengagement', 'apre', 'orientation', 'pdo', 'cui' ) as $field ) {
+			$fieldsValues = array(
+				'typeorient_id',
+				'actif',
+				'actif_cohorte',
+				'typestructure',
+				'contratengagement',
+				'apre',
+				'orientation',
+				'pdo',
+				'cui',
+				'workflow_valid'
+			);
+			foreach( $fieldsValues as $field ) {
 				$value = (string)Hash::get( $search, "Structurereferente.{$field}" );
 				if( '' !== $value ) {
 					$query['conditions'][] = array( "Structurereferente.{$field}" => $value );

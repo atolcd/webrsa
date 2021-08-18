@@ -204,7 +204,7 @@
 			$departement = Configure::read( 'Cg.departement' );
 			$options = $this->options( __FUNCTION__, $options );
 
-            if( $departement == 66 && $this->Session->read( 'Auth.User.type' ) === 'externe_ci' ) {
+			if( $departement == 66 && $this->Session->read( 'Auth.User.type' ) === 'externe_ci' ) {
 				$parent_sq = $Controller->Structurereferente->Typeorient->sq(
 					array(
 						'alias' => 't',
