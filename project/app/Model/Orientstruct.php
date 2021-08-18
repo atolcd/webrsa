@@ -565,8 +565,6 @@
 			$active = !in_array( Configure::read( 'Cg.departement' ), array( 66, 976 ) );
 			$this->actsAs = Hash::insert( $this->actsAs, 'StorablePdf.active', $active );
 
-			parent::__construct( $id, $table, $ds );
-
 			$departement = Configure::read( 'Cg.departement' );
 
 			if( $departement == 66 ) {
@@ -596,6 +594,8 @@
 					'message' => 'Champ obligatoire',
 				);
 			}
+
+			parent::__construct( $id, $table, $ds );
 		}
 
 		/**
