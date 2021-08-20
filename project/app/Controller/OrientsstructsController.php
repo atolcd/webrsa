@@ -648,7 +648,11 @@
 					'toppersdrodevorsa' => $Option->toppersdrodevorsa()
 				),
 				'Orientstruct' => array(
-					'typeorient_id' => $this->InsertionsBeneficiaires->typesorients(),
+					'typeorient_id' => $this->InsertionsBeneficiaires->typesorients(array(
+						'conditions' => array(
+							'Typeorient.actif_dossier' => true
+						)
+					)),
 					'structurereferente_id' => $this->InsertionsBeneficiaires->structuresreferentes(
 						array(
 							'conditions' => array( 'Structurereferente.orientation' => 'O' )

@@ -9,7 +9,8 @@
 				'Typeorient.modele_notif',
 				'Typeorient.modele_notif_cohorte',
 				'Typeorient.code_type_orient',
-				'Typeorient.actif' => array( 'type' => 'radio', 'legend' => required( __d( 'typeorient', 'Typeorient.actif' ) ) )
+				'Typeorient.actif' => array( 'type' => 'radio', 'legend' => required( __d( 'typeorient', 'Typeorient.actif' ) ) ),
+				'Typeorient.actif_dossier',
 			),
 			'options' => $options
 		)
@@ -24,7 +25,8 @@
 				'Parent.lib_type_orient',
 				'Typeorient.modele_notif',
 				'Typeorient.modele_notif_cohorte',
-				'Typeorient.actif'
+				'Typeorient.actif',
+				'Typeorient.actif_dossier',
 			)
 		),
 		array(

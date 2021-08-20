@@ -43,6 +43,9 @@ msgstr "Code pour les statistiques"
 msgid "Typeorient.actif"
 msgstr "Actif"
 
+msgid "Typeorient.actif_dossier"
+msgstr "Actif depuis le dossier allocataire"
+
 msgid "ENUM::ACTIF::N"
 msgstr "Non"
 
