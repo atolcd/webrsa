@@ -49,67 +49,12 @@
 		 * Action addDirect allant sur add()
 		 * Utilisé pour ajouter une orientation direct (CD58)
 		 *
-		 * Ce bouton s'activera selon les conditions suivantes :
-		 * - si le dernier rendez-vous a pour objet INFO_COLL*, statutrdv VENU et est passé, c'est à dire après la date du jour
-		 * - si aucune orientation n’existe après ce rendez-vous
-		 *
 		 * @param array $record
 		 * @param array $params
 		 * @return boolean
 		 */
 		protected static function _addDirect(array $record, array $params) {
-			if ( !empty($params['personne_id']) ) {
-				$Rendezvous = ClassRegistry::init('Rendezvous');
-				$lastRdv = $Rendezvous->find('first', array(
-					'fields' => array(
-						'Rendezvous.daterdv',
-						'Rendezvous.created',
-						'Rendezvous.modified',
-						'Typerdv.code_type',
-						'Statutrdv.code_statut'
-					),
-					'conditions' => array(
-						'Rendezvous.personne_id' => $params['personne_id']
-					),
-					'order' => array('Rendezvous.daterdv DESC')
-				));
-
-				// Check d'un dernier rendez vous
-				if(is_null($lastRdv) || is_null($lastRdv['Typerdv']['code_type']) || is_null($lastRdv['Statutrdv']['code_statut'])) {
-					return false;
-				}
-				// Récupération la dernière orientation
-				$Orientstruct = ClassRegistry::init('Orientstruct');
-				$lastOrient = $Orientstruct->find('first', array(
-					'recursive' => -1,
-					'conditions' => array(
-						'Orientstruct.personne_id' => $params['personne_id'],
-						'Orientstruct.date_valid >' => $lastRdv['Rendezvous']['daterdv']
-					)
-				));
-
-				// Check du statut de rdv via le code 'VENU'
-				$isStatutOK = $lastRdv['Statutrdv']['code_statut'] == 'VENU';
-
-				// Check du type de rdv : %INFO_COLL%
-				$isTypeOK = strpos($lastRdv['Typerdv']['code_type'], 'INFO_COLL') !== false;
-
-				// Check de la date du rendez-vous : il doit être passé
-				$rdvDate = new DateTime($lastRdv['Rendezvous']['daterdv']);
-				$now = new DateTime('now');
-				$isDateOK = $now > $rdvDate;
-
-				// Check orientation inexistante
-				$isOrientOK = empty($lastOrient);
-
-				// Vérifie que le statut de rdv / type de rdv / date de rdv / orientation soient OK
-				if( !$isStatutOK || !$isTypeOK || !$isDateOK || !$isOrientOK ) {
-					return false;
-				}
-
-				return true;
-			}
-			return false;
+			return Hash::get($params, 'ajout_possible') == true;
 		}
 
 		/**
@@ -252,7 +197,7 @@
 			$result = self::normalize_actions(
 				array(
 					'add' => array('ajout_possible' => true),
-					'addDirect',
+					'addDirect' => array('ajout_possible' => true),
 					'edit' => array('ajout_possible' => true),
 					'impression',
 					'delete' => array('reorientationseps' => true),
