@@ -369,6 +369,9 @@
 
 			$query['conditions'] = $this->conditionsRendezvous ( $query['conditions'], $search);
 
+			// Ajout des conditions pour ne pas prendre en compte certaines activité Socio-Pro
+			$query = $this->activiteToSkip($query);
+
 			return $query;
 		}
 
@@ -460,5 +463,32 @@
 			$texte = preg_replace ('#MOIS#', $mois, __d ('planpauvrete', $locale));
 
 			return $texte;
+		}
+
+		/**
+		 * Ajoute la jointure et les conditions des activités professionnelles à exclure si configuré
+		 *
+		 * @param array
+		 *
+		 * @return array
+		 */
+		public function activiteToSkip($query) {
+			$activiteAExclure = Configure::read('PlanPauvrete.Cohorte.Activite.Skip');
+			if(!empty($activiteAExclure)) {
+
+				// Ajout du join
+				$query['joins'] = array_merge(
+					$query['joins'],
+					array(
+						$this->Personne->join('Activite', array('type' => 'LEFT OUTER') )
+					)
+				);
+				// Ajout de la conditions
+				$query['conditions'][] = array(
+					'Activite.act NOT IN' => $activiteAExclure
+				);
+			}
+
+			return $query;
 		}
 	}
