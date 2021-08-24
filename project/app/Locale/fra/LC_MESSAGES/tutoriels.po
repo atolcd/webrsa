@@ -1,0 +1,68 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+###############################################################################
+
+msgid "/Tutoriels/index/:heading"
+msgstr "Tutoriels"
+
+msgid "/Tutoriels/add"
+msgstr "Ajouter"
+
+msgid "/Tutoriels/add/:title"
+msgstr "Ajouter un tutoriel"
+
+msgid "/Tutoriels/add/:heading"
+msgstr "Ajouter un tutoriel"
+
+msgid "/Tutoriels/index"
+msgstr "Retour"
+
+msgid "Parent.titre"
+msgstr "Parent"
+
+msgid "Tutoriel.fichiermodule_id"
+msgstr "Fichier lié"
+
+msgid "/Tutoriels/edit"
+msgstr "Modifier"
+
+msgid "/Tutoriels/edit/#Tutoriel.id#"
+msgstr "Modifier le tutoriel #Tutoriel.titre#"
+
+msgid "/Tutoriels/delete"
+msgstr "Supprimer"
+
+msgid "/Tutoriels/delete/#Tutoriel.id#"
+msgstr "Supprimer le tutoriel #Tutoriel.titre#"
+
+msgid "/Tutoriels/delete/#Tutoriel.id# ?"
+msgstr "Réellement supprimer le tutoriel « #Tutoriel.titre# » ?"
+
+msgid "Parent.titre"
+msgstr "Parent"
+
+msgid "Tutoriel.edit"
+msgstr "Modification d'un tutoriel"
+
+msgid "Tutoriel.ajout"
+msgstr "Ajout d'un tutoriel"
+
+msgid "Tutoriel.View.Titre"
+msgstr "Liste des tutoriels"

@@ -5017,3 +5017,20 @@ msgstr "Gestion du cache"
 
 msgid "controllers/Caches/reinitializeCache"
 msgstr "Suppression du cache"
+
+## Tutoriel
+###############################################################################
+msgid "controllers/Tutoriels"
+msgstr "Tutoriel"
+
+msgid "controllers/Tutoriels/delete"
+msgstr "Suppression des tutoriels"
+
+msgid "controllers/Tutoriels/edit"
+msgstr "Modification des tutoriels"
+
+msgid "controllers/Tutoriels/index"
+msgstr "Liste des tutoriels"
+
+msgid "controllers/Tutoriels/view"
+msgstr "Voir les tutoriels"

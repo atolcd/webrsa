@@ -28,6 +28,30 @@ SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
 WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'PlanPauvrete.Cohorte.Activite.Skip';
 
+-- Ajout la table tutoriel
+CREATE TABLE IF NOT EXISTS public.tutoriels (
+	id serial NOT NULL,
+	titre varchar(50) NOT NULL,
+	parentid int4 NULL,
+	rg int4 NOT NULL,
+	actif int2 NOT NULL DEFAULT 0,
+	fichiermodule_id int4 NULL,
+	created timestamp NULL,
+	modified timestamp NULL,
+	CONSTRAINT tutoriels_pkey PRIMARY KEY (id),
+	CONSTRAINT tutoriels_fichiermodule_fkey FOREIGN KEY (fichiermodule_id) REFERENCES public.fichiersmodules(id) ON DELETE SET NULL,
+	CONSTRAINT tutoriels_parentid_fkey FOREIGN KEY (parentid) REFERENCES public.tutoriels(id)
+);
+
+-- Ajout du module du tutoriel
+INSERT INTO configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'Module.Tutoriel', 'false', 'Activation du module de tutoriel, accès et paramétrage', current_timestamp, current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.Tutoriel');
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Module.Tutoriel';
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

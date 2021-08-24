@@ -38,6 +38,26 @@
 					<?php
 					}
 					?>
+					<?php
+					if ($this->Permissions->check( 'tutoriels', 'view' )) {
+					?>
+					<td>
+						<?php
+							echo $this->Xhtml->link(
+								__d('droit', 'controllers/Tutoriels'),
+								array(
+									'controller'=>'tutoriels',
+									'action'=>'view',
+								),
+								array(
+									'enabled' => $this->Permissions->check( 'tutoriels', 'view' ),
+								)
+							);
+						?>
+					</td>
+					<?php
+					}
+					?>
 					<td>
 						<?php
 							echo $this->Xhtml->link(

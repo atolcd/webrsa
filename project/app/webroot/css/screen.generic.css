@@ -2726,6 +2726,21 @@ div.pagination{
     }
 }
 
+/*******************
+    Tutoriel
+*******************/
+#tutoriel {
+    padding: 15px;
+}
+
+#tutoriel div > ul {
+    padding-bottom: 10px;
+}
+
+#tutoriel div > ul > li {
+    padding-bottom: 7px;
+}
+
 
 
 

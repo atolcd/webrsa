@@ -519,3 +519,8 @@ msgstr "Vagues d'orientation"
 
 msgid "zonesgeographiques/index"
 msgstr "Zones géographiques"
+
+# ==============================================================================
+
+msgid "tutoriels/index"
+msgstr "Tutoriel"

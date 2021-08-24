@@ -741,6 +741,10 @@
 				),
 				__m('dashboards') => $this->_dashboards(),
 				__m('tags') => $this->_tags(),
+				__m('tutoriels/index') => array(
+					'disabled' => !Configure::read('Module.Tutoriel'),
+					'url' => array( 'controller' => 'tutoriels', 'action' => 'index' )
+				),
 				__m('typesactions/index') => array(
 					'disabled' => 66 == $departement,
 					'url' => array( 'controller' => 'typesactions', 'action' => 'index' )
