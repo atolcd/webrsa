@@ -929,8 +929,9 @@ p.actions a {
 }
 
 #pageContent .innerTableCell table{
-    border: solid 4px #fff;
-    box-shadow: none;
+    transform: translateY(50%);
+    width: 40vw;
+    max-width: 80vw;
 }
 
 .innerTableCell table tbody tr.odd *{
