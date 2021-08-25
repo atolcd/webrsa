@@ -1022,6 +1022,14 @@
 						$orientstruct['Referent'] = $referent['Referent'];
 					}
 				}
+
+				// Troisième étape pour le 58, on ajoute les informations des SAMS
+				if( $departement == 58 ) {
+					$query = $this->getIndexQuery($orientstruct['Orientstruct']['personne_id']);
+					$query['conditions']['Orientstruct.id'] = $orientstruct['Orientstruct']['id'];
+					$record = $this->Orientstruct->find('first', $query);
+					$orientstruct['Sitecov58'] = $record['Sitecov58'];
+				}
 			}
 
 			return $orientstruct;
