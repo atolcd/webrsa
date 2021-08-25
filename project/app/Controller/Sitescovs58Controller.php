@@ -33,6 +33,7 @@
 			'Sitecov58',
 			'Canton',
 			'CantonSitecov58',
+			'Option'
 		);
 
 		/**
@@ -107,6 +108,10 @@
 
 			$options = $this->viewVars['options'];
 			$options['Zonegeographique']['Zonegeographique'] = $this->Sitecov58->Zonegeographique->find( 'list' );
+
+			// Ajout des types de voie
+			$options['type_voie'] = $this->Option->libtypevoie();
+
 			$this->set( compact( 'options', 'id' ) );
 		}
 

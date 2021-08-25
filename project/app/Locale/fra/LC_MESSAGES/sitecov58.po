@@ -39,6 +39,28 @@ msgstr "Modification d'un site"
 msgid "Sitecov58.name"
 msgstr "Site d'Action Médico-Sociale"
 
+msgid "Sitecov58.lib_adresse"
+msgstr "Nom du SAMS pour l'adresse"
+
+msgid "Sitecov58.num_voie"
+msgstr "Numéro de voie"
+
+msgid "Sitecov58.type_voie"
+msgstr "Type de voie"
+
+msgid "Sitecov58.nom_voie"
+msgstr "Nom de voie"
+
+msgid "Sitecov58.code_postal"
+msgstr "Code postal"
+
+msgid "Sitecov58.ville"
+msgstr "Ville"
+
+msgid "Sitecov58.code_insee"
+msgstr "Code INSEE"
+
+
 msgid "Sitecov58.actif"
 msgstr "Actif"
 

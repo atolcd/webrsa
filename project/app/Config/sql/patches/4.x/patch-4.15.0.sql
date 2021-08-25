@@ -52,6 +52,15 @@ SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
 WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Module.Tutoriel';
 
+-- Ajout des adresses dans les SAMS
+ALTER TABLE public.sitescovs58 ADD IF NOT EXISTS lib_adresse varchar(150) NULL;
+ALTER TABLE public.sitescovs58 ADD IF NOT EXISTS num_voie varchar(15) NULL;
+ALTER TABLE public.sitescovs58 ADD IF NOT EXISTS type_voie varchar(30) NULL;
+ALTER TABLE public.sitescovs58 ADD IF NOT EXISTS nom_voie varchar(50) NULL;
+ALTER TABLE public.sitescovs58 ADD IF NOT EXISTS code_postal bpchar(5) NULL;
+ALTER TABLE public.sitescovs58 ADD IF NOT EXISTS ville varchar(45) NULL;
+ALTER TABLE public.sitescovs58 ADD IF NOT EXISTS code_insee bpchar(5) NULL;
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

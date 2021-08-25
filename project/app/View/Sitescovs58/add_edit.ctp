@@ -43,6 +43,13 @@
 			'fields' => array(
 				'Sitecov58.id',
 				'Sitecov58.name',
+				'Sitecov58.lib_adresse',
+				'Sitecov58.num_voie',
+				'Sitecov58.type_voie' => array('type' => 'select', 'options' => $options['type_voie'], 'empty' => true ),
+				'Sitecov58.nom_voie',
+				'Sitecov58.code_postal',
+				'Sitecov58.ville',
+				'Sitecov58.code_insee',
 				'Sitecov58.actif' => array(
 					'type' => 'checkbox',
 				),
