@@ -43,6 +43,10 @@
 			'statut' => array(
 				'type'      => 'string',
 				'postgres'  => '( CASE WHEN "%s"."dtdemrsa" >= \'2009-06-01 00:00:00\' THEN \'Nouvelle demande\' ELSE \'Diminution des ressources\' END )'
+			),
+			'matricule_format' => array(
+				'type'      => 'string',
+				'postgres'	=> "regexp_replace(matricule,'(^0)+(\d{6,})+(0{8,}$)', '\\2')"
 			)
 		);
 
