@@ -64,25 +64,21 @@
 		protected function _getTypeOrientation() {
 			$Orientation = ClassRegistry::init( 'Orientstruct' );
 			$result = array();
-			if( Configure::read('Cg.departement') == 66) {
-				$emploi = $Orientation->query('SELECT t.id FROM typesorients t INNER JOIN typesorients AS t2 ON (t2.id = t.parentid AND t2.code_type_orient = \'EMPLOI\')' );
-				$social = $Orientation->query('SELECT t.id FROM typesorients t INNER JOIN typesorients AS t2 ON (t2.id = t.parentid AND t2.code_type_orient = \'SOCIAL\')' );
-				$prepro = $Orientation->query('SELECT t.id FROM typesorients t INNER JOIN typesorients AS t2 ON (t2.id = t.parentid AND t2.code_type_orient = \'PREPRO\')' );
-				foreach($emploi as $emp) {
-					$result['EMPLOI'][] = $emp[0]['id'];
-				}
-				foreach($social as $soc) {
-					$result['SOCIAL'][] = $soc[0]['id'];
-				}
-				foreach($prepro as $pre) {
-					$result['PREPRO'][] = $pre[0]['id'];
-				}
-			} else {
-				$emploi = $Orientation->query('SELECT t.id FROM typesorients t WHERE t.code_type_orient = \'EMPLOI\'' );
-				$social = $Orientation->query('SELECT t.id FROM typesorients t WHERE t.code_type_orient = \'SOCIAL\'' );
-				$result['EMPLOI'][] = $emploi[0][0]['id'];
-				$result['SOCIAL'][] = $social[0][0]['id'];
+
+			$emploi = $Orientation->query('SELECT t.id FROM typesorients t INNER JOIN typesorients AS t2 ON (t2.id = t.parentid AND t2.code_type_orient = \'EMPLOI\')' );
+			$social = $Orientation->query('SELECT t.id FROM typesorients t INNER JOIN typesorients AS t2 ON (t2.id = t.parentid AND t2.code_type_orient = \'SOCIAL\')' );
+			$prepro = $Orientation->query('SELECT t.id FROM typesorients t INNER JOIN typesorients AS t2 ON (t2.id = t.parentid AND t2.code_type_orient = \'PREPRO\')' );
+
+			foreach($emploi as $emp) {
+				$result['EMPLOI'][] = $emp[0]['id'];
 			}
+			foreach($social as $soc) {
+				$result['SOCIAL'][] = $soc[0]['id'];
+			}
+			foreach($prepro as $pre) {
+				$result['PREPRO'][] = $pre[0]['id'];
+			}
+
 			return $result;
 		}
 
