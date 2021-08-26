@@ -10,6 +10,9 @@ UPDATE configurations SET value_variable = '["EXP", "ETI"]' WHERE lib_variable L
 -- Activation du module du tutoriel
 UPDATE configurations SET value_variable = 'true' WHERE lib_variable LIKE 'Module.Tutoriel';
 
+-- Suppression du parent de l'organisme DREES "SPE"
+UPDATE dreesorganismes SET parentid = NULL WHERE lib_dreesorganisme = 'SPE';
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************
