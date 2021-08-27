@@ -150,7 +150,7 @@
 			array(
 				'Titrecreancier.dtbordereau',
 				'Titrecreancier.numtitr',
-				'Titrecreancier.numbordereau',
+				'Titrecreancier.numbordereau' => array('type' => 'integer', 'style' => 'text-align:left'),
 				'Titrecreancier.numtier'
 			)
 		),
