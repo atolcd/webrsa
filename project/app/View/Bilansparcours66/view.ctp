@@ -148,8 +148,12 @@
 				echo $this->Xform->fieldValue( 'Bilanparcours66.avecep_typeorientprincipale_id', Set::classicExtract( $bilanparcours66 , 'Typeorientprincipale.lib_type_orient' ) );
 				echo $this->Xform->fieldValue( 'Bilanparcours66.nvtypeorient_id', Set::classicExtract( $bilanparcours66 , 'NvTypeorient.lib_type_orient' ) );
 				echo $this->Xform->fieldValue( 'Bilanparcours66.nvstructurereferente_id', Set::classicExtract( $bilanparcours66 , 'NvStructurereferente.lib_struc' ) );
+                if( $bilanparcours66['Bilanparcours66']['saisineepparcours'] == 1) {
+                    $avecSansChangementRef = $bilanparcours66['Bilanparcours66']['changementref'];
+                } else {
+                    $avecSansChangementRef = $bilanparcours66['Bilanparcours66']['changementrefsansep'];
+                }
 
-				$avecSansChangementRef = $bilanparcours66['Bilanparcours66']['changementrefsansep'];
 				$choixparcours = $bilanparcours66['Bilanparcours66']['choixparcours'];
 				if( $avecSansChangementRef == 'N' && $choixparcours == 'maintien' ) {
 					echo '<div class="input text"><span class="label">&nbsp;</span><span class="input">Sans changement de référent</span></div>';

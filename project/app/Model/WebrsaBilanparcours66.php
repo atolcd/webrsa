@@ -1207,7 +1207,10 @@ Debugger::log($bilansparcours66_ids);
 			}
 
 			$querydata['conditions']['Bilanparcours66.id'] = $id;
-			return $querydata;
+
+			$data = $this->Bilanparcours66->find( 'first', $querydata );
+
+			return $data;
 		}
 
 		/**
@@ -1249,12 +1252,13 @@ Debugger::log($bilansparcours66_ids);
             if( $proposition == 'aucun' ) {
                 $data['Bilanparcours66']['changementref'] = $data['Bilanparcours66']['changementrefsansep'];
             }
-            else if( empty( $data['Bilanparcours66']['changementrefsansep'] ) && !empty( $data['Bilanparcours66']['changementref'] ) ) {
+            else if( !empty( $data['Bilanparcours66']['changementref'] ) ) {
                 $data['Bilanparcours66']['changementref'] = $data['Bilanparcours66']['changementref'];
             }
-            else if( !empty( $data['Bilanparcours66']['changementrefsansep'] ) && empty( $data['Bilanparcours66']['changementref'] ) ) {
+            else if( !empty( $data['Bilanparcours66']['changementrefsansep'] ) ) {
                 $data['Bilanparcours66']['changementref'] = $data['Bilanparcours66']['changementrefsansep'];
             }
+
 			return $data;
 		}
 
@@ -1347,8 +1351,7 @@ Debugger::log($bilansparcours66_ids);
 		 */
 		public function getDefaultPdf( $id ) {
 			//Get data
-			$querydata = $this->getDataForPdf( $id );
-			$data = $this->Bilanparcours66->find( 'first', $querydata );
+			$data = $this->getDataForPdf( $id );
 			//Get Model
 			$modeleodt = $this->modeleOdt( $data );
 			//Get Options
