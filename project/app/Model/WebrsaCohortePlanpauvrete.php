@@ -473,8 +473,15 @@
 		 * @return array
 		 */
 		public function activiteToSkip($query) {
+			$this->loadModel('Personne');
+
 			$activiteAExclure = Configure::read('PlanPauvrete.Cohorte.Activite.Skip');
 			if(!empty($activiteAExclure)) {
+
+				// Pour le check
+				if (!isset($query['joins']) || !is_array ($query['joins'])) {
+					$query['joins'] = array ();
+				}
 
 				// Ajout du join
 				$query['joins'] = array_merge(
