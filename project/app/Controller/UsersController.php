@@ -234,7 +234,7 @@
 			$this->set( 'options', $this->User->enums() );
 			$this->set( 'structuresreferentes', $this->User->Structurereferente->find( 'list', array( 'conditions' => array( 'Structurereferente.actif' => 'O' ) ) ) );
 
-			if (Configure::read('Cg.departement') === 66) {
+			if (Configure::read('Cg.departement') == 66) {
 				$internes = $this->User->Service66->find('list',
 					array('conditions' => array('Service66.actif' => 1, 'Service66.interne' => 1))
 				);
