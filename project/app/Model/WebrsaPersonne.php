@@ -1159,7 +1159,7 @@
 				}
 
 				// Alerte en mode dev pour avertir qu'il manque des valeurs dans Personne::$explored
-				if (count($isLinked) > 100) {
+				if (is_array($isLinked) && count($isLinked) > 100) {
 					debug(array('ALERTE! cette requête renvoi plus de 100 lignes ! Ajoutez des valeurs dans Personne::$explored sur les tables qui ne dépendent pas d\'un allocataire ex: '.$LinkedModel->useTable => $query));
 				}
 
