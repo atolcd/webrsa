@@ -51,7 +51,7 @@
 					$this->Type2->format( $passage, 'Passagecommissionep.etatdossierep', array( 'options' => $options ) ),
 					$this->Type2->format( $passage, 'Dossierep.themeep', array( 'options' => $options ) ),
 					$this->Type2->format( $passage, 'Dossierep.created' ),
-					$this->Type2->format( $passage, 'Dossierep.actif', array( 'options' => $options ) ), // FIXME "ENUM" Oui/Non, + dans les deux autres vues
+					$this->Type2->format( $passage, 'Dossierep.actif', array( 'type' => 'boolean', 'options' => $options ) ), // FIXME "ENUM" Oui/Non, + dans les deux autres vues
 					$this->Xhtml->link( 'Passage', array( 'controller' => 'historiqueseps', 'action' => 'view_passage', $passage['Passagecommissionep']['id'] ), array( 'class' => 'button view', 'enabled' => WebrsaAccess::isEnabled($passage, '/Historiqueseps/view_passage') ) ),
 					$this->Xhtml->link( 'Commission', array( 'controller' => 'commissionseps', 'action' => $actionDecisionsCommission, $passage['Commissionep']['id'] ), array( 'class' => 'button view', 'enabled' => WebrsaAccess::isEnabled($passage, '/Commissionseps/'.$actionDecisionsCommission) ) ),
 				),
