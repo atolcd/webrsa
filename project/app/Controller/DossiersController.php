@@ -893,11 +893,11 @@
 				// Customisation des informations PE
 				$regIdPe = '/\d++\w/';
 				$matches = array();
-				if( preg_match($regIdPe, $personnesFoyer[$index]['Informationpe'][0]['identifiantpe'], $matches) == 1 ) {
+				if( !empty($personnesFoyer[$index]['Informationpe']) && preg_match($regIdPe, $personnesFoyer[$index]['Informationpe'][0]['identifiantpe'], $matches) == 1 ) {
 					$personnesFoyer[$index]['Informationpe'][0]['identifiantpe'] = $matches[0];
 				}
 
-				if( preg_match($regIdPe, $personnesFoyer[$index]['Fluxpoleemploi']['Historiqueetatpe'][0]['identifiantpe'], $matches) == 1 ) {
+				if( !empty($personnesFoyer[$index]['Fluxpoleemploi']) && preg_match($regIdPe, $personnesFoyer[$index]['Fluxpoleemploi']['Historiqueetatpe'][0]['identifiantpe'], $matches) == 1 ) {
 					$personnesFoyer[$index]['Fluxpoleemploi']['Historiqueetatpe'][0]['identifiantpe'] = $matches[0];
 				}
 				//  Liste des anciens dossiers par demandeurs et conjoints
