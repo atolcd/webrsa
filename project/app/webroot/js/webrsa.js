@@ -5418,6 +5418,7 @@ Tooltip.prototype = {
     Event.stop(event);
     this.moveTooltip(event);
 	  new Element.show(this.tool_tip);
+    this.tool_tip.style.display ='block';
   },
   
   setStyles: function(x, y){
