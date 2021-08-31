@@ -69,9 +69,9 @@
 							'SUBSTRING( TRIM( BOTH \' \' FROM p1.nir ) FROM 1 FOR 13 ) = SUBSTRING( TRIM( BOTH \' \' FROM p2.nir ) FROM 1 FOR 13 )',
 						),
 						array(
-							'similarity(p1.nom, p2.nom) > ' . $similarityThreshold,
+							'similarity(p1.nom, p2.nom) > ' => $similarityThreshold,
 							'OR' => array(
-								'similarity(p1.prenom, p2.prenom) > ' . $similarityThreshold,
+								'similarity(p1.prenom, p2.prenom) > ' => $similarityThreshold,
 								"p1.prenom ILIKE p2.prenom || ' ' || p2.prenom2 || '%'",
 								"p2.prenom ILIKE p1.prenom || ' ' || p1.prenom2 || '%'"
 							),
@@ -268,8 +268,8 @@
 		/**
 		* FIXME
 		*/
-		public function sqPersonnesEnDoublonsBak( $methode, $prestationObligatoire = true, $foyerId = 'personnes.foyer_id', $differenceThreshold = 4 ) {
-			$qdFoyersPersonnesEnDoublons = $this->qdPersonnesEnDoublonsBak( $methode, $prestationObligatoire, $foyerId, $differenceThreshold );
+		public function sqPersonnesEnDoublonsBak( $methode, $prestationObligatoire = true, $foyerId = 'personnes.foyer_id', $similarityThreshold = 0.3 ) {
+			$qdFoyersPersonnesEnDoublons = $this->qdPersonnesEnDoublonsBak( $methode, $prestationObligatoire, $foyerId, $similarityThreshold );
 			$Personne = ClassRegistry::init( 'Personne' );
 			return $Personne->sq(
 				array(
