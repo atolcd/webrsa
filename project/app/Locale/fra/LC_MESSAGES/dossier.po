@@ -555,6 +555,9 @@ msgstr "État dossier vide"
 msgid "ENUM::ETATDOSRSA::Z"
 msgstr "Non défini"
 
+msgid "ENUM::ETATDOSRSA::"
+msgstr "État dossier vide"
+
 msgid "ENUM::ETATDOSRSA::0"
 msgstr "Nouvelle demande en attente de décision CD pour ouverture du droit"
 
