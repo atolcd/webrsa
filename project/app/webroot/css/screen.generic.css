@@ -906,10 +906,6 @@ p.actions a {
     border: 0;
 }
 
-[id*="innerTableTable"]{
-    display: none;
-}
-
 .dynamic.innerTableHeader { left: -2000px; }
 .innerTable td { background: white; }
 .innerTable { min-width: 20em; }
@@ -923,7 +919,6 @@ p.actions a {
 }
 
 
-
 #pageContent .innerTableCell{
     border: solid 1px grey;
 }
@@ -932,6 +927,10 @@ p.actions a {
     transform: translateY(50%);
     width: 40vw;
     max-width: 80vw;
+}
+
+#pageContent .innerTableCell table thead *{
+    color: #929DA8;
 }
 
 .innerTableCell table tbody tr.odd *{
