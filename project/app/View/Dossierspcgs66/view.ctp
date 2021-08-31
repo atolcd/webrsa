@@ -150,5 +150,3 @@ echo $this->Default->button(
         )
 );
 echo '</div>';
-?>
-</div>
