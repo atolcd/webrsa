@@ -3244,9 +3244,9 @@
 							AND thematiquesrdvs.actif = 1 ";
 				} else if ( $annee == 2019 ){
 					$sql .= "AND rendezvous.daterdv < " . "'" . Configure::read('Date.MEP.PIE')[0] ."'";
-				} else {
-					$sql .= "AND EXTRACT( 'YEAR' FROM rendezvous.daterdv ) = '{$annee}'";
 				}
+				$sql .= "AND EXTRACT( 'YEAR' FROM rendezvous.daterdv ) = '{$annee}'";
+
 				$sql .= "{$conditionpdv}
 						{$conditionrdv}
 						GROUP BY
@@ -3272,9 +3272,9 @@
 							AND thematiquesrdvs.actif = 1";
 				} else if ( $annee == 2019 ){
 					$sql .= "AND rendezvous.daterdv < " . "'" . Configure::read('Date.MEP.PIE')[0] ."'";
-				} else {
-					$sql .= "AND EXTRACT( 'YEAR' FROM rendezvous.daterdv ) = '{$annee}'";
 				}
+				$sql .= "AND EXTRACT( 'YEAR' FROM rendezvous.daterdv ) = '{$annee}'";
+
 				$sql .= "AND ".$this->_conditionStatutRdv( 'rendezvous.statutrdv_id' )."
 						{$conditionpdv}
 						{$conditionrdv}
