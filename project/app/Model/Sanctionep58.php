@@ -826,9 +826,14 @@
 				// Liste des sanctions
 				$datas['querydata']['fields'] = array_merge(
 					$datas['querydata']['fields'],
-					$this->Dossierep->Passagecommissionep->{$modeleDecisions}->Listesanctionep58->fields()
+					$this->Dossierep->Passagecommissionep->{$modeleDecisions}->Listesanctionep58->fields(),
+					$this->Dossierep->Personne->PersonneReferent->Referent->fields(),
+					$this->Dossierep->Personne->PersonneReferent->Referent->Structurereferente->fields()
 				);
 				$datas['querydata']['joins'][] = $this->Dossierep->Passagecommissionep->{$modeleDecisions}->join( 'Listesanctionep58' );
+				$datas['querydata']['joins'][] = $this->Dossierep->Personne->join( 'PersonneReferent' );
+				$datas['querydata']['joins'][] = $this->Dossierep->Personne->PersonneReferent->join( 'Referent' );
+				$datas['querydata']['joins'][] = $this->Dossierep->Personne->PersonneReferent->Referent->join( 'Structurereferente' );
 
 				foreach( array( 'Orientstruct', 'Historiqueetatpe', 'Contratinsertion' ) as $modelName ) {
 					$datas['querydata']['fields'] = array_merge(
