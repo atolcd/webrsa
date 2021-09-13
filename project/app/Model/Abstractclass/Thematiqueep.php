@@ -186,7 +186,9 @@
 						$this->Dossierep->Personne->Foyer->fields(),
 						$this->Dossierep->Personne->Foyer->Dossier->fields(),
 						$this->Dossierep->Personne->Foyer->Adressefoyer->fields(),
-						$this->Dossierep->Personne->Foyer->Adressefoyer->Adresse->fields()
+						$this->Dossierep->Personne->Foyer->Adressefoyer->Adresse->fields(),
+						$this->Dossierep->Personne->PersonneReferent->Referent->fields(),
+						$this->Dossierep->Personne->PersonneReferent->Referent->Structurereferente->fields()
 					),
 					'joins' => array(
 						$this->Dossierep->Passagecommissionep->join( 'Dossierep' ),
@@ -197,6 +199,9 @@
 						$this->Dossierep->Personne->Foyer->join( 'Dossier' ),
 						$this->Dossierep->Personne->Foyer->join( 'Adressefoyer' ),
 						$this->Dossierep->Personne->Foyer->Adressefoyer->join( 'Adresse' ),
+						$this->Dossierep->Personne->join('PersonneReferent'),
+						$this->Dossierep->Personne->PersonneReferent->join( 'Referent' ),
+						$this->Dossierep->Personne->PersonneReferent->Referent->join( 'Structurereferente' ),
 					),
 					'conditions' => array(
 						'Adressefoyer.id IN ('

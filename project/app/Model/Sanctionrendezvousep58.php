@@ -146,6 +146,40 @@
 		}
 
 		/**
+		 * Ajout des champs permettant de récupérer les motifs de passage en EP
+		 *
+		 * @param array
+		 * @return array
+		 */
+		protected function _addMotifPDF($datas) {
+			// Ajout du motif
+			$datas['querydata']['fields'] = array_merge(
+				$datas['querydata']['fields'],
+				array(
+					'StatutrdvTyperdv.motifpassageep'
+				)
+			);
+			$datas['querydata']['joins'][] = array(
+				'table'      => 'rendezvous',
+				'alias'      => 'Rendezvous',
+				'type'       => 'LEFT',
+				'conditions' => array( 'Sanctionrendezvousep58.rendezvous_id = Rendezvous.id' ),
+			);
+			$datas['querydata']['joins'][] = array(
+				'table'      => 'statutsrdvs_typesrdv',
+				'alias'      => 'StatutrdvTyperdv',
+				'type'       => 'LEFT',
+				'conditions' => array(
+						'StatutrdvTyperdv.statutrdv_id = Rendezvous.statutrdv_id',
+						'StatutrdvTyperdv.typerdv_id = Rendezvous.typerdv_id'
+				),
+			);
+
+			return $datas;
+		}
+
+
+		/**
 		* FIXME
 		*
 		* @param integer $commissionep_id L'id technique de la séance d'EP
@@ -361,28 +395,9 @@
 			}
 
 			$datas['querydata']['conditions']['Passagecommissionep.id'] = $passagecommissionep_id;
+
 			// Ajout du motif
-			$datas['querydata']['fields'] = array_merge(
-				$datas['querydata']['fields'],
-				array(
-					'StatutrdvTyperdv.motifpassageep'
-				)
-			);
-			$datas['querydata']['joins'][] = array(
-				'table'      => 'rendezvous',
-				'alias'      => 'Rendezvous',
-				'type'       => 'LEFT',
-				'conditions' => array( 'Sanctionrendezvousep58.rendezvous_id = Rendezvous.id' ),
-			);
-			$datas['querydata']['joins'][] = array(
-				'table'      => 'statutsrdvs_typesrdv',
-				'alias'      => 'StatutrdvTyperdv',
-				'type'       => 'LEFT',
-				'conditions' => array(
-						'StatutrdvTyperdv.statutrdv_id = Rendezvous.statutrdv_id',
-						'StatutrdvTyperdv.typerdv_id = Rendezvous.typerdv_id'
-				),
-			);
+			$datas = $this->_addMotifPDF($datas);
 			$gedooo_data = $this->Dossierep->Passagecommissionep->find( 'first', $datas['querydata'] );
 			$modeleOdt = 'Commissionep/convocationep_beneficiaire.odt';
 
@@ -446,6 +461,9 @@
 				);
 				$datas['querydata']['joins'][] = $this->Dossierep->Passagecommissionep->{$modeleDecisions}->join( 'Listesanctionep58' );
 
+				// Ajout du motif
+				$datas = $this->_addMotifPDF($datas);
+
 				// Traductions
 				$datas['options'] = $this->Dossierep->Passagecommissionep->{$modeleDecisions}->enums();
 				$datas['options']['Personne']['qual'] = ClassRegistry::init( 'Option' )->qual();
@@ -458,6 +476,12 @@
 
 			if( empty( $gedooo_data ) || !isset( $gedooo_data[$modeleDecisions] ) || empty( $gedooo_data[$modeleDecisions] ) ) {
 				return false;
+			}
+
+			// Conversion de la date d'impression de convocation de passage EP en timestamp
+			if(!empty($gedooo_data['Passagecommissionep']['impressionconvocation']) ) {
+				$dateImpressionConvocation = strtotime($gedooo_data['Passagecommissionep']['impressionconvocation']);
+				$gedooo_data['Passagecommissionep']['impressionconvocation'] = date('Y-m-d H:i:s', $dateImpressionConvocation);
 			}
 
 			// Choix du modèle de document

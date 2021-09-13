@@ -253,7 +253,13 @@
 						$Personne->Dossierep->Passagecommissionep->Decisionsanctionep58->sqVirtualField( 'impressionfin1' ),
 						$Personne->Dossierep->Passagecommissionep->Decisionsanctionep58->sqVirtualField( 'impressionfin2' ),
 						$Personne->Dossierep->Passagecommissionep->Decisionsanctionrendezvousep58->sqVirtualField( 'impressionfin1' ),
-						$Personne->Dossierep->Passagecommissionep->Decisionsanctionrendezvousep58->sqVirtualField( 'impressionfin2' )
+						$Personne->Dossierep->Passagecommissionep->Decisionsanctionrendezvousep58->sqVirtualField( 'impressionfin2' ),
+						'EXTRACT (MONTH FROM "Decisionsanctionep58"."datearretsanction") AS "Decisionsanctionep58__mois_datearretsanction"',
+						'EXTRACT (YEAR FROM "Decisionsanctionep58"."datearretsanction") AS "Decisionsanctionep58__annee_datearretsanction"',
+						'EXTRACT (MONTH FROM "Decisionsanctionrendezvousep58"."datearretsanction") AS "Decisionsanctionrendezvousep58__mois_datearretsanction"',
+						'EXTRACT (YEAR FROM "Decisionsanctionrendezvousep58"."datearretsanction") AS "Decisionsanctionrendezvousep58__annee_datearretsanction"',
+						'StatutrdvTyperdv.motifpassageep',
+						'Sanctionep58.origine'
 					)
 				),
 				'joins' => array(
@@ -270,7 +276,19 @@
 					$Personne->Dossierep->Passagecommissionep->join( 'Decisionsanctionep58', array( 'type' => 'LEFT OUTER' ) ),
 					$Personne->Dossierep->Passagecommissionep->join( 'Decisionsanctionrendezvousep58', array( 'type' => 'LEFT OUTER' ) ),
 					$Personne->Dossierep->Passagecommissionep->Commissionep->join( 'Ep', array( 'type' => 'INNER' ) ),
-					$Personne->Dossierep->Passagecommissionep->Commissionep->Ep->join( 'Regroupementep', array( 'type' => 'INNER' ) )
+					$Personne->Dossierep->Passagecommissionep->Commissionep->Ep->join( 'Regroupementep', array( 'type' => 'INNER' ) ),
+					$Personne->Dossierep->join( 'Sanctionrendezvousep58', array( 'type' => 'LEFT OUTER' ) ),
+					$Personne->Dossierep->Sanctionrendezvousep58->join( 'Rendezvous', array( 'type' => 'LEFT OUTER' ) ),
+					array(
+						'table'      => 'statutsrdvs_typesrdv',
+						'alias'      => 'StatutrdvTyperdv',
+						'type'       => 'LEFT',
+						'conditions' => array(
+								'StatutrdvTyperdv.statutrdv_id = Rendezvous.statutrdv_id',
+								'StatutrdvTyperdv.typerdv_id = Rendezvous.typerdv_id'
+						),
+					),
+					$Personne->Dossierep->join( 'Sanctionep58', array( 'type' => 'LEFT OUTER' ) ),
 				),
 				'conditions' => array(
 					'Passagecommissionep.id' => $passagecommissionep_id,

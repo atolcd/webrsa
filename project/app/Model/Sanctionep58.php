@@ -852,6 +852,12 @@
 				return false;
 			}
 
+			// Conversion de la date d'impression de convocation de passage EP en timestamp
+			if(!empty($gedooo_data['Passagecommissionep']['impressionconvocation']) ) {
+				$dateImpressionConvocation = strtotime($gedooo_data['Passagecommissionep']['impressionconvocation']);
+				$gedooo_data['Passagecommissionep']['impressionconvocation'] = date('Y-m-d H:i:s', $dateImpressionConvocation);
+			}
+
 			// Choix du modèle de document
 			$decision = $gedooo_data[$modeleDecisions]['decision'];
 			$modeleOdt = "{$this->alias}/decision_{$decision}.odt";
