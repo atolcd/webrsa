@@ -26,7 +26,17 @@
 		 */
 		public function customEnums( $result, $Controller ) {
 			// Récupération des structures orientantes
-			$result['Orientstruct']['structureorientante_id'] = $Controller->Orientstruct->Structurereferente->listeStructWorkflow();
+			$result['Orientstruct']['structureorientante_id'] = $Controller->InsertionsBeneficiaires->structuresreferentes(
+				array(
+					'type' => 'optgroup',
+					'conditions' => array(
+						'Structurereferente.orientation' => 'O',
+						'Structurereferente.id IN' => $Controller->Orientstruct->Structurereferente->listeStructWorkflow()
+						)
+						+ $Controller->InsertionsBeneficiaires->conditions['structuresreferentes'],
+					'prefix' => false
+				)
+			);
 
 			/**
 			 * Orientation externe par prestataire pour le CD 93 uniquement
