@@ -4910,6 +4910,30 @@ msgstr "Nouveaux Entrant venu / non venu en rendez-vous 3 en 1"
 msgid "controllers/Planpauvreterendezvous/cohorte_infocol_venu_nonvenu_second_rdv_stock"
 msgstr "Stock venu / non venu en rendez-vous 3 en 1"
 
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_rdv_cer_imprime_nouveaux"
+msgstr "Nouveaux entrants - Impression des convoqués en rendez-vous élaboration CER"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_rdv_cer_imprime_nouveaux_impressions"
+msgstr "Nouveaux entrants - Impression en cohorte des convoqués en rendez-vous élaboration CER"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_rdv_cer_imprime_stock"
+msgstr "Stock - Impression des convoqués en rendez-vous élaboration CER"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_rdv_cer_imprime_stock_impressions"
+msgstr "Stock - Impression en cohorte des convoqués en rendez-vous élaboration CER"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_rdv_cer_nouveaux"
+msgstr "Nouveaux entrants - Rendez-vous élaboration CER"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_rdv_cer_stock"
+msgstr "Stock - Rendez-vous élaboration CER"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_rdv_cer_venu_nonvenu_nouveaux"
+msgstr "Nouveaux entrants - Convoqués en rendez-vous élaboration CER"
+
+msgid "controllers/Planpauvreterendezvous/cohorte_infocol_rdv_cer_venu_nonvenu_stock"
+msgstr "Stock - Convoqués en rendez-vous élaboration CER"
+
 ###############################################################################
 ## Statistiques Plan pauvreté rendez vous
 ###############################################################################

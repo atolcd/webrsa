@@ -53,6 +53,15 @@ msgstr "Cette cohorte effectue des recherches dans le flux du mois de MOIS."
 msgid "Planpauvrete.Nouveaux.Convoq_3en1"
 msgstr "Convoqués rendez-vous 3 en 1"
 
+msgid "Planpauvrete.Nouveaux.Rdv_cer"
+msgstr "Rendez-vous élaboration CER"
+
+msgid "Planpauvrete.Nouveaux.Impression_rdv_cer"
+msgstr "Impression rendez-vous élaboration CER"
+
+msgid "Planpauvrete.Nouveaux.Convoq_rdv_cer"
+msgstr "Convoqués rendez-vous élaboration CER"
+
 # ==============================================================================
 # Traduction Stock
 # ==============================================================================
@@ -92,6 +101,15 @@ msgstr "Cette cohorte effectue des recherches dans les flux du mois de MOIS et d
 
 msgid "Planpauvrete.Stock.Convoq_3en1"
 msgstr "Convoqués rendez-vous 3 en 1"
+
+msgid "Planpauvrete.Stock.Rdv_cer"
+msgstr "Rendez-vous élaboration CER"
+
+msgid "Planpauvrete.Stock.Impression_rdv_cer"
+msgstr "Impression rendez-vous élaboration CER"
+
+msgid "Planpauvrete.Stock.Convoq_rdv_cer"
+msgstr "Convoqués rendez-vous élaboration CER"
 
 # ==============================================================================
 # Recherche Par primo accédant

@@ -151,6 +151,95 @@
 		}
 
 		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _cohorte_infocol_rdv_cer_stock(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _cohorte_infocol_rdv_cer_nouveaux(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _cohorte_infocol_rdv_cer_imprime_stock(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _cohorte_infocol_rdv_cer_imprime_stock_impressions(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _cohorte_infocol_rdv_cer_imprime_nouveaux(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _cohorte_infocol_rdv_cer_imprime_nouveaux_impressions(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _cohorte_infocol_rdv_cer_venu_nonvenu_stock(array $record, array $params) {
+			return true;
+		}
+
+		/**
+		 * Permission d'accès
+		 *
+		 * @param array $record
+		 * @param array $params
+		 * @return boolean
+		 */
+		protected static function _cohorte_infocol_rdv_cer_venu_nonvenu_nouveaux(array $record, array $params) {
+			return true;
+		}
+
+
+		/**
 		 * Liste les actions disponnible
 		 *
 		 * @param array $params
@@ -169,7 +258,15 @@
 					'cohorte_infocol_venu_nonvenu_nouveaux',
 					'cohorte_infocol_venu_nonvenu_stock',
 					'cohorte_infocol_second_rdv_nouveaux',
-					'cohorte_infocol_second_rdv_stock'
+					'cohorte_infocol_second_rdv_stock',
+					'cohorte_infocol_rdv_cer_stock',
+					'cohorte_infocol_rdv_cer_nouveaux',
+					'cohorte_infocol_rdv_cer_imprime_stock',
+					'cohorte_infocol_rdv_cer_imprime_stock_impressions',
+					'cohorte_infocol_rdv_cer_imprime_nouveaux',
+					'cohorte_infocol_rdv_cer_imprime_nouveaux_impressions',
+					'cohorte_infocol_rdv_cer_venu_nonvenu_stock',
+					'cohorte_infocol_rdv_cer_venu_nonvenu_nouveaux'
 				)
 			);
 			return $result;
