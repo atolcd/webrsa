@@ -221,7 +221,7 @@
 			$this->loadModel('Rendezvous');
 			$typeRdv = $this->getTypeRdvId($params['nom_cohorte'], true);
 			$statutRdv = $this->getStatutId($params['nom_cohorte'], true);
-
+			$success = true;
 			foreach ( $data as $key => $value ) {
 				// Si non selectionné, on retire tout
 				if ( $value['Rendezvous']['selection'] === '0' ) {
@@ -233,7 +233,11 @@
 				$data[$key]['Rendezvous']['typerdv_id'] = $typeRdv;
 				if(!isset($data[$key]['Rendezvous']['statutrdv_id']) || $data[$key]['Rendezvous']['statutrdv_id'] === '')
 				{
-					$data[$key]['Rendezvous']['statutrdv_id'] = $statutRdv;
+					if(!empty($statutRdv)) {
+						$data[$key]['Rendezvous']['statutrdv_id'] = $statutRdv;
+					} else {
+						$success = false;
+					}
 				}
 				$data[$key]['Rendezvous']['personne_id'] = $value['Personne']['id'];
 				$data[$key] = $data[$key]['Rendezvous'];
@@ -242,7 +246,7 @@
 				unset($data[$key]['selection']);
 			}
 			$this->Rendezvous->begin();
-			$success = !empty($data) && $this->Rendezvous->saveAll($data, array('atomic' => false));
+			$success = $success && !empty($data) && $this->Rendezvous->saveAll($data, array('atomic' => false));
 
 			if ($success) {
 				$this->Rendezvous->commit();
@@ -272,6 +276,87 @@
 			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $this->getStatutId($codeRendezvous);
 
 			return $query;
+		}
+
+		/**
+		 * Ajout de l'oirentation sociale de fait
+		 * @param array
+		 * @return boolean
+		 */
+		public function addOrientationSociale($datas) {
+			$this->loadModel('Statutrdv');
+			$this->loadModel('Orientstruct');
+
+			// Récupération du statut de rendez-vous NONVENU
+
+			$statutRdvNonvenu = $this->Statutrdv->find('first', array(
+				'fields' => array('Statutrdv.id'),
+				'recursive' => -1,
+				'conditions' => array('Statutrdv.code_statut LIKE' => 'NONVENU%')
+			));
+
+			$idStatutRdvNonvenu = $statutRdvNonvenu['Statutrdv']['id'];
+
+			// Récupération du type d'orientation à sauvegarder
+			$typeOrientSociale = Configure::read('PlanPauvrete.Cohorte.OrientationrdvSocialeDeFait.typeorient_id');
+
+			$dataDefault = array(
+				'Orientstruct' => array(
+					'date_propo' => date('Y-m-d'),
+					'date_valid' => date('Y-m-d'),
+					'statut_orient' => 'Orienté',
+					'statutrelance' => 'E',
+					'etatorient' => 'decision',
+					'origine' => 'manuelle',
+					'typeorient_id' => $typeOrientSociale,
+				)
+			);
+			$dataToSave = array();
+
+			foreach ( $datas as $key => $value ) {
+				if( $value['Rendezvous']['selection'] === '1' && $value['Rendezvous']['statutrdv_id'] == $idStatutRdvNonvenu ) {
+					// Récupération des données de la personne non venu
+					$dataPersonne = $this->Personne->PersonneReferent->find( 'first', array(
+						'fields' => array(
+							'Referent.id',
+							'Referent.structurereferente_id'
+						),
+						'recursive' => -1,
+						'joins' => array(
+							$this->Personne->PersonneReferent->join('Referent', array( 'type' => 'INNER' ) ),
+						),
+						'conditions' => array(
+							'PersonneReferent.personne_id' => $value['Personne']['id'],
+							'PersonneReferent.dfdesignation IS NOT NULL'
+						),
+						'order' => array('PersonneReferent.dddesignation DESC')
+					));
+
+					$rgOrient = $this->Orientstruct->WebrsaOrientstruct->rgorientMax($value['Personne']['id']) +1;
+
+					// Création des données de l'orientation
+					$dataToSave[] = array_merge(
+						$dataDefault['Orientstruct'],
+						array(
+							'personne_id' => $value['Personne']['id'],
+							'structurereferente_id' => !empty($dataPersonne['Referent']['structurereferente_id']) ? $dataPersonne['Referent']['structurereferente_id'] : null,
+							'referent_id' => !empty($dataPersonne['Referent']['id']) ? $dataPersonne['Referent']['id'] : null,
+							'rgorient' => $rgOrient
+						)
+					);
+				}
+			}
+
+			// Tentative de sauvegarde s'il y a des personnes à sauvegarder
+			$this->Orientstruct->begin();
+			$success = !empty($dataToSave) && $this->Orientstruct->saveMany($dataToSave, array('atomic' => false));
+
+			if( $success ) {
+				$this->Orientstruct->commit();
+			} else {
+				$this->Orientstruct->rollback();
+			}
+			return $success;
 		}
 
 	}

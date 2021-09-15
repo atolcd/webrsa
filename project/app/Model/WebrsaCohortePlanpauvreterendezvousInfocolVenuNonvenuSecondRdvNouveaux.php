@@ -96,6 +96,11 @@
 			$params['nom_cohorte'] = 'cohorte_infocol_venu_nonvenu_second_rdv_nouveaux';
 			$success = parent::saveCohorte($data, $params, $user_id);
 
+			if( $success && Configure::read( 'PlanPauvrete.Cohorte.OrientationrdvSocialeDeFait.enabled' ) == true ) {
+				// Ajout de l'orientation sociale de fait si le rendez vous est à NONVENU
+				$this->addOrientationSociale($data);
+			}
+
 			return $success;
 		}
 

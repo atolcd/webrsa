@@ -56,6 +56,34 @@ SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
 WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol_rdv_cer_venu_nonvenu_nouveaux';
 
+-- Insertion de la variable de configuration paramétrant l'orientation sociale de fait
+INSERT INTO configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'PlanPauvrete.Cohorte.OrientationrdvSocialeDeFait', '{}', 'Paramétrage du type d''orientation lorsqu''une personne ne viens par à rendez-vous 3 en 1.
+	La configuration doit s''écrire comme cela :
+	{
+		"typeorient_id": "id"
+	} ', current_timestamp, current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'PlanPauvrete.Cohorte.OrientationrdvSocialeDeFait');
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'Planpauvreterendezvous' AND configurations.lib_variable LIKE 'PlanPauvrete.Cohorte.OrientationrdvSocialeDeFait';
+
+-- Insertion de la variable de configuration paramétrant l'orientation sociale de fait
+INSERT INTO configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'PlanPauvrete.Cohorte.OrientationrdvSocialeDeFait.enabled', 'false', 'Activation de la création d''une orientation sociale de fait lorsqu''une personne ne viens par à rendez-vous 3 en 1', current_timestamp, current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'PlanPauvrete.Cohorte.OrientationrdvSocialeDeFait.enabled');
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'Planpauvreterendezvous' AND configurations.lib_variable LIKE 'PlanPauvrete.Cohorte.OrientationrdvSocialeDeFait.enabled';
+
+UPDATE configurations SET value_variable = '{"filters":{"defaults":{"Dossier":{"dernier":1},"Rendezvous":{"daterdv":0,"daterdv_from":"TAB::-1WEEK","daterdv_to":"TAB::NOW"}},"accepted":[],"skip":["Calculdroitrsa.toppersdrodevorsa","Dossier.dtdemrsa","Detaildroitrsa.oridemrsa","Foyer.sitfam","Adresse.nomvoie","Personne.dtnai","Personne.dtnai_month","Personne.dtnai_year","Personne.nir","Personne.sexe","Personne.trancheage","Situationdossierrsa.etatdosrsa","Serviceinstructeur.id","Suiviinstruction.typeserins","PersonneReferent.structurereferente_id","PersonneReferent.referent_id","Prestation.rolepers","ByTag.tag_choice"],"has":[]},"query":{"restrict":[],"conditions":[],"order":["Personne.id"]},"results":{"header":[],"fields":{"Personne.id":{"hidden":true},"Dossier.numdemrsa":{"sort":false},"Dossier.matricule":{"sort":false},"Dossier.dtdemrsa":{"sort":false},"Personne.nom_complet_prenoms":{"sort":false},"Adresse.complete":{"sort":false},"Canton.canton":{"sort":false},"Modecontact.numtel":{"class":"numtelCAF","sort":false},"Personne.numport":{"class":"numtelCD","sort":false},"Rendezvous.daterdv":{"sort":false},"Rendezvous.heurerdv":{"sort":false},"/Dossiers/view/#Dossier.id#":{"class":"view external"},"/Personnes/coordonnees/#Personne.id#":{"class":"view external"}},"innerTable":[]},"cohorte":{"options":[],"values":[],"config":{"recherche":{"Typerdv.code_type":"INFO_COLL_SECOND_RDV_NOUVEAUX","Statutrdv.code_statut":"PREVU"},"save":{"Typerdv.code_type":"INFO_COLL_SECOND_RDV_NOUVEAUX","Statutrdv.code_statut":""}}},"ini_set":[]}'
+WHERE lib_variable = 'ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_venu_nonvenu_second_rdv_nouveaux';
+
+UPDATE configurations SET value_variable = '{"filters":{"defaults":{"Dossier":{"dernier":1},"Rendezvous":{"daterdv":0,"daterdv_from":"TAB::-1WEEK","daterdv_to":"TAB::NOW"}},"accepted":[],"skip":["Calculdroitrsa.toppersdrodevorsa","Dossier.dtdemrsa","Detaildroitrsa.oridemrsa","Foyer.sitfam","Adresse.nomvoie","Personne.dtnai","Personne.dtnai_month","Personne.dtnai_year","Personne.nir","Personne.sexe","Personne.trancheage","Situationdossierrsa.etatdosrsa","Serviceinstructeur.id","Suiviinstruction.typeserins","PersonneReferent.structurereferente_id","PersonneReferent.referent_id","Prestation.rolepers","ByTag.tag_choice"],"has":[]},"query":{"restrict":[],"conditions":[],"order":["Personne.id"]},"results":{"header":[],"fields":{"Personne.id":{"hidden":true},"Dossier.numdemrsa":{"sort":false},"Dossier.matricule":{"sort":false},"Dossier.dtdemrsa":{"sort":false},"Personne.nom_complet_prenoms":{"sort":false},"Adresse.complete":{"sort":false},"Canton.canton":{"sort":false},"Modecontact.numtel":{"class":"numtelCAF","sort":false},"Personne.numport":{"class":"numtelCD","sort":false},"Rendezvous.daterdv":{"sort":false},"Rendezvous.heurerdv":{"sort":false},"/Dossiers/view/#Dossier.id#":{"class":"view external"},"/Personnes/coordonnees/#Personne.id#":{"class":"view external"}},"innerTable":[]},"cohorte":{"options":[],"values":[],"config":{"recherche":{"Typerdv.code_type":"INFO_COLL_SECOND_RDV_STOCK","Statutrdv.code_statut":"PREVU"},"save":{"Typerdv.code_type":"INFO_COLL_SECOND_RDV_STOCK","Statutrdv.code_statut":""}}},"ini_set":[]}'
+WHERE lib_variable = 'ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_venu_nonvenu_second_rdv_stock';
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

@@ -173,9 +173,9 @@ msgstr "Nom du référent"
 ###############################################################################
 ############################    Convoqués 3 en 1  #############################
 ###############################################################################
-###############################################################################
+
 msgid "/Planpauvreterendezvous/cohorte_infocol_venu_nonvenu_second_rdv_nouveaux/:heading"
-msgstr "Liste des nouveaux entrant convoqués en rendez-vous 3 en 1"
+msgstr "Liste des nouveaux entrants convoqués en rendez-vous 3 en 1"
 
 msgid "/Planpauvreterendezvous/cohorte_infocol_venu_nonvenu_second_rdv_stock/:heading"
 msgstr "Liste des stocks convoqués en rendez-vous 3 en 1"
