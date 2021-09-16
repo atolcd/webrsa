@@ -194,6 +194,106 @@ SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
 WHERE configurationscategories.lib_categorie = 'Planpauvreterendezvous' AND configurations.lib_variable LIKE 'ConfigurableQuery.Planpauvreterendezvous.exportcsv_infocol_rdv_cer_nouveaux';
 
+-- Impression rendez-vous élaboration CER
+INSERT INTO configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_rdv_cer_imprime_stock','{"filters":{"defaults":{"Dossier":{"dernier":1},"Rendezvous":{"daterdv":0,"daterdv_from":"TAB::-1WEEK","daterdv_to":"TAB::NOW"}},"accepted":[],"skip":["Calculdroitrsa.toppersdrodevorsa","Dossier.dtdemrsa","Detaildroitrsa.oridemrsa","Foyer.sitfam","Adresse.nomvoie","Personne.dtnai","Personne.dtnai_month","Personne.dtnai_year","Personne.nir","Personne.sexe","Personne.trancheage","Situationdossierrsa.etatdosrsa","Serviceinstructeur.id","Suiviinstruction.typeserins","PersonneReferent.structurereferente_id","PersonneReferent.referent_id","Prestation.rolepers","ByTag.tag_choice"],"has":[]},"query":{"restrict":[],"conditions":[],"order":["Personne.id"]},"limit":10,"auto":false,"results":{"header":[],"fields":{"Personne.id":{"hidden":true},"Personne.nom_complet_court":{"sort":false},"Adresse.nomcom":{"sort":false},"Structurereferente.lib_struc":{"sort":false},"Referent.nom_complet":{"sort":false},"Typerdv.libelle":{"sort":false},"Rendezvous.daterdv":{"sort":false},"Rendezvous.heurerdv":{"sort":false},"Statutrdv.libelle":{"sort":false},"Canton.canton":{"sort":false},"/Dossiers/view/#Dossier.id#":{"class":"view external"},"/Rendezvous/impression/#Rendezvous.id#":{"class":"view external"}},"innerTable":[]},"cohorte":{"options":[],"values":[],"config":{"recherche":{"Typerdv.code_type":"INFO_COLL_TROISIEME_RDV_STOCK","Statutrdv.code_statut":"PREVU"},"save":[]}},"ini_set":[]}','Cohorte Plan Pauvreté > Stock > Non inscrits PE > Impression rendez-vous élaboration CER
+
+		array(
+			 1. Filtres de recherche
+			''filters'' => Configure::read (''ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_imprime.filters''),
+			 2. Recherche
+			''query'' => Configure::read (''ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_imprime.query''),
+			 3. Nombre d''enregistrements par page
+			''limit'' => 10,
+			 4. Lancer la recherche au premier accès à la page ?
+			''auto'' => false,
+			 5. Résultats de la recherche
+			''results'' => Configure::read (''ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_imprime.results''),
+			 Configuration du formulaire de cohorte
+			''cohorte'' => array(
+				 Remplacement des options dans la cohorte
+				''options'' => array(),
+				 Valeurs à remplir dans les champs de la cohorte avant de les cacher
+				''values'' => array(
+				),
+				 Valeurs à utiliser pour le préremplissage de la cohorte
+				 Configuration des paramètres
+				''config'' => array(
+					 Valeurs utilisées pour la recherche de la cohorte
+					''recherche'' => array(
+						''Typerdv.code_type'' => ''INFO_COLL_TROISIEME_RDV_STOCK'',
+						''Statutrdv.code_statut'' => ''PREVU''
+					),
+					 Valeurs utilisées pour la sauvegarde de la cohorte & préremplissage de la cohorte (si il y a)
+					''save'' => array(),
+				)
+			),
+			 6. Temps d''exécution, mémoire maximum, ...
+			''ini_set'' => array()
+		)', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_rdv_cer_imprime_stock');
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'Planpauvreterendezvous' AND configurations.lib_variable LIKE 'ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_rdv_cer_imprime_stock';
+
+INSERT INTO configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_rdv_cer_imprime_nouveaux','{"filters":{"defaults":{"Dossier":{"dernier":1},"Rendezvous":{"daterdv":0,"daterdv_from":"TAB::-1WEEK","daterdv_to":"TAB::NOW"}},"accepted":[],"skip":["Calculdroitrsa.toppersdrodevorsa","Dossier.dtdemrsa","Detaildroitrsa.oridemrsa","Foyer.sitfam","Adresse.nomvoie","Personne.dtnai","Personne.dtnai_month","Personne.dtnai_year","Personne.nir","Personne.sexe","Personne.trancheage","Situationdossierrsa.etatdosrsa","Serviceinstructeur.id","Suiviinstruction.typeserins","PersonneReferent.structurereferente_id","PersonneReferent.referent_id","Prestation.rolepers","ByTag.tag_choice"],"has":[]},"query":{"restrict":[],"conditions":[],"order":["Personne.id"]},"limit":10,"auto":false,"results":{"header":[],"fields":{"Personne.id":{"hidden":true},"Personne.nom_complet_court":{"sort":false},"Adresse.nomcom":{"sort":false},"Structurereferente.lib_struc":{"sort":false},"Referent.nom_complet":{"sort":false},"Typerdv.libelle":{"sort":false},"Rendezvous.daterdv":{"sort":false},"Rendezvous.heurerdv":{"sort":false},"Statutrdv.libelle":{"sort":false},"Canton.canton":{"sort":false},"/Dossiers/view/#Dossier.id#":{"class":"view external"},"/Rendezvous/impression/#Rendezvous.id#":{"class":"view external"}},"innerTable":[]},"cohorte":{"options":[],"values":[],"config":{"recherche":{"Typerdv.code_type":"INFO_COLL_TROISIEME_RDV_NOUVEAUX","Statutrdv.code_statut":"PREVU"},"save":[]}},"ini_set":[]}','Cohorte Plan Pauvreté > Stock > Non inscrits PE > Impression rendez-vous élaboration CER
+
+		array(
+			 1. Filtres de recherche
+			''filters'' => Configure::read (''ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_imprime.filters''),
+			 2. Recherche
+			''query'' => Configure::read (''ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_imprime.query''),
+			 3. Nombre d''enregistrements par page
+			''limit'' => 10,
+			 4. Lancer la recherche au premier accès à la page ?
+			''auto'' => false,
+			 5. Résultats de la recherche
+			''results'' => Configure::read (''ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_imprime.results''),
+			 Configuration du formulaire de cohorte
+			''cohorte'' => array(
+				 Remplacement des options dans la cohorte
+				''options'' => array(),
+				 Valeurs à remplir dans les champs de la cohorte avant de les cacher
+				''values'' => array(
+				),
+				 Valeurs à utiliser pour le préremplissage de la cohorte
+				 Configuration des paramètres
+				''config'' => array(
+					 Valeurs utilisées pour la recherche de la cohorte
+					''recherche'' => array(
+						''Typerdv.code_type'' => ''INFO_COLL_TROISIEME_RDV_NOUVEAUX'',
+						''Statutrdv.code_statut'' => ''PREVU''
+					),
+					 Valeurs utilisées pour la sauvegarde de la cohorte & préremplissage de la cohorte (si il y a)
+					''save'' => array(),
+				)
+			),
+			 6. Temps d''exécution, mémoire maximum, ...
+			''ini_set'' => array()
+		)', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_rdv_cer_imprime_nouveaux');
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'Planpauvreterendezvous' AND configurations.lib_variable LIKE 'ConfigurableQuery.Planpauvreterendezvous.cohorte_infocol_rdv_cer_imprime_nouveaux';
+
+INSERT INTO configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'ConfigurableQuery.Planpauvreterendezvous.exportcsv_infocol_rdv_cer_imprime_stock','{"filters":{"defaults":{"Dossier":{"dernier":"1"}},"accepted":[],"skip":["Calculdroitrsa.toppersdrodevorsa","Dossier.dtdemrsa","Detaildroitrsa.oridemrsa","Foyer.sitfam","Adresse.nomvoie","Personne.dtnai","Personne.dtnai_month","Personne.dtnai_year","Personne.nir","Personne.sexe","Personne.trancheage","Situationdossierrsa.etatdosrsa","Serviceinstructeur.id","Suiviinstruction.typeserins","PersonneReferent.structurereferente_id","PersonneReferent.referent_id","Prestation.rolepers","ByTag.tag_choice"],"has":[]},"query":{"restrict":[],"conditions":[],"order":["Personne.id"]},"results":{"fields":{"Personne.id":{"hidden":true},"Dossier.numdemrsa":{"sort":false},"Personne.nom_complet_court":{"sort":false},"Adresse.nomcom":{"sort":false},"Personne.dtnai":{"sort":false},"Dossier.matricule":{"sort":false},"Personne.nir":{"sort":false},"Adresse.codepos":{"sort":false},"Adresse.numcom":{"sort":false},"Canton.canton":{"sort":false}}},"ini_set":[]}','Export de la cohorte Plan Pauvreté > Stock > Non inscrits PE > Rendez-vous élaboration CER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'ConfigurableQuery.Planpauvreterendezvous.exportcsv_infocol_rdv_cer_imprime_stock');
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'Planpauvreterendezvous' AND configurations.lib_variable LIKE 'ConfigurableQuery.Planpauvreterendezvous.exportcsv_infocol_rdv_cer_imprime_stock';
+
+INSERT INTO configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'ConfigurableQuery.Planpauvreterendezvous.exportcsv_infocol_rdv_cer_imprime_nouveaux','{"filters":{"defaults":{"Dossier":{"dernier":"1"}},"accepted":[],"skip":["Calculdroitrsa.toppersdrodevorsa","Dossier.dtdemrsa","Detaildroitrsa.oridemrsa","Foyer.sitfam","Adresse.nomvoie","Personne.dtnai","Personne.dtnai_month","Personne.dtnai_year","Personne.nir","Personne.sexe","Personne.trancheage","Situationdossierrsa.etatdosrsa","Serviceinstructeur.id","Suiviinstruction.typeserins","PersonneReferent.structurereferente_id","PersonneReferent.referent_id","Prestation.rolepers","ByTag.tag_choice"],"has":[]},"query":{"restrict":[],"conditions":[],"order":["Personne.id"]},"results":{"fields":{"Personne.id":{"hidden":true},"Dossier.numdemrsa":{"sort":false},"Personne.nom_complet_court":{"sort":false},"Adresse.nomcom":{"sort":false},"Personne.dtnai":{"sort":false},"Dossier.matricule":{"sort":false},"Personne.nir":{"sort":false},"Adresse.codepos":{"sort":false},"Adresse.numcom":{"sort":false},"Canton.canton":{"sort":false}}},"ini_set":[]}','Export CSV de la cohorte Plan Pauvreté > Stock > Non inscrits PE > Rendez-vous élaboration CER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'ConfigurableQuery.Planpauvreterendezvous.exportcsv_infocol_rdv_cer_imprime_nouveaux');
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'Planpauvreterendezvous' AND configurations.lib_variable LIKE 'ConfigurableQuery.Planpauvreterendezvous.exportcsv_infocol_rdv_cer_imprime_nouveaux';
 
 -- *****************************************************************************
 COMMIT;
