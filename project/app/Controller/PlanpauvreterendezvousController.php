@@ -49,6 +49,8 @@
 					'cohorte_infocol_imprime_second_rdv_stock' => array('filter' => 'Search'),
 					'cohorte_infocol_venu_nonvenu_second_rdv_nouveaux' => array('filter' => 'Search'),
 					'cohorte_infocol_venu_nonvenu_second_rdv_stock' => array('filter' => 'Search'),
+					'cohorte_infocol_rdv_cer_stock' => array('filter' => 'Search'),
+					'cohorte_infocol_rdv_cer_nouveaux' => array('filter' => 'Search'),
 				),
 			),
 			'WebrsaAccesses',
@@ -113,7 +115,9 @@
 			'exportcsv_infocol_imprime_second_rdv_nouveaux',
 			'exportcsv_infocol_imprime_second_rdv_stock',
 			'exportcsv_infocol_venu_nonvenu_second_rdv_nouveaux',
-			'exportcsv_infocol_venu_nonvenu_second_rdv_stock'
+			'exportcsv_infocol_venu_nonvenu_second_rdv_stock',
+			'exportcsv_infocol_rdv_cer_stock',
+			'exportcsv_infocol_rdv_cer_nouveaux',
 		);
 
 		/**
@@ -136,6 +140,8 @@
 			'cohorte_infocol_second_rdv_stock' => 'update',
 			'cohorte_infocol_venu_nonvenu_second_rdv_nouveaux' => 'update',
 			'cohorte_infocol_venu_nonvenu_second_rdv_stock' => 'update',
+			'cohorte_infocol_rdv_cer_stock' => 'update',
+			'cohorte_infocol_rdv_cer_nouveaux' => 'update',
 			'exportcsv_infocol' => 'read',
 			'exportcsv_infocol_stock' => 'read',
 			'exportcsv_infocol_venu_nonvenu_nouveau' => 'read',
@@ -148,6 +154,8 @@
 			'exportcsv_infocol_imprime_second_rdv_stock' => 'read',
 			'exportcsv_infocol_venu_nonvenu_second_rdv_nouveaux' => 'read',
 			'exportcsv_infocol_venu_nonvenu_second_rdv_stock' => 'read',
+			'exportcsv_infocol_rdv_cer_stock' => 'read',
+			'exportcsv_infocol_rdv_cer_nouveaux' => 'read',
 		);
 
 		public function _setOptions() {
@@ -602,5 +610,66 @@
 				)
 			);
 		}
+
+		/**
+		 * Cohorte de rendez vous élaboration CER - Stock
+		 */
+		public function cohorte_infocol_rdv_cer_stock() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->cohorte (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolRdvCerStock',
+					'nom_cohorte' => 'cohorte_infocol_rdv_cer_stock'
+				)
+			);
+		}
+
+		/**
+		 * Cohorte de rendez vous élaboration CER - Nouveaux entrants
+		 */
+		public function cohorte_infocol_rdv_cer_nouveaux() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->cohorte (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolRdvCerNouveaux',
+					'nom_cohorte' => 'cohorte_infocol_rdv_cer_nouveaux'
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la cohorte de rendez vous élaboration CER - Stock
+		 */
+		public function exportcsv_infocol_rdv_cer_stock() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->exportcsv (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolRdvCerStock',
+					'nom_cohorte' => 'cohorte_infocol_rdv_cer_stock'
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la cohorte de rendez vous élaboration CER - Nouveaux entrants
+		 */
+		public function exportcsv_infocol_rdv_cer_nouveaux() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->exportcsv (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolRdvCerNouveaux',
+					'nom_cohorte' => 'cohorte_infocol_rdv_cer_nouveaux'
+				)
+			);
+		}
+
 	}
 ?>

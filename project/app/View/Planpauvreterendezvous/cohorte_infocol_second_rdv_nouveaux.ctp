@@ -77,7 +77,7 @@
 			'Cohorte.Rendezvous.commentairerdv' => array( 'type' => 'textarea' )
 		),
 		array(
-			'options' => array( 'Cohorte' => $options )
+			'options' => $options
 		)
 	)
 	. '<div class="center"><input type="button" id="preremplissage_cohorte_button" value="'.__m( 'Planpauvreterendezvous.preremplir' ).'"/></div>'

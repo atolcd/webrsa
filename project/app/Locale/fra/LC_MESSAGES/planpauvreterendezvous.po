@@ -179,3 +179,13 @@ msgstr "Liste des nouveaux entrants convoqués en rendez-vous 3 en 1"
 
 msgid "/Planpauvreterendezvous/cohorte_infocol_venu_nonvenu_second_rdv_stock/:heading"
 msgstr "Liste des stocks convoqués en rendez-vous 3 en 1"
+
+###############################################################################
+############################    Convoqués 3 en 1  #############################
+###############################################################################
+
+msgid "/Planpauvreterendezvous/cohorte_infocol_rdv_cer_nouveaux/:heading"
+msgstr "Convocation des rendez-vous pour élaboration du CER des nouveaux entrants"
+
+msgid "/Planpauvreterendezvous/cohorte_infocol_rdv_cer_stock/:heading"
+msgstr "Convocation des rendez-vous pour élaboration du CER des stocks"
