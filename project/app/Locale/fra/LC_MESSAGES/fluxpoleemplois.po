@@ -283,7 +283,7 @@ msgstr "Date du dernier contact"
 # ------------------------------------------------------------------------------
 
 msgid "Fluxpoleemplois.historique.titre"
-msgstr "Données du flux Pôle Emploi"
+msgstr "Historique Pôle Emploi"
 
 msgid "Fluxpoleemplois.historique"
 msgstr "Historique du "
