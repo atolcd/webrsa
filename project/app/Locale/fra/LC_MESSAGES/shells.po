@@ -172,3 +172,27 @@ msgstr "Modifications terminée"
 
 msgid "Shells:OrientationNonOrienteEnattente:modifNOK"
 msgstr "Les modifications n'ont pas été effectuées"
+
+###############################################################################
+# Historiqueetatpe
+###############################################################################
+msgid "Shell::Historiqueetatpe::nbTraitement"
+msgstr "Il y a %s personne(s) à traiter"
+
+msgid "Shell::Historiqueetatpe::traitementOK"
+msgstr "Toutes les personnes ont été traitées avec succès"
+
+msgid "Shell::Historiqueetatpe::nbTraitementOK"
+msgstr "%s personnes ont été traitées avec succès"
+
+msgid "Shell::Historiqueetatpe::traitementNOK"
+msgstr "Il y a des erreurs d'enregistrement, traitement annulé"
+
+msgid "Shell::Historiqueetatpe::NoPers"
+msgstr "Il n'y a personne à traiter"
+
+msgid "Shell::Historiqueetatpe::persNonTraitee"
+msgstr "Il y a %s personne(s) qui n'ont pas été traités dû à un manque d'information en base.\nVoici le détail : "
+
+msgid "Shell::Historiqueetatpe::persNonTraiteeDetail"
+msgstr "Nom;Prénom;NIR;Date de naissance"
