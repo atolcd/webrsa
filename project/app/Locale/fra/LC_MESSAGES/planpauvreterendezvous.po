@@ -198,3 +198,12 @@ msgstr "Impression des nouveaux entrants convoqués pour l'élaboration du CER"
 
 msgid "/Planpauvreterendezvous/cohorte_infocol_rdv_cer_imprime_stock/:heading"
 msgstr "Impression des stocks convoqués pour l'élaboration du CER"
+
+###############################################################################
+############## Convoqués rendez vous d'élaboration CER  ##################
+###############################################################################
+msgid "/Planpauvreterendezvous/cohorte_infocol_rdv_cer_venu_nonvenu_nouveaux/:heading"
+msgstr "Nouveaux entrants convoqués en rendez-vous pour l'élaboration du CER"
+
+msgid "/Planpauvreterendezvous/cohorte_infocol_rdv_cer_venu_nonvenu_stock/:heading"
+msgstr "Stocks convoqués en rendez-vous pour l'élaboration du CER"

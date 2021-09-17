@@ -548,6 +548,7 @@
 			);
 
 			if( $statutrdv_typerdv['StatutrdvTyperdv']['typecommission'] == 'ep' ) {
+				$this->Rendezvous->Personne->Dossierep->clear();
 				$dossierep = array(
 					'Dossierep' => array(
 						'personne_id' => $data['Rendezvous']['personne_id'],
@@ -559,7 +560,7 @@
 				$sanctionrendezvousep58 = array(
 					'Sanctionrendezvousep58' => array(
 						'dossierep_id' => $this->Rendezvous->Personne->Dossierep->id,
-						'rendezvous_id' => $this->Rendezvous->id
+						'rendezvous_id' =>  $data['Rendezvous']['id']
 					)
 				);
 

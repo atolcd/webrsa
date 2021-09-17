@@ -53,6 +53,8 @@
 					'cohorte_infocol_rdv_cer_nouveaux' => array('filter' => 'Search'),
 					'cohorte_infocol_rdv_cer_imprime_stock' => array('filter' => 'Search'),
 					'cohorte_infocol_rdv_cer_imprime_nouveaux' => array('filter' => 'Search'),
+					'cohorte_infocol_rdv_cer_venu_nonvenu_stock' => array('filter' => 'Search'),
+					'cohorte_infocol_rdv_cer_venu_nonvenu_nouveaux' => array('filter' => 'Search'),
 				),
 			),
 			'WebrsaAccesses',
@@ -122,6 +124,8 @@
 			'exportcsv_infocol_rdv_cer_nouveaux',
 			'exportcsv_infocol_rdv_cer_imprime_stock',
 			'exportcsv_infocol_rdv_cer_imprime_nouveaux',
+			'exportcsv_infocol_rdv_cer_venu_nonvenu_stock',
+			'exportcsv_infocol_rdv_cer_venu_nonvenu_nouveaux',
 		);
 
 		/**
@@ -150,6 +154,8 @@
 			'cohorte_infocol_rdv_cer_imprime_stock_impressions' => 'read',
 			'cohorte_infocol_rdv_cer_imprime_nouveaux' => 'read',
 			'cohorte_infocol_rdv_cer_imprime_nouveaux_impressions' => 'read',
+			'cohorte_infocol_rdv_cer_venu_nonvenu_stock' => 'update',
+			'cohorte_infocol_rdv_cer_venu_nonvenu_nouveaux' => 'update',
 			'exportcsv_infocol' => 'read',
 			'exportcsv_infocol_stock' => 'read',
 			'exportcsv_infocol_venu_nonvenu_nouveau' => 'read',
@@ -166,6 +172,8 @@
 			'exportcsv_infocol_rdv_cer_nouveaux' => 'read',
 			'exportcsv_infocol_rdv_cer_imprime_stock' => 'read',
 			'exportcsv_infocol_rdv_cer_imprime_nouveaux' => 'read',
+			'exportcsv_infocol_rdv_cer_venu_nonvenu_stock' => 'read',
+			'exportcsv_infocol_rdv_cer_venu_nonvenu_nouveaux' => 'read',
 		);
 
 		public function _setOptions() {
@@ -769,5 +777,68 @@
 			);
 		}
 
+		/**
+		 * Cohorte des convoqués en rendez vous élaboration CER - Stock
+		 *
+		 * Une sanction avec passage en EP sera créé si la personne ne vient pas
+		 */
+		public function cohorte_infocol_rdv_cer_venu_nonvenu_stock() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->cohorte (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolVenuNonvenuRdvCerStock',
+					'nom_cohorte' => 'cohorte_infocol_rdv_cer_venu_nonvenu_stock'
+				)
+			);
+		}
+
+		/**
+		 * Cohorte des convoqués en rendez vous élaboration CER - Nouveaux entrants
+		 *
+		 * Une sanction avec passage en EP sera créé si la personne ne vient pas
+		 */
+		public function cohorte_infocol_rdv_cer_venu_nonvenu_nouveaux() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->cohorte (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolVenuNonvenuRdvCerNouveaux',
+					'nom_cohorte' => 'cohorte_infocol_rdv_cer_venu_nonvenu_nouveaux'
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la cohorte des convoqués en rendez vous élaboration CER - Stock
+		 */
+		public function exportcsv_infocol_rdv_cer_venu_nonvenu_stock() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->exportcsv (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolVenuNonvenuRdvCerStock',
+					'nom_cohorte' => 'cohorte_infocol_rdv_cer_venu_nonvenu_stock'
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la cohorte des convoqués en rendez vous élaboration CER - Nouveaux entrants
+		 */
+		public function exportcsv_infocol_rdv_cer_venu_nonvenu_nouveaux() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesPlanpauvreterendezvous' );
+			$Cohorte->exportcsv (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohortePlanpauvreterendezvousInfocolVenuNonvenuRdvCerNouveaux',
+					'nom_cohorte' => 'cohorte_infocol_rdv_cer_venu_nonvenu_nouveaux'
+				)
+			);
+		}
 	}
 ?>
