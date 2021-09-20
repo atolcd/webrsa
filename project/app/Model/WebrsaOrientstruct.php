@@ -725,7 +725,7 @@
 					),
 					'conditions' => array(
 						'Orientstruct.id' => $orientstruct_id,
-                        'Adressefoyer.id IN ( '.$this->Orientstruct->Personne->Foyer->Adressefoyer->sqDerniereRgadr01( 'Adressefoyer.foyer_id' ).' )'
+						'Adressefoyer.id IN ( '.$this->Orientstruct->Personne->Foyer->Adressefoyer->sqDerniereRgadr01( 'Adressefoyer.foyer_id' ).' )'
 					),
 					'contain' => false
 				)
@@ -1093,9 +1093,49 @@
 
 				// Troisième étape pour le 58, on ajoute les informations des SAMS
 				if( $departement == 58 ) {
-					$query = $this->getIndexQuery($orientstruct['Orientstruct']['personne_id']);
-					$query['conditions']['Orientstruct.id'] = $orientstruct['Orientstruct']['id'];
-					$record = $this->Orientstruct->find('first', $query);
+					$this->loadModel('Canton');
+					$query = array(
+						'fields' => array(
+							'Sitecov58.name',
+							'Sitecov58.lib_adresse',
+							'Sitecov58.num_voie',
+							'Sitecov58.type_voie',
+							'Sitecov58.nom_voie',
+							'Sitecov58.code_postal',
+							'Sitecov58.ville',
+							'Sitecov58.code_insee',
+						),
+						'recursive' => -1,
+						'joins' => array(
+							array (
+								'table' => 'adresses_cantons',
+								'alias' => 'AdresseCanton',
+								'type' => 'LEFT OUTER',
+								'conditions' => array (
+									'"Canton"."id" = "AdresseCanton"."canton_id"',
+									'"AdresseCanton"."adresse_id" = '.$orientstruct['Adresse']['id']
+								)
+							),
+							array (
+								'table' => 'cantons_sitescovs58',
+								'alias' => 'CantonSitecov58',
+								'type' => 'LEFT OUTER',
+								'conditions' => array (
+									'"CantonSitecov58"."canton_id" = "Canton"."id"',
+								)
+							),
+							array (
+								'table' => 'sitescovs58',
+								'alias' => 'Sitecov58',
+								'type' => 'LEFT OUTER',
+								'conditions' => array (
+									'"Sitecov58"."id" = "CantonSitecov58"."sitecov58_id"',
+									'"Sitecov58"."actif" = \'1\''
+								)
+							)
+						)
+					);
+					$record = $this->Canton->find('first', $query);
 					$orientstruct['Sitecov58'] = $record['Sitecov58'];
 				}
 			}
