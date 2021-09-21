@@ -930,14 +930,31 @@ p.actions a {
 #pageContent .innerTableCell table{
     border: solid 4px #fff;
     box-shadow: none;
-    /* transform: translateY(50%);
-    width: 40vw;
-    max-width: 80vw; */
 }
 
-/* #pageContent .innerTableCell table thead *{
+#pageContent .dsps .innerTableCell table,
+#pageContent .fichesprescriptions93 .innerTableCell table  {
+    transform: translateY(50%);
+    width: 40vw;
+    max-width: 80vw;
+}
+
+#pageContent .orientsstructs .innerTableCell table  {
+    transform: translateY(50%);
+    width: 25vw;
+    max-width: 80vw;
+}
+
+#pageContent .dsps .innerTableCell table tbody,
+#pageContent .fichesprescriptions93 .innerTableCell table tbody,
+#pageContent .orientsstructs .innerTableCell table tbody {
+    width: 100%;
+    display: table;
+}
+
+#pageContent .innerTableCell table thead *{
     color: #929DA8;
-} */
+}
 
 .innerTableCell table tbody tr.odd *{
     background-color: #e6eef1;

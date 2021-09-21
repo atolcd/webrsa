@@ -130,7 +130,7 @@ Tooltip.prototype = {
 	  // get Mouse position
     var mouse_x = Event.pointerX(event);
 	  var mouse_y = Event.pointerY(event);
-	
+
 	  // decide if wee need to switch sides for the tooltip
 	  var dimensions = Element.getDimensions( this.tool_tip );
 	  var element_width = dimensions.width;
@@ -144,14 +144,10 @@ Tooltip.prototype = {
 		  mouse_x = mouse_x + this.options.min_distance_x;
 	  }
 	
-	  if ( (element_height + mouse_y) >= ( this.getWindowHeight() - this.options.min_distance_y) ){ // too big for Y
-		  mouse_y = mouse_y - element_height;
-	    // apply min_distance to make sure that the mouse is not on the tool-tip
-		  mouse_y = mouse_y - this.options.min_distance_y;
-	  } else {
-		  mouse_y = mouse_y + this.options.min_distance_y;
-	  } 
-	
+	  mouse_y = mouse_y - element_height;
+	  // apply min_distance to make sure that the mouse is not on the tool-tip
+	  mouse_y = mouse_y - this.options.min_distance_y;
+
 	  // now set the right styles
 	  this.setStyles(mouse_x, mouse_y);
   },
