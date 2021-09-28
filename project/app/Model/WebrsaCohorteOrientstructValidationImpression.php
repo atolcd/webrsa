@@ -58,6 +58,7 @@
 			// Ajout des champs / jointures liées aux structures orientantes
 			$query['fields'] = array_merge(
 				$query['fields'],
+				$this->Personne->Orientstruct->fields(),
 				array(
 					'Structureorientante.lib_struc',
 					'Referentorientant.nom_complet',

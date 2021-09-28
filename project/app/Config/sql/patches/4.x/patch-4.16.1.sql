@@ -1,0 +1,12 @@
+SET client_encoding = 'UTF8';
+
+-- *****************************************************************************
+BEGIN;
+-- *****************************************************************************
+-- Modification de la variable de configuration de la cohortes d'impression des orientations validées
+UPDATE public.configurations SET value_variable = '{"filters":{"defaults":{"Dossier":{"dernier":1},"Detailcalculdroitrsa":{"natpf_choice":1,"natpf":["RSD","RSI"]},"Detaildroitrsa":{"oridemrsa_choice":1,"oridemrsa":["DEM"]},"Situationdossierrsa":{"etatdosrsa_choice":1,"etatdosrsa":[2,3,4]}},"accepted":{"Situationdossierrsa.etatdosrsa":[2,3,4],"Detailcalculdroitrsa.natpf":["RSD","RSI","RSU","RSJ"]},"skip":["Dossier.numdemrsa","Dossier.matricule","Dossier.anciennete_dispositif","Serviceinstructeur.id","Dossier.fonorg","Foyer.sitfam","Personne.dtnai","Personne.nomnai","Personne.nir","Personne.sexe","Personne.trancheage"]},"query":{"restrict":{"Situationdossierrsa.etatdosrsa_choice":1,"Situationdossierrsa.etatdosrsa":[2,3,4],"Detailcalculdroitrsa.natpf_choice":1,"Detailcalculdroitrsa.natpf":["RSD","RSI","RSU","RSJ"]},"conditions":[],"order":["Dossier.dtdemrsa"]},"limit":10,"auto":false,"results":{"header":[],"fields":{"Personne.nom_complet_court":{"sort":false},"Adresse.nomcom":{"sort":false},"Structureorientante.lib_struc":{"sort":false},"Referentorientant.nom_complet":{"sort":false},"Orientstruct.origine":{"sort":false},"Typeorient.lib_type_orient":{"sort":false},"Structurereferente.lib_struc":{"sort":false},"Referent.nom_complet":{"sort":false},"Calculdroitrsa.toppersdrodevorsa":{"sort":false,"type":"boolean"},"Orientstruct.date_propo":{"sort":false},"Orientstruct.date_valid":{"sort":false},"/Orientsstructs/impression/#Orientstruct.id#":{"class":"external"},"/Dossiers/view/#Dossier.id#":{"class":"external"}},"innerTable":["Dossier.numdemrsa","Dossier.dtdemrsa","Personne.dtnai","Dossier.matricule","Personne.nir","Adresse.codepos","Situationdossierrsa.dtclorsa","Situationdossierrsa.moticlorsa","Prestation.rolepers","Situationdossierrsa.etatdosrsa","Structurereferenteparcours.lib_struc","Referentparcours.nom_complet"]},"ini_set":{"max_execution_time":0,"memory_limit":"1024M"}}'
+WHERE lib_variable = 'ConfigurableQuery.Orientsstructs.cohorte_orientees_validees';
+
+-- *****************************************************************************
+COMMIT;
+-- *****************************************************************************
