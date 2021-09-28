@@ -369,6 +369,9 @@ msgstr "Impression des orientations validées"
 msgid "Orientsstructs.nom_menu_haut.struct"
 msgstr "Structures référentes"
 
+msgid "Orientsstructs.aucune_structure"
+msgstr "Attention, il n'y a pas de structure référente de configurée utilisant le workflow de validation. La cohorte ne fonctionnera pas correctement."
+
 msgid "Orientsstructs.nom_menu.cohorte_validation"
 msgstr "Orientations en attente de validation"
 

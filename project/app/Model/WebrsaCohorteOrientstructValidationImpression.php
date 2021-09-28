@@ -116,9 +116,13 @@
 				);
 			} else {
 				// On ajoute les conditions liées aux structures référentes qui ont le workflow de validation d'activer uniquement
-				$query['conditions'][] = array(
-					'Orientstruct.structureorientante_id IN' => $this->Personne->Orientstruct->Structurereferente->listeStructWorkflow()
-				);
+				$listStruct = $this->Personne->Orientstruct->Structurereferente->listeStructWorkflow();
+
+				if(!empty($listStruct)) {
+					$query['conditions'][] = array(
+						'Orientstruct.structureorientante_id IN' => $listStruct
+					);
+				}
 			}
 
 			$has_date = Hash::get( $search, 'Orientstruct.date_propo' );

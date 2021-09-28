@@ -16,6 +16,13 @@
 	 */
 	class WebrsaOrientsstructsValidationsComponent extends WebrsaAbstractCohortesOrientsstructsComponent
 	{
+		/**
+		 * Components utilisés par ce component.
+		 *
+		 * @var array
+		 */
+		public $components = array('Flash');
+
 
 		/**
 		 * Ajoute et modifie l'enum pour les cohortes liées aux validations d'orientation
@@ -26,17 +33,24 @@
 		 */
 		public function customEnums( $result, $Controller ) {
 			// Récupération des structures orientantes
-			$result['Orientstruct']['structureorientante_id'] = $Controller->InsertionsBeneficiaires->structuresreferentes(
-				array(
-					'type' => 'optgroup',
-					'conditions' => array(
-						'Structurereferente.orientation' => 'O',
-						'Structurereferente.id IN' => $Controller->Orientstruct->Structurereferente->listeStructWorkflow()
-						)
-						+ $Controller->InsertionsBeneficiaires->conditions['structuresreferentes'],
-					'prefix' => false
-				)
-			);
+			$listStructures = $Controller->Orientstruct->Structurereferente->listeStructWorkflow();
+
+			$result['Orientstruct']['structureorientante_id'] = array();
+			if( !empty($listStructures) ) {
+				$result['Orientstruct']['structureorientante_id'] = $Controller->InsertionsBeneficiaires->structuresreferentes(
+					array(
+						'type' => 'optgroup',
+						'conditions' => array(
+							'Structurereferente.orientation' => 'O',
+							'Structurereferente.id IN' => $Controller->Orientstruct->Structurereferente->listeStructWorkflow()
+							)
+							+ $Controller->InsertionsBeneficiaires->conditions['structuresreferentes'],
+						'prefix' => false
+					)
+				);
+			} else {
+				$this->Flash->error(__d('orientsstructs', 'Orientsstructs.aucune_structure'));
+			}
 
 			/**
 			 * Orientation externe par prestataire pour le CD 93 uniquement
