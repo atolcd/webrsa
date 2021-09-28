@@ -33,8 +33,6 @@
 		. '</div>'
 		. $this->Default3->subformView(
 			array(
-				'Structureorientante.lib_struc',
-				'Referentorientant.nom_complet',
 				'Orientstruct.origine',
 				'Typeorient.lib_type_orient',
 				'Structurereferente.lib_struc',
