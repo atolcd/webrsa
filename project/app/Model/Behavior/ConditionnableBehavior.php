@@ -351,7 +351,7 @@
 				$trancheagesup = Hash::get( $search, 'Personne.trancheageprec' );
 
 				if( !empty( $trancheagesup )  ) {
-					$conditions[] = '( EXTRACT ( YEAR FROM AGE( Personne.dtnai ) ) ) >= '.$trancheagesup;
+					$conditions[] = '( EXTRACT ( YEAR FROM AGE( Personne.dtnai ) ) ) <= '.$trancheagesup;
 				}
 			}
 
