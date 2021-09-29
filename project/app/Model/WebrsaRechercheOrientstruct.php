@@ -212,7 +212,6 @@
 						WHERE
 							orientsstructs.personne_id = Orientstruct.personne_id
 						ORDER BY
-							orientsstructs.date_valid DESC,
 							orientsstructs.id DESC
 						LIMIT 1)"
 				);
