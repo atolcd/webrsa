@@ -36,7 +36,7 @@
 			$query = $this->sansOrientation($query, true);
 
 			// Sans CER
-			$query = $this->sansCER($query);
+			$query = $this->sansCER($query, true);
 
 			// Non inscrit PE
 			$query = $this->nonInscritPE($query);

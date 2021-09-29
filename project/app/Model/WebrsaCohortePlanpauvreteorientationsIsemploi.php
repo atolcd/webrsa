@@ -34,7 +34,7 @@
 			//Sans RDV
 			$query = $this->sansRendezvous($query, true);
 			//Sans CER
-			$query = $this->sansCER($query);
+			$query = $this->sansCER($query, true);
 			//Inscrit PE
 			$query = $this->inscritPE($query);
 

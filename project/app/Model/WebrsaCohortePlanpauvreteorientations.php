@@ -82,6 +82,7 @@
 				'Calculdroitrsa' => 'INNER',
 				'Personne' => 'INNER',
 				'Situationdossierrsa' => 'INNER',
+				'Detaildroitrsa' => 'LEFT',
 				'Adresse' => 'INNER',
 				'Historiquedroit' => 'INNER',
 				'Informationpe' => 'INNER',

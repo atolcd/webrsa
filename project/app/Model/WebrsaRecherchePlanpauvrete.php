@@ -150,7 +150,7 @@
 				$query = $this->WebrsaCohortePlanpauvrete->sansOrientation($query, true);
 
 				// Sans CER
-				$query = $this->WebrsaCohortePlanpauvrete->sansCER($query);
+				$query = $this->WebrsaCohortePlanpauvrete->sansCER($query, true);
 
 				//Dans le mois précédent :
 				$query = $this->WebrsaCohortePlanpauvrete->nouveauxEntrants($query);

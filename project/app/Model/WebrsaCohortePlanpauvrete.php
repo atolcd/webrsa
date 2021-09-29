@@ -33,13 +33,18 @@
 		 * @param array $query
 		 * @return array $query
 		 */
-		public function sansCER($query) {
+		public function sansCER($query, $isNouveauxEntrant = false) {
+			$conditions = '';
+			if($isNouveauxEntrant) {
+				$dates = $this->datePeriodeCohorte ();
+				$conditions = " AND Historiquedroit.created BETWEEN '".$dates['deb']."' AND '".$dates['fin']."'";
+			}
 			$query['conditions'][] = 'NOT EXISTS(
 				SELECT "contratsinsertion"."id" AS "contratsinsertion__id"
 				FROM contratsinsertion AS contratsinsertion
 				INNER JOIN historiquesdroits ON (historiquesdroits.personne_id = contratsinsertion.personne_id AND historiquesdroits.created <= contratsinsertion.datevalidation_ci )
 				WHERE "contratsinsertion"."decision_ci" = \'V\'
-				AND "contratsinsertion"."personne_id" = "Personne"."id"
+				AND "contratsinsertion"."personne_id" = "Personne"."id"' . $conditions . '
 				)';
 			return $query;
 		}
@@ -239,7 +244,7 @@
 		 * @return array $query
 		 */
 		public function nonInscritPE($query) {
-			$this->loadModel('Historiqueetatpe');
+			$this->loadModel('Informationpe');
 
 			$query['fields'] = array_merge(
 				$query['fields'],
@@ -251,19 +256,23 @@
 
 			$query['joins'] = array_merge(
 				$query['joins'],
-				array (
-					$this->Historiqueetatpe->Informationpe->joinPersonneInformationpe (),
-					$this->Historiqueetatpe->Informationpe->join( 'Historiqueetatpe' ),
+				array(
+					$this->Informationpe->joinPersonneInformationpe( 'Personne', 'Informationpe', 'LEFT OUTER' ),
+					$this->Informationpe->Historiqueetatpe->joinInformationpeHistoriqueetatpe( true, 'Informationpe', 'Historiqueetatpe', 'LEFT OUTER' )
 				)
 			);
 
-			$query['conditions'][] =  array(
+			$sqDerniereInformationpe = $this->Informationpe->sqDerniere( 'Personne' );
+			$query['conditions'][] = array(
 				'OR' => array(
-					'Historiqueetatpe.id IS NULL',
-					'Historiqueetatpe.id IN ( '.$this->Historiqueetatpe->sqDernier( 'Informationpe' ).' )'
+					"Informationpe.id IS NULL",
+					"Informationpe.id IN ( {$sqDerniereInformationpe} )"
+				),
+				'OR' => array(
+					"Historiqueetatpe.etat <> 'inscription'",
+					'Historiqueetatpe.etat IS NULL'
 				)
 			);
-			$query['conditions'][] = '("Historiqueetatpe"."etat" not like \'inscription\' or "Historiqueetatpe"."etat" is null)';
 
 			return $query;
 		}
