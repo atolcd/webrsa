@@ -567,6 +567,12 @@
 						a.rgorient DESC,
 						a.id DESC
 					LIMIT 1)';
+
+					// Ajout de la présence obligatoire d'une structure référente pour le workflow de validation
+					$this->validate['structurereferente_id']['notBlank'] = array(
+						'rule' => 'notBlank',
+						'message' => __d( 'default', 'Validate::notBlank' )
+					);
 			} else {
 				$virtualFieldsDernierQuery= '"%s"."id" IN (
 					SELECT a.id FROM orientsstructs AS a
