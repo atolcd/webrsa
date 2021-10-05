@@ -1037,8 +1037,10 @@
 		 * Cohorte de validation des personnes en attente d'orientation
 		 */
 		public function cohorte_validation() {
-			$Cohortes = $this->Components->load( 'WebrsaCohortesOrientsstructsValidations' );
+			// Ajout dans la view de la présence ou non de structures avec Workflow de validation
+			$this->set('structures', !empty($this->Orientstruct->Structurereferente->listeStructWorkflow()));
 
+			$Cohortes = $this->Components->load( 'WebrsaCohortesOrientsstructsValidations' );
 			$Cohortes->cohorte(
 				array(
 					'modelName' => 'Personne',
@@ -1051,6 +1053,9 @@
 		 * Cohorte des personnes orientées
 		 */
 		public function cohorte_orientees_validees() {
+			// Ajout dans la view de la présence ou non de structures avec Workflow de validation
+			$this->set('structures', !empty($this->Orientstruct->Structurereferente->listeStructWorkflow()));
+
 			$Cohortes = $this->Components->load( 'WebrsaCohortesOrientsstructsValidationsImpressions' );
 
 			$Cohortes->search(

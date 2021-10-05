@@ -1,4 +1,5 @@
 <?php
+if($structures) {
 	$departement = Configure::read( 'Cg.departement' );
 	$controller = $this->params->controller;
 	$action = $this->action;
@@ -69,3 +70,4 @@
 		)
 	);
 	$results = isset( $results ) ? $results : array();
+}

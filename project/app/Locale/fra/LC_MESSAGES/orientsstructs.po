@@ -370,7 +370,7 @@ msgid "Orientsstructs.nom_menu_haut.struct"
 msgstr "Structures référentes"
 
 msgid "Orientsstructs.aucune_structure"
-msgstr "Attention, il n'y a pas de structure référente de configurée utilisant le workflow de validation. La cohorte ne fonctionnera pas correctement."
+msgstr "Aucune structure référente n'est configurée pour utiliser le workflow de validation, la cohorte ne peut fonctionner.<br>Contactez l'administrateur de WebRSA pour qu'il réalise le paramétrage."
 
 msgid "Orientsstructs.nom_menu.cohorte_validation"
 msgstr "Orientations en attente de validation"

@@ -1,4 +1,5 @@
 <?php
+if($structures) {
 	// Conditions d'accès aux tags
 	$departement = Configure::read( 'Cg.departement' );
 	$user_type = $this->Session->read( 'Auth.User.type' );
@@ -103,3 +104,4 @@
 		)
 	);
 	$results = isset( $results ) ? $results : array();
+}
