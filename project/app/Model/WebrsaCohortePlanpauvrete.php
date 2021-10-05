@@ -263,14 +263,21 @@
 			);
 
 			$sqDerniereInformationpe = $this->Informationpe->sqDerniere( 'Personne' );
-			$query['conditions'][] = array(
-				'OR' => array(
-					"Informationpe.id IS NULL",
-					"Informationpe.id IN ( {$sqDerniereInformationpe} )"
-				),
-				'OR' => array(
-					"Historiqueetatpe.etat <> 'inscription'",
-					'Historiqueetatpe.etat IS NULL'
+			$query['conditions'] =  array_merge(
+				$query['conditions'],
+				array(
+					array(
+						'OR' => array(
+							"Informationpe.id IS NULL",
+							"Informationpe.id IN ( {$sqDerniereInformationpe} )"
+						),
+					),
+					array(
+						'OR' => array(
+							"Historiqueetatpe.etat <> 'inscription'",
+							'Historiqueetatpe.etat IS NULL'
+						)
+					)
 				)
 			);
 
