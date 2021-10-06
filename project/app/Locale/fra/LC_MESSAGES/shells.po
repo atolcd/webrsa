@@ -176,6 +176,15 @@ msgstr "Les modifications n'ont pas été effectuées"
 ###############################################################################
 # Historiqueetatpe
 ###############################################################################
+msgid "Shell::Historiqueetatpe::help::usage"
+msgstr "Usage pour CentOS : sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake Historiqueetatpe -app app [path]"
+
+msgid "Shell::Historiqueetatpe::help::arguments"
+msgstr "Argument(s) :"
+
+msgid "Shell::Historiqueetatpe::help::pathInfo"
+msgstr "[path] : (facultatif) Dossier d'enregistrement des logs. Par défaut : %s"
+
 msgid "Shell::Historiqueetatpe::nbTraitement"
 msgstr "Il y a %s personne(s) à traiter"
 
@@ -192,7 +201,7 @@ msgid "Shell::Historiqueetatpe::NoPers"
 msgstr "Il n'y a personne à traiter"
 
 msgid "Shell::Historiqueetatpe::persNonTraitee"
-msgstr "Il y a %s personne(s) qui n'ont pas été traités dû à un manque d'information en base.\nVoici le détail : "
+msgstr "Il y a %s personne(s) qui n'ont pas été traitée(s) dû à un manque d'information en base"
 
-msgid "Shell::Historiqueetatpe::persNonTraiteeDetail"
-msgstr "Nom;Prénom;NIR;Date de naissance"
+msgid "Shell::Historiqueetatpe::CSVcree"
+msgstr "La liste de ces personnes a été mise dans le fichier %s"

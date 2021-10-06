@@ -7,6 +7,7 @@
 	 */
 	 App::uses( 'XShell', 'Console/Command' );
 	 App::uses( 'ConnectionManager', 'Model' );
+	 App::uses( 'CsvHelper', 'View/Helper' );
 	 App::uses( 'View', 'View' );
 
 	/**
@@ -15,7 +16,7 @@
 	 *
 	 * La commande se fait par fichier
 	 *
-	 * sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake Historiqueetatpe -app app
+	 * sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake Historiqueetatpe -app app [path]
 	 *
 	 * @package app.Console.Command
 	 */
@@ -46,18 +47,51 @@
 		 * Affiche l'en-tête du shell
 		 */
 		public function _welcome() {
-			$this->out();
-			$this->out( __d('shells', 'Shell::Historiqueetatpe::welcome') );
-			$this->out();
-			$this->hr();
-			$this->out();
+			parent::_welcome();
 		}
 
+		/**
+		 * Converti un array en document CSV
+		 *
+		 * @param array $data
+		 * @param string $path
+		 * @param string $fileName
+		 */
+		protected function _createCsv( $data, $path = null, $fileName ) {
+			if ( empty($data) ) {
+				return false;
+			}
+
+			if ( !is_dir($path) ) {
+				mkdir($path, 0777, true);
+			}
+
+			// On ajoute le header
+			array_unshift($data, array_keys($data[0]));
+
+			$Csv = new CsvHelper( new View() );
+			$Csv->addGrid( $data, false );
+			$fileData = $Csv->render(false);
+
+			$file = fopen($path.$fileName, "w");
+			chmod($path.$fileName, 0777);
+			fwrite($file, $fileData);
+			fclose($file);
+		}
 
 		/**
 		 * Méthode principale.
 		 */
 		public function main() {
+			// Vérification du path passé en argument
+			if (!isset($this->args[0])) {
+				$path = APP.'tmp'.DS.'logs'.DS;
+			} else if (substr($this->args[0], -1) !== DS) {
+				$path = $this->args[0] . DS;
+			} else {
+				$path = $this->args[0];
+			}
+
 			// Récupération des personnes concernées
 			$infospeSanshisto = $this->Informationpe->find('all', array(
 				'joins' => array(
@@ -72,6 +106,7 @@
 				$this->out( sprintf( __d('shells', 'Shell::Historiqueetatpe::nbTraitement'), count($infospeSanshisto)) );
 				$historiquepe = array();
 				$personnesNonTraitees = array();
+				$personnesTraitees = array();
 				foreach($infospeSanshisto as $info) {
 					// Récupération des informations principales
 					$tmpInfo = array(
@@ -163,6 +198,21 @@
 								'motif' =>  $motif,
 							)
 						);
+						$personnesTraitees[] = array_merge(
+							array(
+								'nom' => $info['Informationpe']['nom'],
+								'prenom' => $info['Informationpe']['prenom'],
+								'nir' => $info['Informationpe']['nir'],
+								'dtnai' => $info['Informationpe']['dtnai']
+							),
+							$tmpInfo['Historiqueetatpe'],
+							array(
+								'date' =>  $date->format('Y-m-d'),
+								'etat' =>  $statut,
+								'code' =>  $code,
+								'motif' =>  $motif,
+							)
+						);
 					} else {
 						// Sinon nous ajoutons les informations de la personne dans les personnes non traitées
 						$personnesNonTraitees[] =  array(
@@ -186,20 +236,20 @@
 				if( $success ) {
 					if($doCommit == true) {
 						$this->Historiqueetatpe->commit();
+						$this->out( sprintf( __d('shells', 'Shell::Historiqueetatpe::nbTraitementOK'), count($historiquepe) ) );
+						$fileName = 'historiqueetatpe_personnesTraitees_' . date('Y-m-d_H:i:s') . '.csv';
+						$this->_createCsv($personnesTraitees, $path, $fileName);
+						$this->out( sprintf( __d('shells', 'Shell::Historiqueetatpe::CSVcree'), $path . $fileName ) );
 					}
 
-					// S'il n'y pas de personnes non traitées par le script
-					if(count($personnesNonTraitees) == 0) {
-						$this->out( __d('shells', 'Shell::Historiqueetatpe::traitementOK') );
-					} else if(count($personnesNonTraitees) > 0) {
-						// On indique combien de personnes ont été traitées
-						$this->out( sprintf( __d('shells', 'Shell::Historiqueetatpe::nbTraitementOK'), count($historiquepe) ) );
-						// S'il y an a, on liste ces personnes
+					// S'il y a des personnes non traitées par le script
+					if(count($personnesNonTraitees) > 0) {
 						$this->out( sprintf( __d('shells', 'Shell::Historiqueetatpe::persNonTraitee'), count($personnesNonTraitees)) );
-						$this->out(__d('shells', 'Shell::Historiqueetatpe::persNonTraiteeDetail') );
-						foreach($personnesNonTraitees as $pers) {
-							$this->out( implode(';', $pers) );
-						}
+						$fileName = 'historiqueetatpe_personnesNonTraitees_' . date('Y-m-d_H:i:s') . '.csv';
+						$this->_createCsv($personnesNonTraitees, $path, $fileName);
+						$this->out( sprintf( __d('shells', 'Shell::Historiqueetatpe::CSVcree'), $path . $fileName ) );
+					} else {
+						$this->out( __d('shells', 'Shell::Historiqueetatpe::traitementOK') );
 					}
 				} else {
 					$this->Historiqueetatpe->rollback();
@@ -208,5 +258,18 @@
 			} else {
 				$this->out( __d('shells', 'Shell::Historiqueetatpe::NoPers') );
 			}
+		}
+
+		/**
+		 *
+		 */
+		public function help() {
+			$this->out();
+			$this->out( __d('shells', 'Shell::Historiqueetatpe::help::usage') );
+			$this->out();
+			$this->out( __d('shells', 'Shell::Historiqueetatpe::help::arguments') );
+			$this->out( sprintf( __d('shells', 'Shell::Historiqueetatpe::help::pathInfo'), APP.'tmp'.DS.'logs'.DS ) );
+			$this->out();
+			$this->_stop( 0 );
 		}
 	}
