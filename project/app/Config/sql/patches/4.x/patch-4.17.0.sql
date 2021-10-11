@@ -404,6 +404,17 @@ SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
 WHERE configurationscategories.lib_categorie = 'Planpauvreterendezvous' AND configurations.lib_variable LIKE 'ConfigurableQuery.Planpauvreterendezvous.exportcsv_infocol_rdv_cer_nouveaux';
 
+-- Ajout de la table versionpatchsql
+CREATE TABLE IF NOT EXISTS public.versionpatchsql (
+	id serial NOT NULL,
+	"version" varchar NOT NULL,
+	created timestamp NOT NULL,
+	CONSTRAINT versionpatchsql_pkey PRIMARY KEY (id)
+);
+
+-- Version du patch en BDD
+INSERT INTO versionpatchsql("version", created) VALUES ('4.17.0', CURRENT_TIMESTAMP);
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

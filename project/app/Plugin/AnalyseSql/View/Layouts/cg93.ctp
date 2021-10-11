@@ -206,6 +206,7 @@
 					if( Configure::read( 'debug' ) > 0 ) {
 						echo '( CG '.Configure::read( 'Cg.departement' );
 						echo ', BDD '.ClassRegistry::init( 'User' )->getDataSource()->config['database'];
+						echo ', patch ' . patch_version();
 						echo ', '.$this->Html->link( 'requêtes SQL', '#', array( 'onclick' => '$( "sqldump" ).toggle();return false;', 'id' => 'SqlDumpToggler' ) );
 						echo " )\n";
 					}

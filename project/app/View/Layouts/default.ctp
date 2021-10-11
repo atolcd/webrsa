@@ -182,6 +182,7 @@
 					if( Configure::read( 'debug' ) > 0 ) {
 						echo '(CD '.$departement;
 						echo ', BDD '.ClassRegistry::init( 'User' )->getDataSource()->config['database'];
+						echo ', patch ' . patch_version();
 						echo ',&nbsp;'.$this->Html->link( 'requêtes SQL', '#', array( 'onclick' => '$( "sqldump" ).toggle();return false;', 'id' => 'SqlDumpToggler' ) );
 						echo "&nbsp;PHP ".phpversion().")&nbsp;";
 					}

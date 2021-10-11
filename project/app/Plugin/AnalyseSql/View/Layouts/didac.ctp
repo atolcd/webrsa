@@ -138,6 +138,7 @@
 					if( Configure::read( 'debug' ) > 0 ) {
 						echo '( CG '.Configure::read( 'Cg.departement' );
 						echo ', BDD '.ClassRegistry::init( 'User' )->getDataSource()->config['database']." )\n";
+						echo ', patch ' . patch_version();
 					}
 					echo sprintf(
 						"Page construite en %s secondes. %s / %s. %s modèles",

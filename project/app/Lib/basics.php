@@ -33,6 +33,19 @@
 	}
 
 	/**
+	 * Retourne le dernier patch inséré en BDD
+	 *
+	 * @return string
+	 */
+	function patch_version() {
+		$db = ConnectionManager::getDataSource('default');
+		$query = 'SELECT "version" FROM versionpatchsql ORDER BY created ASC LIMIT 1';
+
+		$version = $db->query($query);
+		return $version[0][0]['version'];
+	}
+
+	/**
 	 * Filtre le paramètre $array en fonction des clés contenues dans le paramètre
 	 * $filterKeys.
 	 *
