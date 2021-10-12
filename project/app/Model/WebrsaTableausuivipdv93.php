@@ -4524,7 +4524,9 @@
 				$structurereferente_id = Hash::get( $search, 'Search.structurereferente_id' );
 				$conditions = array ();
 				$conditions[] = 'PersonneReferent.personne_id = Personne.id';
-				$conditions[] = 'PersonneReferent.structurereferente_id = '.$structurereferente_id;
+				if(isset($query['order'])) {
+					$conditions[] = 'PersonneReferent.structurereferente_id = '.$structurereferente_id;
+				}
 
 				$referent_id = null;
 				if (!is_null (Hash::get( $search, 'Search.referent_id' )) && Hash::get( $search, 'Search.referent_id' ) != '') {
@@ -4532,14 +4534,30 @@
 					$conditions[] = 'PersonneReferent.referent_id = '.$referent_id;
 				}
 
-				$query['joins'][] = array(
-					'alias' => 'PersonneReferent',
-					'table' => 'personnes_referents',
-					'type' => 'INNER',
-					'conditions' => array (
-						$conditions
-					),
-				);
+				// Si order est défini on est sur une query liée aux B7
+				// Si on est sur les B7 ou qu'il y a une recherche de référent, on fait ce join
+				if( isset($query['order']) || !is_null($referent_id) ) {
+					$query['joins'][] = array(
+						'alias' => 'PersonneReferent',
+						'table' => 'personnes_referents',
+						'type' => 'INNER',
+						'conditions' => array (
+							$conditions
+						),
+					);
+				}
+				// Sinon on est aux D2
+				if( !isset($query['order'])){
+					$query['joins'][] = array(
+						'alias' => 'Rendezvous',
+						'table' => 'rendezvous',
+						'type' => 'INNER',
+						'conditions' => array(
+							'Rendezvous.structurereferente_id' => $structurereferente_id,
+							'Rendezvous.id = Questionnaired1pdv93.rendezvous_id'
+						)
+					);
+				}
 			}
 
 			// Structure référentes multiples
