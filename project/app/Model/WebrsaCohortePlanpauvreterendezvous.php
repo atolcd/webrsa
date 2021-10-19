@@ -222,6 +222,7 @@
 			$typeRdv = $this->getTypeRdvId($params['nom_cohorte'], true);
 			$statutRdv = $this->getStatutId($params['nom_cohorte'], true);
 			$success = true;
+			$dataOrient = $data;
 			foreach ( $data as $key => $value ) {
 				// Si non selectionné, on retire tout
 				if ( $value['Rendezvous']['selection'] === '0' ) {
@@ -247,6 +248,12 @@
 			}
 			$this->Rendezvous->begin();
 			$success = $success && !empty($data) && $this->Rendezvous->saveAll($data, array('atomic' => false));
+
+			if($success && in_array($params['nom_cohorte'], array('cohorte_infocol_venu_nonvenu_second_rdv_stock', 'cohorte_infocol_venu_nonvenu_second_rdv_nouveaux'))
+			&& Configure::read( 'Module.OrientationrdvSocialeDeFait.enabled' ) == true) {
+				// Ajout de l'orientation sociale de fait si le rendez vous est à NONVENU
+				$success = $this->addOrientationSociale($dataOrient) && $success;
+			}
 
 			if ($success) {
 				$this->Rendezvous->commit();
@@ -287,8 +294,9 @@
 			$this->loadModel('Statutrdv');
 			$this->loadModel('Orientstruct');
 
-			// Récupération du statut de rendez-vous NONVENU
+			$success = true;
 
+			// Récupération du statut de rendez-vous NONVENU
 			$statutRdvNonvenu = $this->Statutrdv->find('first', array(
 				'fields' => array('Statutrdv.id'),
 				'recursive' => -1,
@@ -333,23 +341,26 @@
 					));
 
 					$rgOrient = $this->Orientstruct->WebrsaOrientstruct->rgorientMax($value['Personne']['id']) +1;
-
-					// Création des données de l'orientation
-					$dataToSave[] = array_merge(
-						$dataDefault['Orientstruct'],
-						array(
-							'personne_id' => $value['Personne']['id'],
-							'structurereferente_id' => !empty($dataPersonne['Referent']['structurereferente_id']) ? $dataPersonne['Referent']['structurereferente_id'] : null,
-							'referent_id' => !empty($dataPersonne['Referent']['id']) ? $dataPersonne['Referent']['id'] : null,
-							'rgorient' => $rgOrient
-						)
-					);
+					if ( empty($dataPersonne) ) {
+						$success = false;
+					} else {
+						// Création des données de l'orientation
+						$dataToSave[] = array_merge(
+							$dataDefault['Orientstruct'],
+							array(
+								'personne_id' => $value['Personne']['id'],
+								'structurereferente_id' => $dataPersonne['Referent']['structurereferente_id'],
+								'referent_id' => !empty($dataPersonne['Referent']['id']) ? $dataPersonne['Referent']['id'] : null,
+								'rgorient' => $rgOrient
+							)
+						);
+					}
 				}
 			}
 
 			// Tentative de sauvegarde s'il y a des personnes à sauvegarder
 			$this->Orientstruct->begin();
-			$success = !empty($dataToSave) && $this->Orientstruct->saveMany($dataToSave, array('atomic' => false));
+			$success = !empty($dataToSave) && $this->Orientstruct->saveMany($dataToSave, array('atomic' => false)) && $success;
 
 			if( $success ) {
 				$this->Orientstruct->commit();
