@@ -1110,7 +1110,7 @@
 							array (
 								'table' => 'adresses_cantons',
 								'alias' => 'AdresseCanton',
-								'type' => 'LEFT OUTER',
+								'type' => 'INNER',
 								'conditions' => array (
 									'"Canton"."id" = "AdresseCanton"."canton_id"',
 									'"AdresseCanton"."adresse_id" = '.$orientstruct['Adresse']['id']
@@ -1119,7 +1119,7 @@
 							array (
 								'table' => 'cantons_sitescovs58',
 								'alias' => 'CantonSitecov58',
-								'type' => 'LEFT OUTER',
+								'type' => 'INNER',
 								'conditions' => array (
 									'"CantonSitecov58"."canton_id" = "Canton"."id"',
 								)
@@ -1127,7 +1127,7 @@
 							array (
 								'table' => 'sitescovs58',
 								'alias' => 'Sitecov58',
-								'type' => 'LEFT OUTER',
+								'type' => 'INNER',
 								'conditions' => array (
 									'"Sitecov58"."id" = "CantonSitecov58"."sitecov58_id"',
 									'"Sitecov58"."actif" = \'1\''
