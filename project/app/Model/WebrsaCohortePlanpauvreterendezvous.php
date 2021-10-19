@@ -327,7 +327,7 @@
 						),
 						'conditions' => array(
 							'PersonneReferent.personne_id' => $value['Personne']['id'],
-							'PersonneReferent.dfdesignation IS NOT NULL'
+							'PersonneReferent.dfdesignation IS NULL'
 						),
 						'order' => array('PersonneReferent.dddesignation DESC')
 					));

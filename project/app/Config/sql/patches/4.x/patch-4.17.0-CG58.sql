@@ -17,7 +17,7 @@ WHERE lib_variable IN (
 
 -- Activation de l'ajout d'oriantation sociale de fait
 UPDATE public.configurations SET value_variable = 'true'
-WHERE lib_variable = 'PlanPauvrete.Cohorte.OrientationrdvSocialeDeFait.enabled';
+WHERE lib_variable = 'Module.OrientationrdvSocialeDeFait.enabled';
 
 -- Ajout de l'id d'orientation sociale de fait
 UPDATE public.configurations SET value_variable = '{"typeorient_id": "3"}'
