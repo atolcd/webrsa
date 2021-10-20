@@ -394,7 +394,7 @@ WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Configu
 UPDATE public.configurations
 SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
-WHERE configurationscategories.lib_categorie = 'Planpauvreterendezvous' AND configurations.lib_variable LIKE 'ConfigurableQuery.Planpauvreterendezvous.exportcsv_infocol_rdv_cer_stock';
+WHERE configurationscategories.lib_categorie = 'Planpauvreterendezvous' AND configurations.lib_variable LIKE 'ConfigurableQuery.Planpauvreterendezvous.exportcsv_infocol_rdv_cer_venu_nonvenu_stock';
 
 INSERT INTO configurations(lib_variable, value_variable, comments_variable, created, modified)
 SELECT 'ConfigurableQuery.Planpauvreterendezvous.exportcsv_infocol_rdv_cer_venu_nonvenu_nouveaux','{"filters":{"defaults":{"Dossier":{"dernier":"1"}},"accepted":[],"skip":["Calculdroitrsa.toppersdrodevorsa","Dossier.dtdemrsa","Detaildroitrsa.oridemrsa","Foyer.sitfam","Adresse.nomvoie","Personne.dtnai","Personne.dtnai_month","Personne.dtnai_year","Personne.nir","Personne.sexe","Personne.trancheage","Situationdossierrsa.etatdosrsa","Serviceinstructeur.id","Suiviinstruction.typeserins","PersonneReferent.structurereferente_id","PersonneReferent.referent_id","Prestation.rolepers","ByTag.tag_choice"],"has":[]},"query":{"restrict":[],"conditions":[],"order":["Personne.id"]},"results":{"fields":{"Personne.id":{"hidden":true},"Dossier.numdemrsa":{"sort":false},"Personne.nom_complet_court":{"sort":false},"Adresse.nomcom":{"sort":false},"Personne.dtnai":{"sort":false},"Dossier.matricule":{"sort":false},"Personne.nir":{"sort":false},"Adresse.codepos":{"sort":false},"Adresse.numcom":{"sort":false},"Canton.canton":{"sort":false}}},"ini_set":[]}','Export CSV de la cohorte Plan Pauvreté > Stock > Non inscrits PE > Rendez-vous élaboration CER', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
@@ -402,7 +402,7 @@ WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Configu
 UPDATE public.configurations
 SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
-WHERE configurationscategories.lib_categorie = 'Planpauvreterendezvous' AND configurations.lib_variable LIKE 'ConfigurableQuery.Planpauvreterendezvous.exportcsv_infocol_rdv_cer_nouveaux';
+WHERE configurationscategories.lib_categorie = 'Planpauvreterendezvous' AND configurations.lib_variable LIKE 'ConfigurableQuery.Planpauvreterendezvous.exportcsv_infocol_rdv_cer_venu_nonvenu_nouveaux';
 
 -- Ajout de la table versionpatchsql
 CREATE TABLE IF NOT EXISTS public.versionpatchsql (
