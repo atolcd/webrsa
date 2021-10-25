@@ -309,6 +309,15 @@ abstract class SessionAclUtility
 	}
 
 	/**
+	 * Supprime les acos qui ont un alias vide
+	 * @return bool
+	 */
+	public static function deleteNotExistingAliasAcos() {
+		$Model = static::$_acl->Aco;
+		return $Model->deleteAll( array('Aco.alias' => ''), false );
+	}
+
+	/**
 	 * Rempli static::$_data des données indispensables au bon traitement d'une
 	 * mise à jour des acos
 	 *

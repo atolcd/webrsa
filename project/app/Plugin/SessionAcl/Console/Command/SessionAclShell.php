@@ -156,7 +156,8 @@ class SessionAclShell extends AppShell
 			$success = $SessionAclUtility::addMissingsAcos(false);
 			
 			$this->out("<warning>Suppression des {$Model->useTable} en trop...</warning>");
-			$success = $success && $SessionAclUtility::deleteNotExistingAcos(false);
+			$success = $success && $SessionAclUtility::deleteNotExistingAcos(false) && $SessionAclUtility::deleteNotExistingAliasAcos();
+
 		}
 		
 		$this->out("<warning>Suppression des orphelins...</warning>");
