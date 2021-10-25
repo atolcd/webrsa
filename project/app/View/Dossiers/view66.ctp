@@ -391,80 +391,58 @@
 		</table>
 
 
-		<h2>Informations Pôle Emploi</h2>
+		<h2><?php echo __d('dossier', 'BlocPE.derniereInfo'); ?></h2>
 		<table>
 		<?php echo thead( 10 );?>
 			<tbody>
 				<tr class="even">
-					<th>Identifiant Pôle Emploi</th>
-					<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.allocataire_identifiant_pe', $details);?></td>
-					<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.allocataire_identifiant_pe', $details);?></td>
+					<th><?php echo __d('dossier', 'BlocPE.idPe'); ?></th>
+					<td><?php echo Hash::get( $details, 'DEM.Fluxpoleemploi.Informationpe.allocataire_identifiant_pe');?></td>
+					<td><?php echo Hash::get( $details, 'CJT.Fluxpoleemploi.Informationpe.allocataire_identifiant_pe');?></td>
 				</tr>
 				<tr class="odd">
-					<th>Date de début IDE</th>
-					<td><?php echo date_short(Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_date_debut_ide', $details));?></td>
-					<td><?php echo date_short(Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_date_debut_ide', $details));?></td>
+					<th><?php echo __d('dossier', 'BlocPE.etatActuel'); ?></th>
+					<td><?php echo !empty(Hash::get( $details,'DEM.Informationpe.0.etat' )) ? __d('historiqueetatpe', "ENUM::ETAT::" . Hash::get( $details,'DEM.Informationpe.0.etat' ) ) : '';?></td>
+					<td><?php echo !empty(Hash::get( $details,'CJT.Informationpe.0.etat' )) ? __d('historiqueetatpe', "ENUM::ETAT::" . Hash::get( $details,'CJT.Informationpe.0.etat' ) ) : '';?></td>
 				</tr>
 				<tr class="even">
-					<th>Date de radiation</th>
-					<td><?php echo date_short(Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_date_radiation_ide', $details));?></td>
-					<td><?php echo date_short(Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_date_radiation_ide', $details));?></td>
+					<th><?php echo __d('dossier', 'BlocPE.dateMAJ'); ?></th>
+					<td><?php echo date_short( Hash::get( $details, 'DEM.Informationpe.0.date') );?></td>
+					<td><?php echo date_short( Hash::get( $details, 'CJT.Informationpe.0.date') );?></td>
 				</tr>
 				<tr class="odd">
-					<th>Motif de radiation</th>
-					<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.inscription_lib_radiation_ide', $details );?></td>
-					<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.inscription_lib_radiation_ide', $details );?></td>
+					<th><?php echo __d('dossier', 'BlocPE.motifRadiation'); ?></th>
+					<td><?php echo Hash::get( $details,'DEM.Informationpe.0.etat') != 'radiation' ? Hash::get( $details, 'DEM.Fluxpoleemploi.Informationpe.inscription_lib_radiation_ide' ) : '';?></td>
+					<td><?php echo Hash::get( $details,'CJT.Informationpe.0.etat') != 'radiation' ? Hash::get( $details, 'CJT.Fluxpoleemploi.Informationpe.inscription_lib_radiation_ide' ) : '';?></td>
 				</tr>
 				<tr class="even">
-					<th>Niveau de formation</th>
-					<td><?php echo Set::extract( 'DEM.Fluxpoleemploi.Informationpe.formation_lib_niveau', $details );?></td>
-					<td><?php echo Set::extract( 'CJT.Fluxpoleemploi.Informationpe.formation_lib_niveau', $details );?></td>
+					<th><?php echo __d('dossier', 'BlocPE.nivFormation'); ?></th>
+					<td><?php echo Hash::get( $details, 'DEM.Fluxpoleemploi.Informationpe.formation_lib_niveau' );?></td>
+					<td><?php echo Hash::get( $details, 'CJT.Fluxpoleemploi.Informationpe.formation_lib_niveau' );?></td>
 				</tr>
 				<tr class="odd">
-					<th>Date de signature PPAE</th>
-					<td><?php echo date_short( Set::extract( 'DEM.Fluxpoleemploi.Informationpe.ppae_date_signature', $details) );?></td>
-					<td><?php echo date_short( Set::extract( 'CJT.Fluxpoleemploi.Informationpe.ppae_date_signature', $details) );?></td>
+					<th><?php echo __d('dossier', 'BlocPE.codeEtat'); ?></th>
+					<td><?php echo isset( $categorie[Hash::get( $details, 'DEM.Informationpe.0.code')] ) ? __d('historiqueetatpe', "ENUM::CODE::" . Hash::get( $details, 'DEM.Informationpe.0.code' ) ) : '';?></td>
+					<td><?php echo isset( $categorie[Hash::get( $details, 'CJT.Informationpe.0.code')] ) ? __d('historiqueetatpe', "ENUM::CODE::" . Hash::get( $details, 'CJT.Informationpe.0.code' ) ) : '';?></td>
 				</tr>
 				<tr class="even">
-					<th>Date de notification PPAE</th>
-					<td><?php echo date_short( Set::extract( 'DEM.Fluxpoleemploi.Informationpe.ppae_date_notification', $details) );?></td>
-					<td><?php echo date_short( Set::extract( 'CJT.Fluxpoleemploi.Informationpe.ppae_date_notification', $details) );?></td>
+					<th><?php echo __d('dossier', 'BlocPE.dateDebutIDE'); ?></th>
+					<td><?php echo date_short( Hash::get( $details, 'DEM.Fluxpoleemploi.Informationpe.inscription_date_debut_ide' ));?></td>
+					<td><?php echo date_short( Hash::get( $details, 'CJT.Fluxpoleemploi.Informationpe.inscription_date_debut_ide' ));?></td>
+				</tr>
+				<tr class="odd">
+					<th><?php echo __d('dossier', 'BlocPE.dateSignPPAE'); ?></th>
+					<td><?php echo date_short( Hash::get( $details, 'DEM.Fluxpoleemploi.Informationpe.ppae_date_signature') );?></td>
+					<td><?php echo date_short( Hash::get( $details, 'CJT.Fluxpoleemploi.Informationpe.ppae_date_signature') );?></td>
+				</tr>
+				<tr class="even">
+					<th><?php echo __d('dossier', 'BlocPE.dateNotifPPAE'); ?></th>
+					<td><?php echo date_short( Hash::get( $details, 'DEM.Fluxpoleemploi.Informationpe.ppae_date_notification') );?></td>
+					<td><?php echo date_short( Hash::get( $details, 'CJT.Fluxpoleemploi.Informationpe.ppae_date_notification') );?></td>
 				</tr>
 			</tbody>
 		</table>
 
-
-		<h2>Dernière Information Pôle Emploi</h2>
-		<table>
-		<?php echo thead( 10 );?>
-			<tbody>
-				<tr class="even">
-					<th>Identifiant pôle-emploi</th>
-					<td><?php echo Set::extract( 'DEM.Informationpe.0.identifiantpe', $details);?></td>
-					<td><?php echo Set::extract( 'CJT.Informationpe.0.identifiantpe', $details);?></td>
-				</tr>
-				<tr class="odd">
-					<th>Etat actuel Pôle Emploi</th>
-					<td><?php echo Set::enum( Set::extract( 'DEM.Informationpe.0.etat', $details ), $etatpe['etat'] );?></td>
-					<td><?php echo Set::enum( Set::extract( 'CJT.Informationpe.0.etat', $details ), $etatpe['etat'] );?></td>
-				</tr>
-				<tr class="even">
-					<th>Dernière date</th>
-					<td><?php echo date_short( Set::extract( 'DEM.Informationpe.0.date', $details) );?></td>
-					<td><?php echo date_short( Set::extract( 'CJT.Informationpe.0.date', $details) );?></td>
-				</tr>
-				<tr class="odd">
-					<th>Code état</th>
-					<td><?php echo Set::enum( Set::extract( 'DEM.Informationpe.0.code', $details), $categorie );?></td>
-					<td><?php echo Set::enum( Set::extract( 'CJT.Informationpe.0.code', $details), $categorie );?></td>
-				</tr>
-				<tr class="even">
-					<th>Motif</th>
-					<td><?php echo Set::extract( 'DEM.Informationpe.0.motif', $details);?></td>
-					<td><?php echo Set::extract( 'CJT.Informationpe.0.motif', $details);?></td>
-				</tr>
-			</tbody>
-		</table>
 	</div><div class="col-2 droite">
 		<h2>Orientation</h2>
 		<table>

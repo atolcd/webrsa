@@ -578,3 +578,36 @@ msgstr "Droit clos"
 
 msgid "ENUM::ETATDOSRSA::6"
 msgstr "Droit clos sur mois antérieur ayant eu des créances transferées ou une régularisation dans le mois de référence pour une période antérieure."
+
+#############################################
+# Bloc Pôle Emploi
+#############################################
+msgid "BlocPE.derniereInfo"
+msgstr "Dernière information Pôle Emploi"
+
+msgid "BlocPE.idPe"
+msgstr "Identifiant Pôle Emploi"
+
+msgid "BlocPE.etatActuel"
+msgstr "État actuel Pôle Emploi"
+
+msgid "BlocPE.dateMAJ"
+msgstr "Date dernier état actuel PE"
+
+msgid "BlocPE.motifRadiation"
+msgstr "Motif de radiation"
+
+msgid "BlocPE.nivFormation"
+msgstr "Niveau de formation"
+
+msgid "BlocPE.codeEtat"
+msgstr "Code état"
+
+msgid "BlocPE.dateDebutIDE"
+msgstr "Date de début IDE"
+
+msgid "BlocPE.dateSignPPAE"
+msgstr "Date de signature PPAE"
+
+msgid "BlocPE.dateNotifPPAE"
+msgstr "Date de notification PPAE"
