@@ -67,6 +67,9 @@ msgstr "Thématique"
 msgid "Thematiquefp93.yearthema"
 msgstr "Année"
 
+msgid "Thematiquefp93.listeCategorie"
+msgstr "Liste des catégories de cette thématique"
+
 msgid "Filierefp93.name"
 msgstr "Filière"
 
@@ -178,6 +181,12 @@ msgstr "Thématique"
 
 msgid "Categoriefp93.name"
 msgstr "Catégorie d'action"
+
+msgid "Categoriefp93.tableau4_actif"
+msgstr "Actif dans le tableau 4"
+
+msgid "Categoriefp93.tableau5_actif"
+msgstr "Actif dans le tableau 5"
 
 msgid "Categoriefp93.created"
 msgstr "Créée"

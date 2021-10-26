@@ -149,6 +149,8 @@
 				"{$this->alias}.yearthematiquefp93_id" => array( 'empty' => true ),
 				"{$this->alias}.thematiquefp93_id" => array( 'empty' => true ),
 				"{$this->alias}.{$this->displayField}" => array(),
+				"{$this->alias}.tableau4_actif" => array( 'empty' => true ),
+				"{$this->alias}.tableau5_actif" => array( 'empty' => true ),
 			);
 
 			return $fields;
@@ -169,6 +171,8 @@
 					"{$this->alias}.{$this->primaryKey}",
 					"{$this->alias}.{$this->displayField}",
 					"{$this->alias}.thematiquefp93_id",
+					"{$this->alias}.tableau4_actif",
+					"{$this->alias}.tableau5_actif"
 				),
 				'joins' => array(
 					$this->join( 'Thematiquefp93', array( 'type' => 'INNER' ) )
