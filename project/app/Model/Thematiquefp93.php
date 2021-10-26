@@ -137,6 +137,27 @@
 		}
 
 		/**
+		 * Retourne la liste des catégories liées à l'id de la thématique éditée
+		 * avec leur liaison aux tableaux 4 & 5
+		 *
+		 * @param integer $id
+		 * @return array
+		 */
+		public function getListCategories( $id ) {
+			return $this->Categoriefp93->find('all', array(
+				'fields' => array(
+					'Categoriefp93.name',
+					'Categoriefp93.tableau4_actif',
+					'Categoriefp93.tableau5_actif',
+				),
+				'recursive' => -1,
+				'conditions' => array(
+					'Categoriefp93.thematiquefp93_id' => $id
+				)
+			));
+		}
+
+		/**
 		 * Retourne les options à utiliser dans le formulaire d'ajout / de
 		 * modification de la partie paramétrage.
 		 *

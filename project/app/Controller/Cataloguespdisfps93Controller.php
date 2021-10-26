@@ -146,7 +146,6 @@
 				foreach( $fields as $i => $field ) {
 					$fields[$i] = "{$Model->alias}.{$field}";
 				}
-
 				$query = array(
 					'fields' => $fields,
 					'joins' => array(),
@@ -168,7 +167,16 @@
 				$query['fields'] = $fields;
 				$query['fields'][] = "{$Model->alias}.{$Model->primaryKey}";
 			}
+
 			$query['fields'] = array_unique($query['fields']);
+
+			// Mise en bout de tableau les champs created et modified
+			foreach ($query['fields'] as $key => $field) {
+				if( in_array($field, array("{$Model->alias}.created", "{$Model->alias}.modified") ) == true ) {
+					unset($query['fields'][$key]);
+					$query['fields'][] = $field;
+				}
+			}
 
 			$fields = $query['fields'];
 			$Model->forceVirtualFields = true;
@@ -256,6 +264,12 @@
 
 				if( empty( $this->request->data ) ) {
 					throw new Error404Exception();
+				}
+
+				// Ajout de la liste des catégories liées à la thématique en cours si le model est Thematiquefp93
+				if($modelName == 'Thematiquefp93') {
+					$listCat = $Model->getListCategories( $id );
+					$this->set('listCat', $listCat);
 				}
 			}
 

@@ -14,6 +14,22 @@
 	);
 
 	echo $this->Observer->dependantSelect( $dependantFields	);
+
+	if(isset( $listCat )) {
+		echo '<h2>' . __m('Thematiquefp93.listeCategorie') . '</h2>';
+		echo $this->Default3->index(
+			$listCat,
+			array(
+				'Categoriefp93.name',
+				'Categoriefp93.tableau4_actif',
+				'Categoriefp93.tableau5_actif',
+			),
+			array(
+				'options' => array(),
+				'paginate' => false
+			)
+		);
+	}
 ?>
 <?php if( $modelName === 'Actionfp93' ):?>
 <script type="text/javascript">
