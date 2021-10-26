@@ -138,7 +138,11 @@
 
 		/**
 		 * Retourne la liste des catégories liées à l'id de la thématique éditée
+<<<<<<< HEAD
 		 * avec leur liaison aux tableaux 4 & 5
+=======
+		 * avec leur liaison aux tableau 4 & 5
+>>>>>>> Ajout de la visualisation des activations tableau 4/5 pour les thématiques & catégories FP 93 (Issue: #126392)
 		 *
 		 * @param integer $id
 		 * @return array

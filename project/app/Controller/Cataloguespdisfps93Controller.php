@@ -273,6 +273,20 @@
 				}
 			}
 
+			$fields = $query['fields'];
+			$Model->forceVirtualFields = true;
+			$this->paginate = array( $Model->alias => $query );
+
+			$results = $this->paginate( $Model, array(), $fields, false );
+
+			// Mise en bout de tableau les champs created et modified
+			foreach ($query['fields'] as $key => $field) {
+				if( in_array($field, array("{$Model->alias}.created", "{$Model->alias}.modified") ) == true ) {
+					unset($query['fields'][$key]);
+					$query['fields'][] = $field;
+				}
+			}
+
 			if(in_array($modelName, $this->listIndexSearch)) {
 				$this->indexSearch( $Model, $query );
 			} else {
