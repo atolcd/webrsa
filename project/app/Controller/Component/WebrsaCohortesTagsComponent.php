@@ -50,13 +50,14 @@
 		protected function _optionsRecords( array $params = array() ) {
 			$Controller = $this->_Collection->getController();
 			$Controller->loadModel('WebrsaOptionTag');
-
+			$InsertionsBeneficiaires = $Controller->Components->load('InsertionsBeneficiaires');
 			// Merge des options du parent avec la liste des structures référentes faisant de l'orientation (pour bloc "Recherche par orientation")
 			$options = Hash::merge(
 				$Controller->WebrsaOptionTag->optionsRecords( parent::_optionsRecords( $params ) ),
 				array(
 					'Orientstruct' => array(
-						'structurereferente_id' => $Controller->Personne->Orientstruct->Structurereferente->listOptions( array( 'orientation' => 'O' ) ),
+						'typeorient_id' => $InsertionsBeneficiaires->typesorients(),
+						'structurereferente_id' => $InsertionsBeneficiaires->structuresreferentes( array( 'orientation' => 'O' ) ),
 					)
 				)
 			);

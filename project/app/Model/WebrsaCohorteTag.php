@@ -131,6 +131,7 @@
 			
 			// Fils de dependantSelect
 			$pathsToExplode = array(
+				'Orientstruct.structurereferente_id'
 			);
 
 			$pathsDate = array(

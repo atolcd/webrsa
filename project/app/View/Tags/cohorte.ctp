@@ -111,6 +111,12 @@
 		. '<div class="center"><input type="button" id="preremplissage_cohorte_button" value="Préremplir"/></div>'
 		. '</fieldset>'
 	;
+
+	echo $this->Observer->dependantSelect(
+		array(
+			'Search.Orientstruct.typeorient_id' => 'Search.Orientstruct.structurereferente_id'
+		)
+	);
 ?>
 <script type="text/javascript">
 	<!--//--><![CDATA[//><!--
