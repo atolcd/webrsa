@@ -178,5 +178,58 @@
 
 			return $options;
 		}
+
+		/**
+		 * Retourne les options utilisées par le formulaire de recherche
+		 * @return array
+		 */
+		public function getSearchOptions() {
+			return array_merge(
+				$this->getParametrageOptions(),
+				$this->Categoriefp93->options()
+			);
+		}
+
+		/**
+		 * Applique les conditions envoyées par le moteur de recherche au querydata.
+		 *
+		 * @param array $query
+		 * @param array $search
+		 * @return array
+		 */
+		public function searchConditions( array $query, array $search ) {
+			// 1. Valeurs approchantes
+			foreach( array( 'name' ) as $field ) {
+				$value = (string)Hash::get( $search, "Thematiquefp93.{$field}" );
+				if( '' !== $value ) {
+					$query['conditions'][] = 'Thematiquefp93.'.$field.' ILIKE \''.$this->wildcard( $value ).'\'';
+				}
+			}
+
+			// 2. Valeurs exactes
+			$fieldsValues = array(
+				'Thematiquefp93.yearthema',
+				'Thematiquefp93.type',
+				'Categoriefp93.tableau4_actif',
+				'Categoriefp93.tableau5_actif',
+			);
+			foreach( $fieldsValues as $field ) {
+				$value = (string)Hash::get( $search, $field );
+				if( '' !== $value ) {
+					if( in_array($field, array('Categoriefp93.tableau4_actif', 'Categoriefp93.tableau5_actif') ) ) {
+						$field = str_replace( 'Categoriefp93', 'c', $field );
+						$query['conditions'][] = "Thematiquefp93.id IN (
+							SELECT DISTINCT c.thematiquefp93_id
+							FROM categoriesfps93 AS c
+							WHERE {$field} = '{$value}'
+							)";
+					} else {
+						$query['conditions'][] = array( $field => $value );
+					}
+				}
+			}
+
+			return $query;
+		}
 	}
 ?>

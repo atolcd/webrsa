@@ -37,6 +37,7 @@
 					'search' => array(
 						'filter' => 'Search'
 					),
+					'index'
 				)
 			),
 		);
@@ -98,6 +99,16 @@
 		);
 
 		/**
+		 * Liste des modèle utilisant la recherche dans l'index
+		 */
+		public $listIndexSearch = array(
+			'Thematiquefp93',
+			'Categoriefp93',
+			'Filierefp93',
+			'Actionfp93'
+		);
+
+		/**
 		 * Tableau de suivi du référentiel.
 		 */
 		public function search() {
@@ -124,13 +135,97 @@
 			$this->set( compact( 'options' ) );
 		}
 
+		public function indexSearch( $Model, $query ) {
+			$modelName = $Model->alias;
+			$fields = $query['fields'];
+
+			$options = array_merge(
+				$this->Cataloguepdifp93->options(),
+				$Model->getSearchOptions()
+			);
+
+			// Gestion de la recherche
+			$searchFields = $fields;
+
+			// Customisation des champs à utiliser pour la recherche
+			$useTableauPIE = array('Thematiquefp93', 'Categoriefp93', 'Filierefp93');
+
+			$fieldsToDelete = array(
+				"{$Model->alias}.created",
+				"{$Model->alias}.modified",
+				'Prestatairefp93.name',
+				'Adresseprestatairefp93.name',
+				'Actionfp93.numconvention',
+				'Actionfp93.annee',
+				'Actionfp93.duree'
+			);
+
+			foreach ($searchFields as $key => $field) {
+				// Suppression des notions de id / created / modified
+				if( in_array($field, $fieldsToDelete ) == true || preg_match('/_id$/', $field ) ) {
+					unset($searchFields[$key]);
+				}
+				// Ajout du tag "Search" aux autres champs
+				else {
+					$newName = 'Search.' . $field;
+					unset($searchFields[$key]);
+					$searchFields[$newName] = array( 'empty' => true, 'required' => false );
+				}
+			}
+			// Ajout des notions des tableaux 4/5 pour les modèles dédiés
+			if( in_array($Model->alias, $useTableauPIE) ) {
+				$searchFields = array_merge(
+					$searchFields,
+					array(
+						'Search.Categoriefp93.tableau4_actif' => array( 'empty' => true, 'required' => false ),
+						'Search.Categoriefp93.tableau5_actif' => array( 'empty' => true, 'required' => false ),
+					)
+				);
+			}
+
+			$search = (array)Hash::get( $this->request->data, 'Search' );
+			if( !empty( $search ) ) {
+				$query = $Model->search( $query, $search );
+
+				if (Hash::get( $this->request->data, 'Search.limit')) {
+					$query['limit'] = $this->request->data['Search']['limit'];
+				}
+				$Model->forceVirtualFields = true;
+				$this->paginate = array( $Model->alias => $query );
+				$results = $this->paginate( $Model, array(), $query['fields'], !Hash::get($search, 'Pagination.nombre_total') );
+
+				// A-t'on des enregistrements liés ?
+				$Model->Behaviors->attach( 'Occurences' );
+				$occurences = $Model->occurencesExists();
+				foreach( $results as $i => $result ) {
+					$primaryKey = Hash::get( $result, "{$Model->alias}.{$Model->primaryKey}" );
+					$results[$i][$Model->alias]['occurences'] = ( Hash::get( $occurences, $primaryKey ) ? '1' : '0' );
+				}
+
+				foreach( $fields as $key => $field ) {
+					list( $modelName, $fieldName ) = model_field( $field );
+					if( $fieldName === 'id' || preg_match( '/_id$/', $fieldName ) ) {
+						unset( $fields[$key] );
+					}
+				}
+
+				$this->set( compact( 'results' ) );
+			}
+
+			$this->set( compact( 'modelName', 'fields', 'searchFields', 'options' ) );
+		}
+
 		/**
 		 * Liste des enregistrements.
 		 *
 		 * @param string $modelName
 		 * @throws Error404Exception
 		 */
-		public function index( $modelName ) {
+		public function index( $modelName = null ) {
+			if(is_null($modelName)) {
+				$modelName = Hash::get( $this->request->data, 'Search.model_name' );
+			}
+
 			if( !in_array( $modelName, $this->Cataloguepdifp93->modelesParametrages ) ) {
 				throw new Error404Exception();
 			}
@@ -178,30 +273,34 @@
 				}
 			}
 
-			$fields = $query['fields'];
-			$Model->forceVirtualFields = true;
-			$this->paginate = array( $Model->alias => $query );
+			if(in_array($modelName, $this->listIndexSearch)) {
+				$this->indexSearch( $Model, $query );
+			} else {
+				$fields = $query['fields'];
+				$Model->forceVirtualFields = true;
+				$this->paginate = array( $Model->alias => $query );
 
-			$results = $this->paginate( $Model, array(), $fields, false );
+				$results = $this->paginate( $Model, array(), $fields, false );
 
-			// A-t'on des enregistrements liés ?
-			$Model->Behaviors->attach( 'Occurences' );
-			$occurences = $Model->occurencesExists();
-			foreach( $results as $i => $result ) {
-				$primaryKey = Hash::get( $result, "{$Model->alias}.{$Model->primaryKey}" );
-				$results[$i][$Model->alias]['occurences'] = ( Hash::get( $occurences, $primaryKey ) ? '1' : '0' );
-			}
-
-			$options = $this->Cataloguepdifp93->options();
-
-			foreach( $fields as $key => $field ) {
-				list( $modelName, $fieldName ) = model_field( $field );
-				if( $fieldName === 'id' || preg_match( '/_id$/', $fieldName ) ) {
-					unset( $fields[$key] );
+				// A-t'on des enregistrements liés ?
+				$Model->Behaviors->attach( 'Occurences' );
+				$occurences = $Model->occurencesExists();
+				foreach( $results as $i => $result ) {
+					$primaryKey = Hash::get( $result, "{$Model->alias}.{$Model->primaryKey}" );
+					$results[$i][$Model->alias]['occurences'] = ( Hash::get( $occurences, $primaryKey ) ? '1' : '0' );
 				}
-			}
 
-			$this->set( compact( 'modelName', 'results', 'fields', 'options' ) );
+				$options = $this->Cataloguepdifp93->options();
+
+				foreach( $fields as $key => $field ) {
+					list( $modelName, $fieldName ) = model_field( $field );
+					if( $fieldName === 'id' || preg_match( '/_id$/', $fieldName ) ) {
+						unset( $fields[$key] );
+					}
+				}
+
+				$this->set( compact( 'modelName', 'results', 'fields', 'options' ) );
+			}
 		}
 
 		/**

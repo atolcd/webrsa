@@ -261,5 +261,76 @@
 
 			return $options;
 		}
+
+		/**
+		 * Retourne la notion d'actif / inactif pour les tableaux 4 & 5
+		 * utilisé dans els moteurs de recherches
+		 * @retour array
+		 */
+		public function options() {
+			return array(
+				'Categoriefp93' => array(
+					'tableau4_actif' => array(
+						__d('default', 'ENUM::NO::N'),
+						__d('default', 'ENUM::NO::O'),
+					),
+					'tableau5_actif' => array(
+						__d('default', 'ENUM::NO::N'),
+						__d('default', 'ENUM::NO::O'),
+					)
+				)
+			);
+		}
+
+		/**
+		 * Retourne les options utilisées par le formulaire de recherche
+		 * @return array
+		 */
+		public function getSearchOptions() {
+			$options = array_merge(
+				$this->Thematiquefp93->getParametrageOptions(),
+				$this->options()
+			);
+
+			$options['Thematiquefp93']['name'] = $this->Thematiquefp93->find('list', array(
+				'fields' => array('name', 'name'),
+			));
+
+			return $options;
+		}
+
+		/**
+		 * Applique les conditions envoyées par le moteur de recherche au querydata.
+		 *
+		 * @param array $query
+		 * @param array $search
+		 * @return array
+		 */
+		public function searchConditions( array $query, array $search ) {
+			// 1. Valeurs approchantes
+			foreach( array( 'name' ) as $field ) {
+				$value = (string)Hash::get( $search, "{$this->alias}.{$field}" );
+				if( '' !== $value ) {
+					$query['conditions'][] = "{$this->alias}.{$field} ILIKE '{$this->wildcard( $value )}'";
+				}
+			}
+
+			// 2. Valeurs exactes
+			$fieldsValues = array(
+				'Thematiquefp93.yearthema',
+				'Thematiquefp93.type',
+				'Thematiquefp93.name',
+				'Categoriefp93.tableau4_actif',
+				'Categoriefp93.tableau5_actif',
+			);
+			foreach( $fieldsValues as $field ) {
+				$value = (string)Hash::get( $search, $field );
+				if( '' !== $value ) {
+					$query['conditions'][] = array( $field => $value );
+				}
+			}
+
+			return $query;
+		}
 	}
 ?>

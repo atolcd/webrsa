@@ -272,5 +272,58 @@
 
 			return $return;
 		}
+
+		/**
+		 * Retourne les options utilisées par le formulaire de recherche
+		 * @return array
+		 */
+		public function getSearchOptions() {
+			$options = $this->Filierefp93->Categoriefp93->Thematiquefp93->getParametrageOptions();
+
+			$options['Categoriefp93']['name'] = $this->Filierefp93->Categoriefp93->find('list', array(
+				'fields' => array('name', 'name'),
+			));
+			$options['Filierefp93']['name'] = $this->Filierefp93->find('list', array(
+				'fields' => array('name', 'name'),
+			));
+			$options['Thematiquefp93']['name'] = $this->Filierefp93->Categoriefp93->Thematiquefp93->find('list', array(
+				'fields' => array('name', 'name'),
+			));
+
+			return $options;
+		}
+
+		/**
+		 * Applique les conditions envoyées par le moteur de recherche au querydata.
+		 *
+		 * @param array $query
+		 * @param array $search
+		 * @return array
+		 */
+		public function searchConditions( array $query, array $search ) {
+			// 1. Valeurs approchantes
+			foreach( array( 'name' ) as $field ) {
+				$value = (string)Hash::get( $search, "{$this->alias}.{$field}" );
+				if( '' !== $value ) {
+					$query['conditions'][] = "{$this->alias}.{$field} ILIKE '{$this->wildcard( $value )}'";
+				}
+			}
+			// 2. Valeurs exactes
+			$fieldsValues = array(
+				'Thematiquefp93.yearthema',
+				'Thematiquefp93.type',
+				'Thematiquefp93.name',
+				'Categoriefp93.name',
+				'Filierefp93.name',
+			);
+			foreach( $fieldsValues as $field ) {
+				$value = (string)Hash::get( $search, $field );
+				if( '' !== $value ) {
+					$query['conditions'][] = array( $field => $value );
+				}
+			}
+
+			return $query;
+		}
 	}
 ?>

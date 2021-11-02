@@ -42,6 +42,9 @@ msgstr "Filière"
 msgid "Search.Prestatairefp93.name"
 msgstr "Prestataire"
 
+msgid "Search.Adresseprestatairefp93.name"
+msgstr "Adresse du prestataire"
+
 msgid "Search.Actionfp93.annee"
 msgstr "Année de conventionnement"
 
@@ -53,6 +56,27 @@ msgstr "Statut"
 
 msgid "Search.Actionfp93.numconvention"
 msgstr "Numéro de convention ou code action d'attente"
+
+msgid "Search.Categoriefp93.tableau4_actif"
+msgstr "Actif dans le tableau 4"
+
+msgid "Search.Categoriefp93.tableau5_actif"
+msgstr "Actif dans le tableau 5"
+
+msgid "Search.Cataloguespdisfps93.Thematiquefp93"
+msgstr "Recherche des thématiques"
+
+msgid "Search.Cataloguespdisfps93.Categoriefp93"
+msgstr "Recherche des catégories"
+
+msgid "Search.Cataloguespdisfps93.Filierefp93"
+msgstr "Recherche des filières"
+
+msgid "Search.Cataloguespdisfps93.Actionfp93"
+msgstr "Recherche des intitulés d'action"
+
+msgid "Search.Actionfp93.duree"
+msgstr "Durée de l'action"
 
 # ==============================================================================
 # Résultats de la recherche

@@ -174,6 +174,17 @@
 
 			return $return;
 		}
+
+		/**
+		 * Moteur de recherche, retourne un querydata.
+		 *
+		 * @param array $search
+		 * @return array
+		 */
+		public function search( $query, $search ) {
+			$query = $this->searchConditions( $query, $search );
+			return $query;
+		}
 	}
 
 	/**
