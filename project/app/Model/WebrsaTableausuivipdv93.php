@@ -4515,9 +4515,11 @@
 		 * utiliser dans le tableau B7.
 		 *
 		 * @param array $search
+		 * @param array $query
+		 * @param string $tableau
 		 * @return array
 		 */
-		protected function _conditionsb7b7( array $search, array $query) {
+		protected function _conditionsb7b7( array $search, array $query, $tableau = 'b7') {
 			// Référent
 			if (!is_null (Hash::get( $search, 'Search.structurereferente_id' )) && Hash::get( $search, 'Search.structurereferente_id' ) != ''
 				&& Hash::get( $search, 'Search.structurereferente_id_choice' ) != '1') {
@@ -4536,7 +4538,7 @@
 
 				// Si order est défini on est sur une query liée aux B7
 				// Si on est sur les B7 ou qu'il y a une recherche de référent, on fait ce join
-				if( isset($query['order']) || !is_null($referent_id) ) {
+				if( $tableau == 'b7' || !is_null($referent_id) ) {
 					$query['joins'][] = array(
 						'alias' => 'PersonneReferent',
 						'table' => 'personnes_referents',
@@ -4547,7 +4549,7 @@
 					);
 				}
 				// Sinon on est aux D2
-				if( !isset($query['order'])){
+				if( $tableau == 'd2' ){
 					$query['joins'][] = array(
 						'alias' => 'Rendezvous',
 						'table' => 'rendezvous',
@@ -4678,7 +4680,7 @@
 				'contain' => false,
 			);
 
-			$query = $this->_conditionsb7b7($search, $query);
+			$query = $this->_conditionsb7b7($search, $query, 'd2');
 
 			if ($returnQueryD2) {
 				return $query;
@@ -4936,7 +4938,7 @@
 					),
 				),
 			);
-			$query = $this->_conditionsb7b7($search, $query);
+			$query = $this->_conditionsb7b7($search, $query, 'd2');
 
 			if ($returnQueryD2) {
 				return $query;
@@ -5251,7 +5253,7 @@
 					),
 				),
 			);
-			$query = $this->_conditionsb7b7($search, $query);
+			$query = $this->_conditionsb7b7($search, $query, 'd2');
 
 			if ($returnQueryD2) {
 				return $query;
