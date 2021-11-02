@@ -758,4 +758,17 @@
 			}
 			return $origines;
 		}
+
+		/**
+		 * Renvoie si oui ou non le workflow de validation doit être activé ou non lors de l'ajout / modification
+		 * d'une orientation
+		 * Cette fonction renvoie true si le module est activé et si l'utilisateur n'est pas de type conseil départemental
+		 * @param integer $user_id
+		 * @return boolean
+		 */
+		public function isWorkflowActivated($user_id) {
+			return ( Configure::read('Orientation.validation.enabled')
+				&& ( !is_numeric($user_id) || !$this->User->isTypeCG($user_id) )
+			);
+		}
 	}

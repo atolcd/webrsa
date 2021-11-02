@@ -641,6 +641,8 @@
 			$user_id = $this->Session->read( 'Auth.User.id' );
 			$user_type = $this->Session->read( 'Auth.User.type' );
 
+			$this->set( 'processValidation', $this->Orientstruct->isWorkflowActivated($user_id));
+
 			$originalAddEditFormData = $this->WebrsaOrientstruct->getAddEditFormData( $personne_id, $id, $user_id );
 
 			// Suppression de l'obligation de mettre une structure orientante si nous ne sommes pas dans un workflow de validation

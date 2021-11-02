@@ -100,7 +100,7 @@
 		);
 	}
 
-	if (Configure::read('Orientation.validation.enabled')) {
+	if ( $processValidation ) {
 		echo $this->Observer->disableFieldsOnValue(
 			'Orientstruct.structureorientante_id',
 			array(

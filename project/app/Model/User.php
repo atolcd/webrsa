@@ -831,5 +831,36 @@
 				$this->Aro->save( $aro, array( 'atomic' => false ) );
 			}
 		}
+
+		/**
+		 * Récupère le type d'utilisateur connecté selon l'id passé en paramètre
+		 * @param integer user_id
+		 * @return string user_type
+		 */
+		public function getUserType($user_id) {
+			$user = $this->find(
+				'first',
+				array(
+					'recursive' => -1,
+					'conditions' => array(
+						'User.id' => $user_id
+					)
+				)
+			);
+			return $user['User']['type'];
+		}
+
+		/**
+		 * Vérifie si l'utilisateur est de type conseil départemental ('cg') ou non
+		 * @param integer $user_id
+		 * @return boolean
+		 */
+		public function isTypeCG($user_id) {
+			if( is_numeric($user_id) ) {
+				return $this->getUserType($user_id) == 'cg' ? true : false;
+			}
+			//Si le user_id n'est pas numeric / null
+			return false;
+		}
 	}
 ?>

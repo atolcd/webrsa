@@ -209,7 +209,7 @@
 						$orientstruct[$this->Orientstruct->alias]['date_valid'] = null;
 					}
 				}
-				else if (Configure::read('Orientation.validation.enabled') && !empty($orientstruct[$this->Orientstruct->alias]['structureorientante_id']
+				else if ($this->Orientstruct->isWorkflowActivated($user_id) && !empty($orientstruct[$this->Orientstruct->alias]['structureorientante_id']
 					&& $this->Orientstruct->Structurereferente->isWorkflowActive($orientstruct[$this->Orientstruct->alias]['structureorientante_id']) == true
 					&& in_array($orientstruct[$this->Orientstruct->alias]['origine'], Configure::read('Orientation.validation.listeorigine') ) )
 				) {
