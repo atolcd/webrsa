@@ -15,7 +15,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n>1);\n"
 
 ###############################################################################
-#GenerationPDF
+# Globale
+###############################################################################
+msgid "Shell::help::usage::centos"
+msgstr "Usage pour CentOS : sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake %s -app app"
+
+msgid "Shell::help::arguments"
+msgstr "Argument(s) :"
+
+msgid "Shell::help::pathInfo"
+msgstr "[path] : (facultatif) Dossier d'enregistrement des logs. Par défaut : %s"
+
+###############################################################################
+# GenerationPDF
 ###############################################################################
 
 msgid "Shells:GenerationPDF:Infos"
@@ -205,3 +217,15 @@ msgstr "Il y a %s personne(s) qui n'ont pas été traitée(s) dû à un manque d
 
 msgid "Shell::Historiqueetatpe::CSVcree"
 msgstr "La liste de ces personnes a été mise dans le fichier %s"
+
+###############################################################################
+# InitTableauxsuivispdvs93
+###############################################################################
+msgid "Shell::InitTableauxsuivispdvs93::welcome"
+msgstr "Shell de transfert de données entre les variables de configuration Tableausuivi93.tableau1b4 et Tableausuivi93.tableau1b5 vers la base de données"
+
+msgid "Shell::InitTableauxsuivispdvs93::nbCategorieUpdated"
+msgstr "%d catégories ont été mises à jour pour le tableau %d"
+
+msgid "Shell::InitTableauxsuivispdvs93::error"
+msgstr "<error>Il n'y pas eu de catégorie mise à jour pour le tableau %d</error>"
