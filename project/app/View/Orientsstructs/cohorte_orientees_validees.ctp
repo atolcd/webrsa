@@ -1,5 +1,7 @@
 <?php
-if($structures) {
+if( !$structures ) {
+	echo '<p class="error">' . __d('orientsstructs', 'Orientsstructs.aucune_structure') . '</p>';
+} else {
 	// Conditions d'accès aux tags
 	$departement = Configure::read( 'Cg.departement' );
 	$user_type = $this->Session->read( 'Auth.User.type' );

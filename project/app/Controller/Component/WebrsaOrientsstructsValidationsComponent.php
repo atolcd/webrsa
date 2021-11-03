@@ -49,7 +49,7 @@
 					)
 				);
 			} else {
-				$this->Flash->error(__d('orientsstructs', 'Orientsstructs.aucune_structure'));
+				return array();
 			}
 
 			/**

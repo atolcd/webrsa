@@ -1,5 +1,7 @@
 <?php
-if($structures) {
+if( !$structures ) {
+	echo '<p class="error">' . __d('orientsstructs', 'Orientsstructs.aucune_structure') . '</p>';
+} else {
 	$departement = Configure::read( 'Cg.departement' );
 	$controller = $this->params->controller;
 	$action = $this->action;
