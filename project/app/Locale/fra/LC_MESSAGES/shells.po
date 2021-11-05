@@ -229,3 +229,33 @@ msgstr "%d catégories ont été mises à jour pour le tableau %d"
 
 msgid "Shell::InitTableauxsuivispdvs93::error"
 msgstr "<error>Il n'y pas eu de catégorie mise à jour pour le tableau %d</error>"
+
+###############################################################################
+# TransfertDonneesHorsPDIE
+###############################################################################
+msgid "Shell::TransfertDonneesHorsPDIE::welcome"
+msgstr "Shell de transfert de données des thématiques, catégories et filières hors PDIE d'une année à l'autre."
+
+msgid "Shell::TransfertDonneesHorsPDIE::help::usage::centos"
+msgstr "Usage pour CentOS : sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake %s -app app anneesource anneedest"
+
+msgid "Shell::TransfertDonneesHorsPDIE::help::usage::exemple"
+msgstr "Exemple d'urilisation : sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake %s -app app 2020 2022"
+
+msgid "Shells:TransfertDonneesHorsPDIE:error::noarg"
+msgstr "<error>Il n'y a pas d'argument, merci de mettre une année de source et une de destination</error>"
+
+msgid "Shells:TransfertDonneesHorsPDIE:error::nosecarg"
+msgstr "<error>Il manque le second argument, merci de mettre une année de destination</error>"
+
+msgid "Shells:TransfertDonneesHorsPDIE:error::nodatasource"
+msgstr "<error>L'année source choisie n'a pas de donnée de thématique hors PDI, merci de choisir une année valide</error>"
+
+msgid "Shells:TransfertDonneesHorsPDIE:error::datadest"
+msgstr "<error>L'année de destination comporte des thématiques qui ont déjà des données hors PDI, merci de choisir une autre année</error>"
+
+msgid "Shells:TransfertDonneesHorsPDIE:success"
+msgstr "Le transfert des données a été effectué avec succès"
+
+msgid "Shells:TransfertDonneesHorsPDIE:fail"
+msgstr "<error>Le transfert ne s'est pas bien passé, il a été annulé</error>"
