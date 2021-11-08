@@ -123,6 +123,8 @@
 			$origine = Hash::get( $search, 'Orientstruct.origine' );
 			if(!empty($origine)) {
 				$query['conditions'][] = array('Orientstruct.origine' => $origine);
+			} else {
+				$query['conditions'][] = array('Orientstruct.origine' => Configure::read('Orientation.validation.listeorigine'));
 			}
 
 			$struct = Hash::get( $search, 'Orientstruct.structureorientante_id' );

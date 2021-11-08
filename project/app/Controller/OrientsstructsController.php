@@ -43,6 +43,8 @@
 					'cohorte_nouvelles' => array('filter' => 'Search'),
 					'cohorte_orientees' => array('filter' => 'Search'),
 					'search' => array('filter' => 'Search'),
+					'cohorte_validation' => array('filter' => 'Search'),
+					'cohorte_orientees_validees' => array('filter' => 'Search'),
 				),
 			),
 			'WebrsaAccesses',

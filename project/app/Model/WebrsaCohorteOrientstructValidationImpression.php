@@ -105,10 +105,9 @@
 
 			// Gestion des conditions de proposition d'orientation
 			$origine = Hash::get( $search, 'Orientstruct.origine' );
-			if(!empty($origine)) {
-				$query['conditions'][] = array('Orientstruct.origine' => $origine);
+			if(empty($origine)) {
+				$query['conditions'][] = array('Orientstruct.origine' => Configure::read('Orientation.validation.listeorigine'));
 			}
-
 			$struct = Hash::get( $search, 'Orientstruct.structureorientante_id' );
 			if(!empty($struct)) {
 				$query['conditions'][] = array(
