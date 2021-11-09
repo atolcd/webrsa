@@ -2454,7 +2454,6 @@
 			// Requête complète
 			$results = $Ficheprescription93->query( '( '.implode( $sqls, ' UNION ' ).' ) ORDER BY "counter" ASC;' );
 			$results = Hash::remove( $results, '{n}.0.counter' );
-
 			return $results;
 		}
 
@@ -2798,67 +2797,51 @@
 			}
 
 			$attribute = ( $tableau === 'tableau1b4' ? '_categories1b4' : '_categories1b5' );
-			$modelName = ( $tableau === 'tableau1b4' ? 'Tableau1b4' : 'Tableau1b5' );
+			$nomColonne = ( $tableau === 'tableau1b4' ? 'tableau4' : 'tableau5' );
 
 			if( $this->{$attribute} === null ) {
-				$categories = (array)Configure::read( "Tableausuivi93.{$tableau}.categories" );
-
+				$Thematiquefp93 = ClassRegistry::init( 'Thematiquefp93' );
 				$typethematiquefp93_id = Hash::get( $search, 'Search.typethematiquefp93_id' );
 				$yearthematiquefp93_id = Hash::get( $search, 'Search.yearthematiquefp93_id' );
 
-				$Thematiquefp93 = ClassRegistry::init( 'Thematiquefp93' );
-				$Dbo = $this->Tableausuivipdv93->getDataSource();
-
-				$base = array(
+				$query = array(
 					'fields' => array(
-						'Thematiquefp93.id'
+						'Thematiquefp93.name',
+						'Categoriefp93.name'
 					),
 					'joins' => array(
-						$Thematiquefp93->join( 'Categoriefp93', array( 'type' => 'INNER' ) ),
-						$Thematiquefp93->Categoriefp93->join( 'Filierefp93', array( 'type' => 'INNER' ) ),
+						$Thematiquefp93->join('Categoriefp93', array('type' => 'INNER'))
 					),
-					'contain' => false
+					'conditions' => array(
+						$nomColonne . '_actif' => true
+					),
 				);
 
-				$unions = array();
-
-				foreach( array_keys( $categories ) as $thematiqueName ) {
-					foreach( array_keys( $categories[$thematiqueName] ) as $categorieName ) {
-						$conditions = $categories[$thematiqueName][$categorieName];
-						$query = $base;
-
-						$query['conditions'] = $conditions;
-
-						// Ajout de condition si nécessaire
-						if( $typethematiquefp93_id !== null ) {
-							$query['conditions']['Thematiquefp93.type'] = $typethematiquefp93_id;
-						}
-
-						// Ajout de condition si nécessaire
-						if( $yearthematiquefp93_id !== null ) {
-							$query['conditions']['Thematiquefp93.yearthema'] = $yearthematiquefp93_id;
-						}
-
-						$sql = $Thematiquefp93->sq( $query );
-						$thematique = Sanitize::clean( $thematiqueName, array( 'encode' => false ) );
-						$categorie = Sanitize::clean( $categorieName, array( 'encode' => false ) );
-
-						$sql = "SELECT '{$thematique}' AS \"{$modelName}__thematique\", '{$categorie}' AS \"{$modelName}__categorie\", EXISTS( {$sql} ) AS \"{$modelName}__exists\"";
-						$unions[] = $sql;
-					}
+				// Ajout de condition si nécessaire
+				if( $typethematiquefp93_id !== null ) {
+					$query['conditions']['Thematiquefp93.type'] = $typethematiquefp93_id;
 				}
-				$results = $Dbo->query( implode( ' UNION ', $unions ) );
-				foreach( $results as $result ) {
-					if( empty( $result[$modelName]['exists'] ) ) {
-						unset( $categories[$result[$modelName]['thematique']][$result[$modelName]['categorie']] );
-						if( empty( $categories[$result[$modelName]['thematique']] ) ) {
-							unset( $categories[$result[$modelName]['thematique']] );
-						}
+
+				// Ajout de condition si nécessaire
+				if( $yearthematiquefp93_id !== null ) {
+					$query['conditions']['Thematiquefp93.yearthema'] = $yearthematiquefp93_id;
+				}
+
+				$datas = $Thematiquefp93->find('all', $query);
+				$thematique = '';
+				$categories = array();
+				foreach($datas as $data) {
+					if($thematique != $data['Thematiquefp93']['name']) {
+						$thematique = $data['Thematiquefp93']['name'];
 					}
+					$nomCategorie = $data['Categoriefp93']['name'];
+					$categories[$thematique][$nomCategorie] = array(
+						'Thematiquefp93.name' => $thematique,
+						'Categoriefp93.name' => $nomCategorie
+					);
 				}
 				$this->{$attribute} = $categories;
 			}
-
 			return $this->{$attribute};
 		}
 
