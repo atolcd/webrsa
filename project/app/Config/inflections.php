@@ -201,6 +201,7 @@ $irregularPlural = array(
 	'propopdo_statutpdo' => 'propospdos_statutspdos',
 	'recoursapre' => 'recoursapres',
 	'reducrsa' => 'reducsrsa',
+	'referent_user' => 'referents_users',
 	'refpresta' => 'refsprestas',
 	'regroupementzonegeo' => 'regroupementszonesgeo',
 	'regroupementzonegeo_zonegeographique' => 'regroupementszonesgeo_zonesgeographiques',

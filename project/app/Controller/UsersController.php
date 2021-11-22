@@ -281,7 +281,39 @@
 				)
 			);
 
+			//On récupère la variable de configuration pour les réferent sectorisation
+			$choix_referent_sectorisation_actif = Configure::read('Module.Sectorisation.enabled');
+			$this->set( 'choix_referent_sectorisation_actif', $choix_referent_sectorisation_actif);
+
+			if($choix_referent_sectorisation_actif){
+				$conditions_referent_sectorisation = $conditions;
+				$conditions_referent_sectorisation["NOT"] = array("Referent.nom_complet" => null);
+				$this->set(
+					'referents_sectorisation',
+					$this->User->Referent->find(
+						'list',
+						array(
+							'fields' => array(
+								'Referent.id',
+								'Referent.nom_complet',
+								'Structurereferente.lib_struc'
+							),
+							'recursive' => -1,
+							'joins' => array(
+								$this->User->Referent->join( 'Structurereferente', array( 'type' => 'INNER' ) )
+							),
+							'conditions' => $conditions_referent_sectorisation,
+							'order' => array(
+								'Structurereferente.lib_struc ASC',
+								'Referent.nom_complet ASC',
+							)
+						)
+					)
+				);
+			}
+
 			$this->set( 'communautessrs', $this->User->Communautesr->find( 'list' ) );
+
 		}
 
 		/**
@@ -659,7 +691,8 @@
 					),
 					'contain' => array(
 						'Ancienpoledossierpcg66',
-						'Zonegeographique'
+						'Zonegeographique',
+						'Referent'
 					)
 				);
 				$this->request->data = $this->User->find( 'first', $qd_userDb );

@@ -52,6 +52,12 @@ msgstr "Date de péremption du mot de passe"
 msgid "User.nb_error_password"
 msgstr "Nombre de tentatives de connexion"
 
+msgid "User::Referent::Checkbox"
+msgstr "Afficher les référents sectorisation"
+
+msgid "User::Referent::Title"
+msgstr "Réferent sectorisation"
+
 ###############################################################################
 # Mot de passe oublié
 ###############################################################################

@@ -647,6 +647,22 @@
 				'deleteQuery' => '',
 				'insertQuery' => '',
 				'with' => 'UserZonegeographique'
+			),
+			'Referent' => array(
+				'className' => 'Referent',
+				'joinTable' => 'referents_users',
+				'foreignKey' => 'user_id',
+				'associationForeignKey' => 'referent_id',
+				'unique' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'finderQuery' => '',
+				'deleteQuery' => '',
+				'insertQuery' => '',
+				'with' => 'ReferentUser'
 			)
 		);
 

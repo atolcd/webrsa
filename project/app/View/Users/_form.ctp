@@ -55,6 +55,17 @@
 
 	<?php echo $this->Form->input( 'Zonegeographique.Zonegeographique', array( 'label' => false, 'multiple' => 'checkbox' , 'options' => $zglist ) );?>
 </fieldset>
+
+<?php if($choix_referent_sectorisation_actif) {?>
+<div class="input checkbox">
+	<input type="checkbox" value="1" id="checkbox_referents_sectorisation" />
+	<label for="checkbox_referents_sectorisation"><?php echo __m("User::Referent::Checkbox") ?></label>
+</div>
+<fieldset class="col2" id="referents_sectorisation">
+	<legend><?php echo __m('User::Referent::Title') ?></legend>
+	<?php echo $this->Form->input( 'Referent.Referent', array( 'label' => false, 'multiple' => 'checkbox' , 'options' => $referents_sectorisation ) );?>
+</fieldset>
+<?php } ?>
 <fieldset class="col2">
 	<?php
 		echo $this->Form->input( 'User.group_id', array( 'label' => required( 'Groupe d\'utilisateur' ), 'type' => 'select' , 'options' => $gp, 'empty' => true ) );
@@ -183,3 +194,12 @@
 		);
 	}
 ?>
+<script type="text/javascript">
+	//<![CDATA[
+	document.observe( 'dom:loaded', function() { try {
+		observeDisableFieldsetOnCheckbox( 'checkbox_referents_sectorisation', 'referents_sectorisation', false, true );
+	} catch( e ) {
+		console.error( e );
+	} } );
+	//]]>
+	</script>
