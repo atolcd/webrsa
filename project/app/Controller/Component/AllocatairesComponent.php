@@ -27,6 +27,7 @@
 			'InsertionsBeneficiaires',
 			'Jetons2',
 			'Session',
+			'GestionSectorisation'
 		);
 
 		/**
@@ -77,6 +78,9 @@
 			$params += array( 'structurereferente_id' => false );
 			if( true !== Hash::get( $params, 'completequery_zonesgeos_disabled' ) ) {
 				$query = $this->Gestionzonesgeos->completeQuery( $query, $params['structurereferente_id'] );
+			}
+			if(Configure::read('Module.Sectorisation.enabled')){
+				$query = $this-> GestionSectorisation->addConditionReferents($query);
 			}
 			$query['conditions'][] = WebrsaPermissions::conditionsDossier();
 			$query = $this->addQdFilters( $query );

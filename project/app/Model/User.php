@@ -878,5 +878,32 @@
 			//Si le user_id n'est pas numeric / null
 			return false;
 		}
+
+		/**
+		 * Récupère la liste des référents sectorisation associés à l'utilisateur
+		 * sous forme utilisable dans une requête sql
+		 * @param integer $user_id
+		 * @return string
+		 */
+		public function getReferentsSectorisation($user_id){
+			$sql =
+			"select r.id
+			from referents_users ru
+				join referents r on r.id = ru.referent_id
+				join users u on u.id = ru.user_id
+				join structuresreferentes s on s.id = r.structurereferente_id
+			where u.id = $user_id
+				and s.actif_sectorisation = true";
+
+			$results =  $this->query( $sql);
+
+			$referents_user = "";
+			foreach ($results as $result){
+				$referents_user .= $result[0]['id'].",";
+			}
+			$referents_user = substr($referents_user, 0, -1);
+
+			return $referents_user;
+		}
 	}
 ?>

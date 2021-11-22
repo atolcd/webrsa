@@ -351,6 +351,21 @@
 		}
 
 		/**
+		 * Chargement et mise en cache (session) des référents sectorisation associés
+		 * à l'utilisateur.
+		 */
+		public function loadReferentsSectorisation() {
+			$Controller = $this->_Collection->getController();
+			$Controller->loadModel( 'User' );
+
+			if( $this->Session->check( 'Auth.User' ) && !$this->Session->check( 'Auth.ReferentsSectorisation' ) ) {
+				$referents = $Controller->User->getReferentsSectorisation($this->Session->read( 'Auth.User.id' ));
+				$this->Session->write( 'Auth.ReferentsSectorisation', $referents );
+			}
+
+		}
+
+		/**
 		 * Chargement et mise en cache (session) de différentes informations
 		 * liées à l'utilisateur connecté.
 		 */
@@ -367,6 +382,10 @@
 			$this->loadGroup();
 			$this->loadServiceInstructeur();
 			$this->loadStructurereferente();
+
+			if(Configure::read('Module.Sectorisation.enabled')){
+				$this->loadReferentsSectorisation();
+			}
 		}
 	}
 ?>
