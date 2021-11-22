@@ -281,7 +281,7 @@
 				)
 			);
 
-			//On récupère la variable de configuration pour les réferent sectorisation
+			//On récupère la variable de configuration pour les réferents sectorisation
 			$choix_referent_sectorisation_actif = Configure::read('Module.Sectorisation.enabled');
 			$this->set( 'choix_referent_sectorisation_actif', $choix_referent_sectorisation_actif);
 
