@@ -49,20 +49,24 @@
 </fieldset>
 
 <?php
+	$array = array(
+		'Structurereferente.typeorient_id' => array( 'empty' => true ),
+		'Structurereferente.typestructure' => array( 'empty' => true ),
+		'Structurereferente.type_struct_stats' => array( 'empty' => true ),
+		'Structurereferente.code_stats' => array( 'empty' => true ),
+		'Structurereferente.actif' => array( 'empty' => true ),
+		'Structurereferente.actif_cohorte' => array( 'empty' => false ),
+		'Structurereferente.dreesorganisme_id' => array( 'empty' => true ),
+	);
+	if(Configure::read('Module.Sectorisation.enabled')){
+		$array['Structurereferente.actif_sectorisation'] = array( 'type' => 'select');
+	}
 	echo $this->Html->tag(
 		'fieldset',
 		$this->Html->tag( 'legend', __m('Structurereferente.typestructure' ) )
 		. $this->Default3->subform(
 			$this->Translator->normalize(
-				array(
-					'Structurereferente.typeorient_id' => array( 'empty' => true ),
-					'Structurereferente.typestructure' => array( 'empty' => true ),
-					'Structurereferente.type_struct_stats' => array( 'empty' => true ),
-					'Structurereferente.code_stats' => array( 'empty' => true ),
-					'Structurereferente.actif' => array( 'empty' => true ),
-					'Structurereferente.actif_cohorte' => array( 'empty' => false ),
-					'Structurereferente.dreesorganisme_id' => array( 'empty' => true ),
-				)
+				$array
 			),
 			array(
 				'options' => $options

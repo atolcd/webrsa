@@ -79,10 +79,17 @@
 				$options['Zonegeographique']['Zonegeographique'] = $this->Structurereferente->Zonegeographique->find( 'list' );
 			}
 
+			if( Configure::read('Module.Sectorisation.enabled') == true ) {
+				$options['Structurereferente']['actif_sectorisation'] = array(
+					__m("Structurereferente.actif_sectorisation.false"),
+					__m("Structurereferente.actif_sectorisation.true")
+				);
+			}
+
 			if( Configure::read('Orientation.validation.enabled') == true ) {
 				$options['Structurereferente']['workflow_valid'] = array(
-					'Non',
-					'Oui'
+					__m("Structurereferente.workflow_valid.false"),
+					__m("Structurereferente.workflow_valid.true")
 				);
 			}
 

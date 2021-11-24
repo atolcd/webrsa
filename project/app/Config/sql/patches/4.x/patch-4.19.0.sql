@@ -41,6 +41,11 @@ FROM configurationscategories
 WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Module.Sectorisation.enabled';
 
 
+-- Ajout d'une colonne pour activer ou non la sectorisation sur chaque structure référente
+ALTER TABLE structuresreferentes
+ADD COLUMN IF NOT EXISTS actif_sectorisation bool NULL DEFAULT true;
+
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

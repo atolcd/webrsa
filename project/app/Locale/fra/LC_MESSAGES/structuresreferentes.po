@@ -90,3 +90,18 @@ msgstr "Géré par la structure référente"
 
 msgid "Structurereferente.workflow"
 msgstr "Activation du workflow de validation ?"
+
+msgid "Structurereferente.actif_sectorisation"
+msgstr "Structure prise en compte dans la sectorisation par réferent"
+
+msgid "Structurereferente.actif_sectorisation.false"
+msgstr "Non"
+
+msgid "Structurereferente.actif_sectorisation.true"
+msgstr "Oui"
+
+msgid "Structurereferente.workflow_valid.false"
+msgstr "Non"
+
+msgid "Structurereferente.workflow_valid.true"
+msgstr "Oui"
