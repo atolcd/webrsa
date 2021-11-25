@@ -412,8 +412,8 @@
 				</tr>
 				<tr class="odd">
 					<th><?php echo __d('dossier', 'BlocPE.motifRadiation'); ?></th>
-					<td><?php echo Hash::get( $details,'DEM.Informationpe.0.etat') != 'radiation' ? Hash::get( $details, 'DEM.Fluxpoleemploi.Informationpe.inscription_lib_radiation_ide' ) : '';?></td>
-					<td><?php echo Hash::get( $details,'CJT.Informationpe.0.etat') != 'radiation' ? Hash::get( $details, 'CJT.Fluxpoleemploi.Informationpe.inscription_lib_radiation_ide' ) : '';?></td>
+					<td><?php echo Hash::get( $details,'DEM.Informationpe.0.etat') == 'radiation' ? Hash::get( $details, 'DEM.Fluxpoleemploi.Informationpe.inscription_lib_radiation_ide' ) : '';?></td>
+					<td><?php echo Hash::get( $details,'CJT.Informationpe.0.etat') == 'radiation' ? Hash::get( $details, 'CJT.Fluxpoleemploi.Informationpe.inscription_lib_radiation_ide' ) : '';?></td>
 				</tr>
 				<tr class="even">
 					<th><?php echo __d('dossier', 'BlocPE.nivFormation'); ?></th>
