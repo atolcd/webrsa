@@ -112,4 +112,11 @@
 			)
 		)
 	);
+
+	$dependantSelects = array(
+		'Search.Thematiquefp93.id' => 'Search.Categoriefp93.id',
+		'Search.Categoriefp93.id' => 'Search.Filierefp93.id'
+	);
+
+	echo $this->Observer->dependantSelect( $dependantSelects );
 ?>

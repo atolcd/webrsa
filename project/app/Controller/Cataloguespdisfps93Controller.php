@@ -153,16 +153,24 @@
 			$fieldsToDelete = array(
 				"{$Model->alias}.created",
 				"{$Model->alias}.modified",
+				'Thematiquefp93.name',
+				'Categoriefp93.name',
+				'Filierefp93.name',
+				'Categoriefp93.thematiquefp93_id',
+				'Filierefp93.categoriefp93_id',
 				'Prestatairefp93.name',
 				'Adresseprestatairefp93.name',
 				'Actionfp93.numconvention',
 				'Actionfp93.annee',
-				'Actionfp93.duree'
+				'Actionfp93.duree',
+				'Actionfp93.filierefp93_id',
+				'Actionfp93.adresseprestatairefp93_id',
+				'Actionfp93.frsa_id',
 			);
 
 			foreach ($searchFields as $key => $field) {
 				// Suppression des notions de id / created / modified
-				if( in_array($field, $fieldsToDelete ) == true || preg_match('/_id$/', $field ) ) {
+				if( in_array($field, $fieldsToDelete ) == true && $field != "{$Model->alias}.name") {
 					unset($searchFields[$key]);
 				}
 				// Ajout du tag "Search" aux autres champs

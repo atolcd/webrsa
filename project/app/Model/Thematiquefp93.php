@@ -216,12 +216,14 @@
 			foreach( $fieldsValues as $field ) {
 				$value = (string)Hash::get( $search, $field );
 				if( '' !== $value ) {
+					// Conditions particulières sur la notion d'actif / inactif des tableaux 4 & 5
 					if( in_array($field, array('Categoriefp93.tableau4_actif', 'Categoriefp93.tableau5_actif') ) ) {
-						$field = str_replace( 'Categoriefp93', 'c', $field );
+						$field = str_replace( 'Categoriefp93.', '', $field );
+						$actifValue = $value == '1' ? 'TRUE' : 'FALSE';
 						$query['conditions'][] = "Thematiquefp93.id IN (
-							SELECT DISTINCT c.thematiquefp93_id
-							FROM categoriesfps93 AS c
-							WHERE {$field} = '{$value}'
+							SELECT DISTINCT thematiquefp93_id
+							FROM categoriesfps93
+							WHERE {$field} = {$actifValue}
 							)";
 					} else {
 						$query['conditions'][] = array( $field => $value );

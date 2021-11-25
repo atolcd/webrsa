@@ -278,17 +278,18 @@
 		 * @return array
 		 */
 		public function getSearchOptions() {
-			$options = $this->Filierefp93->Categoriefp93->Thematiquefp93->getParametrageOptions();
+			$options = $this->Filierefp93->getSearchOptions();
 
-			$options['Categoriefp93']['name'] = $this->Filierefp93->Categoriefp93->find('list', array(
-				'fields' => array('name', 'name'),
+			$listFiliere = $this->Filierefp93->find('all', array(
+				'order' => array(
+					'Filierefp93.name ASC',
+				)
 			));
-			$options['Filierefp93']['name'] = $this->Filierefp93->find('list', array(
-				'fields' => array('name', 'name'),
-			));
-			$options['Thematiquefp93']['name'] = $this->Filierefp93->Categoriefp93->Thematiquefp93->find('list', array(
-				'fields' => array('name', 'name'),
-			));
+
+			foreach( $listFiliere as $filiere ) {
+				$filiereId = $filiere['Filierefp93']['categoriefp93_id'] . '_' . $filiere['Filierefp93']['id'];
+				$options['Filierefp93']['id'][$filiereId] = $filiere['Filierefp93']['name'];
+			}
 
 			return $options;
 		}
@@ -312,14 +313,26 @@
 			$fieldsValues = array(
 				'Thematiquefp93.yearthema',
 				'Thematiquefp93.type',
-				'Thematiquefp93.name',
-				'Categoriefp93.name',
-				'Filierefp93.name',
+				'Thematiquefp93.id',
 			);
 			foreach( $fieldsValues as $field ) {
 				$value = (string)Hash::get( $search, $field );
 				if( '' !== $value ) {
 					$query['conditions'][] = array( $field => $value );
+				}
+			}
+
+			// 3. Valeurs de select dépendants
+			$pathsToExplode = array(
+				'Categoriefp93.id',
+				'Filierefp93.id',
+			);
+
+			foreach( $pathsToExplode as $path ) {
+				$value = Hash::get( $search, $path );
+				if( $value !== null && $value !== '' && strpos($value, '_') > 0 ) {
+					list(,$value) = explode('_', $value);
+					$query['conditions'][$path] = $value;
 				}
 			}
 

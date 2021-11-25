@@ -33,10 +33,19 @@ msgstr "Année"
 msgid "Search.Thematiquefp93.name"
 msgstr "Thématique"
 
+msgid "Search.Thematiquefp93.id"
+msgstr "Thématique"
+
 msgid "Search.Categoriefp93.name"
 msgstr "Catégorie"
 
+msgid "Search.Categoriefp93.id"
+msgstr "Catégorie"
+
 msgid "Search.Filierefp93.name"
+msgstr "Filière"
+
+msgid "Search.Filierefp93.id"
 msgstr "Filière"
 
 msgid "Search.Prestatairefp93.name"

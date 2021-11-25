@@ -186,9 +186,9 @@
 
 			if( !empty( $result ) ) {
 				$typethematiquefp93_id = Hash::get( $result, "Thematiquefp93.type" );
-				$yearthematiquefp93_id = $typethematiquefp93_id.Hash::get( $result, "Thematiquefp93.yearthema" );				
+				$yearthematiquefp93_id = $typethematiquefp93_id.Hash::get( $result, "Thematiquefp93.yearthema" );
 				$thematiquefp93_id = Hash::get( $result, "Categoriefp93.thematiquefp93_id" );
-				
+
 				$result = array(
 					$this->alias => array(
 						$this->primaryKey => Hash::get( $result, "{$this->alias}.{$this->primaryKey}" ),
@@ -196,6 +196,8 @@
 						'yearthematiquefp93_id' => $typethematiquefp93_id.'_'.$yearthematiquefp93_id,
 						'thematiquefp93_id' => $yearthematiquefp93_id.'_'.$thematiquefp93_id,
 						$this->displayField => Hash::get( $result, "{$this->alias}.{$this->displayField}" ),
+						'tableau4_actif' => Hash::get( $result, "{$this->alias}.tableau4_actif" ),
+						'tableau5_actif' => Hash::get( $result, "{$this->alias}.tableau5_actif" )
 					)
 				);
 			}
@@ -258,7 +260,6 @@
 			$options[$this->alias]['yearthematiquefp93_id'] = Hash::combine( $results, '{n}.Thematiquefp93.id', '{n}.Thematiquefp93.yearthema' );
 
 
-
 			return $options;
 		}
 
@@ -292,9 +293,17 @@
 				$this->options()
 			);
 
-			$options['Thematiquefp93']['name'] = $this->Thematiquefp93->find('list', array(
-				'fields' => array('name', 'name'),
+			$listThema = $this->Thematiquefp93->find('all', array(
+				'order' => array(
+					'Thematiquefp93.yearthema ASC',
+					'Thematiquefp93.name ASC',
+				)
 			));
+			foreach( $listThema as $thema ) {
+				$themaId = $thema['Thematiquefp93']['id'];
+				$themaName = __d('thematiquefp93', 'ENUM::TYPE::' . $thema['Thematiquefp93']['type']) . ' ' . $thema['Thematiquefp93']['yearthema'] . ' : ' . $thema['Thematiquefp93']['name'];
+				$options['Thematiquefp93']['id'][$themaId] = $themaName;
+			}
 
 			return $options;
 		}
@@ -319,7 +328,7 @@
 			$fieldsValues = array(
 				'Thematiquefp93.yearthema',
 				'Thematiquefp93.type',
-				'Thematiquefp93.name',
+				'Thematiquefp93.id',
 				'Categoriefp93.tableau4_actif',
 				'Categoriefp93.tableau5_actif',
 			);
