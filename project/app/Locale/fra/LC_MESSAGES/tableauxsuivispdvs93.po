@@ -164,6 +164,9 @@ msgstr "Thématique"
 msgid "Tableau1b4.structure"
 msgstr "Catégorie"
 
+msgid "Tableau1b4.note_1"
+msgstr "(1) Les sous-totaux ne comptent qu'une seule fois chaque personne. Ils peuvent donc être inférieurs à l'addition de chaque ligne si une même personne est comptabilisée dans plusieurs lignes."
+
 # ------------------------------------------------------------------------------
 
 msgid "Tableau1b4.acteur"

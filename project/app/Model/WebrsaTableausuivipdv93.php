@@ -2417,7 +2417,7 @@
 				$query = $base;
 				$query['fields'] = array(
 					"'{$categorieName}' AS \"categorie\"",
-					"'Sous-total' AS \"thematique\"",
+					"'Sous-total (1)' AS \"thematique\"",
 					"{$counter} AS \"counter\"",
 					'COUNT( Ficheprescription93.id ) AS "nombre"',
 					'COUNT( DISTINCT Ficheprescription93.personne_id ) AS "nombre_unique"'

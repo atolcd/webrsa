@@ -70,5 +70,8 @@
 		echo $this->Xhtml->tag( 'table', $thead.$tfoot.$tbody ,array( 'class' => 'wide' ) );
 
 		include_once  dirname( __FILE__ ).DS.'footer.ctp' ;
+
+		echo (__m("Tableau1b4.note_1"));
+
 	}
 ?>
