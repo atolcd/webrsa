@@ -57,3 +57,7 @@ msgstr "COV"
 
 msgid "ENUM::TYPECOMMISSION::ep"
 msgstr "EP"
+
+msgid "StatutrdvTyperdv.actif"
+msgstr "Actif"
+

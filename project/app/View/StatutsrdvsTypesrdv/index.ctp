@@ -8,6 +8,7 @@
 				'StatutrdvTyperdv.nbabsenceavantpassagecommission',
 				'StatutrdvTyperdv.typecommission',
 				'StatutrdvTyperdv.motifpassageep',
+				'StatutrdvTyperdv.actif',
 				'/StatutsrdvsTypesrdv/edit/#StatutrdvTyperdv.id#' => array(
 					'title' => true
 				),
