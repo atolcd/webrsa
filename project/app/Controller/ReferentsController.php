@@ -33,12 +33,15 @@
 		 * @var array
 		 */
 		public $components = array(
+			'Cohortes',
 			'Default',
 			'InsertionsBeneficiaires',
+			'Jetons2',
 			'Search.SearchPrg' => array(
 				'actions' => array(
 					'index',
 					'clotureenmasse',
+					'cohorte_ajout',
 				),
 			),
 			'WebrsaParametrages',
@@ -54,7 +57,7 @@
 			'Default',
 			'Default2',
 			'Default3' => array(
-				'className' => 'Default.DefaultDefault'
+				'className' => 'ConfigurableQuery.ConfigurableQueryDefault'
 			),
 			'Search.SearchForm',
 			'Xform',
@@ -88,6 +91,7 @@
 		 */
 		public $aucunDroit = array(
 			'ajax_getreferent',
+			'exportcsv_ajout'
 		);
 
 		/**
@@ -101,6 +105,7 @@
 			'ajax_getreferent' => 'read',
 			'clotureenmasse' => 'read',
 			'cloturer' => 'read',
+			'cohorte_ajout' => 'update',
 			'delete' => 'delete',
 			'edit' => 'update',
 			'index' => 'read',
@@ -315,6 +320,33 @@
 			);
 			$this->set( compact( 'options' ) );
             $this->render( 'index' );
+		}
+
+		/**
+		 * Cohorte d'ajout de référents
+		 */
+		public function cohorte_ajout() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesReferents' );
+			$Cohorte->cohorte (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohorteReferentAjout',
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la Cohorte d'ajout de référents
+		 */
+		public function exportcsv_ajout() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesReferents' );
+			$Cohortes->exportcsv(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohorteReferentAjout',
+				)
+			);
 		}
 
 		/**

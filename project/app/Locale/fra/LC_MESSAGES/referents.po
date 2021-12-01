@@ -15,3 +15,48 @@ msgstr "Ajout d'un référent"
 
 msgid "/Referents/edit/:heading"
 msgstr "Modification du référent « #Referent.qual# #Referent.nom# #Referent.prenom# »"
+
+msgid "/Referents/cohorte_ajout/:heading"
+msgstr "Ajout de référents"
+
+msgid "Personne.nom_complet_prenoms"
+msgstr "Nom complet"
+
+msgid "Adresse.complete"
+msgstr "Adresse"
+
+msgid "data[Cohorte][][PersonneReferent][selection]"
+msgstr "Sélectionner"
+
+msgid "data[Cohorte][][PersonneReferent][structurereferente_id]"
+msgstr "Structure référente"
+
+msgid "data[Cohorte][][PersonneReferent][referent_id]"
+msgstr "Référent"
+
+msgid "data[Cohorte][][PersonneReferent][dddesignation]"
+msgstr "Date de désignation"
+
+msgid "Referent.preremplissage_fieldset"
+msgstr "Préremplissage de la cohorte"
+
+msgid "Cohorte.PersonneReferent.selection"
+msgstr "Sélectionner"
+
+msgid "Cohorte.PersonneReferent.structurereferente_id"
+msgstr "Structure référente"
+
+msgid "Cohorte.PersonneReferent.referent_id"
+msgstr "Référent"
+
+msgid "Cohorte.PersonneReferent.dddesignation"
+msgstr "Date de désignation"
+
+msgid "Referent.preremplir"
+msgstr "Préremplir"
+
+msgid "/Dossiers/view"
+msgstr "Voir"
+
+msgid "/Dossiers/view/#Dossier.id#"
+msgstr "Voir"

@@ -93,3 +93,10 @@ msgstr "Non"
 
 msgid "ENUM::ACTIF::O"
 msgstr "Oui"
+
+####################### Cohortes #######################
+msgid "Referent.Cohorte.Menu"
+msgstr "Référents"
+
+msgid "Referent.Cohorte.Ajout"
+msgstr "Ajout de référents"

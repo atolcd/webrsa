@@ -2204,6 +2204,9 @@ msgstr "Clôture des référents"
 msgid "controllers/Referents/clotureenmasse"
 msgstr "Cohortes de Clôture en masse des référents (CD 93)"
 
+msgid "controllers/Referents/cohorte_ajout"
+msgstr "Cohorte d'ajout de référent"
+
 ###############################################################################
 
 msgid "controllers/Regressionsorientationseps"

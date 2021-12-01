@@ -177,6 +177,12 @@
 			'Tags' => array(
 				'url' => array( 'controller' => 'tags', 'action' => 'cohorte' )
 			),
+			__d( 'referent', 'Referent.Cohorte.Menu' ) => array(
+				__d( 'referent', 'Referent.Cohorte.Ajout' ) => array(
+					'class' => 'search',
+					'url' => array( 'controller' => 'referents', 'action' => 'cohorte_ajout' )
+				)
+			),
 			__d( 'planpauvrete', 'Planpauvrete.Planpauvrete.Menu' ) => array(
 				'disabled' => (!Configure::read ('Module.Cohorte.Plan.Pauvrete.Menu')),
 				__d( 'planpauvrete', 'Planpauvrete.Nouveaux.Menu' ) => array(
