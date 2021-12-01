@@ -136,6 +136,7 @@
 
 			$options = array(
 				'Groups' => $this->User->Group->find( 'list' ),
+				'Categoriesutilisateurs' => $this->User->Categorieutilisateur->find( 'list' ),
 				'Serviceinstructeur' => $this->User->Serviceinstructeur->listOptions(),
 				'communautessrs' => $this->User->Communautesr->find( 'list' ),
 				'structuresreferentes' => $this->User->Structurereferente->find( 'list' ),
@@ -233,6 +234,7 @@
 			$this->set( 'si', $this->User->Serviceinstructeur->find( 'list' ) );
 			$this->set( 'options', $this->User->enums() );
 			$this->set( 'structuresreferentes', $this->User->Structurereferente->find( 'list', array( 'conditions' => array( 'Structurereferente.actif' => 'O' ) ) ) );
+			$this->set( 'categories_utilisateurs', $this->User->Categorieutilisateur->find( 'list', array('conditions' => array('actif =' => 'true'))));
 
 			if (Configure::read('Cg.departement') == 66) {
 				$internes = $this->User->Service66->find('list',

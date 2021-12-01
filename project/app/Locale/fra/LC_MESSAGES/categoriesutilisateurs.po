@@ -1,0 +1,38 @@
+# Traductions de categoriesutilisateurs.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Categoriesutilisateurs/index/:heading"
+msgstr "Paramétrage des catégories d'utilisateurs"
+
+msgid "/Categoriesutilisateurs/edit"
+msgstr "Modifier"
+
+msgid "/Categoriesutilisateurs/delete"
+msgstr "Supprimer"
+
+msgid "/Categoriesutilisateurs/add"
+msgstr "Ajouter"
+
+msgid "/Categoriesutilisateurs/edit/:heading"
+msgstr "Modifier une catégorie d'utilisateurs"
+
+msgid "/Categoriesutilisateurs/add/:heading"
+msgstr "Ajouter une catégorie d'utilisateurs"
+
+msgid "/Categoriesutilisateurs/delete/#Categorieutilisateur.id# ?"
+msgstr "Êtes-vous certain de vouloir supprimer cette catégorie d'utilisateurs ?"
+
+msgid "Categoriesutilisateurs.libelle"
+msgstr "Libellé"
+
+msgid "Categoriesutilisateurs.actif"
+msgstr "Actif"

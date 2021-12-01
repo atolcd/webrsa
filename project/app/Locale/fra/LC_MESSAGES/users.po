@@ -108,3 +108,9 @@ msgstr "Mot de passe réinitialisé"
 
 msgid "User::Mail::Administratormail"
 msgstr "Vous pouvez contacter votre administrateur à l'adresse suivante : %s"
+
+msgid "User::Categorie_utilisateur::Title"
+msgstr "Catégorie d'utilisateurs"
+
+msgid "User::Categorie_utilisateur::Label"
+msgstr "Catégorie"

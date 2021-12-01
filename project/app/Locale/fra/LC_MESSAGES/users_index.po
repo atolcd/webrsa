@@ -60,6 +60,9 @@ msgstr "Jetons"
 msgid "Search.User.has_jetonsfonctions"
 msgstr "Jetons fonctions"
 
+msgid "Search.User.categorieutilisateur_id"
+msgstr "Catégorie d'utilisateurs"
+
 # ==============================================================================
 
 msgid "User.username"

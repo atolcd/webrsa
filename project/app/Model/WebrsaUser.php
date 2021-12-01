@@ -74,6 +74,7 @@
 						'User.date_naissance',
 						'User.numtel',
 						'User.type',
+						'User.categorieutilisateur_id',
 						'Group.name',
 						'Serviceinstructeur.lib_service',
 						'ReferentAccueil.nom',
@@ -144,7 +145,7 @@
 			}
 
 			// Filtres par valeur exacte
-			foreach( array( 'serviceinstructeur_id', 'group_id', 'communautesr_id', 'type', 'has_connections', 'has_jetons', 'has_jetonsfonctions' ) as $field ) {
+			foreach( array( 'serviceinstructeur_id', 'group_id', 'communautesr_id', 'type', 'has_connections', 'has_jetons', 'has_jetonsfonctions', 'categorieutilisateur_id' ) as $field ) {
 				$value = (string)Hash::get( $search, "User.{$field}" );
 				if( '' !== $value ) {
 					$query['conditions'][] = array( "User.{$field}" => $value );

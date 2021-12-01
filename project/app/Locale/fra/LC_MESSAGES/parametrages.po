@@ -524,3 +524,12 @@ msgstr "Zones géographiques"
 
 msgid "tutoriels/index"
 msgstr "Tutoriel"
+
+# ==============================================================================
+
+msgid "utilisateurs"
+msgstr "Utilisateurs"
+
+msgid "categoriesutilisateurs/index"
+msgstr "Catégories d'utilisateurs"
+

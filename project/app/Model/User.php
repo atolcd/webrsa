@@ -217,6 +217,13 @@
 				'fields' => '',
 				'order' => ''
 			),
+			'Categorieutilisateur' => array(
+				'className' => 'Categorieutilisateur',
+				'foreignKey' => 'categorieutilisateur_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
+			),
 		);
 
 		public $hasMany = array(

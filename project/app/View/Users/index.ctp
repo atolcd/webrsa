@@ -31,6 +31,7 @@
 			'Search.User.prenom' => array( 'type' => 'text', 'required' => false ),
 			'Search.User.group_id' => array( 'options' => $options['Groups'], 'empty' => true, 'required' => false ),
 			'Search.User.serviceinstructeur_id' => array( 'options' => $options['Serviceinstructeur'], 'empty' => true, 'required' => false ),
+			'Search.User.categorieutilisateur_id' => array('options' => $options['Categoriesutilisateurs'], 'empty' => true, 'required' => false ),
 		),
 		(
 			( true === in_array( $departement, array( 66, 93) ) )

@@ -162,6 +162,7 @@ $irregularPlural = array(
 	'indicateurmensuel' => 'indicateursmensuels',
 	'indicateursuivi' => 'indicateurssuivis',
 	'vaguedorientation' => 'vaguesdorientations',
+	'categorieutilisateur' => 'categoriesutilisateurs',
 	'informationeti' => 'informationseti',
 	'infoagricole' => 'infosagricoles',
 	'infofinanciere' => 'infosfinancieres',

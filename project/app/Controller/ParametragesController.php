@@ -759,6 +759,11 @@
 					'disabled' => !Configure::read('Module.ModifEtatPE.enabled'),
 					'url' => array( 'controller' => 'motifsetatspes', 'action' => 'index' )
 				),
+				__m('utilisateurs') => array(
+					__m('categoriesutilisateurs/index') => array(
+						'url' => array( 'controller' => 'categoriesutilisateurs', 'action' => 'index' )
+					),
+				),
 				__m('vaguesdorientations/index') => array(
 					'Paramétrage des dates des vagues' => array(
 						'url' => array( 'controller' => 'vaguesdorientations', 'action' => 'index' )

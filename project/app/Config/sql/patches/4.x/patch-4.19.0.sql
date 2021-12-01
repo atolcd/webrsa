@@ -86,6 +86,21 @@ SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
 WHERE configurationscategories.lib_categorie = 'Referents' AND configurations.lib_variable LIKE 'ConfigurableQuery.Referents.exportcsv_modif';
 
+-- Création de la table des catégories d'utilisateurs
+CREATE TABLE IF NOT EXISTS public.categoriesutilisateurs (
+	id serial4 NOT NULL,
+	libelle varchar(50) NOT NULL,
+	actif bool NOT NULL DEFAULT true,
+	created timestamp NULL,
+	modified timestamp NULL,
+	CONSTRAINT categoriesutilisateurs_pk PRIMARY KEY (id)
+);
+
+-- Ajout de la colonne catégorie d'utilisateur dans la table users
+ALTER TABLE public.users ADD COLUMN IF NOT EXISTS categorieutilisateur_id int4 NULL;
+ALTER TABLE public.users ADD CONSTRAINT IF NOT EXISTS users_categorieutilisateur_id_fk FOREIGN KEY (categorieutilisateur_id) REFERENCES public.categoriesutilisateurs(id);
+
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

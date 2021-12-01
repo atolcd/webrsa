@@ -103,6 +103,12 @@
 </fieldset>
 <?php endif; ?>
 <fieldset class="col2">
+	<legend><?php echo __m('User::Categorie_utilisateur::Title') ?></legend>
+	<?php
+		echo $this->Form->input( 'User.categorieutilisateur_id', array( 'type' => 'select' , 'options' => $categories_utilisateurs, 'empty' => true, 'label' => __m('User::Categorie_utilisateur::Label')) );
+	?>
+</fieldset>
+<fieldset class="col2">
 	<legend><?php echo required( 'Est-il gestionnaire, notamment pour les PDOs ? ' );?></legend>
 	<?php
 		echo '<fieldset class="noborder">';
