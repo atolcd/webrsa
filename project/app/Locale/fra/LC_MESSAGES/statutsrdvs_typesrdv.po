@@ -11,34 +11,34 @@ msgstr ""
 # ==============================================================================
 
 msgid "/StatutsrdvsTypesrdv/index/:heading"
-msgstr "Paramétrage des passages en commissions des rendez-vous"
+msgstr "Paramétrage des actions de rendez-vous"
 
 msgid "/StatutsrdvsTypesrdv/add/:heading"
-msgstr "Ajout d'un passage en commission de rendez-vous"
+msgstr "Ajout d'une action de rendez-vous"
 
 msgid "/StatutsrdvsTypesrdv/edit/:heading"
-msgstr "Modification du passage en commission des rendez-vous « #StatutrdvTyperdv.motifpassageep# »"
+msgstr "Modification de l'action de rendez-vous « #StatutrdvTyperdv.motifpassageep# »"
 
 msgid "/StatutsrdvsTypesrdv/add"
 msgstr "Ajouter"
 
 msgid "/StatutsrdvsTypesrdv/add/:title"
-msgstr "Ajouter un passage en commission de rendez-vous"
+msgstr "Ajouter une action de rendez-vous"
 
 msgid "/StatutsrdvsTypesrdv/edit"
 msgstr "Modifier"
 
 msgid "/StatutsrdvsTypesrdv/edit/#StatutrdvTyperdv.id#"
-msgstr "Modifier le passage en commission des rendez-vous « #StatutrdvTyperdv.motifpassageep# »"
+msgstr "Modifier l'action de rendez-vous « #StatutrdvTyperdv.motifpassageep# »"
 
 msgid "/StatutsrdvsTypesrdv/delete"
 msgstr "Supprimer"
 
 msgid "/StatutsrdvsTypesrdv/delete/#StatutrdvTyperdv.id#"
-msgstr "Supprimer le passage en commission des rendez-vous « #StatutrdvTyperdv.motifpassageep# »"
+msgstr "Supprimer l'action de rendez-vous « #StatutrdvTyperdv.motifpassageep# »"
 
 msgid "/StatutsrdvsTypesrdv/delete/#StatutrdvTyperdv.id# ?"
-msgstr "Réellement supprimer le passage en commission des rendez-vous « #StatutrdvTyperdv.motifpassageep# » ?"
+msgstr "Réellement supprimer l'action de rendez-vous « #StatutrdvTyperdv.motifpassageep# » ?"
 
 msgid "/Parametrages/rendezvous"
 msgstr "Retour"

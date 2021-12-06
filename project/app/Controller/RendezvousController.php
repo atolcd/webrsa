@@ -318,14 +318,6 @@
 				}
 			}
 
-			// Jointure un peu spéciale
-			$joinStatutrdvTyperdv = array(
-				$this->Rendezvous->Typerdv->join( 'StatutrdvTyperdv' ),
-				$this->Rendezvous->Statutrdv->join( 'StatutrdvTyperdv' ),
-			);
-			$joinStatutrdvTyperdv[0]['conditions'] = array( $joinStatutrdvTyperdv[0]['conditions'],  $joinStatutrdvTyperdv[1]['conditions'] );
-			$joinStatutrdvTyperdv = $joinStatutrdvTyperdv[0];
-
 			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $personne_id ) );
 			$this->set( compact( 'dossierMenu' ) );
 
@@ -349,7 +341,6 @@
 						'Permanence.libpermanence',
 						'Typerdv.libelle',
 						'Statutrdv.libelle',
-						'StatutrdvTyperdv.motifpassageep',
 						$this->Rendezvous->Fichiermodule->sqNbFichiersLies( $this->Rendezvous, 'nb_fichiers_lies' )
 					)
 				),
@@ -360,7 +351,6 @@
 					$this->Rendezvous->join( 'Statutrdv' ),
 					$this->Rendezvous->join( 'Permanence' ),
 					$this->Rendezvous->join( 'Typerdv' ),
-					$joinStatutrdvTyperdv
 				),
 				'contain' => false,
 				'conditions' => array(
@@ -601,6 +591,8 @@
 				$success = $this->Rendezvous->saveAll( $this->request->data, array( 'validate' => 'first', 'atomic' => false ) );
 
 				if( $this->Rendezvous->WebrsaRendezvous->provoquePassageCommission( $this->request->data ) ) {
+					//On commit maintenant pour récupérer l'id du rendez-vous et pouvoir créer le passage en commission
+					$this->Rendezvous->commit();
 					$success = $this->Rendezvous->WebrsaRendezvous->creePassageCommission( $this->request->data, $this->Session->read( 'Auth.User.id' ) ) && $success;
 				}
                 else if( $this->action == 'edit' && !empty( $rdv ) && Configure::read( 'Cg.departement' ) == 58  ) {

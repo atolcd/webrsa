@@ -27,7 +27,7 @@ msgid "Statutrdv.code_statut"
 msgstr "Code du statut du RDV"
 
 msgid "Statutrdv.provoquepassagecommission"
-msgstr "Provoque un passage en commission ?"
+msgstr "Provoque une action de rendez-vous ?"
 
 msgid "Statutrdv.permetpassageepl"
 msgstr "Permet un passage en EPL Audition ?"

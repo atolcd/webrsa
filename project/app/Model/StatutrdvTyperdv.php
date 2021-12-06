@@ -35,14 +35,20 @@
 		public $validate = array(
 			'statutrdv_id' => array(
 				'checkUnique' => array(
-					'rule' => array( 'checkUnique', array( 'statutrdv_id', 'typerdv_id' ) ),
-					'message' => 'Ce statut est déjà utilisé avec ce type.'
+					'rule' => array( 'checkUnique', array( 'statutrdv_id', 'typerdv_id', 'typecommission' ) ),
+					'message' => 'Ce statut est déjà utilisé avec ce type et cette commission.'
 				)
 			),
 			'typerdv_id' => array(
 				'checkUnique' => array(
-					'rule' => array( 'checkUnique', array( 'statutrdv_id', 'typerdv_id' ) ),
-					'message' => 'Ce statut est déjà utilisé avec ce type.'
+					'rule' => array( 'checkUnique', array( 'statutrdv_id', 'typerdv_id', 'typecommission' ) ),
+					'message' => 'Ce statut est déjà utilisé avec ce type et cette commission.'
+				)
+			),
+			'typecommission' => array(
+				'checkUnique' => array(
+					'rule' => array( 'checkUnique', array( 'statutrdv_id', 'typerdv_id', 'typecommission' ) ),
+					'message' => 'Ce statut est déjà utilisé avec ce type et cette commission.'
 				)
 			)
 		);
@@ -63,5 +69,13 @@
 				'order' => ''
 			)
 		);
+
+		public function beforeSave( $options = array() ) {
+			if ($this->data['StatutrdvTyperdv']['typecommission'] == 'orientation') {
+				$this->data['StatutrdvTyperdv']['motifpassageep']= null;
+			}
+
+			return parent::beforeSave($options);
+		}
 	}
 ?>

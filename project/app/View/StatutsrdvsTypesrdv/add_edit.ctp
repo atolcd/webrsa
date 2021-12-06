@@ -14,3 +14,14 @@
 		)
 	);
 ?>
+<script type="text/javascript">
+	document.observe( "dom:loaded", function() {
+		observeDisableFieldsOnValue(
+			'StatutrdvTyperdvTypecommission',
+			['StatutrdvTyperdvMotifpassageep'],
+			['orientation'],
+			true,
+			false
+		);
+	});
+</script>

@@ -433,7 +433,7 @@ msgid "thematiquesrdvs/index"
 msgstr "Thématiques des rendez-vous"
 
 msgid "statutsrdvs_typesrdv/index"
-msgstr "Passages en commissions des rendez-vous"
+msgstr "Actions de rendez-vous"
 
 # ==============================================================================
 

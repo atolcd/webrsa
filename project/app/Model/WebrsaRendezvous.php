@@ -272,7 +272,9 @@
 				array(
 					'conditions' => array(
 						'StatutrdvTyperdv.typerdv_id' => $data['Rendezvous']['typerdv_id'],
-						'StatutrdvTyperdv.statutrdv_id' => $data['Rendezvous']['statutrdv_id']
+						'StatutrdvTyperdv.statutrdv_id' => $data['Rendezvous']['statutrdv_id'],
+						'StatutrdvTyperdv.typecommission' => array('ep', 'cov'),
+						'StatutrdvTyperdv.actif' => true,
 					),
 					'contain' => false
 				)
@@ -284,69 +286,8 @@
 
 			// 2. Existe-t'il suffisamment de rendez-vous précédents des mêmes types et statuts ?
 			$nbRdvPcd = ( $statutrdvtyperdv['StatutrdvTyperdv']['nbabsenceavantpassagecommission'] - 1 );
-
-			if( $nbRdvPcd > 0 ) {
-				$daterdv = $data['Rendezvous']['daterdv'];
-				if( is_array( $daterdv ) ) {
-					$daterdv = date_cakephp_to_sql( $daterdv );
-				}
-
-				$heurerdv = $data['Rendezvous']['heurerdv'];
-				if( is_array( $heurerdv ) ) {
-					$heurerdv = time_cakephp_to_sql( $heurerdv );
-				}
-
-				$query = array(
-					'fields' => array(
-						'Rendezvous.typerdv_id',
-						'Rendezvous.statutrdv_id'
-					),
-					'contain' => false,
-					'conditions' => array(
-						'Rendezvous.personne_id' => Hash::get( $data, 'Rendezvous.personne_id' )
-					),
-					'order' => array(
-						'Rendezvous.daterdv' => 'DESC',
-						'Rendezvous.heurerdv' => 'DESC',
-						'Rendezvous.id' => 'DESC'
-					),
-					'limit' => $nbRdvPcd
-				);
-
-				// Ici, le compteur à revoir...
-				$id = Hash::get( $data, "{$this->Rendezvous->alias}.{$this->Rendezvous->primaryKey}" );
-				$action = ( empty( $id ) ? 'add' : 'edit' );
-
-				if( $action === 'add' ) {
-					$query['conditions']["( Rendezvous.daterdv || ' ' || Rendezvous.heurerdv )::TIMESTAMP <"] = "{$daterdv} {$heurerdv}";
-				}
-				else {
-					$query['conditions'][] = array(
-						'OR' => array(
-							"( Rendezvous.daterdv || ' ' || Rendezvous.heurerdv )::TIMESTAMP <" => "{$daterdv} {$heurerdv}",
-							array(
-								"( Rendezvous.daterdv || ' ' || Rendezvous.heurerdv )::TIMESTAMP" => "{$daterdv} {$heurerdv}",
-								'Rendezvous.id <' => $id
-							)
-						)
-					);
-				}
-
-				$rdvs = $this->Rendezvous->find( 'all', $query );
-
-				$creation = ( count($rdvs) == $nbRdvPcd );
-				foreach( $rdvs as $rdv ) {
-					if(
-						( $rdv['Rendezvous']['typerdv_id'] != $data['Rendezvous']['typerdv_id'] )
-						|| ( $rdv['Rendezvous']['statutrdv_id'] != $data['Rendezvous']['statutrdv_id'] )
-					) {
-						$creation = false;
-					}
-				}
-
-				if( !$creation ) {
-					return false;
-				}
+			if( !$this->nombreRendezvousSuffisant($nbRdvPcd, $data) ) {
+				return false;
 			}
 
 			// 3. Existe-t'il déjà un passage en commission en cours pour la même raison ?
@@ -524,7 +465,7 @@
 				Configure::read( 'Cg.departement' ) == 58
 				&& !empty( $data['Rendezvous']['statutrdv_id'] )
 				&& $this->Rendezvous->Statutrdv->provoquePassageCommission( $data['Rendezvous']['statutrdv_id'] )
-				&& $this->passageEp( $data )
+				&& ($this->passageEp( $data ) || $this->orientationACreer($data))
 			);
 		}
 
@@ -536,8 +477,9 @@
 		 * @return type
 		 */
 		public function creePassageCommission( $data, $user_id ) {
-			$statutrdv_typerdv = $this->Rendezvous->Statutrdv->StatutrdvTyperdv->find(
-				'first',
+			$success = true;
+			$statutrdv_typerdv_list = $this->Rendezvous->Statutrdv->StatutrdvTyperdv->find(
+				'all',
 				array(
 					'conditions' => array(
 						'StatutrdvTyperdv.statutrdv_id' => $data['Rendezvous']['statutrdv_id'],
@@ -547,45 +489,84 @@
 				)
 			);
 
-			if( $statutrdv_typerdv['StatutrdvTyperdv']['typecommission'] == 'ep' ) {
-				$this->Rendezvous->Personne->Dossierep->clear();
-				$dossierep = array(
-					'Dossierep' => array(
-						'personne_id' => $data['Rendezvous']['personne_id'],
-						'themeep' => 'sanctionsrendezvouseps58'
-					)
-				);
-				$success = $this->Rendezvous->Personne->Dossierep->save( $dossierep , array( 'atomic' => false ) );
+			//On peut avoir plusieurs actions à effectuer
+			foreach ($statutrdv_typerdv_list as $statutrdv_typerdv){
 
-				$sanctionrendezvousep58 = array(
-					'Sanctionrendezvousep58' => array(
-						'dossierep_id' => $this->Rendezvous->Personne->Dossierep->id,
-						'rendezvous_id' =>  $data['Rendezvous']['id']
-					)
-				);
+				switch ($statutrdv_typerdv['StatutrdvTyperdv']['typecommission']) {
 
-				$success = $this->Rendezvous->Personne->Dossierep->Sanctionrendezvousep58->save( $sanctionrendezvousep58 , array( 'atomic' => false ) ) && $success;
-			}
-			else {
-				$themecov58_id = $this->Rendezvous->Propoorientsocialecov58->Dossiercov58->Themecov58->field( 'id', array( 'name' => 'proposorientssocialescovs58' ) );
-				$dossiercov58 = array(
-					'Dossiercov58' => array(
-						'personne_id' => $data['Rendezvous']['personne_id'],
-						'themecov58' => 'proposorientssocialescovs58',
-						'themecov58_id' => $themecov58_id,
-					)
-				);
-				$success = $this->Rendezvous->Personne->Dossiercov58->save( $dossiercov58 , array( 'atomic' => false ) );
+					case 'ep':
+						$this->Rendezvous->Personne->Dossierep->clear();
+						$dossierep = array(
+							'Dossierep' => array(
+								'personne_id' => $data['Rendezvous']['personne_id'],
+								'themeep' => 'sanctionsrendezvouseps58'
+							)
+						);
+						$success = $this->Rendezvous->Personne->Dossierep->save( $dossierep , array( 'atomic' => false ) ) && $success;
 
-				$propoorientsocialecov58 = array(
-					'Propoorientsocialecov58' => array(
-						'dossiercov58_id' => $this->Rendezvous->Propoorientsocialecov58->Dossiercov58->id,
-						'rendezvous_id' => $this->Rendezvous->id,
-						'user_id' => $user_id
-					)
-				);
+						$sanctionrendezvousep58 = array(
+							'Sanctionrendezvousep58' => array(
+								'dossierep_id' => $this->Rendezvous->Personne->Dossierep->id,
+								'rendezvous_id' =>  $data['Rendezvous']['id']
+							)
+						);
 
-				$success = $this->Rendezvous->Propoorientsocialecov58->save( $propoorientsocialecov58 , array( 'atomic' => false ) ) && $success;
+						$success = $this->Rendezvous->Personne->Dossierep->Sanctionrendezvousep58->save( $sanctionrendezvousep58 , array( 'atomic' => false ) ) && $success;
+						break;
+
+					case 'cov':
+						$themecov58_id = $this->Rendezvous->Propoorientsocialecov58->Dossiercov58->Themecov58->field( 'id', array( 'name' => 'proposorientssocialescovs58' ) );
+						$dossiercov58 = array(
+							'Dossiercov58' => array(
+								'personne_id' => $data['Rendezvous']['personne_id'],
+								'themecov58' => 'proposorientssocialescovs58',
+								'themecov58_id' => $themecov58_id,
+							)
+						);
+						$success = $this->Rendezvous->Personne->Dossiercov58->save( $dossiercov58 , array( 'atomic' => false ) ) && $success;
+
+						$propoorientsocialecov58 = array(
+							'Propoorientsocialecov58' => array(
+								'dossiercov58_id' => $this->Rendezvous->Propoorientsocialecov58->Dossiercov58->id,
+								'rendezvous_id' => $this->Rendezvous->id,
+								'user_id' => $user_id
+							)
+						);
+
+						$success = $this->Rendezvous->Propoorientsocialecov58->save( $propoorientsocialecov58 , array( 'atomic' => false ) ) && $success;
+						break;
+
+					case 'orientation':
+						// on crée une orientation
+						$referent = $this->Rendezvous->Personne->PersonneReferent->find(
+							'first',
+							array(
+								'conditions' => array(
+									'dfdesignation' => null,
+									'personne_id' => $data['Rendezvous']['personne_id']
+								)
+							)
+						);
+						$referent_id = $referent['Referent']['id'];
+						$structurereferente_id = $referent['Structurereferente']['id'];
+						$typeorient_id = $referent['Structurereferente']['typeorient_id'];
+						$date_du_jour = date('Y-m-d', time());
+						$orientation = array(
+							'Orientstruct' => array(
+								'personne_id' => $data['Rendezvous']['personne_id'],
+								'typeorient_id' => $typeorient_id ,
+								'structurereferente_id' => $structurereferente_id,
+								'referent_id' => $referent_id,
+								'statut_orient' => 'Orienté',
+								'date_propo' => $date_du_jour,
+								'date_valid' => $date_du_jour,
+								'origine' => 'manuelle'
+							)
+						);
+						$success = $this->Rendezvous->Personne->Orientstruct->save( $orientation , array( 'atomic' => false ) ) && $success;
+						break;
+
+				}
 			}
 
 			return $success;
@@ -742,4 +723,97 @@
 
 			return $sql;
 		}
-	}
+
+		public function orientationACreer($data){
+			// 1. Pour le type le statut du RDV que l'on enregistre, doit-on créer une orientation ?
+			$statutrdvtyperdv = $this->Rendezvous->Typerdv->StatutrdvTyperdv->find(
+				'first',
+				array(
+					'conditions' => array(
+						'StatutrdvTyperdv.typerdv_id' => $data['Rendezvous']['typerdv_id'],
+						'StatutrdvTyperdv.statutrdv_id' => $data['Rendezvous']['statutrdv_id'],
+						'StatutrdvTyperdv.typecommission' => array('orientation'),
+						'StatutrdvTyperdv.actif' => true
+					),
+					'contain' => false
+				)
+			);
+
+			if( empty( $statutrdvtyperdv ) ) {
+				return false;
+			}
+
+			// 2. Existe-t'il suffisamment de rendez-vous précédents des mêmes types et statuts ?
+			$nbRdvPcd = ( $statutrdvtyperdv['StatutrdvTyperdv']['nbabsenceavantpassagecommission'] - 1 );
+
+			return $this->nombreRendezvousSuffisant($nbRdvPcd, $data);
+
+		}
+
+		public function nombreRendezvousSuffisant($nbRdvPcd, $data){
+
+			if( $nbRdvPcd > 0 ) {
+				$daterdv = $data['Rendezvous']['daterdv'];
+				if( is_array( $daterdv ) ) {
+					$daterdv = date_cakephp_to_sql( $daterdv );
+				}
+
+				$heurerdv = $data['Rendezvous']['heurerdv'];
+				if( is_array( $heurerdv ) ) {
+					$heurerdv = time_cakephp_to_sql( $heurerdv );
+				}
+
+				$query = array(
+					'fields' => array(
+						'Rendezvous.typerdv_id',
+						'Rendezvous.statutrdv_id'
+					),
+					'contain' => false,
+					'conditions' => array(
+						'Rendezvous.personne_id' => Hash::get( $data, 'Rendezvous.personne_id' )
+					),
+					'order' => array(
+						'Rendezvous.daterdv' => 'DESC',
+						'Rendezvous.heurerdv' => 'DESC',
+						'Rendezvous.id' => 'DESC'
+					),
+					'limit' => $nbRdvPcd
+				);
+
+				// Ici, le compteur à revoir...
+				$id = Hash::get( $data, "{$this->Rendezvous->alias}.{$this->Rendezvous->primaryKey}" );
+				$action = ( empty( $id ) ? 'add' : 'edit' );
+
+				if( $action === 'add' ) {
+					$query['conditions']["( Rendezvous.daterdv || ' ' || Rendezvous.heurerdv )::TIMESTAMP <"] = "{$daterdv} {$heurerdv}";
+				}
+				else {
+					$query['conditions'][] = array(
+						'OR' => array(
+							"( Rendezvous.daterdv || ' ' || Rendezvous.heurerdv )::TIMESTAMP <" => "{$daterdv} {$heurerdv}",
+							array(
+								"( Rendezvous.daterdv || ' ' || Rendezvous.heurerdv )::TIMESTAMP" => "{$daterdv} {$heurerdv}",
+								'Rendezvous.id <' => $id
+							)
+						)
+					);
+				}
+
+				$rdvs = $this->Rendezvous->find( 'all', $query );
+
+				$creation = ( count($rdvs) == $nbRdvPcd );
+				foreach( $rdvs as $rdv ) {
+					if(
+						( $rdv['Rendezvous']['typerdv_id'] != $data['Rendezvous']['typerdv_id'] )
+						|| ( $rdv['Rendezvous']['statutrdv_id'] != $data['Rendezvous']['statutrdv_id'] )
+					) {
+						$creation = false;
+					}
+				}
+			} else {
+				return true;
+			}
+
+			return $creation;
+		}
+}

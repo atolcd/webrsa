@@ -38,7 +38,7 @@ msgid "StatutrdvTyperdv.name"
 msgstr "Intitulé EP"
 
 msgid "StatutrdvTyperdv.nbabsenceavantpassagecommission"
-msgstr "Nombre d'absences avant passage en commission"
+msgstr "Nombre d'absences"
 
 msgid "StatutrdvTyperdv.statutrdv_id"
 msgstr "Statut du RDV"
@@ -50,13 +50,16 @@ msgid "StatutrdvTyperdv.motifpassageep"
 msgstr "Motif de passage en commission"
 
 msgid "StatutrdvTyperdv.typecommission"
-msgstr "Type de commission"
+msgstr "Type d'action"
 
 msgid "ENUM::TYPECOMMISSION::cov"
 msgstr "COV"
 
 msgid "ENUM::TYPECOMMISSION::ep"
 msgstr "EP"
+
+msgid "ENUM::TYPECOMMISSION::orientation"
+msgstr "ORIENTATION"
 
 msgid "StatutrdvTyperdv.actif"
 msgstr "Actif"

@@ -80,7 +80,16 @@
 			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit' ) );
 
 			$options = $this->viewVars['options'];
-			$options['StatutrdvTyperdv']['statutrdv_id'] = $this->StatutrdvTyperdv->Statutrdv->find( 'list' );
+			//on affiche uniquement les statuts actifs qui peuvent provoquer une action
+			$options['StatutrdvTyperdv']['statutrdv_id'] = $this->StatutrdvTyperdv->Statutrdv->find(
+				 'list',
+				 array(
+					'conditions' => array(
+						'provoquepassagecommission' => '1',
+						'actif' => '1',
+					)
+				)
+			);
 			$options['StatutrdvTyperdv']['typerdv_id'] = $this->StatutrdvTyperdv->Typerdv->find( 'list' );
 			$this->set( compact( 'options' ) );
 		}
