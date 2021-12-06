@@ -613,5 +613,20 @@
 			return $recoursgracieux;
 		}
 
+		public function _getOrientationssansstructoutype(){
+
+			$this->loadModel('Orientstruct');
+			$query = array(
+				'conditions' => array(
+					'OR' => array(
+						'Orientstruct.structurereferente_id IS NULL',
+						'Orientstruct.typeorient_id IS NULL'
+					)
+				)
+			);
+
+			return $this->Orientstruct->find('all', $query);
+		}
+
 	}
 ?>

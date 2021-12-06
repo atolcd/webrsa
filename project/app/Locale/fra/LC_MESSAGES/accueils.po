@@ -56,6 +56,9 @@ msgstr "Actions"
 msgid "Accueil.action.voir"
 msgstr "Voir"
 
+msgid "Accueil.action.modifier"
+msgstr "Modifier"
+
 msgid "Accueil.referent"
 msgstr "Référent"
 
@@ -76,6 +79,15 @@ msgstr "Date d'affectation du dossier"
 
 msgid "Accueil.recoursgracieux.etatDepuis"
 msgstr "État"
+
+msgid "Accueil.beneficiaire"
+msgstr "Béneficiaire"
+
+msgid "Accueil.date.demande"
+msgstr "Date de demande"
+
+msgid "Accueil.date.orientation"
+msgstr "Date de l'orientation"
 
 msgid "since"
 msgstr " depuis le "
@@ -106,6 +118,9 @@ msgstr "Nombre d'adresses sans canton"
 msgid "Accueil.recourgracieux.titre"
 msgstr "Vos recours gracieux avec une Date butoir dans moins de __LIMITE__ jours"
 
+msgid "Accueil.orientationssansstructoutype.titre"
+msgstr "Les orientations sans structure référente ou sans type d'orientation"
+
 # Aucune donnée ================================================================
 
 msgid "Accueil.article.aucun"
@@ -125,6 +140,9 @@ msgstr "Vous n'avez aucun allocataire en droit ouvert et versable ayant comme de
 
 msgid "Accueil.canton.aucun"
 msgstr "Vous n'avez aucun canton avec un nom de canton vide"
+
+msgid "Accueil.orientationssansstructoutype.aucun"
+msgstr "Il n'y aucune orientation sans structure référente ou sans type d'orientation"
 
 # Libellé référent / structure référente / groupe utilisateur ================================================================
 
