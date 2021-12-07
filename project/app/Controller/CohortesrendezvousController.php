@@ -121,7 +121,7 @@
 			$query = ConfigurableQueryFields::getFieldsByKeys( $fieldsConfigureKeys, $query );
 
 			$query['limit'] = 10;
-			$query['conditions'][] = array( 'Rendezvous.structurereferente_id' => $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'ids' ) ) );
+			$query['conditions'][] = array( 'Rendezvous.structurereferente_id' => $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'ids' ), true ) );
 
 			return $query;
 		}
@@ -137,10 +137,12 @@
 		protected function _getOptions( array $params = array() ) {
 			$params += array( 'find' => true, 'allocataires' => true, 'ajax' => false );
 			$result = $this->Rendezvous->enums();
-
 			if( $params['allocataires'] === true ) {
 				$result = Hash::merge( $result, $this->Allocataires->options() );
 			}
+
+			//on restreint les structures référentes dans le cas du cloisonnement
+			$result['PersonneReferent']['structurereferente_id'] = $this->InsertionsBeneficiaires->structuresreferentes( array('type' => 'optgroup', 'prefix' => false), true );
 
 			if( $params['find'] === true ) {
 				$result = Hash::merge(
@@ -153,7 +155,6 @@
 						)
 					)
 				);
-
 				if( $params['ajax'] === false && Configure::read( 'Rendezvous.useThematique' ) === true ) {
 					$result['RendezvousThematiquerdv']['thematiquerdv_id'] = $this->Rendezvous->Thematiquerdv->find( 'list', array( 'fields' => array( 'Thematiquerdv.id', 'Thematiquerdv.name', 'Thematiquerdv.typerdv_id' ) ) );
 				}

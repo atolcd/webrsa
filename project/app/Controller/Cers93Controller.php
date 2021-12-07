@@ -481,7 +481,7 @@
 			// Options
 			$options = array(
 				'Contratinsertion' => array(
-					'structurereferente_id' => $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'optgroup', 'prefix' => false ) ),
+					'structurereferente_id' => $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'optgroup', 'prefix' => false ), true ),
 					'referent_id' => $this->Cer93->Contratinsertion->Referent->WebrsaReferent->listOptions()
 				),
 				'Prestation' => array(

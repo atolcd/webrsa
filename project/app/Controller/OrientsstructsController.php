@@ -729,7 +729,8 @@
 						'conditions' => array( 'Structurereferente.orientation' => 'O' )
 							+ $this->InsertionsBeneficiaires->conditions['structuresreferentes'],
 						'prefix' => false
-					)
+					),
+					true
 				);
 				$options['Orientstruct']['referentorientant_id'] = $this->InsertionsBeneficiaires->referents();
 
