@@ -65,6 +65,9 @@
 <script type="text/javascript">
 
 	document.observe("dom:loaded", function() {
+		//On désactive le bouton d'enregistrement au chargement de la page
+		document.querySelector('input[value="Enregistrer"]').disabled = true;
+
 		// Dépendance des champs
 		dependantSelect( 'CohortePersonneReferentReferentId', 'CohortePersonneReferentStructurereferenteId' );
 		document.querySelectorAll('table.referents.cohorte_ajout > tbody > tr').forEach( function(el, ind) {
@@ -73,8 +76,10 @@
 		});
 
 		// Vérification de la possibilité d'enregistrer
-		document.querySelectorAll('input[type="checkbox"]').addEventListener('change', function() {
-			checkSaveButton();
+		document.querySelectorAll('input[type="checkbox"]').forEach( (checkbox) => {
+			checkbox.addEventListener('change', function() {
+				checkSaveButton();
+			});
 		});
 	});
 
