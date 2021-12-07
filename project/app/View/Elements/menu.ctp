@@ -181,6 +181,10 @@
 				__d( 'referent', 'Referent.Cohorte.Ajout' ) => array(
 					'class' => 'search',
 					'url' => array( 'controller' => 'referents', 'action' => 'cohorte_ajout' )
+				),
+				__d( 'referent', 'Referent.Cohorte.Modif' ) => array(
+					'class' => 'search',
+					'url' => array( 'controller' => 'referents', 'action' => 'cohorte_modif' )
 				)
 			),
 			__d( 'planpauvrete', 'Planpauvrete.Planpauvrete.Menu' ) => array(

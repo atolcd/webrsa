@@ -42,6 +42,7 @@
 					'index',
 					'clotureenmasse',
 					'cohorte_ajout',
+					'cohorte_modif',
 				),
 			),
 			'WebrsaParametrages',
@@ -91,7 +92,8 @@
 		 */
 		public $aucunDroit = array(
 			'ajax_getreferent',
-			'exportcsv_ajout'
+			'exportcsv_ajout',
+			'exportcsv_modif'
 		);
 
 		/**
@@ -106,6 +108,7 @@
 			'clotureenmasse' => 'read',
 			'cloturer' => 'read',
 			'cohorte_ajout' => 'update',
+			'cohorte_modif' => 'update',
 			'delete' => 'delete',
 			'edit' => 'update',
 			'index' => 'read',
@@ -345,6 +348,33 @@
 				array(
 					'modelName' => 'Personne',
 					'modelRechercheName' => 'WebrsaCohorteReferentAjout',
+				)
+			);
+		}
+
+		/**
+		 * Cohorte de modification de référents
+		 */
+		public function cohorte_modif() {
+			$Cohorte = $this->Components->load( 'WebrsaCohortesReferents' );
+			$Cohorte->cohorte (
+				array
+				(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohorteReferentModif',
+				)
+			);
+		}
+
+		/**
+		 * Export CSV de la Cohorte de modification de référents
+		 */
+		public function exportcsv_modif() {
+			$Cohortes = $this->Components->load( 'WebrsaCohortesReferents' );
+			$Cohortes->exportcsv(
+				array(
+					'modelName' => 'Personne',
+					'modelRechercheName' => 'WebrsaCohorteReferentModif',
 				)
 			);
 		}

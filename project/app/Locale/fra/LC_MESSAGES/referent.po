@@ -100,3 +100,6 @@ msgstr "Référents"
 
 msgid "Referent.Cohorte.Ajout"
 msgstr "Ajout de référents"
+
+msgid "Referent.Cohorte.Modif"
+msgstr "Modification de référents"

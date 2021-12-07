@@ -16,6 +16,9 @@ msgstr "Ajout d'un référent"
 msgid "/Referents/edit/:heading"
 msgstr "Modification du référent « #Referent.qual# #Referent.nom# #Referent.prenom# »"
 
+msgid "/Referents/cohorte_modif/:heading"
+msgstr "Modification de référents"
+
 msgid "/Referents/cohorte_ajout/:heading"
 msgstr "Ajout de référents"
 

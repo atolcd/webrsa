@@ -35,6 +35,25 @@ INSERT INTO public.configurations(lib_variable, value_variable, comments_variabl
 SELECT 'Module.Sectorisation.enabled', 'false', 'Permet à l''administrateur d''ajouter un ou des réferent(s) sectorisation à un utilisateur. @default false',  current_timestamp, current_timestamp
 WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.Sectorisation.enabled');
 
+-- Ajout de la catégorie de configuration "reférent"
+INSERT INTO configurationscategories (lib_categorie) SELECT 'Referents'
+WHERE NOT EXISTS (SELECT id FROM configurationscategories WHERE lib_categorie = 'Referents');
+
+-- Ajout de la configuration pour la cohorte d'ajout de référents
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'ConfigurableQuery.Referents.cohorte_ajout', '{"filters":{"defaults":{"Dossier":{"dernier":1}},"accepted":[],"skip":["Calculdroitrsa.toppersdrodevorsa","Dossier.dtdemrsa","Detaildroitrsa.oridemrsa","Foyer.sitfam","Situationdossierrsa.etatdosrsa","Serviceinstructeur.id","Suiviinstruction.typeserins","PersonneReferent.structurereferente_id","PersonneReferent.referent_id","Prestation.rolepers","Personne.dtnai","Personne.dtnai_month","Personne.dtnai_year","Personne.nir","Personne.sexe","Personne.trancheage","ByTag.tag_choice"],"has":[]},"query":{"restrict":[],"conditions":[],"order":["Personne.id"]},"limit":10,"auto":false,"results":{"header":[],"fields":{"Dossier.numdemrsa":[],"Dossier.matricule":[],"Personne.nom_complet_prenoms":[],"Adresse.complete":[],"Canton.canton":[],"/Dossiers/view/#Dossier.id#":{"class":"view external"}},"innerTable":[]},"ini_set":[]}', 'Configuration de la cohorte d''ajout de référents',  current_timestamp, current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'ConfigurableQuery.Referents.cohorte_ajout');
+
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'Referents' AND configurations.lib_variable LIKE 'ConfigurableQuery.Referents.cohorte_ajout';
+
+-- Ajout de la configuration pour l'export CSV de la cohorte d'ajout de référents
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'ConfigurableQuery.Referents.exportcsv_ajout', '{"filters":{"defaults":{"Dossier":{"dernier":1}},"accepted":[],"skip":["Calculdroitrsa.toppersdrodevorsa","Dossier.dtdemrsa","Detaildroitrsa.oridemrsa","Foyer.sitfam","Situationdossierrsa.etatdosrsa","Serviceinstructeur.id","Suiviinstruction.typeserins","PersonneReferent.structurereferente_id","PersonneReferent.referent_id","Prestation.rolepers","Personne.dtnai","Personne.dtnai_month","Personne.dtnai_year","Personne.nir","Personne.sexe","Personne.trancheage","ByTag.tag_choice"],"has":[]},"query":{"restrict":[],"conditions":[],"order":["Personne.id"]},"auto":false,"results":{"header":[],"fields":{"Dossier.numdemrsa":[],"Dossier.matricule":[],"Personne.nom_complet_prenoms":[],"Adresse.complete":[],"Canton.canton":[]},"innerTable":[]},"ini_set":[]}', 'Configuration de l''export CSV de la cohorte d''ajout de référents',  current_timestamp, current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'ConfigurableQuery.Referents.exportcsv_ajout');
+
 UPDATE public.configurations
 SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
@@ -45,6 +64,27 @@ WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_v
 ALTER TABLE structuresreferentes
 ADD COLUMN IF NOT EXISTS actif_sectorisation bool NULL DEFAULT true;
 
+WHERE configurationscategories.lib_categorie = 'Referents' AND configurations.lib_variable LIKE 'ConfigurableQuery.Referents.exportcsv_ajout';
+
+-- Ajout de la configuration pour la cohorte de modification de référent
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'ConfigurableQuery.Referents.cohorte_modif', '{"filters":{"defaults":{"Dossier":{"dernier":1}},"accepted":[],"skip":["Calculdroitrsa.toppersdrodevorsa","Dossier.dtdemrsa","Detaildroitrsa.oridemrsa","Foyer.sitfam","Situationdossierrsa.etatdosrsa","Serviceinstructeur.id","Suiviinstruction.typeserins","PersonneReferent.structurereferente_id","PersonneReferent.referent_id","Prestation.rolepers","Personne.dtnai","Personne.dtnai_month","Personne.dtnai_year","Personne.nir","Personne.sexe","Personne.trancheage","ByTag.tag_choice"],"has":[]},"query":{"restrict":[],"conditions":[],"order":["Personne.id"]},"limit":10,"auto":false,"results":{"header":[],"fields":{"Dossier.numdemrsa":[],"Dossier.matricule":[],"Personne.nom_complet_prenoms":[],"Adresse.complete":[],"Canton.canton":[],"/Dossiers/view/#Dossier.id#":{"class":"view external"}},"innerTable":[]},"ini_set":[]}', 'Configuration de la cohorte de modification de référents',  current_timestamp, current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'ConfigurableQuery.Referents.cohorte_modif');
+
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'Referents' AND configurations.lib_variable LIKE 'ConfigurableQuery.Referents.cohorte_modif';
+
+-- Ajout de la configuration pour l'export CSV de la cohorte de modification de référents
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'ConfigurableQuery.Referents.exportcsv_modif', '{"filters":{"defaults":{"Dossier":{"dernier":1}},"accepted":[],"skip":["Calculdroitrsa.toppersdrodevorsa","Dossier.dtdemrsa","Detaildroitrsa.oridemrsa","Foyer.sitfam","Situationdossierrsa.etatdosrsa","Serviceinstructeur.id","Suiviinstruction.typeserins","PersonneReferent.structurereferente_id","PersonneReferent.referent_id","Prestation.rolepers","Personne.dtnai","Personne.dtnai_month","Personne.dtnai_year","Personne.nir","Personne.sexe","Personne.trancheage","ByTag.tag_choice"],"has":[]},"query":{"restrict":[],"conditions":[],"order":["Personne.id"]},"auto":false,"results":{"header":[],"fields":{"Dossier.numdemrsa":[],"Dossier.matricule":[],"Personne.nom_complet_prenoms":[],"Adresse.complete":[],"Canton.canton":[]},"innerTable":[]},"ini_set":[]}', 'Configuration de l''export CSV de la cohorte de modification de référents',  current_timestamp, current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'ConfigurableQuery.Referents.exportcsv_modif');
+
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'Referents' AND configurations.lib_variable LIKE 'ConfigurableQuery.Referents.exportcsv_modif';
 
 -- *****************************************************************************
 COMMIT;

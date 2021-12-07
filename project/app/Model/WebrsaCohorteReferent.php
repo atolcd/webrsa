@@ -102,11 +102,19 @@
 		 */
 		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
 			$saveData = array();
+			$clotures = array();
 			foreach( $data as $key => $value ) {
 				if($value['PersonneReferent']['selection'] == 1) {
 					// Récupération de l'id du référent
 					$idReferent = explode('_', $value['PersonneReferent']['referent_id'])[1];
 
+					// Si nous récupérons un id de personnereferent, on doit mettre une date de fin d'attribution
+					if(isset($value['PersonneReferent']['id'])) {
+						$clotures[] = array(
+							'id' => $value['PersonneReferent']['id'],
+							'dfdesignation' => date_cakephp_to_sql($value['PersonneReferent']['dddesignation'])
+						);
+					}
 					$saveData[] = array(
 						'personne_id' => $value['Personne']['id'],
 						'structurereferente_id' => $value['PersonneReferent']['structurereferente_id'],
@@ -116,7 +124,12 @@
 				}
 			}
 
-			$success = $this->PersonneReferent->saveMany($saveData);
+			$success = true;
+			if(isset($clotures)) {
+				$success = $this->PersonneReferent->saveMany($clotures);
+			}
+
+			$success = $this->PersonneReferent->saveMany($saveData) && $success;
 
 			return $success;
 		}
