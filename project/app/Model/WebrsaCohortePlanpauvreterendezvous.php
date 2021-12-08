@@ -359,14 +359,16 @@
 			}
 
 			// Tentative de sauvegarde s'il y a des personnes à sauvegarder
-			$this->Orientstruct->begin();
-			$success = !empty($dataToSave) && $this->Orientstruct->saveMany($dataToSave, array('atomic' => false)) && $success;
-
-			if( $success ) {
-				$this->Orientstruct->commit();
-			} else {
-				$this->Orientstruct->rollback();
+			if(!empty($dataToSave)){
+				$this->Orientstruct->begin();
+				$success = $this->Orientstruct->saveMany($dataToSave, array('atomic' => false)) && $success;
+				if($success) {
+					$this->Orientstruct->commit();
+				} else {
+					$this->Orientstruct->rollback();
+				}
 			}
+
 			return $success;
 		}
 
