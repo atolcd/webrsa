@@ -35,6 +35,11 @@ INSERT INTO public.configurations(lib_variable, value_variable, comments_variabl
 SELECT 'Module.Sectorisation.enabled', 'false', 'Permet à l''administrateur d''ajouter un ou des réferent(s) sectorisation à un utilisateur. @default false',  current_timestamp, current_timestamp
 WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.Sectorisation.enabled');
 
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Module.Sectorisation.enabled';
+
 -- Ajout de la catégorie de configuration "reférent"
 INSERT INTO configurationscategories (lib_categorie) SELECT 'Referents'
 WHERE NOT EXISTS (SELECT id FROM configurationscategories WHERE lib_categorie = 'Referents');
@@ -57,14 +62,11 @@ WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Configu
 UPDATE public.configurations
 SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
-WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Module.Sectorisation.enabled';
-
+WHERE configurationscategories.lib_categorie = 'Referents' AND configurations.lib_variable LIKE 'ConfigurableQuery.Referents.exportcsv_ajout';
 
 -- Ajout d'une colonne pour activer ou non la sectorisation sur chaque structure référente
 ALTER TABLE structuresreferentes
 ADD COLUMN IF NOT EXISTS actif_sectorisation bool NULL DEFAULT true;
-
-WHERE configurationscategories.lib_categorie = 'Referents' AND configurations.lib_variable LIKE 'ConfigurableQuery.Referents.exportcsv_ajout';
 
 -- Ajout de la configuration pour la cohorte de modification de référent
 INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
@@ -98,7 +100,8 @@ CREATE TABLE IF NOT EXISTS public.categoriesutilisateurs (
 
 -- Ajout de la colonne catégorie d'utilisateur dans la table users
 ALTER TABLE public.users ADD COLUMN IF NOT EXISTS categorieutilisateur_id int4 NULL;
-ALTER TABLE public.users ADD CONSTRAINT IF NOT EXISTS users_categorieutilisateur_id_fk FOREIGN KEY (categorieutilisateur_id) REFERENCES public.categoriesutilisateurs(id);
+ALTER TABLE public.users DROP CONSTRAINT IF EXISTS users_categorieutilisateur_id_fk;
+ALTER TABLE public.users ADD CONSTRAINT users_categorieutilisateur_id_fk FOREIGN KEY (categorieutilisateur_id) REFERENCES public.categoriesutilisateurs(id);
 
 
 -- *****************************************************************************
