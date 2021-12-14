@@ -24,21 +24,22 @@
         );
 
         public function addConditionReferents($query){
-            $query['fields']['Personne.id'] = "Personne.id";
             $referents_user = $this->Session->read( 'Auth.ReferentsSectorisation' );
-            $query['conditions'][] =
-                "(
-                    select r.id
-                    from personnes p
-                        join personnes_referents pr on p.id = pr.personne_id
-                        join referents r on r.id = pr.referent_id
-                        join structuresreferentes s on s.id = r.structurereferente_id
-                    where s.actif_sectorisation = true
-                        and p.id = Personne.id
-                    order by pr.dddesignation desc
-                    limit 1
-                )
-                IN ($referents_user)";
+            if($referents_user){
+                $query['conditions'][] =
+                    "(
+                        select r.id
+                        from personnes p
+                            join personnes_referents pr on p.id = pr.personne_id
+                            join referents r on r.id = pr.referent_id
+                            join structuresreferentes s on s.id = r.structurereferente_id
+                        where s.actif_sectorisation = true
+                            and p.id = Personne.id
+                        order by pr.dddesignation desc
+                        limit 1
+                    )
+                    IN ($referents_user)";
+            }
 
             return $query;
         }
