@@ -53,7 +53,7 @@ msgid "User.nb_error_password"
 msgstr "Nombre de tentatives de connexion"
 
 msgid "User::Referent::Checkbox"
-msgstr "Afficher les référents sectorisation"
+msgstr "Restreindre par référent"
 
 msgid "User::Referent::Title"
 msgstr "Réferent sectorisation"
