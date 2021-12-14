@@ -59,7 +59,7 @@
 		'Structurereferente.dreesorganisme_id' => array( 'empty' => true ),
 	);
 	if(Configure::read('Module.Sectorisation.enabled')){
-		$array['Structurereferente.actif_sectorisation'] = array( 'type' => 'select');
+		$array['Structurereferente.actif_sectorisation'] = array( 'type' => 'select', 'default'=>1);
 	}
 	echo $this->Html->tag(
 		'fieldset',
