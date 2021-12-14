@@ -2205,10 +2205,10 @@ msgid "controllers/Referents/clotureenmasse"
 msgstr "Cohortes de Clôture en masse des référents (CD 93)"
 
 msgid "controllers/Referents/cohorte_ajout"
-msgstr "Cohorte d'ajout de référent"
+msgstr "Cohorte d'ajout de référents"
 
 msgid "controllers/Referents/cohorte_modif"
-msgstr "Cohorte de modification de référent"
+msgstr "Cohorte de modification de référents"
 
 ###############################################################################
 
