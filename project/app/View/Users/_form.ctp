@@ -56,9 +56,11 @@
 	<?php echo $this->Form->input( 'Zonegeographique.Zonegeographique', array( 'label' => false, 'multiple' => 'checkbox' , 'options' => $zglist ) );?>
 </fieldset>
 
-<?php if($choix_referent_sectorisation_actif) {?>
+<?php if($choix_referent_sectorisation_actif) {
+	$refChecked = isset($this->request->data['Referent'][0]) ? 'checked' : '';
+?>
 <div class="input checkbox">
-	<input type="checkbox" value="1" id="checkbox_referents_sectorisation" />
+	<input type="checkbox" value="1" id="checkbox_referents_sectorisation" <?php echo $refChecked ?>  />
 	<label for="checkbox_referents_sectorisation"><?php echo __m("User::Referent::Checkbox") ?></label>
 </div>
 <fieldset class="col2" id="referents_sectorisation">

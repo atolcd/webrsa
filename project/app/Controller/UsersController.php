@@ -672,7 +672,9 @@
 				$this->request->data['User']['date_password'] = date("Y-m-d H:i:s");
 
 				$this->request->data = $this->WebrsaPermissions->getCompletedPermissions( $this->request->data );
-
+				if(!isset($this->request->data['Referent']['Referent'])) {
+					$this->request->data['Referent']['Referent'] = '';
+				}
 				$this->User->begin();
 				$this->User->create( $this->request->data );
 				if ($this->User->save( null, array( 'atomic' => false ) )
