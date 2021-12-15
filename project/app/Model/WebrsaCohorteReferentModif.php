@@ -62,6 +62,35 @@
 			$query = parent::searchQuery( $types );
 
 			$query['fields']['PersonneReferent.id'] = 'PersonneReferent.id';
+			foreach ($query['joins'] as $key => $join){
+				if($join['alias'] == 'PersonneReferent'){
+					$query['joins'][$key]['type'] = 'INNER';
+					$query['joins'][$key]['conditions'] = '
+						"PersonneReferent"."personne_id" = "Personne"."id"
+						AND "PersonneReferent"."id" IN (
+							SELECT "personnes_referents"."id"
+							FROM personnes_referents
+							WHERE
+								"personnes_referents"."personne_id" = "Personne"."id"
+							ORDER BY
+								"personnes_referents"."dddesignation" DESC,
+								"personnes_referents"."id" DESC
+							LIMIT 1
+						)';
+				}
+			}
+			// Tri des joins pour mettre les INNER en premier
+			$innerList = array();
+			$leftList = array();
+			foreach($query['joins'] as $key => $join) {
+				if(strpos($join['type'], 'INNER') !== false) {
+					$innerList[] = $join;
+				} else {
+					$leftList[] = $join;
+				}
+			}
+			$query['joins'] = array_merge($innerList, $leftList);
+
 			return $query;
 		}
 
