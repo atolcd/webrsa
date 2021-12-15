@@ -69,6 +69,20 @@
 		 * @return array
 		 */
 		public function searchQuery( array $types = array(), $baseModelName = 'Personne', $forceBeneficiaire = true ) {
+			$types += array(
+				'Prestation' => 'LEFT OUTER',
+				'Calculdroitrsa' => 'LEFT OUTER',
+				'Dsp' => 'LEFT OUTER',
+				'Dossier' => 'INNER',
+				'Suiviinstruction' => 'LEFT OUTER',
+				'Adressefoyer' => 'LEFT OUTER',
+				'Adresse' => 'LEFT OUTER',
+				'Orientstruct' => 'INNER',
+				'Typeorient' => 'LEFT OUTER',
+				'Structurereferente' => 'LEFT OUTER',
+				'Detaildroitrsa' => 'LEFT OUTER',
+				'Situationdossierrsa' => 'LEFT OUTER'
+			);
 			$query = parent::searchQuery( $types, $baseModelName, $forceBeneficiaire );
 
 			// Ajout des champs / jointures liées aux structures orientantes
@@ -104,6 +118,19 @@
 					)
 				)
 			);
+
+			// Tri des joins pour mettre les INNER en premier
+			$innerList = array();
+			$leftList = array();
+			foreach($query['joins'] as $key => $join) {
+				if(strpos($join['type'], 'INNER') !== false) {
+					$innerList[] = $join;
+				} else {
+					$leftList[] = $join;
+				}
+			}
+
+			$query['joins'] = array_merge($innerList, $leftList);
 
 			return $query;
 		}
