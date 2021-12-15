@@ -61,6 +61,15 @@
 		public function searchConditions( array $query, array $search ) {
 			$query = parent::searchConditions( $query, $search );
 
+			// Modification de la jointure de PersonneReferent
+			foreach($query['joins'] as $key => $join) {
+				if($join['alias'] == 'PersonneReferent') {
+					$query['joins'][$key]['conditions'] = array(
+						'"PersonneReferent"."personne_id" = "Personne"."id"'
+					);
+				}
+			}
+
 			// Ajout de la condition pour ne pas avoir de référent
 			$query['conditions'][] = array( 'Referentparcours.id IS NULL' );
 
