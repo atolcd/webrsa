@@ -547,22 +547,22 @@
 								)
 							)
 						);
-						$referent_id = $referent['Referent']['id'];
-						$structurereferente_id = $referent['Structurereferente']['id'];
-						$typeorient_id = $referent['Structurereferente']['typeorient_id'];
 						$date_du_jour = date('Y-m-d', time());
-						$orientation = array(
-							'Orientstruct' => array(
-								'personne_id' => $data['Rendezvous']['personne_id'],
-								'typeorient_id' => $typeorient_id ,
-								'structurereferente_id' => $structurereferente_id,
-								'referent_id' => $referent_id,
-								'statut_orient' => 'Orienté',
-								'date_propo' => $date_du_jour,
-								'date_valid' => $date_du_jour,
-								'origine' => 'manuelle'
-							)
+						$orientation['Orientstruct'] = array(
+							'personne_id' => $data['Rendezvous']['personne_id'],
+							'statut_orient' => 'Orienté',
+							'date_propo' => $date_du_jour,
+							'date_valid' => $date_du_jour,
+							'origine' => 'manuelle'
 						);
+						if(!empty($referent)){
+							$referent_id = $referent['Referent']['id'];
+							$structurereferente_id = $referent['Structurereferente']['id'];
+							$typeorient_id = $referent['Structurereferente']['typeorient_id'];
+							$orientation['Orientstruct']['typeorient_id'] = $typeorient_id;
+							$orientation['Orientstruct']['structurereferente_id'] = $structurereferente_id;
+							$orientation['Orientstruct']['referent_id'] = $referent_id;
+						}
 						$success = $this->Rendezvous->Personne->Orientstruct->save( $orientation , array( 'atomic' => false ) ) && $success;
 						break;
 
