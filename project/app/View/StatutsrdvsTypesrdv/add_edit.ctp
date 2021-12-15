@@ -9,7 +9,7 @@
 				'StatutrdvTyperdv.nbabsenceavantpassagecommission',
 				'StatutrdvTyperdv.typecommission' => array( 'empty' => true ),
 				'StatutrdvTyperdv.motifpassageep' => array( 'type' => 'text' ),
-				'StatutrdvTyperdv.actif'
+				'StatutrdvTyperdv.actif' => array('default' => 1)
 			)
 		)
 	);
