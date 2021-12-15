@@ -99,7 +99,6 @@
 					$leftList[] = $join;
 				}
 			}
-
 			$query['joins'] = array_merge($innerList, $leftList);
 
 			return $query;
