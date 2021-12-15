@@ -125,7 +125,7 @@
 			}
 
 			$success = true;
-			if(isset($clotures)) {
+			if(!empty($clotures)) {
 				$success = $this->PersonneReferent->saveMany($clotures);
 			}
 
