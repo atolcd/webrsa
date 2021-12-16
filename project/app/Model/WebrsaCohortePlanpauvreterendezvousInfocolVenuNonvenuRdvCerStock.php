@@ -105,18 +105,8 @@
 		 */
 		public function saveCohorte( array $data, array $params = array(), $user_id = null ) {
 			$params['nom_cohorte'] = 'cohorte_infocol_rdv_cer_venu_nonvenu_stock';
-
 			$success = parent::saveCohorte($data, $params, $user_id);
-			if ( $success ) {
-				$this->loadModel('Rendezvous');
-				$Controller = new RendezvousController();
-				$this->Session = $Controller->Components->load('Session');
-				foreach( $data as $value ) {
-					if( $value['Rendezvous']['selection'] === '1' && $this->Rendezvous->WebrsaRendezvous->provoquePassageCommission( $value ) ) {
-						$success = $this->Rendezvous->WebrsaRendezvous->creePassageCommission( $value, $this->Session->read( 'Auth.User.id' ) ) && $success;
-					}
-				}
-			}
+
 			return $success;
 		}
 
