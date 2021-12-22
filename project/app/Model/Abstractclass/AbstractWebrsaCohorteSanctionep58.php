@@ -140,6 +140,7 @@
 
 				// 1. Ajout des champs supplémentaires
 				$query['fields'] = array_merge(
+					array('DISTINCT Personne.id'),
 					$query['fields'],
 					ConfigurableQueryFields::getModelsFields(
 						array(
@@ -155,7 +156,6 @@
 						)
 					),
 					array(
-						'Personne.id',
 						'Dossier.id',
 						'Historiqueetatpe.id',
 						'Orientstruct.id',
