@@ -712,7 +712,7 @@
 				$this->Rendezvous->enums(),
 				array(
 					'Rendezvous' => array(
-						'structurereferente_id' => $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'optgroup', 'prefix' => false ), true ),
+						'structurereferente_id' => $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'optgroup', 'prefix' => false ) ),
 						'referent_id' => $this->InsertionsBeneficiaires->referents(),
 						'permanence_id' => $this->Rendezvous->Permanence->listOptions(),
 						'typerdv_id' => $this->Rendezvous->Typerdv->find( 'list', array( 'conditions' => array('Typerdv.actif_dossier' => true) ) ),

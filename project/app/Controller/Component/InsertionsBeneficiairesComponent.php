@@ -388,19 +388,9 @@
 		 * @param array $options
 		 * @return array
 		 */
-		public function structuresreferentes( $options = array( ), $structurereferente_user = false ) {
+		public function structuresreferentes( $options = array( ) ) {
 			$departement = Configure::read( 'Cg.departement' );
 			$options = $this->options( __FUNCTION__, $options );
-
-			if(
-				$departement == 93
-				&& $structurereferente_user
-				&& in_array($this->Session->read('Auth.User.type'), ['externe_ci','externe_cpdv', 'externe_secretaire'])
-				&& Configure::read('Module.Cloisonnement.enabled')
-			){
-				$structurereferente_id = $this->WebrsaUsers->structuresreferentes();
-				$options['conditions']['Structurereferente.id'] = $structurereferente_id;
-			}
 
 			if( $departement == 93 && $this->Session->read( 'Auth.User.filtre_zone_geo' ) !== false ) {
 				$options['conditions'][] = $this->_sqStructurereferenteZonesgeographiques93();
