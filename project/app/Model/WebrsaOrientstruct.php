@@ -81,7 +81,7 @@
 					}
 				}
 
-				if( $departement == 66 ) {
+				if( $departement == 66 || Configure::read('Orientation.validation.enabled')) {
 					if( !empty( $data[$this->Orientstruct->alias]['structureorientante_id'] ) && !empty( $data[$this->Orientstruct->alias]['referentorientant_id'] ) ) {
 						$data[$this->Orientstruct->alias]['referentorientant_id'] = "{$data[$this->Orientstruct->alias]['structureorientante_id']}_{$data[$this->Orientstruct->alias]['referentorientant_id']}";
 					}
@@ -164,6 +164,7 @@
 			$personne_id = Hash::get( $data, "{$this->Orientstruct->alias}.personne_id" );
 			$typeorient_id = Hash::get( $data, "{$this->Orientstruct->alias}.typeorient_id" );
 			$referent_id = suffix( Hash::get( $data, "{$this->Orientstruct->alias}.referent_id" ) );
+
 
 			$origine = Hash::get( $data, "{$this->Orientstruct->alias}.origine" );
 			if( empty( $origine ) ) {
