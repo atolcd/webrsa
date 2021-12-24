@@ -42,6 +42,10 @@
 		 */
 		public $validate = array(
 			'referent_id' => array(
+				NOT_BLANK_RULE_NAME => array(
+					'rule' => array( NOT_BLANK_RULE_NAME ),
+					'message' => 'Champ obligatoire'
+				),
 				'checkReferentUnique' => array(
 					'rule' => array( 'checkReferentUnique' ),
 					'message' => 'Le bénéficiaire possède déjà un référent unique, merci de le clôturer avant d\'en ajouter un nouveau',

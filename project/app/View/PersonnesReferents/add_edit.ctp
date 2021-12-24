@@ -29,7 +29,7 @@
 			echo $this->Xform->input( 'PersonneReferent.personne_id', array( 'type' => 'hidden', 'value' => $personne_id ) );
 
 			echo $this->Xform->input( 'PersonneReferent.structurereferente_id', array( 'label' => required( $departement == 93 ? 'Structure de suivi' : 'Structure référente' ), 'type' => 'select' , 'options' => $options['PersonneReferent']['structurereferente_id'], 'empty' => true ) );
-			echo $this->Xform->input( 'PersonneReferent.referent_id', array( 'label' => required( $departement == 93 ? 'Personne chargée du suivi' : 'Référents' ), 'type' => 'select' , 'options' => $options['PersonneReferent']['referent_id'], 'empty' => true ) );
+			echo $this->Xform->input( 'PersonneReferent.referent_id', array( 'label' => required( $departement == 93 ? 'Personne chargée du suivi' : 'Référent' ), 'type' => 'select' , 'options' => $options['PersonneReferent']['referent_id'], 'empty' => true ) );
 
 			echo $this->Xform->input( 'PersonneReferent.dddesignation', array( 'label' => required( 'Début de désignation' ), 'type' => 'date' , 'dateFormat' => 'DMY' ) );
 
