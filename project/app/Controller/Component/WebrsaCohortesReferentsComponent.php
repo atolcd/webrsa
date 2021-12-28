@@ -26,49 +26,19 @@
 		);
 
 		/**
-		 * Retourne les options de type "enum", c'est à dire liées aux schémas des
-		 * tables de la base de données.
+		 * Retourne les options stockées en session, liées à l'utilisateur connecté.
 		 *
 		 * @return array
 		 */
-		protected function _optionsEnums( array $params = array() ) {
-			$Controller = $this->_Collection->getController();
-			$options = parent::_optionsEnums( $params );
+		protected function _optionsSession( array $params ) {
+			$options = parent::_optionsSession($params);
 
+			// Copie des options PersonneReferent vers PR pour accéder aux options dans la cohorte
+			if(isset($options['PersonneReferent'])) {
+				$options['PR'] = $options['PersonneReferent'];
+			}
 			return $options;
 		}
 
-		/**
-		 * Retourne les options stockées liées à des enregistrements en base de
-		 * données, ne dépendant pas de l'utilisateur connecté.
-		 *
-		 * @return array
-		 */
-		protected function _optionsRecords( array $params = array() ) {
-			$options = parent::_optionsRecords($params);
-
-			return $options;
-		}
-
-		/**
-		 * Retourne les noms des modèles dont des enregistrements seront mis en
-		 * cache après l'appel à la méthode _optionsRecords() afin que la clé de
-		 * cache générée par la méthode _options() se trouve associée dans
-		 * ModelCache.
-		 *
-		 * @see _optionsRecords(), _options()
-		 *
-		 * @return array
-		 */
-		protected function _optionsRecordsModels( array $params ) {
-			$result = array_merge(
-				parent::_optionsRecordsModels( $params ),
-				array(
-					'Structurereferente'
-				)
-			);
-
-			return $result;
-		}
 	}
 ?>

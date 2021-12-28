@@ -42,12 +42,11 @@
 		 * @var array
 		 */
 		public $cohorteFields = array(
-			'Dossier.id' => array( 'type' => 'hidden' ),
 			'Personne.id' => array( 'type' => 'hidden' ),
-			'PersonneReferent.selection' => array( 'type' => 'checkbox' ),
-			'PersonneReferent.structurereferente_id' => array( 'type' => 'select', 'required' => true, 'empty' => true ),
-			'PersonneReferent.referent_id' => array( 'type' => 'select', 'required' => true, 'empty' => true),
-			'PersonneReferent.dddesignation' => array( 'type' => 'date' ),
+			'PR.selection' => array( 'type' => 'checkbox' ),
+			'PR.structurereferente_id' => array( 'type' => 'select', 'required' => true, 'empty' => true ),
+			'PR.referent_id' => array( 'type' => 'select', 'required' => true, 'empty' => true),
+			'PR.dddesignation' => array( 'type' => 'date' ),
 		);
 
 		/**
@@ -61,12 +60,16 @@
 		public function searchConditions( array $query, array $search ) {
 			$query = parent::searchConditions( $query, $search );
 
-			// Modification de la jointure de PersonneReferent
+			// Modification de la jointure de PersonneReferent pour rendre l'URL finale moins longue (max 4096 caractères)
 			foreach($query['joins'] as $key => $join) {
 				if($join['alias'] == 'PersonneReferent') {
+					$query['joins'][$key]['alias'] = 'PR';
 					$query['joins'][$key]['conditions'] = array(
-						'"PersonneReferent"."personne_id" = "Personne"."id"'
+						'"PR"."personne_id" = "Personne"."id"'
 					);
+				}
+				if($join['alias'] == 'Referentparcours') {
+					$query['joins'][$key]['conditions'] = '"PR"."referent_id" = "Referentparcours"."id"';
 				}
 			}
 
