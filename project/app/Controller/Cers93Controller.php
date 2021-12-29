@@ -223,6 +223,17 @@
 				$this->Cer93->enums()
 			);
 
+			// Check de l'état civil, pour avertir s'il y a un problème
+			$dataCaf = $this->Cer93->WebrsaCer93->dataCafAllocataire( $personne_id );
+			foreach ($this->Cer93->validate as $nameField => $dataNotBlank) {
+				if(array_key_exists($nameField, $dataCaf['Adresse']) && empty($dataCaf['Adresse'][$nameField])) {
+					$errorEtatCivil[] = __d('adresse', 'Adresse.' . $nameField);
+				}
+			}
+			if(!empty($errorEtatCivil)) {
+				$this->Flash->Warning(sprintf(__d('cer93', 'Cer93.errorEtatCivil'), implode(', ', $errorEtatCivil)));
+			}
+
 			$this->set(
 				compact(
 					array(

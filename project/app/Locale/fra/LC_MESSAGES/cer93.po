@@ -263,3 +263,6 @@ msgstr "Champ Obligatoire"
 
 msgid "Cer93.Error.Datedebutcontrat"
 msgstr "La date de début de contrat doit être comprise entre le %s et le %s"
+
+msgid "Cer93.errorEtatCivil"
+msgstr "Attention, le(s) champ(s) %s ne sont pas remplis. Merci de modifier l'adresse pour ajouter un CER"
