@@ -217,6 +217,21 @@
 				);
 			}
 
+			if( Hash::get( $search, 'Orientstruct.dernierevalid' ) ) {
+				$query['conditions'][] = array(
+					"Orientstruct.id IN (SELECT
+						orientsstructs.id
+					FROM
+						orientsstructs
+						WHERE
+							orientsstructs.personne_id = Orientstruct.personne_id
+							AND orientsstructs.statut_orient = 'Orienté'
+						ORDER BY
+							orientsstructs.id DESC
+						LIMIT 1)"
+				);
+			}
+
 			foreach( $paths as $path ) {
 				$value = suffix( Hash::get( $search, $path ) );
 				if( $value !== null && $value !== '' ) {

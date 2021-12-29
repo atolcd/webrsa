@@ -281,6 +281,9 @@ msgstr "Recherche par orientation"
 msgid "Search.Orientstruct.derniere"
 msgstr "Uniquement la dernière orientation pour un même allocataire"
 
+msgid "Search.Orientstruct.dernierevalid"
+msgstr "Uniquement la dernière orientation validée pour un même allocataire"
+
 msgid "Search.Orientstruct.date_valid"
 msgstr "Date d'orientation"
 

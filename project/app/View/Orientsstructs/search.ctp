@@ -83,6 +83,12 @@
 			),
 			array( 'options' => array( 'Search' => $options ) )
 		)
+		. $this->Default3->subform(
+			array(
+				'Search.Orientstruct.dernierevalid' => array( 'type' => 'checkbox' )
+			),
+			array( 'options' => array( 'Search' => $options ) )
+		)
 		. $this->SearchForm->dateRange( 'Search.Orientstruct.date_valid', $paramDate )
 	;
 
