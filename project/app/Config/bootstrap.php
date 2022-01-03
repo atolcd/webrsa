@@ -147,6 +147,11 @@ foreach ($configFiles as $configFile) {
 	$configuration->setAllConfigurations($configFile);
 }
 
+if(Configure::read('Module.Ldap.enabled')) {
+	require_once CONFIGS.'ldap.php';
+	CakePlugin::load('Ldap');
+}
+
 // Setup a 'default' cache configuration for use in the application.
 Cache::config( 'default', array(
 	'engine' => 'File',

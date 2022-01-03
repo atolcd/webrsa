@@ -422,6 +422,42 @@ class EmailConfig {
 		'headerCharset' => 'utf-8',
 	);
 
+	/**
+	 * Configuration de l'envoi de mails en cas de personne ayant essayé de se
+	 * connecté à WebRSA sans que l'utilisateur ait été trouvé
+	 *
+	 * Les clés 'port', 'timeout', 'host', 'username', 'password', 'client'
+	 * remplacent les valeurs qui étaient contenues dans 'Email.smtpOptions'
+	 * du fichier webrsa.inc.
+	 *
+	 *
+	 * Lorsque l'application est en debug > 0, alors le mail est envoyé à
+	 * l'adresse spécifiée pour la clé 'to', ou à l'expéditeur (clé 'from').
+	 *
+	 * De même, si une clé 'subject' est spécifiée, elle sera utilisée comme
+	 * sujet du mail.
+	 *
+	 * @var array
+	 */
+	public $ldap_utilisateur_non_trouve = array(
+		'transport' => 'Smtp',
+		'from' => '',
+		'replyTo' => '',
+		'to' => '',
+		'subject' => '',
+		'host' => '',
+		'username' => '',
+		'password' => '',
+		'client' => '',
+
+		'port' => 25,
+		'timeout' => 30,
+		'log' => false,
+		'charset' => 'utf-8',
+		'headerCharset' => 'utf-8',
+
+	);
+
 	public function __construct () {
 		$this->user_generation_mdp['transport'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_TRANSPORT');
 		$this->user_generation_mdp['from'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_FROM');
@@ -544,5 +580,15 @@ class EmailConfig {
 		$this->mail_titresuivi['password'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_PASSWORD');
 		$this->mail_titresuivi['client'] = env('EMAIL_CONFIG_MAIL_TITRE_SUIVI_CLIENT');
 
+		$this->ldap_utilisateur_non_trouve['transport'] = env('EMAIL_CONFIG_MAIL_LDAP_UTILISATEUR_NON_TROUVE_TRANSPORT');
+		$this->ldap_utilisateur_non_trouve['from'] = env('EMAIL_CONFIG_MAIL_LDAP_UTILISATEUR_NON_TROUVE_FROM');
+		$this->ldap_utilisateur_non_trouve['replyTo'] = env('EMAIL_CONFIG_MAIL_LDAP_UTILISATEUR_NON_TROUVE_REPLYTO');
+		$this->ldap_utilisateur_non_trouve['to'] = env('EMAIL_CONFIG_MAIL_LDAP_UTILISATEUR_NON_TROUVE_TO');
+		$this->ldap_utilisateur_non_trouve['subject'] = env('EMAIL_CONFIG_MAIL_LDAP_UTILISATEUR_NON_TROUVE_SUBJECT');
+		$this->ldap_utilisateur_non_trouve['host'] = env('EMAIL_CONFIG_MAIL_LDAP_UTILISATEUR_NON_TROUVE_HOST');
+		$this->ldap_utilisateur_non_trouve['port'] = intval(env('EMAIL_CONFIG_MAIL_LDAP_UTILISATEUR_NON_TROUVE_PORT'));
+		$this->ldap_utilisateur_non_trouve['username'] = env('EMAIL_CONFIG_MAIL_LDAP_UTILISATEUR_NON_TROUVE_USERNAME');
+		$this->ldap_utilisateur_non_trouve['password'] = env('EMAIL_CONFIG_MAIL_LDAP_UTILISATEUR_NON_TROUVE_PASSWORD');
+		$this->ldap_utilisateur_non_trouve['client'] = env('EMAIL_CONFIG_MAIL_LDAP_UTILISATEUR_NON_TROUVE_CLIENT');
 	}
 }

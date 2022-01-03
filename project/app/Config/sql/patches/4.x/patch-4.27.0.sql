@@ -37,10 +37,32 @@ current_timestamp,
 current_timestamp
 WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Exceptionsimpressiontypesorient.affichageprincipal');
 
+-- Variables de configuration liées au LDAP
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'Module.Ldap.enabled', 'false', 'Active le module LDAP',  current_timestamp, current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.Ldap.enabled');
+
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'Module.Ldap.mail_auto', 'false', 'Active le mail automatique lors d''une tentative de connexion d''un utilisateur LDAP identifié mais non présent dans WebRSA',  current_timestamp, current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.Ldap.mail_auto');
+
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'Module.Ldap.mail_modele', '"Bonjour,\n\nPour information, l''utilisateur %user% ayant l''adresse mail %email% a tenté de se connecter à WebRSA, mais il n''existe pas en base de données.\n\nCordialement,\nWebRSA"', 'Modèle du corps de mail envoyé automatiquement lors d''une tentative de connexion d''un utilisateur LDAP identifié mais non présent dans WebRSA (voir la variable de configuration Module.Ldap.mail_auto pour l''activer).
+
+Les balises suivantes sont disponibles et modifiées automatiquement lors de la création du mail :
+- %user% : nom d''utilisateur ayant essayé de se connecter à WebRSA et trouvé dans le LDAP
+- %email% : email de l''utilisateur ayant essayé de se connecter à WebRSA et trouvé dans le LDAP',  current_timestamp, current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.Ldap.mail_modele');
+
 UPDATE public.configurations
 SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
-WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable IN ('Exceptionsimpressiontypesorient.affichageprincipal');
+WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable IN (
+    'Exceptionsimpressiontypesorient.affichageprincipal',
+    'Module.Ldap.enabled',
+    'Module.Ldap.mail_auto',
+    'Module.Ldap.mail_modele'
+);
 
 
 -- *****************************************************************************

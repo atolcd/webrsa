@@ -344,6 +344,16 @@
 			//if( Hash::get( $this->crudMap, $this->request->action ) !== 'read' )
 			$this->disableCache();
 
+			// Activation du LDAP
+			if(Configure::read('Module.Ldap.enabled')) {
+				$this->Auth->authenticate = array(
+					'Form',
+					'Ldap.Ldap' => array(
+						'fields' => array('username' => 'username','password'=>'password'),
+					)
+				);
+			}
+
 			$this->Auth->allow($this->aucunDroit);
 
 			//Paramétrage du composant Auth

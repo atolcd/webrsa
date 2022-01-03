@@ -912,5 +912,45 @@
 
 			return $referents_user;
 		}
+
+		/**
+		 * Callback de l'authentification LDAP
+		 * Permet l'envoi de mail automatique en cas d'authentification réussi sur le LDAP 
+		 * mais que l'utilisateur est non trouvé dans WebRSA
+		 * @param string $username
+		 * @param string $userEmail
+		 * @return bool
+		 */
+		public function ldapAuthCallback($username, $userEmail) {
+			$success = true;
+			if( Configure::read("Module.Ldap.mail_auto") ) {
+				try{
+					// Configuration du mail
+					$configName = WebrsaEmailConfig::getName( 'ldap_utilisateur_non_trouve' );
+					$Email = new CakeEmail( $configName );
+
+					$Email->to( WebrsaEmailConfig::getValue( 'ldap_utilisateur_non_trouve', 'to', $Email->from() ) );
+
+					$Email->subject( WebrsaEmailConfig::getValue( 'ldap_utilisateur_non_trouve', 'subject', $Email->subject() ) );
+
+					// Corps du mail
+					$mailBody = Configure::read('Module.Ldap.mail_modele');
+
+					// Remplacement de la balise %user% dans le corps du mail
+					$mailBody = str_replace("%user%", $username , $mailBody);
+
+					// Remplacement de la balise %email% dans le corps du mail
+					$mailBody = str_replace("%email%", $userEmail , $mailBody);
+
+					$result = $Email->send( $mailBody );
+
+					$success = !empty( $result );
+				} catch( Exception $e ) {
+					$this->log( $e->getMessage(), LOG_ERROR );
+					$success = false;
+				}
+			}
+			return $success;
+		}
 	}
 ?>
