@@ -491,7 +491,6 @@
 
 			//On peut avoir plusieurs actions à effectuer
 			foreach ($statutrdv_typerdv_list as $statutrdv_typerdv){
-
 				switch ($statutrdv_typerdv['StatutrdvTyperdv']['typecommission']) {
 
 					case 'ep':
@@ -515,6 +514,8 @@
 						break;
 
 					case 'cov':
+						$this->Rendezvous->Personne->Dossiercov58->clear();
+						$this->Rendezvous->Propoorientsocialecov58->clear();
 						$themecov58_id = $this->Rendezvous->Propoorientsocialecov58->Dossiercov58->Themecov58->field( 'id', array( 'name' => 'proposorientssocialescovs58' ) );
 						$dossiercov58 = array(
 							'Dossiercov58' => array(
@@ -537,6 +538,7 @@
 						break;
 
 					case 'orientation':
+						$this->Rendezvous->Personne->Orientstruct->clear();
 						// on crée une orientation
 						$referent = $this->Rendezvous->Personne->PersonneReferent->find(
 							'first',
