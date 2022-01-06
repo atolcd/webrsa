@@ -41,8 +41,8 @@
 				'actions' => array(
 					'index',
 					'clotureenmasse',
-					'cohorte_ajout',
-					'cohorte_modif',
+					'cohorte_ajout' => array( 'filter' => 'Search' ),
+					'cohorte_modif' => array( 'filter' => 'Search' ),
 				),
 			),
 			'WebrsaParametrages',
