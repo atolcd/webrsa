@@ -663,7 +663,7 @@
 
 			$options = $this->Ficheprescription93->options( array( 'allocataire' => true, 'find' => true, 'autre' => true ) );
 
-			$options['Ficheprescription93']['structurereferente_id'] = $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'optgroup', 'prefix' => false ) );
+			$options['Ficheprescription93']['structurereferente_id'] = $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'optgroup', 'prefix' => false ), true );
 			$options['Ficheprescription93']['referent_id'] = $this->InsertionsBeneficiaires->referents( array( 'prefix' => true ) );
 
 			// INFO: si la structure ou le référent enregistrés ne se trouvent pas dans les options, on les ajoute

@@ -383,7 +383,8 @@
 						array(
 							'type' => 'optgroup',
 							'prefix' => false
-						)
+						),
+						true
 					),
 					'referent_id' => $this->InsertionsBeneficiaires->referents(
 						array(

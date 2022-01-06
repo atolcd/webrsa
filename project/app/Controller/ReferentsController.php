@@ -319,7 +319,8 @@
 						? array( 'Structurereferente.id' => $structuresreferentes_ids )
 						: array()
 					)
-				)
+				),
+				true
 			);
 			$this->set( compact( 'options' ) );
             $this->render( 'index' );
