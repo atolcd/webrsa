@@ -153,11 +153,11 @@
 					);
 
 					if($search['Visionneuse']['nom'] != '') {
-						$query['conditions'][] = array('Talendsynt.nom' => $search['Visionneuse']['nom']);
+						$query['conditions'][] = array('Talendsynt.nom ILIKE' => $search['Visionneuse']['nom']);
 					}
 
 					if($search['Visionneuse']['prenom'] != '') {
-						$query['conditions'][] = array('Talendsynt.prenom' => $search['Visionneuse']['prenom']);
+						$query['conditions'][] = array('Talendsynt.prenom ILIKE' => $search['Visionneuse']['prenom']);
 					}
 
 					if(!empty($search['Visionneuse']['dtnai'])) {
