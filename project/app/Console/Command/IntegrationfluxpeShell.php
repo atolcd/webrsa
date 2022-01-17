@@ -410,10 +410,6 @@
 					else if( $parts[$offsets['nir']] != $parts[$offsets['nir2']] ) {
 						$this->_rejectLine( $this->csv->path, $numLine, $line, "Les deux NIR sont différents: \"{$parts[$offsets['nir']]}\" et \"{$parts[$offsets['nir2']]}\"" );
 					}
-					// Le NIR n'est pas sur 13 caractères
-					else if( strlen( $parts[$offsets['nir']] ) != 13 ) {
-						$this->_rejectLine( $this->csv->path, $numLine, $line, "Le NIR \"{$parts[$offsets['nir']]}\" ne comporte pas 13 caractères" );
-					}
 					// L'identifiant PE n'est pas formatté correctement
 					else if( !preg_match( '/^([0-9]{7})([A-Z0-9])([0-9]{3})$/', $parts[$offsets['identifiantpe']] ) ) {
 						$this->_rejectLine( $this->csv->path, $numLine, $line, "L'identifiant Pôle Emploi \"{$parts[$offsets['identifiantpe']]}\" n'est pas formatté correctement" );
@@ -437,27 +433,39 @@
 						$parts[$offsets['nir2']] = $parts[$offsets['nir2']].cle_nir( $parts[$offsets['nir2']] );
 
 						// Si le NIR n'est pas valide, on rejette la ligne
-						if( !valid_nir( $parts[$offsets['nir2']] ) || !valid_nir( $parts[$offsets['nir']] ) ) {
-							$parts[$offsets['nir']] = trim( $parts[$offsets['nir']] );
-							$parts[$offsets['nir']] = ( empty( $parts[$offsets['nir']] ) ? null : substr( $parts[$offsets['nir']], 0, 13 ) );
-							$this->_rejectLine( $this->csv->path, $numLine, $line, "Le NIR \"{$parts[$offsets['nir']]}\" n'est pas valide" );
+						if( strlen( $parts[$offsets['nir']] ) != 15 || !valid_nir( $parts[$offsets['nir2']] ) || !valid_nir( $parts[$offsets['nir']] ) ) {
+							$parts[$offsets['nir']] = null;
 						}
-						else {
-							// Recherche / remplissage des tables -> FIXME: en faire une fonction
-							// Table informationspe
-							$informationpe = array( 'Informationpe' => array( ) );
-							foreach( $this->fieldsInformationpe as $column ) {
-								$key = array_search( $column, $this->map[$etat] );
 
-								if( $column == 'dtnai' ) {
-									// Formattage de la date du format JJ/MM/AAAA au format SQL AAAA-MM-JJ
-									// Concerne le champ dtnai -- FIXME, function
-									$dateParts = explode( '/', $parts[$key] );
-									$parts[$key] = "{$dateParts[2]}-{$dateParts[1]}-{$dateParts[0]}";
-								}
-								// Nettoyage des caractères blancs en début et en fin de champ
-								$informationpe['Informationpe'][$column] = preg_replace( '/\s+$/', '', preg_replace( '/^\s+/', '', $parts[$key] ) );
+						// Recherche / remplissage des tables -> FIXME: en faire une fonction
+						// Table informationspe
+						$informationpe = array( 'Informationpe' => array( ) );
+						foreach( $this->fieldsInformationpe as $column ) {
+							$key = array_search( $column, $this->map[$etat] );
+
+							if( $column == 'dtnai' ) {
+								// Formattage de la date du format JJ/MM/AAAA au format SQL AAAA-MM-JJ
+								// Concerne le champ dtnai -- FIXME, function
+								$dateParts = explode( '/', $parts[$key] );
+								$parts[$key] = "{$dateParts[2]}-{$dateParts[1]}-{$dateParts[0]}";
 							}
+							// Nettoyage des caractères blancs en début et en fin de champ
+							$informationpe['Informationpe'][$column] = preg_replace( '/\s+$/', '', preg_replace( '/^\s+/', '', $parts[$key] ) );
+						}
+
+						$oldInformationpe = $this->Informationpe->find(
+								'all', array(
+							'conditions' => $this->Informationpe->qdConditionsJoinPersonneOnValues(
+									'Informationpe', $informationpe['Informationpe']
+							),
+							'contain' => false
+								)
+						);
+
+						$mergeInformationspe = false;
+						if( count( $oldInformationpe ) > 1 ) {
+							$success = $this->_mergeInformationspe( $oldInformationpe ) && $success;
+							$mergeInformationspe = true;
 
 							$oldInformationpe = $this->Informationpe->find(
 									'all', array(
@@ -467,113 +475,98 @@
 								'contain' => false
 									)
 							);
+						}
 
-							$mergeInformationspe = false;
-							if( count( $oldInformationpe ) > 1 ) {
-								$success = $this->_mergeInformationspe( $oldInformationpe ) && $success;
-								$mergeInformationspe = true;
+						if( !empty( $oldInformationpe ) ) {
+							$oldInformationpe['Informationpe'] = $oldInformationpe[0]['Informationpe'];
+						}
 
-								$oldInformationpe = $this->Informationpe->find(
-										'all', array(
-									'conditions' => $this->Informationpe->qdConditionsJoinPersonneOnValues(
-											'Informationpe', $informationpe['Informationpe']
-									),
-									'contain' => false
-										)
-								);
-							}
+						$saveInformationpe = true;
+						// Doit-on mettre à jour l'entrée dans informationspe ?
+						if( !empty( $oldInformationpe ) ) {
+							$diff = array_diff(
+									$oldInformationpe['Informationpe'], $informationpe['Informationpe']
+							);
+							unset( $diff['id'] );
 
-							if( !empty( $oldInformationpe ) ) {
-								$oldInformationpe['Informationpe'] = $oldInformationpe[0]['Informationpe'];
-							}
-
-							$saveInformationpe = true;
-							// Doit-on mettre à jour l'entrée dans informationspe ?
-							if( !empty( $oldInformationpe ) ) {
-								$diff = array_diff(
-										$oldInformationpe['Informationpe'], $informationpe['Informationpe']
-								);
-								unset( $diff['id'] );
-
-								if( empty( $diff ) ) {
-									$saveInformationpe = false;
-								}
-								else {
-									$informationpe['Informationpe']['id'] = $oldInformationpe['Informationpe']['id'];
-								}
-							}
-
-							if( $saveInformationpe ) {
-								$this->Informationpe->create( $informationpe );
-								$tmpSuccessInformationpe = $this->Informationpe->save( null, array( 'atomic' => false ) );
-								$success = $tmpSuccessInformationpe && $success;
-								$informationpe_id = $this->Informationpe->id;
+							if( empty( $diff ) ) {
+								$saveInformationpe = false;
 							}
 							else {
-								$tmpSuccessInformationpe = true;
-								$informationpe_id = $oldInformationpe['Informationpe']['id'];
+								$informationpe['Informationpe']['id'] = $oldInformationpe['Informationpe']['id'];
 							}
+						}
 
-							// Tables historiquecessationspe, historiqueinscriptionspe, historiqueradiationspe
-							$record = array( 'Historiqueetatpe' => array( ) );
-							foreach( $this->map[$etat] as $key => $column ) {
-								// Formattage de la date du format JJ/MM/AAAA au format SQL AAAA-MM-JJ
-								// Concerne le champ date -- FIXME, function
-								if( !in_array( $column, $this->fieldsInformationpe ) ) {
-									if( $column == 'date' ) {
-										$dateParts = explode( '/', $parts[$key] );
-										$parts[$key] = "{$dateParts[2]}-{$dateParts[1]}-{$dateParts[0]}";
-									}
-									// Nettoyage des caractères blancs en début et en fin de champ
-									$record['Historiqueetatpe'][$column] = preg_replace( '/\s+$/', '', preg_replace( '/^\s+/', '', $parts[$key] ) );
+						if( $saveInformationpe ) {
+							$this->Informationpe->create( $informationpe );
+							$tmpSuccessInformationpe = $this->Informationpe->save( null, array( 'atomic' => false ) );
+							$success = $tmpSuccessInformationpe && $success;
+							$informationpe_id = $this->Informationpe->id;
+						}
+						else {
+							$tmpSuccessInformationpe = true;
+							$informationpe_id = $oldInformationpe['Informationpe']['id'];
+						}
+
+						// Tables historiquecessationspe, historiqueinscriptionspe, historiqueradiationspe
+						$record = array( 'Historiqueetatpe' => array( ) );
+						foreach( $this->map[$etat] as $key => $column ) {
+							// Formattage de la date du format JJ/MM/AAAA au format SQL AAAA-MM-JJ
+							// Concerne le champ date -- FIXME, function
+							if( !in_array( $column, $this->fieldsInformationpe ) ) {
+								if( $column == 'date' ) {
+									$dateParts = explode( '/', $parts[$key] );
+									$parts[$key] = "{$dateParts[2]}-{$dateParts[1]}-{$dateParts[0]}";
 								}
+								// Nettoyage des caractères blancs en début et en fin de champ
+								$record['Historiqueetatpe'][$column] = preg_replace( '/\s+$/', '', preg_replace( '/^\s+/', '', $parts[$key] ) );
 							}
-							$record['Historiqueetatpe']['informationpe_id'] = $informationpe_id;
-							$record['Historiqueetatpe']['etat'] = $etat;
+						}
+						$record['Historiqueetatpe']['informationpe_id'] = $informationpe_id;
+						$record['Historiqueetatpe']['etat'] = $etat;
 
-							$conditions = array(
-								'informationpe_id' => $informationpe_id,
-								'etat' => $etat,
-								'date' => $record['Historiqueetatpe']['date'],
-								'code' => $record['Historiqueetatpe']['code']
-							);
-							if( isset( $record['Historiqueetatpe']['motif'] ) ) {
-								$conditions['motif'] = $record['Historiqueetatpe']['motif'];
-							}
+						$conditions = array(
+							'informationpe_id' => $informationpe_id,
+							'etat' => $etat,
+							'date' => $record['Historiqueetatpe']['date'],
+							'code' => $record['Historiqueetatpe']['code']
+						);
+						if( isset( $record['Historiqueetatpe']['motif'] ) ) {
+							$conditions['motif'] = $record['Historiqueetatpe']['motif'];
+						}
 
-							$oldRecord = $this->Informationpe->Historiqueetatpe->find(
-									'first', array(
+						$oldRecord = $this->Informationpe->Historiqueetatpe->find(
+							'first', array(
 								'conditions' => $conditions,
 								'contain' => false
-									)
-							);
+							)
+						);
 
-							if( empty( $oldRecord ) ) {
-								$this->Informationpe->Historiqueetatpe->create( $record );
-								$tmpSuccessModelClass = $this->Informationpe->Historiqueetatpe->save( null, array( 'atomic' => false ) );
-								$success = $tmpSuccessModelClass && $success;
+						if( empty( $oldRecord ) ) {
+							$this->Informationpe->Historiqueetatpe->create( $record );
+							$tmpSuccessModelClass = $this->Informationpe->Historiqueetatpe->save( null, array( 'atomic' => false ) );
+							$success = $tmpSuccessModelClass && $success;
 
-								if( $tmpSuccessInformationpe && $tmpSuccessModelClass ) {
-									if( $mergeInformationspe ) {
-										$this->out[] = "Enregistrement des données et fusion des enregistrements de la ligne {$numLine} du fichier {$this->csv->path} effectué.";
-									}
-									else {
-										$this->out[] = "Enregistrement des données de la ligne {$numLine} du fichier {$this->csv->path} effectué.";
-									}
+							if( $tmpSuccessInformationpe && $tmpSuccessModelClass ) {
+								if( $mergeInformationspe ) {
+									$this->out[] = "Enregistrement des données et fusion des enregistrements de la ligne {$numLine} du fichier {$this->csv->path} effectué.";
 								}
 								else {
-									$this->_rejectLine( $this->csv->path, $numLine, $line, "Erreur lors de l'enregistrement des données" );
+									$this->out[] = "Enregistrement des données de la ligne {$numLine} du fichier {$this->csv->path} effectué.";
 								}
 							}
 							else {
-								if( !$mergeInformationspe ) {
-									$this->out[] = "Non traitement de la ligne {$numLine} du fichier {$this->csv->path} (ligne déjà présente en base).";
-								}
-								else {
-									$this->out[] = "Fusion des enregistrements pour la ligne {$numLine} du fichier {$this->csv->path} (ligne déjà présente en base).";
-								}
-								$lignespresentes++;
+								$this->_rejectLine( $this->csv->path, $numLine, $line, "Erreur lors de l'enregistrement des données" );
 							}
+						}
+						else {
+							if( !$mergeInformationspe ) {
+								$this->out[] = "Non traitement de la ligne {$numLine} du fichier {$this->csv->path} (ligne déjà présente en base).";
+							}
+							else {
+								$this->out[] = "Fusion des enregistrements pour la ligne {$numLine} du fichier {$this->csv->path} (ligne déjà présente en base).";
+							}
+							$lignespresentes++;
 						}
 					}
 				}
