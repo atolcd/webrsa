@@ -635,8 +635,7 @@
 			// Vérification si nous sommes dans le cadre du workflow d'activation
 			$isWorkflowActive = false;
 			if (Configure::read('Orientation.validation.enabled') && !empty($this->data[$this->alias]['structureorientante_id']) && !empty($origine) ) {
-				$strucIsWorkflowActive = $this->Structurereferente->isWorkflowActive($this->data[$this->alias]['structureorientante_id']);
-				$isWorkflowActive = $strucIsWorkflowActive && in_array($origine, Configure::read('Orientation.validation.listeorigine'));
+				$isWorkflowActive = in_array($origine, Configure::read('Orientation.validation.listeorigine'));
 			}
 
 			// Si on change le statut_orient de <> 'Orienté' en 'Orienté', alors, il faut changer le rang
