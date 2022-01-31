@@ -945,9 +945,10 @@ Debugger::log($bilansparcours66_ids);
 		 * Récupère les données pour le PDF du bilan de parcours.
 		 *
 		 * @param integer $id L'id technique du bilan de parcours
+		 * @param boolean $sendQueryData pour savoir si on renvoie les données ou uniquement la requête
 		 * @return array
 		 */
-		public function getDataForPdf( $id ) {
+		public function getDataForPdf( $id, $sendQueryData = false ) {
 			$cacheKey = Inflector::underscore( $this->Bilanparcours66->useDbConfig ).'_'.Inflector::underscore( $this->Bilanparcours66->alias ).'_'.Inflector::underscore( __FUNCTION__ );
 			$querydata = Cache::read( $cacheKey );
 
@@ -1078,7 +1079,9 @@ Debugger::log($bilansparcours66_ids);
 			}
 
 			$querydata['conditions']['Bilanparcours66.id'] = $id;
-
+			if($sendQueryData) {
+				return $querydata;
+			}
 			$data = $this->Bilanparcours66->find( 'first', $querydata );
 
 			return $data;
@@ -1252,7 +1255,7 @@ Debugger::log($bilansparcours66_ids);
 		 */
 		public function getPdfModelODT( $id, $modeleOdt ) {
 			//Get data
-			$querydata = $this->getDataForPdf( $id );
+			$querydata = $this->getDataForPdf( $id, true );
 			$querydata['fields'] =
 			array_merge(
 				$querydata['fields'],
