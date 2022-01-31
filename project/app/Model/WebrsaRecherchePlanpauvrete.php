@@ -158,6 +158,18 @@
 				Cache::write( $cacheKey, $query );
 			}
 
+			// Tri des joins pour mettre les INNER en premier
+			$innerList = array();
+			$leftList = array();
+			foreach($query['joins'] as $key => $join) {
+				if(isset($join['type']) && strpos($join['type'], 'INNER') !== false) {
+					$innerList[] = $join;
+				} else {
+					$leftList[] = $join;
+				}
+			}
+			$query['joins'] = array_merge($innerList, $leftList);
+
 			return $query;
 		}
 
