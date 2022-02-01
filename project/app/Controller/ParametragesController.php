@@ -672,7 +672,11 @@
 				'disabled' => Configure::read('Module.AlgorithmeOrientation.enabled') != true,
 				__m('StructuresreferentesTypesorientsZonesgeographiques/index') => array(
 					'url' => array( 'controller' => 'StructuresreferentesTypesorientsZonesgeographiques', 'action' => 'index' )
-				)
+				),
+				__m('criteresalgorithmeorientation/index') => array(
+					'disabled' => Configure::read('Module.AlgorithmeOrientation.enabled') != true,
+					'url' => array( 'controller' => 'criteresalgorithmeorientation', 'action' => 'index' )
+				),
 			];
 		}
 
@@ -696,6 +700,7 @@
 					'disabled' => 66 == $departement,
 					'url' => array( 'controller' => 'actions', 'action' => 'index' )
 				),
+				__m('tablescorresalgo') => $this->_tablescorresalgo(),
 				66 == $departement ? __m('APRE/ADRE') : __m('APRE') => $this->_apres(),
 				__m('cantons/index') => array(
 					'disabled' => false == Configure::read( 'CG.cantons' ),
@@ -759,7 +764,6 @@
 					'url' => array( 'controller' => 'structuresreferentes', 'action' => 'index' )
 				),
 				__m('dashboards') => $this->_dashboards(),
-				__m('tablescorresalgo') => $this->_tablescorresalgo(),
 				__m('tags') => $this->_tags(),
 				__m('tutoriels/index') => array(
 					'disabled' => !Configure::read('Module.Tutoriel'),

@@ -31,7 +31,7 @@ WHERE structurereferente_id IN (
 );
 
 -- Update de la variable de configuration pour le paramétrage des seuils de l'algorithme d'orientation
-UPDATE public.configurations SET value_variable = '{"agemin" : [18,20],"agemax" : [55,60],"nbenfants" : [2,3,4],"nbmois" : [6,8,12]}',
+UPDATE public.configurations SET value_variable = '{"agemin" : [18,62],"agemax" : [30,140],"nbenfants" : [1],"nbmois" : [6]}',
 comments_variable = 'Seuils disponibles dans les critères de l''algorithme d''orientation
 {
 	//Age minimum

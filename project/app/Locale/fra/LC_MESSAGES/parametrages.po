@@ -532,17 +532,16 @@ msgstr "Utilisateurs"
 
 msgid "categoriesutilisateurs/index"
 msgstr "Catégories d'utilisateurs"
-
 # ==============================================================================
 
 msgid "criteresalgorithmeorientation/index"
-msgstr "Algorithme d'orientation"
+msgstr "Critères de l'algorithme d'orientation"
 
 msgid "adressesstruct/index"
 msgstr "Paramétrage des adresses des associations référentes"
 
 msgid "tablescorresalgo"
-msgstr "Tables de correspondance algorithmique"
+msgstr "Algorithme d'orientation"
 
 msgid "StructuresreferentesTypesorientsZonesgeographiques/index"
 msgstr "Paramétrage des structures référentes par ville"
