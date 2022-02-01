@@ -1,0 +1,26 @@
+# Traductions de structuresreferentes_typesorients_zonesgeographiques.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/StructuresreferentesTypesorientsZonesgeographiques/index/:heading"
+msgstr "Paramétrage des structures référentes par ville"
+
+msgid "zonegeographique.libelle"
+msgstr "Ville"
+
+msgid "actions"
+msgstr "Actions"
+
+msgid "modifier"
+msgstr "Modifier"
+
+msgid "edit.titre"
+msgstr "Modification des liens entre %s et les structures référentes"

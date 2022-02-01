@@ -658,6 +658,25 @@
 		}
 
 		/**
+		 * Paramétrage de l'algorithme d'orientation
+		 * @return array
+		 */
+		public function _tablescorresalgo() {
+			//TODO modifier les liens
+			return
+			[
+				'disabled' => Configure::read('Module.AlgorithmeOrientation.enabled') != true,
+				__m('adressesstruct/index') => array(
+					'url' => array( 'controller' => 'permanences', 'action' => 'index' )
+				),
+				'disabled' => Configure::read('Module.AlgorithmeOrientation.enabled') != true,
+				__m('StructuresreferentesTypesorientsZonesgeographiques/index') => array(
+					'url' => array( 'controller' => 'StructuresreferentesTypesorientsZonesgeographiques', 'action' => 'index' )
+				)
+			];
+		}
+
+		/**
 		 * Paramétrages de l'application, en fonction du département et des
 		 * habilitations.
 		 */
@@ -740,6 +759,7 @@
 					'url' => array( 'controller' => 'structuresreferentes', 'action' => 'index' )
 				),
 				__m('dashboards') => $this->_dashboards(),
+				__m('tablescorresalgo') => $this->_tablescorresalgo(),
 				__m('tags') => $this->_tags(),
 				__m('tutoriels/index') => array(
 					'disabled' => !Configure::read('Module.Tutoriel'),
