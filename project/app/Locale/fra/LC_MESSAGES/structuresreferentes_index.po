@@ -121,3 +121,10 @@ msgstr "Supprimer"
 
 msgid "/Structuresreferentes/delete/#Structurereferente.id# ?"
 msgstr "Supprimer la structure référente « #Structurereferente.lib_struc# » ?"
+
+msgid "Structurereferente.capacite_maximale"
+msgstr "Capacité maximale d'accueil"
+
+msgid "capacitemax.illimitee"
+msgstr "Illimitée"
+

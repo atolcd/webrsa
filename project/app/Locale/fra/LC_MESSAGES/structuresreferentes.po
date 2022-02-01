@@ -58,6 +58,9 @@ msgstr "Structure active pour les résultats des recherches en cohorte d'orienta
 msgid "Structurereferente.dreesorganisme_id"
 msgstr "Type d'organisme DREES"
 
+msgid "Structurereferente.capacite_max"
+msgstr "Capacité maximale d'accueil"
+
 msgid "Structurereferente.typestructure"
 msgstr "Type de structure"
 

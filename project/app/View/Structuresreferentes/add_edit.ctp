@@ -57,6 +57,7 @@
 		'Structurereferente.actif' => array( 'empty' => true ),
 		'Structurereferente.actif_cohorte' => array( 'empty' => false ),
 		'Structurereferente.dreesorganisme_id' => array( 'empty' => true ),
+		'Structurereferente.capacite_max' => array( 'empty' => true ),
 	);
 	if(Configure::read('Module.Sectorisation.enabled')){
 		$array['Structurereferente.actif_sectorisation'] = array( 'type' => 'select', 'default'=>1);

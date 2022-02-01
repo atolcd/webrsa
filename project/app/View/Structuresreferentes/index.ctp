@@ -107,6 +107,15 @@
 			array( 'url' => Hash::flatten( (array)$this->request->data, '__' ) )
 		);
 
+		//On modifie pour afficher 'Illimité' dans le cas où la capacité max d'accueil est null
+		foreach ($results as $key => $structure){
+			if($structure['Structurereferente']['capacite_max'] == null){
+				$results[$key]['Structurereferente']['capacite_maximale'] = __m('capacitemax.illimitee');
+			} else {
+				$results[$key]['Structurereferente']['capacite_maximale'] = $structure['Structurereferente']['capacite_max'];
+			}
+		}
+
 		echo $this->Default3->index(
 			$results,
 			$this->Translator->normalize(
@@ -126,6 +135,7 @@
 					'Structurereferente.type_struct_stats',
 					'Structurereferente.code_stats',
 					'Dreesorganisme.lib_dreesorganisme',
+					'Structurereferente.capacite_maximale',
 					'/Structuresreferentes/edit/#Structurereferente.id#' => array(
 						'title' => false
 					),

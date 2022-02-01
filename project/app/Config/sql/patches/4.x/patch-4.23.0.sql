@@ -20,6 +20,8 @@ WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_v
 -- Modification de la valeur par défaut du code_type_orient pour être à NULL
 ALTER TABLE public.typesorients ALTER COLUMN code_type_orient SET DEFAULT NULL;
 
+-- Ajout de la colonne capacité maximale dans la table structuresreferentes
+ALTER TABLE public.structuresreferentes ADD COLUMN IF NOT EXISTS capacite_max int8 NULL;
 
 -- *****************************************************************************
 COMMIT;
