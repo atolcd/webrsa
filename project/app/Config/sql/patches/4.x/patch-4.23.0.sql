@@ -17,6 +17,9 @@ SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
 WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Module.AlgorithmeOrientation.enabled';
 
+-- Modification de la valeur par défaut du code_type_orient pour être à NULL
+ALTER TABLE public.typesorients ALTER COLUMN code_type_orient SET DEFAULT NULL;
+
 
 -- *****************************************************************************
 COMMIT;
