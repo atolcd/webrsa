@@ -38,6 +38,12 @@
 			//Inscrit PE
 			$query = $this->inscritPE($query);
 
+			if(Configure::read('PlanPauvrete.Nouveauxentrants.PPAE')){
+				//Uniquement les personnes qui ont un PPAE
+				$query = $this->avecPPAE($query);
+			}
+
+
 			//Uniquement les personne qui sont SDDOV pour la première fois.
 			if( Configure::read('PlanPauvrete.Cohorte.Primoaccedant') ) {
 				$query = $this->uniqueHistoriqueSdddov($query);

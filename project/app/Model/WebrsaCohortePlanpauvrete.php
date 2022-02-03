@@ -514,4 +514,76 @@
 
 			return $query;
 		}
+
+		/**
+		 * Ajoute une condition pour avoir les personnes ayant un PPAE
+		 *
+		 * @param array $query
+		 * @return array $query
+		 */
+		public function avecPPAE($query){
+			$query['conditions'][] = "Historiqueetatpe.ppae_date_signature IS NOT NULL";
+			return $query;
+		}
+
+		/**
+		 * Ajoute la condition pour avoir les non inscrit PE et les inscrits PE sans PPAE
+		 *
+		 * @param array $query
+		 * @return array $query
+		 */
+		public function nonInscritPEouInscritPEsansPPAE($query) {
+			$this->loadModel('Informationpe');
+			$this->loadModel('Historiqueetatpe');
+
+
+			$query['fields'] = array_merge(
+				$query['fields'],
+				array(
+					'Historiqueetatpe.identifiantpe',
+					'Historiqueetatpe.date',
+				)
+			);
+
+			$query['joins'] = array_merge(
+				$query['joins'],
+				array(
+					$this->Informationpe->joinPersonneInformationpe( 'Personne', 'Informationpe', 'LEFT OUTER' ),
+					$this->Informationpe->Historiqueetatpe->joinInformationpeHistoriqueetatpe( true, 'Informationpe', 'Historiqueetatpe', 'LEFT OUTER' )
+				)
+			);
+
+			$sqDerniereInformationpe = $this->Informationpe->sqDerniere( 'Personne' );
+			$sqDerniereHistoriqueetatpe = $this->Historiqueetatpe->sqDernier( 'Informationpe' );
+			$query['conditions'] =  array_merge(
+				$query['conditions'],
+				array(
+					'OR' => array(
+						array(
+							array(
+								'OR' => array(
+									"Informationpe.id IS NULL",
+									"Informationpe.id IN ( {$sqDerniereInformationpe} )"
+								)
+							),
+							array(
+								'OR' => array(
+									"Historiqueetatpe.etat <> 'inscription'",
+									'Historiqueetatpe.etat IS NULL'
+								)
+							)
+						),
+						array(
+							"Historiqueetatpe.ppae_date_signature IS NULL",
+							"Informationpe.id IN ( {$sqDerniereInformationpe} )",
+							"Historiqueetatpe.id IN ( {$sqDerniereHistoriqueetatpe} )",
+							"Historiqueetatpe.etat = 'inscription'"
+						)
+					)
+				)
+			);
+
+			return $query;
+		}
+
 	}

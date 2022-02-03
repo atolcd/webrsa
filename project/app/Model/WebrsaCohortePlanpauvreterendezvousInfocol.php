@@ -38,8 +38,13 @@
 			// Sans CER
 			$query = $this->sansCER($query, true);
 
-			// Non inscrit PE
-			$query = $this->nonInscritPE($query);
+			if(Configure::read('PlanPauvrete.Nouveauxentrants.PPAE')){
+				// Non inscrit PE ou inscrit PE sans PPAE
+				$query = $this->nonInscritPEouInscritPEsansPPAE($query);
+			} else {
+				// Non inscrit PE
+				$query = $this->nonInscritPE($query);
+			}
 
 			//Dans le mois précédent :
 			$query = $this->nouveauxEntrants($query);
