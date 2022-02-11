@@ -8543,6 +8543,26 @@ var regExpQuote = function(str) {
 	}
 
 };
+
+/**
+ * Vérifie si la valeur du champ est bien un nombre et si non affiche un message d'erreur
+ */
+function validateNumber(idChamp){
+	let message = document.createElement("div")
+	message.classList.add('error-message')
+	message.appendChild(document.createTextNode("Veuillez entrer un nombre"))
+	if(isNaN( $(idChamp).value)){
+	$(idChamp).closest("div").classList.add('error');
+	$(idChamp).parentNode.appendChild(message);
+	document.querySelector("input[value='Suivant >']").disabled = true;
+	} else if ($(idChamp).closest("div").classList.contains('error')) {
+		$(idChamp).closest("div").classList.remove('error');
+		$(idChamp).parentNode.lastChild.remove();
+		if(document.getElementsByClassName('error').length == 0){
+			document.querySelector("input[value='Suivant >']").disabled = false;
+		}
+	}
+}
 /**
  * Event.simulate(@element, eventName[, options]) -> Element
  * 

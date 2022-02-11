@@ -112,7 +112,9 @@
 
 			if( count( $montants ) > 0 ) {
 				foreach( $montants as $montant ) {
-					$somme += $montant;
+					if(!empty($montant)){
+						$somme += $montant;
+					}
 				}
 
 				$moyenne = ( $somme / 3 );

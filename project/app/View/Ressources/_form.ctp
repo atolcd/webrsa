@@ -33,6 +33,9 @@
 		}
 	}
 
+
+
+
 	document.observe("dom:loaded", function() {
 		for( var i = 0 ; i < 3 ; i++ ) {
 			observeDisableFieldsetOnCheckbox(
@@ -47,6 +50,37 @@
 		} );
 		Event.observe( $( 'RessourceDdressYear' ), 'change', function() {
 			checkDatesToRefresh();
+		} );
+
+
+
+		Event.observe( $( 'Detailressourcemensuelle0Mtnatressmen' ), 'change', function() {
+			validateNumber('Detailressourcemensuelle0Mtnatressmen')
+		} );
+		Event.observe( $( 'Detailressourcemensuelle1Mtnatressmen' ), 'change', function() {
+			validateNumber('Detailressourcemensuelle1Mtnatressmen')
+		} );
+		Event.observe( $( 'Detailressourcemensuelle2Mtnatressmen' ), 'change', function() {
+			validateNumber('Detailressourcemensuelle2Mtnatressmen')
+		} );
+
+		Event.observe( $( 'Ressourcemensuelle0Nbheumentra' ), 'change', function() {
+			validateNumber('Ressourcemensuelle0Nbheumentra')
+		} );
+		Event.observe( $( 'Ressourcemensuelle1Nbheumentra' ), 'change', function() {
+			validateNumber('Ressourcemensuelle1Nbheumentra')
+		} );
+		Event.observe( $( 'Ressourcemensuelle2Nbheumentra' ), 'change', function() {
+			validateNumber('Ressourcemensuelle2Nbheumentra')
+		} );
+		Event.observe( $( 'Ressourcemensuelle0Mtabaneu' ), 'change', function() {
+			validateNumber('Ressourcemensuelle0Mtabaneu')
+		} );
+		Event.observe( $( 'Ressourcemensuelle1Mtabaneu' ), 'change', function() {
+			validateNumber('Ressourcemensuelle1Mtabaneu')
+		} );
+		Event.observe( $( 'Ressourcemensuelle2Mtabaneu' ), 'change', function() {
+			validateNumber('Ressourcemensuelle2Mtabaneu')
 		} );
 
 	});

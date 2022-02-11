@@ -29,3 +29,14 @@
 		<?php echo $this->Form->submit( 'Suivant >', array( 'div'=>false ) );?>
 	</div>
 <?php echo $this->Form->end();?>
+
+<script>
+
+document.observe("dom:loaded", function() {
+
+		Event.observe( $( 'AdresseCodepos' ), 'change', function() {
+			validateNumber('AdresseCodepos')
+		} );
+
+	});
+</script>
