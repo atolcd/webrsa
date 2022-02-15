@@ -179,77 +179,51 @@
 				$data[$this->Orientstruct->alias]['origine'] = 'manuelle';
 			}
 
-			if( $departement == 58 && empty( $primaryKey ) && $this->isRegression( $personne_id, $typeorient_id ) ) {
-				$theme = 'Regressionorientationep58';
+			// Orientstruct
+			$orientstruct = array( $this->Orientstruct->alias => (array)Hash::get( $data, $this->Orientstruct->alias ) );
+			$orientstruct[$this->Orientstruct->alias]['personne_id'] = $personne_id;
+			$orientstruct[$this->Orientstruct->alias]['valid_cg'] = true;
 
-				$dossierep = array(
-					'Dossierep' => array(
-						'personne_id' => $personne_id,
-						'themeep' => Inflector::tableize( $theme )
-					)
-				);
-
-				$success = $this->Orientstruct->Personne->Dossierep->save( $dossierep , array( 'atomic' => false ) ) && $success;
-
-				$regressionorientationep = array(
-					$theme => Hash::merge(
-						(array)Hash::get( $data, $this->Orientstruct->alias ),
-						array(
-							'personne_id' => $personne_id,
-							'dossierep_id' => $this->Orientstruct->Personne->Dossierep->id,
-							'datedemande' => Hash::get( $data, "{$this->Orientstruct->alias}.date_propo" )
-						)
-					)
-				);
-
-				$success = $this->Orientstruct->Personne->Dossierep->{$theme}->save( $regressionorientationep , array( 'atomic' => false ) ) && $success;
-			}
-			else {
-				// Orientstruct
-				$orientstruct = array( $this->Orientstruct->alias => (array)Hash::get( $data, $this->Orientstruct->alias ) );
-				$orientstruct[$this->Orientstruct->alias]['personne_id'] = $personne_id;
-				$orientstruct[$this->Orientstruct->alias]['valid_cg'] = true;
-
-				if( $departement == 976 ) {
-					$statut_orient = Hash::get( $orientstruct, "{$this->Orientstruct->alias}.statut_orient" );
-
-					if( $statut_orient != 'Orienté' ) {
-						$orientstruct[$this->Orientstruct->alias]['origine'] = null;
-						$orientstruct[$this->Orientstruct->alias]['date_valid'] = null;
-					}
-				}
-				else if ($this->Orientstruct->isWorkflowActivated($user_id) && !empty($orientstruct[$this->Orientstruct->alias]['structureorientante_id']
-					&& $this->Orientstruct->Structurereferente->isWorkflowActive($orientstruct[$this->Orientstruct->alias]['structureorientante_id']) == true
-					&& in_array($orientstruct[$this->Orientstruct->alias]['origine'], Configure::read('Orientation.validation.listeorigine') ) )
-				) {
-					$orientstruct[$this->Orientstruct->alias]['statut_orient'] = 'En attente';
-				}
-				else if( empty( $primaryKey ) ) {
-					$orientstruct[$this->Orientstruct->alias]['statut_orient'] = 'Orienté';
-				}
-
+			if( $departement == 976 ) {
 				$statut_orient = Hash::get( $orientstruct, "{$this->Orientstruct->alias}.statut_orient" );
-				$this->Orientstruct->create( $orientstruct );
-				$success = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
 
-				// Calculdroitrsa
-				$calculdroitsrsa = array( 'Calculdroitrsa' => (array)Hash::get( $data, 'Calculdroitrsa' ) );
-				$this->Orientstruct->Personne->Calculdroitrsa->create( $calculdroitsrsa );
-				$success = $this->Orientstruct->Personne->Calculdroitrsa->save( null, array( 'atomic' => false ) ) && $success;
-
-				// Tentative d'ajout d'un référent de parcours
-				if( $success && !empty( $referent_id ) && ( $statut_orient == 'Orienté' ) ) {
-					$success = $this->Orientstruct->Referent->PersonneReferent->referentParModele(
-						$data,
-						$this->Orientstruct->alias,
-						'date_valid'
-					);
-					if( empty( $success ) ) {
-						$msgstr = __d('orienstructs', 'Orientstruct.erreur.referent');
-						$this->Orientstruct->validationErrors['typeorient_id'][] = $msgstr;
-					}
+				if( $statut_orient != 'Orienté' ) {
+					$orientstruct[$this->Orientstruct->alias]['origine'] = null;
+					$orientstruct[$this->Orientstruct->alias]['date_valid'] = null;
 				}
 			}
+			else if ($this->Orientstruct->isWorkflowActivated($user_id) && !empty($orientstruct[$this->Orientstruct->alias]['structureorientante_id']
+				&& $this->Orientstruct->Structurereferente->isWorkflowActive($orientstruct[$this->Orientstruct->alias]['structureorientante_id']) == true
+				&& in_array($orientstruct[$this->Orientstruct->alias]['origine'], Configure::read('Orientation.validation.listeorigine') ) )
+			) {
+				$orientstruct[$this->Orientstruct->alias]['statut_orient'] = 'En attente';
+			}
+			else if( empty( $primaryKey ) ) {
+				$orientstruct[$this->Orientstruct->alias]['statut_orient'] = 'Orienté';
+			}
+
+			$statut_orient = Hash::get( $orientstruct, "{$this->Orientstruct->alias}.statut_orient" );
+			$this->Orientstruct->create( $orientstruct );
+			$success = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
+
+			// Calculdroitrsa
+			$calculdroitsrsa = array( 'Calculdroitrsa' => (array)Hash::get( $data, 'Calculdroitrsa' ) );
+			$this->Orientstruct->Personne->Calculdroitrsa->create( $calculdroitsrsa );
+			$success = $this->Orientstruct->Personne->Calculdroitrsa->save( null, array( 'atomic' => false ) ) && $success;
+
+			// Tentative d'ajout d'un référent de parcours
+			if( $success && !empty( $referent_id ) && ( $statut_orient == 'Orienté' ) ) {
+				$success = $this->Orientstruct->Referent->PersonneReferent->referentParModele(
+					$data,
+					$this->Orientstruct->alias,
+					'date_valid'
+				);
+				if( empty( $success ) ) {
+					$msgstr = __d('orienstructs', 'Orientstruct.erreur.referent');
+					$this->Orientstruct->validationErrors['typeorient_id'][] = $msgstr;
+				}
+			}
+
 
 			return $success;
 		}
