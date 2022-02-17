@@ -5093,3 +5093,26 @@ msgstr "Liste des tutoriels"
 
 msgid "controllers/Tutoriels/view"
 msgstr "Voir les tutoriels"
+
+## Exceptions d'impressions
+###############################################################################
+msgid "controllers/Exceptionsimpressions"
+msgstr "Exceptions d'impressions d'orientation"
+
+msgid "controllers/Exceptionsimpressions/add"
+msgstr "Ajouter une exception"
+
+msgid "controllers/Exceptionsimpressions/delete"
+msgstr "Supprimer une exception"
+
+msgid "controllers/Exceptionsimpressions/descendre"
+msgstr "Baisser l'ordre d'une exception"
+
+msgid "controllers/Exceptionsimpressions/monter"
+msgstr "Monterr l'ordre d'une exception"
+
+msgid "controllers/Exceptionsimpressions/edit"
+msgstr "Modifier une exception"
+
+msgid "controllers/Exceptionsimpressions/index"
+msgstr "Voir les exceptions"

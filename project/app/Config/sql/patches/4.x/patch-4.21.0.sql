@@ -6,6 +6,7 @@ BEGIN;
 -- Version du patch en BDD
 INSERT INTO versionpatchsql("version", created) VALUES ('4.21.0', CURRENT_TIMESTAMP);
 
+
 -- Recréation de la vue en étendant la date
 DROP MATERIALIZED VIEW IF EXISTS public.statppview;
 CREATE MATERIALIZED VIEW public.statppview
@@ -193,6 +194,20 @@ AS WITH liste_mois AS (
     gpn.cui__decision_cui
    FROM generate_pa_ne gpn
 WITH DATA;
+
+-- Création de la table stockant les exceptions pour les impressions des orientations
+CREATE TABLE IF NOT EXISTS public.exceptionsimpressions (
+	id serial4 NOT NULL,
+	ordre int4 NOT NULL,
+    typeorient_id int4 NOT NULL,
+	origine bpchar(2) NOT NULL,
+    act bpchar(3) NULL,
+    porteurprojet int2 NULL,
+    modele_notif varchar(40) NOT NULL,
+    actif bool NOT NULL DEFAULT true,
+    CONSTRAINT exceptionsimpressions_pkey PRIMARY KEY (id),
+    CONSTRAINT typesorients_id_fkey FOREIGN KEY (typeorient_id) REFERENCES public.typesorients(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 -- *****************************************************************************
 COMMIT;

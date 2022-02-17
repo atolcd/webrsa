@@ -29,7 +29,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Typeorient' );
+		public $uses = array( 'Typeorient', 'Exceptionsimpression' );
 
 		/**
 		 * Utilise les droits d'un autre Controller:action
@@ -109,7 +109,10 @@
 			);
 
 			$typesorients = $this->Typeorient->find( 'all', $this->_query() );
-			$this->set( compact( 'options', 'typesorients' ) );
+			$exceptions = $this->Exceptionsimpression->getByTypeOrient($id);
+			$dernier_id = $this->Exceptionsimpression->getDernierId($exceptions);
+			$premier_id = $this->Exceptionsimpression->getPremierId($exceptions);
+			$this->set( compact( 'options', 'typesorients', 'exceptions', 'id', 'dernier_id', 'premier_id' ) );
 		}
 	}
 ?>

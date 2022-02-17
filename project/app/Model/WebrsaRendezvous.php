@@ -555,7 +555,7 @@
 							'statut_orient' => 'Orienté',
 							'date_propo' => $date_du_jour,
 							'date_valid' => $date_du_jour,
-							'origine' => 'manuelle'
+							'origine' => 'cohorte'
 						);
 						if(!empty($referent)){
 							$referent_id = $referent['Referent']['id'];
