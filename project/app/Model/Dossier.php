@@ -46,7 +46,7 @@
 			),
 			'matricule_format' => array(
 				'type'      => 'string',
-				'postgres'	=> "regexp_replace(matricule,'(^0)+(\d{6,})+(0{8,}$)', '\\2')"
+				'postgres'	=> "regexp_replace(\"Dossier\".\"matricule\",'(^0)+(\d{6,})+(0{8,}$)', '\\2')"
 			)
 		);
 
