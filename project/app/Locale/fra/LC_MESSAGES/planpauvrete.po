@@ -129,3 +129,38 @@ msgstr "Recherche par parcours de l'allocataire"
 
 msgid "Search.Personne.is_inscritpe"
 msgstr "Inscrit au Pôle Emploi ?"
+
+# ==============================================================================
+
+msgid "Planpauvrete.Planpauvrete.Menu58"
+msgstr "Plan pauvreté "
+
+msgid "Planpauvrete.Fileactive.Menu"
+msgstr "File active"
+
+msgid "Planpauvrete.Menu.RDV"
+msgstr "RDV"
+
+msgid "Planpauvrete.Menu.InscritPEavecPPAE"
+msgstr "Inscrits PE avec PPAE"
+
+msgid "Planpauvrete.OrientationPEImprime"
+msgstr "Impression Orientation PE"
+
+msgid "Planpauvrete.RDV.Creation"
+msgstr "Création des RDV"
+
+msgid "Planpauvrete.RDV.ImpressionConvocation"
+msgstr "Impression des convocations"
+
+msgid "Planpauvrete.RDV.MajStatut"
+msgstr "MAJ du statut des RDV"
+
+msgid "Planpauvrete.Menu.Info_Col"
+msgstr "Info coll / indiv"
+
+msgid "Planpauvrete.Menu.3en1"
+msgstr "3 en 1"
+
+msgid "Planpauvrete.Menu.Rdv_cer"
+msgstr "Élaboration du CER"
