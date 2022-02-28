@@ -159,7 +159,7 @@ msgid "Dsp.libsecactderact66_secteur_id"
 msgstr "Précisez le dernier secteur d'activité ?"
 
 msgid "Dsp.topcreareprientre"
-msgstr "Souhaitez vous vous engager dans une démarche de création ou de reprise d'entreprise ?"
+msgstr "Souhaitez vous vous engager dans une démarche de création ou de reprise d'entreprise ? (PORTEUR DE PROJET)"
 
 msgid "Dsp.concoformqualiemploi"
 msgstr "Votre niveau de formation et de qualification sont ils en concordance avec votre projet professionnel ou emploi recherché ?"
