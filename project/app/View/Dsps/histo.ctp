@@ -22,7 +22,7 @@
 			echo "<table><thead>";
 			echo "<tr><th>Date de création</th><th>Date de modification</th><th>Différences</th><th class='action' colspan='6'>Actions</th></tr></thead><tbody>";
 
-			foreach ($histos as $histo) {
+			foreach ($histos as $key => $histo) {
 				$nbFichiersLies = 0;
 				$nbFichiersLies = ( isset( $histo['Fichiermodule'] ) ? count( $histo['Fichiermodule'] ) : 0 );
 
@@ -42,7 +42,7 @@
 					'enabled' => WebrsaAccess::isEnabled($histo, '/Dsps/view_revs')
 				))."</td><td>".$this->Xhtml->link($this->Xhtml->image('icons/pencil.png', array()).'Modifier', '/dsps/edit/'.$dsp['Personne']['id'].'/'.$histo['DspRev']['id'], array(
 						'escape'=>false, 
-						'enabled' => WebrsaAccess::isEnabled($histo, '/Dsps/edit')
+						'enabled' => WebrsaAccess::isEnabled($histo, '/Dsps/edit') && ($key == 0 || Configure::read( 'Dsp.modification.all.enabled' ))
 					))."</td>";
 				if( Configure::read( 'Cg.departement' ) != 66 ){
 					echo "<td>".$this->Xhtml->link($this->Xhtml->image('icons/arrow_redo.png', array()).'Revenir à cette version', '/dsps/revertTo/'.$histo['DspRev']['id'], array(

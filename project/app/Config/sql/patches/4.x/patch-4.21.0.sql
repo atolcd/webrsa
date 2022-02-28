@@ -3,6 +3,7 @@ SET client_encoding = 'UTF8';
 -- *****************************************************************************
 BEGIN;
 -- *****************************************************************************
+
 -- Version du patch en BDD
 INSERT INTO versionpatchsql("version", created) VALUES ('4.21.0', CURRENT_TIMESTAMP);
 
@@ -225,7 +226,18 @@ WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'PlanPau
 UPDATE public.configurations
 SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
-WHERE configurationscategories.lib_categorie = 'Planpauvrete' AND configurations.lib_variable LIKE 'PlanPauvrete.Nouveauxentrants.PPAE';
+WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'PlanPauvrete.Nouveauxentrants.PPAE';
+
+
+-- Création de la variable de configuration permettant de n'activer la modification que pour la dernière version des dsp
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'Dsp.modification.all.enabled', 'true', 'Permet de n''activier la modification que pour la dernière version des DSP. @default true',  current_timestamp, current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Dsp.modification.all.enabled');
+
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Dsp.modification.all.enabled';
 
 
 -- *****************************************************************************
