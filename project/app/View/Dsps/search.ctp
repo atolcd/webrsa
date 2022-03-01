@@ -1,5 +1,15 @@
 <?php $departement = Configure::read( 'Cg.departement' );?>
 <?php $this->start( 'custom_search_filters' );?>
+<?php
+		echo "<fieldset><legend>" . __d('planpauvreterendezvous', 'Search.Historiquedroit' ) . "</legend>";
+		echo $this->SearchForm->dateRange( 'Search.Historiquedroit.created', array(
+			'minYear_from' => 2009,
+			'minYear_to' => 2009,
+			'maxYear_from' => date( 'Y' ) + 1,
+			'maxYear_to' => date( 'Y' ) + 1,
+		) );
+		echo '</fieldset>';
+?>
 <fieldset>
 	<legend>Données socio-professionnelles</legend>
 	<?php
@@ -34,23 +44,34 @@
 			echo $this->Form->input( 'Search.Dsp.libsecactdomi', array( 'label' => __d( 'dsp', 'Dsp.libsecactdomi' ) ) );
 			echo $this->Form->input( 'Search.Dsp.libactdomi', array( 'label' => __d( 'dsp', 'Dsp.libactdomi' ) ) );
 
+
 			if( $departement == 66 ) {
 				echo '<fieldset><legend>Dernière activité dominante (ROME V2)</legend>';
-					echo $this->Form->input( 'Search.Dsp.libsecactdomi66_secteur_id' , array( 'label' => "Dans quel secteur d'activité avez-vous exercé votre activité professionnelle dominante ? ", 'type' => 'select', 'options' => $options['Coderomesecteurdsp66'], 'empty' => true ) );
+				echo $this->Form->input( 'Search.Dsp.libsecactdomi66_secteur_id' , array( 'label' => "Dans quel secteur d'activité avez-vous exercé votre activité professionnelle dominante ? ", 'type' => 'select', 'options' => $options['Coderomesecteurdsp66'], 'empty' => true ) );
 					echo $this->Form->input( 'Search.Dsp.libactdomi66_metier_id' , array( 'label' => "Précisez quelle a été l'activité professionnelle dominante ? ", 'type' => 'select', 'options' => $options['Coderomemetierdsp66'], 'empty' => true ) );
-				echo '</fieldset>';
-			}
+					echo '</fieldset>';
+				}
 
-			echo $this->Romev3->fieldset( 'Actrechromev3', array( 'options' => $options, 'prefix' => 'Search' ) );
-			echo $this->Form->input( 'Search.Dsp.libsecactrech', array( 'label' => __d( 'dsp', 'Dsp.libsecactrech' ) ) );
-			echo $this->Form->input( 'Search.Dsp.libemploirech', array( 'label' => __d( 'dsp', 'Dsp.libemploirech' ) ) );
+				echo $this->Romev3->fieldset( 'Actrechromev3', array( 'options' => $options, 'prefix' => 'Search' ) );
+				echo $this->Form->input( 'Search.Dsp.libsecactrech', array( 'label' => __d( 'dsp', 'Dsp.libsecactrech' ) ) );
+				echo $this->Form->input( 'Search.Dsp.libemploirech', array( 'label' => __d( 'dsp', 'Dsp.libemploirech' ) ) );
 
-			if( $departement == 66 ) {
-				echo '<fieldset><legend>Emploi recherché (ROME V2)</legend>';
+				if( $departement == 66 ) {
+					echo '<fieldset><legend>Emploi recherché (ROME V2)</legend>';
 					echo $this->Form->input( 'Search.Dsp.libsecactrech66_secteur_id' , array('label' => "Quel est le secteur d'activité recherché ? ",  'type' => 'select', 'options' => $options['Coderomesecteurdsp66'], 'empty' => true ) );
 					echo $this->Form->input( 'Search.Dsp.libemploirech66_metier_id' , array( 'label' => "Quel est l'emploi recherché ? ", 'type' => 'select', 'options' => $options['Coderomemetierdsp66'], 'empty' => true ) );
-				echo '</fieldset>';
-			}
+					echo '</fieldset>';
+				}
+
+				echo $this->Form->input(
+					'Search.Dsp.topcreareprientre',
+					array(
+						'label' => __m("search.porteurprojet"),
+						'type' => 'select',
+						'options' => $options['Donnees']['topcreareprientre'],
+						'empty' => true
+					)
+				);
 		?>
 	</fieldset>
 </fieldset>

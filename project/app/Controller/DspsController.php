@@ -65,6 +65,7 @@
 			'Search',
 			'Xform',
 			'Xhtml',
+			'Search.SearchForm'
 		);
 
 		/**

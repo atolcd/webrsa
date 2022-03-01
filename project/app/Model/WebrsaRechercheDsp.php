@@ -191,6 +191,12 @@
 								)
 							)
 						),
+						$Dsp->Personne->join(
+							'Historiquedroit',
+							array(
+								'type' => 'LEFT OUTER',
+							)
+						),
 					)
 				);
 
@@ -409,6 +415,14 @@
 				if( !empty( $conditionsDspRomeV3 ) ) {
 					$query['conditions'][] = $this->_searchConditionDspDspRev( $conditionsDspRomeV3, $aliases );
 				}
+			}
+
+			//Filtre par date d'intégration
+			$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, 'Historiquedroit.created' );
+
+			//filtre porteur de projet
+			if( isset( $search['Dsp']['topcreareprientre'] ) ) {
+				$query['conditions'][] = $this->_searchConditionDspDspRev( array( "Dsp.topcreareprientre" => $search['Dsp']['topcreareprientre'] ) );
 			}
 
 			return $query;
