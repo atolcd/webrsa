@@ -252,7 +252,7 @@
 			if ($success) {
 				foreach( $data as $value ) {
 					if( $this->Rendezvous->WebrsaRendezvous->provoquePassageCommission( $value ) ) {
-						$success = $this->Rendezvous->WebrsaRendezvous->creePassageCommission( $value, $user_id ) && $success;
+						$success = $this->Rendezvous->WebrsaRendezvous->creePassageCommission( $value, $user_id, 'cohorte' ) && $success;
 					}
 				}
 			}

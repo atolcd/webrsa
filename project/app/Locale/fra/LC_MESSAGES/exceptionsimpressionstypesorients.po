@@ -1,0 +1,45 @@
+# Traductions de exceptionsimpressionstypesorients.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "Exceptionimpressiontypeorient.origine"
+msgstr "Origine"
+
+msgid "Exceptionimpressiontypeorient.act"
+msgstr "Activité"
+
+msgid "Exceptionimpressiontypeorient.porteurprojet"
+msgstr "Porteur de projet"
+
+msgid "Exceptionimpressiontypeorient.modele_notif"
+msgstr "Modèle de notification"
+
+msgid "Exceptionimpressiontypeorient.actif"
+msgstr "Actif"
+
+msgid "/Exceptionsimpressionstypesorients/add/:heading"
+msgstr "Ajout d'une exception"
+
+msgid "/Exceptionsimpressionstypesorients/edit/:heading"
+msgstr "Modifier l'exception"
+
+msgid "Exceptionimpressiontypeorient.origine.C"
+msgstr "Origine : cohorte"
+
+msgid "Exceptionimpressiontypeorient.origine.HC"
+msgstr "Origine : hors cohorte"
+
+msgid "Exceptionimpression.porteurprojet.0"
+msgstr "Non"
+
+msgid "Exceptionimpression.porteurprojet.1"
+msgstr "Oui"
+

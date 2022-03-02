@@ -521,7 +521,11 @@ $irregularPlural = array(
 	'personnefrsadiplomexper' => 'personnesfrsadiplomexper',
 	'infocontactpersonne' => 'infoscontactspersonne',
 	// Flux Pôle Emploi
-	'fluxpoleemploi' => 'fluxpoleemplois'
+	'fluxpoleemploi' => 'fluxpoleemplois',
+	// Exception des impressions des orientations
+	'exceptionimpressiontypeorient' => 'exceptionsimpressionstypesorients',
+	'exceptionimpressiontypeorientOrigine' => 'exceptionsimpressionstypesorientsOrigines',
+	'exceptionimpressiontypeorient_origine' => 'exceptionsimpressionstypesorients_origines',
 );
 
 /**

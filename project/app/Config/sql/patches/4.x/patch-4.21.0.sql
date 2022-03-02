@@ -196,17 +196,25 @@ AS WITH liste_mois AS (
 WITH DATA;
 
 -- Création de la table stockant les exceptions pour les impressions des orientations
-CREATE TABLE IF NOT EXISTS public.exceptionsimpressions (
+CREATE TABLE IF NOT EXISTS public.exceptionsimpressionstypesorients (
 	id serial4 NOT NULL,
 	ordre int4 NOT NULL,
     typeorient_id int4 NOT NULL,
-	origine bpchar(2) NOT NULL,
     act bpchar(3) NULL,
     porteurprojet int2 NULL,
     modele_notif varchar(40) NOT NULL,
     actif bool NOT NULL DEFAULT true,
-    CONSTRAINT exceptionsimpressions_pkey PRIMARY KEY (id),
+    CONSTRAINT exceptionsimpressionstypesorients_pkey PRIMARY KEY (id),
     CONSTRAINT typesorients_id_fkey FOREIGN KEY (typeorient_id) REFERENCES public.typesorients(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+-- Création de la table stockant origines des exceptions pour les impressions des orientations
+CREATE TABLE IF NOT EXISTS public.exceptionsimpressionstypesorients_origines (
+	id serial4 NOT NULL,
+    excepimprtypeorient_id int4 NOT NULL,
+	origine varchar(13) NOT NULL,
+    CONSTRAINT exceptionimpressiontypeorient_origine_pkey PRIMARY KEY (id),
+    CONSTRAINT excepimprtypeorient_id_fkey FOREIGN KEY (excepimprtypeorient_id) REFERENCES public.exceptionsimpressionstypesorients(id) ON DELETE CASCADE ON UPDATE cascade,
+	CONSTRAINT orientsstructs_origine_in_list_chk CHECK (cakephp_validate_in_list((origine)::text, ARRAY['manuelle'::text, 'cohorte'::text, 'reorientation'::text, 'demenagement'::text, 'prestaorient'::text, 'entdiag'::text, 'initinap'::text]))
 );
 
 -- *****************************************************************************

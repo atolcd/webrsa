@@ -31,7 +31,15 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Orientstruct', 'Informationpe', 'Dsp', 'Exceptionsimpression', 'Activite', 'DspRev' );
+		public $uses = array(
+			'Orientstruct',
+			'Informationpe',
+			'Dsp',
+			'Exceptionimpressiontypeorient',
+			'Activite',
+			'DspRev',
+			'ExceptionimpressiontypeorientOrigine'
+		);
 
 		/**
 		 * Permet d'obtenir les données du formulaire d'ajout / de modification,
@@ -237,8 +245,8 @@
 						'date_valid'
 					);
 					if( empty( $success ) ) {
-						$msgstr = __d('orientsstructs', 'Orientstruct.erreur.referent');
-						$this->Orientstruct->validationErrors['referent_id'][] = $msgstr;
+						$msgstr = __d('orienstructs', 'Orientstruct.erreur.referent');
+						$this->Orientstruct->validationErrors['typeorient_id'][] = $msgstr;
 					}
 				}
 			}
@@ -1554,38 +1562,38 @@
 		}
 
 		public function getModeleExceptions58($data){
-			$exceptions = $this->Exceptionsimpression->findAllByTypeorientId($data['Orientstruct']['typeorient_id'], null, ['ordre' => 'asc']);
-			//origine de l'orientation
-			$origine = $data['Orientstruct']['origine'] == 'cohorte' ? 'C' : 'HC';
+			$exceptions = $this->Exceptionimpressiontypeorient->findAllByTypeorientId($data['Orientstruct']['typeorient_id'], null, ['ordre' => 'asc']);
+
 			//catégorie d'activité de la personne
 			$activite = $this->Activite->findByPersonneIdAndDfact($data['Personne']['id'], null, null, ['ddact' => 'desc']);
 			$activite = isset($activite['Activite']['act']) ? $activite['Activite']['act'] : null;
+
 			//derniere dsp
-			$dsp= $this->DspRev->findByPersonneId($data['Personne']['id'], null, ['DspRev.modified' => 'desc']);
-			if(Empty($dsp)){
-				$dsp = $this->Dsp->findByPersonneId($data['Personne']['id']);
+			$dsp= $this->DspRev->findByPersonneId($data['Personne']['id'], null, ['DspRev.modified' => 'desc', 'DspRev.id' => 'desc']);
+			$porteurprojet = isset($dsp['DspRev']['topcreareprientre']) ? $dsp['DspRev']['topcreareprientre'] : null;
+			if(empty($dsp)){
+				$porteurprojet = isset($dsp['Dsp']['topcreareprientre']) ? $dsp['Dsp']['topcreareprientre'] : null;
 			}
-			$porteurprojet = isset($dsp['Dsp']['topcreareprientre']) ? $dsp['Dsp']['topcreareprientre'] : null;
 
 			//on déroule les critères 1 à 1, si on entre dedans on prend le modèle associé sinon on prend le modèle de base
 			foreach ($exceptions as $exception){
+				$listeOrigines = $this->ExceptionimpressiontypeorientOrigine->getOriginesParExceptionsTableau($exception['Exceptionimpressiontypeorient']['id']);
 				if(
-					$exception['Exceptionsimpression']['actif'] == true
-					&& $exception['Exceptionsimpression']['origine'] == $origine
-					&& ($exception['Exceptionsimpression']['act'] == $activite
-						|| $exception['Exceptionsimpression']['act'] == null)
-					&& ($exception['Exceptionsimpression']['porteurprojet'] == $porteurprojet
-						|| $exception['Exceptionsimpression']['porteurprojet'] == null)
+					$exception['Exceptionimpressiontypeorient']['actif'] == true
+					&& in_array($data['Orientstruct']['origine'], $listeOrigines)
+					&& ($exception['Exceptionimpressiontypeorient']['act'] == $activite
+						|| $exception['Exceptionimpressiontypeorient']['act'] == null)
+					&& ($exception['Exceptionimpressiontypeorient']['porteurprojet'] == $porteurprojet
+						|| $exception['Exceptionimpressiontypeorient']['porteurprojet'] == null)
 				) {
-					return "Orientation/{$exception['Exceptionsimpression']['modele_notif']}.odt";
+					return "Orientation/{$exception['Exceptionimpressiontypeorient']['modele_notif']}.odt";
 				}
 			}
 
-			if($origine == 'C'){
+			if($data['Orientstruct']['origine'] == 'cohorte'){
 				return "Orientation/{$data['Typeorient']['modele_notif_cohorte']}.odt";
 			} else {
 				return "Orientation/{$data['Typeorient']['modele_notif']}.odt";
 			}
-
 		}
 	}

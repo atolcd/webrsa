@@ -476,7 +476,7 @@
 		 * @param type $user_id
 		 * @return type
 		 */
-		public function creePassageCommission( $data, $user_id ) {
+		public function creePassageCommission( $data, $user_id, $origine = 'manuelle' ) {
 			$success = true;
 			$statutrdv_typerdv_list = $this->Rendezvous->Statutrdv->StatutrdvTyperdv->find(
 				'all',
@@ -555,7 +555,7 @@
 							'statut_orient' => 'Orienté',
 							'date_propo' => $date_du_jour,
 							'date_valid' => $date_du_jour,
-							'origine' => 'cohorte'
+							'origine' => $origine
 						);
 						if(!empty($referent)){
 							$referent_id = $referent['Referent']['id'];

@@ -1,4 +1,4 @@
-# Traductions de exceptionsimpressions.po
+# Traductions de exceptionsimpressionstypesorients.po
 # @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 #
 msgid ""
@@ -10,4 +10,9 @@ msgstr ""
 
 # ==============================================================================
 
+msgid "Exceptionimpressiontypeorient.porteurprojet.0"
+msgstr "Non"
+
+msgid "Exceptionimpressiontypeorient.porteurprojet.1"
+msgstr "Oui"
 

@@ -125,7 +125,7 @@ fieldset {
 	border: none;
 	background-color: #f5f5f5;
 	position: relative;
-	
+
 }
 
 fieldset h2{
@@ -522,4 +522,22 @@ div.divideInto3Columns {
     border: 1px solid #158000;
     padding: 0.5em;
     color: #158000;
+}
+
+/* Gestion des exceptions des impressions d'orientation */
+#exceptionorigines {
+	margin-top: 0.5%
+}
+
+#exceptionorigines .checkbox {
+	display: inline-block;
+	padding: 1% 2%;
+}
+
+#exceptionorigines .checkbox label {
+	display: contents;
+}
+
+#exceptionorigines button {
+	margin: 0 0.5%;
 }

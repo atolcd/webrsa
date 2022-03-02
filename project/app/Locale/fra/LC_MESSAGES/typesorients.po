@@ -43,352 +43,51 @@ msgstr "Retour"
 msgid "/Parametrages/index/:title"
 msgstr "Retour aux paramétrages"
 
-msgid "exceptionsimpression.titre"
+msgid "exceptionimpressiontypeorient.titre"
 msgstr "Paramétrage des exceptions des impressions"
 
-msgid "/Exceptionsimpressions/add"
+msgid "/Exceptionsimpressionstypesorients/add"
 msgstr "Ajouter une exception"
 
-msgid "Exceptionsimpression.origine"
-msgstr "Origine"
+msgid "Exceptionimpressiontypeorient.origine"
+msgstr "Origine(s)"
 
-msgid "Exceptionsimpression.act"
+msgid "Exceptionimpressiontypeorient.act"
 msgstr "Activité"
 
-msgid "Exceptionsimpression.porteurprojet"
+msgid "Exceptionimpressiontypeorient.porteurprojet"
 msgstr "Porteur de projet"
 
-msgid "Exceptionsimpression.modele_notif"
+msgid "Exceptionimpressiontypeorient.modele_notif"
 msgstr "Modèle de notification"
 
-msgid "Exceptionsimpression.actif"
+msgid "Exceptionimpressiontypeorient.actif"
 msgstr "Actif"
 
-msgid "/Exceptionsimpressions/edit"
+msgid "/Exceptionsimpressionstypesorients/edit"
 msgstr "Modifier"
 
-msgid "/Exceptionsimpressions/delete"
+msgid "/Exceptionsimpressionstypesorients/delete"
 msgstr "Supprimer"
 
-msgid "/Exceptionsimpressions/monter"
+msgid "/Exceptionsimpressionstypesorients/delete/#Exceptionimpressiontypeorient.id# ?"
+msgstr "Réellement supprimer cette exception ?"
+
+msgid "/Exceptionsimpressionstypesorients/monter"
 msgstr "Monter"
 
-msgid "/Exceptionsimpressions/descendre"
+msgid "/Exceptionsimpressionstypesorients/descendre"
 msgstr "Descendre"
 
-msgid "Exceptionsimpression.origine.C "
-msgstr "Cohorte"
-
-msgid "Exceptionsimpression.origine.HC"
-msgstr "Hors cohorte"
-
-msgid "Exceptionsimpression.act.ABS"
-msgstr "Absent foyer"
-
-msgid "Exceptionsimpression.act.ANI"
-msgstr "Activité partielle + chômeur non indemnisé"
-
-msgid "Exceptionsimpression.act.CAT"
-msgstr "Activité centre aide travail"
-
-msgid "Exceptionsimpression.act.AAP"
-msgstr "Activité en entreprise adaptée"
-
-msgid "Exceptionsimpression.act.AUT"
-msgstr "Sous autre contrat"
-
-msgid "Exceptionsimpression.act.SIN"
-msgstr "Activité inconnue"
-
-msgid "Exceptionsimpression.act.AFA"
-msgstr "Aide familial agricole"
-
-msgid "Exceptionsimpression.act.APP"
-msgstr "Apprenti"
-
-msgid "Exceptionsimpression.act.AMA"
-msgstr "Assistante maternelle agréée"
-
-msgid "Exceptionsimpression.act.AEN"
-msgstr "Auto-entrepreneur"
-
-msgid "Exceptionsimpression.act.SUR"
-msgstr "Bénéf. rente de survivant A.T."
-
-msgid "Exceptionsimpression.act.CBS"
-msgstr "ESAT : absent du foyer"
-
-msgid "Exceptionsimpression.act.CLD"
-msgstr "ESAT : maladie longue durée"
-
-msgid "Exceptionsimpression.act.CDD"
-msgstr "Contrat à durée déterminé"
-
-msgid "Exceptionsimpression.act.CDI"
-msgstr "Contrat à durée indéterminé"
-
-msgid "Exceptionsimpression.act.CUI"
-msgstr "En contrat Unique Insertion PEC-CDDI"
-
-msgid "Exceptionsimpression.act.DET"
-msgstr "Travailleur étranger détaché en France"
-
-msgid "Exceptionsimpression.act.CSA"
-msgstr "C.E.S. et salarié(e)"
-
-msgid "Exceptionsimpression.act.CEA"
-msgstr "C.E.S. maintien abattement"
-
-msgid "Exceptionsimpression.act.CEN"
-msgstr "C.E.S. maintien neutralisation"
-
-msgid "Exceptionsimpression.act.CAC"
-msgstr "Cessation activité pour enfant"
-
-msgid "Exceptionsimpression.act.CHA"
-msgstr "Chôm. + activité"
-
-msgid "Exceptionsimpression.act.CHR"
-msgstr "Chômeur"
-
-msgid "Exceptionsimpression.act.ABA"
-msgstr "Chômeur-alloc de base"
-
-msgid "Exceptionsimpression.act.AFD"
-msgstr "Chômeur-alloc fin de droit"
-
-msgid "Exceptionsimpression.act.AFC"
-msgstr "Chômeur-alloc formation reclass"
-
-msgid "Exceptionsimpression.act.AIN"
-msgstr "Chômeur-alloc insertion"
-
-msgid "Exceptionsimpression.act.ASS"
-msgstr "Chômeur-alloc solidarité specifique"
-
-msgid "Exceptionsimpression.act.ASP"
-msgstr "Chômeur-alloc speciale"
-
-msgid "Exceptionsimpression.act.CDA"
-msgstr "Chômeur abattement + activité"
-
-msgid "Exceptionsimpression.act.CDN"
-msgstr "Chômeur neutralisation + activité"
-
-msgid "Exceptionsimpression.act.ADN"
-msgstr "Chômeur allocation de fin de droit"
-
-msgid "Exceptionsimpression.act.ADA"
-msgstr "Chômeur AUD ou pare abattement"
-
-msgid "Exceptionsimpression.act.CAP"
-msgstr "Chômeur et activité > 55% du smic"
-
-msgid "Exceptionsimpression.act.CNI"
-msgstr "Chômeur non indemnisé"
-
-msgid "Exceptionsimpression.act.CPL"
-msgstr "Chômeur partiel"
-
-msgid "Exceptionsimpression.act.CHO"
-msgstr "Chômeur sans justificatif"
-
-msgid "Exceptionsimpression.act.CCV"
-msgstr "Congé conventionnel"
-
-msgid "Exceptionsimpression.act.MAT"
-msgstr "Congé maternité ou paternité"
-
-msgid "Exceptionsimpression.act.CGP"
-msgstr "Congé payé"
-
-msgid "Exceptionsimpression.act.SAB"
-msgstr "Congé sabattique"
-
-msgid "Exceptionsimpression.act.CSS"
-msgstr "Congé sans solde"
-
-msgid "Exceptionsimpression.act.CJT"
-msgstr "Conjoint collaborateur d'E.T.I."
-
-msgid "Exceptionsimpression.act.CES"
-msgstr "Contrat emploi solidarité"
-
-msgid "Exceptionsimpression.act.CIS"
-msgstr "CIA et activité salariée / DOM"
-
-msgid "Exceptionsimpression.act.CIA"
-msgstr "Contrat insertion/activité /dom"
-
-msgid "Exceptionsimpression.act.DSF"
-msgstr "Déclaration situation non fournie"
-
-msgid "Exceptionsimpression.act.DEG"
-msgstr "Dégagé obligation scolaire"
-
-msgid "Exceptionsimpression.act.CAR"
-msgstr "Délai de carence P.Emploi"
-
-msgid "Exceptionsimpression.act.MMA"
-msgstr "Enfant maintenu maternelle"
-
-msgid "Exceptionsimpression.act.ETU"
-msgstr "Etudiant"
-
-msgid "Exceptionsimpression.act.EBO"
-msgstr "Etudiant boursier"
-
-msgid "Exceptionsimpression.act.ETS"
-msgstr "Etudiant salarié"
-
-msgid "Exceptionsimpression.act.EXS"
-msgstr "Expl. agricole en ces/dom"
-
-msgid "Exceptionsimpression.act.FDA"
-msgstr "Chômeur F.Publique abattement"
-
-msgid "Exceptionsimpression.act.FDN"
-msgstr "Chômeur F.Publique neutralisation"
-
-msgid "Exceptionsimpression.act.GSA"
-msgstr "Gérant salarié"
-
-msgid "Exceptionsimpression.act.INP"
-msgstr "Inapte"
-
-msgid "Exceptionsimpression.act.NAS"
-msgstr "Inassidu"
-
-msgid "Exceptionsimpression.act.HAN"
-msgstr "Infirme / handicapé"
-
-msgid "Exceptionsimpression.act.ANP"
-msgstr "Inscrit à P.Emploi"
-
-msgid "Exceptionsimpression.act.IAD"
-msgstr "Instruction à domicile"
-
-msgid "Exceptionsimpression.act.JNF"
-msgstr "Justificatif non fourni pour apprenti"
-
-msgid "Exceptionsimpression.act.MMC"
-msgstr "Mal. maternité et chômage abat."
-
-msgid "Exceptionsimpression.act.MMI"
-msgstr "Mal. maternité et chômage neut."
-
-msgid "Exceptionsimpression.act.MAL"
-msgstr "Malade"
-
-msgid "Exceptionsimpression.act.INF"
-msgstr "Malade/Handicap non scolaire"
-
-msgid "Exceptionsimpression.act.SCI"
-msgstr "Malade/Handicap scolarisé"
-
-msgid "Exceptionsimpression.act.MLD"
-msgstr "Maladie longue durée"
-
-msgid "Exceptionsimpression.act.MAR"
-msgstr "Marin pêcheur travailleur non salarié"
-
-msgid "Exceptionsimpression.act.MOA"
-msgstr "Membre organisation, communauté, en activité"
-
-msgid "Exceptionsimpression.act.MOC"
-msgstr "Membre organisation, communauté, sans activité"
-
-msgid "Exceptionsimpression.act.AMT"
-msgstr "Mi-temps suite plein temps"
-
-msgid "Exceptionsimpression.act.MNE"
-msgstr "Mort né viable ou non viable"
-
-msgid "Exceptionsimpression.act.NOB"
-msgstr "Non soumis obligation scolaire"
-
-msgid "Exceptionsimpression.act.INV"
-msgstr "Invalide"
-
-msgid "Exceptionsimpression.act.NCH"
-msgstr "Plus de droit / Non à charge"
-
-msgid "Exceptionsimpression.act.PRE"
-msgstr "Préretraité"
-
-msgid "Exceptionsimpression.act.RAT"
-msgstr "Rente AT"
-
-msgid "Exceptionsimpression.act.RET"
-msgstr "Retraité"
-
-msgid "Exceptionsimpression.act.RSA"
-msgstr "Retraite(e) militaire < 62 ans"
-
-msgid "Exceptionsimpression.act.RAC"
-msgstr "Réduction activité (ESAT)"
-
-msgid "Exceptionsimpression.act.EXP"
-msgstr "Régime Agricole travailleur non salarié"
-
-msgid "Exceptionsimpression.act.ETI"
-msgstr "Régime Général travailleur non salarié"
-
-msgid "Exceptionsimpression.act.DNL"
-msgstr "Salarié non rémunéré durée légale"
-
-msgid "Exceptionsimpression.act.SAL"
-msgstr "Salarié(e)"
-
-msgid "Exceptionsimpression.act.SSA"
-msgstr "Service civique - Garanties Jeunes - Sans activité"
-
-msgid "Exceptionsimpression.act.SAV"
-msgstr "Sans activité motif CDAPH"
-
-msgid "Exceptionsimpression.act.SAC"
-msgstr "Sans activité"
-
-msgid "Exceptionsimpression.act.SCO"
-msgstr "Scolaire"
-
-msgid "Exceptionsimpression.act.SNA"
-msgstr "Service national actif"
-
-msgid "Exceptionsimpression.act.SFP"
-msgstr "Stage formation professionnelle"
-
-msgid "Exceptionsimpression.act.SNR"
-msgstr "Stage non remunéré"
-
-msgid "Exceptionsimpression.act.PIL"
-msgstr "Stagiaire prog insert locale"
-
-msgid "Exceptionsimpression.act.RMA"
-msgstr "Titulaire contrat CIMA/CAV"
-
-msgid "Exceptionsimpression.act.INT"
-msgstr "Intérim - Travailleur intermittent"
-
-msgid "Exceptionsimpression.act.TSA"
-msgstr "Travailleur saisonnier"
-
-msgid "Exceptionsimpression.act.VDI"
-msgstr "Vendeur à domicile"
-
-msgid "Exceptionsimpression.act.VRP"
-msgstr "Voyageur représentant placier"
-
-msgid "Exceptionsimpression.act.VRP"
-msgstr "Voyageur représentant placier"
-
-msgid "Exceptionsimpression.act.VRP"
-msgstr "Voyageur représentant placier"
-
-msgid "Exceptionsimpression.porteurprojet.0"
+msgid "Exceptionimpressiontypeorient.porteurprojet.0"
 msgstr "Non"
 
-msgid "Exceptionsimpression.porteurprojet.1"
+msgid "Exceptionimpressiontypeorient.porteurprojet.1"
 msgstr "Oui"
 
+msgid "Typeorient.has_exceptions"
+msgstr "Possède des exceptions"
+
+msgid "typesorients.liste"
+msgstr "Liste des types d'orientation"
 

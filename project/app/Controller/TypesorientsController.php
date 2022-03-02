@@ -29,7 +29,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Typeorient', 'Exceptionsimpression' );
+		public $uses = array( 'Typeorient', 'Exceptionimpressiontypeorient' );
 
 		/**
 		 * Utilise les droits d'un autre Controller:action
@@ -78,7 +78,16 @@
 			$query = $this->_query();
 			$query['fields'] = array_merge(
 				$query['fields'],
-				 array( $this->Typeorient->sqHasLinkedRecords() )
+				 array( $this->Typeorient->sqHasLinkedRecords() ),
+				 ['CASE WHEN (
+							EXISTS(
+								SELECT *
+								FROM "public"."exceptionsimpressionstypesorients" AS "exceptionsimpressionstypesorients"
+								WHERE "exceptionsimpressionstypesorients"."typeorient_id" = "Typeorient"."id")) = true
+						THEN \'Oui\'
+						ELSE \'Non\'
+					END AS "Typeorient__has_exceptions"'
+				 ]
 			);
 
 			$this->WebrsaParametrages->index( $query );
@@ -108,10 +117,23 @@
 				)
 			);
 
-			$typesorients = $this->Typeorient->find( 'all', $this->_query() );
-			$exceptions = $this->Exceptionsimpression->getByTypeOrient($id);
-			$dernier_id = $this->Exceptionsimpression->getDernierId($exceptions);
-			$premier_id = $this->Exceptionsimpression->getPremierId($exceptions);
+			$query = $this->_query();
+			$query['fields'] = array_merge(
+				$query['fields'],
+				['CASE WHEN (
+							EXISTS(
+								SELECT *
+								FROM "public"."exceptionsimpressionstypesorients" AS "exceptionsimpressionstypesorients"
+								WHERE "exceptionsimpressionstypesorients"."typeorient_id" = "Typeorient"."id")) = true
+						THEN \'Oui\'
+						ELSE \'Non\'
+					END AS "Typeorient__has_exceptions"'
+				]
+			);
+			$typesorients = $this->Typeorient->find( 'all', $query );
+			$exceptions = $this->Exceptionimpressiontypeorient->getByTypeOrient($id);
+			$dernier_id = $this->Exceptionimpressiontypeorient->getDernierId($exceptions);
+			$premier_id = $this->Exceptionimpressiontypeorient->getPremierId($exceptions);
 			$this->set( compact( 'options', 'typesorients', 'exceptions', 'id', 'dernier_id', 'premier_id' ) );
 		}
 	}

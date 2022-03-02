@@ -5096,23 +5096,23 @@ msgstr "Voir les tutoriels"
 
 ## Exceptions d'impressions
 ###############################################################################
-msgid "controllers/Exceptionsimpressions"
+msgid "controllers/exceptionsimpressionstypesorients"
 msgstr "Exceptions d'impressions d'orientation"
 
-msgid "controllers/Exceptionsimpressions/add"
+msgid "controllers/exceptionsimpressionstypesorients/add"
 msgstr "Ajouter une exception"
 
-msgid "controllers/Exceptionsimpressions/delete"
+msgid "controllers/exceptionsimpressionstypesorients/delete"
 msgstr "Supprimer une exception"
 
-msgid "controllers/Exceptionsimpressions/descendre"
+msgid "controllers/exceptionsimpressionstypesorients/descendre"
 msgstr "Baisser l'ordre d'une exception"
 
-msgid "controllers/Exceptionsimpressions/monter"
+msgid "controllers/exceptionsimpressionstypesorients/monter"
 msgstr "Monterr l'ordre d'une exception"
 
-msgid "controllers/Exceptionsimpressions/edit"
+msgid "controllers/exceptionsimpressionstypesorients/edit"
 msgstr "Modifier une exception"
 
-msgid "controllers/Exceptionsimpressions/index"
+msgid "controllers/exceptionsimpressionstypesorients/index"
 msgstr "Voir les exceptions"
