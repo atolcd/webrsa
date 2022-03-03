@@ -281,6 +281,14 @@
 					)
 				);
 
+				//Lien avec orientstruct pour récupérer le dernier type d'orientation de la personne (pour l'export CSV)
+				$query['fields'][] = 'Typeorient.lib_type_orient';
+				$query['joins'][] = $Dsp->Personne->join( 'Orientstruct', array( 'type' => 'LEFT OUTER' ) );
+				$query['joins'][] = $Dsp->Personne->Orientstruct->join( 'Typeorient', array( 'type' => 'LEFT OUTER' ) );
+				$query['conditions'][] = [
+					"Orientstruct.id IN (".$Dsp->Personne->Orientstruct->WebrsaOrientstruct->sqDerniere().")"
+				];
+
 				Cache::write( $cacheKey, $query );
 			}
 
