@@ -35,6 +35,11 @@
 			// Inscrit PE
 			$query = $this->inscritPE($query);
 
+			if(Configure::read('PlanPauvrete.Fileactive.PPAE')){
+				//Uniquement les personnes qui ont un PPAE
+				$query = $this->avecPPAE($query);
+			}
+
 			// Stock
 			$query = $this->stock($query);
 

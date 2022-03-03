@@ -4,10 +4,6 @@ SET client_encoding = 'UTF8';
 BEGIN;
 -- *****************************************************************************
 
-
--- Update de la variable de configuration pour l'affichage des referents sectorisation
-UPDATE public.configurations SET value_variable = 'true' WHERE lib_variable LIKE 'PlanPauvrete.Nouveauxentrants.PPAE';
-
 -- Update des variables de configuration pour ne pas afficher le rdv 3 en 1 dans le menu du plan pauvreté
 UPDATE public.configurations SET value_variable = 'false' WHERE lib_variable LIKE 'Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol_second_rdv_nouveaux';
 UPDATE public.configurations SET value_variable = 'false' WHERE lib_variable LIKE 'Module.Cohorte.Plan.Pauvrete.Nouveaux.cohorte_infocol_imprime_second_rdv_nouveaux';
@@ -72,6 +68,12 @@ UPDATE public.configurations SET value_variable = '{
 	},
 	"ini_set": []
 }' WHERE lib_variable LIKE 'ConfigurableQuery.Dsps.exportcsv';
+
+-- Update de la variable de configuration pour la prise en compte ou non du PPAE pour les nouveaux entrants
+UPDATE public.configurations SET value_variable = 'true' WHERE lib_variable LIKE 'PlanPauvrete.Nouveauxentrants.PPAE';
+
+-- Update de la variable de configuration pour la prise en compte ou non du PPAE pour la file active
+UPDATE public.configurations SET value_variable = 'true' WHERE lib_variable LIKE 'PlanPauvrete.Fileactive.PPAE';
 
 -- *****************************************************************************
 COMMIT;
