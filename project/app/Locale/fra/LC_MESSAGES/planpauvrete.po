@@ -132,8 +132,11 @@ msgstr "Inscrit au Pôle Emploi ?"
 
 # ==============================================================================
 
-msgid "Planpauvrete.Planpauvrete.Menu58"
-msgstr "Plan pauvreté "
+msgid "Planpauvrete.Planpauvrete.Menu58.Nouveaux"
+msgstr "Nouveaux entrants du Plan pauvreté"
+
+msgid "Planpauvrete.Planpauvrete.Menu58.Fileactive"
+msgstr "File active des Non orientés"
 
 msgid "Planpauvrete.Fileactive.Menu"
 msgstr "File active"
