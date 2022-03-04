@@ -428,3 +428,6 @@ msgstr "Revenir à cette version"
 
 msgid "search.porteurprojet"
 msgstr "Souhaitez vous vous engager dans une démarche de création ou de reprise d’entreprise ? (PORTEUR DE PROJET)"
+
+msgid "Search.Historiquedroit.created"
+msgstr "Date d'intégration"

@@ -3,6 +3,7 @@
 <?php
 		echo "<fieldset><legend>" . __d('planpauvreterendezvous', 'Search.Historiquedroit' ) . "</legend>";
 		echo $this->SearchForm->dateRange( 'Search.Historiquedroit.created', array(
+			'domain' => 'dsps',
 			'minYear_from' => 2009,
 			'minYear_to' => 2009,
 			'maxYear_from' => date( 'Y' ) + 1,
