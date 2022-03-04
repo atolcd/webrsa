@@ -63,14 +63,14 @@
 				foreach ($this->request->data['ExceptionimpressiontypeorientOrigine'] as $nom => $valeur){
 					if($valeur != '0'){
 						$aucuneOrigine = false;
-						$success = $this->enregistrerOrigine($nom, $valeur, $id, $success);
+						$success = $this->enregistrerOrigine($nom, $id, $success);
 					}
 				}
 
 				if($aucuneOrigine == true){
 					//on enregistre toutes les origines
 					foreach ($this->request->data['ExceptionimpressiontypeorientOrigine'] as $nom => $valeur){
-						$success = $this->enregistrerOrigine($nom, $valeur, $id, $success);
+						$success = $this->enregistrerOrigine($nom, $id, $success);
 					}
 				}
 
@@ -123,7 +123,7 @@
 					if($valeur != '0'){
 						$aucuneOrigine = false;
 						//Si la valeur n'est pas déjà enregistrée en BDD on l'ajoute
-						$success = $this->enregistrerOrigine($nom, $valeur, $id, $success);
+						$success = $this->enregistrerOrigine($nom, $id, $success);
 					} else {
 						//Si la ligne existe en BDD, on la supprime
 						$origine = $this->ExceptionimpressiontypeorientOrigine->findByExcepimprtypeorientIdAndOrigine($id, $nom);
@@ -136,7 +136,7 @@
 				if($aucuneOrigine == true){
 					//on enregistre toutes les origines
 					foreach ($this->request->data['ExceptionimpressiontypeorientOrigine'] as $nom => $valeur){
-						$success = $this->enregistrerOrigine($nom, $valeur, $id, $success);
+						$success = $this->enregistrerOrigine($nom, $id, $success);
 					}
 				}
 
@@ -206,8 +206,8 @@
 		 *
 		 * @return bool
 		*/
-		public function enregistrerOrigine($nom, $valeur, $id, $success){
-			if(!$this->ExceptionimpressiontypeorientOrigine->findByExcepimprtypeorientIdAndOrigine($id, $valeur)){
+		public function enregistrerOrigine($nom, $id, $success){
+			if(!$this->ExceptionimpressiontypeorientOrigine->findByExcepimprtypeorientIdAndOrigine($id, $nom)){
 				$data = ['ExceptionimpressiontypeorientOrigine' => [
 					'excepimprtypeorient_id' => $id,
 					'origine' => $nom,
@@ -229,7 +229,12 @@
 
 		public function adaptTabOrigine($data) {
 			$origines = $this->Exceptionimpressiontypeorient->getOrigines();
-			$excepOrigines = $data['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigine'];
+			$excepOriginesC = $data['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigineC'] != '' ? $data['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigineC'] : [];
+			$excepOriginesHC = $data['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigineHC'] != '' ? $data['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigineHC'] : [];
+			$excepOrigines = array_merge(
+				$excepOriginesC,
+				$excepOriginesHC
+			);
 			unset($data['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigine']);
 
 			foreach($origines as $name => $value) {

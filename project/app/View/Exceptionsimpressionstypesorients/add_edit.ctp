@@ -14,12 +14,12 @@
 		echo $this->Html->tag(
 			'fieldset',
 			$this->Html->tag( 'legend', __m('Exceptionimpressiontypeorient.origine.C' ) )
-			. $this->Form->input( 'Exceptionimpressiontypeorient.ExceptionimpressiontypeorientOrigine', array( 'label' => false, 'multiple' => 'checkbox' , 'options' => $options['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigine']['cohorte'] ) )
+			. $this->Form->input( 'Exceptionimpressiontypeorient.ExceptionimpressiontypeorientOrigineC', array( 'label' => false, 'multiple' => 'checkbox' , 'options' => $options['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigine']['cohorte'] ) )
 		);
 		echo $this->Html->tag(
 			'fieldset',
 			$this->Html->tag( 'legend', __m('Exceptionimpressiontypeorient.origine.HC' ) )
-			. $this->Form->input( 'Exceptionimpressiontypeorient.ExceptionimpressiontypeorientOrigine', array( 'label' => false, 'multiple' => 'checkbox' , 'options' => $options['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigine']['horscohorte'] ) )
+			. $this->Form->input( 'Exceptionimpressiontypeorient.ExceptionimpressiontypeorientOrigineHC', array( 'label' => false, 'multiple' => 'checkbox' , 'options' => $options['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigine']['horscohorte'] ) )
 		);
 	echo '</div>';
 
