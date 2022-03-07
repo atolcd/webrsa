@@ -53,7 +53,7 @@
 			$options['Tag']['etat'] = $Controller->Tag->enum( 'etat' );
 
 			$Controller->loadModel( 'Typeorient' );
-			$options['Orientstruct']['typeorient_id'] = $Controller->Typeorient->find( 'list' );
+			$options['Orientstruct']['typeorient_id'] = $Controller->Typeorient->listOptions();
 
 			$Controller->loadModel( 'Option' );
 			$options['Fluxpoleemploi']['accompagnement'] = $Controller->Option->ppae_modalite_code ();
