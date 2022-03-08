@@ -413,6 +413,19 @@ table#infosPdo th, table#infosPdo td {
 	display: none;
 }
 
+#dsps_derniere {
+	background-color: #0a5880;
+}
+
+#dsps_derniere a {
+	color: #fff;
+}
+
+.dsps_bouton_voir {
+	padding: 10px;
+}
+
+
 /*form#Apre  td.fraisdepct input {
     width: 30%;
 }*/
