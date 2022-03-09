@@ -62,50 +62,54 @@
 			echo "</tr>";
 			echo "</tbody></table>";
 
-			//On fait un tableau avec toutes mises à jours
-			echo "<br><br>";
-			echo "<h3>Toutes les modifications</h3>";
-			echo "<table><thead>";
-			echo "<tr><th>Date de création</th><th>Date de modification</th><th>Différences</th><th class='action' colspan='6'>Actions</th></tr></thead><tbody>";
+			if(!empty($histos[1]['DspRev'])){
+				//On fait un tableau avec toutes les autres mises à jours
+				echo "<br><br>";
+				echo "<h2>Autres modifications</h2>";
+				echo "<table><thead>";
+				echo "<tr><th>Date de création</th><th>Date de modification</th><th>Différences</th><th class='action' colspan='6'>Actions</th></tr></thead><tbody>";
 
-			foreach ($histos as $key => $histo) {
-				$nbFichiersLies = 0;
-				$nbFichiersLies = ( isset( $histo['Fichiermodule'] ) ? count( $histo['Fichiermodule'] ) : 0 );
+				foreach ($histos as $key => $histo) {
+					if($key != 0){
+						$nbFichiersLies = 0;
+						$nbFichiersLies = ( isset( $histo['Fichiermodule'] ) ? count( $histo['Fichiermodule'] ) : 0 );
 
-				echo "<tr><td>";
-				if (isset($histo['DspRev']['created'])) echo date_short( $histo['DspRev']['created'] );
-				echo "</td><td>";
-				if (isset($histo['DspRev']['modified'])) echo date_short( $histo['DspRev']['modified'] );
-				echo "<td>".$histo['diff'].'</td>';
+						echo "<tr><td>";
+						if (isset($histo['DspRev']['created'])) echo date_short( $histo['DspRev']['created'] );
+						echo "</td><td>";
+						if (isset($histo['DspRev']['modified'])) echo date_short( $histo['DspRev']['modified'] );
+						echo "<td>".$histo['diff'].'</td>';
 
-				echo '<td>'.$this->Xhtml->link($this->Xhtml->image('icons/style.png', array()).' Voir les différences', '/dsps/view_diff/'.$histo['DspRev']['id'], array(
-					'escape'=>false,
-					'enabled' => WebrsaAccess::isEnabled($histo, '/Dsps/view_diff')
-				)).'</td>';
+						echo '<td>'.$this->Xhtml->link($this->Xhtml->image('icons/style.png', array()).' Voir les différences', '/dsps/view_diff/'.$histo['DspRev']['id'], array(
+							'escape'=>false,
+							'enabled' => WebrsaAccess::isEnabled($histo, '/Dsps/view_diff')
+						)).'</td>';
 
-				echo "</td><td class='dsps_bouton_voir'>".$this->Xhtml->link($this->Xhtml->image('icons/zoom.png', array()).'Voir', '/dsps/view_revs/'.$histo['DspRev']['id'], array(
-					'escape'=>false,
-					'enabled' => WebrsaAccess::isEnabled($histo, '/Dsps/view_revs')
-				))."</td><td>".$this->Xhtml->link($this->Xhtml->image('icons/pencil.png', array()).'Modifier', '/dsps/edit/'.$dsp['Personne']['id'].'/'.$histo['DspRev']['id'], array(
-						'escape'=>false,
-						'enabled' => WebrsaAccess::isEnabled($histo, '/Dsps/edit') && ($key == 0 || Configure::read( 'Dsp.modification.all.enabled' ))
-					))."</td>";
-				if( Configure::read( 'Cg.departement' ) != 66 ){
-					echo "<td>".$this->Xhtml->link($this->Xhtml->image('icons/arrow_redo.png', array()).'Revenir à cette version', '/dsps/revertTo/'.$histo['DspRev']['id'], array(
-						'escape'=>false,
-						'enabled' => WebrsaAccess::isEnabled($histo, '/Dsps/revertTo')
-					))."</td>";
+						echo "</td><td class='dsps_bouton_voir'>".$this->Xhtml->link($this->Xhtml->image('icons/zoom.png', array()).'Voir', '/dsps/view_revs/'.$histo['DspRev']['id'], array(
+							'escape'=>false,
+							'enabled' => WebrsaAccess::isEnabled($histo, '/Dsps/view_revs')
+						))."</td><td>".$this->Xhtml->link($this->Xhtml->image('icons/pencil.png', array()).'Modifier', '/dsps/edit/'.$dsp['Personne']['id'].'/'.$histo['DspRev']['id'], array(
+								'escape'=>false,
+								'enabled' => WebrsaAccess::isEnabled($histo, '/Dsps/edit') && ($key == 0 || Configure::read( 'Dsp.modification.all.enabled' ))
+							))."</td>";
+						if( Configure::read( 'Cg.departement' ) != 66 ){
+							echo "<td>".$this->Xhtml->link($this->Xhtml->image('icons/arrow_redo.png', array()).'Revenir à cette version', '/dsps/revertTo/'.$histo['DspRev']['id'], array(
+								'escape'=>false,
+								'enabled' => WebrsaAccess::isEnabled($histo, '/Dsps/revertTo')
+							))."</td>";
+						}
+
+						echo "<td>".$this->Xhtml->link($this->Xhtml->image('icons/attach.png', array()).'Fichiers liés', '/dsps/filelink/'.$histo['DspRev']['id'], array(
+							'escape'=>false,
+							'enabled' => WebrsaAccess::isEnabled($histo, '/Dsps/filelink')
+						))."</td>";
+
+						echo "<td>".'('.$nbFichiersLies.')'."</td>";
+						echo "</tr>";
+					}
 				}
-
-				echo "<td>".$this->Xhtml->link($this->Xhtml->image('icons/attach.png', array()).'Fichiers liés', '/dsps/filelink/'.$histo['DspRev']['id'], array(
-					'escape'=>false,
-					'enabled' => WebrsaAccess::isEnabled($histo, '/Dsps/filelink')
-				))."</td>";
-
-				echo "<td>".'('.$nbFichiersLies.')'."</td>";
-				echo "</tr>";
+				echo "</tbody></table>";
 			}
-			echo "</tbody></table>";
 	?>
 	<?php
 		}
