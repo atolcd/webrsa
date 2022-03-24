@@ -835,7 +835,7 @@
 					'joins' => $joins,
 					'contain' => false,
 					'limit' => $limit,
-					'order' => array( 'Orientstruct.date_impression ASC' ),
+					'order' => 'Orientstruct.date_impression ASC',
 				);
 
 				$queryData = ClassRegistry::init( 'PersonneReferent' )->completeQdReferentParcours( $queryData, Hash::expand( $search ) );

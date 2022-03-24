@@ -618,7 +618,7 @@
 			$queryData['fields'] = array_merge( $queryData['fields'], $qdRadies['fields'] );
 			$queryData['joins'] = array_merge( $queryData['joins'], $qdRadies['joins'] );
 			$queryData['conditions'] = array_merge( $queryData['conditions'], $qdRadies['conditions'] );
-			$queryData['order'] = $qdRadies['order'];
+			$queryData['order'] = implode( ', ', $qdRadies['order'] );
 
 			$queryData = $this->Dossierep->Personne->PersonneReferent->completeQdReferentParcours( $queryData, $datas );
 
