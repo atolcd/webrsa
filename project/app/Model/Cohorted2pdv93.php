@@ -127,7 +127,7 @@
 				),
 				'conditions' => $conditions,
 				'contain' => false,
-				'order' => "Questionnaired2pdv93.modified ASC, Rendezvous.daterdv ASC, Questionnaired1pdv93.id ASC",
+				'order' => 'Questionnaired2pdv93.modified ASC', 'Rendezvous.daterdv ASC', 'Questionnaired1pdv93.id ASC',
 				'limit' => isset ($search['limit']) ? $search['limit'] : Configure::read('ResultatsParPage.nombre_par_defaut')
 			);
 
