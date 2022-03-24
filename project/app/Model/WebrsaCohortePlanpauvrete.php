@@ -522,7 +522,7 @@
 		 * @return array $query
 		 */
 		public function avecPPAE($query){
-			$query['conditions'][] = "Historiqueetatpe.ppae_date_signature IS NOT NULL";
+			$query['conditions'][] = "Informationpe.ppae_date_signature IS NOT NULL";
 			return $query;
 		}
 
