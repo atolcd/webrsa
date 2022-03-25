@@ -353,9 +353,6 @@ msgstr "Prénom de l'utilisateur"
 msgid "Dossier.nomuser"
 msgstr "Nom de l'utilisateur"
 
-msgid "Dossier.ancienetat"
-msgstr "Ancien état"
-
 msgid "Dossier.nouveletat"
 msgstr "Nouvel état"
 
@@ -364,7 +361,6 @@ msgstr "Motif"
 
 msgid "Dossier.nomcohorte"
 msgstr "Modification d'état des dossiers"
-
 
 msgid "Dossier.etatActuel"
 msgstr "État du dossier actuel : "

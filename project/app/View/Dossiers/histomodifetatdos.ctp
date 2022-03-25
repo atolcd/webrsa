@@ -7,7 +7,6 @@
 					<th><?php echo __m('Dossier.date') ?></th>
 					<th><?php echo __m('Dossier.prenomuser') ?></th>
 					<th><?php echo __m('Dossier.nomuser') ?></th>
-					<th><?php echo __m('Dossier.ancienetat') ?></th>
 					<th><?php echo __m('Dossier.nouveletat') ?></th>
 					<th><?php echo __m('Dossier.motif') ?></th>
 				</tr>
@@ -22,7 +21,6 @@
 					<td><?php echo $data['prenom']?></td>
 					<td><?php echo $data['nom']?></td>
 					<td><?php echo __d('dossier', 'ENUM::ETATDOSRSA::' . $data['etatdosrsa'])?></td>
-					<td><?php echo __d('dossier', 'ENUM::ETATDOSRSA::' . $data['nouvetatdosrsa'])?></td>
 					<td><?php echo $data['motif']?></td>
 				</tr>
 				<?php } ?>

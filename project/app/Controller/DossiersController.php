@@ -1034,7 +1034,6 @@
 			foreach($histos as $key => $histo) {
 				$details['Histomodifetatdossier'][$key]['created'] = $histo['Historiquedroit']['created'];
 				$details['Histomodifetatdossier'][$key]['etatdosrsa'] = $histo['Historiquedroit']['etatdosrsa'];
-				$details['Histomodifetatdossier'][$key]['nouvetatdosrsa'] = ($key == 0) ? $details['Situationdossierrsa']['etatdosrsa'] : $histos[$key-1]['Historiquedroit']['etatdosrsa'];
 				if( !isset($histo['Historiquedroit']['nom']) && !isset($histo['Historiquedroit']['prenom'])) {
 					$details['Histomodifetatdossier'][$key]['prenom'] = 'CAF';
 					$details['Histomodifetatdossier'][$key]['nom'] = '';
