@@ -44,6 +44,69 @@
 		);
 
 		/**
+		 * Permet de savoir quels sont les champs à ne pas prendre en compte dans
+		 * l'affichage du formulaire selon la configuration
+		 */
+		public $skip = array();
+
+		/**
+		 * Surcharge du constructeur avec possibilité de choisir les paramètres
+		 * par défaut.
+		 *
+		 * @param View $View
+		 * @param array $settings
+		 */
+		public function __construct( View $View, $settings = array( ) ) {
+			parent::__construct( $View, $settings );
+
+			$this->_readSkipConfig();
+		}
+
+		/**
+		 * Lecture des champs à ne pas afficher ("skip") à partir de la
+		 * configuration.
+		 *
+		 * Par exemple, pour l'URL "/orientsstructs/cohorte_nouvelles", la valeur
+		 * de "ConfigurableQueryOrientsstructs.cohorte_nouvelles.skip" sera lue.
+		 *
+		 */
+		protected function _readSkipConfig() {
+			$action = $this->request->params['action'];
+			$actionName = '';
+			if(strpos($action, 'search') !== false || strpos($action, 'cohorte') !== false) {
+				$actionName = 'Search';
+			}
+			if(!empty($actionName)) {
+				$configurePath = 'ConfigurableQuery.'.Inflector::camelize($this->request->params['controller']).'.'.$this->request->params['action'];
+				$skip = (array)Configure::read( "{$configurePath}.filters.skip" );
+
+				if( !empty( $skip ) ) {
+					foreach( $skip as $key => $value ) {
+						$skip[$key] = "{$actionName}.{$value}";
+					}
+
+					$this->skip = array_merge( $this->skip, $skip );
+				}
+			}
+		}
+
+		/**
+		 * Permet de savoir si un champ doit être affiché ou non, suivant les
+		 * champs présents dans l'attribut 'skip' des paramètres.
+		 *
+		 *
+		 * @param string $path
+		 * @return boolean
+		 */
+		protected function _isSkipped( $path ) {
+			if( in_array( $path, $this->skip ) ) {
+				return true;
+			}
+
+			return false;
+		}
+
+		/**
 		 * Retourne une liste de boutons de formulaire, dans le div submit, à
 		 * la mode CakePHP.
 		 *
@@ -144,34 +207,37 @@
 		 * @return string
 		 */
 		public function input( $fieldName, $options = array( ) ) {
-			if( isset( $options['view'] ) && $options['view'] ) {
-				unset( $options['view'] );
-				return $this->fieldValue( $fieldName, $options );
-			}
+			if( !$this->_isSkipped( $fieldName ) ) {
+				if( isset( $options['view'] ) && $options['view'] ) {
+					unset( $options['view'] );
+					return $this->fieldValue( $fieldName, $options );
+				}
 
-			// Pas d'option pour les champs cachés, sinon ce sera transformé en attribut
-			if( Hash::get( $options, 'type' ) == 'hidden' ) {
-				unset( $options['options'] );
-			}
+				// Pas d'option pour les champs cachés, sinon ce sera transformé en attribut
+				if( Hash::get( $options, 'type' ) == 'hidden' ) {
+					unset( $options['options'] );
+				}
 
-			// Legend par défaut est la traduction du fieldName
-			if (Hash::get($options, "type") === 'radio' && Hash::get($options, "legend") === null) {
-				$options['legend'] = __m($fieldName);
-			}
+				// Legend par défaut est la traduction du fieldName
+				if (Hash::get($options, "type") === 'radio' && Hash::get($options, "legend") === null) {
+					$options['legend'] = __m($fieldName);
+				}
 
-			// Prise en charge de l'option fieldset
-			if( Hash::get( $options, "fieldset") ) {
-				$legend = $options['label'];
-				$options['label'] = '';
-				return $this->Html->tag(
-					'fieldset',
-					$this->Html->tag( 'legend', $legend ).
-					parent::input( $fieldName, $options )
-				);
-			}
+				// Prise en charge de l'option fieldset
+				if( Hash::get( $options, "fieldset") ) {
+					$legend = $options['label'];
+					$options['label'] = '';
+					return $this->Html->tag(
+						'fieldset',
+						$this->Html->tag( 'legend', $legend ).
+						parent::input( $fieldName, $options )
+					);
+				}
 
-			unset( $options['domain'] );
-			return parent::input( $fieldName, $options );
+				unset( $options['domain'] );
+				return parent::input( $fieldName, $options );
+			}
+			return null;
 		}
 
 		/**
