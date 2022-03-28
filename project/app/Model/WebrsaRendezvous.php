@@ -436,6 +436,21 @@
 				'thematiquesrdvs' => $thematiquesrdvs
 			);
 
+			// Ajout du rendez vous précédent
+			$rdvprec = $this->Rendezvous->find('first', array(
+				'conditions' => array(
+					"Rendezvous.daterdv < " => $rdv[0]['Rendezvous']['daterdv'],
+					"Rendezvous.personne_id" => $rdv[0]['Personne']['id']
+				),
+				'order' => array(
+					'Rendezvous.daterdv DESC',
+					'Rendezvous.heurerdv DESC'
+				)
+			));
+			if(!empty($rdvprec)) {
+				$rdv[0]['Rdvprecedent'] = $rdvprec['Rendezvous'];
+			}
+
 			$Option = ClassRegistry::init( 'Option' );
 			$options = array(
 				'Personne' => array(
