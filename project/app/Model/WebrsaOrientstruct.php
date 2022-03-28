@@ -1128,6 +1128,22 @@
 				}
 			}
 
+			// On ajoute les informations du prochain RDV
+			$rdv = $this->Orientstruct->Personne->Rendezvous->find('first', array(
+				'conditions' => array(
+					"Rendezvous.daterdv > " => $orientstruct['Orientstruct']['date_valid'],
+					"Rendezvous.personne_id" => $orientstruct['Personne']['id']
+				),
+				'order' => array(
+					'Rendezvous.daterdv',
+					'Rendezvous.heurerdv'
+				)
+			));
+
+			if( !empty($rdv) ) {
+				$orientstruct['Rendezvous'] = $rdv['Rendezvous'];
+			}
+
 			return $orientstruct;
 		}
 
