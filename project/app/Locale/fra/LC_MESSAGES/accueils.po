@@ -161,3 +161,19 @@ msgstr "Adresses liées à un canton sans nom"
 
 msgid "Accueil.canton.nonvide.fin"
 msgstr " adresses"
+
+# Référents
+msgid "Accueil.brsasansreferent.titre"
+msgstr "BRSA n'ayant pas de référent de parcours"
+
+msgid "Accueil.etatdosrsa"
+msgstr "État du dossier"
+
+msgid "Accueil.brsasansreferent.brsasansreferent"
+msgstr "Accéder à la cohorte d'ajout des référents"
+
+msgid "Accueil.brsasansreferent.aucun"
+msgstr "Il n'y a aucun BRSA sans référent"
+
+msgid "Blocreferent.nbBRSA"
+msgstr "Il y a %d BRSA concernés"

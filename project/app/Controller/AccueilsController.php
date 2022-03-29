@@ -570,7 +570,6 @@
 					)
 				)
 			);
-			
 			return $this->Canton->find('count', $query);
 		}
 
@@ -626,6 +625,78 @@
 			);
 
 			return $this->Orientstruct->find('all', $query);
+		}
+
+		/**
+		 * Récupère les personnes sans référents
+		 * @return array
+		 */
+		public function _getBrsasansreferent(){
+			$accueil = Configure::read('page.accueil.profil');
+			$profil = $this->Session->read( 'Auth.User.Group.code' );
+
+			if (!isset ($accueil[$profil])) {
+				$profil = 'by-default';
+			}
+
+			$conditionsSDD = $accueil[$profil]['brsasansreferent']['toppersdrodevorsa'];
+			if(count($accueil[$profil]['brsasansreferent']['etatdosrsa']) == 1) {
+				$conditionEtatdossierRSA = "'{$accueil[$profil]['brsasansreferent']['etatdosrsa'][0]}'";
+				$etatdossier = 'Search__Situationdossierrsa__etatdosrsa__0:'.$accueil[$profil]['brsasansreferent']['etatdosrsa'][0];
+			} else {
+				$conditionEtatdossierRSA = "'" . implode("','", $accueil[$profil]['brsasansreferent']['etatdosrsa']) . "'";
+				$index = 0;
+				$etatdossier = [];
+				foreach ($accueil[$profil]['brsasansreferent']['etatdosrsa'] as $condition){
+					$etatdossier[] = 'Search__Situationdossierrsa__etatdosrsa__'.$index.':'.$condition;
+					$index++;
+				}
+				$etatdossier = implode('/', $etatdossier);
+			}
+
+			$this->loadModel('Personne');
+
+			$query = array(
+				'fields' => array(
+					'concat_ws(\' \', "Personne"."qual", "Personne"."nom", "Personne"."prenom") AS "Demandeur"',
+					"Dossier.dtdemrsa",
+					"Dossier.id",
+					"Situationdossierrsa.etatdosrsa"
+				),
+				'recursive' => -1,
+				'joins' => array(
+					$this->Personne->join("Dernierdossierallocataire", ['type' => 'inner']),
+					$this->Personne->Dernierdossierallocataire->join("Dossier", ['type' => 'inner']),
+					$this->Personne->join("Calculdroitrsa", ['type' => 'inner']),
+					[
+						'table'      => 'situationsdossiersrsa',
+						'alias'      => 'Situationdossierrsa',
+						'type'       => 'INNER',
+						'foreignKey' => false,
+						'conditions' => ["Situationdossierrsa.dossier_id = Dernierdossierallocataire.dossier_id"]
+					],
+					$this->Personne->join('PersonneReferent')
+				),
+				'conditions' => array(
+					"PersonneReferent.id IS NULL",
+					"Situationdossierrsa.etatdosrsa IN (" . $conditionEtatdossierRSA . ")",
+					"Calculdroitrsa.toppersdrodevorsa" => $conditionsSDD
+				)
+			);
+			if(isset($accueil[$profil]['brsasansreferent']['limite']) && !empty($accueil[$profil]['brsasansreferent']['limite'])) {
+				$limit = $accueil[$profil]['brsasansreferent']['limite'];
+			}
+
+			$results = $this->Personne->find('all', $query);
+
+			$total = count($results);
+			if(isset($limit)){
+				array_splice($results, $limit);
+			}
+			$results['arguments'] = 'Search__Dossier__dernier:1/Search__Dossier__dtdemrsa:0/Search__Situationdossierrsa__etatdosrsa_choice:1/'.$etatdossier.'/Search__Detailcalculdroitrsa__natpf_choice:0/Search__Detaildroitrsa__oridemrsa_choice:0/Search__Calculdroitrsa__toppersdrodevorsa:'.$conditionsSDD;
+			$results['nombre_total'] = $total;
+
+			return $results;
 		}
 
 	}
