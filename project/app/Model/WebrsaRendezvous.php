@@ -373,6 +373,7 @@
 						$this->Rendezvous->Structurereferente->fields(),
 						$this->Rendezvous->Typerdv->fields(),
 						$this->Rendezvous->Personne->Foyer->fields(),
+						$this->Rendezvous->Personne->Foyer->Dossier->fields(),
 						$this->Rendezvous->Personne->Foyer->Adressefoyer->Adresse->fields()
 					),
 					'joins' => array(
@@ -384,6 +385,7 @@
 						$this->Rendezvous->join( 'Typerdv', array( 'type' => 'LEFT OUTER' ) ),
 						$this->Rendezvous->Personne->join( 'Foyer', array( 'type' => 'INNER' ) ),
 						$this->Rendezvous->Personne->Foyer->join( 'Adressefoyer', array( 'type' => 'LEFT OUTER' ) ),
+						$this->Rendezvous->Personne->Foyer->join( 'Dossier', array( 'type' => 'INNER' ) ),
 						$this->Rendezvous->Personne->Foyer->Adressefoyer->join( 'Adresse', array( 'type' => 'LEFT OUTER' ) ),
 					),
 					'conditions' => array(
@@ -396,15 +398,6 @@
 					'contain' => false
 				)
 			);
-
-			// Recherche spécifique sur le dossier pour récupérer les champs virtuels
-			$dossier = $this->Rendezvous->Personne->Foyer->Dossier->find('first', array(
-				'recursive' => -1,
-				'conditions' => array(
-					"Dossier.id" => $rdv['Foyer']['dossier_id']
-				)
-			));
-			$rdv['Dossier'] = $dossier['Dossier'];
 
 			$User = ClassRegistry::init( 'User' );
 			$user = $User->find(
