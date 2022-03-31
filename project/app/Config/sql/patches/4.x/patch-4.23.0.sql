@@ -28,10 +28,20 @@ INSERT INTO public.configurations(lib_variable, value_variable, comments_variabl
 SELECT 'Module.AlgorithmeOrientation.seuils', '', 'Définie les seuils disponibles pour les critères de l''algorithme d''orientation',  current_timestamp, current_timestamp
 WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.AlgorithmeOrientation.seuils');
 
+-- Ajout de la variable de configuration pour le recalcule des rang d'orientation
+INSERT INTO public.configurations (lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'Orientstruct.recalculerang', false, 'Recalcule le rang des orientations lors de l''enregistrement d''une nouvelle orientation en cas de date d''orientation inférieur à une ancienne orientation validée', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Orientstruct.recalculerang');
+
+-- Ajout de la variable de configuration pour ne pas modifier l'origine d'une orientation lors de son enregistrement
+INSERT INTO public.configurations (lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'Orientstruct.changeorigine', true, 'Modifie l''origine d''une orientation en reorientation si le rang est supérieur à 1', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Orientstruct.changeorigine');
+
 UPDATE public.configurations
 SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
-WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Module.AlgorithmeOrientation.seuils';
+WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable IN ('Module.AlgorithmeOrientation.seuils', 'Orientstruct.recalculerang', 'Orientstruct.changeorigine');
 
 -- Création de la table qui contient les liens entre ville / type d'orientation / structure référente
 CREATE TABLE IF NOT EXISTS public.structuresreferentes_typesorients_zonesgeographiques (
@@ -65,9 +75,7 @@ CREATE TABLE IF NOT EXISTS public.criteresalgorithmeorientation (
 	CONSTRAINT criteresalgorithmeorientation_type_orient_parent_id_fk FOREIGN KEY (type_orient_parent_id) REFERENCES public.typesorients(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
-
-
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************
+

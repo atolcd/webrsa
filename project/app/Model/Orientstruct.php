@@ -43,7 +43,7 @@
 			'Allocatairelie',
 			'Dependencies',
 			'Fichiermodulelie',
-            'Postgres.PostgresAutovalidate',
+			'Postgres.PostgresAutovalidate',
 			'Validation2.Validation2Formattable',
 			'Validation2.Validation2RulesComparison',
 			'Validation2.Validation2RulesFieldtypes',
@@ -59,7 +59,7 @@
 					'Orientation/orientationpedefait.odt',
 					'Orientation/orientationsociale.odt',
 					'Orientation/orientationsocialeauto.odt',
-                    'Orientation/orientationsystematiquepe.odt'
+					'Orientation/orientationsystematiquepe.odt'
 				)
 			)
 		);
@@ -665,7 +665,9 @@
 
 				$origine = Hash::get( $this->data, "{$this->alias}.origine" );
 				// Nous ne modifions pas l'origine dans le cas du workflow d'activation
-				if( $isWorkflowActive == false && $this->data[$this->alias]['rgorient'] > 1  && !in_array( $origine, array( null, 'initinap', 'manuelle', 'demenagement' ), true ) ) {
+				if( $isWorkflowActive == false && $this->data[$this->alias]['rgorient'] > 1
+					&& !in_array( $origine, array( null, 'initinap', 'manuelle', 'demenagement' ), true )
+					&& Configure::read('Orientstruc.changeorigine') ) {
 						$this->data[$this->alias]['origine'] = 'reorientation';
 				}
 			}
@@ -694,7 +696,61 @@
 		 */
 		public function afterSave( $created, $options = array() ) {
 			parent::afterSave( $created, $options );
+			if(Configure::read('Orientstruc.recalculerang')) {
+				$this->recalculeRang($this->data);
+			}
 			$this->WebrsaOrientstruct->updateNonoriente66( $this->id );
+		}
+
+		/**
+		 * Recalcule les rangs des orientations si la nouvelle orientation enregistrée
+		 * a une date de validation inférieur à une ancienne orientation
+		 *
+		 * @param array
+		 *
+		 */
+		function recalculeRang($data) {
+			// Récupération de la dernière orientation créé selon la date de celle ci
+			$lastOrient = $this->find('first', array(
+				'recursive' => -1,
+				'conditions' => array(
+					'Orientstruct.personne_id' => $data['Orientstruct']['personne_id'],
+					'Orientstruct.date_valid >' => $data['Orientstruct']['date_valid']
+				)
+			));
+			if(!empty($lastOrient)) {
+				$dataToSave = array();
+				$allOrient = $this->find('all', array(
+					'recursive' => -1,
+					'conditions' => array(
+						'Orientstruct.personne_id' => $data['Orientstruct']['personne_id'],
+						'Orientstruct.statut_orient' => 'Orienté'
+					),
+					'order' => 'Orientstruct.date_valid'
+				));
+				// On récupère / supprime l'index des rangs pour le recalcule de celui ci
+				$indexSQL = $this->query("SELECT
+						indexdef
+					FROM
+						pg_indexes
+					WHERE
+						schemaname = 'public'
+						AND tablename = 'orientsstructs'
+						AND indexname = 'orientsstructs_personne_id_rgorient_idx'
+				");
+				$this->query("DROP INDEX IF EXISTS orientsstructs_personne_id_rgorient_idx");
+
+				foreach($allOrient as $key => $orient) {
+					$dataToSave[$key]['Orientstruct']['id'] = $orient['Orientstruct']['id'];
+					$dataToSave[$key]['Orientstruct']['rgorient'] = $key+1;
+				}
+
+				// On ne met à jour que le rang, sans passer par le beforesave & le aftersave
+				$this->saveMany($dataToSave, array('validate' => false, 'callbacks' => false));
+
+				//On recréé l'index
+				$this->query($indexSQL[0][0]['indexdef']);
+			}
 		}
 
 		/**
