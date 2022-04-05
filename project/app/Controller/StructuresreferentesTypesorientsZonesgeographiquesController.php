@@ -32,6 +32,13 @@
 		public $uses = array( 'StructurereferenteTypeorientZonegeographique', 'Typeorient', 'Zonegeographique', 'Structurereferente' );
 
 		/**
+		 * Méthodes ne nécessitant aucun droit.
+		 *
+		 * @var array
+		 */
+		public $aucunDroit = ['add', 'delete'];
+
+		/**
 		 * Liste des structures réferentes par zone geographique et type d'orientation
 		 */
 		public function index() {

@@ -1,0 +1,222 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team: <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "/Algorithmeorientation/orientation/:heading"
+msgstr "Recherche des orientables"
+
+msgid "statsorientable.download"
+msgstr "Télécharger les statistiques"
+
+msgid "listeorientable.download"
+msgstr "Télécharger la liste des orientables"
+
+msgid "Orientstruct.search"
+msgstr "Recherche par orientation"
+
+msgid "Search.Orientstruct.derniere"
+msgstr "Uniquement la dernière orientation pour un même allocataire"
+
+msgid "Search.Orientstruct.dernierevalid"
+msgstr "Uniquement la dernière orientation validée pour un même allocataire"
+
+msgid "Search.Orientstruct.date_valid"
+msgstr "Date d'orientation"
+
+msgid "Search.Orientstruct.origine"
+msgstr "Origine de l'orientation"
+
+msgid "Search.Orientstruct.typeorient_id"
+msgstr "Type d'orientation"
+
+msgid "Search.Orientstruct.structurereferente_id"
+msgstr "Nom de la structure"
+
+msgid "Search.Orientstruct.statut_orient"
+msgstr "Statut de l'orientation"
+
+msgid "Search.Historiqueetatpe.identifiantpe"
+msgstr "Identifiant Pôle Emploi"
+
+msgid "Search.Personne.has_contratinsertion"
+msgstr "Possède un CER ?"
+
+msgid "Search.Personne.has_personne_referent"
+msgstr "Possède un référent ?"
+
+msgid "Search.Personne.is_inscritpe"
+msgstr "Inscrit au Pôle Emploi ?"
+
+msgid "parcours.search"
+msgstr "Recherche par parcours de l'allocataire"
+
+msgid "Problemeadresses.titre"
+msgstr "Impossible de lancer l'algorithme d'orientation : les adresses de ces personnes ne permettent pas de les orienter"
+
+msgid "/Adressesfoyers/index"
+msgstr "Voir les adresses"
+
+msgid "IgnorerAdresses.bouton"
+msgstr "Ignorer et ne pas orienter ces personnes"
+
+msgid "IgnorerAdresses.confirm"
+msgstr "Etes-vous sûr de vouloir ignorer ces personnes ?"
+
+msgid "rafraichir.bouton"
+msgstr "Recharger les adresses"
+
+msgid "liste.titre"
+msgstr "Liste des orientables"
+
+msgid "nborientables.titre"
+msgstr "Il y a %d orientables"
+
+msgid "ville"
+msgstr "Ville"
+
+msgid "total"
+msgstr "Total"
+
+msgid "nb_orientables"
+msgstr "Nombre d'orientables"
+
+msgid "pourcentage_orientables"
+msgstr "Pourcentage d'orientables"
+
+msgid "graphique_ept.titre"
+msgstr "Répartition par EPT"
+
+msgid "graphique_age.titre"
+msgstr "Répartition par tranche d\\'âge"
+
+msgid "graphique_parcours.titre"
+msgstr "Répartition par parcours"
+
+msgid "graphique_dsp.titre"
+msgstr "Répartition par DSP"
+
+msgid "graphique_sexe.titre"
+msgstr "Répartition par sexe"
+
+msgid "graphique_role.titre"
+msgstr "Répartition par rôle"
+
+msgid "sexe.1"
+msgstr "Homme"
+
+msgid "sexe.2"
+msgstr "Femme"
+
+msgid "vide"
+msgstr "Vide"
+
+msgid "remplie"
+msgstr "Remplie"
+
+msgid "CJT"
+msgstr "Conjoint"
+
+msgid "DEM"
+msgstr "Demandeur"
+
+msgid "simulationalgo"
+msgstr "Simuler l'algorithme"
+
+msgid "lib_struc"
+msgstr "Structure référente"
+
+msgid "nb_actuel"
+msgstr "Nombre d'orientés actuels"
+
+msgid "nb_nouveaux"
+msgstr "Nombre de nouveaux orientés"
+
+msgid "capacite_max"
+msgstr "Capacité maximale"
+
+msgid "depassement"
+msgstr "Dépassement"
+
+msgid "action"
+msgstr "Action"
+
+msgid "orienter_struc"
+msgstr "Orienter quand même dans la structure (et ignorer le dépassement)"
+
+msgid "orienter_pe"
+msgstr "Orienter dans le Pôle emploi de proximité sans prendre en compte la capacité maximale"
+
+msgid "orienter_ss"
+msgstr "Orienter dans le Service Social de proximité sans prendre en compte la capacité maximale"
+
+msgid "ignorer"
+msgstr "Ne pas orienter ces allocataires"
+
+msgid "telechargement"
+msgstr "Télécharger la liste des nouveaux orientés"
+
+msgid "nouveaux.telecharger"
+msgstr "Télécharger"
+
+msgid "depassements.valider"
+msgstr "Valider les arbitrages"
+
+msgid "validerorientations"
+msgstr "Valider les orientations"
+
+msgid "validerorientation.confirm"
+msgstr "Etes-vous sûr de vouloir valider et ainsi orienter %d personnes ?"
+
+msgid "retourorientables"
+msgstr "Retour à la liste des orientables"
+
+msgid "retourorientables.confirm"
+msgstr "Etes-vous sûr de vouloir revenir à la liste des orientables (et annuler les arbitrages éventuels) ?"
+
+msgid "affichagesimulation.titre"
+msgstr "Simulation de l'orientation"
+
+msgid "depassements.titre"
+msgstr "Arbitrage des dépassements"
+
+msgid "bandeau.recherche"
+msgstr "Recherche des orientables"
+
+msgid "bandeau.adresses"
+msgstr "Correction des adresses"
+
+msgid "bandeau.orientables"
+msgstr "Affichage des orientables"
+
+msgid "bandeau.depassements"
+msgstr "Arbitrage des dépassements"
+
+msgid "bandeau.simulation"
+msgstr "Vérification et validation"
+
+msgid "validation.message"
+msgstr "%d personnes ont bien été orientées"
+
+msgid "retouraccueil"
+msgstr "Retour à l'accueil de WebRSA"
+
+msgid "validation.titre"
+msgstr "Validation des orientations"

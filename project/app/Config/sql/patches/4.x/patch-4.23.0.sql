@@ -45,16 +45,6 @@ CREATE TABLE IF NOT EXISTS public.structuresreferentes_typesorients_zonesgeograp
     CONSTRAINT structuresreferentes_typesorients_zonesgeographiques_zonegeographique_id_fke FOREIGN KEY (zonegeographique_id) REFERENCES public.zonesgeographiques(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- Création de la variable de configuration permettant de stocker l'id du typeorient Association référente
-INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
-SELECT 'Typeorient.asso_referente_id', '', 'id du typeorient Association referente',  current_timestamp, current_timestamp
-WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Typeorient.asso_referente_id');
-
-UPDATE public.configurations
-SET configurationscategorie_id = configurationscategories.id
-FROM configurationscategories
-WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Typeorient.asso_referente_id';
-
 -- Création de la table stockant les critères de l'algorithme d'orientation
 CREATE TABLE IF NOT EXISTS public.criteresalgorithmeorientation (
 	id serial4 NOT NULL,
@@ -74,6 +64,8 @@ CREATE TABLE IF NOT EXISTS public.criteresalgorithmeorientation (
 	CONSTRAINT criteresalgorithmeorientation_type_orient_enfant_id_fk FOREIGN KEY (type_orient_enfant_id) REFERENCES public.typesorients(id) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT criteresalgorithmeorientation_type_orient_parent_id_fk FOREIGN KEY (type_orient_parent_id) REFERENCES public.typesorients(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+
 
 
 -- *****************************************************************************

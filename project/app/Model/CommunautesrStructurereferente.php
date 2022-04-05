@@ -18,6 +18,13 @@
 	{
 
 		/**
+		 * Récursivité par défaut du modèle.
+		 *
+		 * @var integer
+		 */
+		public $recursive = 1;
+
+		/**
 		 * Nom du modèle.
 		 *
 		 * @var string

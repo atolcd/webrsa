@@ -229,6 +229,11 @@
 			// Assignation à la vue
 			$configurableQueryParams = $params;
 			$Controller->set( compact('options', 'configurableQueryParams') );
+
+			//On ne veut pas afficher la vue
+			if(isset($params['returnQuery']) && $params['returnQuery'] && isset($query)){
+				return $query;
+			}
 		}
 
 		/**

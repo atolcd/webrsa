@@ -770,4 +770,18 @@
 				&& ( !is_numeric($user_id) || !$this->User->isTypeCG($user_id) )
 			);
 		}
+
+		public function nombreOrientesParStructureReferente(){
+			$query = '
+				select o.structurereferente_id, count(o.id) as nombre
+				from orientsstructs o join personnes p on o.personne_id = p.id
+				where o.id IN ('.$this->WebrsaOrientstruct->sqDerniere('p.id').')
+				group by o.structurereferente_id
+			';
+
+
+			$struct = $this->query($query);
+
+			return $struct;
+		}
 	}

@@ -5116,3 +5116,74 @@ msgstr "Modifier une exception"
 
 msgid "controllers/exceptionsimpressionstypesorients/index"
 msgstr "Voir les exceptions"
+## Algorithme d'orientation CD93
+###############################################################################
+msgid "controllers/Algorithmeorientation"
+msgstr "Algorithme d'orientation (CD93)"
+
+msgid "controllers/Algorithmeorientation/affichageSimulationAlgo"
+msgstr "Afficher les résultats de la simulation"
+
+msgid "controllers/Algorithmeorientation/depassements"
+msgstr "Arbitrer les dépassements"
+
+msgid "controllers/Algorithmeorientation/exportcsv_adresses"
+msgstr "Exporter en CSV les adresses bloquantes"
+
+msgid "controllers/Algorithmeorientation/exportcsv_depassement"
+msgstr "Exporter en CSV les dépassements"
+
+msgid "controllers/Algorithmeorientation/exportcsv_orientables"
+msgstr "Exporter en CSV les orientables"
+
+msgid "controllers/Algorithmeorientation/exportcsv_orientations"
+msgstr "Exporter en CSV les orientations"
+
+msgid "controllers/Algorithmeorientation/exportcsv_statsorientables"
+msgstr "Exporter en CSV les statistiques des orientables"
+
+msgid "controllers/Algorithmeorientation/exportcsv_statsorientations"
+msgstr "Exporter en CSV les statistiques des orientations"
+
+msgid "controllers/Algorithmeorientation/orientation"
+msgstr "Rechercher les orientables"
+
+msgid "controllers/Algorithmeorientation/simulationAlgo"
+msgstr "Lancer la simulation"
+
+msgid "controllers/Algorithmeorientation/validerOrientations"
+msgstr "Valider les orientations"
+
+msgid "controllers/Algorithmeorientation/affichageOrientables"
+msgstr "Afficher les orientables"
+
+## Critères de l'algorithme d'orientation CD93
+###############################################################################
+
+msgid "controllers/Criteresalgorithmeorientation"
+msgstr "Critères de l'algorithme d'orientation (CD93)"
+
+msgid "controllers/Criteresalgorithmeorientation/descendre"
+msgstr "Modifier l'ordre des critères"
+
+msgid "controllers/Criteresalgorithmeorientation/monter"
+msgstr "Modifier l'ordre des critères"
+
+msgid "controllers/Criteresalgorithmeorientation/edit"
+msgstr "Modifier les critères"
+
+msgid "controllers/Criteresalgorithmeorientation/index"
+msgstr "Afficher la liste des critères"
+
+## Structures référentes - Types orientations - Zones géographiques
+###############################################################################
+
+msgid "controllers/StructuresreferentesTypesorientsZonesgeographiques"
+msgstr "Paramétrage des structures référentes par ville"
+
+msgid "controllers/StructuresreferentesTypesorientsZonesgeographiques/index"
+msgstr "Afficher le paramétrage des structures référentes par ville"
+
+msgid "controllers/StructuresreferentesTypesorientsZonesgeographiques/edit"
+msgstr "Modifier le paramétrage des structures référentes par ville"
+

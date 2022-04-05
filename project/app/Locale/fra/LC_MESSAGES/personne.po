@@ -98,6 +98,9 @@ msgstr "Numéro agence Pole emploi"
 msgid "Personne.dtinscpoleemploi"
 msgstr "Date inscription Pole emploi"
 
+msgid "Personne.age"
+msgstr "Age"
+
 msgid "Personne.etat_dossier_orientation"
 msgstr "Étape du dossier d'orientation"
 

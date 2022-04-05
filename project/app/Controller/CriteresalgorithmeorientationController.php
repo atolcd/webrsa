@@ -32,6 +32,14 @@
 
 
 		/**
+		 * Méthodes ne nécessitant aucun droit.
+		 *
+		 * @var array
+		 */
+		public $aucunDroit = ['add', 'delete'];
+
+
+		/**
 		 * Liste des criteres de l'algorithme d'orientation
 		 */
 		public function index() {

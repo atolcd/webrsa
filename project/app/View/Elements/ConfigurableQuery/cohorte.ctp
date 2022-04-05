@@ -82,7 +82,7 @@
 	echo $this->Form->end();
 	echo $this->Observer->disableFormOnSubmit( $searchFormId );
 
-	if( isset( $results ) ) {
+	if( isset( $results ) && !isset($noDisplay)) {
 		echo $this->Html->tag( 'h2', 'Résultats de la recherche' );
 
 		if (Configure::read('Module.Savesearch.enabled') && WebrsaPermissions::check('savesearchs', 'save')) {

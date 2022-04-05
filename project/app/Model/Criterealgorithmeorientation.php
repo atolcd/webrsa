@@ -19,7 +19,6 @@
 		public $name = 'Criterealgorithmeorientation';
 		public $useTable = 'criteresalgorithmeorientation';
 
-
 		/**
 		 * Récursivité par défaut du modèle.
 		 *

@@ -123,6 +123,7 @@
 			),
 			'Orientation' => array(
 				__d( 'orientsstructs', 'Orientsstructs.nom_menu_haut.algo') => array(
+					__d( 'orientsstructs', 'Orientsstructs.nom_menu.orient_algo' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'algorithmeorientation', 'action' => 'orientation' ), 'disabled' => !Configure::read('Module.AlgorithmeOrientation.enabled'), ),
 					__d( 'orientsstructs', 'Orientsstructs.nom_menu.cohorte_nouvelles' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_nouvelles' ) ),
 					__d( 'orientsstructs', 'Orientsstructs.nom_menu.cohorte_enattente' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_enattente' ) ),
 					__d( 'orientsstructs', 'Orientsstructs.nom_menu.cohorte_orientees' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_orientees' ) ),

@@ -545,3 +545,17 @@ msgstr "Algorithme d'orientation"
 
 msgid "StructuresreferentesTypesorientsZonesgeographiques/index"
 msgstr "Paramétrage des structures référentes par ville"
+
+# ==============================================================================
+
+msgid "criteresalgorithmeorientation/index"
+msgstr "Critères de l'algorithme d'orientation"
+
+msgid "adressesstruct/index"
+msgstr "Paramétrage des adresses des associations référentes"
+
+msgid "tablescorresalgo"
+msgstr "Algorithme d'orientation"
+
+msgid "StructuresreferentesTypesorientsZonesgeographiques/index"
+msgstr "Paramétrage des structures référentes par ville"

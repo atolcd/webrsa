@@ -1306,3 +1306,146 @@ body.accompagnementsbeneficiaires table.details tbody th {
 body.statistiquesplanpauvrete #pageContent tbody td:first-child {
 	text-align: left;
 }
+
+/*******************************************************************************
+ * Algorithme d'orientation CD93
+ ******************************************************************************/
+.listeorientables, .affichagesimulation {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 3rem;
+}
+
+
+.listeorientables > table, .affichagesimulation > table {
+	flex: 1;
+}
+
+.listeorientables > .charts {
+	flex: 2;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: flex-start;
+}
+
+.affichagesimulation > .charts {
+	flex: 1;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: flex-start;
+}
+
+.steps {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 30px auto 70px;
+    width: 900px;
+    max-width: 100%;
+}
+
+.steps::before, .steps-prog {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 3px;
+    transform: translateY(-50%);
+}
+
+.steps-prog {
+    background-color: #3e82a6;
+}
+
+.steps::before {
+    width: 100%;
+    content: '';
+    background-color: #e6eef1;
+    z-index: -1;
+}
+
+.step {
+    position: relative;
+    text-align: center;
+    text-decoration: none !important;
+    pointer-events: none;
+    color: #9da3b5;
+}
+
+.step.step-passed {
+    pointer-events: auto;
+    color: #3e82a6;
+}
+
+.step.step-passed .shape {
+    box-shadow: inset 0 0 0 3px #3e82a6;
+    transition: all 0.3s ease-in-out;
+}
+
+.step.step-passed:hover .shape {
+    color: #fff;
+    background-color: #3e82a6;
+}
+
+.step.step-active {
+    color: #25607e;
+}
+
+.step.step-active .shape {
+    color: #fff;
+    background-color: #3e82a6;
+}
+
+.step .text {
+    position: absolute;
+    left: 50%;
+    width: 120px;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: inherit;
+    transform: translateX(-50%);
+}
+
+.step-main .text {
+    top: calc(100% + 10px);
+}
+
+.step-optional .text {
+    top: calc(100% + 20px);
+}
+
+.step .shape {
+    display: block;
+    border-radius: 50%;
+    background-color: #e6eef1;
+}
+
+.step-main .shape {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    color: #25607e;
+}
+
+.step-optional .shape {
+    width: 20px;
+    height: 20px;
+}
+
+.step .number {
+    font-size: 20px;
+    font-weight: 700;
+    color: inherit;
+}
+
+
+/*******************************************************************************
+ * Surcharge toastui chart
+ ******************************************************************************/
+ .toastui-chart-wrapper {
+	 height: auto !important;
+ }

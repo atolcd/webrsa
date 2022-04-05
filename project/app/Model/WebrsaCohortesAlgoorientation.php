@@ -90,6 +90,7 @@
 						'Orientstruct.id',
 						'Orientstruct.personne_id',
 						'Orientstruct.date_propo',
+						'Orientstruct.statut_orient',
                     ),
 					$query['fields']
 				);
@@ -97,8 +98,10 @@
 				//champs pour l'export csv et les graphiques
 				$query['fields'][] = "Personne.sexe";
 				$query['fields'][] = "Personne.qual";
+				$query['fields'][] = "Personne.age";
 				$query['fields'][] = "Dsp.id";
 				$query['fields'][] = "Foyer.sitfam";
+				$query['fields'][] = "Foyer.id";
 				$query['fields'][] = "Modecontact.numtel";
 				$query['fields'][] = "Modecontact.numposte";
 				$query['fields'][] = "Modecontact.adrelec";

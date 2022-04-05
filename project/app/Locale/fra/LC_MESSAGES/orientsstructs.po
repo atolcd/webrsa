@@ -381,6 +381,9 @@ msgstr "Orientations en attente de validation"
 msgid "Orientsstructs.nom_menu.cohorte_orientees_validees"
 msgstr "Impression des orientations validées"
 
+msgid "Orientsstructs.nom_menu.orient_algo"
+msgstr "Algorithme d'orientation"
+
 # ------------------------------------------------------------------------------
 
 msgid "Search.Orientstruct"
