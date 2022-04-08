@@ -707,6 +707,8 @@
 		*/
 
 		protected function _qdSelection( $datas, $mesCodesInsee, $filtre_zone_geo ) {
+			// Récupération des types d'orientation de type EMPLOI
+			$typeOrientEmploi = implode(',', $this->Orientstruct->Typeorient->listIdTypeOrient('EMPLOI'));
 
 			$Situationdossierrsa = ClassRegistry::init( 'Situationdossierrsa' );
 			$queryData = array(
@@ -805,7 +807,7 @@
 							'Orientstruct.typeorient_id IN (
 								SELECT t.id
 									FROM typesorients AS t
-									WHERE t.lib_type_orient LIKE \'Emploi %\'
+									WHERE t.id in ('. $typeOrientEmploi . ')
 							)'// FIXME
 						)
 					),

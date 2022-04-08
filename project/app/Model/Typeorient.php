@@ -356,17 +356,8 @@
 				$return =  ( !empty( $typeOrientEmploiId ) && is_int( $typeOrientEmploiId ) && $typeorient_id == $typeOrientEmploiId );
 			}
 			else{
-				$typeorient = $this->find(
-					'first',
-					array(
-						'conditions' => array(
-							'Typeorient.id' => $typeorient_id,
-							'Typeorient.lib_type_orient LIKE' => 'Emploi%'
-						),
-						'contain' => false
-					)
-				);
-				$return = ( !empty( $typeorient ) );
+				$typeorient = $this->listIdTypeOrient('EMPLOI');
+				$return = in_array($typeorient_id, $typeorient);
 			}
 			return $return;
 		}

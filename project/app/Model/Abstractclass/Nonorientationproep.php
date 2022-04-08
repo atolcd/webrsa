@@ -139,6 +139,9 @@
 				)';
 			}
 			else if( $cg == 93 ) {
+				// Récupération des types d'orientation de type EMPLOI
+				$typeOrientEmploi = implode(',', $this->Orientstruct->Typeorient->listIdTypeOrient('EMPLOI'));
+
 				// Filtre, date d'orientation
 				$nbmois = Set::classicExtract($datas, 'Filtre.dureenonreorientation');
 				$conditions[] = 'EXISTS(
@@ -158,10 +161,10 @@
 										osvt.personne_id = orientsstructs.personne_id
 										AND osvt.statut_orient = \'Orienté\'
 										AND osvt.date_valid > orientsstructs.date_valid
-										AND tosvt.lib_type_orient LIKE \'Emploi%\'
+										AND tosvt.id in ('.$typeOrientEmploi.')
 							)
 						)
-						AND typesorients.lib_type_orient NOT LIKE \'Emploi%\'
+						AND typesorients.id NOT IN ('.$typeOrientEmploi.')
 						AND orientsstructs.date_valid <= \''.date( 'Y-m-d', strtotime( '- '.$nbmois.' month', time() ) ).'\'
 						LIMIT 1
 				)';

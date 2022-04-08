@@ -499,6 +499,15 @@
 		protected function _getDernierscersperimes ($departement, $parametres = array ()) {
 			$cers = array ();
 
+			$this->loadModel('Typeorient');
+			$typeOrientEmploi = implode(',', $this->Typeorient->listIdTypeOrient('EMPLOI'));
+
+			if(empty($typeOrientEmploi)) {
+				$conditionsCte = ' and "CteOrientation"."Typeorient__id" not in ('. $typeOrientEmploi . ') ';
+			} else {
+				$conditionsCte = '';
+			}
+
 			$this->loadModel('Contratinsertion');
 			$query = '
 				with "CteCer" as (
@@ -507,7 +516,7 @@
 					order by "Contratinsertion"."personne_id", "Contratinsertion"."df_ci" desc
 				),
 				"CteOrientation" as (
-					select DISTINCT ON ("Orientstruct"."personne_id") "Orientstruct".*, "Typeorient"."lib_type_orient"
+					select DISTINCT ON ("Orientstruct"."personne_id") "Orientstruct".*, "Typeorient"."lib_type_orient", "Typeorient"."id" AS "Typeorient__id"
 					from "public"."orientsstructs" AS "Orientstruct"
 						inner join "public"."typesorients" AS "Typeorient" on ("Orientstruct"."typeorient_id" = "Typeorient"."id")
 					order by "Orientstruct"."personne_id", "Orientstruct"."date_valid" desc
@@ -542,8 +551,7 @@
 					INNER JOIN "public"."personnes_referents" AS "PersonneReferent" ON "PersonneReferent"."personne_id" = "Personne"."id"
 					INNER JOIN "public"."referents" AS "Referent" ON ("PersonneReferent"."referent_id" = "Referent"."id")
 					INNER JOIN "public"."prestations" AS "Prestation" ON ("Personne"."id" = "Prestation"."personne_id")
-				where "CteCer"."positioncer" IN (\'perime\')
-					and "CteOrientation"."lib_type_orient" not ilike \'%Pôle emploi%\'
+				where "CteCer"."positioncer" IN (\'perime\') ' . $conditionsCte . '
 					and "Referent"."id" IN ('.$this->idReferent.')
 					and "Prestation"."rolepers" IN (\'DEM\', \'CJT\');
 			';

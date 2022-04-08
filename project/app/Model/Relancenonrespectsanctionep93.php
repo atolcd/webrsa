@@ -447,6 +447,9 @@
 
 			$conditions[] = $this->conditionsZonesGeographiques( $filtre_zone_geo, $mesCodesInsee );
 
+			// Récupération des types d'orientation de type EMPLOI
+			$typeOrientEmploi = implode(',', $this->Nonrespectsanctionep93->Orientstruct->Typeorient->listIdTypeOrient('EMPLOI'));
+
 			// Personne orientée sans contrat
 			// FIXME: dernière orientation
 			// FIXME: et qui ne se trouve pas dans les EPs en cours de traitement
@@ -729,7 +732,7 @@
 				$conditions[] = 'Orientstruct.typeorient_id NOT IN (
 							SELECT t.id
 								FROM typesorients AS t
-								WHERE t.lib_type_orient LIKE \'Emploi%\'
+								WHERE t.id in ('.$typeOrientEmploi.')
 						)';
 
 				// On accepte les orientations validées durant le CER, si c'est pour la même structure référente
@@ -855,7 +858,7 @@
 				$conditions[] = 'Orientstruct.typeorient_id NOT IN (
 							SELECT t.id
 								FROM typesorients AS t
-								WHERE t.lib_type_orient LIKE \'Emploi%\'
+								WHERE t.id in ('.$typeOrientEmploi.')
 						)';
 
 				// Qui ne possède pas d'orientation validée plus récente que la date de début du CER

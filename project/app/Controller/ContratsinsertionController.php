@@ -744,13 +744,16 @@
 				WebrsaAccessOrientsstructs::accesses($Orientation->find('all', $query), array())
 			);
 
+			// Récupération des types d'orientation de type EMPLOI
+			$typeOrientEmploi = $Orientation->Typeorient->listIdTypeOrient('EMPLOI');
+
 			if (isset ($orientsstructs)) {
 				$results = array();
 
 				foreach ($orientsstructs as $key => $orientation) {
 					if ($orientation['Orientstruct']['origine'] == 'reorientation'
 						&& $orientation['Orientstruct']['rgorient'] == 'Réorientation'
-						&& !preg_match ('%Pôle emploi%', $orientation['Typeorient']['lib_type_orient'])) {
+						&& in_array($orientation['Typeorient']['id'], $typeOrientEmploi)) {
 						$results[$key] = $orientation['Orientstruct']['date_valid'];
 					}
 				}
@@ -2051,4 +2054,3 @@
 			$Recherche->exportcsv( array( 'modelRechercheName' => 'WebrsaRechercheContratinsertionValides' ) );
 		}
 	}
-?>

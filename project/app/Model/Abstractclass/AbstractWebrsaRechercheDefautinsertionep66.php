@@ -89,6 +89,9 @@
 				);
 
 				// 2. Jointures
+				// Récupération des types d'orientation de type EMPLOI
+				$typeOrientEmploi = implode(',', $this->Personne->Orientstruct->Typeorient->listIdTypeOrient('EMPLOI'));
+
 				$query['joins'] = array_merge(
 					$query['joins'],
 					array(
@@ -101,9 +104,7 @@
 												"o"."personne_id" = "Personne"."id"
 												AND "o"."date_valid" IS NOT NULL
 											ORDER BY "o"."date_valid" DESC
-											LIMIT 1) AND "Orientstruct"."typeorient_id" IN (SELECT "t"."id"
-									FROM typesorients AS t
-									WHERE "t"."lib_type_orient" LIKE \'Emploi %\')'
+											LIMIT 1) AND "Orientstruct"."typeorient_id" IN ('.$typeOrientEmploi.')'
 							)
 						))
 					)

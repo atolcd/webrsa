@@ -402,6 +402,9 @@
 		 *
 		 */
 		public function qdRadies( $datas, $mesCodesInsee, $filtre_zone_geo ) {
+			// Récupération des types d'orientation de type EMPLOI
+			$typeOrientEmploi = implode(',', $this->Orientstruct->Typeorient->listIdTypeOrient('EMPLOI'));
+
 			$queryData = array(
 				'fields' => array(
 					'Personne.id',
@@ -535,7 +538,7 @@
 					'Orientstruct.typeorient_id IN (
 						SELECT t.id
 							FROM typesorients AS t
-							WHERE t.lib_type_orient LIKE \'Emploi%\'
+							WHERE t.id in ('.$typeOrientEmploi.')
 					)',
 					// La date de radiation doit être strictement supérieure à la date d'orientation
 					'Historiqueetatpe.date > Orientstruct.date_valid',
