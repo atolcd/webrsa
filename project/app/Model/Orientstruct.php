@@ -545,15 +545,14 @@
 
 		/**
 		 * Surcharge du constructeur pour ajouter des règles de validation suivant
-		 * le département connecté (66, 976) et la configuration de StorablePdf.
+		 * la variable de configuration Orientation.impression_auto et la configuration de StorablePdf.
 		 *
 		 * @param mixed $id Set this ID for this model on startup, can also be an array of options, see above.
 		 * @param string $table Name of database table to use.
 		 * @param string $ds DataSource connection name.
 		 */
 		public function __construct( $id = false, $table = null, $ds = null ) {
-			$active = !in_array( Configure::read( 'Cg.departement' ), array( 66, 976 ) );
-			$this->actsAs = Hash::insert( $this->actsAs, 'StorablePdf.active', $active );
+			$this->actsAs = Hash::insert( $this->actsAs, 'StorablePdf.active', Configure::read( 'Orientation.impression_auto' ) );
 			$departement = Configure::read( 'Cg.departement' );
 
 			// Si le workflow de validation est activé, nous devons prendre en compte les orientations en attente

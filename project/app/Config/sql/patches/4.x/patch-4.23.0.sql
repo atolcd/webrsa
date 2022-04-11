@@ -12,10 +12,15 @@ INSERT INTO public.configurations(lib_variable, value_variable, comments_variabl
 SELECT 'Module.AlgorithmeOrientation.enabled', 'false', 'Active le module ''algorithme d''orientation'' spécifique au CD93. @default false',  current_timestamp, current_timestamp
 WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.AlgorithmeOrientation.enabled');
 
+-- Variable de configuration permettant l'impression automatique des orientations validées
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'Orientation.impression_auto', true, 'Permet l''impression automatique des orientations validées.',  current_timestamp, current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Orientation.impression_auto');
+
 UPDATE public.configurations
 SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
-WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'Module.AlgorithmeOrientation.enabled';
+WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable IN ('Module.AlgorithmeOrientation.enabled', 'Orientation.impression_auto');
 
 -- Modification de la valeur par défaut du code_type_orient pour être à NULL
 ALTER TABLE public.typesorients ALTER COLUMN code_type_orient SET DEFAULT NULL;
@@ -78,4 +83,3 @@ CREATE TABLE IF NOT EXISTS public.criteresalgorithmeorientation (
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************
-

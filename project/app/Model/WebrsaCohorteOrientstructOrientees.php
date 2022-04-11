@@ -70,7 +70,7 @@
 
 			$query = parent::searchQuery( $types, $baseModelName, false );
 
-			if( !in_array( Configure::read( 'Cg.departement' ), array( 66, 976 ) ) ) {
+			if( Configure::read( 'Orientation.impression_auto' ) ) {
 				$Pdf = ClassRegistry::init( 'Pdf' );
 				$sq = array(
 					'fields' => array( 'Pdf.fk_value' ),
