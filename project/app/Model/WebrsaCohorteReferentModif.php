@@ -43,11 +43,11 @@
 		 */
 		public $cohorteFields = array(
 			'Personne.id' => array( 'type' => 'hidden' ),
-			'PR.id' => array( 'type' => 'hidden' ),
-			'PR.selection' => array( 'type' => 'checkbox' ),
-			'PR.structurereferente_id' => array( 'type' => 'select', 'required' => true, 'empty' => true ),
-			'PR.referent_id' => array( 'type' => 'select', 'required' => true, 'empty' => true),
-			'PR.dddesignation' => array( 'type' => 'date' ),
+			'PersonneReferent.id' => array( 'type' => 'hidden' ),
+			'PersonneReferent.selection' => array( 'type' => 'checkbox' ),
+			'PersonneReferent.structurereferente_id' => array( 'type' => 'select', 'required' => true, 'empty' => true ),
+			'PersonneReferent.referent_id' => array( 'type' => 'select', 'required' => true, 'empty' => true),
+			'PersonneReferent.dddesignation' => array( 'type' => 'date' ),
 		);
 
 		/**
@@ -63,37 +63,13 @@
 			$query['fields'] = array_merge(
 				$query['fields'],
 				array(
-					'PR.id',
-					'PR.structurereferente_id',
-					'PR.referent_id'
+					'PersonneReferent.id',
+					'PersonneReferent.structurereferente_id',
+					'PersonneReferent.referent_id'
 				)
 			);
 
-			// Modifications des alias et conditions concernant la table PersonneReferent
-			// pour rendre l'URL finale moins longue (max 4096 caractères)
-			foreach ($query['joins'] as $key => $join){
-				if($join['alias'] == 'PersonneReferent'){
-					$query['joins'][$key]['alias'] = 'PR';
-					$query['joins'][$key]['type'] = 'INNER';
-					$query['joins'][$key]['conditions'] = '
-						"PR"."personne_id" = "Personne"."id"
-						AND "PR"."id" IN (
-							SELECT "personnes_referents"."id"
-							FROM personnes_referents
-							WHERE
-								"personnes_referents"."personne_id" = "Personne"."id"
-							ORDER BY
-								"personnes_referents"."dddesignation" DESC,
-								"personnes_referents"."id" DESC
-							LIMIT 1
-						)';
-				}
-				if($join['alias'] == 'Referentparcours') {
-					$query['joins'][$key]['conditions'] = '"PR"."referent_id" = "Referentparcours"."id"';
-				}
-			}
-
-			// Tri des joins pour mettre les INNER en premier
+			// Tri des joins pour mettre les INNER en PersonneReferentemier
 			$innerList = array();
 			$leftList = array();
 			foreach($query['joins'] as $key => $join) {

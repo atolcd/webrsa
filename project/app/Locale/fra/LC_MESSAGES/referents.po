@@ -28,31 +28,31 @@ msgstr "Nom complet"
 msgid "Adresse.complete"
 msgstr "Adresse"
 
-msgid "data[Cohorte][][PR][selection]"
+msgid "data[Cohorte][][PersonneReferent][selection]"
 msgstr "Sélectionner"
 
-msgid "data[Cohorte][][PR][structurereferente_id]"
+msgid "data[Cohorte][][PersonneReferent][structurereferente_id]"
 msgstr "Structure référente"
 
-msgid "data[Cohorte][][PR][referent_id]"
+msgid "data[Cohorte][][PersonneReferent][referent_id]"
 msgstr "Référent"
 
-msgid "data[Cohorte][][PR][dddesignation]"
+msgid "data[Cohorte][][PersonneReferent][dddesignation]"
 msgstr "Date de désignation"
 
 msgid "Referent.preremplissage_fieldset"
 msgstr "Préremplissage de la cohorte"
 
-msgid "Cohorte.PR.selection"
+msgid "Cohorte.PersonneReferent.selection"
 msgstr "Sélectionner"
 
-msgid "Cohorte.PR.structurereferente_id"
+msgid "Cohorte.PersonneReferent.structurereferente_id"
 msgstr "Structure référente"
 
-msgid "Cohorte.PR.referent_id"
+msgid "Cohorte.PersonneReferent.referent_id"
 msgstr "Référent"
 
-msgid "Cohorte.PR.dddesignation"
+msgid "Cohorte.PersonneReferent.dddesignation"
 msgstr "Date de désignation"
 
 msgid "Referent.preremplir"

@@ -29,10 +29,10 @@
 	echo '<fieldset id="CohorteReferentPreremplissage" style="display: '.(isset( $results ) ? 'block' : 'none').';"><legend>' . __m( 'Referent.preremplissage_fieldset' ) . '</legend>'
 	. $this->Default3->subform(
 		array(
-			'Cohorte.PR.selection' => array( 'type' => 'checkbox' ),
-			'Cohorte.PR.structurereferente_id' => array( 'type' => 'select', 'options' => $options['PersonneReferent']['structurereferente_id'], 'empty' => true ),
-			'Cohorte.PR.referent_id' => array( 'type' => 'select', 'options' => $options['PersonneReferent']['referent_id']),
-			'Cohorte.PR.dddesignation' => array( 'type' => 'date', 'dateFormat'=>'DMY', 'maxYear' => date('Y')+1, 'minYear' => date('Y')),
+			'Cohorte.PersonneReferent.selection' => array( 'type' => 'checkbox' ),
+			'Cohorte.PersonneReferent.structurereferente_id' => array( 'type' => 'select', 'options' => $options['PersonneReferent']['structurereferente_id'], 'empty' => true ),
+			'Cohorte.PersonneReferent.referent_id' => array( 'type' => 'select', 'options' => $options['PersonneReferent']['referent_id']),
+			'Cohorte.PersonneReferent.dddesignation' => array( 'type' => 'date', 'dateFormat'=>'DMY', 'maxYear' => date('Y')+1, 'minYear' => date('Y')),
 		),
 		array(
 			'options' => array( 'Cohorte' => $options )
@@ -68,10 +68,10 @@
 		document.querySelector('input[value="Enregistrer"]').disabled = true;
 
 		// Dépendance des champs
-		dependantSelect( 'CohortePRReferentId', 'CohortePRStructurereferenteId' );
+		dependantSelect( 'CohortePersonneReferentReferentId', 'CohortePersonneReferentStructurereferenteId' );
 		document.querySelectorAll('table.referents.cohorte_modif > tbody > tr').forEach( function(el, ind) {
-			dependantSelect( 'Cohorte'+ind+'PRReferentId', 'CohortePRStructurereferenteId' );
-			dependantSelect( 'Cohorte'+ind+'PRReferentId', 'Cohorte'+ind+'PRStructurereferenteId' );
+			dependantSelect( 'Cohorte'+ind+'PersonneReferentReferentId', 'CohortePersonneReferentStructurereferenteId' );
+			dependantSelect( 'Cohorte'+ind+'PersonneReferentReferentId', 'Cohorte'+ind+'PersonneReferentStructurereferenteId' );
 		});
 
 		// Vérification de la possibilité d'enregistrer

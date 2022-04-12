@@ -104,22 +104,22 @@
 			$saveData = array();
 			$clotures = array();
 			foreach( $data as $key => $value ) {
-				if($value['PR']['selection'] == 1) {
+				if($value['PersonneReferent']['selection'] == 1) {
 					// Récupération de l'id du référent
-					$idReferent = explode('_', $value['PR']['referent_id'])[1];
+					$idReferent = explode('_', $value['PersonneReferent']['referent_id'])[1];
 
 					// Si nous récupérons un id de personnereferent, on doit mettre une date de fin d'attribution
-					if(isset($value['PR']['id'])) {
+					if(isset($value['PersonneReferent']['id'])) {
 						$clotures[] = array(
-							'id' => $value['PR']['id'],
-							'dfdesignation' => date_cakephp_to_sql($value['PR']['dddesignation'])
+							'id' => $value['PersonneReferent']['id'],
+							'dfdesignation' => date_cakephp_to_sql($value['PersonneReferent']['dddesignation'])
 						);
 					}
 					$saveData[] = array(
 						'personne_id' => $value['Personne']['id'],
-						'structurereferente_id' => $value['PR']['structurereferente_id'],
+						'structurereferente_id' => $value['PersonneReferent']['structurereferente_id'],
 						'referent_id' => $idReferent,
-						'dddesignation' => date_cakephp_to_sql($value['PR']['dddesignation'])
+						'dddesignation' => date_cakephp_to_sql($value['PersonneReferent']['dddesignation'])
 					);
 				}
 			}
