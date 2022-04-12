@@ -29,15 +29,17 @@
 		 * @var array
 		 */
 		public $uses = array(
-			'Criterealgorithmeorientation',
+			'Algorithmeorientation',
+			'Orientstruct',
 			'Personne',
+			'Criterealgorithmeorientation',
 			'Zonegeographique',
 			'StructurereferenteTypeorientZonegeographique',
 			'Structurereferente',
-			'Orientstruct',
 			'Typeorient',
 			'Communautesr',
-			'CommunautesrStructurereferente'
+			'CommunautesrStructurereferente',
+			'Rendezvous'
 		);
 
 
@@ -52,8 +54,10 @@
 				'actions' => array(
 					'index' => array('filter' => 'Search'),
 					'listeOrientables' => array('filter' => 'Search'),
+					'search' => array('filter' => 'Search'),
 				),
 			),
+			'InsertionsBeneficiaires'
 		);
 
 		/**
@@ -1040,5 +1044,23 @@
 			return $this->Personne->query($sql);
 		}
 
+
+		/**
+		 * Recherche des nouveaux orientés
+		 */
+		public function search(){
+			$Recherches = $this->Components->load( 'WebrsaRechercheAlgorithmeorientation' );
+			$Recherches->search(['modelName' => 'Orientstruct']);
+		}
+
+		/**
+		 * Recherche des nouveaux orientés
+		 */
+		public function exportcsv_recherche(){
+			$Recherches = $this->Components->load( 'WebrsaRechercheAlgorithmeorientation' );
+			$Recherches->exportcsv(['modelName' => 'Orientstruct']);
+		}
+
 	}
+
 ?>

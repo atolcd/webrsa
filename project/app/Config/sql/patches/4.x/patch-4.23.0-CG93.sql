@@ -462,6 +462,165 @@ UPDATE public.configurations
 SET value_variable = (select t.id from typesorients t where t.lib_type_orient ilike '%Pole Emploi%'), comments_variable = 'Id du typeorient Pole Emploi'
 WHERE configurations.lib_variable LIKE 'Typeorient.emploi_id';
 
+--Création de la variable de configuration pour la recherche des nouveaux orientés
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'ConfigurableQuery.Algorithmeorientation.search',
+'{"filters":{"defaults":{"Dossier":{"dernier":1},"Situationdossierrsa":{"etatdosrsa_choice":0,"etatdosrsa":[0,2,3,4]},"Orientstruct":{"date_valid":1,"origine":"cohorte"}},"accepted":[],"skip":["PersonneReferent.communautesr_id","PersonneReferent.structurereferente_id","PersonneReferent.referent_id","ByTag.tag_choice","Personne.dtnai","Personne.nom","Personne.nomnai","Personne.prenom","Personne.nir","Personne.sexe","Personne.trancheage","Personne.trancheagesup","Personne.trancheageprec","Calculdroitrsa.toppersdrodevorsa"]},"query":{"restrict":[],"conditions":[],"order":[]},"limit":10,"auto":false,"results":{"header":[],"fields":{"0":"Personne.qual","1":"Personne.nom","2":"Personne.prenom","3":"Personne.nir","4":"Personne.dtnai","5":"Personne.sexe","6":"Personne.age","7":"Adresse.numvoie","8":"Adresse.libtypevoie","9":"Adresse.compladr","10":"Adresse.codepos","11":"Adresse.nomcom","12":"Dossier.dtdemrsa","13":"Dossier.numdemrsa","14":"Prestation.rolepers","15":"Orientstruct.date_valid","16":"Orientstruct.date_impression","17":"Structurereferente.ville","18":"Structurereferente.lib_struc","19":"Foyer.sitfam","20":"Orientstruct.origine","21":"Detaildroitrsa.nbenfautcha","22":"Modecontact.numtel","23":"Modecontact.numposte","24":"Modecontact.adrelec","/Orientsstructs/index/#Orientstruct.personne_id#":{"disabled":"( ''#Orientstruct.horszone#'' == true )","class":"view"}},"innerTable":["Situationdossierrsa.etatdosrsa","Personne.nomcomnai","Personne.dtnai","Adresse.numcom","Personne.nir","Historiqueetatpe.identifiantpe","Modecontact.numtel","Prestation.rolepers","Structurereferenteparcours.lib_struc","Referentparcours.nom_complet"]},"ini_set":{"max_execution_time":0,"memory_limit":"1024M"}}',
+'Menu "Cohortes" > "Orientation" > "Algorithme et Transferts" > "Liste des nouveaux orientés"
+
+		array(
+			 1. Filtres de recherche
+			''filters'' => array(
+				 1.1 Valeurs par défaut des filtres de recherche
+				''defaults'' => array(
+					''Dossier'' => array(
+						 Case à cocher "Uniquement la dernière demande RSA pour un même allocataire"
+						''dernier'' => ''1''
+					),
+					''Detailcalculdroitrsa'' => array(
+						''natpf_choice'' => ''1'',
+						''natpf'' => array( ''RSD'', ''RSI'' )
+					),
+					''Detaildroitrsa'' => array(
+						''oridemrsa_choice'' => ''1'',
+						''oridemrsa'' => array( ''DEM'',"RMI","API" )
+					),
+					''Situationdossierrsa'' => array(
+						''etatdosrsa_choice'' => ''1'',
+						''etatdosrsa'' => array( 2)
+					)
+				),
+				 1.2 Restriction des valeurs qui apparaissent dans les filtres de recherche
+				''accepted'' => array(),
+				 1.3 Ne pas afficher ni traiter certains filtres de recherche
+				''skip'' => array()
+			),
+			 2. Recherche
+			''query'' => array(
+				 2.1 Restreindre ou forcer les valeurs renvoyées par le filtre de recherche
+				''restrict'' => array(),
+				 2.2 Conditions supplémentaires optionnelles
+				''conditions'' => array(),
+				 2.3 Tri par défaut
+				''order'' => array()
+			),
+			 3. Nombre d''enregistrements par page
+			''limit'' => 10,
+			 4. Lancer la recherche au premier accès à la page ?
+			''auto'' => false,
+			 5. Résultats de la recherche
+			''results'' => array(
+				 5.1 Ligne optionnelle supplémentaire d''en-tête du tableau de résultats
+				''header'' => array(),
+				 5.2 Colonnes du tableau de résultats
+				''fields'' => array(
+						"0": "Dossier.numdemrsa",
+			                        "1": "Personne.nom",
+			                        "2": "Personne.prenom",
+			                        "3": "Dossier.dtdemrsa",
+			                        "4": "Dossier.matricule",
+			                        "5": "Adresse.numvoie",
+			                        "6": "Adresse.libtypevoie",
+			                        "7": "Adresse.nomvoie",
+			                        "8": "Adresse.nomcom",
+			                        "9": "Adresse.codepos",
+			                       "10": "Adresse.compladr",
+			                       "/Adressesfoyers/index/#Foyer.id#": {
+				                       "class": "view"
+			                       }
+					)
+				),
+				 5.3 Infobulle optionnelle du tableau de résultats
+				''innerTable'' => array(
+					''Dossier.numdemrsa'',
+					''Dossier.dtdemrsa'',
+					''Personne.dtnai'',
+					''Dossier.matricule'',
+					''Personne.nir'',
+					''Adresse.codepos'',
+					''Situationdossierrsa.dtclorsa'',
+					''Situationdossierrsa.moticlorsa'',
+					''Prestation.rolepers'',
+					''Situationdossierrsa.etatdosrsa'',
+					''Structurereferenteparcours.lib_struc'',
+					''Referentparcours.nom_complet'',
+				)
+			),
+			 6. Temps d''exécution, mémoire maximum, ...
+			''ini_set'' => array(
+				''max_execution_time'' => 0,
+				''memory_limit'' => ''1024M''
+			)
+		)',
+current_timestamp,
+current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'ConfigurableQuery.Algorithmeorientation.search');
+
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'ConfigurableQuery.Algorithmeorientation.search';
+
+
+-- Création de la variable de configuration pour l'export CSV de la recherche desnouveaux orientés
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT 'ConfigurableQuery.Algorithmeorientation.exportcsv_recherche',
+'{"filters":{"defaults":{"Dossier":{"dernier":1},"Situationdossierrsa":{"etatdosrsa_choice":0,"etatdosrsa":[0,2,3,4]}},"accepted":[],"skip":[]},"query":{"restrict":[],"conditions":[],"order":[]},"limit":false,"auto":false,"results":{"header":[],"fields":["Personne.qual","Personne.nom","Personne.prenom","Personne.nir","Personne.dtnai","Personne.sexe","Personne.age","Adresse.numvoie","Adresse.libtypevoie","Adresse.compladr","Adresse.codepos","Adresse.nomcom","Dossier.dtdemrsa","Dossier.numdemrsa","Prestation.rolepers","Orientstruct.date_valid","Orientstruct.date_impression","Structurereferente.ville","Structurereferente.lib_struc","Foyer.sitfam","Orientstruct.origine","Detaildroitrsa.nbenfautcha","Modecontact.numtel","Modecontact.numposte","Modecontact.adrelec"],"innerTable":["Situationdossierrsa.etatdosrsa","Personne.nomcomnai","Personne.dtnai","Adresse.numcom","Personne.nir","Historiqueetatpe.identifiantpe","Modecontact.numtel","Prestation.rolepers","Structurereferenteparcours.lib_struc","Referentparcours.nom_complet"]},"ini_set":{"max_execution_time":0,"memory_limit":"1024M"}}',
+'Export CSV, Algorithme d''orientation - Liste des nouveaux orientés
+
+		array(
+			 1. Filtres de recherche, on reprend la configuration de la recherche
+			''filters'' => Configure::read( ''ConfigurableQuery.Algorithmeorientation.orientation.filters'' ),
+			 2. Recherche, on reprend la configuration de la recherche
+			''query'' => Configure::read( ''ConfigurableQuery.Algorithmeorientation.orientation.query'' ),
+			 3. Résultats de la recherche
+			''results'' => array(
+				''fields'' => array(
+					''Dossier.numdemrsa'',
+					''Dossier.dtdemrsa'',
+					''Personne.nir'',
+					''Situationdossierrsa.etatdosrsa'',
+					''Prestation.natprest'',
+					''Calculdroitrsa.toppersdrodevorsa'',
+					''Personne.nom_complet_prenoms'',
+					''Personne.qual'',
+					''Personne.nom'',
+					''Personne.prenom'',
+					''Personne.dtnai'',
+					''Personne.age'' => array( ''label'' => ''Age'' ),
+					''Adresse.numvoie'',
+					''Adresse.libtypevoie'',
+					''Adresse.nomvoie'',
+					''Adresse.complideadr'',
+					''Adresse.compladr'',
+					''Adresse.codepos'',
+					''Adresse.nomcom'',
+					''Personne.email'',
+					''Personne.numfixe'',
+					''Typeorient.lib_type_orient'',
+					''Personne.idassedic'',
+					''Dsp.inscdememploi'',
+					''Dossier.matricule'',
+					''Structurereferenteparcours.lib_struc'',
+					''Referentparcours.nom_complet'',
+					''Personne.sexe'',
+					''Dsp.inscdememploi'',
+					''Dsp.natlog'' ,
+					''Dsp.nivetu''
+				)
+			),
+			 4. Temps d''exécution, mémoire maximum, ...
+			''ini_set'' => Configure::read( ''ConfigurableQuery.Algorithmeorientation.orientation.ini_set'' ),
+		)',
+current_timestamp,
+current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'ConfigurableQuery.Algorithmeorientation.exportcsv_recherche');
+
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'ConfigurableQuery.Algorithmeorientation.exportcsv_recherche';
+
 
 -- *****************************************************************************
 COMMIT;

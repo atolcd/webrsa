@@ -220,3 +220,15 @@ msgstr "Retour à l'accueil de WebRSA"
 
 msgid "validation.titre"
 msgstr "Validation des orientations"
+
+msgid "Search.Orientstruct.communautesr_id"
+msgstr "EPT"
+
+msgid "Search.Rendezvous"
+msgstr "Recherche par rendez-vous"
+
+msgid "/Algorithmeorientation/search/:heading"
+msgstr "Recherche des nouveaux orientés"
+
+msgid "Orientstruct.date_impression"
+msgstr "Date d'impression"

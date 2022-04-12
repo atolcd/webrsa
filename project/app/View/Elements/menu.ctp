@@ -127,6 +127,7 @@
 					__d( 'orientsstructs', 'Orientsstructs.nom_menu.cohorte_nouvelles' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_nouvelles' ) ),
 					__d( 'orientsstructs', 'Orientsstructs.nom_menu.cohorte_enattente' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_enattente' ) ),
 					__d( 'orientsstructs', 'Orientsstructs.nom_menu.cohorte_orientees' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_orientees' ) ),
+					__d( 'orientsstructs', 'Orientsstructs.nom_menu.nouveauxorientes' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'algorithmeorientation', 'action' => 'search' ) ),
 				),
 				__d( 'orientsstructs', 'Orientsstructs.nom_menu_haut.struct') => array(
 					__d( 'orientsstructs', 'Orientsstructs.nom_menu.cohorte_validation' ) => array( 'class' => 'search', 'url' => array( 'controller' => 'orientsstructs', 'action' => 'cohorte_validation' ) ),

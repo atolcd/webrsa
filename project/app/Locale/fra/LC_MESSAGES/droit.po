@@ -5157,6 +5157,12 @@ msgstr "Valider les orientations"
 msgid "controllers/Algorithmeorientation/affichageOrientables"
 msgstr "Afficher les orientables"
 
+msgid "controllers/Algorithmeorientation/exportcsv_recherche"
+msgstr "Exporter en CSV les résultats de la recherche des nouveaux orientés"
+
+msgid "controllers/Algorithmeorientation/search"
+msgstr "Rechercher les nouveaux orientés"
+
 ## Critères de l'algorithme d'orientation CD93
 ###############################################################################
 

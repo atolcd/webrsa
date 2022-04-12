@@ -384,6 +384,9 @@ msgstr "Impression des orientations validées"
 msgid "Orientsstructs.nom_menu.orient_algo"
 msgstr "Algorithme d'orientation"
 
+msgid "Orientsstructs.nom_menu.nouveauxorientes"
+msgstr "Liste des nouveaux orientés"
+
 # ------------------------------------------------------------------------------
 
 msgid "Search.Orientstruct"

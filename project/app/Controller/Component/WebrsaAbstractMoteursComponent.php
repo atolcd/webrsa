@@ -311,7 +311,6 @@
 		 */
 		protected function _filters( array $params ) {
 			$Controller = $this->_Collection->getController();
-
 			$search = array();
 			if( $Controller->request->is( 'get' )
 				|| false !== strpos( PHP_SAPI, 'cli' )

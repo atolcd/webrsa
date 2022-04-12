@@ -188,3 +188,6 @@ msgstr "Non"
 
 msgid "Rendezvous::Alert55Ans"
 msgstr "Attention : + de 55 ans"
+
+msgid "Search.Rendezvous.periodeorientation"
+msgstr "Possède un rendez-vous sur les dates d'orientation précisées ci-dessus"

@@ -164,7 +164,9 @@
 				'minYear_to' => date( 'Y' ) - 120,
 				'maxYear_from' => date( 'Y' ),
 				'maxYear_to' => date( 'Y' ) + 5,
-				'dateFormat' => 'DMY'
+				'dateFormat' => 'DMY',
+				'default_from' => strtotime( '-1 week' ),
+				'default_to' => strtotime( 'now' )
 			);
 			$params = $params + $default;
 
@@ -194,7 +196,7 @@
 						'dateFormat' => $params['dateFormat'],
 						'maxYear' => $params['maxYear_from'],
 						'minYear' => $params['minYear_from'],
-						'default' => strtotime( '-1 week' )
+						'default' => $params['default_from']
 					)
 				)
 				.$this->Form->input( $path.'_to',
@@ -203,7 +205,8 @@
 						'type' => 'date',
 						'dateFormat' => $params['dateFormat'],
 						'maxYear' => $params['maxYear_to'],
-						'minYear' => $params['minYear_to']
+						'minYear' => $params['minYear_to'],
+						'default' => $params['default_to']
 					)
 				),
 				array( 'id' => $fieldsetId )
