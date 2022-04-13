@@ -128,7 +128,12 @@
 				);
 
 				$Model->create( $data );
-				if( $Model->save( null, array( 'atomic' => false ) ) ) {
+				if( (
+						$Model->name == 'Categoriefp93' &&
+						$Model->validates(array('fieldList' => array('thematiquefp93_id', 'name'))) &&
+						$Model->save( null, array( 'atomic' => false, 'validate' => false ) )
+					) || ($Model->name != 'Categoriefp93' && $Model->save( null, array( 'atomic' => false ) ) )
+				)  {
 					$primaryKey = $Model->{$Model->primaryKey};
 				}
 				else {

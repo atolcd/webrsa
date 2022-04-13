@@ -316,15 +316,16 @@
 		 * uniquement le 93 et démarrage de la barre de progression.
 		 */
 		public function startup() {
-			// Chargement du fichier de configuration lié, s'il existe
-			$department=Configure::read('Cg.departement');
-			$path = APP.'Config'.DS.'Cg'.$department.DS.'ImportCSVFRSA.php';
-			if( file_exists( $path ) ) {
-				include_once $path;
-				$this->_defaultHeaders = Configure::read('CSVImport.FRSA.AutoPositionnement.Headers');
-				$this->_correspondances = Configure::read('CSVImport.FRSA.AutoPositionnement.Correspondances');
-				$this->processModelDetails =  Configure::read('CSVImport.FRSA.AutoPositionnement.ModelDetails');	
-			}
+			// Chargement des configurations liées au model ImportCSVFRSA
+			$this->loadModel('Configuration');
+			$this->Configuration->setAllConfigurations('ImportCSVFRSA');
+
+			// On supprime pour ne pas avoir de problème plus tard (voir $this->uses de processRow() )
+			array_pop($this->uses);
+
+			$this->_defaultHeaders = Configure::read('CSVImport.FRSA.AutoPositionnement.Headers');
+			$this->_correspondances = Configure::read('CSVImport.FRSA.AutoPositionnement.Correspondances');
+			$this->processModelDetails =  Configure::read('CSVImport.FRSA.AutoPositionnement.ModelDetails');
 
 			parent::startup();
 

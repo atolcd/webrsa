@@ -192,16 +192,16 @@
 		 * uniquement le 93 et démarrage de la barre de progression.
 		 */
 		public function startup() {
-			// Chargement du fichier de configuration lié, s'il existe
-			$department=Configure::read('Cg.departement');
-			$path = APP.'Config'.DS.'Cg'.$department.DS.$this->name.'.php';
-			if( file_exists( $path ) ) {
-				include_once $path;
+			// Chargement des configurations liées au model ImportcsvCataloguespdisfps93
+			$this->loadModel('Configuration');
+			$this->Configuration->setAllConfigurations('ImportcsvCataloguespdisfps93');
 
-				$this->_defaultHeaders = Configure::read('CSVImport.CataloguePDI.Headers');
-				$this->_correspondances = Configure::read('CSVImport.CataloguePDI.Correspondances');
-				$this->processModelDetails =  Configure::read('CSVImport.CataloguePDI.ModelDetails');
-			}
+			// On supprime pour ne pas avoir de problème plus tard (voir $this->uses de processRow() )
+			array_pop($this->uses);
+
+			$this->_defaultHeaders = Configure::read('CSVImport.CataloguePDI.Headers');
+			$this->_correspondances = Configure::read('CSVImport.CataloguePDI.Correspondances');
+			$this->processModelDetails =  Configure::read('CSVImport.CataloguePDI.ModelDetails');
 
 			parent::startup();
 
