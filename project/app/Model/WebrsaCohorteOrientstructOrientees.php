@@ -114,7 +114,7 @@
 				array( 'Orientstruct.date_valid', 'Orientstruct.date_impression' )
 			);
 
-			foreach( array( 'typeorient_id', 'origine' ) as $field ) {
+			foreach( array( 'typeorient_id', 'origine', 'structureorientante_id' ) as $field ) {
 				$value = (string)Hash::get( $search, "Orientstruct.{$field}" );
 				if( $value !== '' ) {
 					$query['conditions']["Orientstruct.{$field}"] = $value;

@@ -622,6 +622,12 @@ FROM configurationscategories
 WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable LIKE 'ConfigurableQuery.Algorithmeorientation.exportcsv_recherche';
 
 
+--Mise à jour de la variable pour le tri des pdf lors de l'impression des orientations validées
+UPDATE public.configurations
+SET value_variable = '{"filters":{"defaults":{"Detailcalculdroitrsa":{"natpf_choice":1,"natpf":["RSD","RSI"]},"Detaildroitrsa":{"oridemrsa_choice":1,"oridemrsa":["DEM"]},"Situationdossierrsa":{"etatdosrsa_choice":1,"etatdosrsa":[2,3,4]}},"accepted":{"Situationdossierrsa.etatdosrsa":[2,3,4],"Detailcalculdroitrsa.natpf":["RSD","RSI","RSU","RSJ"]},"skip":["Dossier.numdemrsa","Dossier.matricule","Dossier.anciennete_dispositif","Serviceinstructeur.id","Dossier.fonorg","Foyer.sitfam","Personne.dtnai","Personne.nomnai","Personne.nir","Personne.sexe","Personne.trancheage"],"has":["Dsp"]},"query":{"restrict":{"Situationdossierrsa.etatdosrsa_choice":1,"Situationdossierrsa.etatdosrsa":[2,3,4],"Detailcalculdroitrsa.natpf_choice":1,"Detailcalculdroitrsa.natpf":["RSD","RSI","RSU","RSJ"]},"conditions":[],"order":{"Adresse.nomcom":"ASC","Typeorient.id":"ASC"}},"limit":10,"auto":false,"results":{"header":[],"fields":{"0":"Adresse.nomcom","1":"Personne.nom_complet_court","2":"Dossier.dtdemrsa","3":"Suiviinstruction.typeserins","4":"Orientstruct.origine","5":"Orientstruct.propo_algo","6":"Typeorient.lib_type_orient","7":"Structurereferente.lib_struc","8":"Orientstruct.statut_orient","9":"Orientstruct.date_propo","10":"Orientstruct.date_valid","Personne.has_dsp":{"type":"boolean"},"/Orientsstructs/impression/#Orientstruct.id#":{"class":"external"}},"innerTable":["Dossier.numdemrsa","Dossier.dtdemrsa","Personne.dtnai","Dossier.matricule","Personne.nir","Adresse.codepos","Situationdossierrsa.dtclorsa","Situationdossierrsa.moticlorsa","Prestation.rolepers","Situationdossierrsa.etatdosrsa","Structurereferenteparcours.lib_struc","Referentparcours.nom_complet"]},"ini_set":{"max_execution_time":0,"memory_limit":"1024M"}}'
+WHERE configurations.lib_variable LIKE 'ConfigurableQuery.Orientsstructs.cohorte_orientees';
+
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

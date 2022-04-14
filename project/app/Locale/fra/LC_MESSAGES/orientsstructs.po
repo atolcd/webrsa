@@ -435,3 +435,6 @@ msgstr "Accéder aux informations de #Personne.nom_complet_court#"
 
 msgid "/Orientsstructs/index/:heading"
 msgstr "Orientations de #qual# #nom# #prenom#"
+
+msgid "Search.Orientstruct.structureorientante"
+msgstr "Structure orientante"

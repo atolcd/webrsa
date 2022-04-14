@@ -83,6 +83,7 @@
 					'Orientstruct' => array(
 						'typeorient_id' => $Controller->InsertionsBeneficiaires->typesorients(),
 						'structurereferente_id' => $Controller->Personne->Orientstruct->Structurereferente->list1Options(),
+						'structurereferente_normal' => $Controller->Personne->Orientstruct->Structurereferente->find('list'),
 					),
 					'structuresAutomatiques' => $Controller->{$params['modelRechercheName']}->structuresAutomatiques()
 				)

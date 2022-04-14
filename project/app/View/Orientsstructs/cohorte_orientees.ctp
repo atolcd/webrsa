@@ -68,6 +68,7 @@
 			array(
 				'Search.Orientstruct.typeorient_id' => array( 'empty' => true, 'required' => false ),
 				'Search.Orientstruct.origine' => array( 'empty' => true ),
+				'Search.Orientstruct.structureorientante_id' => array( 'required' => false,  'empty' => true, 'options' => $options['Orientstruct']['structurereferente_normal'] ),
 			),
 			array( 'options' => array( 'Search' => $options ) )
 		);

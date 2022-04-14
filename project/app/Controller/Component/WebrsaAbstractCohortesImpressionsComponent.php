@@ -145,5 +145,46 @@
 
 			$this->_send( $success, $content, $params );
 		}
+
+		/**
+		 * Surcharge de la fonction du fichier WebrsaAbstractMoteursComponent
+		 */
+		protected function _queryOrder( array $query, array $params ) {
+			//On ne peut pas récupérer le parent car la modification est au milieu de la fonction
+			$Controller = $this->_Collection->getController();
+
+			// Met les clefs sort et direction dans le query['order'] et les rends invisible pour le paginateur
+			$sortCol = false;
+			$toSave = array('sort', 'direction');
+			foreach ($toSave as $saveName) {
+				$$saveName = Hash::get($Controller->request->params, 'named.'.$saveName);
+				$Controller->request->params = Hash::remove(
+					$Controller->request->params,
+					'named.'.$saveName
+				);
+
+				if ($$saveName !== null) {
+					$sortCol = true;
+					$Controller->request->params['named']['saved_'.$saveName] = $$saveName;
+				}
+			}
+			$Controller->request->params['named']['saved_modelName'] = $params['modelName'];
+
+			//Dans le cas de l'algorithme d'orientation, on trie selon les champs de la variable de configuration
+			if(Configure::read('Module.AlgorithmeOrientation.enabled') && $params['configurableQueryFieldsKey'] == 'Orientsstructs.cohorte_impressions'){
+				$params_new = $params;
+				$params_new['configurableQueryFieldsKey'] = 'Orientsstructs.cohorte_orientees';
+				$query['order'] =  Configure::read($this->_configureKey('query.order', $params_new));
+			} else {
+				// Si un order existe dans l'url, on l'utilise, sinon on regarde dans la conf
+				$query['order'] = $sortCol ? array($sort => $direction) : (array)Configure::read($this->_configureKey('query.order', $params));
+			}
+
+			if (!isset($query['order'][$params['modelName'].'.id'])) {
+				$query['order'][$params['modelName'].'.id'] = 'DESC';
+			}
+
+			return $query;
+		}
 	}
 ?>
