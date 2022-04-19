@@ -648,7 +648,7 @@
 				if ( Configure::read('Orientation.validation.enabled') == true	&& (
 					( $originalAddEditFormData['Orientstruct']['statut_orient'] == 'En attente' && $originalAddEditFormData['Orientstruct']['origine'] == null)
 					|| $originalAddEditFormData['Orientstruct']['statut_orient'] != 'En attente'
-				) ) {
+				) && $departement != 93) {
 					unset($this->Orientstruct->validate['structureorientante_id']);
 					unset($this->Orientstruct->validate['referentorientant_id']);
 				}
@@ -669,6 +669,10 @@
 
 			// Tentative de sauvegarde
 			if( !empty( $this->request->data ) ) {
+				if($departement == 93 && !in_array($this->request->data['Orientstruct']['origine'], ['prestaorient', 'entdiag'])){
+					unset($this->Orientstruct->validate['structureorientante_id']);
+					unset($this->Orientstruct->validate['referentorientant_id']);
+				}
 				$this->Orientstruct->begin();
 				if( $this->WebrsaOrientstruct->saveAddEditFormData( $this->request->data, $user_id ) ) {
 					$this->Orientstruct->commit();

@@ -28,7 +28,6 @@
 			'Calculdroitrsa.id' => array( 'type' => 'hidden' ),
 			'Calculdroitrsa.personne_id' => array( 'type' => 'hidden' ),
 			'Orientstruct.user_id' => array( 'type' => 'hidden' ),
-			'Orientstruct.origine' => array( 'type' => 'hidden' ),
 		)
 	);
 
@@ -48,7 +47,8 @@
 				array(
 					'options' => $options
 				)
-			)
+				),
+				['id' => 'blocOrientePar']
 		);
 	}
 
@@ -115,3 +115,24 @@
 
 	echo $this->Observer->disableFormOnSubmit( $this->Html->domId( "Orientstruct.{$this->action}.form" ) );
 ?>
+<script>
+
+document.observe("dom:loaded", function() {
+
+	const origineAffichage = ['prestaorient', 'entdiag'];
+
+	if(!origineAffichage.includes(document.querySelector('#OrientstructOrigine').value)){
+		document.querySelector('#blocOrientePar').hidden = true;
+	}
+
+	document.querySelector('#OrientstructOrigine').addEventListener('change', (event) => {
+		let origine = event.target.value;
+		if(origineAffichage.includes(event.target.value)){
+			document.querySelector('#blocOrientePar').hidden = false;
+		} else {
+			document.querySelector('#blocOrientePar').hidden = true;
+		}
+	});
+
+});
+</script>
