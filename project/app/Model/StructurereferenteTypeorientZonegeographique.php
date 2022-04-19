@@ -32,6 +32,14 @@
 		 */
 		public $recursive = 1;
 
+		/**
+		 * Les modèles utilisés par ce modèle, en plus des modèles présents dans
+		 * les relations.
+		 *
+		 * @var array
+		 */
+		public $uses = array( 'Criterealgorithmeorientation', 'Zonegeographique' );
+
 		public $belongsTo = array(
 			'Structurereferente' => array(
 				'className' => 'Structurereferente',
@@ -83,6 +91,35 @@
 				}
 
 			return $tableau;
+		}
+
+		/**
+		 * Vérifie s'il existe bien un lien pour chaque zone géographique avec le type d'orientation du critère final
+		 * @return array
+		 */
+		public function checkBlocageAlgo(){
+			$manques = [];
+			$typefinal = $this->Criterealgorithmeorientation->find('first', ['conditions' => ['code' => 'FINAL']])['Typeorientenfant'];
+			$villes = $this->Zonegeographique->find('list', ['fields' => 'libelle', 'conditions' => ['codeinsee ilike' => '93%']]);
+			$id_type_orient_pe = Configure::read('Typeorient.emploi_id');
+			$id_type_orient_ss = Configure::read('Typeorient.service_social_id');
+			$lib_type_orient_pe = $this->Typeorient->find('first', ['conditions' => ['Typeorient.id' => $id_type_orient_pe]])['Typeorient']['lib_type_orient'];
+			$lib_type_orient_ss = $this->Typeorient->find('first', ['conditions' => ['Typeorient.id' => $id_type_orient_ss]])['Typeorient']['lib_type_orient'];
+			$total_villes = count($villes);
+
+			if($typefinal['id'] != $id_type_orient_pe && $typefinal['id'] != $id_type_orient_ss){
+				if(count($this->find('all', ['conditions' => ['StructurereferenteTypeorientZonegeographique.typeorient_id' => $typefinal['id']]])) != $total_villes){
+					$manques[] = $typefinal['lib_type_orient'];
+				}
+			}
+			if(count($this->find('all', ['conditions' => ['StructurereferenteTypeorientZonegeographique.typeorient_id' => $id_type_orient_pe]])) != $total_villes){
+				$manques[] = $lib_type_orient_pe;
+			}
+			if(count($this->find('all', ['conditions' => ['StructurereferenteTypeorientZonegeographique.typeorient_id' => $id_type_orient_ss]])) != $total_villes){
+				$manques[] = $lib_type_orient_ss;
+			}
+
+			return implode (",", $manques);
 		}
 	}
 ?>

@@ -1,3 +1,8 @@
+<?php if(!empty($bloquer)){
+    echo '<p class="error">' . sprintf(__d('algorithmeorientation', 'Algorithmeorientation.bloque'), $bloquer) . '</p>';
+} else {
+
+?>
 <div class="steps">
 	<?php if(isset($pbAdresses)):?>
     <span class="steps-prog" style="width: 25%;"></span>
@@ -147,4 +152,5 @@
         }
 
     }
+}
 ?>

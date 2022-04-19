@@ -92,6 +92,7 @@
 			Cache::delete('orientations_apres_arbitrage');
 			Cache::delete('orientations_reformartees');
 
+			$bloquer = $this->StructurereferenteTypeorientZonegeographique->checkBlocageAlgo();
 
 			$resultats = $this->_listeOrientables();
 			if(!empty($resultats)){
@@ -104,7 +105,7 @@
 				}
 			}
 
-			$this->set(compact('pbAdresses'));
+			$this->set(compact('pbAdresses', 'bloquer'));
 
 		}
 
