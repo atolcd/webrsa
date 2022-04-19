@@ -621,11 +621,20 @@
 		/**
 		 * Calcule l'orientation d'un orientable passé en paramètres
 		 */
-		private function _calculOrientation($orientable, $criteres, $structures, $zonesgeo, $id_type_orient_pe, $id_type_orient_ss){
+		private function _calculOrientation($orientable, $criteres, $structures, $zonesgeo, $id_type_orient_pe, $id_type_orient_ss, $typesorient){
 			$index_critere = 0;
 			$trouve = false;
 			while($criteres[$index_critere]['Criterealgorithmeorientation']['code'] != 'FINAL' && !$trouve){
-				if($orientable[0][strtolower($criteres[$index_critere]['Criterealgorithmeorientation']['code'])]){
+				//on vérifie si le brsa rentre dans le critère et si une structure référente est associée à sa ville
+				if($orientable[0][strtolower($criteres[$index_critere]['Criterealgorithmeorientation']['code'])]
+				&& !empty(array_filter(
+					$structures,
+					function($s) use ($criteres, $index_critere, $zonesgeo, $orientable) {
+						 return $s['StructurereferenteTypeorientZonegeographique']['typeorient_id'] == $criteres[$index_critere]['Criterealgorithmeorientation']['type_orient_enfant_id']
+						 && $zonesgeo[$s['StructurereferenteTypeorientZonegeographique']['zonegeographique_']] == $orientable[0]['numcom'];
+					}
+					))
+				){
 					$trouve = true;
 				} else {
 					$index_critere ++;
