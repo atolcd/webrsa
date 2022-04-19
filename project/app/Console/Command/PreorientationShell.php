@@ -50,6 +50,18 @@
 					'default' => 'false',
 					'boolean' => true,
 					'help' => 'Doit-on forcer le calcul de la préorientation même si une préorientation a déjà été calculée ?'
+				),
+				'noPreOrientation' => array(
+					'short' => 'p',
+					'default' => 'false',
+					'boolean' => true,
+					'help' => 'Calcul des propositions d\'orientation'
+				),
+				'suppressionAnomalies' => array(
+					'short' => 's',
+					'default' => 'false',
+					'boolean' => true,
+					'help' => 'Suppression de l\'orientation \'Non orienté\' pour les personnes ayant des orientations contradictoires'
 				)
 			);
 			$parser->addOptions( $options );
@@ -91,27 +103,8 @@
 		 */
 		public function main() {
 			$success = true;
-			$compteur = 0;
-			$nSuccess = 0;
-			$nUndefined = 0;
-			$nErrors = 0;
-
 
 			$this->Orientstruct->begin();
-
-			$typesOrient = $this->Typeorient->find(
-					'list', array(
-				'fields' => array(
-					'Typeorient.id',
-					'Typeorient.lib_type_orient'
-				),
-				'order' => 'Typeorient.lib_type_orient ASC'
-					)
-			);
-			$typesOrient[null] = 'Non définissable';
-
-			$countTypesOrient = array_combine( array_keys( $typesOrient ), array_pad( array( ), count( $typesOrient ), 0 ) );
-			$typesOrient = array_flip( $typesOrient );
 
 			//------------------------------------------------------------------
 
@@ -122,17 +115,58 @@
 							SET propo_algo = NULL,
 								date_propo = NULL
 							WHERE statut_orient <> 'Orienté' AND origine IS NULL";
-				$t = $this->Orientstruct->query( $sql );
+				$this->Orientstruct->query( $sql );
 			}
 
 			//------------------------------------------------------------------
 
 			$this->_wait( "Ajout d'entrée dans la table orientsstructs pour les DEM ou CJT RSA n'en possédant pas." );
-			$t = $this->fillAllocataire();
+			$this->fillAllocataire();
 
 			//------------------------------------------------------------------
 
-			$sqlCommon = "FROM orientsstructs
+			$message = '%s';
+
+			if( $this->params['suppressionAnomalies'] ) {
+				//Sélection des personnes qui ont a la fois une orientation orienté et une orientation non orienté
+				$sqlpersonnes = "
+					select o.personne_id
+					from orientsstructs o
+					group by o.personne_id
+					having array['Non orienté', 'Orienté'] <@ array_agg(distinct o.statut_orient ::text)
+				";
+				$id_personnes = $this->Orientstruct->query( $sqlpersonnes );
+				//Si il y a des personnes, on récupère leurs id
+				if(!empty($id_personnes)){
+					$liste_ids = array_column(array_column($id_personnes, 0), 'personne_id');
+					$liste_ids = implode(',', $liste_ids);
+
+					//On supprime les lignes non orienté pour les personnes en question
+					$success = $success && $this->Orientstruct->deleteAll(['Orientstruct.personne_id IN ('.$liste_ids.')', 'statut_orient' => 'Non orienté']);
+				}
+			}
+
+			if( !$this->params['noPreOrientation'] ) {
+				$compteur = 0;
+				$nSuccess = 0;
+				$nUndefined = 0;
+				$nErrors = 0;
+
+				$typesOrient = $this->Typeorient->find(
+					'list', array(
+				'fields' => array(
+					'Typeorient.id',
+					'Typeorient.lib_type_orient'
+				),
+				'order' => 'Typeorient.lib_type_orient ASC'
+					)
+				);
+				$typesOrient[null] = 'Non définissable';
+
+				$countTypesOrient = array_combine( array_keys( $typesOrient ), array_pad( array( ), count( $typesOrient ), 0 ) );
+				$typesOrient = array_flip( $typesOrient );
+
+				$sqlCommon = "FROM orientsstructs
 						INNER JOIN prestations ON (
 							orientsstructs.personne_id = prestations.personne_id
 							AND prestations.natprest = 'RSA'
@@ -147,65 +181,67 @@
 						AND orientsstructs.statut_orient <> 'Orienté'
 						".(!empty( $this->params['limit'] ) ? "LIMIT {$this->params['limit']}" : "" );
 
-			//------------------------------------------------------------------
 
-			$nPersonnes = $this->Orientstruct->query( "SELECT COUNT( personnes.id ) {$sqlCommon}" );
-			$nPersonnes = $nPersonnes[0][0]['count'];
-			if( !empty( $this->params['limit'] ) ) {
-				$this->out( sprintf( "%s personnes à traiter (sur %s au total)", min( $nPersonnes, $this->params['limit'] ), $nPersonnes ) );
-				$nPersonnes = min( $nPersonnes, $this->params['limit'] );
-			}
-			else {
-				$this->out( "{$nPersonnes} personnes à traiter" );
-			}
-			$this->hr();
-
-
-			$personnes = $this->Orientstruct->query(
-					"SELECT
-						personnes.id AS \"Personne__id\",
-						personnes.nom AS \"Personne__nom\",
-						personnes.prenom AS \"Personne__prenom\",
-						personnes.nir AS \"Personne__nir\",
-						personnes.dtnai AS \"Personne__dtnai\",
-						orientsstructs.id AS \"Orientstruct__id\",
-						orientsstructs.personne_id AS \"Orientstruct__personne_id\"
-					{$sqlCommon}"
-			);
-
-
-			$this->XProgressBar->start( count( $personnes ) );
-			foreach( $personnes as $personne ) {
-				$this->XProgressBar->next();
-				$preOrientationTexte = $this->WebrsaOrientstruct->preOrientation( $personne );
-				$preOrientation = Set::enum( $preOrientationTexte, $typesOrient );
-				$countTypesOrient[$preOrientation]++;
-
-				if( empty( $preOrientation ) ) {
-					$nUndefined++;
+				$nPersonnes = $this->Orientstruct->query( "SELECT COUNT( personnes.id ) {$sqlCommon}" );
+				$nPersonnes = $nPersonnes[0][0]['count'];
+				if( !empty( $this->params['limit'] ) ) {
+					$this->out( sprintf( "%s personnes à traiter (sur %s au total)", min( $nPersonnes, $this->params['limit'] ), $nPersonnes ) );
+					$nPersonnes = min( $nPersonnes, $this->params['limit'] );
 				}
 				else {
-					$nSuccess++;
+					$this->out( "{$nPersonnes} personnes à traiter" );
+				}
+				$this->hr();
+
+
+				$personnes = $this->Orientstruct->query(
+						"SELECT
+							personnes.id AS \"Personne__id\",
+							personnes.nom AS \"Personne__nom\",
+							personnes.prenom AS \"Personne__prenom\",
+							personnes.nir AS \"Personne__nir\",
+							personnes.dtnai AS \"Personne__dtnai\",
+							orientsstructs.id AS \"Orientstruct__id\",
+							orientsstructs.personne_id AS \"Orientstruct__personne_id\"
+						{$sqlCommon}"
+				);
+
+
+				$this->XProgressBar->start( count( $personnes ) );
+
+				foreach( $personnes as $personne ) {
+					$this->XProgressBar->next();
+					$preOrientationTexte = $this->WebrsaOrientstruct->preOrientation( $personne );
+					$preOrientation = Set::enum( $preOrientationTexte, $typesOrient );
+					$countTypesOrient[$preOrientation]++;
+
+					if( empty( $preOrientation ) ) {
+						$nUndefined++;
+					}
+					else {
+						$nSuccess++;
+					}
+
+					$sql = "UPDATE orientsstructs
+								SET
+									date_propo = '".date( 'Y-m-d' )."',
+									propo_algo = ".(!empty( $preOrientation ) ? $preOrientation : 'NULL' )."
+								WHERE id = {$personne['Orientstruct']['id']}";
+
+					$tmpSuccess = ( $this->Orientstruct->query( $sql ) !== false );
+
+					if( !$tmpSuccess ) {
+						$nErrors++;
+					}
+					$success = $tmpSuccess && $success;
+					$compteur++;
 				}
 
-				$sql = "UPDATE orientsstructs
-							SET
-								date_propo = '".date( 'Y-m-d' )."',
-								propo_algo = ".(!empty( $preOrientation ) ? $preOrientation : 'NULL' )."
-							WHERE id = {$personne['Orientstruct']['id']}";
+				$message = "%s ({$compteur} enregistrements traités; {$nSuccess} préorientations calculées, {$nUndefined} préorietations incalculables ({$nErrors} erreurs)";
 
-				$tmpSuccess = ( $this->Orientstruct->query( $sql ) !== false );
-
-				if( !$tmpSuccess ) {
-					$nErrors++;
-				}
-				$success = $tmpSuccess && $success;
-				$compteur++;
 			}
 
-
-			/// Fin de la transaction
-			$message = "%s ({$compteur} enregistrements traités; {$nSuccess} préorientations calculées, {$nUndefined} préorietations incalculables ({$nErrors} erreurs)";
+			// Fin de la transaction
 			if( $success ) {
 				$this->out( sprintf( $message, "Script terminé avec succès" ) );
 				$this->Orientstruct->commit();
