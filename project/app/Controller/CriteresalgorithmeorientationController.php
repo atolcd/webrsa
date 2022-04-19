@@ -57,7 +57,7 @@
 			}
 
 			//On récupère les critères actifs pour gérer la modification de l'ordre
-			$resultsactifs = $this->Criterealgorithmeorientation->find('all', ['conditions' => ['Criterealgorithmeorientation.actif' => true],'order' => 'Criterealgorithmeorientation.actif DESC, ordre ASC']);
+			$resultsactifs = $this->Criterealgorithmeorientation->find('all', ['conditions' => ['Criterealgorithmeorientation.actif' => true, 'code <>' => 'FINAL'],'order' => 'Criterealgorithmeorientation.actif DESC, ordre ASC']);
 			$premier_id = $resultsactifs[0]['Criterealgorithmeorientation']['id'];;
 			$dernier_id = $resultsactifs[count($resultsactifs)-1]['Criterealgorithmeorientation']['id'];
 

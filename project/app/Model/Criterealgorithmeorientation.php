@@ -65,7 +65,7 @@
 			if ($sens != 'monter' && $sens != 'descendre'){
 				$sens = 'monter';
 			}
-			$liste = $this->find('all', ['condition' => ['actif' => true],'order' => 'ordre ASC']);
+			$liste = $this->find('all', ['conditions' => ['Criterealgorithmeorientation.actif' => true],'order' => 'ordre ASC']);
 			$index = array_search($id, array_column(array_column($liste,'Criterealgorithmeorientation'), 'id'));
 			//On récupère l'id du critère juste au dessus
 			if ($sens == 'monter'){

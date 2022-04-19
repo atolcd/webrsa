@@ -48,12 +48,14 @@
 			)
 		);
 	}
-	echo $this->Default3->subform(
-		$this->Translator->normalize(
-			[
-				'Criterealgorithmeorientation.actif'
-			]
-		)
-	);
+	if($this->request->data['Criterealgorithmeorientation']['code'] != 'FINAL'){
+		echo $this->Default3->subform(
+			$this->Translator->normalize(
+				[
+					'Criterealgorithmeorientation.actif'
+				]
+			)
+		);
+	}
 	echo $this->Default3->DefaultForm->buttons( array( 'Save', 'Cancel' ) );
 	echo $this->Default3->DefaultForm->end();

@@ -16,11 +16,11 @@
 				'Criterealgorithmeorientation.actif' => ['id' => 'actif'],
 				'/Criteresalgorithmeorientation/monter/#Criterealgorithmeorientation.id#' => array(
 					'title' => false,
-					'disabled' => '#Criterealgorithmeorientation.id# =='. $premier_id
+					'disabled' => "( '#Criterealgorithmeorientation.id#' == {$premier_id} ) || ( '#Criterealgorithmeorientation.code#' == 'FINAL' )"
 				),
 				'/Criteresalgorithmeorientation/descendre/#Criterealgorithmeorientation.id#' => array(
 					'title' => false,
-					'disabled' => '#Criterealgorithmeorientation.id# =='. $dernier_id
+					'disabled' => "( '#Criterealgorithmeorientation.id#' == {$dernier_id} ) || ( '#Criterealgorithmeorientation.code#' == 'FINAL' )"
 				),
 				'/Criteresalgorithmeorientation/edit/#Criterealgorithmeorientation.id#' => array(
 					'title' => true
