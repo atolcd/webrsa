@@ -608,9 +608,11 @@
 			$id_type_orient_pe = Configure::read('Typeorient.emploi_id');
 			$id_type_orient_ss = Configure::read('Typeorient.service_social_id');
 
+			$typesorient = $this->Typeorient->listTypeEnfant();
+
 			//Calcul de l'orientation
 			foreach($orientables as $key => $orientable){
-				$orientables[$key]['orientation'] = $this->_calculOrientation($orientable, $criteres, $structures, $zonesgeo, $id_type_orient_pe, $id_type_orient_ss);
+				$orientables[$key]['orientation'] = $this->_calculOrientation($orientable, $criteres, $structures, $zonesgeo, $id_type_orient_pe, $id_type_orient_ss, $typesorient);
 			}
 
 			Cache::write('orientations', $orientables);
@@ -655,8 +657,8 @@
 			$poleemploi = array_values($poleemploi);
 			$servicesocial = array_values($servicesocial);
 			$orientation['critere_id'] = $criteres[$index_critere]['Criterealgorithmeorientation']['id'];
-			$orientation['type_orient_enfant_id'] = $criteres[$index_critere]['Criterealgorithmeorientation']['type_orient_enfant_id'];
-			$orientation['lib_type_orient'] = $criteres[$index_critere]['Typeorientenfant']['lib_type_orient'];
+			$orientation['type_orient_enfant_id'] = $structure[0]['Structurereferente']['typeorient_id'];
+			$orientation['lib_type_orient'] = $typesorient[$structure[0]['Structurereferente']['typeorient_id']];
 			$orientation['structure_id'] = $structure[0]['Structurereferente']['id'];
 			$orientation['structure_libelle'] = $structure[0]['Structurereferente']['lib_struc'];
 			$orientation['structure_ville'] = $structure[0]['Structurereferente']['ville'];
