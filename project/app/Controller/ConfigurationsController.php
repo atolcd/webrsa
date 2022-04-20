@@ -107,14 +107,14 @@
 				$this->Configurationhistorique->saveHisto($this->request->data['Configuration']);
 
 				// Sauvegarde de la nouvelle valeur
-				$query = "UPDATE public.configurations SET value_variable = '"
-				. str_replace("'", "''", $this->request->data['Configuration']['value_variable'])
-				. "', comments_variable = '" . str_replace("'", "''", $this->request->data['Configuration']['comments_variable'])
-				. "', modified = current_timestamp WHERE configurations.id = " . $id . ";";
-				$this->Configuration->query($query);
+				$success = $this->Configuration->save($this->request->data);
 
-				$this->Flash->success( __( 'Save->success' ) );
-				$this->redirect( array( 'action' => 'index' ) );
+				if($success){
+					$this->Flash->success( __( 'Save->success' ) );
+					$this->redirect( array( 'action' => 'index' ) );
+				} else {
+					$this->Flash->error( __( 'Save->error' ) );
+				}
 			}
 			$this->WebrsaParametrages->edit( $id, array( 'view' => 'edit' ) );
 			$histos = $this->Configurationhistorique->getHisto($id);

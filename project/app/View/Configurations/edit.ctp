@@ -130,24 +130,25 @@ echo $this->Html->script( 'ace/ace' );
 	});
 
 	// Gestion de l'historique
-	function voirsuite()
+	function voirsuite(id)
 	{
-		document.getElementById('voirsuite').style.display='none';
-		document.getElementById('suite').style.display='block';
+		document.getElementById('voirsuite'+id).style.display='none';
+		document.getElementById('suite'+id).style.display='block';
 	}
-	function replier()
+	function replier(id)
 	{
-		document.getElementById('voirsuite').style.display='block';
-		document.getElementById('suite').style.display='none';
+		document.getElementById('voirsuite'+id).style.display='block';
+		document.getElementById('suite'+id).style.display='none';
 	}
 	<?php if( isset($histos) && !empty($histos) ) { ?>
+		let index = 0;
 		document.querySelectorAll('.oldValue.data').forEach( el => {
-			console.log(el);
 			if( el.innerHTML.length > 100 ) {
 				let contenu = el.innerHTML;
-				el.innerHTML = el.innerHTML.substr(0, 100) + ' <a href="javascript:void(0);" onclick="voirsuite();" id="voirsuite"><b>Voir la suite...</b></a><div id="suite">'
-								+ el.innerHTML.substr(100) + '<a href="javascript:void(0);" onclick="replier();" id="replier"><br><b>Voir moins...</b></a></div>';
-				document.querySelector('#suite').style.display = 'none';
+				el.innerHTML = el.innerHTML.substr(0, 100) + ' <a href="javascript:void(0);" onclick="voirsuite('+index+');" id="voirsuite'+index+'"><b>Voir la suite...</b></a><div id="suite'+index+'">'
+								+ el.innerHTML.substr(100) + '<a href="javascript:void(0);" onclick="replier('+index+');" id="replier'+index+'"><br><b>Voir moins...</b></a></div>';
+				document.querySelector('#suite'+index).style.display = 'none';
+				index++;
 			}
 		} );
 	<?php } ?>
