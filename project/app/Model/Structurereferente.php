@@ -78,7 +78,15 @@
 					'rule' => array( 'phone', null, 'fr' ),
 					'allowEmpty' => true
 				)
-			)
+			),
+			'capacite_max' => array(
+				'naturalNumber' => array(
+					'rule' => array('naturalNumber', true),
+					'message' => 'Veuillez entrer un nombre entier',
+					'required'   => false,
+					'allowEmpty' => true,
+				)
+			),
 		);
 
 		/**
