@@ -141,7 +141,8 @@
 				[
 					'modelName' => 'Personne',
 					'modelRechercheName' => 'WebrsaCohortesAlgoorientation',
-					'returnQuery' => true
+					'returnQuery' => true,
+					'cache_default' => 'default_AlgorithmeorientationOrientationForm'
 				]
 			);
 
@@ -365,6 +366,9 @@
 			if(Configure::read('debug') == 2){
 				Configure::write('Cache.disable', false );
 			}
+
+			//on supprime les valeurs enregistrées du formulaire
+			Cache::delete('default_AlgorithmeorientationOrientationForm');
 
 			//Si les orientations n'ont pas déjà été calculées, on les calcule
 			if(Cache::read('orientations') == false){

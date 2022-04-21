@@ -28,6 +28,13 @@
     </a>
 </div>
 <h1><?=__m('liste.titre')?></h1>
+<?php
+$actions['/algorithmeorientation/orientation'] =  [
+    'text' => __m('form.back'),
+    'class' => 'search'
+];
+echo $this->Default3->actions( $actions );
+?>
 <br><br>
 <h2><?= sprintf(__d('algorithmeorientation', 'nborientables.titre'), count($resultats))?></h2>
 <br><br>

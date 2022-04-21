@@ -158,6 +158,9 @@
 
 				// Récupération des valeurs du formulaire de recherche
 				$filters = $this->_filters( $params );
+				if(isset($params['cache_default']) && $params['cache_default'] != false){
+					Cache::write($params['cache_default'], $filters);
+				}
 
 				// Récupération du query
 				$query = $this->_query( $filters, $params );
@@ -210,7 +213,11 @@
 			// Sinon
 			else {
 				// Récupération des valeurs par défaut des filtres
-				$defaults = $this->_defaults( $params );
+				if(isset($params['cache_default']) && $params['cache_default'] != false && !empty(Cache::read($params['cache_default']))){
+					$defaults['Search'] = Cache::read($params['cache_default']);
+				} else {
+					$defaults = $this->_defaults( $params );
+				}
 
 				// Assignation au formulaire
 				$Controller->request->data = $defaults;

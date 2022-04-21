@@ -241,3 +241,6 @@ msgstr "Il n'y a aucune personne à orienter"
 
 msgid "retourrecherche"
 msgstr "Faire une nouvelle recherche d'orientables"
+
+msgid "form.back"
+msgstr "Retour au formulaire"
