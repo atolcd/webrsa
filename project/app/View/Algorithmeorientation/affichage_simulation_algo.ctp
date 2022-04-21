@@ -30,6 +30,22 @@
 
 
 <h1><?=__m('affichagesimulation.titre')?></h1>
+<?php
+if(isset($aucunOrientable) && $aucunOrientable){
+    echo '<br><br>';
+    echo'<h2>'.__m('aucunorientable').'</h2>';
+    echo '<br><br><br><br><br><br>';
+
+    echo '<ul class="actionMenu center">'
+    .'<li>'
+    . $this->Xhtml->link(
+        __m('retourrecherche'),
+        array( 'controller' => 'algorithmeorientation', 'action' => 'orientation' )
+    )
+    .'</li>'
+    .'</ul>';
+} else {
+?>
 <br><br>
 <h2><?=sprintf(__d('algorithmeorientation', 'nborientables.titre'), $stats['parcours']['value']['Total'])?></h2>
 <br><br>
@@ -114,6 +130,7 @@ echo '<ul class="actionMenu center">'
 <?php
     echo $this->Html->css('toastui-chart.min.css');
 	echo $this->Html->script('toastui-chart');
+}
 ?>
 <script type="text/javascript">
     const infos = <?= json_encode($stats)?>;;

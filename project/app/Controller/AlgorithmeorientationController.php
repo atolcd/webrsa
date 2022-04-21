@@ -513,26 +513,31 @@
 			}
 			$orientables = Cache::read('orientables');
 			//si orientations_apres_arbitrages existe on récupère ça au lieu de orientations
-			if(Cache::read('orientations_apres_arbitrage')){
+			if(Cache::read('orientations_apres_arbitrage') !== false){
 				$orientations = Cache::read('orientations_apres_arbitrage');
 			} else {
 				$orientations = Cache::read('orientations');
 			}
 
-			$orientations = array_values($orientations);
-			//on intègre les orientations aux données des orientables
-			foreach($orientables as $key => $orientable){
-				$key_orient = array_search($orientable['Personne']['id'], array_column(array_column($orientations, 0), 'id_personne'));
-				if($key_orient !== false){
-					$orientables[$key]['Propositionorientation'] = $orientations[$key_orient]['orientation'];
-				} else {
-					unset($orientables[$key]);
+			if(empty($orientations)){
+				$this->set('aucunOrientable', true);
+
+			} else {
+				$orientations = array_values($orientations);
+				//on intègre les orientations aux données des orientables
+				foreach($orientables as $key => $orientable){
+					$key_orient = array_search($orientable['Personne']['id'], array_column(array_column($orientations, 0), 'id_personne'));
+					if($key_orient !== false){
+						$orientables[$key]['Propositionorientation'] = $orientations[$key_orient]['orientation'];
+					} else {
+						unset($orientables[$key]);
+					}
 				}
+
+				$stats = $this->_calculsGraphiquesOrientables($orientables, true);
+
+				Cache::write('orientations_reformartees', $orientables);
 			}
-
-			$stats = $this->_calculsGraphiquesOrientables($orientables, true);
-
-			Cache::write('orientations_reformartees', $orientables);
 			$this->set(compact('orientables', 'stats'));
 
 		}

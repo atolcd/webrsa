@@ -235,3 +235,9 @@ msgstr "Date d'impression"
 
 msgid "Algorithmeorientation.bloque"
 msgstr "Impossible de lancer l'algorithme d'orientation car toutes les villes ne sont pas reliées à une structure référente pour le(s) type(s) d'orientation %s <br> Veuillez corriger le paramétrage et réessayer"
+
+msgid "aucunorientable"
+msgstr "Il n'y a aucune personne à orienter"
+
+msgid "retourrecherche"
+msgstr "Faire une nouvelle recherche d'orientables"
