@@ -244,3 +244,12 @@ msgstr "Faire une nouvelle recherche d'orientables"
 
 msgid "form.back"
 msgstr "Retour au formulaire"
+
+msgid "Propositionorientation.structure_libelle"
+msgstr "Structure référente proposée"
+
+msgid "Propositionorientation.structure_ville"
+msgstr "Ville de la Structure Référente"
+
+msgid "Propositionorientation.lib_type_orient"
+msgstr "Préconisation d’orientation "
