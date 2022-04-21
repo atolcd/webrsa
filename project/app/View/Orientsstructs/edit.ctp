@@ -33,8 +33,12 @@
 
 	if( $departement == 66 || Configure::read('Orientation.validation.enabled') ) {
 		$isMandatory = false;
+		$hidden = false;
 		if(Configure::read('Orientation.validation.enabled') == true) {
 			$isMandatory = true;
+		}
+		if($departement == 93){
+			$hidden = true;
 		}
 		echo $this->Html->tag(
 			'fieldset',
@@ -48,7 +52,7 @@
 					'options' => $options
 				)
 				),
-				['id' => 'blocOrientePar']
+				['id' => 'blocOrientePar', 'hidden' => $hidden]
 		);
 	}
 
@@ -121,18 +125,20 @@ document.observe("dom:loaded", function() {
 
 	const origineAffichage = ['prestaorient', 'entdiag'];
 
-	if(!origineAffichage.includes(document.querySelector('#OrientstructOrigine').value)){
-		document.querySelector('#blocOrientePar').hidden = true;
-	}
-
-	document.querySelector('#OrientstructOrigine').addEventListener('change', (event) => {
-		let origine = event.target.value;
-		if(origineAffichage.includes(event.target.value)){
+	if(<?=$departement?> == 93){
+		if(origineAffichage.includes(document.querySelector('#OrientstructOrigine').value)){
 			document.querySelector('#blocOrientePar').hidden = false;
-		} else {
-			document.querySelector('#blocOrientePar').hidden = true;
 		}
-	});
+
+		document.querySelector('#OrientstructOrigine').addEventListener('change', (event) => {
+			let origine = event.target.value;
+			if(origineAffichage.includes(event.target.value)){
+				document.querySelector('#blocOrientePar').hidden = false;
+			} else {
+				document.querySelector('#blocOrientePar').hidden = true;
+			}
+		});
+	}
 
 });
 </script>
