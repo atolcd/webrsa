@@ -37,10 +37,9 @@ echo '<ul class="actionMenu center">'
         )
 		.'</li>'
         .'<li>'
-        .  $this->Xhtml->link(
-            __m('rafraichir.bouton'),
-            '',
-            array( 'onclick' => 'window.location.reload(); return false;' )
+        .  $this->Xform->button( __m('rafraichir.bouton'), ['type' => 'submit', 'form' =>  'AlgorithmeorientationOrientationForm', 'id' => 'submitAlgorithmeorientationOrientationForm']
         )
 		.'</li>'
 	.'</ul>';
+
+    ?>
