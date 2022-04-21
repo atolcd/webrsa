@@ -142,7 +142,8 @@
 					'modelName' => 'Personne',
 					'modelRechercheName' => 'WebrsaCohortesAlgoorientation',
 					'returnQuery' => true,
-					'cache_default' => 'default_AlgorithmeorientationOrientationForm'
+					'cache_default' => 'default_AlgorithmeorientationOrientationForm',
+					'noBlocResultats' => true
 				]
 			);
 

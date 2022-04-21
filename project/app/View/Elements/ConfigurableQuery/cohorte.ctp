@@ -70,7 +70,9 @@
 	echo $tagCohorteSearch;
 	echo $this->Allocataires->blocReferentparcours( array( 'prefix' => 'Search', 'options' => $options ) );
 	require_once ('searchbytag.ctp');
-	echo $this->Allocataires->blocPagination( array( 'prefix' => 'Search', 'options' => $options ) );
+	if(!isset($configurableQueryParams['noBlocResultats']) || $configurableQueryParams['noBlocResultats'] !== true){
+		echo $this->Allocataires->blocPagination( array( 'prefix' => 'Search', 'options' => $options ) );
+	}
 	echo $this->Allocataires->blocScript( array( 'prefix' => 'Search', 'options' => $options ) );
 	echo $afterSearch;
 ?>
