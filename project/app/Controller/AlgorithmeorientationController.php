@@ -605,7 +605,7 @@
 			$orientables = $this->_getCriteresParOrientable($orientables);
 
 
-			$criteres = $this->Criterealgorithmeorientation->find('all', ['order' => 'ordre ASC']);
+			$criteres = $this->Criterealgorithmeorientation->find('all', ['order' => 'ordre ASC', 'conditions' => ['Criterealgorithmeorientation.actif' => true]]);
 			$structures = $this->StructurereferenteTypeorientZonegeographique->find(
 				'all'
 			);
