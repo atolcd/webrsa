@@ -253,3 +253,6 @@ msgstr "Ville de la Structure Référente"
 
 msgid "Propositionorientation.lib_type_orient"
 msgstr "Préconisation d’orientation "
+
+msgid "/Orientsstructs/index"
+msgstr "Voir"
