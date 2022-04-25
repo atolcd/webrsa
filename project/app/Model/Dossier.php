@@ -575,7 +575,7 @@
 			foreach($personnes as $key => $personne) {
 				$dataHisto[$key] = array(
 					'personne_id' => $personne['Personne']['id'],
-					'etatdosrsa' => $etatActuel['Situationdossierrsa']['etatdosrsa'],
+					'etatdosrsa' => $dataToSave['Situationdossierrsa']['etatdosrsa'],
 					'nom' => $user['User']['nom'],
 					'prenom' => $user['User']['prenom'],
 					'motif' => $motif
