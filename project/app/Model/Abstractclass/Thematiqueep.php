@@ -119,6 +119,8 @@
 						$this->Dossierep->Passagecommissionep->Dossierep->Personne->fields(),
 						$this->Dossierep->Passagecommissionep->Dossierep->Personne->Foyer->fields(),
 						$this->Dossierep->Passagecommissionep->Dossierep->Personne->Foyer->Dossier->fields(),
+						[$this->Dossierep->Passagecommissionep->Dossierep->Personne->Foyer->Dossier->sqVirtualField('statut')],
+						[$this->Dossierep->Passagecommissionep->Dossierep->Personne->Foyer->Dossier->sqVirtualField('matricule_format')],
 						$this->Dossierep->Passagecommissionep->Dossierep->Personne->Foyer->Adressefoyer->Adresse->fields(),
 						$this->fields()
 					),
