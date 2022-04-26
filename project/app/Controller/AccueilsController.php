@@ -699,5 +699,66 @@
 			return $results;
 		}
 
+		/**
+		 * Récupère les personnes sans référents
+		 * @return array
+		 */
+		public function _getBrsaReferentsClotures(){
+			$accueil = Configure::read('page.accueil.profil');
+			$profil = $this->Session->read( 'Auth.User.Group.code' );
+
+			if (!isset ($accueil[$profil])) {
+				$profil = 'by-default';
+			}
+
+			$conditionsSDD = $accueil[$profil]['brsareferentsclotures']['toppersdrodevorsa'];
+			if(count($accueil[$profil]['brsareferentsclotures']['etatdosrsa']) == 1) {
+				$conditionEtatdossierRSA = "'{$accueil[$profil]['brsareferentsclotures']['etatdosrsa'][0]}'";
+				$etatdossier = 'Search__Situationdossierrsa__etatdosrsa__0:'.$accueil[$profil]['brsareferentsclotures']['etatdosrsa'][0];
+			} else {
+				$conditionEtatdossierRSA = "'" . implode("','", $accueil[$profil]['brsareferentsclotures']['etatdosrsa']) . "'";
+				$index = 0;
+				$etatdossier = [];
+				foreach ($accueil[$profil]['brsareferentsclotures']['etatdosrsa'] as $condition){
+					$etatdossier[] = 'Search__Situationdossierrsa__etatdosrsa__'.$index.':'.$condition;
+					$index++;
+				}
+
+				$etatdossier = implode('/', $etatdossier);
+			}
+
+			if(isset($accueil[$profil]['brsareferentsclotures']['limite']) && !empty($accueil[$profil]['brsareferentsclotures']['limite'])) {
+				$limit =  $accueil[$profil]['brsareferentsclotures']['limite'];
+			}
+
+			$sql = "
+			select
+				d.id,
+				d.dtdemrsa,
+				concat_ws(' ', p.qual, p.nom, p.prenom) AS Demandeur,
+				s.etatdosrsa
+			from public.personnes p
+				join calculsdroitsrsa c on c.personne_id = p.id
+				join derniersdossiersallocataires dd on dd.personne_id = p.id
+				join dossiers d on d.id = dd.dossier_id
+				join situationsdossiersrsa s on s.dossier_id = d.id
+				join public.personnes_referents pr on pr.personne_id = p.id
+			where
+				c.toppersdrodevorsa = '$conditionsSDD'
+				and s.etatdosrsa IN ($conditionEtatdossierRSA)
+			group by p.id, d.id, s.etatdosrsa
+			having array_position(array_agg(coalesce (pr.dfdesignation, '99991231')), '99991231') is null";
+
+			$results = $this->Personne->query($sql);
+
+			$total = count($results);
+			if(isset($limit)){
+				array_splice($results, $limit);
+			}
+			$results['arguments'] = 'Search__Dossier__dernier:1/Search__Dossier__dtdemrsa:0/Search__Situationdossierrsa__etatdosrsa_choice:1/'.$etatdossier.'/Search__Detailcalculdroitrsa__natpf_choice:0/Search__Detaildroitrsa__oridemrsa_choice:0/Search__Calculdroitrsa__toppersdrodevorsa:'.$conditionsSDD;
+			$results['nombre_total'] = $total;
+			return $results;
+		}
+
 	}
 ?>

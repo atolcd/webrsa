@@ -175,5 +175,14 @@ msgstr "Accéder à la cohorte d'ajout des référents"
 msgid "Accueil.brsasansreferent.aucun"
 msgstr "Il n'y a aucun BRSA sans référent"
 
+msgid "Accueil.brsareferentsclotures.aucun"
+msgstr "Il n'y a aucun BRSA avec seulement des référents clôturés"
+
+msgid "Accueil.brsareferentsclotures.titre"
+msgstr "BRSA n'ayant que des référents clôturés"
+
+msgid "Accueil.lien.cohorte_modif_referents"
+msgstr "Accéder à la cohorte de modification des référents"
+
 msgid "Blocreferent.nbBRSA"
 msgstr "Il y a %d BRSA concernés"
