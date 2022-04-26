@@ -1130,6 +1130,7 @@
 
 			// On ajoute les informations du prochain RDV
 			$rdv = $this->Orientstruct->Personne->Rendezvous->find('first', array(
+				'contain' => ['Permanence'],
 				'conditions' => array(
 					"Rendezvous.daterdv >= " => $orientstruct['Orientstruct']['date_valid'],
 					"Rendezvous.personne_id" => $orientstruct['Personne']['id']
@@ -1142,6 +1143,7 @@
 
 			if( !empty($rdv) ) {
 				$orientstruct['Rendezvous'] = $rdv['Rendezvous'];
+				$orientstruct['Permanence'] = $rdv['Permanence'];
 			}
 
 			return $orientstruct;
