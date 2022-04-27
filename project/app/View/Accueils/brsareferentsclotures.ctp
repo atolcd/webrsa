@@ -36,14 +36,15 @@
 				?>
 			</td>
 			<td><?php echo __d('dossier', 'ENUM::ETATDOSRSA::' . $brsareferentsclotures[$i][0]['etatdosrsa']) ?></td>
-			<td>
+			<td class="action">
 				<?php
 					echo $this->Html->link(
 						__d('accueils', 'Accueil.action.voir'),
 						array(
 					        'controller' => 'Dossiers',
 					        'action' => 'view/'.$brsareferentsclotures[$i][0]['id']
-					    )
+					    ),
+						['class' => 'view']
 					);
 				?>
 			</td>

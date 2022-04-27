@@ -700,7 +700,7 @@
 		}
 
 		/**
-		 * Récupère les personnes sans référents
+		 * Récupère les BRSA avec que des référents clôturés
 		 * @return array
 		 */
 		public function _getBrsaReferentsClotures(){
@@ -757,6 +757,74 @@
 			}
 			$results['arguments'] = 'Search__Dossier__dernier:1/Search__Dossier__dtdemrsa:0/Search__Situationdossierrsa__etatdosrsa_choice:1/'.$etatdossier.'/Search__Detailcalculdroitrsa__natpf_choice:0/Search__Detaildroitrsa__oridemrsa_choice:0/Search__Calculdroitrsa__toppersdrodevorsa:'.$conditionsSDD;
 			$results['nombre_total'] = $total;
+			return $results;
+		}
+
+
+		/**
+		 * Récupère les BRSA avec que des référents non actifs pour la sectorisation
+		 * @return array
+		 */
+		public function _getBrsaReferentsNonSectorisation(){
+			$accueil = Configure::read('page.accueil.profil');
+			$profil = $this->Session->read( 'Auth.User.Group.code' );
+
+			if (!isset ($accueil[$profil])) {
+				$profil = 'by-default';
+			}
+
+			$conditionsSDD = $accueil[$profil]['brsareferentsnonsectorisation']['toppersdrodevorsa'];
+			if(count($accueil[$profil]['brsareferentsnonsectorisation']['etatdosrsa']) == 1) {
+				$conditionEtatdossierRSA = "'{$accueil[$profil]['brsareferentsnonsectorisation']['etatdosrsa'][0]}'";
+				$etatdossier = 'Search__Situationdossierrsa__etatdosrsa__0:'.$accueil[$profil]['brsareferentsnonsectorisation']['etatdosrsa'][0];
+			} else {
+				$conditionEtatdossierRSA = "'" . implode("','", $accueil[$profil]['brsareferentsnonsectorisation']['etatdosrsa']) . "'";
+				$index = 0;
+				$etatdossier = [];
+				foreach ($accueil[$profil]['brsareferentsnonsectorisation']['etatdosrsa'] as $condition){
+					$etatdossier[] = 'Search__Situationdossierrsa__etatdosrsa__'.$index.':'.$condition;
+					$index++;
+				}
+
+				$etatdossier = implode('/', $etatdossier);
+			}
+
+			if(isset($accueil[$profil]['brsareferentsnonsectorisation']['limite']) && !empty($accueil[$profil]['brsareferentsnonsectorisation']['limite'])) {
+				$limit =  $accueil[$profil]['brsareferentsnonsectorisation']['limite'];
+			}
+
+			$sql = "
+			select
+			distinct on (p.id)
+			d.id,
+			d.dtdemrsa,
+			concat_ws(' ', p.qual, p.nom, p.prenom) AS Demandeur,
+			s.etatdosrsa
+			from public.personnes p
+			join calculsdroitsrsa c on c.personne_id = p.id
+			join derniersdossiersallocataires dd on dd.personne_id = p.id
+			join dossiers d on d.id = dd.dossier_id
+			join situationsdossiersrsa s on s.dossier_id = d.id
+			join public.personnes_referents pr on pr.personne_id = p.id
+			where
+			c.toppersdrodevorsa = '$conditionsSDD'
+			and s.etatdosrsa IN ($conditionEtatdossierRSA)
+			and false = all (
+				select s2.actif_sectorisation
+				from personnes_referents pr2 join structuresreferentes s2 on pr2.structurereferente_id = s2.id
+				where pr2.personne_id = p.id
+			)";
+
+			$results = $this->Personne->query($sql);
+
+			$total = count($results);
+			if(isset($limit)){
+				array_splice($results, $limit);
+			}
+
+			$results['arguments'] = 'Search__Dossier__dernier:1/Search__Dossier__dtdemrsa:0/Search__Situationdossierrsa__etatdosrsa_choice:1/'.$etatdossier.'/Search__Detailcalculdroitrsa__natpf_choice:0/Search__Detaildroitrsa__oridemrsa_choice:0/Search__Calculdroitrsa__toppersdrodevorsa:'.$conditionsSDD;
+			$results['nombre_total'] = $total;
+
 			return $results;
 		}
 

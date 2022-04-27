@@ -186,3 +186,9 @@ msgstr "Accéder à la cohorte de modification des référents"
 
 msgid "Blocreferent.nbBRSA"
 msgstr "Il y a %d BRSA concernés"
+
+msgid "Accueil.brsareferentsnonsectorisation.titre"
+msgstr "BRSA n'ayant que des référents non actifs pour la sectorisation"
+
+msgid "Accueil.brsareferentsnonsectorisation.aucun"
+msgstr "Il n'y a aucun BRSA n'ayant que des référents non actifs pour la sectorisation"
