@@ -502,7 +502,7 @@
 			$this->loadModel('Typeorient');
 			$typeOrientEmploi = implode(',', $this->Typeorient->listIdTypeOrient('EMPLOI'));
 
-			if(empty($typeOrientEmploi)) {
+			if(!empty($typeOrientEmploi)) {
 				$conditionsCte = ' and "CteOrientation"."Typeorient__id" not in ('. $typeOrientEmploi . ') ';
 			} else {
 				$conditionsCte = '';
