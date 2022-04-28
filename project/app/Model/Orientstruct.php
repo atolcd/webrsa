@@ -552,7 +552,10 @@
 		 * @param string $ds DataSource connection name.
 		 */
 		public function __construct( $id = false, $table = null, $ds = null ) {
-			$this->actsAs = Hash::insert( $this->actsAs, 'StorablePdf.active', Configure::read( 'Orientation.impression_auto' ) );
+			if (Configure::read( 'Orientation.impression_auto' )) {
+				$this->actsAs[] = 'StorablePdf';
+			}
+
 			$departement = Configure::read( 'Cg.departement' );
 
 			// Si le workflow de validation est activé, nous devons prendre en compte les orientations en attente
