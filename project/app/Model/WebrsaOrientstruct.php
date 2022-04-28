@@ -219,8 +219,8 @@
 					'date_valid'
 				);
 				if( empty( $success ) ) {
-					$msgstr = __d('orienstructs', 'Orientstruct.erreur.referent');
-					$this->Orientstruct->validationErrors['typeorient_id'][] = $msgstr;
+					$msgstr = __d('orientsstructs', 'Orientstruct.erreur.referent');
+					$this->Orientstruct->validationErrors['referent_id'][] = $msgstr;
 				}
 			}
 
