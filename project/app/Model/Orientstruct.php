@@ -698,7 +698,7 @@
 		 */
 		public function afterSave( $created, $options = array() ) {
 			parent::afterSave( $created, $options );
-			if(Configure::read('Orientstruc.recalculerang')) {
+			if(Configure::read('Orientstruct.recalculerang')) {
 				$this->recalculeRang($this->data);
 			}
 			$this->WebrsaOrientstruct->updateNonoriente66( $this->id );
