@@ -67,10 +67,10 @@
 <?php
 if ($count > 0) {
 	echo '<br><b>' . $this->Html->link(
-			__d('accueils', 'Accueil.lien.cohorte_modif_referents'),
+			__d('accueils', 'Accueil.lien.cohorte_ajout_referents'),
 			array(
 				'controller' => 'referents',
-				'action' => 'cohorte_modif/'.$arguments
+				'action' => 'cohorte_ajout/'.$arguments
 			),
 			array (
 				'target' => '_blank',

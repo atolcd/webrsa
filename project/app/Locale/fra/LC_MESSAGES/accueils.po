@@ -164,12 +164,12 @@ msgstr " adresses"
 
 # Référents
 msgid "Accueil.brsasansreferent.titre"
-msgstr "BRSA n'ayant pas de référent de parcours"
+msgstr "BRSA n'ayant jamais eu de référent de parcours"
 
 msgid "Accueil.etatdosrsa"
 msgstr "État du dossier"
 
-msgid "Accueil.brsasansreferent.brsasansreferent"
+msgid "Accueil.lien.cohorte_ajout_referents"
 msgstr "Accéder à la cohorte d'ajout des référents"
 
 msgid "Accueil.brsasansreferent.aucun"

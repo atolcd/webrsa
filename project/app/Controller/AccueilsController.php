@@ -59,6 +59,16 @@
 		public $libelleReference = '';
 
 		/**
+		 * Modèles utilisés.
+		 *
+		 * @var array
+		 */
+		public $uses = array(
+			'Personne'
+		);
+
+
+		/**
 		 * Page d'accueil
 		 */
 		public function index() {
@@ -662,40 +672,34 @@
 				$etatdossier = implode('/', $etatdossier);
 			}
 
-			$this->loadModel('Personne');
-
-			$query = array(
-				'fields' => array(
-					'concat_ws(\' \', "Personne"."qual", "Personne"."nom", "Personne"."prenom") AS "Demandeur"',
-					"Dossier.dtdemrsa",
-					"Dossier.id",
-					"Situationdossierrsa.etatdosrsa"
-				),
-				'recursive' => -1,
-				'joins' => array(
-					$this->Personne->join("Dernierdossierallocataire", ['type' => 'inner']),
-					$this->Personne->Dernierdossierallocataire->join("Dossier", ['type' => 'inner']),
-					$this->Personne->join("Calculdroitrsa", ['type' => 'inner']),
-					[
-						'table'      => 'situationsdossiersrsa',
-						'alias'      => 'Situationdossierrsa',
-						'type'       => 'INNER',
-						'foreignKey' => false,
-						'conditions' => ["Situationdossierrsa.dossier_id = Dernierdossierallocataire.dossier_id"]
-					],
-					$this->Personne->join('PersonneReferent')
-				),
-				'conditions' => array(
-					"PersonneReferent.id IS NULL",
-					"Situationdossierrsa.etatdosrsa IN (" . $conditionEtatdossierRSA . ")",
-					"Calculdroitrsa.toppersdrodevorsa" => $conditionsSDD
-				)
-			);
 			if(isset($accueil[$profil]['brsasansreferent']['limite']) && !empty($accueil[$profil]['brsasansreferent']['limite'])) {
 				$limit = $accueil[$profil]['brsasansreferent']['limite'];
 			}
 
-			$results = $this->Personne->find('all', $query);
+
+			$sql = "
+				select
+					d.id,
+					d.dtdemrsa,
+					concat_ws(' ', p.qual, p.nom, p.prenom) AS Demandeur,
+					s.etatdosrsa
+				from public.personnes p
+					join foyers f on f.id = p.foyer_id
+					join dossiers d on d.id = f.dossier_id
+					join calculsdroitsrsa c on c.personne_id = p.id
+					join derniersdossiersallocataires dd on dd.personne_id = p.id and dd.dossier_id = d.id
+					join situationsdossiersrsa s on s.dossier_id = d.id
+				where
+					not exists (
+						select pr.id
+						from personnes_referents pr
+						where pr.personne_id = p.id
+					)
+					and c.toppersdrodevorsa = '$conditionsSDD'
+					and s.etatdosrsa IN ($conditionEtatdossierRSA)
+			";
+
+			$results = $this->Personne->query($sql);
 
 			$total = count($results);
 			if(isset($limit)){
@@ -746,9 +750,10 @@
 				concat_ws(' ', p.qual, p.nom, p.prenom) AS Demandeur,
 				s.etatdosrsa
 			from public.personnes p
+				join foyers f on f.id = p.foyer_id
+				join dossiers d on d.id = f.dossier_id
 				join calculsdroitsrsa c on c.personne_id = p.id
-				join derniersdossiersallocataires dd on dd.personne_id = p.id
-				join dossiers d on d.id = dd.dossier_id
+				join derniersdossiersallocataires dd on dd.personne_id = p.id and dd.dossier_id = d.id
 				join situationsdossiersrsa s on s.dossier_id = d.id
 				join public.personnes_referents pr on pr.personne_id = p.id
 			where
@@ -809,9 +814,10 @@
 			concat_ws(' ', p.qual, p.nom, p.prenom) AS Demandeur,
 			s.etatdosrsa
 			from public.personnes p
+			join foyers f on f.id = p.foyer_id
+			join dossiers d on d.id = f.dossier_id
 			join calculsdroitsrsa c on c.personne_id = p.id
-			join derniersdossiersallocataires dd on dd.personne_id = p.id
-			join dossiers d on d.id = dd.dossier_id
+			join derniersdossiersallocataires dd on dd.personne_id = p.id and dd.dossier_id = d.id
 			join situationsdossiersrsa s on s.dossier_id = d.id
 			join public.personnes_referents pr on pr.personne_id = p.id
 			where
