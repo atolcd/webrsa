@@ -890,13 +890,14 @@
 			$this->WebrsaAccesses->check($id);
 			$personne_id = $this->Orientstruct->personneId( $id );
 			$this->DossiersMenus->checkDossierMenu( array( 'personne_id' => $personne_id ) );
-
-			if( in_array( Configure::read( 'Cg.departement' ), array( 66, 976, 58) ) ) {
-				$pdf = $this->Orientstruct->WebrsaOrientstruct->getDefaultPdf( $id, $this->Session->read( 'Auth.User.id' ) );
-			}
-			else {
+			$pdf = array();
+			if(isset( $this->Orientstruct->actsAs['StorablePdf'] )) {
 				$pdf = $this->Orientstruct->getStoredPdf( $id, 'date_impression' );
 				$pdf = ( isset( $pdf['Pdf']['document'] ) ? $pdf['Pdf']['document'] : null );
+			}
+
+			if (empty($pdf)) {
+				$pdf = $this->Orientstruct->WebrsaOrientstruct->getDefaultPdf( $id, $this->Session->read( 'Auth.User.id' ) );
 			}
 
 			if( !empty( $pdf ) ) {
