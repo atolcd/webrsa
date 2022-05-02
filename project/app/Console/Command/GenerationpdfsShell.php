@@ -30,7 +30,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Orientstruct', 'Pdf', 'Relancenonrespectsanctionep93', 'User', 'Cer93' );
+		public $uses = array('Pdf', 'Relancenonrespectsanctionep93', 'User', 'Cer93' );
 
 		public function getOptionParser() {
 			$parser = parent::getOptionParser();
@@ -153,6 +153,10 @@
 		 *
 		 */
 		public function orientsstructs() {
+			// Mise en place de l'activation de l'impression automatique pour avoir accès à StorablePdf
+			Configure::write( 'Orientation.impression_auto', true );
+			$this->loadModel("Orientstruct");
+
 			$error = false;
 			$out = array( );
 
