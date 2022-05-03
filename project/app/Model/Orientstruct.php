@@ -712,15 +712,15 @@
 		 *
 		 */
 		function recalculeRang($data) {
-			// Récupération de la dernière orientation créé selon la date de celle ci
-			$lastOrient = $this->find('first', array(
+			// Récupération du nombre d'orientations créées au statut Orienté
+			$nbOrient = $this->find('count', array(
 				'recursive' => -1,
 				'conditions' => array(
 					'Orientstruct.personne_id' => $data['Orientstruct']['personne_id'],
-					'Orientstruct.date_valid >' => $data['Orientstruct']['date_valid']
+					'Orientstruct.statut_orient' => 'Orienté'
 				)
 			));
-			if(!empty($lastOrient)) {
+			if($nbOrient > 1) {
 				$dataToSave = array();
 				$allOrient = $this->find('all', array(
 					'recursive' => -1,

@@ -655,7 +655,13 @@
 			}
 
 			// Retour à l'index si on essaie de modifier une autre orientation que la dernière
-			if( $this->action === 'edit' && !empty( $originalAddEditFormData['Orientstruct']['date_valid'] ) && $originalAddEditFormData['Orientstruct']['statut_orient'] == 'Orienté' && $originalAddEditFormData['Orientstruct']['rgorient'] != $this->Orientstruct->WebrsaOrientstruct->rgorientMax( $originalAddEditFormData['Orientstruct']['personne_id'] ) ) {
+			if( $this->action === 'edit' && !empty( $originalAddEditFormData['Orientstruct']['date_valid'] )
+				&& $originalAddEditFormData['Orientstruct']['statut_orient'] == 'Orienté'
+				&& (
+					$originalAddEditFormData['Orientstruct']['rgorient'] != $this->Orientstruct->WebrsaOrientstruct->rgorientMax( $originalAddEditFormData['Orientstruct']['personne_id'] )
+					|| Configure::read('Orientstruct.recalculerang')
+				)
+			) {
 				$this->Flash->error( 'Impossible de modifier une autre orientation que la plus récente.' );
 				$this->redirect( $redirectUrl );
 			}
