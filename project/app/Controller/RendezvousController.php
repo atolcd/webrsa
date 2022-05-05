@@ -593,6 +593,7 @@
 				if( $this->Rendezvous->WebrsaRendezvous->provoquePassageCommission( $this->request->data ) ) {
 					//On commit maintenant pour récupérer l'id du rendez-vous et pouvoir créer le passage en commission
 					$this->Rendezvous->commit();
+					$this->request->data['Rendezvous']['id'] = $this->Rendezvous->id;
 					$success = $this->Rendezvous->WebrsaRendezvous->creePassageCommission( $this->request->data, $this->Session->read( 'Auth.User.id' ) ) && $success;
 				}
                 else if( $this->action == 'edit' && !empty( $rdv ) && Configure::read( 'Cg.departement' ) == 58  ) {
