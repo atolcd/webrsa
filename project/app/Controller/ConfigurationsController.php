@@ -94,7 +94,7 @@
 				}
 
 				$JSONdecode = json_decode($this->request->data['Configuration']['value_variable'], true);
-				$JSONresult = json_encode($JSONdecode, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_NUMERIC_CHECK);
+				$JSONresult = json_encode($JSONdecode, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 				$this->request->data['Configuration']['value_variable'] = $JSONresult;
 				// S'il y a une erreur dans le JSON
 				if(is_null($JSONdecode))
