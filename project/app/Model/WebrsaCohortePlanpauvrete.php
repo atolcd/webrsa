@@ -508,7 +508,10 @@
 				);
 				// Ajout de la conditions
 				$query['conditions'][] = array(
-					'Activite.act NOT IN' => $activiteAExclure
+					'OR' => [
+						'Activite.act NOT IN' => $activiteAExclure,
+						'Activite.act IS NULL'
+					]
 				);
 			}
 
