@@ -177,6 +177,12 @@ msgstr "<b>Délais moyen d'orientation (en jours) (6)</b>"
 msgid "tableaub1.orient_31jours"
 msgstr "<b>Nombre de nouveaux entrants SDD et DOV orientés en moins de 1 mois (3)</b>"
 
+msgid "tableaub1.orient_31jourstotal"
+msgstr "Total"
+
+msgid "tableaub1.orient_31jourshorspe"
+msgstr "Hors PE"
+
 msgid "tableaub1.delai"
 msgstr "<b>Délai de 1ère orientation (7)</b>"
 
@@ -491,6 +497,9 @@ msgstr "(10) Nombre de jours entre la date de validation de l'orientation et la 
 msgid "Tableaub4.note11"
 msgstr "(11) Pourcentage de personnes venues au 1er rendez vous par rapport au nombre de rendez-vous total"
 
+msgid "Tableaub4.Generalnvxent_rdv_horspe"
+msgstr "- Parmi les nouveaux entrants orientés hors Pôle Emploi"
+
 # ==============================================================================
 # Tableau B5
 # ==============================================================================
@@ -601,6 +610,9 @@ msgstr "(9) Délai entre la date de validation de la 1ère orientation et la dat
 
 msgid "Tableaub5.note10"
 msgstr "(10) Pourcentage de nouveaux entrant ayant eu la signature du 1er CER par rapport au nombre de nouveaux entrant ayant eu la validation de leur 1ère orientation"
+
+msgid "Tableaub5.NvxEnt.1er_cer_horspe"
+msgstr "Nombre total de 1ers CER parmi les nouveaux entrants orientés hors Pôle emploi"
 
 # ==============================================================================
 # Tableau A1 V2

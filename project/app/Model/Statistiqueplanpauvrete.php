@@ -401,7 +401,10 @@
 					'bilan' => array(),
 					'autres' => array(),
 				),
-				'orient_31jours' => array(),
+				'orient_31jours' => array(
+					'total' => array(),
+					'horspe' => array(),
+				),
 				'taux_orient' => array(),
 				'Orientes' => array(
 					'total' => array(),
@@ -430,7 +433,8 @@
 				$resultats['NonOrientes']['bilan'][$i] = 0;
 				$resultats['NonOrientes']['autres'][$i] = 0;
 				$resultats['delai_moyen'][$i] = 0;
-				$resultats['orient_31jours'][$i] = 0;
+				$resultats['orient_31jours']['total'][$i] = 0;
+				$resultats['orient_31jours']['horspe'][$i] = 0;
 				$resultats['taux_orient'][$i] = 0;
 				foreach( $configurationDelais as $key => $config) {
 					if( is_array($resultats['delai'][$key]) == false ) {
@@ -977,6 +981,7 @@
 					'excuse_recevable' => array(),
 					'sans_excuse' => array(),
 					'nvxent_rdv' => array(),
+					'nvxent_rdv_horspe' => array(),
 					'delai15jrs' => array(),
 					'delai15jrs_nvxent' => array(),
 					'delai_moyen' => array(),
@@ -1019,6 +1024,7 @@
 				$resultats['General']['excuse_recevable'][$i] = 0;
 				$resultats['General']['sans_excuse'][$i] = 0;
 				$resultats['General']['nvxent_rdv'][$i] = 0;
+				$resultats['General']['nvxent_rdv_horspe'][$i] = 0;
 				$resultats['General']['delai15jrs'][$i] = 0;
 				$resultats['General']['delai15jrs_nvxent'][$i] = 0;
 				$resultats['General']['delai_moyen'][$i] = 0;
@@ -1091,6 +1097,7 @@
 					'orient_valid' => array(),
 					'cer_social' => array(),
 					'cer_prepro' => array(),
+					'1er_cer_horspe' => array(),
 					'delai_moyen' => array(),
 					'delai_social' => array(),
 					'delai_prepro' => array(),
@@ -1105,6 +1112,7 @@
 
 			for($i=0; $i<12; $i++) {
 				$resultats['Pers']['orient_valid'][$i] = 0;
+				$resultats['Pers']['1er_cer_horspe'][$i] = 0;
 				$resultats['Pers']['cer_social'][$i] = 0;
 				$resultats['Pers']['cer_prepro'][$i] = 0;
 				$resultats['Pers']['delai_moyen'][$i] = 0;
@@ -1123,6 +1131,7 @@
 				}
 
 				$resultats['NvxEnt']['orient_valid'][$i] = 0;
+				$resultats['NvxEnt']['1er_cer_horspe'][$i] = 0;
 				$resultats['NvxEnt']['cer_social'][$i] = 0;
 				$resultats['NvxEnt']['cer_prepro'][$i] = 0;
 				$resultats['NvxEnt']['delai_moyen'][$i] = 0;
@@ -1206,6 +1215,8 @@
 					$dateCer = new DateTime($result['contratinsertion']['date_saisi_ci']);
 					$delaiOrientCER = $dateOrient->diff($dateCer)->days;
 
+					$moiscer = intval( date('n', strtotime($result['contratinsertion']['date_saisi_ci']) ) ) -1;
+
 					$anneeCrea = intval( date('Y', strtotime($result['historiquedroit']['created']) ) );
 					if($annee == $anneeCrea) {
 						$monthCrea = intval( date('n', strtotime($result['historiquedroit']['created']) ) ) -1;
@@ -1243,7 +1254,11 @@
 							}
 						}
 					}
+					if($result[0]['orientation_hors_pe'] == true && $target == 'NvxEnt'){
+						$resultFinal[$target]['1er_cer_horspe'][$moiscer] ++;
+					}
 				}
+
 			}
 			return $resultFinal;
 		}
@@ -2827,7 +2842,10 @@
 				$month = $result[0]['mois'] -1;
 				$resultats['total'][$month]++;
 				if(!is_null($result['orientstruct']['date_valid']) || $result[0]['orientation_un_mois'] == true) {
-					$resultats['orient_31jours'][$month]++;
+					$resultats['orient_31jours']['total'][$month]++;
+					if($result[0]['orientation_hors_pe'] == true){
+						$resultats['orient_31jours']['horspe'][$month]++;
+					}
 				}
 				else {
 					$resultats['NonOrientes']['total'][$month]++;
@@ -2889,12 +2907,12 @@
 				if($resultats['Orientes']['total'][$i] != 0) {
 					$resultats['delai_moyen'][$i] = intval($resultats['delai_moyen'][$i] / $resultats['Orientes']['total'][$i]);}
 				if($resultats['total'][$i] != 0) {
-					$resultats['taux_orient'][$i] = round( (100 * $resultats['orient_31jours'][$i] ) / $resultats['total'][$i], 2) . '%';}
+					$resultats['taux_orient'][$i] = round( (100 * $resultats['orient_31jours']['total'][$i] ) / $resultats['total'][$i], 2) . '%';}
 			}
 
 			// Calcul des cumuls
 			foreach($resultats as $key => $resultat) {
-				if( in_array($key, array('Orientes', 'NonOrientes', 'delai' ))) {
+				if( in_array($key, array('Orientes', 'NonOrientes', 'delai', 'orient_31jours' ))) {
 					foreach($resultat as $key2 => $osef) {
 						$resultats[$key][$key2][] = array_sum($resultats[$key][$key2]);
 					}
@@ -2969,6 +2987,9 @@
 					$resultats[$orientation]['total'][$month]++;
 					if($estNouvelEntrant) {
 						$resultats[$orientation]['nvxent_rdv'][$month]++;
+						if($result[0]['orientation_hors_pe'] == true){
+							$resultats['General']['nvxent_rdv_horspe'][$month]++;
+						}
 					}
 					if( in_array($result[0]['statutrdv_id'], $statutRdv['venu'] ) !== false ) {
 						$resultats[$orientation]['venu'][$month]++;

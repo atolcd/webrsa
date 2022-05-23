@@ -27,7 +27,7 @@
 		$cells = array();
 		$row = 0;
 		foreach( $results as $key => $result) {
-			if( $key == 'Orientes' || $key == 'NonOrientes') {
+			if( $key == 'Orientes' || $key == 'NonOrientes' || $key == 'orient_31jours') {
 				$cells[$row] = array('<b>' . __d('statistiquesplanpauvrete', 'tableaub1.' . $key ) . '</b>');
 				$row++;
 				foreach( $results[$key] as $keySpec => $resultSpec) {
