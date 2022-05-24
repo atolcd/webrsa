@@ -139,7 +139,8 @@
 			$query['joins'][] = 'LEFT JOIN (
 				SELECT
 					DISTINCT ON (personne_id) personne_id,
-					etatdosrsa
+					etatdosrsa,
+					created
 				FROM
 					historiquesdroits h
 				WHERE created < \'' . $dates['deb'] . '\'
@@ -148,7 +149,7 @@
 					created DESC
 			) etat_precedent ON etat_precedent.personne_id = "Personne"."id"';
 
-			$query['conditions'][] = "(etat_precedent.etatdosrsa is null OR etat_precedent.etatdosrsa in ('5','6'))";
+			$query['conditions'][] = "(etat_precedent.etatdosrsa is null OR etat_precedent.etatdosrsa in ('5','6') or (etat_precedent.etatdosrsa in ('3', '4') and etat_precedent.created < Historiquedroit.created - interval '1 year'))";
 			return $query;
 		}
 
