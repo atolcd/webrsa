@@ -539,27 +539,14 @@
 			$this->loadModel('Informationpe');
 			$this->loadModel('Historiqueetatpe');
 
-
-			$query['fields'] = array_merge(
-				$query['fields'],
-				array(
-					'Historiqueetatpe.identifiantpe',
-					'Historiqueetatpe.date',
-				)
-			);
-
-			$query['joins'] = array_merge(
-				$query['joins'],
-				array(
-					$this->Informationpe->joinPersonneInformationpe( 'Personne', 'Informationpe', 'LEFT OUTER' ),
-					$this->Informationpe->Historiqueetatpe->joinInformationpeHistoriqueetatpe( true, 'Informationpe', 'Historiqueetatpe', 'LEFT OUTER' )
-				)
-			);
-
 			$sqDerniereInformationpe = $this->Informationpe->sqDerniere( 'Personne' );
 			$sqDerniereHistoriqueetatpe = $this->Historiqueetatpe->sqDernier( 'Informationpe' );
+
+			$conditions = $query['conditions'];
+			$query = $this->nonInscritPE($query);
+
 			$query['conditions'] =  array_merge(
-				$query['conditions'],
+				$conditions,
 				array(
 					'OR' => array(
 						array(
@@ -577,7 +564,7 @@
 							)
 						),
 						array(
-							"Historiqueetatpe.ppae_date_signature IS NULL",
+							"Informationpe.ppae_date_signature IS NULL",
 							"Informationpe.id IN ( {$sqDerniereInformationpe} )",
 							"Historiqueetatpe.id IN ( {$sqDerniereHistoriqueetatpe} )",
 							"Historiqueetatpe.etat = 'inscription'"
