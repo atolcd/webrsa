@@ -5193,6 +5193,51 @@ msgstr "Afficher le paramétrage des structures référentes par ville"
 msgid "controllers/StructuresreferentesTypesorientsZonesgeographiques/edit"
 msgstr "Modifier le paramétrage des structures référentes par ville"
 
+## Conclusion CER
+###############################################################################
+
+msgid "controllers/Conclusioncer"
+msgstr "Conclusions des CER"
+
+msgid "controllers/Conclusioncer/delete"
+msgstr "Supprimer les conclusions de CER"
+
+msgid "controllers/Conclusioncer/edit"
+msgstr "Modifier les conclusions de CER"
+
+msgid "controllers/Conclusioncer/index"
+msgstr "Afficher les conclusions de CER"
+
+## Temps de travail
+###############################################################################
+
+msgid "controllers/Tempstravail"
+msgstr "Temps de travail des CER"
+
+msgid "controllers/Tempstravail/delete"
+msgstr "Supprimer les temps de travail des CER"
+
+msgid "controllers/Tempstravail/edit"
+msgstr "Modifier les temps de travail des CER"
+
+msgid "controllers/Tempstravail/index"
+msgstr "Afficher les temps de travail des CER"
+
+## Types de contrats
+###############################################################################
+
+msgid "controllers/Typescontrats"
+msgstr "Types de contrat des CER"
+
+msgid "controllers/Typescontrats/delete"
+msgstr "Supprimer les types de contrat des CER"
+
+msgid "controllers/Typescontrats/edit"
+msgstr "Modifier les types de contrat des CER"
+
+msgid "controllers/Typescontrats/index"
+msgstr "Afficher les types de contrat des CER"
+
 ## Sujets des CER
 ###############################################################################
 

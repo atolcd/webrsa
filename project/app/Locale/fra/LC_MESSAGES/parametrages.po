@@ -146,6 +146,15 @@ msgstr "Sous-sujets du CER"
 msgid "valeursparsoussujetscers93/index"
 msgstr "Valeurs par sous-sujets du CER"
 
+msgid "typescontrats/index"
+msgstr "Types de contrat de travail"
+
+msgid "tempstravail/index"
+msgstr "Temps de travail"
+
+msgid "conclusioncer/index"
+msgstr "Conclusion des CER"
+
 msgid "sujetscers/index"
 msgstr "Sujets du CER"
 
@@ -154,6 +163,7 @@ msgstr "Sous-sujets du CER"
 
 msgid "valeursparsoussujetscers/index"
 msgstr "Valeurs par sous-sujets du CER"
+
 # ==============================================================================
 
 msgid "/Parametrages/cataloguesromesv3/:heading"

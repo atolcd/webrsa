@@ -15,25 +15,67 @@
 		$this->request->data['Contratinsertion']['referent_id'] = "{$structurereferente_id}_{$referent_id}";
 	}
 
-	echo $this->Default3->form(
-		array(
+	echo $this->Default3->DefaultForm->create();
+
+	echo $this->Default3->subform(
+		[
 			'Contratinsertion.id',
 			'Contratinsertion.personne_id' => array( 'type' => 'hidden', 'value' => $dossierMenu['personne_id'] ),
 			'Contratinsertion.structurereferente_id' => array( 'empty' => true ),
 			'Contratinsertion.referent_id' => array( 'empty' => true ),
+			'Contratinsertion.non_respect',
+			'Contratinsertion.cause_non_respect'
+		],
+		[
+			'options' => [
+				'Contratinsertion' => [
+					'structurereferente_id' => $structures,
+					'referent_id' => $referents,
+				]
+			]
+		]
+	);
+
+	echo $this->Html->tag(
+		'fieldset',
+		$this->Html->tag( 'legend', __m("contrat.dejabeneficie") )
+		.$this->Default3->subform(
+			[
+				'Contratinsertion.type_contrat_travail' => ['empty' => true, 'required' => false, 'type' => 'select' ],
+				'Contratinsertion.temps_contrat_travail' => ['empty' => true, 'required' => false, 'type' => 'select' ],
+				'Contratinsertion.nb_heures_contrat_travail' => ['empty' => true, 'required' => false, 'type' => 'text' ],
+				'Contratinsertion.dd_contrat_travail' => ['empty' => true, 'required' => false, 'dateFormat' => 'DMY' ],
+				'Contratinsertion.df_contrat_travail' => ['empty' => true, 'required' => false, 'dateFormat' => 'DMY' ],
+			],
+			[
+				'options' => [
+					'Contratinsertion' => [
+						'type_contrat_travail' => $typescontrattravail,
+						'temps_contrat_travail' => $tempscontrattravail
+					]
+				]
+			]
+		)
+	);
+
+
 	echo "<fieldset><legend>".__m('Contratinsertion.themes')."</legend>";
 
 		$i = 0;
 
 		echo '<ul class="liste_sujets">';
 		foreach( $sujetsCER as $idSujet => $nameSujet ) {
-			$array_key = array_search( $idSujet, array_column(
-				array_column(
-					$this->request->data['Sujetcer'],
-					'ContratinsertionSujetcer'
-				),
-				'sujetcer_id'
-			) );
+			if(isset($this->request->data['Sujetcer'])){
+				$array_key = array_search( $idSujet, array_column(
+					array_column(
+						$this->request->data['Sujetcer'],
+						'ContratinsertionSujetcer'
+					),
+					'sujetcer_id'
+				) );
+			} else {
+				$array_key = false;
+			}
 			$checked = ( ( $array_key !== false ) ? 'checked' : '' );
 			$soussujetcer_id = ( $array_key !== false ) ? $this->request->data['Sujetcer'][$array_key]['ContratinsertionSujetcer']['soussujetcer_id'] : '';
 			$valeurparsoussujetcer_id =  ( $array_key !== false ) ? $soussujetcer_id.'_'.$this->request->data['Sujetcer'][$array_key]['ContratinsertionSujetcer']['valeurparsoussujetcer_id'] : '';
@@ -88,26 +130,34 @@
 		echo '</ul>';
 
 	echo "</fieldset>";
+
+
+	echo $this->Default3->subform(
+		[
 			'Contratinsertion.nature_projet',
 			'Contratinsertion.observ_ci',
-			'Contratinsertion.observ_benef',
+			'Contratinsertion.observ_benef' => ['label' => __m("Contratinsertion.bilan")],
+			'Contratinsertion.action_conclusion' => ['type' => 'radio'],
 			'Contratinsertion.duree_engag' => array( 'empty' => true ),
 			'Contratinsertion.dd_ci' => array( 'empty' => true, 'dateFormat' => 'DMY' ),
 			'Contratinsertion.df_ci' => array( 'empty' => true, 'dateFormat' => 'DMY' ),
 			'Contratinsertion.lieu_saisi_ci',
 			'Contratinsertion.date_saisi_ci' => array( 'empty' => true, 'dateFormat' => 'DMY' ),
-		),
-		array(
-			'options' => array(
-				'Contratinsertion' => array(
-					'structurereferente_id' => $structures,
-					'referent_id' => $referents,
+		],
+		[
+			'options' => [
+				'Contratinsertion' => [
 					'duree_engag' => $duree_engag,
-					'decision_ci' => $decision_ci
-				)
-			)
-		)
+					'decision_ci' => $decision_ci,
+					'action_conclusion' => $actions_conclusion
+				]
+			]
+		]
 	);
+
+	echo $this->Default3->DefaultForm->buttons( array( 'Save', 'Cancel' ) );
+	echo $this->Default3->DefaultForm->end();
+
 
 	echo $this->Observer->dependantSelect(
 		array(
@@ -123,7 +173,34 @@
 		}
 	}
 
+	function affichageChampCause() {
+		if( $( 'ContratinsertionNonRespect' ).checked == true) {
+			$( 'ContratinsertionCauseNonRespect' ).parentNode.hidden = false;
+		} else {
+			$( 'ContratinsertionCauseNonRespect' ).parentNode.hidden = true;
+		}
+	}
+
+	function affichageChampNbHeures() {
+		if( $( 'ContratinsertionTempsContratTravail' ).options[$( 'ContratinsertionTempsContratTravail' ).selectedIndex].text == 'Temps partiel') {
+			console.log("diio");
+			$( 'ContratinsertionNbHeuresContratTravail' ).parentNode.hidden = false;
+		} else {
+			$( 'ContratinsertionNbHeuresContratTravail' ).parentNode.hidden = true;
+		}
+	}
+
 	document.observe( "dom:loaded", function() {
+		if( $( 'ContratinsertionNonRespect' ).checked == true) {
+			$( 'ContratinsertionCauseNonRespect' ).parentNode.hidden = false;
+		} else {
+			$( 'ContratinsertionCauseNonRespect' ).parentNode.hidden = true;
+		}
+		if( $( 'ContratinsertionTempsContratTravail' ).options[$( 'ContratinsertionTempsContratTravail' ).selectedIndex].text == 'Temps partiel') {
+			$( 'ContratinsertionNbHeuresContratTravail' ).parentNode.hidden = false;
+		} else {
+			$( 'ContratinsertionNbHeuresContratTravail' ).parentNode.hidden = true;
+		}
 		Event.observe( $( 'ContratinsertionDdCiDay' ), 'change', function() {
 			checkDatesToRefresh();
 		} );
@@ -137,6 +214,14 @@
 		Event.observe( $( 'ContratinsertionDureeEngag' ), 'change', function() {
 			checkDatesToRefresh();
 		} );
+
+		Event.observe( $( 'ContratinsertionNonRespect' ), 'change', function() {
+			affichageChampCause();
+		} );
+		Event.observe( $( 'ContratinsertionTempsContratTravail' ), 'change', function() {
+			affichageChampNbHeures();
+		} );
+
 		<?php foreach( array_keys( $sujetsCER ) as $key ) :?>
 			observeDisableFieldsOnCheckbox(
 				'themesSujetcer<?php echo $key;?>SujetcerId',
@@ -145,5 +230,7 @@
 				true
 			);
 		<?php endforeach;?>
+
 	});
 </script>
+

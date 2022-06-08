@@ -1,0 +1,35 @@
+# Traductions de compositionsregroupementseps.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Tempstravail/index/:heading"
+msgstr "Temps de travail d'un contrat"
+
+msgid "/Tempstravail/add"
+msgstr "Ajouter"
+
+msgid "/Tempstravail/edit"
+msgstr "Modifier"
+
+msgid "/Tempstravail/delete"
+msgstr "Supprimer"
+
+msgid "Tempstravail.libelle"
+msgstr "Libellé"
+
+msgid "/Tempstravail/edit/:heading"
+msgstr "Modification d'un temps de travail d'un contrat"
+
+msgid "/tempstravail/delete/#Tempstravail.id#"
+msgstr "Supprimer le temps de travail #Tempstravail.libelle#"
+
+msgid "/Tempstravail/add/:heading"
+msgstr "Ajout d'un temps de travail d'un contrat"

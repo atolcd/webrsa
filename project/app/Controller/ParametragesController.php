@@ -141,6 +141,15 @@
 			}
 			else if( 976 == $departement ) {
 				$items = array(
+					__m('typescontrats/index') => array(
+						'url' => array( 'controller' => 'typescontrats', 'action' => 'index' )
+					),
+					__m('tempstravail/index') => array(
+						'url' => array( 'controller' => 'tempstravail', 'action' => 'index' )
+					),
+					__m('conclusioncer/index') => array(
+						'url' => array( 'controller' => 'conclusioncer', 'action' => 'index' )
+					),
 					__m('sujetscers/index') => array(
 						'url' => array( 'controller' => 'sujetscers', 'action' => 'index' )
 					),

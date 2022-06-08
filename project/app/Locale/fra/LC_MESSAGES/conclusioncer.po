@@ -1,0 +1,35 @@
+# Traductions de compositionsregroupementseps.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Conclusioncer/index/:heading"
+msgstr "Conclusions de CER"
+
+msgid "/Conclusioncer/add"
+msgstr "Ajouter"
+
+msgid "/Conclusioncer/edit"
+msgstr "Modifier"
+
+msgid "/Conclusioncer/delete"
+msgstr "Supprimer"
+
+msgid "Conclusioncer.libelle"
+msgstr "Libellé"
+
+msgid "/Conclusioncer/edit/:heading"
+msgstr "Modification d'une conclusion de CER"
+
+msgid "/conclusioncer/delete/#Conclusioncer.id#"
+msgstr "Supprimer la conclusion de CER #Conclusioncer.libelle#"
+
+msgid "/Conclusioncer/add/:heading"
+msgstr "Ajout d'une conclusion de CER"

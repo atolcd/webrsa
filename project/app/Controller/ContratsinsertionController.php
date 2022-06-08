@@ -81,6 +81,9 @@
 			'Personne',
 			'WebrsaContratinsertion',
 			'WebrsaOrientstruct',
+			'Tempstravail',
+			'Typecontrat',
+			'Conclusioncer',
 			'Sujetcer',
 			'Soussujetcer',
 			'Valeurparsoussujetcer',
@@ -1055,7 +1058,9 @@
 					)
 						)
 				);
+
 				$sujetscoches = $this->ContratinsertionSujetcer->findAllByContratinsertionId($id);
+
 				$this->assert(!empty($contratinsertion), 'invalidParameter');
 
 				$personne_id = $contratinsertion['Contratinsertion']['personne_id'];
@@ -1065,6 +1070,8 @@
 
 				$tc = Set::classicExtract($contratinsertion, 'Contratinsertion.num_contrat');
 			}
+
+			$tempscontrattravail = $this->Tempstravail->find('list',['fields' => ['id', 'libelle']]);
 
 			$this->set('dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu(array('personne_id' => $personne_id)));
 
@@ -1208,6 +1215,17 @@
 				// Si Contratinsertion.objetcerprecautre est disabled, on enregistre null
 				$this->request->data = Set::merge(array('Contratinsertion' => array('objetcerprecautre' => null)), $this->request->data);
 
+				//Si la case non respect du CER est décochée, on enregistre null dans la cause
+				if(!isset($this->request->data['Contratinsertion']['non_respect']) || $this->request->data['Contratinsertion']['non_respect'] == '0'){
+					$this->request->data['Contratinsertion']['cause_non_respect'] = null;
+				}
+
+				//Si le contrat déjà bénéficié n'est pas en temps partiel, on enregistre null dans le nombre d'heures par mois
+				$cletempspartiel = array_search("Temps partiel", $tempscontrattravail);
+				if(!isset($this->request->data['Contratinsertion']['temps_contrat_travail']) || $this->request->data['Contratinsertion']['temps_contrat_travail'] != $cletempspartiel){
+					$this->request->data['Contratinsertion']['nb_heures_contrat_travail'] = null;
+				}
+
 				//on ajoute les themes pour l'enregistrement
 				if(isset($this->request->data['themes'])){
 					foreach($this->request->data['themes']['Sujetcer'] as $idsujet => $sujet){
@@ -1229,6 +1247,8 @@
 				} else {
 					$this->request->data['Sujetcer'] = [];
 				}
+
+
 				$this->Contratinsertion->create($this->request->data);
 				$success = $this->Contratinsertion->save( $this->request->data, array( 'atomic' => false ) );
 
@@ -1541,6 +1561,9 @@
 			$this->set(compact('dureeTotalCER', 'agePersonne'));
 
 			$duree_engag = $this->Option->duree_engag();
+			$typescontrattravail = $this->Typecontrat->find('list',['fields' => ['id', 'libelle']]);
+			$actions_conclusion = $this->Conclusioncer->find('list',['fields' => ['id', 'libelle']]);
+
 			//On récupère la liste des sujets, sous sujets et valeurs par sous sujets pour les thèmes
 			$sujetsCERComplets = $this->Sujetcer->find('all', ['recursive' => 1]);
 			$sujetsCER = array_column(
@@ -1590,6 +1613,7 @@
 			}
 
 			$tabDureeEngag = $this->setDureeEngag($duree_engag, $dureeTotalCER, $agePersonne);
+			$this->set(compact('typescontrattravail', 'tempscontrattravail', 'actions_conclusion'));
 			$this->set(compact('sujetsCER', 'soussujetsCER', 'valeursparsoussujetsCER','sujetsCERComplets'));
 			$this->set('duree_engag', $duree_engag);
 			$this->set('dureeMaximaleTrancheContrat', Configure::read('cer.duree.tranche'));

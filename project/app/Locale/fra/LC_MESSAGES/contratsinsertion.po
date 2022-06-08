@@ -137,6 +137,9 @@ msgstr "Conclusion de l'entretien"
 msgid "Contratinsertion.observ_benef"
 msgstr "Remarques du bénéficiaire"
 
+msgid "Contratinsertion.bilan"
+msgstr "Bilan du CER"
+
 msgid "Contratinsertion.lieu_saisi_ci"
 msgstr "Lieu de saisie"
 
@@ -284,8 +287,39 @@ msgstr "Supprimer"
 
 msgid "Propocontratinsertioncov58.num_contrat"
 msgstr "Rang du contrat"
+
+msgid "Contratinsertion.non_respect"
+msgstr "Non respect du CER"
+
+msgid "Contratinsertion.cause_non_respect"
+msgstr "Cause du non respect du CER"
+
+msgid "contrat.dejabeneficie"
+msgstr "Contrat déjà bénéficié"
+
+msgid "Contratinsertion.type_contrat_travail"
+msgstr "Type de contrat déjà bénéficié"
+
+msgid "Contratinsertion.temps_contrat_travail"
+msgstr "Temps de travail du contrat déjà bénéficié"
+
+msgid "Contratinsertion.nb_heures_contrat_travail"
+msgstr "Nombre d'heures par mois"
+
+msgid "Contratinsertion.dd_contrat_travail"
+msgstr "Date de début de contrat déjà bénéficié"
+
+msgid "Contratinsertion.df_contrat_travail"
+msgstr "Date de fin de contrat déjà bénéficié"
+
+msgid "Contratinsertion.action_cer"
+msgstr "Conclusion"
+
 msgid "Contratinsertion.descriptionaction"
 msgstr "Description de l'action"
 
 msgid "Contratinsertion.themes"
 msgstr "Thèmes de l'action"
+
+msgid "Contratinsertion.action_conclusion"
+msgstr "Conclusion"
