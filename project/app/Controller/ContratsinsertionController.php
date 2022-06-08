@@ -81,6 +81,10 @@
 			'Personne',
 			'WebrsaContratinsertion',
 			'WebrsaOrientstruct',
+			'Sujetcer',
+			'Soussujetcer',
+			'Valeurparsoussujetcer',
+			'ContratinsertionSujetcer'
 		);
 
 		/**
@@ -1051,6 +1055,7 @@
 					)
 						)
 				);
+				$sujetscoches = $this->ContratinsertionSujetcer->findAllByContratinsertionId($id);
 				$this->assert(!empty($contratinsertion), 'invalidParameter');
 
 				$personne_id = $contratinsertion['Contratinsertion']['personne_id'];
@@ -1203,8 +1208,29 @@
 				// Si Contratinsertion.objetcerprecautre est disabled, on enregistre null
 				$this->request->data = Set::merge(array('Contratinsertion' => array('objetcerprecautre' => null)), $this->request->data);
 
+				//on ajoute les themes pour l'enregistrement
+				if(isset($this->request->data['themes'])){
+					foreach($this->request->data['themes']['Sujetcer'] as $idsujet => $sujet){
+						$ajout = [];
+						if(isset($sujet['sujetcer_id'])){
+							$ajout['sujetcer_id'] = $sujet['sujetcer_id'];
+							if(!empty($sujet['soussujetcer_id'])) {
+								$ajout['soussujetcer_id'] = $sujet['soussujetcer_id'];
+							}
+							if(!empty($sujet['valeurparsoussujetcer_id'])) {
+								$ajout['valeurparsoussujetcer_id'] = explode('_', $sujet['valeurparsoussujetcer_id'])[1];
+							}
+							if(!empty($sujet['commentaire'])) {
+								$ajout['commentaire'] = $sujet['commentaire'];
+							}
+						}
+						$this->request->data['Sujetcer']['Sujetcer'][] = $ajout;
+					}
+				} else {
+					$this->request->data['Sujetcer'] = [];
+				}
 				$this->Contratinsertion->create($this->request->data);
-				$success = $this->Contratinsertion->save( null, array( 'atomic' => false ) );
+				$success = $this->Contratinsertion->save( $this->request->data, array( 'atomic' => false ) );
 
 				// Enregistrement des DSP (CG 93)
 				if (Configure::read('nom_form_ci_cg') == 'cg93') {
@@ -1335,6 +1361,7 @@
 			} else { // Préparation des données du formulaire ...: prepareFormData ?
 				if ($this->action == 'edit') {
 					$this->request->data = $contratinsertion;
+					$this->request->data['Sujetcer'] = $sujetscoches;
 
 					// CG 93
 					$actioninsertion = $this->Contratinsertion->Actioninsertion->find(
@@ -1514,8 +1541,56 @@
 			$this->set(compact('dureeTotalCER', 'agePersonne'));
 
 			$duree_engag = $this->Option->duree_engag();
+			//On récupère la liste des sujets, sous sujets et valeurs par sous sujets pour les thèmes
+			$sujetsCERComplets = $this->Sujetcer->find('all', ['recursive' => 1]);
+			$sujetsCER = array_column(
+				array_column(
+					$sujetsCERComplets,
+					'Sujetcer'
+				),
+				'libelle',
+				'id'
+			);
+			$soussujetsCER = $this->Soussujetcer->find(
+				'list',
+				array(
+					'fields' => array(
+						'Soussujetcer.id',
+						'Soussujetcer.libelle',
+						'Soussujetcer.sujetcer_id',
+					),
+					'joins' => array(
+						$this->Soussujetcer->join( 'Sujetcer', array( 'type' => 'INNER' ) )
+					)
+				)
+			);
+			$tmpValeursparsoussujetsCER = $this->Valeurparsoussujetcer->find(
+				'all',
+				array(
+					'fields' => array(
+						'( "Soussujetcer"."id" || \'_\'|| "Valeurparsoussujetcer"."id" ) AS "Valeurparsoussujetcer__id"',
+						'Valeurparsoussujetcer.libelle',
+						'Soussujetcer.sujetcer_id',
+					),
+					'joins' => array(
+						$this->Valeurparsoussujetcer->join( 'Soussujetcer', array( 'type' => 'INNER' ) ),
+						$this->Soussujetcer->join( 'Sujetcer', array( 'type' => 'INNER' ) )
+					),
+					'order' => array( 'Valeurparsoussujetcer.soussujetcer_id ASC', 'Valeurparsoussujetcer.libelle ASC' )
+				)
+			);
+
+			$valeursparsoussujetsCER = array();
+			foreach( $tmpValeursparsoussujetsCER as $tmp ) {
+				if( !isset( $valeursparsoussujetsCER[$tmp['Soussujetcer']['sujetcer_id']] ) ) {
+					$valeursparsoussujetsCER[$tmp['Soussujetcer']['sujetcer_id']] = array();
+				}
+
+				$valeursparsoussujetsCER[$tmp['Soussujetcer']['sujetcer_id']][$tmp['Valeurparsoussujetcer']['id']] = $tmp['Valeurparsoussujetcer']['libelle'];
+			}
 
 			$tabDureeEngag = $this->setDureeEngag($duree_engag, $dureeTotalCER, $agePersonne);
+			$this->set(compact('sujetsCER', 'soussujetsCER', 'valeursparsoussujetsCER','sujetsCERComplets'));
 			$this->set('duree_engag', $duree_engag);
 			$this->set('dureeMaximaleTrancheContrat', Configure::read('cer.duree.tranche'));
 			$this->set('tabDureeEngag', $tabDureeEngag);

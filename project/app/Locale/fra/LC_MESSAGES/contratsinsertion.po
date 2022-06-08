@@ -284,3 +284,8 @@ msgstr "Supprimer"
 
 msgid "Propocontratinsertioncov58.num_contrat"
 msgstr "Rang du contrat"
+msgid "Contratinsertion.descriptionaction"
+msgstr "Description de l'action"
+
+msgid "Contratinsertion.themes"
+msgstr "Thèmes de l'action"

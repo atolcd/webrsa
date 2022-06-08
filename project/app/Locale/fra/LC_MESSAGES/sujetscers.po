@@ -1,0 +1,47 @@
+# Traductions de sujetscers.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Sujetscers/index/:heading"
+msgstr "Paramétrage des sujets sur lequel le CER porte"
+
+msgid "/Sujetscers/add/:heading"
+msgstr "Ajout d'un sujet sur lequel le CER porte"
+
+msgid "/Sujetscers/edit/:heading"
+msgstr "Modification du sujet sur lequel le CER porte « #Sujetcer.libelle# »"
+
+msgid "/Sujetscers/add"
+msgstr "Ajouter"
+
+msgid "/Sujetscers/add/:title"
+msgstr "Ajouter un sujet sur lequel le CER porte"
+
+msgid "/Sujetscers/edit"
+msgstr "Modifier"
+
+msgid "/Sujetscers/edit/#Sujetcer.id#"
+msgstr "Modifier le sujet sur lequel le CER porte « #Sujetcer.libelle# »"
+
+msgid "/Sujetscers/delete"
+msgstr "Supprimer"
+
+msgid "/Sujetscers/delete/#Sujetcer.id#"
+msgstr "Supprimer le sujet sur lequel le CER porte « #Sujetcer.libelle# »"
+
+msgid "/Sujetscers/delete/#Sujetcer.id# ?"
+msgstr "Réellement supprimer le sujet sur lequel le CER porte « #Sujetcer.libelle# » ?"
+
+msgid "/Parametrages/contratsinsertion"
+msgstr "Retour"
+
+msgid "/Parametrages/contratsinsertion/:title"
+msgstr "Retour aux paramétrages des CER"

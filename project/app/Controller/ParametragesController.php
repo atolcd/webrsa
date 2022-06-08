@@ -139,6 +139,19 @@
 					)
 				);
 			}
+			else if( 976 == $departement ) {
+				$items = array(
+					__m('sujetscers/index') => array(
+						'url' => array( 'controller' => 'sujetscers', 'action' => 'index' )
+					),
+					__m('soussujetscers/index') => array(
+						'url' => array( 'controller' => 'soussujetscers', 'action' => 'index' )
+					),
+					__m('valeursparsoussujetscers/index') => array(
+						'url' => array( 'controller' => 'valeursparsoussujetscers', 'action' => 'index' )
+					)
+				);
+			}
 			else {
 				$items = array( 'disabled' => true );
 			}

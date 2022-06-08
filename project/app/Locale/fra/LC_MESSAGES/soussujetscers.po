@@ -1,0 +1,47 @@
+# Traductions de soussujetscers.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Soussujetscers/index/:heading"
+msgstr "Paramétrage des sous-sujets sur lequel le CER porte"
+
+msgid "/Soussujetscers/add/:heading"
+msgstr "Ajout d'un sous-sujet sur lequel le CER porte"
+
+msgid "/Soussujetscers/edit/:heading"
+msgstr "Modification du sous-sujet sur lequel le CER porte « #Soussujetcer.libelle# »"
+
+msgid "/Soussujetscers/add"
+msgstr "Ajouter"
+
+msgid "/Soussujetscers/add/:title"
+msgstr "Ajouter un sous-sujet sur lequel le CER porte"
+
+msgid "/Soussujetscers/edit"
+msgstr "Modifier"
+
+msgid "/Soussujetscers/edit/#Soussujetcer.id#"
+msgstr "Modifier le sous-sujet sur lequel le CER porte « #Soussujetcer.libelle# »"
+
+msgid "/Soussujetscers/delete"
+msgstr "Supprimer"
+
+msgid "/Soussujetscers/delete/#Soussujetcer.id#"
+msgstr "Supprimer le sous-sujet sur lequel le CER porte « #Soussujetcer.libelle# »"
+
+msgid "/Soussujetscers/delete/#Soussujetcer.id# ?"
+msgstr "Réellement supprimer le sous-sujet sur lequel le CER porte « #Soussujetcer.libelle# » ?"
+
+msgid "/Parametrages/contratsinsertion"
+msgstr "Retour"
+
+msgid "/Parametrages/contratsinsertion/:title"
+msgstr "Retour aux paramétrages des CER"

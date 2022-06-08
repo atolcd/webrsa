@@ -464,6 +464,54 @@
 				'deleteQuery' => '',
 				'insertQuery' => '',
 				'with' => 'ContratinsertionUser'
+			),
+			'Sujetcer' => array(
+				'className' => 'Sujetcer',
+				'joinTable' => 'contratsinsertion_sujetscers',
+				'foreignKey' => 'contratinsertion_id',
+				'associationForeignKey' => 'sujetcer_id',
+				'unique' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'finderQuery' => '',
+				'deleteQuery' => '',
+				'insertQuery' => '',
+				'with' => 'ContratinsertionSujetcer'
+			),
+			'Soussujetcer' => array(
+				'className' => 'Soussujetcer',
+				'joinTable' => 'contratsinsertion_sujetscers',
+				'foreignKey' => 'contratinsertion_id',
+				'associationForeignKey' => 'soussujetcer_id',
+				'unique' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'finderQuery' => '',
+				'deleteQuery' => '',
+				'insertQuery' => '',
+				'with' => 'ContratinsertionSujetcer'
+			),
+			'Valeurparsoussujetcer' => array(
+				'className' => 'Valeurparsoussujetcer',
+				'joinTable' => 'contratsinsertion_sujetscers',
+				'foreignKey' => 'contratinsertion_id',
+				'associationForeignKey' => 'valeurparsoussujetcer_id',
+				'unique' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'finderQuery' => '',
+				'deleteQuery' => '',
+				'insertQuery' => '',
+				'with' => 'ContratinsertionSujetcer'
 			)
 		);
 		public $hasOne = array(

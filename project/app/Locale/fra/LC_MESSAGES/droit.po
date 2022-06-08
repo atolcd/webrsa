@@ -5193,3 +5193,48 @@ msgstr "Afficher le paramétrage des structures référentes par ville"
 msgid "controllers/StructuresreferentesTypesorientsZonesgeographiques/edit"
 msgstr "Modifier le paramétrage des structures référentes par ville"
 
+## Sujets des CER
+###############################################################################
+
+msgid "controllers/Sujetscers"
+msgstr "Sujets des CER"
+
+msgid "controllers/Sujetscers/delete"
+msgstr "Supprimer les sujets des CER"
+
+msgid "controllers/Sujetscers/edit"
+msgstr "Modifier les sujets des CER"
+
+msgid "controllers/Sujetscers/index"
+msgstr "Afficher les sujets des CER"
+
+## Sous-sujets des CER
+###############################################################################
+
+msgid "controllers/Soussujetscers"
+msgstr "Sous-sujets des CER"
+
+msgid "controllers/Soussujetscers/delete"
+msgstr "Supprimer les sous-sujets des CER"
+
+msgid "controllers/Soussujetscers/edit"
+msgstr "Modifier les sous-sujets des CER"
+
+msgid "controllers/Soussujetscers/index"
+msgstr "Afficher les sous-sujets des CER"
+
+## Valeurs par sous-sujets des CER
+###############################################################################
+
+msgid "controllers/Valeursparsoussujetscers"
+msgstr "Valeurs par sous-sujets des CER"
+
+msgid "controllers/Valeursparsoussujetscers/delete"
+msgstr "Supprimer les valeurs par sous-sujets des CER"
+
+msgid "controllers/Valeursparsoussujetscers/edit"
+msgstr "Modifier les valeurs par sous-sujets des CER"
+
+msgid "controllers/Valeursparsoussujetscers/index"
+msgstr "Afficher les valeurs par sous-sujets des CER"
+
