@@ -428,7 +428,7 @@
 			),
 			'Par Dossiers EP' => array(
 				'disabled' => ( $departement != 58 ),
-				'Radiation de Pôle Emploi' => array( 'class' => 'search', 'url' => array( 'controller' => 'sanctionseps58', 'action' => 'cohorte_radiespe' ) ),
+				'Radiation ou cessation de Pôle Emploi' => array( 'class' => 'search', 'url' => array( 'controller' => 'sanctionseps58', 'action' => 'cohorte_radiespe' ) ),
 				'Non inscription à Pôle Emploi' => array( 'class' => 'search', 'url' => array( 'controller' => 'sanctionseps58', 'action' => 'cohorte_noninscritspe' ) ),
 			),
 			'Par Bilans de parcours' => array(

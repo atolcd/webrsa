@@ -29,7 +29,7 @@ msgid "Orientstruct.chosen"
 msgstr "Sélectionné ?"
 
 msgid "Sanctionseps58::selectionradies"
-msgstr "Sélection des allocataires radiés de Pôle Emploi"
+msgstr "Sélection des allocataires en radiation ou en cessation de Pôle Emploi"
 
 msgid "Sanctionseps58::selectionnoninscrits"
 msgstr "Sélection des allocataires non inscrits à Pôle Emploi"

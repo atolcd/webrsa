@@ -25,7 +25,7 @@ msgstr "Visibilité du formulaire"
 # ------------------------------------------------------------------------------
 
 msgid "/Sanctionseps58/cohorte_radiespe/:heading"
-msgstr "Sélection des allocataires radiés de Pôle Emploi"
+msgstr "Sélection des allocataires en radiation ou en cessation de Pôle Emploi"
 
 msgid "/Sanctionseps58/cohorte_radiespe"
 msgstr "Formulaire"
@@ -55,3 +55,6 @@ msgstr "Formulaire"
 
 msgid "/Sanctionseps58/cohorte_noninscritspe/:title"
 msgstr "Visibilité formulaire"
+
+msgid "/Dossiers/view"
+msgstr "Voir"
