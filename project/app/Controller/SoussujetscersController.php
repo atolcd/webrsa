@@ -2,7 +2,7 @@
 	/**
 	 * Code source de la classe SoussujetscersController.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Controller
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
@@ -70,4 +70,3 @@
 			$this->set( compact( 'options' ) );
 		}
 	}
-?>

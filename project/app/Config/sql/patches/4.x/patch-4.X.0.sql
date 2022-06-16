@@ -56,20 +56,23 @@ CREATE TABLE IF NOT EXISTS public.conclusioncer (
 -- Ajout d'une colonne pour le type de contrat déjà bénéficié
 ALTER TABLE contratsinsertion
 ADD COLUMN IF NOT EXISTS type_contrat_travail int4 NULL;
+ALTER TABLE contratsinsertion DROP CONSTRAINT IF EXISTS contratsinsertion_type_contrat_travail_fk;
 ALTER TABLE contratsinsertion ADD CONSTRAINT contratsinsertion_type_contrat_travail_fk FOREIGN KEY (type_contrat_travail) REFERENCES public.typescontrats(id);
 
 -- Ajout d'une colonne pour le temps de travail déjà bénéficié
 ALTER TABLE contratsinsertion
 ADD COLUMN IF NOT EXISTS temps_contrat_travail int4 NULL;
+ALTER TABLE contratsinsertion DROP CONSTRAINT IF EXISTS contratsinsertion_temps_contrat_travail_fk;
 ALTER TABLE contratsinsertion ADD CONSTRAINT contratsinsertion_temps_contrat_travail_fk FOREIGN KEY (temps_contrat_travail) REFERENCES public.tempstravail(id);
 
 -- Ajout d'une colonne pour la conclusion
 ALTER TABLE contratsinsertion
 ADD COLUMN IF NOT EXISTS action_conclusion int4 NULL;
+ALTER TABLE contratsinsertion DROP CONSTRAINT IF EXISTS contratsinsertion_action_conclusion_fk;
 ALTER TABLE contratsinsertion ADD CONSTRAINT contratsinsertion_action_conclusion_fk FOREIGN KEY (action_conclusion) REFERENCES public.conclusioncer(id);
 
 --Ajout de la table pour les sujets de CER
-CREATE TABLE public.sujetscers (
+CREATE TABLE IF NOT EXISTS public.sujetscers (
 	id serial4 NOT NULL,
 	libelle varchar(250) NOT NULL,
 	champtexte bool NOT NULL DEFAULT false,
@@ -79,7 +82,7 @@ CREATE TABLE public.sujetscers (
 );
 
 --Ajout de la table pour les sous-sujets de CER
-CREATE TABLE public.soussujetscers (
+CREATE TABLE IF NOT EXISTS public.soussujetscers (
 	id serial4 NOT NULL,
 	libelle varchar(250) NOT NULL,
 	sujetcer_id int4 NOT NULL,
@@ -90,7 +93,7 @@ CREATE TABLE public.soussujetscers (
 );
 
 --Ajout de la table pour les valeurs par sous sujet de CER
-CREATE TABLE public.valeursparsoussujetscers (
+CREATE TABLE IF NOT EXISTS public.valeursparsoussujetscers (
 	id serial4 NOT NULL,
 	libelle varchar(250) NOT NULL,
 	soussujetcer_id int4 NOT NULL,
@@ -101,7 +104,7 @@ CREATE TABLE public.valeursparsoussujetscers (
 );
 
 --Ajout de la table de jointure entre les cer et les sujets
-CREATE TABLE public.contratsinsertion_sujetscers (
+CREATE TABLE IF NOT EXISTS public.contratsinsertion_sujetscers (
 	id serial4 NOT NULL,
 	contratinsertion_id int4 NOT NULL,
 	sujetcer_id int4 NULL,

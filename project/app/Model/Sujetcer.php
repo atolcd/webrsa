@@ -2,7 +2,7 @@
 	/**
 	 * Fichier source du modèle Sujetcer.
 	 *
-	 * PHP 5.3
+	 * PHP 7.2
 	 *
 	 * @package app.Model
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
@@ -78,4 +78,3 @@
 			),
 		);
 	}
-?>

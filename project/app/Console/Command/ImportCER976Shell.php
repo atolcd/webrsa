@@ -7,14 +7,13 @@
 	 * @package app.Console.Command
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 *
-	 * Se lance avec : sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake ImportCER976 -v -s ';' -app app app/tmp/AUTOPOS_F_2019_03_12__13_39.csv  
+	 * Se lance avec : sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake ImportCER976 -v -s ';' -app app --typeClasseur 1 Classeur1.csv
 	 *
 	 */
 	App::uses( 'CsvAbstractImporterShell', 'Csv.Console/Command/Abstract' );
 
 	/**
-	 * La classe ImportCER976Shell permet d'importer le catalogue PDI
-	 * pour le module fiches de rpescriptions du CG 93.
+	 * La classe ImportCER976Shell permet d'importer les CER de Mayotte
 	 *
 	 * @package app.Console.Command
 	 */
@@ -22,9 +21,6 @@
 	{
 		/**
 		 * Les modèles utilisés par ce shell.
-		 *
-		 * Il faut que ces modèles soient uniquement les modèles qui servent à
-		 * l'enregistrement d'une ligne et qu'ils soient dans le bon ordre.
 		 *
 		 * @var array
 		 */
@@ -68,7 +64,7 @@
 		 */
 		public function getOptionParser() {
 			$parser = parent::getOptionParser();
-			$parser->description('Ce script permet d\'importer les CER.');
+			$parser->description("Ce script permet d'importer les CER.");
 			$options = array(
 				'typeClasseur' => array(
 					'short' => 'T',
@@ -127,18 +123,14 @@
                     if(substr($date, 0, 4) > 2022){
                         $date = '19'.substr($date, 2);
                     }
-
                 } else {
                     $date = null;
                 }
 
                 //On récupère l'id personne de l'allocataire
-               $personne_id = $this->getIdPersonne(str_replace("'", "''", $data['Nom-Prénom']), $date, $data['N°alloc']);
-
+                $personne_id = $this->getIdPersonne(str_replace("'", "''", $data['Nom-Prénom']), $date, $data['N°alloc']);
 
                 if($personne_id != null){
-
-
                     //On modifie l'orientation pour correspondre au format attendu
                     switch(strtolower($data['Orientation'])){
                         case 'sociale':
@@ -174,31 +166,26 @@
                             ";
                             $ref = $this->Personne->query($queryref);
                         }
-
-
                         if(!isset($ref[0][0]['ref'])){
-                        //s'il n'est pas retrouvé, on crée le référent
-                        $infos_connues = isset($this->Referent->findByNomAndPrenom($referent_unique['nom'], $referent_unique['prenom'])['Referent']) ? $this->Referent->findByNomAndPrenom($referent_unique['nom'], $referent_unique['prenom'])['Referent'] : null;
-                        $nouveau_ref = [
-                            'structurereferente_id' => $site[0][0]['site'],
-                            'nom' => $referent_unique['nom'],
-                            'prenom' => $referent_unique['prenom']
-                        ];
-                        if(!empty($infos_connues)){
-                            $nouveau_ref['numero_poste'] = $infos_connues['numero_poste'];
-                            $nouveau_ref['email'] = $infos_connues['email'];
-                            $nouveau_ref['qual'] = $infos_connues['qual'];
-                            $nouveau_ref['fonction'] = $infos_connues['fonction'];
-                        }
-
-                        $this->Referent->save($nouveau_ref);
-                        $id_referent = $this->Referent->id;
-
+                            //s'il n'est pas retrouvé, on crée le référent
+                            $infos_connues = isset($this->Referent->findByNomAndPrenom($referent_unique['nom'], $referent_unique['prenom'])['Referent']) ? $this->Referent->findByNomAndPrenom($referent_unique['nom'], $referent_unique['prenom'])['Referent'] : null;
+                            $nouveau_ref = [
+                                'structurereferente_id' => $site[0][0]['site'],
+                                'nom' => $referent_unique['nom'],
+                                'prenom' => $referent_unique['prenom']
+                            ];
+                            if(!empty($infos_connues)){
+                                $nouveau_ref['numero_poste'] = $infos_connues['numero_poste'];
+                                $nouveau_ref['email'] = $infos_connues['email'];
+                                $nouveau_ref['qual'] = $infos_connues['qual'];
+                                $nouveau_ref['fonction'] = $infos_connues['fonction'];
+                            }
+                            $this->Referent->save($nouveau_ref);
+                            $id_referent = $this->Referent->id;
 
                         } else {
                             $id_referent = $ref[0][0]['ref'];
                         }
-
                         if(!empty($data['Date signature RU et BRSA']) && (date_create_from_format('n/j/Y', $data['Date signature RU et BRSA']) != false || date_create_from_format('n/j/y', $data['Date signature RU et BRSA']) != false)){
                             $duree_engag = intval(substr($data['Échéance'], 0,2)) != 0 ? intval(substr($data['Échéance'], 0,2)) : 12;
                             if(date_create_from_format('n/j/Y', $data['Date signature RU et BRSA']) != false && (strlen($data['Date signature RU et BRSA']) - strrpos($data['Date signature RU et BRSA'], '/')) > 4){
@@ -207,7 +194,6 @@
                                 $dd_ci = date_format(date_create_from_format('n/j/y', $data['Date signature RU et BRSA']), 'Y-m-d');
                             }
                             $df_ci = date_format(date_add(date_create($dd_ci), date_interval_create_from_date_string($duree_engag.'months')), 'Y-m-d');
-
                             $rang_cer = strpos($data['Type CER'], 'Premier') !== false ? 1 : (int) filter_var($data['Type CER'], FILTER_SANITIZE_NUMBER_INT)+1;
 
                             //On vérifie qu'il n'existe pas déjà un cer de même rang
@@ -216,11 +202,9 @@
                                 from contratsinsertion c join personnes p on p.id = c.personne_id
                                 where c.rg_ci = {$rang_cer} and p.id = {$personne_id}
                             ";
-
                             $cer = $this->Personne->query($sql);
 
                             if(empty($cer)){
-
                                 //on ajoute les sujets de cer associés
                                 $themes = [];
                                 if(!empty($data['Thèmes'])){
@@ -232,7 +216,6 @@
                                     $this->Contratinsertion->rollback();
                                     $this->rejectRow($data, null, "Le(s) thème(s) n'existent pas dans WebRSA");
                                 } else {
-
                                     $donnees = [
                                         'personne_id' => $personne_id,
                                         'referent_id' => $id_referent,
@@ -247,41 +230,28 @@
                                         'descriptionaction' => $data["Description de l'action"],
                                     ];
                                     $donnees['Sujetcer']['Sujetcer'][] = $themes;
-
                                     $success = $this->Contratinsertion->save( $donnees , array('validate' => false, 'atomic' => false ) );
                                     $idcontrat = $this->Contratinsertion->id;
                                     $this->Contratinsertion->clear();
                                 }
-
-
-
-
-
                             } else {
                                 //Il existe déjà un CER de même rang pour cette personne
                                 $this->rejectRow($data, null, "Cette personne possède déjà un CER de même rang");
-
                             }
                         } else {
                             //Il manque la date de signature
                             $this->rejectRow($data, null, "La date de signature par le BRSA est obligatoire et doit respecter le format de date");
                         }
-
                     } else {
                         //on ne trouve pas la structure
                         $this->rejectRow($data, null, "La structure est introuvable");
-
                     }
-
-
                 } else {
                     //on ne retrouve pas la personne
                     $this->rejectRow($data, null, "La personne est introuvable");
                 }
-
 			}
 
-			// $this->XProgressBar->next();
 			return $success;
 		}
 
@@ -414,12 +384,8 @@
             }
 
 			$this->checkDepartement( 976 );
-
             parent::startup();
-
             $this->out( '<info>Nombre d\'enregistrements à traiter</info> : '.$this->_Csv->count());
-
-			$this->XProgressBar->start( $this->_Csv->count() );
 		}
 
         public function getIdPersonne($nom, $datenaiss, $numalloc){
@@ -441,7 +407,6 @@
             }
 
             if (!isset($personne[0][0]['id'])){
-
                 //Numéro allocataire + nom, prénom
                 $query = "
                 select p.id
@@ -459,7 +424,6 @@
             }
 
             if (!isset($personne[0][0]['id'])){
-
                 //Date de naissance + nom, prénom
                 $query = "
                 select p.id
@@ -501,7 +465,7 @@
             return $correspondances[$id];
         }
 
-        public function getThemes($themes, $contratid){
+        public function getThemes($themes){
             $sujets = [];
             $correspondances = file('themes.csv');
             $correspondances = array_map(
@@ -541,7 +505,6 @@
                                 )
                             ) === false){
                                 $sujets[] = [
-                                    // 'contratinsertion_id' => $contratid,
                                     'sujetcer_id' => $sujet['Sujetcer']['id'],
                                 ];
                             }
@@ -570,7 +533,6 @@
                                 }
                             } else {
                                 $sujets[] = [
-                                    // 'contratinsertion_id' => $contratid,
                                     'soussujetcer_id' => $soussujet['Soussujetcer']['id'],
                                     'sujetcer_id' => $soussujet['Soussujetcer']['sujetcer_id'],
                                 ];

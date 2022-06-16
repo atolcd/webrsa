@@ -1250,7 +1250,7 @@
 
 
 				$this->Contratinsertion->create($this->request->data);
-				$success = $this->Contratinsertion->save( $this->request->data, array( 'atomic' => false ) );
+				$success = $this->Contratinsertion->save( null, array( 'atomic' => false ) );
 
 				// Enregistrement des DSP (CG 93)
 				if (Configure::read('nom_form_ci_cg') == 'cg93') {
