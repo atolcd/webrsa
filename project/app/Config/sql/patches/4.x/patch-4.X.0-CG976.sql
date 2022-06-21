@@ -78,6 +78,9 @@ INSERT INTO soussujetscers(libelle, sujetcer_id)
 SELECT 'Validation diplôme étranger', (SELECT id FROM sujetscers WHERE libelle LIKE 'La formation')
 WHERE NOT EXISTS (SELECT id FROM soussujetscers WHERE libelle LIKE 'Validation diplôme étranger');
 INSERT INTO soussujetscers(libelle, sujetcer_id)
+SELECT 'Validation des acquis', (SELECT id FROM sujetscers WHERE libelle LIKE 'La formation')
+WHERE NOT EXISTS (SELECT id FROM soussujetscers WHERE libelle LIKE 'Validation des acquis');
+INSERT INTO soussujetscers(libelle, sujetcer_id)
 SELECT 'Demande d''aide financière', (SELECT id FROM sujetscers WHERE libelle LIKE 'La formation')
 WHERE NOT EXISTS (SELECT id FROM soussujetscers WHERE libelle LIKE 'Demande d''aide financière');
 INSERT INTO soussujetscers(libelle, sujetcer_id)

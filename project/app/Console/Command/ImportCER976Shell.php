@@ -7,7 +7,7 @@
 	 * @package app.Console.Command
 	 * @license CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
 	 *
-	 * Se lance avec : sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake ImportCER976 -v -s ';' -app app --typeClasseur 1 Classeur1.csv
+	 * Se lance avec : sudo -u apache ./vendor/cakephp/cakephp/lib/Cake/Console/cake ImportCER976 -v -s ',' -app app --typeClasseur 1 Classeur1.csv
 	 *
 	 */
 	App::uses( 'CsvAbstractImporterShell', 'Csv.Console/Command/Abstract' );
@@ -58,13 +58,17 @@
 		 */
 		public $processModelDetails = array();
 
-        	/**
+        /**
 		 *
 		 * @return type
 		 */
 		public function getOptionParser() {
 			$parser = parent::getOptionParser();
-			$parser->description("Ce script permet d'importer les CER.");
+			$parser->description("Ce script permet d'importer les CER. \n
+            Sur la colonne Thèmes du classeur : \n
+            - Supprimer les retours à la ligne \n
+            - Remplacer les caractères <info> . : , - \n </info> par le caractère <info>/</info>
+            ");
 			$options = array(
 				'typeClasseur' => array(
 					'short' => 'T',
@@ -204,40 +208,47 @@
                             ";
                             $cer = $this->Personne->query($sql);
 
-                            if(empty($cer)){
-                                //on ajoute les sujets de cer associés
-                                $themes = [];
-                                if(!empty($data['Thèmes'])){
-                                    $themes = $this->getThemes($data['Thèmes'], 3);
-                                }
-                                if($themes == -1){
-                                    $this->rejectRow($data, null, "Les thèmes sont concurrents et ne peuvent donc pas être intégrés");
-                                } else if($themes == null){
-                                    $this->Contratinsertion->rollback();
-                                    $this->rejectRow($data, null, "Le(s) thème(s) n'existent pas dans WebRSA");
-                                } else {
-                                    $donnees = [
-                                        'personne_id' => $personne_id,
-                                        'referent_id' => $id_referent,
-                                        'structurereferente_id' => $site[0][0]['site'],
-                                        'rg_ci' => $rang_cer,
-                                        'dd_ci' => $dd_ci,
-                                        'df_ci' => $df_ci,
-                                        'duree_engag' => $duree_engag,
-                                        'observ_ci' => $data['Conclusion'],
-                                        'observ_benef' => $data['Bilan'],
-                                        'nature_projet' => $data['Objectif accompagnement'],
-                                        'descriptionaction' => $data["Description de l'action"],
-                                    ];
-                                    $donnees['Sujetcer']['Sujetcer'][] = $themes;
-                                    $success = $this->Contratinsertion->save( $donnees , array('validate' => false, 'atomic' => false ) );
-                                    $idcontrat = $this->Contratinsertion->id;
-                                    $this->Contratinsertion->clear();
-                                }
-                            } else {
-                                //Il existe déjà un CER de même rang pour cette personne
-                                $this->rejectRow($data, null, "Cette personne possède déjà un CER de même rang");
+                            while(!empty($cer)){
+                                $rang_cer++;
+                                //Si il existe déjà un cer de même rang on ajoute un au rang et on revérifie
+                                $sql = "
+                                select c.id
+                                from contratsinsertion c join personnes p on p.id = c.personne_id
+                                where c.rg_ci = {$rang_cer} and p.id = {$personne_id}
+                                ";
+                                $cer = $this->Personne->query($sql);
+
                             }
+                            //on ajoute les sujets de cer associés
+                            $themes = [];
+                            if(!empty($data['Thèmes'])){
+                                $themes = $this->getThemes($data['Thèmes'], 3);
+                            }
+                            if($themes == -1){
+                                $this->rejectRow($data, null, "Les thèmes sont concurrents et ne peuvent donc pas être intégrés");
+                            } else if($themes === null){
+                                $this->Contratinsertion->rollback();
+                                $this->rejectRow($data, null, "Le(s) thème(s) n'existent pas dans WebRSA");
+                            } else {
+                                $donnees = [
+                                    'personne_id' => $personne_id,
+                                    'referent_id' => $id_referent,
+                                    'structurereferente_id' => $site[0][0]['site'],
+                                    'rg_ci' => $rang_cer,
+                                    'dd_ci' => $dd_ci,
+                                    'df_ci' => $df_ci,
+                                    'duree_engag' => $duree_engag,
+                                    'observ_ci' => $data['Conclusion'],
+                                    'observ_benef' => $data['Bilan'],
+                                    'nature_projet' => $data['Objectif accompagnement'],
+                                    'descriptionaction' => $data["Description de l'action"],
+                                ];
+                                $donnees['Sujetcer']['Sujetcer'][] = $themes;
+                                $success = $this->Contratinsertion->save( $donnees , array('validate' => false, 'atomic' => false ) );
+                                $idcontrat = $this->Contratinsertion->id;
+                                $this->Contratinsertion->clear();
+                            }
+
                         } else {
                             //Il manque la date de signature
                             $this->rejectRow($data, null, "La date de signature par le BRSA est obligatoire et doit respecter le format de date");
@@ -484,108 +495,108 @@
             );
 
             foreach ($tabthemes as $theme){
-                $idtheme = array_search(
-                    $theme,
-                    array_column(
-                        $correspondances,
-                        'nom'
-                    )
-                );
-                if(!empty($idtheme)){
-                    $themeformat = $correspondances[$idtheme];
-                    if(!empty($themeformat['sujet'])){
-                        $sujet = $this->Sujetcer->findByLibelle(trim($themeformat['sujet']));
-                        if(!empty($sujet)){
-                             //on vérifie qu'il n'existe pas déjà la même ligne
-                             if(array_search(
-                                $sujet['Sujetcer']['id'],
-                                array_column(
-                                    $sujets,
-                                    'sujetcer_id'
-                                )
-                            ) === false){
-                                $sujets[] = [
-                                    'sujetcer_id' => $sujet['Sujetcer']['id'],
-                                ];
-                            }
-                        } else {
-                            return null;
-                        }
-
-                    } elseif (!empty($themeformat['soussujet'])){
-                        $soussujet = $this->Soussujetcer->findByLibelle(trim($themeformat['soussujet']));
-                        if(!empty($soussujet)){
-                            //On vérifie si le sujet existe déjà
-                            $key = array_search(
-                                $soussujet['Soussujetcer']['sujetcer_id'],
-                                array_column(
-                                    $sujets,
-                                    'sujetcer_id'
-                                )
-                            );
-                            if($key !== false){
-                                //Si il n'y a pas de sous sujet, on l'ajoute
-                                if(!isset($sujets[$key]['soussujetcer_id'])){
-                                    $sujets[$key]['soussujetcer_id'] = $soussujet['Soussujetcer']['id'];
-                                //Si il y a un sous sujet mais qu'il est différent, on sort
-                                } else if($sujets[$key]['soussujetcer_id'] != $soussujet['Soussujetcer']['id']){
-                                    return -1;
+                if(!empty($theme)){
+                    $idtheme = array_search(
+                        $theme,
+                        array_column(
+                            $correspondances,
+                            'nom'
+                        )
+                    );
+                    if(!empty($idtheme)){
+                        $themeformat = $correspondances[$idtheme];
+                        if(!empty($themeformat['sujet'])){
+                            $sujet = $this->Sujetcer->findByLibelle(trim($themeformat['sujet']));
+                            if(!empty($sujet)){
+                                 //on vérifie qu'il n'existe pas déjà la même ligne
+                                 if(array_search(
+                                    $sujet['Sujetcer']['id'],
+                                    array_column(
+                                        $sujets,
+                                        'sujetcer_id'
+                                    )
+                                ) === false){
+                                    $sujets[] = [
+                                        'sujetcer_id' => $sujet['Sujetcer']['id'],
+                                    ];
                                 }
                             } else {
-                                $sujets[] = [
-                                    'soussujetcer_id' => $soussujet['Soussujetcer']['id'],
-                                    'sujetcer_id' => $soussujet['Soussujetcer']['sujetcer_id'],
-                                ];
+                                return null;
                             }
-                        } else {
-                            return null;
-                        }
-
-                    } elseif (!empty($themeformat['valeurparsoussujet'])){
-                        $valeur = $this->Valeurparsoussujetcer->findByLibelle(trim($themeformat['valeurparsoussujet']));
-                        if(!empty($valeur)){
-                            $soussujet = $this->Soussujetcer->findById($valeur['Valeurparsoussujetcer']['soussujetcer_id']);
-                            //On vérifie si le sujet existe déjà
-                            $key = array_search(
-                                $soussujet['Soussujetcer']['sujetcer_id'],
-                                array_column(
-                                    $sujets,
-                                    'sujetcer_id'
-                                )
-                            );
-                            if($key !== false){
-                                //Si il n'y a pas de sous sujet, on l'ajoute
-                                if(!isset($sujets[$key]['soussujetcer_id'])){
-                                    $sujets[$key]['soussujetcer_id'] = $soussujet['Soussujetcer']['id'];
-                                    $sujets[$key]['valeurparsoussujetcer_id'] = $valeur['Valeurparsoussujetcer']['id'];
-                                //Si il y a un sous sujet mais qu'il est différent, on sort
-                                } else if($sujets[$key]['soussujetcer_id'] != $soussujet['Soussujetcer']['id']){
-                                    return -1;
-                                //Si il y a le même sous sujet on regarde s'il y a une valeur par sous sujet
-                                } else if ($sujets[$key]['soussujetcer_id'] == $soussujet['Soussujetcer']['id']){
-                                    //Si il n'y a pas de valeur par sous sujet, on l'ajoute
-                                    if(!isset($sujets[$key]['valeurparsoussujetcer_id'])){
-                                        $sujets[$key]['valeurparsoussujetcer_id'] = $valeur['Valeurparsoussujetcer']['id'];
-                                    }
-                                    //Si la valeur par sous sujet est différente on sort
-                                    if($sujets[$key]['valeurparsoussujetcer_id'] != $valeur['Valeurparsoussujetcer']['id']){
+                        } elseif (!empty($themeformat['soussujet'])){
+                            $soussujet = $this->Soussujetcer->findByLibelle(trim($themeformat['soussujet']));
+                            if(!empty($soussujet)){
+                                //On vérifie si le sujet existe déjà
+                                $key = array_search(
+                                    $soussujet['Soussujetcer']['sujetcer_id'],
+                                    array_column(
+                                        $sujets,
+                                        'sujetcer_id'
+                                    )
+                                );
+                                if($key !== false){
+                                    //Si il n'y a pas de sous sujet, on l'ajoute
+                                    if(!isset($sujets[$key]['soussujetcer_id'])){
+                                        $sujets[$key]['soussujetcer_id'] = $soussujet['Soussujetcer']['id'];
+                                    //Si il y a un sous sujet mais qu'il est différent, on sort
+                                    } else if($sujets[$key]['soussujetcer_id'] != $soussujet['Soussujetcer']['id']){
                                         return -1;
                                     }
+                                } else {
+                                    $sujets[] = [
+                                        'soussujetcer_id' => $soussujet['Soussujetcer']['id'],
+                                        'sujetcer_id' => $soussujet['Soussujetcer']['sujetcer_id'],
+                                    ];
                                 }
                             } else {
-                                $sujets[] = [
-                                    // 'contratinsertion_id' => $contratid,
-                                    'valeurparsoussujetcer_id' => $valeur['Valeurparsoussujetcer']['id'],
-                                    'soussujetcer_id' => $valeur['Valeurparsoussujetcer']['soussujetcer_id'],
-                                    'sujetcer_id' => $soussujet['Soussujetcer']['sujetcer_id'],
-                                ];
+                                return null;
                             }
-                        } else {
-                            return null;
+                        } elseif (!empty($themeformat['valeurparsoussujet'])){
+                            $valeur = $this->Valeurparsoussujetcer->findByLibelle(trim($themeformat['valeurparsoussujet']));
+                            if(!empty($valeur)){
+                                $soussujet = $this->Soussujetcer->findById($valeur['Valeurparsoussujetcer']['soussujetcer_id']);
+                                //On vérifie si le sujet existe déjà
+                                $key = array_search(
+                                    $soussujet['Soussujetcer']['sujetcer_id'],
+                                    array_column(
+                                        $sujets,
+                                        'sujetcer_id'
+                                    )
+                                );
+                                if($key !== false){
+                                    //Si il n'y a pas de sous sujet, on l'ajoute
+                                    if(!isset($sujets[$key]['soussujetcer_id'])){
+                                        $sujets[$key]['soussujetcer_id'] = $soussujet['Soussujetcer']['id'];
+                                        $sujets[$key]['valeurparsoussujetcer_id'] = $valeur['Valeurparsoussujetcer']['id'];
+                                    //Si il y a un sous sujet mais qu'il est différent, on sort
+                                    } else if($sujets[$key]['soussujetcer_id'] != $soussujet['Soussujetcer']['id']){
+                                        return -1;
+                                    //Si il y a le même sous sujet on regarde s'il y a une valeur par sous sujet
+                                    } else if ($sujets[$key]['soussujetcer_id'] == $soussujet['Soussujetcer']['id']){
+                                        //Si il n'y a pas de valeur par sous sujet, on l'ajoute
+                                        if(!isset($sujets[$key]['valeurparsoussujetcer_id'])){
+                                            $sujets[$key]['valeurparsoussujetcer_id'] = $valeur['Valeurparsoussujetcer']['id'];
+                                        }
+                                        //Si la valeur par sous sujet est différente on sort
+                                        if($sujets[$key]['valeurparsoussujetcer_id'] != $valeur['Valeurparsoussujetcer']['id']){
+                                            return -1;
+                                        }
+                                    }
+                                } else {
+                                    $sujets[] = [
+                                        // 'contratinsertion_id' => $contratid,
+                                        'valeurparsoussujetcer_id' => $valeur['Valeurparsoussujetcer']['id'],
+                                        'soussujetcer_id' => $valeur['Valeurparsoussujetcer']['soussujetcer_id'],
+                                        'sujetcer_id' => $soussujet['Soussujetcer']['sujetcer_id'],
+                                    ];
+                                }
+                            } else {
+                                return null;
+                            }
                         }
+                    } else {
+                        return null;
                     }
-                } else {
-                    return null;
                 }
             }
 

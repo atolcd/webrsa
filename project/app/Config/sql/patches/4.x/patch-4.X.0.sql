@@ -7,6 +7,9 @@ BEGIN;
 -- Version du patch en BDD
 INSERT INTO versionpatchsql("version", created) VALUES ('4.X.0', CURRENT_TIMESTAMP);
 
+-- Ajout de l'extension unaccent
+CREATE EXTENSION IF NOT EXISTS unaccent;
+
 -- Ajout d'une colonne pour le non respect du cer
 ALTER TABLE contratsinsertion
 ADD COLUMN IF NOT EXISTS non_respect bool NULL;
