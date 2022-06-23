@@ -65,9 +65,10 @@
 		public function getOptionParser() {
 			$parser = parent::getOptionParser();
 			$parser->description("Ce script permet d'importer les CER. \n
-            Sur la colonne Thèmes du classeur : \n
-            - Supprimer les retours à la ligne \n
-            - Remplacer les caractères <info> . : , - \n </info> par le caractère <info>/</info>
+            - Sur tous les classeurs, supprimer les retours à la ligne \n
+            - Sur la colonne Thèmes des classeurs, remplacer \n les caractères <info> . : , - </info> \n par le caractère <info>/</info> \n
+            - Sur le classeur 1, pour le NUM 372, inverser les valeurs \n des colonnes Conclusion et Référent Unique \n
+            - Sur le classeur 1, pour le NUM 688, \n changer la valeur 217 en 2017 \n dans la colonne Date signature RU et BRSA \n
             ");
 			$options = array(
 				'typeClasseur' => array(
@@ -197,6 +198,14 @@
                             } else {
                                 $dd_ci = date_format(date_create_from_format('n/j/y', $data['Date signature RU et BRSA']), 'Y-m-d');
                             }
+                            if(empty($data['Date signature Président']) || (date_create_from_format('n/j/Y', $data['Date signature Président']) == false && date_create_from_format('n/j/y', $data['Date signature Président']) == false)){
+                                $date_signature_pres = $dd_ci;
+                            }
+                            elseif(date_create_from_format('n/j/Y', $data['Date signature Président']) != false && (strlen($data['Date signature Président']) - strrpos($data['Date signature Président'], '/')) > 4){
+                                $date_signature_pres = date_format(date_create_from_format('n/j/Y', $data['Date signature Président']), 'Y-m-d');
+                            } else {
+                                $date_signature_pres = date_format(date_create_from_format('n/j/y', $data['Date signature Président']), 'Y-m-d');
+                            }
                             $df_ci = date_format(date_add(date_create($dd_ci), date_interval_create_from_date_string($duree_engag.'months')), 'Y-m-d');
                             $rang_cer = strpos($data['Type CER'], 'Premier') !== false ? 1 : (int) filter_var($data['Type CER'], FILTER_SANITIZE_NUMBER_INT)+1;
 
@@ -219,6 +228,8 @@
                                 $cer = $this->Personne->query($sql);
 
                             }
+                            $date_du_jour = date_create();
+
                             //on ajoute les sujets de cer associés
                             $themes = [];
                             if(!empty($data['Thèmes'])){
@@ -242,10 +253,13 @@
                                     'observ_benef' => $data['Bilan'],
                                     'nature_projet' => $data['Objectif accompagnement'],
                                     'descriptionaction' => $data["Description de l'action"],
+                                    'lieu_saisi_ci' => 'Conseil Départemental de Mayotte',
+                                    'date_saisi_ci' => $date_du_jour->format('Y-m-d'),
+                                    'decision_ci' => 'V',
+                                    'datevalidation_ci' => $date_signature_pres
                                 ];
-                                $donnees['Sujetcer']['Sujetcer'][] = $themes;
+                                $donnees['Sujetcer']['Sujetcer'] = $themes;
                                 $success = $this->Contratinsertion->save( $donnees , array('validate' => false, 'atomic' => false ) );
-                                $idcontrat = $this->Contratinsertion->id;
                                 $this->Contratinsertion->clear();
                             }
 
@@ -388,7 +402,7 @@
                     "Site",
                     "Durée des actions",
                     "Date signature RU et BRSA",
-                    "Date signature président",
+                    "Date signature Président",
                     "Date échéance contrat"
                 ];
 
@@ -584,7 +598,6 @@
                                     }
                                 } else {
                                     $sujets[] = [
-                                        // 'contratinsertion_id' => $contratid,
                                         'valeurparsoussujetcer_id' => $valeur['Valeurparsoussujetcer']['id'],
                                         'soussujetcer_id' => $valeur['Valeurparsoussujetcer']['soussujetcer_id'],
                                         'sujetcer_id' => $soussujet['Soussujetcer']['sujetcer_id'],
