@@ -256,3 +256,6 @@ msgstr "Préconisation d’orientation "
 
 msgid "/Orientsstructs/index"
 msgstr "Voir"
+
+msgid "aucun_orientable"
+msgstr "Aucun orientable ne correspond aux critères sélectionnés. <br> Veuillez effectuer une nouvelle recherche."

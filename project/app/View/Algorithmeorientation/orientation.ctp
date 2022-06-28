@@ -149,6 +149,8 @@
         if( isset( $resultats ) ) {
             $this->redirect('liste_orientables.ctp');
 
+        } else {
+            echo'<h2 class=center>'.__m('aucun_orientable').'</h2>';
         }
 
     }
