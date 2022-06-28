@@ -30,7 +30,7 @@ msgid "/Criteresalgorithmeorientation/edit"
 msgstr "Modifier"
 
 msgid "/Criteresalgorithmeorientation/edit/:heading"
-msgstr "Modification du critère"
+msgstr "Modification du critère « #Criterealgorithmeorientation.libelle_initial# »"
 
 msgid "/Criteresalgorithmeorientation/monter"
 msgstr "Monter"
