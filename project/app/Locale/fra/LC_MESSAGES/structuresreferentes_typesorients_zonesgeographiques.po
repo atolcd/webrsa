@@ -24,3 +24,6 @@ msgstr "Modifier"
 
 msgid "edit.titre"
 msgstr "Modification des liens entre %s et les structures référentes"
+
+msgid "exportcsv"
+msgstr "Télécharger le tableau"

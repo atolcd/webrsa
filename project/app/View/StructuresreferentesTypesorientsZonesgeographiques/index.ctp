@@ -1,5 +1,15 @@
 <?= $this->Default3->titleForLayout(); ?>
 <?= $this->Default3->actions(['/parametrages/index' => array('class' => 'back')]); ?>
+<?php
+echo '<ul class="actionMenu">'
+		.'<li>'
+		. $this->Xhtml->exportLink(
+			__m('exportcsv'),
+			array( 'controller' => 'StructuresreferentesTypesorientsZonesgeographiques', 'action' => 'exportcsv_index' )
+		)
+		.'</li>'
+	.'</ul>';
+?>
 <table id="TableStructuresreferentesTypesorientsZonesgeographiquesIndex" class="thematiquesrdvs index">
 	<thead>
 		<tr>

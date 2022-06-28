@@ -117,5 +117,44 @@
 
 
 		}
+
+		/**
+		 * Export CSV de la page d'index
+		 */
+		public function exportcsv_index(){
+			$typesorients = $this->Typeorient->listTypeEnfant();
+			$villes = $this->Zonegeographique->find('list', ['fields' => 'libelle', 'conditions' => ['codeinsee ilike' => '93%']]);
+			$structuresreferentes = $this->StructurereferenteTypeorientZonegeographique->tableauIndex($villes, $typesorients);
+
+			$filename = 'Paramétrage des structures référentes par ville';
+
+			$export = array ();
+			$i = 0;
+			$k = 0;
+
+			// Titres
+			$export[$i++] = array_merge (array ('Ville'), $typesorients);
+			$export[$i++] = array ('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+
+			foreach ($villes as $ville_id => $ville) {
+				$export[$i++] = array ('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+				$export[$i][0] = $ville;
+				$j = 1;
+
+					foreach ($typesorients as $typeorient_id => $typeorient) {
+						// Ligne (écriture)
+						if (isset ($structuresreferentes[$ville_id][$typeorient_id])) {
+							$valeur = $structuresreferentes[$ville_id][$typeorient_id];
+						}
+						$export[$i][$j] = $valeur;
+						$j++;
+					}
+				$i++;
+			}
+
+			$this->layout = '';
+			$this->set( compact( 'export', 'filename' ) );
+			$this->render('exportcsv');
+		}
 	}
 ?>
