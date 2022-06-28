@@ -107,7 +107,7 @@
 				}
 			}
 
-			$listeStructuresreferentes = $this->Structurereferente->find('list');
+			$listeStructuresreferentes = $this->Structurereferente->listOptions();
 			$typesorients = $this->Typeorient->listTypeEnfant();
 			$nomVille = $this->Zonegeographique->findById($id)['Zonegeographique']['libelle'];
 
