@@ -555,6 +555,11 @@
 			if(Configure::read('debug') == 2){
 				Configure::write('Cache.disable', false );
 			}
+
+			//On désactive l'impression automatique
+			$impression_auto = Configure::read('Orientstruct.impression_auto');
+			Configure::write( 'Orientation.impression_auto', false );
+
 			$orientations = Cache::read('orientations_reformartees');
 
 			$date = new DateTime();
@@ -578,12 +583,15 @@
 				$delete_ids[] = $orientation['Orientstruct']['id'];
 			}
 
-			$success = $this->Orientstruct->saveAll($data, ['validate' => false]);
+			//On désactive l'after save pour ne pas faire le recalcul du rang
+			$success = $this->Orientstruct->saveAll($data, ['validate' => false, 'callbacks' => 'before']);
 
 			//on supprime les orientations non orienté (sauf si on est en mode debug)
 			if(Configure::read('debug') != 2){
 				$success = $success && $this->Orientstruct->deleteAll(['Orientstruct.id IN' => $delete_ids]);
 			}
+
+			Configure::write( 'Orientation.impression_auto', $impression_auto );
 
 			$nb_orientations = count($data);
 

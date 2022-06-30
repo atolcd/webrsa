@@ -659,7 +659,7 @@
 				&& $originalAddEditFormData['Orientstruct']['statut_orient'] == 'Orienté'
 				&& (
 					$originalAddEditFormData['Orientstruct']['rgorient'] != $this->Orientstruct->WebrsaOrientstruct->rgorientMax( $originalAddEditFormData['Orientstruct']['personne_id'] )
-					|| Configure::read('Orientstruct.recalculerang')
+					&& Configure::read('Orientstruct.recalculerang')
 				)
 			) {
 				$this->Flash->error( 'Impossible de modifier une autre orientation que la plus récente.' );
