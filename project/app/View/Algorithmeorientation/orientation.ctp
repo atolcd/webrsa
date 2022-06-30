@@ -146,10 +146,10 @@
     if(isset($pbAdresses) && $pbAdresses != []){
         require_once('problemes_adresses.ctp');
     } else {
-        if( isset( $resultats ) ) {
+        if(!empty($resultats )) {
             $this->redirect('liste_orientables.ctp');
 
-        } else {
+        } else if ($noresult){
             echo'<h2 class=center>'.__m('aucun_orientable').'</h2>';
         }
 

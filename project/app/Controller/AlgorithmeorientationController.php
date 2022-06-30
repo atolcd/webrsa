@@ -94,6 +94,7 @@
 
 			$bloquer = $this->StructurereferenteTypeorientZonegeographique->checkBlocageAlgo();
 
+			$noresult = false;
 			$resultats = $this->_listeOrientables();
 			if(!empty($resultats)){
 				$pbAdresses = $this->_controleAdresses($resultats);
@@ -103,9 +104,11 @@
 				} else {
 					Cache::write('pbAdresses', $pbAdresses);
 				}
+			} else if($resultats === []) {
+				$noresult = true;
 			}
 
-			$this->set(compact('pbAdresses', 'bloquer'));
+			$this->set(compact('pbAdresses', 'bloquer', 'noresult'));
 
 		}
 
