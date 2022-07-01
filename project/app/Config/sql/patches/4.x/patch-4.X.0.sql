@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS public.tempstravail (
 --Création de la table pour les conclusions de cer
 CREATE TABLE IF NOT EXISTS public.conclusioncer (
 	id serial4 NOT NULL,
-	libelle varchar(50) NOT NULL,
+	libelle varchar(200) NOT NULL,
 	CONSTRAINT conclusioncer_pk PRIMARY KEY (id)
 );
 

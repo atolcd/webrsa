@@ -65,7 +65,7 @@
 			$this->WebrsaParametrages->edit( $id, array( 'view' => 'add_edit' ) );
 
 			$options = $this->viewVars['options'];
-			$options['Valeurparsoussujetcer']['soussujetcer_id'] = $this->Valeurparsoussujetcer->Soussujetcer->find( 'list', ['fields' => ['id', 'libelle']] );
+			$options['Valeurparsoussujetcer']['soussujetcer_id'] = $this->Valeurparsoussujetcer->Soussujetcer->listOptions();
 
 			$this->set( compact( 'options' ) );
 		}

@@ -44,8 +44,8 @@
 				'Contratinsertion.type_contrat_travail' => ['empty' => true, 'required' => false, 'type' => 'select' ],
 				'Contratinsertion.temps_contrat_travail' => ['empty' => true, 'required' => false, 'type' => 'select' ],
 				'Contratinsertion.nb_heures_contrat_travail' => ['empty' => true, 'required' => false, 'type' => 'text' ],
-				'Contratinsertion.dd_contrat_travail' => ['empty' => true, 'required' => false, 'dateFormat' => 'DMY' ],
-				'Contratinsertion.df_contrat_travail' => ['empty' => true, 'required' => false, 'dateFormat' => 'DMY' ],
+				'Contratinsertion.dd_contrat_travail' => ['empty' => true, 'required' => false, 'dateFormat' => 'DMY', 'minYear' => date( 'Y' ) - 5, 'maxYear' => date( 'Y' ) + 5 ],
+				'Contratinsertion.df_contrat_travail' => ['empty' => true, 'required' => false, 'dateFormat' => 'DMY', 'minYear' => date( 'Y' ) - 5, 'maxYear' => date( 'Y' ) + 5 ],
 			],
 			[
 				'options' => [
@@ -139,10 +139,10 @@
 			'Contratinsertion.observ_benef' => ['label' => __m("Contratinsertion.bilan")],
 			'Contratinsertion.action_conclusion' => ['type' => 'radio'],
 			'Contratinsertion.duree_engag' => array( 'empty' => true ),
-			'Contratinsertion.dd_ci' => array( 'empty' => true, 'dateFormat' => 'DMY' ),
-			'Contratinsertion.df_ci' => array( 'empty' => true, 'dateFormat' => 'DMY' ),
+			'Contratinsertion.dd_ci' => array( 'empty' => true, 'dateFormat' => 'DMY', 'minYear' => date( 'Y' ) - 5, 'maxYear' => date( 'Y' ) + 5  ),
+			'Contratinsertion.df_ci' => array( 'empty' => true, 'dateFormat' => 'DMY', 'minYear' => date( 'Y' ) - 5, 'maxYear' => date( 'Y' ) + 5  ),
 			'Contratinsertion.lieu_saisi_ci',
-			'Contratinsertion.date_saisi_ci' => array( 'empty' => true, 'dateFormat' => 'DMY' ),
+			'Contratinsertion.date_saisi_ci' => array( 'empty' => true, 'dateFormat' => 'DMY', 'minYear' => date( 'Y' ) - 5, 'maxYear' => date( 'Y' ) + 5  ),
 		],
 		[
 			'options' => [
@@ -183,10 +183,9 @@
 
 	function affichageChampNbHeures() {
 		if( $( 'ContratinsertionTempsContratTravail' ).options[$( 'ContratinsertionTempsContratTravail' ).selectedIndex].text == 'Temps partiel') {
-			console.log("diio");
-			$( 'ContratinsertionNbHeuresContratTravail' ).parentNode.hidden = false;
+			$( 'ContratinsertionNbHeuresContratTravail' ).disabled = false;
 		} else {
-			$( 'ContratinsertionNbHeuresContratTravail' ).parentNode.hidden = true;
+			$( 'ContratinsertionNbHeuresContratTravail' ).disabled = true;
 		}
 	}
 
@@ -197,9 +196,9 @@
 			$( 'ContratinsertionCauseNonRespect' ).parentNode.hidden = true;
 		}
 		if( $( 'ContratinsertionTempsContratTravail' ).options[$( 'ContratinsertionTempsContratTravail' ).selectedIndex].text == 'Temps partiel') {
-			$( 'ContratinsertionNbHeuresContratTravail' ).parentNode.hidden = false;
+			$( 'ContratinsertionNbHeuresContratTravail' ).disabled = false;
 		} else {
-			$( 'ContratinsertionNbHeuresContratTravail' ).parentNode.hidden = true;
+			$( 'ContratinsertionNbHeuresContratTravail' ).disabled = true;
 		}
 		Event.observe( $( 'ContratinsertionDdCiDay' ), 'change', function() {
 			checkDatesToRefresh();

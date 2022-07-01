@@ -92,4 +92,27 @@
 			),
 		);
 
+		public function listOptions() {
+
+			$results = $this->find(
+				'list',
+				array(
+					'fields' => array(
+						'Soussujetcer.id',
+						'Soussujetcer.libelle',
+						'Sujetcer.libelle'
+					),
+					'recursive' => -1,
+					'joins' => array(
+						$this->join( 'Sujetcer', array( 'type' => 'INNER' ) )
+					),
+					'order' => array(
+						'Sujetcer.libelle ASC',
+						'Soussujetcer.libelle'
+					)
+				)
+			);
+			return $results;
+		}
+
 	}
