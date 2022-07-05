@@ -101,6 +101,15 @@ msgstr "Date inscription Pole emploi"
 msgid "Personne.age"
 msgstr "Age"
 
+msgid "Personne.trancheage"
+msgstr "Tranche d'âge"
+
+msgid "Personne.trancheagesup"
+msgstr "Age supérieur ou égal à"
+
+msgid "Personne.trancheageprec"
+msgstr "Age inférieur ou égal à"
+
 msgid "Personne.etat_dossier_orientation"
 msgstr "Étape du dossier d'orientation"
 

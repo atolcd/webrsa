@@ -281,7 +281,13 @@ msgstr "Recherche par orientation"
 msgid "Search.Orientstruct.derniere"
 msgstr "Uniquement la dernière orientation pour un même allocataire"
 
+msgid "Orientstruct.derniere"
+msgstr "Uniquement la dernière orientation pour un même allocataire"
+
 msgid "Search.Orientstruct.dernierevalid"
+msgstr "Uniquement la dernière orientation validée pour un même allocataire"
+
+msgid "Orientstruct.dernierevalid"
 msgstr "Uniquement la dernière orientation validée pour un même allocataire"
 
 msgid "Search.Orientstruct.date_valid"
@@ -337,6 +343,9 @@ msgstr "Inscrit au Pôle Emploi ?"
 
 msgid "Search.Activite.act"
 msgstr "Code activité"
+
+msgid "Search.Orientstruct.communautesr_id"
+msgstr "Projet Insertion Emploi Territorial"
 
 # ==============================================================================
 # Cohortes d'orientation

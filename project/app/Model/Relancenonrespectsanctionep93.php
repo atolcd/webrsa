@@ -603,10 +603,126 @@
 				);
 			}
 
+			$search = Hash::expand( $search );
+
+
+			$valeurtag_id = '';
+			if (isset ($search['Tag']['valeurtag_id'])) {
+				$valeurtag_id = $search['Tag']['valeurtag_id'];
+			}
+			$etat = '';
+			if (isset ($search['Tag']['etat'])) {
+				$etat = $search['Tag']['etat'];
+			}
+			$exclusionValeur = isset ($search['Tag']['exclusionValeur']) ? true : false;
+			$exclusionEtat = isset ($search['Tag']['exclusionEtat']) ? true : false;
+			$createdFrom =  null;
+			$createdTo = null;
+			if (isset ($search['Tag']['created']) && $search['Tag']['created'] === '1') {
+				$createdFrom = isset ($search['Tag']['created_from']) ? $search['Tag']['created_from'] : null;
+				$createdTo = isset ($search['Tag']['created_to']) ? $search['Tag']['created_to'] : null;
+			}
+
+			if (false === empty($valeurtag_id) || false === empty($etat) || false === is_null($createdFrom)) {
+				$conditions[] = ClassRegistry::init('Tag')->sqHasTagValue($valeurtag_id, '"Foyer"."id"', '"Personne"."id"', $etat, $exclusionValeur, $exclusionEtat, $createdFrom, $createdTo);
+			}
+
+			unset($search['ByTag']);
+			unset($search['Tag']);
+
+			$search = Hash::flatten( $search );
+
+			$paths = array(
+				'Orientstruct.origine',
+				'Orientstruct.typeorient_id',
+				'Orientstruct.statut_orient',
+				'Orientstruct.serviceinstructeur_id',
+			);
+
+			// Fils de dependantSelect
+			$pathsToExplode = array(
+				'Orientstruct.structurereferente_id',
+			);
+
+			$pathsOrient = array_merge(
+				[
+					'Orientstruct.dernierevalid',
+					'Orientstruct.derniere',
+					'Orientstruct.date_valid_from.day',
+					'Orientstruct.date_valid_from.month',
+					'Orientstruct.date_valid_from.year',
+					'Orientstruct.date_valid_to.day',
+					'Orientstruct.date_valid_to.month',
+					'Orientstruct.date_valid_to.year',
+					'Orientstruct.date_valid'
+				],
+				$paths,
+				$pathsToExplode
+			);
+
+			if(isset($search['Orientstruct.derniere']) && $search['Orientstruct.derniere']) {
+				$conditions[] = array(
+					"Orientstruct.id IN (SELECT
+						orientsstructs.id
+					FROM
+						orientsstructs
+						WHERE
+							orientsstructs.personne_id = Orientstruct.personne_id
+						ORDER BY
+							orientsstructs.id DESC
+						LIMIT 1)"
+				);
+			}
+
+			if(isset($search['Orientstruct.dernierevalid']) && $search['Orientstruct.dernierevalid']) {
+				$conditions[] = array(
+					"Orientstruct.id IN (SELECT
+						orientsstructs.id
+					FROM
+						orientsstructs
+						WHERE
+							orientsstructs.personne_id = Orientstruct.personne_id
+							AND orientsstructs.statut_orient = 'Orienté'
+						ORDER BY
+							orientsstructs.id DESC
+						LIMIT 1)"
+				);
+			}
+
+			if( isset( $search['Orientstruct.date_valid'] ) && $search['Orientstruct.date_valid'] ) {
+				$from = $search['Orientstruct.date_valid_from.year'].$search['Orientstruct.date_valid_from.month'].$search['Orientstruct.date_valid_from.day'];
+				$to = $search['Orientstruct.date_valid_to.year'].$search['Orientstruct.date_valid_to.month'].$search['Orientstruct.date_valid_to.day'];
+
+				$conditions[] = "Orientstruct.date_valid  BETWEEN '{$from}' AND '{$to}'";
+			}
+
+			foreach( $paths as $path ) {
+				$value = isset($search[$path]) ? suffix($search[$path]) : null;
+				if( $value !== null && $value !== '' ) {
+					$conditions[$path] = $value;
+				}
+			}
+
+			foreach( $pathsToExplode as $path ) {
+				$value = isset($search[$path]) ? suffix($search[$path]) : null;
+				if( $value !== null && $value !== '' && strpos($value, '_') > 0 ) {
+					list(,$value) = explode('_', $value);
+					$conditions[$path] = $value;
+				}
+			}
+
 			// FIXME: jointures (Dossier)
 			foreach( $search as $field => $condition ) {
 				if( in_array( $field, array( 'Personne.nom', 'Personne.prenom' ) ) ) {
 					$conditions["UPPER({$field}) LIKE"] = $this->wildcard( strtoupper( replace_accents( $condition ) ) );
+				}
+				else if($field == 'Personne.trancheage'){
+					list( $ageMin, $ageMax ) = explode( '_', $condition );
+						$conditions[] = '( EXTRACT ( YEAR FROM AGE( Personne.dtnai ) ) ) BETWEEN '.$ageMin.' AND '.$ageMax;
+				} else if($field == 'Personne.trancheagesup'){
+					$conditions[] = '( EXTRACT ( YEAR FROM AGE( Personne.dtnai ) ) ) >= '.$condition;
+				} else if($field == 'Personne.trancheageprec'){
+					$conditions[] = '( EXTRACT ( YEAR FROM AGE( Personne.dtnai ) ) ) <= '.$condition;
 				}
 				else if( $field == 'Adresse.numcom' && !empty( $condition ) ) {
 					$conditions[] = array( 'Adresse.numcom' => $condition );
@@ -645,7 +761,7 @@
 					$field = preg_replace( '/^Dossiercaf\.(.*)titulaire$/', '\1', $field );
 					$conditions["UPPER({$field}) LIKE"] = $this->wildcard( strtoupper( replace_accents( $condition ) ) );
 				}
-				else if( !in_array( $field, array( 'Relance.numrelance', 'Relance.contrat', 'Relance.compare0', 'Relance.compare1', 'Relance.nbjours0', 'Relance.nbjours1', 'PersonneReferent.referent_id', 'PersonneReferent.structurereferente_id' ) ) ) {
+				else if( !in_array( $field, array_merge(array( 'Relance.numrelance', 'Relance.contrat', 'Relance.compare0', 'Relance.compare1', 'Relance.nbjours0', 'Relance.nbjours1', 'PersonneReferent.referent_id', 'PersonneReferent.structurereferente_id' ), $pathsOrient )) ) {
 					$conditions[$field] = $condition;
 				}
 			}
@@ -980,16 +1096,126 @@
 		 * @return array
 		 */
 		public function qdSearchRelances( $mesCodesInsee, $filtre_zone_geo, $search ) {
+			$conditions = array();
+
+			$valeurtag_id = '';
+			if (isset ($search['Search']['Tag']['valeurtag_id'])) {
+				$valeurtag_id = $search['Search']['Tag']['valeurtag_id'];
+			}
+			$etat = '';
+			if (isset ($search['Search']['Tag']['etat'])) {
+				$etat = $search['Search']['Tag']['etat'];
+			}
+			$exclusionValeur = isset ($search['Search']['Tag']['exclusionValeur']) ? true : false;
+			$exclusionEtat = isset ($search['Search']['Tag']['exclusionEtat']) ? true : false;
+			$createdFrom =  null;
+			$createdTo = null;
+			if (isset ($search['Search']['Tag']['created']) && $search['Search']['Tag']['created'] === '1') {
+				$createdFrom = isset ($search['Search']['Tag']['created_from']) ? $search['Search']['Tag']['created_from'] : null;
+				$createdTo = isset ($search['Search']['Tag']['created_to']) ? $search['Search']['Tag']['created_to'] : null;
+			}
+
+			if (false === empty($valeurtag_id) || false === empty($etat) || false === is_null($createdFrom)) {
+				$conditions[] = ClassRegistry::init('Tag')->sqHasTagValue($valeurtag_id, '"Foyer"."id"', '"Personne"."id"', $etat, $exclusionValeur, $exclusionEtat, $createdFrom, $createdTo);
+			}
+
 			$search = Hash::flatten( $search );
 			$search = Hash::filter( (array)$search );
 
-			$conditions = array();
 
 			$conditions[] = $this->conditionsZonesGeographiques( $filtre_zone_geo, $mesCodesInsee );
+
+
+			$paths = array(
+				'Orientstruct.origine',
+				'Orientstruct.typeorient_id',
+				'Orientstruct.statut_orient',
+				'Orientstruct.serviceinstructeur_id',
+			);
+
+			// Fils de dependantSelect
+			$pathsToExplode = array(
+				'Orientstruct.structurereferente_id',
+			);
+
+			$pathsOrient = array_merge(
+				[
+					'Orientstruct.dernierevalid',
+					'Orientstruct.derniere',
+					'Orientstruct.date_valid_from.day',
+					'Orientstruct.date_valid_from.month',
+					'Orientstruct.date_valid_from.year',
+					'Orientstruct.date_valid_to.day',
+					'Orientstruct.date_valid_to.month',
+					'Orientstruct.date_valid_to.year',
+					'Orientstruct.date_valid'
+				],
+				$paths,
+				$pathsToExplode
+			);
+
+			if($search['Orientstruct.derniere'] ) {
+				$conditions[] = array(
+					"Orientstruct.id IN (SELECT
+						orientsstructs.id
+					FROM
+						orientsstructs
+						WHERE
+							orientsstructs.personne_id = Orientstruct.personne_id
+						ORDER BY
+							orientsstructs.id DESC
+						LIMIT 1)"
+				);
+			}
+
+			if($search['Orientstruct.dernierevalid']) {
+				$conditions[] = array(
+					"Orientstruct.id IN (SELECT
+						orientsstructs.id
+					FROM
+						orientsstructs
+						WHERE
+							orientsstructs.personne_id = Orientstruct.personne_id
+							AND orientsstructs.statut_orient = 'Orienté'
+						ORDER BY
+							orientsstructs.id DESC
+						LIMIT 1)"
+				);
+			}
+
+			if( isset( $search['Orientstruct.date_valid'] ) && $search['Orientstruct.date_valid'] ) {
+				$from = $search['Orientstruct.date_valid_from.year'].$search['Orientstruct.date_valid_from.month'].$search['Orientstruct.date_valid_from.day'];
+				$to = $search['Orientstruct.date_valid_to.year'].$search['Orientstruct.date_valid_to.month'].$search['Orientstruct.date_valid_to.day'];
+
+				$conditions[] = "Orientstruct.date_valid  BETWEEN '{$from}' AND '{$to}'";
+			}
+
+			foreach( $paths as $path ) {
+				$value = isset($search[$path]) ? suffix($search[$path]) : null;
+				if( $value !== null && $value !== '' ) {
+					$conditions[$path] = $value;
+				}
+			}
+
+			foreach( $pathsToExplode as $path ) {
+				$value = isset($search[$path]) ? suffix($search[$path]) : null;
+				if( $value !== null && $value !== '' && strpos($value, '_') > 0 ) {
+					list(,$value) = explode('_', $value);
+					$conditions[$path] = $value;
+				}
+			}
 
 			foreach( $search as $field => $condition ) {
 				if( in_array( $field, array( 'Personne.nom', 'Personne.prenom', 'Personne.nomnai' ) ) ) {
 					$conditions["UPPER({$field}) LIKE"] = $this->wildcard( strtoupper( replace_accents( $condition ) ) );
+				}
+				else if($field == 'Personne.trancheage'){
+					list( $ageMin, $ageMax ) = explode( '_', $condition );
+						$conditions[] = '( EXTRACT ( YEAR FROM AGE( Personne.dtnai ) ) ) BETWEEN '.$ageMin.' AND '.$ageMax;
+				} else if($field == 'Personne.trancheagesup'){
+					$conditions[] = '( EXTRACT ( YEAR FROM AGE( Personne.dtnai ) ) ) >= '.$condition;
+				} else if($field == 'Personne.trancheageprec'){
+					$conditions[] = '( EXTRACT ( YEAR FROM AGE( Personne.dtnai ) ) ) <= '.$condition;
 				}
 				else if( $field == 'Adresse.numcom' && !empty( $condition ) ) {
 					$conditions['Adresse.numcom'] = $condition;
@@ -1013,7 +1239,7 @@
 
 					$conditions[] = "Relancenonrespectsanctionep93.daterelance BETWEEN '{$daterelance_from}' AND '{$daterelance_to}'";
 				}
-				else if( !in_array( $field, array( 'sort', 'page', 'direction', 'Relance.daterelance' ) ) && !preg_match( '/^Relancenonrespectsanctionep93\.daterelance.*$/', $field ) && !preg_match( '/^Search\./', $field ) ) {
+				else if( !in_array( $field, array_merge(array( 'sort', 'page', 'direction', 'Relance.daterelance' ), $pathsOrient) ) && !preg_match( '/^Relancenonrespectsanctionep93\.daterelance.*$/', $field ) && !preg_match( '/^Search\./', $field ) ) {
 					$conditions[$field] = $condition;
 				}
 			}

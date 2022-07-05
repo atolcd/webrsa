@@ -611,6 +611,76 @@
 				$queryData['conditions'][] = $modeleHistoriqueetatpe->conditionIdentifiantpe( $identifiantpe );
 			}
 
+			$conditions = [];
+
+			foreach( $datas as $field => $condition ) {
+				if($field == 'Personne.trancheage'){
+					list( $ageMin, $ageMax ) = explode( '_', $condition );
+						$conditions[] = '( EXTRACT ( YEAR FROM AGE( Personne.dtnai ) ) ) BETWEEN '.$ageMin.' AND '.$ageMax;
+				} else if($field == 'Personne.trancheagesup'){
+					$conditions[] = '( EXTRACT ( YEAR FROM AGE( Personne.dtnai ) ) ) >= '.$condition;
+				} else if($field == 'Personne.trancheageprec'){
+					$conditions[] = '( EXTRACT ( YEAR FROM AGE( Personne.dtnai ) ) ) <= '.$condition;
+				}
+			}
+
+			$valeurtag_id = '';
+			if (isset ($datas['Tag']['valeurtag_id'])) {
+				$valeurtag_id = $datas['Tag']['valeurtag_id'];
+			}
+			$etat = '';
+			if (isset ($datas['Tag']['etat'])) {
+				$etat = $datas['Tag']['etat'];
+			}
+			$exclusionValeur = isset ($datas['Tag']['exclusionValeur']) ? true : false;
+			$exclusionEtat = isset ($datas['Tag']['exclusionEtat']) ? true : false;
+			$createdFrom =  null;
+			$createdTo = null;
+			if (isset ($datas['Tag']['created']) && $datas['Tag']['created'] === '1') {
+				$createdFrom = isset ($datas['Tag']['created_from']) ? $datas['Tag']['created_from'] : null;
+				$createdTo = isset ($datas['Tag']['created_to']) ? $datas['Tag']['created_to'] : null;
+			}
+
+			if (false === empty($valeurtag_id) || false === empty($etat) || false === is_null($createdFrom)) {
+				$conditions[] = ClassRegistry::init('Tag')->sqHasTagValue($valeurtag_id, '"Foyer"."id"', '"Personne"."id"', $etat, $exclusionValeur, $exclusionEtat, $createdFrom, $createdTo);
+			}
+
+			$search = Hash::flatten( $datas );
+
+			$paths = array(
+				'Orientstruct.origine',
+				'Orientstruct.statut_orient',
+				'Orientstruct.serviceinstructeur_id',
+			);
+
+			// Fils de dependantSelect
+			$pathsToExplode = array(
+				'Orientstruct.structurereferente_id',
+			);
+
+			if( isset( $search['Orientstruct.date_valid'] ) && $search['Orientstruct.date_valid'] ) {
+				$from = $search['Orientstruct.date_valid_from.year'].$search['Orientstruct.date_valid_from.month'].$search['Orientstruct.date_valid_from.day'];
+				$to = $search['Orientstruct.date_valid_to.year'].$search['Orientstruct.date_valid_to.month'].$search['Orientstruct.date_valid_to.day'];
+
+				$conditions[] = "Orientstruct.date_valid  BETWEEN '{$from}' AND '{$to}'";
+			}
+
+			foreach( $paths as $path ) {
+				$value = isset($search[$path]) ? suffix($search[$path]) : null;
+				if( $value !== null && $value !== '' ) {
+					$conditions[$path] = $value;
+				}
+			}
+
+			foreach( $pathsToExplode as $path ) {
+				$value = isset($search[$path]) ? suffix($search[$path]) : null;
+				if( $value !== null && $value !== '' && strpos($value, '_') > 0 ) {
+					list(,$value) = explode('_', $value);
+					$conditions[$path] = $value;
+				}
+			}
+
+
 			/// Filtre zone géographique
 			$queryData['conditions'][] = $this->conditionsZonesGeographiques( $filtre_zone_geo, $mesCodesInsee );
 
@@ -620,7 +690,7 @@
 			$qdRadies = $modeleHistoriqueetatpe->Informationpe->qdRadies();
 			$queryData['fields'] = array_merge( $queryData['fields'], $qdRadies['fields'] );
 			$queryData['joins'] = array_merge( $queryData['joins'], $qdRadies['joins'] );
-			$queryData['conditions'] = array_merge( $queryData['conditions'], $qdRadies['conditions'] );
+			$queryData['conditions'] = array_merge( $queryData['conditions'], $qdRadies['conditions'], $conditions );
 			$queryData['order'] = implode( ', ', $qdRadies['order'] );
 
 			$queryData = $this->Dossierep->Personne->PersonneReferent->completeQdReferentParcours( $queryData, $datas );

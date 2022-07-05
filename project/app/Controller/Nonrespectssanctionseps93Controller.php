@@ -38,6 +38,7 @@
 					'index',
 				),
 			),
+			'Allocataires'
 		);
 
 		/**
@@ -49,6 +50,25 @@
 			'Csv',
 			'Default',
 			'Default2',
+			'Default3' => array(
+				'className' => 'Default.DefaultDefault'
+			),
+			'SearchForm' => array(
+				'className' => 'Search.SearchForm'
+			)
+		);
+
+		/**
+		 * Modèles utilisés.
+		 *
+		 * @var array
+		 */
+		public $uses = array(
+			'Nonrespectsanctionep93',
+			'Orientstruct',
+			'InsertionsBeneficiaires',
+			'Typeorient',
+			'Tag'
 		);
 
 		/**
@@ -90,8 +110,27 @@
 			$options = Set::merge(
 				$this->Nonrespectsanctionep93->enums(),
 				$this->Nonrespectsanctionep93->Dossierep->enums(),
-				$this->Nonrespectsanctionep93->Dossierep->Passagecommissionep->Decisionnonrespectsanctionep93->enums()
+				$this->Nonrespectsanctionep93->Dossierep->Passagecommissionep->Decisionnonrespectsanctionep93->enums(),
+				[
+					'Search' => [
+						'Orientstruct' => [
+							'structurereferente_id' => $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'list', 'conditions' => array( 'Structurereferente.orientation' => 'O' ) + $this->InsertionsBeneficiaires->conditions['structuresreferentes'] ) ),
+							'statut_orient' => $this->Orientstruct->enum( 'statut_orient' ),
+							'origine' => $this->Orientstruct->enum( 'origine' ),
+							'propo_algo' => $this->Orientstruct->Typeorient->listTypeParent()
+						]
+					]
+				],
+				[
+					'Tag' => [
+						'etat' => $this->Tag->enum( 'etat' ),
+					]
+				],
+				$this->Allocataires->optionsSessionCommunautesr( 'Orientstruct' )
 			);
+
+			$options = $this->Tag->getValeursTag($options);
+
 			$this->set( compact( 'options' ) );
 		}
 
@@ -434,6 +473,7 @@
 				$radiespe = $this->paginate( $this->Nonrespectsanctionep93->Dossierep->Personne, array(), array(), $progressivePaginate );
 			}
 
+			$this->_setOptions();
 			$this->set( compact( 'radiespe' ) );
 			$this->set( 'structuresreferentesparcours', $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'optgroup', 'prefix' => false ) ) );
 			$this->set( 'referentsparcours', $this->InsertionsBeneficiaires->referents( array( 'prefix' => true ) ) );

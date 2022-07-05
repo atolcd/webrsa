@@ -47,6 +47,7 @@
 				'webrsaAccessName' => 'WebrsaAccessRelancesnonrespectssanctionseps93',
 				'parentModelName' => 'Personne',
 			),
+			'Allocataires'
 		);
 
 		/**
@@ -60,6 +61,9 @@
 			'Default3' => array(
 				'className' => 'Default.DefaultDefault'
 			),
+			'SearchForm' => array(
+				'className' => 'Search.SearchForm'
+			)
 		);
 
 		/**
@@ -76,6 +80,9 @@
 			'Orientstruct',
 			'Pdf',
 			'WebrsaRelancenonrespectsanctionep93',
+			'InsertionsBeneficiaires',
+			'Typeorient',
+			'Tag'
 		);
 
 		/**
@@ -144,8 +151,25 @@
 				$this->Relancenonrespectsanctionep93->enums(),
 				$this->Relancenonrespectsanctionep93->Nonrespectsanctionep93->enums(),
 				$this->Relancenonrespectsanctionep93->Nonrespectsanctionep93->Dossierep->enums(),
-				$this->Relancenonrespectsanctionep93->Nonrespectsanctionep93->Dossierep->Passagecommissionep->enums()
+				$this->Relancenonrespectsanctionep93->Nonrespectsanctionep93->Dossierep->Passagecommissionep->enums(),
+				array(
+					'Orientstruct' => array(
+						'typeorient_id' => $this->InsertionsBeneficiaires->typesorients(),
+						'structurereferente_id' => $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'list', 'conditions' => array( 'Structurereferente.orientation' => 'O' ) + $this->InsertionsBeneficiaires->conditions['structuresreferentes'] ) ),
+						'statut_orient' => $this->Orientstruct->enum( 'statut_orient' ),
+						'origine' => $this->Orientstruct->enum( 'origine' ),
+						'propo_algo' => $this->Orientstruct->Typeorient->listTypeParent()
+					)
+				),
+				array(
+					'Tag' => array(
+						'etat' => $this->Tag->enum( 'etat' ),
+					)
+				),
+				$this->Allocataires->optionsSessionCommunautesr( 'Orientstruct' )
 			);
+
+			$options = $this->Tag->getValeursTag($options);
 
 			$this->set( compact( 'options' ) );
 		}

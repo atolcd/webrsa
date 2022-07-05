@@ -21,6 +21,13 @@
 	</ul>
 <?php endif;?>
 <?php
+	$paramDate = array(
+		'domain' => 'orientsstructs',
+		'minYear_from' => '2009',
+		'maxYear_from' => date( 'Y' ) + 1,
+		'minYear_to' => '2009',
+		'maxYear_to' => date( 'Y' ) + 4
+	);
 	// Formulaire
 	echo $this->Form->create( null, array( 'id' => 'Search', 'novalidate' => true ) );
 
@@ -33,6 +40,9 @@
 				'Search.Personne.nir' => array(  'label' => __d( 'personne', 'Personne.nir' ) ),
 				'Search.Adresse.numcom' => array( 'required' => false, 'label' => __d( 'adresse', 'Adresse.numcom' ) ),
 				'Search.Serviceinstructeur.id' => array( 'domain' => 'relancenonrespectsanctionep93', 'label' => __d( 'relancenonrespectsanctionep93', 'Serviceinstructeur.id' ) ),
+				'Search.Personne.trancheage' => array('label' => __d( 'personne', 'Personne.trancheage'), 'empty' => true, 'options' => Configure::read('Search.Options.enums.Personne.trancheage')),
+				'Search.Personne.trancheagesup' => array( 'label' => __d( 'personne', 'Personne.trancheagesup' ),'empty' => true, 'options' => Configure::read('Search.Options.enums.Personne.trancheagesup')),
+				'Search.Personne.trancheageprec' => array('label' => __d( 'personne', 'Personne.trancheageprec' ), 'empty' => true, 'options' => Configure::read('Search.Options.enums.Personne.trancheageprec')),
 			),
 			array(
 				'options' => $options
@@ -69,7 +79,86 @@
 
 	echo $this->Form->input( 'Search.Relance.numrelance', array( 'legend' => 'Type de relance à réaliser', 'type' => 'radio', 'options' => $options['Relancenonrespectsanctionep93']['numrelance'], 'value' => ( isset( $this->request->data['Search']['Relance']['numrelance'] ) ? @$this->request->data['Search']['Relance']['numrelance'] : 1 ) ) );
 
+	echo '<fieldset><legend>' . __d('orientsstructs', 'Orientstruct.search' ) . '</legend>'
+		. $this->Default3->subform(
+			array(
+				'Search.Orientstruct.derniere' => array( 'type' => 'checkbox' )
+			),
+			array( 'options' => array( 'Search' => $options ), 'domain' => 'orientsstructs' )
+		)
+		. $this->Default3->subform(
+			array(
+				'Search.Orientstruct.dernierevalid' => array( 'type' => 'checkbox' )
+			),
+			array( 'options' => array( 'Search' => $options ), 'domain' => 'orientsstructs' )
+		)
+		. $this->SearchForm->dateRange( 'Search.Orientstruct.date_valid', $paramDate )
+	;
+
+	echo $this->Default3->subform(
+		array(
+			'Search.Orientstruct.origine' => array('empty' => true),
+		),
+		array( 'options' => array( 'Search' => $options ), 'domain' => 'orientsstructs' )
+	);
+
+	echo $this->Default3->subform(
+			array(
+				'Search.Orientstruct.typeorient_id' => array('empty' => true, 'required' => false),
+			),
+			array( 'options' => array( 'Search' => $options ), 'domain' => 'orientsstructs' )
+		);
+
+	echo $this->Allocataires->communautesrSelect( 'Orientstruct', array( 'options' => array( 'Search' => $options ), 'label' => __d('orientsstructs', 'Search.Orientstruct.communautesr_id' ) ));
+
+	echo $this->Default3->subform(
+			array(
+				'Search.Orientstruct.structurereferente_id' => array('empty' => true, 'required' => false),
+				'Search.Orientstruct.statut_orient' => array('empty' => true, 'required' => false)
+			),
+			array( 'options' => array( 'Search' => $options ), 'domain' => 'orientsstructs' )
+		)
+		. '</fieldset>'
+	;
+
+
 	echo $this->Search->referentParcours( $structuresreferentesparcours, $referentsparcours, 'Search' );
+
+	?>
+		<fieldset>
+		<legend><?php echo __d('tag', 'Search.Tag.search_title') ?></legend>
+		<div class="input checkbox">
+			<input type="checkbox" name="data[Search][ByTag][tag_choice]" value="1" id="SearchByTagChoice" <?php echo isset ($this->request->data['Search']['ByTag']['tag_choice']) ? 'checked="checked"' : ''  ?> />
+			<label for="SearchByTagChoice"><?php echo __d('tag', 'Search.Tag.filter_title') ?></label>
+		</div>
+		<div id="SearchByTagFieldset">
+
+			<?php echo $this->Allocataires->SearchForm->dateRange( 'Search.Tag.created', array('domain' => 'dossiers') ); ?>
+
+			<div class="checkbox">
+				<input name="data[Search][Tag][exclusionValeur][]" value="1" id="SearchTagValeurtagExclusion" type="checkbox" <?php echo isset ($this->request->data['Search']['Tag']['exclusionValeur']) ? 'checked="checked"' : ''  ?> />
+				<label for="SearchTagValeurtagExclusion">Exclusion des valeurs</label>
+			</div>
+
+			<?php echo $this->Xform->multipleCheckbox('Search.Tag.valeurtag_id', $options); ?>
+
+			<div class="checkbox">
+				<input name="data[Search][Tag][exclusionEtat][]" value="1" id="SearchTagValeurtagEtat" type="checkbox" <?php echo isset ($this->request->data['Search']['Tag']['exclusionEtat']) ? 'checked="checked"' : ''  ?> />
+				<label for="SearchTagValeurtagEtat">Exclusion des états</label>
+			</div>
+
+			<?php echo $this->Xform->multipleCheckbox('Search.Tag.etat', $options); ?>
+
+		</div>
+	</fieldset>
+	<script type="text/javascript">
+	document.observe( 'dom:loaded', function() { try {
+		observeDisableFieldsetOnCheckbox( 'SearchByTagChoice', 'SearchByTagFieldset', false, true );
+	} catch( e ) {
+		console.error( e );
+	} } );
+	</script>
+<?php
 	echo $this->Search->paginationNombretotal( 'Search.Pagination.nombre_total' );
 	echo $this->Search->observeDisableFormOnSubmit( 'Search' );
 
