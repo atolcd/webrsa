@@ -5,7 +5,7 @@ BEGIN;
 -- *****************************************************************************
 
 -- Version du patch en BDD
-INSERT INTO versionpatchsql("version", created) VALUES ('4.23.4', CURRENT_TIMESTAMP);
+INSERT INTO versionpatchsql("version", created) VALUES ('4.24.0', CURRENT_TIMESTAMP);
 
 --Modification de la taille du champ libelle
 ALTER TABLE public.criteresalgorithmeorientation ALTER COLUMN libelle TYPE varchar(500) USING libelle::varchar;
