@@ -150,7 +150,7 @@ echo '<ul class="actionMenu center">'
             },
         },
         legend: {
-            visible : true,
+            visible : false,
             showCheckbox: false,
             align: 'bottom',
         },

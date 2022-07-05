@@ -120,7 +120,7 @@ echo $this->Default3->actions( $actions );
             },
         },
         legend: {
-            visible : true,
+            visible : false,
             showCheckbox: false,
             align: 'bottom',
         },
