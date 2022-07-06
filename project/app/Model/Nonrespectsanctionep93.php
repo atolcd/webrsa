@@ -673,7 +673,7 @@
 			}
 
 			foreach( $pathsToExplode as $path ) {
-				$value = isset($search[$path]) ? suffix($search[$path]) : null;
+				$value = isset($search[$path]) ? $search[$path] : null;
 				if( $value !== null && $value !== '' && strpos($value, '_') > 0 ) {
 					list(,$value) = explode('_', $value);
 					$conditions[$path] = $value;
@@ -686,6 +686,13 @@
 
 			$queryData['conditions'] = $this->conditionsPersonneFoyerDossier( $queryData['conditions'], $datas );
 			$queryData['conditions'] = $this->conditionsAdresse( $queryData['conditions'], $datas, $filtre_zone_geo, $mesCodesInsee );
+
+			$queryData['conditions'] = $this->conditionCommunautesr(
+				$queryData['conditions'],
+				Hash::expand($search),
+				array( 'Orientstruct.communautesr_id' => 'Orientstruct.structurereferente_id' )
+			);
+
 
 			$qdRadies = $modeleHistoriqueetatpe->Informationpe->qdRadies();
 			$queryData['fields'] = array_merge( $queryData['fields'], $qdRadies['fields'] );

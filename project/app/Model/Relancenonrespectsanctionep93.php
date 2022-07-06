@@ -654,7 +654,8 @@
 					'Orientstruct.date_valid_to.day',
 					'Orientstruct.date_valid_to.month',
 					'Orientstruct.date_valid_to.year',
-					'Orientstruct.date_valid'
+					'Orientstruct.date_valid',
+					'Orientstruct.communautesr_id'
 				],
 				$paths,
 				$pathsToExplode
@@ -704,7 +705,7 @@
 			}
 
 			foreach( $pathsToExplode as $path ) {
-				$value = isset($search[$path]) ? suffix($search[$path]) : null;
+				$value = isset($search[$path]) ? $search[$path] : null;
 				if( $value !== null && $value !== '' && strpos($value, '_') > 0 ) {
 					list(,$value) = explode('_', $value);
 					$conditions[$path] = $value;
@@ -765,6 +766,12 @@
 					$conditions[$field] = $condition;
 				}
 			}
+
+			$conditions = $this->conditionCommunautesr(
+				$conditions,
+				Hash::expand($search),
+				array( 'Orientstruct.communautesr_id' => 'Orientstruct.structurereferente_id' )
+			);
 
 			/// Dossiers lockés
 			if( !empty( $lockedDossiers ) ) {
@@ -1148,7 +1155,8 @@
 					'Orientstruct.date_valid_to.day',
 					'Orientstruct.date_valid_to.month',
 					'Orientstruct.date_valid_to.year',
-					'Orientstruct.date_valid'
+					'Orientstruct.date_valid',
+					'Orientstruct.communautesr_id'
 				],
 				$paths,
 				$pathsToExplode
@@ -1198,7 +1206,7 @@
 			}
 
 			foreach( $pathsToExplode as $path ) {
-				$value = isset($search[$path]) ? suffix($search[$path]) : null;
+				$value = isset($search[$path]) ? $search[$path] : null;
 				if( $value !== null && $value !== '' && strpos($value, '_') > 0 ) {
 					list(,$value) = explode('_', $value);
 					$conditions[$path] = $value;
@@ -1243,6 +1251,13 @@
 					$conditions[$field] = $condition;
 				}
 			}
+
+			$conditions = $this->conditionCommunautesr(
+				$conditions,
+				Hash::expand($search)['Search'],
+				array( 'Orientstruct.communautesr_id' => 'Orientstruct.structurereferente_id' )
+			);
+
 
 			$joins = array(
 				array(
