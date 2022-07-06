@@ -39,7 +39,7 @@
 	 */
 	function patch_version() {
 		$db = ConnectionManager::getDataSource('default');
-		$query = 'SELECT "version" FROM versionpatchsql ORDER BY created DESC LIMIT 1';
+		$query = 'SELECT "version" FROM versionpatchsql ORDER BY created DESC, id DESC LIMIT 1';
 
 		$version = $db->query($query);
 		return $version[0][0]['version'];
