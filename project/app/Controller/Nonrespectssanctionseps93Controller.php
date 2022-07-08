@@ -372,6 +372,23 @@
 
 			if( !empty( $this->request->data ) ) {
 
+				foreach ($this->request->data['Search']['Tag']['etat'] as $key => $value){
+					if($value == '0') {
+						unset($this->request->data['Search']['Tag']['etat'][$key]);
+					}
+				}
+				foreach ($this->request->data['Search']['Tag']['valeurtag_id'] as $key => $value){
+					if($value == '0') {
+						unset($this->request->data['Search']['Tag']['valeurtag_id'][$key]);
+					}
+				}
+				if(empty($this->request->data['Search']['Tag']['etat'])){
+					unset($this->request->data['Search']['Tag']['etat']);
+				}
+				if(empty($this->request->data['Search']['Tag']['valeurtag_id'])){
+					unset($this->request->data['Search']['Tag']['valeurtag_id']);
+				}
+
 				if ( isset( $this->request->data['Historiqueetatpe'] ) ) {
 					//Stockage des données dans les dossiers EPs
 					$success = true;

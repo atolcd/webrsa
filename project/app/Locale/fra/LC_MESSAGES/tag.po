@@ -48,3 +48,9 @@ msgstr "Rechercher par tag"
 
 msgid "Search.Tag.filter_title"
 msgstr "Filtrer par tag"
+
+msgid "Search.Tag.exclusionValeur"
+msgstr "Exclusion des valeurs"
+
+msgid "Search.Tag.exclusionEtat"
+msgstr "Exclusion des états"

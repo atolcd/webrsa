@@ -261,6 +261,16 @@
 			if( !empty( $this->request->data ) ) {
 				$this->request->data = Hash::expand( $this->request->data );
 				$search = $this->request->data['Search'];
+				foreach ($search['Tag']['etat'] as $key => $value){
+					if($value == '0') {
+						unset($search['Tag']['etat'][$key]);
+					}
+				}
+				foreach ($search['Tag']['valeurtag_id'] as $key => $value){
+					if($value == '0') {
+						unset($search['Tag']['valeurtag_id'][$key]);
+					}
+				}
 
 				$mesZonesGeographiques = $this->Session->read( 'Auth.Zonegeographique' );
 				$mesCodesInsee = ( !empty( $mesZonesGeographiques ) ? $mesZonesGeographiques : array() );
@@ -474,6 +484,17 @@
 				$mesCodesInsee = ( !empty( $mesZonesGeographiques ) ? $mesZonesGeographiques : array() );
 
 				$search = $this->request->data;
+				foreach ($search['Search']['Tag']['etat'] as $key => $value){
+					if($value == '0') {
+						unset($search['Search']['Tag']['etat'][$key]);
+					}
+				}
+				foreach ($search['Search']['Tag']['valeurtag_id'] as $key => $value){
+					if($value == '0') {
+						unset($search['Search']['Tag']['valeurtag_id'][$key]);
+					}
+				}
+
 				unset( $search['Search']['Pagination'] );
 
 				$queryData = $this->Relancenonrespectsanctionep93->qdSearchRelances(
