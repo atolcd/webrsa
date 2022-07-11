@@ -372,6 +372,10 @@
 
 			if( !empty( $this->request->data ) ) {
 
+				if(!isset($this->request->data['Search']['ByTag']['tag_choice']) || $this->request->data['Search']['ByTag']['tag_choice'] == 0) {
+					unset($this->request->data['Search']['Tag']);
+				}
+
 				if(!empty($this->request->data['Search']['Tag']['etat'])){
 					foreach ($this->request->data['Search']['Tag']['etat'] as $key => $value){
 						if($value == '0') {

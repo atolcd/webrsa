@@ -261,6 +261,10 @@
 			if( !empty( $this->request->data ) ) {
 				$this->request->data = Hash::expand( $this->request->data );
 				$search = $this->request->data['Search'];
+				if(!isset($search['ByTag']['tag_choice']) || $search['ByTag']['tag_choice'] == 0) {
+					unset($search['Tag']);
+					unset($this->request->data['Search']['Tag']);
+				}
 				if(!empty($search['Tag']['etat'])){
 					foreach ($search['Tag']['etat'] as $key => $value){
 						if($value == '0') {
@@ -487,6 +491,9 @@
 				$mesZonesGeographiques = $this->Session->read( 'Auth.Zonegeographique' );
 				$mesCodesInsee = ( !empty( $mesZonesGeographiques ) ? $mesZonesGeographiques : array() );
 
+				if(!isset($this->request->data['Search']['ByTag']['tag_choice']) || $this->request->data['Search']['ByTag']['tag_choice'] == 0) {
+					unset($this->request->data['Search']['Tag']);
+				}
 				$search = $this->request->data;
 				if(!empty($search['Search']['Tag']['etat'])){
 					foreach ($search['Search']['Tag']['etat'] as $key => $value){
