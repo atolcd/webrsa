@@ -614,8 +614,8 @@
 			if (isset ($search['Tag']['etat'])) {
 				$etat = $search['Tag']['etat'];
 			}
-			$exclusionValeur = isset ($search['Tag']['exclusionValeur']) ? true : false;
-			$exclusionEtat = isset ($search['Tag']['exclusionEtat']) ? true : false;
+			$exclusionValeur = (isset ($search['Tag']['exclusionValeur']) && $search['Tag']['exclusionValeur']) ? true : false;
+			$exclusionEtat = (isset ($search['Tag']['exclusionEtat']) && $search['Tag']['exclusionEtat']) ? true : false;
 			$createdFrom =  null;
 			$createdTo = null;
 			if (isset ($search['Tag']['created']) && $search['Tag']['created'] === '1') {
@@ -1113,8 +1113,8 @@
 			if (isset ($search['Search']['Tag']['etat'])) {
 				$etat = $search['Search']['Tag']['etat'];
 			}
-			$exclusionValeur = isset ($search['Search']['Tag']['exclusionValeur']) ? true : false;
-			$exclusionEtat = isset ($search['Search']['Tag']['exclusionEtat']) ? true : false;
+			$exclusionValeur = (isset ($search['Search']['Tag']['exclusionValeur']) && $search['Search']['Tag']['exclusionValeur']) ? true : false;
+			$exclusionEtat = (isset ($search['Search']['Tag']['exclusionEtat']) && $search['Search']['Tag']['exclusionEtat']) ? true : false;
 			$createdFrom =  null;
 			$createdTo = null;
 			if (isset ($search['Search']['Tag']['created']) && $search['Search']['Tag']['created'] === '1') {

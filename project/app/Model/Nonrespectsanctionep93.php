@@ -632,8 +632,8 @@
 			if (isset ($datas['Tag']['etat'])) {
 				$etat = $datas['Tag']['etat'];
 			}
-			$exclusionValeur = isset ($datas['Tag']['exclusionValeur']) ? true : false;
-			$exclusionEtat = isset ($datas['Tag']['exclusionEtat']) ? true : false;
+			$exclusionValeur = (isset ($datas['Tag']['exclusionValeur']) && $datas['Tag']['exclusionValeur']) ? true : false;
+			$exclusionEtat = (isset ($datas['Tag']['exclusionEtat']) && $datas['Tag']['exclusionEtat']) ? true : false;
 			$createdFrom =  null;
 			$createdTo = null;
 			if (isset ($datas['Tag']['created']) && $datas['Tag']['created'] === '1') {

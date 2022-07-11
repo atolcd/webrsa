@@ -372,14 +372,18 @@
 
 			if( !empty( $this->request->data ) ) {
 
-				foreach ($this->request->data['Search']['Tag']['etat'] as $key => $value){
-					if($value == '0') {
-						unset($this->request->data['Search']['Tag']['etat'][$key]);
+				if(!empty($this->request->data['Search']['Tag']['etat'])){
+					foreach ($this->request->data['Search']['Tag']['etat'] as $key => $value){
+						if($value == '0') {
+							unset($this->request->data['Search']['Tag']['etat'][$key]);
+						}
 					}
 				}
-				foreach ($this->request->data['Search']['Tag']['valeurtag_id'] as $key => $value){
-					if($value == '0') {
-						unset($this->request->data['Search']['Tag']['valeurtag_id'][$key]);
+				if(!empty($this->request->data['Search']['Tag']['valeurtag_id'])){
+					foreach ($this->request->data['Search']['Tag']['valeurtag_id'] as $key => $value){
+						if($value == '0') {
+							unset($this->request->data['Search']['Tag']['valeurtag_id'][$key]);
+						}
 					}
 				}
 				if(empty($this->request->data['Search']['Tag']['etat'])){
