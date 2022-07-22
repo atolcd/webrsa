@@ -760,7 +760,7 @@
 				}
 				else if( ( $field == 'Dossiercaf.nomtitulaire' || $field == 'Dossiercaf.prenomtitulaire' ) && !empty( $condition ) ) {
 					$field = preg_replace( '/^Dossiercaf\.(.*)titulaire$/', '\1', $field );
-					$conditions["UPPER({$field}) LIKE"] = $this->wildcard( strtoupper( replace_accents( $condition ) ) );
+					$conditions["UPPER(Personne.{$field}) LIKE"] = $this->wildcard( strtoupper( replace_accents( $condition ) ) );
 				}
 				else if( !in_array( $field, array_merge(array( 'Relance.numrelance', 'Relance.contrat', 'Relance.compare0', 'Relance.compare1', 'Relance.nbjours0', 'Relance.nbjours1', 'PersonneReferent.referent_id', 'PersonneReferent.structurereferente_id' ), $pathsOrient )) ) {
 					$conditions[$field] = $condition;
