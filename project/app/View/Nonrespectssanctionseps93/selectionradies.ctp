@@ -63,7 +63,7 @@
 
 	echo $this->Default3->subform(
 			array(
-				'Search.Orientstruct.structurereferente_id' => array('empty' => true, 'required' => false),
+				'Search.Orientstruct.structurereferente_id' => array('empty' => true, 'required' => false, 'options' => $structuresreferentes),
 				'Search.Orientstruct.statut_orient' => array('empty' => true, 'required' => false)
 			),
 			array( 'options' => $options, 'domain' => 'orientsstructs' )

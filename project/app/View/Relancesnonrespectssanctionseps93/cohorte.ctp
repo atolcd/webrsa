@@ -121,6 +121,12 @@
 		. '</fieldset>'
 	;
 
+	echo $this->Observer->dependantSelect(
+		array(
+			'Search.Orientstruct.typeorient_id' => 'Search.Orientstruct.structurereferente_id'
+		)
+	);
+
 
 	echo $this->Search->referentParcours( $structuresreferentesparcours, $referentsparcours, 'Search' );
 	?>

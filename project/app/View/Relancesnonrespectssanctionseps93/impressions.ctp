@@ -120,6 +120,12 @@
 		. '</fieldset>';
 
 	echo $this->Search->referentParcours( $structuresreferentesparcours, $referentsparcours, 'Search' );
+
+	echo $this->Observer->dependantSelect(
+		array(
+			'Orientstruct.typeorient_id' => 'Orientstruct.structurereferente_id'
+		)
+	);
 ?>
 <fieldset>
 		<legend><?php echo __d('tag', 'Search.Tag.search_title') ?></legend>
