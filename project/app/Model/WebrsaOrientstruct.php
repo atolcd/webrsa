@@ -1138,8 +1138,8 @@
 					"Rendezvous.personne_id" => $orientstruct['Personne']['id']
 				),
 				'order' => array(
-					'Rendezvous.daterdv',
-					'Rendezvous.heurerdv'
+					'Rendezvous.daterdv desc',
+					'Rendezvous.heurerdv desc'
 				)
 			));
 
