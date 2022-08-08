@@ -332,4 +332,18 @@
 		form = form[0];
 		<?php if( isset( $relances ) ):?>$( form ).hide();<?php endif;?>
 	});
+    observeDisableFieldsOnCheckbox(
+        'OrientstructDerniere',
+        [
+            'OrientstructDernierevalid',
+        ],
+        true
+    );
+    observeDisableFieldsOnCheckbox(
+        'OrientstructDernierevalid',
+        [
+            'OrientstructDerniere',
+        ],
+        true
+    );
 </script>
