@@ -325,6 +325,7 @@
 
 					$this->Orientstruct->create( $orientstruct );
 					$success = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
+					$this->Orientstruct->forceRecalculeRang ($orientstruct);
 
 					// Mise à jour de l'enregistrement de la thématique avec l'id de la nouvelle orientation
 					$success = $success && $this->updateAllUnBound(
