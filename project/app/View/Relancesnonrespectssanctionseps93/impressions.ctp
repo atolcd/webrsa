@@ -57,8 +57,6 @@
 		$this->Default2->subform(
 			array(
 				'Dossier.matricule',
-				'Dossiercaf.nomtitulaire',
-				'Dossiercaf.prenomtitulaire',
 				'Nonrespectsanctionep93.origine' => array( 'label' => 'Présence contrat', 'type' => 'radio', 'options' => array( 'orientstruct' => 'Non', 'contratinsertion' => 'Oui' ), 'required' => false ),
 			)
 		)

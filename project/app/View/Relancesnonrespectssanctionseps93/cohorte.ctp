@@ -54,8 +54,6 @@
 		$this->Default2->subform(
 			array(
 				'Search.Dossier.matricule' => array(  'label' => __d( 'dossier', 'Dossier.matricule' ) ),
-				'Search.Dossiercaf.nomtitulaire' => array(  'label' => __d( 'dossiercaf', 'Dossiercaf.nomtitulaire' ) ),
-				'Search.Dossiercaf.prenomtitulaire' => array(  'label' => __d( 'dossiercaf', 'Dossiercaf.prenomtitulaire' ) ),
 			)
 		)
 	);
