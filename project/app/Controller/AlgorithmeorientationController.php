@@ -1001,7 +1001,7 @@
 				p.id as personne_id,
 				(case when dr.id is not null and dr.hispro = '1904' then true when dr.id is null and d.hispro = '1904' then true else false end) as JAMAIS_TRAVAILLE,
 				( CASE WHEN dr.id IS NOT NULL THEN (dr.topengdemarechemploi = '1' and dr.topengdemarechemploi is not null) ELSE (d.topengdemarechemploi = '1' and d.topengdemarechemploi is not null) END ) AS ENGAGEMENT_RAPIDE_EMPLOI,
-				bool_or(det.id is not null) or bool_or(detr.id is not null) as DIFFICULTES_SOC,
+				(case when dr.id is not null then (not(array_agg(distinct detr.difsoc::text) @> array['0401']) and bool_or(detr.id is not null)) else (not(array_agg(distinct det.difsoc::text) @> array['0401']) and bool_or(det.id is not null)) end) as DIFFICULTES_SOC,
 				(case when dr.id is not null then (array_agg(distinct detr.difsoc::text) = array['0404']) else (array_agg(distinct det.difsoc::text) = array['0404']) end) as DIFFICULTES_FRANCAIS,
 				(case when dr.id is not null then (dr.natlog is not null and dr.natlog in ({$variablesRequete['natlog']})) else (d.natlog is not null and d.natlog in ({$variablesRequete['natlog']})) end) as type_logement_urgence
 			FROM personnes p
