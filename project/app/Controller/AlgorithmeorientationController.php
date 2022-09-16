@@ -39,7 +39,9 @@
 			'Typeorient',
 			'Communautesr',
 			'CommunautesrStructurereferente',
-			'Rendezvous'
+			'Rendezvous',
+			'Tag',
+			'EntiteTag'
 		);
 
 
@@ -449,6 +451,7 @@
 				//récupération des types d'orientations
 				$id_type_orient_pe = Configure::read('Typeorient.emploi_id');
 				$id_type_orient_ss = Configure::read('Typeorient.service_social_id');
+				$valeurtag_id = Configure::read('Module.AlgorithmeOrientation.TagDepassement');
 				$lib_type_orient_pe = $this->Typeorient->find('first', ['conditions' => ['Typeorient.id' => $id_type_orient_pe]])['Typeorient']['lib_type_orient'];
 				$lib_type_orient_ss = $this->Typeorient->find('first', ['conditions' => ['Typeorient.id' => $id_type_orient_ss]])['Typeorient']['lib_type_orient'];
 
@@ -474,6 +477,7 @@
 									$orientations[$key]['orientation']['structure_libelle'] = $orientation['orientation']['pe_proximite_libelle'];
 									$orientations[$key]['orientation']['type_orient_enfant_id'] = $id_type_orient_pe;
 									$orientations[$key]['orientation']['lib_type_orient'] = $lib_type_orient_pe;
+									$orientations[$key]['orientation']['valeurtag_id'] = $valeurtag_id;
 								}
 							}
 							break;
@@ -486,6 +490,7 @@
 									$orientations[$key]['orientation']['structure_libelle'] = $orientation['orientation']['ss_proximite_libelle'];
 									$orientations[$key]['orientation']['type_orient_enfant_id'] = $id_type_orient_ss;
 									$orientations[$key]['orientation']['lib_type_orient'] = $lib_type_orient_ss;
+									$orientations[$key]['orientation']['valeurtag_id'] = $valeurtag_id;
 								}
 							}
 							break;
@@ -571,6 +576,7 @@
 			$user_id = $this->Session->read('Auth.User.id');
 			//on enregistre toutes les orientations
 			$data = [];
+			$data_tags = [];
 			$delete_ids = [];
 			foreach($orientations as $orientation){
 				$data[] = [
@@ -583,11 +589,28 @@
 					'origine' => 'cohorte',
 				];
 
+				if($orientation['Propositionorientation']['valeurtag_id'] != null){
+					$data_tags[] = [
+						'EntiteTag' => [
+							'modele' => 'Personne',
+							'fk_value' => $orientation['Personne']['id'],
+							'Tag' => [
+								'valeurtag_id' => $orientation['Propositionorientation']['valeurtag_id'],
+								'etat' => 'traite'
+							]
+						]
+					];
+				}
+
 				$delete_ids[] = $orientation['Orientstruct']['id'];
 			}
 
 			//On désactive l'after save pour ne pas faire le recalcul du rang
 			$success = $this->Orientstruct->saveAll($data, ['validate' => false, 'callbacks' => 'before']);
+
+			//On enregistre les tags associés
+			$success = $success && $this->EntiteTag->saveAll($data_tags, array('deep' => true));
+
 
 			//on supprime les orientations non orienté (sauf si on est en mode debug)
 			if(Configure::read('debug') != 2){
@@ -688,6 +711,7 @@
 			$poleemploi = array_values($poleemploi);
 			$servicesocial = array_values($servicesocial);
 			$orientation['critere_id'] = $criteres[$index_critere]['Criterealgorithmeorientation']['id'];
+			$orientation['valeurtag_id'] = $criteres[$index_critere]['Criterealgorithmeorientation']['valeurtag_id'];
 			$orientation['type_orient_enfant_id'] = $structure[0]['Structurereferente']['typeorient_id'];
 			$orientation['lib_type_orient'] = $typesorient[$structure[0]['Structurereferente']['typeorient_id']];
 			$orientation['structure_id'] = $structure[0]['Structurereferente']['id'];
