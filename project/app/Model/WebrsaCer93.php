@@ -101,7 +101,8 @@
 			$results = array();
 
 			if( in_array( 'ajoutPossible', $params ) ) {
-				$results['ajoutPossible'] = $this->ajoutPossible( $personne_id );
+				$results['ajoutPossible'] = $this->ajoutPossible( $personne_id ) 
+					&& $this->Cer93->Contratinsertion->Personne->PersonneReferent->hasReferent($personne_id);
 			}
 
 			return $results;

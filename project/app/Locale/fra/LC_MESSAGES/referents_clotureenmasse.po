@@ -11,7 +11,7 @@ msgstr ""
 # ==============================================================================
 
 msgid "/Referents/clotureenmasse/:heading"
-msgstr "Clôture référents"
+msgstr "Clôture de la personne chargée du suivi"
 
 msgid "/Referents/add"
 msgstr "Ajouter"

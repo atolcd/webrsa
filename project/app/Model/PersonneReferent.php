@@ -458,5 +458,19 @@
 
 			return true;
 		}
+
+		/**
+		 * Vérification qu'une personne a un bien un référent d'affecter
+		 * @param int personne_id
+		 * @return boolean
+		 */
+		public function hasReferent($personne_id) {
+			return !empty($this->find('first', [
+				'conditions' => array(
+					'PersonneReferent.personne_id' => $personne_id,
+					'PersonneReferent.dfdesignation is null'
+				)
+			]));
+		}
 	}
 ?>

@@ -1927,10 +1927,10 @@ msgid "controllers/PersonnesReferents/cloturer"
 msgstr "Clôturer le référent"
 
 msgid "controllers/PersonnesReferents/cohorte_affectation93"
-msgstr "Workflow CER (CD 93): affectation d'un référent"
+msgstr "Workflow CER (CD 93): affectation de la personne chargée du suivi"
 
 msgid "controllers/PersonnesReferents/exportcsv_affectation93"
-msgstr "Workflow CER (CD 93): affectation d'un référent - télécharger le tableau"
+msgstr "Workflow CER (CD 93): affectation de la personne chargée du suivi - télécharger le tableau"
 
 ###############################################################################
 

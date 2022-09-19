@@ -11,7 +11,7 @@ msgstr ""
 # ==============================================================================
 
 msgid "/PersonnesReferents/cohorte_affectation93/:heading"
-msgstr "1. Affectation d'un référent"
+msgstr "1. Affectation de la personne chargée du suivi"
 
 msgid "Adresse.nomcom"
 msgstr "Commune"
