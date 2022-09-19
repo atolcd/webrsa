@@ -339,6 +339,7 @@
 					$this->Orientstruct->Behaviors->disable( 'StorablePdf' );
 					$this->Orientstruct->create( $orientstruct );
 					$success = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
+					$this->Orientstruct->forceRecalculeRang ($orientstruct);
 					$this->Orientstruct->Behaviors->enable( 'StorablePdf' );
 
 					if( !empty( $this->Orientstruct->validationErrors ) ) {
