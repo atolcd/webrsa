@@ -176,10 +176,12 @@
 						'Zonegeographique.codeinsee'
 					),
 					'joins' => array(
-						$this->Structurereferente->StructurereferenteZonegeographique->join( 'Zonegeographique', array( 'type' => 'INNER' ) )
+						$this->Structurereferente->StructurereferenteZonegeographique->join( 'Zonegeographique', array( 'type' => 'INNER' ) ),
+						$this->Structurereferente->StructurereferenteZonegeographique->join( 'Structurereferente', array( 'type' => 'INNER' ) )
 					),
 					'contain' => false,
-					'order' => array( 'Zonegeographique.codeinsee' )
+					'order' => array( 'Zonegeographique.codeinsee', 'Structurereferente.typeorient_id' ),
+					'conditions' => ['Structurereferente.actif' => 'O']
 				);
 				$tmp = $this->Structurereferente->StructurereferenteZonegeographique->find( 'all', $query );
 

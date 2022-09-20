@@ -156,7 +156,8 @@
 						'Orientstruct.typeorient_id',
 						'Adressefoyer.id',
 						'Adresse.numcom',
-						'VxAdressefoyer.id'
+						'VxAdressefoyer.id',
+						'Structurereferente.typeorient_id'
 					),
 					$query['fields'],
 					array_words_replace(

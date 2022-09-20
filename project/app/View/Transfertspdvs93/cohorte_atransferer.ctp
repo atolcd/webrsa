@@ -49,8 +49,10 @@
 <script type="text/javascript">
 	var cohorteFormId = '<?php echo $cohorteFormId;?>',
 		structuresreferentesParTypeorientId = <?php echo json_encode( Hash::get( $options, 'Structurereferente.listeParTypeorientId' ) );?>,
+		structuresreferentesParCodeInsee = <?php echo json_encode( Hash::get( $options, 'Structurereferente.listeParCodeInseeFormat' ) );?>,
 		zonesgeographiques = <?php echo json_encode( Hash::get( $options, 'Structurereferente.listeParCodeInsee' ) );?>,
-		typesorientsprincipales = <?php echo json_encode( (array)Configure::read( 'Orientstruct.typeorientprincipale' ) );?>,
+		typesorients = <?php echo json_encode( Hash::get( $options, 'Orientstruct.typeorient_id' ) );?>,
+		allStructures = <?php echo json_encode( Hash::get( $options, 'Structurereferente.all' ) );?>,
 		liveCache = {},
 		structurespartypeorientetcodeinsee = {};
 
@@ -59,9 +61,9 @@
 	for( var keyzg in zonesgeographiques ) {
 		if( zonesgeographiques.hasOwnProperty( keyzg ) ) {
 			structurespartypeorientetcodeinsee[keyzg] = {};
-			for( var keytype in typesorientsprincipales ) {
-				if( typesorientsprincipales.hasOwnProperty( keytype ) ) {
-					var typeorient_id = typesorientsprincipales[keytype];
+			for( var keytype in typesorients ) {
+				if( typesorients.hasOwnProperty( keytype ) ) {
+					var typeorient_id = Object.keys(typesorients[keytype])[0];
 					structurespartypeorientetcodeinsee[keyzg][typeorient_id] = [];
 					structurespartypeorientetcodeinsee[keyzg][keytype] = [];
 					var length = zonesgeographiques[keyzg].length;
@@ -80,56 +82,29 @@
 	//--------------------------------------------------------------------------
 
 	function reduceAndSelect(index, numcom, typeorient_id, selected) {
-		var isSocioprofessionnelle = 'undefined' !== typeof typesorientsprincipales['Socioprofessionnelle']
-			&& in_array(
-				typeorient_id,
-				typesorientsprincipales['Socioprofessionnelle']
-			),
-			codeinseeHasTypeorient = 'undefined' !== typeof structurespartypeorientetcodeinsee[numcom]
+		var	codeinseeHasTypeorient = 'undefined' !== typeof structurespartypeorientetcodeinsee[numcom]
 				&& 'undefined' !== typeof structurespartypeorientetcodeinsee[numcom][typeorient_id]
 				&& structurespartypeorientetcodeinsee[numcom][typeorient_id].length > 0,
 			structuresLigne = {}, options = '', label, i, length, id, sorted = [];
 
 		// Si on n'a pas encore de live cache pour le code INSEE et le type d'orientation
 		if( 'undefined' === typeof liveCache[numcom] || 'undefined' === typeof liveCache[numcom][typeorient_id] ) {
-			// Si on possède des structures référentes pour le type d'orientation
-			if('undefined' !== typeof structuresreferentesParTypeorientId[typeorient_id]) {
-				options = '<option value=""> </option>';
-
-				structuresLigne = Object.clone( structuresreferentesParTypeorientId[typeorient_id] );
-
-				// Amélioration #6259: dans la cohorte des allocataires à transférer, ajout des structures référentes de type "Emploi" dans la liste déroulante s'il n'existe pas de structure Socioprofesionnelle oeuvrant sur le code INSEE de la nouvelle adresse de l'allocataire
-				if( true === isSocioprofessionnelle && false === codeinseeHasTypeorient ) {
-					length = typesorientsprincipales['Emploi'].length;
-					for( i = 0 ; i < length ; i++ ) {
-						id = typesorientsprincipales['Emploi'][i];
-						if( 'undefined' !== typeof structuresreferentesParTypeorientId[id] ) {
-							for( var key in structuresreferentesParTypeorientId[id] ) {
-								if( structuresreferentesParTypeorientId[id].hasOwnProperty( key ) ) {
-									structuresLigne[key] = structuresreferentesParTypeorientId[id][key];
-								}
-							}
-						}
-					}
-				}
-
-				// On trie sur l'intitulé pour construire la liste déroulante
-				for( var key in structuresLigne ) {
-					if( structuresLigne.hasOwnProperty( key ) ) {
-						sorted.push( [key, structuresLigne[key]] );
-					}
-				}
-				sorted = sorted.sort(
-					function(a,b) {
-						return a[1].localeCompare(b[1], 'fr');
-					}
-				);
+			options = '<option value=""> </option>';
+			// Si on possède des structures référentes pour le code insee
+			if('undefined' !== typeof structuresreferentesParCodeInsee[numcom]) {
+				structuresLigne = Object.clone( structuresreferentesParCodeInsee[numcom] );
+			} else {
+				structuresLigne = Object.clone( allStructures );
+			}
 
 				// Remplissage de la liste d'options
-				length = sorted.length;
-				for( i = 0; i < length; i++ ) {
-					label = sorted[i][1].escapeHTML();
-					options += '<option value="' + sorted[i][0] + '" title="' + label.replace('"', '&quot;') + '">' + label + '</option>';
+				for(var group in structuresLigne) {
+					options += '<optgroup label="' + group + '">';
+					for(var struct in structuresLigne[group]) {
+						label = structuresLigne[group][struct].escapeHTML();
+						options += '<option value="' + struct + '" title="' + label.replace('"', '&quot;') + '">' + label + '</option>';
+					}
+					options += '</optgroup>';
 				}
 
 				// Population du cache
@@ -137,27 +112,18 @@
 					liveCache[numcom] = {};
 				}
 				liveCache[numcom][typeorient_id] = options;
-			}
+
 		}
 
 		if( 'undefined' !== typeof liveCache[numcom] && 'undefined' !== typeof liveCache[numcom][typeorient_id] ) {
 			$( 'Cohorte' + index + 'Transfertpdv93StructurereferenteDstId' ).innerHTML = liveCache[numcom][typeorient_id];
 		}
 
-		// Pré-sélection en fonction du code INSEE
+		// Pré-sélection en fonction du type d'orientation
 		if( '' === selected ) {
 			// Si le code INSEE a au moins une structure référente pour l'orientation
 			if( codeinseeHasTypeorient ) {
 				selected = structurespartypeorientetcodeinsee[numcom][typeorient_id][0];
-			}
-			// Sinon, si on est en Socioprofessionnelle et que le code INSEE comporte au moins une structure en Emploi
-			else if(
-				isSocioprofessionnelle
-				&& 'undefined' !== typeof structurespartypeorientetcodeinsee[numcom]
-				&& 'undefined' !== structurespartypeorientetcodeinsee[numcom]['Emploi']
-				&& structurespartypeorientetcodeinsee[numcom]['Emploi'].length > 0
-			) {
-				selected = structurespartypeorientetcodeinsee[numcom]['Emploi'][0];
 			}
 		}
 
@@ -178,7 +144,7 @@
 				reduceAndSelect(
 					<?php echo $index;?>,
 					'<?php echo $results[$index]['Adresse']['numcom'];?>',
-					'<?php echo $results[$index]['Orientstruct']['typeorient_id'];?>',
+					'<?php echo $results[$index]['Structurereferente']['typeorient_id'];?>',
 					'<?php echo Hash::get($this->request->data, "Cohorte.{$index}.Transfertpdv93.structurereferente_dst_id");?>'
 				);
 			} catch( exception ) {
