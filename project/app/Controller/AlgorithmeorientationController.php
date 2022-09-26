@@ -1019,7 +1019,7 @@
 
 			$sql = "
 			--Dernière version de révision des DSP
-			with DernierDspRev as (SELECT id, personne_id, rank() over(partition by personne_id order by modified desc) as rang FROM dsps_revs where personne_id in ({$liste_ids}) order by personne_id) ,
+			with DernierDspRev as (SELECT id, personne_id, rank() over(partition by personne_id order by modified desc, id desc) as rang FROM dsps_revs where personne_id in ({$liste_ids}) order by personne_id) ,
 			-- DSP
 			DSP as (select
 				p.id as personne_id,
@@ -1042,7 +1042,7 @@
 				d.hispro,
 				d.natlog
 			),
-			DernierHistoriquePE as (select id, etat, informationpe_id , rank() over(partition by informationpe_id order by date desc) as rang from historiqueetatspe),
+			DernierHistoriquePE as (select id, etat, informationpe_id , rank() over(partition by informationpe_id order by date desc, id desc) as rang from historiqueetatspe),
 			HistoriquePEDerniersMois as (select informationpe_id, (historiqueetatspe.id is not null and array_agg(historiqueetatspe.etat::text) over (partition by historiqueetatspe.informationpe_id) @> array['inscription']) as INSCRIT_PE_DERNIERS_MOIS from historiqueetatspe where historiqueetatspe.\"date\" BETWEEN '{$datedebut}' AND '{$datefin}' group by historiqueetatspe.informationpe_id, historiqueetatspe.id )
 			select
 				distinct p.id as id_personne,
