@@ -156,3 +156,19 @@
     }
 }
 ?>
+<script type="text/javascript">
+    observeDisableFieldsOnCheckbox(
+        'SearchOrientstructDerniere',
+        [
+            'SearchOrientstructDernierevalid',
+        ],
+        true
+    );
+    observeDisableFieldsOnCheckbox(
+        'SearchOrientstructDernierevalid',
+        [
+            'SearchOrientstructDerniere',
+        ],
+        true
+    );
+</script>

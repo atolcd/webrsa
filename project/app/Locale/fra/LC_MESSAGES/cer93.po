@@ -266,3 +266,6 @@ msgstr "La date de début de contrat doit être comprise entre le %s et le %s"
 
 msgid "Cer93.errorEtatCivil"
 msgstr "Attention, le(s) champ(s) %s ne sont pas remplis. Merci de modifier l'adresse pour ajouter un CER"
+
+msgid "Cer93.errorReferent"
+msgstr "La saisie d'un référent dans le dossier allocataire (via le menu \"personne chargée du suivi\") est obligatoire pour ajouter un CER"

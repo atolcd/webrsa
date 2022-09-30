@@ -156,7 +156,8 @@
 						'Orientstruct.typeorient_id',
 						'Adressefoyer.id',
 						'Adresse.numcom',
-						'VxAdressefoyer.id'
+						'VxAdressefoyer.id',
+						'Structurereferente.typeorient_id'
 					),
 					$query['fields'],
 					array_words_replace(
@@ -339,6 +340,7 @@
 					$this->Orientstruct->Behaviors->disable( 'StorablePdf' );
 					$this->Orientstruct->create( $orientstruct );
 					$success = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
+					$this->Orientstruct->forceRecalculeRang ($orientstruct);
 					$this->Orientstruct->Behaviors->enable( 'StorablePdf' );
 
 					if( !empty( $this->Orientstruct->validationErrors ) ) {

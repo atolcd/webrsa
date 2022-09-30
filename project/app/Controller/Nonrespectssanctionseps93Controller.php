@@ -498,9 +498,11 @@
 				$radiespe = $this->paginate( $this->Nonrespectsanctionep93->Dossierep->Personne, array(), array(), $progressivePaginate );
 			}
 
+			$id_emploi = Configure::read('Typeorient.emploi_id');
 			$this->_setOptions();
 			$this->set( compact( 'radiespe' ) );
 			$this->set( 'structuresreferentesparcours', $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'optgroup', 'prefix' => false ) ) );
+			$this->set( 'structuresreferentes', $this->InsertionsBeneficiaires->structuresreferentes( array( 'type' => 'list', 'prefix' => false, 'conditions' => ['Structurereferente.typeorient_id' => $id_emploi] ) ) );
 			$this->set( 'referentsparcours', $this->InsertionsBeneficiaires->referents( array( 'prefix' => true ) ) );
 		}
 

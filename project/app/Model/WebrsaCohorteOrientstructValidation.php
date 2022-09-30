@@ -209,6 +209,7 @@
 			}
 			$this->Orientstruct->begin();
 			$success = !empty($data) && $this->Orientstruct->saveAll($data, array('atomic' => false));
+			$this->Orientstruct->forceRecalculeRangAll ($data);
 
 			if ($success) {
 				$this->Orientstruct->commit();

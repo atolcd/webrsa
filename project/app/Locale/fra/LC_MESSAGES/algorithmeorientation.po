@@ -259,3 +259,12 @@ msgstr "Voir"
 
 msgid "aucun_orientable"
 msgstr "Aucun orientable ne correspond aux critères sélectionnés. <br> Veuillez effectuer une nouvelle recherche."
+
+msgid "Adresse.nomcom"
+msgstr "Ville domicile"
+
+msgid "Structurereferente.ville"
+msgstr "Ville Structure Référente"
+
+msgid "Structurereferente.lib_struc"
+msgstr "Structure d’orientation"

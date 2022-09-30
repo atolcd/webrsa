@@ -234,6 +234,11 @@
 				$this->Flash->Warning(sprintf(__d('cer93', 'Cer93.errorEtatCivil'), implode(', ', $errorEtatCivil)));
 			}
 
+			// Vérification de la présence du référent
+			if( !$this->Cer93->Contratinsertion->Personne->PersonneReferent->hasReferent($personne_id)) {
+				$this->Flash->Error(__d('cer93', 'Cer93.errorReferent' ));
+			}
+
 			$this->set(
 				compact(
 					array(

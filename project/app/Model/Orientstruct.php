@@ -698,10 +698,49 @@
 		 */
 		public function afterSave( $created, $options = array() ) {
 			parent::afterSave( $created, $options );
-			if(Configure::read('Orientstruct.recalculerang')) {
-				$this->recalculeRang($this->data);
-			}
+
 			$this->WebrsaOrientstruct->updateNonoriente66( $this->id );
+		}
+
+		/**
+		 * Lorsque Orientation.impression_auto == true alors StorablePdfBehavior->afterSave est appelé
+		 * à la place de Orientstruct->afterSave.
+		 * Conséquence des premières lignes du constructeur de Orientstruct :
+		 * 		if (Configure::read( 'Orientation.impression_auto' )) {
+		 * 			$this->actsAs[] = 'StorablePdf';
+		 * 		}
+		 *
+		 * Cette méthode permet malgré tout de faire le recalcul du rang des orientations
+		 * sans utiliser Orientstruct->afterSave.
+		 */
+		function forceRecalculeRang ($data) {
+			if ($this->isForceRecalculeRang ($data)) {
+				$this->recalculeRang ($data);
+			}
+		}
+
+		/**
+		 * Force le recalcul du rang des orientations si nécessaire
+		 */
+		function forceRecalculeRangAll ($datas) {
+			foreach ($datas as $data) {
+				$this->forceRecalculeRang ($data);
+			}
+		}
+
+		/**
+		 * Défini s'il faut forcer le recalcul du rang des orientations
+		 */
+		function isForceRecalculeRang ($data) {
+			if (
+				Configure::read ('Orientstruct.recalculerang')
+				&& isset ($data['Orientstruct']['personne_id'])
+				&& is_numeric ($data['Orientstruct']['personne_id'])
+				&& $data['Orientstruct']['personne_id'] > 0) {
+					return true;
+			}
+
+			return false;
 		}
 
 		/**

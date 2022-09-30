@@ -16,6 +16,35 @@
 	 */
 	class WebrsaRechercheAlgorithmeorientationComponent extends WebrsaAbstractRecherchesComponent
 	{
+
+		/**
+		 * Recalcul du nombre total et du nombre de pages pour prendre en compte le distinct de la requête
+		 *
+		 * @param Controller $controller
+		 */
+		public function beforeRender(Controller $controller) {
+
+			$Search__Pagination__nombre_total = Hash::get($controller->request->params, 'named.Search__Pagination__nombre_total');
+			$count = Hash::get($controller->request->params, 'paging.Orientstruct.count');
+			$limit = Hash::get($controller->request->params, 'paging.Orientstruct.limit');
+
+			if ($Search__Pagination__nombre_total === '1' && $count > $limit) {
+				$query = $controller->paginate['Orientstruct'];
+				$query['fields'] = array ('COUNT(DISTINCT "Personne"."id") AS count');
+				unset ($query['order']);
+
+				$controller->loadModel('Orientstruct');
+				$results = $controller->Orientstruct->find ('first', $query)[0]['count'];
+				$controller->request->params['paging']['Orientstruct']['count'] = $results;
+				$controller->request->params['paging']['Orientstruct']['pageCount'] = intval( ceil( $results / $limit ) );
+
+			}
+
+
+
+			return parent::beforeRender($controller);
+		}
+
 		/**
 		 * Surcharge de la méthode params pour limiter les utilisateurs externes
 		 * au code INSEE ou à la valeur de structurereferente_id de l'orientation.

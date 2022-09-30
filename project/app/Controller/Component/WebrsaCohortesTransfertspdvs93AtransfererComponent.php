@@ -61,6 +61,16 @@
 			}
 
 			$structuresreferentesParCodeInsee = $Controller->Dossier->Foyer->Personne->Orientstruct->Structurereferente->WebrsaStructurereferente->listeParCodeInsee();
+			$libelle_stuctures = $Controller->StructureReferente->find('list',['fields' => ['StructureReferente.lib_struc', 'Typeorient.lib_type_orient', 'StructureReferente.id'], 'recursive' => 0]);
+			$all_structures = $Controller->Dossier->Foyer->Personne->Orientstruct->Structurereferente->listOptions();
+			$structuresreferentesParCodeInseeReformate = [];
+
+			foreach($structuresreferentesParCodeInsee as $keycode => $struct_code){
+				foreach ($struct_code as $key => $id){
+					$group = $libelle_stuctures[$id][key($libelle_stuctures[$id])];
+					$structuresreferentesParCodeInseeReformate[$keycode][$group][$id] = key($libelle_stuctures[$id]);
+				}
+			}
 
 			return Hash::merge(
 				parent::_optionsRecords( $params ),
@@ -72,7 +82,9 @@
 						'structurereferente_dst_id' => array()
 					),
 					'Structurereferente' => array(
-						'listeParCodeInsee' => $structuresreferentesParCodeInsee
+						'listeParCodeInseeFormat' => $structuresreferentesParCodeInseeReformate,
+						'listeParCodeInsee' => $structuresreferentesParCodeInsee,
+						'all' => $all_structures
 					)
 				)
 			);

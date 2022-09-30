@@ -205,6 +205,7 @@
 			$statut_orient = Hash::get( $orientstruct, "{$this->Orientstruct->alias}.statut_orient" );
 			$this->Orientstruct->create( $orientstruct );
 			$success = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
+			$this->Orientstruct->forceRecalculeRang ($orientstruct);
 
 			// Calculdroitrsa
 			$calculdroitsrsa = array( 'Calculdroitrsa' => (array)Hash::get( $data, 'Calculdroitrsa' ) );
@@ -268,6 +269,7 @@
 
 			$this->Orientstruct->create( $orientstruct );
 			$success = $this->Orientstruct->save( null, array( 'atomic' => false ) ) && $success;
+			$this->Orientstruct->forceRecalculeRang ($orientstruct);
 
 			// Tentative d'ajout d'un référent de parcours
 			if( $success && !empty( $referent_id ) && ( $statut_orient == 'Orienté' ) ) {

@@ -134,10 +134,8 @@
 
 			// Titres
 			$export[$i++] = array_merge (array ('Ville'), $typesorients);
-			$export[$i++] = array ('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
 
 			foreach ($villes as $ville_id => $ville) {
-				$export[$i++] = array ('', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
 				$export[$i][0] = $ville;
 				$j = 1;
 

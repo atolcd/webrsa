@@ -66,6 +66,7 @@
 		 */
 		public $uses = array(
 			'Dossier',
+			'StructureReferente'
 		);
 
 		/**

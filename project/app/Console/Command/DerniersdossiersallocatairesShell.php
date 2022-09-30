@@ -26,6 +26,30 @@
 			$start = microtime( true );
 			$this->Dernierdossierallocataire->begin();
 
+			/**
+			 * Récupération des arguments
+			 */
+			$horsdossiersvides = false;
+			foreach ($this->args as $argument) {
+				if ($argument == 'horsdossiersvides') {
+						$horsdossiersvides = true;
+				}
+			}
+
+			/**
+			 * Restriction sur la table dossier situationsdossiersrsa si le shell est exécuté avec
+			 * l'option situationsdossiersrsa = true
+			 */
+			$sqlJointureSituationsdossiersrsa = '';
+			$sqlRestrictionSituationsdossiersrsa = '';
+
+			if ($horsdossiersvides) {
+				$sqlJointureSituationsdossiersrsa = 'LEFT OUTER JOIN foyers ON (personnes.foyer_id = foyers.id)
+					LEFT OUTER JOIN dossiers ON (dossiers.id = foyers.dossier_id)
+					LEFT OUTER JOIN situationsdossiersrsa ON (situationsdossiersrsa.dossier_id = dossiers.id)';
+				$sqlRestrictionSituationsdossiersrsa = "AND (situationsdossiersrsa.etatdosrsa NOT IN ('Z') AND situationsdossiersrsa.etatdosrsa is not null)";
+			}
+
 			$this->out( 'Suppression des entrées de la table derniersdossiersallocataires' );
 			$sql = 'TRUNCATE derniersdossiersallocataires;';
 			$success = ( $this->Dernierdossierallocataire->query( $sql ) !== false ) && $success;
@@ -80,6 +104,7 @@
 						)
 				) AS hasotherdossier "
 			;
+
 			// Ordre par prestation pour avoir réellement le dernier dossier de l'allocataire lié à sa dernière action plutôt qu'à son ID le plus haut
 			$sqlSelect = "SELECT personnes.id AS personne_id,
 			(
@@ -122,9 +147,11 @@
 			personnes.id = prestations.personne_id
 			AND prestations.natprest = 'RSA'
 		)
+		".$sqlJointureSituationsdossiersrsa."
 		WHERE
 			prestations.rolepers IN ( 'DEM', 'CJT' )
-			AND personnes.dtnai IS NOT NULL";
+			AND personnes.dtnai IS NOT NULL
+			".$sqlRestrictionSituationsdossiersrsa;
 
 			// Le SELECT pour l'INSERT qui sera éventuellement complété pour les allocataires se trouvant dans un dossier sans dtdemrsa
 			$sqlSelectInsert = $sqlSelect;
@@ -176,8 +203,12 @@
 		public function help() {
 			$this->out( "Usage pour CentOS: sudo -u apache vendor/cakephp/cakephp/lib/Cake/Console/cake derniersdossiersallocataires -app app" );
 			$this->out( "Usage: sudo -u www-data vendor/cakephp/cakephp/lib/Cake/Console/cake derniersdossiersallocataires -app app" );
+			$this->out( "" );
+			$this->out( "Arguments :" );
+			$this->out( "    horsdossiersvides" );
+			$this->out( "        Cet argument exclu les états de dossier 'Z' et null." );
+			$this->out( "        Cela permet de ne pas prendre en compte les dossiers indéfinis ou vides." );
 
 			$this->_stop( 0 );
 		}
 	}
-?>

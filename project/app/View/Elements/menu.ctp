@@ -161,7 +161,7 @@
 				'Allocataires à transférer' => array( 'class' => 'search', 'url' => array( 'controller' => 'transfertspdvs93', 'action' => 'cohorte_atransferer' ) ),
 				'Allocataires transférés' => array( 'class' => 'search', 'url' => array( 'controller' => 'cohortestransfertspdvs93', 'action' => 'transferes' ) ),
 			),
-            'Clôture référents' => array(
+            'Clôture référents par' => array(
 				'class' => 'search',
 				'disabled' => ( $departement != 93 || false === $user_externe ),
                 'url' => array( 'controller' => 'referents', 'action' => 'clotureenmasse' )
@@ -590,7 +590,7 @@
 		'CER' => array(
 			'class' => 'search',
 			'disabled' => ( $departement != 93 ),
-			'1. Affectation d\'un référent' => array(
+			'1. Affectation d\'un référent par' => array(
 				'disabled' => false === $user_cpdv,
 				'url' => array( 'controller' => 'personnes_referents', 'action' => 'cohorte_affectation93'  )
 			),

@@ -1927,10 +1927,10 @@ msgid "controllers/PersonnesReferents/cloturer"
 msgstr "Clôturer le référent"
 
 msgid "controllers/PersonnesReferents/cohorte_affectation93"
-msgstr "Workflow CER (CD 93): affectation d'un référent"
+msgstr "Workflow CER (CD 93): affectation de la personne chargée du suivi"
 
 msgid "controllers/PersonnesReferents/exportcsv_affectation93"
-msgstr "Workflow CER (CD 93): affectation d'un référent - télécharger le tableau"
+msgstr "Workflow CER (CD 93): affectation de la personne chargée du suivi - télécharger le tableau"
 
 ###############################################################################
 
@@ -5193,6 +5193,9 @@ msgstr "Afficher le paramétrage des structures référentes par ville"
 msgid "controllers/StructuresreferentesTypesorientsZonesgeographiques/edit"
 msgstr "Modifier le paramétrage des structures référentes par ville"
 
+msgid "controllers/StructuresreferentesTypesorientsZonesgeographiques/exportcsv_index"
+msgstr "Exporter le paramétrage des structures référentes par ville"
+
 ## Conclusion CER
 ###############################################################################
 
@@ -5282,4 +5285,3 @@ msgstr "Modifier les valeurs par sous-sujets des CER"
 
 msgid "controllers/Valeursparsoussujetscers/index"
 msgstr "Afficher les valeurs par sous-sujets des CER"
-

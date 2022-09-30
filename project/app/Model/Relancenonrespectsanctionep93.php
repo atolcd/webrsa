@@ -583,28 +583,7 @@
 				'conditions' => array( 'Adressefoyer.adresse_id = Adresse.id' )
 			);
 
-
-			if( ( isset( $search['Dossiercaf.nomtitulaire'] ) && !empty( $search['Dossiercaf.nomtitulaire'] ) ) ||
-				( isset( $search['Dossiercaf.prenomtitulaire'] ) && !empty( $search['Dossiercaf.prenomtitulaire'] ) ) ) {
-				$joins[] = array(
-					'table'      => 'dossierscaf',
-					'alias'      => 'Dossiercaf',
-					'type'       => 'INNER',
-					'foreignKey' => false,
-					'conditions' => array(
-						'Dossiercaf.personne_id = Personne.id',
-						'Dossiercaf.toprespdos = true',
-						'OR' => array(
-							'Dossiercaf.dfratdos IS NULL',
-							'Dossiercaf.dfratdos >= NOW()'
-						),
-						'Dossiercaf.ddratdos <= NOW()'
-					)
-				);
-			}
-
 			$search = Hash::expand( $search );
-
 
 			$valeurtag_id = '';
 			if (isset ($search['Tag']['valeurtag_id'])) {
@@ -757,10 +736,6 @@
 				}
 				else if( $field == 'Dossier.matricule' && !empty( $condition ) ) {
 					$conditions[] = array( 'Dossier.matricule LIKE' => $this->wildcard( "*{$condition}*" ) );
-				}
-				else if( ( $field == 'Dossiercaf.nomtitulaire' || $field == 'Dossiercaf.prenomtitulaire' ) && !empty( $condition ) ) {
-					$field = preg_replace( '/^Dossiercaf\.(.*)titulaire$/', '\1', $field );
-					$conditions["UPPER({$field}) LIKE"] = $this->wildcard( strtoupper( replace_accents( $condition ) ) );
 				}
 				else if( !in_array( $field, array_merge(array( 'Relance.numrelance', 'Relance.contrat', 'Relance.compare0', 'Relance.compare1', 'Relance.nbjours0', 'Relance.nbjours1', 'PersonneReferent.referent_id', 'PersonneReferent.structurereferente_id' ), $pathsOrient )) ) {
 					$conditions[$field] = $condition;
@@ -1233,10 +1208,6 @@
 				}
 				else if( $field == 'Dossier.matricule' && !empty( $condition ) ) {
 					$conditions['Dossier.matricule LIKE'] = $this->wildcard( "*{$condition}*" );
-				}
-				else if( ( $field == 'Dossiercaf.nomtitulaire' || $field == 'Dossiercaf.prenomtitulaire' ) && !empty( $condition ) ) {
-					$field = preg_replace( '/^Dossiercaf\.(.*)titulaire$/', '\1', $field );
-					$conditions["UPPER({$field}) LIKE"] = $this->wildcard( strtoupper( replace_accents( $condition ) ) );
 				}
 				else if( $field == 'Nonrespectsanctionep93.origine' && !empty( $condition ) ) {
 					$conditions['Nonrespectsanctionep93.origine'] = $condition;

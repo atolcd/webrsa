@@ -54,8 +54,6 @@
 		$this->Default2->subform(
 			array(
 				'Search.Dossier.matricule' => array(  'label' => __d( 'dossier', 'Dossier.matricule' ) ),
-				'Search.Dossiercaf.nomtitulaire' => array(  'label' => __d( 'dossiercaf', 'Dossiercaf.nomtitulaire' ) ),
-				'Search.Dossiercaf.prenomtitulaire' => array(  'label' => __d( 'dossiercaf', 'Dossiercaf.prenomtitulaire' ) ),
 			)
 		)
 	);
@@ -120,6 +118,12 @@
 		)
 		. '</fieldset>'
 	;
+
+	echo $this->Observer->dependantSelect(
+		array(
+			'Search.Orientstruct.typeorient_id' => 'Search.Orientstruct.structurereferente_id'
+		)
+	);
 
 
 	echo $this->Search->referentParcours( $structuresreferentesparcours, $referentsparcours, 'Search' );
@@ -468,4 +472,18 @@
 		}
 	}
 
+	observeDisableFieldsOnCheckbox(
+		'SearchOrientstructDerniere',
+		[
+			'SearchOrientstructDernierevalid',
+		],
+		true
+	);
+	observeDisableFieldsOnCheckbox(
+		'SearchOrientstructDernierevalid',
+		[
+			'SearchOrientstructDerniere',
+		],
+		true
+	);
 </script>

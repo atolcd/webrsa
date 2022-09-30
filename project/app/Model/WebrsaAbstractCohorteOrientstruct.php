@@ -233,12 +233,15 @@
 				}
 			}
 
-			return $this->saveResultAsBool(
+			$success = $this->saveResultAsBool(
 				$this->Personne->Orientstruct->saveAll(
 					Hash::extract( $data, '{n}.Orientstruct' ),
 					array( 'validate' => 'first', 'atomic' => false )
 				)
 			);
+			$this->Personne->Orientstruct->forceRecalculeRangAll ($data);
+
+			return $success;
 		}
 
 		/**
