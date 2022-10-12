@@ -44,9 +44,7 @@
 			$sqlRestrictionSituationsdossiersrsa = '';
 
 			if ($horsdossiersvides) {
-				$sqlJointureSituationsdossiersrsa = 'LEFT OUTER JOIN foyers ON (personnes.foyer_id = foyers.id)
-					LEFT OUTER JOIN dossiers ON (dossiers.id = foyers.dossier_id)
-					LEFT OUTER JOIN situationsdossiersrsa ON (situationsdossiersrsa.dossier_id = dossiers.id)';
+				$sqlJointureSituationsdossiersrsa = 'LEFT OUTER JOIN situationsdossiersrsa ON (situationsdossiersrsa.dossier_id = dossiers.id)';
 				$sqlRestrictionSituationsdossiersrsa = "AND (situationsdossiersrsa.etatdosrsa NOT IN ('Z') AND situationsdossiersrsa.etatdosrsa is not null)";
 			}
 
@@ -121,6 +119,7 @@
 						INNER JOIN dossiers ON (
 							dossiers.id = foyers.dossier_id
 						)
+						$sqlJointureSituationsdossiersrsa
 					WHERE
 						dossiers.dtdemrsa IS NOT NULL
 						AND pr2.rolepers IN ( 'DEM', 'CJT' )
@@ -138,6 +137,7 @@
 								AND personnes.dtnai = p2.dtnai
 							)
 						)
+						$sqlRestrictionSituationsdossiersrsa
 					ORDER BY dossiers.dtdemrsa DESC, pr2.id DESC, dossiers.id DESC
 					LIMIT 1
 			) AS dossier_id"
@@ -147,11 +147,9 @@
 			personnes.id = prestations.personne_id
 			AND prestations.natprest = 'RSA'
 		)
-		".$sqlJointureSituationsdossiersrsa."
 		WHERE
 			prestations.rolepers IN ( 'DEM', 'CJT' )
-			AND personnes.dtnai IS NOT NULL
-			".$sqlRestrictionSituationsdossiersrsa;
+			AND personnes.dtnai IS NOT NULL";
 
 			// Le SELECT pour l'INSERT qui sera éventuellement complété pour les allocataires se trouvant dans un dossier sans dtdemrsa
 			$sqlSelectInsert = $sqlSelect;
