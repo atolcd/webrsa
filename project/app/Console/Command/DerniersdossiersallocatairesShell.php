@@ -178,7 +178,9 @@
 						"FROM personnes
 							INNER JOIN foyers ON ( personnes.foyer_id = foyers.id )
 							INNER JOIN dossiers ON ( foyers.dossier_id = dossiers.id )
-						WHERE personnes.id IN ( ".implode( ', ', $personnesSansDtdemrsa )." );";
+							$sqlJointureSituationsdossiersrsa
+						WHERE personnes.id IN ( ".implode( ', ', $personnesSansDtdemrsa )." )
+						$sqlRestrictionSituationsdossiersrsa;";
 				$success = ( $this->Dernierdossierallocataire->query( $sql ) !== false ) && $success;
 			}
 
