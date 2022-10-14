@@ -213,7 +213,7 @@ msgid "bandeau.simulation"
 msgstr "Vérification et validation"
 
 msgid "validation.message"
-msgstr "%d personnes ont bien été orientées"
+msgstr "%d personnes ont bien été orientées. <br><br> Les courriers PDF sont en cours de génération et seront disponibles la prochaine demi-journée."
 
 msgid "retouraccueil"
 msgstr "Retour à l'accueil de WebRSA"
