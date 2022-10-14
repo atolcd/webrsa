@@ -91,7 +91,7 @@ msgid "ENUM::ORIGINE::reorientation"
 msgstr "Réorientation"
 
 msgid "ENUM::ORIGINE::demenagement"
-msgstr "Transfert de PIE"
+msgstr "Transfert"
 
 #msgid "ENUM::ORIGINE::prestadiagno"
 #msgstr "Orientation prestataire diagnostic"
