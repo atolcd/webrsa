@@ -103,6 +103,9 @@
 			$cacheKey = Inflector::underscore( $this->useDbConfig ).'_'.Inflector::underscore( $this->alias ).'_'.Inflector::underscore( __FUNCTION__ ).'_'.sha1( serialize( $types ) );
 			$query = Cache::read( $cacheKey );
 
+			//période pour les nouveaux entrants
+			$dates = parent::datePeriodeCohorte ();
+
 			if( $query === false ) {
 				App::uses('WebrsaModelUtility', 'Utility');
 				$query = $this->Allocataire->searchQuery( $types, 'Dossier' );
@@ -130,16 +133,28 @@
 						'Historiquedroit.created'
 					)
 				);
+
+				//on récupère les jointures sur foyer et personne pour pouvoir faire la jointure sur historique droit au début.
+				//cela permet de réduire le temps d'execution de la requête
+				[$join, $query] = parent::separeJointures($query);
+
+
 				// 2. Jointure
 				$query['joins'] = array_merge(
+					$join,
+					[
+						$this->Personne->join('Historiquedroit',
+							array(
+								'type' => 'INNER',
+								'conditions' => parent::conditionsJointureHistoriquedroit($dates)
+							)
+						)
+					],
 					$query['joins'],
+					parent::jointures(),
 					array(
-						$this->Personne->join( 'Orientstruct', array( $types['Orientstruct'] ) ),
 						$this->Personne->Orientstruct->join( 'Structurereferente', array( $types['Structurereferente'] ) ),
 						$this->Personne->Orientstruct->join( 'Typeorient', array( $types['Typeorient'] ) ),
-						$this->Personne->join( 'Rendezvous', array( $types['Rendezvous'] ) ),
-						$this->Personne->join( 'Contratinsertion', array( $types['Contratinsertion'] ) ),
-						$this->Personne->join('Historiquedroit', array( $types['Historiquedroit'] )),
 						$this->Historiqueetatpe->Informationpe->joinPersonneInformationpe( 'Personne', 'Informationpe', $types['Informationpe'] ),
 						$this->Historiqueetatpe->Informationpe->join( 'Historiqueetatpe', array( $types['Historiqueetatpe'] ) ),
 					)

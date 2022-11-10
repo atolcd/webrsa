@@ -25,6 +25,7 @@
 		 */
 		public $uses = array(
 			'Allocataire',
+			'Personne'
 		);
 
 		/**
@@ -33,19 +34,8 @@
 		 * @param array $query
 		 * @return array $query
 		 */
-		public function sansCER($query, $isNouveauxEntrant = false) {
-			$conditions = '';
-			if($isNouveauxEntrant) {
-				$dates = $this->datePeriodeCohorte ();
-				$conditions = " AND Historiquedroit.created BETWEEN '".$dates['deb']."' AND '".$dates['fin']."'";
-			}
-			$query['conditions'][] = 'NOT EXISTS(
-				SELECT "contratsinsertion"."id" AS "contratsinsertion__id"
-				FROM contratsinsertion AS contratsinsertion
-				INNER JOIN historiquesdroits ON (historiquesdroits.personne_id = contratsinsertion.personne_id AND historiquesdroits.created <= contratsinsertion.datevalidation_ci )
-				WHERE "contratsinsertion"."decision_ci" = \'V\'
-				AND "contratsinsertion"."personne_id" = "Personne"."id"' . $conditions . '
-				)';
+		public function sansCER($query) {
+			$query['conditions'][] = 'Contratinsertion.id IS NULL';
 			return $query;
 		}
 
@@ -71,9 +61,8 @@
 		 * @param array $query
 		 * @return array $query
 		 */
-		public function sansOrientation($query, $isNouveauxEntrant = false) {
-			$conditions = $this->requeteOrientation($isNouveauxEntrant);
-			$query['conditions'][] = ' NOT EXISTS('.$conditions.')';
+		public function sansOrientation($query) {
+			$query['conditions'][] = 'Orientstruct.id IS NULL';
 			return $query;
 		}
 
@@ -84,21 +73,20 @@
 		 * @return array $query
 		 */
 		public function avecOrientation($query) {
-			$conditions = $this->requeteOrientation();
-
 			//Recupération des type d'orientation voulues
 			$limitation = Configure::read ('PlanPauvrete.Cohorte.Orientations.Limite');
+
 			if ( isset( $limitation['structureorientante_id'] ) ){
-				$conditions .= ' AND "orientsstructs"."structureorientante_id" = '. $limitation['structureorientante_id'];
+				$query['conditions'][] = 'Orientstruct.structureorientante_id = '. $limitation['structureorientante_id'];
 			}
 			if ( isset( $limitation['typeorient_id'] ) ){
-				$conditions .= ' AND "orientsstructs"."typeorient_id" = '. $limitation['typeorient_id'];
+				$query['conditions'][] = 'Orientstruct.typeorient_id = '. $limitation['typeorient_id'];
 			}
 			if ( isset( $limitation['typenotification'] ) ){
-				$conditions .= ' AND "orientsstructs"."typenotification" = \''. $limitation['typenotification'] . '\'';
+				$query['conditions'][] = 'Orientstruct.typenotification = '. $limitation['typenotification'];
 			}
 
-			$query['conditions'][] = ' EXISTS('.$conditions.')';
+			$query['conditions'][] = 'Orientstruct.id IS NOT NULL';
 			return $query;
 		}
 
@@ -108,48 +96,144 @@
 		 * @param array $query
 		 * @return array $query
 		 */
-		public function sansRendezvous($query, $isNouveauxEntrant = false) {
-			$tmpSQL = '';
+		public function sansRendezvous($query) {
+			$query['conditions'][] = 'Rendezvous.id IS NULL';
+			return $query;
+		}
+
+		/**
+		 * Récupère la liste des excuses recevables en variable de configuration
+		 */
+		public function excuses_recevables_rdv(){
 			$arrayStatutRdvExcusesRecevables = Configure::read('Statistiqueplanpauvrete.orientationRdv.excuses_recevables');
 			if (is_array ($arrayStatutRdvExcusesRecevables) && !is_null ($arrayStatutRdvExcusesRecevables) ) {
-				$listStatutRdvExcusesRecevables = implode(',', $arrayStatutRdvExcusesRecevables);
-				$tmpSQL = ' AND statutsrdvs.id NOT IN ('.$listStatutRdvExcusesRecevables.') ';
+				return implode(',', $arrayStatutRdvExcusesRecevables);
 			}
+			return "";
+		}
 
-			$conditionsDates = '';
-			if($isNouveauxEntrant) {
-				$dates = $this->datePeriodeCohorte ();
-				$conditionsDates = " AND Historiquedroit.created BETWEEN '".$dates['deb']."' AND '".$dates['fin']."'";
-			}
+		/**
+		 * Calcule la vraie date de début du droit en cours
+		 */
+		public function date_debut_droit(){
+			return '
+				LEFT JOIN (
+					WITH calcul_date_debut_droit AS (
+					SELECT
+						personne_id
+						, etatdosrsa
+						, created
+						, CASE
+							WHEN
+								lag(etatdosrsa) OVER (PARTITION BY personne_id ORDER BY created) != etatdosrsa
+								OR lag(etatdosrsa) OVER (PARTITION BY personne_id ORDER BY created) IS NULL
+							THEN true
+							ELSE false
+						END AS first_date
+					FROM historiquesdroits h
+					)
+					SELECT
+						distinct ON (personne_id) personne_id,
+						created
+					FROM calcul_date_debut_droit
+					WHERE etatdosrsa = \'2\' AND first_date
+					ORDER BY personne_id, created desc
+				) AS date_debut_droit ON date_debut_droit.personne_id = "Personne"."id"
+			';
+		}
 
-			$query['conditions'][] = 'NOT EXISTS(
-				SELECT "rendezvous"."id" AS "rendezvous__id"
-				FROM rendezvous AS rendezvous
-				INNER JOIN statutsrdvs ON (statutsrdvs.id = rendezvous.statutrdv_id )
-				INNER JOIN historiquesdroits ON (historiquesdroits.personne_id = rendezvous.personne_id AND historiquesdroits.created <= rendezvous.daterdv)
-				WHERE "rendezvous"."personne_id" = "Personne"."id"
-				' . $tmpSQL . $conditionsDates . ' )';
-
-			return $query;
+		/**
+		 * Regroupe une partie des jointures nécessaires au plan pauvreté
+		 */
+		public function jointures(){
+			//Excuses recevables pour les rdv
+			$listStatutRdvExcusesRecevables = $this->excuses_recevables_rdv();
+			return
+			[
+				$this->date_debut_droit(),
+				$this->Personne->join(
+					'Orientstruct',
+					[
+						'type' => 'LEFT',
+						'conditions' => [
+							'Orientstruct.personne_id = Personne.id',
+							'Orientstruct.statut_orient = \'Orienté\'',
+							'date_debut_droit.created <= Orientstruct.date_valid'
+						]
+					]
+				),
+				$this->Personne->join(
+					'Rendezvous',
+					[
+						'type' => 'LEFT',
+						'conditions' => [
+							'Rendezvous.personne_id = Personne.id',
+							'date_debut_droit.created <= Rendezvous.daterdv',
+							'Rendezvous.statutrdv_id not in ('.$listStatutRdvExcusesRecevables.')',
+							'Rendezvous.statutrdv_id is not NULL'
+						]
+					]
+				),
+				$this->Personne->join(
+					'Contratinsertion',
+					[
+						'type' => 'LEFT',
+						'conditions' => [
+							'Contratinsertion.personne_id = Personne.id',
+							'date_debut_droit.created <= Contratinsertion.datevalidation_ci',
+							'Contratinsertion.decision_ci = \'V\''
+						]
+					]
+				),
+			];
 		}
 
 		/** Ajoute le join et la condition pour gérer l'état précédent dans l'historique de la personne */
 		protected function _etat_precedent($query) {
 			$dates = $this->datePeriodeCohorte ();
 			$query['joins'][] = 'LEFT JOIN (
-				SELECT
-					DISTINCT ON (personne_id) personne_id,
-					etatdosrsa,
-					created
-				FROM
-					historiquesdroits h
-				WHERE created < \'' . $dates['deb'] . '\'
-				ORDER BY
+				WITH calcul_date_debut_droit AS (
+					SELECT
+						personne_id
+						, etatdosrsa
+						, created
+						, CASE
+							WHEN
+								lag(etatdosrsa) OVER (PARTITION BY personne_id ORDER BY created) != etatdosrsa
+								OR lag(etatdosrsa) OVER (PARTITION BY personne_id ORDER BY created) IS NULL
+							THEN true
+							ELSE false
+						END AS first_date
+					FROM historiquesdroits h
+				),etat_prec AS (
+				select
+					cddd.personne_id,
+					cddd.etatdosrsa,
+					cddd.created,
+					rank() over(PARTITION BY cddd.personne_id, cddd.etatdosrsa ORDER BY cddd.created desc) rank_created
+				FROM calcul_date_debut_droit cddd
+				JOIN personnes p ON cddd.personne_id = p.id
+				JOIN foyers f ON f.id = p.foyer_id
+				JOIN dossiers d ON d.id = f.dossier_id
+				JOIN situationsdossiersrsa s ON s.dossier_id = d.id
+				where
+					cddd.created < \'' . $dates['fin'] . '\'
+					AND s.etatdosrsa <> cddd.etatdosrsa
+					AND first_date
+				order by
 					personne_id,
 					created DESC
-			) etat_precedent ON etat_precedent.personne_id = "Personne"."id"';
+				)
+				SELECT
+					distinct ON (personne_id) personne_id
+					, etatdosrsa
+					, created
+				FROM etat_prec
+				WHERE rank_created = 1
+					) etat_precedent on
+				etat_precedent.personne_id = "Personne"."id" and etat_precedent.etatdosrsa <> "Situationdossierrsa"."etatdosrsa"';
 
-			$query['conditions'][] = "(etat_precedent.etatdosrsa is null OR etat_precedent.etatdosrsa in ('5','6') or (etat_precedent.etatdosrsa in ('3', '4') and etat_precedent.created < Historiquedroit.created - interval '1 year'))";
+			$query['conditions'][] = "(etat_precedent.etatdosrsa is null OR etat_precedent.etatdosrsa in ('5','6') or (etat_precedent.etatdosrsa in ('3', '4') and etat_precedent.created < date_debut_droit.created - interval '1 year'))";
 			return $query;
 		}
 
@@ -163,6 +247,7 @@
 			$dates = $this->datePeriodeCohorte ();
 			$query = $this->_etat_precedent($query);
 			$query['conditions'][] = 'Historiquedroit.created BETWEEN \''.$dates['deb'].'\' AND \''.$dates['fin'].'\'';
+			$query['conditions'][] = 'date_debut_droit.created BETWEEN \''.$dates['deb'].'\' AND \''.$dates['fin'].'\'';
 			return $query;
 		}
 
@@ -575,6 +660,34 @@
 			);
 
 			return $query;
+		}
+
+		/**
+		 * Sépare les jointures pour sortir personnes et foyer (ou dossier et foyer)
+		 */
+		public function separeJointures($query){
+			$join[0] = $query['joins'][0];
+			$join[1] = $query['joins'][1];
+			unset($query['joins'][0]);
+			unset($query['joins'][1]);
+
+			return [$join, $query];
+		}
+
+		/**
+		 * Retourne le tableau des conditions pour la jointure avec Historiquedroit
+		 */
+		public function conditionsJointureHistoriquedroit($dates){
+
+			return
+			[
+				'Personne.id = Historiquedroit.personne_id',
+				'Personne.id = (SELECT personne_id
+				from historiquesdroits WHERE
+				personne_id = "Personne"."id"
+				ORDER BY created DESC LIMIT 1)',
+				'Historiquedroit.created BETWEEN \''.$dates['deb'].'\' AND \''.$dates['fin'].'\''
+			];
 		}
 
 	}

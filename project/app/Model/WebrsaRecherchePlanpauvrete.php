@@ -48,6 +48,9 @@
 			$cacheKey = Inflector::underscore( $this->useDbConfig ).'_'.Inflector::underscore( $this->alias ).'_'.Inflector::underscore( __FUNCTION__ );
 			$query = Cache::read( $cacheKey );
 
+			//période pour les nouveaux entrants
+			$dates = $this->WebrsaCohortePlanpauvrete->datePeriodeCohorte ();
+
 			if( $query === false ) {
 				$types += array(
 					// INNER JOIN
@@ -80,21 +83,17 @@
 				);
 				// 2. Jointure
 				$query['joins'] = array_merge(
-					$query['joins'],
-					array(
-						$this->Personne->join('Historiquedroit', array(
-							'type' => 'INNER',
-							'conditions' => array(
-								'Personne.id = Historiquedroit.personne_id',
-								'Personne.id = (SELECT personne_id
-								from historiquesdroits WHERE
-								personne_id = "Personne"."id"
-								ORDER BY created DESC LIMIT 1)'
+					[
+						$this->Personne->join('Historiquedroit',
+							array(
+								'type' => 'INNER',
+								'conditions' => $this->WebrsaCohortePlanpauvrete->conditionsJointureHistoriquedroit($dates)
 							)
-						)),
-						$this->Personne->join('Orientstruct'),
-						$this->Personne->join('Rendezvous'),
-						$this->Personne->join('Contratinsertion'),
+						)
+					],
+					$query['joins'],
+					$this->WebrsaCohortePlanpauvrete->jointures(),
+					array(
 						$this->Personne->join('Activite'),
 						$this->Informationpe->joinPersonneInformationpe( 'Personne', 'Informationpe', $types['Informationpe'] ),
 						$this->Informationpe->Historiqueetatpe->joinInformationpeHistoriqueetatpe( true, 'Informationpe', 'Historiqueetatpe', $types['Historiqueetatpe'] ),
