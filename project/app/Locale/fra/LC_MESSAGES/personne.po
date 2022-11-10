@@ -84,10 +84,10 @@ msgid "Personne.pieecpres"
 msgstr "Pièce d'état civil présentée"
 
 msgid "Personne.numfixe"
-msgstr "N° de téléphone fixe"
+msgstr "N° de téléphone"
 
 msgid "Personne.numport"
-msgstr "N° de téléphone portable"
+msgstr "N° de téléphone 2"
 
 msgid "Personne.email"
 msgstr "Adresse mail"

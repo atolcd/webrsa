@@ -25,9 +25,12 @@
 				);
 			}
 			echo $this->Form->input( 'Personne.topvalec', array( 'label' => __d( 'personne', 'Personne.topvalec' ) ) );
-			echo $this->Form->input( 'Personne.numfixe', array( 'label' => __d( 'personne', 'Personne.numfixe' ) ) );
-			echo $this->Form->input( 'Personne.numport', array( 'label' => __d( 'personne', 'Personne.numport' ) ) );
-			echo $this->Form->input( 'Personne.email', array( 'label' => __d( 'personne', 'Personne.email' ) ) );
+
+			if($this->action == 'edit' ) {
+				echo $this->Form->input( 'Personne.numfixe', array('disabled' => true, 'label' => __d( 'personne', 'Personne.numfixe' ) ) );
+				echo $this->Form->input( 'Personne.numport', array('disabled' => true, 'label' => __d( 'personne', 'Personne.numport' ) ) );
+				echo $this->Form->input( 'Personne.email', array('disabled' => true, 'label' => __d( 'personne', 'Personne.email' ) ) );
+			}
 		?>
 </fieldset>
 

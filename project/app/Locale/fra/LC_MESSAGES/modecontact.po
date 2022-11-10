@@ -87,3 +87,42 @@ msgstr "Inconnu"
 
 msgid "ENUM::AUTORUTIADRELEC::R"
 msgstr "Refus d'utilisation"
+
+msgid "donneesreference.titre"
+msgstr "Coordonnées de référence"
+
+msgid "foyer.titre"
+msgstr "Données du dossier RSA"
+
+msgid "donneescaf.titre"
+msgstr "Dernières données CAF"
+
+msgid "saisiemanuelle.titre"
+msgstr "Coordonnées communiquées lors de l'accompagnement"
+
+msgid "donneescaf.aucune"
+msgstr "Aucune données CAF"
+
+msgid "saisiemanuelle.aucune"
+msgstr "Aucune coordonnées communiquées lors de l'accompagnement"
+
+msgid "fixe"
+msgstr "Numéro de téléphone"
+
+msgid "mobile"
+msgstr "Numéro de téléphone 2"
+
+msgid "mail"
+msgstr "Adresse mail"
+
+msgid "tel"
+msgstr "Numéro de téléphone"
+
+msgid "tel2"
+msgstr "Numéro de téléphone 2"
+
+msgid "date"
+msgstr "Date de modification"
+
+msgid "add"
+msgstr "Ajouter"

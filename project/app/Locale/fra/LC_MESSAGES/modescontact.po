@@ -21,7 +21,7 @@ msgstr ""
 ###############################################################################
 
 msgid "/Modescontact/index/:heading"
-msgstr "Modes de contact"
+msgstr "Page unique des modes de contact"
 
 msgid "/Modescontact/add"
 msgstr "Ajouter"

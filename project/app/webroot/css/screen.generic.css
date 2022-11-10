@@ -2260,7 +2260,7 @@ body.search td.data.dossier_locked.boolean.true {
 	background-image: url("../img/icons/lock.png");
 }
 
-button[disabled=disabled], button:disabled, input[disabled=disabled], input:disabled, input[type="text"]:disabled {
+button[disabled=disabled], button:disabled, input[disabled=disabled], input:disabled, input[type="text"]:disabled, input[type="email"]:disabled {
     color: silver;
 	background-color: #F0F0F0;
 }

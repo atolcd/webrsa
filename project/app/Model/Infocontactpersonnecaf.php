@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Code source de la classe Infocontactpersonne.
+	 * Code source de la classe Infocontactpersonnecaf.
 	 *
 	 * PHP 7.2
 	 *
@@ -11,18 +11,25 @@
 	App::uses( 'FrValidation', 'Validation' );
 
 	/**
-	 * La classe Infocontactpersonne ...
+	 * La classe Infocontactpersonnecaf ...
 	 *
 	 * @package app.Model
 	 */
-	class Infocontactpersonne extends AppModel
+	class Infocontactpersonnecaf extends AppModel
 	{
 		/**
 		 * Nom.
 		 *
 		 * @var string
 		 */
-		public $name = 'Infocontactpersonne';
+		public $name = 'Infocontactpersonnecaf';
+
+		/**
+		 * Ce model utilise cette table de la base de données
+		 *
+		 * @var string
+		 */
+		public $useTable = 'infoscontactspersonnecaf';
 
 		/**
 		 * Behaviors utilisés.
@@ -91,43 +98,28 @@
 		);
 
 		/**
-		 * Récupère les données de contact manuelles pour la personne dont l'id est en paramètre
-		 *  @param int $id Id de la personne
+		 * Récupère les données de contact caf pour la personne dont l'id est en paramètre
+		 * @param int $id Id de la personne
 		 */
 		public function getContactsPersonne($id){
 
 			return $this->query("
-				with
-				modif as (
-					select distinct on (modified) modified
-					from infoscontactspersonne i
+				with contact as(
+					select to_char(modified_telephone, 'DD/MM/YY') as date, telephone as tel, null as tel2, null as email
+					from infoscontactspersonnecaf i
 					where personne_id = {$id}
-					order by modified desc
-				),
-				fixe as (
-					select distinct on (modified_fixe) modified_fixe, fixe, id, modified
-					from infoscontactspersonne i
+					union
+					select to_char(modified_telephone2, 'DD/MM/YY') as date, null as tel, telephone2 as tel2, null as email
+					from infoscontactspersonnecaf i
 					where personne_id = {$id}
-					order by modified_fixe desc, modified asc
-				),
-				mobile as (
-					select distinct on (modified_mobile) modified_mobile, mobile, id, modified
-					from infoscontactspersonne i
+					union
+					select to_char(modified_email, 'DD/MM/YY') as date, null as tel, null as tel2, email as email
+					from infoscontactspersonnecaf i
 					where personne_id = {$id}
-					order by modified_mobile desc, modified asc
-				),
-				email as (
-					select distinct on (modified_email) modified_email, email, id, modified
-					from infoscontactspersonne i
-					where personne_id = {$id}
-					order by modified_email desc, modified asc
+					order by date desc
 				)
-				select modif.modified, fixe, modified_fixe, mobile, modified_mobile, email, modified_email
-				from modif full join fixe on fixe.modified = modif.modified full join mobile on modif.modified = mobile.modified full join email on email.modified = modif.modified
-				order by modif.modified desc
+				select date, max(c.tel) as tel, max(c.tel2) as tel2, max(c.email) as email from contact c group by date order by date desc
 			");
-
 		}
-
 	}
 ?>

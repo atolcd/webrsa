@@ -12,9 +12,56 @@
 <?php echo $this->Xform->create('Personne');?>
 <div>
     <?php
+        echo "<div class='aere";
+        if (  !empty($errors['fixe'][0] ) ) {
+            echo " error";
+        }
+        echo "'>";
         echo $this->Xform->input( 'Personne.numfixe', array( 'type' => 'text', 'domain' => 'personne' ) );
+        if ( !empty($errors['fixe'][0] )) {
+            echo $this->Xhtml->tag(
+                'div',
+                $errors['fixe'][0],
+                array(
+                    'class' => 'error-message'
+                )
+            );
+        }
+        echo "</div>";
+
+        echo "<div class='aere";
+        if (  !empty($errors['mobile'][0] ) ) {
+            echo " error";
+        }
+        echo "'>";
         echo $this->Xform->input( 'Personne.numport', array( 'type' => 'text', 'domain' => 'personne' ) );
+        if ( !empty($errors['mobile'][0] )) {
+            echo $this->Xhtml->tag(
+                'div',
+                $errors['mobile'][0],
+                array(
+                    'class' => 'error-message'
+                )
+            );
+        }
+        echo "</div>";
+
+        echo "<div class='aere";
+            if (  !empty($errors['email'][0] ) ) {
+                echo " error";
+            }
+        echo "'>";
         echo $this->Xform->input( 'Personne.email', array( 'type' => 'text', 'domain' => 'personne' ) );
+        if ( !empty($errors['email'][0] )) {
+            echo $this->Xhtml->tag(
+                'div',
+                $errors['email'][0],
+                array(
+                    'class' => 'error-message'
+                )
+            );
+        }
+        echo "</div>";
     ?>
 </div>
 

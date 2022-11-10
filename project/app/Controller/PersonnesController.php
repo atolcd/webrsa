@@ -559,7 +559,7 @@
 
 			$query = array(
 				'conditions' => array( 'Personne.id' => $id ),
-				'contain' => false
+				'contain' => 'Prestation'
 			);
 			$personne = $this->Personne->find('first',$query);
 
@@ -569,7 +569,7 @@
 
 			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $id ) );
 			$this->Jetons2->get( $dossierMenu['Dossier']['id'] );
-			$redirectUrl = array( 'controller' => 'personnes', 'action' => 'view', $id );
+			$redirectUrl = array( 'controller' => 'modescontact', 'index' => 'view', $personne['Personne']['foyer_id'], $personne['Prestation']['rolepers'] );
 
 			// Retour à la liste en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
@@ -584,37 +584,62 @@
 				// Ajout de la clé au NIR si celle-ci manque.
 				( strlen ( trim ( $data['Personne']['nir'] )) == 13 ) ? $data['Personne']['nir'] = trim ( $data['Personne']['nir'] ).( 97 - trim ( $data['Personne']['nir'] ) % 97 ) : '' ;
 
-				$this->Personne->create( $data );
-				if ( $this->Personne->save( null, array( 'atomic' => false ) ) ) {
-					$this->Personne->commit();
+				//on récupère la dernière version des coordonnées
+				$contact = $this->Infocontactpersonne->findByPersonneId($data['Personne']['id'], [], ['Infocontactpersonne.modified' => 'desc']);
+				$now = date('Y-m-d H:i:s');
+
 					//Historiser le contact
 					$this->Infocontactpersonne->begin();
 					$infocontactdata['Infocontactpersonne']['personne_id'] = $data['Personne']['id'];
+				if(!empty($data['Personne']['numfixe'])){
 					$infocontactdata['Infocontactpersonne']['fixe'] = $data['Personne']['numfixe'];
+					$infocontactdata['Infocontactpersonne']['modified_fixe'] = $now;
+					$datapers['Personne']['numfixe'] = $data['Personne']['numfixe'];
+				} else if ($contact != null){
+					$infocontactdata['Infocontactpersonne']['fixe'] = $contact['Infocontactpersonne']['fixe'];
+					$infocontactdata['Infocontactpersonne']['modified_fixe'] = $contact['Infocontactpersonne']['modified_fixe'];
+				}
+				if(!empty($data['Personne']['numport'])){
 					$infocontactdata['Infocontactpersonne']['mobile'] = $data['Personne']['numport'];
+					$infocontactdata['Infocontactpersonne']['modified_mobile'] = $now;
+					$datapers['Personne']['numport'] = $data['Personne']['numport'];
+				} else if ($contact != null){
+					$infocontactdata['Infocontactpersonne']['mobile'] = $contact['Infocontactpersonne']['mobile'];
+					$infocontactdata['Infocontactpersonne']['modified_mobile'] = $contact['Infocontactpersonne']['modified_mobile'];
+				}
+				if(!empty($data['Personne']['email'])){
 					$infocontactdata['Infocontactpersonne']['email'] = $data['Personne']['email'];
-					$this->Infocontactpersonne->create( $infocontactdata );
-					if ( $this->Infocontactpersonne->save( null, array( 'atomic' => false ) )) {
+					$infocontactdata['Infocontactpersonne']['modified_email'] = $now;
+					$datapers['Personne']['email'] = $data['Personne']['email'];
+				} else if ($contact != null) {
+					$infocontactdata['Infocontactpersonne']['email'] = $contact['Infocontactpersonne']['email'];
+					$infocontactdata['Infocontactpersonne']['modified_email'] = $contact['Infocontactpersonne']['modified_email'];
+				}
+
+				$datapers['Personne']['id'] = $data['Personne']['id'];
+				$this->Infocontactpersonne->create( $infocontactdata );
+				$this->Personne->create( $datapers );
+				if (!$this->Infocontactpersonne->validates()) {
+					$errors = $this->Infocontactpersonne->validationErrors;
+					$this->set( compact( 'errors') );
+					$this->Flash->error( __( 'Save->error' ) );
+					// La logique est validée
+				} else {
+					// La logique n'est pas validée
+					if ( $this->Infocontactpersonne->save( null, array( 'atomic' => false ) ) && $this->Personne->save( null, array( 'atomic' => false ) )) {
 						$this->Infocontactpersonne->commit();
+						$this->Personne->commit();
 						$this->Flash->success( __( 'Save->success' ) );
 					}else{
+						$this->Personne->rollback();
 						$this->Flash->error( __( 'Save->error' ) );
 					}
 					$this->Jetons2->release( $dossierMenu['Dossier']['id'] );
-					$this->Flash->success( __( 'Save->success' ) );
 					return $this->redirect( $redirectUrl );
 				}
-				else {
-					$this->Personne->rollback();
-					$this->Flash->error( __( 'Save->error' ) );
-				}
-			}
-			else {
-				$this->request->data = $personne;
 			}
 
-			$urlmenu = "/personnes/view/{$id}";
-			$this->set( compact( 'personne', 'dossierMenu', 'urlmenu' ) );
+			$this->set( compact( 'personne', 'dossierMenu') );
 		}
 	}
 ?>

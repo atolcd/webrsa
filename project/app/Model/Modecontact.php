@@ -140,5 +140,19 @@
 			return $sql;
 		}
 
+		/**
+		 * Récupère les personnes du foyer en paramètre dans l'ordre pour l'affichage des données de contact
+		 * @param int $foyer_id Id du foyer
+		 */
+		public function getPersonnesFoyer($foyer_id){
+
+			return $this->query("
+				select p.id, p.qual, p.nom, p.prenom, p.numport, p.numfixe, p.email, pr.rolepers
+				from personnes p join prestations pr on p.id = pr.personne_id
+				where p.foyer_id = {$foyer_id} and pr.rolepers in ('DEM', 'CJT') and pr.natprest = 'RSA'
+				order by case when pr.rolepers = 'DEM' then 0 else 1 end
+			");
+		}
+
 	}
 ?>

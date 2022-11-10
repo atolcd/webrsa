@@ -18,3 +18,6 @@ msgstr "Retour à la visualisation"
 
 msgid "Histocoordonnees::back::title"
 msgstr "Retour à la personne « %s »"
+
+msgid "coordonnees.voir"
+msgstr "Voir les coordonnées communiquées lors de l\'accompagnement."

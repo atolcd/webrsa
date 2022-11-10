@@ -47,21 +47,12 @@
 		)
 	).' </li>';
 	echo '<li class="action">'.$this->Xhtml->link(
-		'Voir l\'historique des coordonnées',
-		array( 'controller' => 'personnes', 'action' => 'histoinfocontactpersonne', $personne['Personne']['id'] ),
+		__m('coordonnees.voir'),
+		array( 'controller' => 'modescontact', 'action' => 'index', $personne['Personne']['foyer_id'], $personne['Prestation']['rolepers'] ),
 		array(
 			'title' => 'Voir l\'historique des coordonnées de « '.$title.' »',
 			'enabled' => WebrsaAccess::isEnabled($personne, '/Personnes/coordonnees') && $hasHisto,
 			'class' => 'personnes coordonnees infocontact link',
-		)
-	).' </li>';
-	echo '<li class="action">'.$this->Xhtml->link(
-		'Modifier les coordonnées',
-		array( 'controller' => 'personnes', 'action' => 'coordonnees', $personne['Personne']['id'] ),
-		array(
-			'title' => 'Modifier les coordonnées de « '.$title.' »',
-			'enabled' => WebrsaAccess::isEnabled($personne, '/Personnes/coordonnees'),
-			'class' => 'personnes coordonnees link'
 		)
 	).' </li>';
 ?>

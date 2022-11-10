@@ -61,6 +61,8 @@
 			'Foyer',
 			'Option',
 			'WebrsaModecontact',
+			'Infocontactpersonne',
+			'Infocontactpersonnecaf'
 		);
 
 		/**
@@ -108,25 +110,50 @@
 		 *
 		 * @param integer $foyer_id
 		 */
-		public function index( $foyer_id = null ){
+		public function index( $foyer_id = null, $onglet = 'foyer' ){
 			// TODO : vérif param
 			// Vérification du format de la variable
 			$this->assert( valid_int( $foyer_id ), 'invalidParameter' );
 
 			$this->set( 'dossierMenu', $this->DossiersMenus->getAndCheckDossierMenu( array( 'foyer_id' => $foyer_id ) ) );
 
-			// Recherche des personnes du foyer
-			$modescontact = $this->WebrsaAccesses->getIndexRecords(
+			//Recherche des personnes du foyer
+			$personnesfoyer = $this->Modecontact->getPersonnesFoyer($foyer_id);
+
+			// Recherche des modes de contact du foyer
+			$modescontactfoyer = $this->WebrsaAccesses->getIndexRecords(
 				$foyer_id, array(
 					'fields' => $this->Modecontact->fields(),
 					'conditions' => array('Modecontact.foyer_id' => $foyer_id),
-					'contain' => false
+					'contain' => false,
+					'order' => ['Modecontact.id' => 'desc']
 				)
 			);
 
+			//Modes de contact du demandeur
+			//saisie manuelle
+			$saisiemanuelleDEM = $this->Infocontactpersonne->getContactsPersonne($personnesfoyer[0][0]['id']);
+
+			//flux modes de contacts
+			$fluxcontactDEM = $this->Infocontactpersonnecaf->getContactsPersonne($personnesfoyer[0][0]['id']);
+
+			if(isset($personnesfoyer[1])){
+				//Modes de contact du conjoint
+				//saisie manuelle
+				$saisiemanuelleCJT = $this->Infocontactpersonne->getContactsPersonne($personnesfoyer[1][0]['id']);
+
+				//flux modes de contacts
+				$fluxcontactCJT = $this->Infocontactpersonnecaf->getContactsPersonne($personnesfoyer[1][0]['id']);
+
+
+				$this->set(compact('saisiemanuelleCJT', 'fluxcontactCJT'));
+				$this->set( 'conjoint', $personnesfoyer[1][0] );
+
+			}
+
 			// Assignations à la vue
-			$this->set( 'foyer_id', $foyer_id );
-			$this->set( 'modescontact', $modescontact );
+			$this->set( 'demandeur', $personnesfoyer[0][0] );
+			$this->set(compact('foyer_id', 'modescontactfoyer', 'saisiemanuelleDEM', 'fluxcontactDEM', 'onglet'));
 			$this->_setOptions();
 		}
 
