@@ -6,23 +6,8 @@
 	$searchFormPersonneId = 'VisionneuseIndexPersonneForm';
 
 	// Gestion des boutons pour voir les flux créances / CNAF
-	$visionneusesLinkEnabled = false;
-	$actions =  array(
-		'/Visionneuses/index' => array(
-			'title' => __m('Visionneuse::index::title'),
-			'text' => __m('Visionneuse::index::link'),
-			'class' => 'link',
-			'enabled' => $visionneusesLinkEnabled
-		),
-		'/Rapportstalendscreances/index' => array(
-			'title' => __m('Rapportstalendscreances::index::title'),
-			'text' => __m('Rapportstalendscreances::index::link'),
-			'class' => 'link',
-			'enabled' => !$visionneusesLinkEnabled
-		),
-	);
 
-	echo $this->Default3->actions( $actions );
+	echo $this->element('rapports_talend_menu', ['visionneuse' => true]);
 
 	// Gestion des formulaires de recherche
 	// Recherche par flux

@@ -4,6 +4,9 @@ SET client_encoding = 'UTF8';
 BEGIN;
 -- *****************************************************************************
 
+-- Version du patch en BDD
+INSERT INTO versionpatchsql("version", created) VALUES ('4.26.0', CURRENT_TIMESTAMP);
+
 -- Création de la table pour les modes de contact du flux contact CAF
 CREATE TABLE IF NOT EXISTS public.infoscontactspersonnecaf (
     id serial4 NOT NULL,
@@ -45,6 +48,20 @@ where mobile is not null;
 update infoscontactspersonne
 set modified_email = modified
 where email is not null;
+
+-- Création de la table pour les rapports talend du flux modes de contact
+CREATE TABLE IF NOT EXISTS administration.rapportstalendmodescontacts (
+    id serial4 NOT NULL,
+    fichier varchar(255) NOT NULL,
+	personne_id int4 NULL,
+    nir bpchar(15) NULL,
+    matricule bpchar(15) NULL,
+    rolepers bpchar(3) NULL,
+    motif varchar(255) NOT NULL,
+	created timestamp NOT NULL,
+	CONSTRAINT rapportstalendmodescontacts_pkey PRIMARY KEY (id),
+    CONSTRAINT rapportstalendmodescontacts_personne_id_fkey FOREIGN KEY (personne_id) REFERENCES public.personnes(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
 -- *****************************************************************************
 COMMIT;

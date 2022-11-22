@@ -1,0 +1,50 @@
+# translation of messages.po to
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messages\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-01-25 23:57+0100\n"
+"PO-Revision-Date: 2009-01-26 09:34+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <fr@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+
+###############################################################################
+
+msgid "/Rapportstalendsmodescontacts/index/:heading"
+msgstr "Rapports Talends Modes de contact"
+
+msgid "created"
+msgstr "Date d'intégration"
+
+msgid "fichier"
+msgstr "Nom du fichier"
+
+msgid "total"
+msgstr "Dossiers rejetés"
+
+msgid "motif.pas_demandeur"
+msgstr "Non demandeur sur le dossier"
+
+msgid "motif.aucun_nir"
+msgstr "Aucun nir"
+
+msgid "motif.aucun_matricule"
+msgstr "Aucun matricule"
+
+msgid "motif.ancien_dossier"
+msgstr "Pas le dernier dossier de l'allocataire"
+
+msgid "rapports.aucun"
+msgstr "Aucun rapport Talend de modes de contact"
+
+###############################################################################

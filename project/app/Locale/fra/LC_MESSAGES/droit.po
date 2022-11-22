@@ -5285,3 +5285,14 @@ msgstr "Modifier les valeurs par sous-sujets des CER"
 
 msgid "controllers/Valeursparsoussujetscers/index"
 msgstr "Afficher les valeurs par sous-sujets des CER"
+
+## Rapports Talend des modes de contact
+###############################################################################
+
+msgid "controllers/Rapportstalendsmodescontacts"
+msgstr "Talends : rapports des modes de contact"
+
+msgid "controllers/Rapportstalendsmodescontacts/index"
+msgstr "Visualisation des rapports Talend des modes de contact"
+
+
