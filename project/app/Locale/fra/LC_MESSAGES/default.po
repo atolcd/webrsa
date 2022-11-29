@@ -111,6 +111,9 @@ msgstr "Enregistrement effectué"
 msgid "Save->error"
 msgstr "Erreur(s) lors de l'enregistrement"
 
+msgid "Save->empty"
+msgstr "Veuillez remplir au moins un champ du formulaire"
+
 msgid "Delete->error"
 msgstr "Erreur(s) lors de la suppression"
 

@@ -619,13 +619,15 @@
 				$datapers['Personne']['id'] = $data['Personne']['id'];
 				$this->Infocontactpersonne->create( $infocontactdata );
 				$this->Personne->create( $datapers );
-				if (!$this->Infocontactpersonne->validates()) {
+				if (empty($data['Personne']['email']) && empty($data['Personne']['numport']) && empty($data['Personne']['numfixe'])) {
+					//Le formulaire est vide
+					$this->Flash->error( __( 'Save->empty' ) );
+				}else if (!$this->Infocontactpersonne->validates()) {
+					//Il y a des erreurs dans le formulaire
 					$errors = $this->Infocontactpersonne->validationErrors;
 					$this->set( compact( 'errors') );
 					$this->Flash->error( __( 'Save->error' ) );
-					// La logique est validée
 				} else {
-					// La logique n'est pas validée
 					if ( $this->Infocontactpersonne->save( null, array( 'atomic' => false ) ) && $this->Personne->save( null, array( 'atomic' => false ) )) {
 						$this->Infocontactpersonne->commit();
 						$this->Personne->commit();
