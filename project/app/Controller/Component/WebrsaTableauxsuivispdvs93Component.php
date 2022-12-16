@@ -75,6 +75,13 @@
 					'CommunautesrStructurereferente' => 'communautessrs_structuresreferentes',
 				);
 
+				$join_referents = [
+					'table' => 'referents',
+					'alias' => 'Referent',
+					'type' => 'LEFT OUTER',
+					'conditions' => ['Photographe.referent_id = Referent.id']
+				];
+
 				if( $type === 'externe_cpdvcom' ) {
 					$sq = $Controller->User->sq(
 						array(
@@ -96,7 +103,7 @@
 					);
 
 					$query['joins'][] = array_words_replace(
-						$Controller->Tableausuivipdv93->Photographe->join( 'Referent', array( 'type' => 'LEFT OUTER' ) ),
+						$join_referents,
 						$replacements
 					);
 
@@ -119,7 +126,7 @@
 					);
 
 					$query['joins'][] = array_words_replace(
-						$Controller->Tableausuivipdv93->Photographe->join( 'Referent', array( 'type' => 'LEFT OUTER' ) ),
+						$join_referents,
 						$replacements
 					);
 
