@@ -1312,13 +1312,21 @@
 			foreach($return as $categorie => $data ) {
 				$return[$categorie]["entrees_total_pourcent"] = 100;
 				foreach( array('homme', 'femme' ) as $column ) {
-					$return[$categorie]["entrees_{$column}_pourcent"] =( (int)$return[$categorie]["entrees_{$column}"] / (int)$return[$categorie]["entrees_total"]) *100;
+					if((int)$return[$categorie]["entrees_total"] != 0){
+						$return[$categorie]["entrees_{$column}_pourcent"] =( (int)$return[$categorie]["entrees_{$column}"] / (int)$return[$categorie]["entrees_total"]) *100;
+					} else {
+						$return[$categorie]["entrees_{$column}_pourcent"] = 0;
+					}
 				}
 
 				if( isset( $data['dont'] ) ) {
 					foreach( $data['dont'] as $categorie2 => $data2 ) {
 						foreach( array( 'total', 'homme', 'femme' ) as $column ) {
-							$return[$categorie]['dont'][$categorie2]["entrees_{$column}_pourcent"] = ( (int)$return[$categorie]['dont'][$categorie2]["entrees_{$column}"] / (int)$return[$categorie]["entrees_total"]) * 100;
+							if((int)$return[$categorie]["entrees_total"] != 0){
+								$return[$categorie]['dont'][$categorie2]["entrees_{$column}_pourcent"] = ( (int)$return[$categorie]['dont'][$categorie2]["entrees_{$column}"] / (int)$return[$categorie]["entrees_total"]) * 100;
+							} else {
+								$return[$categorie]['dont'][$categorie2]["entrees_{$column}_pourcent"] = 0;
+							}
 						}
 					}
 				}
