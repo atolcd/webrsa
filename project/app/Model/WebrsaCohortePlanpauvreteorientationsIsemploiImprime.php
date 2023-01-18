@@ -37,13 +37,13 @@
 		 * @param array $types Les types de jointure alias => type
 		 * @return array
 		 */
-		public function searchQuery( array $types = array() ) {
+		public function searchQuery( array $types = array(), $nouvelentrant = true ) {
 
 			$types += array(
 				'Orientstruct' => 'INNER',
 			);
 
-			$query = parent::searchQuery($types);
+			$query = parent::searchQuery($types, $nouvelentrant);
 
 			//Qui ont une orientation
 			$query = $this->avecOrientation($query);

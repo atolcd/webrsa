@@ -677,17 +677,22 @@
 		/**
 		 * Retourne le tableau des conditions pour la jointure avec Historiquedroit
 		 */
-		public function conditionsJointureHistoriquedroit($dates){
+		public function conditionsJointureHistoriquedroit($dates, $nouvelentrant = true){
 
-			return
-			[
+			$cond = [
 				'Personne.id = Historiquedroit.personne_id',
 				'Personne.id = (SELECT personne_id
 				from historiquesdroits WHERE
 				personne_id = "Personne"."id"
-				ORDER BY created DESC LIMIT 1)',
-				'Historiquedroit.created BETWEEN \''.$dates['deb'].'\' AND \''.$dates['fin'].'\''
+				ORDER BY created DESC LIMIT 1)'
 			];
+
+			if($nouvelentrant) {
+				$cond[] = 'Historiquedroit.created BETWEEN \''.$dates['deb'].'\' AND \''.$dates['fin'].'\'';
+			}
+
+			return $cond;
+
 		}
 
 	}

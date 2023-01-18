@@ -147,7 +147,7 @@
 		 * @param array $types Les types de jointure alias => type
 		 * @return array
 		 */
-		public function searchQuery( array $types = array() ) {
+		public function searchQuery( array $types = array(), $nouvelentrant = true ) {
 			$types += array(
 				// INNER JOIN
 				'Foyer' => 'INNER',
@@ -201,7 +201,7 @@
 						$this->Personne->join('Historiquedroit',
 							array(
 								'type' => 'INNER',
-								'conditions' => parent::conditionsJointureHistoriquedroit($dates)
+								'conditions' => parent::conditionsJointureHistoriquedroit($dates, $nouvelentrant)
 							)
 						)
 					],

@@ -23,8 +23,8 @@
 		 * @param array $types Les types de jointure alias => type
 		 * @return array
 		 */
-		public function searchQuery( array $types = array() ) {
-		 	$query = parent::searchQuery($types);
+		public function searchQuery( array $types = array(), $nouvelentrant = true ) {
+		 	$query = parent::searchQuery($types, $nouvelentrant);
 			// Conditions
 			// SDD & DOV Historique
 			$query = $this->sdddovHistorique($query);

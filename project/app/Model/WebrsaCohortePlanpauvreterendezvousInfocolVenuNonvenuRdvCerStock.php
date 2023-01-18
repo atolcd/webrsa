@@ -75,8 +75,8 @@
 		 * @param array $types Les types de jointure alias => type
 		 * @return array
 		 */
-		public function searchQuery( array $types = array() ) {
-			$query = parent::searchQuery($types);
+		public function searchQuery( array $types = array(), $nouvelentrant = false ) {
+			$query = parent::searchQuery($types, $nouvelentrant);
 
 			// Ajout des champs nécessaires pour le passage en EP
 			$query['fields'] = array_merge(
