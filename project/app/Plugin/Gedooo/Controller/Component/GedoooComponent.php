@@ -9,7 +9,7 @@
 	 */
 	@set_time_limit( 0 );
 	// Mémoire maximum allouée à l'exécution de ce script
-	@ini_set( 'memory_limit', '512M' );
+	@ini_set( 'memory_limit', Configure::read( 'Impression.memory_limit' ) );
 	// Temps maximum d'exécution du script (en secondes)
 	@ini_set( 'max_execution_time', 2000 );
 	// Temps maximum (en seconde), avant que le script n'arrête d'attendre la réponse de Gedooo
