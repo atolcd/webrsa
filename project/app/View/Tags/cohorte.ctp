@@ -99,7 +99,7 @@
 			array(
 				'Cohorte.Tag.selection' => array( 'type' => 'checkbox' ),
 				'Cohorte.EntiteTag.modele',
-				'Cohorte.Tag.valeurtag_id',
+				'Cohorte.Tag.valeurtag_id' => $cohorteFields['data[Cohorte][][Tag][valeurtag_id]'],
 				'Cohorte.Tag.calcullimite' => array( 'empty' => true, 'options' => Configure::read('Tags.cohorte.range_date_butoir') ),
 				'Cohorte.Tag.limite' => array( 'dateFormat' => 'DMY', 'minYear' => date('Y'), 'maxYear' => date('Y')+4, 'empty' => true ),
 				'Cohorte.Tag.commentaire',
