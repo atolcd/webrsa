@@ -165,7 +165,7 @@
 			return "SELECT h.id
 						FROM historiqueetatspe AS h
 						WHERE h.informationpe_id = {$informationpeAlias}.id
-						ORDER BY h.date DESC
+						ORDER BY h.date DESC, h.id DESC
 						LIMIT 1";
 		}
 	}
