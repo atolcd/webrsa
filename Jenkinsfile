@@ -29,7 +29,7 @@ pipeline {
     stage('Build') {
       steps {
         script {
-          docker.image("docker-registry.priv.atolcd.com/atolcd/php:7.2-1.6").inside('-v "/var/lib/jenkins/composer/auth.json:/home/.composer/auth.json"') {
+          docker.image("docker-registry.priv.atolcd.com/atolcd/php:7.2-2.0").inside('-v "/var/lib/jenkins/composer/auth.json:/home/.composer/auth.json"') {
             sh 'composer install --no-progress --no-dev --no-suggest'
           }
         }

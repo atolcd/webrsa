@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "62d9440895f206a337ebebf009e1f967",
+    "content-hash": "4a200939917492cb92b80bd62fbe653f",
     "packages": [
         {
             "name": "cakephp/cakephp",
-            "version": "2.10.15",
+            "version": "2.10.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "7da7a9fab4276b4b0f61360bf20b3366822f38ff"
+                "reference": "d0c51b37422d0d2c99be74045d4439a674259308"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/7da7a9fab4276b4b0f61360bf20b3366822f38ff",
-                "reference": "7da7a9fab4276b4b0f61360bf20b3366822f38ff",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/d0c51b37422d0d2c99be74045d4439a674259308",
+                "reference": "d0c51b37422d0d2c99be74045d4439a674259308",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +50,13 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2019-01-26T02:41:55+00:00"
+            "support": {
+                "forum": "https://stackoverflow.com/tags/cakephp",
+                "irc": "irc://irc.freenode.org/cakephp",
+                "issues": "https://github.com/cakephp/cakephp/issues",
+                "source": "https://github.com/cakephp/cakephp"
+            },
+            "time": "2020-06-07T02:16:36+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -514,5 +520,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "2.3.0"
 }
