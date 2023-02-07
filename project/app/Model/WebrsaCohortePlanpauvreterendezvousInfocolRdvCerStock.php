@@ -32,6 +32,10 @@
 		 */
 		public function searchQuery( array $types = array(), $nouvelentrant = false ) {
 			$query = parent::searchQuery($types, $nouvelentrant);
+
+			// SDD & DOV sur historique
+			$query = $this->sdddovHistorique($query);
+
 			$query = $this->onlyDernierRDV($query);
 
 			// Champs supplémentaire

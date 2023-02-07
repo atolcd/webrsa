@@ -26,6 +26,8 @@
 		public function searchQuery( array $types = array(), $nouvelentrant = false ) {
 			$query = parent::searchQuery($types, $nouvelentrant);
 
+			// SDD & DOV sur historique
+			$query = $this->sdddovHistorique($query);
 			//Sans orientation
 			$query = $this->sansOrientation($query);
 			//Sans RDV

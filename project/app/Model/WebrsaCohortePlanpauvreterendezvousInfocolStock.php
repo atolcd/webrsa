@@ -27,6 +27,8 @@
 			$query = parent::searchQuery($types, $nouvelentrant);
 
 			// Conditions
+			// SDD & DOV sur historique
+			$query = $this->sdddovHistorique($query);
 			// Sans RDV
 			$query = $this->sansRendezvous($query);
 
