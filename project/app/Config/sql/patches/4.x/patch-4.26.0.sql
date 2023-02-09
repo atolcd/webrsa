@@ -63,6 +63,11 @@ CREATE TABLE IF NOT EXISTS administration.rapportstalendmodescontacts (
     CONSTRAINT rapportstalendmodescontacts_personne_id_fkey FOREIGN KEY (personne_id) REFERENCES public.personnes(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+--Création des champs de date de modification pour chacune des coordonnées dans la table personne
+ALTER TABLE public.personnes ADD COLUMN IF NOT EXISTS modified_numfixe timestamp;
+ALTER TABLE public.personnes ADD COLUMN IF NOT EXISTS modified_numport timestamp;
+ALTER TABLE public.personnes ADD COLUMN IF NOT EXISTS modified_email timestamp;
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

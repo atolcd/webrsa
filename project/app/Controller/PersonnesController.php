@@ -595,6 +595,7 @@
 					$infocontactdata['Infocontactpersonne']['fixe'] = $data['Personne']['numfixe'];
 					$infocontactdata['Infocontactpersonne']['modified_fixe'] = $now;
 					$datapers['Personne']['numfixe'] = $data['Personne']['numfixe'];
+					$datapers['Personne']['modified_numfixe'] = $now;
 				} else if ($contact != null){
 					$infocontactdata['Infocontactpersonne']['fixe'] = $contact['Infocontactpersonne']['fixe'];
 					$infocontactdata['Infocontactpersonne']['modified_fixe'] = $contact['Infocontactpersonne']['modified_fixe'];
@@ -603,6 +604,7 @@
 					$infocontactdata['Infocontactpersonne']['mobile'] = $data['Personne']['numport'];
 					$infocontactdata['Infocontactpersonne']['modified_mobile'] = $now;
 					$datapers['Personne']['numport'] = $data['Personne']['numport'];
+					$datapers['Personne']['modified_numport'] = $now;
 				} else if ($contact != null){
 					$infocontactdata['Infocontactpersonne']['mobile'] = $contact['Infocontactpersonne']['mobile'];
 					$infocontactdata['Infocontactpersonne']['modified_mobile'] = $contact['Infocontactpersonne']['modified_mobile'];
@@ -611,6 +613,7 @@
 					$infocontactdata['Infocontactpersonne']['email'] = $data['Personne']['email'];
 					$infocontactdata['Infocontactpersonne']['modified_email'] = $now;
 					$datapers['Personne']['email'] = $data['Personne']['email'];
+					$datapers['Personne']['modified_email'] = $now;
 				} else if ($contact != null) {
 					$infocontactdata['Infocontactpersonne']['email'] = $contact['Infocontactpersonne']['email'];
 					$infocontactdata['Infocontactpersonne']['modified_email'] = $contact['Infocontactpersonne']['modified_email'];
