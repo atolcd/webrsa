@@ -34,6 +34,9 @@
 			$query = parent::searchQuery($types, $nouvelentrant);
 			$query = $this->onlyDernierRDV($query);
 
+			// Ajout des conditions pour ne pas prendre en compte certaines activité Socio-Pro
+			$query = $this->activiteToSkip($query);
+
 			// Champs supplémentaire
 			$query['fields'] = array_merge(
 				$query['fields'],
@@ -59,6 +62,8 @@
 			$query['conditions'][] = "Rendezvous.statutrdv_id = " . $this->getStatutId('cohorte_infocol_rdv_cer_nouveaux');
 			// Et les personnes n'ont pas de second rendez-vous
 			$query['conditions'][] = 'Personne.id NOT IN (SELECT personne_id FROM rendezvous WHERE typerdv_id = '.$this->getTypeRdvId ('cohorte_infocol_rdv_cer_nouveaux', true).')';
+
+
 
 			return $query;
 		}

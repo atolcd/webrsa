@@ -49,6 +49,9 @@
 			//Dans le mois précédent :
 			$query = $this->nouveauxEntrants($query);
 
+			// Ajout des conditions pour ne pas prendre en compte certaines activité Socio-Pro
+			$query = $this->activiteToSkip($query);
+
 			//Uniquement les personne qui sont SDDOV pour la première fois.
 			if( Configure::read('PlanPauvrete.Cohorte.Primoaccedant') ) {
 				$query = $this->uniqueHistoriqueSdddov($query);

@@ -49,11 +49,11 @@
 				$query = $this->uniqueHistoriqueSdddov($query);
 			}
 
-			//Uniquement les personnes dont l'état PE est mis a jour ce mois ci
-			$query = $this->dateInscritPESupPeriode($query);
-
 			//Dans le mois précédent :
 			$query = $this->nouveauxEntrants($query);
+
+			// Ajout des conditions pour ne pas prendre en compte certaines activité Socio-Pro
+			$query = $this->activiteToSkip($query);
 
 			return $query;
 		}

@@ -471,8 +471,6 @@
 
 			$query['conditions'] = $this->conditionsRendezvous ( $query['conditions'], $search);
 
-			// Ajout des conditions pour ne pas prendre en compte certaines activité Socio-Pro
-			$query = $this->activiteToSkip($query);
 
 			return $query;
 		}
