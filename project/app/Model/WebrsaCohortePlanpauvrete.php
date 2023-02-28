@@ -679,7 +679,7 @@
 
 			$cond = [
 				'Personne.id = Historiquedroit.personne_id',
-				'Personne.id = (SELECT personne_id
+				'Historiquedroit.id = (SELECT id
 				from historiquesdroits WHERE
 				personne_id = "Personne"."id"
 				ORDER BY created DESC LIMIT 1)'
