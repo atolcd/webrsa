@@ -68,6 +68,52 @@ ALTER TABLE public.personnes ADD COLUMN IF NOT EXISTS modified_numfixe timestamp
 ALTER TABLE public.personnes ADD COLUMN IF NOT EXISTS modified_numport timestamp;
 ALTER TABLE public.personnes ADD COLUMN IF NOT EXISTS modified_email timestamp;
 
+--Remplissage des dates de modification vides dans la table personne
+with date_modif as (
+	select distinct on (p.id) p.id as pid, coalesce(i.modified_fixe, d.dtdemrsa) as date_m
+	from personnes p
+		join foyers f on f.id = p.foyer_id
+		join dossiers d on d.id = f.dossier_id
+		left join infoscontactspersonne i on p.id = i.personne_id
+	where p.numfixe is not null
+	order by p.id, i.modified_fixe desc, d.dtdemrsa desc
+)
+update personnes
+set modified_numfixe = date_modif.date_m
+from date_modif
+where personnes.id = date_modif.pid and personnes.numfixe is not null and personnes.modified_numfixe is null;
+
+
+with date_modif as (
+	select distinct on (p.id) p.id as pid, coalesce(i.modified_mobile , d.dtdemrsa) as date_m
+	from personnes p
+		join foyers f on f.id = p.foyer_id
+		join dossiers d on d.id = f.dossier_id
+		left join infoscontactspersonne i on p.id = i.personne_id
+	where p.numport is not null
+	order by p.id, i.modified_mobile desc, d.dtdemrsa desc
+)
+update personnes
+set modified_numport = date_modif.date_m
+from date_modif
+where personnes.id = date_modif.pid and personnes.numport is not null and personnes.modified_numport is null;
+
+
+with date_modif as (
+	select distinct on (p.id) p.id as pid, coalesce(i.modified_email, d.dtdemrsa) as date_m
+	from personnes p
+		join foyers f on f.id = p.foyer_id
+		join dossiers d on d.id = f.dossier_id
+		left join infoscontactspersonne i on p.id = i.personne_id
+	where p.email is not null
+	order by p.id, i.modified_email desc, d.dtdemrsa desc
+)
+update personnes
+set modified_email  = date_modif.date_m
+from date_modif
+where personnes.id = date_modif.pid and personnes.email is not null and personnes.modified_email is null;
+
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************
