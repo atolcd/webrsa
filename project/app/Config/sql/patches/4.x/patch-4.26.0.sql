@@ -113,6 +113,9 @@ set modified_email  = date_modif.date_m
 from date_modif
 where personnes.id = date_modif.pid and personnes.email is not null and personnes.modified_email is null;
 
+-- Mise à jour de la variable de configuration de memory_limit
+update public.configurations set value_variable = '"2048M"'  WHERE lib_variable LIKE 'Impression.memory_limit';
+
 
 -- *****************************************************************************
 COMMIT;
