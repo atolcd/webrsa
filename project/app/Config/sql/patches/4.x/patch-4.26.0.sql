@@ -116,6 +116,17 @@ where personnes.id = date_modif.pid and personnes.email is not null and personne
 -- Mise à jour de la variable de configuration de memory_limit
 update public.configurations set value_variable = '"2048M"'  WHERE lib_variable LIKE 'Impression.memory_limit';
 
+insert into configurationshistoriques (configurations_id, value_variable_old, value_variable_new, user_id, username, created, modified) 
+values (
+	(select id from configurations where lib_variable like 'Impression.memory_limit'),
+	(select value_variable from configurations where lib_variable like 'Impression.memory_limit'),
+	'"2048M"',
+	(select id from users where username like 'webrsa'),
+	'WebRSA patch',
+	current_date,
+	current_date
+);
+
 
 -- *****************************************************************************
 COMMIT;
