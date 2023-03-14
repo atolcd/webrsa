@@ -101,8 +101,15 @@
 					)
 				);
 
+				$join[0] = $query['joins'][0];
+				$join[1] = $query['joins'][1];
+				unset($query['joins'][0]);
+				unset($query['joins'][1]);
+
 				// 2. Jointures
 				$query['joins'] = array_merge(
+					$join,
+					[$this->Personne->join( 'Orientstruct', array( 'type' => $types['Orientstruct'] ) )],
 					$query['joins'],
 					array(
 						$this->Personne->join(
@@ -114,7 +121,6 @@
 								)
 							)
 						),
-						$this->Personne->join( 'Orientstruct', array( 'type' => $types['Orientstruct'] ) ),
 						$this->Personne->Foyer->Dossier->join(
 							'Suiviinstruction',
 							array(
