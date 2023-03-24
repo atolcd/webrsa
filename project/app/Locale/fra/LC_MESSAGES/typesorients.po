@@ -35,7 +35,7 @@ msgid "/Typesorients/add/:heading"
 msgstr "Ajout d'un type d'orientation"
 
 msgid "/Typesorients/edit/:heading"
-msgstr "Modification d'un type d'orientation"
+msgstr "Modification du type d'orientation « #Typeorient.lib_type_orient# »"
 
 msgid "/Parametrages/index"
 msgstr "Retour"
@@ -51,6 +51,9 @@ msgstr "Ajouter une exception"
 
 msgid "Exceptionimpressiontypeorient.origine"
 msgstr "Origine(s)"
+
+msgid "Exceptionimpressiontypeorient.ordre"
+msgstr "Priorité"
 
 msgid "Exceptionimpressiontypeorient.act"
 msgstr "Activité"

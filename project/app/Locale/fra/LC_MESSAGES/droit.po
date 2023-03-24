@@ -5296,3 +5296,29 @@ msgid "controllers/Rapportstalendsmodescontacts/index"
 msgstr "Visualisation des rapports Talend des modes de contact"
 
 
+## Exception des impressions des orientations
+###############################################################################
+
+msgid "controllers/Exceptionsimpressionstypesorients"
+msgstr "Exception des impressions des orientations"
+
+msgid "controllers/Exceptionsimpressionstypesorients/add"
+msgstr "Ajout d'une exception"
+
+msgid "controllers/Exceptionsimpressionstypesorients/delete"
+msgstr "Suppression d'une exception"
+
+msgid "controllers/Exceptionsimpressionstypesorients/monter"
+msgstr "Monter la priorité d'une exception"
+
+msgid "controllers/Exceptionsimpressionstypesorients/descendre"
+msgstr "Descendre la priorité d'une exception"
+
+msgid "controllers/Exceptionsimpressionstypesorients/index"
+msgstr "Voir les exceptions"
+
+msgid "controllers/Exceptionsimpressionstypesorients/edit"
+msgstr "Modification d'une exception"
+
+
+

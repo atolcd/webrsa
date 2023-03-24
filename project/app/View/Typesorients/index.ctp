@@ -4,11 +4,10 @@
 		'Typeorient.lib_type_orient',
 		'Parent.lib_type_orient',
 		'Typeorient.modele_notif',
-		'Typeorient.modele_notif_cohorte'
+		'Typeorient.modele_notif_cohorte',
+		'Typeorient.has_exceptions'
 	];
-	if(Configure::read('Cg.departement') == 58){
-		$colonnes[] = 'Typeorient.has_exceptions';
-	}
+
 	$colonnes = array_merge(
 		$colonnes,
 		[

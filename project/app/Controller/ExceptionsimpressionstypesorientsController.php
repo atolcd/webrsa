@@ -49,7 +49,7 @@
 				}
 
 				// Manipulation des origines récupérées
-				$this->request->data = $this->adaptTabOrigine($this->request->data);
+				$this->request->data = $this->_adaptTabOrigine($this->request->data);
 
 				// Tentative de sauvegarde du formulaire
 				$this->Exceptionimpressiontypeorient->begin();
@@ -63,14 +63,14 @@
 				foreach ($this->request->data['ExceptionimpressiontypeorientOrigine'] as $nom => $valeur){
 					if($valeur != '0'){
 						$aucuneOrigine = false;
-						$success = $this->enregistrerOrigine($nom, $id, $success);
+						$success = $this->_enregistrerOrigine($nom, $id, $success);
 					}
 				}
 
 				if($aucuneOrigine == true){
 					//on enregistre toutes les origines
 					foreach ($this->request->data['ExceptionimpressiontypeorientOrigine'] as $nom => $valeur){
-						$success = $this->enregistrerOrigine($nom, $id, $success);
+						$success = $this->_enregistrerOrigine($nom, $id, $success);
 					}
 				}
 
@@ -106,7 +106,7 @@
 				}
 
 				// Manipulation des origines récupérées
-				$this->request->data = $this->adaptTabOrigine($this->request->data);
+				$this->request->data = $this->_adaptTabOrigine($this->request->data);
 
 				// Tentative de sauvegarde du formulaire
 				$this->Exceptionimpressiontypeorient->begin();
@@ -123,7 +123,7 @@
 					if($valeur != '0'){
 						$aucuneOrigine = false;
 						//Si la valeur n'est pas déjà enregistrée en BDD on l'ajoute
-						$success = $this->enregistrerOrigine($nom, $id, $success);
+						$success = $this->_enregistrerOrigine($nom, $id, $success);
 					} else {
 						//Si la ligne existe en BDD, on la supprime
 						$origine = $this->ExceptionimpressiontypeorientOrigine->findByExcepimprtypeorientIdAndOrigine($id, $nom);
@@ -136,7 +136,7 @@
 				if($aucuneOrigine == true){
 					//on enregistre toutes les origines
 					foreach ($this->request->data['ExceptionimpressiontypeorientOrigine'] as $nom => $valeur){
-						$success = $this->enregistrerOrigine($nom, $id, $success);
+						$success = $this->_enregistrerOrigine($nom, $id, $success);
 					}
 				}
 
@@ -206,7 +206,7 @@
 		 *
 		 * @return bool
 		*/
-		public function enregistrerOrigine($nom, $id, $success){
+		protected function _enregistrerOrigine($nom, $id, $success){
 			if(!$this->ExceptionimpressiontypeorientOrigine->findByExcepimprtypeorientIdAndOrigine($id, $nom)){
 				$data = ['ExceptionimpressiontypeorientOrigine' => [
 					'excepimprtypeorient_id' => $id,
@@ -227,7 +227,7 @@
 			return $success;
 		}
 
-		public function adaptTabOrigine($data) {
+		protected function _adaptTabOrigine($data) {
 			$origines = $this->Exceptionimpressiontypeorient->getOrigines();
 			$excepOriginesC = $data['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigineC'] != '' ? $data['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigineC'] : [];
 			$excepOriginesHC = $data['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigineHC'] != '' ? $data['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigineHC'] : [];

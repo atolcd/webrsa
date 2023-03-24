@@ -1,4 +1,5 @@
 <?php
+
 	echo $this->element(
 		'WebrsaParametrages/add_edit',
 		array(
@@ -17,7 +18,7 @@
 	);
 
 
-	if(Configure::read('Cg.departement') == 58){
+	if($this->request->data['Typeorient']['parentid'] != null){
 		echo '<h1>'.__m('exceptionimpressiontypeorient.titre').'</h1>';
 
 		echo $this->Default3->actions([]
@@ -27,6 +28,7 @@
 			$exceptions,
 			$this->Translator->normalize(
 				array(
+					'Exceptionimpressiontypeorient.ordre',
 					'Exceptionimpressiontypeorient.origine',
 					'Exceptionimpressiontypeorient.act',
 					'Exceptionimpressiontypeorient.porteurprojet',
@@ -64,12 +66,10 @@
 		'Typeorient.lib_type_orient',
 		'Parent.lib_type_orient',
 		'Typeorient.modele_notif',
-		'Typeorient.modele_notif_cohorte'
+		'Typeorient.modele_notif_cohorte',
+		'Typeorient.has_exceptions'
 	];
 
-	if(Configure::read('Cg.departement') == 58){
-		$colonnes[] = 'Typeorient.has_exceptions';
-	}
 
 	$colonnes = array_merge(
 		$colonnes,

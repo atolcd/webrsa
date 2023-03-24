@@ -912,24 +912,10 @@
 				else {
 					return "Orientation/{$data['Typeorient']['modele_notif']}.odt";
 				}
-			}
-			// Au CG 93, lorsqu'une orientation fait suite à un déménagement, il
-			// faut imprimer le courrier de transfert PDV
-			else if( $departement == 93 && Hash::get( $data, 'NvOrientstruct.origine' ) === 'demenagement' ) {
-				return $this->Orientstruct->Transfertpdv93->modeleOdt( $data );
-			}
-			// Au CD 93, si l'orientation est une orientation externe faite par un prestataire,
-			// if faut tenir compte de l'origine de l'orientation pour définir le fichier odt.
-			else if( $departement == 93 && preg_match('|^presta|', $data['Orientstruct']['origine'])) {
-				return "Orientation/{$data['Typeorient']['modele_notif']}_{$data['Orientstruct']['origine']}.odt";
-			}
+			} else {
 
-			else if ($departement == 58){
-				return $this->getModeleExceptions58($data);
+				return $this->getModeleExceptions($data);
 			}
-
-			return "Orientation/{$data['Typeorient']['modele_notif']}.odt";
-
 		}
 
 		/**
@@ -1555,7 +1541,7 @@
 			return $propo_algo;
 		}
 
-		public function getModeleExceptions58($data){
+		public function getModeleExceptions($data){
 			$exceptions = $this->Exceptionimpressiontypeorient->findAllByTypeorientId($data['Orientstruct']['typeorient_id'], null, ['ordre' => 'asc']);
 
 			//catégorie d'activité de la personne

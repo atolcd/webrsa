@@ -556,5 +556,22 @@
 			$success = $this->_regenerateCache();
 			return $success;
 		}
+
+		public function sqHasException() {
+			return
+			[
+				'CASE
+					WHEN ("Typeorient"."parentid" is null)
+					THEN \'\'
+					WHEN (
+						EXISTS(
+							SELECT *
+							FROM "public"."exceptionsimpressionstypesorients" AS "exceptionsimpressionstypesorients"
+							WHERE "exceptionsimpressionstypesorients"."typeorient_id" = "Typeorient"."id")) = true
+					THEN \'Oui\'
+					ELSE \'Non\'
+				END AS "Typeorient__has_exceptions"'
+			];
+		}
 	}
 ?>

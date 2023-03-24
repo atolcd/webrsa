@@ -30,7 +30,7 @@
 				'Exceptionimpressiontypeorient.act' => array( 'type' => 'select', 'options' => $options['Activite']['act'], 'empty' => true ),
 				'Exceptionimpressiontypeorient.porteurprojet' => array( 'type' => 'select', 'options' => $options['porteurprojet'],  'empty' => true ),
 				'Exceptionimpressiontypeorient.modele_notif',
-				'Exceptionimpressiontypeorient.actif',
+				'Exceptionimpressiontypeorient.actif' => ['default' => true],
 				'Exceptionimpressiontypeorient.typeorient_id' => array( 'type' => 'hidden', 'value' => $typeorient_id),
 				'Exceptionimpressiontypeorient.ordre' => array( 'type' => 'hidden', 'value' => $options['ordre']),
 			)

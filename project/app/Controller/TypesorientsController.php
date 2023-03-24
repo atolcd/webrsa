@@ -78,16 +78,8 @@
 			$query = $this->_query();
 			$query['fields'] = array_merge(
 				$query['fields'],
-				 array( $this->Typeorient->sqHasLinkedRecords() ),
-				 ['CASE WHEN (
-							EXISTS(
-								SELECT *
-								FROM "public"."exceptionsimpressionstypesorients" AS "exceptionsimpressionstypesorients"
-								WHERE "exceptionsimpressionstypesorients"."typeorient_id" = "Typeorient"."id")) = true
-						THEN \'Oui\'
-						ELSE \'Non\'
-					END AS "Typeorient__has_exceptions"'
-				 ]
+				array( $this->Typeorient->sqHasLinkedRecords() ),
+				$this->Typeorient->sqHasException()
 			);
 
 			$this->WebrsaParametrages->index( $query );
@@ -120,15 +112,7 @@
 			$query = $this->_query();
 			$query['fields'] = array_merge(
 				$query['fields'],
-				['CASE WHEN (
-							EXISTS(
-								SELECT *
-								FROM "public"."exceptionsimpressionstypesorients" AS "exceptionsimpressionstypesorients"
-								WHERE "exceptionsimpressionstypesorients"."typeorient_id" = "Typeorient"."id")) = true
-						THEN \'Oui\'
-						ELSE \'Non\'
-					END AS "Typeorient__has_exceptions"'
-				]
+				$this->Typeorient->sqHasException()
 			);
 			$typesorients = $this->Typeorient->find( 'all', $query );
 			$exceptions = $this->Exceptionimpressiontypeorient->getByTypeOrient($id);
