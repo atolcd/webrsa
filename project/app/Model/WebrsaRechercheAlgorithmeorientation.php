@@ -97,7 +97,7 @@
 
 				// 1. Ajout des champs supplémentaires
 				$query['fields'] = array_merge(
-					['"Personne"."id"'],
+					['DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"'],
 					$query['fields'],
 					ConfigurableQueryFields::getModelsFields(
 						array(
