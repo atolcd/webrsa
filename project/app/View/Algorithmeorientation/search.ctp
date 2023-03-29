@@ -145,7 +145,8 @@
 		array(
 			'customSearch' => $this->fetch( 'custom_search_filters' ),
 			'exportcsv' => array( 'action' => 'exportcsv_recherche' ),
-			'modelName' => 'Orientstruct'
+			'modelName' => 'Orientstruct',
+			'sort' => false
 		)
 	);
 ?>
