@@ -25,6 +25,8 @@
 
 	// $paginate
 	$paginate = isset( $paginate ) ? $paginate : null;
+	//sort
+	$sort = isset( $sort ) ? $sort : true;
 
 	$configurableQueryParams = isset($configurableQueryParams) ? $configurableQueryParams : array();
 
@@ -84,7 +86,8 @@
 			array(
 				'format' => $this->element( 'pagination_format', array( 'modelName' => $modelName ) ),
 				'options' => $options,
-				'paginate' => $paginate
+				'paginate' => $paginate,
+				'sort' => $sort
 			)
 		);
 
