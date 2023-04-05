@@ -75,6 +75,30 @@
 			),
 		);
 
+		/**
+		 * Associations "Has and belongs to many".
+		 *
+		 * @var array
+		 */
+		public $hasAndBelongsToMany = array(
+			'Zonegeographique' => array(
+				'className' => 'Zonegeographique',
+				'joinTable' => 'excepimprtypesorients_zonesgeographiques',
+				'foreignKey' => 'excepimprtypeorient_id',
+				'associationForeignKey' => 'zonegeographique_id',
+				'unique' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'finderQuery' => '',
+				'deleteQuery' => '',
+				'insertQuery' => '',
+				'with' => 'ExcepimprtypeorientZonegeo'
+			)
+		);
+
 		public function getPorteurprojet(){
 			return [
 				'1' => __m('Exceptionimpression.porteurprojet.1'),

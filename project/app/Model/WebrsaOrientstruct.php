@@ -38,7 +38,8 @@
 			'Exceptionimpressiontypeorient',
 			'Activite',
 			'DspRev',
-			'ExceptionimpressiontypeorientOrigine'
+			'ExceptionimpressiontypeorientOrigine',
+			'ExcepimprtypeorientZonegeo'
 		);
 
 		/**
@@ -1558,6 +1559,7 @@
 			//on déroule les critères 1 à 1, si on entre dedans on prend le modèle associé sinon on prend le modèle de base
 			foreach ($exceptions as $exception){
 				$listeOrigines = $this->ExceptionimpressiontypeorientOrigine->getOriginesParExceptionsTableau($exception['Exceptionimpressiontypeorient']['id']);
+				$listeZonegeo = $this->ExcepimprtypeorientZonegeo->getZonesgeoParExceptionsTableau($exception['Exceptionimpressiontypeorient']['id']);
 				if(
 					$exception['Exceptionimpressiontypeorient']['actif'] == true
 					&& in_array($data['Orientstruct']['origine'], $listeOrigines)
@@ -1565,6 +1567,10 @@
 						|| $exception['Exceptionimpressiontypeorient']['act'] == null)
 					&& ($exception['Exceptionimpressiontypeorient']['porteurprojet'] == $porteurprojet
 						|| $exception['Exceptionimpressiontypeorient']['porteurprojet'] == null)
+					&& ($exception['Exceptionimpressiontypeorient']['structurereferente_id'] == $data['Orientstruct']['structurereferente_id']
+					|| $exception['Exceptionimpressiontypeorient']['structurereferente_id'] == null)
+					&& (in_array($data['Adresse']['numcom'], $listeZonegeo)
+					|| $listeZonegeo == [])
 				) {
 					return "Orientation/{$exception['Exceptionimpressiontypeorient']['modele_notif']}.odt";
 				}

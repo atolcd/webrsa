@@ -766,5 +766,33 @@
 
 			return $results;
 		}
+
+		/**
+		 * Récupère la liste des structures référentes actives du type d'orientation
+		 *
+		 * @return array
+		 */
+		public function listByTypeOrient($typeorient_id) {
+
+				$results = $this->find(
+					'list',
+					array(
+						'fields' => array(
+							'Structurereferente.id',
+							'Structurereferente.lib_struc'
+						),
+						'recursive' => -1,
+						'order' => array(
+							'Structurereferente.lib_struc'
+						),
+						'conditions' => array(
+							'Structurereferente.actif' => 'O',
+							'Structurereferente.typeorient_id' => $typeorient_id
+						)
+					)
+				);
+
+			return $results;
+		}
 	}
 ?>

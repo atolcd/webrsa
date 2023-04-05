@@ -16,6 +16,9 @@ msgstr "Origine"
 msgid "Exceptionimpressiontypeorient.act"
 msgstr "Activité"
 
+msgid "Exceptionimpressiontypeorient.structurereferente_id"
+msgstr "Structure référente"
+
 msgid "Exceptionimpressiontypeorient.porteurprojet"
 msgstr "Porteur de projet"
 
@@ -42,4 +45,10 @@ msgstr "Non"
 
 msgid "Exceptionimpression.porteurprojet.1"
 msgstr "Oui"
+
+msgid "Exceptionimpressiontypeorient.Zonegeo"
+msgstr "Numéro de commune au sens INSEE"
+
+msgid "Exceptionimpressiontypeorient.Zonegeo.checkbox"
+msgstr "Restreindre par numéro de commune au sens INSEE"
 

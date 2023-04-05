@@ -28,7 +28,15 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Exceptionimpressiontypeorient', 'Activite', 'Orientstruct', 'ExceptionimpressiontypeorientOrigine' );
+		public $uses = [
+			'Exceptionimpressiontypeorient',
+			'Activite',
+			'Orientstruct',
+			'ExceptionimpressiontypeorientOrigine',
+			'ExcepimprtypeorientZonegeo',
+			'Structurereferente',
+			'Zonegeographique'
+		];
 
 		/**
 		 * Helpers utilisés.
@@ -42,63 +50,22 @@
 		);
 
 		public function add($typeorient_id = null){
-			if( false === empty( $this->request->data ) ) {
-				 // Retour à la liste en cas d'annulation
-				 if( isset( $this->request->data['Cancel'] ) ) {
-					 $this->redirect( '/Typesorients/edit/'.$typeorient_id );
-				}
-
-				// Manipulation des origines récupérées
-				$this->request->data = $this->_adaptTabOrigine($this->request->data);
-
-				// Tentative de sauvegarde du formulaire
-				$this->Exceptionimpressiontypeorient->begin();
-				$this->Exceptionimpressiontypeorient->create( $this->request->data );
-				$success = false != $this->Exceptionimpressiontypeorient->save( null, array( 'atomic' => false ) );
-				$id = $this->Exceptionimpressiontypeorient->id;
-
-				$aucuneOrigine = true;
-
-				//Sauvegarde des origines
-				foreach ($this->request->data['ExceptionimpressiontypeorientOrigine'] as $nom => $valeur){
-					if($valeur != '0'){
-						$aucuneOrigine = false;
-						$success = $this->_enregistrerOrigine($nom, $id, $success);
-					}
-				}
-
-				if($aucuneOrigine == true){
-					//on enregistre toutes les origines
-					foreach ($this->request->data['ExceptionimpressiontypeorientOrigine'] as $nom => $valeur){
-						$success = $this->_enregistrerOrigine($nom, $id, $success);
-					}
-				}
-
-				if( true === $success ) {
-					$this->Exceptionimpressiontypeorient->commit();
-					$this->Flash->success( __( 'Save->success' ) );
-					$this->redirect( '/Typesorients/edit/'.$typeorient_id );
-				}
-				else {
-					$this->Exceptionimpressiontypeorient->rollback();
-					$this->Flash->error( __( 'Save->error' ) );
-				}
-			}
-
-			$dernierOrdre = $this->Exceptionimpressiontypeorient->findByTypeorientId($typeorient_id, null, ['ordre' =>  'desc']);
-			$options['ordre'] = $dernierOrdre == [] ? 1 : $dernierOrdre['Exceptionimpressiontypeorient']['ordre'] + 1;
-			$options['Activite']['act'] = [$this->Activite->enum( 'act' )];
-			$options['origines'] = $this->Exceptionimpressiontypeorient->getOrigines();
-			$options['porteurprojet'] = $this->Exceptionimpressiontypeorient->getPorteurprojet();
-
-			$this->set( compact('options', 'typeorient_id') );
-			$this->render( 'add_edit' );
+			$args = func_get_args();
+			call_user_func_array( array( $this, 'edit' ), $args );
 		}
 
-		public function edit($id = null, array $params = array()){
-			$exception = $this->Exceptionimpressiontypeorient->findById($id);
-			$typeorient_id = $exception['Exceptionimpressiontypeorient']['typeorient_id'];
-			$options['ordre'] = $exception['Exceptionimpressiontypeorient']['ordre'];
+		public function edit($id = null){
+			if( $this->action == 'add' ) {
+				$typeorient_id = $id;
+				$dernierOrdre = $this->Exceptionimpressiontypeorient->findByTypeorientId($typeorient_id, null, ['ordre' =>  'desc']);
+				$options['ordre'] = $dernierOrdre == [] ? 1 : $dernierOrdre['Exceptionimpressiontypeorient']['ordre'] + 1;
+			}
+			else if( $this->action == 'edit' ) {
+				$exception = $this->Exceptionimpressiontypeorient->find('first', ['conditions' => ['Exceptionimpressiontypeorient.id' => $id]]);
+				$typeorient_id = $exception['Exceptionimpressiontypeorient']['typeorient_id'];
+				$options['ordre'] = $exception['Exceptionimpressiontypeorient']['ordre'];
+				$exception['Exceptionimpressiontypeorient']['filtre_zone_geo'] = empty($exception['Zonegeographique']) ? false : true;
+			}
 			if( false === empty( $this->request->data ) ) {
 				// Retour à la liste en cas d'annulation
 				if( isset( $this->request->data['Cancel'] ) ) {
@@ -108,16 +75,24 @@
 				// Manipulation des origines récupérées
 				$this->request->data = $this->_adaptTabOrigine($this->request->data);
 
-				// Tentative de sauvegarde du formulaire
+				$data = $this->request->data;
+				unset($data['ExceptionimpressiontypeorientOrigine']);
+				unset($data['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigineC']);
+				unset($data['Exceptionimpressiontypeorient']['ExceptionimpressiontypeorientOrigineHC']);
+				if($data['Exceptionimpressiontypeorient']['filtre_zone_geo'] == '0'){
+					$data['Zonegeographique']['Zonegeographique'] = '';
+				}
+				$this->Exceptionimpressiontypeorient->id = $data['Exceptionimpressiontypeorient']['id'];
+				$data['Zonegeographique']['excepimprtypeorient_id'] = $data['Exceptionimpressiontypeorient']['id'];
 				$this->Exceptionimpressiontypeorient->begin();
-				$data = Hash::extract( $this->request->data, 'Exceptionimpressiontypeorient' );
-				$this->Exceptionimpressiontypeorient->id = $data['id'];
+
 				$success = $this->Exceptionimpressiontypeorient->saveAll( $data, array( 'atomic' => false ) );
 
 				$id = $this->Exceptionimpressiontypeorient->id;
 
 				$aucuneOrigine = true;
 				//Sauvegarde des origines
+				//Obligé de le faire à la main car il n'existe pas de table origin et cake ne sait pas faire le lien automatiquement
 				foreach ($this->request->data['ExceptionimpressiontypeorientOrigine'] as $nom => $valeur){
 					//On compare avec la liste de ce qui existe déjà - on supprime / on ajoute
 					if($valeur != '0'){
@@ -149,17 +124,19 @@
 					$this->Exceptionimpressiontypeorient->rollback();
 					$this->Flash->error( __( 'Save->error' ) );
 				}
+			} else if ($this->action == 'edit' ) {
+				$this->request->data = $exception;
+				if( true === empty( $this->request->data ) ) {
+					throw new NotFoundException();
+				}
 			}
 
-			$this->request->data = $exception;
-
-			if( true === empty( $this->request->data ) ) {
-				throw new NotFoundException();
-			}
 
 			$options['Activite']['act'] = [$this->Activite->enum( 'act' )];
 			$options['origines'] = $this->Exceptionimpressiontypeorient->getOrigines($id);
 			$options['porteurprojet'] = $this->Exceptionimpressiontypeorient->getPorteurprojet();
+			$options['Structurereferente'] = $this->Structurereferente->listByTypeOrient($typeorient_id);
+			$options['Zonegeographique']= $this->Zonegeographique->find( 'list' );
 
 			$this->set( compact('options', 'typeorient_id') );
 			$this->render( 'add_edit' );
@@ -167,12 +144,14 @@
 
 		public function delete($id){
 			//On supprime les origines liées
-			$origines = $this->ExceptionimpressiontypeorientOrigine->findAllByExcepimprtypeorientId($id);
-			foreach($origines as $origine){
-				$this->ExceptionimpressiontypeorientOrigine->delete($origine['ExceptionimpressiontypeorientOrigine']['id']);
-			}
+			$this->ExceptionimpressiontypeorientOrigine->deleteAll(['excepimprtypeorient_id' => $id]);
+
+			//On supprime les zones géographiques liées
+			$this->ExcepimprtypeorientZonegeo->deleteAll(['excepimprtypeorient_id' => $id]);
+
+
 			$exception = $this->Exceptionimpressiontypeorient->findById($id);
-			$this->WebrsaParametrages->delete( $id, array( 'blacklist' => $this->blacklist, 'redirect' => '/Typesorients/edit/'.$exception['Exceptionimpressiontypeorient']['typeorient_id'] ) );
+			$this->WebrsaParametrages->delete( $id, array( 'blacklist' => $this->blacklist, 'redirect' => '/Typesorients/edit/'.$exception['Exceptionimpressiontypeorient']['typeorient_id']) );
 		}
 
 		public function monter($id, $typeorient_id){

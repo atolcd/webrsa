@@ -166,6 +166,22 @@
 				'insertQuery' => '',
 				'with' => 'Sitecov58Zonegeographique'
 			),
+			'Exceptionimpressiontypeorient' => array(
+				'className' => 'Exceptionimpressiontypeorient',
+				'joinTable' => 'excepimprtypesorients_zonesgeographiques',
+				'foreignKey' => 'zonegeographique_id',
+				'associationForeignKey' => 'excepimprtypeorient_id',
+				'unique' => true,
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'finderQuery' => '',
+				'deleteQuery' => '',
+				'insertQuery' => '',
+				'with' => 'ExcepimprtypeorientZonegeo'
+			),
 		);
 
 		/**

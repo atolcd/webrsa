@@ -23,10 +23,22 @@
 		);
 	echo '</div>';
 
+	echo $this->Form->input( 'Exceptionimpressiontypeorient.filtre_zone_geo', array( 'label' => __m('Exceptionimpressiontypeorient.Zonegeo.checkbox'), 'type' => 'checkbox' ) );?>
+	<fieldset class="col2" id="filtres_zone_geo">
+		<legend><?php echo __m('Exceptionimpressiontypeorient.Zonegeo') ?></legend>
+	<?php
+		echo $this->Form->button( 'Tout cocher', array( 'type' => 'button', 'onclick' => "return toutCocherZonesgeographiques();" ) );
+		echo $this->Form->button( 'Tout décocher', array( 'type' => 'button', 'onclick' => "return toutDecocherZonesgeographiques();" ) );
+
+		echo $this->Form->input( 'Zonegeographique.Zonegeographique', array( 'label' => false, 'multiple' => 'checkbox' , 'options' => $options['Zonegeographique'] ) );
+	?>
+	</fieldset>
+<?php
 	echo $this->Default3->subform(
 		$this->Translator->normalize(
 			array(
 				'Exceptionimpressiontypeorient.id',
+				'Exceptionimpressiontypeorient.structurereferente_id' => array( 'type' => 'select', 'options' => $options['Structurereferente'], 'empty' => true ),
 				'Exceptionimpressiontypeorient.act' => array( 'type' => 'select', 'options' => $options['Activite']['act'], 'empty' => true ),
 				'Exceptionimpressiontypeorient.porteurprojet' => array( 'type' => 'select', 'options' => $options['porteurprojet'],  'empty' => true ),
 				'Exceptionimpressiontypeorient.modele_notif',
@@ -59,5 +71,15 @@
 				el.checked = true;
 			});
 		<?php } ?>
+
+		observeDisableFieldsetOnCheckbox( 'ExceptionimpressiontypeorientFiltreZoneGeo', 'filtres_zone_geo', false, true );
 	});
+
+	function toutCocherZonesgeographiques() {
+		return toutCocher( 'input[name="data[Zonegeographique][Zonegeographique][]"]' );
+	}
+	function toutDecocherZonesgeographiques() {
+		return toutDecocher( 'input[name="data[Zonegeographique][Zonegeographique][]"]' );
+	}
+
 </script>
