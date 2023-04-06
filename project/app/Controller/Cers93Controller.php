@@ -875,7 +875,7 @@
 							'Contratinsertion.rg_ci' => null,
 							'Contratinsertion.decision_ci' => "'A'",
 							'Contratinsertion.datevalidation_ci' => null,
-							'Contratinsertion.motifannulation' => "'".Hash::get( $this->request->data, 'Contratinsertion.motifannulation' )."'"
+							'Contratinsertion.motifannulation' => "'".str_replace("'", "''",Hash::get( $this->request->data, 'Contratinsertion.motifannulation' ))."'"
 						),
 						array( 'Contratinsertion.id' => Hash::get( $contratinsertion, 'Contratinsertion.id' ) )
 					)
