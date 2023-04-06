@@ -228,7 +228,27 @@
 			}
 
 			$class = ( $index % 2 == 0 ) ? 'odd' : 'even';
-			return $this->DefaultHtml->tableCells( array( $tr ), array( 'class' => $class ), array( 'class' => $class ), false, true );
+			$return = $this->DefaultHtml->tableCells( array( $tr ), array( 'class' => $class ), array( 'class' => $class ), false, true );
+
+			$tableId = Hash::get( $params, 'id' );
+			$innerTable = Hash::get( $params, 'innerTable' );
+			if( !empty( $innerTable ) ) {
+				$innerTable = $this->details(
+					$data,
+					$innerTable,
+					array(
+						'options' => (array)Hash::get( $params, 'options' ),
+						'class' => 'innerTable',
+						'id' => "innerTable{$tableId}{$index}",
+						'th' => true
+					)
+				);
+
+
+				$return = str_replace( '</tr>', "<td class=\"innerTableCell noprint\">{$innerTable}</td></tr>", $return );
+			}
+
+			return $return;
 		}
 
 		/**

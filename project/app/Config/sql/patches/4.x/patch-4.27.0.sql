@@ -21,6 +21,28 @@ CREATE TABLE IF NOT EXISTS public.excepimprtypesorients_zonesgeographiques (
     CONSTRAINT excepimprtypeorient_id_fkey FOREIGN KEY (excepimprtypeorient_id) REFERENCES public.exceptionsimpressionstypesorients(id) ON DELETE CASCADE ON UPDATE cascade,
     CONSTRAINT zonegeographique_id_fkey FOREIGN KEY (zonegeographique_id) REFERENCES public.zonesgeographiques(id) ON DELETE CASCADE ON UPDATE cascade
 );
+
+-- Variable de configuration permettant l'impression automatique des orientations validées
+INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
+SELECT
+'Exceptionsimpressiontypesorient.affichageprincipal',
+'["Exceptionimpressiontypeorient.act","Exceptionimpressiontypeorient.porteurprojet"]',
+'Colonnes affichées dans le tableau des exceptions, les autres sont dans une bulle au survol de la ligne.
+Choix parmi :
+"Exceptionimpressiontypeorient.structurereferente_libelle",
+"Exceptionimpressiontypeorient.zonesgeo",
+"Exceptionimpressiontypeorient.act",
+"Exceptionimpressiontypeorient.porteurprojet"',
+current_timestamp,
+current_timestamp
+WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Exceptionsimpressiontypesorient.affichageprincipal');
+
+UPDATE public.configurations
+SET configurationscategorie_id = configurationscategories.id
+FROM configurationscategories
+WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable IN ('Exceptionsimpressiontypesorient.affichageprincipal');
+
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

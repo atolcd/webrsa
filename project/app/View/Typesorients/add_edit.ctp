@@ -27,33 +27,40 @@
 		echo $this->Default3->index(
 			$exceptions,
 			$this->Translator->normalize(
-				array(
-					'Exceptionimpressiontypeorient.ordre',
-					'Exceptionimpressiontypeorient.origine',
-					'Exceptionimpressiontypeorient.act',
-					'Exceptionimpressiontypeorient.porteurprojet',
-					'Exceptionimpressiontypeorient.modele_notif',
-					'Exceptionimpressiontypeorient.actif',
-					'/exceptionsimpressionstypesorients/edit/#Exceptionimpressiontypeorient.id#' => array(
-						'title' => false
-					),
-					'/exceptionsimpressionstypesorients/monter/#Exceptionimpressiontypeorient.id#/#Typeorient.id#' => array(
-						'title' => false,
-						'disabled' => '#Exceptionimpressiontypeorient.id# =='. $premier_id
-					),
-					'/exceptionsimpressionstypesorients/descendre/#Exceptionimpressiontypeorient.id#/#Typeorient.id#' => array(
-						'title' => false,
-						'disabled' => '#Exceptionimpressiontypeorient.id# =='. $dernier_id
-					),
-					'/exceptionsimpressionstypesorients/delete/#Exceptionimpressiontypeorient.id#' => array(
-						'title' => false,
-						'confirm' => true,
-					),
+				array_merge(
+					[
+						'Exceptionimpressiontypeorient.ordre',
+						'Exceptionimpressiontypeorient.origine',
+					],
+					$tableauprincipal,
+					[
+						'Exceptionimpressiontypeorient.modele_notif',
+						'Exceptionimpressiontypeorient.actif',
+						'/exceptionsimpressionstypesorients/edit/#Exceptionimpressiontypeorient.id#' => array(
+							'title' => false
+						),
+						'/exceptionsimpressionstypesorients/monter/#Exceptionimpressiontypeorient.id#/#Typeorient.id#' => array(
+							'title' => false,
+							'disabled' => '#Exceptionimpressiontypeorient.id# =='. $premier_id
+						),
+						'/exceptionsimpressionstypesorients/descendre/#Exceptionimpressiontypeorient.id#/#Typeorient.id#' => array(
+							'title' => false,
+							'disabled' => '#Exceptionimpressiontypeorient.id# =='. $dernier_id
+						),
+						'/exceptionsimpressionstypesorients/delete/#Exceptionimpressiontypeorient.id#' => array(
+							'title' => false,
+							'confirm' => true,
+						),
+					]
 				)
 			),
 			array(
 				'options' => $options,
-				'paginate' => false
+				'paginate' => false,
+				'innerTable' => $this->Translator->normalize(
+					$tableausecondaire
+				),
+				'class' => 'tooltips'
 			)
 		);
 		echo '</br></br>';

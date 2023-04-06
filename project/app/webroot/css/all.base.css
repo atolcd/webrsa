@@ -1453,3 +1453,11 @@ body.statistiquesplanpauvrete #pageContent tbody td:first-child {
  .toastui-chart-wrapper {
 	 height: auto !important;
  }
+
+ /*******************************************************************************
+ * Exceptions inmpression types orientation
+ ******************************************************************************/
+
+ #TableTypesorientsEdit td {
+	vertical-align: middle;
+ }

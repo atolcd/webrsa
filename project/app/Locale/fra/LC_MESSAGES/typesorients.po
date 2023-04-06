@@ -94,3 +94,8 @@ msgstr "Possède des exceptions"
 msgid "typesorients.liste"
 msgstr "Liste des types d'orientation"
 
+msgid "Exceptionimpressiontypeorient.structurereferente_libelle"
+msgstr "Structure référente"
+
+msgid "Exceptionimpressiontypeorient.zonesgeo"
+msgstr "Commune"

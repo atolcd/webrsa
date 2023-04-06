@@ -169,6 +169,9 @@ values
 	'demenagement'
 );
 
+--Modification de la variable de configuration pour les exceptions d'impression des types d'orientation
+UPDATE public.configurations SET value_variable = '["Exceptionimpressiontypeorient.structurereferente_libelle","Exceptionimpressiontypeorient.zonesgeo"]'
+WHERE lib_variable LIKE 'Exceptionsimpressiontypesorient.affichageprincipal';
 
 
 

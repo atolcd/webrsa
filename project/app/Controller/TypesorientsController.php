@@ -118,7 +118,15 @@
 			$exceptions = $this->Exceptionimpressiontypeorient->getByTypeOrient($id);
 			$dernier_id = $this->Exceptionimpressiontypeorient->getDernierId($exceptions);
 			$premier_id = $this->Exceptionimpressiontypeorient->getPremierId($exceptions);
-			$this->set( compact( 'options', 'typesorients', 'exceptions', 'id', 'dernier_id', 'premier_id' ) );
+			$tableauComplet = [
+				'Exceptionimpressiontypeorient.act',
+				'Exceptionimpressiontypeorient.porteurprojet',
+				'Exceptionimpressiontypeorient.structurereferente_libelle',
+				'Exceptionimpressiontypeorient.zonesgeo'
+			];
+			$tableauprincipal = Configure::read('Exceptionsimpressiontypesorient.affichageprincipal');
+			$tableausecondaire = array_diff($tableauComplet, $tableauprincipal);
+			$this->set( compact( 'options', 'typesorients', 'exceptions', 'id', 'dernier_id', 'premier_id', 'tableauprincipal', 'tableausecondaire' ) );
 		}
 	}
 ?>

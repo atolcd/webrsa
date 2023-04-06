@@ -24,7 +24,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Orientstruct', 'ExceptionimpressiontypeorientOrigine' );
+		public $uses = array( 'Orientstruct', 'ExceptionimpressiontypeorientOrigine', 'Structurereferente' );
 
 		/**
 		 * Récursivité par défaut du modèle.
@@ -110,9 +110,16 @@
 			$exceptions = $this->findAllByTypeorientId($typeorient_id, null, ['ordre' => 'asc']);
 
 			foreach ($exceptions as $key => $exception) {
+				$zones = [];
+				foreach($exception['Zonegeographique'] as $zonegeo){
+					array_push($zones, $zonegeo['libelle']);
+				}
+				$lib_struct = $this->Structurereferente->find('first', ['conditions' => ['Structurereferente.id' => $exception['Exceptionimpressiontypeorient']['structurereferente_id']], 'recursive' => -1, 'fields' => ['Structurereferente.lib_struc']]);
 				$exceptions[$key]['Exceptionimpressiontypeorient']['origine'] = $this->ExceptionimpressiontypeorientOrigine->getOriginesParExceptions($exception['Exceptionimpressiontypeorient']['id']);
+				$exceptions[$key]['Exceptionimpressiontypeorient']['structurereferente_libelle'] = empty($lib_struct) ? '' : $lib_struct['Structurereferente']['lib_struc'];
 				$exceptions[$key]['Exceptionimpressiontypeorient']['act'] = $exception['Exceptionimpressiontypeorient']['act'] != '' ? __d('activite','ENUM::ACT::'.$exception['Exceptionimpressiontypeorient']['act']) : '';
 				$exceptions[$key]['Exceptionimpressiontypeorient']['porteurprojet'] = $exception['Exceptionimpressiontypeorient']['porteurprojet'] !== null ? __m('Exceptionimpressiontypeorient.porteurprojet.'.$exception['Exceptionimpressiontypeorient']['porteurprojet']) : '';
+				$exceptions[$key]['Exceptionimpressiontypeorient']['zonesgeo'] = implode(" <br> ", $zones);
 			}
 			return $exceptions;
 		}

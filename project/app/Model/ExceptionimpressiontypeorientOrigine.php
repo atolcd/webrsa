@@ -62,7 +62,7 @@
 				foreach ($origines as $key => $origine){
 					$liste_origines .= __d('orientstruct','ENUM::ORIGINE::'.($origines[$key]['ExceptionimpressiontypeorientOrigine']['origine']));
 					if($key != sizeof($origines)-1) {
-						$liste_origines .= " ; ";
+						$liste_origines .= " <br> ";
 					}
 				}
 			}
