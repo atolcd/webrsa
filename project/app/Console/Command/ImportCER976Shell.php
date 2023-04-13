@@ -25,7 +25,7 @@
 		 * @var array
 		 */
 		public $uses = array(
-			'Personne', 'Contratinsertion', 'Referent', 'ContratinsertionSujetcer', 'Sujetcer', 'Soussujetcer', 'Valeurparsoussujetcer'
+			'Personne', 'Contratinsertion', 'Referent', 'ContratinsertionSujetcer', 'Sujetcer', 'Soussujetcer', 'Valeurparsoussujetcer',  'Orientstruct'
 		);
 
 		/**
@@ -150,7 +150,7 @@
 
                     //recherche de la structure référente
                     $querysite = "
-                        select s.id as site
+                        select s.id as site, s.typeorient_id as typeorient
                         from structuresreferentes s
                         where s.lib_struc ilike '%$Orientation_format%'
                         and (unaccent(s.lib_struc) ilike unaccent('%{$data['Site']}%') or unaccent(s.ville) ilike unaccent('%{$data['Site']}%'))
@@ -160,7 +160,6 @@
                     if(isset($site[0][0]['site'])){
                         //on récupère le nom correct du référent
                         $referent_unique = $this->getNomReferent($data['Référent Unique']);
-
                         //on recherche le référent
                         if($referent_unique != null){
                             $queryref = "
@@ -263,6 +262,32 @@
                                 $this->Contratinsertion->clear();
                             }
 
+                            //on enregistre une orientation
+                            $donnees_orient = [
+                                'personne_id' => $personne_id,
+                                'referent_id' => $id_referent,
+                                'structurereferente_id' => $site[0][0]['site'],
+                                'typeorient_id' => $site[0][0]['typeorient'],
+                                'statut_orient' => 'Orienté',
+                                'date_valid' => $dd_ci,
+                                'date_propo' => $dd_ci,
+                                'origine' => 'manuelle',
+                                'valid_cg' => true,
+                            ];
+                            $success = $success && $this->Orientstruct->save( $donnees_orient , array('validate' => false, 'atomic' => false ) );
+
+                            $donnees_orient['Orientstruct'] = $donnees_orient;
+                            $donnees_orient['Orientstruct']['referent_id'] = $donnees_orient['structurereferente_id'].'_'.$donnees_orient['referent_id'];
+                            //On recalcule le rang des orientations
+                            $this->Orientstruct->forceRecalculeRang($donnees_orient);
+                            $this->Orientstruct->clear();
+                            //on ajoute le référent en référent de parcours (et on clôt le précédent si il existe)
+                            //On utilise la fonction en place dans WebRSA (si l'orientation est plus ancienne, le référent n'est pas modifié)
+                             $success = $success && $this->Orientstruct->Referent->PersonneReferent->referentParModele(
+                                $donnees_orient,
+                                $this->Orientstruct->alias,
+                                'date_valid'
+                            );
                         } else {
                             //Il manque la date de signature
                             $this->rejectRow($data, null, "La date de signature par le BRSA est obligatoire et doit respecter le format de date");
