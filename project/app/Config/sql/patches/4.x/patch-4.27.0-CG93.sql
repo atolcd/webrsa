@@ -14,7 +14,7 @@ with ins as (
 		(ordre, typeorient_id, modele_notif)
 	values
 	(
-		(select max(ordre)+1 from exceptionsimpressionstypesorients),
+		(select coalesce(MAX(ordre), 0)+1 from exceptionsimpressionstypesorients where typeorient_id = (select id from typesorients where lib_type_orient = 'Projet Insertion Emploi')),
 		(select id from typesorients where lib_type_orient = 'Projet Insertion Emploi'),
 		'Orientation/PIE_SSD_prestaorient'
 	)
@@ -34,7 +34,7 @@ with ins as (
 		(ordre, typeorient_id, modele_notif)
 	values
 	(
-		(select max(ordre)+1 from exceptionsimpressionstypesorients),
+		(select coalesce(MAX(ordre), 0)+1 from exceptionsimpressionstypesorients where typeorient_id = (select id from typesorients where lib_type_orient = 'Service Social')),
 		(select id from typesorients where lib_type_orient = 'Service Social'),
 		'Orientation/PIE_SSD_prestaorient'
 	)
@@ -55,7 +55,7 @@ with ins as (
 		(ordre, typeorient_id, modele_notif)
 	values
 	(
-		(select max(ordre)+1 from exceptionsimpressionstypesorients),
+		(select coalesce(MAX(ordre), 0)+1 from exceptionsimpressionstypesorients where typeorient_id = (select id from typesorients where lib_type_orient = 'Service Social')),
 		(select id from typesorients where lib_type_orient = 'Service Social'),
 		'Transfertpdv93/mutation_social'
 	)
@@ -75,7 +75,7 @@ with ins as (
 		(ordre, typeorient_id, modele_notif)
 	values
 	(
-		(select max(ordre)+1 from exceptionsimpressionstypesorients),
+		(select coalesce(MAX(ordre), 0)+1 from exceptionsimpressionstypesorients where typeorient_id = (select id from typesorients where lib_type_orient = 'Agence Locale d''Insertion')),
 		(select id from typesorients where lib_type_orient = 'Agence Locale d''Insertion'),
 		'Transfertpdv93/mutation_social'
 	)
@@ -95,7 +95,7 @@ with ins as (
 		(ordre, typeorient_id, modele_notif)
 	values
 	(
-		(select max(ordre)+1 from exceptionsimpressionstypesorients),
+		(select coalesce(MAX(ordre), 0)+1 from exceptionsimpressionstypesorients where typeorient_id = (select id from typesorients where lib_type_orient = 'Projet Insertion Emploi')),
 		(select id from typesorients where lib_type_orient = 'Projet Insertion Emploi'),
 		'Transfertpdv93/mutation_social'
 	)
@@ -115,7 +115,7 @@ with ins as (
 		(ordre, typeorient_id, modele_notif)
 	values
 	(
-		(select max(ordre)+1 from exceptionsimpressionstypesorients),
+		(select coalesce(MAX(ordre), 0)+1 from exceptionsimpressionstypesorients where typeorient_id = (select id from typesorients where lib_type_orient = 'Association référente')),
 		(select id from typesorients where lib_type_orient = 'Association référente'),
 		'Transfertpdv93/mutation_social'
 	)
@@ -135,7 +135,7 @@ with ins as (
 		(ordre, typeorient_id, modele_notif)
 	values
 	(
-		(select max(ordre)+1 from exceptionsimpressionstypesorients),
+		(select coalesce(MAX(ordre), 0)+1 from exceptionsimpressionstypesorients where typeorient_id = (select id from typesorients where lib_type_orient = 'Pole Emploi')),
 		(select id from typesorients where lib_type_orient = 'Pole Emploi'),
 		'Transfertpdv93/mutation_emploi'
 	)
@@ -155,7 +155,7 @@ with ins as (
 		(ordre, typeorient_id, modele_notif)
 	values
 	(
-		(select max(ordre)+1 from exceptionsimpressionstypesorients),
+		(select coalesce(MAX(ordre), 0)+1 from exceptionsimpressionstypesorients where typeorient_id = (select id from typesorients where lib_type_orient = 'Mission locale')),
 		(select id from typesorients where lib_type_orient = 'Mission locale'),
 		'Transfertpdv93/mutation_emploi'
 	)
