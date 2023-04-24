@@ -51,8 +51,7 @@
 			'Allocataire',
 			'Orientstruct',
 			'Informationpe',
-			'Canton',
-			'Rendezvous'
+			'Canton'
 		);
 
 		/**
@@ -85,8 +84,7 @@
 				'Structurereferenteparcours' => 'LEFT OUTER',
 				'Suiviinstruction' => 'LEFT OUTER',
 				'Serviceinstructeur' => 'LEFT OUTER',
-				'Referentparcours' => 'LEFT OUTER',
-				'Rendezvous' => 'LEFT OUTER',
+				'Referentparcours' => 'LEFT OUTER'
 			);
 
 			$cacheKey = Inflector::underscore( $this->useDbConfig ).'_'.Inflector::underscore( $this->alias ).'_'.Inflector::underscore( __FUNCTION__ ).'_'.sha1( serialize( $types ) );
@@ -97,7 +95,7 @@
 
 				// 1. Ajout des champs supplémentaires
 				$query['fields'] = array_merge(
-					['DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"'],
+					// ['DISTINCT ON ("Personne"."id") "Personne"."id" as "Personne__id"'],
 					$query['fields'],
 					ConfigurableQueryFields::getModelsFields(
 						array(
@@ -137,18 +135,9 @@
 								'type' => $types['Modecontact']
 							)
 							),
-						$this->Orientstruct->Personne->join( 'Rendezvous', array( 'type' => $types['Rendezvous'] ) ),
-						$this->Orientstruct->Personne->Rendezvous->join( 'Referent', array( 'type' => 'LEFT OUTER' ) ),
-						$this->Orientstruct->Personne->Rendezvous->join( 'Statutrdv', array( 'type' => 'LEFT OUTER' ) ),
-						// $this->Orientstruct->Personne->Rendezvous->join( 'Structurereferente', array( 'type' => $types['Structurereferente'] ) ),
-						$this->Orientstruct->Personne->Rendezvous->join( 'Typerdv', array( 'type' => 'LEFT OUTER' ) )
 					)
 				);
 
-				// Si on utilise les thématiques de RDV, ajout du champ virtuel
-				if( Configure::read('Rendezvous.useThematique' ) ) {
-					$query['fields']['Rendezvous.thematiques'] = '( '.$this->Rendezvous->WebrsaRendezvous->vfListeThematiques( null ).' ) AS "Rendezvous__thematiques"';
-				}
 
 				// Permet d'obtenir la dernière entrée de la table informationspe
 				$sqDerniereInformationpe = $this->Informationpe->sqDerniere( 'Personne' );
@@ -304,60 +293,6 @@
 				$search,
 				array( 'Orientstruct.communautesr_id' => 'Orientstruct.structurereferente_id' )
 			);
-
-			//recherche par rendez-vous
-			$foreignKeys = array( 'structurereferente_id', 'referent_id', 'permanence_id', 'typerdv_id' );
-			foreach( $foreignKeys as $foreignKey ) {
-				$path = 'Rendezvous.'.$foreignKey;
-				$value = (string)suffix( (string)Hash::get( $search, $path ) );
-				if( $value !== '' ) {
-					$query['conditions'][$path] = $value;
-				}
-			}
-
-			$value = Hash::get( $search, 'Rendezvous.statutrdv_id' );
-			if( !empty( $value ) ) {
-				$query['conditions']['Rendezvous.statutrdv_id'] = $value;
-			}
-
-			$query['conditions'] = $this->conditionsDates( $query['conditions'], $search, 'Rendezvous.daterdv' );
-			$query['conditions'] = $this->conditionsHeures( $query['conditions'], $search, 'Rendezvous.heurerdv' );
-
-			// Recherche par thématique de rendez-vous si nécessaire
-			$query['conditions'] = $this->Rendezvous->WebrsaRendezvous->conditionsThematique( $query['conditions'], $search, 'Rendezvous.thematiquerdv_id' );
-
-			// Condition sur le projet insertion emploi territorial de la structure de rendez-vous
-			$query['conditions'] = $this->conditionCommunautesr(
-				$query['conditions'],
-				$search,
-				array( 'Rendezvous.communautesr_id' => 'Rendezvous.structurereferente_id' )
-			);
-
-			$from = (array)Hash::get( $search, 'Rendezvous.arevoirle' ) + array( 'day' => '01' );
-			if( valid_date( $from ) ) {
-				$to = strtotime( 'last day of this month', strtotime( "{$from['year']}-{$from['month']}-{$from['day']}" ) );
-				$to = date_sql_to_cakephp( strftime( "%Y-%m-%d", $to ) );
-				$rdv = array(
-					'Rendezvous' => array(
-						'arevoirle' => '1',
-						'arevoirle_from' => $from,
-						'arevoirle_to' => $to
-					)
-				);
-				$query['conditions'] = $this->conditionsDates( $query['conditions'], $rdv, 'Rendezvous.arevoirle' );
-			}
-
-
-
-			//Possède un rdv sur les dates d'orientation
-			if( Hash::get( $search, 'Rendezvous.periodeorientation' ) ) {
-				$from = Hash::get( $search, "Orientstruct.date_valid_from" );
-				$to = Hash::get( $search, "Orientstruct.date_valid_to" );
-				$from = $from['year'].'-'.$from['month'].'-'.$from['day'];
-				$to = $to['year'].'-'.$to['month'].'-'.$to['day'];
-				$query['conditions'][] = "DATE(Rendezvous.daterdv) BETWEEN '{$from}' AND '{$to}'";
-			}
-
 
 			return $query;
 		}
