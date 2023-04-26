@@ -232,7 +232,8 @@
 
 			$tableId = Hash::get( $params, 'id' );
 			$innerTable = Hash::get( $params, 'innerTable' );
-			if( !empty( $innerTable ) ) {
+			$edit = strpos(Hash::get( $params, 'class' ), 'edit');
+			if( !empty( $innerTable ) && $edit) {
 				$innerTable = $this->details(
 					$data,
 					$innerTable,

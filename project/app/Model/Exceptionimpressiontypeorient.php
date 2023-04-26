@@ -119,7 +119,11 @@
 				$exceptions[$key]['Exceptionimpressiontypeorient']['structurereferente_libelle'] = empty($lib_struct) ? '' : $lib_struct['Structurereferente']['lib_struc'];
 				$exceptions[$key]['Exceptionimpressiontypeorient']['act'] = $exception['Exceptionimpressiontypeorient']['act'] != '' ? __d('activite','ENUM::ACT::'.$exception['Exceptionimpressiontypeorient']['act']) : '';
 				$exceptions[$key]['Exceptionimpressiontypeorient']['porteurprojet'] = $exception['Exceptionimpressiontypeorient']['porteurprojet'] !== null ? __m('Exceptionimpressiontypeorient.porteurprojet.'.$exception['Exceptionimpressiontypeorient']['porteurprojet']) : '';
-				$exceptions[$key]['Exceptionimpressiontypeorient']['zonesgeo'] = implode(" <br> ", $zones);
+				if(!empty($zones)){
+					$exceptions[$key]['Exceptionimpressiontypeorient']['zonesgeo'] = implode(" <br> ", $zones);
+				} else {
+					$exceptions[$key]['Exceptionimpressiontypeorient']['zonesgeo'] = '';
+				}
 			}
 			return $exceptions;
 		}
