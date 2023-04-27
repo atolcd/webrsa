@@ -952,5 +952,10 @@
 			}
 			return $success;
 		}
+
+		public function getUserByALI($ali_id){
+			//select id where structurereferente_id = $id_ali
+			//Il n'en faut qu'un par structure, il faut mettre une contrainte sur le nom genre ImportALI ou autre
+		}
 	}
 ?>

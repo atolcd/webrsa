@@ -110,6 +110,22 @@
 		);
 	}
 
+	echo $this->Html->tag(
+		'fieldset',
+		$this->Html->tag( 'legend', __m('Structurereferente.export_donnees' ) )
+		.$this->Default3->subform(
+			$this->Translator->normalize(
+				array(
+					'Structurereferente.export_donnees' => array( 'type' => 'radio', 'legend' => false )
+				)
+			),
+			array(
+				'options' => $options,
+			)
+		),
+		['id' => 'fieldset_export_donnes']
+	);
+
 	echo $this->Default3->DefaultForm->buttons( array( 'Save', 'Cancel' ) );
 	echo $this->Default3->DefaultForm->end();
 

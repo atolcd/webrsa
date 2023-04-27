@@ -94,6 +94,9 @@ msgstr "Géré par la structure référente"
 msgid "Structurereferente.workflow"
 msgstr "Activation du workflow de validation ?"
 
+msgid "Structurereferente.export_donnees"
+msgstr "Structure prise en compte dans l'échange de données avec d'autres logiciels ?"
+
 msgid "Structurereferente.actif_sectorisation"
 msgstr "Structure prise en compte dans la sectorisation par réferent"
 
@@ -107,4 +110,10 @@ msgid "Structurereferente.workflow_valid.false"
 msgstr "Non"
 
 msgid "Structurereferente.workflow_valid.true"
+msgstr "Oui"
+
+msgid "Structurereferente.export_donnees.false"
+msgstr "Non"
+
+msgid "Structurereferente.export_donnees.true"
 msgstr "Oui"

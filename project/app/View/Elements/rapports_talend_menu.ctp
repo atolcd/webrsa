@@ -9,6 +9,9 @@ if( false === isset( $creance ) ) {
 if( false === isset( $contact ) ) {
     $contact = false;
 }
+if( false === isset( $ali ) ) {
+    $ali = false;
+}
 
 
 $actions =  array(
@@ -29,6 +32,12 @@ $actions =  array(
         'text' => __d('visionneuses', 'Rapportstalendsmodescontacts::index::link'),
         'class' => 'link',
         'enabled' => !$contact
+    ),
+    '/Rapportsechangesali/index' => array(
+        'title' => __d('visionneuses', 'Rapportsechangesali::index::title'),
+        'text' => __d('visionneuses', 'Rapportsechangesali::index::link'),
+        'class' => 'link',
+        'enabled' => !$ali
     )
 );
 

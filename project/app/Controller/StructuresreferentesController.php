@@ -93,6 +93,11 @@
 				);
 			}
 
+			$options['Structurereferente']['export_donnees'] = array(
+				__m("Structurereferente.export_donnees.false"),
+				__m("Structurereferente.export_donnees.true")
+			);
+
 			$options['Structurereferente']['typeorient_id'] = $this->InsertionsBeneficiaires->typesorients( array( 'conditions' => array() ) );
 			$options['Structurereferente']['dreesorganisme_id'] = $this->InsertionsBeneficiaires->dreesorganismes( array( 'conditions' => array() ) );
 

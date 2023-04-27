@@ -1,0 +1,830 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:simpleType name="boolean">
+        <xs:restriction base="xs:integer">
+            <xs:enumeration value="0"/>
+            <xs:enumeration value="1"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="datetime">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[0-9]{4}-[0-9]{2}-[0-9]{2}\s[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]{1,3})?"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="Referentiel_WebRSA">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="entete" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="date_generation" type="datetime"/>
+                            <xs:element name="id_ali" type="xs:integer"/>
+                            <xs:element name="libelle_ali" type="xs:string"/>
+                            <xs:element name="fichier_stock" type="xs:boolean"/>
+                        </xs:all>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_typesorients" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="typesorients" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="parent_id" type="xs:integer" minOccurs="0"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_zonesgeographiques" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="zonesgeographiques" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="code_insee" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_structuresreferentes" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="structuresreferentes" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="typeorient_id" type="xs:integer"/>
+                                        <xs:element name="numvoie" type="xs:string"/>
+                                        <xs:element name="typevoie" type="xs:string"/>
+                                        <xs:element name="nomvoie" type="xs:string"/>
+                                        <xs:element name="codepostal" type="xs:string"/>
+                                        <xs:element name="ville" type="xs:string"/>
+                                        <xs:element name="codeinsee" type="xs:string"/>
+                                        <xs:element name="numtel" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="email" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="zonesgeo" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_civilite" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="civilite" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_etatdos" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="etatdos" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_rolepers" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="rolepers" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_sitfam" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="sitfam" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_orient_origine" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="orient_origine" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_orient_origine_utilisable_ALI" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="orient_origine_utilisable_ALI" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_orient_statut" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="orient_statut" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_cer_statut" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="cer_statut" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_referents" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="referents" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="structurereferente_id" type="xs:integer"/>
+                                        <xs:element name="civilite" type="xs:string"/>
+                                        <xs:element name="nom" type="xs:string"/>
+                                        <xs:element name="prenom" type="xs:string"/>
+                                        <xs:element name="email" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="fonction" type="xs:string"/>
+                                        <xs:element name="numtel" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="date_cloture" type="xs:date" minOccurs="0"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_rdv_objet" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="rdv_objet" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_rdv_thematique" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="rdv_thematique" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="objetrdv_id" type="xs:integer" minOccurs="0"/>
+                                        <xs:element name="statutrdv_id" type="xs:integer" minOccurs="0"/>
+                                        <xs:element name="acomptabiliser" type="xs:boolean" minOccurs="0"/>
+                                        <xs:element name="unefoisparan" type="xs:boolean" minOccurs="0"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_rdv_statut" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="rdv_statut" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_cmu" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="cmu" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_cer_nivetu" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="cer_nivetu" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_code_famille" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="code_famille" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_code_domaine" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="code_domaine" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="codefamille_id" type="xs:integer"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_code_metier" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="code_metier" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="codedomaine_id" type="xs:integer"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_appellation_metier" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="appellation_metier" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="codemetier_id" type="xs:integer"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_nature_contrat" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="nature_contrat" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="definir_duree" type="xs:boolean"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_type_duree_contrat" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="type_duree_contrat" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_secteur_activite" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="secteur_activite" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_metier_exerce" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="metier_exerce" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_duree_cdd" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="duree_cdd" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_cer_sujet" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="cer_sujet" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="champ_texte" type="xs:boolean"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_cer_sous_sujet" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="cer_sous_sujet" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="sujet_id" type="xs:integer"/>
+                                        <xs:element name="champ_texte" type="xs:boolean"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_cer_valeurs_sous_sujet" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="cer_valeurs_sous_sujet" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="sous_sujet_sujet_id" type="xs:integer"/>
+                                        <xs:element name="champ_texte" type="xs:boolean"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_cer_duree" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="cer_duree" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_cer_pointparcours" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="cer_pointparcours" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_cer_forme" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="cer_forme" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_cer_commentaire" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="cer_commentaire" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="champ_texte" type="xs:boolean"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_reorientation_motifs" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="reorientation_motifs" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_nationalite" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="nationalite" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_marche_travail" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="marche_travail" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_groupe_vulnerable" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="groupe_vulnerable" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_cat_sociopro" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="cat_sociopro" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_conditions_logement" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="conditions_logement" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_statut_accompagnement" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="statut_accompagnement" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_motif_sortie_obligation_accompagnement" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="motif_sortie_obligation_accompagnement" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="parent" type="xs:string"/>
+                                        <xs:element name="typeemploi_code" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_motif_changement_admin" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="motif_changement_admin" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string" minOccurs="0"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_temps_travail" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="temps_travail" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_dsp_nivetu" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="dsp_nivetu" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_diplome_max" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="diplome_max" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="code" type="xs:string"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="liste_type_emploi" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="type_emploi" minOccurs="1" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:all>
+                                        <xs:element name="identifiant" type="xs:integer"/>
+                                        <xs:element name="libelle" type="xs:string"/>
+                                        <xs:element name="codetypeemploi" type="xs:string"/>
+                                        <xs:element name="actif" type="boolean"/>
+                                    </xs:all>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute type="xs:string" name="referentiel"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
