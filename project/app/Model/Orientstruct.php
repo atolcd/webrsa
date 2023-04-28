@@ -767,7 +767,7 @@
 						'Orientstruct.personne_id' => $data['Orientstruct']['personne_id'],
 						'Orientstruct.statut_orient' => 'Orienté'
 					),
-					'order' => 'Orientstruct.date_valid'
+					'order' => ['Orientstruct.date_valid', 'id']
 				));
 				// On récupère / supprime l'index des rangs pour le recalcule de celui ci
 				$indexSQL = $this->query("SELECT
