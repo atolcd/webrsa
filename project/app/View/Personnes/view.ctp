@@ -17,10 +17,6 @@
 
 	$this->pageTitle = 'Visualisation d\'une personne « '.$title.' »';
 
-	$classHisto = '';
-	if(!$hasHisto) {
-		$classHisto = 'disabled';
-	}
 	App::uses('WebrsaAccess', 'Utility');
 	WebrsaAccess::init($dossierMenu);
 
@@ -51,7 +47,7 @@
 		array( 'controller' => 'modescontact', 'action' => 'index', $personne['Personne']['foyer_id'], $personne['Prestation']['rolepers'] ),
 		array(
 			'title' => 'Voir l\'historique des coordonnées de « '.$title.' »',
-			'enabled' => WebrsaAccess::isEnabled($personne, '/Personnes/coordonnees') && $hasHisto,
+			'enabled' => WebrsaAccess::isEnabled($personne, '/Personnes/coordonnees'),
 			'class' => 'personnes coordonnees infocontact link',
 		)
 	).' </li>';

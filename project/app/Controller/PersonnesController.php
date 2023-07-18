@@ -332,14 +332,6 @@
 
 			$personne = WebrsaAccessPersonnes::access($personne, $paramsAccess);
 
-			// Vérification de l'historique des coordonnées
-			$histoCoordonnees = $this->Personne->getHistoinfocontactpersonne($id);
-			if(!empty($histoCoordonnees)) {
-				$hasHisto = true;
-			} else {
-				$hasHisto = false;
-			}
-
 			// Mauvais paramètre ?
 			$this->assert( !empty( $personne ), 'invalidParameter' );
 
@@ -347,7 +339,6 @@
 
 			// Assignation à la vue
 			$this->_setOptions();
-			$this->set( 'hasHisto', $hasHisto );
 			$this->set( 'personne', $personne );
 		}
 
