@@ -69,17 +69,51 @@
 	document.observe( "dom:loaded", function() {
 		makeTabbed( 'tabbedWrapper', 2 );
 
+		const ongletfoyer = document.querySelectorAll("a[href='#foyer']");
+		const ongletDEM = document.querySelectorAll("a[href='#DEM']");
+		const ongletCJT = document.querySelectorAll("a[href='#CJT']");
 
-		if(<?= $onglet?> != 'foyer') {
-			var ongletfoyer = document.querySelectorAll("a[href='#foyer']");
-			var ongletDEM = document.querySelectorAll("a[href='#DEM']");
-			var ongletCJT = document.querySelectorAll("a[href='#CJT']");
-
+		//Si on arrive directement sur un onglet autre que le premier
+		if(<?= $onglet?> !== 'foyer') {
 			ongletfoyer[0].classList.remove("active");
 			onglet<?= $onglet?>[0].classList.add("active");
 
 			document.getElementById('foyer').style.display = "none";
 			document.getElementById('<?=$onglet?>').style = "";
 		}
+
+
+		tab = [
+			[
+				[ongletfoyer[0], 'foyer'],
+				[[ongletDEM[0], 'DEM']]
+			],
+			[
+				[ongletDEM[0], 'DEM'],
+				[[ongletfoyer[0], 'foyer']]
+			]
+		];
+
+		if (ongletCJT.length) {
+			tab[0][1].push([ongletCJT[0], 'CJT']);
+			tab[1][1].push([ongletCJT[0], 'CJT']);
+			tab.push([[ongletCJT[0], 'CJT'], [[ongletDEM[0], 'DEM'], [ongletfoyer[0], 'foyer']]]);
+		}
+
+
+		//Pour basculer d'onglet en onglet
+		//On doit court-circuiter le fonctionnement de base pour arriver sur un onglet précis et
+		//non pas le premier onglet de la liste
+		tab.forEach(
+			element => element[0][0].onclick = function() {
+				element[0][0].classList.add("active");
+				document.getElementById(element[0][1]).style = "";
+				element[1].forEach(function(e){
+					e[0].classList.remove("active");
+					document.getElementById(e[1]).style.display = "none";
+				});
+			}
+		);
 	});
+
 </script>

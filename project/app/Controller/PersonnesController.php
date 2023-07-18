@@ -560,7 +560,7 @@
 
 			$dossierMenu = $this->DossiersMenus->getAndCheckDossierMenu( array( 'personne_id' => $id ) );
 			$this->Jetons2->get( $dossierMenu['Dossier']['id'] );
-			$redirectUrl = array( 'controller' => 'modescontact', 'index' => 'view', $personne['Personne']['foyer_id'], $personne['Prestation']['rolepers'] );
+			$redirectUrl = array( 'controller' => 'modescontact', 'action' => 'index', $personne['Personne']['foyer_id'], $personne['Prestation']['rolepers'] );
 
 			// Retour à la liste en cas d'annulation
 			if( isset( $this->request->data['Cancel'] ) ) {
