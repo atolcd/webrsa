@@ -126,3 +126,9 @@ msgstr "Date de modification"
 
 msgid "add"
 msgstr "Ajouter"
+
+msgid "voir"
+msgstr "Voir"
+
+msgid "actions"
+msgstr "Actions"

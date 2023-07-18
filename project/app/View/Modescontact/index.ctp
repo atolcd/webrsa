@@ -11,16 +11,18 @@
 			<h2><?= __d('modecontact', 'foyer.titre'); ?></h2>
 			<table width="60%">
 				<thead>
-					<th width="25%"><?= __d('modecontact', 'date'); ?></th>
 					<th width="25%"><?= __d('modecontact', 'tel'); ?></th>
-					<th width="50%"><?= __d('modecontact', 'mail'); ?></th>
+					<th width="40%"><?= __d('modecontact', 'mail'); ?></th>
+					<th width="25%"><?= __d('modecontact', 'date'); ?></th>
+					<th width="10%"><?= __d('modecontact', 'actions'); ?></th>
 				</thead>
 				<tbody>
 					<?php foreach($modescontactfoyer as $key => $m):?>
 						<tr class= <?php echo ($key%2 == 0) ? "even" : "odd" ?> >
-							<td><?= $m['Modecontact']['modified']?></td>
 							<td><?= $m['Modecontact']['numtel']?></td>
 							<td><?= $m['Modecontact']['adrelec']?></td>
+							<td><?= $m['Modecontact']['modified']?></td>
+							<td><a href='/Modescontact/view/<?= $m['Modecontact']['id']?>'><img src="/img/icons/zoom.png"><?= __d('modecontact', 'voir'); ?></a></td>
 						</tr>
 					<?php endforeach; ?>
 				</tbody>
