@@ -149,9 +149,26 @@
 			//On supprime les zones géographiques liées
 			$this->ExcepimprtypeorientZonegeo->deleteAll(['excepimprtypeorient_id' => $id]);
 
-
 			$exception = $this->Exceptionimpressiontypeorient->findById($id);
-			$this->WebrsaParametrages->delete( $id, array( 'blacklist' => $this->blacklist, 'redirect' => '/Typesorients/edit/'.$exception['Exceptionimpressiontypeorient']['typeorient_id']) );
+			$id_type_orient = $exception['Exceptionimpressiontypeorient']['typeorient_id'];
+
+			//On supprime l'exception
+			$this->Exceptionimpressiontypeorient->delete($id);
+
+			//On recalcule l'ordre de priorité
+			$this->Exceptionimpressiontypeorient->query(
+			"
+				with except_trie as
+					(
+						select id, rank() over (partition by typeorient_id order by ordre asc) as rang
+						from exceptionsimpressionstypesorients e
+					)
+				update exceptionsimpressionstypesorients e
+				set ordre = (select rang from except_trie et where et.id = e.id) where typeorient_id = $id_type_orient
+			");
+
+			//On redirige vers la page du type d'orientation
+			$this->redirect('/Typesorients/edit/'.$id_type_orient);
 		}
 
 		public function monter($id, $typeorient_id){
