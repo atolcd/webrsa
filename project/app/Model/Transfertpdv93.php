@@ -23,6 +23,11 @@
 		 */
 		public $name = 'Transfertpdv93';
 
+		public $uses = [
+			'WebrsaOrientstruct',
+			'Typeorient'
+		];
+
 		public $actsAs = array(
 			'ModelesodtConditionnables' => array(
 				93 => array(
@@ -97,12 +102,11 @@
 		 * @return string
 		 */
 		public function modeleOdt( $data ) {
-			$nv_typeorient_id = $data['NvOrientstruct']['typeorient_id'];
-			$modeleodt = 'Transfertpdv93/mutation_social.odt';
-			if( in_array( $nv_typeorient_id, Configure::read( 'Orientstruct.typeorientprincipale.Emploi' ) ) ) {
-				$modeleodt = 'Transfertpdv93/mutation_emploi.odt';
-			}
-			return $modeleodt;
+
+			$data['Orientstruct'] = $data['NvOrientstruct'];
+			$data['Typeorient'] = $this->Typeorient->findById($data['NvOrientstruct']['typeorient_id'])['Typeorient'];
+
+			return $this->WebrsaOrientstruct->getModeleExceptions($data);
 		}
 
 		/**
