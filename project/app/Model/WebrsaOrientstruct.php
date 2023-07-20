@@ -1513,7 +1513,9 @@
 			$dsp= $this->DspRev->findByPersonneId($data['Personne']['id'], null, ['DspRev.modified' => 'desc', 'DspRev.id' => 'desc']);
 			$porteurprojet = isset($dsp['DspRev']['topcreareprientre']) ? $dsp['DspRev']['topcreareprientre'] : null;
 			if(empty($dsp)){
+				$dsp = $this->Dsp->findByPersonneId($data['Personne']['id']);
 				$porteurprojet = isset($dsp['Dsp']['topcreareprientre']) ? $dsp['Dsp']['topcreareprientre'] : null;
+
 			}
 
 			//on déroule les critères 1 à 1, si on entre dedans on prend le modèle associé sinon on prend le modèle de base
