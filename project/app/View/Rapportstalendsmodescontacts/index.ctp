@@ -12,13 +12,11 @@ if( empty( $Rapportstalendsmodescontacts ) ) {
 <table>
 	<thead>
 		<tr>
-			<th><?= __m('created')?></th>
-			<th><?= __m('fichier')?></th>
-			<th><?= __m('total')?></th>
-			<th><?= __m('motif.pas_demandeur')?></th>
-			<th><?= __m('motif.ancien_dossier')?></th>
-			<th><?= __m('motif.aucun_nir')?></th>
-			<th><?= __m('motif.aucun_matricule')?></th>
+			<th width="15%"><?= __m('created')?></th>
+			<th width="25%"><?= __m('fichier')?></th>
+			<th width="20%"><?= __m('total')?></th>
+			<th width="20%"><?= __m('motif.pas_demandeur')?></th>
+			<th width="20%"><?= __m('motif.aucun_nir')?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -30,9 +28,7 @@ if( empty( $Rapportstalendsmodescontacts ) ) {
 					<th><?= $r[0]['fichier']?></th>
 					<th><?= $r[0]['nombre_total_rejets']?></th>
 					<th><?= $r[0]['pas_demandeur']?></th>
-					<th><?= $r[0]['ancien_dossier']?></th>
 					<th><?= $r[0]['aucun_nir']?></th>
-					<th><?= $r[0]['aucun_matricule']?></th>
 				<?php echo '</tr>';
 
 				$class = $class == 'odd' ? 'even' : 'odd';

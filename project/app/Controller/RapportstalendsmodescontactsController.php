@@ -72,10 +72,8 @@
 					created
 					, fichier
 					, count(*) as nombre_total_rejets
-					, count(*) filter (where motif ilike 'PAS_DEMANDEUR') as PAS_DEMANDEUR
-					, count(*) filter (where motif ilike 'ANCIEN_DOSSIER') as ANCIEN_DOSSIER
+					, count(*) filter (where motif ilike 'PAS_DEM_CJT') as PAS_DEMANDEUR
 					, count(*) filter (where motif ilike 'AUCUN_NIR') as AUCUN_NIR
-					, count(*) filter (where motif ilike 'AUCUN_MATRICULE') as AUCUN_MATRICULE
 				from rapportstalendmodescontacts
 				group by created, fichier
 				order by created desc

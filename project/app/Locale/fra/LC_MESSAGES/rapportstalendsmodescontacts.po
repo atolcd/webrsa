@@ -33,16 +33,10 @@ msgid "total"
 msgstr "Dossiers rejetés"
 
 msgid "motif.pas_demandeur"
-msgstr "Non demandeur sur le dossier"
+msgstr "Non DEM ou CJT sur le dossier"
 
 msgid "motif.aucun_nir"
 msgstr "Aucun nir"
-
-msgid "motif.aucun_matricule"
-msgstr "Aucun matricule"
-
-msgid "motif.ancien_dossier"
-msgstr "Pas le dernier dossier de l'allocataire"
 
 msgid "rapports.aucun"
 msgstr "Aucun rapport Talend de modes de contact"
