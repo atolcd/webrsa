@@ -36,7 +36,7 @@ msgid "motif.pas_demandeur"
 msgstr "Non DEM ou CJT sur le dossier"
 
 msgid "motif.aucun_nir"
-msgstr "Aucun nir"
+msgstr "Nir incorrect"
 
 msgid "rapports.aucun"
 msgstr "Aucun rapport Talend de modes de contact"

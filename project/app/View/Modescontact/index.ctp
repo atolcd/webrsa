@@ -74,13 +74,27 @@
 		const ongletCJT = document.querySelectorAll("a[href='#CJT']");
 
 		//Si on arrive directement sur un onglet autre que le premier
-		if(<?= $onglet?> !== 'foyer') {
+		if (<?= $onglet?> === DEM) {
 			ongletfoyer[0].classList.remove("active");
-			onglet<?= $onglet?>[0].classList.add("active");
+			ongletDEM[0].classList.add("active");
 
 			document.getElementById('foyer').style.display = "none";
-			document.getElementById('<?=$onglet?>').style = "";
+			document.getElementById('DEM').style = "";
+
+			if (ongletCJT.length) {
+				ongletCJT[0].classList.remove("active");
+				document.getElementById('CJT').style.display = "none";
+			}
+		} else if(<?= $onglet?> === CJT) {
+			ongletfoyer[0].classList.remove("active");
+			ongletDEM[0].classList.remove("active");
+			ongletCJT[0].classList.add("active");
+
+			document.getElementById('foyer').style.display = "none";
+			document.getElementById('DEM').style.display = "none";
+			document.getElementById('CJT').style = "";
 		}
+
 
 
 		tab = [
