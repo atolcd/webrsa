@@ -1,22 +1,20 @@
 #!/usr/bin/env groovy
 
+library 'atolcd-jenkins'
+
 pipeline {
   options {
     disableConcurrentBuilds()
     buildDiscarder(logRotator(numToKeepStr: '10'))
   }
-  agent {
-    label 'docker&&ovh'
-  }
+  agent any
   environment {
-     PROJECT = sh(script: './jenkins-env.sh PROJECT', returnStdout: true).trim()
-     ZULIP_STREAM = sh(script: './jenkins-env.sh ZULIP_STREAM', returnStdout: true).trim()
-     NEXUS_REPO = sh(script: './jenkins-env.sh NEXUS_REPO', returnStdout: true).trim()
-     TYPE = sh(script: './jenkins-env.sh TYPE', returnStdout: true).trim()
-     VERSION = sh(script: './jenkins-env.sh VERSION', returnStdout: true).trim()
-     BASE_URL_UPLOAD = sh(script: './jenkins-env.sh BASE_URL_UPLOAD', returnStdout: true).trim()
-     BASE_URL_FINAL = sh(script: './jenkins-env.sh BASE_URL_FINAL', returnStdout: true).trim()
-     APP_FILENAME_TAR = sh(script: './jenkins-env.sh APP_FILENAME_TAR', returnStdout: true).trim()
+     PROJECT = bashEval('./jenkins-env.sh PROJECT')
+     ZULIP_STREAM = bashEval('./jenkins-env.sh ZULIP_STREAM')
+     NEXUS_REPO = bashEval('./jenkins-env.sh NEXUS_REPO')
+     TYPE = bashEval('./jenkins-env.sh TYPE')
+     VERSION = bashEval('./jenkins-env.sh VERSION')
+     APP_FILENAME_TAR = bashEval('./jenkins-env.sh APP_FILENAME_TAR')
   }
   stages {
     stage('Notify') {
@@ -28,10 +26,8 @@ pipeline {
     }
     stage('Build') {
       steps {
-        script {
-          docker.image("docker-registry.priv.atolcd.com/atolcd/php:7.2-2.0").inside('-v "/var/lib/jenkins/composer/auth.json:/home/.composer/auth.json"') {
-            sh 'composer install --no-progress --no-dev --no-suggest'
-          }
+        phpInsideDocker(imageVersion: '7.2-2.0') {
+          sh 'composer install --no-progress --no-dev --no-suggest'
         }
         script {
           sh 'echo $VERSION > app/VERSION.txt'
@@ -42,26 +38,14 @@ pipeline {
         }
       }
     }
-    stage('Package') {
-      parallel{
-        stage('Application tar') {
-          steps {
-            script {
-              sh 'cd final && tar -chpzf "../$APP_FILENAME_TAR" *'
-            }
-          }
-        }
+    stage('Package tar') {
+      steps {
+        sh 'cd final && tar -chpzf "../$APP_FILENAME_TAR" *'
       }
     }
-    stage('Upload') {
-      parallel{
-        stage('Application tar upload') {
-          steps {
-            withCredentials([usernameColonPassword(credentialsId: 'nexus3-jenkins', variable: 'NEXUS3_AUTH')]) {
-              sh 'curl -v --user "$NEXUS3_AUTH" --upload-file ./$APP_FILENAME_TAR $BASE_URL_UPLOAD/tar/$APP_FILENAME_TAR'
-            }
-          }
-        }
+    stage('Upload tar') {
+      steps {
+        publishRawNexus repository: env.NEXUS_REPO, remoteDir: "${env.PROJECT}/tar", files: env.APP_FILENAME_TAR
       }
       post {
         success {
