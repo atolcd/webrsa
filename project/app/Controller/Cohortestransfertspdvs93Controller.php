@@ -66,6 +66,7 @@
 			'Cohortetransfertpdv93',
 			'Option',
 			'Transfertpdv93',
+			'WebrsaOrientstruct'
 		);
 
 		/**
@@ -236,7 +237,7 @@
 		 * @return void
 		 */
 		public function impression( $id = null ) {
-			$pdf = $this->Transfertpdv93->getDefaultPdf( $id, $this->Session->read( 'Auth.User.id' ) );
+			$pdf = $this->WebrsaOrientstruct->getDefaultPdf( $id, $this->Session->read( 'Auth.User.id' ) );
 
 			if( !empty( $pdf ) ) {
 				$this->Gedooo->sendPdfContentToClient( $pdf, sprintf( 'transfertspdvs93_%d-%s.pdf', $id, date( 'Y-m-d' ) ) );
