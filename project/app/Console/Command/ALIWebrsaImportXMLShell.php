@@ -80,7 +80,7 @@
 				$schema_valide = $dom->schemaValidate(Configure::read('EchangeALI.CheminValidation').'/ALI-WebRSA.xsd');
 				if(!$schema_valide){
 					//alerte
-					$alertes[$file] = 'validation_schema';
+					$alertes[$file]['code'] = 'validation_schema';
 				} else {
 
 					$xml=simplexml_load_file($path.$file);
@@ -101,10 +101,12 @@
 					$deja_traite = false;
 					//-----------------------------------------------------------------
 
+					$liste_ali[] = $id_ali;
+
 					if($deja_traite){
-						$alertes[$file] = 'deja_traite';
+						$alertes[$file]['code'] = 'deja_traite';
 					} else if (empty($user)) {
-						$alertes[$file] = 'utilisateur_inconnu';
+						$alertes[$file]['code'] = 'utilisateur_inconnu';
 					} else {
 						$user_id = $user['id'];
 
@@ -885,24 +887,26 @@
 															}
 														}
 
+														if($bool_cer !== false) {
+
+															$infos_cer['Cer93']['metierexerce_id'] = $id_metier_exerce;
+															$infos_cer['Cer93']['secteuracti_id'] = $id_secteur_activite;
+															$infos_cer['Cer93']['naturecontrat_id'] = $id_nature['CorrespondanceReferentiel']['id_dans_table'];
+	
+															$infos_cer['Cer93']['Emptrouvromev3'] = [
+																'familleromev3_id' => $id_code_famille,
+																'domaineromev3_id' => $id_code_domaine['CorrespondanceReferentiel']['id_dans_table'],
+																'metierromev3_id' => $id_code_metier['CorrespondanceReferentiel']['id_dans_table'],
+																'appellationromev3_id' => $id_appellation_metier['CorrespondanceReferentiel']['id_dans_table']
+															];
+	
+														}
+
 													} else {
 														$infos_cer['Cer93']['isemploitrouv'] = 'N';
 													}
 
-													if($bool_cer !== false) {
-
-														$infos_cer['Cer93']['metierexerce_id'] = $id_metier_exerce;
-														$infos_cer['Cer93']['secteuracti_id'] = $id_secteur_activite;
-														$infos_cer['Cer93']['naturecontrat_id'] = $id_nature['CorrespondanceReferentiel']['id_dans_table'];
-
-														$infos_cer['Cer93']['Emptrouvromev3'] = [
-															'familleromev3_id' => $id_code_famille,
-															'domaineromev3_id' => $id_code_domaine['CorrespondanceReferentiel']['id_dans_table'],
-															'metierromev3_id' => $id_code_metier['CorrespondanceReferentiel']['id_dans_table'],
-															'appellationromev3_id' => $id_appellation_metier['CorrespondanceReferentiel']['id_dans_table']
-														];
-
-													}
+													
 
 												}
 
@@ -1221,7 +1225,7 @@
 													}
 
 													$infos_cer['Cer93']['natlog'] = null;
-													if(isset($personne['DspRev'])){
+													if(isset($personne['DspRev']) && !empty($personne['DspRev'])){
 														$max_dsprev = count($personne['DspRev']);
 														$infos_cer['Cer93']['natlog'] = $personne['DspRev'][$max_dsprev - 1]['natlog'];
 													} else if (isset($personne['Dsp'])){
@@ -1794,7 +1798,7 @@
 														if(empty($d2_appellation_metier)){
 															$bool_d2 = false;
 															$rapport = $this->AddErreur($rapport, 'd2', 'code_appellation_metier_inconnu', $personne_id);
-														} else if($d2_code_metier['CorrespondanceReferentiel']['appell_metier_codemetier_id'] !== $d2_code_metier['CorrespondanceReferentiel']['id_dans_table']){
+														} else if($d2_appellation_metier['CorrespondanceReferentiel']['appell_metier_codemetier_id'] !== $d2_code_metier['CorrespondanceReferentiel']['id_dans_table']){
 															$bool_d2 = false;
 															$rapport = $this->AddErreur($rapport, 'd2', 'appellation_metier_incohérent', $personne_id);
 														} else {
@@ -2044,7 +2048,7 @@
 
 						} //Fin du foreach des dossiers
 
-						$liste_ali[] = $id_ali;
+						$alertes[$file]['dossiers_erreurs'] = 0;
 
 						if($dossiers_erreurs != 0){
 							//On ajoute le nombre total de personnes
@@ -2060,12 +2064,6 @@
 							//On récupère les erreurs
 							$alertes[$file]['rapport'] = isset($rapport['ErreurEchangeALI']) ? $rapport['ErreurEchangeALI'] : null;
 
-							//La date
-							$alertes[$file]['date'] = $now;
-							//Le destinataire
-							$alertes[$file]['to'] = !empty($user) ? $user['email'] : '';
-							//L'ALI
-							$alertes[$file]['ali'] = $this->Structurereferente->findById($id_ali)['Structurereferente']['lib_struc'];
 						}
 
 						// Ecriture dans la table de rapports
@@ -2082,12 +2080,21 @@
 						$this->RapportEchangeALI->clear();
 
 					}
+
+					//La date
+					$alertes[$file]['date'] = $now;
+					//Le destinataire
+					$alertes[$file]['to'] = !empty($user) ? $user['email'] : '';
+					//L'ALI
+					$alertes[$file]['ali'] = $this->Structurereferente->findById($id_ali)['Structurereferente']['lib_struc'];
+				
 				}
 
 
 
 			} //fin du foreach sur les fichiers
 
+			
 
 			//On récupère toutes les ALI et on vérifie qu'il y a au moins un fichier pour chaque
 			$alis_manquantes = array_diff($this->Structurereferente->getALIexport(true), $liste_ali);
@@ -2098,43 +2105,51 @@
 			if(!empty($alertes) || !empty($alis_manquantes)) {
 				//Création des fichiers d'erreur
 				$liste_fichiers = $this->fichierErreur($alertes);
-				// $this->preparationMail($alertes, $liste_fichiers, $alis_manquantes);
+				$this->preparationMail($alertes, $liste_fichiers, $alis_manquantes);
 			}
 		}
 
 		public function preparationMail($alertes, $liste_fichiers, $alis_manquantes){
 			if($alertes != 'dossier_vide'){
 				foreach ($alertes as $fichier => $alerte){
+					$attachments = null;
 					$mailBody = 'Fichier : '.$fichier.'<br>';
-					$mailBody .= 'Date d\'intégration : '.$alerte['date'].'<br>';
-					$mailBody .= 'Structure : '.$alerte['ali'].'<br>';
 
-					if($alerte == 'validation_schema'){
+					if(isset($alerte['code']) && $alerte['code'] == 'validation_schema'){
 						//message problème schéma
 						$mailBody .= __d('rapportsechangesali', 'validation_schema');
-					} else if ($alerte == 'deja_traite') {
-						//message fichier déjà traité
-						$mailBody .= __d('rapportsechangesali', 'deja_traite');
-					} else if ($alerte == 'utilisateur_inconnu') {
-						//message fichier déjà traité
-						$mailBody .= __d('rapportsechangesali', 'utilisateur_inconnu');
 					} else {
-						//on récupère les erreurs (nombre de dossiers + nombre de personnes inconnues)
-						//On joint le fichier de détails
-						$nb_personnes_inconnues = isset($alerte ['personne_inconnue']) ? count($alerte ['personne_inconnue']) : 0;
-						$mailBody .= $alerte['dossiers_erreurs'].' dossier(s) en erreur <br>'.$nb_personnes_inconnues.' personne(s) inconnue(s) <br><br>';
-						if(in_array($alerte['fichier_erreur'], $liste_fichiers)){
-							$attachments = [
-								$alerte['alias_fichier_erreur'] => [
-									'file' => $alerte['fichier_erreur'],
-									'mimetype' => 'text/comma-separated-values'
-								]
-							];
+						$mailBody .= 'Date d\'intégration : '.$alerte['date'].'<br>';
+						$mailBody .= 'Structure : '.$alerte['ali'].'<br>';
+	
+						 if (isset($alerte['code']) && $alerte['code'] == 'deja_traite') {
+							//message fichier déjà traité
+							$mailBody .= __d('rapportsechangesali', 'deja_traite');
+						} else if (isset($alerte['code']) && $alerte['code'] == 'utilisateur_inconnu') {
+							//message fichier déjà traité
+							$mailBody .= __d('rapportsechangesali', 'utilisateur_inconnu');
+						} else if ($alerte['dossiers_erreurs'] != 0 || isset($alerte ['personne_inconnue'])) {
+							//on récupère les erreurs (nombre de dossiers + nombre de personnes inconnues)
+							//On joint le fichier de détails
+							$nb_personnes_inconnues = isset($alerte ['personne_inconnue']) ? count($alerte ['personne_inconnue']) : 0;
+							$mailBody .= $alerte['dossiers_erreurs'].' dossier(s) en erreur <br>'.$nb_personnes_inconnues.' personne(s) inconnue(s) <br><br>';
+							if(in_array($alerte['fichier_erreur'], $liste_fichiers)){
+								$attachments = [
+									$alerte['alias_fichier_erreur'] => [
+										'file' => $alerte['fichier_erreur'],
+										'mimetype' => 'text/comma-separated-values'
+									]
+								];
+							}
 						}
 					}
 
-					//On récupère le mail de l'ali dans le user;
-					$this->envoiMail($mailBody, $alerte['to'], $attachments);
+					if((isset($alerte['dossiers_erreurs']) && $alerte['dossiers_erreurs'] != 0) || isset($alerte ['personne_inconnue']) || isset($alerte['code'])){
+
+						//On récupère le mail de l'ali dans le user;
+						$to = isset($alerte['to']) ? $alerte['to'] : null;
+						$this->envoiMail($mailBody, $to, $attachments);
+					}
 				}
 
 			}
@@ -2164,9 +2179,13 @@
 				$Email = new CakeEmail('echange_ali');
 				$Email->emailFormat('html');
 				$Email->config([
-					'to' => $to,
 					'subject' => __d('rapportsechangesali',"mail.objet")
 				]);
+				if(!empty($to)){
+					$Email->config([
+						'to' => $to,
+					]);
+				}
 				$Email->attachments($attachments);
 
 
