@@ -81,7 +81,7 @@
 			";
 
 
-			$this->date_dernier = isset($this->RapportEchangeALI->query($query_dernier)[0][0]['created']) ? $this->RapportEchangeALI->query($query_dernier)[0][0]['created'] : '1970-01-01';
+			$this->date_dernier = isset($this->RapportEchangeALI->query($query_dernier)[0][0]['created']) ? $this->RapportEchangeALI->query($query_dernier)[0][0]['created'] : $now->format('Y-m-d');
 
 
             //on boucle sur chaque ALI pour créer un fichier par ALI

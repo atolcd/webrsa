@@ -28,7 +28,7 @@
                         <xs:sequence>
                             <xs:element name="dossier" minOccurs="0" maxOccurs="unbounded">
                                 <xs:complexType>
-                                    <xs:sequence>
+                                    <xs:all>
                                         <xs:element name="id_personne" type="xs:positiveInteger"/>
                                         <xs:element name="liste_referents_parcours" minOccurs="0">
                                             <xs:complexType>
@@ -107,7 +107,7 @@
                                                 <xs:sequence>
                                                     <xs:element name="cer" minOccurs="0" maxOccurs="unbounded">
                                                         <xs:complexType>
-                                                            <xs:sequence>
+                                                            <xs:all>
                                                                 <xs:element name="id_webrsa" type="xs:positiveInteger" minOccurs="0"/>
                                                                 <xs:element name="id_ali" type="xs:positiveInteger"/>
                                                                 <xs:element name="id_referent" type="xs:positiveInteger" />
@@ -116,27 +116,39 @@
                                                                 <xs:element name="id_cmu" type="xs:positiveInteger"/>
                                                                 <xs:element name="id_cmu_c" type="xs:positiveInteger"/>
                                                                 <xs:element name="id_niveau_etude" type="xs:positiveInteger"/>
-                                                                <xs:element name="diplome" minOccurs="0" maxOccurs="unbounded">
+                                                                <xs:element name="liste_diplomes" minOccurs="0">
                                                                     <xs:complexType>
-                                                                        <xs:all>
-                                                                            <xs:element name="intitule" type="xs:string"/>
-                                                                            <xs:element name="date_obtention" type="xs:gYear"/>
-                                                                            <xs:element name="etranger" type="xs:boolean"/>
-                                                                        </xs:all>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="diplome" minOccurs="0" maxOccurs="unbounded">
+                                                                                <xs:complexType>
+                                                                                    <xs:all>
+                                                                                        <xs:element name="intitule" type="xs:string"/>
+                                                                                        <xs:element name="date_obtention" type="xs:gYear"/>
+                                                                                        <xs:element name="etranger" type="xs:boolean"/>
+                                                                                    </xs:all>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
-                                                                <xs:element name="experience_pro" minOccurs="0" maxOccurs="unbounded">
+                                                                <xs:element name="liste_experiences_pro" minOccurs="0">
                                                                     <xs:complexType>
-                                                                        <xs:all>
-                                                                            <xs:element name="id_code_famille" type="xs:positiveInteger"/>
-                                                                            <xs:element name="id_code_domaine" type="xs:positiveInteger"/>
-                                                                            <xs:element name="id_code_metier" type="xs:positiveInteger"/>
-                                                                            <xs:element name="id_appellation_metier" type="xs:positiveInteger"/>
-                                                                            <xs:element name="id_nature_contrat" type="xs:positiveInteger"/>
-                                                                            <xs:element name="annee_debut" type="xs:gYear"/>
-                                                                            <xs:element name="duree" type="xs:positiveInteger" minOccurs="0"/>
-                                                                            <xs:element name="id_type_duree" type="xs:positiveInteger" minOccurs="0"/>
-                                                                        </xs:all>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="experience_pro" minOccurs="0" maxOccurs="unbounded">
+                                                                                <xs:complexType>
+                                                                                    <xs:all>
+                                                                                        <xs:element name="id_code_famille" type="xs:positiveInteger"/>
+                                                                                        <xs:element name="id_code_domaine" type="xs:positiveInteger"/>
+                                                                                        <xs:element name="id_code_metier" type="xs:positiveInteger"/>
+                                                                                        <xs:element name="id_appellation_metier" type="xs:positiveInteger"/>
+                                                                                        <xs:element name="id_nature_contrat" type="xs:positiveInteger"/>
+                                                                                        <xs:element name="annee_debut" type="xs:gYear"/>
+                                                                                        <xs:element name="duree" type="xs:positiveInteger" minOccurs="0"/>
+                                                                                        <xs:element name="id_type_duree" type="xs:positiveInteger" minOccurs="0"/>
+                                                                                    </xs:all>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
                                                                 <xs:element name="autre_experience" type="xs:string" minOccurs="0"/>
@@ -158,14 +170,20 @@
                                                                 </xs:element>
                                                                 <xs:element name="bilan_actions_prec" type="xs:string" minOccurs="0"/>
                                                                 <xs:element name="mois_a_venir" type="xs:string"/>
-                                                                <xs:element name="sujets" maxOccurs="unbounded">
+                                                                <xs:element name="liste_sujets" minOccurs="0">
                                                                     <xs:complexType>
-                                                                        <xs:all>
-                                                                            <xs:element name="id_sujet_cer" type="xs:positiveInteger"/>
-                                                                            <xs:element name="id_sous_sujet_cer" type="xs:positiveInteger" minOccurs="0"/>
-                                                                            <xs:element name="id_valeur_sous_sujet_cer" type="xs:positiveInteger" minOccurs="0"/>
-                                                                            <xs:element name="champ_libre" type="xs:string" minOccurs="0"/>
-                                                                        </xs:all>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="sujets" maxOccurs="unbounded">
+                                                                                <xs:complexType>
+                                                                                    <xs:all>
+                                                                                        <xs:element name="id_sujet_cer" type="xs:positiveInteger"/>
+                                                                                        <xs:element name="id_sous_sujet_cer" type="xs:positiveInteger" minOccurs="0"/>
+                                                                                        <xs:element name="id_valeur_sous_sujet_cer" type="xs:positiveInteger" minOccurs="0"/>
+                                                                                        <xs:element name="champ_libre" type="xs:string" minOccurs="0"/>
+                                                                                    </xs:all>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
                                                                 <xs:element name="id_duree_cer" type="xs:positiveInteger"/>
@@ -175,16 +193,22 @@
                                                                 <xs:element name="date_debut" type="xs:date"/>
                                                                 <xs:element name="date_saisie" type="xs:date"/>
                                                                 <xs:element name="id_forme_cer" type="xs:positiveInteger" minOccurs="0"/>
-                                                                <xs:element name="commentaires" minOccurs="0" maxOccurs="unbounded">
+                                                                <xs:element name="liste_commentaires" minOccurs="0">
                                                                     <xs:complexType>
-                                                                        <xs:all>
-                                                                            <xs:element name="id_commentaire" type="xs:positiveInteger"/>
-                                                                            <xs:element name="commentaire_libre" type="xs:string" minOccurs="0"/>
-                                                                        </xs:all>
+                                                                        <xs:sequence>
+                                                                            <xs:element name="commentaires" minOccurs="0" maxOccurs="unbounded">
+                                                                                <xs:complexType>
+                                                                                    <xs:all>
+                                                                                        <xs:element name="id_commentaire" type="xs:positiveInteger"/>
+                                                                                        <xs:element name="commentaire_libre" type="xs:string" minOccurs="0"/>
+                                                                                    </xs:all>
+                                                                                </xs:complexType>
+                                                                            </xs:element>
+                                                                        </xs:sequence>
                                                                     </xs:complexType>
                                                                 </xs:element>
                                                                 <xs:element name="date_signature" type="xs:date"/>
-                                                            </xs:sequence>
+                                                            </xs:all>
                                                         </xs:complexType>
                                                     </xs:element>
                                                 </xs:sequence>
@@ -195,7 +219,7 @@
                                                 <xs:sequence>
                                                     <xs:element name="changement_orientation">
                                                         <xs:complexType>
-                                                            <xs:sequence>
+                                                            <xs:all>
                                                                 <xs:element name="id_webrsa" type="xs:positiveInteger" minOccurs="0"/>
                                                                 <xs:element name="id_ali" type="xs:positiveInteger"/>
                                                                 <xs:element name="id_referent" type="xs:positiveInteger"/>
@@ -216,7 +240,7 @@
                                                                 <xs:element name="id_structure_referente_accueil" type="xs:positiveInteger"/>
                                                                 <xs:element name="id_referent_accueil" type="xs:positiveInteger" minOccurs="0"/>
                                                                 <xs:element name="id_statut" type="xs:positiveInteger"/>
-                                                            </xs:sequence>
+                                                            </xs:all>
                                                         </xs:complexType>
                                                     </xs:element>
                                                 </xs:sequence>
@@ -275,7 +299,7 @@
                                                 </xs:all>
                                             </xs:complexType>
                                         </xs:element>
-                                    </xs:sequence>
+                                    </xs:all>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>

@@ -29,7 +29,7 @@
                         <xs:sequence>
                             <xs:element name="dossier" minOccurs="0" maxOccurs="unbounded">
                                 <xs:complexType>
-                                    <xs:sequence>
+                                    <xs:all>
                                         <xs:element name="id_personne" type="xs:integer"/>
                                         <xs:element name="allocataire" minOccurs="0">
                                             <xs:complexType>
@@ -47,7 +47,7 @@
                                                     <xs:element name="code_postal" type="xs:integer"/>
                                                     <xs:element name="ville" type="xs:string"/>
                                                     <xs:element name="date_demande_rsa" type="xs:date"/>
-                                                    <xs:element name="numero_demande_rsa" type="xs:integer"/>
+                                                    <xs:element name="numero_demande_rsa" type="xs:string"/>
                                                     <xs:element name="etat_droit" type="xs:integer"/>
                                                     <xs:element name="soumis_droits_devoirs" type="boolean" minOccurs="0"/>
                                                     <xs:element name="role_personne" type="xs:integer"/>
@@ -145,7 +145,7 @@
                                                 </xs:all>
                                             </xs:complexType>
                                         </xs:element>
-                                    </xs:sequence>
+                                    </xs:all>
                                 </xs:complexType>
                             </xs:element>
                         </xs:sequence>

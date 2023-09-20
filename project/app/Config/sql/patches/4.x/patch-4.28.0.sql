@@ -76,7 +76,10 @@ create table if not exists administration.correspondancesreferentiels (
 INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
 SELECT
 'Orientstruct.origine.utilisable_ALI',
-'["reorientation","diagnostic"]',
+'{
+"reorientation":"Réorientation",
+"entdiag":"Diagnostic"
+}',
 'Liste des origines d''orientations utilisables par les ALI',
 current_timestamp,
 current_timestamp
@@ -267,7 +270,7 @@ CREATE TRIGGER update_created BEFORE INSERT ON public.personnes
 INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
 SELECT
 'EchangeALI.CheminValidation',
-'"XML_ALI/XSD"',
+'"app/XML_ALI/XSD"',
 'Chemin du dossier dans lequel se trouvent les fichiers .xsd pour la validation des fichiers d''échange de données avec les ALI',
 current_timestamp,
 current_timestamp
@@ -282,7 +285,7 @@ WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_v
 INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
 SELECT
 'EchangeALI.CheminRapports',
-'"XML_ALI/Rapports"',
+'"app/XML_ALI/Rapports"',
 'Chemin du dossier dans lequel se trouvent les fichiers .csv de rapport d''erreurs',
 current_timestamp,
 current_timestamp
@@ -294,7 +297,8 @@ FROM configurationscategories
 WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable IN ('EchangeALI.CheminRapports');
 
 
-
+--Ajout d'une colonne code dans la table des catégories d'utilisateur
+alter table categoriesutilisateurs add column if not exists code varchar(255);
 
 -- *****************************************************************************
 COMMIT;

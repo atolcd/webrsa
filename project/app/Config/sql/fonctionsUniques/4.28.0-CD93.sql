@@ -55,6 +55,9 @@ insert into administration.sujetsreferentiels
 ('type_emploi', 'Type d''emploi', 'typeemplois', null, null, null, '{"id_dans_table":"id","libelle":"name", "type_emploi_code_type_emploi":"codetypeemploi"}');
 
 
+--insertion de la catégorie d'utilisateur pour les ALI
+insert into categoriesutilisateurs (libelle, code, actif, created, modified) values ('Import données ALI', 'import_donnees_ali', true, current_timestamp, current_timestamp);
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

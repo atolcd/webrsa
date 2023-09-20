@@ -327,3 +327,57 @@ msgstr "Personne inconnue"
 
 msgid "personnes_inconnues"
 msgstr "personne(s) inconnue(s)"
+
+msgid "statut_inconnu"
+msgstr "Statut inconnu"
+
+msgid "ref_accueil_inconnu"
+msgstr "Référent d'accueil inconnu"
+
+msgid "struct_accueil_inconnue"
+msgstr "Structure d'accueil inconnue"
+
+msgid "type_orient_parent"
+msgstr "Le type d'orientation doit être de type enfant"
+
+msgid "type_orient_inconnu"
+msgstr "Type d'orientation inconnu"
+
+msgid "origine_inconnue"
+msgstr "Origine inconnue"
+
+msgid "ref_accueil_incoherent"
+msgstr "Le référent et la structure d'accueil sont incohérents"
+
+msgid "mail.objet"
+msgstr "Alerte sur l'intégration de données dans le logiciel WebRSA"
+
+msgid "deja_traite"
+msgstr "Le fichier a déjà été traité"
+
+msgid "fichier_manquant"
+msgstr "Aucun fichier de données présent pour cette structure"
+
+msgid "reorient_orient_obligatoire"
+msgstr "Une orientation doit exister pour enregistrer une réorientation"
+
+msgid "motif_reorient_obligatoire"
+msgstr "Motif de réorientation obligatoire"
+
+msgid "motif_reorient_inconnu"
+msgstr "Motif de réorientation inconnu"
+
+msgid "dossier_ep_en_cours"
+msgstr "Dossier EP en cours"
+
+msgid "code_domaine_incohérent"
+msgstr "Code domaine incohérent"
+
+msgid "code_metier_incohérent"
+msgstr "Code métier incohérent"
+
+msgid "appellation_metier_incohérent"
+msgstr "Code appellation métier incohérent"
+
+msgid "utilisateur_inconnu"
+msgstr "Utilisateur non ou mal configuré pour l'import pour cette structure"

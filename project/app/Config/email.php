@@ -630,6 +630,7 @@ class EmailConfig {
 		$this->echange_ali['from'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_FROM');
 		$this->echange_ali['replyTo'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_REPLYTO');
 		$this->echange_ali['to'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_TO');
+		$this->echange_ali['cc'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_CC');
 		$this->echange_ali['subject'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_SUBJECT');
 		$this->echange_ali['host'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_HOST');
 		$this->echange_ali['port'] = intval(env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_PORT'));

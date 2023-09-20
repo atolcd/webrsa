@@ -61,10 +61,8 @@
             // Récupération des fichiers dans le dossier
 			$files = array_diff(scandir($path), array('..', '.', 'XSD'));
 			$alertes = [];
+			$liste_ali = [];
 
-			//TODO : gérer l'absence du flux
-			//Récupération de toutes les ALI
-			//Tableau de présences pour chaque ALI
 			if(empty($files)){
 				$alertes = 'dossier_vide';
 			}
@@ -96,23 +94,25 @@
 					//fichier de stock/différentiel
 					$stock = intval($xml->entete->fichier_stock->__toString());
 
+					//On récupère l'id de l'utilisateur en fonction de l'ali
+					$user = $this->User->getUserByALI($id_ali);
+
 					//-----------------TODO SUPPRIMER APRES LES TESTS ------------------------------
 					$deja_traite = false;
 					//-----------------------------------------------------------------
 
 					if($deja_traite){
-						//alerte
 						$alertes[$file] = 'deja_traite';
+					} else if (empty($user)) {
+						$alertes[$file] = 'utilisateur_inconnu';
 					} else {
-						//On récupère l'id de l'utilisateur en fonction de l'ali
-						//TODO à compléter !!!!!!!!!!!!!!!
-						// $user_id = $this->User->getUserByALI($id_ali);
-						$user_id = 490;
-						//-------------------------------------------------------
+						$user_id = $user['id'];
 
+						//-------------------------------------------------------
 
 						$dossiers_erreurs = 0;
 						$nom_fichier_erreurs = Configure::read('EchangeALI.CheminRapports').'/erreurs_'. substr($file, 0, -3) . 'csv';
+						$alias_fichier_erreurs = 'erreurs_'. substr($file, 0, -3) . 'csv';
 
 						//On passe aux dossiers
 						foreach($xml->dossiers->dossier as $dossier){
@@ -651,8 +651,8 @@
 													}
 
 													//Diplomes
-													if(isset($cer->diplome)){
-														foreach($cer->diplome as $diplome){
+													if(isset($cer->liste_diplomes)){
+														foreach($cer->liste_diplomes->diplome as $diplome){
 															$infos_cer['Cer93']['Diplomecer93'][] = [
 																'name' => $diplome->intitule->__toString(),
 																'annee' => intval($diplome->date_obtention->__toString()),
@@ -662,8 +662,8 @@
 													}
 
 													//Expériences professionnelles significatives
-													if(isset($cer->experience_pro)){
-														foreach($cer->experience_pro as $exp){
+													if(isset($cer->liste_experiences_pro)){
+														foreach($cer->liste_experiences_pro->experience_pro as $exp){
 															$id_nature = $this->CorrespondanceReferentiel->getIdTableFromIdReferentiel('nature_contrat', $exp->id_nature_contrat);
 															if(empty($id_nature)){
 																$bool_cer = false;
@@ -976,7 +976,7 @@
 
 													//Sujets du CER
 													$liste_sujets = [];
-													foreach($cer->sujets as $sujet){
+													foreach($cer->liste_sujets->sujets as $sujet){
 														$sujet_a_enregistrer = [];
 														//On vérifie si l'id du sujet existe
 														$id_sujet = $this->CorrespondanceReferentiel->getIdTableFromIdReferentiel('cer_sujet', $sujet->id_sujet_cer);
@@ -1118,9 +1118,9 @@
 													}
 
 													//Commentaire (forme du CER)
-													if(isset($cer->commentaires)){
+													if(isset($cer->liste_commentaires->commentaires)){
 														$comm = [];
-														foreach($cer->commentaires as $commentaire){
+														foreach($cer->liste_commentaires->commentaires as $commentaire){
 															$commentaire_autre = '';
 															$id_commentaire = $this->CorrespondanceReferentiel->find(
 																'first',
@@ -1212,11 +1212,13 @@
 													$infos_cer['Cer93']['dtnai'] = $personne['Personne']['dtnai'];
 													$infos_cer['Cer93']['sitfam'] = $personne['Foyer']['sitfam'];
 													$infos_cer['Cer93']['numdemrsa'] = $personne['Dossier'][0]['numdemrsa'];
-													$infos_cer['Cer93']['rolepers'] = $personne['Situationallocataire'][0]['rolepers'];
-													$infos_cer['Cer93']['identifiantpe'] = $personne['Situationallocataire'][0]['identifiantpe'];
-													$infos_cer['Cer93']['adresse'] = $personne['Situationallocataire'][0]['numvoie']." ".$personne['Situationallocataire'][0]['nomvoie']." ".$personne['Situationallocataire'][0]['compladr'];
-													$infos_cer['Cer93']['codepos'] = $personne['Situationallocataire'][0]['codepos'];
-													$infos_cer['Cer93']['nomcom'] = $personne['Situationallocataire'][0]['nomcom'];
+													if(isset($personne['Situationallocataire'][0])){
+														$infos_cer['Cer93']['rolepers'] = $personne['Situationallocataire'][0]['rolepers'];
+														$infos_cer['Cer93']['identifiantpe'] = $personne['Situationallocataire'][0]['identifiantpe'];
+														$infos_cer['Cer93']['adresse'] = $personne['Situationallocataire'][0]['numvoie']." ".$personne['Situationallocataire'][0]['nomvoie']." ".$personne['Situationallocataire'][0]['compladr'];
+														$infos_cer['Cer93']['codepos'] = $personne['Situationallocataire'][0]['codepos'];
+														$infos_cer['Cer93']['nomcom'] = $personne['Situationallocataire'][0]['nomcom'];
+													}
 
 													$infos_cer['Cer93']['natlog'] = null;
 													if(isset($personne['DspRev'])){
@@ -1313,7 +1315,7 @@
 											$bool_orient = false;
 											$rapport = $this->AddErreur($rapport, 'orient', 'type_orient_parent', $personne_id);
 										}
-					
+
 										//structure référente accueil
 										$id_structure_accueil = $this->CorrespondanceReferentiel->getIdTableFromIdReferentiel(
 											'structuresreferentes',
@@ -1340,7 +1342,7 @@
 														'recursive' => 1
 													]
 												);
-	
+
 												if(empty($referent_accueil)){
 													$bool_orient = false;
 													$rapport = $this->AddErreur($rapport, 'orient', 'ref_accueil_inconnu', $personne_id);
@@ -1382,7 +1384,7 @@
 														'reorientation_motifs',
 														intval($orientation->reorientation->id_motif_reorientation->__toString())
 													);
-	
+
 													if(empty($id_motif_reorient)){
 														$bool_orient = false;
 														$rapport = $this->AddErreur($rapport, 'orient', 'motif_reorient_inconnu', $personne_id);
@@ -1420,7 +1422,7 @@
 
 											$modif_ok = true;
 											//Seule la plus récente est modifiable
-											if((!empty($orient_existe) && $orient_existe['Orientstruct']['id'] != $derniere_orientation_id)){
+											if((!empty($orient_existe) && $derniere_orientation_id != null && $orient_existe['Orientstruct']['id'] != $derniere_orientation_id)){
 												//On ne peut pas modifier cette orientation
 												$modif_ok = false;
 											} else if (!empty($orient_existe)){
@@ -1459,7 +1461,7 @@
 													$this->Orientstruct->alias,
 													'date_valid'
 												);
-	
+
 											}
 
 											$this->Orientstruct->clear();
@@ -2042,18 +2044,28 @@
 
 						} //Fin du foreach des dossiers
 
+						$liste_ali[] = $id_ali;
+
 						if($dossiers_erreurs != 0){
 							//On ajoute le nombre total de personnes
-							$alertes[$file]['nb_dossiers'] = count($rapport['PersonneEchangeALI']) + count($alertes[$file]['personne_inconnue']);
+							$alertes[$file]['nb_dossiers'] = count($rapport['PersonneEchangeALI']) + (isset($alertes[$file]['personne_inconnue']) ? count($alertes[$file]['personne_inconnue']) : 0);
 
 							//On ajoute le nombre d'erreurs
 							$alertes[$file]['dossiers_erreurs'] = $dossiers_erreurs;
 
 							//On ajoute le fichier d'erreurs
 							$alertes[$file]['fichier_erreur'] = $nom_fichier_erreurs;
+							$alertes[$file]['alias_fichier_erreur'] = $alias_fichier_erreurs;
 
 							//On récupère les erreurs
-							$alertes[$file]['rapport'] = $rapport['ErreurEchangeALI'];
+							$alertes[$file]['rapport'] = isset($rapport['ErreurEchangeALI']) ? $rapport['ErreurEchangeALI'] : null;
+
+							//La date
+							$alertes[$file]['date'] = $now;
+							//Le destinataire
+							$alertes[$file]['to'] = !empty($user) ? $user['email'] : '';
+							//L'ALI
+							$alertes[$file]['ali'] = $this->Structurereferente->findById($id_ali)['Structurereferente']['lib_struc'];
 						}
 
 						// Ecriture dans la table de rapports
@@ -2073,41 +2085,89 @@
 				}
 
 
-				//Un mail global pour tous les fichiers
-				//Envoi du mail d'alerte
-				if(!empty($alertes)) {
-					//Création du fichier d'erreur à joindre au mail
-					$liste_fichiers = $this->fichierErreur($alertes);
-					// $this->envoiMail($alertes);
-				}
 
 			} //fin du foreach sur les fichiers
+
+
+			//On récupère toutes les ALI et on vérifie qu'il y a au moins un fichier pour chaque
+			$alis_manquantes = array_diff($this->Structurereferente->getALIexport(true), $liste_ali);
+
+
+
+			//Un fichier et un mail par fichier
+			if(!empty($alertes) || !empty($alis_manquantes)) {
+				//Création des fichiers d'erreur
+				$liste_fichiers = $this->fichierErreur($alertes);
+				// $this->preparationMail($alertes, $liste_fichiers, $alis_manquantes);
+			}
 		}
 
-		public function envoiMail($alertes){
-			$success = false;
-			$mailBody = 'Alertes sur les intégrations des fichiers ALI <br><br>';
-			if($alertes == 'dossier_vide'){
-				//message dossier vide
-			} else {
-				$nb_fichiers_erreurs = count($alertes);
-				$mailBody .= $nb_fichiers_erreurs.' fichiers comprenant une ou plusieurs erreurs : <br><br>';
+		public function preparationMail($alertes, $liste_fichiers, $alis_manquantes){
+			if($alertes != 'dossier_vide'){
+				foreach ($alertes as $fichier => $alerte){
+					$mailBody = 'Fichier : '.$fichier.'<br>';
+					$mailBody .= 'Date d\'intégration : '.$alerte['date'].'<br>';
+					$mailBody .= 'Structure : '.$alerte['ali'].'<br>';
 
-				foreach($alertes as $fichier => $alerte){
-					if(isset($alerte['rapport'])){
-						$nb_personnes_inconnues = isset($alerte ['personne_inconnue']) ? count($alerte ['personne_inconnue']) : 0;
-						$mailBody .= $fichier.' : '.$alerte['dossiers_erreurs'].' dossier(s) en erreur et '.$nb_personnes_inconnues.' personne(s) inconnue(s) <br><br>';
+					if($alerte == 'validation_schema'){
+						//message problème schéma
+						$mailBody .= __d('rapportsechangesali', 'validation_schema');
+					} else if ($alerte == 'deja_traite') {
+						//message fichier déjà traité
+						$mailBody .= __d('rapportsechangesali', 'deja_traite');
+					} else if ($alerte == 'utilisateur_inconnu') {
+						//message fichier déjà traité
+						$mailBody .= __d('rapportsechangesali', 'utilisateur_inconnu');
 					} else {
-						$mailBody .= $fichier.' : '.__d('rapportsechangesali', $alerte).' <br><br>';
+						//on récupère les erreurs (nombre de dossiers + nombre de personnes inconnues)
+						//On joint le fichier de détails
+						$nb_personnes_inconnues = isset($alerte ['personne_inconnue']) ? count($alerte ['personne_inconnue']) : 0;
+						$mailBody .= $alerte['dossiers_erreurs'].' dossier(s) en erreur <br>'.$nb_personnes_inconnues.' personne(s) inconnue(s) <br><br>';
+						if(in_array($alerte['fichier_erreur'], $liste_fichiers)){
+							$attachments = [
+								$alerte['alias_fichier_erreur'] => [
+									'file' => $alerte['fichier_erreur'],
+									'mimetype' => 'text/comma-separated-values'
+								]
+							];
+						}
 					}
+
+					//On récupère le mail de l'ali dans le user;
+					$this->envoiMail($mailBody, $alerte['to'], $attachments);
 				}
 
-				$mailBody .= 'Les rapports d\'erreurs sont disponibles depuis WebRSA et dans le dossier '.Configure::read('EchangeALI.CheminRapports');
 			}
+
+			//Si il y a des alis manquantes, on récupère le mail et on envoie une alerte
+			if(!empty($alis_manquantes)){
+					$now_datetime = new DateTimeImmutable();
+					$now = $now_datetime->format('Y-m-d_H:i:s');
+				foreach($alis_manquantes as $ali_manquante){
+					$to = $this->User->getUserByALI($ali_manquante)['email'];
+
+					$mailBody = 'Date : '.$now.'<br>';
+					$mailBody .= 'Structure : '.$this->Structurereferente->findById($ali_manquante)['Structurereferente']['lib_struc'].'<br>';
+					$mailBody .= __d('rapportsechangesali', 'fichier_manquant');
+					$this->envoiMail($mailBody, $to);
+				}
+			}
+
+
+
+		}
+
+		public function envoiMail($mailBody, $to, $attachments = null){
+			$success = false;
 
 			try {
 				$Email = new CakeEmail('echange_ali');
 				$Email->emailFormat('html');
+				$Email->config([
+					'to' => $to,
+					'subject' => __d('rapportsechangesali',"mail.objet")
+				]);
+				$Email->attachments($attachments);
 
 
 				$result = $Email->send( $mailBody );
@@ -2139,32 +2199,35 @@
 		public function fichierErreur($alertes){
 			$liste_fichiers = [];
 			//Création des fichiers csv contenant toutes les erreurs à corriger
-			foreach($alertes as $file => $alerte){
-				$lignes = [];
-
-				if(isset($alerte['rapport'])){
-					$lignes[0] = [
-						'bloc',
-						'personne_id',
-						'erreur',
-					];
-
-					foreach($alerte['rapport'] as $erreur){
-						$lignes[] = [
-							$erreur['bloc'],
-							$erreur['code'] == 'personne_inconnue' ? $erreur['commentaire'] : $erreur['personne_id'],
-							__d('rapportsechangesali', $erreur['code'])
+			if(!empty($alertes) && is_array($alertes)){
+				foreach($alertes as $file => $alerte){
+					$lignes = [];
+	
+					if(isset($alerte['rapport'])){
+						$lignes[0] = [
+							'bloc',
+							'personne_id',
+							'erreur',
 						];
+	
+						foreach($alerte['rapport'] as $erreur){
+							$lignes[] = [
+								$erreur['bloc'],
+								$erreur['code'] == 'personne_inconnue' ? $erreur['commentaire'] : $erreur['personne_id'],
+								__d('rapportsechangesali', $erreur['code'])
+							];
+						}
+	
+						$fichier_erreur = fopen($alerte['fichier_erreur'], "w");
+	
+	
+						foreach($lignes as $ligne){
+							fputcsv($fichier_erreur, $ligne, ";");
+						}
+						fclose($fichier_erreur);
+	
+						$liste_fichiers[] = $alerte['fichier_erreur'];
 					}
-
-					$fichier_erreur = fopen($alerte['fichier_erreur'], "w");
-
-					foreach($lignes as $ligne){
-						fputcsv($fichier_erreur, $ligne, ";");
-					}
-					fclose($fichier_erreur);
-
-					$liste_fichiers[] = $alerte['fichier_erreur'];
 				}
 			}
 

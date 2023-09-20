@@ -171,6 +171,8 @@
 			if ( !empty( $referent_id ) && ( empty( $last_referent ) || ( isset( $last_referent['PersonneReferent']['referent_id'] ) && !empty( $last_referent['PersonneReferent']['referent_id'] ) && $last_referent['PersonneReferent']['referent_id'] != $referent_id ) ) ) {
 				if ( !empty( $last_referent ) && empty( $last_referent['PersonneReferent']['dfdesignation'] ) ) {
 					$last_referent['PersonneReferent']['dfdesignation'] = $data[$modelName][$datefindesignation];
+					$last_referent['PersonneReferent']['created'] = substr($last_referent['PersonneReferent']['created'], 0, 19);
+					$last_referent['PersonneReferent']['modified'] = substr($last_referent['PersonneReferent']['modified'], 0, 19);
 					$this->create( $last_referent );
 					$saved = $this->save( $last_referent , array( 'atomic' => false ) ) && $saved;
 				}

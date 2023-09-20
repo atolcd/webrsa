@@ -808,18 +808,31 @@
 			return $results;
 		}
 
-		public function getALIexport(){
-			return $this->find(
-                'all',
-                [
-                    'conditions' => ['export_donnees' => true],
-                    'recursive' => -1,
-                    'fields' => [
-                        'Structurereferente.id',
-                        'Structurereferente.lib_struc',
-                    ]
-				]
-			);
+		public function getALIexport($id_uniquement = false){
+			if($id_uniquement) {
+				return $this->find(
+					'list',
+					[
+						'conditions' => ['export_donnees' => true],
+						'recursive' => -1,
+						'fields' => [
+							'Structurereferente.id',
+						]
+					]
+				);
+			} else {
+				return $this->find(
+					'all',
+					[
+						'conditions' => ['export_donnees' => true],
+						'recursive' => -1,
+						'fields' => [
+							'Structurereferente.id',
+							'Structurereferente.lib_struc',
+						]
+					]
+				);
+			}
 		}
 
 	}
