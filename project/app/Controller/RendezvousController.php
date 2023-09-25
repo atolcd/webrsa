@@ -588,6 +588,10 @@
 					$this->request->data['Rendezvous']['arevoirle']['day'] = '01';
 				}
 
+				if(!isset($this->request->data['Thematiquerdv'])){
+					$this->request->data['Thematiquerdv'] = [];
+				}
+
 				$success = $this->Rendezvous->saveAll( $this->request->data, array( 'validate' => 'first', 'atomic' => false ) );
 
 				if( $this->Rendezvous->WebrsaRendezvous->provoquePassageCommission( $this->request->data ) ) {
