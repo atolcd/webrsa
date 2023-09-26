@@ -76,7 +76,7 @@
 				parent::_optionsRecords( $params ),
 				array(
 					'Orientstruct' => array(
-						'typeorient_id' => $Controller->Dossier->Foyer->Personne->Orientstruct->Typeorient->listOptions()
+						'typeorient_id' => $Controller->Dossier->Foyer->Personne->Orientstruct->Typeorient->listTypeEnfant()
 					),
 					'Transfertpdv93' => array(
 						'structurereferente_dst_id' => array()

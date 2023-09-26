@@ -61,17 +61,14 @@
 	for( var keyzg in zonesgeographiques ) {
 		if( zonesgeographiques.hasOwnProperty( keyzg ) ) {
 			structurespartypeorientetcodeinsee[keyzg] = {};
-			for( var keytype in typesorients ) {
-				if( typesorients.hasOwnProperty( keytype ) ) {
-					var typeorient_id = Object.keys(typesorients[keytype])[0];
+			for( var typeorient_id in typesorients ) {
+				if( typesorients.hasOwnProperty( typeorient_id ) ) {
 					structurespartypeorientetcodeinsee[keyzg][typeorient_id] = [];
-					structurespartypeorientetcodeinsee[keyzg][keytype] = [];
 					var length = zonesgeographiques[keyzg].length;
 					for( var i = 0 ; i < length ; i++ ) {
 						var structurereferente_id = zonesgeographiques[keyzg][i];
 						if( 'undefined' !== typeof structuresreferentesParTypeorientId[typeorient_id] && 'undefined' !== typeof structuresreferentesParTypeorientId[typeorient_id][structurereferente_id] ) {
 							structurespartypeorientetcodeinsee[keyzg][typeorient_id].push( structurereferente_id );
-							structurespartypeorientetcodeinsee[keyzg][keytype].push( structurereferente_id );
 						}
 					}
 				}
