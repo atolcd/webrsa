@@ -251,12 +251,12 @@
 			$this->loadModel('Contratinsertion');
 			$query = array (
 				'conditions' => array(
-					'Contratinsertion.dd_ci IS NOT NULL',
-					'DATE( Contratinsertion.dd_ci ) BETWEEN \''.$du->format ('Y-m-d').'\' AND \''.$au->format ('Y-m-d').'\'',
+					'Contratinsertion.df_ci IS NOT NULL',
+					'DATE( Contratinsertion.df_ci ) BETWEEN \''.$du->format ('Y-m-d').'\' AND \''.$au->format ('Y-m-d').'\'',
 					'Contratinsertion.referent_id IN ('.$this->idReferent.')',
 				),
 				'order' => array(
-					'Contratinsertion.dd_ci ASC',
+					'Contratinsertion.df_ci ASC',
 				),
 			);
 
