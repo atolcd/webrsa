@@ -5,7 +5,8 @@
 			'fields' => array(
 				'Categorieutilisateur.id',
 				'Categorieutilisateur.libelle',
-				'Categorieutilisateur.actif'
+				'Categorieutilisateur.code' => ['disabled' => ($this->action == 'edit')],
+				'Categorieutilisateur.actif' => ['default' => true]
 			)
 		)
 	);

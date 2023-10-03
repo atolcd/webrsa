@@ -377,6 +377,9 @@ msgstr "Date MAJ Instruction : "
 msgid "Dossier::Flux::MAJFinanc"
 msgstr "Date MAJ Financier : "
 
+msgid "Dossier::Flux::MAJPartenaire"
+msgstr "Date MAJ Partenaire : "
+
 msgid "Dossier::Date::miseEP"
 msgstr "Date de mise en EP"
 

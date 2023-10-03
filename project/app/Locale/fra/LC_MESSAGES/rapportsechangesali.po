@@ -1,0 +1,383 @@
+# Traductions de entretiens.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Rapportsechangesali/index/:heading"
+msgstr "Rapport des flux partenaires"
+
+msgid "/Rapportsechangesali/details"
+msgstr "Voir les détails"
+
+msgid "RapportEchangeALI.nom_fichier"
+msgstr "Nom du fichier"
+
+msgid "RapportEchangeALI.type"
+msgstr "Flux"
+
+msgid "RapportEchangeALI.debut"
+msgstr "Date de début"
+
+msgid "RapportEchangeALI.created"
+msgstr "Date de fin"
+
+msgid "RapportEchangeALI.duree"
+msgstr "Durée"
+
+msgid "RapportEchangeALI.statut"
+msgstr "Statut"
+
+msgid "Structurereferente.lib_struc"
+msgstr "Structure référente"
+
+msgid "RapportEchangeALI.periode"
+msgstr "Type"
+
+msgid "RapportEchangeALI.actions"
+msgstr "Actions"
+
+msgid "referentiel"
+msgstr "Référentiel"
+
+msgid "import"
+msgstr "ALI > WebRSA"
+
+msgid "export"
+msgstr "WebRSA > ALI"
+
+msgid "stock"
+msgstr "Stock"
+
+msgid "diff"
+msgstr "Différentiel"
+
+msgid "ok"
+msgstr "Ok"
+
+msgid "nok"
+msgstr "Erreur(s)"
+
+msgid "/Rapportsechangesali/details/:heading"
+msgstr "Détails du flux « #RapportEchangeALI.nom_fichier# »"
+
+msgid "RapportEchangeALI::form::infoFlux"
+msgstr "Filtrer par flux"
+
+msgid "RapportEchangeALI::form::infoPersonne"
+msgstr "Recherche par personne"
+
+msgid "Search.RapportEchangeALIFlux"
+msgstr "Recherche par flux"
+
+msgid "Search.RapportEchangeALI.flux"
+msgstr "Flux"
+
+msgid "Search.RapportEchangeALI.date"
+msgstr "Date de flux"
+
+msgid "Search.RapportEchangeALIPersonne"
+msgstr "Recherche par personne"
+
+msgid "Search.RapportEchangeALI.nom"
+msgstr "Nom"
+
+msgid "Search.RapportEchangeALI.prenom"
+msgstr "Prénom"
+
+msgid "Search.RapportEchangeALI.nir"
+msgstr "NIR"
+
+msgid "Search.RapportEchangeALI.dtnai"
+msgstr "Date de naissance"
+
+msgid "/Personnes/view"
+msgstr "Voir la personne"
+
+msgid "erreurs.titre"
+msgstr "Erreurs globales du flux"
+
+msgid "personnes.titre"
+msgstr "Détail des personnes du flux"
+
+msgid "aucun_detail"
+msgstr "Aucun détail pour ce flux"
+
+msgid "personnes.total"
+msgstr "Il y a %d personnes au total dans le flux"
+
+msgid "validation_schema"
+msgstr "Le fichier ne respecte pas le schéma XSD associé"
+
+msgid "RapportEchangeALI.nb_pers"
+msgstr "Nombre de dossiers"
+
+msgid "PersonneEchangeALI.referentparcours"
+msgstr "Référent"
+
+msgid "Erreur.referent"
+msgstr "Référent"
+
+msgid "Erreur.rdv"
+msgstr "Rendez-vous"
+
+msgid "Erreur.cer"
+msgstr "Cer"
+
+msgid "referent_cloture"
+msgstr "Le référent renseigné est clôturé"
+
+msgid "referent_inconnu"
+msgstr "Le référent renseigné est inconnu"
+
+msgid "structure_inconnue"
+msgstr "La structure renseignée est inconnue"
+
+msgid "rdv_objet_inconnu"
+msgstr "L'objet de rendez-vous renseigné est inconnu"
+
+msgid "rdv_statut_inconnu"
+msgstr "Le statut de rendez-vous renseigné est inconnu"
+
+msgid "rdv_thematique_inconnu"
+msgstr "La thématique de rendez-vous renseignée est inconnue"
+
+msgid "referent_obligatoire"
+msgstr "Le référent est obligatoire pour les rendez-vous individuel"
+
+msgid "referent_incoherent"
+msgstr "Le référent et la structure sont incohérents"
+
+msgid "rdv_thematique_annuelle"
+msgstr "Il existe déjà un rendez-vous pour cette thématique annuelle"
+
+msgid "rdv_thematique_depassement"
+msgstr "Il n'est possible de renseigner qu'une seule thématique pour les rendez-vous collectifs"
+
+msgid "rdv_type_thematique_incoherents"
+msgstr "La thématique et l'objet de rendez-vous sont incohérents"
+
+msgid "Erreur.dsp"
+msgstr "Dsp"
+
+msgid "nivetu_inconnu"
+msgstr "Le niveau d'étude renseigné est inconnu"
+
+msgid "diplome_inconnu"
+msgstr "Le niveau de diplôme renseigné est inconnu"
+
+msgid "cer_referent_obligatoire"
+msgstr "Un référent de parcours est obligatoire"
+
+msgid "intervale_debut_contrat"
+msgstr "Date de début de contrat incorrecte"
+
+msgid "cer_duree_inconnue"
+msgstr "Durée de cer inconnue"
+
+msgid "cmu_inconnu"
+msgstr "Identifiant CMU inconnu"
+
+msgid "cmuc_inconnu"
+msgstr "Identifiant CMU-C inconnu"
+
+msgid "Erreur.orient"
+msgstr "Orientation"
+
+msgid "nature_contrat_inconnu"
+msgstr "Nature de contrat inconnue"
+
+msgid "code_famille_inconnu"
+msgstr "Code famille inconnu"
+
+msgid "code_domaine_inconnu"
+msgstr "Code domaine inconnu"
+
+msgid "code_metier_inconnu"
+msgstr "Code métier inconnu"
+
+msgid "code_appellation_metier_inconnu"
+msgstr "Code appellation métier inconnu"
+
+msgid "famille_incoherent"
+msgstr "Codes famille incohérents"
+
+msgid "type_duree_inconnu"
+msgstr "Type de durée inconnu"
+
+msgid "secteur_activite_inconnu"
+msgstr "Secteur d'activité inconnu"
+
+msgid "metier_exerce_inconnu"
+msgstr "Métier exercé inconnu"
+
+msgid "duree_hebdo_incorrecte"
+msgstr "Durée hebdomadaire incorrecte"
+
+msgid "code_duree_cdd_inconnu"
+msgstr "Durée du CDD inconnue"
+
+msgid "sujet_inconnu"
+msgstr "Sujet inconnu"
+
+msgid "sous_sujet_inconnu"
+msgstr "Sous-sujet inconnu"
+
+msgid "val_sous_sujet_inconnu"
+msgstr "Valeur par sous-sujet inconnue"
+
+msgid "sous_sujet_incohérent"
+msgstr "Sous-sujet incohérent"
+
+msgid "val_sous_sujet_incohérent"
+msgstr "Valeur par sous-sujet incohérente"
+
+msgid "sujet_concurrent"
+msgstr "Sujets concurrents"
+
+msgid "point_parcours_inconnu"
+msgstr "Point de parcours inconnu"
+
+msgid "date_point_parcours_obligatoire"
+msgstr "Date de point de parcours manquante"
+
+msgid "date_saisie_incorrecte"
+msgstr "Date de saisie incorrecte"
+
+msgid "forme_cer_inconnu"
+msgstr "Forme de cer inconnue"
+
+msgid "commentaire_inconnu"
+msgstr "Commentaire inconnu"
+
+msgid "date_signature_incorrecte"
+msgstr "Date de signature incorrecte"
+
+msgid "Erreur.d1"
+msgstr "D1"
+
+msgid "premier_rdv_obligatoire"
+msgstr "Premier rdv de l'année obligatoire"
+
+msgid "nivetu_obligatoire"
+msgstr "Niveau d'études DSP obligatoire"
+
+msgid "nationalite_inconnu"
+msgstr "Nationalité inconnue"
+
+msgid "statut_marche_travail_inconnu"
+msgstr "Statut sur le marché du travail inconnu"
+
+msgid "groupe_vulnerable_inconnu"
+msgstr "Groupe vulnérable inconnu"
+
+msgid "cat_sociopro_inconnu"
+msgstr "Catégorie socio-professionelle inconnue"
+
+msgid "cond_logement_inconnu"
+msgstr "Condition de logement inconnue"
+
+msgid "cond_log_precision_obligatoire"
+msgstr "Précision sur les conditions de logement obligatoire"
+
+msgid "Erreur.d2"
+msgstr "D2"
+
+msgid "d2_existe_deja"
+msgstr "Il existe déjà un formulaire d2"
+
+msgid "d2_d1_manquant"
+msgstr "Un formulaire d1 est obligatoire"
+
+msgid "statut_accompagnement_inconnu"
+msgstr "Statut d'accompagnement inconnu"
+
+msgid "sortie_obligation_acc_inconnu"
+msgstr "Sortie d'obligation d'accompagnement inconnue"
+
+msgid "temps_travail_inconnu"
+msgstr "Temps de travail inconnu"
+
+msgid "sortie_obligation_acc_obligatoire"
+msgstr "Sortie d'obligation d'accompagnement obligatoire"
+
+msgid "sortie_changement_admin_inconnu"
+msgstr "Sortie changement administratif inconnue"
+
+msgid "sortie_changement_admin_obligatoire"
+msgstr "Sortie changement administratif obligatoire"
+
+msgid "Erreur.b7"
+msgstr "B7"
+
+msgid "type_emploi_inconnu"
+msgstr "Type d'emploi inconnu"
+
+msgid "date_embauche_incorrecte"
+msgstr "Date d'embauche incorrecte"
+
+msgid "personne_inconnue"
+msgstr "Personne inconnue"
+
+msgid "personnes_inconnues"
+msgstr "personne(s) inconnue(s)"
+
+msgid "statut_inconnu"
+msgstr "Statut inconnu"
+
+msgid "ref_accueil_inconnu"
+msgstr "Référent d'accueil inconnu"
+
+msgid "struct_accueil_inconnue"
+msgstr "Structure d'accueil inconnue"
+
+msgid "type_orient_parent"
+msgstr "Le type d'orientation doit être de type enfant"
+
+msgid "type_orient_inconnu"
+msgstr "Type d'orientation inconnu"
+
+msgid "origine_inconnue"
+msgstr "Origine inconnue"
+
+msgid "ref_accueil_incoherent"
+msgstr "Le référent et la structure d'accueil sont incohérents"
+
+msgid "mail.objet"
+msgstr "Alerte sur l'intégration de données dans le logiciel WebRSA"
+
+msgid "deja_traite"
+msgstr "Le fichier a déjà été traité"
+
+msgid "fichier_manquant"
+msgstr "Aucun fichier de données présent pour cette structure"
+
+msgid "reorient_orient_obligatoire"
+msgstr "Une orientation doit exister pour enregistrer une réorientation"
+
+msgid "motif_reorient_obligatoire"
+msgstr "Motif de réorientation obligatoire"
+
+msgid "motif_reorient_inconnu"
+msgstr "Motif de réorientation inconnu"
+
+msgid "dossier_ep_en_cours"
+msgstr "Dossier EP en cours"
+
+msgid "code_domaine_incohérent"
+msgstr "Code domaine incohérent"
+
+msgid "code_metier_incohérent"
+msgstr "Code métier incohérent"
+
+msgid "appellation_metier_incohérent"
+msgstr "Code appellation métier incohérent"
+
+msgid "utilisateur_inconnu"
+msgstr "Utilisateur non ou mal configuré pour l'import pour cette structure"

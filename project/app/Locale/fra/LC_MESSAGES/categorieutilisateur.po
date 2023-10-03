@@ -15,3 +15,6 @@ msgstr "Libellé"
 
 msgid "Categorieutilisateur.actif"
 msgstr "Actif"
+
+msgid "Categorieutilisateur.code"
+msgstr "Code"

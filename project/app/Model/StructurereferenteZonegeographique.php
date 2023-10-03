@@ -54,5 +54,20 @@
 				'order' => ''
 			)
 		);
+
+		public function getStructuresOkParZonesGeos($zonesgeo){
+			$structuresOK = $this->query(
+				"
+				select array_agg(distinct s.id)
+				from structuresreferentes s
+				left join structuresreferentes_zonesgeographiques sz  on s.id = sz.structurereferente_id
+				where sz.zonegeographique_id in {$zonesgeo}
+				or s.filtre_zone_geo = false
+				"
+			);
+
+			return json_decode(str_replace(['{', '}'], ['[', ']'], $structuresOK[0][0]['array_agg']));
+
+		}
 	}
 ?>

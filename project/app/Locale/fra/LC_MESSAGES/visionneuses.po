@@ -121,6 +121,9 @@ msgstr "Rapport des flux modes de contact"
 msgid "Rapportstalendsmodescontacts::index::link"
 msgstr "Rapport des flux modes de contact"
 
+msgid "Rapportsechangesali::index::link"
+msgstr "Rapport des flux partenaires"
+
 msgid "/Visionneuses/index"
 msgstr "Retour"
 

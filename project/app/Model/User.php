@@ -952,5 +952,20 @@
 			}
 			return $success;
 		}
+
+		public function getUserByALI($ali_id){
+			$user = $this->find(
+				'first',
+				[
+					'conditions' => [
+						'User.structurereferente_id' => $ali_id,
+						'Categorieutilisateur.code' => 'import_donnees_ali',
+						'User.email is not NULL'
+					]
+				]
+			);
+
+			return !empty($user) ? $user['User'] : null;
+		}
 	}
 ?>

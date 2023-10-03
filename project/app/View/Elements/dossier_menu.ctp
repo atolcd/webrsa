@@ -119,6 +119,7 @@
 				echo $dossier['MAJFlux']['Benef'];
 				echo $dossier['MAJFlux']['Inst'];
 				echo $dossier['MAJFlux']['Financ'];
+				echo $dossier['MAJFlux']['Partenaire'];
 	?>
 </p>
 

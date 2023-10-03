@@ -240,8 +240,8 @@
 		 *
 		 * @return string
 		 */
-		protected function _conditionsValid() {
-			return array( 'modified >=' => strftime( '%Y-%m-%d %H:%M:%S', strtotime( '-'.readTimeout().' seconds' ) ) );
+		protected function _conditionsValid($alias = 'jetons') {
+			return array( $alias.'.modified >=' => strftime( '%Y-%m-%d %H:%M:%S', strtotime( '-'.readTimeout().' seconds' ) ) );
 		}
 
 		/**
@@ -450,7 +450,7 @@
 										'Jeton.php_sid' => $this->Session->id(),
 										'Jeton.user_id' => $this->Session->read( 'Auth.User.id' )
 									),
-									'NOT' => $this->_conditionsValid()
+									'NOT' => $this->_conditionsValid('Jeton')
 								)
 							)
 						)

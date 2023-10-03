@@ -519,9 +519,10 @@
 		 */
 		public function getEmploiromev3Id( array $data ) {
 			if (!empty ($data['Emploiromev3']['familleromev3_id'])) {
-				if (empty ($data['Emploiromev3']['appellationromev3_id'])) {
+				if (!isset(($data['Emploiromev3']['appellationromev3_id'])) || empty ($data['Emploiromev3']['appellationromev3_id'])) {
 					$data['Emploiromev3']['domaineromev3_id'] = '';
 					$data['Emploiromev3']['metierromev3_id'] = '';
+					$data['Emploiromev3']['appellationromev3_id'] = '';
 				}
 
 				// On formate le Rome V3 pour pouvoir l'exploiter

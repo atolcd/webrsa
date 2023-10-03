@@ -5320,5 +5320,16 @@ msgstr "Voir les exceptions"
 msgid "controllers/Exceptionsimpressionstypesorients/edit"
 msgstr "Modification d'une exception"
 
+## Rapports des échanges ALI
+###############################################################################
+
+msgid "controllers/Rapportsechangesali"
+msgstr "Rapports des échanges ALI"
+
+msgid "controllers/Rapportsechangesali/details"
+msgstr "Visualisation des détails des rapports des échanges ALI"
+
+msgid "controllers/Rapportsechangesali/index"
+msgstr "Visualisation des rapports des échanges ALI"
 
 

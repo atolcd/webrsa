@@ -454,9 +454,26 @@
 				$strFluxIns = __d('dossiers', 'Dossier::Flux::NoUpdate');
 				$strFluxFinanc = __d('dossiers', 'Dossier::Flux::NoUpdate');
 			}
+
+			//Flux partenaires (ALI)
+			$id_personnes_foyer = implode(",", Hash::extract($personnes, '{n}.Personne.id'));
+
+			$date_max_partenaire = $this->Foyer->query(
+				"
+				select max(to_char(r.debut, 'DD/MM/YYYY'))
+				from administration.rapportsechangesali r
+				join administration.personnesechangesali p on r.id = p.rapport_id
+				where p.personne_id in ($id_personnes_foyer);
+				"
+			);
+
+			$strFluxPartenaire = isset($date_max_partenaire[0][0]['max']) ? $date_max_partenaire[0][0]['max'] :__d('dossiers', 'Dossier::Flux::NoUpdate');
+
+
 			$dossier['MAJFlux']['Benef'] = __d('dossiers', 'Dossier::Flux::MAJBenef') . $strFluxBenef . '<br><br>';
 			$dossier['MAJFlux']['Inst'] = __d('dossiers', 'Dossier::Flux::MAJInst') . $strFluxIns . '<br><br>';
 			$dossier['MAJFlux']['Financ'] = __d('dossiers', 'Dossier::Flux::MAJFinanc') . $strFluxFinanc . '<br><br>';
+			$dossier['MAJFlux']['Partenaire'] = __d('dossiers', 'Dossier::Flux::MAJPartenaire') . $strFluxPartenaire . '<br><br>';
 
 			return $dossier;
 		}

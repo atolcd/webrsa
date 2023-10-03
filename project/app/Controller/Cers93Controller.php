@@ -226,7 +226,7 @@
 			// Check de l'état civil, pour avertir s'il y a un problème
 			$dataCaf = $this->Cer93->WebrsaCer93->dataCafAllocataire( $personne_id );
 			foreach ($this->Cer93->validate as $nameField => $dataNotBlank) {
-				if(array_key_exists($nameField, $dataCaf['Adresse']) && empty($dataCaf['Adresse'][$nameField])) {
+				if(array_key_exists($nameField, $dataCaf['Adresse']) && empty($dataCaf['Adresse'][$nameField]) && !in_array($nameField, ['modified', 'created'])) {
 					$errorEtatCivil[] = __d('adresse', 'Adresse.' . $nameField);
 				}
 			}

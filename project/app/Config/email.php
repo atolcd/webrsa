@@ -458,6 +458,41 @@ class EmailConfig {
 
 	);
 
+	/**
+	 * Configuration de l'envoi de mails en cas d'erreur dans les échanges de données avec les partenaires (ALI)
+	 *
+	 * Les clés 'port', 'timeout', 'host', 'username', 'password', 'client'
+	 * remplacent les valeurs qui étaient contenues dans 'Email.smtpOptions'
+	 * du fichier webrsa.inc.
+	 *
+	 *
+	 * Lorsque l'application est en debug > 0, alors le mail est envoyé à
+	 * l'adresse spécifiée pour la clé 'to', ou à l'expéditeur (clé 'from').
+	 *
+	 * De même, si une clé 'subject' est spécifiée, elle sera utilisée comme
+	 * sujet du mail.
+	 *
+	 * @var array
+	 */
+	public $echange_ali = array(
+		'transport' => 'Smtp',
+		'from' => '',
+		'replyTo' => '',
+		'to' => '',
+		'subject' => '',
+		'host' => '',
+		'username' => '',
+		'password' => '',
+		'client' => '',
+
+		'port' => 25,
+		'timeout' => 30,
+		'log' => false,
+		'charset' => 'utf-8',
+		'headerCharset' => 'utf-8',
+
+	);
+
 	public function __construct () {
 		$this->user_generation_mdp['transport'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_TRANSPORT');
 		$this->user_generation_mdp['from'] = env('EMAIL_CONFIG_USER_GENERATION_MDP_FROM');
@@ -590,5 +625,18 @@ class EmailConfig {
 		$this->ldap_utilisateur_non_trouve['username'] = env('EMAIL_CONFIG_MAIL_LDAP_UTILISATEUR_NON_TROUVE_USERNAME');
 		$this->ldap_utilisateur_non_trouve['password'] = env('EMAIL_CONFIG_MAIL_LDAP_UTILISATEUR_NON_TROUVE_PASSWORD');
 		$this->ldap_utilisateur_non_trouve['client'] = env('EMAIL_CONFIG_MAIL_LDAP_UTILISATEUR_NON_TROUVE_CLIENT');
+
+		$this->echange_ali['transport'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_TRANSPORT');
+		$this->echange_ali['from'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_FROM');
+		$this->echange_ali['replyTo'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_REPLYTO');
+		$this->echange_ali['to'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_TO');
+		$this->echange_ali['cc'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_CC');
+		$this->echange_ali['subject'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_SUBJECT');
+		$this->echange_ali['host'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_HOST');
+		$this->echange_ali['port'] = intval(env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_PORT'));
+		$this->echange_ali['username'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_USERNAME');
+		$this->echange_ali['password'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_PASSWORD');
+		$this->echange_ali['client'] = env('EMAIL_CONFIG_MAIL_ECHANGE_ALI_CLIENT');
+
 	}
 }

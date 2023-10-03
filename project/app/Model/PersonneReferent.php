@@ -171,6 +171,8 @@
 			if ( !empty( $referent_id ) && ( empty( $last_referent ) || ( isset( $last_referent['PersonneReferent']['referent_id'] ) && !empty( $last_referent['PersonneReferent']['referent_id'] ) && $last_referent['PersonneReferent']['referent_id'] != $referent_id ) ) ) {
 				if ( !empty( $last_referent ) && empty( $last_referent['PersonneReferent']['dfdesignation'] ) ) {
 					$last_referent['PersonneReferent']['dfdesignation'] = $data[$modelName][$datefindesignation];
+					$last_referent['PersonneReferent']['created'] = substr($last_referent['PersonneReferent']['created'], 0, 19);
+					$last_referent['PersonneReferent']['modified'] = substr($last_referent['PersonneReferent']['modified'], 0, 19);
 					$this->create( $last_referent );
 					$saved = $this->save( $last_referent , array( 'atomic' => false ) ) && $saved;
 				}
@@ -471,6 +473,50 @@
 					'PersonneReferent.dfdesignation is null'
 				)
 			]));
+		}
+
+		public function changeReferent($personne_id, $new_ref_id, $datedesignation, $structure_id, $cloture_directe){
+			$success = null;
+			$success_cloture = true;
+			//On récupère le référent actuel de la personne
+			$referent_actuel = $this->referentParcoursActuel(
+				$personne_id,
+				['Referent.id', 'PersonneReferent.dddesignation', 'PersonneReferent.id']
+			);
+			//Si le référent actuel est identique, on ne fait rien
+			if(empty($referent_actuel) || $referent_actuel['Referent']['id'] != $new_ref_id){
+				//Si le référent actuel est plus récent que le référent que l'on veut ajouter, on ne fait rien
+				//S'il n'y a pas de référent actuel, on ajoute
+				if(empty($referent_actuel) || $referent_actuel['PersonneReferent']['dddesignation'] < $datedesignation){
+					//On ajoute et on clôture le référent précédent
+					if( !empty( $referent_actuel ) ) {
+						$this->id = $referent_actuel['PersonneReferent']['id'];
+						$cloture = [
+							'id' => $referent_actuel['PersonneReferent']['id'],
+							'dfdesignation' => $datedesignation
+						];
+						$success_cloture = $this->save( $cloture, array( 'atomic' => false ));
+					}
+
+					//nouveau référent
+					$new = [
+						'dddesignation' => $datedesignation,
+						'personne_id' => $personne_id,
+						'referent_id' => $new_ref_id,
+						'structurereferente_id' => $structure_id
+					];
+
+					if($cloture_directe != false) {
+						$new['dfdesignation'] = $cloture_directe;
+					}
+
+					$this->clear();
+					$success = $this->save( $new, array( 'atomic' => false ) ) && $success_cloture;
+
+				}
+			}
+
+			return $success;
 		}
 	}
 ?>
