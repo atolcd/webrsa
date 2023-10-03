@@ -97,10 +97,6 @@
 					//On récupère l'id de l'utilisateur en fonction de l'ali
 					$user = $this->User->getUserByALI($id_ali);
 
-					//-----------------TODO SUPPRIMER APRES LES TESTS ------------------------------
-					$deja_traite = false;
-					//-----------------------------------------------------------------
-
 					$liste_ali[] = $id_ali;
 
 					if($deja_traite){
@@ -2224,14 +2220,14 @@
 	
 					if(isset($alerte['rapport'])){
 						$lignes[0] = [
-							'bloc',
-							'personne_id',
-							'erreur',
+							'Bloc',
+							'Personne_id',
+							'Erreur',
 						];
 	
 						foreach($alerte['rapport'] as $erreur){
 							$lignes[] = [
-								$erreur['bloc'],
+								__d('rapportsechangesali', 'Erreur.'.$erreur['bloc']),
 								$erreur['code'] == 'personne_inconnue' ? $erreur['commentaire'] : $erreur['personne_id'],
 								__d('rapportsechangesali', $erreur['code'])
 							];
