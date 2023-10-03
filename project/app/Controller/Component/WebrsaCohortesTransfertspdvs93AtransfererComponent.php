@@ -61,7 +61,7 @@
 			}
 
 			$structuresreferentesParCodeInsee = $Controller->Dossier->Foyer->Personne->Orientstruct->Structurereferente->WebrsaStructurereferente->listeParCodeInsee();
-			$libelle_stuctures = $Controller->Structurereferente->find('list',['fields' => ['Structurereferente.lib_struc', 'Typeorient.lib_type_orient', 'Structurereferente.id'], 'recursive' => 0]);
+			$libelle_stuctures = $Controller->Dossier->Foyer->Personne->Orientstruct->Structurereferente->find('list',['fields' => ['Structurereferente.lib_struc', 'Typeorient.lib_type_orient', 'Structurereferente.id'], 'contain' => ['Typeorient']]);
 			$all_structures = $Controller->Dossier->Foyer->Personne->Orientstruct->Structurereferente->listOptions();
 			$structuresreferentesParCodeInseeReformate = [];
 
