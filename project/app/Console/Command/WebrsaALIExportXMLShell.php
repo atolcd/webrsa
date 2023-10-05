@@ -89,9 +89,9 @@
 				$now = new DateTime();
 
                 if(!$this->stock){
-                    $file = $path . 'export_webrsa_ali_'.$ali['Structurereferente']['id'].'_diff_'. $now->format('Y-m-d_H:i:s') . '.xml';
+                    $file = $path . 'export_webrsa_ali_'.$ali['Structurereferente']['id'].'_diff_'. $now->format('Y-m-d_H-i-s') . '.xml';
                 } else {
-                    $file = $path . 'export_webrsa_ali_'.$ali['Structurereferente']['id'].'_stock_'. $now->format('Y-m-d_H:i:s') . '.xml';
+                    $file = $path . 'export_webrsa_ali_'.$ali['Structurereferente']['id'].'_stock_'. $now->format('Y-m-d_H-i-s') . '.xml';
                 }
 
 				//on récupère la liste des zones geographiques associées à la structure

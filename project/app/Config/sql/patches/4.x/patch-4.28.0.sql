@@ -285,8 +285,8 @@ WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_v
 INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)
 SELECT
 'EchangeALI.CheminRapports',
-'"app/XML_ALI/Rapports"',
-'Chemin du dossier dans lequel se trouvent les fichiers .csv de rapport d''erreurs',
+'"chemin/vers/Rapports"',
+'Chemin du dossier dans lequel s''enregistrent les fichiers .csv de rapport d''erreurs',
 current_timestamp,
 current_timestamp
 WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'EchangeALI.CheminRapports');

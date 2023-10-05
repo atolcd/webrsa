@@ -99,10 +99,10 @@
 
 					$liste_ali[] = $id_ali;
 
-					if($deja_traite){
-						$alertes[$file]['code'] = 'deja_traite';
-					} else if (empty($user)) {
+					if(empty($user)){
 						$alertes[$file]['code'] = 'utilisateur_inconnu';
+					} else if ($deja_traite) {
+						$alertes[$file]['code'] = 'deja_traite';
 					} else {
 						$user_id = $user['id'];
 
@@ -139,9 +139,16 @@
 									foreach($dossier->liste_referents_parcours->referent_parcours as $referent_parcours){
 
 										//On récupère l'id webrsa du référent
-										$ref_webrsa = $this->CorrespondanceReferentiel->findById(
-											intval($referent_parcours->id_webrsa->__toString()),
-											['id_dans_table', 'referents_date_cloture', 'referents_structurereferente_id']
+										$ref_webrsa = $this->CorrespondanceReferentiel->find(
+											'first',
+											[
+												'fields' => ['id_dans_table', 'referents_date_cloture', 'referents_structurereferente_id'],
+												'conditions' => [
+													'SujetReferentiel.code' => 'referents',
+													'CorrespondanceReferentiel.id' => intval($referent_parcours->id_webrsa->__toString())
+												],
+												'recursive' => 1
+											]
 										);
 			
 										if(!empty($ref_webrsa)){
@@ -559,6 +566,14 @@
 											//erreur référentiel inconnu
 											$bool_cer = false;
 											$rapport = $this->AddErreur($rapport, 'cer', 'cer_duree_inconnue', $personne_id);
+										}
+
+										if($bool_cer !== false){
+											//Date de fin de contrat
+											$interval_duree = DateInterval::createFromDateString($code_duree.' months');
+											$dd = date_create_from_format('Y-m-d', $cer->date_debut->__toString());
+											$date_fin = $dd->add($interval_duree);
+											$infos_cer['Contratinsertion']['df_ci'] = $date_fin->format('Y-m-d');
 										}
 
 
@@ -1172,15 +1187,6 @@
 													} else {
 														$infos_cer['Cer93']['datesignature'] = $cer->date_signature->__toString();
 													}
-
-													//Date de fin de contrat
-													$interval_duree = DateInterval::createFromDateString($code_duree.' months');
-													$dd = date_create_from_format('Y-m-d', $cer->date_debut->__toString());
-													$date_fin = $dd->add($interval_duree);
-													$infos_cer['Contratinsertion']['df_ci'] = $date_fin->format('Y-m-d');
-
-
-
 												}
 
 												//L'enregistrement se fait dans 2 tables différentes (contratinsertion et cers93)
@@ -2129,7 +2135,7 @@
 							//On joint le fichier de détails
 							$nb_personnes_inconnues = isset($alerte ['personne_inconnue']) ? count($alerte ['personne_inconnue']) : 0;
 							$mailBody .= $alerte['dossiers_erreurs'].' dossier(s) en erreur <br>'.$nb_personnes_inconnues.' personne(s) inconnue(s) <br><br>';
-							if(in_array($alerte['fichier_erreur'], $liste_fichiers)){
+							if(isset($alerte['fichier_erreur']) && in_array($alerte['fichier_erreur'], $liste_fichiers)){
 								$attachments = [
 									$alerte['alias_fichier_erreur'] => [
 										'file' => $alerte['fichier_erreur'],
