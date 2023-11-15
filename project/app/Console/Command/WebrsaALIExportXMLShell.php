@@ -170,8 +170,10 @@
 					dh.modif_sdd as dh_modif_sdd,
 					p.id as p_id
 					from personnes p
+					join foyers f on f.id = p.foyer_id
 					join prestations p2 on p2.personne_id = p.id and p2.natprest = 'RSA' and p2.rolepers in ('DEM', 'CJT')
 					join dernierHisto dh on dh.personne_id = p.id and (dh.etatdosrsa in ('2', '3', '4') or (dh.firstcreated > '{$this->date_dernier}'))
+					where f.dossier_id in (SELECT dda.dossier_id FROM derniersdossiersallocataires dda WHERE dda.personne_id = p.id )
 				),
 				liste_personnes_filtre_adresse as
 				(
