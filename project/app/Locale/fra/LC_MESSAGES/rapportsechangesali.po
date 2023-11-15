@@ -350,7 +350,7 @@ msgid "ref_accueil_incoherent"
 msgstr "Le référent et la structure d'accueil sont incohérents"
 
 msgid "mail.objet"
-msgstr "Alerte sur l'intégration de données dans le logiciel WebRSA"
+msgstr "[%d] - Rapport d'intégration des données dans le logiciel WebRSA"
 
 msgid "deja_traite"
 msgstr "Le fichier a déjà été traité"

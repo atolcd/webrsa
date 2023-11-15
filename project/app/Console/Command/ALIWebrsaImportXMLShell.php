@@ -2089,6 +2089,7 @@
 					$alertes[$file]['to'] = !empty($user) ? $user['email'] : '';
 					//L'ALI
 					$alertes[$file]['ali'] = $this->Structurereferente->findById($id_ali)['Structurereferente']['lib_struc'];
+					$alertes[$file]['id_ali'] = $id_ali;
 				
 				}
 
@@ -2150,7 +2151,7 @@
 
 						//On récupère le mail de l'ali dans le user;
 						$to = isset($alerte['to']) ? $alerte['to'] : null;
-						$this->envoiMail($mailBody, $to, $attachments);
+						$this->envoiMail($mailBody, $to, $alerte['id_ali'], $attachments);
 					}
 				}
 
@@ -2166,7 +2167,7 @@
 					$mailBody = 'Date : '.$now.'<br>';
 					$mailBody .= 'Structure : '.$this->Structurereferente->findById($ali_manquante)['Structurereferente']['lib_struc'].'<br>';
 					$mailBody .= __d('rapportsechangesali', 'fichier_manquant');
-					$this->envoiMail($mailBody, $to);
+					$this->envoiMail($mailBody, $to, $ali_manquante);
 				}
 			}
 
@@ -2174,14 +2175,14 @@
 
 		}
 
-		public function envoiMail($mailBody, $to, $attachments = null){
+		public function envoiMail($mailBody, $to, $id_ali, $attachments = null){
 			$success = false;
 
 			try {
 				$Email = new CakeEmail('echange_ali');
 				$Email->emailFormat('html');
 				$Email->config([
-					'subject' => __d('rapportsechangesali',"mail.objet")
+					'subject' => sprintf(__d('rapportsechangesali','mail.objet'), $id_ali)
 				]);
 				if(!empty($to)){
 					$Email->config([
