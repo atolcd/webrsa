@@ -40,9 +40,9 @@
                                                     <xs:element name="nir" type="xs:string" minOccurs="0"/>
                                                     <xs:element name="numero_caf" type="xs:integer"/>
                                                     <xs:element name="date_naissance" type="xs:date"/>
-                                                    <xs:element name="numero_voie" type="xs:string"/>
-                                                    <xs:element name="type_voie" type="xs:string"/>
-                                                    <xs:element name="nom_voie" type="xs:string"/>
+                                                    <xs:element name="numero_voie" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="type_voie" type="xs:string" minOccurs="0"/>
+                                                    <xs:element name="nom_voie" type="xs:string" minOccurs="0"/>
                                                     <xs:element name="complement_adresse" type="xs:string" minOccurs="0"/>
                                                     <xs:element name="code_postal" type="xs:integer"/>
                                                     <xs:element name="ville" type="xs:string"/>
