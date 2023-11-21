@@ -130,6 +130,9 @@ msgstr "Rendez-vous"
 msgid "Erreur.cer"
 msgstr "Cer"
 
+msgid "Erreur.global"
+msgstr "Global"
+
 msgid "referent_cloture"
 msgstr "Le référent renseigné est clôturé"
 
