@@ -453,6 +453,9 @@
 			$datas = Cache::read( $cacheKey );
 
 			if( $datas === false ) {
+
+				$personne_id = $this->Dossierep->Passagecommissionep->find('first', ['conditions' => ['Passagecommissionep.id' => $passagecommissionep_id], 'contain' => ['Dossierep'], 'fields' => ['Dossierep.personne_id']])['Dossierep']['personne_id'];
+
 				$datas['querydata'] = $this->_qdDecisionPdf();
 
 				$datas['querydata']['fields'] = array_merge(
@@ -462,7 +465,7 @@
 					$this->Dossierep->Personne->PersonneReferent->Referent->Structurereferente->fields()
 				);
 				$datas['querydata']['joins'][] = $this->Dossierep->Passagecommissionep->{$modeleDecisions}->join( 'Listesanctionep58' );
-				$datas['querydata']['joins'][] = $this->Dossierep->Personne->join('PersonneReferent');
+				$datas['querydata']['joins'][] = $this->Dossierep->Personne->join('PersonneReferent', ['conditions' => ['PersonneReferent.id IN ('.$this->Dossierep->Personne->PersonneReferent->sqDerniere($personne_id).')']]);
 				$datas['querydata']['joins'][] = $this->Dossierep->Personne->PersonneReferent->join( 'Referent' );
 				$datas['querydata']['joins'][] = $this->Dossierep->Personne->PersonneReferent->Referent->join( 'Structurereferente' );
 
