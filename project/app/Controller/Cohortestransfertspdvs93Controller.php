@@ -214,7 +214,7 @@
 			if( !empty( $results ) ) {
 				$pdfs = array();
 				foreach( Hash::extract( $results, '{n}.Orientstruct.id' ) as $orientstruct_id ) {
-					$pdfs[] = $this->Transfertpdv93->getDefaultPdf( $orientstruct_id, $this->Session->read( 'Auth.User.id' ) );
+					$pdfs[] = $this->WebrsaOrientstruct->getDefaultPdf( $orientstruct_id, $this->Session->read( 'Auth.User.id' ) );
 				}
 
 				$content = $this->Gedooo->concatPdfs( $pdfs, 'transfertspdvs93' );
