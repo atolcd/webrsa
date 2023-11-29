@@ -1130,6 +1130,8 @@
 															$bool_cer = false;
 															$rapport = $this->AddErreur($rapport, 'cer', 'forme_cer_inconnu', $personne_id);
 														}
+													} else {
+														$forme_cer = null;
 													}
 
 													//Commentaire (forme du CER)
@@ -1167,6 +1169,8 @@
 																];
 															}
 														}
+													} else {
+														$comm = null;
 													}
 
 													$infos_cer['Cer93']['Histochoixcer93'][] = [
