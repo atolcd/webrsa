@@ -468,6 +468,11 @@
 		observeOnclickUrlFragments( 'ul.ui-tabs-nav li.tab a', '#dossiers ul.actionMenu li a', 'dossiers' );
 		observeOnloadUrlFragments( '#dossiers ul.actionMenu li a', 'dossiers' );
 
+		if( window.location.href.indexOf( '#' ) !== -1 ) {
+			var fragment = window.location.href.replace( /^.*#/, '#' ).replace( /^.*,([^,]+$)/g, '#$1' );
+			replaceUrlFragments( '#dossiers ul.actionMenu li a', fragment, 'dossiers' );
+		}
+
 		$$( 'td.action a' ).each( function( elmt ) {
 			$( elmt ).addClassName( 'external' );
 		} );
