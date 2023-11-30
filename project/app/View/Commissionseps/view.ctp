@@ -466,6 +466,7 @@
 		makeTabbed( 'dossierseps', 3 );
 
 		observeOnclickUrlFragments( 'ul.ui-tabs-nav li.tab a', '#dossiers ul.actionMenu li a', 'dossiers' );
+		observeOnclickUrlFragments( '#dossiers ul.ui-tabs-nav li.tab a', '#dossierseps .tab table thead tr th a', 'dossiers' );
 		observeOnloadUrlFragments( '#dossiers ul.actionMenu li a', 'dossiers' );
 
 		if( window.location.href.indexOf( '#' ) !== -1 ) {
