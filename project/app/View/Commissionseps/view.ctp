@@ -471,6 +471,7 @@
 		if( window.location.href.indexOf( '#' ) !== -1 ) {
 			var fragment = window.location.href.replace( /^.*#/, '#' ).replace( /^.*,([^,]+$)/g, '#$1' );
 			replaceUrlFragments( '#dossiers ul.actionMenu li a', fragment, 'dossiers' );
+			replaceUrlFragments( '#dossierseps .tab table thead tr th a', fragment, 'dossiers' );
 		}
 
 		$$( 'td.action a' ).each( function( elmt ) {
