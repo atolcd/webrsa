@@ -193,7 +193,7 @@
 
 		}
 
-		public function details($type, $rapport_id){
+		public function details($type, $rapport_id, $erreurs = false){
 			$rapport = $this->RapportEchangeALI->find(
 				'first',
 				[
@@ -213,7 +213,27 @@
 			);
 
 			if (in_array($type, ['import', 'export'])){
-				$personnes = $this->paginate( 'PersonneEchangeALI', ['rapport_id' => $rapport_id], ['Personne.nom']);
+				if($erreurs == true){
+					$personnes = $this->paginate(
+						'PersonneEchangeALI',
+						[
+							'rapport_id' => $rapport_id,
+							'OR' => [
+								'referentparcours' => false,
+								'rendezvous' => false,
+								'dsp' => false,
+								'cer' => false,
+								'orient' => false,
+								'd1' => false,
+								'd2' => false,
+								'b7' => false,
+							]
+						],
+						['Personne.nom']
+					);
+				} else {
+					$personnes = $this->paginate( 'PersonneEchangeALI', ['rapport_id' => $rapport_id], ['Personne.nom']);
+				}
 				$blocs = [
 					'referentparcours' => 'referent',
 					'rendezvous' => 'rdv',
@@ -251,7 +271,13 @@
 				$nb_personnes_inconnues = $this->ErreurEchangeALI->find('count', ['conditions' => ['rapport_id' => $rapport_id, 'code' => 'personne_inconnue']]);
 			}
 
-			$this->set(compact('rapport', 'personnes', 'nbPersonnes', 'erreursglobales', 'tab_erreurs', 'type', 'nb_personnes_inconnues'));
+			if($erreurs == true){
+				$titre = sprintf(__d('rapportsechangesali', 'titre_detail_erreur'), $rapport['RapportEchangeALI']['nom_fichier']);
+			} else {
+				$titre = sprintf(__d('rapportsechangesali','titre_detail'), $rapport['RapportEchangeALI']['nom_fichier']);
+			}
+
+			$this->set(compact('rapport', 'personnes', 'nbPersonnes', 'erreursglobales', 'tab_erreurs', 'type', 'nb_personnes_inconnues', 'titre'));
 		}
 	}
 ?>

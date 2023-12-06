@@ -128,7 +128,10 @@
 					'RapportEchangeALI.nb_pers',
 					'RapportEchangeALI.statut',
 					'/rapportsechangesali/details/#RapportEchangeALI.code#/#RapportEchangeALI.id#' => array(
-						'title' => false, 'target' => '_blank'
+						'title' => false, 'msgid' => "voir_details", 'target' => '_blank'
+					),
+					'/rapportsechangesali/details/#RapportEchangeALI.code#/#RapportEchangeALI.id#/true' => array(
+						'title' => false, 'msgid' => "voir_erreurs", 'target' => '_blank'
 					)
 				)
 			),

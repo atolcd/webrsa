@@ -13,8 +13,11 @@ msgstr ""
 msgid "/Rapportsechangesali/index/:heading"
 msgstr "Rapport des flux partenaires"
 
-msgid "/Rapportsechangesali/details"
+msgid "voir_details"
 msgstr "Voir les détails"
+
+msgid "voir_erreurs"
+msgstr "Voir les erreurs"
 
 msgid "RapportEchangeALI.nom_fichier"
 msgstr "Nom du fichier"
@@ -64,8 +67,11 @@ msgstr "Ok"
 msgid "nok"
 msgstr "Erreur(s)"
 
-msgid "/Rapportsechangesali/details/:heading"
-msgstr "Détails du flux « #RapportEchangeALI.nom_fichier# »"
+msgid "titre_detail"
+msgstr "Détails du flux « %s »"
+
+msgid "titre_detail_erreur"
+msgstr "Détails des erreurs du flux « %s »"
 
 msgid "RapportEchangeALI::form::infoFlux"
 msgstr "Filtrer par flux"

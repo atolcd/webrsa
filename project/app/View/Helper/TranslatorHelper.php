@@ -35,10 +35,17 @@
 					if (strpos($key, '/') === 0) {
 						$url = DefaultUrl::toArray($key);
 						$camel = str_replace($url['controller'], Inflector::camelize($url['controller']), $key);
-						$params = array(
-							'title' => __m($camel),
-							'msgid' => __m('/'.Inflector::camelize($url['controller']).'/'.$url['action']),
-						);
+						if(isset($field['msgid'])){
+							$params = array(
+								'title' => __m($camel),
+								'msgid' => __m($field['msgid']),
+							);
+						} else {
+							$params = array(
+								'title' => __m($camel),
+								'msgid' => __m('/'.Inflector::camelize($url['controller']).'/'.$url['action']),
+							);
+						}
 
 					} elseif (strpos($key, 'data[') !== 0) {
 						$params = array('label' => __m($key));

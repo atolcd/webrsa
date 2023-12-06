@@ -1,5 +1,5 @@
 <?php
-	echo $this->Default3->titleForLayout($rapport);
+	echo "<h1>".$titre."</h1>";
 
 	//Affichage des erreurs du flux
 	if(!empty($erreursglobales)){
