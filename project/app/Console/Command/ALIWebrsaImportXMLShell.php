@@ -2056,7 +2056,7 @@
 
 						$alertes[$file]['dossiers_erreurs'] = 0;
 
-						if($dossiers_erreurs != 0){
+						if($dossiers_erreurs != 0 || isset($alertes[$file]['personne_inconnue'])){
 							//On ajoute le nombre total de personnes
 							$alertes[$file]['nb_dossiers'] = count($rapport['PersonneEchangeALI']) + (isset($alertes[$file]['personne_inconnue']) ? count($alertes[$file]['personne_inconnue']) : 0);
 
