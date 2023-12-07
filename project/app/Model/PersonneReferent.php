@@ -118,7 +118,7 @@
 		public function sqDerniere( $field, $cloture = null ) {
 			$dbo = $this->getDataSource( $this->useDbConfig );
 			$table = $dbo->fullTableName( $this, false, false );
-			$conditionCloture = null;
+			$conditionCloture = "";
 			if( !is_null( $cloture ) ) {
 				if( $cloture ) {
 					$conditionCloture = "AND {$table}.dfdesignation IS NOT NULL";

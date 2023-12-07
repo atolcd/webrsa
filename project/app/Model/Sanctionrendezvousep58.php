@@ -454,7 +454,11 @@
 
 			if( $datas === false ) {
 
-				$personne_id = $this->Dossierep->Passagecommissionep->find('first', ['conditions' => ['Passagecommissionep.id' => $passagecommissionep_id], 'contain' => ['Dossierep'], 'fields' => ['Dossierep.personne_id']])['Dossierep']['personne_id'];
+				$personne_id = 0;
+				$passage = $this->Dossierep->Passagecommissionep->find('first', ['conditions' => ['Passagecommissionep.id' => $passagecommissionep_id], 'contain' => ['Dossierep'], 'fields' => ['Dossierep.personne_id']]);
+				if(isset($passage['Dossierep']['personne_id'])){
+					$personne_id = $passage['Dossierep']['personne_id'];
+				}
 
 				$datas['querydata'] = $this->_qdDecisionPdf();
 
