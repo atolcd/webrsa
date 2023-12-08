@@ -779,6 +779,8 @@
 				}
 			}
 
+
+
 			list( $jourCommission, $heureCommission ) = explode( ' ', $commissionep['Commissionep']['dateseance'] );
 			$presencesPossible = ( date( 'Y-m-d' ) >= $jourCommission );
 			$this->set( compact( 'presencesPossible' ) );
@@ -786,12 +788,18 @@
 			$this->set( 'commissionep', $commissionep );
 			$this->_setOptions();
 
+
 			// Dossiers à passer en séance, par thème traité
 			$themes = array_keys( $this->Commissionep->WebrsaCommissionep->themesTraites( $commissionep_id ) );
+
 			$this->set( compact( 'themes' ) );
 			$dossiers = array( );
 			$countDossiers = 0;
+			$sort = isset($this->request->params['named']['sort']) ? $this->request->params['named']['sort'] : '';
+			$direction = isset($this->request->params['named']['direction']) ? $this->request->params['named']['direction'] : '';
+
 			foreach( $themes as $theme ) {
+
 				$class = Inflector::classify( $theme );
 
 				$qdListeDossier = $this->Commissionep->Passagecommissionep->Dossierep->{$class}->qdListeDossier();
@@ -814,14 +822,29 @@
 				);
 
 				// Ajout des tris sur les colonnes des dossiers affectés à une EP
+				if(array_search(substr($sort, 0, strpos($sort, '.')), array_column($qd['joins'], 'alias')) === false) {
+					unset($this->request->params['named']['sort']);
+				} else {
+					$this->request->params['named']['sort'] = $sort;
+				}
+
 				$this->paginate = $qd;
-				$dossiers[$theme] = $this->paginate( $this->Commissionep->Passagecommissionep->Dossierep );
+				$dossiers[$theme] = $this->paginate( $this->Commissionep->Passagecommissionep->Dossierep);
 				$this->refreshPaginator();
+
+				$this->request->params['paging']['Dossierep']['order'] = [$sort => $direction];
+				$this->request->params['paging']['Dossierep']['options']['order'] = [$sort => $direction];
 
 				$countDossiers += count( $dossiers[$theme] );
 			}
 
+			
 			$querydata = $this->Commissionep->WebrsaCommissionep->qdSynthese( $commissionep_id );
+			if(array_search(substr($sort, 0, strpos($sort, '.')), array_column($querydata['joins'], 'alias')) === false) {
+				unset($this->request->params['named']['sort']);
+			} else {
+				$this->request->params['named']['sort'] = $sort;
+			}
 			$querydata = $this->Components->load( 'Search.SearchPaginator' )->setPaginationOrder( $querydata );
 
 			$dossierseps = $this->Commissionep->Passagecommissionep->find( 'all', $querydata );
