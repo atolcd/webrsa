@@ -373,6 +373,9 @@
 					__m('motifsreorientseps93/index') => array(
 						'disabled' => 93 != $departement,
 						'url' => array( 'controller' => 'motifsreorientseps93', 'action' => 'index' )
+					),__m('listedecisionssuspensionseps93/index') => array(
+						'disabled' => 93 != $departement,
+						'url' => array( 'controller' => 'listedecisionssuspensionseps93', 'action' => 'index' )
 					),
 					__m('compositionsregroupementseps/index') => array(
 						'disabled' => 66 != $departement,

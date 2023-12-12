@@ -17,12 +17,6 @@ echo '<table><thead>
 </tr>
 </thead><tbody>';
 	foreach( $dossiers[$theme]['liste'] as $i => $dossierep ) {
-		$lineOptions = array();
-		foreach( $options['Decisionnonrespectsanctionep93']['decision'] as $key => $label ) {
-			if( !in_array( $key[0], array( 1, 2 ) ) || ( $key[0] == min( 2, $dossierep['Nonrespectsanctionep93']['rgpassage'] ) ) ) {
-				$lineOptions[$key] = $label;
-			}
-		}
 
 		$hiddenFields = $this->Form->input( "Decisionnonrespectsanctionep93.{$i}.id", array( 'type' => 'hidden' ) ).
 						$this->Form->input( "Decisionnonrespectsanctionep93.{$i}.passagecommissionep_id", array( 'type' => 'hidden' ) ).
@@ -43,7 +37,7 @@ echo '<table><thead>
 				@$dossierep['Personne']['Foyer']['nbenfants'],
 				Set::enum( @$dossierep['Dossierep']['actif'], $options['Dossierep']['actif'] ),
 				array(
-					$this->Form->input( "Decisionnonrespectsanctionep93.{$i}.decision", array( 'type' => 'select', 'options' => $lineOptions, 'div' => false, 'label' => false, 'empty' => true ) ),
+					$this->Form->input( "Decisionnonrespectsanctionep93.{$i}.decision", array( 'type' => 'select', 'options' => $options['Decisionnonrespectsanctionep93']['decision'], 'div' => false, 'label' => false, 'empty' => true ) ),
 					array( 'id' => "Decisionnonrespectsanctionep93{$i}DecisionColumn", 'class' => ( !empty( $this->validationErrors['Decisionnonrespectsanctionep93'][$i]['decision'] ) ? 'error' : '' ) )
 				),
 

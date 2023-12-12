@@ -66,6 +66,7 @@
 		public $uses = array(
 			'Commissionep',
 			'Option',
+			'Listedecisionsuspensionsep93'
 		);
 
 		/**
@@ -258,6 +259,9 @@
 
 				$modeleDecision = Inflector::classify( "decision{$theme}" );
 				$options = Set::merge( $options, $this->Commissionep->Passagecommissionep->{$modeleDecision}->enums() );
+				if($modeleDecision == 'Decisionnonrespectsanctionep93'){
+					$options['Decisionnonrespectsanctionep93']['decision'] = $this->Listedecisionsuspensionsep93->listeDecisions();
+				}
 			}
 
 			// Suivant l'action demandée

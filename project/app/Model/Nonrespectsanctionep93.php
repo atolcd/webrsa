@@ -253,7 +253,7 @@
 						$themeData[$key]['Decisionnonrespectsanctionep93']['montantreduction'] = null;
 						$themeData[$key]['Decisionnonrespectsanctionep93']['dureesursis'] = Configure::read( 'Nonrespectsanctionep93.dureeSursis' );
 					}
-					else if( in_array( $themeData[$key]['Decisionnonrespectsanctionep93']['decision'], array( '1maintien', '1pasavis', '2pasavis', 'reporte', 'annule' ) ) ) {
+					else if( in_array( $themeData[$key]['Decisionnonrespectsanctionep93']['decision'], array( 'maintienreorientation', '1maintien', '1pasavis', '2pasavis', 'reporte', 'annule' ) ) ) {
 						$themeData[$key]['Decisionnonrespectsanctionep93']['montantreduction'] = null;
 						$themeData[$key]['Decisionnonrespectsanctionep93']['dureesursis'] = null;
 					}
@@ -837,7 +837,7 @@
 					else if( $ancienneDecision == '1reduction' && $emploi ) {
 						$modeleOdt = "{$this->alias}/convocationep_beneficiaire_2eme_passage_ppae_suite_reduction.odt";
 					}
-					else { // 1reduction,1maintien,2suspensiontotale,2suspensionpartielle,2maintien,annule
+					else { // 1reduction,1maintien,2suspensiontotale,2suspensionpartielle,2maintien,annule,maintienreorientation
 						$modeleOdt = "{$this->alias}/convocationep_beneficiaire_2eme_passage.odt";
 					}
 				}
@@ -976,6 +976,9 @@
 			}
 			else if( in_array( $decision, array( '1maintien', '2maintien' ) ) ) {
 				$modeleOdt = "{$this->alias}/decision_maintien.odt";
+			}
+			else if( $decision == 'maintienreorientation' ) {
+				$modeleOdt = "{$this->alias}/decision_maintien_reorientation.odt";
 			}
 			else if( $decision == '2suspensiontotale' ) {
 				$modeleOdt = "{$this->alias}/decision_suspensiontotale.odt";

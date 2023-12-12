@@ -16,6 +16,8 @@
 
 	echo $this->FormValidator->generateJavascript();
 
+
+	debug($fields);
 	echo $this->Default3->form(
 		$this->Translator->normalize( $fields ),
 		array( 'options' => $options )

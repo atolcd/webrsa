@@ -288,6 +288,7 @@ $irregularPlural = array(
 	'sanctionrendezvousep58' => 'sanctionsrendezvouseps58',
 	'decisionsanctionrendezvousep58' => 'decisionssanctionsrendezvouseps58',
 	'objetcontratinsertion' => 'objetscontratsinsertion',
+	'listedecisionsuspensionsep93' => 'listedecisionssuspensionseps93',
 	// Données flux Pôle Emploi
 	'informationpe' => 'informationspe',
 	'historiqueetatpe' => 'historiqueetatspe',
