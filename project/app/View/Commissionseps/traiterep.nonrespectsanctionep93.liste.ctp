@@ -37,11 +37,11 @@ echo '<table><thead>
 				@$dossierep['Personne']['Foyer']['nbenfants'],
 				Set::enum( @$dossierep['Dossierep']['actif'], $options['Dossierep']['actif'] ),
 				array(
-					$this->Form->input( "Decisionnonrespectsanctionep93.{$i}.decision", array( 'type' => 'select', 'options' => $options['Decisionnonrespectsanctionep93']['decision'], 'div' => false, 'label' => false, 'empty' => true ) ),
+					$this->Form->input( "Decisionnonrespectsanctionep93.{$i}.decision", array( 'type' => 'select', 'options' => $options['Decisionnonrespectsanctionep93']['decision'], 'div' => false, 'label' => false, 'empty' => true, 'value' => $dossierep['Passagecommissionep'][0]['Decisionnonrespectsanctionep93'][0]['decision'] ) ),
 					array( 'id' => "Decisionnonrespectsanctionep93{$i}DecisionColumn", 'class' => ( !empty( $this->validationErrors['Decisionnonrespectsanctionep93'][$i]['decision'] ) ? 'error' : '' ) )
 				),
 
-				$this->Form->input( "Decisionnonrespectsanctionep93.{$i}.commentaire", array( 'label' =>false, 'type' => 'textarea' ) ).
+				$this->Form->input( "Decisionnonrespectsanctionep93.{$i}.commentaire", array( 'label' =>false, 'type' => 'textarea', 'value' => $dossierep['Passagecommissionep'][0]['Decisionnonrespectsanctionep93'][0]['commentaire'] ) ).
 				$hiddenFields
 			),
 			array( 'class' => 'odd' ),

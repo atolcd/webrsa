@@ -37,18 +37,18 @@ echo '<table><thead>
 				@$dossierep['Reorientationep93']['Structurereferente']['lib_struc'],
 
 				array(
-					$this->Form->input( "Decisionreorientationep93.{$i}.decision", array( 'label' => false, 'type' => 'select', 'options' => @$options['Decisionreorientationep93']['decision'], 'empty' => true ) ),
+					$this->Form->input( "Decisionreorientationep93.{$i}.decision", array( 'label' => false, 'type' => 'select', 'options' => @$options['Decisionreorientationep93']['decision'], 'empty' => true, 'value' => $dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['decision'] ) ),
 					array( 'id' => "Decisionreorientationep93{$i}DecisionColumn", 'class' => ( !empty( $this->validationErrors['Decisionreorientationep93'][$i]['decision'] ) ? 'error' : '' ) )
 				),
 				array(
-					$this->Form->input( "Decisionreorientationep93.{$i}.typeorient_id", array( 'label' => false, 'options' => $typesorients, 'empty' => true ) ),
+					$this->Form->input( "Decisionreorientationep93.{$i}.typeorient_id", array( 'label' => false, 'options' => $typesorients, 'empty' => true, 'value' =>  $dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['Structurereferente']['typeorient_id']) ),
 					( !empty( $this->validationErrors['Decisionreorientationep93'][$i]['typeorient_id'] ) ? array( 'class' => 'error' ) : array() )
 				),
 				array(
-					$this->Form->input( "Decisionreorientationep93.{$i}.structurereferente_id", array( 'label' => false, 'options' => $structuresreferentes, 'empty' => true ) ),
+					$this->Form->input( "Decisionreorientationep93.{$i}.structurereferente_id", array( 'label' => false, 'options' => $structuresreferentes, 'empty' => true, 'value' => $dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['Structurereferente']['typeorient_id']."_".$dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['Structurereferente']['id'] ) ),
 					( !empty( $this->validationErrors['Decisionreorientationep93'][$i]['structurereferente_id'] ) ? array( 'class' => 'error' ) : array() )
 				),
-				$this->Form->input( "Decisionreorientationep93.{$i}.commentaire", array( 'label' =>false, 'type' => 'textarea' ) ).
+				$this->Form->input( "Decisionreorientationep93.{$i}.commentaire", array( 'label' =>false, 'type' => 'textarea', 'value' => $dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['commentaire'] ) ).
 				$hiddenFields
 			),
 			array( 'class' => "odd {$multiple}" ),
