@@ -46,7 +46,7 @@
 				'label' => __m( 'Adresse.localite' )
 			),
 			'Nonrespectsanctionep93.origine_label' => array(
-				'label' => __m( 'Nonrespectsanctionep93.origine' )
+				'label' => __m( 'Nonrespectsanctionep93.type' )
 			),
 			'Nonrespectsanctionep93.date_pivot' => array(
 				'label' => __m( 'Nonrespectsanctionep93.date_pivot' ),

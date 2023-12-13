@@ -22,6 +22,9 @@ msgstr ""
 msgid "Nonrespectsanctionep93.origine"
 msgstr "Origine"
 
+msgid "Nonrespectsanctionep93.type"
+msgstr "Type de relance"
+
 msgid "Nonrespectsanctionep93.contratinsertion_id"
 msgstr "Présence contrat (oui/non)"
 

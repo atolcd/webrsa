@@ -33,7 +33,7 @@ msgid "Serviceinstructeur.id"
 msgstr "Service référent"
 
 msgid "Relancenonrespectsanctionep93.numrelance"
-msgstr "Type de relance"
+msgstr "Rang de relance"
 
 msgid "Relancenonrespectsanctionep93.daterelance"
 msgstr "Date de la relance"

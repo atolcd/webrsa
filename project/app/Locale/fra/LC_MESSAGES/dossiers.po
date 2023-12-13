@@ -276,6 +276,9 @@ msgstr "Dernière relance"
 msgid "Dossier.relance.type"
 msgstr "Type de relance"
 
+msgid "Dossier.relance.rang"
+msgstr "Rang de relance"
+
 msgid "Dossier.relance.date"
 msgstr "Date de relance"
 

@@ -38,7 +38,7 @@ msgid "Relancenonrespectsanctionep93.daterelance"
 msgstr "Date de relance"
 
 msgid "Relancenonrespectsanctionep93.numrelance"
-msgstr "Statut relance"
+msgstr "Rang de relance"
 
 msgid "/Relancesnonrespectssanctionseps93/view"
 msgstr "Voir"

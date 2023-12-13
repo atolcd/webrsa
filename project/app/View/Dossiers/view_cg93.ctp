@@ -693,7 +693,7 @@
 								<td><?php echo h( date_short( Set::extract( 'CJT.Nonrespectsanctionep93.derniere.Relancenonrespectsanctionep93.daterelance', $details ) ) );?></td>
 							</tr>
 							<tr class="even">
-								<th><?php echo (__d ('dossiers', 'Dossier.relance.type')); ?></th>
+								<th><?php echo (__d ('dossiers', 'Dossier.relance.rang')); ?></th>
 								<td><?php
 									$numrelance = Set::extract( 'DEM.Nonrespectsanctionep93.derniere.Relancenonrespectsanctionep93.numrelance', $details );
 									if( !empty($numrelance) ){

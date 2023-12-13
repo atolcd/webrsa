@@ -1633,7 +1633,7 @@
 								$relanceOrientstructCer2 = Configure::read( 'Nonrespectsanctionep93.relanceOrientstructCer2' );
 								$relanceOrientstructCer3 = Configure::read( 'Nonrespectsanctionep93.relanceOrientstructCer3' );
 
-								$nbrelances = $this->Nonrespectsanctionep93->find(
+								$relances = $this->Nonrespectsanctionep93->find(
 									'first',
 									array(
 										'conditions' => array(
