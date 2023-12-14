@@ -130,6 +130,10 @@
 				$zonesgeographiques
 			);
 
+			if ( isset($criteresseanceep['Ep']['id']) && !empty($criteresseanceep['Ep']['id']) ) {
+				$conditions[] = array('Ep.id'=>$criteresseanceep['Ep']['id']);
+			}
+
 			if ( isset($criteresseanceep['Ep']['regroupementep_id']) && !empty($criteresseanceep['Ep']['regroupementep_id']) ) {
 				$conditions[] = array('Ep.regroupementep_id'=>$criteresseanceep['Ep']['regroupementep_id']);
 			}

@@ -89,6 +89,7 @@
 				<?php echo $this->Default2->subform(
 					array(
 						'Ep.regroupementep_id' => array('type'=>'select'),
+						'Commissionep.ep_id' => array('type'=>'select', 'label' => __m("Commissionep.intitule_ep")),
 						'Commissionep.name',
 						'Commissionep.identifiant'
 					),
@@ -266,3 +267,8 @@
 		}
 	}
 ?>
+<script type="text/javascript">
+	document.observe("dom:loaded", function() {
+		dependantSelect( 'CommissionepEpId', 'EpRegroupementepId' );
+	});
+</script>

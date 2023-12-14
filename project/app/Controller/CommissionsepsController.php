@@ -247,7 +247,7 @@
 
 			$options['Decisiondossierpcg66']['decisionpdo_id'] = $this->Commissionep->Passagecommissionep->Dossierep->Passagecommissionep->Decisiondefautinsertionep66->Dossierpcg66->Decisiondossierpcg66->Decisionpdo->find('list');
 
-			$options[$this->modelClass]['ep_id'] = $this->{$this->modelClass}->Ep->listOptions(
+			$options[$this->modelClass]['ep_id'] = $this->{$this->modelClass}->Ep->listOptionsDependantRegroupement(
 					$this->Session->read( 'Auth.User.filtre_zone_geo' ), $this->Session->read( 'Auth.Zonegeographique' )
 			);
 			$options['Ep']['regroupementep_id'] = $this->{$this->modelClass}->Ep->Regroupementep->find( 'list' );
@@ -336,6 +336,14 @@
 		 */
 		protected function _index( $etape = null ) {
 			if( !empty( $this->request->data ) ) {
+				//On reformate l'id de l'ep correctement
+				if(isset($this->request->data['Commissionep']['ep_id'])){
+					$this->request->data['Ep']['id'] = substr(
+						$this->request->data['Commissionep']['ep_id'],
+						strpos($this->request->data['Commissionep']['ep_id'], '_') +1
+					);
+				}
+
 				$paginate['Commissionep'] = $this->Commissionep->WebrsaCommissionep->search(
 						$this->request->data, $this->Session->read( 'Auth.User.filtre_zone_geo' ), $this->Session->read( 'Auth.Zonegeographique' )
 				);

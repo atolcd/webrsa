@@ -40,6 +40,9 @@ msgstr "Observations"
 msgid "Commissionep.ep_id"
 msgstr "Equipe dont dépend la commission"
 
+msgid "Commissionep.intitule_ep"
+msgstr "Intitulé EP"
+
 msgid "Commissionep.structurereferente_id"
 msgstr "Lieu de la commission"
 

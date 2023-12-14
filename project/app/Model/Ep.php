@@ -119,6 +119,51 @@
 			return $results;
 		}
 
+		public function listOptionsDependantRegroupement( $filtre_zone_geo, $zonesgeographiques ) {
+
+			$results = $this->find(
+				'list',
+				array(
+					'fields' => array(
+						'Ep.id',
+						'Ep.name',
+						'Ep.regroupementep_id'
+					),
+					'contain' => array(
+						'Regroupementep'=>array(
+							'fields'=>array(
+								'name'
+							),
+							'order'=>array(
+								'Regroupementep.name ASC'
+							)
+						)
+					),
+					'conditions' => array(
+							$this->sqRestrictionsZonesGeographiques(
+									'Ep.id',
+									$filtre_zone_geo,
+									$zonesgeographiques
+									),
+							'Ep.actif' => 1
+					),
+					'order' => array(
+						'Ep.name'
+					)
+				)
+			);
+
+			$liste = [];
+
+			foreach($results as $regroupement => $result){
+				foreach ($result as $id => $name){
+					$liste[$regroupement.'_'.$id] = $name;
+				}
+			}
+
+			return $liste;
+		}
+
 		/**
 		* Retourne la liste des thèmes traités par les EPs
 		*/
