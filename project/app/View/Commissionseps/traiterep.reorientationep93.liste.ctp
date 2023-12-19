@@ -1,4 +1,20 @@
+<script type="text/javascript">
+	function toutAccepter() {
+		regex = new RegExp('(data\\[Decisionreorientationep93\\]\\[){1}(\\d)+(\\]\\[decision\\]){1}');
+
+		$('Reorientationep93').select('select').each(function(editable){
+			if(regex.test(editable.name)){
+				editable.setValue("accepte");
+			}
+
+		});
+	}
+</script>
 <?php
+
+echo $this->Form->button( 'Tout accepter', array( 'type' => 'button', 'onclick' => "return toutAccepter();" ) );
+
+
 echo '<table><thead>
 <tr>
 <th>Personne</th>
@@ -11,7 +27,7 @@ echo '<table><thead>
 <th>Structure référente actuelle</th>
 <th>Orientation préconisée</th>
 <th>Structure référente préconisée</th>
-<th colspan=\'3\'>Avis EP</th>
+<th colspan=\'3\'>Avis Réorientation</th>
 <th>Observations</th>
 </tr>
 </thead><tbody>';
@@ -31,24 +47,32 @@ echo '<table><thead>
 				$this->Locale->date( __( 'Locale->date' ), $dossierep['Personne']['dtnai'] ),
 				$this->Locale->date( __( 'Locale->date' ), $dossierep['Dossierep']['created'] ),
 				$dossierep['Reorientationep93']['Motifreorientep93']['name'],
-				$dossierep['Reorientationep93']['Orientstruct']['Typeorient']['lib_type_orient'],
-				$dossierep['Reorientationep93']['Orientstruct']['Structurereferente']['lib_struc'],
+				isset($dossierep['Reorientationep93']['Orientstruct']['Typeorient']['lib_type_orient']) ? $dossierep['Reorientationep93']['Orientstruct']['Typeorient']['lib_type_orient'] : null,
+				isset($dossierep['Reorientationep93']['Orientstruct']['Structurereferente']['lib_struc']) ? $dossierep['Reorientationep93']['Orientstruct']['Structurereferente']['lib_struc'] : null,
 				@$dossierep['Reorientationep93']['Typeorient']['lib_type_orient'],
 				@$dossierep['Reorientationep93']['Structurereferente']['lib_struc'],
 
 				array(
-					$this->Form->input( "Decisionreorientationep93.{$i}.decision", array( 'label' => false, 'type' => 'select', 'options' => @$options['Decisionreorientationep93']['decision'], 'empty' => true, 'value' => $dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['decision'] ) ),
+					$this->Form->input( "Decisionreorientationep93.{$i}.decision", array( 'label' => false, 'type' => 'select', 'options' => @$options['Decisionreorientationep93']['decision'], 'empty' => true, 'value' => isset($dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['decision']) ? $dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['decision'] : null ) ),
 					array( 'id' => "Decisionreorientationep93{$i}DecisionColumn", 'class' => ( !empty( $this->validationErrors['Decisionreorientationep93'][$i]['decision'] ) ? 'error' : '' ) )
 				),
 				array(
-					$this->Form->input( "Decisionreorientationep93.{$i}.typeorient_id", array( 'label' => false, 'options' => $typesorients, 'empty' => true, 'value' =>  $dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['Structurereferente']['typeorient_id']) ),
+					$this->Form->input( "Decisionreorientationep93.{$i}.typeorient_id", array( 'label' => false, 'options' => $typesorients, 'empty' => true, 'value' => isset($dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['Structurereferente']['typeorient_id']) ? $dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['Structurereferente']['typeorient_id'] : $dossierep['Reorientationep93']['typeorient_id'] )),
 					( !empty( $this->validationErrors['Decisionreorientationep93'][$i]['typeorient_id'] ) ? array( 'class' => 'error' ) : array() )
 				),
 				array(
-					$this->Form->input( "Decisionreorientationep93.{$i}.structurereferente_id", array( 'label' => false, 'options' => $structuresreferentes, 'empty' => true, 'value' => $dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['Structurereferente']['typeorient_id']."_".$dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['Structurereferente']['id'] ) ),
+					$this->Form->input(
+						"Decisionreorientationep93.{$i}.structurereferente_id",
+						array(
+							'label' => false,
+							'options' => $structuresreferentes,
+							'empty' => true,
+							'value' => (isset($dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['Structurereferente']['typeorient_id'])) ? ($dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['Structurereferente']['typeorient_id']."_".$dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['Structurereferente']['id']) : ($dossierep['Reorientationep93']['typeorient_id']."_".$dossierep['Reorientationep93']['structurereferente_id'])
+						)
+					),
 					( !empty( $this->validationErrors['Decisionreorientationep93'][$i]['structurereferente_id'] ) ? array( 'class' => 'error' ) : array() )
 				),
-				$this->Form->input( "Decisionreorientationep93.{$i}.commentaire", array( 'label' =>false, 'type' => 'textarea', 'value' => $dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['commentaire'] ) ).
+				$this->Form->input( "Decisionreorientationep93.{$i}.commentaire", array( 'label' =>false, 'type' => 'textarea', 'value' => isset($dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['commentaire']) ? $dossierep['Passagecommissionep'][0]['Decisionreorientationep93'][0]['commentaire'] : null ) ).
 				$hiddenFields
 			),
 			array( 'class' => "odd {$multiple}" ),
@@ -59,6 +83,7 @@ echo '<table><thead>
 ?>
 
 <script type="text/javascript">
+
 	document.observe("dom:loaded", function() {
 		<?php for( $i = 0 ; $i < count( $dossiers[$theme]['liste'] ) ; $i++ ):?>
 			dependantSelect( 'Decisionreorientationep93<?php echo $i?>StructurereferenteId', 'Decisionreorientationep93<?php echo $i?>TypeorientId' );

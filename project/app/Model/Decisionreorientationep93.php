@@ -57,6 +57,10 @@
 			),
 		);
 
+		public $fakeInLists = array(
+			'decision' => array('accepte', 'refuse')
+		);
+
 		// TODO: lorsqu'on pourra reporter les dossiers,
 		// il faudra soit faire soit un report, soit les validations ci-dessous
 		// FIXME: dans ce cas, il faudra permettre au champ decision de prendre la valeur NULL
@@ -105,6 +109,17 @@
 				'Typeorient',
 				'Structurereferente'
 			);
+		}
+
+		public function enums(){
+			$enums = parent::enums();
+
+			//On supprime la valeur annuler qu'on ne peut pas supprimer en base
+			if(isset($enums['Decisionreorientationep93']['decision']['annule'])){
+				unset($enums['Decisionreorientationep93']['decision']['annule']);
+			}
+
+			return $enums;
 		}
 	}
 ?>
