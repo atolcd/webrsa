@@ -57,6 +57,7 @@
 			'presenceLink' => array( 'icons/pencil.png', 'Présences' ),
 			'reponseLink' => array( 'icons/pencil.png', 'Réponses' ),
 			'affecteLink' => array( 'icons/pencil.png', 'Affecter les dossiers' ),
+			'affecteCommissionLink' => array( 'icons/pencil.png', 'Affecter à une commission' ),
 			'avenantLink' => array( 'icons/add.png', 'Avenant' ),
 			// Avec des valeurs de $attributes (voir $this->_linksMapAttributes)
 			'conseilLink' => array( 'icons/door_out.png', 'Traitement par CD' ),

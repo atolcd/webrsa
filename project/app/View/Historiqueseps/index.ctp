@@ -1,7 +1,21 @@
-<h1><?php echo $this->pageTitle = 'Historique des passages en EP';?></h1>
+<h1><?php echo $this->pageTitle = 'Équipes pluridisciplinaires';?></h1>
 <?php
 	App::uses('WebrsaAccess', 'Utility');
 	WebrsaAccess::init($dossierMenu);
+
+	echo '<br/>';
+	echo '<ul class="actionMenu">';
+	echo '<li>'.$this->Xhtml->affecteCommissionLink(
+		'Affecter à une comission',
+		array('action' => 'affecter', $dossierep_id),
+		WebrsaAccess::addIsEnabled('/historiqueseps/affecter', $ajoutPossible)
+	).' </li>';
+	echo '</ul>';
+	echo '<br/>';
+	echo '<br/>';
+
+
+
 	echo $this->Default2->search(
 		array(
 			'Dossierep.themeep' => array( 'domain' => 'historiqueep' )

@@ -259,13 +259,13 @@ $fonorg = $dossier['Dossier']['fonorg'];
 				if ( Configure::read( 'Module.Cui.enabled' ) === true ){
 					$subAllocataire['Accompagnement du parcours']['Contrats']['CUI'] = array( 'url' => array( 'controller' => 'cuis', 'action' => 'index', $personne['id'] ) );
 				}
-				$subAllocataire['Accompagnement du parcours']['Actualisation suivi'] = array(
+				$subAllocataire['Accompagnement du parcours']['Remobilisation'] = array(
 					'url' => '#',
 					'Entretiens' => array( 'url' => array( 'controller' => 'entretiens', 'action' => 'index', $personne['id'] ) ),
 				);
 
 				if( $departement == 93 ) {
-					$subAllocataire['Accompagnement du parcours']['Actualisation suivi']['Relances'] = array( 'url' => array( 'controller' => 'relancesnonrespectssanctionseps93', 'action' => 'index', $personne['id'] ) );
+					$subAllocataire['Accompagnement du parcours']['Remobilisation']['Relances'] = array( 'url' => array( 'controller' => 'relancesnonrespectssanctionseps93', 'action' => 'index', $personne['id'] ) );
 				}
 
 				if( $departement == 58 ) {
@@ -274,9 +274,15 @@ $fonorg = $dossier['Dossier']['fonorg'];
 					);
 				}
 
-				$subAllocataire['Accompagnement du parcours']['Historique des EPs'] = array(
-					'url' => array( 'controller' => 'historiqueseps', 'action' => 'index', $personne['id'] ),
-				);
+				if( $departement == 93 ) {
+					$subAllocataire['Accompagnement du parcours']['Remobilisation']['Équipes pluridisciplinaires'] = array(
+						'url' => array( 'controller' => 'historiqueseps', 'action' => 'index', $personne['id'] ),
+					);
+				} else {
+					$subAllocataire['Accompagnement du parcours']['Historique des EPs'] = array(
+						'url' => array( 'controller' => 'historiqueseps', 'action' => 'index', $personne['id'] ),
+					);
+				}
 
 				$subAllocataire['Accompagnement du parcours']['Offre d\'insertion'] = array(
 					'url' => '#',

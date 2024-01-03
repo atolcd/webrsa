@@ -7,8 +7,9 @@ msgstr ""
 
 ###############################################################################
 
-msgid "Search.Dossierep.themeep"
-msgstr "Thématique"
+msgid "/Historiqueseps/affecter/:heading"
+msgstr "Affectation en EP de « #Personne.nom_complet# »"
 
-msgid "Historiqueep::index::empty"
-msgstr "Aucun passage en commission d'EP"
+msgid "thematique"
+msgstr "Thématique de l'EP"
+

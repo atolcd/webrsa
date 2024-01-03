@@ -568,6 +568,33 @@
 			);
 		}
 
+		/**
+		 * Retourne un querydata permettant de cibler tous les dossiers d'EP
+		 * non associés à un passage pour un bénéficiaire donné.
+		 *
+		 * @param integer $personne_id L'id du bénéficiaire
+		 * @return array
+		 */
+		public function qdDossiersepsNonAssocies( $personne_id ) {
+			$themes = array_keys( $this->themesCg() );
+
+			if( Configure::read('Commissionseps.sanctionep.nonrespectppae') == true && in_array('sanctionseps58', $themes) == false) {
+				$themes[] = 'sanctionseps58';
+			}
+
+			return array(
+				'conditions' => array(
+					'Dossierep.actif' => '1',
+					'Dossierep.personne_id' => $personne_id,
+					'Dossierep.themeep' => $themes,
+					'Passagecommissionep.id IS NULL'
+				),
+				'joins' => [
+					$this->join('Passagecommissionep'),
+				]
+			);
+		}
+
 
 
 		/**

@@ -1452,13 +1452,16 @@ msgstr "Visualisation de l'historique"
 msgid "controllers/Historiqueseps/view_passage"
 msgstr "Visualisation d'un passage en commission"
 
+msgid "controllers/Historiqueseps/affecter"
+msgstr "Affectaction directe à une commission"
+
 ###############################################################################
 
 msgid "controllers/Identificationsflux"
 msgstr "Identification des flux"
 
 msgid "controllers/Identificationsflux/index"
-msgstr "Visulaisation des différents flux"
+msgstr "Visualisation des différents flux"
 
 ###############################################################################
 
@@ -5331,5 +5334,23 @@ msgstr "Visualisation des détails des rapports des échanges ALI"
 
 msgid "controllers/Rapportsechangesali/index"
 msgstr "Visualisation des rapports des échanges ALI"
+
+## Liste des décisions EP
+###############################################################################
+
+msgid "controllers/Listedecisionssuspensionseps93"
+msgstr "Paramétrage des décisions EP"
+
+msgid "controllers/Listedecisionssuspensionseps93/add"
+msgstr "Ajout d'une décision"
+
+msgid "controllers/Listedecisionssuspensionseps93/delete"
+msgstr "Suppression d'une décision"
+
+msgid "controllers/Listedecisionssuspensionseps93/edit"
+msgstr "Modification d'une décision"
+
+msgid "controllers/Listedecisionssuspensionseps93/index"
+msgstr "Liste des décisions"
 
 

@@ -32,6 +32,12 @@
 			'Validation2.Validation2RulesFieldtypes',
 		);
 
+		public $uses = [
+			'Adressefoyer',
+			'Adresse',
+			'Zonegeographique'
+		];
+
 		/**
 		 * Liste de champs et de valeurs possibles qui ne peuvent pas être mis en
 		 * règle de validation inList ou en contrainte dans la base de données en
@@ -685,5 +691,34 @@
 				)
 			);
         }
+
+		public function getAdresse($foyer_id){
+
+			$sqDerniereRgadr01 = $this->Adressefoyer->sqDerniereRgadr01( 'Foyer.id' );
+
+			return $this->find(
+				'first',
+				[
+					'fields' => array_merge(
+						$this->Adresse->fields(),
+						$this->Zonegeographique->fields()
+					),
+					'joins' => array(
+						$this->join( 'Adressefoyer', array( 'type' => 'INNER' ) ),
+						$this->Adressefoyer->join( 'Adresse', array( 'type' => 'INNER' ) ),
+						$this->join( 'Zonegeographique', array( 'type' => 'INNER', 'conditions' => array(
+							'Zonegeographique.codeinsee = Adresse.numcom'
+						) ) ),
+					),
+					'contain' => false,
+					'conditions' => array(
+						// Déménagement hors du département
+						'Adresse.numcom LIKE' => Configure::read( 'Cg.departement' ).'%',
+						'Adressefoyer.rgadr' => '01',
+						"Adressefoyer.id IN ( {$sqDerniereRgadr01} )",
+					)
+				]
+			);
+		}
 	}
 ?>

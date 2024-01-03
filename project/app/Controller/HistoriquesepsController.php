@@ -48,6 +48,9 @@
 		public $helpers = array(
 			'Default2',
 			'Xpaginator2',
+			'Default3' => array(
+				'className' => 'Default.DefaultDefault'
+			)
 		);
 
 		/**
@@ -60,6 +63,9 @@
 			'Option',
 			'Passagecommissionep',
 			'WebrsaHistoriqueep',
+			'Personne',
+			'Commissionep',
+			'Foyer'
 		);
 
 		/**
@@ -159,9 +165,16 @@
 			$paramsAccess = $this->WebrsaHistoriqueep->getParamsForAccess($personne_id, WebrsaAccessHistoriqueseps::getParamsList());
 			$passages = WebrsaAccessHistoriqueseps::accesses($this->paginate($this->Dossierep->Passagecommissionep), $paramsAccess);
 
+
+			//L'ajout est possible si la personne a un dossier ep en cours qui n'est pas dans une commission
+			$query = $this->Dossierep->qdDossiersepsNonAssocies( $personne_id );
+			$dossier = $this->Dossierep->find( 'first', $query );
+			$ajoutPossible = !empty($dossier);
+
 			$this->_setOptions();
-			$this->set( compact( 'passages' ) );
+			$this->set( compact( 'passages', 'ajoutPossible') );
 			$this->set( 'personne_id', $personne_id );
+			$this->set( 'dossierep_id', $ajoutPossible ? $dossier['Dossierep']['id'] : null );
 		}
 
 		/**
@@ -250,6 +263,110 @@
 
 			$this->set( compact( 'modeleTheme', 'modeleDecision', 'passage' ) );
 			$this->set( 'urlmenu', "/historiqueseps/index/{$personne_id}" );
+		}
+
+		public function affecter($dossier_ep_id = null){
+
+			// Retour à la liste en cas d'annulation
+            if( isset( $this->request->data['Cancel'] ) ) {
+                $this->redirect( array('action' => 'index', $this->request->data['Cancel']) );
+            }
+
+			if( !empty( $this->request->data ) ) {
+
+
+				//On récupère les infos à mettre dans la table passagecommission
+				//L'id de la commission
+				$commissionep_id = explode('_', $this->request->data['Commissionep']['dateseance'])[1];
+				//L'utilisateur connecté
+				$user_id = $this->Session->read('Auth.User.id');
+
+				$data = [
+					'commissionep_id' => $commissionep_id,
+					'dossierep_id' => $this->request->data['Dossierep']['id'],
+					'etatdossierep' => 'associe',
+					'user_id' => $user_id
+				];
+
+
+				$success = $this->Passagecommissionep->save($data);
+
+				// Ajout de l'heure de passage
+				$passagecommissioneps = $this->Dossierep->Passagecommissionep->gereHeureCommissionEp($commissionep_id);
+				$success = $this->Passagecommissionep->saveAll($passagecommissioneps);
+
+				if($success){
+					$this->Flash->success( __( 'Save->success' ) );
+				} else {
+					$this->Flash->error( __( 'Save->error' ) );
+				}
+
+				$this->redirect( array('action' => 'index', $this->request->data['Personne']['id']) );
+
+			} else {
+
+				//On récupère le thème du passage en ep
+				$dossier_ep = $this->Dossierep->findById($dossier_ep_id);
+				$personne = $this->Personne->find(
+					'first',
+					[
+						'conditions' => [
+							'Personne.id' => $dossier_ep['Dossierep']['personne_id']
+						],
+						'fields' => [
+							'Personne.nom_complet'
+						],
+						'recursive' => 0
+					]
+				);
+
+				//On contruit les options disponibles
+				$options['Dossierep']['themeep'][$dossier_ep['Dossierep']['themeep']] = __d('dossierep', 'ENUM::THEMEEP::'.$dossier_ep['Dossierep']['themeep']);
+				//les commissions encore ouvertes à ce stade
+				$foyer_id = $this->Personne->findById($dossier_ep['Dossierep']['personne_id'])['Personne']['foyer_id'];
+				$codeinsee = $this->Foyer->getAdresse($foyer_id)['Adresse']['numcom'];
+
+
+				$commissions_ok = $this->Commissionep->find(
+					'all',
+					[
+						'fields' => [
+							'Commissionep.id',
+							'Commissionep.dateseance',
+							'Regroupementep.id',
+							'Regroupementep.name',
+							'Ep.id',
+							'Ep.name'
+						],
+						'conditions' => [
+							'Regroupementep.'.Inflector::singularize($dossier_ep['Dossierep']['themeep']).' <>' => 'nontraite',
+							'Commissionep.etatcommissionep in (\'cree\', \'associe\')',
+							'Ep.actif' => '1',
+							'Zonegeographique.codeinsee' => $codeinsee
+
+						],
+						'joins' => [
+							$this->Commissionep->join('Ep', array( 'type' => 'INNER' ) ),
+							$this->Commissionep->Ep->join('Regroupementep', array( 'type' => 'INNER' ) ),
+							$this->Commissionep->Ep->join('EpZonegeographique', array( 'type' => 'LEFT' ) ),
+							$this->Commissionep->Ep->EpZonegeographique->join('Zonegeographique', array( 'type' => 'LEFT' ) ),
+						],
+						'order' => [
+							'Commissionep.dateseance'
+						]
+					]
+				);
+
+				foreach ($commissions_ok as $comm){
+					$options['Ep']['regroupementep_id'][$comm['Regroupementep']['id']] = $comm['Regroupementep']['name'];
+					$options['Ep']['id'][$comm['Regroupementep']['id'].'_'.$comm['Ep']['id']] = $comm['Ep']['name'];
+					$options['Commissionep']['dateseance'][$comm['Ep']['id'].'_'.$comm['Commissionep']['id']] = date("d/m/Y H:i", strtotime($comm['Commissionep']['dateseance']));
+				}
+
+
+				$this->set( compact('personne', 'dossier_ep', 'options') );
+			}
+
 		}
 	}
 ?>
