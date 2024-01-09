@@ -30,7 +30,7 @@
 		 *
 		 * @var array
 		 */
-		public $uses = array( 'Commissionep' );
+		public $uses = array( 'Commissionep', 'Personne' );
 
 		/**
 		 * Ajoute les virtuals fields pour permettre le controle de l'accès à une action
@@ -1019,8 +1019,9 @@
 						'( CASE WHEN "Serviceinstructeur"."lib_service" IS NULL THEN \'Hors département\' ELSE "Serviceinstructeur"."lib_service" END ) AS "Serviceinstructeur__lib_service"',
 						'',
 						'Orientstruct.date_valid',
-						'( CASE WHEN "Historiqueetatpe"."etat" IN ( NULL, \'cessation\' ) THEN \'Non\' ELSE \'Oui\' END ) AS "Historiqueetatpe__inscritpe"',
+						'Historiqueetatpe.etat',
 						'Adresse.nomcom',
+						'Passagecommissionep.impressionconvocation'
 					),
 					'joins' => array(
 						$this->Commissionep->Passagecommissionep->Dossierep->join( 'Passagecommissionep', array( 'type' => 'INNER' ) ),
@@ -1142,7 +1143,6 @@
 								'foreignKey' => false,
 								'conditions' => array(
 									'Contratinsertion.personne_id = Orientstruct.personne_id',
-	//								'Contratinsertion.structurereferente_id = Orientstruct.structurereferente_id'
 								)
 							),
 							$this->Commissionep->Passagecommissionep->Dossierep->Personne->Contratinsertion->join( 'Structurereferente', array( 'type' =>'LEFT OUTER' ) ),
@@ -1193,6 +1193,18 @@
 					$query['joins'] = array_merge( $query['joins'], $queryRegressionorientationep58['joins'] );
 				}
 				else if( Configure::read( 'Cg.departement' ) == 93 && $fiche ) {
+
+					// Service référent
+					$query['fields'][] = 'Structurereferente.lib_struc';
+					$query['fields'][] = 'Structurereferente.id';
+					$query['joins'][] = $this->Commissionep->Passagecommissionep->Dossierep->Personne->Orientstruct->join( 'Structurereferente' );
+					
+				
+					//Type d'orientation
+					$query['fields'][] = 'Typeorient.lib_type_orient';
+					$query['fields'][] = 'Typeorient.id';
+					$query['joins'][] = $this->Commissionep->Passagecommissionep->Dossierep->Personne->Orientstruct->Structurereferente->join( 'Typeorient' );
+
 					// Date de demande RSA actuelle
 					$query['fields'][] = "\"Dossier\".\"dtdemrsa\" AS \"Dossier__dtdemrsaactuelle\"";
 
@@ -1221,119 +1233,96 @@
 					);
 					$query['joins'][] = $this->Commissionep->Passagecommissionep->join( 'Commissionep', array( 'type' => 'INNER' ) );
 
-					// Thématique, type de suspension
+					// // Thématique, type de suspension
 					$query['fields'][] = 'Nonrespectsanctionep93.origine';
 					$query['fields'][] = 'Nonrespectsanctionep93.rgpassage';
 					$query['joins'][] = $this->Commissionep->Passagecommissionep->Dossierep->join( 'Nonrespectsanctionep93', array( 'type' => 'LEFT OUTER' ) );
-
-					// Première et seconde relance
-					$relances = array( 1 => 'Relance1', 2 => 'Relance2' );
-					foreach( $relances as $numrelance => $alias ) {
-						$query['fields'][] = "{$alias}.dateimpression";
-
-						$query['joins'][] = array_words_replace(
-							$this->Commissionep->Passagecommissionep->Dossierep->Nonrespectsanctionep93->join(
-								'Relancenonrespectsanctionep93',
-								array(
-									'type' => 'LEFT OUTER',
-									'conditions' => array(
-										'Relancenonrespectsanctionep93.numrelance' => $numrelance
-									)
-								)
-							),
-							array( 'Relancenonrespectsanctionep93' => $alias )
-						);
-					}
 
 					// -----------------------------------------------------------------------------
 					// Nonrespectsanctionep93
 					//	-> Nonrespect1, Passage1, Commission1, Decision1ep
 					// -----------------------------------------------------------------------------
-					foreach( array( 1, 2, 3 ) as $passage ) {
-						$replacements = array(
-							'Nonrespectsanctionep93' => "Nonrespect{$passage}",
-							'Dossierep' => "Dossier{$passage}",
-							'Commissionep' => "Commission{$passage}",
-							'Passagecommissionep' => "Passage{$passage}"
-						);
+					// foreach( array( 1, 2, 3 ) as $passage ) {
+						// $replacements = array(
+						// 	'Nonrespectsanctionep93' => "Nonrespect{$passage}",
+						// 	'Dossierep' => "Dossier{$passage}",
+						// 	'Commissionep' => "Commission{$passage}",
+						// 	'Passagecommissionep' => "Passage{$passage}"
+						// );
 
-						$query['joins'][] = array(
-							'table' => 'nonrespectssanctionseps93',
-							'alias' => "Nonrespect{$passage}",
-							'type' => 'LEFT OUTER',
-							'conditions' => array(
-								"Nonrespect{$passage}.rgpassage" => $passage,
-								'OR' => array(
-									array(
-										"Nonrespectsanctionep93.orientstruct_id IS NOT NULL",
-										"Nonrespect{$passage}.orientstruct_id = Nonrespectsanctionep93.orientstruct_id"
-									),
-									array(
-										"Nonrespectsanctionep93.contratinsertion_id IS NOT NULL",
-										"Nonrespect{$passage}.contratinsertion_id = Nonrespectsanctionep93.contratinsertion_id"
-									),
-									array(
-										"Nonrespectsanctionep93.propopdo_id IS NOT NULL",
-										"Nonrespect{$passage}.propopdo_id = Nonrespectsanctionep93.propopdo_id"
-									),
-									array(
-										"Nonrespectsanctionep93.historiqueetatpe_id IS NOT NULL",
-										"Nonrespect{$passage}.historiqueetatpe_id = Nonrespectsanctionep93.historiqueetatpe_id"
-									)
-								)
-							)
-						);
+						// $query['joins'][] = array(
+						// 	'table' => 'nonrespectssanctionseps93',
+						// 	'alias' => "Nonrespect{$passage}",
+						// 	'type' => 'LEFT OUTER',
+						// 	'conditions' => array(
+						// 		"Nonrespect{$passage}.rgpassage" => $passage,
+						// 		'OR' => array(
+						// 			array(
+						// 				"Nonrespectsanctionep93.orientstruct_id IS NOT NULL",
+						// 				"Nonrespect{$passage}.orientstruct_id = Nonrespectsanctionep93.orientstruct_id"
+						// 			),
+						// 			array(
+						// 				"Nonrespectsanctionep93.contratinsertion_id IS NOT NULL",
+						// 				"Nonrespect{$passage}.contratinsertion_id = Nonrespectsanctionep93.contratinsertion_id"
+						// 			),
+						// 			array(
+						// 				"Nonrespectsanctionep93.propopdo_id IS NOT NULL",
+						// 				"Nonrespect{$passage}.propopdo_id = Nonrespectsanctionep93.propopdo_id"
+						// 			),
+						// 			array(
+						// 				"Nonrespectsanctionep93.historiqueetatpe_id IS NOT NULL",
+						// 				"Nonrespect{$passage}.historiqueetatpe_id = Nonrespectsanctionep93.historiqueetatpe_id"
+						// 			)
+						// 		)
+						// 	)
+						// );
 
-						$query['joins'][] = array_words_replace(
-							$this->Commissionep->Passagecommissionep->Dossierep->Nonrespectsanctionep93->join( 'Dossierep', array( 'type' => 'LEFT OUTER' ) ),
-							$replacements
-						);
+						// $query['joins'][] = array_words_replace(
+						// 	$this->Commissionep->Passagecommissionep->Dossierep->Nonrespectsanctionep93->join( 'Dossierep', array( 'type' => 'LEFT OUTER' ) ),
+						// 	$replacements
+						// );
 
-						$query['fields'][] = "{$replacements['Passagecommissionep']}.impressionconvocation";
-						$query['joins'][] = array_words_replace(
-							$this->Commissionep->Passagecommissionep->Dossierep->Nonrespectsanctionep93->Dossierep->join(
-								'Passagecommissionep',
-								array(
-									'type' => 'LEFT OUTER',
-									'conditions' => array(
-										'Passagecommissionep.id IN ( '.$this->Commissionep->Passagecommissionep->sqDernier().' )'
-									)
-								)
-							),
-							$replacements
-						);
+						// $query['fields'][] = "{$replacements['Passagecommissionep']}.impressionconvocation";
+						// $query['joins'][] = array_words_replace(
+						// 	$this->Commissionep->Passagecommissionep->Dossierep->Nonrespectsanctionep93->Dossierep->join(
+						// 		'Passagecommissionep',
+						// 		array(
+						// 			'type' => 'LEFT OUTER',
+						// 			'conditions' => array(
+						// 				'Passagecommissionep.id IN ( '.$this->Commissionep->Passagecommissionep->sqDernier().' )'
+						// 			)
+						// 		)
+						// 	),
+						// 	$replacements
+						// );
 
-						$query['joins'][] = array_words_replace(
-							$this->Commissionep->Passagecommissionep->join( 'Commissionep', array( 'type' => 'LEFT OUTER' ) ),
-							$replacements
-						);
+						// $query['joins'][] = array_words_replace(
+						// 	$this->Commissionep->Passagecommissionep->join( 'Commissionep', array( 'type' => 'LEFT OUTER' ) ),
+						// 	$replacements
+						// );
 
-						// FIXME: les autres thématiques ?
-						foreach( array( 'ep', 'cg' ) as $etape ) {
-							$alias = "Decision{$passage}{$etape}";
-							$replacements['Decisionnonrespectsanctionep93'] = $alias;
+						// // FIXME: les autres thématiques ?
+						// foreach( array( 'ep', 'cg' ) as $etape ) {
+						// 	$alias = "Decision{$passage}{$etape}";
+						// 	$replacements['Decisionnonrespectsanctionep93'] = $alias;
 
-							$query['fields'][] = "{$alias}.decision";
-							$query['fields'][] = "{$alias}.commentaire";
+						// 	$query['fields'][] = "{$alias}.decision";
+						// 	$query['fields'][] = "{$alias}.commentaire";
 
-							$query['joins'][] = array_words_replace(
-								$this->Commissionep->Passagecommissionep->join(
-									'Decisionnonrespectsanctionep93',
-									array(
-										'type' => 'LEFT OUTER',
-										'conditions' => array(
-											'Decisionnonrespectsanctionep93.etape' => $etape
-										)
-									)
-								),
-								$replacements
-							);
-						}
-					}
-
-					// Service référent
-					$query['fields'][] = 'Structurereferente.lib_struc';
-					$query['joins'][] = $this->Commissionep->Passagecommissionep->Dossierep->Personne->Orientstruct->join( 'Structurereferente' );
+						// 	$query['joins'][] = array_words_replace(
+						// 		$this->Commissionep->Passagecommissionep->join(
+						// 			'Decisionnonrespectsanctionep93',
+						// 			array(
+						// 				'type' => 'LEFT OUTER',
+						// 				'conditions' => array(
+						// 					'Decisionnonrespectsanctionep93.etape' => $etape
+						// 				)
+						// 			)
+						// 		),
+						// 		$replacements
+						// 	);
+						// }
+					// }
 
 					// Dernière Dsp / DspRev
 					$query['fields'] = array_merge(
@@ -1366,6 +1355,7 @@
 
 					// Inscription RSA -> FIXME: voir au-dessus pour le premier dossier
 					$query['fields'][] = 'Dossier.dtdemrsa';
+					$query['fields'][] = 'Dossier.ideparte';
 
 
 					// Radiation Pôle Emploi ?
@@ -1381,6 +1371,19 @@
 					$query['joins'][] = array_words_replace(
 						$this->Commissionep->Passagecommissionep->Dossierep->Nonrespectsanctionep93->join( 'Historiqueetatpe', array( 'type' => 'LEFT OUTER' ) ),
 						array( 'Historiqueetatpe' => 'Radiationpe' )
+					);
+
+					// Dernière relance
+					$query['fields'][] = "Relancenonrespectsanctionep93.dateimpression";
+
+					$query['joins'][] = $this->Commissionep->Passagecommissionep->Dossierep->Nonrespectsanctionep93->join(
+						'Relancenonrespectsanctionep93',
+						array(
+							'type' => 'LEFT OUTER',
+							'conditions' => array(
+								'Relancenonrespectsanctionep93.numrelance IN (select case when (max(numrelance) is not null) then max(numrelance) else 0 end as max from relancesnonrespectssanctionseps93 r where nonrespectsanctionep93_id = "Nonrespectsanctionep93"."id")'
+							)
+						)
 					);
 				}
 
@@ -1788,6 +1791,8 @@
 					'Dossierep.created',
 					'Dossierep.modified',
 					'Personne.id',
+					$this->Personne->getVirtualField('nom_complet').' AS "Personne__nomcomplet"',
+					$this->Personne->getVirtualField('age').' AS "Personne__age"',
 					'Personne.foyer_id',
 					'Personne.qual',
 					'Personne.nom',
@@ -1811,6 +1816,7 @@
 					'Personne.numfixe',
 					'Personne.numport',
 					'Dossier.matricule',
+					'Dossier.numdemrsa',
 					'Foyer.sitfam',
 					'Adresse.numvoie',
 					'Adresse.libtypevoie',
@@ -1819,6 +1825,9 @@
 					'Adresse.nomcom',
 					'Adresse.numcom',
 					'Adresse.codepos',
+					'( CASE WHEN "Detaildroitrsa"."nbenfautcha" IS NULL THEN 0 ELSE "Detaildroitrsa"."nbenfautcha" END ) AS "Detaildroitrsa__nbenfautcha"',
+					'(select MIN(EXTRACT(YEAR FROM AGE((p.dtnai)))) as min_age from foyers f join personnes p on p.foyer_id = f.id join prestations p2 on p2.personne_id = p.id
+					where f.id = "Foyer"."id" and p2.natprest = \'RSA\' and p2.rolepers = \'ENF\') as "Foyer__minageenf"'
 
 				),
 				'joins' => array(
@@ -1837,6 +1846,7 @@
 						)
 					),
 					$Dossierep->Personne->Foyer->Adressefoyer->join( 'Adresse', array( 'type' => 'LEFT OUTER' ) ),
+					$Dossierep->Personne->Foyer->Dossier->join( 'Detaildroitrsa', array( 'type' => 'LEFT OUTER' ) ),
 				),
 				'conditions' => array(
 					'Dossierep.id' => $dossierep_id
@@ -1851,10 +1861,73 @@
 				$this->_qdFichesSynthetiques( array( 'Passagecommissionep.commissionep_id' => $commissionep_id , 'Passagecommissionep.dossierep_id' => $dossierep_id ), true )
 			);
 
+
 			$dataFiche = Set::merge( $dossierep, $fichessynthetiques );
+
+
+			//Passage précédent
+			//On cherche les infos du passage précédent ici pour alléger le code
+			//Il faut trouver l'avant dernier passage car le dernier est le passage actuel
+			//On connait le passage actuel, le dossier actuel.
+
+			$passage_precedent = $this->Commissionep->Passagecommissionep->find(
+				'first',
+				[
+					'fields' => [
+						'Dossierep.id',
+						'Dossierep.themeep',
+						'Passagecommissionep.id',
+						'Commissionep.dateseance',
+					],
+					'joins' => [
+						$this->Commissionep->Passagecommissionep->join( 'Dossierep', array( 'type' => 'INNER' )),
+						$this->Commissionep->Passagecommissionep->join( 'Commissionep', array( 'type' => 'INNER' ))
+					],
+					'conditions' => [
+						"Commissionep.id <> $commissionep_id",
+						"Dossierep.id <> $dossierep_id",
+						"Dossierep.personne_id" => "{$dataFiche['Personne']['id']}"
+					],
+					'order' => [
+						'Commissionep.dateseance' => 'desc'
+					]
+				]
+			);
+
+
+			if(!empty($passage_precedent)){
+
+				$theme_passage_precedent = "Decision".Inflector::singularize($passage_precedent['Dossierep']['themeep']);
+
+				$decision_passage_precedent = $this->Commissionep->Passagecommissionep->find(
+					'first',
+					[
+						'fields' => [
+							$theme_passage_precedent.".decision"
+						],
+						'joins' => [
+							$this->Commissionep->Passagecommissionep->join( $theme_passage_precedent, array( 'type' => 'INNER' )),
+						],
+						'conditions' => [
+							$theme_passage_precedent.".passagecommissionep_id" => $passage_precedent['Passagecommissionep']['id'],
+						]
+					]
+				);
+
+				$dataFiche['Passageprecedent']['date'] = $passage_precedent['Commissionep']['dateseance'];
+				$dataFiche['Passageprecedent']['motif'] = __d('dossierep', "ENUM::THEMEEP::".$passage_precedent['Dossierep']['themeep']);
+				$dataFiche['Passageprecedent']['decision'] = __d('decisionreorientationep93', 'ENUM::DECISION::'.$decision_passage_precedent[$theme_passage_precedent]['decision']);
+			}
+
+
+
 			$dataFiche['Dossierep']['anonymiser'] = ( $anonymiser ? 1 : 0 );
 
+
+
+
 			$options = $this->getOptions( array( 'fiche' => true ) );
+
 
 			return $this->Commissionep->ged(
 				$dataFiche,
