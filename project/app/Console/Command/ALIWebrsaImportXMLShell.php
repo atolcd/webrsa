@@ -40,7 +40,8 @@
 			'Questionnaired1pdv93',
 			'Questionnaired2pdv93',
 			'Questionnaireb7pdv93',
-			'User'
+			'User',
+			'Histochoixcer93'
         ];
 
 
@@ -126,7 +127,7 @@
 								$bool_referentparcours = null;
 								$bool_rdv = null;
 								$bool_dsp = null;
-								$bool_cer = null;
+								$bool_cers = null;
 								$bool_orient = null;
 								$bool_d1 = null;
 								$bool_d2 = null;
@@ -150,16 +151,16 @@
 												'recursive' => 1
 											]
 										);
-			
+
 										if(!empty($ref_webrsa)){
 											$ref_webrsa = $ref_webrsa['CorrespondanceReferentiel'];
-			
+
 											$cloture = false;
 											if (!is_null($ref_webrsa['referents_date_cloture'])) {
 												//On clôture immédiatement sur la date de clôture
 												$cloture = $ref_webrsa['referents_date_cloture'];
 											}
-			
+
 											if(
 												!is_null($ref_webrsa['referents_date_cloture'])
 													&& $ref_webrsa['referents_date_cloture'] < $referent_parcours->date_designation->__toString()
@@ -168,7 +169,7 @@
 												//référent clôturé
 												$bool_referentparcours = false;
 												$rapport = $this->AddErreur($rapport, 'referent', 'referent_cloture', $personne_id);
-			
+
 											} else {
 												//On enregistre
 												$bool_referentparcours = $this->PersonneReferent->changeReferent(
@@ -179,14 +180,14 @@
 													$cloture
 												);
 											}
-			
+
 										} else {
 											//erreur référent inconnu
 											$bool_referentparcours = false;
 											$rapport = $this->AddErreur($rapport, 'referent', 'referent_inconnu', $personne_id);
 										}
 									}
-		
+
 								}
 
 								/*---------------------------------------------
@@ -194,51 +195,51 @@
 								----------------------------------------------*/
 								if(isset($dossier->liste_rendez_vous)){
 									foreach($dossier->liste_rendez_vous->rendez_vous as $rdv){
-		
+
 										$infos_rdv = [
 											'personne_id' => $personne_id,
 											'daterdv' => $rdv->date_rdv->__toString(),
 											'heurerdv' => $rdv->heure_rdv->__toString(),
 											'id_base_ali' => $rdv->id_ali
 										];
-		
+
 										$rdv_structurereferente_id = $this->CorrespondanceReferentiel->getIdTableFromIdReferentiel(
 											'structuresreferentes',
 												intval($rdv->id_structurereferente->__toString())
 										);
-		
-		
+
+
 										if(empty($rdv_structurereferente_id)){
 											//erreur structure inconnue
 											$bool_rdv = false;
 											$rapport = $this->AddErreur($rapport, 'rdv', 'structure_inconnue', $personne_id);
-		
+
 										} else {
-		
+
 											$infos_rdv['structurereferente_id'] = $rdv_structurereferente_id;
-		
+
 											//Tous les référentiels doivent exister
 											$rdv_objet_id = $this->CorrespondanceReferentiel->getIdTableFromIdReferentiel(
 												'rdv_objet',
 													intval(intval($rdv->id_objet_rdv->__toString()))
 											);
-		
+
 											if(empty($rdv_objet_id)){
 												//erreur référentiel inconnu
 												$bool_rdv = false;
 												$rapport = $this->AddErreur($rapport, 'rdv', 'rdv_objet_inconnu', $personne_id);
-		
+
 											} else {
 												$infos_rdv['typerdv_id'] = $rdv_objet_id;
-		
+
 											}
-		
-		
+
+
 											if(!isset($rdv->id_referent) && $rdv_objet_id == Configure::read( 'Rendezvous.Typerdv.individuel_id' )){
 												//erreur référent manquant
 												$bool_rdv = false;
 												$rapport = $this->AddErreur($rapport, 'rdv', 'referent_obligatoire', $personne_id);
-		
+
 											} else if (isset($rdv->id_referent)){
 												$rdv_referent = $this->CorrespondanceReferentiel->find(
 													'first',
@@ -251,7 +252,7 @@
 														'recursive' => 1
 													]
 												);
-		
+
 												if(empty($rdv_referent)){
 													//erreur référent inconnu
 													$bool_rdv = false;
@@ -267,12 +268,12 @@
 													}
 												}
 											}
-		
+
 											$rdv_statut_id = $this->CorrespondanceReferentiel->getIdTableFromIdReferentiel(
 												'rdv_statut',
 												intval($rdv->id_statut_rdv->__toString())
 											);
-		
+
 											if(empty($rdv_statut_id)){
 												//erreur référentiel inconnu
 												$bool_rdv = false;
@@ -280,10 +281,10 @@
 											} else {
 												$infos_rdv['statutrdv_id'] = $rdv_statut_id;
 											}
-		
+
 											$thematiques = [];
 											foreach($rdv->thematiques->id_thematique_rdv as $thematique) {
-		
+
 												$rdv_thematique = $this->CorrespondanceReferentiel->find(
 													'first',
 													[
@@ -295,25 +296,25 @@
 														'recursive' => 1
 													]
 												);
-		
+
 												if(empty($rdv_thematique)){
 													//erreur référentiel inconnu
 													$bool_rdv = false;
 													$rapport = $this->AddErreur($rapport, 'rdv', 'rdv_thematique_inconnu', $personne_id);
-		
+
 												} else {
 													//il faut vérifier que la thématique est compatible avec le type de rdv
 													if($rdv_objet_id != $rdv_thematique['CorrespondanceReferentiel']['rdv_thematique_typerdv_id']) {
 														//erreur type de rdv et thématiques incompatibles
 														$bool_rdv = false;
 													$rapport = $this->AddErreur($rapport, 'rdv', 'rdv_type_thematique_incoherents', $personne_id);
-		
-		
+
+
 													} else {
-		
+
 														//Si thématique une fois/an on vérifie qu'elle n'a pas déjà été attribuée
 														if(in_array($rdv_thematique['CorrespondanceReferentiel']['id_dans_table'],  Configure::read('Rendezvous.thematiqueAnnuelleParStructurereferente'))){
-		
+
 															$statuts = Configure::read('Rendezvous.checkThematiqueAnnuelleParStructurereferente.statutrdv_id');
 															$statuts = implode(",", $statuts);
 															$sql = "
@@ -328,33 +329,33 @@
 																and r.daterdv <> '{$rdv->date_rdv->__toString()}'
 																and r.heurerdv <> '{$rdv->heure_rdv->__toString()}'
 															";
-		
+
 															$rdv_annuel = $this->Personne->query($sql);
-		
+
 															if(!empty($rdv_annuel)){
 																//erreur référentiel inconnu
 																$bool_rdv = false;
 																$rapport = $this->AddErreur($rapport, 'rdv', 'rdv_thematique_annuelle', $personne_id);
-		
+
 															}
 														}
-		
+
 														$thematiques[] = $rdv_thematique['CorrespondanceReferentiel']['id_dans_table'];
-		
+
 														$infos_rdv['Thematiquerdv'][] = [
 															'thematiquerdv_id' => $rdv_thematique['CorrespondanceReferentiel']['id_dans_table']
 														];
 													}
 												}
 											}
-		
+
 											if(sizeof($thematiques) > 1 && $rdv_objet_id != Configure::read( 'Rendezvous.Typerdv.individuel_id' )){
 												//erreur une seule thématique possible pour les drv collectifs
 												$bool_rdv = false;
 												$rapport = $this->AddErreur($rapport, 'rdv', 'rdv_thematique_depassement', $personne_id);
-		
+
 											}
-		
+
 											if($bool_rdv !== false) {
 												//On ajoute les champs facultatifs
 												if(isset($rdv->objectif_rdv)){
@@ -366,22 +367,21 @@
 												if(isset($rdv->a_revoir_le)){
 													$infos_rdv['arevoirle'] = $rdv->a_revoir_le->__toString().'-01';
 												}
-		
+
 												//On recherche si on a déjà intégré à partir de l'id ALI
 												//ou si un rdv de même jour/heure existe déjà
-		
-		
+
 												$conditions_rdv = [
 													'Rendezvous.structurereferente_id' => $rdv_structurereferente_id,
 													'Rendezvous.daterdv' => $rdv->date_rdv->__toString(),
 													'Rendezvous.heurerdv' => $rdv->heure_rdv->__toString(),
 													'Rendezvous.id_base_ali' => null
 												];
-		
+
 												if(isset($rdv_referent)){
 													$conditions_rdv['Rendezvous.referent_id'] =  $rdv_referent['CorrespondanceReferentiel']['id_dans_table'];
 												}
-		
+
 												$rdv_existant = $this->Rendezvous->find(
 													'first',
 													[
@@ -444,7 +444,7 @@
 											'dsp_nivetu',
 											intval($dsp->niveau_etude->id_niveau_etudes->__toString())
 										);
-			
+
 										if(empty($dsp_nivetu_code)){
 											//erreur nivetu inconnu
 											$bool_dsp = false;
@@ -452,12 +452,12 @@
 										} else {
 											$infos_dsp['nivetu'] = $dsp_nivetu_code;
 										}
-			
+
 										$dsp_diplome_code = $this->CorrespondanceReferentiel->getCodeFromIdReferentiel(
 											'diplome_max',
 											intval($dsp->niveau_etude->id_diplome_plus_eleve->__toString())
 										);
-			
+
 										if(empty($dsp_diplome_code)){
 											//erreur diplome inconnu
 											$bool_dsp = false;
@@ -465,9 +465,9 @@
 										} else {
 											$infos_dsp['nivdipmaxobt'] = $dsp_diplome_code;
 										}
-			
+
 										if($bool_dsp !== false){
-			
+
 											//On recherche si on a déjà enregistré cette dsp (avec l'id ali)
 											$dsp_existant = $this->Dsp->find(
 												'first',
@@ -477,12 +477,12 @@
 													]
 												]
 											);
-			
+
 											if(!empty($dsp_existant)){
 												//on ajoute l'id au tableau
 												$infos_dsp['id'] = $dsp_existant['Dsp']['id'];
 												$alias_table = 'Dsp';
-			
+
 											} else {
 												$dsp_rev_existant = $this->DspRev->find(
 													'first',
@@ -492,12 +492,12 @@
 														]
 													]
 												);
-			
+
 												if(!empty($dsp_rev_existant)){
 													//on ajoute l'id au tableau
 													$infos_dsp['id'] = $dsp_rev_existant['DspRev']['id'];
 													$alias_table = 'DspRev';
-			
+
 												} else {
 													//on cherche si la personne a déjà une version de dsp pour connaître la table où enregistrer
 													$dsp_personne = $this->Dsp->find(
@@ -508,14 +508,14 @@
 															]
 														]
 													);
-			
+
 													if(empty($dsp_personne)){
 														$alias_table = 'Dsp';
 													} else {
 														$alias_table = 'DspRev';
 														$infos_dsp['dsp_id'] = $dsp_personne['Dsp']['id'];
 													}
-			
+
 												}
 											}
 											//On ajoute les autres champs
@@ -528,13 +528,13 @@
 											if(isset($dsp->niveau_etude->precisions_competences_extrapro)){
 												$infos_dsp['libcompeextrapro'] = $dsp->niveau_etude->precisions_competences_extrapro->__toString();
 											}
-			
+
 											//On enregistre les données dans la table
 											$bool_dsp = $this->$alias_table->saveAssociated($infos_dsp);
 											$this->$alias_table->clear();
 										}
 									}
-		
+
 								}
 
 								/*---------------------------------------------
@@ -543,7 +543,9 @@
 								if(isset($dossier->liste_cers)){
 									foreach($dossier->liste_cers->cer as $cer){
 
+										$bool_cer = true;
 										$infos_cer = [];
+										$infos_histo = [];
 
 										//On vérifie et ajoute les champs modifiables
 										// date début contrat
@@ -903,21 +905,21 @@
 															$infos_cer['Cer93']['metierexerce_id'] = $id_metier_exerce;
 															$infos_cer['Cer93']['secteuracti_id'] = $id_secteur_activite;
 															$infos_cer['Cer93']['naturecontrat_id'] = $id_nature['CorrespondanceReferentiel']['id_dans_table'];
-	
+
 															$infos_cer['Cer93']['Emptrouvromev3'] = [
 																'familleromev3_id' => $id_code_famille,
 																'domaineromev3_id' => $id_code_domaine['CorrespondanceReferentiel']['id_dans_table'],
 																'metierromev3_id' => $id_code_metier['CorrespondanceReferentiel']['id_dans_table'],
 																'appellationromev3_id' => $id_appellation_metier['CorrespondanceReferentiel']['id_dans_table']
 															];
-	
+
 														}
 
 													} else {
 														$infos_cer['Cer93']['isemploitrouv'] = 'N';
 													}
 
-													
+
 
 												}
 
@@ -1125,13 +1127,13 @@
 															'cer_forme',
 															intval($cer->id_forme_cer->__toString())
 														);
-	
+
 														if(empty($forme_cer)){
 															$bool_cer = false;
 															$rapport = $this->AddErreur($rapport, 'cer', 'forme_cer_inconnu', $personne_id);
 														}
 													} else {
-														$forme_cer = null;
+														$forme_cer = 'S';
 													}
 
 													//Commentaire (forme du CER)
@@ -1150,7 +1152,7 @@
 																	'recursive' => 1
 																]
 															);
-		
+
 															if(empty($id_commentaire)){
 																$bool_cer = false;
 																$rapport = $this->AddErreur($rapport, 'cer', 'commentaire_inconnu', $personne_id);
@@ -1173,7 +1175,8 @@
 														$comm = null;
 													}
 
-													$infos_cer['Cer93']['Histochoixcer93'][] = [
+
+													$infos_histo['Histochoixcer93'] = [
 														'etape' => '02attdecisioncpdv',
 														'datechoix' => $cer->date_saisie->__toString(),
 														'formeci' => $forme_cer,
@@ -1243,19 +1246,29 @@
 
 										if($bool_cer !== false){
 											$infos_cer['Contratinsertion']['personne_id'] = $personne_id;
-	
+
 											$infos_contrat = $infos_cer['Contratinsertion'];
 											$infos_cer2['Cer93'] = $infos_cer['Cer93'];
-	
+
 											$contrat_ok = $this->Contratinsertion->saveAssociated($infos_contrat, ['validation' => true, 'deep' => true, 'atomic' => false]);
-	
+
 											//On ajout l'id du contrat d'insertion qui vient d'être créé
 											$infos_cer2['Cer93']['contratinsertion_id'] = $this->Contratinsertion->id;
-											$cer_ok = $this->Cer93->saveAssociated($infos_cer2, ['validation' => true, 'deep' => true, 'atomic' => false]);
-	
-											$bool_cer = $contrat_ok['Contratinsertion'] && $cer_ok['Cer93'];
+											$cer_ok = $this->Cer93->saveAssociated($infos_cer2, ['validation' => false, 'deep' => true, 'atomic' => false]);
+
+											if(!isset($infos_cer['Cer93']['id'])){
+												$infos_histo['Histochoixcer93']['cer93_id'] = $this->Cer93->id;
+												$histo_ok = $this->Histochoixcer93->saveAssociated($infos_histo, ['validation' => true, 'deep' => true, 'atomic' => false]);
+												$bool_cers = $bool_cer && $histo_ok['Histochoixcer93'];
+
+											}
+
+											$bool_cers = $bool_cer && $contrat_ok['Contratinsertion'] && $cer_ok['Cer93'];
+											$this->Histochoixcer93->clear();
 											$this->Cer93->clear();
 											$this->Contratinsertion->clear();
+										} else {
+											$bool_cers = false;
 										}
 
 									}
@@ -1539,7 +1552,7 @@
 
 									if(empty($d1_existe)){
 										//On vérifie si un premier rdv de l'année existe
-										$premier_rdv_id = $this->Questionnaired1pdv93->rendezvous($personne_id);
+										$premier_rdv_id = $this->Questionnaired1pdv93->rendezvous($personne_id, true);
 
 										if(empty($premier_rdv_id)){
 											$bool_d1 = false;
@@ -1619,7 +1632,7 @@
 
 										if($bool_d1 !== false){
 											//On récupère les champs du formulaire
-											$form_data = $this->Questionnaired1pdv93->prepareFormData($personne_id);
+											$form_data = $this->Questionnaired1pdv93->prepareFormData($personne_id, true);
 											$infos_d1['Questionnaired1pdv93'] = array_merge($infos_d1['Questionnaired1pdv93'], $form_data['Questionnaired1pdv93']);
 											$infos_d1['Situationallocataire'] = $form_data['Situationallocataire'];
 
@@ -2001,7 +2014,7 @@
 												if(empty($b7_appellation_metier)){
 													$bool_b7 = false;
 													$rapport = $this->AddErreur($rapport, 'b7', 'code_appellation_metier_inconnu', $personne_id);
-												} else if($b7_code_metier['CorrespondanceReferentiel']['appell_metier_codemetier_id'] !== $b7_code_metier['CorrespondanceReferentiel']['id_dans_table']){
+												} else if($b7_appellation_metier['CorrespondanceReferentiel']['appell_metier_codemetier_id'] !== $b7_code_metier['CorrespondanceReferentiel']['id_dans_table']){
 													$bool_b7 = false;
 													$rapport = $this->AddErreur($rapport, 'b7', 'appellation_metier_incohérent', $personne_id);
 												} else {
@@ -2029,7 +2042,7 @@
 									'referentparcours' => $bool_referentparcours,
 									'rendezvous' => $bool_rdv,
 									'dsp' => $bool_dsp,
-									'cer' => $bool_cer,
+									'cer' => $bool_cers,
 									'orient' => $bool_orient,
 									'd1' => $bool_d1,
 									'd2' => $bool_d2,
@@ -2040,7 +2053,7 @@
 									$bool_referentparcours === false
 									|| $bool_rdv === false
 									|| $bool_dsp === false
-									|| $bool_cer === false
+									|| $bool_cers === false
 									|| $bool_orient === false
 									|| $bool_d1 === false
 									|| $bool_d2 === false
@@ -2094,14 +2107,14 @@
 					//L'ALI
 					$alertes[$file]['ali'] = $this->Structurereferente->findById($id_ali)['Structurereferente']['lib_struc'];
 					$alertes[$file]['id_ali'] = $id_ali;
-				
+
 				}
 
 
 
 			} //fin du foreach sur les fichiers
 
-			
+
 
 			//On récupère toutes les ALI et on vérifie qu'il y a au moins un fichier pour chaque
 			$alis_manquantes = array_diff($this->Structurereferente->getALIexport(true), $liste_ali);
@@ -2128,7 +2141,7 @@
 					} else {
 						$mailBody .= 'Date d\'intégration : '.$alerte['date'].'<br>';
 						$mailBody .= 'Structure : '.$alerte['ali'].'<br>';
-	
+
 						 if (isset($alerte['code']) && $alerte['code'] == 'deja_traite') {
 							//message fichier déjà traité
 							$mailBody .= __d('rapportsechangesali', 'deja_traite');
@@ -2228,14 +2241,14 @@
 			if(!empty($alertes) && is_array($alertes)){
 				foreach($alertes as $file => $alerte){
 					$lignes = [];
-	
+
 					if(isset($alerte['rapport'])){
 						$lignes[0] = [
 							'Bloc',
 							'Personne_id',
 							'Erreur',
 						];
-	
+
 						foreach($alerte['rapport'] as $erreur){
 							$lignes[] = [
 								__d('rapportsechangesali', 'Erreur.'.$erreur['bloc']),
@@ -2243,15 +2256,15 @@
 								__d('rapportsechangesali', $erreur['code'])
 							];
 						}
-	
+
 						$fichier_erreur = fopen($alerte['fichier_erreur'], "w");
-	
-	
+
+
 						foreach($lignes as $ligne){
 							fputcsv($fichier_erreur, $ligne, ";");
 						}
 						fclose($fichier_erreur);
-	
+
 						$liste_fichiers[] = $alerte['fichier_erreur'];
 					}
 				}

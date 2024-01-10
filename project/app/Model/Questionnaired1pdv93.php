@@ -284,7 +284,7 @@
 		 * @return array
 		 * @throws NotFoundException
 		 */
-		public function prepareFormData( $personne_id ) {
+		public function prepareFormData( $personne_id, $importALI = false ) {
 			$formData = array();
 
 			$data = $this->Situationallocataire->getSituation( $personne_id );
@@ -336,7 +336,7 @@
 
 			$formData[$this->alias]['nivetu'] = $this->nivetu( $personne_id );
 			$formData[$this->alias]['autre_caracteristique'] = 'beneficiaire_minimas';
-			$formData[$this->alias]['rendezvous_id'] = $this->rendezvous( $personne_id );
+			$formData[$this->alias]['rendezvous_id'] = $this->rendezvous( $personne_id, $importALI );
 			$formData[$this->alias]['date_validation'] = $this->_dateValidation( $formData[$this->alias]['rendezvous_id'] );
 
 			// Champs en visualisation uniquement
@@ -477,7 +477,13 @@
 		 * @param integer $personne_id
 		 * @return integer
 		 */
-		public function rendezvous( $personne_id ) {
+		public function rendezvous( $personne_id, $importALI = false ) {
+
+			if($importALI){
+				$statut_rdv = ['Rendezvous.statutrdv_id IN' => (array)Configure::read( 'Rendezvous.checkThematiqueAnnuelleParStructurereferente.statutrdv_id' )];
+			} else {
+				$statut_rdv = ['Rendezvous.statutrdv_id' => (array)Configure::read( 'Questionnaired1pdv93.rendezvous.statutrdv_id' )];
+			}
 			$querydata = array(
 				'conditions' => array(
 					'Thematiquerdv.linkedmodel' => $this->alias
@@ -504,12 +510,14 @@
 					'Rendezvous.id'
 				),
 				'contain' => false,
-				'conditions' => array(
-					'Rendezvous.personne_id' => $personne_id,
-					'Rendezvous.typerdv_id' => Hash::extract( $thematiquesrdvs, '{n}.Thematiquerdv.typerdv_id' ),
-					'Thematiquerdv.linkedmodel' => $this->alias,
-					"Rendezvous.id NOT IN ( {$sq} )",
-					'Rendezvous.statutrdv_id' => (array)Configure::read( 'Questionnaired1pdv93.rendezvous.statutrdv_id' ),
+				'conditions' => array_merge(
+					[
+						'Rendezvous.personne_id' => $personne_id,
+						'Rendezvous.typerdv_id' => Hash::extract( $thematiquesrdvs, '{n}.Thematiquerdv.typerdv_id' ),
+						'Thematiquerdv.linkedmodel' => $this->alias,
+						"Rendezvous.id NOT IN ( {$sq} )"
+					],
+					$statut_rdv
 				),
 				'joins' => array(
 					$this->Rendezvous->join( $with, array( 'type' => 'INNER' ) ),
