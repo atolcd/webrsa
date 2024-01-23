@@ -92,10 +92,10 @@ msgid "donneesreference.titre"
 msgstr "Coordonnées de référence"
 
 msgid "foyer.titre"
-msgstr "Données du dossier RSA"
+msgstr "Données du dossier RSA (flux instruction)"
 
 msgid "donneescaf.titre"
-msgstr "Dernières données CAF"
+msgstr "Dernières données CAF (flux contact)"
 
 msgid "saisiemanuelle.titre"
 msgstr "Coordonnées communiquées lors de l'accompagnement"
