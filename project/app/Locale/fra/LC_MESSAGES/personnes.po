@@ -20,4 +20,4 @@ msgid "Histocoordonnees::back::title"
 msgstr "Retour à la personne « %s »"
 
 msgid "coordonnees.voir"
-msgstr "Voir les coordonnées communiquées lors de l\'accompagnement."
+msgstr "Voir les coordonnées de contact"
