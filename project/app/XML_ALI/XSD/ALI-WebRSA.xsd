@@ -273,7 +273,7 @@
                                                             <xs:all>
                                                                 <xs:element name="id_motif_sortie_accompagnement" type="xs:positiveInteger"/>
                                                                 <xs:element name="id_temps_travail" type="xs:positiveInteger" minOccurs="0"/>
-                                                                <xs:element name="id_code_famille" type="xs:positiveInteger"/>
+                                                                <xs:element name="id_code_famille" type="xs:positiveInteger" minOccurs="0"/>
                                                                 <xs:element name="id_code_domaine" type="xs:positiveInteger" minOccurs="0"/>
                                                                 <xs:element name="id_code_metier" type="xs:positiveInteger" minOccurs="0"/>
                                                                 <xs:element name="id_appellation_metier" type="xs:positiveInteger" minOccurs="0"/>
