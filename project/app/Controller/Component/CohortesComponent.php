@@ -90,6 +90,8 @@
 			$this->page = ( isset( $this->Controller->request->params['named']['page'] ) ? $this->Controller->request->params['named']['page'] : 1 );
 			$sessionKey = $this->sessionKey();
 			$jetons = (array)$this->Session->read( $sessionKey );
+
+			//Il ne faut supprimer que les jetons liés à l'utilisateur courant
 			unset( $jetons[$this->page] );
 
 			if( !empty( $jetons ) ) {
@@ -140,12 +142,20 @@
 		 * @param mixed $dossiers
 		 * @return boolean
 		 */
-		public function get( $dossiers ) {
+		public function get( $dossiers, $noException = false  ) {
 			$dossiers = array_unique( (array)$dossiers );
 
-			$success  = $this->Jetons2->get( $dossiers );
+			$success  = $this->Jetons2->get( $dossiers, $noException );
 
-			if( $success ) {
+			if(is_array($success)){
+				foreach($success as $id){
+					if (($key = array_search($id, $dossiers)) !== false) {
+						unset($dossiers[$key]);
+					}
+				}
+			};
+
+			if( $success && !empty($dossiers)) {
 				$sessionKey = $this->sessionKey();
 				$this->Session->write( "{$sessionKey}.{$this->page}", $dossiers );
 			}

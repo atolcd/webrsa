@@ -43,7 +43,7 @@
 		protected function _clean() {
 			return $this->Jetonfonction->deleteAll(
 				array(
-					'Jetonfonction."modified" <' => strftime( '%Y-%m-%d %H:%M:%S', strtotime( '-'.readTimeout().' seconds' ) )
+					'Jetonfonction."modified" <' => strftime( '%Y-%m-%d %H:%M:%S', strtotime( '-'.Configure::read( 'Jetons.duree' )().' seconds' ) )
 				)
 			);
 		}
@@ -111,7 +111,7 @@
 				$this->controller->cakeError(
 					'lockedAction', // FIXME: lockedQQchose d'autre
 					array(
-						'time' => ( strtotime( $jeton['Jetonfonction']['modified'] ) + readTimeout() ),
+						'time' => ( strtotime( $jeton['Jetonfonction']['modified'] ) + Configure::read( 'Jetons.duree' )() ),
 						'user' => $lockingUser['User']['username']
 					)
 				);

@@ -72,7 +72,8 @@
 			),
 			'WebrsaUsers',
 			'Workflowscers93',
-			'Filtresdefaut'
+			'Filtresdefaut',
+			'Jetons2'
 
 		);
 
@@ -101,6 +102,7 @@
 			'Cohortecer93',
 			'Contratinsertion',
 			'Option',
+			'Dossier'
 		);
 
 		/**
@@ -208,7 +210,12 @@
 				$cers93 = $this->_addCommentairenormecer93( $cers93, $histochoixcer93key );
 
 				$dossiers_ids = Set::extract( $cers93, "/Cer93[positioncer={$position}]/../Dossier/id" );
-				$this->Cohortes->get( $dossiers_ids );
+				if( $this->action == 'avalidercpdv' ) {
+					$this->Cohortes->get( $dossiers_ids, true);
+				} else {
+					$this->Cohortes->get( $dossiers_ids);
+
+				}
 
 				$this->set( compact( 'cers93', 'options' ) );
 
@@ -327,10 +334,10 @@
 			);
 
 			$querydata = $this->Gestionzonesgeos->qdConditions( $querydata );
-			$querydata = $this->Cohortes->qdConditions( $querydata );
 
 			// TODO: différencier CER / CER précédent ?
 			if( $this->action == 'saisie' ) {
+				$querydata = $this->Cohortes->qdConditions( $querydata );
 				$querydata['conditions'][] = array(
 					array(
 						'OR' => array(
@@ -349,6 +356,8 @@
 				);
 			}
 			else if( $this->action == 'avalidercpdv' ) {
+				$querydata['fields']['Dossier.locked'] = $this->Jetons2->sqLocked( 'Dossier', 'locked' );
+				array_unshift($querydata['order'], 'Dossier__locked ASC');
 				$querydata['conditions'][] = array(
 					'Cer93.positioncer' => '02attdecisioncpdv',
 				);

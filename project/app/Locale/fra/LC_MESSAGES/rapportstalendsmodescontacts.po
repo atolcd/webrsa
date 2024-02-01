@@ -29,8 +29,11 @@ msgstr "Date d'intégration"
 msgid "fichier"
 msgstr "Nom du fichier"
 
-msgid "total"
-msgstr "Dossiers rejetés"
+msgid "total_rejets"
+msgstr "Personnes rejetées"
+
+msgid "total_ok"
+msgstr "Personnes integrées"
 
 msgid "motif.pas_demandeur"
 msgstr "Non DEM ou CJT sur le dossier"

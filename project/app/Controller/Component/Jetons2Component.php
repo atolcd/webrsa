@@ -54,7 +54,7 @@
 		 * @param mixed $dossiers Un id de dossier ou un array d'ids de dossiers.
 		 * @return boolean
 		 */
-		public function get( $dossiers ) {
+		public function get( $dossiers, $noException = false ) {
 			if( Configure::read( 'Jetons2.disabled' ) ) {
 				return true;
 			}
@@ -104,7 +104,7 @@
 					is_null( $jetonObtenu )
 					|| empty( $jetonObtenu['php_sid'] )
 					|| $jetonObtenu['php_sid'] ==  $this->Session->id()
-					|| ( strtotime( $jetonObtenu['modified'] ) < strtotime( '-'.readTimeout().' seconds' ) )
+					|| ( strtotime( $jetonObtenu['modified'] ) < strtotime( '-'.Configure::read( 'Jetons.duree' ).' seconds' ) )
 				);
 
 				if( $dossierNonVerrouille ) {
@@ -128,45 +128,49 @@
 					}
 				}
 				else {
-					$this->Jeton->rollback();
+					if(!$noException){
+						$this->Jeton->rollback();
 
-					$lockingUser = $this->Jeton->User->find(
-						'first',
-						array(
-							'conditions' => array(
-								'User.id' => $jetonObtenu['user_id']
-							),
-							'recursive' => -1
-						)
-					);
+						$lockingUser = $this->Jeton->User->find(
+							'first',
+							array(
+								'conditions' => array(
+									'User.id' => $jetonObtenu['user_id']
+								),
+								'recursive' => -1
+							)
+						);
 
-					$dossier = $this->Jeton->Dossier->find(
-						'first',
-						array(
-							'conditions' => array(
-								'Dossier.id' => $dossier
-							),
-							'recursive' => -1
-						)
-					);
+						$dossier = $this->Jeton->Dossier->find(
+							'first',
+							array(
+								'conditions' => array(
+									'Dossier.id' => $dossier
+								),
+								'recursive' => -1
+							)
+						);
 
-					throw new LockedDossierException(
-						'Dossier verrouillé',
-						401,
-						array(
-							'time' => ( strtotime( $jetonObtenu['modified'] ) + readTimeout() ),
-//							'user' => $lockingUser['User']['username'],
-                            'user' => $lockingUser['User']['nom'].' '.$lockingUser['User']['prenom'],
-							'dossier' => $dossier
-						)
-					);
-					return;
+						throw new LockedDossierException(
+							'Dossier verrouillé',
+							401,
+							array(
+								'time' => ( strtotime( $jetonObtenu['modified'] ) + Configure::read( 'Jetons.duree' ) ),
+	//							'user' => $lockingUser['User']['username'],
+								'user' => $lockingUser['User']['nom'].' '.$lockingUser['User']['prenom'],
+								'dossier' => $dossier
+							)
+						);
+						return;
+					} else {
+						$dossiers_verouilles[] = $dossier['Dossier']['id'];
+					}
 				}
 			}
 
 			$this->Jeton->commit();
 
-			return true;
+			return isset($dossiers_verouilles) ? $dossiers_verouilles : true;
 		}
 
 		/**
@@ -241,7 +245,7 @@
 		 * @return string
 		 */
 		protected function _conditionsValid($alias = 'jetons') {
-			return array( $alias.'.modified >=' => strftime( '%Y-%m-%d %H:%M:%S', strtotime( '-'.readTimeout().' seconds' ) ) );
+			return array( $alias.'.modified >=' => strftime( '%Y-%m-%d %H:%M:%S', strtotime( '-'.Configure::read( 'Jetons.duree' ).' seconds' ) ) );
 		}
 
 		/**
@@ -398,7 +402,7 @@
 					array(
 						'alias' => 'jetons',
 						'fields' => array(
-							'( "jetons"."modified" + INTERVAL \''.readTimeout().' seconds\' ) AS "jetons__locked_to"',
+							'( "jetons"."modified" + INTERVAL \''.Configure::read( 'Jetons.duree' ).' seconds\' ) AS "jetons__locked_to"',
 						),
 						'conditions' => array(
 							'NOT' => array(
@@ -472,7 +476,7 @@
 					'( "Jeton"."dossier_id" IS NOT NULL ) AS "Dossier__locked"',
 //					'"User"."username" AS "Dossier__locking_user"',
                     '( "User"."nom" || \' \' || "User"."prenom" ) AS "Dossier__locking_user"',
-					'( "Jeton"."modified" + INTERVAL \''.readTimeout().' seconds\' ) AS "Dossier__locked_to"',
+					'( "Jeton"."modified" + INTERVAL \''.Configure::read( 'Jetons.duree' ).' seconds\' ) AS "Dossier__locked_to"',
 					$this->sqLockerIsMe()
 				);
 			}

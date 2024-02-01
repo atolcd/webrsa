@@ -72,7 +72,7 @@
 		*/
 
 		protected function _timeoutThreshold() {
-			return strftime( '%Y-%m-%d %H:%M:%S', strtotime( '-'.readTimeout().' seconds' ) );
+			return strftime( '%Y-%m-%d %H:%M:%S', strtotime( '-'.Configure::read( 'Jetons.duree' ).' seconds' ) );
 		}
 
 		/**
@@ -234,7 +234,7 @@
 				$this->controller->cakeError(
 					'lockedDossier',
 					array(
-						'time' => ( strtotime( $jeton['Jeton']['modified'] ) + readTimeout() ),
+						'time' => ( strtotime( $jeton['Jeton']['modified'] ) + Configure::read( 'Jetons.duree' )() ),
 						'user' => $lockingUser['User']['username']
 					)
 				); // FIXME: paramètres ?
@@ -417,7 +417,7 @@
 				$this->controller->cakeError(
 					'lockedDossier',
 					array(
-						'time' => ( strtotime( $jeton['Jeton']['modified'] ) + readTimeout() ),
+						'time' => ( strtotime( $jeton['Jeton']['modified'] ) + Configure::read( 'Jetons.duree' )() ),
 						'user' => $lockingUser['User']['username']
 					)
 				); // FIXME: paramètres ?

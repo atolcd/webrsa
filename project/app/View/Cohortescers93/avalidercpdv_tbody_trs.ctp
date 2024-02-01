@@ -130,4 +130,33 @@
 			array( 'class' => 'even', 'id' => $rowId )
 		);
 	}
+
 ?>
+<script type="text/javascript">
+	document.observe( "dom:loaded", function() {
+		cers93 = <?php echo json_encode($cers93);?>;
+		let i = 0;
+		cers93.forEach(
+			function (e) {
+				console.log(e['Dossier']);
+				if(e['Dossier']['locked']){
+					$('innerTableTrigger'+i).addClassName("disabled");
+					a_tag = $('innerTableTrigger'+i).querySelectorAll('a');
+					a_tag.forEach(
+						function (a) {
+							a.style.pointerEvents = "none";
+						}
+					)
+					radio_tag = $('innerTableTrigger'+i).querySelectorAll('input');
+					radio_tag.forEach(
+						function (a) {
+							a.disabled = true;
+						}
+					)
+				}
+				i++;
+			}
+		);
+
+	} );
+</script>

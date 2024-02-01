@@ -96,7 +96,7 @@
 			$fonctionNonVerrouillee = (
 				empty( $result )
 				|| $result[0]['jetonsfonctions']['php_sid'] ==  $this->Session->id()
-				|| ( strtotime( $result[0]['jetonsfonctions']['modified'] ) < strtotime( '-'.readTimeout().' seconds' ) )
+				|| ( strtotime( $result[0]['jetonsfonctions']['modified'] ) < strtotime( '-'.Configure::read( 'Jetons.duree' )().' seconds' ) )
 			);
 
 			if( $fonctionNonVerrouillee ) {
@@ -139,7 +139,7 @@
 					'Action verrouillée',
 					401,
 					array(
-						'time' => ( strtotime( $result[0]['jetonsfonctions']['modified'] ) + readTimeout() ),
+						'time' => ( strtotime( $result[0]['jetonsfonctions']['modified'] ) + Configure::read( 'Jetons.duree' )() ),
 						'user' => $lockingUser['User']['username']
 					)
 
@@ -228,7 +228,7 @@
 		 * @return string
 		 */
 		protected function _conditionsValid() {
-			return array( 'modified >=' => strftime( '%Y-%m-%d %H:%M:%S', strtotime( '-'.readTimeout().' seconds' ) ) );
+			return array( 'modified >=' => strftime( '%Y-%m-%d %H:%M:%S', strtotime( '-'.Configure::read( 'Jetons.duree' )().' seconds' ) ) );
 		}
 
 		/**
