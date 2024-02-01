@@ -277,6 +277,9 @@ msgstr "Compositions des regroupements des EP"
 msgid "listesanctionseps58/index"
 msgstr "Sanctions pour les EP"
 
+msgid "listedecisionssuspensionseps93/index"
+msgstr "Décisions"
+
 # ==============================================================================
 
 msgid "emails"
