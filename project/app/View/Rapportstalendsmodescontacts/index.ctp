@@ -14,9 +14,10 @@ if( empty( $Rapportstalendsmodescontacts ) ) {
 		<tr>
 			<th width="15%"><?= __m('created')?></th>
 			<th width="25%"><?= __m('fichier')?></th>
-			<th width="20%"><?= __m('total')?></th>
-			<th width="20%"><?= __m('motif.pas_demandeur')?></th>
-			<th width="20%"><?= __m('motif.aucun_nir')?></th>
+			<th width="15%"><?= __m('total_ok')?></th>
+			<th width="15%"><?= __m('total_rejets')?></th>
+			<th width="15%"><?= __m('motif.pas_demandeur')?></th>
+			<th width="15%"><?= __m('motif.aucun_nir')?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -26,6 +27,7 @@ if( empty( $Rapportstalendsmodescontacts ) ) {
 				echo '<tr class='.$class.'>'; ?>
 					<td><?= $r[0]['created']?></td>
 					<th><?= $r[0]['fichier']?></th>
+					<th><?= $r[0]['nombre_total_ok']?></th>
 					<th><?= $r[0]['nombre_total_rejets']?></th>
 					<th><?= $r[0]['pas_demandeur']?></th>
 					<th><?= $r[0]['aucun_nir']?></th>
