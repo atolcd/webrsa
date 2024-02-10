@@ -1747,81 +1747,83 @@
 												}
 											}
 											//Emploi
-											$id_d2_code_famille = $this->CorrespondanceReferentiel->getIdTableFromIdReferentiel('code_famille', $d2->sortie_accompagnement->id_code_famille);
-											if(empty($id_d2_code_famille)){
-												$bool_d2 = false;
-												$rapport = $this->AddErreur($rapport, 'd2', 'code_famille_inconnu', $personne_id);
-											} else {
-												$infos_d2['Emploiromev3']['familleromev3_id'] = $id_d2_code_famille;
-											}
-
-											if(isset($d2->sortie_accompagnement->id_code_domaine)){
-												$d2_code_domaine = $this->CorrespondanceReferentiel->find(
-													'first',
-													[
-														'fields' => ['id_dans_table', 'code_domaine_codefamille_id'],
-														'conditions' => [
-															'SujetReferentiel.code' => 'code_domaine',
-															'CorrespondanceReferentiel.id' => $d2->sortie_accompagnement->id_code_domaine
-														],
-														'recursive' => 1
-													]
-												);
-
-												if(empty($d2_code_domaine)){
+											if(isset($d2->sortie_accompagnement->id_code_famille)){
+												$id_d2_code_famille = $this->CorrespondanceReferentiel->getIdTableFromIdReferentiel('code_famille', $d2->sortie_accompagnement->id_code_famille);
+												if(empty($id_d2_code_famille)){
 													$bool_d2 = false;
-													$rapport = $this->AddErreur($rapport, 'd2', 'code_domaine_inconnu', $personne_id);
-												} else if($d2_code_domaine['CorrespondanceReferentiel']['code_domaine_codefamille_id'] !== $id_d2_code_famille){
-													$bool_d2 = false;
-													$rapport = $this->AddErreur($rapport, 'd2', 'code_domaine_incohérent', $personne_id);
+													$rapport = $this->AddErreur($rapport, 'd2', 'code_famille_inconnu', $personne_id);
 												} else {
-													$infos_d2['Emploiromev3']['domaineromev3_id'] = $d2_code_domaine['CorrespondanceReferentiel']['id_dans_table'];
+													$infos_d2['Emploiromev3']['familleromev3_id'] = $id_d2_code_famille;
 												}
 
-												if($bool_d2 !== false && isset($d2->sortie_accompagnement->id_code_metier)){
-													//on vérifie le code metier
-													$d2_code_metier = $this->CorrespondanceReferentiel->find(
+												if(isset($d2->sortie_accompagnement->id_code_domaine)){
+													$d2_code_domaine = $this->CorrespondanceReferentiel->find(
 														'first',
 														[
-															'fields' => ['id_dans_table', 'code_metier_codedomaine_id'],
+															'fields' => ['id_dans_table', 'code_domaine_codefamille_id'],
 															'conditions' => [
-																'SujetReferentiel.code' => 'code_metier',
-																'CorrespondanceReferentiel.id' => $d2->sortie_accompagnement->id_code_metier
+																'SujetReferentiel.code' => 'code_domaine',
+																'CorrespondanceReferentiel.id' => $d2->sortie_accompagnement->id_code_domaine
 															],
 															'recursive' => 1
 														]
 													);
-													if(empty($d2_code_metier)){
+
+													if(empty($d2_code_domaine)){
 														$bool_d2 = false;
-														$rapport = $this->AddErreur($rapport, 'd2', 'code_metier_inconnu', $personne_id);
-													} else if($d2_code_metier['CorrespondanceReferentiel']['code_metier_codedomaine_id'] !== $d2_code_domaine['CorrespondanceReferentiel']['id_dans_table']){
+														$rapport = $this->AddErreur($rapport, 'd2', 'code_domaine_inconnu', $personne_id);
+													} else if($d2_code_domaine['CorrespondanceReferentiel']['code_domaine_codefamille_id'] !== $id_d2_code_famille){
 														$bool_d2 = false;
-														$rapport = $this->AddErreur($rapport, 'd2', 'code_metier_incohérent', $personne_id);
+														$rapport = $this->AddErreur($rapport, 'd2', 'code_domaine_incohérent', $personne_id);
 													} else {
-														$infos_d2['Emploiromev3']['metierromev3_id'] = $d2_code_metier['CorrespondanceReferentiel']['id_dans_table'];
+														$infos_d2['Emploiromev3']['domaineromev3_id'] = $d2_code_domaine['CorrespondanceReferentiel']['id_dans_table'];
 													}
 
-													if($bool_d2 !== false && isset($d2->sortie_accompagnement->id_appellation_metier)){
-														//on vérifie l'appellation métier
-														$d2_appellation_metier = $this->CorrespondanceReferentiel->find(
+													if($bool_d2 !== false && isset($d2->sortie_accompagnement->id_code_metier)){
+														//on vérifie le code metier
+														$d2_code_metier = $this->CorrespondanceReferentiel->find(
 															'first',
 															[
-																'fields' => ['id_dans_table', 'appell_metier_codemetier_id'],
+																'fields' => ['id_dans_table', 'code_metier_codedomaine_id'],
 																'conditions' => [
-																	'SujetReferentiel.code' => 'appellation_metier',
-																	'CorrespondanceReferentiel.id' => $d2->sortie_accompagnement->id_appellation_metier
+																	'SujetReferentiel.code' => 'code_metier',
+																	'CorrespondanceReferentiel.id' => $d2->sortie_accompagnement->id_code_metier
 																],
 																'recursive' => 1
 															]
 														);
-														if(empty($d2_appellation_metier)){
+														if(empty($d2_code_metier)){
 															$bool_d2 = false;
-															$rapport = $this->AddErreur($rapport, 'd2', 'code_appellation_metier_inconnu', $personne_id);
-														} else if($d2_appellation_metier['CorrespondanceReferentiel']['appell_metier_codemetier_id'] !== $d2_code_metier['CorrespondanceReferentiel']['id_dans_table']){
+															$rapport = $this->AddErreur($rapport, 'd2', 'code_metier_inconnu', $personne_id);
+														} else if($d2_code_metier['CorrespondanceReferentiel']['code_metier_codedomaine_id'] !== $d2_code_domaine['CorrespondanceReferentiel']['id_dans_table']){
 															$bool_d2 = false;
-															$rapport = $this->AddErreur($rapport, 'd2', 'appellation_metier_incohérent', $personne_id);
+															$rapport = $this->AddErreur($rapport, 'd2', 'code_metier_incohérent', $personne_id);
 														} else {
-															$infos_d2['Emploiromev3']['appellationromev3_id'] = $d2_appellation_metier['CorrespondanceReferentiel']['id_dans_table'];
+															$infos_d2['Emploiromev3']['metierromev3_id'] = $d2_code_metier['CorrespondanceReferentiel']['id_dans_table'];
+														}
+
+														if($bool_d2 !== false && isset($d2->sortie_accompagnement->id_appellation_metier)){
+															//on vérifie l'appellation métier
+															$d2_appellation_metier = $this->CorrespondanceReferentiel->find(
+																'first',
+																[
+																	'fields' => ['id_dans_table', 'appell_metier_codemetier_id'],
+																	'conditions' => [
+																		'SujetReferentiel.code' => 'appellation_metier',
+																		'CorrespondanceReferentiel.id' => $d2->sortie_accompagnement->id_appellation_metier
+																	],
+																	'recursive' => 1
+																]
+															);
+															if(empty($d2_appellation_metier)){
+																$bool_d2 = false;
+																$rapport = $this->AddErreur($rapport, 'd2', 'code_appellation_metier_inconnu', $personne_id);
+															} else if($d2_appellation_metier['CorrespondanceReferentiel']['appell_metier_codemetier_id'] !== $d2_code_metier['CorrespondanceReferentiel']['id_dans_table']){
+																$bool_d2 = false;
+																$rapport = $this->AddErreur($rapport, 'd2', 'appellation_metier_incohérent', $personne_id);
+															} else {
+																$infos_d2['Emploiromev3']['appellationromev3_id'] = $d2_appellation_metier['CorrespondanceReferentiel']['id_dans_table'];
+															}
 														}
 													}
 												}
