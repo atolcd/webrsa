@@ -419,6 +419,7 @@
 																'structurereferente_id' => $rdv_structurereferente_id
 															]
 														);
+														$this->PersonneReferent->clear();
 													}
 												}
 											}
@@ -1656,6 +1657,7 @@
 
 											//On enregistre
 											$bool_d1 = $this->Questionnaired1pdv93->saveAll($infos_d1);
+											$this->Questionnaired1pdv93->clear();
 										}
 									}
 								}
@@ -1668,6 +1670,8 @@
 									//On récupère les ids et on regarde si le formulaire existe déjà en base
 									$id_d2_webrsa = isset($d2->id_webrsa) ? intval($d2->id_webrsa->__toString()) : null;
 									$id_d2_ali = intval($d2->id_ali->__toString());
+
+									$infos_d2['Questionnaired2pdv93'] = [];
 
 									$infos_d2['Questionnaired2pdv93']['id_base_ali'] = $id_d2_ali;
 
@@ -1866,9 +1870,12 @@
 
 										//On ajoute les informations de l'emploiromev3
 										$infos_d2['Questionnaired2pdv93']['emploiromev3_id'] = $this->Questionnaired2pdv93->getEmploiromev3Id( $infos_d2 );
-
+										if(!empty($infos_d2['Questionnaired2pdv93']['emploiromev3_id'])){
+											unset($infos_d2['Emploiromev3']);
+										}
 										//on enregistre
 										$bool_d2 = $this->Questionnaired2pdv93->saveAll($infos_d2);
+										$this->Questionnaired2pdv93->clear();
 									}
 
 								}
@@ -2033,6 +2040,7 @@
 									//On enregistre
 									if($bool_b7 !== false){
 										$bool_b7 = $this->Questionnaireb7pdv93->saveAll($infos_b7);
+										$this->Questionnaireb7pdv93->clear();
 									}
 
 
