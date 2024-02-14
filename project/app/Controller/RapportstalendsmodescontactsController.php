@@ -71,8 +71,8 @@
 				select
 					created
 					, fichier
-					, max(count) as nombre_total_ok
-					, count(*)-1 as nombre_total_rejets
+					, max(count) filter (where motif ilike 'COUNT_OK') as nombre_total_ok
+					, count(*)-2 as nombre_total_rejets
 					, count(*) filter (where motif ilike 'PAS_DEM_CJT') as PAS_DEMANDEUR
 					, count(*) filter (where motif ilike 'AUCUN_NIR') as AUCUN_NIR
 				from rapportstalendmodescontacts
