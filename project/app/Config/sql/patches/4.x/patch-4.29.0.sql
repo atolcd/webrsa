@@ -20,7 +20,7 @@ create table if not exists listedecisionssuspensionseps93 (
 	modified timestamp NOT NULL
 );
 
-alter table administration.rapportstalendmodescontacts add column count integer default null;
+alter table administration.rapportstalendmodescontacts add column if not exists count integer default null;
 
 -- Variable de configuration de la durée de vie des jetons
 INSERT INTO public.configurations(lib_variable, value_variable, comments_variable, created, modified)

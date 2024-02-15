@@ -1,10 +1,18 @@
 <script type="text/javascript">
 	function toutAccepter() {
-		regex = new RegExp('(data\\[Decisionreorientationep93\\]\\[){1}(\\d)+(\\]\\[decision\\]){1}');
+		regex = new RegExp('(data\\[Decisionreorientationep93\\]\\[){1}(\\d+)(\\]\\[decision\\]){1}');
 
 		$('Reorientationep93').select('select').each(function(editable){
 			if(regex.test(editable.name)){
 				editable.setValue("accepte");
+				id = (editable.name).match(regex)[2];
+				//On récupère l'id pour able les champs struc / referent associés
+				$('Decisionreorientationep93'+id+'TypeorientId').disabled = false;
+				input = $('Decisionreorientationep93'+id+'TypeorientId').up( 'div.input' );
+				input.removeClassName( 'disabled' );
+				$('Decisionreorientationep93'+id+'StructurereferenteId').disabled = false;
+				input2 = $('Decisionreorientationep93'+id+'StructurereferenteId').up( 'div.input' );
+				input2.removeClassName( 'disabled' );
 			}
 
 		});
