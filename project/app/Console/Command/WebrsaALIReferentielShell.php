@@ -357,7 +357,7 @@
                                 'actif' => false
 		                    ];
                         }
-                   } else if ($code['actif'] == false && !isset($sujet['correspondance_colonnes']['actif'])) {
+                   } else if ($code['actif'] == false && (!isset($sujet['correspondance_colonnes']['actif']) || ($actuel[$id]['actif'] === true || $actuel[$id]['actif'] == 'O' || $actuel[$id]['actif'] === 1))) {
                         // Ligne présente et identique mais inactive à tort => on réactive
                         $update[] = [
                             'id' => $code['id'],
