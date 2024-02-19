@@ -296,7 +296,7 @@
             foreach ($codes_a_ajouter as $code){
                 $id = array_search($code, array_column($actuel, 'id'));
                 $actif = true;
-                if(isset($actuel[$id]['actif']) && ($actuel[$id]['actif'] == false || $actuel[$id]['actif'] == 'N')){
+                if(isset($actuel[$id]['actif']) && ($actuel[$id]['actif'] === false || $actuel[$id]['actif'] === 'N' || $actuel[$id]['actif'] === 0)){
                     $actif = false;
                 }
                 $maj =
@@ -357,7 +357,7 @@
                                 'actif' => false
 		                    ];
                         }
-                   } else if ($code['actif'] == false && (!isset($sujet['correspondance_colonnes']['actif']) || ($actuel[$id]['actif'] === true || $actuel[$id]['actif'] == 'O' || $actuel[$id]['actif'] === 1))) {
+                   } else if ($code['actif'] == false && (!isset($sujet['correspondance_colonnes']['actif']) || (isset($sujet['correspondance_colonnes']['actif']) && ($actuel[$id]['actif'] === true || $actuel[$id]['actif'] === 'O' || $actuel[$id]['actif'] === 1)))) {
                         // Ligne présente et identique mais inactive à tort => on réactive
                         $update[] = [
                             'id' => $code['id'],
