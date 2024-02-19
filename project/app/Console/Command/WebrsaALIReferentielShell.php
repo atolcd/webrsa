@@ -310,8 +310,10 @@
                 $update[] = $maj;
             }
 
+
             foreach ($codes_table as $code) {
                 $id = array_search($code['id_dans_table'], array_column($actuel, 'id'));
+
                 if($id === false && $code['actif'] == true) {
                     // Ligne présente dans table et pas dans actuel => On désactive dans table
                     $update[] = [
@@ -322,14 +324,20 @@
                 } else if ($id !== false) {
                     //Ligne présente dans les 2 mais avec des différences => On met à jour les différences
                     $maj = [];
+
                     foreach($colonnes as $nom_new => $nom_table){
-                        if($actuel[$id][$nom_table] != $code[$nom_new]){
+                    	if($nom_new == 'actif') {
+                    		if(($actuel[$id]['actif'] === false || $actuel[$id]['actif'] == 'N' || $actuel[$id]['actif'] === 0) && $code['actif'] == true){
+	                    		$maj['actif'] = false;
+	                    		$actif = false;
+	                    	}
+                       } else if($actuel[$id][$nom_table] != $code[$nom_new]){
                             $maj[$nom_new] = $actuel[$id][$nom_table];
                         }
                     }
                     if(!empty($maj)) {
-                        $actif = true;
-                        if(isset($actuel[$id]['actif']) && ($actuel[$id]['actif'] == false || $actuel[$id]['actif'] == 'N')){
+                    	     $actif = true;
+                            if(isset($actuel[$id]['actif']) && ($actuel[$id]['actif'] === false || $actuel[$id]['actif'] == 'N' || $actuel[$id]['actif'] === 0)){
                             $actif = false;
                         }
                         $maj = array_merge(
@@ -341,13 +349,21 @@
                             $maj
                         );
                         $update[] = $maj;
-                    } else if ($code['actif'] == false) {
-                        // Ligne présente et identique mais inactive => on réactive
+                   }  else if ($code['actif'] == true) {
+                        // Ligne présente et identique mais active à tort => on désactive
+                        if(isset($actuel[$id]['actif']) && ($actuel[$id]['actif'] === false || $actuel[$id]['actif'] == 'N' || $actuel[$id]['actif'] === 0)){
+                        	$update[] = [
+                                'id' => $code['id'],
+                                'actif' => false
+		                    ];
+                        }
+                   } else if ($code['actif'] == false && !isset($sujet['correspondance_colonnes']['actif'])) {
+                        // Ligne présente et identique mais inactive à tort => on réactive
                         $update[] = [
                             'id' => $code['id'],
                             'actif' => true
                         ];
-                    }
+                   }
                 }
             }
 
