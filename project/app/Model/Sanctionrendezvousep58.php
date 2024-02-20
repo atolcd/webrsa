@@ -449,39 +449,32 @@
 			$modele = $this->alias;
 			$modeleDecisions = 'Decision'.Inflector::underscore( $this->alias );
 
-			$cacheKey = Inflector::underscore( $this->useDbConfig ).'_'.Inflector::underscore( $this->alias ).'_'.Inflector::underscore( __FUNCTION__ );
-			$datas = Cache::read( $cacheKey );
-
-			if( $datas === false ) {
-
-				$personne_id = 0;
-				$passage = $this->Dossierep->Passagecommissionep->find('first', ['conditions' => ['Passagecommissionep.id' => $passagecommissionep_id], 'contain' => ['Dossierep'], 'fields' => ['Dossierep.personne_id']]);
-				if(isset($passage['Dossierep']['personne_id'])){
-					$personne_id = $passage['Dossierep']['personne_id'];
-				}
-
-				$datas['querydata'] = $this->_qdDecisionPdf();
-
-				$datas['querydata']['fields'] = array_merge(
-					$datas['querydata']['fields'],
-					$this->Dossierep->Passagecommissionep->{$modeleDecisions}->Listesanctionep58->fields(),
-					$this->Dossierep->Personne->PersonneReferent->Referent->fields(),
-					$this->Dossierep->Personne->PersonneReferent->Referent->Structurereferente->fields()
-				);
-				$datas['querydata']['joins'][] = $this->Dossierep->Passagecommissionep->{$modeleDecisions}->join( 'Listesanctionep58' );
-				$datas['querydata']['joins'][] = $this->Dossierep->Personne->join('PersonneReferent', ['conditions' => ['PersonneReferent.id IN ('.$this->Dossierep->Personne->PersonneReferent->sqDerniere($personne_id).')']]);
-				$datas['querydata']['joins'][] = $this->Dossierep->Personne->PersonneReferent->join( 'Referent' );
-				$datas['querydata']['joins'][] = $this->Dossierep->Personne->PersonneReferent->Referent->join( 'Structurereferente' );
-
-				// Ajout du motif
-				$datas = $this->_addMotifPDF($datas);
-
-				// Traductions
-				$datas['options'] = $this->Dossierep->Passagecommissionep->{$modeleDecisions}->enums();
-				$datas['options']['Personne']['qual'] = ClassRegistry::init( 'Option' )->qual();
-
-				Cache::write( $cacheKey, $datas );
+			$personne_id = 0;
+			$passage = $this->Dossierep->Passagecommissionep->find('first', ['conditions' => ['Passagecommissionep.id' => $passagecommissionep_id], 'contain' => ['Dossierep'], 'fields' => ['Dossierep.personne_id']]);
+			if(isset($passage['Dossierep']['personne_id'])){
+				$personne_id = $passage['Dossierep']['personne_id'];
 			}
+
+			$datas['querydata'] = $this->_qdDecisionPdf();
+
+			$datas['querydata']['fields'] = array_merge(
+				$datas['querydata']['fields'],
+				$this->Dossierep->Passagecommissionep->{$modeleDecisions}->Listesanctionep58->fields(),
+				$this->Dossierep->Personne->PersonneReferent->Referent->fields(),
+				$this->Dossierep->Personne->PersonneReferent->Referent->Structurereferente->fields()
+			);
+			$datas['querydata']['joins'][] = $this->Dossierep->Passagecommissionep->{$modeleDecisions}->join( 'Listesanctionep58' );
+			$datas['querydata']['joins'][] = $this->Dossierep->Personne->join('PersonneReferent', ['conditions' => ['PersonneReferent.id IN ('.$this->Dossierep->Personne->PersonneReferent->sqDerniere($personne_id).')']]);
+			$datas['querydata']['joins'][] = $this->Dossierep->Personne->PersonneReferent->join( 'Referent' );
+			$datas['querydata']['joins'][] = $this->Dossierep->Personne->PersonneReferent->Referent->join( 'Structurereferente' );
+
+			// Ajout du motif
+			$datas = $this->_addMotifPDF($datas);
+
+			// Traductions
+			$datas['options'] = $this->Dossierep->Passagecommissionep->{$modeleDecisions}->enums();
+			$datas['options']['Personne']['qual'] = ClassRegistry::init( 'Option' )->qual();
+
 
 			$datas['querydata']['conditions']['Passagecommissionep.id'] = $passagecommissionep_id;
 			$gedooo_data = $this->Dossierep->Passagecommissionep->find( 'first', $datas['querydata'] );
