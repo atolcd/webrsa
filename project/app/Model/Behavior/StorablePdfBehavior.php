@@ -119,7 +119,7 @@
 		 * @return boolean
 		 */
 		public function generatePdf( Model $model, $id ) {
-			if( !$this->settings[$model->alias]['active'] ) {
+						if( !$this->settings[$model->alias]['active'] ) {
 				return true;
 			}
 
@@ -161,7 +161,11 @@
 			$function = $this->settings[$model->alias][__FUNCTION__];
 
 			if( $function == 'generatePdf' ) {
-				return $this->generatePdf( $model, $model->id );
+				if($model->name == 'Cer93'){
+					return $this->generatePdf( $model, $model->data['Cer93']['contratinsertion_id'] );
+				} else {
+					return $this->generatePdf( $model, $model->id );
+				}
 			}
 			else if( $function == 'deleteAll' ) {
 				return ClassRegistry::init( 'Pdf' )->deleteAll( array( 'modele' => $model->alias, 'fk_value' => $model->id ) );
