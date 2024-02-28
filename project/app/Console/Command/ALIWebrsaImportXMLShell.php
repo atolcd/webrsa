@@ -1178,7 +1178,7 @@
 
 
 													$infos_histo['Histochoixcer93'] = [
-														'etape' => '02attdecisioncpdv',
+														'etape' => '03attdecisioncg',
 														'datechoix' => $cer->date_saisie->__toString(),
 														'formeci' => $forme_cer,
 														'user_id' => $user_id,
