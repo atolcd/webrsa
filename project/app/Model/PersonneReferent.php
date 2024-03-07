@@ -518,5 +518,53 @@
 
 			return $success;
 		}
+
+		/**
+		 * Retourne les informations du référent de parcours à date de l'allocataire.
+		 *
+		 * Les modèles utilisés dans la requête sont: PersonneReferent, Referent
+		 * et Structurereferente.
+		 *
+		 * @param integer $personne_id L'id technique de la personne
+		 * @param date $date la date à laquelle on veut connaître le référent de parcours
+		 * @param array $fields Les champs à retourner
+		 *	Par défaut, les champs Referent.id et Referent.structurereferente_id
+		 * @return array
+		 */
+		public function referentParcoursADate( $personne_id, $date, array $fields = array() ) {
+			if( empty( $fields ) ) {
+				$fields = array(
+					'Referent.id',
+					'Referent.structurereferente_id',
+				);
+			}
+
+			$query = array(
+				'fields' => $fields,
+				'contain' => false,
+				'joins' => array(
+					$this->join( 'Referent', array( 'type' => 'INNER' ) ),
+					$this->Referent->join( 'Structurereferente', array( 'type' => 'INNER' ) ),
+				),
+				'conditions' => array(
+					'PersonneReferent.personne_id' => $personne_id,
+					'Referent.actif' => 'O',
+					'Structurereferente.actif' => 'O',
+					'OR' => [
+						'PersonneReferent.dfdesignation IS NULL',
+						'AND' => [
+							'PersonneReferent.dfdesignation >' => $date,
+							'PersonneReferent.dddesignation <' => $date,
+						]
+					]
+				),
+				'order' => array(
+					'PersonneReferent.dddesignation DESC'
+				)
+			);
+
+			return $this->find( 'first', $query );
+		}
+
 	}
 ?>
