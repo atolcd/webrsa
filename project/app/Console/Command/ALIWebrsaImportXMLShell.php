@@ -588,11 +588,17 @@
 											$infos_cer['Contratinsertion']['id'] = $cer_existant['Cer93']['contratinsertion_id'];
 										} else if($bool_cer !== false){
 
-											//On vérifie si la personne a un référent de parcours à la date d'enregistrement du CER
-											$referent_actuel = $this->PersonneReferent->referentParcoursADate(
-												$personne_id,
-												$cer->date_saisie->__toString()
+											//On vérifie si la personne a un référent de parcours actuellement
+											$referent_actuel = $this->PersonneReferent->referentParcoursActuel(
+												$personne_id
 											);
+											if(empty($referent_actuel)){
+												//On vérifie si la personne a un référent de parcours à la date d'enregistrement du CER
+												$referent_actuel = $this->PersonneReferent->referentParcoursADate(
+													$personne_id,
+													$cer->date_saisie->__toString()
+												);
+											}
 											if(empty($referent_actuel)){
 												$bool_cer = false;
 												$rapport = $this->AddErreur($rapport, 'cer', 'cer_referent_obligatoire', $personne_id);
