@@ -315,6 +315,7 @@
 														//Si thématique une fois/an on vérifie qu'elle n'a pas déjà été attribuée
 														if(in_array($rdv_thematique['CorrespondanceReferentiel']['id_dans_table'],  Configure::read('Rendezvous.thematiqueAnnuelleParStructurereferente'))){
 
+															$annee_rdv = substr($rdv->date_rdv->__toString(), 0, 4);
 															$statuts = Configure::read('Rendezvous.checkThematiqueAnnuelleParStructurereferente.statutrdv_id');
 															$statuts = implode(",", $statuts);
 															$sql = "
@@ -322,7 +323,7 @@
 																from rendezvous_thematiquesrdvs rt
 																join rendezvous r on rt.rendezvous_id = r.id
 																where r.personne_id = $personne_id
-																and extract (year from r.daterdv) = {$now_datetime->format('Y')}
+																and extract (year from r.daterdv) = $annee_rdv
 																and r.structurereferente_id = $rdv_structurereferente_id
 																and rt.thematiquerdv_id = {$rdv_thematique['CorrespondanceReferentiel']['id_dans_table']}
 																and r.statutrdv_id in ($statuts)
