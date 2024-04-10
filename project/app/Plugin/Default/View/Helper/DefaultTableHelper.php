@@ -27,7 +27,8 @@
 		public $helpers = array(
 			'Default.DefaultTableCell',
 			'Default.DefaultHtml',
-			'Default.DefaultPaginator'
+			'Default.DefaultPaginator',
+			'Paginator'
 		);
 
 		/**
@@ -140,7 +141,16 @@
 						}
 
 						$cellSort = Hash::get( $attributes, 'sort' );
-						if( ( $cellSort === null && $sort ) || ( $cellSort !== null && $cellSort ) ) {
+						if(isset($params['sortPaginator'])){
+							if (strpos($field, 'Erreur.') === 0){
+								//Si field est Erreur.qqchose
+								//On renomme en Personne.qqchose
+								//Pour Rapportsechangesali details
+								$field = 'PersonneEchangeALI.'.substr($field, 7);
+							}
+							$label = $this->Paginator->sort($field, $label);
+						}
+						else if( ( $cellSort === null && $sort ) || ( $cellSort !== null && $cellSort ) ) {
 							$label = $this->DefaultPaginator->sort( $field, $label );
 						}
 

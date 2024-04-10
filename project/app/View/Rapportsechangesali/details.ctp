@@ -34,8 +34,8 @@
 			$colonnes = array_merge(
 				$colonnes,
 				[
-					'Erreur.referent',
-					'Erreur.rdv',
+					'Erreur.referentparcours',
+					'Erreur.rendezvous',
 					'Erreur.dsp',
 					'Erreur.cer',
 					'Erreur.orient',
@@ -67,18 +67,32 @@
 		$pagination = $this->Xpaginator->paginationBlock( 'PersonneEchangeALI', $this->passedArgs );
 		echo $pagination;
 
-		echo $this->Default3->index(
+
+		echo $this->Default->index(
 			$personnes,
 			$this->Translator->normalize(
 				$colonnes
 			),
 			array(
 				'paginate' => false,
-				'id' => 'TableRapportsechangesaliDetails'
+				'id' => 'TableRapportsechangesaliDetails',
+				'sortPaginator' => true
 			)
 		);
 
 		echo $pagination;
+
+
+    echo '<ul class="actionMenu">'
+		.'<li>'
+		. $this->Xhtml->exportLink(
+			__m('download'),
+			array( 'controller' => 'rapportsechangesali', 'action' => 'exportcsv', $rapport_id, $erreurs)
+		)
+		.'</li>'
+	.'</ul>';
+
+
 
 	} else {
 		echo "<br/><br/>";
@@ -93,14 +107,14 @@
 
 		document.querySelector("#TableRapportsechangesaliDetails").style.width = '100%';
 
-		var nameTdIndexReferent = document.querySelector('#TableRapportsechangesaliDetailsColumnErreurReferent').cellIndex + 1;
+		var nameTdIndexReferent = document.querySelector('#TableRapportsechangesaliDetailsColumnErreurReferentparcours').cellIndex + 1;
 		var ref = '#TableRapportsechangesaliDetails td:nth-child(' + nameTdIndexReferent + ')';
-		var nameTdIndexRdv = document.querySelector('#TableRapportsechangesaliDetailsColumnErreurRdv').cellIndex + 1;
+		var nameTdIndexRdv = document.querySelector('#TableRapportsechangesaliDetailsColumnErreurRendezvous').cellIndex + 1;
 		var rdv = '#TableRapportsechangesaliDetails td:nth-child(' + nameTdIndexRdv + ')';
 		var nameTdIndexDsp = document.querySelector('#TableRapportsechangesaliDetailsColumnErreurDsp').cellIndex + 1;
 		var dsp = '#TableRapportsechangesaliDetails td:nth-child(' + nameTdIndexDsp + ')';
 		var nameTdIndexCer = document.querySelector('#TableRapportsechangesaliDetailsColumnErreurCer').cellIndex + 1;
-		var cer = '#TableRapportsechangesaliDetails td:nth-child(' + nameTdIndexCer + ')';	
+		var cer = '#TableRapportsechangesaliDetails td:nth-child(' + nameTdIndexCer + ')';
 		var nameTdIndexOrient = document.querySelector('#TableRapportsechangesaliDetailsColumnErreurOrient').cellIndex + 1;
 		var orient = '#TableRapportsechangesaliDetails td:nth-child(' + nameTdIndexOrient + ')';
 		var nameTdIndexD1 = document.querySelector('#TableRapportsechangesaliDetailsColumnErreurD1').cellIndex + 1;
