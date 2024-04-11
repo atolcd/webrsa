@@ -6,7 +6,7 @@ BEGIN;
 
 --Insertion de la liste des décisions EP
 INSERT INTO listedecisionssuspensionseps93
-(code, libelle, nom_courrier, premier_niveau, deuxieme_niveau, actif, created, modified) 
+(code, libelle, nom_courrier, premier_niveau, deuxieme_niveau, actif, created, modified)
 values
 ('{annule}', 'Annulé (Remobilisation)', 'decision_annule.odt', true, true, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('{1maintien, 2maintien}', 'Maintien', 'decision_maintien.odt', true, true, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
@@ -17,6 +17,11 @@ values
 ('{reporte}', 'Reporté EP ultérieure', 'decision_reporte.odt.', true, true, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('{1pasavis, 2pasavis}', 'Pas d''avis', 'decision_reporte.odt', false, false, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
 ('{1delai}', 'Délai supplémentaire de 1 mois', 'decision_delai.odt', false, false, false, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
+-- *****************************************************************************
+COMMIT;
+-- *****************************************************************************
 
 -- Mise à niveau des rapports talends des modes de contact
 do $$
@@ -31,7 +36,3 @@ begin FOR rapport in
 	end loop;
 end;
 $$
-
--- *****************************************************************************
-COMMIT;
--- *****************************************************************************
