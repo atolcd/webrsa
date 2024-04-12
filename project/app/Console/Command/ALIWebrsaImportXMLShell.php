@@ -41,7 +41,8 @@
 			'Questionnaired2pdv93',
 			'Questionnaireb7pdv93',
 			'User',
-			'Histochoixcer93'
+			'Histochoixcer93',
+			'Situationallocataire'
         ];
 
 
@@ -1541,6 +1542,13 @@
 								----------------------------------------------*/
 								if(isset($dossier->formulaire_d1)){
 									$d1 = $dossier->formulaire_d1;
+
+									//On regarde si la personne a une situation
+									if(empty($this->Situationallocataire->getSituation( $personne_id ))){
+										$bool_d1 = false;
+										$rapport = $this->AddErreur($rapport, 'd1', 'sans_situation', $personne_id);
+									}
+
 									//On récupère les ids et on regarde si le formulaire existe déjà en base
 									$id_d1_webrsa = isset($d1->id_webrsa) ? intval($d1->id_webrsa->__toString()) : null;
 									$id_d1_ali = intval($d1->id_ali->__toString());
@@ -1559,7 +1567,7 @@
 										]
 									);
 
-									if(empty($d1_existe)){
+									if(empty($d1_existe) && $bool_d1 !== false){
 										//On vérifie si un premier rdv de l'année existe
 										$premier_rdv_id = $this->Questionnaired1pdv93->rendezvous($personne_id, true);
 
