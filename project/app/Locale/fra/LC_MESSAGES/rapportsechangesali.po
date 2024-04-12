@@ -271,6 +271,9 @@ msgstr "Date de signature incorrecte"
 msgid "Erreur.d1"
 msgstr "D1"
 
+msgid "sans_situation"
+msgstr "La personne n'a pas de situation connue"
+
 msgid "premier_rdv_obligatoire"
 msgstr "Premier rdv de l'année obligatoire"
 
