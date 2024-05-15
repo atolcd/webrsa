@@ -14,7 +14,7 @@ msgid "Questionnaired2pdv93.situationaccompagnement"
 msgstr "Statut de l'accompagnement"
 
 msgid "Questionnaired2pdv93.sortieaccompagnementd2pdv93_id"
-msgstr "Sortie de l'obligation d'accompagnement"
+msgstr "Sortie de l'accompagnement"
 
 msgid "Pdv.lib_struc"
 msgstr "Projet Insertion Emploi"
@@ -29,7 +29,7 @@ msgid "Dureeemploi.name"
 msgstr "Temps de travail"
 
 msgid "Questionnaired2pdv93.chgmentsituationadmin"
-msgstr "Sortie \"changement administratif\""
+msgstr "Changement de situation administrative"
 
 msgid "Questionnaired2pdv93.modified"
 msgstr "Dernière modification"

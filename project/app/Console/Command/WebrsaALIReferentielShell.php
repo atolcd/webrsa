@@ -51,6 +51,14 @@
                 //On cherche les infos dans les enum
                 $model = ClassRegistry::init($sujet['modele_enum'] );
                 $enum = $model->enum($sujet['nom_enum']);
+                if($sujet['nom_enum'] == 'situationaccompagnement' && ucfirst($sujet['modele_enum']) == 'Questionnaired2pdv93'){
+                    unset($enum['abandon']);
+                } else if ($sujet['nom_enum'] == 'chgmentsituationadmin' && ucfirst($sujet['modele_enum']) == 'Questionnaired2pdv93'){
+                    unset($enum['modif_sitfam']);
+                    unset($enum['modif_situ_cjt']);
+                    unset($enum['radiation']);
+                }
+
 
                 //On récupère les valeurs déjà présentes dans la table
                 $codes_table = $this->getCodes($codes_actuels, $sujet['id']);

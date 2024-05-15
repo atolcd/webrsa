@@ -61,10 +61,10 @@ msgid "Search.Questionnaired2pdv93.situationaccompagnement"
 msgstr "Statut de l'accompagnement"
 
 msgid "Search.Questionnaired2pdv93.sortieaccompagnementd2pdv93_id"
-msgstr "Sortie de l'obligation d'accompagnement"
+msgstr "Sortie de l'accompagnement"
 
 msgid "Search.Questionnaired2pdv93.chgmentsituationadmin"
-msgstr "Sortie \"changement administratif\""
+msgstr "Changement de situation administrative"
 
 # Tableau de résultats
 

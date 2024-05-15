@@ -487,6 +487,11 @@
 			$params = $params + array( 'find' => false );
 
 			$options = $this->enums();
+			//on masque le choix abandon
+			unset($options['Questionnaired2pdv93']['situationaccompagnement']['abandon']);
+			unset($options['Questionnaired2pdv93']['chgmentsituationadmin']['modif_sitfam']);
+			unset($options['Questionnaired2pdv93']['chgmentsituationadmin']['modif_situ_cjt']);
+			unset($options['Questionnaired2pdv93']['chgmentsituationadmin']['radiation']);
 			if( Hash::get( $params, 'find' ) ) {
 				$options['Questionnaired2pdv93']['sortieaccompagnementd2pdv93_id'] = $this->Sortieaccompagnementd2pdv93->find(
 					'list',
