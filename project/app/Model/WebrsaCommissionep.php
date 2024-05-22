@@ -1020,6 +1020,9 @@
 						'',
 						'Orientstruct.date_valid',
 						'Historiqueetatpe.etat',
+						'Historiqueetatpe.date',
+						'Historiqueetatpe.code',
+						'Historiqueetatpe.motif',
 						'Adresse.nomcom',
 						'Passagecommissionep.impressionconvocation'
 					),
@@ -1358,20 +1361,20 @@
 					$query['fields'][] = 'Dossier.ideparte';
 
 
-					// Radiation Pôle Emploi ?
-					$query['fields'] = array_merge(
-						$query['fields'],
-						array(
-							'Radiationpe.date',
-							'Radiationpe.etat',
-							'Radiationpe.code',
-							'Radiationpe.motif'
-						)
-					);
-					$query['joins'][] = array_words_replace(
-						$this->Commissionep->Passagecommissionep->Dossierep->Nonrespectsanctionep93->join( 'Historiqueetatpe', array( 'type' => 'LEFT OUTER' ) ),
-						array( 'Historiqueetatpe' => 'Radiationpe' )
-					);
+					// // Radiation Pôle Emploi ?
+					// $query['fields'] = array_merge(
+					// 	$query['fields'],
+					// 	array(
+					// 		'Radiationpe.date',
+					// 		'Radiationpe.etat',
+					// 		'Radiationpe.code',
+					// 		'Radiationpe.motif'
+					// 	)
+					// );
+					// $query['joins'][] = array_words_replace(
+					// 	$this->Commissionep->Passagecommissionep->Dossierep->Nonrespectsanctionep93->join( 'Historiqueetatpe', array( 'type' => 'LEFT OUTER' ) ),
+					// 	array( 'Historiqueetatpe' => 'Radiationpe' )
+					// );
 
 					// Dernière relance
 					$query['fields'][] = "Relancenonrespectsanctionep93.dateimpression";
@@ -1916,14 +1919,23 @@
 
 				$dataFiche['Passageprecedent']['date'] = $passage_precedent['Commissionep']['dateseance'];
 				$dataFiche['Passageprecedent']['motif'] = __d('dossierep', "ENUM::THEMEEP::".$passage_precedent['Dossierep']['themeep']);
-				$dataFiche['Passageprecedent']['decision'] = __d('decisionreorientationep93', 'ENUM::DECISION::'.$decision_passage_precedent[$theme_passage_precedent]['decision']);
+				$dataFiche['Passageprecedent']['decision'] = __d('decisionsep93', 'ENUM::DECISION::'.$decision_passage_precedent[$theme_passage_precedent]['decision']);
 			}
 
 
+			if($dataFiche['Historiqueetatpe']['etat'] == 'inscription') {
+				$dataFiche['Historiqueetatpe']['inscritpe'] = 'Inscrit';
+			} else {
+				$dataFiche['Historiqueetatpe']['inscritpe'] = 'Non inscrit';
+			}
+
+			if($dataFiche['Historiqueetatpe']['etat'] == 'radiation') {
+				$dataFiche['Radiationpe']['date'] = $dataFiche['Historiqueetatpe']['date'];
+				$dataFiche['Radiationpe']['motif'] = $dataFiche['Historiqueetatpe']['motif'];
+			}
+
 
 			$dataFiche['Dossierep']['anonymiser'] = ( $anonymiser ? 1 : 0 );
-
-
 
 
 			$options = $this->getOptions( array( 'fiche' => true ) );
