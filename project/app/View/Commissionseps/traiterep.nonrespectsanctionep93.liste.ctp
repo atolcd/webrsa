@@ -18,6 +18,15 @@ echo '<table><thead>
 </thead><tbody>';
 	foreach( $dossiers[$theme]['liste'] as $i => $dossierep ) {
 
+		if(isset($dossierep['Passagecommissionep'][0]['Decisionnonrespectsanctionep93'][0]['decision'])){
+			if($dossierep['Passagecommissionep'][0]['Decisionnonrespectsanctionep93'][0]['decision'] == '2maintien') {
+				$dossierep['Passagecommissionep'][0]['Decisionnonrespectsanctionep93'][0]['decision'] = '1maintien';
+			}
+			if($dossierep['Passagecommissionep'][0]['Decisionnonrespectsanctionep93'][0]['decision'] == '2pasavis') {
+				$dossierep['Passagecommissionep'][0]['Decisionnonrespectsanctionep93'][0]['decision'] = '1pasavis';
+			}
+		}
+
 		$hiddenFields = $this->Form->input( "Decisionnonrespectsanctionep93.{$i}.id", array( 'type' => 'hidden' ) ).
 						$this->Form->input( "Decisionnonrespectsanctionep93.{$i}.passagecommissionep_id", array( 'type' => 'hidden' ) ).
 						$this->Form->input( "Decisionnonrespectsanctionep93.{$i}.etape", array( 'type' => 'hidden', 'value' => 'ep' ) ).
