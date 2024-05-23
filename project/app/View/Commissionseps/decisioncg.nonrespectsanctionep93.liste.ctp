@@ -54,10 +54,9 @@ echo '<table id="Decisionnonrespectsanctionep93" class="tooltips"><thead>
 				Set::enum( @$dossierep['Dossierep']['actif'], $options['Dossierep']['actif'] ),
 
 				Set::enum( @$decisionep['decision'], $options['Decisionnonrespectsanctionep93']['decision'] ),
-
 				@$options['Decisionnonrespectsanctionep93']['decisionpcg'][Set::classicExtract( $decisioncg, "decisionpcg" )],
 				array(
-					@$options['Decisionnonrespectsanctionep93']['decision'][Set::classicExtract( $decisioncg, "decision" )],
+					__d('decisionsep93', 'ENUM::DECISION::'.Set::classicExtract( $decisioncg, "decision" )),
 					array( 'id' => "Decisionnonrespectsanctionep93{$i}ColumnDecision", 'colspan' => 2 )
 				),
 				Set::classicExtract( $decisioncg, "commentaire" ),
