@@ -52,6 +52,7 @@
 		 */
 		public $components = array( 'Session', 'Jetons2' );
 
+
 		/**
 		 * Initialisation du component.
 		 *
@@ -91,12 +92,21 @@
 			$sessionKey = $this->sessionKey();
 			$jetons = (array)$this->Session->read( $sessionKey );
 
-			//Il ne faut supprimer que les jetons liés à l'utilisateur courant
 			unset( $jetons[$this->page] );
 
 			if( !empty( $jetons ) ) {
+				//utilisateur courant 
+				$user_id = $this->Session->read( 'Auth.User.id' );
+				$model_jeton = ClassRegistry::init('Jeton');
 				foreach( $jetons as $page => $dossiers_ids ) {
 					if( !empty( $dossiers_ids ) ) {
+						//Il ne faut supprimer que les jetons liés à l'utilisateur courant
+						//On recherche le user de chaque jeton
+						foreach($dossiers_ids as $key => $dossier){
+							if($model_jeton->findByDossierId($dossier, ['Jeton.user_id'])['Jeton']['user_id'] != $user_id){
+								unset($dossiers_ids[$key]);
+							}
+						}
 						$this->release( $dossiers_ids );
 						$this->Session->delete( "{$sessionKey}.{$page}" );
 					}
