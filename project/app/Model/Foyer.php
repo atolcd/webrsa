@@ -716,6 +716,7 @@
 						'Adresse.numcom LIKE' => Configure::read( 'Cg.departement' ).'%',
 						'Adressefoyer.rgadr' => '01',
 						"Adressefoyer.id IN ( {$sqDerniereRgadr01} )",
+						"Foyer.id" => $foyer_id,
 					)
 				]
 			);
