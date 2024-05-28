@@ -20,7 +20,7 @@ msgid "ENUM::SITUATIONACCOMPAGNEMENT::reorientation"
 msgstr "Ré-orientation"
 
 msgid "ENUM::SITUATIONACCOMPAGNEMENT::changement_situation"
-msgstr "Changements de situation administrative"
+msgstr "Changement de situation administrative"
 
 msgid "ENUM::SITUATIONACCOMPAGNEMENT::maintien"
 msgstr "Maintien dans l'accompagnement"
