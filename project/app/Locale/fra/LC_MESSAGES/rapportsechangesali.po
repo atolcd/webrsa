@@ -127,10 +127,10 @@ msgstr "Nombre de dossiers"
 msgid "PersonneEchangeALI.referentparcours"
 msgstr "Référent"
 
-msgid "Erreur.referent"
+msgid "Erreur.referentparcours"
 msgstr "Référent"
 
-msgid "Erreur.rdv"
+msgid "Erreur.rendezvous"
 msgstr "Rendez-vous"
 
 msgid "Erreur.cer"

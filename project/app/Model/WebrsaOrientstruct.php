@@ -176,9 +176,6 @@
 
 
 			$origine = Hash::get( $data, "{$this->Orientstruct->alias}.origine" );
-			if( empty( $origine ) ) {
-				$data[$this->Orientstruct->alias]['origine'] = 'manuelle';
-			}
 
 			// Orientstruct
 			$orientstruct = array( $this->Orientstruct->alias => (array)Hash::get( $data, $this->Orientstruct->alias ) );

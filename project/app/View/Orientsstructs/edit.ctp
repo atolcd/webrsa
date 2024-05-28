@@ -57,7 +57,7 @@
 	}
 
 	$fields = array(
-		'Orientstruct.origine' => ( $departement == 93 ? array( 'empty' => false, 'label' => __d ('orientstruct', 'Orientstruct.origine.externe') ) : array(  'label' =>  false, 'type' => 'hidden') ),
+		'Orientstruct.origine' => ( $departement == 93 ? array( 'value' => '', 'required' => true, 'empty' => true, 'label' => __d ('orientstruct', 'Orientstruct.origine.externe')) : array(  'label' =>  false, 'type' => 'hidden') ),
 		'Orientstruct.typeorient_id' => array( 'empty' => true ),
 		'Orientstruct.structurereferente_id' => array( 'empty' => true, 'label' => ( $departement == 93 ? 'Structure référente' : 'Type de structure' ) ),
 		'Orientstruct.referent_id' => array( 'empty' => true, 'required' => false, 'label' => 'Nom du référent' ),

@@ -104,6 +104,12 @@
 					'message' => 'Champ obligatoire',
 				)
 			),
+			'origine' => array(
+				'notEmptyIf' => array(
+					'rule' => array( 'notEmptyIf', 'statut_orient', true, array( 'Orienté' ) ),
+					'message' => 'Champ obligatoire',
+				)
+			),
 		);
 
 		public $belongsTo = array(

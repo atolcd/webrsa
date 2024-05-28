@@ -11,7 +11,7 @@ msgstr ""
 # ==============================================================================
 
 msgid "ENUM::SITUATIONACCOMPAGNEMENT::sortie_obligation"
-msgstr "Sortie de l'obligation d'accompagnement"
+msgstr "Sortie de l'accompagnement"
 
 msgid "ENUM::SITUATIONACCOMPAGNEMENT::abandon"
 msgstr "Abandon"
@@ -20,10 +20,13 @@ msgid "ENUM::SITUATIONACCOMPAGNEMENT::reorientation"
 msgstr "Ré-orientation"
 
 msgid "ENUM::SITUATIONACCOMPAGNEMENT::changement_situation"
-msgstr "Changements de situation"
+msgstr "Changement de situation administrative"
 
 msgid "ENUM::SITUATIONACCOMPAGNEMENT::maintien"
 msgstr "Maintien dans l'accompagnement"
+
+msgid "ENUM::SITUATIONACCOMPAGNEMENT::reorientation_ent_diag"
+msgstr "Ré-orientation suite à entretien de diagnostic"
 
 msgid "Dureeemploi.name"
 msgstr "Temps de travail"
@@ -37,13 +40,13 @@ msgid "ENUM::CHGMENTSITUATIONADMIN::modif_situ_cjt"
 msgstr "Changement de la situation du conjoint"
 
 msgid "ENUM::CHGMENTSITUATIONADMIN::modif_departement"
-msgstr "Changement de département"
+msgstr "Déménagement hors 93"
 
 msgid "ENUM::CHGMENTSITUATIONADMIN::modif_commune"
-msgstr "Changement de commune"
+msgstr "Déménagement intra 93"
 
 msgid "ENUM::CHGMENTSITUATIONADMIN::radiation"
 msgstr "Radiation"
 
 msgid "ENUM::CHGMENTSITUATIONADMIN::autres"
-msgstr "Autres"
+msgstr "Autres changements de situation (dont décès)"

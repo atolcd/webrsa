@@ -29,6 +29,7 @@
 		 */
 		public $components = array(
 			//'WebrsaAccesses'
+			'Paginator'
 		);
 
 		/**
@@ -39,6 +40,9 @@
 		public $helpers = array(
 			'Paginator',
 			'Default3' => array(
+				'className' => 'ConfigurableQuery.ConfigurableQueryDefault'
+			),
+			'Default' => array(
 				'className' => 'Default.DefaultDefault'
 			),
 			'Xform',
@@ -193,7 +197,10 @@
 
 		}
 
-		public function details($type, $rapport_id, $erreurs = false){
+		public function details($type, $rapport_id, $erreurs = false, $order = 'Personne.nom'){
+			$this->set(compact('rapport_id'));
+
+			$order = 'Personne.prenom';
 			$rapport = $this->RapportEchangeALI->find(
 				'first',
 				[
@@ -213,60 +220,7 @@
 			);
 
 			if (in_array($type, ['import', 'export'])){
-				if($erreurs == true){
-					$personnes = $this->paginate(
-						'PersonneEchangeALI',
-						[
-							'rapport_id' => $rapport_id,
-							'OR' => [
-								'referentparcours' => false,
-								'rendezvous' => false,
-								'dsp' => false,
-								'cer' => false,
-								'orient' => false,
-								'd1' => false,
-								'd2' => false,
-								'b7' => false,
-							]
-						],
-						['Personne.nom']
-					);
-				} else {
-					$personnes = $this->paginate( 'PersonneEchangeALI', ['rapport_id' => $rapport_id], ['Personne.nom']);
-				}
-				$blocs = [
-					'referentparcours' => 'referent',
-					'rendezvous' => 'rdv',
-					'dsp' => 'dsp',
-					'cer' => 'cer',
-					'orient' => 'orient',
-					'd1' => 'd1',
-					'd2' => 'd2',
-					'b7' => 'b7'
-				];
-				foreach($personnes as $key => $personne){
-					foreach($blocs as $colonne => $bloc){
-						if($personne['PersonneEchangeALI'][$colonne] === false){
-							$err = $this->ErreurEchangeALI->find(
-								'first', [
-									'conditions' => [
-										'rapport_id' => $rapport_id,
-										'personne_id' => $personne['Personne']['id'],
-										'bloc' => $bloc
-									]
-								]
-							)['ErreurEchangeALI']['code'];
-
-							$personnes[$key]['Erreur'][$bloc] = __m($err);
-						} else if($personne['PersonneEchangeALI'][$colonne] === null){
-							$personnes[$key]['Erreur'][$bloc] = '-';
-						} else {
-							$personnes[$key]['Erreur'][$bloc] = 'Ok';
-						}
-					}
-
-
-				}
+				$personnes = $this->recherchepersonnes($rapport_id, $erreurs, true);
 				$nbPersonnes = $this->PersonneEchangeALI->find('count', ['conditions' => ['rapport_id' => $rapport_id]]);
 				$nb_personnes_inconnues = $this->ErreurEchangeALI->find('count', ['conditions' => ['rapport_id' => $rapport_id, 'code' => 'personne_inconnue']]);
 			}
@@ -277,7 +231,115 @@
 				$titre = sprintf(__d('rapportsechangesali','titre_detail'), $rapport['RapportEchangeALI']['nom_fichier']);
 			}
 
-			$this->set(compact('rapport', 'personnes', 'nbPersonnes', 'erreursglobales', 'tab_erreurs', 'type', 'nb_personnes_inconnues', 'titre'));
+			$this->set(compact('rapport', 'personnes', 'nbPersonnes', 'erreursglobales', 'tab_erreurs', 'type', 'nb_personnes_inconnues', 'titre', 'erreurs'));
+		}
+
+		/**
+		 * Export CSV du Moteur de recherche
+		 */
+		public function exportcsv($rapport_id, $erreurs = false) {
+			//Récupérer les résultats en relancant la requête
+			$personnes = $this->recherchepersonnes($rapport_id, $erreurs, false);
+
+			$this->set('results', $personnes);
+			$this->set('options', []);
+			$this->view = '/Elements/ConfigurableQuery/exportcsv';
+			$this->layout = null;
+		}
+
+		public function recherchepersonnes($rapport_id, $erreurs, $pagination){
+			if($erreurs == true){
+				$tab1 = [
+					'conditions' => [
+						'rapport_id' => $rapport_id,
+						'OR' => [
+							'referentparcours' => false,
+							'rendezvous' => false,
+							'dsp' => false,
+							'cer' => false,
+							'orient' => false,
+							'd1' => false,
+							'd2' => false,
+							'b7' => false,
+						]
+					],
+					'joins' => [
+						[
+							'alias' => 'Personne',
+							'table' => 'public.personnes',
+							'type' => 'INNER',
+							'conditions' => 'Personne.id = PersonneEchangeALI.personne_id'
+						]
+
+					]
+				];
+				if($pagination){
+					$this->Paginator->settings = $tab1;
+					$personnes = $this->Paginator->paginate('PersonneEchangeALI');
+				} else {
+					$query = $tab1;
+					$personnes = $this->PersonneEchangeALI->find('all', $query);
+				}
+			} else {
+				$tab2 = [
+					'conditions' => [
+						'rapport_id' => $rapport_id,
+					],
+					'joins' => [
+						[
+							'alias' => 'Personne',
+							'table' => 'public.personnes',
+							'type' => 'INNER',
+							'conditions' => 'Personne.id = PersonneEchangeALI.personne_id'
+						]
+
+					],
+					'sort' => 'Personne.nom',
+					'direction' => 'asc'
+				];
+				if($pagination){
+					$this->Paginator->settings = $tab2;
+					$personnes = $this->Paginator->paginate( 'PersonneEchangeALI');
+				} else {
+					$query = $tab2;
+					$personnes = $this->PersonneEchangeALI->find('all', $query);
+				}
+			}
+			$blocs = [
+				'referentparcours' => 'referent',
+				'rendezvous' => 'rdv',
+				'dsp' => 'dsp',
+				'cer' => 'cer',
+				'orient' => 'orient',
+				'd1' => 'd1',
+				'd2' => 'd2',
+				'b7' => 'b7'
+			];
+
+			foreach($personnes as $key => $personne){
+				foreach($blocs as $colonne => $bloc){
+					if($personne['PersonneEchangeALI'][$colonne] === false){
+						$err = $this->ErreurEchangeALI->find(
+							'first', [
+								'conditions' => [
+									'rapport_id' => $rapport_id,
+									'personne_id' => $personne['Personne']['id'],
+									'bloc' => $bloc
+								]
+							]
+						)['ErreurEchangeALI']['code'];
+
+						$personnes[$key]['Erreur'][$colonne] = __m($err);
+					} else if($personne['PersonneEchangeALI'][$colonne] === null){
+						$personnes[$key]['Erreur'][$colonne] = '-';
+					} else {
+						$personnes[$key]['Erreur'][$colonne] = 'Ok';
+					}
+				}
+			}
+
+			return $personnes;
+
 		}
 	}
 ?>
