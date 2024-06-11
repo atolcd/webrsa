@@ -17,7 +17,7 @@ msgid "ENUM::SITUATIONACCOMPAGNEMENT::abandon"
 msgstr "Abandon"
 
 msgid "ENUM::SITUATIONACCOMPAGNEMENT::reorientation"
-msgstr "Ré-orientation"
+msgstr "Ré-orientation suite à ICLI"
 
 msgid "ENUM::SITUATIONACCOMPAGNEMENT::changement_situation"
 msgstr "Changement de situation administrative"

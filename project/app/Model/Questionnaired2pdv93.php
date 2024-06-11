@@ -511,6 +511,15 @@
 				);
 			}
 
+			//On trie les situation accompagnement
+			$options['Questionnaired2pdv93']['situationaccompagnement'] = [
+				'maintien' => __d('questionnaired2pdv93', 'ENUM::SITUATIONACCOMPAGNEMENT::maintien'),
+				'sortie_obligation' => __d('questionnaired2pdv93', 'ENUM::SITUATIONACCOMPAGNEMENT::sortie_obligation'),
+				'changement_situation' => __d('questionnaired2pdv93', 'ENUM::SITUATIONACCOMPAGNEMENT::changement_situation'),
+				'reorientation' => __d('questionnaired2pdv93', 'ENUM::SITUATIONACCOMPAGNEMENT::reorientation'),
+				'reorientation_ent_diag' => __d('questionnaired2pdv93', 'ENUM::SITUATIONACCOMPAGNEMENT::reorientation_ent_diag')
+			];
+
 			return $options;
 		}
 
