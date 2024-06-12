@@ -587,11 +587,15 @@
 					'Dossierep.actif' => '1',
 					'Dossierep.personne_id' => $personne_id,
 					'Dossierep.themeep' => $themes,
-					'Passagecommissionep.id IS NULL'
+					'Dossierep.id NOT IN (select dossierep_id  from passagescommissionseps p where etatdossierep <> \'reporte\')'
 				),
 				'joins' => [
 					$this->join('Passagecommissionep'),
-				]
+				],
+				'order' => [
+					'Dossierep.id' => 'DESC'
+				],
+				'limit' => '1'
 			);
 		}
 
