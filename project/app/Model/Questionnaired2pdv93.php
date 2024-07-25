@@ -507,6 +507,7 @@
 						'conditions' => array (
 							'Sortieaccompagnementd2pdv93.actif' => 1
 						),
+						'order' => ['Sortieaccompagnementd2pdv93.name' => 'asc']
 					)
 				);
 			}
