@@ -34,6 +34,9 @@ msgstr "Délai supplémentaire d'1 mois"
 msgid "ENUM::DECISION::2maintien"
 msgstr "Maintien"
 
+msgid "ENUM::DECISION::maintienreorientation"
+msgstr "Maintien et Réorientation"
+
 msgid "ENUM::DECISION::2suspensiontotale"
 msgstr "Suspension totale"
 

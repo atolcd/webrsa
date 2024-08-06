@@ -43,6 +43,9 @@ msgstr "Suspension partielle"
 msgid "ENUM::DECISION::2pasavis"
 msgstr "Pas d'avis"
 
+msgid "ENUM::DECISION::maintienreorientation"
+msgstr "Maintien et Réorientation"
+
 msgid "ENUM::DECISION::annule"
 msgstr "Remobilisation"
 
