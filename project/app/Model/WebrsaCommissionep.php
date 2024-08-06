@@ -1888,15 +1888,15 @@
 					],
 					'conditions' => [
 						"Commissionep.id <> $commissionep_id",
-						"Dossierep.id <> $dossierep_id",
-						"Dossierep.personne_id" => "{$dataFiche['Personne']['id']}"
+						"Dossierep.personne_id" => "{$dataFiche['Personne']['id']}",
+						"Commissionep.dateseance <= '{$dataFiche['Commissionep']['dateseance']}'"
 					],
 					'order' => [
-						'Commissionep.dateseance' => 'desc'
+						'Commissionep.dateseance' => 'desc',
+						'Passagecommissionep.id' => 'desc'
 					]
 				]
 			);
-
 
 			if(!empty($passage_precedent)){
 
