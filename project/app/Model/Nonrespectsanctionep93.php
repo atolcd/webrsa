@@ -955,10 +955,13 @@
 			else if( $decision == '1reduction' ) {
 				if( in_array( $origine, array( 'orientstruct', 'contratinsertion' ) ) ) {
 					if( $origine == 'orientstruct' ) {
-						$emploi = preg_match( '/Emploi/i', $gedooo_data['Orientstruct']['Typeorient']['lib_type_orient'] );
+						//Modifier ici avec l'id de Pole Emploi => en variable de conf
+						// $emploi = preg_match( '/Emploi/i', $gedooo_data['Orientstruct']['Typeorient']['lib_type_orient'] );
+						$emploi = (Configure::read('Typeorient.emploi_id') == $gedooo_data['Orientstruct']['Typeorient']['id']) ? true : false;
 					}
 					else {
-						$emploi = preg_match( '/Emploi/i', $gedooo_data['Contratinsertion']['Structurereferente']['Typeorient']['lib_type_orient'] );
+						// $emploi = preg_match( '/Emploi/i', $gedooo_data['Contratinsertion']['Structurereferente']['Typeorient']['lib_type_orient'] );
+						$emploi = (Configure::read('Typeorient.emploi_id') == $gedooo_data['Contratinsertion']['Structurereferente']['Typeorient']['id']) ? true : false;
 					}
 					if( $emploi ) {
 						$modeleOdt = "{$this->alias}/decision_reduction_ppae.odt";
