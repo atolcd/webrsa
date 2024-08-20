@@ -40,6 +40,10 @@ echo '<table id="Decisionnonrespectsanctionep93" class="tooltips"><thead>
 			</tbody>
 		</table>";
 
+		$cellule_decision = '';
+		if(Set::classicExtract( $decisioncg, "decision" ) != ''){
+			$cellule_decision = __d('decisionsep93', 'ENUM::DECISION::'.Set::classicExtract( $decisioncg, "decision" ));
+		}
 		echo $this->Xhtml->tableCells(
 			array(
 				implode( ' ', array( $dossierep['Personne']['qual'], $dossierep['Personne']['nom'], $dossierep['Personne']['prenom'] ) ),
@@ -56,7 +60,7 @@ echo '<table id="Decisionnonrespectsanctionep93" class="tooltips"><thead>
 				Set::enum( @$decisionep['decision'], $options['Decisionnonrespectsanctionep93']['decision'] ),
 				@$options['Decisionnonrespectsanctionep93']['decisionpcg'][Set::classicExtract( $decisioncg, "decisionpcg" )],
 				array(
-					__d('decisionsep93', 'ENUM::DECISION::'.Set::classicExtract( $decisioncg, "decision" )),
+					$cellule_decision,
 					array( 'id' => "Decisionnonrespectsanctionep93{$i}ColumnDecision", 'colspan' => 2 )
 				),
 				Set::classicExtract( $decisioncg, "commentaire" ),
