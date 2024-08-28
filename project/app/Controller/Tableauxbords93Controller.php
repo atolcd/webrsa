@@ -114,13 +114,9 @@
 					$params['numcom'] = "'".implode('\',\'', $liste_ids)."'";
 				}
 
-				if($data['annee_trimestre'] = 'ajd'){
-					$params['date'] = strval(date("Y-m-d"));
-					//On lance la requête pour le jour J
-					$resultats = $this->requeteTableau2($params);
-				} else {
-					//On récupère dans l'historique
-				}
+				$params['date'] = $data['Search']['annee_trimestre'];
+				//On lance la requête
+				$resultats = $this->requeteTableau2($params);
 
 				$this->set('resultats', $resultats[0][0]);
 				$this->set(compact('params'));
@@ -133,6 +129,12 @@
 			[
 				'ajd' => 'Aujourd\'hui'
 			];
+			$trimestres_historises = $this->Personne->query(
+				"select distinct trimestre, annee from tdb2_histo_corpus thc order by annee desc, trimestre desc;"
+			);
+			foreach($trimestres_historises as $trimestre){
+				$options['annee_trimestre'][$trimestre[0]['annee'].'_'.$trimestre[0]['trimestre']] = $trimestre[0]['annee'].' - Trimestre '.$trimestre[0]['trimestre'];
+			}
 
 			//Villes
 			$options['numcom'] = $this->Zonegeographique->listeCodesInseeLocalites([], false);
@@ -145,17 +147,23 @@
         }
 
 		/*
-		 Instantanne ; si true alors on se base sur la date du jour
 		 Calculs : si true on récupère les stats, sinon le corpus
 		*/
-		public function requeteTableau2($params, $instantanne = true, $calculs = true){
+		public function requeteTableau2($params, $calculs = true){
 
 			//Variables de la requête
 			//Date du jour
-			$date_du_jour = $params['date'];
-			//Année
-			//TODO A modifier en cas de récupération d'historique
-			$annee = strval(date("Y"));
+			if($params['date'] == 'ajd'){
+				$instantanne = true;
+				$date_du_jour = strval(date("Y-m-d"));
+				$annee = strval(date("Y"));
+			} else {
+				$instantanne = false;
+				$tab = explode('_', $params['date']);
+				$annee = $tab[0];
+				$trimestre = $tab[1];
+			}
+
 			//Id Structure referente
 			$id_structure = $params['structure'];
 			//Id Référent de parcours
@@ -165,17 +173,29 @@
 
 
 			if($instantanne && $calculs) {
-
-				$query_sql = $this->__sql_tab2_instant_calculs($date_du_jour, $annee, $id_structure, $id_referent, $liste_communes);
+				$query_sql = $this->sql_tab2_calculs(true, $date_du_jour, $annee, $id_structure, $id_referent, $liste_communes, null);
 			} else if ($instantanne && !$calculs) {
-				$query_sql = $this->__sql_tab2_instant_corpus($date_du_jour, $annee, $id_structure, $id_referent, $liste_communes);
+				$query_sql = $this->sql_tab2_corpus(true, $date_du_jour, $annee, $id_structure, $id_referent, $liste_communes, null);
+			} else if (!$instantanne && $calculs){
+				$query_sql = $this->sql_tab2_calculs(false, null, $annee, $id_structure, $id_referent, $liste_communes, $trimestre);
+			} else {
+				$query_sql = $this->sql_tab2_corpus(false, null, $annee, $id_structure, $id_referent, $liste_communes, $trimestre);
 			}
 
 			return $this->Personne->query($query_sql);
 
 		}
 
-		private function __sql_tab2_instant_base($date_du_jour, $annee, $id_structure, $id_referent, $liste_communes){
+		public function sql_tab2_histo_base($trimestre, $annee, $id_structure){
+			return
+			"
+			with corpus as (
+				select * from tdb2_histo_corpus where annee = $annee and trimestre = $trimestre and structure_referente = $id_structure
+			)
+			";
+		}
+
+		public function sql_tab2_instant_base($date_du_jour, $annee, $id_structure){
 			$statut_rdv_honore = '1';
 			$statut_rdv_prevu = '2';
 			$type_rdv_indiv = '15';
@@ -519,6 +539,32 @@
 				where r.statutrdv_id = {$statut_rdv_prevu}
 				group by oda.personne_id
 			),
+			rdv_30_jours AS
+			(
+				select
+				case when count(rdv.id) = 0 then true else false end as pas_rdv_30j,
+				oda.personne_id
+				from orient_dans_annee oda left join rendezvous rdv on rdv.personne_id = oda.personne_id
+				and rdv.structurereferente_id = {$id_structure}
+				and rdv.statutrdv_id in ({$statut_rdv_prevu}, {$statut_rdv_honore})
+				and rdv.typerdv_id = {$type_rdv_indiv}
+				and rdv.daterdv > (date '{$date_du_jour}' - interval '30' day)
+				and rdv.daterdv < (date '{$date_du_jour}' + interval '30' day)
+				group by oda.personne_id
+			),
+			rdv_60_jours AS
+			(
+				select
+				case when count(rdv.id) = 0 then true else false end as pas_rdv_60j,
+				oda.personne_id
+				from orient_dans_annee oda left join rendezvous rdv on rdv.personne_id = oda.personne_id
+				and rdv.structurereferente_id = {$id_structure}
+				and rdv.statutrdv_id in ({$statut_rdv_prevu}, {$statut_rdv_honore})
+				and rdv.typerdv_id = {$type_rdv_indiv}
+				and rdv.daterdv > (date '{$date_du_jour}' - interval '60' day)
+				and rdv.daterdv < (date '{$date_du_jour}' + interval '60' day)
+				group by oda.personne_id
+			),
 			corpus AS (
 			select
 			--identifiants
@@ -632,7 +678,9 @@
 			--TODO vérifier si le dernier cer est terminé ou non et si un nouveau est prévu
 			case when dercer.id is null or dercer.df_ci < '{$date_du_jour}' then true else false end as pas_cer_signe ,
 			case when cvad.cer_valide_a_date is true then true else false end as cer_valide_a_date,
-			case when rpts.rdv_prevu_toutes_structures is true then true else false end as rdv_prevu_toutes_structures
+			case when rpts.rdv_prevu_toutes_structures is true then true else false end as rdv_prevu_toutes_structures,
+			r30j.pas_rdv_30j,
+			r60j.pas_rdv_60j
 			from orient_dans_annee oda
 			join personnes p on p.id = oda.personne_id
 			join foyers f on f.id = p.foyer_id 
@@ -661,12 +709,14 @@
 			left join dernier_cer_valide_cd dcerv on dcerv.personne_id = p.id
 			left join dernier_cer dercer on dercer.personne_id = p.id
 			left join rdv_prevu_toutes_structures rpts on rpts.personne_id = p.id
+			left join rdv_30_jours r30j on r30j.personne_id = p.id
+			left join rdv_60_jours r60j on r60j.personne_id = p.id
 			)";
 		}
 
 
 
-		private function __sql_tab2_instant_calculs($date_du_jour, $annee, $id_structure, $id_referent, $liste_communes){
+		public function sql_tab2_calculs($instant, $date_du_jour, $annee, $id_structure, $id_referent, $liste_communes, $trimestre){
 
 			$where = "true";
 			if(!empty($id_referent)){
@@ -676,7 +726,11 @@
 				$where .= " and numcom in ({$liste_communes})";
 			}
 
-			$base = $this->__sql_tab2_instant_base($date_du_jour, $annee, $id_structure, $id_referent, $liste_communes);
+			if($instant){
+				$base = $this->sql_tab2_instant_base($date_du_jour, $annee, $id_structure);
+			} else {
+				$base = $this->sql_tab2_histo_base($trimestre, $annee, $id_structure);
+			}
 
 			return
 			$base."
@@ -724,60 +778,32 @@
 			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (nb_rdv_indiv >= 4 and cer_struct_valide)) as C7_D
 			--Pilotage
 			-- pas de rdv indiv prevu ou honore depuis + ou - 30 jours
-			,count(*) filter (where
-				(date_drip < (date '{$date_du_jour}' - interval '30' day) 
-				or date_drip > (date '{$date_du_jour}' + interval '30' day))
-				and (date_drih < (date '{$date_du_jour}' - interval '30' day) 
-				or date_drih > (date '{$date_du_jour}' + interval '30' day))
-			) as P1_A
+			,count(*) filter (where	pas_rdv_30j) as P1_A
 			,count(*) filter (where
 				(nveau_orient IS true) and
-				((date_drip < (date '{$date_du_jour}' - interval '30' day) 
-				or date_drip > (date '{$date_du_jour}' + interval '30' day))
-				and (date_drih < (date '{$date_du_jour}' - interval '30' day) 
-				or date_drih > (date '{$date_du_jour}' + interval '30' day)))
+				(pas_rdv_30j)
 			) as P1_B
 			,count(*) filter (where
-				(toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and 
-				((date_drip < (date '{$date_du_jour}' - interval '30' day) 
-				or date_drip > (date '{$date_du_jour}' + interval '30' day))
-				and (date_drih < (date '{$date_du_jour}' - interval '30' day) 
-				or date_drih > (date '{$date_du_jour}' + interval '30' day)))
+				(toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and
+				(pas_rdv_30j)
 			) as P1_C
 			,count(*) filter (where
 				(toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and
-				((date_drip < (date '{$date_du_jour}' - interval '30' day) 
-				or date_drip > (date '{$date_du_jour}' + interval '30' day))
-				and (date_drih < (date '{$date_du_jour}' - interval '30' day) 
-				or date_drih > (date '{$date_du_jour}' + interval '30' day)))
+				(pas_rdv_30j)
 			) as P1_D
 			-- pas de rdv indiv prevu ou honore depuis + ou - 60 jours
-			,count(*) filter (where
-				(date_drip < (date '{$date_du_jour}' - interval '60' day) 
-				or date_drip > (date '{$date_du_jour}' + interval '60' day))
-				and (date_drih < (date '{$date_du_jour}' - interval '60' day) 
-				or date_drih > (date '{$date_du_jour}' + interval '60' day))
-			) as P2_A
+			,count(*) filter (where pas_rdv_60j) as P2_A
 			,count(*) filter (where
 				(nveau_orient IS true) and
-				((date_drip < (date '{$date_du_jour}' - interval '60' day) 
-				or date_drip > (date '{$date_du_jour}' + interval '60' day)) 
-				and (date_drih < (date '{$date_du_jour}' - interval '60' day) 
-				or date_drih > (date '{$date_du_jour}' + interval '60' day)))
+				(pas_rdv_60j)
 			) as P2_B
 			,count(*) filter (where
-				(toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and 
-				((date_drip < (date '{$date_du_jour}' - interval '60' day) 
-				or date_drip > (date '{$date_du_jour}' + interval '60' day))
-				and (date_drih < (date '{$date_du_jour}' - interval '60' day) 
-				or date_drih > (date '{$date_du_jour}' + interval '60' day)))
+				(toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and
+				(pas_rdv_60j)
 			) as P2_C
 			,count(*) filter (where
 				(toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and
-				((date_drip < (date '{$date_du_jour}' - interval '60' day) 
-				or date_drip > (date '{$date_du_jour}' + interval '60' day))
-				and (date_drih < (date '{$date_du_jour}' - interval '60' day) 
-				or date_drih > (date '{$date_du_jour}' + interval '60' day)))
+				(pas_rdv_60j)
 			) as P2_D
 			--rdv prévu dans le passé
 			,count(*) filter (where rdv_prevu_passe) as P3_A
@@ -814,7 +840,7 @@
 			";
 		}
 
-		private function __sql_tab2_instant_corpus($date_du_jour, $annee, $id_structure, $id_referent, $liste_communes){
+		public function sql_tab2_corpus($instant, $date_du_jour, $annee, $id_structure, $id_referent, $liste_communes, $trimestre){
 
 			$where = "true";
 			if(!empty($id_referent)){
@@ -824,21 +850,17 @@
 				$where .= " and numcom in ({$liste_communes})";
 			}
 
-			$base = $this->__sql_tab2_instant_base($date_du_jour, $annee, $id_structure, $id_referent, $liste_communes);
+			if($instant){
+				$base = $this->sql_tab2_instant_base($date_du_jour, $annee, $id_structure);
+			} else {
+				$base = $this->sql_tab2_histo_base($trimestre, $annee, $id_structure);
+			}
 
 			return
 			$base."
-			select 
+			select
 			*,
 			date_drih is not null and dsp_vide as rdv_sans_dsp,
-			(date_drip < (date '$date_du_jour' - interval '30' day)
-				or date_drip > (date '$date_du_jour' + interval '30' day))
-				and (date_drih < (date '$date_du_jour' - interval '30' day)
-			or date_drih > (date '$date_du_jour' + interval '30' day)) as pas_rdv_30j,
-			(date_drip < (date '$date_du_jour' - interval '60' day)
-				or date_drip > (date '$date_du_jour' + interval '60' day))
-				and (date_drih < (date '$date_du_jour' - interval '60' day)
-			or date_drih > (date '$date_du_jour' + interval '60' day)) as pas_rdv_60j,
 			date_drch is not NULL AND date_drih is null as rdv_coll_sans_indiv,
 			date_drih is not null and extract(year from date_drih) = '$annee' and d1_existant is false as rdv_sans_d1,
 			date_drih is not null and cer_valide_a_date is false as rdv_sans_cer,
@@ -912,11 +934,9 @@
 			$params['numcom']    = isset($this->request->query['numcom'])    ? $this->request->query['numcom']    : null;
 			$params['date']    = isset($this->request->query['date'])        ? $this->request->query['date']    : null;
 
-			$donnees = $this->requeteTableau2($params, true, false);
+			$donnees = $this->requeteTableau2($params, false);
 
-			// debug($donnees);
-
-			$colonnes = $this->__colonnes_export_corpus_tdb2();
+			$colonnes = $this->colonnes_export_corpus_tdb2();
 			$export = array ();
 			$i = 0;
 
@@ -954,7 +974,7 @@
 		}
 
 
-		private function __colonnes_export_corpus_tdb2(){
+		public function colonnes_export_corpus_tdb2(){
 
 			//TODO V2: factoriser la base commune si possible avec tdb1
 			return [
@@ -1053,4 +1073,5 @@
 				__d('tableauxbords93', 'Corpus.colonne.pas_cer_pas_rdv') => 'pas_cer_pas_rdv',
 			];
 		}
+
     }
