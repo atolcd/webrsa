@@ -895,19 +895,10 @@
 			$params['numcom']    = isset($this->request->query['numcom'])    ? $this->request->query['numcom']    : null;
 			$params['date']    = isset($this->request->query['date'])        ? $this->request->query['date']    : null;
 
-
 			$donnees = $this->requeteTableau2($params)[0][0];
 
 			$export = array ();
 			$i = 0;
-
-			// Total et titres
-			$export[$i++] = [__d('tableauxbords93', '/Tableauxbords93/tableau2/:heading')];
-			$export[$i++] = ['Date de l\'export', $params['date']];
-			$export[$i++] = [''];
-			$export[$i++] = [''];
-
-
 
 			$export[$i++] = ['', __d('tableauxbords93', 'Tableau2.titre.colonneA'), __d('tableauxbords93', 'Tableau2.titre.colonneB'), __d('tableauxbords93', 'Tableau2.titre.colonneC'), __d('tableauxbords93', 'Tableau2.titre.colonneD')];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.t'), $donnees['t_a'], $donnees['t_b'], $donnees['t_c'], $donnees['t_d']];
@@ -928,10 +919,6 @@
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.p6'), $donnees['p6_a'], $donnees['p6_b'], $donnees['p6_c'], $donnees['p6_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.p7'), $donnees['p7_a'], $donnees['p7_b'], $donnees['p7_c'], $donnees['p7_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.p8'), $donnees['p8_a'], $donnees['p8_b'], $donnees['p8_c'], $donnees['p8_d']];
-
-
-
-
 
 			$this->set('export', $export);
 			$this->set('options', []);
@@ -954,12 +941,6 @@
 			$colonnes = $this->colonnes_export_corpus_tdb2();
 			$export = array ();
 			$i = 0;
-
-			// Titre et date
-			$export[$i++] = [__d('tableauxbords93', '/Tableauxbords93/tableau2/:heading')];
-			$export[$i++] = ['Date de l\'export', $params['date']];
-			$export[$i++] = [''];
-			$export[$i++] = [''];
 
 			//Noms colonnes
 			$export[$i++] = array_keys($colonnes);

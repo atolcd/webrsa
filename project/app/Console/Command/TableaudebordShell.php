@@ -97,7 +97,6 @@
 
 			//Pour chaque structure, on récupère les infos du corpus et on enregistre dans la table tdb2_histo_corpus
 			foreach($structures as $id_structure => $libelle){
-				debug($id_structure);
 				//On récupère les données du corpus
 				$query_corpus = $tdb->sql_tab2_corpus(true, $date_du_jour, $annee, $id_structure, null, null, null);
 				$donnees_corpus = $this->Personne->query($query_corpus);
@@ -109,7 +108,6 @@
 					$data['trimestre'] = $trimestre;
 					$data['structure_referente'] = $id_structure;
 					$saved = $this->Tdb2HistoCorpus->save($data);
-					debug($saved);
 					$this->Tdb2HistoCorpus->clear();
 				}
 			}
