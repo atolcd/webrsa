@@ -24,6 +24,21 @@
 		public $name = 'Tableauxbords93';
 
 		/**
+		 * Utilise les droits d'un autre Controller:action
+		 * sur une action en particulier
+		 *
+		 * @var array
+		 */
+		public $commeDroit = array(
+			'colonnes_export_corpus_tdb2' => 'Tableauxbords93:exportcsv_tableau2_corpus',
+			'requeteTableau2' => 'Tableauxbords93:tableau2',
+			'sql_tab2_calculs' => 'Tableauxbords93:tableau2',
+			'sql_tab2_corpus' => 'Tableauxbords93:tableau2',
+			'sql_tab2_histo_base' => 'Tableauxbords93:tableau2',
+			'sql_tab2_instant_base' => 'Tableauxbords93:tableau2',
+		);
+
+		/**
 		 * Components utilisés.
 		 *
 		 * @var array
