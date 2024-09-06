@@ -120,7 +120,6 @@
 			if(!empty( $this->request->data)){
 				//On traite le formulaire et récupère les données
 				$data = $this->request->data;
-				// debug($data);
 				$params['structure'] = $data['Search']['structure'];
 				$params['referent'] = isset($data['Search']['referent']) ? substr($data['Search']['referent'], strpos($data['Search']['referent'], "_") + 1) : null;
 				$params['numcom'] = null;
@@ -314,7 +313,6 @@
 				from orientsstructs o join orient_dans_annee oda on oda.personne_id = o.personne_id
 				where o.statut_orient = 'Orienté'
 				and o.structurereferente_id = {$id_structure}
-			--	and o.structureorientante_id = {$id_structure}
 				and o.origine <> 'entdiag'
 				group by o.personne_id
 			),
@@ -365,6 +363,8 @@
 				join typesorients t on o.typeorient_id = t.id
 				join structuresreferentes s on s.id = o.structurereferente_id
 				join structuresreferentes s2 on s2.id = o.structureorientante_id
+				left join derniere_orient_hors_diag dohd on dohd.personne_id = o.personne_id
+				where dohd.date_valid < o.date_valid
 			),
 			nombre_rdv as 
 			(
@@ -594,6 +594,7 @@
 			p.nomnai as nom_naissance,
 			p.prenom as prenom,
 			p.dtnai as date_naissance,
+			( EXTRACT ( YEAR FROM AGE(p.dtnai) ) ) as age,
 			--contact
 			adr.numvoie as numvoie,
 			adr.libtypevoie as libtypevoie,
@@ -867,9 +868,12 @@
 
 			if($instant){
 				$base = $this->sql_tab2_instant_base($date_du_jour, $annee, $id_structure);
+				$date_export = $date_du_jour;
 			} else {
 				$base = $this->sql_tab2_histo_base($trimestre, $annee, $id_structure);
+				$date_export = $trimestre;
 			}
+
 
 			return
 			$base."
@@ -879,7 +883,9 @@
 			date_drch is not NULL AND date_drih is null as rdv_coll_sans_indiv,
 			date_drih is not null and extract(year from date_drih) = '$annee' and d1_existant is false as rdv_sans_d1,
 			date_drih is not null and cer_valide_a_date is false as rdv_sans_cer,
-			cer_valide_a_date is FALSE and rdv_prevu_toutes_structures is false and pas_cer_signe is true as pas_cer_pas_rdv
+			cer_valide_a_date is FALSE and rdv_prevu_toutes_structures is false and pas_cer_signe is true as pas_cer_pas_rdv,
+			$annee as annee_export,
+			'$date_export' as date_export
 			FROM corpus
 			where {$where}
 			";
@@ -938,16 +944,26 @@
 
 			$donnees = $this->requeteTableau2($params, false);
 
+			//On calcule les catégories d'âge et d'ancienneté
+			$donnees = $this->calculCategories($donnees, $params['date']);
+
 			$colonnes = $this->colonnes_export_corpus_tdb2();
+			$nom_colonne_date_export = $params['date'] == 'ajd' ? 'Date de l\'export' : 'Trimestre de l\'export';
 			$export = array ();
 			$i = 0;
 
 			//Noms colonnes
-			$export[$i++] = array_keys($colonnes);
+			$export[$i++] = array_merge(
+				[
+					'Année de l\'export',
+					$nom_colonne_date_export
+				],
+				array_keys($colonnes)
+			);
 			foreach($donnees as $personne){
 				$personne = $personne[0];
-				// debug($personne);
-				$ligne = [];
+
+				$ligne = [$personne['annee_export'], $personne['date_export']];
 				foreach(array_values($colonnes) as $champ){
 					$valeur = isset($personne[$champ]) ? $personne[$champ] : '';
 					if(isset(self::LISTE_ENUMS[$champ])){
@@ -1003,9 +1019,8 @@
 				__d('tableauxbords93', 'Corpus.colonne.statutpe') => 'statutpe',
 				//socio demo
 				__d('tableauxbords93', 'Corpus.colonne.nivetu') => 'nivetu',
-					/* TODO : rajouter les catégories d'age et d'ancienneté
-					* en attente du CD93
-					*/
+				__d('tableauxbords93', 'Corpus.colonne.cat_age') => 'cat_age',
+				__d('tableauxbords93', 'Corpus.colonne.cat_anciennete') => 'cat_anciennete',
 				__d('tableauxbords93', 'Corpus.colonne.sexe') => 'sexe',
 				//referent de parcours
 				__d('tableauxbords93', 'Corpus.colonne.nom_ref') => 'nom_ref',
@@ -1027,8 +1042,8 @@
 				//derniere orient diag
 				__d('tableauxbords93', 'Corpus.colonne.dod_origine') => 'dod_origine',
 				__d('tableauxbords93', 'Corpus.colonne.dod_structureorientante') => 'dod_structureorientante',
-				//TODO : date dernier rdv -> a eclaircir
-				// __d('tableauxbords93', 'Corpus.colonne.dod_date_dernier_rdv') => 'dod_date_dernier_rdv',
+				__d('tableauxbords93', 'Corpus.colonne.dod_structurereferente') => 'dod_structurereferente',
+				__d('tableauxbords93', 'Corpus.colonne.date_drih') => 'date_drih',
 				__d('tableauxbords93', 'Corpus.colonne.dod_rgorient') => 'dod_rgorient',
 				__d('tableauxbords93', 'Corpus.colonne.dod_type') => 'dod_type',
 				//rdv et dsp
@@ -1068,6 +1083,98 @@
 				__d('tableauxbords93', 'Corpus.colonne.rdv_sans_cer') => 'rdv_sans_cer',
 				__d('tableauxbords93', 'Corpus.colonne.pas_cer_pas_rdv') => 'pas_cer_pas_rdv',
 			];
+		}
+
+		public function calculCategories($donnees, $date_jour){
+			
+			$date_jour = new DateTime($this->getDateFromParameter($date_jour));
+
+			foreach($donnees as $key => $personne){
+				$cat_age = '';
+				$cat_anciennete = '';
+				$age = $personne[0]['age'];
+				$date_demande = new DateTime($personne[0]['datedemrsa']);
+				$anciennete = $date_demande->diff($date_jour);
+
+				switch (true){
+					case $age < 25 :
+						$cat_age = "<25 ans";
+						break;
+					case $age >= 25 && $age < 30:
+						$cat_age = "25-29 ans";
+						break;
+					case $age >= 30 && $age < 40:
+						$cat_age = "30-39 ans";
+						break;
+					case $age >= 40 && $age < 50:
+						$cat_age = "40-49 ans";
+						break;
+					case $age >= 50 && $age < 60:
+						$cat_age = "50-59 ans";
+						break;
+					case $age >= 60 :
+						$cat_age = ">=60 ans";
+						break;
+				}
+
+				switch (true){
+					case $anciennete->y == 0 :
+						$cat_anciennete = 'Moins d\'un an';
+						break;
+					case $anciennete->y == 1 :
+						$cat_anciennete = 'Plus d\'un an et moins de 2 ans';
+						break;
+					case $anciennete->y >=2 && $anciennete->y <5 :
+						$cat_anciennete = 'Plus de 2 ans et moins de 5 ans';
+						break;
+					case $anciennete->y >= 5 && $anciennete->y <10 :
+						$cat_anciennete = 'Plus de 5 ans et moins de 10 ans';
+						break;
+					case $anciennete->y >= 10 :
+						$cat_anciennete = 'Plus de 10 ans';
+						break;
+
+				}
+
+				$donnees[$key][0]['cat_age'] = $cat_age;
+				$donnees[$key][0]['cat_anciennete'] = $cat_anciennete;
+
+			}
+
+			return $donnees;
+		}
+
+		public function getDateFromParameter($date){
+			if($date == 'ajd'){
+				$date_du_jour = strval(date("Y-m-d"));
+			} else {
+				$tab = explode('_', $date);
+				$annee = $tab[0];
+				$trimestre = $tab[1];
+
+				$date_du_jour = $this->getDateFromTrimestre($trimestre, $annee);
+			}
+
+			return $date_du_jour;
+		}
+
+		public function getDateFromTrimestre($trimestre, $annee){
+			switch($trimestre){
+				case 1:
+					$date_du_jour = $annee.'-03-31';
+					break;
+				case 2:
+					$date_du_jour = $annee.'-06-30';
+					break;
+				case 3:
+					$date_du_jour = $annee.'-09-30';
+					break;
+				case 4:
+					$date_du_jour = $annee.'-12-31';
+					break;
+			}
+
+			return $date_du_jour;
 		}
 
     }

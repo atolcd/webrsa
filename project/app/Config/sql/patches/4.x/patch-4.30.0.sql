@@ -38,6 +38,7 @@ create table if not exists tdb2_histo_corpus (
 	nom_naissance varchar null,
 	prenom varchar null,
 	date_naissance varchar null,
+    age integer null,
 	numvoie varchar null,
 	libtypevoie varchar null,
 	nomvoie varchar null,

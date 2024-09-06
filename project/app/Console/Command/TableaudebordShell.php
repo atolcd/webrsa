@@ -37,16 +37,16 @@
             if (!isset($this->args[1])) {
                 $this->out("<error>Paramètres manquants</error>");
                 exit();
-            } else if (!in_array($this->args[0], [1, 2, 3, 4])) {
+            } else if (!in_array($this->args[1], ['T1', 'T2', 'T3', 'T4'])) {
 				$this->out("<error>Trimestre incorrect</error>");
                 exit();
-			} else if (!is_int((int)$this->args[1]) || strlen((string)$this->args[1]) != 4){
+			} else if (!is_int((int)$this->args[0]) || strlen((string)$this->args[0]) != 4){
 				$this->out("<error>Année incorrecte</error>");
                 exit();
 			}
 
-			$trimestre = $this->args[0];
-			$annee = $this->args[1];
+			$trimestre = substr($this->args[1], -1);
+			$annee = $this->args[0];
 
 			//On vérifie que le couple trimestre /année n'a pas déjà été enregistré
 			$deja_enregistre = $this->Tdb2HistoCorpus->find(
@@ -68,23 +68,10 @@
 			$tdb = new Tableauxbords93Controller();
 
 			//On récupère la date du dernier jour du trimestre
-			switch($trimestre){
-				case 1:
-					$date_du_jour = $annee.'-03-31';
-					break;
-				case 2:
-					$date_du_jour = $annee.'-06-30';
-					break;
-				case 3:
-					$date_du_jour = $annee.'-09-30';
-					break;
-				case 4:
-					$date_du_jour = $annee.'-12-31';
-					break;
-			}
+			$date_du_jour = $tdb->getDateFromTrimestre($trimestre, $annee);
 
 
-			//On récupère le liste des structures actives
+			//On récupère la liste des structures actives
 			$structures = $this->Structurereferente->find(
 				'list',
 				[
@@ -100,8 +87,8 @@
 				//On récupère les données du corpus
 				$query_corpus = $tdb->sql_tab2_corpus(true, $date_du_jour, $annee, $id_structure, null, null, null);
 				$donnees_corpus = $this->Personne->query($query_corpus);
+
 				//On enregistre dans la table associée chaque personne
-				// debug($donnees_corpus);
 				foreach($donnees_corpus as $data){
 					$data = $data[0];
 					$data['annee'] = $annee;
@@ -110,6 +97,7 @@
 					$saved = $this->Tdb2HistoCorpus->save($data);
 					$this->Tdb2HistoCorpus->clear();
 				}
+
 			}
 
         }
