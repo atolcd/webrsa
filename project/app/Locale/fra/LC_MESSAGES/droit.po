@@ -1,3 +1,4 @@
+
 #translation of messages.po to
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -5352,5 +5353,20 @@ msgstr "Modification d'une décision"
 
 msgid "controllers/Listedecisionssuspensionseps93/index"
 msgstr "Liste des décisions"
+
+## Tableaux de bord
+###############################################################################
+
+msgid "controllers/Tableauxbords93"
+msgstr "Tableaux de bord RSA"
+
+msgid "controllers/Tableauxbords93/exportcsv_tableau2_corpus"
+msgstr "Export des données brutes du tableau 2"
+
+msgid "controllers/Tableauxbords93/exportcsv_tableau2_donnees"
+msgstr "Export du tableau 2"
+
+msgid "controllers/Tableauxbords93/tableau2"
+msgstr "Afficher le tableau 2"
 
 

@@ -1,0 +1,352 @@
+# Traductions de tableauxbords93.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Tableauxbords93/tableau2/:heading"
+msgstr "Tableau 2 - Pilotage conventionnel"
+
+msgid "Search.annee_trimestre"
+msgstr "Année et trimestre"
+
+msgid "Search.numcom"
+msgstr "Ville de domiciliation de l'allocataire"
+
+msgid "Search.structure"
+msgstr "Structure d'accompagnement"
+
+msgid "Search.referent"
+msgstr "Référent de parcours"
+
+msgid "Search.numcom_choice"
+msgstr "Filtrer par ville de domiciliation de l'allocataire"
+
+msgid "Tableau2.titre.colonneA"
+msgstr "Tous les ARSA ayant été orientés 1j dans l'année (y compris historique)"
+
+msgid "Tableau2.titre.colonneB"
+msgstr "Nouveaux ARSA - orientés dans l'année (selon date d'orientation dans la structure)"
+
+msgid "Tableau2.titre.colonneC"
+msgstr "Droit ouvert (à date) et toujours orienté structure"
+
+msgid "Tableau2.titre.colonneD"
+msgstr "Soumis obligation (à date) et toujours orientés structure (droit versable)"
+
+msgid "Tableau2.titre.t"
+msgstr "Allocataires du RSA"
+
+msgid "Tableau2.titre.c"
+msgstr "Conventionnel"
+
+msgid "Tableau2.titre.c1"
+msgstr "Nb d'allocataires orientés pour diagnostic"
+
+msgid "Tableau2.titre.c2"
+msgstr "Nb d'allocataires conservés après entretien de diagnostic"
+
+msgid "Tableau2.titre.c3"
+msgstr "Nb d'allocataire orientés pour une entrée directe en accompagnement"
+
+msgid "Tableau2.titre.c4"
+msgstr "Nb d'allocataires effectivement accompagnés (avec au moins 1 RDV honoré en présentiel)"
+
+msgid "Tableau2.titre.c5"
+msgstr "Nb allocataires ayant 1 CER valide à date"
+
+msgid "Tableau2.titre.c6"
+msgstr "Nb allocataires ayant eu 1 à 3 RDV individuels honorés et 1 CER valide à date"
+
+msgid "Tableau2.titre.c7"
+msgstr "Nb allocataires ayant eu 4 RDV et plus individuels honorés et 1 CER valide à date"
+
+msgid "Tableau2.titre.p"
+msgstr "Pilotage"
+
+msgid "Tableau2.titre.p1"
+msgstr "Nombre d'allocataires n'ayant pas de RDV individuel prévu ou honoré depuis 30 jours et dans 30 jours"
+
+msgid "Tableau2.titre.p2"
+msgstr "Nombre d'allocataires n'ayant pas de RDV individuel prévu ou honoré depuis 60 jours et dans 60 jours"
+
+msgid "Tableau2.titre.p3"
+msgstr "Nombre d'allocataires ayant un RDV prévu dont la date du RDV est inférieure à la date d'aujourd'hui"
+
+msgid "Tableau2.titre.p4"
+msgstr "Nombre d'allocataires ayant au moins 1 RDV collectif honoré mais pas de RDV individuel honoré"
+
+msgid "Tableau2.titre.p5"
+msgstr "Nombre d'allocataires ayant un RDV honoré et un DSP vide (aucune information dans le DSP)"
+
+msgid "Tableau2.titre.p6"
+msgstr "Nombre d'allocataires ayant un RDV honoré et pas de D1"
+
+msgid "Tableau2.titre.p7"
+msgstr "Nombre d'allocataires ayant eu un RDV individuel honoré mais n'ayant pas de CER valide"
+
+msgid "Tableau2.titre.p8"
+msgstr "Nombre d'allocataires sans CER ou avec un CER arrivé à échéance et n'ayant pas de RDV prévu"
+
+#identifiants
+msgid "Corpus.colonne.p_id"
+msgstr "PersID WebRSA"
+
+msgid "Corpus.colonne.nir"
+msgstr "NIR"
+
+msgid "Corpus.colonne.numcaf"
+msgstr "CAF"
+
+msgid "Corpus.colonne.id_pe"
+msgstr "IndentifiantPE"
+
+msgid "Corpus.colonne.numdosrsa"
+msgstr "N° Dossier RSA"
+
+#identite
+msgid "Corpus.colonne.qual"
+msgstr "Civilité"
+
+msgid "Corpus.colonne.nom"
+msgstr "Nom"
+
+msgid "Corpus.colonne.nomnai"
+msgstr "Nom de naissance"
+
+msgid "Corpus.colonne.prenom"
+msgstr "Prénom"
+
+msgid "Corpus.colonne.dtnai"
+msgstr "Date de naissance"
+
+#contact
+msgid "Corpus.colonne.numvoie"
+msgstr "Numéro de voie"
+
+msgid "Corpus.colonne.libtypevoie"
+msgstr "Type de voie"
+
+msgid "Corpus.colonne.nomvoie"
+msgstr "Nom de voie"
+
+msgid "Corpus.colonne.numcom"
+msgstr "Numéro de commune sens INSEE"
+
+msgid "Corpus.colonne.nomcom"
+msgstr "Nom de commune"
+
+msgid "Corpus.colonne.codepos"
+msgstr "Code postal"
+
+msgid "Corpus.colonne.tel1"
+msgstr "Numéro de tel 1"
+
+msgid "Corpus.colonne.tel2"
+msgstr "Numéro de tel 2"
+
+msgid "Corpus.colonne.email"
+msgstr "Email"
+
+#droit
+msgid "Corpus.colonne.datedemrsa"
+msgstr "Date de demande RSA"
+
+msgid "Corpus.colonne.etatdroit"
+msgstr "Etat du droit"
+
+msgid "Corpus.colonne.sdd"
+msgstr "Soumis droit et devoir"
+
+msgid "Corpus.colonne.statutpe"
+msgstr "Statut Insciption PE"
+
+#socio demo
+msgid "Corpus.colonne.nivetu"
+msgstr "Niveau de diplôme"
+
+msgid "Corpus.colonne.cat_age"
+msgstr "Catégorie d'âge"
+
+msgid "Corpus.colonne.cat_anciennete"
+msgstr "Catégorie d'ancienneté"
+
+msgid "Corpus.colonne.sexe"
+msgstr "Sexe"
+
+#referent de parcours
+msgid "Corpus.colonne.nom_ref"
+msgstr "Nom du référent de parcours"
+
+msgid "Corpus.colonne.refe_appartient_struct"
+msgstr "Référent structure de référence"
+
+msgid "Corpus.colonne.referent_actif"
+msgstr "Référent actif"
+
+msgid "ENUM::BOOL::0"
+msgstr "Non"
+
+msgid "ENUM::BOOL::1"
+msgstr "Oui"
+
+#tag
+msgid "Corpus.colonne.tag_diag"
+msgstr "Tag diagnostic"
+
+msgid "Corpus.colonne.date_creation_tag"
+msgstr "Date tag"
+
+#sous categories
+msgid "Corpus.colonne.nveau_orient"
+msgstr "Nouveaux ARSA"
+
+msgid "Corpus.colonne.do_tjs_orient"
+msgstr "Droit ouvert"
+
+msgid "Corpus.colonne.sdd_tjs_orient"
+msgstr "Soumis obligation"
+
+#derniere orient hors diag
+msgid "Corpus.colonne.dohd_origine"
+msgstr "Orientation_Origine"
+
+msgid "Corpus.colonne.dohd_date_valid"
+msgstr "Orientation_Date"
+
+msgid "Corpus.colonne.dohd_rgorient"
+msgstr "Orientation_Rang"
+
+msgid "Corpus.colonne.dohd_type"
+msgstr "Orientation_Type"
+
+msgid "Corpus.colonne.dohd_structurereferente"
+msgstr "Orientation_Structure d'orientation"
+
+
+#derniere orient  diag
+msgid "Corpus.colonne.dod_origine"
+msgstr "Orientation_diag_Origine"
+
+msgid "Corpus.colonne.dod_date_dernier_rdv"
+msgstr "Orientation_diag_Date dernier RDV"
+
+msgid "Corpus.colonne.dod_rgorient"
+msgstr "Orientation_diag_Rang"
+
+msgid "Corpus.colonne.dod_type"
+msgstr "Orientation_diag_Type"
+
+msgid "Corpus.colonne.dod_structureorientante"
+msgstr "Orientation_diag_Structure orientante"
+
+msgid "Corpus.colonne.dod_structurereferente"
+msgstr "Orientation_diag_Structure d'orientation"
+
+#rdv et dsp
+msgid "Corpus.colonne.nb_rdv_indiv"
+msgstr "RDV individuels honorés"
+
+msgid "Corpus.colonne.nb_rdv_coll"
+msgstr "RDV collectifs honorés"
+
+msgid "Corpus.colonne.dsp_vide"
+msgstr "Dsp vide"
+
+msgid "Corpus.colonne.rdv_sans_dsp"
+msgstr "RDV honoré et DSP vide"
+
+msgid "Corpus.colonne.date_drip"
+msgstr "Date dernier RDV individuel prévu "
+
+msgid "Corpus.colonne.date_drih"
+msgstr "Date dernier RDV individuel honoré "
+
+msgid "Corpus.colonne.date_drcp"
+msgstr "Date dernier RDV collectif prévu"
+
+msgid "Corpus.colonne.date_drch"
+msgstr "Date dernier RDV collectif honoré"
+
+msgid "Corpus.colonne.pas_rdv_30j"
+msgstr "Pas de RDV prevu/honore +30j/-30j"
+
+msgid "Corpus.colonne.pas_rdv_60j"
+msgstr "Pas de RDV prevu/honore +60j/-60j"
+
+msgid "Corpus.colonne.rdv_prevu_passe"
+msgstr "Date RDV prévu depassée"
+
+msgid "Corpus.colonne.rdv_coll_sans_indiv"
+msgstr "RDV collectif mais pas de RDV individuel"
+
+#d1
+msgid "Corpus.colonne.rdv_sans_d1"
+msgstr "RDV honoré et pas de D1"
+
+msgid "Corpus.colonne.d1_rempli"
+msgstr "D1 rempli"
+
+#CER
+msgid "Corpus.colonne.cer_struct_valide"
+msgstr "CER valide"
+
+msgid "Corpus.colonne.rdv_sans_cer"
+msgstr "RDV individuel mais pas de CER"
+
+msgid "Corpus.colonne.pas_cer_pas_rdv"
+msgstr "CER expire mais pas de RDV ni de CER"
+
+msgid "Corpus.colonne.dcerv_structurereferente_lib"
+msgstr "Structure établissant le CER"
+
+msgid "Corpus.colonne.dcerv_id"
+msgstr "ID CER"
+
+msgid "Corpus.colonne.dcerv_referent"
+msgstr "Personne établissant le CER"
+
+msgid "Corpus.colonne.dcerv_created"
+msgstr "Date de création du CER"
+
+msgid "Corpus.colonne.dcerv_date_valid"
+msgstr "Date de validation CD du CER"
+
+msgid "Corpus.colonne.dcerv_rang"
+msgstr "Rang du CER"
+
+msgid "Corpus.colonne.dcerv_dd"
+msgstr "Date de début du CER"
+
+msgid "Corpus.colonne.dcerv_df"
+msgstr "Date de fin du CER"
+
+msgid "Corpus.colonne.dcerv_duree"
+msgstr "Durée du CER"
+
+msgid "Corpus.colonne.dcerv_position"
+msgstr "Statut du contrat (signé, validé, etc.)"
+
+msgid "Corpus.colonne.dcerv_emploi"
+msgstr "Thématique Emploi"
+
+msgid "Corpus.colonne.dcerv_formation"
+msgstr "Thématique Formation"
+
+msgid "Corpus.colonne.dcerv_autonomie_soc"
+msgstr "Thématique Autonomie sociale"
+
+msgid "Corpus.colonne.dcerv_logement"
+msgstr "Thématique Logement"
+
+msgid "Corpus.colonne.dcerv_sante"
+msgstr "Thématique Santé"
+
+msgid "Corpus.colonne.dcerv_autre"
+msgstr "Thématique Autre"
