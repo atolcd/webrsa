@@ -36,6 +36,9 @@
 			'sql_tab2_corpus' => 'Tableauxbords93:tableau2',
 			'sql_tab2_histo_base' => 'Tableauxbords93:tableau2',
 			'sql_tab2_instant_base' => 'Tableauxbords93:tableau2',
+			'calculCategories' => 'Tableauxbords93:tableau2',
+			'getDateFromParameter' => 'Tableauxbords93:tableau2',
+			'getDateFromTrimestre' => 'Tableauxbords93:tableau2',
 		);
 
 		/**
