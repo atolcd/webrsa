@@ -897,7 +897,7 @@
 			$personne_id = $this->Orientstruct->personneId( $id );
 			$this->DossiersMenus->checkDossierMenu( array( 'personne_id' => $personne_id ) );
 			$pdf = array();
-			if(isset( $this->Orientstruct->actsAs['StorablePdf'] )) {
+			if(array_key_exists('StorablePdf', $this->Orientstruct->actsAs)) {
 				$pdf = $this->Orientstruct->getStoredPdf( $id, 'date_impression' );
 				$pdf = ( isset( $pdf['Pdf']['document'] ) ? $pdf['Pdf']['document'] : null );
 			}
