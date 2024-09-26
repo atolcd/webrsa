@@ -220,6 +220,14 @@
 					if( empty( $success ) ) { // FIXME: pour les autres aussi
 						$out[] = '<error>'.sprintf(__d ('shells', 'Shells:GenerationPDF:orientsstructs:error'), $i + 1, $orientstruct['Orientstruct']['id'] ).'</error>';
 						$error = true;
+					} else {
+						//On met à jour la date d'impression
+						$this->Orientstruct->updateAllUnBound(
+							array( "{$this->Orientstruct->alias}.date_impression" => date( "'Y-m-d'" ) ), array(
+						"\"{$this->Orientstruct->alias}\".\"{$this->Orientstruct->primaryKey}\"" => $orientstruct['Orientstruct']['id'],
+						"\"{$this->Orientstruct->alias}\".date_impression IS NULL"
+							)
+						);
 					}
 				}
 
