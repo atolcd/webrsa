@@ -5361,12 +5361,24 @@ msgid "controllers/Tableauxbords93"
 msgstr "Tableaux de bord RSA"
 
 msgid "controllers/Tableauxbords93/exportcsv_tableau2_corpus"
-msgstr "Export des données brutes du tableau 2"
+msgstr "Export CSV des données brutes du tableau 2"
 
 msgid "controllers/Tableauxbords93/exportcsv_tableau2_donnees"
-msgstr "Export du tableau 2"
+msgstr "Export CSV du tableau 2"
 
 msgid "controllers/Tableauxbords93/tableau2"
 msgstr "Afficher le tableau 2"
+
+msgid "controllers/Tableauxbords93/tableau1"
+msgstr "Afficher le tableau 1"
+
+msgid "controllers/Tableauxbords93/exportcsv_tableau1_corpus"
+msgstr "Export CSV des données brutes du tableau 1"
+
+msgid "controllers/Tableauxbords93/exportcsv_tableau1_donnees"
+msgstr "Export CSV du tableau 1"
+
+msgid "controllers/Tableauxbords93/colonnes_communes"
+msgstr "Export CSV de données"
 
 

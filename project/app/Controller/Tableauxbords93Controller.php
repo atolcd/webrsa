@@ -39,6 +39,8 @@
 			'calculCategories' => 'Tableauxbords93:tableau2',
 			'getDateFromParameter' => 'Tableauxbords93:tableau2',
 			'getDateFromTrimestre' => 'Tableauxbords93:tableau2',
+			'colonnes_export_corpus_tdb1' => 'Tableauxbords93:tableau1',
+			'requeteTableau1' => 'Tableauxbords93:tableau1',
 		);
 
 		/**
@@ -79,7 +81,8 @@
 		 */
 		public $uses = array(
 			'Zonegeographique',
-			'Personne'
+			'Personne',
+			'Structurereferente'
 		);
 
 		const LISTE_ENUMS =
@@ -116,7 +119,476 @@
 			'dcerv_logement' => ['tableauxbords93', 'ENUM::BOOL::'],
 			'dcerv_sante' => ['tableauxbords93', 'ENUM::BOOL::'],
 			'dcerv_autre' => ['tableauxbords93', 'ENUM::BOOL::'],
+			'rdv_thematique_cer' => ['tableauxbords93', 'ENUM::BOOL::'],
+			'rdv_thematique_encoursdeparcours' => ['tableauxbords93', 'ENUM::BOOL::'],
+			'rdv_thematique_premierrdv' => ['tableauxbords93', 'ENUM::BOOL::'],
+			'rdv_thematique_autre' => ['tableauxbords93', 'ENUM::BOOL::'],
+			'cer_duree' => ['cer93', 'ENUM::DUREE::'],
+			'cer_statut' => ['cer93', 'ENUM::POSITIONCER::'],
+			'cer_formation' => ['tableauxbords93', 'ENUM::BOOL::'],
+			'cer_emploi' => ['tableauxbords93', 'ENUM::BOOL::'],
+			'cer_autonomie' => ['tableauxbords93', 'ENUM::BOOL::'],
+			'cer_logement' => ['tableauxbords93', 'ENUM::BOOL::'],
+			'cer_sante' => ['tableauxbords93', 'ENUM::BOOL::'],
+			'cer_autre' => ['tableauxbords93', 'ENUM::BOOL::'],
 		];
+
+		public function tableau1(){
+			if(!empty( $this->request->data)){
+				//On traite le formulaire et récupère les données
+				$data = $this->request->data;
+				$params['referent'] = $data['Search']['referent'] != '' ? $data['Search']['referent'] : "non";
+				$params['numcom'] = null;
+				if($data['Search']['numcom_choice'] == '1' && $data['Search']['numcom'] != '' ){
+					$liste_ids = array_values($data['Search']['numcom']);
+					$params['numcom'] = "'".implode('\',\'', $liste_ids)."'";
+				}
+				if($data['Search']['structure'] != '' ){
+					$liste_ids = array_values($data['Search']['structure']);
+					$params['structures'] = "'".implode('\',\'', $liste_ids)."'";
+				}
+
+				$params['annee'] = $data['Search']['annee'];
+				//On lance la requête
+				$resultats = $this->requeteTableau1($params);
+				
+
+				$this->set('resultats', $resultats);
+				$this->set('annee', $params['annee']);
+
+			} else {
+				$params['referent'] = "non";
+			}
+
+			//Annee
+			//On récupère ce qui existe et est enregistré
+			$annees_historises = $this->Personne->query(
+				"select distinct annee from tdb1_a_corpus order by annee desc;"
+			);
+			foreach($annees_historises as $annee){
+				$options['annee'][$annee[0]['annee']] = $annee[0]['annee'];
+			}
+
+			//Villes
+			$options['numcom'] = $this->Zonegeographique->listeCodesInseeLocalites([], false);
+
+			$options['structure_referente'] = $this->InsertionsBeneficiaires->structuresreferentes( array('type' => 'optgroup', 'prefix' => false), true );
+
+			$referents = $this->Allocataires->optionsSession()['PersonneReferent']['referent_id'];
+			$structures = $this->Structurereferente->find('list');
+			//on reformate correctement
+			$liste_referent = [];
+			$liste_referents = [];
+			foreach($referents as $key => $ref){
+				$new_key = explode('_', $key);
+				$lib_struct = $structures[$new_key[0]];
+				if(!array_key_exists($new_key[0], $liste_referent)){
+					$liste_referent[$new_key[0]] = [];
+					$liste_referents[$lib_struct] = [];
+				}
+				$liste_referent[$new_key[0]][$new_key[1]] = $ref;
+				$liste_referents[$lib_struct][$new_key[1]] = $ref;
+			}
+
+
+			$options['referent'] = $liste_referent;
+			$options['referents'] = $liste_referents;
+
+			
+
+			$this->set(compact('options'));
+			$this->set(compact('params'));
+		}
+
+		public function requeteTableau1($params){
+
+			$structures = "(".$params['structures'].")";
+			$annee = $params['annee'];
+
+
+			$condition_referent = $params['referent'] != "non" ? " and referent_assiette =".$params['referent'] : "";
+			$condition_numcom = $params['numcom'] != null ? " and numcom in(".$params['numcom'].")" : "";
+
+			$sql_a = "
+				with total_annees as
+				(
+					select
+					annee as periode,
+					count(distinct personne_id) filter (where nveau_orient is true) as nveau_orient,
+					count(distinct personne_id) filter (where nveau_orient is true and tagdiag is true and origine_assiette <> 'entdiag') as nveau_orien_diag,
+					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag'
+					$condition_referent
+					) as tdb1A3,
+					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag' and structorient_assiette = structuref_assiette
+					$condition_referent
+					) as tdb1A4,
+					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag' and structorient_assiette <> structuref_assiette
+					$condition_referent
+					) as tdb1A5
+					from tdb1_a_corpus tac
+					where annee in ($annee, $annee-1)
+					and structorient_assiette in $structures
+					$condition_numcom
+					group by annee
+				),
+				par_mois as
+				(
+					select
+					mois as periode,
+					count(distinct personne_id) filter (where nveau_orient is true ) as nveau_orient,
+					count(distinct personne_id) filter (where nveau_orient is true and tagdiag is true and origine_assiette <> 'entdiag' ) as nveau_orien_diag,
+					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag'
+					$condition_referent
+					) as tdb1A3,
+					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag' and structorient_assiette = structuref_assiette
+					$condition_referent
+					) as tdb1A4,
+					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag' and structorient_assiette <> structuref_assiette
+					$condition_referent
+					) as tdb1A5
+					from tdb1_a_corpus tac
+					where annee = $annee
+					and structorient_assiette in $structures
+					$condition_numcom
+					group by mois
+				)
+				select *
+				from par_mois union select *
+				from total_annees nta
+				order by periode
+			";
+
+			$sql_b = 
+			"
+			with B_total_annees as 
+			(
+				select 
+				annee as periode,
+				count(distinct rdv_id) filter (where rdv_type = 'Individuel') as tdb1B1,
+				count(distinct rdv_id) filter (where rdv_type = 'Individuel' and rdv_statut = 'honoré') as tdb1B1a,
+				count(distinct rdv_id) filter (where rdv_type = 'Individuel' and rdv_statut = 'prévu') as tdb1B1b,
+				count(distinct rdv_id) filter (where rdv_type = 'Individuel' and rdv_statut = 'Excusé') as tdb1B1c,
+				count(distinct rdv_id) filter (where rdv_type = 'Individuel' and rdv_statut = 'non honoré') as tdb1B1d,
+				count(distinct rdv_id) filter (where rdv_statut = 'honoré') as tdb1B2,
+				count(distinct rdv_id) filter (where rdv_statut = 'honoré' and rdv_type = 'Individuel') as tdb1B2a,
+				count(distinct rdv_id) filter (where rdv_statut = 'honoré' and rdv_type = 'Collectif') as tdb1B2b,
+				count(distinct rdv_id) filter (where rdv_statut = 'honoré' and rdv_type = '16') as tdb1B2c,
+				count(distinct rdv_id) filter (where rdv_statut = 'honoré' and rdv_type = '17') as tdb1B2d,
+				count(distinct rdv_id) filter (where rdv_statut = 'honoré' and orient_structuref <> rdv_structurereferente) as tdb1B3
+				from tdb1_b_corpus tbc
+				where annee in ($annee, $annee-1)
+				and rdv_structurereferente in $structures
+				$condition_numcom
+				$condition_referent
+				group by annee
+			),
+			B_par_mois as 
+			(
+				select 
+				mois as periode,
+				count(distinct rdv_id) filter (where rdv_type = 'Individuel') as tdb1B1,
+				count(distinct rdv_id) filter (where rdv_type = 'Individuel' and rdv_statut = 'honoré') as tdb1B1a,
+				count(distinct rdv_id) filter (where rdv_type = 'Individuel' and rdv_statut = 'prévu') as tdb1B1b,
+				count(distinct rdv_id) filter (where rdv_type = 'Individuel' and rdv_statut = 'Excusé') as tdb1B1c,
+				count(distinct rdv_id) filter (where rdv_type = 'Individuel' and rdv_statut = 'non honoré') as tdb1B1d,
+				count(distinct rdv_id) filter (where rdv_statut = 'honoré') as tdb1B2,
+				count(distinct rdv_id) filter (where rdv_statut = 'honoré' and rdv_type = 'Individuel') as tdb1B2a,
+				count(distinct rdv_id) filter (where rdv_statut = 'honoré' and rdv_type = 'Collectif') as tdb1B2b,
+				count(distinct rdv_id) filter (where rdv_statut = 'honoré' and rdv_type = 'RDV téléphonique allocataire') as tdb1B2c,
+				count(distinct rdv_id) filter (where rdv_statut = 'honoré' and rdv_type = 'RDV téléphonique partenaire') as tdb1B2d,
+				count(distinct rdv_id) filter (where rdv_statut = 'honoré' and orient_structuref <> rdv_structurereferente) as tdb1B3
+				from tdb1_b_corpus tbc
+				where annee = $annee
+				and rdv_structurereferente in $structures
+				$condition_numcom
+				$condition_referent
+				group by mois
+			)
+			select * from B_par_mois 
+			union select * from B_total_annees 
+			order by periode
+			";
+
+			$sql_c = 
+			"
+			with C_total_annees as 
+			(
+				select 
+				annee as periode,
+				count(distinct cer_id) as tdb1C1,
+				count(distinct cer_id) filter (where cer_duree = '3') as tdb1C1a,
+				count(distinct cer_id) filter (where cer_duree = '6') as tdb1C1b,
+				count(distinct cer_id) filter (where cer_duree = '9') as tdb1C1c,
+				count(distinct cer_id) filter (where cer_duree = '12') as tdb1C1d,
+				count(distinct cer_id) filter (where sujet_emploi is true) as tdb1C2a,
+				count(distinct cer_id) filter (where sujet_formation is true) as tdb1C2b,
+				count(distinct cer_id) filter (where sujet_logement is true) as tdb1C2c,
+				count(distinct cer_id) filter (where sujet_sante is true) as tdb1C2d,
+				count(distinct cer_id) filter (where sujet_autonomie is true) as tdb1C2e,
+				count(distinct cer_id) filter (where sujet_autre is true) as tdb1C2f
+				from tdb1_c_corpus tbc
+				where annee in ($annee, $annee-1)
+				and cer_structure in $structures
+				$condition_numcom
+				$condition_referent
+				group by annee
+			),
+			C_par_mois as 
+			(
+				select 
+				mois as periode,
+				count(distinct cer_id) as tdb1C1,
+				count(distinct cer_id) filter (where cer_duree = '3') as tdb1C1a,
+				count(distinct cer_id) filter (where cer_duree = '6') as tdb1C1b,
+				count(distinct cer_id) filter (where cer_duree = '9') as tdb1C1c,
+				count(distinct cer_id) filter (where cer_duree = '12') as tdb1C1d,
+				count(distinct cer_id) filter (where sujet_emploi is true) as tdb1C2a,
+				count(distinct cer_id) filter (where sujet_formation is true) as tdb1C2b,
+				count(distinct cer_id) filter (where sujet_logement is true) as tdb1C2c,
+				count(distinct cer_id) filter (where sujet_sante is true) as tdb1C2d,
+				count(distinct cer_id) filter (where sujet_autonomie is true) as tdb1C2e,
+				count(distinct cer_id) filter (where sujet_autre is true) as tdb1C2f
+				from tdb1_c_corpus tbc
+				where annee = $annee
+				and cer_structure in $structures
+				$condition_numcom
+				$condition_referent
+				group by mois
+			)
+			select * from C_par_mois 
+			union select * from C_total_annees 
+			order by periode
+			";
+
+			$resultats_query = $this->Personne->query($sql_a);
+
+			$resultats_a = [];
+			foreach ($resultats_query as $res){
+					$resultats_a[$res[0]['periode']] = $res[0];
+			}
+
+			$resultats_query = $this->Personne->query($sql_b);
+			$resultats_b = [];
+			foreach ($resultats_query as $res){
+					$resultats_b[$res[0]['periode']] = $res[0];
+			}
+
+			$resultats_query = $this->Personne->query($sql_c);
+			$resultats_c = [];
+			foreach ($resultats_query as $res){
+					$resultats_c[$res[0]['periode']] = $res[0];
+			}
+
+			$resultats_temp = array_merge($resultats_a, $resultats_b, $resultats_c);
+			$resultats = [];
+			foreach ($resultats_temp as $res){
+				$resultats[$res['periode']] = [];
+			}
+			foreach ($resultats_temp as $res){
+				$resultats[$res['periode']] += $res;
+			}
+
+			return $resultats;
+
+		}
+
+		public function exportcsv_tableau1_donnees(){
+			$params['structures'] = isset($this->request->query['structures']) ? $this->request->query['structures'] : null;
+			$params['referent']  = isset($this->request->query['referent']) && $this->request->query['referent'] != 0  ? $this->request->query['referent']  : 'non';
+			$params['numcom']    = isset($this->request->query['numcom'])    ? $this->request->query['numcom']    : null;
+			$params['annee']    = isset($this->request->query['annee'])        ? $this->request->query['annee']    : null;
+			$annee = intval($params['annee']);
+
+
+			$donnees = $this->requeteTableau1($params);
+
+			$export = array ();
+			$i = 0;
+
+			$export[$i++] = ['', 'Total '.($annee-1), "Janvier ".$annee, 'Février '.$annee,
+			 'Mars '.$annee, 'Avril '.$annee, 'Mai '.$annee, 'Juin '.$annee,
+			 'Juillet '.$annee, 'Août '.$annee, 'Septembre '.$annee, 'Octobre '.$annee,
+			 'Novembre '.$annee, 'Décembre '.$annee, 'Total '.$annee];
+
+
+			if($this->request->query['tableau'] == 'A'){
+
+				foreach (['nveau_orient', 'nveau_orien_diag'] as $ligne){
+
+					$export[$i++] = [
+						__d('tableauxbords93', 'Tableau1a.titre.'.$ligne.''),
+						isset($donnees[$annee-1][$ligne]) ? $donnees[$annee-1][$ligne] : '',
+						isset($donnees[1][$ligne]) ? $donnees[1][$ligne] : '',
+						isset($donnees[2][$ligne]) ? $donnees[2][$ligne] : '',
+						isset($donnees[3][$ligne]) ? $donnees[3][$ligne] : '',
+						isset($donnees[4][$ligne]) ? $donnees[4][$ligne] : '',
+						isset($donnees[5][$ligne]) ? $donnees[5][$ligne] : '',
+						isset($donnees[6][$ligne]) ? $donnees[6][$ligne] : '',
+						isset($donnees[7][$ligne]) ? $donnees[7][$ligne] : '',
+						isset($donnees[8][$ligne]) ? $donnees[8][$ligne] : '',
+						isset($donnees[9][$ligne]) ? $donnees[9][$ligne] : '',
+						isset($donnees[10][$ligne]) ? $donnees[10][$ligne] : '',
+						isset($donnees[11][$ligne]) ? $donnees[11][$ligne] : '',
+						isset($donnees[12][$ligne]) ? $donnees[12][$ligne] : '',
+						isset($donnees[$annee][$ligne]) ? $donnees[$annee][$ligne] : '',
+					];
+				}
+
+				
+			} else if ($this->request->query['tableau'] == 'B') {
+
+				foreach (['tdb1a3', 'tdb1a4','tdb1a5'] as $ligne){
+
+					$export[$i++] = [
+						__d('tableauxbords93', 'Tableau1a.titre.'.$ligne.''),
+						isset($donnees[$annee-1][$ligne]) ? $donnees[$annee-1][$ligne] : '',
+						isset($donnees[1][$ligne]) ? $donnees[1][$ligne] : '',
+						isset($donnees[2][$ligne]) ? $donnees[2][$ligne] : '',
+						isset($donnees[3][$ligne]) ? $donnees[3][$ligne] : '',
+						isset($donnees[4][$ligne]) ? $donnees[4][$ligne] : '',
+						isset($donnees[5][$ligne]) ? $donnees[5][$ligne] : '',
+						isset($donnees[6][$ligne]) ? $donnees[6][$ligne] : '',
+						isset($donnees[7][$ligne]) ? $donnees[7][$ligne] : '',
+						isset($donnees[8][$ligne]) ? $donnees[8][$ligne] : '',
+						isset($donnees[9][$ligne]) ? $donnees[9][$ligne] : '',
+						isset($donnees[10][$ligne]) ? $donnees[10][$ligne] : '',
+						isset($donnees[11][$ligne]) ? $donnees[11][$ligne] : '',
+						isset($donnees[12][$ligne]) ? $donnees[12][$ligne] : '',
+						isset($donnees[$annee][$ligne]) ? $donnees[$annee][$ligne] : '',
+					];
+				}
+				
+			} else if ($this->request->query['tableau'] == 'C') {
+				foreach (['tdb1b1', 'tdb1b1a','tdb1b1b','tdb1b1c','tdb1b1d', 'tdb1b2', 'tdb1b2a','tdb1b2b','tdb1b2c','tdb1b2d','tdb1b3'] as $ligne){
+
+					$export[$i++] = [
+						__d('tableauxbords93', 'Tableau1a.titre.'.$ligne.''),
+						isset($donnees[$annee-1][$ligne]) ? $donnees[$annee-1][$ligne] : '',
+						isset($donnees[1][$ligne]) ? $donnees[1][$ligne] : '',
+						isset($donnees[2][$ligne]) ? $donnees[2][$ligne] : '',
+						isset($donnees[3][$ligne]) ? $donnees[3][$ligne] : '',
+						isset($donnees[4][$ligne]) ? $donnees[4][$ligne] : '',
+						isset($donnees[5][$ligne]) ? $donnees[5][$ligne] : '',
+						isset($donnees[6][$ligne]) ? $donnees[6][$ligne] : '',
+						isset($donnees[7][$ligne]) ? $donnees[7][$ligne] : '',
+						isset($donnees[8][$ligne]) ? $donnees[8][$ligne] : '',
+						isset($donnees[9][$ligne]) ? $donnees[9][$ligne] : '',
+						isset($donnees[10][$ligne]) ? $donnees[10][$ligne] : '',
+						isset($donnees[11][$ligne]) ? $donnees[11][$ligne] : '',
+						isset($donnees[12][$ligne]) ? $donnees[12][$ligne] : '',
+						isset($donnees[$annee][$ligne]) ? $donnees[$annee][$ligne] : '',
+					];
+				}
+
+
+
+			} else if ($this->request->query['tableau'] == 'D'){
+
+				foreach (['tdb1c1', 'tdb1c1a','tdb1c1b','tdb1c1c','tdb1c1d', 'tdb1c2', 'tdb1c2a','tdb1c2b','tdb1c2c','tdb1c2d','tdb1c2e','tdb1c2f'] as $ligne){
+
+					$export[$i++] = [
+						__d('tableauxbords93', 'Tableau1a.titre.'.$ligne.''),
+						isset($donnees[$annee-1][$ligne]) ? $donnees[$annee-1][$ligne] : '',
+						isset($donnees[1][$ligne]) ? $donnees[1][$ligne] : '',
+						isset($donnees[2][$ligne]) ? $donnees[2][$ligne] : '',
+						isset($donnees[3][$ligne]) ? $donnees[3][$ligne] : '',
+						isset($donnees[4][$ligne]) ? $donnees[4][$ligne] : '',
+						isset($donnees[5][$ligne]) ? $donnees[5][$ligne] : '',
+						isset($donnees[6][$ligne]) ? $donnees[6][$ligne] : '',
+						isset($donnees[7][$ligne]) ? $donnees[7][$ligne] : '',
+						isset($donnees[8][$ligne]) ? $donnees[8][$ligne] : '',
+						isset($donnees[9][$ligne]) ? $donnees[9][$ligne] : '',
+						isset($donnees[10][$ligne]) ? $donnees[10][$ligne] : '',
+						isset($donnees[11][$ligne]) ? $donnees[11][$ligne] : '',
+						isset($donnees[12][$ligne]) ? $donnees[12][$ligne] : '',
+						isset($donnees[$annee][$ligne]) ? $donnees[$annee][$ligne] : '',
+					];
+				}
+			}
+
+			$this->set('export', $export);
+			$this->set('options', []);
+			$this->layout = '';
+			$this->render('exportcsv_tableau1_donnees');
+		}
+
+		public function exportcsv_tableau1_corpus(){
+			$structures = isset($this->request->query['structures']) ? $this->request->query['structures'] : null;
+			$params['referent']  = isset($this->request->query['referent']) && $this->request->query['referent'] != 0  ? $this->request->query['referent']  : 'non';
+			$params['numcom']    = isset($this->request->query['numcom'])    ? $this->request->query['numcom']    : null;
+			$annee    = isset($this->request->query['annee'])        ? $this->request->query['annee']    : null;
+
+			$colonnes = $this->colonnes_export_corpus_tdb1($this->request->query['tableau']);
+			$condition_referent = $params['referent'] != "non" ? " and referent_assiette =".$params['referent'] : "";
+			$condition_numcom = $params['numcom'] != null ? " and numcom in(".$params['numcom'].")" : "";
+
+			if($this->request->query['tableau'] == 'A'){
+
+				$sql_donnees = "select * from tdb1_a_corpus
+				where annee = $annee and nveau_orient is true
+				and structorient_assiette in ($structures) $condition_numcom";
+
+			} else if ($this->request->query['tableau'] == 'B') {
+
+				$sql_donnees = "select * from tdb1_a_corpus
+				where annee = $annee and structorient_assiette in ($structures)
+				$condition_numcom $condition_referent";
+
+			} else if ($this->request->query['tableau'] == 'C') {
+
+				$sql_donnees = "select * from tdb1_b_corpus
+				where annee = $annee and rdv_structurereferente in ($structures)
+				$condition_numcom $condition_referent";
+			} else if ($this->request->query['tableau'] == 'D') {
+
+				$sql_donnees = "select * from tdb1_c_corpus
+				where annee = $annee and cer_structure in ($structures)
+				$condition_numcom $condition_referent";
+			} 
+
+			$donnees = $this->Personne->query($sql_donnees);
+			$donnees = $this->calculCategories($donnees, 'ajd');
+
+			$export = array ();
+			$i = 0;
+
+			//Noms colonnes
+			$export[$i++] = array_merge(
+				[
+					'Année de l\'export'
+				],
+				array_keys($colonnes)
+			);
+			foreach($donnees as $personne){
+				$personne = $personne[0];
+
+				$ligne = [$personne['annee']];
+				foreach(array_values($colonnes) as $champ){
+					$valeur = isset($personne[$champ]) ? $personne[$champ] : '';
+					if(isset(self::LISTE_ENUMS[$champ])){
+						if($valeur !== ''){
+							if($valeur == false) {
+								$valeur = 0;
+							}
+							$valeur = __d(self::LISTE_ENUMS[$champ][0], self::LISTE_ENUMS[$champ][1].$valeur);
+						}
+					}
+					if($champ == 'rdv_commentaire'){
+						$valeur = html_entity_decode($valeur);
+						$valeur = strip_tags($valeur);
+					}
+					array_push($ligne, $valeur);
+				}
+				$export[$i++] = $ligne;
+			}
+
+
+			$this->set('export', $export);
+			$this->set('options', []);
+			$this->layout = '';
+			$this->render('exportcsv_tableau1_corpus');
+
+		}
 
         public function tableau2(){
 
@@ -989,9 +1461,8 @@
 		}
 
 
-		public function colonnes_export_corpus_tdb2(){
+		public function colonnes_communes(){
 
-			//TODO V2: factoriser la base commune si possible avec tdb1
 			return [
 				//identifiants
 				__d('tableauxbords93', 'Corpus.colonne.p_id') => 'personne_id',
@@ -1030,66 +1501,161 @@
 				__d('tableauxbords93', 'Corpus.colonne.refe_appartient_struct') => 'refe_appartient_struct',
 				__d('tableauxbords93', 'Corpus.colonne.referent_actif') => 'referent_actif',
 				//tag
-				__d('tableauxbords93', 'Corpus.colonne.tag_diag') => 'tag_diag',
+				__d('tableauxbords93', 'Corpus.colonne.tag_diag') => 'tagdiag',
 				__d('tableauxbords93', 'Corpus.colonne.date_creation_tag') => 'date_creation_tag',
-				//sous categories
-				__d('tableauxbords93', 'Corpus.colonne.nveau_orient') => 'nveau_orient',
-				__d('tableauxbords93', 'Corpus.colonne.do_tjs_orient') => 'do_tjs_orient',
-				__d('tableauxbords93', 'Corpus.colonne.sdd_tjs_orient') => 'sdd_tjs_orient',
-				//derniere orient hors diag
-				__d('tableauxbords93', 'Corpus.colonne.dohd_origine') => 'dohd_origine',
-				__d('tableauxbords93', 'Corpus.colonne.dohd_date_valid') => 'dohd_date_valid',
-				__d('tableauxbords93', 'Corpus.colonne.dohd_rgorient') => 'dohd_rgorient',
-				__d('tableauxbords93', 'Corpus.colonne.dohd_type') => 'dohd_type',
-				__d('tableauxbords93', 'Corpus.colonne.dohd_structurereferente') => 'dohd_structurereferente',
-				//derniere orient diag
-				__d('tableauxbords93', 'Corpus.colonne.dod_origine') => 'dod_origine',
-				__d('tableauxbords93', 'Corpus.colonne.dod_structureorientante') => 'dod_structureorientante',
-				__d('tableauxbords93', 'Corpus.colonne.dod_structurereferente') => 'dod_structurereferente',
-				__d('tableauxbords93', 'Corpus.colonne.date_drih') => 'date_drih',
-				__d('tableauxbords93', 'Corpus.colonne.dod_rgorient') => 'dod_rgorient',
-				__d('tableauxbords93', 'Corpus.colonne.dod_type') => 'dod_type',
-				//rdv et dsp
-				__d('tableauxbords93', 'Corpus.colonne.nb_rdv_indiv') => 'nb_rdv_indiv',
-				__d('tableauxbords93', 'Corpus.colonne.nb_rdv_coll') => 'nb_rdv_coll',
-				__d('tableauxbords93', 'Corpus.colonne.dsp_vide') => 'dsp_vide',
-				__d('tableauxbords93', 'Corpus.colonne.rdv_sans_dsp') => 'rdv_sans_dsp',
-				__d('tableauxbords93', 'Corpus.colonne.date_drip') => 'date_drip',
-				__d('tableauxbords93', 'Corpus.colonne.date_drih') => 'date_drih',
-				__d('tableauxbords93', 'Corpus.colonne.date_drcp') => 'date_drcp',
-				__d('tableauxbords93', 'Corpus.colonne.date_drch') => 'date_drch',
-				__d('tableauxbords93', 'Corpus.colonne.pas_rdv_30j') => 'pas_rdv_30j',
-				__d('tableauxbords93', 'Corpus.colonne.pas_rdv_60j') => 'pas_rdv_60j',
-				__d('tableauxbords93', 'Corpus.colonne.rdv_prevu_passe') => 'rdv_prevu_passe',
-				__d('tableauxbords93', 'Corpus.colonne.rdv_coll_sans_indiv') => 'rdv_coll_sans_indiv',
-				//D1
-				__d('tableauxbords93', 'Corpus.colonne.rdv_sans_d1') => 'rdv_sans_d1',
-				__d('tableauxbords93', 'Corpus.colonne.d1_rempli') => 'd1_rempli',
-				//CER
-				__d('tableauxbords93', 'Corpus.colonne.cer_struct_valide') => 'cer_struct_valide',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_id') => 'dcerv_id',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_structurereferente_lib') => 'dcerv_structurereferente_lib',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_referent') => 'dcerv_referent',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_created') => 'dcerv_created',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_date_valid') => 'dcerv_date_valid',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_rang') => 'dcerv_rang',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_dd') => 'dcerv_dd',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_df') => 'dcerv_df',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_duree') => 'dcerv_duree',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_position') => 'dcerv_position',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_emploi') => 'dcerv_emploi',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_formation') => 'dcerv_formation',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_autonomie_soc') => 'dcerv_autonomie_soc',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_logement') => 'dcerv_logement',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_sante') => 'dcerv_sante',
-				__d('tableauxbords93', 'Corpus.colonne.dcerv_autre') => 'dcerv_autre',
-				__d('tableauxbords93', 'Corpus.colonne.rdv_sans_cer') => 'rdv_sans_cer',
-				__d('tableauxbords93', 'Corpus.colonne.pas_cer_pas_rdv') => 'pas_cer_pas_rdv',
 			];
 		}
 
+
+		public function colonnes_export_corpus_tdb1($tableau){
+			if($tableau == 'A' || $tableau == 'B') {
+				$colonnes = [
+					//derniere orient hors diag
+					__d('tableauxbords93', 'Corpus.colonne.dohd_origine') => 'dohd_origine',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_date_valid') => 'dohd_date_valid',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_rgorient') => 'dohd_rgorient',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_type') => 'dohd_type',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_structurereferente') => 'dohd_structurereferente',
+					//derniere orient diag
+					__d('tableauxbords93', 'Corpus.colonne.dod_origine') => 'dod_origine',
+					__d('tableauxbords93', 'Corpus.colonne.dod_structureorientante') => 'dod_structureorientante',
+					__d('tableauxbords93', 'Corpus.colonne.dod_structurereferente') => 'dod_structurereferente',
+					__d('tableauxbords93', 'Corpus.colonne.date_drih') => 'date_drih',
+					__d('tableauxbords93', 'Corpus.colonne.dod_rgorient') => 'dod_rgorient',
+					__d('tableauxbords93', 'Corpus.colonne.dod_type') => 'dod_type',
+					//rdv et dsp
+					__d('tableauxbords93', 'Corpus.colonne.nb_rdv_indiv') => 'nb_rdv_indiv',
+					__d('tableauxbords93', 'Corpus.colonne.nb_rdv_coll') => 'nb_rdv_coll',
+					//CER
+					__d('tableauxbords93', 'Corpus.colonne.cer_struct_valide') => 'cer_struct_valide'
+				];
+			}
+
+			if($tableau == 'C'){
+				$colonnes = [
+					//orientation
+					__d('tableauxbords93', 'Corpus.colonne.dohd_origine') => 'orient_origine',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_date_valid') => 'orient_date',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_rgorient') => 'orient_rang',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_type') => 'orient_type',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_structurereferente') => 'orient_structuref',
+					//rdv
+					__d('tableauxbords93', 'Corpus.colonne.rdv_id') => 'rdv_id',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_structure') => 'rdv_structurereferente',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_referent') => 'rdv_referent',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_date') => 'rdv_date',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_heure') => 'rdv_heure',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_objet') => 'rdv_type',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_statut') => 'rdv_statut',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_objectif') => 'rdv_objectif',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_commentaire') => 'rdv_commentaire',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_thematique_cer') => 'thematique_cer',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_thematique_encoursdeparcours') => 'thematique_encoursdeparcours',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_thematique_premierrdv') => 'thematique_premierrdv',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_thematique_autre') => 'thematique_autre',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_thematique_collectif') => 'thematique_collectif',
+				];
+			}
+
+			if($tableau == 'D'){
+				$colonnes = [
+					//orientation
+					__d('tableauxbords93', 'Corpus.colonne.dohd_origine') => 'orient_origine',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_date_valid') => 'orient_date',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_rgorient') => 'orient_rang',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_type') => 'orient_type',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_structurereferente') => 'orient_structuref',
+					//cer
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_id') => 'cer_id',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_structurereferente_lib') => 'cer_structure',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_referent') => 'cer_referent',
+					__d('tableauxbords93', 'Corpus.colonne.cer_created') => 'cer_created',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_date_valid') => 'cer_datevalidcd',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_rang') => 'cer_rang',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_dd') => 'cer_dd',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_df') => 'cer_df',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_duree') => 'cer_duree',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_position') => 'cer_statut',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_emploi') => 'sujet_emploi',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_formation') => 'sujet_formation',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_autonomie_soc') => 'sujet_logement',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_logement') => 'sujet_sante',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_sante') => 'sujet_autonomie',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_autre') => 'sujet_autre',
+				];
+			}
+
+
+			return array_merge(
+				$this->colonnes_communes(),
+				$colonnes
+			);
+		}
+
+		public function colonnes_export_corpus_tdb2(){
+
+			return array_merge(
+				$this->colonnes_communes(),
+				[
+					//sous categories
+					__d('tableauxbords93', 'Corpus.colonne.nveau_orient') => 'nveau_orient',
+					__d('tableauxbords93', 'Corpus.colonne.do_tjs_orient') => 'do_tjs_orient',
+					__d('tableauxbords93', 'Corpus.colonne.sdd_tjs_orient') => 'sdd_tjs_orient',
+					//derniere orient hors diag
+					__d('tableauxbords93', 'Corpus.colonne.dohd_origine') => 'dohd_origine',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_date_valid') => 'dohd_date_valid',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_rgorient') => 'dohd_rgorient',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_type') => 'dohd_type',
+					__d('tableauxbords93', 'Corpus.colonne.dohd_structurereferente') => 'dohd_structurereferente',
+					//derniere orient diag
+					__d('tableauxbords93', 'Corpus.colonne.dod_origine') => 'dod_origine',
+					__d('tableauxbords93', 'Corpus.colonne.dod_structureorientante') => 'dod_structureorientante',
+					__d('tableauxbords93', 'Corpus.colonne.dod_structurereferente') => 'dod_structurereferente',
+					__d('tableauxbords93', 'Corpus.colonne.date_drih') => 'date_drih',
+					__d('tableauxbords93', 'Corpus.colonne.dod_rgorient') => 'dod_rgorient',
+					__d('tableauxbords93', 'Corpus.colonne.dod_type') => 'dod_type',
+					//rdv et dsp
+					__d('tableauxbords93', 'Corpus.colonne.nb_rdv_indiv') => 'nb_rdv_indiv',
+					__d('tableauxbords93', 'Corpus.colonne.nb_rdv_coll') => 'nb_rdv_coll',
+					__d('tableauxbords93', 'Corpus.colonne.dsp_vide') => 'dsp_vide',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_sans_dsp') => 'rdv_sans_dsp',
+					__d('tableauxbords93', 'Corpus.colonne.date_drip') => 'date_drip',
+					__d('tableauxbords93', 'Corpus.colonne.date_drih') => 'date_drih',
+					__d('tableauxbords93', 'Corpus.colonne.date_drcp') => 'date_drcp',
+					__d('tableauxbords93', 'Corpus.colonne.date_drch') => 'date_drch',
+					__d('tableauxbords93', 'Corpus.colonne.pas_rdv_30j') => 'pas_rdv_30j',
+					__d('tableauxbords93', 'Corpus.colonne.pas_rdv_60j') => 'pas_rdv_60j',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_prevu_passe') => 'rdv_prevu_passe',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_coll_sans_indiv') => 'rdv_coll_sans_indiv',
+					//D1
+					__d('tableauxbords93', 'Corpus.colonne.rdv_sans_d1') => 'rdv_sans_d1',
+					__d('tableauxbords93', 'Corpus.colonne.d1_rempli') => 'd1_rempli',
+					//CER
+					__d('tableauxbords93', 'Corpus.colonne.cer_struct_valide') => 'cer_struct_valide',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_id') => 'dcerv_id',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_structurereferente_lib') => 'dcerv_structurereferente_lib',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_referent') => 'dcerv_referent',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_created') => 'dcerv_created',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_date_valid') => 'dcerv_date_valid',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_rang') => 'dcerv_rang',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_dd') => 'dcerv_dd',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_df') => 'dcerv_df',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_duree') => 'dcerv_duree',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_position') => 'dcerv_position',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_emploi') => 'dcerv_emploi',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_formation') => 'dcerv_formation',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_autonomie_soc') => 'dcerv_autonomie_soc',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_logement') => 'dcerv_logement',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_sante') => 'dcerv_sante',
+					__d('tableauxbords93', 'Corpus.colonne.dcerv_autre') => 'dcerv_autre',
+					__d('tableauxbords93', 'Corpus.colonne.rdv_sans_cer') => 'rdv_sans_cer',
+					__d('tableauxbords93', 'Corpus.colonne.pas_cer_pas_rdv') => 'pas_cer_pas_rdv'
+				]
+			);
+		}
+
 		public function calculCategories($donnees, $date_jour){
-			
+
 			$date_jour = new DateTime($this->getDateFromParameter($date_jour));
 
 			foreach($donnees as $key => $personne){

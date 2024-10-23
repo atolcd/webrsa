@@ -10,8 +10,14 @@ msgstr ""
 
 # ==============================================================================
 
+msgid "/Tableauxbords93/tableau1/:heading"
+msgstr "Tableau 1 - Synthèse d'activité"
+
 msgid "/Tableauxbords93/tableau2/:heading"
 msgstr "Tableau 2 - Pilotage conventionnel"
+
+msgid "Search.annee"
+msgstr "Année"
 
 msgid "Search.annee_trimestre"
 msgstr "Année et trimestre"
@@ -93,6 +99,92 @@ msgstr "Nombre d'allocataires ayant eu un RDV individuel honoré mais n'ayant pa
 
 msgid "Tableau2.titre.p8"
 msgstr "Nombre d'allocataires sans CER ou avec un CER arrivé à échéance et n'ayant pas de RDV prévu"
+
+#Tableau 1 titres
+msgid "Tableau1a.titre.nveau_orient"
+msgstr "Nb d'allocataires nouvellement orientés sur la période considérée"
+
+msgid "Tableau1a.titre.nveau_orien_diag"
+msgstr "Nb d'allocataires nouvellement orientés pour diagnostic sur la période considérée"
+
+msgid "Tableau1a.titre.tdb1a3"
+msgstr "Nb d'allocataires dont l'entretien de diagnostic a été réalisé"
+
+msgid "Tableau1a.titre.tdb1a4"
+msgstr "Nb d'allocataires conservés après entretien de diagnostic"
+
+msgid "Tableau1a.titre.tdb1a5"
+msgstr "Nb d'allocataires orientés vers un autre parcours après diagnostic "
+
+msgid "Tableau1a.titre.tdb1b1"
+msgstr "Nb de RDV individuels de la période"
+
+msgid "Tableau1a.titre.tdb1b1a"
+msgstr "- dont honorés"
+
+msgid "Tableau1a.titre.tdb1b1b"
+msgstr "- dont prévus"
+
+msgid "Tableau1a.titre.tdb1b1c"
+msgstr "- dont excusés"
+
+msgid "Tableau1a.titre.tdb1b1d"
+msgstr "- dont non honorés"
+
+msgid "Tableau1a.titre.tdb1b2"
+msgstr "Nb de RDV honorés"
+
+msgid "Tableau1a.titre.tdb1b2a"
+msgstr "- dont RDV présentiels individuels"
+
+msgid "Tableau1a.titre.tdb1b2b"
+msgstr "- dont RDV présentiels collectifs"
+
+msgid "Tableau1a.titre.tdb1b2c"
+msgstr "- dont RDV téléphoniques avec les allocataires"
+
+msgid "Tableau1a.titre.tdb1b2d"
+msgstr "- dont RDV téléphoniques avec des partenaires"
+
+msgid "Tableau1a.titre.tdb1b3"
+msgstr " Nb de RDV honorés pour des allocataires orientés vers une autre structure "
+
+msgid "Tableau1a.titre.tdb1c1"
+msgstr "Nombre de CER (sur la base de la date de début du CER)"
+
+msgid "Tableau1a.titre.tdb1c1a"
+msgstr "- dont 3 mois"
+
+msgid "Tableau1a.titre.tdb1c1b"
+msgstr "- dont 6 mois"
+
+msgid "Tableau1a.titre.tdb1c1c"
+msgstr "- dont 9 mois"
+
+msgid "Tableau1a.titre.tdb1c1d"
+msgstr "- dont 12 mois"
+
+msgid "Tableau1a.titre.tdb1c2"
+msgstr "Thématiques CER (1 CER peut porter sur plusieurs thématiques à la fois)"
+
+msgid "Tableau1a.titre.tdb1c2a"
+msgstr "CER Emploi"
+
+msgid "Tableau1a.titre.tdb1c2b"
+msgstr "CER Formation"
+
+msgid "Tableau1a.titre.tdb1c2c"
+msgstr "CER Logement"
+
+msgid "Tableau1a.titre.tdb1c2d"
+msgstr "CER Santé"
+
+msgid "Tableau1a.titre.tdb1c2e"
+msgstr "CER Autonomie Sociale"
+
+msgid "Tableau1a.titre.tdb1c2f"
+msgstr "CER Autres"
+
 
 #identifiants
 msgid "Corpus.colonne.p_id"
@@ -350,3 +442,50 @@ msgstr "Thématique Santé"
 
 msgid "Corpus.colonne.dcerv_autre"
 msgstr "Thématique Autre"
+
+msgid "Corpus.colonne.cer_created"
+msgstr "Date de création du CER"
+
+#rdv
+msgid "Corpus.colonne.rdv_id"
+msgstr "ID RDV"
+
+msgid "Corpus.colonne.rdv_structure"
+msgstr "Structure proposant le RDV"
+
+msgid "Corpus.colonne.rdv_referent"
+msgstr "Personne proposant le RDV"
+
+msgid "Corpus.colonne.rdv_date"
+msgstr "Date"
+
+msgid "Corpus.colonne.rdv_heure"
+msgstr "Heure"
+
+msgid "Corpus.colonne.rdv_objet"
+msgstr "Objet"
+
+msgid "Corpus.colonne.rdv_statut"
+msgstr "Statut"
+
+msgid "Corpus.colonne.rdv_objectif"
+msgstr "Objectif du RDV"
+
+msgid "Corpus.colonne.rdv_thematique_cer"
+msgstr "Thématique 'CER'"
+
+msgid "Corpus.colonne.rdv_thematique_encoursdeparcours"
+msgstr "Thématique 'En cours de parcours'"
+
+msgid "Corpus.colonne.rdv_thematique_premierrdv"
+msgstr "Thématique 'Premier RDV de l'année'"
+
+msgid "Corpus.colonne.rdv_thematique_autre"
+msgstr "Thématique 'Autre'"
+
+msgid "Corpus.colonne.rdv_thematique_collectif"
+msgstr "Thématique RDV collectif"
+
+msgid "Corpus.colonne.rdv_commentaire"
+msgstr "Commentaire"
+

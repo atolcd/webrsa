@@ -144,6 +144,82 @@
 		}
 
 		/**
+		 * Méthode générique permettant de retourner un ensemble de cases à cocher au sein d'un
+		 * fieldset
+		 *
+		 *
+		 * Remplacements possibles:
+		 * //			echo $this->Search->etatdosrsa($etatdosrsa);
+		 * echo $this->SearchForm->dependantCheckboxes( 'Situationdossierrsa.etatdosrsa', $etatdosrsa );
+		 * @see SearchHelper
+		 *
+		 * @param string $path
+		 * @param array $params
+		 * @return string
+		 */
+		public function multipleCheckboxes( $path, array $params = array() ) {
+			$default = array(
+				'domain' => 'search_plugin',
+				'options' => array(),
+				'hide' => false,
+				'buttons' => false,
+				'autoCheck' => false,
+				'hiddenField' => true
+			);
+			$params = $params + $default;
+
+			$options = $params['options'];
+
+			$fieldsetId = $this->domId( "{$path}_fieldset" );
+
+			$selector = 'input[name=\\\'data['.str_replace( '.', '][', $path ).'][]\\\']';
+
+
+
+			// if( Hash::get( $params, 'autoCheck' ) ) {
+			// 	$choiceParams['onclick'] = "try { toutCocher( '{$selector}' ); } catch( e ) { console.log( e ); };";
+			// }
+
+			// Boutons "Tout cocher" / "Tout décocher" optionnels
+			$buttons = null;
+			if( Hash::get( $params, 'buttons' ) ) {
+				$buttons = $this->Html->tag(
+					'div',
+					$this->Form->button( 'Tout cocher', array('id' => 'toutcocher', 'type' => 'button' ) )
+					.$this->Form->button( 'Tout décocher', array('id' => 'toutdecocher', 'type' => 'button' ) ),
+					array(
+						'class' => 'buttons'
+					)
+				);
+			}
+
+
+			$input = $this->Html->tag(
+				'fieldset',
+				$this->Html->tag( 'legend', __d( $params['domain'], $path ) )
+				.$buttons
+				.$this->Form->input(
+					$path,
+					array(
+						'label' => false,
+						'type' => 'select',
+						'multiple' => 'checkbox',
+						'options' => $options,
+						'fieldset' => false,
+						'class' => Hash::get( $params, 'class' ),
+						'hiddenField' => Hash::get( $params, 'hiddenField' )
+					)
+				),
+				array( 'id' => $fieldsetId)
+			);
+
+
+
+			return $input;
+		}
+
+
+		/**
 		 * Méthode générique permettant de filtrer sur une plage de dates.
 		 *
 		 * params['addYear'] Ajoute X années au "maxYear" du "TO"

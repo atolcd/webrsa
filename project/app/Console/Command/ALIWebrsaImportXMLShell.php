@@ -117,6 +117,7 @@
 						//On passe aux dossiers
 						foreach($xml->dossiers->dossier as $dossier){
 							$personne_id = intval($dossier->id_personne->__toString());
+							debug($personne_id);
 
 							$personne = $this->Personne->findById($personne_id);
 							if(empty($personne)){

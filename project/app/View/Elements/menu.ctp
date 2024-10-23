@@ -703,7 +703,7 @@
 			'Indicateurs de suivi' => array( 'url' => array( 'controller' => 'indicateurssuivis', 'action' => 'search' ) ),
 			'Tableaux de bord RSA' => array(
 				'disabled' => ( $departement != 93 ),
-				// __d( 'tableauxbords93', '/Tableauxbords93/tableau1/:heading' ) => array( 'url' => array( 'controller' => 'tableauxbords93', 'action' => 'tableau1' ) ),
+				__d( 'tableauxbords93', '/Tableauxbords93/tableau1/:heading' ) => array( 'url' => array( 'controller' => 'tableauxbords93', 'action' => 'tableau1' ) ),
 				__d( 'tableauxbords93', '/Tableauxbords93/tableau2/:heading' ) => array( 'url' => array( 'controller' => 'tableauxbords93', 'action' => 'tableau2' ) ),
 				
 			),
