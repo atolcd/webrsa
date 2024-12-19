@@ -206,7 +206,7 @@
 			$annee = $params['annee'];
 
 
-			$condition_referent = $params['referent'] != "non" ? " and referent_assiette =".$params['referent'] : "";
+			$condition_referent = $params['referent'] != "non" ? " and referent_assiette = '".$params['referent']."'" : "";
 			$condition_numcom = $params['numcom'] != null ? " and numcom in(".$params['numcom'].")" : "";
 
 			$sql_a = "
@@ -519,7 +519,7 @@
 			$annee    = isset($this->request->query['annee'])        ? $this->request->query['annee']    : null;
 
 			$colonnes = $this->colonnes_export_corpus_tdb1($this->request->query['tableau']);
-			$condition_referent = $params['referent'] != "non" ? " and referent_assiette =".$params['referent'] : "";
+			$condition_referent = $params['referent'] != "non" ? " and referent_assiette = '".$params['referent']."'" : "";
 			$condition_numcom = $params['numcom'] != null ? " and numcom in(".$params['numcom'].")" : "";
 
 			if($this->request->query['tableau'] == 'A'){
