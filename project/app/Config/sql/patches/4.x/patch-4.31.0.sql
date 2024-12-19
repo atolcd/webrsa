@@ -85,7 +85,7 @@ create table if not exists tdb1_a_corpus (
 	referent_assiette integer null,
 	created timestamp not null,
 	modified timestamp not null
-)
+);
 
 --table pour stocker les données du tableau de bord 1B
 create table if not exists tdb1_b_corpus (
@@ -149,7 +149,7 @@ create table if not exists tdb1_b_corpus (
 	thematique_collectif varchar null,
 	created timestamp not null,
 	modified timestamp not null
-)
+);
 
 --table pour stocker les données du tableau de bord 1C
 create table if not exists tdb1_c_corpus (
@@ -215,7 +215,7 @@ create table if not exists tdb1_c_corpus (
 	sujet_autre bool null,
 	created timestamp not null,
 	modified timestamp not null
-)
+);
 
 -- *****************************************************************************
 COMMIT;
