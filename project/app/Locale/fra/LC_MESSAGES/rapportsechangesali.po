@@ -364,6 +364,9 @@ msgstr "Le référent et la structure d'accueil sont incohérents"
 msgid "mail.objet"
 msgstr "[%d] - Rapport d'intégration des données dans le logiciel WebRSA"
 
+msgid "mail.objet.fichier_manquant"
+msgstr "[%d] - Fichier manquant pour l'intégration des données dans le logiciel WebRSA"
+
 msgid "deja_traite"
 msgstr "Le fichier a déjà été traité"
 
@@ -393,3 +396,6 @@ msgstr "Code appellation métier incohérent"
 
 msgid "utilisateur_inconnu"
 msgstr "Utilisateur non ou mal configuré pour l'import pour cette structure"
+
+msgid "infos_dossier"
+msgstr "Données du dossier inconnues"

@@ -551,6 +551,12 @@
 										$infos_cer = [];
 										$infos_histo = [];
 
+										//On vérifie si on a bien accès aux infos sur le dossier de la personne
+										if(!isset($personne['Dossier'][0])){
+											$bool_cer = false;
+											$rapport = $this->AddErreur($rapport, 'cer', 'infos_dossier', $personne_id);
+										}
+
 										//On vérifie et ajoute les champs modifiables
 										// date début contrat
 										$interval = DateInterval::createFromDateString('3 months');
@@ -2211,7 +2217,7 @@
 					$mailBody = 'Date : '.$now.'<br>';
 					$mailBody .= 'Structure : '.$this->Structurereferente->findById($ali_manquante)['Structurereferente']['lib_struc'].'<br>';
 					$mailBody .= __d('rapportsechangesali', 'fichier_manquant');
-					$this->envoiMail($mailBody, $to, $ali_manquante);
+					$this->envoiMail($mailBody, $to, $ali_manquante, null, true);
 				}
 			}
 
@@ -2219,15 +2225,21 @@
 
 		}
 
-		public function envoiMail($mailBody, $to, $id_ali, $attachments = null){
+		public function envoiMail($mailBody, $to, $id_ali, $attachments = null, $fichier_manquant = false){
 			$success = false;
 
 			try {
 				$Email = new CakeEmail('echange_ali');
 				$Email->emailFormat('html');
-				$Email->config([
-					'subject' => sprintf(__d('rapportsechangesali','mail.objet'), $id_ali)
-				]);
+				if($fichier_manquant){
+					$Email->config([
+						'subject' => sprintf(__d('rapportsechangesali','mail.objet.fichier_manquant'), $id_ali)
+					]);
+				} else {
+					$Email->config([
+						'subject' => sprintf(__d('rapportsechangesali','mail.objet'), $id_ali)
+					]);
+				}
 				if(!empty($to)){
 					$Email->config([
 						'to' => $to,
