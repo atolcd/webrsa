@@ -160,6 +160,7 @@ $fonorg = $dossier['Dossier']['fonorg'];
 				$subAllocataire['Droit'] = array(
 					( $departement == 93 ? 'DSP' : 'DSP d\'origine' ) => array( 'url' => array( 'controller' => 'dsps', 'action' => 'view', $personne['id'] ) ),
 					( $departement == 66 ? 'DSPs mises à jour' : 'MAJ DSP' ) => array( 'url' => array( 'controller' => 'dsps', 'action' => 'histo', $personne['id'] ) ),
+					'Données d\'orientations'  => array( 'url' => array( 'controller' => 'orientationsfrancestravails', 'action' => 'view', $personne['id'] ) ),
 				);
 
 				$nom_form_pdo_cg = Configure::read( 'nom_form_pdo_cg' );

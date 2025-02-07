@@ -1,0 +1,100 @@
+# Traductions de orientationsfrancestravails.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr "<b></b>"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+###### Données d'orientation ######
+msgid "Orientationfrancetravail.crit_origine_calcul"
+msgstr "<b>Origine calcul</b>"
+
+msgid "Orientationfrancetravail.crit_situation_professionnelle"
+msgstr "<b>Situation professionnelle</b>"
+
+msgid "Orientationfrancetravail.crit_type_emploi"
+msgstr "<b>Type d'emploi</b>"
+
+msgid "Orientationfrancetravail.crit_niveau_etude"
+msgstr "<b>Niveau d'études</b>"
+
+msgid "Orientationfrancetravail.crit_capacite_a_travailler"
+msgstr "<b>Capacité à travailler</b>"
+
+msgid "Orientationfrancetravail.crit_projet_pro"
+msgstr "<b>Projet professionnel</b>"
+
+msgid "Orientationfrancetravail.crit_contrainte_sante"
+msgstr "<b>Contrainte de santé</b>"
+
+msgid "Orientationfrancetravail.crit_contrainte_logement"
+msgstr "<b>Contrainte de logement</b>"
+
+msgid "Orientationfrancetravail.crit_contrainte_mobilite"
+msgstr "<b>Contrainte de mobilité</b>"
+
+msgid "Orientationfrancetravail.crit_contrainte_familiale"
+msgstr "<b>Contrainte familiale</b>"
+
+msgid "Orientationfrancetravail.crit_contrainte_financiere"
+msgstr "<b>Contrainte financière</b>"
+
+msgid "Orientationfrancetravail.crit_contrainte_numerique"
+msgstr "<b>Contrainte numérique</b>"
+
+msgid "Orientationfrancetravail.crit_contrainte_admin_jur"
+msgstr "<b>Contrainte administrative et juridique</b>"
+
+msgid "Orientationfrancetravail.crit_contrainte_francais_calcul"
+msgstr "<b>Contrainte de maitrise de langue française et de calcul</b>"
+
+msgid "Orientationfrancetravail.crit_boe"
+msgstr "<b>Bénéficiaire de l'obligation d'emploi</b>"
+
+msgid "Orientationfrancetravail.crit_baeeh"
+msgstr "<b>Bénéficiaire ou ancien bénéficiaire de l’AEEH / PCH / PPS</b>"
+
+msgid "Orientationfrancetravail.crit_scolarite_etab_spec"
+msgstr "<b>Scolarisé dans un établissement d’éducation spécialisée (IME ou IMPRO)</b>"
+
+msgid "Orientationfrancetravail.crit_esat"
+msgstr "<b>Travaille, a travaillé ou bénéficie d’une orientation en ESAT et souhaite travailler en milieu ordinaire</b>"
+
+msgid "Orientationfrancetravail.crit_boe_souhait_accompagnement"
+msgstr "<b>Bénéficaire de l'obligation d'emploi et souhaite un accompagnement sur le sujet</b>"
+
+msgid "Orientationfrancetravail.crit_msa_autonomie_recherche_emploi"
+msgstr "<b>Autonome dans ses recherches d'emploi</b>"
+
+msgid "Orientationfrancetravail.crit_msa_demarches_professionnelles"
+msgstr "<b>Niveau d'avancement des démarches professionnelles de l'usager</b>"
+
+###### Sortie de parcours ######
+msgid "Orientationfrancetravail.decision_date_sortie_parcours"
+msgstr "<b>Date de sortie du parcours</b>"
+
+msgid "Orientationfrancetravail.decision_motif_sortie_parcours"
+msgstr "<b>Motif de sortie de parcours</b>"
+
+msgid "Orientationfrancetravail.decision_etat"
+msgstr "<b>État de la décision</b>"
+
+msgid "Orientationfrancetravail.decision_date"
+msgstr "<b>Date de décision</b>"
+
+msgid "Orientationfrancetravail.decision_organisme"
+msgstr "<b>Opérateur de la décision</b>"
+
+msgid "Orientationfrancetravail.decision_motif_refus"
+msgstr "<b>Motif du refus</b>"
+
+msgid "Orientationfrancetravail.decision_commentaire_refus"
+msgstr "<b>Commentaire du refus</b>"
+
+msgid "Orientationfrancetravail.decision_structure_libelle"
+msgstr "<b>Structure de la décision</b>"

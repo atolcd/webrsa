@@ -5381,4 +5381,10 @@ msgstr "Export CSV du tableau 1"
 msgid "controllers/Tableauxbords93/colonnes_communes"
 msgstr "Export CSV de données"
 
+## Orientation France Travail
+###############################################################################
+msgid "controllers/Orientationsfrancestravails"
+msgstr "Orientation France Travail"
 
+msgid "controllers/Orientationsfrancestravails/view"
+msgstr "Afficher l'orientation France Travail"

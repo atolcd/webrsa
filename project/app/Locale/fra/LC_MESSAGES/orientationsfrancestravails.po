@@ -1,0 +1,112 @@
+# Traductions de orientationsfrancestravails.po
+# @license: CeCiLL V2 (http://www.cecill.info/licences/Licence_CeCILL_V2-fr.html)
+#
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n>1);\n"
+
+# ==============================================================================
+
+msgid "/Orientationsfrancestravails/view/:heading"
+msgstr "Données d'orientations de France Travail de #Personne.nom_complet#"
+
+# Messages
+msgid "Orientationfrancetravail.notice.noinfo"
+msgstr "Cette personne n'a pas encore d'informations provenant de France Travail"
+
+msgid "Orientationfrancetravail.DerniereMaj"
+msgstr "Dernière date de mise à jour des données : "
+
+##### Orientation dans le SI plateforme #####
+msgid "Orientationfrancetravail.TitreDerniereOrientation"
+msgstr "Orientation dans le SI plateforme"
+
+# Parcours
+msgid "Orientationfrancetravail.Parcours"
+msgstr "Parcours : "
+
+msgid "Orientationfrancetravail.Parcours.PED"
+msgstr "Parcours emploi direct"
+
+msgid "Orientationfrancetravail.Parcours.PSP"
+msgstr "Parcours socio-professionnel"
+
+msgid "Orientationfrancetravail.Parcours.PSO"
+msgstr "Parcours social"
+
+msgid "Orientationfrancetravail.Parcours.EO"
+msgstr "Entretien d'orientation"
+
+msgid "Orientationfrancetravail.Parcours.IND"
+msgstr "Indéterminé"
+
+# Opérateurs
+msgid "Orientationfrancetravail.Operateurs"
+msgstr "Opérateurs : "
+
+msgid "Orientationfrancetravail.Operateurs.FT"
+msgstr "France Travail"
+
+msgid "Orientationfrancetravail.Operateurs.CD"
+msgstr "Conseil départemental"
+
+msgid "Orientationfrancetravail.Operateurs.ML"
+msgstr "Mission locale"
+
+msgid "Orientationfrancetravail.Operateurs.CE"
+msgstr "Cap Emploi"
+
+msgid "Orientationfrancetravail.Operateurs.IND"
+msgstr "Indéterminé"
+
+# Statut
+msgid "Orientationfrancetravail.Statut"
+msgstr "Statut : "
+
+msgid "Orientationfrancetravail.Statut.PRECONISE"
+msgstr "Préconisé"
+
+msgid "Orientationfrancetravail.Statut.DECIDE"
+msgstr "Décidé"
+
+# État
+msgid "Orientationfrancetravail.Etat"
+msgstr "État : "
+
+msgid "Orientationfrancetravail.Etat.EN_ATTENTE"
+msgstr "En attente"
+
+msgid "Orientationfrancetravail.Etat.BROUILLON"
+msgstr "Brouillon"
+
+msgid "Orientationfrancetravail.Etat.OUVERT"
+msgstr "Ouvert"
+
+msgid "Orientationfrancetravail.Etat.CLOTURE"
+msgstr "Clôturé"
+
+# Date d'entrée du parcours
+msgid "Orientationfrancetravail.Dateentree"
+msgstr "Date d'entrée du parcours : "
+
+# Date de modification SI Plateforme
+msgid "Orientationfrancetravail.Datemodification"
+msgstr "Date de dernière modification : "
+
+# Structures
+msgid "Orientationfrancetravail.Stucture"
+msgstr "Structure : "
+
+msgid "Orientationfrancetravail.Structuredecision"
+msgstr "Structure de décision : "
+
+###### Données d'orientation ######
+msgid "Orientationfrancetravail.TitreCritere"
+msgstr "Données d'orientation"
+
+###### Sortie de parcours ######
+msgid "Orientationfrancetravail.TitreSortieParcours"
+msgstr "Sortie de parcours"
