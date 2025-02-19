@@ -124,6 +124,18 @@ WHERE
     AND configurations.lib_variable IN ('Module.Francetravail.APIURL', 'Module.Francetravail.EnvoiOrientation');
 
 
+--Mise à jour de l'ordre du dernier critère
+update criteresalgorithmeorientation set ordre = 18 where code = 'FINAL';
+
+--Ajout des 4 nouveaux critères de l'algo d'orientation
+insert into criteresalgorithmeorientation 
+(ordre, libelle, type_orient_parent_id, type_orient_enfant_id, code, libelle_initial)
+values 
+(14, 'France travail préconise-t-il un parcours emploi ?', 3, 7, 'FT_PRECO_EMPLOI', 'France travail préconise-t-il un parcours emploi ?'),
+(15, 'France travail préconise-t-il un parcours social ?', 2, 6, 'FT_PRECO_SOCIAL', 'France travail préconise-t-il un parcours social ?'),
+(16, 'France travail préconise-t-il un parcours socio professionnel ?', 1, 8, 'FT_PRECO_SOCIOPRO', 'France travail préconise-t-il un parcours socio professionnel ?'),
+(17, 'Critère balai France Travail', 3, 7, 'FT_BALAI', 'Critère balai France Travail');
+
 -- *****************************************************************************
 COMMIT;
 -- *****************************************************************************

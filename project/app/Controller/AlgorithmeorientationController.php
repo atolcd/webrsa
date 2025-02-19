@@ -1058,10 +1058,14 @@
 				--modifier les bornes en fonction des variables de configuration
 				extract (year from AGE(p.dtnai) ) between {$age_min_jeune} and {$age_max_jeune} as JEUNE,
 				extract (year from AGE(p.dtnai) ) between {$age_min_senior} and {$age_max_senior} as SENIOR,
-				dsp.ENGAGEMENT_RAPIDE_EMPLOI,
+				case when oft.crit_capacite_a_travailler is true then true else false end as ENGAGEMENT_RAPIDE_EMPLOI,
 				dsp.DIFFICULTES_SOC,
 				dsp.DIFFICULTES_FRANCAIS,
-				dsp.JAMAIS_TRAVAILLE,
+				case when oft.crit_situation_professionnelle = 'JAMAIS' then true else false end as JAMAIS_TRAVAILLE,
+				case when oft.statut = 'PRECONISE' and oft.code_parcours = 'PED' then true else false end as FT_PRECO_EMPLOI,
+				case when oft.statut = 'PRECONISE' and oft.code_parcours = 'PSO' then true else false end as FT_PRECO_SOCIAL,
+				case when oft.statut = 'PRECONISE' and oft.code_parcours = 'PSP' then true else false end as FT_PRECO_SOCIOPRO,
+				true as FT_BALAI,
 				(dsp.type_logement_urgence and d2.nbenfautcha >= {$nb_enfants} and d2.nbenfautcha is not null) as LOGEMENT_URGENCE,
 				(hpe.INSCRIT_PE_DERNIERS_MOIS is not null and hpe.INSCRIT_PE_DERNIERS_MOIS) as INSCRIT_PE_DERNIERS_MOIS,
 				(dernierhistoriquepe.etat = 'inscription' and dernierhistoriquepe.etat is not null) as INSCRIT_PE,
@@ -1095,6 +1099,7 @@
 			left join dernierhistoriquepe on dernierhistoriquepe.informationpe_id = i.id and dernierhistoriquepe.rang = 1
 			LEFT JOIN HistoriquePEDerniersMois hpe ON hpe.informationpe_id = i.id
 			left join derniersdossiersallocataires dda on dda.personne_id = p.id
+			left join orientations_francetravail oft on oft.personne_id = p.id
 			where p.id in ({$liste_ids});
 			";
 
