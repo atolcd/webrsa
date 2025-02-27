@@ -1403,6 +1403,14 @@
 
 			$this->set('export', $export);
 			$this->set('options', []);
+			$this->set('struct', $this->Structurereferente->findById($params['structure'])['Structurereferente']['lib_struc']);
+			if($params['date'] != 'ajd'){
+				$tab = explode('_', $params['date']);
+				$date = 'T'.$tab[1].' '.$tab[0];
+			} else {
+				$date = date('d/m/Y');
+			}
+			$this->set('date', $date);
 			$this->layout = '';
 			$this->render('exportcsv_tableau2_donnees');
 		}
@@ -1456,6 +1464,14 @@
 
 			$this->set('export', $export);
 			$this->set('options', []);
+			$this->set('struct', $this->Structurereferente->findById($params['structure'])['Structurereferente']['lib_struc']);
+			if($params['date'] != 'ajd'){
+				$tab = explode('_', $params['date']);
+				$date = 'T'.$tab[1].' '.$tab[0];
+			} else {
+				$date = date('d/m/Y');
+			}
+			$this->set('date', $date);
 			$this->layout = '';
 			$this->render('exportcsv_tableau2_corpus');
 		}
