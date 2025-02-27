@@ -59,7 +59,7 @@ msgid "Tableau2.titre.c2"
 msgstr "Nb d'allocataires conservés après entretien de diagnostic"
 
 msgid "Tableau2.titre.c3"
-msgstr "Nb d'allocataire orientés pour une entrée directe en accompagnement"
+msgstr "Nb d'allocataires orientés pour une entrée directe en accompagnement"
 
 msgid "Tableau2.titre.c4"
 msgstr "Nb d'allocataires effectivement accompagnés (avec au moins 1 RDV honoré en présentiel)"
