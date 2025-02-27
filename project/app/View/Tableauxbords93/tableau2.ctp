@@ -107,6 +107,13 @@ if(isset($resultats)){
                     <td style ='text-align:center'><?=$resultats['c1_c']?></td>
                     <td style ='text-align:center'><?=$resultats['c1_d']?></td>
             </tr>
+            <tr class="even">
+                <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c1bis')?></th>
+                    <td style ='text-align:center'><?=$resultats['c1bis_a']?></td>
+                    <td style ='text-align:center'><?=$resultats['c1bis_b']?></td>
+                    <td style ='text-align:center'><?=$resultats['c1bis_c']?></td>
+                    <td style ='text-align:center'><?=$resultats['c1bis_d']?></td>
+            </tr>
             <tr class="odd">
                 <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c2')?></th>
                     <td style ='text-align:center'><?=$resultats['c2_a']?></td>

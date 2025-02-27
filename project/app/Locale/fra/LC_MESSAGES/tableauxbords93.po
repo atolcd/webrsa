@@ -53,6 +53,9 @@ msgid "Tableau2.titre.c"
 msgstr "Conventionnel"
 
 msgid "Tableau2.titre.c1"
+msgstr "Nb d'allocataires dont l'entretien diagnostic a été réalisé"
+
+msgid "Tableau2.titre.c1bis"
 msgstr "Nb d'allocataires orientés pour diagnostic"
 
 msgid "Tableau2.titre.c2"

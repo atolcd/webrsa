@@ -1232,11 +1232,16 @@
 			,count(*) filter (WHERE toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) as T_C
 			,count(*) filter (WHERE toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') as T_D
 			--Conventionnel
-			--orientés diag
+			--orientés ent diag réalisé
 			,count(*) filter (where (dod_id is not null and tag_diag is true)) as C1_A
 			,count(*) filter (where (nveau_orient IS true) AND (dod_id is not null and tag_diag is true)) as C1_B
 			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and (dod_id is not null and tag_diag is true)) as C1_C
 			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (dod_id is not null and tag_diag is true)) as C1_D
+			-- orientés diag
+			,count(*) filter (where (dohd_id is not null and tag_diag is true)) as C1bis_A
+			,count(*) filter (where (nveau_orient IS true) AND (dohd_id is not null and tag_diag is true)) as C1bis_B
+			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and (dohd_id is not null and tag_diag is true)) as C1bis_C
+			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (dohd_id is not null and tag_diag is true)) as C1bis_D
 			-- Conservés après diagnostic
 			,count(*) filter (where (dod_id is not null and tag_diag is true and dod_structurereferente_id = {$id_structure})) as C2_A
 			,count(*) filter (where (nveau_orient IS true) AND (dod_id is not null and tag_diag is true and dod_structurereferente_id = {$id_structure})) as C2_B
@@ -1385,6 +1390,7 @@
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.t'), $donnees['t_a'], $donnees['t_b'], $donnees['t_c'], $donnees['t_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c')];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c1'), $donnees['c1_a'], $donnees['c1_b'], $donnees['c1_c'], $donnees['c1_d']];
+			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c1bis'), $donnees['c1bis_a'], $donnees['c1bis_b'], $donnees['c1bis_c'], $donnees['c1bis_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c2'), $donnees['c2_a'], $donnees['c2_b'], $donnees['c2_c'], $donnees['c2_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c3'), $donnees['c3_a'], $donnees['c3_b'], $donnees['c3_c'], $donnees['c3_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c4'), $donnees['c4_a'], $donnees['c4_b'], $donnees['c4_c'], $donnees['c4_d']];
