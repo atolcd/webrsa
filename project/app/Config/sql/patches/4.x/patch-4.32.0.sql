@@ -106,10 +106,22 @@ INSERT INTO configurations(lib_variable, value_variable, comments_variable, crea
         CURRENT_TIMESTAMP
     WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.Francetravail.APIURL');
 
+-- Ajout de la configuration d'activation de l'envoi des orientations à France Travail
+INSERT INTO configurations(lib_variable, value_variable, comments_variable, created, modified)
+    SELECT
+        'Module.Francetravail.EnvoiOrientation',
+        'false',
+        'Active / désactive l''envoi des orientations à France travail (par défaut à false)',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+    WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.Francetravail.EnvoiOrientation');
+
 UPDATE configurations
 SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
-WHERE configurationscategories.lib_categorie = 'webrsa' AND configurations.lib_variable IN ('Module.Francetravail.APIURL');
+WHERE
+    configurationscategories.lib_categorie = 'webrsa'
+    AND configurations.lib_variable IN ('Module.Francetravail.APIURL', 'Module.Francetravail.EnvoiOrientation');
 
 
 -- *****************************************************************************

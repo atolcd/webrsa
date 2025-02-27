@@ -56,6 +56,9 @@
          *
          */
         public function main() {
+            if( Configure::read('Module.Francetravail.EnvoiOrientation') == false ) {
+                return;
+            }
             $this->_init();
 
             $this->out('Démarrage : ' . date('d/m/Y H:i'));
