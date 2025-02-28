@@ -215,14 +215,14 @@
 					select
 					annee as periode,
 					count(distinct personne_id) filter (where nveau_orient is true) as nveau_orient,
-					count(distinct personne_id) filter (where nveau_orient is true and tagdiag is true and origine_assiette <> 'entdiag') as nveau_orien_diag,
-					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag'
+					count(distinct personne_id) filter (where nveau_orient is true and tag_diag is true and origine_assiette <> 'entdiag') as nveau_orien_diag,
+					count(distinct personne_id) filter (where tag_diag is true and origine_assiette = 'entdiag'
 					$condition_referent
 					) as tdb1A3,
-					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag' and structorient_assiette = structuref_assiette
+					count(distinct personne_id) filter (where tag_diag is true and origine_assiette = 'entdiag' and structorient_assiette = structuref_assiette
 					$condition_referent
 					) as tdb1A4,
-					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag' and structorient_assiette <> structuref_assiette
+					count(distinct personne_id) filter (where tag_diag is true and origine_assiette = 'entdiag' and structorient_assiette <> structuref_assiette
 					$condition_referent
 					) as tdb1A5
 					from tdb1_a_corpus tac
@@ -236,14 +236,14 @@
 					select
 					mois as periode,
 					count(distinct personne_id) filter (where nveau_orient is true ) as nveau_orient,
-					count(distinct personne_id) filter (where nveau_orient is true and tagdiag is true and origine_assiette <> 'entdiag' ) as nveau_orien_diag,
-					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag'
+					count(distinct personne_id) filter (where nveau_orient is true and tag_diag is true and origine_assiette <> 'entdiag' ) as nveau_orien_diag,
+					count(distinct personne_id) filter (where tag_diag is true and origine_assiette = 'entdiag'
 					$condition_referent
 					) as tdb1A3,
-					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag' and structorient_assiette = structuref_assiette
+					count(distinct personne_id) filter (where tag_diag is true and origine_assiette = 'entdiag' and structorient_assiette = structuref_assiette
 					$condition_referent
 					) as tdb1A4,
-					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag' and structorient_assiette <> structuref_assiette
+					count(distinct personne_id) filter (where tag_diag is true and origine_assiette = 'entdiag' and structorient_assiette <> structuref_assiette
 					$condition_referent
 					) as tdb1A5
 					from tdb1_a_corpus tac
@@ -1522,7 +1522,7 @@
 				__d('tableauxbords93', 'Corpus.colonne.refe_appartient_struct') => 'refe_appartient_struct',
 				__d('tableauxbords93', 'Corpus.colonne.referent_actif') => 'referent_actif',
 				//tag
-				__d('tableauxbords93', 'Corpus.colonne.tag_diag') => 'tagdiag',
+				__d('tableauxbords93', 'Corpus.colonne.tag_diag') => 'tag_diag',
 				__d('tableauxbords93', 'Corpus.colonne.date_creation_tag') => 'date_creation_tag',
 			];
 		}

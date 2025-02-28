@@ -453,7 +453,7 @@
 				end as refe_appartient_struct,
 				refe.actif as referent_actif,
 				--tag 
-				a.tag_diag as tagdiag,
+				a.tag_diag as tag_diag,
 				a.date_tag as date_creation_tag,
 				--derniere orientation hors diag
 				dohd.id as dohd_id,
@@ -646,7 +646,7 @@
 					refe.structurereferente_id = o.structurereferente_id as refe_appartient_struct,
 					refe.actif as referent_actif,
 				--	tag
-					a.tag_diag as tagdiag,
+					a.tag_diag as tag_diag,
 					a.date_tag as date_creation_tag,
 				--	orientation
 					o.id as orient_id,
@@ -845,7 +845,7 @@
 					refe.structurereferente_id = o.structurereferente_id as refe_appartient_struct,
 					refe.actif as referent_actif,
 				--	tag 
-					a.tag_diag as tagdiag,
+					a.tag_diag as tag_diag,
 					a.date_tag as date_creation_tag,
 				--	orientation
 					o.id as orient_id,
