@@ -1389,10 +1389,10 @@
 			$export[$i++] = ['', __d('tableauxbords93', 'Tableau2.titre.colonneA'), __d('tableauxbords93', 'Tableau2.titre.colonneB'), __d('tableauxbords93', 'Tableau2.titre.colonneC'), __d('tableauxbords93', 'Tableau2.titre.colonneD')];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.t'), $donnees['t_a'], $donnees['t_b'], $donnees['t_c'], $donnees['t_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c')];
-			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c1'), $donnees['c1_a'], $donnees['c1_b'], $donnees['c1_c'], $donnees['c1_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c1bis'), $donnees['c1bis_a'], $donnees['c1bis_b'], $donnees['c1bis_c'], $donnees['c1bis_d']];
-			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c2'), $donnees['c2_a'], $donnees['c2_b'], $donnees['c2_c'], $donnees['c2_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c3'), $donnees['c3_a'], $donnees['c3_b'], $donnees['c3_c'], $donnees['c3_d']];
+			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c1'), $donnees['c1_a'], $donnees['c1_b'], $donnees['c1_c'], $donnees['c1_d']];
+			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c2'), $donnees['c2_a'], $donnees['c2_b'], $donnees['c2_c'], $donnees['c2_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c4'), $donnees['c4_a'], $donnees['c4_b'], $donnees['c4_c'], $donnees['c4_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c6'), $donnees['c6_a'], $donnees['c6_b'], $donnees['c6_c'], $donnees['c6_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c7'), $donnees['c7_a'], $donnees['c7_b'], $donnees['c7_c'], $donnees['c7_d']];
