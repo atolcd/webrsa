@@ -101,18 +101,25 @@ if(isset($resultats)){
                 <th scope = 'row' colspan = '5' style = 'font-weight:bold'><?= __d('tableauxbords93', 'Tableau2.titre.c')?></th>
             </tr>
             <tr class="even">
-                <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c1')?></th>
-                    <td style ='text-align:center'><?=$resultats['c1_a']?></td>
-                    <td style ='text-align:center'><?=$resultats['c1_b']?></td>
-                    <td style ='text-align:center'><?=$resultats['c1_c']?></td>
-                    <td style ='text-align:center'><?=$resultats['c1_d']?></td>
-            </tr>
-            <tr class="even">
                 <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c1bis')?></th>
                     <td style ='text-align:center'><?=$resultats['c1bis_a']?></td>
                     <td style ='text-align:center'><?=$resultats['c1bis_b']?></td>
                     <td style ='text-align:center'><?=$resultats['c1bis_c']?></td>
                     <td style ='text-align:center'><?=$resultats['c1bis_d']?></td>
+            </tr>
+            <tr class="odd">
+                <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c3')?></th>
+                    <td style ='text-align:center'><?=$resultats['c3_a']?></td>
+                    <td style ='text-align:center'><?=$resultats['c3_b']?></td>
+                    <td style ='text-align:center'><?=$resultats['c3_c']?></td>
+                    <td style ='text-align:center'><?=$resultats['c3_d']?></td>
+            </tr>
+            <tr class="even">
+                <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c1')?></th>
+                    <td style ='text-align:center'><?=$resultats['c1_a']?></td>
+                    <td style ='text-align:center'><?=$resultats['c1_b']?></td>
+                    <td style ='text-align:center'><?=$resultats['c1_c']?></td>
+                    <td style ='text-align:center'><?=$resultats['c1_d']?></td>
             </tr>
             <tr class="odd">
                 <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c2')?></th>
@@ -122,86 +129,79 @@ if(isset($resultats)){
                     <td style ='text-align:center'><?=$resultats['c2_d']?></td>
             </tr>
             <tr class="even">
-                <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c3')?></th>
-                    <td style ='text-align:center'><?=$resultats['c3_a']?></td>
-                    <td style ='text-align:center'><?=$resultats['c3_b']?></td>
-                    <td style ='text-align:center'><?=$resultats['c3_c']?></td>
-                    <td style ='text-align:center'><?=$resultats['c3_d']?></td>
-            </tr>
-            <tr class="odd">
                 <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c4')?></th>
                     <td style ='text-align:center'><?=$resultats['c4_a']?></td>
                     <td style ='text-align:center'><?=$resultats['c4_b']?></td>
                     <td style ='text-align:center'><?=$resultats['c4_c']?></td>
                     <td style ='text-align:center'><?=$resultats['c4_d']?></td>
             </tr>
-            <tr class="even">
+            <tr class="odd">
                 <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c6')?></th>
                     <td style ='text-align:center'><?=$resultats['c6_a']?></td>
                     <td style ='text-align:center'><?=$resultats['c6_b']?></td>
                     <td style ='text-align:center'><?=$resultats['c6_c']?></td>
                     <td style ='text-align:center'><?=$resultats['c6_d']?></td>
             </tr>
-            <tr class="odd">
+            <tr class="even">
                 <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c7')?></th>
                     <td style ='text-align:center'><?=$resultats['c7_a']?></td>
                     <td style ='text-align:center'><?=$resultats['c7_b']?></td>
                     <td style ='text-align:center'><?=$resultats['c7_c']?></td>
                     <td style ='text-align:center'><?=$resultats['c7_d']?></td>
             </tr>
-            <tr class="even">
+            <tr class="odd">
                 <th scope = 'row' colspan = '5' style = 'font-weight:bold'><?= __d('tableauxbords93', 'Tableau2.titre.p')?></th>
             </tr>
-            <tr class="odd">
+            <tr class="even">
                 <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.p1')?></th>
                     <td style ='text-align:center'><?=$resultats['p1_a']?></td>
                     <td style ='text-align:center'><?=$resultats['p1_b']?></td>
                     <td style ='text-align:center'><?=$resultats['p1_c']?></td>
                     <td style ='text-align:center'><?=$resultats['p1_d']?></td>
             </tr>
-            <tr class="even">
+            <tr class="odd">
                 <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.p2')?></th>
                     <td style ='text-align:center'><?=$resultats['p2_a']?></td>
                     <td style ='text-align:center'><?=$resultats['p2_b']?></td>
                     <td style ='text-align:center'><?=$resultats['p2_c']?></td>
                     <td style ='text-align:center'><?=$resultats['p2_d']?></td>
             </tr>
-            <tr class="odd">
+            <tr class="even">
                 <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.p3')?></th>
                     <td style ='text-align:center'><?=$resultats['p3_a']?></td>
                     <td style ='text-align:center'><?=$resultats['p3_b']?></td>
                     <td style ='text-align:center'><?=$resultats['p3_c']?></td>
                     <td style ='text-align:center'><?=$resultats['p3_d']?></td>
             </tr>
-            <tr class="even">
+            <tr class="odd">
                 <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.p4')?></th>
                     <td style ='text-align:center'><?=$resultats['p4_a']?></td>
                     <td style ='text-align:center'><?=$resultats['p4_b']?></td>
                     <td style ='text-align:center'><?=$resultats['p4_c']?></td>
                     <td style ='text-align:center'><?=$resultats['p4_d']?></td>
             </tr>
-            <tr class="odd">
+            <tr class="even">
                 <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.p5')?></th>
                     <td style ='text-align:center'><?=$resultats['p5_a']?></td>
                     <td style ='text-align:center'><?=$resultats['p5_b']?></td>
                     <td style ='text-align:center'><?=$resultats['p5_c']?></td>
                     <td style ='text-align:center'><?=$resultats['p5_d']?></td>
             </tr>
-            <tr class="even">
+            <tr class="odd">
                 <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.p6')?></th>
                     <td style ='text-align:center'><?=$resultats['p6_a']?></td>
                     <td style ='text-align:center'><?=$resultats['p6_b']?></td>
                     <td style ='text-align:center'><?=$resultats['p6_c']?></td>
                     <td style ='text-align:center'><?=$resultats['p6_d']?></td>
             </tr>
-            <tr class="odd">
+            <tr class="even">
                 <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.p7')?></th>
                     <td style ='text-align:center'><?=$resultats['p7_a']?></td>
                     <td style ='text-align:center'><?=$resultats['p7_b']?></td>
                     <td style ='text-align:center'><?=$resultats['p7_c']?></td>
                     <td style ='text-align:center'><?=$resultats['p7_d']?></td>
             </tr>
-            <tr class="even">
+            <tr class="odd">
                 <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.p8')?></th>
                     <td style ='text-align:center'><?=$resultats['p8_a']?></td>
                     <td style ='text-align:center'><?=$resultats['p8_b']?></td>
