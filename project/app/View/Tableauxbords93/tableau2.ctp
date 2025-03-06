@@ -79,6 +79,12 @@ echo $this->Default3->DefaultForm->end();
 //Affichage du tableau de résultats
 if(isset($resultats)){
 ?>
+    <p><?= __d('tableauxbords93', 'Search.annee_trimestre')?> : <?=$params_affichage['date']?></p>
+    <p><?= __d('tableauxbords93', 'Search.structure')?> : <?=$params_affichage['structure']?></p>
+    <p><?= __d('tableauxbords93', 'Search.referent')?> : <?=$params_affichage['referent'] != null ? $params_affichage['referent'] : 'Non sélectionné'?></p>
+    <p><?= __d('tableauxbords93', 'Search.numcom')?> : <?=$params_affichage['numcom'] != '' ? $params_affichage['numcom'] : 'Non sélectionné'?></p>
+
+    <br/><br/>
     <table id = 'TableauResultats'>
         <thead>
             <tr>

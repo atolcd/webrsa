@@ -592,25 +592,6 @@
 
         public function tableau2(){
 
-			if(!empty( $this->request->data)){
-				//On traite le formulaire et récupère les données
-				$data = $this->request->data;
-				$params['structure'] = $data['Search']['structure'];
-				$params['referent'] = isset($data['Search']['referent']) ? substr($data['Search']['referent'], strpos($data['Search']['referent'], "_") + 1) : null;
-				$params['numcom'] = null;
-				if($data['Search']['numcom_choice'] == '1' && $data['Search']['numcom'] != '' ){
-					$liste_ids = array_values($data['Search']['numcom']);
-					$params['numcom'] = "'".implode('\',\'', $liste_ids)."'";
-				}
-
-				$params['date'] = $data['Search']['annee_trimestre'];
-				//On lance la requête
-				$resultats = $this->requeteTableau2($params);
-
-				$this->set('resultats', $resultats[0][0]);
-				$this->set(compact('params'));
-
-			}
 
 			//Annee et trimestre
 			//On récupère ce qui existe et est enregistré
@@ -633,6 +614,39 @@
 			$options['referent'] = $this->Allocataires->optionsSession()['PersonneReferent']['referent_id'];
 
 			$this->set(compact('options'));
+
+
+			if(!empty( $this->request->data)){
+				//On traite le formulaire et récupère les données
+				$data = $this->request->data;
+				$params['structure'] = $data['Search']['structure'];
+				$params['referent'] = isset($data['Search']['referent']) ? substr($data['Search']['referent'], strpos($data['Search']['referent'], "_") + 1) : null;
+				$params['numcom'] = null;
+				if($data['Search']['numcom_choice'] == '1' && $data['Search']['numcom'] != '' ){
+					$liste_ids = array_values($data['Search']['numcom']);
+					$params['numcom'] = "'".implode('\',\'', $liste_ids)."'";
+				}
+
+				$params['date'] = $data['Search']['annee_trimestre'];
+				//On lance la requête
+				$resultats = $this->requeteTableau2($params);
+
+				$params_affichage['structure'] = $this->Structurereferente->findById($params['structure'])['Structurereferente']['lib_struc'];
+				$params_affichage['date'] = $options['annee_trimestre'][$params['date']];
+				$params_affichage['referent'] = $data['Search']['referent'] != null ? $options['referent'][$data['Search']['referent']] : null;
+				$params_affichage['numcom'] = [];
+				if($data['Search']['numcom_choice'] == '1' && $data['Search']['numcom'] != '' ){
+					foreach(array_values($data['Search']['numcom']) as $com){
+						$params_affichage['numcom'][] = $options['numcom'][$com];
+					}
+				}
+				$params_affichage['numcom'] = implode(' ; ',$params_affichage['numcom']);
+
+				$this->set('resultats', $resultats[0][0]);
+				$this->set(compact('params', 'params_affichage'));
+
+			}
+
         }
 
 		/*
