@@ -859,6 +859,7 @@
 			(
 				select 
 				rdv.personne_id,
+				count(*) filter (where typerdv_id = {$type_rdv_indiv} and rdv.statutrdv_id = {$statut_rdv_honore} and extract(year from rdv.daterdv) = '{$annee}') as nb_rdv_indiv_annee,
 				count(*) filter (where typerdv_id = {$type_rdv_indiv} and rdv.statutrdv_id = {$statut_rdv_honore}) as nb_rdv_indiv,
 				count(*) filter (where typerdv_id = {$type_rdv_coll} and rdv.statutrdv_id = {$statut_rdv_honore}) as nb_rdv_coll
 				from orient_dans_annee oda join rendezvous rdv on rdv.personne_id = oda.personne_id
@@ -1138,6 +1139,7 @@
 			dod.structurereferente_id as dod_structurereferente_id,
 			dod.structureorientante as dod_structureorientante,
 			--rdv
+			nbrdv.nb_rdv_indiv_annee,
 			nbrdv.nb_rdv_indiv,
 			nbrdv.nb_rdv_coll,
 			--dsp
@@ -1277,15 +1279,15 @@
 			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and cer_valide_a_date) as C5_C
 			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and cer_valide_a_date) as C5_D
 			--moins de 4 rdv indiv honores et un CER valide au moins un jour
-			,count(*) filter (where nb_rdv_indiv >= 1 and nb_rdv_indiv < 4 and cer_struct_valide) as C6_A
-			,count(*) filter (where (nveau_orient IS true) and (nb_rdv_indiv >= 1 and nb_rdv_indiv <4 and cer_struct_valide)) as C6_B
-			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and (nb_rdv_indiv >= 1 and nb_rdv_indiv < 4 and cer_struct_valide)) as C6_C
-			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (nb_rdv_indiv >= 1 and nb_rdv_indiv < 4 and cer_struct_valide)) as C6_D
+			,count(*) filter (where nb_rdv_indiv_annee >= 1 and nb_rdv_indiv_annee < 4 and cer_struct_valide) as C6_A
+			,count(*) filter (where (nveau_orient IS true) and (nb_rdv_indiv_annee >= 1 and nb_rdv_indiv_annee <4 and cer_struct_valide)) as C6_B
+			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and (nb_rdv_indiv_annee >= 1 and nb_rdv_indiv_annee < 4 and cer_struct_valide)) as C6_C
+			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (nb_rdv_indiv_annee >= 1 and nb_rdv_indiv_annee < 4 and cer_struct_valide)) as C6_D
 			-- au moins 4 rdv indiv honores et un CER valide au moins un jour
-			,count(*) filter (where nb_rdv_indiv >= 4 and cer_struct_valide) as C7_A
-			,count(*) filter (where (nveau_orient IS true) and (nb_rdv_indiv >= 4 and cer_struct_valide)) as C7_B
-			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and (nb_rdv_indiv >= 4 and cer_struct_valide)) as C7_C
-			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (nb_rdv_indiv >= 4 and cer_struct_valide)) as C7_D
+			,count(*) filter (where nb_rdv_indiv_annee >= 4 and cer_struct_valide) as C7_A
+			,count(*) filter (where (nveau_orient IS true) and (nb_rdv_indiv_annee >= 4 and cer_struct_valide)) as C7_B
+			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and (nb_rdv_indiv_annee >= 4 and cer_struct_valide)) as C7_C
+			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (nb_rdv_indiv_annee >= 4 and cer_struct_valide)) as C7_D
 			--Pilotage
 			-- pas de rdv indiv prevu ou honore depuis + ou - 30 jours
 			,count(*) filter (where	pas_rdv_30j) as P1_A
