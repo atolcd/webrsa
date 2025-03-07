@@ -1277,10 +1277,10 @@
 			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and cer_valide_a_date) as C5_C
 			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and cer_valide_a_date) as C5_D
 			--moins de 4 rdv indiv honores et un CER valide au moins un jour
-			,count(*) filter (where nb_rdv_indiv < 4 and cer_struct_valide) as C6_A
-			,count(*) filter (where (nveau_orient IS true) and (nb_rdv_indiv < 4 and cer_struct_valide)) as C6_B
-			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and (nb_rdv_indiv < 4 and cer_struct_valide)) as C6_C
-			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (nb_rdv_indiv < 4 and cer_struct_valide)) as C6_D
+			,count(*) filter (where nb_rdv_indiv >= 1 and nb_rdv_indiv < 4 and cer_struct_valide) as C6_A
+			,count(*) filter (where (nveau_orient IS true) and (nb_rdv_indiv >= 1 and nb_rdv_indiv <4 and cer_struct_valide)) as C6_B
+			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and (nb_rdv_indiv >= 1 and nb_rdv_indiv < 4 and cer_struct_valide)) as C6_C
+			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (nb_rdv_indiv >= 1 and nb_rdv_indiv < 4 and cer_struct_valide)) as C6_D
 			-- au moins 4 rdv indiv honores et un CER valide au moins un jour
 			,count(*) filter (where nb_rdv_indiv >= 4 and cer_struct_valide) as C7_A
 			,count(*) filter (where (nveau_orient IS true) and (nb_rdv_indiv >= 4 and cer_struct_valide)) as C7_B
