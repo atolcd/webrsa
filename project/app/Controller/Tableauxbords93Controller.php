@@ -786,13 +786,15 @@
 			),
 			tag_entretien_diag as
 			(
-				select 
+				select
 				oda.personne_id,
 				case when vt.id is not null then true else false end as tag_diag,
 				case when vt.id is not null then t.created else null end as date_tag
-				from 
+				from
 				orient_dans_annee oda left join entites_tags et on et.fk_value = oda.personne_id and et.modele = 'Personne'
 				left join tags t on t.id = et.tag_id left join valeurstags vt on vt.id = t.valeurtag_id and vt.name = 'Entretien de diagnostic'
+				order by vt.id nulls last
+				limit 1
 			),
 			id_derniere_orient_hors_diag as
 			(
