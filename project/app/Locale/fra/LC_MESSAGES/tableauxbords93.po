@@ -80,13 +80,13 @@ msgid "Tableau2.titre.p"
 msgstr "Pilotage"
 
 msgid "Tableau2.titre.p1"
-msgstr "Nombre d'allocataires n'ayant pas de RDV individuel prévu ou honoré depuis 30 jours et dans 30 jours"
+msgstr "Nombre d'allocataires n'ayant pas de RDV individuel prévu ou honoré depuis 30 jours et dans 30 jours (soit entre J-30 et J+30, J étant la date sélectionnée)"
 
 msgid "Tableau2.titre.p2"
-msgstr "Nombre d'allocataires n'ayant pas de RDV individuel prévu ou honoré depuis 60 jours et dans 60 jours"
+msgstr "Nombre d'allocataires n'ayant pas de RDV individuel prévu ou honoré depuis 60 jours et dans 60 jours (soit entre J-60 et J+60, J étant la date sélectionnée)"
 
 msgid "Tableau2.titre.p3"
-msgstr "Nombre d'allocataires ayant un RDV prévu dont la date du RDV est inférieure à la date d'aujourd'hui"
+msgstr "Nombre d'allocataires ayant un RDV prévu dont la date du RDV est inférieure à la date sélectionnée"
 
 msgid "Tableau2.titre.p4"
 msgstr "Nombre d'allocataires ayant au moins 1 RDV collectif honoré mais pas de RDV individuel honoré"

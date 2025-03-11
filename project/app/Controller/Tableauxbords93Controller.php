@@ -631,8 +631,14 @@
 				//On lance la requête
 				$resultats = $this->requeteTableau2($params);
 
+				if($params['date'] == 'ajd'){
+					$date_du_jour = strval(date("d/m/Y"));
+				} else {
+					$tab = explode('_', $params['date']);
+					$date_du_jour = $this->getDateFromTrimestre($tab[1], $tab[0], 'affichage');
+				}
 				$params_affichage['structure'] = $this->Structurereferente->findById($params['structure'])['Structurereferente']['lib_struc'];
-				$params_affichage['date'] = $options['annee_trimestre'][$params['date']];
+				$params_affichage['date'] = $options['annee_trimestre'][$params['date']]." (".$date_du_jour.")";
 				$params_affichage['referent'] = $data['Search']['referent'] != null ? $options['referent'][$data['Search']['referent']] : null;
 				$params_affichage['numcom'] = [];
 				if($data['Search']['numcom_choice'] == '1' && $data['Search']['numcom'] != '' ){
@@ -1766,20 +1772,37 @@
 			return $date_du_jour;
 		}
 
-		public function getDateFromTrimestre($trimestre, $annee){
-			switch($trimestre){
-				case 1:
-					$date_du_jour = $annee.'-03-31';
-					break;
-				case 2:
-					$date_du_jour = $annee.'-06-30';
-					break;
-				case 3:
-					$date_du_jour = $annee.'-09-30';
-					break;
-				case 4:
-					$date_du_jour = $annee.'-12-31';
-					break;
+		public function getDateFromTrimestre($trimestre, $annee, $format = 'enregistrement'){
+			if($format == 'affichage'){
+				switch($trimestre){
+					case 1:
+						$date_du_jour = '31/03/'.$annee;
+						break;
+					case 2:
+						$date_du_jour = '30/06/'.$annee;
+						break;
+					case 3:
+						$date_du_jour = '30/09/'.$annee;
+						break;
+					case 4:
+						$date_du_jour = '31/12/'.$annee;
+						break;
+				}
+			} else {
+				switch($trimestre){
+					case 1:
+						$date_du_jour = $annee.'-03-31';
+						break;
+					case 2:
+						$date_du_jour = $annee.'-06-30';
+						break;
+					case 3:
+						$date_du_jour = $annee.'-09-30';
+						break;
+					case 4:
+						$date_du_jour = $annee.'-12-31';
+						break;
+				}
 			}
 
 			return $date_du_jour;
