@@ -5,7 +5,7 @@ BEGIN;
 -- *****************************************************************************
 
 -- Version du patch en BDD
-INSERT INTO versionpatchsql("version", created) VALUES ('4.31.0', CURRENT_TIMESTAMP);
+INSERT INTO versionpatchsql("version", created) VALUES ('4.31.1', CURRENT_TIMESTAMP);
 
 --Ajout de la colonne pour le nombre de rdv individuels de l'année
 ALTER TABLE tdb2_histo_corpus 
