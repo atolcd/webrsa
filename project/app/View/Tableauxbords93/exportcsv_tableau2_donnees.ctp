@@ -6,5 +6,5 @@
 	}
 
 	Configure::write( 'debug', 0 );
-	echo $this->Csv->render( 'TDB 2 - Pilotage conventionnel - Statistiques - '.date( 'Ymd-His' ).'.csv' );
+	echo $this->Csv->render( 'TDB2 - '.$struct.' - '.$date.' - Statistiques - '.date( 'Ymd-His' ).'.csv' );
 ?>

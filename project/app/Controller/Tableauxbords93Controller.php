@@ -215,14 +215,14 @@
 					select
 					annee as periode,
 					count(distinct personne_id) filter (where nveau_orient is true) as nveau_orient,
-					count(distinct personne_id) filter (where nveau_orient is true and tagdiag is true and origine_assiette <> 'entdiag') as nveau_orien_diag,
-					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag'
+					count(distinct personne_id) filter (where nveau_orient is true and tag_diag is true and origine_assiette <> 'entdiag') as nveau_orien_diag,
+					count(distinct personne_id) filter (where tag_diag is true and origine_assiette = 'entdiag'
 					$condition_referent
 					) as tdb1A3,
-					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag' and structorient_assiette = structuref_assiette
+					count(distinct personne_id) filter (where tag_diag is true and origine_assiette = 'entdiag' and structorient_assiette = structuref_assiette
 					$condition_referent
 					) as tdb1A4,
-					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag' and structorient_assiette <> structuref_assiette
+					count(distinct personne_id) filter (where tag_diag is true and origine_assiette = 'entdiag' and structorient_assiette <> structuref_assiette
 					$condition_referent
 					) as tdb1A5
 					from tdb1_a_corpus tac
@@ -236,14 +236,14 @@
 					select
 					mois as periode,
 					count(distinct personne_id) filter (where nveau_orient is true ) as nveau_orient,
-					count(distinct personne_id) filter (where nveau_orient is true and tagdiag is true and origine_assiette <> 'entdiag' ) as nveau_orien_diag,
-					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag'
+					count(distinct personne_id) filter (where nveau_orient is true and tag_diag is true and origine_assiette <> 'entdiag' ) as nveau_orien_diag,
+					count(distinct personne_id) filter (where tag_diag is true and origine_assiette = 'entdiag'
 					$condition_referent
 					) as tdb1A3,
-					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag' and structorient_assiette = structuref_assiette
+					count(distinct personne_id) filter (where tag_diag is true and origine_assiette = 'entdiag' and structorient_assiette = structuref_assiette
 					$condition_referent
 					) as tdb1A4,
-					count(distinct personne_id) filter (where tagdiag is true and origine_assiette = 'entdiag' and structorient_assiette <> structuref_assiette
+					count(distinct personne_id) filter (where tag_diag is true and origine_assiette = 'entdiag' and structorient_assiette <> structuref_assiette
 					$condition_referent
 					) as tdb1A5
 					from tdb1_a_corpus tac
@@ -592,25 +592,6 @@
 
         public function tableau2(){
 
-			if(!empty( $this->request->data)){
-				//On traite le formulaire et récupère les données
-				$data = $this->request->data;
-				$params['structure'] = $data['Search']['structure'];
-				$params['referent'] = isset($data['Search']['referent']) ? substr($data['Search']['referent'], strpos($data['Search']['referent'], "_") + 1) : null;
-				$params['numcom'] = null;
-				if($data['Search']['numcom_choice'] == '1' && $data['Search']['numcom'] != '' ){
-					$liste_ids = array_values($data['Search']['numcom']);
-					$params['numcom'] = "'".implode('\',\'', $liste_ids)."'";
-				}
-
-				$params['date'] = $data['Search']['annee_trimestre'];
-				//On lance la requête
-				$resultats = $this->requeteTableau2($params);
-
-				$this->set('resultats', $resultats[0][0]);
-				$this->set(compact('params'));
-
-			}
 
 			//Annee et trimestre
 			//On récupère ce qui existe et est enregistré
@@ -633,6 +614,45 @@
 			$options['referent'] = $this->Allocataires->optionsSession()['PersonneReferent']['referent_id'];
 
 			$this->set(compact('options'));
+
+
+			if(!empty( $this->request->data)){
+				//On traite le formulaire et récupère les données
+				$data = $this->request->data;
+				$params['structure'] = $data['Search']['structure'];
+				$params['referent'] = isset($data['Search']['referent']) ? substr($data['Search']['referent'], strpos($data['Search']['referent'], "_") + 1) : null;
+				$params['numcom'] = null;
+				if($data['Search']['numcom_choice'] == '1' && $data['Search']['numcom'] != '' ){
+					$liste_ids = array_values($data['Search']['numcom']);
+					$params['numcom'] = "'".implode('\',\'', $liste_ids)."'";
+				}
+
+				$params['date'] = $data['Search']['annee_trimestre'];
+				//On lance la requête
+				$resultats = $this->requeteTableau2($params);
+
+				if($params['date'] == 'ajd'){
+					$date_du_jour = strval(date("d/m/Y"));
+				} else {
+					$tab = explode('_', $params['date']);
+					$date_du_jour = $this->getDateFromTrimestre($tab[1], $tab[0], 'affichage');
+				}
+				$params_affichage['structure'] = $this->Structurereferente->findById($params['structure'])['Structurereferente']['lib_struc'];
+				$params_affichage['date'] = $options['annee_trimestre'][$params['date']]." (".$date_du_jour.")";
+				$params_affichage['referent'] = $data['Search']['referent'] != null ? $options['referent'][$data['Search']['referent']] : null;
+				$params_affichage['numcom'] = [];
+				if($data['Search']['numcom_choice'] == '1' && $data['Search']['numcom'] != '' ){
+					foreach(array_values($data['Search']['numcom']) as $com){
+						$params_affichage['numcom'][] = $options['numcom'][$com];
+					}
+				}
+				$params_affichage['numcom'] = implode(' ; ',$params_affichage['numcom']);
+
+				$this->set('resultats', $resultats[0][0]);
+				$this->set(compact('params', 'params_affichage'));
+
+			}
+
         }
 
 		/*
@@ -772,13 +792,15 @@
 			),
 			tag_entretien_diag as
 			(
-				select 
+				select
 				oda.personne_id,
 				case when vt.id is not null then true else false end as tag_diag,
 				case when vt.id is not null then t.created else null end as date_tag
-				from 
+				from
 				orient_dans_annee oda left join entites_tags et on et.fk_value = oda.personne_id and et.modele = 'Personne'
 				left join tags t on t.id = et.tag_id left join valeurstags vt on vt.id = t.valeurtag_id and vt.name = 'Entretien de diagnostic'
+				order by vt.id nulls last
+				limit 1
 			),
 			id_derniere_orient_hors_diag as
 			(
@@ -845,6 +867,7 @@
 			(
 				select 
 				rdv.personne_id,
+				count(*) filter (where typerdv_id = {$type_rdv_indiv} and rdv.statutrdv_id = {$statut_rdv_honore} and extract(year from rdv.daterdv) = '{$annee}') as nb_rdv_indiv_annee,
 				count(*) filter (where typerdv_id = {$type_rdv_indiv} and rdv.statutrdv_id = {$statut_rdv_honore}) as nb_rdv_indiv,
 				count(*) filter (where typerdv_id = {$type_rdv_coll} and rdv.statutrdv_id = {$statut_rdv_honore}) as nb_rdv_coll
 				from orient_dans_annee oda join rendezvous rdv on rdv.personne_id = oda.personne_id
@@ -1124,6 +1147,7 @@
 			dod.structurereferente_id as dod_structurereferente_id,
 			dod.structureorientante as dod_structureorientante,
 			--rdv
+			nbrdv.nb_rdv_indiv_annee,
 			nbrdv.nb_rdv_indiv,
 			nbrdv.nb_rdv_coll,
 			--dsp
@@ -1232,11 +1256,16 @@
 			,count(*) filter (WHERE toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) as T_C
 			,count(*) filter (WHERE toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') as T_D
 			--Conventionnel
-			--orientés diag
+			--orientés ent diag réalisé
 			,count(*) filter (where (dod_id is not null and tag_diag is true)) as C1_A
 			,count(*) filter (where (nveau_orient IS true) AND (dod_id is not null and tag_diag is true)) as C1_B
 			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and (dod_id is not null and tag_diag is true)) as C1_C
 			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (dod_id is not null and tag_diag is true)) as C1_D
+			-- orientés diag
+			,count(*) filter (where (dohd_id is not null and tag_diag is true)) as C1bis_A
+			,count(*) filter (where (nveau_orient IS true) AND (dohd_id is not null and tag_diag is true)) as C1bis_B
+			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and (dohd_id is not null and tag_diag is true)) as C1bis_C
+			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (dohd_id is not null and tag_diag is true)) as C1bis_D
 			-- Conservés après diagnostic
 			,count(*) filter (where (dod_id is not null and tag_diag is true and dod_structurereferente_id = {$id_structure})) as C2_A
 			,count(*) filter (where (nveau_orient IS true) AND (dod_id is not null and tag_diag is true and dod_structurereferente_id = {$id_structure})) as C2_B
@@ -1258,15 +1287,15 @@
 			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and cer_valide_a_date) as C5_C
 			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and cer_valide_a_date) as C5_D
 			--moins de 4 rdv indiv honores et un CER valide au moins un jour
-			,count(*) filter (where nb_rdv_indiv < 4 and cer_struct_valide) as C6_A
-			,count(*) filter (where (nveau_orient IS true) and (nb_rdv_indiv < 4 and cer_struct_valide)) as C6_B
-			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and (nb_rdv_indiv < 4 and cer_struct_valide)) as C6_C
-			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (nb_rdv_indiv < 4 and cer_struct_valide)) as C6_D
+			,count(*) filter (where nb_rdv_indiv_annee >= 1 and nb_rdv_indiv_annee < 4 and cer_struct_valide) as C6_A
+			,count(*) filter (where (nveau_orient IS true) and (nb_rdv_indiv_annee >= 1 and nb_rdv_indiv_annee <4 and cer_struct_valide)) as C6_B
+			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and (nb_rdv_indiv_annee >= 1 and nb_rdv_indiv_annee < 4 and cer_struct_valide)) as C6_C
+			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (nb_rdv_indiv_annee >= 1 and nb_rdv_indiv_annee < 4 and cer_struct_valide)) as C6_D
 			-- au moins 4 rdv indiv honores et un CER valide au moins un jour
-			,count(*) filter (where nb_rdv_indiv >= 4 and cer_struct_valide) as C7_A
-			,count(*) filter (where (nveau_orient IS true) and (nb_rdv_indiv >= 4 and cer_struct_valide)) as C7_B
-			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and (nb_rdv_indiv >= 4 and cer_struct_valide)) as C7_C
-			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (nb_rdv_indiv >= 4 and cer_struct_valide)) as C7_D
+			,count(*) filter (where nb_rdv_indiv_annee >= 4 and cer_struct_valide) as C7_A
+			,count(*) filter (where (nveau_orient IS true) and (nb_rdv_indiv_annee >= 4 and cer_struct_valide)) as C7_B
+			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit IN ('2','3','4')) and (nb_rdv_indiv_annee >= 4 and cer_struct_valide)) as C7_C
+			,count(*) filter (where (toujours_orient IS TRUE AND etatdroit = '2' AND sdd = '1') and (nb_rdv_indiv_annee >= 4 and cer_struct_valide)) as C7_D
 			--Pilotage
 			-- pas de rdv indiv prevu ou honore depuis + ou - 30 jours
 			,count(*) filter (where	pas_rdv_30j) as P1_A
@@ -1384,11 +1413,11 @@
 			$export[$i++] = ['', __d('tableauxbords93', 'Tableau2.titre.colonneA'), __d('tableauxbords93', 'Tableau2.titre.colonneB'), __d('tableauxbords93', 'Tableau2.titre.colonneC'), __d('tableauxbords93', 'Tableau2.titre.colonneD')];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.t'), $donnees['t_a'], $donnees['t_b'], $donnees['t_c'], $donnees['t_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c')];
+			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c1bis'), $donnees['c1bis_a'], $donnees['c1bis_b'], $donnees['c1bis_c'], $donnees['c1bis_d']];
+			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c3'), $donnees['c3_a'], $donnees['c3_b'], $donnees['c3_c'], $donnees['c3_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c1'), $donnees['c1_a'], $donnees['c1_b'], $donnees['c1_c'], $donnees['c1_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c2'), $donnees['c2_a'], $donnees['c2_b'], $donnees['c2_c'], $donnees['c2_d']];
-			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c3'), $donnees['c3_a'], $donnees['c3_b'], $donnees['c3_c'], $donnees['c3_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c4'), $donnees['c4_a'], $donnees['c4_b'], $donnees['c4_c'], $donnees['c4_d']];
-			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c5'), $donnees['c5_a'], $donnees['c5_b'], $donnees['c5_c'], $donnees['c5_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c6'), $donnees['c6_a'], $donnees['c6_b'], $donnees['c6_c'], $donnees['c6_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c7'), $donnees['c7_a'], $donnees['c7_b'], $donnees['c7_c'], $donnees['c7_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.p')];
@@ -1403,6 +1432,14 @@
 
 			$this->set('export', $export);
 			$this->set('options', []);
+			$this->set('struct', $this->Structurereferente->findById($params['structure'])['Structurereferente']['lib_struc']);
+			if($params['date'] != 'ajd'){
+				$tab = explode('_', $params['date']);
+				$date = 'T'.$tab[1].' '.$tab[0];
+			} else {
+				$date = date('d/m/Y');
+			}
+			$this->set('date', $date);
 			$this->layout = '';
 			$this->render('exportcsv_tableau2_donnees');
 		}
@@ -1456,6 +1493,14 @@
 
 			$this->set('export', $export);
 			$this->set('options', []);
+			$this->set('struct', $this->Structurereferente->findById($params['structure'])['Structurereferente']['lib_struc']);
+			if($params['date'] != 'ajd'){
+				$tab = explode('_', $params['date']);
+				$date = 'T'.$tab[1].' '.$tab[0];
+			} else {
+				$date = date('d/m/Y');
+			}
+			$this->set('date', $date);
 			$this->layout = '';
 			$this->render('exportcsv_tableau2_corpus');
 		}
@@ -1501,7 +1546,7 @@
 				__d('tableauxbords93', 'Corpus.colonne.refe_appartient_struct') => 'refe_appartient_struct',
 				__d('tableauxbords93', 'Corpus.colonne.referent_actif') => 'referent_actif',
 				//tag
-				__d('tableauxbords93', 'Corpus.colonne.tag_diag') => 'tagdiag',
+				__d('tableauxbords93', 'Corpus.colonne.tag_diag') => 'tag_diag',
 				__d('tableauxbords93', 'Corpus.colonne.date_creation_tag') => 'date_creation_tag',
 			];
 		}
@@ -1727,20 +1772,37 @@
 			return $date_du_jour;
 		}
 
-		public function getDateFromTrimestre($trimestre, $annee){
-			switch($trimestre){
-				case 1:
-					$date_du_jour = $annee.'-03-31';
-					break;
-				case 2:
-					$date_du_jour = $annee.'-06-30';
-					break;
-				case 3:
-					$date_du_jour = $annee.'-09-30';
-					break;
-				case 4:
-					$date_du_jour = $annee.'-12-31';
-					break;
+		public function getDateFromTrimestre($trimestre, $annee, $format = 'enregistrement'){
+			if($format == 'affichage'){
+				switch($trimestre){
+					case 1:
+						$date_du_jour = '31/03/'.$annee;
+						break;
+					case 2:
+						$date_du_jour = '30/06/'.$annee;
+						break;
+					case 3:
+						$date_du_jour = '30/09/'.$annee;
+						break;
+					case 4:
+						$date_du_jour = '31/12/'.$annee;
+						break;
+				}
+			} else {
+				switch($trimestre){
+					case 1:
+						$date_du_jour = $annee.'-03-31';
+						break;
+					case 2:
+						$date_du_jour = $annee.'-06-30';
+						break;
+					case 3:
+						$date_du_jour = $annee.'-09-30';
+						break;
+					case 4:
+						$date_du_jour = $annee.'-12-31';
+						break;
+				}
 			}
 
 			return $date_du_jour;
