@@ -71,10 +71,10 @@ msgid "Tableau2.titre.c5"
 msgstr "Nb allocataires ayant 1 CER valide à date"
 
 msgid "Tableau2.titre.c6"
-msgstr "Nb allocataires ayant eu 1 à 3 RDV individuels honorés et 1 CER valide sur la période"
+msgstr "Nb allocataires ayant eu 1 à 3 RDV individuels honorés et 1 CER valide au moins un jour sur l'année "
 
 msgid "Tableau2.titre.c7"
-msgstr "Nb allocataires ayant eu 4 RDV et plus individuels honorés et 1 CER valide sur la période"
+msgstr "Nb allocataires ayant eu 4 RDV et plus individuels honorés et 1 CER valide au moins un jour sur l'année "
 
 msgid "Tableau2.titre.p"
 msgstr "Pilotage"

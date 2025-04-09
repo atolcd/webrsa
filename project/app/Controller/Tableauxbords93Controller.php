@@ -633,12 +633,15 @@
 
 				if($params['date'] == 'ajd'){
 					$date_du_jour = strval(date("d/m/Y"));
+					$annee = date('Y');
 				} else {
 					$tab = explode('_', $params['date']);
 					$date_du_jour = $this->getDateFromTrimestre($tab[1], $tab[0], 'affichage');
+					$annee = $tab[0];
 				}
 				$params_affichage['structure'] = $this->Structurereferente->findById($params['structure'])['Structurereferente']['lib_struc'];
 				$params_affichage['date'] = $options['annee_trimestre'][$params['date']]." (".$date_du_jour.")";
+				$params_affichage['annee'] = $annee;
 				$params_affichage['referent'] = $data['Search']['referent'] != null ? $options['referent'][$data['Search']['referent']] : null;
 				$params_affichage['numcom'] = [];
 				if($data['Search']['numcom_choice'] == '1' && $data['Search']['numcom'] != '' ){
@@ -1405,6 +1408,16 @@
 			$params['numcom']    = isset($this->request->query['numcom'])    ? $this->request->query['numcom']    : null;
 			$params['date']    = isset($this->request->query['date'])        ? $this->request->query['date']    : null;
 
+			if($params['date'] != 'ajd'){
+				$tab = explode('_', $params['date']);
+				$date = 'T'.$tab[1].' '.$tab[0];
+				$annee = $tab[0];
+			} else {
+				$date = date('d/m/Y');
+				$annee = date('Y');
+			}
+			$this->set('date', $date);
+
 			$donnees = $this->requeteTableau2($params)[0][0];
 
 			$export = array ();
@@ -1418,8 +1431,8 @@
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c1'), $donnees['c1_a'], $donnees['c1_b'], $donnees['c1_c'], $donnees['c1_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c2'), $donnees['c2_a'], $donnees['c2_b'], $donnees['c2_c'], $donnees['c2_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c4'), $donnees['c4_a'], $donnees['c4_b'], $donnees['c4_c'], $donnees['c4_d']];
-			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c6'), $donnees['c6_a'], $donnees['c6_b'], $donnees['c6_c'], $donnees['c6_d']];
-			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c7'), $donnees['c7_a'], $donnees['c7_b'], $donnees['c7_c'], $donnees['c7_d']];
+			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c6') . $annee, $donnees['c6_a'], $donnees['c6_b'], $donnees['c6_c'], $donnees['c6_d']];
+			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.c7') . $annee, $donnees['c7_a'], $donnees['c7_b'], $donnees['c7_c'], $donnees['c7_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.p')];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.p1'), $donnees['p1_a'], $donnees['p1_b'], $donnees['p1_c'], $donnees['p1_d']];
 			$export[$i++] = [ __d('tableauxbords93', 'Tableau2.titre.p2'), $donnees['p2_a'], $donnees['p2_b'], $donnees['p2_c'], $donnees['p2_d']];
@@ -1433,13 +1446,7 @@
 			$this->set('export', $export);
 			$this->set('options', []);
 			$this->set('struct', $this->Structurereferente->findById($params['structure'])['Structurereferente']['lib_struc']);
-			if($params['date'] != 'ajd'){
-				$tab = explode('_', $params['date']);
-				$date = 'T'.$tab[1].' '.$tab[0];
-			} else {
-				$date = date('d/m/Y');
-			}
-			$this->set('date', $date);
+
 			$this->layout = '';
 			$this->render('exportcsv_tableau2_donnees');
 		}

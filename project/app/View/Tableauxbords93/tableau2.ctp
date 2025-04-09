@@ -142,14 +142,14 @@ if(isset($resultats)){
                     <td style ='text-align:center'><?=$resultats['c4_d']?></td>
             </tr>
             <tr class="odd">
-                <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c6')?></th>
+                <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c6') . $params_affichage['annee']?></th>
                     <td style ='text-align:center'><?=$resultats['c6_a']?></td>
                     <td style ='text-align:center'><?=$resultats['c6_b']?></td>
                     <td style ='text-align:center'><?=$resultats['c6_c']?></td>
                     <td style ='text-align:center'><?=$resultats['c6_d']?></td>
             </tr>
             <tr class="even">
-                <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c7')?></th>
+                <th scope = 'row'><?= __d('tableauxbords93', 'Tableau2.titre.c7')  . $params_affichage['annee']?></th>
                     <td style ='text-align:center'><?=$resultats['c7_a']?></td>
                     <td style ='text-align:center'><?=$resultats['c7_b']?></td>
                     <td style ='text-align:center'><?=$resultats['c7_c']?></td>
