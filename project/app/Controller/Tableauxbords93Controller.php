@@ -1053,6 +1053,7 @@
 				count(r.id) > 0 as rdv_prevu_toutes_structures
 				FROM orient_dans_annee oda join rendezvous r on r.personne_id = oda.personne_id
 				where r.statutrdv_id = {$statut_rdv_prevu}
+				and r.daterdv > '{$date_du_jour}'
 				group by oda.personne_id
 			),
 			rdv_30_jours AS

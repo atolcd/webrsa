@@ -101,7 +101,7 @@ msgid "Tableau2.titre.p7"
 msgstr "Nombre d'allocataires ayant eu un RDV individuel honoré mais n'ayant pas de CER valide"
 
 msgid "Tableau2.titre.p8"
-msgstr "Nombre d'allocataires sans CER ou avec un CER arrivé à échéance et n'ayant pas de RDV prévu"
+msgstr "Nombre d'allocataires sans CER ou avec un CER arrivé à échéance et n'ayant pas de RDV prévu après la date sélectionnée"
 
 #Tableau 1 titres
 msgid "Tableau1a.titre.nveau_orient"
