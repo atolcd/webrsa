@@ -79,14 +79,13 @@ CREATE TABLE IF NOT EXISTS administration.rapport_flux_francetravail(
 INSERT INTO configurations(lib_variable, value_variable, comments_variable, created, modified)
     SELECT
         'Module.Francetravail.Flux',
-        '{"Situationdossierrsa.etatdosrsa":["2","3","4"],"Calculdroitrsa.toppersdrodevorsa":"1","NbJoursDerniereRecuperationDonnees":"30","NbJoursDerniereMAJOrientations":"30","LimiteRecuperationOrientation":""}',
+        '{"Situationdossierrsa.etatdosrsa":["2","3","4"],"Calculdroitrsa.toppersdrodevorsa":"1","NbJoursDerniereRecuperationDonnees":"30","NbJoursDerniereMAJOrientations":"30"}',
         'Paramétrage des données à utiliser pour le flux de France Travail. Pour ne pas prendre en compte un des paramètres, laisser vide.
 
 Situationdossierrsa.etatdosrsa : liste des états dossiers RSA à prendre en compte (obligatoire)
 Calculdroitrsa.toppersdrodevorsa : Prends les personnes SDD. Si peu importe le statut, laisser vide
 NbJoursDerniereRecuperationDonnees: Nombre de jour depuis la dernières récupérations des données
-NbJoursDerniereMAJOrientations: Nombre de jour depuis l''envoie de l''orientation à France Travail
-LimiteRecuperationOrientation: Limite le nombre de personne à récupérer à chaque lecture d''orientation',
+NbJoursDerniereMAJOrientations: Nombre de jour depuis l''envoie de l''orientation à France Travail',
         CURRENT_TIMESTAMP,
         CURRENT_TIMESTAMP
     WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.Francetravail.Flux');
@@ -116,21 +115,32 @@ INSERT INTO configurations(lib_variable, value_variable, comments_variable, crea
         CURRENT_TIMESTAMP
     WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.Francetravail.EnvoiOrientation');
 
+-- Ajout de la configuration de date de dernier envoi des orientations à France Travail
+INSERT INTO configurations(lib_variable, value_variable, comments_variable, created, modified)
+    SELECT
+        'Module.Francetravail.DateEnvoi',
+        '',
+        'Détermine la date exacte du dernier envoi des orientations à France travail (par défaut à vide). À mettre au format AAAA-MM-DD',
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+    WHERE NOT EXISTS (SELECT id FROM configurations WHERE lib_variable LIKE 'Module.Francetravail.DateEnvoi');
+
+
 UPDATE configurations
 SET configurationscategorie_id = configurationscategories.id
 FROM configurationscategories
 WHERE
     configurationscategories.lib_categorie = 'webrsa'
-    AND configurations.lib_variable IN ('Module.Francetravail.APIURL', 'Module.Francetravail.EnvoiOrientation');
+    AND configurations.lib_variable IN ('Module.Francetravail.APIURL', 'Module.Francetravail.EnvoiOrientation', 'Module.Francetravail.DateEnvoi');
 
 
---Mise à jour de l'ordre du dernier critère
-update criteresalgorithmeorientation set ordre = 18 where code = 'FINAL';
+-- Mise à jour de l'ordre du dernier critère
+UPDATE criteresalgorithmeorientation SET ordre = 18 WHERE code = 'FINAL';
 
---Ajout des 4 nouveaux critères de l'algo d'orientation
-insert into criteresalgorithmeorientation 
+-- Ajout des 4 nouveaux critères de l'algo d'orientation
+INSERT INTO criteresalgorithmeorientation
 (ordre, libelle, type_orient_parent_id, type_orient_enfant_id, code, libelle_initial)
-values 
+VALUES
 (14, 'France travail préconise-t-il un parcours emploi ?', 3, 7, 'FT_PRECO_EMPLOI', 'France travail préconise-t-il un parcours emploi ?'),
 (15, 'France travail préconise-t-il un parcours social ?', 2, 6, 'FT_PRECO_SOCIAL', 'France travail préconise-t-il un parcours social ?'),
 (16, 'France travail préconise-t-il un parcours socio professionnel ?', 1, 8, 'FT_PRECO_SOCIOPRO', 'France travail préconise-t-il un parcours socio professionnel ?'),

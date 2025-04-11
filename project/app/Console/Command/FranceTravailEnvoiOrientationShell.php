@@ -158,6 +158,7 @@
          * Récupère les dernières orientations des personnes non envoyé à France travail
          */
         public function getOrientations(){
+            $date_configuration = Configure::read('Module.Francetravail.DateEnvoi');
             $dernier_envoi_query = "
                 SELECT
                     date_fin
@@ -167,8 +168,11 @@
 
             $dernier_envoi_array = $this->Personne->query($dernier_envoi_query);
 
-            if(isset($dernier_envoi_array) && !empty($dernier_envoi_array) ){
-                $date_dernier_envoi = date('Y-m-d', $dernier_envoi_array[0][0]["date_fin"]);
+            if( isset($date_configuration) && !empty($date_configuration) ){
+                $date_dernier_envoi = $date_configuration;
+            } else if( isset($dernier_envoi_array) && !empty($dernier_envoi_array) ){
+                $date_fin = date_create($dernier_envoi_array[0][0]["date_fin"]);
+                $date_dernier_envoi = date_format($date_fin, 'Y-m-d');
             } else {
                 $date_dernier_envoi = '1900-01-01';
             }

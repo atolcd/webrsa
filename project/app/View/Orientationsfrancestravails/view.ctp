@@ -9,7 +9,7 @@
     ];
     echo $this->element('default_index', $paramsElement);
 
-    if ( isset($orientation_france_travail) ) {
+    if ( isset($orientation_france_travail) && !empty($orientation_france_travail) ) {
 ?>
     <br>
     <br>
@@ -94,7 +94,6 @@
 		);
     ?>
     </div>
-
 
 <?php
     }
