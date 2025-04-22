@@ -224,7 +224,12 @@
             $result = json_decode($result_json);
 
             if($http_code != 200){
-                $message ="La personne " . $personne["personne_id"] . " n'a pas été trouvée via sa date de naissance et son NIR (codeRetour : " . $result->codeRetour . ", message : " . $result->message . ")";
+                $message ="La personne " . $personne["personne_id"] . " n'a pas été trouvée via sa date de naissance et son NIR";
+                if($result_json  === false) {
+                    $message .= "(code retour HTTP : " . $http_code . ", erreur reçu : " . curl_error($ch);
+                } else {
+                    $message .= "(codeRetour : " . $result->codeRetour . ", message : " . $result->message . ")";
+                }
                 $this->out("<warning>" . $message . "</warning>");
                 return null;
             }
@@ -265,6 +270,9 @@
 
             $result = json_decode($result_json, true);
             if($http_code == 200) {
+                if(empty($result)) {
+                    return array();
+                }
                 return $result[0];
             }
             elseif($http_code == 204){
@@ -315,7 +323,7 @@
                     'crit_situation_professionnelle' => $informations_usager['criteres_orientation']['situation_professionnelle'] ?? null,
                     'crit_type_emploi' => $informations_usager['criteres_orientation']['type_emploi'] ?? null,
                     'crit_niveau_etude' => $informations_usager['criteres_orientation']['niveau_etude'] ?? null,
-                    'crit_capacite_a_travailler' => $informations_usager['criteres_orientation']['capacite_a_travailler'] ?? null,
+                    'crit_capacite_a_travailler' => $informations_usager['criteres_orientation']['capacite_a_travailler'] ?? false,
                     'crit_projet_pro' => $informations_usager['criteres_orientation']['projet_pro'] ?? null,
                     'crit_contrainte_sante' => $informations_usager['criteres_orientation']['contrainte_sante'] ?? null,
                     'crit_contrainte_logement' => $informations_usager['criteres_orientation']['contrainte_logement'] ?? null,
@@ -325,11 +333,11 @@
                     'crit_contrainte_numerique' => $informations_usager['criteres_orientation']['contrainte_numerique'] ?? null,
                     'crit_contrainte_admin_jur' => $informations_usager['criteres_orientation']['contrainte_administrative_juridique'] ?? null,
                     'crit_contrainte_francais_calcul' => $informations_usager['criteres_orientation']['contrainte_francais_calcul'] ?? null,
-                    'crit_boe' => $informations_usager['criteres_orientation']['boe'] ?? null,
-                    'crit_baeeh' => $informations_usager['criteres_orientation']['baeeh'] ?? null,
-                    'crit_scolarite_etab_spec' => $informations_usager['criteres_orientation']['scolarite_etablissement_specialise'] ?? null,
-                    'crit_esat' => $informations_usager['criteres_orientation']['esat'] ?? null,
-                    'crit_boe_souhait_accompagnement' => $informations_usager['criteres_orientation']['boe_souhait_accompagnement'] ?? null,
+                    'crit_boe' => $informations_usager['criteres_orientation']['boe'] ?? false,
+                    'crit_baeeh' => $informations_usager['criteres_orientation']['baeeh'] ?? false,
+                    'crit_scolarite_etab_spec' => $informations_usager['criteres_orientation']['scolarite_etablissement_specialise'] ?? false,
+                    'crit_esat' => $informations_usager['criteres_orientation']['esat'] ?? false,
+                    'crit_boe_souhait_accompagnement' => $informations_usager['criteres_orientation']['boe_souhait_accompagnement'] ?? false,
                     'crit_msa_autonomie_recherche_emploi' => $informations_usager['criteres_orientation']['msa_autonomie_recherche_emploi'] ?? null,
                     'crit_msa_demarches_professionnelles' => $informations_usager['criteres_orientation']['msa_demarches_professionnelles'] ?? null,
                 ];
@@ -351,6 +359,8 @@
 
             $data = array_merge($data_init, $data_critere, $data_decision);
 
-            $this->Orientationfrancetravail->save($data);
+            if(!$this->Orientationfrancetravail->save($data)) {
+                $this->out("<warning>Problème d'enregistrement en base de données" . $this->Orientationfrancetravail->validationErrors . "</warning>");
+            }
         }
 	}
