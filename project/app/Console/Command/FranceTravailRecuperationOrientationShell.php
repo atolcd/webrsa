@@ -98,6 +98,23 @@
          * Récupère la liste des personnes éligibles à la lecture des orientations selon la configuration en BDD
          */
         public function getPersonnes(){
+            $info_flux = Configure::read("Module.Francetravail.Flux");
+
+            $queryUseDernierePersonne = "";
+            $joinUseDernierePersonne = "";
+
+            if(isset($info_flux["UseDernierePersonne"]) && $info_flux["UseDernierePersonne"] == "true") {
+                $queryUseDernierePersonne = "
+                    , get_last_pers_last_dossier AS (
+                        SELECT
+                            DISTINCT p.id
+                        FROM derniersdossiersallocataires dda
+                        JOIN dossiers d ON dda.dossier_id = d.id
+                        JOIN foyers f ON f.dossier_id = d.id
+                        JOIN personnes p ON p.foyer_id = f.id
+                    )";
+                $joinUseDernierePersonne = "JOIN get_last_pers_last_dossier glpld ON glpld.id = p.id";
+            }
             $query = "
                 WITH get_orientation AS (
 	                SELECT
@@ -107,6 +124,7 @@
                     FROM orientsstructs o
                     ORDER BY o.personne_id, rgorient DESC NULLS LAST
                 )
+                " . $queryUseDernierePersonne . "
                 SELECT
                     p.id                                                            personne_id
                     , p.dtnai                                                       date_naissance
@@ -116,6 +134,7 @@
                 JOIN situationsdossiersrsa s ON s.dossier_id = dda.dossier_id
                 JOIN calculsdroitsrsa c ON c.personne_id = p.id
                 JOIN prestations presta ON presta.personne_id = p.id
+                " . $joinUseDernierePersonne . "
                 LEFT JOIN orientations_francetravail ofr ON ofr.personne_id = p.id
                 LEFT JOIN get_orientation o ON o.personne_id = p.id
                 WHERE
@@ -124,8 +143,6 @@
                     AND p.nir IS NOT NULL
                     AND LENGTH(TRIM(p.nir)) >= 13
             ";
-
-            $info_flux = Configure::read("Module.Francetravail.Flux");
 
             if(isset($info_flux["Situationdossierrsa.etatdosrsa"])) {
                 $etatdosrsa = implode("','", $info_flux["Situationdossierrsa.etatdosrsa"]);
