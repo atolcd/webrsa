@@ -18,12 +18,12 @@
     <h2><?= __m('Orientationfrancetravail.TitreDerniereOrientation') ?></h2>
     <br>
     <div>
-        <p><?= __m('Orientationfrancetravail.Parcours') . __m('Orientationfrancetravail.Parcours.' . $orientation_france_travail['Orientationfrancetravail']['code_parcours']) ?></p>
-        <p><?= __m('Orientationfrancetravail.Operateurs') . __m('Orientationfrancetravail.Operateurs.' . $orientation_france_travail['Orientationfrancetravail']['organisme']) ?></p>
-        <p><?= __m('Orientationfrancetravail.Statut') . __m('Orientationfrancetravail.Statut.' . $orientation_france_travail['Orientationfrancetravail']['statut']) ?></p>
-        <p><?= __m('Orientationfrancetravail.Etat') . __m('Orientationfrancetravail.Etat.' . $orientation_france_travail['Orientationfrancetravail']['etat']) ?></p>
-        <p><?= __m('Orientationfrancetravail.Dateentree') . date('d/m/Y' ,strtotime($orientation_france_travail['Orientationfrancetravail']['date_entree_parcours'])) ?></p>
-        <p><?= __m('Orientationfrancetravail.Datemodification') . date('d/m/Y H:m' ,strtotime($orientation_france_travail['Orientationfrancetravail']['date_modification'])) ?></p>
+        <p><?= __m('Orientationfrancetravail.Parcours') . ( isset($orientation_france_travail['Orientationfrancetravail']['code_parcours']) ? __m('Orientationfrancetravail.Parcours.' . $orientation_france_travail['Orientationfrancetravail']['code_parcours']) : "") ?></p>
+        <p><?= __m('Orientationfrancetravail.Operateurs') . ( isset($orientation_france_travail['Orientationfrancetravail']['organisme']) ? __m('Orientationfrancetravail.Operateurs.' . $orientation_france_travail['Orientationfrancetravail']['organisme']) : "") ?></p>
+        <p><?= __m('Orientationfrancetravail.Statut') . ( isset($orientation_france_travail['Orientationfrancetravail']['statut']) ? __m('Orientationfrancetravail.Statut.' . $orientation_france_travail['Orientationfrancetravail']['statut']) : "") ?></p>
+        <p><?= __m('Orientationfrancetravail.Etat') . ( isset($orientation_france_travail['Orientationfrancetravail']['etat']) ? __m('Orientationfrancetravail.Etat.' . $orientation_france_travail['Orientationfrancetravail']['etat']) : "") ?></p>
+        <p><?= __m('Orientationfrancetravail.Dateentree') . ( isset($orientation_france_travail['Orientationfrancetravail']['date_entree_parcours']) ? date('d/m/Y' ,strtotime($orientation_france_travail['Orientationfrancetravail']['date_entree_parcours'])) : "") ?></p>
+        <p><?= __m('Orientationfrancetravail.Datemodification') . ( isset($orientation_france_travail['Orientationfrancetravail']['date_modification']) ? date('d/m/Y H:m' ,strtotime($orientation_france_travail['Orientationfrancetravail']['date_modification'])) : "") ?></p>
         <p><?= __m('Orientationfrancetravail.Stucture') . $orientation_france_travail['Orientationfrancetravail']['struct_libelle'] ?></p>
         <p><?= __m('Orientationfrancetravail.Structuredecision') . $orientation_france_travail['Orientationfrancetravail']['struct_decision_libelle'] ?></p>
     </div>
