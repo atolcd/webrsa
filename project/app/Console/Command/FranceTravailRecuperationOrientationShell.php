@@ -154,11 +154,11 @@
             }
 
             if(isset($info_flux["NbJoursDerniereRecuperationDonnees"])) {
-                $query .= " AND ( ofr.id IS NULL OR ofr.modified > CURRENT_DATE - INTERVAL '" . $info_flux["NbJoursDerniereRecuperationDonnees"] . " days' )";
+                $query .= " AND ( ofr.id IS NULL OR ofr.modified < CURRENT_DATE - INTERVAL '" . $info_flux["NbJoursDerniereRecuperationDonnees"] . " days' )";
             }
 
             if(isset($info_flux["NbJoursDerniereMAJOrientations"])) {
-                $query .= " AND ( o.personne_id IS NULL OR o.is_envoye_francetravail IS FALSE OR (o.is_envoye_francetravail IS TRUE AND o.date_envoi_francetravail > CURRENT_DATE - INTERVAL '" . $info_flux["NbJoursDerniereMAJOrientations"] . " days' ) )";
+                $query .= " AND ( o.personne_id IS NULL OR o.is_envoye_francetravail IS FALSE OR (o.is_envoye_francetravail IS TRUE AND o.date_envoi_francetravail < CURRENT_DATE - INTERVAL '" . $info_flux["NbJoursDerniereMAJOrientations"] . " days' ) )";
             }
 
             return $this->Personne->query($query);
