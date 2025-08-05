@@ -320,6 +320,9 @@
             if(isset($orientation_existante) && !empty($orientation_existante['Orientationfrancetravail']['id'])) {
                 $this->Orientationfrancetravail->id = $orientation_existante['Orientationfrancetravail']['id'];
             }
+            else {
+                $this->Orientationfrancetravail->create();
+            }
 
             $data_init = [
                 'personne_id' => $personne['personne_id'],
